@@ -1,0 +1,33 @@
+/*================================================
+	Author: Carl Berg
+================================================*/
+#dCompNavigation,
+#dFooter {display: none;}
+
+/* PageSpecific
+================================================*/
+.Components-Synologen-ViewSettlementDetails-aspx table {
+
+	width: 100%; 
+}
+.Components-Synologen-ViewSettlementDetails-aspx table .header {
+	font-weight: bold; 
+	text-align: left; 
+	border-bottom: solid 1px black;
+}
+
+.Components-Synologen-ViewSettlementDetails-aspx table th {
+	width: 150px; 
+	text-align: left;
+}
+.Components-Synologen-ViewSettlementDetails-aspx table th.wide-column {
+	width: 300px; 
+	text-align: left;
+}
+.Components-Synologen-ViewSettlementDetails-aspx .hide-on-print {
+	display:none; 
+}
+.Components-Synologen-ViewSettlementDetails-aspx label.labelShort {
+	width:125px; 
+	display:inline-block; 
+}

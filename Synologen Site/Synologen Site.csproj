@@ -1,0 +1,242 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Synologen.Presentation.Site</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Presentation.Site</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Data, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Base.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Member.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Presentation.Site, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Member.Presentation.Site.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Wpc\Synologen\ShopList.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\SynologenCacheContext.cs" />
+    <Compile Include="Code\SynologenSessionContext.cs" />
+    <Compile Include="Code\SynologenUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wpc\Synologen\EditMember.ascx.cs">
+      <DependentUpon>EditMember.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\EditMember.ascx.designer.cs">
+      <DependentUpon>EditMember.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\EditOrder.ascx.cs">
+      <DependentUpon>EditOrder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\EditOrder.ascx.designer.cs">
+      <DependentUpon>EditOrder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\CreateOrder.ascx.cs">
+      <DependentUpon>CreateOrder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\CreateOrder.ascx.designer.cs">
+      <DependentUpon>CreateOrder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\EditShop.ascx.cs">
+      <DependentUpon>EditShop.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\EditShop.ascx.designer.cs">
+      <DependentUpon>EditShop.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\SalesList.ascx.cs">
+      <DependentUpon>SalesList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\SalesList.ascx.designer.cs">
+      <DependentUpon>SalesList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\SecurityLogout.ascx.cs">
+      <DependentUpon>SecurityLogout.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\SecurityLogout.ascx.designer.cs">
+      <DependentUpon>SecurityLogout.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\SettlementList.ascx.cs">
+      <DependentUpon>SettlementList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\SettlementList.ascx.designer.cs">
+      <DependentUpon>SettlementList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ShopList.ascx.cs">
+      <DependentUpon>ShopList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ShopList.ascx.designer.cs">
+      <DependentUpon>ShopList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ShopMemberList.ascx.cs">
+      <DependentUpon>ShopMemberList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ShopMemberList.ascx.designer.cs">
+      <DependentUpon>ShopMemberList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ViewOrder.ascx.cs">
+      <DependentUpon>ViewOrder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ViewOrder.ascx.designer.cs">
+      <DependentUpon>ViewOrder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ViewSettlement.ascx.cs">
+      <DependentUpon>ViewSettlement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ViewSettlement.ascx.designer.cs">
+      <DependentUpon>ViewSettlement.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
+      <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
+      <Name>Synologen Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Data\Synologen Data.csproj">
+      <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
+      <Name>Synologen Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EditShopPage.aspx" />
+    <Content Include="SalesList.aspx" />
+    <Content Include="CreateOrder.aspx" />
+    <Content Include="SecurityTimeoutPage.aspx" />
+    <Content Include="SettlementList.aspx" />
+    <Content Include="ShopList.aspx" />
+    <Content Include="EditMemberPage.aspx" />
+    <Content Include="ViewOrderPage.aspx" />
+    <Content Include="Default.css" />
+    <Content Include="Default.Master" />
+    <Content Include="EditOrderPage.aspx" />
+    <Content Include="MembersList.aspx" />
+    <Content Include="ViewSettlementPage.aspx" />
+    <Content Include="Wpc\Synologen\EditMember.ascx" />
+    <Content Include="Wpc\Synologen\EditOrder.ascx" />
+    <Content Include="Wpc\Synologen\CreateOrder.ascx" />
+    <Content Include="Wpc\Synologen\EditShop.ascx" />
+    <Content Include="Wpc\Synologen\Images\add.png" />
+    <Content Include="Wpc\Synologen\Images\edit.png" />
+    <Content Include="Wpc\Synologen\Images\ok.png" />
+    <Content Include="Wpc\Synologen\Images\stop.png" />
+    <Content Include="Wpc\Synologen\Images\user.png" />
+    <Content Include="Wpc\Synologen\Images\view.png" />
+    <Content Include="Wpc\Synologen\SalesList.ascx" />
+    <Content Include="Wpc\Synologen\SecurityLogout.ascx" />
+    <Content Include="Wpc\Synologen\SettlementList.ascx" />
+    <Content Include="Wpc\Synologen\ShopMemberList.ascx" />
+    <Content Include="Wpc\Synologen\ViewOrder.ascx" />
+    <Content Include="Wpc\Synologen\ViewSettlement.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" Condition="" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2343</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -151,7 +151,8 @@ namespace Synologen.Client.ChildForms {
 				spcsHandler.OpenCompany();
 				foreach (ListViewItem listItem in orderList.Items) {
 					var spcsOrderid = Convert.ToDouble(listItem.Tag);
-					foundUpdates = SetRowOrderInformation(spcsHandler, listItem, spcsOrderid);
+					var rowUpdated = SetRowOrderInformation(spcsHandler, listItem, spcsOrderid);
+					foundUpdates = foundUpdates | rowUpdated;
 					Refresh();
 				}
 			}

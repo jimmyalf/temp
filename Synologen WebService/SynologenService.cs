@@ -106,12 +106,14 @@ namespace Spinit.Wpc.Synologen.WebService{
 				provider.UpdateOrderStatus(newStatusId, 0, 0, 0, 0, 0, invoiceStatus.InvoiceNumber);
 				var orderHistoryMessage = GetVismaOrderStatusUpdateHistoryMessage(invoiceStatus.InvoiceNumber);
 				provider.AddOrderHistory(invoiceStatus.InvoiceNumber, orderHistoryMessage);
+				return;
 			}
 			if (invoiceStatus.InvoiceIsPayed) {
 				var newStatusId = ServiceLibrary.ConfigurationSettings.WebService.InvoicePayedToSynologenStatusId;
 				provider.UpdateOrderStatus(newStatusId, 0, 0, 0, 0, 0, invoiceStatus.InvoiceNumber);
 				var orderHistoryMessage = GetVismaOrderStatusUpdateHistoryMessage(invoiceStatus.InvoiceNumber);
 				provider.AddOrderHistory(invoiceStatus.InvoiceNumber, orderHistoryMessage);
+				return;
 			}
 
 		}

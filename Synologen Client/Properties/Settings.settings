@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Synologen.Client.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SPCSCommonFilesPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\\moccasin\SPCS_Administration\Gemensamma filer</Value>
+    </Setting>
+    <Setting Name="SPCSCompanyPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\\moccasin\SPCS_Administration\Företag\Nya Synhälsan Svenska AB</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,17 @@
+<%@ Master Language="C#" MasterPageFile="~/components/ComponentMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.SynologenMain" Codebehind="SynologenMain.master.cs" %>
+<asp:Content ID="MainComponent" ContentPlaceHolderID="ComponentMainPlc" Runat="Server">
+ <div id="dCompNavigation">
+
+	<asp:PlaceHolder ID="phSynologenMenu" runat="server" />
+</div>
+<div id="dCompSubNavigation">
+	<asp:PlaceHolder ID="phSynologenSubMenu" runat="server" />
+</div>
+	<div id="validation-message">
+       	<asp:ValidationSummary ID="validationSummary" runat="server" EnableViewState="False" HeaderText="Ett fel uppstod" SkinId="Error" ValidationGroup="Error" />
+		<asp:ValidationSummary ID="validationSummarySuccess" runat="server" EnableViewState="False" HeaderText="Lyckades" SkinId="Success" ValidationGroup="Success" />
+	</div>
+    <div>
+        <asp:contentplaceholder id="phSynologen" runat="server"></asp:contentplaceholder>
+    </div>
+</asp:Content>

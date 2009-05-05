@@ -1,0 +1,336 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Synologen.Presentation</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Presentation</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Spinit.Common.WebControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Common.WebControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Business, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Base.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Data, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Base.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Presentation, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Base.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Business, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Member.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Member.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Wysiwyg, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\Spinit.Wpc.Wysiwyg.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\Synologen\Css\ComponentPrint.css" />
+    <Content Include="Components\Synologen\ViewSettlementDetails.aspx" />
+    <Content Include="Components\Synologen\Settlements.aspx" />
+    <Content Include="Components\Synologen\CreateShopOwners.aspx" />
+    <Content Include="Components\Synologen\AddFiles.aspx" />
+    <Content Include="Components\Synologen\Articles.aspx" />
+    <Content Include="Components\Synologen\Category.aspx" />
+    <Content Include="Components\Synologen\Contracts.aspx" />
+    <Content Include="Components\Synologen\ContractArticles.aspx" />
+    <Content Include="Components\Synologen\ContractCompanies.aspx" />
+    <Content Include="Components\Synologen\OrderStatus.aspx" />
+    <Content Include="Components\Synologen\ShopEquipment.aspx" />
+    <Content Include="Components\Synologen\ShopCategories.aspx" />
+    <Content Include="Components\Synologen\Css\ComponentSpecific.css" />
+    <Content Include="Components\Synologen\Css\PageSpecific.css" />
+    <Content Include="Components\Synologen\EditContract.aspx" />
+    <Content Include="Components\Synologen\EditMember.aspx" />
+    <Content Include="Components\Synologen\EditOrder.aspx" />
+    <Content Include="Components\Synologen\EditShop.aspx" />
+    <Content Include="Components\Synologen\FileCategories.aspx" />
+    <Content Include="Components\Synologen\Files.aspx" />
+    <Content Include="Components\Synologen\Index.aspx" />
+    <Content Include="Components\Synologen\Orders.aspx" />
+    <Content Include="Components\Synologen\Shops.aspx" />
+    <Content Include="Components\Synologen\SynologenMain.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\ComponentPages.cs" />
+    <Compile Include="Code\SessionContext.cs" />
+    <Compile Include="Code\SynologenPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Code\SynologenUtility.cs" />
+    <Compile Include="Components\Synologen\ViewSettlementDetails.aspx.cs">
+      <DependentUpon>ViewSettlementDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\ViewSettlementDetails.aspx.designer.cs">
+      <DependentUpon>ViewSettlementDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\Settlements.aspx.cs">
+      <DependentUpon>Settlements.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\Settlements.aspx.designer.cs">
+      <DependentUpon>Settlements.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\CreateShopOwners.aspx.cs">
+      <DependentUpon>CreateShopOwners.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\CreateShopOwners.aspx.designer.cs">
+      <DependentUpon>CreateShopOwners.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\AddFiles.aspx.cs">
+      <DependentUpon>AddFiles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\AddFiles.aspx.designer.cs">
+      <DependentUpon>AddFiles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\Articles.aspx.cs">
+      <DependentUpon>Articles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\Articles.aspx.designer.cs">
+      <DependentUpon>Articles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\Category.aspx.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\Category.aspx.designer.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\Contracts.aspx.cs">
+      <DependentUpon>Contracts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\Contracts.aspx.designer.cs">
+      <DependentUpon>Contracts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\ContractArticles.aspx.cs">
+      <DependentUpon>ContractArticles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\ContractArticles.aspx.designer.cs">
+      <DependentUpon>ContractArticles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\ContractCompanies.aspx.cs">
+      <DependentUpon>ContractCompanies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\ContractCompanies.aspx.designer.cs">
+      <DependentUpon>ContractCompanies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\OrderStatus.aspx.cs">
+      <DependentUpon>OrderStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\OrderStatus.aspx.designer.cs">
+      <DependentUpon>OrderStatus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\ShopEquipment.aspx.cs">
+      <DependentUpon>ShopEquipment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\ShopEquipment.aspx.designer.cs">
+      <DependentUpon>ShopEquipment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\ShopCategories.aspx.cs">
+      <DependentUpon>ShopCategories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\ShopCategories.aspx.designer.cs">
+      <DependentUpon>ShopCategories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\EditContract.aspx.cs">
+      <DependentUpon>EditContract.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\EditContract.aspx.designer.cs">
+      <DependentUpon>EditContract.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\EditMember.aspx.cs">
+      <DependentUpon>EditMember.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\EditMember.aspx.designer.cs">
+      <DependentUpon>EditMember.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\EditOrder.aspx.cs">
+      <DependentUpon>EditOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\EditOrder.aspx.designer.cs">
+      <DependentUpon>EditOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\EditShop.aspx.cs">
+      <DependentUpon>EditShop.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\EditShop.aspx.designer.cs">
+      <DependentUpon>EditShop.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\FileCategories.aspx.cs">
+      <DependentUpon>FileCategories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\FileCategories.aspx.designer.cs">
+      <DependentUpon>FileCategories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\Files.aspx.cs">
+      <DependentUpon>Files.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\Files.aspx.designer.cs">
+      <DependentUpon>Files.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\Orders.aspx.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\Orders.aspx.designer.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\Shops.aspx.cs">
+      <DependentUpon>Shops.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\Shops.aspx.designer.cs">
+      <DependentUpon>Shops.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\SynologenMain.master.cs">
+      <DependentUpon>SynologenMain.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\SynologenMain.master.designer.cs">
+      <DependentUpon>SynologenMain.master</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
+      <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
+      <Name>Synologen Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Data\Synologen Data.csproj">
+      <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
+      <Name>Synologen Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" Condition="" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3076</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

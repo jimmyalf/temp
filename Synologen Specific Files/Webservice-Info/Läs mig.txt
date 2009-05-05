@@ -1,0 +1,16 @@
+Registrering av läsrättiheter till certifikat, för IIS-user
+---------------------------------------------------------------
+(Kräver dock att winhttpcertcfg är installerat)
+
+
+På lokal maskin:
+C:\Program\Windows Resource Kits\Tools\winhttpcertcfg.exe -g -c LOCAL_MACHINE\My -s SynologenWebServiceCert -a ASPNET
+
+
+På server:
+C:\Program\Windows Resource Kits\Tools\winhttpcertcfg.exe -g -c LOCAL_MACHINE\My -s SynologenWebServiceCert -a "Network Service"
+
+
+
+Referens:
+http://social.msdn.microsoft.com/Forums/en-US/wcf/thread/c557063c-bf65-4535-a440-fc385ea49eff/

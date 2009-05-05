@@ -1,0 +1,25 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true"  Inherits="Spinit.Wpc.Content.Presentation.Site.Code.ContentSiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <link media="screen" rel="stylesheet" type="text/css" href="http://synologen-nu.wpc.nu/CommonResources/Css/Extranet_139.css">
+    <link media="screen" rel="stylesheet" type="text/css" href="Default.css">
+    <style>
+    .shop-city {background-color: rgb(213, 222, 213);}
+    .shop-link,
+    .shop-no-link {font-weight: bold;}
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+		<a href="/Login/Logout.aspx">Logga ut</a>
+        <asp:ContentPlaceHolder ID="Content" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

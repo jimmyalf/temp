@@ -18,12 +18,12 @@
 </asp:PlaceHolder>
 	<td><%# DataBinder.Eval(Container.DataItem, "cPhone") %></td>
 </tr>
-<tr>
+<tr class="shop-contact-row">
 	<td><%# DataBinder.Eval(Container.DataItem, "cAddress2") %></td>
 	<td><a href='mailto:<%# DataBinder.Eval(Container.DataItem, "cEmail") %>'><%# DataBinder.Eval(Container.DataItem, "cEmail") %></a></td>
 </tr>
 <asp:PlaceHolder ID="plEquipment" runat="server" Visible="false">
-<tr><td colspan="2">Utrustning:&nbsp;<%# DataBinder.Eval(Container.DataItem, "cEquipment") %></td></tr>
+<tr class="shop-equipment-row"><td colspan="2">Utrustning:&nbsp;<%# DataBinder.Eval(Container.DataItem, "cEquipment") %></td></tr>
 </asp:PlaceHolder>
 </ItemTemplate>
 <FooterTemplate></table></FooterTemplate>

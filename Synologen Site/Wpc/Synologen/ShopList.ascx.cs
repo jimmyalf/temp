@@ -53,6 +53,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 	public partial class ShopList : SynologenUserControl {
 		private int _categoryId;
 		private int _contractCustomer;
+		private int _equipmentId;
 		private bool _showEquipmentFiltration;
 
 		protected void Page_Load(object sender, EventArgs e) {
@@ -60,6 +61,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 				_categoryId = Convert.ToInt32(Request.Params["Category"]);
 			if (Request.Params["ContractCustomer"] != null)
 				_contractCustomer = Convert.ToInt32(Request.Params["ContractCustomer"]);
+			if (Request.Params["Equipment"] != null)
+				_equipmentId = Convert.ToInt32(Request.Params["Equipment"]);
 
 			if (IsPostBack) return;
 			base.OnInit(e);
@@ -77,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		}
 
 		public void PopulateShops() {
-			int equipmentId = Int32.Parse(drpEquipment.SelectedValue);
+			var equipmentId = GetEquipmentId();
 			if (_contractCustomer>0) {
 				rptShops.DataSource = Provider.GetShops(0, 0, ContractCustomer, 0, equipmentId, false, "cCity");
 			}
@@ -85,6 +88,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 				rptShops.DataSource = Provider.GetShops(0, Category, ContractCustomer, 0, equipmentId, false, "cCity");
 			}
 			rptShops.DataBind();
+		}
+
+		private int GetEquipmentId() {
+			var selectedDropDownValue = Int32.Parse(drpEquipment.SelectedValue);
+			var propertyValue = _equipmentId;
+			return selectedDropDownValue > 0 ? selectedDropDownValue : propertyValue;
 		}
 
 		protected void rptShops_ItemDataBound(object sender, RepeaterItemEventArgs e) {
@@ -118,6 +127,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		public int ContractCustomer {
 			get { return _contractCustomer; }
 			set { _contractCustomer = value; }
+		}
+
+		public int Equipment {
+			get { return _equipmentId; }
+			set { _equipmentId = value; }
 		}
 
 		public bool ShowEquipmentFiltration {

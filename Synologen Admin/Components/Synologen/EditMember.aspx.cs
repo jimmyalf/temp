@@ -23,7 +23,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			if (Request.Params["id"] != null)
 				_memberId = Convert.ToInt32(Request.Params["id"]);
 			if (!Page.IsPostBack) {
-				PopulateLocationList();
+				PopulateLocations();
+				//PopulateLocationList();
 				PopulateCategoryList();
 				//PopulateShopList();
 
@@ -94,6 +95,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 			UserRow urow = dbUser.GetUser(_userId);
 
+			
+
 			if (urow != null) {
 				txtFirstName.Text = urow.FirstName;
 				txtLastName.Text = urow.LastName;
@@ -102,6 +105,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				txtPassword.Attributes.Add("value", "**********");
 				txtVerifyPassword.Attributes.Add("value", "**********");
 				chkActive.Checked = urow.Active;
+				drpLocations.SelectedValue = urow.DefaultLocation.ToString();
 			}
 
 			//MemberRow row = row = Provider.GetMember(_memberId, LocationId, LanguageId);
@@ -126,10 +130,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				txtBody.Html = row.Body;
 
 
-			foreach (ListItem item in chklLocations.Items) {
-				int locationId = Convert.ToInt32(item.Value);
-				item.Selected = row.IsConnectedLocation(locationId);
-			}
+			//foreach (ListItem item in chklLocations.Items) {
+			//    int locationId = Convert.ToInt32(item.Value);
+			//    item.Selected = row.IsConnectedLocation(locationId);
+			//}
+			
 
 
 
@@ -154,20 +159,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		}
 
+		private void PopulateLocations() {
+			drpLocations.DataSource = Locations;
+			drpLocations.DataBind();
+			drpLocations.Items.Insert(0, new ListItem("-- Välj Website-tillhörighet --","0"));
+		}
+
 		/// <summary>
 		/// Populates the checklistbox for all available locations.
 		/// The current location will be default selected
 		/// </summary>
 
-		private void PopulateLocationList() {
-			chklLocations.DataSource = Locations;
-			chklLocations.DataBind();
-			foreach (ListItem item in chklLocations.Items) {
-				if ((Convert.ToInt32(item.Value)) != LocationId) continue;
-				item.Selected = true;
-				break;
-			}
-		}
+		//private void PopulateLocationList() {
+		//    chklLocations.DataSource = Locations;
+		//    chklLocations.DataBind();
+		//    foreach (ListItem item in chklLocations.Items) {
+		//        if ((Convert.ToInt32(item.Value)) != LocationId) continue;
+		//        item.Selected = true;
+		//        break;
+		//    }
+		//}
 
 		private void PopulateShopList() {
 			drpShops.ClearSelection();
@@ -324,8 +335,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			//}
 		}
 
+		//private void ConnectDisconnectLocations(MemberRow row) {
+		//    foreach (ListItem item in chklLocations.Items){
+		//        if ((item.Selected) && (!row.IsConnectedLocation(Convert.ToInt32(item.Value))))
+		//            Provider.ConnectToLocation(row.Id, Convert.ToInt32(item.Value));
+		//        else if ((!item.Selected) && (row.IsConnectedLocation(Convert.ToInt32(item.Value))))
+		//            Provider.DisconnectFromLocation(row.Id, Convert.ToInt32(item.Value));
+		//    }
+		//}
+
 		private void ConnectDisconnectLocations(MemberRow row) {
-			foreach (ListItem item in chklLocations.Items){
+			foreach (ListItem item in drpLocations.Items) {
 				if ((item.Selected) && (!row.IsConnectedLocation(Convert.ToInt32(item.Value))))
 					Provider.ConnectToLocation(row.Id, Convert.ToInt32(item.Value));
 				else if ((!item.Selected) && (row.IsConnectedLocation(Convert.ToInt32(item.Value))))
@@ -366,8 +386,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				                     txtLastName.Text, txtEmail.Text, LocationId, CurrentUser);
 				if (_userId > 0) {
 					if (!chkActive.Checked) {
+						var selectedLocation = Int32.Parse(drpLocations.SelectedValue);
 						dbUser.Update(_userId, txtPassword.Text, txtFirstName.Text,
-						              txtLastName.Text, txtEmail.Text, LocationId, chkActive.Checked, CurrentUser);
+									  txtLastName.Text, txtEmail.Text, selectedLocation, chkActive.Checked, CurrentUser);
 					}
 					//foreach (ListItem item in chklCategories.Items) {
 					foreach (ListItem item in drpMemberCategories.Items) {
@@ -406,14 +427,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			//var context = Spinit.Wpc.Base.Presentation.SessionContext.UserContext.Current;
 			const Enumerations.Action action = Enumerations.Action.Update;
 			var userObject = new DUser(Base.Business.Globals.ConnectionString, new Base.Core.Context());
+			var selectedLocation = Int32.Parse(drpLocations.SelectedValue);
 			userObject.AddUpdateDeleteUser(action, 
 				ref userId, 
 				txtUserName.Text, 
 				password, 
 				txtFirstName.Text, 
 				txtLastName.Text,                           
-				txtEmail.Text, 
-				LocationId, 
+				txtEmail.Text,
+				selectedLocation, 
 				chkActive.Checked, 
 				CurrentUser);
 			//bool ret = dbUser.Update(userId, password, txtFirstName.Text, txtLastName.Text,

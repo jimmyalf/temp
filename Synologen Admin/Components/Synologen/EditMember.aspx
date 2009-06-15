@@ -19,6 +19,11 @@
                         <label class="labelLong">Butik *</label>
                         <asp:DropDownList id="drpShops" runat="server" DataValueField="cId" DataTextField="cDetailName" Enabled="false" />
 					</div>
+					<div class="formItem clearLeft">
+                        <label class="labelLong">Website tillhörighet *</label>					
+						<asp:DropDownList ID="drpLocations" DataValueField="Id" DataTextField="Name" runat="server"/>
+						<asp:RequiredFieldValidator id="reqLocation" InitialValue="0" runat="server" errormessage="Location saknas" controltovalidate="drpLocations" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
+					</div>						
 					<div class="formItem infoItem" style="display:none;visibility:hidden;">
 						<span>*</span><p>Kopplingen används ej för Leverantörer.</p>
 					</div>							
@@ -152,22 +157,22 @@
 			            <WPC:WpcWysiwyg ID="txtBody" Mode="WpcInternalAdvanced" runat="server" />
 		            </div>
 				</fieldset>					
-				<fieldset style="display:none; visibility:hidden;">
+				<fieldset style="visibility:hidden; display:none;">
 					<legend>Location connection</legend>
 					
 					<div class="formItem clearLeft" id="dLocations">
-                            <asp:Label ID="lblLocations" runat="server" AssociatedControlID="chklLocations" SkinId="Long"></asp:Label>                            
+                            <asp:Label ID="lblLocations" runat="server" AssociatedControlID="drpLocations" SkinId="Long"></asp:Label>                            
                             <asp:CheckBoxList ID="chklLocations" DataValueField="Id" DataTextField="Name" runat="server" RepeatColumns="5" RepeatLayout="Table"/>
 					</div>
 				</fieldset>					
 				<fieldset>
 					<div class="formCommands">					    
-					    <asp:button ID="btnSaveAndPublish" runat="server" CommandName="SaveAndPublish" OnClick="btnSave_Click" Text="Save & Publish" SkinId="Big" CausesValidation="true"/>
-					    <asp:button ID="btnSaveForLater" runat="server" CommandName="SaveForLater" OnClick="btnSave_Click" Text="Save For Later" SkinId="Big"  CausesValidation="true"/>
-					    <asp:button ID="btnSaveForApproval" runat="server" CommandName="SaveForApproval" OnClick="btnSave_Click" Text="Send For Approval" SkinId="Big"  CausesValidation="true"/>
+					    <asp:button ID="btnSaveAndPublish" runat="server" CommandName="SaveAndPublish" OnClick="btnSave_Click" Text="Save & Publish" SkinId="Big" CausesValidation="true" ValidationGroup="Error"/>
+					    <asp:button ID="btnSaveForLater" runat="server" CommandName="SaveForLater" OnClick="btnSave_Click" Text="Save For Later" SkinId="Big"  CausesValidation="true" ValidationGroup="Error"/>
+					    <asp:button ID="btnSaveForApproval" runat="server" CommandName="SaveForApproval" OnClick="btnSave_Click" Text="Send For Approval" SkinId="Big"  CausesValidation="true" ValidationGroup="Error"/>
 					</div>
 					
-					<asp:ValidationSummary ID="vldsUser" runat="server" ShowMessageBox="true" ShowSummary="false" />
+					<asp:ValidationSummary ID="vldsUser" runat="server" ShowMessageBox="true" ShowSummary="false" ValidationGroup="Error" />
 				</fieldset>
 			</div>
         </div>

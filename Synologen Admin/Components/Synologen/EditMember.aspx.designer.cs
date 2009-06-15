@@ -17,6 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
         protected System.Web.UI.WebControls.Label lblCategories;
         protected System.Web.UI.WebControls.DropDownList drpMemberCategories;
         protected System.Web.UI.WebControls.DropDownList drpShops;
+		protected System.Web.UI.WebControls.DropDownList drpLocations;
         protected System.Web.UI.HtmlControls.HtmlGenericControl dAcountDetails;
         protected System.Web.UI.WebControls.Label lblUserName;
         protected System.Web.UI.WebControls.RequiredFieldValidator rfvUserName;

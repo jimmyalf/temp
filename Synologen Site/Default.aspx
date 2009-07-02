@@ -5,6 +5,7 @@
 		<a href="SalesList.aspx">Lista försäljningar</a><br />
 		<a href="CreateOrder.aspx">Registrera ny order</a>	<br />
 		<a href="ShopList.aspx">Butikslistor</a><br />
+		<a href="CityShopList.aspx">Ort-Butiklista</a><br />
 		<a href="MembersList.aspx">Butiksmedlemmar</a><br />
 		<a href="EditShopPage.aspx">Editera butik</a><br />
 		<a href="SettlementList.aspx">Utbetalningar till butik</a><br />

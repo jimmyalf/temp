@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
     <title>Untitled Page</title>
-    <link media="screen" rel="stylesheet" type="text/css" href="http://synologen-nu.wpc.nu/CommonResources/Css/Extranet_139.css">
+    <link media="screen" rel="stylesheet" type="text/css" href="http://demo.ogonapoteket.se/CommonResources/Css/Screen_476.css" />
     <link media="screen" rel="stylesheet" type="text/css" href="Default.css">
     <style>
     .shop-city {background-color: rgb(213, 222, 213);}
@@ -15,7 +15,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+    <div id="wrapper">
 		<a href="/Login/Logout.aspx">Logga ut</a>
         <asp:ContentPlaceHolder ID="Content" runat="server">
         </asp:ContentPlaceHolder>

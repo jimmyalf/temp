@@ -36,3 +36,9 @@ table.synologen-table  {border: solid 1px #A0A0A0; border-spacing:0px; border-co
 #member-list ul span	{ vertical-align:middle; min-width:12em; display:inline-block;}
 #member-list ul img	{ vertical-align:middle; border:none;}
 */
+
+table.city-shop-list, ul.city-list
+{
+	display:block;
+	float:left;
+}

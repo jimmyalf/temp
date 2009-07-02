@@ -33,10 +33,14 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public ShopEquipmentRow GetShopEquipmentRow(int equipmentId) {
+			var equipmentDataSet = GetShopEquipment(equipmentId, 0, null);
+			var equipmentDatRow = equipmentDataSet.Tables[0].Rows[0];
+			return ParseShopEquipmentRow(equipmentDatRow);
+		}
+
+		private ShopEquipmentRow ParseShopEquipmentRow(DataRow equipmentDatRow) {
 			try {
-				DataSet equipmentDataSet = GetShopEquipment(equipmentId, 0, null);
-				DataRow equipmentDatRow = equipmentDataSet.Tables[0].Rows[0];
-				ShopEquipmentRow equipmentRow = new ShopEquipmentRow();
+				var equipmentRow = new ShopEquipmentRow();
 				equipmentRow.Id = Util.CheckNullInt(equipmentDatRow, "cId");
 				equipmentRow.Name = Util.CheckNullString(equipmentDatRow, "cName");
 				equipmentRow.Description = Util.CheckNullString(equipmentDatRow, "cDescription");
@@ -53,6 +57,16 @@ namespace Spinit.Wpc.Synologen.Data {
 			if (equipmentDatSet == null || equipmentDatSet.Tables[0] == null) return returnList;
 			foreach (DataRow row in equipmentDatSet.Tables[0].Rows) {
 				returnList.Add(Util.CheckNullInt(row, "cId"));
+			}
+			return returnList;
+		}
+
+		public IEnumerable<ShopEquipmentRow> GetAllEquipmentRowsPerShop(int shopId) {
+			var returnList = new List<ShopEquipmentRow>();
+			var equipmentDatSet = GetShopEquipment(0, shopId, null);
+			if (equipmentDatSet == null || equipmentDatSet.Tables[0] == null) return returnList;
+			foreach (DataRow row in equipmentDatSet.Tables[0].Rows) {
+				returnList.Add(ParseShopEquipmentRow(row));
 			}
 			return returnList;
 		}
@@ -138,8 +152,6 @@ namespace Spinit.Wpc.Synologen.Data {
 		public void ConnectShopToEquipment(int shopId, int equipmentId) {
 			UpdateShopEquipmentConnection(ConnectionAction.Connect, equipmentId, shopId, null);
 		}
-
-
 
 	}
 }

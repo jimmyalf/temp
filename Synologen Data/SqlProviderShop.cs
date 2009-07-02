@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
@@ -118,39 +119,44 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		public ShopRow GetShop(int shopId) {
 			try {
-				DataSet shopDataSet = GetShops(shopId,0,0,0,0,true,"cId");
-				DataRow shopDataRow = shopDataSet.Tables[0].Rows[0];
-				ShopRow shopRow = new ShopRow();
-				shopRow.ShopId = Util.CheckNullInt(shopDataRow, "cId");
-				shopRow.Active = (bool) shopDataRow["cActive"];
-				shopRow.Address = Util.CheckNullString(shopDataRow, "cAddress");
-				shopRow.Address2 = Util.CheckNullString(shopDataRow, "cAddress2");
-				shopRow.City = Util.CheckNullString(shopDataRow, "cCity");
-				shopRow.ContactFirstName = Util.CheckNullString(shopDataRow, "cContactFirstName");
-				shopRow.ContactLastName = Util.CheckNullString(shopDataRow, "cContactLastName");
-				shopRow.Description = Util.CheckNullString(shopDataRow, "cShopDescription");
-				shopRow.Email = Util.CheckNullString(shopDataRow, "cEmail");
-				shopRow.Fax = Util.CheckNullString(shopDataRow, "cFax");
-				shopRow.MapUrl = Util.CheckNullString(shopDataRow, "cMapUrl");
-				shopRow.Name = Util.CheckNullString(shopDataRow, "cShopName");
-				shopRow.Number = Util.CheckNullString(shopDataRow, "cShopNumber");
-				shopRow.Phone = Util.CheckNullString(shopDataRow, "cPhone");
-				shopRow.Phone2 = Util.CheckNullString(shopDataRow, "cPhone2");
-				shopRow.Url = Util.CheckNullString(shopDataRow, "cUrl");
-				shopRow.Zip = Util.CheckNullString(shopDataRow, "cZip");
-				shopRow.Active = (bool)shopDataRow["cActive"];
-				shopRow.CategoryId = Util.CheckNullInt(shopDataRow,"cCategoryId");
-				shopRow.GiroId = Util.CheckNullInt(shopDataRow, "cGiroId");
-				shopRow.GiroNumber = Util.CheckNullString(shopDataRow, "cGiroNumber");
-				shopRow.GiroSupplier = Util.CheckNullString(shopDataRow, "cGiroSupplier");
-				return shopRow;
+				var shopDataSet = GetShops(shopId,0,0,0,0,true,"cId");
+				var shopDataRow = shopDataSet.Tables[0].Rows[0];
+				return ParseShopRow(shopDataRow);
 			}
 			catch (Exception ex) {
 				throw new Exception("Exception found while parsing a ShopRow object: "+ex.Message);
 			}
 		}
 
-		public DataSet GetShops(int shopId,int shopCategoryId, int contractCustomer,int memberId, int equipmentId, bool includeInactive,string orderBy) {
+		public ShopRow ParseShopRow(DataRow shopDataRow) {
+			var shopRow = new ShopRow();
+			shopRow.ShopId = Util.CheckNullInt(shopDataRow, "cId");
+			shopRow.Active = (bool)shopDataRow["cActive"];
+			shopRow.Address = Util.CheckNullString(shopDataRow, "cAddress");
+			shopRow.Address2 = Util.CheckNullString(shopDataRow, "cAddress2");
+			shopRow.City = Util.CheckNullString(shopDataRow, "cCity");
+			shopRow.ContactFirstName = Util.CheckNullString(shopDataRow, "cContactFirstName");
+			shopRow.ContactLastName = Util.CheckNullString(shopDataRow, "cContactLastName");
+			shopRow.Description = Util.CheckNullString(shopDataRow, "cShopDescription");
+			shopRow.Email = Util.CheckNullString(shopDataRow, "cEmail");
+			shopRow.Fax = Util.CheckNullString(shopDataRow, "cFax");
+			shopRow.MapUrl = Util.CheckNullString(shopDataRow, "cMapUrl");
+			shopRow.Name = Util.CheckNullString(shopDataRow, "cShopName");
+			shopRow.Number = Util.CheckNullString(shopDataRow, "cShopNumber");
+			shopRow.Phone = Util.CheckNullString(shopDataRow, "cPhone");
+			shopRow.Phone2 = Util.CheckNullString(shopDataRow, "cPhone2");
+			shopRow.Url = Util.CheckNullString(shopDataRow, "cUrl");
+			shopRow.Zip = Util.CheckNullString(shopDataRow, "cZip");
+			shopRow.Active = (bool)shopDataRow["cActive"];
+			shopRow.CategoryId = Util.CheckNullInt(shopDataRow, "cCategoryId");
+			shopRow.GiroId = Util.CheckNullInt(shopDataRow, "cGiroId");
+			shopRow.GiroNumber = Util.CheckNullString(shopDataRow, "cGiroNumber");
+			shopRow.GiroSupplier = Util.CheckNullString(shopDataRow, "cGiroSupplier");
+			shopRow.Equipment = GetAllEquipmentRowsPerShop(shopRow.ShopId);
+			return shopRow;
+		}
+
+		public DataSet GetShops(int shopId, int shopCategoryId, int contractCustomer,int memberId, int equipmentId, bool includeInactive,string orderBy) {
 			try {
 				int counter = 0;
 				SqlParameter[] parameters = {
@@ -178,6 +184,17 @@ namespace Spinit.Wpc.Synologen.Data {
 			catch (SqlException e) {
 				throw new GeneralData.DatabaseInterface.DataException("SqlException: " + e);
 			}
+		}
+
+		public IEnumerable<ShopRow> GetShopRows(int shopId, int shopCategoryId, int contractCustomer,int memberId, int equipmentId, bool includeInactive,string orderBy) {
+			var shopRows = new Collection<ShopRow>();
+			var dataSet = GetShops(shopId, shopCategoryId, contractCustomer, memberId, equipmentId, includeInactive, orderBy);
+			if(dataSet.Tables[0]==null) return shopRows;
+			foreach (DataRow dataRow in dataSet.Tables[0].Rows) {
+				shopRows.Add(ParseShopRow(dataRow));
+			}
+			return shopRows;
+
 		}
 
 		public List<int> GetAllShopIdsPerCategory(int categoryId) {

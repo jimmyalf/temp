@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("Address", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable()]
+	[System.Diagnostics.DebuggerStepThrough()]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("Address", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
 	public partial class SFTIAddressType {
     
 		private IdentifierType idField;
@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public PostboxType Postbox {
 			get {
 				return this.postboxField;
@@ -49,7 +49,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public StreetNameType StreetName {
 			get {
 				return this.streetNameField;
@@ -60,7 +60,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public DepartmentType Department {
 			get {
 				return this.departmentField;
@@ -71,7 +71,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public CityNameType CityName {
 			get {
 				return this.cityNameField;
@@ -82,7 +82,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public ZoneType PostalZone {
 			get {
 				return this.postalZoneField;
@@ -93,7 +93,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlArrayItemAttribute("Line", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
+		[System.Xml.Serialization.XmlArrayItem("Line", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
 		public List<LineType> AddressLine {
 			get {
 				return this.addressLineField;

@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("Party", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable()]
+	[System.Diagnostics.DebuggerStepThrough()]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("Party", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
 	public partial class SFTIPartyType {
     
 		private List<SFTIPartyIdentificationType> partyIdentificationField = new List<SFTIPartyIdentificationType>();
@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		private SFTIContactType contactField;
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("PartyIdentification")]
+		[System.Xml.Serialization.XmlElement("PartyIdentification")]
 		public List<SFTIPartyIdentificationType> PartyIdentification {
 			get {
 				return this.partyIdentificationField;
@@ -32,7 +32,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlArrayItemAttribute("Name", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
+		[System.Xml.Serialization.XmlArrayItem("Name", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
 		public List<NameType1> PartyName {
 			get {
 				return this.partyNameField;
@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("PartyTaxScheme")]
+		[System.Xml.Serialization.XmlElement("PartyTaxScheme")]
 		public List<SFTIPartyTaxSchemeType> PartyTaxScheme {
 			get {
 				return this.partyTaxSchemeField;

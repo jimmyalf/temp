@@ -1,13 +1,13 @@
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("Payment", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable()]
+	[System.Diagnostics.DebuggerStepThrough()]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("Payment", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
 	public partial class SFTIPaymentType {
     
 		private IdentifierType idField;
@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public AmountType2 PaidAmount {
 			get {
 				return this.paidAmountField;
@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public DateType1 ReceivedDate {
 			get {
 				return this.receivedDateField;

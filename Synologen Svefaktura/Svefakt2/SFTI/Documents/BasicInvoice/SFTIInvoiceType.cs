@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Invoice.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
 	[System.SerializableAttribute()]
@@ -14,7 +15,7 @@ namespace Spinit.Wpc.Synologen.Invoice.Svefakt2 {
     
 		private IssueDateType issueDateField;
     
-		private CodeType1 invoiceTypeCodeField;
+		private CodeType invoiceTypeCodeField;
     
 		private NoteType noteField;
     
@@ -78,7 +79,7 @@ namespace Spinit.Wpc.Synologen.Invoice.Svefakt2 {
 		}
     
 		/// <remarks/>
-		public CodeType1 InvoiceTypeCode {
+		public CodeType InvoiceTypeCode {
 			get {
 				return this.invoiceTypeCodeField;
 			}

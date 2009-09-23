@@ -1,23 +1,25 @@
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes {
 	/// <remarks/>
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(RefrigerationOnIndicatorType))]
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(MaterialIndicatorType))]
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(MarkCareIndicatorType))]
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(MarkAttentionIndicatorType))]
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(IndicatorType1))]
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(CopyIndicatorType))]
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(ChargeIndicatorType))]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0")]
+	[System.Xml.Serialization.XmlInclude(typeof(RefrigerationOnIndicatorType))]
+	[System.Xml.Serialization.XmlInclude(typeof(MaterialIndicatorType))]
+	[System.Xml.Serialization.XmlInclude(typeof(MarkCareIndicatorType))]
+	[System.Xml.Serialization.XmlInclude(typeof(MarkAttentionIndicatorType))]
+	[System.Xml.Serialization.XmlInclude(typeof(CommonBasicComponents.IndicatorType))]
+	[System.Xml.Serialization.XmlInclude(typeof(CopyIndicatorType))]
+	[System.Xml.Serialization.XmlInclude(typeof(ChargeIndicatorType))]
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable()]
+	[System.Diagnostics.DebuggerStepThrough()]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0")]
 	public partial class IndicatorType {
     
 		private bool valueField;
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlTextAttribute()]
+		[System.Xml.Serialization.XmlText()]
 		public bool Value {
 			get {
 				return this.valueField;

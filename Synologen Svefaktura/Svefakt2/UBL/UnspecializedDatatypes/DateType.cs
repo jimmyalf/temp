@@ -1,22 +1,25 @@
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes {
 	/// <remarks/>
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(ValidityStartDateType))]
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(PaymentDateType))]
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(IssueDateType))]
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(ExpiryDateType))]
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(DateType1))]
-	[System.Xml.Serialization.XmlIncludeAttribute(typeof(TaxPointDateType))]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0")]
+	[System.Xml.Serialization.XmlInclude(typeof(ValidityStartDateType))]
+	[System.Xml.Serialization.XmlInclude(typeof(PaymentDateType))]
+	[System.Xml.Serialization.XmlInclude(typeof(IssueDateType))]
+	[System.Xml.Serialization.XmlInclude(typeof(ExpiryDateType))]
+	[System.Xml.Serialization.XmlInclude(typeof(CommonBasicComponents.DateType))]
+	[System.Xml.Serialization.XmlInclude(typeof(TaxPointDateType))]
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable()]
+	[System.Diagnostics.DebuggerStepThrough()]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0")]
 	public partial class DateType {
     
 		private System.DateTime valueField;
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlTextAttribute(DataType="date")]
+		[System.Xml.Serialization.XmlText(DataType="date")]
 		public System.DateTime Value {
 			get {
 				return this.valueField;

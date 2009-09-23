@@ -1,3 +1,6 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.SpecializedDatatypes;
+
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes {
 	/// <remarks/>
 	[System.Xml.Serialization.XmlInclude(typeof(UBLAmountType))]
@@ -7,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes {
 	[System.Xml.Serialization.XmlInclude(typeof(PriceAmountType))]
 	[System.Xml.Serialization.XmlInclude(typeof(ExtensionTotalAmountType))]
 	[System.Xml.Serialization.XmlInclude(typeof(ExtensionAmountType))]
-	[System.Xml.Serialization.XmlInclude(typeof(AmountType2))]
+	[System.Xml.Serialization.XmlInclude(typeof(CommonBasicComponents.AmountType))]
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
 	[System.Serializable()]
 	[System.Diagnostics.DebuggerStepThrough()]

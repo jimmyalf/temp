@@ -1,5 +1,3 @@
-using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
-
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 	/// <remarks/>
 	[System.Xml.Serialization.XmlInclude(typeof(UnspecializedDatatypes.CodeType))]

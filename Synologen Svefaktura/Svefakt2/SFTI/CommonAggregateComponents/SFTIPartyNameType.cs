@@ -8,7 +8,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("PartyName", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("cac:PartyName", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class SFTIPartyNameType {
     
 		private List<NameType1> nameField = new List<NameType1>();

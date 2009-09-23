@@ -1,14 +1,15 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("OrderLineReference", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class OrderLineReferenceType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("OrderLineReference", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class OrderLineReferenceType {
     
 		private IdentifierType buyersLineIDField;
     
@@ -21,40 +22,40 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType BuyersLineID {
 			get {
-				return this.buyersLineIDField;
+				return buyersLineIDField;
 			}
 			set {
-				this.buyersLineIDField = value;
+				buyersLineIDField = value;
 			}
 		}
     
 		/// <remarks/>
 		public IdentifierType SellersLineID {
 			get {
-				return this.sellersLineIDField;
+				return sellersLineIDField;
 			}
 			set {
-				this.sellersLineIDField = value;
+				sellersLineIDField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LineStatusCodeType LineStatusCode {
 			get {
-				return this.lineStatusCodeField;
+				return lineStatusCodeField;
 			}
 			set {
-				this.lineStatusCodeField = value;
+				lineStatusCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public OrderReferenceType OrderReference {
 			get {
-				return this.orderReferenceField;
+				return orderReferenceField;
 			}
 			set {
-				this.orderReferenceField = value;
+				orderReferenceField = value;
 			}
 		}
 	}

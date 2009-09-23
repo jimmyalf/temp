@@ -2,11 +2,11 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 	/// <remarks/>
 	[System.Xml.Serialization.XmlInclude(typeof(UnspecializedDatatypes.CodeType))]
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CoreComponentTypes:1:0")]
-	public partial class CodeType {
+	public class CodeType {
     
 		private string nameField;
     
@@ -29,13 +29,13 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		private string valueField;
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttribute()]
+		[System.Xml.Serialization.XmlAttribute]
 		public string name {
 			get {
-				return this.nameField;
+				return nameField;
 			}
 			set {
-				this.nameField = value;
+				nameField = value;
 			}
 		}
     
@@ -43,10 +43,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string codeListID {
 			get {
-				return this.codeListIDField;
+				return codeListIDField;
 			}
 			set {
-				this.codeListIDField = value;
+				codeListIDField = value;
 			}
 		}
     
@@ -54,32 +54,32 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string codeListAgencyID {
 			get {
-				return this.codeListAgencyIDField;
+				return codeListAgencyIDField;
 			}
 			set {
-				this.codeListAgencyIDField = value;
+				codeListAgencyIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttribute()]
+		[System.Xml.Serialization.XmlAttribute]
 		public string codeListAgencyName {
 			get {
-				return this.codeListAgencyNameField;
+				return codeListAgencyNameField;
 			}
 			set {
-				this.codeListAgencyNameField = value;
+				codeListAgencyNameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttribute()]
+		[System.Xml.Serialization.XmlAttribute]
 		public string codeListName {
 			get {
-				return this.codeListNameField;
+				return codeListNameField;
 			}
 			set {
-				this.codeListNameField = value;
+				codeListNameField = value;
 			}
 		}
     
@@ -87,10 +87,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string codeListVersionID {
 			get {
-				return this.codeListVersionIDField;
+				return codeListVersionIDField;
 			}
 			set {
-				this.codeListVersionIDField = value;
+				codeListVersionIDField = value;
 			}
 		}
     
@@ -98,10 +98,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="anyURI")]
 		public string codeListURI {
 			get {
-				return this.codeListURIField;
+				return codeListURIField;
 			}
 			set {
-				this.codeListURIField = value;
+				codeListURIField = value;
 			}
 		}
     
@@ -109,10 +109,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="anyURI")]
 		public string codeListSchemeURI {
 			get {
-				return this.codeListSchemeURIField;
+				return codeListSchemeURIField;
 			}
 			set {
-				this.codeListSchemeURIField = value;
+				codeListSchemeURIField = value;
 			}
 		}
     
@@ -120,10 +120,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="language")]
 		public string languageID {
 			get {
-				return this.languageIDField;
+				return languageIDField;
 			}
 			set {
-				this.languageIDField = value;
+				languageIDField = value;
 			}
 		}
     
@@ -131,10 +131,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlText(DataType="normalizedString")]
 		public string Value {
 			get {
-				return this.valueField;
+				return valueField;
 			}
 			set {
-				this.valueField = value;
+				valueField = value;
 			}
 		}
 	}

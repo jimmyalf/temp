@@ -1,12 +1,15 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 	[System.Xml.Serialization.XmlRoot("ExchangeRate", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class SFTIExchangeRateType {
+	public class SFTIExchangeRateType {
     
 		private CurrencyCodeType sourceCurrencyCodeField;
     
@@ -18,15 +21,15 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		private CalculationRateType calculationRateField;
     
-		private DateType1 dateField;
+		private DateType dateField;
     
 		/// <remarks/>
 		public CurrencyCodeType SourceCurrencyCode {
 			get {
-				return this.sourceCurrencyCodeField;
+				return sourceCurrencyCodeField;
 			}
 			set {
-				this.sourceCurrencyCodeField = value;
+				sourceCurrencyCodeField = value;
 			}
 		}
     
@@ -34,20 +37,20 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public CurrencyBaseRateType SourceCurrencyBaseRate {
 			get {
-				return this.sourceCurrencyBaseRateField;
+				return sourceCurrencyBaseRateField;
 			}
 			set {
-				this.sourceCurrencyBaseRateField = value;
+				sourceCurrencyBaseRateField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CurrencyCodeType TargetCurrencyCode {
 			get {
-				return this.targetCurrencyCodeField;
+				return targetCurrencyCodeField;
 			}
 			set {
-				this.targetCurrencyCodeField = value;
+				targetCurrencyCodeField = value;
 			}
 		}
     
@@ -55,10 +58,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public UnitBaseRateType TargetUnitBaseRate {
 			get {
-				return this.targetUnitBaseRateField;
+				return targetUnitBaseRateField;
 			}
 			set {
-				this.targetUnitBaseRateField = value;
+				targetUnitBaseRateField = value;
 			}
 		}
     
@@ -66,21 +69,21 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public CalculationRateType CalculationRate {
 			get {
-				return this.calculationRateField;
+				return calculationRateField;
 			}
 			set {
-				this.calculationRateField = value;
+				calculationRateField = value;
 			}
 		}
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public DateType1 Date {
+		public DateType Date {
 			get {
-				return this.dateField;
+				return dateField;
 			}
 			set {
-				this.dateField = value;
+				dateField = value;
 			}
 		}
 	}

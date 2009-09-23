@@ -1,14 +1,15 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("TransportEquipmentSeal", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class TransportEquipmentSealType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("TransportEquipmentSeal", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class TransportEquipmentSealType {
     
 		private IdentifierType idField;
     
@@ -21,41 +22,41 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType IssuerTypeCode {
 			get {
-				return this.issuerTypeCodeField;
+				return issuerTypeCodeField;
 			}
 			set {
-				this.issuerTypeCodeField = value;
+				issuerTypeCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public ConditionType Condition {
 			get {
-				return this.conditionField;
+				return conditionField;
 			}
 			set {
-				this.conditionField = value;
+				conditionField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType SealStatusCode {
 			get {
-				return this.sealStatusCodeField;
+				return sealStatusCodeField;
 			}
 			set {
-				this.sealStatusCodeField = value;
+				sealStatusCodeField = value;
 			}
 		}
 	}

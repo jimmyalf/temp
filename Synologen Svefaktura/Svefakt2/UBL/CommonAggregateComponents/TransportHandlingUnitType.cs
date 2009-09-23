@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("TransportHandlingUnit", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class TransportHandlingUnitType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("TransportHandlingUnit", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class TransportHandlingUnitType {
     
 		private IdentifierType idField;
     
@@ -24,53 +24,53 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType UnitTypeCode {
 			get {
-				return this.unitTypeCodeField;
+				return unitTypeCodeField;
 			}
 			set {
-				this.unitTypeCodeField = value;
+				unitTypeCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("DespatchLine")]
+		[System.Xml.Serialization.XmlElement("DespatchLine")]
 		public List<DespatchLineType> DespatchLine {
 			get {
-				return this.despatchLineField;
+				return despatchLineField;
 			}
 			set {
-				this.despatchLineField = value;
+				despatchLineField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("ActualPackage")]
+		[System.Xml.Serialization.XmlElement("ActualPackage")]
 		public List<PackageType> ActualPackage {
 			get {
-				return this.actualPackageField;
+				return actualPackageField;
 			}
 			set {
-				this.actualPackageField = value;
+				actualPackageField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("ReceivedReceiptLine")]
+		[System.Xml.Serialization.XmlElement("ReceivedReceiptLine")]
 		public List<ReceiptLineType> ReceivedReceiptLine {
 			get {
-				return this.receivedReceiptLineField;
+				return receivedReceiptLineField;
 			}
 			set {
-				this.receivedReceiptLineField = value;
+				receivedReceiptLineField = value;
 			}
 		}
 	}

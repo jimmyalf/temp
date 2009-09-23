@@ -1,14 +1,15 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("Branch", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class BranchType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("Branch", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class BranchType {
     
 		private IdentifierType idField;
     
@@ -21,41 +22,41 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public NameType1 Name {
 			get {
-				return this.nameField;
+				return nameField;
 			}
 			set {
-				this.nameField = value;
+				nameField = value;
 			}
 		}
     
 		/// <remarks/>
 		public FinancialInstitutionType FinancialInstitution {
 			get {
-				return this.financialInstitutionField;
+				return financialInstitutionField;
 			}
 			set {
-				this.financialInstitutionField = value;
+				financialInstitutionField = value;
 			}
 		}
     
 		/// <remarks/>
 		public AddressType Address {
 			get {
-				return this.addressField;
+				return addressField;
 			}
 			set {
-				this.addressField = value;
+				addressField = value;
 			}
 		}
 	}

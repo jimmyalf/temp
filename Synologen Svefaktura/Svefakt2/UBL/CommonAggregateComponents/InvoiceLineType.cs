@@ -1,15 +1,17 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("InvoiceLine", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class InvoiceLineType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("InvoiceLine", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class InvoiceLineType {
     
 		private IdentifierType idField;
     
@@ -42,150 +44,150 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LineStatusCodeType LineStatusCode {
 			get {
-				return this.lineStatusCodeField;
+				return lineStatusCodeField;
 			}
 			set {
-				this.lineStatusCodeField = value;
+				lineStatusCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 InvoicedQuantity {
 			get {
-				return this.invoicedQuantityField;
+				return invoicedQuantityField;
 			}
 			set {
-				this.invoicedQuantityField = value;
+				invoicedQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public ExtensionAmountType LineExtensionAmount {
 			get {
-				return this.lineExtensionAmountField;
+				return lineExtensionAmountField;
 			}
 			set {
-				this.lineExtensionAmountField = value;
+				lineExtensionAmountField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public NoteType Note {
 			get {
-				return this.noteField;
+				return noteField;
 			}
 			set {
-				this.noteField = value;
+				noteField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("OrderLineReference")]
+		[System.Xml.Serialization.XmlElement("OrderLineReference")]
 		public List<OrderLineReferenceType> OrderLineReference {
 			get {
-				return this.orderLineReferenceField;
+				return orderLineReferenceField;
 			}
 			set {
-				this.orderLineReferenceField = value;
+				orderLineReferenceField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("DespatchLineReference")]
+		[System.Xml.Serialization.XmlElement("DespatchLineReference")]
 		public List<LineReferenceType> DespatchLineReference {
 			get {
-				return this.despatchLineReferenceField;
+				return despatchLineReferenceField;
 			}
 			set {
-				this.despatchLineReferenceField = value;
+				despatchLineReferenceField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("ReceiptLineReference")]
+		[System.Xml.Serialization.XmlElement("ReceiptLineReference")]
 		public List<LineReferenceType> ReceiptLineReference {
 			get {
-				return this.receiptLineReferenceField;
+				return receiptLineReferenceField;
 			}
 			set {
-				this.receiptLineReferenceField = value;
+				receiptLineReferenceField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("Delivery")]
+		[System.Xml.Serialization.XmlElement("Delivery")]
 		public List<DeliveryType> Delivery {
 			get {
-				return this.deliveryField;
+				return deliveryField;
 			}
 			set {
-				this.deliveryField = value;
+				deliveryField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("PaymentTerms")]
+		[System.Xml.Serialization.XmlElement("PaymentTerms")]
 		public List<PaymentTermsType> PaymentTerms {
 			get {
-				return this.paymentTermsField;
+				return paymentTermsField;
 			}
 			set {
-				this.paymentTermsField = value;
+				paymentTermsField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("AllowanceCharge")]
+		[System.Xml.Serialization.XmlElement("AllowanceCharge")]
 		public List<AllowanceChargeType> AllowanceCharge {
 			get {
-				return this.allowanceChargeField;
+				return allowanceChargeField;
 			}
 			set {
-				this.allowanceChargeField = value;
+				allowanceChargeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("TaxTotal")]
+		[System.Xml.Serialization.XmlElement("TaxTotal")]
 		public List<TaxTotalType> TaxTotal {
 			get {
-				return this.taxTotalField;
+				return taxTotalField;
 			}
 			set {
-				this.taxTotalField = value;
+				taxTotalField = value;
 			}
 		}
     
 		/// <remarks/>
 		public ItemType Item {
 			get {
-				return this.itemField;
+				return itemField;
 			}
 			set {
-				this.itemField = value;
+				itemField = value;
 			}
 		}
     
 		/// <remarks/>
 		public BasePriceType BasePrice {
 			get {
-				return this.basePriceField;
+				return basePriceField;
 			}
 			set {
-				this.basePriceField = value;
+				basePriceField = value;
 			}
 		}
 	}

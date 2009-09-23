@@ -1,14 +1,15 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("PartyTaxScheme", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class PartyTaxSchemeType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("PartyTaxScheme", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class PartyTaxSchemeType {
     
 		private RegistrationNameType registrationNameField;
     
@@ -23,64 +24,64 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		private TaxSchemeType taxSchemeField;
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public RegistrationNameType RegistrationName {
 			get {
-				return this.registrationNameField;
+				return registrationNameField;
 			}
 			set {
-				this.registrationNameField = value;
+				registrationNameField = value;
 			}
 		}
     
 		/// <remarks/>
 		public IdentifierType CompanyID {
 			get {
-				return this.companyIDField;
+				return companyIDField;
 			}
 			set {
-				this.companyIDField = value;
+				companyIDField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType TaxLevelCode {
 			get {
-				return this.taxLevelCodeField;
+				return taxLevelCodeField;
 			}
 			set {
-				this.taxLevelCodeField = value;
+				taxLevelCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public ReasonType ExemptionReason {
 			get {
-				return this.exemptionReasonField;
+				return exemptionReasonField;
 			}
 			set {
-				this.exemptionReasonField = value;
+				exemptionReasonField = value;
 			}
 		}
     
 		/// <remarks/>
 		public AddressType RegistrationAddress {
 			get {
-				return this.registrationAddressField;
+				return registrationAddressField;
 			}
 			set {
-				this.registrationAddressField = value;
+				registrationAddressField = value;
 			}
 		}
     
 		/// <remarks/>
 		public TaxSchemeType TaxScheme {
 			get {
-				return this.taxSchemeField;
+				return taxSchemeField;
 			}
 			set {
-				this.taxSchemeField = value;
+				taxSchemeField = value;
 			}
 		}
 	}

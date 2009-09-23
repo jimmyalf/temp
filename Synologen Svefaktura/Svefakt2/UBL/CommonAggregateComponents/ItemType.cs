@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("Item", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class ItemType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("Item", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class ItemType {
     
 		private DescriptionType descriptionField;
     
@@ -16,7 +17,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
     
 		private PackSizeNumericType packSizeNumericField;
     
-		private IndicatorType1 catalogueIndicatorField;
+		private IndicatorType catalogueIndicatorField;
     
 		private ItemIdentificationType buyersItemIdentificationField;
     
@@ -47,191 +48,191 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		private List<BasePriceType> basePriceField = new List<BasePriceType>();
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public DescriptionType Description {
 			get {
-				return this.descriptionField;
+				return descriptionField;
 			}
 			set {
-				this.descriptionField = value;
+				descriptionField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public PackQuantityType PackQuantity {
 			get {
-				return this.packQuantityField;
+				return packQuantityField;
 			}
 			set {
-				this.packQuantityField = value;
+				packQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public PackSizeNumericType PackSizeNumeric {
 			get {
-				return this.packSizeNumericField;
+				return packSizeNumericField;
 			}
 			set {
-				this.packSizeNumericField = value;
+				packSizeNumericField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public IndicatorType1 CatalogueIndicator {
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		public IndicatorType CatalogueIndicator {
 			get {
-				return this.catalogueIndicatorField;
+				return catalogueIndicatorField;
 			}
 			set {
-				this.catalogueIndicatorField = value;
+				catalogueIndicatorField = value;
 			}
 		}
     
 		/// <remarks/>
 		public ItemIdentificationType BuyersItemIdentification {
 			get {
-				return this.buyersItemIdentificationField;
+				return buyersItemIdentificationField;
 			}
 			set {
-				this.buyersItemIdentificationField = value;
+				buyersItemIdentificationField = value;
 			}
 		}
     
 		/// <remarks/>
 		public ItemIdentificationType SellersItemIdentification {
 			get {
-				return this.sellersItemIdentificationField;
+				return sellersItemIdentificationField;
 			}
 			set {
-				this.sellersItemIdentificationField = value;
+				sellersItemIdentificationField = value;
 			}
 		}
     
 		/// <remarks/>
 		public ItemIdentificationType ManufacturersItemIdentification {
 			get {
-				return this.manufacturersItemIdentificationField;
+				return manufacturersItemIdentificationField;
 			}
 			set {
-				this.manufacturersItemIdentificationField = value;
+				manufacturersItemIdentificationField = value;
 			}
 		}
     
 		/// <remarks/>
 		public ItemIdentificationType StandardItemIdentification {
 			get {
-				return this.standardItemIdentificationField;
+				return standardItemIdentificationField;
 			}
 			set {
-				this.standardItemIdentificationField = value;
+				standardItemIdentificationField = value;
 			}
 		}
     
 		/// <remarks/>
 		public ItemIdentificationType CatalogueItemIdentification {
 			get {
-				return this.catalogueItemIdentificationField;
+				return catalogueItemIdentificationField;
 			}
 			set {
-				this.catalogueItemIdentificationField = value;
+				catalogueItemIdentificationField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("AdditionalItemIdentification")]
+		[System.Xml.Serialization.XmlElement("AdditionalItemIdentification")]
 		public List<ItemIdentificationType> AdditionalItemIdentification {
 			get {
-				return this.additionalItemIdentificationField;
+				return additionalItemIdentificationField;
 			}
 			set {
-				this.additionalItemIdentificationField = value;
+				additionalItemIdentificationField = value;
 			}
 		}
     
 		/// <remarks/>
 		public DocumentReferenceType CatalogueDocumentReference {
 			get {
-				return this.catalogueDocumentReferenceField;
+				return catalogueDocumentReferenceField;
 			}
 			set {
-				this.catalogueDocumentReferenceField = value;
+				catalogueDocumentReferenceField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LotIdentificationType LotIdentification {
 			get {
-				return this.lotIdentificationField;
+				return lotIdentificationField;
 			}
 			set {
-				this.lotIdentificationField = value;
+				lotIdentificationField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CountryType OriginCountry {
 			get {
-				return this.originCountryField;
+				return originCountryField;
 			}
 			set {
-				this.originCountryField = value;
+				originCountryField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CommodityClassificationType CommodityClassification {
 			get {
-				return this.commodityClassificationField;
+				return commodityClassificationField;
 			}
 			set {
-				this.commodityClassificationField = value;
+				commodityClassificationField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("SalesConditions")]
+		[System.Xml.Serialization.XmlElement("SalesConditions")]
 		public List<SalesConditionsType> SalesConditions {
 			get {
-				return this.salesConditionsField;
+				return salesConditionsField;
 			}
 			set {
-				this.salesConditionsField = value;
+				salesConditionsField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("HazardousItem")]
+		[System.Xml.Serialization.XmlElement("HazardousItem")]
 		public List<HazardousItemType> HazardousItem {
 			get {
-				return this.hazardousItemField;
+				return hazardousItemField;
 			}
 			set {
-				this.hazardousItemField = value;
+				hazardousItemField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("TaxCategory")]
+		[System.Xml.Serialization.XmlElement("TaxCategory")]
 		public List<TaxCategoryType> TaxCategory {
 			get {
-				return this.taxCategoryField;
+				return taxCategoryField;
 			}
 			set {
-				this.taxCategoryField = value;
+				taxCategoryField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("BasePrice")]
+		[System.Xml.Serialization.XmlElement("BasePrice")]
 		public List<BasePriceType> BasePrice {
 			get {
-				return this.basePriceField;
+				return basePriceField;
 			}
 			set {
-				this.basePriceField = value;
+				basePriceField = value;
 			}
 		}
 	}

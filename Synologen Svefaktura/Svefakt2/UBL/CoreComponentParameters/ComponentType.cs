@@ -1,12 +1,12 @@
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentParameters {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CoreComponentParameters:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("Component", Namespace="urn:oasis:names:tc:ubl:CoreComponentParameters:1:0", IsNullable=false)]
-	public partial class ComponentType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CoreComponentParameters:1:0")]
+	[System.Xml.Serialization.XmlRoot("Component", Namespace="urn:oasis:names:tc:ubl:CoreComponentParameters:1:0", IsNullable=false)]
+	public class ComponentType {
     
 		private string componentType1Field;
     
@@ -45,198 +45,198 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		private string examplesField;
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("ComponentType", DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement("ComponentType", DataType="normalizedString")]
 		public string ComponentType1 {
 			get {
-				return this.componentType1Field;
+				return componentType1Field;
 			}
 			set {
-				this.componentType1Field = value;
+				componentType1Field = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string DictionaryEntryName {
 			get {
-				return this.dictionaryEntryNameField;
+				return dictionaryEntryNameField;
 			}
 			set {
-				this.dictionaryEntryNameField = value;
+				dictionaryEntryNameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string Version {
 			get {
-				return this.versionField;
+				return versionField;
 			}
 			set {
-				this.versionField = value;
+				versionField = value;
 			}
 		}
     
 		/// <remarks/>
 		public string Definition {
 			get {
-				return this.definitionField;
+				return definitionField;
 			}
 			set {
-				this.definitionField = value;
+				definitionField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string Cardinality {
 			get {
-				return this.cardinalityField;
+				return cardinalityField;
 			}
 			set {
-				this.cardinalityField = value;
+				cardinalityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string ObjectClassQualifier {
 			get {
-				return this.objectClassQualifierField;
+				return objectClassQualifierField;
 			}
 			set {
-				this.objectClassQualifierField = value;
+				objectClassQualifierField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string ObjectClass {
 			get {
-				return this.objectClassField;
+				return objectClassField;
 			}
 			set {
-				this.objectClassField = value;
+				objectClassField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string PropertyTermQualifier {
 			get {
-				return this.propertyTermQualifierField;
+				return propertyTermQualifierField;
 			}
 			set {
-				this.propertyTermQualifierField = value;
+				propertyTermQualifierField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string PropertyTermPossessiveNoun {
 			get {
-				return this.propertyTermPossessiveNounField;
+				return propertyTermPossessiveNounField;
 			}
 			set {
-				this.propertyTermPossessiveNounField = value;
+				propertyTermPossessiveNounField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string PropertyTermPrimaryNoun {
 			get {
-				return this.propertyTermPrimaryNounField;
+				return propertyTermPrimaryNounField;
 			}
 			set {
-				this.propertyTermPrimaryNounField = value;
+				propertyTermPrimaryNounField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string PropertyTerm {
 			get {
-				return this.propertyTermField;
+				return propertyTermField;
 			}
 			set {
-				this.propertyTermField = value;
+				propertyTermField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string RepresentationTerm {
 			get {
-				return this.representationTermField;
+				return representationTermField;
 			}
 			set {
-				this.representationTermField = value;
+				representationTermField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string DataTypeQualifier {
 			get {
-				return this.dataTypeQualifierField;
+				return dataTypeQualifierField;
 			}
 			set {
-				this.dataTypeQualifierField = value;
+				dataTypeQualifierField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string DataType {
 			get {
-				return this.dataTypeField;
+				return dataTypeField;
 			}
 			set {
-				this.dataTypeField = value;
+				dataTypeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string AssociatedObjectClassQualifier {
 			get {
-				return this.associatedObjectClassQualifierField;
+				return associatedObjectClassQualifierField;
 			}
 			set {
-				this.associatedObjectClassQualifierField = value;
+				associatedObjectClassQualifierField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string AssociatedObjectClass {
 			get {
-				return this.associatedObjectClassField;
+				return associatedObjectClassField;
 			}
 			set {
-				this.associatedObjectClassField = value;
+				associatedObjectClassField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlElement(DataType="normalizedString")]
 		public string AlternativeBusinessTerms {
 			get {
-				return this.alternativeBusinessTermsField;
+				return alternativeBusinessTermsField;
 			}
 			set {
-				this.alternativeBusinessTermsField = value;
+				alternativeBusinessTermsField = value;
 			}
 		}
     
 		/// <remarks/>
 		public string Examples {
 			get {
-				return this.examplesField;
+				return examplesField;
 			}
 			set {
-				this.examplesField = value;
+				examplesField = value;
 			}
 		}
 	}

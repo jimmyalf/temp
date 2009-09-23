@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("HazardousItem", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class HazardousItemType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("HazardousItem", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class HazardousItemType {
     
 		private IdentifierType idField;
     
@@ -42,147 +43,147 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public PlacardNotationType PlacardNotation {
 			get {
-				return this.placardNotationField;
+				return placardNotationField;
 			}
 			set {
-				this.placardNotationField = value;
+				placardNotationField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public PlacardEndorsementType PlacardEndorsement {
 			get {
-				return this.placardEndorsementField;
+				return placardEndorsementField;
 			}
 			set {
-				this.placardEndorsementField = value;
+				placardEndorsementField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public InformationType AdditionalInformation {
 			get {
-				return this.additionalInformationField;
+				return additionalInformationField;
 			}
 			set {
-				this.additionalInformationField = value;
+				additionalInformationField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType UNDGCode {
 			get {
-				return this.uNDGCodeField;
+				return uNDGCodeField;
 			}
 			set {
-				this.uNDGCodeField = value;
+				uNDGCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType EmergencyProceduresCode {
 			get {
-				return this.emergencyProceduresCodeField;
+				return emergencyProceduresCodeField;
 			}
 			set {
-				this.emergencyProceduresCodeField = value;
+				emergencyProceduresCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType MedicalFirstAidGuideCode {
 			get {
-				return this.medicalFirstAidGuideCodeField;
+				return medicalFirstAidGuideCodeField;
 			}
 			set {
-				this.medicalFirstAidGuideCodeField = value;
+				medicalFirstAidGuideCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public NameType1 TechnicalName {
 			get {
-				return this.technicalNameField;
+				return technicalNameField;
 			}
 			set {
-				this.technicalNameField = value;
+				technicalNameField = value;
 			}
 		}
     
 		/// <remarks/>
 		public PartyType ContactParty {
 			get {
-				return this.contactPartyField;
+				return contactPartyField;
 			}
 			set {
-				this.contactPartyField = value;
+				contactPartyField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("SecondaryHazard")]
+		[System.Xml.Serialization.XmlElement("SecondaryHazard")]
 		public List<SecondaryHazardType> SecondaryHazard {
 			get {
-				return this.secondaryHazardField;
+				return secondaryHazardField;
 			}
 			set {
-				this.secondaryHazardField = value;
+				secondaryHazardField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("HazardousGoodsTransit")]
+		[System.Xml.Serialization.XmlElement("HazardousGoodsTransit")]
 		public List<HazardousGoodsTransitType> HazardousGoodsTransit {
 			get {
-				return this.hazardousGoodsTransitField;
+				return hazardousGoodsTransitField;
 			}
 			set {
-				this.hazardousGoodsTransitField = value;
+				hazardousGoodsTransitField = value;
 			}
 		}
     
 		/// <remarks/>
 		public TemperatureType EmergencyTemperature {
 			get {
-				return this.emergencyTemperatureField;
+				return emergencyTemperatureField;
 			}
 			set {
-				this.emergencyTemperatureField = value;
+				emergencyTemperatureField = value;
 			}
 		}
     
 		/// <remarks/>
 		public TemperatureType FlashpointTemperature {
 			get {
-				return this.flashpointTemperatureField;
+				return flashpointTemperatureField;
 			}
 			set {
-				this.flashpointTemperatureField = value;
+				flashpointTemperatureField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("AdditionalTemperature")]
+		[System.Xml.Serialization.XmlElement("AdditionalTemperature")]
 		public List<TemperatureType> AdditionalTemperature {
 			get {
-				return this.additionalTemperatureField;
+				return additionalTemperatureField;
 			}
 			set {
-				this.additionalTemperatureField = value;
+				additionalTemperatureField = value;
 			}
 		}
 	}

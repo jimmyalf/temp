@@ -1,14 +1,15 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("DespatchLineReference", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class LineReferenceType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("DespatchLineReference", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class LineReferenceType {
     
 		private IdentifierType lineIDField;
     
@@ -19,30 +20,30 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType LineID {
 			get {
-				return this.lineIDField;
+				return lineIDField;
 			}
 			set {
-				this.lineIDField = value;
+				lineIDField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LineStatusCodeType LineStatusCode {
 			get {
-				return this.lineStatusCodeField;
+				return lineStatusCodeField;
 			}
 			set {
-				this.lineStatusCodeField = value;
+				lineStatusCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public DocumentReferenceType DocumentReference {
 			get {
-				return this.documentReferenceField;
+				return documentReferenceField;
 			}
 			set {
-				this.documentReferenceField = value;
+				documentReferenceField = value;
 			}
 		}
 	}

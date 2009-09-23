@@ -1,48 +1,50 @@
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("TaxSubTotal", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class TaxSubTotalType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("TaxSubTotal", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class TaxSubTotalType {
     
-		private AmountType2 taxableAmountField;
+		private AmountType taxableAmountField;
     
 		private TaxAmountType taxAmountField;
     
 		private TaxCategoryType taxCategoryField;
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public AmountType2 TaxableAmount {
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		public AmountType TaxableAmount {
 			get {
-				return this.taxableAmountField;
+				return taxableAmountField;
 			}
 			set {
-				this.taxableAmountField = value;
+				taxableAmountField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public TaxAmountType TaxAmount {
 			get {
-				return this.taxAmountField;
+				return taxAmountField;
 			}
 			set {
-				this.taxAmountField = value;
+				taxAmountField = value;
 			}
 		}
     
 		/// <remarks/>
 		public TaxCategoryType TaxCategory {
 			get {
-				return this.taxCategoryField;
+				return taxCategoryField;
 			}
 			set {
-				this.taxCategoryField = value;
+				taxCategoryField = value;
 			}
 		}
 	}

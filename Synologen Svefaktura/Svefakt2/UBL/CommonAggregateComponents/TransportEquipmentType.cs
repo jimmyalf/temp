@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("TransportEquipment", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class TransportEquipmentType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("TransportEquipment", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class TransportEquipmentType {
     
 		private IdentifierType idField;
     
@@ -34,104 +35,104 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType ProviderTypeCode {
 			get {
-				return this.providerTypeCodeField;
+				return providerTypeCodeField;
 			}
 			set {
-				this.providerTypeCodeField = value;
+				providerTypeCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType OwnerTypeCode {
 			get {
-				return this.ownerTypeCodeField;
+				return ownerTypeCodeField;
 			}
 			set {
-				this.ownerTypeCodeField = value;
+				ownerTypeCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType SizeTypeCode {
 			get {
-				return this.sizeTypeCodeField;
+				return sizeTypeCodeField;
 			}
 			set {
-				this.sizeTypeCodeField = value;
+				sizeTypeCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType DispositionCode {
 			get {
-				return this.dispositionCodeField;
+				return dispositionCodeField;
 			}
 			set {
-				this.dispositionCodeField = value;
+				dispositionCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType FullnessIndicationCode {
 			get {
-				return this.fullnessIndicationCodeField;
+				return fullnessIndicationCodeField;
 			}
 			set {
-				this.fullnessIndicationCodeField = value;
+				fullnessIndicationCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public RefrigerationOnIndicatorType RefrigerationOnIndicator {
 			get {
-				return this.refrigerationOnIndicatorField;
+				return refrigerationOnIndicatorField;
 			}
 			set {
-				this.refrigerationOnIndicatorField = value;
+				refrigerationOnIndicatorField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public InformationType Information {
 			get {
-				return this.informationField;
+				return informationField;
 			}
 			set {
-				this.informationField = value;
+				informationField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("Dimension")]
+		[System.Xml.Serialization.XmlElement("Dimension")]
 		public List<DimensionType> Dimension {
 			get {
-				return this.dimensionField;
+				return dimensionField;
 			}
 			set {
-				this.dimensionField = value;
+				dimensionField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("TransportEquipmentSeal")]
+		[System.Xml.Serialization.XmlElement("TransportEquipmentSeal")]
 		public List<TransportEquipmentSealType> TransportEquipmentSeal {
 			get {
-				return this.transportEquipmentSealField;
+				return transportEquipmentSealField;
 			}
 			set {
-				this.transportEquipmentSealField = value;
+				transportEquipmentSealField = value;
 			}
 		}
 	}

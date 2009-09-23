@@ -1,14 +1,17 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
+using DateType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.DateType;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("ExchangeRate", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class ExchangeRateType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("ExchangeRate", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class ExchangeRateType {
     
 		private CurrencyCodeType sourceCurrencyCodeField;
     
@@ -24,101 +27,101 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
     
 		private CodeType operatorCodeField;
     
-		private DateType1 dateField;
+		private DateType dateField;
     
 		private ContractType foreignExchangeContractField;
     
 		/// <remarks/>
 		public CurrencyCodeType SourceCurrencyCode {
 			get {
-				return this.sourceCurrencyCodeField;
+				return sourceCurrencyCodeField;
 			}
 			set {
-				this.sourceCurrencyCodeField = value;
+				sourceCurrencyCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public CurrencyBaseRateType SourceCurrencyBaseRate {
 			get {
-				return this.sourceCurrencyBaseRateField;
+				return sourceCurrencyBaseRateField;
 			}
 			set {
-				this.sourceCurrencyBaseRateField = value;
+				sourceCurrencyBaseRateField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CurrencyCodeType TargetCurrencyCode {
 			get {
-				return this.targetCurrencyCodeField;
+				return targetCurrencyCodeField;
 			}
 			set {
-				this.targetCurrencyCodeField = value;
+				targetCurrencyCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public UnitBaseRateType TargetUnitBaseRate {
 			get {
-				return this.targetUnitBaseRateField;
+				return targetUnitBaseRateField;
 			}
 			set {
-				this.targetUnitBaseRateField = value;
+				targetUnitBaseRateField = value;
 			}
 		}
     
 		/// <remarks/>
 		public IdentifierType ExchangeMarketID {
 			get {
-				return this.exchangeMarketIDField;
+				return exchangeMarketIDField;
 			}
 			set {
-				this.exchangeMarketIDField = value;
+				exchangeMarketIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public CalculationRateType CalculationRate {
 			get {
-				return this.calculationRateField;
+				return calculationRateField;
 			}
 			set {
-				this.calculationRateField = value;
+				calculationRateField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType OperatorCode {
 			get {
-				return this.operatorCodeField;
+				return operatorCodeField;
 			}
 			set {
-				this.operatorCodeField = value;
+				operatorCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public DateType1 Date {
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		public DateType Date {
 			get {
-				return this.dateField;
+				return dateField;
 			}
 			set {
-				this.dateField = value;
+				dateField = value;
 			}
 		}
     
 		/// <remarks/>
 		public ContractType ForeignExchangeContract {
 			get {
-				return this.foreignExchangeContractField;
+				return foreignExchangeContractField;
 			}
 			set {
-				this.foreignExchangeContractField = value;
+				foreignExchangeContractField = value;
 			}
 		}
 	}

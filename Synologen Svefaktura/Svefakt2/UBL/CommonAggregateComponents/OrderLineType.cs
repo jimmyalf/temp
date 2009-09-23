@@ -1,14 +1,16 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("OrderLine", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class OrderLineType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("OrderLine", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class OrderLineType {
     
 		private SubstitutionStatusCodeType substitutionStatusCodeField;
     
@@ -25,64 +27,64 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public SubstitutionStatusCodeType SubstitutionStatusCode {
 			get {
-				return this.substitutionStatusCodeField;
+				return substitutionStatusCodeField;
 			}
 			set {
-				this.substitutionStatusCodeField = value;
+				substitutionStatusCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public NoteType Note {
 			get {
-				return this.noteField;
+				return noteField;
 			}
 			set {
-				this.noteField = value;
+				noteField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LineItemType LineItem {
 			get {
-				return this.lineItemField;
+				return lineItemField;
 			}
 			set {
-				this.lineItemField = value;
+				lineItemField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("SellerProposedLineItem")]
+		[System.Xml.Serialization.XmlElement("SellerProposedLineItem")]
 		public List<LineItemType> SellerProposedLineItem {
 			get {
-				return this.sellerProposedLineItemField;
+				return sellerProposedLineItemField;
 			}
 			set {
-				this.sellerProposedLineItemField = value;
+				sellerProposedLineItemField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("SellerSubstitutedLineItem")]
+		[System.Xml.Serialization.XmlElement("SellerSubstitutedLineItem")]
 		public List<LineItemType> SellerSubstitutedLineItem {
 			get {
-				return this.sellerSubstitutedLineItemField;
+				return sellerSubstitutedLineItemField;
 			}
 			set {
-				this.sellerSubstitutedLineItemField = value;
+				sellerSubstitutedLineItemField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("BuyerProposedLineItem")]
+		[System.Xml.Serialization.XmlElement("BuyerProposedLineItem")]
 		public List<LineItemType> BuyerProposedLineItem {
 			get {
-				return this.buyerProposedLineItemField;
+				return buyerProposedLineItemField;
 			}
 			set {
-				this.buyerProposedLineItemField = value;
+				buyerProposedLineItemField = value;
 			}
 		}
 	}

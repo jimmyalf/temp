@@ -1,14 +1,16 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("FinancialAccount", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class FinancialAccountType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("FinancialAccount", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class FinancialAccountType {
     
 		private IdentifierType idField;
     
@@ -25,61 +27,61 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public NameType1 Name {
 			get {
-				return this.nameField;
+				return nameField;
 			}
 			set {
-				this.nameField = value;
+				nameField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType AccountTypeCode {
 			get {
-				return this.accountTypeCodeField;
+				return accountTypeCodeField;
 			}
 			set {
-				this.accountTypeCodeField = value;
+				accountTypeCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CurrencyCodeType CurrencyCode {
 			get {
-				return this.currencyCodeField;
+				return currencyCodeField;
 			}
 			set {
-				this.currencyCodeField = value;
+				currencyCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public BranchType FinancialInstitutionBranch {
 			get {
-				return this.financialInstitutionBranchField;
+				return financialInstitutionBranchField;
 			}
 			set {
-				this.financialInstitutionBranchField = value;
+				financialInstitutionBranchField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CountryType Country {
 			get {
-				return this.countryField;
+				return countryField;
 			}
 			set {
-				this.countryField = value;
+				countryField = value;
 			}
 		}
 	}

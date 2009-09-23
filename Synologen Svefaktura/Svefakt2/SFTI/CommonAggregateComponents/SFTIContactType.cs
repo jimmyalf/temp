@@ -1,12 +1,14 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 	[System.Xml.Serialization.XmlRoot("AccountsContact", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class SFTIContactType {
+	public class SFTIContactType {
     
 		private NameType1 nameField;
     
@@ -20,10 +22,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public NameType1 Name {
 			get {
-				return this.nameField;
+				return nameField;
 			}
 			set {
-				this.nameField = value;
+				nameField = value;
 			}
 		}
     
@@ -31,10 +33,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public TelephoneType Telephone {
 			get {
-				return this.telephoneField;
+				return telephoneField;
 			}
 			set {
-				this.telephoneField = value;
+				telephoneField = value;
 			}
 		}
     
@@ -42,10 +44,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public TelefaxType Telefax {
 			get {
-				return this.telefaxField;
+				return telefaxField;
 			}
 			set {
-				this.telefaxField = value;
+				telefaxField = value;
 			}
 		}
     
@@ -53,10 +55,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public MailType ElectronicMail {
 			get {
-				return this.electronicMailField;
+				return electronicMailField;
 			}
 			set {
-				this.electronicMailField = value;
+				electronicMailField = value;
 			}
 		}
 	}

@@ -1,14 +1,16 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("OrderReference", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class OrderReferenceType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("OrderReference", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class OrderReferenceType {
     
 		private IdentifierType buyersIDField;
     
@@ -25,62 +27,62 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType BuyersID {
 			get {
-				return this.buyersIDField;
+				return buyersIDField;
 			}
 			set {
-				this.buyersIDField = value;
+				buyersIDField = value;
 			}
 		}
     
 		/// <remarks/>
 		public IdentifierType SellersID {
 			get {
-				return this.sellersIDField;
+				return sellersIDField;
 			}
 			set {
-				this.sellersIDField = value;
+				sellersIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public CopyIndicatorType CopyIndicator {
 			get {
-				return this.copyIndicatorField;
+				return copyIndicatorField;
 			}
 			set {
-				this.copyIndicatorField = value;
+				copyIndicatorField = value;
 			}
 		}
     
 		/// <remarks/>
 		public DocumentStatusCodeType DocumentStatusCode {
 			get {
-				return this.documentStatusCodeField;
+				return documentStatusCodeField;
 			}
 			set {
-				this.documentStatusCodeField = value;
+				documentStatusCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public IssueDateType IssueDate {
 			get {
-				return this.issueDateField;
+				return issueDateField;
 			}
 			set {
-				this.issueDateField = value;
+				issueDateField = value;
 			}
 		}
     
 		/// <remarks/>
 		public IdentifierType GUID {
 			get {
-				return this.gUIDField;
+				return gUIDField;
 			}
 			set {
-				this.gUIDField = value;
+				gUIDField = value;
 			}
 		}
 	}

@@ -1,16 +1,18 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:documents:BasicInvoice:1:0")]
 	[System.Xml.Serialization.XmlRoot("Invoice", Namespace="urn:sfti:documents:BasicInvoice:1:0", IsNullable=false)]
-	public partial class SFTIInvoiceType {
+	public class SFTIInvoiceType {
     
 		private SFTISimpleIdentifierType idField;
     
@@ -61,10 +63,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		/// <remarks/>
 		public SFTISimpleIdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
@@ -72,20 +74,20 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public IssueDateType IssueDate {
 			get {
-				return this.issueDateField;
+				return issueDateField;
 			}
 			set {
-				this.issueDateField = value;
+				issueDateField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType InvoiceTypeCode {
 			get {
-				return this.invoiceTypeCodeField;
+				return invoiceTypeCodeField;
 			}
 			set {
-				this.invoiceTypeCodeField = value;
+				invoiceTypeCodeField = value;
 			}
 		}
     
@@ -93,50 +95,50 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public NoteType Note {
 			get {
-				return this.noteField;
+				return noteField;
 			}
 			set {
-				this.noteField = value;
+				noteField = value;
 			}
 		}
     
 		/// <remarks/>
 		public TaxPointDateType TaxPointDate {
 			get {
-				return this.taxPointDateField;
+				return taxPointDateField;
 			}
 			set {
-				this.taxPointDateField = value;
+				taxPointDateField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CurrencyCodeType InvoiceCurrencyCode {
 			get {
-				return this.invoiceCurrencyCodeField;
+				return invoiceCurrencyCodeField;
 			}
 			set {
-				this.invoiceCurrencyCodeField = value;
+				invoiceCurrencyCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CurrencyCodeType TaxCurrencyCode {
 			get {
-				return this.taxCurrencyCodeField;
+				return taxCurrencyCodeField;
 			}
 			set {
-				this.taxCurrencyCodeField = value;
+				taxCurrencyCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LineItemCountNumericType LineItemCountNumeric {
 			get {
-				return this.lineItemCountNumericField;
+				return lineItemCountNumericField;
 			}
 			set {
-				this.lineItemCountNumericField = value;
+				lineItemCountNumericField = value;
 			}
 		}
     
@@ -144,10 +146,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement("AdditionalDocumentReference")]
 		public List<SFTIDocumentReferenceType> AdditionalDocumentReference {
 			get {
-				return this.additionalDocumentReferenceField;
+				return additionalDocumentReferenceField;
 			}
 			set {
-				this.additionalDocumentReferenceField = value;
+				additionalDocumentReferenceField = value;
 			}
 		}
     
@@ -155,10 +157,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 		public SFTIBuyerPartyType BuyerParty {
 			get {
-				return this.buyerPartyField;
+				return buyerPartyField;
 			}
 			set {
-				this.buyerPartyField = value;
+				buyerPartyField = value;
 			}
 		}
     
@@ -166,10 +168,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 		public SFTISellerPartyType SellerParty {
 			get {
-				return this.sellerPartyField;
+				return sellerPartyField;
 			}
 			set {
-				this.sellerPartyField = value;
+				sellerPartyField = value;
 			}
 		}
     
@@ -177,10 +179,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 		public SFTIDeliveryType Delivery {
 			get {
-				return this.deliveryField;
+				return deliveryField;
 			}
 			set {
-				this.deliveryField = value;
+				deliveryField = value;
 			}
 		}
     
@@ -188,10 +190,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement("PaymentMeans", Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 		public List<SFTIPaymentMeansType> PaymentMeans {
 			get {
-				return this.paymentMeansField;
+				return paymentMeansField;
 			}
 			set {
-				this.paymentMeansField = value;
+				paymentMeansField = value;
 			}
 		}
     
@@ -199,10 +201,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 		public SFTIPaymentTermsType PaymentTerms {
 			get {
-				return this.paymentTermsField;
+				return paymentTermsField;
 			}
 			set {
-				this.paymentTermsField = value;
+				paymentTermsField = value;
 			}
 		}
     
@@ -210,10 +212,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement("AllowanceCharge")]
 		public List<SFTIAllowanceChargeType> AllowanceCharge {
 			get {
-				return this.allowanceChargeField;
+				return allowanceChargeField;
 			}
 			set {
-				this.allowanceChargeField = value;
+				allowanceChargeField = value;
 			}
 		}
     
@@ -221,10 +223,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 		public SFTIExchangeRateType ExchangeRate {
 			get {
-				return this.exchangeRateField;
+				return exchangeRateField;
 			}
 			set {
-				this.exchangeRateField = value;
+				exchangeRateField = value;
 			}
 		}
     
@@ -232,10 +234,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement("TaxTotal", Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 		public List<SFTITaxTotalType> TaxTotal {
 			get {
-				return this.taxTotalField;
+				return taxTotalField;
 			}
 			set {
-				this.taxTotalField = value;
+				taxTotalField = value;
 			}
 		}
     
@@ -243,10 +245,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 		public SFTILegalTotalType LegalTotal {
 			get {
-				return this.legalTotalField;
+				return legalTotalField;
 			}
 			set {
-				this.legalTotalField = value;
+				legalTotalField = value;
 			}
 		}
     
@@ -254,10 +256,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement("InvoiceLine", Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 		public List<SFTIInvoiceLineType> InvoiceLine {
 			get {
-				return this.invoiceLineField;
+				return invoiceLineField;
 			}
 			set {
-				this.invoiceLineField = value;
+				invoiceLineField = value;
 			}
 		}
     
@@ -265,10 +267,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement("RequisitionistDocumentReference")]
 		public List<SFTIDocumentReferenceType> RequisitionistDocumentReference {
 			get {
-				return this.requisitionistDocumentReferenceField;
+				return requisitionistDocumentReferenceField;
 			}
 			set {
-				this.requisitionistDocumentReferenceField = value;
+				requisitionistDocumentReferenceField = value;
 			}
 		}
     
@@ -276,10 +278,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement("InitialInvoiceDocumentReference")]
 		public List<SFTIDocumentReferenceType> InitialInvoiceDocumentReference {
 			get {
-				return this.initialInvoiceDocumentReferenceField;
+				return initialInvoiceDocumentReferenceField;
 			}
 			set {
-				this.initialInvoiceDocumentReferenceField = value;
+				initialInvoiceDocumentReferenceField = value;
 			}
 		}
     
@@ -287,20 +289,20 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		[System.Xml.Serialization.XmlElement(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 		public SFTIDeliveryTermsType DeliveryTerms {
 			get {
-				return this.deliveryTermsField;
+				return deliveryTermsField;
 			}
 			set {
-				this.deliveryTermsField = value;
+				deliveryTermsField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTIPeriodType InvoicingPeriod {
 			get {
-				return this.invoicingPeriodField;
+				return invoicingPeriodField;
 			}
 			set {
-				this.invoicingPeriodField = value;
+				invoicingPeriodField = value;
 			}
 		}
 	}

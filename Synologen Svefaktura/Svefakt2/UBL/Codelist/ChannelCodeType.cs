@@ -1,11 +1,11 @@
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:codelist:ChannelCode:1:0")]
-	public partial class ChannelCodeType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:codelist:ChannelCode:1:0")]
+	public class ChannelCodeType {
     
 		private string nameField;
     
@@ -28,122 +28,122 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		private ChannelCodeContentType valueField;
     
 		public ChannelCodeType() {
-			this.codeListIDField = "UN/ECE 3155";
-			this.codeListAgencyIDField = "6";
-			this.codeListAgencyNameField = "United Nations Economic Commission for Europe";
-			this.codeListNameField = "Communication Address Code Qualifier";
-			this.codeListVersionIDField = "D03A";
-			this.codeListURIField = "http://www.unece.org/trade/untdid/d03a/tred/tred3155.htm";
-			this.codeListSchemeURIField = "urn:oasis:names:tc:ubl:codelist:ChannelCode:1:0";
+			codeListIDField = "UN/ECE 3155";
+			codeListAgencyIDField = "6";
+			codeListAgencyNameField = "United Nations Economic Commission for Europe";
+			codeListNameField = "Communication Address Code Qualifier";
+			codeListVersionIDField = "D03A";
+			codeListURIField = "http://www.unece.org/trade/untdid/d03a/tred/tred3155.htm";
+			codeListSchemeURIField = "urn:oasis:names:tc:ubl:codelist:ChannelCode:1:0";
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute]
 		public string name {
 			get {
-				return this.nameField;
+				return nameField;
 			}
 			set {
-				this.nameField = value;
+				nameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string codeListID {
 			get {
-				return this.codeListIDField;
+				return codeListIDField;
 			}
 			set {
-				this.codeListIDField = value;
+				codeListIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string codeListAgencyID {
 			get {
-				return this.codeListAgencyIDField;
+				return codeListAgencyIDField;
 			}
 			set {
-				this.codeListAgencyIDField = value;
+				codeListAgencyIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute]
 		public string codeListAgencyName {
 			get {
-				return this.codeListAgencyNameField;
+				return codeListAgencyNameField;
 			}
 			set {
-				this.codeListAgencyNameField = value;
+				codeListAgencyNameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute]
 		public string codeListName {
 			get {
-				return this.codeListNameField;
+				return codeListNameField;
 			}
 			set {
-				this.codeListNameField = value;
+				codeListNameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string codeListVersionID {
 			get {
-				return this.codeListVersionIDField;
+				return codeListVersionIDField;
 			}
 			set {
-				this.codeListVersionIDField = value;
+				codeListVersionIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+		[System.Xml.Serialization.XmlAttribute(DataType="anyURI")]
 		public string codeListURI {
 			get {
-				return this.codeListURIField;
+				return codeListURIField;
 			}
 			set {
-				this.codeListURIField = value;
+				codeListURIField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+		[System.Xml.Serialization.XmlAttribute(DataType="anyURI")]
 		public string codeListSchemeURI {
 			get {
-				return this.codeListSchemeURIField;
+				return codeListSchemeURIField;
 			}
 			set {
-				this.codeListSchemeURIField = value;
+				codeListSchemeURIField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="language")]
+		[System.Xml.Serialization.XmlAttribute(DataType="language")]
 		public string languageID {
 			get {
-				return this.languageIDField;
+				return languageIDField;
 			}
 			set {
-				this.languageIDField = value;
+				languageIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlTextAttribute()]
+		[System.Xml.Serialization.XmlText]
 		public ChannelCodeContentType Value {
 			get {
-				return this.valueField;
+				return valueField;
 			}
 			set {
-				this.valueField = value;
+				valueField = value;
 			}
 		}
 	}

@@ -1,48 +1,50 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 	[System.Xml.Serialization.XmlRoot("AllowanceCharge", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class SFTIInvoiceLineAllowanceCharge {
+	public class SFTIInvoiceLineAllowanceCharge {
     
 		private ChargeIndicatorType chargeIndicatorField;
     
-		private AmountType2 amountField;
+		private AmountType amountField;
     
-		private AmountType2 allowanceChargeBaseAmountField;
+		private AmountType allowanceChargeBaseAmountField;
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public ChargeIndicatorType ChargeIndicator {
 			get {
-				return this.chargeIndicatorField;
+				return chargeIndicatorField;
 			}
 			set {
-				this.chargeIndicatorField = value;
+				chargeIndicatorField = value;
 			}
 		}
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public AmountType2 Amount {
+		public AmountType Amount {
 			get {
-				return this.amountField;
+				return amountField;
 			}
 			set {
-				this.amountField = value;
+				amountField = value;
 			}
 		}
     
 		/// <remarks/>
-		public AmountType2 AllowanceChargeBaseAmount {
+		public AmountType AllowanceChargeBaseAmount {
 			get {
-				return this.allowanceChargeBaseAmountField;
+				return allowanceChargeBaseAmountField;
 			}
 			set {
-				this.allowanceChargeBaseAmountField = value;
+				allowanceChargeBaseAmountField = value;
 			}
 		}
 	}

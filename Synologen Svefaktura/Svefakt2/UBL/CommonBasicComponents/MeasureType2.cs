@@ -7,7 +7,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents {
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(TypeName="MeasureType", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("MaximumMeasure", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("cbc:MaximumMeasure", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
 	public class MeasureType2 : MeasureType {
 	}
 }

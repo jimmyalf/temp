@@ -1,0 +1,26 @@
+using System.Collections.Generic;
+
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+	/// <remarks/>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRootAttribute("PartyName", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public partial class PartyNameType {
+    
+		private List<NameType1> nameField = new List<NameType1>();
+    
+		/// <remarks/>
+		[System.Xml.Serialization.XmlElementAttribute("Name", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		public List<NameType1> Name {
+			get {
+				return this.nameField;
+			}
+			set {
+				this.nameField = value;
+			}
+		}
+	}
+}

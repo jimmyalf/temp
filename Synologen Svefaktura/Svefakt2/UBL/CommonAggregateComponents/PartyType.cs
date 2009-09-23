@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("CarrierParty", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class PartyType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("CarrierParty", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class PartyType {
     
 		private MarkCareIndicatorType markCareIndicatorField;
     
@@ -27,87 +28,87 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		private LanguageType languageField;
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public MarkCareIndicatorType MarkCareIndicator {
 			get {
-				return this.markCareIndicatorField;
+				return markCareIndicatorField;
 			}
 			set {
-				this.markCareIndicatorField = value;
+				markCareIndicatorField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public MarkAttentionIndicatorType MarkAttentionIndicator {
 			get {
-				return this.markAttentionIndicatorField;
+				return markAttentionIndicatorField;
 			}
 			set {
-				this.markAttentionIndicatorField = value;
+				markAttentionIndicatorField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("PartyIdentification")]
+		[System.Xml.Serialization.XmlElement("PartyIdentification")]
 		public List<PartyIdentificationType> PartyIdentification {
 			get {
-				return this.partyIdentificationField;
+				return partyIdentificationField;
 			}
 			set {
-				this.partyIdentificationField = value;
+				partyIdentificationField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlArrayItemAttribute("Name", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
+		[System.Xml.Serialization.XmlArrayItem("Name", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
 		public List<NameType1> PartyName {
 			get {
-				return this.partyNameField;
+				return partyNameField;
 			}
 			set {
-				this.partyNameField = value;
+				partyNameField = value;
 			}
 		}
     
 		/// <remarks/>
 		public AddressType Address {
 			get {
-				return this.addressField;
+				return addressField;
 			}
 			set {
-				this.addressField = value;
+				addressField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("PartyTaxScheme")]
+		[System.Xml.Serialization.XmlElement("PartyTaxScheme")]
 		public List<PartyTaxSchemeType> PartyTaxScheme {
 			get {
-				return this.partyTaxSchemeField;
+				return partyTaxSchemeField;
 			}
 			set {
-				this.partyTaxSchemeField = value;
+				partyTaxSchemeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public ContactType Contact {
 			get {
-				return this.contactField;
+				return contactField;
 			}
 			set {
-				this.contactField = value;
+				contactField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LanguageType Language {
 			get {
-				return this.languageField;
+				return languageField;
 			}
 			set {
-				this.languageField = value;
+				languageField = value;
 			}
 		}
 	}

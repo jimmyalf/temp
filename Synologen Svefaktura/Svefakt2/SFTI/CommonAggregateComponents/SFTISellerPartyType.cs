@@ -1,12 +1,12 @@
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 	[System.Xml.Serialization.XmlRoot("SellerParty", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class SFTISellerPartyType {
+	public class SFTISellerPartyType {
     
 		private SFTIPartyType partyField;
     
@@ -15,20 +15,20 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		/// <remarks/>
 		public SFTIPartyType Party {
 			get {
-				return this.partyField;
+				return partyField;
 			}
 			set {
-				this.partyField = value;
+				partyField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTIContactType AccountsContact {
 			get {
-				return this.accountsContactField;
+				return accountsContactField;
 			}
 			set {
-				this.accountsContactField = value;
+				accountsContactField = value;
 			}
 		}
 	}

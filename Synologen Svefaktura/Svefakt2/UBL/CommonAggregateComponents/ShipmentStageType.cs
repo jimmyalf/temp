@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("ShipmentStage", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class ShipmentStageType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("ShipmentStage", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class ShipmentStageType {
     
 		private IdentifierType idField;
     
@@ -26,61 +26,61 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType TransportModeCode {
 			get {
-				return this.transportModeCodeField;
+				return transportModeCodeField;
 			}
 			set {
-				this.transportModeCodeField = value;
+				transportModeCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType TransportMeansTypeCode {
 			get {
-				return this.transportMeansTypeCodeField;
+				return transportMeansTypeCodeField;
 			}
 			set {
-				this.transportMeansTypeCodeField = value;
+				transportMeansTypeCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType TransitDirectionCode {
 			get {
-				return this.transitDirectionCodeField;
+				return transitDirectionCodeField;
 			}
 			set {
-				this.transitDirectionCodeField = value;
+				transitDirectionCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public PeriodType TransitPeriod {
 			get {
-				return this.transitPeriodField;
+				return transitPeriodField;
 			}
 			set {
-				this.transitPeriodField = value;
+				transitPeriodField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("CarrierParty")]
+		[System.Xml.Serialization.XmlElement("CarrierParty")]
 		public List<PartyType> CarrierParty {
 			get {
-				return this.carrierPartyField;
+				return carrierPartyField;
 			}
 			set {
-				this.carrierPartyField = value;
+				carrierPartyField = value;
 			}
 		}
 	}

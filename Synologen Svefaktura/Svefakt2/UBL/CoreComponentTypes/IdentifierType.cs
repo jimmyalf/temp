@@ -2,11 +2,11 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 	/// <remarks/>
 	[System.Xml.Serialization.XmlInclude(typeof(UnspecializedDatatypes.IdentifierType))]
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CoreComponentTypes:1:0")]
-	public partial class IdentifierType {
+	public class IdentifierType {
     
 		private string identificationSchemeIDField;
     
@@ -28,10 +28,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string identificationSchemeID {
 			get {
-				return this.identificationSchemeIDField;
+				return identificationSchemeIDField;
 			}
 			set {
-				this.identificationSchemeIDField = value;
+				identificationSchemeIDField = value;
 			}
 		}
     
@@ -39,10 +39,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string identificationSchemeAgencyID {
 			get {
-				return this.identificationSchemeAgencyIDField;
+				return identificationSchemeAgencyIDField;
 			}
 			set {
-				this.identificationSchemeAgencyIDField = value;
+				identificationSchemeAgencyIDField = value;
 			}
 		}
     
@@ -50,10 +50,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string identificationSchemeVersionID {
 			get {
-				return this.identificationSchemeVersionIDField;
+				return identificationSchemeVersionIDField;
 			}
 			set {
-				this.identificationSchemeVersionIDField = value;
+				identificationSchemeVersionIDField = value;
 			}
 		}
     
@@ -61,32 +61,32 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="anyURI")]
 		public string identificationSchemeURI {
 			get {
-				return this.identificationSchemeURIField;
+				return identificationSchemeURIField;
 			}
 			set {
-				this.identificationSchemeURIField = value;
+				identificationSchemeURIField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttribute()]
+		[System.Xml.Serialization.XmlAttribute]
 		public string identificationSchemeAgencyName {
 			get {
-				return this.identificationSchemeAgencyNameField;
+				return identificationSchemeAgencyNameField;
 			}
 			set {
-				this.identificationSchemeAgencyNameField = value;
+				identificationSchemeAgencyNameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttribute()]
+		[System.Xml.Serialization.XmlAttribute]
 		public string identificationSchemeName {
 			get {
-				return this.identificationSchemeNameField;
+				return identificationSchemeNameField;
 			}
 			set {
-				this.identificationSchemeNameField = value;
+				identificationSchemeNameField = value;
 			}
 		}
     
@@ -94,10 +94,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="anyURI")]
 		public string identificationSchemeDataURI {
 			get {
-				return this.identificationSchemeDataURIField;
+				return identificationSchemeDataURIField;
 			}
 			set {
-				this.identificationSchemeDataURIField = value;
+				identificationSchemeDataURIField = value;
 			}
 		}
     
@@ -105,10 +105,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlText(DataType="normalizedString")]
 		public string Value {
 			get {
-				return this.valueField;
+				return valueField;
 			}
 			set {
-				this.valueField = value;
+				valueField = value;
 			}
 		}
 	}

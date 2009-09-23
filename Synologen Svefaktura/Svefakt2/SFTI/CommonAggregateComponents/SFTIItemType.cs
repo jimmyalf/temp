@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 	[System.Xml.Serialization.XmlRoot("Item", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class SFTIItemType {
+	public class SFTIItemType {
     
 		private DescriptionType descriptionField;
     
@@ -26,40 +27,40 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public DescriptionType Description {
 			get {
-				return this.descriptionField;
+				return descriptionField;
 			}
 			set {
-				this.descriptionField = value;
+				descriptionField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTIItemIdentificationType BuyersItemIdentification {
 			get {
-				return this.buyersItemIdentificationField;
+				return buyersItemIdentificationField;
 			}
 			set {
-				this.buyersItemIdentificationField = value;
+				buyersItemIdentificationField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTIItemIdentificationType SellersItemIdentification {
 			get {
-				return this.sellersItemIdentificationField;
+				return sellersItemIdentificationField;
 			}
 			set {
-				this.sellersItemIdentificationField = value;
+				sellersItemIdentificationField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTIItemIdentificationType StandardItemIdentification {
 			get {
-				return this.standardItemIdentificationField;
+				return standardItemIdentificationField;
 			}
 			set {
-				this.standardItemIdentificationField = value;
+				standardItemIdentificationField = value;
 			}
 		}
     
@@ -67,20 +68,20 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement("TaxCategory")]
 		public List<SFTITaxCategoryType> TaxCategory {
 			get {
-				return this.taxCategoryField;
+				return taxCategoryField;
 			}
 			set {
-				this.taxCategoryField = value;
+				taxCategoryField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTIBasePriceType BasePrice {
 			get {
-				return this.basePriceField;
+				return basePriceField;
 			}
 			set {
-				this.basePriceField = value;
+				basePriceField = value;
 			}
 		}
 	}

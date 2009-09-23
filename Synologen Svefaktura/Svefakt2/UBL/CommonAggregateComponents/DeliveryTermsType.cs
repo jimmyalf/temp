@@ -1,14 +1,15 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("DeliveryTerms", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class DeliveryTermsType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("DeliveryTerms", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class DeliveryTermsType {
     
 		private IdentifierType idField;
     
@@ -25,63 +26,63 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public LocationType RelevantLocation {
 			get {
-				return this.relevantLocationField;
+				return relevantLocationField;
 			}
 			set {
-				this.relevantLocationField = value;
+				relevantLocationField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public TermsType SpecialTerms {
 			get {
-				return this.specialTermsField;
+				return specialTermsField;
 			}
 			set {
-				this.specialTermsField = value;
+				specialTermsField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType LossRiskResponsibilityCode {
 			get {
-				return this.lossRiskResponsibilityCodeField;
+				return lossRiskResponsibilityCodeField;
 			}
 			set {
-				this.lossRiskResponsibilityCodeField = value;
+				lossRiskResponsibilityCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public LossRiskType LossRisk {
 			get {
-				return this.lossRiskField;
+				return lossRiskField;
 			}
 			set {
-				this.lossRiskField = value;
+				lossRiskField = value;
 			}
 		}
     
 		/// <remarks/>
 		public AllowanceChargeType AllowanceCharge {
 			get {
-				return this.allowanceChargeField;
+				return allowanceChargeField;
 			}
 			set {
-				this.allowanceChargeField = value;
+				allowanceChargeField = value;
 			}
 		}
 	}

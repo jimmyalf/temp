@@ -1,12 +1,14 @@
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("BasePrice", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class BasePriceType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("BasePrice", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class BasePriceType {
     
 		private PriceAmountType priceAmountField;
     
@@ -16,73 +18,73 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
     
 		private QuantityType2 minimumQuantityField;
     
-		private AmountType2 maximumAmountField;
+		private AmountType maximumAmountField;
     
-		private AmountType2 minimumAmountField;
+		private AmountType minimumAmountField;
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public PriceAmountType PriceAmount {
 			get {
-				return this.priceAmountField;
+				return priceAmountField;
 			}
 			set {
-				this.priceAmountField = value;
+				priceAmountField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 BaseQuantity {
 			get {
-				return this.baseQuantityField;
+				return baseQuantityField;
 			}
 			set {
-				this.baseQuantityField = value;
+				baseQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 MaximumQuantity {
 			get {
-				return this.maximumQuantityField;
+				return maximumQuantityField;
 			}
 			set {
-				this.maximumQuantityField = value;
+				maximumQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 MinimumQuantity {
 			get {
-				return this.minimumQuantityField;
+				return minimumQuantityField;
 			}
 			set {
-				this.minimumQuantityField = value;
+				minimumQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public AmountType2 MaximumAmount {
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		public AmountType MaximumAmount {
 			get {
-				return this.maximumAmountField;
+				return maximumAmountField;
 			}
 			set {
-				this.maximumAmountField = value;
+				maximumAmountField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public AmountType2 MinimumAmount {
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		public AmountType MinimumAmount {
 			get {
-				return this.minimumAmountField;
+				return minimumAmountField;
 			}
 			set {
-				this.minimumAmountField = value;
+				minimumAmountField = value;
 			}
 		}
 	}

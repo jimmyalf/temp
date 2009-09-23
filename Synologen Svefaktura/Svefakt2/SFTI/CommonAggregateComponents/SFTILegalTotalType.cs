@@ -1,12 +1,14 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 	[System.Xml.Serialization.XmlRoot("LegalTotal", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class SFTILegalTotalType {
+	public class SFTILegalTotalType {
     
 		private ExtensionTotalAmountType lineExtensionTotalAmountField;
     
@@ -14,16 +16,16 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		private TotalAmountType taxInclusiveTotalAmountField;
     
-		private AmountType2 roundOffAmountField;
+		private AmountType roundOffAmountField;
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public ExtensionTotalAmountType LineExtensionTotalAmount {
 			get {
-				return this.lineExtensionTotalAmountField;
+				return lineExtensionTotalAmountField;
 			}
 			set {
-				this.lineExtensionTotalAmountField = value;
+				lineExtensionTotalAmountField = value;
 			}
 		}
     
@@ -31,10 +33,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public TotalAmountType TaxExclusiveTotalAmount {
 			get {
-				return this.taxExclusiveTotalAmountField;
+				return taxExclusiveTotalAmountField;
 			}
 			set {
-				this.taxExclusiveTotalAmountField = value;
+				taxExclusiveTotalAmountField = value;
 			}
 		}
     
@@ -42,20 +44,20 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public TotalAmountType TaxInclusiveTotalAmount {
 			get {
-				return this.taxInclusiveTotalAmountField;
+				return taxInclusiveTotalAmountField;
 			}
 			set {
-				this.taxInclusiveTotalAmountField = value;
+				taxInclusiveTotalAmountField = value;
 			}
 		}
     
 		/// <remarks/>
-		public AmountType2 RoundOffAmount {
+		public AmountType RoundOffAmount {
 			get {
-				return this.roundOffAmountField;
+				return roundOffAmountField;
 			}
 			set {
-				this.roundOffAmountField = value;
+				roundOffAmountField = value;
 			}
 		}
 	}

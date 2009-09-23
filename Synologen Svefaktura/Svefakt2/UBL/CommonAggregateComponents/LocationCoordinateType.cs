@@ -1,14 +1,16 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("LocationCoordinate", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class LocationCoordinateType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("LocationCoordinate", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class LocationCoordinateType {
     
 		private CodeType coordinateSystemCodeField;
     
@@ -27,74 +29,74 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public CodeType CoordinateSystemCode {
 			get {
-				return this.coordinateSystemCodeField;
+				return coordinateSystemCodeField;
 			}
 			set {
-				this.coordinateSystemCodeField = value;
+				coordinateSystemCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public LatitudeDegreesMeasureType LatitudeDegreesMeasure {
 			get {
-				return this.latitudeDegreesMeasureField;
+				return latitudeDegreesMeasureField;
 			}
 			set {
-				this.latitudeDegreesMeasureField = value;
+				latitudeDegreesMeasureField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public LatitudeMinutesMeasureType LatitudeMinutesMeasure {
 			get {
-				return this.latitudeMinutesMeasureField;
+				return latitudeMinutesMeasureField;
 			}
 			set {
-				this.latitudeMinutesMeasureField = value;
+				latitudeMinutesMeasureField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LatitudeDirectionCodeType LatitudeDirectionCode {
 			get {
-				return this.latitudeDirectionCodeField;
+				return latitudeDirectionCodeField;
 			}
 			set {
-				this.latitudeDirectionCodeField = value;
+				latitudeDirectionCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public LongitudeDegreesMeasureType LongitudeDegreesMeasure {
 			get {
-				return this.longitudeDegreesMeasureField;
+				return longitudeDegreesMeasureField;
 			}
 			set {
-				this.longitudeDegreesMeasureField = value;
+				longitudeDegreesMeasureField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public LongitudeMinutesMeasureType LongitudeMinutesMeasure {
 			get {
-				return this.longitudeMinutesMeasureField;
+				return longitudeMinutesMeasureField;
 			}
 			set {
-				this.longitudeMinutesMeasureField = value;
+				longitudeMinutesMeasureField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LongitudeDirectionCodeType LongitudeDirectionCode {
 			get {
-				return this.longitudeDirectionCodeField;
+				return longitudeDirectionCodeField;
 			}
 			set {
-				this.longitudeDirectionCodeField = value;
+				longitudeDirectionCodeField = value;
 			}
 		}
 	}

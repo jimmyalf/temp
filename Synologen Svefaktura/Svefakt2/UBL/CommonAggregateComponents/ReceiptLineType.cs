@@ -1,15 +1,18 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
+using DateType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.DateType;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("ReceiptLine", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class ReceiptLineType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("ReceiptLine", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class ReceiptLineType {
     
 		private IdentifierType idField;
     
@@ -27,7 +30,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
     
 		private CodeType rejectActionCodeField;
     
-		private DateType1 receivedDateField;
+		private DateType receivedDateField;
     
 		private CodeType timingComplaintCodeField;
     
@@ -46,170 +49,170 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LineStatusCodeType LineStatusCode {
 			get {
-				return this.lineStatusCodeField;
+				return lineStatusCodeField;
 			}
 			set {
-				this.lineStatusCodeField = value;
+				lineStatusCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 ReceivedQuantity {
 			get {
-				return this.receivedQuantityField;
+				return receivedQuantityField;
 			}
 			set {
-				this.receivedQuantityField = value;
+				receivedQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 ShortQuantity {
 			get {
-				return this.shortQuantityField;
+				return shortQuantityField;
 			}
 			set {
-				this.shortQuantityField = value;
+				shortQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType ShortageActionCode {
 			get {
-				return this.shortageActionCodeField;
+				return shortageActionCodeField;
 			}
 			set {
-				this.shortageActionCodeField = value;
+				shortageActionCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 RejectedQuantity {
 			get {
-				return this.rejectedQuantityField;
+				return rejectedQuantityField;
 			}
 			set {
-				this.rejectedQuantityField = value;
+				rejectedQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType RejectReasonCode {
 			get {
-				return this.rejectReasonCodeField;
+				return rejectReasonCodeField;
 			}
 			set {
-				this.rejectReasonCodeField = value;
+				rejectReasonCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType RejectActionCode {
 			get {
-				return this.rejectActionCodeField;
+				return rejectActionCodeField;
 			}
 			set {
-				this.rejectActionCodeField = value;
+				rejectActionCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public DateType1 ReceivedDate {
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		public DateType ReceivedDate {
 			get {
-				return this.receivedDateField;
+				return receivedDateField;
 			}
 			set {
-				this.receivedDateField = value;
+				receivedDateField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType TimingComplaintCode {
 			get {
-				return this.timingComplaintCodeField;
+				return timingComplaintCodeField;
 			}
 			set {
-				this.timingComplaintCodeField = value;
+				timingComplaintCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public NoteType Note {
 			get {
-				return this.noteField;
+				return noteField;
 			}
 			set {
-				this.noteField = value;
+				noteField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("OrderLineReference")]
+		[System.Xml.Serialization.XmlElement("OrderLineReference")]
 		public List<OrderLineReferenceType> OrderLineReference {
 			get {
-				return this.orderLineReferenceField;
+				return orderLineReferenceField;
 			}
 			set {
-				this.orderLineReferenceField = value;
+				orderLineReferenceField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("DespatchLineReference")]
+		[System.Xml.Serialization.XmlElement("DespatchLineReference")]
 		public List<LineReferenceType> DespatchLineReference {
 			get {
-				return this.despatchLineReferenceField;
+				return despatchLineReferenceField;
 			}
 			set {
-				this.despatchLineReferenceField = value;
+				despatchLineReferenceField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("Delivery")]
+		[System.Xml.Serialization.XmlElement("Delivery")]
 		public List<DeliveryType> Delivery {
 			get {
-				return this.deliveryField;
+				return deliveryField;
 			}
 			set {
-				this.deliveryField = value;
+				deliveryField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("TransportHandlingUnit")]
+		[System.Xml.Serialization.XmlElement("TransportHandlingUnit")]
 		public List<TransportHandlingUnitType> TransportHandlingUnit {
 			get {
-				return this.transportHandlingUnitField;
+				return transportHandlingUnitField;
 			}
 			set {
-				this.transportHandlingUnitField = value;
+				transportHandlingUnitField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("OrderedItemIdentification")]
+		[System.Xml.Serialization.XmlElement("OrderedItemIdentification")]
 		public List<ItemIdentificationType> OrderedItemIdentification {
 			get {
-				return this.orderedItemIdentificationField;
+				return orderedItemIdentificationField;
 			}
 			set {
-				this.orderedItemIdentificationField = value;
+				orderedItemIdentificationField = value;
 			}
 		}
 	}

@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentParameters {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CoreComponentParameters:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("Context", Namespace="urn:oasis:names:tc:ubl:CoreComponentParameters:1:0", IsNullable=false)]
-	public partial class ContextType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CoreComponentParameters:1:0")]
+	[System.Xml.Serialization.XmlRoot("Context", Namespace="urn:oasis:names:tc:ubl:CoreComponentParameters:1:0", IsNullable=false)]
+	public class ContextType {
     
 		private List<string> industryClassificationField = new List<string>();
 
@@ -27,90 +27,90 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		private List<string> systemCapabilityField = new List<string>();
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("IndustryClassification")]
+		[System.Xml.Serialization.XmlElement("IndustryClassification")]
 		public List<string> IndustryClassification {
 			get {
-				return this.industryClassificationField;
+				return industryClassificationField;
 			}
 			set {
-				this.industryClassificationField = value;
+				industryClassificationField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("Geopolitical")]
+		[System.Xml.Serialization.XmlElement("Geopolitical")]
 		public List<string> Geopolitical {
 			get {
-				return this.geopoliticalField;
+				return geopoliticalField;
 			}
 			set {
-				this.geopoliticalField = value;
+				geopoliticalField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("BusinessProcess")]
+		[System.Xml.Serialization.XmlElement("BusinessProcess")]
 		public List<string> BusinessProcess {
 			get {
-				return this.businessProcessField;
+				return businessProcessField;
 			}
 			set {
-				this.businessProcessField = value;
+				businessProcessField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("OfficialConstraint")]
+		[System.Xml.Serialization.XmlElement("OfficialConstraint")]
 		public List<string> OfficialConstraint {
 			get {
-				return this.officialConstraintField;
+				return officialConstraintField;
 			}
 			set {
-				this.officialConstraintField = value;
+				officialConstraintField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("ProductClassification")]
+		[System.Xml.Serialization.XmlElement("ProductClassification")]
 		public List<string> ProductClassification {
 			get {
-				return this.productClassificationField;
+				return productClassificationField;
 			}
 			set {
-				this.productClassificationField = value;
+				productClassificationField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("BusinessProcessRole")]
+		[System.Xml.Serialization.XmlElement("BusinessProcessRole")]
 		public List<string> BusinessProcessRole {
 			get {
-				return this.businessProcessRoleField;
+				return businessProcessRoleField;
 			}
 			set {
-				this.businessProcessRoleField = value;
+				businessProcessRoleField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("SupportingRole")]
+		[System.Xml.Serialization.XmlElement("SupportingRole")]
 		public List<string> SupportingRole {
 			get {
-				return this.supportingRoleField;
+				return supportingRoleField;
 			}
 			set {
-				this.supportingRoleField = value;
+				supportingRoleField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("SystemCapability")]
+		[System.Xml.Serialization.XmlElement("SystemCapability")]
 		public List<string> SystemCapability {
 			get {
-				return this.systemCapabilityField;
+				return systemCapabilityField;
 			}
 			set {
-				this.systemCapabilityField = value;
+				systemCapabilityField = value;
 			}
 		}
 	}

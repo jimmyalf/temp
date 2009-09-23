@@ -9,10 +9,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes {
 	[System.Xml.Serialization.XmlInclude(typeof(CityNameType))]
 	[System.Xml.Serialization.XmlInclude(typeof(BuildingNameType))]
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0")]
-	public partial class NameType : CoreComponentTypes.TextType {
+	public class NameType : CoreComponentTypes.TextType {
 	}
 }

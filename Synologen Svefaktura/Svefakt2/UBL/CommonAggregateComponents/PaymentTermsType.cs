@@ -1,14 +1,15 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("PaymentTerms", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class PaymentTermsType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("PaymentTerms", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class PaymentTermsType {
     
 		private IdentifierType idField;
     
@@ -27,73 +28,73 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public NoteType Note {
 			get {
-				return this.noteField;
+				return noteField;
 			}
 			set {
-				this.noteField = value;
+				noteField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType ReferenceEventCode {
 			get {
-				return this.referenceEventCodeField;
+				return referenceEventCodeField;
 			}
 			set {
-				this.referenceEventCodeField = value;
+				referenceEventCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public DiscountPercentType SettlementDiscountPercent {
 			get {
-				return this.settlementDiscountPercentField;
+				return settlementDiscountPercentField;
 			}
 			set {
-				this.settlementDiscountPercentField = value;
+				settlementDiscountPercentField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public SurchargePercentType PenaltySurchargePercent {
 			get {
-				return this.penaltySurchargePercentField;
+				return penaltySurchargePercentField;
 			}
 			set {
-				this.penaltySurchargePercentField = value;
+				penaltySurchargePercentField = value;
 			}
 		}
     
 		/// <remarks/>
 		public PeriodType SettlementPeriod {
 			get {
-				return this.settlementPeriodField;
+				return settlementPeriodField;
 			}
 			set {
-				this.settlementPeriodField = value;
+				settlementPeriodField = value;
 			}
 		}
     
 		/// <remarks/>
 		public PeriodType PenaltyPeriod {
 			get {
-				return this.penaltyPeriodField;
+				return penaltyPeriodField;
 			}
 			set {
-				this.penaltyPeriodField = value;
+				penaltyPeriodField = value;
 			}
 		}
 	}

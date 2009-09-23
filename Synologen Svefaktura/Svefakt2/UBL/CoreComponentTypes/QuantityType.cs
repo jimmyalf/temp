@@ -8,11 +8,11 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 	[System.Xml.Serialization.XmlInclude(typeof(PackQuantityType))]
 	[System.Xml.Serialization.XmlInclude(typeof(BackorderQuantityType))]
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CoreComponentTypes:1:0")]
-	public partial class QuantityType {
+	public class QuantityType {
     
 		private string quantityUnitCodeField;
     
@@ -28,10 +28,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string quantityUnitCode {
 			get {
-				return this.quantityUnitCodeField;
+				return quantityUnitCodeField;
 			}
 			set {
-				this.quantityUnitCodeField = value;
+				quantityUnitCodeField = value;
 			}
 		}
     
@@ -39,10 +39,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string quantityUnitCodeListID {
 			get {
-				return this.quantityUnitCodeListIDField;
+				return quantityUnitCodeListIDField;
 			}
 			set {
-				this.quantityUnitCodeListIDField = value;
+				quantityUnitCodeListIDField = value;
 			}
 		}
     
@@ -50,32 +50,32 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string quantityUnitCodeListAgencyID {
 			get {
-				return this.quantityUnitCodeListAgencyIDField;
+				return quantityUnitCodeListAgencyIDField;
 			}
 			set {
-				this.quantityUnitCodeListAgencyIDField = value;
+				quantityUnitCodeListAgencyIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttribute()]
+		[System.Xml.Serialization.XmlAttribute]
 		public string quantityUnitCodeListAgencyName {
 			get {
-				return this.quantityUnitCodeListAgencyNameField;
+				return quantityUnitCodeListAgencyNameField;
 			}
 			set {
-				this.quantityUnitCodeListAgencyNameField = value;
+				quantityUnitCodeListAgencyNameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlText()]
+		[System.Xml.Serialization.XmlText]
 		public decimal Value {
 			get {
-				return this.valueField;
+				return valueField;
 			}
 			set {
-				this.valueField = value;
+				valueField = value;
 			}
 		}
 	}

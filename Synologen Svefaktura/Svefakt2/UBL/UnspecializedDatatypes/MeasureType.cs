@@ -11,10 +11,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes {
 	[System.Xml.Serialization.XmlInclude(typeof(LatitudeDegreesMeasureType))]
 	[System.Xml.Serialization.XmlInclude(typeof(DurationMeasureType))]
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(TypeName="MeasureType", Namespace="urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0")]
-	public partial class MeasureType : CoreComponentTypes.MeasureType {
+	public class MeasureType : CoreComponentTypes.MeasureType {
 	}
 }

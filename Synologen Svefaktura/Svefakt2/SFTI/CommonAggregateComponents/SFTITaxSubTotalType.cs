@@ -1,14 +1,16 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 	[System.Xml.Serialization.XmlRoot("TaxSubTotal", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class SFTITaxSubTotalType {
+	public class SFTITaxSubTotalType {
     
-		private AmountType2 taxableAmountField;
+		private AmountType taxableAmountField;
     
 		private TaxAmountType taxAmountField;
     
@@ -20,12 +22,12 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public AmountType2 TaxableAmount {
+		public AmountType TaxableAmount {
 			get {
-				return this.taxableAmountField;
+				return taxableAmountField;
 			}
 			set {
-				this.taxableAmountField = value;
+				taxableAmountField = value;
 			}
 		}
     
@@ -33,40 +35,40 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public TaxAmountType TaxAmount {
 			get {
-				return this.taxAmountField;
+				return taxAmountField;
 			}
 			set {
-				this.taxAmountField = value;
+				taxAmountField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTITaxCategoryType TaxCategory {
 			get {
-				return this.taxCategoryField;
+				return taxCategoryField;
 			}
 			set {
-				this.taxCategoryField = value;
+				taxCategoryField = value;
 			}
 		}
     
 		/// <remarks/>
 		public TaxAmountType TaxCurrencyTaxAmount {
 			get {
-				return this.taxCurrencyTaxAmountField;
+				return taxCurrencyTaxAmountField;
 			}
 			set {
-				this.taxCurrencyTaxAmountField = value;
+				taxCurrencyTaxAmountField = value;
 			}
 		}
     
 		/// <remarks/>
 		public TaxAmountType InitialInvoiceTaxAmount {
 			get {
-				return this.initialInvoiceTaxAmountField;
+				return initialInvoiceTaxAmountField;
 			}
 			set {
-				this.initialInvoiceTaxAmountField = value;
+				initialInvoiceTaxAmountField = value;
 			}
 		}
 	}

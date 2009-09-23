@@ -13,11 +13,11 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 	[System.Xml.Serialization.XmlInclude(typeof(ExtensionAmountType))]
 	[System.Xml.Serialization.XmlInclude(typeof(CommonBasicComponents.AmountType))]
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CoreComponentTypes:1:0")]
-	public partial class AmountType {
+	public class AmountType {
     
 		private string amountCurrencyIDField;
     
@@ -29,10 +29,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string amountCurrencyID {
 			get {
-				return this.amountCurrencyIDField;
+				return amountCurrencyIDField;
 			}
 			set {
-				this.amountCurrencyIDField = value;
+				amountCurrencyIDField = value;
 			}
 		}
     
@@ -40,21 +40,21 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string amountCurrencyCodeListVersionID {
 			get {
-				return this.amountCurrencyCodeListVersionIDField;
+				return amountCurrencyCodeListVersionIDField;
 			}
 			set {
-				this.amountCurrencyCodeListVersionIDField = value;
+				amountCurrencyCodeListVersionIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlText()]
+		[System.Xml.Serialization.XmlText]
 		public decimal Value {
 			get {
-				return this.valueField;
+				return valueField;
 			}
 			set {
-				this.valueField = value;
+				valueField = value;
 			}
 		}
 	}

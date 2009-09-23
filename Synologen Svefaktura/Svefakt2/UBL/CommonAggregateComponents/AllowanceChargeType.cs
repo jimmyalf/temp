@@ -1,15 +1,19 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
+using AmountType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.AmountType;
+using IndicatorType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.IndicatorType;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("AllowanceCharge", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class AllowanceChargeType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("AllowanceCharge", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class AllowanceChargeType {
     
 		private IdentifierType idField;
     
@@ -21,11 +25,11 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
     
 		private CurrencyCodeType currencyCodeField;
     
-		private IndicatorType1 prepaidIndicatorField;
+		private IndicatorType prepaidIndicatorField;
     
 		private SequenceNumericType sequenceNumericField;
     
-		private AmountType2 amountField;
+		private AmountType amountField;
     
 		private List<TaxCategoryType> taxCategoryField = new List<TaxCategoryType>();
 
@@ -34,107 +38,107 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public ChargeIndicatorType ChargeIndicator {
 			get {
-				return this.chargeIndicatorField;
+				return chargeIndicatorField;
 			}
 			set {
-				this.chargeIndicatorField = value;
+				chargeIndicatorField = value;
 			}
 		}
     
 		/// <remarks/>
 		public AllowanceChargeReasonCodeType ReasonCode {
 			get {
-				return this.reasonCodeField;
+				return reasonCodeField;
 			}
 			set {
-				this.reasonCodeField = value;
+				reasonCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public MultiplierFactorNumericType MultiplierFactorNumeric {
 			get {
-				return this.multiplierFactorNumericField;
+				return multiplierFactorNumericField;
 			}
 			set {
-				this.multiplierFactorNumericField = value;
+				multiplierFactorNumericField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CurrencyCodeType CurrencyCode {
 			get {
-				return this.currencyCodeField;
+				return currencyCodeField;
 			}
 			set {
-				this.currencyCodeField = value;
+				currencyCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public IndicatorType1 PrepaidIndicator {
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		public IndicatorType PrepaidIndicator {
 			get {
-				return this.prepaidIndicatorField;
+				return prepaidIndicatorField;
 			}
 			set {
-				this.prepaidIndicatorField = value;
+				prepaidIndicatorField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public SequenceNumericType SequenceNumeric {
 			get {
-				return this.sequenceNumericField;
+				return sequenceNumericField;
 			}
 			set {
-				this.sequenceNumericField = value;
+				sequenceNumericField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public AmountType2 Amount {
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		public AmountType Amount {
 			get {
-				return this.amountField;
+				return amountField;
 			}
 			set {
-				this.amountField = value;
+				amountField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("TaxCategory")]
+		[System.Xml.Serialization.XmlElement("TaxCategory")]
 		public List<TaxCategoryType> TaxCategory {
 			get {
-				return this.taxCategoryField;
+				return taxCategoryField;
 			}
 			set {
-				this.taxCategoryField = value;
+				taxCategoryField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("PaymentMeans")]
+		[System.Xml.Serialization.XmlElement("PaymentMeans")]
 		public List<PaymentMeansType> PaymentMeans {
 			get {
-				return this.paymentMeansField;
+				return paymentMeansField;
 			}
 			set {
-				this.paymentMeansField = value;
+				paymentMeansField = value;
 			}
 		}
 	}

@@ -38,7 +38,7 @@
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\AllowanceChargeType.cs" />
     <Compile Include="Svefakt2\UBL\CoreComponentTypes\AmountType.cs" />
     <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\AmountType.cs" />
-    <Compile Include="Svefakt2\UBL\CommonBasicComponents\AmountType2.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\AmountType.cs" />
     <Compile Include="Svefakt2\UBL\CommonBasicComponents\BackorderQuantityType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\BasePriceType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\BranchType.cs" />
@@ -73,9 +73,9 @@
     <Compile Include="Svefakt2\UBL\Codelist\CurrencyCodeContentType.cs" />
     <Compile Include="Svefakt2\UBL\Codelist\CurrencyCodeType.cs" />
     <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\DateTimeType.cs" />
-    <Compile Include="Svefakt2\UBL\CommonBasicComponents\DateTimeType1.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\DateTimeType.cs" />
     <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\DateType.cs" />
-    <Compile Include="Svefakt2\UBL\CommonBasicComponents\DateType1.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\DateType.cs" />
     <Compile Include="Svefakt2\UBL\CommonBasicComponents\DeliveryDateTimeType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\DeliveryTermsType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\DeliveryType.cs" />
@@ -104,7 +104,7 @@
     <Compile Include="Svefakt2\UBL\CoreComponentTypes\IdentifierType.cs" />
     <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\IdentifierType.cs" />
     <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\IndicatorType.cs" />
-    <Compile Include="Svefakt2\UBL\CommonBasicComponents\IndicatorType1.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\IndicatorType.cs" />
     <Compile Include="Svefakt2\UBL\CommonBasicComponents\InformationType.cs" />
     <Compile Include="Svefakt2\UBL\CommonBasicComponents\InstructionsType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\InvoiceLineType.cs" />
@@ -161,7 +161,7 @@
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PaymentTermsType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PaymentType.cs" />
     <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\PercentType.cs" />
-    <Compile Include="Svefakt2\UBL\CommonBasicComponents\PercentType1.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\PercentType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PeriodType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\PhysicalAttributeType.cs" />
     <Compile Include="Svefakt2\UBL\CommonBasicComponents\PlacardEndorsementType.cs" />
@@ -260,6 +260,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Generate_XSD.bat" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

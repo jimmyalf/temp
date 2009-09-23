@@ -1,14 +1,16 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("PaymentMeans", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class PaymentMeansType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("PaymentMeans", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class PaymentMeansType {
     
 		private PaymentMeansCodeType paymentMeansTypeCodeField;
     
@@ -29,81 +31,81 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public PaymentMeansCodeType PaymentMeansTypeCode {
 			get {
-				return this.paymentMeansTypeCodeField;
+				return paymentMeansTypeCodeField;
 			}
 			set {
-				this.paymentMeansTypeCodeField = value;
+				paymentMeansTypeCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public PaymentDateType DuePaymentDate {
 			get {
-				return this.duePaymentDateField;
+				return duePaymentDateField;
 			}
 			set {
-				this.duePaymentDateField = value;
+				duePaymentDateField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType PaymentChannelCode {
 			get {
-				return this.paymentChannelCodeField;
+				return paymentChannelCodeField;
 			}
 			set {
-				this.paymentChannelCodeField = value;
+				paymentChannelCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CardAccountType CardAccount {
 			get {
-				return this.cardAccountField;
+				return cardAccountField;
 			}
 			set {
-				this.cardAccountField = value;
+				cardAccountField = value;
 			}
 		}
     
 		/// <remarks/>
 		public FinancialAccountType PayerFinancialAccount {
 			get {
-				return this.payerFinancialAccountField;
+				return payerFinancialAccountField;
 			}
 			set {
-				this.payerFinancialAccountField = value;
+				payerFinancialAccountField = value;
 			}
 		}
     
 		/// <remarks/>
 		public FinancialAccountType PayeeFinancialAccount {
 			get {
-				return this.payeeFinancialAccountField;
+				return payeeFinancialAccountField;
 			}
 			set {
-				this.payeeFinancialAccountField = value;
+				payeeFinancialAccountField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CreditAccountType CreditAccount {
 			get {
-				return this.creditAccountField;
+				return creditAccountField;
 			}
 			set {
-				this.creditAccountField = value;
+				creditAccountField = value;
 			}
 		}
     
 		/// <remarks/>
 		public PaymentType Payment {
 			get {
-				return this.paymentField;
+				return paymentField;
 			}
 			set {
-				this.paymentField = value;
+				paymentField = value;
 			}
 		}
 	}

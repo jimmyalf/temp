@@ -1,12 +1,14 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 	[System.Xml.Serialization.XmlRoot("InvoiceLine", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class SFTIInvoiceLineType {
+	public class SFTIInvoiceLineType {
     
 		private SFTISimpleIdentifierType idField;
     
@@ -29,10 +31,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		/// <remarks/>
 		public SFTISimpleIdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
@@ -40,10 +42,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 InvoicedQuantity {
 			get {
-				return this.invoicedQuantityField;
+				return invoicedQuantityField;
 			}
 			set {
-				this.invoicedQuantityField = value;
+				invoicedQuantityField = value;
 			}
 		}
     
@@ -51,10 +53,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public ExtensionAmountType LineExtensionAmount {
 			get {
-				return this.lineExtensionAmountField;
+				return lineExtensionAmountField;
 			}
 			set {
-				this.lineExtensionAmountField = value;
+				lineExtensionAmountField = value;
 			}
 		}
     
@@ -62,60 +64,60 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public NoteType Note {
 			get {
-				return this.noteField;
+				return noteField;
 			}
 			set {
-				this.noteField = value;
+				noteField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTIOrderLineReferenceType OrderLineReference {
 			get {
-				return this.orderLineReferenceField;
+				return orderLineReferenceField;
 			}
 			set {
-				this.orderLineReferenceField = value;
+				orderLineReferenceField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTILineReferenceType DespatchLineReference {
 			get {
-				return this.despatchLineReferenceField;
+				return despatchLineReferenceField;
 			}
 			set {
-				this.despatchLineReferenceField = value;
+				despatchLineReferenceField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTIInvoiceLineDeliveryType Delivery {
 			get {
-				return this.deliveryField;
+				return deliveryField;
 			}
 			set {
-				this.deliveryField = value;
+				deliveryField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTIInvoiceLineAllowanceCharge AllowanceCharge {
 			get {
-				return this.allowanceChargeField;
+				return allowanceChargeField;
 			}
 			set {
-				this.allowanceChargeField = value;
+				allowanceChargeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTIItemType Item {
 			get {
-				return this.itemField;
+				return itemField;
 			}
 			set {
-				this.itemField = value;
+				itemField = value;
 			}
 		}
 	}

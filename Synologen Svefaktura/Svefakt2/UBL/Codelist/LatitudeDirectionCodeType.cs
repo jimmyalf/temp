@@ -1,11 +1,11 @@
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:codelist:LatitudeDirectionCode:1:0")]
-	public partial class LatitudeDirectionCodeType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:codelist:LatitudeDirectionCode:1:0")]
+	public class LatitudeDirectionCodeType {
     
 		private string nameField;
     
@@ -28,122 +28,122 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		private LatitudeDirectionCodeContentType valueField;
     
 		public LatitudeDirectionCodeType() {
-			this.codeListIDField = "Latitude Direction";
-			this.codeListAgencyIDField = "UBL";
-			this.codeListAgencyNameField = "OASIS Universal Business Language";
-			this.codeListNameField = "Latitude Direction";
-			this.codeListVersionIDField = "1.0";
-			this.codeListSchemeURIField = "urn:oasis:names:tc:ubl:codelist:LatitudeDirectionCode:1:0";
-			this.languageIDField = "en";
+			codeListIDField = "Latitude Direction";
+			codeListAgencyIDField = "UBL";
+			codeListAgencyNameField = "OASIS Universal Business Language";
+			codeListNameField = "Latitude Direction";
+			codeListVersionIDField = "1.0";
+			codeListSchemeURIField = "urn:oasis:names:tc:ubl:codelist:LatitudeDirectionCode:1:0";
+			languageIDField = "en";
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute]
 		public string name {
 			get {
-				return this.nameField;
+				return nameField;
 			}
 			set {
-				this.nameField = value;
+				nameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string codeListID {
 			get {
-				return this.codeListIDField;
+				return codeListIDField;
 			}
 			set {
-				this.codeListIDField = value;
+				codeListIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string codeListAgencyID {
 			get {
-				return this.codeListAgencyIDField;
+				return codeListAgencyIDField;
 			}
 			set {
-				this.codeListAgencyIDField = value;
+				codeListAgencyIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute]
 		public string codeListAgencyName {
 			get {
-				return this.codeListAgencyNameField;
+				return codeListAgencyNameField;
 			}
 			set {
-				this.codeListAgencyNameField = value;
+				codeListAgencyNameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute]
 		public string codeListName {
 			get {
-				return this.codeListNameField;
+				return codeListNameField;
 			}
 			set {
-				this.codeListNameField = value;
+				codeListNameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="normalizedString")]
+		[System.Xml.Serialization.XmlAttribute(DataType="normalizedString")]
 		public string codeListVersionID {
 			get {
-				return this.codeListVersionIDField;
+				return codeListVersionIDField;
 			}
 			set {
-				this.codeListVersionIDField = value;
+				codeListVersionIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+		[System.Xml.Serialization.XmlAttribute(DataType="anyURI")]
 		public string codeListURI {
 			get {
-				return this.codeListURIField;
+				return codeListURIField;
 			}
 			set {
-				this.codeListURIField = value;
+				codeListURIField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+		[System.Xml.Serialization.XmlAttribute(DataType="anyURI")]
 		public string codeListSchemeURI {
 			get {
-				return this.codeListSchemeURIField;
+				return codeListSchemeURIField;
 			}
 			set {
-				this.codeListSchemeURIField = value;
+				codeListSchemeURIField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(DataType="language")]
+		[System.Xml.Serialization.XmlAttribute(DataType="language")]
 		public string languageID {
 			get {
-				return this.languageIDField;
+				return languageIDField;
 			}
 			set {
-				this.languageIDField = value;
+				languageIDField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlTextAttribute()]
+		[System.Xml.Serialization.XmlText]
 		public LatitudeDirectionCodeContentType Value {
 			get {
-				return this.valueField;
+				return valueField;
 			}
 			set {
-				this.valueField = value;
+				valueField = value;
 			}
 		}
 	}

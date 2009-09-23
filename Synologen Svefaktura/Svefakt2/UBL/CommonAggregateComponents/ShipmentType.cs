@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("Shipment", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class ShipmentType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("Shipment", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class ShipmentType {
     
 		private IdentifierType idField;
     
@@ -42,149 +43,149 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType PriorityLevelCode {
 			get {
-				return this.priorityLevelCodeField;
+				return priorityLevelCodeField;
 			}
 			set {
-				this.priorityLevelCodeField = value;
+				priorityLevelCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType HandlingCode {
 			get {
-				return this.handlingCodeField;
+				return handlingCodeField;
 			}
 			set {
-				this.handlingCodeField = value;
+				handlingCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public InstructionsType HandlingInstructions {
 			get {
-				return this.handlingInstructionsField;
+				return handlingInstructionsField;
 			}
 			set {
-				this.handlingInstructionsField = value;
+				handlingInstructionsField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public InformationType Information {
 			get {
-				return this.informationField;
+				return informationField;
 			}
 			set {
-				this.informationField = value;
+				informationField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public WeightMeasureType GrossWeightMeasure {
 			get {
-				return this.grossWeightMeasureField;
+				return grossWeightMeasureField;
 			}
 			set {
-				this.grossWeightMeasureField = value;
+				grossWeightMeasureField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public WeightMeasureType NetWeightMeasure {
 			get {
-				return this.netWeightMeasureField;
+				return netWeightMeasureField;
 			}
 			set {
-				this.netWeightMeasureField = value;
+				netWeightMeasureField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public WeightMeasureType NetNetWeightMeasure {
 			get {
-				return this.netNetWeightMeasureField;
+				return netNetWeightMeasureField;
 			}
 			set {
-				this.netNetWeightMeasureField = value;
+				netNetWeightMeasureField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public VolumeMeasureType GrossVolumeMeasure {
 			get {
-				return this.grossVolumeMeasureField;
+				return grossVolumeMeasureField;
 			}
 			set {
-				this.grossVolumeMeasureField = value;
+				grossVolumeMeasureField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public VolumeMeasureType NetVolumeMeasure {
 			get {
-				return this.netVolumeMeasureField;
+				return netVolumeMeasureField;
 			}
 			set {
-				this.netVolumeMeasureField = value;
+				netVolumeMeasureField = value;
 			}
 		}
     
 		/// <remarks/>
 		public DeliveryType Delivery {
 			get {
-				return this.deliveryField;
+				return deliveryField;
 			}
 			set {
-				this.deliveryField = value;
+				deliveryField = value;
 			}
 		}
     
 		/// <remarks/>
 		public ContractType TransportContract {
 			get {
-				return this.transportContractField;
+				return transportContractField;
 			}
 			set {
-				this.transportContractField = value;
+				transportContractField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("ShipmentStage")]
+		[System.Xml.Serialization.XmlElement("ShipmentStage")]
 		public List<ShipmentStageType> ShipmentStage {
 			get {
-				return this.shipmentStageField;
+				return shipmentStageField;
 			}
 			set {
-				this.shipmentStageField = value;
+				shipmentStageField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("TransportEquipment")]
+		[System.Xml.Serialization.XmlElement("TransportEquipment")]
 		public List<TransportEquipmentType> TransportEquipment {
 			get {
-				return this.transportEquipmentField;
+				return transportEquipmentField;
 			}
 			set {
-				this.transportEquipmentField = value;
+				transportEquipmentField = value;
 			}
 		}
 	}

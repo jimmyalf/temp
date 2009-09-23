@@ -1,18 +1,20 @@
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
+using PercentType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 	[System.Xml.Serialization.XmlRoot("TaxCategory", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class SFTITaxCategoryType {
+	public class SFTITaxCategoryType {
     
 		private IdentifierType idField;
     
-		private PercentType1 percentField;
+		private PercentType percentField;
     
 		private ReasonType exemptionReasonField;
     
@@ -21,21 +23,21 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public PercentType1 Percent {
+		public PercentType Percent {
 			get {
-				return this.percentField;
+				return percentField;
 			}
 			set {
-				this.percentField = value;
+				percentField = value;
 			}
 		}
     
@@ -43,20 +45,20 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public ReasonType ExemptionReason {
 			get {
-				return this.exemptionReasonField;
+				return exemptionReasonField;
 			}
 			set {
-				this.exemptionReasonField = value;
+				exemptionReasonField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTITaxSchemeType TaxScheme {
 			get {
-				return this.taxSchemeField;
+				return taxSchemeField;
 			}
 			set {
-				this.taxSchemeField = value;
+				taxSchemeField = value;
 			}
 		}
 	}

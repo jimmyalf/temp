@@ -1,14 +1,14 @@
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("HazardousGoodsTransit", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class HazardousGoodsTransitType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("HazardousGoodsTransit", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class HazardousGoodsTransitType {
     
 		private CodeType transportEmergencyCardCodeField;
     
@@ -25,60 +25,60 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public CodeType TransportEmergencyCardCode {
 			get {
-				return this.transportEmergencyCardCodeField;
+				return transportEmergencyCardCodeField;
 			}
 			set {
-				this.transportEmergencyCardCodeField = value;
+				transportEmergencyCardCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType PackingCriteriaCode {
 			get {
-				return this.packingCriteriaCodeField;
+				return packingCriteriaCodeField;
 			}
 			set {
-				this.packingCriteriaCodeField = value;
+				packingCriteriaCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType RegulationCode {
 			get {
-				return this.regulationCodeField;
+				return regulationCodeField;
 			}
 			set {
-				this.regulationCodeField = value;
+				regulationCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType InhalationToxicityZoneCode {
 			get {
-				return this.inhalationToxicityZoneCodeField;
+				return inhalationToxicityZoneCodeField;
 			}
 			set {
-				this.inhalationToxicityZoneCodeField = value;
+				inhalationToxicityZoneCodeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public TemperatureType MaximumTemperature {
 			get {
-				return this.maximumTemperatureField;
+				return maximumTemperatureField;
 			}
 			set {
-				this.maximumTemperatureField = value;
+				maximumTemperatureField = value;
 			}
 		}
     
 		/// <remarks/>
 		public TemperatureType MinimumTemperature {
 			get {
-				return this.minimumTemperatureField;
+				return minimumTemperatureField;
 			}
 			set {
-				this.minimumTemperatureField = value;
+				minimumTemperatureField = value;
 			}
 		}
 	}

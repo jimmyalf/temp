@@ -1,15 +1,17 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("DespatchLine", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class DespatchLineType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("DespatchLine", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class DespatchLineType {
     
 		private IdentifierType idField;
     
@@ -36,116 +38,116 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LineStatusCodeType LineStatusCode {
 			get {
-				return this.lineStatusCodeField;
+				return lineStatusCodeField;
 			}
 			set {
-				this.lineStatusCodeField = value;
+				lineStatusCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 DeliveredQuantity {
 			get {
-				return this.deliveredQuantityField;
+				return deliveredQuantityField;
 			}
 			set {
-				this.deliveredQuantityField = value;
+				deliveredQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 BackorderQuantity {
 			get {
-				return this.backorderQuantityField;
+				return backorderQuantityField;
 			}
 			set {
-				this.backorderQuantityField = value;
+				backorderQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public ReasonType BackorderReason {
 			get {
-				return this.backorderReasonField;
+				return backorderReasonField;
 			}
 			set {
-				this.backorderReasonField = value;
+				backorderReasonField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public NoteType Note {
 			get {
-				return this.noteField;
+				return noteField;
 			}
 			set {
-				this.noteField = value;
+				noteField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("OrderLineReference")]
+		[System.Xml.Serialization.XmlElement("OrderLineReference")]
 		public List<OrderLineReferenceType> OrderLineReference {
 			get {
-				return this.orderLineReferenceField;
+				return orderLineReferenceField;
 			}
 			set {
-				this.orderLineReferenceField = value;
+				orderLineReferenceField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("Delivery")]
+		[System.Xml.Serialization.XmlElement("Delivery")]
 		public List<DeliveryType> Delivery {
 			get {
-				return this.deliveryField;
+				return deliveryField;
 			}
 			set {
-				this.deliveryField = value;
+				deliveryField = value;
 			}
 		}
     
 		/// <remarks/>
 		public DeliveryTermsType DeliveryTerms {
 			get {
-				return this.deliveryTermsField;
+				return deliveryTermsField;
 			}
 			set {
-				this.deliveryTermsField = value;
+				deliveryTermsField = value;
 			}
 		}
     
 		/// <remarks/>
 		public ItemType Item {
 			get {
-				return this.itemField;
+				return itemField;
 			}
 			set {
-				this.itemField = value;
+				itemField = value;
 			}
 		}
     
 		/// <remarks/>
 		public TransportHandlingUnitType TransportHandlingUnit {
 			get {
-				return this.transportHandlingUnitField;
+				return transportHandlingUnitField;
 			}
 			set {
-				this.transportHandlingUnitField = value;
+				transportHandlingUnitField = value;
 			}
 		}
 	}

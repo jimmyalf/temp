@@ -1,15 +1,17 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("BuyerProposedLineItem", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class LineItemType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("BuyerProposedLineItem", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class LineItemType {
     
 		private IdentifierType buyersIDField;
     
@@ -50,191 +52,191 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType BuyersID {
 			get {
-				return this.buyersIDField;
+				return buyersIDField;
 			}
 			set {
-				this.buyersIDField = value;
+				buyersIDField = value;
 			}
 		}
     
 		/// <remarks/>
 		public IdentifierType SellersID {
 			get {
-				return this.sellersIDField;
+				return sellersIDField;
 			}
 			set {
-				this.sellersIDField = value;
+				sellersIDField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LineStatusCodeType LineStatusCode {
 			get {
-				return this.lineStatusCodeField;
+				return lineStatusCodeField;
 			}
 			set {
-				this.lineStatusCodeField = value;
+				lineStatusCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 Quantity {
 			get {
-				return this.quantityField;
+				return quantityField;
 			}
 			set {
-				this.quantityField = value;
+				quantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public ExtensionAmountType LineExtensionAmount {
 			get {
-				return this.lineExtensionAmountField;
+				return lineExtensionAmountField;
 			}
 			set {
-				this.lineExtensionAmountField = value;
+				lineExtensionAmountField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public TaxTotalAmountType TaxTotalAmount {
 			get {
-				return this.taxTotalAmountField;
+				return taxTotalAmountField;
 			}
 			set {
-				this.taxTotalAmountField = value;
+				taxTotalAmountField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 MinimumQuantity {
 			get {
-				return this.minimumQuantityField;
+				return minimumQuantityField;
 			}
 			set {
-				this.minimumQuantityField = value;
+				minimumQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public QuantityType2 MaximumQuantity {
 			get {
-				return this.maximumQuantityField;
+				return maximumQuantityField;
 			}
 			set {
-				this.maximumQuantityField = value;
+				maximumQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public BackorderQuantityType MaximumBackorderQuantity {
 			get {
-				return this.maximumBackorderQuantityField;
+				return maximumBackorderQuantityField;
 			}
 			set {
-				this.maximumBackorderQuantityField = value;
+				maximumBackorderQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public BackorderQuantityType MinimumBackorderQuantity {
 			get {
-				return this.minimumBackorderQuantityField;
+				return minimumBackorderQuantityField;
 			}
 			set {
-				this.minimumBackorderQuantityField = value;
+				minimumBackorderQuantityField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public NoteType Note {
 			get {
-				return this.noteField;
+				return noteField;
 			}
 			set {
-				this.noteField = value;
+				noteField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("Delivery")]
+		[System.Xml.Serialization.XmlElement("Delivery")]
 		public List<DeliveryType> Delivery {
 			get {
-				return this.deliveryField;
+				return deliveryField;
 			}
 			set {
-				this.deliveryField = value;
+				deliveryField = value;
 			}
 		}
     
 		/// <remarks/>
 		public DeliveryTermsType DeliveryTerms {
 			get {
-				return this.deliveryTermsField;
+				return deliveryTermsField;
 			}
 			set {
-				this.deliveryTermsField = value;
+				deliveryTermsField = value;
 			}
 		}
     
 		/// <remarks/>
 		public PartyType DestinationParty {
 			get {
-				return this.destinationPartyField;
+				return destinationPartyField;
 			}
 			set {
-				this.destinationPartyField = value;
+				destinationPartyField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("OrderedShipment")]
+		[System.Xml.Serialization.XmlElement("OrderedShipment")]
 		public List<OrderedShipmentType> OrderedShipment {
 			get {
-				return this.orderedShipmentField;
+				return orderedShipmentField;
 			}
 			set {
-				this.orderedShipmentField = value;
+				orderedShipmentField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute("AllowanceCharge")]
+		[System.Xml.Serialization.XmlElement("AllowanceCharge")]
 		public List<AllowanceChargeType> AllowanceCharge {
 			get {
-				return this.allowanceChargeField;
+				return allowanceChargeField;
 			}
 			set {
-				this.allowanceChargeField = value;
+				allowanceChargeField = value;
 			}
 		}
     
 		/// <remarks/>
 		public BasePriceType BasePrice {
 			get {
-				return this.basePriceField;
+				return basePriceField;
 			}
 			set {
-				this.basePriceField = value;
+				basePriceField = value;
 			}
 		}
     
 		/// <remarks/>
 		public ItemType Item {
 			get {
-				return this.itemField;
+				return itemField;
 			}
 			set {
-				this.itemField = value;
+				itemField = value;
 			}
 		}
 	}

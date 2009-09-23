@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
+namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-	[System.SerializableAttribute()]
-	[System.Diagnostics.DebuggerStepThroughAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRootAttribute("Address", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class AddressType {
+	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
+	[System.Xml.Serialization.XmlRoot("Address", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	public class AddressType {
     
 		private IdentifierType idField;
     
@@ -54,216 +55,216 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2 {
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public PostboxType Postbox {
 			get {
-				return this.postboxField;
+				return postboxField;
 			}
 			set {
-				this.postboxField = value;
+				postboxField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public FloorType Floor {
 			get {
-				return this.floorField;
+				return floorField;
 			}
 			set {
-				this.floorField = value;
+				floorField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public RoomType Room {
 			get {
-				return this.roomField;
+				return roomField;
 			}
 			set {
-				this.roomField = value;
+				roomField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public StreetNameType StreetName {
 			get {
-				return this.streetNameField;
+				return streetNameField;
 			}
 			set {
-				this.streetNameField = value;
+				streetNameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public StreetNameType AdditionalStreetName {
 			get {
-				return this.additionalStreetNameField;
+				return additionalStreetNameField;
 			}
 			set {
-				this.additionalStreetNameField = value;
+				additionalStreetNameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public BuildingNameType BuildingName {
 			get {
-				return this.buildingNameField;
+				return buildingNameField;
 			}
 			set {
-				this.buildingNameField = value;
+				buildingNameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public BuildingNumberType BuildingNumber {
 			get {
-				return this.buildingNumberField;
+				return buildingNumberField;
 			}
 			set {
-				this.buildingNumberField = value;
+				buildingNumberField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public MailType InhouseMail {
 			get {
-				return this.inhouseMailField;
+				return inhouseMailField;
 			}
 			set {
-				this.inhouseMailField = value;
+				inhouseMailField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public DepartmentType Department {
 			get {
-				return this.departmentField;
+				return departmentField;
 			}
 			set {
-				this.departmentField = value;
+				departmentField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public CityNameType CityName {
 			get {
-				return this.cityNameField;
+				return cityNameField;
 			}
 			set {
-				this.cityNameField = value;
+				cityNameField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public ZoneType PostalZone {
 			get {
-				return this.postalZoneField;
+				return postalZoneField;
 			}
 			set {
-				this.postalZoneField = value;
+				postalZoneField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public CountrySubentityType CountrySubentity {
 			get {
-				return this.countrySubentityField;
+				return countrySubentityField;
 			}
 			set {
-				this.countrySubentityField = value;
+				countrySubentityField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CodeType CountrySubentityCode {
 			get {
-				return this.countrySubentityCodeField;
+				return countrySubentityCodeField;
 			}
 			set {
-				this.countrySubentityCodeField = value;
+				countrySubentityCodeField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public RegionType Region {
 			get {
-				return this.regionField;
+				return regionField;
 			}
 			set {
-				this.regionField = value;
+				regionField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public DistrictType District {
 			get {
-				return this.districtField;
+				return districtField;
 			}
 			set {
-				this.districtField = value;
+				districtField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
 		public TimezoneOffsetType TimezoneOffset {
 			get {
-				return this.timezoneOffsetField;
+				return timezoneOffsetField;
 			}
 			set {
-				this.timezoneOffsetField = value;
+				timezoneOffsetField = value;
 			}
 		}
     
 		/// <remarks/>
-		[System.Xml.Serialization.XmlArrayItemAttribute("Line", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
+		[System.Xml.Serialization.XmlArrayItem("Line", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
 		public List<LineType> AddressLine {
 			get {
-				return this.addressLineField;
+				return addressLineField;
 			}
 			set {
-				this.addressLineField = value;
+				addressLineField = value;
 			}
 		}
     
 		/// <remarks/>
 		public CountryType Country {
 			get {
-				return this.countryField;
+				return countryField;
 			}
 			set {
-				this.countryField = value;
+				countryField = value;
 			}
 		}
     
 		/// <remarks/>
 		public LocationCoordinateType LocationCoordinate {
 			get {
-				return this.locationCoordinateField;
+				return locationCoordinateField;
 			}
 			set {
-				this.locationCoordinateField = value;
+				locationCoordinateField = value;
 			}
 		}
 	}

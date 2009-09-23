@@ -3,12 +3,12 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
-	[System.Serializable()]
-	[System.Diagnostics.DebuggerStepThrough()]
+	[System.Serializable]
+	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
 	[System.Xml.Serialization.XmlRoot("PayeeFinancialAccount", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
-	public partial class SFTIFinancialAccountType {
+	public class SFTIFinancialAccountType {
     
 		private IdentifierType idField;
     
@@ -19,30 +19,30 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		/// <remarks/>
 		public IdentifierType ID {
 			get {
-				return this.idField;
+				return idField;
 			}
 			set {
-				this.idField = value;
+				idField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTIBranchType FinancialInstitutionBranch {
 			get {
-				return this.financialInstitutionBranchField;
+				return financialInstitutionBranchField;
 			}
 			set {
-				this.financialInstitutionBranchField = value;
+				financialInstitutionBranchField = value;
 			}
 		}
     
 		/// <remarks/>
 		public SFTISimpleIdentifierType PaymentInstructionID {
 			get {
-				return this.paymentInstructionIDField;
+				return paymentInstructionIDField;
 			}
 			set {
-				this.paymentInstructionIDField = value;
+				paymentInstructionIDField = value;
 			}
 		}
 	}

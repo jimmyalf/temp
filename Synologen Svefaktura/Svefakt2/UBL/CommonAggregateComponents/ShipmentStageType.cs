@@ -8,7 +8,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:ShipmentStage", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("ShipmentStage", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class ShipmentStageType {
     
 		private IdentifierType idField;
@@ -20,8 +20,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 		private CodeType transitDirectionCodeField;
     
 		private PeriodType transitPeriodField;
-    
-		private List<PartyType> carrierPartyField = new List<PartyType>();
+
+		private List<PartyType> carrierPartyField;
     
 		/// <remarks/>
 		public IdentifierType ID {

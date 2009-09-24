@@ -9,22 +9,22 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentParameters {
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CoreComponentParameters:1:0")]
 	[System.Xml.Serialization.XmlRoot("Context", Namespace="urn:oasis:names:tc:ubl:CoreComponentParameters:1:0", IsNullable=false)]
 	public class ContextType {
-    
-		private List<string> industryClassificationField = new List<string>();
 
-		private List<string> geopoliticalField = new List<string>();
+		private List<string> industryClassificationField;
 
-		private List<string> businessProcessField = new List<string>();
+		private List<string> geopoliticalField;
 
-		private List<string> officialConstraintField = new List<string>();
-    
-		private List<string> productClassificationField = new List<string>();
-    
-		private List<string> businessProcessRoleField = new List<string>();
-    
-		private List<string> supportingRoleField = new List<string>();
-    
-		private List<string> systemCapabilityField = new List<string>();
+		private List<string> businessProcessField;
+
+		private List<string> officialConstraintField;
+
+		private List<string> productClassificationField;
+
+		private List<string> businessProcessRoleField;
+
+		private List<string> supportingRoleField;
+
+		private List<string> systemCapabilityField;
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement("IndustryClassification")]

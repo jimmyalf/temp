@@ -9,8 +9,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentParameters {
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CoreComponentParameters:1:0")]
 	[System.Xml.Serialization.XmlRoot("Contextualization", Namespace="urn:oasis:names:tc:ubl:CoreComponentParameters:1:0", IsNullable=false)]
 	public class ContextualizationType {
-    
-		private List<ContextType> contextField = new List<ContextType>();
+
+		private List<ContextType> contextField;
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement("Context")]

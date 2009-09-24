@@ -9,7 +9,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:OrderLine", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("OrderLine", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class OrderLineType {
     
 		private SubstitutionStatusCodeType substitutionStatusCodeField;
@@ -17,12 +17,12 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 		private NoteType noteField;
     
 		private LineItemType lineItemField;
-    
-		private List<LineItemType> sellerProposedLineItemField = new List<LineItemType>();
-    
-		private List<LineItemType> sellerSubstitutedLineItemField = new List<LineItemType>();
 
-		private List<LineItemType> buyerProposedLineItemField = new List<LineItemType>();
+		private List<LineItemType> sellerProposedLineItemField;
+
+		private List<LineItemType> sellerSubstitutedLineItemField;
+
+		private List<LineItemType> buyerProposedLineItemField;
     
 		/// <remarks/>
 		public SubstitutionStatusCodeType SubstitutionStatusCode {

@@ -8,14 +8,14 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:AdditionalItemIdentification", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("AdditionalItemIdentification", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class ItemIdentificationType {
     
 		private IdentifierType idField;
-    
-		private List<PhysicalAttributeType> physicalAttributeField = new List<PhysicalAttributeType>();
-    
-		private List<DimensionType> measurementDimensionField = new List<DimensionType>();
+
+		private List<PhysicalAttributeType> physicalAttributeField;
+
+		private List<DimensionType> measurementDimensionField;
     
 		private PartyType issuerPartyField;
     

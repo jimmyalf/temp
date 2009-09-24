@@ -8,7 +8,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:TransportHandlingUnit", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("TransportHandlingUnit", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class TransportHandlingUnitType {
     
 		private IdentifierType idField;
@@ -16,10 +16,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 		private CodeType unitTypeCodeField;
     
 		private List<DespatchLineType> despatchLineField;
-    
-		private List<PackageType> actualPackageField = new List<PackageType>();
-    
-		private List<ReceiptLineType> receivedReceiptLineField = new List<ReceiptLineType>();
+
+		private List<PackageType> actualPackageField;
+
+		private List<ReceiptLineType> receivedReceiptLineField;
     
 		/// <remarks/>
 		public IdentifierType ID {

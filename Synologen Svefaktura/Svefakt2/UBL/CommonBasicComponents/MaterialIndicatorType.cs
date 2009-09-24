@@ -5,7 +5,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents {
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cbc:MaterialIndicator", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("MaterialIndicator", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
 	public class MaterialIndicatorType : UnspecializedDatatypes.IndicatorType {
 	}
 }

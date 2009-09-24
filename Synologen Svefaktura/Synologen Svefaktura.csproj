@@ -140,7 +140,7 @@
     <Compile Include="Svefakt2\UBL\CommonBasicComponents\MeasureType2.cs" />
     <Compile Include="Svefakt2\UBL\CommonBasicComponents\MultiplierFactorNumericType.cs" />
     <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\NameType.cs" />
-    <Compile Include="Svefakt2\UBL\CommonBasicComponents\NameType1.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\NameType.cs" />
     <Compile Include="Svefakt2\UBL\CommonBasicComponents\NoteType.cs" />
     <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\NumericType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\OrderedShipmentType.cs" />

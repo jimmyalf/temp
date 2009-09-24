@@ -8,16 +8,16 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:Party", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("Party", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class SFTIPartyType {
-    
-		private List<SFTIPartyIdentificationType> partyIdentificationField = new List<SFTIPartyIdentificationType>();
-    
-		private List<NameType1> partyNameField = new List<NameType1>();
+
+		private List<SFTIPartyIdentificationType> partyIdentificationField;
+
+		private List<NameType> partyNameField;
     
 		private SFTIAddressType addressField;
-    
-		private List<SFTIPartyTaxSchemeType> partyTaxSchemeField = new List<SFTIPartyTaxSchemeType>();
+
+		private List<SFTIPartyTaxSchemeType> partyTaxSchemeField;
     
 		private SFTIContactType contactField;
     
@@ -34,7 +34,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlArrayItem("Name", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
-		public List<NameType1> PartyName {
+		public List<NameType> PartyName {
 			get {
 				return partyNameField;
 			}

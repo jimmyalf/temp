@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
+using NameType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.NameType;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
@@ -9,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:HazardousItem", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("HazardousItem", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class HazardousItemType {
     
 		private IdentifierType idField;
@@ -26,19 +27,19 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		private CodeType medicalFirstAidGuideCodeField;
     
-		private NameType1 technicalNameField;
+		private NameType technicalNameField;
     
 		private PartyType contactPartyField;
-    
-		private List<SecondaryHazardType> secondaryHazardField = new List<SecondaryHazardType>();
 
-		private List<HazardousGoodsTransitType> hazardousGoodsTransitField = new List<HazardousGoodsTransitType>();
+		private List<SecondaryHazardType> secondaryHazardField;
+
+		private List<HazardousGoodsTransitType> hazardousGoodsTransitField;
     
 		private TemperatureType emergencyTemperatureField;
     
 		private TemperatureType flashpointTemperatureField;
-    
-		private List<TemperatureType> additionalTemperatureField = new List<TemperatureType>();
+
+		private List<TemperatureType> additionalTemperatureField;
     
 		/// <remarks/>
 		public IdentifierType ID {
@@ -115,7 +116,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public NameType1 TechnicalName {
+		public NameType TechnicalName {
 			get {
 				return technicalNameField;
 			}

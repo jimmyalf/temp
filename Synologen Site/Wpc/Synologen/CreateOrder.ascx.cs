@@ -31,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			}
 			drpContracts.Enabled = true;
 
-			drpContracts.DataSource = Provider.GetContracts(FetchCustomerContract.AllPerShop, 0,MemberShopId);
+			drpContracts.DataSource = Provider.GetContracts(FetchCustomerContract.AllPerShop, 0,MemberShopId, true);
 			drpContracts.DataBind();
 			drpContracts.Items.Insert(0,new ListItem("-- Välj avtal --","0"));
 		}

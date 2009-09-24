@@ -87,7 +87,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		private void PopulateContractCustomers() {
 			drpContractCustomers.DataValueField = "cId";
 			drpContractCustomers.DataTextField = "cName";
-			drpContractCustomers.DataSource = Provider.GetContracts(FetchCustomerContract.All, 0, 0);
+			drpContractCustomers.DataSource = Provider.GetContracts(FetchCustomerContract.All, 0, 0, null);
 			drpContractCustomers.DataBind();
 			drpContractCustomers.Items.Insert(0,new ListItem("-- Välj Avtalskund --", "0"));
 		}

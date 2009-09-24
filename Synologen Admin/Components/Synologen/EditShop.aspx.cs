@@ -71,7 +71,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		private void PopulateContractCustomers() {
-			chkContractCustomers.DataSource = Provider.GetContracts(FetchCustomerContract.All, 0, 0);
+			chkContractCustomers.DataSource = Provider.GetContracts(FetchCustomerContract.All, 0, 0, null);
 			chkContractCustomers.DataBind();
 			PopulateSelectedContractCustomers();
 		}
@@ -79,7 +79,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		private void PopulateSelectedContractCustomers() {
 			if (_shop==null) return;
-			List<int> selectedContractCustomers = Provider.GetContractIdsPerShop(_shop.ShopId);
+			List<int> selectedContractCustomers = Provider.GetContractIdsPerShop(_shop.ShopId, null);
 			foreach(ListItem checkBox in chkContractCustomers.Items) {
 				int checkBoxValue = Int32.Parse(checkBox.Value);
 				bool isSelected = selectedContractCustomers.Contains(checkBoxValue);

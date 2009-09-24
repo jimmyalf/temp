@@ -8,20 +8,20 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:CarrierParty", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("CarrierParty", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class PartyType {
     
 		private MarkCareIndicatorType markCareIndicatorField;
     
 		private MarkAttentionIndicatorType markAttentionIndicatorField;
-    
-		private List<PartyIdentificationType> partyIdentificationField = new List<PartyIdentificationType>();
-    
-		private List<NameType1> partyNameField = new List<NameType1>();
+
+		private List<PartyIdentificationType> partyIdentificationField;
+
+		private List<NameType> partyNameField;
     
 		private AddressType addressField;
-    
-		private List<PartyTaxSchemeType> partyTaxSchemeField = new List<PartyTaxSchemeType>();
+
+		private List<PartyTaxSchemeType> partyTaxSchemeField;
     
 		private ContactType contactField;
     
@@ -62,7 +62,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlArrayItem("Name", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
-		public List<NameType1> PartyName {
+		public List<NameType> PartyName {
 			get {
 				return partyNameField;
 			}

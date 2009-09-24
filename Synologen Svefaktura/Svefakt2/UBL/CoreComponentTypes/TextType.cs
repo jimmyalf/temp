@@ -1,5 +1,6 @@
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
+using NameType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.NameType;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 	/// <remarks/>
@@ -31,10 +32,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 	[System.Xml.Serialization.XmlInclude(typeof(CountrySubentityType))]
 	[System.Xml.Serialization.XmlInclude(typeof(ConditionType))]
 	[System.Xml.Serialization.XmlInclude(typeof(BuildingNumberType))]
-	[System.Xml.Serialization.XmlInclude(typeof(NameType))]
+	[System.Xml.Serialization.XmlInclude(typeof(UnspecializedDatatypes.NameType))]
 	[System.Xml.Serialization.XmlInclude(typeof(StreetNameType))]
 	[System.Xml.Serialization.XmlInclude(typeof(RegistrationNameType))]
-	[System.Xml.Serialization.XmlInclude(typeof(NameType1))]
+	[System.Xml.Serialization.XmlInclude(typeof(NameType))]
 	[System.Xml.Serialization.XmlInclude(typeof(HolderNameType))]
 	[System.Xml.Serialization.XmlInclude(typeof(CityNameType))]
 	[System.Xml.Serialization.XmlInclude(typeof(BuildingNameType))]

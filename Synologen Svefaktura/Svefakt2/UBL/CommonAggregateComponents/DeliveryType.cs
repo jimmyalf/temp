@@ -10,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:Delivery", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("Delivery", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class DeliveryType {
     
 		private IdentifierType idField;
@@ -30,8 +30,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 		private AddressType deliveryAddressField;
     
 		private AddressType despatchAddressField;
-    
-		private List<OrderLineReferenceType> orderLineReferenceField = new List<OrderLineReferenceType>();
+
+		private List<OrderLineReferenceType> orderLineReferenceField;
     
 		/// <remarks/>
 		public IdentifierType ID {

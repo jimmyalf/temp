@@ -10,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:InvoiceLine", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("InvoiceLine", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class InvoiceLineType {
     
 		private IdentifierType idField;
@@ -22,20 +22,20 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 		private ExtensionAmountType lineExtensionAmountField;
     
 		private NoteType noteField;
-    
-		private List<OrderLineReferenceType> orderLineReferenceField = new List<OrderLineReferenceType>();
-    
-		private List<LineReferenceType> despatchLineReferenceField = new List<LineReferenceType>();
-    
-		private List<LineReferenceType> receiptLineReferenceField = new List<LineReferenceType>();
-    
-		private List<DeliveryType> deliveryField = new List<DeliveryType>();
-    
-		private List<PaymentTermsType> paymentTermsField = new List<PaymentTermsType>();
-    
-		private List<AllowanceChargeType> allowanceChargeField = new List<AllowanceChargeType>();
-    
-		private List<TaxTotalType> taxTotalField = new List<TaxTotalType>();
+
+		private List<OrderLineReferenceType> orderLineReferenceField;
+
+		private List<LineReferenceType> despatchLineReferenceField;
+
+		private List<LineReferenceType> receiptLineReferenceField;
+
+		private List<DeliveryType> deliveryField;
+
+		private List<PaymentTermsType> paymentTermsField;
+
+		private List<AllowanceChargeType> allowanceChargeField;
+
+		private List<TaxTotalType> taxTotalField;
     
 		private ItemType itemField;
     

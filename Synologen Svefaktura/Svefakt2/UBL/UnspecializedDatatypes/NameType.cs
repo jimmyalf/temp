@@ -4,7 +4,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes {
 	/// <remarks/>
 	[System.Xml.Serialization.XmlInclude(typeof(StreetNameType))]
 	[System.Xml.Serialization.XmlInclude(typeof(RegistrationNameType))]
-	[System.Xml.Serialization.XmlInclude(typeof(NameType1))]
+	[System.Xml.Serialization.XmlInclude(typeof(CommonBasicComponents.NameType))]
 	[System.Xml.Serialization.XmlInclude(typeof(HolderNameType))]
 	[System.Xml.Serialization.XmlInclude(typeof(CityNameType))]
 	[System.Xml.Serialization.XmlInclude(typeof(BuildingNameType))]

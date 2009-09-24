@@ -10,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:BuyerProposedLineItem", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("BuyerProposedLineItem", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class LineItemType {
     
 		private IdentifierType buyersIDField;
@@ -34,16 +34,16 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 		private BackorderQuantityType minimumBackorderQuantityField;
     
 		private NoteType noteField;
-    
-		private List<DeliveryType> deliveryField = new List<DeliveryType>();
+
+		private List<DeliveryType> deliveryField;
     
 		private DeliveryTermsType deliveryTermsField;
     
 		private PartyType destinationPartyField;
-    
-		private List<OrderedShipmentType> orderedShipmentField = new List<OrderedShipmentType>();
-    
-		private List<AllowanceChargeType> allowanceChargeField = new List<AllowanceChargeType>();
+
+		private List<OrderedShipmentType> orderedShipmentField;
+
+		private List<AllowanceChargeType> allowanceChargeField;
     
 		private BasePriceType basePriceField;
     

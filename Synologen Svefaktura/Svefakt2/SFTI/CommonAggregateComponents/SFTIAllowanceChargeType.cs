@@ -18,8 +18,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		private MultiplierFactorNumericType multiplierFactorNumericField;
     
 		private AmountType amountField;
-    
-		private List<SFTITaxCategoryType> taxCategoryField = new List<SFTITaxCategoryType>();
+
+		private List<SFTITaxCategoryType> taxCategoryField;
     
 		private AmountType allowanceChargeBaseAmountField;
     

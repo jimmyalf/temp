@@ -8,7 +8,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:Item", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("Item", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class ItemType {
     
 		private DescriptionType descriptionField;
@@ -28,8 +28,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 		private ItemIdentificationType standardItemIdentificationField;
     
 		private ItemIdentificationType catalogueItemIdentificationField;
-    
-		private List<ItemIdentificationType> additionalItemIdentificationField = new List<ItemIdentificationType>();
+
+		private List<ItemIdentificationType> additionalItemIdentificationField;
     
 		private DocumentReferenceType catalogueDocumentReferenceField;
     
@@ -38,14 +38,14 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 		private CountryType originCountryField;
     
 		private CommodityClassificationType commodityClassificationField;
-    
-		private List<SalesConditionsType> salesConditionsField = new List<SalesConditionsType>();
-    
-		private List<HazardousItemType> hazardousItemField = new List<HazardousItemType>();
-    
-		private List<TaxCategoryType> taxCategoryField = new List<TaxCategoryType>();
 
-		private List<BasePriceType> basePriceField = new List<BasePriceType>();
+		private List<SalesConditionsType> salesConditionsField;
+
+		private List<HazardousItemType> hazardousItemField;
+
+		private List<TaxCategoryType> taxCategoryField;
+
+		private List<BasePriceType> basePriceField;
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]

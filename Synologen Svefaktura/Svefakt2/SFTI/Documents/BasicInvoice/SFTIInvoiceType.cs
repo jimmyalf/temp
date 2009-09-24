@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
@@ -29,8 +30,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		private CurrencyCodeType taxCurrencyCodeField;
     
 		private LineItemCountNumericType lineItemCountNumericField;
-    
-		private List<SFTIDocumentReferenceType> additionalDocumentReferenceField = new List<SFTIDocumentReferenceType>();
+
+		private List<SFTIDocumentReferenceType> additionalDocumentReferenceField;
     
 		private SFTIBuyerPartyType buyerPartyField;
     
@@ -38,23 +39,23 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
     
 		private SFTIDeliveryType deliveryField;
 
-		private List<SFTIPaymentMeansType> paymentMeansField = new List<SFTIPaymentMeansType>();
+		private List<SFTIPaymentMeansType> paymentMeansField;
     
 		private SFTIPaymentTermsType paymentTermsField;
-    
-		private List<SFTIAllowanceChargeType> allowanceChargeField = new List<SFTIAllowanceChargeType>();
+
+		private List<SFTIAllowanceChargeType> allowanceChargeField;
     
 		private SFTIExchangeRateType exchangeRateField;
-    
-		private List<SFTITaxTotalType> taxTotalField = new List<SFTITaxTotalType>();
+
+		private List<SFTITaxTotalType> taxTotalField;
     
 		private SFTILegalTotalType legalTotalField;
-    
-		private List<SFTIInvoiceLineType> invoiceLineField = new List<SFTIInvoiceLineType>();
-    
-		private List<SFTIDocumentReferenceType> requisitionistDocumentReferenceField = new List<SFTIDocumentReferenceType>();
 
-		private List<SFTIDocumentReferenceType> initialInvoiceDocumentReferenceField = new List<SFTIDocumentReferenceType>();
+		private List<SFTIInvoiceLineType> invoiceLineField;
+
+		private List<SFTIDocumentReferenceType> requisitionistDocumentReferenceField;
+
+		private List<SFTIDocumentReferenceType> initialInvoiceDocumentReferenceField;
     
 		private SFTIDeliveryTermsType deliveryTermsField;
     

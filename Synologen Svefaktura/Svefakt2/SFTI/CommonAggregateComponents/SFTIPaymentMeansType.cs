@@ -9,7 +9,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:PaymentMeans", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("PaymentMeans", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class SFTIPaymentMeansType {
     
 		private PaymentMeansCodeType paymentMeansTypeCodeField;
@@ -17,8 +17,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		private PaymentDateType duePaymentDateField;
     
 		private SFTIFinancialAccountType payeeFinancialAccountField;
-    
-		private List<NameType1> payeePartyNameField = new List<NameType1>();
+
+		private List<NameType> payeePartyNameField;
     
 		/// <remarks/>
 		public PaymentMeansCodeType PaymentMeansTypeCode {
@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlArrayItem("Name", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
-		public List<NameType1> PayeePartyName {
+		public List<NameType> PayeePartyName {
 			get {
 				return payeePartyNameField;
 			}

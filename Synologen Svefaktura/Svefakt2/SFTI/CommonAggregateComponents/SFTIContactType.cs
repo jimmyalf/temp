@@ -7,10 +7,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:AccountsContact", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("AccountsContact", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class SFTIContactType {
     
-		private NameType1 nameField;
+		private NameType nameField;
     
 		private TelephoneType telephoneField;
     
@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public NameType1 Name {
+		public NameType Name {
 			get {
 				return nameField;
 			}

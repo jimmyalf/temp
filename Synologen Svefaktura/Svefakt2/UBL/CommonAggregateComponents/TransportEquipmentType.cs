@@ -9,7 +9,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:TransportEquipment", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("TransportEquipment", Namespace="urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class TransportEquipmentType {
     
 		private IdentifierType idField;
@@ -27,10 +27,10 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
 		private RefrigerationOnIndicatorType refrigerationOnIndicatorField;
     
 		private InformationType informationField;
-    
-		private List<DimensionType> dimensionField = new List<DimensionType>();
-    
-		private List<TransportEquipmentSealType> transportEquipmentSealField = new List<TransportEquipmentSealType>();
+
+		private List<DimensionType> dimensionField;
+
+		private List<TransportEquipmentSealType> transportEquipmentSealField;
     
 		/// <remarks/>
 		public IdentifierType ID {

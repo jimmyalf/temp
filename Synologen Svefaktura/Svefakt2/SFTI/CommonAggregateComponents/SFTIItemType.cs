@@ -8,7 +8,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 	[System.Diagnostics.DebuggerStepThrough]
 	[System.ComponentModel.DesignerCategory("code")]
 	[System.Xml.Serialization.XmlType(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
-	[System.Xml.Serialization.XmlRoot("cac:Item", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
+	[System.Xml.Serialization.XmlRoot("Item", Namespace="urn:sfti:CommonAggregateComponents:1:0", IsNullable=false)]
 	public class SFTIItemType {
     
 		private DescriptionType descriptionField;
@@ -18,8 +18,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		private SFTIItemIdentificationType sellersItemIdentificationField;
     
 		private SFTIItemIdentificationType standardItemIdentificationField;
-    
-		private List<SFTITaxCategoryType> taxCategoryField = new List<SFTITaxCategoryType>();
+
+		private List<SFTITaxCategoryType> taxCategoryField;
     
 		private SFTIBasePriceType basePriceField;
     

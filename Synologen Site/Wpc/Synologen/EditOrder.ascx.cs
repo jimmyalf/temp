@@ -40,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		private void PopulateContracts() {
 			if(MemberShopId==0) {return;}
 
-			drpContracts.DataSource = Provider.GetContracts(FetchCustomerContract.AllPerShop, 0,MemberShopId);
+			drpContracts.DataSource = Provider.GetContracts(FetchCustomerContract.AllPerShop, 0,MemberShopId, true);
 			drpContracts.DataBind();
 			drpContracts.Items.Insert(0,new ListItem("-- Välj avtal --","0"));
 		}

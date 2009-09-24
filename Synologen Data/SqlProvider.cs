@@ -48,6 +48,7 @@
 // ==========================================================================
 using System;
 using System.Data;
+using System.Data.SqlTypes;
 using DataException=Spinit.GeneralData.DatabaseInterface.DataException;
 
 namespace Spinit.Wpc.Synologen.Data {
@@ -69,6 +70,23 @@ namespace Spinit.Wpc.Synologen.Data {
 		private DataException CreateDataException(string message, Exception innerException) {
 			DataException exception = new DataException(message, innerException);
 			return exception;
+		}
+
+		private static SqlInt32 GetNullableSqlType(int? value) {
+			return value.HasValue ? new SqlInt32(value.Value) : SqlInt32.Null;
+		}
+		private static SqlString GetNullableSqlType(string value) {
+			return String.IsNullOrEmpty(value) ? SqlString.Null : new SqlString(value);
+		}
+		private static SqlDateTime GetNullableSqlType(DateTime? value) {
+			return value.HasValue ? new SqlDateTime(value.Value) : SqlDateTime.Null;
+		}
+
+		private static SqlDecimal GetNullableSqlType(decimal? value) {
+			return value.HasValue ? new SqlDecimal(value.Value) : SqlDecimal.Null;
+		}
+		private static SqlBoolean GetNullableSqlType(bool? value) {
+			return value.HasValue ? new SqlBoolean(value.Value) : SqlBoolean.Null;
 		}
 	}
 }

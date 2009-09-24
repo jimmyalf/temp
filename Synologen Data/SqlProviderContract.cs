@@ -87,7 +87,7 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		public ContractRow GetContract(int contractCustomerId) {
 			try {
-				DataSet contractCustomerDataSet = GetContracts(FetchCustomerContract.Specific, contractCustomerId, 0);
+				DataSet contractCustomerDataSet = GetContracts(FetchCustomerContract.Specific, contractCustomerId, 0, null);
 				DataRow contractCustomerDataRow = contractCustomerDataSet.Tables[0].Rows[0];
 				ContractRow contractRow = new ContractRow();
 				contractRow.Address = Util.CheckNullString(contractCustomerDataRow, "cAddress");
@@ -110,18 +110,20 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public DataSet GetContracts(FetchCustomerContract type, int contractCustomer, int shopId) {
+		public DataSet GetContracts(FetchCustomerContract type, int contractCustomer, int shopId, bool? active) {
 			try {
 				int counter = 0;
 				SqlParameter[] parameters = {
 					new SqlParameter ("@type", SqlDbType.Int, 4),
 					new SqlParameter ("@contractCustomerId", SqlDbType.Int, 4),
 					new SqlParameter ("@shopId", SqlDbType.Int, 4),
+					new SqlParameter ("@active", SqlDbType.Bit),
 					new SqlParameter ("@status", SqlDbType.Int, 4)
 				};
 				parameters[counter++].Value = (int)type;
 				parameters[counter++].Value = contractCustomer;
 				parameters[counter++].Value = shopId;
+				parameters[counter++].Value = GetNullableSqlType(active);
 				parameters[counter].Direction = ParameterDirection.Output;
 				DataSet retSet = RunProcedure("spSynologenGetContracts", parameters, "tblSynologenContract");
 				return retSet;
@@ -131,10 +133,10 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public List<int> GetContractIdsPerShop(int shopId) {
+		public List<int> GetContractIdsPerShop(int shopId, bool? active) {
 			//TODO: Improve by querying just the connection table.
 			List<int> returnList = new List<int>();
-			DataSet contractCustomersDataSet = GetContracts(FetchCustomerContract.AllPerShop, 0, shopId);
+			DataSet contractCustomersDataSet = GetContracts(FetchCustomerContract.AllPerShop, 0, shopId, active);
 			DataRowCollection contractCustomersDataRowCollection = contractCustomersDataSet.Tables[0].Rows;
 			foreach(DataRow contractCustomerDataRow in contractCustomersDataRowCollection) {
 				returnList.Add((int)contractCustomerDataRow["cId"]);

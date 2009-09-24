@@ -228,7 +228,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public bool ShopHasConnectedContracts(int shopId) {
-			DataSet contractDataSet = GetContracts(FetchCustomerContract.AllPerShop, 0,shopId);
+			DataSet contractDataSet = GetContracts(FetchCustomerContract.AllPerShop, 0,shopId, null);
 			return DataSetHasRows(contractDataSet);
 		}
 

@@ -48,9 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\Spinit.Wpc.Utility.Business.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

@@ -36,19 +36,19 @@
     <Reference Include="nunit.framework, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\Spinit.Wpc.Member.Data.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\Spinit.Wpc.Utility.Business.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\Spinit.Wpc.Utility.Core.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -75,6 +75,7 @@
     <Compile Include="Mock\MockWebServiceClient.cs" />
     <Compile Include="TestMockFlow.cs" />
     <Compile Include="TestSPCS.cs" />
+    <Compile Include="TestSynologenInvoice.cs" />
     <Compile Include="TestWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestEDI.cs" />
@@ -98,6 +99,10 @@
     <ProjectReference Include="..\Synologen ServiceLibrary\Synologen ServiceLibrary.csproj">
       <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
       <Name>Synologen ServiceLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Svefaktura\Synologen Svefaktura.csproj">
+      <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
+      <Name>Synologen Svefaktura</Name>
     </ProjectReference>
     <ProjectReference Include="..\Synologen Utility\Synologen Utility.csproj">
       <Project>{84326EE0-5F6E-4133-A852-AF781AF74682}</Project>

@@ -3,6 +3,6 @@
 <asp:Literal ID="ltPageId" Text="190" Visible="false" runat="server"/>
 	<div style="float:left;margin:15px;">
 		<h2>Edit Order</h2>	
-		<ucSynologen:EditOrder ID="editOrder" runat="server" />
+		<synologen:EditOrder ID="editOrder" runat="server" />
 	</div>
 </asp:Content>

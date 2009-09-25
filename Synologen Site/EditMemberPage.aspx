@@ -3,6 +3,6 @@
 <asp:Literal ID="ltPageId" Text="190" Visible="false" runat="server"/>
 	<div style="float:left;margin:15px;">
 		<h2>Edit Member</h2>	
-		<ucSynologen:EditMember ID="ucEditMember" runat="server" />
+		<synologen:EditMember ID="ucEditMember" runat="server" />
 	</div>
 </asp:Content>

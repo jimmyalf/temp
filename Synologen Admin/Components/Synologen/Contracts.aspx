@@ -41,14 +41,30 @@
                         <asp:BoundField headerText="Avtalsnummer" DataField="cId" SortExpression="cId" ItemStyle-HorizontalAlign="Center"/>
                         <asp:BoundField headerText="Namn" DataField="cName" SortExpression="cName"/>
                         <asp:BoundField headerText="Epost" DataField="cEmail" SortExpression="cEmail"/>
+                        <asp:TemplateField headertext="Företag" SortExpression="cCompanies">
+							<ItemStyle CssClass="center" />
+							<ItemTemplate>
+								<a href="ContractCompanies.aspx?id=<%#Eval("cId") %>" title="Visa företag">
+									<img src="/Common/Icons/attach.png" alt="Visa företag"/>&nbsp;(<%#Eval("cNumberOfCompanies")%>)
+								</a>
+							</ItemTemplate>
+						</asp:TemplateField> 
+                        <asp:TemplateField headertext="Artiklar" SortExpression="cArticles">
+							<ItemStyle CssClass="center" />
+							<ItemTemplate>
+								<a href="ContractArticles.aspx?contractId=<%#Eval("cId") %>" title="Visa kontrakt">
+									<img src="/Common/Icons/attach.png" alt="Visa kontrakt"/>&nbsp;(<%#Eval("cNumberOfArticles")%>)
+								</a>
+							</ItemTemplate>
+						</asp:TemplateField> 						
 						<asp:TemplateField headertext="Aktiv" SortExpression="cActive">
 							<ItemStyle CssClass="center" />
 							<ItemTemplate>
 								<asp:Image id="imgActive" runat="server" />
 							</ItemTemplate>
 						</asp:TemplateField>
-                        <asp:ButtonField Text="Visa filer" HeaderText="Filer" CommandName="Files" ButtonType="Button" ControlStyle-CssClass="btnSmall" ItemStyle-HorizontalAlign="Center" HeaderStyle-CssClass="controlColumn"/>
-                        <asp:ButtonField Text="Lägg till" HeaderText="Filer" CommandName="AddFiles" ButtonType="Button" ControlStyle-CssClass="btnSmall" ItemStyle-HorizontalAlign="Center" HeaderStyle-CssClass="controlColumn"/>
+                        <%--<asp:ButtonField Text="Visa filer" HeaderText="Filer" CommandName="Files" ButtonType="Button" ControlStyle-CssClass="btnSmall" ItemStyle-HorizontalAlign="Center" HeaderStyle-CssClass="controlColumn"/>--%>
+                        <%--<asp:ButtonField Text="Lägg till" HeaderText="Filer" CommandName="AddFiles" ButtonType="Button" ControlStyle-CssClass="btnSmall" ItemStyle-HorizontalAlign="Center" HeaderStyle-CssClass="controlColumn"/>--%>
                         <asp:ButtonField Text="Redigera" HeaderText="Redigera" CommandName="Edit" ButtonType="Button" ControlStyle-CssClass="btnSmall" ItemStyle-HorizontalAlign="Center" HeaderStyle-CssClass="controlColumn" />
                         <asp:TemplateField headertext="Radera" HeaderStyle-CssClass="controlColumn" ItemStyle-HorizontalAlign="Center">
 	                        <ItemTemplate>

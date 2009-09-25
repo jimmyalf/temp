@@ -161,8 +161,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			itemCollection.AddItem("Add", null, "Lägg till", "Lägg till ny avtalskund", null, "btnAdd_OnClick", false, null);
 			itemCollection.AddItem("Delete", null, "Radera", "Radera valda avtalskunder", null, "btnDelete_OnClick", false, null);
 			itemCollection.AddItem("Filkategori", null, "Filkategorier", "Lista filkategorier", null,ComponentPages.FileCategories + "?type=ContractCustomer", null, null, false, true);
-			itemCollection.AddItem("Artikel", null, "Artiklar", "Lista artiklar", null, ComponentPages.ContractArticles, null, null, false, true);
-			itemCollection.AddItem("Företag", null, "Företag", "Lista företag", null, ComponentPages.ContractCompanies, null, null, false, true);
+			//itemCollection.AddItem("Artikel", null, "Artiklar", "Lista artiklar", null, ComponentPages.ContractArticles, null, null, false, true);
+			//itemCollection.AddItem("Företag", null, "Företag", "Lista företag", null, ComponentPages.ContractCompanies, null, null, false, true);
 
 			subMenu.MenuItems = itemCollection;
 

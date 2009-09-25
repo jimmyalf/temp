@@ -76,6 +76,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Code\SynologenUtility.cs" />
+    <Compile Include="Components\Synologen\EditContractCompany.aspx.cs">
+      <DependentUpon>EditContractCompany.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\EditContractCompany.aspx.designer.cs">
+      <DependentUpon>EditContractCompany.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Components\Synologen\ViewSettlementDetails.aspx.cs">
       <DependentUpon>ViewSettlementDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -243,6 +250,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Components\Synologen\EditContractCompany.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -79,19 +79,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		private void PopulateContractCustomer() {
 			if (_contractCustomerId <= 0) return;
-			ContractRow contract = Provider.GetContract(_contractCustomerId);
-			txtContractCustomerName.Text = contract.Name;
-			txtContractCustomerCode.Text = contract.Code;
-			txtContractCustomerDescription.Text = contract.Description;
-			txtAddress2.Text = contract.Address2;
-			txtAddress.Text = contract.Address;
-			txtZip.Text = contract.Zip;
-			txtCity.Text = contract.City;
-			txtPhone2.Text = contract.Phone2;
-			txtPhone.Text = contract.Phone;
-			txtFax.Text = contract.Fax;
-			txtEmail.Text = contract.Email;
-			chkActive.Checked = contract.Active;
+			Contract = Provider.GetContract(_contractCustomerId);
+			Page.DataBind();
+			//txtContractCustomerName.Text = contract.Name;
+			//txtContractCustomerCode.Text = contract.Code;
+			//txtContractCustomerDescription.Text = contract.Description;
+			//txtAddress2.Text = contract.Address2;
+			//txtAddress.Text = contract.Address;
+			//txtZip.Text = contract.Zip;
+			//txtCity.Text = contract.City;
+			//txtPhone2.Text = contract.Phone2;
+			//txtPhone.Text = contract.Phone;
+			//txtFax.Text = contract.Fax;
+			//txtEmail.Text = contract.Email;
+			//chkActive.Checked = contract.Active;
 		}
 
 		protected void btnSave_Click(object sender, EventArgs e) {
@@ -147,5 +148,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 			m.SynologenSmartMenu.Render(subMenu, phMemberSubMenu);
 		}
+
+		public ContractRow Contract { get; set; }
 	}
 }

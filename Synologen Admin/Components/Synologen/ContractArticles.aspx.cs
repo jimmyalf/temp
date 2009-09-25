@@ -1,17 +1,21 @@
 using System;
 using System.Data;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
 using Spinit.Wpc.Synologen.Business.Enumeration;
 using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
-using Spinit.Wpc.Utility.Business.SmartMenu;
 
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 	public partial class ContractArticles : SynologenPage {
 		private int _connectionId = -1;
+		private int _contractId = -1;
+		private ContractRow  _selectedContract = new ContractRow();
+
+		public ContractRow SelectedContract {
+			get { return _selectedContract; }
+		}
 
 		//protected void Page_Init(object sender, EventArgs e) {
 		//    RenderMemberSubMenu(Page.Master);
@@ -19,9 +23,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 
 		protected void Page_Load(object sender, EventArgs e) {
-			if (Request.Params["id"] != null)
+			if (Request.Params["id"] != null){
 				_connectionId = Convert.ToInt32(Request.Params["id"]);
-
+			}
+			if (Request.Params["contractId"] != null) {
+				_contractId = Convert.ToInt32(Request.Params["contractId"]);
+				_selectedContract = Provider.GetContract(_contractId);
+				
+			}
+			plFilterByContract.Visible = (_contractId > 0);
 			if (Page.IsPostBack) return;
 			PopulateContracts();
 			PopulateArticles();
@@ -36,6 +46,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			drpContracts.DataSource = Provider.GetContracts(FetchCustomerContract.All, 0, 0, null);
 			drpContracts.DataBind();
 			drpContracts.Items.Insert(0, new ListItem("-- Välj avtal --", "0"));
+			if(_contractId>0) {
+				drpContracts.SelectedValue = _contractId.ToString();
+				drpContracts.Enabled = false;
+			}
 		}
 
 		private void SetupForEdit() {
@@ -59,7 +73,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		private void PopulateContractCustomerArticles() {
-			DataSet customerArticles = Provider.GetContractArticleConnections(0, 0, "tblSynologenContractArticleConnection.cId");
+			DataSet customerArticles = Provider.GetContractArticleConnections(0, _contractId, "tblSynologenContractArticleConnection.cId");
 			gvContractCustomerArticles.DataSource = customerArticles;
 			gvContractCustomerArticles.DataBind();
 			ltHeading.Text = "Lägg till artikelkoppling";
@@ -131,6 +145,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				Response.Redirect(ComponentPages.NoAccess);
 			}
 			else {
+				if (_contractId > 0) {
+					Response.Redirect(ComponentPages.ContractArticles + "?id=" + articleId + "&contractId=" + _contractId, true);
+				}
 				Response.Redirect(ComponentPages.ContractArticles+"?id=" + articleId, true);
 				
 			}
@@ -169,7 +186,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			}
 			else {
 				Provider.AddUpdateDeleteContractArticleConnection(action, ref connection);
-				Response.Redirect(ComponentPages.ContractArticles);
+				Response.Redirect(ComponentPages.ContractArticles + "?contractId="+ connection.ContractCustomerId);
 			}
 		}
 

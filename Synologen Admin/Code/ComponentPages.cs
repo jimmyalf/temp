@@ -68,6 +68,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Code {
 		public const string EditContractCustomer = PageBase + "EditContract.aspx";
 		public const string ContractArticles = PageBase + "ContractArticles.aspx";
 		public const string ContractCompanies = PageBase + "ContractCompanies.aspx";
+		public const string EditContractCompany = PageBase + "EditContractCompany.aspx";
 		public const string Articles = PageBase + "Articles.aspx";
 		public const string EditOrder = PageBase + "EditOrder.aspx"; 
 		public const string Orders = PageBase + "Orders.aspx";

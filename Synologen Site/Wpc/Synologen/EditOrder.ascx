@@ -49,19 +49,20 @@
 	<label>Utbetald:</label><span><asp:Literal ID="ltMarkedAsPayed" runat="server" /></span><br />
 </fieldset>	
 	<br />
-	<div>
-		<div class="rowItem"><label>Artikel</label>
-			<asp:DropDownList ID="drpArticle" DataTextField="cName" DataValueField="cId" runat="server" />
+	<fieldset id="article-selection">
+		<label>Artikel</label>
+			<asp:DropDownList ID="drpArticle" DataTextField="cName" DataValueField="cId" runat="server" Enabled="false" />
 			<asp:RequiredFieldValidator id="reqArticle" InitialValue="0" runat="server" errormessage="Artikel saknas" controltovalidate="drpArticle" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>
 			<asp:RequiredFieldValidator id="reqArticle2" InitialValue="" runat="server" errormessage="Artikel saknas" controltovalidate="drpArticle" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>			
-		</div>
-		<div class="rowItem"><label>Antal</label>
-			<asp:DropDownList ID="drpNumberOfItems" runat="server" />
+		<br />
+		<label>Antal</label>
+			<asp:DropDownList ID="drpNumberOfItems" runat="server" Enabled="false" />
 			<asp:RequiredFieldValidator id="reqNumberOfItems" InitialValue="0" runat="server" errormessage="Antal måste väljas" controltovalidate="drpNumberOfItems" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>			
-		</div>
-		<div class="rowItem"><label>Noteringar</label><asp:TextBox ID="txtNotes" runat="server" /></div>
-		<div class="rowControl"><asp:ImageButton ID="btnAddArticle" ImageUrl="~/Wpc/Synologen/Images/Add.png" ToolTip="Lägg till"  AlternateText="Lägg till" runat="server" OnClick="btnAdd_Click" ValidationGroup="vldAdd" /></div>
-	</div>
+		<br />
+			<label>Noteringar</label>
+			<asp:TextBox ID="txtNotes" runat="server" />
+			<asp:ImageButton ID="btnAddArticle" ImageUrl="~/Wpc/Synologen/Images/Add.png" ToolTip="Lägg till"  AlternateText="Lägg till" runat="server" OnClick="btnAdd_Click" ValidationGroup="vldAdd" />
+	</fieldset>
 	<br />
 	<div id="order-items-cart" class="clearLeft">
 		<asp:GridView ID="gvOrderItemsCart" 

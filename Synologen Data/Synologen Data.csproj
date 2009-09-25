@@ -50,27 +50,27 @@
   <ItemGroup>
     <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Base.Business, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Wpc.Base.Business, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\Spinit.Wpc.Base.Business.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Business.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Base.Data, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Wpc.Base.Data, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\Spinit.Wpc.Base.Data.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\Spinit.Wpc.Member.Data.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\Spinit.Wpc.Utility.Business.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dll\Spinit.Wpc.Utility.Core.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

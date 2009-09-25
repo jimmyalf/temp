@@ -1,44 +1,256 @@
-﻿/*
-#synologen-order-control label,
-#synologen-order-control input,
-#synologen-order-control select{display:inline-block; margin: 5px 0px;}
-#synologen-order-control select, 
-#synologen-order-control input[type="text"]{ width:12em; }
-#synologen-order-control label{width:10em;  padding-left:0.5em;}
-#synologen-order-control input{clear:right;}
-#synologen-order-control .rowItem{
-	float:left; 
-	width:16em; 
-	display:block; 
-	margin-bottom:0.5em;
-	min-height:40px;
+﻿/* CSS Document */ 
+* { padding:0; margin:0; } 
+body { padding:0; margin:0; font: 0.7em Verdana, Arial, Helvetica, sans-serif; } 
+p { font-size: 1.0em; line-height: 1.4em; margin-bottom: 1em} 
+
+h1 { font: bold 1.8em/1.3em Arial, Helvetica, sans-serif; margin:0; } 
+h2 { font: bold 1.6em/1.3em Arial, Helvetica, sans-serif; margin:0; } 
+h3 { font: bold 1.3em/1.3em Arial, Helvetica, sans-serif; margin:0; } 
+h4 { font: bold 1.1em/1.3em Arial, Helvetica, sans-serif; margin:0; } 
+h5 { font: bold 1.0em/1.3em Arial, Helvetica, sans-serif; margin:0; } 
+h6 { font: bold 1.1em/1.3em Arial, Helvetica, sans-serif; margin:0; } 
+
+.rubrik1 {background: #d5ded5; padding: 3px;} 
+
+a:link{ color:#778A75; font-weight:bold; text-decoration:none; } 
+a:visited { color:#778A75; font-weight:bold; text-decoration:none; } 
+a:focus, a:hover { color:#580801; text-decoration:none }
+
+.kort {width: 160px; overflow:hidden; }
+
+.kortafter {background: url(/commonresources/files/www.synologen.se/punktpunktpunkt.gif) right bottom  no-repeat; height: 11px; width: 170px;} 
+.kortafter:hover {background: url(/commonresources/files/www.synologen.se/punktpunktpunkt2.gif) right bottom no-repeat; height: 11px; width: 170px;} 
+
+
+.bildtext { color:#000; font: 0.9em Verdana, Arial, Helvetica, sans-serif; } 
+
+
+hr {border: none 0; border-top: 1px dashed #778A75; height: 1px; border-bottom: 1px dashed #fff;} 
+
+* html hr { border: none 0; height: 0px; border-bottom: 1px dashed #778A75;} 
+
+#wrapper { width:880px; padding:0 15px 0 15px; margin: 0 auto; background:url(graphics/gradient_bg.gif); voice-family: "\"}\""; /*box model hack*/ voice-family:inherit; width:850px; } 
+
+#header { padding:0; margin:0; } 
+#logo { display:inline; float:left; width:159px; margin:10px 0px 10px 22px; } 
+#topbild { clear:both; height:140px; background: #FFF url(/commonresources/files/www.synologen.se/toppbildkille_971x160.jpg) repeat-x; padding:0; margin:0; border-right: 1px solid #98A399; border-left: 1px solid #98A399; border-top: 1px solid #98A399;} 
+
+#contactbox {width: 230px; float: right; margin-top:30px} 
+#logout {float: left;} 
+#contact {float: right; margin-right:15px;} 
+
+#topbild1 { clear:both; height:139px; background: #FFF url(/commonresources/files/www.synologen.se/topbild1.jpg) repeat-x; padding:0; margin:0; } #topbild2 { clear:both; height:139px; background: #FFF url(/commonresources/files/www.synologen.se/topbild2.jpg) repeat-x; padding:0; margin:0; } #start_content_holder { clear:both; padding: 0 19px 0px 19px; width: 810px; } 
+
+#content_holder { clear:both; padding: 30px 5px 30px 5px; width: 838px; overflow:auto; border-right: 1px solid #98A399; border-left: 1px solid #98A399; background: #fff url(/commonresources/files/www.synologen.se/mainbg.gif) repeat-x; } 
+
+.box {background: #d5ded5; padding: 10px; margin-bottom: 10px;} 
+
+#content_holder2 { clear:both; padding: 30px 5px 30px 5px; width: 838px; border-right: 1px solid #98A399; border-left: 1px solid #98A399; border-top: 1px solid #98A399; border-bottom: 1px solid #98A399; } 
+#content_holder2:after{content: ""; display: block; height: 0; clear: both;}/*hack för container att växa på höjden*/
+
+#center_content { display:inline; float:left; width: 405px; margin-right: 15px; } 
+#center_content_forum { display:inline; float:left; width: 620px; margin-right: 15px; } 
+#center_content_lev { display:inline; float:right; width: 620px; margin-right: 15px; } 
+#center_content_login { display:inline; width: 405px; text-align: center; } 
+#center_content img { margin-bottom: 18px } 
+#right_content { display:inline; float:right; width: 213px; margin-right: 10px } 
+
+#right_content img { margin-bottom: 18px } 
+#start_left {float: left} 
+#news_events { font: 10px Verdana, Verdana, Arial, Helvetica, sans-serif; color: #4D6882; border: 1px solid #BCC2C7; background: url(graphics/news_events_bg.gif) repeat-x; display:inline; float:left; width: 255px; height: 234px; margin-right: 14px; padding: 13px; } 
+
+address {width:843px; margin: 0 auto; clear:both; background: #D5DED5; font: 9px Verdana, Verdana, Arial, Helvetica, sans-serif; color: #000; padding-left: 5px; border-right: 1px solid #98A399; border-left: 1px solid #98A399; border-bottom: 1px solid #98A399;} 
+
+#address2 { width:838px; margin: 0 auto; clear:both; background: #D5DED5; font: 9px Verdana, Verdana, Arial, Helvetica, sans-serif; color: #000; padding-left: 5px; padding-right: 5px; border-right: 1px solid #98A399; border-left: 1px solid #98A399; overflow: auto } 
+
+#rightlink { font: bold 11px Verdana, Arial, Helvetica, sans-serif; display:inline; width: 213px; } 
+#rightlink ul{ list-style:none; margin:0; padding:0; border-top: #333 1px solid; } 
+#rightlink li{ border-bottom: #333 1px solid; padding-left: 20px; background:url(/commonresources/files/www.synologen.se/pil.gif) 0 no-repeat; } #rightlink a{ color: #000; font: bold 1.0em Verdana, Arial, Helvetica, sans-serif; text-decoration:none; height: 30px;  display: block; } 
+
+#left_nav { font: normal 0.9em Verdana, Arial, Helvetica, sans-serif; display:inline; float:left; width: 167px; margin-right: 15px; font-weight:normal } 
+#left_nav ul { list-style:none; margin:0; padding:0 } 
+#left_nav #bigicon {text-align:center; margin-top:19px} 
+#left_nav .menulevel1 { padding-left: 10px; line-height: 25px; border-bottom: 5px solid #fff; background: #D5DED5; } 
+#left_nav .menuselectedlevel1 { padding-left: 10px; line-height: 25px; border-bottom: 5px solid #fff; background:#58595B } 
+#left_nav .menulevel2 { padding-left: 20px; line-height: 25px; border-bottom: 1px solid #fff; background: repeat-x } 
+#left_nav .menuselectedlevel2 { padding-left: 20px; line-height: 25px; border-bottom: 1px solid #D5DED5; } 
+#left_nav .menulevel1 a {color: #000; text-decoration:none; font-weight:normal} 
+#left_nav .menulevel1 a:visited {color: #000; text-decoration:none} 
+#left_nav .menulevel1 a:hover { text-decoration:underline } 
+#left_nav .menulevel1 a:active {color: #000} 
+#left_nav .menuselectedlevel1 a { color: #fff; text-decoration:none; font-weight:normal} 
+#left_nav .menuselectedlevel1 a:visited {color: #fff} 
+#left_nav .menuselectedlevel1 a:hover {color: #fff} 
+#left_nav .menuselectedlevel1 a:active {color: #fff} 
+#left_nav .menulevel2 a {color: #000; text-decoration:none; font-weight:normal} 
+#left_nav .menulevel2 a:visited {color: #000; text-decoration:none} 
+#left_nav .menulevel2 a:hover {color: #000; text-decoration:underline;} 
+#left_nav .menulevel2 a:active {color: #000; text-decoration:underline;} 
+#left_nav .menuselectedlevel2 { color: #000; text-decoration:none; font-weight:normal} 
+#left_nav .menuselectedlevel2 a {color: #000; text-decoration:none } 
+#left_nav .menuselectedlevel2 a:visited {color: #000; text-decoration:none} 
+#left_nav .menuselectedlevel2 a:hover {color: #000; text-decoration:underline} 
+#left_nav .menuselectedlevel2 a:active {color: #000; text-decoration:underline} 
+
+/* top level links */ 
+#left_nav ul li a {color:#000; text-decoration:none; font-weight:normal; display:block; padding-left: 10px; line-height: 25px; border-bottom: 5px solid #fff; background: #D5DED5; } 
+#left_nav ul li a:hover {text-decoration:underline} 
+#left_nav ul li.selected a { text-decoration:none; color:#fff; padding-left: 10px; line-height: 25px; border-bottom: 5px solid #fff; background:#58595B } 
+
+/* second level links */ #left_nav ul li.selected ul li a{ padding-left: 20px; line-height: 25px; border-bottom: 1px solid #fff; background-color: #fff; color:#000 } #left_nav ul li.selected ul li a:hover {text-decoration:underline} 
+
+#left_nav ul li ul li.selected a { font-weight:bold; padding-left: 20px; line-height: 25px; border-bottom: 1px solid #D5DED5; background-color:#fff; color:#000 } 
+
+#spotnews {padding:0; border:#156a54 1px solid; margin-bottom: 0; overflow: auto;  position: relative;}
+*html #spotnews {width:100% ; height. 400px;}
+#spotnews :after{content: ""; display: block; height: 0; clear: both;}
+
+#newsheader { padding: 5px; background:#156a54; color: #fff; margin-bottom: 0; } 
+#newsContainer{padding:10px; border: 1px solid #156a54; margin-top: 0px;} 
+#newsheader1{ padding: 5px; background:#156a54; color: #fff; margin-bottom: 0; } 
+#newsContainer1{padding:10px; border: 1px solid #156a54; margin-top: 0px;} 
+#newsheader2 { padding: 5px; background:#d21919; color: #fff; margin-bottom: 0; } 
+#newsContainer2 {padding:10px; border: 1px solid #d21919; margin-top: 0px;} 
+#newsheader3 { padding: 5px; background:#016ab1; color: #fff; margin-bottom: 0; } 
+#newsContainer3 {padding:10px; border: 1px solid #016ab1; margin-top: 0px;} 
+#newsheader4 { padding: 5px; background:#d21919; color: #fff; margin-bottom: 0; text-transform:uppercase; } 
+#newsContainer4 {padding:5px; margin-top: 0px;} 
+#newsheader6 { padding: 5px; background:#f2ca15; color: #fff; margin-bottom: 0; } 
+#newsContainer6 {padding:10px; border: 1px solid #f2ca15; margin-top: 0px;} 
+#newsheader7 { padding: 5px; background:#ff7f01; color: #fff; margin-bottom: 0; } 
+#newsContainer7 {padding:10px; border: 1px solid #ff7f01; margin-top: 0px;} 
+
+#newsImage { float: left; }
+#newsText { padding: 10px; float: right; }
+#newsImage0 { float: left; }
+#newsText0 { padding: 10px; float: right; }
+#newsImage1 { float: left; }
+#newsText1 { padding: 10px; float: right; width: 170px;}
+#newsImage2 {   }
+#newsText2 { padding: 10px; float: left; width: 170px;}
+#newsImage3 { float: right; width: 200px;}
+#newsText3 { padding: 10px; float: left;  width: 170px;}
+#newsImage6 { float: right; width: 200px;}
+#newsText6 { padding: 10px; float: left;  width: 170px;}
+#newsImage7 { float: right; width: 200px;}
+#newsText7 { padding: 10px; float: left;  width: 170px;}
+
+#dError {color: #ff0000; text-align:center; font-weight:bold} 
+.error {color: #ff0000; text-align:center; font-weight:bold; margin-bottom: 10px;} 
+.formItem {padding: 3px;} 
+
+#dMain {border: 1px solid #156a54; margin: 0 auto; width:405px; text-align: left;} 
+.formCommands{text-align: center; padding: 3px;} 
+#contentlev {width:600px; float:right; margin-right:35px;} 
+
+/****FORM ELEMENTS*****/ 
+.button { font-family: Verdana, Arial, Helvetica, sans-serif; color: #000; border:#333 1px solid; padding: 3px; background: #e3e3e3; text-transform: uppercase; cursor:pointer; font-size: 0.9em; } 
+
+/****************** TABLE STYLES ******************/ 
+.table { width:100%; background:#f4f4f4; border:1px solid #ccc; border-collapse:collapse; } 
+.table td { padding:10px; color:#000000; } 
+.table2 { width:100%; background:#f9f9f9; border:1px solid #ccc; border-collapse:collapse; } 
+.table2 td { padding:10px; color:#000000; } 
+thead th, tfoot th{ padding:10px; background-color:#e3e3e3; color:#FFFFFF; text-transform: uppercase; font-weight:bold; } 
+tr.table-head th{ padding: 10px; background-color:#D5DED5; color:#000; text-transform: uppercase; font-weight:bold; border: 0; text-align:left; border:1px solid #98A399; } 
+.table2 th{ padding: 10px; background-color:#D5DED5; color:#000; text-transform: uppercase; font-weight:bold; border: 0; text-align:left; border-bottom:1px solid #98A399; } 
+.table-row-1 td { background:#FFFFFF; border: none; border-left:1px solid #98A399; border-right:1px solid #98A399; } 
+.table-row-2 td { border: none; border-left:1px solid #98A399; border-right:1px solid #98A399; } 
+
+ul {list-style-position: inside }
+
+
+
+/****************** Course ******************/ 
+.course-spot h5{
+background:#D21919 none repeat scroll 0 0;
+color:#FFFFFF;
+margin-bottom:0;
+padding:5px;
+text-transform:uppercase;
 }
-#synologen-order-control .rowItem .spacer{
-	display:block; 
-	height:20px; 
-	clear:both;
+
+#left_nav ul.course-spot-list li a {
+font-size: 1.1em;
+background:#FFFFFF none repeat scroll 0 0;
+border-bottom:5px solid #FFFFFF;
+color:#000000;
+display:block;
+font-weight:normal;
+line-height:13px;
+padding-left:0px;
+text-decoration:none;
 }
 
-#order-items-cart{display:block;clear:both;}
-#order-items-cart table{width:53.5em;}
-table#sales-list {width:53.5em;}
-
-.synologen-table tr,
-.synologen-table th {border: solid 1px #A0A0A0;}
-table.synologen-table  {border: solid 1px #A0A0A0; border-spacing:0px; border-collapse:collapse;}
-.synologen-table td {padding-left:3px; border: solid 1px #A0A0A0;}
-.synologen-table-row{background-color:#EEEEEE;height:2em;}
-.synologen-table-alternative-row{background-color:#FFFFFF; height:2em;}
-.synologen-table-headerrow{background-color:#DDDDDD; height:2em;}
-
-
-#member-list ul li		{ padding:5px;}
-#member-list ul span	{ vertical-align:middle; min-width:12em; display:inline-block;}
-#member-list ul img	{ vertical-align:middle; border:none;}
+/****************** Synologen ******************/ 
+/*
+table.shop-list .shop-city {background-color: rgb(213, 222, 213);}
+table.shop-list .shop-link,
+table.shop-list .shop-no-link {font-weight: bold;}
 */
+table.shop-list .shop-city {background-color: rgb(213, 222, 213);}
+table.shop-list .shop-link,
+table.shop-list .shop-no-link {font-weight: bold;}
+table.shop-list {width:100%;}
+#shop-filter {text-align:right;}
 
-table.city-shop-list, ul.city-list
-{
-	display:block;
-	float:left;
-}
+
+
+.synologen-control label,
+.synologen-control input,
+.synologen-control select {display:inline-block; margin: 5px 0px;}
+.synologen-control img {border:none;}
+
+.synologen-control select, 
+.synologen-control input[type="text"],
+.synologen-control input[type="password"] { width:12em; }
+
+
+.synologen-control select.wide,
+.synologen-control input[type="text"].wide,
+.synologen-control input[type="password"].wide,
+.synologen-control textarea.wide { width:22em; }
+
+.synologen-control label {width:12em;  padding-left:0.5em; margin-right:5px;}
+.synologen-control input {clear:right;}
+.synologen-control fieldset {width:450px; border:solid 1px #B5BEB5; padding-left:15px;}
+.synologen-control fieldset legend {font-weight:bold;  padding:5px 5px; border:solid 1px #B5BEB5; background-color:#D5DED5; color:black;}
+
+
+.synologen-control li { padding:5px;}
+.synologen-control li span { vertical-align:middle; min-width:12em; display:inline-block;}
+.synologen-control li img { vertical-align:middle; border:none; margin-bottom:0 !important;}
+
+
+.synologen-control table .center-cell {text-align:center;}
+.synologen-control table {border: solid 1px #A0A0A0;}
+.synologen-control table { border-spacing:0px; display:block; float:left; clear:both;border-collapse:collapse;}
+.synologen-control table tr,
+.synologen-control table th,
+.synologen-control table td {padding: 5px; border: solid 1px #A0A0A0;border-collapse:collapse;}
+.synologen-control table input {margin: 0 10px !important;}
+
+
+.synologen-table-row {background-color:#FFFFFF;height:2em;}
+.synologen-table-alternative-row {background-color:#FFFFFF; height:2em;}
+.synologen-table-headerrow {background-color:#D5DED5; height:2em;}
+
+.synologen-control #order-items-cart {float:left;clear:both;}
+.synologen-control .control-actions input {float:left;clear:none;}
+.synologen-control div.error-summary {float:left;clear:both;}
+.synologen-control #article-selection select {width:auto; min-width:12em;}
+.synologen-control #article-selection input[type="image"] {position:relative; top:8px; padding-left:5px;}
+.synologen-control .clearLeft{float:left;clear:left;}
+.synologen-control .clearBoth{float:left;clear:both;}
+
+/****************** Forgotten Password ******************/ 
+#forgotten-password-link {text-align:center;}
+#forgotten-password-main {margin:0 auto;width:500px; text-align:center;}
+#forgotten-password-content {margin:0 auto;width:405px;}
+#forgotten-password-content fieldset{border:1px solid #156A54;padding-top:10px;text-align:left;}
+#forgotten-password-content h2{background:#156A54 none repeat scroll 0 0;color:#FFFFFF;margin-bottom:0;padding:5px;  text-align:left;}
+#forgotten-password-content legend {display:none;visibility:hidden;}
+#forgotten-password-content label.long {width:120px; display:inline-block; font-weight:bold; }
+#forgotten-password-content p {padding-left:20px;}
+#forgotten-password-content input[type="submit"] {margin-left:122px;}
+

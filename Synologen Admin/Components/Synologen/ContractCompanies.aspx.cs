@@ -1,18 +1,20 @@
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
 using Spinit.Wpc.Synologen.Business.Enumeration;
 using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
-using Spinit.Wpc.Utility.Business.SmartMenu;
 
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 	public partial class ContractCompanies : SynologenPage {
-		private int _companyId = -1;
+		private int _contractId = -1;
+		//private int _pageSize = -1;
+		private ContractRow _selectedContract = new ContractRow();
+
+		public ContractRow SelectedContract {
+			get { return _selectedContract; }
+		}
 
 		//protected void Page_Init(object sender, EventArgs e) {
 		//    RenderMemberSubMenu(Page.Master);
@@ -21,42 +23,60 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		protected void Page_Load(object sender, EventArgs e) {
 			//plRST.Visible = false;
 			if (Request.Params["id"] != null) {
-				_companyId = Convert.ToInt32(Request.Params["id"]);
+				_contractId = Convert.ToInt32(Request.Params["id"]);
+				_selectedContract = Provider.GetContract(_contractId);
+				
 				//plRST.Visible = true;
-				//PopulateRsts(_companyId);
+				//PopulateRsts(_contractId);
 			}
+			plFilterByContract.Visible = (_contractId > 0);
 			if (Page.IsPostBack) return;
-			PopulateContracts();
+			//PopulateContracts();
 			PopulateContractCompanies();
-			if (_companyId > 0) {
-				SetupForEdit();
+			//PopulateInvoicingMethods();
+			//if (_contractId > 0) {
+			//    SetupForEdit();
 
-			}
+			//}
 		}
 
-		private void PopulateContracts() {
-			drpContracts.DataValueField = "cId";
-			drpContracts.DataTextField = "cName";
-			drpContracts.DataSource = Provider.GetContracts(FetchCustomerContract.All, 0, 0, null);
-			drpContracts.DataBind();
-			drpContracts.Items.Insert(0, new ListItem("-- Välj avtal --", "0"));
-		}
+		//private void PopulateInvoicingMethods() {
+		//    drpInvoicingMethods.DataValueField = "cId";
+		//    drpInvoicingMethods.DataTextField = "cName";
+		//    drpInvoicingMethods.DataSource = Provider.GetInvoicingMethods(null, null);
+		//    drpInvoicingMethods.DataBind();
+		//    drpInvoicingMethods.Items.Insert(0, new ListItem("-- Välj faktureringsmetod --", "0"));
+		//}
+
+		//private void PopulateContracts() {
+		//    drpContracts.DataValueField = "cId";
+		//    drpContracts.DataTextField = "cName";
+		//    drpContracts.DataSource = Provider.GetContracts(FetchCustomerContract.All, 0, 0, null);
+		//    drpContracts.DataBind();
+		//    drpContracts.Items.Insert(0, new ListItem("-- Välj avtal --", "0"));
+		//}
 
 
-		private void SetupForEdit() {
-			ltHeading.Text = "Redigera avtalsföretag";
-			btnSave.Text = "Ändra";
-			CompanyRow company = Provider.GetCompanyRow(_companyId);
-			txtName.Text = company.Name;
-			txtAddress.Text = company.Address1;
-			txtAddress2.Text = company.Address2;
-			txtZip.Text = company.Zip;
-			txtCity.Text = company.City;
-			txtCompanyCode.Text = company.CompanyCode;
-			drpContracts.SelectedValue = company.ContractId.ToString();
-			txtBankIDCode.Text = company.BankCode;
-			chkActive.Checked = company.Active;
-		}
+			//private void SetupForEdit() {
+			//    ltHeading.Text = "Redigera avtalsföretag";
+			//    btnSave.Text = "Ändra";
+			//    CompanyRow company = Provider.GetCompanyRow(_contractId);
+			//    txtName.Text = company.Name;
+			//    txtAddress.Text = company.Address1;
+			//    txtAddress2.Text = company.Address2;
+			//    txtZip.Text = company.Zip;
+			//    txtCity.Text = company.City;
+			//    txtCompanyCode.Text = company.CompanyCode;
+			//    drpContracts.SelectedValue = company.ContractId.ToString();
+			//    txtBankIDCode.Text = company.BankCode;
+			//    chkActive.Checked = company.Active;
+			//    txtOrganizationNumber.Text = company.OrganizationNumber;
+			//    txtAddressCode.Text = company.AddressCode;
+			//    txtTaxAccountingCode.Text = company.TaxAccountingCode;
+			//    txtPaymentDuePeriod.Text = company.PaymentDuePeriod.ToString();
+			//    txtEDIRecipientId.Text = company.EDIRecipientId;
+			//    drpInvoicingMethods.SelectedValue = company.InvoicingMethodId.ToString();
+			//}
 
 		//private void PopulateRsts(int companyId) {
 		//    DataSet rsts = Provider.GetCompanyRSTs(0, companyId, "cId");
@@ -65,11 +85,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		//}
 
 		private void PopulateContractCompanies() {
-			DataSet companies = Provider.GetCompanies(0, 0, "cId", ActiveFilter.Both);
+
+			//Set pagesize
+			//_pageSize = SessionContext.ContractCompanies.PageSize;
+			//pager.PageSize = _pageSize;
+
+
+			//Set sorting
+			SortExpression = SessionContext.ContractCompanies.SortExpression;
+			SortAscending = SessionContext.ContractCompanies.SortAscending;
+			var companies = Provider.GetCompanies(0, _contractId, "cId", ActiveFilter.Both);
+
 			gvContractCompanies.DataSource = companies;
 			gvContractCompanies.DataBind();
-			ltHeading.Text = "Lägg till avtalsföretag";
-			btnSave.Text = "Spara";
 
 		}
 
@@ -116,7 +144,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				Response.Redirect(ComponentPages.NoAccess);
 			}
 			else {
-				Response.Redirect(ComponentPages.ContractCompanies +"?id=" + articleId, true);
+				Response.Redirect(ComponentPages.EditContractCompany +"?id=" + articleId, true);
 				
 			}
 		}
@@ -143,66 +171,47 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			}
 		}
 
-		protected void btnSave_Click(object sender, EventArgs e) {
-			if (!IsInRole(MemberRoles.Roles.Create)) {
-				Response.Redirect(ComponentPages.NoAccess);
-			}
-			CompanyRow company = new CompanyRow();
-			Enumerations.Action action = Enumerations.Action.Create;
-			if (_companyId > 0) {
-				company = Provider.GetCompanyRow(_companyId);
-				action = Enumerations.Action.Update;
-			}
-			company.ContractId = Int32.Parse(drpContracts.SelectedValue);
-			company.Name = txtName.Text;
-			company.Address1 = txtAddress.Text;
-			company.Address2 = txtAddress2.Text;
-			company.Zip = txtZip.Text;
-			company.City = txtCity.Text;
-			company.CompanyCode = txtCompanyCode.Text;
-			company.BankCode = txtBankIDCode.Text;
-			company.Active = chkActive.Checked;
-			Provider.AddUpdateDeleteCompany(action, ref company);
-			Response.Redirect(ComponentPages.ContractCompanies);
+		protected void gvContractCompanies_Sorting(object sender, GridViewSortEventArgs e) {
+			if (e.SortExpression == SortExpression) SortAscending = !SortAscending;
+			else SortAscending = true;
+
+			SortExpression = e.SortExpression;
+			SessionContext.ContractCompanies.SortExpression = SortExpression;
+			SessionContext.ContractCompanies.SortAscending = SortAscending;
+
+			PopulateContractCompanies();
 		}
 
+		protected void gvContractCompanies_PageIndexChanging(object sender, GridViewPageEventArgs e) {
+			SessionContext.ContractCompanies.PageIndex = e.NewPageIndex;
+			gvContractCompanies.PageIndex = e.NewPageIndex;
+			DataBind();
+		}
+
+		//protected override void OnInit(EventArgs e) {
+		//    pager.IndexChanged += PageIndex_Changed;
+		//    pager.IndexButtonChanged += PageIndexButton_Changed;
+		//    pager.PageSizeChanged += PageSize_Changed;
+		//    base.OnInit(e);
+		//}
+
+		//private void PageIndex_Changed(Object sender, EventArgs e) {
+		//    SessionContext.ContractCompanies.PageIndex = pager.PageIndex;
+		//    PopulateContractCompanies();
+		//}
+
+		//private void PageIndexButton_Changed(Object sender, EventArgs e) {
+		//    SessionContext.ContractCompanies.PageIndex = pager.PageIndex;
+		//    PopulateContractCompanies();
+		//}
+
+		//private void PageSize_Changed(Object sender, EventArgs e) {
+		//    SessionContext.ContractCompanies.PageSize = pager.PageSize;
+		//    PopulateContractCompanies();
+		//}
 
 		#endregion
 
-		//protected void gvRST_Deleting(object sender, GridViewDeleteEventArgs e) {
-		//    int index = e.RowIndex;
-		//    int rstId = (int)gvRST.DataKeys[index].Value;
-		//    int numberOfConnectedOrders = (int)gvRST.DataKeys[index].Values["cConnectedOrders"];
-		//    if (numberOfConnectedOrders>0) return;
-
-
-		//    const Enumerations.Action action = Enumerations.Action.Delete;
-		//    RSTRow rst = new RSTRow();
-		//    rst.Id = rstId;
-		//    Provider.AddUpdateDeleteRST(action, ref rst);
-		//    Response.Redirect(ComponentPages.ContractCompanies + "?" + Request.QueryString);
-		//}
-
-		//protected void btnSaveRST_Click(object sender, EventArgs e) {
-		//    const Enumerations.Action action = Enumerations.Action.Create;
-		//    RSTRow rst = new RSTRow();
-		//    rst.Name = txtNewRST.Text;
-		//    rst.CompanyId = _companyId;
-		//    Provider.AddUpdateDeleteRST(action, ref rst);
-		//    Response.Redirect(ComponentPages.ContractCompanies + "?" + Request.QueryString);
-		//}
-
-
-		//protected void gvRST_RowDataBound(object sender, GridViewRowEventArgs e) {
-		//    if (e.Row.RowType != DataControlRowType.DataRow) return;
-		//    DataRowView rowView = (DataRowView)e.Row.DataItem;
-		//    int numberOfConnections = Int32.Parse(rowView["cConnectedOrders"].ToString());
-		//    if(numberOfConnections>0){ 
-		//        //Disables delete-button if there are orders connected to this RST
-		//        e.Row.Cells[2].Enabled = false;
-		//    }
-
-		//}
 	}
 
 }

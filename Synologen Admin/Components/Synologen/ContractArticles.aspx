@@ -4,6 +4,17 @@
         <div class="fullBox">
             <div class="wrap">
             <h2>Artiklar</h2>
+            
+            <asp:PlaceHolder id="plFilterByContract" runat="server">        	                	                  	                 	                
+			<fieldset><legend>Filter</legend>
+				<div class="formItem clearLeft">
+					<label >Visar Företag för Avtalskund:</label>&nbsp;<span><%=SelectedContract.Name %></span><br /><br />
+					<%--<input type="button" name="inputNew" class="btnBig" onclick="window.location='EditContractCompany.aspx?contractId=<%=SelectedContract.Id %>'" value="Skapa nytt avtalsföretag" />--%>
+					<input type="button" name="inputBack" class="btnBig" onclick="window.location='Contracts.aspx'" value="Tillbaka" />
+				</div> 	   	                                                     
+			</fieldset>
+            </asp:PlaceHolder>	
+            
 	        <fieldset>
 		        <legend><asp:Literal id="ltHeading" runat="server" Text="Lägg till artikel"/></asp:Literal></legend>		
 		        <div class="formItem">

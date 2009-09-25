@@ -53,6 +53,7 @@ using Spinit.Wpc.Synologen.Data.Types;
 
 namespace Spinit.Wpc.Synologen.Presentation.Code {
 	public static class SessionContext {
+
 		private const int DefaultPageSize = 40;
 
 		public static class Shops {
@@ -110,6 +111,35 @@ namespace Spinit.Wpc.Synologen.Presentation.Code {
 				set { Session.SetSessionValue(NAME + "IndexPageSearch", value); }
 			}
 		}
+
+		public static class ContractCompanies {
+			private const string NAME = "ContractCompanies";
+			public static int PageSize {
+				get { return Session.GetSessionValue(NAME + "IndexPageSize", DefaultPageSize); }
+				set { Session.SetSessionValue(NAME + "IndexPageSize", value); }
+			}
+			public static int PageIndex {
+				get { return Session.GetSessionValue(NAME + "IndexPageIndex", 0); }
+				set { Session.SetSessionValue(NAME + "IndexPageIndex", value); }
+			}
+			public static bool SortAscending {
+				get { return Session.GetSessionValue(NAME + "IndexPageSortAscending", true); }
+				set { Session.SetSessionValue(NAME + "IndexPageSortAscending", value); }
+			}
+			public static string SortExpression {
+				get { return Session.GetSessionValue(NAME + "IndexSortExpression", "cName"); }
+				set { Session.SetSessionValue(NAME + "IndexSortExpression", value); }
+			}
+			public static int SelectedCategory {
+				get { return Session.GetSessionValue(NAME + "IndexPageCategory", 0); }
+				set { Session.SetSessionValue(NAME + "IndexPageCategory", value); }
+			}
+			public static string SearchExpression {
+				get { return Session.GetSessionValue(NAME + "IndexPageSearch", String.Empty); }
+				set { Session.SetSessionValue(NAME + "IndexPageSearch", value); }
+			}
+		}
+
 
 		public static class Orders {
 			private const string NAME = "Orders";

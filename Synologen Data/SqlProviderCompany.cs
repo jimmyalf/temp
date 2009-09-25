@@ -74,6 +74,12 @@ namespace Spinit.Wpc.Synologen.Data {
 					new SqlParameter("@companyCode", SqlDbType.NVarChar, 16),
 					new SqlParameter("@bankCode", SqlDbType.NVarChar, 50),
 					new SqlParameter("@active", SqlDbType.Bit),
+					new SqlParameter("@organizationNumber", SqlDbType.NVarChar, 50),
+					new SqlParameter("@addressCode", SqlDbType.NVarChar, 50),
+					new SqlParameter("@taxAccountingCode", SqlDbType.NVarChar, 50),
+					new SqlParameter("@paymentDuePeriod", SqlDbType.Int, 4),
+					new SqlParameter("@ediRecipientId", SqlDbType.NVarChar, 50),
+					new SqlParameter("@invoicingMethodId", SqlDbType.Int, 4 ),
 		            new SqlParameter("@status", SqlDbType.Int, 4),
 		            new SqlParameter("@id", SqlDbType.Int, 4)
 		        };
@@ -82,14 +88,20 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = (int)action;
 				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
 					parameters[counter++].Value = company.ContractId;
-					parameters[counter++].Value = company.Name ?? SqlString.Null;
-					parameters[counter++].Value = company.Address1 ?? SqlString.Null;
-					parameters[counter++].Value = company.Address2 ?? SqlString.Null;
-					parameters[counter++].Value = company.Zip ?? SqlString.Null;
-					parameters[counter++].Value = company.City ?? SqlString.Null;
-					parameters[counter++].Value = company.CompanyCode ?? SqlString.Null;
-					parameters[counter++].Value = company.BankCode ?? SqlString.Null;
+					parameters[counter++].Value = GetNullableSqlType(company.Name);
+					parameters[counter++].Value = GetNullableSqlType(company.Address1);
+					parameters[counter++].Value = GetNullableSqlType(company.Address2);
+					parameters[counter++].Value = GetNullableSqlType(company.Zip);
+					parameters[counter++].Value = GetNullableSqlType(company.City);
+					parameters[counter++].Value = GetNullableSqlType(company.CompanyCode);
+					parameters[counter++].Value = GetNullableSqlType(company.BankCode);
 					parameters[counter++].Value = company.Active;
+					parameters[counter++].Value = GetNullableSqlType(company.OrganizationNumber);
+					parameters[counter++].Value = GetNullableSqlType(company.AddressCode);
+					parameters[counter++].Value = GetNullableSqlType(company.TaxAccountingCode);
+					parameters[counter++].Value = company.PaymentDuePeriod;
+					parameters[counter++].Value = GetNullableSqlType(company.EDIRecipientId);
+					parameters[counter++].Value = company.InvoicingMethodId;
 
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
@@ -127,6 +139,14 @@ namespace Spinit.Wpc.Synologen.Data {
 				contractRow.CompanyCode = Util.CheckNullString(contractCompanyDataRow, "cCompanyCode");
 				contractRow.BankCode = Util.CheckNullString(contractCompanyDataRow, "cBankCode");
 				contractRow.Active = (bool) contractCompanyDataRow["cActive"];
+
+				contractRow.OrganizationNumber = Util.CheckNullString(contractCompanyDataRow, "cOrganizationNumber");
+				contractRow.AddressCode = Util.CheckNullString(contractCompanyDataRow, "cAddressCode");
+				contractRow.TaxAccountingCode = Util.CheckNullString(contractCompanyDataRow, "cTaxAccountingCode");
+				contractRow.PaymentDuePeriod = Util.CheckNullInt(contractCompanyDataRow, "cPaymentDuePeriod");
+				contractRow.EDIRecipientId = Util.CheckNullString(contractCompanyDataRow, "cEDIRecipientId");
+				contractRow.InvoicingMethodId = Util.CheckNullInt(contractCompanyDataRow, "cInvoicingMethodId");
+
 				return contractRow;
 			}
 			catch (Exception ex) {

@@ -34,7 +34,7 @@
 	                    <asp:TextBox runat="server" ID="txtSearch"/>
 	                </div> 	                          
 	                <div class="formItem clearLeft">
-	                    <asp:Button runat="server" id="btnSearch" OnClick="btnSearch_Click" text="S&ouml;k"/>
+	                    <asp:Button runat="server" id="btnSearch" OnClick="btnSearch_Click" text="S&ouml;k"  SkinId="Big"/>
 	                </div>	
 	                </asp:PlaceHolder>                
                 </fieldset>

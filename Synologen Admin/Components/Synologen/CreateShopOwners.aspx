@@ -17,7 +17,7 @@
 		<asp:DropDownList ID="drpnewMemberCategories" runat="server" DataValueField="cCategoryId" DataTextField="cName" />
     </div>       
     <div>
-		<asp:Button ID="btnAction" runat="server" Text="Run" OnClick="btnAction_Click" />
+		<asp:Button ID="btnAction" runat="server" Text="Run" OnClick="btnAction_Click"  SkinId="Big" />
     </div>
     </form>
 </body>

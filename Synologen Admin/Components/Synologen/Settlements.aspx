@@ -9,7 +9,7 @@
 		            <label class="labelLong">Antal ordrar redo för utbetalning: <%=NumberOfOrdersReadyForSettlement %></label>
 		        </div>	               	        
 		        <div class="formCommands">
-		            <asp:button ID="btnCreateSettlement" runat="server" OnClick="btnCreateSettlement_Click" Text="Skapa utbetalning" CssClass="btnBig" ValidationGroup="Error"/>
+		            <asp:button ID="btnCreateSettlement" runat="server" OnClick="btnCreateSettlement_Click" Text="Skapa utbetalning"  SkinId="Big" ValidationGroup="Error"/>
 		        </div>
 	        </fieldset>
         

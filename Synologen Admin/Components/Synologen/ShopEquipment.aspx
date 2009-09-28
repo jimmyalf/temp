@@ -17,7 +17,7 @@
 		            <asp:TextBox runat="server" ID="txtDescription" cssClass="txtAreaWide" TextMode="MultiLine"/>
 		        </div>			               	        
 		        <div class="formCommands">
-		            <asp:button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Spara" CssClass="btnSmall" ValidationGroup="vldSave"/>
+		            <asp:button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Spara"  SkinId="Big" ValidationGroup="vldSave"/>
 		        </div>
 	        </fieldset>
         

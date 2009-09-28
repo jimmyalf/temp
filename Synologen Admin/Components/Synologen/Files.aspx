@@ -10,8 +10,8 @@
 	                <div class="formItem">
 	                    <asp:Label ID="lblShow" runat="server" AssociatedControlID="drpFileCategories" SkinId="Long"/>
 	                    <asp:DropDownList runat="server" ID="drpFileCategories"/>&nbsp;
-	                    <asp:Button runat="server" id="btnSetFilter" OnClick="btnSetFilter_Click" text="Show"/>&nbsp;|&nbsp;
-	                    <asp:Button runat="server" id="btnShowAll" OnClick="btnShowAll_Click" text="Show All" />
+	                    <asp:Button runat="server" id="btnSetFilter" OnClick="btnSetFilter_Click" text="Show"  SkinId="Big" />&nbsp;|&nbsp;
+	                    <asp:Button runat="server" id="btnShowAll" OnClick="btnShowAll_Click" text="Show All"  SkinId="Big" />
 	                </div>
                 </fieldset>
     

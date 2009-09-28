@@ -138,9 +138,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void gvContractCustomerArticles_Editing(object sender, GridViewEditEventArgs e) {
-			int index = e.NewEditIndex;
+			//int index = e.NewEditIndex;
+			//int articleId = (int)gvContractCustomerArticles.DataKeys[index].Value;
+			var articleId = Code.Utility.GetSelectedGridViewDataKeyId(gvContractCustomerArticles, e);
 
-			int articleId = (int)gvContractCustomerArticles.DataKeys[index].Value;
 			if (!IsInRole(MemberRoles.Roles.Edit)) {
 				Response.Redirect(ComponentPages.NoAccess);
 			}
@@ -154,18 +155,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void gvContractCustomerArticles_Deleting(object sender, GridViewDeleteEventArgs e) {
-			int index = e.RowIndex;
-			int connectionId = (int)gvContractCustomerArticles.DataKeys[index].Value;
+			//int index = e.RowIndex;
+			//int connectionId = (int)gvContractCustomerArticles.DataKeys[index].Value;
+			var connectionId = Code.Utility.GetSelectedGridViewDataKeyId(gvContractCustomerArticles, e);
 			if (!IsInRole(MemberRoles.Roles.Delete)) {
 				Response.Redirect(ComponentPages.NoAccess);
 			}
 			else {
-				ContractArticleRow connection = new ContractArticleRow();
-				connection.Id = connectionId;
+				var connection = new ContractArticleRow {Id = connectionId};
 				Provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Delete, ref connection);
 				Response.Redirect(ComponentPages.ContractArticles);
 			}
 		}
+
 
 		protected void btnSave_Click(object sender, EventArgs e) {
 			ContractArticleRow connection = new ContractArticleRow();

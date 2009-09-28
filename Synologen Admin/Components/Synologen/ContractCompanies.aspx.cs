@@ -137,14 +137,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void gvContractCompanies_Editing(object sender, GridViewEditEventArgs e) {
-			int index = e.NewEditIndex;
+			var index = e.NewEditIndex;
 
-			int articleId = Convert.ToInt32(gvContractCompanies.DataKeys[index].Value); 
+			var contractCompanyId = Convert.ToInt32(gvContractCompanies.DataKeys[index].Value); 
 			if (!IsInRole(MemberRoles.Roles.Edit)) {
 				Response.Redirect(ComponentPages.NoAccess);
 			}
 			else {
-				Response.Redirect(ComponentPages.EditContractCompany +"?id=" + articleId, true);
+				if(SelectedContract.Id>0) {
+					Response.Redirect(ComponentPages.EditContractCompany +"?id=" + contractCompanyId + "&contractId=" + SelectedContract.Id, true);
+				}
+				Response.Redirect(ComponentPages.EditContractCompany +"?id=" + contractCompanyId, true);
 				
 			}
 		}

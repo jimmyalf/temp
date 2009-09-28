@@ -11,6 +11,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		private int _companyId = -1;
 		private int _selectedContractId = -1;
 
+		public int SelectedContractID {
+			get { return _selectedContractId; }
+		}
+
 		protected void Page_Load(object sender, EventArgs e) {
 			if (Request.Params["id"] != null) {
 				_companyId = Convert.ToInt32(Request.Params["id"]);
@@ -41,8 +45,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			drpContracts.DataSource = Provider.GetContracts(FetchCustomerContract.All, 0, 0, null);
 			drpContracts.DataBind();
 			drpContracts.Items.Insert(0, new ListItem("-- Välj avtal --", "0"));
-			if(_selectedContractId>0) {
-				drpContracts.SelectedValue = _selectedContractId.ToString();
+			if(SelectedContractID>0) {
+				drpContracts.SelectedValue = SelectedContractID.ToString();
 				drpContracts.Enabled = false;
 			}
 		}

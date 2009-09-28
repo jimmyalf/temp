@@ -46,7 +46,7 @@
 		            <asp:CheckBox runat="server" ID="chkActive"/>
 		        </div>		        	        
 		        <div class="formCommands">
-		            <asp:button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Spara" CssClass="btnSmall" ValidationGroup="Error"/>
+		            <asp:button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Spara"  SkinId="Big" ValidationGroup="Error"/>
 		        </div>
 	        </fieldset>
         

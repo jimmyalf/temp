@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Spinit.Wpc.Synologen.Business.Interfaces;
 using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.EDI;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Utility.Types;
 
 namespace Spinit.Wpc.Synologen.Utility {
@@ -24,6 +26,15 @@ namespace Spinit.Wpc.Synologen.Utility {
 		public static Invoice CreateInvoiceEDI(OrderRow order, List<IOrderItem> iorderList, CompanyRow company,IShop shop, EDIConversionSettings ediSettings) {
 			var EDIInvoice = Convert.ToEDIInvoice(ediSettings, order, iorderList, company, shop);
 			return EDIInvoice;
+		}
+
+		public static SFTIInvoiceType CreateInvoiceSvefaktura(OrderRow order, List<IOrderItem> iorderList, CompanyRow company, IShop shop, EDIConversionSettings ediSettings) {
+			if (order == null) throw new ArgumentNullException("order");
+			if (iorderList == null) throw new ArgumentNullException("iorderList");
+			if (company == null) throw new ArgumentNullException("company");
+			if (shop == null) throw new ArgumentNullException("shop");
+			if (ediSettings == null) throw new ArgumentNullException("ediSettings");
+			return Convert.ToSvefakturaInvoice(ediSettings, order, iorderList, company, shop);
 		}
 	}
 }

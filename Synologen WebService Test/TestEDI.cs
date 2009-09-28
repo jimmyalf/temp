@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Data;
@@ -17,8 +16,6 @@ namespace Spinit.Wpc.Synologen.Test {
 			connectionString = "Initial Catalog=dbWpcSynologen;Data Source=BLACK;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
 			provider = new SqlProvider(connectionString);
 			ediSettings = new EDIConversionSettings {
-				InvoiceExpieryDate = DateTime.Now.AddDays(30),
-				RecipientId = "00075020177753TEST",
 				SenderId = "556262-6100",
 				BankGiro = "5693-6677",
 				VATAmount = 0.25F

@@ -7,8 +7,8 @@ namespace Spinit.Wpc.Synologen.Utility.Types {
 		public string BankGiro{ get; set;}
 		public float VATAmount{ get; set;}
 		public string SenderId { get; set; }
-		public string RecipientId { get; set; }
-		public DateTime InvoiceExpieryDate { get; set; }
+		//public string RecipientId { get; set; }
+		//public DateTime InvoiceExpieryDate { get; set; }
 		public int NumberOfDecimalsUsedAtRounding { get; set; }
 	}
 }

@@ -33,7 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
+    <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
@@ -70,9 +73,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestSvefakturaInvoiceParsing.cs" />
     <Compile Include="Mock\Utility.cs" />
     <Compile Include="Mock\MockAdkHandler.cs" />
     <Compile Include="Mock\MockWebServiceClient.cs" />
+    <Compile Include="TestEDIInvoiceParsing.cs" />
     <Compile Include="TestMockFlow.cs" />
     <Compile Include="TestSPCS.cs" />
     <Compile Include="TestSynologenInvoice.cs" />
@@ -119,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\Adk.dll" />
+    <Content Include="Mock\Svefaktura_example.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -44,15 +44,36 @@
 // ==========================================================================
 using System;
 using System.Collections.Generic;
-using System.Web;
+using System.Web.UI.WebControls;
 
 namespace Spinit.Wpc.Synologen.Presentation.Code {
 	public static class Utility{
 		public static bool FindMatchInLists(List<int> firstList,List<int> secondList) {
-				foreach(int number in firstList) {
+				foreach(var number in firstList) {
 					if (secondList.Contains(number)) return true;
 				}
 				return false;
+		}
+
+		public static int GetSelectedGridViewDataKeyId(GridView gridView, GridViewDeleteEventArgs eventArgs) {
+			var index = eventArgs.RowIndex;
+			if (gridView == null) throw new ArgumentNullException("gridView");
+			if (gridView.DataKeys == null) throw new ArgumentException("Gridview does not contain any datakeys.");
+			return (int)gridView.DataKeys[index].Value;
+		}
+
+		public static int GetSelectedGridViewDataKeyId(GridView gridView, GridViewEditEventArgs eventArgs) {
+			var index = eventArgs.NewEditIndex;
+			if (gridView == null) throw new ArgumentNullException("gridView");
+			if (gridView.DataKeys == null) throw new ArgumentException("Gridview does not contain any datakeys.");
+			return (int)gridView.DataKeys[index].Value;
+		}
+
+		public static int GetSelectedGridViewDataKeyId(GridView gridView, GridViewCommandEventArgs eventArgs) {
+			var index = Convert.ToInt32(eventArgs.CommandArgument);
+			if (gridView == null) throw new ArgumentNullException("gridView");
+			if (gridView.DataKeys == null) throw new ArgumentException("Gridview does not contain any datakeys.");
+			return (int)gridView.DataKeys[index].Value;
 		}
 	}
 }

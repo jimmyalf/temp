@@ -21,7 +21,7 @@
 	                </div>
 	                <div class="formItem clearLeft">
 						<br />
-	                    <asp:Button runat="server" id="btnSearch" OnClick="btnSearch_Click" text='S&ouml;k'/>
+	                    <asp:Button runat="server" id="btnSearch" OnClick="btnSearch_Click" text='S&ouml;k'  SkinId="Big"/>
 	                </div>	                
                 </fieldset>
     

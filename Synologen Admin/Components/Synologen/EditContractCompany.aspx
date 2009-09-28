@@ -82,7 +82,8 @@
 		        </div>
 		        		        	        		        	        
 		        <div class="formCommands">
-		            <asp:button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Spara" CssClass="btnSmall" ValidationGroup="Error" CausesValidation="true"/>
+					<input type="button" name="inputBack" class="btnBig" onclick="window.location='ContractCompanies.aspx?id=<%=SelectedContractID %>'" value="Tillbaka" />
+		            <asp:button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Spara" SkinId="Big" ValidationGroup="Error" CausesValidation="true"/>
 		        </div>
 	        </fieldset>       
         </div>

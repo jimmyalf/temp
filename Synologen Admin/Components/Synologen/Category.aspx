@@ -20,7 +20,7 @@
 		            <asp:DropDownList runat="server" ID="drpGroups"/>
 		        </div>	        
 		        <div class="formCommands">
-		            <asp:button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Spara" CssClass="btnSmall"/>
+		            <asp:button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Spara"  SkinId="Big"/>
 		        </div>
 	        </fieldset>
         

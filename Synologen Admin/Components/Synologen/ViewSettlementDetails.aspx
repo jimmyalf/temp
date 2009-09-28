@@ -17,8 +17,8 @@
 						<label class="labelShort clearLeft">Utbetalas exkl moms</label><span><%=TotalValueExcludingVAT %></span><br />
 					</div>		
 					<div class="formCommands hide-on-print">	
-						<input class="btnSmall" type="button" OnClick="window.location='Settlements.aspx';" value="Tillbaka">
-						<input class="btnSmall" type="button" OnClick="window.print();return false;" value="Skriv ut">
+						<input class="btnBig" type="button" OnClick="window.location='Settlements.aspx';" value="Tillbaka">
+						<input class="btnBig" type="button" OnClick="window.print();return false;" value="Skriv ut">
 					</div>										
 				</fieldset>		
 				<br />

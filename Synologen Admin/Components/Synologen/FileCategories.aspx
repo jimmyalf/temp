@@ -11,7 +11,7 @@
 		            <asp:TextBox runat="server" ID="txtName"/>
 		        </div>
 		        <div class="formCommands">
-		            <asp:button ID="btnSave" runat="server"  Text="Spara" OnClick="btnSave_Click" CssClass="btnSmall"/>
+		            <asp:button ID="btnSave" runat="server"  Text="Spara" OnClick="btnSave_Click"  SkinId="Big"/>
 		        </div>
 	        </fieldset>
 	        <br />

@@ -75,9 +75,9 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
 				parameters[counter++].Direction = ParameterDirection.Output;
 				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetSettlementDetails", parameters, "tblSynologenSettlement");
-				settlementValueExcludingVAT = Convert.ToSingle(parameters[counter].Value);
-				settlementValueIncludingVAT = Convert.ToSingle(parameters[counter - 1].Value);
+				var retSet = RunProcedure("spSynologenGetSettlementDetails", parameters, "tblSynologenSettlement");
+				settlementValueIncludingVAT = (parameters[counter - 1].Value == DBNull.Value) ? 0 : Convert.ToSingle(parameters[counter - 1].Value);	
+				settlementValueExcludingVAT = (parameters[counter].Value == DBNull.Value) ? 0 : Convert.ToSingle(parameters[counter].Value);
 				return retSet;
 			}
 			catch (Exception ex) {

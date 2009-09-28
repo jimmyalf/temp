@@ -258,9 +258,9 @@ namespace Spinit.Wpc.Synologen.WebService{
 		private static EDIConversionSettings GetEDISetting() {
 			return new EDIConversionSettings {
 				BankGiro = ServiceLibrary.ConfigurationSettings.WebService.BankGiro,
-				InvoiceExpieryDate = DateTime.Now.AddDays(ServiceLibrary.ConfigurationSettings.WebService.InvoiceExpieryNumberOfDaysOffset),
+				//InvoiceExpieryDate = DateTime.Now.AddDays(ServiceLibrary.ConfigurationSettings.WebService.InvoiceExpieryNumberOfDaysOffset),
 				Postgiro = ServiceLibrary.ConfigurationSettings.WebService.Postgiro,
-				RecipientId = ServiceLibrary.ConfigurationSettings.WebService.EDIRecipientId,
+				//RecipientId = ServiceLibrary.ConfigurationSettings.WebService.EDIRecipientId,
 				SenderId = ServiceLibrary.ConfigurationSettings.WebService.EDISenderId,
 				VATAmount = ServiceLibrary.ConfigurationSettings.WebService.VATAmount,
 				InvoiceCurrencyCode = ServiceLibrary.ConfigurationSettings.WebService.InvoiceCurrencyCode,

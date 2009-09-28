@@ -5,27 +5,34 @@ using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.EDI.Common.Types;
 using Spinit.Wpc.Synologen.EDI.Types;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Utility.Types;
 
 namespace Spinit.Wpc.Synologen.Utility {
 	public static class Convert {
 
-		public static Invoice ToEDIInvoice(EDIConversionSettings EDISettings, OrderRow order, List<IOrderItem> orderItems, ICompany company, IShop shop) {
+		public static Invoice ToEDIInvoice(EDIConversionSettings EDISettings, OrderRow order, List<IOrderItem> orderItems, CompanyRow company, IShop shop) {
 			var invoiceValueIncludingVAT = System.Convert.ToSingle(order.InvoiceSumIncludingVAT);
 			var invoiceValueExcludingVAT = System.Convert.ToSingle(order.InvoiceSumExcludingVAT);
+			var interchangeHeader = new InterchangeHeader {RecipientId = company.EDIRecipientId, SenderId = EDISettings.SenderId};
+			var invoiceExpieryDate = interchangeHeader.DateOfPreparation.AddDays(company.PaymentDuePeriod);
 			var invoice = new Invoice(EDISettings.VATAmount, EDISettings.NumberOfDecimalsUsedAtRounding, invoiceValueIncludingVAT, invoiceValueExcludingVAT) {
 				Articles = ToEDIArticles(orderItems, order),
-             	Buyer = GetBuyerInformation(EDISettings.RecipientId,company),
+				Buyer = GetBuyerInformation(company.EDIRecipientId, company),
              	BuyerOrderNumber = String.Empty,
              	BuyerRSTNumber = order.RstText,
              	DocumentNumber = order.InvoiceNumber.ToString(),
-				InterchangeHeader = new InterchangeHeader { RecipientId = EDISettings.RecipientId, SenderId = EDISettings.SenderId },
+				InterchangeHeader = interchangeHeader,
              	InvoiceCreatedDate = order.CreatedDate,
-				InvoiceSetting = new InvoiceSetting { InvoiceCurrency = EDISettings.InvoiceCurrencyCode, InvoiceExpiryDate = EDISettings.InvoiceExpieryDate },
+				InvoiceSetting = new InvoiceSetting { InvoiceCurrency = EDISettings.InvoiceCurrencyCode, InvoiceExpiryDate = invoiceExpieryDate },
              	VendorOrderNumber = order.Id.ToString(),
 				Supplier = GetSupplierInformation(EDISettings.SenderId, EDISettings.BankGiro,EDISettings.Postgiro, shop)
              };
 			return invoice;
+		}
+
+		public static SFTIInvoiceType ToSvefakturaInvoice(EDIConversionSettings ediSettigns, OrderRow order, List<IOrderItem> orderItems, CompanyRow company, IShop shop) {
+			return new SFTIInvoiceType();
 		}
 
 		private static Supplier GetSupplierInformation(string supplierId, string bankGiro, string postGiro, IShop shop) {
@@ -78,9 +85,15 @@ namespace Spinit.Wpc.Synologen.Utility {
 
 		public static List<string> GetOrderBuyerInformation(OrderRow order) {
 			var listOfStrings = new List<string>();
-			listOfStrings.Add(String.Format("Beställare Namn, {0} {1}", order.CustomerFirstName, order.CustomerLastName));
-            listOfStrings.Add(String.Format("Beställare Personnummer, {0}", order.PersonalIdNumber));
-            listOfStrings.Add(String.Format("Beställare Enhet, {0}", order.CompanyUnit));
+			if (!String.IsNullOrEmpty(order.CustomerFirstName) && !String.IsNullOrEmpty(order.CustomerLastName)){
+				listOfStrings.Add(String.Format("Beställare Namn, {0} {1}", order.CustomerFirstName, order.CustomerLastName));
+			}
+			if (!String.IsNullOrEmpty(order.PersonalIdNumber)){
+				listOfStrings.Add(String.Format("Beställare Personnummer, {0}", order.PersonalIdNumber));
+			}
+			if(!String.IsNullOrEmpty(order.CompanyUnit)){
+				listOfStrings.Add(String.Format("Beställare Enhet, {0}", order.CompanyUnit));
+			}
 			return listOfStrings;
 		}
 
@@ -96,13 +109,14 @@ namespace Spinit.Wpc.Synologen.Utility {
 
 		public static List<InvoiceRow> ToEDIArticles(List<IOrderItem> orderItems, OrderRow order) {
 			var EDIArticles = new List<InvoiceRow>();
-
-			//Add one freetextRow
+			var articleCounter = 1;
+			//Add one freetextRow if any information is available
 			var listOfBuyerData = GetOrderBuyerInformation(order);
-			var freeTextBuyerInvoiceRow = ToEDIFreeTextInformationRow(listOfBuyerData);
-			EDIArticles.Add(freeTextBuyerInvoiceRow);
-
-			var articleCounter = 2;
+			if(listOfBuyerData!=null && listOfBuyerData.Count>0){
+				var freeTextBuyerInvoiceRow = ToEDIFreeTextInformationRow(listOfBuyerData);
+				EDIArticles.Add(freeTextBuyerInvoiceRow);
+				articleCounter = 2;
+			}
 			foreach (var item in orderItems) {
 				EDIArticles.Add(ToEDIArticle(item, articleCounter));
 				articleCounter++;

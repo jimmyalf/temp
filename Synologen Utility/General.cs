@@ -28,13 +28,13 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return EDIInvoice;
 		}
 
-		public static SFTIInvoiceType CreateInvoiceSvefaktura(OrderRow order, List<IOrderItem> iorderList, CompanyRow company, IShop shop, EDIConversionSettings ediSettings) {
+		public static SFTIInvoiceType CreateInvoiceSvefaktura(OrderRow order, List<IOrderItem> iorderList, CompanyRow company, IShop shop, SvefakturaConversionSettings settings) {
 			if (order == null) throw new ArgumentNullException("order");
 			if (iorderList == null) throw new ArgumentNullException("iorderList");
 			if (company == null) throw new ArgumentNullException("company");
 			if (shop == null) throw new ArgumentNullException("shop");
-			if (ediSettings == null) throw new ArgumentNullException("ediSettings");
-			return Convert.ToSvefakturaInvoice(ediSettings, order, iorderList, company, shop);
+			if (settings == null) throw new ArgumentNullException("settings");
+			return Convert.ToSvefakturaInvoice(settings, order, iorderList, company, shop);
 		}
 	}
 }

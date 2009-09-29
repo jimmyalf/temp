@@ -5,8 +5,14 @@ using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.EDI.Common.Types;
 using Spinit.Wpc.Synologen.EDI.Types;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 using Spinit.Wpc.Synologen.Utility.Types;
+using NameType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.NameType;
+using PercentType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
 
 namespace Spinit.Wpc.Synologen.Utility {
 	public static class Convert {
@@ -31,10 +37,77 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return invoice;
 		}
 
-		public static SFTIInvoiceType ToSvefakturaInvoice(EDIConversionSettings ediSettigns, OrderRow order, List<IOrderItem> orderItems, CompanyRow company, IShop shop) {
-			return new SFTIInvoiceType();
+		public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, OrderRow order, List<IOrderItem> orderItems, CompanyRow company, IShop shop) {
+			var invoice = new SFTIInvoiceType();
+			TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankGiroBankIdentificationCode);
+			TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode);
+			TryAddTaxInformation(invoice, settings.VATAmount);
+			TryAddSellerPartyInformation(invoice, settings);
+			return invoice;
 		}
 
+
+
+		#region Svefaktura Helper Methods
+		private static void TryAddTaxInformation(SFTIInvoiceType invoice, decimal VATAmount) {
+			if (VATAmount == 0) return;
+			if(invoice.TaxTotal == null) invoice.TaxTotal = new List<SFTITaxTotalType>();
+			invoice.TaxTotal.Add( 
+				new SFTITaxTotalType {
+					TaxSubTotal = new List<SFTITaxSubTotalType> {
+						new SFTITaxSubTotalType {
+							TaxCategory = new SFTITaxCategoryType {
+								ID = new IdentifierType { Value = "S" }, 
+								Percent = new PercentType { Value = VATAmount * 100 }
+							}
+						}
+					}
+				}				
+			);
+		}
+
+		private static void TryAddPaymentMeans(SFTIInvoiceType invoice, string giroNumber, string giroBIC) {
+			if (String.IsNullOrEmpty(giroNumber)) return;
+			if (invoice.PaymentMeans == null) invoice.PaymentMeans = new List<SFTIPaymentMeansType>();
+				invoice.PaymentMeans.Add(
+					new SFTIPaymentMeansType {
+						PaymentMeansTypeCode = new PaymentMeansCodeType {
+							Value = PaymentMeansCodeContentType.Item1
+						},
+						PayeeFinancialAccount = new SFTIFinancialAccountType {
+							ID = new IdentifierType { Value = giroNumber },
+							FinancialInstitutionBranch = (String.IsNullOrEmpty(giroBIC)) ? null :
+							new SFTIBranchType { 
+								FinancialInstitution = new SFTIFinancialInstitutionType {
+									ID = new IdentifierType { Value = giroBIC }
+								}
+							}
+						}
+					}
+				);
+		}
+
+		private static void TryAddSellerPartyInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings) {
+			if (invoice.SellerParty == null) invoice.SellerParty = new SFTISellerPartyType();
+			invoice.SellerParty.Party = new SFTIPartyType {
+      			PartyName =  String.IsNullOrEmpty(settings.SellingOrganizationName)? null : new List<NameType>{new NameType{Value=settings.SellingOrganizationName}},
+				Address = new SFTIAddressType {
+					StreetName = String.IsNullOrEmpty(settings.SellingOrganizationAddress) ? null : new StreetNameType { Value = settings.SellingOrganizationAddress },
+					PostalZone = String.IsNullOrEmpty(settings.SellingOrganizationPostalCode) ? null : new ZoneType{Value=settings.SellingOrganizationPostalCode},
+                    CityName = String.IsNullOrEmpty(settings.SellingOrganizationCity) ? null : new CityNameType{Value=settings.SellingOrganizationCity}
+				},
+				PartyTaxScheme =  new List<SFTIPartyTaxSchemeType> {
+               		new SFTIPartyTaxSchemeType {
+                   		RegistrationAddress = (!settings.SellingOrganizationCountryCode.HasValue)? null : new SFTIAddressType{Country= new SFTICountryType{IdentificationCode = new CountryIdentificationCodeType{Value = settings.SellingOrganizationCountryCode.Value}}},
+						CompanyID = (String.IsNullOrEmpty(settings.SellingOrganizationNumber))? null : new IdentifierType{Value = settings.SellingOrganizationNumber},
+						TaxScheme = (String.IsNullOrEmpty(settings.SellingOrganizationNumber))? null : new SFTITaxSchemeType{ID=new IdentifierType{Value="VAT"}}
+					}
+				}
+			};
+		}
+		#endregion
+
+		#region EDI Helper Methods
 		private static Supplier GetSupplierInformation(string supplierId, string bankGiro, string postGiro, IShop shop) {
 			var supplier = new Supplier {
 				BankGiroNumber = bankGiro,
@@ -123,5 +196,6 @@ namespace Spinit.Wpc.Synologen.Utility {
 			}
 			return EDIArticles;
 		}
+		#endregion
 	}
 }

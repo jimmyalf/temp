@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
@@ -44,7 +45,17 @@ namespace Spinit.Wpc.Synologen.Test {
 				//namespaces.Add("cac", "urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0");
 				namespaces.Add("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
 				var sb = new StringBuilder();
-				var output = new StringWriter(sb) { NewLine = Environment.NewLine };
+				var test = new CultureInfo("sv-SE") {
+					NumberFormat = new NumberFormatInfo {
+						NumberDecimalDigits = 10,
+                        NumberDecimalSeparator = "¤",
+						CurrencyDecimalDigits=10,
+						CurrencyDecimalSeparator="#",
+						PercentDecimalDigits=10,
+						PercentDecimalSeparator="%%%%"
+					}
+				};
+				var output = new StringWriter(sb, test) { NewLine = Environment.NewLine };
 				serializer = new XmlSerializer(objToSerialize.GetType());
 				serializer.Serialize(output, objToSerialize, namespaces);
 				return output.ToString();

@@ -274,6 +274,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					new SqlParameter("@invoiceNumber", SqlDbType.BigInt),
 					new SqlParameter("@invoiceSumIncludingVAT", SqlDbType.Float),
 					new SqlParameter("@invoiceSumExcludingVAT", SqlDbType.Float),
+					new SqlParameter("@customerOrderNumber", SqlDbType.NVarChar, 50),
             		new SqlParameter("@status", SqlDbType.Int, 4),
             		new SqlParameter("@id", SqlDbType.Int, 4)
 				};
@@ -297,6 +298,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = order.InvoiceNumber<=0 ? SqlInt64.Null : order.InvoiceNumber;
 					parameters[counter++].Value = order.InvoiceSumIncludingVAT <= 0 ? SqlDouble.Null : order.InvoiceSumIncludingVAT;
 					parameters[counter++].Value = order.InvoiceSumExcludingVAT <= 0 ? SqlDouble.Null : order.InvoiceSumExcludingVAT;
+					parameters[counter++].Value = GetNullableSqlType(order.CustomerOrderNumber);
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
 				if (action == Enumerations.Action.Create) {
@@ -373,7 +375,7 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		private static OrderRow ParseOrderRow(DataRow orderDataRow) {
 			try {
-				OrderRow orderRow = new OrderRow();
+				var orderRow = new OrderRow();
 				orderRow.Id = Util.CheckNullInt(orderDataRow, "cId");
 				orderRow.RSTId = Util.CheckNullInt(orderDataRow, "cRstId");
 				orderRow.RstText = Util.CheckNullString(orderDataRow, "cRstText");
@@ -402,6 +404,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				if (!String.IsNullOrEmpty(orderDataRow["cInvoiceSumExcludingVAT"].ToString())) {
 					orderRow.InvoiceSumExcludingVAT = float.Parse(orderDataRow["cInvoiceSumExcludingVAT"].ToString());
 				}
+				orderRow.CustomerOrderNumber = Util.CheckNullString(orderDataRow, "cCustomerOrderNumber");
 
 				orderRow.MarkedAsPayedByShop = (bool)orderDataRow["cOrderMarkedAsPayed"];
 

@@ -56,142 +56,45 @@ using Spinit.Wpc.Synologen.Business.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Data.Types {
 	public class OrderRow : IOrder {
-		//public int Id;
-		//public int CompanyId;
-		//public int RSTId;
-		//public int StatusId;
-		//public int SalesPersonShopId;
-		//public int SalesPersonMemberId;
-		//public string CompanyUnit;
-		//public string CustomerFirstName;
-		//public string CustomerLastName;
-		//public string PersonalIdNumber;
-		//public string Phone;
-		//public string Email;
-		//public System.DateTime CreatedDate = System.DateTime.MinValue;
-		//public System.DateTime UpdateDate = System.DateTime.MinValue;
-		//public bool MarkedAsPayedByShop;
-		//public long InvoiceNumber;
-		//public string RstText;
-		private int _companyId;
-		private string _companyUnit;
-		private DateTime _createdDate;
-		private string _customerFirstName;
-		private string _customerLastNamed;
-		private string _email;
-		private string _customerLastName;
-		private int _id;
-		private long _invoiceNumber;
-		private bool _markedAsPayedByShop;
-		private string _personalIdNumber;
-		private string _phone;
-		private int _rstId;
-		private string _rstText;
-		private int _salesPersonShopId;
-		private int _statusId;
-		private DateTime _updateDate;
-		private int _salesPersonMemberId;
-		private double _invoiceSumIncludingVAT;
-		private double _invoiceSumExcludingVAT;
 
-		public int CompanyId {
-			get { return _companyId; }
-			set { _companyId = value; }
-		}
+		public int CompanyId { get; set; }
 
-		public string CompanyUnit {
-			get { return _companyUnit; }
-			set { _companyUnit = value; }
-		}
+		public string CompanyUnit { get; set; }
 
-		public DateTime CreatedDate {
-			get { return _createdDate; }
-			set { _createdDate = value; }
-		}
+		public DateTime CreatedDate { get; set; }
 
-		public string CustomerFirstName {
-			get { return _customerFirstName; }
-			set { _customerFirstName = value; }
-		}
+		public string CustomerFirstName { get; set; }
 
-		public string CustomerLastNamed {
-			get { return _customerLastNamed; }
-			set { _customerLastNamed = value; }
-		}
+		public string CustomerOrderNumber { get; set; }
 
-		public string Email {
-			get { return _email; }
-			set { _email = value; }
-		}
+		public string Email { get; set; }
 
-		public string CustomerLastName {
-			get { return _customerLastName; }
-			set { _customerLastName = value; }
-		}
+		public string CustomerLastName { get; set; }
 
-		public int Id {
-			get { return _id; }
-			set { _id = value; }
-		}
+		public int Id { get; set; }
 
-		public long InvoiceNumber {
-			get { return _invoiceNumber; }
-			set { _invoiceNumber = value; }
-		}
+		public long InvoiceNumber { get; set; }
 
-		public bool MarkedAsPayedByShop {
-			get { return _markedAsPayedByShop; }
-			set { _markedAsPayedByShop = value; }
-		}
+		public bool MarkedAsPayedByShop { get; set; }
 
-		public string PersonalIdNumber {
-			get { return _personalIdNumber; }
-			set { _personalIdNumber = value; }
-		}
+		public string PersonalIdNumber { get; set; }
 
-		public string Phone {
-			get { return _phone; }
-			set { _phone = value; }
-		}
+		public string Phone { get; set; }
 
-		public int RSTId {
-			get { return _rstId; }
-			set { _rstId = value; }
-		}
+		public int RSTId { get; set; }
 
-		public string RstText {
-			get { return _rstText; }
-			set { _rstText = value; }
-		}
+		public string RstText { get; set; }
 
-		public int SalesPersonShopId {
-			get { return _salesPersonShopId; }
-			set { _salesPersonShopId = value; }
-		}
+		public int SalesPersonShopId { get; set; }
 
-		public int StatusId {
-			get { return _statusId; }
-			set { _statusId = value; }
-		}
+		public int StatusId { get; set; }
 
-		public DateTime UpdateDate {
-			get { return _updateDate; }
-			set { _updateDate = value; }
-		}
+		public DateTime UpdateDate { get; set; }
 
-		public int SalesPersonMemberId {
-			get { return _salesPersonMemberId; }
-			set { _salesPersonMemberId = value; }
-		}
+		public int SalesPersonMemberId { get; set; }
 
-		public double InvoiceSumIncludingVAT {
-			get { return _invoiceSumIncludingVAT; }
-			set { _invoiceSumIncludingVAT = value; }
-		}
+		public double InvoiceSumIncludingVAT { get; set; }
 
-		public double InvoiceSumExcludingVAT {
-			get { return _invoiceSumExcludingVAT; }
-			set { _invoiceSumExcludingVAT = value; }
-		}
+		public double InvoiceSumExcludingVAT { get; set; }
 	}
 }

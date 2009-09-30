@@ -42,11 +42,11 @@ namespace Spinit.Wpc.Synologen.Utility {
 			TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankGiroBankIdentificationCode);
 			TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode);
 			TryAddTaxInformation(invoice, settings.VATAmount);
-			TryAddSellerPartyInformation(invoice, settings);
+			TryAddSettingsInformation(invoice, settings);
+			TryAddBuyerPartyInformation(invoice, company);
+			TryAddOrderInformation(invoice, order);
 			return invoice;
 		}
-
-
 
 		#region Svefaktura Helper Methods
 		private static void TryAddTaxInformation(SFTIInvoiceType invoice, decimal VATAmount) {
@@ -87,7 +87,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 				);
 		}
 
-		private static void TryAddSellerPartyInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings) {
+		private static void TryAddSettingsInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings) {
 			if (invoice.SellerParty == null) invoice.SellerParty = new SFTISellerPartyType();
 			invoice.SellerParty.Party = new SFTIPartyType {
       			PartyName =  String.IsNullOrEmpty(settings.SellingOrganizationName)? null : new List<NameType>{new NameType{Value=settings.SellingOrganizationName}},
@@ -104,6 +104,95 @@ namespace Spinit.Wpc.Synologen.Utility {
 					}
 				}
 			};
+			if(settings.InvoiceIssueDate != DateTime.MinValue){
+				invoice.IssueDate = new IssueDateType {Value = settings.InvoiceIssueDate};
+				if(settings.InvoiceDaysFromIssueUntilDueDate > 0){
+					if(invoice.PaymentMeans == null) invoice.PaymentMeans = new List<SFTIPaymentMeansType>{new SFTIPaymentMeansType()};
+					foreach (var paymentMean in invoice.PaymentMeans){
+						paymentMean.DuePaymentDate = new PaymentDateType {
+							Value = invoice.IssueDate.Value.AddDays(settings.InvoiceDaysFromIssueUntilDueDate)
+						};
+					}
+				}
+			}
+			if(!String.IsNullOrEmpty(settings.InvoiceTypeCode)){
+				invoice.InvoiceTypeCode = new CodeType {Value = settings.InvoiceTypeCode};
+			}
+		}
+
+		private static void TryAddBuyerPartyInformation(SFTIInvoiceType invoice, CompanyRow company) {
+			if (invoice.BuyerParty == null) invoice.BuyerParty = new SFTIBuyerPartyType();
+			invoice.BuyerParty.Party = new SFTIPartyType();
+			if(!String.IsNullOrEmpty(company.Address1)) {
+				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType {AddressLine = new List<LineType>()};
+				invoice.BuyerParty.Party.Address.AddressLine.Add(new LineType{Value=company.Address1});
+			}
+			if (!String.IsNullOrEmpty(company.Address2)) {
+				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType { AddressLine = new List<LineType>() };
+				invoice.BuyerParty.Party.Address.AddressLine.Add(new LineType { Value = company.Address2 });
+			}
+			if (!String.IsNullOrEmpty(company.Zip)) {
+				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType();
+				invoice.BuyerParty.Party.Address.PostalZone = new ZoneType {Value = company.Zip};
+			}
+			if (!String.IsNullOrEmpty(company.City)) {
+				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType();
+				invoice.BuyerParty.Party.Address.CityName = new CityNameType {Value = company.City};
+			}
+			if(!String.IsNullOrEmpty(company.TaxAccountingCode)) {
+				invoice.BuyerParty.Party.PartyTaxScheme =
+					new List<SFTIPartyTaxSchemeType> {
+						new SFTIPartyTaxSchemeType {
+							CompanyID = new IdentifierType{Value=company.TaxAccountingCode},
+							TaxScheme = new SFTITaxSchemeType{ID=new IdentifierType{Value="VAT"}}
+						                           	
+						}
+					};
+			}
+			if (!String.IsNullOrEmpty(company.Name) || !String.IsNullOrEmpty(company.AddressCode)) {
+				invoice.BuyerParty.Party.PartyName = 
+					new List<NameType> { new NameType {Value = String.Concat(company.AddressCode+company.Name)} };
+			}
+			if (!String.IsNullOrEmpty(company.OrganizationNumber)) {
+				invoice.BuyerParty.Party.PartyIdentification = 
+					new List<SFTIPartyIdentificationType> {
+						new SFTIPartyIdentificationType {
+							ID = new IdentifierType {
+								Value = company.OrganizationNumber
+							}
+						}
+					};
+			}
+		}
+
+		private static void TryAddOrderInformation(SFTIInvoiceType invoice, OrderRow order ) {
+			if(order.InvoiceNumber > 0){
+				invoice.ID = new SFTISimpleIdentifierType {Value = order.InvoiceNumber.ToString()};
+			}
+			if(order.InvoiceSumIncludingVAT > 0){
+				if (invoice.LegalTotal == null) invoice.LegalTotal = new SFTILegalTotalType();
+				invoice.LegalTotal.TaxInclusiveTotalAmount = new TotalAmountType { Value = (decimal)order.InvoiceSumIncludingVAT, amountCurrencyID = "SEK" };
+			}
+			if(order.InvoiceSumExcludingVAT > 0){
+				if (invoice.LegalTotal == null) invoice.LegalTotal = new SFTILegalTotalType();
+				invoice.LegalTotal.TaxExclusiveTotalAmount = new TotalAmountType { Value = (decimal)order.InvoiceSumExcludingVAT, amountCurrencyID = "SEK" };
+			}
+			if(!String.IsNullOrEmpty(order.CustomerOrderNumber)){
+				if(invoice.RequisitionistDocumentReference == null){
+					invoice.RequisitionistDocumentReference = new List<SFTIDocumentReferenceType> {new SFTIDocumentReferenceType()};
+				}
+				foreach (var requisitionistDocumentReference in invoice.RequisitionistDocumentReference){
+					requisitionistDocumentReference.ID = new IdentifierType {Value = order.CustomerOrderNumber};
+				}
+			}
+			if(order.InvoiceSumIncludingVAT > 0 && order.InvoiceSumExcludingVAT > 0){
+				var totalTaxAmount = order.InvoiceSumIncludingVAT - order.InvoiceSumExcludingVAT;
+				if(invoice.TaxTotal == null) invoice.TaxTotal = new List<SFTITaxTotalType>{new SFTITaxTotalType()};
+				foreach (var taxTotal in invoice.TaxTotal){
+					taxTotal.TotalTaxAmount = new TaxAmountType {Value = (decimal) totalTaxAmount, amountCurrencyID = "SEK"};
+				}
+			}
+			
 		}
 		#endregion
 

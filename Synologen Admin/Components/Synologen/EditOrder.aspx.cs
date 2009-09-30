@@ -98,6 +98,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			ltContractName.Text = Provider.GetContract(company.ContractId).Name;
 			ltMarkedAsPayed.Text = order.MarkedAsPayedByShop ? "Ja" : "Nej";
 			ltOrderNumber.Text = order.Id.ToString();
+			txtCustomerOrderNumber.Text = order.CustomerOrderNumber;
 			if (order.InvoiceNumber>0) ltSPCSOrderNumber.Text = order.InvoiceNumber.ToString();
 			if (order.InvoiceSumIncludingVAT > 0) ltSPCSValueIncludingVAT.Text = order.InvoiceSumIncludingVAT.ToString();
 			if (order.InvoiceSumExcludingVAT > 0) ltSPCSValueExcludingVAT.Text = order.InvoiceSumExcludingVAT.ToString();
@@ -248,6 +249,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			order.StatusId = Int32.Parse(drpStatus.SelectedValue);
 			//order.RSTId = Int32.Parse(drpRSTs.SelectedValue);
 			order.RstText = txtRST.Text;
+			order.CustomerOrderNumber = txtCustomerOrderNumber.Text;
 			Provider.AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
 
 		}

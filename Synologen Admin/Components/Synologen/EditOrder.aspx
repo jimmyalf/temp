@@ -24,6 +24,10 @@
 						<%--<asp:DropDownList ID="drpRSTs" runat="server" DataValueField="cId" DataTextField="cName" />--%>
 					</div>	
 					<div class="formItem">
+						<label class="labelLong">Kundens Ordernummer</label>
+						<asp:TextBox id="txtCustomerOrderNumber" runat="server" />
+					</div>						
+					<div class="formItem">
 						<label class="labelLong">Orderstatus</label>
 						<asp:DropDownList ID="drpStatus" runat="server" DataValueField="cId" DataTextField="cName"  />
 					</div>															

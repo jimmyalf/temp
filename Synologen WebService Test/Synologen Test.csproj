@@ -124,7 +124,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\Adk.dll" />
-    <Content Include="Mock\Svefaktura_example.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

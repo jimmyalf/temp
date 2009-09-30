@@ -9,8 +9,6 @@ using Spinit.Wpc.Synologen.Utility.Types;
 namespace Spinit.Wpc.Synologen.Test {
 	[TestFixture]
 	public class TestSvefakturaInvoiceParsing {
-		private const string NewLine = "\r\n";
-		private const string XmlFilePath = @"C:\Develop\WPC\Current-CustomerSpecific\Synologen\Synologen WebService Test\Mock\Svefaktura_example.xml";
 		private readonly OrderRow emptyOrder = new OrderRow();
 		private readonly List<IOrderItem> emptyOrderItemList = new List<IOrderItem>();
 		private readonly CompanyRow emptyCompany = new CompanyRow();
@@ -20,6 +18,7 @@ namespace Spinit.Wpc.Synologen.Test {
 		[TestFixtureSetUp]
 		public void Setup() { }
 
+
 		[Test]
 		public void Test_Create_Invoice_Parameter_Checks_For_Null_And_Throws_Exceptions() {
 			Assert.Throws<ArgumentNullException>(() => Utility.General.CreateInvoiceSvefaktura(null,		emptyOrderItemList, emptyCompany,	emptyShop,	emptySettings));
@@ -28,6 +27,8 @@ namespace Spinit.Wpc.Synologen.Test {
 			Assert.Throws<ArgumentNullException>(() => Utility.General.CreateInvoiceSvefaktura(emptyOrder,	emptyOrderItemList, emptyCompany,	null,		emptySettings));
 			Assert.Throws<ArgumentNullException>(() => Utility.General.CreateInvoiceSvefaktura(emptyOrder,	emptyOrderItemList, emptyCompany,	emptyShop,	null));
 		}
+
+		#region Settings / Seller
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_BankGiro() {
 			var customSettings = new SvefakturaConversionSettings { BankGiro = "56936677" };
@@ -116,6 +117,164 @@ namespace Spinit.Wpc.Synologen.Test {
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
 			Assert.AreEqual("26422", invoice.SellerParty.Party.Address.PostalZone.Value);
 		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Settings_IssueDate() {
+			var customSettings = new SvefakturaConversionSettings{
+				InvoiceIssueDate = new DateTime(2009, 10, 30)
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			Assert.AreEqual(new DateTime(2009, 10, 30), invoice.IssueDate.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Settings_InvoiceType() {
+			var customSettings = new SvefakturaConversionSettings{
+				InvoiceTypeCode = "380"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			Assert.AreEqual("380", invoice.InvoiceTypeCode.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Settings_InvoiceDueDate() {
+			var customSettings = new SvefakturaConversionSettings{
+				InvoiceDaysFromIssueUntilDueDate = 30,
+				InvoiceIssueDate = new DateTime(2009, 09, 30)
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			var expectedValue = new DateTime(2009, 09, 30).AddDays(30);
+			Assert.AreEqual(expectedValue, invoice.PaymentMeans[0].DuePaymentDate.Value);
+		}
+		#endregion
+
+		#region Buyer
+		[Test]
+		public void Test_Create_Invoice_Sets_Buyer_Address1_And_Address2() {
+			var customCompany = new CompanyRow {
+				Address1 = "Saab Aircraft Leasing",
+				Address2 = "Box 7774"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
+			Assert.AreEqual(2, invoice.BuyerParty.Party.Address.AddressLine.Count);
+			Assert.AreEqual("Saab Aircraft Leasing", invoice.BuyerParty.Party.Address.AddressLine[0].Value);
+			Assert.AreEqual("Box 7774", invoice.BuyerParty.Party.Address.AddressLine[1].Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Buyer_Address1_() {
+			var customCompany = new CompanyRow {
+				Address1 = "Saab Aircraft Leasing"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
+			Assert.AreEqual(1, invoice.BuyerParty.Party.Address.AddressLine.Count);
+			Assert.AreEqual("Saab Aircraft Leasing", invoice.BuyerParty.Party.Address.AddressLine[0].Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Buyer_Address2() {
+			var customCompany = new CompanyRow {
+				Address2 = "Box 7774"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
+			Assert.AreEqual(1, invoice.BuyerParty.Party.Address.AddressLine.Count);
+			Assert.AreEqual("Box 7774", invoice.BuyerParty.Party.Address.AddressLine[0].Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Buyer_PostalCode() {
+			var customCompany = new CompanyRow {
+				Zip = "10396"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
+			Assert.AreEqual("10396", invoice.BuyerParty.Party.Address.PostalZone.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Buyer_City() {
+			var customCompany = new CompanyRow {
+				City = "Stockholm"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
+			Assert.AreEqual("Stockholm", invoice.BuyerParty.Party.Address.CityName.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Buyer_TaxAccountingCode() {
+			var customCompany = new CompanyRow {
+				TaxAccountingCode = "SE556573780501"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
+			Assert.AreEqual("SE556573780501", invoice.BuyerParty.Party.PartyTaxScheme[0].CompanyID.Value);
+			Assert.AreEqual("VAT", invoice.BuyerParty.Party.PartyTaxScheme[0].TaxScheme.ID.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Buyer_AddressCode_And_Name() {
+			var customCompany = new CompanyRow {
+				AddressCode = "3250",
+				Name = "Saab Aircraft Leasing Holding AB"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
+			Assert.AreEqual("3250Saab Aircraft Leasing Holding AB", invoice.BuyerParty.Party.PartyName[0].Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Buyer_AddressCode_Without_Name() {
+			var customCompany = new CompanyRow {
+				AddressCode = "3250"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
+			Assert.AreEqual("3250", invoice.BuyerParty.Party.PartyName[0].Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Buyer_Name_Without_AddressCode() {
+			var customCompany = new CompanyRow {
+				Name = "Saab Aircraft Leasing Holding AB"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
+			Assert.AreEqual("Saab Aircraft Leasing Holding AB", invoice.BuyerParty.Party.PartyName[0].Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Buyer_OrganizationNumber() {
+			var customCompany = new CompanyRow {
+				OrganizationNumber = "SE556573780501"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
+			Assert.AreEqual("SE556573780501", invoice.BuyerParty.Party.PartyIdentification[0].ID.Value);
+		}
+		#endregion
+
+		#region General Invoice
+		[Test]
+		public void Test_Create_Invoice_Sets_Invoice_Number() {
+			var customOrder = new OrderRow { InvoiceNumber = 123456 };
+			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
+			Assert.AreEqual("123456", invoice.ID.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Invoice_Sum_Including_VAT() {
+			var customOrder = new OrderRow { InvoiceSumIncludingVAT = 123456.45 };
+			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
+			Assert.AreEqual(123456.45m, invoice.LegalTotal.TaxInclusiveTotalAmount.Value);
+			Assert.AreEqual("SEK", invoice.LegalTotal.TaxInclusiveTotalAmount.amountCurrencyID);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Invoice_Sum_Excluding_VAT() {
+			var customOrder = new OrderRow { InvoiceSumExcludingVAT = 123456.4545 };
+			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
+			Assert.AreEqual(123456.4545m, invoice.LegalTotal.TaxExclusiveTotalAmount.Value);
+			Assert.AreEqual("SEK", invoice.LegalTotal.TaxExclusiveTotalAmount.amountCurrencyID);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Customer_Order_Number() {
+			var customOrder = new OrderRow { CustomerOrderNumber = "123456"};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
+			Assert.AreEqual("123456", invoice.RequisitionistDocumentReference[0].ID.Value);
+		}
+				[Test]
+		public void Test_Create_Invoice_Sets_TotalTaxAmount() {
+			var customOrder = new OrderRow { 
+				InvoiceSumIncludingVAT = 12345.789,
+				InvoiceSumExcludingVAT = 11005.456
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
+			Assert.AreEqual(1340.333, invoice.TaxTotal[0].TotalTaxAmount.Value);
+			Assert.AreEqual("SEK", invoice.TaxTotal[0].TotalTaxAmount.amountCurrencyID);
+		}
+
+
+		#endregion
 
 
 	}

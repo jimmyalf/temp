@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		private SFTISimpleIdentifierType idField;
     
-		private QuantityType2 invoicedQuantityField;
+		private QuantityType invoicedQuantityField;
     
 		private ExtensionAmountType lineExtensionAmountField;
     
@@ -40,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 InvoicedQuantity {
+		public QuantityType InvoicedQuantity {
 			get {
 				return invoicedQuantityField;
 			}

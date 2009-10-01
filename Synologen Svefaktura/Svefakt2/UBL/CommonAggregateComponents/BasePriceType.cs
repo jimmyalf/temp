@@ -12,11 +12,11 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		private PriceAmountType priceAmountField;
     
-		private QuantityType2 baseQuantityField;
+		private QuantityType baseQuantityField;
     
-		private QuantityType2 maximumQuantityField;
+		private QuantityType maximumQuantityField;
     
-		private QuantityType2 minimumQuantityField;
+		private QuantityType minimumQuantityField;
     
 		private AmountType maximumAmountField;
     
@@ -35,7 +35,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 BaseQuantity {
+		public QuantityType BaseQuantity {
 			get {
 				return baseQuantityField;
 			}
@@ -46,7 +46,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 MaximumQuantity {
+		public QuantityType MaximumQuantity {
 			get {
 				return maximumQuantityField;
 			}
@@ -57,7 +57,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 MinimumQuantity {
+		public QuantityType MinimumQuantity {
 			get {
 				return minimumQuantityField;
 			}

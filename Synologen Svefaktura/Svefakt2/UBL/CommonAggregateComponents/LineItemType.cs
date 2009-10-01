@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
+using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
@@ -19,15 +20,15 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		private LineStatusCodeType lineStatusCodeField;
     
-		private QuantityType2 quantityField;
+		private QuantityType quantityField;
     
 		private ExtensionAmountType lineExtensionAmountField;
     
 		private TaxTotalAmountType taxTotalAmountField;
     
-		private QuantityType2 minimumQuantityField;
+		private QuantityType minimumQuantityField;
     
-		private QuantityType2 maximumQuantityField;
+		private QuantityType maximumQuantityField;
     
 		private BackorderQuantityType maximumBackorderQuantityField;
     
@@ -81,7 +82,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 Quantity {
+		public QuantityType Quantity {
 			get {
 				return quantityField;
 			}
@@ -114,7 +115,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 MinimumQuantity {
+		public QuantityType MinimumQuantity {
 			get {
 				return minimumQuantityField;
 			}
@@ -125,7 +126,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 MaximumQuantity {
+		public QuantityType MaximumQuantity {
 			get {
 				return maximumQuantityField;
 			}

@@ -2,7 +2,7 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes {
 	/// <remarks/>
-	[System.Xml.Serialization.XmlInclude(typeof(QuantityType2))]
+	[System.Xml.Serialization.XmlInclude(typeof(CommonBasicComponents.QuantityType))]
 	[System.Xml.Serialization.XmlInclude(typeof(PackQuantityType))]
 	[System.Xml.Serialization.XmlInclude(typeof(BackorderQuantityType))]
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]

@@ -3,6 +3,7 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 using DateType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.DateType;
+using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
@@ -18,13 +19,13 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		private LineStatusCodeType lineStatusCodeField;
     
-		private QuantityType2 receivedQuantityField;
+		private QuantityType receivedQuantityField;
     
-		private QuantityType2 shortQuantityField;
+		private QuantityType shortQuantityField;
     
 		private CodeType shortageActionCodeField;
     
-		private QuantityType2 rejectedQuantityField;
+		private QuantityType rejectedQuantityField;
     
 		private CodeType rejectReasonCodeField;
     
@@ -68,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 ReceivedQuantity {
+		public QuantityType ReceivedQuantity {
 			get {
 				return receivedQuantityField;
 			}
@@ -79,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 ShortQuantity {
+		public QuantityType ShortQuantity {
 			get {
 				return shortQuantityField;
 			}
@@ -100,7 +101,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 RejectedQuantity {
+		public QuantityType RejectedQuantity {
 			get {
 				return rejectedQuantityField;
 			}

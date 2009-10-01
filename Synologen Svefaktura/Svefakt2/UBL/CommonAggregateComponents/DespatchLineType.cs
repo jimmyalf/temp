@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
+using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents {
 	/// <remarks/>
@@ -17,9 +18,9 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		private LineStatusCodeType lineStatusCodeField;
     
-		private QuantityType2 deliveredQuantityField;
+		private QuantityType deliveredQuantityField;
     
-		private QuantityType2 backorderQuantityField;
+		private QuantityType backorderQuantityField;
     
 		private ReasonType backorderReasonField;
     
@@ -57,7 +58,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 DeliveredQuantity {
+		public QuantityType DeliveredQuantity {
 			get {
 				return deliveredQuantityField;
 			}
@@ -68,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonAggregateComponents
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 BackorderQuantity {
+		public QuantityType BackorderQuantity {
 			get {
 				return backorderQuantityField;
 			}

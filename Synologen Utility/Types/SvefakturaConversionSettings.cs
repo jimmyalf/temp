@@ -9,7 +9,7 @@ namespace Spinit.Wpc.Synologen.Utility.Types {
 		public string Postgiro { get; set; }
 		public string PostgiroBankIdentificationCode { get; set; }
 		public string BankGiro { get; set; }
-		public string BankGiroBankIdentificationCode { get; set; }
+		public string BankgiroBankIdentificationCode { get; set; }
 		public decimal VATAmount { get; set; }
 		public string SellingOrganizationNumber { get; set; }
 		public string SellingOrganizationName { get; set; }

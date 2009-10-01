@@ -29,7 +29,8 @@ namespace Spinit.Wpc.Synologen.WebService{
 		public List<OrderData> GetOrdersForInvoicing() {
 			try{
 				var statusIdFilter = ServiceLibrary.ConfigurationSettings.WebService.NewSaleStatusId;
-				var orders = provider.GetOrdersForInvoicing(statusIdFilter, null);
+				var invoicingMethodIdFilter = ServiceLibrary.ConfigurationSettings.WebService.InvoicingMethodIdFilter;
+				var orders = provider.GetOrdersForInvoicing(statusIdFilter, invoicingMethodIdFilter, null);
 				var returnList = ConvertOrderData(orders);
 				var orderString = GetOrderIdsFromList(returnList);
 				LogMessage(LogTypeData.Information, "Client fetched orders from WPC: "+orderString);

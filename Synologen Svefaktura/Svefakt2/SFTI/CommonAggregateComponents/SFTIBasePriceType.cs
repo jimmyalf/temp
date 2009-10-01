@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		private PriceAmountType priceAmountField;
     
-		private QuantityType2 baseQuantityField;
+		private QuantityType baseQuantityField;
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
-		public QuantityType2 BaseQuantity {
+		public QuantityType BaseQuantity {
 			get {
 				return baseQuantityField;
 			}

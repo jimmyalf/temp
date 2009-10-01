@@ -170,7 +170,7 @@
     <Compile Include="Svefakt2\UBL\CommonBasicComponents\PriceAmountType.cs" />
     <Compile Include="Svefakt2\UBL\CoreComponentTypes\QuantityType.cs" />
     <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\QuantityType.cs" />
-    <Compile Include="Svefakt2\UBL\CommonBasicComponents\QuantityType2.cs" />
+    <Compile Include="Svefakt2\UBL\CommonBasicComponents\QuantityType.cs" />
     <Compile Include="Svefakt2\UBL\UnspecializedDatatypes\RateType.cs" />
     <Compile Include="Svefakt2\UBL\CommonBasicComponents\ReasonType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\ReceiptLineType.cs" />

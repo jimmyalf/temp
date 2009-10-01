@@ -52,7 +52,7 @@ namespace Spinit.Wpc.Synologen.Test {
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_Postgiro_BankGiro_BIC_Codes() {
 			var customSettings = new SvefakturaConversionSettings {
-				BankGiro = "56936677", BankGiroBankIdentificationCode = "BGABSESS",
+				BankGiro = "56936677", BankgiroBankIdentificationCode = "BGABSESS",
 				Postgiro = "123456", PostgiroBankIdentificationCode = "PGSISESS"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
@@ -262,7 +262,7 @@ namespace Spinit.Wpc.Synologen.Test {
 			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual("123456", invoice.RequisitionistDocumentReference[0].ID.Value);
 		}
-				[Test]
+		[Test]
 		public void Test_Create_Invoice_Sets_TotalTaxAmount() {
 			var customOrder = new OrderRow { 
 				InvoiceSumIncludingVAT = 12345.789,
@@ -276,6 +276,61 @@ namespace Spinit.Wpc.Synologen.Test {
 
 		#endregion
 
+		#region InvoiceRows
+		[Test]
+		public void Test_Create_Invoice_Sets_InvoiceRow_ArticleName() {
+			var customOrderItemList = new List<IOrderItem> { 
+				new OrderItemRow {
+					ArticleDisplayName = "Lacryvisc"
+				}
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderItemList, emptyCompany, emptyShop, emptySettings);
+			Assert.AreEqual("Lacryvisc", invoice.InvoiceLine[0].Item.Description.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_InvoiceRow_ArticleNumber() {
+			var customOrderItemList = new List<IOrderItem> { 
+				new OrderItemRow {
+					ArticleDisplayNumber = "987654"
+				}
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderItemList, emptyCompany, emptyShop, emptySettings);
+			Assert.AreEqual("987654", invoice.InvoiceLine[0].Item.StandardItemIdentification.ID.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_InvoiceRow_Quantity() {
+			var customOrderItemList = new List<IOrderItem> { 
+				new OrderItemRow {
+					NumberOfItems = 3
+				}
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderItemList, emptyCompany, emptyShop, emptySettings);
+			Assert.AreEqual(3, invoice.InvoiceLine[0].InvoicedQuantity.Value);
+			Assert.AreEqual("styck", invoice.InvoiceLine[0].InvoicedQuantity.quantityUnitCode);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_InvoiceRow_SingleItemPrice() {
+			var customOrderItemList = new List<IOrderItem> { 
+				new OrderItemRow {
+					SinglePrice = 36.85f
+				}
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderItemList, emptyCompany, emptyShop, emptySettings);
+			Assert.AreEqual(36.85f, invoice.InvoiceLine[0].Item.BasePrice.PriceAmount.Value);
+			Assert.AreEqual("SEK", invoice.InvoiceLine[0].Item.BasePrice.PriceAmount.amountCurrencyID);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_InvoiceRow_TotalRowPrice() {
+			var customOrderItemList = new List<IOrderItem> { 
+				new OrderItemRow {
+					DisplayTotalPrice = 110.55f
+				}
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderItemList, emptyCompany, emptyShop, emptySettings);
+			Assert.AreEqual(110.55f, invoice.InvoiceLine[0].LineExtensionAmount.Value);
+			Assert.AreEqual("SEK", invoice.InvoiceLine[0].LineExtensionAmount.amountCurrencyID);
+		}
 
+		#endregion
 	}
 }

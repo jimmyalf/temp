@@ -157,15 +157,17 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		private DataSet GetOrdersForInvoicingDataSet(int statusId, string orderBy) {
+		private DataSet GetOrdersForInvoicingDataSet(int statusId, int? invoicingMethodId, string orderBy) {
 			try {
 				int counter = 0;
 				SqlParameter[] parameters = {
 					new SqlParameter ("@statusId", SqlDbType.Int, 4),
+					new SqlParameter ("@invoicingMethodIdFilter", SqlDbType.Int, 4),
 					new SqlParameter ("@orderBy", SqlDbType.NVarChar, 255),
 					new SqlParameter ("@status", SqlDbType.Int, 4)
 				};
 				parameters[counter++].Value = statusId;
+				parameters[counter++].Value = GetNullableSqlType(invoicingMethodId);
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
 				parameters[counter].Direction = ParameterDirection.Output;
 				DataSet retSet = RunProcedure("spSynologenGetForInvoicing", parameters, "tblSynologenOrder");
@@ -216,10 +218,10 @@ namespace Spinit.Wpc.Synologen.Data {
 		/// Fetches order all orders which have no invoice number filtered by
 		/// status id if <param name="statusId"/> > 0
 		/// </summary>
-		public List<IOrder> GetOrdersForInvoicing(int statusId, string orderBy) {
-			List<IOrder> listOfOrders = new List<IOrder>();
+		public List<IOrder> GetOrdersForInvoicing(int statusId, int? invoicingMethodIdFilter,  string orderBy) {
+			var listOfOrders = new List<IOrder>();
 			try {
-				DataSet orderDataSet = GetOrdersForInvoicingDataSet(statusId, orderBy);
+				var orderDataSet = GetOrdersForInvoicingDataSet(statusId, invoicingMethodIdFilter, orderBy);
 				foreach (DataRow orderDataRow in orderDataSet.Tables[0].Rows) {
 					listOfOrders.Add(ParseOrderRow(orderDataRow));
 				}

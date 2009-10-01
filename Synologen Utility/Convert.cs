@@ -13,6 +13,7 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 using Spinit.Wpc.Synologen.Utility.Types;
 using NameType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.NameType;
 using PercentType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
+using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
 namespace Spinit.Wpc.Synologen.Utility {
 	public static class Convert {
@@ -39,12 +40,10 @@ namespace Spinit.Wpc.Synologen.Utility {
 
 		public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, OrderRow order, List<IOrderItem> orderItems, CompanyRow company, IShop shop) {
 			var invoice = new SFTIInvoiceType();
-			TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankGiroBankIdentificationCode);
-			TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode);
-			TryAddTaxInformation(invoice, settings.VATAmount);
 			TryAddSettingsInformation(invoice, settings);
 			TryAddBuyerPartyInformation(invoice, company);
 			TryAddOrderInformation(invoice, order);
+			TryAddOrderItems(invoice, orderItems);
 			return invoice;
 		}
 
@@ -118,6 +117,9 @@ namespace Spinit.Wpc.Synologen.Utility {
 			if(!String.IsNullOrEmpty(settings.InvoiceTypeCode)){
 				invoice.InvoiceTypeCode = new CodeType {Value = settings.InvoiceTypeCode};
 			}
+			TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankgiroBankIdentificationCode);
+			TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode);
+			TryAddTaxInformation(invoice, settings.VATAmount);
 		}
 
 		private static void TryAddBuyerPartyInformation(SFTIInvoiceType invoice, CompanyRow company) {
@@ -191,6 +193,26 @@ namespace Spinit.Wpc.Synologen.Utility {
 				foreach (var taxTotal in invoice.TaxTotal){
 					taxTotal.TotalTaxAmount = new TaxAmountType {Value = (decimal) totalTaxAmount, amountCurrencyID = "SEK"};
 				}
+			}
+			
+		}
+
+		private static void TryAddOrderItems(SFTIInvoiceType invoice, IEnumerable<IOrderItem> orderItems ) {
+			if(invoice.InvoiceLine == null) invoice.InvoiceLine = new List<SFTIInvoiceLineType>();
+			foreach (var orderItem in orderItems){
+				invoice.InvoiceLine.Add(
+					new SFTIInvoiceLineType {
+						Item = new SFTIItemType {
+							Description = new DescriptionType {Value = orderItem.ArticleDisplayName},
+							StandardItemIdentification = new SFTIItemIdentificationType {ID = new IdentifierType {Value = orderItem.ArticleDisplayNumber}},
+							BasePrice = new SFTIBasePriceType {
+								PriceAmount = new PriceAmountType { Value = (decimal) orderItem.SinglePrice, amountCurrencyID="SEK" }
+							}
+						},
+						InvoicedQuantity = new QuantityType{Value = orderItem.NumberOfItems, quantityUnitCode = "styck"},
+                        LineExtensionAmount = new ExtensionAmountType { Value = (decimal) orderItem.DisplayTotalPrice, amountCurrencyID="SEK" }
+					}
+				);
 			}
 			
 		}

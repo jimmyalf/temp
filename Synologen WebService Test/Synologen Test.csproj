@@ -80,6 +80,7 @@
     <Compile Include="TestEDIInvoiceParsing.cs" />
     <Compile Include="TestMockFlow.cs" />
     <Compile Include="TestSPCS.cs" />
+    <Compile Include="TestSvefakturaValidation.cs" />
     <Compile Include="TestSynologenInvoice.cs" />
     <Compile Include="TestWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

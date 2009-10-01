@@ -12,6 +12,7 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 using NameType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.NameType;
 using PercentType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
+using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
 namespace Spinit.Wpc.Synologen.Test {
 	[TestFixture]
@@ -258,7 +259,7 @@ namespace Spinit.Wpc.Synologen.Test {
 						}
 					}
 				},
-				InvoicedQuantity = new QuantityType2 {
+				InvoicedQuantity = new QuantityType {
              		quantityUnitCode = String.IsNullOrEmpty(quantityUnitCode) ? InvoiceDefaultQuantityName : quantityUnitCode,
 					Value = quantity
 				},

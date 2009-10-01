@@ -5,7 +5,9 @@ using System.Text;
 namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 	public class WebService : BaseConfiguration {
 		public static readonly Encoding DefaultEncoding = Encoding.UTF8;
-
+		public static int? InvoicingMethodIdFilter {
+			get { return GetSafeValue("InvoicingMethodIdFilter", (int?)null); }
+		}
 		public static int NewSaleStatusId {
 			get { return GetSafeValue("NewSaleStatusId", 1); }
 		}

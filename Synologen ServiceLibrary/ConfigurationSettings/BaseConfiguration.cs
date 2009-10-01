@@ -19,6 +19,14 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 			}
 			catch { return defaultValue; }
 		}
+		public static int? GetSafeValue(string key, int? defaultValue) {
+			try {
+				var value = ConfigurationManager.AppSettings[key];
+				int returnValue;
+				return Int32.TryParse(value, out returnValue) ? returnValue : defaultValue;
+			}
+			catch { return defaultValue; }
+		}
 
 		public static bool GetSafeValue(string key, bool defaultValue) {
 			try {

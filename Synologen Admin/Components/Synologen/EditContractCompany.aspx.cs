@@ -53,8 +53,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		private void PopulateValidationRules() {
-			chkValidationRules.DataValueField = "cId";
-			chkValidationRules.DataTextField = "cValidationName";
 			chkValidationRules.DataSource = Provider.GetCompanyValidationRulesDataSet(null, null);
 			chkValidationRules.DataBind();
 		}

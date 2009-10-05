@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
-using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Business.Enumeration;
 using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
@@ -11,15 +10,13 @@ using Globals=Spinit.Wpc.Synologen.Business.Globals;
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 	public partial class CreateOrder : SynologenUserControl {
 		private int _maxNumberOfItems = 15;
-		private static int RequiredRSTLength = 5;
+		private List<CompanyValidationRule> contractValidationRules = new List<CompanyValidationRule>();
 
 		protected void Page_Load(object sender, EventArgs e) {
 			btnSave.Enabled = CheckEnableSaveOrder();
-
 			if (Page.IsPostBack) return;
 
 			PopulateContracts();
-			//PopulateItemNumbers();
 			PopulateShoppingCart();
 			
 		}
@@ -36,21 +33,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			drpContracts.Items.Insert(0,new ListItem("-- Välj avtal --","0"));
 		}
 		private void PopulateCompanies() {
-			int contractId = Int32.Parse(drpContracts.SelectedValue);
+			var contractId = Int32.Parse(drpContracts.SelectedValue);
 			drpCompany.DataSource = Provider.GetCompanies(0, contractId, null, ActiveFilter.Active);
 			drpCompany.DataBind();
 			drpCompany.Items.Insert(0, new ListItem("-- Välj företag --", "0"));
 			drpCompany.Enabled = true;
 		}
-		//private void PopulateRSTs() {
-		//    int companyId = Int32.Parse(drpCompany.SelectedValue);
-		//    drpRST.DataSource = Provider.GetCompanyRSTs(0, companyId, null);
-		//    drpRST.DataBind();
-		//    drpRST.Items.Insert(0, new ListItem("-- Välj Kostnadsställe --", "0"));
-		//    drpRST.Enabled = true;
-		//}
+
 		private void PopulateArticles() {
-			int contractId = Int32.Parse(drpContracts.SelectedValue);
+			var contractId = Int32.Parse(drpContracts.SelectedValue);
 			drpArticle.DataSource = Provider.GetContractArticleConnections(0, contractId, "tblSynologenContractArticleConnection.cId");
 			drpArticle.DataBind();
 			drpArticle.Items.Insert(0, new ListItem("-- Välj Artikel --", "0"));
@@ -66,6 +57,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			gvOrderItemsCart.DataSource = SynologenSessionContext.OrderItemsInCart;
 			gvOrderItemsCart.DataBind();
 			ltTotalPrice.Text = GetTotalCartPrice().ToString();
+		}
+
+		private void PopulateValidationRules(int selectedCompanyId) {
+			contractValidationRules = new List<CompanyValidationRule>(Provider.GetCompanyRow(selectedCompanyId).CompanyValidationRules);
+			SetRequiredAsteriskInLabels();
+			Page.Validate(btnSave.ValidationGroup);
+			
+		}
+
+		private void SetRequiredAsteriskInLabels() {
+			foreach (var control in Controls){
+				if (control.GetType() != typeof (Literal)) continue;
+				var literalControl = (Literal) control;
+				if (!literalControl.ID.ToLower().Contains("required")) continue;
+				literalControl.DataBind();
+			}
 		}
 
 		#region Events
@@ -84,13 +91,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		}
 
 		protected void drpCompany_SelectedIndexChanged(object sender, EventArgs e) {
-			if(drpCompany.SelectedValue!="0"){
-				//drpRST.Enabled = true;
-				//PopulateRSTs();
-			}
-			else {
-				//drpRST.Enabled = false;
-			}
+			if (drpCompany.SelectedValue == "0") return;
+			PopulateValidationRules(Convert.ToInt32(drpCompany.SelectedValue));
+			//drpRST.Enabled = true;
+			//PopulateRSTs();
 		}
 
 		protected void drpRST_SelectedIndexChanged(object sender, EventArgs e) {}
@@ -102,28 +106,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			PopulateShoppingCart();
 		}
 
-		protected void PersonalIDNumberValidation(object source, ServerValidateEventArgs args) {
-			args.IsValid = ValidatePersonalIDNumber(args.Value);
-		}
-
 		protected void SessionValidation(object source, ServerValidateEventArgs args) {
-			args.IsValid = (MemberId > 0 && MemberShopId > 0);
+		    args.IsValid = (MemberId > 0 && MemberShopId > 0);
 		}
 
 		protected void OrderItemsValidation(object source, ServerValidateEventArgs args) {
-			args.IsValid = (SynologenSessionContext.OrderItemsInCart.Count > 0);
+		    args.IsValid = (SynologenSessionContext.OrderItemsInCart.Count > 0);
 		}
 
-		protected void ValidateRSTLength(object source, ServerValidateEventArgs args) {
-			args.IsValid = CheckRSTLength(args.Value);
+		protected void PerformCustomValidation(object source, ServerValidateEventArgs args) {
+			var validationControl = (CustomValidator) source;
+			var controlToValidateID = validationControl.ControlToValidate;
+			string errorMessage;
+			args.IsValid = CustomOrderValidation.IsValid(controlToValidateID, args.Value, contractValidationRules, out errorMessage);
+			validationControl.ErrorMessage = errorMessage;
 		}
 
 		protected void btnAdd_Click(object sender, EventArgs e) {
 			if (!reqNumberOfItems.IsValid || !reqArticle.IsValid || !reqArticle2.IsValid) return;
-			OrderItemRow item = new OrderItemRow();
-			int connectionId = Int32.Parse(drpArticle.SelectedValue);
+			var item = new OrderItemRow();
+			var connectionId = Int32.Parse(drpArticle.SelectedValue);
 			//item.ContractId = Int32.Parse(drpContracts.SelectedValue);
-			ContractArticleRow contractArticle = Provider.GetContractCustomerArticleRow(connectionId);
+			var contractArticle = Provider.GetContractCustomerArticleRow(connectionId);
 			item.ArticleDisplayName = contractArticle.ArticleName;
 			item.ArticleDisplayNumber = contractArticle.ArticleNumber;
 			item.ArticleId = contractArticle.ArticleId;
@@ -137,8 +141,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		}
 
 		protected void btnSave_Click(object sender, EventArgs e) {
+			if(drpCompany.SelectedValue != null && drpCompany.SelectedValue != "0"){
+				PopulateValidationRules(Convert.ToInt32(drpCompany.SelectedValue));
+			}
 			if (!Page.IsValid) return;
-			OrderRow order= new OrderRow();
+			var order= new OrderRow();
 			order.PersonalIdNumber = txtPersonalIDNumber.Text.Replace("-", "");
 			order.CompanyUnit = txtCompanyUnit.Text;
 			order.CustomerFirstName = txtCustomerFirstName.Text;
@@ -156,48 +163,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			ClearAllInputControls();
 			Response.Redirect(Page.Request.Url.AbsoluteUri);
 		}
+
 		#endregion
 
 		#region Helper Methods
 
 		private void SaveOrderItems(int id) {
-			foreach (OrderItemRow item in SynologenSessionContext.OrderItemsInCart) {
+			foreach (var item in SynologenSessionContext.OrderItemsInCart) {
 				item.OrderId = id;
-				OrderItemRow tempOrder = item;
+				var tempOrder = item;
 				Provider.AddUpdateDeleteOrderItem(Enumerations.Action.Create, ref tempOrder);
 			}
 		}
 
 		private List<int> GetNumberOfItemsItemList() {
-			List<int> returnList = new List<int>();
-			for (int i = 1; i <= _maxNumberOfItems; i++) {
+			var returnList = new List<int>();
+			for (var i = 1; i <= _maxNumberOfItems; i++) {
 				returnList.Add(i);
 			}
 			return returnList;
-		}
-
-		private bool ValidatePersonalIDNumber(string number) {
-			try {
-				number = number.Replace("-", "");
-				if (number.Length != 12) throw new ArgumentOutOfRangeException();
-				number = number.Remove(0, 2); //remove first two year characters
-				int sum = 0;
-				for (int i = 0; i < 10; i++) {
-					int temp = Convert.ToInt32(number.Substring(i, 1)) * (((i + 1) % 2) + 1);
-					if (temp > 9) temp = temp - 9;
-					sum += temp;
-				}
-				return (sum % 10).Equals(0);
-			}
-			catch {
-				return false;
-			}
-		}
-
-		private static bool CheckRSTLength(string rstNumber) {
-			if(String.IsNullOrEmpty(rstNumber)) return false;
-			if(rstNumber.Trim().Length != RequiredRSTLength) return false;
-			return true;
 		}
 
 		private void ClearItemInputControls() {
@@ -224,22 +208,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		private static void AddOrderItemToCart(OrderItemRow item) {
 			item.TemporaryId = GetNewTemporaryIdForCart();
 
-			List<OrderItemRow> cart = SynologenSessionContext.OrderItemsInCart;
+			var cart = SynologenSessionContext.OrderItemsInCart;
 			cart.Add(item);
 			SynologenSessionContext.OrderItemsInCart = cart;
 		}
 
 		private static void RemoveOrderItemFromCart(int itemTemporaryId) {
-			List<OrderItemRow> cart = SynologenSessionContext.OrderItemsInCart;
-			cart.RemoveAll(delegate(OrderItemRow x) { return x.TemporaryId == itemTemporaryId; });
+			var cart = SynologenSessionContext.OrderItemsInCart;
+			cart.RemoveAll(x => x.TemporaryId == itemTemporaryId);
 			SynologenSessionContext.OrderItemsInCart = cart;
 		}
 
 		private static int GetNewTemporaryIdForCart() {
-			List<OrderItemRow> cart = SynologenSessionContext.OrderItemsInCart;
-			int tempId = 1;
+			var cart = SynologenSessionContext.OrderItemsInCart;
+			var tempId = 1;
 			if (cart == null || cart.Count == 0) return tempId;
-			while(cart.Exists(delegate(OrderItemRow x) {return x.TemporaryId == tempId;})) {
+			while(cart.Exists(x => x.TemporaryId.Equals(tempId))) {
 				tempId++;
 				if (tempId > 50) throw new ArgumentOutOfRangeException("tempId");
 			}
@@ -248,9 +232,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		}
 
 		private static float GetTotalCartPrice() {
-			List<OrderItemRow> cart = SynologenSessionContext.OrderItemsInCart;
+			var cart = SynologenSessionContext.OrderItemsInCart;
 			float returnValue = 0;
-			foreach(OrderItemRow order in cart) {
+			foreach(var order in cart) {
 				returnValue += order.DisplayTotalPrice;
 			}
 			return returnValue;
@@ -264,15 +248,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		public bool CheckEnableSaveOrder() {
 			try {
 				//bool rstOK = !drpRST.SelectedValue.Equals("0") && !drpRST.SelectedValue.Equals("");
-				bool contractOK = !drpContracts.SelectedValue.Equals("0") && !drpContracts.SelectedValue.Equals("");
-				bool companyOK = !drpCompany.SelectedValue.Equals("0") && !drpCompany.SelectedValue.Equals("");
+				var contractOK = !drpContracts.SelectedValue.Equals("0") && !drpContracts.SelectedValue.Equals("");
+				var companyOK = !drpCompany.SelectedValue.Equals("0") && !drpCompany.SelectedValue.Equals("");
 				//return (rstOK && contractOK && companyOK);
 				return (contractOK && companyOK);
 			}
 			catch{return false;}
 		}
 
+		public string GetControlIsRequiredCharacter(string controlToValidate) {
+			return contractValidationRules.Exists(x => x.ControlToValidate.Equals(controlToValidate) && CustomOrderValidation.IsValidationRuleRequired(x))  ? "*" : String.Empty;
+		}
+
+
 		#endregion
+
+
 
 
 	}

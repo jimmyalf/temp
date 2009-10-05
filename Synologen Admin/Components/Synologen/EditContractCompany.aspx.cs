@@ -25,6 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			if (Page.IsPostBack) return;
 			PopulateContracts();
 			PopulateInvoicingMethods();
+			PopulateValidationRules();
 			if (_companyId > 0) {
 				SetupForEdit();
 
@@ -51,9 +52,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			}
 		}
 
+		private void PopulateValidationRules() {
+			chkValidationRules.DataValueField = "cId";
+			chkValidationRules.DataTextField = "cValidationName";
+			chkValidationRules.DataSource = Provider.GetCompanyValidationRulesDataSet(null, null);
+			chkValidationRules.DataBind();
+		}
+
 
 		private void SetupForEdit() {
-			CompanyRow company = Provider.GetCompanyRow(_companyId);
+			var company = Provider.GetCompanyRow(_companyId);
 			txtName.Text = company.Name;
 			txtAddress.Text = company.Address1;
 			txtAddress2.Text = company.Address2;
@@ -69,6 +77,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			txtPaymentDuePeriod.Text = company.PaymentDuePeriod.ToString();
 			txtEDIRecipientId.Text = company.EDIRecipientId;
 			drpInvoicingMethods.SelectedValue = company.InvoicingMethodId.ToString();
+			foreach (var validationRule in company.CompanyValidationRules){
+				var listItem = chkValidationRules.Items.FindByValue(validationRule.Id.ToString());
+				if(listItem !=null) listItem.Selected = true;
+			}
 			//Replace by Databind method
 		}
 
@@ -102,7 +114,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			company.InvoicingMethodId = Convert.ToInt32(drpInvoicingMethods.SelectedValue);
 
 			Provider.AddUpdateDeleteCompany(action, ref company);
+
+			ConnectDisconnectValidationRules(company);
 			Response.Redirect(ComponentPages.ContractCompanies + "?id="+ company.ContractId);
+		}
+
+		private void ConnectDisconnectValidationRules(CompanyRow company) {
+			foreach (ListItem listItem in chkValidationRules.Items){
+				int validationRuleId;
+				if(!Int32.TryParse(listItem.Value, out validationRuleId)) throw new ArgumentException("listItem");
+				if (listItem.Selected && !company.HasValidationRule(validationRuleId)){ //Connect validation rule
+					Provider.ConnectCompanyToValidationRule(company.Id, validationRuleId);
+				}
+				if (!listItem.Selected && company.HasValidationRule(validationRuleId)){ //Disconnect validation rule
+					Provider.DisconnectCompanyFromValidationRule(company.Id, validationRuleId);
+				}
+			}
 		}
 
 	}

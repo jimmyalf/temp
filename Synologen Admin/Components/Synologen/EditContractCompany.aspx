@@ -50,6 +50,10 @@
 						<label class="labelLong">Aktivt</label><br />
 						<asp:CheckBox id="chkActive" runat="server" />
 					</div>
+					<div class="formItem clearLeft">
+						<label class="labelLong">Valideringsregler</label><br />
+						<asp:CheckBoxList id="chkValidationRules" runat="server" />
+					</div>					
 		        </div>	
 		        <div class="formItem">
 					<div class="formItem clearLeft">

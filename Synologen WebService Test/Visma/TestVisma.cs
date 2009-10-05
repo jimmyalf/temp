@@ -2,9 +2,8 @@ using NUnit.Framework;
 using Spinit.Wpc.Synologen.Test.Mock;
 using Spinit.Wpc.Synologen.Visma;
 
-namespace Spinit.Wpc.Synologen.Test {
-	[TestFixture]
-	public class TestSPCS {
+namespace Spinit.Wpc.Synologen.Test.Visma {
+	public class TestVisma {
 		private string vismaCommonFilesPath;
 		private string vismaCompanyName;
 		private AdkHandler adkHandler;

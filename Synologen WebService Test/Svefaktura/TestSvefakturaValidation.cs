@@ -2,16 +2,14 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
-using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 using Spinit.Wpc.Synologen.Utility;
 using Spinit.Wpc.Synologen.Utility.Types;
-using AmountType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.AmountType;
 
-namespace Spinit.Wpc.Synologen.Test {
+namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 	[TestFixture]
-	public class TestSvefakturaValidation {
+	public class TestValidation {
 
 		[TestFixtureSetUp]
 		public void Setup() { }
@@ -65,7 +63,7 @@ namespace Spinit.Wpc.Synologen.Test {
 			var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceType.AllowanceCharge"));
 			Assert.IsTrue(ruleViolationFound);
 		}
-				[Test]
+		[Test]
 		public void Test_Invoice_Missing_AllowanceCharge_Amount_Fails_Validation() {
 			var invoice = new SFTIInvoiceType {AllowanceCharge = new List<SFTIAllowanceChargeType> {new SFTIAllowanceChargeType {Amount = null}}};
 			var ruleViolations = new List<RuleViolation>(SvefakturaValidator.Validate(invoice));

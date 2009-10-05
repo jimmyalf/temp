@@ -3,20 +3,20 @@ using System.Diagnostics;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Utility.Types;
 
-namespace Spinit.Wpc.Synologen.Test {
+namespace Spinit.Wpc.Synologen.Test.EDI {
 	[TestFixture]
-	public class TestEDIInvoiceParsing {
+	public class TestParsing {
 		private EDIConversionSettings ediSettings = new EDIConversionSettings();
 		private const string NewLine = "\r\n";
 
 		[TestFixtureSetUp]
 		public void Setup() {
 			ediSettings = new EDIConversionSettings {
-				SenderId = "5562626100",
-				BankGiro = "56936677",
-				VATAmount = 0.25F,
-				InvoiceCurrencyCode = "SEK"
-			};
+			                                        	SenderId = "5562626100",
+			                                        	BankGiro = "56936677",
+			                                        	VATAmount = 0.25F,
+			                                        	InvoiceCurrencyCode = "SEK"
+			                                        };
 		}
 
 		[Test]

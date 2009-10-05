@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Data.Types {
@@ -18,5 +19,10 @@ namespace Spinit.Wpc.Synologen.Data.Types {
 		public int PaymentDuePeriod { get; set; }
 		public string EDIRecipientId { get; set; }
 		public int InvoicingMethodId { get; set; }
+		public List<CompanyValidationRule> CompanyValidationRules { get; set; }
+		public bool HasValidationRule(int validationRuleId) {
+			if(CompanyValidationRules == null) return false;
+			return CompanyValidationRules.Exists(x => x.Id.Equals(validationRuleId) );
+		}
 	}
 }

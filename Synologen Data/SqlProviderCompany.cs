@@ -51,6 +51,7 @@
 // 
 // ==========================================================================
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
@@ -125,34 +126,37 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public CompanyRow GetCompanyRow(int companyId) {
+			var contractCompanyDataSet = GetCompanies(companyId, 0, null, ActiveFilter.Both);
+			var contractCompanyDataRow = contractCompanyDataSet.Tables[0].Rows[0];
+			return ParseCompanyRow(contractCompanyDataRow);
+		}
+
+		private CompanyRow ParseCompanyRow(DataRow dataRow) {
 			try {
-				DataSet contractCompanyDataSet = GetCompanies(companyId, 0, null, ActiveFilter.Both);
-				DataRow contractCompanyDataRow = contractCompanyDataSet.Tables[0].Rows[0];
-				CompanyRow contractRow = new CompanyRow();
-				contractRow.Address1 = Util.CheckNullString(contractCompanyDataRow, "cAddress1");
-				contractRow.Address2 = Util.CheckNullString(contractCompanyDataRow, "cAddress2");
-				contractRow.City = Util.CheckNullString(contractCompanyDataRow, "cCity");
-				contractRow.Id = Util.CheckNullInt(contractCompanyDataRow, "cId");
-				contractRow.ContractId = Util.CheckNullInt(contractCompanyDataRow, "cContractCustomerId");
-				contractRow.Name = Util.CheckNullString(contractCompanyDataRow, "cName");
-				contractRow.Zip = Util.CheckNullString(contractCompanyDataRow, "cZip");
-				contractRow.CompanyCode = Util.CheckNullString(contractCompanyDataRow, "cCompanyCode");
-				contractRow.BankCode = Util.CheckNullString(contractCompanyDataRow, "cBankCode");
-				contractRow.Active = (bool) contractCompanyDataRow["cActive"];
-
-				contractRow.OrganizationNumber = Util.CheckNullString(contractCompanyDataRow, "cOrganizationNumber");
-				contractRow.AddressCode = Util.CheckNullString(contractCompanyDataRow, "cAddressCode");
-				contractRow.TaxAccountingCode = Util.CheckNullString(contractCompanyDataRow, "cTaxAccountingCode");
-				contractRow.PaymentDuePeriod = Util.CheckNullInt(contractCompanyDataRow, "cPaymentDuePeriod");
-				contractRow.EDIRecipientId = Util.CheckNullString(contractCompanyDataRow, "cEDIRecipientId");
-				contractRow.InvoicingMethodId = Util.CheckNullInt(contractCompanyDataRow, "cInvoicingMethodId");
-
-				return contractRow;
+				var companyRow = new CompanyRow {
+					Address1 = Util.CheckNullString(dataRow, "cAddress1"), 
+					Address2 = Util.CheckNullString(dataRow, "cAddress2"), 
+					City = Util.CheckNullString(dataRow, "cCity"), 
+					Id = Util.CheckNullInt(dataRow, "cId"), 
+					ContractId = Util.CheckNullInt(dataRow, "cContractCustomerId"), 
+					Name = Util.CheckNullString(dataRow, "cName"), 
+					Zip = Util.CheckNullString(dataRow, "cZip"), 
+					CompanyCode = Util.CheckNullString(dataRow, "cCompanyCode"), 
+					BankCode = Util.CheckNullString(dataRow, "cBankCode"), 
+					Active = (bool) dataRow["cActive"], 
+					OrganizationNumber = Util.CheckNullString(dataRow, "cOrganizationNumber"), 
+					AddressCode = Util.CheckNullString(dataRow, "cAddressCode"), 
+					TaxAccountingCode = Util.CheckNullString(dataRow, "cTaxAccountingCode"), 
+					PaymentDuePeriod = Util.CheckNullInt(dataRow, "cPaymentDuePeriod"), 
+					EDIRecipientId = Util.CheckNullString(dataRow, "cEDIRecipientId"), 
+					InvoicingMethodId = Util.CheckNullInt(dataRow, "cInvoicingMethodId"),
+				};
+				companyRow.CompanyValidationRules = new List<CompanyValidationRule>(GetCompanyValidationRules(null, companyRow.Id));
+				return companyRow;
 			}
 			catch (Exception ex) {
 				throw new Exception("Exception found while parsing a CompanyRow object: " + ex.Message);
 			}
-
 		}
 
 		public DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter) {
@@ -178,15 +182,95 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
+		public DataSet GetCompanyValidationRulesDataSet(int? validationRuleId, int? companyId) {
+			try {
+				var counter = 0;
+				SqlParameter[] parameters = {
+					new SqlParameter ("@validationRuleId", SqlDbType.Int, 4),
+					new SqlParameter ("@companyId", SqlDbType.Int, 4),
+					new SqlParameter ("@status", SqlDbType.Int, 4)
+				};
+				parameters[counter++].Value = GetNullableSqlType(validationRuleId);
+				parameters[counter++].Value = GetNullableSqlType(companyId);
+				parameters[counter].Direction = ParameterDirection.Output;
+				var retSet = RunProcedure("spSynologenGetCompanyValidationRules", parameters, "tblSynologenCompanyValidationRules");
+				return retSet;
+			}
+			catch (SqlException e) {
+				throw new GeneralData.DatabaseInterface.DataException("GetCompanyValidationRules failed", e);
+			}
+		}
+
+		private IList<CompanyValidationRule> GetCompanyValidationRules(int? validationRuleId, int? companyId) {
+			var validationRuleList = new List<CompanyValidationRule>();
+			var validationRulesDataSet = GetCompanyValidationRulesDataSet(validationRuleId, companyId);
+			if(validationRulesDataSet == null) return new List<CompanyValidationRule>();
+			if(validationRulesDataSet.Tables.Count <= 0) return new List<CompanyValidationRule>();
+			if(validationRulesDataSet.Tables[0].Rows.Count <= 0) return new List<CompanyValidationRule>();
+			foreach (DataRow dataRow in validationRulesDataSet.Tables[0].Rows){
+				var validationRule = ParseCompanyValidationRule(dataRow);
+				validationRuleList.Add(validationRule);
+			}
+			return validationRuleList;
+		}
+
+		private static CompanyValidationRule ParseCompanyValidationRule(DataRow row) {
+			return new CompanyValidationRule {
+				Id = Util.CheckNullInt(row, "cId"), 
+				ValidationName = Util.CheckNullString(row, "cValidationName"), 
+				ValidationDescription = Util.CheckNullString(row, "cValidationDescription"), 
+				ControlToValidate = Util.CheckNullString(row, "cControlToValidate"), 
+				ValidationRegex = Util.CheckNullString(row, "cValidationRegex"), 
+				ErrorMessage = Util.CheckNullString(row, "cErrorMessage"), 
+				ValidationType = (ValidationType) Util.CheckNullInt(row, "cValidationType")
+			};
+		}
+
 		public bool CompanyHasConnectedOrders(int companyId) {
-			DataSet companyDataSet = GetOrders(0, 0, 0, 0, companyId, 0, 0, null);
+			var companyDataSet = GetOrders(0, 0, 0, 0, companyId, 0, 0, null);
 			return DataSetHasRows(companyDataSet);
 		}
 
-		// Not relevant anymore that RST's are filled in as free text
-		//public bool CompanyHasConnectedRSTs(int companyId) {
-		//    DataSet companyDataSet = GetCompanyRSTs(0, companyId, null);
-		//    return DataSetHasRows(companyDataSet);
-		//}
+		public int ConnectCompanyToValidationRule(int companyId, int validationRuleId) { 
+			try {
+				var counter = 0;
+				int rowsAffected;
+				SqlParameter[] parameters = {
+					new SqlParameter ("@validationRuleId", SqlDbType.Int, 4),
+					new SqlParameter ("@companyId", SqlDbType.Int, 4),
+					new SqlParameter ("@status", SqlDbType.Int, 4)
+				};
+				parameters[counter++].Value = GetNullableSqlType(validationRuleId);
+				parameters[counter++].Value = GetNullableSqlType(companyId);
+				parameters[counter].Direction = ParameterDirection.Output;
+				RunProcedure("spSynologenConnectCompanyToValidationRule", parameters, out rowsAffected);
+				if (((int)parameters[parameters.Length - 1].Value) == 0) { return rowsAffected; }
+				throw new GeneralData.DatabaseInterface.DataException("Insert failed. Error: " + (int)parameters[parameters.Length - 1].Value, (int)parameters[parameters.Length - 1].Value);
+			}
+			catch (SqlException e) {
+				throw new GeneralData.DatabaseInterface.DataException("ConnectCompanyToValidationRule failed", e);
+			}
+		}
+
+		public int DisconnectCompanyFromValidationRule(int companyId, int validationRuleId) { 
+			try {
+				var counter = 0;
+				int rowsAffected;
+				SqlParameter[] parameters = {
+					new SqlParameter ("@validationRuleId", SqlDbType.Int, 4),
+					new SqlParameter ("@companyId", SqlDbType.Int, 4),
+					new SqlParameter ("@status", SqlDbType.Int, 4)
+				};
+				parameters[counter++].Value = GetNullableSqlType(validationRuleId);
+				parameters[counter++].Value = GetNullableSqlType(companyId);
+				parameters[counter].Direction = ParameterDirection.Output;
+				RunProcedure("spSynologenDisconnectCompanyFromValidationRule", parameters, out rowsAffected);
+				if (((int)parameters[parameters.Length - 1].Value) == 0) { return rowsAffected; }
+				throw new GeneralData.DatabaseInterface.DataException("Delete failed. Error: " + (int)parameters[parameters.Length - 1].Value, (int)parameters[parameters.Length - 1].Value);
+			}
+			catch (SqlException e) {
+				throw new GeneralData.DatabaseInterface.DataException("DisconnectCompanyFromValidationRule failed", e);
+			}		
+		}
 	}
 }

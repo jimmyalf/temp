@@ -39,6 +39,7 @@
     <Content Include="Wpc\Synologen\ShopList.ascx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\CustomOrderValidation.cs" />
     <Compile Include="Code\SynologenCacheContext.cs" />
     <Compile Include="Code\SynologenSessionContext.cs" />
     <Compile Include="Code\SynologenUserControl.cs">

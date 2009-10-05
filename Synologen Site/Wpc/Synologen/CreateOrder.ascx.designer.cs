@@ -50,6 +50,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator reqCompany;
         
         /// <summary>
+        /// ltRequiredRST control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltRequiredRST;
+        
+        /// <summary>
         /// txtRST control.
         /// </summary>
         /// <remarks>
@@ -59,31 +68,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
         protected global::System.Web.UI.WebControls.TextBox txtRST;
         
         /// <summary>
-        /// reqRST control.
+        /// valRST control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqRST;
+        protected global::System.Web.UI.WebControls.CustomValidator valRST;
         
         /// <summary>
-        /// vldRST control.
+        /// ltRequiredCompanyUnit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator vldRST;
-        
-        /// <summary>
-        /// valCstRST control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator valCstRST;
+        protected global::System.Web.UI.WebControls.Literal ltRequiredCompanyUnit;
         
         /// <summary>
         /// txtCompanyUnit control.
@@ -95,13 +95,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
         protected global::System.Web.UI.WebControls.TextBox txtCompanyUnit;
         
         /// <summary>
-        /// reqCompanyUnit control.
+        /// vldCompanyUnit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqCompanyUnit;
+        protected global::System.Web.UI.WebControls.CustomValidator vldCompanyUnit;
+        
+        /// <summary>
+        /// ltRequiredCustomerFirstName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltRequiredCustomerFirstName;
         
         /// <summary>
         /// txtCustomerFirstName control.
@@ -113,13 +122,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
         protected global::System.Web.UI.WebControls.TextBox txtCustomerFirstName;
         
         /// <summary>
-        /// reqCustomerFirstName control.
+        /// vldCustomerFirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqCustomerFirstName;
+        protected global::System.Web.UI.WebControls.CustomValidator vldCustomerFirstName;
+        
+        /// <summary>
+        /// ltRequiredCustomerLastName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltRequiredCustomerLastName;
         
         /// <summary>
         /// txtCustomerLastName control.
@@ -131,13 +149,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
         protected global::System.Web.UI.WebControls.TextBox txtCustomerLastName;
         
         /// <summary>
-        /// reqCustomerLastName control.
+        /// vldCustomerLastName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqCustomerLastName;
+        protected global::System.Web.UI.WebControls.CustomValidator vldCustomerLastName;
+        
+        /// <summary>
+        /// ltRequiredPersonalIDNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltRequiredPersonalIDNumber;
         
         /// <summary>
         /// txtPersonalIDNumber control.
@@ -149,31 +176,49 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
         protected global::System.Web.UI.WebControls.TextBox txtPersonalIDNumber;
         
         /// <summary>
-        /// reqPersonalIDNumber control.
+        /// vldPersonalIDNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqPersonalIDNumber;
+        protected global::System.Web.UI.WebControls.CustomValidator vldPersonalIDNumber;
         
         /// <summary>
-        /// regPersonalIDNumber control.
+        /// ltRequiredCustomerOrderNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator regPersonalIDNumber;
+        protected global::System.Web.UI.WebControls.Literal ltRequiredCustomerOrderNumber;
         
         /// <summary>
-        /// vldCustomPersonalIDNumber control.
+        /// txtCustomerOrderNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator vldCustomPersonalIDNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtCustomerOrderNumber;
+        
+        /// <summary>
+        /// vldCustomerOrderNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator vldCustomerOrderNumber;
+        
+        /// <summary>
+        /// ltRequiredPhone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltRequiredPhone;
         
         /// <summary>
         /// txtPhone control.
@@ -185,6 +230,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
         protected global::System.Web.UI.WebControls.TextBox txtPhone;
         
         /// <summary>
+        /// vldCustomerPhoneNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator vldCustomerPhoneNumber;
+        
+        /// <summary>
+        /// ltRequiredEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltRequiredEmail;
+        
+        /// <summary>
         /// txtEmail control.
         /// </summary>
         /// <remarks>
@@ -192,6 +255,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
+        
+        /// <summary>
+        /// vldEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator vldEmail;
         
         /// <summary>
         /// drpArticle control.

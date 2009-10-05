@@ -52,7 +52,7 @@
 					</div>
 					<div class="formItem clearLeft">
 						<label class="labelLong">Valideringsregler</label><br />
-						<asp:CheckBoxList id="chkValidationRules" runat="server" />
+						<asp:CheckBoxList id="chkValidationRules" runat="server" DataValueField="cId" DataTextField="cNameAndDescription" />
 					</div>					
 		        </div>	
 		        <div class="formItem">

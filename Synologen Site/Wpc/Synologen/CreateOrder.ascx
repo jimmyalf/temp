@@ -5,31 +5,25 @@
 	<asp:DropDownList ID="drpContracts" runat="server" DataTextField="cName" DataValueField="cId" AutoPostBack="true" OnSelectedIndexChanged="drpContracts_SelectedIndexChanged"/>
 	<asp:RequiredFieldValidator id="reqContracts" InitialValue="0" runat="server" errormessage="Avtal saknas" controltovalidate="drpContracts" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
 	<br />
-	<label>Företag </label>
+	<label>Företag *</label>
 	<asp:DropDownList ID="drpCompany" runat="server" DataTextField="cName" DataValueField="cId" AutoPostBack="true" OnSelectedIndexChanged="drpCompany_SelectedIndexChanged" Enabled="false"/>
 	<asp:RequiredFieldValidator id="reqCompany" InitialValue="0" runat="server" errormessage="Företag saknas" controltovalidate="drpCompany" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
 	<br />
 	<label>Kundens<br />Kostnadsställe <asp:Literal ID="ltRequiredRST" runat="server" Text='<%#GetControlIsRequiredCharacter("txtRST")%>' /></label>
 	<asp:TextBox id="txtRST" runat="server" />
 	<asp:CustomValidator id="valRST" runat="server" ControlToValidate="txtRST" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>
-<%--<asp:RequiredFieldValidator id="reqRST" runat="server" errormessage="Kostnadsställe saknas" controltovalidate="txtRST" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>	
-	<asp:RangeValidator ID="vldRST" runat="server" ErrorMessage="RST felaktigt. (Skall vara 5 siffror)" Type="Integer" MinimumValue="0" MaximumValue="99999" ControlToValidate="txtRST" Display="Dynamic" ValidationGroup="vldSubmit">*</asp:RangeValidator>
-	<asp:CustomValidator id="valCstRST" runat="server" ControlToValidate="txtRST" OnServerValidate="ValidateRSTLength" ErrorMessage="RST felaktigt. (Skall vara 5 siffror)" Display="Dynamic" ValidationGroup="vldSubmit">&nbsp;*</asp:CustomValidator>--%>
 	<br />
 	<label>Kundens<br />Företagsenhet <asp:Literal ID="ltRequiredCompanyUnit" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCompanyUnit")%>' /></label>
 	<asp:TextBox id="txtCompanyUnit" runat="server" />
 	<asp:CustomValidator id="vldCompanyUnit" runat="server" ControlToValidate="txtCompanyUnit" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>	
-	<%--<asp:RequiredFieldValidator id="reqCompanyUnit" runat="server" errormessage="Enhet saknas" controltovalidate="txtCompanyUnit" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>--%>
 	<br />
 	<label>Kundens<br />Förnamn <asp:Literal ID="ltRequiredCustomerFirstName" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCustomerFirstName")%>' /></label>
 	<asp:TextBox id="txtCustomerFirstName" runat="server" />
 	<asp:CustomValidator id="vldCustomerFirstName" runat="server" ControlToValidate="txtCustomerFirstName" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>
-	<%--<asp:RequiredFieldValidator id="reqCustomerFirstName" runat="server" errormessage="Förnamn saknas" controltovalidate="txtCustomerFirstname" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>--%>
 	<br />
 	<label>Kundens<br />Efternamn <asp:Literal ID="ltRequiredCustomerLastName" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCustomerLastName")%>' /></label>
 	<asp:TextBox id="txtCustomerLastName" runat="server" />	
 	<asp:CustomValidator id="vldCustomerLastName" runat="server" ControlToValidate="txtCustomerLastName" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>	
-	<%--<asp:RequiredFieldValidator id="reqCustomerLastName" runat="server" errormessage="Efternamn saknas" controltovalidate="txtCustomerLastName" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>--%>	
 	<br />
 	<label>Kundens<br />Personnummer <asp:Literal ID="ltRequiredPersonalIDNumber" runat="server" Text='<%#GetControlIsRequiredCharacter("txtPersonalIDNumber")%>' /></label>
 	<asp:TextBox id="txtPersonalIDNumber" runat="server" /><span>&nbsp;(ÅÅÅÅMMDD-NNNN)</span>
@@ -38,9 +32,6 @@
 	<label>Kundens<br />Ordernummer <asp:Literal ID="ltRequiredCustomerOrderNumber" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCustomerOrderNumber")%>' /></label>
 	<asp:TextBox id="txtCustomerOrderNumber" runat="server" />
 	<asp:CustomValidator id="vldCustomerOrderNumber" runat="server" ControlToValidate="txtCustomerOrderNumber" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>
-<%--<asp:RequiredFieldValidator id="reqPersonalIDNumber" runat="server" ControlToValidate="txtPersonalIDNumber" ErrorMessage="Personnummer saknas" Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>							
-	<asp:RegularExpressionValidator ID="regPersonalIDNumber" runat="server" ValidationExpression="^\d{8}-?\d{4}$" ControlToValidate="txtPersonalIDNumber" ErrorMessage="Personnummer med felaktigt format (skall vara &Aring;&Aring;&Aring;&Aring;MMDD-NNNN)" Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:RegularExpressionValidator>
-	<asp:CustomValidator ID="vldCustomPersonalIDNumber" runat="server" ControlToValidate="txtPersonalIDNumber" OnServerValidate="PersonalIDNumberValidation" ErrorMessage="Ogiltligt personnummer" Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:CustomValidator>								--%>
 	<br />	
 	<label>Kundens<br />Telefon <asp:Literal ID="ltRequiredPhone" runat="server" Text='<%#GetControlIsRequiredCharacter("txtPhone")%>' /></label>
 	<asp:TextBox id="txtPhone" runat="server" />

@@ -62,8 +62,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		private void PopulateValidationRules(int selectedCompanyId) {
 			contractValidationRules = new List<CompanyValidationRule>(Provider.GetCompanyRow(selectedCompanyId).CompanyValidationRules);
 			SetRequiredAsteriskInLabels();
-			Page.Validate(btnSave.ValidationGroup);
-			
 		}
 
 		private void SetRequiredAsteriskInLabels() {
@@ -143,6 +141,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		protected void btnSave_Click(object sender, EventArgs e) {
 			if(drpCompany.SelectedValue != null && drpCompany.SelectedValue != "0"){
 				PopulateValidationRules(Convert.ToInt32(drpCompany.SelectedValue));
+				Page.Validate(btnSave.ValidationGroup);
 			}
 			if (!Page.IsValid) return;
 			var order= new OrderRow();

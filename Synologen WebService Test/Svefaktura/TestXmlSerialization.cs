@@ -14,9 +14,9 @@ using NameType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponent
 using PercentType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
 using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
-namespace Spinit.Wpc.Synologen.Test {
+namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 	[TestFixture]
-	public class TestSynologenInvoice {
+	public class TestXmlSerialization {
 
 		[TestFixtureSetUp]
 		public void Setup() {}
@@ -30,13 +30,13 @@ namespace Spinit.Wpc.Synologen.Test {
 			Debug.WriteLine(output);
 		}
 
-		[Test]
-		public void Test_Read_Xml_Into_Invoice_Object() {
-			var invoice = GetMockInvoice();
-			var output = ToXML(invoice);
-			var readInvoice = ToInvoice(output);
-			Assert.AreEqual(invoice, readInvoice);
-		}
+		//[Test]
+		//public void Test_Read_Xml_Into_Invoice_Object() {
+		//    var invoice = GetMockInvoice();
+		//    var output = ToXML(invoice);
+		//    var readInvoice = ToInvoice(output);
+		//    Assert.AreEqual(invoice, readInvoice);
+		//}
 
 		private static string ToXML(SFTIInvoiceType objToSerialize) {
 			XmlSerializer serializer;
@@ -47,15 +47,15 @@ namespace Spinit.Wpc.Synologen.Test {
 				namespaces.Add("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
 				var sb = new StringBuilder();
 				var test = new CultureInfo("sv-SE") {
-					NumberFormat = new NumberFormatInfo {
-						NumberDecimalDigits = 10,
-                        NumberDecimalSeparator = "¤",
-						CurrencyDecimalDigits=10,
-						CurrencyDecimalSeparator="#",
-						PercentDecimalDigits=10,
-						PercentDecimalSeparator="%%%%"
-					}
-				};
+				                                    	NumberFormat = new NumberFormatInfo {
+				                                    	                                    	NumberDecimalDigits = 10,
+				                                    	                                    	NumberDecimalSeparator = "¤",
+				                                    	                                    	CurrencyDecimalDigits=10,
+				                                    	                                    	CurrencyDecimalSeparator="#",
+				                                    	                                    	PercentDecimalDigits=10,
+				                                    	                                    	PercentDecimalSeparator="%%%%"
+				                                    	                                    }
+				                                    };
 				var output = new StringWriter(sb, test) { NewLine = Environment.NewLine };
 				serializer = new XmlSerializer(objToSerialize.GetType());
 				serializer.Serialize(output, objToSerialize, namespaces);
@@ -184,9 +184,9 @@ namespace Spinit.Wpc.Synologen.Test {
 			invoice.SellerParty.Party.PartyName = new List<NameType> {new NameType {Value = OrganizationName}};
 			invoice.SellerParty.Party.PartyTaxScheme = new List<SFTIPartyTaxSchemeType> {GetPartyTaxScheme(OrganizationNumber)};
 			invoice.SellerParty.Party.Address = new SFTIAddressType {
-				Postbox = new PostboxType {Value = OrganizationAddress},
-				PostalZone = new ZoneType {Value = OrganizationZip},
-				CityName = new CityNameType {Value = OrganizationCity}
+				Postbox = new PostboxType { Value = OrganizationAddress },
+				PostalZone = new ZoneType { Value = OrganizationZip },
+				CityName = new CityNameType { Value = OrganizationCity }
 			};
 
 			invoice.BuyerParty = new SFTIBuyerPartyType { Party = new SFTIPartyType() };
@@ -203,8 +203,8 @@ namespace Spinit.Wpc.Synologen.Test {
 			invoice.ID = new SFTISimpleIdentifierType { Value = "invoiceNumber" };
 			invoice.IssueDate = new IssueDateType { Value = DateTime.Now }; //Replace with invoice Date}}
 			invoice.PaymentMeans = new List<SFTIPaymentMeansType> {
-              	GetDuePaymentDate(DateTime.Now),
-				new SFTIPaymentMeansType { PayeeFinancialAccount = new SFTIFinancialAccountType { ID = GetIdentifier("5693-6677".Trim('-')) } }
+			                                                      	GetDuePaymentDate(DateTime.Now),
+			                                                      	new SFTIPaymentMeansType { PayeeFinancialAccount = new SFTIFinancialAccountType { ID = GetIdentifier("5693-6677".Trim('-')) } }
 			}; //Replace with Invoice expiery date}
 			invoice.RequisitionistDocumentReference = new List<SFTIDocumentReferenceType> {new SFTIDocumentReferenceType {ID = GetIdentifier("purchaseOrderNumber")}};
 			invoice.Note = new NoteType { Value = "Reference to original invoice at credit invoices" };
@@ -231,9 +231,9 @@ namespace Spinit.Wpc.Synologen.Test {
 		public SFTIPartyTaxSchemeType GetPartyTaxScheme(string orgNr) {
 			if (String.IsNullOrEmpty(orgNr)) return null;
 			return new SFTIPartyTaxSchemeType {
-				CompanyID = new IdentifierType{Value = OrganizationNumber},
+				CompanyID = new IdentifierType { Value = OrganizationNumber },
 				TaxScheme = new SFTITaxSchemeType {
-					ID = new IdentifierType{Value = "VAT"}
+					ID = new IdentifierType { Value = "VAT" }
 				}
 			};
 		}
@@ -248,24 +248,24 @@ namespace Spinit.Wpc.Synologen.Test {
 
 		public SFTIInvoiceLineType GetInvoiceLine(string articleName, string articleNumber, string quantityUnitCode, Decimal quantity, Decimal singlePriceNoVat, Decimal rowTotalNoVAT) {
 			var sellersItemIdentification = String.IsNullOrEmpty(articleNumber) ? null : new SFTIItemIdentificationType {ID = GetIdentifier(articleNumber)};
-			var invoiceLine = new SFTIInvoiceLineType{
+			var invoiceLine = new SFTIInvoiceLineType {
 				Item = new SFTIItemType {
-					Description = new DescriptionType {Value = articleName},
+					Description = new DescriptionType { Value = articleName },
 					SellersItemIdentification = sellersItemIdentification,
 					BasePrice = new SFTIBasePriceType {
-						PriceAmount = new PriceAmountType { 
+						PriceAmount = new PriceAmountType {
 							amountCurrencyID = InvoiceCurrencyCode,
 							Value = singlePriceNoVat
 						}
 					}
 				},
 				InvoicedQuantity = new QuantityType {
-             		quantityUnitCode = String.IsNullOrEmpty(quantityUnitCode) ? InvoiceDefaultQuantityName : quantityUnitCode,
+					quantityUnitCode = String.IsNullOrEmpty(quantityUnitCode) ? InvoiceDefaultQuantityName : quantityUnitCode,
 					Value = quantity
 				},
 				LineExtensionAmount = new ExtensionAmountType {
-				    amountCurrencyID = InvoiceCurrencyCode,
-                    Value=rowTotalNoVAT                      	
+					amountCurrencyID = InvoiceCurrencyCode,
+					Value = rowTotalNoVAT
 				}
 			};
 			return invoiceLine;

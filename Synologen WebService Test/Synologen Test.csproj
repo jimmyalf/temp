@@ -73,18 +73,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestSvefakturaInvoiceParsing.cs" />
+    <Compile Include="Site\TestCustomOrderValidation.cs" />
+    <Compile Include="Site\TestValidationTypeRequired.cs" />
+    <Compile Include="Svefaktura\TestSvefakturaInvoiceParsing.cs" />
     <Compile Include="Mock\Utility.cs" />
     <Compile Include="Mock\MockAdkHandler.cs" />
     <Compile Include="Mock\MockWebServiceClient.cs" />
-    <Compile Include="TestEDIInvoiceParsing.cs" />
+    <Compile Include="EDI\TestEDIInvoiceParsing.cs" />
     <Compile Include="TestMockFlow.cs" />
-    <Compile Include="TestSPCS.cs" />
-    <Compile Include="TestSvefakturaValidation.cs" />
-    <Compile Include="TestSynologenInvoice.cs" />
-    <Compile Include="TestWebService.cs" />
+    <Compile Include="Visma\TestVisma.cs" />
+    <Compile Include="Svefaktura\TestSvefakturaValidation.cs" />
+    <Compile Include="Svefaktura\TestXmlSerialization.cs" />
+    <Compile Include="Webservice\TestWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestEDI.cs" />
+    <Compile Include="EDI\TestEDI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -105,6 +107,10 @@
     <ProjectReference Include="..\Synologen ServiceLibrary\Synologen ServiceLibrary.csproj">
       <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
       <Name>Synologen ServiceLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Site\Synologen Site.csproj">
+      <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
+      <Name>Synologen Site</Name>
     </ProjectReference>
     <ProjectReference Include="..\Synologen Svefaktura\Synologen Svefaktura.csproj">
       <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>

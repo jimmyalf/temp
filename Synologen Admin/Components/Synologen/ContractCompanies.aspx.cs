@@ -71,7 +71,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			//    txtBankIDCode.Text = company.BankCode;
 			//    chkActive.Checked = company.Active;
 			//    txtOrganizationNumber.Text = company.OrganizationNumber;
-			//    txtAddressCode.Text = company.AddressCode;
+			//    txtAddressCode.Text = company.InvoiceCompanyName;
 			//    txtTaxAccountingCode.Text = company.TaxAccountingCode;
 			//    txtPaymentDuePeriod.Text = company.PaymentDuePeriod.ToString();
 			//    txtEDIRecipientId.Text = company.EDIRecipientId;

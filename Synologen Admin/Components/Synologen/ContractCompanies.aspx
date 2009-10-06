@@ -27,8 +27,12 @@
 				SkinID="Striped" 
                 AllowSorting="true">
                 <Columns>
+					<asp:BoundField headerText="SPCS Id" DataField="cCompanyCode" SortExpression="cCompanyCode"/>
+					<asp:BoundField headerText="Org Nr" DataField="cOrganizationNumber" SortExpression="cOrganizationNumber"/>
                     <asp:BoundField headerText="Företag" DataField="cName" SortExpression="cName"/>
-                    <asp:BoundField headerText="Kontrakt" DataField="cContractName" SortExpression="cContractName"/>
+                    <asp:BoundField headerText="Faktureringsnamn" DataField="cInvoiceCompanyName" SortExpression="cInvoiceCompanyName"/>
+                    
+                    <%--<asp:BoundField headerText="Kontrakt" DataField="cContractName" SortExpression="cContractName"/>--%>
                     <asp:BoundField headerText="Ort" DataField="cCity" SortExpression="cCity"/>
                     <asp:ButtonField Text="Redigera" HeaderText="Redigera" CommandName="Edit" ButtonType="Button" ControlStyle-CssClass="btnSmall" ItemStyle-HorizontalAlign="Center"  HeaderStyle-CssClass="controlColumn"/>
 		            <asp:TemplateField headertext="Radera" ControlStyle-CssClass="btnSmall"  ItemStyle-HorizontalAlign="Center"  HeaderStyle-CssClass="controlColumn">

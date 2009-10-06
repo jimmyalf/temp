@@ -68,24 +68,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
         protected global::System.Web.UI.WebControls.TextBox txtBankIDCode;
         
         /// <summary>
-        /// rfvBankIDCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvBankIDCode;
-        
-        /// <summary>
-        /// vldBankIDCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator vldBankIDCode;
-        
-        /// <summary>
         /// txtAddress control.
         /// </summary>
         /// <remarks>
@@ -176,13 +158,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
         protected global::System.Web.UI.WebControls.TextBox txtOrganizationNumber;
         
         /// <summary>
-        /// txtAddressCode control.
+        /// txtInvoiceCompanyName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddressCode;
+        protected global::System.Web.UI.WebControls.TextBox txtInvoiceCompanyName;
+        
+        /// <summary>
+        /// reqInvoiceCompanyName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqInvoiceCompanyName;
         
         /// <summary>
         /// txtTaxAccountingCode control.

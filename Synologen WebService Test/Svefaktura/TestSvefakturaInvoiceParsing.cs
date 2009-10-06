@@ -201,37 +201,20 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual("VAT", invoice.BuyerParty.Party.PartyTaxScheme[0].TaxScheme.ID.Value);
 		}
 		[Test]
-		public void Test_Create_Invoice_Sets_Buyer_AddressCode_And_Name() {
+		public void Test_Create_Invoice_Sets_Buyer_Company_Name() {
 			var customCompany = new CompanyRow {
-			                                   	AddressCode = "3250",
-			                                   	Name = "Saab Aircraft Leasing Holding AB"
+			                                   	InvoiceCompanyName = "3250Saab Aircraft Leasing Holding AB"
 			                                   };
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
 			Assert.AreEqual("3250Saab Aircraft Leasing Holding AB", invoice.BuyerParty.Party.PartyName[0].Value);
 		}
 		[Test]
-		public void Test_Create_Invoice_Sets_Buyer_AddressCode_Without_Name() {
-			var customCompany = new CompanyRow {
-			                                   	AddressCode = "3250"
-			                                   };
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
-			Assert.AreEqual("3250", invoice.BuyerParty.Party.PartyName[0].Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_Buyer_Name_Without_AddressCode() {
-			var customCompany = new CompanyRow {
-			                                   	Name = "Saab Aircraft Leasing Holding AB"
-			                                   };
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
-			Assert.AreEqual("Saab Aircraft Leasing Holding AB", invoice.BuyerParty.Party.PartyName[0].Value);
-		}
-		[Test]
 		public void Test_Create_Invoice_Sets_Buyer_OrganizationNumber() {
 			var customCompany = new CompanyRow {
-			                                   	OrganizationNumber = "SE556573780501"
+			                                   	OrganizationNumber = "556573780501"
 			                                   };
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
-			Assert.AreEqual("SE556573780501", invoice.BuyerParty.Party.PartyIdentification[0].ID.Value);
+			Assert.AreEqual("556573780501", invoice.BuyerParty.Party.PartyIdentification[0].ID.Value);
 		}
 		#endregion
 

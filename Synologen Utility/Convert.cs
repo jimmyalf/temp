@@ -151,9 +151,9 @@ namespace Spinit.Wpc.Synologen.Utility {
 						}
 					};
 			}
-			if (!String.IsNullOrEmpty(company.Name) || !String.IsNullOrEmpty(company.AddressCode)) {
+			if (!String.IsNullOrEmpty(company.InvoiceCompanyName)) {
 				invoice.BuyerParty.Party.PartyName = 
-					new List<NameType> { new NameType {Value = String.Concat(company.AddressCode+company.Name)} };
+					new List<NameType> { new NameType {Value = company.InvoiceCompanyName} };
 			}
 			if (!String.IsNullOrEmpty(company.OrganizationNumber)) {
 				invoice.BuyerParty.Party.PartyIdentification = 

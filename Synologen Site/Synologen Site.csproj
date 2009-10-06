@@ -41,6 +41,9 @@
   <ItemGroup>
     <Compile Include="Code\CustomOrderValidation.cs" />
     <Compile Include="Code\SynologenCacheContext.cs" />
+    <Compile Include="Code\SynologenSalesUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Code\SynologenSessionContext.cs" />
     <Compile Include="Code\SynologenUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>

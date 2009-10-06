@@ -5,7 +5,7 @@ using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Test.Mock;
 
 namespace Spinit.Wpc.Synologen.Test {
-	[TestFixture]
+	//[TestFixture]
 	public class TestMockFlow {
 		private List<OrderData> orderItems;
 		private readonly MockAdkHandler adkHandler = new MockAdkHandler();

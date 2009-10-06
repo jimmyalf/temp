@@ -76,7 +76,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					new SqlParameter("@bankCode", SqlDbType.NVarChar, 50),
 					new SqlParameter("@active", SqlDbType.Bit),
 					new SqlParameter("@organizationNumber", SqlDbType.NVarChar, 50),
-					new SqlParameter("@addressCode", SqlDbType.NVarChar, 50),
+					new SqlParameter("@invoiceCompanyName", SqlDbType.NVarChar, 50),
 					new SqlParameter("@taxAccountingCode", SqlDbType.NVarChar, 50),
 					new SqlParameter("@paymentDuePeriod", SqlDbType.Int, 4),
 					new SqlParameter("@ediRecipientId", SqlDbType.NVarChar, 50),
@@ -98,7 +98,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = GetNullableSqlType(company.BankCode);
 					parameters[counter++].Value = company.Active;
 					parameters[counter++].Value = GetNullableSqlType(company.OrganizationNumber);
-					parameters[counter++].Value = GetNullableSqlType(company.AddressCode);
+					parameters[counter++].Value = GetNullableSqlType(company.InvoiceCompanyName);
 					parameters[counter++].Value = GetNullableSqlType(company.TaxAccountingCode);
 					parameters[counter++].Value = company.PaymentDuePeriod;
 					parameters[counter++].Value = GetNullableSqlType(company.EDIRecipientId);
@@ -145,7 +145,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					BankCode = Util.CheckNullString(dataRow, "cBankCode"), 
 					Active = (bool) dataRow["cActive"], 
 					OrganizationNumber = Util.CheckNullString(dataRow, "cOrganizationNumber"), 
-					AddressCode = Util.CheckNullString(dataRow, "cAddressCode"), 
+					InvoiceCompanyName = Util.CheckNullString(dataRow, "cInvoiceCompanyName"), 
 					TaxAccountingCode = Util.CheckNullString(dataRow, "cTaxAccountingCode"), 
 					PaymentDuePeriod = Util.CheckNullInt(dataRow, "cPaymentDuePeriod"), 
 					EDIRecipientId = Util.CheckNullString(dataRow, "cEDIRecipientId"), 

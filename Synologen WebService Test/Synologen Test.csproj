@@ -80,7 +80,7 @@
     <Compile Include="Mock\MockAdkHandler.cs" />
     <Compile Include="Mock\MockWebServiceClient.cs" />
     <Compile Include="EDI\TestEDIInvoiceParsing.cs" />
-    <Compile Include="TestMockFlow.cs" />
+    <Compile Include="Mock\TestMockFlow.cs" />
     <Compile Include="Visma\TestVisma.cs" />
     <Compile Include="Svefaktura\TestSvefakturaValidation.cs" />
     <Compile Include="Svefaktura\TestXmlSerialization.cs" />

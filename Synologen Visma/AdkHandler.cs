@@ -7,17 +7,17 @@ using Spinit.Wpc.Synologen.Visma.Utility;
 
 namespace Spinit.Wpc.Synologen.Visma {
 	public class AdkHandler : IAdkHandler {
-		private const int MaxInvoiceFreeTextLength = 60;
-		private const int MaxRowAccountLength = 6;
-		private string vismaCommonFilesPath;
-		private string vismaCompanyName;
+		public const int MaxInvoiceFreeTextLength = 60;
+		public const int MaxRowAccountLength = 6;
 
 		public AdkHandler(string vismaCommonFilesPath, string vismaCompanyName) {
-			this.vismaCommonFilesPath = vismaCommonFilesPath;
-			this.vismaCompanyName = vismaCompanyName;
+			VismaCommonFilesPath = vismaCommonFilesPath;
+			VismaCompanyName = vismaCompanyName;
 		}
 
 		public void OpenCompany() {
+			var vismaCommonFilesPath = VismaCommonFilesPath;
+			var vismaCompanyName = VismaCompanyName;
 			Operations.OpenCompany(ref vismaCommonFilesPath, ref vismaCompanyName);
 		}
 
@@ -39,13 +39,17 @@ namespace Spinit.Wpc.Synologen.Visma {
 
 			Operations.SetString( pData, Api.ADK_OOI_HEAD_CUSTOMER_NUMBER, ref customerNo );
 
-			var orderRSTdesc = BuildOrderRstDescription(order, MaxInvoiceFreeTextLength);
-			Operations.SetString(pData, Api.ADK_OOI_HEAD_TEXT1, ref orderRSTdesc);
+			var orderRSTdesc = Formatting.BuildOrderRstDescription(order, MaxInvoiceFreeTextLength);
+			if (!String.IsNullOrEmpty(orderRSTdesc)){
+				Operations.SetString(pData, Api.ADK_OOI_HEAD_TEXT1, ref orderRSTdesc);
+			}
 
-			var orderCustomerdesc = BuildOrderCustomerDescription(order, MaxInvoiceFreeTextLength);
-			Operations.SetString(pData, Api.ADK_OOI_HEAD_TEXT2, ref orderCustomerdesc);
+			var orderCustomerdesc = Formatting.BuildOrderCustomerDescription(order, MaxInvoiceFreeTextLength);
+			if(!String.IsNullOrEmpty(orderCustomerdesc)){
+				Operations.SetString(pData, Api.ADK_OOI_HEAD_TEXT2, ref orderCustomerdesc);
+			}
 
-			var WpcOrderNumber = BuildOrderIdDescription(order, MaxInvoiceFreeTextLength);
+			var WpcOrderNumber = Formatting.BuildOrderIdDescription(order, MaxInvoiceFreeTextLength);
 			Operations.SetString(pData, Api.ADK_OOI_HEAD_TEXT3, ref WpcOrderNumber);
 
 
@@ -99,7 +103,7 @@ namespace Spinit.Wpc.Synologen.Visma {
 
 		public static void AddInvoiceRow(int pRowPointer, int rowIndex, IOrderItem orderItem) {
 			var pTempData = Api.AdkGetDataRow(pRowPointer, rowIndex);
-			var itemDescription = BuildItemDescription(orderItem);
+			var itemDescription = Formatting.BuildItemDescription(orderItem);
 
 			// Description
 			Operations.SetString(pTempData, Api.ADK_OOI_ROW_TEXT, ref itemDescription);
@@ -114,7 +118,7 @@ namespace Spinit.Wpc.Synologen.Visma {
 			Operations.SetDouble(pTempData, Api.ADK_OOI_ROW_PRICE_EACH_CURRENT_CURRENCY, orderItem.SinglePrice);
 
 			if(!String.IsNullOrEmpty(orderItem.SPCSAccountNumber)) {
-				var accountNumber = TruncateString(orderItem.SPCSAccountNumber, MaxRowAccountLength);
+				var accountNumber = Formatting.TruncateString(orderItem.SPCSAccountNumber, MaxRowAccountLength);
 				Operations.SetString(pTempData, Api.ADK_OOI_ROW_ACCOUNT_NUMBER, ref accountNumber);
 			}
 
@@ -179,49 +183,15 @@ namespace Spinit.Wpc.Synologen.Visma {
 			return paymentInfo;
 		}
 
-		#region Helper Methods
-
-		private static string BuildOrderRstDescription(IOrder order, int maxLength) {
-			return TruncateString("RST: " + order.RstText + ", Enhet: " + order.CompanyUnit, maxLength);
-		}
-
-		private static string BuildOrderCustomerDescription(IOrder order, int maxLength) {
-			return TruncateString("Kund: " + order.PersonalIdNumber + ", " + order.CustomerFirstName + " " + order.CustomerLastName, maxLength);
-		}
-
-		private static string BuildOrderIdDescription(IOrder order, int maxLength) {
-			return TruncateString("WPC OrderId: " + order.Id, maxLength);
-		}
-
-		private static string TruncateString (string value, int maxLength) {
-			return value.Length <= maxLength ? value : value.Substring(0, maxLength);
-		}
-
-		private static string BuildItemDescription(IOrderItem orderItem) {
-			return orderItem.ArticleDisplayNumber + " " + orderItem.ArticleDisplayName;
-		}
-
-		#endregion
-
 		#region Properties
 
 		// Path to Visma "Gemensamma filer" folder
-		public string VismaCommonFilesPath {
-			get { return vismaCommonFilesPath; }
-			set { vismaCommonFilesPath = value; }
-		}
+		public string VismaCommonFilesPath { get; set; }
 
 		// Visma database "Företag"
-		public string VismaCompanyName {
-			get { return vismaCompanyName; }
-			set { vismaCompanyName = value; }
-		}
+		public string VismaCompanyName { get; set; }
 
 		#endregion
 	}
 
-	/// <summary>
-	/// Represents error that occurs during Visma operations
-	/// </summary>
-	public class VismaException : Exception {public VismaException(string message):base(message) {}}
 }

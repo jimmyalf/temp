@@ -3,12 +3,12 @@ using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.WebService;
 
 namespace Spinit.Wpc.Synologen.Test.Webservice {
-	[TestFixture]
+	//[TestFixture]
 	public class TestWebService{
 		private ClientContract client;
 		private string connectionString;
 
-		//[TestFixtureSetUp]
+		[TestFixtureSetUp]
 		//TODO: Make into integrationtest
 		public void Setup() {
 			client = new ClientContract( );

@@ -3,6 +3,7 @@ using Spinit.Wpc.Synologen.Test.Mock;
 using Spinit.Wpc.Synologen.Visma;
 
 namespace Spinit.Wpc.Synologen.Test.Visma {
+	//[TestFixture]
 	public class TestVisma {
 		private string vismaCommonFilesPath;
 		private string vismaCompanyName;

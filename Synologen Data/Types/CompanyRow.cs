@@ -14,7 +14,7 @@ namespace Spinit.Wpc.Synologen.Data.Types {
 		public string BankCode { get; set; }
 		public bool Active { get; set; }
 		public string OrganizationNumber { get; set; }
-		public string AddressCode { get; set; }
+		public string InvoiceCompanyName { get; set; }
 		public string TaxAccountingCode { get; set; }
 		public int PaymentDuePeriod { get; set; }
 		public string EDIRecipientId { get; set; }

@@ -70,7 +70,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			txtBankIDCode.Text = company.BankCode;
 			chkActive.Checked = company.Active;
 			txtOrganizationNumber.Text = company.OrganizationNumber;
-			txtAddressCode.Text = company.AddressCode;
+			txtInvoiceCompanyName.Text = company.InvoiceCompanyName;
 			txtTaxAccountingCode.Text = company.TaxAccountingCode;
 			txtPaymentDuePeriod.Text = company.PaymentDuePeriod.ToString();
 			txtEDIRecipientId.Text = company.EDIRecipientId;
@@ -88,8 +88,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			if (!IsInRole(MemberRoles.Roles.Create)) {
 				Response.Redirect(ComponentPages.NoAccess);
 			}
-			CompanyRow company = new CompanyRow();
-			Enumerations.Action action = Enumerations.Action.Create;
+			var company = new CompanyRow();
+			var action = Enumerations.Action.Create;
 			if (_companyId > 0) {
 				company = Provider.GetCompanyRow(_companyId);
 				action = Enumerations.Action.Update;
@@ -105,7 +105,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			company.Active = chkActive.Checked;
 
 			company.OrganizationNumber = txtOrganizationNumber.Text;
-			company.AddressCode = txtAddressCode.Text;
+			company.InvoiceCompanyName = txtInvoiceCompanyName.Text;
 			company.TaxAccountingCode = txtTaxAccountingCode.Text;
 			company.PaymentDuePeriod = Convert.ToInt32(txtPaymentDuePeriod.Text);
 			company.EDIRecipientId = txtEDIRecipientId.Text;

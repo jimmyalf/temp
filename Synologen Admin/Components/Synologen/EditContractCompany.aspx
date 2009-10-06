@@ -22,10 +22,8 @@
 						<asp:RequiredFieldValidator id="rfvCompanyCode" runat="server" errormessage="Företagskod saknas." controltovalidate="txtCompanyCode" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
 					</div>
 					<div class="formItem clearLeft">
-						<label class="labelLong">Bank ID *</label>
+						<label class="labelLong">Bank ID</label>
 						<asp:TextBox runat="server" ID="txtBankIDCode"/>
-						<asp:RequiredFieldValidator id="rfvBankIDCode" runat="server" errormessage="Bank-ID saknas." controltovalidate="txtBankIDCode" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
-						<asp:RangeValidator ID="vldBankIDCode" runat="server"  ErrorMessage="Bank-ID felaktigt. (Skall vara 4 siffror)" Type="Integer" MinimumValue="1000" MaximumValue="9999" ControlToValidate="txtBankIDCode" Display="Dynamic" ValidationGroup="Error">*</asp:RangeValidator>
 					</div>		 		        
 					<div class="formItem clearLeft">
 						<label class="labelLong">Adress 1</label>
@@ -61,8 +59,9 @@
 						<asp:TextBox id="txtOrganizationNumber" runat="server" />
 					</div>
 					<div class="formItem clearLeft">
-						<label class="labelLong">Adresskod</label><br />
-						<asp:TextBox id="txtAddressCode" runat="server" />
+						<label class="labelLong">Faktureringsnamn *</label><br />
+						<asp:TextBox id="txtInvoiceCompanyName" runat="server" />
+						<asp:RequiredFieldValidator id="reqInvoiceCompanyName"  runat="server" errormessage="Företagets faktureringsnamn saknas" controltovalidate="txtInvoiceCompanyName" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
 					</div>
 					<div class="formItem clearLeft">
 						<label class="labelLong">Momsredovisningsnummer</label><br />

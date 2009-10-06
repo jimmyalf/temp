@@ -69,8 +69,10 @@
   <ItemGroup>
     <Compile Include="AdkHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VismaException.cs" />
     <Compile Include="Types\IAdkHandler.cs" />
     <Compile Include="Types\PaymentInfo.cs" />
+    <Compile Include="Utility\Formatting.cs" />
     <Compile Include="Utility\Operations.cs" />
   </ItemGroup>
   <ItemGroup>

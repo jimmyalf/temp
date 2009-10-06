@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.ServiceLibrary;
-using Spinit.Wpc.Synologen.Test.Mock;
 
-namespace Spinit.Wpc.Synologen.Test {
-	//[TestFixture]
+namespace Spinit.Wpc.Synologen.Test.Mock {
 	public class TestMockFlow {
 		private List<OrderData> orderItems;
 		private readonly MockAdkHandler adkHandler = new MockAdkHandler();

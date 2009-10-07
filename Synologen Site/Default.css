@@ -203,7 +203,7 @@ table.shop-list {width:100%;}
 
 .synologen-control select, 
 .synologen-control input[type="text"],
-.synologen-control input[type="password"] { width:12em; }
+.synologen-control input[type="password"] { min-width:12em; }
 
 
 .synologen-control select.wide,

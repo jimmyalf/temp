@@ -5,6 +5,7 @@ using System.Text;
 namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 	public class WebService : BaseConfiguration {
 		public static readonly Encoding DefaultEncoding = Encoding.UTF8;
+
 		public static int? InvoicingMethodIdFilter {
 			get { return GetSafeValue("InvoicingMethodIdFilter", (int?)null); }
 		}
@@ -46,12 +47,12 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 		public static string Postgiro {
 			get { return GetSafeValue("Postgiro", String.Empty); }
 		}
-		public static int InvoiceExpieryNumberOfDaysOffset {
-			get { return GetSafeValue("InvoiceExpieryNumberOfDaysOffset", 30); }
-		}
-		public static string EDIRecipientId {
-			get { return GetSafeValue("EDIRecipientId", String.Empty); }
-		}
+		//public static int InvoiceExpieryNumberOfDaysOffset {
+		//    get { return GetSafeValue("InvoiceExpieryNumberOfDaysOffset", 30); }
+		//}
+		//public static string EDIRecipientId {
+		//    get { return GetSafeValue("EDIRecipientId", String.Empty); }
+		//}
 		public static string EDISenderId {
 			get { return GetSafeValue("EDISenderId", String.Empty); }
 		}

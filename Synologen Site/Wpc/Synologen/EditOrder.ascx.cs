@@ -81,6 +81,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			txtPersonalIDNumber.Text = _order.PersonalIdNumber;
 			txtEmail.Text = _order.Email;
 			txtPhone.Text = _order.Phone;
+			txtCustomerOrderNumber.Text = _order.CustomerOrderNumber;
 			var company = Provider.GetCompanyRow(_order.CompanyId);
 			TrySetContract(company.ContractId);
 			PopulateCompanies();
@@ -221,6 +222,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			_order.SalesPersonMemberId = MemberId;
 			_order.SalesPersonShopId = MemberShopId;
 			_order.RstText = txtRST.Text;
+			_order.CustomerOrderNumber = txtCustomerOrderNumber.Text;
 			_order.CompanyId = Int32.Parse(drpCompany.SelectedValue);
 			Provider.AddUpdateDeleteOrder(Enumerations.Action.Update, ref _order);
 

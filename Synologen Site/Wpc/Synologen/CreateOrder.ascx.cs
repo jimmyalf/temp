@@ -119,6 +119,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 				SalesPersonMemberId = MemberId,
 				SalesPersonShopId = MemberShopId,
 				RstText = txtRST.Text,
+				CustomerOrderNumber = txtCustomerOrderNumber.Text,
 				CompanyId = Convert.ToInt32(drpCompany.SelectedValue)
 			};
 			Provider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref order);
@@ -182,9 +183,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		}
 
 		#endregion
-
-
-
 
 	}
 }

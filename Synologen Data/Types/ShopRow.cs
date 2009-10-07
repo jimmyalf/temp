@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Interfaces;
 
@@ -26,5 +27,9 @@ namespace Spinit.Wpc.Synologen.Data.Types {
 		public int GiroId { get; set; }
 		public string GiroNumber { get; set; }
 		public string GiroSupplier { get; set; }
+
+		public string ContactCombinedName {
+			get { return String.Concat( ContactFirstName ?? String.Empty,  " ",  ContactLastName ?? String.Empty ).Trim(); }
+		}
 	}
 }

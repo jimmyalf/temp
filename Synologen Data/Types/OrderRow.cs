@@ -96,5 +96,9 @@ namespace Spinit.Wpc.Synologen.Data.Types {
 		public double InvoiceSumIncludingVAT { get; set; }
 
 		public double InvoiceSumExcludingVAT { get; set; }
+
+		public string CustomerCombinedName {
+			get { return String.Concat( CustomerFirstName ?? String.Empty,  " ",  CustomerLastName ?? String.Empty ).Trim(); }
+		}
 	}
 }

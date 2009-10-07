@@ -14,6 +14,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
     public partial class Index {
         
         /// <summary>
+        /// plFilterByShop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder plFilterByShop;
+        
+        /// <summary>
+        /// plRegularFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder plRegularFilter;
+        
+        /// <summary>
         /// lblShow control.
         /// </summary>
         /// <remarks>

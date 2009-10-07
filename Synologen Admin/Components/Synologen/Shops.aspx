@@ -4,7 +4,7 @@
         <div class="fullBox">
             <div class="wrap">
                 <h1>Butiker</h1>
-                
+                                
                 <fieldset>
 	                <legend>Filtrera och sök</legend>
 	                <div class="formItem clearLeft">
@@ -54,11 +54,19 @@
                         <asp:BoundField headerText="Butiknummer" DataField="cShopNumber" SortExpression="cShopNumber"/>
                         <asp:BoundField headerText="Stad" DataField="cCity" SortExpression="cCity"/>
                         <asp:BoundField headerText="Kategori" DataField="cCategoryName" SortExpression="cCategoryName"/>
-                        <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderStyle-CssClass="controlColumn" HeaderText="Personal" >
+<%--                        <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderStyle-CssClass="controlColumn" HeaderText="Personal" >
 							    <ItemTemplate>
                                     <a href="Index.aspx?shopId=<%# DataBinder.Eval(Container.DataItem, "cId")%>">Personal</a>
                                 </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
+                        <asp:TemplateField headertext="Användare" SortExpression="cNumberOfMembers">
+							<ItemStyle CssClass="center" />
+							<ItemTemplate>
+								<a href="Index.aspx?shopId=<%#Eval("cId")%>" title="Visa användare">
+									<img src="/Common/Icons/attach.png" alt="Visa användare"/>&nbsp;(<%#Eval("cNumberOfMembers")%>)
+								</a>
+							</ItemTemplate>
+						</asp:TemplateField>                        
 						<asp:TemplateField headertext="Aktiv" SortExpression="cActive" HeaderStyle-CssClass="controlColumn">
 							<ItemStyle CssClass="center" />
 							<ItemTemplate>

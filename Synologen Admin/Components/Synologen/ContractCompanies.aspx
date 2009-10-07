@@ -31,9 +31,15 @@
 					<asp:BoundField headerText="Org Nr" DataField="cOrganizationNumber" SortExpression="cOrganizationNumber"/>
                     <asp:BoundField headerText="Företag" DataField="cName" SortExpression="cName"/>
                     <asp:BoundField headerText="Faktureringsnamn" DataField="cInvoiceCompanyName" SortExpression="cInvoiceCompanyName"/>
-                    
+                    <asp:BoundField headerText="Valideringsregler" DataField="cNumberOfValidationRules" SortExpression="cNumberOfValidationRules"/>
                     <%--<asp:BoundField headerText="Kontrakt" DataField="cContractName" SortExpression="cContractName"/>--%>
                     <asp:BoundField headerText="Ort" DataField="cCity" SortExpression="cCity"/>
+					<asp:TemplateField headertext="Aktiv" SortExpression="cActive">
+							<ItemStyle CssClass="center" />
+							<ItemTemplate>
+								<asp:Image id="imgActive" runat="server" />
+							</ItemTemplate>
+						</asp:TemplateField>                    
                     <asp:ButtonField Text="Redigera" HeaderText="Redigera" CommandName="Edit" ButtonType="Button" ControlStyle-CssClass="btnSmall" ItemStyle-HorizontalAlign="Center"  HeaderStyle-CssClass="controlColumn"/>
 		            <asp:TemplateField headertext="Radera" ControlStyle-CssClass="btnSmall"  ItemStyle-HorizontalAlign="Center"  HeaderStyle-CssClass="controlColumn">
 			            <ItemTemplate>

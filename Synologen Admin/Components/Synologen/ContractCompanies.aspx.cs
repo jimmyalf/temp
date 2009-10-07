@@ -98,6 +98,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 			gvContractCompanies.DataSource = companies;
 			gvContractCompanies.DataBind();
+			Code.Utility.SetActiveGridViewControl(gvContractCompanies,companies,"cActive","imgActive","Active", "Inactive");
 
 		}
 

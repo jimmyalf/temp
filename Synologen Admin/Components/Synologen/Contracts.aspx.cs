@@ -97,7 +97,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			gvContractCustomers.DataBind();
 			pager.TotalRecords = totalRecords;
 			pager.TotalPages = pager.CalculateTotalPages();
-			setActive(dsContractCustomers);
+			//setActive(dsContractCustomers);
+			Code.Utility.SetActiveGridViewControl(gvContractCustomers,dsContractCustomers,"cActive","imgActive","Active", "Inactive");
 
 		}
 
@@ -108,26 +109,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			base.OnInit(e);
 		}
 
-		private void setActive(DataSet ds) {
-			int i = 0;
-			foreach (GridViewRow row in gvContractCustomers.Rows) {
-				bool active = Convert.ToBoolean(ds.Tables[0].Rows[i]["cActive"]);
-				if (row.FindControl("imgActive") != null) {
-					Image img = (Image)row.FindControl("imgActive");
-					if (active) {
-						img.ImageUrl = "~/common/icons/True.png";
-						img.AlternateText = "Active";
-						img.ToolTip = "Active";
-					}
-					else {
-						img.ImageUrl = "~/common/icons/False.png";
-						img.AlternateText = "Inactive";
-						img.ToolTip = "Inactive";
-					}
-				}
-				i++;
-			}
-		}
+		//private void setActive(DataSet ds) {
+		//    int i = 0;
+		//    foreach (GridViewRow row in gvContractCustomers.Rows) {
+		//        bool active = Convert.ToBoolean(ds.Tables[0].Rows[i]["cActive"]);
+		//        if (row.FindControl("imgActive") != null) {
+		//            Image img = (Image)row.FindControl("imgActive");
+		//            if (active) {
+		//                img.ImageUrl = "~/common/icons/True.png";
+		//                img.AlternateText = "Active";
+		//                img.ToolTip = "Active";
+		//            }
+		//            else {
+		//                img.ImageUrl = "~/common/icons/False.png";
+		//                img.AlternateText = "Inactive";
+		//                img.ToolTip = "Inactive";
+		//            }
+		//        }
+		//        i++;
+		//    }
+		//}
 
 		protected void chkSelectHeader_CheckedChanged(object sender, EventArgs e) {
 			CheckBox chkHeader = (CheckBox)sender;

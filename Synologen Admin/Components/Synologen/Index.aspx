@@ -5,15 +5,22 @@
             <div class="wrap">
                 <h1>Medlemmar</h1>
                 
+				<asp:PlaceHolder id="plFilterByShop" runat="server" Visible="false">        	                	                  	                 	                
+				<fieldset><legend>Filter</legend>
+					<div class="formItem clearLeft">
+						<label >Visar Användare för Butik:</label>&nbsp;<span><%=SelectedShop.Name %></span><br /><br />
+						<input type="button" name="inputNew" class="btnBig" onclick="window.location='EditMember.aspx?shopId=<%=SelectedShop.ShopId %>'" value="Skapa ny användare" />
+						<input type="button" name="inputBack" class="btnBig" onclick="window.location='Shops.aspx'" value="Tillbaka" />
+					</div> 	   	                                                     
+				</fieldset>
+				</asp:PlaceHolder>	
+                
+                <asp:PlaceHolder id="plRegularFilter" runat="server" Visible="true">
                 <fieldset>
 	                <legend>Filtrera och sök</legend>		
 	                <div class="formItem">
 	                    <asp:Label ID="lblShow" runat="server" AssociatedControlID="drpCategories" SkinId="Long">Medlemskategori</asp:Label>
 	                    <asp:DropDownList runat="server" ID="drpCategories"/>
-	                    <%--
-	                    &nbsp;<asp:Button runat="server" id="btnSetFilter" OnClick="btnSetFilter_Click" text="Show"/>&nbsp;|&nbsp;
-	                    <asp:Button runat="server" id="btnShowAll" OnClick="btnShowAll_Click" text="Show All" />
-	                     --%>
 	                </div>
 	                <div class="formItem ">
 	                    <asp:Label ID="lblSearch" runat="server" AssociatedControlID="txtSearch" SkinId="Long">Textfilter</asp:Label>
@@ -24,7 +31,8 @@
 	                    <asp:Button runat="server" id="btnSearch" OnClick="btnSearch_Click" text='S&ouml;k'  SkinId="Big"/>
 	                </div>	                
                 </fieldset>
-    
+				</asp:PlaceHolder>
+				
                 <div class="wpcPager"><WPC:PAGER id="pager" runat="server" /></div>
                 
                 <asp:GridView ID="gvMembers" 

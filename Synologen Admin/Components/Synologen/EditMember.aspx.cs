@@ -15,13 +15,19 @@ using Globals=Spinit.Wpc.Member.Business.Globals;
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 	public partial class EditMember : SynologenPage {
 		private int _memberId = -1;
+		private int _selectedShopId = -1;
 		private int _userId = -1;
 
 		protected void Page_Load(object sender, EventArgs e) {
 			PopulateResources();
 			SetUpLayout();
-			if (Request.Params["id"] != null)
+			if (Request.Params["id"] != null){
 				_memberId = Convert.ToInt32(Request.Params["id"]);
+			}
+			if (Request.Params["shopId"] != null){
+				_selectedShopId = Convert.ToInt32(Request.Params["shopId"]);
+			}
+
 			if (!Page.IsPostBack) {
 				PopulateLocations();
 				//PopulateLocationList();
@@ -193,6 +199,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			drpShops.DataBind();
 			drpShops.Items.Insert(0,new ListItem("-- Välj Butik --","0"));
 			drpShops.Enabled = true;
+			if(_selectedShopId>0){
+				if(drpShops.Items.FindByValue(_selectedShopId.ToString()) != null){
+					drpShops.SelectedValue = _selectedShopId.ToString();
+				}
+			}
 
 			TrySetSelectedMemberShop();
 		}
@@ -288,7 +299,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			ConnectDisconnectLocations(row);
 			ConnectDisconnectShops(row.Id);
 
-			Response.Redirect(ComponentPages.Index, true);
+			if(_selectedShopId>0){
+				Response.Redirect(ComponentPages.Index + "?shopId=" +_selectedShopId, true);	
+			}
+			else{
+				Response.Redirect(ComponentPages.Index, true);
+			}
 		}
 
 		protected void drpMemberCategories_OnSelectedIndexChanged(object sender, EventArgs e) {

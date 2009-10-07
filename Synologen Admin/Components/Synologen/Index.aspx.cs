@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 using Spinit.Wpc.Member.Data;
 using Spinit.Wpc.Member.Business;
+using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Utility.Business.SmartMenu;
@@ -25,6 +26,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		private string _searchString = null;
 		private int _selectedCategory = 0;
 		private int _selectedShop = 0;
+		private ShopRow _selectedShopRow = new ShopRow();
+
+		public ShopRow SelectedShop {
+			get { return _selectedShopRow; }
+		}
 
 		protected void Page_Init(object sender, EventArgs e) {
 			RenderMemberSubMenu(Page.Master);
@@ -32,8 +38,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		protected void Page_Load(object sender, EventArgs e) {
 
-			if (Request.Params["shopId"] != null)
+			if (Request.Params["shopId"] != null){
 				_selectedShop = Convert.ToInt32(Request.Params["shopId"]);
+				_selectedShopRow = Provider.GetShop(_selectedShop);
+				plFilterByShop.Visible = true;
+			}
+			plRegularFilter.Visible = !plFilterByShop.Visible;
 
 			if (!Page.IsPostBack) {
 				PopulateCategories();

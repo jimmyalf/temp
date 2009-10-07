@@ -47,11 +47,7 @@
 					<div class="formItem clearLeft">
 						<label class="labelLong">Aktivt</label><br />
 						<asp:CheckBox id="chkActive" runat="server" />
-					</div>
-					<div class="formItem clearLeft">
-						<label class="labelLong">Valideringsregler</label><br />
-						<asp:CheckBoxList id="chkValidationRules" runat="server" DataValueField="cId" DataTextField="cNameAndDescription" />
-					</div>					
+					</div>				
 		        </div>	
 		        <div class="formItem">
 					<div class="formItem clearLeft">
@@ -83,6 +79,10 @@
 						<asp:RequiredFieldValidator id="reqInvoicingMethods" InitialValue="0" runat="server" errormessage="Faktureringsmetod saknas" controltovalidate="drpInvoicingMethods" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>       
 					</div>
 		        </div>
+				<div class="clearLeft">
+					<label class="labelLong">Valideringsregler</label><br />
+					<asp:CheckBoxList id="chkValidationRules" runat="server" DataValueField="cId" DataTextField="cNameAndDescription" RepeatColumns="2" />
+				</div>			        
 		        		        	        		        	        
 		        <div class="formCommands">
 					<input type="button" name="inputBack" class="btnBig" onclick="window.location='ContractCompanies.aspx?id=<%=SelectedContractID %>'" value="Tillbaka" />

@@ -28,7 +28,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return EDIInvoice;
 		}
 
-		public static SFTIInvoiceType CreateInvoiceSvefaktura(OrderRow order, List<IOrderItem> iorderList, CompanyRow company, IShop shop, SvefakturaConversionSettings settings) {
+		public static SFTIInvoiceType CreateInvoiceSvefaktura(OrderRow order, List<IOrderItem> iorderList, CompanyRow company, ShopRow shop, SvefakturaConversionSettings settings) {
 			if (order == null) throw new ArgumentNullException("order");
 			if (iorderList == null) throw new ArgumentNullException("iorderList");
 			if (company == null) throw new ArgumentNullException("company");

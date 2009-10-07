@@ -38,10 +38,11 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return invoice;
 		}
 
-		public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, OrderRow order, List<IOrderItem> orderItems, CompanyRow company, IShop shop) {
+		public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, OrderRow order, List<IOrderItem> orderItems, CompanyRow company, ShopRow shop) {
 			var invoice = new SFTIInvoiceType();
 			TryAddSettingsInformation(invoice, settings);
-			TryAddBuyerPartyInformation(invoice, company);
+			TryAddBuyerPartyInformation(invoice, company, order);
+			//TryAddSellerPartyInformation(invoice, shop);
 			TryAddOrderInformation(invoice, order);
 			TryAddOrderItems(invoice, orderItems);
 			return invoice;
@@ -122,25 +123,25 @@ namespace Spinit.Wpc.Synologen.Utility {
 			TryAddTaxInformation(invoice, settings.VATAmount);
 		}
 
-		private static void TryAddBuyerPartyInformation(SFTIInvoiceType invoice, CompanyRow company) {
+		private static void TryAddBuyerPartyInformation(SFTIInvoiceType invoice, CompanyRow company, OrderRow orderRow) {
 			if (invoice.BuyerParty == null) invoice.BuyerParty = new SFTIBuyerPartyType();
 			invoice.BuyerParty.Party = new SFTIPartyType();
-			if(!String.IsNullOrEmpty(company.Address1)) {
-				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType {AddressLine = new List<LineType>()};
-				invoice.BuyerParty.Party.Address.AddressLine.Add(new LineType{Value=company.Address1});
+
+			TrySetInvoiceBuyerAddressInformation(invoice, company, orderRow);
+
+			if (!String.IsNullOrEmpty(orderRow.CustomerCombinedName)) {
+				if (invoice.BuyerParty.Party.Contact == null) invoice.BuyerParty.Party.Contact = new SFTIContactType();
+				invoice.BuyerParty.Party.Contact.Name = new NameType {Value = orderRow.CustomerCombinedName};
 			}
-			if (!String.IsNullOrEmpty(company.Address2)) {
-				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType { AddressLine = new List<LineType>() };
-				invoice.BuyerParty.Party.Address.AddressLine.Add(new LineType { Value = company.Address2 });
+			if (!String.IsNullOrEmpty(orderRow.Email)) {
+				if (invoice.BuyerParty.Party.Contact == null) invoice.BuyerParty.Party.Contact = new SFTIContactType();
+				invoice.BuyerParty.Party.Contact.ElectronicMail = new MailType {Value = orderRow.Email};
 			}
-			if (!String.IsNullOrEmpty(company.Zip)) {
-				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType();
-				invoice.BuyerParty.Party.Address.PostalZone = new ZoneType {Value = company.Zip};
+			if (!String.IsNullOrEmpty(orderRow.Phone)) {
+				if (invoice.BuyerParty.Party.Contact == null) invoice.BuyerParty.Party.Contact = new SFTIContactType();
+				invoice.BuyerParty.Party.Contact.Telephone = new TelephoneType {Value = orderRow.Phone};
 			}
-			if (!String.IsNullOrEmpty(company.City)) {
-				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType();
-				invoice.BuyerParty.Party.Address.CityName = new CityNameType {Value = company.City};
-			}
+			
 			if(!String.IsNullOrEmpty(company.TaxAccountingCode)) {
 				invoice.BuyerParty.Party.PartyTaxScheme =
 					new List<SFTIPartyTaxSchemeType> {
@@ -164,6 +165,75 @@ namespace Spinit.Wpc.Synologen.Utility {
 							}
 						}
 					};
+			}
+		}
+
+		//private static void TryAddSellerPartyInformation(SFTIInvoiceType invoice, ShopRow shop) {
+		//    if (invoice.SellerParty == null) invoice.SellerParty = new SFTISellerPartyType();
+		//    invoice.SellerParty.Party = new SFTIPartyType();
+		//    //if(!String.IsNullOrEmpty(shop.Name)){
+		//    //    if(invoice.SellerParty.Party.PartyName == null) invoice.SellerParty.Party.PartyName = new List<NameType>();
+		//    //    invoice.SellerParty.Party.PartyName.Add(new NameType {Value = shop.Name});
+		//    //}
+		//    //TrySetInvoiceSellerAddressInformation(invoice, shop);
+
+		//    if (!String.IsNullOrEmpty(shop.ContactCombinedName)) {
+		//        if (invoice.SellerParty.Party.Contact == null) invoice.SellerParty.Party.Contact = new SFTIContactType();
+		//        invoice.SellerParty.Party.Contact.Name = new NameType {Value = shop.ContactCombinedName};
+		//    }
+		//    if (!String.IsNullOrEmpty(shop.Email)) {
+		//        if (invoice.SellerParty.Party.Contact == null) invoice.SellerParty.Party.Contact = new SFTIContactType();
+		//        invoice.SellerParty.Party.Contact.ElectronicMail = new MailType {Value = shop.Email};
+		//    }
+		//    if (!String.IsNullOrEmpty(shop.Phone)) {
+		//        if (invoice.SellerParty.Party.Contact == null) invoice.SellerParty.Party.Contact = new SFTIContactType();
+		//        invoice.SellerParty.Party.Contact.Telephone = new TelephoneType {Value = shop.Phone};
+		//    }
+		//    if (!String.IsNullOrEmpty(shop.Fax)) {
+		//        if (invoice.SellerParty.Party.Contact == null) invoice.SellerParty.Party.Contact = new SFTIContactType();
+		//        invoice.SellerParty.Party.Contact.Telefax = new TelefaxType {Value = shop.Fax};
+		//    }
+		//}
+
+		//private static void TrySetInvoiceSellerAddressInformation(SFTIInvoiceType invoice, IShop shop) {
+		//    if(!String.IsNullOrEmpty(shop.Address)) {
+		//        if (invoice.SellerParty.Party.Address == null) invoice.SellerParty.Party.Address = new SFTIAddressType();
+		//        invoice.SellerParty.Party.Address.StreetName = new StreetNameType {Value = shop.Address};
+		//    }
+		//    if (!String.IsNullOrEmpty(shop.Address2)) {
+		//        if (invoice.SellerParty.Party.Address == null) invoice.SellerParty.Party.Address = new SFTIAddressType();
+		//        invoice.SellerParty.Party.Address.Postbox = new PostboxType {Value = shop.Address2};
+		//    }
+		//    if (!String.IsNullOrEmpty(shop.Zip)) {
+		//        if (invoice.SellerParty.Party.Address == null) invoice.SellerParty.Party.Address = new SFTIAddressType();
+		//        invoice.SellerParty.Party.Address.PostalZone = new ZoneType {Value = shop.Zip};
+		//    }
+		//    if (!String.IsNullOrEmpty(shop.City)) {
+		//        if (invoice.SellerParty.Party.Address == null) invoice.SellerParty.Party.Address = new SFTIAddressType();
+		//        invoice.SellerParty.Party.Address.CityName = new CityNameType {Value = shop.City};
+		//    }
+		//}
+
+		private static void TrySetInvoiceBuyerAddressInformation(SFTIInvoiceType invoice, ICompany company, IOrder orderRow) {
+			if(!String.IsNullOrEmpty(company.Address1)) {
+				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType {AddressLine = new List<LineType>()};
+				invoice.BuyerParty.Party.Address.AddressLine.Add(new LineType{Value=company.Address1});
+			}
+			if (!String.IsNullOrEmpty(company.Address2)) {
+				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType { AddressLine = new List<LineType>() };
+				invoice.BuyerParty.Party.Address.AddressLine.Add(new LineType { Value = company.Address2 });
+			}
+			if (!String.IsNullOrEmpty(company.Zip)) {
+				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType();
+				invoice.BuyerParty.Party.Address.PostalZone = new ZoneType {Value = company.Zip};
+			}
+			if (!String.IsNullOrEmpty(company.City)) {
+				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType();
+				invoice.BuyerParty.Party.Address.CityName = new CityNameType {Value = company.City};
+			}
+			if (!String.IsNullOrEmpty(orderRow.CompanyUnit)) {
+				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType();
+				invoice.BuyerParty.Party.Address.Department = new DepartmentType {Value = orderRow.CompanyUnit};
 			}
 		}
 
@@ -216,6 +286,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			}
 			
 		}
+
 		#endregion
 
 		#region EDI Helper Methods

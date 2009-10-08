@@ -100,5 +100,12 @@ namespace Spinit.Wpc.Synologen.Data.Types {
 		public string CustomerCombinedName {
 			get { return String.Concat( CustomerFirstName ?? String.Empty,  " ",  CustomerLastName ?? String.Empty ).Trim(); }
 		}
+
+		public string PersonalBirthDateString {
+			get {
+				if(PersonalIdNumber == null) return null;
+				return (PersonalIdNumber.Length < 12) ? null : PersonalIdNumber.Substring(0, 8);
+			}
+		}
 	}
 }

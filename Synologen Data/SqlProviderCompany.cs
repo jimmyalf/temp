@@ -81,6 +81,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					new SqlParameter("@paymentDuePeriod", SqlDbType.Int, 4),
 					new SqlParameter("@ediRecipientId", SqlDbType.NVarChar, 50),
 					new SqlParameter("@invoicingMethodId", SqlDbType.Int, 4 ),
+					new SqlParameter("@invoiceFreeText", SqlDbType.NVarChar, 2000),
 		            new SqlParameter("@status", SqlDbType.Int, 4),
 		            new SqlParameter("@id", SqlDbType.Int, 4)
 		        };
@@ -103,6 +104,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = company.PaymentDuePeriod;
 					parameters[counter++].Value = GetNullableSqlType(company.EDIRecipientId);
 					parameters[counter++].Value = company.InvoicingMethodId;
+					parameters[counter++].Value = GetNullableSqlType(company.InvoiceFreeTextFormat);
 
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
@@ -150,6 +152,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					PaymentDuePeriod = Util.CheckNullInt(dataRow, "cPaymentDuePeriod"), 
 					EDIRecipientId = Util.CheckNullString(dataRow, "cEDIRecipientId"), 
 					InvoicingMethodId = Util.CheckNullInt(dataRow, "cInvoicingMethodId"),
+					InvoiceFreeTextFormat = Util.CheckNullString(dataRow, "cInvoiceFreeText")
 				};
 				companyRow.CompanyValidationRules = new List<CompanyValidationRule>(GetCompanyValidationRules(null, companyRow.Id));
 				return companyRow;
@@ -158,6 +161,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				throw new Exception("Exception found while parsing a CompanyRow object: " + ex.Message);
 			}
 		}
+
 
 		public DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter) {
 			try {

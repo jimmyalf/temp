@@ -47,7 +47,7 @@
 					<div class="formItem clearLeft">
 						<label class="labelLong">Aktivt</label><br />
 						<asp:CheckBox id="chkActive" runat="server" />
-					</div>				
+					</div>							
 		        </div>	
 		        <div class="formItem">
 					<div class="formItem clearLeft">
@@ -78,7 +78,11 @@
 						<asp:DropDownList id="drpInvoicingMethods" runat="server" />
 						<asp:RequiredFieldValidator id="reqInvoicingMethods" InitialValue="0" runat="server" errormessage="Faktureringsmetod saknas" controltovalidate="drpInvoicingMethods" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>       
 					</div>
-		        </div>
+					<div class="clearLeft">
+						<label class="labelLong">Fritextmall för fakturering</label><br />
+						<asp:TextBox id="txtInvoiceFreeTextTemplate" runat="server" TextMode="MultiLine" CssClass="txtAreaWide" />
+					</div>						
+		        </div>	        
 				<div class="clearLeft">
 					<label class="labelLong">Valideringsregler</label><br />
 					<asp:CheckBoxList id="chkValidationRules" runat="server" DataValueField="cId" DataTextField="cNameAndDescription" RepeatColumns="2" />

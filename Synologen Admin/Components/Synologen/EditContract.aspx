@@ -15,7 +15,7 @@
 					</div>					
 					<div class="formItem clearLeft">
 						<label class="labelLong">Beskrivning</label>
-						<asp:TextBox id="txtContractCustomerDescription" runat="server" cssClass="txtAreaWide" TextMode="MultiLine" Text='<%#Contract.Description%>' />
+						<asp:TextBox id="txtContractCustomerDescription" runat="server" CssClass="txtAreaWide" TextMode="MultiLine" Text='<%#Contract.Description%>' />
 					</div>	
 					
 					<div class="formItem clearLeft">

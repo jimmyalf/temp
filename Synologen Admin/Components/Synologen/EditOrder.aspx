@@ -60,7 +60,7 @@
 					</div>
 					<div class="formItem">
 						<label class="labelShort">Butik: </label><span><asp:Literal id="ltShopName" runat="server" /></span><br /><br />
-						<label class="labelShort">Försäljare: </label><span><asp:Literal id="ltmemberName" runat="server" /></span><br /><br />
+						<label class="labelShort">Registrerad av: </label><span><asp:Literal id="ltmemberName" runat="server" /></span><br /><br />
 						<label class="labelShort">Försäljning registrerad: </label><span><asp:Literal id="ltSaleDate" runat="server" /></span><br /><br />
 						<label class="labelShort">Försäljning uppdaterad: </label><span><asp:Literal id="ltUpdateDate" runat="server" /></span><br /><br />
 						<label class="labelShort">Markerad som utbetald: </label><span><asp:Literal id="ltMarkedAsPayed" runat="server" /></span>

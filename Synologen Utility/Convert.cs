@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			var interchangeHeader = new InterchangeHeader {RecipientId = company.EDIRecipientId, SenderId = EDISettings.SenderId};
 			var invoiceExpieryDate = interchangeHeader.DateOfPreparation.AddDays(company.PaymentDuePeriod);
 			var invoice = new Invoice(EDISettings.VATAmount, EDISettings.NumberOfDecimalsUsedAtRounding, invoiceValueIncludingVAT, invoiceValueExcludingVAT) {
-				Articles = ToEDIArticles(orderItems, order),
+				Articles = ToEDIArticles(orderItems, order, company),
 				Buyer = GetBuyerInformation(company.EDIRecipientId, company),
              	BuyerOrderNumber = String.Empty,
              	BuyerRSTNumber = order.RstText,
@@ -333,8 +333,8 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return EDIitem;
 		}
 
-		public static InvoiceRow ToEDIFreeTextInformationRow(List<string> listOfFreeTextRows) {
-			var eDIitem = new InvoiceRow {FreeTextRows = listOfFreeTextRows, UseInvoiceRowAsFreeTextRow = true, RowNumber = 1};
+		public static InvoiceRow ToEDIFreeTextInformationRow(IList<string> listOfFreeTextRows) {
+			var eDIitem = new InvoiceRow {FreeTextRows = new List<string>(listOfFreeTextRows), UseInvoiceRowAsFreeTextRow = true, RowNumber = 1};
 			return eDIitem;
 		}
 
@@ -362,22 +362,41 @@ namespace Spinit.Wpc.Synologen.Utility {
 		//    return EDIArticles;
 		//}
 
-		public static List<InvoiceRow> ToEDIArticles(List<IOrderItem> orderItems, OrderRow order) {
+		public static List<InvoiceRow> ToEDIArticles(List<IOrderItem> orderItems, OrderRow order, CompanyRow company) {
 			var EDIArticles = new List<InvoiceRow>();
 			var articleCounter = 1;
 			//Add one freetextRow if any information is available
-			var listOfBuyerData = GetOrderBuyerInformation(order);
-			if(listOfBuyerData!=null && listOfBuyerData.Count>0){
-				var freeTextBuyerInvoiceRow = ToEDIFreeTextInformationRow(listOfBuyerData);
+			//var freeTextRows = GetOrderBuyerInformation(order);
+			var freeTextRows = GetFreeTextRows(company, order);
+			if(freeTextRows!=null && freeTextRows.Count>0){
+				var freeTextBuyerInvoiceRow = ToEDIFreeTextInformationRow(freeTextRows);
 				EDIArticles.Add(freeTextBuyerInvoiceRow);
 				articleCounter = 2;
 			}
 			foreach (var item in orderItems) {
-				EDIArticles.Add(ToEDIArticle(item, articleCounter));
+				var ediArticle = ToEDIArticle(item, articleCounter);
+				EDIArticles.Add(ediArticle);
 				articleCounter++;
 			}
 			return EDIArticles;
 		}
+
+		public static IList<string> GetFreeTextRows(CompanyRow company, OrderRow order) {
+			if (String.IsNullOrEmpty(company.InvoiceFreeTextFormat)) return new List<string>();
+			var parsedInvoiceFreeText = ParseInvoiceFreeTeext(company.InvoiceFreeTextFormat, order);
+			return parsedInvoiceFreeText.Trim().Split(new[] {'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries);
+		}
+
+		public static string ParseInvoiceFreeTeext(string invoiceFreeTextFormat, OrderRow order) {
+			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{CustomerName}", order.CustomerCombinedName ?? String.Empty);
+			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{CustomerPersonalIdNumber}", order.PersonalIdNumber ?? String.Empty);
+			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{CompanyUnit}", order.CompanyUnit ?? String.Empty);
+			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{CustomerPersonalBirthDateString}", order.PersonalBirthDateString ?? String.Empty);
+			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{CustomerFirstName}", order.CustomerFirstName ?? String.Empty);
+			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{CustomerLastName}", order.CustomerLastName ?? String.Empty);
+			return invoiceFreeTextFormat;
+		}
+
 		#endregion
 	}
 }

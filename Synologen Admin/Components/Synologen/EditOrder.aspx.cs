@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
+using Spinit.Wpc.Base.Data;
 using Spinit.Wpc.Member.Data;
 using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Business.Enumeration;
@@ -87,10 +88,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			txtRST.Text = order.RstText;
 			drpStatus.SelectedValue = order.StatusId.ToString();
 			//MemberRow member = Provider.GetMember(order.SalesPersonMemberId, LocationId, LanguageId);
-			MemberRow member = Provider.GetSynologenMember(order.SalesPersonMemberId, LocationId, LanguageId);
+			//MemberRow member = Provider.GetSynologenMember(order.SalesPersonMemberId, LocationId, LanguageId);
+			var user = Provider.GetUserRow(order.SalesPersonMemberId);
 			ShopRow shop = Provider.GetShop(order.SalesPersonShopId);
 			ltShopName.Text = shop.Name;
-			ltmemberName.Text = member.ContactFirst + " " + member.ContactLast;
+			//ltmemberName.Text = member.ContactFirst + " " + member.ContactLast;
+			ltmemberName.Text = String.Concat(user.FirstName, " ", user.LastName);
 			ltSaleDate.Text = order.CreatedDate.ToShortDateString();
 			if (order.UpdateDate != DateTime.MinValue) {
 				ltUpdateDate.Text = order.UpdateDate.ToShortDateString();

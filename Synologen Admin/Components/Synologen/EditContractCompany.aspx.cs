@@ -75,6 +75,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			txtPaymentDuePeriod.Text = company.PaymentDuePeriod.ToString();
 			txtEDIRecipientId.Text = company.EDIRecipientId;
 			drpInvoicingMethods.SelectedValue = company.InvoicingMethodId.ToString();
+			txtInvoiceFreeTextTemplate.Text = company.InvoiceFreeTextFormat;
 			foreach (var validationRule in company.CompanyValidationRules){
 				var listItem = chkValidationRules.Items.FindByValue(validationRule.Id.ToString());
 				if(listItem !=null) listItem.Selected = true;
@@ -110,7 +111,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			company.PaymentDuePeriod = Convert.ToInt32(txtPaymentDuePeriod.Text);
 			company.EDIRecipientId = txtEDIRecipientId.Text;
 			company.InvoicingMethodId = Convert.ToInt32(drpInvoicingMethods.SelectedValue);
-
+			company.InvoiceFreeTextFormat = txtInvoiceFreeTextTemplate.Text.Trim();
 			Provider.AddUpdateDeleteCompany(action, ref company);
 
 			ConnectDisconnectValidationRules(company);

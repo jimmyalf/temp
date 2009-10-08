@@ -20,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Data.Types {
 		public string EDIRecipientId { get; set; }
 		public int InvoicingMethodId { get; set; }
 		public List<CompanyValidationRule> CompanyValidationRules { get; set; }
+		public string InvoiceFreeTextFormat { get; set; }
 		public bool HasValidationRule(int validationRuleId) {
 			if(CompanyValidationRules == null) return false;
 			return CompanyValidationRules.Exists(x => x.Id.Equals(validationRuleId) );

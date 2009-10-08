@@ -30,8 +30,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			ltCompany.Text = Provider.GetCompanyRow(_order.CompanyId).Name;
 			//ltRst.Text = Provider.GetCompanyRST(_order.RSTId).Name;
 			//MemberRow salesPerson = Provider.GetMember(_order.SalesPersonMemberId, LocationId, LanguageId);
-			MemberRow salesPerson = Provider.GetSynologenMember(_order.SalesPersonMemberId, LocationId, LanguageId);
-			ltSalesPersonName.Text = salesPerson.ContactFirst + " " + salesPerson.ContactLast;
+			//MemberRow salesPerson = Provider.GetSynologenMember(_order.SalesPersonMemberId, LocationId, LanguageId);
+			//ltSalesPersonName.Text = salesPerson.ContactFirst + " " + salesPerson.ContactLast;
+			var userRow = Provider.GetUserRow(_order.SalesPersonMemberId);
+			ltSalesPersonName.Text = userRow.FirstName + " " + userRow.LastName;
 			ltOrderStatus.Text = Provider.GetOrderStatusRow(_order.StatusId).Name;
 
 			//CheckEnableMarkAsPayed();

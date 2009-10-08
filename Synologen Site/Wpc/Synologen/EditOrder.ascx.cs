@@ -94,8 +94,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			}
 			ltOrderNumber.Text = _orderId.ToString();
 			ltMarkedAsPayed.Text = _order.MarkedAsPayedByShop ? "Ja" : "Nej";
-			var salesPerson = Provider.GetSynologenMember(_order.SalesPersonMemberId, LocationId, LanguageId);
-			ltSalesPersonName.Text = salesPerson.ContactFirst + " " + salesPerson.ContactLast;
+			//var salesPerson = Provider.GetSynologenMember(_order.SalesPersonMemberId, LocationId, LanguageId);
+			//ltSalesPersonName.Text = salesPerson.ContactFirst + " " + salesPerson.ContactLast;
+			var user = Provider.GetUserRow(_order.SalesPersonMemberId);
+			ltSalesPersonName.Text = user.FirstName + " " + user.LastName;
 			CheckEnableSaveAndAbortOrder();
 		}
 		#endregion

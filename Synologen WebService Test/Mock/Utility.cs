@@ -71,18 +71,23 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		}
 		public static CompanyRow GetMockCompanyRow() {
 			return new CompanyRow {
-			                      	Address1 = "Swedbank",
-			                      	Address2 = "Fakturagruppen RST",
-			                      	BankCode = "8999",
-			                      	City = "Stockholm",
-			                      	CompanyCode = "900",
-			                      	ContractId = 1,
-			                      	Id = 4,
-			                      	Name = "Swedbank",
-			                      	Zip = "105 34",
-                                    EDIRecipientId = "00075020177753TEST",
-                                    PaymentDuePeriod = 30
-			                      };
+				Address1 = "Swedbank",
+				Address2 = "Fakturagruppen RST",
+				BankCode = "8999",
+				City = "Stockholm",
+				CompanyCode = "900",
+				ContractId = 1,
+				Id = 4,
+				Name = "Swedbank",
+				Zip = "105 34",
+				EDIRecipientId = "00075020177753TEST",
+				PaymentDuePeriod = 30,
+				InvoiceFreeTextFormat = String.Concat(
+					"Beställare Namn, {CustomerName}", "\r\n",
+					"Beställare Personnummer, {CustomerPersonalIdNumber}", "\r\n",
+					"Beställare Enhet, {CompanyUnit}"
+					)
+				};
 		}
 		#endregion
 

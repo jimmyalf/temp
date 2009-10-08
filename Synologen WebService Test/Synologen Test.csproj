@@ -73,6 +73,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneralInvoice\TestInvoiceFreeTextParsing.cs" />
+    <Compile Include="GeneralInvoice\TestInvoiceFreeTextSplitting.cs" />
     <Compile Include="Site\TestCustomOrderValidation.cs" />
     <Compile Include="Site\TestValidationTypeRequired.cs" />
     <Compile Include="Svefaktura\TestSvefakturaInvoiceParsing.cs" />

@@ -26,13 +26,12 @@
 						<asp:TextBox runat="server" ID="txtBankIDCode"/>
 					</div>		 		        
 					<div class="formItem clearLeft">
-						<label class="labelLong">Adress 1</label>
+						<label class="labelLong">Postbox</label>
 						<asp:TextBox runat="server" ID="txtAddress"/>
 					</div>
 					<div class="formItem clearLeft">
-						<label class="labelLong">Adress 2 *</label>
+						<label class="labelLong">Gatuadress/Företagsnamn</label>
 						<asp:TextBox runat="server" ID="txtAddress2"/>
-						<asp:RequiredFieldValidator id="rfvAddress2" runat="server" errormessage="Adress 2 saknas." controltovalidate="txtAddress2" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>		            
 					</div>	
 					<div class="formItem clearLeft">
 						<label class="labelLong">Postnummer *</label>

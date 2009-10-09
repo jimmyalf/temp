@@ -28,7 +28,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.Throws<ArgumentNullException>(() => Utility.General.CreateInvoiceSvefaktura(emptyOrder,	emptyOrderItemList, emptyCompany,	emptyShop,	null));
 		}
 
-		#region Settings / Seller
+		#region SvefakturaConversionSettings
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_BankGiro() {
 			var customSettings = new SvefakturaConversionSettings { BankGiro = "56936677" };
@@ -137,13 +137,45 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_InvoiceDueDate() {
-			var customSettings = new SvefakturaConversionSettings {
-				InvoiceDaysFromIssueUntilDueDate = 30,
-				InvoiceIssueDate = new DateTime(2009, 09, 30)
-			};
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			var customSettings = new SvefakturaConversionSettings { InvoiceIssueDate = new DateTime(2009, 09, 30) };
+			var customCompany = new CompanyRow {PaymentDuePeriod = 30};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, customSettings);
 			var expectedValue = new DateTime(2009, 09, 30).AddDays(30);
 			Assert.AreEqual(expectedValue, invoice.PaymentMeans[0].DuePaymentDate.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Settings_InvoicePaymentTermsTextFormat() {
+			var customSettings = new SvefakturaConversionSettings { InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto" };
+			var customCompany = new CompanyRow {PaymentDuePeriod = 29, };
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, customSettings);
+			Assert.AreEqual("29 dagar netto", invoice.PaymentTerms.Note.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Settings_InvoiceExpieryPenaltySurcharge() {
+			var customSettings = new SvefakturaConversionSettings {InvoiceExpieryPenaltySurchargePercent = 12.5m};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			Assert.AreEqual(12.5m, invoice.PaymentTerms.PenaltySurchargePercent.Value);
+		}
+
+		[Test]
+		public void Test_Create_Invoice_Sets_Settings_TaxAccountingCode() {
+			var customSettings = new SvefakturaConversionSettings {
+				TaxAccountingCode = "SE556401196201",
+				SellingOrganizationNumber = "556401196201",
+				ExemptionReason = "Innehar F-skattebevis",
+                SellingOrganizationCity = "Klippan",
+				CountryIdentificationCode = "SE"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			Assert.AreEqual("SE556401196201", invoice.SellerParty.Party.PartyTaxScheme[0].CompanyID.Value);
+			Assert.AreEqual("VAT", invoice.SellerParty.Party.PartyTaxScheme[0].TaxScheme.ID.Value);
+			Assert.AreEqual("556401196201", invoice.SellerParty.Party.PartyTaxScheme[1].CompanyID.Value);
+			Assert.AreEqual("SWT", invoice.SellerParty.Party.PartyTaxScheme[1].TaxScheme.ID.Value);
+			Assert.AreEqual("Synhälsan AB", invoice.SellerParty.Party.PartyTaxScheme[1].RegistrationName.Value);
+			Assert.AreEqual("Box 111", invoice.SellerParty.Party.PartyTaxScheme[1].RegistrationAddress.Postbox.Value);
+			Assert.AreEqual("Klippan", invoice.SellerParty.Party.PartyTaxScheme[1].RegistrationAddress.CityName.Value);
+			Assert.AreEqual("26422", invoice.SellerParty.Party.PartyTaxScheme[1].RegistrationAddress.PostalZone.Value);
+			Assert.AreEqual("SE", invoice.SellerParty.Party.PartyTaxScheme[1].RegistrationAddress.Country.IdentificationCode.Value);
 		}
 		#endregion
 
@@ -192,31 +224,28 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		[Test]
 		public void Test_Create_Invoice_Sets_Buyer_Address1_And_Address2() {
 			var customCompany = new CompanyRow {
-				Address1 = "Saab Aircraft Leasing",
-				Address2 = "Box 7774"
+				Address1 = "Box 7774",
+				Address2 = "Saab Aircraft Leasing"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
-			Assert.AreEqual(2, invoice.BuyerParty.Party.Address.AddressLine.Count);
-			Assert.AreEqual("Saab Aircraft Leasing", invoice.BuyerParty.Party.Address.AddressLine[0].Value);
-			Assert.AreEqual("Box 7774", invoice.BuyerParty.Party.Address.AddressLine[1].Value);
+			Assert.AreEqual("Saab Aircraft Leasing", invoice.BuyerParty.Party.Address.StreetName.Value);
+			Assert.AreEqual("Box 7774", invoice.BuyerParty.Party.Address.Postbox.Value);
 		}
 		[Test]
-		public void Test_Create_Invoice_Sets_Buyer_Address1_() {
+		public void Test_Create_Invoice_Sets_Buyer_Address1() {
 			var customCompany = new CompanyRow {
-				Address1 = "Saab Aircraft Leasing"
+				Address1 = "Box 7774"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
-			Assert.AreEqual(1, invoice.BuyerParty.Party.Address.AddressLine.Count);
-			Assert.AreEqual("Saab Aircraft Leasing", invoice.BuyerParty.Party.Address.AddressLine[0].Value);
+			Assert.AreEqual("Box 7774", invoice.BuyerParty.Party.Address.Postbox.Value);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_Buyer_Address2() {
 			var customCompany = new CompanyRow {
-				Address2 = "Box 7774"
+				Address2 = "Saab Aircraft Leasing"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
-			Assert.AreEqual(1, invoice.BuyerParty.Party.Address.AddressLine.Count);
-			Assert.AreEqual("Box 7774", invoice.BuyerParty.Party.Address.AddressLine[0].Value);
+			Assert.AreEqual("Saab Aircraft Leasing", invoice.BuyerParty.Party.Address.StreetName.Value);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_Buyer_PostalCode() {
@@ -343,6 +372,14 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual(1340.333, invoice.TaxTotal[0].TotalTaxAmount.Value);
 			Assert.AreEqual("SEK", invoice.TaxTotal[0].TotalTaxAmount.amountCurrencyID);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_CustomerOrderNumber() {
+			var customOrder = new OrderRow {
+				CustomerOrderNumber = "1236456"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
+			Assert.AreEqual("1236456", invoice.RequisitionistDocumentReference[0].ID.Value);
 		}
 
 		#endregion

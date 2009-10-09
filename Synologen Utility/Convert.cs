@@ -40,11 +40,13 @@ namespace Spinit.Wpc.Synologen.Utility {
 
 		public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, OrderRow order, List<IOrderItem> orderItems, CompanyRow company, ShopRow shop) {
 			var invoice = new SFTIInvoiceType();
-			TryAddSettingsInformation(invoice, settings);
+			TryAddSettingsInformation(invoice, settings, company);
 			TryAddBuyerPartyInformation(invoice, company, order);
 			//TryAddSellerPartyInformation(invoice, shop);
 			TryAddOrderInformation(invoice, order);
 			TryAddOrderItems(invoice, orderItems);
+			TryAddPaymentTermsInformation(invoice, settings, company);
+			TryAddPaymentDueDate(invoice, company);
 			return invoice;
 		}
 
@@ -66,7 +68,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			);
 		}
 
-		private static void TryAddPaymentMeans(SFTIInvoiceType invoice, string giroNumber, string giroBIC) {
+		private static void TryAddPaymentMeans(SFTIInvoiceType invoice, string giroNumber, string giroBIC, CompanyRow company) {
 			if (String.IsNullOrEmpty(giroNumber)) return;
 			if (invoice.PaymentMeans == null) invoice.PaymentMeans = new List<SFTIPaymentMeansType>();
 				invoice.PaymentMeans.Add(
@@ -87,7 +89,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 				);
 		}
 
-		private static void TryAddSettingsInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings) {
+		private static void TryAddSettingsInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, CompanyRow company) {
 			if (invoice.SellerParty == null) invoice.SellerParty = new SFTISellerPartyType();
 			invoice.SellerParty.Party = new SFTIPartyType {
       			PartyName =  String.IsNullOrEmpty(settings.SellingOrganizationName)? null : new List<NameType>{new NameType{Value=settings.SellingOrganizationName}},
@@ -106,21 +108,19 @@ namespace Spinit.Wpc.Synologen.Utility {
 			};
 			if(settings.InvoiceIssueDate != DateTime.MinValue){
 				invoice.IssueDate = new IssueDateType {Value = settings.InvoiceIssueDate};
-				if(settings.InvoiceDaysFromIssueUntilDueDate > 0){
-					if(invoice.PaymentMeans == null) invoice.PaymentMeans = new List<SFTIPaymentMeansType>{new SFTIPaymentMeansType()};
-					foreach (var paymentMean in invoice.PaymentMeans){
-						paymentMean.DuePaymentDate = new PaymentDateType {
-							Value = invoice.IssueDate.Value.AddDays(settings.InvoiceDaysFromIssueUntilDueDate)
-						};
-					}
-				}
 			}
 			if(!String.IsNullOrEmpty(settings.InvoiceTypeCode)){
 				invoice.InvoiceTypeCode = new CodeType {Value = settings.InvoiceTypeCode};
 			}
-			TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankgiroBankIdentificationCode);
-			TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode);
+			TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankgiroBankIdentificationCode, company);
+			TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode, company);
 			TryAddTaxInformation(invoice, settings.VATAmount);
+		}
+
+		private static string TryParseInvoicePaymentTermsFormat(string format, CompanyRow company) {
+			if(format == null || company == null) return null;
+			format = format.Replace("{InvoiceNumberOfDueDays}", company.PaymentDuePeriod.ToString());
+			return format;
 		}
 
 		private static void TryAddBuyerPartyInformation(SFTIInvoiceType invoice, CompanyRow company, OrderRow orderRow) {
@@ -168,60 +168,14 @@ namespace Spinit.Wpc.Synologen.Utility {
 			}
 		}
 
-		//private static void TryAddSellerPartyInformation(SFTIInvoiceType invoice, ShopRow shop) {
-		//    if (invoice.SellerParty == null) invoice.SellerParty = new SFTISellerPartyType();
-		//    invoice.SellerParty.Party = new SFTIPartyType();
-		//    //if(!String.IsNullOrEmpty(shop.Name)){
-		//    //    if(invoice.SellerParty.Party.PartyName == null) invoice.SellerParty.Party.PartyName = new List<NameType>();
-		//    //    invoice.SellerParty.Party.PartyName.Add(new NameType {Value = shop.Name});
-		//    //}
-		//    //TrySetInvoiceSellerAddressInformation(invoice, shop);
-
-		//    if (!String.IsNullOrEmpty(shop.ContactCombinedName)) {
-		//        if (invoice.SellerParty.Party.Contact == null) invoice.SellerParty.Party.Contact = new SFTIContactType();
-		//        invoice.SellerParty.Party.Contact.Name = new NameType {Value = shop.ContactCombinedName};
-		//    }
-		//    if (!String.IsNullOrEmpty(shop.Email)) {
-		//        if (invoice.SellerParty.Party.Contact == null) invoice.SellerParty.Party.Contact = new SFTIContactType();
-		//        invoice.SellerParty.Party.Contact.ElectronicMail = new MailType {Value = shop.Email};
-		//    }
-		//    if (!String.IsNullOrEmpty(shop.Phone)) {
-		//        if (invoice.SellerParty.Party.Contact == null) invoice.SellerParty.Party.Contact = new SFTIContactType();
-		//        invoice.SellerParty.Party.Contact.Telephone = new TelephoneType {Value = shop.Phone};
-		//    }
-		//    if (!String.IsNullOrEmpty(shop.Fax)) {
-		//        if (invoice.SellerParty.Party.Contact == null) invoice.SellerParty.Party.Contact = new SFTIContactType();
-		//        invoice.SellerParty.Party.Contact.Telefax = new TelefaxType {Value = shop.Fax};
-		//    }
-		//}
-
-		//private static void TrySetInvoiceSellerAddressInformation(SFTIInvoiceType invoice, IShop shop) {
-		//    if(!String.IsNullOrEmpty(shop.Address)) {
-		//        if (invoice.SellerParty.Party.Address == null) invoice.SellerParty.Party.Address = new SFTIAddressType();
-		//        invoice.SellerParty.Party.Address.StreetName = new StreetNameType {Value = shop.Address};
-		//    }
-		//    if (!String.IsNullOrEmpty(shop.Address2)) {
-		//        if (invoice.SellerParty.Party.Address == null) invoice.SellerParty.Party.Address = new SFTIAddressType();
-		//        invoice.SellerParty.Party.Address.Postbox = new PostboxType {Value = shop.Address2};
-		//    }
-		//    if (!String.IsNullOrEmpty(shop.Zip)) {
-		//        if (invoice.SellerParty.Party.Address == null) invoice.SellerParty.Party.Address = new SFTIAddressType();
-		//        invoice.SellerParty.Party.Address.PostalZone = new ZoneType {Value = shop.Zip};
-		//    }
-		//    if (!String.IsNullOrEmpty(shop.City)) {
-		//        if (invoice.SellerParty.Party.Address == null) invoice.SellerParty.Party.Address = new SFTIAddressType();
-		//        invoice.SellerParty.Party.Address.CityName = new CityNameType {Value = shop.City};
-		//    }
-		//}
-
 		private static void TrySetInvoiceBuyerAddressInformation(SFTIInvoiceType invoice, ICompany company, IOrder orderRow) {
 			if(!String.IsNullOrEmpty(company.Address1)) {
-				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType {AddressLine = new List<LineType>()};
-				invoice.BuyerParty.Party.Address.AddressLine.Add(new LineType{Value=company.Address1});
+				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType();
+				invoice.BuyerParty.Party.Address.Postbox = new PostboxType { Value = company.Address1 };
 			}
 			if (!String.IsNullOrEmpty(company.Address2)) {
-				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType { AddressLine = new List<LineType>() };
-				invoice.BuyerParty.Party.Address.AddressLine.Add(new LineType { Value = company.Address2 });
+				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType();
+				invoice.BuyerParty.Party.Address.StreetName = new StreetNameType { Value = company.Address2 };
 			}
 			if (!String.IsNullOrEmpty(company.Zip)) {
 				if (invoice.BuyerParty.Party.Address == null) invoice.BuyerParty.Party.Address = new SFTIAddressType();
@@ -264,6 +218,15 @@ namespace Spinit.Wpc.Synologen.Utility {
 					taxTotal.TotalTaxAmount = new TaxAmountType {Value = (decimal) totalTaxAmount, amountCurrencyID = "SEK"};
 				}
 			}
+			if(!String.IsNullOrEmpty(order.CustomerOrderNumber)){
+				invoice.RequisitionistDocumentReference = new List<SFTIDocumentReferenceType> {
+					new SFTIDocumentReferenceType {
+						ID = new IdentifierType {
+							Value = order.CustomerOrderNumber
+						}
+					}
+				};
+			}
 			
 		}
 
@@ -285,6 +248,26 @@ namespace Spinit.Wpc.Synologen.Utility {
 				);
 			}
 			
+		}
+
+		private static void TryAddPaymentTermsInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, CompanyRow company) {
+			if (String.IsNullOrEmpty(settings.InvoicePaymentTermsTextFormat) && !settings.InvoiceExpieryPenaltySurchargePercent.HasValue) return;
+			var text = TryParseInvoicePaymentTermsFormat(settings.InvoicePaymentTermsTextFormat, company);
+			invoice.PaymentTerms = new SFTIPaymentTermsType {
+				Note = (String.IsNullOrEmpty(text)) ? null: new NoteType {Value = text},
+				PenaltySurchargePercent = (settings.InvoiceExpieryPenaltySurchargePercent.HasValue) ? new SurchargePercentType {Value = settings.InvoiceExpieryPenaltySurchargePercent.Value} : null
+			};
+	}
+
+		private static void TryAddPaymentDueDate(SFTIInvoiceType invoice, CompanyRow company) {
+		    if (company.PaymentDuePeriod <= 0) return;
+		    if(invoice.IssueDate == null) return;
+		    if(invoice.PaymentMeans == null) invoice.PaymentMeans = new List<SFTIPaymentMeansType>{new SFTIPaymentMeansType()};
+		    foreach (var paymentMean in invoice.PaymentMeans){
+		        paymentMean.DuePaymentDate = new PaymentDateType {
+		            Value = invoice.IssueDate.Value.AddDays(company.PaymentDuePeriod)
+		        };
+		    }
 		}
 
 		#endregion

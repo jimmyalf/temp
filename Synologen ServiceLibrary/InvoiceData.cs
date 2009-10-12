@@ -126,8 +126,8 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 			Id = company.Id;
 			ContractId = company.ContractId;
 			Name = company.Name;
-			Address1 = company.Address1;
-			Address2 = company.Address2;
+			PostBox = company.PostBox;
+			StreetName = company.StreetName;
 			Zip = company.Zip;
 			City = company.City;
 			CompanyCode = company.CompanyCode;
@@ -136,8 +136,8 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 		[DataMember] public int Id { get; set; }
 		[DataMember] public int ContractId { get; set; }
 		[DataMember] public string Name { get; set; }
-		[DataMember] public string Address1 { get; set; }
-		[DataMember] public string Address2 { get; set; }
+		[DataMember] public string PostBox { get; set; }
+		[DataMember] public string StreetName { get; set; }
 		[DataMember] public string Zip { get; set; }
 		[DataMember] public string City { get; set; }
 		[DataMember] public string CompanyCode { get; set; }

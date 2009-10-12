@@ -18,7 +18,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		[TestFixtureSetUp]
 		public void Setup() { }
 
-
+		#region Payment Means
 		[Test]
 		public void Test_Create_Invoice_Parameter_Checks_For_Null_And_Throws_Exceptions() {
 			Assert.Throws<ArgumentNullException>(() => Utility.General.CreateInvoiceSvefaktura(null,		emptyOrderItemList, emptyCompany,	emptyShop,	emptySettings));
@@ -27,8 +27,6 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.Throws<ArgumentNullException>(() => Utility.General.CreateInvoiceSvefaktura(emptyOrder,	emptyOrderItemList, emptyCompany,	null,		emptySettings));
 			Assert.Throws<ArgumentNullException>(() => Utility.General.CreateInvoiceSvefaktura(emptyOrder,	emptyOrderItemList, emptyCompany,	emptyShop,	null));
 		}
-
-		#region SvefakturaConversionSettings
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_BankGiro() {
 			var customSettings = new SvefakturaConversionSettings { BankGiro = "56936677" };
@@ -41,6 +39,20 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
 			Assert.AreEqual("56936677", invoice.PaymentMeans[0].PayeeFinancialAccount.ID.Value);
 			Assert.AreEqual("123456", invoice.PaymentMeans[1].PayeeFinancialAccount.ID.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Settings_PaymentDueDate() {
+			var customSettings = new SvefakturaConversionSettings {
+				BankGiro = "56936677", 
+				Postgiro = "123456",
+				InvoiceIssueDate = new DateTime(2009, 10, 30)
+			};
+			var customCompany = new CompanyRow{PaymentDuePeriod = 30};
+			var expectedValue = new DateTime(2009, 10, 30).AddDays(30);
+			
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, customSettings);
+			Assert.AreEqual(expectedValue, invoice.PaymentMeans[0].DuePaymentDate.Value);
+			Assert.AreEqual(expectedValue, invoice.PaymentMeans[1].DuePaymentDate.Value);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_PaymentMeansTypeCode_Is_Set() {
@@ -61,6 +73,9 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual("BGABSESS", invoice.PaymentMeans[0].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value);
 			Assert.AreEqual("PGSISESS", invoice.PaymentMeans[1].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value);
 		}
+		#endregion
+
+		#region TaxTotal
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_VATAmount() {
 			var customSettings = new SvefakturaConversionSettings {
@@ -70,10 +85,13 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual("S", invoice.TaxTotal[0].TaxSubTotal[0].TaxCategory.ID.Value);
 			Assert.AreEqual(55.55m, invoice.TaxTotal[0].TaxSubTotal[0].TaxCategory.Percent.Value);
 		}
+		#endregion
+
+		#region SellerParty
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_Org_Address() {
 			var customSettings = new SvefakturaConversionSettings {
-				SellingOrganizationAddress = "Box 111"
+				SellingOrganizationStreetName = "Box 111"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
 			Assert.AreEqual("Box 111", invoice.SellerParty.Party.Address.StreetName.Value);
@@ -108,8 +126,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 				SellingOrganizationNumber = "5562626100"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
-			Assert.AreEqual("5562626100", invoice.SellerParty.Party.PartyTaxScheme[0].CompanyID.Value);
-			Assert.AreEqual("VAT", invoice.SellerParty.Party.PartyTaxScheme[0].TaxScheme.ID.Value);
+			Assert.AreEqual("5562626100", invoice.SellerParty.Party.PartyIdentification[0].ID.Value);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_Org_PostalCode() {
@@ -120,13 +137,95 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual("26422", invoice.SellerParty.Party.Address.PostalZone.Value);
 		}
 		[Test]
-		public void Test_Create_Invoice_Sets_Settings_IssueDate() {
+		public void Test_Create_Invoice_Sets_Settings_SellerParty_Contact() {
 			var customSettings = new SvefakturaConversionSettings {
-				InvoiceIssueDate = new DateTime(2009, 10, 30)
+				SellingOrganizationContactEmail = "info@synologen.se",
+                SellingOrganizationContactName = "Lotta W",
+				SellingOrganizationTelephone = "043513433",
+				SellingOrganizationFax = "043513133"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
-			Assert.AreEqual(new DateTime(2009, 10, 30), invoice.IssueDate.Value);
+			Assert.AreEqual("info@synologen.se", invoice.SellerParty.Party.Contact.ElectronicMail.Value);
+			Assert.AreEqual("Lotta W", invoice.SellerParty.Party.Contact.Name.Value);
+			Assert.AreEqual("043513133", invoice.SellerParty.Party.Contact.Telefax.Value);
+			Assert.AreEqual("043513433", invoice.SellerParty.Party.Contact.Telephone.Value);
 		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Settings_PartyTaxSchemes_VAT_And_SWT() {
+			var customSettings = new SvefakturaConversionSettings {
+				TaxAccountingCode = "SE556401196201",
+				SellingOrganizationNumber = "556401196201",
+				ExemptionReason = "Innehar F-skattebevis",
+                SellingOrganizationCity = "Klippan",
+                SellingOrganizationPostBox = "Box 111",
+				SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
+                SellingOrganizationPostalCode = "26422",
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			var vatTaxScheme = invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("VAT"));
+			var swtTaxScheme = invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("SWT"));
+			Assert.IsNotNull(vatTaxScheme);
+			Assert.IsNotNull(swtTaxScheme);
+			Assert.AreEqual("SE556401196201", vatTaxScheme.CompanyID.Value);
+			Assert.AreEqual("VAT", vatTaxScheme.TaxScheme.ID.Value);
+			Assert.AreEqual("556401196201", swtTaxScheme.CompanyID.Value);
+			Assert.AreEqual("SWT", swtTaxScheme.TaxScheme.ID.Value);
+			Assert.AreEqual("Box 111", swtTaxScheme.RegistrationAddress.Postbox.Value);
+			Assert.AreEqual("Klippan", swtTaxScheme.RegistrationAddress.CityName.Value);
+			Assert.AreEqual("26422", swtTaxScheme.RegistrationAddress.PostalZone.Value);
+			Assert.AreEqual(CountryIdentificationCodeContentType.SE, invoice.SellerParty.Party.PartyTaxScheme[1].RegistrationAddress.Country.IdentificationCode.Value);
+			Assert.AreEqual(2,invoice.SellerParty.Party.PartyTaxScheme.Count);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Settings_PartyTaxSchemes_VAT() {
+			var customSettings = new SvefakturaConversionSettings {
+				TaxAccountingCode = "SE556401196201",
+				//SellingOrganizationNumber = "556401196201",
+				//ExemptionReason = "Innehar F-skattebevis",
+				//SellingOrganizationCity = "Klippan",
+				//SellingOrganizationPostBox = "Box 111",
+				//SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
+				//SellingOrganizationPostalCode = "26422",
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			var vatTaxScheme = invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("VAT"));
+			Assert.AreEqual("SE556401196201", vatTaxScheme.CompanyID.Value);
+			Assert.AreEqual("VAT", vatTaxScheme.TaxScheme.ID.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Settings_PartyTaxSchemes_SWT() {
+			var customSettings = new SvefakturaConversionSettings {
+				//TaxAccountingCode = "SE556401196201",
+				SellingOrganizationNumber = "556401196201",
+				ExemptionReason = "Innehar F-skattebevis",
+                SellingOrganizationCity = "Klippan",
+                SellingOrganizationPostBox = "Box 111",
+				SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
+                SellingOrganizationPostalCode = "26422",
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			var swtTaxScheme = invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("SWT"));
+			Assert.AreEqual("556401196201", swtTaxScheme.CompanyID.Value);
+			Assert.AreEqual("SWT", swtTaxScheme.TaxScheme.ID.Value);
+			Assert.AreEqual("Box 111", swtTaxScheme.RegistrationAddress.Postbox.Value);
+			Assert.AreEqual("Klippan", swtTaxScheme.RegistrationAddress.CityName.Value);
+			Assert.AreEqual("26422", swtTaxScheme.RegistrationAddress.PostalZone.Value);
+			Assert.AreEqual(CountryIdentificationCodeContentType.SE, swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value);
+		}
+		#endregion
+
+		#region Issue Date
+		[Test]
+		public void Test_Create_Invoice_Sets_Settings_IssueDate() {
+		    var customSettings = new SvefakturaConversionSettings {
+		        InvoiceIssueDate = new DateTime(2009, 10, 30)
+		    };
+		    var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+		    Assert.AreEqual(new DateTime(2009, 10, 30), invoice.IssueDate.Value);
+		}
+		#endregion
+
+		#region Invoice Type Code
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_InvoiceType() {
 			var customSettings = new SvefakturaConversionSettings {
@@ -135,14 +234,9 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
 			Assert.AreEqual("380", invoice.InvoiceTypeCode.Value);
 		}
-		[Test]
-		public void Test_Create_Invoice_Sets_Settings_InvoiceDueDate() {
-			var customSettings = new SvefakturaConversionSettings { InvoiceIssueDate = new DateTime(2009, 09, 30) };
-			var customCompany = new CompanyRow {PaymentDuePeriod = 30};
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, customSettings);
-			var expectedValue = new DateTime(2009, 09, 30).AddDays(30);
-			Assert.AreEqual(expectedValue, invoice.PaymentMeans[0].DuePaymentDate.Value);
-		}
+		#endregion
+
+		#region Payment Terms
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_InvoicePaymentTermsTextFormat() {
 			var customSettings = new SvefakturaConversionSettings { InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto" };
@@ -156,76 +250,14 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
 			Assert.AreEqual(12.5m, invoice.PaymentTerms.PenaltySurchargePercent.Value);
 		}
-
-		[Test]
-		public void Test_Create_Invoice_Sets_Settings_TaxAccountingCode() {
-			var customSettings = new SvefakturaConversionSettings {
-				TaxAccountingCode = "SE556401196201",
-				SellingOrganizationNumber = "556401196201",
-				ExemptionReason = "Innehar F-skattebevis",
-                SellingOrganizationCity = "Klippan",
-				CountryIdentificationCode = "SE"
-			};
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
-			Assert.AreEqual("SE556401196201", invoice.SellerParty.Party.PartyTaxScheme[0].CompanyID.Value);
-			Assert.AreEqual("VAT", invoice.SellerParty.Party.PartyTaxScheme[0].TaxScheme.ID.Value);
-			Assert.AreEqual("556401196201", invoice.SellerParty.Party.PartyTaxScheme[1].CompanyID.Value);
-			Assert.AreEqual("SWT", invoice.SellerParty.Party.PartyTaxScheme[1].TaxScheme.ID.Value);
-			Assert.AreEqual("Synhälsan AB", invoice.SellerParty.Party.PartyTaxScheme[1].RegistrationName.Value);
-			Assert.AreEqual("Box 111", invoice.SellerParty.Party.PartyTaxScheme[1].RegistrationAddress.Postbox.Value);
-			Assert.AreEqual("Klippan", invoice.SellerParty.Party.PartyTaxScheme[1].RegistrationAddress.CityName.Value);
-			Assert.AreEqual("26422", invoice.SellerParty.Party.PartyTaxScheme[1].RegistrationAddress.PostalZone.Value);
-			Assert.AreEqual("SE", invoice.SellerParty.Party.PartyTaxScheme[1].RegistrationAddress.Country.IdentificationCode.Value);
-		}
 		#endregion
 
-		//#region Seller Contact
-		//[Test]
-		//public void Test_Create_Invoice_Sets_Shop_Name() {
-		//    var customShop = new ShopRow {
-		//        Name = "Optiker Testsson"
-		//    };
-		//    var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, customShop, emptySettings);
-		//    Assert.AreEqual("Optiker Testsson", invoice.SellerParty.Party.PartyName[0].Value);
-		//}
-		//[Test]
-		//public void Test_Create_Invoice_Sets_Shop_Address() {
-		//    var customShop = new ShopRow {
-		//        Address = "Box 0123",
-		//        Address2 = "Storgatan 10",
-		//        City = "Stockholm",
-		//        Zip = "65465"
-		//    };
-		//    var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, customShop, emptySettings);
-		//    Assert.AreEqual("Storgatan 10", invoice.SellerParty.Party.Address.StreetName.Value);
-		//    Assert.AreEqual("Box 0123", invoice.SellerParty.Party.Address.Postbox.Value);
-		//    Assert.AreEqual("65465", invoice.SellerParty.Party.Address.PostalZone.Value);
-		//    Assert.AreEqual("Stockholm", invoice.SellerParty.Party.Address.CityName.Value);
-		//}
-		//[Test]
-		//public void Test_Create_Invoice_Sets_Shop_Contact() {
-		//    var customShop = new ShopRow {
-		//        ContactFirstName = "Adam",
-		//        ContactLastName = "Bertil",
-		//        Email = "adam.bertil@syn.se",
-		//        Phone = "089876543",
-		//        Fax = "088765432"
-		//    };
-		//    var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, customShop, emptySettings);
-		//    Assert.AreEqual("Adam Bertil", invoice.SellerParty.Party.Contact.Name.Value);
-		//    Assert.AreEqual("088765432", invoice.SellerParty.Party.Contact.Telefax.Value);
-		//    Assert.AreEqual("089876543", invoice.SellerParty.Party.Contact.Telephone.Value);
-		//    Assert.AreEqual("adam.bertil@syn.se", invoice.SellerParty.Party.Contact.ElectronicMail.Value);
-		//}
-
-		//#endregion
-
-		#region Buyer
+		#region BuyerParty
 		[Test]
 		public void Test_Create_Invoice_Sets_Buyer_Address1_And_Address2() {
 			var customCompany = new CompanyRow {
-				Address1 = "Box 7774",
-				Address2 = "Saab Aircraft Leasing"
+				PostBox = "Box 7774",
+				StreetName = "Saab Aircraft Leasing"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
 			Assert.AreEqual("Saab Aircraft Leasing", invoice.BuyerParty.Party.Address.StreetName.Value);
@@ -234,7 +266,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		[Test]
 		public void Test_Create_Invoice_Sets_Buyer_Address1() {
 			var customCompany = new CompanyRow {
-				Address1 = "Box 7774"
+				PostBox = "Box 7774"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
 			Assert.AreEqual("Box 7774", invoice.BuyerParty.Party.Address.Postbox.Value);
@@ -242,7 +274,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		[Test]
 		public void Test_Create_Invoice_Sets_Buyer_Address2() {
 			var customCompany = new CompanyRow {
-				Address2 = "Saab Aircraft Leasing"
+				StreetName = "Saab Aircraft Leasing"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
 			Assert.AreEqual("Saab Aircraft Leasing", invoice.BuyerParty.Party.Address.StreetName.Value);

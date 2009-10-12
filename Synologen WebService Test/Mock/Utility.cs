@@ -71,8 +71,8 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		}
 		public static CompanyRow GetMockCompanyRow() {
 			return new CompanyRow {
-				Address1 = "Swedbank",
-				Address2 = "Fakturagruppen RST",
+				PostBox = "Swedbank",
+				StreetName = "Fakturagruppen RST",
 				BankCode = "8999",
 				City = "Stockholm",
 				CompanyCode = "900",

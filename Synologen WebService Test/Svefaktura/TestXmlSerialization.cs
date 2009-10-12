@@ -149,15 +149,15 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 
 		//private static Address GetMockAddress() {
 		//    return new Address {
-		//        Address1 = "Vägen 1", Address2 = null, City = "Göteborg", Country = null, Zip = "436 32"
+		//        PostBox = "Vägen 1", StreetName = null, City = "Göteborg", Country = null, Zip = "436 32"
 		//    } ;
 		//}
 
 		//private static Party GetMockSynologenParty() {
 		//    return new Party {
 		//        DeliveryAddress = new Address {
-		//            Address1 = "Synhälsan Svenska Aktiebolag", 
-		//            Address2 = "Box 111", 
+		//            PostBox = "Synhälsan Svenska Aktiebolag", 
+		//            StreetName = "Box 111", 
 		//            City = "Klippan", 
 		//            Zip = "264 22"
 		//        },

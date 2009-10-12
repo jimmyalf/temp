@@ -29,7 +29,7 @@
 	<td><%# Eval("Phone") %></td>
 </tr>
 <tr class="shop-contact-row">
-	<td><%# DataBinder.Eval(Container.DataItem, "Address2") %></td>
+	<td><%# DataBinder.Eval(Container.DataItem, "StreetName") %></td>
 	<td><a href='mailto:<%# Eval("Email") %>'><%# Eval("Email") %></a></td>
 </tr>
 <asp:PlaceHolder ID="plEquipment" runat="server" Visible="false">

@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Interfaces;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 
 namespace Spinit.Wpc.Synologen.Data.Types {
 	public class CompanyRow : ICompany {
 		public int Id { get; set; }
 		public int ContractId { get; set; }
 		public string Name { get; set; }
-		public string Address1 { get; set; }
-		public string Address2 { get; set; }
+		public string PostBox { get; set; }
+		public string StreetName { get; set; }
 		public string Zip { get; set; }
 		public string City { get; set; }
 		public string CompanyCode { get; set; }
@@ -25,5 +26,7 @@ namespace Spinit.Wpc.Synologen.Data.Types {
 			if(CompanyValidationRules == null) return false;
 			return CompanyValidationRules.Exists(x => x.Id.Equals(validationRuleId) );
 		}
+		public CountryIdentificationCodeContentType? OrganizationCountryCode { get; set; }
+		public string ExemptionReason { get; set; }
 	}
 }

@@ -1,55 +1,3 @@
-// ==========================================================================
-//
-//  PROGRAM
-//	
-//
-//  FILENAME
-//	$Workfile: SqlProviderCompany.cs $
-//
-//  ARCHIVE
-//  $Archive: /Develop/WPC/Version 4.1/CustomerSpecific/Synologen/Synologen Data/SqlProviderCompany.cs $
-//
-//  VERSION
-//	$Revision: 3 $
-//
-//  DATES
-//	Last check in: $Date: 09-03-04 14:18 $
-//	Last modified: $Modtime: 09-03-02 12:32 $
-//
-//  AUTHOR(S)
-//	$Author: Cber $
-// 	
-//
-//  COPYRIGHT
-// 	Copyright (c) 2009 Spinit AB --- ALL RIGHTS RESERVED
-// 	Spinit AB, Datavägen 2, 436 32 Askim, SWEDEN
-//
-// ==========================================================================
-// 
-//  DESCRIPTION
-//  
-//
-// ==========================================================================
-//
-//	History
-//
-//	$Log: /Develop/WPC/Version 4.1/CustomerSpecific/Synologen/Synologen Data/SqlProviderCompany.cs $
-//
-//3     09-03-04 14:18 Cber
-//
-//2     09-02-25 18:00 Cber
-//Changes to allow for SPCS Account property on ArticleConnection,
-//OrderItemRow and IOrderItem
-//
-//1     09-02-05 18:01 Cber
-//
-//3     09-01-27 10:58 Cber
-//
-//2     09-01-09 17:44 Cber
-//
-//1     09-01-08 18:08 Cber
-// 
-// ==========================================================================
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -91,8 +39,8 @@ namespace Spinit.Wpc.Synologen.Data {
 				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
 					parameters[counter++].Value = company.ContractId;
 					parameters[counter++].Value = GetNullableSqlType(company.Name);
-					parameters[counter++].Value = GetNullableSqlType(company.Address1);
-					parameters[counter++].Value = GetNullableSqlType(company.Address2);
+					parameters[counter++].Value = GetNullableSqlType(company.PostBox);
+					parameters[counter++].Value = GetNullableSqlType(company.StreetName);
 					parameters[counter++].Value = GetNullableSqlType(company.Zip);
 					parameters[counter++].Value = GetNullableSqlType(company.City);
 					parameters[counter++].Value = GetNullableSqlType(company.CompanyCode);
@@ -136,8 +84,8 @@ namespace Spinit.Wpc.Synologen.Data {
 		private CompanyRow ParseCompanyRow(DataRow dataRow) {
 			try {
 				var companyRow = new CompanyRow {
-					Address1 = Util.CheckNullString(dataRow, "cAddress1"), 
-					Address2 = Util.CheckNullString(dataRow, "cAddress2"), 
+					PostBox = Util.CheckNullString(dataRow, "cAddress1"), 
+					StreetName = Util.CheckNullString(dataRow, "cAddress2"), 
 					City = Util.CheckNullString(dataRow, "cCity"), 
 					Id = Util.CheckNullInt(dataRow, "cId"), 
 					ContractId = Util.CheckNullInt(dataRow, "cContractCustomerId"), 

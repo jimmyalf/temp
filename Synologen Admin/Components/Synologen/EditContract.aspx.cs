@@ -1,58 +1,7 @@
-// ==========================================================================
-//
-//  PROGRAM
-//	
-//
-//  FILENAME
-//	$Workfile: EditContract.aspx.cs $
-//
-//  ARCHIVE
-//  $Archive: /Develop/WPC/Version 4.1/CustomerSpecific/Synologen/Synologen Admin/Components/Synologen/EditContract.aspx.cs $
-//
-//  VERSION
-//	$Revision: 4 $
-//
-//  DATES
-//	Last check in: $Date: 09-01-16 12:18 $
-//	Last modified: $Modtime: 09-01-14 13:44 $
-//
-//  AUTHOR(S)
-//	$Author: Cber $
-// 	
-//
-//  COPYRIGHT
-// 	Copyright (c) 2008 Spinit AB --- ALL RIGHTS RESERVED
-// 	Spinit AB, Datavägen 2, 436 32 Askim, SWEDEN
-//
-// ==========================================================================
-// 
-//  DESCRIPTION
-//  
-//
-// ==========================================================================
-//
-//	History
-//
-//	$Log: /Develop/WPC/Version 4.1/CustomerSpecific/Synologen/Synologen Admin/Components/Synologen/EditContract.aspx.cs $
-//
-//4     09-01-16 12:18 Cber
-//
-//3     09-01-08 18:08 Cber
-//
-//2     09-01-07 17:35 Cber
-//
-//1     08-12-19 17:22 Cber
-//
-//2     08-12-18 19:07 Cber
-//
-//1     08-12-16 17:01 Cber
-// 
-// ==========================================================================
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
@@ -84,7 +33,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			//txtContractCustomerName.Text = contract.Name;
 			//txtContractCustomerCode.Text = contract.Code;
 			//txtContractCustomerDescription.Text = contract.Description;
-			//txtAddress2.Text = contract.Address2;
+			//txtAddress2.Text = contract.StreetName;
 			//txtAddress.Text = contract.Address;
 			//txtZip.Text = contract.Zip;
 			//txtCity.Text = contract.City;

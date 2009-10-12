@@ -61,8 +61,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		private void SetupForEdit() {
 			var company = Provider.GetCompanyRow(_companyId);
 			txtName.Text = company.Name;
-			txtAddress.Text = company.Address1;
-			txtAddress2.Text = company.Address2;
+			txtAddress.Text = company.PostBox;
+			txtAddress2.Text = company.StreetName;
 			txtZip.Text = company.Zip;
 			txtCity.Text = company.City;
 			txtCompanyCode.Text = company.CompanyCode;
@@ -97,8 +97,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			}
 			company.ContractId = Int32.Parse(drpContracts.SelectedValue);
 			company.Name = txtName.Text;
-			company.Address1 = txtAddress.Text;
-			company.Address2 = txtAddress2.Text;
+			company.PostBox = txtAddress.Text;
+			company.StreetName = txtAddress2.Text;
 			company.Zip = txtZip.Text;
 			company.City = txtCity.Text;
 			company.CompanyCode = txtCompanyCode.Text;

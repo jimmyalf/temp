@@ -62,8 +62,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			//    btnSave.Text = "Ändra";
 			//    CompanyRow company = Provider.GetCompanyRow(_contractId);
 			//    txtName.Text = company.Name;
-			//    txtAddress.Text = company.Address1;
-			//    txtAddress2.Text = company.Address2;
+			//    txtAddress.Text = company.PostBox;
+			//    txtAddress2.Text = company.StreetName;
 			//    txtZip.Text = company.Zip;
 			//    txtCity.Text = company.City;
 			//    txtCompanyCode.Text = company.CompanyCode;

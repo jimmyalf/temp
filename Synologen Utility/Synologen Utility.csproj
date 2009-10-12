@@ -54,9 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Convert.cs" />
+    <Compile Include="EDIConversion.cs" />
     <Compile Include="Ftp.cs" />
     <Compile Include="General.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SvefakturaConversion.cs" />
     <Compile Include="Types\EDIConversionSettings.cs" />
     <Compile Include="Types\RuleViolation.cs" />
     <Compile Include="Types\SvefakturaConversionSettings.cs" />

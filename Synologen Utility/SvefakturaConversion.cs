@@ -114,7 +114,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			);
 		}
 
-		private static SFTIAddressType GetBuyerPartyAddress(ICompany company, IOrder orderRow) {
+		private static SFTIAddressType GetBuyerPartyAddress(CompanyRow company, IOrder orderRow) {
 			return GetPartyAddress(
 				company.PostBox,
 				company.StreetName,
@@ -123,14 +123,6 @@ namespace Spinit.Wpc.Synologen.Utility {
 				orderRow.CompanyUnit,
 				null
 			);
-			//if (AllAreNullOrEmpty(company.PostBox, company.StreetName, company.Zip, company.City, orderRow.CompanyUnit)) return null;
-			//return new SFTIAddressType {
-			//    Postbox = (String.IsNullOrEmpty(company.PostBox)) ? null : new PostboxType{ Value = company.PostBox },
-			//    StreetName = (String.IsNullOrEmpty(company.StreetName)) ? null : new StreetNameType{Value = company.StreetName},
-			//    PostalZone = (String.IsNullOrEmpty(company.Zip)) ? null : new ZoneType {Value = company.Zip},
-			//    Department = (String.IsNullOrEmpty(orderRow.CompanyUnit)) ? null : new DepartmentType{Value=orderRow.CompanyUnit},
-			//    CityName = (String.IsNullOrEmpty(company.City)) ? null : new CityNameType{Value=company.City}
-			//};
 		}
 		#endregion
 

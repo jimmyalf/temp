@@ -1,52 +1,9 @@
-// ==========================================================================
-//
-//  PROGRAM
-//	
-//
-//  FILENAME
-//	$Workfile: SqlProviderFiles.cs $
-//
-//  ARCHIVE
-//  $Archive: /Develop/WPC/Version 4.1/CustomerSpecific/Synologen/Synologen Data/SqlProviderFiles.cs $
-//
-//  VERSION
-//	$Revision: 1 $
-//
-//  DATES
-//	Last check in: $Date: 08-12-16 17:01 $
-//	Last modified: $Modtime: 08-12-15 10:26 $
-//
-//  AUTHOR(S)
-//	$Author: Cber $
-// 	
-//
-//  COPYRIGHT
-// 	Copyright (c) 2008 Spinit AB --- ALL RIGHTS RESERVED
-// 	Spinit AB, Datavägen 2, 436 32 Askim, SWEDEN
-//
-// ==========================================================================
-// 
-//  DESCRIPTION
-//  
-//
-// ==========================================================================
-//
-//	History
-//
-//	$Log: /Develop/WPC/Version 4.1/CustomerSpecific/Synologen/Synologen Data/SqlProviderFiles.cs $
-//
-//1     08-12-16 17:01 Cber
-// 
-// ==========================================================================
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
 using Spinit.Wpc.Member.Data;
-using Spinit.Wpc.Member.Data.Enumerations;
 using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {

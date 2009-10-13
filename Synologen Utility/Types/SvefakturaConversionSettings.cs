@@ -10,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Utility.Types {
 		public string ExemptionReason { get; set; }
 		public string TaxAccountingCode { get; set; }
 		public decimal? InvoiceExpieryPenaltySurchargePercent { get; set; }
-		public string InvoiceCurrencyCode { get; set; }
+		public CurrencyCodeContentType? InvoiceCurrencyCode { get; set; }
 		public string InvoiceTypeCode { get; set; }
 		public DateTime InvoiceIssueDate { get; set; }
 		public string Postgiro { get; set; }

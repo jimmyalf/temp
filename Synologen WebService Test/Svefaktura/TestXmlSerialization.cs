@@ -46,17 +46,18 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 				//namespaces.Add("cac", "urn:oasis:names:tc:ubl:CommonAggregateComponents:1:0");
 				namespaces.Add("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
 				var sb = new StringBuilder();
-				var test = new CultureInfo("sv-SE") {
-				                                    	NumberFormat = new NumberFormatInfo {
-				                                    	                                    	NumberDecimalDigits = 10,
-				                                    	                                    	NumberDecimalSeparator = "¤",
-				                                    	                                    	CurrencyDecimalDigits=10,
-				                                    	                                    	CurrencyDecimalSeparator="#",
-				                                    	                                    	PercentDecimalDigits=10,
-				                                    	                                    	PercentDecimalSeparator="%%%%"
-				                                    	                                    }
-				                                    };
-				var output = new StringWriter(sb, test) { NewLine = Environment.NewLine };
+				//var test = new CultureInfo("sv-SE") {
+				//    NumberFormat = new NumberFormatInfo {
+				//        NumberDecimalDigits = 10,
+				//        NumberDecimalSeparator = "¤",
+				//        CurrencyDecimalDigits=10,
+				//        CurrencyDecimalSeparator="#",
+				//        PercentDecimalDigits=10,
+				//        PercentDecimalSeparator="%%%%"
+				//    }
+				//};
+				//var output = new StringWriter(sb, test) { NewLine = Environment.NewLine };
+				var output = new StringWriter(sb) { NewLine = Environment.NewLine };
 				serializer = new XmlSerializer(objToSerialize.GetType());
 				serializer.Serialize(output, objToSerialize, namespaces);
 				return output.ToString();

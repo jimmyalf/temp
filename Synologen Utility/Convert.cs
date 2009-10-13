@@ -33,14 +33,14 @@ namespace Spinit.Wpc.Synologen.Utility {
 
 		public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, OrderRow order, List<IOrderItem> orderItems, CompanyRow company, ShopRow shop) {
 			var invoice = new SFTIInvoiceType();
-			TryAddSellerParty(invoice, settings);
+			TryAddSellerParty(invoice, settings, shop);
+			TryAddBuyerParty(invoice, company, order);
 			TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankgiroBankIdentificationCode, company, settings);
 			TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode, company, settings);
 			TryAddTaxTotal(invoice, settings.VATAmount);
-			TryAddBuyerParty(invoice, company, order);
 			TryAddGeneralInvoiceInformation(invoice, settings, order);
-			TryAddOrderItems(invoice, orderItems);
-			TryAddPaymentTermsInformation(invoice, settings, company);
+			TryAddInvoiceLines(invoice, orderItems, settings.VATAmount);
+			TryAddPaymentTerms(invoice, settings, company);
 			return invoice;
 		}
 

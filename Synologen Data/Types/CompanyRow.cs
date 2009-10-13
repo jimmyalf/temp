@@ -7,8 +7,8 @@ namespace Spinit.Wpc.Synologen.Data.Types {
 		public int Id { get; set; }
 		public int ContractId { get; set; }
 		public string Name { get; set; }
-		public string PostBox { get; set; }
-		public string StreetName { get; set; }
+		public string Address1 { get; set; }
+		public string Address2 { get; set; }
 		public string Zip { get; set; }
 		public string City { get; set; }
 		public string CompanyCode { get; set; }
@@ -20,6 +20,8 @@ namespace Spinit.Wpc.Synologen.Data.Types {
 		public int PaymentDuePeriod { get; set; }
 		public string EDIRecipientId { get; set; }
 		public int InvoicingMethodId { get; set; }
+		public string PostBox { get { return Address1; } set { Address1 = value; } }
+		public string StreetName { get { return Address2; } set { Address2 = value; } }
 		public List<CompanyValidationRule> CompanyValidationRules { get; set; }
 		public string InvoiceFreeTextFormat { get; set; }
 		public bool HasValidationRule(int validationRuleId) {

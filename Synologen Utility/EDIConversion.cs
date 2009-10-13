@@ -22,7 +22,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return supplier;
 		}
 
-		private static Buyer GetBuyerInformation(string buyerId, ICompany company) {
+		private static Buyer GetBuyerInformation(string buyerId, CompanyRow company) {
 			var buyer = new Buyer {                	
 				BuyerIdentity = buyerId,
                 InvoiceIdentity = company.BankCode,

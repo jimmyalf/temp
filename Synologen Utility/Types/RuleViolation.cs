@@ -1,3 +1,4 @@
+
 namespace Spinit.Wpc.Synologen.Utility.Types {
 	public class RuleViolation {
 		public string ErrorMessage { get; private set; }

@@ -48,8 +48,8 @@ namespace Spinit.Wpc.Synologen.Utility {
 		private static bool AllAreNullOrEmpty(params object[] args) {
 			foreach (var value in args){
 				if(value == null) continue;
-				if(value.GetType().Equals(typeof(string))	&& IsNullOrEmpty((string)value))	continue;
-				if(value.GetType().Equals(typeof(decimal?)) && IsNullOrEmpty((decimal?)value)) continue;
+				if(value is string && IsNullOrEmpty(value as string)) continue;
+				if(value is decimal? && IsNullOrEmpty(value as decimal?)) continue;
 				return false;
 			}
 			return true;

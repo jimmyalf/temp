@@ -15,7 +15,7 @@ using PercentType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicCompon
 using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
 namespace Spinit.Wpc.Synologen.Test.Svefaktura {
-	[TestFixture]
+	//[TestFixture]
 	public class TestXmlSerialization {
 
 		[TestFixtureSetUp]

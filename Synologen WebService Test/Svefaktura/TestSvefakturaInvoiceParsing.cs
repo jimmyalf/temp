@@ -131,42 +131,47 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual("556573780501", invoice.BuyerParty.Party.PartyIdentification[0].ID.Value);
 		}
 		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_Contact() {
+		public void Test_Create_Invoice_Sets_BuyerParty_Contact_Name() {
 			var customOrder = new OrderRow {
 				CustomerFirstName = "Adam",
-				CustomerLastName = "Bertil",
-				Phone = "080123456",
-                Email = "adam.bertil@saab.se"
+				CustomerLastName = "Bertil"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual("Adam Bertil", invoice.BuyerParty.Party.Contact.Name.Value);
-			Assert.AreEqual("080123456", invoice.BuyerParty.Party.Contact.Telephone.Value);
-			Assert.AreEqual("adam.bertil@saab.se", invoice.BuyerParty.Party.Contact.ElectronicMail.Value);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_BuyerParty_Contact_With_FirstName_Missing() {
 			var customOrder = new OrderRow {
-				CustomerLastName = "Bertil",
-				Phone = "080123456",
-                Email = "adam.bertil@saab.se"
+				CustomerLastName = "Bertil"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual("Bertil", invoice.BuyerParty.Party.Contact.Name.Value);
-			Assert.AreEqual("080123456", invoice.BuyerParty.Party.Contact.Telephone.Value);
-			Assert.AreEqual("adam.bertil@saab.se", invoice.BuyerParty.Party.Contact.ElectronicMail.Value);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_BuyerParty_Contact_With_LastName_Missing() {
 			var customOrder = new OrderRow {
 				CustomerFirstName = "Adam",
-				Phone = "080123456",
-                Email = "adam.bertil@saab.se"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual("Adam", invoice.BuyerParty.Party.Contact.Name.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_BuyerParty_Contact_Phone() {
+			var customOrder = new OrderRow {
+				Phone = "080123456"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual("080123456", invoice.BuyerParty.Party.Contact.Telephone.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_BuyerParty_Contact_Email() {
+			var customOrder = new OrderRow {
+                Email = "adam.bertil@saab.se"
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual("adam.bertil@saab.se", invoice.BuyerParty.Party.Contact.ElectronicMail.Value);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_BuyerParty_PartyTaxSchemes_VAT_And_SWT() {
 			var customCompany = new CompanyRow {
@@ -196,12 +201,10 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 				TaxAccountingCode = "SE5560360793",
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
-			var vatTaxScheme = invoice.BuyerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("VAT"));
-			Assert.IsNotNull(vatTaxScheme);
-			Assert.AreEqual("SE5560360793", vatTaxScheme.CompanyID.Value);
-			Assert.AreEqual("VAT", vatTaxScheme.TaxScheme.ID.Value);
-			Assert.AreEqual(1, invoice.BuyerParty.Party.PartyTaxScheme.Count);
+			var vatTaxSchemeFound = invoice.BuyerParty.Party.PartyTaxScheme.Exists(x => x.TaxScheme.ID.Value.Equals("VAT") && x.CompanyID.Value.Equals("SE5560360793"));
+			Assert.IsTrue(vatTaxSchemeFound);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_BuyerParty_PartyTaxSchemes_SWT() {
 			var customCompany = new CompanyRow {
@@ -280,6 +283,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
 			Assert.AreEqual("5562626100", invoice.SellerParty.Party.PartyIdentification[0].ID.Value);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_SellerParty_Contact() {
 			var customShop = new ShopRow {
@@ -295,6 +299,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual("040234567", invoice.SellerParty.Party.Contact.Telefax.Value);
 			Assert.AreEqual("040123456", invoice.SellerParty.Party.Contact.Telephone.Value);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_SellerParty_AccountsContact() {
 			var customSettings = new SvefakturaConversionSettings {
@@ -309,6 +314,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual("043513133", invoice.SellerParty.AccountsContact.Telefax.Value);
 			Assert.AreEqual("043513433", invoice.SellerParty.AccountsContact.Telephone.Value);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_SellerParty_PartyTaxSchemes_VAT_And_SWT() {
 			var customSettings = new SvefakturaConversionSettings {
@@ -335,6 +341,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual(CountryIdentificationCodeContentType.SE, swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value);
 			Assert.AreEqual(2,invoice.SellerParty.Party.PartyTaxScheme.Count);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_SellerParty_PartyTaxSchemes_VAT() {
 			var customSettings = new SvefakturaConversionSettings {
@@ -346,6 +353,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual("VAT", vatTaxScheme.TaxScheme.ID.Value);
 			Assert.AreEqual(1, invoice.SellerParty.Party.PartyTaxScheme.Count);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_PartyTaxSchemes_SWT() {
 			var customSettings = new SvefakturaConversionSettings {
@@ -374,8 +382,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialAccount_Id_BankGiro_And_PostGiro() {
 			var customSettings = new SvefakturaConversionSettings{BankGiro = "56936677", Postgiro = "123456"};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
-			Assert.AreEqual("56936677", invoice.PaymentMeans[0].PayeeFinancialAccount.ID.Value);
-			Assert.AreEqual("123456", invoice.PaymentMeans[1].PayeeFinancialAccount.ID.Value);
+			Assert.AreEqual(2, invoice.PaymentMeans.Count);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialAccount_Id_BankGiro() {
@@ -392,8 +399,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		[Test]
 		public void Test_Create_Invoice_Sets_PaymentMeans_DuePaymentDate() {
 			var customSettings = new SvefakturaConversionSettings {
-				BankGiro = "56936677", 
-				Postgiro = "123456",
+				BankGiro = "56936677",
 				InvoiceIssueDate = new DateTime(2009, 10, 30)
 			};
 			var customCompany = new CompanyRow{PaymentDuePeriod = 30};
@@ -401,26 +407,32 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, customSettings);
 			Assert.AreEqual(expectedValue, invoice.PaymentMeans[0].DuePaymentDate.Value);
-			Assert.AreEqual(expectedValue, invoice.PaymentMeans[1].DuePaymentDate.Value);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_PaymentMeans_PaymentMeansTypeCode() {
-			var customSettings = new SvefakturaConversionSettings { BankGiro = "56936677", Postgiro = "123456" };
+			var customSettings = new SvefakturaConversionSettings {
+				BankGiro = "56936677"
+			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
 			Assert.AreEqual(PaymentMeansCodeContentType.Item1, invoice.PaymentMeans[0].PaymentMeansTypeCode.Value);
-			Assert.AreEqual(PaymentMeansCodeContentType.Item1, invoice.PaymentMeans[1].PaymentMeansTypeCode.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialInstitution_BankGiro() {
+			var customSettings = new SvefakturaConversionSettings {
+				BankGiro = "56936677",
+				BankgiroBankIdentificationCode = "BGABSESS",
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			Assert.AreEqual("BGABSESS", invoice.PaymentMeans[0].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialInstitution() {
 			var customSettings = new SvefakturaConversionSettings {
-				BankGiro = "56936677",
-				BankgiroBankIdentificationCode = "BGABSESS",
 				Postgiro = "123456",
 				PostgiroBankIdentificationCode = "PGSISESS"
 			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
-			Assert.AreEqual("BGABSESS", invoice.PaymentMeans[0].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value);
-			Assert.AreEqual("PGSISESS", invoice.PaymentMeans[1].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value);
+			Assert.AreEqual("PGSISESS", invoice.PaymentMeans[0].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value);
 		}
 		#endregion
 
@@ -441,6 +453,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		#endregion
 
 		#region TaxTotal
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_TaxTotal_TotalTaxAmount() {
 			var customOrder = new OrderRow {
@@ -451,6 +464,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual(1340.333, invoice.TaxTotal[0].TotalTaxAmount.Value);
 			Assert.AreEqual("SEK", invoice.TaxTotal[0].TotalTaxAmount.amountCurrencyID);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_TaxTotal_VATAmount() {
 			var customSettings = new SvefakturaConversionSettings {
@@ -469,6 +483,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual("VAT", taxCategoryE.TaxCategory.TaxScheme.ID.Value);
 			Assert.AreEqual(2, invoice.TaxTotal[0].TaxSubTotal.Count);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_TaxTotal_VATFree() {
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
@@ -482,6 +497,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		#endregion
 
 		#region LegalTotal
+				//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_LegalTotal_TaxInclusiveTotalAmount() {
 			var customOrder = new OrderRow { InvoiceSumIncludingVAT = 123456.45 };
@@ -489,6 +505,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual(123456.45m, invoice.LegalTotal.TaxInclusiveTotalAmount.Value);
 			Assert.AreEqual("SEK", invoice.LegalTotal.TaxInclusiveTotalAmount.amountCurrencyID);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_LegalTotal_TaxExclusiveTotalAmount() {
 			var customOrder = new OrderRow { InvoiceSumExcludingVAT = 123456.4545 };
@@ -496,6 +513,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual(123456.4545m, invoice.LegalTotal.TaxExclusiveTotalAmount.Value);
 			Assert.AreEqual("SEK", invoice.LegalTotal.TaxExclusiveTotalAmount.amountCurrencyID);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_LegalTotal_RoundOffAmount() {
 			var customOrder = new OrderRow { RoundOffAmount = 0.38m };
@@ -505,6 +523,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual(0.38m, invoice.LegalTotal.RoundOffAmount.Value);
 			Assert.AreEqual("SEK", invoice.LegalTotal.RoundOffAmount.amountCurrencyID);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_LegalTotal_RoundOffAmount_Nulled() {
 			var customOrder1 = new OrderRow { RoundOffAmount = null };
@@ -515,6 +534,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.IsNotNull(invoice2.LegalTotal);
 			Assert.IsNull(invoice2.LegalTotal.RoundOffAmount);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_LegalTotal_RoundOffAmount_Zero() {
 			var customOrder1 = new OrderRow { RoundOffAmount = 0 };
@@ -548,6 +568,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual("987654", invoice.InvoiceLine[0].Item.SellersItemIdentification.ID.Value);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_InvoiceLine_InvoicedQuantity() {
 			var customOrderItemList = new List<IOrderItem> {
@@ -559,6 +580,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual(3, invoice.InvoiceLine[0].InvoicedQuantity.Value);
 			Assert.AreEqual("styck", invoice.InvoiceLine[0].InvoicedQuantity.quantityUnitCode);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_InvoiceLine_Item_BasePrice_PriceAmount_And_CurrencyID() {
 			var customOrderItemList = new List<IOrderItem> {
@@ -570,6 +592,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual(36.85f, invoice.InvoiceLine[0].Item.BasePrice.PriceAmount.Value);
 			Assert.AreEqual("SEK", invoice.InvoiceLine[0].Item.BasePrice.PriceAmount.amountCurrencyID);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_InvoiceLine_LineExtensionAmount_And_CurrencyID() {
 			var customOrderItemList = new List<IOrderItem> {
@@ -581,6 +604,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual(110.55f, invoice.InvoiceLine[0].LineExtensionAmount.Value);
 			Assert.AreEqual("SEK", invoice.InvoiceLine[0].LineExtensionAmount.amountCurrencyID);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_InvoiceLine_Item_TaxCategory_Has_Normal_Tax() {
 			var customOrderItemList = new List<IOrderItem> { new OrderItemRow { NoVAT =  false} };
@@ -591,6 +615,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual("VAT", invoice.InvoiceLine[0].Item.TaxCategory[0].TaxScheme.ID.Value);
 
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_InvoiceLine_Item_TaxCategory_Is_Tax_Free() {
 			var customOrderItemList = new List<IOrderItem> { new OrderItemRow { NoVAT =  true} };
@@ -600,6 +625,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Assert.AreEqual(0m, invoice.InvoiceLine[0].Item.TaxCategory[0].Percent.Value);
 			Assert.AreEqual("VAT", invoice.InvoiceLine[0].Item.TaxCategory[0].TaxScheme.ID.Value);
 		}
+		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_InvoiceLine_ID() {
 			var customOrderItemList = new List<IOrderItem> { new OrderItemRow(), new OrderItemRow(), new OrderItemRow() };

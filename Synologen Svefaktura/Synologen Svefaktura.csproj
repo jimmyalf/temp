@@ -31,6 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CustomEnumerations\ValidationType.cs" />
+    <Compile Include="CustomTypes\PropertyValidationRule.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\AddressLineType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\AddressType.cs" />
     <Compile Include="Svefakt2\UBL\Codelist\AllowanceChargeReasonCodeContentType.cs" />
@@ -262,6 +264,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="General-Svefaktura.cd" />
     <None Include="Generate_XSD.bat" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

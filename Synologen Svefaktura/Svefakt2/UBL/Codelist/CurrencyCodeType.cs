@@ -1,3 +1,6 @@
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
+
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCode("xsd", "2.0.50727.42")]
@@ -140,6 +143,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlText]
+		[PropertyValidationRule("Value Required",ValidationType.RequiredNotNull)]
 		public CurrencyCodeContentType Value {
 			get {
 				return valueField;

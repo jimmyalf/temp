@@ -1,3 +1,6 @@
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
+
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
 	/// <remarks/>
 	[System.Xml.Serialization.XmlInclude(typeof(UnspecializedDatatypes.IdentifierType))]
@@ -103,6 +106,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlText(DataType="normalizedString")]
+		[PropertyValidationRule("Value Required",ValidationType.RequiredNotNull)]
 		public string Value {
 			get {
 				return valueField;

@@ -1,3 +1,5 @@
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
@@ -20,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlText(DataType="date")]
+		[PropertyValidationRule("Value Required", ValidationType.RequiredNotNull)]
 		public System.DateTime Value {
 			get {
 				return valueField;

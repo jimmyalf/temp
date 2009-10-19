@@ -1,3 +1,5 @@
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
@@ -70,6 +72,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlText]
+		[PropertyValidationRule("Value Required",ValidationType.RequiredNotNull)]
 		public decimal Value {
 			get {
 				return valueField;

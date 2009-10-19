@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
@@ -15,6 +17,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement("Name", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[PropertyValidationRule("SFTIPartyNameType.Name is missing.", ValidationType.RequiredNotNull)]
+		[PropertyValidationRule("SFTIPartyNameType.Name must contain one or more elements.", ValidationType.CollectionHasMinimumCountRequirement, 1)]
 		public List<NameType> Name {
 			get {
 				return nameField;

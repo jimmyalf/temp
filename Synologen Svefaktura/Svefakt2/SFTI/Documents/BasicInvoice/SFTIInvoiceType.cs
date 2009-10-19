@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
@@ -62,6 +64,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		private SFTIPeriodType invoicingPeriodField;
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTIInvoiceType.ID is missing.", ValidationType.RequiredNotNull)]
 		public SFTISimpleIdentifierType ID {
 			get {
 				return idField;
@@ -73,6 +76,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[PropertyValidationRule("SFTIInvoiceType.IssueDate is missing.", ValidationType.RequiredNotNull)]
 		public IssueDateType IssueDate {
 			get {
 				return issueDateField;
@@ -83,6 +87,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		}
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTIInvoiceType.InvoiceTypeCode is missing.", ValidationType.RequiredNotNull)]
 		public CodeType InvoiceTypeCode {
 			get {
 				return invoiceTypeCodeField;
@@ -134,6 +139,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
 		}
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTIInvoiceType.LineItemCountNumeric is missing.", ValidationType.RequiredNotNull)]
 		public LineItemCountNumericType LineItemCountNumeric {
 			get {
 				return lineItemCountNumericField;
@@ -156,6 +162,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
+		[PropertyValidationRule("SFTIInvoiceType.BuyerParty is missing.", ValidationType.RequiredNotNull)]
 		public SFTIBuyerPartyType BuyerParty {
 			get {
 				return buyerPartyField;
@@ -167,6 +174,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
+		[PropertyValidationRule("SFTIInvoiceType.SellerParty is missing.", ValidationType.RequiredNotNull)]
 		public SFTISellerPartyType SellerParty {
 			get {
 				return sellerPartyField;
@@ -189,6 +197,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement("PaymentMeans", Namespace="urn:sfti:CommonAggregateComponents:1:0")]
+		[PropertyValidationRule("SFTIInvoiceType.PaymentMeans can only contain 0-3 elements.", ValidationType.CollectionHasMaximumCountRequirement, 0, 3)]
 		public List<SFTIPaymentMeansType> PaymentMeans {
 			get {
 				return paymentMeansField;
@@ -244,6 +253,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:sfti:CommonAggregateComponents:1:0")]
+		[PropertyValidationRule("SFTIInvoiceType.LegalTotal is missing.", ValidationType.RequiredNotNull)]
 		public SFTILegalTotalType LegalTotal {
 			get {
 				return legalTotalField;
@@ -255,6 +265,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement("InvoiceLine", Namespace="urn:sfti:CommonAggregateComponents:1:0")]
+		[PropertyValidationRule("SFTIInvoiceType.InvoiceLine is missing.", ValidationType.RequiredNotNull)]
+		[PropertyValidationRule("SFTIInvoiceType.InvoiceLine must contain one or more elements.", ValidationType.CollectionHasMinimumCountRequirement, 1)]
 		public List<SFTIInvoiceLineType> InvoiceLine {
 			get {
 				return invoiceLineField;
@@ -266,6 +278,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement("RequisitionistDocumentReference")]
+		[PropertyValidationRule("SFTIInvoiceType.RequisitionistDocumentReference is missing.", ValidationType.RequiredNotNull)]
+		[PropertyValidationRule("SFTIInvoiceType.RequisitionistDocumentReference must contain one or two elements.", ValidationType.CollectionHasMinumumAndMaximumCountRequirement, 1, 2)]
 		public List<SFTIDocumentReferenceType> RequisitionistDocumentReference {
 			get {
 				return requisitionistDocumentReferenceField;

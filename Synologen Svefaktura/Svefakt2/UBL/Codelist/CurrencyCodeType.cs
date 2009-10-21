@@ -30,17 +30,16 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist {
     
 		private CurrencyCodeContentType valueField;
     
-		public CurrencyCodeType() {
-			codeListIDField = "ISO 4217 Alpha";
-			codeListAgencyIDField = "6";
-			codeListAgencyNameField = "United Nations Economic Commission for Europe";
-			codeListNameField = "Currency";
-			codeListVersionIDField = "0.3";
-			codeListURIField = "http://www.bsi-global.com/Technical%2BInformation/Publications/_Publications/tig9" +
-			                        "0x.doc";
-			codeListSchemeURIField = "urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0";
-			languageIDField = "en";
-		}
+		//public CurrencyCodeType() {
+		//    codeListIDField = "ISO 4217 Alpha";
+		//    codeListAgencyIDField = "6";
+		//    codeListAgencyNameField = "United Nations Economic Commission for Europe";
+		//    codeListNameField = "Currency";
+		//    codeListVersionIDField = "0.3";
+		//    codeListURIField = "http://www.bsi-global.com/Technical%2BInformation/Publications/_Publications/tig90x.doc";
+		//    codeListSchemeURIField = "urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0";
+		//    languageIDField = "en";
+		//}
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlAttribute]

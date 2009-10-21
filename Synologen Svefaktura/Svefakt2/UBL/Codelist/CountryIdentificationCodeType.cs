@@ -30,17 +30,17 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist {
     
 		private CountryIdentificationCodeContentType valueField;
     
-		public CountryIdentificationCodeType() {
-			codeListIDField = "ISO3166-1";
-			codeListAgencyIDField = "6";
-			codeListAgencyNameField = "United Nations Economic Commission for Europe";
-			codeListNameField = "Country";
-			codeListVersionIDField = "0.3";
-			codeListURIField = "http://www.iso.org/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1" +
-			                        "-semic.txt ";
-			codeListSchemeURIField = "urn:oasis:names:tc:ubl:codelist:CountryIdentificationCode:1:0";
-			languageIDField = "en";
-		}
+		//public CountryIdentificationCodeType() {
+		//    codeListIDField = "ISO3166-1";
+		//    codeListAgencyIDField = "6";
+		//    codeListAgencyNameField = "United Nations Economic Commission for Europe";
+		//    codeListNameField = "Country";
+		//    codeListVersionIDField = "0.3";
+		//    codeListURIField = "http://www.iso.org/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1" +
+		//                            "-semic.txt ";
+		//    codeListSchemeURIField = "urn:oasis:names:tc:ubl:codelist:CountryIdentificationCode:1:0";
+		//    languageIDField = "en";
+		//}
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlAttribute]

@@ -1,3 +1,5 @@
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
@@ -29,6 +31,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		private SFTIItemType itemField;
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTIInvoiceLineType.ID is missing.", ValidationType.RequiredNotNull)]
 		public SFTISimpleIdentifierType ID {
 			get {
 				return idField;
@@ -51,6 +54,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[PropertyValidationRule("SFTIInvoiceLineType.LineExtensionAmount is missing.", ValidationType.RequiredNotNull)]
 		public ExtensionAmountType LineExtensionAmount {
 			get {
 				return lineExtensionAmountField;
@@ -112,6 +116,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		}
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTIInvoiceLineType.Item is missing.", ValidationType.RequiredNotNull)]
 		public SFTIItemType Item {
 			get {
 				return itemField;

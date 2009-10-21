@@ -8,7 +8,10 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 	public class TestValidatePartyTaxScheme : AssertionHelper {
 		[Test]
 		public void Test_Complete_PartyTaxScheme_Validates() {
-			var partyTaxScheme = new SFTIPartyTaxSchemeType {CompanyID = new IdentifierType{Value="Company ID"}};
+			var partyTaxScheme = new SFTIPartyTaxSchemeType {
+				CompanyID = new IdentifierType{Value = "Company ID"},
+				TaxScheme = new SFTITaxSchemeType{ID = new IdentifierType{Value = "VAT"}}
+			};
 			var ruleViolations = SvefakturaValidator.ValidateObject(partyTaxScheme);
 			Expect(ruleViolations.Count(), Is.EqualTo(0), SvefakturaValidator.FormatRuleViolations(ruleViolations));
 		}
@@ -17,6 +20,12 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 			var partyTaxScheme = new SFTIPartyTaxSchemeType {CompanyID = null};
 			var ruleViolations = SvefakturaValidator.ValidateObject(partyTaxScheme);
 			Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIPartyTaxSchemeType.CompanyID")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
+		}
+		[Test]
+		public void Test_PartyTaxScheme_Missing_TaxScheme_Fails_Validation() {
+			var partyTaxScheme = new SFTIPartyTaxSchemeType {TaxScheme = null};
+			var ruleViolations = SvefakturaValidator.ValidateObject(partyTaxScheme);
+			Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIPartyTaxSchemeType.TaxScheme")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
 		}
 	}
 }

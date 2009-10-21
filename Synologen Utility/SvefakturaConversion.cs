@@ -15,11 +15,68 @@ using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicCompo
 
 namespace Spinit.Wpc.Synologen.Utility {
 	public static partial class Convert {
-		private static void TryAddTaxTotal(SFTIInvoiceType invoice, decimal? VATAmount) {
-			//if(VATAmount == 0) return;
-			//if(!VATAmount.HasValue) return;
+		private static void TryAddTaxTotal(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, OrderRow order, IEnumerable<IOrderItem> orderItems) {
 			if(invoice.TaxTotal == null) invoice.TaxTotal = new List<SFTITaxTotalType>();
-			invoice.TaxTotal.Add( new SFTITaxTotalType { TaxSubTotal = GetDefaultTaxCategories(VATAmount) });
+			var taxSubTotal = GetDefaultTaxCategories(settings, orderItems, order);
+			invoice.TaxTotal.Add(
+				new SFTITaxTotalType {
+					TaxSubTotal = taxSubTotal,
+					TotalTaxAmount = new TaxAmountType{ Value = (decimal)(order.InvoiceSumIncludingVAT - order.InvoiceSumExcludingVAT), amountCurrencyID="SEK"}
+				} 
+			);
+		}
+
+		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, OrderRow order, List<IOrderItem> orderItems, CompanyRow company ) {
+			if(invoice == null) invoice = new SFTIInvoiceType();
+			var freeTextRows = CommonConversion.GetFreeTextRowsAsString(company, order);
+			invoice.Note = TryGetValue(freeTextRows, new NoteType {Value = freeTextRows});
+			invoice.IssueDate = TryGetValue(settings.InvoiceIssueDate, new IssueDateType {Value = settings.InvoiceIssueDate});
+			invoice.InvoiceTypeCode = TryGetValue(settings.InvoiceTypeCode, new CodeType {Value = settings.InvoiceTypeCode});
+			invoice.ID = TryGetValue(order.InvoiceNumber, new SFTISimpleIdentifierType {Value = order.InvoiceNumber.ToString()});
+			if (order.InvoiceSumIncludingVAT > 0 || order.InvoiceSumExcludingVAT > 0 || (order.RoundOffAmount.HasValue && order.RoundOffAmount.Value > 0)){
+				invoice.LegalTotal = new SFTILegalTotalType {
+					LineExtensionTotalAmount = TryGetLineExtensionAmount(orderItems),
+					TaxExclusiveTotalAmount = TryGetValue(order.InvoiceSumExcludingVAT, new TotalAmountType { Value = (decimal) order.InvoiceSumExcludingVAT, amountCurrencyID = "SEK" }),
+					TaxInclusiveTotalAmount = TryGetValue(order.InvoiceSumIncludingVAT, new TotalAmountType { Value = (decimal) order.InvoiceSumIncludingVAT, amountCurrencyID = "SEK" }),
+					RoundOffAmount = TryGetValue(order.RoundOffAmount, new AmountType{Value = order.RoundOffAmount.GetValueOrDefault(), amountCurrencyID = "SEK"})
+				};
+			}
+			//if(order.InvoiceSumIncludingVAT > 0 && order.InvoiceSumExcludingVAT > 0){
+			//    var totalTaxAmount = order.InvoiceSumIncludingVAT - order.InvoiceSumExcludingVAT;
+			//    invoice.TaxTotal = new List<SFTITaxTotalType>{new SFTITaxTotalType{TotalTaxAmount = new TaxAmountType {Value = (decimal) totalTaxAmount, amountCurrencyID = "SEK"}}};
+			//}
+			invoice.RequisitionistDocumentReference = TryGetValue(order.CustomerOrderNumber, new List<SFTIDocumentReferenceType> {
+					new SFTIDocumentReferenceType {ID = new IdentifierType{Value = order.CustomerOrderNumber}}
+				}
+			);
+			invoice.InvoiceCurrencyCode = TryGetValue(settings.InvoiceCurrencyCode, new CurrencyCodeType {Value = settings.InvoiceCurrencyCode.GetValueOrDefault()});
+		}
+
+		private static void TryAddInvoiceLines(SFTIInvoiceType invoice, IEnumerable<IOrderItem> orderItems, decimal? VATAmount  ) {
+			if(invoice.InvoiceLine == null) invoice.InvoiceLine = new List<SFTIInvoiceLineType>();
+			var lineItemCount = 0;
+			foreach (var orderItem in orderItems){
+				lineItemCount++;
+				invoice.InvoiceLine.Add(
+					new SFTIInvoiceLineType {
+						Item = new SFTIItemType {
+							Description = TryGetValue(orderItem.ArticleDisplayName, new DescriptionType {Value = orderItem.ArticleDisplayName}),
+							SellersItemIdentification = TryGetValue(orderItem.ArticleDisplayNumber, new SFTIItemIdentificationType {ID = new IdentifierType {Value = orderItem.ArticleDisplayNumber}}),
+							BasePrice = new SFTIBasePriceType {
+								PriceAmount = new PriceAmountType {Value = (decimal) orderItem.SinglePrice, amountCurrencyID = "SEK"}
+							},
+							TaxCategory = new List<SFTITaxCategoryType> {
+								(orderItem.NoVAT || !VATAmount.HasValue) ?  GetTaxCategory("E", 0, "VAT") : GetTaxCategory("S", VATAmount.Value*100, "VAT")
+							}
+						},
+						InvoicedQuantity = new QuantityType{Value = orderItem.NumberOfItems, quantityUnitCode = "styck"},
+                        LineExtensionAmount = new ExtensionAmountType { Value = (decimal) orderItem.DisplayTotalPrice, amountCurrencyID="SEK" },
+                        ID = new SFTISimpleIdentifierType{Value = lineItemCount.ToString()},
+						Note = TryGetValue(orderItem.Notes, new NoteType{Value=orderItem.Notes})
+					}
+				);
+			}
+			invoice.LineItemCountNumeric = (lineItemCount <= 0) ? null : new LineItemCountNumericType {Value = lineItemCount};
 		}
 
 		#region SellerParty
@@ -111,7 +168,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 
 		#region PaymentMeans
 		private static void TryAddPaymentMeans(SFTIInvoiceType invoice, string giroNumber, string giroBIC, CompanyRow company, SvefakturaConversionSettings settings) {
-			if (String.IsNullOrEmpty(giroNumber)) return;
+			if (HasNotBeenSet(settings.InvoiceIssueDate) || HasNotBeenSet(giroNumber)) return;
 			if (invoice.PaymentMeans == null) invoice.PaymentMeans = new List<SFTIPaymentMeansType>();
 			invoice.PaymentMeans.Add(
 				new SFTIPaymentMeansType {
@@ -180,7 +237,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 		private static T TryGetValue<T>(IEquatable<DateTime> valueToSet, T properValue) {
 			return valueToSet.Equals(DateTime.MinValue) ? default(T) : properValue;
 		}
-
+		
 		private static List<SFTIPartyTaxSchemeType> GetPartyTaxScheme(string taxAccountingCode, string orgNumber, CountryIdentificationCodeContentType? countryCode, string exemptionReason, string city, string postBox, string streetName, string postalCode  ) {
 			var returnList = new List<SFTIPartyTaxSchemeType>();
 			if(OneOrMoreHaveValue(taxAccountingCode)){
@@ -191,10 +248,10 @@ namespace Spinit.Wpc.Synologen.Utility {
 					}
 				);
 			}
-			if (OneOrMoreHaveValue(countryCode, exemptionReason, orgNumber, city, streetName, postBox, postalCode )){
+			//if (OneOrMoreHaveValue(countryCode, exemptionReason, orgNumber, city, streetName, postBox, postalCode )){
+			if (OneOrMoreHaveValue(exemptionReason, orgNumber)){
 				returnList.Add(
-					new SFTIPartyTaxSchemeType
-					{
+					new SFTIPartyTaxSchemeType {
 						ExemptionReason = TryGetValue(exemptionReason, new ReasonType {Value = exemptionReason}),
 						CompanyID = TryGetValue(orgNumber, new IdentifierType {Value = orgNumber}),
 						RegistrationAddress = GetSFTIAddress(postBox, streetName, postalCode, city, null, countryCode),
@@ -217,57 +274,6 @@ namespace Spinit.Wpc.Synologen.Utility {
 			};
 		}
 
-		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, OrderRow order ) {
-			if(invoice == null) invoice = new SFTIInvoiceType();
-
-			invoice.IssueDate = TryGetValue(settings.InvoiceIssueDate, new IssueDateType {Value = settings.InvoiceIssueDate});
-			invoice.InvoiceTypeCode = TryGetValue(settings.InvoiceTypeCode, new CodeType {Value = settings.InvoiceTypeCode});
-			invoice.ID = TryGetValue(order.InvoiceNumber, new SFTISimpleIdentifierType {Value = order.InvoiceNumber.ToString()});
-
-			if (order.InvoiceSumIncludingVAT > 0 || order.InvoiceSumExcludingVAT > 0 || (order.RoundOffAmount.HasValue && order.RoundOffAmount.Value > 0)){
-				invoice.LegalTotal = new SFTILegalTotalType {
-					TaxExclusiveTotalAmount = TryGetValue(order.InvoiceSumExcludingVAT, new TotalAmountType { Value = (decimal) order.InvoiceSumExcludingVAT, amountCurrencyID = "SEK" }),
-					TaxInclusiveTotalAmount = TryGetValue(order.InvoiceSumIncludingVAT, new TotalAmountType { Value = (decimal) order.InvoiceSumIncludingVAT, amountCurrencyID = "SEK" }),
-					RoundOffAmount = TryGetValue(order.RoundOffAmount, new AmountType{Value = order.RoundOffAmount.GetValueOrDefault(), amountCurrencyID = "SEK"})
-				};
-			}
-			if(order.InvoiceSumIncludingVAT > 0 && order.InvoiceSumExcludingVAT > 0){
-				var totalTaxAmount = order.InvoiceSumIncludingVAT - order.InvoiceSumExcludingVAT;
-				invoice.TaxTotal = new List<SFTITaxTotalType>{new SFTITaxTotalType{TotalTaxAmount = new TaxAmountType {Value = (decimal) totalTaxAmount, amountCurrencyID = "SEK"}}};
-			}
-			invoice.RequisitionistDocumentReference = TryGetValue(order.CustomerOrderNumber, new List<SFTIDocumentReferenceType> {
-					new SFTIDocumentReferenceType {ID = new IdentifierType{Value = order.CustomerOrderNumber}}
-				}
-			);
-			invoice.InvoiceCurrencyCode = TryGetValue(settings.InvoiceCurrencyCode, new CurrencyCodeType {Value = settings.InvoiceCurrencyCode.GetValueOrDefault()});
-		}
-
-		private static void TryAddInvoiceLines(SFTIInvoiceType invoice, IEnumerable<IOrderItem> orderItems, decimal? VATAmount  ) {
-			if(invoice.InvoiceLine == null) invoice.InvoiceLine = new List<SFTIInvoiceLineType>();
-			var lineItemCount = 0;
-			foreach (var orderItem in orderItems){
-				lineItemCount++;
-				invoice.InvoiceLine.Add(
-					new SFTIInvoiceLineType {
-						Item = new SFTIItemType {
-							Description = TryGetValue(orderItem.ArticleDisplayName, new DescriptionType {Value = orderItem.ArticleDisplayName}),
-							SellersItemIdentification = TryGetValue(orderItem.ArticleDisplayNumber, new SFTIItemIdentificationType {ID = new IdentifierType {Value = orderItem.ArticleDisplayNumber}}),
-							BasePrice = new SFTIBasePriceType {
-								PriceAmount = new PriceAmountType {Value = (decimal) orderItem.SinglePrice, amountCurrencyID = "SEK"}
-							},
-							TaxCategory = new List<SFTITaxCategoryType> {
-								(orderItem.NoVAT || !VATAmount.HasValue) ?  GetTaxCategory("E", 0, "VAT") : GetTaxCategory("S", VATAmount.Value*100, "VAT")
-							}
-						},
-						InvoicedQuantity = new QuantityType{Value = orderItem.NumberOfItems, quantityUnitCode = "styck"},
-                        LineExtensionAmount = new ExtensionAmountType { Value = (decimal) orderItem.DisplayTotalPrice, amountCurrencyID="SEK" },
-                        ID = new SFTISimpleIdentifierType{Value = lineItemCount.ToString()}
-					}
-				);
-			}
-			invoice.LineItemCountNumeric = (lineItemCount <= 0) ? null : new LineItemCountNumericType {Value = lineItemCount};
-		}
-
 		private static SFTITaxCategoryType GetTaxCategory(string identifier, decimal percent, string TaxScheme) {
 			return new SFTITaxCategoryType {
 				ID = new IdentifierType {Value = identifier},
@@ -286,15 +292,46 @@ namespace Spinit.Wpc.Synologen.Utility {
 			};
 		}
 
-		private static List<SFTITaxSubTotalType> GetDefaultTaxCategories(decimal? vatAmount) {
+		private static List<SFTITaxSubTotalType> GetDefaultTaxCategories(SvefakturaConversionSettings settings, IEnumerable<IOrderItem> orderItems, OrderRow order) {
 			var returnList = new List<SFTITaxSubTotalType>();
-			if(vatAmount.HasValue && vatAmount.Value> 0){
-				returnList.Add(new SFTITaxSubTotalType {TaxCategory = GetTaxCategory("S", vatAmount.Value*100, "VAT")});
+			decimal taxableAmount, taxAmount, taxFreeAmount;
+			CalculateTaxParameters(orderItems, order, settings, out taxableAmount, out taxAmount, out taxFreeAmount);
+			if(settings.VATAmount>0){
+				returnList.Add(
+					new SFTITaxSubTotalType {
+						TaxCategory = GetTaxCategory("S", settings.VATAmount*100, "VAT"),
+						TaxableAmount = TryGetValue(taxableAmount, new AmountType{Value = taxableAmount, amountCurrencyID ="SEK"}),
+						TaxAmount = TryGetValue(taxAmount, new TaxAmountType{Value = taxAmount, amountCurrencyID ="SEK"})
+					}
+				);
 			}
-			returnList.Add(new SFTITaxSubTotalType {TaxCategory = GetTaxCategory("E", 0m, "VAT")});
+			returnList.Add(new SFTITaxSubTotalType {
+				TaxCategory = GetTaxCategory("E", 0.00m, "VAT"),
+				TaxableAmount = TryGetValue(taxFreeAmount, new AmountType{Value = taxFreeAmount, amountCurrencyID ="SEK"}),
+                TaxAmount = new TaxAmountType{Value=0.00m, amountCurrencyID ="SEK"}
+			});
 			return returnList;
 		}
 
+		private static void CalculateTaxParameters(IEnumerable<IOrderItem> orderItems, OrderRow order, SvefakturaConversionSettings settings,  out decimal taxableAmount, out decimal taxAmount, out decimal taxFreeAmount) {
+			taxableAmount = 0;
+			taxAmount = (decimal) (order.InvoiceSumIncludingVAT - order.InvoiceSumExcludingVAT);
+			taxFreeAmount = 0;
+			foreach (var orderItem in orderItems){
+				var orderItemValue = GetOrderItemTotalValue(orderItem, settings.VATAmount);
+				taxFreeAmount += (orderItem.NoVAT)? orderItemValue : 0;
+				taxableAmount += (orderItem.NoVAT)? 0 : orderItemValue;
+			}
+		}
+		private static decimal GetOrderItemTotalValue(IOrderItem orderItem, decimal vatAmount){
+			return (orderItem.NoVAT) ? (decimal) orderItem.DisplayTotalPrice : (decimal) orderItem.DisplayTotalPrice*(1 + vatAmount);
+		}
+
+		private static ExtensionTotalAmountType TryGetLineExtensionAmount(List<IOrderItem> orderItems) {
+			var result = 0m;
+			orderItems.ForEach( x => result += (decimal) x.DisplayTotalPrice);
+			return (result <= 0) ? null : new ExtensionTotalAmountType {Value = result, amountCurrencyID ="SEK"};
+		}
 		#endregion
 	}
 }

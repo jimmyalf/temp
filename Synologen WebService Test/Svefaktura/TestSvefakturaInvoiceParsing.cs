@@ -70,6 +70,13 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderLines, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual(2m, invoice.LineItemCountNumeric.Value);
 		}
+		[Test]
+		public void Test_Create_Invoice_Sets_Note() {
+		    var customCompany = new CompanyRow{InvoiceFreeTextFormat = "Invoice free text"};
+			//var freeTextRows = CommonConversion.GetFreeTextRows(company, order);
+		    var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
+		    Assert.AreEqual("Invoice free text", invoice.Note.Value);
+		}
 
 		#endregion
 
@@ -380,20 +387,34 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		#region Payment Means
 		[Test]
 		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialAccount_Id_BankGiro_And_PostGiro() {
-			var customSettings = new SvefakturaConversionSettings{BankGiro = "56936677", Postgiro = "123456"};
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			var customSettings = new SvefakturaConversionSettings
+			{
+				BankGiro = "56936677", 
+				Postgiro = "123456",
+				InvoiceIssueDate = new DateTime(2009, 10, 30)
+			};
+			var customCompany = new CompanyRow {PaymentDuePeriod = 30};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, customSettings);
 			Assert.AreEqual(2, invoice.PaymentMeans.Count);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialAccount_Id_BankGiro() {
-			var customSettings = new SvefakturaConversionSettings { BankGiro = "56936677" };
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			var customSettings = new SvefakturaConversionSettings {
+				BankGiro = "56936677",
+				InvoiceIssueDate = new DateTime(2009, 10, 30)
+			};
+			var customCompany = new CompanyRow {PaymentDuePeriod = 30};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, customSettings);
 			Assert.AreEqual("56936677", invoice.PaymentMeans[0].PayeeFinancialAccount.ID.Value);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialAccount_Id_PostGiro() {
-			var customSettings = new SvefakturaConversionSettings { Postgiro = "123456" };
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			var customSettings = new SvefakturaConversionSettings {
+				Postgiro = "123456",
+				InvoiceIssueDate = new DateTime(2009, 10, 30)
+			};
+			var customCompany = new CompanyRow {PaymentDuePeriod = 30};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, customSettings);
 			Assert.AreEqual("123456", invoice.PaymentMeans[0].PayeeFinancialAccount.ID.Value);
 		}
 		[Test]
@@ -411,9 +432,11 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		[Test]
 		public void Test_Create_Invoice_Sets_PaymentMeans_PaymentMeansTypeCode() {
 			var customSettings = new SvefakturaConversionSettings {
-				BankGiro = "56936677"
+				BankGiro = "56936677",
+				InvoiceIssueDate = new DateTime(2009, 10, 30)
 			};
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			var customCompany = new CompanyRow {PaymentDuePeriod = 30};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, customSettings);
 			Assert.AreEqual(PaymentMeansCodeContentType.Item1, invoice.PaymentMeans[0].PaymentMeansTypeCode.Value);
 		}
 		[Test]
@@ -421,17 +444,21 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			var customSettings = new SvefakturaConversionSettings {
 				BankGiro = "56936677",
 				BankgiroBankIdentificationCode = "BGABSESS",
+				InvoiceIssueDate = new DateTime(2009, 10, 30)
 			};
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			var customCompany = new CompanyRow {PaymentDuePeriod = 30};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, customSettings);
 			Assert.AreEqual("BGABSESS", invoice.PaymentMeans[0].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialInstitution() {
 			var customSettings = new SvefakturaConversionSettings {
 				Postgiro = "123456",
-				PostgiroBankIdentificationCode = "PGSISESS"
+				PostgiroBankIdentificationCode = "PGSISESS",
+				InvoiceIssueDate = new DateTime(2009, 10, 30)
 			};
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			var customCompany = new CompanyRow {PaymentDuePeriod = 30};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, customSettings);
 			Assert.AreEqual("PGSISESS", invoice.PaymentMeans[0].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value);
 		}
 		#endregion

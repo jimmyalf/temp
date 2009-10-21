@@ -1,3 +1,5 @@
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
@@ -22,6 +24,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[PropertyValidationRule("SFTITaxSubTotalType.TaxableAmount is missing.", ValidationType.RequiredNotNull)]
 		public AmountType TaxableAmount {
 			get {
 				return taxableAmountField;
@@ -33,6 +36,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[PropertyValidationRule("SFTITaxSubTotalType.TaxAmount is missing.", ValidationType.RequiredNotNull)]
 		public TaxAmountType TaxAmount {
 			get {
 				return taxAmountField;
@@ -43,6 +47,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		}
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTITaxSubTotalType.TaxCategory is missing.", ValidationType.RequiredNotNull)]
 		public SFTITaxCategoryType TaxCategory {
 			get {
 				return taxCategoryField;

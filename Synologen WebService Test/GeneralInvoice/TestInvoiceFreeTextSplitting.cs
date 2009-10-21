@@ -11,7 +11,7 @@ namespace Spinit.Wpc.Synologen.Test.GeneralInvoice {
 			const string testFormat = "{CustomerName}\r\n{CustomerName}";
 			var company = new CompanyRow {InvoiceFreeTextFormat = testFormat};
 			var order = new OrderRow { CustomerFirstName = "Anders", CustomerLastName = "Andersson"};
-			var parsedStrings = Convert.GetFreeTextRows(company, order);
+			var parsedStrings = CommonConversion.GetFreeTextRows(company, order);
 			Assert.AreEqual("Anders Andersson", parsedStrings[0]);
 			Assert.AreEqual("Anders Andersson", parsedStrings[1]);
 		}
@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Test.GeneralInvoice {
 			const string testFormat = " {CustomerName}\r\n{CustomerName} ";
 			var company = new CompanyRow {InvoiceFreeTextFormat = testFormat};
 			var order = new OrderRow { CustomerFirstName = "Anders", CustomerLastName = "Andersson"};
-			var parsedStrings = Convert.GetFreeTextRows(company, order);
+			var parsedStrings = CommonConversion.GetFreeTextRows(company, order);
 			Assert.AreEqual("Anders Andersson", parsedStrings[0]);
 			Assert.AreEqual("Anders Andersson", parsedStrings[1]);
 		}
@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Test.GeneralInvoice {
 			const string testFormat = "{CustomerName}\n{CustomerName}";
 			var company = new CompanyRow {InvoiceFreeTextFormat = testFormat};
 			var order = new OrderRow { CustomerFirstName = "Anders", CustomerLastName = "Andersson"};
-			var parsedStrings = Convert.GetFreeTextRows(company, order);
+			var parsedStrings = CommonConversion.GetFreeTextRows(company, order);
 			Assert.AreEqual("Anders Andersson", parsedStrings[0]);
 			Assert.AreEqual("Anders Andersson", parsedStrings[1]);
 		}
@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Test.GeneralInvoice {
 			const string testFormat = " {CustomerName}\r{CustomerName} ";
 			var company = new CompanyRow {InvoiceFreeTextFormat = testFormat};
 			var order = new OrderRow { CustomerFirstName = "Anders", CustomerLastName = "Andersson"};
-			var parsedStrings = Convert.GetFreeTextRows(company, order);
+			var parsedStrings = CommonConversion.GetFreeTextRows(company, order);
 			Assert.AreEqual("Anders Andersson", parsedStrings[0]);
 			Assert.AreEqual("Anders Andersson", parsedStrings[1]);
 		}

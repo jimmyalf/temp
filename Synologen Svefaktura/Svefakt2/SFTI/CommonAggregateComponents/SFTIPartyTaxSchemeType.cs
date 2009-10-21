@@ -67,6 +67,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		}
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTIPartyTaxSchemeType.TaxScheme is missing.", ValidationType.RequiredNotNull)]
 		public SFTITaxSchemeType TaxScheme {
 			get {
 				return taxSchemeField;

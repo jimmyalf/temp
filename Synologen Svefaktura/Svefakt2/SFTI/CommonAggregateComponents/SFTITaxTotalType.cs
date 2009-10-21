@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
@@ -17,6 +19,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement(Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0")]
+		[PropertyValidationRule("SFTITaxTotalType.TaxTotalAmount is missing.", ValidationType.RequiredNotNull)]
 		public TaxAmountType TotalTaxAmount {
 			get {
 				return totalTaxAmountField;

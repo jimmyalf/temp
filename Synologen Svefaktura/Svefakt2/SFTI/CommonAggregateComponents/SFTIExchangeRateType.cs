@@ -1,3 +1,5 @@
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
@@ -24,6 +26,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		private DateType dateField;
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTIExchangeRateType.SourceCurrencyCode is missing.", ValidationType.RequiredNotNull)]
 		public CurrencyCodeType SourceCurrencyCode {
 			get {
 				return sourceCurrencyCodeField;
@@ -45,6 +48,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		}
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTIExchangeRateType.TargetCurrencyCode is missing.", ValidationType.RequiredNotNull)]
 		public CurrencyCodeType TargetCurrencyCode {
 			get {
 				return targetCurrencyCodeField;

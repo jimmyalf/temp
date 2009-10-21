@@ -1,3 +1,5 @@
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 using PercentType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
@@ -21,6 +23,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		private SFTITaxSchemeType taxSchemeField;
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTITaxCategoryType.ID is missing.", ValidationType.RequiredNotNull)]
 		public IdentifierType ID {
 			get {
 				return idField;
@@ -53,6 +56,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		}
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTITaxCategoryType.TaxScheme is missing.", ValidationType.RequiredNotNull)]
 		public SFTITaxSchemeType TaxScheme {
 			get {
 				return taxSchemeField;

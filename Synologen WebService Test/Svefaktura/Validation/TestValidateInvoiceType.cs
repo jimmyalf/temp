@@ -20,13 +20,27 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 			var invoice = new SFTIInvoiceType {
 			    ID = new SFTISimpleIdentifierType {Value = "123456"},
 			    IssueDate = new IssueDateType {Value = new DateTime(2009, 10, 19)},
+				TaxPointDate = new TaxPointDateType {Value = new DateTime(2009, 10, 19)},
 			    InvoiceTypeCode = new CodeType {Value = "380"},
 			    LineItemCountNumeric = new LineItemCountNumericType {Value = 1},
 			    SellerParty = new SFTISellerPartyType(),
 			    BuyerParty = new SFTIBuyerPartyType(),
-			    LegalTotal = new SFTILegalTotalType(),
-			    InvoiceLine = new List<SFTIInvoiceLineType>{new SFTIInvoiceLineType()},
-			    RequisitionistDocumentReference = new List<SFTIDocumentReferenceType>{new SFTIDocumentReferenceType()}
+			    LegalTotal = new SFTILegalTotalType {
+					LineExtensionTotalAmount = new ExtensionTotalAmountType{Value=123.45m},
+					TaxInclusiveTotalAmount = new TotalAmountType{Value = 543.21m}
+				},
+			    InvoiceLine = new List<SFTIInvoiceLineType> {
+			    	new SFTIInvoiceLineType{
+			    		ID = new SFTISimpleIdentifierType{Value = "1"},
+						LineExtensionAmount = new ExtensionAmountType{Value = 123.45m},
+						Item = new SFTIItemType()
+			    	}
+			    },
+			    RequisitionistDocumentReference = new List<SFTIDocumentReferenceType> {
+			    	new SFTIDocumentReferenceType {
+			    		ID = new IdentifierType{Value = "Reference"}
+			    	}
+			    }
 			};
 			var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
 			Expect(ruleViolations.Count(), Is.EqualTo(0), SvefakturaValidator.FormatRuleViolations(ruleViolations));

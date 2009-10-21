@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
 using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
-using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Utility.Types;
 
@@ -228,6 +228,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 
 		public static IEnumerable<RuleViolation> ValidateObject(object value) {
             if(value == null || value.GetType().IsSealed) yield break;
+			foreach (var ruleViolation in GetCustomRuleViolations(value)){ yield return ruleViolation; }
             foreach (var propertyInfo in value.GetType().GetProperties()) { //Iterate each property in value object
                 var propertyValue = propertyInfo.GetValue(value, null);
                 foreach(var ruleViolation in GetRuleViolations(value.GetType().Name, propertyValue, propertyInfo)) { //Get violations for property value
@@ -248,6 +249,16 @@ namespace Spinit.Wpc.Synologen.Utility {
             yield break;
         }
 
+		private static IEnumerable<RuleViolation> GetCustomRuleViolations(object value) {
+			if (value is SFTIInvoiceType) return CustomValidateObject(value as SFTIInvoiceType);
+			return new Collection<RuleViolation>() ;
+		}
+
+		private static IEnumerable<RuleViolation> CustomValidateObject(SFTIInvoiceType value) { 
+			if(value == null) yield break;
+			if(value.TaxPointDate == null) 
+				yield return new RuleViolation("SFTIInvoiceType.TaxPointDate is missing.","SFTIInvoiceType.TaxPointDate");
+		}
 
 		private static IEnumerable<RuleViolation> GetRuleViolations(string parentObjectname, object propertyValue, MemberInfo propertyInfo) {
             var properties = propertyInfo.GetCustomAttributes(typeof(PropertyValidationRule),true);

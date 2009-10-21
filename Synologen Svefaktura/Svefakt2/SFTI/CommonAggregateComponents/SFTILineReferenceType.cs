@@ -1,3 +1,5 @@
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
@@ -15,6 +17,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		private SFTIDocumentReferenceType documentReferenceField;
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTILineReferenceType.LineID is missing.", ValidationType.RequiredNotNull)]
 		public IdentifierType LineID {
 			get {
 				return lineIDField;

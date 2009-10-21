@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
@@ -21,6 +23,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		private List<NameType> payeePartyNameField;
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTIPaymentMeansType.PaymentMeansTypeCode is missing.", ValidationType.RequiredNotNull)]
 		public PaymentMeansCodeType PaymentMeansTypeCode {
 			get {
 				return paymentMeansTypeCodeField;

@@ -59,6 +59,7 @@
     <Compile Include="General.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SvefakturaConversion.cs" />
+    <Compile Include="CommonConversion.cs" />
     <Compile Include="Types\EDIConversionSettings.cs" />
     <Compile Include="Types\RuleViolation.cs" />
     <Compile Include="Types\SvefakturaConversionSettings.cs" />

@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
 namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents {
@@ -34,6 +36,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlArrayItem("Name", Namespace="urn:oasis:names:tc:ubl:CommonBasicComponents:1:0", IsNullable=false)]
+		[PropertyValidationRule("SFTIPartyType.PartyName is missing.", ValidationType.RequiredNotNull)]
+		[PropertyValidationRule("SFTIPartyType.PartyName is must contain one or more elements.", ValidationType.CollectionHasMinimumCountRequirement, 1)]
 		public List<NameType> PartyName {
 			get {
 				return partyNameField;
@@ -44,6 +48,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponent
 		}
     
 		/// <remarks/>
+		[PropertyValidationRule("SFTIPartyType.Address is missing.", ValidationType.RequiredNotNull)]
 		public SFTIAddressType Address {
 			get {
 				return addressField;

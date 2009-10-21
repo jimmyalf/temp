@@ -30,15 +30,15 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist {
     
 		private PaymentMeansCodeContentType valueField;
     
-		public PaymentMeansCodeType() {
-			codeListIDField = "UN/ECE 4461";
-			codeListAgencyIDField = "6";
-			codeListAgencyNameField = "United Nations Economic Commission for Europe";
-			codeListNameField = "Payment Means";
-			codeListVersionIDField = "D03A";
-			codeListURIField = "http://www.unece.org/trade/untdid/d03a/tred/tred4461.htm";
-			codeListSchemeURIField = "urn:oasis:names:tc:ubl:codelist:PaymentMeansCode:1:0";
-		}
+		//public PaymentMeansCodeType() {
+		//    codeListIDField = "UN/ECE 4461";
+		//    codeListAgencyIDField = "6";
+		//    codeListAgencyNameField = "United Nations Economic Commission for Europe";
+		//    codeListNameField = "Payment Means";
+		//    codeListVersionIDField = "D03A";
+		//    codeListURIField = "http://www.unece.org/trade/untdid/d03a/tred/tred4461.htm";
+		//    codeListSchemeURIField = "urn:oasis:names:tc:ubl:codelist:PaymentMeansCode:1:0";
+		//}
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlAttribute]

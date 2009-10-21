@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2731D6EA-3A53-4F8B-A78E-15D3864F8148}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Synologen.Test</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Test</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GeneralInvoice\TestInvoiceFreeTextParsing.cs" />
+    <Compile Include="GeneralInvoice\TestInvoiceFreeTextSplitting.cs" />
+    <Compile Include="Site\TestCustomOrderValidation.cs" />
+    <Compile Include="Site\TestValidationTypeRequired.cs" />
+    <Compile Include="Svefaktura\TestSvefakturaInvoiceParsing.cs" />
+    <Compile Include="Mock\Utility.cs" />
+    <Compile Include="Mock\MockAdkHandler.cs" />
+    <Compile Include="Mock\MockWebServiceClient.cs" />
+    <Compile Include="EDI\TestEDIInvoiceParsing.cs" />
+    <Compile Include="Mock\TestMockFlow.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateInvoiceLineAllowanceCharge.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateCustomRules.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateAddressLine.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateAllowanceCharge.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateBasePrice.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateCodeType.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateDocumentReference.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateExchangeRate.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateInvoiceLine.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateIssueDateType.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateItemIdentification.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateLegalTotal.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateLineItemCountNumericType.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateInvoiceType.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateLineReference.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateParty.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidatePartyIdentification.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidatePartyName.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidatePartyTaxScheme.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidatePaymentMeans.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateSimpleIdentifierType.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateTaxCategory.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateTaxScheme.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateTaxSubTotal.cs" />
+    <Compile Include="Svefaktura\Validation\TestValidateTaxTotal.cs" />
+    <Compile Include="Visma\TestVisma.cs" />
+    <Compile Include="Svefaktura\TestMockXmlSerialization.cs" />
+    <Compile Include="Visma\TestVismaFormatting.cs" />
+    <Compile Include="Webservice\TestWebService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EDI\TestEDI.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
+      <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
+      <Name>Synologen Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Data\Synologen Data.csproj">
+      <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
+      <Name>Synologen Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen EDI\Synologen EDI.csproj">
+      <Project>{8554B3AF-CA2A-499F-B921-A80804B99056}</Project>
+      <Name>Synologen EDI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen ServiceLibrary\Synologen ServiceLibrary.csproj">
+      <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
+      <Name>Synologen ServiceLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Site\Synologen Site.csproj">
+      <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
+      <Name>Synologen Site</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Svefaktura\Synologen Svefaktura.csproj">
+      <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
+      <Name>Synologen Svefaktura</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Utility\Synologen Utility.csproj">
+      <Project>{84326EE0-5F6E-4133-A852-AF781AF74682}</Project>
+      <Name>Synologen Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Visma\Synologen Visma.csproj">
+      <Project>{F83AEC3E-114B-42F9-AF36-12B985FB1EFC}</Project>
+      <Name>Synologen Visma</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen WebService\Synologen WebService.csproj">
+      <Project>{74466C1B-0F03-4356-BA44-CF8983F5347E}</Project>
+      <Name>Synologen WebService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Adk.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

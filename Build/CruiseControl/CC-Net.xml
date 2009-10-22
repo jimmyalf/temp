@@ -10,7 +10,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 		<modificationDelaySeconds>60</modificationDelaySeconds>
 	  
 		<sourcecontrol type="svn">
-			<executable>C:\Program\SlikSvn\bin\svn.exe</executable>
+			<executable>C:\Program\CollabNet Subversion Client\svn.exe</executable>
 			<trunkUrl>https://10.1.1.101:8443/svn/wpc/Customer Specific/Synologen</trunkUrl>
 			<username>ccnet</username>
 			<password>cruisecontrol</password>
@@ -47,8 +47,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 				</files>
 			</merge>		
 			<xmllogger />
-			<email mailhost="mail.esend.nu" from="cruisecontrol_wpc@spinit.se">
-				<includeDetails>False</includeDetails>
+			<email mailhost="mail.esend.nu" from="cruisecontrol_wpc@spinit.se" includeDetails="true">
 				<users>
 					<user name="cber" address="carl.berg@spinit.se" group="buildmaster" />
 				</users>
@@ -57,7 +56,12 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 					<group name="developer" notification="Change" />
 				</groups>
 				<converters />
-				<modifierNotificationTypes />
+				<subjectSettings>
+					<subject buildResult="Success" value="Build successful for ${CCNetProject}!" />
+					<subject buildResult="Broken" value="Build for ${CCNetProject} broke at ${CCNetBuildDate} ${CCNetBuildTime}, last checkin(s) by ${CCNetFailureUsers}" />
+					<subject buildResult="StillBroken" value="Build is still broken for ${CCNetProject}, the fix failed." />
+					<subject buildResult="Fixed" value="The build for ${CCNetProject} was fixed!" />
+				</subjectSettings>
 			</email>
 		</publishers>
   </project>

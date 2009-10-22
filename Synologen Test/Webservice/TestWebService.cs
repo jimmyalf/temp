@@ -9,7 +9,7 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 		private ClientContract client;
 		private string connectionString;
 
-		[TestFixtureSetUp]
+		//[TestFixtureSetUp]
 		[Ignore]
 		//TODO: Make into integrationtest
 		public void Setup() {
@@ -20,13 +20,13 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 			connectionString = "Initial Catalog=dbWpcSynologen;Data Source=BLACK;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
 		}
 
-		[TestFixtureTearDown]
+		//[TestFixtureTearDown]
 		[Ignore]
 		public void TearDown() {
 			client.Close();
 		}
 
-		[Test]
+		//[Test]
 		[Ignore]
 		public void OfflineGetOrdersForInvoicing(){
 			var service = new SynologenService(connectionString);
@@ -35,7 +35,7 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 			Assert.LessOrEqual(0, orders.Count);
 		}
 
-		[Test]
+		//[Test]
 		[Ignore]
 		public void OfflineGetOrderItems(){
 			var service = new SynologenService(connectionString);
@@ -48,7 +48,7 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 			}
 		}
 
-		[Test]
+		//[Test]
 		[Ignore]
 		public void WebServiceGetOrdersForInvoicing(){
 			var orders = client.GetOrdersForInvoicing();
@@ -56,7 +56,7 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 			Assert.LessOrEqual(0, orders.Count);
 		}
 
-		[Test]
+		//[Test]
 		[Ignore]
 		public void WebServiceGetOrderItems(){
 			var orders = client.GetOrdersForInvoicing();
@@ -69,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 		}
 
 
-		[Test]
+		//[Test]
 		[Ignore ("Does not need constant testing")]
 		public void SendEmail() {
 			client.SendEmail(

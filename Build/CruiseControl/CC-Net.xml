@@ -5,6 +5,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 -->
 	
 	<project name="Wpc.Synologen" queue="WpcQueue" queuePriority="1">
+		<workingDirectory>C:\Develop\WPC4\Current\CustomerSpecific\Synologen\</workingDirectory>
 		<webURL>http://10.1.1.170/cruicecontrol/server/local/project/Wpc.Synologen/ViewProjectReport.aspx</webURL>
 		<modificationDelaySeconds>60</modificationDelaySeconds>
 	  
@@ -15,21 +16,36 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 			<password>cruisecontrol</password>
 			<workingDirectory>C:\Develop\WPC4\Current\CustomerSpecific\Synologen</workingDirectory>
 		</sourcecontrol>
+		
+		<prebuild>
+			<nant>
+				<executable>..\..\Dependencies\Tools\NAnt\NAnt.exe</executable>
+				<baseDirectory>Build\Scripts\</baseDirectory>
+				<buildFile>CI-PreBuild.build</buildFile>
+			</nant>
+		</prebuild>		
 	  
 		<triggers>
 			<intervalTrigger seconds="120" />
 		</triggers>
 	  
 		<tasks>
-			<devenv>
-				<solutionfile>C:\Develop\WPC4\Current\CustomerSpecific\Synologen\Synologen.sln</solutionfile>
-				<configuration>Release</configuration>
-				<buildtype>Build</buildtype>
-				<buildTimeoutSeconds>600</buildTimeoutSeconds>
-			</devenv>
+			<msbuild>
+				<executable>C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe</executable>
+				<workingDirectory>Build\Scripts\</workingDirectory>
+				<projectFile>Build.msbuild</projectFile>
+				<buildArgs>/p:Configuration=ContinuousBuild</buildArgs>
+				<timeout>600</timeout>
+				<logger>C:\Program\CruiseControl.NET-1.4.4\server\ThoughtWorks.CruiseControl.MsBuild.dll</logger>
+			</msbuild>
 		</tasks>
 	  
 		<publishers>
+			<merge>
+				<files>        
+					<file>Build\Reports\*-Results.xml</file>
+				</files>
+			</merge>		
 			<xmllogger />
 			<email mailhost="mail.esend.nu" from="cruisecontrol_wpc@spinit.se">
 				<includeDetails>False</includeDetails>

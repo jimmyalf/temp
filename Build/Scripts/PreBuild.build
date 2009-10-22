@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<project name="PreBuild" default="PreBuild">
+	<target name="PreBuild" description="Performing prebuild tasks (NAnt)">
+		<echo message="Performing prebuild tasks (NAnt)" />
+
+		<delete>
+			<fileset>
+				<include name="..\Reports\**.*" />
+			</fileset>
+		</delete>
+	</target>
+</project>

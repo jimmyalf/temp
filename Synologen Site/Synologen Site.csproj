@@ -242,6 +242,6 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)Build\Post-Build-Site.bat"</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-Site.bat"</PostBuildEvent>
   </PropertyGroup>
 </Project>

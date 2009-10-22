@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
 using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Utility.Types;
 
@@ -164,58 +165,58 @@ namespace Spinit.Wpc.Synologen.Utility {
 		//    }
 		//}
 
-		//private static IEnumerable<RuleViolation> ValidateControlAmounts(SFTIInvoiceType invoice) {
-		//    if(invoice == null) yield break;
-		//    decimal sumLineExtensionAmount = 0;
-		//    if( invoice.InvoiceLine != null){
-		//        foreach (var invoiceLine in invoice.InvoiceLine){
-		//            if (invoiceLine.LineExtensionAmount != null){
-		//                sumLineExtensionAmount += invoiceLine.LineExtensionAmount.Value;
-		//                foreach (var ruleValidation in ValidateControlLineExtensionAmount(invoiceLine)) { yield return ruleValidation; }
-		//            }
-		//        }
-		//        if(invoice.LineItemCountNumeric != null && invoice.LineItemCountNumeric.Value != invoice.InvoiceLine.Count) {
-		//            yield return new RuleViolation("LineItemCountNumeric does not match control calculated amount.","SFTIInvoiceType.LineItemCountNumeric");	
-		//        }
-		//    }
-		//    if(invoice.LegalTotal != null && invoice.LegalTotal.LineExtensionTotalAmount != null && invoice.LegalTotal.LineExtensionTotalAmount.Value != sumLineExtensionAmount){
-		//        yield return new RuleViolation("LegalTotal LineExtensionTotalAmount does not match control calculated amount.","SFTIInvoiceType.LegalTotal.LineExtensionTotalAmount");
-		//    }
-		//    if(invoice.LegalTotal != null && invoice.LegalTotal.TaxInclusiveTotalAmount != null){
-		//        var totalTaxAmount = GetTaxTotalAmountValue(invoice.TaxTotal);
-		//        var roundOff = (invoice.LegalTotal.RoundOffAmount == null) ? 0 : invoice.LegalTotal.RoundOffAmount.Value;
-		//        var lineExtensionTotalAmount = (invoice.LegalTotal.LineExtensionTotalAmount == null) ? 0 : invoice.LegalTotal.LineExtensionTotalAmount.Value;
-		//        if(lineExtensionTotalAmount + totalTaxAmount + roundOff != invoice.LegalTotal.TaxInclusiveTotalAmount.Value){
-		//            yield return new RuleViolation("LegalTotal TaxInclusiveTotalAmount does not match control calculated amount.","SFTIInvoiceType.LegalTotal.TaxInclusiveTotalAmount");	
-		//        }
-		//    }
-		//}
+		private static IEnumerable<RuleViolation> ValidateControlAmounts(SFTIInvoiceType invoice) {
+		    if(invoice == null) yield break;
+		    decimal sumLineExtensionAmount = 0;
+		    if( invoice.InvoiceLine != null){
+		        foreach (var invoiceLine in invoice.InvoiceLine){
+		            if (invoiceLine.LineExtensionAmount != null){
+		                sumLineExtensionAmount += invoiceLine.LineExtensionAmount.Value;
+		                foreach (var ruleValidation in ValidateControlLineExtensionAmount(invoiceLine)) { yield return ruleValidation; }
+		            }
+		        }
+		        if(invoice.LineItemCountNumeric != null && invoice.LineItemCountNumeric.Value != invoice.InvoiceLine.Count) {
+		            yield return new RuleViolation("LineItemCountNumeric does not match control calculated amount.","SFTIInvoiceType.LineItemCountNumeric");	
+		        }
+		    }
+		    if(invoice.LegalTotal != null && invoice.LegalTotal.LineExtensionTotalAmount != null && invoice.LegalTotal.LineExtensionTotalAmount.Value != sumLineExtensionAmount){
+		        yield return new RuleViolation("LegalTotal LineExtensionTotalAmount does not match control calculated amount.","SFTILegalTotalType.LineExtensionTotalAmount");
+		    }
+		    if(invoice.LegalTotal != null && invoice.LegalTotal.TaxInclusiveTotalAmount != null && invoice.TaxTotal != null){
+		        var totalTaxAmount = GetTaxTotalAmountValue(invoice.TaxTotal);
+		        var roundOff = (invoice.LegalTotal.RoundOffAmount == null) ? 0 : invoice.LegalTotal.RoundOffAmount.Value;
+		        var lineExtensionTotalAmount = (invoice.LegalTotal.LineExtensionTotalAmount == null) ? 0 : invoice.LegalTotal.LineExtensionTotalAmount.Value;
+		        if(lineExtensionTotalAmount + totalTaxAmount + roundOff != invoice.LegalTotal.TaxInclusiveTotalAmount.Value){
+		            yield return new RuleViolation("LegalTotal TaxInclusiveTotalAmount does not match control calculated amount.","SFTILegalTotalType.TaxInclusiveTotalAmount");	
+		        }
+		    }
+		}
 
-		//private static IEnumerable<RuleViolation> ValidateControlLineExtensionAmount(SFTIInvoiceLineType invoiceLine) {
-		//    if (invoiceLine.Item == null || invoiceLine.InvoicedQuantity == null || invoiceLine.Item.BasePrice == null || invoiceLine.Item.BasePrice.PriceAmount == null)yield break;
-		//    var expectedLineExtensionAmount = invoiceLine.Item.BasePrice.PriceAmount.Value*invoiceLine.InvoicedQuantity.Value;
-		//    var allowanceCharge = GetAllowanceChargeValue(invoiceLine.AllowanceCharge);
-		//    if (expectedLineExtensionAmount != invoiceLine.LineExtensionAmount.Value - allowanceCharge){
-		//        yield return new RuleViolation("InvoiceLine LineExtensionAmount does not match control calculated amount.", "SFTIInvoiceType.InvoiceLine.LineExtensionAmount");
-		//    }
+		private static IEnumerable<RuleViolation> ValidateControlLineExtensionAmount(SFTIInvoiceLineType invoiceLine) {
+		    if (invoiceLine.Item == null || invoiceLine.InvoicedQuantity == null || invoiceLine.Item.BasePrice == null || invoiceLine.Item.BasePrice.PriceAmount == null)yield break;
+		    var expectedLineExtensionAmount = invoiceLine.Item.BasePrice.PriceAmount.Value*invoiceLine.InvoicedQuantity.Value;
+		    var allowanceCharge = GetAllowanceChargeValue(invoiceLine.AllowanceCharge);
+		    if (expectedLineExtensionAmount != invoiceLine.LineExtensionAmount.Value - allowanceCharge){
+		        yield return new RuleViolation("InvoiceLine LineExtensionAmount does not match control calculated amount.", "SFTIInvoiceLineType.LineExtensionAmount");
+		    }
 
-		//}
+		}
 
-		//private static decimal GetAllowanceChargeValue(SFTIInvoiceLineAllowanceCharge allowanceCharge) {
-		//    if (allowanceCharge == null || allowanceCharge.Amount == null) return 0;
-		//    if (allowanceCharge.ChargeIndicator == null) return allowanceCharge.Amount.Value;
-		//    return (allowanceCharge.ChargeIndicator.Value) ? allowanceCharge.Amount.Value : allowanceCharge.Amount.Value*-1;
-		//}
+		private static decimal GetAllowanceChargeValue(SFTIInvoiceLineAllowanceCharge allowanceCharge) {
+		    if (allowanceCharge == null || allowanceCharge.Amount == null) return 0;
+		    if (allowanceCharge.ChargeIndicator == null) return allowanceCharge.Amount.Value;
+		    return (allowanceCharge.ChargeIndicator.Value) ? allowanceCharge.Amount.Value : allowanceCharge.Amount.Value*-1;
+		}
 
-		//private static decimal GetTaxTotalAmountValue(IEnumerable<SFTITaxTotalType> taxTotals) {
-		//    if (taxTotals == null) return 0;
-		//    decimal counter = 0;
-		//    foreach (var taxTotal in taxTotals){
-		//        if(taxTotal.TotalTaxAmount == null) continue;
-		//        counter += taxTotal.TotalTaxAmount.Value;
-		//    }
-		//    return counter;
-		//}
+		private static decimal GetTaxTotalAmountValue(IEnumerable<SFTITaxTotalType> taxTotals) {
+		    if (taxTotals == null) return 0;
+		    decimal counter = 0;
+		    foreach (var taxTotal in taxTotals){
+		        if(taxTotal.TotalTaxAmount == null) continue;
+		        counter += taxTotal.TotalTaxAmount.Value;
+		    }
+		    return counter;
+		}
 
 		public static string FormatRuleViolations(IEnumerable<RuleViolation> ruleViolations) {
 			var returnString = String.Empty;
@@ -251,13 +252,38 @@ namespace Spinit.Wpc.Synologen.Utility {
 
 		private static IEnumerable<RuleViolation> GetCustomRuleViolations(object value) {
 			if (value is SFTIInvoiceType) return CustomValidateObject(value as SFTIInvoiceType);
+			if (value is SFTIInvoiceLineType) return CustomValidateObject(value as SFTIInvoiceLineType);
+			if (value is SFTIPartyTaxSchemeType) return CustomValidateObject(value as SFTIPartyTaxSchemeType);
 			return new Collection<RuleViolation>() ;
 		}
 
 		private static IEnumerable<RuleViolation> CustomValidateObject(SFTIInvoiceType value) { 
 			if(value == null) yield break;
-			if(value.TaxPointDate == null) 
+			if(value.TaxPointDate == null) {
 				yield return new RuleViolation("SFTIInvoiceType.TaxPointDate is missing.","SFTIInvoiceType.TaxPointDate");
+			}
+			if(value.TaxCurrencyCode == null) {
+				yield return new RuleViolation("SFTIInvoiceType.TaxCurrencyCode is missing.","SFTIInvoiceType.TaxCurrencyCode");
+			}
+			if(value.InvoiceTypeCode != null && value.InvoiceTypeCode.Value != null && value.InvoiceTypeCode.Value.Equals("381") && value.InitialInvoiceDocumentReference == null){
+				yield return new RuleViolation("SFTIInvoiceType.InitialInvoiceDocumentReference is missing (mandatory on credit invoices).","SFTIInvoiceType.InitialInvoiceDocumentReference");
+			}
+			foreach (var ruleViolation in ValidateControlAmounts(value)){ yield return ruleViolation; }
+		}
+		private static IEnumerable<RuleViolation> CustomValidateObject(SFTIInvoiceLineType value) { 
+			if(value == null) yield break;
+			if(value.InvoicedQuantity == null) {
+				yield return new RuleViolation("SFTIInvoiceLineType.InvoicedQuantity is missing.","SFTIInvoiceLineType.InvoicedQuantity");
+			}
+			if(value.Item != null && value.Item.Description == null && value.Note == null) {
+				yield return new RuleViolation("SFTIItemType.Description is missing and SFTIInvoiceLine.Note has not been set.","SFTIItemType.Description");
+			}
+		}
+		private static IEnumerable<RuleViolation> CustomValidateObject(SFTIPartyTaxSchemeType value) { 
+			if(value == null) yield break;
+			if(value.TaxScheme != null && value.TaxScheme.ID != null && value.TaxScheme.ID.Value != null && value.TaxScheme.ID.Value.Equals("SWT") && value.ExemptionReason == null) {
+				yield return new RuleViolation("SFTIPartyTaxSchemeType.ExemptionReason is missing for Taxscheme type SWT.","SFTIPartyTaxSchemeType.ExemptionReason");
+			}
 		}
 
 		private static IEnumerable<RuleViolation> GetRuleViolations(string parentObjectname, object propertyValue, MemberInfo propertyInfo) {

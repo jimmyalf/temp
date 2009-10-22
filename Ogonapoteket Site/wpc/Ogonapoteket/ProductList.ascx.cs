@@ -16,7 +16,7 @@ using Spinit.Wpc.Content.Data;
 namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 
 	/// <summary>
-	/// 
+	/// Generates list of products with name and image
 	/// </summary>
 	public partial class ProductList : UserControl{
 
@@ -29,7 +29,6 @@ namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 		private int _gotoPageNo = -1;
 		private Dictionary<int, ProductCategory> _categoryDictionary = new Dictionary<int, ProductCategory>();
 		private Queue<string> _selectedUrlCategoryPath = new Queue<string>();
-		//private string _lastSelectedCategoryId = String.Empty;
 		private Collection<int> _selectedParents = new Collection<int>();
 		private string _keyWords = string.Empty;
 
@@ -38,7 +37,6 @@ namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 		
 
 		protected void Page_Load(object sender, EventArgs e){
-			//ltCategoryName.Text = string.Empty;
 			GetProductDisplayPage();
 			GetSelectedCategoryPath();
 			InitializeControl();
@@ -95,27 +93,6 @@ namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 			}
 		}
 
-		private void PopulateCategories()
-		{
-			var bProductCategory = new BProductCategory(UserContext.CurrentCommerce);
-			List<ProductCategory> productCategoryList;
-			bProductCategory.GetProductCategories(
-				null,  //product
-				null,  //parent
-				null,  //attribute
-				null,  //name
-				true,  //root
-				new ProductCategoryFill(),
-				out productCategoryList);
-
-			foreach (var productCategory in productCategoryList){
-				PopulateCategoryListChild(productCategory);
-			}
-
-			var repeater = CreateAndBindRepeaterToCategories(productCategoryList);
-			phCategories.Controls.Add(repeater);
-		}
-
 		private void PopulateProducts(int categoryId){
 			var productCategoryFill = GetProductCategoryFill();
 			var products = new List<Product>();
@@ -147,26 +124,8 @@ namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 					products.AddRange(productCategory.Products);
 				}
 			}
-			/*
-			else {
-				BProduct bProduct = new BProduct(SessionContext.UserContext.CurrentCommerce);
-				Error err = bProduct.GetProducts(
-					null, //productCategory
-					null, //parent
-					null, //displayType
-					null, //attribute
-					null, //order
-					null, //orderItem
-					null, //name
-					true, //root
-					productCategoryFill.ProductFill, 
-					out products);
+			
 
-				if (err.HasErrors || products == null) {
-					return;
-				}
-			}
-			*/
 			if (products.Count <= 0) return;
 			rptProducts.DataSource = null;
 			rptProducts.DataSource = products;
@@ -246,31 +205,6 @@ namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 
 			UserContext.CurrentCommerce = context;
 		}
-
-		//private void GoToArticles(RepeaterCommandEventArgs e, int productId)
-		//{
-		//    throw new NotImplementedException();
-
-		//    //TODO: Databind articles
-		//    //BProduct bProduct = new BProduct(SessionContext.UserContext.CurrentCommerce);
-		//    //ProductCategoryFill productCategoryFill = GetProductCategoryFill();
-		//    //List<Core.Product> articles = new List<Core.Product>();
-
-		//    //if (productId > 0) {
-		//    //    Core.Product product;
-		//    //    Error err = bProduct.GetProduct(productId, productCategoryFill.ProductFill, out product);
-
-		//    //    if (err.HasErrors || product == null) {
-		//    //        return;
-		//    //    }
-
-		//    //    articles.AddRange(product.Articles);
-		//    //}
-
-		//    //if (articles.Count > 0) {
-		//    //    //Databind articles
-		//    //}
-		//}
 
 		#endregion
 
@@ -369,19 +303,6 @@ namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 			throw new Exception("Selected category could not be found");
 		}
 
-		private void AddToHeaderMeta() {
-			if (string.IsNullOrEmpty(_keyWords)) return;
-			var newMetaTag = new HtmlMeta { Name = "keywords", Content = HttpUtility.HtmlEncode(_keyWords) };
-			const string matchPattern = "(?<first><meta name=\"keywords\" content=\")(.*?)(?<last>\".*>)";
-			var headercontrol = GetHeaderObject();
-			if (headercontrol == null || !KeywordTagExistsInHeader(headercontrol.Text, matchPattern)) {
-				Page.Header.Controls.Add(newMetaTag);
-				return;
-			}
-			var replacementPattern = "${first}" + HttpUtility.HtmlEncode(_keyWords) + "${last}";
-			headercontrol.Text = Regex.Replace(headercontrol.Text, matchPattern, replacementPattern);
-		}
-
 		private static bool KeywordTagExistsInHeader(string input, string regexMatch) {
 			return Regex.IsMatch(input, regexMatch, RegexOptions.IgnoreCase);
 		}
@@ -420,19 +341,6 @@ namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 			return false;
 		}
         
-		//private int GetCategory() 
-		//{
-		//    string category = Request.QueryString["category"];
-		//    if (!String.IsNullOrEmpty(category)) {
-		//        int parsedCategory;
-
-		//        if (int.TryParse(category, out parsedCategory)) {
-		//            return parsedCategory;
-		//        }
-		//    }
-
-		//    return 0;
-		//}
 
 		private static ProductCategoryFill GetProductCategoryFill(){
 			var productCategoryFill = new ProductCategoryFill {
@@ -513,41 +421,7 @@ namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 				}
 			}
 
-			//if (_loggedIn) {
-			//    if (ltFile1 != null && ltFile2 != null) {
-			//        ltFile1.Visible = true;
-			//        ltFile2.Visible = true;
-			//    }
-
-			//    var productFilesList = new List<ProductFile>();
-			//    err = bProduct.GetProductFiles(
-			//        product,
-			//        new ProductFileFill { FillFile = true },
-			//        out productFilesList);
-
-			//    if (!err.HasErrors && productFilesList != null && productFilesList.Count > 0){
-			//        foreach (var productFile in productFilesList){
-			//            var file = productFile.File;
-			//            if (file == null) continue;
-			//            var fileUrl = Base.Business.Globals.CommonFileUrl + file.Name;
-
-			//            var loc = new Location(Base.Business.Globals.ConnectionString);
-			//            var row = loc.GetLocation(Base.Business.Globals.CurrentLocationId);
-			//            var locationName = row.Name;
-			//            var iconUrl = string.Concat(Base.Business.Globals.CommonFileUrl, locationName, "/images/layout/pdf.gif");
-			//            if (file.Name.Contains("teknisk_info")){
-			//                hlFile1.Visible = true;
-			//                hlFile1.ImageUrl = iconUrl;
-			//                hlFile1.NavigateUrl = fileUrl;
-			//            }
-			//            else if (file.Name.Contains("miljo_info")){
-			//                hlFile2.Visible = true;
-			//                hlFile2.ImageUrl = iconUrl;
-			//                hlFile2.NavigateUrl = fileUrl;
-			//            }
-			//        }
-			//    }
-			//}
+			
 
 			//Product has articles?
 			if ((product.Articles != null) && (product.Articles.Count > 0)) {			
@@ -587,11 +461,17 @@ namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 			if (!string.IsNullOrEmpty(Request.QueryString["selectedCategories"]))
 			{
 				string categoriesQuery = Request.QueryString["selectedCategories"];
+
+
 				string url = String.IsNullOrEmpty(Request.Url.Query)
 								? Request.Url.ToString()
 								: Request.Url.ToString().Replace(Request.Url.Query, String.Empty);
-
-				return url + "?selectedCategories=" + categoriesQuery + "&PrdId=" + productId;
+				
+				url = GetProductUrl(url);
+				if (UseUrlRewriting)
+					return String.Concat(url, categoriesQuery, "/" ,productId);
+				else
+					return String.Concat(url, categoriesQuery, "&PrdId=", productId);
 			}
 			return string.Empty;
 		}
@@ -630,54 +510,6 @@ namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 			return (arrParents[arrParents.GetUpperBound(0)] != parentId.ToString());
 
 		}
-
-		//private bool CategoryInString(int categoryId, string categories)
-		//{
-		//    char[] separator = new char[] { ',' };
-		//    string[] arrParents = categories.Split(separator);
-
-		//    int i = 0;
-		//    bool found = false;
-		//    while (i < arrParents.Length && !found)
-		//    {
-		//        if (arrParents[i] == categoryId.ToString())
-		//        {
-		//            found = true;
-		//        }
-		//        i++;
-		//    }
-
-		//    return found;
-		//}
-
-		//private string InsertGotoPage(string url) {
-		//    if (!string.IsNullOrEmpty(url)){
-		//        var contentTree = new Tree(Base.Business.Globals.ConnectionString);
-		//        url = contentTree.GetFileUrlDownString(_gotoPageNo);
-		//        //int index = url.LastIndexOf("/");
-		//        //url = url.Insert(index, String.Concat("/", contentTree.GetFileUrlDownString(_gotoPageNo)));
-			
-		//    }
-		//    return url;
-		//}
-
-		//protected bool IsCategoryUnfolded(int categoryId)
-		//{
-		//    if (!String.IsNullOrEmpty(Request.Url.Query))
-		//    {
-		//        int seletedCategoryId = GetCategory();
-		//        string parentCategories = Request.QueryString["parents"];
-
-		//        if (categoryId == seletedCategoryId)
-		//            return true;
-
-		//        if (!String.IsNullOrEmpty(parentCategories))
-		//            return CategoryInString(categoryId, parentCategories);
-
-		//    }
-		//    return false;
-
-		//}
 
 		protected bool IsCategoryUnfolded(ProductCategory category) {
 			if (category.Parent > 0 && !_selectedParents.Contains(category.Parent)) return false;
@@ -733,9 +565,7 @@ namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 			else{
 				url = _gotoPage;
 			}
-			//navigateUrl = String.Concat(url, "?category=", category.Id, "&parents=", _parentCategories);
 
-			//hlCategoryName.NavigateUrl = String.Concat(navigateUrl, GetCategoryUrl(category), '/', category.Id, '/');
 			hlCategoryName.NavigateUrl = GetCategoryUrl(url,category);
 
 			Repeater rptChildCategories = CreateAndBindRepeaterToCategories(category.ChildCategories);
@@ -810,9 +640,7 @@ namespace Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket {
 					AddToCart(e, productId);
 					break;
 
-				//case "GoToArticles":
-				//    GoToArticles(e, productId);
-				//    break;
+
 			}
 		}
 

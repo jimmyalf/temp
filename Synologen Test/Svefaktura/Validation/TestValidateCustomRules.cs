@@ -27,14 +27,14 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 		    Expect(ruleViolationFound, Is.True);
 		}
 		[Test]
-		public void Test_Invoice_Of_Credit_Type_Missing_RequisitionistDocumentReference_Fails_Validation() {
+		public void Test_Invoice_Of_Credit_Type_Missing_InitialInvoiceDocumentReference_Fails_Validation() {
 		    var invoiceCredit = new SFTIInvoiceType {InvoiceTypeCode = new CodeType{Value = "381"}};
 		    var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoiceCredit));
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceType.InitialInvoiceDocumentReference"));
 		    Expect(ruleViolationFound, Is.True);
 		}
 		[Test]
-		public void Test_Invoice_Of_Debit_Type_Missing_RequisitionistDocumentReference_ValidateObjects() {
+		public void Test_Invoice_Of_Debit_Type_Missing_InitialInvoiceDocumentReference_Validates() {
 		    var invoiceDebit = new SFTIInvoiceType {InvoiceTypeCode = new CodeType{Value = "380"}};
 		    var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoiceDebit));
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceType.InitialInvoiceDocumentReference"));
@@ -106,7 +106,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 		}
 
 		#region Controls
-				[Test]
+		[Test]
 		public void Test_Invoice_InvoiceLine_With_Incorrect_LineExtensionAmount_Fails_Validation() {
 		    var invoice = new SFTIInvoiceType { 
 		        InvoiceLine = new List<SFTIInvoiceLineType> {

@@ -19,7 +19,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 		
 		<prebuild>
 			<nant>
-				<executable>..\..\Dependencies\Tools\NAnt\NAnt.exe</executable>
+				<executable>..\..\Dependancies\Tools\NAnt\NAnt.exe</executable>
 				<baseDirectory>Build\Scripts\</baseDirectory>
 				<buildFile>CI-PreBuild.build</buildFile>
 			</nant>
@@ -60,7 +60,6 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 				<modifierNotificationTypes />
 			</email>
 		</publishers>
-		<prebuild/>
   </project>
 	
 	

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<project name="Dev Deployment" default="Public-Se">
+<project name="Dev Deployment" default="Admin">
 
 	<property name="compName" 				value="Synologen"/>
 	<property name="wpcRootDir" 			value="C:\Develop\WPC4\Current\CustomerSpecific"/>
 	<property name="wpcCommonBuildFiles" 	value="C:\Inetpub\Wpc\CommonBuildFiles"/>
 	<property name="developDir" 			value="${wpcRootDir}\${compName}"/>
-	<property name="deployRoot" 			value="\\Black\Inetpub\Wpc\Synologen" overwrite="false"/>
+	<property name="deployRoot" 			value="\\Black\Inetpub\Synologen" overwrite="false"/>
 	
 	<!-- Source folders -->
 	<property name="srcAdmin" 		value="${developDir}\${compName} Admin"/>
@@ -14,45 +14,47 @@
 	<!-- Deployment folders -->
 	<property name="deployAdmin" 	value="${deployRoot}\Wpc Admin" overwrite="false"/>
 
-	<!-- Clean Admin and Public -->
-	<target name="Clean">
-		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
-	</target>
-  
-	<!-- Publish Admin -->
-	<target name="Admin" depends="Clean">
-		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Admin.Publish.build"/>
-	</target>
-	
 	<!-- Publish www.synologen.nu -->	
-	<target name="Public-Nu" depends="Admin">
-		<property name="deployPublic" 	value="${deployRoot}\www.synologen.nu" overwrite="false"/>
+	<target name="Public-Nu" >
+		<property name="deployPublic" 	value="${deployRoot}\www.synologen.nu" overwrite="true"/>
+		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
 	</target>  
+	
 	<!-- Publish lev.synologen.nu -->
 	<target name="Public-Lev" depends="Public-Nu">
-		<property name="deployPublic" 	value="${deployRoot}\lev.synologen.nu" overwrite="false"/>	
+		<property name="deployPublic" 	value="${deployRoot}\lev.synologen.nu" overwrite="true"/>
+		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
-	</target>  
-		<!-- Publish partner.synologen.nu -->
+	</target> 
+
+	<!-- Publish partner.synologen.nu -->
 	<target name="Public-Partner" depends="Public-Lev">
-		<property name="deployPublic" 	value="${deployRoot}\partner.synologen.nu" overwrite="false"/>
+		<property name="deployPublic" 	value="${deployRoot}\partner.synologen.nu" overwrite="true"/>
+		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
 	</target>  
 	<!-- Publish www.ogonapoteket.se -->
 	<target name="Public-OgonApotek" depends="Public-Partner">
-		<property name="deployPublic" 	value="${deployRoot}\www.ogonapoteket.se" overwrite="false"/>
+		<property name="deployPublic" 	value="${deployRoot}\www.ogonapoteket.se" overwrite="true"/>
+		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
 	</target>  
-		<!-- Publish www.synhalsan.se -->
+	<!-- Publish www.synhalsan.se -->
 	<target name="Public-Synhalsan" depends="Public-OgonApotek">
-		<property name="deployPublic" 	value="${deployRoot}\www.synhalsan.se" overwrite="false"/>	
+		<property name="deployPublic" 	value="${deployRoot}\www.synhalsan.se" overwrite="true"/>
+		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
 	</target>  
 	<!-- Publish www.synologen.se -->
 	<target name="Public-Se" depends="Public-Synhalsan">
-		<property name="deployPublic" 	value="${deployRoot}\www.synologen.se" overwrite="false"/>
+		<property name="deployPublic" 	value="${deployRoot}\www.synologen.se" overwrite="true"/>
+		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
-	</target>  	
+	</target> 
 	
+	<!-- Publish Admin -->
+ 	<target name="Admin" depends="Public-Se">
+		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Admin.Publish.build"/>
+	</target>
 </project>

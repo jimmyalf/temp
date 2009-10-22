@@ -325,6 +325,6 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)\Build\Post-Build-Admin.bat"</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-Admin.bat"</PostBuildEvent>
   </PropertyGroup>
 </Project>

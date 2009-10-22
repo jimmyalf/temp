@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Remove following classes:&#xD;&#xA;Location&#xD;&#xA;Langauge&#xD;&#xA;User&#xD;&#xA;Shop">
+    <Position X="9.198" Y="0.5" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="Spinit.Wpc.Synologen.OPQ.Core.Node">
+    <Position X="0.75" Y="2.5" Width="1.5" />
+    <AssociationLine Name="ApprovedBy" Type="Spinit.Wpc.Synologen.OPQ.Core.User" FixedToPoint="true">
+      <Path>
+        <Point X="2.25" Y="3.125" />
+        <Point X="4.25" Y="3.125" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.225" Y="0.07" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ChangedBy" Type="Spinit.Wpc.Synologen.OPQ.Core.User" FixedToPoint="true">
+      <Path>
+        <Point X="2.25" Y="2.688" />
+        <Point X="4.25" Y="2.688" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.058" Y="0.05" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="CreatedBy" Type="Spinit.Wpc.Synologen.OPQ.Core.User" FixedToPoint="true">
+      <Path>
+        <Point X="2.25" Y="3" />
+        <Point X="4.25" Y="3" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.131" Y="0.07" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="LockedBy" Type="Spinit.Wpc.Synologen.OPQ.Core.User" FixedFromPoint="true">
+      <Path>
+        <Point X="2.25" Y="2.827" />
+        <Point X="4.25" Y="2.827" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.318" Y="0.07" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="NodeSuppliers" Type="Spinit.Wpc.Synologen.OPQ.Core.NodeSupplierConnection">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.109" Y="1.352" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Suppliers" Type="Spinit.Wpc.Synologen.OPQ.Core.User" FixedFromPoint="true">
+      <Path>
+        <Point X="2.25" Y="3.25" />
+        <Point X="4.25" Y="3.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.225" Y="-0.232" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AgECEAEAACEAAIABEQAAQAQAACAAQAACAoAVAAACAIE=</HashCode>
+      <FileName>Node.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ApprovedBy" />
+      <Property Name="ChangedBy" />
+      <Property Name="CreatedBy" />
+      <Property Name="LockedBy" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Documents" />
+      <Property Name="Files" />
+      <Property Name="NodeSuppliers" />
+      <Property Name="Suppliers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.OPQ.Core.Context">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.OPQ.Core.User">
+    <Position X="4.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.OPQ.Core.File">
+    <Position X="4.25" Y="4.5" Width="1.5" />
+    <AssociationLine Name="ApprovedBy" Type="Spinit.Wpc.Synologen.OPQ.Core.User">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.232" Y="0.777" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ChangedBy" Type="Spinit.Wpc.Synologen.OPQ.Core.User">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.117" Y="0.568" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="CreatedBy" Type="Spinit.Wpc.Synologen.OPQ.Core.User" FixedFromPoint="true">
+      <Path>
+        <Point X="4.438" Y="4.5" />
+        <Point X="4.438" Y="3.481" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.034" Y="0.131" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="LockedBy" Type="Spinit.Wpc.Synologen.OPQ.Core.User" FixedFromPoint="true">
+      <Path>
+        <Point X="4.812" Y="4.5" />
+        <Point X="4.812" Y="3.481" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.023" Y="0.35" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="FileCategory" Type="Spinit.Wpc.Synologen.OPQ.Core.FileCategory">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.963" Y="0.55" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QgECEAEAACEAAAABEAAAAAAAACCACAAAApAVAAMCAAE=</HashCode>
+      <FileName>File.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Node" />
+      <Property Name="ApprovedBy" />
+      <Property Name="ChangedBy" />
+      <Property Name="CreatedBy" />
+      <Property Name="LockedBy" />
+      <Property Name="Shop" />
+      <Property Name="FileCategory" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.OPQ.Core.Shop">
+    <Position X="6.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.OPQ.Core.ShopConnection">
+    <Position X="9.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAJAAA=</HashCode>
+      <FileName>ShopConnection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Shop1" />
+      <Property Name="Shop2" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.OPQ.Core.Document">
+    <Position X="7.25" Y="2.25" Width="1.5" />
+    <AssociationLine Name="DocumentType" Type="Spinit.Wpc.Synologen.OPQ.Core.DocumentTypes">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.07" Y="0.339" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ApprovedBy" Type="Spinit.Wpc.Synologen.OPQ.Core.User" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="2.625" />
+        <Point X="5.75" Y="2.625" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ChangedBy" Type="Spinit.Wpc.Synologen.OPQ.Core.User" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="2.812" />
+        <Point X="5.75" Y="2.812" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="CreatedBy" Type="Spinit.Wpc.Synologen.OPQ.Core.User" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="3" />
+        <Point X="5.75" Y="3" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="LockedBy" Type="Spinit.Wpc.Synologen.OPQ.Core.User" FixedFromPoint="true">
+      <Path>
+        <Point X="7.25" Y="3.188" />
+        <Point X="5.75" Y="3.188" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QoACEAEABCEAAAABEAAAAAAAAGCAAAAAApAVAAECAAE=</HashCode>
+      <FileName>Document.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DocumentType" />
+      <Property Name="Node" />
+      <Property Name="Shop" />
+      <Property Name="ApprovedBy" />
+      <Property Name="ChangedBy" />
+      <Property Name="CreatedBy" />
+      <Property Name="LockedBy" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.OPQ.Core.NodeSupplierConnection">
+    <Position X="0.75" Y="7.75" Width="1.5" />
+    <AssociationLine Name="Supplier" Type="Spinit.Wpc.Synologen.OPQ.Core.User" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.25" Y="8.323" />
+        <Point X="3.537" Y="8.323" />
+        <Point X="3.537" Y="3.438" />
+        <Point X="4.25" Y="3.438" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.652" Y="-3.992" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAACAAAAAAAAAAAAEgAAA=</HashCode>
+      <FileName>NodeSupplierConnection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Node" />
+      <Property Name="Supplier" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.OPQ.Core.FileCategory">
+    <Position X="4.25" Y="9.25" Width="1.5" />
+    <AssociationLine Name="CreatedById" Type="Spinit.Wpc.Synologen.OPQ.Core.User" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="10.234" />
+        <Point X="6.125" Y="10.234" />
+        <Point X="6.125" Y="3.375" />
+        <Point X="5.75" Y="3.375" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.277" Y="-6.458" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ChangedById" Type="Spinit.Wpc.Synologen.OPQ.Core.User" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="10.5" />
+        <Point X="6.312" Y="10.5" />
+        <Point X="6.312" Y="3.312" />
+        <Point X="5.75" Y="3.312" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.641" Y="-6.794" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AgACAAAAACEAAAAAEAAAAAQAAAAAAAAAApAAAAAAAIA=</HashCode>
+      <FileName>FileCategory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CreatedById" />
+      <Property Name="ChangedById" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Files" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Enum Name="Spinit.Wpc.Synologen.OPQ.Core.DocumentTypes">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Enumerations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="dbWpcSynologen" Class="dbWpcSynologenDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.SynologenOpqDocumentHistories" Member="SynologenOpqDocumentHistories">
+    <Type Name="SynologenOpqDocumentHistory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HistoryDate" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HistoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HistoryName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShpId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CncId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DocTpeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Document" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedById" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedByName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChangedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprovedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ApprovedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LockedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LockedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LockedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SynologenOpqDocument_SynologenOpqDocumentHistory" Member="SynologenOpqDocument" ThisKey="Id" OtherKey="Id" Type="SynologenOpqDocument" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SynologenOpqDocuments" Member="SynologenOpqDocuments">
+    <Type Name="SynologenOpqDocument">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShpId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CncId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DocTpeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Document" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedById" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedByName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChangedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprovedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ApprovedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LockedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LockedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LockedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SynologenOpqDocument_SynologenOpqDocumentHistory" Member="SynologenOpqDocumentHistories" ThisKey="Id" OtherKey="Id" Type="SynologenOpqDocumentHistory" />
+      <Association Name="SynologenOpqDocumentType_SynologenOpqDocument" Member="SynologenOpqDocumentType" ThisKey="DocTpeId" OtherKey="Id" Type="SynologenOpqDocumentType" IsForeignKey="true" />
+      <Association Name="SynologenOpqNode_SynologenOpqDocument" Member="SynologenOpqNode" ThisKey="NdeId" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SynologenOpqDocumentTypes" Member="SynologenOpqDocumentTypes">
+    <Type Name="SynologenOpqDocumentType">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+      <Association Name="SynologenOpqDocumentType_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="Id" OtherKey="DocTpeId" Type="SynologenOpqDocument" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SynologenOpqFileCategories" Member="SynologenOpqFileCategories">
+    <Type Name="SynologenOpqFileCategory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[Name ]" Member="Name_" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedById" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedByName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChangedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SynologenOpqFileCategory_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="Id" OtherKey="FleCatId" Type="SynologenOpqFile" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SynologenOpqFiles" Member="SynologenOpqFiles">
+    <Type Name="SynologenOpqFile">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FleCatId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShpId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CncId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedById" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedByName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChangedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprovedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ApprovedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LockedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LockedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LockedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SynologenOpqFileCategory_SynologenOpqFile" Member="SynologenOpqFileCategory" ThisKey="FleCatId" OtherKey="Id" Type="SynologenOpqFileCategory" IsForeignKey="true" />
+      <Association Name="SynologenOpqNode_SynologenOpqFile" Member="SynologenOpqNode" ThisKey="NdeId" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SynologenOpqNodes" Member="SynologenOpqNodes">
+    <Type Name="SynologenOpqNode">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Parent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedById" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedByName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChangedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprovedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ApprovedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LockedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LockedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LockedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SynologenOpqNode_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqDocument" />
+      <Association Name="SynologenOpqNode_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqFile" />
+      <Association Name="SynologenOpqNode_SynologenOpqNode" Member="SynologenOpqNodes" ThisKey="Id" OtherKey="Parent" Type="SynologenOpqNode" />
+      <Association Name="SynologenOpqNode_SynologenOpqNodeSupplierConnection" Member="SynologenOpqNodeSupplierConnections" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqNodeSupplierConnection" />
+      <Association Name="SynologenOpqNode_SynologenOpqNode" Member="SynologenOpqNode1" ThisKey="Parent" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SynologenOpqNodeSupplierConnections" Member="SynologenOpqNodeSupplierConnections">
+    <Type Name="SynologenOpqNodeSupplierConnection">
+      <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SupId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="SynologenOpqNode_SynologenOpqNodeSupplierConnection" Member="SynologenOpqNode" ThisKey="NdeId" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

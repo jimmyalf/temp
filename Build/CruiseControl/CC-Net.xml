@@ -22,7 +22,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 				<executable>..\..\Dependancies\Tools\NAnt\NAnt.exe</executable>
 				<baseDirectory>Build\Scripts\</baseDirectory>
 				<buildFile>CI-PreBuild.build</buildFile>
-			</nant>
+			</nant>			
 		</prebuild>		
 	  
 		<triggers>
@@ -32,20 +32,27 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 		<tasks>
 			<msbuild>
 				<executable>C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe</executable>
-				<workingDirectory>Build\Scripts\</workingDirectory>
+				<workingDirectory>C:\Develop\WPC4\Current\CustomerSpecific\Synologen\Build\Scripts\</workingDirectory>
 				<projectFile>Build.msbuild</projectFile>
 				<buildArgs>/p:Configuration=ContinuousBuild</buildArgs>
 				<timeout>600</timeout>
 				<logger>C:\Program\CruiseControl.NET-1.4.4\server\ThoughtWorks.CruiseControl.MsBuild.dll</logger>
-			</msbuild>
+			</msbuild>			
 		</tasks>
+		
+	
 	  
 		<publishers>
+			<nant>
+				<executable>..\..\Dependancies\Tools\NAnt\NAnt.exe</executable>
+				<baseDirectory>Synologen CI\</baseDirectory>
+				<buildFile>Wpc.Synologen.build</buildFile>
+			</nant>	
 			<merge>
 				<files>        
 					<file>Build\Reports\*-Results.xml</file>
 				</files>
-			</merge>		
+			</merge>	
 			<xmllogger />
 			<email mailhost="mail.esend.nu" from="cruisecontrol_wpc@spinit.se" includeDetails="true">
 				<users>

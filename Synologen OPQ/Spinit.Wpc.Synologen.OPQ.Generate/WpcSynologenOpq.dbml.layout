@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.5, 9.75" name="dbWpcSynologen">
+  <DataContextMoniker Name="/dbWpcSynologenDataContext" />
+  <nestedChildShapes>
+    <classShape Id="988efa8e-58ed-4acb-8ded-5b75850eaa26" absoluteBounds="9.25, 4.75, 2, 4.3830997721354166">
+      <DataClassMoniker Name="/dbWpcSynologenDataContext/SynologenOpqDocumentHistory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="69d850f8-366b-47de-aecb-e52401733a20" absoluteBounds="9.265, 5.21, 1.9700000000000002, 3.823099772135417" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d149d404-23b8-400a-b5ab-6bb05b635768" absoluteBounds="6.5, 5, 2, 3.8900577799479166">
+      <DataClassMoniker Name="/dbWpcSynologenDataContext/SynologenOpqDocument" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dd609dd0-3fad-453f-b5ba-feb622860e3d" absoluteBounds="6.515, 5.46, 1.9700000000000002, 3.3300577799479165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="55329f2b-5783-4f67-a4b7-ca2292505f2d" absoluteBounds="3.75, 8.375, 2, 1.0961531575520844">
+      <DataClassMoniker Name="/dbWpcSynologenDataContext/SynologenOpqDocumentType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a917408e-32ed-4e62-b183-ccd0d263b8dc" absoluteBounds="3.765, 8.835, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="49bffcee-bae4-45f5-9eab-9657f50008e7" absoluteBounds="0.75, 1.75, 2, 2.2465844726562505">
+      <DataClassMoniker Name="/dbWpcSynologenDataContext/SynologenOpqFileCategory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7a91e2df-ead4-4d87-b09a-4e66c3f8c2d0" absoluteBounds="0.765, 2.21, 1.9700000000000002, 1.68658447265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="24f8fda9-3397-445b-9112-77d1dfbc1e2f" absoluteBounds="3.5, 0.875, 2, 4.0544051106770826">
+      <DataClassMoniker Name="/dbWpcSynologenDataContext/SynologenOpqFile" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a7db2e69-16f3-48fe-9e83-1a7349107030" absoluteBounds="3.515, 1.335, 1.9700000000000002, 3.494405110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1ee48a06-2a1a-452b-985d-9ae4114de8f0" absoluteBounds="0.75, 5.125, 2, 3.5613631184895818">
+      <DataClassMoniker Name="/dbWpcSynologenDataContext/SynologenOpqNode" />
+      <nestedChildShapes>
+        <elementListCompartment Id="12ba5124-8e4d-48fd-b819-fba02d243495" absoluteBounds="0.765, 5.585, 1.9700000000000002, 3.001363118489583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="34e5ec64-7494-4a2d-b05f-b9bc9847a9e7" absoluteBounds="3.5, 6.375, 2, 1.0961531575520844">
+      <DataClassMoniker Name="/dbWpcSynologenDataContext/SynologenOpqNodeSupplierConnection" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cbf50b5f-379c-454c-b772-62b346b0a000" absoluteBounds="3.515, 6.835, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.5 : 6.94502888997396); (9.25 : 6.94502888997396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbWpcSynologenDataContext/SynologenOpqDocument/SynologenOpqDocument_SynologenOpqDocumentHistory" />
+      <nodes>
+        <classShapeMoniker Id="d149d404-23b8-400a-b5ab-6bb05b635768" />
+        <classShapeMoniker Id="988efa8e-58ed-4acb-8ded-5b75850eaa26" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.75 : 8.63252888997396); (6.5 : 8.63252888997396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbWpcSynologenDataContext/SynologenOpqDocumentType/SynologenOpqDocumentType_SynologenOpqDocument" />
+      <nodes>
+        <classShapeMoniker Id="55329f2b-5783-4f67-a4b7-ca2292505f2d" />
+        <classShapeMoniker Id="d149d404-23b8-400a-b5ab-6bb05b635768" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.87329223632813); (3.5 : 2.87329223632813)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbWpcSynologenDataContext/SynologenOpqFileCategory/SynologenOpqFileCategory_SynologenOpqFile" />
+      <nodes>
+        <classShapeMoniker Id="49bffcee-bae4-45f5-9eab-9657f50008e7" />
+        <classShapeMoniker Id="24f8fda9-3397-445b-9112-77d1dfbc1e2f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 5.71875); (6.5 : 5.71875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbWpcSynologenDataContext/SynologenOpqNode/SynologenOpqNode_SynologenOpqDocument" />
+      <nodes>
+        <classShapeMoniker Id="1ee48a06-2a1a-452b-985d-9ae4114de8f0" />
+        <classShapeMoniker Id="d149d404-23b8-400a-b5ab-6bb05b635768" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 5.12653746153846); (3.125 : 4.75153746153846); (3.125 : 5.30594257221554); (3.50153746153846 : 4.92940511067708)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dbWpcSynologenDataContext/SynologenOpqNode/SynologenOpqNode_SynologenOpqFile" />
+      <nodes>
+        <classShapeMoniker Id="1ee48a06-2a1a-452b-985d-9ae4114de8f0" />
+        <classShapeMoniker Id="24f8fda9-3397-445b-9112-77d1dfbc1e2f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.45923076923077 : 8.68636311848958); (1.45923076923077 : 8.93636311848958); (2.05461538461538 : 8.93636311848958); (2.05461538461538 : 8.68636311848958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dbWpcSynologenDataContext/SynologenOpqNode/SynologenOpqNode_SynologenOpqNode" />
+      <nodes>
+        <classShapeMoniker Id="1ee48a06-2a1a-452b-985d-9ae4114de8f0" />
+        <classShapeMoniker Id="1ee48a06-2a1a-452b-985d-9ae4114de8f0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 6.92307657877604); (3.5 : 6.92307657877604)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbWpcSynologenDataContext/SynologenOpqNode/SynologenOpqNode_SynologenOpqNodeSupplierConnection" />
+      <nodes>
+        <classShapeMoniker Id="1ee48a06-2a1a-452b-985d-9ae4114de8f0" />
+        <classShapeMoniker Id="34e5ec64-7494-4a2d-b05f-b9bc9847a9e7" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

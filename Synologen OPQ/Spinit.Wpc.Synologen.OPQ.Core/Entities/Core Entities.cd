@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Spinit.Wpc.Synologen.Opq.Core.Entities.SynologenOpqDocument">
+    <Position X="7.5" Y="6.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AgACEAAAACEAAAQFkEAAACAQECAAAIACQpAFAEACAAA=</HashCode>
+      <FileName>Entities\SynologenOpqDocument.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SynologenOpqDocumentType" />
+      <Property Name="SynologenOpqNode" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="SynologenOpqDocumentHistories" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Opq.Core.Entities.SynologenOpqNodeSupplierConnection">
+    <Position X="8.5" Y="12" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAEgAAAACAAEAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\SynologenOpqNodeSupplierConnection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SynologenOpqNode" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Opq.Core.Entities.SynologenOpqDocumentHistory">
+    <Position X="12" Y="6.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AgAGEAAAACEAAAQFkAAAACAQAGAAIIACApgFAEACAAA=</HashCode>
+      <FileName>Entities\SynologenOpqDocumentHistory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SynologenOpqDocument" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Opq.Core.Entities.SynologenOpqDocumentType">
+    <Position X="4" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEgAAAAAQAAAAAIIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\SynologenOpqDocumentType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Opq.Core.Entities.SynologenOpqFile">
+    <Position X="0.5" Y="8.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AgECEAAAAKEAACAFkAAAACAQECgAAIAAApAFAEACAAA=</HashCode>
+      <FileName>Entities\SynologenOpqFile.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SynologenOpqFileCategory" />
+      <Property Name="SynologenOpqNode" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Opq.Core.Entities.SynologenOpqFileCategory">
+    <Position X="0.5" Y="14.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AgACAAAAACEAAAAEkAAAAAAgAAAAAIAAApAgAAAAAAA=</HashCode>
+      <FileName>Entities\SynologenOpqFileCategory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="SynologenOpqFiles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Opq.Core.Entities.SynologenOpqNode">
+    <Position X="4" Y="10.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AwECEAAAACEAAAAFkACAQAQgACAAIIAAApAFAAACAIA=</HashCode>
+      <FileName>Entities\SynologenOpqNode.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SynologenOpqNode1" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="SynologenOpqDocuments" />
+      <Property Name="SynologenOpqFiles" />
+      <Property Name="SynologenOpqNodeSupplierConnections" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

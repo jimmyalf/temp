@@ -4,11 +4,13 @@ using Spinit.Wpc.Synologen.WebService;
 
 namespace Spinit.Wpc.Synologen.Test.Webservice {
 	//[TestFixture]
+	[Ignore]
 	public class TestWebService{
 		private ClientContract client;
 		private string connectionString;
 
 		[TestFixtureSetUp]
+		[Ignore]
 		//TODO: Make into integrationtest
 		public void Setup() {
 			client = new ClientContract( );
@@ -19,11 +21,13 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 		}
 
 		[TestFixtureTearDown]
+		[Ignore]
 		public void TearDown() {
 			client.Close();
 		}
 
 		[Test]
+		[Ignore]
 		public void OfflineGetOrdersForInvoicing(){
 			var service = new SynologenService(connectionString);
 			var orders = service.GetOrdersForInvoicing();
@@ -32,6 +36,7 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 		}
 
 		[Test]
+		[Ignore]
 		public void OfflineGetOrderItems(){
 			var service = new SynologenService(connectionString);
 			var orders = service.GetOrdersForInvoicing();
@@ -44,6 +49,7 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 		}
 
 		[Test]
+		[Ignore]
 		public void WebServiceGetOrdersForInvoicing(){
 			var orders = client.GetOrdersForInvoicing();
 			Assert.IsNotNull(orders);
@@ -51,6 +57,7 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 		}
 
 		[Test]
+		[Ignore]
 		public void WebServiceGetOrderItems(){
 			var orders = client.GetOrdersForInvoicing();
 			Assert.IsNotNull(orders);

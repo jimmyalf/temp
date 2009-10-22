@@ -1,4 +1,3 @@
-using System;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.Visma.Utility;

@@ -44,8 +44,8 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 	  
 		<publishers>
 			<nant>
-				<executable>..\..\Dependancies\Tools\NAnt\NAnt.exe</executable>
-				<baseDirectory>Synologen CI\</baseDirectory>
+				<executable>C:\Develop\WPC4\Current\CustomerSpecific\Synologen\Dependancies\Tools\NAnt\NAnt.exe</executable>
+				<baseDirectory>C:\Develop\WPC4\Current\CustomerSpecific\Synologen\Synologen CI\</baseDirectory>
 				<buildFile>Wpc.Synologen.build</buildFile>
 			</nant>	
 			<merge>
@@ -54,7 +54,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 				</files>
 			</merge>	
 			<xmllogger />
-			<email mailhost="mail.esend.nu" from="cruisecontrol_wpc@spinit.se" includeDetails="true">
+			<email mailhost="mail.esend.nu" from="cruisecontrol_wpc@spinit.se" includeDetails="TRUE">
 				<users>
 					<user name="cber" address="carl.berg@spinit.se" group="buildmaster" />
 				</users>
@@ -70,6 +70,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 					<subject buildResult="Fixed" value="The build for ${CCNetProject} was fixed!" />
 				</subjectSettings>
 			</email>
+			
 		</publishers>
   </project>
 	

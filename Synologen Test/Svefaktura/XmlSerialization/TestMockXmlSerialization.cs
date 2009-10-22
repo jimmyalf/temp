@@ -13,7 +13,7 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Utility;
 using Spinit.Wpc.Synologen.Utility.Types;
 
-namespace Spinit.Wpc.Synologen.Test.Svefaktura {
+namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 	[TestFixture]
 	public class TestMockXmlSerialization : AssertionHelper {
 
@@ -22,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 
 		
 		[Test]
+		[Ignore]
 		public void Test_MockInvoice_Is_Valid() {
 			var invoice = GetMockInvoice();
 			var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
@@ -42,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		public void ReadXmlFileToGetValidationTextString() {
 			TextReader tw = new StreamReader(@"C:\Documents and Settings\cberg\Skrivbord\fsv_test_svefaktura.xml");
 			var fileContent = tw.ReadToEnd();
-            tw.Close();
+			tw.Close();
 		}
 
 		private static string ToXML(SFTIInvoiceType objToSerialize, Encoding encoding) {
@@ -75,74 +76,74 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		}
 		public ShopRow GetMockShop() {
 			return new ShopRow {
-				ContactFirstName = "Adam",
-                ContactLastName = "Bertil",
-				Phone = "0811122233",
-                Fax = "089876543",
-                Email ="sales@modernaprodukter.se"
-			};
+			                   	ContactFirstName = "Adam",
+			                   	ContactLastName = "Bertil",
+			                   	Phone = "0811122233",
+			                   	Fax = "089876543",
+			                   	Email ="sales@modernaprodukter.se"
+			                   };
 		}
 		public CompanyRow GetMockCompany() {
 			return new CompanyRow {
-				InvoiceFreeTextFormat = "Här kan jag beskriva fakturan med fritext",
-				InvoiceCompanyName = "Johnssons byggvaror",
-                Address2 = "Rådhusgatan 5",
-                City = "Stockholm",
-				Zip = "11000",
-                PaymentDuePeriod = 30
-			};
+			                      	InvoiceFreeTextFormat = "Här kan jag beskriva fakturan med fritext",
+			                      	InvoiceCompanyName = "Johnssons byggvaror",
+			                      	Address2 = "Rådhusgatan 5",
+			                      	City = "Stockholm",
+			                      	Zip = "11000",
+			                      	PaymentDuePeriod = 30
+			                      };
 		}
 		public SvefakturaConversionSettings GetMockSettings() {
 			return new SvefakturaConversionSettings {
-				InvoiceIssueDate = new DateTime(2003,09,11),
-				InvoiceTypeCode = "380",
-				InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
-                SellingOrganizationName = "Moderna Produkter AB",
-				SellingOrganizationStreetName = "Storgatan 5",
-				SellingOrganizationCity = "Hägersten",
-				SellingOrganizationPostalCode = "12652",
-				ExemptionReason = "F-skattebevis finns",
-				SellingOrganizationNumber = "5565624223",
-				TaxAccountingCode = "SE556562422301",
-                SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
-                SellingOrganizationContactName = "A Person, Fakturaavd",
-				BankGiro = "9551548524585",
-                BankgiroBankIdentificationCode = "SKIASESS",
-                InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagars netto",
-				InvoiceExpieryPenaltySurchargePercent = 23,
-                VATAmount = 0.25m
-			};
+			                                        	InvoiceIssueDate = new DateTime(2003,09,11),
+			                                        	InvoiceTypeCode = "380",
+			                                        	InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
+			                                        	SellingOrganizationName = "Moderna Produkter AB",
+			                                        	SellingOrganizationStreetName = "Storgatan 5",
+			                                        	SellingOrganizationCity = "Hägersten",
+			                                        	SellingOrganizationPostalCode = "12652",
+			                                        	ExemptionReason = "F-skattebevis finns",
+			                                        	SellingOrganizationNumber = "5565624223",
+			                                        	TaxAccountingCode = "SE556562422301",
+			                                        	SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
+			                                        	SellingOrganizationContactName = "A Person, Fakturaavd",
+			                                        	BankGiro = "9551548524585",
+			                                        	BankgiroBankIdentificationCode = "SKIASESS",
+			                                        	InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagars netto",
+			                                        	InvoiceExpieryPenaltySurchargePercent = 23,
+			                                        	VATAmount = 0.25m
+			                                        };
 		}
 		public OrderRow GetMockOrder() {
 			return new OrderRow {
-				InvoiceNumber = 15,
-                CustomerFirstName = "Pelle",
-				CustomerLastName = "Svensson",
-                InvoiceSumIncludingVAT = 6725.00,
-				InvoiceSumExcludingVAT = 5480.00,
-                CustomerOrderNumber = "123456789"
-			};
+			                    	InvoiceNumber = 15,
+			                    	CustomerFirstName = "Pelle",
+			                    	CustomerLastName = "Svensson",
+			                    	InvoiceSumIncludingVAT = 6725.00,
+			                    	InvoiceSumExcludingVAT = 5480.00,
+			                    	CustomerOrderNumber = "123456789"
+			                    };
 		}
 		public List<IOrderItem> GetMockOrderItems() {
 			return new List<IOrderItem> {
-				new OrderItemRow {
-					ArticleDisplayName = "Falu rödfärg",
-                    NumberOfItems = 120,
-                    DisplayTotalPrice = 4980,
-					SinglePrice = 41.50f,
-                    NoVAT = false,
-					Notes = "Fritext på fakturaraden",
-					ArticleDisplayNumber = "12345"
-				},
-				new OrderItemRow {
-					ArticleDisplayName = "Pensel 20 mm",
-                    NumberOfItems = 10,
-                    DisplayTotalPrice = 500,
-					SinglePrice = 50,
-                    NoVAT = true,
-					ArticleDisplayNumber = "524522"
-				}
-			};
+			                            	new OrderItemRow {
+			                            	                 	ArticleDisplayName = "Falu rödfärg",
+			                            	                 	NumberOfItems = 120,
+			                            	                 	DisplayTotalPrice = 4980,
+			                            	                 	SinglePrice = 41.50f,
+			                            	                 	NoVAT = false,
+			                            	                 	Notes = "Fritext på fakturaraden",
+			                            	                 	ArticleDisplayNumber = "12345"
+			                            	                 },
+			                            	new OrderItemRow {
+			                            	                 	ArticleDisplayName = "Pensel 20 mm",
+			                            	                 	NumberOfItems = 10,
+			                            	                 	DisplayTotalPrice = 500,
+			                            	                 	SinglePrice = 50,
+			                            	                 	NoVAT = true,
+			                            	                 	ArticleDisplayNumber = "524522"
+			                            	                 }
+			                            };
 		}
 
 		public string GetExpectedXml() {

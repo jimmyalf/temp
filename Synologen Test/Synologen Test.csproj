@@ -76,7 +76,7 @@
     <Compile Include="GeneralInvoice\TestInvoiceFreeTextSplitting.cs" />
     <Compile Include="Site\TestCustomOrderValidation.cs" />
     <Compile Include="Site\TestValidationTypeRequired.cs" />
-    <Compile Include="Svefaktura\TestSvefakturaInvoiceParsing.cs" />
+    <Compile Include="Svefaktura\DataParsing\TestSvefakturaInvoiceParsing.cs" />
     <Compile Include="Mock\Utility.cs" />
     <Compile Include="Mock\MockAdkHandler.cs" />
     <Compile Include="Mock\MockWebServiceClient.cs" />
@@ -108,7 +108,7 @@
     <Compile Include="Svefaktura\Validation\TestValidateTaxSubTotal.cs" />
     <Compile Include="Svefaktura\Validation\TestValidateTaxTotal.cs" />
     <Compile Include="Visma\TestVisma.cs" />
-    <Compile Include="Svefaktura\TestMockXmlSerialization.cs" />
+    <Compile Include="Svefaktura\XmlSerialization\TestMockXmlSerialization.cs" />
     <Compile Include="Visma\TestVismaFormatting.cs" />
     <Compile Include="Webservice\TestWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

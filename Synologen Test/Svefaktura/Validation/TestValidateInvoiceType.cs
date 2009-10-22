@@ -4,9 +4,13 @@ using System.Linq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 using Spinit.Wpc.Synologen.Utility;
+using AmountType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.AmountType;
+using PercentType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
+using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
 namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 	[TestFixture]
@@ -22,25 +26,78 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 			    IssueDate = new IssueDateType {Value = new DateTime(2009, 10, 19)},
 				TaxPointDate = new TaxPointDateType {Value = new DateTime(2009, 10, 19)},
 			    InvoiceTypeCode = new CodeType {Value = "380"},
-			    LineItemCountNumeric = new LineItemCountNumericType {Value = 1},
+			    LineItemCountNumeric = new LineItemCountNumericType {Value = 2},
 			    SellerParty = new SFTISellerPartyType(),
 			    BuyerParty = new SFTIBuyerPartyType(),
 			    LegalTotal = new SFTILegalTotalType {
-					LineExtensionTotalAmount = new ExtensionTotalAmountType{Value=123.45m},
-					TaxInclusiveTotalAmount = new TotalAmountType{Value = 543.21m}
+					LineExtensionTotalAmount = new ExtensionTotalAmountType{Value=246.85m},
+					TaxInclusiveTotalAmount = new TotalAmountType{Value = 277.70m}
 				},
 			    InvoiceLine = new List<SFTIInvoiceLineType> {
 			    	new SFTIInvoiceLineType{
 			    		ID = new SFTISimpleIdentifierType{Value = "1"},
 						LineExtensionAmount = new ExtensionAmountType{Value = 123.45m},
-						Item = new SFTIItemType()
+						InvoicedQuantity = new QuantityType{Value = 1},
+						Item = new SFTIItemType{
+							Description = new DescriptionType{Value = "Article Description"},
+							BasePrice = new SFTIBasePriceType{PriceAmount = new PriceAmountType{Value = 123.45m}},
+							//TaxCategory = new List<SFTITaxCategoryType> {
+							//    new SFTITaxCategoryType {
+							//        ID = new IdentifierType{Value="E"},
+							//        Percent = new PercentType{Value = 0m},
+							//        TaxScheme = new SFTITaxSchemeType{ID= new IdentifierType{Value = "VAT"}}
+							//    }
+							//}
+						}
+			    	},
+			    	new SFTIInvoiceLineType{
+			    		ID = new SFTISimpleIdentifierType{Value = "1"},
+						LineExtensionAmount = new ExtensionAmountType{Value = 123.4m},
+						InvoicedQuantity = new QuantityType{Value = 10},
+						Item = new SFTIItemType {
+							Description = new DescriptionType{Value = "Article Description"},
+							BasePrice = new SFTIBasePriceType{PriceAmount = new PriceAmountType{Value = 12.34m}},
+							//TaxCategory = new List<SFTITaxCategoryType> {
+							//    new SFTITaxCategoryType {
+							//        ID = new IdentifierType{Value="S"},
+							//        Percent = new PercentType{Value = 25m},
+							//        TaxScheme = new SFTITaxSchemeType{ID= new IdentifierType{Value = "VAT"}}
+							//    }
+							//}
+						},
 			    	}
 			    },
 			    RequisitionistDocumentReference = new List<SFTIDocumentReferenceType> {
 			    	new SFTIDocumentReferenceType {
 			    		ID = new IdentifierType{Value = "Reference"}
 			    	}
-			    }
+			    },
+                TaxCurrencyCode = new CurrencyCodeType{Value = CurrencyCodeContentType.SEK},
+				//TaxTotal = new List<SFTITaxTotalType> {
+				//    new SFTITaxTotalType {
+				//        TotalTaxAmount = new TaxAmountType{Value = 30.85m},
+				//        TaxSubTotal = new List<SFTITaxSubTotalType> {
+				//            new SFTITaxSubTotalType {
+				//                TaxableAmount = new AmountType{Value=123.45m},
+				//                TaxAmount = new TaxAmountType{Value = 0m},
+				//                TaxCategory = new SFTITaxCategoryType {
+				//                    ID = new IdentifierType{Value="E"},
+				//                    Percent = new PercentType{Value = 0m},
+				//                    TaxScheme = new SFTITaxSchemeType{ID= new IdentifierType{Value = "VAT"}}
+				//                }
+				//            },
+				//            new SFTITaxSubTotalType {
+				//                TaxableAmount = new AmountType{Value=154.25m},
+				//                TaxAmount = new TaxAmountType{Value = 30.85m},
+				//                TaxCategory = new SFTITaxCategoryType {
+				//                    ID = new IdentifierType{Value="S"},
+				//                    Percent = new PercentType{Value = 25m},
+				//                    TaxScheme = new SFTITaxSchemeType{ID= new IdentifierType{Value = "VAT"}}
+				//                }
+				//            }
+				//        }
+				//    }
+				//}
 			};
 			var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
 			Expect(ruleViolations.Count(), Is.EqualTo(0), SvefakturaValidator.FormatRuleViolations(ruleViolations));

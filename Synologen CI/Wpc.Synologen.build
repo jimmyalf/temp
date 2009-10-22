@@ -12,7 +12,7 @@
 	<property name="srcPub" 		value="${developDir}\${compName} Site"/>
 	
 	<!-- Deployment folders -->
-	<property name="deployAdmin" 	value="${deployRoot}\Wpc Admin" overwrite="false"/>
+	<property name="deployAdmin" 	value="${deployRoot}\WpcAdmin" overwrite="false"/>
 
 	<!-- Publish www.synologen.nu -->	
 	<target name="Public-Nu" >

@@ -51,7 +51,7 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlText]
-		[PropertyValidationRule("Value Required",ValidationType.RequiredNotNull)]
+		//[PropertyValidationRule("Value Required",ValidationType.RequiredNotNull)]
 		public decimal Value {
 			get {
 				return valueField;

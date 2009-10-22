@@ -12,7 +12,7 @@
 		</When>
 		<Otherwise>
 			<PropertyGroup>
-				<SolutionDir>C:\Develop\WPC4\Current\CustomerSpecific\Synologen\</SolutionDir>
+				<SolutionDir>C:\Develop\WPC\Current-CustomerSpecific\Synologen\</SolutionDir>
 			</PropertyGroup>
 			<ItemGroup>
 				<ProjectToBuild Include="$(SolutionDir)Synologen Test\Synologen Test.csproj"/>

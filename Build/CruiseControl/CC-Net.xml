@@ -1,0 +1,50 @@
+<!--
+One limitation of this approach is that these external files will not be monitored by the CCNet server. 
+Hence, CCNet will not automatically reload the configuration when these files change. 
+The ccnet.config file will need to be touched for these files to be reloaded.
+-->
+	
+	<project name="Wpc.Synologen" queue="WpcQueue" queuePriority="1">
+		<webURL>http://10.1.1.170/cruicecontrol/server/local/project/Wpc.Synologen/ViewProjectReport.aspx</webURL>
+		<modificationDelaySeconds>60</modificationDelaySeconds>
+	  
+		<sourcecontrol type="svn">
+			<executable>C:\Program\SlikSvn\bin\svn.exe</executable>
+			<trunkUrl>https://10.1.1.101:8443/svn/wpc/Customer Specific/Synologen</trunkUrl>
+			<username>ccnet</username>
+			<password>cruisecontrol</password>
+			<workingDirectory>C:\Develop\WPC4\Current\CustomerSpecific\Synologen</workingDirectory>
+		</sourcecontrol>
+	  
+		<triggers>
+			<intervalTrigger seconds="120" />
+		</triggers>
+	  
+		<tasks>
+			<devenv>
+				<solutionfile>C:\Develop\WPC4\Current\CustomerSpecific\Synologen\Synologen.sln</solutionfile>
+				<configuration>Release</configuration>
+				<buildtype>Build</buildtype>
+				<buildTimeoutSeconds>600</buildTimeoutSeconds>
+			</devenv>
+		</tasks>
+	  
+		<publishers>
+			<xmllogger />
+			<email mailhost="mail.esend.nu" from="cruisecontrol_wpc@spinit.se">
+				<includeDetails>False</includeDetails>
+				<users>
+					<user name="cber" address="carl.berg@spinit.se" group="buildmaster" />
+				</users>
+				<groups>
+					<group name="buildmaster" notification="Always" />
+					<group name="developer" notification="Change" />
+				</groups>
+				<converters />
+				<modifierNotificationTypes />
+			</email>
+		</publishers>
+		<prebuild/>
+  </project>
+	
+	

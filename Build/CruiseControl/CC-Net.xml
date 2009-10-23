@@ -57,6 +57,8 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 			<email mailhost="mail.esend.nu" from="cruisecontrol_wpc@spinit.se" includeDetails="TRUE">
 				<users>
 					<user name="cber" address="carl.berg@spinit.se" group="buildmaster" />
+					<user name="aaxe" address="anders.axelsson@spinit.se" group="developer" />
+					<user name="nlin" address="niklas.lindwall@spinit.se" group="developer" />
 				</users>
 				<groups>
 					<group name="buildmaster" notification="Always" />

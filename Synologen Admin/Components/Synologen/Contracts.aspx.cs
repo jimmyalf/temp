@@ -1,5 +1,4 @@
 using System;
-using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
@@ -24,7 +23,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		private void PopulateContractCustomers() {
-			int totalRecords = 0;
+			var totalRecords = 0;
 
 			//Set pagesize
 			_pageSize = SessionContext.ContractCustomers.PageSize;
@@ -37,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			SortExpression = SessionContext.ContractCustomers.SortExpression;
 			SortAscending = SessionContext.ContractCustomers.SortAscending;
 
-			DataSet dsContractCustomers = Provider.GetContractsByPage(
+			var dsContractCustomers = Provider.GetContractsByPage(
 				_searchString,
 				SortExpression + ((SortAscending) ? " ASC" : " DESC"),
 				pager.PageIndex,
@@ -59,32 +58,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			base.OnInit(e);
 		}
 
-		//private void setActive(DataSet ds) {
-		//    int i = 0;
-		//    foreach (GridViewRow row in gvContractCustomers.Rows) {
-		//        bool active = Convert.ToBoolean(ds.Tables[0].Rows[i]["cActive"]);
-		//        if (row.FindControl("imgActive") != null) {
-		//            Image img = (Image)row.FindControl("imgActive");
-		//            if (active) {
-		//                img.ImageUrl = "~/common/icons/True.png";
-		//                img.AlternateText = "Active";
-		//                img.ToolTip = "Active";
-		//            }
-		//            else {
-		//                img.ImageUrl = "~/common/icons/False.png";
-		//                img.AlternateText = "Inactive";
-		//                img.ToolTip = "Inactive";
-		//            }
-		//        }
-		//        i++;
-		//    }
-		//}
-
 		protected void chkSelectHeader_CheckedChanged(object sender, EventArgs e) {
-			CheckBox chkHeader = (CheckBox)sender;
+			var chkHeader = (CheckBox)sender;
 			if (chkHeader == null) return;
 			foreach (GridViewRow row in gvContractCustomers.Rows) {
-				CheckBox chk = (CheckBox)row.FindControl("chkSelect");
+				var chk = (CheckBox)row.FindControl("chkSelect");
 				if (chk != null) {
 					chk.Checked = chkHeader.Checked;
 				}
@@ -92,7 +70,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void AddConfirmDelete(object sender, EventArgs e) {
-			ClientConfirmation cc = new ClientConfirmation();
+			var cc = new ClientConfirmation();
 			cc.AddConfirmation(ref sender, "Vill du verkligen ta bort avtalet?");
 		}
 
@@ -100,15 +78,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		/// Renders the submenu.
 		/// </summary>
 		public void RenderMemberSubMenu(MasterPage master) {
-			SynologenMain m = (SynologenMain)master;
-			PlaceHolder phMemberSubMenu = m.SubMenu;
-			SmartMenu.Menu subMenu = new SmartMenu.Menu();
-			subMenu.ID = "SubMenu";
-			subMenu.ControlType = "ul";
-			subMenu.ItemControlType = "li";
-			subMenu.ItemWrapperElement = "span";
+			var m = (SynologenMain)master;
+			var phMemberSubMenu = m.SubMenu;
+			var subMenu = new SmartMenu.Menu {ID = "SubMenu", ControlType = "ul", ItemControlType = "li", ItemWrapperElement = "span"};
 
-			SmartMenu.ItemCollection itemCollection = new SmartMenu.ItemCollection();
+			var itemCollection = new SmartMenu.ItemCollection();
 			itemCollection.AddItem("Add", null, "Lägg till", "Lägg till ny avtalskund", null, "btnAdd_OnClick", false, null);
 			itemCollection.AddItem("Delete", null, "Radera", "Radera valda avtalskunder", null, "btnDelete_OnClick", false, null);
 			//itemCollection.AddItem("Filkategori", null, "Filkategorier", "Lista filkategorier", null,ComponentPages.FileCategories + "?type=ContractCustomer", null, null, false, true);
@@ -136,15 +110,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		protected void btnDelete_OnClick(object sender, EventArgs e) {
 			foreach (GridViewRow row in gvContractCustomers.Rows) {
-				CheckBox chk = (CheckBox)row.FindControl("chkSelect");
+				var chk = (CheckBox)row.FindControl("chkSelect");
 				if ((chk == null) || !chk.Checked) continue;
-				int id = (int)gvContractCustomers.DataKeys[row.RowIndex]["cId"];
+				var id = (int)gvContractCustomers.DataKeys[row.RowIndex]["cId"];
 				if(Provider.ContractHasConnectedOrders(id)) {
 					DisplayMessage("Avtalet kan inte raderas då det finns kopplade ordrar.", true);
 					return;
 				}
-				ContractRow contractToDelete = new ContractRow();
-				contractToDelete.Id = id;
+				var contractToDelete = new ContractRow {Id = id};
 				Provider.AddUpdateDeleteContract(Enumerations.Action.Delete, ref contractToDelete);
 			}
 
@@ -177,27 +150,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				Response.Redirect(ComponentPages.NoAccess);
 			}
 			else {
-				int index = e.NewEditIndex;
-				int contractCustomerId = (int)gvContractCustomers.DataKeys[index].Value;
+				var index = e.NewEditIndex;
+				var contractCustomerId = (int)gvContractCustomers.DataKeys[index].Value;
 				Response.Redirect(ComponentPages.EditContractCustomer + "?id=" + contractCustomerId);
 			}
 		}
 
 		protected void gvContractCustomers_Deleting(object sender, GridViewDeleteEventArgs e) {
-			int id = (int)gvContractCustomers.DataKeys[e.RowIndex].Value;
+			var id = (int)gvContractCustomers.DataKeys[e.RowIndex].Value;
 			if (Provider.ContractHasConnectedOrders(id)) {
 				DisplayMessage("Avtalet kan inte raderas då det finns kopplade ordrar.", true);
 				return;
 			}
-			ContractRow contractToDelete = new ContractRow();
-			contractToDelete.Id = id;
+			var contractToDelete = new ContractRow {Id = id};
 			Provider.AddUpdateDeleteContract(Enumerations.Action.Delete, ref contractToDelete);
 			PopulateContractCustomers();
 		}
 
 		protected void gvContractCustomers_RowCommand(object sender, GridViewCommandEventArgs e) {
-			int index = 0;
-			int contractCustomerId = 0;
+			int index;
+			int contractCustomerId;
 
 			switch (e.CommandName) {
 				case "Edit":

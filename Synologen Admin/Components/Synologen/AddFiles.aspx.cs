@@ -4,10 +4,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
 using Spinit.Wpc.Member.Data;
-using Spinit.Wpc.Member.Business;
 using Spinit.Wpc.Synologen.Business.Enumeration;
 using Spinit.Wpc.Synologen.Presentation.Code;
-using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 	public partial class AddFiles : SynologenPage {
@@ -139,7 +137,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 					fle.AddFile(name,false,fileExtension,null,description,CurrentUser);
 					//Label1.Text = "File uploaded!";
 				}
-				catch (Exception ex) {
+				catch (Exception) {
 					//Label1.Text = "File could not be uploaded.";
 				}
 			}

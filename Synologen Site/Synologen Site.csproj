@@ -179,6 +179,7 @@
     <Content Include="CityShopList.aspx" />
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
+    <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">

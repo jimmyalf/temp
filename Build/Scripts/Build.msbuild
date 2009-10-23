@@ -25,7 +25,7 @@
 				<ProjectToBuild Include="$(SolutionDir)Synologen Test\Synologen Test.csproj"/>
 			</ItemGroup>
 		</Otherwise>
-	</Choose>	
+	</Choose>
 	
 
 	<Target Name="PreBuild">

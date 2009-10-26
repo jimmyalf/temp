@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using Spinit.Wpc.Synologen.OPQ.Business.FillObject;
 using Spinit.Wpc.Synologen.OPQ.Core;
+using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 
 namespace Spinit.Wpc.Synologen.OPQ.Business
 {
@@ -42,7 +42,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="baseFileId">The base-file-id.</param>
 		/// <param name="fileCategory">The file-categories.</param>
 		/// <param name="file">The created file.</param>
-		public Error CreateFile (int nodeId, int? shopId, int baseFileId, FileCategories fileCategory, out File file)
+		public SynologenOpqFile CreateFile (int nodeId, int? shopId, int baseFileId, SynologenOpqFileCategory fileCategory)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -54,7 +54,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="baseFileId">The base-file-id.</param>
 		/// <param name="fileCategory">The file-categories.</param>
 		/// <param name="file">The changed file.</param>
-		public Error ChangeFile (int fileId, int baseFileId, FileCategories? fileCategory, out File file)
+		public SynologenOpqFile ChangeFile (int fileId, int baseFileId, SynologenOpqFileCategory fileCategory)
 		{
 			string tmp = "dbApa";
 
@@ -67,7 +67,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Deletes a file.
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
-		public Error DeleteFile (int fileId)
+		public void DeleteFile (int fileId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -76,7 +76,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Publish a file.
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
-		public Error Publish (int fileId)
+		public void Publish (int fileId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -85,7 +85,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Locks a file.
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
-		public Error Lock (int fileId)
+		public void Lock (int fileId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -94,7 +94,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Unlocks the file.
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
-		public Error Unlock (int fileId)
+		public void Unlock (int fileId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -105,7 +105,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="fileId">The id of the file.</param>
 		/// <param name="fileFill">The file-fill object.</param>
 		/// <param name="File">The fetched file.</param>
-		public Error GetFile (int fileId, FileFill fileFill, out File File)
+		public SynologenOpqFile GetFile (int fileId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -119,7 +119,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="onlyActive">If true=&gt;fetch only active files.</param>
 		/// <param name="fileFill">The file-fill object.</param>
 		/// <param name="files">A list of files.</param>
-		public Error GetFiles (int? nodeId, int? shopId, int? fileCategoryId, bool onlyActive, FileFill fileFill, List<File> files)
+		public List<SynologenOpqFile> GetFiles (int? nodeId, int? shopId, int? fileCategoryId, bool onlyActive)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -129,7 +129,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
 		/// <param name="moveAction">The action.</param>
-		public Error MoveFile (int fileId, NodeMoveActions moveAction)
+		public void MoveFile (int fileId, NodeMoveActions moveAction)
 		{
 			throw new System.NotImplementedException ();
 		}

@@ -1,5 +1,5 @@
-﻿CREATE TABLE [dbo].[SynologenOpqDocumentShops] (
+/*CREATE TABLE [dbo].[SynologenOpqDocumentShops] (
     [DocId] INT NOT NULL,
     [ShpId] INT NOT NULL
-);
+);*/
 

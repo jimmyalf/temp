@@ -2,42 +2,36 @@
 -- Instead-of update document
 -- =============================================
 
-CREATE TRIGGER [SynologenOpqNodes_InsteadOfInsert] 
-ON [dbo].[SynologenOpqNodes]
+CREATE TRIGGER [SynologenOpqFiles_InsteadOfInsert] 
+ON [dbo].[SynologenOpqFiles]
 INSTEAD OF INSERT
 AS
 BEGIN
 	SET NOCOUNT ON
 	
-	DECLARE	@parent INT,
+	DECLARE	@ndeId INT,
 			@order INT
 			
-	SELECT	@parent = Parent
+	SELECT	@ndeId = NdeId
 	FROM	INSERTED
 	
 	SET @order = 1
 	
-	IF @parent IS NULL
-		BEGIN
-			SELECT	@order = MAX ([Order]) + 1
-			FROM	dbo.SynologenOpqNodes
-			WHERE	Parent IS NULL
-		END
-	ELSE
-		BEGIN
-			SELECT	@order = MAX ([Order]) + 1
-			FROM	dbo.SynologenOpqNodes
-			WHERE	Parent = @parent
-		END
+	SELECT	@order = MAX ([Order]) + 1
+	FROM	dbo.SynologenOpqFiles
+	WHERE	NdeId = @ndeId
 			
-	INSERT INTO dbo.SynologenOpqNodes (
-		Parent, [Order], [Name], IsActive, CreatedById, CreatedByName, CreatedDate,
+	INSERT INTO dbo.SynologenOpqFiles (
+		[Order], FleCatId, FleId, NdeId, ShpId, CncId, IsActive, CreatedById, CreatedByName, CreatedDate,
 		ChangedById, ChangedByName, ChangedDate, ApprovedById, ApprovedByName, ApprovedDate,
 		LockedById, LockedByName, LockedDate)
 	SELECT
-		Parent,
 		@order,
-		[Name],
+		FleCatId,
+		FleId,
+		NdeId,
+		ShpId,
+		CncId,
 		IsActive,
 		CreatedById,
 		CreatedByName,

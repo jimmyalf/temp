@@ -56,21 +56,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\ESynologenOPQDocument.cs" />
-    <Compile Include="Entities\ESynologenOPQDocumentHistory.cs" />
-    <Compile Include="Entities\ESynologenOPQDocumentShop.cs" />
-    <Compile Include="Entities\ESynologenOPQDocumentType.cs" />
-    <Compile Include="Entities\ESynologenOPQFile.cs" />
-    <Compile Include="Entities\ESynologenOPQFileCategory.cs" />
-    <Compile Include="Entities\ESynologenOPQFileShop.cs" />
-    <Compile Include="Entities\ESynologenOPQNode.cs" />
-    <Compile Include="Entities\ESynologenOPQNodeSupplierConnection.cs" />
-    <Compile Include="Entities\ESynologenOPQShopConnection.cs" />
+    <Compile Include="Entities\ESynologenOpqDocument.cs" />
+    <Compile Include="Entities\ESynologenOpqDocumentHistory.cs" />
+    <Compile Include="Entities\ESynologenOpqDocumentType.cs" />
+    <Compile Include="Entities\ESynologenOpqFile.cs" />
+    <Compile Include="Entities\ESynologenOpqFileCategory.cs" />
+    <Compile Include="Entities\ESynologenOpqNode.cs" />
+    <Compile Include="Entities\ESynologenOpqNodeSupplierConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WpcSynologenOpqDataContext.cs" />
-    <Compile Include="WpcSynologenOpqRepository.cs" />
-    <Compile Include="WpcSynologenOpqRepository.Managers.cs">
-      <DependentUpon>WpcSynologenOpqRepository.cs</DependentUpon>
+    <Compile Include="WpcSynologenDataContext.cs" />
+    <Compile Include="WpcSynologenRepository.cs" />
+    <Compile Include="WpcSynologenRepository.Managers.cs">
+      <DependentUpon>WpcSynologenRepository.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 
 /*    Driver Used : Microsoft Visual Studio - Microsoft SQL Server Driver.                    */
 /*    Document    : M:\Dokument\Projekt - Spinit\WPC\Database Design Synologen OPQ.vsd.       */
-/*    Time Created: 22 October 2009 15:14.                                                    */
+/*    Time Created: 26 October 2009 12:27.                                                    */
 /*    Operation   : From Visio Generate Wizard.                                               */
 /*    Connected data source : No connection.                                                  */
 /*    Connected server      : No connection.                                                  */
@@ -11,38 +11,6 @@
 
 
 SET QUOTED_IDENTIFIER ON
-
-go
-
-
-/* Create dbWpcSynologen database.                                                            */
-use master  
-
-go
-
-create database "dbWpcSynologen"  
-
-go
-
-use "dbWpcSynologen"  
-
-go
-
-/* Create new table "tblSynologenConcern".                                                    */
-/* "tblSynologenConcern" : Table of tblSynologenConcern                                       */
-/* 	"cId" : cId identifies tblSynologenConcern                                                */
-/* 	"cName" : cName is of tblSynologenConcern                                                 */
-/* 	"cCommonOpq" : cCommonOpq is of tblSynologenConcern                                       */  
-create table "tblSynologenConcern" ( 
-	"cId" int identity not null,
-	"cName" nvarchar(512) not null,
-	"cCommonOpq" bit null)  
-
-go
-
-alter table "tblSynologenConcern"
-	add constraint "tblSynologenConcern_PK" primary key ("cId")   
-
 
 go
 
@@ -107,7 +75,6 @@ alter table "SynologenOpqDocumentTypes"
 
 
 go
-
 
 /* Create new table "SynologenOpqDocuments".                                                  */
 /* "SynologenOpqDocuments" : Table of SynologenOpqDocuments                                   */

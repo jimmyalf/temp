@@ -57,46 +57,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Classes.ttinclude" />
-    <None Include="Configuration.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Configuration.cs</LastGenOutput>
-    </None>
-    <None Include="CoreEntityClasses.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CoreEntityClasses.cs</LastGenOutput>
-    </None>
-    <None Include="DataContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DataContext.cs</LastGenOutput>
-    </None>
     <None Include="WpcSynologenOpq.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>WpcSynologenOpq.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Classes.ttinclude" />
+    <None Include="Configuration.tt1" />
+    <None Include="CoreEntityClasses.tt1" />
+    <None Include="DataContext.tt1" />
+    <None Include="Definitions.ttinclude" />
+    <None Include="EntityClasses.tt1" />
+    <None Include="Properties\Settings.settings" />
+    <None Include="Repository.tt1" />
+    <None Include="RepositoryManager.tt1" />
     <None Include="WpcSynologenOpq.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>WpcSynologenOpq.cs</LastGenOutput>
     </None>
-    <None Include="Definitions.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Definitions.cs</LastGenOutput>
-    </None>
-    <None Include="EntityClasses.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EntityClasses.cs</LastGenOutput>
-    </None>
-    <None Include="Repository.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Repository.cs</LastGenOutput>
-    </None>
-    <None Include="RepositoryManager.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RepositoryManager.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="WpcSynologenOpq.dbml.layout">
       <DependentUpon>WpcSynologenOpq.dbml</DependentUpon>
     </None>

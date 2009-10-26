@@ -861,6 +861,21 @@ class Manager
 		
 		return string.Empty;
 	}	
+	
+	public bool IsInList (string table, string tableList)
+	{
+		string[] tables = tableList.Split (new [] {','});
+
+		if (tables.Length > 0) {
+			foreach (string sTable in tables) {
+				if (table.Equals (sTable, StringComparison.OrdinalIgnoreCase)) {
+					return true;
+				}
+			} 
+		}
+
+		return false;
+	}
 }
 
 class ManagementStrategy

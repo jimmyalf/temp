@@ -1,6 +1,8 @@
-﻿CREATE TABLE [dbo].[SynologenOpqDocuments] (
+CREATE TABLE [dbo].[SynologenOpqDocuments] (
     [Id]             INT            IDENTITY (1, 1) NOT NULL,
     [NdeId]          INT            NOT NULL,
+    [ShpId]          INT            NULL,
+    [CncId]          INT            NULL,
     [DocTpeId]       INT            NOT NULL,
     [Document]       NTEXT          NOT NULL,
     [IsActive]       BIT            NOT NULL,
@@ -17,4 +19,6 @@
     [LockedByName]   NVARCHAR (100) NULL,
     [LockedDate]     DATETIME       NULL
 );
+
+
 

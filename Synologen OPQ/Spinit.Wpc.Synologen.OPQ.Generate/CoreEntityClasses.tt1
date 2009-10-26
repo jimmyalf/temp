@@ -1,5 +1,5 @@
-﻿<#@ template language="C#v3.5" hostspecific="True" debug="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation"#>
-<#@ include file="Definitions.tt"#>
+﻿<#@ template language="C#v3.5" hostspecific="True" #>
+<#@ include file="Definitions.ttinclude"#>
 <#
 	manager.StartHeader();
 #>
@@ -22,6 +22,10 @@ using System.Collections.Generic;
 	manager.EndHeader();
 foreach(Table table in data.Tables) {
 	foreach(TableClass class1 in table.Classes) {
+		if (manager.IsInList (class1.Name, options.ExcludeTablesCore)) {
+			continue;
+		}
+	
 		manager.StartBlock(Path.ChangeExtension(class1.Name,".cs"));
 		if (!String.IsNullOrEmpty(manager.OutputProjectCore)) {#>
 namespace <#=manager.OutputProjectCore#>.<#=manager.OutputDirectoryCoreEntities#>

@@ -33,11 +33,11 @@
   <ItemGroup>
     <Reference Include="Spinit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\NonWpcDlls\WpcAdmin\Spinit.dll</HintPath>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\NonWpcDlls\WpcAdmin\Spinit.Data.dll</HintPath>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -63,6 +63,7 @@
     <Compile Include="Entities\ESynologenOpqFileCategory.cs" />
     <Compile Include="Entities\ESynologenOpqNode.cs" />
     <Compile Include="Entities\ESynologenOpqNodeSupplierConnection.cs" />
+    <Compile Include="Managers\NodeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WpcSynologenDataContext.cs" />
     <Compile Include="WpcSynologenRepository.cs" />
@@ -75,9 +76,6 @@
       <Project>{C62E11A4-13C6-4D1E-999F-A747AC05D8F7}</Project>
       <Name>Spinit.Wpc.Synologen.OPQ.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Managers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -65,6 +65,14 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 			Assert.AreEqual(CurrencyCodeContentType.SEK, invoice.InvoiceCurrencyCode.Value);
 		}
 		[Test]
+		public void Test_Create_Invoice_Sets_TaxCurrencyCode() {
+			var customSettings = new SvefakturaConversionSettings {
+				InvoiceCurrencyCode = CurrencyCodeContentType.SEK
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			Assert.AreEqual(CurrencyCodeContentType.SEK, invoice.TaxCurrencyCode.Value);
+		}
+		[Test]
 		public void Test_Create_Invoice_Sets_LineItemCountNumeric() {
 			var customOrderLines = new List<IOrderItem> {new OrderItemRow{ArticleDisplayName = "One"}, new OrderItemRow{ArticleDisplayName = "Two"}};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderLines, emptyCompany, emptyShop, emptySettings);
@@ -483,21 +491,24 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_TaxTotal_TotalTaxAmount() {
-			var customOrder = new OrderRow {
-			                               	InvoiceSumIncludingVAT = 12345.789,
-			                               	InvoiceSumExcludingVAT = 11005.456
-			                               };
-			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
-			Assert.AreEqual(1340.333, invoice.TaxTotal[0].TotalTaxAmount.Value);
+			var customOrderLines = new List<IOrderItem> {
+				new OrderItemRow {NoVAT = false, DisplayTotalPrice = 1000f},
+				new OrderItemRow {NoVAT = true, DisplayTotalPrice = 90.33f}
+			};
+			var customSettings = new SvefakturaConversionSettings {VATAmount = 0.25m};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderLines, emptyCompany, emptyShop, customSettings);
+			Assert.AreEqual(250, invoice.TaxTotal[0].TotalTaxAmount.Value);
 			Assert.AreEqual("SEK", invoice.TaxTotal[0].TotalTaxAmount.amountCurrencyID);
 		}
 		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_TaxTotal_VATAmount() {
-			var customSettings = new SvefakturaConversionSettings {
-			                                                      	VATAmount = 0.25m
-			                                                      };
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+			var customOrderLines = new List<IOrderItem> {
+				new OrderItemRow {NoVAT = false},
+				new OrderItemRow {NoVAT = true}
+			};
+			var customSettings = new SvefakturaConversionSettings {VATAmount = 0.25m};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderLines, emptyCompany, emptyShop, customSettings);
 			var taxCategoryS = invoice.TaxTotal[0].TaxSubTotal.Find(x => x.TaxCategory.ID.Value.Equals("S"));
 			var taxCategoryE = invoice.TaxTotal[0].TaxSubTotal.Find(x => x.TaxCategory.ID.Value.Equals("E"));
 			Assert.IsNotNull(taxCategoryS);
@@ -513,13 +524,35 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_TaxTotal_VATFree() {
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
+			var customOrderLines = new List<IOrderItem> {
+				new OrderItemRow {NoVAT = true}
+			};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderLines, emptyCompany, emptyShop, emptySettings);
 			var taxCategoryE = invoice.TaxTotal[0].TaxSubTotal.Find(x => x.TaxCategory.ID.Value.Equals("E"));
 			Assert.IsNotNull(taxCategoryE);
+			Assert.AreEqual(0, invoice.TaxTotal[0].TotalTaxAmount.Value);
 			Assert.AreEqual("E", taxCategoryE.TaxCategory.ID.Value);
 			Assert.AreEqual(0m, taxCategoryE.TaxCategory.Percent.Value);
 			Assert.AreEqual("VAT", taxCategoryE.TaxCategory.TaxScheme.ID.Value);
 			Assert.AreEqual(1, invoice.TaxTotal[0].TaxSubTotal.Count);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_TaxTotal_Complete() {
+			var customOrderLines = new List<IOrderItem> {
+				new OrderItemRow {NoVAT = true, DisplayTotalPrice = 125f},
+				new OrderItemRow {NoVAT = false, DisplayTotalPrice = 250f},
+				new OrderItemRow {NoVAT = true, DisplayTotalPrice = 500f},
+				new OrderItemRow {NoVAT = false, DisplayTotalPrice = 1000f},
+			};
+			var customSettings = new SvefakturaConversionSettings {VATAmount = 0.25m};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderLines, emptyCompany, emptyShop, customSettings);
+			var withTaxSubTotal = invoice.TaxTotal[0].TaxSubTotal.Find(x => x.TaxCategory.ID.Value.Equals("S"));
+			var noTaxSubTotal = invoice.TaxTotal[0].TaxSubTotal.Find(x => x.TaxCategory.ID.Value.Equals("E"));
+			Assert.IsNotNull(withTaxSubTotal);
+			Assert.IsNotNull(noTaxSubTotal);
+			Assert.AreEqual(1, invoice.TaxTotal.Count);
+			Assert.AreEqual(2, invoice.TaxTotal[0].TaxSubTotal.Count);
+
 		}
 		#endregion
 

@@ -165,6 +165,39 @@ namespace Spinit.Wpc.Synologen.Utility {
 		//    }
 		//}
 
+		public static string FormatRuleViolations(IEnumerable<RuleViolation> ruleViolations) {
+			var returnString = String.Empty;
+			foreach (var ruleViolation in ruleViolations){
+				returnString += ruleViolation.ErrorMessage + "\r\n";
+			}
+			return (String.IsNullOrEmpty(returnString)) ? null : returnString.TrimEnd(new []{'\r','\n'});
+			
+		}
+
+		public static IEnumerable<RuleViolation> ValidateObject(object value) {
+            if(value == null || value.GetType().IsSealed) yield break;
+			foreach (var ruleViolation in GetCustomRuleViolations(value)){ yield return ruleViolation; }
+            foreach (var propertyInfo in value.GetType().GetProperties()) { //Iterate each property in value object
+                var propertyValue = propertyInfo.GetValue(value, null);
+                foreach(var ruleViolation in GetRuleViolations(value.GetType().Name, propertyValue, propertyInfo)) { //Get violations for property value
+                    yield return ruleViolation;
+                }
+                if(propertyValue == null) continue;
+				if(propertyValue is IEnumerable) { //If property is Enumerable recursively call method for each item
+            		foreach (var item in propertyValue as IEnumerable){
+						foreach (var ruleViolation in ValidateObject(item)) { yield return ruleViolation; }
+            		}
+				}
+				else{ 
+				    foreach(var ruleViolation in ValidateObject(propertyValue)) {
+				        yield return ruleViolation;
+				    }
+				}
+            }
+            yield break;
+		}
+
+		#region Control Calculations
 		private static IEnumerable<RuleViolation> ValidateControlAmounts(SFTIInvoiceType invoice) {
 		    if(invoice == null) yield break;
 		    decimal sumLineExtensionAmount = 0;
@@ -217,46 +250,98 @@ namespace Spinit.Wpc.Synologen.Utility {
 		    }
 		    return counter;
 		}
+		#endregion
 
-		public static string FormatRuleViolations(IEnumerable<RuleViolation> ruleViolations) {
-			var returnString = String.Empty;
-			foreach (var ruleViolation in ruleViolations){
-				returnString += ruleViolation.ErrorMessage + "\r\n";
+		#region Control TaxTotal
+		private static IEnumerable<RuleViolation> ValidateControlTaxTotal(SFTIInvoiceType invoice) {
+		    if(invoice == null || invoice.TaxTotal == null) yield break;
+			foreach (var taxTotal in invoice.TaxTotal){
+				if(taxTotal.TotalTaxAmount == null) continue;
+				if(taxTotal.TotalTaxAmount.Value != GetTotalTaxAmount(taxTotal.TaxSubTotal)){
+					yield return new RuleViolation("SFTITaxTotalType.TotalTaxAmount does not match control calculated amount.","SFTITaxTotalType.TotalTaxAmount");	
+				}
+				if(taxTotal.TaxSubTotal == null) continue;
+				foreach (var taxSubTotal in taxTotal.TaxSubTotal){
+					foreach (var ruleViolation in GetSubTotalRuleViolations(taxSubTotal, invoice.InvoiceLine, invoice.AllowanceCharge)){
+						yield return ruleViolation;
+					}					
+				}
 			}
-			return (String.IsNullOrEmpty(returnString)) ? null : returnString.TrimEnd(new []{'\r','\n'});
-			
+			yield break;
 		}
 
-		public static IEnumerable<RuleViolation> ValidateObject(object value) {
-            if(value == null || value.GetType().IsSealed) yield break;
-			foreach (var ruleViolation in GetCustomRuleViolations(value)){ yield return ruleViolation; }
-            foreach (var propertyInfo in value.GetType().GetProperties()) { //Iterate each property in value object
-                var propertyValue = propertyInfo.GetValue(value, null);
-                foreach(var ruleViolation in GetRuleViolations(value.GetType().Name, propertyValue, propertyInfo)) { //Get violations for property value
-                    yield return ruleViolation;
-                }
-                if(propertyValue == null) continue;
-				if(propertyValue is IEnumerable) { //If property is Enumerable recursively call method for each item
-            		foreach (var item in propertyValue as IEnumerable){
-						foreach (var ruleViolation in ValidateObject(item)) { yield return ruleViolation; }
-            		}
+		private static IEnumerable<RuleViolation> GetSubTotalRuleViolations(SFTITaxSubTotalType taxSubTotal, IEnumerable<SFTIInvoiceLineType> invoiceLines, IEnumerable<SFTIAllowanceChargeType> charges) {
+			if (invoiceLines == null) yield break;
+			decimal invoiceLineVatAmount, invoiceLineNoVatAmount, allowanceChargeVatAmount, allowanceChargeNoVatAmount;
+			GetTotalInvoiceLineAmounts(invoiceLines, out invoiceLineVatAmount, out invoiceLineNoVatAmount);
+			GetTotalAllowanceChargeAmounts(charges, out allowanceChargeVatAmount, out allowanceChargeNoVatAmount);
+			if(taxSubTotal.TaxCategory != null && taxSubTotal.TaxCategory.ID != null && taxSubTotal.TaxCategory.ID.Value != null && taxSubTotal.TaxCategory.ID.Value.Equals("S")){
+				if(taxSubTotal.TaxableAmount != null && taxSubTotal.TaxableAmount.Value != invoiceLineVatAmount + allowanceChargeVatAmount){
+					yield return new RuleViolation("SFTITaxSubTotalType.TaxableAmount does not match control calculated amount for taxcategory S.","SFTITaxSubTotalType.TaxableAmount");	
 				}
-				else{ 
-				    foreach(var ruleViolation in ValidateObject(propertyValue)) {
-				        yield return ruleViolation;
-				    }
+				if(taxSubTotal.TaxAmount != null && taxSubTotal.TaxAmount.Value != (((invoiceLineVatAmount + allowanceChargeVatAmount)*taxSubTotal.TaxCategory.Percent.Value)/100)){
+					yield return new RuleViolation("SFTITaxSubTotalType.TaxAmount does not match control calculated amount for taxcategory S.","SFTITaxSubTotalType.TaxAmount");	
 				}
-            }
-            yield break;
-        }
+			}
+			else if(taxSubTotal.TaxCategory != null && taxSubTotal.TaxCategory.ID != null && taxSubTotal.TaxCategory.ID.Value != null && taxSubTotal.TaxCategory.ID.Value.Equals("E")){
+				if(taxSubTotal.TaxableAmount != null && taxSubTotal.TaxableAmount.Value != invoiceLineNoVatAmount + allowanceChargeNoVatAmount){
+					yield return new RuleViolation("SFTITaxSubTotalType.TaxableAmount does not match control calculated amount for taxcategory E.","SFTITaxSubTotalType.TaxableAmount");	
+				}
+				if(taxSubTotal.TaxAmount != null && taxSubTotal.TaxAmount.Value != 0){
+					yield return new RuleViolation("SFTITaxSubTotalType.TaxAmount does not match control calculated amount for taxcategory E.","SFTITaxSubTotalType.TaxAmount");	
+				}
+			}
+			else {
+				yield return new RuleViolation("TaxSubtotal TaxCategory ID could not be identified", "SFTITaxSubTotalType.TaxCategory.ID");
+			}
+		}
 
+		private static decimal GetTotalTaxAmount(IEnumerable<SFTITaxSubTotalType> taxSubTotals) {
+			if (taxSubTotals == null) return 0;
+			decimal returnValue = 0;
+			foreach (var taxSubTotal in taxSubTotals){
+				if(taxSubTotal.TaxAmount == null) continue;
+				returnValue += taxSubTotal.TaxAmount.Value;
+			}
+			return returnValue;
+		}
+		private static void GetTotalInvoiceLineAmounts(IEnumerable<SFTIInvoiceLineType> invoiceLines, out decimal vatAmount, out decimal noVatAmount) {
+			vatAmount = 0;
+			noVatAmount = 0;
+			foreach (var invoiceLine in invoiceLines){
+				if(invoiceLine.Item == null || invoiceLine.Item.TaxCategory == null || invoiceLine.Item.TaxCategory.Count <= 0 || invoiceLine.Item.TaxCategory[0].ID == null || invoiceLine.Item.TaxCategory[0].ID.Value == null) continue;
+				if(invoiceLine.Item.TaxCategory[0].ID.Value.Equals("S")){
+					vatAmount += invoiceLine.LineExtensionAmount.Value;
+				}
+				else if(invoiceLine.Item.TaxCategory[0].ID.Value.Equals("E")){
+					noVatAmount += invoiceLine.LineExtensionAmount.Value;
+				}
+			}
+		}
+		private static void GetTotalAllowanceChargeAmounts(IEnumerable<SFTIAllowanceChargeType> allowanceCharges, out decimal vatAmount, out decimal noVatAmount) {
+			vatAmount = 0;
+			noVatAmount = 0;
+			if (allowanceCharges == null) return;
+			foreach (var allowanceCharge in allowanceCharges){
+				if(allowanceCharge.Amount == null || allowanceCharge.ChargeIndicator == null) continue;
+				var charge = (allowanceCharge.ChargeIndicator.Value) ? allowanceCharge.Amount.Value : (allowanceCharge.Amount.Value * -1);
+				if(allowanceCharge.TaxCategory[0].ID.Value.Equals("S")){ vatAmount += charge; }
+				else if(allowanceCharge.TaxCategory[0].ID.Value.Equals("E")){ noVatAmount += charge; }
+			}
+		}
+
+		#endregion
+
+		#region Custom Validation
 		private static IEnumerable<RuleViolation> GetCustomRuleViolations(object value) {
 			if (value is SFTIInvoiceType) return CustomValidateObject(value as SFTIInvoiceType);
 			if (value is SFTIInvoiceLineType) return CustomValidateObject(value as SFTIInvoiceLineType);
 			if (value is SFTIPartyTaxSchemeType) return CustomValidateObject(value as SFTIPartyTaxSchemeType);
+			if (value is SFTISellerPartyType) return CustomValidateObject(value as SFTISellerPartyType);
+			if (value is SFTITaxCategoryType) return CustomValidateObject(value as SFTITaxCategoryType);
+			if (value is SFTITaxSchemeType) return CustomValidateObject(value as SFTITaxSchemeType);
 			return new Collection<RuleViolation>() ;
 		}
-
 		private static IEnumerable<RuleViolation> CustomValidateObject(SFTIInvoiceType value) { 
 			if(value == null) yield break;
 			if(value.TaxPointDate == null) {
@@ -268,7 +353,23 @@ namespace Spinit.Wpc.Synologen.Utility {
 			if(value.InvoiceTypeCode != null && value.InvoiceTypeCode.Value != null && value.InvoiceTypeCode.Value.Equals("381") && value.InitialInvoiceDocumentReference == null){
 				yield return new RuleViolation("SFTIInvoiceType.InitialInvoiceDocumentReference is missing (mandatory on credit invoices).","SFTIInvoiceType.InitialInvoiceDocumentReference");
 			}
+			if(value.InvoiceTypeCode != null && value.InvoiceTypeCode.Value != null && !(value.InvoiceTypeCode.Value.Equals("380") || value.InvoiceTypeCode.Value.Equals("381"))){
+				yield return new RuleViolation("SFTIInvoiceType.InvoiceTypeCode has unexpected value (allowed: 380/381).","SFTIInvoiceType.InvoiceTypeCode");
+			}
+			if(value.InvoiceTypeCode != null && value.InvoiceTypeCode.Value != null && value.InvoiceTypeCode.Value.Equals("380")){
+				if(value.PaymentMeans == null){
+					yield return new RuleViolation("SFTIPaymentMeansType.DuePaymentDate is required (on debit invoices).","SFTIPaymentMeansType.DuePaymentDate");
+				}
+				else{
+					foreach (var paymentMean in value.PaymentMeans){
+						if(paymentMean.DuePaymentDate == null || paymentMean.DuePaymentDate.Value.Equals(DateTime.MinValue)){
+							yield return new RuleViolation("SFTIPaymentMeansType.DuePaymentDate is required (on debit invoices).","SFTIPaymentMeansType.DuePaymentDate");
+						}
+					}
+				}
+			}
 			foreach (var ruleViolation in ValidateControlAmounts(value)){ yield return ruleViolation; }
+			foreach (var ruleViolation in ValidateControlTaxTotal(value)){ yield return ruleViolation; }
 		}
 		private static IEnumerable<RuleViolation> CustomValidateObject(SFTIInvoiceLineType value) { 
 			if(value == null) yield break;
@@ -285,7 +386,42 @@ namespace Spinit.Wpc.Synologen.Utility {
 				yield return new RuleViolation("SFTIPartyTaxSchemeType.ExemptionReason is missing for Taxscheme type SWT.","SFTIPartyTaxSchemeType.ExemptionReason");
 			}
 		}
+		private static IEnumerable<RuleViolation> CustomValidateObject(SFTISellerPartyType value) { 
+			if(value == null || value.Party == null || value.Party.PartyTaxScheme == null) yield break;
+			foreach (var partyTaxScheme in value.Party.PartyTaxScheme){
+				if(partyTaxScheme.TaxScheme == null || partyTaxScheme.TaxScheme.ID == null || partyTaxScheme.TaxScheme.ID.Value == null || !partyTaxScheme.TaxScheme.ID.Value.Equals("SWT")) continue;
+				if(partyTaxScheme.RegistrationAddress == null){
+					yield return new RuleViolation("SFTIPartyTaxSchemeType.RegistrationAddress is missing for Taxscheme type SWT (in seller party).","SFTIPartyTaxSchemeType.RegistrationAddress");
+				}
+				else if(partyTaxScheme.RegistrationAddress.Country == null){
+					yield return new RuleViolation("SFTIAddressType.Country is missing for Taxscheme type SWT (in seller party).","SFTIAddressType.Country");
+				}
+				else if(partyTaxScheme.RegistrationAddress.Country.IdentificationCode == null){
+					yield return new RuleViolation("SFTICountryType.IdentificationCode is missing for Taxscheme type SWT (in seller party).","SFTICountryType.IdentificationCode");
+				}
+			}
+		}
+		private static IEnumerable<RuleViolation> CustomValidateObject(SFTITaxCategoryType value) { 
+			if(value == null) yield break;
+			if (value.ID == null || value.ID.Value == null || !(value.ID.Value.Equals("S") ||value.ID.Value.Equals("E"))){
+				yield return new RuleViolation("SFTITaxCategoryType.ID value is incorrect (expects S or E).", "SFTITaxCategoryType.ID");
+			}
+			if (value.Percent == null){
+				yield return new RuleViolation("SFTITaxCategoryType.Percent is missing.", "SFTITaxCategoryType.Percent");
+			}
+			if (value.ExemptionReason == null && value.ID != null && value.ID.Value != null && !value.ID.Value.Equals("S")){
+				yield return new RuleViolation("SFTITaxCategoryType.ExemptionReason is missing for ID not equal to S.", "SFTITaxCategoryType.ExemptionReason");
+			}
+		}
+		private static IEnumerable<RuleViolation> CustomValidateObject(SFTITaxSchemeType value) { 
+			if(value == null) yield break;
+			if (value.ID == null || value.ID.Value == null || !(value.ID.Value.Equals("VAT") ||value.ID.Value.Equals("SWT"))){
+				yield return new RuleViolation("SFTITaxSchemeType.ID value is incorrect (expects VAT or SWT).", "SFTITaxSchemeType.ID");
+			}
+		}
+		#endregion
 
+		#region Helper Methods
 		private static IEnumerable<RuleViolation> GetRuleViolations(string parentObjectname, object propertyValue, MemberInfo propertyInfo) {
             var properties = propertyInfo.GetCustomAttributes(typeof(PropertyValidationRule),true);
             foreach (PropertyValidationRule validationType in properties) { 
@@ -337,7 +473,19 @@ namespace Spinit.Wpc.Synologen.Utility {
 			if (value is string) return String.IsNullOrEmpty(value as string);
 			return (Double.TryParse(value.ToString(), out parsedNumericValue) && parsedNumericValue.Equals(0));
 		}
-
+		#endregion
+		//private static SFTITaxCategoryType GetInvoiceLineTaxCategory(SFTIInvoiceLineType invoiceLine, decimal defaultVATPercent) {
+		//    var defaultTaxCategory = new SFTITaxCategoryType {
+		//        ID = new IdentifierType {Value = "S"},
+		//        Percent = new PercentType {Value = defaultVATPercent},
+		//        TaxScheme = new SFTITaxSchemeType {ID = new IdentifierType {Value = "VAT"}}
+		//    };
+		//    if(invoiceLine == null) return defaultTaxCategory;
+		//    if(invoiceLine.Item == null) return defaultTaxCategory;
+		//    if (invoiceLine.Item.TaxCategory == null) return defaultTaxCategory;
+		//    //TODO: Is this true even if there are more than one taxcategories given?
+		//    return invoiceLine.Item.TaxCategory.Count <= 0 ? defaultTaxCategory : invoiceLine.Item.TaxCategory[0];
+		//}
 	}
 
 }

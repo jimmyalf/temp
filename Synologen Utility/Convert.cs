@@ -37,9 +37,8 @@ namespace Spinit.Wpc.Synologen.Utility {
 			TryAddBuyerParty(invoice, company, order);
 			TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankgiroBankIdentificationCode, company, settings);
 			TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode, company, settings);
-			TryAddTaxTotal(invoice, settings, order, orderItems);
 			TryAddGeneralInvoiceInformation(invoice, settings, order, orderItems, company);
-			TryAddInvoiceLines(invoice, orderItems, settings.VATAmount);
+			TryAddInvoiceLines(settings, invoice, orderItems, order, settings.VATAmount);
 			TryAddPaymentTerms(invoice, settings, company);
 			return invoice;
 		}

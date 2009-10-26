@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
-using Spinit.Wpc.Synologen.OPQ.Core;
+using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 
 namespace Spinit.Wpc.Synologen.OPQ.Business
 {
@@ -18,7 +15,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="name">The name of the file-category.</param>
 		/// <param name="fileCategory">The created file category.</param>
-		public Error CreateFileCategory (string name, out FileCategory fileCategory)
+		
+		public SynologenOpqFileCategory CreateFileCategory (string name)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -29,7 +27,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="fileCategoryId">The id of the file category.</param>
 		/// <param name="name">The name of the file-category.</param>
 		/// <param name="fileCategory">The changed file category.</param>
-		public Error ChangeFileCategory (int fileCategoryId, string name, out FileCategory fileCategory)
+
+		public SynologenOpqFileCategory ChangeFileCategory (int fileCategoryId, string name)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -37,7 +36,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <summary>
 		/// Deletes a file category.
 		/// </summary>
-		public Error DeleteFileCategory (int fileCategoryId)
+		
+		public void DeleteFileCategory (int fileCategoryId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -46,8 +46,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Gets a specific file-category.
 		/// </summary>
 		/// <param name="fileCategoryId">The id of the file-category.</param>
-		/// <param name="FileCategory">The file-category</param>
-		public Error GetFileCategory (int fileCategoryId, out FileCategory FileCategory)
+		/// <param name="fileCategory">The file-category</param>
+
+		public SynologenOpqFileCategory GetFileCategory (int fileCategoryId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -57,7 +58,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="onlyActive">If true=&gt;fetches only active categories.</param>
 		/// <param name="fileCategories">A list of file-categories.</param>
-		public Error GetFileCategories (bool onlyActive, List<FileCategory> fileCategories)
+
+		public List<SynologenOpqFileCategory> GetFileCategories (bool onlyActive)
 		{
 			throw new System.NotImplementedException ();
 		}

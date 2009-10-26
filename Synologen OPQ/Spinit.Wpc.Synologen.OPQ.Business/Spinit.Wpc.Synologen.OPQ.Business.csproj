@@ -57,16 +57,11 @@
     <Compile Include="BFile.cs" />
     <Compile Include="BFileCategory.cs" />
     <Compile Include="BNode.cs" />
-    <Compile Include="FillObject\DocumentFill.cs" />
-    <Compile Include="Error.cs" />
     <Compile Include="Enumerations.cs" />
-    <Compile Include="FillObject\FileFill.cs" />
-    <Compile Include="FillObject\NodeFill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Business Classes.cd" />
-    <None Include="FillObject\Business FillObject Classes.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spinit.Wpc.Synologen.OPQ.Core\Spinit.Wpc.Synologen.OPQ.Core.csproj">

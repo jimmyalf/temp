@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Spinit.Wpc.Synologen.OPQ.Business.FillObject;
+﻿using System.Collections.Generic;
+
 using Spinit.Wpc.Synologen.OPQ.Core;
+using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 
 namespace Spinit.Wpc.Synologen.OPQ.Business
 {
@@ -42,7 +40,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="name">The name of the node.</param>
 		/// <param name="node">The created node.</param>
 		/// <param name="nodeFill">The created nodeFill.</param>
-		public Error CreateNode (int? parent, string name, out Node node)
+		public SynologenOpqNode CreateNode (int? parent, string name)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -55,7 +53,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="name">The node's name.</param>
 		/// <param name="node">The changed node.</param>
 		/// <param name="nodeFill">The changed nodeFill.</param>
-		public Error ChangeNode (int nodeId, int? parent, string name, out Node node)
+		public SynologenOpqNode ChangeNode (int nodeId, int? parent, string name)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -64,7 +62,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Deletes a node.
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
-		public Error DeleteNode (int nodeId)
+		public void DeleteNode (int nodeId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -73,7 +71,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Publishes a node.
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
-		public Error Publish (int nodeId)
+		public void Publish (int nodeId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -84,7 +82,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="type">The type of move.</param>
 		/// <param name="source">The node to be moved.</param>
 		/// <param name="destination">The destination reference node.</param>
-		public Error MoveNode (NodeMoveActions type, int source, int? destination)
+		public void MoveNode (NodeMoveActions type, int source, int? destination)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -93,9 +91,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Fetches a specified node.
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
-		/// <param name="nodeFill">The node fill object.</param>
 		/// <param name="node">The node.</param>
-		public Error GetNode (int nodeId, NodeFill nodeFill, out Node node)
+		public SynologenOpqNode GetNode (int nodeId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -108,7 +105,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="onlyActive">If true=&gt;only fetch active nodes.</param>
 		/// <param name="nodeFill">The node-fill object.</param>
 		/// <param name="nodes">The fetched nodes.</param>
-		public Error GetNodes (int? parent, string name, bool onlyActive, NodeFill nodeFill, out List<Node> nodes)
+		public List<SynologenOpqNode> GetNodes (int? parent, string name, bool onlyActive)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -117,7 +114,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Locks a node.
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
-		public Error Lock (string nodeId)
+		public void Lock (string nodeId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -126,7 +123,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Unlocks the node.
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
-		public Error UnLock (int nodeId)
+		public void UnLock (int nodeId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -136,7 +133,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
 		/// <param name="supplierId">The id of the supplier.</param>
-		public Error AddSupplier (int nodeId, int supplierId)
+		public void AddSupplier (int nodeId, int supplierId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -146,7 +143,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
 		/// <param name="supplierId">The id of the supplier.</param>
-		public Error RemoveSupplier (int nodeId, int supplierId)
+		public void RemoveSupplier (int nodeId, int supplierId)
 		{
 			throw new System.NotImplementedException ();
 		}

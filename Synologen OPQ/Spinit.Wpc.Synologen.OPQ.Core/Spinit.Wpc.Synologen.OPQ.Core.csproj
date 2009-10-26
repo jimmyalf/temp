@@ -51,33 +51,18 @@
   <ItemGroup>
     <Compile Include="Configuration.cs" />
     <Compile Include="Context.cs" />
-    <Compile Include="Document.cs" />
-    <Compile Include="Entities\SynologenOPQDocument.cs" />
-    <Compile Include="Entities\SynologenOPQDocumentHistory.cs" />
-    <Compile Include="Entities\SynologenOPQDocumentShop.cs" />
-    <Compile Include="Entities\SynologenOPQDocumentType.cs" />
-    <Compile Include="Entities\SynologenOPQFile.cs" />
-    <Compile Include="Entities\SynologenOPQFileCategory.cs" />
-    <Compile Include="Entities\SynologenOPQFileShop.cs" />
-    <Compile Include="Entities\SynologenOPQNode.cs" />
-    <Compile Include="Entities\SynologenOPQNodeSupplierConnection.cs" />
-    <Compile Include="Entities\SynologenOPQShopConnection.cs" />
+    <Compile Include="Entities\SynologenOpqDocument.cs" />
+    <Compile Include="Entities\SynologenOpqDocumentHistory.cs" />
+    <Compile Include="Entities\SynologenOpqDocumentType.cs" />
+    <Compile Include="Entities\SynologenOpqFile.cs" />
+    <Compile Include="Entities\SynologenOpqFileCategory.cs" />
+    <Compile Include="Entities\SynologenOpqNode.cs" />
+    <Compile Include="Entities\SynologenOpqNodeSupplierConnection.cs" />
     <Compile Include="Enumerations.cs" />
-    <Compile Include="File.cs" />
-    <Compile Include="FileCategory.cs" />
-    <Compile Include="Language.cs" />
-    <Compile Include="Location.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="NodeLocationLanguageConnection.cs" />
-    <Compile Include="NodeSupplierConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shop.cs" />
-    <Compile Include="ShopConnection.cs" />
-    <Compile Include="Supplier.cs" />
-    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Core Classes.cd" />
+    <None Include="Entities\Core Entities.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,5 @@
-﻿<#@ template language="C#v3.5" hostspecific="True" debug="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation"#>
-<#@ include file="Definitions.tt"#>
+﻿<#@ template language="C#v3.5" hostspecific="True" #>
+<#@ include file="Definitions.ttinclude"#>
 <#
 	manager.StartHeader();
 #>

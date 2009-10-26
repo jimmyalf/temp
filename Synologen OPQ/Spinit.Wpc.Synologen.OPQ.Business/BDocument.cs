@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using Spinit.Wpc.Synologen.OPQ.Business.FillObject;
 using Spinit.Wpc.Synologen.OPQ.Core;
+using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 
 namespace Spinit.Wpc.Synologen.OPQ.Business
 {
@@ -41,7 +41,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="documentTypeId">The document-type.</param>
 		/// <param name="documentContent">The document content.</param>
 		/// <param name="document">The created document.</param>
-		public Error CreateDocument (int nodeId, int? shopId, DocumentTypes documentTypeId, string documentContent, out Document document)
+		public SynologenOpqDocument CreateDocument (int nodeId, int? shopId, DocumentTypes documentTypeId, string documentContent)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -52,7 +52,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="documentId">The id of the document.</param>
 		/// <param name="documentContent">The document content.</param>
 		/// <param name="document">The changed document.</param>
-		public Error ChangeDocument (int documentId, string documentContent, out Document document)
+		public SynologenOpqDocument ChangeDocument (int documentId, string documentContent)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -61,7 +61,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Deletes a document
 		/// </summary>
 		/// <param name="documentId">The id of the document.</param>
-		public Error DeleteDocument (int documentId)
+		public void DeleteDocument (int documentId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -70,7 +70,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Publish the document.
 		/// </summary>
 		/// <param name="documentId">The id of the document.</param>
-		public Error Publish (int documentId)
+		public void Publish (int documentId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -79,7 +79,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Locks the document.
 		/// </summary>
 		/// <param name="documentId">The id of the document.</param>
-		public Error Lock (int documentId)
+		public void Lock (int documentId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -88,7 +88,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Unlocks the document.
 		/// </summary>
 		/// <param name="documentId">The id of the document.</param>
-		public Error UnLock (int documentId)
+		public void UnLock (int documentId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -99,7 +99,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="documentId">The id of the document.</param>
 		/// <param name="documentFill">The document-fill object.</param>
 		/// <param name="document">The fethed document.</param>
-		public Error GetDocument (int documentId, DocumentFill documentFill, out Document document)
+		public SynologenOpqDocument GetDocument (int documentId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -114,7 +114,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="onlyActive">If true=&gt;fetch only active documents.</param>
 		/// <param name="documentFill">The document-fill object.</param>
 		/// <param name="documents">A list of documents.</param>
-		public Error GetDocuments (int? nodeId, int? shopId, DocumentTypes? documentType, string searchText, bool onlyActive, DocumentFill documentFill, List<Document> documents)
+		public List<SynologenOpqDocument> GetDocuments (int? nodeId, int? shopId, DocumentTypes? documentType, string searchText, bool onlyActive)
 		{
 			throw new System.NotImplementedException ();
 		}

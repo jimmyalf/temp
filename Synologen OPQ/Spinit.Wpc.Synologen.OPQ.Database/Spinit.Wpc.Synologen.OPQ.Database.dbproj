@@ -80,6 +80,7 @@
     <Folder Include="Schema Objects\Views\Triggers\" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\Administration" />
+    <Folder Include="Scripts\Default Data" />
     <Folder Include="Scripts\Pre-Deployment" />
     <Folder Include="Scripts\Post-Deployment" />
     <Folder Include="Data Generation Plans" />
@@ -103,12 +104,18 @@
     </Build>
     <Build Include="Schema Objects\Tables\dbo.SynologenOpqDocumentHistories.table.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.SynologenOpqDocuments.table.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.SynologenOpqDocumentShops.table.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.SynologenOpqDocumentTypes.table.sql">
       <SubType>Code</SubType>
@@ -118,9 +125,13 @@
     </Build>
     <Build Include="Schema Objects\Tables\dbo.SynologenOpqFiles.table.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.SynologenOpqFileShops.table.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.SynologenOpqNodes.table.sql">
       <SubType>Code</SubType>
@@ -130,11 +141,16 @@
     </Build>
     <Build Include="Schema Objects\Tables\dbo.SynologenOpqShopConnections.table.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblBaseFile.table.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblBaseUsers.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblSynologenConcern.table.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblSynologenShop.table.sql">
@@ -144,6 +160,9 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentHistories.SynologenOpqDocuments_SynologenOpqDocumentHistories_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentHistories.tblBaseUsers_SynologenOpqDocumentHistories_FK1.fkey.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.SynologenOpqDocuments_PK.pkey.sql">
@@ -165,6 +184,12 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.tblBaseUsers_SynologenOpqDocuments_FK4.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.tblSynologenConcern_SynologenOpqDocuments_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.tblSynologenShop_SynologenOpqDocuments_FK1.fkey.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentShops.SynologenOpqDocumentShops_PK.pkey.sql">
@@ -210,6 +235,12 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.tblBaseUsers_SynologenOpqFiles_FK4.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.tblSynologenConcern_SynologenOpqFiles_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.tblSynologenShop_SynologenOpqFiles_FK1.fkey.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFileShops.SynologenOpqFileShops_PK.pkey.sql">
@@ -269,6 +300,9 @@
     <Build Include="Schema Objects\Tables\Keys\dbo.tblBaseUsers.PK_tblBaseUsers.pkey.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenConcern.tblSynologenConcern_PK.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShop.FK_tblSynologenShop_tblSynologenShop.fkey.sql">
       <SubType>Code</SubType>
     </Build>
@@ -278,10 +312,13 @@
     <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShop.PK_tblSynologenShop.pkey.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqDocument.AfterUpdate.trigger.sql">
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqDocument.InsteadOfUpdate.trigger.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqDocument.SomeTableOrView.InsteadOfUpdate.trigger.sql">
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqFile.InsteadOfInsert.trigger.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqNode.InsteadOfInsert.trigger.sql">
       <SubType>Code</SubType>
     </Build>
     <PreDeploy Include="Scripts\Pre-Deployment\Script.PreDeployment.sql">
@@ -296,6 +333,9 @@
       <SubType>NotInBuild</SubType>
     </NotInBuild>
     <NotInBuild Include="Scripts\Administration\Visio_generated.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Default Data\DocumentTypes.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
   </ItemGroup>

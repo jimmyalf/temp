@@ -1,8 +1,11 @@
-﻿CREATE TABLE [dbo].[SynologenOpqDocumentHistories] (
+CREATE TABLE [dbo].[SynologenOpqDocumentHistories] (
     [Id]             INT            NOT NULL,
     [HistoryDate]    DATETIME       NOT NULL,
+    [HistoryId]      INT            NOT NULL,
+    [HistoryName]    NVARCHAR (100) NOT NULL,
     [NdeId]          INT            NOT NULL,
     [ShpId]          INT            NULL,
+    [CncId]          INT            NULL,
     [DocTpeId]       INT            NOT NULL,
     [Document]       NTEXT          NOT NULL,
     [IsActive]       BIT            NOT NULL,
@@ -19,4 +22,6 @@
     [LockedByName]   NVARCHAR (100) NULL,
     [LockedDate]     DATETIME       NULL
 );
+
+
 

@@ -1,9 +1,11 @@
-﻿CREATE TABLE [dbo].[SynologenOpqFiles] (
+CREATE TABLE [dbo].[SynologenOpqFiles] (
     [Id]             INT            IDENTITY (1, 1) NOT NULL,
     [Order]          INT            NOT NULL,
     [FleCatId]       INT            NOT NULL,
     [FleId]          INT            NOT NULL,
     [NdeId]          INT            NOT NULL,
+    [ShpId]          INT            NULL,
+    [CncId]          INT            NULL,
     [IsActive]       BIT            NOT NULL,
     [CreatedById]    INT            NOT NULL,
     [CreatedByName]  NVARCHAR (100) NOT NULL,
@@ -18,4 +20,6 @@
     [LockedByName]   NVARCHAR (100) NULL,
     [LockedDate]     DATETIME       NULL
 );
+
+
 

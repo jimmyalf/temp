@@ -27,6 +27,13 @@
       <Association Name="SynologenOpqDocument_SynologenOpqDocumentHistory" Member="SynologenOpqDocument" ThisKey="Id" OtherKey="Id" Type="SynologenOpqDocument" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.SynologenOpqNodeSupplierConnections" Member="SynologenOpqNodeSupplierConnections">
+    <Type Name="SynologenOpqNodeSupplierConnection">
+      <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SupId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="SynologenOpqNode_SynologenOpqNodeSupplierConnection" Member="SynologenOpqNode" ThisKey="NdeId" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.SynologenOpqDocuments" Member="SynologenOpqDocuments">
     <Type Name="SynologenOpqDocument">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -119,18 +126,11 @@
       <Column Name="LockedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="LockedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="LockedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SynologenOpqNode_SynologenOpqNodeSupplierConnection" Member="SynologenOpqNodeSupplierConnections" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqNodeSupplierConnection" />
       <Association Name="SynologenOpqNode_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqDocument" />
       <Association Name="SynologenOpqNode_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqFile" />
       <Association Name="SynologenOpqNode_SynologenOpqNode" Member="SynologenOpqNodes" ThisKey="Id" OtherKey="Parent" Type="SynologenOpqNode" />
-      <Association Name="SynologenOpqNode_SynologenOpqNodeSupplierConnection" Member="SynologenOpqNodeSupplierConnections" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqNodeSupplierConnection" />
       <Association Name="SynologenOpqNode_SynologenOpqNode" Member="SynologenOpqNode1" ThisKey="Parent" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SynologenOpqNodeSupplierConnections" Member="SynologenOpqNodeSupplierConnections">
-    <Type Name="SynologenOpqNodeSupplierConnection">
-      <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SupId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="SynologenOpqNode_SynologenOpqNodeSupplierConnection" Member="SynologenOpqNode" ThisKey="NdeId" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

@@ -11,7 +11,7 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		public bool AddUpdateDeleteShopCategory(Enumerations.Action action, ref ShopCategoryRow category) {
 			try {
-				int numAffected = 0;
+				var numAffected = 0;
 				SqlParameter[] parameters = {
             		new SqlParameter("@type", SqlDbType.Int, 4),
 					new SqlParameter("@name", SqlDbType.NVarChar, 50),
@@ -19,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Data {
             		new SqlParameter("@id", SqlDbType.Int, 4)
 				};
 
-				int counter = 0;
+				var counter = 0;
 				parameters[counter++].Value = (int)action;
 				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
 
@@ -49,14 +49,14 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		public DataSet GetShopCategories(int categoryId) {
 			try {
-				int counter = 0;
+				var counter = 0;
 				SqlParameter[] parameters = {
 						new SqlParameter ("@categoryId", SqlDbType.Int, 4),
 						new SqlParameter ("@status", SqlDbType.Int, 4)
 					};
 				parameters[counter++].Value = categoryId;
 				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetShopCategories", parameters, "tblSynologenShopCategory");
+				var retSet = RunProcedure("spSynologenGetShopCategories", parameters, "tblSynologenShopCategory");
 				//TODO: Read status: parameters[counter]
 				return retSet;
 			}
@@ -66,16 +66,16 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public ShopCategoryRow GetShopCategoryRow(int categoryId) {
-			ShopCategoryRow returnValue = new ShopCategoryRow();
-			DataSet dataSet = GetShopCategories(categoryId);
-			DataRow dataRow = dataSet.Tables[0].Rows[0];
+			var returnValue = new ShopCategoryRow();
+			var dataSet = GetShopCategories(categoryId);
+			var dataRow = dataSet.Tables[0].Rows[0];
 			returnValue.Id = Util.CheckNullInt(dataRow, "cId");
 			returnValue.Name = Util.CheckNullString(dataRow, "cName");
 			return returnValue;
 		}
 
 		public bool ShopCategoryHasConnectedShops(int categoryId) {
-			DataSet shopDataSet = GetShops(0, categoryId, 0, 0, 0, true, null);
+			var shopDataSet = GetShops(null, categoryId, null, null, null, null, null, null);
 			return DataSetHasRows(shopDataSet);
 		}
 

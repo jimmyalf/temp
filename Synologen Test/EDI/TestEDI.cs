@@ -12,6 +12,7 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 		private EDIConversionSettings ediSettings;
 
 		[TestFixtureSetUp]
+		[Ignore]
 		public void Setup() {
 			connectionString = "Initial Catalog=dbWpcSynologen;Data Source=BLACK;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
 			provider = new SqlProvider(connectionString);
@@ -26,6 +27,7 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 		public void TearDown() {}
 
 		[Test]
+		[Ignore]
 		public void CreateEDIInvoices() {
 			for (var i = 19; i <= 30; i++) {
 				var order = provider.GetOrder(i);

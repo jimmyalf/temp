@@ -59,8 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumeration\Enumeration.cs" />
+    <Compile Include="Enumeration\ValidationType.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Interfaces\ICompany.cs" />
+    <Compile Include="Interfaces\ICompanyValidationRule.cs" />
+    <Compile Include="Interfaces\IConcernRow.cs" />
+    <Compile Include="Interfaces\ICountryRow.cs" />
     <Compile Include="Interfaces\IInvoiceStatus.cs" />
     <Compile Include="Interfaces\IOrder.cs" />
     <Compile Include="Interfaces\IOrderItem.cs" />
@@ -99,6 +103,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synologen Svefaktura\Synologen Svefaktura.csproj">
+      <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
+      <Name>Synologen Svefaktura</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

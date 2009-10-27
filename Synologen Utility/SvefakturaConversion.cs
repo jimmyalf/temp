@@ -16,18 +16,11 @@ using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicCompo
 
 namespace Spinit.Wpc.Synologen.Utility {
 	public static partial class Convert {
-		private static void TryAddTaxTotal(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, OrderRow order, IEnumerable<IOrderItem> orderItems) {
+		private static void TryAddTaxTotal(SFTIInvoiceType invoice, SvefakturaConversionSettings settings) {
 			if (invoice.InvoiceLine == null) return;
 			if(invoice.TaxTotal == null) invoice.TaxTotal = new List<SFTITaxTotalType>();
 			var generatedTaxTotal = GetTaxTotal(invoice, settings.VATAmount);
 			invoice.TaxTotal.Add(generatedTaxTotal);
-			//var taxSubTotal = GetDefaultTaxCategories(settings, orderItems, order);
-			//invoice.TaxTotal.Add(
-			//    new SFTITaxTotalType {
-			//        TaxSubTotal = taxSubTotal,
-			//        TotalTaxAmount = new TaxAmountType{ Value = (decimal)(order.InvoiceSumIncludingVAT - order.InvoiceSumExcludingVAT), amountCurrencyID="SEK"}
-			//    } 
-			//);
 		}
 
 		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, OrderRow order, List<IOrderItem> orderItems, CompanyRow company ) {
@@ -57,7 +50,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			invoice.TaxCurrencyCode = TryGetValue(settings.InvoiceCurrencyCode, new CurrencyCodeType {Value = settings.InvoiceCurrencyCode.GetValueOrDefault()});
 		}
 
-		private static void TryAddInvoiceLines(SvefakturaConversionSettings settings,  SFTIInvoiceType invoice, IEnumerable<IOrderItem> orderItems, OrderRow order , decimal VATAmount) {
+		private static void TryAddInvoiceLines(SvefakturaConversionSettings settings,  SFTIInvoiceType invoice, IEnumerable<IOrderItem> orderItems , decimal VATAmount) {
 			if(invoice.InvoiceLine == null) invoice.InvoiceLine = new List<SFTIInvoiceLineType>();
 			var lineItemCount = 0;
 			foreach (var orderItem in orderItems){
@@ -84,7 +77,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 				);
 			}
 			invoice.LineItemCountNumeric = (lineItemCount <= 0) ? null : new LineItemCountNumericType {Value = lineItemCount};
-			TryAddTaxTotal(invoice, settings, order, orderItems);
+			TryAddTaxTotal(invoice, settings);
 		}
 
 		#region SellerParty
@@ -153,8 +146,8 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return GetPartyTaxScheme(
 				company.TaxAccountingCode, 
 				company.OrganizationNumber, 
-				company.OrganizationCountryCode,
-				company.ExemptionReason,
+				(company.Country == null)? null : company.Country.OrganizationCountryCode,
+				null,
 				company.City,
 				company.PostBox,
 				company.StreetName,
@@ -162,7 +155,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			);
 		}
 
-		private static SFTIAddressType GetBuyerPartyAddress(CompanyRow company, IOrder orderRow) {
+		private static SFTIAddressType GetBuyerPartyAddress(ICompany company, IOrder orderRow) {
 			return GetSFTIAddress(
 				company.PostBox,
 				company.StreetName,
@@ -218,12 +211,12 @@ namespace Spinit.Wpc.Synologen.Utility {
 
 		#region Helper Methods
 
-		private static T TryGetValue<T>(bool test, T falseValue, T trueFalue ) {
-			return  test ? falseValue : trueFalue;
-		}
-		private static T TryGetValue<T>(bool test, T properValue ) {
-			return  test ? default(T) : properValue;
-		}
+		//private static T TryGetValue<T>(bool test, T falseValue, T trueFalue ) {
+		//    return  test ? falseValue : trueFalue;
+		//}
+		//private static T TryGetValue<T>(bool test, T properValue ) {
+		//    return  test ? default(T) : properValue;
+		//}
 		private static T TryGetValue<T>(string valueToSet, T properValue) {
 			return String.IsNullOrEmpty(valueToSet) ? default(T) : properValue;
 		}

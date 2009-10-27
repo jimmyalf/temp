@@ -119,12 +119,12 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		public ShopRow GetShop(int shopId) {
 			try {
-				var shopDataSet = GetShops(shopId,0,0,0,0,true,"cId");
+				var shopDataSet = GetShops(shopId, null, null, null, null, null, null, "cId");
 				var shopDataRow = shopDataSet.Tables[0].Rows[0];
 				return ParseShopRow(shopDataRow);
 			}
 			catch (Exception ex) {
-				throw new Exception("Exception found while parsing a ShopRow object: "+ex.Message);
+				throw new Exception("Exception found while parsing a ShopRow object.", ex);
 			}
 		}
 
@@ -153,12 +153,14 @@ namespace Spinit.Wpc.Synologen.Data {
 			shopRow.GiroNumber = Util.CheckNullString(shopDataRow, "cGiroNumber");
 			shopRow.GiroSupplier = Util.CheckNullString(shopDataRow, "cGiroSupplier");
 			shopRow.Equipment = GetAllEquipmentRowsPerShop(shopRow.ShopId);
+			var concernId = Util.CheckNullInt(shopDataRow, "cConcernId");
+			shopRow.Concern = (concernId>0) ? GetConcern(concernId) : null;
 			return shopRow;
 		}
 
-		public DataSet GetShops(int shopId, int shopCategoryId, int contractCustomer,int memberId, int equipmentId, bool includeInactive,string orderBy) {
+		public DataSet GetShops(int? shopId, int? shopCategoryId, int? contractCustomer, int? memberId, int? equipmentId, bool? includeInactive, int? concernId, string orderBy) {
 			try {
-				int counter = 0;
+				var counter = 0;
 				SqlParameter[] parameters = {
 						new SqlParameter ("@shopId", SqlDbType.Int, 4),
 						new SqlParameter ("@shopCategoryId", SqlDbType.Int, 4),
@@ -166,18 +168,20 @@ namespace Spinit.Wpc.Synologen.Data {
 						new SqlParameter ("@memberId", SqlDbType.Int, 4),
 						new SqlParameter ("@equipmentId", SqlDbType.Int, 4),
 						new SqlParameter ("@includeInactive", SqlDbType.Bit),
+						new SqlParameter ("@concernId", SqlDbType.Int, 4),
 						new SqlParameter ("@orderBy", SqlDbType.NVarChar, 255),
 						new SqlParameter ("@status", SqlDbType.Int, 4)
 					};
-				parameters[counter++].Value = shopId;
-				parameters[counter++].Value = shopCategoryId;
-				parameters[counter++].Value = contractCustomer;
-				parameters[counter++].Value = memberId;
-				parameters[counter++].Value = equipmentId;
-				parameters[counter++].Value = includeInactive;
-				parameters[counter++].Value = orderBy ?? SqlString.Null;
+				parameters[counter++].Value = GetNullableSqlType(shopId);
+				parameters[counter++].Value = GetNullableSqlType(shopCategoryId);
+				parameters[counter++].Value = GetNullableSqlType(contractCustomer);
+				parameters[counter++].Value = GetNullableSqlType(memberId);
+				parameters[counter++].Value = GetNullableSqlType(equipmentId);
+				parameters[counter++].Value = GetNullableSqlType(includeInactive);
+				parameters[counter++].Value = GetNullableSqlType(concernId);
+				parameters[counter++].Value = GetNullableSqlType(orderBy);
 				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetShops", parameters, "tblSynologenShop");
+				var retSet = RunProcedure("spSynologenGetShops", parameters, "tblSynologenShop");
 				//TODO: Read status: parameters[counter]
 				return retSet;
 			}
@@ -186,9 +190,9 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public IEnumerable<ShopRow> GetShopRows(int shopId, int shopCategoryId, int contractCustomer,int memberId, int equipmentId, bool includeInactive,string orderBy) {
+		public IEnumerable<ShopRow> GetShopRows(int? shopId, int? shopCategoryId, int? contractCustomer,int? memberId, int? equipmentId, bool? includeInactive, int? concernId, string orderBy) {
 			var shopRows = new Collection<ShopRow>();
-			var dataSet = GetShops(shopId, shopCategoryId, contractCustomer, memberId, equipmentId, includeInactive, orderBy);
+			var dataSet = GetShops(shopId, shopCategoryId, contractCustomer, memberId, equipmentId, includeInactive,concernId, orderBy);
 			if(dataSet.Tables[0]==null) return shopRows;
 			foreach (DataRow dataRow in dataSet.Tables[0].Rows) {
 				shopRows.Add(ParseShopRow(dataRow));
@@ -198,8 +202,8 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public List<int> GetAllShopIdsPerCategory(int categoryId) {
-			List<int> returnList = new List<int>();
-			DataSet shops = GetShops(0,categoryId,0,0,0,true,null);
+			var returnList = new List<int>();
+			var shops = GetShops(null, categoryId, null, null, null, null, null, null);
 			if(shops == null || shops.Tables[0] == null) return returnList;
 			foreach(DataRow row in shops.Tables[0].Rows) {
 				returnList.Add(Util.CheckNullInt(row, "cId"));
@@ -208,8 +212,8 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public List<int> GetAllShopIdsPerMember(int memberId) {
-			List<int> returnList = new List<int>();
-			DataSet shops = GetShops(0, 0, 0,memberId,0,true,null);
+			var returnList = new List<int>();
+			var shops = GetShops(null, null, null, memberId, null, null, null, null);
 			if (shops == null || shops.Tables[0] == null) return returnList;
 			foreach (DataRow row in shops.Tables[0].Rows) {
 				returnList.Add(Util.CheckNullInt(row, "cId"));
@@ -335,5 +339,6 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 		#endregion
+
 	}
 }

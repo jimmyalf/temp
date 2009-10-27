@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Business.Enumeration;
 using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 

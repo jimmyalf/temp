@@ -38,12 +38,14 @@ namespace Spinit.Wpc.Synologen.Data {
 			return ParseShopEquipmentRow(equipmentDatRow);
 		}
 
-		private ShopEquipmentRow ParseShopEquipmentRow(DataRow equipmentDatRow) {
+		private static ShopEquipmentRow ParseShopEquipmentRow(DataRow equipmentDatRow) {
 			try {
-				var equipmentRow = new ShopEquipmentRow();
-				equipmentRow.Id = Util.CheckNullInt(equipmentDatRow, "cId");
-				equipmentRow.Name = Util.CheckNullString(equipmentDatRow, "cName");
-				equipmentRow.Description = Util.CheckNullString(equipmentDatRow, "cDescription");
+				var equipmentRow = new ShopEquipmentRow
+				{
+					Id = Util.CheckNullInt(equipmentDatRow, "cId"), 
+					Name = Util.CheckNullString(equipmentDatRow, "cName"), 
+					Description = Util.CheckNullString(equipmentDatRow, "cDescription")
+				};
 				return equipmentRow;
 			}
 			catch (Exception ex) {
@@ -72,7 +74,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public bool EquipmentHasConnectedShops(int equipmentId) {
-			DataSet shopDataSet = GetShops(0, 0, 0, 0, equipmentId, true, null);
+			var shopDataSet = GetShops(null, null, null, null, equipmentId, null, null, null);
 			return DataSetHasRows(shopDataSet);
 		}
 

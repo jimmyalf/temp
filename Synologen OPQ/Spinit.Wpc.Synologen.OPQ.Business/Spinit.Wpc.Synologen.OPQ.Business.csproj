@@ -57,9 +57,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Business Classes.cd" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Spinit.Wpc.Synologen.OPQ.Core\Spinit.Wpc.Synologen.OPQ.Core.csproj">
       <Project>{C62E11A4-13C6-4D1E-999F-A747AC05D8F7}</Project>
       <Name>Spinit.Wpc.Synologen.OPQ.Core</Name>

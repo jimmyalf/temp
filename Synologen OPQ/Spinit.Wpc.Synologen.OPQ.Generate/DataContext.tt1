@@ -75,7 +75,7 @@ namespace <#=manager.OutputProjectData#>
 	foreach(Table table in data.Tables)
 		foreach(OperationType operationType in Enum.GetValues(typeof(OperationType)))
 			if (!tableOperations.Any(o => (o.Table == table) && (o.Type == operationType))) {#>
-		partial void <#=operationType#><#=table.BaseClass.Name#>(E<#=table.BaseClass.QualifiedName#> instance);
+		partial void <#=operationType#><#=table.BaseClass.Name#>(E<#=manager.CleanPrefix (table.BaseClass.QualifiedName, options.RemovePrefixTable)#> instance);
 <#}#>
 		
 		#endregion
@@ -84,9 +84,9 @@ namespace <#=manager.OutputProjectData#>
 		#region Tables
 
 <#	foreach(Table table in data.Tables) {
-#>		<#=code.GetAccess(table.BaseClass.TypeAttributes)#>Table<E<#=table.BaseClass.QualifiedName#>> <#=table.Member#>
+#>		<#=code.GetAccess(table.BaseClass.TypeAttributes)#>Table<E<#=manager.CleanPrefix (table.BaseClass.QualifiedName, options.RemovePrefixTable)#>> <#=table.Member#>
 		{
-			get { return GetTable<E<#=table.BaseClass.QualifiedName#>>(); }
+			get { return GetTable<E<#=manager.CleanPrefix (table.BaseClass.QualifiedName, options.RemovePrefixTable)#>>(); }
 		}
 		
 <#	}
@@ -139,7 +139,7 @@ if (data.Functions.Count > 0) {#>
 		#region Table Operations
 		
 <#		foreach(var operation in tableOperations) { #>
-		private void <#=operation.Type#><#=operation.Table.BaseClass.Name#>(<#=operation.Table.BaseClass.QualifiedName#> obj) {
+		private void <#=operation.Type#><#=operation.Table.BaseClass.Name#>(<#=manager.CleanPrefix (operation.Table.BaseClass.QualifiedName, options.RemovePrefixTable)#> obj) {
 <#			if (operation.Arguments.Any(a => a.Version == ArgumentVersion.Original)) {
 #>			var original = <#=operation.Table.Member#>.GetOriginalEntityState(obj);
 <#			}
@@ -184,20 +184,20 @@ if (data.Functions.Count > 0) {#>
 <#		if (data.Serialization) {
 #>	[DataContract(<#=dataContractAttributes#>)]
 <#		} #>
-	<#=code.Format(class1.TypeAttributes)#>partial class <#=class1.Name#>
+	<#=code.Format(class1.TypeAttributes)#>partial class <#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>
 	{
 <#		int dataMemberIndex = 1;
 		foreach(Column column in class1.Columns) {#>
 		private <#=code.Format(column.Type)#> <#=column.Storage#>;
 		[Column(Storage=@"<#=column.Storage#>"<#
-				if (column.Name != column.Member) {#>, Name=@"<#=column.Name#>"<#}
+				if (column.Name != manager.CleanPrefix (column.Member, options.RemovePrefixColumn)) {#>, Name=@"<#=column.Name#>"<#}
 				if (!String.IsNullOrEmpty(column.DbType)) {#>, DbType=@"<#=column.DbType#>"<#}
 				if (!column.CanBeNull && !column.IsPrimaryKey) {#>, CanBeNull=false<#}
 		#>)]
 <#			if (data.Serialization && ((column.MemberAttributes & MemberAttributes.AccessMask) == MemberAttributes.Public)) {
 #>		[DataMember(Order=<#=dataMemberIndex++#>)]
 <#			}
-#>		<#=code.Format(column.MemberAttributes)#><#=code.Format(column.Type)#> <#=column.Member#> {
+#>		<#=code.Format(column.MemberAttributes)#><#=code.Format(column.Type)#> <#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#> {
 			get { return <#=column.Storage#>; }
 			set {
 				if (<#=column.Storage#> != value) {

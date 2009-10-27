@@ -22,21 +22,21 @@ using System.Collections.Generic;
 	manager.EndHeader();
 foreach(Table table in data.Tables) {
 	foreach(TableClass class1 in table.Classes) {
-		if (manager.IsInList (class1.Name, options.ExcludeTablesCore)) {
+		if (manager.IsInList (manager.CleanPrefix (class1.Name, options.RemovePrefixTable), options.ExcludeTablesCore)) {
 			continue;
 		}
 	
-		manager.StartBlock(Path.ChangeExtension(class1.Name,".cs"));
+		manager.StartBlock(Path.ChangeExtension(manager.CleanPrefix (class1.Name, options.RemovePrefixTable),".cs"));
 		if (!String.IsNullOrEmpty(manager.OutputProjectCore)) {#>
 namespace <#=manager.OutputProjectCore#>.<#=manager.OutputDirectoryCoreEntities#>
 {	
 <#		}#>
-	public class <#=class1.Name#>
+	public class <#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>
 	{
 		#region Column Mappings
 		
 <#			foreach(Column column in class1.Columns) {#>
-		public <#=string.Equals (code.Format(column.Type), "Binary") ? "byte []" : code.Format(column.Type)#> <#=column.Member#> { get; set; }
+		public <#=string.Equals (code.Format(column.Type), "Binary") ? "byte []" : code.Format(column.Type)#> <#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#> { get; set; }
 		
 <#			}#>
 		#endregion
@@ -46,7 +46,7 @@ namespace <#=manager.OutputProjectCore#>.<#=manager.OutputDirectoryCoreEntities#
 		#region Associations
 		
 <#			foreach(Association association in class1.Associations) {#>
-		public <#=(association.IsMany) ? "List<" : ""#><#=association.Type.Name#><#=(association.IsMany) ? ">" : ""#> <#=association.Member#> { get; set; }
+		public <#=(association.IsMany) ? "List<" : ""#><#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#><#=(association.IsMany) ? ">" : ""#> <#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#> { get; set; }
 		
 <#			} #>
 		#endregion
@@ -63,7 +63,7 @@ namespace <#=manager.OutputProjectCore#>.<#=manager.OutputDirectoryCoreEntities#
 			string str = string.Empty;
 <#			foreach(Column column in class1.Columns) {#>
 				 <# if (code.Format (column.Type).Equals ("string")) {#> 
-			str += string.Concat (<#=column.Member#>, " ") ?? string.Empty;
+			str += string.Concat (<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>, " ") ?? string.Empty;
 <#					} #>
 <#			} #>
 
@@ -78,11 +78,11 @@ namespace <#=manager.OutputProjectCore#>.<#=manager.OutputDirectoryCoreEntities#
 
 		public override bool Equals (object o)
 		{
-			if (!(o is <#=class1.Name#> )) {
+			if (!(o is <#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#> )) {
 				return false;
 			}
 
-			<#=class1.Name#> eq = o as <#=class1.Name#>;
+			<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#> eq = o as <#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>;
 
 <#			bool first = true;
 			foreach(Column column in class1.Columns) {
@@ -90,7 +90,7 @@ namespace <#=manager.OutputProjectCore#>.<#=manager.OutputDirectoryCoreEntities#
 					continue;
 				}
 				if (first) { #>
-			return <#if (code.Format (column.Type).Equals ("string")) { #><#=column.Member#>.Equals (eq.<#=column.Member#>)<# } else { #><#=column.Member#> == eq.<#=column.Member#><# } #><#	first = false; } else { #> && <#if (code.Format (column.Type).Equals ("string")) { #> <#=column.Member#>.Equals (eq.<#=column.Member#>) <# } else { #><#=column.Member#> == eq.<#=column.Member#><# } } } #>;
+			return <#if (code.Format (column.Type).Equals ("string")) { #><#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>.Equals (eq.<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>)<# } else { #><#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#> == eq.<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#><# } #><#	first = false; } else { #> && <#if (code.Format (column.Type).Equals ("string")) { #> <#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>.Equals (eq.<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>) <# } else { #><#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#> == eq.<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#><# } } } #>;
 		}
 
 		/// <summary>
@@ -106,7 +106,7 @@ namespace <#=manager.OutputProjectCore#>.<#=manager.OutputDirectoryCoreEntities#
 					continue;
 				}
 				if (first) { #>
-			return <#=column.Member#>.GetHashCode ()<#	first = false; } else { #> + <#=column.Member#>.GetHashCode ()<# } } #>;
+			return <#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>.GetHashCode ()<#	first = false; } else { #> + <#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>.GetHashCode ()<# } } #>;
 		}
 
 		#endregion

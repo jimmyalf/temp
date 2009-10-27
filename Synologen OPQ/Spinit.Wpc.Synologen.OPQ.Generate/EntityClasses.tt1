@@ -27,11 +27,11 @@ using <#=manager.OutputProjectCore#>.<#=manager.OutputDirectoryCoreEntities#>;
 <# manager.EndHeader();
 foreach(Table table in data.Tables) {
 	foreach(TableClass class1 in table.Classes) {
-		if (manager.IsInList (class1.Name, options.ExcludeTablesData)) {
+		if (manager.IsInList (manager.CleanPrefix (class1.Name, options.RemovePrefixTable), options.ExcludeTablesData)) {
 			continue;
 		}
 
-		manager.StartBlock("E" + Path.ChangeExtension(class1.Name,".cs"));
+		manager.StartBlock("E" + Path.ChangeExtension(manager.CleanPrefix (class1.Name, options.RemovePrefixTable),".cs"));
 		if (!String.IsNullOrEmpty(data.EntityNamespace)) {#>
 namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#>
 {	
@@ -47,7 +47,7 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 <#				}
 				if (data.Serialization && subclass.IsSerializable) {#>[KnownType(typeof(<#=subclass.Name#>))]<#}
 			}
-#>	<#=code.Format(class1.TypeAttributes)#>partial class E<#=class1.Name#> :<#if (!String.IsNullOrEmpty(data.EntityBase)) {#> <#=data.EntityBase#>, <#}#> <#= options.EnityBaseClass #>
+#>	<#=code.Format(class1.TypeAttributes)#>partial class E<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#> :<#if (!String.IsNullOrEmpty(data.EntityBase)) {#> <#=data.EntityBase#>, <#}#> <#= options.EnityBaseClass #>
 	{
 		#region Spinit search extension
 		
@@ -59,8 +59,8 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 
 		public override LambdaExpression BuildSearchExpression (string property)
 		{
-			ParameterExpression parameter = Expression.Parameter (GetType (), "e<#=class1.Name#>");
-			return Expression.Lambda<Func<E<#=class1.Name#>, object>> (
+			ParameterExpression parameter = Expression.Parameter (GetType (), "e<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>");
+			return Expression.Lambda<Func<E<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>, object>> (
 						Expression.Property (parameter, property),
 						parameter);
 		}
@@ -68,7 +68,7 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 		#endregion
 		
 <#		} else {
-#>	<#=code.Format(class1.TypeAttributes)#>partial class <#=class1.Name#> : <#=class1.SuperClass.Name#>
+#>	<#=code.Format(class1.TypeAttributes)#>partial class <#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#> : <#=class1.SuperClass.Name#>
 	{
 <#		}#>
 		#region Extensibility Method Definitions
@@ -80,7 +80,7 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 		#endregion
 
 		#region Construction
-		public E<#=class1.Name#>()
+		public E<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>()
 		{
 <#		if (data.Serialization) {
 #>			Initialize();
@@ -92,9 +92,9 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 		foreach(Association association in class1.Associations) {
 #>			<#=association.Storage#> = <#
 			if (association.IsMany) {
-				#>new EntitySet<E<#=association.Type.Name#>>(attach_<#=association.Member#>, detach_<#=association.Member#>);
+				#>new EntitySet<E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#>>(attach_<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>, detach_<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>);
 <#			} else {
-				#>default(EntityRef<E<#=association.Type.Name#>>); 
+				#>default(EntityRef<E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#>>); 
 <#			}
 		}
 		if (class1.HasPrimaryKey) {#>
@@ -107,11 +107,11 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 		if (class1.Columns.Count > 0) {
 #>		#region Column Mappings
 <#			foreach(Column column in class1.Columns) {#>
-		partial void On<#=column.Member#>Changing(<#=code.Format(column.Type)#> value);
-		partial void On<#=column.Member#>Changed();
+		partial void On<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>Changing(<#=code.Format(column.Type)#> value);
+		partial void On<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>Changed();
 		private <#=code.Format(column.StorageType)#> <#=column.Storage#><# if (column.IsReadOnly) {#> = default(<#=code.Format(column.StorageType)#>)<#}#>;
 		[Column(Storage=@"<#=column.Storage#>"<#
-				if (column.Name != column.Member) {#>, Name=@"<#=column.Name#>"<#}
+				if (column.Name != manager.CleanPrefix (column.Member, options.RemovePrefixColumn)) {#>, Name=@"<#=column.Name#>"<#}
 				if (column.AutoSync != AutoSync.Default) {#>, AutoSync=AutoSync.<#=column.AutoSync.ToString()#><#}
 				if (!String.IsNullOrEmpty(column.DbType)) {#>, DbType=@"<#=column.DbType#>"<#}
 				if (column.IsPrimaryKey) {#>, IsPrimaryKey=true<#}
@@ -126,7 +126,7 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 <#				if (data.Serialization && ((column.MemberAttributes & MemberAttributes.AccessMask) == MemberAttributes.Public)) {
 #>		[DataMember(Order=<#=dataMemberIndex++#>)]
 <#				}
-#>		<#=code.Format(column.MemberAttributes)#><#=code.Format(column.Type)#> <#=column.Member#>
+#>		<#=code.Format(column.MemberAttributes)#><#=code.Format(column.Type)#> <#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>
 		{
 			get { return <#=column.StorageValue#>; }
 <#				if (!column.IsReadOnly) { #>
@@ -137,11 +137,11 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 						throw new ForeignKeyReferenceAlreadyHasValueException();
 					}
 <#					}#>
-					On<#=column.Member#>Changing(value);
+					On<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>Changing(value);
 					SendPropertyChanging();
 					<#=column.StorageValue#> = value;
-					SendPropertyChanged("<#=column.Member#>");
-					On<#=column.Member#>Changed();
+					SendPropertyChanged("<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>");
+					On<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>Changed();
 				}
 			}
 <#				}#>
@@ -155,7 +155,7 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 #>		
 		#region Associations
 <#			foreach(Association association in class1.Associations) {#>
-		private Entity<#=(association.IsMany) ? "Set" : "Ref"#><E<#=association.Type.Name#>> <#=association.Storage#>;
+		private Entity<#=(association.IsMany) ? "Set" : "Ref"#><E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#>> <#=association.Storage#>;
 		[Association(Name=@"<#=association.Name#>"<#
 			#>, Storage=@"<#=association.Storage#>"<#
 				if (association.ThisKeyMembers != null) {#>, ThisKey=@"<#=String.Join(",", association.ThisKeyMembers)#>"<#}
@@ -171,7 +171,7 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 #>		[DataMember(Order=<#=dataMemberIndex++#>, EmitDefaultValue=false)]
 <#				}
 				if (!association.IsMany) {#>
-		<#=code.Format(association.MemberAttributes)#>E<#=association.Type.Name#> <#=association.Member#>
+		<#=code.Format(association.MemberAttributes)#>E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#> <#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>
 		{
 			get {
 <#					if (needsSerializationFlag && serialization) {#>
@@ -182,19 +182,19 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 				return <#=association.Storage#>.Entity;
 			}
 			set {
-				E<#=association.Type.Name#> previousValue = <#=association.Storage#>.Entity;
+				E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#> previousValue = <#=association.Storage#>.Entity;
 				if ((previousValue != value)<#if (association.OtherSide != null) {#> || (!<#=association.Storage#>.HasLoadedOrAssignedValue)<#}#>) {
 					SendPropertyChanging();
 <#					if (association.OtherSide != null) {#>
 					if (previousValue != null) {
 						<#=association.Storage#>.Entity = null;
-						previousValue.<#=association.OtherSide.Member#><#if (!association.OtherSide.IsMany) {#> = null<#} else {#>.Remove(this)<#}#>;
+						previousValue.<#=manager.CleanPrefix (association.OtherSide.Member, options.RemovePrefixTable)#><#if (!association.OtherSide.IsMany) {#> = null<#} else {#>.Remove(this)<#}#>;
 					}
 <#					}
 #>					<#=association.Storage#>.Entity = value;
 <#					if (association.OtherSide != null) {#>
 					if (value != null) {
-						value.<#=association.OtherSide.Member#><#if (!association.OtherSide.IsMany) {#> = this<#} else {#>.Add(this)<#}#>;
+						value.<#=manager.CleanPrefix (association.OtherSide.Member, options.RemovePrefixTable)#><#if (!association.OtherSide.IsMany) {#> = this<#} else {#>.Add(this)<#}#>;
 <#						if (association.ManagesKeys) {
 							for(int keyIdx=0;keyIdx<association.ThisKey.Count();keyIdx++) {#>
 						<#=association.ThisKey[keyIdx].Storage#> = value.<#=association.OtherKey[keyIdx].Member#>;
@@ -207,13 +207,13 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 						}
 #>					}
 <#					}#>
-					SendPropertyChanged("<#=association.Member#>");
+					SendPropertyChanged("<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>");
 				}
 			}
 		}
 
 <#				} else {#>
-		<#=code.Format(association.MemberAttributes)#>EntitySet<E<#=association.Type.Name#>> <#=association.Member#>
+		<#=code.Format(association.MemberAttributes)#>EntitySet<E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#>> <#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>
 		{
 			get {
 <#					if (needsSerializationFlag && serialization) {#>
@@ -228,16 +228,16 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 			}
 		}
 
-		private void attach_<#=association.Member#>(E<#=association.Type.Name#> entity)
+		private void attach_<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>(E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#> entity)
 		{
 			SendPropertyChanging();
-			entity.<#=association.OtherSide.Member#> = this;
+			entity.<#=manager.CleanPrefix (association.OtherSide.Member, options.RemovePrefixTable)#> = this;
 		}
 		
-		private void detach_<#=association.Member#>(E<#=association.Type.Name#> entity)
+		private void detach_<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>(E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#> entity)
 		{
 			SendPropertyChanging();
-			entity.<#=association.OtherSide.Member#> = null;
+			entity.<#=manager.CleanPrefix (association.OtherSide.Member, options.RemovePrefixTable)#> = null;
 		}
 <#				}
 			}#>
@@ -276,35 +276,35 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 		#region Converters
 		
 		/// <summary>
-		/// Converts from E<#=class1.Name#> to <#=class1.Name#>.
+		/// Converts from E<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#> to <#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>.
 		/// </summary>
-		/// <param name="e<#=class1.Name#>">The E<#=class1.Name#>.</param>
-		/// <returns>The converted <#=class1.Name#>.</returns>
+		/// <param name="e<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>">The E<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>.</param>
+		/// <returns>The converted <#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>.</returns>
 
-		public <#=class1.Name#> ToEntity (E<#=class1.Name#> e<#=class1.Name#>)
+		public static <#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#> Convert (E<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#> e<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>)
 		{
-			<#=class1.Name#> <#= string.Concat (class1.Name.Substring (0, 1).ToLower (), class1.Name.Substring (1, class1.Name.Length - 1))#> = new <#=class1.Name#>
+			<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#> <#= string.Concat (manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Substring (0, 1).ToLower (), manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Substring (1, manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Length - 1))#> = new <#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>
 			{
 <#		foreach(Column column in class1.Columns) {#>
-				<#=column.Member#> = e<#=class1.Name#>.<#=column.Member#><#=string.Equals (code.Format(column.Type), "Binary") ? ".ToArray ()" : ""#>,
+				<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#> = e<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>.<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#><#=string.Equals (code.Format(column.Type), "Binary") ? ".ToArray ()" : ""#>,
 <#		} #>
 			};
 			
-			return <#= string.Concat (class1.Name.Substring (0, 1).ToLower (), class1.Name.Substring (1, class1.Name.Length - 1))#>;
+			return <#= string.Concat (manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Substring (0, 1).ToLower (), manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Substring (1, manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Length - 1))#>;
 		}
 		
 		/// <summary>
-		/// Converts from <#=class1.Name#> to E<#=class1.Name#>.
+		/// Converts from <#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#> to E<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>.
 		/// </summary>
-		/// <param name="<#= string.Concat (class1.Name.Substring (0, 1).ToLower (), class1.Name.Substring (1, class1.Name.Length - 1))#>">The <#=class1.Name#>.</param>
-		/// <returns>The converted E<#=class1.Name#>.</returns>
+		/// <param name="<#= string.Concat (manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Substring (0, 1).ToLower (), manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Substring (1, manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Length - 1))#>">The <#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>.</param>
+		/// <returns>The converted E<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>.</returns>
 
-		public E<#=class1.Name#> ToEntity (<#=class1.Name#> <#= string.Concat (class1.Name.Substring (0, 1).ToLower (), class1.Name.Substring (1, class1.Name.Length - 1))#>)
+		public static E<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#> Convert (<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#> <#= string.Concat (manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Substring (0, 1).ToLower (), manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Substring (1, manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Length - 1))#>)
 		{		
-			return new E<#=class1.Name#>
+			return new E<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>
 			{
 <#		foreach(Column column in class1.Columns) {#>
-				<#=column.Member#> = <#=string.Equals (code.Format(column.Type), "Binary") ? "new Binary (" : ""#><#= string.Concat (class1.Name.Substring (0, 1).ToLower (), class1.Name.Substring (1, class1.Name.Length - 1))#>.<#=column.Member#><#=string.Equals (code.Format(column.Type), "Binary") ? ")" : ""#>,
+				<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#> = <#=string.Equals (code.Format(column.Type), "Binary") ? "new Binary (" : ""#><#= string.Concat (manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Substring (0, 1).ToLower (), manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Substring (1, manager.CleanPrefix (class1.Name, options.RemovePrefixTable).Length - 1))#>.<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#><#=string.Equals (code.Format(column.Type), "Binary") ? ")" : ""#>,
 <#		} #>
 			};
 		}

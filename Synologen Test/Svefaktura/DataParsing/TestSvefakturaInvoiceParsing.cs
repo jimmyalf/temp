@@ -192,9 +192,9 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 			var customCompany = new CompanyRow {
 			                                   	TaxAccountingCode = "SE5560360793",
 			                                   	OrganizationNumber = "5560360793",
-			                                   	ExemptionReason = "F-skattebevis finns",
+			                                   	//ExemptionReason = "F-skattebevis finns",
 			                                   	City = "JÄRFÄLLA",
-			                                   	OrganizationCountryCode = CountryIdentificationCodeContentType.SE
+			                                   	Country = new CountryRow { OrganizationCountryCode = CountryIdentificationCodeContentType.SE}
 			                                   };
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
 			var vatTaxScheme = invoice.BuyerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("VAT"));
@@ -205,7 +205,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 			Assert.AreEqual("VAT", vatTaxScheme.TaxScheme.ID.Value);
 			Assert.AreEqual("5560360793", swtTaxScheme.CompanyID.Value);
 			Assert.AreEqual("SWT", swtTaxScheme.TaxScheme.ID.Value);
-			Assert.AreEqual("F-skattebevis finns", swtTaxScheme.ExemptionReason.Value);
+			//Assert.AreEqual("F-skattebevis finns", swtTaxScheme.ExemptionReason.Value);
 			Assert.AreEqual("JÄRFÄLLA", swtTaxScheme.RegistrationAddress.CityName.Value);
 			Assert.AreEqual(CountryIdentificationCodeContentType.SE, swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value);
 			Assert.AreEqual(2, invoice.BuyerParty.Party.PartyTaxScheme.Count);
@@ -224,16 +224,16 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 		public void Test_Create_Invoice_Sets_BuyerParty_PartyTaxSchemes_SWT() {
 			var customCompany = new CompanyRow {
 			                                   	OrganizationNumber = "5560360793",
-			                                   	ExemptionReason = "F-skattebevis finns",
+			                                   	//ExemptionReason = "F-skattebevis finns",
 			                                   	City = "JÄRFÄLLA",
-			                                   	OrganizationCountryCode = CountryIdentificationCodeContentType.SE
+			                                   	Country = new CountryRow{OrganizationCountryCode = CountryIdentificationCodeContentType.SE}
 			                                   };
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
 			var swtTaxScheme = invoice.BuyerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("SWT"));
 			Assert.IsNotNull(swtTaxScheme);
 			Assert.AreEqual("5560360793", swtTaxScheme.CompanyID.Value);
 			Assert.AreEqual("SWT", swtTaxScheme.TaxScheme.ID.Value);
-			Assert.AreEqual("F-skattebevis finns", swtTaxScheme.ExemptionReason.Value);
+			//Assert.AreEqual("F-skattebevis finns", swtTaxScheme.ExemptionReason.Value);
 			Assert.AreEqual("JÄRFÄLLA", swtTaxScheme.RegistrationAddress.CityName.Value);
 			Assert.AreEqual(CountryIdentificationCodeContentType.SE, swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value);
 			Assert.AreEqual(1, invoice.BuyerParty.Party.PartyTaxScheme.Count);
@@ -611,31 +611,23 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 		[Test]
 		public void Test_Create_Invoice_Sets_InvoiceLine_Item_Description() {
 			var customOrderItemList = new List<IOrderItem> {
-			                                               	new OrderItemRow {
-			                                               	                 	ArticleDisplayName = "Lacryvisc"
-			                                               	                 }
-			                                               };
+				new OrderItemRow {
+					ArticleDisplayName = "Lacryvisc"
+				}
+			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual("Lacryvisc", invoice.InvoiceLine[0].Item.Description.Value);
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_InvoiceLine_Item_SellersItemIdentification() {
-			var customOrderItemList = new List<IOrderItem> {
-			                                               	new OrderItemRow {
-			                                               	                 	ArticleDisplayNumber = "987654"
-			                                               	                 }
-			                                               };
+			var customOrderItemList = new List<IOrderItem> { new OrderItemRow { ArticleDisplayNumber = "987654" } };
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual("987654", invoice.InvoiceLine[0].Item.SellersItemIdentification.ID.Value);
 		}
 		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_InvoiceLine_InvoicedQuantity() {
-			var customOrderItemList = new List<IOrderItem> {
-			                                               	new OrderItemRow {
-			                                               	                 	NumberOfItems = 3
-			                                               	                 }
-			                                               };
+			var customOrderItemList = new List<IOrderItem> { new OrderItemRow { NumberOfItems = 3 } };
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual(3, invoice.InvoiceLine[0].InvoicedQuantity.Value);
 			Assert.AreEqual("styck", invoice.InvoiceLine[0].InvoicedQuantity.quantityUnitCode);
@@ -643,11 +635,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_InvoiceLine_Item_BasePrice_PriceAmount_And_CurrencyID() {
-			var customOrderItemList = new List<IOrderItem> {
-			                                               	new OrderItemRow {
-			                                               	                 	SinglePrice = 36.85f
-			                                               	                 }
-			                                               };
+			var customOrderItemList = new List<IOrderItem> {new OrderItemRow {SinglePrice = 36.85f}};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual(36.85f, invoice.InvoiceLine[0].Item.BasePrice.PriceAmount.Value);
 			Assert.AreEqual("SEK", invoice.InvoiceLine[0].Item.BasePrice.PriceAmount.amountCurrencyID);
@@ -655,11 +643,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_InvoiceLine_LineExtensionAmount_And_CurrencyID() {
-			var customOrderItemList = new List<IOrderItem> {
-			                                               	new OrderItemRow {
-			                                               	                 	DisplayTotalPrice = 110.55f
-			                                               	                 }
-			                                               };
+			var customOrderItemList = new List<IOrderItem> { new OrderItemRow { DisplayTotalPrice = 110.55f } };
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.AreEqual(110.55f, invoice.InvoiceLine[0].LineExtensionAmount.Value);
 			Assert.AreEqual("SEK", invoice.InvoiceLine[0].LineExtensionAmount.amountCurrencyID);
@@ -688,7 +672,10 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 		//TODO: Try to make single assertive
 		[Test]
 		public void Test_Create_Invoice_Sets_InvoiceLine_ID() {
-			var customOrderItemList = new List<IOrderItem> { new OrderItemRow(), new OrderItemRow(), new OrderItemRow() };
+			var customOrderItemList = new List<IOrderItem>
+			{
+				new OrderItemRow(), new OrderItemRow(), new OrderItemRow()
+			};
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, customOrderItemList, emptyCompany, emptyShop, emptySettings);
 			Assert.IsNotNull(invoice.InvoiceLine[0].ID);
 			Assert.IsNotNull(invoice.InvoiceLine[1].ID);

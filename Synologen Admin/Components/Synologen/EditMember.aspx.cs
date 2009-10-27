@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Data;
 using Spinit.Wpc.Member.Data.Enumerations;
-using Spinit.Wpc.Member.Business;
-using Spinit.Wpc.Synologen.Business.Enumeration;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Base.Data;
@@ -190,12 +187,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			drpShops.ClearSelection();
 			drpShops.Enabled = false;
 
-			int selectedMemberCategory = Int32.Parse(drpMemberCategories.SelectedValue);
+			var selectedMemberCategory = Int32.Parse(drpMemberCategories.SelectedValue);
 			if(selectedMemberCategory <= 0) return;
-			List<int> shopCategories = Provider.GetShopCategoriesPerMemberCategoryId(selectedMemberCategory);
+			var shopCategories = Provider.GetShopCategoriesPerMemberCategoryId(selectedMemberCategory);
 			if (shopCategories.Count <= 0) return; //Selected memberCat. has no shopcategory connection
 
-			drpShops.DataSource = Provider.GetShops(0, shopCategories[0], 0, 0, 0, true, "cShopName");
+			drpShops.DataSource = Provider.GetShops(null, shopCategories[0], null, null, null, true,null, "cShopName");
 			drpShops.DataBind();
 			drpShops.Items.Insert(0,new ListItem("-- Välj Butik --","0"));
 			drpShops.Enabled = true;
@@ -210,18 +207,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		protected void btnSave_Click(object sender, EventArgs e) {
 			if (!Page.IsValid) return;
-			bool userAdded = false;
+			var userAdded = false;
 			// Check if we should handle userconnections
 			if (Globals.UseUserConnection) {
-				bool success = true;
+				var success = true;
 				success = AddUpdateUser(_memberId, ref userAdded);
 				if (!success) return;
 			}
 
-			MemberRow row = new MemberRow();
-			Enumerations.Action action = Enumerations.Action.Create;
-			Button btnSave = (Button)sender;
-			SaveType typeOfSave = (SaveType)Enum.Parse(typeof(SaveType), btnSave.CommandName);
+			var row = new MemberRow();
+			var action = Enumerations.Action.Create;
+			var btnSave = (Button)sender;
+			var typeOfSave = (SaveType)Enum.Parse(typeof(SaveType), btnSave.CommandName);
 			if (_memberId > 0) {
 				//row = Provider.GetMember(_memberId, LocationId, LanguageId);
 				row = Provider.GetSynologenMember(_memberId, LocationId, LanguageId);
@@ -256,9 +253,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			if (txtDescription.Text != String.Empty)
 				row.Description = txtDescription.Text;
 
-			DocumentParse parseBody = new DocumentParse();
-			string body = txtBody.Html;
-			string formatedBody = body;
+			var parseBody = new DocumentParse();
+			var body = txtBody.Html;
+			var formatedBody = body;
 			formatedBody = ParseLinks.replaceImages(
 				formatedBody,
 				CxUser.Current.Location.RootPath,

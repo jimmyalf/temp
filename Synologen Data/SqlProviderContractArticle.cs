@@ -56,19 +56,21 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		public ContractArticleRow GetContractCustomerArticleRow(int connectionId) {
 			try {
-				DataSet articleDataSet = GetContractArticleConnections(connectionId, 0, null);
-				DataRow articleDataRow = articleDataSet.Tables[0].Rows[0];
-				ContractArticleRow articleRow = new ContractArticleRow();
-				articleRow.Id = Util.CheckNullInt(articleDataRow, "cId");
-				articleRow.ArticleId = Util.CheckNullInt(articleDataRow, "cArticleId");
-				articleRow.ContractCustomerId = Util.CheckNullInt(articleDataRow, "cContractCustomerId");
-				articleRow.Price = Util.CheckNullFloat(articleDataRow, "cPrice");
-				articleRow.Active = (bool)articleDataRow["cActive"];
-				articleRow.ArticleName = Util.CheckNullString(articleDataRow, "cName");
-				articleRow.ArticleNumber = Util.CheckNullString(articleDataRow, "cArticleNumber");
-				articleRow.ArticleDescription = Util.CheckNullString(articleDataRow, "cDescription");
-				articleRow.NoVAT = (bool)articleDataRow["cNoVAT"];
-				articleRow.SPCSAccountNumber = Util.CheckNullString(articleDataRow, "cSPCSAccountNumber");
+				var articleDataSet = GetContractArticleConnections(connectionId, 0, null);
+				var articleDataRow = articleDataSet.Tables[0].Rows[0];
+				var articleRow = new ContractArticleRow
+				{
+					Id = Util.CheckNullInt(articleDataRow, "cId"), 
+					ArticleId = Util.CheckNullInt(articleDataRow, "cArticleId"), 
+					ContractCustomerId = Util.CheckNullInt(articleDataRow, "cContractCustomerId"), 
+					Price = Util.CheckNullFloat(articleDataRow, "cPrice"), 
+					Active = (bool) articleDataRow["cActive"], 
+					ArticleName = Util.CheckNullString(articleDataRow, "cName"), 
+					ArticleNumber = Util.CheckNullString(articleDataRow, "cArticleNumber"), 
+					ArticleDescription = Util.CheckNullString(articleDataRow, "cDescription"), 
+					NoVAT = (bool) articleDataRow["cNoVAT"], 
+					SPCSAccountNumber = Util.CheckNullString(articleDataRow, "cSPCSAccountNumber")
+				};
 				return articleRow;
 			}
 			catch (Exception ex) {

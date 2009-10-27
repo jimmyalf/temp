@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Interfaces;
-using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 
 namespace Spinit.Wpc.Synologen.Data.Types {
 	public class CompanyRow : ICompany {
@@ -22,13 +21,12 @@ namespace Spinit.Wpc.Synologen.Data.Types {
 		public int InvoicingMethodId { get; set; }
 		public string PostBox { get { return Address1; } set { Address1 = value; } }
 		public string StreetName { get { return Address2; } set { Address2 = value; } }
-		public List<CompanyValidationRule> CompanyValidationRules { get; set; }
+		public List<ICompanyValidationRule> CompanyValidationRules { get; set; }
 		public string InvoiceFreeTextFormat { get; set; }
 		public bool HasValidationRule(int validationRuleId) {
 			if(CompanyValidationRules == null) return false;
 			return CompanyValidationRules.Exists(x => x.Id.Equals(validationRuleId) );
 		}
-		public CountryIdentificationCodeContentType? OrganizationCountryCode { get; set; }
-		public string ExemptionReason { get; set; }
+		public ICountryRow Country { get; set;} 
 	}
 }

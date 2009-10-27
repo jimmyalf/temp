@@ -56,7 +56,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 			namespaces.Add("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
 			namespaces.Add("cac", "urn:sfti:CommonAggregateComponents:1:0");
 			namespaces.Add(String.Empty, "urn:sfti:documents:BasicInvoice:1:0");
-			var sb = new StringBuilder();
+			//var sb = new StringBuilder();
 			//var output = new StringWriter(sb) { NewLine = Environment.NewLine };
 			var output = new MemoryStream();
 			var serializer = new XmlSerializer(objToSerialize.GetType());
@@ -91,7 +91,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 			                      	City = "Stockholm",
 			                      	Zip = "11000",
 			                      	PaymentDuePeriod = 30,
-                                    OrganizationCountryCode = CountryIdentificationCodeContentType.SE,
+                                    Country = new CountryRow{OrganizationCountryCode = CountryIdentificationCodeContentType.SE}
 			                      };
 		}
 		public SvefakturaConversionSettings GetMockSettings() {

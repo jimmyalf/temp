@@ -27,9 +27,10 @@ namespace Spinit.Wpc.Synologen.Data.Types {
 		public int GiroId { get; set; }
 		public string GiroNumber { get; set; }
 		public string GiroSupplier { get; set; }
-
+		public IConcernRow Concern { get; set; }
 		public string ContactCombinedName {
 			get { return String.Concat( ContactFirstName ?? String.Empty,  " ",  ContactLastName ?? String.Empty ).Trim(); }
 		}
+		public bool HasConcern { get{ return Concern != null;} }
 	}
 }

@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Spinit.Wpc.Synologen.Business.Interfaces;
 using Spinit.Wpc.Synologen.Data.Types;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 	public class SynologenSalesUserControl : SynologenUserControl {
 		private int _maxNumberOfItems = 15;
-		protected List<CompanyValidationRule> contractValidationRules = new List<CompanyValidationRule>();
+		protected List<ICompanyValidationRule> contractValidationRules = new List<ICompanyValidationRule>();
 
 		protected void PopulateValidationRules(int selectedCompanyId, ControlCollection controls) {
-			contractValidationRules = new List<CompanyValidationRule>(Provider.GetCompanyRow(selectedCompanyId).CompanyValidationRules);
+			contractValidationRules = new List<ICompanyValidationRule>(Provider.GetCompanyRow(selectedCompanyId).CompanyValidationRules);
 			SetRequiredAsteriskInLabels(controls);
 		}
 

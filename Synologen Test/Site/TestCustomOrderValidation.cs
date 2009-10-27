@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Business.Enumeration;
+using Spinit.Wpc.Synologen.Business.Interfaces;
 using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 
@@ -27,14 +29,14 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 
 		[Test]
 		public void Test_No_ValidationRules_Validates() {
-			var validationRules = new List<CompanyValidationRule>();
+			var validationRules = new List<ICompanyValidationRule>();
 			var isValid = CustomOrderValidation.IsValid("txtTest", "123", validationRules, out errorMessage1);
 			Assert.IsTrue(isValid);
 			Assert.IsNull(errorMessage1);
 		}
 		[Test]
 		public void Test_ValidationType_NotRequired_Validates() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule { ControlToValidate = "txtTest" }
 			};
 			var isValid = CustomOrderValidation.IsValid("txtTest", "123", validationRules, out errorMessage1);
@@ -43,7 +45,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_Required_Validates() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule
 				{
 					ControlToValidate = "txtTest", 
@@ -57,7 +59,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_Required_Fails_Validation() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtTest", 
 					ValidationType = ValidationType.Required,
@@ -73,7 +75,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_Regex_Validates() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtTest", 
 					ValidationType = ValidationType.RegEx,
@@ -93,7 +95,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_Regex_Fails_Validation() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtTest", 
 					ValidationType = ValidationType.RegEx,
@@ -107,7 +109,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_RequiredAndRegex_Validates() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtTest", 
 					ValidationType = ValidationType.RequiredAndRegex,
@@ -121,7 +123,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_RequiredAndRegex_Fails_Validation() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtTest", 
 					ValidationType = ValidationType.RequiredAndRegex,
@@ -141,7 +143,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_PersonalIDNumber_Validates() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtPersonalIDNumber", 
 					ValidationType = ValidationType.PersonalIdNumber,
@@ -160,7 +162,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_PersonalIDNumber_Fails_Validation() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtPersonalIDNumber", 
 					ValidationType = ValidationType.PersonalIdNumber,
@@ -173,7 +175,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_RequiredPersonalIDNumber_Validates() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtPersonalIDNumber", 
 					ValidationType = ValidationType.PersonalIdNumber,
@@ -186,7 +188,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_RequiredPersonalIDNumber_Fails_Validation() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtPersonalIDNumber", 
 					ValidationType = ValidationType.RequiredAndPersonalIdNumber,
@@ -205,7 +207,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_PersonalIDNumberAndRegex_Validates() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtPersonalIDNumber", 
 					ValidationType = ValidationType.PersonalIdNumberAndRegex,
@@ -225,7 +227,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_PersonalIDNumberAndRegex_Fails_Validation() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtPersonalIDNumber", 
 					ValidationType = ValidationType.PersonalIdNumberAndRegex,
@@ -242,7 +244,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_RequiredAndPersonalIdNumberAndRegex_Validates() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtPersonalIDNumber", 
 					ValidationType = ValidationType.RequiredAndPersonalIdNumberAndRegex,
@@ -256,7 +258,7 @@ namespace Spinit.Wpc.Synologen.Test.Site {
 		}
 		[Test]
 		public void Test_ValidationType_RequiredAndPersonalIdNumberAndRegex_Fails_Validation() {
-			var validationRules = new List<CompanyValidationRule> {
+			var validationRules = new List<ICompanyValidationRule> {
 				new CompanyValidationRule {
 					ControlToValidate = "txtPersonalIDNumber", 
 					ValidationType = ValidationType.RequiredAndPersonalIdNumberAndRegex,

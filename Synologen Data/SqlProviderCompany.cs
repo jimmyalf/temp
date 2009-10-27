@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using Spinit.Wpc.Synologen.Business.Enumeration;
+using Spinit.Wpc.Synologen.Business.Interfaces;
 using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Data {
@@ -100,16 +101,16 @@ namespace Spinit.Wpc.Synologen.Data {
 					PaymentDuePeriod = Util.CheckNullInt(dataRow, "cPaymentDuePeriod"), 
 					EDIRecipientId = Util.CheckNullString(dataRow, "cEDIRecipientId"), 
 					InvoicingMethodId = Util.CheckNullInt(dataRow, "cInvoicingMethodId"),
-					InvoiceFreeTextFormat = Util.CheckNullString(dataRow, "cInvoiceFreeText")
+					InvoiceFreeTextFormat = Util.CheckNullString(dataRow, "cInvoiceFreeText"),
+                    Country = GetCountryRow(Util.CheckNullInt(dataRow, "cCountryId")),
 				};
-				companyRow.CompanyValidationRules = new List<CompanyValidationRule>(GetCompanyValidationRules(null, companyRow.Id));
+				companyRow.CompanyValidationRules = new List<ICompanyValidationRule>(GetCompanyValidationRules(null, companyRow.Id));
 				return companyRow;
 			}
 			catch (Exception ex) {
 				throw new Exception("Exception found while parsing a CompanyRow object: " + ex.Message);
 			}
 		}
-
 
 		public DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter) {
 			try {
@@ -153,12 +154,12 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		private IList<CompanyValidationRule> GetCompanyValidationRules(int? validationRuleId, int? companyId) {
-			var validationRuleList = new List<CompanyValidationRule>();
+		private IList<ICompanyValidationRule> GetCompanyValidationRules(int? validationRuleId, int? companyId) {
+			var validationRuleList = new List<ICompanyValidationRule>();
 			var validationRulesDataSet = GetCompanyValidationRulesDataSet(validationRuleId, companyId);
-			if(validationRulesDataSet == null) return new List<CompanyValidationRule>();
-			if(validationRulesDataSet.Tables.Count <= 0) return new List<CompanyValidationRule>();
-			if(validationRulesDataSet.Tables[0].Rows.Count <= 0) return new List<CompanyValidationRule>();
+			if(validationRulesDataSet == null) return new List<ICompanyValidationRule>();
+			if(validationRulesDataSet.Tables.Count <= 0) return new List<ICompanyValidationRule>();
+			if(validationRulesDataSet.Tables[0].Rows.Count <= 0) return new List<ICompanyValidationRule>();
 			foreach (DataRow dataRow in validationRulesDataSet.Tables[0].Rows){
 				var validationRule = ParseCompanyValidationRule(dataRow);
 				validationRuleList.Add(validationRule);

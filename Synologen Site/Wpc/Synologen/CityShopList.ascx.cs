@@ -29,10 +29,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		private void FetchShopData() {
 			var equipmentId = GetEquipmentId();
 			if (_contractCustomer > 0) {
-				ShopsToDisplay = Provider.GetShopRows(0, 0, ContractCustomer, 0, equipmentId, false, "cCity");
+				ShopsToDisplay = Provider.GetShopRows(null, null, ContractCustomer, null, equipmentId, null, null, "cCity");
 			}
 			else {
-				ShopsToDisplay = Provider.GetShopRows(0, Category, ContractCustomer, 0, equipmentId, false, "cCity");
+				ShopsToDisplay = Provider.GetShopRows(null, Category, ContractCustomer, null, equipmentId, null, null, "cCity");
 			}
 		}
 

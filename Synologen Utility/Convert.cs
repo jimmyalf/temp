@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankgiroBankIdentificationCode, company, settings);
 			TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode, company, settings);
 			TryAddGeneralInvoiceInformation(invoice, settings, order, orderItems, company);
-			TryAddInvoiceLines(settings, invoice, orderItems, order, settings.VATAmount);
+			TryAddInvoiceLines(settings, invoice, orderItems, settings.VATAmount);
 			TryAddPaymentTerms(invoice, settings, company);
 			return invoice;
 		}

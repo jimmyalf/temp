@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Enumeration;
+using Spinit.Wpc.Synologen.Business.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 	public class CustomOrderValidation {
 		
-		public static bool IsValid(string controlToValidate, string controlValue, List<CompanyValidationRule> validationRules, out string errorMessage) {
+		public static bool IsValid(string controlToValidate, string controlValue, List<ICompanyValidationRule> validationRules, out string errorMessage) {
 			errorMessage = null;
 			var validationRulesForCurrentControl = validationRules.FindAll(x => x.ControlToValidate.Equals(controlToValidate));
 			foreach (var validationRule in validationRulesForCurrentControl){
@@ -17,7 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 			return true;
 		}
 
-		private static bool IsValid(string controlValue, CompanyValidationRule validationRule) {
+		private static bool IsValid(string controlValue, ICompanyValidationRule validationRule) {
 			switch (validationRule.ValidationType){
 				case ValidationType.NotRequired: 
 					return true;
@@ -79,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 			}
 		}
 
-		public static bool IsValidationRuleRequired(CompanyValidationRule validationRule) {
+		public static bool IsValidationRuleRequired(ICompanyValidationRule validationRule) {
 			switch (validationRule.ValidationType){
 				case ValidationType.NotRequired:
 					return false;

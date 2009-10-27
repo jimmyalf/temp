@@ -36,10 +36,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		public void PopulateShops() {
 			var equipmentId = GetEquipmentId();
 			if (_contractCustomer>0) {
-				rptShops.DataSource = Provider.GetShops(0, 0, ContractCustomer, 0, equipmentId, false, "cCity");
+				rptShops.DataSource = Provider.GetShops(null, null, ContractCustomer, null, equipmentId, null, null, "cCity");
 			}
 			else{
-				rptShops.DataSource = Provider.GetShops(0, Category, ContractCustomer, 0, equipmentId, false, "cCity");
+				rptShops.DataSource = Provider.GetShops(null, Category, ContractCustomer, null, equipmentId, null, null, "cCity");
 			}
 			rptShops.DataBind();
 		}

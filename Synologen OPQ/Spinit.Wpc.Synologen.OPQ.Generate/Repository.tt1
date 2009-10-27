@@ -177,10 +177,13 @@ namespace <#=manager.OutputProjectData#>
 		{
 			_searchTable = new List<SearchPairs>
 			{
-<#if(data.Tables.Count > 0) {#>
-<#	foreach(Table table in data.Tables) {#>
-				new SearchPairs (typeof (<#=table.BaseClass.QualifiedName#>), new E<#=table.BaseClass.QualifiedName#> ()),
+<#if(data.Tables.Count > 0) {
+foreach(Table table in data.Tables) {
+	foreach(TableClass class1 in table.Classes) {
+#>
+				new SearchPairs (typeof (<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#>), new E<#=manager.CleanPrefix (class1.Name, options.RemovePrefixTable)#> ()),
 <#	}#>
+<#}#>
 <#}#>
 			};
 		}

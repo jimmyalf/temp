@@ -15,24 +15,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Default constructor.
 		/// </summary>
 		/// <param name="context">The context.</param>
+		
 		public BFile (Context context)
 		{
-			throw new System.NotImplementedException ();
+			Context = context;
 		}
 
-		/// <summary>
-		/// Gets or sets the context.
-		/// </summary>
-		public Context Context
-		{
-			get
-			{
-				throw new System.NotImplementedException ();
-			}
-			set
-			{
-			}
-		}
 
 		/// <summary>
 		/// Creates a new file.
@@ -41,8 +29,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="shopId">The id of the shop.</param>
 		/// <param name="baseFileId">The base-file-id.</param>
 		/// <param name="fileCategory">The file-categories.</param>
-		/// <param name="file">The created file.</param>
-		public SynologenOpqFile CreateFile (int nodeId, int? shopId, int baseFileId, SynologenOpqFileCategory fileCategory)
+		
+		public File CreateFile (int nodeId, int? shopId, int baseFileId, FileCategory fileCategory)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -53,13 +41,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="fileId">The id of the file.</param>
 		/// <param name="baseFileId">The base-file-id.</param>
 		/// <param name="fileCategory">The file-categories.</param>
-		/// <param name="file">The changed file.</param>
-		public SynologenOpqFile ChangeFile (int fileId, int baseFileId, SynologenOpqFileCategory fileCategory)
+		
+		public File ChangeFile (int fileId, int baseFileId, FileCategory fileCategory)
 		{
-			string tmp = "dbApa";
-
-			tmp = tmp.StartsWith ("db") ? tmp.Remove (0, 2) : tmp;
-
 			throw new System.NotImplementedException ();
 		}
 
@@ -67,6 +51,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Deletes a file.
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
+		
 		public void DeleteFile (int fileId)
 		{
 			throw new System.NotImplementedException ();
@@ -76,6 +61,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Publish a file.
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
+		
 		public void Publish (int fileId)
 		{
 			throw new System.NotImplementedException ();
@@ -85,6 +71,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Locks a file.
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
+		
 		public void Lock (int fileId)
 		{
 			throw new System.NotImplementedException ();
@@ -94,6 +81,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Unlocks the file.
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
+		
 		public void Unlock (int fileId)
 		{
 			throw new System.NotImplementedException ();
@@ -103,9 +91,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Gets a file.
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
-		/// <param name="fileFill">The file-fill object.</param>
-		/// <param name="File">The fetched file.</param>
-		public SynologenOpqFile GetFile (int fileId)
+
+		public File GetFile (int fileId)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -117,9 +104,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="shopId">The id of the shop.</param>
 		/// <param name="fileCategoryId">The category-id.</param>
 		/// <param name="onlyActive">If true=&gt;fetch only active files.</param>
-		/// <param name="fileFill">The file-fill object.</param>
-		/// <param name="files">A list of files.</param>
-		public List<SynologenOpqFile> GetFiles (int? nodeId, int? shopId, int? fileCategoryId, bool onlyActive)
+
+		public List<File> GetFiles (int? nodeId, int? shopId, int? fileCategoryId, bool onlyActive)
 		{
 			throw new System.NotImplementedException ();
 		}
@@ -129,9 +115,16 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
 		/// <param name="moveAction">The action.</param>
+		
 		public void MoveFile (int fileId, NodeMoveActions moveAction)
 		{
 			throw new System.NotImplementedException ();
 		}
+		
+		/// <summary>
+		/// Gets or sets the context.
+		/// </summary>
+
+		public Context Context { get; set; }
 	}
 }

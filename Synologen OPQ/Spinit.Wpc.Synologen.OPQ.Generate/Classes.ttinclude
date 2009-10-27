@@ -876,6 +876,19 @@ class Manager
 
 		return false;
 	}
+	
+	public string CleanPrefix (string name, string prefix)
+	{	
+		if (string.IsNullOrEmpty (prefix) || string.IsNullOrEmpty (name)) {
+			return name;
+		}
+		
+		if (name.StartsWith (prefix)) {
+			return name.Remove (0, prefix.Length);
+		}
+
+		return name;
+	}
 }
 
 class ManagementStrategy

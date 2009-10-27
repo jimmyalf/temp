@@ -96,6 +96,9 @@
     <Build Include="Properties\Database.sqlpermissions">
       <ModelBuilderType>Permissions</ModelBuilderType>
     </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblBaseLocations.DF_tblBaseLocations_cExtranet.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Constraints\dbo.tblSynologenShop.DF_tblSynologenShop_cCategoryId.defconst.sql">
       <SubType>Code</SubType>
     </Build>
@@ -147,6 +150,9 @@
     <Build Include="Schema Objects\Tables\dbo.tblBaseFile.table.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblBaseLocations.table.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\dbo.tblBaseUsers.table.sql">
       <SubType>Code</SubType>
     </Build>
@@ -154,6 +160,9 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblSynologenShop.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblSynologenShopCategory.table.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentHistories.SynologenOpqDocumentHistories_PK.pkey.sql">
@@ -291,6 +300,9 @@
     <Build Include="Schema Objects\Tables\Keys\dbo.tblBaseFile.PK_tblBaseFile.pkey.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblBaseLocations.PK_tblBaseLocation.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.tblBaseUsers.FK_tblBaseUsers_tblBaseLocations.fkey.sql">
       <SubType>Code</SubType>
     </Build>
@@ -310,6 +322,9 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShop.PK_tblSynologenShop.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopCategory.PK_tblSynologenShopCategory.pkey.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Triggers\SynologenOpqDocument.InsteadOfUpdate.trigger.sql">

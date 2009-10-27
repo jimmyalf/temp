@@ -45,5 +45,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Core
 		public string DefaultCulture { get; private set; }
 	}
 }
+
 #pragma warning restore 1591
  

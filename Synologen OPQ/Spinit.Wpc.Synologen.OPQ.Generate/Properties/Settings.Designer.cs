@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Synologen_OPQ_Generate.Properties {
+namespace Spinit.Wpc.Synologen.Opq.Generate.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -31,6 +31,17 @@ namespace Synologen_OPQ_Generate.Properties {
         public string dbWpcSynologenConnectionString {
             get {
                 return ((string)(this["dbWpcSynologenConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=BLACK;Initial Catalog=dbWpcSynologen;Persist Security Info=True;User " +
+            "ID=sa")]
+        public string dbWpcSynologenConnectionString1 {
+            get {
+                return ((string)(this["dbWpcSynologenConnectionString1"]));
             }
         }
     }

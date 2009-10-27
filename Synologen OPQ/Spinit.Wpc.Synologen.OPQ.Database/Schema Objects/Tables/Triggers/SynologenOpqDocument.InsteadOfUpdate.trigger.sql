@@ -24,7 +24,7 @@ BEGIN
 			ShpId = Document.ShpId,
 			CncId = Document.CncId,
 			DocTpeId = Document.DocTpeId,
-			Document = Document.Document,
+			DocumentContent = Document.DocumentContent,
 			IsActive = Document.IsActive,
 			CreatedById = Document.CreatedById,
 			CreatedByName = Document.CreatedByName,
@@ -38,14 +38,14 @@ BEGIN
 			LockedById = Document.LockedById,
 			LockedByName = Document.LockedByName,
 			LockedDate = Document.LockedDate
-	FROM (SELECT NdeId, ShpId, CncId, DocTpeId, Document, IsActive, CreatedById, CreatedByName, CreatedDate,
+	FROM (SELECT NdeId, ShpId, CncId, DocTpeId, DocumentContent, IsActive, CreatedById, CreatedByName, CreatedDate,
 				 ChangedById, ChangedByName, ChangedDate, ApprovedById, ApprovedByName, ApprovedDate,
 				 LockedById, LockedByName, LockedDate
 		 FROM INSERTED) AS Document
 	WHERE	Id = @documentId
 
 	INSERT INTO dbo.SynologenOpqDocumentHistories (
-		Id, HistoryDate, HistoryId, HistoryName, NdeId, ShpId, CncId, DocTpeId, Document, IsActive, 
+		Id, HistoryDate, HistoryId, HistoryName, NdeId, ShpId, CncId, DocTpeId, DocumentContent, IsActive, 
 		CreatedById, CreatedByName, CreatedDate, ChangedById, ChangedByName, ChangedDate, 
 		ApprovedById, ApprovedByName, ApprovedDate, LockedById, LockedByName, LockedDate)
 	SELECT
@@ -57,7 +57,7 @@ BEGIN
 		ShpId,
 		CncId,
 		DocTpeId,
-		Document,
+		DocumentContent,
 		IsActive,
 		CreatedById,
 		CreatedByName,

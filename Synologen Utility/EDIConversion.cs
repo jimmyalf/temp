@@ -78,7 +78,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 		//    return EDIArticles;
 		//}
 
-		public static List<InvoiceRow> ToEDIArticles(List<IOrderItem> orderItems, OrderRow order, CompanyRow company) {
+		public static List<InvoiceRow> ToEDIArticles(IList<IOrderItem> orderItems, OrderRow order, CompanyRow company) {
 			var EDIArticles = new List<InvoiceRow>();
 			var articleCounter = 1;
 			var freeTextRows = CommonConversion.GetFreeTextRows(company, order);

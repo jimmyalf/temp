@@ -7,7 +7,7 @@ namespace Spinit.Wpc.Synologen.Business.Interfaces {
 		string StreetName { get; set; }
 		string Zip { get; set; }
 		string City { get; set; }
-		string CompanyCode { get; set; }
+		string SPCSCompanyCode { get; set; }
 		string BankCode { get; set; }
 	}
 }

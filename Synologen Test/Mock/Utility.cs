@@ -75,7 +75,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 				StreetName = "Fakturagruppen RST",
 				BankCode = "8999",
 				City = "Stockholm",
-				CompanyCode = "900",
+				SPCSCompanyCode = "900",
 				ContractId = 1,
 				Id = 4,
 				Name = "Swedbank",

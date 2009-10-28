@@ -130,7 +130,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 			StreetName = company.StreetName;
 			Zip = company.Zip;
 			City = company.City;
-			CompanyCode = company.CompanyCode;
+			SPCSCompanyCode = company.SPCSCompanyCode;
 		}
 
 		[DataMember] public int Id { get; set; }
@@ -140,7 +140,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 		[DataMember] public string StreetName { get; set; }
 		[DataMember] public string Zip { get; set; }
 		[DataMember] public string City { get; set; }
-		[DataMember] public string CompanyCode { get; set; }
+		[DataMember] public string SPCSCompanyCode { get; set; }
 		[DataMember] public string BankCode { get; set; }
 	}
 

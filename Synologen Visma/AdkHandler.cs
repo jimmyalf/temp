@@ -34,7 +34,7 @@ namespace Spinit.Wpc.Synologen.Visma {
 
 			// Set CustomerNo/CompanyCode
 			var contractCompany = order.ContractCompany;
-			var customerNo = contractCompany.CompanyCode.Trim();
+			var customerNo = contractCompany.SPCSCompanyCode.Trim();
 
 
 			Operations.SetString( pData, Api.ADK_OOI_HEAD_CUSTOMER_NUMBER, ref customerNo );

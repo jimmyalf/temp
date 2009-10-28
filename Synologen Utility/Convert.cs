@@ -11,7 +11,7 @@ using Spinit.Wpc.Synologen.Utility.Types;
 namespace Spinit.Wpc.Synologen.Utility {
 	public static partial class Convert {
 
-		public static Invoice ToEDIInvoice(EDIConversionSettings EDISettings, OrderRow order, List<IOrderItem> orderItems, CompanyRow company, IShop shop) {
+		public static Invoice ToEDIInvoice(EDIConversionSettings EDISettings, OrderRow order, IList<IOrderItem> orderItems, CompanyRow company, IShop shop) {
 			var invoiceValueIncludingVAT = System.Convert.ToSingle(order.InvoiceSumIncludingVAT);
 			var invoiceValueExcludingVAT = System.Convert.ToSingle(order.InvoiceSumExcludingVAT);
 			var interchangeHeader = new InterchangeHeader {RecipientId = company.EDIRecipientId, SenderId = EDISettings.SenderId};
@@ -31,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return invoice;
 		}
 
-		public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, OrderRow order, List<IOrderItem> orderItems, CompanyRow company, ShopRow shop) {
+		public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, OrderRow order, IList<IOrderItem> orderItems, CompanyRow company, ShopRow shop) {
 			var invoice = new SFTIInvoiceType();
 			TryAddSellerParty(invoice, settings, shop);
 			TryAddBuyerParty(invoice, company, order);

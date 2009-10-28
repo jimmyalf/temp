@@ -81,11 +81,23 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 		[Test]
 		public void Test_Create_Invoice_Sets_Note() {
 			var customCompany = new CompanyRow{InvoiceFreeTextFormat = "Invoice free text"};
-			//var freeTextRows = CommonConversion.GetFreeTextRows(company, order);
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
 			Assert.AreEqual("Invoice free text", invoice.Note.Value);
 		}
-
+		[Test]
+		public void Test_Create_Invoice_Sets_Parsed_Note() {
+			var customOrderRow = new OrderRow {
+				CustomerFirstName = "Adam",
+				CustomerLastName = "Bertil",
+				PersonalIdNumber = "197001015374",
+				CompanyUnit = "Avdelning 1234",
+                CompanyId = 123,
+				RstText="ABCDEFGH"
+			};
+			var customCompany = new CompanyRow{InvoiceFreeTextFormat = "{CustomerName}{CustomerPersonalIdNumber}{CompanyUnit}{CustomerPersonalBirthDateString}{CustomerFirstName}{CustomerLastName}{BuyerCompanyId}{RST}"};
+			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrderRow, emptyOrderItemList, customCompany, emptyShop, emptySettings);
+			Assert.AreEqual("Adam Bertil197001015374Avdelning 123419700101AdamBertil123ABCDEFGH", invoice.Note.Value);
+		}
 		#endregion
 
 		#region BuyerParty
@@ -574,37 +586,37 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 			Assert.AreEqual("SEK", invoice.LegalTotal.TaxExclusiveTotalAmount.amountCurrencyID);
 		}
 		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_LegalTotal_RoundOffAmount() {
-			var customOrder = new OrderRow { RoundOffAmount = 0.38m };
-			var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
-			Assert.IsNotNull(invoice.LegalTotal);
-			Assert.IsNotNull(invoice.LegalTotal.RoundOffAmount);
-			Assert.AreEqual(0.38m, invoice.LegalTotal.RoundOffAmount.Value);
-			Assert.AreEqual("SEK", invoice.LegalTotal.RoundOffAmount.amountCurrencyID);
-		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_LegalTotal_RoundOffAmount_Nulled() {
-			var customOrder1 = new OrderRow { RoundOffAmount = null };
-			var customOrder2 = new OrderRow { RoundOffAmount = null, InvoiceSumExcludingVAT = 123456.4545 };
-			var invoice1 = Utility.General.CreateInvoiceSvefaktura(customOrder1, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
-			var invoice2 = Utility.General.CreateInvoiceSvefaktura(customOrder2, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
-			Assert.IsNull(invoice1.LegalTotal);
-			Assert.IsNotNull(invoice2.LegalTotal);
-			Assert.IsNull(invoice2.LegalTotal.RoundOffAmount);
-		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_LegalTotal_RoundOffAmount_Zero() {
-			var customOrder1 = new OrderRow { RoundOffAmount = 0 };
-			var customOrder2 = new OrderRow { RoundOffAmount = 0, InvoiceSumExcludingVAT = 123456.4545  };
-			var invoice1 = Utility.General.CreateInvoiceSvefaktura(customOrder1, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
-			var invoice2 = Utility.General.CreateInvoiceSvefaktura(customOrder2, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
-			Assert.IsNull(invoice1.LegalTotal);
-			Assert.IsNotNull(invoice2.LegalTotal);
-			Assert.IsNull(invoice2.LegalTotal.RoundOffAmount);
-		}
+		//[Test]
+		//public void Test_Create_Invoice_Sets_LegalTotal_RoundOffAmount() {
+		//    var customOrder = new OrderRow { RoundOffAmount = 0.38m };
+		//    var invoice = Utility.General.CreateInvoiceSvefaktura(customOrder, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
+		//    Assert.IsNotNull(invoice.LegalTotal);
+		//    Assert.IsNotNull(invoice.LegalTotal.RoundOffAmount);
+		//    Assert.AreEqual(0.38m, invoice.LegalTotal.RoundOffAmount.Value);
+		//    Assert.AreEqual("SEK", invoice.LegalTotal.RoundOffAmount.amountCurrencyID);
+		//}
+		////TODO: Try to make single assertive
+		//[Test]
+		//public void Test_Create_Invoice_Sets_LegalTotal_RoundOffAmount_Nulled() {
+		//    var customOrder1 = new OrderRow { RoundOffAmount = null };
+		//    var customOrder2 = new OrderRow { RoundOffAmount = null, InvoiceSumExcludingVAT = 123456.4545 };
+		//    var invoice1 = Utility.General.CreateInvoiceSvefaktura(customOrder1, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
+		//    var invoice2 = Utility.General.CreateInvoiceSvefaktura(customOrder2, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
+		//    Assert.IsNull(invoice1.LegalTotal);
+		//    Assert.IsNotNull(invoice2.LegalTotal);
+		//    Assert.IsNull(invoice2.LegalTotal.RoundOffAmount);
+		//}
+		////TODO: Try to make single assertive
+		//[Test]
+		//public void Test_Create_Invoice_Sets_LegalTotal_RoundOffAmount_Zero() {
+		//    var customOrder1 = new OrderRow { RoundOffAmount = 0 };
+		//    var customOrder2 = new OrderRow { RoundOffAmount = 0, InvoiceSumExcludingVAT = 123456.4545  };
+		//    var invoice1 = Utility.General.CreateInvoiceSvefaktura(customOrder1, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
+		//    var invoice2 = Utility.General.CreateInvoiceSvefaktura(customOrder2, emptyOrderItemList, emptyCompany, emptyShop, emptySettings);
+		//    Assert.IsNull(invoice1.LegalTotal);
+		//    Assert.IsNotNull(invoice2.LegalTotal);
+		//    Assert.IsNull(invoice2.LegalTotal.RoundOffAmount);
+		//}
 		#endregion
 
 		#region InvoiceRows

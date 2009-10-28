@@ -82,6 +82,7 @@
     <Compile Include="Svefaktura\CustomValidation\TestValidateCustomInvoiceLine.cs" />
     <Compile Include="Svefaktura\CustomValidation\TestValidateCustomTaxCategory.cs" />
     <Compile Include="Svefaktura\CustomValidation\TestValidateCustomTaxScheme.cs" />
+    <Compile Include="Svefaktura\DataParsing\TestSvefakturaCompleteparsing.cs" />
     <Compile Include="Svefaktura\DataParsing\TestSvefakturaInvoiceParsing.cs" />
     <Compile Include="Mock\Utility.cs" />
     <Compile Include="Mock\MockAdkHandler.cs" />

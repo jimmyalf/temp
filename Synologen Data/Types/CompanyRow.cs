@@ -1,16 +1,20 @@
+using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Data.Types {
 	public class CompanyRow : ICompany {
+		public string SPCSCompanyCode{ get; set;}
 		public int Id { get; set; }
 		public int ContractId { get; set; }
 		public string Name { get; set; }
+		[Obsolete("Use Postbox instead")]
 		public string Address1 { get; set; }
+		[Obsolete("Use Streetname instead")]
 		public string Address2 { get; set; }
 		public string Zip { get; set; }
 		public string City { get; set; }
-		public string CompanyCode { get; set; }
+		//public string SPCSCompanyCode { get; set; }
 		public string BankCode { get; set; }
 		public bool Active { get; set; }
 		public string OrganizationNumber { get; set; }

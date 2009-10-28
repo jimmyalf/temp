@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			_context = null;
 		}
 
-		[Test, Explicit, Description ("Creates, fetches, updates and deletes a document."), Category ("CruiseControl")]
+		[Test, Description ("Creates, fetches, updates and deletes a document."), Category ("CruiseControl")]
 		public void DocumentTest ()
 		{
 			using (
@@ -105,7 +105,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					// ReFetch the document
 					fetchDocument = synologenRepository.Document.GetDocumentById (document.Id);
 
-					Assert.IsNull (fetchDocument, "Deleted document is null.");
+					Assert.IsNull (fetchDocument, "Deleted document is not null.");
 				}
 				catch (ObjectNotFoundException e) {
 					if (ObjectNotFoundErrors.DocumentNotFound == (ObjectNotFoundErrors) e.ErrorCode) {
@@ -113,7 +113,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					}
 				}
 
-				Assert.AreEqual (found, false, "Object still exist.");
+				Assert.AreEqual (false, found, "Object still exist.");
 			}
 		}
 	}

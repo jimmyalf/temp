@@ -12,7 +12,7 @@ VALUES (
 INSERT INTO dbo.SynologenOpqNodes (
 	Id, Parent, [Name], IsActive, CreatedById, CreatedByName, CreatedDate) 
 VALUES (
-	2, NULL, 'Test-Root2', 1, 1, 'Admin', GETDATE ()) 
+	2, NULL, 'Test-Root2', 0, 1, 'Admin', GETDATE ()) 
 	
 INSERT INTO dbo.SynologenOpqNodes (
 	Id, Parent, [Name], IsActive, CreatedById, CreatedByName, CreatedDate) 
@@ -22,7 +22,7 @@ VALUES (
 INSERT INTO dbo.SynologenOpqNodes (
 	Id, Parent, [Name], IsActive, CreatedById, CreatedByName, CreatedDate) 
 VALUES (
-	4, 1, 'Test-Root1-Child2', 1, 1, 'Admin', GETDATE ()) 
+	4, 1, 'Test-Root1-Child2', 0, 1, 'Admin', GETDATE ()) 
 
 INSERT INTO dbo.SynologenOpqNodes (
 	Id, Parent, [Name], IsActive, CreatedById, CreatedByName, CreatedDate) 

@@ -83,11 +83,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 			}
 		}
 		
-		partial void OnOrderChanging(int value);
+		partial void OnOrderChanging(int? value);
 		partial void OnOrderChanged();
-		private int _Order;
-		[Column (Storage = @"_Order", Name = @"[Order]", DbType = @"Int NOT NULL", IsDbGenerated = true)]
-		public int Order
+		private int? _Order;
+		[Column (Storage = @"_Order", Name = @"[Order]", AutoSync = AutoSync.OnInsert, DbType = @"Int")]
+		public int? Order
 		{
 			get { return _Order; }
 			set {

@@ -12,7 +12,8 @@ BEGIN
 	
 	DECLARE	@id INT,
 			@parent INT,
-			@order INT
+			@order INT,
+			@contextInfo VARBINARY (128)
 			
 	SELECT	@id = Id,
 			@parent = Parent
@@ -37,8 +38,14 @@ BEGIN
 		BEGIN
 			SET @order = 1
 		END
+		
+	SET @contextInfo = CAST ('DontUpdateNode' + SPACE (128) AS VARBINARY (128))  
+	SET CONTEXT_INFO @contextInfo	
 			
 	UPDATE	dbo.SynologenOpqNodes 
 	SET		[Order] = @order
 	WHERE	Id = @id
+	
+	SET @contextInfo = CAST ('UpdateClear' + SPACE (128) AS VARBINARY (128))  
+	SET CONTEXT_INFO @contextInfo		
 END

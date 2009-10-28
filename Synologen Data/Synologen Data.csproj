@@ -89,7 +89,6 @@
     <Compile Include="SqlProviderOrderHistory.cs" />
     <Compile Include="SqlProviderOrderItem.cs" />
     <Compile Include="SqlProviderOrderStatus.cs" />
-    <Compile Include="SqlProviderRST.cs" />
     <Compile Include="SqlProviderSettlement.cs" />
     <Compile Include="SqlProviderShopCategory.cs" />
     <Compile Include="SqlProviderShopEquipment.cs" />

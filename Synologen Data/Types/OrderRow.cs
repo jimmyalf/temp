@@ -15,7 +15,7 @@ namespace Spinit.Wpc.Synologen.Data.Types {
 		public bool MarkedAsPayedByShop { get; set; }
 		public string PersonalIdNumber { get; set; }
 		public string Phone { get; set; }
-		public int RSTId { get; set; }
+		//public int RSTId { get; set; }
 		public string RstText { get; set; }
 		public int SalesPersonShopId { get; set; }
 		public int StatusId { get; set; }

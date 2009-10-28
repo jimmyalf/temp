@@ -112,7 +112,6 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 			                    	MarkedAsPayedByShop = false,
 			                    	PersonalIdNumber = "197001015374",
 			                    	Phone = "031123456",
-			                    	RSTId = 0,
 									RstText = "45403",
 			                    	SalesPersonMemberId = 1,
 			                    	SalesPersonShopId = 1,

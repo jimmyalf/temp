@@ -46,7 +46,7 @@
 					<div class="formItem clearLeft">
 						<label class="labelLong">Kund personnummer</label>
 						<asp:TextBox id="txtPersonalIDNumber" runat="server" />
-						<asp:RequiredFieldValidator id="reqPersonalIDNumber" runat="server" ControlToValidate="txtPersonalIDNumber" ErrorMessage="Personnummer saknas" Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>							
+						<%--<asp:RequiredFieldValidator id="reqPersonalIDNumber" runat="server" ControlToValidate="txtPersonalIDNumber" ErrorMessage="Personnummer saknas" Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>--%>							
 						<asp:RegularExpressionValidator ID="regPersonalIDNumber" runat="server" ValidationExpression="^\d{8}-?\d{4}$" ControlToValidate="txtPersonalIDNumber" ErrorMessage="Personnummer med felaktigt format (skall vara &Aring;&Aring;&Aring;&Aring;MMDD-NNNN)" Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:RegularExpressionValidator>
 						<asp:CustomValidator ID="vldCustomPersonalIDNumber" runat="server" ControlToValidate="txtPersonalIDNumber" OnServerValidate="PersonalIDNumberValidation" ErrorMessage="Ogiltligt personnummer" Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:CustomValidator>														
 					</div>		

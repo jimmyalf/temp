@@ -20,6 +20,8 @@ namespace Spinit.Wpc.Synologen.Utility {
 			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{CustomerPersonalBirthDateString}", order.PersonalBirthDateString ?? String.Empty);
 			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{CustomerFirstName}", order.CustomerFirstName ?? String.Empty);
 			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{CustomerLastName}", order.CustomerLastName ?? String.Empty);
+			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{BuyerCompanyId}", order.CompanyId.ToString() ?? String.Empty);
+			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{RST}", order.RstText ?? String.Empty);
 			return invoiceFreeTextFormat;
 		}
 

@@ -45,7 +45,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = GetNullableSqlType(company.StreetName);
 					parameters[counter++].Value = GetNullableSqlType(company.Zip);
 					parameters[counter++].Value = GetNullableSqlType(company.City);
-					parameters[counter++].Value = GetNullableSqlType(company.CompanyCode);
+					parameters[counter++].Value = GetNullableSqlType(company.SPCSCompanyCode);
 					parameters[counter++].Value = GetNullableSqlType(company.BankCode);
 					parameters[counter++].Value = company.Active;
 					parameters[counter++].Value = GetNullableSqlType(company.OrganizationNumber);
@@ -94,7 +94,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					ContractId = Util.CheckNullInt(dataRow, "cContractCustomerId"), 
 					Name = Util.CheckNullString(dataRow, "cName"), 
 					Zip = Util.CheckNullString(dataRow, "cZip"), 
-					CompanyCode = Util.CheckNullString(dataRow, "cCompanyCode"), 
+					SPCSCompanyCode = Util.CheckNullString(dataRow, "cCompanyCode"), 
 					BankCode = Util.CheckNullString(dataRow, "cBankCode"), 
 					Active = (bool) dataRow["cActive"], 
 					OrganizationNumber = Util.CheckNullString(dataRow, "cOrganizationNumber"), 

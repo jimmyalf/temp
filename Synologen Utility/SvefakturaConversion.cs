@@ -23,25 +23,20 @@ namespace Spinit.Wpc.Synologen.Utility {
 			invoice.TaxTotal.Add(generatedTaxTotal);
 		}
 
-		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, OrderRow order, List<IOrderItem> orderItems, CompanyRow company ) {
+		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, OrderRow order, IEnumerable<IOrderItem> orderItems, CompanyRow company ) {
 			if(invoice == null) invoice = new SFTIInvoiceType();
 			var freeTextRows = CommonConversion.GetFreeTextRowsAsString(company, order);
 			invoice.Note = TryGetValue(freeTextRows, new NoteType {Value = freeTextRows});
 			invoice.IssueDate = TryGetValue(settings.InvoiceIssueDate, new IssueDateType {Value = settings.InvoiceIssueDate});
 			invoice.InvoiceTypeCode = TryGetValue(settings.InvoiceTypeCode, new CodeType {Value = settings.InvoiceTypeCode});
 			invoice.ID = TryGetValue(order.InvoiceNumber, new SFTISimpleIdentifierType {Value = order.InvoiceNumber.ToString()});
-			if (order.InvoiceSumIncludingVAT > 0 || order.InvoiceSumExcludingVAT > 0 || (order.RoundOffAmount.HasValue && order.RoundOffAmount.Value > 0)){
+			if (order.InvoiceSumIncludingVAT > 0 || order.InvoiceSumExcludingVAT > 0){
 				invoice.LegalTotal = new SFTILegalTotalType {
 					LineExtensionTotalAmount = TryGetLineExtensionAmount(orderItems),
 					TaxExclusiveTotalAmount = TryGetValue(order.InvoiceSumExcludingVAT, new TotalAmountType { Value = (decimal) order.InvoiceSumExcludingVAT, amountCurrencyID = "SEK" }),
 					TaxInclusiveTotalAmount = TryGetValue(order.InvoiceSumIncludingVAT, new TotalAmountType { Value = (decimal) order.InvoiceSumIncludingVAT, amountCurrencyID = "SEK" }),
-					RoundOffAmount = TryGetValue(order.RoundOffAmount, new AmountType{Value = order.RoundOffAmount.GetValueOrDefault(), amountCurrencyID = "SEK"})
 				};
 			}
-			//if(order.InvoiceSumIncludingVAT > 0 && order.InvoiceSumExcludingVAT > 0){
-			//    var totalTaxAmount = order.InvoiceSumIncludingVAT - order.InvoiceSumExcludingVAT;
-			//    invoice.TaxTotal = new List<SFTITaxTotalType>{new SFTITaxTotalType{TotalTaxAmount = new TaxAmountType {Value = (decimal) totalTaxAmount, amountCurrencyID = "SEK"}}};
-			//}
 			invoice.RequisitionistDocumentReference = TryGetValue(order.CustomerOrderNumber, new List<SFTIDocumentReferenceType> {
 					new SFTIDocumentReferenceType {ID = new IdentifierType{Value = order.CustomerOrderNumber}}
 				}
@@ -330,9 +325,9 @@ namespace Spinit.Wpc.Synologen.Utility {
 		//    return (orderItem.NoVAT) ? (decimal) orderItem.DisplayTotalPrice : (decimal) orderItem.DisplayTotalPrice*(1 + vatAmount);
 		//}
 
-		private static ExtensionTotalAmountType TryGetLineExtensionAmount(List<IOrderItem> orderItems) {
+		private static ExtensionTotalAmountType TryGetLineExtensionAmount(IEnumerable<IOrderItem> orderItems) {
 			var result = 0m;
-			orderItems.ForEach( x => result += (decimal) x.DisplayTotalPrice);
+			orderItems.ToList().ForEach( x => result += (decimal) x.DisplayTotalPrice);
 			return (result <= 0) ? null : new ExtensionTotalAmountType {Value = result, amountCurrencyID ="SEK"};
 		}
 		#endregion

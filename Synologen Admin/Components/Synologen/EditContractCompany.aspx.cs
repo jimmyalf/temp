@@ -70,7 +70,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			txtAddress2.Text = company.StreetName;
 			txtZip.Text = company.Zip;
 			txtCity.Text = company.City;
-			txtCompanyCode.Text = company.CompanyCode;
+			txtCompanyCode.Text = company.SPCSCompanyCode;
 			drpContracts.SelectedValue = company.ContractId.ToString();
 			txtBankIDCode.Text = company.BankCode;
 			chkActive.Checked = company.Active;
@@ -111,7 +111,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			company.StreetName = txtAddress2.Text;
 			company.Zip = txtZip.Text;
 			company.City = txtCity.Text;
-			company.CompanyCode = txtCompanyCode.Text;
+			company.SPCSCompanyCode = txtCompanyCode.Text;
 			company.BankCode = txtBankIDCode.Text;
 			company.Active = chkActive.Checked;
 

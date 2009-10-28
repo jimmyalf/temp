@@ -113,6 +113,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data
 
 		protected override sealed void OnCreate ()
 		{
+			Document = new DocumentManager (this);
+			ExternalObjectsManager = new ExternalObjectsManager (this);
+			File = new FileManager (this);
 			Node = new NodeManager (this);
 		}
 		
@@ -121,10 +124,29 @@ namespace Spinit.Wpc.Synologen.OPQ.Data
 		#region Managers
 
 		/// <summary>
-		/// Gets the account-manager.
+		/// Gets the document-manager.
+		/// </summary>
+
+		public DocumentManager Document { get; private set; }
+
+		/// <summary>
+		/// Gets the external-objects-manager
+		/// </summary>
+
+		public ExternalObjectsManager ExternalObjectsManager { get; private set; }
+
+		/// <summary>
+		/// Gets the file-manager.
+		/// </summary>
+
+		public FileManager File { get; private set; }
+		
+		/// <summary>
+		/// Gets the node-manager.
 		/// </summary>
 
 		public NodeManager Node { get; private set; }
+
 
 		#endregion
 

@@ -27,7 +27,7 @@ using <#=manager.OutputProjectCore#>.<#=manager.OutputDirectoryCoreEntities#>;
 <# manager.EndHeader();
 foreach(Table table in data.Tables) {
 	foreach(TableClass class1 in table.Classes) {
-		if (manager.IsInList (manager.CleanPrefix (class1.Name, options.RemovePrefixTable), options.ExcludeTablesData)) {
+		if (manager.IsInList (string.Concat ("E", manager.CleanPrefix (class1.Name, options.RemovePrefixTable)), options.ExcludeTablesData)) {
 			continue;
 		}
 
@@ -92,7 +92,7 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 		foreach(Association association in class1.Associations) {
 #>			<#=association.Storage#> = <#
 			if (association.IsMany) {
-				#>new EntitySet<E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#>>(attach_<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>, detach_<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>);
+				#>new EntitySet<E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#>>(Attach<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>, Detach<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>);
 <#			} else {
 				#>default(EntityRef<E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#>>); 
 <#			}
@@ -109,8 +109,8 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 <#			foreach(Column column in class1.Columns) {#>
 		partial void On<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>Changing(<#=code.Format(column.Type)#> value);
 		partial void On<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>Changed();
-		private <#=code.Format(column.StorageType)#> <#=column.Storage#><# if (column.IsReadOnly) {#> = default(<#=code.Format(column.StorageType)#>)<#}#>;
-		[Column(Storage=@"<#=column.Storage#>"<#
+		private <#=code.Format(column.StorageType)#> <#=manager.CleanPrefix (column.Storage, options.RemovePrefixColumn, true)#><# if (column.IsReadOnly) {#> = default(<#=code.Format(column.StorageType)#>)<#}#>;
+		[Column(Storage=@"<#=manager.CleanPrefix (column.Storage, options.RemovePrefixColumn, true)#>"<#
 				if (column.Name != manager.CleanPrefix (column.Member, options.RemovePrefixColumn)) {#>, Name=@"<#=column.Name#>"<#}
 				if (column.AutoSync != AutoSync.Default) {#>, AutoSync=AutoSync.<#=column.AutoSync.ToString()#><#}
 				if (!String.IsNullOrEmpty(column.DbType)) {#>, DbType=@"<#=column.DbType#>"<#}
@@ -128,10 +128,10 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 <#				}
 #>		<#=code.Format(column.MemberAttributes)#><#=code.Format(column.Type)#> <#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>
 		{
-			get { return <#=column.StorageValue#>; }
+			get { return <#=manager.CleanPrefix (column.StorageValue, options.RemovePrefixColumn, true)#>; }
 <#				if (!column.IsReadOnly) { #>
 			set {
-				if (<#=column.StorageValue#> != value) {
+				if (<#=manager.CleanPrefix (column.StorageValue, options.RemovePrefixColumn, true)#> != value) {
 <#					if (column.ForeignKeyAssociations.Count > 0) {#>
 					if (<#=String.Join(" || ", column.ForeignKeyAssociations.Select(a => a.Storage + ".HasLoadedOrAssignedValue").ToArray())#>) {
 						throw new ForeignKeyReferenceAlreadyHasValueException();
@@ -139,7 +139,7 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 <#					}#>
 					On<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>Changing(value);
 					SendPropertyChanging();
-					<#=column.StorageValue#> = value;
+					<#=manager.CleanPrefix (column.StorageValue, options.RemovePrefixColumn, true)#> = value;
 					SendPropertyChanged("<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>");
 					On<#=manager.CleanPrefix (column.Member, options.RemovePrefixColumn)#>Changed();
 				}
@@ -158,8 +158,8 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 		private Entity<#=(association.IsMany) ? "Set" : "Ref"#><E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#>> <#=association.Storage#>;
 		[Association(Name=@"<#=association.Name#>"<#
 			#>, Storage=@"<#=association.Storage#>"<#
-				if (association.ThisKeyMembers != null) {#>, ThisKey=@"<#=String.Join(",", association.ThisKeyMembers)#>"<#}
-				if (association.OtherKeyMembers != null) {#>, OtherKey=@"<#=String.Join(",", association.OtherKeyMembers)#>"<#}
+				if (association.ThisKeyMembers != null) {#>, ThisKey=@"<#=String.Join(",", manager.CleanPrefix (association.ThisKeyMembers, options.RemovePrefixColumn))#>"<#}
+				if (association.OtherKeyMembers != null) {#>, OtherKey=@"<#=String.Join(",", manager.CleanPrefix (association.OtherKeyMembers, options.RemovePrefixColumn))#>"<#}
 				if (association.IsForeignKey) {#>, IsForeignKey=true<#}
 				if (association.IsUnique) {#>, IsUnique=true, IsForeignKey=false<#}
 				if (association.DeleteOnNull) {#>, DeleteOnNull=true<#}
@@ -197,12 +197,12 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 						value.<#=manager.CleanPrefix (association.OtherSide.Member, options.RemovePrefixTable)#><#if (!association.OtherSide.IsMany) {#> = this<#} else {#>.Add(this)<#}#>;
 <#						if (association.ManagesKeys) {
 							for(int keyIdx=0;keyIdx<association.ThisKey.Count();keyIdx++) {#>
-						<#=association.ThisKey[keyIdx].Storage#> = value.<#=association.OtherKey[keyIdx].Member#>;
+						<#=manager.CleanPrefix (association.ThisKey[keyIdx].Storage, options.RemovePrefixColumn, true)#> = value.<#=manager.CleanPrefix (association.OtherKey[keyIdx].Member, options.RemovePrefixColumn)#>;
 <#							}#>
 					}
 					else {
 <#							for(int keyIdx=0;keyIdx<association.ThisKey.Count();keyIdx++) {
-#>						<#=association.ThisKey[keyIdx].Storage#> = default(<#=code.Format(association.ThisKey[keyIdx].Type)#>);
+#>						<#=manager.CleanPrefix (association.ThisKey[keyIdx].Storage, options.RemovePrefixColumn, true)#> = default(<#=code.Format(association.ThisKey[keyIdx].Type)#>);
 <#							}
 						}
 #>					}
@@ -228,13 +228,13 @@ namespace <#=manager.OutputProjectData#>.<#=manager.OutputDirectoryDataEntities#
 			}
 		}
 
-		private void attach_<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>(E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#> entity)
+		private void Attach<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>(E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#> entity)
 		{
 			SendPropertyChanging();
 			entity.<#=manager.CleanPrefix (association.OtherSide.Member, options.RemovePrefixTable)#> = this;
 		}
 		
-		private void detach_<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>(E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#> entity)
+		private void Detach<#=manager.CleanPrefix (association.Member, options.RemovePrefixTable)#>(E<#=manager.CleanPrefix (association.Type.Name, options.RemovePrefixTable)#> entity)
 		{
 			SendPropertyChanging();
 			entity.<#=manager.CleanPrefix (association.OtherSide.Member, options.RemovePrefixTable)#> = null;

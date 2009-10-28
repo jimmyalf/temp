@@ -84,7 +84,7 @@ namespace <#=manager.OutputProjectData#>
 		#region Tables
 
 <#	foreach(Table table in data.Tables) {
-#>		<#=code.GetAccess(table.BaseClass.TypeAttributes)#>Table<E<#=manager.CleanPrefix (table.BaseClass.QualifiedName, options.RemovePrefixTable)#>> <#=table.Member#>
+#>		<#=code.GetAccess(table.BaseClass.TypeAttributes)#>Table<E<#=manager.CleanPrefix (table.BaseClass.QualifiedName, options.RemovePrefixTable)#>> <#=manager.CleanPrefix (table.Member, options.RemovePrefixTable)#>
 		{
 			get { return GetTable<E<#=manager.CleanPrefix (table.BaseClass.QualifiedName, options.RemovePrefixTable)#>>(); }
 		}

@@ -31,4 +31,65 @@
 
 		None = 0,
 	}
+
+	/// <summary>
+	/// The fetch resulting in not found objects exception.
+	/// </summary>
+
+	public enum ObjectNotFoundErrors
+	{
+		/// <summary>
+		/// No error.
+		/// </summary>
+
+		None = 0,
+
+		/// <summary>
+		/// The node is not found.
+		/// </summary>
+
+		NodeNotFound = 1,
+
+		/// <summary>
+		/// The node-suppliers is not found.
+		/// </summary>
+
+		NodeSupplierNotFound = 2,
+
+		/// <summary>
+		/// The supplier is not found.
+		/// </summary>
+
+		UserNotFound = 3,
+
+		/// <summary>
+		/// The document is not found.
+		/// </summary>
+
+		DocumentNotFound = 4,
+
+		/// <summary>
+		/// The document-history is not found.
+		/// </summary>
+
+		DocumentHistoryNotFound = 5,
+
+		/// <summary>
+		/// The 
+		/// </summary>
+
+		DocumentTypeNotFound = 6,
+
+		/// <summary>
+		/// The file is not found.
+		/// </summary>
+
+		FileNotFound = 7,
+
+		/// <summary>
+		/// The file-category is not found.
+		/// </summary>
+
+		FileCategoryNotFound = 8
+	}
 }

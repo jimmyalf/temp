@@ -56,6 +56,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Core.Entities
 		
 		public Document Document { get; set; }
 		
+		public BaseUser HistoryIdUser { get; set; }
+		
 		#endregion
 		
 		#region Overrides

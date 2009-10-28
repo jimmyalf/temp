@@ -883,10 +883,66 @@ class Manager
 			return name;
 		}
 		
-		if (name.StartsWith (prefix)) {
-			return name.Remove (0, prefix.Length);
+		string[] prefixes = prefix.Split (new [] {','});
+		
+		if (prefixes.Length > 0) {
+			foreach (string sPrefix in prefixes) {
+				if (name.StartsWith (sPrefix)) {
+					return name.Remove (0, sPrefix.Length);
+				}
+			}
 		}
+		return name;
+	}
+	
+	public string[] CleanPrefix (string[] names, string prefix)
+	{	
+		if (string.IsNullOrEmpty (prefix) || (names == null)  || (names.Length == 0)) {
+			return names;
+		}
+		string [] retNames = new string [names.Length];
+		for (int i = 0; i < names.Length; i++) {
+			string name = names [i];
+			string[] prefixes = prefix.Split (new [] {','});
+			
+			if (prefixes.Length > 0) {
+				bool found = false;
+				foreach (string sPrefix in prefixes) {
+					if (name.StartsWith (sPrefix)) {
+						retNames [i] = name.Remove (0, sPrefix.Length);
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					retNames [i] = name;
+				}
+			}
+		}
+		return retNames;
+	}
 
+	public string CleanPrefix (string name, string prefix, bool checkUnderscore)
+	{	
+		if (string.IsNullOrEmpty (prefix) || string.IsNullOrEmpty (name)) {
+			return name;
+		}
+		
+		string[] prefixes = prefix.Split (new [] {','});
+		
+		if (prefixes.Length > 0) {
+			foreach (string sPrefix in prefixes) {
+				if (checkUnderscore)
+				{
+					if (name.StartsWith (string.Concat ("_", sPrefix))) {
+						return string.Concat ("_", name.Remove (0, sPrefix.Length + 1));
+					}
+				}
+				else if (name.StartsWith (sPrefix)) {
+					return name.Remove (0, sPrefix.Length);
+				}
+			}
+		}
 		return name;
 	}
 }

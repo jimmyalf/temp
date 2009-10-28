@@ -17,10 +17,10 @@ var options = new {
 	CreateRepositoryWithManagers = false,		// Set this to false to create partial managers-file.
 	CreateRepositoryManagerFile = false,		// Should be set to false after first run.
 	CreateConfigFile = false,					// Should be set to false fater first run.
-	ExcludeTablesData="DEocumentType,EDocument,EDocumentHistory",						// List of tables to exclude for data-project
-	ExcludeTablesCore="DocumentType,Document,DocumentHistory",						// List of tables to exclude for core-project
-	RemovePrefixTable="SynologenOpq",			// Remove prefixes on every table e.g. "tbl"
-	RemovePrefixColumn=""						// Remove prefixex on every table e.g. "c"
+	ExcludeTablesData="ENode,EDocumentType,EDocument,EDocumentHistory,EFile,EFileCategory,EBaseUser",	// List of tables to exclude for data-project
+	ExcludeTablesCore="Node,DocumentType,Document,DocumentHistory,File,FileCategory,BaseUser",			// List of tables to exclude for core-project
+	RemovePrefixTable="SynologenOpq,tblSynologen,tbl",	// Remove prefixes on every table e.g. "tbl"
+	RemovePrefixColumn="c"								// Remove prefixex on every table e.g. "c"
 	// End Properties for controlling the generation 
 };
 Log.InDebug = false;

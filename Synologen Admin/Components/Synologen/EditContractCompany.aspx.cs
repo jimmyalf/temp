@@ -26,6 +26,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			PopulateContracts();
 			PopulateInvoicingMethods();
 			PopulateValidationRules();
+			PopulateCountries();
 			if (_companyId > 0) {
 				SetupForEdit();
 
@@ -56,6 +57,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			chkValidationRules.DataSource = Provider.GetCompanyValidationRulesDataSet(null, null);
 			chkValidationRules.DataBind();
 		}
+		private void PopulateCountries() {
+			drpCountry.DataSource = Provider.GetCountryRows(x=> x.Name);
+			drpCountry.DataBind();
+		}
 
 
 		private void SetupForEdit() {
@@ -80,6 +85,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				var listItem = chkValidationRules.Items.FindByValue(validationRule.Id.ToString());
 				if(listItem !=null) listItem.Selected = true;
 			}
+			if(company.Country != null){
+				var listItem = drpCountry.Items.FindByValue(company.Country.Id.ToString());
+				if(listItem !=null) listItem.Selected = true;
+			}
+
 			//Replace by Databind method
 		}
 
@@ -112,6 +122,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			company.EDIRecipientId = txtEDIRecipientId.Text;
 			company.InvoicingMethodId = Convert.ToInt32(drpInvoicingMethods.SelectedValue);
 			company.InvoiceFreeTextFormat = txtInvoiceFreeTextTemplate.Text.Trim();
+			if (drpCountry.SelectedValue != "0"){
+				company.Country = Provider.GetCountryRow(Int32.Parse(drpCountry.SelectedValue));
+			}
 			Provider.AddUpdateDeleteCompany(action, ref company);
 
 			ConnectDisconnectValidationRules(company);

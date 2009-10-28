@@ -7,7 +7,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 	<project name="Wpc.Synologen" queue="WpcQueue" queuePriority="1">
 		<workingDirectory>C:\Develop\WPC4\Current\CustomerSpecific\Synologen\</workingDirectory>
 		<webURL>http://10.1.1.170/cruicecontrol/server/local/project/Wpc.Synologen/ViewProjectReport.aspx</webURL>
-		<modificationDelaySeconds>60</modificationDelaySeconds>
+		<modificationDelaySeconds>120</modificationDelaySeconds>
 	  
 		<sourcecontrol type="svn">
 			<executable>C:\Program\CollabNet Subversion Client\svn.exe</executable>
@@ -26,7 +26,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 		</prebuild>		
 	  
 		<triggers>
-			<intervalTrigger seconds="120" />
+			<intervalTrigger seconds="300" />
 		</triggers>
 	  
 		<tasks>

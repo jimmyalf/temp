@@ -123,6 +123,37 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		#endregion
 
+		#region Remove
+
+		#region Remove File
+
+		/// <summary>
+		/// Deletes all documents for a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		public void DeleteAllForNode (int nodeId)
+		{
+			var query = from file in _dataContext.Files
+						where file.NdeId == nodeId
+						select file;
+
+			IList<EFile> files = query.ToList ();
+
+			if (files.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			_dataContext.Files.DeleteAllOnSubmit (files);
+		}
+
+		#endregion
+
+		#endregion
+
 		#region Fetch
 
 		#region Fetch File

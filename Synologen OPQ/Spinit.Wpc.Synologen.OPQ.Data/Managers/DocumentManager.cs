@@ -168,6 +168,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			oldDocument.ChangedByName = Manager.WebContext.UserName;
 			oldDocument.ChangedDate = DateTime.Now;
 
+			if ((oldDocument.ChangedById == 0) || (oldDocument.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
 			oldDocument.IsActive = false;
 		}
 
@@ -192,6 +196,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			oldDocument.ChangedByName = Manager.WebContext.UserName;
 			oldDocument.ChangedDate = DateTime.Now;
 
+			if ((oldDocument.ChangedById == 0) || (oldDocument.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
 			oldDocument.IsActive = true;
 		}
 
@@ -207,7 +215,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// Deletes a specific document including document-histories.
 		/// </summary>
 		/// <param name="document">The document.</param>
-		/// <exception cref="ObjectNotFoundException">If the documen is not found.</exception>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
 		private void Delete (EDocument document)
 		{
@@ -228,18 +236,46 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				}
 			}
 
-			_dataContext.Documents.DeleteOnSubmit (document);
+			_dataContext.Documents.DeleteOnSubmit (oldDocument);
 		}
 
 		/// <summary>
 		/// Deletes a specific document including document-histories.
 		/// </summary>
 		/// <param name="document">The document.</param>
-		/// <exception cref="ObjectNotFoundException">If the documen is not found.</exception>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
 		public void Delete (Document document)
 		{
 			Delete (EDocument.Convert (document));
+		}
+
+		/// <summary>
+		/// Deletes all documents for a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public void DeleteAllForNode (int nodeId)
+		{
+			var query = from document in _dataContext.Documents
+						where document.NdeId == nodeId
+						select document;
+
+			IList<EDocument> documents = query.ToList ();
+
+			if (documents.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			// Delete histories.
+			foreach (EDocument document in documents) {
+				Delete (document.Id);
+			}
+
+			_dataContext.Documents.DeleteAllOnSubmit (documents);
 		}
 
 		#endregion
@@ -257,7 +293,6 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			EDocumentHistory oldDocumentHistory
 				= _dataContext.DocumentHistories.Single (
 					ds => ds.Id == documentHistory.Id && ds.HistoryDate == documentHistory.HistoryDate);
-
 
 			if (oldDocumentHistory == null) {
 				throw new ObjectNotFoundException (
@@ -311,6 +346,59 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		#region Fetch
 
 		#region Fetch Document
+
+		/// <summary>
+		/// Fetches a list of documents for a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <returns>A list of documents.</returns>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public IList<Document> GetDocumentsByNodeId (int nodeId)
+		{
+			var query = from document in _dataContext.Documents
+			            where document.NdeId == nodeId
+						orderby document.DocTpeId ascending, document.CreatedBy descending 
+			            select document;
+			
+			Converter<EDocument, Document> converter = Converter;
+			IList<Document> documents = query.ToList ().ConvertAll (converter);
+
+			if (documents == null) {
+				throw new ObjectNotFoundException (
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			return documents;
+		}
+
+		/// <summary>
+		/// Fetches a list of documents for a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <param name="documentType">The type-of-documents.</param>
+		/// <returns>A list of documents.</returns>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public IList<Document> GetDocumentsByNodeId (int nodeId, DocumentTypes documentType)
+		{
+			var query = from document in _dataContext.Documents
+						where document.NdeId == nodeId && document.DocTpeId == (int) documentType
+						orderby document.DocTpeId ascending, document.CreatedBy descending
+						select document;
+
+			Converter<EDocument, Document> converter = Converter;
+			IList<Document> documents = query.ToList ().ConvertAll (converter);
+
+			if (documents == null) {
+				throw new ObjectNotFoundException (
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			return documents;
+		}
 
 		/// <summary>
 		/// Fetches the document by document-id.

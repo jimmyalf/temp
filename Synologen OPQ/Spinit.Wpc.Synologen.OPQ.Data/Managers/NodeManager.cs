@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq.SqlClient;
 using System.Linq;
 
 using Spinit.Data.Linq;
@@ -36,9 +37,22 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="node">The node.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="NodeException">If the parent is not found.</exception>
 
 		private void Insert (ENode node)
 		{
+			if (node.Parent != null) {
+				try {
+					GetNodeById ((int) node.Parent);
+				}
+				catch (ObjectNotFoundException e) {
+					if ((ObjectNotFoundErrors) e.ErrorCode == ObjectNotFoundErrors.NodeNotFound) {
+						throw new NodeException ("Parent does not exist.", NodeErrors.ParentDoesNotExist);
+					}
+					throw;
+				}
+			}
+
 			node.CreatedById = Manager.WebContext.UserId ?? 0;
 			node.CreatedByName = Manager.WebContext.UserName;
 			node.CreatedDate = DateTime.Now;
@@ -57,6 +71,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="node">The node.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="NodeException">If the parent is not found.</exception>
 
 		public void Insert (Node node)
 		{
@@ -118,9 +133,401 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		#endregion
 
-		#region Update
+		#region Change
 
-		#region Update Node
+		#region Change Node
+
+		/// <summary>
+		/// Updates a node.
+		/// </summary>
+		/// <param name="node">The node.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+		/// <exception cref="NodeException">If the parent is not found.</exception>
+
+		private void Update (ENode node)
+		{
+			ENode oldNode = _dataContext.Nodes.Single (d => d.Id == node.Id);
+
+			if (oldNode == null) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			oldNode.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldNode.ChangedByName = Manager.WebContext.UserName;
+			oldNode.ChangedDate = DateTime.Now;
+
+			if ((oldNode.ChangedById == 0) || (oldNode.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			if ((node.Parent != null) && (oldNode.Parent != node.Parent)) {
+				if (node.Parent == 0) {
+					oldNode.Parent = null;
+				}
+				else {
+					if (node.Parent != null) {
+						try {
+							GetNodeById ((int) node.Parent);
+						}
+						catch (ObjectNotFoundException e) {
+							if ((ObjectNotFoundErrors) e.ErrorCode
+							    == ObjectNotFoundErrors.NodeNotFound) {
+								throw new NodeException ("Parent does not exist.", NodeErrors.ParentDoesNotExist);
+							}
+							throw;
+						}
+					}
+					
+					oldNode.Parent = node.Parent;
+				}
+			}
+
+			if ((node.Name != null) && !oldNode.Name.Equals (node.Name)) {
+				oldNode.Name = node.Name.Length == 0 ? null : node.Name;
+			}
+
+			if (oldNode.IsActive == node.IsActive) {
+				oldNode.IsActive = node.IsActive;
+			}
+		}
+
+		/// <summary>
+		/// Updates a node.
+		/// </summary>
+		/// <param name="node">The node.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+		/// <exception cref="NodeException">If the parent is not found.</exception>
+
+		public void Update (Node node)
+		{
+			Update (ENode.Convert (node));
+		}
+
+		#endregion
+
+		#region Deactive & Reactivate Node
+
+		/// <summary>
+		/// Deactivates a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public void DeactivateNode (int nodeId)
+		{
+			ENode oldNode = _dataContext.Nodes.Single (n => n.Id == nodeId);
+
+			if (oldNode == null) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			oldNode.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldNode.ChangedByName = Manager.WebContext.UserName;
+			oldNode.ChangedDate = DateTime.Now;
+
+			if ((oldNode.ChangedById == 0) || (oldNode.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			oldNode.IsActive = false;
+		}
+
+		/// <summary>
+		/// Reactivates a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public void ReactivateNode (int nodeId)
+		{
+			ENode oldNode = _dataContext.Nodes.Single (d => d.Id == nodeId);
+
+			if (oldNode == null) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			oldNode.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldNode.ChangedByName = Manager.WebContext.UserName;
+			oldNode.ChangedDate = DateTime.Now;
+
+			if ((oldNode.ChangedById == 0) || (oldNode.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			oldNode.IsActive = true;
+		}
+
+		#endregion
+
+		#region Move Node
+
+		/// <summary>
+		/// Moves a node.
+		/// </summary>
+		/// <param name="node">The node to move.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+		/// <exception cref="NodeException">If the parent is not found, the move is forbidden or the position is not changed.</exception>
+
+		private void MoveNode (ENode node)
+		{
+			ENode oldNode = _dataContext.Nodes.Single (n => n.Id == node.Id);
+
+			if (oldNode == null) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			oldNode.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldNode.ChangedByName = Manager.WebContext.UserName;
+			oldNode.ChangedDate = DateTime.Now;
+
+			if ((oldNode.ChangedById == 0) || (oldNode.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			if ((oldNode.Order == node.Order) && (oldNode.Parent == node.Parent)) {
+				throw new NodeException ("Position not changed.", NodeErrors.PositionNotMoved);
+			}
+
+			if ((node.Order < 1) || (node.Order > (GetNumberOfChilds (node.Parent) + 1))) {
+				throw new NodeException ("Position not valid.", NodeErrors.MoveToForbidden);
+			}
+
+			if (oldNode.Order != node.Order) {
+				oldNode.Order = node.Order;
+			}
+			
+			if ((node.Parent != null) && (oldNode.Parent != node.Parent)) {
+				if (node.Parent == 0) {
+					oldNode.Parent = null;
+				}
+				else {
+					if (node.Parent != null) {
+						try {
+							GetNodeById ((int) node.Parent);
+						}
+						catch (ObjectNotFoundException e) {
+							if ((ObjectNotFoundErrors) e.ErrorCode
+								== ObjectNotFoundErrors.NodeNotFound) {
+								throw new NodeException ("Parent does not exist.", NodeErrors.ParentDoesNotExist);
+							}
+							throw;
+						}
+					}
+
+					oldNode.Parent = node.Parent;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Moves a node.
+		/// </summary>
+		/// <param name="node">The node to move.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+		/// <exception cref="NodeException">If the parent is not found, the move is forbidden or the position is not changed.</exception>
+
+		public void MoveNode (Node node)
+		{
+			MoveNode (ENode.Convert (node));
+		}
+
+		#endregion
+
+		#region Approve, Check-Out and Check-In nodes
+
+		/// <summary>
+		/// Approves a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public void ApproveNode (int nodeId)
+		{
+			ENode oldNode = _dataContext.Nodes.Single (d => d.Id == nodeId);
+
+			if (oldNode == null) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			oldNode.ApprovedById = Manager.WebContext.UserId ?? 0;
+			oldNode.ApprovedByName = Manager.WebContext.UserName;
+			oldNode.ApprovedDate = DateTime.Now;
+		
+			if ((oldNode.ApprovedById == 0) || (oldNode.ApprovedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+		}
+
+		/// <summary>
+		/// Checks out a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public void CheckOutNode (int nodeId)
+		{
+			ENode oldNode = _dataContext.Nodes.Single (d => d.Id == nodeId);
+
+			if (oldNode == null) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			oldNode.LockedById = Manager.WebContext.UserId ?? 0;
+			oldNode.LockedByName = Manager.WebContext.UserName;
+			oldNode.LockedDate = DateTime.Now;
+
+			if ((oldNode.LockedById == 0) || (oldNode.LockedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+		}
+
+		/// <summary>
+		/// Checks-in a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public void CheckInNode (int nodeId)
+		{
+			ENode oldNode = _dataContext.Nodes.Single (d => d.Id == nodeId);
+
+			if (oldNode == null) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			oldNode.LockedById = null;
+			oldNode.LockedByName = null;
+			oldNode.LockedDate = null;
+		}
+
+		#endregion
+
+		#endregion
+
+		#region Remove
+
+		#region Remove Node
+
+		/// <summary>
+		/// Deletes a specific node including node-suppliers.
+		/// </summary>
+		/// <param name="node">The node.</param>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		private void Delete (ENode node)
+		{
+			ENode oldNode = _dataContext.Nodes.Single (n => n.Id == node.Id);
+
+			if (oldNode == null) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			try {
+				Delete (oldNode.Id);
+			}
+			catch (ObjectNotFoundException e) {
+				if ((ObjectNotFoundErrors) e.ErrorCode != ObjectNotFoundErrors.NodeSupplierNotFound) {
+					throw;
+				}
+			}
+
+			_dataContext.Nodes.DeleteOnSubmit (oldNode);
+		}
+
+		/// <summary>
+		/// Deletes a specific node including node-supplier-connections.
+		/// </summary>
+		/// <param name="node">The node.</param>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public void Delete (Node node)
+		{
+			Delete (ENode.Convert (node));
+		}
+
+		#endregion
+
+		#region Remove Node Supplier
+
+		/// <summary>
+		/// Deletes a specific node-supplier-connection.
+		/// </summary>
+		/// <param name="nodeSupplierConnection">The node-supplier-connection.</param>
+		/// <exception cref="ObjectNotFoundException">If the node-supplier-connection is not found.</exception>
+
+		private void Delete (ENodeSupplierConnection nodeSupplierConnection)
+		{
+			ENodeSupplierConnection oldNodeSupplierConnection
+				= _dataContext.NodeSupplierConnections.Single (
+					nsc => nsc.NdeId == nodeSupplierConnection.NdeId && nsc.SupId == nodeSupplierConnection.SupId);
+
+			if (oldNodeSupplierConnection == null) {
+				throw new ObjectNotFoundException (
+					"Node-supplier-connection not found.",
+					ObjectNotFoundErrors.NodeSupplierNotFound);
+			}
+
+			_dataContext.NodeSupplierConnections.DeleteOnSubmit (oldNodeSupplierConnection);
+		}
+
+		/// <summary>
+		/// Deletes a specific node-supplier-connection.
+		/// </summary>
+		/// <param name="nodeSupplierConnection">The node-supplier-connection.</param>
+		/// <exception cref="ObjectNotFoundException">If the node-supplier-connection is not found.</exception>
+
+		public void Delete (NodeSupplierConnection nodeSupplierConnection)
+		{
+			Delete (ENodeSupplierConnection.Convert (nodeSupplierConnection));
+		}
+
+		/// <summary>
+		/// Deletes all node-supplier-connections for a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <exception cref="ObjectNotFoundException">If the node-supplier-connection is not found.</exception>
+
+		public void Delete (int nodeId)
+		{
+			var query = from nodeSupplierConnection in _dataContext.NodeSupplierConnections
+						where nodeSupplierConnection.NdeId == nodeId
+						select nodeSupplierConnection;
+
+
+			IList<ENodeSupplierConnection> documentHistories = query.ToList ();
+
+			if (documentHistories.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Node-supplier-connection not found.",
+					ObjectNotFoundErrors.NodeSupplierNotFound);
+			}
+
+			_dataContext.NodeSupplierConnections.DeleteAllOnSubmit (documentHistories);
+		}
 
 		#endregion
 
@@ -152,6 +559,181 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			}
 
 			return ENode.Convert (nodes.First ());
+		}
+
+		/// <summary>
+		/// Fetches all root-nodes.
+		/// </summary>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <returns>A list of nodes.</returns>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public IList<Node> GetRootNodes (bool onlyActive)
+		{
+			var query = from node in _dataContext.Nodes
+			            where node.Parent == null
+			            orderby node.Order ascending
+			            select node;
+
+			if (onlyActive) {
+				query.Where (node => node.IsActive);
+			}
+
+			Converter<ENode, Node> converter = Converter;
+			IList<Node> nodes = query.ToList ().ConvertAll (converter);
+
+			if (nodes.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			return nodes;
+		}
+
+		/// <summary>
+		/// Fetches all nodes for a specific parent.
+		/// </summary>
+		/// <param name="parent">The parent.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <returns>A list of nodes.</returns>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public IList<Node> GetChildNodes (int parent, bool onlyActive)
+		{
+			var query = from node in _dataContext.Nodes
+						where node.Parent == parent
+						orderby node.Order ascending
+						select node;
+
+			if (onlyActive) {
+				query.Where (node => node.IsActive);
+			}
+
+			Converter<ENode, Node> converter = Converter;
+			IList<Node> nodes = query.ToList ().ConvertAll (converter);
+
+			if (nodes.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			return nodes;
+		}
+
+		/// <summary>
+		/// Fetches all nodes for a specific parent.
+		/// </summary>
+		/// <param name="name">The name to search for.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <returns>A list of nodes.</returns>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public IList<Node> GetNodesByName (string name, bool onlyActive)
+		{
+			var query = from node in _dataContext.Nodes
+						where SqlMethods.Like (node.Name, string.Concat ("%", name, "%"))
+						orderby node.Order ascending
+						select node;
+
+			if (onlyActive) {
+				query.Where (node => node.IsActive);
+			}
+
+			Converter<ENode, Node> converter = Converter;
+			IList<Node> nodes = query.ToList ().ConvertAll (converter);
+
+			if (nodes.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			return nodes;
+		}
+
+		/// <summary>
+		/// Fetches all nodes for a specific parent.
+		/// </summary>
+		/// <param name="parent">The parent.</param>
+		/// <param name="name">The name to search for.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <returns>A list of nodes.</returns>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public IList<Node> GetNodesByName (int parent, string name, bool onlyActive)
+		{
+			var query = from node in _dataContext.Nodes
+						where node.Parent == parent
+							&& SqlMethods.Like (node.Name, string.Concat ("%", name, "%"))
+						orderby node.Order ascending
+						select node;
+
+			if (onlyActive) {
+				query.Where (node => node.IsActive);
+			}
+
+			Converter<ENode, Node> converter = Converter;
+			IList<Node> nodes = query.ToList ().ConvertAll (converter);
+
+			if (nodes.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			return nodes;
+		}
+
+		/// <summary>
+		/// Fetches a list of nodes from node to root.
+		/// </summary>
+		/// <returns>A list of nodes.</returns>
+		/// <param name="nodeId">The node-id to search from.</param>
+		/// <param name="rootFirst">If true=>root is first in list.</param>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public IList<Node> GetListUp (int nodeId, bool rootFirst)
+		{
+			IList<Node> nodes = new List<Node> ();
+			Node node = new Node {Parent = nodeId};
+			do {
+				var query = from qNode in _dataContext.Nodes
+							where qNode.Id == node.Parent
+							orderby qNode.Order ascending
+							select qNode;
+				
+				IList<ENode> tmpNodes = query.ToList ();
+
+				if (nodes.IsEmpty ()) {
+					throw new ObjectNotFoundException (
+						"Node not found.",
+						ObjectNotFoundErrors.NodeNotFound);
+				}
+
+				node = Converter (tmpNodes.First ());
+
+				if (rootFirst) {
+					nodes.Insert (0, node);
+				}
+				else {
+					nodes.Add (node);
+				}
+			} while (node.Parent != null);
+
+			return nodes;
+		}
+
+		/// <summary>
+		/// Counts the number of childs for a parent. 
+		/// </summary>
+		/// <param name="parent">The parent (for root null).</param>
+		/// <returns>The number of childs.</returns>
+
+		public int GetNumberOfChilds (int? parent)
+		{
+			return _dataContext.Nodes.Count (node => node.Parent == parent);
 		}
 
 		#endregion

@@ -1,9 +1,11 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 
 using NUnit.Framework;
 
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
+using Spinit.Wpc.Synologen.Opq.Core.Exceptions;
 using Spinit.Wpc.Synologen.OPQ.Data.Test.Properties;
 
 namespace Spinit.Wpc.Synologen.OPQ.Data.Test
@@ -43,7 +45,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
 
-				string content = @"The test document content.";
+				const string  content = @"The test document content.";
 				// Create a new document
 				synologenRepository.Document.Insert (
 					new Document
@@ -67,8 +69,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				Assert.AreEqual (content, fetchDocument.DocumentContent, "Content are not equal");
 		
 				// Update node
-				content = @"Updated document test";
-				fetchDocument.DocumentContent = content;
+				const string  updateContent = @"Updated document test";
+				fetchDocument.DocumentContent = updateContent;
 				synologenRepository.Document.Update (fetchDocument);
 
 				synologenRepository.SubmitChanges ();
@@ -77,12 +79,41 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				fetchDocument = synologenRepository.Document.GetDocumentById (document.Id);
 
 				Assert.IsNotNull (fetchDocument, "ReFetched document is null.");
-				Assert.AreEqual (content, fetchDocument.DocumentContent, "Content are not equal");
-			
+				Assert.AreEqual (updateContent, fetchDocument.DocumentContent, "Updated content are not equal");
+
+				// Fetch Histories
+				List<DocumentHistory> documentHistories =
+					(List<DocumentHistory>) synologenRepository.Document.GetAllDocumentHistoriesByDocumentId (fetchDocument.Id);
+				
+				Assert.IsNotNull (documentHistories, "Document-histories is null.");
+				Assert.IsNotEmpty (documentHistories, "Document-histories is empty.");
+
+				DocumentHistory documentHistory = synologenRepository.Document.GetDocumentHistoryById (
+					documentHistories [0].Id,
+					documentHistories [0].HistoryDate);
+
+				Assert.IsNotNull (documentHistory, "Document-history document is null.");
+				Assert.AreEqual (content, documentHistory.DocumentContent, "History content are not equal");
+
 				// Delete the document
 				synologenRepository.Document.Delete (fetchDocument);
 
-				//synologenRepository.SubmitChanges ();
+				synologenRepository.SubmitChanges ();
+
+				bool found = true;
+				try {
+					// ReFetch the document
+					fetchDocument = synologenRepository.Document.GetDocumentById (document.Id);
+
+					Assert.IsNull (fetchDocument, "Deleted document is null.");
+				}
+				catch (ObjectNotFoundException e) {
+					if (ObjectNotFoundErrors.DocumentNotFound == (ObjectNotFoundErrors) e.ErrorCode) {
+						found = false;
+					}
+				}
+
+				Assert.AreEqual (found, false, "Object still exist.");
 			}
 		}
 	}

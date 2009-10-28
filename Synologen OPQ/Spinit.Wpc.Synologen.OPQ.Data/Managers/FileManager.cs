@@ -39,6 +39,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		private void Insert (EFile file)
 		{
+			file.Order = 0;
 			file.CreatedById = Manager.WebContext.UserId ?? 0;
 			file.CreatedByName = Manager.WebContext.UserName;
 			file.CreatedDate = DateTime.Now;

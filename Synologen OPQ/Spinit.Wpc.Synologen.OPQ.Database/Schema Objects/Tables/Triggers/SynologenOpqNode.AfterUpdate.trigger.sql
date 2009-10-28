@@ -2,6 +2,7 @@
 -- After update nodes
 -- =============================================
 
+--ALTER TRIGGER [SynologenOpqNodes_AfterUpdate]
 CREATE TRIGGER [SynologenOpqNodes_AfterUpdate]
 ON [dbo].[SynologenOpqNodes]
 AFTER UPDATE
@@ -9,12 +10,27 @@ AS
 BEGIN
 	SET NOCOUNT ON
 	
-	DECLARE @oldOrder INT,
+	DECLARE @id INT,
+			@oldOrder INT,
 			@newOrder INT,
 			@oldParent INT,
-			@newParent INT
+			@newParent INT,
+			@contextInfo VARBINARY (128)
 			
-	SELECT	@oldOrder = [Order],
+	SELECT	@contextInfo = CONTEXT_INFO
+	FROM	master.dbo.SYSPROCESSES 
+	WHERE	SPID = @@SPID 
+	
+	IF CAST (@contextInfo AS VARCHAR (128)) = 'DontUpdateNode'
+		BEGIN
+			RETURN
+		END
+		   
+	SET @contextInfo = CAST ('DontUpdateNode' + SPACE (128) AS VARBINARY (128))  
+	SET CONTEXT_INFO @contextInfo
+		
+	SELECT	@id = Id,
+			@oldOrder = [Order],
 			@oldParent = Parent
 	FROM	DELETED
 	
@@ -35,6 +51,7 @@ BEGIN
 									WHERE	[Order] >= @newOrder 
 										AND [Order] <= @oldOrder
 										AND Parent IS NULL
+										AND Id <> @id
 								END
 							ELSE							-- Move up
 								BEGIN
@@ -43,6 +60,7 @@ BEGIN
 									WHERE	[Order] <= @newOrder 
 										AND [Order] >= @oldOrder
 										AND Parent IS NULL
+										AND Id <> @id
 								END
 						END
 				END
@@ -52,11 +70,13 @@ BEGIN
 					SET		[Order] = [Order] - 1
 					WHERE	[Order] > @oldOrder
 						AND	Parent IS NULL
+						AND Id <> @id
 						
 					UPDATE	dbo.SynologenOpqNodes
 					SET		[Order] = [Order] + 1
 					WHERE	[Order] >= @newOrder
 						AND	Parent = @newParent
+						AND Id <> @id
 				END
 		END
 	ELSE 
@@ -67,11 +87,13 @@ BEGIN
 					SET		[Order] = [Order] - 1
 					WHERE	[Order] > @oldOrder
 						AND	Parent = @oldParent
+						AND Id <> @id
 						
 					UPDATE	dbo.SynologenOpqNodes
 					SET		[Order] = [Order] + 1
 					WHERE	[Order] >= @newOrder
 						AND	Parent IS NULL
+						AND Id <> @id
 				END
 			ELSE 
 				BEGIN
@@ -81,11 +103,13 @@ BEGIN
 							SET		[Order] = [Order] - 1
 							WHERE	[Order] > @oldOrder
 								AND	Parent = @oldParent
+								AND Id <> @id
 								
 							UPDATE	dbo.SynologenOpqNodes
 							SET		[Order] = [Order] + 1
 							WHERE	[Order] >= @newOrder
 								AND	Parent = @newParent
+								AND Id <> @id
 						END
 					ELSE
 						BEGIN
@@ -97,7 +121,8 @@ BEGIN
 											SET		[Order] = [Order] + 1
 											WHERE	[Order] >= @newOrder 
 												AND [Order] <= @oldOrder
-												AND Parent IS NULL
+												AND Parent = @newParent
+												AND Id <> @id
 										END
 									ELSE							-- Move up
 										BEGIN
@@ -105,12 +130,15 @@ BEGIN
 											SET		[Order] = [Order] - 1
 											WHERE	[Order] <= @newOrder 
 												AND [Order] >= @oldOrder
-												AND Parent IS NULL
+												AND Parent = @newParent
+												AND Id <> @id
 										END
 								END
 						END
 				END
 		END
-		
+
+	SET @contextInfo = CAST ('UpdateClear' + SPACE (128) AS VARBINARY (128))  
+	SET CONTEXT_INFO @contextInfo		
 END
 

@@ -53,6 +53,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				}
 			}
 
+			node.Order = 0;
 			node.CreatedById = Manager.WebContext.UserId ?? 0;
 			node.CreatedByName = Manager.WebContext.UserName;
 			node.CreatedDate = DateTime.Now;
@@ -571,16 +572,15 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		public IList<Node> GetRootNodes (bool onlyActive)
 		{
 			var query = from node in _dataContext.Nodes
-			            where node.Parent == null
-			            orderby node.Order ascending
+			            where node.Parent == null 
 			            select node;
 
 			if (onlyActive) {
-				query.Where (node => node.IsActive);
+				query = query.AddEqualityCondition ("IsActive", true);
 			}
 
 			Converter<ENode, Node> converter = Converter;
-			IList<Node> nodes = query.ToList ().ConvertAll (converter);
+			IList<Node> nodes = query.OrderBy (node => node.Order).ToList ().ConvertAll (converter);
 
 			if (nodes.IsEmpty ()) {
 				throw new ObjectNotFoundException (
@@ -603,15 +603,14 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		{
 			var query = from node in _dataContext.Nodes
 						where node.Parent == parent
-						orderby node.Order ascending
 						select node;
 
 			if (onlyActive) {
-				query.Where (node => node.IsActive);
+				query = query.AddEqualityCondition ("IsActive", true);
 			}
 
 			Converter<ENode, Node> converter = Converter;
-			IList<Node> nodes = query.ToList ().ConvertAll (converter);
+			IList<Node> nodes = query.OrderBy (node => node.Order).ToList ().ConvertAll (converter);
 
 			if (nodes.IsEmpty ()) {
 				throw new ObjectNotFoundException (
@@ -634,15 +633,14 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		{
 			var query = from node in _dataContext.Nodes
 						where SqlMethods.Like (node.Name, string.Concat ("%", name, "%"))
-						orderby node.Order ascending
 						select node;
 
 			if (onlyActive) {
-				query.Where (node => node.IsActive);
+				query = query.AddEqualityCondition ("IsActive", true);
 			}
 
 			Converter<ENode, Node> converter = Converter;
-			IList<Node> nodes = query.ToList ().ConvertAll (converter);
+			IList<Node> nodes = query.OrderBy (node => node.Order).ToList ().ConvertAll (converter);
 
 			if (nodes.IsEmpty ()) {
 				throw new ObjectNotFoundException (
@@ -667,15 +665,14 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			var query = from node in _dataContext.Nodes
 						where node.Parent == parent
 							&& SqlMethods.Like (node.Name, string.Concat ("%", name, "%"))
-						orderby node.Order ascending
 						select node;
 
 			if (onlyActive) {
-				query.Where (node => node.IsActive);
+				query = query.AddEqualityCondition ("IsActive", true);
 			}
 
 			Converter<ENode, Node> converter = Converter;
-			IList<Node> nodes = query.ToList ().ConvertAll (converter);
+			IList<Node> nodes = query.OrderBy (node => node.Order).ToList ().ConvertAll (converter);
 
 			if (nodes.IsEmpty ()) {
 				throw new ObjectNotFoundException (
@@ -699,14 +696,15 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			IList<Node> nodes = new List<Node> ();
 			Node node = new Node {Parent = nodeId};
 			do {
+				int parent = (int) node.Parent;
 				var query = from qNode in _dataContext.Nodes
-							where qNode.Id == node.Parent
+							where qNode.Id == parent
 							orderby qNode.Order ascending
 							select qNode;
 				
 				IList<ENode> tmpNodes = query.ToList ();
 
-				if (nodes.IsEmpty ()) {
+				if (tmpNodes.IsEmpty ()) {
 					throw new ObjectNotFoundException (
 						"Node not found.",
 						ObjectNotFoundErrors.NodeNotFound);
@@ -733,6 +731,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public int GetNumberOfChilds (int? parent)
 		{
+			if (parent == null) {
+				return _dataContext.Nodes.Count (node => node.Parent == null);
+			}
+
 			return _dataContext.Nodes.Count (node => node.Parent == parent);
 		}
 

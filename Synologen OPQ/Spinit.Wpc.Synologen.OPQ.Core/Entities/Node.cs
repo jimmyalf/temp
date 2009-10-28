@@ -11,7 +11,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Core.Entities
 		
 		public int? Parent { get; set; }
 		
-		public int Order { get; set; }
+		public int? Order { get; set; }
 		
 		public string Name { get; set; }
 		

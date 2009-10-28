@@ -27,7 +27,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			_context = context;
 			_configuration = Configuration.GetConfiguration (_context);
 		}
-		
+
+		#region Node
+
 		/// <summary>
 		/// Creates a new node.
 		/// </summary>
@@ -200,6 +202,36 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		}
 
 		/// <summary>
+		/// Locks a node.
+		/// </summary>
+		/// <param name="nodeId">The id of the node.</param>
+		
+		public void Lock (int nodeId)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.Node.CheckOutNode (nodeId);
+				synologenRepository.SubmitChanges ();
+			}
+		}
+
+		/// <summary>
+		/// Unlocks the node.
+		/// </summary>
+		/// <param name="nodeId">The id of the node.</param>
+		
+		public void UnLock (int nodeId)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.Node.CheckInNode (nodeId);
+				synologenRepository.SubmitChanges ();
+			}
+		}
+
+		/// <summary>
 		/// Fetches a specified node.
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
@@ -208,7 +240,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		public Node GetNode (int nodeId, bool fillObjects)
 		{
 			using (
-				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
 				) {
 				if (fillObjects) {
 					synologenRepository.AddDataLoadOptions<Node> (n => n.NodeSupplierConnections);
@@ -247,7 +279,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		public IList<Node> GetNodes (int? parent, string name, bool onlyActive, bool fillObjects)
 		{
 			using (
-				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
 				) {
 				if (fillObjects) {
 					synologenRepository.AddDataLoadOptions<Node> (n => n.NodeSupplierConnections);
@@ -287,35 +319,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			}
 		}
 
-		/// <summary>
-		/// Locks a node.
-		/// </summary>
-		/// <param name="nodeId">The id of the node.</param>
-		
-		public void Lock (int nodeId)
-		{
-			using (
-				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
-				) {
-				synologenRepository.Node.CheckOutNode (nodeId);
-				synologenRepository.SubmitChanges ();
-			}
-		}
+		#endregion
 
-		/// <summary>
-		/// Unlocks the node.
-		/// </summary>
-		/// <param name="nodeId">The id of the node.</param>
-		
-		public void UnLock (int nodeId)
-		{
-			using (
-				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
-				) {
-				synologenRepository.Node.CheckInNode (nodeId);
-				synologenRepository.SubmitChanges ();
-			}
-		}
+		#region Node Supplier
 
 		/// <summary>
 		/// Adds a supplier.
@@ -347,6 +353,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				synologenRepository.Node.Delete (new NodeSupplierConnection { NdeId = nodeId, SupId = supplierId });
 				synologenRepository.SubmitChanges ();
 			}
-		}		
+		}
+
+		#endregion
 	}
 }

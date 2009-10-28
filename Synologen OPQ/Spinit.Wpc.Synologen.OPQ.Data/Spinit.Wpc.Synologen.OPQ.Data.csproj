@@ -82,6 +82,7 @@
     <Compile Include="Entities\EShopCategory.cs" />
     <Compile Include="Entities\EShopCategoryMemberCategoryConnection.cs" />
     <Compile Include="Entities\EShopMemberConnection.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Managers\DocumentManager.cs" />
     <Compile Include="Managers\ExternalObjectsManager.cs" />
     <Compile Include="Managers\FileManager.cs" />

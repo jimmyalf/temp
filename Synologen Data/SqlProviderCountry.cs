@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Utility.Business;
@@ -43,6 +45,20 @@ namespace Spinit.Wpc.Synologen.Data{
 			catch (Exception ex) {
 				throw new Exception("Exception found while parsing a CountryRow object.", ex);
 			}
+		}
+		private IList<CountryRow> GetCountryRows(){
+			var dataSet = GetCountryDataSet(null, null);
+			if(dataSet == null || dataSet.Tables == null || dataSet.Tables.Count <= 0) return new List<CountryRow>();
+			if(dataSet.Tables[0] == null || dataSet.Tables[0].Rows == null) return new List<CountryRow>();
+			var returnList = new List<CountryRow>();
+			foreach (DataRow dataRow in dataSet.Tables[0].Rows){
+				returnList.Add(ParseCountryRow(dataRow));
+			}
+			return returnList;
+		}
+		public IList<CountryRow> GetCountryRows(Func<CountryRow,string> orderBy){
+			var returnList = GetCountryRows();
+			return (orderBy == null) ? returnList : returnList.OrderBy(orderBy).ToList();
 		}
 	}
 }

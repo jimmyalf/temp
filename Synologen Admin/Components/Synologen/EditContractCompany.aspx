@@ -44,6 +44,10 @@
 						<asp:RequiredFieldValidator id="rfvCity" runat="server" errormessage="Ort saknas." controltovalidate="txtCity" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>		            
 					</div>
 					<div class="formItem clearLeft">
+						<label class="labelLong">Land *</label>
+						<asp:DropDownList ID="drpCountry" runat="server" DataValueField="Id" DataTextField="Name" />
+					</div>					
+					<div class="formItem clearLeft">
 						<label class="labelLong">Aktivt</label><br />
 						<asp:CheckBox id="chkActive" runat="server" />
 					</div>							

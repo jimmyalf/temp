@@ -96,7 +96,10 @@
     <Build Include="Properties\Database.sqlpermissions">
       <ModelBuilderType>Permissions</ModelBuilderType>
     </Build>
-    <Build Include="Schema Objects\Tables\Constraints\dbo.tblBaseLocations.DF_tblBaseLocations_cExtranet.defconst.sql">
+    <Build Include="Schema Objects\Tables\Constraints\dbo.SynologenOpqFiles.DF_SynologenOpqFiles_Order.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.SynologenOpqNodes.DF_SynologenOpqNodes_Order.defconst.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Constraints\dbo.tblSynologenShop.DF_tblSynologenShop_cCategoryId.defconst.sql">
@@ -150,9 +153,6 @@
     <Build Include="Schema Objects\Tables\dbo.tblBaseFile.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Tables\dbo.tblBaseLocations.table.sql">
-      <SubType>Code</SubType>
-    </Build>
     <Build Include="Schema Objects\Tables\dbo.tblBaseUsers.table.sql">
       <SubType>Code</SubType>
     </Build>
@@ -161,6 +161,8 @@
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblSynologenShop.table.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblSynologenShopCategory.table.sql">
       <SubType>Code</SubType>
@@ -334,6 +336,12 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Triggers\SynologenOpqNode.AfterInsert.trigger.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqNode.AfterUpdate.trigger.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqNode.AfterDelete.trigger.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Views\dbo.DocumentView.view.sql">

@@ -30,6 +30,24 @@
 		/// </summary>
 
 		None = 0,
+
+		/// <summary>
+		/// The parent does not exist.
+		/// </summary>
+
+		ParentDoesNotExist = 1,
+
+		/// <summary>
+		/// The move opertion does not have a new destination.
+		/// </summary>
+
+		PositionNotMoved = 2,
+
+		/// <summary>
+		/// The move-to position is forbidden.
+		/// </summary>
+
+		MoveToForbidden = 3
 	}
 
 	/// <summary>

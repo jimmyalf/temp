@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[tblSynologenShop] (
+CREATE TABLE [dbo].[tblSynologenShop] (
     [cId]               INT            IDENTITY (1, 1) NOT NULL,
     [cCategoryId]       INT            NOT NULL,
     [cShopName]         NVARCHAR (50)  NOT NULL,
@@ -19,6 +19,9 @@
     [cActive]           BIT            NOT NULL,
     [cGiroId]           INT            NULL,
     [cGiroNumber]       NVARCHAR (50)  NULL,
-    [cGiroSupplier]     NVARCHAR (100) NULL
+    [cGiroSupplier]     NVARCHAR (100) NULL,
+    [cConcernId]        INT            NULL
 );
+
+
 

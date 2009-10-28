@@ -10,7 +10,7 @@
 	</fieldset><br />
 	<asp:Button ID="btnSwitchView" runat="server" Text="Visa detaljer" OnClick="btnSwitchView_Click" />
 	<asp:Button ID="btnMarkAsPayed" runat="server" Text="Markera som utbetalda" OnClick="btnMarkAsPayed_Click" OnClientClick="return confirm('Är du säker på att du vill markera fakturor som utbetalda?');" />	
-	<input type="button" OnClick="window.print();return false;" value="Skriv ut">
+	<input type="button" onclick="window.print();return false;" value="Skriv ut"/>
 	<br />
 	<asp:PlaceHolder ID="plSimpleView" runat="server" Visible="true">
 	<asp:Repeater ID="rptSettlementOrderItemsSimple" runat="server">

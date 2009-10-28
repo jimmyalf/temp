@@ -181,7 +181,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				SqlParameter[] parameters = {
             		new SqlParameter("@type", SqlDbType.Int, 4),
 					new SqlParameter("@companyId", SqlDbType.Int, 4),
-            		new SqlParameter("@rstId", SqlDbType.Int, 4),
+            		//new SqlParameter("@rstId", SqlDbType.Int, 4),
 					new SqlParameter("@rstText", SqlDbType.NVarChar, 50),
 					new SqlParameter("@statusId", SqlDbType.Int, 4),
 					new SqlParameter("@salesPersonMemberId", SqlDbType.Int, 4),
@@ -205,7 +205,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = (int)action;
 				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
 					parameters[counter++].Value = order.CompanyId;
-					parameters[counter++].Value = order.RSTId <= 0 ? SqlInt32.Null : order.RSTId;
+					//parameters[counter++].Value = order.RSTId <= 0 ? SqlInt32.Null : order.RSTId;
 					parameters[counter++].Value = order.RstText ?? SqlString.Null;
 					parameters[counter++].Value = order.StatusId;
 					parameters[counter++].Value = order.SalesPersonMemberId;
@@ -297,20 +297,8 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		private static OrderRow ParseOrderRow(DataRow orderDataRow) {
 			try {
-				var orderRow = new OrderRow();
-				orderRow.Id = Util.CheckNullInt(orderDataRow, "cId");
-				orderRow.RSTId = Util.CheckNullInt(orderDataRow, "cRstId");
-				orderRow.RstText = Util.CheckNullString(orderDataRow, "cRstText");
-				orderRow.StatusId = Util.CheckNullInt(orderDataRow, "cStatusId");
-				orderRow.CompanyId = Util.CheckNullInt(orderDataRow, "cCompanyId");
-				orderRow.SalesPersonMemberId = Util.CheckNullInt(orderDataRow, "cSalesPersonMemberId");
-				orderRow.SalesPersonShopId = Util.CheckNullInt(orderDataRow, "cSalesPersonShopId");
-				orderRow.CompanyUnit = Util.CheckNullString(orderDataRow, "cCompanyUnit");
-				orderRow.CustomerFirstName = Util.CheckNullString(orderDataRow, "cCustomerFirstName");
-				orderRow.CustomerLastName = Util.CheckNullString(orderDataRow, "cCustomerLastName");
-				orderRow.PersonalIdNumber = Util.CheckNullString(orderDataRow, "cPersonalIdNumber");
-				orderRow.Email = Util.CheckNullString(orderDataRow, "cEmail");
-				orderRow.Phone = Util.CheckNullString(orderDataRow, "cPhone");
+				var orderRow = new OrderRow {Id = Util.CheckNullInt(orderDataRow, "cId"), RstText = Util.CheckNullString(orderDataRow, "cRstText"), StatusId = Util.CheckNullInt(orderDataRow, "cStatusId"), CompanyId = Util.CheckNullInt(orderDataRow, "cCompanyId"), SalesPersonMemberId = Util.CheckNullInt(orderDataRow, "cSalesPersonMemberId"), SalesPersonShopId = Util.CheckNullInt(orderDataRow, "cSalesPersonShopId"), CompanyUnit = Util.CheckNullString(orderDataRow, "cCompanyUnit"), CustomerFirstName = Util.CheckNullString(orderDataRow, "cCustomerFirstName"), CustomerLastName = Util.CheckNullString(orderDataRow, "cCustomerLastName"), PersonalIdNumber = Util.CheckNullString(orderDataRow, "cPersonalIdNumber"), Email = Util.CheckNullString(orderDataRow, "cEmail"), Phone = Util.CheckNullString(orderDataRow, "cPhone")};
+				//orderRow.RSTId = Util.CheckNullInt(orderDataRow, "cRstId");
 				if (!String.IsNullOrEmpty(orderDataRow["cInvoiceNumber"].ToString())){
 					orderRow.InvoiceNumber = long.Parse(orderDataRow["cInvoiceNumber"].ToString());
 				}

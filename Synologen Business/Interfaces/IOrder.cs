@@ -11,7 +11,7 @@
 		bool MarkedAsPayedByShop { get; set; }
 		string PersonalIdNumber { get; set; }
 		string Phone { get; set; }
-		int RSTId { get; set; }
+		//int RSTId { get; set; }
 		string RstText { get; set; }
 		int SalesPersonShopId { get; set; }
 		int StatusId { get; set; }

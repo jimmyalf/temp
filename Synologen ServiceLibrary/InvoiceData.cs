@@ -49,7 +49,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 			MarkedAsPayedByShop = order.MarkedAsPayedByShop;
 			PersonalIdNumber = order.PersonalIdNumber;
 			Phone = order.Phone;
-			RSTId = order.RSTId;
+			//RSTId = order.RSTId;
 			RstText = order.RstText;
 			SalesPersonShopId = order.SalesPersonShopId;
 			StatusId = order.StatusId;
@@ -68,7 +68,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 		[DataMember] public bool MarkedAsPayedByShop { get; set; }
 		[DataMember] public string PersonalIdNumber { get; set; }
 		[DataMember] public string Phone { get; set; }
-		[DataMember] public int RSTId { get; set; }
+		//[DataMember] public int RSTId { get; set; }
 		[DataMember] public string RstText { get; set; }
 		[DataMember] public int SalesPersonShopId { get; set; }
 		[DataMember] public int StatusId { get; set; }

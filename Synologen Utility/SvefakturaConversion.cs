@@ -150,14 +150,14 @@ namespace Spinit.Wpc.Synologen.Utility {
 			);
 		}
 
-		private static SFTIAddressType GetBuyerPartyAddress(ICompany company, IOrder orderRow) {
+		private static SFTIAddressType GetBuyerPartyAddress(CompanyRow company, IOrder orderRow) {
 			return GetSFTIAddress(
 				company.PostBox,
 				company.StreetName,
 				company.Zip,
 				company.City,
 				orderRow.CompanyUnit,
-				null
+				(company.Country == null) ? null : company.Country.OrganizationCountryCode
 			);
 		}
 		#endregion

@@ -96,8 +96,8 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 				Zip = "17588",
 				Country = new CountryRow {Id = 1, Name = "Sverige", OrganizationCountryCode = CountryIdentificationCodeContentType.SE},
 				InvoiceCompanyName = "5440Saab AB",
-				InvoiceFreeTextFormat = "{CustomerName}{CustomerPersonalIdNumber}{CompanyUnit}{CustomerPersonalBirthDateString}{CustomerFirstName}{CustomerLastName}{BuyerCompanyId}{RST}",
-				Name = "Saab",
+				InvoiceFreeTextFormat = "{CustomerName}{CustomerPersonalIdNumber}{CompanyUnit}{CustomerPersonalBirthDateString}{CustomerFirstName}{CustomerLastName}{BuyerCompanyId}{RST}{BankCode}",
+				//Name = "Saab",
 				OrganizationNumber = "5560360793",
 				TaxAccountingCode = "SE556036079301",
 				PaymentDuePeriod = 30,
@@ -114,7 +114,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 
 		#region OrderRow
 		[Test]
-		public void Test_Sets_OrderRow_Id(){
+		public void Test_Sets_OrderRow_CompanyId(){
 			Expect(invoice.Note.Value.Substring(54,3), Is.EqualTo("184"));
 		}
 		[Test]
@@ -171,7 +171,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 		}
 		[Test]
 		public void Test_Sets_OrderRow_RstText(){
-			Expect(invoice.Note.Value.EndsWith("Kostnadsställe ABC"));
+			Expect(invoice.Note.Value.Substring(57,18), Is.EqualTo("Kostnadsställe ABC"));
 		}
 		#endregion
 
@@ -315,13 +315,9 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 			Expect(invoice.SellerParty.Party.PartyName[0].Value, Is.EqualTo("Synologen AB"));
 		}
 		[Test]
-		public void Test_Sets_Settings_SellingOrganizationName_PartyIdentification(){
-			Expect(invoice.SellerParty.Party.PartyIdentification[0].ID.Value, Is.EqualTo("556401-1962"));
-		}
-		[Test]
-		public void Test_Sets_Settings_SellingOrganizationName_PartyTaxScheme_CompanyID(){
+		public void Test_Sets_Settings_SellingOrganizationNumber(){
 			Expect(invoice.SellerParty.Party.PartyTaxScheme[1].CompanyID.Value, Is.EqualTo("556401-1962"));
-			Expect(invoice.SellerParty.Party.PartyTaxScheme[1].TaxScheme.ID.Value, Is.EqualTo("SWT"));
+			Expect(invoice.SellerParty.Party.PartyIdentification[0].ID.Value, Is.EqualTo("556401-1962"));
 		}
 		[Test]
 		public void Test_Sets_Settings_SellingOrganizationPostalCode(){
@@ -330,7 +326,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 		[Test]
 		public void Test_Sets_Settings_TaxAccountingCode(){
 			Expect(invoice.SellerParty.Party.PartyTaxScheme[0].CompanyID.Value, Is.EqualTo("SE556401196201"));
-			Expect(invoice.SellerParty.Party.PartyTaxScheme[0].TaxScheme.ID.Value, Is.EqualTo("VAT"));
+			
 		}
 		[Test]
 		public void Test_Sets_Settings_VATAmount(){
@@ -346,29 +342,83 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 			Expect(taxSubTotalsWithNormalVAT.Count(), Is.EqualTo(1));
 		}
 
+		[Test]
+		public void Test_Sets_Settings_Generics(){
+			Expect(invoice.SellerParty.Party.PartyTaxScheme[0].TaxScheme.ID.Value, Is.EqualTo("VAT"));
+			Expect(invoice.SellerParty.Party.PartyTaxScheme[1].TaxScheme.ID.Value, Is.EqualTo("SWT"));
+		}
+
 		#endregion
 
-		/*TODO: Properties to test:
-			company = new CompanyRow {
-				StreetName = "Gatuadress 1",
-				PostBox = "Postbox 123",
-				BankCode = "99998",
-				City = "Järfälla",
-				Zip = "17588",
-				Country = new CountryRow {Id = 1, Name = "Sverige", OrganizationCountryCode = CountryIdentificationCodeContentType.SE},
-				InvoiceCompanyName = "5440Saab AB",
-				InvoiceFreeTextFormat = "{CustomerName}{CustomerPersonalIdNumber}{CompanyUnit}{CustomerPersonalBirthDateString}{CustomerFirstName}{CustomerLastName}{BuyerCompanyId}{RST}",
-				Name = "Saab",
-				OrganizationNumber = "5560360793",
-				TaxAccountingCode = "SE556036079301",
-				PaymentDuePeriod = 30,
+		#region Company
+		[Test]
+		public void Test_Sets_CompanyRow_StreetName(){
+			Expect(invoice.BuyerParty.Party.Address.StreetName.Value, Is.EqualTo("Gatuadress 1"));
+		}
+		[Test]
+		public void Test_Sets_CompanyRow_PostBox(){
+			Expect(invoice.BuyerParty.Party.Address.Postbox.Value, Is.EqualTo("Postbox 123"));
+		}
+		[Test]
+		public void Test_Sets_CompanyRow_BankCode(){
+			Expect(invoice.Note.Value.EndsWith("99998"));
+		}
+		[Test]
+		public void Test_Sets_CompanyRow_City(){
+			Expect(invoice.BuyerParty.Party.Address.CityName.Value, Is.EqualTo("Järfälla"));
+			Expect(invoice.BuyerParty.Party.PartyTaxScheme[1].RegistrationAddress.CityName.Value, Is.EqualTo("Järfälla"));
+		}
+		[Test]
+		public void Test_Sets_CompanyRow_Zip(){
+			Expect(invoice.BuyerParty.Party.Address.PostalZone.Value, Is.EqualTo("17588"));
+		}
+		[Test]
+		public void Test_Sets_CompanyRow_Country(){
+			Expect(invoice.BuyerParty.Party.Address.Country.IdentificationCode.Value, Is.EqualTo(CountryIdentificationCodeContentType.SE));
+			Expect(invoice.BuyerParty.Party.PartyTaxScheme[1].RegistrationAddress.Country.IdentificationCode.Value, Is.EqualTo(CountryIdentificationCodeContentType.SE));
+		}
+		[Test]
+		public void Test_Sets_CompanyRow_InvoiceCompanyName(){
+			Expect(invoice.BuyerParty.Party.PartyName[0].Value, Is.EqualTo("5440Saab AB"));
+		}
+		[Test]
+		public void Test_Sets_CompanyRow_InvoiceFreeTextFormat(){
+			Expect(invoice.Note.Value, Is.EqualTo("Adam Bertil197001015374Avdelning 12319700101AdamBertil184Kostnadsställe ABC99998"));
+		}
+		[Test]
+		public void Test_Sets_CompanyRow_OrganizationNumber(){
+			Expect(invoice.BuyerParty.Party.PartyIdentification[0].ID.Value, Is.EqualTo("5560360793"));
+			Expect(invoice.BuyerParty.Party.PartyTaxScheme[1].CompanyID.Value, Is.EqualTo("5560360793"));
+		}
+		[Test]
+		public void Test_Sets_CompanyRow_TaxAccountingCode(){
+			Expect(invoice.BuyerParty.Party.PartyTaxScheme[0].CompanyID.Value, Is.EqualTo("SE556036079301"));
+		}
+		[Test]
+		public void Test_Sets_CompanyRow_PaymentDuePeriod(){
+			Expect(invoice.PaymentMeans[0].DuePaymentDate.Value, Is.EqualTo(new DateTime(2009, 11, 27)));
+			Expect(invoice.PaymentTerms.Note.Value.StartsWith("30"));
+		}
+		#endregion
 
-			shop = new ShopRow {
-				ContactFirstName = "Anders",
-				ContactLastName = "Andersson",
-				Phone = "031-987654",
-				Fax = "031-987653",
-				Email = "info@butiken.se",
-		 */
+		#region Shop
+		[Test]
+		public void Test_Sets_ShopRow_CombinedName(){
+			Expect(invoice.SellerParty.Party.Contact.Name.Value, Is.EqualTo("Anders Andersson"));
+		}
+		[Test]
+		public void Test_Sets_ShopRow_Phone(){
+			Expect(invoice.SellerParty.Party.Contact.Telephone.Value, Is.EqualTo("031-987654"));
+		}
+		[Test]
+		public void Test_Sets_ShopRow_Fax(){
+			Expect(invoice.SellerParty.Party.Contact.Telefax.Value, Is.EqualTo("031-987653"));
+		}
+		[Test]
+		public void Test_Sets_ShopRow_Email(){
+			Expect(invoice.SellerParty.Party.Contact.ElectronicMail.Value, Is.EqualTo("info@butiken.se"));
+		}
+
+		#endregion
 	}
 }

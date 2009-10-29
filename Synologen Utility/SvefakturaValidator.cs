@@ -336,7 +336,6 @@ namespace Spinit.Wpc.Synologen.Utility {
 		private static IEnumerable<RuleViolation> GetCustomRuleViolations(object value) {
 			if (value is SFTIInvoiceType) return CustomValidateObject(value as SFTIInvoiceType);
 			if (value is SFTIInvoiceLineType) return CustomValidateObject(value as SFTIInvoiceLineType);
-			if (value is SFTIPartyTaxSchemeType) return CustomValidateObject(value as SFTIPartyTaxSchemeType);
 			if (value is SFTISellerPartyType) return CustomValidateObject(value as SFTISellerPartyType);
 			if (value is SFTITaxCategoryType) return CustomValidateObject(value as SFTITaxCategoryType);
 			if (value is SFTITaxSchemeType) return CustomValidateObject(value as SFTITaxSchemeType);
@@ -380,12 +379,6 @@ namespace Spinit.Wpc.Synologen.Utility {
 				yield return new RuleViolation("SFTIItemType.Description is missing and SFTIInvoiceLine.Note has not been set.","SFTIItemType.Description");
 			}
 		}
-		private static IEnumerable<RuleViolation> CustomValidateObject(SFTIPartyTaxSchemeType value) { 
-			if(value == null) yield break;
-			if(value.TaxScheme != null && value.TaxScheme.ID != null && value.TaxScheme.ID.Value != null && value.TaxScheme.ID.Value.Equals("SWT") && value.ExemptionReason == null) {
-				yield return new RuleViolation("SFTIPartyTaxSchemeType.ExemptionReason is missing for Taxscheme type SWT.","SFTIPartyTaxSchemeType.ExemptionReason");
-			}
-		}
 		private static IEnumerable<RuleViolation> CustomValidateObject(SFTISellerPartyType value) { 
 			if(value == null || value.Party == null || value.Party.PartyTaxScheme == null) yield break;
 			foreach (var partyTaxScheme in value.Party.PartyTaxScheme){
@@ -398,6 +391,9 @@ namespace Spinit.Wpc.Synologen.Utility {
 				}
 				else if(partyTaxScheme.RegistrationAddress.Country.IdentificationCode == null){
 					yield return new RuleViolation("SFTICountryType.IdentificationCode is missing for Taxscheme type SWT (in seller party).","SFTICountryType.IdentificationCode");
+				}
+				if(partyTaxScheme.TaxScheme != null && partyTaxScheme.TaxScheme.ID != null && partyTaxScheme.TaxScheme.ID.Value != null && partyTaxScheme.TaxScheme.ID.Value.Equals("SWT") && partyTaxScheme.ExemptionReason == null) {
+					yield return new RuleViolation("SFTIPartyTaxSchemeType.ExemptionReason is missing for Taxscheme type SWT (in seller party).","SFTIPartyTaxSchemeType.ExemptionReason");
 				}
 			}
 		}

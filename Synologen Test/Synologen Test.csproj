@@ -90,7 +90,7 @@
     <Compile Include="EDI\TestEDIInvoiceParsing.cs" />
     <Compile Include="Mock\TestMockFlow.cs" />
     <Compile Include="Svefaktura\RequiredValidation\TestValidateInvoiceLineAllowanceCharge.cs" />
-    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomPartyTaxScheme.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateSellerParty.cs" />
     <Compile Include="Svefaktura\RequiredValidation\TestValidateAddressLine.cs" />
     <Compile Include="Svefaktura\RequiredValidation\TestValidateAllowanceCharge.cs" />
     <Compile Include="Svefaktura\RequiredValidation\TestValidateBasePrice.cs" />

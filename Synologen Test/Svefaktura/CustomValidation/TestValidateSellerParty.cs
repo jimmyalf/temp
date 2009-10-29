@@ -7,10 +7,10 @@ using Spinit.Wpc.Synologen.Utility.Types;
 
 namespace Spinit.Wpc.Synologen.Test.Svefaktura.CustomValidation {
 	[TestFixture]
-	public class TestValidateCustomPartyTaxScheme : AssertionHelper {
+	public class TestValidateSellerParty : AssertionHelper {
 		[Test]
-		public void Test_PartyTaxScheme_SWT_Missing_ExemptionReason() {
-			var invoice = new SFTIPartyTaxSchemeType { ExemptionReason = null, TaxScheme = new SFTITaxSchemeType{ID=new IdentifierType{Value="SWT"}}};
+		public void Test_SellerParty_Party_PartyTaxScheme_SWT_Missing_ExemptionReason() {
+			var invoice = new SFTISellerPartyType {Party = new SFTIPartyType {PartyTaxScheme = new List<SFTIPartyTaxSchemeType> {new SFTIPartyTaxSchemeType {ExemptionReason = null, TaxScheme = new SFTITaxSchemeType {ID = new IdentifierType {Value = "SWT"}}}}}};
 			var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoice));
 			Expect(ruleViolations.Exists(x => x.PropertyName.Equals("SFTIPartyTaxSchemeType.ExemptionReason")), Is.True);
 		}

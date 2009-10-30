@@ -1,6 +1,6 @@
 using System;
 using AdkNetWrapper;
-using Spinit.Wpc.Synologen.Business.Interfaces;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Visma.Types;
 using Spinit.Wpc.Synologen.Visma.Utility;

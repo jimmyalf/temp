@@ -1,7 +1,7 @@
 using System;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 
@@ -21,9 +21,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		private void SetupForEdit() {
 			ltHeading.Text = "Redigera utrustning";
 			btnSave.Text = "Ändra";
-			ShopEquipmentRow equipmentRow = Provider.GetShopEquipmentRow(_equipmentId);
-			txtName.Text = equipmentRow.Name;
-			txtDescription.Text = equipmentRow.Description;
+			Business.Domain.Entities.ShopEquipment equipment = Provider.GetShopEquipmentRow(_equipmentId);
+			txtName.Text = equipment.Name;
+			txtDescription.Text = equipment.Description;
 		}
 
 		private void PopulateEquipment() {
@@ -69,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 					DisplayMessage("Utrustningen kan inte raderas då det finns kopplade butiker.", true);
 					return;
 				}
-				ShopEquipmentRow category = new ShopEquipmentRow();
+				Business.Domain.Entities.ShopEquipment category = new Business.Domain.Entities.ShopEquipment();
 				category.Id = equipmentId;
 				Provider.AddUpdateDeleteShopEquipment(Enumerations.Action.Delete, ref category);
 				Response.Redirect(ComponentPages.ShopEquipment);
@@ -77,20 +77,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void btnSave_Click(object sender, EventArgs e) {
-			ShopEquipmentRow equipmentRow = new ShopEquipmentRow();
+			Business.Domain.Entities.ShopEquipment equipment = new Business.Domain.Entities.ShopEquipment();
 			Enumerations.Action action = Enumerations.Action.Create;
 			if (_equipmentId > 0) {
-				equipmentRow = Provider.GetShopEquipmentRow(_equipmentId);
+				equipment = Provider.GetShopEquipmentRow(_equipmentId);
 				action = Enumerations.Action.Update;
 			}
-			equipmentRow.Name = txtName.Text;
-			equipmentRow.Description = txtDescription.Text;
+			equipment.Name = txtName.Text;
+			equipment.Description = txtDescription.Text;
 
 			if (!IsInRole(MemberRoles.Roles.Create)) {
 				Response.Redirect(ComponentPages.NoAccess);
 			}
 			else {
-				Provider.AddUpdateDeleteShopEquipment(action, ref equipmentRow);
+				Provider.AddUpdateDeleteShopEquipment(action, ref equipment);
 				Response.Redirect(ComponentPages.ShopEquipment);
 			}
 		}

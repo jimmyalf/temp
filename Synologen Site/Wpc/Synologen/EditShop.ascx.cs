@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Business;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 	public partial class EditShop : SynologenUserControl {
-		private ShopRow _shop;
+		private Shop _shop;
 
 		protected void Page_Load(object sender, EventArgs e) {
 			if (Page.IsPostBack) return;

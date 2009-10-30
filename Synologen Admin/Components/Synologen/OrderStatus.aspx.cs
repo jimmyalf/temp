@@ -1,7 +1,7 @@
 using System;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 
@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		private void SetupForEdit() {
 			ltHeading.Text = "Redigera status";
 			btnSave.Text = "Ändra";
-			OrderStatusRow orderStatus = Provider.GetOrderStatusRow(_orderStatusId);
+			Business.Domain.Entities.OrderStatus orderStatus = Provider.GetOrderStatusRow(_orderStatusId);
 			txtName.Text = orderStatus.Name;
 			txtOrderNumber.Text = orderStatus.OrderNumber.ToString();
 		}
@@ -69,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 					DisplayMessage("Status kan inte raderas då det finns kopplade ordrar.", true);
 					return;
 				}
-				OrderStatusRow orderStatus = new OrderStatusRow();
+				Business.Domain.Entities.OrderStatus orderStatus = new Business.Domain.Entities.OrderStatus();
 				orderStatus.Id = id;
 				Provider.AddUpdateDeleteOrderStatus(Enumerations.Action.Delete, ref orderStatus);
 				Response.Redirect(ComponentPages.OrderStatus);
@@ -77,7 +77,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void btnSave_Click(object sender, EventArgs e) {
-			OrderStatusRow orderStatus = new OrderStatusRow();
+			Business.Domain.Entities.OrderStatus orderStatus = new Business.Domain.Entities.OrderStatus();
 			Enumerations.Action action = Enumerations.Action.Create;
 			if (_orderStatusId > 0) {
 				orderStatus = Provider.GetOrderStatusRow(_orderStatusId);

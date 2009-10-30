@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
@@ -58,7 +58,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			rptShops.DataBind();
 		}
 
-		public string FormatEquipmentString(IEnumerable<ShopEquipmentRow> equipmentItems) {
+		public string FormatEquipmentString(IEnumerable<ShopEquipment> equipmentItems) {
 			var returnString = String.Empty;
 			foreach (var equipmentItem in equipmentItems) {
 				if(equipmentItem.Id == _equipmentId) continue;
@@ -81,13 +81,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			var plEquipment = (PlaceHolder)e.Item.FindControl("plEquipment");
 			if (plLink == null || plNoLink == null) return;
 			try {
-				var url = ((ShopRow)e.Item.DataItem).Url;
+				var url = ((Shop)e.Item.DataItem).Url;
 				plNoLink.Visible = String.IsNullOrEmpty(url);
 				plLink.Visible = !plNoLink.Visible;
 			}
 			catch { return; }
 			try {
-				var equipment = ((ShopRow)e.Item.DataItem).Equipment;
+				var equipment = ((Shop)e.Item.DataItem).Equipment;
 				plEquipment.Visible = FormatEquipmentString(equipment).Length > 0;
 			}
 			catch { return; }
@@ -128,7 +128,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 
 		public bool ShowEquipmentFiltration { get; set; }
 
-		private IEnumerable<ShopRow> ShopsToDisplay { get; set; }
+		private IEnumerable<Shop> ShopsToDisplay { get; set; }
 
 		#endregion
 

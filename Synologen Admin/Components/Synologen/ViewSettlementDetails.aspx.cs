@@ -1,13 +1,13 @@
 using System;
 using System.Data;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Utility;
-using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.Presentation.Code;
 
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 	public partial class ViewSettlementDetails : SynologenPage {
 		private int _settlementId;
-		private SettlementRow settlement;
+		private Settlement settlement;
 		private float _totalValueIncludingVAT;
 		private float _totalValueExcludingVAT;
 
@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			gvSettlementDetails.DataBind();
 		}
 
-		public SettlementRow Settlement { 
+		public Settlement Settlement { 
 			get { return settlement; }
 		}
 

@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Member.Data;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 	public partial class ViewOrder : SynologenUserControl {
 		private int _orderId;
-		private OrderRow _order;
+		private Order _order;
 
 		protected void Page_Load(object sender, EventArgs e) {
 			if (Request.Params["id"] != null) {
@@ -48,9 +48,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		}
 
 		private float GetTotalCartPrice() {
-			List<OrderItemRow> cart = Provider.GetOrderItemsList(_orderId,0,null);
+			List<OrderItem> cart = Provider.GetOrderItemsList(_orderId,0,null);
 			float returnValue = 0;
-			foreach (OrderItemRow order in cart) {
+			foreach (OrderItem order in cart) {
 				returnValue += order.DisplayTotalPrice;
 			}
 			return returnValue;
@@ -74,7 +74,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			Response.Redirect(SynologenSessionContext.SalesListPage);
 		}
 
-		public OrderRow Order {
+		public Order Order {
 			get { return _order;}
 		}
 

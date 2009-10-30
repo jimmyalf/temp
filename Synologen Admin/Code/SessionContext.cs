@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Utility;
-using Spinit.Wpc.Synologen.Data.Types;
 
 namespace Spinit.Wpc.Synologen.Presentation.Code {
 	public static class SessionContext {
@@ -119,10 +119,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Code {
 
 		public static class EditOrder{
 			private const string NAME = "SynologenAdminEditOrder";
-			public static List<OrderItemRow> EditOrderItemsInCart {
+			public static List<OrderItem> EditOrderItemsInCart {
 				get {
-					try {return (List<OrderItemRow>) Session.GetSessionValue(NAME + "EditOrderItemsInCart");}
-					catch {return new List<OrderItemRow>();}
+					try {return (List<OrderItem>) Session.GetSessionValue(NAME + "EditOrderItemsInCart");}
+					catch {return new List<OrderItem>();}
 				}
 				set { Session.SetSessionValue(NAME + "EditOrderItemsInCart", value); }
 			}

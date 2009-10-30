@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Utility.Business.SmartMenu;
@@ -46,7 +46,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		protected void btnSave_Click(object sender, EventArgs e) {
 			Enumerations.Action action = Enumerations.Action.Create;
-			ContractRow contract = new ContractRow();
+			Contract contract = new Contract();
 
 			if (_contractCustomerId > 0) {
 				action = Enumerations.Action.Update;
@@ -98,6 +98,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			m.SynologenSmartMenu.Render(subMenu, phMemberSubMenu);
 		}
 
-		public ContractRow Contract { get; set; }
+		public Contract Contract { get; set; }
 	}
 }

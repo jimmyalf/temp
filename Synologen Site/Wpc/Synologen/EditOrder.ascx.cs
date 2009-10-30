@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
@@ -10,7 +10,7 @@ using Globals=Spinit.Wpc.Synologen.Business.Globals;
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 	public partial class EditOrder : SynologenSalesUserControl {
 		private int _orderId;
-		private OrderRow _order;
+		private Order _order;
 
 		protected void Page_Load(object sender, EventArgs e) {
 			if (Request.Params["id"] != null){
@@ -31,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 
 		private static void InitSessionContext() {
 			SynologenSessionContext.OrderItemsMarkedForDeletion = new List<int>();
-			SynologenSessionContext.EditOrderItemsInCart = new List<OrderItemRow>();
+			SynologenSessionContext.EditOrderItemsInCart = new List<OrderItem>();
 		}
 
 		#region Population Mehtods
@@ -141,7 +141,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 
 		protected void btnAdd_Click(object sender, EventArgs e) {
 			if (!reqNumberOfItems.IsValid || !reqArticle.IsValid || !reqArticle2.IsValid) return;
-			var item = new OrderItemRow();
+			var item = new OrderItem();
 			var connectionId = Int32.Parse(drpArticle.SelectedValue);
 			var contractArticle = Provider.GetContractCustomerArticleRow(connectionId);
 			item.ArticleDisplayName = contractArticle.ArticleName;
@@ -243,7 +243,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		private void DeleteOrderItemsMarkedForDeletion() {
 			foreach (var orderItemId in SynologenSessionContext.OrderItemsMarkedForDeletion) {
 				const Enumerations.Action action = Enumerations.Action.Delete;
-				var item = new OrderItemRow {Id = orderItemId};
+				var item = new OrderItem {Id = orderItemId};
 				Provider.AddUpdateDeleteOrderItem(action, ref item);
 			}
 			SynologenSessionContext.OrderItemsMarkedForDeletion = new List<int>();
@@ -257,7 +257,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			drpNumberOfItems.SelectedIndex = 0;
 		}
 
-		private static void AddOrderItemToCart(OrderItemRow item) {
+		private static void AddOrderItemToCart(OrderItem item) {
 			var cart = SynologenSessionContext.EditOrderItemsInCart;
 			item.TemporaryId = GetNewTemporaryIdForCart(cart);
 			cart.Add(item);

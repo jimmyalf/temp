@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Business.Interfaces;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Data;
-using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Utility;
@@ -328,7 +328,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 			}
 		}
 
-		private Invoice GenerateInvoice(OrderRow order) {
+		private Invoice GenerateInvoice(Order order) {
 			var orderItems = provider.GetIOrderItemsList(order.Id, 0, null);
 			var company = provider.GetCompanyRow(order.CompanyId);
 			var shop = provider.GetShop(order.SalesPersonShopId);

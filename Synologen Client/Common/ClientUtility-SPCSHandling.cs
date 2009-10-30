@@ -1,5 +1,5 @@
 using System;
-using Spinit.Wpc.Synologen.Business.Interfaces;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Visma;
 

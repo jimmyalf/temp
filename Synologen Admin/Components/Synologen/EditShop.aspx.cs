@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Business;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
@@ -11,7 +11,7 @@ using Globals=Spinit.Wpc.Synologen.Business.Globals;
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 	public partial class EditShop : SynologenPage {
 		private int _shopId;
-		private ShopRow _shop;
+		private Shop _shop;
 
 		protected void Page_Load(object sender, EventArgs e) {
 			if (Request.Params["id"] != null)
@@ -111,7 +111,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		protected void btnSave_Click(object sender, EventArgs e) {
 			Enumerations.Action action = Enumerations.Action.Create;
-			_shop = new ShopRow();
+			_shop = new Shop();
 			if (_shopId>0) {
 				action = Enumerations.Action.Update;
 				_shop = Provider.GetShop(_shopId);

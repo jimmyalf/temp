@@ -1,4 +1,4 @@
-namespace Spinit.Wpc.Synologen.Business.Enumeration{
+namespace Spinit.Wpc.Synologen.Business.Domain.Enumerations{
 	public enum ValidationType {
 		NotRequired = 0,
 		Required = 1,

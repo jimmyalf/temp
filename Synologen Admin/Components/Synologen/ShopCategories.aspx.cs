@@ -1,7 +1,7 @@
 using System;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 
@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		private void SetupForEdit() {
 			ltHeading.Text = "Redigera kategori";
 			btnSave.Text = "Ändra";
-			ShopCategoryRow article = Provider.GetShopCategoryRow(_shopCategoryId);
+			ShopCategory article = Provider.GetShopCategoryRow(_shopCategoryId);
 			txtName.Text = article.Name;
 		}
 
@@ -68,7 +68,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 					DisplayMessage("Kategorin kan inte raderas då det finns kopplade butiker.", true);
 					return;
 				}
-				ShopCategoryRow category = new ShopCategoryRow();
+				ShopCategory category = new ShopCategory();
 				category.Id = id;
 				Provider.AddUpdateDeleteShopCategory(Enumerations.Action.Delete, ref category);
 				Response.Redirect(ComponentPages.ShopCategories);
@@ -76,7 +76,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void btnSave_Click(object sender, EventArgs e) {
-			ShopCategoryRow category = new ShopCategoryRow();
+			ShopCategory category = new ShopCategory();
 			Enumerations.Action action = Enumerations.Action.Create;
 			if (_shopCategoryId > 0) {
 				category = Provider.GetShopCategoryRow(_shopCategoryId);

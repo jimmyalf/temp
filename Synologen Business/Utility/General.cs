@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Web.UI;
-using Spinit.Wpc.Synologen.Business.Enumeration;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 
 namespace Spinit.Wpc.Synologen.Business.Utility {
 	public class General {

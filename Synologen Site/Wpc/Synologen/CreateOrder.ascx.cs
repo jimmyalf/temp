@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
@@ -87,7 +87,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 
 		protected void btnAdd_Click(object sender, EventArgs e) {
 			if (!reqNumberOfItems.IsValid || !reqArticle.IsValid || !reqArticle2.IsValid) return;
-			var item = new OrderItemRow();
+			var item = new OrderItem();
 			var connectionId = Int32.Parse(drpArticle.SelectedValue);
 			var contractArticle = Provider.GetContractCustomerArticleRow(connectionId);
 			item.ArticleDisplayName = contractArticle.ArticleName;
@@ -108,7 +108,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 				Page.Validate(btnSave.ValidationGroup);
 			}
 			if (!Page.IsValid) return;
-			var order = new OrderRow
+			var order = new Order
 			{
 				PersonalIdNumber = txtPersonalIDNumber.Text.Replace("-", ""),
 				CompanyUnit = txtCompanyUnit.Text,
@@ -157,10 +157,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			txtEmail.Text = String.Empty;
 			txtNotes.Text = String.Empty;
 			txtPersonalIDNumber.Text = String.Empty;
-			SynologenSessionContext.OrderItemsInCart = new List<OrderItemRow>();
+			SynologenSessionContext.OrderItemsInCart = new List<OrderItem>();
 		}
 
-		private static void AddOrderItemToCart(OrderItemRow item) {
+		private static void AddOrderItemToCart(OrderItem item) {
 			var cart = SynologenSessionContext.OrderItemsInCart;
 			item.TemporaryId = GetNewTemporaryIdForCart(cart);
 			cart.Add(item);

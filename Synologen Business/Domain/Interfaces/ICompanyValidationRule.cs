@@ -1,6 +1,6 @@
-using Spinit.Wpc.Synologen.Business.Enumeration;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 
-namespace Spinit.Wpc.Synologen.Business.Interfaces{
+namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 	public interface ICompanyValidationRule {
 		int Id { get; set; }
 		string ValidationName { get; set; }

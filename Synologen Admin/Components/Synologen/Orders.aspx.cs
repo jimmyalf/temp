@@ -3,8 +3,8 @@ using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Utility.Business.SmartMenu;
@@ -157,7 +157,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				if ((chk == null) || !chk.Checked) continue;
 				int id = (int)gvOrders.DataKeys[row.RowIndex]["cId"];
 				//TODO: Check order-status to determine if order can be deleted
-				OrderRow orderToDelete = new OrderRow();
+				Order orderToDelete = new Order();
 				orderToDelete.Id = id;
 				Provider.AddUpdateDeleteOrder(Enumerations.Action.Delete, ref orderToDelete);
 			}
@@ -202,7 +202,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		protected void gvOrders_Deleting(object sender, GridViewDeleteEventArgs e) {
 			int id = (int)gvOrders.DataKeys[e.RowIndex].Value;
 			//TODO: Check order-status to determine if order can be deleted
-			OrderRow orderToDelete = new OrderRow();
+			Order orderToDelete = new Order();
 			orderToDelete.Id = id;
 			Provider.AddUpdateDeleteOrder(Enumerations.Action.Delete, ref orderToDelete);
 

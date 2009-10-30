@@ -4,9 +4,9 @@ using System.Web.UI.WebControls;
 using Spinit.Wpc.Base.Data;
 using Spinit.Wpc.Member.Data;
 using Spinit.Wpc.Synologen.Business;
-using Spinit.Wpc.Synologen.Business.Enumeration;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Utility;
-using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
@@ -14,8 +14,8 @@ using Globals=Spinit.Wpc.Synologen.Business.Globals;
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 	public partial class EditOrder : SynologenPage {
 		private int _orderId;
-		private OrderRow order;
-		private CompanyRow company;
+		private Order order;
+		private Company company;
 		//private readonly List<int> listOfEditableStatuses = Business.Globals.EditableOrderStatusList;
 
 		protected void Page_Load(object sender, EventArgs e) {
@@ -55,7 +55,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		private static void InitSessionContext() {
 			SessionContext.EditOrder.OrderItemsMarkedForDeletion = new List<int>();
-			SessionContext.EditOrder.EditOrderItemsInCart = new List<OrderItemRow>();
+			SessionContext.EditOrder.EditOrderItemsInCart = new List<OrderItem>();
 		}
 
 		private void PopulateOrderItems() {
@@ -90,7 +90,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			//MemberRow member = Provider.GetMember(order.SalesPersonMemberId, LocationId, LanguageId);
 			//MemberRow member = Provider.GetSynologenMember(order.SalesPersonMemberId, LocationId, LanguageId);
 			var user = Provider.GetUserRow(order.SalesPersonMemberId);
-			ShopRow shop = Provider.GetShop(order.SalesPersonShopId);
+			Shop shop = Provider.GetShop(order.SalesPersonShopId);
 			ltShopName.Text = shop.Name;
 			//ltmemberName.Text = member.ContactFirst + " " + member.ContactLast;
 			ltmemberName.Text = String.Concat(user.FirstName, " ", user.LastName);
@@ -142,17 +142,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		protected void btnAdd_Click(object sender, EventArgs e) {
 			if (!reqNumberOfItems.IsValid || !reqArticle.IsValid || !reqArticle2.IsValid) return;
-			OrderItemRow item = new OrderItemRow();
+			OrderItem item = new OrderItem();
 			int connectionId = Int32.Parse(drpArticle.SelectedValue);
-			ContractArticleRow contractArticle = Provider.GetContractCustomerArticleRow(connectionId);
-			item.ArticleDisplayName = contractArticle.ArticleName;
-			item.ArticleDisplayNumber = contractArticle.ArticleNumber;
-			item.ArticleId = contractArticle.ArticleId;
-			item.SinglePrice = contractArticle.Price;
+			ContractArticleConnection contractArticleConnection = Provider.GetContractCustomerArticleRow(connectionId);
+			item.ArticleDisplayName = contractArticleConnection.ArticleName;
+			item.ArticleDisplayNumber = contractArticleConnection.ArticleNumber;
+			item.ArticleId = contractArticleConnection.ArticleId;
+			item.SinglePrice = contractArticleConnection.Price;
 			item.NumberOfItems = Int32.Parse(drpNumberOfItems.SelectedValue);
 			item.DisplayTotalPrice = item.SinglePrice * item.NumberOfItems;
 			item.Notes = txtNotes.Text;
-			item.NoVAT = contractArticle.NoVAT;
+			item.NoVAT = contractArticleConnection.NoVAT;
 			AddOrderItemToCart(item);
 			ClearItemInputControls();
 			PopulateOrderItems();
@@ -220,7 +220,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		#region Helper Methods
 
-		private void SetVATFree(IList<OrderItemRow> orders) {
+		private void SetVATFree(IList<OrderItem> orders) {
 			int i = 0;
 			foreach (GridViewRow row in gvOrderItems.Rows) {
 				bool active = orders[i].NoVAT;
@@ -258,10 +258,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		private void SaveOrderItems(int id) {
-			foreach (OrderItemRow item in SessionContext.EditOrder.EditOrderItemsInCart) {
+			foreach (OrderItem item in SessionContext.EditOrder.EditOrderItemsInCart) {
 				if (!item.IsTemporary) continue;
 				const Enumerations.Action action = Enumerations.Action.Create;
-				OrderItemRow tempOrder = item;
+				OrderItem tempOrder = item;
 				tempOrder.OrderId = id;
 				Provider.AddUpdateDeleteOrderItem(action, ref tempOrder);
 			}
@@ -270,17 +270,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		private void DeleteOrderItemsMarkedForDeletion() {
 			foreach (int orderItemId in SessionContext.EditOrder.OrderItemsMarkedForDeletion) {
 				const Enumerations.Action action = Enumerations.Action.Delete;
-				OrderItemRow item = new OrderItemRow();
+				OrderItem item = new OrderItem();
 				item.Id = orderItemId;
 				Provider.AddUpdateDeleteOrderItem(action, ref item);
 			}
 			SessionContext.EditOrder.OrderItemsMarkedForDeletion = new List<int>();
 		}
 
-		private static void AddOrderItemToCart(OrderItemRow item) {
+		private static void AddOrderItemToCart(OrderItem item) {
 			item.TemporaryId = GetNewTemporaryIdForCart();
 
-			List<OrderItemRow> cart = SessionContext.EditOrder.EditOrderItemsInCart;
+			List<OrderItem> cart = SessionContext.EditOrder.EditOrderItemsInCart;
 			cart.Add(item);
 			SessionContext.EditOrder.EditOrderItemsInCart = cart;
 		}
@@ -292,10 +292,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		private static int GetNewTemporaryIdForCart() {
-			List<OrderItemRow> cart = SessionContext.EditOrder.EditOrderItemsInCart;
+			List<OrderItem> cart = SessionContext.EditOrder.EditOrderItemsInCart;
 			int tempId = 1;
 			if (cart == null || cart.Count == 0) return tempId;
-			while (cart.Exists(delegate(OrderItemRow x) { return x.TemporaryId == tempId; })) {
+			while (cart.Exists(delegate(OrderItem x) { return x.TemporaryId == tempId; })) {
 				tempId++;
 				if (tempId > 50) throw new OverflowException("Shoppingcart contains too many items.");
 			}
@@ -304,14 +304,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		private static void RemoveTemporaryOrderItemFromCart(int itemTemporaryId) {
-			List<OrderItemRow> cart = SessionContext.EditOrder.EditOrderItemsInCart;
-			cart.RemoveAll(delegate(OrderItemRow x) { return x.TemporaryId == itemTemporaryId; });
+			List<OrderItem> cart = SessionContext.EditOrder.EditOrderItemsInCart;
+			cart.RemoveAll(delegate(OrderItem x) { return x.TemporaryId == itemTemporaryId; });
 			SessionContext.EditOrder.EditOrderItemsInCart = cart;
 		}
 
 		private static void RemoveExistingOrderItemFromCart(int orderItemId) {
-			List<OrderItemRow> cart = SessionContext.EditOrder.EditOrderItemsInCart;
-			cart.RemoveAll(delegate(OrderItemRow x) { return x.Id == orderItemId; });
+			List<OrderItem> cart = SessionContext.EditOrder.EditOrderItemsInCart;
+			cart.RemoveAll(delegate(OrderItem x) { return x.Id == orderItemId; });
 			SessionContext.EditOrder.EditOrderItemsInCart = cart;
 			//Add item to a list of already existing orderItems to be deleted at save
 			List<int> deleteOrderItems = SessionContext.EditOrder.OrderItemsMarkedForDeletion;

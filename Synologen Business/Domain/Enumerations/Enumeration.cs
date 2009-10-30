@@ -1,4 +1,4 @@
-namespace Spinit.Wpc.Synologen.Business.Enumeration {
+namespace Spinit.Wpc.Synologen.Business.Domain.Enumerations{
 	public enum FetchShop {
 		All = 1,
 		AllPerContractCustomer = 2,
@@ -12,10 +12,12 @@ namespace Spinit.Wpc.Synologen.Business.Enumeration {
 		AllPerShop = 2,
 		Specific = 3
 	}
+
 	public enum ConnectionAction {
 		Connect = 1,
 		Delete = 2
 	}
+
 	public enum ShopMemberConnectionAction {
 		ConnectShopAndMember = 1,
 		DeleteAllPerMember = 2
@@ -30,11 +32,13 @@ namespace Spinit.Wpc.Synologen.Business.Enumeration {
 		Member,
 		Synologen
 	}
+
 	public enum LogType {
 		Error = 1,
 		Information = 2,
 		Other = 3
 	}
+
 	public enum ActiveFilter {
 		Active = 1,
 		Inactive = 2,

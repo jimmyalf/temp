@@ -1,7 +1,7 @@
 using System;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 
@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		private void SetupForEdit() {
 			ltHeading.Text = "Redigera artikel";
 			btnSave.Text = "Ändra";
-			ArticleRow article = Provider.GetArticle(_articleId);
+			var article = Provider.GetArticle(_articleId);
 			txtName.Text = article.Name;
 			txtDescription.Text = article.Description;
 			txtArticleNumber.Text = article.Number;
@@ -43,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		/// <param Name="e">The event arguments.</param>
 
 		protected void btnDelete_AddConfirmDelete(object sender, EventArgs e) {
-			ClientConfirmation cc = new ClientConfirmation();
+			var cc = new ClientConfirmation();
 			cc.AddConfirmation(ref sender, "Vill du verkligen ta bort artikeln?");
 		}
 
@@ -60,8 +60,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void gvArticles_Deleting(object sender, GridViewDeleteEventArgs e) {
-			int index = e.RowIndex;
-			int articleId = (int)gvArticles.DataKeys[index].Value;
+			var index = e.RowIndex;
+			var articleId = (int)gvArticles.DataKeys[index].Value;
 			if (!IsInRole(MemberRoles.Roles.Delete)) {
 				Response.Redirect(ComponentPages.NoAccess);
 			}
@@ -74,29 +74,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 					DisplayMessage("Artikeln kan inte raderas då det finns kopplade ordrar.", true);
 					return;
 				}
-				ArticleRow articleRow = new ArticleRow();
-				articleRow.Id = articleId;
-				Provider.AddUpdateDeleteArticle(Enumerations.Action.Delete, ref articleRow);
+				var article = new Article {Id = articleId};
+				Provider.AddUpdateDeleteArticle(Enumerations.Action.Delete, ref article);
 				Response.Redirect(ComponentPages.Articles);
 			}
 		}
 
 		protected void btnSave_Click(object sender, EventArgs e) {
-			ArticleRow articleRow = new ArticleRow();
-			Enumerations.Action action = Enumerations.Action.Create;
+			var article = new Article();
+			var action = Enumerations.Action.Create;
 			if (_articleId > 0) {
-				articleRow = Provider.GetArticle(_articleId);
+				article = Provider.GetArticle(_articleId);
 				action = Enumerations.Action.Update;
 			}
-			articleRow.Name = txtName.Text;
-			articleRow.Number = txtArticleNumber.Text;
-			articleRow.Description = txtDescription.Text;
+			article.Name = txtName.Text;
+			article.Number = txtArticleNumber.Text;
+			article.Description = txtDescription.Text;
 
 			if (!IsInRole(MemberRoles.Roles.Create)) {
 				Response.Redirect(ComponentPages.NoAccess);
 			}
 			else {
-				Provider.AddUpdateDeleteArticle(action, ref articleRow);
+				Provider.AddUpdateDeleteArticle(action, ref article);
 				Response.Redirect(ComponentPages.Articles);
 			}
 		}

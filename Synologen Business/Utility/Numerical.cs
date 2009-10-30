@@ -1,5 +1,5 @@
 using System;
-using Spinit.Wpc.Synologen.Business.Enumeration;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 
 namespace Spinit.Wpc.Synologen.Business.Utility {
 	public class Numerical {

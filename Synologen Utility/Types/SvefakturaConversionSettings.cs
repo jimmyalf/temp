@@ -3,6 +3,7 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 
 namespace Spinit.Wpc.Synologen.Utility.Types {
 	public class SvefakturaConversionSettings {
+		public string VATFreeReasonMessage { get; set; }
 		public string SellingOrganizationContactName { get; set; }
 		public string SellingOrganizationTelephone { get; set; }
 		public string SellingOrganizationFax { get; set; }

@@ -64,14 +64,14 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
 			Assert.AreEqual(CurrencyCodeContentType.SEK, invoice.InvoiceCurrencyCode.Value);
 		}
-		[Test]
-		public void Test_Create_Invoice_Sets_TaxCurrencyCode() {
-			var customSettings = new SvefakturaConversionSettings {
-				InvoiceCurrencyCode = CurrencyCodeContentType.SEK
-			};
-			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
-			Assert.AreEqual(CurrencyCodeContentType.SEK, invoice.TaxCurrencyCode.Value);
-		}
+		//[Test]
+		//public void Test_Create_Invoice_Sets_TaxCurrencyCode() {
+		//    var customSettings = new SvefakturaConversionSettings {
+		//        InvoiceCurrencyCode = CurrencyCodeContentType.SEK
+		//    };
+		//    var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, emptyCompany, emptyShop, customSettings);
+		//    Assert.AreEqual(CurrencyCodeContentType.SEK, invoice.TaxCurrencyCode.Value);
+		//}
 		[Test]
 		public void Test_Create_Invoice_Sets_LineItemCountNumeric() {
 			var customOrderLines = new List<IOrderItem> {new OrderItemRow{ArticleDisplayName = "One"}, new OrderItemRow{ArticleDisplayName = "Two"}};

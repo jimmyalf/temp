@@ -161,9 +161,9 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
                                                         Postgiro = "123456789",
                                                         PostgiroBankIdentificationCode = "PGSISESS",
                                                         SellingOrganizationContactEmail = "info@synologen.se",
-                                                        SellingOrganizationFax = "0123-FAX",
+                                                        SellingOrganizationFax = "0123-456789",
                                                         SellingOrganizationPostBox = "Box 789",
-                                                        SellingOrganizationTelephone = "0123-TELE"
+                                                        SellingOrganizationTelephone = "0123-567890"
 			                                        };
 		}
 		public OrderRow GetMockOrder() {
@@ -177,7 +177,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
                                     CompanyUnit = "Företagsenhet",
                                     Email = "pelle.svensson@inkop.se",
                                     PersonalIdNumber = "197001015374",
-                                    Phone = "08-TELE",
+                                    Phone = "08-987654",
                                     RstText = "Kostnadsställe ABCD",
                                     CompanyId = 987
 			                    };
@@ -224,7 +224,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 						+"Företagsid: 987"
 					+"</cbc:Note>"
 					+"<InvoiceCurrencyCode>SEK</InvoiceCurrencyCode>"
-					+"<TaxCurrencyCode>SEK</TaxCurrencyCode>"
+					//+"<TaxCurrencyCode>SEK</TaxCurrencyCode>"
 					+"<LineItemCountNumeric>2</LineItemCountNumeric>"
 					+"<cac:BuyerParty>"
 						+"<cac:Party>"
@@ -232,7 +232,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 							+"<cac:PartyName><cbc:Name>Johnssons byggvaror</cbc:Name></cac:PartyName>"
 							+"<cac:Address><cbc:Postbox>Box 123</cbc:Postbox><cbc:StreetName>Rådhusgatan 5</cbc:StreetName><cbc:Department>Företagsenhet</cbc:Department><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>11000</cbc:PostalZone><cac:Country><cac:IdentificationCode>SE</cac:IdentificationCode></cac:Country></cac:Address>"
 							+"<cac:PartyTaxScheme><cac:CompanyID>SE555123456</cac:CompanyID><cac:TaxScheme><cac:ID>VAT</cac:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyTaxScheme><cac:CompanyID>555123456</cac:CompanyID><cac:RegistrationAddress><cbc:Postbox>Box 123</cbc:Postbox><cbc:StreetName>Rådhusgatan 5</cbc:StreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>11000</cbc:PostalZone><cac:Country><cac:IdentificationCode>SE</cac:IdentificationCode></cac:Country></cac:RegistrationAddress><cac:TaxScheme><cac:ID>SWT</cac:ID></cac:TaxScheme></cac:PartyTaxScheme>"
-							+"<cac:Contact><cbc:Name>Pelle Svensson</cbc:Name><cbc:Telephone>08-TELE</cbc:Telephone><cbc:ElectronicMail>pelle.svensson@inkop.se</cbc:ElectronicMail></cac:Contact>"
+							+"<cac:Contact><cbc:Name>Pelle Svensson</cbc:Name><cbc:Telephone>08987654</cbc:Telephone><cbc:ElectronicMail>pelle.svensson@inkop.se</cbc:ElectronicMail></cac:Contact>"
 						+"</cac:Party>"
 					+"</cac:BuyerParty>"
 					+"<cac:SellerParty>"
@@ -243,7 +243,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 							+"<cac:PartyTaxScheme><cac:CompanyID>SE556562422301</cac:CompanyID><cac:TaxScheme><cac:ID>VAT</cac:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyTaxScheme><cac:CompanyID>5565624223</cac:CompanyID><cbc:ExemptionReason>F-skattebevis finns</cbc:ExemptionReason><cac:RegistrationAddress><cbc:Postbox>Box 789</cbc:Postbox><cbc:StreetName>Storgatan 5</cbc:StreetName><cbc:CityName>Hägersten</cbc:CityName><cbc:PostalZone>12652</cbc:PostalZone><cac:Country><cac:IdentificationCode>SE</cac:IdentificationCode></cac:Country></cac:RegistrationAddress><cac:TaxScheme><cac:ID>SWT</cac:ID></cac:TaxScheme></cac:PartyTaxScheme>"
 							+"<cac:Contact><cbc:Name>Adam Bertil</cbc:Name><cbc:Telephone>0811122233</cbc:Telephone><cbc:Telefax>089876543</cbc:Telefax><cbc:ElectronicMail>sales@modernaprodukter.se</cbc:ElectronicMail></cac:Contact>"
 						+"</cac:Party>"
-						+"<cac:AccountsContact><cbc:Name>A Person, Fakturaavd</cbc:Name><cbc:Telephone>0123-TELE</cbc:Telephone><cbc:Telefax>0123-FAX</cbc:Telefax><cbc:ElectronicMail>info@synologen.se</cbc:ElectronicMail></cac:AccountsContact>"
+						+"<cac:AccountsContact><cbc:Name>A Person, Fakturaavd</cbc:Name><cbc:Telephone>0123567890</cbc:Telephone><cbc:Telefax>0123456789</cbc:Telefax><cbc:ElectronicMail>info@synologen.se</cbc:ElectronicMail></cac:AccountsContact>"
 					+"</cac:SellerParty>"
 					+"<cac:PaymentMeans><cac:PaymentMeansTypeCode>1</cac:PaymentMeansTypeCode><cbc:DuePaymentDate>2003-10-11</cbc:DuePaymentDate><cac:PayeeFinancialAccount><cac:ID>9551548524585</cac:ID><cac:FinancialInstitutionBranch><cac:FinancialInstitution><cac:ID>SKIASESS</cac:ID></cac:FinancialInstitution></cac:FinancialInstitutionBranch></cac:PayeeFinancialAccount></cac:PaymentMeans>"
 					+"<cac:PaymentMeans><cac:PaymentMeansTypeCode>1</cac:PaymentMeansTypeCode><cbc:DuePaymentDate>2003-10-11</cbc:DuePaymentDate><cac:PayeeFinancialAccount><cac:ID>123456789</cac:ID><cac:FinancialInstitutionBranch><cac:FinancialInstitution><cac:ID>PGSISESS</cac:ID></cac:FinancialInstitution></cac:FinancialInstitutionBranch></cac:PayeeFinancialAccount></cac:PaymentMeans>"

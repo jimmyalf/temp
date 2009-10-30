@@ -167,7 +167,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 		}
 		[Test]
 		public void Test_Sets_OrderRow_Phone(){
-			Expect(invoice.BuyerParty.Party.Contact.Telephone.Value, Is.EqualTo("031-123456"));
+			Expect(invoice.BuyerParty.Party.Contact.Telephone.Value, Is.EqualTo("031123456"));
 		}
 		[Test]
 		public void Test_Sets_OrderRow_RstText(){
@@ -304,11 +304,11 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 		}
 		[Test]
 		public void Test_Sets_Settings_SellingOrganizationTelephone(){
-			Expect(invoice.SellerParty.AccountsContact.Telephone.Value, Is.EqualTo("0435-134 33"));
+			Expect(invoice.SellerParty.AccountsContact.Telephone.Value, Is.EqualTo("043513433"));
 		}
 		[Test]
 		public void Test_Sets_Settings_SellingOrganizationFax(){
-			Expect(invoice.SellerParty.AccountsContact.Telefax.Value, Is.EqualTo("0435-134 33"));
+			Expect(invoice.SellerParty.AccountsContact.Telefax.Value, Is.EqualTo("043513433"));
 		}
 		[Test]
 		public void Test_Sets_Settings_SellingOrganizationName(){
@@ -316,8 +316,8 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 		}
 		[Test]
 		public void Test_Sets_Settings_SellingOrganizationNumber(){
-			Expect(invoice.SellerParty.Party.PartyTaxScheme[1].CompanyID.Value, Is.EqualTo("556401-1962"));
-			Expect(invoice.SellerParty.Party.PartyIdentification[0].ID.Value, Is.EqualTo("556401-1962"));
+			Expect(invoice.SellerParty.Party.PartyTaxScheme[1].CompanyID.Value, Is.EqualTo("5564011962"));
+			Expect(invoice.SellerParty.Party.PartyIdentification[0].ID.Value, Is.EqualTo("5564011962"));
 		}
 		[Test]
 		public void Test_Sets_Settings_SellingOrganizationPostalCode(){
@@ -408,11 +408,11 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 		}
 		[Test]
 		public void Test_Sets_ShopRow_Phone(){
-			Expect(invoice.SellerParty.Party.Contact.Telephone.Value, Is.EqualTo("031-987654"));
+			Expect(invoice.SellerParty.Party.Contact.Telephone.Value, Is.EqualTo("031987654"));
 		}
 		[Test]
 		public void Test_Sets_ShopRow_Fax(){
-			Expect(invoice.SellerParty.Party.Contact.Telefax.Value, Is.EqualTo("031-987653"));
+			Expect(invoice.SellerParty.Party.Contact.Telefax.Value, Is.EqualTo("031987653"));
 		}
 		[Test]
 		public void Test_Sets_ShopRow_Email(){

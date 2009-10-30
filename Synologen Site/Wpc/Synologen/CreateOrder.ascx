@@ -2,11 +2,11 @@
 <div id="synologen-create-order" class="synologen-control">
 <fieldset><legend>Kunduppgifter</legend>
 	<label>Avtal *</label>
-	<asp:DropDownList ID="drpContracts" runat="server" DataTextField="cName" DataValueField="cId" AutoPostBack="true" OnSelectedIndexChanged="drpContracts_SelectedIndexChanged"/>
+	<asp:DropDownList ID="drpContracts" runat="server" AutoPostBack="true" DataTextField="cName" DataValueField="cId" OnSelectedIndexChanged="drpContracts_SelectedIndexChanged"/>
 	<asp:RequiredFieldValidator id="reqContracts" InitialValue="0" runat="server" errormessage="Avtal saknas" controltovalidate="drpContracts" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
 	<br />
 	<label>Företag *</label>
-	<asp:DropDownList ID="drpCompany" runat="server" DataTextField="cName" DataValueField="cId" AutoPostBack="true" OnSelectedIndexChanged="drpCompany_SelectedIndexChanged" Enabled="false"/>
+	<asp:DropDownList ID="drpCompany" runat="server" AutoPostBack="true" DataTextField="cName" DataValueField="cId" OnSelectedIndexChanged="drpCompany_SelectedIndexChanged" Enabled="false"/>
 	<asp:RequiredFieldValidator id="reqCompany" InitialValue="0" runat="server" errormessage="Företag saknas" controltovalidate="drpCompany" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
 	<br />
 	<label>Kundens<br />Kostnadsställe <asp:Literal ID="ltRequiredRST" runat="server" Text='<%#GetControlIsRequiredCharacter("txtRST")%>' /></label>
@@ -43,18 +43,34 @@
 </fieldset>	
 	<br />
 	<fieldset id="article-selection">
+<%--		<asp:ScriptManager ID="ScriptManager1" runat="server"/>	
+		<asp:UpdatePanel ID="updArticleControl" runat="server" UpdateMode="Conditional">
+		<ContentTemplate>--%>
 		<label>Artikel</label>
-			<asp:DropDownList ID="drpArticle" DataTextField="cName" DataValueField="cId" runat="server" Enabled="false" />
+			<asp:DropDownList ID="drpArticle" AutoPostBack="true" OnSelectedIndexChanged="drpArticle_OnSelectedIndexChanged" DataTextField="cName" DataValueField="cId" runat="server" Enabled="false" />
 			<asp:RequiredFieldValidator id="reqArticle" InitialValue="0" runat="server" errormessage="Artikel saknas" controltovalidate="drpArticle" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>
 			<asp:RequiredFieldValidator id="reqArticle2" InitialValue="" runat="server" errormessage="Artikel saknas" controltovalidate="drpArticle" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>			
 		<br />
+		<asp:PlaceHolder ID="plManualPrice" runat="server" Visible="false">
+		<label>Pris</label>
+			<asp:TextBox ID="txtManualPrice" runat="server"/>
+			<asp:RequiredFieldValidator id="reqManualParice" runat="server" errormessage="Pris krävs" controltovalidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>
+			<asp:RegularExpressionValidator id="regexManualPrice" runat="server" ErrorMessage="Pris måste anges i numerisk form med kommatecken som decimalavskiljare och upp till två decimaler." ControlToValidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd" ValidationExpression="^[0-9]+\,?[0-9]{1,2}$">*</asp:RegularExpressionValidator>
+		<br />
+		</asp:PlaceHolder>
+<%--		</ContentTemplate>
+		<Triggers >
+			<asp:AsyncPostBackTrigger ControlID ="drpArticle" EventName ="SelectedIndexChanged" />
+		</Triggers>		
+		</asp:UpdatePanel>--%>
 		<label>Antal</label>
 			<asp:DropDownList ID="drpNumberOfItems" runat="server" Enabled="false" />
-			<asp:RequiredFieldValidator id="reqNumberOfItems" InitialValue="0" runat="server" errormessage="Antal måste väljas" controltovalidate="drpNumberOfItems" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>			
+			<asp:RequiredFieldValidator id="reqNumberOfItems" InitialValue="0" runat="server" errormessage="Antal måste väljas" controltovalidate="drpNumberOfItems" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>
 		<br />
-			<label>Noteringar</label>
+		<label>Noteringar</label>
 			<asp:TextBox ID="txtNotes" runat="server" />
 			<asp:ImageButton ID="btnAddArticle" ImageUrl="~/Wpc/Synologen/Images/Add.png" ToolTip="Lägg till"  AlternateText="Lägg till" runat="server" OnClick="btnAdd_Click" ValidationGroup="vldAdd" />
+		<br />
 	</fieldset>
 	<br />
 	<div id="order-items-cart" class="clearLeft">

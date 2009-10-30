@@ -121,6 +121,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			PopulateValidationRules(Convert.ToInt32(drpCompany.SelectedValue), Controls);
 		}
 
+
+		//TODO: Each selection hits the database, fix by caching or store whole objects in drop down(if possible).
+		protected void drpArticle_OnSelectedIndexChanged(object sender, EventArgs e){
+			var connectionId = Int32.Parse(drpArticle.SelectedValue);
+			var contractArticle = Provider.GetContractCustomerArticleRow(connectionId);
+			plManualPrice.Visible = contractArticle.EnableManualPriceOverride;
+		}
+
 		protected void gvOrderItemsCart_Deleting(object sender, GridViewDeleteEventArgs e) {
 			var index = e.RowIndex;
 			var temporaryId = (int) gvOrderItemsCart.DataKeys[index].Values["TemporaryId"];
@@ -140,14 +148,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		}
 
 		protected void btnAdd_Click(object sender, EventArgs e) {
-			if (!reqNumberOfItems.IsValid || !reqArticle.IsValid || !reqArticle2.IsValid) return;
+			Page.Validate("vldAdd");
+			if (!Page.IsValid) return;
 			var item = new OrderItem();
 			var connectionId = Int32.Parse(drpArticle.SelectedValue);
 			var contractArticle = Provider.GetContractCustomerArticleRow(connectionId);
 			item.ArticleDisplayName = contractArticle.ArticleName;
 			item.ArticleDisplayNumber = contractArticle.ArticleNumber;
 			item.ArticleId = contractArticle.ArticleId;
-			item.SinglePrice = contractArticle.Price;
+			if(contractArticle.EnableManualPriceOverride && !String.IsNullOrEmpty(txtManualPrice.Text)){
+				item.SinglePrice = float.Parse(txtManualPrice.Text);
+			}
+			else{
+				item.SinglePrice = contractArticle.Price;
+			}
 			item.NumberOfItems = Int32.Parse(drpNumberOfItems.SelectedValue);
 			item.DisplayTotalPrice = item.SinglePrice*item.NumberOfItems;
 			item.Notes = txtNotes.Text;
@@ -252,9 +266,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 
 
 		private void ClearItemInputControls() {
-			txtNotes.Text = "";
+			txtNotes.Text = String.Empty;
 			drpArticle.SelectedIndex = 0;
 			drpNumberOfItems.SelectedIndex = 0;
+			txtManualPrice.Text = String.Empty;
+			plManualPrice.Visible = false;
 		}
 
 		private static void AddOrderItemToCart(OrderItem item) {

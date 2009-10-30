@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditOrder.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.EditOrder" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditOrder.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.EditOrder"  %>
 <asp:PlaceHolder ID="plEditOrder" runat="server" Visible="true">
 <div id="synologen-edit-order" class="synologen-control">
 <fieldset><legend>Kunduppgifter</legend>
@@ -14,35 +14,22 @@
 	<label>Kundens<br />Kostnadsställe <asp:Literal ID="ltRequiredRST" runat="server" Text='<%#GetControlIsRequiredCharacter("txtRST")%>' /></label>
 	<asp:TextBox id="txtRST" runat="server" />
 	<asp:CustomValidator id="valRST" runat="server" ControlToValidate="txtRST" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>
-<%--	<asp:RequiredFieldValidator id="reqRST" runat="server" errormessage="Kostnadsställe saknas" controltovalidate="txtRST" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
-	<asp:RangeValidator ID="vldRST" runat="server" ErrorMessage="RST felaktigt. (Skall vara 5 siffror)" Type="Integer" MinimumValue="0" MaximumValue="99999" ControlToValidate="txtRST" Display="Dynamic" ValidationGroup="vldSubmit">*</asp:RangeValidator>
-	<asp:CustomValidator id="valCstRST" runat="server" ControlToValidate="txtRST" OnServerValidate="ValidateRSTLength" ErrorMessage="RST felaktigt. (Skall vara 5 siffror)" Display="Dynamic" ValidationGroup="vldSubmit">&nbsp;*</asp:CustomValidator>--%>
-	<%--
-	<asp:DropDownList ID="drpRST" runat="server" DataTextField="cName" DataValueField="cId" AutoPostBack="true" OnSelectedIndexChanged="drpRST_SelectedIndexChanged" />
-	<asp:RequiredFieldValidator id="reqRST" InitialValue="0" runat="server" errormessage="RST saknas" controltovalidate="drpRST" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
-	--%>
 	<br />
 	<label>Kundens<br />Företagsenhet <asp:Literal ID="ltRequiredCompanyUnit" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCompanyUnit")%>' /></label>
 	<asp:TextBox id="txtCompanyUnit" runat="server" />
 	<asp:CustomValidator id="vldCompanyUnit" runat="server" ControlToValidate="txtCompanyUnit" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>	
-	<%--<asp:RequiredFieldValidator id="reqCompanyUnit" runat="server" errormessage="Enhet saknas" controltovalidate="txtCompanyUnit" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>--%>
 	<br />
 	<label>Kundens<br />Förnamn <asp:Literal ID="ltRequiredCustomerFirstName" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCustomerFirstName")%>' /></label>
 	<asp:TextBox id="txtCustomerFirstName" runat="server" />
 	<asp:CustomValidator id="vldCustomerFirstName" runat="server" ControlToValidate="txtCustomerFirstName" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>
-	<%--<asp:RequiredFieldValidator id="reqCustomerFirstName" runat="server" errormessage="Förnamn saknas" controltovalidate="txtCustomerFirstname" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>--%>
 	<br />
 	<label>Kundens<br />Efternamn <asp:Literal ID="ltRequiredCustomerLastName" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCustomerLastName")%>' /></label>
 	<asp:TextBox id="txtCustomerLastName" runat="server" />	
 	<asp:CustomValidator id="vldCustomerLastName" runat="server" ControlToValidate="txtCustomerLastName" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>	
-	<%--<asp:RequiredFieldValidator id="reqCustomerLastName" runat="server" errormessage="Efternamn saknas" controltovalidate="txtCustomerLastName" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>--%>	
 	<br />
 	<label>Kundens<br />Personnummer <asp:Literal ID="ltRequiredPersonalIDNumber" runat="server" Text='<%#GetControlIsRequiredCharacter("txtPersonalIDNumber")%>' /></label>
 	<asp:TextBox id="txtPersonalIDNumber" runat="server" /><span>&nbsp;(ÅÅÅÅMMDD-NNNN)</span>
 	<asp:CustomValidator id="vldPersonalIDNumber" runat="server" ControlToValidate="txtPersonalIDNumber" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>
-<%--	<asp:RequiredFieldValidator id="reqPersonalIDNumber" runat="server" ControlToValidate="txtPersonalIDNumber" ErrorMessage="Personnummer saknas" Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>							
-	<asp:RegularExpressionValidator ID="regPersonalIDNumber" runat="server" ValidationExpression="^\d{8}-?\d{4}$" ControlToValidate="txtPersonalIDNumber" ErrorMessage="Personnummer med felaktigt format (skall vara &Aring;&Aring;&Aring;&Aring;MMDD-NNNN)" Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:RegularExpressionValidator>
-	<asp:CustomValidator ID="vldCustomPersonalIDNumber" runat="server" ControlToValidate="txtPersonalIDNumber" OnServerValidate="PersonalIDNumberValidation" ErrorMessage="Ogiltligt personnummer" Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:CustomValidator>--%>
 	<br />
 	<label>Kundens<br />Ordernummer <asp:Literal ID="ltRequiredCustomerOrderNumber" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCustomerOrderNumber")%>' /></label>
 	<asp:TextBox id="txtCustomerOrderNumber" runat="server" />
@@ -63,11 +50,26 @@
 </fieldset>	
 	<br />
 	<fieldset id="article-selection">
+<%--		<asp:ScriptManager ID="ScriptManager1" runat="server"/>
+		<asp:UpdatePanel ID="updArticleControl" runat="server" UpdateMode="Conditional">
+		<ContentTemplate>	--%>
 		<label>Artikel</label>
-			<asp:DropDownList ID="drpArticle" DataTextField="cName" DataValueField="cId" runat="server" Enabled="false" />
+			<asp:DropDownList ID="drpArticle" AutoPostBack="true" OnSelectedIndexChanged="drpArticle_OnSelectedIndexChanged" DataTextField="cName" DataValueField="cId" runat="server" Enabled="false" />
 			<asp:RequiredFieldValidator id="reqArticle" InitialValue="0" runat="server" errormessage="Artikel saknas" controltovalidate="drpArticle" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>
 			<asp:RequiredFieldValidator id="reqArticle2" InitialValue="" runat="server" errormessage="Artikel saknas" controltovalidate="drpArticle" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>			
 		<br />
+		<asp:PlaceHolder ID="plManualPrice" runat="server" Visible="false">
+		<label>Pris</label>
+			<asp:TextBox ID="txtManualPrice" runat="server"/>
+			<asp:RequiredFieldValidator id="reqManualParice" runat="server" errormessage="Pris krävs" controltovalidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>
+			<asp:RegularExpressionValidator id="regexManualPrice" runat="server" ErrorMessage="Pris måste anges i numerisk form med kommatecken som decimalavskiljare och upp till två decimaler." ControlToValidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd" ValidationExpression="^[0-9]+\,?[0-9]{1,2}$">*</asp:RegularExpressionValidator>
+		<br />
+		</asp:PlaceHolder>
+<%--		</ContentTemplate>
+		<Triggers >
+			<asp:AsyncPostBackTrigger ControlID ="drpArticle" EventName ="SelectedIndexChanged" />
+		</Triggers>				
+		</asp:UpdatePanel>	--%>	
 		<label>Antal</label>
 			<asp:DropDownList ID="drpNumberOfItems" runat="server" Enabled="false" />
 			<asp:RequiredFieldValidator id="reqNumberOfItems" InitialValue="0" runat="server" errormessage="Antal måste väljas" controltovalidate="drpNumberOfItems" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>			

@@ -75,5 +75,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 			get { return _maxNumberOfItems; }
 			set { _maxNumberOfItems = value; }
 		}
+
+
 	}
 }

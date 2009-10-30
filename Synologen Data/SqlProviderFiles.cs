@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Spinit.Wpc.Member.Data;
-using Spinit.Wpc.Synologen.Business.Enumeration;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {

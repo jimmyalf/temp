@@ -1,13 +1,12 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {
 
-		public bool AddUpdateDeleteContractArticleConnection(Enumerations.Action action, ref ContractArticleRow connection) {
+		public bool AddUpdateDeleteContractArticleConnection(Enumerations.Action action, ref ContractArticleConnection connection) {
 			try {
 				int numAffected;
 				SqlParameter[] parameters = {
@@ -18,12 +17,13 @@ namespace Spinit.Wpc.Synologen.Data {
 					new SqlParameter("@noVAT", SqlDbType.Bit),
 					new SqlParameter("@active", SqlDbType.Bit),
 					new SqlParameter("@SPCSAccountNumber", SqlDbType.NVarChar, 50),
+					new SqlParameter("@enableManualPriceOverride", SqlDbType.Bit),
             		new SqlParameter("@status", SqlDbType.Int, 4),
             		new SqlParameter("@id", SqlDbType.Int, 4)
 				};
 
 
-				int counter = 0;
+				var counter = 0;
 				parameters[counter++].Value = (int)action;
 				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
 					parameters[counter++].Value = connection.ContractCustomerId;
@@ -32,6 +32,8 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = connection.NoVAT;
 					parameters[counter++].Value = connection.Active;
 					parameters[counter++].Value = connection.SPCSAccountNumber;
+					parameters[counter++].Value = connection.EnableManualPriceOverride;
+
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
 				if (action == Enumerations.Action.Create) {
@@ -54,12 +56,11 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public ContractArticleRow GetContractCustomerArticleRow(int connectionId) {
+		public ContractArticleConnection GetContractCustomerArticleRow(int connectionId) {
 			try {
 				var articleDataSet = GetContractArticleConnections(connectionId, 0, null);
 				var articleDataRow = articleDataSet.Tables[0].Rows[0];
-				var articleRow = new ContractArticleRow
-				{
+				var articleRow = new ContractArticleConnection {
 					Id = Util.CheckNullInt(articleDataRow, "cId"), 
 					ArticleId = Util.CheckNullInt(articleDataRow, "cArticleId"), 
 					ContractCustomerId = Util.CheckNullInt(articleDataRow, "cContractCustomerId"), 
@@ -69,29 +70,30 @@ namespace Spinit.Wpc.Synologen.Data {
 					ArticleNumber = Util.CheckNullString(articleDataRow, "cArticleNumber"), 
 					ArticleDescription = Util.CheckNullString(articleDataRow, "cDescription"), 
 					NoVAT = (bool) articleDataRow["cNoVAT"], 
-					SPCSAccountNumber = Util.CheckNullString(articleDataRow, "cSPCSAccountNumber")
+					SPCSAccountNumber = Util.CheckNullString(articleDataRow, "cSPCSAccountNumber"),
+					EnableManualPriceOverride = (bool) articleDataRow["cEnableManualPriceOverride"],
 				};
 				return articleRow;
 			}
 			catch (Exception ex) {
-				throw CreateDataException("Exception while parsing a ContractArticleRow object", ex);
+				throw CreateDataException("Exception while parsing a ContractArticleConnection object", ex);
 			}
 		}
 
-		public DataSet GetContractArticleConnections(int connectionId, int contractId, string orderBy) {
+		public DataSet GetContractArticleConnections(int? connectionId, int? contractId, string orderBy) {
 			try {
-				int counter = 0;
+				var counter = 0;
 				SqlParameter[] parameters = {
 						new SqlParameter ("@connectionId", SqlDbType.Int, 4),
 						new SqlParameter ("@contractCustomerId", SqlDbType.Int, 4),
 						new SqlParameter ("@orderBy", SqlDbType.NVarChar, 255),
 						new SqlParameter ("@status", SqlDbType.Int, 4)
 					};
-				parameters[counter++].Value = connectionId;
-				parameters[counter++].Value = contractId;
-				parameters[counter++].Value = orderBy ?? SqlString.Null;
+				parameters[counter++].Value = GetNullableSqlType(connectionId);
+				parameters[counter++].Value = GetNullableSqlType(contractId);
+				parameters[counter++].Value = GetNullableSqlType(orderBy);
 				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetContractArticleConnections", parameters, "tblSynologenContractCustomerArticles");
+				var retSet = RunProcedure("spSynologenGetContractArticleConnections", parameters, "tblSynologenContractCustomerArticles");
 				return retSet;
 			}
 			catch (Exception ex) {

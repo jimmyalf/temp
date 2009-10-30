@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider{
@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		public DataSet GetContractsByPage(string searchString, string orderBy, int currentPage, int pageSize, ref int totalSize) {
 
 			try {
-				int counter = 0;
+				var counter = 0;
 
 				SqlParameter[] parameters = {
 						new SqlParameter ("@SearchString", SqlDbType.NVarChar, 255),
@@ -24,45 +24,32 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
 				parameters[counter++].Value = currentPage;
 				parameters[counter].Value = pageSize;
-				DataSet retSet = RunProcedure("spSynologenGetContractsByPage", parameters, "tblSynologenContract");
+				var retSet = RunProcedure("spSynologenGetContractsByPage", parameters, "tblSynologenContract");
 				if (retSet.Tables.Count > 1) totalSize = Convert.ToInt32(retSet.Tables[1].Rows[0][0]);
 				return retSet;
 
 			}
 			catch (SqlException e) {
-				throw new GeneralData.DatabaseInterface.DataException("SqlException: "+ e);
+				throw new GeneralData.DatabaseInterface.DataException("SqlException while getting contracts.", e);
 			}
 
 		}
 
-		public ContractRow GetContract(int contractCustomerId) {
+		public Contract GetContract(int contractCustomerId) {
 			try {
-				DataSet contractCustomerDataSet = GetContracts(FetchCustomerContract.Specific, contractCustomerId, 0, null);
-				DataRow contractCustomerDataRow = contractCustomerDataSet.Tables[0].Rows[0];
-				ContractRow contractRow = new ContractRow();
-				contractRow.Address = Util.CheckNullString(contractCustomerDataRow, "cAddress");
-				contractRow.Address2 = Util.CheckNullString(contractCustomerDataRow, "cAddress2");
-				contractRow.City = Util.CheckNullString(contractCustomerDataRow, "cCity");
-				contractRow.Code = Util.CheckNullString(contractCustomerDataRow, "cCode");
-				contractRow.Description = Util.CheckNullString(contractCustomerDataRow, "cDescription");
-				contractRow.Email = Util.CheckNullString(contractCustomerDataRow, "cEmail");
-				contractRow.Fax = Util.CheckNullString(contractCustomerDataRow, "cFax");
-				contractRow.Id = Util.CheckNullInt(contractCustomerDataRow, "cId");
-				contractRow.Name = Util.CheckNullString(contractCustomerDataRow, "cName");
-				contractRow.Phone = Util.CheckNullString(contractCustomerDataRow, "cPhone");
-				contractRow.Phone2 = Util.CheckNullString(contractCustomerDataRow, "cPhone2");
-				contractRow.Zip = Util.CheckNullString(contractCustomerDataRow, "cZip");
-				contractRow.Active = (bool)contractCustomerDataRow["cActive"];
-				return contractRow;
+				var contractCustomerDataSet = GetContracts(FetchCustomerContract.Specific, contractCustomerId, 0, null);
+				var contractCustomerDataRow = contractCustomerDataSet.Tables[0].Rows[0];
+				var contract = new Contract {Address = Util.CheckNullString(contractCustomerDataRow, "cAddress"), Address2 = Util.CheckNullString(contractCustomerDataRow, "cAddress2"), City = Util.CheckNullString(contractCustomerDataRow, "cCity"), Code = Util.CheckNullString(contractCustomerDataRow, "cCode"), Description = Util.CheckNullString(contractCustomerDataRow, "cDescription"), Email = Util.CheckNullString(contractCustomerDataRow, "cEmail"), Fax = Util.CheckNullString(contractCustomerDataRow, "cFax"), Id = Util.CheckNullInt(contractCustomerDataRow, "cId"), Name = Util.CheckNullString(contractCustomerDataRow, "cName"), Phone = Util.CheckNullString(contractCustomerDataRow, "cPhone"), Phone2 = Util.CheckNullString(contractCustomerDataRow, "cPhone2"), Zip = Util.CheckNullString(contractCustomerDataRow, "cZip"), Active = (bool) contractCustomerDataRow["cActive"]};
+				return contract;
 			}
 			catch (Exception ex) {
-				throw new Exception("Exception found while parsing a ShopRow object: "+ex.Message);
+				throw new Exception("Exception found while parsing a Shop object.", ex);
 			}
 		}
 
 		public DataSet GetContracts(FetchCustomerContract type, int contractCustomer, int shopId, bool? active) {
 			try {
-				int counter = 0;
+				var counter = 0;
 				SqlParameter[] parameters = {
 					new SqlParameter ("@type", SqlDbType.Int, 4),
 					new SqlParameter ("@contractCustomerId", SqlDbType.Int, 4),
@@ -75,19 +62,19 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = shopId;
 				parameters[counter++].Value = GetNullableSqlType(active);
 				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetContracts", parameters, "tblSynologenContract");
+				var retSet = RunProcedure("spSynologenGetContracts", parameters, "tblSynologenContract");
 				return retSet;
 			}
 			catch (SqlException e) {
-				throw new GeneralData.DatabaseInterface.DataException("SqlException: " + e);
+				throw new GeneralData.DatabaseInterface.DataException("SqlException while getting contracts.", e);
 			}
 		}
 
 		public List<int> GetContractIdsPerShop(int shopId, bool? active) {
 			//TODO: Improve by querying just the connection table.
-			List<int> returnList = new List<int>();
-			DataSet contractCustomersDataSet = GetContracts(FetchCustomerContract.AllPerShop, 0, shopId, active);
-			DataRowCollection contractCustomersDataRowCollection = contractCustomersDataSet.Tables[0].Rows;
+			var returnList = new List<int>();
+			var contractCustomersDataSet = GetContracts(FetchCustomerContract.AllPerShop, 0, shopId, active);
+			var contractCustomersDataRowCollection = contractCustomersDataSet.Tables[0].Rows;
 			foreach(DataRow contractCustomerDataRow in contractCustomersDataRowCollection) {
 				returnList.Add((int)contractCustomerDataRow["cId"]);
 			}
@@ -95,13 +82,13 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public bool ContractHasConnectedOrders(int contractId) {
-			DataSet contractDataSet = GetOrders(0, 0, contractId, 0, 0, 0, 0, null);
+			var contractDataSet = GetOrders(0, 0, contractId, 0, 0, 0, 0, null);
 			return DataSetHasRows(contractDataSet);
 		}
 
-		public bool AddUpdateDeleteContract(Enumerations.Action action, ref ContractRow contract) {
+		public bool AddUpdateDeleteContract(Enumerations.Action action, ref Contract contract) {
 		    try {
-		        int numAffected = 0;
+		        int numAffected;
 		        SqlParameter[] parameters = {
 		            new SqlParameter("@type", SqlDbType.Int, 4),
 		            new SqlParameter("@code", SqlDbType.NVarChar, 50),
@@ -120,7 +107,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		            new SqlParameter("@id", SqlDbType.Int, 4)
 		        };
 
-		        int counter = 0;
+		        var counter = 0;
 		        parameters[counter++].Value = (int)action;
 		        if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
 					parameters[counter++].Value = contract.Code ?? SqlString.Null;
@@ -152,7 +139,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		        throw new GeneralData.DatabaseInterface.DataException("Insert failed. Error: "+ (int)parameters[parameters.Length - 2].Value,(int)parameters[parameters.Length - 2].Value);
 		    }
 		    catch (SqlException e){
-		        throw new GeneralData.DatabaseInterface.DataException("SqlException: "+ e);
+		        throw new GeneralData.DatabaseInterface.DataException("SqlException while adding/updating/deleting contract.", e);
 		    }
 		}
 

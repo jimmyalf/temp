@@ -1,6 +1,6 @@
 using System.Data;
 using System.Data.SqlClient;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data {
@@ -24,17 +24,17 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public OrderStatusRow GetOrderStatusRow(int orderStatudId) {
+		public OrderStatus GetOrderStatusRow(int orderStatudId) {
 			DataSet orderStatusDataSet = GetOrderStatuses(orderStatudId);
 			DataRow orderStatusDataRow = orderStatusDataSet.Tables[0].Rows[0];
-			OrderStatusRow orderStatus = new OrderStatusRow();
+			OrderStatus orderStatus = new OrderStatus();
 			orderStatus.Id = Util.CheckNullInt(orderStatusDataRow, "cId");
 			orderStatus.Name = Util.CheckNullString(orderStatusDataRow, "cName");
 			orderStatus.OrderNumber = Util.CheckNullInt(orderStatusDataRow, "cOrder");
 			return orderStatus;
 		}
 
-		public bool AddUpdateDeleteOrderStatus(Enumerations.Action action, ref OrderStatusRow orderStatus) {
+		public bool AddUpdateDeleteOrderStatus(Enumerations.Action action, ref OrderStatus orderStatus) {
 			try {
 				int numAffected;
 				SqlParameter[] parameters = {

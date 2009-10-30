@@ -2,7 +2,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data {
@@ -166,16 +166,16 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public SettlementRow GetSettlement(int settlementId) {
+		public Settlement GetSettlement(int settlementId) {
 			DataSet settlementDataSet = GetSettlementsDataSet(settlementId, 0, null);
-			if (settlementDataSet.Tables[0] == null) return new SettlementRow();
-			if (settlementDataSet.Tables[0].Rows[0] == null) return new SettlementRow();
+			if (settlementDataSet.Tables[0] == null) return new Settlement();
+			if (settlementDataSet.Tables[0].Rows[0] == null) return new Settlement();
 			DataRow settlementDataRow = settlementDataSet.Tables[0].Rows[0];
 			return ParseSettlementRow(settlementDataRow);
 		}
 
-		private static SettlementRow ParseSettlementRow(DataRow settlementDataRow) {
-			SettlementRow settlement = new SettlementRow();
+		private static Settlement ParseSettlementRow(DataRow settlementDataRow) {
+			Settlement settlement = new Settlement();
 			settlement.Id = Util.CheckNullInt(settlementDataRow, "cId");
 			if(Util.CheckDateTimeInput(settlementDataRow["cCreatedDate"].ToString())){
 				settlement.CreatedDate = Convert.ToDateTime(settlementDataRow["cCreatedDate"]);

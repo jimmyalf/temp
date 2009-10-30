@@ -1,11 +1,12 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {
 
-		public int AddLog(Business.Enumeration.LogType action, string message) {
+		public int AddLog(LogType action, string message) {
 			try {
 				int numAffected = 0;
 				SqlParameter[] parameters = {

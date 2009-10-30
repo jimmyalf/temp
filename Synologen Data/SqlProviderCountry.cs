@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Utility.Business;
 
@@ -27,8 +27,8 @@ namespace Spinit.Wpc.Synologen.Data{
 				throw new GeneralData.DatabaseInterface.DataException("SqlException while fetching country data set ", e);
 			}
 		}
-		private static CountryRow ParseCountryRow(DataRow dataRow){
-			var concernRow = new CountryRow
+		private static Country ParseCountryRow(DataRow dataRow){
+			var concernRow = new Country
 			{
 				Id = Util.CheckNullInt(dataRow, "cId"),
 				Name = Util.CheckNullString(dataRow, "cName"),
@@ -36,27 +36,27 @@ namespace Spinit.Wpc.Synologen.Data{
 			};
 			return concernRow;
 		}
-		public CountryRow GetCountryRow(int countryId) {
+		public Country GetCountryRow(int countryId) {
 			try {
 				var shopDataSet = GetCountryDataSet(countryId,"cId");
 				var shopDataRow = shopDataSet.Tables[0].Rows[0];
 				return ParseCountryRow(shopDataRow);
 			}
 			catch (Exception ex) {
-				throw new Exception("Exception found while parsing a CountryRow object.", ex);
+				throw new Exception("Exception found while parsing a Country object.", ex);
 			}
 		}
-		private IList<CountryRow> GetCountryRows(){
+		private IList<Country> GetCountryRows(){
 			var dataSet = GetCountryDataSet(null, null);
-			if(dataSet == null || dataSet.Tables == null || dataSet.Tables.Count <= 0) return new List<CountryRow>();
-			if(dataSet.Tables[0] == null || dataSet.Tables[0].Rows == null) return new List<CountryRow>();
-			var returnList = new List<CountryRow>();
+			if(dataSet == null || dataSet.Tables == null || dataSet.Tables.Count <= 0) return new List<Country>();
+			if(dataSet.Tables[0] == null || dataSet.Tables[0].Rows == null) return new List<Country>();
+			var returnList = new List<Country>();
 			foreach (DataRow dataRow in dataSet.Tables[0].Rows){
 				returnList.Add(ParseCountryRow(dataRow));
 			}
 			return returnList;
 		}
-		public IList<CountryRow> GetCountryRows(Func<CountryRow,string> orderBy){
+		public IList<Country> GetCountryRows(Func<Country,string> orderBy){
 			var returnList = GetCountryRows();
 			return (orderBy == null) ? returnList : returnList.OrderBy(orderBy).ToList();
 		}

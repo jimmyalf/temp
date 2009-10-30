@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data {
@@ -32,15 +32,15 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public ShopEquipmentRow GetShopEquipmentRow(int equipmentId) {
+		public ShopEquipment GetShopEquipmentRow(int equipmentId) {
 			var equipmentDataSet = GetShopEquipment(equipmentId, 0, null);
 			var equipmentDatRow = equipmentDataSet.Tables[0].Rows[0];
 			return ParseShopEquipmentRow(equipmentDatRow);
 		}
 
-		private static ShopEquipmentRow ParseShopEquipmentRow(DataRow equipmentDatRow) {
+		private static ShopEquipment ParseShopEquipmentRow(DataRow equipmentDatRow) {
 			try {
-				var equipmentRow = new ShopEquipmentRow
+				var equipmentRow = new ShopEquipment
 				{
 					Id = Util.CheckNullInt(equipmentDatRow, "cId"), 
 					Name = Util.CheckNullString(equipmentDatRow, "cName"), 
@@ -49,7 +49,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				return equipmentRow;
 			}
 			catch (Exception ex) {
-				throw new Exception("Exception found while parsing a ShopEquipmentRow object: " + ex.Message);
+				throw new Exception("Exception found while parsing a ShopEquipment object: " + ex.Message);
 			}
 		}
 
@@ -63,8 +63,8 @@ namespace Spinit.Wpc.Synologen.Data {
 			return returnList;
 		}
 
-		public IEnumerable<ShopEquipmentRow> GetAllEquipmentRowsPerShop(int shopId) {
-			var returnList = new List<ShopEquipmentRow>();
+		public IEnumerable<ShopEquipment> GetAllEquipmentRowsPerShop(int shopId) {
+			var returnList = new List<ShopEquipment>();
 			var equipmentDatSet = GetShopEquipment(0, shopId, null);
 			if (equipmentDatSet == null || equipmentDatSet.Tables[0] == null) return returnList;
 			foreach (DataRow row in equipmentDatSet.Tables[0].Rows) {
@@ -78,7 +78,7 @@ namespace Spinit.Wpc.Synologen.Data {
 			return DataSetHasRows(shopDataSet);
 		}
 
-		public bool AddUpdateDeleteShopEquipment(Enumerations.Action action, ref ShopEquipmentRow equipment) {
+		public bool AddUpdateDeleteShopEquipment(Enumerations.Action action, ref ShopEquipment equipment) {
 			try {
 				int numAffected = 0;
 				SqlParameter[] parameters = {

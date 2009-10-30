@@ -11,160 +11,6 @@ using Spinit.Wpc.Synologen.Utility.Types;
 
 namespace Spinit.Wpc.Synologen.Utility {
 	public class SvefakturaValidator {
-
-		//public static IEnumerable<RuleViolation> Validate(SFTIInvoiceType invoice) {
-		//    if(invoice == null){
-		//        yield return new RuleViolation("Invoice has not been set.","SFTIInvoiceType");
-		//    }
-		//    if(invoice == null || invoice.ID == null || invoice.ID.Value == null) {
-		//        yield return new RuleViolation("Invoice number is missing.","SFTIInvoiceType.ID");
-		//    }
-		//    if(invoice == null || invoice.IssueDate == null || invoice.IssueDate.Value == DateTime.MinValue) {
-		//        yield return new RuleViolation("IssueDate is missing.","SFTIInvoiceType.IssueDate");
-		//    }
-		//    if(invoice == null || invoice.InvoiceTypeCode == null || invoice.InvoiceTypeCode.Value == null) {
-		//        yield return new RuleViolation("InvoiceTypeCode is missing.","SFTIInvoiceType.InvoiceTypeCode");
-		//    }
-		//    if(invoice == null || invoice.TaxPointDate == null || invoice.TaxPointDate.Value == DateTime.MinValue) {
-		//        yield return new RuleViolation("TaxPointDate is missing.","SFTIInvoiceType.TaxPointDate");
-		//    }
-		//    if(invoice == null || invoice.TaxCurrencyCode == null) {
-		//        yield return new RuleViolation("TaxCurrencyCode is missing.","SFTIInvoiceType.TaxCurrencyCode");
-		//    }
-		//    foreach (var ruleViolation in ValidateRequisitionDocumentReference(invoice)){ yield return ruleViolation; }
-		//    foreach (var ruleViolation in ValidateInvoiceAllowanceChargeAmount(invoice)){ yield return ruleViolation; }
-		//    foreach (var ruleViolation in ValidateInvoiceLine(invoice)){ yield return ruleViolation; }
-		//    foreach (var ruleViolation in ValidateBuyerPartyAndSellerParty(invoice)) { yield return ruleViolation; }
-		//    foreach (var ruleViolation in ValidateControlAmounts(invoice)) { yield return ruleViolation; }
-		//    foreach (var ruleViolation in ValidatePaymentMeans(invoice)) { yield return ruleViolation; }
-		//    foreach (var ruleViolation in ValidateTaxCategories(invoice)) { yield return ruleViolation; }
-		//}
-
-		//private static IEnumerable<RuleViolation> ValidateTaxCategories(SFTIInvoiceType invoice){
-		//    if(invoice == null) yield break;
-		//    if(invoice.InvoiceLine != null){
-		//        foreach (var invoiceLine in invoice.InvoiceLine){
-		//            if (invoiceLine.Item == null || invoiceLine.Item.TaxCategory == null) continue;
-		//            foreach (var taxCategory in invoiceLine.Item.TaxCategory){
-		//                if(taxCategory.ID == null){
-		//                    yield return new RuleViolation("InvoiceLine Item TaxCateogry ID is missing.", "SFTIInvoiceType.InvoiceLine.Item.TaxCategory.ID");
-		//                }
-		//            }
-		//        }
-		//    }
-		//    if (invoice.AllowanceCharge != null){
-		//        foreach (var allowanceCharge in invoice.AllowanceCharge){
-		//            if (allowanceCharge.TaxCategory == null) continue;
-		//            foreach (var taxCategory in allowanceCharge.TaxCategory){
-		//                if(taxCategory.ID == null){
-		//                    yield return new RuleViolation("InvoiceLine AllowanceCharge TaxCateogry ID is missing.", "SFTIInvoiceType.AllowanceCharge.TaxCategory.ID");
-		//                }
-		//            }
-		//        }
-		//    }
-		//    if (invoice.TaxTotal != null){
-		//        foreach (var taxTotal in invoice.TaxTotal){
-		//            if (taxTotal.TaxSubTotal == null) continue;
-		//            foreach (var taxSubTotal in taxTotal.TaxSubTotal){
-		//                if(taxSubTotal.TaxCategory != null && taxSubTotal.TaxCategory.ID == null){
-		//                    yield return new RuleViolation("InvoiceLine TaxTotal TaxSubTotal TaxCateogry ID is missing.", "SFTIInvoiceType.TaxTotal.TaxSubTotal.TaxCategory.ID");
-		//                }
-		//            }
-		//        }
-		//    }
-
-		//}
-
-		//private static  IEnumerable<RuleViolation> ValidateBuyerPartyAndSellerParty(SFTIInvoiceType invoice) {
-		//    if(invoice == null) yield break;
-		//    if(invoice.BuyerParty != null && invoice.BuyerParty.Party != null){
-		//        foreach (var ruleValidation in ValidateParty(invoice.BuyerParty.Party, "BuyerParty")) { yield return ruleValidation; }
-		//    }
-		//    if (invoice.SellerParty != null && invoice.SellerParty.Party != null){
-		//        foreach (var ruleValidation in ValidateParty(invoice.SellerParty.Party, "SellerParty")) { yield return ruleValidation; }
-		//    }
-		//}
-
-		//private static IEnumerable<RuleViolation> ValidateParty(SFTIPartyType party, string typeOfParty) {
-		//    if (party != null && party.PartyTaxScheme != null && party.PartyTaxScheme.Count != 0){
-		//        foreach (var partyTaxScheme in party.PartyTaxScheme){
-		//            if (partyTaxScheme.TaxScheme == null || partyTaxScheme.TaxScheme.ID == null || partyTaxScheme.TaxScheme.ID.Value == null) continue;
-		//            if (partyTaxScheme.TaxScheme.ID.Value == "VAT" && partyTaxScheme.CompanyID == null){
-		//                yield return new RuleViolation(typeOfParty + " Party PartyTaxScheme (VAT) CompanyID is missing.", "SFTIInvoiceType."+typeOfParty+".Party.PartyTaxScheme.CompanyID");
-		//            }
-		//            if (partyTaxScheme.TaxScheme.ID.Value == "SWT" && partyTaxScheme.CompanyID == null){
-		//                yield return new RuleViolation(typeOfParty + " Party PartyTaxScheme (SWT) CompanyID is missing.", "SFTIInvoiceType."+typeOfParty+".Party.PartyTaxScheme.CompanyID");
-		//            }
-		//            if (partyTaxScheme.TaxScheme.ID.Value == "SWT" && partyTaxScheme.ExemptionReason == null){
-		//                yield return new RuleViolation(typeOfParty + " Party PartyTaxScheme (SWT) ExemptionReason is missing.", "SFTIInvoiceType."+typeOfParty+".Party.PartyTaxScheme.ExemptionReason");
-		//            }
-		//        }
-		//    }
-		//    if(party == null || party.PartyName == null || party.PartyName.Count  == 0){
-		//        yield return new RuleViolation(typeOfParty + " Party PartyName is missing.", "SFTIInvoiceType."+typeOfParty+".Party.PartyName");
-		//    }
-		//    if(party == null || party.Address == null){
-		//        yield return new RuleViolation(typeOfParty + " Party Address is missing.", "SFTIInvoiceType."+typeOfParty+".Party.Address");
-		//    }
-		//}
-
-		//private static IEnumerable<RuleViolation> ValidatePaymentMeans(SFTIInvoiceType invoice) {
-		//    if(invoice == null || invoice.PaymentMeans == null) yield break;
-		//    foreach (var paymentMean in invoice.PaymentMeans){
-		//        if (paymentMean.PaymentMeansTypeCode != null) continue;
-		//        yield return new RuleViolation("PaymentMeans PaymentMeansTypeCode is missing.","SFTIInvoiceType.PaymentMeans.PaymentMeansTypeCode");
-		//    }
-		//}
-
-		//private static IEnumerable<RuleViolation> ValidateRequisitionDocumentReference(SFTIInvoiceType invoice) {
-		//    if( invoice == null || invoice.InvoiceTypeCode == null || invoice.InvoiceTypeCode.Value == null || invoice.InvoiceTypeCode.Value != "381") yield break;
-		//    if(invoice.InitialInvoiceDocumentReference == null || invoice.InitialInvoiceDocumentReference.Count == 0){
-		//            yield return new RuleViolation("InitialInvoiceDocumentReference is missing (mandatory on credit invoices).","SFTIInvoiceType.InitialInvoiceDocumentReference");
-		//    }
-		//    else{
-		//        foreach (var documentReference in invoice.InitialInvoiceDocumentReference){
-		//            if (documentReference.ID == null){
-		//                yield return new RuleViolation("InitialInvoiceDocumentReference ID is missing (mandatory on credit invoices).","SFTIInvoiceType.InitialInvoiceDocumentReference.ID");	
-		//            }
-		//        }
-		//    }
-		//}
-
-		//private static IEnumerable<RuleViolation> ValidateInvoiceLine(SFTIInvoiceType invoice) {
-		//    if (invoice == null || invoice.InvoiceLine == null || invoice.InvoiceLine.Count <= 0) yield break;
-		//    foreach (var invoiceLine in invoice.InvoiceLine) {
-		//        if (invoiceLine.Item != null && invoiceLine.Item.BasePrice != null && invoiceLine.Item.BasePrice.PriceAmount == null) {
-		//            yield return new RuleViolation("InvoiceLine Item BasePrice PriceAmount is missing.", "SFTIInvoiceType.InvoiceLine.Item.BasePrice.PriceAmount");
-		//        }
-		//        if (invoiceLine.InvoicedQuantity == null) {
-		//            yield return new RuleViolation("InvoiceLine InvoicedQuantity is missing.", "SFTIInvoiceType.InvoiceLine.InvoicedQuantity");
-		//        }
-		//        if (invoiceLine.LineExtensionAmount == null) {
-		//            yield return new RuleViolation("InvoiceLine LineExtensionAmount is missing.", "SFTIInvoiceType.InvoiceLine.LineExtensionAmount");
-		//        }
-		//        if(invoiceLine.Item != null && invoiceLine.Note == null && invoiceLine.Item.Description == null){
-		//            yield return new RuleViolation("InvoiceLine Item Description and InvoiceLine Note has not been set.", "SFTIInvoiceType.InvoiceLine.Item.Description");
-		//        }
-		//    }
-		//}
-
-		//private static IEnumerable<RuleViolation> ValidateInvoiceAllowanceChargeAmount(SFTIInvoiceType invoice) {
-		//    if(invoice != null && invoice.AllowanceCharge != null && invoice.AllowanceCharge.Count > 0){
-		//        foreach (var allowanceCharge in invoice.AllowanceCharge){
-		//            if(allowanceCharge.Amount == null){
-		//                yield return new RuleViolation("AllowanceCharge Amount is missing.","SFTIInvoiceType.AllowanceCharge.Amount");
-		//            }
-		//        }
-		//    }
-		//    if (invoice != null && invoice.InvoiceLine != null && invoice.InvoiceLine.Count > 0){
-		//        foreach (var invoiceLine in invoice.InvoiceLine){
-		//            if(invoiceLine.AllowanceCharge != null && invoiceLine.AllowanceCharge.Amount == null){
-		//                yield return new RuleViolation("InvoiceLine AllowanceCharge Amount is missing.","SFTIInvoiceType.InvoiceLine.AllowanceCharge.Amount");
-		//            }
-		//        }
-		//    }
-		//}
-
 		public static string FormatRuleViolations(IEnumerable<RuleViolation> ruleViolations) {
 			var returnString = String.Empty;
 			foreach (var ruleViolation in ruleViolations){
@@ -346,14 +192,14 @@ namespace Spinit.Wpc.Synologen.Utility {
 			if(value.TaxPointDate == null) {
 				yield return new RuleViolation("SFTIInvoiceType.TaxPointDate is missing.","SFTIInvoiceType.TaxPointDate");
 			}
-			if(value.TaxCurrencyCode == null) {
-				yield return new RuleViolation("SFTIInvoiceType.TaxCurrencyCode is missing.","SFTIInvoiceType.TaxCurrencyCode");
-			}
 			if(value.InvoiceTypeCode != null && value.InvoiceTypeCode.Value != null && value.InvoiceTypeCode.Value.Equals("381") && value.InitialInvoiceDocumentReference == null){
 				yield return new RuleViolation("SFTIInvoiceType.InitialInvoiceDocumentReference is missing (mandatory on credit invoices).","SFTIInvoiceType.InitialInvoiceDocumentReference");
 			}
 			if(value.InvoiceTypeCode != null && value.InvoiceTypeCode.Value != null && !(value.InvoiceTypeCode.Value.Equals("380") || value.InvoiceTypeCode.Value.Equals("381"))){
 				yield return new RuleViolation("SFTIInvoiceType.InvoiceTypeCode has unexpected value (allowed: 380/381).","SFTIInvoiceType.InvoiceTypeCode");
+			}
+			if(value.InvoiceCurrencyCode != null && value.TaxCurrencyCode != null && value.InvoiceCurrencyCode.Value == value.TaxCurrencyCode.Value){
+				yield return new RuleViolation("SFTIInvoiceType.TaxCurrencyCode cannot be set to same value as InvoiceCurrencyCode.","SFTIInvoiceType.TaxCurrencyCode");
 			}
 			if(value.InvoiceTypeCode != null && value.InvoiceTypeCode.Value != null && value.InvoiceTypeCode.Value.Equals("380")){
 				if(value.PaymentMeans == null){
@@ -470,18 +316,6 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return (Double.TryParse(value.ToString(), out parsedNumericValue) && parsedNumericValue.Equals(0));
 		}
 		#endregion
-		//private static SFTITaxCategoryType GetInvoiceLineTaxCategory(SFTIInvoiceLineType invoiceLine, decimal defaultVATPercent) {
-		//    var defaultTaxCategory = new SFTITaxCategoryType {
-		//        ID = new IdentifierType {Value = "S"},
-		//        Percent = new PercentType {Value = defaultVATPercent},
-		//        TaxScheme = new SFTITaxSchemeType {ID = new IdentifierType {Value = "VAT"}}
-		//    };
-		//    if(invoiceLine == null) return defaultTaxCategory;
-		//    if(invoiceLine.Item == null) return defaultTaxCategory;
-		//    if (invoiceLine.Item.TaxCategory == null) return defaultTaxCategory;
-		//    //TODO: Is this true even if there are more than one taxcategories given?
-		//    return invoiceLine.Item.TaxCategory.Count <= 0 ? defaultTaxCategory : invoiceLine.Item.TaxCategory[0];
-		//}
 	}
 
 }

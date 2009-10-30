@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Spinit.Wpc.Synologen.Business.Interfaces;
 using Spinit.Wpc.Synologen.Data.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
@@ -42,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 				}
 			);
 			invoice.InvoiceCurrencyCode = TryGetValue(settings.InvoiceCurrencyCode, new CurrencyCodeType {Value = settings.InvoiceCurrencyCode.GetValueOrDefault()});
-			invoice.TaxCurrencyCode = TryGetValue(settings.InvoiceCurrencyCode, new CurrencyCodeType {Value = settings.InvoiceCurrencyCode.GetValueOrDefault()});
+			//invoice.TaxCurrencyCode = TryGetValue(settings.InvoiceCurrencyCode, new CurrencyCodeType {Value = settings.InvoiceCurrencyCode.GetValueOrDefault()});
 		}
 
 		private static void TryAddInvoiceLines(SvefakturaConversionSettings settings,  SFTIInvoiceType invoice, IEnumerable<IOrderItem> orderItems , decimal VATAmount) {
@@ -61,7 +62,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 								PriceAmount = TryGetValue(orderItem.SinglePrice, new PriceAmountType {Value = (decimal) orderItem.SinglePrice, amountCurrencyID = "SEK"})
 							},
 							TaxCategory = new List<SFTITaxCategoryType> {
-								(orderItem.NoVAT) ?  GetTaxCategory("E", 0, "VAT") : GetTaxCategory("S", VATAmount*100, "VAT")
+								(orderItem.NoVAT) ?  GetTaxCategory("E", 0, "VAT", settings.VATFreeReasonMessage) : GetTaxCategory("S", VATAmount*100, "VAT", settings.VATFreeReasonMessage)
 							}
 						},
 						InvoicedQuantity = new QuantityType{Value = orderItem.NumberOfItems, quantityUnitCode = "styck"},
@@ -83,7 +84,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 				Address = GetSellerPartyAddress(settings),
 				Contact = GetSellerPartyContact(shop),
 				PartyTaxScheme = GetSellerPartyTaxScheme(settings),
-                PartyIdentification = TryGetValue(settings.SellingOrganizationNumber, new List<SFTIPartyIdentificationType>{new SFTIPartyIdentificationType{ID = new IdentifierType{Value = settings.SellingOrganizationNumber}}})
+                PartyIdentification = TryGetValue(settings.SellingOrganizationNumber, new List<SFTIPartyIdentificationType>{new SFTIPartyIdentificationType{ID = new IdentifierType{Value = FormatOrganizationNumber(settings.SellingOrganizationNumber)}}})
 			};
 			invoice.SellerParty.AccountsContact = GetSellerAccountContact(settings);
 		}
@@ -129,7 +130,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 				Address = GetBuyerPartyAddress(company, orderRow),
 				Contact = GetBuyerPartyContact(orderRow),
 				PartyTaxScheme = GetBuyerPartyTaxScheme(company),
-				PartyIdentification = TryGetValue(company.OrganizationNumber, new List<SFTIPartyIdentificationType> { new SFTIPartyIdentificationType { ID = new IdentifierType { Value = company.OrganizationNumber } } })
+				PartyIdentification = TryGetValue(company.OrganizationNumber, new List<SFTIPartyIdentificationType> { new SFTIPartyIdentificationType { ID = new IdentifierType { Value = FormatOrganizationNumber(company.OrganizationNumber) } } })
 			};
 		}
 
@@ -170,7 +171,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 				new SFTIPaymentMeansType {
 					PaymentMeansTypeCode = new PaymentMeansCodeType { Value = PaymentMeansCodeContentType.Item1 },
 					PayeeFinancialAccount = new SFTIFinancialAccountType {
-						ID = new IdentifierType {Value = giroNumber},
+						ID = new IdentifierType {Value = FormatGiroNumber(giroNumber)},
 						FinancialInstitutionBranch = TryGetValue(giroBIC, new SFTIBranchType {FinancialInstitution = new SFTIFinancialInstitutionType {ID = new IdentifierType {Value = giroBIC}}})
 					},
 					DuePaymentDate = GetPaymentMeansDuePaymentDate(settings.InvoiceIssueDate, company)
@@ -205,13 +206,6 @@ namespace Spinit.Wpc.Synologen.Utility {
 		#endregion
 
 		#region Helper Methods
-
-		//private static T TryGetValue<T>(bool test, T falseValue, T trueFalue ) {
-		//    return  test ? falseValue : trueFalue;
-		//}
-		//private static T TryGetValue<T>(bool test, T properValue ) {
-		//    return  test ? default(T) : properValue;
-		//}
 		private static T TryGetValue<T>(string valueToSet, T properValue) {
 			return String.IsNullOrEmpty(valueToSet) ? default(T) : properValue;
 		}
@@ -239,17 +233,16 @@ namespace Spinit.Wpc.Synologen.Utility {
 			if(OneOrMoreHaveValue(taxAccountingCode)){
 				returnList.Add(
 					new SFTIPartyTaxSchemeType {
-						CompanyID = TryGetValue(taxAccountingCode, new IdentifierType {Value = taxAccountingCode}),
+						CompanyID = TryGetValue(taxAccountingCode, new IdentifierType {Value = FormatTaxAccountingCode(taxAccountingCode)}),
 						TaxScheme = new SFTITaxSchemeType {ID = new IdentifierType {Value = "VAT"}}
 					}
 				);
 			}
-			//if (OneOrMoreHaveValue(countryCode, exemptionReason, orgNumber, city, streetName, postBox, postalCode )){
 			if (OneOrMoreHaveValue(exemptionReason, orgNumber)){
 				returnList.Add(
 					new SFTIPartyTaxSchemeType {
 						ExemptionReason = TryGetValue(exemptionReason, new ReasonType {Value = exemptionReason}),
-						CompanyID = TryGetValue(orgNumber, new IdentifierType {Value = orgNumber}),
+						CompanyID = TryGetValue(orgNumber, new IdentifierType {Value = FormatOrganizationNumber(orgNumber)}),
 						RegistrationAddress = GetSFTIAddress(postBox, streetName, postalCode, city, null, countryCode),
 						TaxScheme = new SFTITaxSchemeType { ID = new IdentifierType { Value = "SWT" } }
 					}
@@ -270,13 +263,12 @@ namespace Spinit.Wpc.Synologen.Utility {
 			};
 		}
 
-		//TODO: Replace static text "Momsfri artikel" with other string/setting value
-		private static SFTITaxCategoryType GetTaxCategory(string identifier, decimal percent, string TaxScheme) {
+		private static SFTITaxCategoryType GetTaxCategory(string identifier, decimal percent, string TaxScheme, string vatFreeReasonMessage) {
 			return new SFTITaxCategoryType {
 				ID = new IdentifierType {Value = identifier},
 				Percent = new PercentType {Value = percent},
 				TaxScheme = new SFTITaxSchemeType {ID = new IdentifierType {Value = TaxScheme}},
-				ExemptionReason = (identifier.Equals("E")) ? new ReasonType {Value = "Momsfri artikel"} : null
+				ExemptionReason = (identifier.Equals("E")) ? new ReasonType {Value = (String.IsNullOrEmpty(vatFreeReasonMessage)) ? "Momsfri artikel" : vatFreeReasonMessage} : null
 			};
 		}
 
@@ -285,45 +277,29 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return new SFTIContactType {
 				ElectronicMail = TryGetValue(email, new MailType {Value = email}),
 				Name = TryGetValue(name, new NameType {Value = name}),
-				Telefax = TryGetValue(fax, new TelefaxType {Value = fax}),
-				Telephone = TryGetValue(phone, new TelephoneType {Value = phone})
+				Telefax = TryGetValue(fax, new TelefaxType {Value = FormatPhoneNumber(fax)}),
+				Telephone = TryGetValue(phone, new TelephoneType {Value = FormatPhoneNumber(phone)})
 			};
 		}
 
-		//private static List<SFTITaxSubTotalType> GetDefaultTaxCategories(SvefakturaConversionSettings settings, IEnumerable<IOrderItem> orderItems, OrderRow order) {
-		//    var returnList = new List<SFTITaxSubTotalType>();
-		//    decimal taxableAmount, taxAmount, taxFreeAmount;
-		//    CalculateTaxParameters(orderItems, order, settings, out taxableAmount, out taxAmount, out taxFreeAmount);
-		//    if(settings.VATAmount>0){
-		//        returnList.Add(
-		//            new SFTITaxSubTotalType {
-		//                TaxCategory = GetTaxCategory("S", settings.VATAmount*100, "VAT"),
-		//                TaxableAmount = TryGetValue(taxableAmount, new AmountType{Value = taxableAmount, amountCurrencyID ="SEK"}),
-		//                TaxAmount = TryGetValue(taxAmount, new TaxAmountType{Value = taxAmount, amountCurrencyID ="SEK"})
-		//            }
-		//        );
-		//    }
-		//    returnList.Add(new SFTITaxSubTotalType {
-		//        TaxCategory = GetTaxCategory("E", 0.00m, "VAT"),
-		//        TaxableAmount = TryGetValue(taxFreeAmount, new AmountType{Value = taxFreeAmount, amountCurrencyID ="SEK"}),
-		//        TaxAmount = new TaxAmountType{Value=0.00m, amountCurrencyID ="SEK"}
-		//    });
-		//    return returnList;
-		//}
+		private static string FormatPhoneNumber(string phoneNumber){
+			if(phoneNumber == null) return null;
+			var returnNumber = phoneNumber.Trim();
+			if (returnNumber.StartsWith("+")){
+				var zeroIndex = returnNumber.IndexOf('0');
+				if (zeroIndex > 0) returnNumber = returnNumber.Remove(zeroIndex, 1);
+			}
+			return Regex.Replace(returnNumber, @"[^0-9+]", "");
+		}
+		private static string FormatGiroNumber(string giroNumber) { return RemoveAllButLettersAndDigits(giroNumber); }
+		private static string FormatTaxAccountingCode(string taxAccountingCode) { return RemoveAllButLettersAndDigits(taxAccountingCode); }
+		private static string FormatOrganizationNumber(string organizationNumber) { return RemoveAllButLettersAndDigits(organizationNumber); }
 
-		//private static void CalculateTaxParameters(IEnumerable<IOrderItem> orderItems, OrderRow order, SvefakturaConversionSettings settings,  out decimal taxableAmount, out decimal taxAmount, out decimal taxFreeAmount) {
-		//    taxableAmount = 0;
-		//    taxAmount = (decimal) (order.InvoiceSumIncludingVAT - order.InvoiceSumExcludingVAT);
-		//    taxFreeAmount = 0;
-		//    foreach (var orderItem in orderItems){
-		//        var orderItemValue = GetOrderItemTotalValue(orderItem, settings.VATAmount);
-		//        taxFreeAmount += (orderItem.NoVAT)? orderItemValue : 0;
-		//        taxableAmount += (orderItem.NoVAT)? 0 : orderItemValue;
-		//    }
-		//}
-		//private static decimal GetOrderItemTotalValue(IOrderItem orderItem, decimal vatAmount){
-		//    return (orderItem.NoVAT) ? (decimal) orderItem.DisplayTotalPrice : (decimal) orderItem.DisplayTotalPrice*(1 + vatAmount);
-		//}
+		private static string RemoveAllButLettersAndDigits(string input){
+			if(input == null) return null;
+			var returnString = input.ToUpper();
+			return Regex.Replace(returnString, @"[^\dA-Ö]", "");
+		}
 
 		private static ExtensionTotalAmountType TryGetLineExtensionAmount(IEnumerable<IOrderItem> orderItems) {
 			var result = 0m;

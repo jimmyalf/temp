@@ -3,6 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 using Spinit.Wpc.Synologen.Utility;
 using Spinit.Wpc.Synologen.Utility.Types;
@@ -15,13 +16,6 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.CustomValidation {
 			var invoice = new SFTIInvoiceType { TaxPointDate = null };
 			var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoice));
 			Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIInvoiceType.TaxPointDate")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
-		}
-		[Test]
-		public void Test_Invoice_Missing_TaxCurrencyCode_Fails_Validation() {
-			var invoice = new SFTIInvoiceType { TaxCurrencyCode = null };
-			var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoice));
-			var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceType.TaxCurrencyCode"));
-			Expect(ruleViolationFound, Is.True);
 		}
 		[Test]
 		public void Test_Invoice_Of_Credit_Type_Missing_InitialInvoiceDocumentReference_Fails_Validation() {
@@ -139,6 +133,24 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.CustomValidation {
 			};
 			var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoice));
 			Expect(ruleViolations.Exists(x => x.PropertyName.Equals("SFTIPaymentMeansType.DuePaymentDate")), Is.False);
+		}
+		[Test]
+		public void Test_Credit_Invoice_With_Same_InvoiceCurrencyCode_And_TaxCurrencyCode_Fails_Validation() {
+			var invoice = new SFTIInvoiceType{
+				InvoiceCurrencyCode = new CurrencyCodeType{Value = CurrencyCodeContentType.SEK},
+				TaxCurrencyCode = new CurrencyCodeType{Value = CurrencyCodeContentType.SEK}
+			};
+			var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoice));
+			Expect(ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceType.TaxCurrencyCode")), Is.True);
+		}
+		[Test]
+		public void Test_Credit_Invoice_With_Different_InvoiceCurrencyCode_And_TaxCurrencyCode_Validates() {
+			var invoice = new SFTIInvoiceType{
+				InvoiceCurrencyCode = new CurrencyCodeType{Value = CurrencyCodeContentType.SEK},
+				TaxCurrencyCode = new CurrencyCodeType{Value = CurrencyCodeContentType.DKK}
+			};
+			var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoice));
+			Expect(ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceType.TaxCurrencyCode")), Is.False);
 		}
 	}
 }

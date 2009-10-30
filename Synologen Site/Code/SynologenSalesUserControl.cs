@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Spinit.Wpc.Synologen.Business.Interfaces;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 	public class SynologenSalesUserControl : SynologenUserControl {
@@ -46,7 +46,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 			return contractValidationRules.Exists(x => x.ControlToValidate.Equals(controlToValidate) && CustomOrderValidation.IsValidationRuleRequired(x))  ? "*" : String.Empty;
 		}
 
-		protected static int GetNewTemporaryIdForCart(List<OrderItemRow> cart) {
+		protected static int GetNewTemporaryIdForCart(List<OrderItem> cart) {
 			if (cart == null || cart.Count == 0) return 1;
 			var tempId = 0;
 			foreach (var itemRow in cart){
@@ -55,7 +55,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 			return tempId+1;
 		}
 
-		protected static float GetTotalCartPrice(IEnumerable<OrderItemRow> cart) {
+		protected static float GetTotalCartPrice(IEnumerable<OrderItem> cart) {
 			float returnValue = 0;
 			foreach(var order in cart) {
 				returnValue += order.DisplayTotalPrice;

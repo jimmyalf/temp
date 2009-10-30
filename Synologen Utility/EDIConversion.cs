@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Business.Interfaces;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.EDI.Common.Types;
 using Spinit.Wpc.Synologen.EDI.Types;
 
@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return supplier;
 		}
 
-		private static Buyer GetBuyerInformation(string buyerId, CompanyRow company) {
+		private static Buyer GetBuyerInformation(string buyerId, Company company) {
 			var buyer = new Buyer {                	
 				BuyerIdentity = buyerId,
                 InvoiceIdentity = company.BankCode,
@@ -54,7 +54,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return eDIitem;
 		}
 
-		//public static List<string> GetOrderBuyerInformation(OrderRow order) {
+		//public static List<string> GetOrderBuyerInformation(Order order) {
 		//    var listOfStrings = new List<string>();
 		//    if (!String.HasNotBeenSet(order.CustomerFirstName) && !String.HasNotBeenSet(order.CustomerLastName)){
 		//        listOfStrings.Add(String.Format("Beställare Namn, {0} {1}", order.CustomerFirstName, order.CustomerLastName));
@@ -78,7 +78,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 		//    return EDIArticles;
 		//}
 
-		public static List<InvoiceRow> ToEDIArticles(IList<IOrderItem> orderItems, OrderRow order, CompanyRow company) {
+		public static List<InvoiceRow> ToEDIArticles(IList<IOrderItem> orderItems, Order order, Company company) {
 			var EDIArticles = new List<InvoiceRow>();
 			var articleCounter = 1;
 			var freeTextRows = CommonConversion.GetFreeTextRows(company, order);

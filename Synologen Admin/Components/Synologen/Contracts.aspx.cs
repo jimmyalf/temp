@@ -2,7 +2,7 @@ using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Utility.Business.SmartMenu;
@@ -117,7 +117,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 					DisplayMessage("Avtalet kan inte raderas då det finns kopplade ordrar.", true);
 					return;
 				}
-				var contractToDelete = new ContractRow {Id = id};
+				var contractToDelete = new Contract {Id = id};
 				Provider.AddUpdateDeleteContract(Enumerations.Action.Delete, ref contractToDelete);
 			}
 
@@ -162,7 +162,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				DisplayMessage("Avtalet kan inte raderas då det finns kopplade ordrar.", true);
 				return;
 			}
-			var contractToDelete = new ContractRow {Id = id};
+			var contractToDelete = new Contract {Id = id};
 			Provider.AddUpdateDeleteContract(Enumerations.Action.Delete, ref contractToDelete);
 			PopulateContractCustomers();
 		}

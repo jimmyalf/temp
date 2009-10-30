@@ -42,6 +42,10 @@
 					<asp:RequiredFieldValidator id="reqSPCSAccountNumber" runat="server" errormessage="SPCS Kontonummer saknas." controltovalidate="txtSPCSAccountNumber" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>		            
 		        </div>
 		        <div class="formItem clearLeft">
+		            <label class="labelLong">Tillåt manuell prissättning</label>
+		            <asp:CheckBox runat="server" ID="chkEnableManualPriceOverrice"/>
+		        </div>			        
+		        <div class="formItem clearLeft">
 		            <label class="labelLong">Aktiv</label>
 		            <asp:CheckBox runat="server" ID="chkActive"/>
 		        </div>		        	        
@@ -68,6 +72,12 @@
 							<asp:Image id="imgVATFree" runat="server" />
 						</ItemTemplate>
 					</asp:TemplateField>
+					<asp:TemplateField headertext="Manuellt pris" SortExpression="cEnableManualPriceOverride"  HeaderStyle-CssClass="controlColumn" >
+						<ItemStyle CssClass="center" />
+						<ItemTemplate>
+							<asp:Image id="imgPriceoverrideEnabled" runat="server" />
+						</ItemTemplate>
+					</asp:TemplateField>					
 					<asp:TemplateField headertext="Aktiv" SortExpression="cActive"  HeaderStyle-CssClass="controlColumn" >
 						<ItemStyle CssClass="center" />
 						<ItemTemplate>

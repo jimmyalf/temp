@@ -6,8 +6,8 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Business.Interfaces;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Utility;
@@ -106,8 +106,8 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 			var orderItems = GetMockOrderItems();
 			return Utility.Convert.ToSvefakturaInvoice(settings, order, orderItems, company, shop);
 		}
-		public ShopRow GetMockShop() {
-			return new ShopRow {
+		public Shop GetMockShop() {
+			return new Shop {
 			                   	ContactFirstName = "Adam",
 			                   	ContactLastName = "Bertil",
 			                   	Phone = "0811122233",
@@ -115,8 +115,8 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 			                   	Email ="sales@modernaprodukter.se"
 			                   };
 		}
-		public CompanyRow GetMockCompany() {
-			return new CompanyRow {
+		public Company GetMockCompany() {
+			return new Company {
 			                      	InvoiceFreeTextFormat = 
 										 "Kundens namn: {CustomerName}\r\n"
  										+"Kundens förnamn: {CustomerFirstName}\r\n"
@@ -133,7 +133,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 									PostBox = "Box 123",
 			                      	Zip = "11000",
 			                      	PaymentDuePeriod = 30,
-                                    Country = new CountryRow{OrganizationCountryCode = CountryIdentificationCodeContentType.SE},
+                                    Country = new Country{OrganizationCountryCode = CountryIdentificationCodeContentType.SE},
                                     BankCode = "99998",
                                     OrganizationNumber = "555123456",
                                     TaxAccountingCode = "SE555123456",
@@ -166,8 +166,8 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
                                                         SellingOrganizationTelephone = "0123-567890"
 			                                        };
 		}
-		public OrderRow GetMockOrder() {
-			return new OrderRow {
+		public Order GetMockOrder() {
+			return new Order {
 			                    	InvoiceNumber = 15,
 			                    	CustomerFirstName = "Pelle",
 			                    	CustomerLastName = "Svensson",
@@ -184,7 +184,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 		}
 		public List<IOrderItem> GetMockOrderItems() {
 			return new List<IOrderItem> {
-			                            	new OrderItemRow {
+			                            	new OrderItem {
 			                            	                 	ArticleDisplayName = "Falu rödfärg",
 			                            	                 	NumberOfItems = 120,
 			                            	                 	DisplayTotalPrice = 4980,
@@ -193,7 +193,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 			                            	                 	Notes = "Fritext på fakturaraden",
 			                            	                 	ArticleDisplayNumber = "12345"
 			                            	                 },
-			                            	new OrderItemRow {
+			                            	new OrderItem {
 			                            	                 	ArticleDisplayName = "Pensel 20 mm",
 			                            	                 	NumberOfItems = 10,
 			                            	                 	DisplayTotalPrice = 500,

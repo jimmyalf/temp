@@ -1,8 +1,8 @@
 using System;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 
@@ -10,9 +10,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 	public partial class ContractCompanies : SynologenPage {
 		private int _contractId = -1;
 		//private int _pageSize = -1;
-		private ContractRow _selectedContract = new ContractRow();
+		private Contract _selectedContract = new Contract();
 
-		public ContractRow SelectedContract {
+		public Contract SelectedContract {
 			get { return _selectedContract; }
 		}
 
@@ -60,7 +60,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			//private void SetupForEdit() {
 			//    ltHeading.Text = "Redigera avtalsföretag";
 			//    btnSave.Text = "Ändra";
-			//    CompanyRow company = Provider.GetCompanyRow(_contractId);
+			//    Company company = Provider.GetCompanyRow(_contractId);
 			//    txtName.Text = company.Name;
 			//    txtAddress.Text = company.PostBox;
 			//    txtAddress2.Text = company.StreetName;
@@ -168,7 +168,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				//    DisplayMessage("Företaget kan inte raderas då det finns kopplade RST.", true);
 				//    return;
 				//}
-				CompanyRow company = new CompanyRow();
+				Company company = new Company();
 				company.Id = companyId;
 				Provider.AddUpdateDeleteCompany(Enumerations.Action.Delete, ref company);
 				Response.Redirect(ComponentPages.ContractCompanies);

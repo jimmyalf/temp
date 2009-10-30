@@ -1,13 +1,13 @@
 using System;
 using System.Data;
 using Spinit.Wpc.Synologen.Business;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 	public partial class ViewSettlement : SynologenUserControl {
 		private int _settlementId;
-		private SettlementRow settlementRow;
+		private Settlement _settlement;
 		private bool _allOrdersMarkedAsPayed;
 		private float _totalValueExcludingVAT;
 		private float _totalValueIncludingVAT;
@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		}
 
 		private void PopulateSettlement() {
-			settlementRow = _settlementId > 0 ? Provider.GetSettlement(_settlementId) : new SettlementRow();
+			_settlement = _settlementId > 0 ? Provider.GetSettlement(_settlementId) : new Settlement();
 		}
 
 		private void ReadQueryParameters() {
@@ -82,14 +82,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			Provider.MarkOrdersInSettlementAsPayedPerShop(_settlementId, MemberShopId);
 		}
 
-		public SettlementRow Settlement {
-			get { return settlementRow; }
+		public Settlement Settlement {
+			get { return _settlement; }
 		}
 
 		public string SettlementPeriodNumber {
 			get {
-				bool settlementHasDate = (settlementRow.CreatedDate != DateTime.MinValue);
-				return (settlementHasDate) ? Business.Utility.General.GetSettlementPeriodNumber(settlementRow.CreatedDate) : string.Empty;
+				bool settlementHasDate = (_settlement.CreatedDate != DateTime.MinValue);
+				return (settlementHasDate) ? Business.Utility.General.GetSettlementPeriodNumber(_settlement.CreatedDate) : string.Empty;
 			}
 		}
 

@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Business.Interfaces;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Utility.Types;
@@ -11,16 +11,16 @@ using Spinit.Wpc.Synologen.Utility.Types;
 namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 	[TestFixture]
 	public class TestSvefakturaCompleteParsing : AssertionHelper{
-		private OrderRow order;
+		private Order order;
 		private IList<IOrderItem> orderItems;
 		private SvefakturaConversionSettings settings;
-		private CompanyRow company;
-		private ShopRow shop;
+		private Company company;
+		private Shop shop;
 		private SFTIInvoiceType invoice;
 
 		[TestFixtureSetUp]
 		public void Setup(){
-			order = new OrderRow {
+			order = new Order {
 				CompanyId = 184,
 				CompanyUnit = "Avdelning 123",
 				CustomerFirstName = "Adam",
@@ -35,7 +35,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 				RstText = "Kostnadsställe ABC",
 			};
 			orderItems = new List<IOrderItem> {
-				new OrderItemRow {
+				new OrderItem {
 					ArticleDisplayName = "Artikelnamn 1",
 					ArticleDisplayNumber = "Artikelnr 12456",
 					DisplayTotalPrice = 123.5f,
@@ -44,7 +44,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 					NoVAT = false,
 					SinglePrice = 61.75f,
 				},
-				new OrderItemRow {
+				new OrderItem {
 					ArticleDisplayName = "Artikelnamn 2",
 					ArticleDisplayNumber = "Artikelnr 9854",
 					DisplayTotalPrice = 66f,
@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 					NoVAT = true,
 					SinglePrice = 22f,
 				},
-				new OrderItemRow {
+				new OrderItem {
 					ArticleDisplayName = "Artikelnamn 3",
 					ArticleDisplayNumber = "Artikelnr 1654",
 					DisplayTotalPrice = 199.5f,
@@ -88,13 +88,13 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 				TaxAccountingCode = "SE556401196201",
 				VATAmount = 0.25m,
 			};
-			company = new CompanyRow {
+			company = new Company {
 				StreetName = "Gatuadress 1",
 				PostBox = "Postbox 123",
 				BankCode = "99998",
 				City = "Järfälla",
 				Zip = "17588",
-				Country = new CountryRow {Id = 1, Name = "Sverige", OrganizationCountryCode = CountryIdentificationCodeContentType.SE},
+				Country = new Country {Id = 1, Name = "Sverige", OrganizationCountryCode = CountryIdentificationCodeContentType.SE},
 				InvoiceCompanyName = "5440Saab AB",
 				InvoiceFreeTextFormat = "{CustomerName}{CustomerPersonalIdNumber}{CompanyUnit}{CustomerPersonalBirthDateString}{CustomerFirstName}{CustomerLastName}{BuyerCompanyId}{RST}{BankCode}",
 				//Name = "Saab",
@@ -102,7 +102,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 				TaxAccountingCode = "SE556036079301",
 				PaymentDuePeriod = 30,
 			};
-			shop = new ShopRow {
+			shop = new Shop {
 				ContactFirstName = "Anders",
 				ContactLastName = "Andersson",
 				Phone = "031-987654",
@@ -112,7 +112,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 			invoice = Utility.Convert.ToSvefakturaInvoice(settings, order, orderItems, company, shop);
 		}
 
-		#region OrderRow
+		#region Order
 		[Test]
 		public void Test_Sets_OrderRow_CompanyId(){
 			Expect(invoice.Note.Value.Substring(54,3), Is.EqualTo("184"));

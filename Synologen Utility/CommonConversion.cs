@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 
 namespace Spinit.Wpc.Synologen.Utility {
 	public class CommonConversion {
-		public static IList<string> GetFreeTextRows(CompanyRow company, OrderRow order) {
+		public static IList<string> GetFreeTextRows(Company company, Order order) {
 			if (String.IsNullOrEmpty(company.InvoiceFreeTextFormat)) return new List<string>();
 			var parsedInvoiceFreeText = ParseInvoiceFreeTeext(company.InvoiceFreeTextFormat, order, company);
 			return parsedInvoiceFreeText.Trim().Split(new[] {'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries);
 		}
-		public static string GetFreeTextRowsAsString(CompanyRow company, OrderRow order) {
+		public static string GetFreeTextRowsAsString(Company company, Order order) {
 			return String.IsNullOrEmpty(company.InvoiceFreeTextFormat) ? null : ParseInvoiceFreeTeext(company.InvoiceFreeTextFormat, order, company);
 		}
 
-		public static string ParseInvoiceFreeTeext(string invoiceFreeTextFormat, OrderRow order, CompanyRow company) {
+		public static string ParseInvoiceFreeTeext(string invoiceFreeTextFormat, Order order, Company company) {
 			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{CustomerName}", order.CustomerCombinedName ?? String.Empty);
 			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{CustomerPersonalIdNumber}", order.PersonalIdNumber ?? String.Empty);
 			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{CompanyUnit}", order.CompanyUnit ?? String.Empty);

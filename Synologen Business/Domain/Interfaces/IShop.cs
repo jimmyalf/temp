@@ -1,4 +1,4 @@
-﻿namespace Spinit.Wpc.Synologen.Business.Interfaces {
+﻿namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 	public interface IShop{
 		int ShopId { get; set; }
 		string Name { get; set; }

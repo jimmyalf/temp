@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 	public static class SynologenSessionContext {
@@ -42,17 +42,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 			set { Business.Utility.Session.SetSessionValue(NAME + "SecurityIsValidUntil", value); }
 		}
 
-		public static List<OrderItemRow> OrderItemsInCart {
+		public static List<OrderItem> OrderItemsInCart {
 			get { 
-				try {return (List<OrderItemRow>) Business.Utility.Session.GetSessionValue(NAME + "OrderItemsInCart");}
-				catch{return new List<OrderItemRow>();}
+				try {return (List<OrderItem>) Business.Utility.Session.GetSessionValue(NAME + "OrderItemsInCart");}
+				catch{return new List<OrderItem>();}
 			}
 			set { Business.Utility.Session.SetSessionValue(NAME + "OrderItemsInCart", value); }
 		}
-		public static List<OrderItemRow> EditOrderItemsInCart{
+		public static List<OrderItem> EditOrderItemsInCart{
 			get {
-				try{return (List<OrderItemRow>)Business.Utility.Session.GetSessionValue(NAME + "EditOrderItemsInCart");}
-				catch { return new List<OrderItemRow>(); }
+				try{return (List<OrderItem>)Business.Utility.Session.GetSessionValue(NAME + "EditOrderItemsInCart");}
+				catch { return new List<OrderItem>(); }
 			}
 			set { Business.Utility.Session.SetSessionValue(NAME + "EditOrderItemsInCart", value); }
 		}

@@ -1,5 +1,5 @@
 using System;
-using Spinit.Wpc.Synologen.Business.Interfaces;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Visma.Utility {
 	public static class Formatting {

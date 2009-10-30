@@ -4,7 +4,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
 using Spinit.Wpc.Member.Data;
-using Spinit.Wpc.Synologen.Business.Enumeration;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Code;
 
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {

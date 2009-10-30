@@ -1,22 +1,22 @@
 using System;
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Business.Interfaces;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Visma.Types;
 
 namespace Spinit.Wpc.Synologen.Test.Mock {
 	public static class Utility {
 
-		#region ShopData/IShop/ShopRow
+		#region ShopData/IShop/Shop
 		public static ShopData GetMockShopData() {
 			return new ShopData(GetMockIShop());
 		}
 		public static IShop GetMockIShop() {
 			return GetMockShopRow();
 		}
-		public static ShopRow GetMockShopRow() {
-			return new ShopRow {
+		public static Shop GetMockShopRow() {
+			return new Shop {
 			                   	Active = true,
 			                   	Address = String.Empty,
 			                   	Address2 = "Gustav Adolfstorg 51",
@@ -39,15 +39,15 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		}
 		#endregion
 
-		#region OrderItemData/IOrderItem/OrderItemRow
+		#region OrderItemData/IOrderItem/OrderItem
 		private static OrderItemData GetMockOrderItem(int orderId) {
 			return new OrderItemData(GetMockIOrderItem(orderId, orderId + 1));
 		}
 		private static IOrderItem GetMockIOrderItem(int orderId, int orderItemId) {
 			return GetMockOrderItemRow(orderId, orderItemId);
 		}
-		public static OrderItemRow GetMockOrderItemRow(int orderId,int orderItemId) {
-			return new OrderItemRow {
+		public static OrderItem GetMockOrderItemRow(int orderId,int orderItemId) {
+			return new OrderItem {
 			                        	ArticleDisplayName = "Synundersökning",
 			                        	ArticleDisplayNumber = "3210",
 			                        	ArticleId = 1,
@@ -62,15 +62,15 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		}
 		#endregion
 
-		#region ContractCompanyData/ICompany/CompanyRow
+		#region ContractCompanyData/ICompany/Company
 		public static ContractCompanyData GetMockCompany() {
 			return new ContractCompanyData(GetMockICompany());
 		}
 		private static ICompany GetMockICompany() {
 			return GetMockCompanyRow();
 		}
-		public static CompanyRow GetMockCompanyRow() {
-			return new CompanyRow {
+		public static Company GetMockCompanyRow() {
+			return new Company {
 				PostBox = "Swedbank",
 				StreetName = "Fakturagruppen RST",
 				BankCode = "8999",
@@ -91,7 +91,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		}
 		#endregion
 
-		#region OrderData/IOrder/OrderRow
+		#region OrderData/IOrder/Order
 		public static OrderData GetMockOrderData(int orderId) {
 			return new OrderData(GetMockIOrder(orderId)) {
 			                                             	ContractCompany = GetMockCompany(),
@@ -99,8 +99,8 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 			                                             	SellingShop = GetMockShopData(),
 			                                             };
 		}
-		public static OrderRow GetMockOrderRow(int orderId) {
-			return new OrderRow {
+		public static Order GetMockOrderRow(int orderId) {
+			return new Order {
 			                    	CompanyId = 1,
 			                    	CompanyUnit = "Bygg & Inredning",
 			                    	CreatedDate = new DateTime(2009, 09, 23),
@@ -137,7 +137,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 
 		public static List<IOrderItem> GetMockOrderItems(int id) {
 			var list = new List<IOrderItem> {
-				new OrderItemRow {
+				new OrderItem {
      					ArticleDisplayName = "Synundersökning (momsbefriad)",
 						ArticleDisplayNumber = "1000",
      					NumberOfItems = 1,
@@ -145,21 +145,21 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
      					OrderId = id,
      					NoVAT = true
 				},
-				new OrderItemRow {
+				new OrderItem {
      					ArticleDisplayName = "Företagsbåge",
 						ArticleDisplayNumber = "2000",
      					NumberOfItems = 1,
      					SinglePrice = 400,
      					OrderId = id
 				},
-				new OrderItemRow {
+				new OrderItem {
      					ArticleDisplayName = "G närprogressiva plast (standard)",
 						ArticleDisplayNumber = "3110",
      					NumberOfItems = 2,
      					SinglePrice = 220,
      					OrderId = id
 				},
-				new OrderItemRow {
+				new OrderItem {
      					ArticleDisplayName = "Superantireflex plast inkl. hårdyta",
 						ArticleDisplayNumber = "3412",
      					NumberOfItems = 2,

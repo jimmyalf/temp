@@ -1,8 +1,8 @@
 using System;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 
@@ -99,7 +99,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			if (!IsInRole(MemberRoles.Roles.Create)) {
 				Response.Redirect(ComponentPages.NoAccess);
 			}
-			var company = new CompanyRow();
+			var company = new Company();
 			var action = Enumerations.Action.Create;
 			if (_companyId > 0) {
 				company = Provider.GetCompanyRow(_companyId);
@@ -131,7 +131,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			Response.Redirect(ComponentPages.ContractCompanies + "?id="+ company.ContractId);
 		}
 
-		private void ConnectDisconnectValidationRules(CompanyRow company) {
+		private void ConnectDisconnectValidationRules(Company company) {
 			foreach (ListItem listItem in chkValidationRules.Items){
 				int validationRuleId;
 				if(!Int32.TryParse(listItem.Value, out validationRuleId)) throw new ArgumentException("listItem");

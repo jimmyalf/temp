@@ -3,8 +3,8 @@ using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Utility.Business.SmartMenu;
@@ -166,7 +166,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 					DisplayMessage("Butiken kan inte raderas då det finns kopplade avtal.", true);
 					return;
 				}
-				ShopRow shopToDelete = new ShopRow();
+				Shop shopToDelete = new Shop();
 				shopToDelete.ShopId = id;
 				Provider.AddUpdateDeleteShop(Enumerations.Action.Delete, ref shopToDelete);
 			}
@@ -234,7 +234,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 			//TODO: Check For connected members before deleting
 			
-			ShopRow shopToDelete = new ShopRow();
+			Shop shopToDelete = new Shop();
 			shopToDelete.ShopId = id;
 			Provider.AddUpdateDeleteShop(Enumerations.Action.Delete, ref shopToDelete);
 

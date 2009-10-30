@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CityShopList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.CityShopList" %>
+<%@ Import Namespace="Spinit.Wpc.Synologen.Business.Domain.Entities"%>
 <asp:PlaceHolder ID="plShopFilter" runat="server">
 <div id="shop-content">
 <div id="shop-filter">
@@ -30,7 +31,7 @@
 <li><%# DataBinder.Eval(Container.DataItem, "Address2") %></li>
 <li><a href='mailto:<%# Eval("Email") %>'><%# Eval("Email") %></a></li>
 <asp:PlaceHolder ID="plEquipment" runat="server" Visible="false">
-<li>Vi erbjuder:&nbsp;<%#FormatEquipmentString(((Spinit.Wpc.Synologen.Data.Types.ShopRow)Container.DataItem).Equipment)%></li>
+<li>Vi erbjuder:&nbsp;<%#FormatEquipmentString(((Shop)Container.DataItem).Equipment)%></li>
 
 </asp:PlaceHolder>
 </ItemTemplate>

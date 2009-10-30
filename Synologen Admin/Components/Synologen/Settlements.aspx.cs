@@ -110,7 +110,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		//        Response.Redirect(ComponentPages.NoAccess);
 		//    }
 		//    else {
-		//        ContractArticleRow connection = new ContractArticleRow();
+		//        ContractArticleConnection connection = new ContractArticleConnection();
 		//        connection.Id = connectionId;
 		//        Provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Delete, ref connection);
 		//        Response.Redirect(ComponentPages.ContractArticles);

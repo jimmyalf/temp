@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-using Spinit.Wpc.Synologen.Business.Interfaces;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {
@@ -119,7 +119,7 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public OrderRow GetOrder(int orderId) {
+		public Order GetOrder(int orderId) {
 			DataSet orderDataSet = GetOrders(orderId, 0, 0, 0, 0, 0, 0, null);
 			DataRow orderDataRow = orderDataSet.Tables[0].Rows[0];
 			return ParseOrderRow(orderDataRow);
@@ -170,12 +170,12 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public void ChangeOrderStatus(int orderId, int newStatusId) {
-			OrderRow order = GetOrder(orderId);
+			Order order = GetOrder(orderId);
 			order.StatusId = newStatusId;
 			AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
 		}
 
-		public bool AddUpdateDeleteOrder(Enumerations.Action action, ref OrderRow order) {
+		public bool AddUpdateDeleteOrder(Enumerations.Action action, ref Order order) {
 			try {
 				int numAffected;
 				SqlParameter[] parameters = {
@@ -277,7 +277,7 @@ namespace Spinit.Wpc.Synologen.Data {
 			if (orderId<=0 || invoiceNumber<=0) {
 				return false;
 			}
-			OrderRow order = GetOrder(orderId);
+			Order order = GetOrder(orderId);
 			if (order.InvoiceNumber > 0) throw new Exception("SqlProvider.SetOrderInvoiceNumber: Order already has an Invoice number");
 			order.InvoiceNumber = invoiceNumber;
 			order.StatusId = newOrderStatusId;
@@ -288,16 +288,16 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		//public bool SetOrderStatus(long invoiceNumber, int newOrderStatusId) {
 		//    if (invoiceNumber <= 0) { return false;}
-		//    OrderRow order = GetOrder(orderId);
+		//    Order order = GetOrder(orderId);
 		//    if (order.InvoiceNumber > 0) throw new Exception("SqlProvider.SetOrderInvoiceNumber: Order already has an Invoice number");
 		//    order.InvoiceNumber = invoiceNumber;
 		//    order.StatusId = newOrderStatusId;
 		//    return AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
 		//}
 
-		private static OrderRow ParseOrderRow(DataRow orderDataRow) {
+		private static Order ParseOrderRow(DataRow orderDataRow) {
 			try {
-				var orderRow = new OrderRow {Id = Util.CheckNullInt(orderDataRow, "cId"), RstText = Util.CheckNullString(orderDataRow, "cRstText"), StatusId = Util.CheckNullInt(orderDataRow, "cStatusId"), CompanyId = Util.CheckNullInt(orderDataRow, "cCompanyId"), SalesPersonMemberId = Util.CheckNullInt(orderDataRow, "cSalesPersonMemberId"), SalesPersonShopId = Util.CheckNullInt(orderDataRow, "cSalesPersonShopId"), CompanyUnit = Util.CheckNullString(orderDataRow, "cCompanyUnit"), CustomerFirstName = Util.CheckNullString(orderDataRow, "cCustomerFirstName"), CustomerLastName = Util.CheckNullString(orderDataRow, "cCustomerLastName"), PersonalIdNumber = Util.CheckNullString(orderDataRow, "cPersonalIdNumber"), Email = Util.CheckNullString(orderDataRow, "cEmail"), Phone = Util.CheckNullString(orderDataRow, "cPhone")};
+				var orderRow = new Order {Id = Util.CheckNullInt(orderDataRow, "cId"), RstText = Util.CheckNullString(orderDataRow, "cRstText"), StatusId = Util.CheckNullInt(orderDataRow, "cStatusId"), CompanyId = Util.CheckNullInt(orderDataRow, "cCompanyId"), SalesPersonMemberId = Util.CheckNullInt(orderDataRow, "cSalesPersonMemberId"), SalesPersonShopId = Util.CheckNullInt(orderDataRow, "cSalesPersonShopId"), CompanyUnit = Util.CheckNullString(orderDataRow, "cCompanyUnit"), CustomerFirstName = Util.CheckNullString(orderDataRow, "cCustomerFirstName"), CustomerLastName = Util.CheckNullString(orderDataRow, "cCustomerLastName"), PersonalIdNumber = Util.CheckNullString(orderDataRow, "cPersonalIdNumber"), Email = Util.CheckNullString(orderDataRow, "cEmail"), Phone = Util.CheckNullString(orderDataRow, "cPhone")};
 				//orderRow.RSTId = Util.CheckNullInt(orderDataRow, "cRstId");
 				if (!String.IsNullOrEmpty(orderDataRow["cInvoiceNumber"].ToString())){
 					orderRow.InvoiceNumber = long.Parse(orderDataRow["cInvoiceNumber"].ToString());
@@ -321,7 +321,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				return orderRow;
 			}
 			catch (Exception ex) {
-				throw new Exception("Exception found while parsing a OrderRow object: " + ex.Message);
+				throw new Exception("Exception found while parsing a Order object: " + ex.Message);
 			}
 		}
 	}

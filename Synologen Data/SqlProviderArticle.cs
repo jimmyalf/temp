@@ -2,30 +2,26 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {
 
-		public ArticleRow GetArticle(int articleId) {
+		public Article GetArticle(int articleId) {
 			try {
-				DataSet articleDataSet = GetArticles(articleId,0,"cId");
-				DataRow articleDataRow = articleDataSet.Tables[0].Rows[0];
-				ArticleRow articleRow = new ArticleRow();
-				articleRow.Id = Util.CheckNullInt(articleDataRow, "cId");
-				articleRow.Description = Util.CheckNullString(articleDataRow, "cDescription");
-				articleRow.Name = Util.CheckNullString(articleDataRow, "cName");
-				articleRow.Number = Util.CheckNullString(articleDataRow, "cArticleNumber");
-				return articleRow;
+				var articleDataSet = GetArticles(articleId,0,"cId");
+				var articleDataRow = articleDataSet.Tables[0].Rows[0];
+				var article = new Article {Id = Util.CheckNullInt(articleDataRow, "cId"), Description = Util.CheckNullString(articleDataRow, "cDescription"), Name = Util.CheckNullString(articleDataRow, "cName"), Number = Util.CheckNullString(articleDataRow, "cArticleNumber")};
+				return article;
 			}
 			catch (Exception ex) {
-				throw new Exception("Exception while parsing a ArticleRow object: " + ex.Message);
+				throw new Exception("Exception while parsing a Article object: " + ex.Message);
 			}
 		}
 
 		public DataSet GetArticles(int articleId,int contractId, string orderBy) {
 			try {
-				int counter = 0;
+				var counter = 0;
 				SqlParameter[] parameters = {
 						new SqlParameter ("@articleId", SqlDbType.Int, 4),
 						new SqlParameter ("@contractCustomerId", SqlDbType.Int, 4),
@@ -36,11 +32,11 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = contractId;
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
 				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetArticles", parameters, "tblSynologenArticles");
+				var retSet = RunProcedure("spSynologenGetArticles", parameters, "tblSynologenArticles");
 				return retSet;
 			}
 			catch (SqlException e) {
-				throw new GeneralData.DatabaseInterface.DataException("SqlException: " + e);
+				throw new GeneralData.DatabaseInterface.DataException("SqlException while getting articles.", e);
 			}
 		}
 
@@ -52,9 +48,9 @@ namespace Spinit.Wpc.Synologen.Data {
 			return GetArticles(0, contractCustomerId, orderBy);
 		}
 
-		public bool AddUpdateDeleteArticle(Enumerations.Action action, ref ArticleRow article) {
+		public bool AddUpdateDeleteArticle(Enumerations.Action action, ref Article article) {
 			try {
-				int numAffected = 0;
+				int numAffected;
 				SqlParameter[] parameters = {
             		new SqlParameter("@type", SqlDbType.Int, 4),
             		new SqlParameter("@number", SqlDbType.NVarChar, 50),
@@ -65,7 +61,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				};
 
 
-				int counter = 0;
+				var counter = 0;
 				parameters[counter++].Value = (int)action;
 				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
 					parameters[counter++].Value = article.Number ?? SqlString.Null;
@@ -89,17 +85,17 @@ namespace Spinit.Wpc.Synologen.Data {
 				throw new GeneralData.DatabaseInterface.DataException("Insert failed. Error: " + (int)parameters[parameters.Length - 2].Value, (int)parameters[parameters.Length - 2].Value);
 			}
 			catch (SqlException e) {
-				throw new GeneralData.DatabaseInterface.DataException("SqlException: " + e);
+				throw new GeneralData.DatabaseInterface.DataException("SqlException while Add/Update/Delete Article.", e);
 			}
 		}
 
 		public bool ArticleHasConnectedContracts(int articleId) {
-			DataSet articleDataSet = GetArticles(articleId, 0, null);
+			var articleDataSet = GetArticles(articleId, 0, null);
 			return DataSetHasRows(articleDataSet);
 		}
 
 		public bool ArticleHasConnectedOrders(int articleId) {
-			DataSet orderItemsDataSet = GetOrderItems(0, articleId, null);
+			var orderItemsDataSet = GetOrderItems(0, articleId, null);
 			return DataSetHasRows(orderItemsDataSet);
 			
 		}

@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data{
@@ -24,8 +24,8 @@ namespace Spinit.Wpc.Synologen.Data{
 				throw new GeneralData.DatabaseInterface.DataException("SqlException: " + e);
 			}
 		}
-		private static ConcernRow ParseConcernRow(DataRow dataRow){
-			var concernRow = new ConcernRow
+		private static Concern ParseConcernRow(DataRow dataRow){
+			var concernRow = new Concern
 			{
 				Id = Util.CheckNullInt(dataRow, "cId"),
 				Name = Util.CheckNullString(dataRow, "cName"),
@@ -33,14 +33,14 @@ namespace Spinit.Wpc.Synologen.Data{
 			};
 			return concernRow;
 		}
-		public ConcernRow GetConcern(int concernId) {
+		public Concern GetConcern(int concernId) {
 			try {
 				var shopDataSet = GetConcernDataSet(concernId,"cId");
 				var shopDataRow = shopDataSet.Tables[0].Rows[0];
 				return ParseConcernRow(shopDataRow);
 			}
 			catch (Exception ex) {
-				throw new Exception("Exception found while parsing a ConcernRow object.", ex);
+				throw new Exception("Exception found while parsing a Concern object.", ex);
 			}
 		}
 	}

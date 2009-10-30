@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Business.Interfaces;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {
 
-		public bool AddUpdateDeleteCompany(Enumerations.Action action, ref CompanyRow company) {
+		public bool AddUpdateDeleteCompany(Enumerations.Action action, ref Company company) {
 			try {
-				int numAffected = 0;
+				int numAffected;
 				SqlParameter[] parameters = {
 		            new SqlParameter("@type", SqlDbType.Int, 4),
 					new SqlParameter("@contractId", SqlDbType.Int, 4),
@@ -36,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		            new SqlParameter("@id", SqlDbType.Int, 4)
 		        };
 
-				int counter = 0;
+				var counter = 0;
 				parameters[counter++].Value = (int)action;
 				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
 					parameters[counter++].Value = company.ContractId;
@@ -56,7 +56,6 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = company.InvoicingMethodId;
 					parameters[counter++].Value = GetNullableSqlType(company.InvoiceFreeTextFormat);
 					parameters[counter++].Value = GetNullableSqlType(company.Country.Id);
-
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
 				if (action == Enumerations.Action.Create) {
@@ -74,19 +73,19 @@ namespace Spinit.Wpc.Synologen.Data {
 				throw new GeneralData.DatabaseInterface.DataException("Insert failed. Error: " + (int)parameters[parameters.Length - 2].Value, (int)parameters[parameters.Length - 2].Value);
 			}
 			catch (SqlException e) {
-				throw new GeneralData.DatabaseInterface.DataException("SqlException: " + e);
+				throw new GeneralData.DatabaseInterface.DataException("SqlException while adding/updating/deleting Company.", e);
 			}
 		}
 
-		public CompanyRow GetCompanyRow(int companyId) {
+		public Company GetCompanyRow(int companyId) {
 			var contractCompanyDataSet = GetCompanies(companyId, 0, null, ActiveFilter.Both);
 			var contractCompanyDataRow = contractCompanyDataSet.Tables[0].Rows[0];
 			return ParseCompanyRow(contractCompanyDataRow);
 		}
 
-		private CompanyRow ParseCompanyRow(DataRow dataRow) {
+		private Company ParseCompanyRow(DataRow dataRow) {
 			try {
-				var companyRow = new CompanyRow {
+				var companyRow = new Company {
 					PostBox = Util.CheckNullString(dataRow, "cAddress1"), 
 					StreetName = Util.CheckNullString(dataRow, "cAddress2"), 
 					City = Util.CheckNullString(dataRow, "cCity"), 
@@ -110,13 +109,13 @@ namespace Spinit.Wpc.Synologen.Data {
 				return companyRow;
 			}
 			catch (Exception ex) {
-				throw new Exception("Exception found while parsing a CompanyRow object: " + ex.Message);
+				throw new Exception("Exception found while parsing a Company object: " + ex.Message);
 			}
 		}
 
 		public DataSet GetCompanies(int companyId, int contractId, string orderBy, ActiveFilter activeFilter) {
 			try {
-				int counter = 0;
+				var counter = 0;
 				SqlParameter[] parameters = {
 					new SqlParameter ("@activeType", SqlDbType.Int, 4),
 					new SqlParameter ("@companyId", SqlDbType.Int, 4),
@@ -129,7 +128,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = contractId;
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
 				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetContractCompanies", parameters, "tblSynologenContractCompany");
+				var retSet = RunProcedure("spSynologenGetContractCompanies", parameters, "tblSynologenContractCompany");
 				return retSet;
 			}
 			catch (SqlException e) {

@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-using Spinit.Wpc.Synologen.Business.Interfaces;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {
 
-		public bool AddUpdateDeleteOrderItem(Enumerations.Action action, ref OrderItemRow orderItem) {
+		public bool AddUpdateDeleteOrderItem(Enumerations.Action action, ref OrderItem orderItem) {
 			try {
 				int numAffected;
 				SqlParameter[] parameters = {
@@ -81,8 +81,8 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public List<OrderItemRow> GetOrderItemsList(int orderId, int articleId, string orderBy) {
-			List<OrderItemRow> returnList = new List<OrderItemRow>();
+		public List<OrderItem> GetOrderItemsList(int orderId, int articleId, string orderBy) {
+			List<OrderItem> returnList = new List<OrderItem>();
 			DataSet orderItems = GetOrderItems(orderId, articleId,orderBy);
 			if (orderItems == null || orderItems.Tables[0] == null) return returnList;
 			foreach (DataRow row in orderItems.Tables[0].Rows) {
@@ -101,8 +101,8 @@ namespace Spinit.Wpc.Synologen.Data {
 			return returnList;
 		}
 		
-		private OrderItemRow ParseOrderItemRow(DataRow row) {
-			OrderItemRow returnItem = new OrderItemRow();
+		private OrderItem ParseOrderItemRow(DataRow row) {
+			OrderItem returnItem = new OrderItem();
 			returnItem.Id = Util.CheckNullInt(row, "cId");
 			returnItem.Notes = Util.CheckNullString(row, "cNotes");
 			returnItem.NumberOfItems = Util.CheckNullInt(row, "cNumberOfItems");
@@ -111,7 +111,7 @@ namespace Spinit.Wpc.Synologen.Data {
 			returnItem.DisplayTotalPrice = returnItem.SinglePrice * returnItem.NumberOfItems;
 			returnItem.ArticleId = Util.CheckNullInt(row, "cArticleId");
 			returnItem.NoVAT = (bool)row["cNoVAT"];
-			ArticleRow article = GetArticle(returnItem.ArticleId);
+			Article article = GetArticle(returnItem.ArticleId);
 			returnItem.ArticleDisplayName = article.Name;
 			returnItem.ArticleDisplayNumber = article.Number;
 			returnItem.SPCSAccountNumber = Util.CheckNullString(row, "cSPCSAccountNumber");

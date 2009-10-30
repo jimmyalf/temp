@@ -4,14 +4,14 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {
 
-		public bool AddUpdateDeleteShop(Enumerations.Action action, ref ShopRow shop) {
+		public bool AddUpdateDeleteShop(Enumerations.Action action, ref Shop shop) {
 			try {
 				int numAffected = 0;
 				SqlParameter[] parameters = {
@@ -117,19 +117,19 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		}
 
-		public ShopRow GetShop(int shopId) {
+		public Shop GetShop(int shopId) {
 			try {
 				var shopDataSet = GetShops(shopId, null, null, null, null, null, null, "cId");
 				var shopDataRow = shopDataSet.Tables[0].Rows[0];
 				return ParseShopRow(shopDataRow);
 			}
 			catch (Exception ex) {
-				throw new Exception("Exception found while parsing a ShopRow object.", ex);
+				throw new Exception("Exception found while parsing a Shop object.", ex);
 			}
 		}
 
-		public ShopRow ParseShopRow(DataRow shopDataRow) {
-			var shopRow = new ShopRow();
+		public Shop ParseShopRow(DataRow shopDataRow) {
+			var shopRow = new Shop();
 			shopRow.ShopId = Util.CheckNullInt(shopDataRow, "cId");
 			shopRow.Active = (bool)shopDataRow["cActive"];
 			shopRow.Address = Util.CheckNullString(shopDataRow, "cAddress");
@@ -190,8 +190,8 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public IEnumerable<ShopRow> GetShopRows(int? shopId, int? shopCategoryId, int? contractCustomer,int? memberId, int? equipmentId, bool? includeInactive, int? concernId, string orderBy) {
-			var shopRows = new Collection<ShopRow>();
+		public IEnumerable<Shop> GetShopRows(int? shopId, int? shopCategoryId, int? contractCustomer,int? memberId, int? equipmentId, bool? includeInactive, int? concernId, string orderBy) {
+			var shopRows = new Collection<Shop>();
 			var dataSet = GetShops(shopId, shopCategoryId, contractCustomer, memberId, equipmentId, includeInactive,concernId, orderBy);
 			if(dataSet.Tables[0]==null) return shopRows;
 			foreach (DataRow dataRow in dataSet.Tables[0].Rows) {

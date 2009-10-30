@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-using Spinit.Wpc.Synologen.Business.Enumeration;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {
 
-		public bool AddUpdateDeleteShopCategory(Enumerations.Action action, ref ShopCategoryRow category) {
+		public bool AddUpdateDeleteShopCategory(Enumerations.Action action, ref ShopCategory category) {
 			try {
 				var numAffected = 0;
 				SqlParameter[] parameters = {
@@ -65,8 +65,8 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public ShopCategoryRow GetShopCategoryRow(int categoryId) {
-			var returnValue = new ShopCategoryRow();
+		public ShopCategory GetShopCategoryRow(int categoryId) {
+			var returnValue = new ShopCategory();
 			var dataSet = GetShopCategories(categoryId);
 			var dataRow = dataSet.Tables[0].Rows[0];
 			returnValue.Id = Util.CheckNullInt(dataRow, "cId");

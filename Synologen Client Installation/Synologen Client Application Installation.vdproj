@@ -15,37 +15,31 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_08A0BDF38E1B4DE292F610FE98D5DFEC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_54E1DFD695514C6CB2ABC586F4425816"
+        "MsmKey" = "8:_227C3E53233F4F3D24A0FC3CEB2B35A8"
+        "OwnerKey" = "8:_B34AC280F796D702DE13F202350A2ADC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_227C3E53233F4F3D24A0FC3CEB2B35A8"
+        "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6A3787F85F3F4104B0AF219DE5328155"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_63AA670703734DFA89E0A9E5A2F6F50D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_70B8A8FE000347B9B78FB8F76C6C2A94"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_77CC3EEF5430492FB92B1B52091DB0F8"
+        "MsmKey" = "8:_7C21CB1864414741BFAC06F11BDEA4D4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -53,6 +47,12 @@
         {
         "MsmKey" = "8:_80ACC18CFC56A064096E20EAC9204355"
         "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8B0980AAC5B74880AA2718AC2E486F7C"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -65,6 +65,24 @@
         {
         "MsmKey" = "8:_9D1F23AEB09CB2B2D1BFCA0494D6F1A5"
         "OwnerKey" = "8:_80ACC18CFC56A064096E20EAC9204355"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A43B814702D0CC5181295A464AB0B1A0"
+        "OwnerKey" = "8:_CBC20D0F3C15A79B79C4990C38BBD22C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A43B814702D0CC5181295A464AB0B1A0"
+        "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A43B814702D0CC5181295A464AB0B1A0"
+        "OwnerKey" = "8:_EC168B492D05A25595989FB1F7444436"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -93,6 +111,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C6DDE8D1F2F743DC9053F51DB4C2990E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_CBC20D0F3C15A79B79C4990C38BBD22C"
         "OwnerKey" = "8:_B34AC280F796D702DE13F202350A2ADC"
         "MsmSig" = "8:_UNDEFINED"
@@ -117,8 +141,32 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_EC168B492D05A25595989FB1F7444436"
+        "OwnerKey" = "8:_CBC20D0F3C15A79B79C4990C38BBD22C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EC168B492D05A25595989FB1F7444436"
+        "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F3F8CAC2ED0B4CD4AFDE9FE2539F5005"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F3F8CAC2ED0B4CD4AFDE9FE2539F5005"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -155,6 +203,24 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_CBC20D0F3C15A79B79C4990C38BBD22C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_EC168B492D05A25595989FB1F7444436"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A43B814702D0CC5181295A464AB0B1A0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_227C3E53233F4F3D24A0FC3CEB2B35A8"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -262,10 +328,41 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_08A0BDF38E1B4DE292F610FE98D5DFEC"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_227C3E53233F4F3D24A0FC3CEB2B35A8"
             {
-            "SourcePath" = "8:..\\Synologen Specific Files\\Synologen.Client.exe.config"
-            "TargetName" = "8:Synologen.Client.exe.config"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Synologen.Svefaktura, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_227C3E53233F4F3D24A0FC3CEB2B35A8"
+                    {
+                    "Name" = "8:Spinit.Wpc.Synologen.Svefaktura.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Spinit.Wpc.Synologen.Svefaktura.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6A3787F85F3F4104B0AF219DE5328155"
+            {
+            "SourcePath" = "8:..\\Dependancies\\Client Dependencies\\UninstallClient.txt"
+            "TargetName" = "8:UninstallClient.txt"
             "Tag" = "8:"
             "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
             "Condition" = "8:"
@@ -282,70 +379,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_54E1DFD695514C6CB2ABC586F4425816"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7C21CB1864414741BFAC06F11BDEA4D4"
             {
-            "SourcePath" = "8:..\\Synologen Specific Files\\UninstallClient.txt"
-            "TargetName" = "8:Avinstallera Klient.lnk"
-            "Tag" = "8:"
-            "Folder" = "8:_3C95A7BCA9EA43C8B0F21C72C6E6C8F6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_63AA670703734DFA89E0A9E5A2F6F50D"
-            {
-            "SourcePath" = "8:..\\Synologen Specific Files\\install-logo.jpg"
+            "SourcePath" = "8:..\\Dependancies\\Client Dependencies\\install-logo.jpg"
             "TargetName" = "8:install-logo.jpg"
-            "Tag" = "8:"
-            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_70B8A8FE000347B9B78FB8F76C6C2A94"
-            {
-            "SourcePath" = "8:..\\Synologen Specific Files\\Adk.dll"
-            "TargetName" = "8:Adk.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_77CC3EEF5430492FB92B1B52091DB0F8"
-            {
-            "SourcePath" = "8:..\\Synologen Specific Files\\UninstallClient.txt"
-            "TargetName" = "8:UninstallClient.lnk"
             "Tag" = "8:"
             "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
             "Condition" = "8:"
@@ -393,6 +430,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8B0980AAC5B74880AA2718AC2E486F7C"
+            {
+            "SourcePath" = "8:..\\Dependancies\\Client Dependencies\\Synologen.Client.exe.config"
+            "TargetName" = "8:Synologen.Client.exe.config"
+            "Tag" = "8:"
+            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9D1F23AEB09CB2B2D1BFCA0494D6F1A5"
             {
             "AssemblyRegister" = "3:1"
@@ -407,6 +464,37 @@
                     }
                 }
             "SourcePath" = "8:AdkNetWrapper.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A43B814702D0CC5181295A464AB0B1A0"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Utility.Core, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_A43B814702D0CC5181295A464AB0B1A0"
+                    {
+                    "Name" = "8:Spinit.Wpc.Utility.Core.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Spinit.Wpc.Utility.Core.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
@@ -486,11 +574,31 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C6DDE8D1F2F743DC9053F51DB4C2990E"
+            {
+            "SourcePath" = "8:..\\Dependancies\\Synologen ADK\\Adk.dll"
+            "TargetName" = "8:Adk.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CBC20D0F3C15A79B79C4990C38BBD22C"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Utility.Business, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Utility.Business, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_CBC20D0F3C15A79B79C4990C38BBD22C"
@@ -546,6 +654,68 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EC168B492D05A25595989FB1F7444436"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Utility.Data, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_EC168B492D05A25595989FB1F7444436"
+                    {
+                    "Name" = "8:Spinit.Wpc.Utility.Data.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Spinit.Wpc.Utility.Data.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F3F8CAC2ED0B4CD4AFDE9FE2539F5005"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AdkNetWrapper, Version=4.5.0.1, Culture=neutral, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_F3F8CAC2ED0B4CD4AFDE9FE2539F5005"
+                    {
+                    "Name" = "8:AdkNetWrapper.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\Dependancies\\Synologen ADK\\AdkNetWrapper.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -616,13 +786,13 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Synologen Klient"
         "ProductCode" = "8:{ED745165-70C3-4DE0-82A3-A393C2AAA44B}"
-        "PackageCode" = "8:{9DB01C12-EB60-49CA-8664-A3CA796C5207}"
+        "PackageCode" = "8:{385E9DBB-B352-4230-B664-987502A14EA8}"
         "UpgradeCode" = "8:{8DD6CE9F-3A0D-4D6F-8495-941224033B0D}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:Spinit AB"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -735,6 +905,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BDAF51F40BC74DC7B5654F62996E9051"
+            {
+            "Name" = "8:Avinstallera klient"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_6A3787F85F3F4104B0AF219DE5328155"
+            "Folder" = "8:_3C95A7BCA9EA43C8B0F21C72C6E6C8F6"
+            "WorkingFolder" = "8:_3C95A7BCA9EA43C8B0F21C72C6E6C8F6"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_DF55FEE559A842E1BC389F08FA78AB25"
             {
             "Name" = "8:Synologen Klient"
@@ -803,7 +987,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_63AA670703734DFA89E0A9E5A2F6F50D"
+                            "Value" = "8:_7C21CB1864414741BFAC06F11BDEA4D4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "UpdateText"
@@ -848,7 +1032,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_63AA670703734DFA89E0A9E5A2F6F50D"
+                            "Value" = "8:_7C21CB1864414741BFAC06F11BDEA4D4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "InstallAllUsersVisible"
@@ -884,7 +1068,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_63AA670703734DFA89E0A9E5A2F6F50D"
+                            "Value" = "8:_7C21CB1864414741BFAC06F11BDEA4D4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -907,7 +1091,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_63AA670703734DFA89E0A9E5A2F6F50D"
+                            "Value" = "8:_7C21CB1864414741BFAC06F11BDEA4D4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -965,7 +1149,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_63AA670703734DFA89E0A9E5A2F6F50D"
+                            "Value" = "8:_7C21CB1864414741BFAC06F11BDEA4D4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -1010,7 +1194,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_63AA670703734DFA89E0A9E5A2F6F50D"
+                            "Value" = "8:_7C21CB1864414741BFAC06F11BDEA4D4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -1033,7 +1217,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_63AA670703734DFA89E0A9E5A2F6F50D"
+                            "Value" = "8:_7C21CB1864414741BFAC06F11BDEA4D4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -1082,7 +1266,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_63AA670703734DFA89E0A9E5A2F6F50D"
+                            "Value" = "8:_7C21CB1864414741BFAC06F11BDEA4D4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -1114,7 +1298,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_63AA670703734DFA89E0A9E5A2F6F50D"
+                            "Value" = "8:_7C21CB1864414741BFAC06F11BDEA4D4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -1159,7 +1343,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_63AA670703734DFA89E0A9E5A2F6F50D"
+                            "Value" = "8:_7C21CB1864414741BFAC06F11BDEA4D4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }

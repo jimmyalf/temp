@@ -51,8 +51,8 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		bool AddUpdateDeleteOrderStatus(Wpc.Utility.Business.Enumerations.Action action, ref OrderStatus orderStatus);
 		bool OrderStatusHasConnectedOrders(int orderStatusId);
 		bool AddUpdateDeleteOrderItem(Wpc.Utility.Business.Enumerations.Action action, ref IOrderItem orderItem);
-		DataSet GetOrderItems(int orderId, int articleId, string orderBy);
-		IList<IOrderItem> GetOrderItemsList(int orderId, int articleId, string orderBy);
+		DataSet GetOrderItemsDataSet(int? orderId, int? articleId, string orderBy);
+		IList<IOrderItem> GetOrderItemsList(int? orderId, int? articleId, string orderBy);
 		DataSet GetOrdersByPage(int contractId, int statusId, int settlementId, DateTime intervalStart, DateTime intervalEnd, string searchString, string orderBy, int currentPage, int pageSize, ref int totalSize);
 		DataSet GetOrders(int orderId, int shopId, int contractId, int salesPersonMemberId, int companyId, long invoiceNumberId, int statusId, string orderBy);
 		Order GetOrder(int orderId);

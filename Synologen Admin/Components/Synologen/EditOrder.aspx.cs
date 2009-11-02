@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
-using Spinit.Wpc.Base.Data;
-using Spinit.Wpc.Member.Data;
-using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
@@ -16,15 +13,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 	public partial class EditOrder : SynologenPage {
 		private int _orderId;
 		private Order order;
-		private Company company;
-		//private readonly List<int> listOfEditableStatuses = Business.Globals.EditableOrderStatusList;
 
 		protected void Page_Load(object sender, EventArgs e) {
 
 			if (Request.Params["id"] != null) {
 				_orderId = Convert.ToInt32(Request.Params["id"]);
 				order = Provider.GetOrder(_orderId);
-				company = Provider.GetCompanyRow(order.CompanyId);
 			}
 
 			
@@ -35,7 +29,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			InitSessionContext();
 			PopulateStatus();
 			PopulateCompanies();
-			//PopulateRSTs();
 			PopulateOrder();
 			PopulateOrderItems();
 			PopulateOriginalOrderItems();
@@ -85,21 +78,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			txtEmail.Text = order.Email;
 			txtPhone.Text = order.Phone;
 			drpCompanies.SelectedValue = order.CompanyId.ToString();
-			//drpRSTs.SelectedValue = order.RSTId.ToString();
 			txtRST.Text = order.RstText;
 			drpStatus.SelectedValue = order.StatusId.ToString();
-			//MemberRow member = Provider.GetMember(order.SalesPersonMemberId, LocationId, LanguageId);
-			//MemberRow member = Provider.GetSynologenMember(order.SalesPersonMemberId, LocationId, LanguageId);
 			var user = Provider.GetUserRow(order.SalesPersonMemberId);
-			Shop shop = Provider.GetShop(order.SalesPersonShopId);
+			var shop = Provider.GetShop(order.SalesPersonShopId);
 			ltShopName.Text = shop.Name;
-			//ltmemberName.Text = member.ContactFirst + " " + member.ContactLast;
 			ltmemberName.Text = String.Concat(user.FirstName, " ", user.LastName);
 			ltSaleDate.Text = order.CreatedDate.ToShortDateString();
 			if (order.UpdateDate != DateTime.MinValue) {
 				ltUpdateDate.Text = order.UpdateDate.ToShortDateString();
 			}
-			ltContractName.Text = Provider.GetContract(company.ContractId).Name;
+			ltContractName.Text = Provider.GetContract(order.ContractCompany.ContractId).Name;
 			ltMarkedAsPayed.Text = order.MarkedAsPayedByShop ? "Ja" : "Nej";
 			ltOrderNumber.Text = order.Id.ToString();
 			txtCustomerOrderNumber.Text = order.CustomerOrderNumber;
@@ -108,18 +97,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			if (order.InvoiceSumExcludingVAT > 0) ltSPCSValueExcludingVAT.Text = order.InvoiceSumExcludingVAT.ToString();
 		}
 
-		//private void PopulateRSTs() {
-		//    drpRSTs.DataSource = Provider.GetCompanyRSTs(0, company.Id, null);
-		//    drpRSTs.DataBind();
-		//}
-
 		private void PopulateCompanies() {
-			drpCompanies.DataSource = Provider.GetCompanies(0, company.ContractId, null, ActiveFilter.Both);
+			drpCompanies.DataSource = Provider.GetCompanies(0, order.ContractCompany.ContractId, null, ActiveFilter.Both);
 			drpCompanies.DataBind();
 		}
 
 		private void PopulateArticles() {
-			drpArticle.DataSource = Provider.GetContractArticleConnections(0, company.ContractId, "tblSynologenContractArticleConnection.cId");
+			drpArticle.DataSource = Provider.GetContractArticleConnections(0, order.ContractCompany.ContractId, "tblSynologenContractArticleConnection.cId");
 			drpArticle.DataBind();
 			drpArticle.Items.Insert(0, new ListItem("-- Välj Artikel --", "0"));
 			drpArticle.Enabled = true;
@@ -135,10 +119,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		#region Events
 
 		protected void drpCompany_SelectedIndexChanged(object sender, EventArgs e) {
-			if (drpCompanies.SelectedValue == "0") return;
-			int companyId = Int32.Parse(drpCompanies.SelectedValue);
-			company = Provider.GetCompanyRow(companyId);
-			//PopulateRSTs();
+			//if (drpCompanies.SelectedValue == "0") return;
+			//var companyId = Int32.Parse(drpCompanies.SelectedValue);
+			//selectedCompany = Provider.GetCompanyRow(companyId);
 		}
 
 		protected void btnAdd_Click(object sender, EventArgs e) {
@@ -170,9 +153,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void gvOrderItems_Deleting(object sender, GridViewDeleteEventArgs e) {
-			int index = e.RowIndex;
-			int temporaryId = (int)gvOrderItems.DataKeys[index].Values["TemporaryId"];
-			int orderItemId = (int)gvOrderItems.DataKeys[index].Values["Id"];
+			var index = e.RowIndex;
+			var temporaryId = (int)gvOrderItems.DataKeys[index].Values["TemporaryId"];
+			var orderItemId = (int)gvOrderItems.DataKeys[index].Values["Id"];
 			if (temporaryId > 0) {
 				RemoveTemporaryOrderItemFromCart(temporaryId);
 			}
@@ -192,7 +175,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void btnHalt_Click(object sender, EventArgs e) {
-			int newStatusId = Globals.HaltedStatusId;
+			var newStatusId = Globals.HaltedStatusId;
 			Provider.ChangeOrderStatus(_orderId, newStatusId);
 			//TODO: Replace string below with resource
 			Provider.AddOrderHistory(_orderId, "Ordern sattes som vilande av " + CurrentUser);
@@ -200,7 +183,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void btnAbortHalt_Click(object sender, EventArgs e) {
-			int newStatusId = Globals.DefaultNewOrderStatus;
+			var newStatusId = Globals.DefaultNewOrderStatus;
 			if (order.InvoiceNumber > 0) newStatusId = Globals.DefaultOrderStatusAfterSPCSInvoice;
 			Provider.ChangeOrderStatus(_orderId, newStatusId);
 			//TODO: Replace string below with resource
@@ -209,7 +192,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void btnAbort_Click(object sender, EventArgs e) {
-			int newStatusId = Globals.AbortStatusId;
+			var newStatusId = Globals.AbortStatusId;
 			Provider.ChangeOrderStatus(order.Id, newStatusId);
 			//TODO: Replace string below with resource
 			Provider.AddOrderHistory(_orderId, "Ordern avbröts av " + CurrentUser);
@@ -251,7 +234,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			order.Email = txtEmail.Text;
 			order.CompanyId = Int32.Parse(drpCompanies.SelectedValue);
 			order.StatusId = Int32.Parse(drpStatus.SelectedValue);
-			//order.RSTId = Int32.Parse(drpRSTs.SelectedValue);
 			order.RstText = txtRST.Text;
 			order.CustomerOrderNumber = txtCustomerOrderNumber.Text;
 			Provider.AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);

@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		public DataSet GetOrdersByPage(int contractId, int statusId, int settlementId, DateTime intervalStart, DateTime intervalEnd, string searchString, string orderBy, int currentPage, int pageSize, ref int totalSize) {
 
 			try {
-				int counter = 0;
+				var counter = 0;
 
 				SqlParameter[] parameters = {
 					new SqlParameter ("@contractId", SqlDbType.Int, 4),
@@ -34,7 +34,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
 				parameters[counter++].Value = currentPage;
 				parameters[counter].Value = pageSize;
-				DataSet retSet = RunProcedure("spSynologenGetOrdersByPage", parameters, "tblSynologenOrder");
+				var retSet = RunProcedure("spSynologenGetOrdersByPage", parameters, "tblSynologenOrder");
 				if (retSet.Tables.Count > 1) totalSize = Convert.ToInt32(retSet.Tables[1].Rows[0][0]);
 				return retSet;
 
@@ -47,7 +47,7 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		public DataSet GetOrders(int orderId, int shopId, int contractId, int salesPersonMemberId, int companyId, long invoiceNumberId, int statusId, string orderBy) {
 			try {
-				int counter = 0;
+				var counter = 0;
 				SqlParameter[] parameters = {
 					new SqlParameter ("@orderId", SqlDbType.Int, 4),
 					new SqlParameter ("@shopId", SqlDbType.Int, 4),
@@ -68,8 +68,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = statusId;
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
 				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetOrders", parameters, "tblSynologenOrder");
-				//TODO: Read status: parameters[counter]
+				var retSet = RunProcedure("spSynologenGetOrders", parameters, "tblSynologenOrder");
 				return retSet;
 			}
 			catch (SqlException e) {
@@ -79,7 +78,7 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		private DataSet GetOrdersForInvoicingDataSet(int statusId, int? invoicingMethodId, string orderBy) {
 			try {
-				int counter = 0;
+				var counter = 0;
 				SqlParameter[] parameters = {
 					new SqlParameter ("@statusId", SqlDbType.Int, 4),
 					new SqlParameter ("@invoicingMethodIdFilter", SqlDbType.Int, 4),
@@ -90,8 +89,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = GetNullableSqlType(invoicingMethodId);
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
 				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetForInvoicing", parameters, "tblSynologenOrder");
-				//TODO: Read status: parameters[counter]
+				var retSet = RunProcedure("spSynologenGetForInvoicing", parameters, "tblSynologenOrder");
 				return retSet;
 			}
 			catch (SqlException e) {
@@ -101,7 +99,7 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		private DataSet GetOrdersForStatusCheckDataSet(int statusId, string orderBy) {
 			try {
-				int counter = 0;
+				var counter = 0;
 				SqlParameter[] parameters = {
 					new SqlParameter ("@statusId", SqlDbType.Int, 4),
 					new SqlParameter ("@orderBy", SqlDbType.NVarChar, 255),
@@ -110,8 +108,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = statusId;
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
 				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetOrdersForStatusCheck", parameters, "tblSynologenOrder");
-				//TODO: Read status: parameters[counter]
+				var retSet = RunProcedure("spSynologenGetOrdersForStatusCheck", parameters, "tblSynologenOrder");
 				return retSet;
 			}
 			catch (SqlException e) {
@@ -120,16 +117,15 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public Order GetOrder(int orderId) {
-			DataSet orderDataSet = GetOrders(orderId, 0, 0, 0, 0, 0, 0, null);
-			DataRow orderDataRow = orderDataSet.Tables[0].Rows[0];
+			var orderDataSet = GetOrders(orderId, 0, 0, 0, 0, 0, 0, null);
+			var orderDataRow = orderDataSet.Tables[0].Rows[0];
 			return ParseOrderRow(orderDataRow);
 		}
 
 		public int GetNumberOfOrderWithSpecificStatus(int orderStatus) {
-			DataSet orderDataSet = GetOrders(0, 0, 0, 0, 0, 0, orderStatus, null);
+			var orderDataSet = GetOrders(0, 0, 0, 0, 0, 0, orderStatus, null);
 			if (orderDataSet == null) return 0;
-			if (orderDataSet.Tables[0] == null) return 0;
-			return orderDataSet.Tables[0].Rows.Count;
+			return orderDataSet.Tables[0] == null ? 0 : orderDataSet.Tables[0].Rows.Count;
 		}
 
 
@@ -156,9 +152,9 @@ namespace Spinit.Wpc.Synologen.Data {
 		/// if <param name="statusId"/> > 0
 		/// </summary>
 		public List<long> GetOrderInvoiceNumbers(int statusId, string orderBy) {
-			List<long> listOfOrderIds = new List<long>();
+			var listOfOrderIds = new List<long>();
 			try {
-				DataSet orderDataSet = GetOrdersForStatusCheckDataSet(statusId,orderBy);
+				var orderDataSet = GetOrdersForStatusCheckDataSet(statusId,orderBy);
 				foreach (DataRow orderDataRow in orderDataSet.Tables[0].Rows) {
 					if (!String.IsNullOrEmpty(orderDataRow["cInvoiceNumber"].ToString())) {
 						listOfOrderIds.Add(long.Parse(orderDataRow["cInvoiceNumber"].ToString()));
@@ -170,7 +166,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public void ChangeOrderStatus(int orderId, int newStatusId) {
-			Order order = GetOrder(orderId);
+			var order = GetOrder(orderId);
 			order.StatusId = newStatusId;
 			AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
 		}
@@ -201,11 +197,10 @@ namespace Spinit.Wpc.Synologen.Data {
             		new SqlParameter("@id", SqlDbType.Int, 4)
 				};
 
-				int counter = 0;
+				var counter = 0;
 				parameters[counter++].Value = (int)action;
 				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
 					parameters[counter++].Value = order.CompanyId;
-					//parameters[counter++].Value = order.RSTId <= 0 ? SqlInt32.Null : order.RSTId;
 					parameters[counter++].Value = order.RstText ?? SqlString.Null;
 					parameters[counter++].Value = order.StatusId;
 					parameters[counter++].Value = order.SalesPersonMemberId;
@@ -245,7 +240,7 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		public void UpdateOrderStatus(int newOrderStatusId, int filterOrderId, int filterShopId, int filterContractId, int filterSalesPersonMemberId, int filterCompanyId, long filterInvoiceNumberId) {
 			try {
-				int counter = 0;
+				var counter = 0;
 				int numAffected;
 				SqlParameter[] parameters = {
 					new SqlParameter ("@newStatusId", SqlDbType.Int, 4),
@@ -277,7 +272,7 @@ namespace Spinit.Wpc.Synologen.Data {
 			if (orderId<=0 || invoiceNumber<=0) {
 				return false;
 			}
-			Order order = GetOrder(orderId);
+			var order = GetOrder(orderId);
 			if (order.InvoiceNumber > 0) throw new Exception("SqlProvider.SetOrderInvoiceNumber: Order already has an Invoice number");
 			order.InvoiceNumber = invoiceNumber;
 			order.StatusId = newOrderStatusId;
@@ -286,19 +281,33 @@ namespace Spinit.Wpc.Synologen.Data {
 			return AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
 		}
 
-		//public bool SetOrderStatus(long invoiceNumber, int newOrderStatusId) {
-		//    if (invoiceNumber <= 0) { return false;}
-		//    Order order = GetOrder(orderId);
-		//    if (order.InvoiceNumber > 0) throw new Exception("SqlProvider.SetOrderInvoiceNumber: Order already has an Invoice number");
-		//    order.InvoiceNumber = invoiceNumber;
-		//    order.StatusId = newOrderStatusId;
-		//    return AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
-		//}
-
-		private static Order ParseOrderRow(DataRow orderDataRow) {
+		private Order ParseOrderRow(DataRow orderDataRow) {
 			try {
-				var orderRow = new Order {Id = Util.CheckNullInt(orderDataRow, "cId"), RstText = Util.CheckNullString(orderDataRow, "cRstText"), StatusId = Util.CheckNullInt(orderDataRow, "cStatusId"), CompanyId = Util.CheckNullInt(orderDataRow, "cCompanyId"), SalesPersonMemberId = Util.CheckNullInt(orderDataRow, "cSalesPersonMemberId"), SalesPersonShopId = Util.CheckNullInt(orderDataRow, "cSalesPersonShopId"), CompanyUnit = Util.CheckNullString(orderDataRow, "cCompanyUnit"), CustomerFirstName = Util.CheckNullString(orderDataRow, "cCustomerFirstName"), CustomerLastName = Util.CheckNullString(orderDataRow, "cCustomerLastName"), PersonalIdNumber = Util.CheckNullString(orderDataRow, "cPersonalIdNumber"), Email = Util.CheckNullString(orderDataRow, "cEmail"), Phone = Util.CheckNullString(orderDataRow, "cPhone")};
-				//orderRow.RSTId = Util.CheckNullInt(orderDataRow, "cRstId");
+				var orderRow = new Order
+				{
+					Id = Util.CheckNullInt(orderDataRow, "cId"),
+					RstText = Util.CheckNullString(orderDataRow, "cRstText"),
+					StatusId = Util.CheckNullInt(orderDataRow, "cStatusId"),
+					CompanyId = Util.CheckNullInt(orderDataRow, "cCompanyId"),
+					SalesPersonMemberId = Util.CheckNullInt(orderDataRow, "cSalesPersonMemberId"),
+					SalesPersonShopId = Util.CheckNullInt(orderDataRow, "cSalesPersonShopId"),
+					CompanyUnit = Util.CheckNullString(orderDataRow, "cCompanyUnit"),
+					CustomerFirstName = Util.CheckNullString(orderDataRow, "cCustomerFirstName"),
+					CustomerLastName = Util.CheckNullString(orderDataRow, "cCustomerLastName"),
+					PersonalIdNumber = Util.CheckNullString(orderDataRow, "cPersonalIdNumber"),
+					Email = Util.CheckNullString(orderDataRow, "cEmail"),
+					Phone = Util.CheckNullString(orderDataRow, "cPhone"),
+                    
+				};
+				if(orderRow.Id>0){
+					orderRow.OrderItems = GetOrderItemsList(orderRow.Id, null, null);
+				}
+				if(orderRow.CompanyId>0){
+					orderRow.ContractCompany = GetCompanyRow(orderRow.CompanyId);
+				}
+				if(orderRow.SalesPersonShopId>0){
+					orderRow.SellingShop = GetShop(orderRow.SalesPersonShopId);
+				}
 				if (!String.IsNullOrEmpty(orderDataRow["cInvoiceNumber"].ToString())){
 					orderRow.InvoiceNumber = long.Parse(orderDataRow["cInvoiceNumber"].ToString());
 				}

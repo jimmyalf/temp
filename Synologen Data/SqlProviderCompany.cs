@@ -55,7 +55,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = GetNullableSqlType(company.EDIRecipientId);
 					parameters[counter++].Value = company.InvoicingMethodId;
 					parameters[counter++].Value = GetNullableSqlType(company.InvoiceFreeTextFormat);
-					parameters[counter++].Value = GetNullableSqlType(company.Country.Id);
+					parameters[counter].Value = GetNullableSqlType(company.Country.Id);
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
 				if (action == Enumerations.Action.Create) {
@@ -104,7 +104,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					InvoicingMethodId = Util.CheckNullInt(dataRow, "cInvoicingMethodId"),
 					InvoiceFreeTextFormat = Util.CheckNullString(dataRow, "cInvoiceFreeText"),
                     Country = GetCountryRow(Util.CheckNullInt(dataRow, "cCountryId")),
-					CompanyValidationRules = new List<ICompanyValidationRule>(GetCompanyValidationRules(null, Util.CheckNullInt(dataRow, "cId")))
+					CompanyValidationRules = GetCompanyValidationRules(null, Util.CheckNullInt(dataRow, "cId")),
 				};
 				return companyRow;
 			}

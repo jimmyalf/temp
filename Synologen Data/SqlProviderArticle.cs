@@ -95,7 +95,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public bool ArticleHasConnectedOrders(int articleId) {
-			var orderItemsDataSet = GetOrderItems(0, articleId, null);
+			var orderItemsDataSet = GetOrderItemsDataSet(0, articleId, null);
 			return DataSetHasRows(orderItemsDataSet);
 			
 		}

@@ -59,7 +59,7 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		}
 
-		public DataSet GetOrderItems(int orderId, int articleId, string orderBy) {
+		public DataSet GetOrderItemsDataSet(int? orderId, int? articleId, string orderBy) {
 			try {
 				var counter = 0;
 				SqlParameter[] parameters = {
@@ -68,9 +68,9 @@ namespace Spinit.Wpc.Synologen.Data {
 						new SqlParameter ("@orderBy", SqlDbType.NVarChar, 255),
 						new SqlParameter ("@status", SqlDbType.Int, 4)
 					};
-				parameters[counter++].Value = orderId;
-				parameters[counter++].Value = articleId;
-				parameters[counter++].Value = orderBy ?? SqlString.Null;
+				parameters[counter++].Value = GetNullableSqlType(orderId);
+				parameters[counter++].Value = GetNullableSqlType(articleId);
+				parameters[counter++].Value = GetNullableSqlType(orderBy);
 				parameters[counter].Direction = ParameterDirection.Output;
 				var retSet = RunProcedure("spSynologenGetOrderItems", parameters, "tblSynologenOrderItem");
 				//TODO: Read status: parameters[counter]
@@ -81,19 +81,9 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		//public List<OrderItem> GetOrderItemsList(int orderId, int articleId, string orderBy) {
-		//    var returnList = new List<OrderItem>();
-		//    var orderItems = GetOrderItems(orderId, articleId,orderBy);
-		//    if (orderItems == null || orderItems.Tables[0] == null) return returnList;
-		//    foreach (DataRow row in orderItems.Tables[0].Rows) {
-		//        returnList.Add(ParseOrderItemRow(row));
-		//    }
-		//    return returnList;
-		//}
-
-		public IList<IOrderItem> GetOrderItemsList(int orderId, int articleId, string orderBy) {
+		public IList<IOrderItem> GetOrderItemsList(int? orderId, int? articleId, string orderBy) {
 			var returnList = new List<IOrderItem>();
-			var orderItems = GetOrderItems(orderId, articleId, orderBy);
+			var orderItems = GetOrderItemsDataSet(orderId, articleId, orderBy);
 			if (orderItems == null || orderItems.Tables[0] == null) return returnList;
 			foreach (DataRow row in orderItems.Tables[0].Rows) {
 				returnList.Add(ParseOrderItemRow(row));
@@ -102,14 +92,22 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 		
 		private IOrderItem ParseOrderItemRow(DataRow row) {
-			var returnItem = new OrderItem {Id = Util.CheckNullInt(row, "cId"), Notes = Util.CheckNullString(row, "cNotes"), NumberOfItems = Util.CheckNullInt(row, "cNumberOfItems"), OrderId = Util.CheckNullInt(row, "cOrderId"), SinglePrice = Util.CheckNullFloat(row, "cSinglePrice")};
+			var returnItem = new OrderItem
+			{
+				Id = Util.CheckNullInt(row, "cId"), 
+				Notes = Util.CheckNullString(row, "cNotes"), 
+				NumberOfItems = Util.CheckNullInt(row, "cNumberOfItems"), 
+				OrderId = Util.CheckNullInt(row, "cOrderId"), 
+				SinglePrice = Util.CheckNullFloat(row, "cSinglePrice"),
+				ArticleId = Util.CheckNullInt(row, "cArticleId"),
+				NoVAT = (bool)row["cNoVAT"],
+				SPCSAccountNumber = Util.CheckNullString(row, "cSPCSAccountNumber"),
+			};
 			returnItem.DisplayTotalPrice = returnItem.SinglePrice * returnItem.NumberOfItems;
-			returnItem.ArticleId = Util.CheckNullInt(row, "cArticleId");
-			returnItem.NoVAT = (bool)row["cNoVAT"];
 			var article = GetArticle(returnItem.ArticleId);
 			returnItem.ArticleDisplayName = article.Name;
 			returnItem.ArticleDisplayNumber = article.Number;
-			returnItem.SPCSAccountNumber = Util.CheckNullString(row, "cSPCSAccountNumber");
+			
 			return returnItem;
 		}
 

@@ -63,7 +63,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = shop.Active;
 					parameters[counter++].Value = shop.GiroId > 0 ? shop.GiroId : SqlInt32.Null;
 					parameters[counter++].Value = shop.GiroNumber ?? SqlString.Null;
-					parameters[counter++].Value = shop.GiroSupplier ?? SqlString.Null;
+					parameters[counter].Value = shop.GiroSupplier ?? SqlString.Null;
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
 				if (action == Enumerations.Action.Create) {
@@ -89,7 +89,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		public DataSet GetShopsByPage(int categoryId, int contractCustomerId, int equipmentId, string searchString, string orderBy, int currentPage, int pageSize, ref int totalSize) {
 
 			try {
-				int counter = 0;
+				var counter = 0;
 
 				SqlParameter[] parameters = {
 					new SqlParameter ("@categoryId", SqlDbType.Int, 4),
@@ -130,13 +130,30 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public Shop ParseShopRow(DataRow shopDataRow) {
-			var shopRow = new Shop {ShopId = Util.CheckNullInt(shopDataRow, "cId"), Active = (bool) shopDataRow["cActive"], Address = Util.CheckNullString(shopDataRow, "cAddress"), Address2 = Util.CheckNullString(shopDataRow, "cAddress2"), City = Util.CheckNullString(shopDataRow, "cCity"), ContactFirstName = Util.CheckNullString(shopDataRow, "cContactFirstName"), ContactLastName = Util.CheckNullString(shopDataRow, "cContactLastName"), Description = Util.CheckNullString(shopDataRow, "cShopDescription"), Email = Util.CheckNullString(shopDataRow, "cEmail"), Fax = Util.CheckNullString(shopDataRow, "cFax"), MapUrl = Util.CheckNullString(shopDataRow, "cMapUrl"), Name = Util.CheckNullString(shopDataRow, "cShopName"), Number = Util.CheckNullString(shopDataRow, "cShopNumber"), Phone = Util.CheckNullString(shopDataRow, "cPhone"), Phone2 = Util.CheckNullString(shopDataRow, "cPhone2"), Url = Util.CheckNullString(shopDataRow, "cUrl"), Zip = Util.CheckNullString(shopDataRow, "cZip")};
-			shopRow.Active = (bool)shopDataRow["cActive"];
-			shopRow.CategoryId = Util.CheckNullInt(shopDataRow, "cCategoryId");
-			shopRow.GiroId = Util.CheckNullInt(shopDataRow, "cGiroId");
-			shopRow.GiroNumber = Util.CheckNullString(shopDataRow, "cGiroNumber");
-			shopRow.GiroSupplier = Util.CheckNullString(shopDataRow, "cGiroSupplier");
-			shopRow.Equipment = GetAllEquipmentRowsPerShop(shopRow.ShopId);
+			var shopRow = new Shop {
+				ShopId = Util.CheckNullInt(shopDataRow, "cId"), 
+				Active = (bool) shopDataRow["cActive"], 
+				Address = Util.CheckNullString(shopDataRow, "cAddress"), 
+				Address2 = Util.CheckNullString(shopDataRow, "cAddress2"), 
+				City = Util.CheckNullString(shopDataRow, "cCity"), 
+				ContactFirstName = Util.CheckNullString(shopDataRow, "cContactFirstName"), 
+				ContactLastName = Util.CheckNullString(shopDataRow, "cContactLastName"), 
+				Description = Util.CheckNullString(shopDataRow, "cShopDescription"), 
+				Email = Util.CheckNullString(shopDataRow, "cEmail"), 
+				Fax = Util.CheckNullString(shopDataRow, "cFax"), 
+				MapUrl = Util.CheckNullString(shopDataRow, "cMapUrl"), 
+				Name = Util.CheckNullString(shopDataRow, "cShopName"), 
+				Number = Util.CheckNullString(shopDataRow, "cShopNumber"), 
+				Phone = Util.CheckNullString(shopDataRow, "cPhone"), 
+				Phone2 = Util.CheckNullString(shopDataRow, "cPhone2"), 
+				Url = Util.CheckNullString(shopDataRow, "cUrl"), 
+				Zip = Util.CheckNullString(shopDataRow, "cZip"),
+				CategoryId = Util.CheckNullInt(shopDataRow, "cCategoryId"),
+				GiroId = Util.CheckNullInt(shopDataRow, "cGiroId"),
+				GiroNumber = Util.CheckNullString(shopDataRow, "cGiroNumber"),
+				GiroSupplier = Util.CheckNullString(shopDataRow, "cGiroSupplier"),
+				Equipment = GetAllEquipmentRowsPerShop(Util.CheckNullInt(shopDataRow, "cId")),   
+			};
 			var concernId = Util.CheckNullInt(shopDataRow, "cConcernId");
 			shopRow.Concern = (concernId>0) ? GetConcern(concernId) : null;
 			return shopRow;

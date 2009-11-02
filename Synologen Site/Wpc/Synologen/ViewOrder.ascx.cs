@@ -19,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		}
 
 		private void PopulateShoppingCart() {
-			gvOrderItemsCart.DataSource = Provider.GetOrderItems(_orderId,0,null);
+			gvOrderItemsCart.DataSource = Provider.GetOrderItemsDataSet(_orderId,0,null);
 			gvOrderItemsCart.DataBind();
 			ltTotalPrice.Text = GetTotalCartPrice().ToString();
 		}

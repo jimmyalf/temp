@@ -14,6 +14,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 		private readonly Company emptyCompany = new Company();
 		private readonly Shop emptyShop = new Shop();
 		private readonly SvefakturaConversionSettings emptySettings = new SvefakturaConversionSettings();
+		private const int SwedenCountryCodeNumber = 187;
 
 		[TestFixtureSetUp]
 		public void Setup() { }
@@ -206,7 +207,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 			                                   	OrganizationNumber = "5560360793",
 			                                   	//ExemptionReason = "F-skattebevis finns",
 			                                   	City = "JÄRFÄLLA",
-			                                   	Country = new Country { OrganizationCountryCode = CountryIdentificationCodeContentType.SE}
+			                                   	Country = new Country { OrganizationCountryCodeId = SwedenCountryCodeNumber}
 			                                   };
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
 			var vatTaxScheme = invoice.BuyerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("VAT"));
@@ -238,7 +239,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing {
 			                                   	OrganizationNumber = "5560360793",
 			                                   	//ExemptionReason = "F-skattebevis finns",
 			                                   	City = "JÄRFÄLLA",
-			                                   	Country = new Country{OrganizationCountryCode = CountryIdentificationCodeContentType.SE}
+			                                   	Country = new Country{OrganizationCountryCodeId = SwedenCountryCodeNumber}
 			                                   };
 			var invoice = Utility.General.CreateInvoiceSvefaktura(emptyOrder, emptyOrderItemList, customCompany, emptyShop, emptySettings);
 			var swtTaxScheme = invoice.BuyerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("SWT"));

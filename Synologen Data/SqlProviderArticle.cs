@@ -5,7 +5,7 @@ using System.Data.SqlTypes;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Data {
-	public partial class SqlProvider {
+	public partial class SqlProvider{
 
 		public Article GetArticle(int articleId) {
 			try {

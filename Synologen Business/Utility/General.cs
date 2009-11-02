@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Web.UI;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Business.Utility {
 	public class General {
@@ -69,6 +71,13 @@ namespace Spinit.Wpc.Synologen.Business.Utility {
 				Session.SetSessionValue("HaltedStatus", haltedStatus);
 			}
 			return (haltedStatus == orderStatusId);
+		}
+
+		public static IList<CartOrderItem> ParseList(IEnumerable<IOrderItem> orderItems){
+			var internalList = new List<IOrderItem>(orderItems);
+			var returnList = new List<CartOrderItem>();
+			internalList.ForEach(x => returnList.Add(new CartOrderItem(x)));
+			return returnList;
 		}
 	}
 }

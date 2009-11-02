@@ -62,7 +62,6 @@
     <Compile Include="ConfigurationSettings\Common.cs" />
     <Compile Include="ConfigurationSettings\BaseConfiguration.cs" />
     <Compile Include="ConfigurationSettings\WebService.cs" />
-    <Compile Include="InvoiceData.cs" />
     <Compile Include="ISynologenService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ClientContract.cs" />
@@ -104,6 +103,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.IdentityModel">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>

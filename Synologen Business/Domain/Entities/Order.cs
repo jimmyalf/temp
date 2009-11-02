@@ -1,8 +1,38 @@
 using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
+	[DataContract]
 	public class Order : IOrder {
+
+		public Order() {  }
+
+		public Order(IOrder order) {
+			CompanyId = order.CompanyId;
+			CompanyUnit = order.CompanyUnit;
+			CreatedDate = order.CreatedDate;
+			CustomerFirstName = order.CustomerFirstName;
+			CustomerLastName = order.CustomerLastName;
+			Email = order.Email;
+			Id = order.Id;
+			InvoiceNumber = order.InvoiceNumber;
+			MarkedAsPayedByShop = order.MarkedAsPayedByShop;
+			PersonalIdNumber = order.PersonalIdNumber;
+			Phone = order.Phone;
+			RstText = order.RstText;
+			SalesPersonShopId = order.SalesPersonShopId;
+			StatusId = order.StatusId;
+			UpdateDate = order.UpdateDate;
+			SalesPersonMemberId = order.SalesPersonMemberId;
+			InvoiceSumIncludingVAT = order.InvoiceSumIncludingVAT;
+			InvoiceSumExcludingVAT = order.InvoiceSumExcludingVAT;
+			CustomerOrderNumber = order.CustomerOrderNumber;
+			OrderItems = order.OrderItems;
+			SellingShop = SellingShop;
+			ContractCompany = ContractCompany;
+		}
 
 		public int CompanyId { get; set; }
 		public string CompanyUnit { get; set; }
@@ -32,5 +62,8 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 				return (PersonalIdNumber.Length < 12) ? null : PersonalIdNumber.Substring(0, 8);
 			}
 		}
+		public IList<IOrderItem> OrderItems{ get; set; }
+		public IShop SellingShop{ get; set; }
+		public ICompany ContractCompany{ get; set; }
 	}
 }

@@ -1,4 +1,7 @@
-﻿namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
+﻿using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+
+namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 	public interface IShop{
 		int ShopId { get; set; }
 		string Name { get; set; }
@@ -16,5 +19,15 @@
 		string ContactFirstName { get; set; }
 		string ContactLastName { get; set; }
 		int CategoryId { get; set; }
+		IList<IShop> GetAllShopsInConcern(ISqlProvider sqlProvider);
+		IEnumerable<ShopEquipment> Equipment { get; set; }
+		string Url { get; set; }
+		string MapUrl { get; set; }
+		int GiroId { get; set; }
+		string GiroNumber { get; set; }
+		string GiroSupplier { get; set; }
+		IConcern Concern { get; set; }
+		string ContactCombinedName { get; }
+		bool HasConcern { get; }
 	}
 }

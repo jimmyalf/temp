@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Utility.Types;
 
@@ -39,26 +39,13 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 				Assert.IsNotNull(invoiceText);
 			}
 		}
-
-		//[Test]
-		//public void UploadEDIInvoicesToFTP() {
-		//    for(var i = 19; i <= 30; i++) {
-		//        var order = provider.GetOrder(i);
-		//        var orderItems = provider.GetOrderItemsList(i, 0, null);
-		//        var company = provider.GetCompanyRow(order.CompanyId);
-		//        var shop = provider.GetShop(order.SalesPersonShopId);
-		//        var invoice = Utility.General.CreateInvoiceEDI(order, orderItems, company,shop, ediSettings);
-		//        var invoiceText = invoice.Parse();
-		//        Assert.IsNotNull(invoiceText);
-		//    }
-		//}
 		[Test]
 		public void CreateMockEDIInvoice() {
-			var orderId = 1;
-			var orderItemId = 1;
+			const int orderId = 1;
+			const int orderItemId = 1;
 			var order = Mock.Utility.GetMockOrderRow(orderId);
 			var shop = Mock.Utility.GetMockShopRow();
-			var orderItems = new List<OrderItem> {Mock.Utility.GetMockOrderItemRow(orderId, orderItemId)};
+			var orderItems = new List<IOrderItem> {Mock.Utility.GetMockOrderItemRow(orderId, orderItemId)};
 			var company = Mock.Utility.GetMockCompanyRow();
 			var invoice = Utility.General.CreateInvoiceEDI(order, orderItems, company,shop, ediSettings);
 			var invoiceText = invoice.Parse();

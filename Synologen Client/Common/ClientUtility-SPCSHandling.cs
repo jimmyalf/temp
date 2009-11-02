@@ -1,6 +1,5 @@
 using System;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Visma;
 
 namespace Synologen.Client.Common {
@@ -25,7 +24,7 @@ namespace Synologen.Client.Common {
 		/// Imports an order into SPCS and returns an invoice number
 		/// <exception cref="VismaException">Will throw exception if order could not be imported</exception>
 		/// </summary>
-		public static int ImportOrderToSPCS(AdkHandler spcsHandler, OrderData order, out double invoiceSumIncludingVAT, out double invoiceSumExcludingVAT) {
+		public static int ImportOrderToSPCS(AdkHandler spcsHandler, IOrder order, out double invoiceSumIncludingVAT, out double invoiceSumExcludingVAT) {
 			try {
 				var spcsInvoiceNumber = spcsHandler.AddInvoice(order, true, true, out invoiceSumIncludingVAT, out invoiceSumExcludingVAT);
 				return (int)spcsInvoiceNumber;

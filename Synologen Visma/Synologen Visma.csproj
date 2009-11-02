@@ -70,8 +70,6 @@
     <Compile Include="AdkHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VismaException.cs" />
-    <Compile Include="Types\IAdkHandler.cs" />
-    <Compile Include="Types\PaymentInfo.cs" />
     <Compile Include="Utility\Formatting.cs" />
     <Compile Include="Utility\Operations.cs" />
   </ItemGroup>
@@ -111,6 +109,9 @@
       <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
       <Name>Synologen ServiceLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Types\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
@@ -24,7 +23,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			invoice.TaxTotal.Add(generatedTaxTotal);
 		}
 
-		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, Order order, IEnumerable<IOrderItem> orderItems, Company company ) {
+		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IOrder order, IEnumerable<IOrderItem> orderItems, ICompany company ) {
 			if(invoice == null) invoice = new SFTIInvoiceType();
 			var freeTextRows = CommonConversion.GetFreeTextRowsAsString(company, order);
 			invoice.Note = TryGetValue(freeTextRows, new NoteType {Value = freeTextRows});
@@ -77,7 +76,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 		}
 
 		#region SellerParty
-		private static void TryAddSellerParty(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, Shop shop) {
+		private static void TryAddSellerParty(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IShop shop) {
 			if (invoice.SellerParty == null) invoice.SellerParty = new SFTISellerPartyType();
 			invoice.SellerParty.Party = new SFTIPartyType {
 				PartyName = TryGetValue(settings.SellingOrganizationName, new List<NameType> {new NameType {Value = settings.SellingOrganizationName}}),
@@ -89,7 +88,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			invoice.SellerParty.AccountsContact = GetSellerAccountContact(settings);
 		}
 
-		private static SFTIContactType GetSellerPartyContact(Shop shop) {
+		private static SFTIContactType GetSellerPartyContact(IShop shop) {
 			return GetSFTIContact(shop.Email, shop.ContactCombinedName, shop.Fax, shop.Phone);
 		}
 
@@ -123,7 +122,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 		#endregion
 
 		#region BuyerParty
-		private static void TryAddBuyerParty(SFTIInvoiceType invoice, Company company, Order order) {
+		private static void TryAddBuyerParty(SFTIInvoiceType invoice, ICompany company, IOrder order) {
 			if (invoice.BuyerParty == null) invoice.BuyerParty = new SFTIBuyerPartyType();
 			invoice.BuyerParty.Party = new SFTIPartyType {
 				PartyName = TryGetValue(company.InvoiceCompanyName, new List<NameType> {new NameType {Value = company.InvoiceCompanyName}}),
@@ -134,15 +133,15 @@ namespace Spinit.Wpc.Synologen.Utility {
 			};
 		}
 
-		private static SFTIContactType GetBuyerPartyContact(Order row) {
+		private static SFTIContactType GetBuyerPartyContact(IOrder row) {
 			return GetSFTIContact(row.Email, row.CustomerCombinedName, null, row.Phone);
 		}
 
-		private static List<SFTIPartyTaxSchemeType> GetBuyerPartyTaxScheme(Company company) {
+		private static List<SFTIPartyTaxSchemeType> GetBuyerPartyTaxScheme(ICompany company) {
 			return GetPartyTaxScheme(
 				company.TaxAccountingCode, 
 				company.OrganizationNumber, 
-				(company.Country == null)? null : company.Country.OrganizationCountryCode,
+				(company.Country != null)? TryParseCountryIdCode(company.Country.OrganizationCountryCodeId.Value) : null,
 				null,
 				company.City,
 				company.PostBox,
@@ -151,20 +150,28 @@ namespace Spinit.Wpc.Synologen.Utility {
 			);
 		}
 
-		private static SFTIAddressType GetBuyerPartyAddress(Company company, IOrder orderRow) {
+		private  static CountryIdentificationCodeContentType? TryParseCountryIdCode(int? value){
+			if (!value.HasValue) return null;
+			try{
+				return (CountryIdentificationCodeContentType) value;
+			}
+			catch { return null; }
+		}
+
+		private static SFTIAddressType GetBuyerPartyAddress(ICompany company, IOrder orderRow) {
 			return GetSFTIAddress(
 				company.PostBox,
 				company.StreetName,
 				company.Zip,
 				company.City,
 				orderRow.CompanyUnit,
-				(company.Country == null) ? null : company.Country.OrganizationCountryCode
+				(company.Country != null)? TryParseCountryIdCode(company.Country.OrganizationCountryCodeId.Value) : null
 			);
 		}
 		#endregion
 
 		#region PaymentMeans
-		private static void TryAddPaymentMeans(SFTIInvoiceType invoice, string giroNumber, string giroBIC, Company company, SvefakturaConversionSettings settings) {
+		private static void TryAddPaymentMeans(SFTIInvoiceType invoice, string giroNumber, string giroBIC, ICompany company, SvefakturaConversionSettings settings) {
 			if (HasNotBeenSet(settings.InvoiceIssueDate) || HasNotBeenSet(giroNumber)) return;
 			if (invoice.PaymentMeans == null) invoice.PaymentMeans = new List<SFTIPaymentMeansType>();
 			invoice.PaymentMeans.Add(
@@ -179,7 +186,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			);
 		}
 
-		private static PaymentDateType GetPaymentMeansDuePaymentDate(DateTime invoiceIssueDate, Company company) {
+		private static PaymentDateType GetPaymentMeansDuePaymentDate(DateTime invoiceIssueDate, ICompany company) {
 			if (company == null ) return null;
 		    if (company.PaymentDuePeriod <= 0) return null;
 		    return new  PaymentDateType {
@@ -189,7 +196,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 		#endregion
 
 		#region PaymentTerms
-		private static void TryAddPaymentTerms(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, Company company) {
+		private static void TryAddPaymentTerms(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, ICompany company) {
 			if (AllAreNullOrEmpty(settings.InvoicePaymentTermsTextFormat, settings.InvoiceExpieryPenaltySurchargePercent)) return;
 			var text = ParseInvoicePaymentTermsFormat(settings.InvoicePaymentTermsTextFormat, company);
 			invoice.PaymentTerms = new SFTIPaymentTermsType {
@@ -198,7 +205,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			};
 		}
 
-		private static string ParseInvoicePaymentTermsFormat(string format, Company company) {
+		private static string ParseInvoicePaymentTermsFormat(string format, ICompany company) {
 			if(format == null || company == null) return null;
 			format = format.Replace("{InvoiceNumberOfDueDays}", company.PaymentDuePeriod.ToString());
 			return format;

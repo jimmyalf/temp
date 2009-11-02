@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data {
@@ -13,7 +14,7 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		public bool AddUpdateDeleteShop(Enumerations.Action action, ref Shop shop) {
 			try {
-				int numAffected = 0;
+				int numAffected;
 				SqlParameter[] parameters = {
             		new SqlParameter("@type", SqlDbType.Int, 4),
 					new SqlParameter("@categoryId", SqlDbType.Int, 4),
@@ -40,7 +41,7 @@ namespace Spinit.Wpc.Synologen.Data {
             		new SqlParameter("@id", SqlDbType.Int, 4)
 				};
 
-				int counter = 0;
+				var counter = 0;
 				parameters[counter++].Value = (int)action;
 				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
 					parameters[counter++].Value = shop.CategoryId;
@@ -106,7 +107,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
 				parameters[counter++].Value = currentPage;
 				parameters[counter].Value = pageSize;
-				DataSet retSet = RunProcedure("spSynologenGetShopsByPage", parameters, "tblSynologenShop");
+				var retSet = RunProcedure("spSynologenGetShopsByPage", parameters, "tblSynologenShop");
 				if (retSet.Tables.Count > 1) totalSize = Convert.ToInt32(retSet.Tables[1].Rows[0][0]);
 				return retSet;
 
@@ -129,24 +130,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public Shop ParseShopRow(DataRow shopDataRow) {
-			var shopRow = new Shop();
-			shopRow.ShopId = Util.CheckNullInt(shopDataRow, "cId");
-			shopRow.Active = (bool)shopDataRow["cActive"];
-			shopRow.Address = Util.CheckNullString(shopDataRow, "cAddress");
-			shopRow.Address2 = Util.CheckNullString(shopDataRow, "cAddress2");
-			shopRow.City = Util.CheckNullString(shopDataRow, "cCity");
-			shopRow.ContactFirstName = Util.CheckNullString(shopDataRow, "cContactFirstName");
-			shopRow.ContactLastName = Util.CheckNullString(shopDataRow, "cContactLastName");
-			shopRow.Description = Util.CheckNullString(shopDataRow, "cShopDescription");
-			shopRow.Email = Util.CheckNullString(shopDataRow, "cEmail");
-			shopRow.Fax = Util.CheckNullString(shopDataRow, "cFax");
-			shopRow.MapUrl = Util.CheckNullString(shopDataRow, "cMapUrl");
-			shopRow.Name = Util.CheckNullString(shopDataRow, "cShopName");
-			shopRow.Number = Util.CheckNullString(shopDataRow, "cShopNumber");
-			shopRow.Phone = Util.CheckNullString(shopDataRow, "cPhone");
-			shopRow.Phone2 = Util.CheckNullString(shopDataRow, "cPhone2");
-			shopRow.Url = Util.CheckNullString(shopDataRow, "cUrl");
-			shopRow.Zip = Util.CheckNullString(shopDataRow, "cZip");
+			var shopRow = new Shop {ShopId = Util.CheckNullInt(shopDataRow, "cId"), Active = (bool) shopDataRow["cActive"], Address = Util.CheckNullString(shopDataRow, "cAddress"), Address2 = Util.CheckNullString(shopDataRow, "cAddress2"), City = Util.CheckNullString(shopDataRow, "cCity"), ContactFirstName = Util.CheckNullString(shopDataRow, "cContactFirstName"), ContactLastName = Util.CheckNullString(shopDataRow, "cContactLastName"), Description = Util.CheckNullString(shopDataRow, "cShopDescription"), Email = Util.CheckNullString(shopDataRow, "cEmail"), Fax = Util.CheckNullString(shopDataRow, "cFax"), MapUrl = Util.CheckNullString(shopDataRow, "cMapUrl"), Name = Util.CheckNullString(shopDataRow, "cShopName"), Number = Util.CheckNullString(shopDataRow, "cShopNumber"), Phone = Util.CheckNullString(shopDataRow, "cPhone"), Phone2 = Util.CheckNullString(shopDataRow, "cPhone2"), Url = Util.CheckNullString(shopDataRow, "cUrl"), Zip = Util.CheckNullString(shopDataRow, "cZip")};
 			shopRow.Active = (bool)shopDataRow["cActive"];
 			shopRow.CategoryId = Util.CheckNullInt(shopDataRow, "cCategoryId");
 			shopRow.GiroId = Util.CheckNullInt(shopDataRow, "cGiroId");
@@ -182,7 +166,6 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = GetNullableSqlType(orderBy);
 				parameters[counter].Direction = ParameterDirection.Output;
 				var retSet = RunProcedure("spSynologenGetShops", parameters, "tblSynologenShop");
-				//TODO: Read status: parameters[counter]
 				return retSet;
 			}
 			catch (SqlException e) {
@@ -190,8 +173,8 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public IEnumerable<Shop> GetShopRows(int? shopId, int? shopCategoryId, int? contractCustomer,int? memberId, int? equipmentId, bool? includeInactive, int? concernId, string orderBy) {
-			var shopRows = new Collection<Shop>();
+		public IEnumerable<IShop> GetShopRows(int? shopId, int? shopCategoryId, int? contractCustomer,int? memberId, int? equipmentId, bool? includeInactive, int? concernId, string orderBy) {
+			var shopRows = new Collection<IShop>();
 			var dataSet = GetShops(shopId, shopCategoryId, contractCustomer, memberId, equipmentId, includeInactive,concernId, orderBy);
 			if(dataSet.Tables[0]==null) return shopRows;
 			foreach (DataRow dataRow in dataSet.Tables[0].Rows) {
@@ -222,17 +205,17 @@ namespace Spinit.Wpc.Synologen.Data {
 		}
 
 		public bool ShopHasConnectedOrders(int shopId) {
-			DataSet orderDataSet = GetOrders(0, shopId, 0, 0, 0, 0, 0, null);
+			var orderDataSet = GetOrders(0, shopId, 0, 0, 0, 0, 0, null);
 			return DataSetHasRows(orderDataSet);
 		}
 
 		public bool ShopHasConnectedMembers(int shopId) {
-			DataSet memberDataSet = GetSynologenMembers(0, shopId, 0, null);
+			var memberDataSet = GetSynologenMembers(0, shopId, 0, null);
 			return DataSetHasRows(memberDataSet);
 		}
 
 		public bool ShopHasConnectedContracts(int shopId) {
-			DataSet contractDataSet = GetContracts(FetchCustomerContract.AllPerShop, 0,shopId, null);
+			var contractDataSet = GetContracts(FetchCustomerContract.AllPerShop, 0,shopId, null);
 			return DataSetHasRows(contractDataSet);
 		}
 
@@ -321,7 +304,7 @@ namespace Spinit.Wpc.Synologen.Data {
 		#region Giro
 		public DataSet GetGiros(int giroId, string orderBy) {
 			try {
-				int counter = 0;
+				var counter = 0;
 				SqlParameter[] parameters = {
 					new SqlParameter ("@giroId", SqlDbType.Int, 4),
 					new SqlParameter ("@orderBy", SqlDbType.NVarChar, 255),
@@ -330,8 +313,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = giroId;
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
 				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetGiros", parameters, "tblSynologenGiro");
-				//TODO: Read status: parameters[counter]
+				var retSet = RunProcedure("spSynologenGetGiros", parameters, "tblSynologenGiro");
 				return retSet;
 			}
 			catch (Exception ex) {

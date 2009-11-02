@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.ServiceLibrary;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Test.Mock {
 	public class TestMockFlow {
-		private List<OrderData> orderItems;
+		private IList<IOrder> orderItems;
 		private readonly MockAdkHandler adkHandler = new MockAdkHandler();
 		private readonly MockWebServiceClient client = new MockWebServiceClient();
 

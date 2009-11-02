@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.ServiceLibrary {
-	public class ClientContract :  ClientBase<ISynologenService>,ISynologenService{
+	public class ClientContract :  ClientBase<ISynologenService>, ISynologenService{
 
 		/// <summary>
 		/// Default Constructor attempts to use config-definded service endpoint.
@@ -42,10 +45,10 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary {
 		/// used for creating invoices
 		/// <exception cref="SynologenWebserviceException">Will throw exception if fetching orders fail</exception>
 		/// </summary>
-		public List<OrderData> GetOrdersForInvoicing() {
+		public IList<IOrder> GetOrdersForInvoicing() {
 			try{return Channel.GetOrdersForInvoicing();}
 			catch(Exception ex) {
-				LogMessage(LogTypeData.Error, "ClientContract.GetOrdersForInvoicing Exception:" + ex.Message);
+				LogMessage(LogType.Error, "ClientContract.GetOrdersForInvoicing Exception:" + ex.Message);
 				throw;
 			}
 		}
@@ -59,7 +62,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary {
 				Channel.SetOrderInvoiceNumber(orderId, newInvoiceNumber, invoiceSumIncludingVAT, invoiceSumExcludingVAT);
 			}
 			catch(Exception ex) {
-				LogMessage(LogTypeData.Error, "ClientContract.SetOrderInvoiceNumber Exception:" + ex.Message);
+				LogMessage(LogType.Error, "ClientContract.SetOrderInvoiceNumber Exception:" + ex.Message);
 				throw;
 			}
 		}
@@ -68,7 +71,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary {
 		/// Logs a message back to WPC and returns a message reference number
 		/// <exception cref="SynologenWebserviceException">Will throw exception if log operation fail</exception>
 		/// </summary>
-		public int LogMessage ( LogTypeData logType, string message ) {
+		public int LogMessage (LogType logType, string message ) {
 			return Channel.LogMessage(logType, message);
 		}
 
@@ -81,10 +84,10 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary {
 		}
 
 		/// <summary>
-		/// Updates WPC order status with information in given status object (<see cref="InvoiceStatusData"/>)
+		/// Updates WPC order status with information in given status object (<see cref="IInvoiceStatus"/>)
 		/// <exception cref="SynologenWebserviceException">Will throw exception operation fails</exception>
 		/// </summary>
-		public void UpdateOrderStatuses(InvoiceStatusData invoiceStatus) {
+		public void UpdateOrderStatuses(IInvoiceStatus invoiceStatus) {
 			Channel.UpdateOrderStatuses(invoiceStatus);
 		}
 

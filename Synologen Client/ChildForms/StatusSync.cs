@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Visma;
-using Spinit.Wpc.Synologen.Visma.Types;
 using Synologen.Client.Common;
 
 namespace Synologen.Client.ChildForms {
 	internal partial class StatusSync : FormBase {
 		private bool statusesHaveBeenFetched;
-		private List<long> orderIdList = new List<long>();
-		private readonly List<PaymentInfo> invoicePaymentInfoList = new List<PaymentInfo>();
+		private IList<long> orderIdList = new List<long>();
+		private readonly IList<IInvoiceStatus> invoicePaymentInfoList = new List<IInvoiceStatus>();
 
 		public StatusSync() {
 			InitializeComponent();

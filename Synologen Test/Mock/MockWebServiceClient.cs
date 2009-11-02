@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 
 namespace Spinit.Wpc.Synologen.Test.Mock {
@@ -8,13 +10,13 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 
 		#region Implementation of ISynologenService
 
-		public List<OrderData> GetOrdersForInvoicing() {
-			return new List<OrderData> { Utility.GetMockOrderData(orderIdCounter++) };
+		public IList<IOrder> GetOrdersForInvoicing() {
+			return new List<IOrder> { Utility.GetMockOrderData(orderIdCounter++) };
 		}
 
 		public void SetOrderInvoiceNumber(int orderId, long newInvoiceNumber, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {}
 
-		public int LogMessage(LogTypeData logType, string message) {
+		public int LogMessage(LogType logType, string message) {
 			return logMessageNumberCounter++;
 		}
 
@@ -24,9 +26,9 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 			return list;
 		}
 
-		public void UpdateOrderStatuses(InvoiceStatusData invoiceStatus) {}
+		public void UpdateOrderStatuses(IInvoiceStatus invoiceStatus) {}
 
-		public void UpdateOrderStatuses(List<InvoiceStatusData> listOfStatusUpdates) {}
+		//public void UpdateOrderStatuses(List<IInvoiceStatus> listOfStatusUpdates) {}
 
 		public void SendInvoiceEDI(int orderId) {}
 

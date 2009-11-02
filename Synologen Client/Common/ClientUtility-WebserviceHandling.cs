@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.ServiceLibrary;
-using Spinit.Wpc.Synologen.Visma.Types;
 
 namespace Synologen.Client.Common {
 	public static partial class ClientUtility {
@@ -10,7 +10,7 @@ namespace Synologen.Client.Common {
 		/// Gets a list of new orders (objects) to import into SPCS from Webservice
 		/// <exception cref="Exception">Will throw exception if fetching orders fail</exception>
 		/// </summary>
-		public static List<OrderData> GetOrderListFromWebService() {
+		public static IList<IOrder> GetOrderListFromWebService() {
 			var client = new ClientContract();
 			try {
 				client.Open();
@@ -27,7 +27,7 @@ namespace Synologen.Client.Common {
 		/// wants to check for status-updates
 		/// <exception cref="Exception">Will throw exception if fetching order id's fail</exception>
 		/// </summary>
-		public static List<long> GetOrderIdListForUpdateCheckFromWebService() {
+		public static IList<long> GetOrderIdListForUpdateCheckFromWebService() {
 			var client = new ClientContract();
 			try {
 				client.Open();
@@ -51,9 +51,10 @@ namespace Synologen.Client.Common {
 		/// Writes back invoice information from SPCS to WPC through the Webservice
 		/// <exception cref="Exception">Will throw exception if setting SPCS invoice information fail</exception> 
 		/// </summary>
-		public static void SetSPCSOrderInformation(ClientContract client, PaymentInfo paymentInfo) {
-			var invoiceStatus = new InvoiceStatusData(paymentInfo);
-			client.UpdateOrderStatuses(invoiceStatus); 
+		public static void SetSPCSOrderInformation(ClientContract client, IInvoiceStatus paymentInfo) {
+			//var invoiceStatus = new InvoiceStatusData(paymentInfo);
+			//client.UpdateOrderStatuses(invoiceStatus); 
+			client.UpdateOrderStatuses(paymentInfo); 
 		}
 
 					
@@ -84,10 +85,7 @@ namespace Synologen.Client.Common {
 				client.Close();
 				return true;
 			}
-			catch(Exception ex) {
-				var test = ex.Message;
-				return false;
-			}
+			catch { return false; }
 
 		}
 

@@ -119,15 +119,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Code {
 
 		public static class EditOrder{
 			private const string NAME = "SynologenAdminEditOrder";
-			public static List<OrderItem> EditOrderItemsInCart {
+			public static IList<CartOrderItem> EditOrderItemsInCart {
 				get {
-					try {return (List<OrderItem>) Session.GetSessionValue(NAME + "EditOrderItemsInCart");}
-					catch {return new List<OrderItem>();}
+					try {return (List<CartOrderItem>) Session.GetSessionValue(NAME + "EditOrderItemsInCart");}
+					catch {return new List<CartOrderItem>();}
 				}
 				set { Session.SetSessionValue(NAME + "EditOrderItemsInCart", value); }
 			}
 
-			public static List<int> OrderItemsMarkedForDeletion {
+			public static IList<int> OrderItemsMarkedForDeletion {
 				get { return Session.GetSessionIntList(NAME + "OrderItemsMarkedForDeletion"); }
 				set { Session.SetSessionValue(NAME + "OrderItemsMarkedForDeletion", value); }
 			}

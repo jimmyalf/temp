@@ -9,7 +9,7 @@ using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {
 
-		public bool AddUpdateDeleteOrderItem(Enumerations.Action action, ref OrderItem orderItem) {
+		public bool AddUpdateDeleteOrderItem(Enumerations.Action action, ref IOrderItem orderItem) {
 			try {
 				int numAffected;
 				SqlParameter[] parameters = {
@@ -25,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Data {
             		new SqlParameter("@id", SqlDbType.Int, 4)
 				};
 
-				int counter = 0;
+				var counter = 0;
 				parameters[counter++].Value = (int)action;
 				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
 					parameters[counter++].Value = orderItem.OrderId;
@@ -61,7 +61,7 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		public DataSet GetOrderItems(int orderId, int articleId, string orderBy) {
 			try {
-				int counter = 0;
+				var counter = 0;
 				SqlParameter[] parameters = {
 						new SqlParameter ("@orderId", SqlDbType.Int, 4),
 						new SqlParameter ("@articleId", SqlDbType.Int, 4),
@@ -72,7 +72,7 @@ namespace Spinit.Wpc.Synologen.Data {
 				parameters[counter++].Value = articleId;
 				parameters[counter++].Value = orderBy ?? SqlString.Null;
 				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetOrderItems", parameters, "tblSynologenOrderItem");
+				var retSet = RunProcedure("spSynologenGetOrderItems", parameters, "tblSynologenOrderItem");
 				//TODO: Read status: parameters[counter]
 				return retSet;
 			}
@@ -81,19 +81,19 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public List<OrderItem> GetOrderItemsList(int orderId, int articleId, string orderBy) {
-			List<OrderItem> returnList = new List<OrderItem>();
-			DataSet orderItems = GetOrderItems(orderId, articleId,orderBy);
-			if (orderItems == null || orderItems.Tables[0] == null) return returnList;
-			foreach (DataRow row in orderItems.Tables[0].Rows) {
-				returnList.Add(ParseOrderItemRow(row));
-			}
-			return returnList;
-		}
+		//public List<OrderItem> GetOrderItemsList(int orderId, int articleId, string orderBy) {
+		//    var returnList = new List<OrderItem>();
+		//    var orderItems = GetOrderItems(orderId, articleId,orderBy);
+		//    if (orderItems == null || orderItems.Tables[0] == null) return returnList;
+		//    foreach (DataRow row in orderItems.Tables[0].Rows) {
+		//        returnList.Add(ParseOrderItemRow(row));
+		//    }
+		//    return returnList;
+		//}
 
-		public List<IOrderItem> GetIOrderItemsList(int orderId, int articleId, string orderBy) {
-			List<IOrderItem> returnList = new List<IOrderItem>();
-			DataSet orderItems = GetOrderItems(orderId, articleId, orderBy);
+		public IList<IOrderItem> GetOrderItemsList(int orderId, int articleId, string orderBy) {
+			var returnList = new List<IOrderItem>();
+			var orderItems = GetOrderItems(orderId, articleId, orderBy);
 			if (orderItems == null || orderItems.Tables[0] == null) return returnList;
 			foreach (DataRow row in orderItems.Tables[0].Rows) {
 				returnList.Add(ParseOrderItemRow(row));
@@ -101,17 +101,12 @@ namespace Spinit.Wpc.Synologen.Data {
 			return returnList;
 		}
 		
-		private OrderItem ParseOrderItemRow(DataRow row) {
-			OrderItem returnItem = new OrderItem();
-			returnItem.Id = Util.CheckNullInt(row, "cId");
-			returnItem.Notes = Util.CheckNullString(row, "cNotes");
-			returnItem.NumberOfItems = Util.CheckNullInt(row, "cNumberOfItems");
-			returnItem.OrderId = Util.CheckNullInt(row, "cOrderId");
-			returnItem.SinglePrice = Util.CheckNullFloat(row, "cSinglePrice");
+		private IOrderItem ParseOrderItemRow(DataRow row) {
+			var returnItem = new OrderItem {Id = Util.CheckNullInt(row, "cId"), Notes = Util.CheckNullString(row, "cNotes"), NumberOfItems = Util.CheckNullInt(row, "cNumberOfItems"), OrderId = Util.CheckNullInt(row, "cOrderId"), SinglePrice = Util.CheckNullFloat(row, "cSinglePrice")};
 			returnItem.DisplayTotalPrice = returnItem.SinglePrice * returnItem.NumberOfItems;
 			returnItem.ArticleId = Util.CheckNullInt(row, "cArticleId");
 			returnItem.NoVAT = (bool)row["cNoVAT"];
-			Article article = GetArticle(returnItem.ArticleId);
+			var article = GetArticle(returnItem.ArticleId);
 			returnItem.ArticleDisplayName = article.Name;
 			returnItem.ArticleDisplayNumber = article.Number;
 			returnItem.SPCSAccountNumber = Util.CheckNullString(row, "cSPCSAccountNumber");

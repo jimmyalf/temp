@@ -1,8 +1,7 @@
 using System;
 using AdkNetWrapper;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.ServiceLibrary;
-using Spinit.Wpc.Synologen.Visma.Types;
 using Spinit.Wpc.Synologen.Visma.Utility;
 
 namespace Spinit.Wpc.Synologen.Visma {
@@ -25,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Visma {
 			Operations.CloseCompany();
 		}
 
-		public double AddInvoice(OrderData order, bool markAsPrinted, bool useNoVAT, out double invoiceSumIncludingVAT, out double invoiceSumExcludingVAT) {
+		public double AddInvoice(IOrder order, bool markAsPrinted, bool useNoVAT, out double invoiceSumIncludingVAT, out double invoiceSumExcludingVAT) {
 			double invoiceNo = 0;
 			invoiceSumIncludingVAT = 0;
 			invoiceSumExcludingVAT = 0;
@@ -144,7 +143,7 @@ namespace Spinit.Wpc.Synologen.Visma {
 
 		}
 
-		public PaymentInfo GetInvoicePaymentInfo(double vismaOrderId) {
+		public IInvoiceStatus GetInvoicePaymentInfo(double vismaOrderId) {
 			var paymentInfo = new PaymentInfo((long)vismaOrderId);
 			//Create data structure
 			var pData = Api.AdkCreateData(Api.ADK_DB_CUSTOMERPAYMENT);

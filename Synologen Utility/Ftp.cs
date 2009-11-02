@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
+using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 
 namespace Spinit.Wpc.Synologen.Utility{
 	public class Ftp {
@@ -13,64 +14,6 @@ namespace Spinit.Wpc.Synologen.Utility{
 			Url = TryAppendSlashAtUrlEnd(url);
 			Credentials = credentials;
 		}
-
-
-
-		//public IEnumerable<string> GetFileNames() {
-		//    try {
-		//        var returnList = new List<string>();
-		//        var files = GetListDirectory().Trim("\r\n".ToCharArray());
-		//        files = files.Replace("\r", "");
-		//        var fileNameArray = files.Split("\n".ToCharArray());
-		//        returnList.AddRange(fileNameArray);
-		//        return returnList;
-		//    }
-		//    catch(Exception ex) {
-		//        throw new FtpException("Ftp.GetFileNames()", ex);
-		//    }
-		//}
-
-		//public void UploadFile(string filePath) {
-		//    try {
-		//        var fileName = ExtractFileNameFromPath(filePath);
-		//        var ff = new FileInfo(filePath);
-		//        var fileContents = new byte[ff.Length];
-		//        var request = GetFtpRequest(fileName);
-		//        request.UseBinary = true;
-		//        request.Method = WebRequestMethods.Ftp.UploadFile;
-
-		//        using(var fr = ff.OpenRead()) {
-		//            fr.Read(fileContents, 0, System.Convert.ToInt32(ff.Length));
-		//        }
-		//        using(var writer = request.GetRequestStream()) {
-		//            writer.Write(fileContents, 0, fileContents.Length);
-		//        }
-		//        var response = (FtpWebResponse)request.GetResponse();
-		//        //return response.StatusDescription;
-		//    }
-		//    catch(Exception ex) {
-		//        throw new FtpException("Ftp.UploadFile()", ex);
-		//    }
-		//}
-
-		//public bool UploadStringAsFile(string fileName, string fileContent, bool passiveFTP) {
-		//    try {
-		//        var request = GetFtpRequest(fileName);
-		//        request.UseBinary = true;
-		//        request.Method = WebRequestMethods.Ftp.UploadFile;
-		//        request.UsePassive = passiveFTP;
-
-		//        var bytes = Encoding.UTF8.GetBytes(fileContent);
-		//        using(var writer = request.GetRequestStream()) {
-		//            writer.Write(bytes, 0, bytes.Length);
-		//        }
-		//        var response = (FtpWebResponse)request.GetResponse();
-		//        return response.StatusDescription.Contains(FileTransferCompleteResponseCode);
-		//    }
-		//    catch(Exception ex) {
-		//        throw new FtpException("Ftp.UploadFile() failed", ex);
-		//    }
-		//}
 
 		public FtpWebResponse UploadStringAsFile(string fileName, string fileContent, bool passiveFTP, Encoding fileEncoding, bool useBinaryTransfer) {
 			try {
@@ -91,56 +34,6 @@ namespace Spinit.Wpc.Synologen.Utility{
 				throw new FtpException("Ftp.UploadStringAsFile() failed: ", ex);
 			}
 		}
-
-		//public void DeleteFile(string fileName) {
-		//    try {
-		//        var request = GetFtpRequest(fileName);
-		//        request.Method = WebRequestMethods.Ftp.DeleteFile;
-		//        var response = (FtpWebResponse)request.GetResponse();
-		//        //return response.StatusDescription;
-		//        response.Close();
-		//    }
-		//    catch(Exception ex) {
-		//        throw new FtpException("Ftp.DeleteFile()", ex);
-		//    }
-		//}
-
-		//public IEnumerable<string> DownloadAndReadTextFile(string fileName) {
-		//    try {
-		//        var textRows = new List<string>();
-		//        var request = GetFtpRequest(fileName);
-		//        request.UseBinary = true;
-		//        request.Method = WebRequestMethods.Ftp.DownloadFile;
-		//        var response = (FtpWebResponse)request.GetResponse();
-		//        //WebResponse response = request.GetResponse();
-		//        var dataStream = response.GetResponseStream();
-		//        var sr = new StreamReader(dataStream, Encoding.ASCII);
-		//        while(!sr.EndOfStream) {
-		//            textRows.Add(sr.ReadLine());
-		//        }
-		//        return textRows;
-		//        //return sr.ReadToEnd();
-		//    }
-		//    catch(Exception ex) {
-		//        throw new Exception("Ftp.DownloadTextFile() got an exception: " + ex.Message);
-		//    }
-		//}
-
-		//public void DownloadAndSaveTextFile(string fileName, string saveFilePath) {
-		//    try {
-		//        var request = GetFtpRequest(fileName);
-		//        request.UseBinary = true;
-		//        request.Method = WebRequestMethods.Ftp.DownloadFile;
-		//        var response = (FtpWebResponse)request.GetResponse();
-		//        var dataStream = response.GetResponseStream();
-		//        var sr = new StreamReader(dataStream, Encoding.ASCII);
-		//        File.AppendAllText(saveFilePath, sr.ReadToEnd(), Encoding.ASCII);
-		//    }
-		//    catch(Exception ex) {
-		//        throw new FtpException("Ftp.DownloadAndSaveTextFile() failed: ",ex);
-		//    }
-		//}
-
 		private FtpWebRequest GetFtpRequest() {
 			try {
 				var request = (FtpWebRequest)WebRequest.Create(Url);
@@ -190,9 +83,5 @@ namespace Spinit.Wpc.Synologen.Utility{
 			return url;
 		}
 
-	}
-	public class FtpException : Exception {
-		public FtpException(string message) : base(message){}
-		public FtpException(string message, Exception ex) : base(message, ex) { }
 	}
 }

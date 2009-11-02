@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.EDI;
@@ -18,6 +19,8 @@ namespace Spinit.Wpc.Synologen.WebService{
 		private const string FtpFileUploadNotAccepted = "ej accepterad";
 		private const string FtpFileUploadContainsError = "felaktig";
 		private const int NumberOfDecimalsUsedForRounding = 2;
+		private const string FileFormat = "Synologen-{0}-{1}-{2}.txt";
+		private const string DateFormat = "yyyy-MM-dd";
 
 		public SynologenService() {
 			provider = new SqlProvider(ServiceLibrary.ConfigurationSettings.WebService.ConnectionString);
@@ -26,14 +29,14 @@ namespace Spinit.Wpc.Synologen.WebService{
 			provider = new SqlProvider(connectionString);
 		}
 
-		public List<OrderData> GetOrdersForInvoicing() {
+		public IList<IOrder> GetOrdersForInvoicing() {
 			try{
 				var statusIdFilter = ServiceLibrary.ConfigurationSettings.WebService.NewSaleStatusId;
 				var invoicingMethodIdFilter = ServiceLibrary.ConfigurationSettings.WebService.InvoicingMethodIdFilter;
 				var orders = provider.GetOrdersForInvoicing(statusIdFilter, invoicingMethodIdFilter, null);
 				var returnList = ConvertOrderData(orders);
 				var orderString = GetOrderIdsFromList(returnList);
-				LogMessage(LogTypeData.Information, "Client fetched orders from WPC: "+orderString);
+				LogMessage(LogType.Information, "Client fetched orders from WPC: "+orderString);
 				return returnList;
 			}
 			catch(Exception ex) {
@@ -49,7 +52,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 				var orderHistoryMessage = GetVismaNewOrderAddedHistoryMessage(invoiceNumber, invoiceSumIncludingVAT, invoiceSumExcludingVAT);
 				provider.AddOrderHistory(orderId, orderHistoryMessage);
 				var orderString = "OrderId: " + orderId + ", InvoiceNumber: " + invoiceNumber;
-				LogMessage(LogTypeData.Information, "Client wrote back order invoice number [" + orderString + "]: ");
+				LogMessage(LogType.Information, "Client wrote back order invoice number [" + orderString + "]: ");
 				var newStatusId = ServiceLibrary.ConfigurationSettings.WebService.SaleStatusIdAfterSPCSImport;
 				provider.UpdateOrderStatus(newStatusId, orderId, 0, 0, 0, 0, 0);
 			}
@@ -58,27 +61,27 @@ namespace Spinit.Wpc.Synologen.WebService{
 			}
 		}
 
-		public int LogMessage (LogTypeData logType, string message ) {
+		public int LogMessage (LogType logType, string message ) {
 			int returnValue;
 			try {
 				switch (logType) {
-					case LogTypeData.Error:
+					case LogType.Error:
 					if(ServiceLibrary.ConfigurationSettings.WebService.SendAdminEmailOnError) {
 							TrySendErrorEmail(message);
 						}
 						break;
-					case LogTypeData.Information:
+					case LogType.Information:
 						if(!ServiceLibrary.ConfigurationSettings.WebService.LogInformation)
 							return 0;
 						break;
-					case LogTypeData.Other:
+					case LogType.Other:
 						if(!ServiceLibrary.ConfigurationSettings.WebService.LogOther)
 							return 0;
 						break;
 					default:
 						throw new ArgumentOutOfRangeException("logType");
 				}
-				returnValue = provider.AddLog((LogType) logType, message);
+				returnValue = provider.AddLog(logType, message);
 			}
 			catch(Exception ex) {
 				throw LogAndCreateException("SynologenService.LogMessage failed", ex);
@@ -92,7 +95,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 				var statusId = ServiceLibrary.ConfigurationSettings.WebService.SaleStatusIdAfterInvoicing;
 				listOfOrders = provider.GetOrderInvoiceNumbers(statusId, null);
 				var orderString = GetOrderIdsFromList(listOfOrders);
-				LogMessage(LogTypeData.Information, "Client fetched order-invoice-id's from WPC : " + orderString);
+				LogMessage(LogType.Information, "Client fetched order-invoice-id's from WPC : " + orderString);
 			}
 			catch (Exception ex) {
 				throw LogAndCreateException("SynologenService.GetOrdersToCheckForUpdates failed", ex);
@@ -101,7 +104,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 
 		}
 
-		public void UpdateOrderStatuses(InvoiceStatusData invoiceStatus) {
+		public void UpdateOrderStatuses(IInvoiceStatus invoiceStatus) {
 			if (invoiceStatus.InvoiceCanceled || invoiceStatus.InvoicePaymentCanceled) {
 				var newStatusId = ServiceLibrary.ConfigurationSettings.WebService.InvoiceCancelledStatusId;
 				provider.UpdateOrderStatus(newStatusId, 0, 0, 0, 0, 0, invoiceStatus.InvoiceNumber);
@@ -132,7 +135,8 @@ namespace Spinit.Wpc.Synologen.WebService{
 				if(ServiceLibrary.ConfigurationSettings.WebService.SaveEDIFileCopy) {
 					TrySaveContentToDisk(invoiceFileName, invoice.Parse().ToString());
 				}
-				var ftpStatusMessage = UploadEDIFile(invoiceFileName,invoice.Parse().ToString());
+				var invoiceString = invoice.Parse().ToString();
+				var ftpStatusMessage = UploadEDIFile(invoiceFileName, invoiceString);
 
 				var newStatusId = ServiceLibrary.ConfigurationSettings.WebService.SaleStatusIdAfterInvoicing;
 				provider.UpdateOrderStatus(newStatusId, orderId, 0, 0, 0, 0, 0);
@@ -164,14 +168,14 @@ namespace Spinit.Wpc.Synologen.WebService{
 
 		#region Helper methods
 
-		private List<OrderData> ConvertOrderData(IEnumerable<IOrder> orderList) {
-			var returnList = new List<OrderData>();
+		private List<IOrder> ConvertOrderData(IEnumerable<IOrder> orderList) {
+			var returnList = new List<IOrder>();
 			try{
 				foreach (var order in orderList) {
-					var newOrder = new OrderData(order);
-					newOrder.SellingShop = new ShopData(provider.GetShop(newOrder.SalesPersonShopId));
-					newOrder.ContractCompany = new ContractCompanyData(provider.GetCompanyRow(newOrder.CompanyId));
-					var orderItems = provider.GetIOrderItemsList(newOrder.Id, 0, null);
+					var newOrder = new Order(order);
+					newOrder.SellingShop = provider.GetShop(newOrder.SalesPersonShopId);
+					newOrder.ContractCompany = new Company(provider.GetCompanyRow(newOrder.CompanyId));
+					var orderItems = provider.GetOrderItemsList(newOrder.Id, 0, null);
 					newOrder.OrderItems = ConvertOrderItemData(orderItems);
 					returnList.Add(newOrder);
 				}
@@ -182,10 +186,10 @@ namespace Spinit.Wpc.Synologen.WebService{
 			return returnList;
 		}
 
-		private static List<OrderItemData> ConvertOrderItemData(IEnumerable<IOrderItem> orderItems) {
-			var returnList = new List<OrderItemData>();
+		private static IList<IOrderItem> ConvertOrderItemData(IEnumerable<IOrderItem> orderItems) {
+			var returnList = new List<IOrderItem>();
 			foreach (var item in orderItems) {
-				returnList.Add(new OrderItemData(item));	
+				returnList.Add(new OrderItem(item));	
 			}
 			return returnList;
 		}
@@ -211,7 +215,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 			return message;
 		}
 
-		private static string GetOrderIdsFromList(IEnumerable<OrderData> orders) {
+		private static string GetOrderIdsFromList(IEnumerable<IOrder> orders) {
 			var returnString = String.Empty;
 			foreach (var order in orders) {
 				returnString += order.Id + ",";
@@ -229,7 +233,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 
 		private Exception LogAndCreateException(string message, Exception ex) {
 			var exception = new SynologenWebserviceException(message, ex);
-			LogMessage(LogTypeData.Error, ex.ToString());
+			LogMessage(LogType.Error, ex.ToString());
 			if(ServiceLibrary.ConfigurationSettings.WebService.SendAdminEmailOnError) {
 				TrySendErrorEmail(exception.ToString());
 			}
@@ -251,7 +255,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 
 		private void TryLogErrorAndSendEmail(string message) {
 			try {
-				LogMessage(LogTypeData.Error, message);
+				LogMessage(LogType.Error, message);
 			}
 			catch { return; }
 		}
@@ -259,9 +263,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 		private static EDIConversionSettings GetEDISetting() {
 			return new EDIConversionSettings {
 				BankGiro = ServiceLibrary.ConfigurationSettings.WebService.BankGiro,
-				//InvoiceExpieryDate = DateTime.Now.AddDays(ServiceLibrary.ConfigurationSettings.WebService.InvoiceExpieryNumberOfDaysOffset),
 				Postgiro = ServiceLibrary.ConfigurationSettings.WebService.Postgiro,
-				//RecipientId = ServiceLibrary.ConfigurationSettings.WebService.EDIRecipientId,
 				SenderId = ServiceLibrary.ConfigurationSettings.WebService.EDISenderId,
 				VATAmount = ServiceLibrary.ConfigurationSettings.WebService.VATAmount,
 				InvoiceCurrencyCode = ServiceLibrary.ConfigurationSettings.WebService.InvoiceCurrencyCode,
@@ -270,11 +272,10 @@ namespace Spinit.Wpc.Synologen.WebService{
 		}
 
 		private static string GenerateInvoiceFileName(Invoice invoice) {
-			var fileFormat = "Synologen-{0}-{1}-{2}.txt";
-			var date = invoice.InterchangeHeader.DateOfPreparation.ToString("yyyy-MM-dd");
+			var date = invoice.InterchangeHeader.DateOfPreparation.ToString(DateFormat);
 			var referenceNumber = invoice.InterchangeControlReference;
 			var invoiceNumber = invoice.DocumentNumber;
-			return String.Format(fileFormat, date, invoiceNumber, referenceNumber);
+			return String.Format(FileFormat, date, invoiceNumber, referenceNumber);
 		}
 
 		private string UploadEDIFile(string fileName, string fileContent) {
@@ -328,8 +329,8 @@ namespace Spinit.Wpc.Synologen.WebService{
 			}
 		}
 
-		private Invoice GenerateInvoice(Order order) {
-			var orderItems = provider.GetIOrderItemsList(order.Id, 0, null);
+		private Invoice GenerateInvoice(IOrder order) {
+			var orderItems = provider.GetOrderItemsList(order.Id, 0, null);
 			var company = provider.GetCompanyRow(order.CompanyId);
 			var shop = provider.GetShop(order.SalesPersonShopId);
 			var ediSettings = GetEDISetting();

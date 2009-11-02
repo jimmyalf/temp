@@ -46,7 +46,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 			return contractValidationRules.Exists(x => x.ControlToValidate.Equals(controlToValidate) && CustomOrderValidation.IsValidationRuleRequired(x))  ? "*" : String.Empty;
 		}
 
-		protected static int GetNewTemporaryIdForCart(List<OrderItem> cart) {
+		protected static int GetNewTemporaryIdForCart(IList<CartOrderItem> cart) {
 			if (cart == null || cart.Count == 0) return 1;
 			var tempId = 0;
 			foreach (var itemRow in cart){
@@ -55,7 +55,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 			return tempId+1;
 		}
 
-		protected static float GetTotalCartPrice(IEnumerable<OrderItem> cart) {
+		protected static float GetTotalCartPrice(IEnumerable<CartOrderItem> cart) {
 			float returnValue = 0;
 			foreach(var order in cart) {
 				returnValue += order.DisplayTotalPrice;

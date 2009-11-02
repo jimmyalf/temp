@@ -2,31 +2,31 @@
 using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.WebService;
 
-namespace Spinit.Wpc.Synologen.Test.Webservice {
-	//[TestFixture]
+namespace Synologen_IntegrationTest.Webservice{
+	[TestFixture]
 	[Ignore]
 	public class TestWebService{
 		private ClientContract client;
 		private string connectionString;
 
-		//[TestFixtureSetUp]
+		[TestFixtureSetUp]
 		[Ignore]
 		//TODO: Make into integrationtest
 		public void Setup() {
 			client = new ClientContract( );
-			client.ClientCredentials.UserName.UserName = ServiceLibrary.ConfigurationSettings.Common.ClientCredentialUserName;
-			client.ClientCredentials.UserName.Password = ServiceLibrary.ConfigurationSettings.Common.ClientCredentialPassword;
+			client.ClientCredentials.UserName.UserName = Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings.Common.ClientCredentialUserName;
+			client.ClientCredentials.UserName.Password = Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings.Common.ClientCredentialPassword;
 			client.Open();
 			connectionString = "Initial Catalog=dbWpcSynologen;Data Source=BLACK;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
 		}
 
-		//[TestFixtureTearDown]
+		[TestFixtureTearDown]
 		[Ignore]
 		public void TearDown() {
 			client.Close();
 		}
 
-		//[Test]
+		[Test]
 		[Ignore]
 		public void OfflineGetOrdersForInvoicing(){
 			var service = new SynologenService(connectionString);
@@ -35,7 +35,7 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 			Assert.LessOrEqual(0, orders.Count);
 		}
 
-		//[Test]
+		[Test]
 		[Ignore]
 		public void OfflineGetOrderItems(){
 			var service = new SynologenService(connectionString);
@@ -48,7 +48,7 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 			}
 		}
 
-		//[Test]
+		[Test]
 		[Ignore]
 		public void WebServiceGetOrdersForInvoicing(){
 			var orders = client.GetOrdersForInvoicing();
@@ -56,7 +56,15 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 			Assert.LessOrEqual(0, orders.Count);
 		}
 
-		//[Test]
+		[Test]
+		[Ignore]
+		public void WebServiceGetOrdersToCheckForUpdates(){
+			var orders = client.GetOrdersToCheckForUpdates();
+			Assert.IsNotNull(orders);
+			Assert.LessOrEqual(0, orders.Count);
+		}
+
+		[Test]
 		[Ignore]
 		public void WebServiceGetOrderItems(){
 			var orders = client.GetOrdersForInvoicing();
@@ -69,7 +77,7 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 		}
 
 
-		//[Test]
+		[Test]
 		[Ignore ("Does not need constant testing")]
 		public void SendEmail() {
 			client.SendEmail(

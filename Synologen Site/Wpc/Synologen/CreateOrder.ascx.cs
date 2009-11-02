@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
@@ -95,7 +96,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		protected void btnAdd_Click(object sender, EventArgs e) {
 			Page.Validate("vldAdd");
 			if (!Page.IsValid) return;
-			var item = new OrderItem();
+			var item = new CartOrderItem();
 			var connectionId = Int32.Parse(drpArticle.SelectedValue);
 			var contractArticle = Provider.GetContractCustomerArticleRow(connectionId);
 			item.ArticleDisplayName = contractArticle.ArticleName;
@@ -148,7 +149,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		private void SaveOrderItems(int id) {
 			foreach (var item in SynologenSessionContext.OrderItemsInCart) {
 				item.OrderId = id;
-				var tempOrder = item;
+				IOrderItem tempOrder = item;
 				Provider.AddUpdateDeleteOrderItem(Enumerations.Action.Create, ref tempOrder);
 			}
 		}
@@ -172,10 +173,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			txtEmail.Text = String.Empty;
 			txtNotes.Text = String.Empty;
 			txtPersonalIDNumber.Text = String.Empty;
-			SynologenSessionContext.OrderItemsInCart = new List<OrderItem>();
+			SynologenSessionContext.OrderItemsInCart = new List<CartOrderItem>();
 		}
 
-		private static void AddOrderItemToCart(OrderItem item) {
+		private static void AddOrderItemToCart(CartOrderItem item) {
 			var cart = SynologenSessionContext.OrderItemsInCart;
 			item.TemporaryId = GetNewTemporaryIdForCart(cart);
 			cart.Add(item);
@@ -183,7 +184,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		}
 
 		private static void RemoveOrderItemFromCart(int itemTemporaryId) {
-			var cart = SynologenSessionContext.OrderItemsInCart;
+			var cart = new List<CartOrderItem>(SynologenSessionContext.OrderItemsInCart);
 			cart.RemoveAll(x => x.TemporaryId == itemTemporaryId);
 			SynologenSessionContext.OrderItemsInCart = cart;
 		}

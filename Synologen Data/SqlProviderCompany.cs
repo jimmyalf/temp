@@ -104,8 +104,8 @@ namespace Spinit.Wpc.Synologen.Data {
 					InvoicingMethodId = Util.CheckNullInt(dataRow, "cInvoicingMethodId"),
 					InvoiceFreeTextFormat = Util.CheckNullString(dataRow, "cInvoiceFreeText"),
                     Country = GetCountryRow(Util.CheckNullInt(dataRow, "cCountryId")),
+					CompanyValidationRules = new List<ICompanyValidationRule>(GetCompanyValidationRules(null, Util.CheckNullInt(dataRow, "cId")))
 				};
-				companyRow.CompanyValidationRules = new List<ICompanyValidationRule>(GetCompanyValidationRules(null, companyRow.Id));
 				return companyRow;
 			}
 			catch (Exception ex) {

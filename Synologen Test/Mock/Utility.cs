@@ -2,15 +2,13 @@ using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.ServiceLibrary;
-using Spinit.Wpc.Synologen.Visma.Types;
 
 namespace Spinit.Wpc.Synologen.Test.Mock {
 	public static class Utility {
 
 		#region ShopData/IShop/Shop
-		public static ShopData GetMockShopData() {
-			return new ShopData(GetMockIShop());
+		public static IShop GetMockShopData() {
+			return GetMockIShop();
 		}
 		public static IShop GetMockIShop() {
 			return GetMockShopRow();
@@ -40,8 +38,8 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		#endregion
 
 		#region OrderItemData/IOrderItem/OrderItem
-		private static OrderItemData GetMockOrderItem(int orderId) {
-			return new OrderItemData(GetMockIOrderItem(orderId, orderId + 1));
+		private static OrderItem GetMockOrderItem(int orderId) {
+			return new OrderItem(GetMockIOrderItem(orderId, orderId + 1));
 		}
 		private static IOrderItem GetMockIOrderItem(int orderId, int orderItemId) {
 			return GetMockOrderItemRow(orderId, orderItemId);
@@ -63,8 +61,8 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		#endregion
 
 		#region ContractCompanyData/ICompany/Company
-		public static ContractCompanyData GetMockCompany() {
-			return new ContractCompanyData(GetMockICompany());
+		public static ICompany GetMockCompany() {
+			return new Company(GetMockICompany());
 		}
 		private static ICompany GetMockICompany() {
 			return GetMockCompanyRow();
@@ -92,14 +90,14 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		#endregion
 
 		#region OrderData/IOrder/Order
-		public static OrderData GetMockOrderData(int orderId) {
-			return new OrderData(GetMockIOrder(orderId)) {
+		public static IOrder GetMockOrderData(int orderId) {
+			return new Order(GetMockIOrder(orderId)) {
 			                                             	ContractCompany = GetMockCompany(),
-			                                             	OrderItems = new List<OrderItemData> {GetMockOrderItem(orderId)},
+			                                             	OrderItems = new List<IOrderItem> {GetMockOrderItem(orderId)},
 			                                             	SellingShop = GetMockShopData(),
 			                                             };
 		}
-		public static Order GetMockOrderRow(int orderId) {
+		public static IOrder GetMockOrderRow(int orderId) {
 			return new Order {
 			                    	CompanyId = 1,
 			                    	CompanyUnit = "Bygg & Inredning",
@@ -124,7 +122,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		}
 		#endregion
 
-		public static PaymentInfo GetMockPaymentInfo(long invoiceNumber) {
+		public static IInvoiceStatus GetMockPaymentInfo(long invoiceNumber) {
 			return new PaymentInfo {
 			                       	InvoiceCanceled = false,
 			                       	InvoiceNumber = invoiceNumber,

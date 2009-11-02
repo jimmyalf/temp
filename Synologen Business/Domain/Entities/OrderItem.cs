@@ -2,17 +2,21 @@ using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 	public class OrderItem : IOrderItem {
-		private int _temporaryId;
 
-		public int TemporaryId {
-			get { return _temporaryId; }
-			set { _temporaryId = value; }
+		public OrderItem(IOrderItem orderItem) {
+			Id = orderItem.Id;
+			ArticleId = orderItem.ArticleId;
+			ArticleDisplayName = orderItem.ArticleDisplayName;
+			SinglePrice = orderItem.SinglePrice;
+			NumberOfItems = orderItem.NumberOfItems;
+			Notes = orderItem.Notes;
+			ArticleDisplayNumber = orderItem.ArticleDisplayNumber;
+			DisplayTotalPrice = orderItem.DisplayTotalPrice;
+			OrderId = orderItem.OrderId;
+			NoVAT = orderItem.NoVAT;
+			SPCSAccountNumber = orderItem.SPCSAccountNumber;
 		}
-
-		public bool IsTemporary {
-			get { return (_temporaryId > 0); }
-		}
-
+		public OrderItem() { }
 		public int Id { get; set; }
 		public int ArticleId { get; set; }
 		public string ArticleDisplayName { get; set; }

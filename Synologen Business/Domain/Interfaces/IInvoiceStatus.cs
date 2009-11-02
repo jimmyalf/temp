@@ -1,14 +1,15 @@
 using System;
+using System.Runtime.Serialization;
 
 namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 	public interface IInvoiceStatus {
-		long InvoiceNumber{ get; set;}
-		bool InvoiceCanceled { get; set; }
-		bool InvoicePaymentCanceled { get; set; }
-		DateTime InvoicePaymentDate { get; set; }
-		string Status { get; set; }
-		object Other { get; set; }
-		bool InvoiceIsPayed { get;}
+		[DataMember] long InvoiceNumber{ get; set;}
+		[DataMember] bool InvoiceCanceled { get; set; }
+		[DataMember] bool InvoicePaymentCanceled { get; set; }
+		[DataMember] DateTime InvoicePaymentDate { get; set; }
+		[DataMember] string Status { get; set; }
+		[DataMember] object Other { get; set; }
+		[DataMember] bool InvoiceIsPayed { get;}
 
 	}
 }

@@ -29,6 +29,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,7 +54,13 @@
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -65,6 +72,20 @@
     <Compile Include="Domain\Entities\Contract.cs" />
     <Compile Include="Domain\Entities\ContractValidationRule.cs" />
     <Compile Include="Domain\Entities\Country.cs" />
+    <Compile Include="Domain\Entities\CartOrderItem.cs" />
+    <Compile Include="Domain\Entities\PaymentInfo.cs" />
+    <Compile Include="Domain\Enumerations\ActiveFilter.cs" />
+    <Compile Include="Domain\Enumerations\ConnectionAction.cs" />
+    <Compile Include="Domain\Enumerations\FetchCustomerContract.cs" />
+    <Compile Include="Domain\Enumerations\FetchShop.cs" />
+    <Compile Include="Domain\Enumerations\FileCategoryGetAction.cs" />
+    <Compile Include="Domain\Enumerations\FileCategoryType.cs" />
+    <Compile Include="Domain\Enumerations\LogType.cs" />
+    <Compile Include="Domain\Enumerations\RoundDecimals.cs" />
+    <Compile Include="Domain\Enumerations\ShopMemberConnectionAction.cs" />
+    <Compile Include="Domain\Exceptions\FtpException.cs" />
+    <Compile Include="Domain\Exceptions\SynologenWebserviceException.cs" />
+    <Compile Include="Domain\Interfaces\IAdkHandler.cs" />
     <Compile Include="Domain\Interfaces\IOrderStatus.cs" />
     <Compile Include="Domain\Interfaces\IShopCategory.cs" />
     <Compile Include="Domain\Interfaces\ISettlement.cs" />
@@ -78,8 +99,8 @@
     <Compile Include="Domain\Entities\ShopCategory.cs" />
     <Compile Include="Domain\Entities\ShopEquipment.cs" />
     <Compile Include="Domain\Entities\Shop.cs" />
-    <Compile Include="Domain\Enumerations\Enumeration.cs" />
     <Compile Include="Domain\Enumerations\ValidationType.cs" />
+    <Compile Include="Domain\Interfaces\ISqlProvider.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Domain\Interfaces\ICompany.cs" />
     <Compile Include="Domain\Interfaces\ICompanyValidationRule.cs" />
@@ -123,12 +144,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Synologen Svefaktura\Synologen Svefaktura.csproj">
-      <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
-      <Name>Synologen Svefaktura</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

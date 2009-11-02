@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Visma;
 using Synologen.Client.Common;
@@ -11,7 +12,7 @@ namespace Synologen.Client.ChildForms {
 		private const int invoiceSentStatusColumn = 8;
 		private const int spcsInvoiceNumberColumn = 1;
 		private bool ordersHaveBeenFetchedFromWPC;
-		private List<OrderData> ordersToImport = new List<OrderData>();
+		private IList<IOrder> ordersToImport = new List<IOrder>();
 
 		public ImportExportOrders() {
 			InitializeComponent();
@@ -66,7 +67,7 @@ namespace Synologen.Client.ChildForms {
 			MessageBox.Show("Inga nya ordrar hittades.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 		}
 
-		private void PopulateSingleOrderListItem(OrderData order) {
+		private void PopulateSingleOrderListItem(IOrder order) {
 			var listItem = new ListViewItem { Tag = order, Text = order.Id.ToString() };
 			listItem.SubItems.Add("");
 			listItem.SubItems.Add(order.ContractCompany.Name);
@@ -115,14 +116,14 @@ namespace Synologen.Client.ChildForms {
 
 		#region Actions
 		private void DispatchInvoice(ClientContract client, ListViewItem listItem) {
-			var order = (OrderData)listItem.Tag;
+			var order = (IOrder)listItem.Tag;
 			ClientUtility.SendInvoiceEDI(client, order.Id);
 			listItem.SubItems[invoiceSentStatusColumn].Text = "Ja";
 			Refresh();
 		}
 
 		private int ImportSingleOrderToSPCS(AdkHandler spcsHandler, ListViewItem listItem, out double invoiceSumIncludingVAT, out double invoiceSumExcludingVAT) {
-			var order = (OrderData)listItem.Tag;
+			var order = (IOrder)listItem.Tag;
 			var SPCSNumber = ClientUtility.ImportOrderToSPCS(spcsHandler, order, out invoiceSumIncludingVAT, out invoiceSumExcludingVAT);
 			listItem.SubItems[spcsInvoiceNumberColumn].Text = SPCSNumber.ToString();
 			Refresh();
@@ -130,7 +131,7 @@ namespace Synologen.Client.ChildForms {
 		}
 
 		private void ExportInvoiceNumberToWPC(ClientContract client, ListViewItem listItem, int SPCSNumber, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {
-			var order = (OrderData)listItem.Tag;
+			var order = (IOrder)listItem.Tag;
 			ClientUtility.SetSPCSOrderInvoiceNumber(client, order.Id, SPCSNumber, invoiceSumIncludingVAT, invoiceSumExcludingVAT);
 			listItem.SubItems[invoicedStatusColumn].Text = "Ja";
 			Refresh();

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Business.Utility;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
@@ -31,7 +33,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 
 		private static void InitSessionContext() {
 			SynologenSessionContext.OrderItemsMarkedForDeletion = new List<int>();
-			SynologenSessionContext.EditOrderItemsInCart = new List<OrderItem>();
+			SynologenSessionContext.EditOrderItemsInCart = new List<CartOrderItem>();
 		}
 
 		#region Population Mehtods
@@ -64,7 +66,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			drpNumberOfItems.Enabled = true;
 		}
 		private void PopulateOriginalShoppingCart() {
-			SynologenSessionContext.EditOrderItemsInCart = Provider.GetOrderItemsList(_orderId, 0, null);
+			SynologenSessionContext.EditOrderItemsInCart = General.ParseList(Provider.GetOrderItemsList(_orderId, 0, null));
 			gvOrderItemsCart.DataSource = SynologenSessionContext.EditOrderItemsInCart;
 			gvOrderItemsCart.DataBind();
 			ltTotalPrice.Text = GetTotalCartPrice(SynologenSessionContext.EditOrderItemsInCart).ToString();
@@ -150,7 +152,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		protected void btnAdd_Click(object sender, EventArgs e) {
 			Page.Validate("vldAdd");
 			if (!Page.IsValid) return;
-			var item = new OrderItem();
+			var item = new CartOrderItem();
 			var connectionId = Int32.Parse(drpArticle.SelectedValue);
 			var contractArticle = Provider.GetContractCustomerArticleRow(connectionId);
 			item.ArticleDisplayName = contractArticle.ArticleName;
@@ -248,7 +250,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			foreach (var item in SynologenSessionContext.EditOrderItemsInCart) {
 				if (!item.IsTemporary) continue;
 				const Enumerations.Action action = Enumerations.Action.Create;
-				var tempOrder = item;
+				IOrderItem tempOrder = item;
 				tempOrder.OrderId = id;
 				Provider.AddUpdateDeleteOrderItem(action, ref tempOrder);
 			}
@@ -257,7 +259,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		private void DeleteOrderItemsMarkedForDeletion() {
 			foreach (var orderItemId in SynologenSessionContext.OrderItemsMarkedForDeletion) {
 				const Enumerations.Action action = Enumerations.Action.Delete;
-				var item = new OrderItem {Id = orderItemId};
+				IOrderItem item = new OrderItem {Id = orderItemId};
 				Provider.AddUpdateDeleteOrderItem(action, ref item);
 			}
 			SynologenSessionContext.OrderItemsMarkedForDeletion = new List<int>();
@@ -273,7 +275,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			plManualPrice.Visible = false;
 		}
 
-		private static void AddOrderItemToCart(OrderItem item) {
+		private static void AddOrderItemToCart(CartOrderItem item) {
 			var cart = SynologenSessionContext.EditOrderItemsInCart;
 			item.TemporaryId = GetNewTemporaryIdForCart(cart);
 			cart.Add(item);
@@ -281,13 +283,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		}
 
 		private static void RemoveTemporaryOrderItemFromCart(int itemTemporaryId) {
-			var cart = SynologenSessionContext.EditOrderItemsInCart;
+			var cart = new List<CartOrderItem>(SynologenSessionContext.EditOrderItemsInCart);
 			cart.RemoveAll(x => x.TemporaryId == itemTemporaryId);
 			SynologenSessionContext.EditOrderItemsInCart = cart;
 		}
 
 		private static void RemoveExistingOrderItemFromCart(int orderItemId) {
-			var cart = SynologenSessionContext.EditOrderItemsInCart;
+			var cart = new List<CartOrderItem>(SynologenSessionContext.EditOrderItemsInCart);
 			cart.RemoveAll(x => x.Id == orderItemId);
 			SynologenSessionContext.EditOrderItemsInCart = cart;
 			//Add item to a list of already existing orderItems to be deleted at save

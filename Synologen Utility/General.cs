@@ -16,14 +16,14 @@ namespace Spinit.Wpc.Synologen.Utility {
 			streamWriter.Close();
 		}
 
-		public static Invoice CreateInvoiceEDI(Order order, List<OrderItem> orderItemList, Company company, IShop shop, EDIConversionSettings ediSettings) {
-			var iorderList = new List<IOrderItem>();
-			foreach(var row in orderItemList) { iorderList.Add(row); }
-			var EDIInvoice = Convert.ToEDIInvoice(ediSettings, order, iorderList, company, shop);
-			return EDIInvoice;
-		}
+		//public static Invoice CreateInvoiceEDI(IOrder order, List<OrderItem> orderItemList, ICompany company, IShop shop, EDIConversionSettings ediSettings) {
+		//    var iorderList = new List<IOrderItem>();
+		//    foreach(var row in orderItemList) { iorderList.Add(row); }
+		//    var EDIInvoice = Convert.ToEDIInvoice(ediSettings, order, iorderList, company, shop);
+		//    return EDIInvoice;
+		//}
 
-		public static Invoice CreateInvoiceEDI(Order order, List<IOrderItem> iorderList, Company company,IShop shop, EDIConversionSettings ediSettings) {
+		public static Invoice CreateInvoiceEDI(IOrder order, IList<IOrderItem> iorderList, ICompany company, IShop shop, EDIConversionSettings ediSettings) {
 			var EDIInvoice = Convert.ToEDIInvoice(ediSettings, order, iorderList, company, shop);
 			return EDIInvoice;
 		}

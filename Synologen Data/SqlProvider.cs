@@ -1,13 +1,14 @@
 using System;
 using System.Data;
 using System.Data.SqlTypes;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using DataException=Spinit.GeneralData.DatabaseInterface.DataException;
 
 namespace Spinit.Wpc.Synologen.Data {
 	/// <summary>
 	/// Base class for SqlProvider
 	/// </summary>
-	public partial  class SqlProvider: Member.Data.SqlProvider {
+	public partial  class SqlProvider: Member.Data.SqlProvider, ISqlProvider {
 		/// <summary>
 		/// Base constructor for SqlProvider
 		/// </summary>
@@ -19,8 +20,8 @@ namespace Spinit.Wpc.Synologen.Data {
 			return (dataset.Tables[0].Rows.Count > 0);
 		}
 
-		private DataException CreateDataException(string message, Exception innerException) {
-			DataException exception = new DataException(message, innerException);
+		private static DataException CreateDataException(string message, Exception innerException) {
+			var exception = new DataException(message, innerException);
 			return exception;
 		}
 

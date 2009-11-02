@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
+	[DataContract]
 	public class Shop : IShop{
 		public int ShopId { get; set; }
-
 		public string Name { get; set; }
 		public string Number { get; set; }
 		public string Description { get; set; }
@@ -21,6 +23,10 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		public string ContactFirstName { get; set; }
 		public string ContactLastName { get; set; }
 		public int CategoryId { get; set; }
+		public IList<IShop> GetAllShopsInConcern(ISqlProvider sqlProvider) {
+			if(Concern == null || Concern.Id <= 0) return new List<IShop>();
+			return sqlProvider.GetShopRows(null, null, null, null, null, null, Concern.Id, null).ToList();
+		}
 		public IEnumerable<ShopEquipment> Equipment { get; set; }
 		public string Url { get; set; }
 		public string MapUrl { get; set; }

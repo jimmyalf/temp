@@ -1,21 +1,31 @@
-﻿namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+
+namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 	public interface IOrder {
-		int CompanyId{ get; set; }
-		string CompanyUnit { get; set; }
-		System.DateTime CreatedDate { get; set; }
-		string CustomerFirstName { get; set; }
-		string Email { get; set; }
-		string CustomerLastName { get; set; }
-		int Id { get; set; }
-		long InvoiceNumber { get; set; }
-		bool MarkedAsPayedByShop { get; set; }
-		string PersonalIdNumber { get; set; }
-		string Phone { get; set; }
-		//int RSTId { get; set; }
-		string RstText { get; set; }
-		int SalesPersonShopId { get; set; }
-		int StatusId { get; set; }
-		System.DateTime UpdateDate { get; set; }
-		int SalesPersonMemberId { get; set; }
+		[DataMember] int CompanyId{ get; set; }
+		[DataMember] string CompanyUnit { get; set; }
+		[DataMember] System.DateTime CreatedDate { get; set; }
+		[DataMember] string CustomerFirstName { get; set; }
+		[DataMember] string Email { get; set; }
+		[DataMember] string CustomerLastName { get; set; }
+		[DataMember] int Id { get; set; }
+		[DataMember] long InvoiceNumber { get; set; }
+		[DataMember] bool MarkedAsPayedByShop { get; set; }
+		[DataMember] string PersonalIdNumber { get; set; }
+		[DataMember] string Phone { get; set; }
+		[DataMember] string RstText { get; set; }
+		[DataMember] int SalesPersonShopId { get; set; }
+		[DataMember] int StatusId { get; set; }
+		[DataMember] System.DateTime UpdateDate { get; set; }
+		[DataMember] int SalesPersonMemberId { get; set; }
+		[DataMember] double InvoiceSumIncludingVAT { get; set; }
+		[DataMember] double InvoiceSumExcludingVAT { get; set; }
+		[DataMember] string CustomerOrderNumber { get; set; }
+		[DataMember] string CustomerCombinedName { get; }
+		[DataMember] string PersonalBirthDateString { get; }
+		[DataMember] IList<IOrderItem> OrderItems { get; set; }
+		[DataMember] IShop SellingShop { get; set; }
+		[DataMember] ICompany ContractCompany{ get; set; }
 	}
 }

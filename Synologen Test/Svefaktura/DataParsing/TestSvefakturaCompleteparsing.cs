@@ -17,6 +17,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 		private Company company;
 		private Shop shop;
 		private SFTIInvoiceType invoice;
+		private const int SwedenCountryCodeNumber = 187;
 
 		[TestFixtureSetUp]
 		public void Setup(){
@@ -94,7 +95,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 				BankCode = "99998",
 				City = "Järfälla",
 				Zip = "17588",
-				Country = new Country {Id = 1, Name = "Sverige", OrganizationCountryCode = CountryIdentificationCodeContentType.SE},
+				Country = new Country {Id = 1, Name = "Sverige", OrganizationCountryCodeId = SwedenCountryCodeNumber},
 				InvoiceCompanyName = "5440Saab AB",
 				InvoiceFreeTextFormat = "{CustomerName}{CustomerPersonalIdNumber}{CompanyUnit}{CustomerPersonalBirthDateString}{CustomerFirstName}{CustomerLastName}{BuyerCompanyId}{RST}{BankCode}",
 				//Name = "Saab",

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.EDI.Common.Types;
@@ -11,7 +10,7 @@ using Spinit.Wpc.Synologen.Utility.Types;
 namespace Spinit.Wpc.Synologen.Utility {
 	public static partial class Convert {
 
-		public static Invoice ToEDIInvoice(EDIConversionSettings EDISettings, Order order, IList<IOrderItem> orderItems, Company company, IShop shop) {
+		public static Invoice ToEDIInvoice(EDIConversionSettings EDISettings, IOrder order, IList<IOrderItem> orderItems, ICompany company, IShop shop) {
 			var invoiceValueIncludingVAT = System.Convert.ToSingle(order.InvoiceSumIncludingVAT);
 			var invoiceValueExcludingVAT = System.Convert.ToSingle(order.InvoiceSumExcludingVAT);
 			var interchangeHeader = new InterchangeHeader {RecipientId = company.EDIRecipientId, SenderId = EDISettings.SenderId};
@@ -31,7 +30,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return invoice;
 		}
 
-		public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, Order order, IList<IOrderItem> orderItems, Company company, Shop shop) {
+		public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, IOrder order, IList<IOrderItem> orderItems, ICompany company, IShop shop) {
 			var invoice = new SFTIInvoiceType();
 			TryAddSellerParty(invoice, settings, shop);
 			TryAddBuyerParty(invoice, company, order);

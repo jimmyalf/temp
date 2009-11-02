@@ -16,6 +16,7 @@ using Spinit.Wpc.Synologen.Utility.Types;
 namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 	[TestFixture]
 	public class TestMockXmlSerialization : AssertionHelper {
+		private const int SwedenCountryCodeNumber = 187;
 
 		[TestFixtureSetUp]
 		public void Setup() {}
@@ -133,7 +134,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 									PostBox = "Box 123",
 			                      	Zip = "11000",
 			                      	PaymentDuePeriod = 30,
-                                    Country = new Country{OrganizationCountryCode = CountryIdentificationCodeContentType.SE},
+                                    Country = new Country{OrganizationCountryCodeId = SwedenCountryCodeNumber},
                                     BankCode = "99998",
                                     OrganizationNumber = "555123456",
                                     TaxAccountingCode = "SE555123456",

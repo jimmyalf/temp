@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
@@ -128,7 +129,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 
 		public bool ShowEquipmentFiltration { get; set; }
 
-		private IEnumerable<Shop> ShopsToDisplay { get; set; }
+		private IEnumerable<IShop> ShopsToDisplay { get; set; }
 
 		#endregion
 

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.EDI.Common.Types;
 using Spinit.Wpc.Synologen.EDI.Types;
@@ -21,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return supplier;
 		}
 
-		private static Buyer GetBuyerInformation(string buyerId, Company company) {
+		private static Buyer GetBuyerInformation(string buyerId, ICompany company) {
 			var buyer = new Buyer {                	
 				BuyerIdentity = buyerId,
                 InvoiceIdentity = company.BankCode,
@@ -54,31 +53,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return eDIitem;
 		}
 
-		//public static List<string> GetOrderBuyerInformation(Order order) {
-		//    var listOfStrings = new List<string>();
-		//    if (!String.HasNotBeenSet(order.CustomerFirstName) && !String.HasNotBeenSet(order.CustomerLastName)){
-		//        listOfStrings.Add(String.Format("Beställare Namn, {0} {1}", order.CustomerFirstName, order.CustomerLastName));
-		//    }
-		//    if (!String.HasNotBeenSet(order.PersonalIdNumber)){
-		//        listOfStrings.Add(String.Format("Beställare Personnummer, {0}", order.PersonalIdNumber));
-		//    }
-		//    if(!String.HasNotBeenSet(order.CompanyUnit)){
-		//        listOfStrings.Add(String.Format("Beställare Enhet, {0}", order.CompanyUnit));
-		//    }
-		//    return listOfStrings;
-		//}
-
-		//public static List<InvoiceRow> ToEDIArticles(List<IOrderItem> orderItems) {
-		//    var EDIArticles = new List<InvoiceRow>();
-		//    var articleCounter = 1;
-		//    foreach(var item in orderItems) {
-		//        EDIArticles.Add(ToEDIArticle(item, articleCounter));
-		//        articleCounter++;
-		//    }
-		//    return EDIArticles;
-		//}
-
-		public static List<InvoiceRow> ToEDIArticles(IList<IOrderItem> orderItems, Order order, Company company) {
+		public static List<InvoiceRow> ToEDIArticles(IList<IOrderItem> orderItems, IOrder order, ICompany company) {
 			var EDIArticles = new List<InvoiceRow>();
 			var articleCounter = 1;
 			var freeTextRows = CommonConversion.GetFreeTextRows(company, order);

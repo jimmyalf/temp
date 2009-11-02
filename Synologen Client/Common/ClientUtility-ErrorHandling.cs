@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 
 namespace Synologen.Client.Common {
@@ -13,7 +14,7 @@ namespace Synologen.Client.Common {
 			var client = new ClientContract();
 			try {
 				client.Open();
-				client.LogMessage(LogTypeData.Error, message);
+				client.LogMessage(LogType.Error, message);
 			}
 			catch { return; }
 			finally { client.Close(); }
@@ -28,7 +29,7 @@ namespace Synologen.Client.Common {
 			var client = new ClientContract();
 			try {
 				client.Open();
-				client.LogMessage(LogTypeData.Error, message + ": " + ex.Message);
+				client.LogMessage(LogType.Error, message + ": " + ex.Message);
 			}
 			catch { return; }
 			finally { client.Close(); }
@@ -43,7 +44,7 @@ namespace Synologen.Client.Common {
 			var client = new ClientContract();
 			try {
 				client.Open();
-				client.LogMessage(LogTypeData.Information, message);
+				client.LogMessage(LogType.Information, message);
 			}
 			catch { return; }
 			finally { client.Close(); }

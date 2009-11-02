@@ -42,21 +42,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 			set { Business.Utility.Session.SetSessionValue(NAME + "SecurityIsValidUntil", value); }
 		}
 
-		public static List<OrderItem> OrderItemsInCart {
+		public static IList<CartOrderItem> OrderItemsInCart {
 			get { 
-				try {return (List<OrderItem>) Business.Utility.Session.GetSessionValue(NAME + "OrderItemsInCart");}
-				catch{return new List<OrderItem>();}
+				try {return (List<CartOrderItem>) Business.Utility.Session.GetSessionValue(NAME + "OrderItemsInCart");}
+				catch{return new List<CartOrderItem>();}
 			}
 			set { Business.Utility.Session.SetSessionValue(NAME + "OrderItemsInCart", value); }
 		}
-		public static List<OrderItem> EditOrderItemsInCart{
+		public static IList<CartOrderItem> EditOrderItemsInCart{
 			get {
-				try{return (List<OrderItem>)Business.Utility.Session.GetSessionValue(NAME + "EditOrderItemsInCart");}
-				catch { return new List<OrderItem>(); }
+				try{return (List<CartOrderItem>)Business.Utility.Session.GetSessionValue(NAME + "EditOrderItemsInCart");}
+				catch { return new List<CartOrderItem>(); }
 			}
 			set { Business.Utility.Session.SetSessionValue(NAME + "EditOrderItemsInCart", value); }
 		}
-		public static List<int> OrderItemsMarkedForDeletion {
+		public static IList<int> OrderItemsMarkedForDeletion {
 			get { return Business.Utility.Session.GetSessionIntList(NAME + "OrderMarkedForDeletion"); }
 			set { Business.Utility.Session.SetSessionValue(NAME + "OrderMarkedForDeletion", value); }
 		}

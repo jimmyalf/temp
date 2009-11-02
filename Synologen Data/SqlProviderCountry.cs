@@ -4,11 +4,10 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data{
-	public partial class SqlProvider{
+	public partial class SqlProvider {
 		private DataSet GetCountryDataSet(int? countryId, string orderBy) {
 			try {
 				var counter = 0;
@@ -32,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Data{
 			{
 				Id = Util.CheckNullInt(dataRow, "cId"),
 				Name = Util.CheckNullString(dataRow, "cName"),
-				OrganizationCountryCode = (CountryIdentificationCodeContentType) Util.CheckNullInt(dataRow, "cSvefakturaCountryCode")
+				OrganizationCountryCodeId = Util.CheckNullInt(dataRow, "cSvefakturaCountryCode")
 			};
 			return concernRow;
 		}

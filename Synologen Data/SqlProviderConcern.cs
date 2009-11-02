@@ -5,7 +5,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data{
-	public partial class SqlProvider{
+	public partial class SqlProvider {
 		private DataSet GetConcernDataSet(int? concernId, string orderBy) {
 			try {
 				var counter = 0;

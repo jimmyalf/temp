@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 
@@ -10,7 +11,7 @@ namespace Synologen.Client.Common {
 		/// Gets a list of new orders (objects) to import into SPCS from Webservice
 		/// <exception cref="Exception">Will throw exception if fetching orders fail</exception>
 		/// </summary>
-		public static IList<IOrder> GetOrderListFromWebService() {
+		public static IList<Order> GetOrderListFromWebService() {
 			var client = new ClientContract();
 			try {
 				client.Open();

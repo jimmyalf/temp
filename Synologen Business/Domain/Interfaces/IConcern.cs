@@ -1,7 +1,9 @@
+using System.Runtime.Serialization;
+
 namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 	public interface IConcern{
-		int Id { get; set; }
-		string Name { get; set; }
-		bool? CommonOPQ { get; set; }
+		[DataMember] int Id { get; set; }
+		[DataMember] string Name { get; set; }
+		[DataMember] bool? CommonOPQ { get; set; }
 	}
 }

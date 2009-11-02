@@ -81,8 +81,8 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public IList<IOrderItem> GetOrderItemsList(int? orderId, int? articleId, string orderBy) {
-			var returnList = new List<IOrderItem>();
+		public IList<OrderItem> GetOrderItemsList(int? orderId, int? articleId, string orderBy) {
+			var returnList = new List<OrderItem>();
 			var orderItems = GetOrderItemsDataSet(orderId, articleId, orderBy);
 			if (orderItems == null || orderItems.Tables[0] == null) return returnList;
 			foreach (DataRow row in orderItems.Tables[0].Rows) {
@@ -91,7 +91,7 @@ namespace Spinit.Wpc.Synologen.Data {
 			return returnList;
 		}
 		
-		private IOrderItem ParseOrderItemRow(DataRow row) {
+		private OrderItem ParseOrderItemRow(DataRow row) {
 			var returnItem = new OrderItem
 			{
 				Id = Util.CheckNullInt(row, "cId"), 

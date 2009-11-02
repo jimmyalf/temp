@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
@@ -10,12 +11,12 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 	public interface ISynologenService{
 
 		/// <summary>
-		/// Returns a list of orders(<see cref="IList{IOrder}">) that can be
+		/// Returns a list of orders(<see cref="List{Order}">) that can be
 		/// used for creating invoices
 		/// <exception cref="SynologenWebserviceException">Will throw exception if fetching orders fail</exception>
 		/// </summary>
 		[OperationContract]
-		IList<IOrder> GetOrdersForInvoicing();
+		List<Order> GetOrdersForInvoicing();
 
 		/// <summary>
 		/// Sets an invoicenumber for a given order

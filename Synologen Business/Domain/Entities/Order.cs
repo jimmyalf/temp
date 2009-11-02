@@ -34,25 +34,25 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 			ContractCompany = ContractCompany;
 		}
 
-		public int CompanyId { get; set; }
-		public string CompanyUnit { get; set; }
-		public DateTime CreatedDate { get; set; }
-		public string CustomerFirstName { get; set; }
-		public string Email { get; set; }
-		public string CustomerLastName { get; set; }
-		public int Id { get; set; }
-		public long InvoiceNumber { get; set; }
-		public bool MarkedAsPayedByShop { get; set; }
-		public string PersonalIdNumber { get; set; }
-		public string Phone { get; set; }
-		public string RstText { get; set; }
-		public int SalesPersonShopId { get; set; }
-		public int StatusId { get; set; }
-		public DateTime UpdateDate { get; set; }
-		public int SalesPersonMemberId { get; set; }
-		public double InvoiceSumIncludingVAT { get; set; }
-		public double InvoiceSumExcludingVAT { get; set; }
-		public string CustomerOrderNumber { get; set; }
+		[DataMember] public int CompanyId { get; set; }
+		[DataMember] public string CompanyUnit { get; set; }
+		[DataMember] public DateTime CreatedDate { get; set; }
+		[DataMember] public string CustomerFirstName { get; set; }
+		[DataMember] public string Email { get; set; }
+		[DataMember] public string CustomerLastName { get; set; }
+		[DataMember] public int Id { get; set; }
+		[DataMember] public long InvoiceNumber { get; set; }
+		[DataMember] public bool MarkedAsPayedByShop { get; set; }
+		[DataMember] public string PersonalIdNumber { get; set; }
+		[DataMember] public string Phone { get; set; }
+		[DataMember] public string RstText { get; set; }
+		[DataMember] public int SalesPersonShopId { get; set; }
+		[DataMember] public int StatusId { get; set; }
+		[DataMember] public DateTime UpdateDate { get; set; }
+		[DataMember] public int SalesPersonMemberId { get; set; }
+		[DataMember] public double InvoiceSumIncludingVAT { get; set; }
+		[DataMember] public double InvoiceSumExcludingVAT { get; set; }
+		[DataMember] public string CustomerOrderNumber { get; set; }
 		public string CustomerCombinedName {
 			get { return String.Concat( CustomerFirstName ?? String.Empty,  " ",  CustomerLastName ?? String.Empty ).Trim(); }
 		}
@@ -62,8 +62,8 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 				return (PersonalIdNumber.Length < 12) ? null : PersonalIdNumber.Substring(0, 8);
 			}
 		}
-		public IList<IOrderItem> OrderItems{ get; set; }
-		public IShop SellingShop{ get; set; }
-		public ICompany ContractCompany{ get; set; }
+		[DataMember] public IList<OrderItem> OrderItems{ get; set; }
+		[DataMember] public Shop SellingShop{ get; set; }
+		[DataMember] public Company ContractCompany{ get; set; }
 	}
 }

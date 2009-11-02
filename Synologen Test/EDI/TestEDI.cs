@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Utility.Types;
@@ -34,10 +35,17 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 				var orderItems = provider.GetOrderItemsList(i, 0, null);
 				var company = provider.GetCompanyRow(order.CompanyId);
 				var shop = provider.GetShop(order.SalesPersonShopId);
-				var invoice = Utility.General.CreateInvoiceEDI(order, orderItems, company, shop, ediSettings);
+				var invoice = Utility.General.CreateInvoiceEDI(order, ParseList(orderItems), company, shop, ediSettings);
 				var invoiceText = invoice.Parse();
 				Assert.IsNotNull(invoiceText);
 			}
+		}
+		private static IList<IOrderItem> ParseList(IEnumerable<OrderItem> orderItems){
+			var returnList = new List<IOrderItem>();
+			foreach (var item in orderItems){
+				returnList.Add(new OrderItem(item));
+			}
+			return returnList;
 		}
 		[Test]
 		public void CreateMockEDIInvoice() {

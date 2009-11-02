@@ -29,17 +29,19 @@ namespace Spinit.Wpc.Synologen.WebService{
 			provider = new SqlProvider(connectionString);
 		}
 
-		public IList<IOrder> GetOrdersForInvoicing() {
+		public List<Order> GetOrdersForInvoicing(){
 			try{
 				var statusIdFilter = ServiceLibrary.ConfigurationSettings.WebService.NewSaleStatusId;
 				var invoicingMethodIdFilter = ServiceLibrary.ConfigurationSettings.WebService.InvoicingMethodIdFilter;
 				var orders = provider.GetOrdersForInvoicing(statusIdFilter, invoicingMethodIdFilter, null);
-				var returnList = ConvertOrderData(orders);
-				var orderString = GetOrderIdsFromList(returnList);
-				LogMessage(LogType.Information, "Client fetched orders from WPC: "+orderString);
-				return returnList;
+				//var returnList = ConvertOrderData(orders);
+				//var orderString = GetOrderIdsFromList(returnList);
+				var orderString = GetOrderIdsFromList(orders);
+				LogMessage(LogType.Information, "Client fetched orders from WPC: " + orderString);
+				//return returnList;
+				return orders;
 			}
-			catch(Exception ex) {
+			catch (Exception ex){
 				throw LogAndCreateException("SynologenService.GetOrdersForInvoicing failed", ex);
 			}
 		}
@@ -168,31 +170,31 @@ namespace Spinit.Wpc.Synologen.WebService{
 
 		#region Helper methods
 
-		private List<IOrder> ConvertOrderData(IEnumerable<IOrder> orderList) {
-			var returnList = new List<IOrder>();
-			try{
-				foreach (var order in orderList) {
-					var newOrder = new Order(order);
-					newOrder.SellingShop = provider.GetShop(newOrder.SalesPersonShopId);
-					newOrder.ContractCompany = new Company(provider.GetCompanyRow(newOrder.CompanyId));
-					var orderItems = provider.GetOrderItemsList(newOrder.Id, 0, null);
-					newOrder.OrderItems = ConvertOrderItemData(orderItems);
-					returnList.Add(newOrder);
-				}
-			}
-			catch(Exception ex) {
-				throw new SynologenWebserviceException("SynologenService.ConvertOrderData failed",ex);
-			}
-			return returnList;
-		}
+		//private List<IOrder> ConvertOrderData(IEnumerable<IOrder> orderList) {
+		//    var returnList = new List<IOrder>();
+		//    try{
+		//        foreach (var order in orderList) {
+		//            var newOrder = new Order(order);
+		//            newOrder.SellingShop = provider.GetShop(newOrder.SalesPersonShopId);
+		//            newOrder.ContractCompany = new Company(provider.GetCompanyRow(newOrder.CompanyId));
+		//            var orderItems = provider.GetOrderItemsList(newOrder.Id, 0, null);
+		//            newOrder.OrderItems = ConvertOrderItemData(orderItems);
+		//            returnList.Add(newOrder);
+		//        }
+		//    }
+		//    catch(Exception ex) {
+		//        throw new SynologenWebserviceException("SynologenService.ConvertOrderData failed",ex);
+		//    }
+		//    return returnList;
+		//}
 
-		private static IList<IOrderItem> ConvertOrderItemData(IEnumerable<IOrderItem> orderItems) {
-			var returnList = new List<IOrderItem>();
-			foreach (var item in orderItems) {
-				returnList.Add(new OrderItem(item));	
-			}
-			return returnList;
-		}
+		//private static IList<IOrderItem> ConvertOrderItemData(IEnumerable<IOrderItem> orderItems) {
+		//    var returnList = new List<IOrderItem>();
+		//    foreach (var item in orderItems) {
+		//        returnList.Add(new OrderItem(item));	
+		//    }
+		//    return returnList;
+		//}
 
 		private static string GetVismaNewOrderAddedHistoryMessage(long vismaOrderId, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {
 			var message = Resources.ServiceResources.OrderAddedToVismaHistoryMessage;
@@ -215,7 +217,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 			return message;
 		}
 
-		private static string GetOrderIdsFromList(IEnumerable<IOrder> orders) {
+		private static string GetOrderIdsFromList(IEnumerable<Order> orders) {
 			var returnString = String.Empty;
 			foreach (var order in orders) {
 				returnString += order.Id + ",";
@@ -334,8 +336,16 @@ namespace Spinit.Wpc.Synologen.WebService{
 			var company = provider.GetCompanyRow(order.CompanyId);
 			var shop = provider.GetShop(order.SalesPersonShopId);
 			var ediSettings = GetEDISetting();
-			var invoice = Utility.Convert.ToEDIInvoice(ediSettings, order, orderItems, company, shop);
+			var invoice = Utility.Convert.ToEDIInvoice(ediSettings, order, ParseToIOrderItems(orderItems), company, shop);
 			return invoice;
+		}
+
+		private static IList<IOrderItem> ParseToIOrderItems(IEnumerable<OrderItem> orderItems){
+			var returnList = new List<IOrderItem>();
+			foreach (var orderItem in orderItems){
+				returnList.Add(orderItem);
+			}
+			return returnList;
 		}
 
 		#endregion

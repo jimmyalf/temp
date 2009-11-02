@@ -134,8 +134,8 @@ namespace Spinit.Wpc.Synologen.Data {
 		/// Fetches order all orders which have no invoice number filtered by
 		/// status id if <param name="statusId"/> > 0
 		/// </summary>
-		public List<IOrder> GetOrdersForInvoicing(int statusId, int? invoicingMethodIdFilter,  string orderBy) {
-			var listOfOrders = new List<IOrder>();
+		public List<Order> GetOrdersForInvoicing(int statusId, int? invoicingMethodIdFilter,  string orderBy) {
+			var listOfOrders = new List<Order>();
 			try {
 				var orderDataSet = GetOrdersForInvoicingDataSet(statusId, invoicingMethodIdFilter, orderBy);
 				foreach (DataRow orderDataRow in orderDataSet.Tables[0].Rows) {

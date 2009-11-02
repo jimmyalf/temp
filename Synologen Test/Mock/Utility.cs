@@ -7,10 +7,10 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 	public static class Utility {
 
 		#region ShopData/IShop/Shop
-		public static IShop GetMockShopData() {
+		public static Shop GetMockShopData() {
 			return GetMockIShop();
 		}
-		public static IShop GetMockIShop() {
+		public static Shop GetMockIShop() {
 			return GetMockShopRow();
 		}
 		public static Shop GetMockShopRow() {
@@ -41,7 +41,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		private static OrderItem GetMockOrderItem(int orderId) {
 			return new OrderItem(GetMockIOrderItem(orderId, orderId + 1));
 		}
-		private static IOrderItem GetMockIOrderItem(int orderId, int orderItemId) {
+		private static OrderItem GetMockIOrderItem(int orderId, int orderItemId) {
 			return GetMockOrderItemRow(orderId, orderItemId);
 		}
 		public static OrderItem GetMockOrderItemRow(int orderId,int orderItemId) {
@@ -61,10 +61,10 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		#endregion
 
 		#region ContractCompanyData/ICompany/Company
-		public static ICompany GetMockCompany() {
+		public static Company GetMockCompany() {
 			return new Company(GetMockICompany());
 		}
-		private static ICompany GetMockICompany() {
+		private static Company GetMockICompany() {
 			return GetMockCompanyRow();
 		}
 		public static Company GetMockCompanyRow() {
@@ -90,14 +90,14 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		#endregion
 
 		#region OrderData/IOrder/Order
-		public static IOrder GetMockOrderData(int orderId) {
+		public static Order GetMockOrderData(int orderId) {
 			return new Order(GetMockIOrder(orderId)) {
 			                                             	ContractCompany = GetMockCompany(),
-			                                             	OrderItems = new List<IOrderItem> {GetMockOrderItem(orderId)},
+			                                             	OrderItems = new List<OrderItem> {GetMockOrderItem(orderId)},
 			                                             	SellingShop = GetMockShopData(),
 			                                             };
 		}
-		public static IOrder GetMockOrderRow(int orderId) {
+		public static Order GetMockOrderRow(int orderId) {
 			return new Order {
 			                    	CompanyId = 1,
 			                    	CompanyUnit = "Bygg & Inredning",
@@ -117,7 +117,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 			                    	UpdateDate = DateTime.MinValue
 			                    };
 		}
-		private static IOrder GetMockIOrder(int orderId) {
+		private static Order GetMockIOrder(int orderId) {
 			return GetMockOrderRow(orderId);
 		}
 		#endregion

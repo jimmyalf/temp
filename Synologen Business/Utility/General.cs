@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Web.UI;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
-using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Business.Utility {
 	public class General {
@@ -34,8 +33,8 @@ namespace Spinit.Wpc.Synologen.Business.Utility {
 		/// <param name="dateTime">Input date</param>
 		/// <returns>Weeknumber</returns>
 		private static int GetIso8601WeekOfYear(DateTime dateTime) {
-			CultureInfo currentCulture = CultureInfo.CurrentCulture;
-			DayOfWeek day = currentCulture.Calendar.GetDayOfWeek(dateTime);
+			var currentCulture = CultureInfo.CurrentCulture;
+			var day = currentCulture.Calendar.GetDayOfWeek(dateTime);
 			if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday) {
 				dateTime = dateTime.AddDays(3);
 			}
@@ -73,8 +72,8 @@ namespace Spinit.Wpc.Synologen.Business.Utility {
 			return (haltedStatus == orderStatusId);
 		}
 
-		public static IList<CartOrderItem> ParseList(IEnumerable<IOrderItem> orderItems){
-			var internalList = new List<IOrderItem>(orderItems);
+		public static IList<CartOrderItem> ParseList(IEnumerable<OrderItem> orderItems){
+			var internalList = new List<OrderItem>(orderItems);
 			var returnList = new List<CartOrderItem>();
 			internalList.ForEach(x => returnList.Add(new CartOrderItem(x)));
 			return returnList;

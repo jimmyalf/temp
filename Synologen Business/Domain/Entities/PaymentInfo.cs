@@ -17,13 +17,13 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		}
 		public PaymentInfo(long invoiceNumber) {InvoiceNumber = invoiceNumber; }
 
-		public long InvoiceNumber { get; set; }
-		public bool InvoiceCanceled { get; set; }
-		public bool InvoicePaymentCanceled { get; set; }
-		public DateTime InvoicePaymentDate { get; set; }
-		public string Status { get; set; }
-		public object Other { get; set; }
-		public bool InvoiceIsPayed {
+		[DataMember] public long InvoiceNumber { get; set; }
+		[DataMember] public bool InvoiceCanceled { get; set; }
+		[DataMember] public bool InvoicePaymentCanceled { get; set; }
+		[DataMember] public DateTime InvoicePaymentDate { get; set; }
+		[DataMember] public string Status { get; set; }
+		[DataMember] public object Other { get; set; }
+		[DataMember] public bool InvoiceIsPayed {
 			get {
 				if(InvoiceCanceled)
 					return false;

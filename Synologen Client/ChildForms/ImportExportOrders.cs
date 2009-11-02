@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Visma;
@@ -12,7 +13,7 @@ namespace Synologen.Client.ChildForms {
 		private const int invoiceSentStatusColumn = 8;
 		private const int spcsInvoiceNumberColumn = 1;
 		private bool ordersHaveBeenFetchedFromWPC;
-		private IList<IOrder> ordersToImport = new List<IOrder>();
+		private IList<Order> ordersToImport = new List<Order>();
 
 		public ImportExportOrders() {
 			InitializeComponent();

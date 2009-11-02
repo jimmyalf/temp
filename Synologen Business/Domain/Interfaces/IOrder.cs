@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 
 namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 	public interface IOrder {
@@ -24,8 +25,8 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		[DataMember] string CustomerOrderNumber { get; set; }
 		[DataMember] string CustomerCombinedName { get; }
 		[DataMember] string PersonalBirthDateString { get; }
-		[DataMember] IList<IOrderItem> OrderItems { get; set; }
-		[DataMember] IShop SellingShop { get; set; }
-		[DataMember] ICompany ContractCompany{ get; set; }
+		[DataMember] IList<OrderItem> OrderItems { get; set; }
+		[DataMember] Shop SellingShop { get; set; }
+		[DataMember] Company ContractCompany{ get; set; }
 	}
 }

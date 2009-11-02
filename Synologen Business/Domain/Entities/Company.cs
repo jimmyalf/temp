@@ -32,35 +32,35 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 			Country = company.Country;
 		}
 
-		public int Id { get; set; }
-		public int ContractId { get; set; }
-		public string Name { get; set; }
+		[DataMember] public int Id { get; set; }
+		[DataMember] public int ContractId { get; set; }
+		[DataMember] public string Name { get; set; }
 		[Obsolete("Use Postbox instead")] public string Address1 { get; set; }
 		[Obsolete("Use Streetname instead")] public string Address2 { get; set; }
-		public string Zip { get; set; }
-		public string City { get; set; }
-		public string SPCSCompanyCode { get; set; }
-		public string BankCode { get; set; }
-		public bool Active { get; set; }
-		public string OrganizationNumber { get; set; }
-		public string InvoiceCompanyName { get; set; }
-		public string TaxAccountingCode { get; set; }
-		public int PaymentDuePeriod { get; set; }
-		public string EDIRecipientId { get; set; }
-		public int InvoicingMethodId { get; set; }
+		[DataMember] public string Zip { get; set; }
+		[DataMember] public string City { get; set; }
+		[DataMember] public string SPCSCompanyCode { get; set; }
+		[DataMember] public string BankCode { get; set; }
+		[DataMember] public bool Active { get; set; }
+		[DataMember] public string OrganizationNumber { get; set; }
+		[DataMember] public string InvoiceCompanyName { get; set; }
+		[DataMember] public string TaxAccountingCode { get; set; }
+		[DataMember] public int PaymentDuePeriod { get; set; }
+		[DataMember] public string EDIRecipientId { get; set; }
+		[DataMember] public int InvoicingMethodId { get; set; }
 		#pragma warning disable 618,612
-		public string PostBox { get { return Address1; } set { Address1 = value; } }
-		public string StreetName { get { return Address2; } set { Address2 = value; } }
+		[DataMember] public string PostBox { get { return Address1; } set { Address1 = value; } }
+		[DataMember] public string StreetName { get { return Address2; } set { Address2 = value; } }
 		#pragma warning restore 618,612
 		public IList<ICompanyValidationRule> CompanyValidationRules {
 			get { return _companyValidationRules; }
 			set { _companyValidationRules = new List<ICompanyValidationRule>(value); }
 		}
 
-		public string InvoiceFreeTextFormat { get; set; }
+		[DataMember] public string InvoiceFreeTextFormat { get; set; }
 		public bool HasValidationRule(int validationRuleId){
 			return CompanyValidationRules != null && _companyValidationRules.Exists(x => x.Id.Equals(validationRuleId) );
 		}
-		public ICountry Country { get; set;} 
+		[DataMember] public Country Country { get; set;} 
 	}
 }

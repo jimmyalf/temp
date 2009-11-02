@@ -1,14 +1,16 @@
+using System.Runtime.Serialization;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
+	[DataContract]
 	public class CompanyValidationRule : ICompanyValidationRule{
-		public int Id { get; set; }
-		public string ValidationName { get; set; }
-		public string ValidationDescription { get; set; }
-		public string ControlToValidate { get; set; }
-		public ValidationType ValidationType { get; set; }
-		public string ValidationRegex { get; set; }
-		public string ErrorMessage { get; set; }
+		[DataMember] public int Id { get; set; }
+		[DataMember] public string ValidationName { get; set; }
+		[DataMember] public string ValidationDescription { get; set; }
+		[DataMember] public string ControlToValidate { get; set; }
+		[DataMember] public ValidationType ValidationType { get; set; }
+		[DataMember] public string ValidationRegex { get; set; }
+		[DataMember] public string ErrorMessage { get; set; }
 	}
 }

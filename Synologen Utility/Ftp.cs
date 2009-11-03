@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Net;
 using System.Text;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
@@ -34,18 +33,19 @@ namespace Spinit.Wpc.Synologen.Utility{
 				throw new FtpException("Ftp.UploadStringAsFile() failed: ", ex);
 			}
 		}
-		private FtpWebRequest GetFtpRequest() {
-			try {
-				var request = (FtpWebRequest)WebRequest.Create(Url);
-				request.Credentials = Credentials;
-				//request.KeepAlive = true;
-				request.KeepAlive = false;
-				return request;
-			}
-			catch(Exception ex) {
-				throw new FtpException("Ftp.GetFtpRequest()", ex);
-			}
-		}
+
+		//private FtpWebRequest GetFtpRequest() {
+		//    try {
+		//        var request = (FtpWebRequest)WebRequest.Create(Url);
+		//        request.Credentials = Credentials;
+		//        //request.KeepAlive = true;
+		//        request.KeepAlive = false;
+		//        return request;
+		//    }
+		//    catch(Exception ex) {
+		//        throw new FtpException("Ftp.GetFtpRequest()", ex);
+		//    }
+		//}
 
 		private FtpWebRequest GetFtpRequest(string newFileName) {
 			try {
@@ -60,23 +60,23 @@ namespace Spinit.Wpc.Synologen.Utility{
 			}
 		}
 
-		private string GetListDirectory() {
-			try {
-				var request = GetFtpRequest();
-				request.Method = WebRequestMethods.Ftp.ListDirectory;
-				var response = (FtpWebResponse)request.GetResponse();
-				var reader = new StreamReader(response.GetResponseStream());
-				return reader.ReadToEnd();
-			}
-			catch(Exception ex) {
-				throw new FtpException("Ftp.GetListDirectory()", ex);
-			}
-		}
+		//private string GetListDirectory() {
+		//    try {
+		//        var request = GetFtpRequest();
+		//        request.Method = WebRequestMethods.Ftp.ListDirectory;
+		//        var response = (FtpWebResponse)request.GetResponse();
+		//        var reader = new StreamReader(response.GetResponseStream());
+		//        return reader.ReadToEnd();
+		//    }
+		//    catch(Exception ex) {
+		//        throw new FtpException("Ftp.GetListDirectory()", ex);
+		//    }
+		//}
 
-		private static string ExtractFileNameFromPath(string filePath) {
-			var fileInfo = new FileInfo(filePath);
-			return fileInfo.Name;
-		}
+		//private static string ExtractFileNameFromPath(string filePath) {
+		//    var fileInfo = new FileInfo(filePath);
+		//    return fileInfo.Name;
+		//}
 
 		private static string TryAppendSlashAtUrlEnd(string url) {
 			if(!url.EndsWith(@"/"))url += @"/";

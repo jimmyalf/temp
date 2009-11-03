@@ -8,8 +8,8 @@
     <ProjectGuid>{26F55ECD-2C74-4FEC-8EB4-3FBF3EC357C7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen_IntegrationTest</RootNamespace>
-    <AssemblyName>Synologen IntegrationTest</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.IntegrationTest</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.IntegrationTest</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Build\Output\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

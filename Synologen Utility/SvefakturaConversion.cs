@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
@@ -23,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			invoice.TaxTotal.Add(generatedTaxTotal);
 		}
 
-		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IOrder order, IEnumerable<IOrderItem> orderItems, ICompany company ) {
+		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IOrder order, IEnumerable<OrderItem> orderItems, ICompany company ) {
 			if(invoice == null) invoice = new SFTIInvoiceType();
 			var freeTextRows = CommonConversion.GetFreeTextRowsAsString(company, order);
 			invoice.Note = TryGetValue(freeTextRows, new NoteType {Value = freeTextRows});
@@ -45,7 +46,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			//invoice.TaxCurrencyCode = TryGetValue(settings.InvoiceCurrencyCode, new CurrencyCodeType {Value = settings.InvoiceCurrencyCode.GetValueOrDefault()});
 		}
 
-		private static void TryAddInvoiceLines(SvefakturaConversionSettings settings,  SFTIInvoiceType invoice, IEnumerable<IOrderItem> orderItems , decimal VATAmount) {
+		private static void TryAddInvoiceLines(SvefakturaConversionSettings settings,  SFTIInvoiceType invoice, IEnumerable<OrderItem> orderItems , decimal VATAmount) {
 			if(invoice.InvoiceLine == null) invoice.InvoiceLine = new List<SFTIInvoiceLineType>();
 			var lineItemCount = 0;
 			foreach (var orderItem in orderItems){
@@ -308,7 +309,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return Regex.Replace(returnString, @"[^\dA-Ö]", "");
 		}
 
-		private static ExtensionTotalAmountType TryGetLineExtensionAmount(IEnumerable<IOrderItem> orderItems) {
+		private static ExtensionTotalAmountType TryGetLineExtensionAmount(IEnumerable<OrderItem> orderItems) {
 			var result = 0m;
 			orderItems.ToList().ForEach( x => result += (decimal) x.DisplayTotalPrice);
 			return (result <= 0) ? null : new ExtensionTotalAmountType {Value = result, amountCurrencyID ="SEK"};

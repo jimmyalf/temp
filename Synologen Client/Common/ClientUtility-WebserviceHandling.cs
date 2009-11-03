@@ -63,8 +63,8 @@ namespace Synologen.Client.Common {
 		/// Calls Webservice to send EDI Invoice
 		/// <exception cref="Exception">Will throw exception if EDI Invoice dispatch failed</exception> 
 		/// </summary>
-		public static void SendInvoiceEDI(ClientContract client, int orderId) {
-			client.SendInvoiceEDI(orderId);
+		public static void SendInvoice(ClientContract client, int orderId) {
+			client.SendInvoice(orderId);
 		}
 
 		/// <summary>

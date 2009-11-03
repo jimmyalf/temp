@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.EDI.Common.Types;
 using Spinit.Wpc.Synologen.EDI.Types;
@@ -53,7 +54,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 			return eDIitem;
 		}
 
-		public static List<InvoiceRow> ToEDIArticles(IList<IOrderItem> orderItems, IOrder order, ICompany company) {
+		public static List<InvoiceRow> ToEDIArticles(IList<OrderItem> orderItems, IOrder order, ICompany company) {
 			var EDIArticles = new List<InvoiceRow>();
 			var articleCounter = 1;
 			var freeTextRows = CommonConversion.GetFreeTextRows(company, order);

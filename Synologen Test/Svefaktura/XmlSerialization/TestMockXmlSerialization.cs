@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,6 @@ using System.Xml;
 using System.Xml.Serialization;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Utility;
@@ -38,6 +38,13 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 			var expectedXml = GetExpectedXml();
 			Expect(output, Is.EqualTo(expectedXml));
 		}
+		[Test]
+		public void Test_Xml_Output_From_Object() {
+			var invoice = GetMockInvoice();
+			var output = GetFormattedXmlString(invoice);
+			Debug.WriteLine(output);
+			Expect(output, Is.Not.Null);
+		}
 
 		[Test]
 		[Ignore]
@@ -54,15 +61,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 		}
 
 		private static string ToXML(SFTIInvoiceType objToSerialize, Encoding encoding) {
-			var namespaces = new XmlSerializerNamespaces();
-			namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-			namespaces.Add("udt", "urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0");
-			namespaces.Add("sdt", "urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0");
-			namespaces.Add("cur", "urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0");
-			namespaces.Add("ccts", "urn:oasis:names:tc:ubl:CoreComponentParameters:1:0");
-			namespaces.Add("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
-			namespaces.Add("cac", "urn:sfti:CommonAggregateComponents:1:0");
-			namespaces.Add(String.Empty, "urn:sfti:documents:BasicInvoice:1:0");
+			var namespaces = GetNamespaces();
 			//var sb = new StringBuilder();
 			//var output = new StringWriter(sb) { NewLine = Environment.NewLine };
 			var output = new MemoryStream();
@@ -73,15 +72,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 			return encoding.GetString(memoryStream.ToArray());
 		}
 		private static void ToXML(SFTIInvoiceType objToSerialize, string filePath) {
-			var namespaces = new XmlSerializerNamespaces();
-			namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-			namespaces.Add("udt", "urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0");
-			namespaces.Add("sdt", "urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0");
-			namespaces.Add("cur", "urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0");
-			namespaces.Add("ccts", "urn:oasis:names:tc:ubl:CoreComponentParameters:1:0");
-			namespaces.Add("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
-			namespaces.Add("cac", "urn:sfti:CommonAggregateComponents:1:0");
-			namespaces.Add(String.Empty, "urn:sfti:documents:BasicInvoice:1:0");
+			var namespaces = GetNamespaces();
 			var settings = new XmlWriterSettings {
 				Encoding = Encoding.UTF8, 
 				Indent = true, 
@@ -98,111 +89,134 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 			}
 		}
 
+		private static string GetFormattedXmlString(SFTIInvoiceType input){
+			var namespaces = GetNamespaces();
+			var xmlser = new XmlSerializer(input.GetType());
+			using (var ms = new MemoryStream()){
+				xmlser.Serialize(ms, input, namespaces);
+				var textconverter = new UTF8Encoding();
+				return textconverter.GetString(ms.ToArray());
+			}
+		}
+		private static XmlSerializerNamespaces GetNamespaces(){
+			var namespaces = new XmlSerializerNamespaces();
+			namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+			namespaces.Add("udt", "urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0");
+			namespaces.Add("sdt", "urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0");
+			namespaces.Add("cur", "urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0");
+			namespaces.Add("ccts", "urn:oasis:names:tc:ubl:CoreComponentParameters:1:0");
+			namespaces.Add("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
+			namespaces.Add("cac", "urn:sfti:CommonAggregateComponents:1:0");
+			namespaces.Add(String.Empty, "urn:sfti:documents:BasicInvoice:1:0");
+			return namespaces;
+		}
+
+
 		#region Get Mock Data
 		public SFTIInvoiceType GetMockInvoice() {
-			var shop = GetMockShop();
-			var company = GetMockCompany();
 			var settings = GetMockSettings();
 			var order = GetMockOrder();
-			var orderItems = GetMockOrderItems();
-			return Utility.Convert.ToSvefakturaInvoice(settings, order, orderItems, company, shop);
+			order.ContractCompany = GetMockCompany();
+			order.SellingShop = GetMockShop();
+			order.OrderItems = GetMockOrderItems();
+			return Utility.Convert.ToSvefakturaInvoice(settings, order);
 		}
 		public Shop GetMockShop() {
 			return new Shop {
-			                   	ContactFirstName = "Adam",
-			                   	ContactLastName = "Bertil",
-			                   	Phone = "0811122233",
-			                   	Fax = "089876543",
-			                   	Email ="sales@modernaprodukter.se"
-			                   };
+				ContactFirstName = "Adam",
+				ContactLastName = "Bertil",
+				Phone = "0811122233",
+				Fax = "089876543",
+				Email = "sales@modernaprodukter.se"
+			};
 		}
 		public Company GetMockCompany() {
 			return new Company {
-			                      	InvoiceFreeTextFormat = 
-										 "Kundens namn: {CustomerName}\r\n"
- 										+"Kundens förnamn: {CustomerFirstName}\r\n"
-										+"Kundens efternamn: {CustomerLastName}\r\n"
-										+"Kundens personnummer: {CustomerPersonalIdNumber}\r\n"
- 										+"Kundens födelsedag: {CustomerPersonalBirthDateString}\r\n"
-										+"Kundens företagsenhet: {CompanyUnit}\r\n"
-										+"Kundens konstnadsställe: {RST}\r\n"
-										+"Kundens bankkod: {BankCode}\r\n"
-										+"Företagsid: {BuyerCompanyId}",
-			                      	InvoiceCompanyName = "Johnssons byggvaror",
-			                      	StreetName = "Rådhusgatan 5",
-			                      	City = "Stockholm",
-									PostBox = "Box 123",
-			                      	Zip = "11000",
-			                      	PaymentDuePeriod = 30,
-                                    Country = new Country{OrganizationCountryCodeId = SwedenCountryCodeNumber},
-                                    BankCode = "99998",
-                                    OrganizationNumber = "555123456",
-                                    TaxAccountingCode = "SE555123456",
-			                      };
+				InvoiceFreeTextFormat =
+					"Kundens namn: {CustomerName}\r\n"
+					+ "Kundens förnamn: {CustomerFirstName}\r\n"
+					+ "Kundens efternamn: {CustomerLastName}\r\n"
+					+ "Kundens personnummer: {CustomerPersonalIdNumber}\r\n"
+					+ "Kundens födelsedag: {CustomerPersonalBirthDateString}\r\n"
+					+ "Kundens företagsenhet: {CompanyUnit}\r\n"
+					+ "Kundens konstnadsställe: {RST}\r\n"
+					+ "Kundens bankkod: {BankCode}\r\n"
+					+ "Företagsid: {BuyerCompanyId}",
+				InvoiceCompanyName = "Johnssons byggvaror",
+				StreetName = "Rådhusgatan 5",
+				City = "Stockholm",
+				PostBox = "Box 123",
+				Zip = "11000",
+				PaymentDuePeriod = 30,
+				Country = new Country {OrganizationCountryCodeId = SwedenCountryCodeNumber},
+				BankCode = "99998",
+				OrganizationNumber = "555123456",
+				TaxAccountingCode = "SE555123456",
+			};
 		}
 		public SvefakturaConversionSettings GetMockSettings() {
 			return new SvefakturaConversionSettings {
-			                                        	InvoiceIssueDate = new DateTime(2003,09,11),
-			                                        	InvoiceTypeCode = "380",
-			                                        	InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
-			                                        	SellingOrganizationName = "Moderna Produkter AB",
-			                                        	SellingOrganizationStreetName = "Storgatan 5",
-			                                        	SellingOrganizationCity = "Hägersten",
-			                                        	SellingOrganizationPostalCode = "12652",
-			                                        	ExemptionReason = "F-skattebevis finns",
-			                                        	SellingOrganizationNumber = "5565624223",
-			                                        	TaxAccountingCode = "SE556562422301",
-			                                        	SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
-			                                        	SellingOrganizationContactName = "A Person, Fakturaavd",
-			                                        	BankGiro = "9551548524585",
-			                                        	BankgiroBankIdentificationCode = "SKIASESS",
-			                                        	InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagars netto",
-			                                        	InvoiceExpieryPenaltySurchargePercent = 23,
-			                                        	VATAmount = 0.25m,
-                                                        Postgiro = "123456789",
-                                                        PostgiroBankIdentificationCode = "PGSISESS",
-                                                        SellingOrganizationContactEmail = "info@synologen.se",
-                                                        SellingOrganizationFax = "0123-456789",
-                                                        SellingOrganizationPostBox = "Box 789",
-                                                        SellingOrganizationTelephone = "0123-567890"
-			                                        };
+				InvoiceIssueDate = new DateTime(2003, 09, 11),
+				InvoiceTypeCode = "380",
+				InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
+				SellingOrganizationName = "Moderna Produkter AB",
+				SellingOrganizationStreetName = "Storgatan 5",
+				SellingOrganizationCity = "Hägersten",
+				SellingOrganizationPostalCode = "12652",
+				ExemptionReason = "F-skattebevis finns",
+				SellingOrganizationNumber = "5565624223",
+				TaxAccountingCode = "SE556562422301",
+				SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
+				SellingOrganizationContactName = "A Person, Fakturaavd",
+				BankGiro = "9551548524585",
+				BankgiroBankIdentificationCode = "SKIASESS",
+				InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagars netto",
+				InvoiceExpieryPenaltySurchargePercent = 23,
+				VATAmount = 0.25m,
+				Postgiro = "123456789",
+				PostgiroBankIdentificationCode = "PGSISESS",
+				SellingOrganizationContactEmail = "info@synologen.se",
+				SellingOrganizationFax = "0123-456789",
+				SellingOrganizationPostBox = "Box 789",
+				SellingOrganizationTelephone = "0123-567890"
+			};
 		}
 		public Order GetMockOrder() {
 			return new Order {
-			                    	InvoiceNumber = 15,
-			                    	CustomerFirstName = "Pelle",
-			                    	CustomerLastName = "Svensson",
-			                    	InvoiceSumIncludingVAT = 6725.00,
-			                    	InvoiceSumExcludingVAT = 5480.00,
-			                    	CustomerOrderNumber = "123456789",
-                                    CompanyUnit = "Företagsenhet",
-                                    Email = "pelle.svensson@inkop.se",
-                                    PersonalIdNumber = "197001015374",
-                                    Phone = "08-987654",
-                                    RstText = "Kostnadsställe ABCD",
-                                    CompanyId = 987
-			                    };
+				InvoiceNumber = 15,
+				CustomerFirstName = "Pelle",
+				CustomerLastName = "Svensson",
+				InvoiceSumIncludingVAT = 6725.00,
+				InvoiceSumExcludingVAT = 5480.00,
+				CustomerOrderNumber = "123456789",
+				CompanyUnit = "Företagsenhet",
+				Email = "pelle.svensson@inkop.se",
+				PersonalIdNumber = "197001015374",
+				Phone = "08-987654",
+				RstText = "Kostnadsställe ABCD",
+				CompanyId = 987
+			};
 		}
-		public List<IOrderItem> GetMockOrderItems() {
-			return new List<IOrderItem> {
-			                            	new OrderItem {
-			                            	                 	ArticleDisplayName = "Falu rödfärg",
-			                            	                 	NumberOfItems = 120,
-			                            	                 	DisplayTotalPrice = 4980,
-			                            	                 	SinglePrice = 41.50f,
-			                            	                 	NoVAT = false,
-			                            	                 	Notes = "Fritext på fakturaraden",
-			                            	                 	ArticleDisplayNumber = "12345"
-			                            	                 },
-			                            	new OrderItem {
-			                            	                 	ArticleDisplayName = "Pensel 20 mm",
-			                            	                 	NumberOfItems = 10,
-			                            	                 	DisplayTotalPrice = 500,
-			                            	                 	SinglePrice = 50,
-			                            	                 	NoVAT = true,
-			                            	                 	ArticleDisplayNumber = "524522"
-			                            	                 }
-			                            };
+		public List<OrderItem> GetMockOrderItems() {
+			return new List<OrderItem> {
+				new OrderItem {
+					ArticleDisplayName = "Falu rödfärg",
+					NumberOfItems = 120,
+					DisplayTotalPrice = 4980,
+					SinglePrice = 41.50f,
+					NoVAT = false,
+					Notes = "Fritext på fakturaraden",
+					ArticleDisplayNumber = "12345"
+				},
+				new OrderItem {
+					ArticleDisplayName = "Pensel 20 mm",
+					NumberOfItems = 10,
+					DisplayTotalPrice = 500,
+					SinglePrice = 50,
+					NoVAT = true,
+					ArticleDisplayNumber = "524522"
+				}
+			};
 		}
 		#endregion
 

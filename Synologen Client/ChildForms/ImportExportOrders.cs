@@ -118,7 +118,7 @@ namespace Synologen.Client.ChildForms {
 		#region Actions
 		private void DispatchInvoice(ClientContract client, ListViewItem listItem) {
 			var order = (IOrder)listItem.Tag;
-			ClientUtility.SendInvoiceEDI(client, order.Id);
+			ClientUtility.SendInvoice(client, order.Id);
 			listItem.SubItems[invoiceSentStatusColumn].Text = "Ja";
 			Refresh();
 		}

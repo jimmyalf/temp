@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
@@ -11,12 +10,13 @@ using Spinit.Wpc.Synologen.Utility.Types;
 namespace Spinit.Wpc.Synologen.Test.Svefaktura.CustomValidation {
 	[TestFixture]
 	public class TestValidateCustomInvoice : AssertionHelper {
-		[Test]
-		public void Test_Invoice_Missing_TaxPointDate_Fails_Validation() {
-			var invoice = new SFTIInvoiceType { TaxPointDate = null };
-			var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoice));
-			Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIInvoiceType.TaxPointDate")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
-		}
+		//Restriction removed
+		//[Test]
+		//public void Test_Invoice_Missing_TaxPointDate_Fails_Validation() {
+		//    var invoice = new SFTIInvoiceType { TaxPointDate = null };
+		//    var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoice));
+		//    Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIInvoiceType.TaxPointDate")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
+		//}
 		[Test]
 		public void Test_Invoice_Of_Credit_Type_Missing_InitialInvoiceDocumentReference_Fails_Validation() {
 			var invoiceCredit = new SFTIInvoiceType {InvoiceTypeCode = new CodeType{Value = "381"}};

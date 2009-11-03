@@ -47,12 +47,6 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 		public static string Postgiro {
 			get { return GetSafeValue("Postgiro", String.Empty); }
 		}
-		//public static int InvoiceExpieryNumberOfDaysOffset {
-		//    get { return GetSafeValue("InvoiceExpieryNumberOfDaysOffset", 30); }
-		//}
-		//public static string EDIRecipientId {
-		//    get { return GetSafeValue("EDIRecipientId", String.Empty); }
-		//}
 		public static string EDISenderId {
 			get { return GetSafeValue("EDISenderId", String.Empty); }
 		}
@@ -62,7 +56,6 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 		public static string InvoiceCurrencyCode {
 			get { return GetSafeValue("InvoiceCurrencyCode", String.Empty); }
 		}
-
 		public static bool SaveEDIFileCopy {
 			get { return GetSafeValue("SaveEDIFileCopy", true); }
 		}
@@ -118,5 +111,89 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 		public static bool FTPUseBinaryTransfer {
 			get { return GetSafeValue("FTPUseBinaryTransfer", true); }
 		}
+        
+		
+		
+		#region Svefaktura specific settings
+		public static string BankGiroCode{
+			get { return GetSafeValue("BankGiroCode", String.Empty); }
+		}
+
+		public static string PostGiroCode{
+			get { return GetSafeValue("PostGiroCode", String.Empty); }
+		}
+
+		public static string ExemptionReason{
+			get { return GetSafeValue("ExemptionReason", String.Empty); }
+		}
+
+		public static int CurrencyCodeId{
+			get { return GetSafeValue("CurrencyCodeId", -1); }
+		}
+
+		public static decimal? InvoiceExpieryPenaltySurchargePercent{
+			get { return GetSafeValue("InvoiceExpieryPenaltySurchargePercent", -1m); }
+		}
+
+		public static string InvoicePaymentTermsTextFormat{
+			get { return GetSafeValue("InvoicePaymentTermsTextFormat", String.Empty); }
+		}
+
+		public static string SvefakturaInvoiceTypeCode{
+			get { return GetSafeValue("SvefakturaInvoiceTypeCode", String.Empty); }
+		}
+
+		public static string SellingOrganizationCity{
+			get { return GetSafeValue("SellingOrganizationCity", String.Empty); }
+		}
+
+		public static string SellingOrganizationContactEmail{
+			get { return GetSafeValue("SellingOrganizationContactEmail", String.Empty); }
+		}
+
+		public static string SellingOrganizationContactName{
+			get { return GetSafeValue("SellingOrganizationContactName", String.Empty); }
+		}
+
+		public static int SellingOrganizationCountryCode{
+			get { return GetSafeValue("SellingOrganizationCountryCode", -1); }
+		}
+
+		public static string SellingOrganizationFax{
+			get { return GetSafeValue("SellingOrganizationFax", String.Empty); }
+		}
+
+		public static string SellingOrganizationName{
+			get { return GetSafeValue("SellingOrganizationName", String.Empty); }
+		}
+
+		public static string SellingOrganizationNumber{
+			get { return GetSafeValue("SellingOrganizationNumber", String.Empty); }
+		}
+
+		public static string SellingOrganizationPostalCode{
+			get { return GetSafeValue("SellingOrganizationPostalCode", String.Empty); }
+		}
+
+		public static string SellingOrganizationPostBox{
+			get { return GetSafeValue("SellingOrganizationPostBox", String.Empty); }
+		}
+
+		public static string SellingOrganizationStreetName{
+			get { return GetSafeValue("SellingOrganizationStreetName", String.Empty); }
+		}
+
+		public static string SellingOrganizationTelephone{
+			get { return GetSafeValue("SellingOrganizationTelephone", String.Empty); }
+		}
+
+		public static string TaxAccountingCode{
+			get { return GetSafeValue("TaxAccountingCode", String.Empty); }
+		}
+
+		public static string VATFreeReasonMessage{
+			get { return GetSafeValue("VATFreeReasonMessage", String.Empty); }
+		}
+		#endregion
 	}
 }

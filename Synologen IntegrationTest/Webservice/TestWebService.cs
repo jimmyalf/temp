@@ -76,6 +76,14 @@ namespace Synologen_IntegrationTest.Webservice{
 			}
 		}
 
+		[Test]
+		[Ignore]
+		public void WebServiceSendInvoices(){
+			Assert.DoesNotThrow(() => client.SendInvoice(303));
+			Assert.DoesNotThrow(() => client.SendInvoice(304));
+			Assert.DoesNotThrow(() => client.SendInvoice(305));
+		}
+
 
 		[Test]
 		[Ignore ("Does not need constant testing")]

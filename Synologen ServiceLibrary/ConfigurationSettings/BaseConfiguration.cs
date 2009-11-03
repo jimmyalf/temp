@@ -45,5 +45,13 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 			}
 			catch { return defaultValue; }
 		}
+		public static decimal GetSafeValue(string key,decimal defaultValue) {
+			try {
+				var value = ConfigurationManager.AppSettings[key];
+				decimal returnValue;
+				return decimal.TryParse(value, out returnValue) ? returnValue : defaultValue;
+			}
+			catch { return defaultValue; }
+		}
 	}
 }

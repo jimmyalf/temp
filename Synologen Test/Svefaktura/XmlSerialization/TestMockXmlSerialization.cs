@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Utility;
@@ -62,8 +63,6 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 
 		private static string ToXML(SFTIInvoiceType objToSerialize, Encoding encoding) {
 			var namespaces = GetNamespaces();
-			//var sb = new StringBuilder();
-			//var output = new StringWriter(sb) { NewLine = Environment.NewLine };
 			var output = new MemoryStream();
 			var serializer = new XmlSerializer(objToSerialize.GetType());
 			var xmlTextWriter = new XmlTextWriter ( output, encoding );
@@ -90,13 +89,10 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 		}
 
 		private static string GetFormattedXmlString(SFTIInvoiceType input){
-			var namespaces = GetNamespaces();
-			var xmlser = new XmlSerializer(input.GetType());
-			using (var ms = new MemoryStream()){
-				xmlser.Serialize(ms, input, namespaces);
-				var textconverter = new UTF8Encoding();
-				return textconverter.GetString(ms.ToArray());
-			}
+			var xmlSerializer = new XmlSerializer(input.GetType());
+			var output = new StringWriterWithEncoding(new StringBuilder(), Encoding.UTF8) { NewLine = Environment.NewLine};
+			xmlSerializer.Serialize(output, input,  GetNamespaces());
+			return output.ToString();
 		}
 		private static XmlSerializerNamespaces GetNamespaces(){
 			var namespaces = new XmlSerializerNamespaces();
@@ -281,5 +277,6 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 					+"<RequisitionistDocumentReference><cac:ID>123456789</cac:ID></RequisitionistDocumentReference>"
 				+"</Invoice>";
 		}
+
 	}
 }

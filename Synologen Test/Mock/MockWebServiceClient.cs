@@ -31,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 
 		//public void UpdateOrderStatuses(List<IInvoiceStatus> listOfStatusUpdates) {}
 
-		public void SendInvoiceEDI(int orderId) {}
+		public void SendInvoice(int orderId) {}
 
 		public void SendEmail(string from, string to, string subject, string message) {}
 

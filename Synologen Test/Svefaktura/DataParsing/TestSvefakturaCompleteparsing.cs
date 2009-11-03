@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Utility.Types;
@@ -12,10 +11,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 	[TestFixture]
 	public class TestSvefakturaCompleteParsing : AssertionHelper{
 		private Order order;
-		private IList<IOrderItem> orderItems;
 		private SvefakturaConversionSettings settings;
-		private Company company;
-		private Shop shop;
 		private SFTIInvoiceType invoice;
 		private const int SwedenCountryCodeNumber = 187;
 
@@ -34,35 +30,55 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 				PersonalIdNumber = "197001015374",
 				Phone = "031-123456",
 				RstText = "Kostnadsställe ABC",
-			};
-			orderItems = new List<IOrderItem> {
-				new OrderItem {
-					ArticleDisplayName = "Artikelnamn 1",
-					ArticleDisplayNumber = "Artikelnr 12456",
-					DisplayTotalPrice = 123.5f,
-					Notes = "Applicera långsamt",
-					NumberOfItems = 2,
-					NoVAT = false,
-					SinglePrice = 61.75f,
+				ContractCompany = new Company {
+					StreetName = "Gatuadress 1",
+					PostBox = "Postbox 123",
+					BankCode = "99998",
+					City = "Järfälla",
+					Zip = "17588",
+					Country = new Country {Id = 1, Name = "Sverige", OrganizationCountryCodeId = SwedenCountryCodeNumber},
+					InvoiceCompanyName = "5440Saab AB",
+					InvoiceFreeTextFormat = "{CustomerName}{CustomerPersonalIdNumber}{CompanyUnit}{CustomerPersonalBirthDateString}{CustomerFirstName}{CustomerLastName}{BuyerCompanyId}{RST}{BankCode}",
+					OrganizationNumber = "5560360793",
+					TaxAccountingCode = "SE556036079301",
+					PaymentDuePeriod = 30,
 				},
-				new OrderItem {
-					ArticleDisplayName = "Artikelnamn 2",
-					ArticleDisplayNumber = "Artikelnr 9854",
-					DisplayTotalPrice = 66f,
-					Notes = "Applicera omedelbart",
-					NumberOfItems = 3,
-					NoVAT = true,
-					SinglePrice = 22f,
+				SellingShop = new Shop {
+					ContactFirstName = "Anders",
+					ContactLastName = "Andersson",
+					Phone = "031-987654",
+					Fax = "031-987653",
+					Email = "info@butiken.se",
 				},
-				new OrderItem {
-					ArticleDisplayName = "Artikelnamn 3",
-					ArticleDisplayNumber = "Artikelnr 1654",
-					DisplayTotalPrice = 199.5f,
-					Notes = null,
-					NumberOfItems = 2,
-					NoVAT = false,
-					SinglePrice = 99.75f,
-				}
+				OrderItems = new List<OrderItem> {
+					new OrderItem {
+						ArticleDisplayName = "Artikelnamn 1",
+						ArticleDisplayNumber = "Artikelnr 12456",
+						DisplayTotalPrice = 123.5f,
+						Notes = "Applicera långsamt",
+						NumberOfItems = 2,
+						NoVAT = false,
+						SinglePrice = 61.75f,
+					},
+					new OrderItem {
+						ArticleDisplayName = "Artikelnamn 2",
+						ArticleDisplayNumber = "Artikelnr 9854",
+						DisplayTotalPrice = 66f,
+						Notes = "Applicera omedelbart",
+						NumberOfItems = 3,
+						NoVAT = true,
+						SinglePrice = 22f,
+					},
+					new OrderItem {
+						ArticleDisplayName = "Artikelnamn 3",
+						ArticleDisplayNumber = "Artikelnr 1654",
+						DisplayTotalPrice = 199.5f,
+						Notes = null,
+						NumberOfItems = 2,
+						NoVAT = false,
+						SinglePrice = 99.75f,
+					}
+				},
 			};
 			settings = new SvefakturaConversionSettings {
 				BankGiro = "123456789",
@@ -89,28 +105,8 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 				TaxAccountingCode = "SE556401196201",
 				VATAmount = 0.25m,
 			};
-			company = new Company {
-				StreetName = "Gatuadress 1",
-				PostBox = "Postbox 123",
-				BankCode = "99998",
-				City = "Järfälla",
-				Zip = "17588",
-				Country = new Country {Id = 1, Name = "Sverige", OrganizationCountryCodeId = SwedenCountryCodeNumber},
-				InvoiceCompanyName = "5440Saab AB",
-				InvoiceFreeTextFormat = "{CustomerName}{CustomerPersonalIdNumber}{CompanyUnit}{CustomerPersonalBirthDateString}{CustomerFirstName}{CustomerLastName}{BuyerCompanyId}{RST}{BankCode}",
-				//Name = "Saab",
-				OrganizationNumber = "5560360793",
-				TaxAccountingCode = "SE556036079301",
-				PaymentDuePeriod = 30,
-			};
-			shop = new Shop {
-				ContactFirstName = "Anders",
-				ContactLastName = "Andersson",
-				Phone = "031-987654",
-				Fax = "031-987653",
-				Email = "info@butiken.se",
-			};
-			invoice = Utility.Convert.ToSvefakturaInvoice(settings, order, orderItems, company, shop);
+
+			invoice = Utility.Convert.ToSvefakturaInvoice(settings, order);
 		}
 
 		#region Order

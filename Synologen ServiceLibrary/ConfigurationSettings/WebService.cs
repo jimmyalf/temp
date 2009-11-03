@@ -66,6 +66,9 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 		public static bool SaveEDIFileCopy {
 			get { return GetSafeValue("SaveEDIFileCopy", true); }
 		}
+		public static bool SaveSvefakturaFileCopy {
+			get { return GetSafeValue("SaveSvefakturaFileCopy", true); }
+		}
 		public static string EDIFilesFolderPath {
 			get { return GetSafeValue("EDIFilesFolderPath", String.Empty); }
 		}

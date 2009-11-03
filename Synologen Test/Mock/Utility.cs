@@ -133,8 +133,8 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 			                       };
 		}
 
-		public static List<IOrderItem> GetMockOrderItems(int id) {
-			var list = new List<IOrderItem> {
+		public static List<OrderItem> GetMockOrderItems(int id) {
+			var list = new List<OrderItem> {
 				new OrderItem {
      					ArticleDisplayName = "Synundersökning (momsbefriad)",
 						ArticleDisplayNumber = "1000",

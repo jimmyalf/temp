@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
@@ -23,18 +22,21 @@ namespace Spinit.Wpc.Synologen.Utility {
 		//    return EDIInvoice;
 		//}
 
-		public static Invoice CreateInvoiceEDI(IOrder order, IList<IOrderItem> iorderList, ICompany company, IShop shop, EDIConversionSettings ediSettings) {
-			var EDIInvoice = Convert.ToEDIInvoice(ediSettings, order, iorderList, company, shop);
+		//public static Invoice CreateInvoiceEDI(IOrder order, IList<IOrderItem> iorderList, ICompany company, IShop shop, EDIConversionSettings ediSettings) {
+		public static Invoice CreateInvoiceEDI(IOrder order, EDIConversionSettings ediSettings) {
+			//var EDIInvoice = Convert.ToEDIInvoice(ediSettings, order, iorderList, company, shop);
+			var EDIInvoice = Convert.ToEDIInvoice(ediSettings, order);
 			return EDIInvoice;
 		}
 
-		public static SFTIInvoiceType CreateInvoiceSvefaktura(Order order, List<IOrderItem> iorderList, Company company, Shop shop, SvefakturaConversionSettings settings) {
+		//public static SFTIInvoiceType CreateInvoiceSvefaktura(Order order, List<IOrderItem> iorderList, Company company, Shop shop, SvefakturaConversionSettings settings) {
+		public static SFTIInvoiceType CreateInvoiceSvefaktura(Order order, SvefakturaConversionSettings settings) {
 			if (order == null) throw new ArgumentNullException("order");
-			if (iorderList == null) throw new ArgumentNullException("iorderList");
-			if (company == null) throw new ArgumentNullException("company");
-			if (shop == null) throw new ArgumentNullException("shop");
+			if (order.OrderItems == null) throw new ArgumentNullException("order","OrderItems missing");
+			if (order.ContractCompany == null) throw new ArgumentNullException("order", "Order ContractComany missing");
+			if (order.SellingShop == null) throw new ArgumentNullException("order", "Order Sellingshop missing");
 			if (settings == null) throw new ArgumentNullException("settings");
-			return Convert.ToSvefakturaInvoice(settings, order, iorderList, company, shop);
+			return Convert.ToSvefakturaInvoice(settings, order);
 		}
 	}
 }

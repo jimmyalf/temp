@@ -50,7 +50,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 		/// <exception cref="SynologenWebserviceException">Will throw exception if EDI Invoice could not be sent successfully</exception>
 		/// </summary>
 		[OperationContract]
-		void SendInvoiceEDI(int orderId);
+		void SendInvoice(int orderId);
 
 
 		/// <summary>

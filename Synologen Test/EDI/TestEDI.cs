@@ -32,30 +32,20 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 		public void CreateEDIInvoices() {
 			for (var i = 19; i <= 30; i++) {
 				var order = provider.GetOrder(i);
-				var orderItems = provider.GetOrderItemsList(i, 0, null);
-				var company = provider.GetCompanyRow(order.CompanyId);
-				var shop = provider.GetShop(order.SalesPersonShopId);
-				var invoice = Utility.General.CreateInvoiceEDI(order, ParseList(orderItems), company, shop, ediSettings);
+				var invoice = Utility.General.CreateInvoiceEDI(order, ediSettings);
 				var invoiceText = invoice.Parse();
 				Assert.IsNotNull(invoiceText);
 			}
-		}
-		private static IList<IOrderItem> ParseList(IEnumerable<OrderItem> orderItems){
-			var returnList = new List<IOrderItem>();
-			foreach (var item in orderItems){
-				returnList.Add(new OrderItem(item));
-			}
-			return returnList;
 		}
 		[Test]
 		public void CreateMockEDIInvoice() {
 			const int orderId = 1;
 			const int orderItemId = 1;
 			var order = Mock.Utility.GetMockOrderRow(orderId);
-			var shop = Mock.Utility.GetMockShopRow();
-			var orderItems = new List<IOrderItem> {Mock.Utility.GetMockOrderItemRow(orderId, orderItemId)};
-			var company = Mock.Utility.GetMockCompanyRow();
-			var invoice = Utility.General.CreateInvoiceEDI(order, orderItems, company,shop, ediSettings);
+			order.SellingShop = Mock.Utility.GetMockShopRow();
+			order.OrderItems =  new List<OrderItem> {Mock.Utility.GetMockOrderItemRow(orderId, orderItemId)};
+			order.ContractCompany = Mock.Utility.GetMockCompanyRow();
+			var invoice = Utility.General.CreateInvoiceEDI(order, ediSettings);
 			var invoiceText = invoice.Parse();
 			Assert.IsNotNull(invoiceText);
 		}

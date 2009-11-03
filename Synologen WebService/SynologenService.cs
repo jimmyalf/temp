@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
@@ -10,6 +13,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.ServiceLibrary;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Utility;
 using Spinit.Wpc.Synologen.Utility.Types;
 
@@ -19,7 +23,8 @@ namespace Spinit.Wpc.Synologen.WebService{
 		private const string FtpFileUploadNotAccepted = "ej accepterad";
 		private const string FtpFileUploadContainsError = "felaktig";
 		private const int NumberOfDecimalsUsedForRounding = 2;
-		private const string FileFormat = "Synologen-{0}-{1}-{2}.txt";
+		private const string EDIFileNameFormat = "Synologen-{0}-{1}-{2}.txt";
+		private const string SvefakturaFileNameFormat = "Synologen-{0}-{1}.xml";
 		private const string DateFormat = "yyyy-MM-dd";
 
 		public SynologenService() {
@@ -129,28 +134,30 @@ namespace Spinit.Wpc.Synologen.WebService{
 		/// If successful it will change sale status id when transfer is completed
 		/// </summary>
 		/// <param name="orderId"></param>
-		public void SendInvoiceEDI(int orderId) {
+		public void SendInvoice(int orderId) {
 			try{
 				var order = provider.GetOrder(orderId);
-				var invoice = GenerateInvoice(order);
-				var invoiceFileName = GenerateInvoiceFileName(invoice);
-				if(ServiceLibrary.ConfigurationSettings.WebService.SaveEDIFileCopy) {
-					TrySaveContentToDisk(invoiceFileName, invoice.Parse().ToString());
+				string ftpStatusMessage;
+				switch (order.ContractCompany.InvoicingMethodId){
+					case 1: //EDI
+						ftpStatusMessage = SendEDIInvoice(order);
+						break;
+					case 2: //Svefaktura
+						ftpStatusMessage = SendSvefakturaInvoice(order);
+						break;
+					default:
+						throw new ArgumentOutOfRangeException("orderId","Orders comany invoicing method cannot be identified.");
 				}
-				var invoiceString = invoice.Parse().ToString();
-				var ftpStatusMessage = UploadEDIFile(invoiceFileName, invoiceString);
-
 				var newStatusId = ServiceLibrary.ConfigurationSettings.WebService.SaleStatusIdAfterInvoicing;
 				provider.UpdateOrderStatus(newStatusId, orderId, 0, 0, 0, 0, 0);
 
 				var orderHistoryMessage = GetInvoiceSentHistoryMessage(order.InvoiceNumber, ftpStatusMessage);
 				provider.AddOrderHistory(orderId, orderHistoryMessage);
-
+				
 			}
 			catch(Exception ex) {
-				throw LogAndCreateException("SynologenService.SendInvoiceEDI failed [OrderId: "+orderId+"]", ex);
+				throw LogAndCreateException("SynologenService.SendInvoice failed [OrderId: "+orderId+"]", ex);
 			}
-
 		}
 
 		/// <summary>
@@ -170,31 +177,29 @@ namespace Spinit.Wpc.Synologen.WebService{
 
 		#region Helper methods
 
-		//private List<IOrder> ConvertOrderData(IEnumerable<IOrder> orderList) {
-		//    var returnList = new List<IOrder>();
-		//    try{
-		//        foreach (var order in orderList) {
-		//            var newOrder = new Order(order);
-		//            newOrder.SellingShop = provider.GetShop(newOrder.SalesPersonShopId);
-		//            newOrder.ContractCompany = new Company(provider.GetCompanyRow(newOrder.CompanyId));
-		//            var orderItems = provider.GetOrderItemsList(newOrder.Id, 0, null);
-		//            newOrder.OrderItems = ConvertOrderItemData(orderItems);
-		//            returnList.Add(newOrder);
-		//        }
-		//    }
-		//    catch(Exception ex) {
-		//        throw new SynologenWebserviceException("SynologenService.ConvertOrderData failed",ex);
-		//    }
-		//    return returnList;
-		//}
 
-		//private static IList<IOrderItem> ConvertOrderItemData(IEnumerable<IOrderItem> orderItems) {
-		//    var returnList = new List<IOrderItem>();
-		//    foreach (var item in orderItems) {
-		//        returnList.Add(new OrderItem(item));	
-		//    }
-		//    return returnList;
-		//}
+		private string SendEDIInvoice(IOrder order){
+			var invoice = GenerateEDIInvoice(order);
+			var invoiceFileName = GenerateInvoiceFileName(invoice);
+			if(ServiceLibrary.ConfigurationSettings.WebService.SaveEDIFileCopy) {
+				TrySaveContentToDisk(invoiceFileName, invoice.Parse().ToString());
+			}
+			var invoiceString = invoice.Parse().ToString();
+			return UploadTextFile(invoiceFileName, invoiceString);
+		}
+		private string SendSvefakturaInvoice(IOrder order){
+			var invoice = GenerateSvefakturaInvoice(order);
+			var invoiceStringContent = ParseSvefakturaInvoiceToXml(invoice);
+			var invoiceFileName = GenerateInvoiceFileName(invoice);
+			if(ServiceLibrary.ConfigurationSettings.WebService.SaveSvefakturaFileCopy) {
+				TrySaveContentToDisk(invoiceFileName, invoiceStringContent);
+			}
+			return UploadTextFile(invoiceFileName, invoiceStringContent);
+		}
+
+		private static string ParseSvefakturaInvoiceToXml(SFTIInvoiceType invoice){
+			throw new NotImplementedException();
+		}
 
 		private static string GetVismaNewOrderAddedHistoryMessage(long vismaOrderId, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {
 			var message = Resources.ServiceResources.OrderAddedToVismaHistoryMessage;
@@ -269,18 +274,27 @@ namespace Spinit.Wpc.Synologen.WebService{
 				SenderId = ServiceLibrary.ConfigurationSettings.WebService.EDISenderId,
 				VATAmount = ServiceLibrary.ConfigurationSettings.WebService.VATAmount,
 				InvoiceCurrencyCode = ServiceLibrary.ConfigurationSettings.WebService.InvoiceCurrencyCode,
-				NumberOfDecimalsUsedAtRounding = NumberOfDecimalsUsedForRounding
+				NumberOfDecimalsUsedAtRounding = NumberOfDecimalsUsedForRounding,
 			};
+		}
+
+		private static SvefakturaConversionSettings GetSvefakturaSettings() { 
+			throw new NotImplementedException();
 		}
 
 		private static string GenerateInvoiceFileName(Invoice invoice) {
 			var date = invoice.InterchangeHeader.DateOfPreparation.ToString(DateFormat);
 			var referenceNumber = invoice.InterchangeControlReference;
 			var invoiceNumber = invoice.DocumentNumber;
-			return String.Format(FileFormat, date, invoiceNumber, referenceNumber);
+			return String.Format(EDIFileNameFormat, date, invoiceNumber, referenceNumber);
+		}
+		private static string GenerateInvoiceFileName(SFTIInvoiceType invoice) {
+			var date = invoice.IssueDate.Value.ToString(DateFormat);
+			var invoiceNumber = invoice.ID.Value;
+			return String.Format(SvefakturaFileNameFormat, date, invoiceNumber);
 		}
 
-		private string UploadEDIFile(string fileName, string fileContent) {
+		private string UploadTextFile(string fileName, string fileContent) {
 			try {
 				var ftp = GetFtpClientObject();
 				var usePassiveFtp = ServiceLibrary.ConfigurationSettings.WebService.UsePassiveFTP;
@@ -293,7 +307,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 				return responseStatusDescription;
 			}
 			catch (Exception ex){
-				throw LogAndCreateException("SynologenService.UploadEDIFile failed", ex);
+				throw LogAndCreateException("SynologenService.UploadTextFile failed", ex);
 			}
 		}
 
@@ -331,22 +345,18 @@ namespace Spinit.Wpc.Synologen.WebService{
 			}
 		}
 
-		private Invoice GenerateInvoice(IOrder order) {
-			var orderItems = provider.GetOrderItemsList(order.Id, 0, null);
-			var company = provider.GetCompanyRow(order.CompanyId);
-			var shop = provider.GetShop(order.SalesPersonShopId);
+		private static Invoice GenerateEDIInvoice(IOrder order) {
 			var ediSettings = GetEDISetting();
-			var invoice = Utility.Convert.ToEDIInvoice(ediSettings, order, ParseToIOrderItems(orderItems), company, shop);
+			var invoice = Utility.Convert.ToEDIInvoice(ediSettings, order);
 			return invoice;
 		}
 
-		private static IList<IOrderItem> ParseToIOrderItems(IEnumerable<OrderItem> orderItems){
-			var returnList = new List<IOrderItem>();
-			foreach (var orderItem in orderItems){
-				returnList.Add(orderItem);
-			}
-			return returnList;
+		private SFTIInvoiceType GenerateSvefakturaInvoice(IOrder order) {
+			var settings = GetSvefakturaSettings();
+			var invoice = Utility.Convert.ToSvefakturaInvoice(settings, order);
+			return invoice;
 		}
+
 
 		#endregion
 

@@ -12,21 +12,21 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 		[TestFixtureSetUp]
 		public void Setup() {
 			ediSettings = new EDIConversionSettings {
-			                                        	SenderId = "5562626100",
-			                                        	BankGiro = "56936677",
-			                                        	VATAmount = 0.25F,
-			                                        	InvoiceCurrencyCode = "SEK"
-			                                        };
+				SenderId = "5562626100",
+				BankGiro = "56936677",
+				VATAmount = 0.25F,
+				InvoiceCurrencyCode = "SEK"
+			};
 		}
 
 		[Test]
 		public void Test_Invoice_Parsing_Output() {
 			const int orderId = 265;
 			var order = Mock.Utility.GetMockOrderRow(orderId);
-			var shop = Mock.Utility.GetMockShopRow();
-			var orderItems = Mock.Utility.GetMockOrderItems(orderId);
-			var company = Mock.Utility.GetMockCompanyRow();
-			var invoice = Utility.General.CreateInvoiceEDI(order, orderItems, company, shop, ediSettings);
+			order.SellingShop = Mock.Utility.GetMockShopRow();
+			order.OrderItems = Mock.Utility.GetMockOrderItems(orderId);
+			order.ContractCompany = Mock.Utility.GetMockCompanyRow();
+			var invoice = Utility.General.CreateInvoiceEDI(order, ediSettings);
 			var invoiceText = invoice.Parse();
 			Debug.WriteLine(invoiceText);
 			var expectedString = String.Concat(
@@ -48,7 +48,7 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 				"NAD+CN+++Swedbank+Fakturagruppen RST+Stockholm++105 34'", NewLine,
 				"CUX+2:SEK:4'", NewLine,
 				"PAT+3'", NewLine,
-				String.Format("DTM+13:{0}:102'",invoice.InterchangeHeader.DateOfPreparation.AddDays(company.PaymentDuePeriod).ToString("yyyyMMdd")), NewLine,
+				String.Format("DTM+13:{0}:102'",invoice.InterchangeHeader.DateOfPreparation.AddDays(order.ContractCompany.PaymentDuePeriod).ToString("yyyyMMdd")), NewLine,
 				"LIN+1000'", NewLine,
 				"FTX+GEN+++Beställare Namn, Anders Johansson'", NewLine,
 				"FTX+GEN+++Beställare Personnummer, 197001015374'", NewLine,

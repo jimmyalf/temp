@@ -36,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 				var invoiceNumber = Convert.ToInt32(adkHandler.AddInvoice(item, true, true, out invoiceSumIncludingVAT, out invoiceSumExcludingVAT));
 				Assert.AreNotEqual(invoiceNumber,0);
 				client.SetOrderInvoiceNumber(item.Id, invoiceNumber, invoiceSumIncludingVAT, invoiceSumExcludingVAT);
-				client.SendInvoiceEDI(item.Id);
+				client.SendInvoice(item.Id);
 			}
 		}
 

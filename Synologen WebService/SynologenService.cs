@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-using System.Xml;
 using System.Xml.Serialization;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
@@ -14,6 +14,7 @@ using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Utility;
 using Spinit.Wpc.Synologen.Utility.Types;
 
@@ -30,6 +31,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 		public SynologenService() {
 			provider = new SqlProvider(ServiceLibrary.ConfigurationSettings.WebService.ConnectionString);
 		}
+
 		public SynologenService(string connectionString){
 			provider = new SqlProvider(connectionString);
 		}
@@ -39,11 +41,8 @@ namespace Spinit.Wpc.Synologen.WebService{
 				var statusIdFilter = ServiceLibrary.ConfigurationSettings.WebService.NewSaleStatusId;
 				var invoicingMethodIdFilter = ServiceLibrary.ConfigurationSettings.WebService.InvoicingMethodIdFilter;
 				var orders = provider.GetOrdersForInvoicing(statusIdFilter, invoicingMethodIdFilter, null);
-				//var returnList = ConvertOrderData(orders);
-				//var orderString = GetOrderIdsFromList(returnList);
 				var orderString = GetOrderIdsFromList(orders);
 				LogMessage(LogType.Information, "Client fetched orders from WPC: " + orderString);
-				//return returnList;
 				return orders;
 			}
 			catch (Exception ex){
@@ -177,7 +176,6 @@ namespace Spinit.Wpc.Synologen.WebService{
 
 		#region Helper methods
 
-
 		private string SendEDIInvoice(IOrder order){
 			var invoice = GenerateEDIInvoice(order);
 			var invoiceFileName = GenerateInvoiceFileName(invoice);
@@ -187,8 +185,13 @@ namespace Spinit.Wpc.Synologen.WebService{
 			var invoiceString = invoice.Parse().ToString();
 			return UploadTextFile(invoiceFileName, invoiceString);
 		}
+
 		private string SendSvefakturaInvoice(IOrder order){
 			var invoice = GenerateSvefakturaInvoice(order);
+			var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
+			if (ruleViolations.Any()){
+				throw new SynologenWebserviceException("The invoice could not be validated: " + SvefakturaValidator.FormatRuleViolations(ruleViolations));
+			}
 			var invoiceStringContent = ParseSvefakturaInvoiceToXml(invoice);
 			var invoiceFileName = GenerateInvoiceFileName(invoice);
 			if(ServiceLibrary.ConfigurationSettings.WebService.SaveSvefakturaFileCopy) {
@@ -198,7 +201,23 @@ namespace Spinit.Wpc.Synologen.WebService{
 		}
 
 		private static string ParseSvefakturaInvoiceToXml(SFTIInvoiceType invoice){
-			throw new NotImplementedException();
+			var xmlSerializer = new XmlSerializer(invoice.GetType());
+			var output = new StringWriterWithEncoding(new StringBuilder(), Encoding.UTF8) { NewLine = Environment.NewLine};
+			xmlSerializer.Serialize(output, invoice,  GetNamespaces());
+			return output.ToString();
+		}
+
+		private static XmlSerializerNamespaces GetNamespaces(){
+			var namespaces = new XmlSerializerNamespaces();
+			namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+			namespaces.Add("udt", "urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0");
+			namespaces.Add("sdt", "urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0");
+			namespaces.Add("cur", "urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0");
+			namespaces.Add("ccts", "urn:oasis:names:tc:ubl:CoreComponentParameters:1:0");
+			namespaces.Add("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
+			namespaces.Add("cac", "urn:sfti:CommonAggregateComponents:1:0");
+			namespaces.Add(String.Empty, "urn:sfti:documents:BasicInvoice:1:0");
+			return namespaces;
 		}
 
 		private static string GetVismaNewOrderAddedHistoryMessage(long vismaOrderId, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {
@@ -278,8 +297,33 @@ namespace Spinit.Wpc.Synologen.WebService{
 			};
 		}
 
-		private static SvefakturaConversionSettings GetSvefakturaSettings() { 
-			throw new NotImplementedException();
+		private static SvefakturaConversionSettings GetSvefakturaSettings() {
+			return new SvefakturaConversionSettings {
+				InvoiceIssueDate = DateTime.Now,
+				BankGiro = ServiceLibrary.ConfigurationSettings.WebService.BankGiro,
+				Postgiro = ServiceLibrary.ConfigurationSettings.WebService.Postgiro,
+				VATAmount = (decimal) ServiceLibrary.ConfigurationSettings.WebService.VATAmount,
+				BankgiroBankIdentificationCode = ServiceLibrary.ConfigurationSettings.WebService.BankGiroCode,
+				PostgiroBankIdentificationCode = ServiceLibrary.ConfigurationSettings.WebService.PostGiroCode,
+				ExemptionReason = ServiceLibrary.ConfigurationSettings.WebService.ExemptionReason,
+				InvoiceCurrencyCode = (CurrencyCodeContentType) ServiceLibrary.ConfigurationSettings.WebService.CurrencyCodeId,
+				InvoiceExpieryPenaltySurchargePercent = ServiceLibrary.ConfigurationSettings.WebService.InvoiceExpieryPenaltySurchargePercent,
+				InvoicePaymentTermsTextFormat = ServiceLibrary.ConfigurationSettings.WebService.InvoicePaymentTermsTextFormat,
+				InvoiceTypeCode = ServiceLibrary.ConfigurationSettings.WebService.SvefakturaInvoiceTypeCode,
+				SellingOrganizationCity = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationCity,
+				SellingOrganizationContactEmail = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationContactEmail,
+				SellingOrganizationContactName = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationContactName,
+				SellingOrganizationCountryCode = (CountryIdentificationCodeContentType) ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationCountryCode,
+				SellingOrganizationFax = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationFax,
+				SellingOrganizationName = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationName,
+				SellingOrganizationNumber = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationNumber,
+				SellingOrganizationPostalCode = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationPostalCode,
+				SellingOrganizationPostBox = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationPostBox,
+				SellingOrganizationStreetName = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationStreetName,
+				SellingOrganizationTelephone = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationTelephone,
+				TaxAccountingCode = ServiceLibrary.ConfigurationSettings.WebService.TaxAccountingCode,
+				VATFreeReasonMessage = ServiceLibrary.ConfigurationSettings.WebService.VATFreeReasonMessage,
+			};
 		}
 
 		private static string GenerateInvoiceFileName(Invoice invoice) {
@@ -288,6 +332,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 			var invoiceNumber = invoice.DocumentNumber;
 			return String.Format(EDIFileNameFormat, date, invoiceNumber, referenceNumber);
 		}
+
 		private static string GenerateInvoiceFileName(SFTIInvoiceType invoice) {
 			var date = invoice.IssueDate.Value.ToString(DateFormat);
 			var invoiceNumber = invoice.ID.Value;
@@ -351,12 +396,11 @@ namespace Spinit.Wpc.Synologen.WebService{
 			return invoice;
 		}
 
-		private SFTIInvoiceType GenerateSvefakturaInvoice(IOrder order) {
+		private static SFTIInvoiceType GenerateSvefakturaInvoice(IOrder order) {
 			var settings = GetSvefakturaSettings();
 			var invoice = Utility.Convert.ToSvefakturaInvoice(settings, order);
 			return invoice;
 		}
-
 
 		#endregion
 

@@ -189,9 +189,9 @@ namespace Spinit.Wpc.Synologen.Utility {
 		}
 		private static IEnumerable<RuleViolation> CustomValidateObject(SFTIInvoiceType value) { 
 			if(value == null) yield break;
-			if(value.TaxPointDate == null) {
-				yield return new RuleViolation("SFTIInvoiceType.TaxPointDate is missing.","SFTIInvoiceType.TaxPointDate");
-			}
+			//if(value.TaxPointDate == null) {
+			//    yield return new RuleViolation("SFTIInvoiceType.TaxPointDate is missing.","SFTIInvoiceType.TaxPointDate");
+			//}
 			if(value.InvoiceTypeCode != null && value.InvoiceTypeCode.Value != null && value.InvoiceTypeCode.Value.Equals("381") && value.InitialInvoiceDocumentReference == null){
 				yield return new RuleViolation("SFTIInvoiceType.InitialInvoiceDocumentReference is missing (mandatory on credit invoices).","SFTIInvoiceType.InitialInvoiceDocumentReference");
 			}

@@ -169,4 +169,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-Client.bat"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

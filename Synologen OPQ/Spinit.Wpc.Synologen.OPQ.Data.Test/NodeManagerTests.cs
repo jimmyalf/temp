@@ -37,7 +37,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			_context = null;
 		}
 
-		[Test, Description ("Creates, fetches, updates and deletes a node."), Category ("CruiseControl")]
+		[Test, Explicit, Description ("Creates, fetches, updates and deletes a node."), Category ("CruiseControl")]
 		public void NodeTest ()
 		{
 			using (
@@ -145,7 +145,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			}
 		}
 
-		[Test, Description ("Searches for nodes."), Category ("CruiseControl")]
+		[Test, Explicit, Description ("Searches for nodes."), Category ("CruiseControl")]
 		public void NodeMoveUpDownTest ()
 		{
 			using (

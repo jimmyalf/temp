@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			_context = null;
 		}
 
-		[Test, Description ("Creates, fetches, updates and deletes a document."), Category ("CruiseControl")]
+		[Test, Explicit, Description ("Creates, fetches, updates and deletes a document."), Category ("CruiseControl")]
 		public void DocumentTest ()
 		{
 			using (
@@ -114,6 +114,59 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				}
 
 				Assert.AreEqual (false, found, "Object still exist.");
+			}
+		}
+	
+		[Test, Description ("Searches for nodes."), Category ("CruiseControl")]
+		public void DocmentSearchTest ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				List<Document> documents = (List<Document>) synologenRepository.Document.GetDocumentsByNodeId (1, true);
+
+				Assert.IsNotEmpty (documents, "Documents is empty (only-active).");
+				Assert.AreEqual (1, documents.Count, "Wrong number of documents (only-active).");
+
+				documents = (List<Document>) synologenRepository.Document.GetDocumentsByNodeId (5, false);
+
+				Assert.IsNotEmpty (documents, "Documents is empty.");
+				Assert.AreEqual (1, documents.Count, "Wrong number of documents.");
+
+				Document document = synologenRepository.Document.GetDocumentById (1);
+
+				Assert.IsNotNull (document, "Document is null.");
+				Assert.AreEqual ("Test-Content-1", document.DocumentContent, "Wrong content fetched (document).");
+
+				List<DocumentHistory> documentHistories =
+					(List<DocumentHistory>) synologenRepository.Document.GetAllDocumentHistoriesByDocumentId (1);
+
+				Assert.IsNotEmpty (documentHistories, "Document-history is empty.");
+				Assert.AreEqual (3, documentHistories.Count, "Wrong number of document-history.");
+
+				DocumentHistory documentHistory = synologenRepository.Document.GetDocumentHistoryById (
+					documentHistories [0].Id,
+					documentHistories [0].HistoryDate);
+
+				Assert.IsNotNull (documentHistory, "Document-hsitory is null.");
+				Assert.AreEqual ("Test-Content-History-1-1", documentHistory.DocumentContent, "Wrong content fetched (document-history).");
+
+				DocumentView documentView = synologenRepository.Document.GetActiveDocument (1, null, null, DocumentTypes.Routine);
+
+				Assert.IsNotNull (documentView, "Document-view 1 is null.");
+				Assert.AreEqual ("Test-Content-1", documentView.DocumentContent, "Wrong content fetched (view 1).");
+				
+				documentView = synologenRepository.Document.GetActiveDocument (2, null, null, DocumentTypes.Routine);
+
+				Assert.IsNotNull (documentView, "Document-view 1 is null.");
+				Assert.AreEqual ("Test-Content-2", documentView.DocumentContent, "Wrong content fetched (view 2).");
+				
+				documentView = synologenRepository.Document.GetActiveDocument (3, null, null, DocumentTypes.Routine);
+
+				Assert.IsNotNull (documentView, "Document-view 1 is null.");
+				Assert.AreEqual ("Test-Content-History-3-2", documentView.DocumentContent, "Wrong content fetched (view 3).");
 			}
 		}
 	}

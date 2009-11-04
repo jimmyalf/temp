@@ -344,7 +344,7 @@
     <Build Include="Schema Objects\Tables\Triggers\SynologenOpqNode.AfterDelete.trigger.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Views\dbo.DocumentView.view.sql">
+    <Build Include="Schema Objects\Views\dbo.SynologenOpqDocumentView.view.sql">
       <SubType>Code</SubType>
     </Build>
     <PreDeploy Include="Scripts\Pre-Deployment\Script.PreDeployment.sql">

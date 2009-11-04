@@ -47,7 +47,13 @@
 		/// The move-to position is forbidden.
 		/// </summary>
 
-		MoveToForbidden = 3
+		MoveToForbidden = 3,
+
+		/// <summary>
+		/// The name exist on this level.
+		/// </summary>
+
+		NameExist = 4
 	}
 
 	/// <summary>
@@ -108,6 +114,12 @@
 		/// The file-category is not found.
 		/// </summary>
 
-		FileCategoryNotFound = 8
+		FileCategoryNotFound = 8,
+
+		/// <summary>
+		/// The document-view is not found.
+		/// </summary>
+
+		DocumentViewNotFound = 9
 	}
 }

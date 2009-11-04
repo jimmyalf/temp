@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq.SqlClient;
 using System.Linq;
 
 using Spinit.Data.Linq;
@@ -205,6 +206,83 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		#endregion
 
+		#region Approve, Check-Out and Check-In documents
+
+		/// <summary>
+		/// Approves a document.
+		/// </summary>
+		/// <param name="documentId">The document-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public void ApproveDocument (int documentId)
+		{
+			EDocument oldDocument = _dataContext.Documents.Single (d => d.Id == documentId);
+
+			if (oldDocument == null) {
+				throw new ObjectNotFoundException (
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			oldDocument.ApprovedById = Manager.WebContext.UserId ?? 0;
+			oldDocument.ApprovedByName = Manager.WebContext.UserName;
+			oldDocument.ApprovedDate = DateTime.Now;
+
+			if ((oldDocument.ApprovedById == 0) || (oldDocument.ApprovedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+		}
+
+		/// <summary>
+		/// Checks out a document.
+		/// </summary>
+		/// <param name="documentId">The document-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public void CheckOutDocument (int documentId)
+		{
+			EDocument oldDocument = _dataContext.Documents.Single (d => d.Id == documentId);
+
+			if (oldDocument == null) {
+				throw new ObjectNotFoundException (
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			oldDocument.LockedById = Manager.WebContext.UserId ?? 0;
+			oldDocument.LockedByName = Manager.WebContext.UserName;
+			oldDocument.LockedDate = DateTime.Now;
+
+			if ((oldDocument.LockedById == 0) || (oldDocument.LockedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+		}
+
+		/// <summary>
+		/// Checks-in a document.
+		/// </summary>
+		/// <param name="documentId">The document-id.</param>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public void CheckInDocument (int documentId)
+		{
+			EDocument oldDocument = _dataContext.Documents.Single (d => d.Id == documentId);
+
+			if (oldDocument == null) {
+				throw new ObjectNotFoundException (
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			oldDocument.LockedById = null;
+			oldDocument.LockedByName = null;
+			oldDocument.LockedDate = null;
+		}
+
+		#endregion
+
 		#endregion
 
 		#region Remove 
@@ -348,18 +426,47 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		#region Fetch Document
 
 		/// <summary>
+		/// Fetches the document by document-id.
+		/// </summary>
+		/// <param name="documentId">The document-id.</param>
+		/// <returns>A document.</returns>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public Document GetDocumentById (int documentId)
+		{
+			IQueryable<EDocument> query = from document in _dataContext.Documents
+			                              where document.Id == documentId
+			                              select document;
+
+			IList<EDocument> documents = query.ToList ();
+
+			if (documents.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			return EDocument.Convert (documents.First ());
+		}
+	
+		/// <summary>
 		/// Fetches a list of documents for a node.
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <returns>A list of documents.</returns>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
-		public IList<Document> GetDocumentsByNodeId (int nodeId)
+		public IList<Document> GetDocumentsByNodeId (int nodeId, bool onlyActive)
 		{
-			var query = from document in _dataContext.Documents
-			            where document.NdeId == nodeId
-						orderby document.DocTpeId ascending, document.CreatedBy descending 
-			            select document;
+			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
+			                                     where document.NdeId == nodeId
+			                                     orderby document.DocTpeId ascending , document.CreatedDate descending
+			                                     select document;
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
 			
 			Converter<EDocument, Document> converter = Converter;
 			IList<Document> documents = query.ToList ().ConvertAll (converter);
@@ -378,15 +485,20 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="documentType">The type-of-documents.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <returns>A list of documents.</returns>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
-		public IList<Document> GetDocumentsByNodeId (int nodeId, DocumentTypes documentType)
+		public IList<Document> GetDocumentsByNodeId (int nodeId, DocumentTypes documentType, bool onlyActive)
 		{
-			var query = from document in _dataContext.Documents
-						where document.NdeId == nodeId && document.DocTpeId == (int) documentType
-						orderby document.DocTpeId ascending, document.CreatedBy descending
-						select document;
+			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
+			                                     where document.NdeId == nodeId && document.DocTpeId == (int) documentType
+			                                     orderby document.DocTpeId ascending , document.CreatedDate descending
+			                                     select document;
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
 
 			Converter<EDocument, Document> converter = Converter;
 			IList<Document> documents = query.ToList ().ConvertAll (converter);
@@ -401,27 +513,138 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		}
 
 		/// <summary>
-		/// Fetches the document by document-id.
+		/// Fetches a list of documents for a node.
 		/// </summary>
-		/// <param name="documentId">The document-id.</param>
-		/// <returns>A document.</returns>
+		/// <param name="nodeId">The node-id.</param>
+		/// <param name="shopId">The shop-id.</param>
+		/// <param name="documentType">The type-of-documents.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <returns>A list of documents.</returns>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
-		public Document GetDocumentById (int documentId)
+		public IList<Document> GetDocumentsByNodeId (int nodeId, int shopId, DocumentTypes documentType, bool onlyActive)
 		{
-			var query = from document in _dataContext.Documents
-						where document.Id == documentId
-						select document;
+			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
+			                                     where
+			                                     	document.NdeId == nodeId && document.ShpId == shopId
+			                                     	&& document.DocTpeId == (int) documentType
+			                                     orderby document.DocTpeId ascending , document.CreatedDate descending
+			                                     select document;
 
-			IList<EDocument> documents = query.ToList ();
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
 
-			if (documents.IsEmpty ()) {
+			Converter<EDocument, Document> converter = Converter;
+			IList<Document> documents = query.ToList ().ConvertAll (converter);
+
+			if (documents == null) {
 				throw new ObjectNotFoundException (
 					"Document not found.",
 					ObjectNotFoundErrors.DocumentNotFound);
 			}
 
-			return EDocument.Convert (documents.First ());
+			return documents;
+		}
+
+		/// <summary>
+		/// Fetches a list of documents by search-text.
+		/// </summary>
+		/// <param name="text">The search-text.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <returns>A list of documents.</returns>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public IList<Document> GetDocumentsByText (string text, bool onlyActive)
+		{
+			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
+			                                     where SqlMethods.Like (document.DocumentContent, string.Concat ("%", text, "%"))
+			                                     orderby document.DocTpeId ascending , document.CreatedDate descending
+			                                     select document;
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			Converter<EDocument, Document> converter = Converter;
+			IList<Document> documents = query.ToList ().ConvertAll (converter);
+
+			if (documents == null) {
+				throw new ObjectNotFoundException (
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			return documents;
+		}
+
+		/// <summary>
+		/// Fetches a list of documents for a node.
+		/// </summary>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <returns>A list of documents.</returns>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public IList<Document> GetAllDocuments (bool onlyActive)
+		{
+			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
+			                                     orderby document.DocTpeId ascending , document.CreatedDate descending
+			                                     select document;
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			Converter<EDocument, Document> converter = Converter;
+			IList<Document> documents = query.ToList ().ConvertAll (converter);
+
+			if (documents == null) {
+				throw new ObjectNotFoundException (
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			return documents;
+		}
+
+		/// <summary>
+		/// Fetches the active document from the document-view.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <param name="shopId">The shop-id.</param>
+		/// <param name="concernId">The concern-id.</param>
+		/// <param name="documentType">The document-type.</param>
+		/// <returns>A document-view-object.</returns>
+
+		public DocumentView GetActiveDocument (int nodeId, int? shopId, int? concernId, DocumentTypes documentType)
+		{
+		    IOrderedQueryable<EDocumentView> query = from documentView in _dataContext.DocumentViews
+		                                             where 
+														documentView.NdeId == nodeId 
+														&& documentView.ApprovedById != null
+														&& documentView.LockedById == null
+														&& documentView.IsActive
+														&& documentView.DocTpeId == (int) documentType
+		                                             orderby documentView.ApprovedDate descending
+		                                             select documentView;
+
+			if (shopId != null) {
+				query.AddEqualityCondition ("ShpId", shopId);
+			}
+
+			if (concernId != null) {
+				query.AddEqualityCondition ("CncId", concernId);
+			}
+
+			EDocumentView docView = query.ToList ().First ();
+
+			if (docView == null) {
+				throw new ObjectNotFoundException (
+					"Document View not found.",
+					ObjectNotFoundErrors.DocumentViewNotFound);
+			}
+
+			return EDocumentView.Convert (docView);
 		}
 
 		#endregion
@@ -438,9 +661,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public DocumentHistory GetDocumentHistoryById (int documentId, DateTime historyDate)
 		{
-			var query = from documentHistory in _dataContext.DocumentHistories
-						where documentHistory.Id == documentId && documentHistory.HistoryDate == historyDate
-						select documentHistory;
+			IQueryable<EDocumentHistory> query = from documentHistory in _dataContext.DocumentHistories
+			                                     where
+			                                     	documentHistory.Id == documentId && documentHistory.HistoryDate == historyDate
+			                                     select documentHistory;
 
 			IList<EDocumentHistory> documentHistories = query.ToList ();
 
@@ -463,10 +687,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public IList<DocumentHistory> GetAllDocumentHistoriesByDocumentId (int documentId)
 		{
-			var query = from documentHistory in _dataContext.DocumentHistories
-						where documentHistory.Id == documentId
-						orderby documentHistory.HistoryDate descending
-						select documentHistory;
+			IOrderedQueryable<EDocumentHistory> query = from documentHistory in _dataContext.DocumentHistories
+			                                            where documentHistory.Id == documentId
+			                                            orderby documentHistory.HistoryDate descending
+			                                            select documentHistory;
 
 			Converter<EDocumentHistory, DocumentHistory> converter = Converter;
 			IList<DocumentHistory> documentHistories = query.ToList ().ConvertAll (converter);
@@ -493,9 +717,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public DocumentType GetDocumentTypeById (DocumentTypes documentTypeId)
 		{
-			var query = from documentType in _dataContext.DocumentTypes
-			            where documentType.Id == (int) documentTypeId
-			            select documentType;
+			IQueryable<EDocumentType> query = from documentType in _dataContext.DocumentTypes
+			                                  where documentType.Id == (int) documentTypeId
+			                                  select documentType;
 
 			IList<EDocumentType> documentTypes = query.ToList ();
 
@@ -517,7 +741,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public IList<DocumentType> GetAllDocumentTypes ()
 		{
-			var query = from documentType in _dataContext.DocumentTypes
+			IOrderedQueryable<EDocumentType> query = from documentType in _dataContext.DocumentTypes
 						orderby documentType.Name ascending
 						select documentType;
 

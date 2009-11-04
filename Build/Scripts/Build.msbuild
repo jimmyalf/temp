@@ -19,6 +19,7 @@
 				<ProjectToBuild Include="$(SolutionDir)Synologen WebService\Synologen WebService.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen Test\Synologen Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj"/>
+				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>
 			</ItemGroup>
 		</When>
 		<Otherwise>
@@ -31,6 +32,7 @@
 				<ProjectToBuild Include="$(SolutionDir)Synologen WebService\Synologen WebService.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen Test\Synologen Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj"/>
+				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>
 			</ItemGroup>
 		</Otherwise>
 	</Choose>

@@ -73,15 +73,15 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// if removeCompletely = true: deletes the node and all connecting objects.
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
-		/// <param name="removeCompletly">if tru=>emoves a node completely.</param>
+		/// <param name="removeCompletely">If true=>removes a node completely.</param>
 
-		public void DeleteNode (int nodeId, bool removeCompletly)
+		public void DeleteNode (int nodeId, bool removeCompletely)
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
 				
-				if (removeCompletly) {
+				if (removeCompletely) {
 					// Remove all documents
 					try {
 						synologenRepository.Document.DeleteAllForNode (nodeId);

@@ -1,7 +1,13 @@
-﻿CREATE VIEW [dbo].[DocumentView]
+﻿--ALTER VIEW [dbo].[SynologenOpqDocumentView]
+CREATE VIEW [dbo].[SynologenOpqDocumentView]
 AS 
 		SELECT  Id,
 				NULL AS HistoryDate,
+				NdeId,
+				ShpId,
+				CncId,
+				DocTpeId,
+				DocumentContent,
 				IsActive,
 				ApprovedById,
 				ApprovedByName,
@@ -10,9 +16,14 @@ AS
 				LockedByName,
 				LockedDate
 		FROM	dbo.SynologenOpqDocuments
-	UNION
+	UNION ALL
 		SELECT  Id,
 				HistoryDate,
+				NdeId,
+				ShpId,
+				CncId,
+				DocTpeId,
+				DocumentContent,
 				IsActive,
 				ApprovedById,
 				ApprovedByName,

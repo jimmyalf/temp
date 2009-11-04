@@ -53,6 +53,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				}
 			}
 
+			if (!CheckNameExist (node.Name, node.Parent, null)) {
+				throw new NodeException ("Name exist.", NodeErrors.NameExist);
+			}
+			
 			node.Order = 0;
 			node.CreatedById = Manager.WebContext.UserId ?? 0;
 			node.CreatedByName = Manager.WebContext.UserName;
@@ -156,6 +160,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.NodeNotFound);
 			}
 
+
 			oldNode.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldNode.ChangedByName = Manager.WebContext.UserName;
 			oldNode.ChangedDate = DateTime.Now;
@@ -174,8 +179,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 							GetNodeById ((int) node.Parent);
 						}
 						catch (ObjectNotFoundException e) {
-							if ((ObjectNotFoundErrors) e.ErrorCode
-							    == ObjectNotFoundErrors.NodeNotFound) {
+							if ((ObjectNotFoundErrors) e.ErrorCode == ObjectNotFoundErrors.NodeNotFound) {
 								throw new NodeException ("Parent does not exist.", NodeErrors.ParentDoesNotExist);
 							}
 							throw;
@@ -187,6 +191,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			}
 
 			if ((node.Name != null) && !oldNode.Name.Equals (node.Name)) {
+				if (!CheckNameExist (node.Name, node.Parent, node.Id)) {
+					throw new NodeException ("Name exist.", NodeErrors.NameExist);
+				}
+				
 				oldNode.Name = node.Name.Length == 0 ? null : node.Name;
 			}
 
@@ -547,7 +555,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public Node GetNodeById (int nodeId)
 		{
-			var query = from node in _dataContext.Nodes
+			IQueryable<ENode> query = from node in _dataContext.Nodes
 			            where node.Id == nodeId
 			            select node;
 
@@ -571,16 +579,17 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public IList<Node> GetRootNodes (bool onlyActive)
 		{
-			var query = from node in _dataContext.Nodes
-			            where node.Parent == null 
-			            select node;
+			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
+			            where node.Parent == null
+						orderby node.Name ascending
+						select node;
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
 			}
 
 			Converter<ENode, Node> converter = Converter;
-			IList<Node> nodes = query.OrderBy (node => node.Order).ToList ().ConvertAll (converter);
+			IList<Node> nodes = query.ToList ().ConvertAll (converter);
 
 			if (nodes.IsEmpty ()) {
 				throw new ObjectNotFoundException (
@@ -601,8 +610,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public IList<Node> GetChildNodes (int parent, bool onlyActive)
 		{
-			var query = from node in _dataContext.Nodes
+			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
 						where node.Parent == parent
+						orderby node.Name ascending 
 						select node;
 
 			if (onlyActive) {
@@ -610,7 +620,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			}
 
 			Converter<ENode, Node> converter = Converter;
-			IList<Node> nodes = query.OrderBy (node => node.Order).ToList ().ConvertAll (converter);
+			IList<Node> nodes = query.ToList ().ConvertAll (converter);
 
 			if (nodes.IsEmpty ()) {
 				throw new ObjectNotFoundException (
@@ -631,8 +641,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public IList<Node> GetNodesByName (string name, bool onlyActive)
 		{
-			var query = from node in _dataContext.Nodes
+			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
 						where SqlMethods.Like (node.Name, string.Concat ("%", name, "%"))
+						orderby node.Name ascending
 						select node;
 
 			if (onlyActive) {
@@ -640,7 +651,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			}
 
 			Converter<ENode, Node> converter = Converter;
-			IList<Node> nodes = query.OrderBy (node => node.Order).ToList ().ConvertAll (converter);
+			IList<Node> nodes = query.ToList ().ConvertAll (converter);
 
 			if (nodes.IsEmpty ()) {
 				throw new ObjectNotFoundException (
@@ -662,9 +673,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public IList<Node> GetNodesByName (int parent, string name, bool onlyActive)
 		{
-			var query = from node in _dataContext.Nodes
+			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
 						where node.Parent == parent
 							&& SqlMethods.Like (node.Name, string.Concat ("%", name, "%"))
+						orderby node.Name ascending
 						select node;
 
 			if (onlyActive) {
@@ -672,7 +684,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			}
 
 			Converter<ENode, Node> converter = Converter;
-			IList<Node> nodes = query.OrderBy (node => node.Order).ToList ().ConvertAll (converter);
+			IList<Node> nodes = query.ToList ().ConvertAll (converter);
 
 			if (nodes.IsEmpty ()) {
 				throw new ObjectNotFoundException (
@@ -833,6 +845,37 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			}
 
 			return nodeSupplierConnection;
+		}
+
+		#endregion
+
+		#region Internal methods
+
+		/// <summary>
+		/// Checks to see if the name exist on under the choosen parent.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <param name="parent">The parent-id.</param>
+		/// <param name="id">The id of the node itself.</param>
+		/// <returns>If name exists=>true otherwise false.</returns>
+
+		private bool CheckNameExist (string name, int? parent, int? id)
+		{
+			IQueryable<ENode> query = from node in _dataContext.Nodes
+			                          where node.Name == name && node.Parent == parent
+			                          select node;
+
+			if (id != null) {
+				query.AddEqualityCondition ("Id", id);
+			}
+
+			IList<ENode> tmpNodes = query.ToList ();
+
+			if (!tmpNodes.IsEmpty ()) {
+				return true;
+			}
+
+			return false;
 		}
 
 		#endregion

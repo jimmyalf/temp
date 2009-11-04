@@ -58,21 +58,21 @@
         <classShapeMoniker Id="24fac253-1d0d-4173-af07-79302fba0ab0" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 2.54559517724609); (3.16666666666667 : 2.54559517724609 : JumpStart); (3.42708333333333 : 2.54559517724609 : JumpEnd); (3.5 : 2.54559517724609)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 2.87329223632813); (3.04166666666667 : 2.87329223632812 : JumpStart); (3.20833333333333 : 2.87329223632813 : JumpEnd); (3.26041666666667 : 2.87329223632812 : JumpStart); (3.42708333333333 : 2.87329223632813 : JumpEnd); (3.5 : 2.87329223632813)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/SynologenOpqFileCategory/SynologenOpqFileCategory_SynologenOpqFile" />
       <nodes>
         <classShapeMoniker Id="75b05a18-1683-46ea-874d-1c4fb0157d8e" />
         <classShapeMoniker Id="ecb290af-12dd-4ca8-9977-e75195fc2b6e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 6.92307657877604); (3.26041666666667 : 6.92307657877604 : JumpStart); (3.42708333333333 : 6.92307657877604 : JumpEnd); (3.5 : 6.92307657877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 6.92307657877604); (3.5 : 6.92307657877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/SynologenOpqNode/SynologenOpqNode_SynologenOpqNodeSupplierConnection" />
       <nodes>
         <classShapeMoniker Id="77acc89c-3113-4077-aba9-9a25c6919a02" />
         <classShapeMoniker Id="f605bdd8-8945-44ef-8edc-c432020eb29c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 7.92307657877604); (3.26041666666667 : 7.92307657877604 : JumpStart); (3.42708333333333 : 7.92307657877604 : JumpEnd); (6.75 : 7.92307657877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 7.92307657877604); (6.75 : 7.92307657877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/SynologenOpqNode/SynologenOpqNode_SynologenOpqDocument" />
       <nodes>
         <classShapeMoniker Id="77acc89c-3113-4077-aba9-9a25c6919a02" />
@@ -147,14 +147,14 @@
         <classShapeMoniker Id="24fac253-1d0d-4173-af07-79302fba0ab0" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.375 : 3.125); (7.375 : 0.625); (6.92708133333333 : 0.624999999999999 : JumpStart); (6.76041466666667 : 0.625 : JumpEnd); (3.33333333333333 : 0.624999999999999 : JumpStart); (3.16666666666667 : 0.625 : JumpEnd); (3.125 : 0.625); (3.125 : 3.46619035449219); (2.75 : 3.46619035449219)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(7.375 : 3.125); (7.375 : 0.625); (6.92708133333333 : 0.624999999999999 : JumpStart); (6.76041466666667 : 0.625 : JumpEnd); (3.125 : 0.625); (3.125 : 3.46619035449219); (2.75 : 3.46619035449219)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/tblBaseUser/tblBaseUser_SynologenOpqFileCategory" />
       <nodes>
         <classShapeMoniker Id="3aad023e-a548-4494-96eb-e7de8c6ab83a" />
         <classShapeMoniker Id="75b05a18-1683-46ea-874d-1c4fb0157d8e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.843748 : 3.125); (6.843748 : 0.375); (3.25 : 0.375); (3.25 : 3.00589276586914); (2.75 : 3.00589276586914)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.843748 : 3.125); (6.843748 : 0.375); (3 : 0.375); (3 : 2.28039411816406); (2.75 : 2.28039411816406)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/tblBaseUser/tblBaseUser_SynologenOpqFileCategory1" />
       <nodes>
         <classShapeMoniker Id="3aad023e-a548-4494-96eb-e7de8c6ab83a" />
@@ -196,28 +196,28 @@
         <classShapeMoniker Id="77acc89c-3113-4077-aba9-9a25c6919a02" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.375 : 5.58468346339769); (3.42708333333333 : 5.58468346339769 : JumpStart); (3.26041666666667 : 5.58468346339769 : JumpEnd); (2.75 : 5.58468346339769)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.375 : 5.58468346339769); (2.75 : 5.58468346339769)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/tblBaseUser/tblBaseUser_SynologenOpqNode1" />
       <nodes>
         <classShapeMoniker Id="3aad023e-a548-4494-96eb-e7de8c6ab83a" />
         <classShapeMoniker Id="77acc89c-3113-4077-aba9-9a25c6919a02" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.375 : 5.75823046401743); (3.42708333333333 : 5.75823046401743 : JumpStart); (3.26041666666667 : 5.75823046401743 : JumpEnd); (2.75 : 5.75823046401743)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.375 : 5.75823046401743); (2.75 : 5.75823046401743)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/tblBaseUser/tblBaseUser_SynologenOpqNode2" />
       <nodes>
         <classShapeMoniker Id="3aad023e-a548-4494-96eb-e7de8c6ab83a" />
         <classShapeMoniker Id="77acc89c-3113-4077-aba9-9a25c6919a02" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.375 : 5.2375894621582); (3.42708333333333 : 5.2375894621582 : JumpStart); (3.23848784029965 : 5.2375894621582 : JumpEnd); (2.75 : 5.2375894621582)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.375 : 5.2375894621582); (2.75 : 5.2375894621582)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/tblBaseUser/tblBaseUser_SynologenOpqNode3" />
       <nodes>
         <classShapeMoniker Id="3aad023e-a548-4494-96eb-e7de8c6ab83a" />
         <classShapeMoniker Id="77acc89c-3113-4077-aba9-9a25c6919a02" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.25 : 1.96875); (6.92708133333333 : 1.96875 : JumpStart); (6.76041466666667 : 1.96875 : JumpEnd); (5.5 : 1.96875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.25 : 1.96875); (7.45833333333333 : 1.96875 : JumpStart); (7.29166666666667 : 1.96875 : JumpEnd); (6.92708133333333 : 1.96875 : JumpStart); (6.76041466666667 : 1.96875 : JumpEnd); (5.5 : 1.96875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/tblBaseFile/tblBaseFile_SynologenOpqFile" />
       <nodes>
         <classShapeMoniker Id="f4984642-777a-4247-82ee-9ac2d7451913" />
@@ -256,7 +256,7 @@
         <classShapeMoniker Id="ecb290af-12dd-4ca8-9977-e75195fc2b6e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.375 : 12.375); (11.7933664563669 : 12.2891808556024 : JumpStart); (11.9566335436331 : 12.2556900211337 : JumpEnd); (12.125 : 12.2211531575521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(11.375 : 12.375); (12.125 : 12.2211531575521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/tblSynologenShopCategory/tblSynologenShopCategory_tblSynologenShopCategoryMemberCategoryConnection" />
       <nodes>
         <classShapeMoniker Id="3ddc84fa-9a6e-447b-b0ba-14e152fe4da8" />
@@ -328,14 +328,14 @@
         <classShapeMoniker Id="24fac253-1d0d-4173-af07-79302fba0ab0" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(13.39062275 : 14.75); (13.39062275 : 12.4711531575521); (11.875 : 12.4711531575521); (11.875 : 3.57527913411458); (8.625 : 3.57527913411458); (8.625 : 1.9687505); (6.92708133333333 : 1.9687505 : JumpStart); (6.76041466666667 : 1.9687505 : JumpEnd); (5.5 : 1.9687505)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(13.39062275 : 14.75); (13.39062275 : 12.4711531575521); (11.875 : 12.4711531575521); (11.875 : 3.57527913411458); (8.625 : 3.57527913411458); (8.625 : 1.9687505); (7.45833333333333 : 1.9687505 : JumpStart); (7.29166666666667 : 1.9687505 : JumpEnd); (6.92708133333333 : 1.9687505 : JumpStart); (6.76041466666667 : 1.9687505 : JumpEnd); (5.5 : 1.9687505)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/tblSynologenShop/tblSynologenShop_SynologenOpqFile" />
       <nodes>
         <classShapeMoniker Id="42169f9e-1380-49e7-8328-f92156513122" />
         <classShapeMoniker Id="ecb290af-12dd-4ca8-9977-e75195fc2b6e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(14.3437495 : 14.75); (14.3437495 : 10.59375); (11.9583333333333 : 10.59375 : JumpStart); (11.7916666666667 : 10.59375 : JumpEnd); (11.375 : 10.59375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(14.3437495 : 14.75); (14.3437495 : 10.59375); (11.375 : 10.59375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/tblSynologenShop/tblSynologenShop_tblSynologenShopMemberConnection" />
       <nodes>
         <classShapeMoniker Id="42169f9e-1380-49e7-8328-f92156513122" />
@@ -349,17 +349,17 @@
         <classShapeMoniker Id="42169f9e-1380-49e7-8328-f92156513122" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 11.5105004882812); (1.75 : 18.0685773291016); (12.5 : 18.0685773291016)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.75 : 11.5105004882812); (1.75 : 18.5069604492187); (12.5 : 18.5069604492187)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/dbWpcSynologenDataContext/tblSynologenConcern/tblSynologenConcern_tblSynologenShop" />
       <nodes>
         <classShapeMoniker Id="d1b08eba-e2ac-4c5a-aaef-630f9e30730a" />
         <classShapeMoniker Id="42169f9e-1380-49e7-8328-f92156513122" />
       </nodes>
     </associationConnector>
-    <classShape Id="065d6bdd-3b2a-4c50-895f-5de2a139c549" absoluteBounds="6.125, 14.25, 2, 2.24658447265625">
-      <DataClassMoniker Name="/dbWpcSynologenDataContext/DocumentView" />
+    <classShape Id="9ef7e2ab-8c91-4e5f-a6b3-753a95aecf62" absoluteBounds="7, 14.75, 2, 3.0683211263020831">
+      <DataClassMoniker Name="/dbWpcSynologenDataContext/SynologenOpqDocumentView" />
       <nestedChildShapes>
-        <elementListCompartment Id="8bdd675d-01e5-4875-948d-5e2c43848310" absoluteBounds="6.1400000000000006, 14.71, 1.9700000000000002, 1.68658447265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="feef3d02-7387-4617-8eb8-438bd61f18ed" absoluteBounds="7.015, 15.21, 1.9700000000000002, 2.508321126302083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

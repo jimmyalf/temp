@@ -33,17 +33,12 @@ BEGIN
 			FROM	dbo.SynologenOpqNodes
 			WHERE	Parent = @parent
 		END
-		
-	IF @order IS NULL
-		BEGIN
-			SET @order = 1
-		END
-		
+				
 	SET @contextInfo = CAST ('DontUpdateNode' + SPACE (128) AS VARBINARY (128))  
 	SET CONTEXT_INFO @contextInfo	
 			
 	UPDATE	dbo.SynologenOpqNodes 
-	SET		[Order] = @order
+	SET		[Order] = ISNULL (@order, 1)
 	WHERE	Id = @id
 	
 	SET @contextInfo = CAST ('UpdateClear' + SPACE (128) AS VARBINARY (128))  

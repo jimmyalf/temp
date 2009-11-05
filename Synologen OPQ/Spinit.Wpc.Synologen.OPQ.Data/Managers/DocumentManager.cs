@@ -336,7 +336,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public void DeleteAllForNode (int nodeId)
 		{
-			var query = from document in _dataContext.Documents
+			IQueryable<EDocument> query = from document in _dataContext.Documents
 						where document.NdeId == nodeId
 						select document;
 
@@ -400,7 +400,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public void Delete (int documentId)
 		{
-			var query = from documentHistory in _dataContext.DocumentHistories
+			IOrderedQueryable<EDocumentHistory> query = from documentHistory in _dataContext.DocumentHistories
 						where documentHistory.Id == documentId
 						orderby documentHistory.HistoryDate descending 
 						select documentHistory;
@@ -579,7 +579,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		}
 
 		/// <summary>
-		/// Fetches a list of documents for a node.
+		/// Fetches a list of all documents.
 		/// </summary>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <returns>A list of documents.</returns>

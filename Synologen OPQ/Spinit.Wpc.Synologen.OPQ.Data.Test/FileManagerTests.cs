@@ -13,9 +13,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 	{
 		private Configuration _configuration;
 		private Context _context;
-		private const int NodeId = 1;
-		private const int FileCategoryId = 1;
-		private const int FileId = 1;
 
 		[SetUp, Description ("Initialize.")]
 		public void NodeManagerInit ()
@@ -27,8 +24,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			_context = new Context (
 				Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName,
 				string.Empty,
-				1,
-				"Admin");
+				PropertyValues.UserId,
+				PropertyValues.UserName);
 		}
 
 		[TearDown, Description ("Close.")]
@@ -37,6 +34,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			_configuration = null;
 			_context = null;
 		}
+
+		#region File tests
 
 		[Test, Explicit, Description ("Creates, fetches, updates and deletes a file."), Category ("CruiseControl")]
 		public void FileTest ()
@@ -49,9 +48,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				synologenRepository.File.Insert (
 					new File
 					{
-						NdeId = NodeId,
-						FleId = FileId,
-						FleCatId = FileCategoryId,
+						NdeId = PropertyValues.NodeId,
+						FleId = PropertyValues.FileId,
+						FleCatId = PropertyValues.FileCategoryId,
 						IsActive = true
 					});
 
@@ -69,7 +68,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				// Update node
 			}
 		}
-		
+
+		#endregion
+
+		#region File Category Tests
+
 		[Test, Explicit, Description ("Creates, fetches, updates and deletes a file-category."), Category ("CruiseControl")]
 		public void FileCategoryTest ()
 		{
@@ -99,5 +102,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				// Update node
 			}
 		}
+
+		#endregion
 	}
 }

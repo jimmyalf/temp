@@ -37,7 +37,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="node">The node.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
-		/// <exception cref="NodeException">If the parent is not found.</exception>
+		/// <exception cref="NodeException">If the parent is not found or the new name exist.</exception>
 
 		private void Insert (ENode node)
 		{
@@ -148,7 +148,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="node">The node.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
-		/// <exception cref="NodeException">If the parent is not found.</exception>
+		/// <exception cref="NodeException">If the parent is not found or the new name exist.</exception>
 
 		private void Update (ENode node)
 		{
@@ -852,7 +852,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		#region Internal methods
 
 		/// <summary>
-		/// Checks to see if the name exist on under the choosen parent.
+		/// Checks to see if the name exist under the choosen parent.
 		/// </summary>
 		/// <param name="name">The name.</param>
 		/// <param name="parent">The parent-id.</param>
@@ -866,7 +866,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			                          select node;
 
 			if (id != null) {
-				query.AddEqualityCondition ("Id", id);
+				query.AddNotEqualityCondition ("Id", id);
 			}
 
 			IList<ENode> tmpNodes = query.ToList ();

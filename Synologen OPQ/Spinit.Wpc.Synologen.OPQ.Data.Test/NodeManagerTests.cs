@@ -26,8 +26,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			_context = new Context (
 				Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName,
 				string.Empty,
-				1,
-				"Admin");
+				PropertyValues.UserId,
+				PropertyValues.UserName);
 		}
 
 		[TearDown, Description ("Close.")]

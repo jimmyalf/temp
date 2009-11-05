@@ -1,37 +1,32 @@
 ﻿-- =============================================
--- After insert files
+-- After delete files
 -- =============================================
 
---ALTER TRIGGER [SynologenOpqFiles_AfterInsert] 
-CREATE TRIGGER [SynologenOpqFiles_AfterInsert] 
+--ALTER TRIGGER [SynologenOpqFiles_AfterDelete]
+CREATE TRIGGER [SynologenOpqFiles_AfterDelete]
 ON [dbo].[SynologenOpqFiles]
-AFTER INSERT
-AS
+AFTER DELETE 
+AS 
 BEGIN
 	SET NOCOUNT ON
 	
-	DECLARE	@id INT,
+	DECLARE @order INT,
 			@ndeId INT,
-			@order INT,
 			@contextInfo VARBINARY (128)
 			
-	SELECT	@id = Id,
+	SELECT	@order = [Order],
 			@ndeId = NdeId
-	FROM	INSERTED
+	FROM	DELETED
 	
-	SET @order = 1
-	
-	SELECT	@order = MAX ([Order]) + 1
-	FROM	dbo.SynologenOpqFiles
-	WHERE	NdeId = @ndeId
-			
 	SET @contextInfo = CAST ('DontUpdateFile' + SPACE (128) AS VARBINARY (128))  
 	SET CONTEXT_INFO @contextInfo	
 
 	UPDATE	dbo.SynologenOpqFiles
-	SET		[Order] = ISNULL (@order, 1)
-	WHERE	Id = @id
+	SET		[Order] = [Order] - 1
+	WHERE	[Order] > @order
+		AND	NdeId = @ndeId
 	
 	SET @contextInfo = CAST ('UpdateClear' + SPACE (128) AS VARBINARY (128))  
 	SET CONTEXT_INFO @contextInfo		
 END
+

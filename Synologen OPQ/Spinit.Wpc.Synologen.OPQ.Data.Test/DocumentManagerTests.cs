@@ -15,7 +15,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 	{
 		private Configuration _configuration;
 		private Context _context;
-		private const int NodeId = 1;
 
 		[SetUp, Description ("Initialize.")]
 		public void NodeManagerInit ()
@@ -27,8 +26,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			_context = new Context (
 				Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName,
 				string.Empty,
-				1,
-				"Admin");
+				PropertyValues.UserId,
+				PropertyValues.UserName);
 		}
 
 		[TearDown, Description ("Close.")]
@@ -45,14 +44,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
 
-				const string  content = @"The test document content.";
 				// Create a new document
 				synologenRepository.Document.Insert (
 					new Document
 					{
-						NdeId = NodeId,
-						DocTpeId = DocumentTypes.Routine,
-						DocumentContent = content,
+						NdeId = PropertyValues.NodeId,
+						DocTpeId = PropertyValues.DocDocumentType,
+						DocumentContent = PropertyValues.DocCreateDocumentContent,
 						IsActive = true
 					});
 
@@ -66,11 +64,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				Document fetchDocument = synologenRepository.Document.GetDocumentById (document.Id);
 
 				Assert.IsNotNull (fetchDocument, "Fetched document is null.");
-				Assert.AreEqual (content, fetchDocument.DocumentContent, "Content are not equal");
+				Assert.AreEqual (PropertyValues.DocCreateDocumentContent, fetchDocument.DocumentContent, "Content are not equal");
 		
 				// Update node
-				const string  updateContent = @"Updated document test";
-				fetchDocument.DocumentContent = updateContent;
+				fetchDocument.DocumentContent = PropertyValues.DocUpdateDocumentContent;
 				synologenRepository.Document.Update (fetchDocument);
 
 				synologenRepository.SubmitChanges ();
@@ -79,7 +76,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				fetchDocument = synologenRepository.Document.GetDocumentById (document.Id);
 
 				Assert.IsNotNull (fetchDocument, "ReFetched document is null.");
-				Assert.AreEqual (updateContent, fetchDocument.DocumentContent, "Updated content are not equal");
+				Assert.AreEqual (PropertyValues.DocUpdateDocumentContent, fetchDocument.DocumentContent, "Updated content are not equal");
 
 				// Fetch Histories
 				List<DocumentHistory> documentHistories =
@@ -93,7 +90,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					documentHistories [0].HistoryDate);
 
 				Assert.IsNotNull (documentHistory, "Document-history document is null.");
-				Assert.AreEqual (content, documentHistory.DocumentContent, "History content are not equal");
+				Assert.AreEqual (PropertyValues.DocCreateDocumentContent, documentHistory.DocumentContent, "History content are not equal");
 
 				// Delete the document
 				synologenRepository.Document.Delete (fetchDocument);
@@ -117,7 +114,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			}
 		}
 	
-		[Test, Description ("Searches for nodes."), Category ("CruiseControl")]
+		[Test, Description ("Searches for documents."), Category ("CruiseControl")]
 		public void DocmentSearchTest ()
 		{
 			using (
@@ -125,48 +122,64 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				List<Document> documents = (List<Document>) synologenRepository.Document.GetDocumentsByNodeId (1, true);
+				List<Document> documents = 
+					(List<Document>) synologenRepository.Document.GetDocumentsByNodeId (PropertyValues.DocNodeIdActive, true);
 
 				Assert.IsNotEmpty (documents, "Documents is empty (only-active).");
-				Assert.AreEqual (1, documents.Count, "Wrong number of documents (only-active).");
+				Assert.AreEqual (PropertyValues.DocCountOnlyActive, documents.Count, "Wrong number of documents (only-active).");
 
-				documents = (List<Document>) synologenRepository.Document.GetDocumentsByNodeId (5, false);
+				documents = (List<Document>) synologenRepository.Document.GetDocumentsByNodeId (PropertyValues.DocNodeIdActive, false);
 
 				Assert.IsNotEmpty (documents, "Documents is empty.");
-				Assert.AreEqual (1, documents.Count, "Wrong number of documents.");
+				Assert.AreEqual (PropertyValues.DocCountAll, documents.Count, "Wrong number of documents.");
 
-				Document document = synologenRepository.Document.GetDocumentById (1);
+				Document document = synologenRepository.Document.GetDocumentById (PropertyValues.DocDocumentId);
 
 				Assert.IsNotNull (document, "Document is null.");
-				Assert.AreEqual ("Test-Content-1", document.DocumentContent, "Wrong content fetched (document).");
+				Assert.AreEqual (PropertyValues.DocDocumentContent, document.DocumentContent, "Wrong content fetched (document).");
 
 				List<DocumentHistory> documentHistories =
 					(List<DocumentHistory>) synologenRepository.Document.GetAllDocumentHistoriesByDocumentId (1);
 
 				Assert.IsNotEmpty (documentHistories, "Document-history is empty.");
-				Assert.AreEqual (3, documentHistories.Count, "Wrong number of document-history.");
+				Assert.AreEqual (PropertyValues.DocCountHistory, documentHistories.Count, "Wrong number of document-history.");
 
 				DocumentHistory documentHistory = synologenRepository.Document.GetDocumentHistoryById (
 					documentHistories [0].Id,
 					documentHistories [0].HistoryDate);
 
 				Assert.IsNotNull (documentHistory, "Document-hsitory is null.");
-				Assert.AreEqual ("Test-Content-History-1-1", documentHistory.DocumentContent, "Wrong content fetched (document-history).");
+				Assert.AreEqual (
+					PropertyValues.DocDocumentContentHistory, 
+					documentHistory.DocumentContent, 
+					"Wrong content fetched (document-history).");
 
-				DocumentView documentView = synologenRepository.Document.GetActiveDocument (1, null, null, DocumentTypes.Routine);
+				DocumentView documentView = synologenRepository.Document.GetActiveDocument (
+					PropertyValues.DocDocumentIdView1, 
+					null, 
+					null, 
+					PropertyValues.DocDocumentTypeView);
 
 				Assert.IsNotNull (documentView, "Document-view 1 is null.");
-				Assert.AreEqual ("Test-Content-1", documentView.DocumentContent, "Wrong content fetched (view 1).");
+				Assert.AreEqual (PropertyValues.DocDocumentContentView1, documentView.DocumentContent, "Wrong content fetched (view 1).");
 				
-				documentView = synologenRepository.Document.GetActiveDocument (2, null, null, DocumentTypes.Routine);
+				documentView = synologenRepository.Document.GetActiveDocument (
+					PropertyValues.DocDocumentIdView2, 
+					null, 
+					null,
+					PropertyValues.DocDocumentTypeView);
 
 				Assert.IsNotNull (documentView, "Document-view 1 is null.");
-				Assert.AreEqual ("Test-Content-2", documentView.DocumentContent, "Wrong content fetched (view 2).");
+				Assert.AreEqual (PropertyValues.DocDocumentContentView2, documentView.DocumentContent, "Wrong content fetched (view 2).");
 				
-				documentView = synologenRepository.Document.GetActiveDocument (3, null, null, DocumentTypes.Routine);
+				documentView = synologenRepository.Document.GetActiveDocument (
+					PropertyValues.DocDocumentIdView3, 
+					null, 
+					null,
+					PropertyValues.DocDocumentTypeView);
 
 				Assert.IsNotNull (documentView, "Document-view 1 is null.");
-				Assert.AreEqual ("Test-Content-History-3-2", documentView.DocumentContent, "Wrong content fetched (view 3).");
+				Assert.AreEqual (PropertyValues.DocDocumentContentView3, documentView.DocumentContent, "Wrong content fetched (view 3).");
 			}
 		}
 	}

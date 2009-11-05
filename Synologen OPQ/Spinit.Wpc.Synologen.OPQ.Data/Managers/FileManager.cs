@@ -36,6 +36,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="file">The file.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If user, file-category or base-file does not exist.</exception>
 
 		private void Insert (EFile file)
 		{
@@ -47,6 +48,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if ((file.CreatedById == 0) || (file.CreatedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
+
+			Manager.ExternalObjectsManager.CheckUserExist (file.CreatedById);
+			Manager.ExternalObjectsManager.CheckFileExist (file.FleId);
+			CheckFileCategoryExist (file.FleCatId);
 
 			_insertedFile = file;
 
@@ -94,6 +99,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
 
+			if (CheckFileCategoryNameExist (fileCategory.Name, null)) {
+				throw new FileException ("File category exist.", FileErrors.FileCategoryExist);
+			}
+
 			_insertedFileCategory = fileCategory;
 
 			_dataContext.FileCategories.InsertOnSubmit (fileCategory);
@@ -124,19 +133,371 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		#endregion
 
+		#region Change
+
+		#region Change File
+
+		/// <summary>
+		/// Updates a file.
+		/// </summary>
+		/// <param name="file">The file.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If file, user, file-category or base-file does not exist.</exception>
+
+		private void Update (EFile file)
+		{
+			EFile oldFile = _dataContext.Files.Single (d => d.Id == file.Id);
+
+			if (oldFile == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			oldFile.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldFile.ChangedByName = Manager.WebContext.UserName;
+			oldFile.ChangedDate = DateTime.Now;
+
+			if ((oldFile.ChangedById == 0) || (oldFile.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ChangedById);
+
+			if (oldFile.FleCatId != file.FleCatId) {
+				CheckFileCategoryExist (file.FleCatId);
+				oldFile.FleCatId = file.FleCatId;
+			}
+
+			if (oldFile.FleId != file.FleId) {
+				Manager.ExternalObjectsManager.CheckFileExist (file.FleId);
+				oldFile.FleId = file.FleId;
+			}
+
+			if (oldFile.IsActive == file.IsActive) {
+				oldFile.IsActive = file.IsActive;
+			}
+		}
+
+		/// <summary>
+		/// Updates a file.
+		/// </summary>
+		/// <param name="file">The file.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		public void Update (File file)
+		{
+			Update (EFile.Convert (file));
+		}
+
+		#endregion
+
+		#region Deactive & Reactivate File
+
+		/// <summary>
+		/// Deactivates a file.
+		/// </summary>
+		/// <param name="fileId">The file-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
+
+		public void DeactivateFile (int fileId)
+		{
+			EFile oldFile = _dataContext.Files.Single (n => n.Id == fileId);
+
+			if (oldFile == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			oldFile.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldFile.ChangedByName = Manager.WebContext.UserName;
+			oldFile.ChangedDate = DateTime.Now;
+
+			if ((oldFile.ChangedById == 0) || (oldFile.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ChangedById);
+
+			oldFile.IsActive = false;
+		}
+
+		/// <summary>
+		/// Reactivates a file.
+		/// </summary>
+		/// <param name="fileId">The file-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
+
+		public void ReactivateFile (int fileId)
+		{
+			EFile oldFile = _dataContext.Files.Single (d => d.Id == fileId);
+
+			if (oldFile == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			oldFile.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldFile.ChangedByName = Manager.WebContext.UserName;
+			oldFile.ChangedDate = DateTime.Now;
+
+			if ((oldFile.ChangedById == 0) || (oldFile.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ChangedById);
+
+			oldFile.IsActive = true;
+		}
+
+		#endregion
+
+		#region Move File
+
+		/// <summary>
+		/// Moves a file.
+		/// </summary>
+		/// <param name="file">The file to move.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
+		/// <exception cref="FileException">The move is forbidden or the position is not changed.</exception>
+
+		private void MoveFile (EFile file)
+		{
+			EFile oldFile = _dataContext.Files.Single (n => n.Id == file.Id);
+
+			if (oldFile == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			oldFile.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldFile.ChangedByName = Manager.WebContext.UserName;
+			oldFile.ChangedDate = DateTime.Now;
+
+			if ((oldFile.ChangedById == 0) || (oldFile.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ChangedById);
+
+			if (oldFile.NdeId != file.NdeId) {
+				throw new FileException ("Position not valid.", FileErrors.MoveToForbidden);
+			}
+
+			if (oldFile.Order == file.Order) {
+				throw new FileException ("Position not changed.", FileErrors.PositionNotMoved);
+			}
+
+			if ((file.Order < 1) || (file.Order > (GetNumberOfFilesForNode (file.NdeId) + 1))) {
+				throw new FileException ("Position not valid.", FileErrors.MoveToForbidden);
+			}
+
+			oldFile.Order = file.Order;
+		}
+
+		/// <summary>
+		/// Moves a file.
+		/// </summary>
+		/// <param name="file">The file to move.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
+		/// <exception cref="FileException">The move is forbidden or the position is not changed.</exception>
+
+		public void MoveFile (File file)
+		{
+			MoveFile (EFile.Convert (file));
+		}
+
+		#endregion
+
+		#region Approve, Check-Out and Check-In files
+
+		/// <summary>
+		/// Approves a file.
+		/// </summary>
+		/// <param name="fileId">The file-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
+
+		public void ApproveFile (int fileId)
+		{
+			EFile oldFile = _dataContext.Files.Single (d => d.Id == fileId);
+
+			if (oldFile == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			oldFile.ApprovedById = Manager.WebContext.UserId ?? 0;
+			oldFile.ApprovedByName = Manager.WebContext.UserName;
+			oldFile.ApprovedDate = DateTime.Now;
+
+			if ((oldFile.ApprovedById == 0) || (oldFile.ApprovedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ChangedById);
+		}
+
+		/// <summary>
+		/// Checks out a file.
+		/// </summary>
+		/// <param name="fileId">The file-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
+
+		public void CheckOutFile (int fileId)
+		{
+			EFile oldFile = _dataContext.Files.Single (d => d.Id == fileId);
+
+			if (oldFile == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			oldFile.LockedById = Manager.WebContext.UserId ?? 0;
+			oldFile.LockedByName = Manager.WebContext.UserName;
+			oldFile.LockedDate = DateTime.Now;
+
+			if ((oldFile.LockedById == 0) || (oldFile.LockedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+	
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ChangedById);
+		}
+
+		/// <summary>
+		/// Checks-in a file.
+		/// </summary>
+		/// <param name="fileId">The file-id.</param>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		public void CheckInFile (int fileId)
+		{
+			EFile oldFile = _dataContext.Files.Single (d => d.Id == fileId);
+
+			if (oldFile == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			oldFile.LockedById = null;
+			oldFile.LockedByName = null;
+			oldFile.LockedDate = null;
+		}
+
+		#endregion
+
+		#region Change File Category
+
+		/// <summary>
+		/// Updates a file-category.
+		/// </summary>
+		/// <param name="fileCategory">The file-category.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If file-category or user does not exist.</exception>
+
+		private void Update (EFileCategory fileCategory)
+		{
+			EFileCategory oldFileCategory = _dataContext.FileCategories.Single (d => d.Id == fileCategory.Id);
+
+			if (oldFileCategory == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			oldFileCategory.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldFileCategory.ChangedByName = Manager.WebContext.UserName;
+			oldFileCategory.ChangedDate = DateTime.Now;
+
+			if ((oldFileCategory.ChangedById == 0) || (oldFileCategory.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFileCategory.ChangedById);
+
+			if (!oldFileCategory.Name.Equals (fileCategory.Name)) {
+				if (CheckFileCategoryNameExist (fileCategory.Name, fileCategory.Id)) {
+					throw new FileException ("File category exist.", FileErrors.FileCategoryExist);
+				}
+				oldFileCategory.Name = fileCategory.Name;
+			}
+
+			if (oldFileCategory.IsActive == fileCategory.IsActive) {
+				oldFileCategory.IsActive = fileCategory.IsActive;
+			}
+		}
+
+		/// <summary>
+		/// Updates a file-category.
+		/// </summary>
+		/// <param name="fileCategory">The file-category.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		public void Update (FileCategory fileCategory)
+		{
+			Update (EFileCategory.Convert (fileCategory));
+		}
+
+		#endregion
+
+		#endregion
+
 		#region Remove
 
 		#region Remove File
 
 		/// <summary>
-		/// Deletes all documents for a node.
+		/// Deletes a specific file.
+		/// </summary>
+		/// <param name="file">The file.</param>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		private void Delete (EFile file)
+		{
+			EFile oldFile = _dataContext.Files.Single (n => n.Id == file.Id);
+
+			if (oldFile == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			_dataContext.Files.DeleteOnSubmit (oldFile);
+		}
+
+		/// <summary>
+		/// Deletes a specific file.
+		/// </summary>
+		/// <param name="file">The file.</param>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		public void Delete (File file)
+		{
+			Delete (EFile.Convert (file));
+		}
+
+		/// <summary>
+		/// Deletes all files for a node.
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
 		public void DeleteAllForNode (int nodeId)
 		{
-			var query = from file in _dataContext.Files
+			IQueryable<EFile> query = from file in _dataContext.Files
 						where file.NdeId == nodeId
 						select file;
 
@@ -149,6 +510,45 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			}
 
 			_dataContext.Files.DeleteAllOnSubmit (files);
+		}
+
+		#endregion
+
+		#region Remove File Category
+
+		/// <summary>
+		/// Deletes a specific file-category.
+		/// </summary>
+		/// <param name="fileCategory">The file-category.</param>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+		/// <exception cref="FileException">If the file-category is in use.</exception>
+
+		private void Delete (EFileCategory fileCategory)
+		{
+			EFileCategory oldFileCategory = _dataContext.FileCategories.Single (n => n.Id == fileCategory.Id);
+
+			if (oldFileCategory == null) {
+				throw new ObjectNotFoundException (
+					"File-category not found.",
+					ObjectNotFoundErrors.FileCategoryNotFound);
+			}
+
+			if (GetNumberOfFilesForFileCategory (fileCategory.Id) > 0) {
+				throw new FileException ("File-category is in use.", FileErrors.FileCategoryInUse);
+			}
+
+			_dataContext.FileCategories.DeleteOnSubmit (oldFileCategory);
+		}
+
+		/// <summary>
+		/// Deletes a specific file-category.
+		/// </summary>
+		/// <param name="fileCategory">The file-category.</param>
+		/// <exception cref="ObjectNotFoundException">If the file-category is not found.</exception>
+
+		public void Delete (FileCategory fileCategory)
+		{
+			Delete (EFileCategory.Convert (fileCategory));
 		}
 
 		#endregion
@@ -168,7 +568,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public File GetFileById (int fileId)
 		{
-			var query = from file in _dataContext.Files
+			IQueryable<EFile> query = from file in _dataContext.Files
 						where file.Id == fileId
 						select file;
 
@@ -181,6 +581,155 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			}
 
 			return EFile.Convert (files.First ());
+		}
+
+		/// <summary>
+		/// Fetches a list of files for a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <returns>A list of files.</returns>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		public IList<File> GetFilesByNodeId (int nodeId, bool onlyActive)
+		{
+			IOrderedQueryable<EFile> query = from file in _dataContext.Files
+												 where file.NdeId == nodeId
+												 orderby file.Order ascending
+												 select file;
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			Converter<EFile, File> converter = Converter;
+			IList<File> files = query.ToList ().ConvertAll (converter);
+
+			if (files == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			return files;
+		}
+
+		/// <summary>
+		/// Fetches a list of files for a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <param name="fileCategoryId">The file-category.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <returns>A list of files.</returns>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		public IList<File> GetFilesByNodeId (int nodeId, int fileCategoryId, bool onlyActive)
+		{
+			IOrderedQueryable<EFile> query = from file in _dataContext.Files
+			                                 where file.NdeId == nodeId && file.FleCatId == fileCategoryId
+			                                 orderby file.Order ascending
+			                                 select file;
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			Converter<EFile, File> converter = Converter;
+			IList<File> files = query.ToList ().ConvertAll (converter);
+
+			if (files == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+			
+			return files;
+		}
+
+		/// <summary>
+		/// Fetches a list of files for a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <param name="shopId">The shop-id.</param>
+		/// <param name="fileCategoryId">The file-category.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <returns>A list of files.</returns>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		public IList<File> GetFilesByNodeId (int nodeId, int shopId, int fileCategoryId, bool onlyActive)
+		{
+			IOrderedQueryable<EFile> query = from file in _dataContext.Files
+			                                 where
+			                                 	file.NdeId == nodeId && file.ShpId == shopId
+			                                 	&& file.FleCatId == fileCategoryId
+			                                 orderby file.Order ascending
+			                                 select file;
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			Converter<EFile, File> converter = Converter;
+			IList<File> files = query.ToList ().ConvertAll (converter);
+
+			if (files == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			return files;
+		}
+
+		/// <summary>
+		/// Fetches a list of all files.
+		/// </summary>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <returns>A list of files.</returns>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		public IList<File> GetAllFiles (bool onlyActive)
+		{
+			IOrderedQueryable<EFile> query = from file in _dataContext.Files
+			                                 orderby file.NdeId ascending , file.Order ascending
+			                                 select file;
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			Converter<EFile, File> converter = Converter;
+			IList<File> files = query.ToList ().ConvertAll (converter);
+
+			if (files == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+		
+			return files;
+		}
+
+		/// <summary>
+		/// Counts the number of files for a node. 
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <returns>The number of files.</returns>
+
+		public int GetNumberOfFilesForNode (int nodeId)
+		{
+			return _dataContext.Files.Count (file => file.NdeId == nodeId);
+		}
+
+		/// <summary>
+		/// Counts the number of files for a file-category. 
+		/// </summary>
+		/// <param name="fileCategoryId">The file-category-id.</param>
+		/// <returns>The number of files.</returns>
+
+		public int GetNumberOfFilesForFileCategory (int fileCategoryId)
+		{
+			return _dataContext.Files.Count (file => file.FleCatId == fileCategoryId);
 		}
 
 		#endregion
@@ -196,7 +745,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public FileCategory GetFileCategoryById (int fileCategoryId)
 		{
-			var query = from fileCategory in _dataContext.FileCategories
+			IQueryable<EFileCategory> query = from fileCategory in _dataContext.FileCategories
 						where fileCategory.Id == fileCategoryId
 						select fileCategory;
 
@@ -220,7 +769,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 		public IList<FileCategory> GetAllFileCategories ()
 		{
-			var query = from fileCategory in _dataContext.FileCategories
+			IQueryable<EFileCategory> query = from fileCategory in _dataContext.FileCategories
 						orderby fileCategory.Name ascending
 						select fileCategory;
 
@@ -327,6 +876,47 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			return fileCategory;
 		}
 
+
+		#endregion
+
+		#region Internal methods
+
+		/// <summary>
+		/// Checks if a file-category exist.
+		/// </summary>
+		/// <param name="fileCategoryId">The file-category-id.</param>
+		/// <exception cref="ObjectNotFoundException">If the file-category is not found.</exception>
+
+		private void CheckFileCategoryExist (int fileCategoryId)
+		{
+			GetFileCategoryById (fileCategoryId);
+		}
+		
+		/// <summary>
+		/// Checks to see if a file-category already exist.
+		/// </summary>
+		/// <param name="name">The name to check.</param>
+		/// <param name="id">The id to update.</param>
+		/// <returns>If name exists=>true otherwise false.</returns>
+
+		private bool CheckFileCategoryNameExist (string name, int? id)
+		{
+			IQueryable<EFileCategory> query = from fileCategory in _dataContext.FileCategories
+			                                  where fileCategory.Name == name
+			                                  select fileCategory;
+
+			if (id != null) {
+				query.AddNotEqualityCondition ("Id", id);
+			}
+
+			IList<EFileCategory> tmpFileCategories = query.ToList ();
+
+			if (!tmpFileCategories.IsEmpty ()) {
+				return true;
+			}
+
+			return false;
+		}
 
 		#endregion
 

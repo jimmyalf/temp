@@ -57,6 +57,43 @@
 	}
 
 	/// <summary>
+	/// The file-errors.
+	/// </summary>
+
+	public enum FileErrors
+	{
+		/// <summary>
+		/// No error.
+		/// </summary>
+
+		None = 0,
+
+		/// <summary>
+		/// The move opertion does not have a new destination.
+		/// </summary>
+
+		PositionNotMoved = 1,
+
+		/// <summary>
+		/// The move-to position is forbidden.
+		/// </summary>
+
+		MoveToForbidden = 2,
+
+		/// <summary>
+		/// The file-category exist.
+		/// </summary>
+
+		FileCategoryExist = 3,
+
+		/// <summary>
+		/// The file-category is in use.
+		/// </summary>
+
+		FileCategoryInUse = 4
+	}
+
+	/// <summary>
 	/// The fetch resulting in not found objects exception.
 	/// </summary>
 
@@ -84,7 +121,7 @@
 		/// The supplier is not found.
 		/// </summary>
 
-		UserNotFound = 3,
+		BaseUserNotFound = 3,
 
 		/// <summary>
 		/// The document is not found.
@@ -120,6 +157,12 @@
 		/// The document-view is not found.
 		/// </summary>
 
-		DocumentViewNotFound = 9
+		DocumentViewNotFound = 9,
+
+		/// <summary>
+		/// Base-file is not found.
+		/// </summary>
+
+		BaseFileNotFound = 10
 	}
 }

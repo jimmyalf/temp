@@ -2,6 +2,10 @@
 -- Create test data
 -- =============================================
 
+------------------------------------------------
+-- Inserts into nodes
+------------------------------------------------
+
 SET IDENTITY_INSERT dbo.SynologenOpqNodes ON
 
 INSERT INTO dbo.SynologenOpqNodes (
@@ -41,6 +45,10 @@ VALUES (
 
 SET IDENTITY_INSERT dbo.SynologenOpqNodes OFF
 
+------------------------------------------------
+-- Inserts into file-categories
+------------------------------------------------
+
 SET IDENTITY_INSERT dbo.SynologenOpqFileCategories ON
 
 INSERT INTO dbo.SynologenOpqFileCategories (
@@ -49,6 +57,33 @@ VALUES (
 	1, 'Test Category', 1, 1, 'Admin', GETDATE ()) 
 
 SET IDENTITY_INSERT dbo.SynologenOpqFileCategories OFF
+
+------------------------------------------------
+-- Inserts into files
+------------------------------------------------
+
+SET IDENTITY_INSERT dbo.SynologenOpqFiles ON
+
+INSERT INTO dbo.SynologenOpqFiles (
+	Id, [Order], FleCatId, FleId, NdeId, ShpId, CncId, IsActive, CreatedById, CreatedByName, CreatedDate)
+VALUES ( 
+	1, 0, 1, 1, 1, NULL, NULL, 1, 1, 'Admin', GETDATE ())
+	
+INSERT INTO dbo.SynologenOpqFiles (
+	Id, [Order], FleCatId, FleId, NdeId, ShpId, CncId, IsActive, CreatedById, CreatedByName, CreatedDate)
+VALUES ( 
+	2, 0, 1, 1, 1, NULL, NULL, 1, 1, 'Admin', GETDATE ()) 
+
+INSERT INTO dbo.SynologenOpqFiles (
+	Id, [Order], FleCatId, FleId, NdeId, ShpId, CncId, IsActive, CreatedById, CreatedByName, CreatedDate)
+VALUES ( 
+	3, 0, 1, 1, 1, NULL, NULL, 1, 1, 'Admin', GETDATE ()) 
+
+SET IDENTITY_INSERT dbo.SynologenOpqFiles OFF
+
+------------------------------------------------
+-- Inserts into documents
+------------------------------------------------
 
 SET IDENTITY_INSERT dbo.SynologenOpqDocuments ON
 
@@ -84,10 +119,21 @@ INSERT INTO dbo.SynologenOpqDocuments (
 	Id, NdeId, ShpId, CncId, DocTpeId, DocumentContent, IsActive, CreatedById, CreatedByName, CreatedDate,
 	ApprovedById, ApprovedByName, ApprovedDate, LockedById, LockedByName, LockedDate) 
 VALUES ( 
-	5, 5, NULL, NULL, 1, 'Test-Content-5', 0, 1, 'Admin', GETDATE (),
+	5, 5, NULL, NULL, 1, 'Test-Content-5', 1, 1, 'Admin', GETDATE (),
+	1, 'Admin', GETDATE (), NULL, NULL, NULL) 
+
+INSERT INTO dbo.SynologenOpqDocuments (
+	Id, NdeId, ShpId, CncId, DocTpeId, DocumentContent, IsActive, CreatedById, CreatedByName, CreatedDate,
+	ApprovedById, ApprovedByName, ApprovedDate, LockedById, LockedByName, LockedDate) 
+VALUES ( 
+	6, 5, NULL, NULL, 1, 'Test-Content-6', 0, 1, 'Admin', GETDATE (),
 	1, 'Admin', GETDATE (), NULL, NULL, NULL) 
 
 SET IDENTITY_INSERT dbo.SynologenOpqDocuments OFF
+
+------------------------------------------------
+-- Inserts into document histories
+------------------------------------------------
 
 INSERT INTO dbo.SynologenOpqDocumentHistories (
 	Id, HistoryDate, HistoryId, HistoryName, NdeId, ShpId, CncId, DocTpeId, DocumentContent, IsActive,

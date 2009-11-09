@@ -109,6 +109,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PreBuildEvent>"$(SolutionDir)Spinit.Wpc.Synologen.OPQ.Build\Pre-Build-$(ProjectName).bat" "$(SolutionDir)" "$(ProjectName)"</PreBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\Spinit.Wpc.Synologen.OPQ.Build\Pre-Build-$(ProjectName).bat" "$(ProjectDir)" "$(ProjectName)"</PreBuildEvent>
   </PropertyGroup>
 </Project>

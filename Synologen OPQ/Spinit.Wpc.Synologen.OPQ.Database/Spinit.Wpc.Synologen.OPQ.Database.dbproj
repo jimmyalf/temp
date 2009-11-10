@@ -81,10 +81,12 @@
     <Folder Include="Scripts" />
     <Folder Include="Scripts\Administration" />
     <Folder Include="Scripts\Default Data" />
+    <Folder Include="Scripts\Test Data" />
     <Folder Include="Scripts\Pre-Deployment" />
     <Folder Include="Scripts\Post-Deployment" />
     <Folder Include="Data Generation Plans" />
     <Folder Include="Schema Comparisons" />
+    <Folder Include="Scripts\Test Data\Data Layer Tests" />
   </ItemGroup>
   <ItemGroup>
     <PropertiesFile Include="Properties\Database.sqlsettings">
@@ -335,6 +337,12 @@
     <Build Include="Schema Objects\Tables\Triggers\SynologenOpqFile.AfterInsert.trigger.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqFile.AfterUpdate.trigger.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\SynologenOpqFile.AfterDelete.trigger.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Triggers\SynologenOpqNode.AfterInsert.trigger.sql">
       <SubType>Code</SubType>
     </Build>
@@ -364,7 +372,7 @@
     <NotInBuild Include="Scripts\Default Data\DocumentTypes.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
-    <NotInBuild Include="Scripts\Default Data\TestData.sql">
+    <NotInBuild Include="Scripts\Test Data\Data Layer Tests\TestData.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
   </ItemGroup>

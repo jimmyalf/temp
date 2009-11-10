@@ -189,7 +189,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 							{
 								Id = source, 
 								Parent = sDestination.Id, 
-								Order = synologenRepository.Node.GetNumberOfChilds (sDestination.Id) + 1
+								Order = synologenRepository.Node.GetNumberOfChilds (sDestination.Id, false) + 1
 							});
 						break;
 
@@ -265,6 +265,44 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				}
 
 				return synologenRepository.Node.GetNodeById (nodeId);
+			}
+		}
+
+		/// <summary>
+		/// Fetches a specified node.
+		/// </summary>
+		/// <param name="parent">The parent-id of the node.</param>
+		/// <param name="name">The name of the node.</param>
+		/// <param name="fillObjects">Fill all objects.</param>
+
+		public Node GetNode (int? parent, string name, bool fillObjects)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				) {
+				if (fillObjects) {
+					synologenRepository.AddDataLoadOptions<Node> (n => n.NodeSupplierConnections);
+					synologenRepository.AddDataLoadOptions<Node> (n => n.Files);
+					synologenRepository.AddDataLoadOptions<Node> (n => n.Documents);
+					synologenRepository.AddDataLoadOptions<Node> (n => n.CreatedBy);
+					synologenRepository.AddDataLoadOptions<Node> (n => n.ChangedBy);
+					synologenRepository.AddDataLoadOptions<Node> (n => n.ApprovedBy);
+					synologenRepository.AddDataLoadOptions<Node> (n => n.LockedBy);
+
+					synologenRepository.AddDataLoadOptions<File> (f => f.CreatedBy);
+					synologenRepository.AddDataLoadOptions<File> (f => f.ChangedBy);
+					synologenRepository.AddDataLoadOptions<File> (f => f.ApprovedBy);
+					synologenRepository.AddDataLoadOptions<File> (f => f.LockedBy);
+
+					synologenRepository.AddDataLoadOptions<Document> (d => d.CreatedBy);
+					synologenRepository.AddDataLoadOptions<Document> (d => d.ChangedBy);
+					synologenRepository.AddDataLoadOptions<Document> (d => d.ApprovedBy);
+					synologenRepository.AddDataLoadOptions<Document> (d => d.LockedBy);
+
+					synologenRepository.SetDataLoadOptions ();
+				}
+
+				return synologenRepository.Node.GetNodeByName (parent, name);
 			}
 		}
 

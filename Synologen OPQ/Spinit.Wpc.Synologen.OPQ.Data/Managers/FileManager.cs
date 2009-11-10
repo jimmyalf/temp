@@ -764,14 +764,19 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <summary>
 		/// Fetches all file-categories.
 		/// </summary>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <returns>A list of file-categories.</returns>
 		/// <exception cref="ObjectNotFoundException">If no file-categories are found.</exception>
 
-		public IList<FileCategory> GetAllFileCategories ()
+		public IList<FileCategory> GetAllFileCategories (bool onlyActive)
 		{
 			IQueryable<EFileCategory> query = from fileCategory in _dataContext.FileCategories
 						orderby fileCategory.Name ascending
 						select fileCategory;
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
 
 			Converter<EFileCategory, FileCategory> converter = Converter;
 			IList<FileCategory> fileCategories = query.ToList ().ConvertAll (converter);

@@ -54,7 +54,17 @@ SET IDENTITY_INSERT dbo.SynologenOpqFileCategories ON
 INSERT INTO dbo.SynologenOpqFileCategories (
 	Id, [Name], IsActive, CreatedById, CreatedByName, CreatedDate) 
 VALUES (
-	1, 'Test Category', 1, 1, 'Admin', GETDATE ()) 
+	1, 'Test Category 1', 1, 1, 'Admin', GETDATE ()) 
+
+INSERT INTO dbo.SynologenOpqFileCategories (
+	Id, [Name], IsActive, CreatedById, CreatedByName, CreatedDate) 
+VALUES (
+	2, 'Test Category 2', 1, 1, 'Admin', GETDATE ()) 
+
+INSERT INTO dbo.SynologenOpqFileCategories (
+	Id, [Name], IsActive, CreatedById, CreatedByName, CreatedDate) 
+VALUES (
+	3, 'Test Category 3', 0, 1, 'Admin', GETDATE ()) 
 
 SET IDENTITY_INSERT dbo.SynologenOpqFileCategories OFF
 

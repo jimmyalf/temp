@@ -310,7 +310,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				throw new NodeException ("Position not changed.", NodeErrors.PositionNotMoved);
 			}
 
-			if ((node.Order < 1) || (node.Order > (GetNumberOfChilds (node.Parent) + 1))) {
+			if ((node.Order < 1) || (node.Order > (GetNumberOfChilds (node.Parent, false) + 1))) {
 				throw new NodeException ("Position not valid.", NodeErrors.MoveToForbidden);
 			}
 
@@ -571,6 +571,31 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		}
 
 		/// <summary>
+		/// Fetches the node by parent and name.
+		/// </summary>
+		/// <param name="parent">The parent.</param>
+		/// <param name="name">The name of the node.</param>
+		/// <returns>A node.</returns>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public Node GetNodeByName (int? parent, string name)
+		{
+			IQueryable<ENode> query = from node in _dataContext.Nodes
+									  where node.Parent == parent && node.Name == name
+									  select node;
+
+			IList<ENode> nodes = query.ToList ();
+
+			if (nodes.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Node not found.",
+					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			return ENode.Convert (nodes.First ());
+		}
+
+		/// <summary>
 		/// Fetches all root-nodes.
 		/// </summary>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
@@ -739,10 +764,19 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// Counts the number of childs for a parent. 
 		/// </summary>
 		/// <param name="parent">The parent (for root null).</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <returns>The number of childs.</returns>
 
-		public int GetNumberOfChilds (int? parent)
+		public int GetNumberOfChilds (int? parent, bool onlyActive)
 		{
+			if (onlyActive) {
+				if (parent == null) {
+					return _dataContext.Nodes.Count (node => node.Parent == null && node.IsActive);
+				}
+
+				return _dataContext.Nodes.Count (node => node.Parent == parent && node.IsActive);
+			}
+			
 			if (parent == null) {
 				return _dataContext.Nodes.Count (node => node.Parent == null);
 			}

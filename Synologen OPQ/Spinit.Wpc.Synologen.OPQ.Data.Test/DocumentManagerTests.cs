@@ -37,8 +37,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			_context = null;
 		}
 
-		[Test, Explicit, Description ("Creates, fetches, updates and deletes a document."), Category ("CruiseControl")]
-		public void DocumentTest ()
+		[Test, Explicit, Description ("Creates, fetches, updates and deletes a document."), Category ("Internal")]
+		public void DocumentAddUpdateDeleteTest ()
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
@@ -113,9 +113,25 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				Assert.AreEqual (false, found, "Object still exist.");
 			}
 		}
-	
-		[Test, Description ("Searches for documents."), Category ("CruiseControl")]
-		public void DocmentSearchTest ()
+
+		[Test, Description ("Fetches all active documents for a specified node."), Category ("CruiseControl")]
+		public void DocmentSearchTestNodeActive ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				List<Document> documents =
+					(List<Document>) synologenRepository.Document.GetDocumentsByNodeId (PropertyValues.DocNodeIdActive, true);
+
+				Assert.IsNotEmpty (documents, "Documents is empty (only-active).");
+				Assert.AreEqual (PropertyValues.DocCountOnlyActive, documents.Count, "Wrong number of documents (only-active).");
+			}
+		}
+
+		[Test, Description ("Fetches all documents for a specified node."), Category ("CruiseControl")]
+		public void DocmentSearchTestNodeAll ()
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
@@ -123,62 +139,109 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				) {
 
 				List<Document> documents = 
-					(List<Document>) synologenRepository.Document.GetDocumentsByNodeId (PropertyValues.DocNodeIdActive, true);
-
-				Assert.IsNotEmpty (documents, "Documents is empty (only-active).");
-				Assert.AreEqual (PropertyValues.DocCountOnlyActive, documents.Count, "Wrong number of documents (only-active).");
-
-				documents = (List<Document>) synologenRepository.Document.GetDocumentsByNodeId (PropertyValues.DocNodeIdActive, false);
+					(List<Document>) synologenRepository.Document.GetDocumentsByNodeId (PropertyValues.DocNodeIdActive, false);
 
 				Assert.IsNotEmpty (documents, "Documents is empty.");
 				Assert.AreEqual (PropertyValues.DocCountAll, documents.Count, "Wrong number of documents.");
+			}
+		}
+
+		[Test, Description ("Fetches the content for a specified document."), Category ("CruiseControl")]
+		public void DocmentSearchTestDocumentContent ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
 
 				Document document = synologenRepository.Document.GetDocumentById (PropertyValues.DocDocumentId);
 
 				Assert.IsNotNull (document, "Document is null.");
 				Assert.AreEqual (PropertyValues.DocDocumentContent, document.DocumentContent, "Wrong content fetched (document).");
+			}
+		}
+
+		[Test, 
+		Description ("Fetches the document-histories for a specified document, and checks the content of the first."), 
+		Category ("CruiseControl")]
+		public void DocmentSearchTestDocumentHistories ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
 
 				List<DocumentHistory> documentHistories =
-					(List<DocumentHistory>) synologenRepository.Document.GetAllDocumentHistoriesByDocumentId (1);
+					(List<DocumentHistory>) synologenRepository.Document.GetAllDocumentHistoriesByDocumentId (PropertyValues.DocDocumentId);
 
 				Assert.IsNotEmpty (documentHistories, "Document-history is empty.");
 				Assert.AreEqual (PropertyValues.DocCountHistory, documentHistories.Count, "Wrong number of document-history.");
-
+				
 				DocumentHistory documentHistory = synologenRepository.Document.GetDocumentHistoryById (
 					documentHistories [0].Id,
 					documentHistories [0].HistoryDate);
 
-				Assert.IsNotNull (documentHistory, "Document-hsitory is null.");
+				Assert.IsNotNull (documentHistory, "Document-history is null.");
 				Assert.AreEqual (
-					PropertyValues.DocDocumentContentHistory, 
-					documentHistory.DocumentContent, 
+					PropertyValues.DocDocumentContentHistory,
+					documentHistory.DocumentContent,
 					"Wrong content fetched (document-history).");
+			}
+		}
+
+		[Test, Description ("Fetches the active content from the view, active without history."), Category ("CruiseControl")]
+		public void DocmentSearchTest ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
 
 				DocumentView documentView = synologenRepository.Document.GetActiveDocument (
-					PropertyValues.DocDocumentIdView1, 
-					null, 
-					null, 
-					PropertyValues.DocDocumentTypeView);
-
-				Assert.IsNotNull (documentView, "Document-view 1 is null.");
-				Assert.AreEqual (PropertyValues.DocDocumentContentView1, documentView.DocumentContent, "Wrong content fetched (view 1).");
-				
-				documentView = synologenRepository.Document.GetActiveDocument (
 					PropertyValues.DocDocumentIdView2, 
 					null, 
 					null,
 					PropertyValues.DocDocumentTypeView);
 
-				Assert.IsNotNull (documentView, "Document-view 1 is null.");
+				Assert.IsNotNull (documentView, "Document-view 2 is null.");
 				Assert.AreEqual (PropertyValues.DocDocumentContentView2, documentView.DocumentContent, "Wrong content fetched (view 2).");
-				
-				documentView = synologenRepository.Document.GetActiveDocument (
-					PropertyValues.DocDocumentIdView3, 
-					null, 
+			}
+		}
+
+		[Test, Description ("Fetches the active content from the view, active with history."), Category ("CruiseControl")]
+		public void DocmentSearchTestFromView1 ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				DocumentView documentView = synologenRepository.Document.GetActiveDocument (
+					PropertyValues.DocDocumentIdView1,
+					null,
 					null,
 					PropertyValues.DocDocumentTypeView);
 
 				Assert.IsNotNull (documentView, "Document-view 1 is null.");
+				Assert.AreEqual (PropertyValues.DocDocumentContentView1, documentView.DocumentContent, "Wrong content fetched (view 1).");
+			}
+		}
+	
+		[Test, Description ("Fetches the active content from the view, not active with active history."), Category ("CruiseControl")]
+		public void DocmentSearchTestView3 ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				DocumentView documentView = synologenRepository.Document.GetActiveDocument (
+					PropertyValues.DocDocumentIdView3,
+					null,
+					null,
+					PropertyValues.DocDocumentTypeView);
+
+				Assert.IsNotNull (documentView, "Document-view 3 is null.");
 				Assert.AreEqual (PropertyValues.DocDocumentContentView3, documentView.DocumentContent, "Wrong content fetched (view 3).");
 			}
 		}

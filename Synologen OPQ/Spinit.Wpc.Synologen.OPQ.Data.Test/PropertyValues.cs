@@ -15,7 +15,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		public const int ActiveNodesRoot = 1;
 		public const int AllNodesRoot = 2;
 		public const int ParentNodeId = 1;
-		public const int ActiveNodesChild = 2;
+		public const int ActiveNodesChild = 1;
 		public const int AllNodesChild = 2;
 		public const int ListUpId = 7;
 		public const int ListCount = 4;
@@ -51,6 +51,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		public const int FileCategoryIdUpdated = 2;
 		public const string FileCategoryName = @"Generated Test Category";
 		public const string FileCategoryNameUpdated = @"Generated Test Category Updated";
+		public const int FileMoveNodeId = 1;
 		public const int MoveFileId = 1;
 		public const int MovedFileId = 2;
 		public const int FileOrder1 = 1;
@@ -58,6 +59,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		public const int NoOfCategoriesActive = 2;
 		public const int NoOfCategoriesAll = 3;
 		public const int NoOfFilesCategoryNode = 3;
+		public const int NoOfFilesCategoryNodeAll = 4;
 		public const string FileCategoryContent = @"Test Category 1";
+		public const int FetchedFileId = 1;
 	}
 }

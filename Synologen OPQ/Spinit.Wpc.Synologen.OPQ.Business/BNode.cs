@@ -240,7 +240,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		public Node GetNode (int nodeId, bool fillObjects)
 		{
 			using (
-				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				WpcSynologenRepository synologenRepository 
+					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
 				) {
 				if (fillObjects) {
 					synologenRepository.AddDataLoadOptions<Node> (n => n.NodeSupplierConnections);
@@ -278,7 +279,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		public Node GetNode (int? parent, string name, bool fillObjects)
 		{
 			using (
-				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				WpcSynologenRepository synologenRepository 
+					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
 				) {
 				if (fillObjects) {
 					synologenRepository.AddDataLoadOptions<Node> (n => n.NodeSupplierConnections);
@@ -318,7 +320,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		public IList<Node> GetNodes (int? parent, string name, bool onlyActive, bool onlyApproved, bool fillObjects)
 		{
 			using (
-				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				WpcSynologenRepository synologenRepository 
+					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
 				) {
 				if (fillObjects) {
 					synologenRepository.AddDataLoadOptions<Node> (n => n.NodeSupplierConnections);
@@ -355,6 +358,23 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				}
 
 				return synologenRepository.Node.GetNodesByName ((int) parent, name, onlyActive, onlyApproved);
+			}
+		}
+
+		/// <summary>
+		/// Gets a list of nodes with all childs down.
+		/// </summary>
+		/// <param name="parent">The parent to fetch nodes from.</param>
+		/// <param name="onlyActive">If true=&gt;only fetch active nodes.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved documents.</param>
+
+		public IList<Node> GetAllChilds (int? parent, bool onlyActive, bool onlyApproved)
+		{
+			using (
+				WpcSynologenRepository synologenRepository 
+					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				) {
+				return synologenRepository.Node.GetAllChildsDown (parent, onlyActive, onlyApproved);
 			}
 		}
 

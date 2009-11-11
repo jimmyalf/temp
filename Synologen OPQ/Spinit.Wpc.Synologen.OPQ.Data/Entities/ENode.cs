@@ -11,13 +11,16 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
+using System.Linq;
 using System.Linq.Expressions;
 
 using Spinit.Data.Linq;
-
+using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
+using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 {	

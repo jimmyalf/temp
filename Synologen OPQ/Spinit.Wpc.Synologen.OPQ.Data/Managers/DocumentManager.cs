@@ -102,11 +102,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					"Document not found.",
 					ObjectNotFoundErrors.DocumentNotFound);
 			}
-
+		
 			if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId)) {
 				throw new DocumentException ("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
 			}
-
+		
 			oldDocument.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldDocument.ChangedByName = Manager.WebContext.UserName;
 			oldDocument.ChangedDate = DateTime.Now;

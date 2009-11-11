@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Data;
 using Spinit.Wpc.Utility.Data;
@@ -18,6 +19,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		public TestInit(Configuration config)
 		{
 			_config = config;
+			const string localServer = "Data Source=LOCALHOST";
+			Match match = Regex.Match(_config.ConnectionString, localServer, RegexOptions.IgnoreCase);
+			if (!match.Success) throw new Exception("Test must be run on local server");
 			_dataContext = new WpcSynologenDataContext(_config.ConnectionString);
 		}
 

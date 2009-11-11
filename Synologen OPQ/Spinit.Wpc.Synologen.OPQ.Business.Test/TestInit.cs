@@ -27,8 +27,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 		public void InitDatabase()
 		{
-			string solutionPath = Path.GetFullPath(string.Concat(Environment.CurrentDirectory, @"\..\..\..\"));
-
+			string solutionPath = Path.GetFullPath(string.Concat(Environment.CurrentDirectory, @"\..\..\Synologen OPQ\"));
 			CreateDatabase(_dataContext);
 			CreateConstraints(_dataContext, solutionPath);
 			//CreateProcedures();
@@ -42,6 +41,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			
 			string triggerPath = 
 				string.Concat(solutionPath, @"Spinit.Wpc.Synologen.OPQ.Database\Schema Objects\Tables\Triggers");
+			Console.WriteLine(triggerPath);
 			ExecuteScripts(triggerPath);
 		}
 

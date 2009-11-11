@@ -199,7 +199,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			}
 
 			if ((node.Name != null) && !oldNode.Name.Equals (node.Name)) {
-				if (!CheckNameExist (node.Name, node.Parent, node.Id)) {
+				if (CheckNameExist (node.Name, node.Parent, node.Id)) {
 					throw new NodeException ("Name exist.", NodeErrors.NameExist);
 				}
 				
@@ -881,6 +881,44 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			return _dataContext.Nodes.Count (node => node.Parent == parent);
 		}
 
+		/// <summary>
+		/// Fetches all nodes including childs from a specified parent.
+		/// </summary>
+		/// <param name="parent">The parent (if null fetch roots).</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
+		/// <returns>A list of nodes.</returns>
+		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+
+		public IList<Node> GetAllChildsDown (int? parent, bool onlyActive, bool onlyApproved)
+		{
+			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
+			                                orderby node.Id ascending, node.Order ascending
+			                                select node;
+
+			query = parent == null ? query.AddIsNullCondition ("Parent") : query.AddEqualityCondition ("Parent", parent);
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
+			}
+
+			Converter<ENode, Node> converter = Converter;
+			IList<Node> nodes = query.ToList ().ConvertAll (converter);
+
+			if (!nodes.IsEmpty ()) {
+				foreach (Node node in nodes) {
+					node.Childs = (List<Node>) GetAllChildsDown (node.Id, onlyActive, onlyApproved);
+				}
+			}
+
+			return nodes;
+		}
+
 		#endregion
 
 		#region Fetch Node Supplier
@@ -1081,7 +1119,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			                          select node;
 
 			if (id != null) {
-				query.AddNotEqualityCondition ("Id", id);
+				query.AddNotEqualityCondition ("Id", (int) id);
 			}
 
 			IList<ENode> tmpNodes = query.ToList ();

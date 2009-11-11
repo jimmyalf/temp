@@ -42,6 +42,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		[Test, Description ("Creates, fetches, updates and deletes a node."), Category ("Internal")]
 		public void NodeAddUpdateDeleteTest ()
 		{
+			Node node;
+			Node fetchNode;
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
@@ -51,16 +53,20 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 
 				synologenRepository.SubmitChanges ();
 
-				Node node = synologenRepository.Node.GetInsertedNode ();
+				node = synologenRepository.Node.GetInsertedNode ();
 
 				Assert.IsNotNull (node, "Node is null.");
 
 				// Fetch the node
-				Node fetchNode = synologenRepository.Node.GetNodeById (node.Id);
+				fetchNode = synologenRepository.Node.GetNodeById (node.Id);
 
 				Assert.IsNotNull (fetchNode, "Fetched node is null.");
 				Assert.AreEqual (PropertyValues.NodeName, fetchNode.Name, "Name not correct!");
+			}
 
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
 				// Update node
 				fetchNode.Name = PropertyValues.NodeNameUpdated;
 				synologenRepository.Node.Update (fetchNode);
@@ -281,6 +287,36 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				Assert.IsNotEmpty (nodes, "Nodes is empty.");
 				Assert.AreEqual (PropertyValues.ListCount, nodes.Count, "Wrong number of nodes.");
 				Assert.AreEqual (PropertyValues.ListChildFirstConenent, nodes [0].Name, "Wrong head.");
+			}
+		}
+
+		[Test, Description ("Fetches all nodes in the system as IList<Node> structure (active)."), Category ("CruiseControl")]
+		public void NodeSearchChildsDownActive ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+				List<Node> nodes = (List<Node>) synologenRepository.Node.GetAllChildsDown (null, true, true);
+
+				Assert.IsNotEmpty (nodes, "Nodes is empty.");
+				Assert.AreEqual (PropertyValues.ActiveNodesRoot, nodes.Count, "Wrong number of nodes (root, active).");
+				Assert.AreEqual (PropertyValues.ActiveNodesChild, nodes [0].Childs.Count, "Wrong number of nodes (child, active).");
+			}
+		}
+
+		[Test, Description ("Fetches all nodes in the system as IList<Node> structure (all)."), Category ("CruiseControl")]
+		public void NodeSearchChildsDownAll ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+				List<Node> nodes = (List<Node>) synologenRepository.Node.GetAllChildsDown (null, false, false);
+
+				Assert.IsNotEmpty (nodes, "Nodes is empty.");
+				Assert.AreEqual (PropertyValues.AllNodesRoot, nodes.Count, "Wrong number of nodes (root, all).");
+				Assert.AreEqual (PropertyValues.AllNodesChild, nodes [0].Childs.Count, "Wrong number of nodes (child, all).");
 			}
 		}
 

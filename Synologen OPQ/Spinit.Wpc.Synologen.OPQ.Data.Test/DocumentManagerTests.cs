@@ -42,6 +42,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		[Test, Description ("Creates, fetches, updates and deletes a document."), Category ("Internal")]
 		public void DocumentAddUpdateDeleteTest ()
 		{
+			Document document;
+			Document fetchDocument;
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
@@ -58,16 +60,20 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 
 				synologenRepository.SubmitChanges ();
 
-				Document document = synologenRepository.Document.GetInsertedDocument ();
+				document = synologenRepository.Document.GetInsertedDocument ();
 
 				Assert.IsNotNull (document, "Document is null.");
 
 				// Fetch the docuemnt
-				Document fetchDocument = synologenRepository.Document.GetDocumentById (document.Id);
+				fetchDocument = synologenRepository.Document.GetDocumentById (document.Id);
 
 				Assert.IsNotNull (fetchDocument, "Fetched document is null.");
 				Assert.AreEqual (PropertyValues.DocCreateDocumentContent, fetchDocument.DocumentContent, "Content are not equal");
-		
+			}
+
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
 				// Update node
 				fetchDocument.DocumentContent = PropertyValues.DocUpdateDocumentContent;
 				synologenRepository.Document.Update (fetchDocument);

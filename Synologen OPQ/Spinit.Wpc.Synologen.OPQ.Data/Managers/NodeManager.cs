@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				}
 			}
 
-			if (!CheckNameExist (node.Name, node.Parent, null)) {
+			if (CheckNameExist (node.Name, node.Parent, null)) {
 				throw new NodeException ("Name exist.", NodeErrors.NameExist);
 			}
 			

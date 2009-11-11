@@ -47,6 +47,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if ((document.CreatedById == 0) || (document.CreatedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
+			
+			Manager.ExternalObjectsManager.CheckUserExist (document.CreatedById);
+		
+			document.IsActive = true;
 
 			_insertedDocument = document;
 
@@ -99,6 +103,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.DocumentNotFound);
 			}
 
+			if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId)) {
+				throw new DocumentException ("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
+			}
+
 			oldDocument.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldDocument.ChangedByName = Manager.WebContext.UserName;
 			oldDocument.ChangedDate = DateTime.Now;
@@ -106,6 +114,8 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if ((oldDocument.ChangedById == 0) || (oldDocument.ChangedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.ChangedById);
 
 			if ((document.NdeId != 0) && (oldDocument.NdeId != document.NdeId)) {
 				oldDocument.NdeId = document.NdeId;
@@ -125,10 +135,6 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			if ((document.DocumentContent != null) && !oldDocument.DocumentContent.Equals (document.DocumentContent)) {
 				oldDocument.DocumentContent = document.DocumentContent;
-			}
-
-			if (oldDocument.IsActive == document.IsActive) {
-				oldDocument.IsActive = document.IsActive;
 			}
 		}
 
@@ -165,6 +171,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.DocumentNotFound);
 			}
 
+			if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId)) {
+				throw new DocumentException ("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
+			}
+
 			oldDocument.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldDocument.ChangedByName = Manager.WebContext.UserName;
 			oldDocument.ChangedDate = DateTime.Now;
@@ -172,6 +182,8 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if ((oldDocument.ChangedById == 0) || (oldDocument.ChangedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.ChangedById);
 
 			oldDocument.IsActive = false;
 		}
@@ -193,6 +205,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.DocumentNotFound);
 			}
 
+			if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId)) {
+				throw new DocumentException ("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
+			}
+
 			oldDocument.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldDocument.ChangedByName = Manager.WebContext.UserName;
 			oldDocument.ChangedDate = DateTime.Now;
@@ -200,6 +216,8 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if ((oldDocument.ChangedById == 0) || (oldDocument.ChangedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.ChangedById);
 
 			oldDocument.IsActive = true;
 		}
@@ -225,6 +243,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.DocumentNotFound);
 			}
 
+			if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId)) {
+				throw new DocumentException ("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
+			}
+
 			oldDocument.ApprovedById = Manager.WebContext.UserId ?? 0;
 			oldDocument.ApprovedByName = Manager.WebContext.UserName;
 			oldDocument.ApprovedDate = DateTime.Now;
@@ -232,6 +254,8 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if ((oldDocument.ApprovedById == 0) || (oldDocument.ApprovedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.ChangedById);
 		}
 
 		/// <summary>
@@ -251,6 +275,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.DocumentNotFound);
 			}
 
+			if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId)) {
+				throw new DocumentException ("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
+			}
+
 			oldDocument.LockedById = Manager.WebContext.UserId ?? 0;
 			oldDocument.LockedByName = Manager.WebContext.UserName;
 			oldDocument.LockedDate = DateTime.Now;
@@ -258,6 +286,8 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if ((oldDocument.LockedById == 0) || (oldDocument.LockedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.ChangedById);
 		}
 
 		/// <summary>
@@ -269,6 +299,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		public void CheckInDocument (int documentId)
 		{
 			EDocument oldDocument = _dataContext.Documents.Single (d => d.Id == documentId);
+
+			if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId)) {
+				throw new DocumentException ("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
+			}
 
 			if (oldDocument == null) {
 				throw new ObjectNotFoundException (
@@ -303,6 +337,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				throw new ObjectNotFoundException (
 					"Document not found.",
 					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId)) {
+				throw new DocumentException ("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
 			}
 
 			try {
@@ -341,6 +379,12 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 						select document;
 
 			IList<EDocument> documents = query.ToList ();
+
+			foreach (EDocument oldDocument in documents) {
+				if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId)) {
+					throw new DocumentException ("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
+				}
+			}
 
 			if (documents.IsEmpty ()) {
 				throw new ObjectNotFoundException (
@@ -446,7 +490,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.DocumentNotFound);
 			}
 
-			return EDocument.Convert (documents.First ());
+			return Converter (documents.First ());
 		}
 	
 		/// <summary>
@@ -454,10 +498,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of documents.</returns>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
-		public IList<Document> GetDocumentsByNodeId (int nodeId, bool onlyActive)
+		public IList<Document> GetDocumentsByNodeId (int nodeId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
 			                                     where document.NdeId == nodeId
@@ -466,6 +511,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
 			}
 			
 			Converter<EDocument, Document> converter = Converter;
@@ -486,10 +536,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="documentType">The type-of-documents.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of documents.</returns>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
-		public IList<Document> GetDocumentsByNodeId (int nodeId, DocumentTypes documentType, bool onlyActive)
+		public IList<Document> GetDocumentsByNodeId (int nodeId, DocumentTypes documentType, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
 			                                     where document.NdeId == nodeId && document.DocTpeId == (int) documentType
@@ -498,6 +549,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
 			}
 
 			Converter<EDocument, Document> converter = Converter;
@@ -519,10 +575,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="shopId">The shop-id.</param>
 		/// <param name="documentType">The type-of-documents.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of documents.</returns>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
-		public IList<Document> GetDocumentsByNodeId (int nodeId, int shopId, DocumentTypes documentType, bool onlyActive)
+		public IList<Document> GetDocumentsByNodeId (int nodeId, int shopId, DocumentTypes documentType, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
 			                                     where
@@ -533,6 +590,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
 			}
 
 			Converter<EDocument, Document> converter = Converter;
@@ -552,10 +614,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="text">The search-text.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of documents.</returns>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
-		public IList<Document> GetDocumentsByText (string text, bool onlyActive)
+		public IList<Document> GetDocumentsByText (string text, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
 			                                     where SqlMethods.Like (document.DocumentContent, string.Concat ("%", text, "%"))
@@ -564,6 +627,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
 			}
 
 			Converter<EDocument, Document> converter = Converter;
@@ -582,10 +650,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// Fetches a list of all documents.
 		/// </summary>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of documents.</returns>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
-		public IList<Document> GetAllDocuments (bool onlyActive)
+		public IList<Document> GetAllDocuments (bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
 			                                     orderby document.DocTpeId ascending , document.CreatedDate descending
@@ -593,6 +662,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
 			}
 
 			Converter<EDocument, Document> converter = Converter;
@@ -674,7 +748,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.DocumentHistoryNotFound);
 			}
 
-			return EDocumentHistory.Convert (documentHistories.First ());
+			return Converter (documentHistories.First ());
 
 		}
 
@@ -729,7 +803,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.DocumentTypeNotFound);
 			}
 
-			return EDocumentType.Convert (documentTypes.First ());
+			return Converter (documentTypes.First ());
 			
 		}
 

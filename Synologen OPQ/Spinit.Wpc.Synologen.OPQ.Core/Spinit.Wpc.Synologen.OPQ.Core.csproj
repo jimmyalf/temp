@@ -75,6 +75,7 @@
     <Compile Include="Entities\ShopMemberConnection.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="Exceptions\BaseException.cs" />
+    <Compile Include="Exceptions\DocumentException.cs" />
     <Compile Include="Exceptions\ExceptionCodes.cs" />
     <Compile Include="Exceptions\FileException.cs" />
     <Compile Include="Exceptions\NodeException.cs" />

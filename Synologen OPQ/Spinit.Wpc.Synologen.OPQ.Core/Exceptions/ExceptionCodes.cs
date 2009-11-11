@@ -53,7 +53,32 @@
 		/// The name exist on this level.
 		/// </summary>
 
-		NameExist = 4
+		NameExist = 4,
+
+		/// <summary>
+		/// The node is locked by another user.
+		/// </summary>
+
+		NodeLockedByOtherUser = 5
+	}
+
+	/// <summary>
+	/// The document-errors.
+	/// </summary>
+
+	public enum DocumentErrors
+	{
+		/// <summary>
+		/// No error.
+		/// </summary>
+
+		None = 0,
+
+		/// <summary>
+		/// The node is locked by another user.
+		/// </summary>
+
+		DocumentLockedByOtherUser = 1
 	}
 
 	/// <summary>
@@ -90,7 +115,13 @@
 		/// The file-category is in use.
 		/// </summary>
 
-		FileCategoryInUse = 4
+		FileCategoryInUse = 4,
+	
+		/// <summary>
+		/// The node is locked by another user.
+		/// </summary>
+
+		FileLockedByOtherUser = 5
 	}
 
 	/// <summary>

@@ -39,7 +39,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 
 		#region File tests
 
-		[Test, Explicit, Description ("Creates, fetches, updates and deletes a file."), Category ("Internal")]
+		[Test, Description ("Creates, fetches, updates and deletes a file."), Category ("Internal")]
 		public void FileAddUpdateDeleteTest ()
 		{
 			using (
@@ -102,7 +102,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			}
 		}
 
-		[Test, Explicit, Description ("Moves files up and down."), Category ("Internal")]
+		[Test, Description ("Moves files up and down."), Category ("Internal")]
 		public void FileMoveUpDownTest ()
 		{
 			using (
@@ -151,7 +151,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				int count = synologenRepository.File.GetNumberOfFilesForNode (PropertyValues.NodeId, true);
+				int count = synologenRepository.File.GetNumberOfFilesForNode (PropertyValues.NodeId, true, true);
 
 				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNode, count, "Wrong number of files (active)!");
 			}
@@ -165,7 +165,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				int count = synologenRepository.File.GetNumberOfFilesForFileCategory (PropertyValues.FileCategoryId, true);
+				int count = synologenRepository.File.GetNumberOfFilesForFileCategory (PropertyValues.FileCategoryId, true, true);
 
 				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNode, count, "Wrong number of files (active)!");
 			}
@@ -179,7 +179,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				int count = synologenRepository.File.GetNumberOfFilesForNode (PropertyValues.NodeId, false);
+				int count = synologenRepository.File.GetNumberOfFilesForNode (PropertyValues.NodeId, false, false);
 
 				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNodeAll, count, "Wrong number of files (all)!");
 			}
@@ -193,7 +193,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				int count = synologenRepository.File.GetNumberOfFilesForFileCategory (PropertyValues.FileCategoryId, false);
+				int count = synologenRepository.File.GetNumberOfFilesForFileCategory (PropertyValues.FileCategoryId, false, false);
 
 				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNodeAll, count, "Wrong number of files (all)!");
 			}
@@ -207,7 +207,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				IList<File> files = synologenRepository.File.GetFilesByNodeId (PropertyValues.FileMoveNodeId, true);
+				IList<File> files = synologenRepository.File.GetFilesByNodeId (PropertyValues.FileMoveNodeId, true, true);
 
 				Assert.IsNotNull (files, "Fetched files is null.");
 				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNode, files.Count, "Wrong number of files (active)!");
@@ -222,7 +222,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				IList<File> files = synologenRepository.File.GetFilesByNodeId (PropertyValues.FileMoveNodeId, false);
+				IList<File> files = synologenRepository.File.GetFilesByNodeId (PropertyValues.FileMoveNodeId, false, false);
 
 				Assert.IsNotNull (files, "Fetched files is null.");
 				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNodeAll, files.Count, "Wrong number of files (all)!");
@@ -240,6 +240,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				IList<File> files = synologenRepository.File.GetFilesByNodeId (
 					PropertyValues.FileMoveNodeId, 
 					PropertyValues.FileCategoryId,
+					true,
 					true);
 
 				Assert.IsNotNull (files, "Fetched files is null.");
@@ -258,6 +259,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				IList<File> files = synologenRepository.File.GetFilesByNodeId (
 					PropertyValues.FileMoveNodeId,
 					PropertyValues.FileCategoryId,
+					false,
 					false);
 
 				Assert.IsNotNull (files, "Fetched files is null.");
@@ -284,7 +286,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 
 		#region File Category Tests
 
-		[Test, Explicit, Description ("Creates, fetches, updates and deletes a file-category."), Category ("Internal")]
+		[Test, Description ("Creates, fetches, updates and deletes a file-category."), Category ("Internal")]
 		public void FileCategoryAddUpdateDeleteTest ()
 		{
 			using (

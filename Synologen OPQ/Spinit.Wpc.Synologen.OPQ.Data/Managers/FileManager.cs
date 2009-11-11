@@ -53,6 +53,8 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			Manager.ExternalObjectsManager.CheckFileExist (file.FleId);
 			CheckFileCategoryExist (file.FleCatId);
 
+			file.IsActive = true;
+
 			_insertedFile = file;
 
 			_dataContext.Files.InsertOnSubmit (file);
@@ -102,6 +104,8 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if (CheckFileCategoryNameExist (fileCategory.Name, null)) {
 				throw new FileException ("File category exist.", FileErrors.FileCategoryExist);
 			}
+
+			fileCategory.IsActive = true;
 
 			_insertedFileCategory = fileCategory;
 
@@ -154,6 +158,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.FileNotFound);
 			}
 
+			if ((oldFile.LockedById != null) && (oldFile.LockedById != Manager.WebContext.UserId)) {
+				throw new FileException ("File locked by another user.", FileErrors.FileLockedByOtherUser);
+			}
+
 			oldFile.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldFile.ChangedByName = Manager.WebContext.UserName;
 			oldFile.ChangedDate = DateTime.Now;
@@ -172,10 +180,6 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if (oldFile.FleId != file.FleId) {
 				Manager.ExternalObjectsManager.CheckFileExist (file.FleId);
 				oldFile.FleId = file.FleId;
-			}
-
-			if (oldFile.IsActive == file.IsActive) {
-				oldFile.IsActive = file.IsActive;
 			}
 		}
 
@@ -212,6 +216,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.FileNotFound);
 			}
 
+			if ((oldFile.LockedById != null) && (oldFile.LockedById != Manager.WebContext.UserId)) {
+				throw new FileException ("File locked by another user.", FileErrors.FileLockedByOtherUser);
+			}
+
 			oldFile.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldFile.ChangedByName = Manager.WebContext.UserName;
 			oldFile.ChangedDate = DateTime.Now;
@@ -240,6 +248,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				throw new ObjectNotFoundException (
 					"File not found.",
 					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			if ((oldFile.LockedById != null) && (oldFile.LockedById != Manager.WebContext.UserId)) {
+				throw new FileException ("File locked by another user.", FileErrors.FileLockedByOtherUser);
 			}
 
 			oldFile.ChangedById = Manager.WebContext.UserId ?? 0;
@@ -277,6 +289,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.FileNotFound);
 			}
 
+			if ((oldFile.LockedById != null) && (oldFile.LockedById != Manager.WebContext.UserId)) {
+				throw new FileException ("File locked by another user.", FileErrors.FileLockedByOtherUser);
+			}
+
 			oldFile.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldFile.ChangedByName = Manager.WebContext.UserName;
 			oldFile.ChangedDate = DateTime.Now;
@@ -295,7 +311,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				throw new FileException ("Position not changed.", FileErrors.PositionNotMoved);
 			}
 
-			if ((file.Order < 1) || (file.Order > (GetNumberOfFilesForNode (file.NdeId, false) + 1))) {
+			if ((file.Order < 1) || (file.Order > (GetNumberOfFilesForNode (file.NdeId, false, false) + 1))) {
 				throw new FileException ("Position not valid.", FileErrors.MoveToForbidden);
 			}
 
@@ -336,6 +352,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.FileNotFound);
 			}
 
+			if ((oldFile.LockedById != null) && (oldFile.LockedById != Manager.WebContext.UserId)) {
+				throw new FileException ("File locked by another user.", FileErrors.FileLockedByOtherUser);
+			}
+
 			oldFile.ApprovedById = Manager.WebContext.UserId ?? 0;
 			oldFile.ApprovedByName = Manager.WebContext.UserName;
 			oldFile.ApprovedDate = DateTime.Now;
@@ -364,6 +384,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.FileNotFound);
 			}
 
+			if ((oldFile.LockedById != null) && (oldFile.LockedById != Manager.WebContext.UserId)) {
+				throw new FileException ("File locked by another user.", FileErrors.FileLockedByOtherUser);
+			}
+
 			oldFile.LockedById = Manager.WebContext.UserId ?? 0;
 			oldFile.LockedByName = Manager.WebContext.UserName;
 			oldFile.LockedDate = DateTime.Now;
@@ -389,6 +413,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				throw new ObjectNotFoundException (
 					"File not found.",
 					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			if ((oldFile.LockedById != null) && (oldFile.LockedById != Manager.WebContext.UserId)) {
+				throw new FileException ("File locked by another user.", FileErrors.FileLockedByOtherUser);
 			}
 
 			oldFile.LockedById = null;
@@ -433,10 +461,6 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				}
 				oldFileCategory.Name = fileCategory.Name;
 			}
-
-			if (oldFileCategory.IsActive == fileCategory.IsActive) {
-				oldFileCategory.IsActive = fileCategory.IsActive;
-			}
 		}
 
 		/// <summary>
@@ -475,6 +499,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.FileNotFound);
 			}
 
+			if ((oldFile.LockedById != null) && (oldFile.LockedById != Manager.WebContext.UserId)) {
+				throw new FileException ("File locked by another user.", FileErrors.FileLockedByOtherUser);
+			}
+
 			_dataContext.Files.DeleteOnSubmit (oldFile);
 		}
 
@@ -502,6 +530,12 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 						select file;
 
 			IList<EFile> files = query.ToList ();
+
+			foreach (EFile oldFile in files) {
+				if ((oldFile.LockedById != null) && (oldFile.LockedById != Manager.WebContext.UserId)) {
+					throw new FileException ("File locked by another user.", FileErrors.FileLockedByOtherUser);
+				}
+			}
 
 			if (files.IsEmpty ()) {
 				throw new ObjectNotFoundException (
@@ -533,7 +567,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.FileCategoryNotFound);
 			}
 
-			if (GetNumberOfFilesForFileCategory (fileCategory.Id, false) > 0) {
+			if (GetNumberOfFilesForFileCategory (fileCategory.Id, false, false) > 0) {
 				throw new FileException ("File-category is in use.", FileErrors.FileCategoryInUse);
 			}
 
@@ -588,10 +622,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByNodeId (int nodeId, bool onlyActive)
+		public IList<File> GetFilesByNodeId (int nodeId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
 												 where file.NdeId == nodeId
@@ -600,6 +635,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
 			}
 
 			Converter<EFile, File> converter = Converter;
@@ -620,10 +660,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="fileCategoryId">The file-category.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByNodeId (int nodeId, int fileCategoryId, bool onlyActive)
+		public IList<File> GetFilesByNodeId (int nodeId, int fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
 			                                 where file.NdeId == nodeId && file.FleCatId == fileCategoryId
@@ -632,6 +673,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
 			}
 
 			Converter<EFile, File> converter = Converter;
@@ -653,10 +699,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="shopId">The shop-id.</param>
 		/// <param name="fileCategoryId">The file-category.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByNodeId (int nodeId, int shopId, int fileCategoryId, bool onlyActive)
+		public IList<File> GetFilesByNodeId (int nodeId, int shopId, int fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
 			                                 where
@@ -667,6 +714,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
 			}
 
 			Converter<EFile, File> converter = Converter;
@@ -685,10 +737,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// Fetches a list of all files.
 		/// </summary>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetAllFiles (bool onlyActive)
+		public IList<File> GetAllFiles (bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
 			                                 orderby file.NdeId ascending , file.Order ascending
@@ -696,6 +749,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
 			}
 
 			Converter<EFile, File> converter = Converter;
@@ -715,14 +773,30 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>The number of files.</returns>
 
-		public int GetNumberOfFilesForNode (int nodeId, bool onlyActive)
+		public int GetNumberOfFilesForNode (int nodeId, bool onlyActive, bool onlyApproved)
 		{
+			if (onlyApproved) {
+				if (onlyActive) {
+					return _dataContext.Files.Count (
+						file => file.NdeId == nodeId 
+								&& file.IsActive
+								&& file.ApprovedById != null
+								&& file.LockedById == null);
+				}
+
+				return _dataContext.Files.Count (
+					file => file.NdeId == nodeId
+					&& file.ApprovedById != null
+					&& file.LockedById == null);
+			}
+			
 			if (onlyActive) {
 				return _dataContext.Files.Count (file => file.NdeId == nodeId && file.IsActive);
 			}
-			
+
 			return _dataContext.Files.Count (file => file.NdeId == nodeId);
 		}
 
@@ -731,10 +805,26 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="fileCategoryId">The file-category-id.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>The number of files.</returns>
 
-		public int GetNumberOfFilesForFileCategory (int fileCategoryId, bool onlyActive)
+		public int GetNumberOfFilesForFileCategory (int fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
+			if (onlyApproved) {
+				if (onlyActive) {
+					return _dataContext.Files.Count (
+						file => file.FleCatId == fileCategoryId
+								&& file.IsActive
+								&& file.ApprovedById != null
+								&& file.LockedById == null);
+				}
+
+				return _dataContext.Files.Count (
+					file => file.FleCatId == fileCategoryId
+							&& file.ApprovedById != null
+							&& file.LockedById == null);
+			}
+			
 			if (onlyActive) {
 				return _dataContext.Files.Count (file => file.FleCatId == fileCategoryId && file.IsActive);
 			}

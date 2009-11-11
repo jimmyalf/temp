@@ -112,6 +112,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					new File
 					{
 						Id = PropertyValues.MoveFileId,
+						NdeId = PropertyValues.FileMoveNodeId,
 						Order = PropertyValues.FileOrder2
 					});
 				synologenRepository.SubmitChanges ();
@@ -129,6 +130,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					new File
 					{
 						Id = PropertyValues.MoveFileId,
+						NdeId = PropertyValues.FileMoveNodeId,
 						Order = PropertyValues.FileOrder1
 					});
 				synologenRepository.SubmitChanges ();
@@ -141,39 +143,148 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			}
 		}
 
-		[Test, Description ("Fetches the numner of files for a specified node."), Category ("CruiseControl")]
-		public void FileSearchNoOfFilesNode ()
+		[Test, Description ("Fetches the numner of files for a specified node (active)."), Category ("CruiseControl")]
+		public void FileSearchNoOfFilesNodeActive ()
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
 					_configuration, null, _context)
 				) {
 
-				int count = synologenRepository.File.GetNumberOfFilesForNode (PropertyValues.NodeId);
+				int count = synologenRepository.File.GetNumberOfFilesForNode (PropertyValues.NodeId, true);
 
-				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNode, count, "Wrong number of files!");
+				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNode, count, "Wrong number of files (active)!");
 			}
 		}
 
-		[Test, Description ("Fetches the numner of files for a specified category."), Category ("CruiseControl")]
-		public void FileSearchNoOfFilesCategory ()
+		[Test, Description ("Fetches the numner of files for a specified category (active)."), Category ("CruiseControl")]
+		public void FileSearchNoOfFilesCategoryActive ()
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
 					_configuration, null, _context)
 				) {
 
-				int count = synologenRepository.File.GetNumberOfFilesForFileCategory (PropertyValues.FileCategoryId);
+				int count = synologenRepository.File.GetNumberOfFilesForFileCategory (PropertyValues.FileCategoryId, true);
 
-				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNode, count, "Wrong number of files!");
+				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNode, count, "Wrong number of files (active)!");
 			}
 		}
-		
+
+		[Test, Description ("Fetches the numner of files for a specified node (all)."), Category ("CruiseControl")]
+		public void FileSearchNoOfFilesNodeAll ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				int count = synologenRepository.File.GetNumberOfFilesForNode (PropertyValues.NodeId, false);
+
+				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNodeAll, count, "Wrong number of files (all)!");
+			}
+		}
+
+		[Test, Description ("Fetches the numner of files for a specified category (all)."), Category ("CruiseControl")]
+		public void FileSearchNoOfFilesCategoryAll ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				int count = synologenRepository.File.GetNumberOfFilesForFileCategory (PropertyValues.FileCategoryId, false);
+
+				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNodeAll, count, "Wrong number of files (all)!");
+			}
+		}
+
+		[Test, Description ("Fetches the files for a specified node (active)."), Category ("CruiseControl")]
+		public void FileSearchFilesNodeActive ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				IList<File> files = synologenRepository.File.GetFilesByNodeId (PropertyValues.FileMoveNodeId, true);
+
+				Assert.IsNotNull (files, "Fetched files is null.");
+				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNode, files.Count, "Wrong number of files (active)!");
+			}
+		}
+
+		[Test, Description ("Fetches the files for a specified node (all)."), Category ("CruiseControl")]
+		public void FileSearchFilesNodeAll ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				IList<File> files = synologenRepository.File.GetFilesByNodeId (PropertyValues.FileMoveNodeId, false);
+
+				Assert.IsNotNull (files, "Fetched files is null.");
+				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNodeAll, files.Count, "Wrong number of files (all)!");
+			}
+		}
+
+		[Test, Description ("Fetches the files for a specified node and category (active)."), Category ("CruiseControl")]
+		public void FileSearchFilesNodeCategoryActive ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				IList<File> files = synologenRepository.File.GetFilesByNodeId (
+					PropertyValues.FileMoveNodeId, 
+					PropertyValues.FileCategoryId,
+					true);
+
+				Assert.IsNotNull (files, "Fetched files is null.");
+				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNode, files.Count, "Wrong number of files (active)!");
+			}
+		}
+
+		[Test, Description ("Fetches the files for a specified node and category (all)."), Category ("CruiseControl")]
+		public void FileSearchFilesNodeCategoryAll ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				IList<File> files = synologenRepository.File.GetFilesByNodeId (
+					PropertyValues.FileMoveNodeId,
+					PropertyValues.FileCategoryId,
+					false);
+
+				Assert.IsNotNull (files, "Fetched files is null.");
+				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNodeAll, files.Count, "Wrong number of files (all)!");
+			}
+		}
+
+		[Test, Description ("Fetches a specified file."), Category ("CruiseControl")]
+		public void FileSearchFile ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				File file = synologenRepository.File.GetFileById (PropertyValues.FetchedFileId);
+
+				Assert.IsNotNull (file, "Fetched file is null.");
+				Assert.AreEqual (PropertyValues.BaseFileId, file.FleId, "Wrong base file!");
+			}
+		}
+
 		#endregion
 
 		#region File Category Tests
 
-		[Test, Description ("Creates, fetches, updates and deletes a file-category."), Category ("Internal")]
+		[Test, Explicit, Description ("Creates, fetches, updates and deletes a file-category."), Category ("Internal")]
 		public void FileCategoryAddUpdateDeleteTest ()
 		{
 			using (

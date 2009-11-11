@@ -89,6 +89,11 @@ INSERT INTO dbo.SynologenOpqFiles (
 VALUES ( 
 	3, 0, 1, 1, 1, NULL, NULL, 1, 1, 'Admin', GETDATE ()) 
 
+INSERT INTO dbo.SynologenOpqFiles (
+	Id, [Order], FleCatId, FleId, NdeId, ShpId, CncId, IsActive, CreatedById, CreatedByName, CreatedDate)
+VALUES ( 
+	4, 0, 1, 1, 1, NULL, NULL, 0, 1, 'Admin', GETDATE ()) 
+
 SET IDENTITY_INSERT dbo.SynologenOpqFiles OFF
 
 ------------------------------------------------

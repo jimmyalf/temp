@@ -295,7 +295,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				throw new FileException ("Position not changed.", FileErrors.PositionNotMoved);
 			}
 
-			if ((file.Order < 1) || (file.Order > (GetNumberOfFilesForNode (file.NdeId) + 1))) {
+			if ((file.Order < 1) || (file.Order > (GetNumberOfFilesForNode (file.NdeId, false) + 1))) {
 				throw new FileException ("Position not valid.", FileErrors.MoveToForbidden);
 			}
 
@@ -533,7 +533,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.FileCategoryNotFound);
 			}
 
-			if (GetNumberOfFilesForFileCategory (fileCategory.Id) > 0) {
+			if (GetNumberOfFilesForFileCategory (fileCategory.Id, false) > 0) {
 				throw new FileException ("File-category is in use.", FileErrors.FileCategoryInUse);
 			}
 
@@ -714,10 +714,15 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// Counts the number of files for a node. 
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <returns>The number of files.</returns>
 
-		public int GetNumberOfFilesForNode (int nodeId)
+		public int GetNumberOfFilesForNode (int nodeId, bool onlyActive)
 		{
+			if (onlyActive) {
+				return _dataContext.Files.Count (file => file.NdeId == nodeId && file.IsActive);
+			}
+			
 			return _dataContext.Files.Count (file => file.NdeId == nodeId);
 		}
 
@@ -725,10 +730,15 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// Counts the number of files for a file-category. 
 		/// </summary>
 		/// <param name="fileCategoryId">The file-category-id.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <returns>The number of files.</returns>
 
-		public int GetNumberOfFilesForFileCategory (int fileCategoryId)
+		public int GetNumberOfFilesForFileCategory (int fileCategoryId, bool onlyActive)
 		{
+			if (onlyActive) {
+				return _dataContext.Files.Count (file => file.FleCatId == fileCategoryId && file.IsActive);
+			}
+
 			return _dataContext.Files.Count (file => file.FleCatId == fileCategoryId);
 		}
 
@@ -911,7 +921,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			                                  select fileCategory;
 
 			if (id != null) {
-				query.AddNotEqualityCondition ("Id", id);
+				query.AddNotEqualityCondition ("Id", (int) id);
 			}
 
 			IList<EFileCategory> tmpFileCategories = query.ToList ();

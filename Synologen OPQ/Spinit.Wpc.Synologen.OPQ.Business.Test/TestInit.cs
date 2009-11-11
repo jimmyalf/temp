@@ -34,6 +34,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			//CreateFunctions();
 			CreateTriggers(_dataContext, solutionPath);
 			CreateDefaultData(_dataContext, solutionPath);
+			CreateTestData(_dataContext, solutionPath);
 		}
 
 		private void CreateTriggers(DataContext context, string solutionPath)
@@ -41,7 +42,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			
 			string triggerPath = 
 				string.Concat(solutionPath, @"Spinit.Wpc.Synologen.OPQ.Database\Schema Objects\Tables\Triggers");
-			Console.WriteLine(triggerPath);
+			Console.WriteLine("Triggerpath: " + triggerPath);
 			ExecuteScripts(triggerPath);
 		}
 
@@ -52,13 +53,21 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			ExecuteScripts(constraintsPath);
 		}
 
-		private void CreateDefaultData(DataContext context, string solutionPath)
+		private void CreateTestData(DataContext context, string solutionPath)
 		{
 			string defaultDataPath =
 				string.Concat(solutionPath, @"Spinit.Wpc.Synologen.OPQ.Database\Scripts\Test Data\Business Layer Tests");
 			ExecuteScripts(defaultDataPath);
 		}
+		
+		private void CreateDefaultData(DataContext context, string solutionPath)
+		{
+			string defaultDataPath =
+				string.Concat(solutionPath, @"Spinit.Wpc.Synologen.OPQ.Database\Scripts\Default Data");
+			ExecuteScripts(defaultDataPath);
+		}
 
+		
 		private static void CreateDatabase(DataContext context)
 		{
 			DeleteDatabase(context);

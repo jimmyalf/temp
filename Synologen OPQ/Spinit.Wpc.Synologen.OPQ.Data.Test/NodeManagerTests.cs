@@ -37,7 +37,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			_context = null;
 		}
 
-		[Test, Explicit, Description ("Creates, fetches, updates and deletes a node."), Category ("Internal")]
+		#region Node
+
+		[Test, Description ("Creates, fetches, updates and deletes a node."), Category ("Internal")]
 		public void NodeAddUpdateDeleteTest ()
 		{
 			using (
@@ -45,7 +47,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				) {
 
 				// Create a new node
-				synologenRepository.Node.Insert (new Node {Name = PropertyValues.NodeName, IsActive = true});
+				synologenRepository.Node.Insert (new Node {Name = PropertyValues.NodeName});
 
 				synologenRepository.SubmitChanges ();
 
@@ -93,7 +95,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			}
 		}
 
-		[Test, Explicit, Description ("Moves nodes up and down."), Category ("Internal")]
+		[Test, Description ("Moves nodes up and down."), Category ("Internal")]
 		public void NodeMoveUpDownTest ()
 		{
 			using (
@@ -142,7 +144,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				int count = synologenRepository.Node.GetNumberOfChilds (null, true);
+				int count = synologenRepository.Node.GetNumberOfChilds (null, true, true);
 
 				Assert.AreEqual (PropertyValues.ActiveNodesRoot, count, "Wrong numer of roots (only active).");
 			}
@@ -156,7 +158,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				int count = synologenRepository.Node.GetNumberOfChilds (null, false);
+				int count = synologenRepository.Node.GetNumberOfChilds (null, false, false);
 
 				Assert.AreEqual (PropertyValues.AllNodesRoot, count, "Wrong numer of roots (all).");
 			}
@@ -170,7 +172,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				int count = synologenRepository.Node.GetNumberOfChilds (PropertyValues.ParentNodeId, true);
+				int count = synologenRepository.Node.GetNumberOfChilds (PropertyValues.ParentNodeId, true, true);
 
 				Assert.AreEqual (PropertyValues.ActiveNodesChild, count, "Wrong numer of childs (only active).");
 			}
@@ -184,9 +186,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				int count = synologenRepository.Node.GetNumberOfChilds (PropertyValues.ParentNodeId, false);
+				int count = synologenRepository.Node.GetNumberOfChilds (PropertyValues.ParentNodeId, false, false);
 
-				Assert.AreEqual (PropertyValues.ActiveNodesChild, count, "Wrong numer of childs (all).");
+				Assert.AreEqual (PropertyValues.AllNodesChild, count, "Wrong numer of childs (all).");
 			}
 		}
 
@@ -198,7 +200,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				List<Node> nodes = (List<Node>) synologenRepository.Node.GetRootNodes (true);
+				List<Node> nodes = (List<Node>) synologenRepository.Node.GetRootNodes (true, true);
 
 				Assert.IsNotEmpty (nodes, "Nodes (root) is empty (only-active).");
 				Assert.AreEqual (PropertyValues.ActiveNodesRoot, nodes.Count, "Wrong (root) number of nodes (only-active).");
@@ -213,7 +215,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				List<Node> nodes = (List<Node>) synologenRepository.Node.GetRootNodes (false);
+				List<Node> nodes = (List<Node>) synologenRepository.Node.GetRootNodes (false, false);
 
 				Assert.IsNotEmpty (nodes, "Nodes (root) is empty.");
 				Assert.AreEqual (PropertyValues.AllNodesRoot, nodes.Count, "Wrong (root) number of nodes.");
@@ -228,7 +230,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				List<Node> nodes = (List<Node>) synologenRepository.Node.GetChildNodes (PropertyValues.ParentNodeId, true);
+				List<Node> nodes = (List<Node>) synologenRepository.Node.GetChildNodes (PropertyValues.ParentNodeId, true, true);
 
 				Assert.IsNotEmpty (nodes, "Nodes is empty (only-active).");
 				Assert.AreEqual (PropertyValues.ActiveNodesChild, nodes.Count, "Wrong number of nodes (only-active).");
@@ -243,7 +245,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				List<Node> nodes = (List<Node>) synologenRepository.Node.GetChildNodes (PropertyValues.ParentNodeId, false);
+				List<Node> nodes = (List<Node>) synologenRepository.Node.GetChildNodes (PropertyValues.ParentNodeId, false, false);
 
 				Assert.IsNotEmpty (nodes, "Nodes is empty.");
 				Assert.AreEqual (PropertyValues.AllNodesChild, nodes.Count, "Wrong number of nodes.");
@@ -281,5 +283,116 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				Assert.AreEqual (PropertyValues.ListChildFirstConenent, nodes [0].Name, "Wrong head.");
 			}
 		}
+
+		#endregion
+
+		#region Node Supplier
+
+		[Test, Description ("Creates, fetches and deletes a node-supplier-connection."), Category ("Internal")]
+		public void NodeSupplierConnectionAddDeleteTest ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+
+				// Create a new node
+				synologenRepository.Node.Insert (
+					new NodeSupplierConnection
+					{
+						NdeId = PropertyValues.NodeSupplierNodeId, 
+						SupId = PropertyValues.UserId
+					});
+
+				synologenRepository.SubmitChanges ();
+
+				NodeSupplierConnection nodeSupplierConnection = synologenRepository.Node.GetInsertedNodeSupplierConnection ();
+
+				Assert.IsNotNull (nodeSupplierConnection, "Node-supplier-connection is null.");
+
+				// Fetch the node
+				NodeSupplierConnection fetchNodeSupplierConnection = synologenRepository.Node.GetNodeSupplierConnectionById (
+					nodeSupplierConnection.NdeId,
+					nodeSupplierConnection.SupId);
+
+				Assert.IsNotNull (fetchNodeSupplierConnection, "Fetched node-supplier-connection is null.");
+
+				// Delete the node
+				synologenRepository.Node.Delete (fetchNodeSupplierConnection);
+
+				synologenRepository.SubmitChanges ();
+
+				bool found = true;
+				try {
+					// ReFetch the document
+					fetchNodeSupplierConnection = synologenRepository.Node.GetNodeSupplierConnectionById (
+						nodeSupplierConnection.NdeId,
+						nodeSupplierConnection.SupId);
+
+					Assert.IsNull (fetchNodeSupplierConnection, "Deleted node-supplier-connection is not null.");
+				}
+				catch (ObjectNotFoundException e) {
+					if (ObjectNotFoundErrors.NodeSupplierNotFound == (ObjectNotFoundErrors) e.ErrorCode) {
+						found = false;
+					}
+				}
+
+				Assert.AreEqual (false, found, "Object still exist.");
+			}
+		}
+
+		[Test, Description ("Fetches a list of node-supplier-connections for a node."), Category ("CruiseControl")]
+		public void NodeSupplerConnectionSearchTestNode ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				List<NodeSupplierConnection> nodeSupplierConnections =
+					(List<NodeSupplierConnection>) synologenRepository.Node.GetNodeSupplierConnectionsForNode (
+														PropertyValues.NodeSupplierSearchNodeId);
+
+				Assert.IsNotEmpty (nodeSupplierConnections, "Nodes is empty.");
+				Assert.AreEqual (PropertyValues.NodeSupplierCount, nodeSupplierConnections.Count, "Wrong number of node-supplier-connections.");
+				Assert.AreEqual (PropertyValues.UserId, nodeSupplierConnections [0].SupId, "Wrong supplier.");
+			}
+		}
+
+		[Test, Description ("Fetches a list of node-supplier-connections for a node."), Category ("CruiseControl")]
+		public void NodeSupplerConnectionSearchTestSupplier ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				List<NodeSupplierConnection> nodeSupplierConnections =
+					(List<NodeSupplierConnection>) synologenRepository.Node.GetNodeSupplierConnectionsForSupplier (
+														PropertyValues.UserId);
+
+				Assert.IsNotEmpty (nodeSupplierConnections, "Nodes is empty.");
+				Assert.AreEqual (PropertyValues.NodeSupplierCount, nodeSupplierConnections.Count, "Wrong number of node-supplier-connections.");
+				Assert.AreEqual (PropertyValues.NodeSupplierSearchNodeId, nodeSupplierConnections [0].NdeId, "Wrong supplier.");
+			}
+		}
+
+		[Test, Description ("Fetches a specific node-supplier-connection."), Category ("CruiseControl")]
+		public void NodeSupplerConnectionSearchTestNodeSupplier ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				NodeSupplierConnection nodeSupplierConnection = 
+					synologenRepository.Node.GetNodeSupplierConnectionById (
+						PropertyValues.NodeSupplierSearchNodeId,
+						PropertyValues.UserId);
+
+				Assert.IsNotNull (nodeSupplierConnection, "Node is null.");
+			}
+		}
+
+		#endregion
 	}
 }

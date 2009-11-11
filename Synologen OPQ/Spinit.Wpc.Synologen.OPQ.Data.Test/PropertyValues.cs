@@ -25,6 +25,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		public const int MovedNodeId = 2;
 		public const int NodeOrder1 = 1;
 		public const int NodeOrder2 = 2;
+		public const int NodeSupplierNodeId = 2;
+		public const int NodeSupplierSearchNodeId = 1;
+		public const int NodeSupplierCount = 1;
 
 		// Documents
 		public const DocumentTypes DocDocumentType = DocumentTypes.Routine;
@@ -44,6 +47,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		public const string DocDocumentContentView2 = @"Test-Content-2";
 		public const int DocDocumentIdView3 = 3;
 		public const string DocDocumentContentView3 = @"Test-Content-History-3-2";
+		public const int DocumentTypesNumber = 2;
+		public const string DocumentTypeConent = @"Rutin";
 
 		// File
 		public const int BaseFileId = 1;

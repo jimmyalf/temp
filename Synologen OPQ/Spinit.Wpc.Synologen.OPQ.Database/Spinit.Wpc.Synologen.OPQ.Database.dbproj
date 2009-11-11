@@ -104,6 +104,9 @@
     <Build Include="Schema Objects\Tables\Constraints\dbo.SynologenOpqNodes.DF_SynologenOpqNodes_Order.defconst.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblBaseLocations.DF_tblBaseLocations_cExtranet.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Constraints\dbo.tblSynologenShop.DF_tblSynologenShop_cCategoryId.defconst.sql">
       <SubType>Code</SubType>
     </Build>
@@ -153,6 +156,9 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblBaseFile.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblBaseLocations.table.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblBaseUsers.table.sql">
@@ -329,6 +335,9 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopCategory.PK_tblSynologenShopCategory.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo_1.tblBaseLocations.PK_tblBaseLocation.pkey.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Triggers\SynologenOpqDocument.InsteadOfUpdate.trigger.sql">

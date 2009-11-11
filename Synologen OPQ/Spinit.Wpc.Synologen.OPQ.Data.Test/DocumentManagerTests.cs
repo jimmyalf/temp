@@ -37,7 +37,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			_context = null;
 		}
 
-		[Test, Explicit, Description ("Creates, fetches, updates and deletes a document."), Category ("Internal")]
+		#region Document tests
+
+		[Test, Description ("Creates, fetches, updates and deletes a document."), Category ("Internal")]
 		public void DocumentAddUpdateDeleteTest ()
 		{
 			using (
@@ -115,7 +117,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		}
 
 		[Test, Description ("Fetches all active documents for a specified node."), Category ("CruiseControl")]
-		public void DocmentSearchTestNodeActive ()
+		public void DocumentSearchTestNodeActive ()
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
@@ -123,7 +125,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				) {
 
 				List<Document> documents =
-					(List<Document>) synologenRepository.Document.GetDocumentsByNodeId (PropertyValues.DocNodeIdActive, true);
+					(List<Document>) synologenRepository.Document.GetDocumentsByNodeId (PropertyValues.DocNodeIdActive, true, true);
 
 				Assert.IsNotEmpty (documents, "Documents is empty (only-active).");
 				Assert.AreEqual (PropertyValues.DocCountOnlyActive, documents.Count, "Wrong number of documents (only-active).");
@@ -131,7 +133,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		}
 
 		[Test, Description ("Fetches all documents for a specified node."), Category ("CruiseControl")]
-		public void DocmentSearchTestNodeAll ()
+		public void DocumentSearchTestNodeAll ()
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
@@ -139,7 +141,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				) {
 
 				List<Document> documents = 
-					(List<Document>) synologenRepository.Document.GetDocumentsByNodeId (PropertyValues.DocNodeIdActive, false);
+					(List<Document>) synologenRepository.Document.GetDocumentsByNodeId (PropertyValues.DocNodeIdActive, false, false);
 
 				Assert.IsNotEmpty (documents, "Documents is empty.");
 				Assert.AreEqual (PropertyValues.DocCountAll, documents.Count, "Wrong number of documents.");
@@ -147,7 +149,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		}
 
 		[Test, Description ("Fetches the content for a specified document."), Category ("CruiseControl")]
-		public void DocmentSearchTestDocumentContent ()
+		public void DocumentSearchTestDocumentContent ()
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
@@ -164,7 +166,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		[Test, 
 		Description ("Fetches the document-histories for a specified document, and checks the content of the first."), 
 		Category ("CruiseControl")]
-		public void DocmentSearchTestDocumentHistories ()
+		public void DocumentSearchTestDocumentHistories ()
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
@@ -190,7 +192,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		}
 
 		[Test, Description ("Fetches the active content from the view, active without history."), Category ("CruiseControl")]
-		public void DocmentSearchTest ()
+		public void DocumentSearchTest ()
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
@@ -209,7 +211,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		}
 
 		[Test, Description ("Fetches the active content from the view, active with history."), Category ("CruiseControl")]
-		public void DocmentSearchTestFromView1 ()
+		public void DocumentSearchTestFromView1 ()
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
@@ -228,7 +230,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		}
 	
 		[Test, Description ("Fetches the active content from the view, not active with active history."), Category ("CruiseControl")]
-		public void DocmentSearchTestView3 ()
+		public void DocumentSearchTestView3 ()
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
@@ -245,5 +247,41 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				Assert.AreEqual (PropertyValues.DocDocumentContentView3, documentView.DocumentContent, "Wrong content fetched (view 3).");
 			}
 		}
+
+		#endregion
+
+		#region Document Type tests
+
+		[Test, Description ("Fetches all document types."), Category ("CruiseControl")]
+		public void DocumentTypeSearchAll ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				IList<DocumentType> documentTypes = synologenRepository.Document.GetAllDocumentTypes ();
+
+				Assert.IsNotNull (documentTypes, "Document-types is null.");
+				Assert.AreEqual (PropertyValues.DocumentTypesNumber, documentTypes.Count, "Wrong number of document-types.");
+			}
+		}
+
+		[Test, Description ("Fetches a specified document type."), Category ("CruiseControl")]
+		public void DocumentTypeSearchSpecific ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				DocumentType documentType = synologenRepository.Document.GetDocumentTypeById (PropertyValues.DocDocumentType);
+
+				Assert.IsNotNull (documentType, "Document-type is null.");
+				Assert.AreEqual (PropertyValues.DocumentTypeConent, documentType.Name, "Wrong content fetched for document-type.");
+			}
+		}
+
+		#endregion
 	}
 }

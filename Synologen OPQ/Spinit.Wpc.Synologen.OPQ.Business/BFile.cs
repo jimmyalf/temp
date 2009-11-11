@@ -2,6 +2,7 @@
 
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
+using Spinit.Wpc.Synologen.OPQ.Data;
 
 namespace Spinit.Wpc.Synologen.OPQ.Business
 {
@@ -11,6 +12,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 	/// </summary>
 	public class BFile
 	{
+		private readonly Context _context;
+		private readonly Configuration _configuration;
+
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
@@ -18,8 +22,87 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		
 		public BFile (Context context)
 		{
-			Context = context;
+			_context = context;
+			_configuration = Configuration.GetConfiguration (_context);
 		}
+
+		#region File Category
+
+		/// <summary>
+		/// Creates a new file category.
+		/// </summary>
+		/// <param name="name">The name of the file-category.</param>
+
+		public FileCategory CreateFileCategory (string name)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.File.Insert (
+					new FileCategory 
+					{
+						Name = name
+					});
+				synologenRepository.SubmitChanges ();
+
+				return synologenRepository.File.GetInsertedFileCategory ();
+			}
+		}
+
+		/// <summary>
+		/// Changes the file category.
+		/// </summary>
+		/// <param name="fileCategoryId">The id of the file category.</param>
+		/// <param name="name">The name of the file-category.</param>
+
+		public FileCategory ChangeFileCategory (int fileCategoryId, string name)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.File.Update (
+					new FileCategory
+					{
+						Name = name
+					});
+				synologenRepository.SubmitChanges ();
+
+				return synologenRepository.File.GetInsertedFileCategory ();
+			}
+		}
+
+		/// <summary>
+		/// Deletes a file category.
+		/// </summary>
+
+		public void DeleteFileCategory (int fileCategoryId)
+		{
+			throw new System.NotImplementedException ();
+		}
+
+		/// <summary>
+		/// Gets a specific file-category.
+		/// </summary>
+		/// <param name="fileCategoryId">The id of the file-category.</param>
+
+		public FileCategory GetFileCategory (int fileCategoryId)
+		{
+			throw new System.NotImplementedException ();
+		}
+
+		/// <summary>
+		/// Gets a list of file categories.
+		/// </summary>
+		/// <param name="onlyActive">If true=&gt;fetches only active categories.</param>
+
+		public List<FileCategory> GetFileCategories (bool onlyActive)
+		{
+			throw new System.NotImplementedException ();
+		}
+
+		#endregion
+
+		#region File
 
 
 		/// <summary>
@@ -120,11 +203,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		{
 			throw new System.NotImplementedException ();
 		}
-		
-		/// <summary>
-		/// Gets or sets the context.
-		/// </summary>
 
-		public Context Context { get; set; }
+		#endregion
 	}
 }

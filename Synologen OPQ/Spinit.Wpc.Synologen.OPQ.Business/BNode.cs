@@ -189,7 +189,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 							{
 								Id = source, 
 								Parent = sDestination.Id, 
-								Order = synologenRepository.Node.GetNumberOfChilds (sDestination.Id, false) + 1
+								Order = synologenRepository.Node.GetNumberOfChilds (sDestination.Id, false, false) + 1
 							});
 						break;
 
@@ -312,9 +312,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="parent">The parent to fetch nodes from.</param>
 		/// <param name="name">The node-name to search for.</param>
 		/// <param name="onlyActive">If true=&gt;only fetch active nodes.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved documents.</param>
 		/// <param name="fillObjects">Fill all objects.</param>
 
-		public IList<Node> GetNodes (int? parent, string name, bool onlyActive, bool fillObjects)
+		public IList<Node> GetNodes (int? parent, string name, bool onlyActive, bool onlyApproved, bool fillObjects)
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
@@ -342,18 +343,18 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				}
 
 				if ((parent == null) && (name == null)) {
-					return synologenRepository.Node.GetRootNodes (onlyActive);
+					return synologenRepository.Node.GetRootNodes (onlyActive, onlyApproved);
 				}
 
 				if (name == null) {
-					return synologenRepository.Node.GetChildNodes ((int) parent, onlyActive);
+					return synologenRepository.Node.GetChildNodes ((int) parent, onlyActive, onlyApproved);
 				}
 
 				if (parent == null) {
-					return synologenRepository.Node.GetNodesByName (name, onlyActive);
+					return synologenRepository.Node.GetNodesByName (name, onlyActive, onlyApproved);
 				}
 
-				return synologenRepository.Node.GetNodesByName ((int) parent, name, onlyActive);
+				return synologenRepository.Node.GetNodesByName ((int) parent, name, onlyActive, onlyApproved);
 			}
 		}
 

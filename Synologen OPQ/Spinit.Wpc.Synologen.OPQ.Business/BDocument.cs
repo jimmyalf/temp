@@ -28,7 +28,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			_configuration = Configuration.GetConfiguration (_context);
 		}
 
-		#region Document Types
+		#region Document Type
 
 		/// <summary>
 		/// Fetches a list with all document-types.
@@ -219,6 +219,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="documentType">The type of the document.</param>
 		/// <param name="searchText">Text to search for.</param>
 		/// <param name="onlyActive">If true=>fetch only active documents.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved documents.</param>
 		/// <param name="fillObjects">If true=>fill-objects.</param>
 
 		public IList<Document> GetDocuments (
@@ -227,6 +228,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			DocumentTypes? documentType, 
 			string searchText, 
 			bool onlyActive,
+			bool onlyApproved,
 			bool fillObjects)
 		{
 			using (
@@ -249,25 +251,27 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 						(int) nodeId, 
 						(int) shopId, 
 						(DocumentTypes) documentType, 
-						onlyActive);
+						onlyActive,
+						onlyApproved);
 				}
 				
 				if ((nodeId != null) && (documentType != null)) {
 					return synologenRepository.Document.GetDocumentsByNodeId (
 						(int) nodeId,
 						(DocumentTypes) documentType,
-						onlyActive);
+						onlyActive,
+						onlyApproved);
 				}
 
 				if (nodeId != null) {
-					return synologenRepository.Document.GetDocumentsByNodeId ((int) nodeId, onlyActive);
+					return synologenRepository.Document.GetDocumentsByNodeId ((int) nodeId, onlyActive, onlyApproved);
 				}
 
 				if (searchText != null) {
-					return synologenRepository.Document.GetDocumentsByText (searchText, onlyActive);
+					return synologenRepository.Document.GetDocumentsByText (searchText, onlyActive, onlyApproved);
 				}
 
-				return synologenRepository.Document.GetAllDocuments (onlyActive);
+				return synologenRepository.Document.GetAllDocuments (onlyActive, onlyApproved);
 			}
 		}
 

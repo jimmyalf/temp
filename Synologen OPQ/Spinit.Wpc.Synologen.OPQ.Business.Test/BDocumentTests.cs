@@ -107,7 +107,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			var bDocument = new BDocument(_context);
 			var document = bDocument.CreateDocument(node.Id, null, DocumentTypes.Routine, documentContent);
 			IList<Document> documents =
-				bDocument.GetDocuments(node.Id, null, DocumentTypes.Routine, null, true, true);
+				bDocument.GetDocuments(node.Id, null, DocumentTypes.Routine, null, true, true, true);
 			if (documents == null || documents.Count == 0)
 			{
 				Assert.Fail("Documents returned empty. Should be 1");
@@ -131,7 +131,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			var document = bDocument.CreateDocument(node.Id, null, DocumentTypes.Routine, documentContent);
 			bDocument.DeleteDocument(document.Id, false);
 			IList<Document> documents =
-			bDocument.GetDocuments(node.Id, null, DocumentTypes.Routine, null, true, true);
+			bDocument.GetDocuments(node.Id, null, DocumentTypes.Routine, null, true, true, true);
 			if (documents.Count != 0)
 			{
 				Assert.Fail("No documents should be returned");

@@ -66,6 +66,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
 
+			Manager.ExternalObjectsManager.CheckUserExist (node.CreatedById);
+			
+			node.IsActive = true;
+
 			_insertedNode = node;
 
 			_dataContext.Nodes.InsertOnSubmit (node);
@@ -133,7 +137,6 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			return ENodeSupplierConnection.Convert (_insertedNodeSupplier);
 		}
 
-
 		#endregion
 
 		#endregion
@@ -160,6 +163,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.NodeNotFound);
 			}
 
+			if ((oldNode.LockedById != null) && (oldNode.LockedById != Manager.WebContext.UserId)) {
+				throw new NodeException ("Node locked by another user.", NodeErrors.NodeLockedByOtherUser);
+			}
 
 			oldNode.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldNode.ChangedByName = Manager.WebContext.UserName;
@@ -168,6 +174,8 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if ((oldNode.ChangedById == 0) || (oldNode.ChangedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldNode.ChangedById);
 
 			if ((node.Parent != null) && (oldNode.Parent != node.Parent)) {
 				if (node.Parent == 0) {
@@ -196,10 +204,6 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				}
 				
 				oldNode.Name = node.Name.Length == 0 ? null : node.Name;
-			}
-
-			if (oldNode.IsActive == node.IsActive) {
-				oldNode.IsActive = node.IsActive;
 			}
 		}
 
@@ -237,6 +241,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.NodeNotFound);
 			}
 
+			if ((oldNode.LockedById != null) && (oldNode.LockedById != Manager.WebContext.UserId)) {
+				throw new NodeException ("Node locked by another user.", NodeErrors.NodeLockedByOtherUser);
+			}
+
 			oldNode.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldNode.ChangedByName = Manager.WebContext.UserName;
 			oldNode.ChangedDate = DateTime.Now;
@@ -244,6 +252,8 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if ((oldNode.ChangedById == 0) || (oldNode.ChangedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldNode.ChangedById);
 
 			oldNode.IsActive = false;
 		}
@@ -265,6 +275,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.NodeNotFound);
 			}
 
+			if ((oldNode.LockedById != null) && (oldNode.LockedById != Manager.WebContext.UserId)) {
+				throw new NodeException ("Node locked by another user.", NodeErrors.NodeLockedByOtherUser);
+			}
+
 			oldNode.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldNode.ChangedByName = Manager.WebContext.UserName;
 			oldNode.ChangedDate = DateTime.Now;
@@ -272,6 +286,8 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if ((oldNode.ChangedById == 0) || (oldNode.ChangedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldNode.ChangedById);
 
 			oldNode.IsActive = true;
 		}
@@ -298,6 +314,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.NodeNotFound);
 			}
 
+			if ((oldNode.LockedById != null) && (oldNode.LockedById != Manager.WebContext.UserId)) {
+				throw new NodeException ("Node locked by another user.", NodeErrors.NodeLockedByOtherUser);
+			}
+
 			oldNode.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldNode.ChangedByName = Manager.WebContext.UserName;
 			oldNode.ChangedDate = DateTime.Now;
@@ -306,11 +326,13 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
 
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldNode.ChangedById);
+
 			if ((oldNode.Order == node.Order) && (oldNode.Parent == node.Parent)) {
 				throw new NodeException ("Position not changed.", NodeErrors.PositionNotMoved);
 			}
 
-			if ((node.Order < 1) || (node.Order > (GetNumberOfChilds (node.Parent, false) + 1))) {
+			if ((node.Order < 1) || (node.Order > (GetNumberOfChilds (node.Parent, false, false) + 1))) {
 				throw new NodeException ("Position not valid.", NodeErrors.MoveToForbidden);
 			}
 
@@ -375,6 +397,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.NodeNotFound);
 			}
 
+			if ((oldNode.LockedById != null) && (oldNode.LockedById != Manager.WebContext.UserId)) {
+				throw new NodeException ("Node locked by another user.", NodeErrors.NodeLockedByOtherUser);
+			}
+
 			oldNode.ApprovedById = Manager.WebContext.UserId ?? 0;
 			oldNode.ApprovedByName = Manager.WebContext.UserName;
 			oldNode.ApprovedDate = DateTime.Now;
@@ -382,6 +408,8 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if ((oldNode.ApprovedById == 0) || (oldNode.ApprovedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldNode.ChangedById);
 		}
 
 		/// <summary>
@@ -401,6 +429,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.NodeNotFound);
 			}
 
+			if ((oldNode.LockedById != null) && (oldNode.LockedById != Manager.WebContext.UserId)) {
+				throw new NodeException ("Node locked by another user.", NodeErrors.NodeLockedByOtherUser);
+			}
+
 			oldNode.LockedById = Manager.WebContext.UserId ?? 0;
 			oldNode.LockedByName = Manager.WebContext.UserName;
 			oldNode.LockedDate = DateTime.Now;
@@ -408,6 +440,8 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			if ((oldNode.LockedById == 0) || (oldNode.LockedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldNode.ChangedById);
 		}
 
 		/// <summary>
@@ -424,6 +458,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				throw new ObjectNotFoundException (
 					"Node not found.",
 					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			if ((oldNode.LockedById != null) && (oldNode.LockedById != Manager.WebContext.UserId)) {
+				throw new NodeException ("Node locked by another user.", NodeErrors.NodeLockedByOtherUser);
 			}
 
 			oldNode.LockedById = null;
@@ -453,6 +491,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				throw new ObjectNotFoundException (
 					"Node not found.",
 					ObjectNotFoundErrors.NodeNotFound);
+			}
+
+			if ((oldNode.LockedById != null) && (oldNode.LockedById != Manager.WebContext.UserId)) {
+				throw new NodeException ("Node locked by another user.", NodeErrors.NodeLockedByOtherUser);
 			}
 
 			try {
@@ -567,7 +609,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.NodeNotFound);
 			}
 
-			return ENode.Convert (nodes.First ());
+			return Converter (nodes.First ());
 		}
 
 		/// <summary>
@@ -592,17 +634,18 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.NodeNotFound);
 			}
 
-			return ENode.Convert (nodes.First ());
+			return Converter (nodes.First ());
 		}
 
 		/// <summary>
 		/// Fetches all root-nodes.
 		/// </summary>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of nodes.</returns>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
 
-		public IList<Node> GetRootNodes (bool onlyActive)
+		public IList<Node> GetRootNodes (bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
 			            where node.Parent == null
@@ -613,6 +656,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				query = query.AddEqualityCondition ("IsActive", true);
 			}
 
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
+			}
+
 			Converter<ENode, Node> converter = Converter;
 			IList<Node> nodes = query.ToList ().ConvertAll (converter);
 
@@ -630,10 +678,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="parent">The parent.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of nodes.</returns>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
 
-		public IList<Node> GetChildNodes (int parent, bool onlyActive)
+		public IList<Node> GetChildNodes (int parent, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
 						where node.Parent == parent
@@ -644,6 +693,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				query = query.AddEqualityCondition ("IsActive", true);
 			}
 
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
+			}
+
 			Converter<ENode, Node> converter = Converter;
 			IList<Node> nodes = query.ToList ().ConvertAll (converter);
 
@@ -661,10 +715,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="name">The name to search for.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of nodes.</returns>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
 
-		public IList<Node> GetNodesByName (string name, bool onlyActive)
+		public IList<Node> GetNodesByName (string name, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
 						where SqlMethods.Like (node.Name, string.Concat ("%", name, "%"))
@@ -673,6 +728,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
 			}
 
 			Converter<ENode, Node> converter = Converter;
@@ -693,10 +753,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="parent">The parent.</param>
 		/// <param name="name">The name to search for.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of nodes.</returns>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
 
-		public IList<Node> GetNodesByName (int parent, string name, bool onlyActive)
+		public IList<Node> GetNodesByName (int parent, string name, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
 						where node.Parent == parent
@@ -706,6 +767,11 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
 			}
 
 			Converter<ENode, Node> converter = Converter;
@@ -765,10 +831,41 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="parent">The parent (for root null).</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>The number of childs.</returns>
 
-		public int GetNumberOfChilds (int? parent, bool onlyActive)
+		public int GetNumberOfChilds (int? parent, bool onlyActive, bool onlyApproved)
 		{
+			if (onlyApproved) {
+				if (onlyActive) {
+					if (parent == null) {
+						return _dataContext.Nodes.Count (
+							node => node.Parent == null 
+									&& node.IsActive
+									&& node.ApprovedById != null
+									&& node.LockedById == null);
+					}
+
+					return _dataContext.Nodes.Count (
+						node => node.Parent == parent
+								&& node.IsActive
+								&& node.ApprovedById != null
+								&& node.LockedById == null);
+				}
+
+				if (parent == null) {
+					return _dataContext.Nodes.Count (
+						node => node.Parent == null
+								&& node.ApprovedById != null
+								&& node.LockedById == null);
+				}
+
+				return _dataContext.Nodes.Count (
+						node => node.Parent == parent
+								&& node.ApprovedById != null
+								&& node.LockedById == null);
+			}
+			
 			if (onlyActive) {
 				if (parent == null) {
 					return _dataContext.Nodes.Count (node => node.Parent == null && node.IsActive);
@@ -776,12 +873,96 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 				return _dataContext.Nodes.Count (node => node.Parent == parent && node.IsActive);
 			}
-			
+
 			if (parent == null) {
 				return _dataContext.Nodes.Count (node => node.Parent == null);
 			}
 
 			return _dataContext.Nodes.Count (node => node.Parent == parent);
+		}
+
+		#endregion
+
+		#region Fetch Node Supplier
+
+		/// <summary>
+		/// Fetches a specified node-supplier-connection.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <param name="supplierId">The supplier-id.</param>
+		/// <returns>A node-supplier-connection.</returns>
+		/// <exception cref="ObjectNotFoundException">If the node-supplier-connection is not found.</exception>
+
+		public NodeSupplierConnection GetNodeSupplierConnectionById (int nodeId, int supplierId)
+		{
+			IQueryable<ENodeSupplierConnection> query = from nodeSupplierConnection in _dataContext.NodeSupplierConnections
+			                                            where nodeSupplierConnection.NdeId == nodeId
+															&& nodeSupplierConnection.SupId == supplierId
+														select nodeSupplierConnection;
+
+			IList<ENodeSupplierConnection> nodeSupplierConnections = query.ToList ();
+
+			if (nodeSupplierConnections.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Node-supplier-connection not found.",
+					ObjectNotFoundErrors.NodeSupplierNotFound);
+			}
+
+			return Converter (nodeSupplierConnections.First ());
+		}
+
+		/// <summary>
+		/// Fetches all node-supplier-connections for a specific node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <returns>A list of node-supplier-connections.</returns>
+		/// <exception cref="ObjectNotFoundException">If the node-supplier-connection is not found.</exception>
+
+		public IList<NodeSupplierConnection> GetNodeSupplierConnectionsForNode (int nodeId)
+		{
+			IOrderedQueryable<ENodeSupplierConnection> query =
+				from nodeSupplierConnection in _dataContext.NodeSupplierConnections
+				where nodeSupplierConnection.NdeId == nodeId
+				orderby nodeSupplierConnection.SupId ascending
+				select nodeSupplierConnection;
+
+			Converter<ENodeSupplierConnection, NodeSupplierConnection> converter = Converter;
+			IList<NodeSupplierConnection> nodeSupplierConnections = query.ToList ().ConvertAll (converter);
+
+			if (nodeSupplierConnections.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Node-supplier-connection not found.",
+					ObjectNotFoundErrors.NodeSupplierNotFound);
+			}
+
+			return nodeSupplierConnections;
+		}
+
+		/// <summary>
+		/// Fetches all node-supplier-connections for a specific supplier.
+		/// </summary>
+		/// <param name="supplierId">The supplier-id.</param>
+		/// <returns>A list of node-supplier-connections.</returns>
+		/// <exception cref="ObjectNotFoundException">If the node-supplier-connection is not found.</exception>
+
+		public IList<NodeSupplierConnection> GetNodeSupplierConnectionsForSupplier (int supplierId)
+		{
+			IOrderedQueryable<ENodeSupplierConnection> query =
+				from nodeSupplierConnection in _dataContext.NodeSupplierConnections
+				where nodeSupplierConnection.SupId == supplierId
+				orderby nodeSupplierConnection.NdeId ascending
+				select nodeSupplierConnection;
+
+			Converter<ENodeSupplierConnection, NodeSupplierConnection> converter = Converter;
+			IList<NodeSupplierConnection> nodeSupplierConnections = query.ToList ().ConvertAll (converter);
+
+			if (nodeSupplierConnections.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Node-supplier-connection not found.",
+					ObjectNotFoundErrors.NodeSupplierNotFound);
+			}
+
+			return nodeSupplierConnections;
 		}
 
 		#endregion

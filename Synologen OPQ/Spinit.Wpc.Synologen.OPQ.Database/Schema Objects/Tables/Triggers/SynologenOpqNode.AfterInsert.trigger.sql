@@ -23,13 +23,13 @@ BEGIN
 	
 	IF @parent IS NULL
 		BEGIN
-			SELECT	@order = MAX ([Order]) + 1
+			SELECT	@order = CASE WHEN MAX ([Order]) IS NOT NULL THEN MAX ([Order]) + 1 ELSE 1 END
 			FROM	dbo.SynologenOpqNodes
 			WHERE	Parent IS NULL
 		END
 	ELSE
 		BEGIN
-			SELECT	@order = MAX ([Order]) + 1
+			SELECT	@order = CASE WHEN MAX ([Order]) IS NOT NULL THEN MAX ([Order]) + 1 ELSE 1 END
 			FROM	dbo.SynologenOpqNodes
 			WHERE	Parent = @parent
 		END

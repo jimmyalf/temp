@@ -258,7 +258,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			Assert.AreEqual(_context.UserId, childNode.ApprovedById, "ApprovedById not as expected");
 		}
 
-		[Test, Description("Different move methods")]
+	//	[Test, Description("Different move methods")]
 
 
 	}

@@ -27,30 +27,35 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 		public void InitDatabase()
 		{
+			string solutionPath = Path.GetFullPath(string.Concat(Environment.CurrentDirectory, @"\..\..\..\"));
+
 			CreateDatabase(_dataContext);
-			CreateConstraints(_dataContext);
+			CreateConstraints(_dataContext, solutionPath);
 			//CreateProcedures();
 			//CreateFunctions();
-			CreateTriggers(_dataContext);
-			CreateDefaultData(_dataContext);
+			CreateTriggers(_dataContext, solutionPath);
+			CreateDefaultData(_dataContext, solutionPath);
 		}
 
-		private void CreateTriggers(DataContext context)
+		private void CreateTriggers(DataContext context, string solutionPath)
 		{
-			const string triggerPath = @"C:\Develop\WPC\CustomerSpecific\Synologen\trunk\Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Database\Schema Objects\Tables\Triggers";
+			
+			string triggerPath = 
+				string.Concat(solutionPath, @"Spinit.Wpc.Synologen.OPQ.Database\Schema Objects\Tables\Triggers");
 			ExecuteScripts(triggerPath);
 		}
 
-		private void CreateConstraints(DataContext context)
+		private void CreateConstraints(DataContext context, string solutionPath)
 		{
-			const string constraintsPath = @"C:\Develop\WPC\CustomerSpecific\Synologen\trunk\Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Database\Schema Objects\Tables\Constraints";
+			string constraintsPath = 
+				string.Concat(solutionPath, @"Spinit.Wpc.Synologen.OPQ.Database\Schema Objects\Tables\Constraints");
 			ExecuteScripts(constraintsPath);
 		}
 
-		private void CreateDefaultData(DataContext context)
+		private void CreateDefaultData(DataContext context, string solutionPath)
 		{
-			const string defaultDataPath =
-				@"C:\Develop\WPC\CustomerSpecific\Synologen\trunk\Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Database\Scripts\Test Data\Business Layer Tests";
+			string defaultDataPath =
+				string.Concat(solutionPath, @"Spinit.Wpc.Synologen.OPQ.Database\Scripts\Test Data\Business Layer Tests");
 			ExecuteScripts(defaultDataPath);
 		}
 

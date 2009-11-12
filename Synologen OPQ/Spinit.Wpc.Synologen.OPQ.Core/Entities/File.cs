@@ -1,4 +1,3 @@
-#pragma warning disable 1591
 using System;
 
 namespace Spinit.Wpc.Synologen.OPQ.Core.Entities
@@ -121,6 +120,23 @@ namespace Spinit.Wpc.Synologen.OPQ.Core.Entities
 		}
 
 		#endregion
+
+		#region Extra
+
+		/// <summary>
+		/// Gets the base-file-name.
+		/// </summary>
+
+		public string Name
+		{
+			get {
+				if (BaseFile != null) {
+					return BaseFile.Name;
+				}
+				return string.Empty;
+			}
+		}
+
+		#endregion
 	}
 }
-#pragma warning restore 1591

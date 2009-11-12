@@ -9,6 +9,6 @@
 			_errorCode = errorCode;
 		}
 		
-		public override string LocalizationKey { get { return _errorCode.ToString (); } }
+		public override string LocalizationKey { get { return string.Concat ("UserErrors-", _errorCode.ToString ()); } }
 	}
 }

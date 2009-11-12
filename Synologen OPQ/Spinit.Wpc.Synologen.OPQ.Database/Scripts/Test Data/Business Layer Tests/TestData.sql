@@ -8,6 +8,22 @@ INSERT INTO tblBaseUsers
 	 VALUES 
 	 (1,'admin','admin',null,null,null,null,1,null,null,null,null) 
 
-SET IDENTITY_INSERT dbo.tblBaseUsers ON
+SET IDENTITY_INSERT dbo.tblBaseUsers OFF
+
+SET IDENTITY_INSERT dbo.tblBaseFile ON
+
+INSERT INTO dbo.tblBaseFile (
+	cId, cName, cDirectory, cContentInfo, cKeyWords, cDescription, cCreatedBy, cCreatedDate, cIconType) 
+VALUES ( 
+	1, 'Test_1', 1, NULL, NULL, NULL, 'Admin', GETDATE (), NULL)
+	
+INSERT INTO dbo.tblBaseFile (
+	cId, cName, cDirectory, cContentInfo, cKeyWords, cDescription, cCreatedBy, cCreatedDate, cIconType) 
+VALUES ( 
+	2, 'Test_2', 1, NULL, NULL, NULL, 'Admin', GETDATE (), NULL)
+	
+
+SET IDENTITY_INSERT dbo.tblBaseFile OFF 
+
 
 

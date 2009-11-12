@@ -29,5 +29,21 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				Assembly.GetExecutingAssembly());
 			return rm.GetString(key, context.CultureInfo);
 		}
+
+		/// <summary>
+		/// Fetches the error-text for a 
+		/// </summary>
+		/// <param name="key">The key.</param>
+		/// <returns>The error-string.</returns>
+
+		public static string GetErrorTextString (string key)
+		{
+			try {
+				return PropertyExtension.CreateWith<ErrorText, string> (key).Invoke (null);
+			}
+			catch(Exception) {
+				return string.Empty;
+			}
+		}
 	}
 }

@@ -82,6 +82,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="TestConfiguration.cs" />
     <Compile Include="TestInit.cs" />
   </ItemGroup>
   <ItemGroup>

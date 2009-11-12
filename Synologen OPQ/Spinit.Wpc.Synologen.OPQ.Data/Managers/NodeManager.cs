@@ -394,7 +394,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
-		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+		/// <exception cref="ObjectNotFoundException">If the node or user is not found.</exception>
 		/// <exception cref="NodeException">If node is locked by other user.</exception>
 
 		public void ApproveNode (int nodeId)
@@ -414,12 +414,15 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			oldNode.ApprovedById = Manager.WebContext.UserId ?? 0;
 			oldNode.ApprovedByName = Manager.WebContext.UserName;
 			oldNode.ApprovedDate = DateTime.Now;
+			oldNode.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldNode.ChangedByName = Manager.WebContext.UserName;
+			oldNode.ChangedDate = DateTime.Now;
 		
 			if ((oldNode.ApprovedById == 0) || (oldNode.ApprovedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
 
-			Manager.ExternalObjectsManager.CheckUserExist ((int) oldNode.ChangedById);
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldNode.ApprovedById);
 		}
 
 		/// <summary>
@@ -427,7 +430,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
-		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+		/// <exception cref="ObjectNotFoundException">If the node or user is not found.</exception>
 		/// <exception cref="NodeException">If node is locked by other user.</exception>
 
 		public void CheckOutNode (int nodeId)
@@ -447,19 +450,23 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			oldNode.LockedById = Manager.WebContext.UserId ?? 0;
 			oldNode.LockedByName = Manager.WebContext.UserName;
 			oldNode.LockedDate = DateTime.Now;
+			oldNode.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldNode.ChangedByName = Manager.WebContext.UserName;
+			oldNode.ChangedDate = DateTime.Now;
 
 			if ((oldNode.LockedById == 0) || (oldNode.LockedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
 
-			Manager.ExternalObjectsManager.CheckUserExist ((int) oldNode.ChangedById);
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldNode.LockedById);
 		}
 
 		/// <summary>
 		/// Checks-in a node.
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
-		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the node or user is not found.</exception>
 		/// <exception cref="NodeException">If node is locked by other user.</exception>
 
 		public void CheckInNode (int nodeId)
@@ -479,6 +486,15 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			oldNode.LockedById = null;
 			oldNode.LockedByName = null;
 			oldNode.LockedDate = null;
+			oldNode.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldNode.ChangedByName = Manager.WebContext.UserName;
+			oldNode.ChangedDate = DateTime.Now;
+
+			if ((oldNode.ChangedById == 0) || (oldNode.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldNode.ChangedById);
 		}
 
 		#endregion
@@ -635,8 +651,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		public Node GetNodeByName (int? parent, string name)
 		{
 			IQueryable<ENode> query = from node in _dataContext.Nodes
-									  where node.Parent == parent && node.Name == name
+									  where node.Name == name
 									  select node;
+
+			query = parent == null ? query.AddIsNullCondition ("Parent") : query.AddEqualityCondition ("Parent", parent);
 
 			IList<ENode> nodes = query.ToList ();
 
@@ -1127,8 +1145,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		private bool CheckNameExist (string name, int? parent, int? id)
 		{
 			IQueryable<ENode> query = from node in _dataContext.Nodes
-			                          where node.Name == name && node.Parent == parent
+			                          where node.Name == name
 			                          select node;
+
+			query = parent == null ? query.AddIsNullCondition ("Parent") : query.AddEqualityCondition ("Parent", parent);
 
 			if (id != null) {
 				query.AddNotEqualityCondition ("Id", (int) id);

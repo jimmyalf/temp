@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\Build\Output\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Build\Output\</OutputPath>
+    <OutputPath>Data Source=localhost\SQL2005%3bInitial Catalog=Synologen%3bIntegrated Security=True%3bPersist Security Info=True\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -73,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BDocumentTests.cs" />
-    <Compile Include="BFileCategoryTests.cs" />
     <Compile Include="BFileTests.cs" />
     <Compile Include="BNodeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

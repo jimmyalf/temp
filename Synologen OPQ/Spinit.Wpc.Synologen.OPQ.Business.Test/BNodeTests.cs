@@ -1,11 +1,9 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.OPQ.Business.Test.Properties;
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 using Spinit.Wpc.Synologen.Opq.Core.Exceptions;
-using Spinit.Wpc.Synologen.OPQ.Data;
 
 namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 {
@@ -41,81 +39,73 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		}
 
 		[Test]
-		[Description("Should throw exist exception")]
-		[Category("Node-Exceptions")]
-		public void NodeExistsExceptionOnRootLevel()
+		[Description ("Should throw exist exception")]
+		[Category ("Node-Exceptions")]
+		public void NodeExistsExceptionOnRootLevel ()
 		{
-			try
-			{
+			try {
 				const string rootName = "node";
-				var bNode = new BNode(_context);
-				bNode.CreateNode(null, rootName);
-				bNode.CreateNode(null, rootName);
-				Assert.Fail("Create node should not be possible with same name");
+				BNode bNode = new BNode (_context);
+				bNode.CreateNode (null, rootName);
+				bNode.CreateNode (null, rootName);
+				Assert.Fail ("Create node should not be possible with same name");
 			}
-			catch(NodeException ex)
-			{
-				Assert.AreEqual("Name exist.", ex.Message, "Exception message not as expected");
-				Assert.AreEqual(NodeErrors.NameExist, (NodeErrors) ex.ErrorCode);
+			catch (NodeException ex) {
+				Assert.AreEqual ("Name exist.", ex.Message, "Exception message not as expected");
+				Assert.AreEqual (NodeErrors.NameExist, (NodeErrors) ex.ErrorCode);
 			}
 		}
 
 		[Test]
-		[Description("Should throw exist exception")]
-		[Category("Node-Exceptions")]
-		public void NodeExistsExceptionOnChildLevel()
+		[Description ("Should throw exist exception")]
+		[Category ("Node-Exceptions")]
+		public void NodeExistsExceptionOnChildLevel ()
 		{
 			const string rootName = "node";
 			const string child1 = "child";
 			const string child2 = "child";
-			try
-			{
-				var bNode = new BNode(_context);
-				var node = bNode.CreateNode(null, rootName);
-				var node1 = bNode.CreateNode(node.Id, child1);
-				var node2 = bNode.CreateNode(node.Id, child2);
-				Assert.Fail("Create node should not be possible with same name");
+			try {
+				BNode bNode = new BNode (_context);
+				Node node = bNode.CreateNode (null, rootName);
+				bNode.CreateNode (node.Id, child1);
+				bNode.CreateNode (node.Id, child2);
+				Assert.Fail ("Create node should not be possible with same name");
 			}
-			catch (NodeException ex)
-			{
-				Assert.AreEqual("Name exist.", ex.Message, "Exception message not as expected");
-				Assert.AreEqual(NodeErrors.NameExist, (NodeErrors) ex.ErrorCode);
+			catch (NodeException ex) {
+				Assert.AreEqual ("Name exist.", ex.Message, "Exception message not as expected");
+				Assert.AreEqual (NodeErrors.NameExist, (NodeErrors) ex.ErrorCode);
 			}
 		}
 
 		[Test]
-		[Description("Should throw exist exception")]
-		[Category("Node-Exceptions")]
-		public void NodeDoesNotExistsByNameException()
+		[Description ("Should throw exist exception")]
+		[Category ("Node-Exceptions")]
+		public void NodeDoesNotExistsByNameException ()
 		{
-			var bNode = new BNode(_context);
-			try
-			{
-				bNode.GetNode(null, "FakeNode", true);
-				Assert.Fail("Node should not be found");
+			var bNode = new BNode (_context);
+			try {
+				bNode.GetNode (null, "FakeNode", true);
+				Assert.Fail ("Node should not be found");
 			}
-			catch (ObjectNotFoundException ex)
-			{
-				Assert.AreEqual("Node not found.", ex.Message, "Exception message not as expected");
-				Assert.AreEqual(ObjectNotFoundErrors.NodeNotFound, (ObjectNotFoundErrors)ex.ErrorCode);
+			catch (ObjectNotFoundException ex) {
+				Assert.AreEqual ("Node not found.", ex.Message, "Exception message not as expected");
+				Assert.AreEqual (ObjectNotFoundErrors.NodeNotFound, (ObjectNotFoundErrors) ex.ErrorCode);
 			}
 		}
 
 		[Test]
-		[Description("Should throw exist exception")]
-		[Category("Node-Exceptions")]
-		public void NodeDoesNotExistsByNameAndParentException()
+		[Description ("Should throw exist exception")]
+		[Category ("Node-Exceptions")]
+		public void NodeDoesNotExistsByNameAndParentException ()
 		{
-			var bNode = new BNode(_context);
-			try
-			{
-				bNode.GetNode(1, "FakeNode", true);
-				Assert.Fail("Node should not be found");
+			var bNode = new BNode (_context);
+			try {
+				bNode.GetNode (1, "FakeNode", true);
+				Assert.Fail ("Node should not be found");
 			}
-			catch (ObjectNotFoundException ex)
-			{
-				Assert.AreEqual("Node not found.", ex.Message, "Exception message not as expected");
-				Assert.AreEqual(ObjectNotFoundErrors.NodeNotFound, (ObjectNotFoundErrors)ex.ErrorCode);
+			catch (ObjectNotFoundException ex) {
+				Assert.AreEqual ("Node not found.", ex.Message, "Exception message not as expected");
+				Assert.AreEqual (ObjectNotFoundErrors.NodeNotFound, (ObjectNotFoundErrors) ex.ErrorCode);
 			}
 		}
 
@@ -143,91 +133,91 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		}
 
 
-		[Test, Description("Creates a root node and fetches it. Compares results"), Category("Node")]
-		public void CreateAndFetchRootNode()
+		[Test, Description ("Creates a root node and fetches it. Compares results"), Category ("Node")]
+		public void CreateAndFetchRootNode ()
 		{
 			const string rootName = "root";
-			var bNode = new BNode(_context);
-			var createdNode = bNode.CreateNode(null, rootName);
-			var fetchedNode = bNode.GetNode(createdNode.Id, true);
-			Assert.AreEqual(_context.UserName, fetchedNode.CreatedByName, "Username different from expected");
-			Assert.AreEqual(_context.UserId, fetchedNode.CreatedById, "User id different from expected");
-			Assert.IsNull(fetchedNode.ApprovedByName, "ApprovedByName not null");
-			Assert.IsNull(fetchedNode.ApprovedById, "ApprovedById not null");
-			Assert.IsNull(fetchedNode.ChangedByName, "ChangedByName not null");
-			Assert.IsNull(fetchedNode.ChangedById, "ChangedById not null");
-			Assert.IsNull(fetchedNode.Parent, "Parent not null");
-			Assert.IsNull(fetchedNode.ParentNode, "ParentNode by not null");
-			Assert.AreEqual(rootName, fetchedNode.Name, "Name not equal");
-			Assert.AreEqual(true, fetchedNode.IsActive, "Node should be active after create");
+			BNode bNode = new BNode (_context);
+			Node createdNode = bNode.CreateNode (null, rootName);
+			Node fetchedNode = bNode.GetNode (createdNode.Id, true);
+			Assert.AreEqual (_context.UserName, fetchedNode.CreatedByName, "Username different from expected");
+			Assert.AreEqual (_context.UserId, fetchedNode.CreatedById, "User id different from expected");
+			Assert.IsNull (fetchedNode.ApprovedByName, "ApprovedByName not null");
+			Assert.IsNull (fetchedNode.ApprovedById, "ApprovedById not null");
+			Assert.IsNull (fetchedNode.ChangedByName, "ChangedByName not null");
+			Assert.IsNull (fetchedNode.ChangedById, "ChangedById not null");
+			Assert.IsNull (fetchedNode.Parent, "Parent not null");
+			Assert.IsNull (fetchedNode.ParentNode, "ParentNode by not null");
+			Assert.AreEqual (rootName, fetchedNode.Name, "Name not equal");
+			Assert.AreEqual (true, fetchedNode.IsActive, "Node should be active after create");
 		}
-		
-		[Test, Description("Creates a child node and fetches it. Compares results"), Category("Node")]
-		public void CreateAndFetchChildNode()
+
+		[Test, Description ("Creates a child node and fetches it. Compares results"), Category ("Node")]
+		public void CreateAndFetchChildNode ()
 		{
 			const string rootName = "root";
 			const string childName = "child";
-			var bNode = new BNode(_context);
-			var rootNode = bNode.CreateNode(null, rootName);
-			var childNode = bNode.CreateNode(rootNode.Id, childName);
-			var fetchedNode = bNode.GetNode(childNode.Id, true);
-			Assert.AreEqual(_context.UserName, fetchedNode.CreatedByName);
-			Assert.AreEqual(_context.UserId, fetchedNode.CreatedById);
-			Assert.IsNull(fetchedNode.ApprovedByName, "ApprovedByName not null");
-			Assert.IsNull(fetchedNode.ApprovedById, "ApprovedById not null");
-			Assert.IsNull(fetchedNode.ChangedByName, "ChangedByName not null");
-			Assert.IsNull(fetchedNode.ChangedById, "ChangedById not null");
-			Assert.AreEqual(rootNode.Id,fetchedNode.Parent, "Parent Id not as expected");
-			Assert.AreEqual(rootNode,fetchedNode.ParentNode, "ParentNode not as expected");
-			Assert.AreEqual(rootName, fetchedNode.Name, "Name not equal");
-			Assert.AreEqual(true, fetchedNode.IsActive, "Node should be active after create");
+			BNode bNode = new BNode (_context);
+			Node rootNode = bNode.CreateNode (null, rootName);
+			Node childNode = bNode.CreateNode (rootNode.Id, childName);
+			Node fetchedNode = bNode.GetNode (childNode.Id, true);
+			Assert.AreEqual (_context.UserName, fetchedNode.CreatedByName);
+			Assert.AreEqual (_context.UserId, fetchedNode.CreatedById);
+			Assert.IsNull (fetchedNode.ApprovedByName, "ApprovedByName not null");
+			Assert.IsNull (fetchedNode.ApprovedById, "ApprovedById not null");
+			Assert.IsNull (fetchedNode.ChangedByName, "ChangedByName not null");
+			Assert.IsNull (fetchedNode.ChangedById, "ChangedById not null");
+			Assert.AreEqual (rootNode.Id, fetchedNode.Parent, "Parent Id not as expected");
+			Assert.AreEqual (rootNode, fetchedNode.ParentNode, "ParentNode not as expected");
+			Assert.AreEqual (childName, fetchedNode.Name, "Name not equal");
+			Assert.AreEqual (true, fetchedNode.IsActive, "Node should be active after create");
 		}
 
-		[Test, Description("Creates a node and update current node"), Category("Node")]
-		public void CreateAndUpdatesRootNode()
+		[Test, Description ("Creates a node and update current node"), Category ("Node")]
+		public void CreateAndUpdatesRootNode ()
 		{
 			const string nodeName = "root";
 			const string newNodeName = "newName";
-			var bNode	= new BNode(_context);
-			var node = bNode.CreateNode(null, nodeName);
-			var newNode = bNode.ChangeNode(node.Id, node.Parent, newNodeName);
-			Assert.AreEqual(newNodeName, newNode.Name, "The new name are not as expected after change");
-			Assert.AreEqual(_context.UserName, newNode.ChangedByName, "ChangedByName not as expected");
-			Assert.AreEqual(_context.UserId, newNode.ChangedById, "ChangedByid not as expected");
-			newNode = bNode.GetNode(node.Id, true);
-			Assert.AreEqual(newNodeName, newNode.Name, "The new name are not as expected after fetch by Id");
-			Assert.AreEqual(_context.UserName, newNode.ChangedByName, "ChangedByName not as expected");
-			Assert.AreEqual(_context.UserId, newNode.ChangedById, "ChangedByid not as expected");
-			newNode = bNode.GetNode(node.Parent, node.Name, true);
-			Assert.AreEqual(newNodeName, newNode.Name, "The new name are not as expected after fetch by Name");
-			Assert.AreEqual(_context.UserName, newNode.ChangedByName, "ChangedByName not as expected");
-			Assert.AreEqual(_context.UserId, newNode.ChangedById, "ChangedByid not as expected");
+			BNode bNode = new BNode (_context);
+			Node node = bNode.CreateNode (null, nodeName);
+			Node newNode = bNode.ChangeNode (node.Id, node.Parent, newNodeName);
+			Assert.AreEqual (newNodeName, newNode.Name, "The new name are not as expected after change");
+			Assert.AreEqual (_context.UserName, newNode.ChangedByName, "ChangedByName not as expected");
+			Assert.AreEqual (_context.UserId, newNode.ChangedById, "ChangedByid not as expected");
+			newNode = bNode.GetNode (node.Id, true);
+			Assert.AreEqual (newNodeName, newNode.Name, "The new name are not as expected after fetch by Id");
+			Assert.AreEqual (_context.UserName, newNode.ChangedByName, "ChangedByName not as expected");
+			Assert.AreEqual (_context.UserId, newNode.ChangedById, "ChangedByid not as expected");
+			newNode = bNode.GetNode (node.Parent, newNode.Name, true);
+			Assert.AreEqual (newNodeName, newNode.Name, "The new name are not as expected after fetch by Name");
+			Assert.AreEqual (_context.UserName, newNode.ChangedByName, "ChangedByName not as expected");
+			Assert.AreEqual (_context.UserId, newNode.ChangedById, "ChangedByid not as expected");
 		}
 
-		[Test, Description("Creates a child node and update current node"), Category("Node")]
-		public void CreateAndUpdatesChildNode()
+		[Test, Description ("Creates a child node and update current node"), Category ("Node")]
+		public void CreateAndUpdatesChildNode ()
 		{
 			const string nodeName = "root";
 			const string childName = "child";
 			const string newNodeName = "newName";
-			var bNode = new BNode(_context);
-			var node = bNode.CreateNode(null, nodeName);
-			var childNode = bNode.CreateNode(node.Id, childName);
-			var newNode = bNode.ChangeNode(childNode.Id, childNode.Parent, newNodeName);
-			Assert.AreEqual(newNodeName, newNode.Name, "The new name are not as expected after change");
-			Assert.AreEqual(_context.UserName, newNode.ChangedByName, "ChangedByName not as expected");
-			Assert.AreEqual(_context.UserId, newNode.ChangedById, "ChangedByid not as expected");
-			Assert.AreEqual(node.Id, newNode.Parent, "Parent not as expected");
-			newNode = bNode.GetNode(node.Id, true);
-			Assert.AreEqual(newNodeName, newNode.Name, "The new name are not as expected after fetch by Id");
-			Assert.AreEqual(_context.UserName, newNode.ChangedByName, "ChangedByName not as expected after fetch by Id");
-			Assert.AreEqual(_context.UserId, newNode.ChangedById, "ChangedByid not as expected after fetch by Id");
-			Assert.AreEqual(node, newNode.ParentNode, "ParentNode not as expected after fetch by Id");
-			newNode = bNode.GetNode(node.Parent, node.Name, true);
-			Assert.AreEqual(newNodeName, newNode.Name, "The new name are not as expected after fetch by Name");
-			Assert.AreEqual(_context.UserName, newNode.ChangedByName, "ChangedByName not as expected after fetch by Name");
-			Assert.AreEqual(_context.UserId, newNode.ChangedById, "ChangedByid not as expected after fetch by Name");
-			Assert.AreEqual(node, newNode.ParentNode, "ParentNode not as expected after fetch by Name");
+			BNode bNode = new BNode (_context);
+			Node node = bNode.CreateNode (null, nodeName);
+			Node childNode = bNode.CreateNode (node.Id, childName);
+			Node newNode = bNode.ChangeNode (childNode.Id, childNode.Parent, newNodeName);
+			Assert.AreEqual (newNodeName, newNode.Name, "The new name are not as expected after change");
+			Assert.AreEqual (_context.UserName, newNode.ChangedByName, "ChangedByName not as expected");
+			Assert.AreEqual (_context.UserId, newNode.ChangedById, "ChangedByid not as expected");
+			Assert.AreEqual (node.Id, newNode.Parent, "Parent not as expected");
+			newNode = bNode.GetNode (childNode.Id, true);
+			Assert.AreEqual (newNodeName, newNode.Name, "The new name are not as expected after fetch by Id");
+			Assert.AreEqual (_context.UserName, newNode.ChangedByName, "ChangedByName not as expected after fetch by Id");
+			Assert.AreEqual (_context.UserId, newNode.ChangedById, "ChangedByid not as expected after fetch by Id");
+			Assert.AreEqual (node, newNode.ParentNode, "ParentNode not as expected after fetch by Id");
+			newNode = bNode.GetNode (childNode.Parent, newNode.Name, true);
+			Assert.AreEqual (newNodeName, newNode.Name, "The new name are not as expected after fetch by Name");
+			Assert.AreEqual (_context.UserName, newNode.ChangedByName, "ChangedByName not as expected after fetch by Name");
+			Assert.AreEqual (_context.UserId, newNode.ChangedById, "ChangedByid not as expected after fetch by Name");
+			Assert.AreEqual (node, newNode.ParentNode, "ParentNode not as expected after fetch by Name");
 		}
 
 		[Test, Description("Creates and locks a child node. Compares results")]
@@ -249,9 +239,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string nodeName = "root";
 			const string childName = "child";
-			var bNode = new BNode(_context);
-			var rootNode = bNode.CreateNode(null, nodeName);
-			var childNode = bNode.CreateNode(rootNode.Id, childName);
+			BNode bNode = new BNode(_context);
+			Node rootNode = bNode.CreateNode(null, nodeName);
+			Node childNode = bNode.CreateNode(rootNode.Id, childName);
 			bNode.Publish(childNode.Id);
 			childNode = bNode.GetNode(rootNode.Id, childName, true);
 			Assert.AreEqual(_context.UserName,childNode.ApprovedByName, "ApprovedByName not as expected");

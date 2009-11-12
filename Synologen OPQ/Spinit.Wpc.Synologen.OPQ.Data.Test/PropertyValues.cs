@@ -52,6 +52,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 
 		// File
 		public const int BaseFileId = 1;
+		public const int UpdatedBaseFileId = 2;
 		public const int FileCategoryId = 1;
 		public const int FileCategoryIdUpdated = 2;
 		public const string FileCategoryName = @"Generated Test Category";

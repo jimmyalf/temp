@@ -58,15 +58,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 
 		public FileCategory ChangeFileCategory (int fileCategoryId, string name)
 		{
+			FileCategory fileCategory = GetFileCategory (fileCategoryId);
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
-				synologenRepository.File.Update (
-					new FileCategory
-					{
-						Id = fileCategoryId,
-						Name = name
-					});
+
+				
+				fileCategory.Name = name;
+				synologenRepository.File.Update (fileCategory);
 				synologenRepository.SubmitChanges ();
 
 				return synologenRepository.File.GetFileCategoryById (fileCategoryId);
@@ -213,15 +212,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		
 		public File ChangeFile (int fileId, int baseFileId)
 		{
+			File file = GetFile (fileId, false);
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
-				synologenRepository.File.Update (
-					new File
-					{
-						Id = fileId,
-						FleId = baseFileId
-					});
+				
+				file.FleId = baseFileId;
+				synologenRepository.File.Update (file);
 				synologenRepository.SubmitChanges ();
 
 				return synologenRepository.File.GetFileById (fileId);
@@ -354,6 +351,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				WpcSynologenRepository synologenRepository 
 					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
 				) {
+				synologenRepository.AddDataLoadOptions<File> (f => f.BaseFile);
+
 				if (fillObjects) {
 					synologenRepository.AddDataLoadOptions<File> (f => f.FileCategory);
 					synologenRepository.AddDataLoadOptions<File> (f => f.Node);
@@ -362,6 +361,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.AddDataLoadOptions<File> (f => f.ApprovedBy);
 					synologenRepository.AddDataLoadOptions<File> (f => f.LockedBy);
 				}
+
+				synologenRepository.SetDataLoadOptions ();
 
 				return synologenRepository.File.GetFileById (fileId);
 			}
@@ -384,6 +385,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
 				) {
 
+				synologenRepository.AddDataLoadOptions<File> (f => f.BaseFile);
+
 				if (fillObjects) {
 					synologenRepository.AddDataLoadOptions<File> (f => f.FileCategory);
 					synologenRepository.AddDataLoadOptions<File> (f => f.Node);
@@ -392,7 +395,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.AddDataLoadOptions<File> (f => f.ApprovedBy);
 					synologenRepository.AddDataLoadOptions<File> (f => f.LockedBy);
 				}
-				
+
+				synologenRepository.SetDataLoadOptions ();
+
 				if (nodeId != null) {
 					if (shopId != null) {
 						if (fileCategoryId != null) {

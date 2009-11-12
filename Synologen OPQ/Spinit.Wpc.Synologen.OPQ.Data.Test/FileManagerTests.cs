@@ -69,7 +69,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				Assert.AreEqual (PropertyValues.FileCategoryId, fetchFile.FleCatId, "File-category not correct!");
 
 				// Update file
-				fetchFile.FleCatId = PropertyValues.FileCategoryIdUpdated;
+				fetchFile.FleId = PropertyValues.UpdatedBaseFileId;
 				synologenRepository.File.Update (fetchFile);
 
 				synologenRepository.SubmitChanges ();
@@ -78,7 +78,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				fetchFile = synologenRepository.File.GetFileById (file.Id);
 
 				Assert.IsNotNull (fetchFile, "Fetched file is null.");
-				Assert.AreEqual (PropertyValues.FileCategoryIdUpdated, fetchFile.FleCatId, "File-category not correct!");
+				Assert.AreEqual (PropertyValues.UpdatedBaseFileId, fetchFile.FleId, "Base-file not correct!");
 
 				// Delete the file
 				synologenRepository.File.Delete (fetchFile);

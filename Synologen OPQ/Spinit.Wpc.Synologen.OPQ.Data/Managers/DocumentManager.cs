@@ -249,7 +249,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="documentId">The document-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
-		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+		/// <exception cref="ObjectNotFoundException">If the document or user is not found.</exception>
 		/// <exception cref="DocumentException">If document is locked by other user.</exception>
 
 		public void ApproveDocument (int documentId)
@@ -269,12 +269,15 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			oldDocument.ApprovedById = Manager.WebContext.UserId ?? 0;
 			oldDocument.ApprovedByName = Manager.WebContext.UserName;
 			oldDocument.ApprovedDate = DateTime.Now;
+			oldDocument.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldDocument.ChangedByName = Manager.WebContext.UserName;
+			oldDocument.ChangedDate = DateTime.Now;
 
 			if ((oldDocument.ApprovedById == 0) || (oldDocument.ApprovedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
 
-			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.ChangedById);
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.ApprovedById);
 		}
 
 		/// <summary>
@@ -282,7 +285,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="documentId">The document-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
-		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+		/// <exception cref="ObjectNotFoundException">If the document or user is not found.</exception>
 		/// <exception cref="DocumentException">If document is locked by other user.</exception>
 
 		public void CheckOutDocument (int documentId)
@@ -302,19 +305,23 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			oldDocument.LockedById = Manager.WebContext.UserId ?? 0;
 			oldDocument.LockedByName = Manager.WebContext.UserName;
 			oldDocument.LockedDate = DateTime.Now;
+			oldDocument.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldDocument.ChangedByName = Manager.WebContext.UserName;
+			oldDocument.ChangedDate = DateTime.Now;
 
 			if ((oldDocument.LockedById == 0) || (oldDocument.LockedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
 
-			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.ChangedById);
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.LockedById);
 		}
 
 		/// <summary>
 		/// Checks-in a document.
 		/// </summary>
 		/// <param name="documentId">The document-id.</param>
-		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the document or user is not found.</exception>
 		/// <exception cref="DocumentException">If document is locked by other user.</exception>
 
 		public void CheckInDocument (int documentId)
@@ -334,6 +341,15 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			oldDocument.LockedById = null;
 			oldDocument.LockedByName = null;
 			oldDocument.LockedDate = null;
+			oldDocument.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldDocument.ChangedByName = Manager.WebContext.UserName;
+			oldDocument.ChangedDate = DateTime.Now;
+
+			if ((oldDocument.ChangedById == 0) || (oldDocument.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.ChangedById);
 		}
 
 		#endregion

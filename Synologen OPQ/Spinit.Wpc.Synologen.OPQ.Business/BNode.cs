@@ -57,10 +57,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 
 		public Node ChangeNode (int nodeId, int? parent, string name)
 		{
+			Node node = GetNode (nodeId, false);
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
-				synologenRepository.Node.Update (new Node { Id = nodeId, Parent = parent, Name = name });
+				node.Parent = parent;
+				node.Name = name;
+					
+				synologenRepository.Node.Update (node);
 				synologenRepository.SubmitChanges ();
 
 				return synologenRepository.Node.GetNodeById (nodeId);
@@ -265,7 +269,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.SetDataLoadOptions ();
 				}
 
-				return synologenRepository.Node.GetNodeById (nodeId);
+				Node node =  synologenRepository.Node.GetNodeById (nodeId);
+
+				node.ParentNode = fillObjects && (node.Parent != null)
+				                  	? synologenRepository.Node.GetNodeById ((int) node.Parent)
+				                  	: null;
+
+				return node;
 			}
 		}
 
@@ -304,7 +314,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.SetDataLoadOptions ();
 				}
 
-				return synologenRepository.Node.GetNodeByName (parent, name);
+				Node node = synologenRepository.Node.GetNodeByName (parent, name);
+
+				node.ParentNode = fillObjects && (node.Parent != null)
+									? synologenRepository.Node.GetNodeById ((int) node.Parent)
+									: null;
+
+				return node;
 			}
 		}
 
@@ -345,19 +361,28 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.SetDataLoadOptions ();
 				}
 
+				IList<Node> nodes;
+
 				if ((parent == null) && (name == null)) {
-					return synologenRepository.Node.GetRootNodes (onlyActive, onlyApproved);
+					nodes = synologenRepository.Node.GetRootNodes (onlyActive, onlyApproved);
+				}
+				else if (name == null) {
+					nodes = synologenRepository.Node.GetChildNodes ((int) parent, onlyActive, onlyApproved);
+				}
+				else if (parent == null) {
+					nodes = synologenRepository.Node.GetNodesByName (name, onlyActive, onlyApproved);
+				}
+				else {
+					nodes = synologenRepository.Node.GetNodesByName ((int) parent, name, onlyActive, onlyApproved);
 				}
 
-				if (name == null) {
-					return synologenRepository.Node.GetChildNodes ((int) parent, onlyActive, onlyApproved);
+				if (fillObjects && (nodes != null) && (nodes.Count > 0)) {
+					foreach (Node node in nodes) {
+						node.ParentNode = node.Parent != null ? synologenRepository.Node.GetNodeById ((int) node.Parent) : null;
+					}
 				}
 
-				if (parent == null) {
-					return synologenRepository.Node.GetNodesByName (name, onlyActive, onlyApproved);
-				}
-
-				return synologenRepository.Node.GetNodesByName ((int) parent, name, onlyActive, onlyApproved);
+				return nodes;
 			}
 		}
 

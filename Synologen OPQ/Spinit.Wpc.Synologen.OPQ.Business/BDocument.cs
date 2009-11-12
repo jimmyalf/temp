@@ -85,15 +85,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 
 		public Document ChangeDocument (int documentId, string documentContent)
 		{
+			Document document = GetDocument (documentId, false);
+
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
-				synologenRepository.Document.Update (
-					new Document
-					{
-						Id = documentId,
-						DocumentContent = documentContent
-					});
+				document.DocumentContent = documentContent;
+				synologenRepository.Document.Update (document);
 				synologenRepository.SubmitChanges ();
 
 				return synologenRepository.Document.GetDocumentById (documentId);

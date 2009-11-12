@@ -197,8 +197,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			}
 
 			if (oldFile.FleCatId != file.FleCatId) {
-				CheckFileCategoryExist (file.FleCatId);
-				oldFile.FleCatId = file.FleCatId;
+				throw new FileException ("File-category change not allowed", FileErrors.ChangeOfFileCategoryNotAllowed);
 			}
 
 			if (oldFile.FleId != file.FleId) {
@@ -394,12 +393,15 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			oldFile.ApprovedById = Manager.WebContext.UserId ?? 0;
 			oldFile.ApprovedByName = Manager.WebContext.UserName;
 			oldFile.ApprovedDate = DateTime.Now;
+			oldFile.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldFile.ChangedByName = Manager.WebContext.UserName;
+			oldFile.ChangedDate = DateTime.Now;
 
 			if ((oldFile.ApprovedById == 0) || (oldFile.ApprovedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
 
-			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ChangedById);
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ApprovedById);
 		}
 
 		/// <summary>
@@ -427,19 +429,23 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			oldFile.LockedById = Manager.WebContext.UserId ?? 0;
 			oldFile.LockedByName = Manager.WebContext.UserName;
 			oldFile.LockedDate = DateTime.Now;
+			oldFile.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldFile.ChangedByName = Manager.WebContext.UserName;
+			oldFile.ChangedDate = DateTime.Now;
 
 			if ((oldFile.LockedById == 0) || (oldFile.LockedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
 	
-			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ChangedById);
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.LockedById);
 		}
 
 		/// <summary>
 		/// Checks-in a file.
 		/// </summary>
 		/// <param name="fileId">The file-id.</param>
-		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
 		/// <exception cref="FileException">If file is locked by other user.</exception>
 
 		public void CheckInFile (int fileId)
@@ -459,6 +465,15 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			oldFile.LockedById = null;
 			oldFile.LockedByName = null;
 			oldFile.LockedDate = null;
+			oldFile.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldFile.ChangedByName = Manager.WebContext.UserName;
+			oldFile.ChangedDate = DateTime.Now;
+
+			if ((oldFile.ChangedById == 0) || (oldFile.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ChangedById);
 		}
 
 		#endregion
@@ -715,7 +730,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.FileNotFound);
 			}
 
-			return EFile.Convert (files.First ());
+			return Converter (files.First ());
 		}
 
 		/// <summary>
@@ -730,9 +745,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		public IList<File> GetFilesByNodeId (int nodeId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-												 where file.NdeId == nodeId
-												 orderby file.Order ascending
-												 select file;
+			                                 where file.NdeId == nodeId
+			                                 orderby file.Order ascending
+			                                 select file;
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -1070,7 +1085,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 					ObjectNotFoundErrors.FileCategoryNotFound);
 			}
 
-			return EFileCategory.Convert (fileCategories.First ());
+			return Converter (fileCategories.First ());
 
 		}
 

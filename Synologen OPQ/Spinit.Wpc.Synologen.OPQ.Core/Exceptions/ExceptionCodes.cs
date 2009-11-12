@@ -163,7 +163,13 @@
 		/// Changing node not allowed.
 		/// </summary>
 
-		CangeOfNodeNotAllowed = 8
+		CangeOfNodeNotAllowed = 8,
+
+		/// <summary>
+		/// Changing file-category not allowed.
+		/// </summary>
+
+		ChangeOfFileCategoryNotAllowed = 9
 	}
 
 	/// <summary>

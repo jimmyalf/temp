@@ -46,7 +46,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string rootName = "opq";
 			BNode bNode = new BNode (_context);
-			Node node = bNode.CreateNode (null, rootName);
+			Node node = bNode.CreateNode (null, rootName, true);
 
 			const string documentContent = "Content";
 			BDocument bDocument = new BDocument (_context);
@@ -61,7 +61,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string rootName = "opq";
 			BNode bNode = new BNode (_context);
-			Node node = bNode.CreateNode (null, rootName);
+			Node node = bNode.CreateNode (null, rootName, true);
 
 			const string documentContent = "Content";
 			BDocument bDocument = new BDocument (_context);
@@ -78,7 +78,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string rootName = "opq";
 			BNode bNode = new BNode (_context);
-			Node node = bNode.CreateNode (null, rootName);
+			Node node = bNode.CreateNode (null, rootName, false);
 
 			const string documentContent = "Content";
 			const string newContent = "New Content";
@@ -97,7 +97,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string rootName = "opq";
 			BNode bNode = new BNode (_context);
-			Node node = bNode.CreateNode (null, rootName);
+			Node node = bNode.CreateNode (null, rootName, false);
 
 			const string documentContent = "Content";
 			BDocument bDocument = new BDocument (_context);
@@ -118,7 +118,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string rootName = "opq";
 			BNode bNode = new BNode (_context);
-			Node node = bNode.CreateNode (null, rootName);
+			Node node = bNode.CreateNode (null, rootName, false);
 
 			const string documentContent = "Content";
 			BDocument bDocument = new BDocument (_context);

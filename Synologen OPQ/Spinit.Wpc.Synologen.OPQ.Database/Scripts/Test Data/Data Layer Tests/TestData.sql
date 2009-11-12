@@ -61,48 +61,48 @@ SET IDENTITY_INSERT dbo.tblBaseFile OFF
 SET IDENTITY_INSERT dbo.SynologenOpqNodes ON
 
 INSERT INTO dbo.SynologenOpqNodes (
-	Id, Parent, [Name], IsActive, CreatedById, CreatedByName, CreatedDate,
+	Id, Parent, [Name], IsMenu, IsActive, CreatedById, CreatedByName, CreatedDate,
 	ApprovedById, ApprovedByName, ApprovedDate) 
 VALUES (
-	1, NULL, 'Test-Root1', 1, 1, 'Admin', GETDATE (),
+	1, NULL, 'Test-Root1', 1, 1, 1, 'Admin', GETDATE (),
 	1, 'Admin', GETDATE ())
 	
 INSERT INTO dbo.SynologenOpqNodes (
-	Id, Parent, [Name], IsActive, CreatedById, CreatedByName, CreatedDate) 
+	Id, Parent, [Name], IsMenu, IsActive, CreatedById, CreatedByName, CreatedDate) 
 VALUES (
-	2, NULL, 'Test-Root2', 0, 1, 'Admin', GETDATE ()) 
+	2, NULL, 'Test-Root2', 1, 0, 1, 'Admin', GETDATE ()) 
 	
 INSERT INTO dbo.SynologenOpqNodes (
-	Id, Parent, [Name], IsActive, CreatedById, CreatedByName, CreatedDate,
+	Id, Parent, [Name], IsMenu, IsActive, CreatedById, CreatedByName, CreatedDate,
 	ApprovedById, ApprovedByName, ApprovedDate) 
 VALUES (
-	3, 1, 'Test-Root1-Child1', 1, 1, 'Admin', GETDATE (),
+	3, 1, 'Test-Root1-Child1', 1, 1, 1, 'Admin', GETDATE (),
 	1, 'Admin', GETDATE ()) 
 	
 INSERT INTO dbo.SynologenOpqNodes (
-	Id, Parent, [Name], IsActive, CreatedById, CreatedByName, CreatedDate) 
+	Id, Parent, [Name], IsMenu, IsActive, CreatedById, CreatedByName, CreatedDate) 
 VALUES (
-	4, 1, 'Test-Root1-Child2', 0, 1, 'Admin', GETDATE ()) 
+	4, 1, 'Test-Root1-Child2', 0, 1, 1, 'Admin', GETDATE ()) 
 
 INSERT INTO dbo.SynologenOpqNodes (
-	Id, Parent, [Name], IsActive, CreatedById, CreatedByName, CreatedDate,
+	Id, Parent, [Name], IsMenu, IsActive, CreatedById, CreatedByName, CreatedDate,
 	ApprovedById, ApprovedByName, ApprovedDate) 
 VALUES (
 	5, 3, 'Test-Root1-Child1-Child1', 1, 1, 'Admin', GETDATE (),
 	1, 'Admin', GETDATE ()) 
 
 INSERT INTO dbo.SynologenOpqNodes (
-	Id, Parent, [Name], IsActive, CreatedById, CreatedByName, CreatedDate,
+	Id, Parent, [Name], IsMenu, IsActive, CreatedById, CreatedByName, CreatedDate,
 	ApprovedById, ApprovedByName, ApprovedDate) 
 VALUES (
-	6, 3, 'Test-Root1-Child1-Child2', 1, 1, 'Admin', GETDATE (),
+	6, 3, 'Test-Root1-Child1-Child2', 1, 1, 1, 'Admin', GETDATE (),
 	1, 'Admin', GETDATE ()) 
 
 INSERT INTO dbo.SynologenOpqNodes (
-	Id, Parent, [Name], IsActive, CreatedById, CreatedByName, CreatedDate,
+	Id, Parent, [Name], IsMenu, IsActive, CreatedById, CreatedByName, CreatedDate,
 	ApprovedById, ApprovedByName, ApprovedDate) 
 VALUES (
-	7, 5, 'Test-Root1-Child1-Child1-Child1', 1, 1, 'Admin', GETDATE (),
+	7, 5, 'Test-Root1-Child1-Child1-Child1', 1, 1, 1, 'Admin', GETDATE (),
 	1, 'Admin', GETDATE ()) 
 
 SET IDENTITY_INSERT dbo.SynologenOpqNodes OFF

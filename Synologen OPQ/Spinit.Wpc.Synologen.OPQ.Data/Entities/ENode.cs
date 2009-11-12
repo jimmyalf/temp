@@ -142,8 +142,27 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 				}
 			}
 		}
-		
-		partial void OnIsActiveChanging(bool value);
+
+		partial void OnIsMenuChanging (bool value);
+		partial void OnIsMenuChanged ();
+		private bool _IsMenu;
+		[Column (Storage = @"_IsMenu", DbType = @"Bit NOT NULL", CanBeNull = false)]
+		public bool IsMenu
+		{
+			get { return _IsMenu; }
+			set
+			{
+				if (_IsMenu != value) {
+					OnIsActiveChanging (value);
+					SendPropertyChanging ();
+					_IsMenu = value;
+					SendPropertyChanged ("IsMenu");
+					OnIsActiveChanged ();
+				}
+			}
+		}
+
+		partial void OnIsActiveChanging (bool value);
 		partial void OnIsActiveChanged();
 		private bool _IsActive;
 		[Column(Storage=@"_IsActive", DbType=@"Bit NOT NULL", CanBeNull=false)]

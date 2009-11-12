@@ -151,6 +151,7 @@ create table "SynologenOpqNodes" (
 	"Order" int not null,
 	"Name" nvarchar(512) not null,
 	"IsActive" bit not null,
+	"IsMenu" bit not null,
 	"CreatedById" int not null,
 	"CreatedByName" nvarchar(100) not null,
 	"CreatedDate" datetime not null,

@@ -158,7 +158,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <exception cref="ObjectNotFoundException">If file, user, file-category or base-file does not exist.</exception>
 		/// <exception cref="FileException">
 		/// 1. If file is locked by other user. 
-		/// 2. If shop or concern is changed.</exception>
+		/// 2. If node, shop or concern is changed.</exception>
 
 		private void Update (EFile file)
 		{
@@ -183,6 +183,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			}
 
 			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ChangedById);
+
+			if (oldFile.NdeId != file.NdeId) {
+				throw new FileException ("Node change not allowed", FileErrors.CangeOfNodeNotAllowed);
+			}
 
 			if (oldFile.ShpId != file.ShpId) {
 				throw new FileException ("Shop change not allowed", FileErrors.ChangeOfShopNotAllowed);
@@ -211,7 +215,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 		/// <exception cref="FileException">
 		/// 1. If file is locked by other user. 
-		/// 2. If shop or concern is changed.</exception>
+		/// 2. If node, shop or concern is changed.</exception>
 
 		public void Update (File file)
 		{
@@ -228,6 +232,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="fileId">The file-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
+		/// <exception cref="FileException">If file is locked by other user.</exception>
 
 		public void DeactivateFile (int fileId)
 		{
@@ -262,6 +267,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="fileId">The file-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
+		/// <exception cref="FileException">If file is locked by other user.</exception>
 
 		public void ReactivateFile (int fileId)
 		{
@@ -300,7 +306,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="file">The file to move.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
-		/// <exception cref="FileException">The move is forbidden or the position is not changed.</exception>
+		/// <exception cref="FileException">
+		/// 1. The move is forbidden or the position is not changed.
+		/// 2.If file is locked by other user.</exception>
 
 		private void MoveFile (EFile file)
 		{
@@ -348,6 +356,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
 		/// <exception cref="FileException">The move is forbidden or the position is not changed.</exception>
+		/// <exception cref="FileException">
+		/// 1. The move is forbidden or the position is not changed.
+		/// 2.If file is locked by other user.</exception>
 
 		public void MoveFile (File file)
 		{
@@ -364,6 +375,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="fileId">The file-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
+		/// <exception cref="FileException">If file is locked by other user.</exception>
 
 		public void ApproveFile (int fileId)
 		{
@@ -396,6 +408,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="fileId">The file-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
+		/// <exception cref="FileException">If file is locked by other user.</exception>
 
 		public void CheckOutFile (int fileId)
 		{
@@ -427,6 +440,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="fileId">The file-id.</param>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+		/// <exception cref="FileException">If file is locked by other user.</exception>
 
 		public void CheckInFile (int fileId)
 		{
@@ -798,6 +812,118 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			                                 	&& file.FleCatId == fileCategoryId
 			                                 orderby file.Order ascending
 			                                 select file;
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
+			}
+
+			Converter<EFile, File> converter = Converter;
+			IList<File> files = query.ToList ().ConvertAll (converter);
+
+			if (files == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			return files;
+		}
+
+		/// <summary>
+		/// Fetches a list of files for a node.
+		/// </summary>
+		/// <param name="shopId">The shop-id.</param>
+ 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
+		/// <returns>A list of files.</returns>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		public IList<File> GetFilesByShopId (int shopId, bool onlyActive, bool onlyApproved)
+		{
+			IOrderedQueryable<EFile> query = from file in _dataContext.Files
+											 where file.ShpId == shopId
+											 orderby file.Order ascending
+											 select file;
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
+			}
+
+			Converter<EFile, File> converter = Converter;
+			IList<File> files = query.ToList ().ConvertAll (converter);
+
+			if (files == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			return files;
+		}
+
+		/// <summary>
+		/// Fetches a list of files for a node.
+		/// </summary>
+		/// <param name="shopId">The shop-id.</param>
+		/// <param name="fileCategoryId">The file-category.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
+		/// <returns>A list of files.</returns>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		public IList<File> GetFilesByShopId (int shopId, int fileCategoryId, bool onlyActive, bool onlyApproved)
+		{
+			IOrderedQueryable<EFile> query = from file in _dataContext.Files
+											 where file.ShpId == shopId && file.FleCatId == fileCategoryId
+											 orderby file.Order ascending
+											 select file;
+
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
+			}
+
+			Converter<EFile, File> converter = Converter;
+			IList<File> files = query.ToList ().ConvertAll (converter);
+
+			if (files == null) {
+				throw new ObjectNotFoundException (
+					"File not found.",
+					ObjectNotFoundErrors.FileNotFound);
+			}
+
+			return files;
+		}
+
+		/// <summary>
+		/// Fetches a list of files for a node.
+		/// </summary>
+		/// <param name="fileCategoryId">The file-category.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
+		/// <returns>A list of files.</returns>
+		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+
+		public IList<File> GetFilesByCategoryId (int fileCategoryId, bool onlyActive, bool onlyApproved)
+		{
+			IOrderedQueryable<EFile> query = from file in _dataContext.Files
+											 where file.FleCatId == fileCategoryId
+											 orderby file.Order ascending
+											 select file;
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);

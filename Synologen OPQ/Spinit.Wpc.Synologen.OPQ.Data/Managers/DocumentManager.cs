@@ -37,6 +37,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="document">The document.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If user, shop or concern does not exist.</exception>
 
 		private void Insert (EDocument document)
 		{
@@ -70,6 +71,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="document">The document.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If user, shop or concern does not exist.</exception>
 
 		public void Insert (Document document)
 		{
@@ -100,6 +102,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="document">The document.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+		/// <exception cref="DocumentException">
+		/// 1. If document is locked by other user. 
+		/// 2. If node, shop, concern or document-type is changed.</exception>
 
 		private void Update (EDocument document)
 		{
@@ -125,20 +130,20 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.ChangedById);
 
-			if ((document.NdeId != 0) && (oldDocument.NdeId != document.NdeId)) {
-				oldDocument.NdeId = document.NdeId;
+			if (oldDocument.NdeId != document.NdeId) {
+				throw new DocumentException ("Node change not allowed", DocumentErrors.CangeOfNodeNotAllowed);
 			}
 
-			if ((document.ShpId != null) && (oldDocument.ShpId != document.ShpId)) {
-				oldDocument.ShpId = document.ShpId == 0 ? null : document.ShpId;
-			}
-			
-			if ((document.CncId != null) && (oldDocument.CncId != document.CncId)) {
-				oldDocument.CncId = document.CncId == 0 ? null : document.CncId;
+			if (oldDocument.ShpId != document.ShpId) {
+				throw new DocumentException ("Shop change not allowed", DocumentErrors.ChangeOfShopNotAllowed);
 			}
 
-			if ((document.DocTpeId != (int) DocumentTypes.None) && (oldDocument.DocTpeId != document.DocTpeId)) {
-				oldDocument.DocTpeId = document.DocTpeId;
+			if (oldDocument.CncId != document.CncId) {
+				throw new DocumentException ("Concern change not allowed", DocumentErrors.ChangeOfConcernNotAllowed);
+			}
+
+			if (oldDocument.DocTpeId != document.DocTpeId) {
+				throw new DocumentException ("Document-type change not allowed", DocumentErrors.ChangeOfDocumentTypeNotAllowed);
 			}
 
 			if ((document.DocumentContent != null) && !oldDocument.DocumentContent.Equals (document.DocumentContent)) {
@@ -152,6 +157,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="document">The document.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+		/// <exception cref="DocumentException">
+		/// 1. If document is locked by other user. 
+		/// 2. If node, shop, concern or document-type is changed.</exception>
 
 		public void Update (Document document)
 		{
@@ -168,6 +176,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="documentId">The document-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+		/// <exception cref="DocumentException">If document is locked by other user.</exception>
 
 		public void DeactivateDocument (int documentId)
 		{
@@ -202,6 +211,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="documentId">The document-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+		/// <exception cref="DocumentException">If document is locked by other user.</exception>
 
 		public void ReactivateDocument (int documentId)
 		{
@@ -240,6 +250,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="documentId">The document-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+		/// <exception cref="DocumentException">If document is locked by other user.</exception>
 
 		public void ApproveDocument (int documentId)
 		{
@@ -272,6 +283,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="documentId">The document-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+		/// <exception cref="DocumentException">If document is locked by other user.</exception>
 
 		public void CheckOutDocument (int documentId)
 		{
@@ -303,6 +315,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="documentId">The document-id.</param>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+		/// <exception cref="DocumentException">If document is locked by other user.</exception>
 
 		public void CheckInDocument (int documentId)
 		{

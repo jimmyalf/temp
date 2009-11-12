@@ -42,6 +42,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		[Test, Description ("Creates, fetches, updates and deletes a file."), Category ("Internal")]
 		public void FileAddUpdateDeleteTest ()
 		{
+			File file;
+			File fetchFile;
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
@@ -58,15 +60,20 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 
 				synologenRepository.SubmitChanges ();
 
-				File file = synologenRepository.File.GetInsertedFile ();
+				file = synologenRepository.File.GetInsertedFile ();
 
 				Assert.IsNotNull (file, "File is null.");
 
 				// Fetch the file
-				File fetchFile = synologenRepository.File.GetFileById (file.Id);
+				fetchFile = synologenRepository.File.GetFileById (file.Id);
 
 				Assert.IsNotNull (fetchFile, "Fetched file is null.");
 				Assert.AreEqual (PropertyValues.FileCategoryId, fetchFile.FleCatId, "File-category not correct!");
+			}
+			
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
 
 				// Update file
 				fetchFile.FleId = PropertyValues.UpdatedBaseFileId;
@@ -289,6 +296,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		[Test, Description ("Creates, fetches, updates and deletes a file-category."), Category ("Internal")]
 		public void FileCategoryAddUpdateDeleteTest ()
 		{
+			FileCategory fileCategory;
+			FileCategory fetchFileCategory;
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
@@ -303,16 +312,19 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 
 				synologenRepository.SubmitChanges ();
 
-				FileCategory fileCategory = synologenRepository.File.GetInsertedFileCategory ();
+				fileCategory = synologenRepository.File.GetInsertedFileCategory ();
 
 				Assert.IsNotNull (fileCategory, "File-category is null.");
 
 				// Fetch the file-category
-				FileCategory fetchFileCategory = synologenRepository.File.GetFileCategoryById (fileCategory.Id);
+				fetchFileCategory = synologenRepository.File.GetFileCategoryById (fileCategory.Id);
 
 				Assert.IsNotNull (fetchFileCategory, "Fetched file-catgory is null.");
 				Assert.AreEqual (PropertyValues.FileCategoryName, fetchFileCategory.Name, "Content are not equal");
-
+			}
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
 				// Update file-category
 				fetchFileCategory.Name = PropertyValues.FileCategoryNameUpdated;
 				synologenRepository.File.Update (fetchFileCategory);

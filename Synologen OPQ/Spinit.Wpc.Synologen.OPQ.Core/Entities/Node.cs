@@ -14,7 +14,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Core.Entities
 		public int? Order { get; set; }
 		
 		public string Name { get; set; }
-		
+
+		public bool IsMenu { get; set; }
+
 		public bool IsActive { get; set; }
 		
 		public int CreatedById { get; set; }

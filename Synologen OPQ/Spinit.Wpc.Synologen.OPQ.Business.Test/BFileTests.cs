@@ -87,7 +87,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string rootName = "opq";
 			BNode bNode = new BNode (_context);
-			Node node = bNode.CreateNode (null, rootName);
+			Node node = bNode.CreateNode (null, rootName, false);
 
 			const int fleId = 1;
 			const string fileCategoryName = "File Category";
@@ -104,7 +104,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string rootName = "opq";
 			BNode bNode = new BNode (_context);
-			Node node = bNode.CreateNode (null, rootName);
+			Node node = bNode.CreateNode (null, rootName, false);
 
 			const int fleId = 1;
 			const string fileCategoryName = "File Category";
@@ -123,7 +123,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string rootName = "opq";
 			BNode bNode = new BNode (_context);
-			Node node = bNode.CreateNode (null, rootName);
+			Node node = bNode.CreateNode (null, rootName, false);
 
 			const int fleId = 1;
 			const int newFleId = 2;
@@ -144,7 +144,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string rootName = "opq";
 			BNode bNode = new BNode (_context);
-			Node node = bNode.CreateNode (null, rootName);
+			Node node = bNode.CreateNode (null, rootName, true);
 
 			const int fleId = 1;
 			const string fileCategoryName = "File Category";
@@ -167,7 +167,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string rootName = "opq";
 			BNode bNode = new BNode (_context);
-			Node node = bNode.CreateNode (null, rootName);
+			Node node = bNode.CreateNode (null, rootName, false);
 
 			const int fleId = 1;
 			const string fileCategoryName = "File Category";

@@ -49,7 +49,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 				) {
 
 				// Create a new node
-				synologenRepository.Node.Insert (new Node {Name = PropertyValues.NodeName});
+				synologenRepository.Node.Insert (new Node {Name = PropertyValues.NodeName, IsMenu = true});
 
 				synologenRepository.SubmitChanges ();
 

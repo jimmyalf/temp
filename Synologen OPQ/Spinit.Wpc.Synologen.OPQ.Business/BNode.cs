@@ -35,13 +35,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="parent">The parent identity.</param>
 		/// <param name="name">The name of the node.</param>
+		/// <param name="isMenu">If true=>is menu.</param>
 
-		public Node CreateNode (int? parent, string name)
+		public Node CreateNode (int? parent, string name, bool isMenu)
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
-				synologenRepository.Node.Insert (new Node {Parent = parent, Name = name});
+				synologenRepository.Node.Insert (new Node {Parent = parent, Name = name, IsMenu = isMenu});
 				synologenRepository.SubmitChanges ();
 
 				return synologenRepository.Node.GetInsertedNode ();

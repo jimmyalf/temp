@@ -46,8 +46,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			try {
 				const string rootName = "node";
 				BNode bNode = new BNode (_context);
-				bNode.CreateNode (null, rootName);
-				bNode.CreateNode (null, rootName);
+				bNode.CreateNode (null, rootName, true);
+				bNode.CreateNode (null, rootName, true);
 				Assert.Fail ("Create node should not be possible with same name");
 			}
 			catch (NodeException ex) {
@@ -66,9 +66,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const string child2 = "child";
 			try {
 				BNode bNode = new BNode (_context);
-				Node node = bNode.CreateNode (null, rootName);
-				bNode.CreateNode (node.Id, child1);
-				bNode.CreateNode (node.Id, child2);
+				Node node = bNode.CreateNode (null, rootName, true);
+				bNode.CreateNode (node.Id, child1, true);
+				bNode.CreateNode (node.Id, child2, true);
 				Assert.Fail ("Create node should not be possible with same name");
 			}
 			catch (NodeException ex) {
@@ -114,7 +114,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string rootName = "root";
 			var bNode = new BNode(_context);
-			var node = bNode.CreateNode(null, rootName);
+			var node = bNode.CreateNode(null, rootName, false);
 			Assert.AreEqual(rootName,node.Name);
 			Assert.AreEqual(1,node.Order);
 		}
@@ -126,8 +126,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const string rootName = "root";
 			const string childName = "child";
 			var bNode = new BNode(_context);
-			var node = bNode.CreateNode(null, rootName);
-			var child = bNode.CreateNode(node.Id, childName);
+			var node = bNode.CreateNode(null, rootName, true);
+			var child = bNode.CreateNode(node.Id, childName, true);
 			Assert.AreEqual(childName, child.Name);
 			Assert.AreEqual(1, node.Order);
 		}
@@ -138,7 +138,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			const string rootName = "root";
 			BNode bNode = new BNode (_context);
-			Node createdNode = bNode.CreateNode (null, rootName);
+			Node createdNode = bNode.CreateNode (null, rootName, true);
 			Node fetchedNode = bNode.GetNode (createdNode.Id, true);
 			Assert.AreEqual (_context.UserName, fetchedNode.CreatedByName, "Username different from expected");
 			Assert.AreEqual (_context.UserId, fetchedNode.CreatedById, "User id different from expected");
@@ -158,8 +158,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const string rootName = "root";
 			const string childName = "child";
 			BNode bNode = new BNode (_context);
-			Node rootNode = bNode.CreateNode (null, rootName);
-			Node childNode = bNode.CreateNode (rootNode.Id, childName);
+			Node rootNode = bNode.CreateNode (null, rootName, true);
+			Node childNode = bNode.CreateNode (rootNode.Id, childName, true);
 			Node fetchedNode = bNode.GetNode (childNode.Id, true);
 			Assert.AreEqual (_context.UserName, fetchedNode.CreatedByName);
 			Assert.AreEqual (_context.UserId, fetchedNode.CreatedById);
@@ -179,7 +179,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const string nodeName = "root";
 			const string newNodeName = "newName";
 			BNode bNode = new BNode (_context);
-			Node node = bNode.CreateNode (null, nodeName);
+			Node node = bNode.CreateNode (null, nodeName, true);
 			Node newNode = bNode.ChangeNode (node.Id, node.Parent, newNodeName);
 			Assert.AreEqual (newNodeName, newNode.Name, "The new name are not as expected after change");
 			Assert.AreEqual (_context.UserName, newNode.ChangedByName, "ChangedByName not as expected");
@@ -201,8 +201,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const string childName = "child";
 			const string newNodeName = "newName";
 			BNode bNode = new BNode (_context);
-			Node node = bNode.CreateNode (null, nodeName);
-			Node childNode = bNode.CreateNode (node.Id, childName);
+			Node node = bNode.CreateNode (null, nodeName, true);
+			Node childNode = bNode.CreateNode (node.Id, childName, true);
 			Node newNode = bNode.ChangeNode (childNode.Id, childNode.Parent, newNodeName);
 			Assert.AreEqual (newNodeName, newNode.Name, "The new name are not as expected after change");
 			Assert.AreEqual (_context.UserName, newNode.ChangedByName, "ChangedByName not as expected");
@@ -226,8 +226,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const string nodeName = "root";
 			const string childName = "child";
 			var bNode = new BNode(_context);
-			var rootNode = bNode.CreateNode(null, nodeName);
-			var childNode = bNode.CreateNode(rootNode.Id, childName);
+			var rootNode = bNode.CreateNode(null, nodeName, true);
+			var childNode = bNode.CreateNode(rootNode.Id, childName, true);
 			bNode.Lock(childNode.Id);
 			childNode = bNode.GetNode(rootNode.Id, childName, true);
 			Assert.AreEqual(_context.UserName, childNode.LockedByName, "LockedByName not as expected");
@@ -240,8 +240,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const string nodeName = "root";
 			const string childName = "child";
 			BNode bNode = new BNode(_context);
-			Node rootNode = bNode.CreateNode(null, nodeName);
-			Node childNode = bNode.CreateNode(rootNode.Id, childName);
+			Node rootNode = bNode.CreateNode(null, nodeName, true);
+			Node childNode = bNode.CreateNode(rootNode.Id, childName, true);
 			bNode.Publish(childNode.Id);
 			childNode = bNode.GetNode(rootNode.Id, childName, true);
 			Assert.AreEqual(_context.UserName,childNode.ApprovedByName, "ApprovedByName not as expected");

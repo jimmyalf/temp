@@ -1,6 +1,8 @@
-﻿namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
+﻿using Spinit.Exceptions;
+
+namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
 {
-	public class UserException : BaseException
+	public class UserException : BaseCodeException
 	{
 		private readonly UserErrors _errorCode = UserErrors.None;
 

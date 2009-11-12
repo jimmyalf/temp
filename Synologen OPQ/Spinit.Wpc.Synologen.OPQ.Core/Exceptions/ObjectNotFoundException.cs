@@ -1,6 +1,8 @@
-﻿namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
+﻿using Spinit.Exceptions;
+
+namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
 {
-	public class ObjectNotFoundException : BaseException
+	public class ObjectNotFoundException : BaseCodeException
 	{
 		private readonly ObjectNotFoundErrors _errorCode = ObjectNotFoundErrors.None;
 

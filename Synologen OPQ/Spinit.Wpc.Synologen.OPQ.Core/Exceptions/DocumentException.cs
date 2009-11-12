@@ -1,6 +1,7 @@
-﻿namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
+﻿using Spinit.Exceptions;
+namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
 {
-	public class DocumentException : BaseException
+	public class DocumentException : BaseCodeException
 	{
 		private readonly DocumentErrors _errorCode = DocumentErrors.None;
 

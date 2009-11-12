@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Spinit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
@@ -75,7 +79,6 @@
     <Compile Include="Entities\ShopCategoryMemberCategoryConnection.cs" />
     <Compile Include="Entities\ShopMemberConnection.cs" />
     <Compile Include="Enumerations.cs" />
-    <Compile Include="Exceptions\BaseException.cs" />
     <Compile Include="Exceptions\DocumentException.cs" />
     <Compile Include="Exceptions\ExceptionCodes.cs" />
     <Compile Include="Exceptions\FileException.cs" />

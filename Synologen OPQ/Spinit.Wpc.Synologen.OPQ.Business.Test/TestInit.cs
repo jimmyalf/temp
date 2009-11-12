@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Linq;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -28,7 +29,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		public void InitDatabase()
 		{
 			string solutionPath = Path.GetFullPath(string.Concat(Environment.CurrentDirectory, @"\..\..\Synologen OPQ\"));
-			Console.WriteLine("solutionPath: " + solutionPath);
 			CreateDatabase(_dataContext);
 			CreateConstraints(_dataContext, solutionPath);
 			//CreateProcedures();
@@ -94,15 +94,22 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 		private void ExecuteScripts(string path)
 		{
-			var scriptFiles = new List<string>();
-			if (Directory.Exists(path))
-			{
-				scriptFiles.AddRange(Directory.GetFiles(path, "*.sql"));
-			}
-			foreach (var script in scriptFiles)
-			{
-				DatabaseManager.execScriptFile(_config.ConnectionString, script);
-			}			
+				var scriptFiles = new List<string>();
+				if (Directory.Exists(path))
+				{
+					scriptFiles.AddRange(Directory.GetFiles(path, "*.sql"));
+				}
+				foreach (var script in scriptFiles)
+				{
+					try
+					{
+						DatabaseManager.execScriptFile(_config.ConnectionString, script);
+					}
+					catch (SqlException ex)
+					{
+						Console.WriteLine("script generated an exception: " + ex.Message);
+					}
+				}
 		}
 	}
 }

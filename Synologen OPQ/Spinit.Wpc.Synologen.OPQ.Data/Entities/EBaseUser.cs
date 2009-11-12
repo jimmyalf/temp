@@ -684,6 +684,36 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 			}
 		}
 
+		private EntityRef<EBaseLocation> _tblBaseLocation;
+		[Association (Name = @"tblBaseLocation_tblBaseUser", Storage = @"_tblBaseLocations", ThisKey = @"DefaultLocation", OtherKey = @"Id", IsForeignKey = false)]
+		public EBaseLocation DefaultBaseLocation
+		{
+			get
+			{
+				return _tblBaseLocation.Entity;
+			}
+			set
+			{
+				EBaseLocation previousValue = _tblBaseLocation.Entity;
+				if ((previousValue != value) || (!_tblBaseLocation.HasLoadedOrAssignedValue)) {
+					SendPropertyChanging ();
+					if (previousValue != null) {
+						_tblBaseLocation.Entity = null;
+						previousValue.BaseUsers.Remove (this);
+					}
+					_tblBaseLocation.Entity = value;
+					if (value != null) {
+						value.BaseUsers.Add (this);
+						_DefaultLocation = value.Id; 
+					}
+					else {
+						_DefaultLocation = default (int);
+					}
+					SendPropertyChanged ("DefaultLocation");
+				}
+			}
+		}
+
 		#endregion
 
 		#region Converters

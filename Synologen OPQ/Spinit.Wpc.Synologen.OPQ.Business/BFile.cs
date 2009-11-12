@@ -63,21 +63,53 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				synologenRepository.File.Update (
 					new FileCategory
 					{
+						Id = fileCategoryId,
 						Name = name
 					});
 				synologenRepository.SubmitChanges ();
 
-				return synologenRepository.File.GetInsertedFileCategory ();
+				return synologenRepository.File.GetFileCategoryById (fileCategoryId);
 			}
 		}
 
 		/// <summary>
 		/// Deletes a file category.
 		/// </summary>
+		/// <param name="fileCategoryId">The file-category-id.</param>
+		/// <param name="removeCompletely">If true=>removes a file-category completely.</param>
 
-		public void DeleteFileCategory (int fileCategoryId)
+		public void DeleteFileCategory (int fileCategoryId, bool removeCompletely)
 		{
-			throw new System.NotImplementedException ();
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				if (removeCompletely) {
+					synologenRepository.File.Delete (
+						new FileCategory
+						{
+							Id = fileCategoryId,
+						});
+				}
+				else {
+					synologenRepository.File.DeactivateFileCategory (fileCategoryId);
+				}
+				synologenRepository.SubmitChanges ();
+			}
+		}
+
+		/// <summary>
+		/// Undeletes a file-category.
+		/// </summary>
+		/// <param name="fileCategoryId">The file-category-id.</param>
+
+		public void UnDeleteFileCategory (int fileCategoryId)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.File.ReactivateFileCategory (fileCategoryId);
+				synologenRepository.SubmitChanges ();
+			}
 		}
 
 		/// <summary>
@@ -87,35 +119,87 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 
 		public FileCategory GetFileCategory (int fileCategoryId)
 		{
-			throw new System.NotImplementedException ();
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				) {
+				return synologenRepository.File.GetFileCategoryById (fileCategoryId);
+			}
 		}
 
 		/// <summary>
-		/// Gets a list of file categories.
+		/// Gets a list of all file categories.
 		/// </summary>
 		/// <param name="onlyActive">If true=&gt;fetches only active categories.</param>
 
-		public List<FileCategory> GetFileCategories (bool onlyActive)
+		public IList<FileCategory> GetFileCategories (bool onlyActive)
 		{
-			throw new System.NotImplementedException ();
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				) {
+				return synologenRepository.File.GetAllFileCategories (onlyActive);
+			}
 		}
 
 		#endregion
 
 		#region File
 
+		/// <summary>
+		/// Creates a new file.
+		/// </summary>
+		/// <param name="nodeId">The id of the node.</param>
+		/// <param name="shopId">The id of the shop.</param>
+		/// <param name="cncId">The id of the concern.</param>
+		/// <param name="baseFileId">The base-file-id.</param>
+		/// <param name="fileCategory">The file-category.</param>
+		
+		public File CreateFile (int nodeId, int? shopId, int? cncId, int baseFileId, FileCategory fileCategory)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.File.Insert (
+					new File
+					{
+						FleCatId = fileCategory.Id,
+						FleId = baseFileId,
+						NdeId = nodeId,
+						ShpId = shopId,
+						CncId = cncId
+					});
+				synologenRepository.SubmitChanges ();
+
+				return synologenRepository.File.GetInsertedFile ();
+			}
+		}
 
 		/// <summary>
 		/// Creates a new file.
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
 		/// <param name="shopId">The id of the shop.</param>
+		/// <param name="cncId">The id of the concern.</param>
 		/// <param name="baseFileId">The base-file-id.</param>
-		/// <param name="fileCategory">The file-categories.</param>
-		
-		public File CreateFile (int nodeId, int? shopId, int baseFileId, FileCategory fileCategory)
+		/// <param name="fileCategoryId">The file-category-id.</param>
+
+		public File CreateFile (int nodeId, int? shopId, int? cncId, int baseFileId, int fileCategoryId)
 		{
-			throw new System.NotImplementedException ();
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.File.Insert (
+					new File
+					{
+						FleCatId = fileCategoryId,
+						FleId = baseFileId,
+						NdeId = nodeId,
+						ShpId = shopId,
+						CncId = cncId
+					});
+				synologenRepository.SubmitChanges ();
+
+				return synologenRepository.File.GetInsertedFile ();
+			}
 		}
 
 		/// <summary>

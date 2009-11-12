@@ -80,6 +80,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Core.Entities
 		public List<Node> LockedByNodes { get; set; }
 		
 		public MemberUserConnection MemberUserConnections { get; set; }
+
+		public BaseLocation DefaultBaseLocation { get; set; }
 		
 		#endregion
 		

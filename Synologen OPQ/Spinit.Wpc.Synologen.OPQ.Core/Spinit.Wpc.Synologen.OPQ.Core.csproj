@@ -56,6 +56,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Entities\BaseFile.cs" />
+    <Compile Include="Entities\BaseLocation.cs" />
     <Compile Include="Entities\BaseUser.cs" />
     <Compile Include="Entities\Concern.cs" />
     <Compile Include="Entities\Document.cs" />

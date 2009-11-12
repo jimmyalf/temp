@@ -36,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="file">The file.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
-		/// <exception cref="ObjectNotFoundException">If user, file-category or base-file does not exist.</exception>
+		/// <exception cref="ObjectNotFoundException">If user, file-category, base-file, shop or concern does not exist.</exception>
 
 		private void Insert (EFile file)
 		{
@@ -53,6 +53,14 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			Manager.ExternalObjectsManager.CheckFileExist (file.FleId);
 			CheckFileCategoryExist (file.FleCatId);
 
+			if (file.ShpId != null) {
+				Manager.ExternalObjectsManager.CheckShopExist ((int) file.ShpId);
+			}
+
+			if (file.CncId != null) {
+				Manager.ExternalObjectsManager.CheckConcernExist ((int) file.CncId);
+			}
+
 			file.IsActive = true;
 
 			_insertedFile = file;
@@ -65,6 +73,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="file">The file.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If user, file-category, base-file, shop or concern does not exist.</exception>
 
 		public void Insert (File file)
 		{
@@ -147,6 +156,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="file">The file.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If file, user, file-category or base-file does not exist.</exception>
+		/// <exception cref="FileException">
+		/// 1. If file is locked by other user. 
+		/// 2. If shop or concern is changed.</exception>
 
 		private void Update (EFile file)
 		{
@@ -172,6 +184,14 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 
 			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ChangedById);
 
+			if (oldFile.ShpId != file.ShpId) {
+				throw new FileException ("Shop change not allowed", FileErrors.ChangeOfShopNotAllowed);
+			}
+
+			if (oldFile.CncId != file.CncId) {
+				throw new FileException ("Concern change not allowed", FileErrors.ChangeOfConcernNotAllowed);
+			}
+
 			if (oldFile.FleCatId != file.FleCatId) {
 				CheckFileCategoryExist (file.FleCatId);
 				oldFile.FleCatId = file.FleCatId;
@@ -189,6 +209,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="file">The file.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
+		/// <exception cref="FileException">
+		/// 1. If file is locked by other user. 
+		/// 2. If shop or concern is changed.</exception>
 
 		public void Update (File file)
 		{
@@ -473,6 +496,70 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		public void Update (FileCategory fileCategory)
 		{
 			Update (EFileCategory.Convert (fileCategory));
+		}
+
+		#endregion
+
+		#region Deactive & Reactivate File Category
+
+		/// <summary>
+		/// Deactivates a file.
+		/// </summary>
+		/// <param name="fileCategoryId">The file-category-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the file-category or user is not found.</exception>
+
+		public void DeactivateFileCategory (int fileCategoryId)
+		{
+			EFileCategory oldFileCategory = _dataContext.FileCategories.Single (n => n.Id == fileCategoryId);
+
+			if (oldFileCategory == null) {
+				throw new ObjectNotFoundException (
+					"File-category not found.",
+					ObjectNotFoundErrors.FileCategoryNotFound);
+			}
+
+			oldFileCategory.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldFileCategory.ChangedByName = Manager.WebContext.UserName;
+			oldFileCategory.ChangedDate = DateTime.Now;
+
+			if ((oldFileCategory.ChangedById == 0) || (oldFileCategory.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFileCategory.ChangedById);
+
+			oldFileCategory.IsActive = false;
+		}
+
+		/// <summary>
+		/// Reactivates a file-category.
+		/// </summary>
+		/// <param name="fileCategoryId">The file-cateogry-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
+
+		public void ReactivateFileCategory (int fileCategoryId)
+		{
+			EFileCategory oldFileCategory = _dataContext.FileCategories.Single (d => d.Id == fileCategoryId);
+
+			if (oldFileCategory == null) {
+				throw new ObjectNotFoundException (
+					"File-category not found.",
+					ObjectNotFoundErrors.FileCategoryNotFound);
+			}
+
+			oldFileCategory.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldFileCategory.ChangedByName = Manager.WebContext.UserName;
+			oldFileCategory.ChangedDate = DateTime.Now;
+
+			if ((oldFileCategory.ChangedById == 0) || (oldFileCategory.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFileCategory.ChangedById);
+
+			oldFileCategory.IsActive = true;
 		}
 
 		#endregion

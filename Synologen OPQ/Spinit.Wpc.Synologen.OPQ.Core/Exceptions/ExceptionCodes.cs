@@ -78,7 +78,25 @@
 		/// The node is locked by another user.
 		/// </summary>
 
-		DocumentLockedByOtherUser = 1
+		DocumentLockedByOtherUser = 1,
+
+		/// <summary>
+		/// Changing document-type-not allowed.
+		/// </summary>
+
+		ChangeOfDocumentTypeNotAllowed = 2,
+
+		/// <summary>
+		/// Changing shop not allowed.
+		/// </summary>
+
+		ChangeOfShopNotAllowed = 3,
+
+		/// <summary>
+		/// Changing concern not allowed.
+		/// </summary>
+
+		ChangeOfConcernNotAllowed = 4
 	}
 
 	/// <summary>
@@ -121,7 +139,19 @@
 		/// The node is locked by another user.
 		/// </summary>
 
-		FileLockedByOtherUser = 5
+		FileLockedByOtherUser = 5,
+
+		/// <summary>
+		/// Changing shop not allowed.
+		/// </summary>
+
+		ChangeOfShopNotAllowed = 6,
+
+		/// <summary>
+		/// Changing concern not allowed.
+		/// </summary>
+
+		ChangeOfConcernNotAllowed = 7
 	}
 
 	/// <summary>
@@ -194,6 +224,18 @@
 		/// Base-file is not found.
 		/// </summary>
 
-		BaseFileNotFound = 10
+		BaseFileNotFound = 10,
+
+		/// <summary>
+		/// The shop is not found.
+		/// </summary>
+
+		ShopNotFound = 11,
+
+		/// <summary>
+		/// The concern is not found.
+		/// </summary>
+
+		ConcernNotFound = 12
 	}
 }

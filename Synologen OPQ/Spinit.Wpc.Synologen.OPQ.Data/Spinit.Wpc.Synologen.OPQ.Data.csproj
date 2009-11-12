@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\EBaseFile.cs" />
+    <Compile Include="Entities\EBaseLocation.cs" />
     <Compile Include="Entities\EBaseUser.cs" />
     <Compile Include="Entities\EConcern.cs" />
     <Compile Include="Entities\EDocument.cs" />

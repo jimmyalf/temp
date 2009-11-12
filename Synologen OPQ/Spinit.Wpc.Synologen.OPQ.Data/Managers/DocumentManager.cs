@@ -49,7 +49,15 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			}
 			
 			Manager.ExternalObjectsManager.CheckUserExist (document.CreatedById);
-		
+
+			if (document.ShpId != null) {
+				Manager.ExternalObjectsManager.CheckShopExist ((int) document.ShpId);
+			}
+
+			if (document.CncId != null) {
+				Manager.ExternalObjectsManager.CheckConcernExist ((int) document.CncId);
+			}
+
 			document.IsActive = true;
 
 			_insertedDocument = document;

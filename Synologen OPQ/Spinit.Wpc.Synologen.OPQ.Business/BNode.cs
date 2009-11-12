@@ -414,6 +414,47 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			}
 		}
 
+		/// <summary>
+		/// Fetches a list of node-suppliers.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <param name="supplierId">The supplier-id.</param>
+		/// <returns>A list of node-supplier-connections.</returns>
+
+		public IList<NodeSupplierConnection> GetNodeSuppliers (int? nodeId, int? supplierId)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				) {
+				if (nodeId != null) {
+					return synologenRepository.Node.GetNodeSupplierConnectionsForNode ((int) nodeId);
+				}
+
+				if (supplierId != null) {
+					return synologenRepository.Node.GetNodeSupplierConnectionsForSupplier ((int) supplierId);
+				}
+
+				return null;
+			}
+		}
+
+		/// <summary>
+		/// Fetches a node-supplierr.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <param name="supplierId">The supplier-id.</param>
+		/// <returns>A list of node-supplier-connections.</returns>
+
+		public NodeSupplierConnection GetNodeSupplier (int nodeId, int supplierId)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				) {
+				
+				return synologenRepository.Node.GetNodeSupplierConnectionById (nodeId, supplierId);
+			}
+		}
+
 		#endregion
 	}
 }

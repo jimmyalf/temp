@@ -101,10 +101,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		}
 
 		/// <summary>
-		/// Deletes a document
+		/// Deletes a document.
 		/// </summary>
 		/// <param name="documentId">The id of the document.</param>
-		/// <param name="removeCompletely">If true=>removes a node completely</param>
+		/// <param name="removeCompletely">If true=>removes a document completely</param>
 		
 		public void DeleteDocument (int documentId, bool removeCompletely)
 		{
@@ -126,7 +126,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		}
 
 		/// <summary>
-		/// Undeletes a node.
+		/// Undeletes a document.
 		/// </summary>
 		/// <param name="documentId">The document-id.</param>
 

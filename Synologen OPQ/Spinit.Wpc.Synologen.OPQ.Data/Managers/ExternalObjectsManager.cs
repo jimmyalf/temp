@@ -23,7 +23,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 			_dataContext = (WpcSynologenDataContext) Manager.Context;
 		}
 
-		#region Base-User
+		#region Base User
 
 		/// <summary>
 		/// Fetches the base-user by user-id.
@@ -62,7 +62,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		
 		#endregion
 
-		#region Base-File
+		#region Base File
 
 		/// <summary>
 		/// Fetches the base-file by file-id.
@@ -97,6 +97,84 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		public void CheckFileExist (int fileId)
 		{
 			GetFileById (fileId);
+		}
+
+		#endregion
+
+		#region Synologen Shop
+
+		/// <summary>
+		/// Fetches the shop by shop-id.
+		/// </summary>
+		/// <param name="shopId">The shop-id.</param>
+		/// <returns>A shop.</returns>
+		/// <exception cref="ObjectNotFoundException">If the shop is not found.</exception>
+
+		public Shop GetShopById (int shopId)
+		{
+			IQueryable<EShop> query = from shop in _dataContext.Shops
+			                          where shop.Id == shopId
+			                          select shop;
+
+			IList<EShop> shops = query.ToList ();
+
+			if (shops.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Shop not found.",
+					ObjectNotFoundErrors.ShopNotFound);
+			}
+
+			return EShop.Convert (shops.First ());
+		}
+
+		/// <summary>
+		/// Checks if a shop exist.
+		/// </summary>
+		/// <param name="shopId">The shop-id.</param>
+		/// <exception cref="ObjectNotFoundException">If the shop is not found.</exception>
+
+		public void CheckShopExist (int shopId)
+		{
+			GetShopById (shopId);
+		}
+
+		#endregion
+		
+		#region Synologen Concern
+
+		/// <summary>
+		/// Fetches the concern by concern-id.
+		/// </summary>
+		/// <param name="concernId">The concern-id.</param>
+		/// <returns>A concern.</returns>
+		/// <exception cref="ObjectNotFoundException">If the concern is not found.</exception>
+
+		public Concern GetConcernById (int concernId)
+		{
+			IQueryable<EConcern> query = from concern in _dataContext.Concerns
+			                             where concern.Id == concernId
+			                             select concern;
+
+			IList<EConcern> concerns = query.ToList ();
+
+			if (concerns.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Concern not found.",
+					ObjectNotFoundErrors.ConcernNotFound);
+			}
+
+			return EConcern.Convert (concerns.First ());
+		}
+
+		/// <summary>
+		/// Checks if a concern exist.
+		/// </summary>
+		/// <param name="concernId">The concern-id.</param>
+		/// <exception cref="ObjectNotFoundException">If the concern is not found.</exception>
+
+		public void CheckConcernExist (int concernId)
+		{
+			GetConcernById (concernId);
 		}
 
 		#endregion

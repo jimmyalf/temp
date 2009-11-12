@@ -187,7 +187,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The node exist..
         /// </summary>
         internal static string NodeErrors_NameExist {
             get {

@@ -22,7 +22,7 @@
 				<echo message="Running tests in ${path::get-file-name(filename)}" />
 				<echo message="*************************************************" />
 				
-				<exec program="${nunit.console}" basedir="${nunit.build.dependenciesdir}" failonerror="false" resultproperty="testresult.${filename}">
+				<exec program="${nunit.console}" basedir="${nunit.build.dependenciesdir}" failonerror="false" resultproperty="testresult.string::substring(${filename},string::last-index-of(${filename},'\') + 1,string::get-length(${filename}))">
 					<arg value="${filename}" />
 					<arg value="/xml=${nunit.build.reportsdir}${path::get-file-name-without-extension(filename)}-Results.xml" />
 				</exec>
@@ -38,7 +38,7 @@
 				</items>
 			</in>
 			<do>
-				<fail message="Failures reported in unit tests." unless="${int::parse(testresult.${filename})==0}" />
+				<fail message="Failures reported in unit tests." unless="${int::parse(testresult.string::substring(${filename},string::last-index-of(${filename},'\') + 1,string::get-length(${filename})))==0}" />
 			</do>
 		</foreach>
 

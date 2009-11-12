@@ -199,6 +199,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				if (fillObjects) {
 					synologenRepository.AddDataLoadOptions<Document> (d => d.DocumentHistories);
 					synologenRepository.AddDataLoadOptions<Document> (d => d.DocumentType);
+					synologenRepository.AddDataLoadOptions<Document> (d => d.Node);
 					synologenRepository.AddDataLoadOptions<Document> (d => d.CreatedBy);
 					synologenRepository.AddDataLoadOptions<Document> (d => d.ChangedBy);
 					synologenRepository.AddDataLoadOptions<Document> (d => d.ApprovedBy);
@@ -238,6 +239,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				if (fillObjects) {
 					synologenRepository.AddDataLoadOptions<Document> (d => d.DocumentHistories);
 					synologenRepository.AddDataLoadOptions<Document> (d => d.DocumentType);
+					synologenRepository.AddDataLoadOptions<Document> (d => d.Node);
 					synologenRepository.AddDataLoadOptions<Document> (d => d.CreatedBy);
 					synologenRepository.AddDataLoadOptions<Document> (d => d.ChangedBy);
 					synologenRepository.AddDataLoadOptions<Document> (d => d.ApprovedBy);

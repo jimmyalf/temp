@@ -2,6 +2,7 @@
 
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
+using Spinit.Wpc.Synologen.Opq.Core.Exceptions;
 using Spinit.Wpc.Synologen.OPQ.Data;
 
 namespace Spinit.Wpc.Synologen.OPQ.Business
@@ -120,7 +121,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		public FileCategory GetFileCategory (int fileCategoryId)
 		{
 			using (
-				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				WpcSynologenRepository synologenRepository 
+					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
 				) {
 				return synologenRepository.File.GetFileCategoryById (fileCategoryId);
 			}
@@ -134,7 +136,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		public IList<FileCategory> GetFileCategories (bool onlyActive)
 		{
 			using (
-				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				WpcSynologenRepository synologenRepository 
+					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
 				) {
 				return synologenRepository.File.GetAllFileCategories (onlyActive);
 			}
@@ -207,21 +210,62 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
 		/// <param name="baseFileId">The base-file-id.</param>
-		/// <param name="fileCategory">The file-categories.</param>
 		
-		public File ChangeFile (int fileId, int baseFileId, FileCategory fileCategory)
+		public File ChangeFile (int fileId, int baseFileId)
 		{
-			throw new System.NotImplementedException ();
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.File.Update (
+					new File
+					{
+						Id = fileId,
+						FleId = baseFileId
+					});
+				synologenRepository.SubmitChanges ();
+
+				return synologenRepository.File.GetFileById (fileId);
+			}
 		}
 
 		/// <summary>
 		/// Deletes a file.
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
-		
-		public void DeleteFile (int fileId)
+		/// <param name="removeCompletely">If true=>removes a document completely</param>
+
+		public void DeleteFile (int fileId, bool removeCompletely)
 		{
-			throw new System.NotImplementedException ();
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				if (removeCompletely) {
+					synologenRepository.File.Delete (
+						new File
+						{
+							Id = fileId
+						});
+				}
+				else {
+					synologenRepository.File.DeactivateFile (fileId);
+				}
+				synologenRepository.SubmitChanges ();
+			}
+		}
+
+		/// <summary>
+		/// Undeletes a file.
+		/// </summary>
+		/// <param name="fileId">The file-id.</param>
+
+		public void UnDeleteFile (int fileId)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.File.ReactivateFile (fileId);
+				synologenRepository.SubmitChanges ();
+			}
 		}
 
 		/// <summary>
@@ -231,7 +275,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		
 		public void Publish (int fileId)
 		{
-			throw new System.NotImplementedException ();
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.File.ApproveFile (fileId);
+				synologenRepository.SubmitChanges ();
+			}
 		}
 
 		/// <summary>
@@ -241,7 +290,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		
 		public void Lock (int fileId)
 		{
-			throw new System.NotImplementedException ();
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.File.CheckOutFile (fileId);
+				synologenRepository.SubmitChanges ();
+			}
 		}
 
 		/// <summary>
@@ -251,17 +305,66 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		
 		public void Unlock (int fileId)
 		{
-			throw new System.NotImplementedException ();
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.File.CheckInFile (fileId);
+				synologenRepository.SubmitChanges ();
+			}
 		}
 
+		/// <summary>
+		/// Moves a file up or down in the list.
+		/// </summary>
+		/// <param name="moveAction">The move-action.</param>
+		/// <param name="source">The id of the file.</param>
+		
+		public void MoveFile (NodeMoveActions moveAction, int source)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				File sSource = synologenRepository.File.GetFileById (source);
+				switch (moveAction) {
+					case NodeMoveActions.MoveUp:
+						synologenRepository.File.MoveFile (new File {Id = source, Order = sSource.Order + 1});
+						break;
+
+					case NodeMoveActions.MoveDown:
+						synologenRepository.Node.MoveNode (new Node {Id = source, Order = sSource.Order - 1});
+						break;
+
+					default:
+						throw new FileException ("Not valid move operation.", FileErrors.MoveToForbidden);
+				}
+
+				synologenRepository.SubmitChanges ();
+			}
+		}
+		
 		/// <summary>
 		/// Gets a file.
 		/// </summary>
 		/// <param name="fileId">The id of the file.</param>
+		/// <param name="fillObjects">Fill all objects.</param>
 
-		public File GetFile (int fileId)
+		public File GetFile (int fileId, bool fillObjects)
 		{
-			throw new System.NotImplementedException ();
+			using (
+				WpcSynologenRepository synologenRepository 
+					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				) {
+				if (fillObjects) {
+					synologenRepository.AddDataLoadOptions<File> (f => f.FileCategory);
+					synologenRepository.AddDataLoadOptions<File> (f => f.Node);
+					synologenRepository.AddDataLoadOptions<File> (f => f.CreatedBy);
+					synologenRepository.AddDataLoadOptions<File> (f => f.ChangedBy);
+					synologenRepository.AddDataLoadOptions<File> (f => f.ApprovedBy);
+					synologenRepository.AddDataLoadOptions<File> (f => f.LockedBy);
+				}
+
+				return synologenRepository.File.GetFileById (fileId);
+			}
 		}
 
 		/// <summary>
@@ -271,21 +374,53 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="shopId">The id of the shop.</param>
 		/// <param name="fileCategoryId">The category-id.</param>
 		/// <param name="onlyActive">If true=&gt;fetch only active files.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved documents.</param>
+		/// <param name="fillObjects">Fill all objects.</param>
 
-		public List<File> GetFiles (int? nodeId, int? shopId, int? fileCategoryId, bool onlyActive)
+		public IList<File> GetFiles (int? nodeId, int? shopId, int? fileCategoryId, bool onlyActive, bool onlyApproved, bool fillObjects)
 		{
-			throw new System.NotImplementedException ();
-		}
+			using (
+				WpcSynologenRepository synologenRepository
+					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				) {
 
-		/// <summary>
-		/// Moves a file up or down in the list.
-		/// </summary>
-		/// <param name="fileId">The id of the file.</param>
-		/// <param name="moveAction">The action.</param>
-		
-		public void MoveFile (int fileId, NodeMoveActions moveAction)
-		{
-			throw new System.NotImplementedException ();
+				if (fillObjects) {
+					synologenRepository.AddDataLoadOptions<File> (f => f.FileCategory);
+					synologenRepository.AddDataLoadOptions<File> (f => f.Node);
+					synologenRepository.AddDataLoadOptions<File> (f => f.CreatedBy);
+					synologenRepository.AddDataLoadOptions<File> (f => f.ChangedBy);
+					synologenRepository.AddDataLoadOptions<File> (f => f.ApprovedBy);
+					synologenRepository.AddDataLoadOptions<File> (f => f.LockedBy);
+				}
+				
+				if (nodeId != null) {
+					if (shopId != null) {
+						if (fileCategoryId != null) {
+							return synologenRepository.File.GetFilesByNodeId (
+								(int) nodeId, 
+								(int) shopId, 
+								(int) fileCategoryId, 
+								onlyActive, 
+								onlyApproved);
+						}
+						return synologenRepository.File.GetFilesByNodeId ((int) nodeId, (int) shopId, onlyActive, onlyApproved);
+					}
+					return synologenRepository.File.GetFilesByNodeId ((int) nodeId, onlyActive, onlyApproved);
+				}
+
+				if (shopId != null) {
+					if (fileCategoryId != null) {
+						return synologenRepository.File.GetFilesByShopId ((int) shopId, (int) fileCategoryId, onlyActive, onlyApproved);
+					}
+					return synologenRepository.File.GetFilesByShopId ((int) shopId, onlyActive, onlyApproved);
+				}
+
+				if (fileCategoryId != null) {
+					return synologenRepository.File.GetFilesByCategoryId ((int) fileCategoryId, onlyActive, onlyApproved);
+				}
+
+				return synologenRepository.File.GetAllFiles (onlyActive, onlyApproved);
+			}
 		}
 
 		#endregion

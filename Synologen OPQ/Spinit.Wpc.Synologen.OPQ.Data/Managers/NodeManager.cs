@@ -151,7 +151,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="node">The node.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
-		/// <exception cref="NodeException">If the parent is not found or the new name exist.</exception>
+		/// <exception cref="NodeException">
+		/// 1. If the parent is not found or the new name exist.
+		/// 2. If node is locked by other user.</exception>
 
 		private void Update (ENode node)
 		{
@@ -214,6 +216,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
 		/// <exception cref="NodeException">If the parent is not found.</exception>
+		/// <exception cref="NodeException">
+		/// 1. If the parent is not found or the new name exist.
+		/// 2. If node is locked by other user.</exception>
 
 		public void Update (Node node)
 		{
@@ -230,6 +235,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="nodeId">The node-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+		/// <exception cref="NodeException">If node is locked by other user.</exception>
 
 		public void DeactivateNode (int nodeId)
 		{
@@ -264,6 +270,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="nodeId">The node-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+		/// <exception cref="NodeException">If node is locked by other user.</exception>
 
 		public void ReactivateNode (int nodeId)
 		{
@@ -302,7 +309,9 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="node">The node to move.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
-		/// <exception cref="NodeException">If the parent is not found, the move is forbidden or the position is not changed.</exception>
+		/// <exception cref="NodeException">
+		/// 1. If the parent is not found, the move is forbidden or the position is not changed.
+		/// 2. If node is locked by other user.</exception>
 
 		private void MoveNode (ENode node)
 		{
@@ -386,6 +395,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="nodeId">The node-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+		/// <exception cref="NodeException">If node is locked by other user.</exception>
 
 		public void ApproveNode (int nodeId)
 		{
@@ -418,6 +428,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// <param name="nodeId">The node-id.</param>
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+		/// <exception cref="NodeException">If node is locked by other user.</exception>
 
 		public void CheckOutNode (int nodeId)
 		{
@@ -449,6 +460,7 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
 		/// <exception cref="ObjectNotFoundException">If the node is not found.</exception>
+		/// <exception cref="NodeException">If node is locked by other user.</exception>
 
 		public void CheckInNode (int nodeId)
 		{

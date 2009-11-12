@@ -145,13 +145,43 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		}
 
 		/// <summary>
+		/// Locks a node.
+		/// </summary>
+		/// <param name="nodeId">The id of the node.</param>
+		
+		public void Lock (int nodeId)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.Node.CheckOutNode (nodeId);
+				synologenRepository.SubmitChanges ();
+			}
+		}
+
+		/// <summary>
+		/// Unlocks the node.
+		/// </summary>
+		/// <param name="nodeId">The id of the node.</param>
+		
+		public void UnLock (int nodeId)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.Node.CheckInNode (nodeId);
+				synologenRepository.SubmitChanges ();
+			}
+		}
+
+		/// <summary>
 		/// Moves the node in the tree.
 		/// </summary>
-		/// <param name="type">The type of move.</param>
+		/// <param name="moveAction">The move-action.</param>
 		/// <param name="source">The node to be moved.</param>
 		/// <param name="destination">The destination reference node.</param>
 		
-		public void MoveNode (NodeMoveActions type, int source, int? destination)
+		public void MoveNode (NodeMoveActions moveAction, int source, int? destination)
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
@@ -161,7 +191,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				if (destination != null) {
 					sDestination = synologenRepository.Node.GetNodeById ((int) destination);
 				}
-				switch (type) {
+				switch (moveAction) {
 					case NodeMoveActions.MoveUp:
 						synologenRepository.Node.MoveNode (new Node {Id = source, Parent = sSource.Parent, Order = sSource.Order + 1});
 						break;
@@ -197,36 +227,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 						throw new NodeException ("Not valid move operation.", NodeErrors.MoveToForbidden);
 				}
 				
-				synologenRepository.SubmitChanges ();
-			}
-		}
-
-		/// <summary>
-		/// Locks a node.
-		/// </summary>
-		/// <param name="nodeId">The id of the node.</param>
-		
-		public void Lock (int nodeId)
-		{
-			using (
-				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
-				) {
-				synologenRepository.Node.CheckOutNode (nodeId);
-				synologenRepository.SubmitChanges ();
-			}
-		}
-
-		/// <summary>
-		/// Unlocks the node.
-		/// </summary>
-		/// <param name="nodeId">The id of the node.</param>
-		
-		public void UnLock (int nodeId)
-		{
-			using (
-				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
-				) {
-				synologenRepository.Node.CheckInNode (nodeId);
 				synologenRepository.SubmitChanges ();
 			}
 		}

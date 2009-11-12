@@ -96,7 +96,13 @@
 		/// Changing concern not allowed.
 		/// </summary>
 
-		ChangeOfConcernNotAllowed = 4
+		ChangeOfConcernNotAllowed = 4,
+
+		/// <summary>
+		/// Changing node not allowed.
+		/// </summary>
+
+		CangeOfNodeNotAllowed = 5
 	}
 
 	/// <summary>
@@ -151,7 +157,13 @@
 		/// Changing concern not allowed.
 		/// </summary>
 
-		ChangeOfConcernNotAllowed = 7
+		ChangeOfConcernNotAllowed = 7,
+
+		/// <summary>
+		/// Changing node not allowed.
+		/// </summary>
+
+		CangeOfNodeNotAllowed = 8
 	}
 
 	/// <summary>

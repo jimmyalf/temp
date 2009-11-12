@@ -685,7 +685,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 		}
 
 		private EntityRef<EBaseLocation> _tblBaseLocation;
-		[Association (Name = @"tblBaseLocation_tblBaseUser", Storage = @"_tblBaseLocations", ThisKey = @"DefaultLocation", OtherKey = @"Id", IsForeignKey = false)]
+		[Association (Name = @"tblBaseLocation_tblBaseUser", Storage = @"_tblBaseLocation", ThisKey = @"DefaultLocation", OtherKey = @"Id", IsForeignKey = false)]
 		public EBaseLocation DefaultBaseLocation
 		{
 			get

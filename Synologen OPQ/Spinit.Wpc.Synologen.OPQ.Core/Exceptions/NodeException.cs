@@ -11,6 +11,6 @@ namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
 			_errorCode = errorCode;
 		}
 		
-		public override string LocalizationKey { get { return string.Concat ("NodeErrors-", _errorCode.ToString ()); } }
+		public override string LocalizationKey { get { return string.Concat ("NodeErrors_", _errorCode.ToString ()); } }
 	}
 }

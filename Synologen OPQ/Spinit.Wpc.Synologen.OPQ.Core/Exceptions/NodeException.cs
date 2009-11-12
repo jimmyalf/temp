@@ -1,6 +1,8 @@
-﻿namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
+﻿using Spinit.Exceptions;
+
+namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
 {
-	public class NodeException : BaseException
+	public class NodeException : BaseCodeException
 	{
 		private readonly NodeErrors _errorCode = NodeErrors.None;
 

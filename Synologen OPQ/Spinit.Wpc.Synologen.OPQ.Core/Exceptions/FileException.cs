@@ -1,6 +1,8 @@
-﻿namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
+﻿using Spinit.Exceptions;
+
+namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
 {
-	public class FileException : BaseException
+	public class FileException : BaseCodeException
 	{
 		private readonly FileErrors _errorCode = FileErrors.None;
 

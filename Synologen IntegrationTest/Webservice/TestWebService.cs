@@ -2,32 +2,28 @@
 using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.WebService;
 
-namespace Synologen_IntegrationTest.Webservice{
-	[TestFixture]
-	[Ignore]
+namespace Spinit.Wpc.Synologen.IntegrationTest.Webservice{
+	[TestFixture, Explicit]
 	public class TestWebService{
 		private ClientContract client;
 		private string connectionString;
 
 		[TestFixtureSetUp]
-		[Ignore]
 		//TODO: Make into integrationtest
 		public void Setup() {
 			client = new ClientContract( );
-			client.ClientCredentials.UserName.UserName = Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings.Common.ClientCredentialUserName;
-			client.ClientCredentials.UserName.Password = Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings.Common.ClientCredentialPassword;
+			client.ClientCredentials.UserName.UserName = ServiceLibrary.ConfigurationSettings.Common.ClientCredentialUserName;
+			client.ClientCredentials.UserName.Password = ServiceLibrary.ConfigurationSettings.Common.ClientCredentialPassword;
 			client.Open();
 			connectionString = "Initial Catalog=dbWpcSynologen;Data Source=BLACK;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
 		}
 
 		[TestFixtureTearDown]
-		[Ignore]
 		public void TearDown() {
 			client.Close();
 		}
 
 		[Test]
-		[Ignore]
 		public void OfflineGetOrdersForInvoicing(){
 			var service = new SynologenService(connectionString);
 			var orders = service.GetOrdersForInvoicing();
@@ -36,7 +32,6 @@ namespace Synologen_IntegrationTest.Webservice{
 		}
 
 		[Test]
-		[Ignore]
 		public void OfflineGetOrderItems(){
 			var service = new SynologenService(connectionString);
 			var orders = service.GetOrdersForInvoicing();
@@ -49,7 +44,6 @@ namespace Synologen_IntegrationTest.Webservice{
 		}
 
 		[Test]
-		[Ignore]
 		public void WebServiceGetOrdersForInvoicing(){
 			var orders = client.GetOrdersForInvoicing();
 			Assert.IsNotNull(orders);
@@ -57,7 +51,6 @@ namespace Synologen_IntegrationTest.Webservice{
 		}
 
 		[Test]
-		[Ignore]
 		public void WebServiceGetOrdersToCheckForUpdates(){
 			var orders = client.GetOrdersToCheckForUpdates();
 			Assert.IsNotNull(orders);
@@ -65,7 +58,6 @@ namespace Synologen_IntegrationTest.Webservice{
 		}
 
 		[Test]
-		[Ignore]
 		public void WebServiceGetOrderItems(){
 			var orders = client.GetOrdersForInvoicing();
 			Assert.IsNotNull(orders);
@@ -77,7 +69,6 @@ namespace Synologen_IntegrationTest.Webservice{
 		}
 
 		[Test]
-		[Ignore]
 		public void WebServiceSendInvoices(){
 			Assert.DoesNotThrow(() => client.SendInvoice(303));
 			Assert.DoesNotThrow(() => client.SendInvoice(304));
@@ -85,8 +76,7 @@ namespace Synologen_IntegrationTest.Webservice{
 		}
 
 
-		[Test]
-		[Ignore ("Does not need constant testing")]
+		[Test, Explicit("Does not need constant testing")]
 		public void SendEmail() {
 			client.SendEmail(
 				"info@spinit.se", 

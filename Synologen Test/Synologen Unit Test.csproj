@@ -8,8 +8,8 @@
     <ProjectGuid>{2731D6EA-3A53-4F8B-A78E-15D3864F8148}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.Test</RootNamespace>
-    <AssemblyName>Spinit.Wpc.Synologen.Test</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.Unit.Test</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Unit.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>

@@ -3,7 +3,7 @@ using Spinit.Wpc.Synologen.Test.Mock;
 using Spinit.Wpc.Synologen.Visma;
 
 namespace Spinit.Wpc.Synologen.Test.Visma {
-	[TestFixture]
+	[TestFixture, Explicit]
 	public class TestVisma {
 		private string vismaCommonFilesPath;
 		private string vismaCompanyName;
@@ -11,7 +11,7 @@ namespace Spinit.Wpc.Synologen.Test.Visma {
 		private MockAdkHandler mockAdkHandler;
 
 
-		[Ignore]
+		[TestFixtureSetUp]
 		public void Setup() {
 			vismaCommonFilesPath = @"\\moccasin\SPCS_Administration\Gemensamma filer";
 			vismaCompanyName = @"\\moccasin\SPCS_Administration\Företag\Ovnbol";
@@ -20,17 +20,17 @@ namespace Spinit.Wpc.Synologen.Test.Visma {
 			mockAdkHandler = new MockAdkHandler();
 		}
 
-		[Ignore]
+		[TestFixtureTearDown]
 		public void TearDown() {
 			adkHandler.CloseCompany();
 		}
-		[Ignore]
+		[Test]
 		public void TestFetchPaymentInformation() {
 			var paymentInfo = adkHandler.GetInvoicePaymentInfo(200001);
 			Assert.IsNotNull(paymentInfo);
 		}
 
-		[Ignore]
+		[Test]
 		public void TestMockPaymentInformation() {
 			var paymentInfo = mockAdkHandler.GetInvoicePaymentInfo(0);
 			Assert.IsNotNull(paymentInfo);

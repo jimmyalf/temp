@@ -368,6 +368,17 @@ namespace Spinit.Wpc.Synologen.WebService{
 				TryLogErrorAndSendEmail("SynologenService.SaveContentToDisk failed: " +ex.Message);
 			}
 		}
+		private void TrySaveContentToDisk(string fileName, string fileContent, Encoding encoding) {
+			try {
+				var path = ServiceLibrary.ConfigurationSettings.WebService.EDIFilesFolderPath;
+				if(!Directory.Exists(path)) {Directory.CreateDirectory(path); }
+				var filePath = Path.Combine(path, fileName);
+				File.AppendAllText(filePath, fileContent, encoding);
+			}
+			catch(Exception ex) {
+				TryLogErrorAndSendEmail("SynologenService.SaveContentToDisk failed: " +ex.Message);
+			}
+		}
 
 		private static Ftp GetFtpClientObject() {
 			var ftpUrl = ServiceLibrary.ConfigurationSettings.WebService.FTPServerUrl;

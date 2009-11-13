@@ -1,10 +1,10 @@
 using System.Linq;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
-using Spinit.Wpc.Synologen.Utility;
 
-namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
+namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.RequiredValidation{
 	[TestFixture]
 	public class TestValidateBasePrice : AssertionHelper {
 		[Test]

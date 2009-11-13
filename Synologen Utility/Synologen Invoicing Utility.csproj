@@ -8,8 +8,8 @@
     <ProjectGuid>{84326EE0-5F6E-4133-A852-AF781AF74682}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.Utility</RootNamespace>
-    <AssemblyName>Spinit.Wpc.Synologen.Utility</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.Invoicing</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Invoicing</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>

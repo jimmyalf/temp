@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
-using Spinit.Wpc.Synologen.Utility;
-using Spinit.Wpc.Synologen.Utility.Types;
 using PercentType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
 
-namespace Spinit.Wpc.Synologen.Test.Svefaktura.CustomValidation {
+namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.CustomValidation{
 	[TestFixture]
 	public class TestValidateCustomTaxCategory : AssertionHelper {
 		[Test]

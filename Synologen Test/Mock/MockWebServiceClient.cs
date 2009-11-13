@@ -4,7 +4,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 
-namespace Spinit.Wpc.Synologen.Test.Mock {
+namespace Spinit.Wpc.Synologen.Unit.Test.Mock{
 	public class MockWebServiceClient : ISynologenService {
 		private int logMessageNumberCounter;
 		private int orderIdCounter;

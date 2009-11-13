@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
-using Spinit.Wpc.Synologen.Utility;
 using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
-namespace Spinit.Wpc.Synologen.Test.Svefaktura.RequiredValidation {
+namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.RequiredValidation{
 	[TestFixture]
 	public class TestValidateInvoiceType : AssertionHelper {
 
@@ -24,11 +24,11 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.RequiredValidation {
 				ID = new SFTISimpleIdentifierType {Value = "123456"},
 				IssueDate = new IssueDateType {Value = new DateTime(2009, 10, 19)},
 				PaymentMeans = new List<SFTIPaymentMeansType> {
-					new SFTIPaymentMeansType {
-                        PaymentMeansTypeCode = new PaymentMeansCodeType{Value = PaymentMeansCodeContentType.Item1},
-						DuePaymentDate = new PaymentDateType {Value = new DateTime(2009, 11, 19)}
-					}
-				},
+				                                              	new SFTIPaymentMeansType {
+				                                              	                         	PaymentMeansTypeCode = new PaymentMeansCodeType{Value = PaymentMeansCodeContentType.Item1},
+				                                              	                         	DuePaymentDate = new PaymentDateType {Value = new DateTime(2009, 11, 19)}
+				                                              	                         }
+				                                              },
 				TaxPointDate = new TaxPointDateType {Value = new DateTime(2009, 10, 19)},
 				InvoiceTypeCode = new CodeType {Value = "380"},
 				LineItemCountNumeric = new LineItemCountNumericType {Value = 2},

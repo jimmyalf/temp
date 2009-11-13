@@ -1,17 +1,18 @@
 using System.Linq;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
-using Spinit.Wpc.Synologen.Utility;
-namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
+
+namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.RequiredValidation{
 	[TestFixture]
 	public class TestValidateExchangeRate : AssertionHelper {
 		[Test]
 		public void Test_Complete_ExchangeRate_Validates() {
 			var exchangeRate = new SFTIExchangeRateType {
-				SourceCurrencyCode = new CurrencyCodeType{Value = CurrencyCodeContentType.SEK},
-				TargetCurrencyCode = new CurrencyCodeType{Value = CurrencyCodeContentType.DKK}
-			};
+			                                            	SourceCurrencyCode = new CurrencyCodeType{Value = CurrencyCodeContentType.SEK},
+			                                            	TargetCurrencyCode = new CurrencyCodeType{Value = CurrencyCodeContentType.DKK}
+			                                            };
 			var ruleViolations = SvefakturaValidator.ValidateObject(exchangeRate);
 			Expect(ruleViolations.Count(), Is.EqualTo(0), SvefakturaValidator.FormatRuleViolations(ruleViolations));
 		}

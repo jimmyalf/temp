@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 
-namespace Spinit.Wpc.Synologen.Test.Mock {
+namespace Spinit.Wpc.Synologen.Unit.Test.Mock{
 	public class TestMockFlow {
 		private IList<Order> orderItems;
 		private readonly MockAdkHandler adkHandler = new MockAdkHandler();

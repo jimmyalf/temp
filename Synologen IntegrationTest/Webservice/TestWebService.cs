@@ -2,7 +2,7 @@
 using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.WebService;
 
-namespace Spinit.Wpc.Synologen.IntegrationTest.Webservice{
+namespace Spinit.Wpc.Synologen.Integration.Test.Webservice{
 	[TestFixture, Explicit]
 	public class TestWebService{
 		private ClientContract client;

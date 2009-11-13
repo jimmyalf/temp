@@ -50,9 +50,6 @@
 </fieldset>	
 	<br />
 	<fieldset id="article-selection">
-<%--		<asp:ScriptManager ID="ScriptManager1" runat="server"/>
-		<asp:UpdatePanel ID="updArticleControl" runat="server" UpdateMode="Conditional">
-		<ContentTemplate>	--%>
 		<label>Artikel</label>
 			<asp:DropDownList ID="drpArticle" AutoPostBack="true" OnSelectedIndexChanged="drpArticle_OnSelectedIndexChanged" DataTextField="cName" DataValueField="cId" runat="server" Enabled="false" />
 			<asp:RequiredFieldValidator id="reqArticle" InitialValue="0" runat="server" errormessage="Artikel saknas" controltovalidate="drpArticle" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>
@@ -62,14 +59,9 @@
 		<label>Pris</label>
 			<asp:TextBox ID="txtManualPrice" runat="server"/>
 			<asp:RequiredFieldValidator id="reqManualParice" runat="server" errormessage="Pris krävs" controltovalidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>
-			<asp:RegularExpressionValidator id="regexManualPrice" runat="server" ErrorMessage="Pris måste anges i numerisk form med kommatecken som decimalavskiljare och upp till två decimaler." ControlToValidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd" ValidationExpression="^[0-9]+\,?[0-9]{1,2}$">*</asp:RegularExpressionValidator>
+			<asp:RegularExpressionValidator id="regexManualPrice" runat="server" ErrorMessage="Pris måste anges i numerisk form med utan decimaler." ControlToValidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd" ValidationExpression="^[1-9]{1}[0-9]*$">*</asp:RegularExpressionValidator>
 		<br />
-		</asp:PlaceHolder>
-<%--		</ContentTemplate>
-		<Triggers >
-			<asp:AsyncPostBackTrigger ControlID ="drpArticle" EventName ="SelectedIndexChanged" />
-		</Triggers>				
-		</asp:UpdatePanel>	--%>	
+		</asp:PlaceHolder>	
 		<label>Antal</label>
 			<asp:DropDownList ID="drpNumberOfItems" runat="server" Enabled="false" />
 			<asp:RequiredFieldValidator id="reqNumberOfItems" InitialValue="0" runat="server" errormessage="Antal måste väljas" controltovalidate="drpNumberOfItems" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>			

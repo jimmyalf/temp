@@ -86,6 +86,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
         protected global::System.Web.UI.WebControls.RangeValidator vldPrice;
         
         /// <summary>
+        /// regexPriceFormat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regexPriceFormat;
+        
+        /// <summary>
         /// chkNoVAT control.
         /// </summary>
         /// <remarks>

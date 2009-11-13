@@ -146,7 +146,7 @@
       <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
       <Name>Synologen Svefaktura</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Utility\Synologen Utility.csproj">
+    <ProjectReference Include="..\Synologen Utility\Synologen Invoicing Utility.csproj">
       <Project>{84326EE0-5F6E-4133-A852-AF781AF74682}</Project>
       <Name>Synologen Utility</Name>
     </ProjectReference>

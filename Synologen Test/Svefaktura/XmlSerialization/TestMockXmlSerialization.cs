@@ -23,8 +23,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 		public void Setup() {}
 
 		
-		[Test]
-		[Ignore]
+		[Test, Explicit]
 		public void Test_MockInvoice_Is_Valid() {
 			var invoice = GetMockInvoice();
 			var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
@@ -47,14 +46,13 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.XmlSerialization {
 			Expect(output, Is.Not.Null);
 		}
 
-		[Test]
-		[Ignore]
+		[Test, Explicit]
 		public void Test_Generate_Xml_From_Object_And_Write_To_File() {
 			var invoice = GetMockInvoice();
 			ToXML(invoice, @"C:\Documents and Settings\cberg\Skrivbord\Test-Svefaktura.xml");
 		}
 
-		[Ignore]
+		[Test, Explicit]
 		public void ReadXmlFileToGetValidationTextString() {
 			TextReader tw = new StreamReader(@"C:\Documents and Settings\cberg\Skrivbord\fsv_test_svefaktura.xml");
 			var fileContent = tw.ReadToEnd();

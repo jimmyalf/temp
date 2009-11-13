@@ -1,22 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
-using Spinit.Wpc.Synologen.Utility;
-using Spinit.Wpc.Synologen.Utility.Types;
 using PercentType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
 
-namespace Spinit.Wpc.Synologen.Test.Svefaktura.RequiredValidation {
+namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.RequiredValidation{
 	[TestFixture]
 	public class TestValidateTaxCategory : AssertionHelper {
 		[Test]
 		public void Test_Complete_TaxCategory_Validates() {
 			var taxCategory = new SFTITaxCategoryType {
-				ID = new IdentifierType {Value = "S"},
-				TaxScheme = new SFTITaxSchemeType {ID = new IdentifierType {Value = "VAT"}},
-				Percent = new PercentType {Value = 25m}
-			};
+			                                          	ID = new IdentifierType {Value = "S"},
+			                                          	TaxScheme = new SFTITaxSchemeType {ID = new IdentifierType {Value = "VAT"}},
+			                                          	Percent = new PercentType {Value = 25m}
+			                                          };
 			var ruleViolations = SvefakturaValidator.ValidateObject(taxCategory);
 			Expect(ruleViolations.Count(), Is.EqualTo(0), SvefakturaValidator.FormatRuleViolations(ruleViolations));
 		}

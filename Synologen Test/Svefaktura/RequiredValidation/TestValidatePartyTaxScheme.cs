@@ -1,17 +1,18 @@
 using System.Linq;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
-using Spinit.Wpc.Synologen.Utility;
-namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
+
+namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.RequiredValidation{
 	[TestFixture]
 	public class TestValidatePartyTaxScheme : AssertionHelper {
 		[Test]
 		public void Test_Complete_PartyTaxScheme_Validates() {
 			var partyTaxScheme = new SFTIPartyTaxSchemeType {
-				CompanyID = new IdentifierType{Value = "Company ID"},
-				TaxScheme = new SFTITaxSchemeType{ID = new IdentifierType{Value = "VAT"}}
-			};
+			                                                	CompanyID = new IdentifierType{Value = "Company ID"},
+			                                                	TaxScheme = new SFTITaxSchemeType{ID = new IdentifierType{Value = "VAT"}}
+			                                                };
 			var ruleViolations = SvefakturaValidator.ValidateObject(partyTaxScheme);
 			Expect(ruleViolations.Count(), Is.EqualTo(0), SvefakturaValidator.FormatRuleViolations(ruleViolations));
 		}

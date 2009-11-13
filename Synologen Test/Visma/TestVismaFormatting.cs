@@ -2,7 +2,7 @@ using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Visma.Utility;
 
-namespace Spinit.Wpc.Synologen.Test.Visma {
+namespace Spinit.Wpc.Synologen.Unit.Test.Visma{
 	[TestFixture]
 	public class TestVismaFormatting {
 

@@ -3,10 +3,10 @@ using System.IO;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.EDI;
+using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
-using Spinit.Wpc.Synologen.Utility.Types;
 
-namespace Spinit.Wpc.Synologen.Utility {
+namespace Spinit.Wpc.Synologen.Invoicing{
 	public class General {
 
 		public static void WriteInvoiceEDIToFile(string filePath, Invoice invoice) {

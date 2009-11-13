@@ -3,7 +3,7 @@ using System.Net;
 using System.Text;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 
-namespace Spinit.Wpc.Synologen.Utility{
+namespace Spinit.Wpc.Synologen.Invoicing{
 	public class Ftp {
 		private readonly string Url;
 		public const string FileTransferCompleteResponseCode = "226";
@@ -25,7 +25,6 @@ namespace Spinit.Wpc.Synologen.Utility{
 					writer.Write(bytes, 0, bytes.Length);
 				}
 				var response = (FtpWebResponse)request.GetResponse();
-				//request.GetRequestStream().Close();
 				return response;
 				
 			}
@@ -34,24 +33,10 @@ namespace Spinit.Wpc.Synologen.Utility{
 			}
 		}
 
-		//private FtpWebRequest GetFtpRequest() {
-		//    try {
-		//        var request = (FtpWebRequest)WebRequest.Create(Url);
-		//        request.Credentials = Credentials;
-		//        //request.KeepAlive = true;
-		//        request.KeepAlive = false;
-		//        return request;
-		//    }
-		//    catch(Exception ex) {
-		//        throw new FtpException("Ftp.GetFtpRequest()", ex);
-		//    }
-		//}
-
 		private FtpWebRequest GetFtpRequest(string newFileName) {
 			try {
 				var request = (FtpWebRequest)WebRequest.Create(Url + newFileName);
 				request.Credentials = Credentials;
-				//request.KeepAlive = true;
 				request.KeepAlive = false;
 				return request;
 			}
@@ -59,24 +44,6 @@ namespace Spinit.Wpc.Synologen.Utility{
 				throw new FtpException("Ftp.GetFtpRequest(fileName)", ex);
 			}
 		}
-
-		//private string GetListDirectory() {
-		//    try {
-		//        var request = GetFtpRequest();
-		//        request.Method = WebRequestMethods.Ftp.ListDirectory;
-		//        var response = (FtpWebResponse)request.GetResponse();
-		//        var reader = new StreamReader(response.GetResponseStream());
-		//        return reader.ReadToEnd();
-		//    }
-		//    catch(Exception ex) {
-		//        throw new FtpException("Ftp.GetListDirectory()", ex);
-		//    }
-		//}
-
-		//private static string ExtractFileNameFromPath(string filePath) {
-		//    var fileInfo = new FileInfo(filePath);
-		//    return fileInfo.Name;
-		//}
 
 		private static string TryAppendSlashAtUrlEnd(string url) {
 			if(!url.EndsWith(@"/"))url += @"/";

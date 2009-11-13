@@ -1,8 +1,8 @@
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Test.Mock;
+using Spinit.Wpc.Synologen.Unit.Test.Mock;
 using Spinit.Wpc.Synologen.Visma;
 
-namespace Spinit.Wpc.Synologen.Test.Visma {
+namespace Spinit.Wpc.Synologen.Unit.Test.Visma{
 	[TestFixture, Explicit]
 	public class TestVisma {
 		private string vismaCommonFilesPath;

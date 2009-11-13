@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
-using Spinit.Wpc.Synologen.Utility;
-using Spinit.Wpc.Synologen.Utility.Types;
 
-namespace Spinit.Wpc.Synologen.Test.Svefaktura.RequiredValidation {
+namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.RequiredValidation{
 	[TestFixture]
 	public class TestValidateTaxScheme : AssertionHelper {
 		[Test]

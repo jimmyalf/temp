@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
-namespace Spinit.Wpc.Synologen.Utility {
+namespace Spinit.Wpc.Synologen.Invoicing{
 	public class CommonConversion {
 		public static IList<string> GetFreeTextRows(ICompany company, IOrder order) {
 			if (String.IsNullOrEmpty(company.InvoiceFreeTextFormat)) return new List<string>();

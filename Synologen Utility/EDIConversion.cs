@@ -4,7 +4,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.EDI.Common.Types;
 using Spinit.Wpc.Synologen.EDI.Types;
 
-namespace Spinit.Wpc.Synologen.Utility {
+namespace Spinit.Wpc.Synologen.Invoicing{
 	public partial class Convert {
 		private static Supplier GetSupplierInformation(string supplierId, string bankGiro, string postGiro, IShop shop) {
 			var supplier = new Supplier {
@@ -22,29 +22,29 @@ namespace Spinit.Wpc.Synologen.Utility {
 		}
 
 		private static Buyer GetBuyerInformation(string buyerId, ICompany company) {
-			var buyer = new Buyer {                	
+			var buyer = new Buyer {
 				BuyerIdentity = buyerId,
-                InvoiceIdentity = company.BankCode,
+				InvoiceIdentity = company.BankCode,
 				DeliveryAddress = new Address {
-      				Address1 = company.PostBox, 
-					Address2 = company.StreetName, 
-					City = company.City, 
+					Address1 = company.PostBox,
+					Address2 = company.StreetName,
+					City = company.City,
 					Zip = company.Zip
-				  }
+				}
 			};
 			return buyer;
 		}
 
 		public static InvoiceRow ToEDIArticle(IOrderItem orderItem, int invoiceRowNumber) {
 			var EDIitem = new InvoiceRow {
-              	ArticleName = orderItem.ArticleDisplayName,
-              	ArticleNumber = orderItem.ArticleDisplayNumber,
-              	Quantity = orderItem.NumberOfItems,
-              	RowNumber = invoiceRowNumber,
-              	SinglePriceExcludingVAT = orderItem.SinglePrice,
-              	ArticleDescription = orderItem.Notes,
+				ArticleName = orderItem.ArticleDisplayName,
+				ArticleNumber = orderItem.ArticleDisplayNumber,
+				Quantity = orderItem.NumberOfItems,
+				RowNumber = invoiceRowNumber,
+				SinglePriceExcludingVAT = orderItem.SinglePrice,
+				ArticleDescription = orderItem.Notes,
 				NoVAT = orderItem.NoVAT
-			  };
+			};
 
 			return EDIitem;
 		}

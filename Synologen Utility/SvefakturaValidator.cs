@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.CustomEnumerations;
 using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
-using Spinit.Wpc.Synologen.Utility.Types;
 
-namespace Spinit.Wpc.Synologen.Utility {
+namespace Spinit.Wpc.Synologen.Invoicing{
 	public class SvefakturaValidator {
 		public static string FormatRuleViolations(IEnumerable<RuleViolation> ruleViolations) {
 			var returnString = String.Empty;
@@ -21,86 +21,86 @@ namespace Spinit.Wpc.Synologen.Utility {
 		}
 
 		public static IEnumerable<RuleViolation> ValidateObject(object value) {
-            if(value == null || value.GetType().IsSealed) yield break;
+			if(value == null || value.GetType().IsSealed) yield break;
 			foreach (var ruleViolation in GetCustomRuleViolations(value)){ yield return ruleViolation; }
-            foreach (var propertyInfo in value.GetType().GetProperties()) { //Iterate each property in value object
-                var propertyValue = propertyInfo.GetValue(value, null);
-                foreach(var ruleViolation in GetRuleViolations(value.GetType().Name, propertyValue, propertyInfo)) { //Get violations for property value
-                    yield return ruleViolation;
-                }
-                if(propertyValue == null) continue;
+			foreach (var propertyInfo in value.GetType().GetProperties()) { //Iterate each property in value object
+				var propertyValue = propertyInfo.GetValue(value, null);
+				foreach(var ruleViolation in GetRuleViolations(value.GetType().Name, propertyValue, propertyInfo)) { //Get violations for property value
+					yield return ruleViolation;
+				}
+				if(propertyValue == null) continue;
 				if(propertyValue is IEnumerable) { //If property is Enumerable recursively call method for each item
-            		foreach (var item in propertyValue as IEnumerable){
+					foreach (var item in propertyValue as IEnumerable){
 						foreach (var ruleViolation in ValidateObject(item)) { yield return ruleViolation; }
-            		}
+					}
 				}
 				else{ 
-				    foreach(var ruleViolation in ValidateObject(propertyValue)) {
-				        yield return ruleViolation;
-				    }
+					foreach(var ruleViolation in ValidateObject(propertyValue)) {
+						yield return ruleViolation;
+					}
 				}
-            }
-            yield break;
+			}
+			yield break;
 		}
 
 		#region Control Calculations
 		private static IEnumerable<RuleViolation> ValidateControlAmounts(SFTIInvoiceType invoice) {
-		    if(invoice == null) yield break;
-		    decimal sumLineExtensionAmount = 0;
-		    if( invoice.InvoiceLine != null){
-		        foreach (var invoiceLine in invoice.InvoiceLine){
-		            if (invoiceLine.LineExtensionAmount != null){
-		                sumLineExtensionAmount += invoiceLine.LineExtensionAmount.Value;
-		                foreach (var ruleValidation in ValidateControlLineExtensionAmount(invoiceLine)) { yield return ruleValidation; }
-		            }
-		        }
-		        if(invoice.LineItemCountNumeric != null && invoice.LineItemCountNumeric.Value != invoice.InvoiceLine.Count) {
-		            yield return new RuleViolation("LineItemCountNumeric does not match control calculated amount.","SFTIInvoiceType.LineItemCountNumeric");	
-		        }
-		    }
-		    if(invoice.LegalTotal != null && invoice.LegalTotal.LineExtensionTotalAmount != null && invoice.LegalTotal.LineExtensionTotalAmount.Value != sumLineExtensionAmount){
-		        yield return new RuleViolation("LegalTotal LineExtensionTotalAmount does not match control calculated amount.","SFTILegalTotalType.LineExtensionTotalAmount");
-		    }
-		    if(invoice.LegalTotal != null && invoice.LegalTotal.TaxInclusiveTotalAmount != null && invoice.TaxTotal != null){
-		        var totalTaxAmount = GetTaxTotalAmountValue(invoice.TaxTotal);
-		        var roundOff = (invoice.LegalTotal.RoundOffAmount == null) ? 0 : invoice.LegalTotal.RoundOffAmount.Value;
-		        var lineExtensionTotalAmount = (invoice.LegalTotal.LineExtensionTotalAmount == null) ? 0 : invoice.LegalTotal.LineExtensionTotalAmount.Value;
-		        if(lineExtensionTotalAmount + totalTaxAmount + roundOff != invoice.LegalTotal.TaxInclusiveTotalAmount.Value){
-		            yield return new RuleViolation("LegalTotal TaxInclusiveTotalAmount does not match control calculated amount.","SFTILegalTotalType.TaxInclusiveTotalAmount");	
-		        }
-		    }
+			if(invoice == null) yield break;
+			decimal sumLineExtensionAmount = 0;
+			if( invoice.InvoiceLine != null){
+				foreach (var invoiceLine in invoice.InvoiceLine){
+					if (invoiceLine.LineExtensionAmount != null){
+						sumLineExtensionAmount += invoiceLine.LineExtensionAmount.Value;
+						foreach (var ruleValidation in ValidateControlLineExtensionAmount(invoiceLine)) { yield return ruleValidation; }
+					}
+				}
+				if(invoice.LineItemCountNumeric != null && invoice.LineItemCountNumeric.Value != invoice.InvoiceLine.Count) {
+					yield return new RuleViolation("LineItemCountNumeric does not match control calculated amount.","SFTIInvoiceType.LineItemCountNumeric");	
+				}
+			}
+			if(invoice.LegalTotal != null && invoice.LegalTotal.LineExtensionTotalAmount != null && invoice.LegalTotal.LineExtensionTotalAmount.Value != sumLineExtensionAmount){
+				yield return new RuleViolation("LegalTotal LineExtensionTotalAmount does not match control calculated amount.","SFTILegalTotalType.LineExtensionTotalAmount");
+			}
+			if(invoice.LegalTotal != null && invoice.LegalTotal.TaxInclusiveTotalAmount != null && invoice.TaxTotal != null){
+				var totalTaxAmount = GetTaxTotalAmountValue(invoice.TaxTotal);
+				var roundOff = (invoice.LegalTotal.RoundOffAmount == null) ? 0 : invoice.LegalTotal.RoundOffAmount.Value;
+				var lineExtensionTotalAmount = (invoice.LegalTotal.LineExtensionTotalAmount == null) ? 0 : invoice.LegalTotal.LineExtensionTotalAmount.Value;
+				if(lineExtensionTotalAmount + totalTaxAmount + roundOff != invoice.LegalTotal.TaxInclusiveTotalAmount.Value){
+					yield return new RuleViolation("LegalTotal TaxInclusiveTotalAmount does not match control calculated amount.","SFTILegalTotalType.TaxInclusiveTotalAmount");	
+				}
+			}
 		}
 
 		private static IEnumerable<RuleViolation> ValidateControlLineExtensionAmount(SFTIInvoiceLineType invoiceLine) {
-		    if (invoiceLine.Item == null || invoiceLine.InvoicedQuantity == null || invoiceLine.Item.BasePrice == null || invoiceLine.Item.BasePrice.PriceAmount == null)yield break;
-		    var expectedLineExtensionAmount = invoiceLine.Item.BasePrice.PriceAmount.Value*invoiceLine.InvoicedQuantity.Value;
-		    var allowanceCharge = GetAllowanceChargeValue(invoiceLine.AllowanceCharge);
-		    if (expectedLineExtensionAmount != invoiceLine.LineExtensionAmount.Value - allowanceCharge){
-		        yield return new RuleViolation("InvoiceLine LineExtensionAmount does not match control calculated amount.", "SFTIInvoiceLineType.LineExtensionAmount");
-		    }
+			if (invoiceLine.Item == null || invoiceLine.InvoicedQuantity == null || invoiceLine.Item.BasePrice == null || invoiceLine.Item.BasePrice.PriceAmount == null)yield break;
+			var expectedLineExtensionAmount = invoiceLine.Item.BasePrice.PriceAmount.Value*invoiceLine.InvoicedQuantity.Value;
+			var allowanceCharge = GetAllowanceChargeValue(invoiceLine.AllowanceCharge);
+			if (expectedLineExtensionAmount != invoiceLine.LineExtensionAmount.Value - allowanceCharge){
+				yield return new RuleViolation("InvoiceLine LineExtensionAmount does not match control calculated amount.", "SFTIInvoiceLineType.LineExtensionAmount");
+			}
 
 		}
 
 		private static decimal GetAllowanceChargeValue(SFTIInvoiceLineAllowanceCharge allowanceCharge) {
-		    if (allowanceCharge == null || allowanceCharge.Amount == null) return 0;
-		    if (allowanceCharge.ChargeIndicator == null) return allowanceCharge.Amount.Value;
-		    return (allowanceCharge.ChargeIndicator.Value) ? allowanceCharge.Amount.Value : allowanceCharge.Amount.Value*-1;
+			if (allowanceCharge == null || allowanceCharge.Amount == null) return 0;
+			if (allowanceCharge.ChargeIndicator == null) return allowanceCharge.Amount.Value;
+			return (allowanceCharge.ChargeIndicator.Value) ? allowanceCharge.Amount.Value : allowanceCharge.Amount.Value*-1;
 		}
 
 		private static decimal GetTaxTotalAmountValue(IEnumerable<SFTITaxTotalType> taxTotals) {
-		    if (taxTotals == null) return 0;
-		    decimal counter = 0;
-		    foreach (var taxTotal in taxTotals){
-		        if(taxTotal.TotalTaxAmount == null) continue;
-		        counter += taxTotal.TotalTaxAmount.Value;
-		    }
-		    return counter;
+			if (taxTotals == null) return 0;
+			decimal counter = 0;
+			foreach (var taxTotal in taxTotals){
+				if(taxTotal.TotalTaxAmount == null) continue;
+				counter += taxTotal.TotalTaxAmount.Value;
+			}
+			return counter;
 		}
 		#endregion
 
 		#region Control TaxTotal
 		private static IEnumerable<RuleViolation> ValidateControlTaxTotal(SFTIInvoiceType invoice) {
-		    if(invoice == null || invoice.TaxTotal == null) yield break;
+			if(invoice == null || invoice.TaxTotal == null) yield break;
 			foreach (var taxTotal in invoice.TaxTotal){
 				if(taxTotal.TotalTaxAmount == null) continue;
 				if(taxTotal.TotalTaxAmount.Value != GetTotalTaxAmount(taxTotal.TaxSubTotal)){
@@ -265,17 +265,17 @@ namespace Spinit.Wpc.Synologen.Utility {
 
 		#region Helper Methods
 		private static IEnumerable<RuleViolation> GetRuleViolations(string parentObjectname, object propertyValue, MemberInfo propertyInfo) {
-            var properties = propertyInfo.GetCustomAttributes(typeof(PropertyValidationRule),true);
-            foreach (PropertyValidationRule validationType in properties) { 
-                if(IsNull(propertyValue) && validationType.ValidationType == ValidationType.RequiredNotNull) {
-                    yield return new RuleViolation(validationType, String.Concat(parentObjectname,'.',propertyInfo.Name));
-                }
-                foreach(var ruleViolation in GetRuleViolationsForIEnumerables(parentObjectname, propertyInfo, propertyValue, validationType)){
-                	yield return ruleViolation;
-                }
-            }
-            yield break;
-        }
+			var properties = propertyInfo.GetCustomAttributes(typeof(PropertyValidationRule),true);
+			foreach (PropertyValidationRule validationType in properties) { 
+				if(IsNull(propertyValue) && validationType.ValidationType == ValidationType.RequiredNotNull) {
+					yield return new RuleViolation(validationType, String.Concat(parentObjectname,'.',propertyInfo.Name));
+				}
+				foreach(var ruleViolation in GetRuleViolationsForIEnumerables(parentObjectname, propertyInfo, propertyValue, validationType)){
+					yield return ruleViolation;
+				}
+			}
+			yield break;
+		}
 
 		private static IEnumerable<RuleViolation> GetRuleViolationsForIEnumerables(string parentObjectName, MemberInfo propertyInfo, object propertyValue, PropertyValidationRule validationType) {
 			if(validationType == null || propertyValue == null || !(propertyValue is IEnumerable)) yield break;
@@ -292,7 +292,7 @@ namespace Spinit.Wpc.Synologen.Utility {
 					break;
 				case ValidationType.CollectionHasMinumumAndMaximumCountRequirement:
 					if(Count(propertyValue as IEnumerable) < validationType.MinNumberOfItemsInEnumerable.GetValueOrDefault(0) 
-						|| Count(propertyValue as IEnumerable) > validationType.MaxNumberOfItemsInEnumerable.GetValueOrDefault(int.MaxValue) ){
+					   || Count(propertyValue as IEnumerable) > validationType.MaxNumberOfItemsInEnumerable.GetValueOrDefault(int.MaxValue) ){
 						yield return new RuleViolation(validationType, String.Concat(parentObjectName,'.',propertyInfo.Name));
 					}
 					break;
@@ -317,5 +317,4 @@ namespace Spinit.Wpc.Synologen.Utility {
 		}
 		#endregion
 	}
-
 }

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
-using Spinit.Wpc.Synologen.Utility.Types;
+using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
 
-namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
+namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing{
 	[TestFixture]
 	public class TestSvefakturaCompleteParsing : AssertionHelper{
 		private Order order;
@@ -18,95 +19,95 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.DataParsing{
 		[TestFixtureSetUp]
 		public void Setup(){
 			order = new Order {
-				CompanyId = 184,
-				CompanyUnit = "Avdelning 123",
-				CustomerFirstName = "Adam",
-				CustomerLastName = "Bertil",
-				CustomerOrderNumber = "123456",
-				Email = "adam.bertil@testforetaget.se",
-				InvoiceNumber = 12345,
-				InvoiceSumExcludingVAT = 123456,
-				InvoiceSumIncludingVAT = 123456,
-				PersonalIdNumber = "197001015374",
-				Phone = "031-123456",
-				RstText = "Kostnadsställe ABC",
-				ContractCompany = new Company {
-					StreetName = "Gatuadress 1",
-					PostBox = "Postbox 123",
-					BankCode = "99998",
-					City = "Järfälla",
-					Zip = "17588",
-					Country = new Country {Id = 1, Name = "Sverige", OrganizationCountryCodeId = SwedenCountryCodeNumber},
-					InvoiceCompanyName = "5440Saab AB",
-					InvoiceFreeTextFormat = "{CustomerName}{CustomerPersonalIdNumber}{CompanyUnit}{CustomerPersonalBirthDateString}{CustomerFirstName}{CustomerLastName}{BuyerCompanyId}{RST}{BankCode}",
-					OrganizationNumber = "5560360793",
-					TaxAccountingCode = "SE556036079301",
-					PaymentDuePeriod = 30,
-				},
-				SellingShop = new Shop {
-					ContactFirstName = "Anders",
-					ContactLastName = "Andersson",
-					Phone = "031-987654",
-					Fax = "031-987653",
-					Email = "info@butiken.se",
-				},
-				OrderItems = new List<OrderItem> {
-					new OrderItem {
-						ArticleDisplayName = "Artikelnamn 1",
-						ArticleDisplayNumber = "Artikelnr 12456",
-						DisplayTotalPrice = 123.5f,
-						Notes = "Applicera långsamt",
-						NumberOfItems = 2,
-						NoVAT = false,
-						SinglePrice = 61.75f,
-					},
-					new OrderItem {
-						ArticleDisplayName = "Artikelnamn 2",
-						ArticleDisplayNumber = "Artikelnr 9854",
-						DisplayTotalPrice = 66f,
-						Notes = "Applicera omedelbart",
-						NumberOfItems = 3,
-						NoVAT = true,
-						SinglePrice = 22f,
-					},
-					new OrderItem {
-						ArticleDisplayName = "Artikelnamn 3",
-						ArticleDisplayNumber = "Artikelnr 1654",
-						DisplayTotalPrice = 199.5f,
-						Notes = null,
-						NumberOfItems = 2,
-						NoVAT = false,
-						SinglePrice = 99.75f,
-					}
-				},
-			};
+			                  	CompanyId = 184,
+			                  	CompanyUnit = "Avdelning 123",
+			                  	CustomerFirstName = "Adam",
+			                  	CustomerLastName = "Bertil",
+			                  	CustomerOrderNumber = "123456",
+			                  	Email = "adam.bertil@testforetaget.se",
+			                  	InvoiceNumber = 12345,
+			                  	InvoiceSumExcludingVAT = 123456,
+			                  	InvoiceSumIncludingVAT = 123456,
+			                  	PersonalIdNumber = "197001015374",
+			                  	Phone = "031-123456",
+			                  	RstText = "Kostnadsställe ABC",
+			                  	ContractCompany = new Company {
+			                  	                              	StreetName = "Gatuadress 1",
+			                  	                              	PostBox = "Postbox 123",
+			                  	                              	BankCode = "99998",
+			                  	                              	City = "Järfälla",
+			                  	                              	Zip = "17588",
+			                  	                              	Country = new Country {Id = 1, Name = "Sverige", OrganizationCountryCodeId = SwedenCountryCodeNumber},
+			                  	                              	InvoiceCompanyName = "5440Saab AB",
+			                  	                              	InvoiceFreeTextFormat = "{CustomerName}{CustomerPersonalIdNumber}{CompanyUnit}{CustomerPersonalBirthDateString}{CustomerFirstName}{CustomerLastName}{BuyerCompanyId}{RST}{BankCode}",
+			                  	                              	OrganizationNumber = "5560360793",
+			                  	                              	TaxAccountingCode = "SE556036079301",
+			                  	                              	PaymentDuePeriod = 30,
+			                  	                              },
+			                  	SellingShop = new Shop {
+			                  	                       	ContactFirstName = "Anders",
+			                  	                       	ContactLastName = "Andersson",
+			                  	                       	Phone = "031-987654",
+			                  	                       	Fax = "031-987653",
+			                  	                       	Email = "info@butiken.se",
+			                  	                       },
+			                  	OrderItems = new List<OrderItem> {
+			                  	                                 	new OrderItem {
+			                  	                                 	              	ArticleDisplayName = "Artikelnamn 1",
+			                  	                                 	              	ArticleDisplayNumber = "Artikelnr 12456",
+			                  	                                 	              	DisplayTotalPrice = 123.5f,
+			                  	                                 	              	Notes = "Applicera långsamt",
+			                  	                                 	              	NumberOfItems = 2,
+			                  	                                 	              	NoVAT = false,
+			                  	                                 	              	SinglePrice = 61.75f,
+			                  	                                 	              },
+			                  	                                 	new OrderItem {
+			                  	                                 	              	ArticleDisplayName = "Artikelnamn 2",
+			                  	                                 	              	ArticleDisplayNumber = "Artikelnr 9854",
+			                  	                                 	              	DisplayTotalPrice = 66f,
+			                  	                                 	              	Notes = "Applicera omedelbart",
+			                  	                                 	              	NumberOfItems = 3,
+			                  	                                 	              	NoVAT = true,
+			                  	                                 	              	SinglePrice = 22f,
+			                  	                                 	              },
+			                  	                                 	new OrderItem {
+			                  	                                 	              	ArticleDisplayName = "Artikelnamn 3",
+			                  	                                 	              	ArticleDisplayNumber = "Artikelnr 1654",
+			                  	                                 	              	DisplayTotalPrice = 199.5f,
+			                  	                                 	              	Notes = null,
+			                  	                                 	              	NumberOfItems = 2,
+			                  	                                 	              	NoVAT = false,
+			                  	                                 	              	SinglePrice = 99.75f,
+			                  	                                 	              }
+			                  	                                 },
+			                  };
 			settings = new SvefakturaConversionSettings {
-				BankGiro = "123456789",
-				BankgiroBankIdentificationCode = "BGABSESS",
-				Postgiro = "987654321",
-				PostgiroBankIdentificationCode = "PGSISESS",
-				ExemptionReason = "Innehar f-skattebevis",
-				InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
-				InvoiceExpieryPenaltySurchargePercent = 12.50m,
-				InvoiceIssueDate = new DateTime(2009, 10, 28),
-				InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto",
-				InvoiceTypeCode = "380",
-				SellingOrganizationCity = "Klippan",
-				SellingOrganizationContactEmail = "info@synologen.se",
-				SellingOrganizationContactName = "Lotta Wieslander",
-				SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
-				SellingOrganizationFax = "0435-134 33",
-				SellingOrganizationName = "Synologen AB",
-				SellingOrganizationNumber = "556401-1962",
-				SellingOrganizationPostalCode = "264 22",
-				SellingOrganizationPostBox = "Box 111",
-				SellingOrganizationStreetName = "Köpmansgården",
-				SellingOrganizationTelephone = "0435-134 33",
-				TaxAccountingCode = "SE556401196201",
-				VATAmount = 0.25m,
-			};
+			                                            	BankGiro = "123456789",
+			                                            	BankgiroBankIdentificationCode = "BGABSESS",
+			                                            	Postgiro = "987654321",
+			                                            	PostgiroBankIdentificationCode = "PGSISESS",
+			                                            	ExemptionReason = "Innehar f-skattebevis",
+			                                            	InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
+			                                            	InvoiceExpieryPenaltySurchargePercent = 12.50m,
+			                                            	InvoiceIssueDate = new DateTime(2009, 10, 28),
+			                                            	InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto",
+			                                            	InvoiceTypeCode = "380",
+			                                            	SellingOrganizationCity = "Klippan",
+			                                            	SellingOrganizationContactEmail = "info@synologen.se",
+			                                            	SellingOrganizationContactName = "Lotta Wieslander",
+			                                            	SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
+			                                            	SellingOrganizationFax = "0435-134 33",
+			                                            	SellingOrganizationName = "Synologen AB",
+			                                            	SellingOrganizationNumber = "556401-1962",
+			                                            	SellingOrganizationPostalCode = "264 22",
+			                                            	SellingOrganizationPostBox = "Box 111",
+			                                            	SellingOrganizationStreetName = "Köpmansgården",
+			                                            	SellingOrganizationTelephone = "0435-134 33",
+			                                            	TaxAccountingCode = "SE556401196201",
+			                                            	VATAmount = 0.25m,
+			                                            };
 
-			invoice = Utility.Convert.ToSvefakturaInvoice(settings, order);
+			invoice = Convert.ToSvefakturaInvoice(settings, order);
 		}
 
 		#region Order

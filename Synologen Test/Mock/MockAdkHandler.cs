@@ -1,6 +1,6 @@
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
-namespace Spinit.Wpc.Synologen.Test.Mock {
+namespace Spinit.Wpc.Synologen.Unit.Test.Mock{
 	public class MockAdkHandler : IAdkHandler {
 		private int invoiceNumberCounter = 555;
 

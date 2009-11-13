@@ -1,9 +1,10 @@
 using System;
 using System.Diagnostics;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Utility.Types;
+using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.Types;
 
-namespace Spinit.Wpc.Synologen.Test.EDI {
+namespace Spinit.Wpc.Synologen.Unit.Test.EDI{
 	[TestFixture]
 	public class TestParsing {
 		private EDIConversionSettings ediSettings = new EDIConversionSettings();
@@ -12,11 +13,11 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 		[TestFixtureSetUp]
 		public void Setup() {
 			ediSettings = new EDIConversionSettings {
-				SenderId = "5562626100",
-				BankGiro = "56936677",
-				VATAmount = 0.25F,
-				InvoiceCurrencyCode = "SEK"
-			};
+			                                        	SenderId = "5562626100",
+			                                        	BankGiro = "56936677",
+			                                        	VATAmount = 0.25F,
+			                                        	InvoiceCurrencyCode = "SEK"
+			                                        };
 		}
 
 		[Test]
@@ -26,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 			order.SellingShop = Mock.Utility.GetMockShopRow();
 			order.OrderItems = Mock.Utility.GetMockOrderItems(orderId);
 			order.ContractCompany = Mock.Utility.GetMockCompanyRow();
-			var invoice = Utility.General.CreateInvoiceEDI(order, ediSettings);
+			var invoice = General.CreateInvoiceEDI(order, ediSettings);
 			var invoiceText = invoice.Parse();
 			Debug.WriteLine(invoiceText);
 			var expectedString = String.Concat(

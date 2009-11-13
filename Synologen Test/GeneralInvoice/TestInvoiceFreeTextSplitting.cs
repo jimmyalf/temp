@@ -1,8 +1,8 @@
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Utility;
+using Spinit.Wpc.Synologen.Invoicing;
 
-namespace Spinit.Wpc.Synologen.Test.GeneralInvoice {
+namespace Spinit.Wpc.Synologen.Unit.Test.GeneralInvoice{
 	[TestFixture]
 	public class TestInvoiceFreeTextSplitting {
 

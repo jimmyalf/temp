@@ -2,7 +2,7 @@
 using System;
 using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 
-namespace Spinit.Wpc.Synologen.Utility.Types {
+namespace Spinit.Wpc.Synologen.Invoicing.Types{
 	public class RuleViolation {
 		public string ErrorMessage { get; private set; }
 		public string PropertyName { get; private set; }

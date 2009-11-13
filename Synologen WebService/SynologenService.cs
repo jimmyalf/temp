@@ -12,11 +12,12 @@ using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.EDI;
+using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
-using Spinit.Wpc.Synologen.Utility;
-using Spinit.Wpc.Synologen.Utility.Types;
+using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
 
 namespace Spinit.Wpc.Synologen.WebService{
 	public class SynologenService : ISynologenService{
@@ -221,7 +222,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 		}
 
 		private static string GetVismaNewOrderAddedHistoryMessage(long vismaOrderId, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {
-			var message = Resources.ServiceResources.OrderAddedToVismaHistoryMessage;
+			var message = App_GlobalResources.ServiceResources.OrderAddedToVismaHistoryMessage;
 			message = message.Replace("{0}", vismaOrderId.ToString());
 			message = message.Replace("{1}", invoiceSumIncludingVAT.ToString());
 			message = message.Replace("{2}", invoiceSumExcludingVAT.ToString());
@@ -229,13 +230,13 @@ namespace Spinit.Wpc.Synologen.WebService{
 		}
 
 		private static string GetVismaOrderStatusUpdateHistoryMessage(long vismaOrderId) {
-			var message = Resources.ServiceResources.OrderStatusUpdatedHistoryMessage;
+			var message = App_GlobalResources.ServiceResources.OrderStatusUpdatedHistoryMessage;
 			message = message.Replace("{0}", vismaOrderId.ToString());
 			return message;
 		}
 
 		private static string GetInvoiceSentHistoryMessage(long invoiceNumber, string ftpStatusMessage) {
-			var message = Resources.ServiceResources.InvoiceSentHistoryMessage;
+			var message = App_GlobalResources.ServiceResources.InvoiceSentHistoryMessage;
 			message = message.Replace("{0}", invoiceNumber.ToString());
 			message = message.Replace("{1}", ftpStatusMessage);
 			return message;
@@ -272,7 +273,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 				var mailMessage = new MailMessage();
 				mailMessage.To.Add(ServiceLibrary.ConfigurationSettings.WebService.AdminEmail);
 				mailMessage.From = new MailAddress(ServiceLibrary.ConfigurationSettings.WebService.EmailSender);
-				mailMessage.Subject = Resources.ServiceResources.ErrorEmailSubject;
+				mailMessage.Subject = App_GlobalResources.ServiceResources.ErrorEmailSubject;
 				mailMessage.Body = message;
 				smtpClient.Send(mailMessage);
 			}
@@ -403,13 +404,13 @@ namespace Spinit.Wpc.Synologen.WebService{
 
 		private static Invoice GenerateEDIInvoice(IOrder order) {
 			var ediSettings = GetEDISetting();
-			var invoice = Utility.Convert.ToEDIInvoice(ediSettings, order);
+			var invoice = Convert.ToEDIInvoice(ediSettings, order);
 			return invoice;
 		}
 
 		private static SFTIInvoiceType GenerateSvefakturaInvoice(IOrder order) {
 			var settings = GetSvefakturaSettings();
-			var invoice = Utility.Convert.ToSvefakturaInvoice(settings, order);
+			var invoice = Convert.ToSvefakturaInvoice(settings, order);
 			return invoice;
 		}
 

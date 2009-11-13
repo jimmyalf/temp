@@ -28,9 +28,10 @@
 		            <asp:RequiredFieldValidator id="reqArticles" InitialValue="0" runat="server" errormessage="Artikel saknas." controltovalidate="drpArticles" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
 		        </div>
 		        <div class="formItem clearLeft">
-		            <label class="labelLong">Pris *</label>
+		            <label class="labelLong">Pris utan moms *</label>
 		            <asp:TextBox runat="server" ID="txtPrice"/>
 		            <asp:RangeValidator id="vldPrice" runat="server" errormessage="Pris saknas." controltovalidate="txtPrice" Display="Dynamic" Type="Double" ValidationGroup="Error" >*</asp:RangeValidator>
+		            <asp:RegularExpressionValidator id="regexPriceFormat" runat="server" ErrorMessage="Pris måste anges i numerisk form utan decimaler." ControlToValidate="txtPrice" Display="Dynamic" ValidationGroup="Error" ValidationExpression="^[1-9]{1}[0-9]*$">*</asp:RegularExpressionValidator>
 		        </div>
 		        <div class="formItem clearLeft">
 		            <label class="labelLong">Momsfri artikel</label>

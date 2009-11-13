@@ -55,7 +55,7 @@
 		<label>Pris</label>
 			<asp:TextBox ID="txtManualPrice" runat="server"/>
 			<asp:RequiredFieldValidator id="reqManualParice" runat="server" errormessage="Pris krävs" controltovalidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>
-			<asp:RegularExpressionValidator id="regexManualPrice" runat="server" ErrorMessage="Pris måste anges i numerisk form med kommatecken som decimalavskiljare och upp till två decimaler." ControlToValidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd" ValidationExpression="^[0-9]+\,?[0-9]{1,2}$">*</asp:RegularExpressionValidator>
+			<asp:RegularExpressionValidator id="regexManualPrice" runat="server" ErrorMessage="Pris måste anges i numerisk form utan decimaler." ControlToValidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd" ValidationExpression="^[1-9]{1}[0-9]*$">*</asp:RegularExpressionValidator>
 		<br />
 		</asp:PlaceHolder>
 <%--		</ContentTemplate>

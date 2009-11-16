@@ -139,8 +139,28 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			Assert.AreEqual (fileCategory.Id, file.FleCatId, "File-category not as excpected");
 		}
 
-		[Test, Description ("Creates and fetches file from node. Compare results"), Category ("File")]
+		[Test, Description ("Creates and fetches file from node without category. Compare results"), Category ("File")]
 		public void CreateAndFetchFileFromNode ()
+		{
+			const string rootName = "opq";
+			BNode bNode = new BNode (_context);
+			Node node = bNode.CreateNode (null, rootName, true);
+
+			const int fleId = 1;
+			BFile bFile = new BFile (_context);
+			File file = bFile.CreateFile (node.Id, null, null, fleId, null);
+			bFile.Publish (file.Id);
+			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, null, true, true, true);
+			Assert.IsNotNull (files, "Files returned null");
+			Assert.IsNotEmpty (files, "Files returned empty. Should be 1.");
+			file = files [0];
+			Assert.AreEqual (fleId, file.FleId, "Base file id not as expected");
+			Assert.AreEqual (node.Id, file.NdeId, "Node id not as expected");
+			Assert.AreEqual (node, file.Node, "Node not as expected");
+		}
+
+		[Test, Description ("Creates and fetches file from node with category. Compare results"), Category ("File")]
+		public void CreateAndFetchFileFromNodeCategory ()
 		{
 			const string rootName = "opq";
 			BNode bNode = new BNode (_context);
@@ -152,7 +172,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			FileCategory fileCategory = bFile.CreateFileCategory (fileCategoryName);
 			File file = bFile.CreateFile (node.Id, null, null, fleId, fileCategory);
 			bFile.Publish (file.Id);
-			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, null, true, true, true);
+			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, fileCategory.Id, true, true, true);
 			Assert.IsNotNull (files, "Files returned null");
 			Assert.IsNotEmpty (files, "Files returned empty. Should be 1.");
 			file = files [0];

@@ -163,7 +163,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				synologenRepository.File.Insert (
 					new File
 					{
-						FleCatId = fileCategory.Id,
+						FleCatId = (fileCategory == null) ? null : (int?) fileCategory.Id,
 						FleId = baseFileId,
 						NdeId = nodeId,
 						ShpId = shopId,

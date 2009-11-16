@@ -68,9 +68,24 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			return null;
 		}
 
-		public static bool HasRole (string role)
+		/// <summary>
+		/// Checks to see if an user has an specified role.
+		/// </summary>
+		/// <param name="component">The component.</param>
+		/// <param name="role">The role to check for.</param>
+		/// <returns>If user has role=>true, otherwise false.</returns>
+
+		public static bool HasRole (string component, string role)
 		{
-			return true;
+			if (CxUser.Current != null) {
+				return CxUser.Current.IsInRole (component, role, CxUser.Current.Location, CxUser.Current.Language);
+			}
+
+			if (PublicUser.Current != null) {
+				return PublicUser.Current.IsInRole (component, role, PublicUser.Current.Location, PublicUser.Current.Language);
+			}
+			
+			return false;
 		}
 
 		#endregion

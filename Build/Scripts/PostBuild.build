@@ -36,8 +36,6 @@
 			</do>
 		</foreach>
 		
-		<if test="${int::parse(nunit.build.execresult) != 0}">
-			<fail message="Failures reported in unit tests." />
-		</if>
+		<fail message="Failures reported in unit tests." unless="${int::parse(nunit.build.execresult) == 0}" />
 	</target>
 </project>

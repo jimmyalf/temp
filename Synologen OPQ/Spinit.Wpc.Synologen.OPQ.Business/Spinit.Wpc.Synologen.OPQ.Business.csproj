@@ -80,7 +80,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BBase.cs" />
     <Compile Include="BDocument.cs" />
     <Compile Include="BFile.cs" />
     <Compile Include="BNode.cs" />

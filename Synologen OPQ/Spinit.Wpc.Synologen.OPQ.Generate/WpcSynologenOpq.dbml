@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="dbWpcSynologen" Class="dbWpcSynologenDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=BLACK;Initial Catalog=dbWpcSynologen;Persist Security Info=True;User ID=sa" SettingsObjectName="Spinit.Wpc.Synologen.Opq.Generate.Properties.Settings" SettingsPropertyName="dbWpcSynologenConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=BLACK;Initial Catalog=dbWpcSynologen;Persist Security Info=True;User ID=sa" SettingsObjectName="Spinit.Wpc.Synologen.OPQ.Generate.Properties.Settings" SettingsPropertyName="dbWpcSynologenConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.SynologenOpqDocumentHistories" Member="SynologenOpqDocumentHistories">
     <Type Name="SynologenOpqDocumentHistory">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -96,7 +96,7 @@
     <Type Name="SynologenOpqFile">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FleCatId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FleCatId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="true" />
       <Column Name="FleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ShpId" Type="System.Int32" DbType="Int" CanBeNull="true" />

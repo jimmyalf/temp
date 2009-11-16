@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 			string errorTextString = BUtilities.GetErrorTextString ("NodeErrors_NameExist");
 
-			Assert.AreEqual ("The node exist.", errorTextString, "Wrong string fetched.");
+			Assert.AreEqual("The name of the node already exists. The node needs to be unique.", errorTextString, "Wrong string fetched.");
 		}
 	}
 }

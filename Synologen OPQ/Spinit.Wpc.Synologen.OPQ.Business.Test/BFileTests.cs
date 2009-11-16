@@ -152,7 +152,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			FileCategory fileCategory = bFile.CreateFileCategory (fileCategoryName);
 			File file = bFile.CreateFile (node.Id, null, null, fleId, fileCategory);
 			bFile.Publish (file.Id);
-			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, true, true, true);
+			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, null, true, true, true);
 			Assert.IsNotNull (files, "Files returned null");
 			Assert.IsNotEmpty (files, "Files returned empty. Should be 1.");
 			file = files [0];
@@ -175,7 +175,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			FileCategory fileCategory = bFile.CreateFileCategory (fileCategoryName);
 			File file = bFile.CreateFile (node.Id, null, null, fleId, fileCategory);
 			bFile.DeleteFile (file.Id, false);
-			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, true, true, true);
+			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, null, true, true, true);
 			Assert.IsEmpty (files, "No files should be returned");
 		}
 	}

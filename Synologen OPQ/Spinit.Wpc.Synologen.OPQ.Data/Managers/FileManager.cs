@@ -5,7 +5,6 @@ using System.Linq;
 using Spinit.Data.Linq;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 using Spinit.Wpc.Synologen.OPQ.Core.Exceptions;
-using Spinit.Wpc.Synologen.OPQ.Data;
 using Spinit.Wpc.Synologen.OPQ.Data.Entities;
 
 namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
@@ -51,7 +50,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 
 			Manager.ExternalObjectsManager.CheckUserExist (file.CreatedById);
 			Manager.ExternalObjectsManager.CheckFileExist (file.FleId);
-			CheckFileCategoryExist (file.FleCatId);
+			if (file.FleCatId != null) {
+				CheckFileCategoryExist ((int) file.FleCatId);
+			}
 
 			if (file.ShpId != null) {
 				Manager.ExternalObjectsManager.CheckShopExist ((int) file.ShpId);
@@ -780,12 +781,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByNodeId (int nodeId, int fileCategoryId, bool onlyActive, bool onlyApproved)
+		public IList<File> GetFilesByNodeId (int nodeId, int? fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-			                                 where file.NdeId == nodeId && file.FleCatId == fileCategoryId
+			                                 where file.NdeId == nodeId && file.ShpId == null && file.CncId == null
 			                                 orderby file.Order ascending
 			                                 select file;
+
+			query = fileCategoryId == null ? query.AddIsNullCondition ("FleCatId") : query.AddEqualityCondition ("FleCatId", fileCategoryId);
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -813,20 +816,25 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="shopId">The shop-id.</param>
+		/// <param name="cncId">The concern-id.</param>
 		/// <param name="fileCategoryId">The file-category.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByNodeId (int nodeId, int shopId, int fileCategoryId, bool onlyActive, bool onlyApproved)
+		public IList<File> GetFilesByNodeId (int nodeId, int? shopId, int? cncId, int? fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-			                                 where
-			                                 	file.NdeId == nodeId && file.ShpId == shopId
-			                                 	&& file.FleCatId == fileCategoryId
+			                                 where file.NdeId == nodeId
 			                                 orderby file.Order ascending
 			                                 select file;
+
+			query = fileCategoryId == null ? query.AddIsNullCondition ("FleCatId") : query.AddEqualityCondition ("FleCatId", fileCategoryId);
+
+			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
+
+			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", shopId);
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -853,18 +861,23 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// Fetches a list of files for a node.
 		/// </summary>
 		/// <param name="shopId">The shop-id.</param>
- 		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="cncId">The concern-id.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByShopId (int shopId, bool onlyActive, bool onlyApproved)
+		public IList<File> GetFilesByShopId (int? shopId, int? cncId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
 											 where file.ShpId == shopId
 											 orderby file.Order ascending
 											 select file;
 
+			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
+
+			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", shopId);
+
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
 			}
@@ -890,18 +903,25 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// Fetches a list of files for a node.
 		/// </summary>
 		/// <param name="shopId">The shop-id.</param>
+		/// <param name="cncId">The concern-id.</param>
 		/// <param name="fileCategoryId">The file-category.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByShopId (int shopId, int fileCategoryId, bool onlyActive, bool onlyApproved)
+		public IList<File> GetFilesByShopId (int? shopId, int? cncId, int? fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-											 where file.ShpId == shopId && file.FleCatId == fileCategoryId
+											 where file.ShpId == shopId
 											 orderby file.Order ascending
 											 select file;
+
+			query = fileCategoryId == null ? query.AddIsNullCondition ("FleCatId") : query.AddEqualityCondition ("FleCatId", fileCategoryId);
+
+			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
+
+			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", shopId);
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -933,12 +953,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByCategoryId (int fileCategoryId, bool onlyActive, bool onlyApproved)
+		public IList<File> GetFilesByCategoryId (int? fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
 											 where file.FleCatId == fileCategoryId
 											 orderby file.Order ascending
 											 select file;
+
+			query = fileCategoryId == null ? query.AddIsNullCondition ("FleCatId") : query.AddEqualityCondition ("FleCatId", fileCategoryId);
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);

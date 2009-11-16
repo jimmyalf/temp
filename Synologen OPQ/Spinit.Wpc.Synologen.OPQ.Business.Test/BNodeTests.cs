@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			}
 			catch (NodeException ex) {
 				Assert.AreEqual ("Name exist.", ex.Message, "Exception message not as expected");
-				Assert.AreNotEqual (NodeErrors.NameExist, (NodeErrors) ex.ErrorCode);
+				Assert.AreEqual (NodeErrors.NameExist, (NodeErrors) ex.ErrorCode);
 			}
 		}
 

@@ -101,11 +101,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 			}
 		}
 		
-		partial void OnFleCatIdChanging(int value);
+		partial void OnFleCatIdChanging(int? value);
 		partial void OnFleCatIdChanged();
-		private int _FleCatId;
-		[Column(Storage=@"_FleCatId", DbType=@"Int NOT NULL", CanBeNull=false)]
-		public int FleCatId
+		private int? _FleCatId;
+		[Column(Storage=@"_FleCatId", DbType=@"Int")]
+		public int? FleCatId
 		{
 			get { return _FleCatId; }
 			set {

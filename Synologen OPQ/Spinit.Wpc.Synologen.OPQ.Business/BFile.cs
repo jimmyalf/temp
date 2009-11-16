@@ -373,12 +373,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
 		/// <param name="shopId">The id of the shop.</param>
+		/// <param name="cncId">The concern-id.</param>
 		/// <param name="fileCategoryId">The category-id.</param>
 		/// <param name="onlyActive">If true=&gt;fetch only active files.</param>
 		/// <param name="onlyApproved">If true=>fetch only approved documents.</param>
 		/// <param name="fillObjects">Fill all objects.</param>
 
-		public IList<File> GetFiles (int? nodeId, int? shopId, int? fileCategoryId, bool onlyActive, bool onlyApproved, bool fillObjects)
+		public IList<File> GetFiles (int? nodeId, int? shopId, int? cncId, int? fileCategoryId, bool onlyActive, bool onlyApproved, bool fillObjects)
 		{
 			using (
 				WpcSynologenRepository synologenRepository
@@ -399,29 +400,27 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				synologenRepository.SetDataLoadOptions ();
 
 				if (nodeId != null) {
-					if (shopId != null) {
-						if (fileCategoryId != null) {
-							return synologenRepository.File.GetFilesByNodeId (
-								(int) nodeId, 
-								(int) shopId, 
-								(int) fileCategoryId, 
-								onlyActive, 
-								onlyApproved);
-						}
-						return synologenRepository.File.GetFilesByNodeId ((int) nodeId, (int) shopId, onlyActive, onlyApproved);
+					if ((shopId != null) || (cncId != null)) {
+						return synologenRepository.File.GetFilesByNodeId (
+							(int) nodeId,
+							shopId,
+							cncId,
+							fileCategoryId,
+							onlyActive,
+							onlyApproved);
 					}
-					return synologenRepository.File.GetFilesByNodeId ((int) nodeId, onlyActive, onlyApproved);
+					return synologenRepository.File.GetFilesByNodeId ((int) nodeId, fileCategoryId, onlyActive, onlyApproved);
 				}
 
-				if (shopId != null) {
+				if ((shopId != null) || (cncId != null)) {
 					if (fileCategoryId != null) {
-						return synologenRepository.File.GetFilesByShopId ((int) shopId, (int) fileCategoryId, onlyActive, onlyApproved);
+						return synologenRepository.File.GetFilesByShopId (shopId, cncId, fileCategoryId, onlyActive, onlyApproved);
 					}
-					return synologenRepository.File.GetFilesByShopId ((int) shopId, onlyActive, onlyApproved);
+					return synologenRepository.File.GetFilesByShopId (shopId, cncId, onlyActive, onlyApproved);
 				}
 
 				if (fileCategoryId != null) {
-					return synologenRepository.File.GetFilesByCategoryId ((int) fileCategoryId, onlyActive, onlyApproved);
+					return synologenRepository.File.GetFilesByCategoryId (fileCategoryId, onlyActive, onlyApproved);
 				}
 
 				return synologenRepository.File.GetAllFiles (onlyActive, onlyApproved);

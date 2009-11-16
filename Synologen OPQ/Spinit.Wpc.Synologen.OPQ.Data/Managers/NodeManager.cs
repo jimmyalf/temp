@@ -207,6 +207,10 @@ namespace Spinit.Wpc.Synologen.Opq.Data.Managers
 				
 				oldNode.Name = node.Name.Length == 0 ? null : node.Name;
 			}
+
+			if (node.IsMenu != oldNode.IsMenu) {
+				throw new NodeException ("Change of is-menu not allowed!", NodeErrors.ChangeOfIsMenuNotAllowed);
+			}
 		}
 
 		/// <summary>

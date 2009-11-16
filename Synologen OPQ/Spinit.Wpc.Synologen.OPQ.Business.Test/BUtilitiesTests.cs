@@ -15,12 +15,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 		}
 
-		[Test, Explicit, Description ("Creates a document."), Category ("Document")]
+		[Test, Description ("Checks text from Error-text."), Category ("Document")]
 		public void CreateDocument ()
 		{
-			string errorTextString = BUtilities.GetErrorTextString ("NodeErrors_NameExist");
+			string errorTextString = BUtilities.GetErrorTextString (PropertyValues.NodeErrorsNameExist);
 
-			Assert.AreEqual("The name of the node already exists. The node needs to be unique.", errorTextString, "Wrong string fetched.");
+			Assert.AreEqual (PropertyValues.NodeErrorsResult, errorTextString, "Wrong string fetched.");
 		}
 	}
 }

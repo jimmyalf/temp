@@ -114,8 +114,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		public void CreateRootNodeAsMenu()
 		{
 			const string rootName = "root";
-			var bNode = new BNode(_context);
-			var node = bNode.CreateNode(null, rootName, true);
+			BNode bNode = new BNode(_context);
+			Node node = bNode.CreateNode(null, rootName, true);
 			Assert.AreEqual(rootName,node.Name);
 			Assert.AreEqual(1,node.Order);
 			Assert.AreEqual(true,node.IsMenu, "Should be a menu");
@@ -263,14 +263,20 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		[Test, Description("Child nodes test")]
 		public void GetChildNodes()
 		{
-			var bNode = new BNode(_context);
+			BNode bNode = new BNode(_context);
 			Node rootNode = bNode.CreateNode(null, "opq", true);
+			bNode.Publish (rootNode.Id);
 			Node child1 = bNode.CreateNode(rootNode.Id, "root-Child1", true);
-			Node child2 = bNode.CreateNode(rootNode.Id, "root-Child2", true);
-			Node child1Child1 = bNode.CreateNode(child1.Id, "root-Child1-Child1", false);
-			Node child1Child2 = bNode.CreateNode(child1.Id, "root-Child1-Child2", false);
-			Node child1Child3 = bNode.CreateNode(child1.Id, "root-Child1-Child3", false);
-			var nodes = bNode.GetAllChilds(rootNode.Id, true, true);
+			bNode.Publish (child1.Id);
+			Node child2 = bNode.CreateNode (rootNode.Id, "root-Child2", true);
+			bNode.Publish (child2.Id);
+			Node child1Child1 = bNode.CreateNode (child1.Id, "root-Child1-Child1", false);
+			bNode.Publish (child1Child1.Id);
+			Node child1Child2 = bNode.CreateNode (child1.Id, "root-Child1-Child2", false);
+			bNode.Publish (child1Child2.Id);
+			Node child1Child3 = bNode.CreateNode (child1.Id, "root-Child1-Child3", false);
+			bNode.Publish (child1Child3.Id);
+			List<Node> nodes = (List<Node>) bNode.GetAllChilds (rootNode.Id, true, true);
 			Assert.AreEqual(2, nodes.Count, "Should contain two nodes");
 			Assert.AreEqual(child1, nodes[0], "child1 differs from expected");
 			Assert.AreEqual(child2, nodes[1], "child2 differs from expected");

@@ -29,7 +29,7 @@
 					<arg value="/xml=${nunit.build.reportsdir}${path::get-file-name-without-extension(filename)}-Results.xml" />
 				</exec>
 				
-				<property name="nunit.build.execresult" value="${testresult}" unless="${nunit.build.execresult} != 0" />
+				<property name="nunit.build.execresult" value="${testresult}" unless="${int::nunit.build.execresult} != 0" />
 				
 				<echo message="Exec result property: ${nunit.build.execresult}, resultproperty ${testresult}." />
 				
@@ -38,7 +38,7 @@
 			</do>
 		</foreach>
 		
-		<if test="$nunit.build.execresult != 0">
+		<if test="${int::nunit.build.execresult} != 0">
 			<fail message="Failures reported in unit tests." />
 		</if>
 	</target>

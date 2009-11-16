@@ -62,6 +62,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Change of node not allowed.
         /// </summary>
         internal static string DocumentErrors_CangeOfNodeNotAllowed {
             get {
@@ -71,6 +72,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Change of concern not allowed.
         /// </summary>
         internal static string DocumentErrors_ChangeOfConcernNotAllowed {
             get {
@@ -80,6 +82,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You are not allowed to change document type.
         /// </summary>
         internal static string DocumentErrors_ChangeOfDocumentTypeNotAllowed {
             get {
@@ -89,6 +92,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Change of shop not allowed.
         /// </summary>
         internal static string DocumentErrors_ChangeOfShopNotAllowed {
             get {
@@ -98,6 +102,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to Halloj.
+        ///   Looks up a localized string similar to The document is locked by an other user.
         /// </summary>
         internal static string DocumentErrors_DocumentLockedByOtherUser {
             get {
@@ -107,6 +112,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The node can not be changed..
         /// </summary>
         internal static string FileErrors_CangeOfNodeNotAllowed {
             get {
@@ -116,6 +122,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The concern can not be changed..
         /// </summary>
         internal static string FileErrors_ChangeOfConcernNotAllowed {
             get {
@@ -125,6 +132,16 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The file category can not be changed..
+        /// </summary>
+        internal static string FileErrors_ChangeOfFileCategoryNotAllowed {
+            get {
+                return ResourceManager.GetString("FileErrors_ChangeOfFileCategoryNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The shop can not be changed..
         /// </summary>
         internal static string FileErrors_ChangeOfShopNotAllowed {
             get {
@@ -134,6 +151,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The category already exists..
         /// </summary>
         internal static string FileErrors_FileCategoryExist {
             get {
@@ -143,6 +161,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The category has connected files and can not be deleted..
         /// </summary>
         internal static string FileErrors_FileCategoryInUse {
             get {
@@ -152,6 +171,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The file is locked by an other user..
         /// </summary>
         internal static string FileErrors_FileLockedByOtherUser {
             get {
@@ -161,6 +181,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You have choosen a invalid position..
         /// </summary>
         internal static string FileErrors_MoveToForbidden {
             get {
@@ -170,6 +191,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You need to specify a new position for the node..
         /// </summary>
         internal static string FileErrors_PositionNotMoved {
             get {
@@ -179,6 +201,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The current node can not move to the selected destination..
         /// </summary>
         internal static string NodeErrors_MoveToForbidden {
             get {
@@ -187,7 +210,8 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The node exist..
+        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The name of the node already exists. The node needs to be unique..
         /// </summary>
         internal static string NodeErrors_NameExist {
             get {
@@ -197,6 +221,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The node is checked out by another user..
         /// </summary>
         internal static string NodeErrors_NodeLockedByOtherUser {
             get {
@@ -206,6 +231,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The parent of the node does not exist.
         /// </summary>
         internal static string NodeErrors_ParentDoesNotExist {
             get {
@@ -215,6 +241,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to You need to choose a new position for the node..
         /// </summary>
         internal static string NodeErrors_PositionNotMoved {
             get {
@@ -224,6 +251,7 @@ namespace Spinit.Wpc.Synologen.Opq.Business {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to User does not exists..
         /// </summary>
         internal static string UserErrors_NoCurrentExist {
             get {

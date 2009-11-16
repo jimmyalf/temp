@@ -86,6 +86,7 @@
     <Folder Include="Scripts\Post-Deployment" />
     <Folder Include="Data Generation Plans" />
     <Folder Include="Schema Comparisons" />
+    <Folder Include="Scripts\Test Data\Business Layer Tests" />
     <Folder Include="Scripts\Test Data\Data Layer Tests" />
   </ItemGroup>
   <ItemGroup>
@@ -375,10 +376,16 @@
     <NotInBuild Include="Schema Comparisons\Project - BLACK.scmp">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
+    <NotInBuild Include="Scripts\Administration\CleanTestData.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
     <NotInBuild Include="Scripts\Administration\Visio_generated.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
     <NotInBuild Include="Scripts\Default Data\DocumentTypes.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Test Data\Business Layer Tests\TestData.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
     <NotInBuild Include="Scripts\Test Data\Data Layer Tests\TestData.sql">

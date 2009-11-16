@@ -154,6 +154,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			Assert.IsNotNull (files, "Files returned null");
 			Assert.IsNotEmpty (files, "Files returned empty. Should be 1.");
 			file = files [0];
+			Assert.IsNotNull (file.BaseFile, "Base-file returned null");
 			Assert.AreEqual (fleId, file.FleId, "Base file id not as expected");
 			Assert.AreEqual (node.Id, file.NdeId, "Node id not as expected");
 			Assert.AreEqual (node, file.Node, "Node not as expected");

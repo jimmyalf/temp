@@ -1188,14 +1188,19 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 				file.LockedBy = EBaseUser.Convert (eFile.LockedBy);
 			}
 
-			// Only fetch users flat (external object).
+			// Only fetch concern flat (external object).
 			if (!SkipConcern && (eFile.Concern != null)) {
 				file.Concern = EConcern.Convert (eFile.Concern);
 			}
 
-			// Only fetch users flat (external object).
+			// Only fetch shop flat (external object).
 			if (!SkipShop && (eFile.Shop != null)) {
 				file.Shop = EShop.Convert (eFile.Shop);
+			}
+
+			// Only fetch file flat (external object).
+			if (!SkipBaseFile && (eFile.BaseFile != null)) {
+				file.BaseFile = EBaseFile.Convert (eFile.BaseFile);
 			}
 
 			return file;
@@ -1308,6 +1313,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// </summary>
 
 		public bool SkipShop { get; set; }
+
+		/// <summary>
+		/// If true=>skip filling base-file.
+		/// </summary>
+
+		public bool SkipBaseFile { get; set; }
 
 		#endregion
 

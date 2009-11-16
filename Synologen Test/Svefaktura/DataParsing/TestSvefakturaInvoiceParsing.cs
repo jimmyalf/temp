@@ -80,6 +80,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing{
 		}
 		[Test]
 		public void Test_Create_Invoice_Sets_Parsed_Note() {
+			var customShop = new Shop {Name = "Synbutiken AB", Number = "9001"};
 			var customOrder = new Order {
 			                            	CustomerFirstName = "Adam",
 			                            	CustomerLastName = "Bertil",
@@ -87,12 +88,12 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing{
 			                            	CompanyUnit = "Avdelning 1234",
 			                            	CompanyId = 123,
 			                            	RstText="ABCDEFGH",
-			                            	SellingShop = emptyShop, 
+			                            	SellingShop = customShop,
 			                            	OrderItems = emptyOrderItems,
-			                            	ContractCompany =  new Company{InvoiceFreeTextFormat = "{CustomerName}{CustomerPersonalIdNumber}{CompanyUnit}{CustomerPersonalBirthDateString}{CustomerFirstName}{CustomerLastName}{BuyerCompanyId}{RST}"}
+			                            	ContractCompany =  new Company{InvoiceFreeTextFormat = "{CustomerName}{CustomerPersonalIdNumber}{CompanyUnit}{CustomerPersonalBirthDateString}{CustomerFirstName}{CustomerLastName}{BuyerCompanyId}{RST}{SellingShopName}{SellingShopNumber}"}
 			                            };
 			var invoice = General.CreateInvoiceSvefaktura(customOrder, emptySettings);
-			Assert.AreEqual("Adam Bertil197001015374Avdelning 123419700101AdamBertil123ABCDEFGH", invoice.Note.Value);
+			Assert.AreEqual("Adam Bertil197001015374Avdelning 123419700101AdamBertil123ABCDEFGHSynbutiken AB9001", invoice.Note.Value);
 		}
 		#endregion
 

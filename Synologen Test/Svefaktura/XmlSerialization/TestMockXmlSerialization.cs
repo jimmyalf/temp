@@ -71,13 +71,14 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 		}
 		private static void ToXML(SFTIInvoiceType objToSerialize, string filePath) {
 			var namespaces = GetNamespaces();
-			var settings = new XmlWriterSettings {
-			                                     	Encoding = Encoding.UTF8, 
-			                                     	Indent = true, 
-			                                     	IndentChars = "\t", 
-			                                     	NewLineChars = Environment.NewLine, 
-			                                     	ConformanceLevel = ConformanceLevel.Document,
-			                                     };
+			var settings = new XmlWriterSettings
+			{
+				Encoding = Encoding.UTF8,
+				Indent = true,
+				IndentChars = "\t",
+				NewLineChars = Environment.NewLine,
+				ConformanceLevel = ConformanceLevel.Document,
+			};
 			TextWriter textWriter = new StreamWriter(filePath, false, Encoding.UTF8);
 			var serializer = new XmlSerializer(objToSerialize.GetType());
 			using(var writer = XmlWriter.Create(textWriter, settings)){
@@ -117,13 +118,14 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 			return Convert.ToSvefakturaInvoice(settings, order);
 		}
 		public Shop GetMockShop() {
-			return new Shop {
-			                	ContactFirstName = "Adam",
-			                	ContactLastName = "Bertil",
-			                	Phone = "0811122233",
-			                	Fax = "089876543",
-			                	Email = "sales@modernaprodukter.se"
-			                };
+			return new Shop
+			{
+				ContactFirstName = "Adam",
+				ContactLastName = "Bertil",
+				Phone = "0811122233",
+				Fax = "089876543",
+				Email = "sales@modernaprodukter.se"
+			};
 		}
 		public Company GetMockCompany() {
 			return new Company {
@@ -151,68 +153,73 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 			};
 		}
 		public SvefakturaConversionSettings GetMockSettings() {
-			return new SvefakturaConversionSettings {
-			                                        	InvoiceIssueDate = new DateTime(2003, 09, 11),
-			                                        	InvoiceTypeCode = "380",
-			                                        	InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
-			                                        	SellingOrganizationName = "Moderna Produkter AB",
-			                                        	SellingOrganizationStreetName = "Storgatan 5",
-			                                        	SellingOrganizationCity = "Hägersten",
-			                                        	SellingOrganizationPostalCode = "12652",
-			                                        	ExemptionReason = "F-skattebevis finns",
-			                                        	SellingOrganizationNumber = "5565624223",
-			                                        	TaxAccountingCode = "SE556562422301",
-			                                        	SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
-			                                        	SellingOrganizationContactName = "A Person, Fakturaavd",
-			                                        	BankGiro = "9551548524585",
-			                                        	BankgiroBankIdentificationCode = "SKIASESS",
-			                                        	InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagars netto",
-			                                        	InvoiceExpieryPenaltySurchargePercent = 23,
-			                                        	VATAmount = 0.25m,
-			                                        	Postgiro = "123456789",
-			                                        	PostgiroBankIdentificationCode = "PGSISESS",
-			                                        	SellingOrganizationContactEmail = "info@synologen.se",
-			                                        	SellingOrganizationFax = "0123-456789",
-			                                        	SellingOrganizationPostBox = "Box 789",
-			                                        	SellingOrganizationTelephone = "0123-567890"
-			                                        };
+			return new SvefakturaConversionSettings
+			{
+				InvoiceIssueDate = new DateTime(2003, 09, 11),
+				InvoiceTypeCode = "380",
+				InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
+				SellingOrganizationName = "Moderna Produkter AB",
+				SellingOrganizationStreetName = "Storgatan 5",
+				SellingOrganizationCity = "Hägersten",
+				SellingOrganizationPostalCode = "12652",
+				ExemptionReason = "F-skattebevis finns",
+				SellingOrganizationNumber = "5565624223",
+				TaxAccountingCode = "SE556562422301",
+				SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
+				SellingOrganizationContactName = "A Person, Fakturaavd",
+				BankGiro = "9551548524585",
+				BankgiroBankIdentificationCode = "SKIASESS",
+				InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagars netto",
+				InvoiceExpieryPenaltySurchargePercent = 23,
+				VATAmount = 0.25m,
+				Postgiro = "123456789",
+				PostgiroBankIdentificationCode = "PGSISESS",
+				SellingOrganizationContactEmail = "info@synologen.se",
+				SellingOrganizationFax = "0123-456789",
+				SellingOrganizationPostBox = "Box 789",
+				SellingOrganizationTelephone = "0123-567890"
+			};
 		}
 		public Order GetMockOrder() {
-			return new Order {
-			                 	InvoiceNumber = 15,
-			                 	CustomerFirstName = "Pelle",
-			                 	CustomerLastName = "Svensson",
-			                 	InvoiceSumIncludingVAT = 6725.00,
-			                 	InvoiceSumExcludingVAT = 5480.00,
-			                 	CustomerOrderNumber = "123456789",
-			                 	CompanyUnit = "Företagsenhet",
-			                 	Email = "pelle.svensson@inkop.se",
-			                 	PersonalIdNumber = "197001015374",
-			                 	Phone = "08-987654",
-			                 	RstText = "Kostnadsställe ABCD",
-			                 	CompanyId = 987
-			                 };
+			return new Order
+			{
+				InvoiceNumber = 15,
+				CustomerFirstName = "Pelle",
+				CustomerLastName = "Svensson",
+				InvoiceSumIncludingVAT = 6725.00,
+				InvoiceSumExcludingVAT = 5480.00,
+				CustomerOrderNumber = "123456789",
+				CompanyUnit = "Företagsenhet",
+				Email = "pelle.svensson@inkop.se",
+				PersonalIdNumber = "197001015374",
+				Phone = "08-987654",
+				RstText = "Kostnadsställe ABCD",
+				CompanyId = 987
+			};
 		}
 		public List<OrderItem> GetMockOrderItems() {
-			return new List<OrderItem> {
-			                           	new OrderItem {
-			                           	              	ArticleDisplayName = "Falu rödfärg",
-			                           	              	NumberOfItems = 120,
-			                           	              	DisplayTotalPrice = 4980,
-			                           	              	SinglePrice = 41.50f,
-			                           	              	NoVAT = false,
-			                           	              	Notes = "Fritext på fakturaraden",
-			                           	              	ArticleDisplayNumber = "12345"
-			                           	              },
-			                           	new OrderItem {
-			                           	              	ArticleDisplayName = "Pensel 20 mm",
-			                           	              	NumberOfItems = 10,
-			                           	              	DisplayTotalPrice = 500,
-			                           	              	SinglePrice = 50,
-			                           	              	NoVAT = true,
-			                           	              	ArticleDisplayNumber = "524522"
-			                           	              }
-			                           };
+			return new List<OrderItem>
+			{
+				new OrderItem
+				{
+					ArticleDisplayName = "Falu rödfärg",
+					NumberOfItems = 120,
+					DisplayTotalPrice = 4980,
+					SinglePrice = 41.50f,
+					NoVAT = false,
+					Notes = "Fritext på fakturaraden",
+					ArticleDisplayNumber = "12345"
+				},
+				new OrderItem
+				{
+					ArticleDisplayName = "Pensel 20 mm",
+					NumberOfItems = 10,
+					DisplayTotalPrice = 500,
+					SinglePrice = 50,
+					NoVAT = true,
+					ArticleDisplayNumber = "524522"
+				}
+			};
 		}
 		#endregion
 

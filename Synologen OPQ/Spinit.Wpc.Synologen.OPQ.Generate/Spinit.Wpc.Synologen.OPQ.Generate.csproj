@@ -8,7 +8,7 @@
     <ProjectGuid>{16C34D87-A1F3-42AB-B8BF-F94FBCA4761F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.Opq.Generate</RootNamespace>
+    <RootNamespace>Spinit.Wpc.Synologen.OPQ.Generate</RootNamespace>
     <AssemblyName>Spinit.Wpc.Synologen.OPQ.Generate</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

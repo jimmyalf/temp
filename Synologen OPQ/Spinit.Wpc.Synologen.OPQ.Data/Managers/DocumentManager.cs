@@ -6,11 +6,11 @@ using System.Linq;
 using Spinit.Data.Linq;
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
-using Spinit.Wpc.Synologen.Opq.Core.Exceptions;
+using Spinit.Wpc.Synologen.OPQ.Core.Exceptions;
 using Spinit.Wpc.Synologen.OPQ.Data;
 using Spinit.Wpc.Synologen.OPQ.Data.Entities;
 
-namespace Spinit.Wpc.Synologen.Opq.Data.Managers
+namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 {
 	public class DocumentManager : EntityManager<WpcSynologenRepository>
 	{

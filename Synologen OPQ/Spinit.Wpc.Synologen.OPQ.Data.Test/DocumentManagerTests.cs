@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
-using Spinit.Wpc.Synologen.Opq.Core.Exceptions;
+using Spinit.Wpc.Synologen.OPQ.Core.Exceptions;
 using Spinit.Wpc.Synologen.OPQ.Data.Test.Properties;
 
 namespace Spinit.Wpc.Synologen.OPQ.Data.Test

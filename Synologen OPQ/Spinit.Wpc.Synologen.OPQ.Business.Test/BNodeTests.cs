@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Spinit.Wpc.Synologen.OPQ.Business.Test.Properties;
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
-using Spinit.Wpc.Synologen.Opq.Core.Exceptions;
+using Spinit.Wpc.Synologen.OPQ.Core.Exceptions;
 
 namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 {
@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			}
 			catch (NodeException ex) {
 				Assert.AreEqual ("Name exist.", ex.Message, "Exception message not as expected");
-				Assert.AreEqual (NodeErrors.NameExist, (NodeErrors) ex.ErrorCode);
+				Assert.AreNotEqual (NodeErrors.NameExist, (NodeErrors) ex.ErrorCode);
 			}
 		}
 

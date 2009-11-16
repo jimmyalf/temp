@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Spinit.Wpc.Synologen.Opq.Business
+namespace Spinit.Wpc.Synologen.OPQ.Business
 {
 	public static class PropertyExtension
 	{

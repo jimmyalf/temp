@@ -137,5 +137,21 @@ namespace Spinit.Wpc.Synologen.Unit.Test.GeneralInvoice{
 			var parsedString = CommonConversion.ParseInvoiceFreeTeext(testFormat, emptyOrder, company);
 			Assert.AreEqual("Test: 99998", parsedString);
 		}
+
+		[Test]
+		public void Test_Parsing_SellingShopName() {
+			const string testFormat = "Test: {SellingShopName}";
+			var order = new Order {SellingShop = new Shop {Name = "Butiken AB"}};
+			var parsedString = CommonConversion.ParseInvoiceFreeTeext(testFormat, order, emptyCompany);
+			Assert.AreEqual("Test: Butiken AB", parsedString);
+		}
+
+		[Test]
+		public void Test_Parsing_SellingShopNumber() {
+			const string testFormat = "Test: {SellingShopNumber}";
+			var order = new Order {SellingShop = new Shop{ Number  = "0123456789"}};
+			var parsedString = CommonConversion.ParseInvoiceFreeTeext(testFormat, order, emptyCompany);
+			Assert.AreEqual("Test: 0123456789", parsedString);
+		}
 	}
 }

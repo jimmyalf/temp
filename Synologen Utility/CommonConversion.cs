@@ -23,6 +23,10 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{BuyerCompanyId}", order.CompanyId.ToString() ?? String.Empty);
 			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{RST}", order.RstText ?? String.Empty);
 			invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{BankCode}", company.BankCode ?? String.Empty);
+			if(order.SellingShop!=null){
+				invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{SellingShopName}", order.SellingShop.Name ?? String.Empty);
+				invoiceFreeTextFormat = invoiceFreeTextFormat.Replace("{SellingShopNumber}", order.SellingShop.Number ?? String.Empty);
+			}
 			return invoiceFreeTextFormat;
 		}
 

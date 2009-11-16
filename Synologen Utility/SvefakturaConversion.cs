@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			invoice.TaxTotal.Add(generatedTaxTotal);
 		}
 
-		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IOrder order, IEnumerable<OrderItem> orderItems, ICompany company ) {
+		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IOrder order, IEnumerable<OrderItem> orderItems, ICompany company) {
 			if(invoice == null) invoice = new SFTIInvoiceType();
 			var freeTextRows = CommonConversion.GetFreeTextRowsAsString(company, order);
 			invoice.Note = TryGetValue(freeTextRows, new NoteType {Value = freeTextRows});

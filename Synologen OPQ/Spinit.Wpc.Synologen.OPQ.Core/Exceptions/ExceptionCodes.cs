@@ -59,7 +59,13 @@
 		/// The node is locked by another user.
 		/// </summary>
 
-		NodeLockedByOtherUser = 5
+		NodeLockedByOtherUser = 5,
+
+		/// <summary>
+		/// Change of is-menu not allowed.
+		/// </summary>
+
+		ChangeOfIsMenuNotAllowed = 6,
 	}
 
 	/// <summary>

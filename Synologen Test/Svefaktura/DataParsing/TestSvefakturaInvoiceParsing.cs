@@ -782,6 +782,14 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing{
 			Assert.AreEqual("3", invoice.InvoiceLine[2].ID.Value);
 		}
 
+		[Test]
+		public void Test_Create_Invoice_Sets_AdditionalDocumentReference_ID() {
+			var customCompany = new Company {Id = 123};
+			var customOrder = new Order { ContractCompany = customCompany, SellingShop = emptyShop, OrderItems = emptyOrderItems};
+			var invoice = General.CreateInvoiceSvefaktura(customOrder , emptySettings);
+			Assert.AreEqual("123", invoice.AdditionalDocumentReference[0].ID.Value);
+		}
+
 
 		#endregion
 	}

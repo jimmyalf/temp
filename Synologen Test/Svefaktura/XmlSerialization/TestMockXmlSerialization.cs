@@ -127,27 +127,28 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 		}
 		public Company GetMockCompany() {
 			return new Company {
-			                   	InvoiceFreeTextFormat =
-			                   		"Kundens namn: {CustomerName}\r\n"
-			                   		+ "Kundens förnamn: {CustomerFirstName}\r\n"
-			                   		+ "Kundens efternamn: {CustomerLastName}\r\n"
-			                   		+ "Kundens personnummer: {CustomerPersonalIdNumber}\r\n"
-			                   		+ "Kundens födelsedag: {CustomerPersonalBirthDateString}\r\n"
-			                   		+ "Kundens företagsenhet: {CompanyUnit}\r\n"
-			                   		+ "Kundens konstnadsställe: {RST}\r\n"
-			                   		+ "Kundens bankkod: {BankCode}\r\n"
-			                   		+ "Företagsid: {BuyerCompanyId}",
-			                   	InvoiceCompanyName = "Johnssons byggvaror",
-			                   	StreetName = "Rådhusgatan 5",
-			                   	City = "Stockholm",
-			                   	PostBox = "Box 123",
-			                   	Zip = "11000",
-			                   	PaymentDuePeriod = 30,
-			                   	Country = new Country {OrganizationCountryCodeId = SwedenCountryCodeNumber},
-			                   	BankCode = "99998",
-			                   	OrganizationNumber = "555123456",
-			                   	TaxAccountingCode = "SE555123456",
-			                   };
+				Id = 45,
+				InvoiceFreeTextFormat =
+					"Kundens namn: {CustomerName}\r\n"
+					+ "Kundens förnamn: {CustomerFirstName}\r\n"
+					+ "Kundens efternamn: {CustomerLastName}\r\n"
+					+ "Kundens personnummer: {CustomerPersonalIdNumber}\r\n"
+					+ "Kundens födelsedag: {CustomerPersonalBirthDateString}\r\n"
+					+ "Kundens företagsenhet: {CompanyUnit}\r\n"
+					+ "Kundens konstnadsställe: {RST}\r\n"
+					+ "Kundens bankkod: {BankCode}\r\n"
+					+ "Företagsid: {BuyerCompanyId}",
+				InvoiceCompanyName = "Johnssons byggvaror",
+				StreetName = "Rådhusgatan 5",
+				City = "Stockholm",
+				PostBox = "Box 123",
+				Zip = "11000",
+				PaymentDuePeriod = 30,
+				Country = new Country {OrganizationCountryCodeId = SwedenCountryCodeNumber},
+				BankCode = "99998",
+				OrganizationNumber = "555123456",
+				TaxAccountingCode = "SE555123456",
+			};
 		}
 		public SvefakturaConversionSettings GetMockSettings() {
 			return new SvefakturaConversionSettings {
@@ -234,8 +235,8 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 				+"Företagsid: 987"
 				+"</cbc:Note>"
 				+"<InvoiceCurrencyCode>SEK</InvoiceCurrencyCode>"
-				//+"<TaxCurrencyCode>SEK</TaxCurrencyCode>"
 				+"<LineItemCountNumeric>2</LineItemCountNumeric>"
+				+"<AdditionalDocumentReference><cac:ID identificationSchemeID=\"ACD\" identificationSchemeAgencyName=\"SFTI\">45</cac:ID></AdditionalDocumentReference>"
 				+"<cac:BuyerParty>"
 				+"<cac:Party>"
 				+"<cac:PartyIdentification><cac:ID>555123456</cac:ID></cac:PartyIdentification>"

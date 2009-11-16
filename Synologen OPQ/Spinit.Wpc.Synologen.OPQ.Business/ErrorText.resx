@@ -119,60 +119,82 @@
   </resheader>
   <data name="DocumentErrors_CangeOfNodeNotAllowed" xml:space="preserve">
     <value />
+    <value>Change of node not allowed</value>
   </data>
   <data name="DocumentErrors_ChangeOfConcernNotAllowed" xml:space="preserve">
     <value />
+    <value>Change of concern not allowed</value>
   </data>
   <data name="DocumentErrors_ChangeOfDocumentTypeNotAllowed" xml:space="preserve">
     <value />
+    <value>You are not allowed to change document type</value>
   </data>
   <data name="DocumentErrors_ChangeOfShopNotAllowed" xml:space="preserve">
     <value />
+    <value>Change of shop not allowed</value>
   </data>
   <data name="DocumentErrors_DocumentLockedByOtherUser" xml:space="preserve">
     <value>Halloj</value>
     <comment>asdada</comment>
+    <value>The document is locked by an other user</value>
   </data>
   <data name="FileErrors_CangeOfNodeNotAllowed" xml:space="preserve">
     <value />
+    <value>The node can not be changed.</value>
   </data>
   <data name="FileErrors_ChangeOfConcernNotAllowed" xml:space="preserve">
     <value />
+    <value>The concern can not be changed.</value>
+  </data>
+  <data name="FileErrors_ChangeOfFileCategoryNotAllowed" xml:space="preserve">
+    <value>The file category can not be changed.</value>
   </data>
   <data name="FileErrors_ChangeOfShopNotAllowed" xml:space="preserve">
     <value />
+    <value>The shop can not be changed.</value>
   </data>
   <data name="FileErrors_FileCategoryExist" xml:space="preserve">
     <value />
+    <value>The category already exists.</value>
   </data>
   <data name="FileErrors_FileCategoryInUse" xml:space="preserve">
     <value />
+    <value>The category has connected files and can not be deleted.</value>
   </data>
   <data name="FileErrors_FileLockedByOtherUser" xml:space="preserve">
     <value />
+    <value>The file is locked by an other user.</value>
   </data>
   <data name="FileErrors_MoveToForbidden" xml:space="preserve">
     <value />
+    <value>You have choosen a invalid position.</value>
   </data>
   <data name="FileErrors_PositionNotMoved" xml:space="preserve">
     <value />
+    <value>You need to specify a new position for the node.</value>
   </data>
   <data name="NodeErrors_MoveToForbidden" xml:space="preserve">
     <value />
+    <value>The current node can not move to the selected destination.</value>
   </data>
   <data name="NodeErrors_NameExist" xml:space="preserve">
-    <value>The node exist.</value>
+    <value />
+    <value>The name of the node already exists. The node needs to be unique.</value>
   </data>
   <data name="NodeErrors_NodeLockedByOtherUser" xml:space="preserve">
     <value />
+    <value>The node is checked out by another user.</value>
   </data>
   <data name="NodeErrors_ParentDoesNotExist" xml:space="preserve">
     <value />
+    <value>The parent of the node does not exist</value>
   </data>
   <data name="NodeErrors_PositionNotMoved" xml:space="preserve">
     <value />
+    <value>You need to choose a new position for the node.</value>
   </data>
   <data name="UserErrors_NoCurrentExist" xml:space="preserve">
     <value />
+    <value>User does not exists.</value>
   </data>
 </root>

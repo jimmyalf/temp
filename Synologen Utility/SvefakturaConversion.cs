@@ -31,12 +31,13 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			invoice.IssueDate = TryGetValue(settings.InvoiceIssueDate, new IssueDateType {Value = settings.InvoiceIssueDate});
 			invoice.InvoiceTypeCode = TryGetValue(settings.InvoiceTypeCode, new CodeType {Value = settings.InvoiceTypeCode});
 			invoice.ID = TryGetValue(order.InvoiceNumber, new SFTISimpleIdentifierType {Value = order.InvoiceNumber.ToString()});
+			invoice.AdditionalDocumentReference = TryGetValue(company.Id, new List<SFTIDocumentReferenceType> {new SFTIDocumentReferenceType {ID = new IdentifierType {Value = company.Id.ToString(), identificationSchemeAgencyName = "SFTI", identificationSchemeID = "ACD"}}});
 			if (order.InvoiceSumIncludingVAT > 0 || order.InvoiceSumExcludingVAT > 0){
 				invoice.LegalTotal = new SFTILegalTotalType {
-				                                            	LineExtensionTotalAmount = TryGetLineExtensionAmount(orderItems),
-				                                            	TaxExclusiveTotalAmount = TryGetValue(order.InvoiceSumExcludingVAT, new TotalAmountType { Value = (decimal) order.InvoiceSumExcludingVAT, amountCurrencyID = "SEK" }),
-				                                            	TaxInclusiveTotalAmount = TryGetValue(order.InvoiceSumIncludingVAT, new TotalAmountType { Value = (decimal) order.InvoiceSumIncludingVAT, amountCurrencyID = "SEK" }),
-				                                            };
+					LineExtensionTotalAmount = TryGetLineExtensionAmount(orderItems),
+					TaxExclusiveTotalAmount = TryGetValue(order.InvoiceSumExcludingVAT, new TotalAmountType {Value = (decimal) order.InvoiceSumExcludingVAT, amountCurrencyID = "SEK"}),
+					TaxInclusiveTotalAmount = TryGetValue(order.InvoiceSumIncludingVAT, new TotalAmountType {Value = (decimal) order.InvoiceSumIncludingVAT, amountCurrencyID = "SEK"}),
+				};
 			}
 			invoice.RequisitionistDocumentReference = TryGetValue(order.CustomerOrderNumber, new List<SFTIDocumentReferenceType> {
 			                                                                                                                     	new SFTIDocumentReferenceType {ID = new IdentifierType{Value = order.CustomerOrderNumber}}

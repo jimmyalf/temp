@@ -23,7 +23,7 @@ VALUES (
 	2, 'Test_2', 1, NULL, NULL, NULL, 'Admin', GETDATE (), NULL)
 	
 
-SET IDENTITY_INSERT dbo.tblBaseFile OFF 
+SET IDENTITY_INSERT dbo.tblBaseFile OFF
 
 
 

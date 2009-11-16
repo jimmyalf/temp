@@ -1,4 +1,4 @@
-﻿namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
+﻿namespace Spinit.Wpc.Synologen.OPQ.Core.Exceptions
 {
 	/// <summary>
 	/// The user-errors.

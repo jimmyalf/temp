@@ -1,6 +1,6 @@
 ﻿using Spinit.Exceptions;
 
-namespace Spinit.Wpc.Synologen.Opq.Core.Exceptions
+namespace Spinit.Wpc.Synologen.OPQ.Core.Exceptions
 {
 	public class ObjectNotFoundException : BaseCodeException
 	{

@@ -24,21 +24,19 @@
 				<echo message="Running tests in ${path::get-file-name(filename)}" />
 				<echo message="*************************************************" />
 							
-				<exec program="${nunit.console}" basedir="${nunit.build.dependenciesdir}" failonerror="true" resultproperty="testresult">
+				<exec program="${nunit.console}" basedir="${nunit.build.dependenciesdir}" failonerror="false" resultproperty="testresult">
 					<arg value="${filename}" />
 					<arg value="/xml=${nunit.build.reportsdir}${path::get-file-name-without-extension(filename)}-Results.xml" />
 				</exec>
 				
-				<property name="nunit.build.execresult" value="${testresult}" unless="${int::nunit.build.execresult} != 0" />
-				
-				<echo message="Exec result property: ${nunit.build.execresult}, resultproperty ${testresult}." />
-				
+				<property name="nunit.build.execresult" value="${testresult}" unless="${int::parse(nunit.build.execresult) != 0}" />
+								
 				<echo message="" />
 				<echo message="" />
 			</do>
 		</foreach>
 		
-		<if test="${int::nunit.build.execresult} != 0">
+		<if test="${int::parse(nunit.build.execresult) != 0}">
 			<fail message="Failures reported in unit tests." />
 		</if>
 	</target>

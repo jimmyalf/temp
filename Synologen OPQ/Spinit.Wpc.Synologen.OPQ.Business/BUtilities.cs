@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Resources;
-using System.Text;
-using Spinit.Wpc.Synologen.Opq.Business;
+
+using Spinit.Wpc.Utility.Core;
 
 namespace Spinit.Wpc.Synologen.OPQ.Business
 {
 	public class BUtilities
 	{
+		#region Resources
+
 		/// <summary>
 		/// Gets a string resource from the ErrorText resource file.
 		/// </summary>
@@ -17,7 +17,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="context">The context.</param>
 		/// <returns>Return a string resource if the specified key was found</returns>
 
-		public static string GetResourceString(string key, Core.Context context)
+		public static string GetResourceString(string key, Context context)
 		{
 			if (context == null)
 			{
@@ -45,5 +45,34 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				return string.Empty;
 			}
 		}
+
+		#endregion
+
+		#region User-handling
+
+		/// <summary>
+		/// Gets the current-user.
+		/// </summary>
+		/// <returns>If authenticated, the current user.</returns>
+
+		public static IBaseUserRow GetCurrentUser ()
+		{
+			if (CxUser.Current != null) {
+				return CxUser.Current.User;
+			}
+
+			if (PublicUser.Current != null) {
+				return PublicUser.Current.User;
+			}
+
+			return null;
+		}
+
+		public static bool HasRole (string role)
+		{
+			return true;
+		}
+
+		#endregion
 	}
 }

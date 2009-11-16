@@ -1,7 +1,7 @@
 using Spinit.Data.Linq;
 using Spinit.Logging;
 using Spinit.Wpc.Synologen.OPQ.Core;
-using Spinit.Wpc.Synologen.Opq.Data.Managers;
+using Spinit.Wpc.Synologen.OPQ.Data.Managers;
 
 namespace Spinit.Wpc.Synologen.OPQ.Data
 {

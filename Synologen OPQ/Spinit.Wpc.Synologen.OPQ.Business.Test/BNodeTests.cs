@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.OPQ.Business.Test.Properties;
 using Spinit.Wpc.Synologen.OPQ.Core;
@@ -109,16 +110,27 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			}
 		}
 
-		[Test, Description("Creates a root node."), Category("Node")]
-		public void CreateRootNode()
+		[Test, Description("Creates a root node as menu."), Category("Node")]
+		public void CreateRootNodeAsMenu()
+		{
+			const string rootName = "root";
+			var bNode = new BNode(_context);
+			var node = bNode.CreateNode(null, rootName, true);
+			Assert.AreEqual(rootName,node.Name);
+			Assert.AreEqual(1,node.Order);
+			Assert.AreEqual(true,node.IsMenu, "Should be a menu");
+		}
+
+		[Test, Description("Creates a root node as page."), Category("Node")]
+		public void CreateRootNodeAsPage()
 		{
 			const string rootName = "root";
 			var bNode = new BNode(_context);
 			var node = bNode.CreateNode(null, rootName, false);
-			Assert.AreEqual(rootName,node.Name);
-			Assert.AreEqual(1,node.Order);
+			Assert.AreEqual(rootName, node.Name);
+			Assert.AreEqual(1, node.Order);
+			Assert.AreEqual(false, node.IsMenu, "Should not be a menu");
 		}
-
 
 		[Test, Description("Creates a child node."), Category("Node")]
 		public void CreateChildNode()
@@ -248,8 +260,25 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			Assert.AreEqual(_context.UserId, childNode.ApprovedById, "ApprovedById not as expected");
 		}
 
-	//	[Test, Description("Different move methods")]
-
-
+		[Test, Description("Child nodes test")]
+		public void GetChildNodes()
+		{
+			var bNode = new BNode(_context);
+			Node rootNode = bNode.CreateNode(null, "opq", true);
+			Node child1 = bNode.CreateNode(rootNode.Id, "root-Child1", true);
+			Node child2 = bNode.CreateNode(rootNode.Id, "root-Child2", true);
+			Node child1Child1 = bNode.CreateNode(child1.Id, "root-Child1-Child1", false);
+			Node child1Child2 = bNode.CreateNode(child1.Id, "root-Child1-Child2", false);
+			Node child1Child3 = bNode.CreateNode(child1.Id, "root-Child1-Child3", false);
+			var nodes = bNode.GetAllChilds(rootNode.Id, true, true);
+			Assert.AreEqual(2, nodes.Count, "Should contain two nodes");
+			Assert.AreEqual(child1, nodes[0], "child1 differs from expected");
+			Assert.AreEqual(child2, nodes[1], "child2 differs from expected");
+			Assert.IsNotNull(nodes[0].Childs, "Should contain childs");
+			Assert.AreEqual(3, nodes[0].Childs.Count, "Should contain three childs");
+			Assert.AreEqual(child1Child1, nodes[0].Childs[0], "child1-child1 differs from expected");
+			Assert.AreEqual(child1Child2, nodes[0].Childs[1], "child1-child2 differs from expected");
+			Assert.AreEqual(child1Child3, nodes[0].Childs[2], "child1-child3 differs from expected");
+		}
 	}
 }

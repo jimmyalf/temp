@@ -7,7 +7,6 @@ using Spinit.Data.Linq;
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 using Spinit.Wpc.Synologen.OPQ.Core.Exceptions;
-using Spinit.Wpc.Synologen.OPQ.Data;
 using Spinit.Wpc.Synologen.OPQ.Data.Entities;
 
 namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
@@ -610,20 +609,29 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="shopId">The shop-id.</param>
+		/// <param name="cncId">The concern-id.</param>
 		/// <param name="documentType">The type-of-documents.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of documents.</returns>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
-		public IList<Document> GetDocumentsByNodeId (int nodeId, int shopId, DocumentTypes documentType, bool onlyActive, bool onlyApproved)
+		public IList<Document> GetDocumentsByNodeId (
+			int nodeId, 
+			int? shopId, 
+			int? cncId, 
+			DocumentTypes documentType, 
+			bool onlyActive, 
+			bool onlyApproved)
 		{
 			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
-			                                     where
-			                                     	document.NdeId == nodeId && document.ShpId == shopId
-			                                     	&& document.DocTpeId == (int) documentType
+			                                     where document.NdeId == nodeId &&  document.DocTpeId == (int) documentType
 			                                     orderby document.DocTpeId ascending , document.CreatedDate descending
 			                                     select document;
+
+			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
+
+			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", shopId);
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -721,13 +729,41 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <summary>
 		/// Fetches the active document from the document-view.
 		/// </summary>
+		/// <param name="id">The document-id.</param>
+		/// <returns>A document-view-object.</returns>
+
+		public DocumentView GetActiveDocument (int id)
+		{
+			IOrderedQueryable<EDocumentView> query = from documentView in _dataContext.DocumentViews
+													 where
+														documentView.Id == id
+														&& documentView.ApprovedById != null
+														&& documentView.LockedById == null
+														&& documentView.IsActive
+													 orderby documentView.ApprovedDate descending
+													 select documentView;
+
+			EDocumentView docView = query.ToList ().First ();
+
+			if (docView == null) {
+				throw new ObjectNotFoundException (
+					"Document View not found.",
+					ObjectNotFoundErrors.DocumentViewNotFound);
+			}
+
+			return EDocumentView.Convert (docView);
+		}
+
+		/// <summary>
+		/// Fetches the active document from the document-view.
+		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="shopId">The shop-id.</param>
-		/// <param name="concernId">The concern-id.</param>
+		/// <param name="cncId">The concern-id.</param>
 		/// <param name="documentType">The document-type.</param>
 		/// <returns>A document-view-object.</returns>
 
-		public DocumentView GetActiveDocument (int nodeId, int? shopId, int? concernId, DocumentTypes documentType)
+		public DocumentView GetActiveDocument (int nodeId, int? shopId, int? cncId, DocumentTypes documentType)
 		{
 		    IOrderedQueryable<EDocumentView> query = from documentView in _dataContext.DocumentViews
 		                                             where 
@@ -739,13 +775,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		                                             orderby documentView.ApprovedDate descending
 		                                             select documentView;
 
-			if (shopId != null) {
-				query.AddEqualityCondition ("ShpId", shopId);
-			}
+			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
 
-			if (concernId != null) {
-				query.AddEqualityCondition ("CncId", concernId);
-			}
+			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", shopId);
 
 			EDocumentView docView = query.ToList ().First ();
 

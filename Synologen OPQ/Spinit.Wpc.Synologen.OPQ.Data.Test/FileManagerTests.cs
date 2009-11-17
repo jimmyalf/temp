@@ -236,6 +236,21 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			}
 		}
 
+		[Test, Description ("Fetches the files for a specified node and category=null (all)."), Category ("CruiseControl")]
+		public void FileSearchFilesNodeCategoryAllNull ()
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (
+					_configuration, null, _context)
+				) {
+
+				IList<File> files = synologenRepository.File.GetFilesByNodeId (PropertyValues.NodeNullCategory, null, false, false);
+
+				Assert.IsNotNull (files, "Fetched files is null.");
+				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNodeAllNull, files.Count, "Wrong number of files (all)!");
+			}
+		}
+
 		[Test, Description ("Fetches the files for a specified node and category (active)."), Category ("CruiseControl")]
 		public void FileSearchFilesNodeCategoryActive ()
 		{

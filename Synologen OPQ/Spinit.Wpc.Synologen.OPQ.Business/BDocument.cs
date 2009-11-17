@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
+using Spinit.Wpc.Synologen.OPQ.Core.Exceptions;
 using Spinit.Wpc.Synologen.OPQ.Data;
 
 namespace Spinit.Wpc.Synologen.OPQ.Business
@@ -215,6 +216,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
 		/// <param name="shopId">The id of the shop.</param>
+		/// <param name="cncId">The concern-id.</param>
 		/// <param name="documentType">The type of the document.</param>
 		/// <param name="searchText">Text to search for.</param>
 		/// <param name="onlyActive">If true=>fetch only active documents.</param>
@@ -223,7 +225,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 
 		public IList<Document> GetDocuments (
 			int? nodeId, 
-			int? shopId, 
+			int? shopId,
+			int? cncId,
 			DocumentTypes? documentType, 
 			string searchText, 
 			bool onlyActive,
@@ -246,10 +249,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.SetDataLoadOptions ();
 				}
 				
-				if ((nodeId != null) && (shopId != null) && (documentType != null)) {
+				if ((nodeId != null) && ((shopId != null) || (cncId != null)) && (documentType != null)) {
 					return synologenRepository.Document.GetDocumentsByNodeId (
 						(int) nodeId, 
-						(int) shopId, 
+						shopId, 
+						cncId,
 						(DocumentTypes) documentType, 
 						onlyActive,
 						onlyApproved);
@@ -272,6 +276,138 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				}
 
 				return synologenRepository.Document.GetAllDocuments (onlyActive, onlyApproved);
+			}
+		}
+
+		/// <summary>
+		/// Gets list of documents.
+		/// </summary>
+		/// <param name="nodeId">The id of the node.</param>
+		/// <param name="shopId">The id of the shop.</param>
+		/// <param name="cncId">The id of the concern.</param>
+		/// <param name="documentType">The type of the document.</param>
+		/// <param name="searchText">Text to search for.</param>
+		/// <param name="fillObjects">If true=>fill-objects.</param>
+
+		public IList<Document> GetActiveDocuments (
+			int? nodeId,
+			int? shopId,
+			int? cncId,
+			DocumentTypes? documentType,
+			string searchText,
+			bool fillObjects)
+		{
+			using (
+				WpcSynologenRepository synologenRepository
+					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				) {
+				IList<Document> documents;
+				
+				if ((nodeId != null) && ((shopId != null) || (cncId != null)) && (documentType != null)) {
+					documents = synologenRepository.Document.GetDocumentsByNodeId (
+						(int) nodeId,
+						shopId,
+						cncId,
+						(DocumentTypes) documentType,
+						false,
+						false);
+				}
+				else if ((nodeId != null) && (documentType != null)) {
+					documents = synologenRepository.Document.GetDocumentsByNodeId (
+						(int) nodeId,
+						(DocumentTypes) documentType,
+						false,
+						false);
+				}
+                else if (nodeId != null) {
+					documents = synologenRepository.Document.GetDocumentsByNodeId ((int) nodeId, false, false);
+				}
+                else if (searchText != null) {
+					documents = synologenRepository.Document.GetDocumentsByText (searchText, false, false);
+				}
+				else {
+                	documents = synologenRepository.Document.GetAllDocuments (false, false);
+                }
+
+				IList<Document> retDocuments = new List<Document> ();
+				if ((documents != null) && (documents.Count > 0)) {
+					foreach (Document document in retDocuments) {
+						Document retDocument = GetActiveDocument (document.Id, fillObjects);
+
+						if (retDocument != null) {
+							retDocuments.Add (retDocument);
+						}
+					}
+				}
+
+				return retDocuments;
+			}
+		}
+
+		/// <summary>
+		/// Gets the active document.
+		/// </summary>
+		/// <param name="id">The id of the document.</param>
+		/// <param name="fillObjects">If true=>fill-objects.</param>
+
+		public Document GetActiveDocument (int id, bool fillObjects)
+		{
+			using (
+				WpcSynologenRepository synologenRepository
+					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
+				) {
+				if (fillObjects) {
+					synologenRepository.AddDataLoadOptions<Document> (d => d.DocumentHistories);
+					synologenRepository.AddDataLoadOptions<Document> (d => d.DocumentType);
+					synologenRepository.AddDataLoadOptions<Document> (d => d.Node);
+					synologenRepository.AddDataLoadOptions<Document> (d => d.CreatedBy);
+					synologenRepository.AddDataLoadOptions<Document> (d => d.ChangedBy);
+					synologenRepository.AddDataLoadOptions<Document> (d => d.ApprovedBy);
+					synologenRepository.AddDataLoadOptions<Document> (d => d.LockedBy);
+
+					synologenRepository.SetDataLoadOptions ();
+				}
+				Document document = null;
+				try {
+					DocumentView docView = synologenRepository.Document.GetActiveDocument (id);
+
+					document = synologenRepository.Document.GetDocumentById (docView.Id);
+
+					if (docView.HistoryDate != null) {
+						DocumentHistory documentHistory
+							= synologenRepository.Document.GetDocumentHistoryById (docView.Id, (DateTime) docView.HistoryDate);
+
+						document.DocumentContent = documentHistory.DocumentContent;
+
+						if (documentHistory.ChangedById != null) {
+							document.ChangedById = documentHistory.ChangedById;
+							document.ChangedByName = documentHistory.ChangedByName;
+							document.ChangedDate = documentHistory.ChangedDate;
+							document.ChangedBy = synologenRepository.ExternalObjectsManager.GetUserById ((int) documentHistory.ChangedById);
+						}
+						else {
+							document.ChangedById = null;
+							document.ChangedByName = null;
+							document.ChangedDate = null;
+							document.ChangedBy = null;
+						}
+
+						document.ApprovedById = documentHistory.ApprovedById;
+						document.ApprovedByName = documentHistory.ApprovedByName;
+						document.ApprovedDate = documentHistory.ApprovedDate;
+						document.ApprovedBy = synologenRepository.ExternalObjectsManager.GetUserById ((int) documentHistory.ApprovedById);
+					}
+				}
+				catch (ObjectNotFoundException e) {
+					if ((((ObjectNotFoundErrors) e.ErrorCode) == ObjectNotFoundErrors.DocumentNotFound)
+					    || (((ObjectNotFoundErrors) e.ErrorCode) == ObjectNotFoundErrors.DocumentHistoryNotFound)
+					    || (((ObjectNotFoundErrors) e.ErrorCode) == ObjectNotFoundErrors.DocumentViewNotFound)) {
+						return null;
+					}
+
+				}
+
+				return document;
 			}
 		}
 

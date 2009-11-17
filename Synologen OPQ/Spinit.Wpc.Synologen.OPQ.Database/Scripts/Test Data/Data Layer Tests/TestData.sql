@@ -170,6 +170,18 @@ INSERT INTO dbo.SynologenOpqFiles (
 	Id, [Order], FleCatId, FleId, NdeId, ShpId, CncId, IsActive, CreatedById, CreatedByName, CreatedDate)
 VALUES ( 
 	4, 0, 1, 1, 1, NULL, NULL, 0, 1, 'Admin', GETDATE ()) 
+	
+INSERT INTO dbo.SynologenOpqFiles (
+	Id, [Order], FleCatId, FleId, NdeId, ShpId, CncId, IsActive, CreatedById, CreatedByName, CreatedDate,
+	ApprovedById, ApprovedByName, ApprovedDate)
+VALUES ( 
+	5, 0, NULL, 1, 2, NULL, NULL, 1, 1, 'Admin', GETDATE (),
+	1, 'Admin', GETDATE ()) 
+
+INSERT INTO dbo.SynologenOpqFiles (
+	Id, [Order], FleCatId, FleId, NdeId, ShpId, CncId, IsActive, CreatedById, CreatedByName, CreatedDate)
+VALUES ( 
+	6, 0, NULL, 1, 2, NULL, NULL, 0, 1, 'Admin', GETDATE ()) 
 
 SET IDENTITY_INSERT dbo.SynologenOpqFiles OFF
 

@@ -331,7 +331,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 
 				IList<Document> retDocuments = new List<Document> ();
 				if ((documents != null) && (documents.Count > 0)) {
-					foreach (Document document in retDocuments) {
+					foreach (Document document in documents) {
 						Document retDocument = GetActiveDocument (document.Id, fillObjects);
 
 						if (retDocument != null) {

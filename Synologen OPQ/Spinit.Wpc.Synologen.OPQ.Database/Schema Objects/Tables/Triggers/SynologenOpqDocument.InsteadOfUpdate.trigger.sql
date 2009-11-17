@@ -12,12 +12,18 @@ BEGIN
 
 	DECLARE @documentId INT,
 			@historyId INT,
-			@historyName NVARCHAR (100)
+			@historyName NVARCHAR (100),
+			@oldLockedById INT,
+			@newLockedById INT
 	
 	SELECT	@documentId = Id,
 			@historyId = ChangedById,
-			@historyName = ChangedByName
+			@historyName = ChangedByName,
+			@newLockedById = LockedById
 	FROM	INSERTED
+	
+	SELECT	@oldLockedById = LockedById
+	FROM	DELETED
 	
 	UPDATE	dbo.SynologenOpqDocuments
 	SET		NdeId = Document.NdeId,
@@ -44,33 +50,35 @@ BEGIN
 		 FROM INSERTED) AS Document
 	WHERE	Id = @documentId
 
-	INSERT INTO dbo.SynologenOpqDocumentHistories (
-		Id, HistoryDate, HistoryId, HistoryName, NdeId, ShpId, CncId, DocTpeId, DocumentContent, IsActive, 
-		CreatedById, CreatedByName, CreatedDate, ChangedById, ChangedByName, ChangedDate, 
-		ApprovedById, ApprovedByName, ApprovedDate, LockedById, LockedByName, LockedDate)
-	SELECT
-		Id,
-		GETDATE (),
-		@historyId,
-		@historyName,
-		NdeId,
-		ShpId,
-		CncId,
-		DocTpeId,
-		DocumentContent,
-		IsActive,
-		CreatedById,
-		CreatedByName,
-		CreatedDate,
-		ChangedById,
-		ChangedByName,
-		ChangedDate,
-		ApprovedById,
-		ApprovedByName,
-		ApprovedDate,
-		LockedById,
-		LockedByName,
-		LockedDate
-	FROM DELETED
-
+	IF (@newLockedById IS NULL) AND (@oldLockedById IS NOT NULL)
+		BEGIN
+			INSERT INTO dbo.SynologenOpqDocumentHistories (
+				Id, HistoryDate, HistoryId, HistoryName, NdeId, ShpId, CncId, DocTpeId, DocumentContent, IsActive, 
+				CreatedById, CreatedByName, CreatedDate, ChangedById, ChangedByName, ChangedDate, 
+				ApprovedById, ApprovedByName, ApprovedDate, LockedById, LockedByName, LockedDate)
+			SELECT
+				Id,
+				GETDATE (),
+				@historyId,
+				@historyName,
+				NdeId,
+				ShpId,
+				CncId,
+				DocTpeId,
+				DocumentContent,
+				IsActive,
+				CreatedById,
+				CreatedByName,
+				CreatedDate,
+				ChangedById,
+				ChangedByName,
+				ChangedDate,
+				ApprovedById,
+				ApprovedByName,
+				ApprovedDate,
+				LockedById,
+				LockedByName,
+				LockedDate
+			FROM DELETED
+		END
 END

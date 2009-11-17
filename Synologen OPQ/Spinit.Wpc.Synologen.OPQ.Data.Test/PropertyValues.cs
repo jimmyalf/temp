@@ -49,6 +49,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		public const string DocDocumentContentView3 = @"Test-Content-History-3-2";
 		public const int DocumentTypesNumber = 2;
 		public const string DocumentTypeConent = @"Rutin";
+		public const int NoOfActiveDocuments = 1;
 
 		// File
 		public const int BaseFileId = 1;

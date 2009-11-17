@@ -48,6 +48,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
 
+			file.LockedById = Manager.WebContext.UserId ?? 0;
+			file.LockedByName = Manager.WebContext.UserName;
+			file.LockedDate = DateTime.Now;
+
 			Manager.ExternalObjectsManager.CheckUserExist (file.CreatedById);
 			Manager.ExternalObjectsManager.CheckFileExist (file.FleId);
 			if (file.FleCatId != null) {

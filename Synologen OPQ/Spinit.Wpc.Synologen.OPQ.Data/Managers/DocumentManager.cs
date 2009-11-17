@@ -47,7 +47,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 			if ((document.CreatedById == 0) || (document.CreatedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
-			
+
+			document.LockedById = Manager.WebContext.UserId ?? 0;
+			document.LockedByName = Manager.WebContext.UserName;
+			document.LockedDate = DateTime.Now;
+
 			Manager.ExternalObjectsManager.CheckUserExist (document.CreatedById);
 
 			if (document.ShpId != null) {

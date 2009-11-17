@@ -65,6 +65,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
 
+			node.LockedById = Manager.WebContext.UserId ?? 0;
+			node.LockedByName = Manager.WebContext.UserName;
+			node.LockedDate = DateTime.Now;
+
 			Manager.ExternalObjectsManager.CheckUserExist (node.CreatedById);
 			
 			node.IsActive = true;

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Spinit.Wpc.Synologen.WebService.App_GlobalResources{
+namespace Spinit.Wpc.Synologen.ServiceLibrary.App_GlobalResources{
 	/// <summary>
 	///   A strongly-typed resource class, for looking up localized strings, etc.
 	/// </summary>

@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using System.Xml.Serialization;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Types;
-using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
@@ -24,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 		public void Setup() {}
 
 		
-		[Test, Explicit]
+		[Test]
 		public void Test_MockInvoice_Is_Valid() {
 			var invoice = GetMockInvoice();
 			var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
@@ -32,79 +29,25 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 		}
 
 		[Test]
-		public void Test_Generate_Xml_From_Object() {
+		public void Test_Xml_Ouput_Is_Correctly_Parsed() {
 			var invoice = GetMockInvoice();
-			var output = ToXML(invoice, Encoding.Default);
-			output = output.Replace("Windows-1252", "utf-8");
+			var output = SvefakturaSerializer.Serialize(invoice, Encoding.UTF8, String.Empty, Formatting.None);
 			var expectedXml = GetExpectedXml();
 			Expect(output, Is.EqualTo(expectedXml));
 		}
-		[Test]
-		public void Test_Xml_Output_From_Object() {
-			var invoice = GetMockInvoice();
-			var output = GetFormattedXmlString(invoice);
-			Debug.WriteLine(output);
-			Expect(output, Is.Not.Null);
-		}
 
-		[Test, Explicit]
-		public void Test_Generate_Xml_From_Object_And_Write_To_File() {
+		[Test]
+		public void Test_Xml_Output_Has_Correct_Encoding() {
 			var invoice = GetMockInvoice();
-			ToXML(invoice, @"C:\Documents and Settings\cberg\Skrivbord\Test-Svefaktura.xml");
+			var output = SvefakturaSerializer.Serialize(invoice, Encoding.GetEncoding("iso-8859-1"), String.Empty, Formatting.None);
+			var expectedXml = GetExpectedXml().Replace("utf-8","iso-8859-1");
+			Expect(output, Is.EqualTo(expectedXml));
 		}
 
 		[Test, Explicit]
 		public void ReadXmlFileToGetValidationTextString() {
-			TextReader tw = new StreamReader(@"C:\Documents and Settings\cberg\Skrivbord\fsv_test_svefaktura.xml");
-			var fileContent = tw.ReadToEnd();
-			tw.Close();
-		}
-
-		private static string ToXML(SFTIInvoiceType objToSerialize, Encoding encoding) {
-			var namespaces = GetNamespaces();
-			var output = new MemoryStream();
-			var serializer = new XmlSerializer(objToSerialize.GetType());
-			var xmlTextWriter = new XmlTextWriter ( output, encoding );
-			serializer.Serialize(xmlTextWriter, objToSerialize, namespaces);
-			var memoryStream = (MemoryStream)xmlTextWriter.BaseStream;
-			return encoding.GetString(memoryStream.ToArray());
-		}
-		private static void ToXML(SFTIInvoiceType objToSerialize, string filePath) {
-			var namespaces = GetNamespaces();
-			var settings = new XmlWriterSettings
-			{
-				Encoding = Encoding.UTF8,
-				Indent = true,
-				IndentChars = "\t",
-				NewLineChars = Environment.NewLine,
-				ConformanceLevel = ConformanceLevel.Document,
-			};
-			TextWriter textWriter = new StreamWriter(filePath, false, Encoding.UTF8);
-			var serializer = new XmlSerializer(objToSerialize.GetType());
-			using(var writer = XmlWriter.Create(textWriter, settings)){
-				if(writer == null) return;
-				serializer.Serialize(writer, objToSerialize, namespaces);
-				writer.Close();
-			}
-		}
-
-		private static string GetFormattedXmlString(SFTIInvoiceType input){
-			var xmlSerializer = new XmlSerializer(input.GetType());
-			var output = new StringWriterWithEncoding(new StringBuilder(), Encoding.UTF8) { NewLine = Environment.NewLine};
-			xmlSerializer.Serialize(output, input,  GetNamespaces());
-			return output.ToString();
-		}
-		private static XmlSerializerNamespaces GetNamespaces(){
-			var namespaces = new XmlSerializerNamespaces();
-			namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-			namespaces.Add("udt", "urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0");
-			namespaces.Add("sdt", "urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0");
-			namespaces.Add("cur", "urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0");
-			namespaces.Add("ccts", "urn:oasis:names:tc:ubl:CoreComponentParameters:1:0");
-			namespaces.Add("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
-			namespaces.Add("cac", "urn:sfti:CommonAggregateComponents:1:0");
-			namespaces.Add(String.Empty, "urn:sfti:documents:BasicInvoice:1:0");
-			return namespaces;
+			TextReader textReader = new StreamReader(@"C:\Documents and Settings\cberg\Skrivbord\fsv_test_svefaktura.xml");
+			textReader.Close();
 		}
 
 
@@ -221,11 +164,11 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 				}
 			};
 		}
-		#endregion
 
 		public string GetExpectedXml() {
 			return 
 				"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+				+"<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>"
 				+"<Invoice xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:cac=\"urn:sfti:CommonAggregateComponents:1:0\" xmlns:ccts=\"urn:oasis:names:tc:ubl:CoreComponentParameters:1:0\" xmlns:cur=\"urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0\" xmlns:sdt=\"urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0\" xmlns:cbc=\"urn:oasis:names:tc:ubl:CommonBasicComponents:1:0\" xmlns:udt=\"urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0\" xmlns=\"urn:sfti:documents:BasicInvoice:1:0\">"
 				+"<ID>15</ID>"
 				+"<cbc:IssueDate>2003-09-11</cbc:IssueDate>"
@@ -284,6 +227,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 				+"<RequisitionistDocumentReference><cac:ID>123456789</cac:ID></RequisitionistDocumentReference>"
 				+"</Invoice>";
 		}
+		#endregion
 
 	}
 }

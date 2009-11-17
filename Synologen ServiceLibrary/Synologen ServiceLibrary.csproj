@@ -57,15 +57,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\ServiceResources.Designer.cs">
+      <DependentUpon>ServiceResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="CertificateValidator.cs" />
     <Compile Include="ConfigurationSettings\Client.cs" />
     <Compile Include="ConfigurationSettings\Common.cs" />
     <Compile Include="ConfigurationSettings\BaseConfiguration.cs" />
     <Compile Include="ConfigurationSettings\WebService.cs" />
-    <Compile Include="ISynologenService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ClientContract.cs" />
-    <Compile Include="StringWriterWithEncoding.cs" />
+    <Compile Include="SynologenService.cs" />
     <Compile Include="UserValidation.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -100,8 +105,40 @@
       <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
       <Name>Synologen Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Synologen Data\Synologen Data.csproj">
+      <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
+      <Name>Synologen Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen EDI\Synologen EDI.csproj">
+      <Project>{8554B3AF-CA2A-499F-B921-A80804B99056}</Project>
+      <Name>Synologen EDI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Svefaktura\Synologen Svefaktura.csproj">
+      <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
+      <Name>Synologen Svefaktura</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Utility\Synologen Invoicing Utility.csproj">
+      <Project>{84326EE0-5F6E-4133-A852-AF781AF74682}</Project>
+      <Name>Synologen Invoicing Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -116,6 +153,14 @@
     <Reference Include="System.ServiceModel">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\ServiceResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ServiceResources.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

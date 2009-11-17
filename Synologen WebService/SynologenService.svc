@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="Spinit.Wpc.Synologen.WebService.SynologenService" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Spinit.Wpc.Synologen.ServiceLibrary.SynologenService" %>

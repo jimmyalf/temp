@@ -104,7 +104,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, documentContent);
 			bDocument.Publish (document.Id);
 			List<Document> documents =
-				(List<Document>) bDocument.GetDocuments (node.Id, null, DocumentTypes.Routine, null, true, true, true);
+				(List<Document>) bDocument.GetDocuments (node.Id, null, null, DocumentTypes.Routine, null, true, true, true);
 			Assert.IsNotNull (documents, "Documents returned null");
 			Assert.IsNotEmpty (documents, "Documents returned empty. Should be 1.");
 			document = documents [0];
@@ -125,7 +125,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, documentContent);
 			bDocument.DeleteDocument (document.Id, false);
 			List<Document> documents =
-				(List<Document>) bDocument.GetDocuments (node.Id, null, DocumentTypes.Routine, null, true, true, true);
+				(List<Document>) bDocument.GetDocuments (node.Id, null, null, DocumentTypes.Routine, null, true, true, true);
 			Assert.IsEmpty (documents, "No documents should be returned");
 		}
 	}

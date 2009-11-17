@@ -66,6 +66,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		public const int NoOfCategoriesAll = 3;
 		public const int NoOfFilesCategoryNode = 3;
 		public const int NoOfFilesCategoryNodeAll = 4;
+		public const int NodeNullCategory = 2;
+		public const int NoOfFilesCategoryNodeAllNull = 2;
 		public const string FileCategoryContent = @"Test Category 1";
 		public const int FetchedFileId = 1;
 	}

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-using System.Xml.Serialization;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
@@ -14,14 +13,13 @@ using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Types;
-using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
 
-namespace Spinit.Wpc.Synologen.WebService{
+namespace Spinit.Wpc.Synologen.ServiceLibrary{
 	public class SynologenService : ISynologenService{
-		private readonly SqlProvider provider;
+		private readonly ISqlProvider provider;
 		private const string FtpFileUploadNotAccepted = "ej accepterad";
 		private const string FtpFileUploadContainsError = "felaktig";
 		private const int NumberOfDecimalsUsedForRounding = 2;
@@ -30,7 +28,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 		private const string DateFormat = "yyyy-MM-dd";
 
 		public SynologenService() {
-			provider = new SqlProvider(ServiceLibrary.ConfigurationSettings.WebService.ConnectionString);
+			provider = new SqlProvider(ConfigurationSettings.WebService.ConnectionString);
 		}
 
 		public SynologenService(string connectionString){
@@ -39,8 +37,8 @@ namespace Spinit.Wpc.Synologen.WebService{
 
 		public List<Order> GetOrdersForInvoicing(){
 			try{
-				var statusIdFilter = ServiceLibrary.ConfigurationSettings.WebService.NewSaleStatusId;
-				var invoicingMethodIdFilter = ServiceLibrary.ConfigurationSettings.WebService.InvoicingMethodIdFilter;
+				var statusIdFilter = ConfigurationSettings.WebService.NewSaleStatusId;
+				var invoicingMethodIdFilter = ConfigurationSettings.WebService.InvoicingMethodIdFilter;
 				var orders = provider.GetOrdersForInvoicing(statusIdFilter, invoicingMethodIdFilter, null);
 				var orderString = GetOrderIdsFromList(orders);
 				LogMessage(LogType.Information, "Client fetched orders from WPC: " + orderString);
@@ -53,14 +51,14 @@ namespace Spinit.Wpc.Synologen.WebService{
 
 		public void SetOrderInvoiceNumber(int orderId, long invoiceNumber, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT){
 			try{
-				var importedStatusId = ServiceLibrary.ConfigurationSettings.WebService.SaleStatusIdAfterSPCSImport;
+				var importedStatusId = ConfigurationSettings.WebService.SaleStatusIdAfterSPCSImport;
 				provider.SetOrderInvoiceNumber(orderId, invoiceNumber, importedStatusId, invoiceSumIncludingVAT, invoiceSumExcludingVAT);
 				
 				var orderHistoryMessage = GetVismaNewOrderAddedHistoryMessage(invoiceNumber, invoiceSumIncludingVAT, invoiceSumExcludingVAT);
 				provider.AddOrderHistory(orderId, orderHistoryMessage);
 				var orderString = "OrderId: " + orderId + ", InvoiceNumber: " + invoiceNumber;
 				LogMessage(LogType.Information, "Client wrote back order invoice number [" + orderString + "]: ");
-				var newStatusId = ServiceLibrary.ConfigurationSettings.WebService.SaleStatusIdAfterSPCSImport;
+				var newStatusId = ConfigurationSettings.WebService.SaleStatusIdAfterSPCSImport;
 				provider.UpdateOrderStatus(newStatusId, orderId, 0, 0, 0, 0, 0);
 			}
 			catch(Exception ex) {
@@ -73,16 +71,16 @@ namespace Spinit.Wpc.Synologen.WebService{
 			try {
 				switch (logType) {
 					case LogType.Error:
-					if(ServiceLibrary.ConfigurationSettings.WebService.SendAdminEmailOnError) {
+						if(ConfigurationSettings.WebService.SendAdminEmailOnError) {
 							TrySendErrorEmail(message);
 						}
 						break;
 					case LogType.Information:
-						if(!ServiceLibrary.ConfigurationSettings.WebService.LogInformation)
+						if(!ConfigurationSettings.WebService.LogInformation)
 							return 0;
 						break;
 					case LogType.Other:
-						if(!ServiceLibrary.ConfigurationSettings.WebService.LogOther)
+						if(!ConfigurationSettings.WebService.LogOther)
 							return 0;
 						break;
 					default:
@@ -99,7 +97,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 		public List<long> GetOrdersToCheckForUpdates() {
 			List<long> listOfOrders;
 			try{
-				var statusId = ServiceLibrary.ConfigurationSettings.WebService.SaleStatusIdAfterInvoicing;
+				var statusId = ConfigurationSettings.WebService.SaleStatusIdAfterInvoicing;
 				listOfOrders = provider.GetOrderInvoiceNumbers(statusId, null);
 				var orderString = GetOrderIdsFromList(listOfOrders);
 				LogMessage(LogType.Information, "Client fetched order-invoice-id's from WPC : " + orderString);
@@ -113,14 +111,14 @@ namespace Spinit.Wpc.Synologen.WebService{
 
 		public void UpdateOrderStatuses(IInvoiceStatus invoiceStatus) {
 			if (invoiceStatus.InvoiceCanceled || invoiceStatus.InvoicePaymentCanceled) {
-				var newStatusId = ServiceLibrary.ConfigurationSettings.WebService.InvoiceCancelledStatusId;
+				var newStatusId = ConfigurationSettings.WebService.InvoiceCancelledStatusId;
 				provider.UpdateOrderStatus(newStatusId, 0, 0, 0, 0, 0, invoiceStatus.InvoiceNumber);
 				var orderHistoryMessage = GetVismaOrderStatusUpdateHistoryMessage(invoiceStatus.InvoiceNumber);
 				provider.AddOrderHistory(invoiceStatus.InvoiceNumber, orderHistoryMessage);
 				return;
 			}
 			if (invoiceStatus.InvoiceIsPayed) {
-				var newStatusId = ServiceLibrary.ConfigurationSettings.WebService.InvoicePayedToSynologenStatusId;
+				var newStatusId = ConfigurationSettings.WebService.InvoicePayedToSynologenStatusId;
 				provider.UpdateOrderStatus(newStatusId, 0, 0, 0, 0, 0, invoiceStatus.InvoiceNumber);
 				var orderHistoryMessage = GetVismaOrderStatusUpdateHistoryMessage(invoiceStatus.InvoiceNumber);
 				provider.AddOrderHistory(invoiceStatus.InvoiceNumber, orderHistoryMessage);
@@ -148,7 +146,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 					default:
 						throw new ArgumentOutOfRangeException("orderId","Orders comany invoicing method cannot be identified.");
 				}
-				var newStatusId = ServiceLibrary.ConfigurationSettings.WebService.SaleStatusIdAfterInvoicing;
+				var newStatusId = ConfigurationSettings.WebService.SaleStatusIdAfterInvoicing;
 				provider.UpdateOrderStatus(newStatusId, orderId, 0, 0, 0, 0, 0);
 
 				var orderHistoryMessage = GetInvoiceSentHistoryMessage(order.InvoiceNumber, ftpStatusMessage);
@@ -165,13 +163,13 @@ namespace Spinit.Wpc.Synologen.WebService{
 		/// </summary>
 		public void SendEmail(string from, string to, string subject, string message) {
 			try {
-				var smtpServerAddress = ServiceLibrary.ConfigurationSettings.WebService.SMTPServer;
+				var smtpServerAddress = ConfigurationSettings.WebService.SMTPServer;
 				var smtpClient = new SmtpClient(smtpServerAddress);
 				var mailMessage = new MailMessage(from, to, subject, message);
 				smtpClient.Send(mailMessage);
 			}
 			catch(Exception ex) {
-				throw new SynologenWebserviceException("Email could not be sent", ex);
+				throw new WebserviceException("Email could not be sent", ex);
 			}
 		}
 
@@ -180,7 +178,7 @@ namespace Spinit.Wpc.Synologen.WebService{
 		private string SendEDIInvoice(IOrder order){
 			var invoice = GenerateEDIInvoice(order);
 			var invoiceFileName = GenerateInvoiceFileName(invoice);
-			if(ServiceLibrary.ConfigurationSettings.WebService.SaveEDIFileCopy) {
+			if(ConfigurationSettings.WebService.SaveEDIFileCopy) {
 				TrySaveContentToDisk(invoiceFileName, invoice.Parse().ToString());
 			}
 			var invoiceString = invoice.Parse().ToString();
@@ -191,35 +189,18 @@ namespace Spinit.Wpc.Synologen.WebService{
 			var invoice = GenerateSvefakturaInvoice(order);
 			var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
 			if (ruleViolations.Any()){
-				throw new SynologenWebserviceException("The invoice could not be validated: " + SvefakturaValidator.FormatRuleViolations(ruleViolations));
+				throw new WebserviceException("The invoice could not be validated: " + SvefakturaValidator.FormatRuleViolations(ruleViolations));
 			}
-			var invoiceStringContent = ParseSvefakturaInvoiceToXml(invoice);
+			var encoding = ConfigurationSettings.WebService.FTPCustomEncodingCodePage;
+			var invoiceStringContent = SvefakturaSerializer.Serialize(invoice, encoding);
 			var invoiceFileName = GenerateInvoiceFileName(invoice);
-			if(ServiceLibrary.ConfigurationSettings.WebService.SaveSvefakturaFileCopy) {
+			if(ConfigurationSettings.WebService.SaveSvefakturaFileCopy) {
 				TrySaveContentToDisk(invoiceFileName, invoiceStringContent);
 			}
 			return UploadTextFile(invoiceFileName, invoiceStringContent);
 		}
 
-		private static string ParseSvefakturaInvoiceToXml(SFTIInvoiceType invoice){
-			var xmlSerializer = new XmlSerializer(invoice.GetType());
-			var output = new StringWriterWithEncoding(new StringBuilder(), Encoding.UTF8) { NewLine = Environment.NewLine};
-			xmlSerializer.Serialize(output, invoice,  GetNamespaces());
-			return output.ToString();
-		}
 
-		private static XmlSerializerNamespaces GetNamespaces(){
-			var namespaces = new XmlSerializerNamespaces();
-			namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-			namespaces.Add("udt", "urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0");
-			namespaces.Add("sdt", "urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0");
-			namespaces.Add("cur", "urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0");
-			namespaces.Add("ccts", "urn:oasis:names:tc:ubl:CoreComponentParameters:1:0");
-			namespaces.Add("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
-			namespaces.Add("cac", "urn:sfti:CommonAggregateComponents:1:0");
-			namespaces.Add(String.Empty, "urn:sfti:documents:BasicInvoice:1:0");
-			return namespaces;
-		}
 
 		private static string GetVismaNewOrderAddedHistoryMessage(long vismaOrderId, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {
 			var message = App_GlobalResources.ServiceResources.OrderAddedToVismaHistoryMessage;
@@ -259,9 +240,9 @@ namespace Spinit.Wpc.Synologen.WebService{
 		}
 
 		private Exception LogAndCreateException(string message, Exception ex) {
-			var exception = new SynologenWebserviceException(message, ex);
+			var exception = new WebserviceException(message, ex);
 			LogMessage(LogType.Error, ex.ToString());
-			if(ServiceLibrary.ConfigurationSettings.WebService.SendAdminEmailOnError) {
+			if(ConfigurationSettings.WebService.SendAdminEmailOnError) {
 				TrySendErrorEmail(exception.ToString());
 			}
 			return exception;
@@ -269,10 +250,10 @@ namespace Spinit.Wpc.Synologen.WebService{
 
 		private static void TrySendErrorEmail(string message) {
 			try {
-				var smtpClient = new SmtpClient(ServiceLibrary.ConfigurationSettings.WebService.SMTPServer);
+				var smtpClient = new SmtpClient(ConfigurationSettings.WebService.SMTPServer);
 				var mailMessage = new MailMessage();
-				mailMessage.To.Add(ServiceLibrary.ConfigurationSettings.WebService.AdminEmail);
-				mailMessage.From = new MailAddress(ServiceLibrary.ConfigurationSettings.WebService.EmailSender);
+				mailMessage.To.Add(ConfigurationSettings.WebService.AdminEmail);
+				mailMessage.From = new MailAddress(ConfigurationSettings.WebService.EmailSender);
 				mailMessage.Subject = App_GlobalResources.ServiceResources.ErrorEmailSubject;
 				mailMessage.Body = message;
 				smtpClient.Send(mailMessage);
@@ -288,42 +269,44 @@ namespace Spinit.Wpc.Synologen.WebService{
 		}
 
 		private static EDIConversionSettings GetEDISetting() {
-			return new EDIConversionSettings {
-				BankGiro = ServiceLibrary.ConfigurationSettings.WebService.BankGiro,
-				Postgiro = ServiceLibrary.ConfigurationSettings.WebService.Postgiro,
-				SenderId = ServiceLibrary.ConfigurationSettings.WebService.EDISenderId,
-				VATAmount = ServiceLibrary.ConfigurationSettings.WebService.VATAmount,
-				InvoiceCurrencyCode = ServiceLibrary.ConfigurationSettings.WebService.InvoiceCurrencyCode,
+			return new EDIConversionSettings
+			{
+				BankGiro = ConfigurationSettings.WebService.BankGiro,
+				Postgiro = ConfigurationSettings.WebService.Postgiro,
+				SenderId = ConfigurationSettings.WebService.EDISenderId,
+				VATAmount = ConfigurationSettings.WebService.VATAmount,
+				InvoiceCurrencyCode = ConfigurationSettings.WebService.InvoiceCurrencyCode,
 				NumberOfDecimalsUsedAtRounding = NumberOfDecimalsUsedForRounding,
 			};
 		}
 
 		private static SvefakturaConversionSettings GetSvefakturaSettings() {
-			return new SvefakturaConversionSettings {
+			return new SvefakturaConversionSettings
+			{
 				InvoiceIssueDate = DateTime.Now,
-				BankGiro = ServiceLibrary.ConfigurationSettings.WebService.BankGiro,
-				Postgiro = ServiceLibrary.ConfigurationSettings.WebService.Postgiro,
-				VATAmount = (decimal) ServiceLibrary.ConfigurationSettings.WebService.VATAmount,
-				BankgiroBankIdentificationCode = ServiceLibrary.ConfigurationSettings.WebService.BankGiroCode,
-				PostgiroBankIdentificationCode = ServiceLibrary.ConfigurationSettings.WebService.PostGiroCode,
-				ExemptionReason = ServiceLibrary.ConfigurationSettings.WebService.ExemptionReason,
-				InvoiceCurrencyCode = (CurrencyCodeContentType) ServiceLibrary.ConfigurationSettings.WebService.CurrencyCodeId,
-				InvoiceExpieryPenaltySurchargePercent = ServiceLibrary.ConfigurationSettings.WebService.InvoiceExpieryPenaltySurchargePercent,
-				InvoicePaymentTermsTextFormat = ServiceLibrary.ConfigurationSettings.WebService.InvoicePaymentTermsTextFormat,
-				InvoiceTypeCode = ServiceLibrary.ConfigurationSettings.WebService.SvefakturaInvoiceTypeCode,
-				SellingOrganizationCity = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationCity,
-				SellingOrganizationContactEmail = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationContactEmail,
-				SellingOrganizationContactName = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationContactName,
-				SellingOrganizationCountryCode = (CountryIdentificationCodeContentType) ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationCountryCode,
-				SellingOrganizationFax = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationFax,
-				SellingOrganizationName = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationName,
-				SellingOrganizationNumber = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationNumber,
-				SellingOrganizationPostalCode = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationPostalCode,
-				SellingOrganizationPostBox = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationPostBox,
-				SellingOrganizationStreetName = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationStreetName,
-				SellingOrganizationTelephone = ServiceLibrary.ConfigurationSettings.WebService.SellingOrganizationTelephone,
-				TaxAccountingCode = ServiceLibrary.ConfigurationSettings.WebService.TaxAccountingCode,
-				VATFreeReasonMessage = ServiceLibrary.ConfigurationSettings.WebService.VATFreeReasonMessage,
+				BankGiro = ConfigurationSettings.WebService.BankGiro,
+				Postgiro = ConfigurationSettings.WebService.Postgiro,
+				VATAmount = (decimal) ConfigurationSettings.WebService.VATAmount,
+				BankgiroBankIdentificationCode = ConfigurationSettings.WebService.BankGiroCode,
+				PostgiroBankIdentificationCode = ConfigurationSettings.WebService.PostGiroCode,
+				ExemptionReason = ConfigurationSettings.WebService.ExemptionReason,
+				InvoiceCurrencyCode = (CurrencyCodeContentType) ConfigurationSettings.WebService.CurrencyCodeId,
+				InvoiceExpieryPenaltySurchargePercent = ConfigurationSettings.WebService.InvoiceExpieryPenaltySurchargePercent,
+				InvoicePaymentTermsTextFormat = ConfigurationSettings.WebService.InvoicePaymentTermsTextFormat,
+				InvoiceTypeCode = ConfigurationSettings.WebService.SvefakturaInvoiceTypeCode,
+				SellingOrganizationCity = ConfigurationSettings.WebService.SellingOrganizationCity,
+				SellingOrganizationContactEmail = ConfigurationSettings.WebService.SellingOrganizationContactEmail,
+				SellingOrganizationContactName = ConfigurationSettings.WebService.SellingOrganizationContactName,
+				SellingOrganizationCountryCode = (CountryIdentificationCodeContentType) ConfigurationSettings.WebService.SellingOrganizationCountryCode,
+				SellingOrganizationFax = ConfigurationSettings.WebService.SellingOrganizationFax,
+				SellingOrganizationName = ConfigurationSettings.WebService.SellingOrganizationName,
+				SellingOrganizationNumber = ConfigurationSettings.WebService.SellingOrganizationNumber,
+				SellingOrganizationPostalCode = ConfigurationSettings.WebService.SellingOrganizationPostalCode,
+				SellingOrganizationPostBox = ConfigurationSettings.WebService.SellingOrganizationPostBox,
+				SellingOrganizationStreetName = ConfigurationSettings.WebService.SellingOrganizationStreetName,
+				SellingOrganizationTelephone = ConfigurationSettings.WebService.SellingOrganizationTelephone,
+				TaxAccountingCode = ConfigurationSettings.WebService.TaxAccountingCode,
+				VATFreeReasonMessage = ConfigurationSettings.WebService.VATFreeReasonMessage,
 			};
 		}
 
@@ -343,9 +326,9 @@ namespace Spinit.Wpc.Synologen.WebService{
 		private string UploadTextFile(string fileName, string fileContent) {
 			try {
 				var ftp = GetFtpClientObject();
-				var usePassiveFtp = ServiceLibrary.ConfigurationSettings.WebService.UsePassiveFTP;
-				var encoding = ServiceLibrary.ConfigurationSettings.WebService.FTPCustomEncodingCodePage;
-				var useBinaryTransfer = ServiceLibrary.ConfigurationSettings.WebService.FTPUseBinaryTransfer;
+				var usePassiveFtp = ConfigurationSettings.WebService.UsePassiveFTP;
+				var encoding = ConfigurationSettings.WebService.FTPCustomEncodingCodePage;
+				var useBinaryTransfer = ConfigurationSettings.WebService.FTPUseBinaryTransfer;
 				var response = ftp.UploadStringAsFile(fileName, fileContent, usePassiveFtp, encoding, useBinaryTransfer);
 				var responseStatusDescription = response.StatusDescription;
 				//response.Close();
@@ -358,20 +341,12 @@ namespace Spinit.Wpc.Synologen.WebService{
 		}
 
 		private void TrySaveContentToDisk(string fileName, string fileContent) {
-			try {
-				var path = ServiceLibrary.ConfigurationSettings.WebService.EDIFilesFolderPath;
-				if(!Directory.Exists(path)) {Directory.CreateDirectory(path); }
-				var filePath = Path.Combine(path, fileName);
-				var encoding = ServiceLibrary.ConfigurationSettings.WebService.FTPCustomEncodingCodePage;
-				File.AppendAllText(filePath, fileContent, encoding);
-			}
-			catch(Exception ex) {
-				TryLogErrorAndSendEmail("SynologenService.SaveContentToDisk failed: " +ex.Message);
-			}
+			var encoding = ConfigurationSettings.WebService.FTPCustomEncodingCodePage;
+			TrySaveContentToDisk(fileName, fileContent, encoding);
 		}
 		private void TrySaveContentToDisk(string fileName, string fileContent, Encoding encoding) {
 			try {
-				var path = ServiceLibrary.ConfigurationSettings.WebService.EDIFilesFolderPath;
+				var path = ConfigurationSettings.WebService.EDIFilesFolderPath;
 				if(!Directory.Exists(path)) {Directory.CreateDirectory(path); }
 				var filePath = Path.Combine(path, fileName);
 				File.AppendAllText(filePath, fileContent, encoding);
@@ -382,9 +357,9 @@ namespace Spinit.Wpc.Synologen.WebService{
 		}
 
 		private static Ftp GetFtpClientObject() {
-			var ftpUrl = ServiceLibrary.ConfigurationSettings.WebService.FTPServerUrl;
-			var ftpUserName = ServiceLibrary.ConfigurationSettings.WebService.FTPUserName;
-			var ftpPassword = ServiceLibrary.ConfigurationSettings.WebService.FTPPassword;
+			var ftpUrl = ConfigurationSettings.WebService.FTPServerUrl;
+			var ftpUserName = ConfigurationSettings.WebService.FTPUserName;
+			var ftpPassword = ConfigurationSettings.WebService.FTPPassword;
 			var credentials = new NetworkCredential { UserName = ftpUserName, Password = ftpPassword };
 			return new Ftp(ftpUrl, credentials);
 		}
@@ -392,13 +367,13 @@ namespace Spinit.Wpc.Synologen.WebService{
 		private static void CheckFtpUploadStatusDescriptionForErrorMessages(string statusDescription) {
 			statusDescription = statusDescription.ToLower().Trim();
 			if (!statusDescription.StartsWith(Ftp.FileTransferCompleteResponseCode)) {
-				throw new SynologenWebserviceException("Ftp transmission failed: " + statusDescription);
+				throw new WebserviceException("Ftp transmission failed: " + statusDescription);
 			}
 			if (statusDescription.Contains(FtpFileUploadNotAccepted)) {
-				throw new SynologenWebserviceException("Ftp transmission reported EDI file was not accepted: " + statusDescription);
+				throw new WebserviceException("Ftp transmission reported EDI file was not accepted: " + statusDescription);
 			}
 			if (statusDescription.Contains(FtpFileUploadContainsError)) {
-				throw new SynologenWebserviceException("Ftp transmission reported EDI file contains errors: " + statusDescription);
+				throw new WebserviceException("Ftp transmission reported EDI file contains errors: " + statusDescription);
 			}
 		}
 

@@ -253,14 +253,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 		{
 			var bFile = new BFile(_context);
 			if (fileId <= 0) return;
-			bFile.MoveFile(NodeMoveActions.MoveDown, fileId);
+			bFile.MoveFile(FileMoveActions.MoveDown, fileId);
 		}
 
 		private void MoveFileUp(RepeaterItem item, int fileId)
 		{
 			var bFile = new BFile(_context);
 			if (fileId <= 0) return;
-			bFile.MoveFile(NodeMoveActions.MoveUp, fileId);
+			bFile.MoveFile(FileMoveActions.MoveUp, fileId);
 		}
 
 		private void DeleteFile(RepeaterItem item, int fileId)

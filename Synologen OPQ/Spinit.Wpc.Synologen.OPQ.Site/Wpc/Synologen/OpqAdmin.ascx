@@ -1,8 +1,6 @@
 ﻿<%@ Import Namespace="Spinit.Wpc.Synologen.OPQ.Site.Code" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OpqAdmin.ascx.cs" Inherits="Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen.OpqAdmin" %>
-<%@ Register src="OpqMenu.ascx" tagname="OpqMenu" tagprefix="uc1" %>
 <%@ Register Src="~/CommonResources/CommonControls/Wysiwyg/WpcWysiwyg.ascx" TagName="WpcWysiwyg" TagPrefix="uc1" %>
-<uc1:OpqMenu ID="OpqMenu1" runat="server" />
 <opq:usermessagemanager ID="userMessageManager" ControlId="Opq-UserMessage-AdminPage" runat="server" />
 <asp:PlaceHolder ID="phEditRoutine" runat="server" Visible="false">
 		<uc1:WpcWysiwyg ID="_wysiwyg" runat="server" Mode="Basic" />

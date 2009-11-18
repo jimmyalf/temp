@@ -21,11 +21,12 @@
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business.Test\Spinit.Wpc.Synologen.OPQ.Business.Test.csproj"/>
+				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Site\Spinit.Wpc.Synologen.OPQ.Site.csproj"/>
 			</ItemGroup>
 		</When>
 		<Otherwise>
 			<PropertyGroup>
-				<SolutionDir>C:\Develop\WPC\Current-CustomerSpecific\Synologen\</SolutionDir>
+				<SolutionDir>C:\Develop\WPC\CustomerSpecific\Synologen\trunk\</SolutionDir>
 			</PropertyGroup>
 			<ItemGroup>
 				<ProjectToBuild Include="$(SolutionDir)Synologen Admin\Synologen Admin.csproj"/>
@@ -35,6 +36,7 @@
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business.Test\Spinit.Wpc.Synologen.OPQ.Business.Test.csproj"/>
+				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Site\Spinit.Wpc.Synologen.OPQ.Site.csproj"/>
 			</ItemGroup>
 		</Otherwise>
 	</Choose>

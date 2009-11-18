@@ -14,6 +14,7 @@
     <form id="form1" runat="server">
     <div>
 		<a href="Logout.aspx" >Logga ut</a><br />
+	    <uc2:OpqMenu ID="OpqMenu1" runat="server" OpqSubPageUrl="/Spinit.Wpc.Synologen.OPQ.Site/Default.aspx" />
 	    <uc1:OpqSubPage ID="OpqSubPage1" runat="server" AdminPageUrl="/Spinit.Wpc.Synologen.OPQ.Site/ShopAdmin.aspx" />
     </div>
     </form>

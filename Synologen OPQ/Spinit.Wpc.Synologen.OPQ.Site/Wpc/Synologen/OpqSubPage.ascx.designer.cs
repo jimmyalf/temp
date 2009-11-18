@@ -23,15 +23,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen {
         protected global::Spinit.Wpc.Synologen.OPQ.Site.Code.UserMessageManager userMessageManager;
         
         /// <summary>
-        /// OpqMenu1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen.OpqMenu OpqMenu1;
-        
-        /// <summary>
         /// ltParent control.
         /// </summary>
         /// <remarks>

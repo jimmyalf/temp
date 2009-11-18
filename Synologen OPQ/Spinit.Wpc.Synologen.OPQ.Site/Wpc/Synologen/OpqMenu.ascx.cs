@@ -116,8 +116,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			return nodeId;
 		}
 
-
-
 		#region Properties
 
 		/// <summary>

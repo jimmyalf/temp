@@ -201,6 +201,104 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, null, true, true, true);
 			Assert.IsEmpty (files, "No files should be returned");
 		}
+
+		[Test, Description("Creates a file and moves up. Compare results"), Category("File")]
+		public void CreateAndMoveFileUp()
+		{
+			const string rootName = "opq";
+			var bNode = new BNode(_context);
+			Node node = bNode.CreateNode(null, rootName, false);
+
+			const int fleId = 1;
+			var bFile = new BFile(_context);
+			File file1 = bFile.CreateFile(node.Id, null, null, fleId, null);
+			File file2 = bFile.CreateFile(node.Id, null, null, fleId, null);
+			File file3 = bFile.CreateFile(node.Id, null, null, fleId, null);
+			file1 = bFile.GetFile(file1.Id, false);
+			file2 = bFile.GetFile(file2.Id, false);
+			file3 = bFile.GetFile(file3.Id, false);
+			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
+			Assert.AreEqual(2, file2.Order, "Order on file2 not as expected");
+			Assert.AreEqual(3, file3.Order, "Order on file3 not as expected");
+			bFile.MoveFile(NodeMoveActions.MoveUp, file2.Id);
+			Assert.AreEqual(2, file1.Order, "Order on file1 not as expected");
+			Assert.AreEqual(1, file2.Order, "Order on file2 not as expected");
+			Assert.AreEqual(3, file3.Order, "Order on file3 not as expected");
+		}
+
+		[Test, Description("Creates a file and moves down. Compare results"), Category("File")]
+		public void CreateAndMoveFileDown()
+		{
+			const string rootName = "opq";
+			var bNode = new BNode(_context);
+			Node node = bNode.CreateNode(null, rootName, false);
+
+			const int fleId = 1;
+			var bFile = new BFile(_context);
+			File file1 = bFile.CreateFile(node.Id, null, null, fleId, null);
+			File file2 = bFile.CreateFile(node.Id, null, null, fleId, null);
+			File file3 = bFile.CreateFile(node.Id, null, null, fleId, null);
+			file1 = bFile.GetFile(file1.Id, false);
+			file2 = bFile.GetFile(file2.Id, false);
+			file3 = bFile.GetFile(file3.Id, false);
+			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
+			Assert.AreEqual(2, file2.Order, "Order on file2 not as expected");
+			Assert.AreEqual(3, file3.Order, "Order on file3 not as expected");
+			bFile.MoveFile(NodeMoveActions.MoveDown, file2.Id);
+			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
+			Assert.AreEqual(3, file2.Order, "Order on file2 not as expected");
+			Assert.AreEqual(2, file3.Order, "Order on file3 not as expected");
+		}
+
+		[Test, Description("Create files on shop and moves up. Compare results"), Category("File")]
+		public void CreateAndMoveFileUpShop()
+		{
+			const string rootName = "opq";
+			var bNode = new BNode(_context);
+			Node node = bNode.CreateNode(null, rootName, false);
+
+			const int fleId = 1;
+			const int shopId = 1;
+			var bFile = new BFile(_context);
+			File file1 = bFile.CreateFile(node.Id, null, null, fleId, null);
+			File file2 = bFile.CreateFile(node.Id, shopId, null, fleId, null);
+			File file3 = bFile.CreateFile(node.Id, shopId, null, fleId, null);
+			file1 = bFile.GetFile(file1.Id, false);
+			file2 = bFile.GetFile(file2.Id, false);
+			file3 = bFile.GetFile(file3.Id, false);
+			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
+			Assert.AreEqual(1, file2.Order, "Order on file2 not as expected");
+			Assert.AreEqual(2, file3.Order, "Order on file3 not as expected");
+			bFile.MoveFile(NodeMoveActions.MoveUp, file2.Id);
+			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
+			Assert.AreEqual(2, file2.Order, "Order on file2 not as expected");
+			Assert.AreEqual(1, file3.Order, "Order on file3 not as expected");
+		}
+
+		[Test, Description("Create files on shop and moves down. Compare results"), Category("File")]
+		public void CreateAndMoveFileDownShop()
+		{
+			const string rootName = "opq";
+			var bNode = new BNode(_context);
+			Node node = bNode.CreateNode(null, rootName, false);
+
+			const int fleId = 1;
+			const int shopId = 1;
+			var bFile = new BFile(_context);
+			File file1 = bFile.CreateFile(node.Id, null, null, fleId, null);
+			File file2 = bFile.CreateFile(node.Id, shopId, null, fleId, null);
+			File file3 = bFile.CreateFile(node.Id, shopId, null, fleId, null);
+			file1 = bFile.GetFile(file1.Id, false);
+			file2 = bFile.GetFile(file2.Id, false);
+			file3 = bFile.GetFile(file3.Id, false);
+			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
+			Assert.AreEqual(1, file2.Order, "Order on file2 not as expected");
+			Assert.AreEqual(2, file3.Order, "Order on file3 not as expected");
+			bFile.MoveFile(NodeMoveActions.MoveDown, file3.Id);
+			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
+			Assert.AreEqual(2, file2.Order, "Order on file2 not as expected");
+			Assert.AreEqual(1, file3.Order, "Order on file3 not as expected");
+		}
 		
 		[Test, Description ("Creates files and moves them up and down.")]
 		public void CreateAndMoveFiles ()

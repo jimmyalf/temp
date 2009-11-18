@@ -103,6 +103,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			BDocument bDocument = new BDocument (_context);
 			Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, documentContent);
 			bDocument.Publish (document.Id);
+			bDocument.UnLock (document.Id);
 			List<Document> documents =
 				(List<Document>) bDocument.GetDocuments (node.Id, null, null, DocumentTypes.Routine, null, true, true, true);
 			Assert.IsNotNull (documents, "Documents returned null");

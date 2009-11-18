@@ -747,13 +747,15 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 													 orderby documentView.ApprovedDate descending
 													 select documentView;
 
-			EDocumentView docView = query.ToList ().First ();
+			IList<EDocumentView> documents = query.ToList ();
 
-			if (docView == null) {
+			if (documents.IsEmpty ()) {
 				throw new ObjectNotFoundException (
 					"Document View not found.",
 					ObjectNotFoundErrors.DocumentViewNotFound);
 			}
+
+			EDocumentView docView = documents.First ();
 
 			return EDocumentView.Convert (docView);
 		}

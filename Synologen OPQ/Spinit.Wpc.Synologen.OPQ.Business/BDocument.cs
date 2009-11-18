@@ -302,8 +302,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking (_configuration, null, _context)
 				) {
 				IList<Document> documents;
-				
-				if ((nodeId != null) && ((shopId != null) || (cncId != null)) && (documentType != null)) {
+
+				if (nodeId != null) {
 					documents = synologenRepository.Document.GetDocumentsByNodeId (
 						(int) nodeId,
 						shopId,
@@ -312,22 +312,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 						false,
 						false);
 				}
-				else if ((nodeId != null) && (documentType != null)) {
-					documents = synologenRepository.Document.GetDocumentsByNodeId (
-						(int) nodeId,
-						(DocumentTypes) documentType,
-						false,
-						false);
-				}
-                else if (nodeId != null) {
-					documents = synologenRepository.Document.GetDocumentsByNodeId ((int) nodeId, false, false);
-				}
-                else if (searchText != null) {
+				else if (searchText != null) {
 					documents = synologenRepository.Document.GetDocumentsByText (searchText, false, false);
 				}
 				else {
-                	documents = synologenRepository.Document.GetAllDocuments (false, false);
-                }
+					documents = synologenRepository.Document.GetAllDocuments (false, false);
+				}
 
 				IList<Document> retDocuments = new List<Document> ();
 				if ((documents != null) && (documents.Count > 0)) {

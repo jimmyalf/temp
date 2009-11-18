@@ -140,6 +140,23 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		}
 
 		/// <summary>
+		/// UnPublish the document.
+		/// </summary>
+		/// <param name="documentId">The id of the document.</param>
+
+		public void UnPublish(int documentId)
+		{
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository(_configuration, null, _context)
+				)
+			{
+				synologenRepository.Document.UnApproveDocument(documentId);
+				synologenRepository.SubmitChanges();
+			}
+		}
+
+
+		/// <summary>
 		/// Publish the document.
 		/// </summary>
 		/// <param name="documentId">The id of the document.</param>

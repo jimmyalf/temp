@@ -328,7 +328,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 						break;
 
 					case NodeMoveActions.MoveDown:
-						synologenRepository.Node.MoveNode (new Node {Id = source, Order = sSource.Order - 1});
+						synologenRepository.File.MoveFile (new File {Id = source, Order = sSource.Order - 1});
 						break;
 
 					default:

@@ -248,6 +248,45 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		#region Approve, Check-Out and Check-In documents
 
 		/// <summary>
+		/// Unppproves a document.
+		/// </summary>
+		/// <param name="documentId">The document-id.</param>
+		/// <exception cref="UserException">If no current-user.</exception>
+		/// <exception cref="ObjectNotFoundException">If the document or user is not found.</exception>
+		/// <exception cref="DocumentException">If document is locked by other user.</exception>
+		public void UnApproveDocument(int documentId)
+		{
+			EDocument oldDocument = _dataContext.Documents.Single(d => d.Id == documentId);
+
+			if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId))
+			{
+				throw new DocumentException("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
+			}
+
+			if (oldDocument == null)
+			{
+				throw new ObjectNotFoundException(
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			oldDocument.ApprovedById = null;
+			oldDocument.ApprovedByName = null;
+			oldDocument.ApprovedDate = null;
+			oldDocument.ChangedById = Manager.WebContext.UserId ?? 0;
+			oldDocument.ChangedByName = Manager.WebContext.UserName;
+			oldDocument.ChangedDate = DateTime.Now;
+
+			if ((oldDocument.ChangedById == 0) || (oldDocument.ChangedByName == null))
+			{
+				throw new UserException("No user found.", UserErrors.NoCurrentExist);
+			}
+
+			Manager.ExternalObjectsManager.CheckUserExist((int)oldDocument.ChangedById);
+		}
+
+
+		/// <summary>
 		/// Approves a document.
 		/// </summary>
 		/// <param name="documentId">The document-id.</param>

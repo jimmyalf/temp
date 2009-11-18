@@ -129,5 +129,36 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 				(List<Document>) bDocument.GetDocuments (node.Id, null, null, DocumentTypes.Routine, null, true, true, true);
 			Assert.IsEmpty (documents, "No documents should be returned");
 		}
+		
+		[Test, Description ("Creates a document and updates without history.")]
+		public void CreateAndUpdateWithoutHistory ()
+		{
+			BNode bNode = new BNode (_context);
+			Node node = bNode.CreateNode (null, PropertyValues.DocumentNodeName, false);
+
+			BDocument bDocument = new BDocument (_context);
+			Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, PropertyValues.FirstUpdateHistoryContent);
+			bDocument.ChangeDocument (document.Id, PropertyValues.SecondUpdateHistoryContent);
+			List<DocumentHistory> documentHistories = (List<DocumentHistory>) bDocument.GetDocumentHistories (document.Id, true);
+			Assert.IsEmpty (documentHistories, "No document-history should be returned.");
+		}
+	
+		[Test, Description ("Creates a document and updates with history.")]
+		public void CreateAndUpdateWithHistory ()
+		{
+			BNode bNode = new BNode (_context);
+			Node node = bNode.CreateNode (null, PropertyValues.DocumentNodeName, false);
+
+			BDocument bDocument = new BDocument (_context);
+			Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, PropertyValues.FirstUpdateHistoryContent);
+			bDocument.Publish (document.Id);
+			bDocument.UnLock (document.Id);
+			List<DocumentHistory> documentHistories = (List<DocumentHistory>) bDocument.GetDocumentHistories (document.Id, true);
+			Assert.IsEmpty (documentHistories, "No document-history should be returned.");
+
+			bDocument.UnPublish (document.Id);
+			documentHistories = (List<DocumentHistory>) bDocument.GetDocumentHistories (document.Id, true);
+			Assert.IsNotEmpty (documentHistories, "Document-history should be returned.");
+		}
 	}
 }

@@ -326,14 +326,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 						shopId,
 						cncId,
 						(DocumentTypes) documentType,
-						false,
+						true,
 						false);
 				}
 				else if (searchText != null) {
-					documents = synologenRepository.Document.GetDocumentsByText (searchText, false, false);
+					documents = synologenRepository.Document.GetDocumentsByText (searchText, true, false);
 				}
 				else {
-					documents = synologenRepository.Document.GetAllDocuments (false, false);
+					documents = synologenRepository.Document.GetAllDocuments (true, false);
 				}
 
 				IList<Document> retDocuments = new List<Document> ();

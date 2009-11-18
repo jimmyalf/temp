@@ -318,10 +318,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		
 		public void MoveFile (NodeMoveActions moveAction, int source)
 		{
+			File sSource = GetFile (source, false);
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
-				File sSource = synologenRepository.File.GetFileById (source);
 				switch (moveAction) {
 					case NodeMoveActions.MoveUp:
 						synologenRepository.File.MoveFile (new File {Id = source, Order = sSource.Order + 1});

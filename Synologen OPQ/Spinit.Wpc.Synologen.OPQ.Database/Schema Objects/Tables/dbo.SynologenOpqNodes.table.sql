@@ -1,8 +1,9 @@
-﻿CREATE TABLE [dbo].[SynologenOpqNodes] (
+CREATE TABLE [dbo].[SynologenOpqNodes] (
     [Id]             INT            IDENTITY (1, 1) NOT NULL,
     [Parent]         INT            NULL,
     [Order]          INT            NOT NULL,
     [Name]           NVARCHAR (512) NOT NULL,
+    [IsMenu]         BIT            NOT NULL,
     [IsActive]       BIT            NOT NULL,
     [CreatedById]    INT            NOT NULL,
     [CreatedByName]  NVARCHAR (100) NOT NULL,
@@ -17,4 +18,6 @@
     [LockedByName]   NVARCHAR (100) NULL,
     [LockedDate]     DATETIME       NULL
 );
+
+
 

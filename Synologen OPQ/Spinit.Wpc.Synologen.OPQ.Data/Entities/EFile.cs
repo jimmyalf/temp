@@ -16,7 +16,7 @@ using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
 
 using Spinit.Data.Linq;
-
+using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 
 namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
@@ -101,11 +101,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 			}
 		}
 		
-		partial void OnFleCatIdChanging(int? value);
+		partial void OnFleCatIdChanging(int value);
 		partial void OnFleCatIdChanged();
-		private int? _FleCatId;
-		[Column(Storage=@"_FleCatId", DbType=@"Int")]
-		public int? FleCatId
+		private int _FleCatId;
+		[Column(Storage=@"_FleCatId", DbType=@"Int NOT NULL", CanBeNull=false)]
+		public int FleCatId
 		{
 			get { return _FleCatId; }
 			set {
@@ -723,7 +723,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 			{
 				Id = eFile.Id,
 				Order = eFile.Order,
-				FleCatId = eFile.FleCatId,
+				FleCatId = (FileCategories) eFile.FleCatId,
 				FleId = eFile.FleId,
 				NdeId = eFile.NdeId,
 				ShpId = eFile.ShpId,
@@ -758,7 +758,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 			{
 				Id = file.Id,
 				Order = file.Order,
-				FleCatId = file.FleCatId,
+				FleCatId = (int) file.FleCatId,
 				FleId = file.FleId,
 				NdeId = file.NdeId,
 				ShpId = file.ShpId,

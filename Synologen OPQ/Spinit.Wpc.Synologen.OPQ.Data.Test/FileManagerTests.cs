@@ -236,7 +236,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			}
 		}
 
-		[Test, Description ("Fetches the files for a specified node and category=null (all)."), Category ("CruiseControl")]
+		[Test, Description ("Fetches the files for a specified node and category=shop-routine (all)."), Category ("CruiseControl")]
 		public void FileSearchFilesNodeCategoryAllNull ()
 		{
 			using (
@@ -244,10 +244,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					_configuration, null, _context)
 				) {
 
-				IList<File> files = synologenRepository.File.GetFilesByNodeId (PropertyValues.NodeNullCategory, null, false, false);
+				IList<File> files = synologenRepository.File.GetFilesByNodeId (
+					PropertyValues.NodeNullCategory,
+					FileCategories.ShopRoutineDocuments, 
+					false, 
+					false);
 
 				Assert.IsNotNull (files, "Fetched files is null.");
-				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNodeAllNull, files.Count, "Wrong number of files (all)!");
+				Assert.AreEqual (PropertyValues.NoOfFilesCategoryNodeShopRoutine, files.Count, "Wrong number of files (all)!");
 			}
 		}
 

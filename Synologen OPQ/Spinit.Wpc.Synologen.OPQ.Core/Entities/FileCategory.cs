@@ -19,7 +19,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Core.Entities
 	{
 		#region Column Mappings
 		
-		public int Id { get; set; }
+		public FileCategories Id { get; set; }
 		
 		public string Name { get; set; }
 		

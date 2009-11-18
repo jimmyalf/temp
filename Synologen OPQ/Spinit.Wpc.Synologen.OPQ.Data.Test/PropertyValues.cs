@@ -54,7 +54,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		// File
 		public const int BaseFileId = 1;
 		public const int UpdatedBaseFileId = 2;
-		public const int FileCategoryId = 1;
+		public const FileCategories FileCategoryId = FileCategories.SystemRoutineDocuments;
 		public const int FileCategoryIdUpdated = 2;
 		public const string FileCategoryName = @"Generated Test Category";
 		public const string FileCategoryNameUpdated = @"Generated Test Category Updated";
@@ -68,8 +68,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		public const int NoOfFilesCategoryNode = 3;
 		public const int NoOfFilesCategoryNodeAll = 4;
 		public const int NodeNullCategory = 2;
-		public const int NoOfFilesCategoryNodeAllNull = 2;
-		public const string FileCategoryContent = @"Test Category 1";
+		public const int NoOfFilesCategoryNodeShopRoutine = 1;
+		public const string FileCategoryContent = @"Centrala dokument";
 		public const int FetchedFileId = 1;
 	}
 }

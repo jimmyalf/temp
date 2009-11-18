@@ -34,7 +34,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="name">The name of the file-category.</param>
 
-		public FileCategory CreateFileCategory (string name)
+		internal FileCategory CreateFileCategory (string name)
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
@@ -56,7 +56,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="fileCategoryId">The id of the file category.</param>
 		/// <param name="name">The name of the file-category.</param>
 
-		public FileCategory ChangeFileCategory (int fileCategoryId, string name)
+		public FileCategory ChangeFileCategory (FileCategories fileCategoryId, string name)
 		{
 			FileCategory fileCategory = GetFileCategory (fileCategoryId);
 			using (
@@ -78,7 +78,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="fileCategoryId">The file-category-id.</param>
 		/// <param name="removeCompletely">If true=>removes a file-category completely.</param>
 
-		public void DeleteFileCategory (int fileCategoryId, bool removeCompletely)
+		internal void DeleteFileCategory (FileCategories fileCategoryId, bool removeCompletely)
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
@@ -102,7 +102,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="fileCategoryId">The file-category-id.</param>
 
-		public void UnDeleteFileCategory (int fileCategoryId)
+		public void UnDeleteFileCategory (FileCategories fileCategoryId)
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
@@ -117,7 +117,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="fileCategoryId">The id of the file-category.</param>
 
-		public FileCategory GetFileCategory (int fileCategoryId)
+		public FileCategory GetFileCategory (FileCategories fileCategoryId)
 		{
 			using (
 				WpcSynologenRepository synologenRepository 
@@ -163,7 +163,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				synologenRepository.File.Insert (
 					new File
 					{
-						FleCatId = (fileCategory == null) ? null : (int?) fileCategory.Id,
+						FleCatId = fileCategory.Id,
 						FleId = baseFileId,
 						NdeId = nodeId,
 						ShpId = shopId,
@@ -184,7 +184,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="baseFileId">The base-file-id.</param>
 		/// <param name="fileCategoryId">The file-category-id.</param>
 
-		public File CreateFile (int nodeId, int? shopId, int? cncId, int baseFileId, int fileCategoryId)
+		public File CreateFile (int nodeId, int? shopId, int? cncId, int baseFileId, FileCategories fileCategoryId)
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
@@ -379,7 +379,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="onlyApproved">If true=>fetch only approved documents.</param>
 		/// <param name="fillObjects">Fill all objects.</param>
 
-		public IList<File> GetFiles (int? nodeId, int? shopId, int? cncId, int? fileCategoryId, bool onlyActive, bool onlyApproved, bool fillObjects)
+		public IList<File> GetFiles (int? nodeId, int? shopId, int? cncId, FileCategories? fileCategoryId, bool onlyActive, bool onlyApproved, bool fillObjects)
 		{
 			using (
 				WpcSynologenRepository synologenRepository
@@ -405,22 +405,26 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 							(int) nodeId,
 							shopId,
 							cncId,
-							fileCategoryId,
+							(FileCategories) fileCategoryId,
 							onlyActive,
 							onlyApproved);
 					}
-					return synologenRepository.File.GetFilesByNodeId ((int) nodeId, fileCategoryId, onlyActive, onlyApproved);
+					return synologenRepository.File.GetFilesByNodeId (
+						(int) nodeId, 
+						(FileCategories) fileCategoryId, 
+						onlyActive, 
+						onlyApproved);
 				}
 
 				if ((shopId != null) || (cncId != null)) {
 					if (fileCategoryId != null) {
-						return synologenRepository.File.GetFilesByShopId (shopId, cncId, fileCategoryId, onlyActive, onlyApproved);
+						return synologenRepository.File.GetFilesByShopId (shopId, cncId, (FileCategories) fileCategoryId, onlyActive, onlyApproved);
 					}
 					return synologenRepository.File.GetFilesByShopId (shopId, cncId, onlyActive, onlyApproved);
 				}
 
 				if (fileCategoryId != null) {
-					return synologenRepository.File.GetFilesByCategoryId (fileCategoryId, onlyActive, onlyApproved);
+					return synologenRepository.File.GetFilesByCategoryId ((FileCategories) fileCategoryId, onlyActive, onlyApproved);
 				}
 
 				return synologenRepository.File.GetAllFiles (onlyActive, onlyApproved);

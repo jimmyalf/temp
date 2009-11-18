@@ -14,12 +14,14 @@ BEGIN
 			@ndeId INT,
 			@shpId INT,
 			@cncId INT,
+			@fleCatId INT,
 			@contextInfo VARBINARY (128)
 			
 	SELECT	@order = [Order],
 			@ndeId = NdeId,
 			@shpId = ShpId,
-			@cncId = CncId
+			@cncId = CncId,
+			@fleCatId = FleCatId
 	FROM	DELETED
 	
 	SET @contextInfo = CAST ('DontUpdateFile' + SPACE (128) AS VARBINARY (128))  
@@ -33,6 +35,7 @@ BEGIN
 				AND	NdeId = @ndeId
 				AND ShpId IS NULL
 				AND CncId IS NULL
+				AND FleCatId = @fleCatId
 		END
 	
 	IF (@shpId IS NOT NULL) AND (@cncId IS NULL)
@@ -43,6 +46,7 @@ BEGIN
 				AND	NdeId = @ndeId
 				AND ShpId = @shpId
 				AND CncId IS NULL
+				AND FleCatId = @fleCatId
 		END
 
 	IF (@shpId IS NULL) AND (@cncId IS NOT NULL)
@@ -53,6 +57,7 @@ BEGIN
 				AND	NdeId = @ndeId
 				AND ShpId IS NULL
 				AND CncId = @cncId
+				AND FleCatId = @fleCatId
 		END
 
 	SET @contextInfo = CAST ('UpdateClear' + SPACE (128) AS VARBINARY (128))  

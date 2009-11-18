@@ -117,29 +117,6 @@ VALUES (
 	1, 1) 
 
 ------------------------------------------------
--- Inserts into file-categories
-------------------------------------------------
-
-SET IDENTITY_INSERT dbo.SynologenOpqFileCategories ON
-
-INSERT INTO dbo.SynologenOpqFileCategories (
-	Id, [Name], IsActive, CreatedById, CreatedByName, CreatedDate) 
-VALUES (
-	1, 'Test Category 1', 1, 1, 'Admin', GETDATE ()) 
-
-INSERT INTO dbo.SynologenOpqFileCategories (
-	Id, [Name], IsActive, CreatedById, CreatedByName, CreatedDate) 
-VALUES (
-	2, 'Test Category 2', 1, 1, 'Admin', GETDATE ()) 
-
-INSERT INTO dbo.SynologenOpqFileCategories (
-	Id, [Name], IsActive, CreatedById, CreatedByName, CreatedDate) 
-VALUES (
-	3, 'Test Category 3', 0, 1, 'Admin', GETDATE ()) 
-
-SET IDENTITY_INSERT dbo.SynologenOpqFileCategories OFF
-
-------------------------------------------------
 -- Inserts into files
 ------------------------------------------------
 
@@ -175,13 +152,13 @@ INSERT INTO dbo.SynologenOpqFiles (
 	Id, [Order], FleCatId, FleId, NdeId, ShpId, CncId, IsActive, CreatedById, CreatedByName, CreatedDate,
 	ApprovedById, ApprovedByName, ApprovedDate)
 VALUES ( 
-	5, 0, NULL, 1, 2, NULL, NULL, 1, 1, 'Admin', GETDATE (),
+	5, 0, 2, 1, 2, NULL, NULL, 1, 1, 'Admin', GETDATE (),
 	1, 'Admin', GETDATE ()) 
 
 INSERT INTO dbo.SynologenOpqFiles (
 	Id, [Order], FleCatId, FleId, NdeId, ShpId, CncId, IsActive, CreatedById, CreatedByName, CreatedDate)
 VALUES ( 
-	6, 0, NULL, 1, 2, NULL, NULL, 0, 1, 'Admin', GETDATE ()) 
+	6, 0, 3, 1, 2, NULL, NULL, 0, 1, 'Admin', GETDATE ()) 
 
 SET IDENTITY_INSERT dbo.SynologenOpqFiles OFF
 

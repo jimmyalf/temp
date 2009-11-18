@@ -10,7 +10,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Core.Entities
 		
 		public int? Order { get; set; }
 		
-		public int? FleCatId { get; set; }
+		public FileCategories FleCatId { get; set; }
 		
 		public int FleId { get; set; }
 		

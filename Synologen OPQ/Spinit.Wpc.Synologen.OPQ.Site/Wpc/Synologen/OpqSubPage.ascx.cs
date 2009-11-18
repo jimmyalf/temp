@@ -57,7 +57,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			if (node == null) return;
 			if (shopId <= 0) return;
 			var bFile = new BFile(_context);
-			var files = bFile.GetFiles(node.Id, shopId, null, null, true, true, true);
+			var files = bFile.GetFiles(node.Id, shopId, null, FileCategories.ShopRoutineDocuments, true, true, true);
 			rptShopRoutineDocuments.DataSource = files;
 			rptShopRoutineDocuments.DataBind();
 		}
@@ -66,7 +66,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 		{
 			if (node == null) return;
 			var bFile = new BFile(_context);
-			var files = bFile.GetFiles(node.Id, null, null, null, true, true, true);
+			var files = bFile.GetFiles(node.Id, null, null, FileCategories.SystemRoutineDocuments, true, true, true);
 			rptCentralDocuments.DataSource = files;
 			rptCentralDocuments.DataBind();
 		}

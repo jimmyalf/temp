@@ -11,18 +11,28 @@ BEGIN
 	SET NOCOUNT ON
 
 	DECLARE @documentId INT,
+			@documentTypeId INT,
 			@historyId INT,
 			@historyName NVARCHAR (100),
+			@oldIsActive BIT,
+			@newIsActive BIT,
+			@oldApprovedById INT,
+			@newApprovedById INT,
 			@oldLockedById INT,
 			@newLockedById INT
 	
 	SELECT	@documentId = Id,
+			@documentTypeId = DocTpeId,
+			@newIsActive = IsActive,
 			@historyId = ChangedById,
 			@historyName = ChangedByName,
+			@newApprovedById = ApprovedById,
 			@newLockedById = LockedById
 	FROM	INSERTED
 	
-	SELECT	@oldLockedById = LockedById
+	SELECT	@oldIsActive = IsActive,
+			@oldApprovedById = ApprovedById,
+			@oldLockedById = LockedById
 	FROM	DELETED
 	
 	UPDATE	dbo.SynologenOpqDocuments
@@ -49,8 +59,10 @@ BEGIN
 				 LockedById, LockedByName, LockedDate
 		 FROM INSERTED) AS Document
 	WHERE	Id = @documentId
-
-	IF ((@oldLockedById IS NOT NULL) AND (@newLockedById IS NULL)) OR ((@oldLockedById IS NULL) AND (@newLockedById IS NOT NULL))
+		
+	IF (@documentTypeId = 1)																		-- Routine
+		AND ((@oldIsActive = 1) AND (@oldApprovedById IS NOT NULL) AND (@oldLockedById IS NULL))	-- Old doc approved, not locked and active
+		AND ((@newIsActive = 0) OR (@newApprovedById IS NULL) OR (@newLockedById IS NOT NULL))		-- New doc not approved, locked or not active
 		BEGIN
 			INSERT INTO dbo.SynologenOpqDocumentHistories (
 				Id, HistoryDate, HistoryId, HistoryName, NdeId, ShpId, CncId, DocTpeId, DocumentContent, IsActive, 

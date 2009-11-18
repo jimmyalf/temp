@@ -201,5 +201,48 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, null, true, true, true);
 			Assert.IsEmpty (files, "No files should be returned");
 		}
+		
+		[Test, Description ("Creates files and moves them up and down.")]
+		public void CreateAndMoveFiles ()
+		{
+			BNode bNode = new BNode (_context);
+			Node node = bNode.CreateNode (null, PropertyValues.FileNodeName, false);
+
+			BFile bFile = new BFile (_context);
+
+			File firstFile = bFile.CreateFile (node.Id, null, null, PropertyValues.BaseFileId, null);
+			firstFile = bFile.GetFile (firstFile.Id, true);
+			Assert.AreEqual (PropertyValues.FirstFileOrderOne, firstFile.Order, "First file wrong order (1).");
+			
+			File secondFile = bFile.CreateFile (node.Id, null, null, PropertyValues.BaseFileId, null);
+			secondFile = bFile.GetFile (secondFile.Id, true);
+			Assert.AreEqual (PropertyValues.SecondFileOrderOne, secondFile.Order, "Second file wrong order (1).");
+			
+			File thirdFile = bFile.CreateFile (node.Id, null, null, PropertyValues.BaseFileId, null);
+			thirdFile = bFile.GetFile (thirdFile.Id, true);
+			Assert.AreEqual (PropertyValues.ThirdFileOrderOne, thirdFile.Order, "Third file wrong order (1).");
+
+			bFile.MoveFile (NodeMoveActions.MoveDown, firstFile.Id);
+		
+			firstFile = bFile.GetFile (firstFile.Id, true);
+			Assert.AreEqual (PropertyValues.FirstFileOrderTwo, firstFile.Order, "First file wrong order (2).");
+
+			secondFile = bFile.GetFile (secondFile.Id, true);
+			Assert.AreEqual (PropertyValues.FirstFileOrderTwo, secondFile.Order, "Second file wrong order (2).");
+
+			thirdFile = bFile.GetFile (thirdFile.Id, true);
+			Assert.AreEqual (PropertyValues.ThirdFileOrderOne, thirdFile.Order, "Third file wrong order (2).");
+
+			bFile.MoveFile (NodeMoveActions.MoveUp, firstFile.Id);
+		
+			firstFile = bFile.GetFile (firstFile.Id, true);
+			Assert.AreEqual (PropertyValues.FirstFileOrderOne, firstFile.Order, "First file wrong order (3).");
+
+			secondFile = bFile.GetFile (secondFile.Id, true);
+			Assert.AreEqual (PropertyValues.FirstFileOrderOne, secondFile.Order, "Second file wrong order (3).");
+			
+			thirdFile = bFile.GetFile (thirdFile.Id, true);
+			Assert.AreEqual (PropertyValues.ThirdFileOrderOne, thirdFile.Order, "Third file wrong order (3).");
+		}
 	}
 }

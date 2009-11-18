@@ -101,14 +101,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 				}
 				foreach (var script in scriptFiles)
 				{
-					try
-					{
-						DatabaseManager.execScriptFile(_config.ConnectionString, script);
-					}
-					catch (SqlException ex)
-					{
-						Console.WriteLine("script generated an exception: " + ex.Message);
-					}
+					DatabaseManager.execScriptFile(_config.ConnectionString, script);
 				}
 		}
 	}

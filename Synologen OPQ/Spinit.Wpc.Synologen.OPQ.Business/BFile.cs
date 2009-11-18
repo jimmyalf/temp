@@ -316,19 +316,19 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="moveAction">The move-action.</param>
 		/// <param name="source">The id of the file.</param>
 		
-		public void MoveFile (NodeMoveActions moveAction, int source)
+		public void MoveFile (FileMoveActions moveAction, int source)
 		{
 			File sSource = GetFile (source, false);
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
 				switch (moveAction) {
-					case NodeMoveActions.MoveUp:
-						synologenRepository.File.MoveFile (new File {Id = source, Order = sSource.Order + 1});
+					case FileMoveActions.MoveUp:
+						synologenRepository.File.MoveFile (new File {Id = source, NdeId = sSource.NdeId, Order = sSource.Order - 1});
 						break;
 
-					case NodeMoveActions.MoveDown:
-						synologenRepository.File.MoveFile (new File {Id = source, Order = sSource.Order - 1});
+					case FileMoveActions.MoveDown:
+						synologenRepository.File.MoveFile (new File { Id = source, NdeId = sSource.NdeId, Order = sSource.Order + 1 });
 						break;
 
 					default:

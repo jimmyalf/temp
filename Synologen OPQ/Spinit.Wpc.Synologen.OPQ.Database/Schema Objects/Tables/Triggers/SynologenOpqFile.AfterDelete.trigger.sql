@@ -12,20 +12,49 @@ BEGIN
 	
 	DECLARE @order INT,
 			@ndeId INT,
+			@shpId INT,
+			@cncId INT,
 			@contextInfo VARBINARY (128)
 			
 	SELECT	@order = [Order],
-			@ndeId = NdeId
+			@ndeId = NdeId,
+			@shpId = ShpId,
+			@cncId = CncId
 	FROM	DELETED
 	
 	SET @contextInfo = CAST ('DontUpdateFile' + SPACE (128) AS VARBINARY (128))  
 	SET CONTEXT_INFO @contextInfo	
 
-	UPDATE	dbo.SynologenOpqFiles
-	SET		[Order] = [Order] - 1
-	WHERE	[Order] > @order
-		AND	NdeId = @ndeId
+	IF (@shpId IS NULL) AND (@cncId IS NULL)
+		BEGIN
+			UPDATE	dbo.SynologenOpqFiles
+			SET		[Order] = [Order] - 1
+			WHERE	[Order] > @order
+				AND	NdeId = @ndeId
+				AND ShpId IS NULL
+				AND CncId IS NULL
+		END
 	
+	IF (@shpId IS NOT NULL) AND (@cncId IS NULL)
+		BEGIN
+			UPDATE	dbo.SynologenOpqFiles
+			SET		[Order] = [Order] - 1
+			WHERE	[Order] > @order
+				AND	NdeId = @ndeId
+				AND ShpId = @shpId
+				AND CncId IS NULL
+		END
+
+	IF (@shpId IS NULL) AND (@cncId IS NOT NULL)
+		BEGIN
+			UPDATE	dbo.SynologenOpqFiles
+			SET		[Order] = [Order] - 1
+			WHERE	[Order] > @order
+				AND	NdeId = @ndeId
+				AND ShpId IS NULL
+				AND CncId = @cncId
+		END
+
 	SET @contextInfo = CAST ('UpdateClear' + SPACE (128) AS VARBINARY (128))  
 	SET CONTEXT_INFO @contextInfo		
 END

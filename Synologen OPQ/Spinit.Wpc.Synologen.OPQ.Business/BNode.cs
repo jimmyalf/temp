@@ -198,11 +198,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				}
 				switch (moveAction) {
 					case NodeMoveActions.MoveUp:
-						synologenRepository.Node.MoveNode (new Node {Id = source, Parent = sSource.Parent, Order = sSource.Order + 1});
+						synologenRepository.Node.MoveNode (new Node {Id = source, Parent = sSource.Parent, Order = sSource.Order - 1});
 						break;
 
 					case NodeMoveActions.MoveDown:
-						synologenRepository.Node.MoveNode (new Node { Id = source, Parent = sSource.Parent, Order = sSource.Order - 1 });
+						synologenRepository.Node.MoveNode (new Node { Id = source, Parent = sSource.Parent, Order = sSource.Order + 1 });
 						break;
 
 					case NodeMoveActions.MoveAfter:

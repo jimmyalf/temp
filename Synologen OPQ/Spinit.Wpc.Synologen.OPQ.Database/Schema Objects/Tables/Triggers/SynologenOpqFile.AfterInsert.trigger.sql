@@ -12,24 +12,51 @@ BEGIN
 	
 	DECLARE	@id INT,
 			@ndeId INT,
+			@shpId INT,
+			@cncId INT,
 			@order INT,
 			@contextInfo VARBINARY (128)
 			
 	SELECT	@id = Id,
-			@ndeId = NdeId
+			@ndeId = NdeId,
+			@shpId = ShpId,
+			@cncId = CncId
 	FROM	INSERTED
 	
 	SET @order = 1
 	
-	SELECT	@order = MAX ([Order]) + 1
-	FROM	dbo.SynologenOpqFiles
-	WHERE	NdeId = @ndeId
+	IF (@shpId IS NULL) AND (@cncId IS NULL)
+		BEGIN
+			SELECT	@order = CASE WHEN MAX ([Order]) IS NOT NULL THEN MAX ([Order]) + 1 ELSE 1 END
+			FROM	dbo.SynologenOpqFiles
+			WHERE	NdeId = @ndeId
+				AND	ShpId IS NULL
+				AND	CncId IS NULL
+		END
 			
+	IF (@shpId IS NOT NULL) AND (@cncId IS NULL)
+		BEGIN
+			SELECT	@order = CASE WHEN MAX ([Order]) IS NOT NULL THEN MAX ([Order]) + 1 ELSE 1 END
+			FROM	dbo.SynologenOpqFiles
+			WHERE	NdeId = @ndeId
+				AND	ShpId = @shpId
+				AND	CncId IS NULL
+		END
+
+	IF (@shpId IS NULL) AND (@cncId IS NOT NULL)
+		BEGIN
+			SELECT	@order = CASE WHEN MAX ([Order]) IS NOT NULL THEN MAX ([Order]) + 1 ELSE 1 END
+			FROM	dbo.SynologenOpqFiles
+			WHERE	NdeId = @ndeId
+				AND	ShpId IS NULL
+				AND	CncId = @cncId
+		END
+
 	SET @contextInfo = CAST ('DontUpdateFile' + SPACE (128) AS VARBINARY (128))  
 	SET CONTEXT_INFO @contextInfo	
 
 	UPDATE	dbo.SynologenOpqFiles
-	SET		[Order] = ISNULL (@order, 1)
+	SET		[Order] = @order
 	WHERE	Id = @id
 	
 	SET @contextInfo = CAST ('UpdateClear' + SPACE (128) AS VARBINARY (128))  

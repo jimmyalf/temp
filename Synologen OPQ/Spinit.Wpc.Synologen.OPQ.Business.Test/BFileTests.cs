@@ -217,13 +217,16 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			file1 = bFile.GetFile(file1.Id, false);
 			file2 = bFile.GetFile(file2.Id, false);
 			file3 = bFile.GetFile(file3.Id, false);
-			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
-			Assert.AreEqual(2, file2.Order, "Order on file2 not as expected");
-			Assert.AreEqual(3, file3.Order, "Order on file3 not as expected");
-			bFile.MoveFile(NodeMoveActions.MoveUp, file2.Id);
-			Assert.AreEqual(2, file1.Order, "Order on file1 not as expected");
-			Assert.AreEqual(1, file2.Order, "Order on file2 not as expected");
-			Assert.AreEqual(3, file3.Order, "Order on file3 not as expected");
+			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected.");
+			Assert.AreEqual(2, file2.Order, "Order on file2 not as expected.");
+			Assert.AreEqual(3, file3.Order, "Order on file3 not as expected.");
+			bFile.MoveFile(FileMoveActions.MoveUp, file2.Id);
+			file1 = bFile.GetFile (file1.Id, false);
+			file2 = bFile.GetFile (file2.Id, false);
+			file3 = bFile.GetFile (file3.Id, false);
+			Assert.AreEqual (2, file1.Order, "Order on file1 not as expected (moved).");
+			Assert.AreEqual(1, file2.Order, "Order on file2 not as expected (moved).");
+			Assert.AreEqual(3, file3.Order, "Order on file3 not as expected (moved).");
 		}
 
 		[Test, Description("Creates a file and moves down. Compare results"), Category("File")]
@@ -244,8 +247,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
 			Assert.AreEqual(2, file2.Order, "Order on file2 not as expected");
 			Assert.AreEqual(3, file3.Order, "Order on file3 not as expected");
-			bFile.MoveFile(NodeMoveActions.MoveDown, file2.Id);
-			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
+			bFile.MoveFile(FileMoveActions.MoveDown, file2.Id);
+			file1 = bFile.GetFile (file1.Id, false);
+			file2 = bFile.GetFile (file2.Id, false);
+			file3 = bFile.GetFile (file3.Id, false);
+			Assert.AreEqual (1, file1.Order, "Order on file1 not as expected");
 			Assert.AreEqual(3, file2.Order, "Order on file2 not as expected");
 			Assert.AreEqual(2, file3.Order, "Order on file3 not as expected");
 		}
@@ -269,8 +275,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
 			Assert.AreEqual(1, file2.Order, "Order on file2 not as expected");
 			Assert.AreEqual(2, file3.Order, "Order on file3 not as expected");
-			bFile.MoveFile(NodeMoveActions.MoveUp, file2.Id);
-			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
+			bFile.MoveFile(FileMoveActions.MoveUp, file3.Id);
+			file1 = bFile.GetFile (file1.Id, false);
+			file2 = bFile.GetFile (file2.Id, false);
+			file3 = bFile.GetFile (file3.Id, false);
+			Assert.AreEqual (1, file1.Order, "Order on file1 not as expected");
 			Assert.AreEqual(2, file2.Order, "Order on file2 not as expected");
 			Assert.AreEqual(1, file3.Order, "Order on file3 not as expected");
 		}
@@ -294,8 +303,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
 			Assert.AreEqual(1, file2.Order, "Order on file2 not as expected");
 			Assert.AreEqual(2, file3.Order, "Order on file3 not as expected");
-			bFile.MoveFile(NodeMoveActions.MoveDown, file3.Id);
-			Assert.AreEqual(1, file1.Order, "Order on file1 not as expected");
+			bFile.MoveFile(FileMoveActions.MoveDown, file2.Id);
+			file1 = bFile.GetFile (file1.Id, false);
+			file2 = bFile.GetFile (file2.Id, false);
+			file3 = bFile.GetFile (file3.Id, false);
+			Assert.AreEqual (1, file1.Order, "Order on file1 not as expected");
 			Assert.AreEqual(2, file2.Order, "Order on file2 not as expected");
 			Assert.AreEqual(1, file3.Order, "Order on file3 not as expected");
 		}
@@ -320,24 +332,24 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			thirdFile = bFile.GetFile (thirdFile.Id, true);
 			Assert.AreEqual (PropertyValues.ThirdFileOrderOne, thirdFile.Order, "Third file wrong order (1).");
 
-			bFile.MoveFile (NodeMoveActions.MoveDown, firstFile.Id);
+			bFile.MoveFile (FileMoveActions.MoveDown, firstFile.Id);
 		
 			firstFile = bFile.GetFile (firstFile.Id, true);
 			Assert.AreEqual (PropertyValues.FirstFileOrderTwo, firstFile.Order, "First file wrong order (2).");
 
 			secondFile = bFile.GetFile (secondFile.Id, true);
-			Assert.AreEqual (PropertyValues.FirstFileOrderTwo, secondFile.Order, "Second file wrong order (2).");
+			Assert.AreEqual (PropertyValues.SecondFileOrderTwo, secondFile.Order, "Second file wrong order (2).");
 
 			thirdFile = bFile.GetFile (thirdFile.Id, true);
 			Assert.AreEqual (PropertyValues.ThirdFileOrderOne, thirdFile.Order, "Third file wrong order (2).");
 
-			bFile.MoveFile (NodeMoveActions.MoveUp, firstFile.Id);
+			bFile.MoveFile (FileMoveActions.MoveUp, firstFile.Id);
 		
 			firstFile = bFile.GetFile (firstFile.Id, true);
 			Assert.AreEqual (PropertyValues.FirstFileOrderOne, firstFile.Order, "First file wrong order (3).");
 
 			secondFile = bFile.GetFile (secondFile.Id, true);
-			Assert.AreEqual (PropertyValues.FirstFileOrderOne, secondFile.Order, "Second file wrong order (3).");
+			Assert.AreEqual (PropertyValues.SecondFileOrderOne, secondFile.Order, "Second file wrong order (3).");
 			
 			thirdFile = bFile.GetFile (thirdFile.Id, true);
 			Assert.AreEqual (PropertyValues.ThirdFileOrderOne, thirdFile.Order, "Third file wrong order (3).");

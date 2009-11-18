@@ -14,6 +14,8 @@ BEGIN
 			@oldOrder INT,
 			@newOrder INT,
 			@ndeId INT,
+			@shpId INT,
+			@cncId INT,
 			@contextInfo VARBINARY (128)
 			
 	SELECT	@contextInfo = CONTEXT_INFO
@@ -33,28 +35,88 @@ BEGIN
 	FROM	DELETED
 	
 	SELECT	@newOrder = [Order],
-			@ndeId = NdeId
+			@ndeId = NdeId,
+			@shpId = ShpId,
+			@cncId = CncId
 	FROM	INSERTED		
 
 	IF @oldOrder <> @newOrder
 		BEGIN						
 			IF @oldOrder > @newOrder		-- Move down
-				BEGIN	
-					UPDATE	dbo.SynologenOpqFiles
-					SET		[Order] = [Order] + 1
-					WHERE	[Order] >= @newOrder 
-						AND [Order] <= @oldOrder
-						AND NdeId = @ndeId
-						AND Id <> @id
+				BEGIN
+					IF (@shpId IS NULL) AND (@cncId IS NULL)
+						BEGIN
+							UPDATE	dbo.SynologenOpqFiles
+							SET		[Order] = [Order] + 1
+							WHERE	[Order] >= @newOrder 
+								AND [Order] <= @oldOrder
+								AND NdeId = @ndeId
+								AND ShpId IS NULL
+								AND CncId IS NULL
+								AND Id <> @id
+						END
+					
+					IF (@shpId IS NOT NULL) AND (@cncId IS NULL)
+						BEGIN
+							UPDATE	dbo.SynologenOpqFiles
+							SET		[Order] = [Order] + 1
+							WHERE	[Order] >= @newOrder 
+								AND [Order] <= @oldOrder
+								AND NdeId = @ndeId
+								AND ShpId = @shpId
+								AND CncId IS NULL
+								AND Id <> @id
+						END
+					
+					IF (@shpId IS NULL) AND (@cncId IS NOT NULL)
+						BEGIN
+							UPDATE	dbo.SynologenOpqFiles
+							SET		[Order] = [Order] + 1
+							WHERE	[Order] >= @newOrder 
+								AND [Order] <= @oldOrder
+								AND NdeId = @ndeId
+								AND ShpId IS NULL
+								AND CncId = @cncId
+								AND Id <> @id
+						END
 				END
 			ELSE							-- Move up
 				BEGIN
-					UPDATE	dbo.SynologenOpqFiles
-					SET		[Order] = [Order] - 1
-					WHERE	[Order] <= @newOrder 
-						AND [Order] >= @oldOrder
-						AND NdeId = @ndeId
-						AND Id <> @id
+					IF (@shpId IS NULL) AND (@cncId IS NULL)
+						BEGIN
+							UPDATE	dbo.SynologenOpqFiles
+							SET		[Order] = [Order] - 1
+							WHERE	[Order] <= @newOrder 
+								AND [Order] >= @oldOrder
+								AND NdeId = @ndeId
+								AND ShpId IS NULL
+								AND CncId IS NULL
+								AND Id <> @id
+						END
+					
+					IF (@shpId IS NOT NULL) AND (@cncId IS NULL)
+						BEGIN
+							UPDATE	dbo.SynologenOpqFiles
+							SET		[Order] = [Order] - 1
+							WHERE	[Order] <= @newOrder 
+								AND [Order] >= @oldOrder
+								AND NdeId = @ndeId
+								AND ShpId = @shpId
+								AND CncId IS NULL
+								AND Id <> @id
+						END
+					
+					IF (@shpId IS NULL) AND (@cncId IS NOT NULL)
+						BEGIN
+							UPDATE	dbo.SynologenOpqFiles
+							SET		[Order] = [Order] - 1
+							WHERE	[Order] <= @newOrder 
+								AND [Order] >= @oldOrder
+								AND NdeId = @ndeId
+								AND ShpId IS NULL
+								AND CncId = @cncId
+								AND Id <> @id
+						END
 				END
 		END
 

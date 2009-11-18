@@ -1,0 +1,229 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4742CFB1-1D42-468F-8F99-291491D5E903}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Synologen.OPQ.Site</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.OPQ.Site</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Spinit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Presentation.Site, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Presentation.Site.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Presentation.Site, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Presentation.Site.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Synologen.Business, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Synologen.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Synologen.Presentation.Site, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Synologen.Presentation.Site.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Wysiwyg, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Wysiwyg.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="Telerik.Web.UI, Version=2009.1.512.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Tools\Telerik.Web.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="Logout.aspx" />
+    <Content Include="ShopAdmin.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="Wpc\Synologen\OpqAdmin.ascx" />
+    <Content Include="Wpc\Synologen\OpqMenu.ascx" />
+    <Content Include="Wpc\Synologen\OpqStartPage.ascx" />
+    <Content Include="Wpc\Synologen\OpqSubPage.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\Enumerations.cs" />
+    <Compile Include="Code\OpqControlPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Code\Tree.cs" />
+    <Compile Include="Code\TreeNode.cs" />
+    <Compile Include="Code\ExceptionHandler.cs" />
+    <Compile Include="Code\SessionContext.cs" />
+    <Compile Include="Code\UserMessageManager.cs" />
+    <Compile Include="Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShopAdmin.aspx.cs">
+      <DependentUpon>ShopAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShopAdmin.aspx.designer.cs">
+      <DependentUpon>ShopAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\OpqAdmin.ascx.cs">
+      <DependentUpon>OpqAdmin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\OpqAdmin.ascx.designer.cs">
+      <DependentUpon>OpqAdmin.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\OpqMenu.ascx.cs">
+      <DependentUpon>OpqMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\OpqMenu.ascx.designer.cs">
+      <DependentUpon>OpqMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\OpqStartPage.ascx.cs">
+      <DependentUpon>OpqStartPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\OpqStartPage.ascx.designer.cs">
+      <DependentUpon>OpqStartPage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\OpqSubPage.ascx.cs">
+      <DependentUpon>OpqSubPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\OpqSubPage.ascx.designer.cs">
+      <DependentUpon>OpqSubPage.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj">
+      <Project>{372FA2B3-85C4-417F-B178-65DA9D7B2749}</Project>
+      <Name>Spinit.Wpc.Synologen.OPQ.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Spinit.Wpc.Synologen.OPQ.Core\Spinit.Wpc.Synologen.OPQ.Core.csproj">
+      <Project>{C62E11A4-13C6-4D1E-999F-A747AC05D8F7}</Project>
+      <Name>Spinit.Wpc.Synologen.OPQ.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Wpc\Synologen\App_LocalResources\OpqSubPage.ascx.sv.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Wpc\Synologen\App_LocalResources\OpqSubPage.ascx.resx">
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Wpc\Synologen\App_LocalResources\OpqAdmin.ascx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Wpc\Synologen\App_LocalResources\OpqAdmin.ascx.sv.resx" />
+    <Content Include="Wpc\Synologen\Images\arrow_down.png" />
+    <Content Include="Wpc\Synologen\Images\arrow_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1900</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>"$(ProjectDir)..\Spinit.Wpc.Synologen.OPQ.Build\Post-Build-$(ProjectName).bat" "$(ProjectDir)" "$(ProjectName)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

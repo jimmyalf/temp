@@ -385,6 +385,9 @@
     <NotInBuild Include="Scripts\Default Data\DocumentTypes.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
+    <NotInBuild Include="Scripts\Default Data\FileCategories.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
     <NotInBuild Include="Scripts\Test Data\Business Layer Tests\TestData.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>

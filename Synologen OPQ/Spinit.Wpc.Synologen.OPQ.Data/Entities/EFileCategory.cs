@@ -16,7 +16,7 @@ using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
 
 using Spinit.Data.Linq;
-
+using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 
 namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
@@ -323,7 +323,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 		{
 			FileCategory fileCategory = new FileCategory
 			{
-				Id = eFileCategory.Id,
+				Id = (FileCategories) eFileCategory.Id,
 				Name = eFileCategory.Name,
 				IsActive = eFileCategory.IsActive,
 				CreatedById = eFileCategory.CreatedById,
@@ -347,7 +347,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 		{		
 			return new EFileCategory
 			{
-				Id = fileCategory.Id,
+				Id = (int) fileCategory.Id,
 				Name = fileCategory.Name,
 				IsActive = fileCategory.IsActive,
 				CreatedById = fileCategory.CreatedById,

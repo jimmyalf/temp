@@ -96,7 +96,7 @@
     <Type Name="SynologenOpqFile">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FleCatId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="true" />
+      <Column Name="FleCatId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="FleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ShpId" Type="System.Int32" DbType="Int" CanBeNull="true" />

@@ -75,6 +75,26 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
+				// Approve and check-in.
+				synologenRepository.Document.ApproveDocument (document.Id);
+				synologenRepository.Document.CheckInDocument (document.Id);
+
+				synologenRepository.SubmitChanges ();
+			}
+
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				// Un-pprove and check-out.
+				synologenRepository.Document.UnApproveDocument (document.Id);
+				synologenRepository.Document.CheckOutDocument (document.Id);
+
+				synologenRepository.SubmitChanges ();
+			}
+
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
 				// Update node
 				fetchDocument.DocumentContent = PropertyValues.DocUpdateDocumentContent;
 				synologenRepository.Document.Update (fetchDocument);

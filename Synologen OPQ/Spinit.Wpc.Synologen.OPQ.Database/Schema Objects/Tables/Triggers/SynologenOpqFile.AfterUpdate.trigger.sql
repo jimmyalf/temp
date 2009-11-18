@@ -16,6 +16,7 @@ BEGIN
 			@ndeId INT,
 			@shpId INT,
 			@cncId INT,
+			@fleCatId INT,
 			@contextInfo VARBINARY (128)
 			
 	SELECT	@contextInfo = CONTEXT_INFO
@@ -37,7 +38,8 @@ BEGIN
 	SELECT	@newOrder = [Order],
 			@ndeId = NdeId,
 			@shpId = ShpId,
-			@cncId = CncId
+			@cncId = CncId,
+			@fleCatId = FleCatId
 	FROM	INSERTED		
 
 	IF @oldOrder <> @newOrder
@@ -53,6 +55,7 @@ BEGIN
 								AND NdeId = @ndeId
 								AND ShpId IS NULL
 								AND CncId IS NULL
+								AND FleCatId = @fleCatId
 								AND Id <> @id
 						END
 					
@@ -65,6 +68,7 @@ BEGIN
 								AND NdeId = @ndeId
 								AND ShpId = @shpId
 								AND CncId IS NULL
+								AND FleCatId = @fleCatId
 								AND Id <> @id
 						END
 					
@@ -77,6 +81,7 @@ BEGIN
 								AND NdeId = @ndeId
 								AND ShpId IS NULL
 								AND CncId = @cncId
+								AND FleCatId = @fleCatId
 								AND Id <> @id
 						END
 				END
@@ -91,6 +96,7 @@ BEGIN
 								AND NdeId = @ndeId
 								AND ShpId IS NULL
 								AND CncId IS NULL
+								AND FleCatId = @fleCatId
 								AND Id <> @id
 						END
 					
@@ -103,6 +109,7 @@ BEGIN
 								AND NdeId = @ndeId
 								AND ShpId = @shpId
 								AND CncId IS NULL
+								AND FleCatId = @fleCatId
 								AND Id <> @id
 						END
 					
@@ -115,6 +122,7 @@ BEGIN
 								AND NdeId = @ndeId
 								AND ShpId IS NULL
 								AND CncId = @cncId
+								AND FleCatId = @fleCatId
 								AND Id <> @id
 						END
 				END

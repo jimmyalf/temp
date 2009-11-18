@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Spinit.Data.Linq;
+using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 using Spinit.Wpc.Synologen.OPQ.Core.Exceptions;
 using Spinit.Wpc.Synologen.OPQ.Data.Entities;
@@ -54,9 +55,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 
 			Manager.ExternalObjectsManager.CheckUserExist (file.CreatedById);
 			Manager.ExternalObjectsManager.CheckFileExist (file.FleId);
-			if (file.FleCatId != null) {
-				CheckFileCategoryExist ((int) file.FleCatId);
-			}
+			CheckFileCategoryExist ((FileCategories) file.FleCatId);
 
 			if (file.ShpId != null) {
 				Manager.ExternalObjectsManager.CheckShopExist ((int) file.ShpId);
@@ -543,9 +542,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the file-category or user is not found.</exception>
 
-		public void DeactivateFileCategory (int fileCategoryId)
+		public void DeactivateFileCategory (FileCategories fileCategoryId)
 		{
-			EFileCategory oldFileCategory = _dataContext.FileCategories.Single (n => n.Id == fileCategoryId);
+			EFileCategory oldFileCategory = _dataContext.FileCategories.Single (n => n.Id == (int) fileCategoryId);
 
 			if (oldFileCategory == null) {
 				throw new ObjectNotFoundException (
@@ -573,9 +572,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the file or user is not found.</exception>
 
-		public void ReactivateFileCategory (int fileCategoryId)
+		public void ReactivateFileCategory (FileCategories fileCategoryId)
 		{
-			EFileCategory oldFileCategory = _dataContext.FileCategories.Single (d => d.Id == fileCategoryId);
+			EFileCategory oldFileCategory = _dataContext.FileCategories.Single (d => d.Id == (int) fileCategoryId);
 
 			if (oldFileCategory == null) {
 				throw new ObjectNotFoundException (
@@ -688,7 +687,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 					ObjectNotFoundErrors.FileCategoryNotFound);
 			}
 
-			if (GetNumberOfFilesForFileCategory (fileCategory.Id, false, false) > 0) {
+			if (GetNumberOfFilesForFileCategory ((FileCategories) fileCategory.Id, false, false) > 0) {
 				throw new FileException ("File-category is in use.", FileErrors.FileCategoryInUse);
 			}
 
@@ -785,14 +784,16 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByNodeId (int nodeId, int? fileCategoryId, bool onlyActive, bool onlyApproved)
+		public IList<File> GetFilesByNodeId (int nodeId, FileCategories fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-			                                 where file.NdeId == nodeId && file.ShpId == null && file.CncId == null
+			                                 where
+			                                 	file.NdeId == nodeId 
+												&& file.ShpId == null 
+												&& file.CncId == null
+			                                 	&& file.FleCatId == (int) fileCategoryId
 			                                 orderby file.Order ascending
 			                                 select file;
-
-			query = fileCategoryId == null ? query.AddIsNullCondition ("FleCatId") : query.AddEqualityCondition ("FleCatId", fileCategoryId);
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -827,14 +828,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByNodeId (int nodeId, int? shopId, int? cncId, int? fileCategoryId, bool onlyActive, bool onlyApproved)
+		public IList<File> GetFilesByNodeId (int nodeId, int? shopId, int? cncId, FileCategories fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-			                                 where file.NdeId == nodeId
+											 where file.NdeId == nodeId && file.FleCatId == (int) fileCategoryId
 			                                 orderby file.Order ascending
 			                                 select file;
-
-			query = fileCategoryId == null ? query.AddIsNullCondition ("FleCatId") : query.AddEqualityCondition ("FleCatId", fileCategoryId);
 
 			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
 
@@ -874,7 +873,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		public IList<File> GetFilesByShopId (int? shopId, int? cncId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-											 where file.ShpId == shopId
 											 orderby file.Order ascending
 											 select file;
 
@@ -914,14 +912,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByShopId (int? shopId, int? cncId, int? fileCategoryId, bool onlyActive, bool onlyApproved)
+		public IList<File> GetFilesByShopId (int? shopId, int? cncId, FileCategories fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-											 where file.ShpId == shopId
+											 where file.FleCatId == (int) fileCategoryId
 											 orderby file.Order ascending
 											 select file;
-
-			query = fileCategoryId == null ? query.AddIsNullCondition ("FleCatId") : query.AddEqualityCondition ("FleCatId", fileCategoryId);
 
 			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
 
@@ -957,14 +953,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByCategoryId (int? fileCategoryId, bool onlyActive, bool onlyApproved)
+		public IList<File> GetFilesByCategoryId (FileCategories fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-											 where file.FleCatId == fileCategoryId
+											 where file.FleCatId == (int) fileCategoryId
 											 orderby file.Order ascending
 											 select file;
-
-			query = fileCategoryId == null ? query.AddIsNullCondition ("FleCatId") : query.AddEqualityCondition ("FleCatId", fileCategoryId);
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -1062,28 +1056,28 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>The number of files.</returns>
 
-		public int GetNumberOfFilesForFileCategory (int fileCategoryId, bool onlyActive, bool onlyApproved)
+		public int GetNumberOfFilesForFileCategory (FileCategories fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			if (onlyApproved) {
 				if (onlyActive) {
 					return _dataContext.Files.Count (
-						file => file.FleCatId == fileCategoryId
+						file => file.FleCatId == (int) fileCategoryId
 								&& file.IsActive
 								&& file.ApprovedById != null
 								&& file.LockedById == null);
 				}
 
 				return _dataContext.Files.Count (
-					file => file.FleCatId == fileCategoryId
+					file => file.FleCatId == (int) fileCategoryId
 							&& file.ApprovedById != null
 							&& file.LockedById == null);
 			}
 			
 			if (onlyActive) {
-				return _dataContext.Files.Count (file => file.FleCatId == fileCategoryId && file.IsActive);
+				return _dataContext.Files.Count (file => file.FleCatId == (int) fileCategoryId && file.IsActive);
 			}
 
-			return _dataContext.Files.Count (file => file.FleCatId == fileCategoryId);
+			return _dataContext.Files.Count (file => file.FleCatId == (int) fileCategoryId);
 		}
 
 		#endregion
@@ -1097,10 +1091,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <returns>A file-category.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file-category is not found.</exception>
 
-		public FileCategory GetFileCategoryById (int fileCategoryId)
+		public FileCategory GetFileCategoryById (FileCategories fileCategoryId)
 		{
 			IQueryable<EFileCategory> query = from fileCategory in _dataContext.FileCategories
-						where fileCategory.Id == fileCategoryId
+						where fileCategory.Id == (int) fileCategoryId
 						select fileCategory;
 
 			IList<EFileCategory> fileCategories = query.ToList ();
@@ -1251,7 +1245,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <param name="fileCategoryId">The file-category-id.</param>
 		/// <exception cref="ObjectNotFoundException">If the file-category is not found.</exception>
 
-		private void CheckFileCategoryExist (int fileCategoryId)
+		private void CheckFileCategoryExist (FileCategories fileCategoryId)
 		{
 			GetFileCategoryById (fileCategoryId);
 		}

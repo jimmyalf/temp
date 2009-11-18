@@ -50,7 +50,7 @@ BEGIN
 		 FROM INSERTED) AS Document
 	WHERE	Id = @documentId
 
-	IF (@newLockedById IS NULL) AND (@oldLockedById IS NOT NULL)
+	IF ((@oldLockedById IS NOT NULL) AND (@newLockedById IS NULL)) OR ((@oldLockedById IS NULL) AND (@newLockedById IS NOT NULL))
 		BEGIN
 			INSERT INTO dbo.SynologenOpqDocumentHistories (
 				Id, HistoryDate, HistoryId, HistoryName, NdeId, ShpId, CncId, DocTpeId, DocumentContent, IsActive, 

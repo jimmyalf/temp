@@ -1,8 +1,6 @@
 ﻿<%@ Import Namespace="Spinit.Wpc.Synologen.OPQ.Site.Code" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OpqSubPage.ascx.cs" Inherits="Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen.OpqSubPage" %>
-<%@ Register src="OpqMenu.ascx" tagname="OpqMenu" tagprefix="uc1" %>
 <opq:usermessagemanager ID="userMessageManager" ControlId="Opq-UserMessage-SubPage" runat="server" />
-<uc1:OpqMenu ID="OpqMenu1" runat="server" />
 <h1><asp:Literal ID="ltParent" runat="server" /></h1>
 <div id="opq-central-routine">
 	<asp:Literal ID="ltCentralRoutine" runat="server" />

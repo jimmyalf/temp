@@ -31,4 +31,23 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		MoveInto = 4,
 	}
+	
+	/// <summary>
+	/// The nodeFill move actions.
+	/// </summary>
+	public enum FileMoveActions
+	{
+		/// <summary>
+		/// No action.
+		/// </summary>
+		None = 0,
+		/// <summary>
+		/// Moves one position up.
+		/// </summary>
+		MoveUp = 1,
+		/// <summary>
+		/// Moves one position down.
+		/// </summary>
+		MoveDown = 2
+	}
 }

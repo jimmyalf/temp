@@ -68,7 +68,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			if (nodeId <= 0) return;
 			if (shopId <= 0) return;
 			var bFile = new BFile(_context);
-			var files = bFile.GetFiles(nodeId, shopId, null, null, true, true, true);
+			var files = bFile.GetFiles(nodeId, shopId, null, FileCategories.ShopRoutineDocuments, true, true, true);
+			rptFiles.DataSource = null;
 			rptFiles.DataSource = files;
 			rptFiles.DataBind();
 		}
@@ -254,6 +255,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			var bFile = new BFile(_context);
 			if (fileId <= 0) return;
 			bFile.MoveFile(FileMoveActions.MoveDown, fileId);
+			PopulateFiles(_nodeId, MemberShopId);
 		}
 
 		private void MoveFileUp(RepeaterItem item, int fileId)
@@ -261,6 +263,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			var bFile = new BFile(_context);
 			if (fileId <= 0) return;
 			bFile.MoveFile(FileMoveActions.MoveUp, fileId);
+			PopulateFiles(_nodeId, MemberShopId);
 		}
 
 		private void DeleteFile(RepeaterItem item, int fileId)
@@ -268,6 +271,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			var bFile = new BFile(_context);
 			if (fileId <= 0) return;
 			bFile.DeleteFile(fileId, true);
+			PopulateFiles(_nodeId, MemberShopId);
 		}
 
 		#endregion

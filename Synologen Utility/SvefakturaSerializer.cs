@@ -8,25 +8,25 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 namespace Spinit.Wpc.Synologen.Invoicing{
 	public static class SvefakturaSerializer{
 
-		public const string DefaultXmlNewLine = "\r\n";
-		public const Formatting DefaultXmlFormatting = Formatting.Indented;
-		public static readonly Encoding DefaultXmlEncoding = Encoding.UTF8;
+		//public const string DefaultXmlNewLine = "\r\n";
+		//public const Formatting DefaultXmlFormatting = Formatting.Indented;
+		//public static readonly Encoding DefaultXmlEncoding = Encoding.UTF8;
 
-		public static string Serialize(SFTIInvoiceType invoice){
-			return Serialize(invoice, DefaultXmlEncoding, DefaultXmlNewLine, DefaultXmlFormatting);
-		}
-		public static string Serialize(SFTIInvoiceType invoice, Encoding encoding)  {
-			return Serialize(invoice, encoding, DefaultXmlNewLine, DefaultXmlFormatting);
-		}
-		public static string Serialize(SFTIInvoiceType invoice, Encoding encoding, string newLine){
-			return Serialize(invoice, encoding, newLine, DefaultXmlFormatting);
-		}
-		public static string Serialize(SFTIInvoiceType invoice, Encoding encoding, string newLine, Formatting xmlFormatting){
+		//public static string Serialize(SFTIInvoiceType invoice){
+		//    return Serialize(invoice, DefaultXmlEncoding, DefaultXmlNewLine, DefaultXmlFormatting, null);
+		//}
+		//public static string Serialize(SFTIInvoiceType invoice, Encoding encoding)  {
+		//    return Serialize(invoice, encoding, DefaultXmlNewLine, DefaultXmlFormatting, null);
+		//}
+		//public static string Serialize(SFTIInvoiceType invoice, Encoding encoding, string newLine){
+		//    return Serialize(invoice, encoding, newLine, DefaultXmlFormatting, null);
+		//}
+		public static string Serialize(SFTIInvoiceType invoice, Encoding encoding, string newLine, Formatting xmlFormatting, string postOfficeHeader){
 			var xmlSerializer = new XmlSerializer(invoice.GetType());
 			var output = new StringWriterWithEncoding(new StringBuilder(), encoding){NewLine = newLine};
 			var xmlTextWriter = new XmlTextWriter( output ) {Formatting = xmlFormatting};
 			xmlSerializer.Serialize(xmlTextWriter, invoice,  GetNamespaces());
-			return InsertPostOfficeHeader(output.ToString(), newLine);
+			return InsertPostOfficeHeader(output.ToString(), postOfficeHeader, newLine);
 		}
 
 		private static XmlSerializerNamespaces GetNamespaces(){
@@ -42,8 +42,8 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			return namespaces;
 		}
 
-		private static string InsertPostOfficeHeader(string xmlContent, string xmlNewLine){
-			const string header = "<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>";
+		private static string InsertPostOfficeHeader(string xmlContent, string header,  string xmlNewLine){
+			if (String.IsNullOrEmpty(header)) return xmlContent;
 			var insertPosition = xmlContent.IndexOf("?>") + 2;
 			return xmlContent.Insert(insertPosition, xmlNewLine + header);
 		}

@@ -1,5 +1,6 @@
 using System;
 using System.Configuration;
+using System.Globalization;
 
 namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 	public class BaseConfiguration {
@@ -40,18 +41,32 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 		public static float GetSafeValue(string key, float defaultValue) {
 			try {
 				var value = ConfigurationManager.AppSettings[key];
-				float returnValue;
-				return float.TryParse(value, out returnValue) ? returnValue : defaultValue;
+				return Parse(value, defaultValue);
+
 			}
 			catch { return defaultValue; }
 		}
 		public static decimal GetSafeValue(string key,decimal defaultValue) {
 			try {
 				var value = ConfigurationManager.AppSettings[key];
-				decimal returnValue;
-				return decimal.TryParse(value, out returnValue) ? returnValue : defaultValue;
+				return Parse(value, defaultValue);
 			}
 			catch { return defaultValue; }
 		}
+
+		#region Helper Methods
+		private static decimal Parse(string stringValue, decimal defaultValue){
+			var commaReplacedValue = stringValue.Replace(',', '.');
+			decimal outputValue;
+			var result = decimal.TryParse(commaReplacedValue, NumberStyles.AllowDecimalPoint, NumberFormatInfo.InvariantInfo, out outputValue);
+			return (result) ? outputValue : defaultValue;
+		}
+		private static float Parse(string stringValue, float defaultValue){
+			var commaReplacedValue = stringValue.Replace(',', '.');
+			float outputValue;
+			var result = float.TryParse(commaReplacedValue, NumberStyles.AllowDecimalPoint, NumberFormatInfo.InvariantInfo, out outputValue);
+			return (result) ? outputValue : defaultValue;
+		}
+		#endregion
 	}
 }

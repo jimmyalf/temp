@@ -1,11 +1,12 @@
 ﻿using NUnit.Framework;
+using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.Webservice{
 	[TestFixture, Explicit]
 	public class TestWebService{
 		private ClientContract client;
-		private string connectionString;
+		private const string connectionString = "Initial Catalog=dbWpcSynologen;Data Source=BLACK;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
 
 		[TestFixtureSetUp]
 		//TODO: Make into integrationtest
@@ -14,7 +15,6 @@ namespace Spinit.Wpc.Synologen.Integration.Test.Webservice{
 			client.ClientCredentials.UserName.UserName = ServiceLibrary.ConfigurationSettings.Common.ClientCredentialUserName;
 			client.ClientCredentials.UserName.Password = ServiceLibrary.ConfigurationSettings.Common.ClientCredentialPassword;
 			client.Open();
-			connectionString = "Initial Catalog=dbWpcSynologen;Data Source=BLACK;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
 		}
 
 		[TestFixtureTearDown]
@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.Webservice{
 
 		[Test]
 		public void OfflineGetOrdersForInvoicing(){
-			var service = new SynologenService(connectionString);
+			var service = new SynologenService(new SqlProvider(connectionString));
 			var orders = service.GetOrdersForInvoicing();
 			Assert.IsNotNull(orders);
 			Assert.LessOrEqual(0, orders.Count);
@@ -32,7 +32,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.Webservice{
 
 		[Test]
 		public void OfflineGetOrderItems(){
-			var service = new SynologenService(connectionString);
+			var service = new SynologenService(new SqlProvider(connectionString));
 			var orders = service.GetOrdersForInvoicing();
 			Assert.IsNotNull(orders);
 			Assert.LessOrEqual(0, orders.Count);

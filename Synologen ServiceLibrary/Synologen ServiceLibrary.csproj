@@ -57,11 +57,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="App_GlobalResources\ServiceResources.Designer.cs">
-      <DependentUpon>ServiceResources.resx</DependentUpon>
+    <Compile Include="ServiceResources.resx\ServiceResources.Designer.cs">
       <AutoGen>True</AutoGen>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
+      <DependentUpon>ServiceResources.resx</DependentUpon>
     </Compile>
     <Compile Include="CertificateValidator.cs" />
     <Compile Include="ConfigurationSettings\Client.cs" />
@@ -156,11 +155,10 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\ServiceResources.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="ServiceResources.resx\ServiceResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ServiceResources.Designer.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

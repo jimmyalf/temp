@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 
 namespace Spinit.Wpc.Synologen.Invoicing.Types{
@@ -25,7 +26,8 @@ namespace Spinit.Wpc.Synologen.Invoicing.Types{
 		public string SellingOrganizationPostBox { get; set; }
 		public string SellingOrganizationPostalCode { get; set; }
 		public string SellingOrganizationCity { get; set; }
-		public CountryIdentificationCodeContentType? SellingOrganizationCountryCode { get; set; }
+		public SFTICountryType SellingOrganizationCountry { get; set; }
+		public string SellingOrganizationCountryName { get; set; }
 		public string InvoicePaymentTermsTextFormat { get; set; }
 	}
 }

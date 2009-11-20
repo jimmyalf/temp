@@ -35,6 +35,26 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Data, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -47,6 +67,10 @@
     <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
       <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
       <Name>Synologen Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Data\Synologen Data.csproj">
+      <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
+      <Name>Synologen Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Synologen ServiceLibrary\Synologen ServiceLibrary.csproj">
       <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>

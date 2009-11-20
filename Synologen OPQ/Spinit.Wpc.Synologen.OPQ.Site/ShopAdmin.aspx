@@ -8,5 +8,5 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 	    <uc2:OpqMenu ID="OpqMenu1" runat="server" OpqSubPageUrl="/Spinit.Wpc.Synologen.OPQ.Site/SubPage.aspx" />    
-    	<uc1:OpqAdmin ID="OpqAdmin1" runat="server" ReturnPageUrl="/Spinit.Wpc.Synologen.OPQ.Site/Default.aspx" />
+    	<uc1:OpqAdmin ID="OpqAdmin1" runat="server" ReturnPageUrl="/Spinit.Wpc.Synologen.OPQ.Site/SubPage.aspx" />
 </asp:Content>

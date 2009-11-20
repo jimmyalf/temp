@@ -18,6 +18,7 @@
 	<target name="Public-Nu" >
 		<property name="deployPublic" 	value="${deployRoot}\www.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
+		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
 		<property name="srcPub" value="${developDir}\Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Site" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
 	</target>  

@@ -120,7 +120,7 @@
   <data name="Feedback_Improvement_Posted" xml:space="preserve">
     <value>Your improvement suggestion have been sent!</value>
   </data>
-  <data name="Imrovement_Empty" xml:space="preserve">
+  <data name="Improvement_Empty" xml:space="preserve">
     <value>Improvement is required!</value>
   </data>
 </root>

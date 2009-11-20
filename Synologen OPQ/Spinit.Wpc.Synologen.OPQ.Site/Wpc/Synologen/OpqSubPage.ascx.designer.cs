@@ -32,15 +32,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen {
         protected global::System.Web.UI.WebControls.Literal ltParent;
         
         /// <summary>
-        /// ltCentralRoutine control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltCentralRoutine;
-        
-        /// <summary>
         /// ltCentralRoutineChangedDate control.
         /// </summary>
         /// <remarks>
@@ -57,6 +48,15 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ltCentralRoutineChangedBy;
+        
+        /// <summary>
+        /// ltCentralRoutine control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltCentralRoutine;
         
         /// <summary>
         /// phEditShopRoutine control.
@@ -86,13 +86,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen {
         protected global::System.Web.UI.WebControls.Repeater rptCentralDocuments;
         
         /// <summary>
-        /// phEditShopDocument control.
+        /// phEditShopRoutineDocument control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phEditShopDocument;
+        protected global::System.Web.UI.WebControls.PlaceHolder phEditShopRoutineDocument;
         
         /// <summary>
         /// rptShopRoutineDocuments control.
@@ -102,6 +102,24 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptShopRoutineDocuments;
+        
+        /// <summary>
+        /// phEditShopDocument control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phEditShopDocument;
+        
+        /// <summary>
+        /// rptShopDocuments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptShopDocuments;
         
         /// <summary>
         /// txtImprovements control.

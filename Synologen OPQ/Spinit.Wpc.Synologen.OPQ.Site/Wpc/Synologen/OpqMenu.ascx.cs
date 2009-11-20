@@ -12,17 +12,19 @@ using TreeNode=Spinit.Wpc.Synologen.OPQ.Site.Code.TreeNode;
 
 namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 {
-	public partial class OpqMenu : UserControl
+	public partial class OpqMenu : OpqControlPage
 	{
-		private OPQ.Core.Context _context;
 		private string _selectedItemCssClass = "selected";
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			_context = SessionContext.CurrentOpq;
 			if (!Page.IsPostBack)
 			{
 				int nodeId = GetSelectedNodeId();
+				if (nodeId <= 0)
+				{
+					nodeId = NodeId;
+				}
 				List<Node> selectedNodes;
 				Node node = FindCurrentRootNode(nodeId, out selectedNodes);
 				Tree tree = GetTree(node, selectedNodes);
@@ -95,7 +97,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			{
 				node = bNode.GetNode(nodeId, false); 
 			}
-			catch (ObjectNotFoundException ex) { }
+			catch (ObjectNotFoundException ex)
+			{
+				LogException(ex);
+			}
 			if (node == null) return null;
 			selectedNodes.Insert(0, node);
 			while (node.Parent.HasValue)
@@ -137,7 +142,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 		/// </summary>
 		public string OpqSubPageUrl { get; set; }
 
-
+		/// <summary>
+		/// The nodeid to start build the menu from
+		/// </summary>
+		public int NodeId { get; set; }
 		#endregion
 	}
 }

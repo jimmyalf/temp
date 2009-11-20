@@ -1,0 +1,25 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Opq.master.cs" Inherits="Spinit.Wpc.Synologen.OPQ.Site.Opq" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+	<title></title>
+    <link href="http://synologen-nu.wpc.nu/CommonResources/Css/Extranet_139.css" type="text/css" rel="stylesheet" media="screen" />    
+	<asp:ContentPlaceHolder ID="head" runat="server">
+	</asp:ContentPlaceHolder>
+</head>
+<body>
+	<form id="form1" runat="server">
+	<div id="wrapper">
+		<div id="content_holder2">
+			<div id="center_content_wide">
+				<div id="main-content-wide">
+					<asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+					</asp:ContentPlaceHolder>
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
+</body>
+</html>

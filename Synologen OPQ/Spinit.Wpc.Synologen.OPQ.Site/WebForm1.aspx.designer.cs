@@ -8,9 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen {
+namespace Spinit.Wpc.Synologen.OPQ.Site {
     
     
-    public partial class OpqStartPage {
+    public partial class WebForm1 {
     }
 }

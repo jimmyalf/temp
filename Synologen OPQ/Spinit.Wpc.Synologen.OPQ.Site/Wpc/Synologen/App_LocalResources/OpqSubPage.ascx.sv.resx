@@ -120,7 +120,7 @@
   <data name="Feedback_Improvement_Posted" xml:space="preserve">
     <value>Ditt förbättringsförslag är skickat till administratören!</value>
   </data>
-  <data name="Imrovement_Empty" xml:space="preserve">
+  <data name="Improvement_Empty" xml:space="preserve">
     <value>Förbättringsåtgärden får inte vara tom!</value>
   </data>
 </root>

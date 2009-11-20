@@ -96,6 +96,41 @@ namespace Spinit.Wpc.Synologen.OPQ.Core
 			}
 		}
 
+
+		/// <summary>
+		/// Specifies the root url used for shop documents
+		/// </summary>
+		static public string DocumentShopRootUrl
+		{
+			get
+			{
+				return string.Concat(Globals.FilesUrl, SafeConfigString(SynologenOpqSetting, "DocumentShopRootUrl", string.Empty));
+			}
+		}
+
+		/// <summary>
+		/// Allowed extensions for upload
+		/// </summary>
+		static public string UploadAllowedExtensions
+		{
+			get
+			{
+				return SafeConfigString(SynologenOpqSetting, "UploadAllowedExtensions", string.Empty);
+			}
+		}
+
+		/// <summary>
+		/// Max size for upload
+		/// </summary>
+		static public int UploadMaxFileSize
+		{
+			get
+			{
+				return SafeConfigNumber(SynologenOpqSetting, "UploadMaxFileSize", 102400);
+			}
+		}
+
+
 		#endregion
 	}
 } 

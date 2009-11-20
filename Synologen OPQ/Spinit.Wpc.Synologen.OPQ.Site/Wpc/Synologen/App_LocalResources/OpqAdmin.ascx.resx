@@ -120,4 +120,25 @@
   <data name="DeleteDocument" xml:space="preserve">
     <value>Do you really want to remove the document?</value>
   </data>
+  <data name="ExtensionException" xml:space="preserve">
+    <value>Only the following file extensions are allowed:{0}</value>
+  </data>
+  <data name="FileSizeException" xml:space="preserve">
+    <value>Max size for the uploaded file can not be larger then {0} byte.</value>
+  </data>
+  <data name="NoFileException" xml:space="preserve">
+    <value>You must choose a file to upload.</value>
+  </data>
+  <data name="NoShopAdminException" xml:space="preserve">
+    <value>You don´t have shop administrator privilage!</value>
+  </data>
+  <data name="NoShopException" xml:space="preserve">
+    <value>There is no shop connected to your user account!</value>
+  </data>
+  <data name="UnexpectedUploadException" xml:space="preserve">
+    <value>Un unexcpected error occured while uploading the file!</value>
+  </data>
+  <data name="UploadSuccess" xml:space="preserve">
+    <value>The file has been successfully uploaded!</value>
+  </data>
 </root>

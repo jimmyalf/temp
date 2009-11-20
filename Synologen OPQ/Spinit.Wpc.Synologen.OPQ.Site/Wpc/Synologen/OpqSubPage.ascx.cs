@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Exceptions;
+using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.OPQ.Business;
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
@@ -17,11 +18,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 	public partial class OpqSubPage : OpqControlPage
 	{
 		private int _nodeId = -1;
+		private string _fileCssClass = "new-window";
+		const string Filetag = "<a href=\"{0}\" class=\"{1}\">{2}</a>";
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			int.TryParse(Request.QueryString["nodeId"], out _nodeId);
-
+			SetupLayout();
 			try
 			{
 				if (!Page.IsPostBack)
@@ -33,6 +36,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 						PopulateCentralRoutine(node);
 						PopulateShopRoutine(node, MemberShopId);
 						PopulateCentralDocuments(node);
+						PopulateShopRoutineDocuments(node, MemberShopId);
 						PopulateShopDocuments(node, MemberShopId);
 					}
 				}
@@ -40,6 +44,16 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			catch (BaseCodeException ex)
 			{				
 				ExceptionHandler.HandleException(ex, userMessageManager);
+			}
+		}
+
+		private void SetupLayout()
+		{
+			if (!IsInSynologenRole(SynologenRoles.Roles.OpqShopAdmin))
+			{
+				phEditShopRoutine.Visible = false;
+				phEditShopRoutineDocument.Visible = false;
+				phEditShopDocument.Visible = false;
 			}
 		}
 
@@ -52,7 +66,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			ltParent.Text = parentNode.Name;
 		}
 
-		private void PopulateShopDocuments(Node node, int shopId)
+		private void PopulateShopRoutineDocuments(Node node, int shopId)
 		{
 			if (node == null) return;
 			if (shopId <= 0) return;
@@ -60,6 +74,16 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			var files = bFile.GetFiles(node.Id, shopId, null, FileCategories.ShopRoutineDocuments, true, true, true);
 			rptShopRoutineDocuments.DataSource = files;
 			rptShopRoutineDocuments.DataBind();
+		}
+
+		private void PopulateShopDocuments(Node node, int shopId)
+		{
+			if (node == null) return;
+			if (shopId <= 0) return;
+			var bFile = new BFile(_context);
+			var files = bFile.GetFiles(node.Id, shopId, null, FileCategories.ShopDocuments, true, true, true);
+			rptShopDocuments.DataSource = files;
+			rptShopDocuments.DataBind();
 		}
 
 		private void PopulateCentralDocuments(Node node)
@@ -135,10 +159,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 				{
 					if (documentFile.BaseFile != null)
 					{
-						const string tag = "<a href=\"{0}\">{1}</a>";
 						string link = string.Concat(Utility.Business.Globals.FilesUrl, documentFile.BaseFile.Name);
-						string fileName = documentFile.BaseFile.Name.Substring(documentFile.BaseFile.Name.LastIndexOf("/") + 1);
-						ltCentralDocument.Text = string.Format(tag, link, fileName);
+						string fileName = documentFile.BaseFile.Description.IsNotNullOrEmpty()
+						                  	?
+						                  		documentFile.BaseFile.Description.Substring(documentFile.BaseFile.Description.LastIndexOf("/") + 1)
+						                  	:
+						                  		documentFile.BaseFile.Name.Substring(documentFile.BaseFile.Name.LastIndexOf("/") + 1);
+						ltCentralDocument.Text = string.Format(Filetag, link, FileCssClass, fileName);
 					}
 				}
 			}
@@ -160,14 +187,46 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 				{
 					if (documentFile.BaseFile != null)
 					{
-						const string tag = "<a href=\"{0}\">{1}</a>";
 						string link = string.Concat(Utility.Business.Globals.FilesUrl, documentFile.BaseFile.Name);
-						string fileName = documentFile.BaseFile.Name.Substring(documentFile.BaseFile.Name.LastIndexOf("/") + 1);
-						ltShopRoutineDocument.Text = string.Format(tag, link, fileName);
+						string fileName = documentFile.BaseFile.Description.IsNotNullOrEmpty()
+						                  	?
+						                  		documentFile.BaseFile.Description.Substring(documentFile.BaseFile.Description.LastIndexOf("/") + 1)
+						                  	:
+						                  		documentFile.BaseFile.Name.Substring(documentFile.BaseFile.Name.LastIndexOf("/") + 1);
+						ltShopRoutineDocument.Text = string.Format(Filetag, link, FileCssClass, fileName);
 					}
 				}
 			}
 		}
+
+		protected void rptShopDocuments_ItemDataBound(object sender, RepeaterItemEventArgs e)
+		{
+			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+			{
+				var documentFile = (File)e.Item.DataItem;
+				var ltShopDocumentDate = (Literal)e.Item.FindControl("ltShopDocumentDate");
+				var ltShopDocument = (Literal)e.Item.FindControl("ltShopDocument");
+				if (documentFile == null) return;
+				if (ltShopDocumentDate != null)
+				{
+					ltShopDocumentDate.Text = documentFile.CreatedDate.ToShortDateString();
+				}
+				if (ltShopDocument != null)
+				{
+					if (documentFile.BaseFile != null)
+					{
+						string link = string.Concat(Utility.Business.Globals.FilesUrl, documentFile.BaseFile.Name);
+						string fileName = documentFile.BaseFile.Description.IsNotNullOrEmpty()
+											?
+												documentFile.BaseFile.Description.Substring(documentFile.BaseFile.Description.LastIndexOf("/") + 1)
+											:
+												documentFile.BaseFile.Name.Substring(documentFile.BaseFile.Name.LastIndexOf("/") + 1);
+						ltShopDocument.Text = string.Format(Filetag, link, FileCssClass, fileName);
+					}
+				}
+			}
+		}
+
 
 		protected void btnSend_Click(object sender, EventArgs e)
 		{
@@ -175,7 +234,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			if (MemberShopId <= 0) return;
 			if (txtImprovements.Text.IsNullOrEmpty())
 			{
-				userMessageManager.NegativeMessage = GetLocalResourceObject("Imrovement_Empty").ToString();
+				ShowNegativeFeedBack(userMessageManager, "Improvement_Empty");
 				return;
 			}
 			var bDocument = new BDocument(_context);
@@ -184,7 +243,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			{
 				bDocument.Publish(document.Id);
 				bDocument.UnLock(document.Id);
-				userMessageManager.PositiveMessage = GetLocalResourceObject("Feedback_Improvement_Posted").ToString();
+				ShowPositiveFeedBack(userMessageManager, "Feedback_Improvement_Posted");
 				txtImprovements.Text = string.Empty;
 			}
 		}
@@ -201,8 +260,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			set { _nodeId = value; }
 		}
 
-		#endregion
+		public string FileCssClass
+		{
+			get { return _fileCssClass; }
+			set { _fileCssClass = value; }
+		}
 
+		#endregion
 
 	}
 }

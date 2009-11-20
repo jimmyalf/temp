@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,6 +11,7 @@ using Spinit.Wpc.Synologen.OPQ.Business;
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 using Spinit.Wpc.Synologen.OPQ.Site.Code;
+using File=Spinit.Wpc.Synologen.OPQ.Core.Entities.File;
 
 namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 {
@@ -26,17 +28,18 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			{
 				if (!IsInSynologenRole(SynologenRoles.Roles.OpqShopAdmin))
 				{
-					userMessageManager.NegativeMessage = "Du måste vara butiksadminstratör på denna sida!";
+					ShowNegativeFeedBack(userMessageManager, "NoShopAdminException");
 				}
 				else if (MemberShopId <= 0) 
 				{
-					userMessageManager.NegativeMessage = "Det finns ingen butik kopplad till din användarprofil!";					
+					ShowNegativeFeedBack(userMessageManager, "NoShopException");
 				}
 			}
 			else
 			{
 				ReadParameters();
 				SetupLayout();
+				SetupWysiwyg();
 				if (!Page.IsPostBack)
 				{
 					try
@@ -63,6 +66,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			}
 		}
 
+		private void SetupWysiwyg()
+		{
+			_wysiwyg.CommonFilePath = new string[] { DocumentPath };
+		}
+
 		private void PopulateFiles(int nodeId, int shopId)
 		{
 			if (nodeId <= 0) return;
@@ -76,15 +84,18 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 
 		private void SetupLayout()
 		{
+			if (_nodeId <= 0) return;
 			switch (_action)
 			{
 				case Enumerations.AdminActions.NotSet:
 					break;
 				case Enumerations.AdminActions.EditRoutine:
+					ltAdminHeader.Text = "Redigera egen rutin";
 					phEditRoutine.Visible = true;
 					phEditDocuments.Visible = false;
 					break;
 				case Enumerations.AdminActions.EditFiles:
+					ltAdminHeader.Text = "Redigera egna dokument";
 					phEditDocuments.Visible = true;
 					phEditRoutine.Visible = false;
 					break;
@@ -274,6 +285,84 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			PopulateFiles(_nodeId, MemberShopId);
 		}
 
+		private bool UploadFile(int nodeId, string virtualUploadDir, FileUpload uploadControl, FileCategories category, int? shopId)
+		{
+			try
+			{
+				if (!uploadControl.HasFile)
+				{
+					ShowNegativeFeedBack(userMessageManager, "NoFileException");
+					return false;
+				}
+				string uploadDir = Server.MapPath(virtualUploadDir);
+				string fileName = string.Concat(
+					OpqUtility.EncodeStringToUrl(Path.GetFileNameWithoutExtension(uploadControl.FileName)),
+					Path.GetExtension(uploadControl.FileName));
+				string fileDescription = uploadControl.FileName;
+				if (!OpqUtility.IsAllowedExtension(uploadControl.FileName))
+				{
+					ShowNegativeFeedBack(userMessageManager, "ExtensionException", Configuration.UploadAllowedExtensions);
+					return false;
+				}
+				int fileSize = uploadControl.PostedFile.ContentLength;
+				if (fileSize > Configuration.UploadMaxFileSize)
+				{
+					ShowNegativeFeedBack(userMessageManager, "FileSizeException", Configuration.UploadMaxFileSize.ToString());
+					return false;
+				}
+
+				//nameUrl is stored from root of fileurl path
+				string nameUrl = Path.Combine(virtualUploadDir, fileName).Replace(Utility.Business.Globals.FilesUrl, string.Empty);
+				string extensionInfo = Path.GetExtension(uploadControl.FileName).ToLower().Replace(".", string.Empty);
+
+				var dFile = new Base.Data.File
+						(Configuration.GetConfiguration(_context).ConnectionString);
+
+				// Save file to BaseFile
+				int baseFileId = dFile.AddFile(nameUrl,
+							 false,
+							 extensionInfo,
+							 null,
+							 fileDescription,
+							 _context.UserName);
+				// Add id to filename
+				fileName = string.Concat(
+					OpqUtility.EncodeStringToUrl(Path.GetFileNameWithoutExtension(uploadControl.FileName)),
+					"-",
+					baseFileId,
+					Path.GetExtension(uploadControl.FileName));
+				nameUrl = Path.Combine(virtualUploadDir, fileName).Replace(Utility.Business.Globals.FilesUrl, string.Empty);
+
+				// Save file to disk
+				uploadControl.PostedFile.SaveAs(Path.Combine(uploadDir, fileName));
+
+				// Save file to opq
+				var bFile = new BFile(_context);
+				var opqFile = bFile.CreateFile(_nodeId, shopId, null, baseFileId, category);
+				if (opqFile != null)
+				{
+					bFile.Publish(opqFile.Id);
+					bFile.Unlock(opqFile.Id);
+					return true;
+				}
+			}
+			catch (Exception ex)
+			{
+				LogException(ex);
+				ShowNegativeFeedBack(userMessageManager, "UnexpectedUploadException");
+			}
+			return false;
+		}
+
 		#endregion
+
+		protected void btnUploadRoutine_Click(object sender, EventArgs e)
+		{
+			if (UploadFile(_nodeId, DocumentPath, uplFileRoutine, FileCategories.ShopRoutineDocuments, MemberShopId))
+			{
+				ShowPositiveFeedBack(userMessageManager, "UploadSuccess");
+				PopulateFiles(_nodeId, MemberShopId);
+			}
+		}
 	}
 }

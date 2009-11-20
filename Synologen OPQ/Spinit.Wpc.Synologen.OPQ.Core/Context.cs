@@ -71,7 +71,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Core
 		}
 
 		/// <summary>
-		/// Gets the current user-id.
+		/// Gets the current username.
 		/// </summary>
 
 		public string UserName

@@ -120,4 +120,25 @@
   <data name="DeleteDocument" xml:space="preserve">
     <value>Vill du verkligen ta bort dokumentet?</value>
   </data>
+  <data name="ExtensionException" xml:space="preserve">
+    <value>Du får bara ladda upp filer av följande typer: {0}</value>
+  </data>
+  <data name="FileSizeException" xml:space="preserve">
+    <value>Storleken på den uppladdade filen får ej överstiga {0} byte</value>
+  </data>
+  <data name="NoFileException" xml:space="preserve">
+    <value>Du måste välja en fil för uppladdning.</value>
+  </data>
+  <data name="NoShopAdminException" xml:space="preserve">
+    <value>Du måste vara butiksadminstratör på denna sida!</value>
+  </data>
+  <data name="NoShopException" xml:space="preserve">
+    <value>Det finns ingen butik kopplad till din användarprofil!</value>
+  </data>
+  <data name="UnexpectedUploadException" xml:space="preserve">
+    <value>Ett oväntat fel uppstod vid filuppladdningen!</value>
+  </data>
+  <data name="UploadSuccess" xml:space="preserve">
+    <value>Filen är nu uppladdad!</value>
+  </data>
 </root>

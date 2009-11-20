@@ -11,6 +11,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Code
 		public static void HandleException(BaseCodeException ex, UserMessageManager manager)
 		{
 			manager.NegativeMessage = Business.BUtilities.GetResourceString(ex.LocalizationKey, SessionContext.CurrentOpq);
+			manager.Visible = true;
 		}
 	}
 }

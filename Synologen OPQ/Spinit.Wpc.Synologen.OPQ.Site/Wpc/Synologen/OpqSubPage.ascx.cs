@@ -227,18 +227,21 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			}
 		}
 
-
 		protected void btnSend_Click(object sender, EventArgs e)
 		{
 			if (_nodeId <= 0) return;
-			if (MemberShopId <= 0) return;
 			if (txtImprovements.Text.IsNullOrEmpty())
 			{
 				ShowNegativeFeedBack(userMessageManager, "Improvement_Empty");
 				return;
 			}
 			var bDocument = new BDocument(_context);
-			var document = bDocument.CreateDocument(_nodeId, MemberShopId, DocumentTypes.Proposal, txtImprovements.Text);
+
+			var document = (MemberShopId > 0)
+			               	?
+			               		bDocument.CreateDocument(_nodeId, MemberShopId, DocumentTypes.Proposal, txtImprovements.Text)
+			               	:
+			               		bDocument.CreateDocument(_nodeId, null, DocumentTypes.Proposal, txtImprovements.Text);
 			if (document != null)
 			{
 				bDocument.Publish(document.Id);

@@ -68,13 +68,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen {
         protected global::System.Web.UI.WebControls.PlaceHolder phEditDocuments;
         
         /// <summary>
-        /// rptFiles control.
+        /// rptFilesRoutine control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptFiles;
+        protected global::System.Web.UI.WebControls.Repeater rptFilesRoutine;
         
         /// <summary>
         /// uplFileRoutine control.
@@ -93,5 +93,32 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUploadRoutine;
+        
+        /// <summary>
+        /// rptFiles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptFiles;
+        
+        /// <summary>
+        /// uplFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload uplFile;
+        
+        /// <summary>
+        /// btnUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpload;
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Xml;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
@@ -13,6 +14,7 @@ using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Types;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
@@ -31,8 +33,8 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 			provider = new SqlProvider(ConfigurationSettings.WebService.ConnectionString);
 		}
 
-		public SynologenService(string connectionString){
-			provider = new SqlProvider(connectionString);
+		public SynologenService(ISqlProvider sqlProvider){
+			provider = sqlProvider;
 		}
 
 		public List<Order> GetOrdersForInvoicing(){
@@ -192,7 +194,8 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 				throw new WebserviceException("The invoice could not be validated: " + SvefakturaValidator.FormatRuleViolations(ruleViolations));
 			}
 			var encoding = ConfigurationSettings.WebService.FTPCustomEncodingCodePage;
-			var invoiceStringContent = SvefakturaSerializer.Serialize(invoice, encoding);
+			var postOfficeheader = GetPostOfficeheader();
+			var invoiceStringContent = SvefakturaSerializer.Serialize(invoice, encoding, "\r\n", Formatting.Indented, postOfficeheader);
 			var invoiceFileName = GenerateInvoiceFileName(invoice);
 			if(ConfigurationSettings.WebService.SaveSvefakturaFileCopy) {
 				TrySaveContentToDisk(invoiceFileName, invoiceStringContent);
@@ -200,10 +203,16 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 			return UploadTextFile(invoiceFileName, invoiceStringContent);
 		}
 
-
+		private static string GetPostOfficeheader(){
+			const string headerFormat = "<?POSTNET SND=\"{0}\" REC=\"{1}\" MSGTYPE=\"{2}\"?>";
+			var sender = ConfigurationSettings.WebService.PostnetSender;
+			var recipient = ConfigurationSettings.WebService.PostnetRecipient;
+			var messageType = ConfigurationSettings.WebService.PostnetMessageType;
+			return String.Format(headerFormat, sender, recipient, messageType);
+		}
 
 		private static string GetVismaNewOrderAddedHistoryMessage(long vismaOrderId, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {
-			var message = App_GlobalResources.ServiceResources.OrderAddedToVismaHistoryMessage;
+			var message = ServiceResources.resx.ServiceResources.OrderAddedToVismaHistoryMessage;
 			message = message.Replace("{0}", vismaOrderId.ToString());
 			message = message.Replace("{1}", invoiceSumIncludingVAT.ToString());
 			message = message.Replace("{2}", invoiceSumExcludingVAT.ToString());
@@ -211,13 +220,13 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 		}
 
 		private static string GetVismaOrderStatusUpdateHistoryMessage(long vismaOrderId) {
-			var message = App_GlobalResources.ServiceResources.OrderStatusUpdatedHistoryMessage;
+			var message = ServiceResources.resx.ServiceResources.OrderStatusUpdatedHistoryMessage;
 			message = message.Replace("{0}", vismaOrderId.ToString());
 			return message;
 		}
 
 		private static string GetInvoiceSentHistoryMessage(long invoiceNumber, string ftpStatusMessage) {
-			var message = App_GlobalResources.ServiceResources.InvoiceSentHistoryMessage;
+			var message = ServiceResources.resx.ServiceResources.InvoiceSentHistoryMessage;
 			message = message.Replace("{0}", invoiceNumber.ToString());
 			message = message.Replace("{1}", ftpStatusMessage);
 			return message;
@@ -230,7 +239,6 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 			}
 			return returnString.TrimEnd(',');
 		}
-
 		private static string GetOrderIdsFromList(IEnumerable<long> orderIds) {
 			var returnString = String.Empty;
 			foreach(var id in orderIds) {
@@ -254,7 +262,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 				var mailMessage = new MailMessage();
 				mailMessage.To.Add(ConfigurationSettings.WebService.AdminEmail);
 				mailMessage.From = new MailAddress(ConfigurationSettings.WebService.EmailSender);
-				mailMessage.Subject = App_GlobalResources.ServiceResources.ErrorEmailSubject;
+				mailMessage.Subject = ServiceResources.resx.ServiceResources.ErrorEmailSubject;
 				mailMessage.Body = message;
 				smtpClient.Send(mailMessage);
 			}
@@ -297,7 +305,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 				SellingOrganizationCity = ConfigurationSettings.WebService.SellingOrganizationCity,
 				SellingOrganizationContactEmail = ConfigurationSettings.WebService.SellingOrganizationContactEmail,
 				SellingOrganizationContactName = ConfigurationSettings.WebService.SellingOrganizationContactName,
-				SellingOrganizationCountryCode = (CountryIdentificationCodeContentType) ConfigurationSettings.WebService.SellingOrganizationCountryCode,
+				SellingOrganizationCountry = GetSellingOrganizationCountry(),
 				SellingOrganizationFax = ConfigurationSettings.WebService.SellingOrganizationFax,
 				SellingOrganizationName = ConfigurationSettings.WebService.SellingOrganizationName,
 				SellingOrganizationNumber = ConfigurationSettings.WebService.SellingOrganizationNumber,
@@ -310,13 +318,21 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 			};
 		}
 
+		private static SFTICountryType GetSellingOrganizationCountry(){
+			return new SFTICountryType {
+				IdentificationCode = new CountryIdentificationCodeType {
+					Value = (CountryIdentificationCodeContentType) ConfigurationSettings.WebService.SellingOrganizationCountryCode,
+					name = ConfigurationSettings.WebService.SellingOrganizationCountryName
+				}
+			};
+		}
+
 		private static string GenerateInvoiceFileName(Invoice invoice) {
 			var date = invoice.InterchangeHeader.DateOfPreparation.ToString(DateFormat);
 			var referenceNumber = invoice.InterchangeControlReference;
 			var invoiceNumber = invoice.DocumentNumber;
 			return String.Format(EDIFileNameFormat, date, invoiceNumber, referenceNumber);
 		}
-
 		private static string GenerateInvoiceFileName(SFTIInvoiceType invoice) {
 			var date = invoice.IssueDate.Value.ToString(DateFormat);
 			var invoiceNumber = invoice.ID.Value;

@@ -5,6 +5,20 @@ using System.Text;
 namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 	public class WebService : BaseConfiguration {
 		public static readonly Encoding DefaultEncoding = Encoding.UTF8;
+		public static string SellingOrganizationCountryName{
+			get { return GetSafeValue("SellingOrganizationCountryName", "Sverige"); }
+		}
+
+		public static string PostnetRecipient {
+			get { return GetSafeValue("PostnetRecipient", String.Empty); }
+		}
+		public static string PostnetMessageType {
+			get { return GetSafeValue("PostnetMessageType", String.Empty); }
+		}
+
+		public static string PostnetSender {
+			get { return GetSafeValue("PostnetSender", String.Empty); }
+		}
 
 		public static int? InvoicingMethodIdFilter {
 			get { return GetSafeValue("InvoicingMethodIdFilter", (int?)null); }

@@ -44,6 +44,7 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			                                                                                                                     }
 				);
 			invoice.InvoiceCurrencyCode = TryGetValue(settings.InvoiceCurrencyCode, new CurrencyCodeType {Value = settings.InvoiceCurrencyCode.GetValueOrDefault()});
+			invoice.TaxPointDate = TryGetValue(order.CreatedDate, new TaxPointDateType {Value = order.CreatedDate});
 			//invoice.TaxCurrencyCode = TryGetValue(settings.InvoiceCurrencyCode, new CurrencyCodeType {Value = settings.InvoiceCurrencyCode.GetValueOrDefault()});
 		}
 
@@ -81,28 +82,41 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 		private static void TryAddSellerParty(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IShop shop) {
 			if (invoice.SellerParty == null) invoice.SellerParty = new SFTISellerPartyType();
 			invoice.SellerParty.Party = new SFTIPartyType {
-			                                              	PartyName = TryGetValue(settings.SellingOrganizationName, new List<NameType> {new NameType {Value = settings.SellingOrganizationName}}),
-			                                              	Address = GetSellerPartyAddress(settings),
-			                                              	Contact = GetSellerPartyContact(shop),
-			                                              	PartyTaxScheme = GetSellerPartyTaxScheme(settings),
-			                                              	PartyIdentification = TryGetValue(settings.SellingOrganizationNumber, new List<SFTIPartyIdentificationType>{new SFTIPartyIdentificationType{ID = new IdentifierType{Value = FormatOrganizationNumber(settings.SellingOrganizationNumber)}}})
-			                                              };
+				PartyName = TryGetValue(settings.SellingOrganizationName, new List<NameType> {new NameType {Value = settings.SellingOrganizationName}}),
+				Address = GetSellerPartyAddress(settings),
+				Contact = GetSellerPartyContact(shop),
+				PartyTaxScheme = GetSellerPartyTaxScheme(settings),
+				PartyIdentification = TryGetValue(settings.SellingOrganizationNumber, new List<SFTIPartyIdentificationType> {new SFTIPartyIdentificationType {ID = new IdentifierType {Value = FormatOrganizationNumber(settings.SellingOrganizationNumber)}}})
+			};
 			invoice.SellerParty.AccountsContact = GetSellerAccountContact(settings);
 		}
 
 		private static SFTIContactType GetSellerPartyContact(IShop shop) {
-			return GetSFTIContact(shop.Email, shop.ContactCombinedName, shop.Fax, shop.Phone);
+			var contactName = GetSellerPartyContractName(shop);
+			return GetSFTIContact(shop.Email, contactName, shop.Fax, shop.Phone);
+		}
+		private static string GetSellerPartyContractName(IShop shop){
+			var shopName = shop.Name ?? String.Empty;
+			var salesPerson = shop.ContactCombinedName ?? String.Empty;
+			if(String.IsNullOrEmpty(shopName) && String.IsNullOrEmpty(salesPerson)) return String.Empty;
+			if(String.IsNullOrEmpty(shopName)) return salesPerson;
+			return String.IsNullOrEmpty(salesPerson) ? shopName : String.Format("{0} ({1})", shopName, salesPerson);
 		}
 
 		private static SFTIContactType GetSellerAccountContact(SvefakturaConversionSettings settings) {
-			return GetSFTIContact(settings.SellingOrganizationContactEmail, settings.SellingOrganizationContactName, settings.SellingOrganizationFax, settings.SellingOrganizationTelephone);
+			return GetSFTIContact(
+				settings.SellingOrganizationContactEmail, 
+				settings.SellingOrganizationContactName, 
+				settings.SellingOrganizationFax,
+				settings.SellingOrganizationTelephone
+			);
 		}
 
 		private static List<SFTIPartyTaxSchemeType> GetSellerPartyTaxScheme(SvefakturaConversionSettings settings) {
 			return GetPartyTaxScheme(
 				settings.TaxAccountingCode, 
 				settings.SellingOrganizationNumber, 
-				settings.SellingOrganizationCountryCode, 
+				settings.SellingOrganizationCountry, 
 				settings.ExemptionReason, 
 				settings.SellingOrganizationCity, 
 				settings.SellingOrganizationPostBox, 
@@ -118,7 +132,7 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 				settings.SellingOrganizationPostalCode,
 				settings.SellingOrganizationCity,
 				null,
-				settings.SellingOrganizationCountryCode
+				settings.SellingOrganizationCountry
 				);
 		}
 		#endregion
@@ -143,7 +157,7 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			return GetPartyTaxScheme(
 				company.TaxAccountingCode, 
 				company.OrganizationNumber, 
-				(company.Country != null)? TryParseCountryIdCode(company.Country.OrganizationCountryCodeId.Value) : null,
+				(company.Country != null)? TryParseCountry(company.Country) : null,
 				null,
 				company.City,
 				company.PostBox,
@@ -152,10 +166,15 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 				);
 		}
 
-		private  static CountryIdentificationCodeContentType? TryParseCountryIdCode(int? value){
-			if (!value.HasValue) return null;
+		private static SFTICountryType TryParseCountry(ICountry country){
+			if (country == null) return null;
 			try{
-				return (CountryIdentificationCodeContentType) value;
+				return new SFTICountryType {
+					IdentificationCode = new CountryIdentificationCodeType {
+						Value = (CountryIdentificationCodeContentType) country.OrganizationCountryCodeId,
+						name = country.Name
+					}
+				};
 			}
 			catch { return null; }
 		}
@@ -167,7 +186,7 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 				company.Zip,
 				company.City,
 				orderRow.CompanyUnit,
-				(company.Country != null)? TryParseCountryIdCode(company.Country.OrganizationCountryCodeId.Value) : null
+				(company.Country != null)? TryParseCountry(company.Country) : null
 				);
 		}
 		#endregion
@@ -218,9 +237,6 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 		private static T TryGetValue<T>(string valueToSet, T properValue) {
 			return String.IsNullOrEmpty(valueToSet) ? default(T) : properValue;
 		}
-		private static T TryGetValue<T>(CountryIdentificationCodeContentType? valueToSet, T properValue) {
-			return  !valueToSet.HasValue ? default(T) : properValue;
-		}
 		private static T TryGetValue<T>(CurrencyCodeContentType? valueToSet, T properValue) {
 			return  !valueToSet.HasValue ? default(T) : properValue;
 		}
@@ -237,7 +253,7 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			return valueToSet.Equals(DateTime.MinValue) ? default(T) : properValue;
 		}
 		
-		private static List<SFTIPartyTaxSchemeType> GetPartyTaxScheme(string taxAccountingCode, string orgNumber, CountryIdentificationCodeContentType? countryCode, string exemptionReason, string city, string postBox, string streetName, string postalCode  ) {
+		private static List<SFTIPartyTaxSchemeType> GetPartyTaxScheme(string taxAccountingCode, string orgNumber, SFTICountryType country, string exemptionReason, string city, string postBox, string streetName, string postalCode  ) {
 			var returnList = new List<SFTIPartyTaxSchemeType>();
 			if(OneOrMoreHaveValue(taxAccountingCode)){
 				returnList.Add(
@@ -252,7 +268,7 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 					new SFTIPartyTaxSchemeType {
 					                           	ExemptionReason = TryGetValue(exemptionReason, new ReasonType {Value = exemptionReason}),
 					                           	CompanyID = TryGetValue(orgNumber, new IdentifierType {Value = FormatOrganizationNumber(orgNumber)}),
-					                           	RegistrationAddress = GetSFTIAddress(postBox, streetName, postalCode, city, null, countryCode),
+					                           	RegistrationAddress = GetSFTIAddress(postBox, streetName, postalCode, city, null, country),
 					                           	TaxScheme = new SFTITaxSchemeType { ID = new IdentifierType { Value = "SWT" } }
 					                           }
 					);
@@ -260,16 +276,17 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			return (returnList.Count <= 0) ? null : returnList;
 		}
 
-		private static SFTIAddressType GetSFTIAddress(string postBox, string streetName,string zip,  string city, string companyUnit, CountryIdentificationCodeContentType? countryCode) {
-			if (AllAreNullOrEmpty(postBox, streetName, zip, city, companyUnit, countryCode)) return null;
-			return new SFTIAddressType {
-			                           	Postbox = TryGetValue(postBox, new PostboxType {Value = postBox}),
-			                           	StreetName = TryGetValue(streetName, new StreetNameType {Value = streetName}),
-			                           	PostalZone = TryGetValue(zip, new ZoneType {Value = zip}),
-			                           	Department = TryGetValue(companyUnit, new DepartmentType {Value = companyUnit}),
-			                           	CityName = TryGetValue(city, new CityNameType {Value = city}),
-			                           	Country = TryGetValue(countryCode, new SFTICountryType {IdentificationCode = new CountryIdentificationCodeType{ Value = countryCode.GetValueOrDefault()}})
-			                           };
+		private static SFTIAddressType GetSFTIAddress(string postBox, string streetName,string zip,  string city, string companyUnit, SFTICountryType country) {
+			if (AllAreNullOrEmpty(postBox, streetName, zip, city, companyUnit, country)) return null;
+			return new SFTIAddressType
+			{
+				Postbox = TryGetValue(postBox, new PostboxType {Value = postBox}),
+				StreetName = TryGetValue(streetName, new StreetNameType {Value = streetName}),
+				PostalZone = TryGetValue(zip, new ZoneType {Value = zip}),
+				Department = TryGetValue(companyUnit, new DepartmentType {Value = companyUnit}),
+				CityName = TryGetValue(city, new CityNameType {Value = city}),
+				Country = country
+			};
 		}
 
 		private static SFTITaxCategoryType GetTaxCategory(string identifier, decimal percent, string TaxScheme, string vatFreeReasonMessage) {

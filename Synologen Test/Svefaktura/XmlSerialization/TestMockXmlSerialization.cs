@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Types;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
@@ -31,7 +32,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 		[Test]
 		public void Test_Xml_Ouput_Is_Correctly_Parsed() {
 			var invoice = GetMockInvoice();
-			var output = SvefakturaSerializer.Serialize(invoice, Encoding.UTF8, String.Empty, Formatting.None);
+			var output = SvefakturaSerializer.Serialize(invoice, Encoding.UTF8, String.Empty, Formatting.None, null);
 			var expectedXml = GetExpectedXml();
 			Expect(output, Is.EqualTo(expectedXml));
 		}
@@ -39,9 +40,16 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 		[Test]
 		public void Test_Xml_Output_Has_Correct_Encoding() {
 			var invoice = GetMockInvoice();
-			var output = SvefakturaSerializer.Serialize(invoice, Encoding.GetEncoding("iso-8859-1"), String.Empty, Formatting.None);
+			var output = SvefakturaSerializer.Serialize(invoice, Encoding.GetEncoding("iso-8859-1"), String.Empty, Formatting.None, null);
 			var expectedXml = GetExpectedXml().Replace("utf-8","iso-8859-1");
 			Expect(output, Is.EqualTo(expectedXml));
+		}
+		[Test]
+		public void Test_Xml_Output_Contains_PostOfficeHeader() {
+			const string postOfficeheader = "<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>";
+			var invoice = GetMockInvoice();
+			var output = SvefakturaSerializer.Serialize(invoice, Encoding.UTF8, String.Empty, Formatting.None, postOfficeheader);
+			Expect(output.Contains(postOfficeheader));
 		}
 
 		[Test, Explicit]
@@ -89,7 +97,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 				PostBox = "Box 123",
 				Zip = "11000",
 				PaymentDuePeriod = 30,
-				Country = new Country {OrganizationCountryCodeId = SwedenCountryCodeNumber},
+				Country = new Country {OrganizationCountryCodeId = SwedenCountryCodeNumber, Name="Sverige"},
 				BankCode = "99998",
 				OrganizationNumber = "555123456",
 				TaxAccountingCode = "SE555123456",
@@ -108,7 +116,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 				ExemptionReason = "F-skattebevis finns",
 				SellingOrganizationNumber = "5565624223",
 				TaxAccountingCode = "SE556562422301",
-				SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
+				SellingOrganizationCountry = new SFTICountryType{ IdentificationCode = new CountryIdentificationCodeType{ Value = CountryIdentificationCodeContentType.SE, name="Sverige" } },
 				SellingOrganizationContactName = "A Person, Fakturaavd",
 				BankGiro = "9551548524585",
 				BankgiroBankIdentificationCode = "SKIASESS",
@@ -168,7 +176,6 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 		public string GetExpectedXml() {
 			return 
 				"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-				+"<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>"
 				+"<Invoice xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:cac=\"urn:sfti:CommonAggregateComponents:1:0\" xmlns:ccts=\"urn:oasis:names:tc:ubl:CoreComponentParameters:1:0\" xmlns:cur=\"urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0\" xmlns:sdt=\"urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0\" xmlns:cbc=\"urn:oasis:names:tc:ubl:CommonBasicComponents:1:0\" xmlns:udt=\"urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0\" xmlns=\"urn:sfti:documents:BasicInvoice:1:0\">"
 				+"<ID>15</ID>"
 				+"<cbc:IssueDate>2003-09-11</cbc:IssueDate>"
@@ -191,8 +198,8 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 				+"<cac:Party>"
 				+"<cac:PartyIdentification><cac:ID>555123456</cac:ID></cac:PartyIdentification>"
 				+"<cac:PartyName><cbc:Name>Johnssons byggvaror</cbc:Name></cac:PartyName>"
-				+"<cac:Address><cbc:Postbox>Box 123</cbc:Postbox><cbc:StreetName>Rådhusgatan 5</cbc:StreetName><cbc:Department>Företagsenhet</cbc:Department><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>11000</cbc:PostalZone><cac:Country><cac:IdentificationCode>SE</cac:IdentificationCode></cac:Country></cac:Address>"
-				+"<cac:PartyTaxScheme><cac:CompanyID>SE555123456</cac:CompanyID><cac:TaxScheme><cac:ID>VAT</cac:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyTaxScheme><cac:CompanyID>555123456</cac:CompanyID><cac:RegistrationAddress><cbc:Postbox>Box 123</cbc:Postbox><cbc:StreetName>Rådhusgatan 5</cbc:StreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>11000</cbc:PostalZone><cac:Country><cac:IdentificationCode>SE</cac:IdentificationCode></cac:Country></cac:RegistrationAddress><cac:TaxScheme><cac:ID>SWT</cac:ID></cac:TaxScheme></cac:PartyTaxScheme>"
+				+"<cac:Address><cbc:Postbox>Box 123</cbc:Postbox><cbc:StreetName>Rådhusgatan 5</cbc:StreetName><cbc:Department>Företagsenhet</cbc:Department><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>11000</cbc:PostalZone><cac:Country><cac:IdentificationCode name=\"Sverige\">SE</cac:IdentificationCode></cac:Country></cac:Address>"
+				+"<cac:PartyTaxScheme><cac:CompanyID>SE555123456</cac:CompanyID><cac:TaxScheme><cac:ID>VAT</cac:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyTaxScheme><cac:CompanyID>555123456</cac:CompanyID><cac:RegistrationAddress><cbc:Postbox>Box 123</cbc:Postbox><cbc:StreetName>Rådhusgatan 5</cbc:StreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>11000</cbc:PostalZone><cac:Country><cac:IdentificationCode name=\"Sverige\">SE</cac:IdentificationCode></cac:Country></cac:RegistrationAddress><cac:TaxScheme><cac:ID>SWT</cac:ID></cac:TaxScheme></cac:PartyTaxScheme>"
 				+"<cac:Contact><cbc:Name>Pelle Svensson</cbc:Name><cbc:Telephone>08987654</cbc:Telephone><cbc:ElectronicMail>pelle.svensson@inkop.se</cbc:ElectronicMail></cac:Contact>"
 				+"</cac:Party>"
 				+"</cac:BuyerParty>"
@@ -200,8 +207,8 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 				+"<cac:Party>"
 				+"<cac:PartyIdentification><cac:ID>5565624223</cac:ID></cac:PartyIdentification>"
 				+"<cac:PartyName><cbc:Name>Moderna Produkter AB</cbc:Name></cac:PartyName>"
-				+"<cac:Address><cbc:Postbox>Box 789</cbc:Postbox><cbc:StreetName>Storgatan 5</cbc:StreetName><cbc:CityName>Hägersten</cbc:CityName><cbc:PostalZone>12652</cbc:PostalZone><cac:Country><cac:IdentificationCode>SE</cac:IdentificationCode></cac:Country></cac:Address>"
-				+"<cac:PartyTaxScheme><cac:CompanyID>SE556562422301</cac:CompanyID><cac:TaxScheme><cac:ID>VAT</cac:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyTaxScheme><cac:CompanyID>5565624223</cac:CompanyID><cbc:ExemptionReason>F-skattebevis finns</cbc:ExemptionReason><cac:RegistrationAddress><cbc:Postbox>Box 789</cbc:Postbox><cbc:StreetName>Storgatan 5</cbc:StreetName><cbc:CityName>Hägersten</cbc:CityName><cbc:PostalZone>12652</cbc:PostalZone><cac:Country><cac:IdentificationCode>SE</cac:IdentificationCode></cac:Country></cac:RegistrationAddress><cac:TaxScheme><cac:ID>SWT</cac:ID></cac:TaxScheme></cac:PartyTaxScheme>"
+				+"<cac:Address><cbc:Postbox>Box 789</cbc:Postbox><cbc:StreetName>Storgatan 5</cbc:StreetName><cbc:CityName>Hägersten</cbc:CityName><cbc:PostalZone>12652</cbc:PostalZone><cac:Country><cac:IdentificationCode name=\"Sverige\">SE</cac:IdentificationCode></cac:Country></cac:Address>"
+				+"<cac:PartyTaxScheme><cac:CompanyID>SE556562422301</cac:CompanyID><cac:TaxScheme><cac:ID>VAT</cac:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyTaxScheme><cac:CompanyID>5565624223</cac:CompanyID><cbc:ExemptionReason>F-skattebevis finns</cbc:ExemptionReason><cac:RegistrationAddress><cbc:Postbox>Box 789</cbc:Postbox><cbc:StreetName>Storgatan 5</cbc:StreetName><cbc:CityName>Hägersten</cbc:CityName><cbc:PostalZone>12652</cbc:PostalZone><cac:Country><cac:IdentificationCode name=\"Sverige\">SE</cac:IdentificationCode></cac:Country></cac:RegistrationAddress><cac:TaxScheme><cac:ID>SWT</cac:ID></cac:TaxScheme></cac:PartyTaxScheme>"
 				+"<cac:Contact><cbc:Name>Adam Bertil</cbc:Name><cbc:Telephone>0811122233</cbc:Telephone><cbc:Telefax>089876543</cbc:Telefax><cbc:ElectronicMail>sales@modernaprodukter.se</cbc:ElectronicMail></cac:Contact>"
 				+"</cac:Party>"
 				+"<cac:AccountsContact><cbc:Name>A Person, Fakturaavd</cbc:Name><cbc:Telephone>0123567890</cbc:Telephone><cbc:Telefax>0123456789</cbc:Telefax><cbc:ElectronicMail>info@synologen.se</cbc:ElectronicMail></cac:AccountsContact>"

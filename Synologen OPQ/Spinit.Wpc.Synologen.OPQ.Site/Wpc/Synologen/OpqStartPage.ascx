@@ -10,11 +10,11 @@
 	<embed style="vertical-align: middle;" src="opqviewer.swf" quality="high" bgcolor="#ffffff" name="opqviewer" allowscriptaccess="sameDomain" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" wmode="transparent" height="200" width="646">
 	</object>
 	</div>
-	<img alt="" usemap="#Map" src="/Spinit.Wpc.Synologen.OPQ.Site/wpc/Synologen/Images/help_processes.gif" style="border: 0px solid ;" /> 
+	<img alt="" usemap="#Map" src="/wpc/Synologen/Images/help_processes.gif" style="border: 0px solid ;" /> 
 	<map id="proccessMap" name="Map">
-	<area coords="14,1,101,122" href="/Spinit.Wpc.Synologen.OPQ.Site/SubPage.aspx?nodeId=48" alt="" />
-	<area coords="144,1,230,122" href="/Spinit.Wpc.Synologen.OPQ.Site/SubPage.aspx?nodeId=55" alt=""/>
-	<area coords="274,1,359,122" href="/Spinit.Wpc.Synologen.OPQ.Site/SubPage.aspx?nodeId=61" alt=""/>
-	<area coords="404,1,488,122" href="/Spinit.Wpc.Synologen.OPQ.Site/SubPage.aspx?nodeId=65" alt=""/>
-	<area coords="534,1,617,122" href="/Spinit.Wpc.Synologen.OPQ.Site/SubPage.aspx?nodeId=67" alt=""/>
+	<area coords="14,1,101,122" href="/Test/SubPage.aspx?nodeId=48" alt="" />
+	<area coords="144,1,230,122" href="/Test/SubPage.aspx?nodeId=55" alt=""/>
+	<area coords="274,1,359,122" href="/Test/SubPage.aspx?nodeId=61" alt=""/>
+	<area coords="404,1,488,122" href="/Test/SubPage.aspx?nodeId=65" alt=""/>
+	<area coords="534,1,617,122" href="/Test/SubPage.aspx?nodeId=67" alt=""/>
 	</map>

@@ -454,13 +454,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		public void DeleteAllForNode (int nodeId)
 		{
 			IQueryable<EDocument> query = from document in _dataContext.Documents
-						where document.NdeId == nodeId
-						select document;
+			                              where document.NdeId == nodeId
+			                              select document;
 
 			IList<EDocument> documents = query.ToList ();
 
 			foreach (EDocument oldDocument in documents) {
-				if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId)) {
+				if ((oldDocument.LockedById != null)
+				    && (oldDocument.LockedById != Manager.WebContext.UserId)) {
 					throw new DocumentException ("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
 				}
 			}
@@ -473,7 +474,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 
 			// Delete histories.
 			foreach (EDocument document in documents) {
-				Delete (document.Id);
+				try {
+					Delete (document.Id);
+				}
+				catch (ObjectNotFoundException e) {
+					if ((ObjectNotFoundErrors) e.ErrorCode != ObjectNotFoundErrors.DocumentHistoryNotFound) {
+						throw;
+					}
+				}
 			}
 
 			_dataContext.Documents.DeleteAllOnSubmit (documents);

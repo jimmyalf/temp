@@ -257,6 +257,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.AddDataLoadOptions<Node> (n => n.ApprovedBy);
 					synologenRepository.AddDataLoadOptions<Node> (n => n.LockedBy);
 
+					synologenRepository.AddDataLoadOptions<File> (f => f.BaseFile);
 					synologenRepository.AddDataLoadOptions<File> (f => f.CreatedBy);
 					synologenRepository.AddDataLoadOptions<File> (f => f.ChangedBy);
 					synologenRepository.AddDataLoadOptions<File> (f => f.ApprovedBy);
@@ -302,6 +303,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.AddDataLoadOptions<Node> (n => n.ApprovedBy);
 					synologenRepository.AddDataLoadOptions<Node> (n => n.LockedBy);
 
+					synologenRepository.AddDataLoadOptions<File> (f => f.BaseFile);
 					synologenRepository.AddDataLoadOptions<File> (f => f.CreatedBy);
 					synologenRepository.AddDataLoadOptions<File> (f => f.ChangedBy);
 					synologenRepository.AddDataLoadOptions<File> (f => f.ApprovedBy);
@@ -349,6 +351,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.AddDataLoadOptions<Node> (n => n.ApprovedBy);
 					synologenRepository.AddDataLoadOptions<Node> (n => n.LockedBy);
 
+					synologenRepository.AddDataLoadOptions<File> (f => f.BaseFile);
 					synologenRepository.AddDataLoadOptions<File> (f => f.CreatedBy);
 					synologenRepository.AddDataLoadOptions<File> (f => f.ChangedBy);
 					synologenRepository.AddDataLoadOptions<File> (f => f.ApprovedBy);

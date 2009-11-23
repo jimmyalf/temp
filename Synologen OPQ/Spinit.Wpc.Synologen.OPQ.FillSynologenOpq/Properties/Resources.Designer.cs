@@ -60,10 +60,38 @@ namespace Spinit.Wpc.Synologen.OPQ.FillSynologenOpq.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap disk_blue {
+            get {
+                object obj = ResourceManager.GetObject("disk_blue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap document_plain {
+            get {
+                object obj = ResourceManager.GetObject("document_plain", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap folder {
+            get {
+                object obj = ResourceManager.GetObject("folder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Icon Synologen___Logo {
             get {
                 object obj = ResourceManager.GetObject("Synologen___Logo", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_align_justified {
+            get {
+                object obj = ResourceManager.GetObject("text_align_justified", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

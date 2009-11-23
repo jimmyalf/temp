@@ -28,9 +28,9 @@ namespace Spinit.Wpc.Synologen.OPQ.FillSynologenOpq.Properties {
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=BLACK;Initial Catalog=dbWpcSynologen;Persist Security Info=True;User " +
             "ID=sa;Password=RICE17A")]
-        public string SynologenConnection {
+        public string SynologenSourceConnection {
             get {
-                return ((string)(this["SynologenConnection"]));
+                return ((string)(this["SynologenSourceConnection"]));
             }
         }
         
@@ -45,7 +45,7 @@ namespace Spinit.Wpc.Synologen.OPQ.FillSynologenOpq.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Z:\\Synologen\\Common\\Files\\www.synologen.nu\\OPQ")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Z:\\Synologen\\Common\\Files\\opq\\Global-Documents")]
         public string FileRootPath {
             get {
                 return ((string)(this["FileRootPath"]));
@@ -58,6 +58,44 @@ namespace Spinit.Wpc.Synologen.OPQ.FillSynologenOpq.Properties {
         public int StartNode {
             get {
                 return ((int)(this["StartNode"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int SynologenAdminUserId {
+            get {
+                return ((int)(this["SynologenAdminUserId"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Admin")]
+        public string SynologenAdminUserName {
+            get {
+                return ((string)(this["SynologenAdminUserName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SIENNA\\SQL2005;Initial Catalog=SynologenData;Integrated Security=True" +
+            "")]
+        public string SynologenDestinationConnection {
+            get {
+                return ((string)(this["SynologenDestinationConnection"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Z:\\Synologen\\Common\\Files\\")]
+        public string FileRootRemove {
+            get {
+                return ((string)(this["FileRootRemove"]));
             }
         }
     }

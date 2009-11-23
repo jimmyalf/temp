@@ -99,6 +99,18 @@
     <Build Include="Properties\Database.sqlpermissions">
       <ModelBuilderType>Permissions</ModelBuilderType>
     </Build>
+    <Build Include="Schema Objects\Programmability\Stored Procedures\dbo.spBaseAddFile.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Programmability\Stored Procedures\dbo.spBaseRemoveFile.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Programmability\Stored Procedures\dbo.spBaseSearchFiles.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Programmability\Stored Procedures\dbo.spBaseUpdateFile.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Constraints\dbo.SynologenOpqFiles.DF_SynologenOpqFiles_Order.defconst.sql">
       <SubType>Code</SubType>
     </Build>
@@ -147,6 +159,8 @@
     </Build>
     <Build Include="Schema Objects\Tables\dbo.SynologenOpqNodes.table.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.SynologenOpqNodeSupplierConnections.table.sql">
       <SubType>Code</SubType>

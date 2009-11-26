@@ -1,13 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Resources;
-
+using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Utility.Core;
 
 namespace Spinit.Wpc.Synologen.OPQ.Business
 {
 	public class BUtilities
 	{
+		private readonly Core.Context _context;
+		private readonly Configuration _configuration;
+
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		/// <param name="context">The context.</param>
+
+		public BUtilities(Core.Context context)
+		{
+			_context = context;
+			_configuration = Configuration.GetConfiguration (_context);
+		}
+
+
 		#region Resources
 
 		/// <summary>
@@ -17,7 +33,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="context">The context.</param>
 		/// <returns>Return a string resource if the specified key was found</returns>
 
-		public static string GetResourceString(string key, Context context)
+		public static string GetResourceString(string key, Core.Context context)
 		{
 			if (context == null)
 			{
@@ -86,6 +102,22 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			}
 			
 			return false;
+		}
+
+		#endregion
+
+		#region Member-handling
+
+		public List<int> GetAllShopIdsPerMember (int memberId)
+		{
+			var provider = new Synologen.Data.SqlProvider(_configuration.ConnectionString);
+			return provider.GetAllShopIdsPerMember(memberId);
+		}
+
+		public int GetMemberId(int userId)
+		{
+			var provider = new Synologen.Data.SqlProvider(_configuration.ConnectionString);
+			return provider.GetMemberId(userId);
 		}
 
 		#endregion

@@ -109,6 +109,17 @@ namespace Spinit.Wpc.Synologen.OPQ.Core
 		}
 
 		/// <summary>
+		/// Specifies the root url used for central documents
+		/// </summary>
+		static public string DocumentCentralRootUrl
+		{
+			get
+			{
+				return string.Concat(Globals.FilesUrl, SafeConfigString(SynologenOpqSetting, "DocumentCentralRootUrl", string.Empty));
+			}
+		}
+
+		/// <summary>
 		/// Allowed extensions for upload
 		/// </summary>
 		static public string UploadAllowedExtensions

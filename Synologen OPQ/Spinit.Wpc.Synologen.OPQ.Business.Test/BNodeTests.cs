@@ -293,51 +293,50 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			Assert.AreEqual(child1Child3, nodes[0].Childs[2], "child1-child3 differs from expected");
 		}
 
-		[Test, Description("Child nodes test")]
-		public void MoveNode()
+		[Test, Description ("Child nodes test. Move nodes.")]
+		public void MoveNode ()
 		{
-			BNode bNode = new BNode(_context);
-			Node rootNode = bNode.CreateNode(null, "opq", true);
-			bNode.Publish(rootNode.Id);
-			bNode.UnLock(rootNode.Id);
-			Node child1 = bNode.CreateNode(rootNode.Id, "root-Child1", true);
-			bNode.Publish(child1.Id);
-			bNode.UnLock(child1.Id);
-			Node child2 = bNode.CreateNode(rootNode.Id, "root-Child2", true);
-			bNode.Publish(child2.Id);
-			bNode.UnLock(child2.Id);
-			Node child1Child1 = bNode.CreateNode(child1.Id, "root-Child1-Child1", false);
-			bNode.Publish(child1Child1.Id);
-			bNode.UnLock(child1Child1.Id);
-			Node child1Child2 = bNode.CreateNode(child1.Id, "root-Child1-Child2", false);
-			bNode.Publish(child1Child2.Id);
-			bNode.UnLock(child1Child2.Id);
-			Node child1Child3 = bNode.CreateNode(child1.Id, "root-Child1-Child3", false);
-			bNode.Publish(child1Child3.Id);
-			bNode.UnLock(child1Child3.Id);
-			Node child2Child1 = bNode.CreateNode(child2.Id, "root-Child2-Child1", false);
-			bNode.Publish(child2Child1.Id);
-			bNode.UnLock(child2Child1.Id);
-			bNode.MoveNode(NodeMoveActions.MoveUp, child1Child3.Id, null);
-			Node childNode = bNode.GetNode(child1Child3.Id, true);
-			Assert.AreEqual(2, childNode.Order);
-			childNode = bNode.GetNode(child1Child2.Id, true);
-			Assert.AreEqual(3, childNode.Order);
-			bNode.MoveNode(NodeMoveActions.MoveInto, child1Child3.Id, child2.Id);
-			childNode = bNode.GetNode(child1Child3.Id, true);
-			Assert.AreEqual(1, childNode.Order);
-			childNode = bNode.GetNode(child2Child1.Id, true);
-			Assert.AreEqual(2, childNode.Order);
-			childNode = bNode.GetNode(child1Child1.Id, true);
-			Assert.AreEqual(1, childNode.Order);
-			childNode = bNode.GetNode(child1Child2.Id, true);
-			Assert.AreEqual(2, childNode.Order);
-			bNode.MoveNode(NodeMoveActions.MoveAfter, child1Child3.Id, child2Child1.Id);
-			childNode = bNode.GetNode(child1Child3.Id, true);
-			Assert.AreEqual(2, childNode.Order);
-			childNode = bNode.GetNode(child2Child1.Id, true);
-			Assert.AreEqual(1, childNode.Order);
+			BNode bNode = new BNode (_context);
+			Node rootNode = bNode.CreateNode (null, "opq", true);
+			bNode.Publish (rootNode.Id);
+			bNode.UnLock (rootNode.Id);
+			Node child1 = bNode.CreateNode (rootNode.Id, "root-Child1", true);
+			bNode.Publish (child1.Id);
+			bNode.UnLock (child1.Id);
+			Node child2 = bNode.CreateNode (rootNode.Id, "root-Child2", true);
+			bNode.Publish (child2.Id);
+			bNode.UnLock (child2.Id);
+			Node child1Child1 = bNode.CreateNode (child1.Id, "root-Child1-Child1", false);
+			bNode.Publish (child1Child1.Id);
+			bNode.UnLock (child1Child1.Id);
+			Node child1Child2 = bNode.CreateNode (child1.Id, "root-Child1-Child2", false);
+			bNode.Publish (child1Child2.Id);
+			bNode.UnLock (child1Child2.Id);
+			Node child1Child3 = bNode.CreateNode (child1.Id, "root-Child1-Child3", false);
+			bNode.Publish (child1Child3.Id);
+			bNode.UnLock (child1Child3.Id);
+			Node child2Child1 = bNode.CreateNode (child2.Id, "root-Child2-Child1", false);
+			bNode.Publish (child2Child1.Id);
+			bNode.UnLock (child2Child1.Id);
+			bNode.MoveNode (NodeMoveActions.MoveUp, child1Child3.Id, null);
+			Node childNode = bNode.GetNode (child1Child3.Id, true);
+			Assert.AreEqual (2, childNode.Order);
+			childNode = bNode.GetNode (child1Child2.Id, true);
+			Assert.AreEqual (3, childNode.Order);
+			bNode.MoveNode (NodeMoveActions.MoveInto, child1Child3.Id, child2.Id);
+			childNode = bNode.GetNode (child1Child3.Id, true);
+			Assert.AreEqual (2, childNode.Order);
+			childNode = bNode.GetNode (child2Child1.Id, true);
+			Assert.AreEqual (1, childNode.Order);
+			childNode = bNode.GetNode (child1Child1.Id, true);
+			Assert.AreEqual (1, childNode.Order);
+			childNode = bNode.GetNode (child1Child2.Id, true);
+			Assert.AreEqual (2, childNode.Order);
+			bNode.MoveNode (NodeMoveActions.MoveAfter, child2Child1.Id, child1Child3.Id);
+			childNode = bNode.GetNode (child1Child3.Id, true);
+			Assert.AreEqual (1, childNode.Order);
+			childNode = bNode.GetNode (child2Child1.Id, true);
+			Assert.AreEqual (3, childNode.Order);
 		}
-
 	}
 }

@@ -491,10 +491,6 @@ namespace Spinit.Wpc.Synologen.OPQ.FillSynologenOpq
 						
 						baseFile.DeleteFile (file.FleId);
 
-						string name = GetFileName (fileRow.Name);
-
-						name = Path.Combine (txtWpcLibrary.Text, GetFileName (fileRow.Name));
-
 						System.IO.File.Delete (Path.Combine (txtWpcLibrary.Text, GetFileName (fileRow.Name)));
 					}
 

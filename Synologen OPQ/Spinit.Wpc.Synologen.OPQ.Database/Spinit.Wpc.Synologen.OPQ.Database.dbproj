@@ -179,6 +179,15 @@
     <Build Include="Schema Objects\Tables\dbo.tblBaseUsers.table.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblContPage.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblContPageFile.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblContPageType.table.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\dbo.tblSynologenConcern.table.sql">
       <SubType>Code</SubType>
     </Build>
@@ -337,6 +346,24 @@
     <Build Include="Schema Objects\Tables\Keys\dbo.tblBaseUsers.PK_tblBaseUsers.pkey.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblContPage.FK_tblContPage_tblContPageType.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblContPage.PK_tblContPage.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblContPageFile.FK_tblContPageFile_tblBaseFile.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblContPageFile.FK_tblContPageFile_tblContPage.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblContPageFile.PK_tblContPageFile.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblContPageType.PK_tblContPageType.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenConcern.tblSynologenConcern_PK.pkey.sql">
       <SubType>Code</SubType>
     </Build>
@@ -353,6 +380,12 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo_1.tblBaseLocations.PK_tblBaseLocation.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\dbo.tblBaseUsers.trForumInsertUser.trigger.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\dbo.tblBaseUsers.trForumUpdateUser.trigger.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Triggers\SynologenOpqDocument.InsteadOfUpdate.trigger.sql">

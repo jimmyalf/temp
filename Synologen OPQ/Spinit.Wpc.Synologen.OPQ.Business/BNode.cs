@@ -188,10 +188,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		
 		public void MoveNode (NodeMoveActions moveAction, int source, int? destination)
 		{
+			Node sSource = GetNode (source, false);
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
-				Node sSource = synologenRepository.Node.GetNodeById (source);
 				Node sDestination = null;
 				if (destination != null) {
 					sDestination = synologenRepository.Node.GetNodeById ((int) destination);

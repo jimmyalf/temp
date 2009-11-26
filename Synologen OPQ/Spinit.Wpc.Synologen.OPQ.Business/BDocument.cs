@@ -266,7 +266,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.SetDataLoadOptions ();
 				}
 				
-				if ((nodeId != null) && ((shopId != null) || (cncId != null)) && (documentType != null)) {
+				if ((nodeId != null) && (documentType != null)) {
 					return synologenRepository.Document.GetDocumentsByNodeId (
 						(int) nodeId, 
 						shopId, 
@@ -276,14 +276,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 						onlyApproved);
 				}
 				
-				if ((nodeId != null) && (documentType != null)) {
-					return synologenRepository.Document.GetDocumentsByNodeId (
-						(int) nodeId,
-						(DocumentTypes) documentType,
-						onlyActive,
-						onlyApproved);
-				}
-
 				if (nodeId != null) {
 					return synologenRepository.Document.GetDocumentsByNodeId ((int) nodeId, onlyActive, onlyApproved);
 				}

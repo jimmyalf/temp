@@ -30,6 +30,54 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Spinit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Common.WebControls, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.Common.WebControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Business, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Data, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Presentation, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Synologen.Business, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Synologen.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Synologen.Presentation, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Synologen.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Data, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Wysiwyg, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Wysiwyg.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
@@ -51,20 +99,101 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
+    <Reference Include="Telerik.Web.UI, Version=2009.1.512.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Tools\Telerik.Web.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Default.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Default.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="App_GlobalResources\OpqMain.sv.designer.cs">
+      <DependentUpon>OpqMain.sv.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="App_GlobalResources\OpqMain.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OpqMain.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\OpqAddNode.aspx.cs">
+      <DependentUpon>OpqAddNode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\OpqAddNode.aspx.designer.cs">
+      <DependentUpon>OpqAddNode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\OpqIndex.aspx.cs">
+      <DependentUpon>OpqIndex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\OpqIndex.aspx.designer.cs">
+      <DependentUpon>OpqIndex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\OpqTreeView.ascx.cs">
+      <DependentUpon>OpqTreeView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\OpqTreeView.ascx.designer.cs">
+      <DependentUpon>OpqTreeView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\SynologenOpq.master.cs">
+      <DependentUpon>SynologenOpq.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\SynologenOpq.master.designer.cs">
+      <DependentUpon>SynologenOpq.master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\Synologen\OpqIndex.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\Synologen\OpqTreeView.ascx" />
+    <Content Include="Components\Synologen\SynologenOpq.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj">
+      <Project>{372FA2B3-85C4-417F-B178-65DA9D7B2749}</Project>
+      <Name>Spinit.Wpc.Synologen.OPQ.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Spinit.Wpc.Synologen.OPQ.Core\Spinit.Wpc.Synologen.OPQ.Core.csproj">
+      <Project>{C62E11A4-13C6-4D1E-999F-A747AC05D8F7}</Project>
+      <Name>Spinit.Wpc.Synologen.OPQ.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Spinit.Wpc.Synologen.OPQ.Presentation\Spinit.Wpc.Synologen.OPQ.Presentation.csproj">
+      <Project>{609C3D15-8743-441C-A894-14E6AA1FFC31}</Project>
+      <Name>Spinit.Wpc.Synologen.OPQ.Presentation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\OpqMain.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>OpqMain.designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\Synologen\App_LocalResources\OpqTreeView.ascx.resx">
+    </Content>
+    <Content Include="Components\Synologen\OpqAddNode.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\Synologen\App_LocalResources\OpqTreeView.ascx.sv.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\Synologen\App_LocalResources\OpqIndex.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\Synologen\App_LocalResources\OpqIndex.aspx.sv.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\OpqMain.sv.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>OpqMain.sv.designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -82,12 +211,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1897</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost/Spinit.Wpc.Synologen.OPQ.Admin</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

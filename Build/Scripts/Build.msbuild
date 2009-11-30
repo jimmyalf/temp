@@ -22,6 +22,8 @@
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business.Test\Spinit.Wpc.Synologen.OPQ.Business.Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Site\Spinit.Wpc.Synologen.OPQ.Site.csproj"/>
+				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Presentation\Spinit.Wpc.Synologen.OPQ.Presentation.csproj"/>
+				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Admin\Spinit.Wpc.Synologen.OPQ.Admin.csproj"/>
 			</ItemGroup>
 		</When>
 		<Otherwise>
@@ -37,6 +39,8 @@
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business.Test\Spinit.Wpc.Synologen.OPQ.Business.Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Site\Spinit.Wpc.Synologen.OPQ.Site.csproj"/>
+				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Presentation\Spinit.Wpc.Synologen.OPQ.Presentation.csproj"/>
+				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Admin\Spinit.Wpc.Synologen.OPQ.Admin.csproj"/>
 			</ItemGroup>
 		</Otherwise>
 	</Choose>

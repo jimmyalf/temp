@@ -620,6 +620,54 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <summary>
 		/// Fetches a list of documents for a node.
 		/// </summary>
+		/// <param name="shopId">The shop-id.</param>
+		/// <param name="cncId">The concern Id</param>
+		/// <param name="documentType">The type-of-documents.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
+		/// <returns>A list of documents.</returns>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public IList<Document> GetDocuments (int? shopId, int? cncId, DocumentTypes? documentType, bool onlyActive, bool onlyApproved)
+		{
+			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
+			                                     orderby document.DocTpeId ascending , document.CreatedDate descending
+			                                     select document;
+
+			query = shopId == null ? query.AddIsNullCondition("ShpId") : query.AddEqualityCondition("ShpId", shopId);
+
+			query = cncId == null ? query.AddIsNullCondition("CncId") : query.AddEqualityCondition("CncId", shopId);
+
+			if (documentType != null)
+			{
+				query = query.AddEqualityCondition("DocTpeId", (int)documentType);
+			}
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
+			}
+
+			Converter<EDocument, Document> converter = Converter;
+			IList<Document> documents = query.ToList ().ConvertAll (converter);
+
+			if (documents == null) {
+				throw new ObjectNotFoundException (
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			return documents;
+		}
+
+
+
+		/// <summary>
+		/// Fetches a list of documents for a node.
+		/// </summary>
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="documentType">The type-of-documents.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>

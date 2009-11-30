@@ -336,7 +336,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			childNode = bNode.GetNode (child1Child3.Id, true);
 			Assert.AreEqual (1, childNode.Order);
 			childNode = bNode.GetNode (child2Child1.Id, true);
-//			Assert.AreEqual (2, childNode.Order);
+			Assert.AreEqual (2, childNode.Order);
 		}
 	}
 }

@@ -141,6 +141,18 @@ namespace Spinit.Wpc.Synologen.OPQ.Core
 			}
 		}
 
+		/// <summary>
+		/// Subject for the improvment feedback mail
+		/// </summary>
+		static public string ImprovmentSubject
+		{
+			get
+			{
+				return SafeConfigString(SynologenOpqSetting, "ImprovmentSubject", string.Empty);
+			}
+		}
+		
+
 
 		#endregion
 	}

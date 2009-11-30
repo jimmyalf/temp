@@ -1,0 +1,83 @@
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Base.Presentation.BaseMain" Codebehind="BaseMain.master.cs" %>
+<%@ Register Src="~/Common/Copyright.ascx" TagName="Copyright" TagPrefix="userControl" %>
+<%@ Register Src="~/Common/StyleSheetLoader.ascx" TagName="SSLoader" TagPrefix="userControl" %>
+<%@ Register Src="~/Common/JavaScriptLoader.ascx" TagName="JSLoader" TagPrefix="userControl" %>
+<% if (Request.Browser.Browser.ToString() != "IE") { Response.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>"); } %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+	<title></title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-language" content="en" />
+	<meta http-equiv="content-style-type" content="text/css" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta name="robots" content="none" />
+	<meta name="copyright" content="Spinit AB" />
+	<userControl:SSLoader ID="SSLoader" runat="server" />
+	<userControl:JSLoader ID="JSLoader" runat="server" />
+</head>
+<body id="<%= Spinit.Wpc.Base.Business.Globals.ProductBodyId %>">
+<form id="BaseMainForm" runat="server" method="post">
+<div id="dContainer">
+	<div id="dHeader">
+		<div id="dSkipNavigation">
+			<ul>
+				<li><a href="#dCompMain"><span>Skip to content</span></a></li>
+				<li><a href="#dCompSidebar"><span>Skip to sidebar</span></a></li>
+				<li><a href="#dCompNavigation"><span>Skip to component menu</span></a></li>
+				<li><a href="#dMainNavigation"><span>Skip to main menu</span></a></li>
+				<li><a href="#dAppNavigation"><span>Skip to application menu</span></a></li>
+			</ul>
+		</div>
+		<div id="dAppHeader">
+			<div id="dAppNavigation">
+				<asp:PlaceHolder ID="phAppMenu" runat="server" />
+			</div>
+			<div id="dAppInfo">
+			<div id="dAppUser">
+				<dl>
+					<dt>Logged on as</dt>
+					<dd><asp:Literal ID="litUserIdentity" runat="server" /></dd>
+				</dl>
+			</div>
+			<div id="dAppLocation">
+				<dl>
+					<dt><asp:Label ID="lblLocation" runat="server" AssociatedControlID="dCurrentLocation">Location</asp:Label></dt>
+					<dd>
+						<div id="dChangeLocation" runat="server" visible="false">
+							<asp:DropDownList ID="locationList" runat="server"></asp:DropDownList>
+							<asp:Button ID="btnChangeLocation" runat="server" OnClick="btnChangeLocation_Click" CausesValidation="false" ToolTip="Change to selected location" Text="Change" />
+							<asp:Button ID="btnCancelChange" runat="server" OnClick="btnCancelChange_Click" CausesValidation="false" ToolTip="Cancel change" Text="Cancel" />
+						</div>
+						<div id="dLocationInfo" runat="server">
+							<div id="dCurrentLocation" runat="server"><strong><asp:Literal ID="litCurrentLocation" runat="server" /></strong></div>
+							<ul>
+								<li id="liViewPublished" runat="server"><asp:HyperLink ID="hplViewPublished" runat="server" OnLoad="hplViewPublished_Load" ToolTip="View published" rel="external">View published</asp:HyperLink></li>
+								<li id="liViewChangeLocation" runat="server"><asp:LinkButton ID="btnViewChangeLocation" runat="server" OnClick="btnViewChangeLocation_Click" CausesValidation="false" ToolTip="Change to new location">Change location</asp:LinkButton></li>
+							</ul>
+						</div>
+					</dd>
+				</dl>
+			</div>
+			</div>
+		</div>
+		<div id="dMainNavigation">
+			<asp:PlaceHolder ID="phMainMenu" runat="server" />
+		</div>
+	</div>
+	<div id="dCompContainer" class="clearAfter">
+<!-- Start ContentPlaceHolder -->
+
+	<asp:contentplaceholder id="ComponentContent" runat="server">
+	</asp:contentplaceholder>
+
+<!-- End ContentPlaceHolder -->
+	</div>
+	<div id="dFooter">
+		<div id="dBranding"><img runat="server" src="~/common/img/WPC_Logo.png" alt="WPC logotype" title="Web Portal Component" /></div>
+		<div id="dCopyright"><userControl:Copyright ID="Copyright" runat="server" /></div>
+	</div>
+</div>
+</form>
+</body>
+</html>

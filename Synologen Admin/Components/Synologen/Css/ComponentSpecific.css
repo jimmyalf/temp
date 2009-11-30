@@ -44,3 +44,7 @@ table.radioButtonItems tbody td{
 	top:0px;
 
 }
+
+#dOpqColumnContainer {float: left; clear: both; width: 100%;}
+#dOpqMainColumn {float: right; width: 70%; padding-top: 10px;} 
+#dOpqSidebar {float: left; width: 30%; padding-top: 10px; overflow: auto; background-color: #DDD;}

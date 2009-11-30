@@ -23,5 +23,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Code {
 		public const string ShopEquipment = PageBase + "ShopEquipment.aspx";
 		public const string OrderStatus = PageBase + "OrderStatus.aspx";
 		public const string Settlements = PageBase + "Settlements.aspx";
+
+		// Opq Pages
+		public const string OpqIndex = PageBase + "OpqIndex.aspx";
 	}
 }

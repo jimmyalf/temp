@@ -62,15 +62,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 			var subMenu = new SmartMenu.Menu { ID = "SubMenu", ControlType = "ul", ItemControlType = "li", ItemWrapperElement = "span" };
 
 			var itemCollection = new SmartMenu.ItemCollection();
-			itemCollection.AddItem("New", null, "Ny", "Skapa ny node", null, "btnAdd_OnClick", false, null);
+			itemCollection.AddItem("Improvments", null, "Lista förbättringsförslag", "Visar alla inkomna förbättringsåtgärder", null, "btnImprovments_OnClick", false, null);
+			itemCollection.AddItem("ShopRoutine", null, "Visa butiksrutiner för vald nod", "Visar butiksrutiner för vald nod", null, "btnShowShopRoutine_OnClick", false, null);				
 
 			subMenu.MenuItems = itemCollection;
 
 			m.SynologenSmartMenu.Render(subMenu, _phSynologenSubMenu);
 		}
-
-
-
 
 		private void PopulateRoutine(int nodeId)
 		{
@@ -120,9 +118,15 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 			}
 		}
 
-		protected void btnAdd_OnClick(object sender, EventArgs e)
+		protected void btnImprovments_OnClick(object sender, EventArgs e)
 		{
-			Response.Redirect(string.Concat(ComponentPages.OpqAddNode, "?nodeId", _nodeId));
+			Response.Redirect(ComponentPages.OpqImprovments);
+		}
+
+		protected void btnShowShopRoutine_OnClick(object sender, EventArgs e)
+		{
+
+			Response.Redirect(string.Format(ComponentPages.OpqStartQueryNode, _nodeId));
 		}
 
 		protected void gvFiles_RowCreated(object sender, GridViewRowEventArgs e)

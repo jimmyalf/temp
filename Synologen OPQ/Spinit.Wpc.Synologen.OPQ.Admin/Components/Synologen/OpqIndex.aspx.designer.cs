@@ -104,15 +104,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen {
         protected global::System.Web.UI.WebControls.Button btnUploadFile;
         
         /// <summary>
-        /// test control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView test;
-        
-        /// <summary>
         /// gvFiles control.
         /// </summary>
         /// <remarks>

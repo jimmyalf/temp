@@ -59,14 +59,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Synologen.Business, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Synologen.Business.dll</HintPath>
-    </Reference>
-    <Reference Include="Spinit.Wpc.Synologen.Data, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Synologen.Data.dll</HintPath>
-    </Reference>
     <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
@@ -106,6 +98,14 @@
     <Compile Include="PropertyExtension.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Synologen Business\Synologen Business.csproj">
+      <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
+      <Name>Synologen Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen Data\Synologen Data.csproj">
+      <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
+      <Name>Synologen Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Spinit.Wpc.Synologen.OPQ.Core\Spinit.Wpc.Synologen.OPQ.Core.csproj">
       <Project>{C62E11A4-13C6-4D1E-999F-A747AC05D8F7}</Project>
       <Name>Spinit.Wpc.Synologen.OPQ.Core</Name>

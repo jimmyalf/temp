@@ -118,12 +118,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OpqMain.resx</DependentUpon>
     </Compile>
-    <Compile Include="Components\Synologen\OpqAddNode.aspx.cs">
-      <DependentUpon>OpqAddNode.aspx</DependentUpon>
+    <Compile Include="Components\Synologen\OpqImprovments.aspx.cs">
+      <DependentUpon>OpqImprovments.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Components\Synologen\OpqAddNode.aspx.designer.cs">
-      <DependentUpon>OpqAddNode.aspx</DependentUpon>
+    <Compile Include="Components\Synologen\OpqImprovments.aspx.designer.cs">
+      <DependentUpon>OpqImprovments.aspx</DependentUpon>
     </Compile>
     <Compile Include="Components\Synologen\OpqIndex.aspx.cs">
       <DependentUpon>OpqIndex.aspx</DependentUpon>
@@ -178,7 +178,6 @@
   <ItemGroup>
     <Content Include="Components\Synologen\App_LocalResources\OpqTreeView.ascx.resx">
     </Content>
-    <Content Include="Components\Synologen\OpqAddNode.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Components\Synologen\App_LocalResources\OpqTreeView.ascx.sv.resx" />
@@ -194,6 +193,16 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>OpqMain.sv.designer.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\ComponentMain.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BaseMain.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\Synologen\OpqImprovments.aspx" />
+    <Content Include="Components\Synologen\SynologenMain.master" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

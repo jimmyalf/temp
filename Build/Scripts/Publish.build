@@ -59,5 +59,7 @@
 	<!-- Publish Admin -->
  	<target name="Admin" depends="Public-Se">
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Admin.Publish.build"/>
+		<property name="srcAdmin" value="${developDir}\Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Admin" overwrite="true"/>
+		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Admin.Publish.build"/>
 	</target>
 </project>

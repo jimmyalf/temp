@@ -31,11 +31,18 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			string solutionPath = Path.GetFullPath(string.Concat(Environment.CurrentDirectory, @"\..\..\Synologen OPQ\"));
 			CreateDatabase(_dataContext);
 			CreateConstraints(_dataContext, solutionPath);
-			//CreateProcedures();
+			CreateProcedures(_dataContext, solutionPath);
 			//CreateFunctions();
 			CreateTriggers(_dataContext, solutionPath);
 			CreateDefaultData(_dataContext, solutionPath);
 			CreateTestData(_dataContext, solutionPath);
+		}
+
+		private void CreateProcedures(DataContext context, string solutionPath)
+		{
+			string procedurePath =
+				string.Concat(solutionPath, @"Spinit.Wpc.Synologen.OPQ.Database\Schema Objects\Programmability\Stored Procedures");
+			ExecuteScripts(procedurePath);	
 		}
 
 		private void CreateTriggers(DataContext context, string solutionPath)

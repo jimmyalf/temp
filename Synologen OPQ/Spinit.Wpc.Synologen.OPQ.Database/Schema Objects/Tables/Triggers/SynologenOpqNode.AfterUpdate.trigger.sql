@@ -63,6 +63,8 @@ BEGIN
 										AND Id <> @id
 								END
 						END
+									
+						EXECUTE dbo.spSynologenOpqRestoreOrder	NULL
 				END
 			ELSE
 				BEGIN
@@ -133,6 +135,8 @@ BEGIN
 												AND Parent = @newParent
 												AND Id <> @id
 										END
+										
+									EXECUTE dbo.spSynologenOpqRestoreOrder	@oldParent
 								END
 						END
 				END

@@ -34,7 +34,6 @@
 	        </fieldset>
         
 			<br />
-			<asp:GridView id="test" runat="server"></asp:GridView>
             <asp:GridView ID="gvFiles" 
                 runat="server" 
                 OnRowCreated="gvFiles_RowCreated" 
@@ -49,7 +48,7 @@
 							<asp:Literal ID="ltFile" runat="server" />
 			            </ItemTemplate>
 		            </asp:TemplateField>
-		            <asp:TemplateField headertext="Namn"  ItemStyle-HorizontalAlign="Center" >
+		            <asp:TemplateField headertext="Datum"  ItemStyle-HorizontalAlign="Center" >
 			            <ItemTemplate>
 							<asp:Literal ID="ltFileDate" runat="server" />
 			            </ItemTemplate>

@@ -284,7 +284,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					return synologenRepository.Document.GetDocumentsByText (searchText, onlyActive, onlyApproved);
 				}
 
-				return synologenRepository.Document.GetAllDocuments (onlyActive, onlyApproved);
+				return synologenRepository.Document.GetDocuments(
+					shopId,
+					cncId,
+					documentType,
+					onlyActive,
+					onlyApproved);
+					//				return synologenRepository.Document.GetAllDocuments (onlyActive, onlyApproved);
 			}
 		}
 

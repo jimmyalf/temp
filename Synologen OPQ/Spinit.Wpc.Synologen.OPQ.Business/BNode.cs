@@ -214,6 +214,16 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 							new Node { Id = source, Parent = sDestination.Parent, Order = sDestination.Order + 1 });
 						break;
 
+					case NodeMoveActions.MoveBefore:
+						if (sDestination == null)
+						{
+							throw new NodeException("Not valid move operation.", NodeErrors.MoveToForbidden);
+						}
+
+						synologenRepository.Node.MoveNode(
+							new Node { Id = source, Parent = sDestination.Parent, Order = sDestination.Order - 1 });
+						break;
+
 					case NodeMoveActions.MoveInto:
 						if (sDestination == null) {
 							throw new NodeException ("Not valid move operation.", NodeErrors.MoveToForbidden);

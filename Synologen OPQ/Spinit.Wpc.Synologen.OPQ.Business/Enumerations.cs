@@ -30,6 +30,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// Moves to first leaf position
 		/// </summary>
 		MoveInto = 4,
+		/// <summary>
+		/// Moves to one position before selected
+		/// </summary>
+		MoveBefore = 5,
 	}
 	
 	/// <summary>

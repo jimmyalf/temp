@@ -14,7 +14,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 {
 	public partial class OpqMenu : OpqControlPage
 	{
+		public enum DisplayType
+		{
+			FromRoot = 0,
+			FromParent = 1,
+		}
+
 		private string _selectedItemCssClass = "selected";
+		private DisplayType _typeOfDisplay = DisplayType.FromRoot;
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -25,8 +32,17 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 				{
 					nodeId = NodeId;
 				}
-				List<Node> selectedNodes;
-				Node node = FindCurrentRootNode(nodeId, out selectedNodes);
+				var selectedNodes = new List<Node>();
+				Node node = null;
+				switch (TypeOfDisplay)
+				{
+					case DisplayType.FromRoot:
+						node = FindCurrentRootNode(nodeId, out selectedNodes);
+						break;
+					case DisplayType.FromParent:
+						node = FindCurrentParentNode(nodeId, out selectedNodes);
+						break;
+				}
 				Tree tree = GetTree(node, selectedNodes);
 				if (tree != null)
 				{
@@ -111,6 +127,30 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			return node;
 		}
 
+		private Node FindCurrentParentNode(int nodeId, out List<Node> selectedNodes)
+		{
+			Node node = null;
+			selectedNodes = new List<Node>();
+			if (nodeId <= 0) return null;
+			var bNode = new BNode(_context);
+			try
+			{
+				node = bNode.GetNode(nodeId, false);
+			}
+			catch (ObjectNotFoundException ex)
+			{
+				LogException(ex);
+			}
+			if (node == null) return null;
+			selectedNodes.Insert(0, node);
+			if (node.Parent.HasValue)
+			{
+				node = bNode.GetNode((int)node.Parent, false);
+				selectedNodes.Insert(0, node);
+			}
+			return node;
+		}
+
 		private int GetSelectedNodeId()
 		{
 			int nodeId = 0;
@@ -122,6 +162,15 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 		}
 
 		#region Properties
+
+		/// <summary>
+		/// Type of display for tree
+		/// </summary>
+		public DisplayType TypeOfDisplay
+		{
+			get { return _typeOfDisplay; }
+			set { _typeOfDisplay = value; }
+		}
 
 		/// <summary>
 		/// Amount of levels to expand

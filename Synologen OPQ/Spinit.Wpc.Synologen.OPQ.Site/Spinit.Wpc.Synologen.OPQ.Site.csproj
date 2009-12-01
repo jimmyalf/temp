@@ -171,12 +171,26 @@
     <Compile Include="Wpc\Synologen\OpqAdmin.ascx.designer.cs">
       <DependentUpon>OpqAdmin.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\OpqAtlas.ascx.cs">
+      <DependentUpon>OpqAtlas.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\OpqAtlas.ascx.designer.cs">
+      <DependentUpon>OpqAtlas.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\OpqMenu.ascx.cs">
       <DependentUpon>OpqMenu.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Wpc\Synologen\OpqMenu.ascx.designer.cs">
       <DependentUpon>OpqMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\OpqSnurran.ascx.cs">
+      <DependentUpon>OpqSnurran.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\OpqSnurran.ascx.designer.cs">
+      <DependentUpon>OpqSnurran.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\OpqStartPage.ascx.cs">
       <DependentUpon>OpqStartPage.ascx</DependentUpon>
@@ -247,6 +261,8 @@
   <ItemGroup>
     <Content Include="Opq.Master" />
     <Content Include="WebForm1.aspx" />
+    <Content Include="Wpc\Synologen\OpqAtlas.ascx" />
+    <Content Include="Wpc\Synologen\OpqSnurran.ascx" />
     <None Include="Wpc\Synologen\Flash\Assets\.DS_Store" />
     <None Include="Wpc\Synologen\Flash\Assets\__MACOSX\._Assets" />
     <None Include="Wpc\Synologen\Flash\Assets\__MACOSX\Assets\._.DS_Store" />

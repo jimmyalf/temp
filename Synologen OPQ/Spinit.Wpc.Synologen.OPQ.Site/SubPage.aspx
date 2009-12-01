@@ -11,7 +11,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 		<a href="Logout.aspx" >Logga ut</a><br />
 	    <uc3:OpqSnurran ID="OpqSnurran1" runat="server" />
-	    <uc2:OpqMenu ID="OpqMenu1" runat="server" OpqSubPageUrl="/Spinit.Wpc.Synologen.OPQ.Site/SubPage.aspx" />
+	    <uc2:OpqMenu ID="OpqMenu1" TypeOfDisplay="FromParent" runat="server" OpqSubPageUrl="/Spinit.Wpc.Synologen.OPQ.Site/SubPage.aspx" />
 	    <uc1:OpqSubPage ID="OpqSubPage1" runat="server" AdminPageUrl="/Spinit.Wpc.Synologen.OPQ.Site/ShopAdmin.aspx" />
 	    <uc4:OpqAtlas ID="OpqAtlas1" runat="server" />
 </asp:Content>

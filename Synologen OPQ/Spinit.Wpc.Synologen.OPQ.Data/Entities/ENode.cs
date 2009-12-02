@@ -712,6 +712,15 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 		}
 
 		#endregion
+
+		#region Clear Childs
+
+		public void ClearChilds ()
+		{
+			_SynologenOpqNode1 = default (EntityRef<ENode>);
+		}
+
+		#endregion
 	}
 }
 #pragma warning restore 1591

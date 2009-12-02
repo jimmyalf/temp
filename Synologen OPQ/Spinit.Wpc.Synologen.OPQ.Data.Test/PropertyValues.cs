@@ -28,6 +28,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 		public const int NodeSupplierNodeId = 2;
 		public const int NodeSupplierSearchNodeId = 1;
 		public const int NodeSupplierCount = 1;
+		public const string MoveDownNodeRoot = "Move-Root";
+		public const string MoveDownNodeRootChildMenu = "Move-ChildMenu";
+		public const string MoveDownNodeRootChildNode = "Move-ChildNode";
+		public const string MoveDownNodeRootChildMenuChildNode = "Move-Root-ChildMenu-ChildNode";
 
 		// Documents
 		public const DocumentTypes DocDocumentType = DocumentTypes.Routine;

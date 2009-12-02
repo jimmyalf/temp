@@ -142,6 +142,121 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 			}
 		}
 
+		[Test, Description ("Creates nodes and moves nodes down to child test."), Category ("Internal")]
+		public void NodeMoveToChildTest ()
+		{
+			Node root;
+			Node rootMenu;
+			Node rootNode;
+			Node rootMenuNode;
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				// Create a new node
+				synologenRepository.Node.Insert (new Node { Name = PropertyValues.MoveDownNodeRoot, IsMenu = true });
+
+				synologenRepository.SubmitChanges ();
+
+				root = synologenRepository.Node.GetInsertedNode ();
+
+				Assert.AreEqual (PropertyValues.MoveDownNodeRoot, root.Name, "Create root failed.");
+			}
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				// Create a new node
+				synologenRepository.Node.Insert (
+					new Node
+					{
+						Name = PropertyValues.MoveDownNodeRootChildMenu, 
+						Parent = root.Id,
+						IsMenu = true
+					});
+
+				synologenRepository.SubmitChanges ();
+
+				rootMenu = synologenRepository.Node.GetInsertedNode ();
+
+				Assert.AreEqual (PropertyValues.MoveDownNodeRootChildMenu, rootMenu.Name, "Create root-menu failed.");
+			}
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				// Create a new node
+				synologenRepository.Node.Insert (
+					new Node
+					{
+						Name = PropertyValues.MoveDownNodeRootChildNode,
+						Parent = root.Id,
+						IsMenu = false
+					});
+
+				synologenRepository.SubmitChanges ();
+
+				rootNode = synologenRepository.Node.GetInsertedNode ();
+
+				Assert.AreEqual (PropertyValues.MoveDownNodeRootChildNode, rootNode.Name, "Create root-node failed.");
+			}
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				// Create a new node
+				synologenRepository.Node.Insert (
+					new Node
+					{
+						Name = PropertyValues.MoveDownNodeRootChildMenuChildNode,
+						Parent = rootMenu.Id,
+						IsMenu = false
+					});
+
+				synologenRepository.SubmitChanges ();
+
+				rootMenuNode = synologenRepository.Node.GetInsertedNode ();
+
+				Assert.AreEqual (PropertyValues.MoveDownNodeRootChildMenuChildNode, rootMenuNode.Name, "Create root-menu-node failed.");
+			}
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				// Create a new node
+				synologenRepository.Node.MoveNode (new Node { Id = rootNode.Id, Parent = rootMenu.Id, Order = 2});
+
+				synologenRepository.SubmitChanges ();
+
+				rootNode = synologenRepository.Node.GetNodeById (rootNode.Id);
+
+				Assert.AreEqual (rootMenu.Id, rootNode.Parent, "Moved failed.");
+			}
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.Node.Delete (rootMenuNode);
+
+				synologenRepository.SubmitChanges ();
+			}
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.Node.Delete (rootNode);
+
+				synologenRepository.SubmitChanges ();
+			}
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.Node.Delete (rootMenu);
+
+				synologenRepository.SubmitChanges ();
+			}
+			using (
+				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
+				) {
+				synologenRepository.Node.Delete (root);
+
+				synologenRepository.SubmitChanges ();
+			}
+		}
+
 		[Test, Description ("Fetches the number of active nodes (root)."), Category ("CruiseControl")]
 		public void NodeSearchTestNumberOfRootsActive ()
 		{

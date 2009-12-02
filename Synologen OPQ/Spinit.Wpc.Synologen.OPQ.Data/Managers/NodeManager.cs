@@ -324,6 +324,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		{
 			ENode oldNode = _dataContext.Nodes.Single (n => n.Id == node.Id);
 
+			oldNode.ClearChilds ();
+
 			if (oldNode == null) {
 				throw new ObjectNotFoundException (
 					"Node not found.",

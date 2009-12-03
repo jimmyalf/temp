@@ -124,6 +124,13 @@
     <Compile Include="Components\Synologen\OpqIndex.aspx.designer.cs">
       <DependentUpon>OpqIndex.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Components\Synologen\OpqShopRoutines.aspx.cs">
+      <DependentUpon>OpqShopRoutines.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\OpqShopRoutines.aspx.designer.cs">
+      <DependentUpon>OpqShopRoutines.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Components\Synologen\OpqTreeView.ascx.cs">
       <DependentUpon>OpqTreeView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -203,6 +210,21 @@
   <ItemGroup>
     <Content Include="Components\Synologen\OpqImprovments.aspx" />
     <Content Include="Components\Synologen\SynologenMain.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\Synologen\App_LocalResources\OpqImprovments.aspx.resx">
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\Synologen\App_LocalResources\OpqImprovments.aspx.sv.resx" />
+    <Content Include="Components\Synologen\OpqShopRoutines.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\Synologen\App_LocalResources\OpqShopRoutines.aspx.resx">
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\Synologen\App_LocalResources\OpqShopRoutines.aspx.sv.resx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

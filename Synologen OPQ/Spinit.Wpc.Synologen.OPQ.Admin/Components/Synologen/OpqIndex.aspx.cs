@@ -7,31 +7,39 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Exceptions;
 using Spinit.Extensions;
+using Spinit.Wpc.Base.Data;
 using Spinit.Wpc.Synologen.OPQ.Business;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Presentation;
 using Spinit.Wpc.Synologen.Presentation;
+using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Utility.Business.SmartMenu;
+using Enumerations=Spinit.Wpc.Synologen.OPQ.Presentation.Enumerations;
+using Spinit.Extensions;
 
 namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 {
 	public partial class OpqIndex : OpqPage
 	{
+		#region Internal params, Page load and Initialization
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			SetupLayout();
-			if (!Page.IsPostBack)
+			try
 			{
-				try
+				SetupLayout();
+				SetupWysiwyg();
+				if (!Page.IsPostBack)
 				{
 					PopulateRoutine(_nodeId);
 					PopulateFiles(_nodeId);
+					PopulateHistory(_nodeId);
 				}
-				catch (BaseCodeException ex)
-				{
-					ExceptionHandler.HandleException(Page, ex);
-				}
+			}
+			catch (BaseCodeException ex)
+			{
+				ExceptionHandler.HandleException(Page, ex);
 			}
 		}
 
@@ -41,11 +49,31 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 			if (_nodeId <= 0) return;
 			var bNode = new BNode(_context);
 			var node = bNode.GetNode(_nodeId, false);
-			if (!node.IsMenu)
+			phRoutine.Visible = !node.IsMenu;
+			phMenu.Visible = node.IsMenu;
+			var bDocument = new BDocument(_context);
+			var documents =
+				bDocument.GetDocuments(_nodeId, _shopId, null, DocumentTypes.Routine, null, true, false, false);
+			if (documents.Count == 0) return;
+			var document = documents[0];
+			if (document.LockedByName == _context.UserName)
 			{
-				phRoutine.Visible = true;
+				phPreview.Visible = false;
+				phWysiwyg.Visible = true;
 			}
+			else
+			{
+				phWysiwyg.Visible = false;
+				phPreview.Visible = true;
+			}
+
 		}
+
+		private void SetupWysiwyg()
+		{
+			_wysiwyg.CommonFilePath = new string[] { Configuration.DocumentCentralRootUrl };
+		}
+
 
 		protected void Page_Init(object sender, EventArgs e)
 		{
@@ -69,6 +97,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 
 			m.SynologenSmartMenu.Render(subMenu, _phSynologenSubMenu);
 		}
+		#endregion
+
+		#region Populaters
 
 		private void PopulateRoutine(int nodeId)
 		{
@@ -76,47 +107,319 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 			var bDocument = new BDocument(_context);
 			var bNode = new BNode(_context);
 			var node = bNode.GetNode(nodeId, false);
+			if (node.IsMenu)
+			{
+				txtMenuName.Text = node.Name;
+			}
 			txtName.Text = node.Name;
 			var documents =
-				bDocument.GetDocuments(nodeId, null, null, DocumentTypes.Routine, null, true, false, false);
+				bDocument.GetDocuments(nodeId, _shopId, null, DocumentTypes.Routine, null, true, false, false);
 			if (documents.Count == 0) return;
 			var document = documents[0];
-			bDocument.Lock(document.Id);
 			DocumentId = document.Id;
 			_wysiwyg.Html = document.DocumentContent;
+			ltContentPreview.Text = document.DocumentContent;
+			SetDocumentStatus(document);
+		}
+
+		private void SetDocumentStatus(Document document)
+		{
+			if (document.LockedById > 0)
+			{
+				ltDocumentStatus.Text =
+					string.Format(GetLocalResourceObject("DocumentStatusLocked").ToString(),
+					document.LockedByName);
+			}
+			else if (document.ApprovedById > 0)
+			{
+				ltDocumentStatus.Text =
+					string.Format(GetLocalResourceObject("DocumentStatusPublished").ToString(),
+					document.ApprovedByName);
+			}
 		}
 
 		private void PopulateFiles(int nodeId)
 		{
 			if (nodeId <= 0) return;
 			var bFile = new BFile(_context);
-			var files = bFile.GetFiles(nodeId, null, null, FileCategories.SystemRoutineDocuments, true, true, true);
+			var files = bFile.GetFiles(nodeId, 
+				_shopId, 
+				null, 
+				(_shopId > 0) ? FileCategories.ShopRoutineDocuments: FileCategories.SystemRoutineDocuments, 
+				true, 
+				true, 
+				true);
 			gvFiles.DataSource = null;
 			gvFiles.DataSource = files;
 			gvFiles.DataBind();
 		}
 
+		private void PopulateHistory(int nodeId)
+		{
+			if (nodeId <= 0) return;
+			var bDocument = new BDocument(_context);
+			var documents =
+				bDocument.GetDocuments(nodeId, _shopId, null, DocumentTypes.Routine, null, true, false, false);
+			if (documents.Count == 0)
+			{
+				phNoHistory.Visible = true;
+				phHistory.Visible = false;
+				return;
+			}
+			var document = documents[0];
 
+			var historyDocuments = bDocument.GetDocumentHistories(document.Id, false);
+			if ((historyDocuments != null) && (historyDocuments.Count > 0))
+			{
+				phNoHistory.Visible = false;
+				phHistory.Visible = true;
+				gvHistory.DataSource = null;
+				gvHistory.DataSource = historyDocuments;
+				gvHistory.DataBind();
+			}
+			else
+			{
+				phNoHistory.Visible = true;
+				phHistory.Visible = false;
+			}
+		}
+
+		private void PopulateSelectedHistory(DocumentHistory document)
+		{
+			if (document == null) return;
+			phViewHistory.Visible = true;
+			ltHistory.Text = document.DocumentContent;
+		}
+
+
+		#endregion
 
 		#region Page events
 
-		protected void btnSave_Click(object sender, EventArgs e)
+		protected void gvHistory_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
-			var btnSave = (Button)sender;
-			var typeOfSave = (Enumerations.DocumentSaveActions)Enum.Parse(typeof(Enumerations.DocumentSaveActions), btnSave.CommandName);
-			string content = _wysiwyg.Html;
-			switch (typeOfSave)
+			try
 			{
-				case Enumerations.DocumentSaveActions.SaveForLater:
-					SaveForLater(content);
-					break;
-				case Enumerations.DocumentSaveActions.SaveAndPublish:
-					SaveAndPublish(content);
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
+
+				switch (e.CommandName)
+				{
+					case "show":
+						var row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+						int documentHistoryId = Convert.ToInt32(gvHistory.DataKeys[row.RowIndex].Value);
+						var date = new DateTime(long.Parse(e.CommandArgument.ToString()));
+						var bDocument = new BDocument(_context);
+						var historyDocument = bDocument.GetDocumentHistory(documentHistoryId, date, false);
+						PopulateSelectedHistory(historyDocument);
+						break;
+				}
+			}
+			catch (BaseCodeException ex)
+			{
+				ExceptionHandler.HandleException(Page, ex);
 			}
 		}
+
+		protected void btnSaveMenu_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				SaveMenu();
+			}
+			catch (BaseCodeException ex)
+			{
+				ExceptionHandler.HandleException(Page, ex);
+			}
+		}
+
+		protected void btnEdit_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				SetupForEditPage();
+			}
+			catch (BaseCodeException ex)
+			{
+				ExceptionHandler.HandleException(Page, ex);
+			}
+		}
+
+		protected void btnSave_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				var btnSave = (Button) sender;
+				var typeOfSave =
+					(Enumerations.DocumentSaveActions) Enum.Parse(typeof (Enumerations.DocumentSaveActions), btnSave.CommandName);
+				string content = _wysiwyg.Html;
+				switch (typeOfSave)
+				{
+					case Enumerations.DocumentSaveActions.SaveForLater:
+						SaveForLater(content);
+						break;
+					case Enumerations.DocumentSaveActions.SaveAndPublish:
+						SaveAndPublish(content);
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+			}
+			catch (BaseCodeException ex)
+			{
+				ExceptionHandler.HandleException(Page, ex);
+			}
+			
+		}
+
+		protected void gvFiles_RowCreated(object sender, GridViewRowEventArgs e)
+		{
+			try
+			{
+				if (e.Row.RowType == DataControlRowType.DataRow)
+				{
+					var opqFileId = (int)gvFiles.DataKeys[e.Row.RowIndex].Value;
+					if (opqFileId <= 0) return;
+					var bFile = new BFile(_context);
+					var opqFile = bFile.GetFile(opqFileId, true);
+					var ltFile = (Literal)e.Row.FindControl("ltFile");
+					var ltFileDate = (Literal)e.Row.FindControl("ltFileDate");
+					if (ltFile != null)
+					{
+						if (opqFile.BaseFile != null)
+						{
+							const string tag = "<a href=\"{0}\">{1}</a>";
+							string link = string.Concat(Utility.Business.Globals.FilesUrl, opqFile.BaseFile.Name);
+							string fileName = opqFile.BaseFile.Description.IsNotNullOrEmpty()
+												?
+													opqFile.BaseFile.Description.Substring(opqFile.BaseFile.Description.LastIndexOf("/") + 1)
+												:
+													opqFile.BaseFile.Name.Substring(opqFile.BaseFile.Name.LastIndexOf("/") + 1);
+							ltFile.Text = string.Format(tag, link, fileName);
+						}
+					}
+					if (ltFileDate != null)
+					{
+						ltFileDate.Text = opqFile.CreatedDate.ToShortDateString();
+					}
+				}
+			}
+			catch (BaseCodeException ex)
+			{
+				ExceptionHandler.HandleException(Page, ex);
+			}
+		}
+
+		protected void gvFiles_Editing(object sender, GridViewEditEventArgs e)
+		{
+			try
+			{
+			}
+			catch (BaseCodeException ex)
+			{
+				ExceptionHandler.HandleException(Page, ex);
+			}
+		}
+
+		protected void gvFiles_Deleting(object sender, GridViewDeleteEventArgs e)
+		{
+			try
+			{
+				var fileId = (int)gvFiles.DataKeys[e.RowIndex].Value;
+				if (fileId <= 0) return;
+				var bFile = new BFile(_context);
+				bFile.DeleteFile(fileId, false);
+				PopulateFiles(_nodeId);
+			}
+			catch (BaseCodeException ex)
+			{
+				ExceptionHandler.HandleException(Page, ex);
+			}
+		}
+
+		protected void gvFiles_RowCommand(object sender, GridViewCommandEventArgs e)
+		{
+			try
+			{
+				var row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+				int fileId = Convert.ToInt32(gvFiles.DataKeys[row.RowIndex].Value);
+				switch (e.CommandName)
+				{
+					case "overwrite":
+						SetupForOverwrite(fileId);
+						break;
+					case "moveup":
+						MoveFileUp(fileId);
+						break;
+					case "movedown":
+						MoveFileDown(fileId);
+						break;
+				}
+			}
+			catch (BaseCodeException ex)
+			{
+				ExceptionHandler.HandleException(Page, ex);
+			}
+		}
+
+		/// <summary>
+		/// Add delete confirmation
+		/// </summary>
+		/// <param Name="sender">The sending object.</param>
+		/// <param Name="e">The event arguments.</param>
+		protected void btnDelete_AddConfirmDelete(object sender, EventArgs e)
+		{
+			try
+			{
+				var cc = new ClientConfirmation();
+				cc.AddConfirmation(ref sender, GetLocalResourceObject("DocumentDeleteConfirmation").ToString());
+			}
+			catch (BaseCodeException ex)
+			{
+				ExceptionHandler.HandleException(Page, ex);
+			}
+		}
+
+		protected void btnUploadFile_Click(object sender, EventArgs e)
+		{
+			try 
+			{
+				string documentRoot = ((_shopId != null) && (_shopId > 0))
+			                      		?
+			                      			string.Concat(Configuration.DocumentShopRootUrl, "/", _shopId)
+			                      		:
+			                      			Configuration.DocumentCentralRootUrl;
+				FileCategories fileCategories = ((_shopId != null) && (_shopId > 0))
+			                                		?
+			                                			FileCategories.ShopRoutineDocuments
+			                                		:
+			                                			FileCategories.SystemRoutineDocuments;
+				bool overwrite = false;
+				int fileId = 0;
+				if (btnUploadFile.CommandArgument.IsNotNullOrEmpty())
+				{
+					overwrite = true;
+					fileId = Convert.ToInt32(btnUploadFile.CommandArgument);
+				}
+				if ((!overwrite && UploadFile(_nodeId, documentRoot, uplFile, fileCategories, _shopId)) ||
+					(overwrite && UploadAndOverwriteFile(_nodeId, documentRoot, uplFile, fileCategories, _shopId, fileId)))
+				{
+					ShowPositiveFeedBack("UploadSuccess");
+					PopulateFiles(_nodeId);
+				}
+			}
+			catch (BaseCodeException ex)
+			{
+				ExceptionHandler.HandleException(Page, ex);
+			}
+		}
+
+		protected void btnCancel_Click(object sender, EventArgs e)
+		{
+			CancelOverwrite();
+		}
+
+		#endregion
+
+		#region SubMenu Events
 
 		protected void btnImprovments_OnClick(object sender, EventArgs e)
 		{
@@ -126,70 +429,35 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 		protected void btnShowShopRoutine_OnClick(object sender, EventArgs e)
 		{
 
-			Response.Redirect(string.Format(ComponentPages.OpqStartQueryNode, _nodeId));
+			Response.Redirect(string.Format(ComponentPages.OpqShopRoutines, _nodeId));
 		}
-
-		protected void gvFiles_RowCreated(object sender, GridViewRowEventArgs e)
-		{
-			if (e.Row.RowType == DataControlRowType.DataRow)
-			{
-				var opqFileId = (int)gvFiles.DataKeys[e.Row.RowIndex].Value;
-				if (opqFileId <= 0) return;
-				var bFile = new BFile(_context);
-				var opqFile = bFile.GetFile(opqFileId, true);
-				var ltFile = (Literal)e.Row.FindControl("ltFile");
-				var ltFileDate = (Literal)e.Row.FindControl("ltFileDate");
-				if (ltFile != null)
-				{
-					if (opqFile.BaseFile != null)
-					{
-						const string tag = "<a href=\"{0}\">{1}</a>";
-						string link = string.Concat(Utility.Business.Globals.FilesUrl, opqFile.BaseFile.Name);
-						string fileName = opqFile.BaseFile.Description.IsNotNullOrEmpty()
-											?
-												opqFile.BaseFile.Description.Substring(opqFile.BaseFile.Description.LastIndexOf("/") + 1)
-											:
-												opqFile.BaseFile.Name.Substring(opqFile.BaseFile.Name.LastIndexOf("/") + 1);
-						ltFile.Text = string.Format(tag, link, fileName);
-					}
-				}
-				if (ltFileDate != null)
-				{
-					ltFileDate.Text = opqFile.CreatedDate.ToShortDateString();
-				}
-			}
-		}
-
-		protected void gvFiles_Editing(object sender, GridViewEditEventArgs e)
-		{
-		}
-
-		protected void gvFiles_Deleting(object sender, GridViewDeleteEventArgs e)
-		{
-		}
-
-		protected void gvFiles_RowCommand(object sender, GridViewCommandEventArgs e)
-		{
-		}
-
-		protected void btnDelete_AddConfirmDelete(object sender, EventArgs e)
-		{
-		}
-
-		protected void btnUploadFile_Click(object sender, EventArgs e)
-		{
-			if (UploadFile(_nodeId, Configuration.DocumentCentralRootUrl, uplFile, FileCategories.SystemRoutineDocuments, null))
-			{
-				ShowPositiveFeedBack("UploadSuccess");
-				PopulateFiles(_nodeId);
-			}
-
-		}
-
 
 		#endregion
 
 		#region Page Actions
+
+		private void MoveFileDown(int fileId)
+		{
+			var bFile = new BFile(_context);
+			bFile.MoveFile(FileMoveActions.MoveDown, fileId);
+			PopulateFiles(_nodeId);
+		}
+
+		private void MoveFileUp(int fileId)
+		{
+			var bFile = new BFile(_context);
+			bFile.MoveFile(FileMoveActions.MoveUp, fileId);
+			PopulateFiles(_nodeId);
+		}
+
+		private void SaveMenu()
+		{
+			var bNode = new BNode(_context);
+			var node = bNode.GetNode(_nodeId, true);
+			bNode.ChangeNode(_nodeId, node.Parent, txtMenuName.Text);
+			SessionContext.UserPositiveFeedBackResource = node.IsMenu ? "SuccessSaveMenu" : "SuccessSaveRoutine";
+			Response.Redirect(string.Format(ComponentPages.OpqStartQueryNode, _nodeId));
+		}
 
 		private void SaveAndPublish(string content)
 		{
@@ -198,7 +466,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 			var bDocument = new BDocument(_context);
 			Document document = DocumentId > 0 ?
 				bDocument.ChangeDocument(DocumentId, content) :
-				bDocument.CreateDocument(_nodeId, null, DocumentTypes.Routine, content);
+				bDocument.CreateDocument(_nodeId, _shopId, DocumentTypes.Routine, content);
 			if (document != null)
 			{
 				bDocument.Publish(document.Id);
@@ -208,7 +476,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 			var node = bNode.GetNode(_nodeId, true);
 			bNode.ChangeNode(_nodeId, node.Parent, txtName.Text);
 			SessionContext.UserPositiveFeedBackResource = node.IsMenu ? "SuccessSaveMenu" : "SuccessSaveRoutine";
-			Response.Redirect(string.Format(ComponentPages.OpqStartQueryNode,_nodeId));
+			RedirectToStartPage();
 		}
 
 		private void SaveForLater(string content)
@@ -218,7 +486,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 			var bDocument = new BDocument(_context);
 			Document document = DocumentId > 0 ?
 				bDocument.ChangeDocument(DocumentId, content) :
-				bDocument.CreateDocument(_nodeId, null, DocumentTypes.Routine, content);
+				bDocument.CreateDocument(_nodeId, _shopId, DocumentTypes.Routine, content);
 			if (document != null)
 			{
 				bDocument.UnPublish(document.Id);
@@ -228,7 +496,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 			var node = bNode.GetNode(_nodeId, true);
 			bNode.ChangeNode(_nodeId, node.Parent, txtName.Text);
 			SessionContext.UserPositiveFeedBackResource = node.IsMenu ? "SuccessSaveMenu" : "SuccessSaveRoutine";
-			Response.Redirect(string.Format(ComponentPages.OpqStartQueryNode, _nodeId));
+			RedirectToStartPage();
 		}
 
 		private bool UploadFile(int nodeId, string virtualUploadDir, FileUpload uploadControl, FileCategories category, int? shopId)
@@ -307,7 +575,95 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 			return false;
 		}
 
+		private bool UploadAndOverwriteFile(int nodeId, string virtualUploadDir, FileUpload uploadControl, FileCategories category, int? shopId, int fileId)
+		{
+			Page.MaintainScrollPositionOnPostBack = false;
+			if (fileId <= 0) return false;
+			try
+			{
+				if (!uploadControl.HasFile)
+				{
+					ShowNegativeFeedBack("NoFileException");
+					return false;
+				}
+				string uploadDir = Server.MapPath(virtualUploadDir);
+				if (!Directory.Exists(uploadDir))
+				{
+					Directory.CreateDirectory(uploadDir);
+				}
+				var bFile = new BFile(_context);
+				var opqFile = bFile.GetFile(fileId, true);
 
+				string fileName = Path.GetFileName(opqFile.BaseFile.Name);
+				if (!OpqUtility.IsAllowedExtension(uploadControl.FileName))
+				{
+					ShowNegativeFeedBack("ExtensionException", Configuration.UploadAllowedExtensions);
+					return false;
+				}
+				int fileSize = uploadControl.PostedFile.ContentLength;
+				if (fileSize > Configuration.UploadMaxFileSize)
+				{
+					ShowNegativeFeedBack("FileSizeException", Configuration.UploadMaxFileSize.ToString());
+					return false;
+				}
+
+				//Todo : Core file missing method for updating filesize. Should be done here!
+
+				// overwrite file to disk
+				uploadControl.PostedFile.SaveAs(Path.Combine(uploadDir, fileName));
+				CancelOverwrite();
+				return true;
+
+			}
+			catch (Exception ex)
+			{
+				LogException(ex);
+				ShowNegativeFeedBack("UnexpectedUploadException");
+			}
+			return false;
+		}
+
+		private void SetupForEditPage()
+		{
+			if (DocumentId <= 0) return;
+			var bDocument = new BDocument(_context);
+			bDocument.Lock(DocumentId);
+			RedirectToStartPage();
+		}
+
+		private void RedirectToStartPage()
+		{
+			string redirectPage = _shopId > 0
+									?
+										string.Format(ComponentPages.OpqStartQueryNodeAndShop, _nodeId, _shopId)
+									:
+										string.Format(ComponentPages.OpqStartQueryNode, _nodeId);
+			Response.Redirect(redirectPage);
+		}
+
+		private void SetupForOverwrite(int fileId)
+		{
+			var bFile = new BFile(_context);
+			var opqFile = bFile.GetFile(fileId, true);
+			if ((opqFile == null) && (opqFile.BaseFile == null)) return;
+			btnUploadFile.CommandArgument = fileId.ToString();
+			btnUploadFile.Text = "Ladda upp & skriv över";
+			string headerText = string.Format("Välj fil nedan att skriva över filen \"{0}\" med",
+			                                  opqFile.BaseFile.Description);
+			lblUploadFileHeader.Text = headerText;
+			btnCancel.Visible = true;
+			Page.MaintainScrollPositionOnPostBack = true;
+		}
+
+		private void CancelOverwrite()
+		{
+			btnUploadFile.CommandArgument = string.Empty;
+			btnUploadFile.Text = "Ladda upp";
+			string headerText = string.Format("Välj fil att ladda upp:");
+			lblUploadFileHeader.Text = headerText;
+			btnCancel.Visible = false;
+			Page.MaintainScrollPositionOnPostBack = false;
+		}
 
 		#endregion
 

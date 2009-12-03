@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
     <div id="dCompMain" class="Components-Synologen-Opq">
 		<opq:UserMessageManager ID="opqUserMessageManager" ControlId="Opq-UserMessage-Administration"
-			runat="server" />
+			runat="server" PositiveCssClass="message success" NegativeCssClass="message error" />
 		<asp:PlaceHolder ID="phOpq" runat="server">
 			<div id="dOpqColumnContainer">
 				<div id="dOpqMainColumn">

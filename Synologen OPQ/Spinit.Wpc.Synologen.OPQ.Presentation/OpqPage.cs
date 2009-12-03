@@ -13,6 +13,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Presentation
 		protected Context _context;
 		protected Configuration _configuration;
 		protected int _nodeId;
+		protected int? _shopId;
 
 
 		protected override void OnInit(EventArgs e)
@@ -21,6 +22,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Presentation
 			_context = SessionContext.CurrentOpq;
 			_configuration = Configuration.GetConfiguration(_context);
 			_nodeId = GetCurrentNodeId();
+			_shopId = GetCurrentShopId();
 		}
 
 		protected string DocumentShopPath
@@ -176,6 +178,16 @@ namespace Spinit.Wpc.Synologen.OPQ.Presentation
 				int.TryParse(Request.QueryString["nodeId"], out nodeId);
 			}
 			return nodeId;
+		}
+
+		protected int? GetCurrentShopId()
+		{
+			int? shopId = null;
+			if (Request.QueryString["shopId"] != null)
+			{
+				shopId = int.Parse(Request.QueryString["shopId"]); 
+			}
+			return shopId;
 		}
 
 		#endregion

@@ -1,4 +1,5 @@
 ﻿using System.Web.UI;
+using Spinit.Extensions;
 
 namespace Spinit.Wpc.Synologen.OPQ.Presentation
 {
@@ -17,9 +18,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Presentation
 		
 		protected override void Render(HtmlTextWriter writer)
 		{
-			const string container = "<div id=\"{0}\" class=\"{1}\">{2}</div>";
+			string cssClass = " class=\"{0}\"";
+			const string container = "<div id=\"{0}\"{1}>{2}</div>";
+			if (HasMessage && IsNegative) cssClass = string.Format(cssClass, NegativeCssClass);
+			else if (HasMessage && !IsNegative) cssClass = string.Format(cssClass, PositiveCssClass);
+			else if (!HasMessage) cssClass = string.Empty;
+
 			writer.Write(
-				string.Format(container, ControlId, IsNegative ? NegativeCssClass : PositiveCssClass, _message ));
+				string.Format(container, ControlId, cssClass, _message));
 		}
 
 
@@ -74,6 +80,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Presentation
 		{
 			private get { return _controlId; }
 			set { _controlId = value; }
+		}
+
+		public bool HasMessage
+		{
+			get { return _message.IsNotNullOrEmpty(); }
 		}
 		
 	}

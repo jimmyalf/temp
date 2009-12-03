@@ -350,9 +350,18 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 				throw new NodeException ("Position not changed.", NodeErrors.PositionNotMoved);
 			}
 
-			if ((node.Order < 1) || (node.Order > (GetNumberOfChilds (node.Parent, false, false) + 1))) {
-				throw new NodeException ("Position not valid.", NodeErrors.MoveToForbidden);
+			if (node.Order < 1) 
+			{
+				node.Order = 1; 
 			}
+			if (node.Order > (GetNumberOfChilds(node.Parent, false, false) + 1))
+			{
+				node.Order = GetNumberOfChilds(node.Parent, false, false) + 1;
+			}
+
+			//if ((node.Order < 1) || (node.Order > (GetNumberOfChilds (node.Parent, false, false) + 1))) {
+			//    throw new NodeException ("Position not valid.", NodeErrors.MoveToForbidden);
+			//}
 
 			if (oldNode.Order != node.Order) {
 				oldNode.Order = node.Order;
@@ -688,7 +697,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		{
 			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
 			            where node.Parent == null
-						orderby node.Name ascending
+						orderby node.Order ascending
 						select node;
 
 			if (onlyActive) {
@@ -725,7 +734,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		{
 			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
 						where node.Parent == parent
-						orderby node.Name ascending 
+						orderby node.Order ascending 
 						select node;
 
 			if (onlyActive) {
@@ -762,7 +771,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		{
 			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
 						where SqlMethods.Like (node.Name, string.Concat ("%", name, "%"))
-						orderby node.Name ascending
+						orderby node.Order ascending
 						select node;
 
 			if (onlyActive) {
@@ -801,7 +810,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
 						where node.Parent == parent
 							&& SqlMethods.Like (node.Name, string.Concat ("%", name, "%"))
-						orderby node.Name ascending
+						orderby node.Order ascending
 						select node;
 
 			if (onlyActive) {
@@ -932,7 +941,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		public IList<Node> GetAllChildsDown (int? parent, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<ENode> query = from node in _dataContext.Nodes
-			                                orderby node.Id ascending, node.Order ascending
+			                                orderby node.Order ascending
 			                                select node;
 
 			query = parent == null ? query.AddIsNullCondition ("Parent") : query.AddEqualityCondition ("Parent", parent);
@@ -1079,16 +1088,18 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 				Manager.File.SkipNode = false;
 			}
 
-			if (!SkipNodes && (eNode.Childs != null)) {
+			if (!SkipNodes && (eNode.Childs != null))
+			{
 				SkipNodes = true;
 				Converter<ENode, Node> converter = Converter;
-				node.Childs = eNode.Childs.ToList ().ConvertAll (converter);
+				node.Childs = eNode.Childs.ToList().ConvertAll(converter);
 				SkipNodes = false;
 			}
 
-			if (!SkipNode && eNode.ParentNode != null) {
+			if (!SkipNode && eNode.ParentNode != null)
+			{
 				SkipParent = true;
-				node.ParentNode = Converter (eNode.ParentNode);
+				node.ParentNode = Converter(eNode.ParentNode);
 				SkipParent = false;
 			}
 

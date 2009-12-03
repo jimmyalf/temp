@@ -106,6 +106,7 @@
   <ItemGroup>
     <Compile Include="Code\Enumerations.cs" />
     <Compile Include="Code\OpqControlPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Code\OpqUtility.cs" />
     <Compile Include="Code\Tree.cs" />
@@ -165,6 +166,7 @@
     </Compile>
     <Compile Include="Wpc\Synologen\OpqAdmin.ascx.cs">
       <DependentUpon>OpqAdmin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Wpc\Synologen\OpqAdmin.ascx.designer.cs">
       <DependentUpon>OpqAdmin.ascx</DependentUpon>
@@ -178,6 +180,7 @@
     </Compile>
     <Compile Include="Wpc\Synologen\OpqMenu.ascx.cs">
       <DependentUpon>OpqMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Wpc\Synologen\OpqMenu.ascx.designer.cs">
       <DependentUpon>OpqMenu.ascx</DependentUpon>
@@ -198,6 +201,7 @@
     </Compile>
     <Compile Include="Wpc\Synologen\OpqSubPage.ascx.cs">
       <DependentUpon>OpqSubPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Wpc\Synologen\OpqSubPage.ascx.designer.cs">
       <DependentUpon>OpqSubPage.ascx</DependentUpon>

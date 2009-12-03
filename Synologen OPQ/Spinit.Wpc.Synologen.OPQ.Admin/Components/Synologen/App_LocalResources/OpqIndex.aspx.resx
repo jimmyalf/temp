@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DocumentDeleteConfirmation" xml:space="preserve">
+    <value>Do you really want to delete the file?</value>
+  </data>
+  <data name="DocumentStatusLocked" xml:space="preserve">
+    <value>The document is locked by {0}</value>
+  </data>
+  <data name="DocumentStatusPublished" xml:space="preserve">
+    <value>The document have been published by {0}</value>
+  </data>
   <data name="ExtensionException" xml:space="preserve">
     <value>Only the following file extensions are allowed:{0}</value>
   </data>

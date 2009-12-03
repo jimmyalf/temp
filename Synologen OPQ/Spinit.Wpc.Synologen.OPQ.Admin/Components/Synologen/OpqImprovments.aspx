@@ -7,9 +7,9 @@
 				<h1>Förbättringsförslag</h1>
 				<asp:PlaceHolder ID="phImprovment" runat="server" Visible="false">
 				<div id="improvment">
-					<asp:Literal ID="ltShop" runat="server" />
-					<asp:HyperLink ID="hlSender" runat="server" />
-					<asp:Literal ID="ltBody" runat="server" />
+					Butik: <asp:Literal ID="ltShop" runat="server" />
+					Avsändare: <asp:HyperLink ID="hlSender" runat="server" />
+					Förslag: <asp:Literal ID="ltBody" runat="server" />
 				</div>
 				</asp:PlaceHolder>
 				<asp:GridView ID="gvImprovments" 
@@ -18,8 +18,7 @@
                 DataKeyNames="Id" 
                 SkinID="Striped" 
                 OnRowEditing="gvImprovments_Editing" 
-                OnRowDeleting="gvImprovments_Deleting" 
-                OnRowCommand="gvImprovments_RowCommand">
+                OnRowDeleting="gvImprovments_Deleting" >
                 <Columns>
 		            <asp:TemplateField headertext="Rutin"  ItemStyle-HorizontalAlign="Center" >
 			            <ItemTemplate>
@@ -31,7 +30,7 @@
 							<asp:Literal ID="ltShopSender" runat="server" />
 			            </ItemTemplate>
 		            </asp:TemplateField>
-  		            <asp:TemplateField headertext="E-post"  ItemStyle-HorizontalAlign="Center" >
+  		            <asp:TemplateField headertext="Avsändare"  ItemStyle-HorizontalAlign="Center" >
 			            <ItemTemplate>
 							<asp:Literal ID="ltEmail" runat="server" />
 			            </ItemTemplate>

@@ -7,12 +7,17 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.OPQ.Business;
 using Spinit.Wpc.Synologen.OPQ.Core;
+using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 using Spinit.Wpc.Synologen.OPQ.Presentation;
+using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 {
 	public partial class OpqImprovments : OpqPage
 	{
+		private const string MailTag = "<a href=\"mailto:{0}?subject={1}&body={2}\">{3}</a>";
+		private const string MailToHref = "mailto:{0}?subject={1}&body={2}";
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!Page.IsPostBack)
@@ -21,15 +26,34 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 			}
 		}
 
-		#region
+		#region Populaters
 
 		private void PopulateImprovments()
 		{
 			var bDocument = new BDocument(_context);
 			var documents = bDocument.GetDocuments(null, null, null, DocumentTypes.Proposal, null, true, true, false);
+			gvImprovments.DataSource = null;
 			gvImprovments.DataSource = documents;
 			gvImprovments.DataBind();
 		}
+
+		private void PopulateViewer(Document document)
+		{
+			phImprovment.Visible = true;
+			if ((document.ShpId > 0) && (document.Shop != null))
+			{
+				ltShop.Text = document.Shop.ShopName;
+			}
+			ltBody.Text = Utility.Business.Util.ParseInputField(document.DocumentContent, true);
+			hlSender.NavigateUrl= string.Format(MailToHref,
+										 document.CreatedBy.Email,
+										 HttpUtility.UrlEncode(Configuration.ImprovmentSubject, Encoding.GetEncoding("iso-8859-1")).Replace("+", "%20"),
+										 HttpUtility.UrlEncode(document.DocumentContent, Encoding.GetEncoding("iso-8859-1")).Replace("+", "%20"));
+			hlSender.Text = document.CreatedBy.Email;
+
+
+		}
+
 
 		#endregion
 
@@ -61,8 +85,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 				{
 					if (document.CreatedBy != null)
 					{
-						const string mailtag = "<a href=\"mailto:{0}?subject={1}&body={2}\">{3}</a>";
-						ltEmail.Text = string.Format(mailtag,
+						ltEmail.Text = string.Format(MailTag,
 						                             document.CreatedBy.Email,
 													 HttpUtility.UrlEncode(Configuration.ImprovmentSubject, Encoding.GetEncoding("iso-8859-1")).Replace("+", "%20"),
 													 HttpUtility.UrlEncode(document.DocumentContent, Encoding.GetEncoding("iso-8859-1")).Replace("+", "%20"),
@@ -78,18 +101,33 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 
 		protected void gvImprovments_Editing(object sender, GridViewEditEventArgs e)
 		{
+			var documentId = (int)gvImprovments.DataKeys[e.NewEditIndex].Value;
+			if (documentId <= 0) return;
+			var bDocument = new BDocument(_context);
+			var document = bDocument.GetDocument(documentId, true);
+			phImprovment.Visible = false;
+			PopulateViewer(document);
+
 		}
 
 		protected void gvImprovments_Deleting(object sender, GridViewDeleteEventArgs e)
 		{
+			var documentId = (int)gvImprovments.DataKeys[e.RowIndex].Value;
+			if (documentId <= 0) return;
+			var bDocument = new BDocument(_context);
+			bDocument.DeleteDocument(documentId, true);
+			PopulateImprovments();
 		}
 
-		protected void gvImprovments_RowCommand(object sender, GridViewCommandEventArgs e)
-		{
-		}
-
+		/// <summary>
+		/// Add delete confirmation
+		/// </summary>
+		/// <param Name="sender">The sending object.</param>
+		/// <param Name="e">The event arguments.</param>
 		protected void btnDelete_AddConfirmDelete(object sender, EventArgs e)
 		{
+			var cc = new ClientConfirmation();
+			cc.AddConfirmation(ref sender, GetLocalResourceObject("ImprovmentDeleteConfirmation").ToString());
 		}
 
 		#endregion

@@ -117,34 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DocumentDeleteConfirmation" xml:space="preserve">
-    <value>Vill du verkligen ta bort filen?</value>
-  </data>
-  <data name="DocumentStatusLocked" xml:space="preserve">
-    <value>Dokumentet är låst av {0}</value>
-  </data>
-  <data name="DocumentStatusPublished" xml:space="preserve">
-    <value>Dokumentet är publicerat av {0} </value>
-  </data>
-  <data name="ExtensionException" xml:space="preserve">
-    <value>Du får bara ladda upp filer av följande typer: {0}</value>
-  </data>
-  <data name="FileSizeException" xml:space="preserve">
-    <value>Storleken på den uppladdade filen får ej överstiga {0} byte</value>
-  </data>
-  <data name="NoFileException" xml:space="preserve">
-    <value>Du måste välja en fil för uppladdning.</value>
-  </data>
-  <data name="SuccessSaveMenu" xml:space="preserve">
-    <value>Menyn är sparad.</value>
-  </data>
-  <data name="SuccessSaveRoutine" xml:space="preserve">
-    <value>Rutinen är sparad.</value>
-  </data>
-  <data name="UnexpectedUploadException" xml:space="preserve">
-    <value>Ett oväntat fel uppstod vid filuppladdningen!</value>
-  </data>
-  <data name="UploadSuccess" xml:space="preserve">
-    <value>Filen är nu uppladdad!</value>
+  <data name="ImprovmentDeleteConfirmation" xml:space="preserve">
+    <value>Vill du verkligen ta bort förbättringsförslaget?</value>
   </data>
 </root>

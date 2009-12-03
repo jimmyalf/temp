@@ -31,7 +31,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 		private void PopulateImprovments()
 		{
 			var bDocument = new BDocument(_context);
-			var documents = bDocument.GetDocuments(null, null, null, DocumentTypes.Proposal, null, true, true, false);
+			var documents = bDocument.GetDocumentsProposal(true, true, false);
 			gvImprovments.DataSource = null;
 			gvImprovments.DataSource = documents;
 			gvImprovments.DataBind();

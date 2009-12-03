@@ -220,6 +220,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.AddDataLoadOptions<Document> (d => d.ChangedBy);
 					synologenRepository.AddDataLoadOptions<Document> (d => d.ApprovedBy);
 					synologenRepository.AddDataLoadOptions<Document> (d => d.LockedBy);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.Shop);
 
 					synologenRepository.SetDataLoadOptions ();
 				}
@@ -270,6 +271,43 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			}
 		}
 
+		/// <summary>
+		/// Gets list of all proposal documents.
+		/// </summary>
+		/// <param name="onlyActive">If true=>fetch only active documents.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved documents.</param>
+		/// <param name="fillObjects">If true=>fill-objects.</param>
+
+		public IList<Document> GetDocumentsProposal(bool onlyActive,
+			bool onlyApproved,
+			bool fillObjects)
+		{
+			using (
+				WpcSynologenRepository synologenRepository
+					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking(_configuration, null, _context)
+				)
+			{
+				if (fillObjects)
+				{
+					synologenRepository.AddDataLoadOptions<Document>(d => d.DocumentHistories);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.DocumentType);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.Node);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.CreatedBy);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.ChangedBy);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.ApprovedBy);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.LockedBy);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.Shop);
+
+					synologenRepository.SetDataLoadOptions();
+				}
+
+				return synologenRepository.Document.GetDocumentsByType(
+					DocumentTypes.Proposal,
+					onlyActive,
+					onlyApproved);
+
+			}
+		}
 
 		/// <summary>
 		/// Gets list of documents.
@@ -305,6 +343,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.AddDataLoadOptions<Document> (d => d.ChangedBy);
 					synologenRepository.AddDataLoadOptions<Document> (d => d.ApprovedBy);
 					synologenRepository.AddDataLoadOptions<Document> (d => d.LockedBy);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.Shop);
 
 					synologenRepository.SetDataLoadOptions ();
 				}

@@ -617,6 +617,53 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 			return documents;
 		}
 
+
+		/// <summary>
+		/// Fetches a list of all shop documents for a node.
+		/// </summary>
+		/// <param name="nodeId">The node-id.</param>
+		/// <param name="documentType">The document type</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
+		/// <returns>A list of documents.</returns>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public IList<Document> GetAllShopDocumentsByNodeId(int nodeId, DocumentTypes documentType, bool onlyActive, bool onlyApproved)
+		{
+			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
+			                                     where
+			                                     	document.NdeId == nodeId &&
+													document.DocTpeId == (int)documentType && 
+													document.ShpId != null 
+												 orderby document.Shop.ShopName ascending, document.CreatedDate descending
+												 select document;
+
+			if (onlyActive)
+			{
+				query = query.AddEqualityCondition("IsActive", true);
+			}
+
+			if (onlyApproved)
+			{
+				query = query.AddIsNotNullCondition("ApprovedById");
+				query = query.AddIsNullCondition("LockedById");
+			}
+
+			Converter<EDocument, Document> converter = Converter;
+			IList<Document> documents = query.ToList().ConvertAll(converter);
+
+			if (documents == null)
+			{
+				throw new ObjectNotFoundException(
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			return documents;
+		}
+
+
+
 		/// <summary>
 		/// Fetches a list of documents for a node.
 		/// </summary>

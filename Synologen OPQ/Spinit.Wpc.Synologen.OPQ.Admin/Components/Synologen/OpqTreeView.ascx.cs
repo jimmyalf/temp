@@ -88,13 +88,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 				{
 					BuildLeafFromList(treeNode, node.Childs);
 				}
-				else
+				if (node.Id == _nodeId)
 				{
-					if (node.Id == _nodeId)
-					{
-						treeNode.Selected = true;
-						treeNode.ExpandParentNodes();
-					}
+					treeNode.Selected = true;
+					treeNode.ExpandParentNodes();
 				}
 			}
 		}
@@ -111,14 +108,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 				{
 					BuildLeafFromList(treeNode, node.Childs);
 				}
-				else
+				if (node.Id == _nodeId)
 				{
-					if (node.Id == _nodeId)
-					{
-						treeNode.Selected = true;
-						treeNode.ExpandParentNodes();
-					}
-				}				
+					treeNode.Selected = true;
+					treeNode.ExpandParentNodes();
+				}
 			}
 		}
 

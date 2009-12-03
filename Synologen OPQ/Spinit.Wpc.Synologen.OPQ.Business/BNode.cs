@@ -189,14 +189,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		public void MoveNode (NodeMoveActions moveAction, int source, int? destination)
 		{
 			Node sSource = GetNode (source, false);
-			bool moveUpDestination = false;
+			Node sDestination = null;
+			if (destination != null)
+			{
+				sDestination = GetNode((int)destination, false);
+			}
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
 				) {
-				Node sDestination = null;
-				if (destination != null) {
-					sDestination = synologenRepository.Node.GetNodeById ((int) destination);
-				}
 				switch (moveAction) {
 					case NodeMoveActions.MoveUp:
 						synologenRepository.Node.MoveNode (new Node {Id = source, Parent = sSource.Parent, Order = sSource.Order - 1});
@@ -225,9 +225,17 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 						{
 							throw new NodeException("Not valid move operation.", NodeErrors.MoveToForbidden);
 						}
+						if ((sSource.Parent == sDestination.Parent) && (sSource.Order < sDestination.Order))
+						{
+							synologenRepository.Node.MoveNode(
+								new Node { Id = source, Parent = sDestination.Parent, Order = sDestination.Order-1 });
+						}
+						else
+						{
 
-						synologenRepository.Node.MoveNode(
-							new Node { Id = source, Parent = sDestination.Parent, Order = sDestination.Order });
+							synologenRepository.Node.MoveNode(
+								new Node {Id = source, Parent = sDestination.Parent, Order = sDestination.Order});
+						}
 						break;
 
 					case NodeMoveActions.MoveInto:

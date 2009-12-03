@@ -118,63 +118,63 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DocumentErrors_CangeOfNodeNotAllowed" xml:space="preserve">
-    <value>Change of node not allowed</value>
+    <value>Det är inte tillåtet att ändra noden för dokumentet.</value>
   </data>
   <data name="DocumentErrors_ChangeOfConcernNotAllowed" xml:space="preserve">
-    <value>Change of concern not allowed</value>
+    <value>Det är inte tillåtet att ändra koncern egenskapen på dokumentet.</value>
   </data>
   <data name="DocumentErrors_ChangeOfDocumentTypeNotAllowed" xml:space="preserve">
-    <value>You are not allowed to change document type</value>
+    <value>Det är inte tillåtet att ändra dokumenttypen.</value>
   </data>
   <data name="DocumentErrors_ChangeOfShopNotAllowed" xml:space="preserve">
-    <value>Change of shop not allowed</value>
+    <value>Det är inte tillåtet att ändra butiken på dokumentet.</value>
   </data>
   <data name="DocumentErrors_DocumentLockedByOtherUser" xml:space="preserve">
-    <value>The document is locked by an other user</value>
+    <value>Dokumentet är låst av en annan användare och kan inte redigeras.</value>
   </data>
   <data name="FileErrors_CangeOfNodeNotAllowed" xml:space="preserve">
-    <value>The node can not be changed.</value>
+    <value>Det är inte tillåtet att ändra noden för filen.</value>
   </data>
   <data name="FileErrors_ChangeOfConcernNotAllowed" xml:space="preserve">
-    <value>The concern can not be changed.</value>
+    <value>Det är inte tillåtet att ändra koncern egenskapen på filen.</value>
   </data>
   <data name="FileErrors_ChangeOfFileCategoryNotAllowed" xml:space="preserve">
-    <value>The file category can not be changed.</value>
+    <value>Det är inte tillåtet att ändra filkategorin.</value>
   </data>
   <data name="FileErrors_ChangeOfShopNotAllowed" xml:space="preserve">
-    <value>The shop can not be changed.</value>
+    <value>Det är inte tillåtet att ändra butiken på filen.</value>
   </data>
   <data name="FileErrors_FileCategoryExist" xml:space="preserve">
-    <value>The category already exists.</value>
+    <value>Kategorin finns redan.</value>
   </data>
   <data name="FileErrors_FileCategoryInUse" xml:space="preserve">
-    <value>The category has connected files and can not be deleted.</value>
+    <value>Kategorin har filer kopplade på sig och kan inte tas bort.</value>
   </data>
   <data name="FileErrors_FileLockedByOtherUser" xml:space="preserve">
-    <value>The file is locked by an other user.</value>
+    <value>Filen är låst av en annan användare.</value>
   </data>
   <data name="FileErrors_MoveToForbidden" xml:space="preserve">
-    <value>You have choosen a invalid position.</value>
+    <value>Du har försökt flytta filen till en icke tillåten position.</value>
   </data>
   <data name="FileErrors_PositionNotMoved" xml:space="preserve">
-    <value>You need to specify a new position for the node.</value>
+    <value>Filen flyttades inte. Du måste välja en ny position för att filen skall flytta sig.</value>
   </data>
   <data name="NodeErrors_MoveToForbidden" xml:space="preserve">
-    <value>The current node can not move to the selected destination.</value>
+    <value>Du har försökt flytta noden till en icke tillåten poistion.</value>
   </data>
   <data name="NodeErrors_NameExist" xml:space="preserve">
-    <value>The name of the node already exists. The node needs to be unique.</value>
+    <value>Det valda namnet för noden finns redan. Det måste vara unikt inom samma gren.</value>
   </data>
   <data name="NodeErrors_NodeLockedByOtherUser" xml:space="preserve">
-    <value>The node is checked out by another user.</value>
+    <value>Noden är låst av en annan användare.</value>
   </data>
   <data name="NodeErrors_ParentDoesNotExist" xml:space="preserve">
-    <value>The parent of the node does not exist</value>
+    <value>Föräldern till noden finns inte.</value>
   </data>
   <data name="NodeErrors_PositionNotMoved" xml:space="preserve">
-    <value>You need to choose a new position for the node.</value>
+    <value>Du måste välja en ny position för att flytta noden.</value>
   </data>
   <data name="UserErrors_NoCurrentExist" xml:space="preserve">
-    <value>User does not exists.</value>
+    <value>Användaren finns inte.</value>
   </data>
 </root>

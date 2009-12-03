@@ -229,6 +229,49 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		}
 
 		/// <summary>
+		/// Gets a list of all shop documents.
+		/// </summary>
+		/// <param name="nodeId">The id of the node.</param>
+		/// <param name="onlyActive">If true=>fetch only active documents.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved documents.</param>
+		/// <param name="fillObjects">If true=>fill-objects.</param>
+
+		public IList<Document> GetShopDocuments(
+			int nodeId,
+			bool onlyActive,
+			bool onlyApproved,
+			bool fillObjects)
+		{
+			using (
+				WpcSynologenRepository synologenRepository
+					= WpcSynologenRepository.GetWpcSynologenRepositoryNoTracking(_configuration, null, _context)
+				)
+			{
+				if (fillObjects)
+				{
+					synologenRepository.AddDataLoadOptions<Document>(d => d.DocumentHistories);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.DocumentType);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.Node);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.CreatedBy);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.ChangedBy);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.ApprovedBy);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.LockedBy);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.Shop);
+
+					synologenRepository.SetDataLoadOptions();
+				}
+
+				return synologenRepository.Document.GetAllShopDocumentsByNodeId(
+						nodeId,
+						DocumentTypes.Routine,
+						onlyActive,
+						onlyApproved);
+				
+			}
+		}
+
+
+		/// <summary>
 		/// Gets list of documents.
 		/// </summary>
 		/// <param name="nodeId">The id of the node.</param>
@@ -290,7 +333,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					documentType,
 					onlyActive,
 					onlyApproved);
-					//				return synologenRepository.Document.GetAllDocuments (onlyActive, onlyApproved);
 			}
 		}
 

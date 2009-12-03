@@ -88,6 +88,11 @@
     <Compile Include="BFile.cs" />
     <Compile Include="BNode.cs" />
     <Compile Include="BUtilities.cs" />
+    <Compile Include="ErrorText.sv.Designer.cs">
+      <DependentUpon>ErrorText.sv.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Enumerations.cs" />
     <Compile Include="ErrorText.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -116,6 +121,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ErrorText.sv.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorText.sv.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="ErrorText.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorText.Designer.cs</LastGenOutput>

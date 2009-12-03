@@ -4,12 +4,17 @@
    		<opq:UserMessageManager ID="opqUserMessageManager" ControlId="Opq-UserMessage-Administration" runat="server" />
         <div class="fullBox">
             <div class="wrap">
-				<h1>Förbättringsförslag</h1>
+				<h2>Förbättringsförslag</h2>
 				<asp:PlaceHolder ID="phImprovment" runat="server" Visible="false">
 				<div id="improvment">
-					Butik: <asp:Literal ID="ltShop" runat="server" />
-					Avsändare: <asp:HyperLink ID="hlSender" runat="server" />
-					Förslag: <asp:Literal ID="ltBody" runat="server" />
+					<fieldset>
+						<legend>Förslag</legend>
+						Butik: <b><asp:Literal ID="ltShop" runat="server" /></b><br />
+						Avsändare: <asp:HyperLink ID="hlSender" runat="server" />
+						<div class="suggestion">
+							<asp:Literal ID="ltBody" runat="server" />
+						</div>
+					</fieldset>
 				</div>
 				</asp:PlaceHolder>
 				<asp:GridView ID="gvImprovments" 

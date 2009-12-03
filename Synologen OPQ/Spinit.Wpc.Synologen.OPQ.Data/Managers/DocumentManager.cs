@@ -838,6 +838,47 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		}
 
 		/// <summary>
+		/// Fetches a list of all documents per type.
+		/// </summary>
+		/// <param name="documentType">Type of document</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
+		/// <returns>A list of documents.</returns>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public IList<Document> GetDocumentsByType(DocumentTypes documentType, bool onlyActive, bool onlyApproved)
+		{
+			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
+												 where document.DocTpeId == (int)documentType
+												 orderby document.CreatedDate descending
+												 select document;
+
+			if (onlyActive)
+			{
+				query = query.AddEqualityCondition("IsActive", true);
+			}
+
+			if (onlyApproved)
+			{
+				query = query.AddIsNotNullCondition("ApprovedById");
+				query = query.AddIsNullCondition("LockedById");
+			}
+
+			Converter<EDocument, Document> converter = Converter;
+			IList<Document> documents = query.ToList().ConvertAll(converter);
+
+			if (documents == null)
+			{
+				throw new ObjectNotFoundException(
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			return documents;
+		}
+
+
+		/// <summary>
 		/// Fetches a list of all documents.
 		/// </summary>
 		/// <param name="onlyActive">If true=>fetch only active.</param>

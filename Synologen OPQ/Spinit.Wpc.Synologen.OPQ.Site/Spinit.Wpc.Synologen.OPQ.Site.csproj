@@ -238,22 +238,6 @@
   <ItemGroup>
     <Content Include="SubPage.aspx" />
     <Content Include="Wpc\Synologen\App_LocalResources\OpqAdmin.ascx.sv.resx" />
-    <Content Include="Wpc\Synologen\Flash\Assets\icon1.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\icon2.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\icon3.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\icon4.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\icon5.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\icon6.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\icon7.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\__MACOSX\Assets\._icon1.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\__MACOSX\Assets\._icon2.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\__MACOSX\Assets\._icon3.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\__MACOSX\Assets\._icon4.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\__MACOSX\Assets\._icon5.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\__MACOSX\Assets\._icon6.swf" />
-    <Content Include="Wpc\Synologen\Flash\Assets\__MACOSX\Assets\._icon7.swf" />
-    <Content Include="Wpc\Synologen\Flash\data.xml" />
-    <Content Include="Wpc\Synologen\Flash\opqviewer.swf" />
     <Content Include="Wpc\Synologen\Images\arrow_down.png" />
     <Content Include="Wpc\Synologen\Images\arrow_up.png" />
     <Content Include="Wpc\Synologen\Images\help_processes.gif" />
@@ -263,9 +247,6 @@
     <Content Include="WebForm1.aspx" />
     <Content Include="Wpc\Synologen\OpqAtlas.ascx" />
     <Content Include="Wpc\Synologen\OpqSnurran.ascx" />
-    <None Include="Wpc\Synologen\Flash\Assets\.DS_Store" />
-    <None Include="Wpc\Synologen\Flash\Assets\__MACOSX\._Assets" />
-    <None Include="Wpc\Synologen\Flash\Assets\__MACOSX\Assets\._.DS_Store" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,7 +11,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Presentation
 
 		public const string OpqStart = PageBase + "OpqIndex.aspx";
 		public const string OpqStartQueryNode = PageBase + "OpqIndex.aspx?nodeId={0}";
+		public const string OpqStartQueryNodeAndShop = PageBase + "OpqIndex.aspx?nodeId={0}&shopId={1}";
 		public const string OpqImprovments = PageBase + "OpqImprovments.aspx";
-		public const string OpqShopRoutines = PageBase + "OpqShopRoutines.aspx";
+		public const string OpqShopRoutines = PageBase + "OpqShopRoutines.aspx?nodeId={0}";
 	}
 }

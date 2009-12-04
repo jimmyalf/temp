@@ -90,5 +90,8 @@ namespace Synologen.Client.Common {
 
 		}
 
+		public static void SendInvoices(ClientContract client, List<int> invoices) { 
+			client.SendInvoices(invoices);
+		}
 	}
 }

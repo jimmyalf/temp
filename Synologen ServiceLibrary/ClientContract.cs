@@ -96,11 +96,18 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary {
 		}
 
 		/// <summary>
-		/// Sends given order as an EDI Invoice
-		/// <exception cref="WebserviceException">Will throw exception if EDI Invoice could not be sent successfully</exception>
+		/// Sends given order as invoice
+		/// <exception cref="WebserviceException">Will throw exception if order could not be invoiced successfully</exception>
 		/// </summary>
 		public void SendInvoice(int orderId) {
 			Channel.SendInvoice(orderId);
+		}
+
+		/// <summary>
+		/// Sends given orders as invoices
+		/// </summary>
+		public void SendInvoices(List<int> orderIds){
+			Channel.SendInvoices(orderIds);
 		}
 
 		/// <summary>

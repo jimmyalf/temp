@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
@@ -10,9 +11,10 @@ using Synologen.Client.Common;
 namespace Synologen.Client.ChildForms {
 	internal partial class ImportExportOrders : FormBase {
 		private const int invoicedStatusColumn = 7;
-		private const int invoiceSentStatusColumn = 8;
+		//private const int invoiceSentStatusColumn = 8;
 		private const int spcsInvoiceNumberColumn = 1;
 		private bool ordersHaveBeenFetchedFromWPC;
+		private bool ordersHaveBeenImportedIntoSCPS;
 		private IList<Order> ordersToImport = new List<Order>();
 
 		public ImportExportOrders() {
@@ -38,7 +40,7 @@ namespace Synologen.Client.ChildForms {
 			orderList.Columns.Add("Säljande butik");
 			orderList.Columns.Add("Butiksort");
 			orderList.Columns.Add("Importerad");
-			orderList.Columns.Add("Fakturerad");
+			//orderList.Columns.Add("Fakturerad");
 			ResizeOrderList();
 		}
 
@@ -55,8 +57,8 @@ namespace Synologen.Client.ChildForms {
 			orderList.Columns[counter++].Width = (fixedNumberColumnSize);
 			orderList.Columns[counter++].Width = (fivePercentWidth * 6);
 			orderList.Columns[counter++].Width = (fivePercentWidth * 4);
-			orderList.Columns[counter++].Width = (fixedNumberColumnSize);
-			orderList.Columns[counter++].Width = (fixedNumberColumnSize);
+			orderList.Columns[counter++].Width = (fixedNumberColumnSize*2);
+			//orderList.Columns[counter++].Width = (fixedNumberColumnSize);
 		}
 
 		private void PopulateOrders() {
@@ -98,13 +100,13 @@ namespace Synologen.Client.ChildForms {
 					double invoiceSumExcludingVAT;
 					var SPCSNumber = ImportSingleOrderToSPCS(spcsHandler, listItem, out invoiceSumIncludingVAT, out invoiceSumExcludingVAT);
 					ExportInvoiceNumberToWPC(client, listItem, SPCSNumber, invoiceSumIncludingVAT, invoiceSumExcludingVAT);
-					DispatchInvoice(client, listItem);
 				}
+				InvoiceOrders(client, orderList.Items);
 				SetFormStatus(Enumeration.ConnectionStatus.Connected, "Fakturaimport klar");
 				btnFetchOrders.Enabled = false;
 			}
 			catch(Exception ex) {
-				SetFormStatus(Enumeration.ConnectionStatus.Disconnected, "Ett fel uppstod under fakturaimport/export. Var god kontakta systemadministratör.");
+				SetFormStatus(Enumeration.ConnectionStatus.Disconnected, "Ett fel uppstod under fakturaimport. Var god kontakta systemadministratör.");
 				ClientUtility.TryLogError("Client Got Exception while creating invoices", ex);
 				ClientUtility.DisplayErrorMessage(ex);
 			}
@@ -116,19 +118,19 @@ namespace Synologen.Client.ChildForms {
 		}
 
 		#region Actions
-		private void DispatchInvoice(ClientContract client, ListViewItem listItem) {
-			var order = (IOrder)listItem.Tag;
-			ClientUtility.SendInvoice(client, order.Id);
-			listItem.SubItems[invoiceSentStatusColumn].Text = "Ja";
-			Refresh();
-		}
+		//private void DispatchInvoice(ClientContract client, ListViewItem listItem) {
+		//    var order = (IOrder)listItem.Tag;
+		//    ClientUtility.SendInvoice(client, order.Id);
+		//    listItem.SubItems[invoiceSentStatusColumn].Text = "Ja";
+		//    Refresh();
+		//}
 
 		private int ImportSingleOrderToSPCS(AdkHandler spcsHandler, ListViewItem listItem, out double invoiceSumIncludingVAT, out double invoiceSumExcludingVAT) {
-			var order = (IOrder)listItem.Tag;
-			var SPCSNumber = ClientUtility.ImportOrderToSPCS(spcsHandler, order, out invoiceSumIncludingVAT, out invoiceSumExcludingVAT);
-			listItem.SubItems[spcsInvoiceNumberColumn].Text = SPCSNumber.ToString();
-			Refresh();
-			return SPCSNumber;
+		    var order = (IOrder)listItem.Tag;
+		    var SPCSNumber = ClientUtility.ImportOrderToSPCS(spcsHandler, order, out invoiceSumIncludingVAT, out invoiceSumExcludingVAT);
+		    listItem.SubItems[spcsInvoiceNumberColumn].Text = SPCSNumber.ToString();
+		    Refresh();
+		    return SPCSNumber;
 		}
 
 		private void ExportInvoiceNumberToWPC(ClientContract client, ListViewItem listItem, int SPCSNumber, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {
@@ -136,6 +138,14 @@ namespace Synologen.Client.ChildForms {
 			ClientUtility.SetSPCSOrderInvoiceNumber(client, order.Id, SPCSNumber, invoiceSumIncludingVAT, invoiceSumExcludingVAT);
 			listItem.SubItems[invoicedStatusColumn].Text = "Ja";
 			Refresh();
+		}
+
+		private static void InvoiceOrders(ClientContract client, ListView.ListViewItemCollection listItems){
+			var orderItems = new List<Order>();
+			foreach (ListViewItem listItem in listItems){
+				orderItems.Add((Order) listItem.Tag);
+			}
+			ClientUtility.SendInvoices(client, orderItems.Select(x => x.Id).ToList());
 		}
 
 		private void FetchNewOrders() {
@@ -167,10 +177,10 @@ namespace Synologen.Client.ChildForms {
 			if(!ordersHaveBeenFetchedFromWPC) {
 				FetchNewOrders();
 				PopulateOrders();
-				btnFetchOrders.Text = "Fakturera ordrar";
+				btnFetchOrders.Text = "Importera ordrar till SPCS och fakturera";
 				ordersHaveBeenFetchedFromWPC = true;
 			}
-			else{
+			else if (!ordersHaveBeenImportedIntoSCPS){
 				if(!ClientUtility.CheckSPCSConnection()) {
 					SetFormStatus(Enumeration.ConnectionStatus.Disconnected, "Anslutning mot SPCS misslyckdes");
 					return;
@@ -178,6 +188,7 @@ namespace Synologen.Client.ChildForms {
 				SetFormStatus(Enumeration.ConnectionStatus.Connecting, "Importerar fakturor...");
 				Cursor = Cursors.WaitCursor;
 				HandleInvoiceImportExport();
+				ordersHaveBeenImportedIntoSCPS = true;
 				Cursor = Cursors.Default;
 			}
 		}

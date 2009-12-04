@@ -14,6 +14,7 @@ using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Types;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
@@ -27,6 +28,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 		private const int NumberOfDecimalsUsedForRounding = 2;
 		private const string EDIFileNameFormat = "Synologen-{0}-{1}-{2}.txt";
 		private const string SvefakturaFileNameFormat = "Synologen-{0}-{1}.xml";
+		private const string SvefakturaListFileNameFormat = "Synologen-{0}-{1} {2}.xml";
 		private const string DateFormat = "yyyy-MM-dd";
 
 		public SynologenService() {
@@ -135,30 +137,85 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 		/// </summary>
 		/// <param name="orderId"></param>
 		public void SendInvoice(int orderId) {
+			var order = provider.GetOrder(orderId);
+			SendInvoice(order);
+		}
+
+		private void SendInvoice(IOrder order) {
 			try{
-				var order = provider.GetOrder(orderId);
 				string ftpStatusMessage;
-				switch (order.ContractCompany.InvoicingMethodId){
-					case 1: //EDI
+				switch ((InvoicingMethod) order.ContractCompany.InvoicingMethodId){
+					case InvoicingMethod.EDI:
 						ftpStatusMessage = SendEDIInvoice(order);
 						break;
-					case 2: //Svefaktura
+					case InvoicingMethod.Svefaktura:
 						ftpStatusMessage = SendSvefakturaInvoice(order);
 						break;
 					default:
-						throw new ArgumentOutOfRangeException("orderId","Orders comany invoicing method cannot be identified.");
+						throw new ArgumentOutOfRangeException("order","Orders comany invoicing method cannot be identified.");
 				}
 				var newStatusId = ConfigurationSettings.WebService.SaleStatusIdAfterInvoicing;
-				provider.UpdateOrderStatus(newStatusId, orderId, 0, 0, 0, 0, 0);
+				provider.UpdateOrderStatus(newStatusId, order.Id, 0, 0, 0, 0, 0);
 
 				var orderHistoryMessage = GetInvoiceSentHistoryMessage(order.InvoiceNumber, ftpStatusMessage);
-				provider.AddOrderHistory(orderId, orderHistoryMessage);
+				provider.AddOrderHistory(order.Id, orderHistoryMessage);
 				
 			}
 			catch(Exception ex) {
-				throw LogAndCreateException("SynologenService.SendInvoice failed [OrderId: "+orderId+"]", ex);
+				throw LogAndCreateException("SynologenService.SendInvoice failed [OrderId: "+order.Id+"]", ex);
 			}
 		}
+
+		public void SendInvoices(List<int> orderIds){
+			var sentOrderIds = new List<int>();
+			try{
+				var orderList = provider.GetOrders(orderIds);
+				var ediOrders = orderList.Where(x => (InvoicingMethod) x.ContractCompany.InvoicingMethodId == InvoicingMethod.EDI);
+				if(ediOrders != null && ediOrders.Count()>0){
+					foreach (var order in ediOrders){
+						SendInvoice(order);
+						sentOrderIds.Add(order.Id);
+					}
+				}
+
+				var svefakturaOrders = orderList.Where(x => (InvoicingMethod) x.ContractCompany.InvoicingMethodId == InvoicingMethod.Svefaktura);
+				if(svefakturaOrders != null && svefakturaOrders.Count()>0){
+					var ftpStatusMessage = SendSvefakturaInvoices(svefakturaOrders);
+					sentOrderIds.AddRange(svefakturaOrders.Select(x=>x.Id));
+					foreach (var order in svefakturaOrders){
+						var newStatusId = ConfigurationSettings.WebService.SaleStatusIdAfterInvoicing;
+						provider.UpdateOrderStatus(newStatusId, order.Id, 0, 0, 0, 0, 0);
+
+						var orderHistoryMessage = GetInvoiceSentHistoryMessage(order.InvoiceNumber, ftpStatusMessage);
+						provider.AddOrderHistory(order.Id, orderHistoryMessage);
+					}
+				}
+			}
+			catch(Exception ex) {
+				throw LogAndCreateException("SynologenService.SendInvoices failed ", ex);
+			}
+			finally{
+				var orderIdsNotSent = orderIds.Except(sentOrderIds);
+				if(orderIdsNotSent != null && orderIdsNotSent.Count()>0){
+					//TODO: Generate error report;
+					var result = FormatList(orderIdsNotSent, ", ");
+					throw new NotImplementedException();
+				}
+				else{
+					//TODO: Generate success-report;
+					throw new NotImplementedException();
+				}
+			}
+		}
+
+		private static string FormatList<T>(IEnumerable<T> list, string separator){
+			var returnString = String.Empty;
+			foreach (var listItem in list){
+				returnString += listItem + separator;
+			}
+			return returnString.TrimEnd(separator.ToCharArray());
+		}
+
 
 		/// <summary>
 		/// Sends a regular text-email
@@ -197,6 +254,26 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 			var postOfficeheader = GetPostOfficeheader();
 			var invoiceStringContent = SvefakturaSerializer.Serialize(invoice, encoding, "\r\n", Formatting.Indented, postOfficeheader);
 			var invoiceFileName = GenerateInvoiceFileName(invoice);
+			if(ConfigurationSettings.WebService.SaveSvefakturaFileCopy) {
+				TrySaveContentToDisk(invoiceFileName, invoiceStringContent);
+			}
+			return UploadTextFile(invoiceFileName, invoiceStringContent);
+		}
+
+		private string SendSvefakturaInvoices(IEnumerable<Order> orders){
+			var invoices = new SFTIInvoiceList{Invoices = new List<SFTIInvoiceType>()};
+			foreach (var order in orders){
+				var invoice = GenerateSvefakturaInvoice(order);
+				var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
+				if (ruleViolations.Any()){
+					throw new WebserviceException("The invoice could not be validated: " + SvefakturaValidator.FormatRuleViolations(ruleViolations));
+				}
+				invoices.Invoices.Add(invoice);
+			}
+			var encoding = ConfigurationSettings.WebService.FTPCustomEncodingCodePage;
+			var postOfficeheader = GetPostOfficeheader();
+			var invoiceStringContent = SvefakturaSerializer.Serialize(invoices, encoding, "\r\n", Formatting.Indented, postOfficeheader);
+			var invoiceFileName = GenerateInvoiceFileName(invoices);
 			if(ConfigurationSettings.WebService.SaveSvefakturaFileCopy) {
 				TrySaveContentToDisk(invoiceFileName, invoiceStringContent);
 			}
@@ -337,6 +414,11 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 			var date = invoice.IssueDate.Value.ToString(DateFormat);
 			var invoiceNumber = invoice.ID.Value;
 			return String.Format(SvefakturaFileNameFormat, date, invoiceNumber);
+		}
+		private static string GenerateInvoiceFileName(SFTIInvoiceList invoices) {
+			var maxId = invoices.Invoices.Max(x => x.ID.Value);
+			var minId = invoices.Invoices.Min(x => x.ID.Value);
+			return String.Format(SvefakturaListFileNameFormat, minId, maxId, DateTime.Now.ToString(DateFormat));
 		}
 
 		private string UploadTextFile(string fileName, string fileContent) {

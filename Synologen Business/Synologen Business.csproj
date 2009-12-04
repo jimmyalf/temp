@@ -83,6 +83,7 @@
     <Compile Include="Domain\Enumerations\FetchShop.cs" />
     <Compile Include="Domain\Enumerations\FileCategoryGetAction.cs" />
     <Compile Include="Domain\Enumerations\FileCategoryType.cs" />
+    <Compile Include="Domain\Enumerations\InvoicingMethod.cs" />
     <Compile Include="Domain\Enumerations\LogType.cs" />
     <Compile Include="Domain\Enumerations\RoundDecimals.cs" />
     <Compile Include="Domain\Enumerations\ShopMemberConnectionAction.cs" />

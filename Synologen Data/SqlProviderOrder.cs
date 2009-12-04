@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {
@@ -120,6 +119,15 @@ namespace Spinit.Wpc.Synologen.Data {
 			var orderDataSet = GetOrders(orderId, 0, 0, 0, 0, 0, 0, null);
 			var orderDataRow = orderDataSet.Tables[0].Rows[0];
 			return ParseOrderRow(orderDataRow);
+		}
+
+		public IList<Order> GetOrders(IList<int> orderIds){
+			if(orderIds == null || orderIds.Count  <= 0) return new List<Order>();
+			var returnList = new List<Order>();
+			foreach (var orderId in orderIds){
+				returnList.Add(GetOrder(orderId));
+			}
+			return returnList;
 		}
 
 		public int GetNumberOfOrderWithSpecificStatus(int orderStatus) {

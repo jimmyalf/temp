@@ -1,8 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.ServiceLibrary;
 
 namespace Spinit.Wpc.Synologen.Unit.Test.Mock{
 	public class MockWebServiceClient : ISynologenService {
@@ -32,6 +32,8 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Mock{
 		//public void UpdateOrderStatuses(List<IInvoiceStatus> listOfStatusUpdates) {}
 
 		public void SendInvoice(int orderId) {}
+
+		public void SendInvoices(List<int> orderIds) { throw new NotImplementedException(); }
 
 		public void SendEmail(string from, string to, string subject, string message) {}
 

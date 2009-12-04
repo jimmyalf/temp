@@ -33,6 +33,7 @@
   <ItemGroup>
     <Compile Include="CustomEnumerations\ValidationType.cs" />
     <Compile Include="CustomTypes\PropertyValidationRule.cs" />
+    <Compile Include="CustomTypes\SFTIInvoiceList.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\AddressLineType.cs" />
     <Compile Include="Svefakt2\UBL\CommonAggregateComponents\AddressType.cs" />
     <Compile Include="Svefakt2\UBL\Codelist\AllowanceChargeReasonCodeContentType.cs" />

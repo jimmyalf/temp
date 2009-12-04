@@ -3,29 +3,25 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 
 namespace Spinit.Wpc.Synologen.Invoicing{
 	public static class SvefakturaSerializer{
 
-		//public const string DefaultXmlNewLine = "\r\n";
-		//public const Formatting DefaultXmlFormatting = Formatting.Indented;
-		//public static readonly Encoding DefaultXmlEncoding = Encoding.UTF8;
-
-		//public static string Serialize(SFTIInvoiceType invoice){
-		//    return Serialize(invoice, DefaultXmlEncoding, DefaultXmlNewLine, DefaultXmlFormatting, null);
-		//}
-		//public static string Serialize(SFTIInvoiceType invoice, Encoding encoding)  {
-		//    return Serialize(invoice, encoding, DefaultXmlNewLine, DefaultXmlFormatting, null);
-		//}
-		//public static string Serialize(SFTIInvoiceType invoice, Encoding encoding, string newLine){
-		//    return Serialize(invoice, encoding, newLine, DefaultXmlFormatting, null);
-		//}
 		public static string Serialize(SFTIInvoiceType invoice, Encoding encoding, string newLine, Formatting xmlFormatting, string postOfficeHeader){
 			var xmlSerializer = new XmlSerializer(invoice.GetType());
 			var output = new StringWriterWithEncoding(new StringBuilder(), encoding){NewLine = newLine};
 			var xmlTextWriter = new XmlTextWriter( output ) {Formatting = xmlFormatting};
 			xmlSerializer.Serialize(xmlTextWriter, invoice,  GetNamespaces());
+			return InsertPostOfficeHeader(output.ToString(), postOfficeHeader, newLine);
+		}
+
+		public static string Serialize(SFTIInvoiceList invoices, Encoding encoding, string newLine, Formatting xmlFormatting, string postOfficeHeader){
+			var xmlSerializer = new XmlSerializer(invoices.GetType());
+			var output = new StringWriterWithEncoding(new StringBuilder(), encoding){NewLine = newLine};
+			var xmlTextWriter = new XmlTextWriter( output ) {Formatting = xmlFormatting};
+			xmlSerializer.Serialize(xmlTextWriter, invoices,  GetNamespaces());
 			return InsertPostOfficeHeader(output.ToString(), postOfficeHeader, newLine);
 		}
 

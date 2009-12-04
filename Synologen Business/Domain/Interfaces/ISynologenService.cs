@@ -44,11 +44,17 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		void UpdateOrderStatuses(IInvoiceStatus invoiceStatus);
 
 		/// <summary>
-		/// Sends given order as an EDI Invoice
-		/// <exception cref="WebserviceException">Will throw exception if EDI Invoice could not be sent successfully</exception>
+		/// Sends given order as invoice
+		/// <exception cref="WebserviceException">Will throw exception if order could not be invoiced successfully</exception>
 		/// </summary>
 		[OperationContract]
 		void SendInvoice(int orderId);
+
+		/// <summary>
+		/// Sends given orders as invoices
+		/// </summary>
+		[OperationContract(IsOneWay = true)]
+		void SendInvoices(List<int> orderIds);
 
 
 		/// <summary>

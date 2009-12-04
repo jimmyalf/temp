@@ -56,6 +56,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		DataSet GetOrdersByPage(int contractId, int statusId, int settlementId, DateTime intervalStart, DateTime intervalEnd, string searchString, string orderBy, int currentPage, int pageSize, ref int totalSize);
 		DataSet GetOrders(int orderId, int shopId, int contractId, int salesPersonMemberId, int companyId, long invoiceNumberId, int statusId, string orderBy);
 		Order GetOrder(int orderId);
+		IList<Order> GetOrders(IList<int> orderIds);
 		int GetNumberOfOrderWithSpecificStatus(int orderStatus);
 		List<Order> GetOrdersForInvoicing(int statusId, int? invoicingMethodIdFilter,  string orderBy);
 		List<long> GetOrderInvoiceNumbers(int statusId, string orderBy);

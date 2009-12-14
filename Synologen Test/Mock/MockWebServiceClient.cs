@@ -33,7 +33,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Mock{
 
 		public void SendInvoice(int orderId) {}
 
-		public void SendInvoices(List<int> orderIds) { throw new NotImplementedException(); }
+		public void SendInvoices(List<int> orderIds, string email) { throw new NotImplementedException(); }
 
 		public void SendEmail(string from, string to, string subject, string message) {}
 

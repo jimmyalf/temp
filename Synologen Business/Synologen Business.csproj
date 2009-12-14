@@ -106,6 +106,7 @@
     <Compile Include="Domain\Enumerations\ValidationType.cs" />
     <Compile Include="Domain\Interfaces\ISqlProvider.cs" />
     <Compile Include="Domain\Interfaces\ISynologenService.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Domain\Interfaces\ICompany.cs" />
     <Compile Include="Domain\Interfaces\ICompanyValidationRule.cs" />

@@ -8,5 +8,8 @@
     <Setting Name="SPCSCompanyPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">\\moccasin\SPCS_Administration\Företag\Nya Synhälsan Svenska AB</Value>
     </Setting>
+    <Setting Name="ReportEmailAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">carl.berg@spinit.se</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

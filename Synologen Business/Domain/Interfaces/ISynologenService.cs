@@ -53,8 +53,8 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		/// <summary>
 		/// Sends given orders as invoices
 		/// </summary>
-		[OperationContract(IsOneWay = true)]
-		void SendInvoices(List<int> orderIds);
+		[OperationContract]
+		void SendInvoices(List<int> orderIds, string statusReportEmailAddress);
 
 
 		/// <summary>

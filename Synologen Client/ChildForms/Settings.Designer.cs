@@ -36,6 +36,8 @@
 			this.btnSelectCompanyNameFolder = new System.Windows.Forms.Button();
 			this.txtWebserviceAddress = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
+			this.txtReportEmail = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -53,7 +55,7 @@
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCommonFilePath.Location = new System.Drawing.Point(12, 33);
 			this.txtCommonFilePath.Name = "txtCommonFilePath";
-			this.txtCommonFilePath.Size = new System.Drawing.Size(301, 20);
+			this.txtCommonFilePath.Size = new System.Drawing.Size(307, 20);
 			this.txtCommonFilePath.TabIndex = 1;
 			// 
 			// txtCommonCompanyPath
@@ -62,7 +64,7 @@
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCommonCompanyPath.Location = new System.Drawing.Point(12, 76);
 			this.txtCommonCompanyPath.Name = "txtCommonCompanyPath";
-			this.txtCommonCompanyPath.Size = new System.Drawing.Size(301, 20);
+			this.txtCommonCompanyPath.Size = new System.Drawing.Size(307, 20);
 			this.txtCommonCompanyPath.TabIndex = 3;
 			// 
 			// label2
@@ -77,7 +79,7 @@
 			// btnSave
 			// 
 			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSave.Location = new System.Drawing.Point(271, 212);
+			this.btnSave.Location = new System.Drawing.Point(277, 322);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Size = new System.Drawing.Size(75, 23);
 			this.btnSave.TabIndex = 4;
@@ -108,7 +110,7 @@
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnCancel.Location = new System.Drawing.Point(190, 212);
+			this.btnCancel.Location = new System.Drawing.Point(196, 322);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 11;
@@ -119,7 +121,7 @@
 			// btnSelectCommonFilesFolder
 			// 
 			this.btnSelectCommonFilesFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSelectCommonFilesFolder.Location = new System.Drawing.Point(320, 33);
+			this.btnSelectCommonFilesFolder.Location = new System.Drawing.Point(326, 33);
 			this.btnSelectCommonFilesFolder.Name = "btnSelectCommonFilesFolder";
 			this.btnSelectCommonFilesFolder.Size = new System.Drawing.Size(26, 20);
 			this.btnSelectCommonFilesFolder.TabIndex = 12;
@@ -130,7 +132,7 @@
 			// btnSelectCompanyNameFolder
 			// 
 			this.btnSelectCompanyNameFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSelectCompanyNameFolder.Location = new System.Drawing.Point(320, 76);
+			this.btnSelectCompanyNameFolder.Location = new System.Drawing.Point(326, 76);
 			this.btnSelectCompanyNameFolder.Name = "btnSelectCompanyNameFolder";
 			this.btnSelectCompanyNameFolder.Size = new System.Drawing.Size(26, 20);
 			this.btnSelectCompanyNameFolder.TabIndex = 13;
@@ -145,7 +147,7 @@
 			this.txtWebserviceAddress.Enabled = false;
 			this.txtWebserviceAddress.Location = new System.Drawing.Point(12, 186);
 			this.txtWebserviceAddress.Name = "txtWebserviceAddress";
-			this.txtWebserviceAddress.Size = new System.Drawing.Size(301, 20);
+			this.txtWebserviceAddress.Size = new System.Drawing.Size(307, 20);
 			this.txtWebserviceAddress.TabIndex = 15;
 			// 
 			// label3
@@ -157,10 +159,30 @@
 			this.label3.TabIndex = 14;
 			this.label3.Text = "WPC- Webserviceadress";
 			// 
+			// txtReportEmail
+			// 
+			this.txtReportEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtReportEmail.Location = new System.Drawing.Point(15, 296);
+			this.txtReportEmail.Name = "txtReportEmail";
+			this.txtReportEmail.Size = new System.Drawing.Size(307, 20);
+			this.txtReportEmail.TabIndex = 17;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(15, 280);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(127, 13);
+			this.label4.TabIndex = 16;
+			this.label4.Text = "Raporterings-epostadress";
+			// 
 			// Settings
 			// 
 			this.AutoSize = true;
-			this.ClientSize = new System.Drawing.Size(361, 248);
+			this.ClientSize = new System.Drawing.Size(367, 358);
+			this.Controls.Add(this.txtReportEmail);
+			this.Controls.Add(this.label4);
 			this.Controls.Add(this.txtWebserviceAddress);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.btnSelectCompanyNameFolder);
@@ -196,5 +218,7 @@
 		private System.Windows.Forms.Button btnSelectCompanyNameFolder;
 		private System.Windows.Forms.TextBox txtWebserviceAddress;
 		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.TextBox txtReportEmail;
+		private System.Windows.Forms.Label label4;
 	}
 }

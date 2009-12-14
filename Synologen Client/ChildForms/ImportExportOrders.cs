@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
@@ -95,14 +97,27 @@ namespace Synologen.Client.ChildForms {
 			try {
 				spcsHandler.OpenCompany();
 				client.Open();
+				//TimeSpan span;
 				foreach(ListViewItem listItem in orderList.Items) {
 					double invoiceSumIncludingVAT;
 					double invoiceSumExcludingVAT;
-					var SPCSNumber = ImportSingleOrderToSPCS(spcsHandler, listItem, out invoiceSumIncludingVAT, out invoiceSumExcludingVAT);
-					ExportInvoiceNumberToWPC(client, listItem, SPCSNumber, invoiceSumIncludingVAT, invoiceSumExcludingVAT);
+					//var start = DateTime.Now;
+					var order = (Order)listItem.Tag;
+					var SPCSNumber = ImportSingleOrderToSPCS(spcsHandler, order, out invoiceSumIncludingVAT, out invoiceSumExcludingVAT);
+					//span = DateTime.Now.Subtract(start);
+					//Debug.WriteLine(String.Format("SPCS: {0} seconds, {1} milliseconds",span.Seconds,span.Milliseconds));
+					//start = DateTime.Now;
+					ExportInvoiceNumberToWPC(client, order, SPCSNumber, invoiceSumIncludingVAT, invoiceSumExcludingVAT);
+					//span = DateTime.Now.Subtract(start);
+					//Debug.WriteLine(String.Format("WPC: {0} seconds, {1} milliseconds",span.Seconds,span.Milliseconds));
+					listItem.SubItems[spcsInvoiceNumberColumn].Text = SPCSNumber.ToString();
+					listItem.SubItems[invoicedStatusColumn].Text = "Ja";
+					orderList.Refresh();
+					//Refresh();
 				}
-				InvoiceOrders(client, orderList.Items);
-				SetFormStatus(Enumeration.ConnectionStatus.Connected, "Fakturaimport klar");
+				client.Close();
+				InvoiceOrders(orderList.Items);
+				//InvoiceOrders(client, orderList.Items);
 				btnFetchOrders.Enabled = false;
 			}
 			catch(Exception ex) {
@@ -111,7 +126,6 @@ namespace Synologen.Client.ChildForms {
 				ClientUtility.DisplayErrorMessage(ex);
 			}
 			finally {
-				client.Close();
 				spcsHandler.CloseCompany();
 				btnCopyToClipBoard.Enabled = true;
 			}
@@ -125,27 +139,45 @@ namespace Synologen.Client.ChildForms {
 		//    Refresh();
 		//}
 
-		private int ImportSingleOrderToSPCS(AdkHandler spcsHandler, ListViewItem listItem, out double invoiceSumIncludingVAT, out double invoiceSumExcludingVAT) {
+		private static int ImportSingleOrderToSPCS(AdkHandler spcsHandler, ListViewItem listItem, out double invoiceSumIncludingVAT, out double invoiceSumExcludingVAT) {
 		    var order = (IOrder)listItem.Tag;
 		    var SPCSNumber = ClientUtility.ImportOrderToSPCS(spcsHandler, order, out invoiceSumIncludingVAT, out invoiceSumExcludingVAT);
-		    listItem.SubItems[spcsInvoiceNumberColumn].Text = SPCSNumber.ToString();
-		    Refresh();
+		    return SPCSNumber;
+		}
+		private static int ImportSingleOrderToSPCS(AdkHandler spcsHandler, IOrder order, out double invoiceSumIncludingVAT, out double invoiceSumExcludingVAT) {
+		    var SPCSNumber = ClientUtility.ImportOrderToSPCS(spcsHandler, order, out invoiceSumIncludingVAT, out invoiceSumExcludingVAT);
 		    return SPCSNumber;
 		}
 
-		private void ExportInvoiceNumberToWPC(ClientContract client, ListViewItem listItem, int SPCSNumber, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {
+		private static void ExportInvoiceNumberToWPC(ClientContract client, ListViewItem listItem, int SPCSNumber, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {
 			var order = (IOrder)listItem.Tag;
 			ClientUtility.SetSPCSOrderInvoiceNumber(client, order.Id, SPCSNumber, invoiceSumIncludingVAT, invoiceSumExcludingVAT);
-			listItem.SubItems[invoicedStatusColumn].Text = "Ja";
-			Refresh();
+		}
+		private void ExportInvoiceNumberToWPC(ClientContract client, Order order, int SPCSNumber, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {
+			//var order = (IOrder)listItem.Tag;
+			ClientUtility.SetSPCSOrderInvoiceNumber(client, order.Id, SPCSNumber, invoiceSumIncludingVAT, invoiceSumExcludingVAT);
 		}
 
-		private static void InvoiceOrders(ClientContract client, ListView.ListViewItemCollection listItems){
-			var orderItems = new List<Order>();
-			foreach (ListViewItem listItem in listItems){
-				orderItems.Add((Order) listItem.Tag);
-			}
+		private static void InvoiceOrders(ListView.ListViewItemCollection listItems){
+		    var orderItems = new List<Order>();
+		    foreach (ListViewItem listItem in listItems){
+		        orderItems.Add((Order) listItem.Tag);
+		    }
+			ThreadPool.QueueUserWorkItem(InvoiceOrdersThread, orderItems);
+		}
+		private static void InvoiceOrdersThread(object itemsInList){
+			var orderItems = itemsInList as List<Order>;
+			if (orderItems == null) return;
+			MessageBox.Show("Fakturering kan nu påbörjas. Tryck OK för att påbörja faktureringen.");
+			var client = ClientUtility.GetWebClient();
+			//var orderItems = new List<Order>();
+			//foreach (Order listItem in listItems){
+			//    orderItems.Add((Order) listItem.Tag);
+			//}
 			ClientUtility.SendInvoices(client, orderItems.Select(x => x.Id).ToList());
+			client.Close();
+			//SetFormStatus(Enumeration.ConnectionStatus.Connected, "Fakturaimport klar");
+			MessageBox.Show("Fakturering är klar. Ett statusmeddelande skickas till angiven epostadress.");
 		}
 
 		private void FetchNewOrders() {

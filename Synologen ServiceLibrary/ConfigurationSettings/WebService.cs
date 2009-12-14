@@ -47,8 +47,11 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
 			get { return GetSafeValue("AdminEmail", String.Empty); }
 		}
 
-		public static string EmailSender {
+		public static string ErrorEmailSenderAddress {
 			get { return GetSafeValue("SenderEmail", String.Empty); }
+		}
+		public static string StatusEmailSenderAddress {
+			get { return GetSafeValue("StatusEmailSenderAddress", String.Empty); }
 		}
 
 		public static string SMTPServer {

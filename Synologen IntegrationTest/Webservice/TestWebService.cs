@@ -11,7 +11,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.Webservice{
 		[TestFixtureSetUp]
 		//TODO: Make into integrationtest
 		public void Setup() {
-			client = new ClientContract( );
+			client =  new ClientContract();
 			client.ClientCredentials.UserName.UserName = ServiceLibrary.ConfigurationSettings.Common.ClientCredentialUserName;
 			client.ClientCredentials.UserName.Password = ServiceLibrary.ConfigurationSettings.Common.ClientCredentialPassword;
 			client.Open();

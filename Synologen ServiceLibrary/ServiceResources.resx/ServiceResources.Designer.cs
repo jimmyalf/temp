@@ -61,6 +61,43 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ServiceResources.resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fakturor som skickades {Sent-Invoices}
+        ///Fakturor som inte kunde skickadas {Not-Sent-Invoices}.
+        /// </summary>
+        internal static string BatchInvoiceFailureEmailBody {
+            get {
+                return ResourceManager.GetString("BatchInvoiceFailureEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synologen Faktureringskörning {Date-Time} misslyckades.
+        /// </summary>
+        internal static string BatchInvoiceFailureEmailSubject {
+            get {
+                return ResourceManager.GetString("BatchInvoiceFailureEmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fakturor som skickades {Sent-Invoices}.
+        /// </summary>
+        internal static string BatchInvoiceSuccessEmailBody {
+            get {
+                return ResourceManager.GetString("BatchInvoiceSuccessEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synologen Faktureringskörning {Date-Time} lyckades.
+        /// </summary>
+        internal static string BatchInvoiceSuccessEmailSubject {
+            get {
+                return ResourceManager.GetString("BatchInvoiceSuccessEmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ett fel har uppstått i Synologen Webservice.
         /// </summary>
         internal static string ErrorEmailSubject {

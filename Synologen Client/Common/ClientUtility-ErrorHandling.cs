@@ -1,7 +1,6 @@
 using System;
 using System.Windows.Forms;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
-using Spinit.Wpc.Synologen.ServiceLibrary;
 
 namespace Synologen.Client.Common {
 	public static partial class ClientUtility {
@@ -11,7 +10,7 @@ namespace Synologen.Client.Common {
 		/// (Will not throw exception if Webservice contact fails)
 		/// </summary>
 		public static void TryLogError(string message) {
-			var client = new ClientContract();
+			var client = GetWebClient();
 			try {
 				client.Open();
 				client.LogMessage(LogType.Error, message);
@@ -26,7 +25,7 @@ namespace Synologen.Client.Common {
 		/// (Will not throw exception if Webservice contact fails)
 		/// </summary>
 		public static void TryLogError(string message, Exception ex) {
-			var client = new ClientContract();
+			var client = GetWebClient();
 			try {
 				client.Open();
 				client.LogMessage(LogType.Error, message + ": " + ex.Message);
@@ -41,7 +40,7 @@ namespace Synologen.Client.Common {
 		/// (Will not throw exception if Webservice contact fails)
 		/// </summary>
 		public static void TryLogInformation(string message) {
-			var client = new ClientContract();
+			var client = GetWebClient();
 			try {
 				client.Open();
 				client.LogMessage(LogType.Information, message);

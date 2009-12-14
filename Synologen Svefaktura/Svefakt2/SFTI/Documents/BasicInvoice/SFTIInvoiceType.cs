@@ -278,8 +278,8 @@ namespace Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice {
     
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElement("RequisitionistDocumentReference")]
-		[PropertyValidationRule("SFTIInvoiceType.RequisitionistDocumentReference is missing.", ValidationType.RequiredNotNull)]
-		[PropertyValidationRule("SFTIInvoiceType.RequisitionistDocumentReference must contain one or two elements.", ValidationType.CollectionHasMinumumAndMaximumCountRequirement, 1, 2)]
+		//[PropertyValidationRule("SFTIInvoiceType.RequisitionistDocumentReference is missing.", ValidationType.RequiredNotNull)]
+		//[PropertyValidationRule("SFTIInvoiceType.RequisitionistDocumentReference must contain one or two elements.", ValidationType.CollectionHasMinumumAndMaximumCountRequirement, 1, 2)]
 		public List<SFTIDocumentReferenceType> RequisitionistDocumentReference {
 			get {
 				return requisitionistDocumentReferenceField;

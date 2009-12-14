@@ -70,6 +70,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ClientContract.cs" />
     <Compile Include="SynologenService.cs" />
+    <Compile Include="SynologenServiceHelper.cs" />
     <Compile Include="UserValidation.cs" />
   </ItemGroup>
   <ItemGroup>

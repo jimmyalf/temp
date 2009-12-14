@@ -8,6 +8,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.ServiceLibrary {
 	public class ClientContract :  ClientBase<ISynologenService>, ISynologenService{
+		readonly TimeSpan DefaultOperationTimeout =  new TimeSpan(0, 0, 10, 0);
 
 		/// <summary>
 		/// Default Constructor attempts to use config-definded service endpoint.
@@ -20,7 +21,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary {
 		/// <summary>
 		/// Constructor manually sets service endpoint
 		/// </summary>
-		public ClientContract(string endpointName) : base(endpointName) { }
+		public ClientContract(string endpointName) : base(endpointName){}
 
 		/// <summary>
 		/// Constructor attempts to use config-definded service endpoint, but manually sets client credentials
@@ -38,6 +39,11 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary {
 			ClientCredentials.UserName.Password = password;
 		}
 
+		private void TrySetOperationTimeout(IContextChannel channel){
+			if (channel.State == CommunicationState.Opened) {
+                channel.OperationTimeout = DefaultOperationTimeout;
+            }
+		}
 
 		#region Implementation of ISynologenService
 
@@ -106,8 +112,9 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary {
 		/// <summary>
 		/// Sends given orders as invoices
 		/// </summary>
-		public void SendInvoices(List<int> orderIds){
-			Channel.SendInvoices(orderIds);
+		public void SendInvoices(List<int> orderIds, string statusReportEmailAddress){
+			TrySetOperationTimeout(Channel as IContextChannel);
+			Channel.SendInvoices(orderIds, statusReportEmailAddress);
 		}
 
 		/// <summary>

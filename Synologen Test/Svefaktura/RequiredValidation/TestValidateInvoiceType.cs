@@ -139,28 +139,28 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.RequiredValidation{
 			var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
 			Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIInvoiceType.LineItemCountNumeric")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
 		}
-		[Test]
-		public void Test_Invoice_Missing_RequisitionistDocumentReference_Fails_Validation() {
-			var invoice = new SFTIInvoiceType {RequisitionistDocumentReference = null};
-			var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
-			Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIInvoiceType.RequisitionistDocumentReference")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
-		}
-		[Test]
-		public void Test_Invoice_With_Empty_RequisitionistDocumentReference_Fails_Validation() {
-			var invoice = new SFTIInvoiceType {RequisitionistDocumentReference = new List<SFTIDocumentReferenceType>()};
-			var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
-			Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIInvoiceType.RequisitionistDocumentReference")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
-		}
-		[Test]
-		public void Test_Invoice_With_RequisitionistDocumentReference_With_Incorrect_Number_Of_Items_Fails_Validation() {
-			var invoice = new SFTIInvoiceType {
-			                                  	RequisitionistDocumentReference = new List<SFTIDocumentReferenceType> {
-			                                  	                                                                      	new SFTIDocumentReferenceType(), new SFTIDocumentReferenceType(), new SFTIDocumentReferenceType()
-			                                  	                                                                      }
-			                                  };
-			var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
-			Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIInvoiceType.RequisitionistDocumentReference")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
-		}
+		//[Test]
+		//public void Test_Invoice_Missing_RequisitionistDocumentReference_Fails_Validation() {
+		//    var invoice = new SFTIInvoiceType {RequisitionistDocumentReference = null};
+		//    var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
+		//    Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIInvoiceType.RequisitionistDocumentReference")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
+		//}
+		//[Test]
+		//public void Test_Invoice_With_Empty_RequisitionistDocumentReference_Fails_Validation() {
+		//    var invoice = new SFTIInvoiceType {RequisitionistDocumentReference = new List<SFTIDocumentReferenceType>()};
+		//    var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
+		//    Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIInvoiceType.RequisitionistDocumentReference")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
+		//}
+		//[Test]
+		//public void Test_Invoice_With_RequisitionistDocumentReference_With_Incorrect_Number_Of_Items_Fails_Validation() {
+		//    var invoice = new SFTIInvoiceType {
+		//                                        RequisitionistDocumentReference = new List<SFTIDocumentReferenceType> {
+		//                                                                                                                new SFTIDocumentReferenceType(), new SFTIDocumentReferenceType(), new SFTIDocumentReferenceType()
+		//                                                                                                              }
+		//                                      };
+		//    var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
+		//    Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIInvoiceType.RequisitionistDocumentReference")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
+		//}
 		[Test]
 		public void Test_Invoice_Missing_SellerParty_Fails_Validation() {
 			var invoice = new SFTIInvoiceType {SellerParty = null};

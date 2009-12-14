@@ -12,7 +12,7 @@ namespace Synologen.Client.Common {
 		/// <exception cref="Exception">Will throw exception if fetching orders fail</exception>
 		/// </summary>
 		public static IList<Order> GetOrderListFromWebService() {
-			var client = new ClientContract();
+			var client = GetWebClient();
 			try {
 				client.Open();
 				var list = client.GetOrdersForInvoicing();
@@ -29,7 +29,7 @@ namespace Synologen.Client.Common {
 		/// <exception cref="Exception">Will throw exception if fetching order id's fail</exception>
 		/// </summary>
 		public static IList<long> GetOrderIdListForUpdateCheckFromWebService() {
-			var client = new ClientContract();
+			var client = GetWebClient();
 			try {
 				client.Open();
 				var list = client.GetOrdersToCheckForUpdates();
@@ -76,12 +76,13 @@ namespace Synologen.Client.Common {
 			return new ClientContract();
 		}
 
+
 		/// <summary>
 		/// Checks connection to the Webservice using given parameters in configuration
 		/// </summary>
 		public static bool CheckWPCConnection() {
 			try {
-				var client = new ClientContract();
+				var client = GetWebClient();
 				client.Open();
 				client.Close();
 				return true;
@@ -90,8 +91,9 @@ namespace Synologen.Client.Common {
 
 		}
 
-		public static void SendInvoices(ClientContract client, List<int> invoices) { 
-			client.SendInvoices(invoices);
+		public static void SendInvoices(ClientContract client, List<int> invoices) {
+			var email = Properties.Settings.Default.ReportEmailAddress;
+			client.SendInvoices(invoices, email);
 		}
 	}
 }

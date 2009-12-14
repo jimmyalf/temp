@@ -117,6 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BatchInvoiceFailureEmailBody" xml:space="preserve">
+    <value>Fakturor som skickades {Sent-Invoices}
+Fakturor som inte kunde skickadas {Not-Sent-Invoices}</value>
+  </data>
+  <data name="BatchInvoiceFailureEmailSubject" xml:space="preserve">
+    <value>Synologen Faktureringskörning {Date-Time} misslyckades</value>
+  </data>
+  <data name="BatchInvoiceSuccessEmailBody" xml:space="preserve">
+    <value>Fakturor som skickades {Sent-Invoices}</value>
+  </data>
+  <data name="BatchInvoiceSuccessEmailSubject" xml:space="preserve">
+    <value>Synologen Faktureringskörning {Date-Time} lyckades</value>
+  </data>
   <data name="ErrorEmailSubject" xml:space="preserve">
     <value>Ett fel har uppstått i Synologen Webservice</value>
   </data>

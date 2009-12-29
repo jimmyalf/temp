@@ -9,13 +9,14 @@
 	
 	<!-- Source folders -->
 	<property name="srcAdmin" 		value="${developDir}\${compName} Admin"/>
-	<property name="srcPub" 		value="${developDir}\${compName} Site"/>
+	
 	
 	<!-- Deployment folders -->
 	<property name="deployAdmin" 	value="${deployRoot}\WpcAdmin" overwrite="false"/>
 
 	<!-- Publish www.synologen.nu -->	
 	<target name="Public-Nu" >
+		<property name="srcPub" value="${developDir}\${compName} Site" overwrite="true"/>
 		<property name="deployPublic" 	value="${deployRoot}\www.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
@@ -23,9 +24,9 @@
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
 	</target>  
 	
-	<property name="srcPub" value="${developDir}\${compName} Site" overwrite="true"/>
 	<!-- Publish lev.synologen.nu -->
 	<target name="Public-Lev" depends="Public-Nu">
+		<property name="srcPub" value="${developDir}\${compName} Site" overwrite="true"/>
 		<property name="deployPublic" 	value="${deployRoot}\lev.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
@@ -33,24 +34,28 @@
 
 	<!-- Publish partner.synologen.nu -->
 	<target name="Public-Partner" depends="Public-Lev">
+		<property name="srcPub" value="${developDir}\${compName} Site" overwrite="true"/>
 		<property name="deployPublic" 	value="${deployRoot}\partner.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
 	</target>  
 	<!-- Publish www.ogonapoteket.se -->
 	<target name="Public-OgonApotek" depends="Public-Partner">
+		<property name="srcPub" value="${developDir}\${compName} Site" overwrite="true"/>
 		<property name="deployPublic" 	value="${deployRoot}\www.ogonapoteket.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
 	</target>  
 	<!-- Publish www.synhalsan.se -->
 	<target name="Public-Synhalsan" depends="Public-OgonApotek">
+		<property name="srcPub" value="${developDir}\${compName} Site" overwrite="true"/>
 		<property name="deployPublic" 	value="${deployRoot}\www.synhalsan.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>
 	</target>  
 	<!-- Publish www.synologen.se -->
 	<target name="Public-Se" depends="Public-Synhalsan">
+		<property name="srcPub" value="${developDir}\${compName} Site" overwrite="true"/>
 		<property name="deployPublic" 	value="${deployRoot}\www.synologen.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Clean.Publish.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\Wpc.Component-Public.Publish.build"/>

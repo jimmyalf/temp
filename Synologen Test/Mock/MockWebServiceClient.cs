@@ -27,7 +27,9 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Mock{
 			return list;
 		}
 
-		public void UpdateOrderStatuses(IInvoiceStatus invoiceStatus) {}
+		public void UpdateOrderStatuses(long invoiceNumber, bool invoiceIsCanceled, bool invoiceIsPayed) {  }
+
+		//public void UpdateOrderStatuses(PaymentInfo invoiceStatus) {}
 
 		//public void UpdateOrderStatuses(List<IInvoiceStatus> listOfStatusUpdates) {}
 

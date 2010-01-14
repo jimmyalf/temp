@@ -25,10 +25,8 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		[DataMember] public object Other { get; set; }
 		[DataMember] public bool InvoiceIsPayed {
 			get {
-				if(InvoiceCanceled)
-					return false;
-				if(InvoicePaymentCanceled)
-					return false;
+				if (InvoiceCanceled) return false;
+				if (InvoicePaymentCanceled) return false;
 				return (InvoicePaymentDate > DateTime.MinValue);
 			}
 		}

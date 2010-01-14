@@ -94,12 +94,16 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary {
 		}
 
 		/// <summary>
-		/// Updates WPC order status with information in given status object (<see cref="IInvoiceStatus"/>)
+		/// Updates WPC order status with information in given status
 		/// <exception cref="WebserviceException">Will throw exception operation fails</exception>
 		/// </summary>
-		public void UpdateOrderStatuses(IInvoiceStatus invoiceStatus) {
-			Channel.UpdateOrderStatuses(invoiceStatus);
+		public void UpdateOrderStatuses(long invoiceNumber, bool invoiceIsCanceled, bool invoiceIsPayed) {
+			Channel.UpdateOrderStatuses(invoiceNumber, invoiceIsCanceled, invoiceIsPayed);
 		}
+
+		//public void UpdateOrderStatuses(PaymentInfo invoiceStatus) {
+		//    Channel.UpdateOrderStatuses(invoiceStatus);
+		//}
 
 		/// <summary>
 		/// Sends given order as invoice

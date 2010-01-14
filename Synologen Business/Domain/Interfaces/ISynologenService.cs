@@ -38,10 +38,12 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		List<long> GetOrdersToCheckForUpdates();
 
 		/// <summary>
-		/// Updates WPC order-status with information in given status object (<see cref="IInvoiceStatus"/>)
+		/// Updates WPC order-status with information in given status object
 		/// </summary>
 		[OperationContract]
-		void UpdateOrderStatuses(IInvoiceStatus invoiceStatus);
+		void UpdateOrderStatuses(long invoiceNumber, bool invoiceIsCanceled, bool invoiceIsPayed);
+		//void UpdateOrderStatuses(PaymentInfo invoiceStatus);
+		
 
 		/// <summary>
 		/// Sends given order as invoice

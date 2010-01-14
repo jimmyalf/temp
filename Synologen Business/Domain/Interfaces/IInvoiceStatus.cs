@@ -9,7 +9,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		[DataMember] DateTime InvoicePaymentDate { get; set; }
 		[DataMember] string Status { get; set; }
 		[DataMember] object Other { get; set; }
-		[DataMember] bool InvoiceIsPayed { get;}
+		[DataMember] bool InvoiceIsPayed { get; }
 
 	}
 }

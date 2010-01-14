@@ -95,19 +95,37 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 
 		}
 
-		public void UpdateOrderStatuses(IInvoiceStatus invoiceStatus) {
-			if (invoiceStatus.InvoiceCanceled || invoiceStatus.InvoicePaymentCanceled) {
+		//public void UpdateOrderStatuses(PaymentInfo invoiceStatus) {
+		//    if (invoiceStatus.InvoiceCanceled || invoiceStatus.InvoicePaymentCanceled) {
+		//        var newStatusId = ConfigurationSettings.WebService.InvoiceCancelledStatusId;
+		//        provider.UpdateOrderStatus(newStatusId, 0, 0, 0, 0, 0, invoiceStatus.InvoiceNumber);
+		//        var orderHistoryMessage = GetVismaOrderStatusUpdateHistoryMessage(invoiceStatus.InvoiceNumber);
+		//        provider.AddOrderHistory(invoiceStatus.InvoiceNumber, orderHistoryMessage);
+		//        return;
+		//    }
+		//    if (invoiceStatus.InvoiceIsPayed) {
+		//        var newStatusId = ConfigurationSettings.WebService.InvoicePayedToSynologenStatusId;
+		//        provider.UpdateOrderStatus(newStatusId, 0, 0, 0, 0, 0, invoiceStatus.InvoiceNumber);
+		//        var orderHistoryMessage = GetVismaOrderStatusUpdateHistoryMessage(invoiceStatus.InvoiceNumber);
+		//        provider.AddOrderHistory(invoiceStatus.InvoiceNumber, orderHistoryMessage);
+		//        return;
+		//    }
+
+		//}
+
+		public void UpdateOrderStatuses(long invoiceNumber, bool invoiceIsCanceled, bool invoiceIsPayed) {
+			if (invoiceIsCanceled) {
 				var newStatusId = ConfigurationSettings.WebService.InvoiceCancelledStatusId;
-				provider.UpdateOrderStatus(newStatusId, 0, 0, 0, 0, 0, invoiceStatus.InvoiceNumber);
-				var orderHistoryMessage = GetVismaOrderStatusUpdateHistoryMessage(invoiceStatus.InvoiceNumber);
-				provider.AddOrderHistory(invoiceStatus.InvoiceNumber, orderHistoryMessage);
+				provider.UpdateOrderStatus(newStatusId, 0, 0, 0, 0, 0, invoiceNumber);
+				var orderHistoryMessage = GetVismaOrderStatusUpdateHistoryMessage(invoiceNumber);
+				provider.AddOrderHistory(invoiceNumber, orderHistoryMessage);
 				return;
 			}
-			if (invoiceStatus.InvoiceIsPayed) {
+			if (invoiceIsPayed) {
 				var newStatusId = ConfigurationSettings.WebService.InvoicePayedToSynologenStatusId;
-				provider.UpdateOrderStatus(newStatusId, 0, 0, 0, 0, 0, invoiceStatus.InvoiceNumber);
-				var orderHistoryMessage = GetVismaOrderStatusUpdateHistoryMessage(invoiceStatus.InvoiceNumber);
-				provider.AddOrderHistory(invoiceStatus.InvoiceNumber, orderHistoryMessage);
+				provider.UpdateOrderStatus(newStatusId, 0, 0, 0, 0, 0, invoiceNumber);
+				var orderHistoryMessage = GetVismaOrderStatusUpdateHistoryMessage(invoiceNumber);
+				provider.AddOrderHistory(invoiceNumber, orderHistoryMessage);
 				return;
 			}
 

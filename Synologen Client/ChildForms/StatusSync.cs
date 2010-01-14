@@ -61,8 +61,8 @@ namespace Synologen.Client.ChildForms {
 			try {
 				client.Open();
 				SetFormStatus(Enumeration.ConnectionStatus.Connecting, "Skickar statusuppdateringar till WPC...");
-				foreach (var paymentInfo in invoicePaymentInfoList) {
-					ClientUtility.SetSPCSOrderInformation(client,paymentInfo);	
+				foreach (PaymentInfo paymentInfo in invoicePaymentInfoList) {
+					ClientUtility.SetSPCSOrderInformation(client, paymentInfo);
 				}
 				SetFormStatus(Enumeration.ConnectionStatus.Connected, "Uppdatering klar!");
 				btnCopyToClipBoard.Enabled = false;

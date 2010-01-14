@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.ServiceLibrary;
 
 namespace Synologen.Client.Common {
@@ -52,10 +51,8 @@ namespace Synologen.Client.Common {
 		/// Writes back invoice information from SPCS to WPC through the Webservice
 		/// <exception cref="Exception">Will throw exception if setting SPCS invoice information fail</exception> 
 		/// </summary>
-		public static void SetSPCSOrderInformation(ClientContract client, IInvoiceStatus paymentInfo) {
-			//var invoiceStatus = new InvoiceStatusData(paymentInfo);
-			//client.UpdateOrderStatuses(invoiceStatus); 
-			client.UpdateOrderStatuses(paymentInfo); 
+		public static void SetSPCSOrderInformation(ClientContract client, PaymentInfo paymentInfo) {
+			client.UpdateOrderStatuses(paymentInfo.InvoiceNumber, paymentInfo.InvoiceCanceled, paymentInfo.InvoiceIsPayed); 
 		}
 
 					

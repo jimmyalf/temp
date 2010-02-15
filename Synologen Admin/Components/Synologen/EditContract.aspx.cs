@@ -1,7 +1,6 @@
 using System;
 using System.Web.UI;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Utility.Business.SmartMenu;

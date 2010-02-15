@@ -28,7 +28,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		Shop GetShop(int shopId);
 		Shop ParseShopRow(DataRow shopDataRow);
 		DataSet GetShops(int? shopId, int? shopCategoryId, int? contractCustomer, int? memberId, int? equipmentId, bool? includeInactive, int? concernId, string orderBy);
-		IEnumerable<IShop> GetShopRows(int? shopId, int? shopCategoryId, int? contractCustomer,int? memberId, int? equipmentId, bool? includeInactive, int? concernId, string orderBy);
+		IEnumerable<IShop> GetShopRows(int? shopId, int? shopCategoryId, int? contractCustomer, int? memberId, int? equipmentId, bool? includeInactive, int? concernId, string orderBy);
 		List<int> GetAllShopIdsPerCategory(int categoryId);
 		List<int> GetAllShopIdsPerMember(int memberId);
 		bool ShopHasConnectedOrders(int shopId);
@@ -58,7 +58,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		Order GetOrder(int orderId);
 		IList<Order> GetOrders(IList<int> orderIds);
 		int GetNumberOfOrderWithSpecificStatus(int orderStatus);
-		List<Order> GetOrdersForInvoicing(int statusId, int? invoicingMethodIdFilter,  string orderBy);
+		List<Order> GetOrdersForInvoicing(int statusId, int? invoicingMethodIdFilter, string orderBy);
 		List<long> GetOrderInvoiceNumbers(int statusId, string orderBy);
 		void ChangeOrderStatus(int orderId, int newStatusId);
 		bool AddUpdateDeleteOrder(Wpc.Utility.Business.Enumerations.Action action, ref Order order);
@@ -67,7 +67,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		int AddLog(LogType action, string message);
 		DataSet SynologenGetFileCategories(FileCategoryGetAction type, int categoryId);
 		Country GetCountryRow(int countryId);
-		IList<Country> GetCountryRows(Func<Country,string> orderBy);
+		IList<Country> GetCountryRows(Func<Country, string> orderBy);
 		bool AddUpdateDeleteContractArticleConnection(Wpc.Utility.Business.Enumerations.Action action, ref ContractArticleConnection connection);
 		ContractArticleConnection GetContractCustomerArticleRow(int connectionId);
 		DataSet GetContractArticleConnections(int? connectionId, int? contractId, string orderBy);
@@ -86,9 +86,9 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		int ConnectCompanyToValidationRule(int companyId, int validationRuleId);
 		int DisconnectCompanyFromValidationRule(int companyId, int validationRuleId);
 		Article GetArticle(int articleId);
-		DataSet GetArticles(int articleId,int contractId, string orderBy);
+		DataSet GetArticles(int articleId, int contractId, string orderBy);
 		DataSet GetAllArticles(string orderBy);
-		DataSet GetContractArticles(int contractCustomerId,string orderBy);
+		DataSet GetContractArticles(int contractCustomerId, string orderBy);
 		bool AddUpdateDeleteArticle(Wpc.Utility.Business.Enumerations.Action action, ref Article article);
 		bool ArticleHasConnectedContracts(int articleId);
 		bool ArticleHasConnectedOrders(int articleId);
@@ -99,7 +99,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		DataSet GetSynologenMembers(int memberId, int shopId, int categoryId, string orderBy);
 		bool CategoryHasConnectedMembers(int categoryId);
 		bool MemberHasConnectedOrders(int memberId);
-		void UpdateMemberUserDetails(int memberId,string newPassword,string email, bool active, string updatingUser);
+		void UpdateMemberUserDetails(int memberId, string newPassword, string email, bool active, string updatingUser);
 		DataSet GetInvoicingMethods(int? invoicingMethodId, string orderBy);
 		DataSet getMembersForLocation(int type, int locationId, int languageId);
 		DataSet getPublicMembersForLocation(int type, int locationId, int languageId);
@@ -130,5 +130,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		bool DisconnectNewsItem(int memberId, int newsId);
 		bool ConnectNewsItem(int memberId, int newsId);
 		DataSet GetPublicNews(int newsId, int locationId, int languageId, int categoryId, int memberId);
+		bool DisconnectContractFromAllShops(int contractId);
+		bool ContractHasShops(int contractCustomerId);
 	}
 }

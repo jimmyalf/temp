@@ -270,6 +270,7 @@ namespace Spinit.Wpc.Synologen.Data {
 			return UpdateShopContractConnection(action, shopId, 0);
 		}
 
+
 		public bool ConnectShopToContract(int shopId, int contractCustomerId) {
 			const ConnectionAction action = ConnectionAction.Connect;
 			return UpdateShopContractConnection(action, shopId, contractCustomerId);

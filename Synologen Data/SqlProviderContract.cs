@@ -86,6 +86,11 @@ namespace Spinit.Wpc.Synologen.Data {
 			return DataSetHasRows(contractDataSet);
 		}
 
+		public bool ContractHasShops(int contractCustomerId) {
+			var shopsDataSet = GetShops(null, null, contractCustomerId, null, null, null, null, null);
+			return DataSetHasRows(shopsDataSet);
+		}
+
 		public bool AddUpdateDeleteContract(Enumerations.Action action, ref Contract contract) {
 		    try {
 		        int numAffected;
@@ -141,6 +146,11 @@ namespace Spinit.Wpc.Synologen.Data {
 		    catch (SqlException e){
 		        throw new GeneralData.DatabaseInterface.DataException("SqlException while adding/updating/deleting contract.", e);
 		    }
+		}
+
+		public bool DisconnectContractFromAllShops(int contractId) {
+			const ConnectionAction action = ConnectionAction.Delete;
+			return UpdateShopContractConnection(action, 0, contractId);
 		}
 
 

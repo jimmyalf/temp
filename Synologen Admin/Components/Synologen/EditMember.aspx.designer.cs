@@ -17,7 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
         protected System.Web.UI.WebControls.Label lblCategories;
         protected System.Web.UI.WebControls.DropDownList drpMemberCategories;
         protected System.Web.UI.WebControls.DropDownList drpShops;
-		protected System.Web.UI.WebControls.DropDownList drpLocations;
+		protected System.Web.UI.WebControls.CheckBoxList chkLocations;
         protected System.Web.UI.HtmlControls.HtmlGenericControl dAcountDetails;
         protected System.Web.UI.WebControls.Label lblUserName;
         protected System.Web.UI.WebControls.RequiredFieldValidator rfvUserName;
@@ -75,7 +75,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
         protected System.Web.UI.WebControls.Label lblBody;
         protected Spinit.Wpc.Wysiwyg.WpcWysiwyg txtBody;
         protected System.Web.UI.WebControls.Label lblLocations;
-        protected System.Web.UI.WebControls.CheckBoxList chklLocations;
+        //protected System.Web.UI.WebControls.CheckBoxList chklLocations;
         protected System.Web.UI.WebControls.Button btnSaveAndPublish;
         protected System.Web.UI.WebControls.Button btnSaveForLater;
         protected System.Web.UI.WebControls.Button btnSaveForApproval;

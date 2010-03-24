@@ -20,9 +20,9 @@
                         <asp:DropDownList id="drpShops" runat="server" DataValueField="cId" DataTextField="cDetailName" Enabled="false" />
 					</div>
 					<div class="formItem clearLeft">
-                        <label class="labelLong">Website tillhörighet *</label>					
-						<asp:DropDownList ID="drpLocations" DataValueField="Id" DataTextField="Name" runat="server"/>
-						<asp:RequiredFieldValidator id="reqLocation" InitialValue="0" runat="server" errormessage="Location saknas" controltovalidate="drpLocations" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
+                        <label class="labelLong">Website tillhörigheter *</label>					
+						<asp:CheckBoxList ID="chkLocations" DataValueField="Id" DataTextField="Name" runat="server" RepeatLayout="Flow"/>
+						<%--<asp:RequiredFieldValidator id="reqLocation" InitialValue="0" runat="server" errormessage="Location saknas" controltovalidate="drpLocations" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>--%>
 					</div>						
 					<div class="formItem infoItem" style="display:none;visibility:hidden;">
 						<span>*</span><p>Kopplingen används ej för Leverantörer.</p>
@@ -161,8 +161,8 @@
 					<legend>Location connection</legend>
 					
 					<div class="formItem clearLeft" id="dLocations">
-                            <asp:Label ID="lblLocations" runat="server" AssociatedControlID="drpLocations" SkinId="Long"></asp:Label>                            
-                            <asp:CheckBoxList ID="chklLocations" DataValueField="Id" DataTextField="Name" runat="server" RepeatColumns="5" RepeatLayout="Table"/>
+                            <%--<asp:Label ID="lblLocations" runat="server" AssociatedControlID="drpLocations" SkinId="Long"></asp:Label>
+                            <asp:CheckBoxList ID="chklLocations" DataValueField="Id" DataTextField="Name" runat="server" RepeatColumns="5" RepeatLayout="Table"/>--%>
 					</div>
 				</fieldset>					
 				<fieldset>

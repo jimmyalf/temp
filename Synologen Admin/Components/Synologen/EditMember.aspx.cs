@@ -64,7 +64,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			ltPublicHeader.Text = "Publika Detaljer";
 			lblOrgName.Text = "Organisation";
 			chkActive.Text = "Aktivt konto";
-			lblDescription.Text = "Kort beskirvning";
+			lblDescription.Text = "Kort beskrivning";
 			lblFirstName.Text = "Förnamn *";
 			lblLastName.Text = "Efternamn *";
 			lblUserName.Text = "Användarnamn *";
@@ -108,7 +108,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				txtPassword.Attributes.Add("value", "**********");
 				txtVerifyPassword.Attributes.Add("value", "**********");
 				chkActive.Checked = urow.Active;
-				drpLocations.SelectedValue = urow.DefaultLocation.ToString();
+
+				//drpLocations.SelectedValue = urow.DefaultLocation.ToString();
 			}
 
 			//MemberRow row = row = Provider.GetMember(_memberId, LocationId, LanguageId);
@@ -133,10 +134,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				txtBody.Html = row.Body;
 
 
-			//foreach (ListItem item in chklLocations.Items) {
-			//    int locationId = Convert.ToInt32(item.Value);
-			//    item.Selected = row.IsConnectedLocation(locationId);
-			//}
+			foreach (ListItem item in chkLocations.Items) {
+			    var locationId = Convert.ToInt32(item.Value);
+			    item.Selected = row.IsConnectedLocation(locationId);
+			}
 			
 
 
@@ -163,9 +164,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		private void PopulateLocations() {
-			drpLocations.DataSource = Locations;
-			drpLocations.DataBind();
-			drpLocations.Items.Insert(0, new ListItem("-- Välj Website-tillhörighet --","0"));
+			chkLocations.DataSource = Locations;
+			chkLocations.DataBind();
+			//chkLocations.Items.Insert(0, new ListItem("-- Välj Website-tillhörighet --","0"));
 		}
 
 		/// <summary>
@@ -358,7 +359,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		//}
 
 		private void ConnectDisconnectLocations(MemberRow row) {
-			foreach (ListItem item in drpLocations.Items) {
+			foreach (ListItem item in chkLocations.Items) {
 				if ((item.Selected) && (!row.IsConnectedLocation(Convert.ToInt32(item.Value))))
 					Provider.ConnectToLocation(row.Id, Convert.ToInt32(item.Value));
 				else if ((!item.Selected) && (row.IsConnectedLocation(Convert.ToInt32(item.Value))))
@@ -392,20 +393,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		private bool CreateNewUser() {
 			try {
-				User dbUser = new User(Base.Business.Globals.ConnectionString);
-				int status = 0;
+				var dbUser = new User(Base.Business.Globals.ConnectionString);
+				var status = 0;
 
 				_userId = dbUser.Add(txtUserName.Text, txtPassword.Text, txtFirstName.Text,
 				                     txtLastName.Text, txtEmail.Text, LocationId, CurrentUser);
 				if (_userId > 0) {
 					if (!chkActive.Checked) {
-						var selectedLocation = Int32.Parse(drpLocations.SelectedValue);
 						dbUser.Update(_userId, txtPassword.Text, txtFirstName.Text,
-									  txtLastName.Text, txtEmail.Text, selectedLocation, chkActive.Checked, CurrentUser);
+									  txtLastName.Text, txtEmail.Text, LocationId, chkActive.Checked, CurrentUser);
 					}
 					//foreach (ListItem item in chklCategories.Items) {
 					foreach (ListItem item in drpMemberCategories.Items) {
-						CategoryRow catrow = Provider.GetCategory(Convert.ToInt32(item.Value), LocationId, LanguageId);
+						var catrow = Provider.GetCategory(Convert.ToInt32(item.Value), LocationId, LanguageId);
 						if (item.Selected) dbUser.ConnectGroup(_userId, catrow.GroupId);
 					}
 				}
@@ -431,7 +431,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		private void UpdateUser(int userId) {
-			User dbUser = new User(Base.Business.Globals.ConnectionString);
+			var dbUser = new User(Base.Business.Globals.ConnectionString);
 			string password = null;
 			if (txtPassword.Text != "**********") {
 				password = txtPassword.Text;
@@ -440,7 +440,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			//var context = Spinit.Wpc.Base.Presentation.SessionContext.UserContext.Current;
 			const Enumerations.Action action = Enumerations.Action.Update;
 			var userObject = new DUser(Base.Business.Globals.ConnectionString, new Base.Core.Context());
-			var selectedLocation = Int32.Parse(drpLocations.SelectedValue);
+			//var selectedLocation = Int32.Parse(drpLocations.SelectedValue);
 			userObject.AddUpdateDeleteUser(action, 
 				ref userId, 
 				txtUserName.Text, 
@@ -448,7 +448,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				txtFirstName.Text, 
 				txtLastName.Text,                           
 				txtEmail.Text,
-				selectedLocation, 
+				LocationId, 
 				chkActive.Checked, 
 				CurrentUser);
 			//bool ret = dbUser.Update(userId, password, txtFirstName.Text, txtLastName.Text,
@@ -456,7 +456,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 			//foreach (ListItem item in chklCategories.Items) {
 			foreach (ListItem item in drpMemberCategories.Items) {
-				CategoryRow catrow = Provider.GetCategory(Convert.ToInt32(item.Value), LocationId, LanguageId);
+				var catrow = Provider.GetCategory(Convert.ToInt32(item.Value), LocationId, LanguageId);
 				if (item.Selected) {
 					try { dbUser.ConnectGroup(_userId, catrow.GroupId); }
 					catch { continue; }

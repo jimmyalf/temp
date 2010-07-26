@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.AddFiles" Title="Untitled Page" Codebehind="AddFiles.aspx.cs" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.AddFiles" Title="Untitled Page" Codebehind="AddFiles.aspx.cs" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" Runat="Server">
    <div id="dCompMain" class="Components-Synologen-AddFiles-aspx">
     <div class="fullBox">
@@ -63,7 +63,7 @@
             </fieldset>
             <div class="formCommands">	
 				<input type="button" name="inputBack" class="btnBig" onclick="javascript:window.history.back();" value="Tillbaka" />            				    
-			    <asp:button ID="btnAdd" runat="server" CommandName="Add" OnClick="btnSave_Click" Text="L�gg till" SkinId="Big"/>
+			    <asp:button ID="btnAdd" runat="server" CommandName="Add" OnClick="btnSave_Click" Text="Lägg till" SkinId="Big"/>
 			</div>
         </fieldset>
         

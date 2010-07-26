@@ -1,11 +1,11 @@
-<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="OrderStatus.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.OrderStatus" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="OrderStatus.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.OrderStatus" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
 <div id="dCompMain" class="Components-Synologen-OrderStatus-aspx">
         <div class="fullBox">
             <div class="wrap">
             <h2>Orderstatus</h2>
 	        <fieldset>
-		        <legend><asp:Literal id="ltHeading" runat="server" Text="L�gg till artikel"/></legend>		
+		        <legend><asp:Literal id="ltHeading" runat="server" Text="Lägg till artikel"/></legend>		
 		        <div class="formItem">
 		            <label class="labelLong">Statusnamn</label>
 					<asp:RequiredFieldValidator id="rfvStatusName" runat="server" errormessage="Namn saknas" controltovalidate="txtName" Display="Dynamic" ValidationGroup="Error">(*)</asp:RequiredFieldValidator>

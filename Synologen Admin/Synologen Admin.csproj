@@ -5,7 +5,7 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{F85E285D-A4E0-4152-9332-AB1D724D3325};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Spinit.Wpc.Synologen.Presentation</RootNamespace>
@@ -24,6 +24,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,6 +71,7 @@
     <Content Include="Components\Synologen\SynologenMain.master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\Extensions\ViewModelExtensions.cs" />
     <Compile Include="Code\ComponentPages.cs" />
     <Compile Include="Code\SessionContext.cs" />
     <Compile Include="Code\SynologenPage.cs">
@@ -237,7 +239,13 @@
     <Compile Include="Components\Synologen\SynologenMain.master.designer.cs">
       <DependentUpon>SynologenMain.master</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\FrameController.cs" />
+    <Compile Include="Models\FrameEditView.cs" />
+    <Compile Include="Models\FrameListView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SynologenAdminAreaRegistration.cs" />
+    <Compile Include="SynologenAdminRegistry.cs" />
+    <Compile Include="UnitOfWorkModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
@@ -248,12 +256,24 @@
       <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
       <Name>Synologen Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Components\Synologen\EditContractCompany.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit, Version=1.0.303.532, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Common.WebControls, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Common.WebControls.dll</HintPath>
@@ -270,6 +290,23 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Wpc.Base.Presentation, Version=4.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Content.Business, Version=4.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Content.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Content.Data, Version=4.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Content.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Content.Presentation, Version=5.0.0.2070, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Content.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Core.UI.Mvc, Version=5.0.519.2176, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Spinit.Wpc.Member.Business, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Business.dll</HintPath>
@@ -286,9 +323,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Data, Version=4.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Wpc.Wysiwyg, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Wysiwyg.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.5.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\StructureMap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -297,17 +342,51 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\AspNetMvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SynologenAdmin\Views\Frame\Index.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Web.config" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\Add.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CodeTemplates\AddController\Controller.tt">
+    </None>
+    <None Include="CodeTemplates\AddView\Create.tt">
+    </None>
+    <None Include="CodeTemplates\AddView\Details.tt">
+    </None>
+    <None Include="CodeTemplates\AddView\DetailsDefinitionList.tt">
+    </None>
+    <None Include="CodeTemplates\AddView\Edit.tt">
+    </None>
+    <None Include="CodeTemplates\AddView\Empty.tt">
+    </None>
+    <None Include="CodeTemplates\AddView\List.tt">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\SynologenAdmin\Views\Shared\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" Condition="" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">

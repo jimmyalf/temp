@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="Settlements.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Settlements" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="Settlements.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Settlements" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
 <div id="dCompMain" class="Components-Synologen-Settlements-aspx">
         <div class="fullBox">
@@ -6,7 +6,7 @@
             <h2>Butiksutbetalningar</h2>
 	        <fieldset>	 
 		        <div class="formItem">
-		            <label class="labelLong">Antal ordrar redo f�r utbetalning: <%=NumberOfOrdersReadyForSettlement %></label>
+		            <label class="labelLong">Antal ordrar redo för utbetalning: <%=NumberOfOrdersReadyForSettlement %></label>
 		        </div>	               	        
 		        <div class="formCommands">
 		            <asp:button ID="btnCreateSettlement" runat="server" OnClick="btnCreateSettlement_Click" Text="Skapa utbetalning"  SkinId="Big" ValidationGroup="Error"/>

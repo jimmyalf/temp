@@ -48,7 +48,12 @@
     <Compile Include="Code\SynologenUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Models\MVPTestModel.cs" />
+    <Compile Include="Presenters\MVPTestPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SynologenSiteRegistry.cs" />
+    <Compile Include="UnitOfWorkModule.cs" />
+    <Compile Include="WpcPresenterFactory.cs" />
     <Compile Include="Wpc\Synologen\CityShopList.ascx.cs">
       <DependentUpon>CityShopList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -83,6 +88,13 @@
     </Compile>
     <Compile Include="Wpc\Synologen\EditShop.ascx.designer.cs">
       <DependentUpon>EditShop.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\MVPTestControl.ascx.cs">
+      <DependentUpon>MVPTestControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\MVPTestControl.ascx.designer.cs">
+      <DependentUpon>MVPTestControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\SalesList.ascx.cs">
       <DependentUpon>SalesList.ascx</DependentUpon>
@@ -143,6 +155,10 @@
       <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
       <Name>Synologen Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="EditShopPage.aspx" />
@@ -177,11 +193,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CityShopList.aspx" />
+    <Content Include="MVPTest.aspx" />
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
+    <Content Include="Wpc\Synologen\MVPTestControl.ascx" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\FluentNHibernate\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
@@ -189,6 +215,14 @@
     <Reference Include="Spinit.Wpc.Base.Data, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Presentation.Site, Version=5.0.519.2176, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Presentation.Site.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Core.UI.Mvp.Site, Version=5.0.0.2070, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.UI.Mvp.Site.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -206,6 +240,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap, Version=2.5.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\StructureMap\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -215,6 +253,10 @@
     <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.XML" />
+    <Reference Include="WebFormsMvp, Version=0.9.7.4, Culture=neutral, PublicKeyToken=537f18701145dff0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\WebFormsMvp\WebFormsMvp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Wpc\Synologen\Css\" />

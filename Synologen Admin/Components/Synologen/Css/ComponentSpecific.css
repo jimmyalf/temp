@@ -48,3 +48,5 @@ table.radioButtonItems tbody td{
 #dOpqColumnContainer {float: left; clear: both; width: 100%;}
 #dOpqMainColumn {float: right; width: 70%; padding-top: 10px;} 
 #dOpqSidebar {float: left; width: 30%; padding-top: 10px; overflow: auto; background-color: #DDD;}
+
+#synologen-content fieldset label {display: block; float: none;}

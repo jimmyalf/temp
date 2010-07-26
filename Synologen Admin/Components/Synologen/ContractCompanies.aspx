@@ -1,15 +1,15 @@
-<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="ContractCompanies.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.ContractCompanies" Title="Untitled Page" %>
+ï»¿<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="ContractCompanies.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.ContractCompanies" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
 <div id="dCompMain" class="Components-Synologen-ContractCompanies-aspx">
         <div class="fullBox">
             <div class="wrap">
-            <h1>Avtalsföretag</h1>
+            <h1>AvtalsfÃ¶retag</h1>
             
        		<asp:PlaceHolder id="plFilterByContract" runat="server">        	                	                  	                 	                
 			<fieldset><legend>Filter</legend>
 				<div class="formItem clearLeft">
-					<label >Visar Företag för Avtalskund:</label>&nbsp;<span><%=SelectedContract.Name %></span><br /><br />
-					<input type="button" name="inputNew" class="btnBig" onclick="window.location='EditContractCompany.aspx?contractId=<%=SelectedContract.Id %>'" value="Skapa nytt avtalsföretag" />
+					<label >Visar FÃ¶retag fÃ¶r Avtalskund:</label>&nbsp;<span><%=SelectedContract.Name %></span><br /><br />
+					<input type="button" name="inputNew" class="btnBig" onclick="window.location='EditContractCompany.aspx?contractId=<%=SelectedContract.Id %>'" value="Skapa nytt avtalsfÃ¶retag" />
 					<input type="button" name="inputBack" class="btnBig" onclick="window.location='Contracts.aspx'" value="Tillbaka" />
 				</div> 	   	                                                     
 			</fieldset>
@@ -29,7 +29,7 @@
                 <Columns>
 					<asp:BoundField headerText="SPCS Id" DataField="cCompanyCode" SortExpression="cCompanyCode"/>
 					<asp:BoundField headerText="Org Nr" DataField="cOrganizationNumber" SortExpression="cOrganizationNumber"/>
-                    <asp:BoundField headerText="Företag" DataField="cName" SortExpression="cName"/>
+                    <asp:BoundField headerText="FÃ¶retag" DataField="cName" SortExpression="cName"/>
                     <%--<asp:BoundField headerText="Faktureringsnamn" DataField="cInvoiceCompanyName" SortExpression="cInvoiceCompanyName"/>--%>
                     <asp:BoundField headerText="Valideringar" DataField="cNumberOfValidationRules" SortExpression="cNumberOfValidationRules"/>
                     <asp:BoundField headerText="Faktureringstyp" DataField="cInvoiceMethodName" SortExpression="cInvoiceMethodName"/>

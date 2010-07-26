@@ -1,25 +1,25 @@
-<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="EditContractCompany.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.EditContractCompany" Title="Untitled Page" %>
+ï»¿<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="EditContractCompany.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.EditContractCompany" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
 <div id="dCompMain" class="Components-Synologen-EditContractCompany-aspx">
         <div class="fullBox">
             <div class="wrap">
-            <h2>Redigera avtalsföretag</h2>
+            <h2>Redigera avtalsfÃ¶retag</h2>
 	        <fieldset>
-		        <legend>Redigera avtalsföretag</legend>		
+		        <legend>Redigera avtalsfÃ¶retag</legend>		
 		        <div class="formItem clearLeft">
 					<div class="formItem">
 						<label class="labelLong">Avtalskund *</label>
 						<asp:DropDownList ID="drpContracts" runat="server" />
 					</div>
 					<div class="formItem clearLeft">
-						<label class="labelLong">Företagsnamn *</label>
+						<label class="labelLong">FÃ¶retagsnamn *</label>
 						<asp:TextBox runat="server" ID="txtName"/>
-						<asp:RequiredFieldValidator id="rfvName" runat="server" errormessage="Företagsnamn saknas." controltovalidate="txtName" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
+						<asp:RequiredFieldValidator id="rfvName" runat="server" errormessage="FÃ¶retagsnamn saknas." controltovalidate="txtName" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
 					</div>
 					<div class="formItem clearLeft">
-						<label class="labelLong">Företagskod i SPCS *</label>
+						<label class="labelLong">FÃ¶retagskod i SPCS *</label>
 						<asp:TextBox runat="server" ID="txtCompanyCode"/>
-						<asp:RequiredFieldValidator id="rfvCompanyCode" runat="server" errormessage="Företagskod saknas." controltovalidate="txtCompanyCode" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
+						<asp:RequiredFieldValidator id="rfvCompanyCode" runat="server" errormessage="FÃ¶retagskod saknas." controltovalidate="txtCompanyCode" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
 					</div>
 					<div class="formItem clearLeft">
 						<label class="labelLong">Bank ID</label>
@@ -30,7 +30,7 @@
 						<asp:TextBox runat="server" ID="txtAddress"/>
 					</div>
 					<div class="formItem clearLeft">
-						<label class="labelLong">Gatuadress/Företagsnamn</label>
+						<label class="labelLong">Gatuadress/FÃ¶retagsnamn</label>
 						<asp:TextBox runat="server" ID="txtAddress2"/>
 					</div>	
 					<div class="formItem clearLeft">
@@ -60,7 +60,7 @@
 					<div class="formItem clearLeft">
 						<label class="labelLong">Faktureringsnamn *</label><br />
 						<asp:TextBox id="txtInvoiceCompanyName" runat="server" />
-						<asp:RequiredFieldValidator id="reqInvoiceCompanyName"  runat="server" errormessage="Företagets faktureringsnamn saknas" controltovalidate="txtInvoiceCompanyName" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
+						<asp:RequiredFieldValidator id="reqInvoiceCompanyName"  runat="server" errormessage="FÃ¶retagets faktureringsnamn saknas" controltovalidate="txtInvoiceCompanyName" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>
 					</div>
 					<div class="formItem clearLeft">
 						<label class="labelLong">Momsredovisningsnummer</label><br />
@@ -82,7 +82,7 @@
 						<asp:RequiredFieldValidator id="reqInvoicingMethods" InitialValue="0" runat="server" errormessage="Faktureringsmetod saknas" controltovalidate="drpInvoicingMethods" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>       
 					</div>
 					<div class="clearLeft">
-						<label class="labelLong">Fritextmall för fakturering</label><br />
+						<label class="labelLong">Fritextmall fÃ¶r fakturering</label><br />
 						<asp:TextBox id="txtInvoiceFreeTextTemplate" runat="server" TextMode="MultiLine" CssClass="txtAreaWide" />
 					</div>						
 		        </div>	        

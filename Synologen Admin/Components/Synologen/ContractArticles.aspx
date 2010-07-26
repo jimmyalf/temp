@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="ContractArticles.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.ContractArticles" Title="Untitled Page" %>
+ï»¿<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="ContractArticles.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.ContractArticles" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
 <div id="dCompMain" class="Components-Synologen-ContractArticles-aspx">
         <div class="fullBox">
@@ -8,15 +8,15 @@
             <asp:PlaceHolder id="plFilterByContract" runat="server">
 			<fieldset><legend>Filter</legend>
 				<div class="formItem clearLeft">
-					<label >Visar Artiklar för Avtal:</label>&nbsp;<span><%=SelectedContract.Name %></span><br /><br />
-					<%--<input type="button" name="inputNew" class="btnBig" onclick="window.location='EditContractCompany.aspx?contractId=<%=SelectedContract.Id %>'" value="Skapa nytt avtalsföretag" />--%>
+					<label >Visar Artiklar fÃ¶r Avtal:</label>&nbsp;<span><%=SelectedContract.Name %></span><br /><br />
+					<%--<input type="button" name="inputNew" class="btnBig" onclick="window.location='EditContractCompany.aspx?contractId=<%=SelectedContract.Id %>'" value="Skapa nytt avtalsfÃ¶retag" />--%>
 					<input type="button" name="inputBack" class="btnBig" onclick="window.location='Contracts.aspx'" value="Tillbaka" />
 				</div>
 			</fieldset>
             </asp:PlaceHolder>	
             
 	        <fieldset>
-		        <legend><asp:Literal id="ltHeading" runat="server" Text="Lägg till artikel"/></asp:Literal></legend>		
+		        <legend><asp:Literal id="ltHeading" runat="server" Text="LÃ¤gg till artikel"/></asp:Literal></legend>		
 		        <div class="formItem">
 		            <label class="labelLong">Avtalskund *</label>
 		            <asp:DropDownList ID="drpContracts" runat="server" />
@@ -31,7 +31,7 @@
 		            <label class="labelLong">Pris utan moms *</label>
 		            <asp:TextBox runat="server" ID="txtPrice"/>
 		            <asp:RangeValidator id="vldPrice" runat="server" errormessage="Pris saknas." controltovalidate="txtPrice" Display="Dynamic" Type="Double" ValidationGroup="Error" >*</asp:RangeValidator>
-		            <asp:RegularExpressionValidator id="regexPriceFormat" runat="server" ErrorMessage="Pris måste anges i numerisk form utan decimaler." ControlToValidate="txtPrice" Display="Dynamic" ValidationGroup="Error" ValidationExpression="^[1-9]{1}[0-9]*$">*</asp:RegularExpressionValidator>
+		            <asp:RegularExpressionValidator id="regexPriceFormat" runat="server" ErrorMessage="Pris mÃ¥ste anges i numerisk form utan decimaler." ControlToValidate="txtPrice" Display="Dynamic" ValidationGroup="Error" ValidationExpression="^[1-9]{1}[0-9]*$">*</asp:RegularExpressionValidator>
 		        </div>
 		        <div class="formItem clearLeft">
 		            <label class="labelLong">Momsfri artikel</label>
@@ -43,7 +43,7 @@
 					<asp:RequiredFieldValidator id="reqSPCSAccountNumber" runat="server" errormessage="SPCS Kontonummer saknas." controltovalidate="txtSPCSAccountNumber" Display="Dynamic" ValidationGroup="Error">*</asp:RequiredFieldValidator>		            
 		        </div>
 		        <div class="formItem clearLeft">
-		            <label class="labelLong">Tillåt manuell prissättning</label>
+		            <label class="labelLong">TillÃ¥t manuell prissÃ¤ttning</label>
 		            <asp:CheckBox runat="server" ID="chkEnableManualPriceOverrice"/>
 		        </div>			        
 		        <div class="formItem clearLeft">

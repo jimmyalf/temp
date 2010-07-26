@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CreateShopOwners.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.CreateShopOwners" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CreateShopOwners.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.CreateShopOwners" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-		<label>V�lj befintliga medlemmar med kategori:</label><br />
+		<label>Välj befintliga medlemmar med kategori:</label><br />
 		<asp:DropDownList ID="drpSelectionMemberCategories" runat="server" DataValueField="cCategoryId" DataTextField="cName" />
     </div>
     <div>

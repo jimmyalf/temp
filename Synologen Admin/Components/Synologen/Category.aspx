@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Category" Title="Medlemskategori" Codebehind="Category.aspx.cs" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Category" Title="Medlemskategori" Codebehind="Category.aspx.cs" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" Runat="Server">
  <div id="dCompMain" class="Components-Synologen-Category-aspx">
         <div class="fullBox">

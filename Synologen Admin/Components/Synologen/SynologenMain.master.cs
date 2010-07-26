@@ -73,6 +73,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 			itemCollection.AddItem("Fakturor", null, "Fakturor", "Lista Fakturor", null, ComponentPages.Orders, null, null, false, true);
 			itemCollection.AddItem("Utbetalningar", null, "Utbetalningar", "Lista/Skapa utbetalningar", null, ComponentPages.Settlements, null, null, false, true);
 			itemCollection.AddItem("opq", null, "OP-Q", "Administrera OP-Q", null, ComponentPages.OpqIndex, null, null, false, true);
+			itemCollection.AddItem("frameOrders", null, "Bågbeställning", "Administrera Bågbeställningar", null, "/components/synologen/frames", null, null, false, true);
 
             synologenMenu.MenuItems = itemCollection;
             smartMenu.Update(synologenMenu);

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="Shops.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Shops" Title="Untitled Page" %>
+ï»¿<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="Shops.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Shops" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
     <div id="dCompMain" class="Components-Synologen-Shops-aspx">
         <div class="fullBox">
@@ -6,7 +6,7 @@
                 <h1>Butiker</h1>
                                 
                 <fieldset>
-	                <legend>Filtrera och sök</legend>
+	                <legend>Filtrera och sÃ¶k</legend>
 	                <div class="formItem clearLeft">
 	                    <label class="labelLong">Kategorier</label>
 	                    <asp:DropDownList runat="server" ID="drpCategories" DataTextField="/>
@@ -59,11 +59,11 @@
                                     <a href="Index.aspx?shopId=<%# DataBinder.Eval(Container.DataItem, "cId")%>">Personal</a>
                                 </ItemTemplate>
                         </asp:TemplateField>--%>
-                        <asp:TemplateField headertext="Användare" SortExpression="cNumberOfMembers">
+                        <asp:TemplateField headertext="AnvÃ¤ndare" SortExpression="cNumberOfMembers">
 							<ItemStyle CssClass="center" />
 							<ItemTemplate>
-								<a href="Index.aspx?shopId=<%#Eval("cId")%>" title="Visa användare">
-									<img src="/Common/Icons/attach.png" alt="Visa användare"/>&nbsp;(<%#Eval("cNumberOfMembers")%>)
+								<a href="Index.aspx?shopId=<%#Eval("cId")%>" title="Visa anvÃ¤ndare">
+									<img src="/Common/Icons/attach.png" alt="Visa anvÃ¤ndare"/>&nbsp;(<%#Eval("cNumberOfMembers")%>)
 								</a>
 							</ItemTemplate>
 						</asp:TemplateField>                        

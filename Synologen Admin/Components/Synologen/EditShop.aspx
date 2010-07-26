@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="EditShop.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.EditShop" Title="Untitled Page" %>
+ï»¿<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="EditShop.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.EditShop" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
     <div id="dCompMain" class="Components-Synologen-EditShop-aspx">
         <div class="fullBox">
@@ -19,7 +19,7 @@
 					</div>	
 					
 					<div class="formItem clearLeft">
-						<div class="formItem"><label class="labelLong">Postbox/Företagsnamn</label>
+						<div class="formItem"><label class="labelLong">Postbox/FÃ¶retagsnamn</label>
 						<asp:TextBox id="txtAddress" runat="server" /></div>
 						<div class="formItem"><label class="labelLong">Gatuadress</label>						
 						<asp:TextBox id="txtAddress2" runat="server" /></div>
@@ -41,7 +41,7 @@
 						<asp:TextBox id="txtFax" runat="server" /></div>
 						<div class="formItem"><label class="labelLong">Epost</label>
 						<asp:TextBox id="txtEmail" runat="server" /></div>
-						<div class="formItem"><label class="labelLong">Kontaktperson förnamn</label>
+						<div class="formItem"><label class="labelLong">Kontaktperson fÃ¶rnamn</label>
 						<asp:TextBox id="txtContactFirstName" runat="server" /></div>
 						<div class="formItem"><label class="labelLong">Kontaktperson efternamn</label>
 						<asp:TextBox id="txtContactLastName" runat="server" /></div>																		
@@ -71,7 +71,7 @@
 						<asp:CheckBoxList id="chkContractCustomers" runat="server" DataValueField="cId" DataTextField="cName" RepeatColumns="2" RepeatLayout="Table"  />
 					</div>
 					<div class="formItem infoItem">
-						<span>*</span><p>Synologer får automatiskt alla avtalskunder oavsett om de är ikryssade eller ej.</p>
+						<span>*</span><p>Synologer fÃ¥r automatiskt alla avtalskunder oavsett om de Ã¤r ikryssade eller ej.</p>
 					</div>		
 					<div class="formItem clearLeft">
 						<label class="labelLong">Utrustning</label>

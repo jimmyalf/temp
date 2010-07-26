@@ -1,12 +1,12 @@
-<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="EditContract.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.EditContract" Title="Untitled Page" %>
+ï»¿<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="EditContract.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.EditContract" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
     <div id="dCompMain" class="Components-Synologen-EditContract-aspx">
         <div class="fullBox">
             <div class="wrap">
                 <h1>Avtalskund</h1>
-                <fieldset><legend>Företagsinformation</legend>
+                <fieldset><legend>FÃ¶retagsinformation</legend>
 					<div class="formItem">
-						<label class="labelLong">Företag</label>
+						<label class="labelLong">FÃ¶retag</label>
 						<asp:TextBox id="txtContractCustomerName" runat="server" Text='<%#Contract.Name%>' />
 					</div>									
 					<div class="formItem clearLeft">

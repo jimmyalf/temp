@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="Contracts.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Contracts" %>
+ï»¿<%@ Page Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="Contracts.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Contracts" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" Runat="Server">
     <div id="dCompMain" class="Components-Synologen-ContractCustomer-aspx">
         <div class="fullBox">
@@ -6,7 +6,7 @@
                 <h1>Avtalskunder</h1>
                 
                 <fieldset>
-	                <legend>Filtrera och sök</legend>		
+	                <legend>Filtrera och sÃ¶k</legend>		
 	                <div class="formItem ">
 	                    <asp:Label ID="lblSearch" runat="server" AssociatedControlID="txtSearch" SkinId="Long">Textfilter</asp:Label>
 	                    <asp:TextBox runat="server" ID="txtSearch"/>
@@ -41,11 +41,11 @@
                         <asp:BoundField headerText="Avtalsnummer" DataField="cId" SortExpression="cId" ItemStyle-HorizontalAlign="Center"/>
                         <asp:BoundField headerText="Namn" DataField="cName" SortExpression="cName"/>
                         <asp:BoundField headerText="Epost" DataField="cEmail" SortExpression="cEmail"/>
-                        <asp:TemplateField headertext="Företag" SortExpression="cCompanies">
+                        <asp:TemplateField headertext="FÃ¶retag" SortExpression="cCompanies">
 							<ItemStyle CssClass="center" />
 							<ItemTemplate>
-								<a href="ContractCompanies.aspx?id=<%#Eval("cId") %>" title="Visa företag">
-									<img src="/Common/Icons/attach.png" alt="Visa företag"/>&nbsp;(<%#Eval("cNumberOfCompanies")%>)
+								<a href="ContractCompanies.aspx?id=<%#Eval("cId") %>" title="Visa fÃ¶retag">
+									<img src="/Common/Icons/attach.png" alt="Visa fÃ¶retag"/>&nbsp;(<%#Eval("cNumberOfCompanies")%>)
 								</a>
 							</ItemTemplate>
 						</asp:TemplateField> 
@@ -64,7 +64,7 @@
 							</ItemTemplate>
 						</asp:TemplateField>
                         <%--<asp:ButtonField Text="Visa filer" HeaderText="Filer" CommandName="Files" ButtonType="Button" ControlStyle-CssClass="btnSmall" ItemStyle-HorizontalAlign="Center" HeaderStyle-CssClass="controlColumn"/>--%>
-                        <%--<asp:ButtonField Text="Lägg till" HeaderText="Filer" CommandName="AddFiles" ButtonType="Button" ControlStyle-CssClass="btnSmall" ItemStyle-HorizontalAlign="Center" HeaderStyle-CssClass="controlColumn"/>--%>
+                        <%--<asp:ButtonField Text="LÃ¤gg till" HeaderText="Filer" CommandName="AddFiles" ButtonType="Button" ControlStyle-CssClass="btnSmall" ItemStyle-HorizontalAlign="Center" HeaderStyle-CssClass="controlColumn"/>--%>
                         <asp:ButtonField Text="Redigera" HeaderText="Redigera" CommandName="Edit" ButtonType="Button" ControlStyle-CssClass="btnSmall" ItemStyle-HorizontalAlign="Center" HeaderStyle-CssClass="controlColumn" />
                         <asp:TemplateField headertext="Radera" HeaderStyle-CssClass="controlColumn" ItemStyle-HorizontalAlign="Center">
 	                        <ItemTemplate>

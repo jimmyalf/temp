@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Index" MasterPageFile="~/components/Synologen/SynologenMain.master" Codebehind="Index.aspx.cs" %>
+ï»¿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Index" MasterPageFile="~/components/Synologen/SynologenMain.master" Codebehind="Index.aspx.cs" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" Runat="Server">
     <div id="dCompMain" class="Components-Synologen-Index-aspx">
         <div class="fullBox">
@@ -8,8 +8,8 @@
 				<asp:PlaceHolder id="plFilterByShop" runat="server" Visible="false">        	                	                  	                 	                
 				<fieldset><legend>Filter</legend>
 					<div class="formItem clearLeft">
-						<label >Visar Användare för Butik:</label>&nbsp;<span><%=SelectedShop.Name %></span><br /><br />
-						<input type="button" name="inputNew" class="btnBig" onclick="window.location='EditMember.aspx?shopId=<%=SelectedShop.ShopId %>'" value="Skapa ny användare" />
+						<label >Visar AnvÃ¤ndare fÃ¶r Butik:</label>&nbsp;<span><%=SelectedShop.Name %></span><br /><br />
+						<input type="button" name="inputNew" class="btnBig" onclick="window.location='EditMember.aspx?shopId=<%=SelectedShop.ShopId %>'" value="Skapa ny anvÃ¤ndare" />
 						<input type="button" name="inputBack" class="btnBig" onclick="window.location='Shops.aspx'" value="Tillbaka" />
 					</div> 	   	                                                     
 				</fieldset>
@@ -17,7 +17,7 @@
                 
                 <asp:PlaceHolder id="plRegularFilter" runat="server" Visible="true">
                 <fieldset>
-	                <legend>Filtrera och sök</legend>		
+	                <legend>Filtrera och sÃ¶k</legend>		
 	                <div class="formItem">
 	                    <asp:Label ID="lblShow" runat="server" AssociatedControlID="drpCategories" SkinId="Long">Medlemskategori</asp:Label>
 	                    <asp:DropDownList runat="server" ID="drpCategories"/>
@@ -72,7 +72,7 @@
 							</ItemTemplate>
 						</asp:TemplateField>
                         <asp:ButtonField HeaderText="Filer" Text="Visa filer" CommandName="Files" ButtonType="Button" ControlStyle-CssClass="btnSmall"   HeaderStyle-CssClass="controlColumn"  ItemStyle-HorizontalAlign="Center"/>
-                        <asp:ButtonField HeaderText="Filer" Text="Lägg till" CommandName="AddFiles" ButtonType="Button" ControlStyle-CssClass="btnSmall"   HeaderStyle-CssClass="controlColumn"  ItemStyle-HorizontalAlign="Center"/>
+                        <asp:ButtonField HeaderText="Filer" Text="LÃ¤gg till" CommandName="AddFiles" ButtonType="Button" ControlStyle-CssClass="btnSmall"   HeaderStyle-CssClass="controlColumn"  ItemStyle-HorizontalAlign="Center"/>
                         <asp:ButtonField HeaderText="Redigera" Text="Redigera" CommandName="Edit" ButtonType="Button" ControlStyle-CssClass="btnSmall"   HeaderStyle-CssClass="controlColumn"  ItemStyle-HorizontalAlign="Center" />
                         <asp:TemplateField HeaderText="Radera" HeaderStyle-CssClass="controlColumn" ItemStyle-HorizontalAlign="Center">
 	                        <ItemTemplate>

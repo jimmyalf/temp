@@ -1,11 +1,11 @@
-<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="Orders.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Orders" Title="Untitled Page" %>
+ï»¿<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="Orders.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Orders" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
     <div id="dCompMain" class="Components-Synologen-Orders-aspx">
         <div class="fullBox">
             <div class="wrap">
                 <h1>Fakturor</h1>
                 <fieldset>
-	                <legend>Filtrera och sök</legend>
+	                <legend>Filtrera och sÃ¶k</legend>
 					<asp:PlaceHolder id="plDisplayingFilteredListing" runat="server" Visible="false">
 	                <div class="formItem clearLeft">
 	                    <label class="labelLong">Listar fakturor i utbetalning nummer <%=SettlementId%></label>
@@ -17,7 +17,7 @@
 	                    <asp:DropDownList runat="server" ID="drpContracts" DataTextField="cName"/>
 	                </div>          
 	                <div class="formItem">
-	                    <label class="labelLong">Datumintervall Från</label>
+	                    <label class="labelLong">Datumintervall FrÃ¥n</label>
 	                    <dtc:DateTimeCalendar id="dtcStartInterval" runat="server" />
 
 	                </div>
@@ -62,14 +62,14 @@
                         <asp:BoundField headerText="Id" DataField="cId" SortExpression="tblSynologenOrder.cId" ItemStyle-HorizontalAlign="Center" />
                         <asp:BoundField headerText="Faktura" DataField="cInvoiceNumber" SortExpression="tblSynologenOrder.cInvoiceNumber" ItemStyle-HorizontalAlign="Center" />
                         <asp:BoundField headerText="Avtal" DataField="cContractName" SortExpression="cContractName" />
-                        <%--<asp:BoundField headerText="Företag" DataField="cCompanyName" SortExpression="cCompanyName" />--%>
+                        <%--<asp:BoundField headerText="FÃ¶retag" DataField="cCompanyName" SortExpression="cCompanyName" />--%>
                         <asp:BoundField headerText="Kund" DataField="cCustomerName" SortExpression="cCustomerName" />
                         
                         
                         <%--<asp:BoundField headerText="RST" DataField="cRstName" SortExpression="cRstName" ItemStyle-HorizontalAlign="Center" />--%>
 
                         <asp:BoundField headerText="Status" DataField="cStatusName" SortExpression="cStatusName" />
-                        <asp:TemplateField HeaderText="Säljare">
+                        <asp:TemplateField HeaderText="SÃ¤ljare">
 	                        <ItemTemplate>
                                 <span><%# DataBinder.Eval(Container.DataItem, "cSalesPersonShopName")%> (<%# DataBinder.Eval(Container.DataItem, "cSalesPersonName")%>)</span>
 	                        </ItemTemplate>

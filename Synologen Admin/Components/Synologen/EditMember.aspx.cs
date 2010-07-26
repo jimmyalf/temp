@@ -257,11 +257,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			var parseBody = new DocumentParse();
 			var body = txtBody.Html;
 			var formatedBody = body;
-			formatedBody = ParseLinks.replaceImages(
-				formatedBody,
-				CxUser.Current.Location.RootPath,
-				Base.Business.Globals.CommonFilePath,
-				CxUser.Current.File);
+			//formatedBody = ParseLinks.replaceImages(
+			//    formatedBody,
+			//    CxUser.Current.Location.RootPath,
+			//    Base.Business.Globals.CommonFilePath,
+			//    CxUser.Current.File);
 			formatedBody = ParseLinks.replaceInternalLinks(
 				formatedBody,
 				CxUser.Current.Location.Id,

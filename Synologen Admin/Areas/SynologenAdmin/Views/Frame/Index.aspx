@@ -22,6 +22,8 @@
 				<input type="submit" value="Next »" class="btnSmall"/>
 				<input type="submit"  value="Set" class="btnSmall"/>
 				<input type="submit" value="Last »" class="btnSmall"/>
+				Page Size
+				<input type="text" value="<%=Model.List.PageSize %>" style="width: 30px; "/>				
 				-->
 				<%= Html.ActionLink("« First", "Index", new {search=Model.SearchWord, page = 1}) %>
 				&nbsp;|&nbsp;
@@ -38,8 +40,6 @@
 				<%} %>	
 				&nbsp;|&nbsp;			
 				<%= Html.ActionLink("Last »", "Index", new {search=Model.SearchWord, page = Model.List.NumberOfPages}) %>
-				Page Size
-				<input type="text" value="<%=Model.List.PageSize %>" style="width: 30px; "/>
 			</div>
 			<div>
 				<table class="striped" style="border-collapse: collapse; ">

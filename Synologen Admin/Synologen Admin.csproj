@@ -345,9 +345,11 @@
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\AspNetMvc\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Routing">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>

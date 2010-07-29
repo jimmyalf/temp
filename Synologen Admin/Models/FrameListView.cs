@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Spinit.Wpc.Synologen.Core.Persistence;
 
 namespace Spinit.Wpc.Synologen.Presentation.Models
@@ -5,6 +6,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 	public class FrameListView
 	{
 		public IPagedList<FrameListItemView> List { get; set; }
+		[DisplayName("Filtrera")]
 		public string SearchWord { get; set; }
 	}
 

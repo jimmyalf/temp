@@ -19,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.App.Extensions
 
 		public static IPagedList<FrameListItemView> ToFrameViewList(this IPagedList<Frame> entityList)
 		{
-			Func<Frame,FrameListItemView> typeConverter = (x) => new FrameListItemView {
+			Func<Frame,FrameListItemView> typeConverter = x => new FrameListItemView {
 				AllowOrders = x.AllowOrders,
                 ArticleNumber = x.ArticleNumber,
                 Brand = x.Brand,

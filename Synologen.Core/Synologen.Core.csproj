@@ -49,6 +49,7 @@
     <Compile Include="Domain\Model\Interval.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllFramesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFramesMatchingCriteria.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Persistence\ActionCriteriaExtensions.cs" />
     <Compile Include="Persistence\IActionCriteria.cs" />
     <Compile Include="Domain\Persistence\IFrameRepository.cs" />

@@ -3,6 +3,6 @@
 <asp:Literal ID="ltPageId" Text="190" Visible="false" runat="server"/>
 	<div style="float:left;margin:15px;">
 		<h2>View Order</h2>	
-		<synologen:ViewOrder ID="editOrder" runat="server" />
+		<WpcSynologen:ViewOrder ID="editOrder" runat="server" />
 	</div>
 </asp:Content>

@@ -50,3 +50,10 @@ table.radioButtonItems tbody td{
 #dOpqSidebar {float: left; width: 30%; padding-top: 10px; overflow: auto; background-color: #DDD;}
 
 #synologen-content fieldset label {display: block; float: none;}
+
+/* Add/Edit Frame interval */
+.interval-formItem { clear:both; }
+.interval-formItem .formItem { width: 30em; }
+.interval-formItem input[type="text"] { width: 8em; }
+
+.field-validation-error { color: red; }

@@ -7,12 +7,14 @@
 			<%= Html.ValidationSummary(true) %>
 			<% using (Html.BeginForm()) {%>
 				<fieldset>
-					<legend>FrameEditView</legend>
+					<legend>Skapa ny båge</legend>
+					<%--
 					<p class="formItem">
 						<%= Html.LabelFor(x => x.Id) %>
 						<%= Html.EditorFor(x => x.Id) %>
 						<%= Html.ValidationMessageFor(x => x.Id) %>
 					</p>
+					--%>
 					<p class="formItem">
 						<%= Html.LabelFor(x => x.Name) %>
 						<%= Html.EditorFor(x => x.Name) %>
@@ -24,16 +26,18 @@
 						<%= Html.ValidationMessageFor(x => x.ArticleNumber) %>
 					</p>
 					<p class="formItem">
-						<%= Html.LabelFor(x => x.Color) %>
-						<%= Html.EditorFor(x => x.Color) %>
-						<%= Html.ValidationMessageFor(x => x.Color) %>
+						<%= Html.LabelFor(x => x.ColorId) %>
+						<%--<%= Html.EditorFor(x => x.Color) %>--%>
+						<%= Html.DropDownListFor(x => x.ColorId, new SelectList(Model.AvailableFrameColors, "Id", "Name", Model.ColorId), "-- Välj Färg --")%>
+						<%= Html.ValidationMessageFor(x => x.ColorId) %>
 					</p>
 					<p class="formItem">
-						<%= Html.LabelFor(x => x.Brand) %>
-						<%= Html.EditorFor(x => x.Brand) %>
-						<%= Html.ValidationMessageFor(x => x.Brand) %>
+						<%= Html.LabelFor(x => x.BrandId) %>
+						<%--<%= Html.EditorFor(x => x.Brand) %>--%>
+						<%= Html.DropDownListFor(x => x.BrandId, new SelectList(Model.AvailableFrameBrands, "Id", "Name", Model.BrandId), "-- Välj Märke --")%>
+						<%= Html.ValidationMessageFor(x => x.BrandId) %>
 					</p>
-					<fieldset>
+					<fieldset class="interval-formItem">
 						<legend>Index</legend>
 						<p class="formItem">
 							<%= Html.LabelFor(x => x.IndexMinValue) %>
@@ -51,7 +55,7 @@
 							<%= Html.ValidationMessageFor(x => x.IndexIncrementation) %>
 						</p>
 					</fieldset>
-					<fieldset>
+					<fieldset class="interval-formItem">
 						<legend>Sfär</legend>
 						<p class="formItem">
 							<%= Html.LabelFor(x => x.SphereMinValue) %>
@@ -69,7 +73,7 @@
 							<%= Html.ValidationMessageFor(x => x.SphereIncrementation) %>
 						</p>
 					</fieldset>
-					<fieldset>
+					<fieldset class="interval-formItem">
 						<legend>Cylinder</legend>
 						<p class="formItem">
 							<%= Html.LabelFor(x => x.CylinderMinValue) %>
@@ -87,7 +91,7 @@
 							<%= Html.ValidationMessageFor(x => x.CylinderIncrementation) %>
 						</p>
 					</fieldset>
-					<fieldset>
+					<fieldset class="interval-formItem">
 						<legend>Pupilldistans (PD)</legend>
 						<p class="formItem">
 							<%= Html.LabelFor(x => x.PupillaryDistanceMinValue) %>

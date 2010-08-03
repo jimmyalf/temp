@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Web.Mvc;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
@@ -11,10 +12,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 	public class FrameController : Controller
 	{
 		private readonly IFrameRepository _frameRepository;
+		private readonly IFrameColorRepository _frameColorRepository;
+		private readonly IFrameBrandRepository _frameBrandRepository;
 
-		public FrameController(IFrameRepository frameRepository)
+		public FrameController(IFrameRepository frameRepository, IFrameColorRepository frameColorRepository, IFrameBrandRepository frameBrandRepository)
 		{
 			_frameRepository = frameRepository;
+			_frameColorRepository = frameColorRepository;
+			_frameBrandRepository = frameBrandRepository;
 		}
 
 		[HttpGet]
@@ -35,7 +40,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
 		public ActionResult Add()
 		{
-			return View(new FrameEditView());
+			var selectableFrameColors = _frameColorRepository.GetAll();
+			var selectableFrameBrands = _frameBrandRepository.GetAll();
+			return View(FrameEditView.GetDefaultInstance(selectableFrameColors, selectableFrameBrands));
 		}
 
 		[HttpPost]
@@ -44,7 +51,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var frame = inModel.ToFrame();
+				var brand = _frameBrandRepository.Get(inModel.BrandId);
+				var color = _frameColorRepository.Get(inModel.ColorId);
+				var frame = inModel.ToFrame(brand, color);
 				_frameRepository.Save(frame);
 				return RedirectToAction("Index");
 			}

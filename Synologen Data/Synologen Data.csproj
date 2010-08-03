@@ -91,7 +91,11 @@
   <ItemGroup>
     <Compile Include="Repositories\CriteriaConverters\AllFramesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFramesMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\FrameBrandRepository.cs" />
+    <Compile Include="Repositories\FrameColorRepository.cs" />
     <Compile Include="Repositories\FrameRepository.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\FrameBrandMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\FrameColorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameMap.cs" />
     <Compile Include="Repositories\NHibernate\NHibernateCriteriaExtensions.cs" />
     <Compile Include="Repositories\NHibernate\NHibernateFactory.cs" />

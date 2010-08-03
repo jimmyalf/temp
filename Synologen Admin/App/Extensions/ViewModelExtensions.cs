@@ -7,14 +7,14 @@ namespace Spinit.Wpc.Synologen.Presentation.App.Extensions
 {
 	public static class ViewModelExtensions
 	{
-		public static Frame ToFrame(this FrameEditView viewModel)
+		public static Frame ToFrame(this FrameEditView viewModel, FrameBrand brand, FrameColor color)
 		{
-			return UpdateFrame(new Frame(), viewModel);
+			return UpdateFrame(new Frame(), viewModel, brand, color);
 		}
 
-		public static Frame FillFrame(this FrameEditView viewModel, Frame entity)
+		public static Frame FillFrame(this FrameEditView viewModel, Frame entity, FrameBrand brand, FrameColor color)
 		{
-			return UpdateFrame(entity, viewModel);
+			return UpdateFrame(entity, viewModel, brand, color);
 		}
 
 		public static IPagedList<FrameListItemView> ToFrameViewList(this IPagedList<Frame> entityList)
@@ -22,20 +22,20 @@ namespace Spinit.Wpc.Synologen.Presentation.App.Extensions
 			Func<Frame,FrameListItemView> typeConverter = x => new FrameListItemView {
 				AllowOrders = x.AllowOrders,
                 ArticleNumber = x.ArticleNumber,
-                Brand = x.Brand,
-                Color = x.Color,
+                Brand = x.Brand.Name,
+                Color = x.Color.Name,
                 Id = x.Id,
                 Name = x.Name
 			};
 			return entityList.ConvertList(new Converter<Frame, FrameListItemView>(typeConverter));
 		}
 
-		private static Frame UpdateFrame(Frame entity, FrameEditView viewModel)
+		private static Frame UpdateFrame(Frame entity, FrameEditView viewModel, FrameBrand brand, FrameColor color)
 		{
 			entity.AllowOrders = viewModel.AllowOrders;
             entity.ArticleNumber = viewModel.ArticleNumber;
-            entity.Brand = viewModel.Brand;
-            entity.Color = viewModel.Color;
+            entity.Brand = brand;
+            entity.Color = color;
             entity.Id = viewModel.Id;
 			entity.Name = viewModel.Name;
 

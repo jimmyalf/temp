@@ -33,6 +33,9 @@
      						column.For(x => x.Id).Named("Båg ID")
      							.HeaderAttributes( new Dictionary<string, object>{{"class","id-column"}} );
      						column.For(x => x.Name).Named("Namn");
+						    column.For(x => x.ArticleNumber).Named("Artikelnr");
+						    column.For(x => x.Brand).Named("Märke");
+						    column.For(x => x.Color).Named("Färg");
      					}
      				)
      				.Attributes( new Dictionary<string, object>{{"class","striped"}} )

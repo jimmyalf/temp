@@ -46,9 +46,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Model\Frame.cs" />
+    <Compile Include="Domain\Model\FrameBrand.cs" />
+    <Compile Include="Domain\Model\FrameColor.cs" />
     <Compile Include="Domain\Model\Interval.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllFramesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFramesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\IFrameBrandRepository.cs" />
+    <Compile Include="Domain\Persistence\IFrameColorRepository.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Persistence\ActionCriteriaExtensions.cs" />
     <Compile Include="Persistence\IActionCriteria.cs" />

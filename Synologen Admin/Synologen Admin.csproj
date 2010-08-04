@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\Extensions\ViewModelExtensions.cs" />
+    <Compile Include="App\ModelDomainMappingAttribute.cs" />
     <Compile Include="App\Validation\GreaterThanZero.cs" />
     <Compile Include="App\Validation\NotZeroAttribute.cs" />
     <Compile Include="Helpers\WpcPager.cs" />
@@ -368,7 +369,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\SynologenAdmin\Views\Frame\Edit.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Shared\FrameForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Index.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Shared\FrameSubMenu.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Web.config" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Add.aspx" />
   </ItemGroup>
@@ -390,9 +394,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\SynologenAdmin\Views\Shared\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" Condition="" />

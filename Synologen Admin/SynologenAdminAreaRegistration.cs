@@ -15,23 +15,10 @@ namespace Spinit.Wpc.Synologen.Presentation
 		{
 			const string prefix = "components/synologen/";
 
-			context.MapRoute(
-				"SynologenAdminFramesAdd",
-                prefix + "frames/add",
-				new { controller = "Frame", action = "Add" }
-				);
+			context.MapRoute("SynologenAdminFramesAdd", prefix + "frames/add", new { controller = "Frame", action = "Add" });
+			context.MapRoute("SynologenAdminFramesEdit", prefix + "frames/edit/{id}", new { controller = "Frame", action = "Edit" } );
+			context.MapRoute("SynologenAdminDefault", prefix + "frames", new { controller = "Frame", action = "Index" } );
 
-			context.MapRoute(
-				"SynologenAdminDefault",
-                prefix + "frames",
-				new { controller = "Frame", action = "Index" }
-				);
-
-			context.MapRoute(
-				"SynologenAdminDefaultSearch",
-                prefix + "frames/{search}/{page}",
-				new { controller = "Frame", action = "Index", search = "", page = 1 }
-				);
 		}
 
 		public override string AreaName

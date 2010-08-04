@@ -93,7 +93,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 		public IEnumerable<FrameBrand> AvailableFrameBrands { get; set; }
 		public IEnumerable<FrameColor> AvailableFrameColors { get; set; }
 
-		public static FrameEditView GetDefaultInstance(IEnumerable<FrameColor> availableFrameColors, IEnumerable<FrameBrand> availableFrameBrands)
+		public string FormLegend { get; set; }
+
+		public static FrameEditView GetDefaultInstance(IEnumerable<FrameColor> availableFrameColors, IEnumerable<FrameBrand> availableFrameBrands, string formLegend)
 		{
 			return new FrameEditView
 			{
@@ -113,7 +115,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 				ColorId = 0,
 				BrandId = 0,
                 AvailableFrameBrands = availableFrameBrands,
-                AvailableFrameColors = availableFrameColors
+                AvailableFrameColors = availableFrameColors,
+				FormLegend = formLegend
 			};
 		}
 	}

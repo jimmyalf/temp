@@ -4,7 +4,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias
 {
 	public class PageOfFramesMatchingCriteria : PagedCriteria, IActionCriteria
 	{
-		//public int IdGreaterThen { get; set; }
 		public string NameLike { get; set; }
+		public bool SortAscending { get; set; }
+		public string OrderBy { get; set; }
 	}
 }

@@ -3,7 +3,7 @@
 
 	<property name="compName" 				value="Synologen"/>
 	<property name="wpcRootDir" 			value="C:\Develop\WPC4\Current\CustomerSpecific"/>
-	<property name="wpcCommonBuildFiles" 	value="C:\Inetpub\Wpc\CommonBuildFiles"/>
+	<property name="wpcCommonBuildFiles" 	value="C:\Develop\WPC\CommonBuildFiles"/>
 	<property name="developDir" 			value="${wpcRootDir}\${compName}"/>
 	<property name="deployRoot" 			value="\\Black\Inetpub\Synologen" overwrite="false"/>
 	

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using NHibernate;
-using NHibernate.Criterion;
 using Spinit.Wpc.Synologen.Core.Persistence;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate
@@ -39,32 +38,15 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate
 
 		private IEnumerable<TModel> GetPagedResult<TPagedActionCriteria>(TPagedActionCriteria pagedActionCriteria, out long count) where TPagedActionCriteria : IActionCriteria
 		{
-				var multiResults = Session.CreateMultiCriteria()
-					 .Add(pagedActionCriteria.Convert<TPagedActionCriteria, ICriteria>())
-					 .Add(pagedActionCriteria.Convert<TPagedActionCriteria, ICriteria>()
-						.SetFirstResult(0)
-						.SetMaxResults(-1)
-						.SetProjection(Projections.RowCountInt64())
-						).List();
-				count = (long)((IList)multiResults[1])[0];
-				return (IEnumerable<TModel>) ((ArrayList)multiResults[0]).ToArray(typeof(TModel));
+			var nhibernateCriteria = pagedActionCriteria.Convert<TPagedActionCriteria, ICriteria>();
+			var nhibernateCountCriteria = pagedActionCriteria.Convert<TPagedActionCriteria, ICriteria>().GetCount();
+
+			var multiResults = Session.CreateMultiCriteria()
+				 .Add(nhibernateCriteria)
+				 .Add(nhibernateCountCriteria)
+				 .List();
+			count = (long)((IList)multiResults[1])[0];
+			return (IEnumerable<TModel>) ((ArrayList)multiResults[0]).ToArray(typeof(TModel));
 		}
-
-		//public virtual IEnumerable<TModel> FindBy<TActionCriteria>(TActionCriteria actionCriteria) where TActionCriteria : IActionCriteria
-		//{
-		//    if (actionCriteria is IPagedCriteria)
-		//    {
-		//        var pagedCriteria = (IPagedCriteria) actionCriteria;
-		//        var result = actionCriteria.Convert<TActionCriteria, ICriteria>().List<TModel>();
-		//        var count = actionCriteria.Convert<TActionCriteria, ICriteria>()
-		//            .SetFirstResult(0)
-		//            .SetMaxResults(-1)
-		//            .SetProjection(Projections.RowCountInt64())
-		//            .UniqueResult<long>();
-		//        return new PagedList<TModel>(result, count, pagedCriteria.Page, pagedCriteria.PageSize);
-		//    }
-
-		//    return actionCriteria.Convert<TActionCriteria, ICriteria>().List<TModel>();
-		//}
 	}
 }

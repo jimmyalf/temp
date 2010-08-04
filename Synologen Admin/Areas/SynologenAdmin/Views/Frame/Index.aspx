@@ -1,12 +1,7 @@
 ﻿<%@ Page MasterPageFile="~/Components/Synologen/SynologenMain.master" Inherits="System.Web.Mvc.ViewPage<Spinit.Wpc.Synologen.Presentation.Models.FrameListView>" %>
 <%@ Import Namespace="Spinit.Wpc.Synologen.Presentation.Helpers"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
-<div id="dCompSubNavigation">
-	<ul id="SubMenu">
-		<li><%=Html.ActionLink("Lista","Index","Frame") %></li>
-		<li><%=Html.ActionLink("Ny","Add","Frame") %></li>
-	</ul>
-</div>
+<% Html.RenderPartial("FrameSubMenu"); %>
 <div id="dCompMain" class="Components-Synologen-Frames">
 	<div class="fullBox">
 		<div class="wrap">
@@ -23,19 +18,24 @@
 			</fieldset>
 			<% } %>
 			<div>
-				<%=Html.WpcPager(Model.List)
-					.ExtraQueryParameters(new NameValueCollection{{"search",Model.SearchWord}})
-				%>
+				<%=Html.WpcPager(Model.List).ExtraQueryParameters(new NameValueCollection{{"search", Model.SearchWord}})%>
 			</div>
 			<div>
-				<%= Html.Grid(Model.List).Columns(
+				<%= Html.Grid(Model.List)
+				    .Sort(Model.SortOptions)
+					.Columns(
 						column => {
      						column.For(x => x.Id).Named("Båg ID")
-     							.HeaderAttributes( new Dictionary<string, object>{{"class","id-column"}} );
+     							.HeaderAttributes( new Dictionary<string, object>{{"class","controlColumn"}} );
      						column.For(x => x.Name).Named("Namn");
 						    column.For(x => x.ArticleNumber).Named("Artikelnr");
 						    column.For(x => x.Brand).Named("Märke");
 						    column.For(x => x.Color).Named("Färg");
+							column.For(x => Html.ActionLink("Redigera","Edit","Frame", new {id = x.Id}, new object()))
+								.Attributes(@class => "center")
+								.Named("Redigera")
+								.DoNotEncode()
+								.HeaderAttributes( new Dictionary<string, object>{{"class","controlColumn"}} );
      					}
      				)
      				.Attributes( new Dictionary<string, object>{{"class","striped"}} )

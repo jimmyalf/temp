@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Presentation.Models;
@@ -15,6 +17,34 @@ namespace Spinit.Wpc.Synologen.Presentation.App.Extensions
 		public static Frame FillFrame(this FrameEditView viewModel, Frame entity, FrameBrand brand, FrameColor color)
 		{
 			return UpdateFrame(entity, viewModel, brand, color);
+		}
+
+		public static FrameEditView ToFrameEditView(this Frame entity, IEnumerable<FrameBrand> availableFrameBrands, IEnumerable<FrameColor> availableFrameColors, string formLegend)
+		{
+			return new FrameEditView
+			{
+				AllowOrders = entity.AllowOrders,
+				ArticleNumber = entity.ArticleNumber,
+				AvailableFrameBrands = availableFrameBrands,
+				AvailableFrameColors = availableFrameColors,
+				BrandId = entity.Brand.Id,
+				ColorId = entity.Color.Id,
+				CylinderIncrementation = entity.Cylinder.Increment,
+				CylinderMaxValue = entity.Cylinder.Max,
+				CylinderMinValue = entity.Cylinder.Min,
+				Id = entity.Id,
+				IndexIncrementation = entity.Index.Increment,
+				IndexMaxValue = entity.Index.Max,
+				IndexMinValue = entity.Index.Min,
+				Name = entity.Name,
+				PupillaryDistanceIncrementation = entity.PupillaryDistance.Increment,
+				PupillaryDistanceMaxValue = entity.PupillaryDistance.Max,
+				PupillaryDistanceMinValue = entity.PupillaryDistance.Min,
+				SphereIncrementation = entity.Sphere.Increment,
+				SphereMaxValue = entity.Sphere.Max,
+				SphereMinValue = entity.Sphere.Min,
+                FormLegend = formLegend
+			};
 		}
 
 		public static IPagedList<FrameListItemView> ToFrameViewList(this IPagedList<Frame> entityList)
@@ -47,6 +77,14 @@ namespace Spinit.Wpc.Synologen.Presentation.App.Extensions
 				;
 
 			return entity;
+		}
+
+		public static string GetDomainPropertyName(this Type type, string viewModelPropertyName)
+		{
+			if(viewModelPropertyName == null) return null;
+			var attributes = TypeDescriptor.GetProperties(type)[viewModelPropertyName].Attributes;
+			var modelDomainMappingAttribute = (ModelDomainMappingAttribute)attributes[typeof(ModelDomainMappingAttribute)];
+			return modelDomainMappingAttribute == null ? viewModelPropertyName : modelDomainMappingAttribute.DomainPropertyName;
 		}
 	}
 }

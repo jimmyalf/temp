@@ -16,8 +16,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 		{
 			return _session
 				.CreateCriteria<Frame>()
-				//.Add(Restrictions.Gt("Id", source.IdGreaterThen))
 				.Add(Restrictions.InsensitiveLike("Name", String.Format("%{0}%", source.NameLike)))
+				.Sort(source.OrderBy, source.SortAscending)
 				.Page(source.Page, source.PageSize);
 		}
 	}

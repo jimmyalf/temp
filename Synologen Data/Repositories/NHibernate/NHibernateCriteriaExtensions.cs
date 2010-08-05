@@ -1,5 +1,7 @@
+using System;
 using NHibernate;
 using NHibernate.Criterion;
+using System.Linq.Expressions;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate
 {
@@ -24,6 +26,16 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate
 				.SetProjection(Projections.RowCountInt64());
 			criteria.ClearOrders();
 			return criteria;
+		}
+		public static ICriteria SetAlias<TModel>(this ICriteria criteria, Expression<Func<TModel,object>> expression)
+		{
+			var propertyName = ((MemberExpression)expression.Body).Member.Name;
+			return criteria.CreateAlias(propertyName, propertyName);
+		}
+		public static ICriteria SetAlias<TModel>(this ICriteria criteria, Expression<Func<TModel,object>> expression, string aliasName)
+		{
+			var propertyName = ((MemberExpression)expression.Body).Member.Name;
+			return criteria.CreateAlias(propertyName, aliasName);
 		}
 	}
 }

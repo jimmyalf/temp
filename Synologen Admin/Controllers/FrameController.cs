@@ -5,7 +5,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Persistence;
-using Spinit.Wpc.Synologen.Presentation.App.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
@@ -24,6 +24,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			_frameBrandRepository = frameBrandRepository;
 		}
 
+		#region Index
+
 		[HttpGet]
 		public ActionResult Index(string search, int? page, int? pageSize, GridSortOptions sortOptions) 
 		{
@@ -32,27 +34,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				NameLike = search, 
 				Page = page ?? 1, 
 				PageSize = pageSize ?? DefaultPageSize, 
-				OrderBy = typeof (FrameListItemView).GetDomainPropertyName(sortOptions.Column), 
+				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameListItemView,Frame>(sortOptions.Column), 
 				SortAscending = (sortOptions.Direction == SortDirection.Ascending)
 			};
 
 			var list = _frameRepository.FindBy(criteria);
-			var viewList = ((IPagedList<Frame>)list).ToFrameViewList();
-			return View(new FrameListView {List = viewList, SearchWord = search, SortOptions = sortOptions});
+			var viewList = ((ISortedPagedList<Frame>)list).ToFrameViewList();
+			return View(new FrameListView {List = viewList, SearchWord = search});
 		}
 
 		[HttpPost]
 		public ActionResult Index(FrameListView inModel, int? pageSize)
 		{
 			var list = _frameRepository.FindBy(new PageOfFramesMatchingCriteria { NameLike = inModel.SearchWord, Page = 1, PageSize = pageSize ?? DefaultPageSize });
-			var viewList = ((IPagedList<Frame>)list).ToFrameViewList();
-			return View(new FrameListView {List = viewList, SearchWord = inModel.SearchWord, SortOptions = new GridSortOptions()});
+			var viewList = ((ISortedPagedList<Frame>)list).ToFrameViewList();
+			return View(new FrameListView {List = viewList, SearchWord = inModel.SearchWord});
 		}
 
-		public ActionResult Sorting(GridSortOptions sort) 
-		{
-		  return View();
-		}
+		#endregion
+
+		#region Edit
 
 		public ActionResult Edit(int id)
 		{
@@ -79,6 +80,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return View(inModel);
 		}
 
+		#endregion
+
+		#region Add
+
 		public ActionResult Add()
 		{
 			var selectableFrameColors = _frameColorRepository.GetAll();
@@ -100,5 +105,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			}
 			return View(inModel);
 		}
+
+		#endregion
 	}
 }

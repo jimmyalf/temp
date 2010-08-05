@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="~/Components/Synologen/SynologenMain.master" Inherits="System.Web.Mvc.ViewPage<FrameListView>" %>
+﻿<%@ Page MasterPageFile="~/Components/Synologen/SynologenMain.master" Inherits="System.Web.Mvc.ViewPage<FrameColorListView>" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
 <% Html.RenderPartial("FrameSubMenu"); %>
 <div id="dCompMain" class="Components-Synologen-Frames">
@@ -7,17 +7,20 @@
 			<% using (Html.BeginForm()) {%>
 			<fieldset>
 				<legend>Bågar</legend>
-				<p class="formItem">
-					<%= Html.LabelFor(x => x.SearchWord) %>
-					<%= Html.EditorFor(x => x.SearchWord) %>
+				<p>
+					<%= Html.LabelFor(x => x.SelectedFrameColorName) %>
+					<%= Html.EditorFor(x => x.SelectedFrameColorName) %>
+					<%= Html.ValidationMessageFor(x => x.SelectedFrameColorName) %>
 				</p>
 				<p class="formCommands">
-					<input type="submit" value="Sök" class="btnBig" />
+					<%= Html.AntiForgeryToken() %>
+					<%= Html.HiddenFor(x => x.SelectedFrameColorId) %>				
+					<input type="submit" value="Lägg till färg" class="btnBig" />
 				</p>
 			</fieldset>
 			<% } %>
 			<div>
-				<%= Html.WpcPager(Model.List).ExtraQueryParameters(new NameValueCollection{{"search", Model.SearchWord}})%>
+				<%=Html.WpcPager(Model.List)%>
 			</div>
 			<div>
 				<%= Html.WpcGrid(Model.List)
@@ -26,9 +29,6 @@
      						column.For(x => x.Id).Named("ID")
      							.HeaderAttributes(@class => "controlColumn");
      						column.For(x => x.Name).Named("Namn");
-						    column.For(x => x.ArticleNumber).Named("Artikelnr");
-						    column.For(x => x.Brand).Named("Märke");
-						    column.For(x => x.Color).Named("Färg");
 							column.For(x => Html.ActionLink("Redigera","Edit","Frame", new {id = x.Id}, new object()))
 								.Sortable(false)
 								.Attributes(@class => "center")
@@ -37,8 +37,7 @@
 								.HeaderAttributes(@class => "controlColumn");
      					}
      				)
-     				.Empty("Inga bågar i databasen.")
-     				 %>
+     				.Empty("Inga bågfärger i databasen.") %>
 			</div>     						
 		</div>				
 	</div>

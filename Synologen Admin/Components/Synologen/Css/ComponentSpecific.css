@@ -57,3 +57,16 @@ table.radioButtonItems tbody td{
 .interval-formItem input[type="text"] { width: 8em; }
 
 .field-validation-error { color: red; }
+
+
+table .sort_desc a::after
+{
+	content:url("/common/icons/down.gif");
+	padding-left: 10px;
+}
+
+table .sort_asc a::after
+{
+	content:url("/common/icons/up.gif");
+	padding-left: 10px;
+}

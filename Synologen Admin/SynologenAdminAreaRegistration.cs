@@ -13,11 +13,19 @@ namespace Spinit.Wpc.Synologen.Presentation
 
 		public override void RegisterArea(AreaRegistrationContext context)
 		{
-			const string prefix = "components/synologen/";
+			const string urlPrefix = "components/synologen/";
 
-			context.MapRoute("SynologenAdminFramesAdd", prefix + "frames/add", new { controller = "Frame", action = "Add" });
-			context.MapRoute("SynologenAdminFramesEdit", prefix + "frames/edit/{id}", new { controller = "Frame", action = "Edit" } );
-			context.MapRoute("SynologenAdminDefault", prefix + "frames", new { controller = "Frame", action = "Index" } );
+			context.MapRoute(AreaName + "FramesAdd", 
+				urlPrefix + "frames/add", new { controller = "Frame", action = "Add" });
+
+			context.MapRoute(AreaName + "FramesEdit", 
+				urlPrefix + "frames/edit/{id}", new { controller = "Frame", action = "Edit" } );
+
+			context.MapRoute(AreaName + "FramesIndex", 
+				urlPrefix + "frames", new { controller = "Frame", action = "Index" } );
+
+			context.MapRoute(AreaName + "FrameColorsIndex", 
+				urlPrefix + "framecolors", new { controller = "FrameColor", action = "Index" } );
 
 		}
 

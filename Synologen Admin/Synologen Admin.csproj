@@ -71,12 +71,16 @@
     <Content Include="Components\Synologen\SynologenMain.master" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App\Extensions\ViewModelExtensions.cs" />
-    <Compile Include="App\ModelDomainMappingAttribute.cs" />
-    <Compile Include="App\Validation\GreaterThanZero.cs" />
-    <Compile Include="App\Validation\NotZeroAttribute.cs" />
+    <Compile Include="Helpers\Extensions\ViewModelExtensions.cs" />
+    <Compile Include="Helpers\Extensions\WpcGridExtensions.cs" />
+    <Compile Include="Helpers\Validation\GreaterThanZero.cs" />
+    <Compile Include="Helpers\Validation\NotZeroAttribute.cs" />
+    <Compile Include="Helpers\WpcGrid.cs" />
+    <Compile Include="Helpers\WpcGridRenderer.cs" />
+    <Compile Include="Helpers\Extensions\WpcGridRendererExtensions.cs" />
+    <Compile Include="Controllers\FrameColorController.cs" />
     <Compile Include="Helpers\WpcPager.cs" />
-    <Compile Include="Helpers\WpcPagerExtensions.cs" />
+    <Compile Include="Helpers\Extensions\WpcPagerExtensions.cs" />
     <Compile Include="Code\ComponentPages.cs" />
     <Compile Include="Code\SessionContext.cs" />
     <Compile Include="Code\SynologenPage.cs">
@@ -245,7 +249,10 @@
       <DependentUpon>SynologenMain.master</DependentUpon>
     </Compile>
     <Compile Include="Controllers\FrameController.cs" />
+    <Compile Include="Models\FrameColorListView.cs" />
+    <Compile Include="Models\FrameColorListItemView.cs" />
     <Compile Include="Models\FrameEditView.cs" />
+    <Compile Include="Models\FrameListItemView.cs" />
     <Compile Include="Models\FrameListView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SynologenAdminAreaRegistration.cs" />
@@ -369,6 +376,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\SynologenAdmin\Views\FrameColor\Index.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Edit.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\FrameForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Index.aspx" />

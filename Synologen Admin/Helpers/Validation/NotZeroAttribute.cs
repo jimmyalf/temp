@@ -1,8 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Spinit.Wpc.Synologen.Presentation.App.Validation {
-
+namespace Spinit.Wpc.Synologen.Presentation.Helpers.Validation
+{
 	public class NotZeroAttribute : ValidationAttribute 
 	{
 		public override bool IsValid(object value) 

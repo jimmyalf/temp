@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
-using Spinit.Wpc.Synologen.Presentation.App.Validation;
+using Spinit.Wpc.Synologen.Presentation.Helpers.Validation;
 
 namespace Spinit.Wpc.Synologen.Presentation.Models
 {

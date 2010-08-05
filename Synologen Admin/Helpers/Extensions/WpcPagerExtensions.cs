@@ -2,7 +2,7 @@ using System;
 using System.Web.Mvc;
 using Spinit.Wpc.Synologen.Core.Persistence;
 
-namespace Spinit.Wpc.Synologen.Presentation.Helpers
+namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 {
 	public static class WpcPagerExtensions {
 		/// <summary>

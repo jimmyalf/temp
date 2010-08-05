@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\CriteriaConverters\AllFramesMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\PageOfFrameColorsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFramesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\FrameBrandRepository.cs" />
     <Compile Include="Repositories\FrameColorRepository.cs" />

@@ -26,6 +26,15 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate
 
 		public virtual IEnumerable<TModel> FindBy<TActionCriteria>(TActionCriteria actionCriteria) where TActionCriteria : IActionCriteria
 		{
+			if (actionCriteria is ISortedCriteria && actionCriteria is IPagedCriteria)
+			{
+				long count;
+				var sortedCriteria = (ISortedCriteria) actionCriteria;
+				var pagedCriteria = (IPagedCriteria) actionCriteria;
+				var result = GetPagedResult(actionCriteria, out count);
+				var pagedList = new PagedList<TModel>(result, count, pagedCriteria.Page, pagedCriteria.PageSize);
+				return new SortedPagedList<TModel>(pagedList, sortedCriteria.OrderBy, sortedCriteria.SortAscending);
+			}
 			if (actionCriteria is IPagedCriteria)
 			{
 				long count;

@@ -50,9 +50,12 @@
     <Compile Include="Domain\Model\FrameColor.cs" />
     <Compile Include="Domain\Model\Interval.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllFramesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\PageOfFrameColorsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFramesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\IFrameBrandRepository.cs" />
     <Compile Include="Domain\Persistence\IFrameColorRepository.cs" />
+    <Compile Include="Extensions\ExpressionExtensions.cs" />
+    <Compile Include="Extensions\ExpressionNameVisitor.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Persistence\ActionCriteriaExtensions.cs" />
     <Compile Include="Persistence\IActionCriteria.cs" />
@@ -62,9 +65,13 @@
     <Compile Include="Persistence\IPagedList.cs" />
     <Compile Include="Persistence\IReadonlyRepository.cs" />
     <Compile Include="Persistence\IRepository.cs" />
+    <Compile Include="Persistence\ISortedCriteria.cs" />
+    <Compile Include="Persistence\ISortedPagedList.cs" />
     <Compile Include="Persistence\IUnitOfWork.cs" />
     <Compile Include="Persistence\PagedCriteria.cs" />
     <Compile Include="Persistence\PagedList.cs" />
+    <Compile Include="Persistence\PagedSortedCriteria.cs" />
+    <Compile Include="Persistence\SortedPagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -50,6 +50,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			};
 		}
 
+		public static FrameColorEditView ToFrameColorEditView(this FrameColor frameColor, string legend)
+		{
+			return new FrameColorEditView
+			{
+				Id = frameColor.Id,
+				Name = frameColor.Name,
+				FormLegend = legend
+			};
+		}
+
+		public static FrameColor ToFrameColor(this FrameColorEditView viewModel)
+		{
+			return UpdateFrameColor(new FrameColor(), viewModel);
+		}
+
+		public static FrameColor FillFrameColor(this FrameColorEditView viewModel, FrameColor entity)
+		{
+
+			return UpdateFrameColor(entity, viewModel);
+		}
+
 		public static ISortedPagedList<FrameListItemView> ToFrameViewList(this ISortedPagedList<Frame> entityList)
 		{
 			Func<Frame,FrameListItemView> typeConverter = x => new FrameListItemView {
@@ -70,34 +91,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			                                                                                         	Name = x.Name
 			                                                                                         };
 			return entityList.ConvertSortedPagedList(new Converter<FrameColor, FrameColorListItemView>(typeConverter));			
-		}
-
-		private static Frame UpdateFrame(Frame entity, FrameEditView viewModel, FrameBrand brand, FrameColor color)
-		{
-			entity.AllowOrders = viewModel.AllowOrders;
-			entity.ArticleNumber = viewModel.ArticleNumber;
-			entity.Brand = brand;
-			entity.Color = color;
-			entity.Id = viewModel.Id;
-			entity.Name = viewModel.Name;
-
-			entity
-				.SetInterval(x => x.Index, viewModel.IndexMinValue, viewModel.IndexMaxValue, viewModel.IndexIncrementation)
-				.SetInterval(x => x.Sphere, viewModel.SphereMinValue, viewModel.SphereMaxValue, viewModel.SphereIncrementation)
-				.SetInterval(x => x.Cylinder, viewModel.CylinderMinValue, viewModel.CylinderMaxValue, viewModel.CylinderIncrementation)
-				.SetInterval(x => x.PupillaryDistance, viewModel.PupillaryDistanceMinValue, viewModel.PupillaryDistanceMaxValue, viewModel.PupillaryDistanceIncrementation)
-				;
-
-			return entity;
-		}
-
-		public static GridSortOptions GetGridSortOptions(this ISortedPagedList list)
-		{
-			return new GridSortOptions
-			{
-				Column = list.OrderBy,
-				Direction = (list.SortAscending) ? SortDirection.Ascending : SortDirection.Descending
-			};
 		}
 
 		public static string GetTranslatedPropertyNameOrDefault<TViewModel,TDomainModel>(string viewModelPropertyName)
@@ -139,6 +132,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 					DomainModelPropertyName = domainModel.GetName()
 				};
 			}
+		}
+
+		private static Frame UpdateFrame(Frame entity, FrameEditView viewModel, FrameBrand brand, FrameColor color)
+		{
+			entity.AllowOrders = viewModel.AllowOrders;
+			entity.ArticleNumber = viewModel.ArticleNumber;
+			entity.Brand = brand;
+			entity.Color = color;
+			entity.Id = viewModel.Id;
+			entity.Name = viewModel.Name;
+
+			entity
+				.SetInterval(x => x.Index, viewModel.IndexMinValue, viewModel.IndexMaxValue, viewModel.IndexIncrementation)
+				.SetInterval(x => x.Sphere, viewModel.SphereMinValue, viewModel.SphereMaxValue, viewModel.SphereIncrementation)
+				.SetInterval(x => x.Cylinder, viewModel.CylinderMinValue, viewModel.CylinderMaxValue, viewModel.CylinderIncrementation)
+				.SetInterval(x => x.PupillaryDistance, viewModel.PupillaryDistanceMinValue, viewModel.PupillaryDistanceMaxValue, viewModel.PupillaryDistanceIncrementation)
+				;
+
+			return entity;
+		}
+
+		private static FrameColor UpdateFrameColor(FrameColor entity, FrameColorEditView viewModel)
+		{
+			entity.Name = viewModel.Name;
+			return entity;
 		}
 
 	}

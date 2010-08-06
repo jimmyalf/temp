@@ -31,18 +31,66 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				SortAscending = (sortOptions.Direction == SortDirection.Ascending)
 			};
 
-			var list = _frameColorRepository.FindBy(criteria);
-			var viewList = ((ISortedPagedList<FrameColor>)list).ToFrameColorViewList();
+			var list = (ISortedPagedList<FrameColor>) _frameColorRepository.FindBy(criteria);
+			var viewList = list.ToFrameColorViewList();
 			return View(new FrameColorListView {List = viewList});
 		}
 
-		[HttpPost]
-		public ActionResult Index(FrameColorListView inModel)
+		#region Edit
+
+		public ActionResult Edit(int id)
 		{
-			//var list = new []{new FrameColorListItemView {Id = 1, Name = inModel.SelectedFrameColorName}};
-			//inModel.List = new SortedPagedList<FrameColorListItemView>(list, 0, 1, 10);
+			var frameColor = _frameColorRepository.Get(id);
+			var viewModel = frameColor.ToFrameColorEditView("Redigera bågfärg");
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit(FrameColorEditView inModel)
+		{
+			if (ModelState.IsValid)
+			{
+				var entity = _frameColorRepository.Get(inModel.Id);
+				var frameColor = inModel.FillFrameColor(entity);
+				_frameColorRepository.Save(frameColor);
+				return RedirectToAction("Index");
+			}
 			return View(inModel);
 		}
+
+		#endregion
+
+		#region Add
+
+		public ActionResult Add()
+		{
+			return View(new FrameColorEditView(){FormLegend = "Skapa ny bågfärg"});
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Add(FrameColorEditView inModel)
+		{
+			if (ModelState.IsValid)
+			{
+				var frameColor = inModel.ToFrameColor();
+				_frameColorRepository.Save(frameColor);
+				return RedirectToAction("Index");
+			}
+			return View(inModel);
+		}
+
+		#endregion
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+			var frameColor = _frameColorRepository.Get(id);
+			_frameColorRepository.Delete(frameColor);
+			return RedirectToAction("Index");
+        }
 
 	}
 }

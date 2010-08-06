@@ -24,6 +24,16 @@ namespace Spinit.Wpc.Synologen.Presentation
 			context.MapRoute(AreaName + "FramesIndex", 
 				urlPrefix + "frames", new { controller = "Frame", action = "Index" } );
 
+			context.MapRoute(AreaName + "FrameColorsAdd", 
+				urlPrefix + "framecolors/add", new { controller = "FrameColor", action = "Add" });
+
+			context.MapRoute(AreaName + "FrameColorsDelete", 
+				urlPrefix + "framecolors/delete/{id}", new { controller = "FrameColor", action = "Delete" } );
+
+			context.MapRoute(AreaName + "FrameColorsEdit", 
+				urlPrefix + "framecolors/edit/{id}", new { controller = "FrameColor", action = "Edit" } );
+
+
 			context.MapRoute(AreaName + "FrameColorsIndex", 
 				urlPrefix + "framecolors", new { controller = "FrameColor", action = "Index" } );
 

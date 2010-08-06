@@ -1,0 +1,6 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master"  Inherits="System.Web.Mvc.ViewMasterPage" %>
+<asp:Content ID="SynologenMainContent" ContentPlaceHolderID="phSynologen" runat="server">
+</form>
+<asp:contentplaceholder id="MainContent" runat="server"></asp:contentplaceholder>
+<form>
+</asp:Content>

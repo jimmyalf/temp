@@ -1,5 +1,5 @@
-﻿<%@ Page MasterPageFile="~/Components/Synologen/SynologenMain.master" Inherits="System.Web.Mvc.ViewPage<FrameListView>" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
+﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.master" Inherits="System.Web.Mvc.ViewPage<FrameListView>" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <% Html.RenderPartial("FrameSubMenu"); %>
 <div id="dCompMain" class="Components-Synologen-Frames">
 	<div class="fullBox">
@@ -16,9 +16,7 @@
 				</p>
 			</fieldset>
 			<% } %>
-			<div>
-				<%= Html.WpcPager(Model.List).ExtraQueryParameters(new NameValueCollection{{"search", Model.SearchWord}})%>
-			</div>
+			<%= Html.WpcPager(Model.List).ExtraQueryParameters(new NameValueCollection{{"search", Model.SearchWord}})%>
 			<div>
 				<%= Html.WpcGrid(Model.List)
 					.Columns(
@@ -38,9 +36,9 @@
      					}
      				)
      				.Empty("Inga bågar i databasen.")
-     				 %>
-			</div>     						
-		</div>				
-	</div>
+				%>
+			</div>
+		</div>     						
+	</div>				
 </div>
 </asp:Content>

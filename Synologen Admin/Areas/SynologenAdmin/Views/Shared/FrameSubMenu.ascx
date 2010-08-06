@@ -4,5 +4,6 @@
 		<li><%=Html.ActionLink("Bågar","Index","Frame") %></li>
 		<li><%=Html.ActionLink("Ny båge","Add","Frame") %></li>
 		<li><%=Html.ActionLink("Färger","Index","FrameColor") %></li>
+		<li><%=Html.ActionLink("Ny färg","Add","FrameColor") %></li>
 	</ul>
 </div>

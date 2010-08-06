@@ -71,6 +71,7 @@
     <Content Include="Components\Synologen\SynologenMain.master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\FrameColorEditView.cs" />
     <Compile Include="Helpers\Extensions\ViewModelExtensions.cs" />
     <Compile Include="Helpers\Extensions\WpcGridExtensions.cs" />
     <Compile Include="Helpers\Validation\GreaterThanZero.cs" />
@@ -376,8 +377,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\SynologenAdmin\Views\FrameColor\Add.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\FrameColor\Edit.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\FrameColor\Index.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Edit.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\FrameColor\DeleteFrameColor.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Shared\FrameColorForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\FrameForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Index.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\FrameSubMenu.ascx" />
@@ -385,6 +390,7 @@
     <Content Include="Areas\SynologenAdmin\Views\Frame\Add.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\SynologenAdmin\Views\Shared\SynologenMVC.Master" />
     <None Include="CodeTemplates\AddController\Controller.tt">
     </None>
     <None Include="CodeTemplates\AddView\Create.tt">

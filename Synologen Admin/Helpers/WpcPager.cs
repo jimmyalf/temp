@@ -205,19 +205,29 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		private string CreateQueryString(NameValueCollection values) {
 			var builder = new StringBuilder();
 
-			foreach (string key in values.Keys) {
-				if (key == _pageQueryName || _extraQueryParameters.HasKey(key)) continue;
+			if (values != null)
+			{
+				foreach (string key in values.Keys)
+				{
+					if (key == _pageQueryName || _extraQueryParameters.HasKey(key))
+						continue;
 
-				foreach (var value in values.GetValues(key) ?? new string[0]) {
-					builder.AppendFormat("&amp;{0}={1}", key, HttpUtility.HtmlEncode(value));
+					foreach (var value in values.GetValues(key) ?? new string[0])
+					{
+						builder.AppendFormat("&amp;{0}={1}", key, HttpUtility.HtmlEncode(value));
+					}
 				}
 			}
-			foreach (string queryParameterKey in _extraQueryParameters.Keys) {
-				var value = _extraQueryParameters[queryParameterKey];
-				if (value == null) continue;
-				builder.AppendFormat("&amp;{0}={1}", queryParameterKey, HttpUtility.HtmlEncode(value));
+			if (_extraQueryParameters != null)
+			{
+				foreach (string queryParameterKey in _extraQueryParameters.Keys)
+				{
+					var value = _extraQueryParameters[queryParameterKey];
+					if (value == null)
+						continue;
+					builder.AppendFormat("&amp;{0}={1}", queryParameterKey, HttpUtility.HtmlEncode(value));
+				}
 			}
-
 			return builder.ToString();
 		}
 	}

@@ -50,6 +50,7 @@
     <Compile Include="Domain\Model\FrameColor.cs" />
     <Compile Include="Domain\Model\Interval.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllFramesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\PageOfFrameBrandsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameColorsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFramesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\IFrameBrandRepository.cs" />

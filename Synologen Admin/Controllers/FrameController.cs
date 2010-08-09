@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using MvcContrib.Sorting;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
@@ -35,7 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				Page = gridPageSortParameters.Page, 
 				PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize, 
 				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameListItemView,Frame>(gridPageSortParameters.Column), 
-				SortAscending = (gridPageSortParameters.Direction == SortDirection.Ascending)
+				SortAscending = gridPageSortParameters.SortAscending
 			};
 
 			var list = _frameRepository.FindBy(criteria);
@@ -112,6 +111,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				_frameRepository.Save(frame);
 				return RedirectToAction("Index");
 			}
+			inModel.AvailableFrameColors = _frameColorRepository.GetAll();
+			inModel.AvailableFrameBrands = _frameBrandRepository.GetAll();
+			inModel.FormLegend = "Skapa ny båge";
 			return View(inModel);
 		}
 

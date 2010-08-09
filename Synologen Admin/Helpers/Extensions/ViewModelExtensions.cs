@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using MvcContrib.Sorting;
-using MvcContrib.UI.Grid;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Core.Persistence;
@@ -10,8 +8,8 @@ using Spinit.Wpc.Synologen.Presentation.Models;
 
 namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 {
-	public static class ViewModelExtensions
-	{
+	public static class ViewModelExtensions {
+		#region To Domain Entities
 		public static Frame ToFrame(this FrameEditView viewModel, FrameBrand brand, FrameColor color)
 		{
 			return UpdateFrame(new Frame(), viewModel, brand, color);
@@ -22,6 +20,29 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			return UpdateFrame(entity, viewModel, brand, color);
 		}
 
+		public static FrameColor ToFrameColor(this FrameColorEditView viewModel)
+		{
+			return UpdateFrameColor(new FrameColor(), viewModel);
+		}
+
+		public static FrameColor FillFrameColor(this FrameColorEditView viewModel, FrameColor entity)
+		{
+
+			return UpdateFrameColor(entity, viewModel);
+		}
+
+		public static FrameBrand ToFrameBrand(this FrameBrandEditView viewModel)
+		{
+			return UpdateFrameBrand(new FrameBrand(), viewModel);
+		}
+
+		public static FrameBrand FillFrameBrand(this FrameBrandEditView viewModel, FrameBrand entity)
+		{
+			return UpdateFrameBrand(entity, viewModel);
+		}
+		#endregion
+
+		#region To Edit Views
 		public static FrameEditView ToFrameEditView(this Frame entity, IEnumerable<FrameBrand> availableFrameBrands, IEnumerable<FrameColor> availableFrameColors, string formLegend)
 		{
 			return new FrameEditView
@@ -60,17 +81,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			};
 		}
 
-		public static FrameColor ToFrameColor(this FrameColorEditView viewModel)
+		public static FrameBrandEditView ToFrameBrandEditView(this FrameBrand frameBrand, string legend)
 		{
-			return UpdateFrameColor(new FrameColor(), viewModel);
+			return new FrameBrandEditView
+			{
+				Id = frameBrand.Id,
+				Name = frameBrand.Name,
+				FormLegend = legend
+			};
 		}
+		#endregion
 
-		public static FrameColor FillFrameColor(this FrameColorEditView viewModel, FrameColor entity)
-		{
-
-			return UpdateFrameColor(entity, viewModel);
-		}
-
+		#region To View Lists
 		public static ISortedPagedList<FrameListItemView> ToFrameViewList(this ISortedPagedList<Frame> entityList)
 		{
 			Func<Frame,FrameListItemView> typeConverter = x => new FrameListItemView {
@@ -92,6 +114,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			                                                                                         };
 			return entityList.ConvertSortedPagedList(new Converter<FrameColor, FrameColorListItemView>(typeConverter));			
 		}
+
+		public static ISortedPagedList<FrameBrandListItemView> ToFrameBrandViewList(this ISortedPagedList<FrameBrand> entityList)
+		{
+			Func<FrameBrand, FrameBrandListItemView> typeConverter = x => new FrameBrandListItemView {
+			                                                                                         	Id = x.Id,
+			                                                                                         	Name = x.Name
+			                                                                                         };
+			return entityList.ConvertSortedPagedList(new Converter<FrameBrand, FrameBrandListItemView>(typeConverter));
+		}
+
+		#endregion
 
 		public static string GetTranslatedPropertyNameOrDefault<TViewModel,TDomainModel>(string viewModelPropertyName)
 		{
@@ -154,6 +187,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		}
 
 		private static FrameColor UpdateFrameColor(FrameColor entity, FrameColorEditView viewModel)
+		{
+			entity.Name = viewModel.Name;
+			return entity;
+		}
+
+		private static FrameBrand UpdateFrameBrand(FrameBrand entity, FrameBrandEditView viewModel)
 		{
 			entity.Name = viewModel.Name;
 			return entity;

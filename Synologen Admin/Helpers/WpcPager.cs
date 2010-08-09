@@ -13,11 +13,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		private readonly HttpRequestBase _request;
 
 		private string _paginationContainerClass = "wpcPager";
-		private string _paginationFormat = "Page {0} of {1} ({2} items)";
-		private string _paginationFirst = "« First";
-		private string _paginationPrev = "« Previous";
-		private string _paginationNext = "Next »";
-		private string _paginationLast = "Last »";
+		private string _paginationFormat = Resources.WpcPager.CenterText;
+		private string _paginationFirst = Resources.WpcPager.FirstText;
+		private string _paginationPrev = Resources.WpcPager.PreviousText;
+		private string _paginationNext = Resources.WpcPager.Next;
+		private string _paginationLast = Resources.WpcPager.LastText;
 		private string _pageQueryName = "page";
 		private Func<int, string> _urlBuilder;
 		private NameValueCollection _extraQueryParameters;
@@ -25,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		/// <summary>
 		/// Creates a new instance of the Pager class.
 		/// </summary>
-		/// <param name="pagedList">The IPagination datasource</param>
+		/// <param name="pagedList">The IPagedList datasource</param>
 		/// <param name="request">The current HTTP Request</param>
 		public WpcPager(IPagedList pagedList, HttpRequestBase request) 
 		{
@@ -208,7 +208,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 			foreach (string key in values.Keys) {
 				if (key == _pageQueryName || _extraQueryParameters.HasKey(key)) continue;
 
-				foreach (var value in values.GetValues(key)) {
+				foreach (var value in values.GetValues(key) ?? new string[0]) {
 					builder.AppendFormat("&amp;{0}={1}", key, HttpUtility.HtmlEncode(value));
 				}
 			}

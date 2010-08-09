@@ -1,10 +1,10 @@
 using System.Web.Mvc;
 using MvcContrib.Sorting;
-using MvcContrib.UI.Grid;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Persistence;
+using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
 
@@ -21,14 +21,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult Index(int? page, int? pageSize, GridSortOptions sortOptions) 
+		public ActionResult Index(GridPageSortParameters gridParameters, string error)
 		{
+			if(!string.IsNullOrEmpty(error))
+			{
+				ModelState.AddModelError(string.Empty, error);
+			}
+
 			var criteria = new PageOfFrameColorsMatchingCriteria
 			{
-				Page = page ?? 1, 
-				PageSize = pageSize ?? DefaultPageSize, 
-				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameColorListItemView,FrameColor>(sortOptions.Column), 
-				SortAscending = (sortOptions.Direction == SortDirection.Ascending)
+				Page = gridParameters.Page, 
+				PageSize = gridParameters.PageSize ?? DefaultPageSize, 
+				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameColorListItemView,FrameColor>(gridParameters.Column), 
+				SortAscending = (gridParameters.Direction == SortDirection.Ascending)
 			};
 
 			var list = (ISortedPagedList<FrameColor>) _frameColorRepository.FindBy(criteria);
@@ -65,7 +70,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
 		public ActionResult Add()
 		{
-			return View(new FrameColorEditView(){FormLegend = "Skapa ny bågfärg"});
+			return View(new FrameColorEditView {FormLegend = "Skapa ny bågfärg"});
 		}
 
 		[HttpPost]
@@ -88,7 +93,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
         public ActionResult Delete(int id)
         {
 			var frameColor = _frameColorRepository.Get(id);
-			_frameColorRepository.Delete(frameColor);
+			try{
+			    _frameColorRepository.Delete(frameColor);
+			}
+			catch
+			{
+				const string errorMessage = "Färgen kunde inte raderas då den existerar på en eller fler bågar";
+				return RedirectToAction("Index", new {error = errorMessage});
+			}
 			return RedirectToAction("Index");
         }
 

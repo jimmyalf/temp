@@ -1,10 +1,10 @@
 using System.Web.Mvc;
 using MvcContrib.Sorting;
-using MvcContrib.UI.Grid;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
-using Spinit.Wpc.Synologen.Core.Persistence;
+using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
 
@@ -27,27 +27,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		#region Index
 
 		[HttpGet]
-		public ActionResult Index(string search, int? page, int? pageSize, GridSortOptions sortOptions) 
+		public ActionResult Index(string search, GridPageSortParameters gridPageSortParameters ) 
 		{
 			var criteria = new PageOfFramesMatchingCriteria
 			{
 				NameLike = search, 
-				Page = page ?? 1, 
-				PageSize = pageSize ?? DefaultPageSize, 
-				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameListItemView,Frame>(sortOptions.Column), 
-				SortAscending = (sortOptions.Direction == SortDirection.Ascending)
+				Page = gridPageSortParameters.Page, 
+				PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize, 
+				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameListItemView,Frame>(gridPageSortParameters.Column), 
+				SortAscending = (gridPageSortParameters.Direction == SortDirection.Ascending)
 			};
 
 			var list = _frameRepository.FindBy(criteria);
-			var viewList = ((ISortedPagedList<Frame>)list).ToFrameViewList();
+			var viewList = list
+				.ToSortedPagedList()
+				.ToFrameViewList();
 			return View(new FrameListView {List = viewList, SearchWord = search});
 		}
 
 		[HttpPost]
-		public ActionResult Index(FrameListView inModel, int? pageSize)
+		public ActionResult Index(FrameListView inModel, GridPageSortParameters gridPageSortParameters)
 		{
-			var list = _frameRepository.FindBy(new PageOfFramesMatchingCriteria { NameLike = inModel.SearchWord, Page = 1, PageSize = pageSize ?? DefaultPageSize });
-			var viewList = ((ISortedPagedList<Frame>)list).ToFrameViewList();
+			var list = _frameRepository.FindBy(new PageOfFramesMatchingCriteria
+			{
+				NameLike = inModel.SearchWord,
+				Page = gridPageSortParameters.Page,
+				PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize
+			});
+			var viewList = list
+				.ToSortedPagedList()
+				.ToFrameViewList();
 			return View(new FrameListView {List = viewList, SearchWord = inModel.SearchWord});
 		}
 

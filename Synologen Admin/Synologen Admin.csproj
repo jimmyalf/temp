@@ -71,6 +71,12 @@
     <Content Include="Components\Synologen\SynologenMain.master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\GridPageSortParameters.cs" />
+    <Compile Include="Helpers\Resources\WpcPager.sv-SE.Designer.cs">
+      <DependentUpon>WpcPager.sv-SE.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Models\FrameColorEditView.cs" />
     <Compile Include="Helpers\Extensions\ViewModelExtensions.cs" />
     <Compile Include="Helpers\Extensions\WpcGridExtensions.cs" />
@@ -259,6 +265,11 @@
     <Compile Include="SynologenAdminAreaRegistration.cs" />
     <Compile Include="SynologenAdminRegistry.cs" />
     <Compile Include="UnitOfWorkModule.cs" />
+    <Compile Include="Helpers\Resources\WpcPager.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WpcPager.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
@@ -408,6 +419,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Helpers\Resources\WpcPager.sv-SE.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WpcPager.sv-SE.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Helpers\Resources\WpcPager.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WpcPager.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" Condition="" />

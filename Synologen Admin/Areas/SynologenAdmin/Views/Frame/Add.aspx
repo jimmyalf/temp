@@ -2,7 +2,7 @@
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
 <div id="dCompMain" class="Components-Synologen-Frame-Add-aspx">
 	<div class="fullBox">
-		<div class="wrap">
+		<div class="wrap">	
 			<% Html.RenderPartial("FrameForm", Model); %>
 		</div>
 	</div>

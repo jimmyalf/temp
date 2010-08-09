@@ -1,3 +1,4 @@
+using MvcContrib.Sorting;
 using MvcContrib.UI.Grid;
 
 namespace Spinit.Wpc.Synologen.Presentation.Helpers
@@ -10,5 +11,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		}
 		public int Page { get; set; }
 		public int? PageSize { get; set; }
+
+		public bool SortAscending { get { return Direction == SortDirection.Ascending; } }
 	}
 }

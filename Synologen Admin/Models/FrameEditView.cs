@@ -20,21 +20,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 
 		[DisplayName("Färg")]
 		[Required(ErrorMessage="Färg saknas")]
-		[NotZero(ErrorMessage = "Värdet får inte vara noll")]
 		public int ColorId { get; set; }
 
 		[DisplayName("Märke")]
 		[Required(ErrorMessage="Märke saknas")]
-		[NotZero(ErrorMessage = "Värdet får inte vara noll")]
 		public int BrandId { get; set; }
 
 		[DisplayName("Min")]
 		[Required(ErrorMessage="Index min saknas")]
-		[NotZero(ErrorMessage = "Värdet får inte vara noll")]
 		public decimal IndexMinValue { get; set; }
 
 		[DisplayName("Max")]
-		[NotZero(ErrorMessage = "Värdet får inte vara noll")]
 		[Required(ErrorMessage="Index max saknas")]
 		public decimal IndexMaxValue { get; set; }
 
@@ -44,12 +40,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 		public decimal IndexIncrementation { get; set; }
 
 		[DisplayName("Min")]
-		[NotZero(ErrorMessage = "Värdet får inte vara noll")]
 		[Required(ErrorMessage="Sfär min saknas")]
 		public decimal SphereMinValue { get; set; }
 
 		[DisplayName("Max")]
-		[NotZero(ErrorMessage = "Värdet får inte vara noll")]
 		[Required(ErrorMessage="Sfär max saknas")]
 		public decimal SphereMaxValue { get; set; }
 
@@ -63,7 +57,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 		public decimal CylinderMinValue { get; set; }
 
 		[DisplayName("Max")]
-		[NotZero(ErrorMessage = "Värdet får inte vara noll")]
 		[Required(ErrorMessage="Cylinder max saknas")]
 		public decimal CylinderMaxValue { get; set; }
 
@@ -73,12 +66,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 		public decimal CylinderIncrementation { get; set; }
 
 		[DisplayName("Min")]
-		[NotZero(ErrorMessage = "Värdet får inte vara noll")]
+		[GreaterThanZero(ErrorMessage = "Värdet måste vara större än noll")]
 		[Required(ErrorMessage="Pupill-distans min saknas")]
 		public decimal PupillaryDistanceMinValue { get; set; }
 
 		[DisplayName("Max")]
-		[NotZero(ErrorMessage = "Värdet får inte vara noll")]
+		[GreaterThanZero(ErrorMessage = "Värdet måste vara större än noll")]
 		[Required(ErrorMessage="Pupill-distans max saknas")]
 		public decimal PupillaryDistanceMaxValue { get; set; }
 

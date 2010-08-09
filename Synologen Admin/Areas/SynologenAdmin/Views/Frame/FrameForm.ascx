@@ -1,9 +1,12 @@
-﻿<%@ Control Inherits="System.Web.Mvc.ViewUserControl<Spinit.Wpc.Synologen.Presentation.Models.FrameEditView>" %>
-	<% Html.EnableClientValidation(); %>
-	<%= Html.ValidationSummary(true) %>
+﻿<%@ Control Inherits="System.Web.Mvc.ViewUserControl<FrameEditView>" %>
+
+	<script src="/CommonResources/Scripts/jquery.validate.js" type="text/javascript"></script>
+	<script src="/CommonResources/Scripts/MicrosoftMvcJQueryValidation.js" type="text/javascript"></script>	
+	<% Html.EnableClientValidation(); %>	
 	<% using (Html.BeginForm()) {%>
 		<fieldset>
-			<legend><%=Html.Encode(Model.FormLegend) %></legend>
+			<legend><%=Html.DisplayFor(x => x.FormLegend) %></legend>
+			
 			<p class="formItem">
 				<%= Html.LabelFor(x => x.Name) %>
 				<%= Html.EditorFor(x => x.Name) %>

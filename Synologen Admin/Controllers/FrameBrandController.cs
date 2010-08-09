@@ -1,44 +1,43 @@
 using System.Web.Mvc;
-using MvcContrib.UI.Grid;
+using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Helpers;
+using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Models;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
-	public class FrameBrandController : Controller
-	{
+	public class FrameBrandController : Controller {
 		private readonly IFrameBrandRepository _frameBrandRepository;
 		private const int DefaultPageSize = 10;
 
-		public FrameBrandController(IFrameBrandRepository frameColorRepository)
-		{
+		public FrameBrandController(IFrameBrandRepository frameColorRepository) {
 			_frameBrandRepository = frameColorRepository;
 		}
 
 		[HttpGet]
-		public ActionResult Index(int? page, int? pageSize, GridSortOptions sortOptions, string error)
-		{
-			if(!string.IsNullOrEmpty(error))
-			{
+		public ActionResult Index(GridPageSortParameters gridPageSortParameters, string error) {
+			if (!string.IsNullOrEmpty(error)) {
 				ModelState.AddModelError("", error);
 			}
 
-			var criteria = new PageOfFrameBrandsMatchingCriteria
-			{
-				Page = page ?? 1, 
-				PageSize = pageSize ?? DefaultPageSize, 
-				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameBrandListItemView,FrameBrand>(sortOptions.Column), 
-				SortAscending = (sortOptions.Direction == SortDirection.Ascending)
+			var criteria = new PageOfFrameBrandsMatchingCriteria {
+				Page = gridPageSortParameters.Page,
+				PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize,
+				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameBrandListItemView, FrameBrand>(gridPageSortParameters.Column),
+				SortAscending = gridPageSortParameters.SortAscending
 			};
 
-			var list = (ISortedPagedList<FrameBrand>) _frameBrandRepository.FindBy(criteria);
-			var viewList = list.ToFrameBrandViewList();
-			return View(new FrameBrandListView {List = viewList});
+			var list = _frameBrandRepository.FindBy(criteria);
+			var viewList = list.ToSortedPagedList().ToFrameBrandViewList();
+			return View(viewList);
 		}
 
 		#region Edit
 
-		public ActionResult Edit(int id)
-		{
+		public ActionResult Edit(int id) {
 			var frameBrand = _frameBrandRepository.Get(id);
 			var viewModel = frameBrand.ToFrameBrandEditView("Redigera bågmärke");
 			return View(viewModel);
@@ -46,10 +45,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit(FrameBrandEditView inModel)
-		{
-			if (ModelState.IsValid)
-			{
+		public ActionResult Edit(FrameBrandEditView inModel) {
+			if (ModelState.IsValid) {
 				var entity = _frameBrandRepository.Get(inModel.Id);
 				var frameBrand = inModel.FillFrameBrand(entity);
 				_frameBrandRepository.Save(frameBrand);
@@ -62,17 +59,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
 		#region Add
 
-		public ActionResult Add()
-		{
-			return View(new FrameBrandEditView(){FormLegend = "Skapa nytt bågmärke"});
+		public ActionResult Add() {
+			return View(new FrameBrandEditView { FormLegend = "Skapa nytt bågmärke" });
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Add(FrameBrandEditView inModel)
-		{
-			if (ModelState.IsValid)
-			{
+		public ActionResult Add(FrameBrandEditView inModel) {
+			if (ModelState.IsValid) {
 				var frameBrand = inModel.ToFrameBrand();
 				_frameBrandRepository.Save(frameBrand);
 				return RedirectToAction("Index");
@@ -84,17 +78,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
-        {
+		public ActionResult Delete(int id) {
 			var frameColor = _frameBrandRepository.Get(id);
-			try{
-			    _frameBrandRepository.Delete(frameColor);
+			try {
+				_frameBrandRepository.Delete(frameColor);
 			}
-			catch
-			{
-				const string errorMessage = "Färgen kunde inte raderas då den existerar på en eller fler bågar";
-				return RedirectToAction("Index", new {error = errorMessage});
+			catch {
+				const string errorMessage = "Bågmärket kunde inte raderas då är knutet till en eller fler bågar";
+				return RedirectToAction("Index", new { error = errorMessage });
 			}
 			return RedirectToAction("Index");
-        }
+		}
+	}
 }

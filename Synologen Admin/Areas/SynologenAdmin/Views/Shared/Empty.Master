@@ -1,0 +1,9 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<html>
+<head>
+</head>
+<body>
+<asp:contentplaceholder id="MainContent" runat="server"></asp:contentplaceholder>
+</body>
+</html>
+

@@ -9,7 +9,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 		{
 			Table("SynologenFrameBrand");
 			Id(x => x.Id);
-			Map(x => x.Name);
+			Map(x => x.Name).Not.Nullable();
 		}
 		
 	}

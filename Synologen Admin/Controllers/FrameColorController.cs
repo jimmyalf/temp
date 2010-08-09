@@ -1,9 +1,8 @@
 using System.Web.Mvc;
-using MvcContrib.Sorting;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
-using Spinit.Wpc.Synologen.Core.Persistence;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
@@ -33,12 +32,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				Page = gridParameters.Page, 
 				PageSize = gridParameters.PageSize ?? DefaultPageSize, 
 				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameColorListItemView,FrameColor>(gridParameters.Column), 
-				SortAscending = (gridParameters.Direction == SortDirection.Ascending)
+				SortAscending = gridParameters.SortAscending
 			};
 
-			var list = (ISortedPagedList<FrameColor>) _frameColorRepository.FindBy(criteria);
-			var viewList = list.ToFrameColorViewList();
-			return View(new FrameColorListView {List = viewList});
+			var list = _frameColorRepository.FindBy(criteria);
+			var viewList = list.ToSortedPagedList().ToFrameColorViewList();
+			return View(viewList);
 		}
 
 		#region Edit

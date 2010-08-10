@@ -71,9 +71,6 @@
     <Content Include="Components\Synologen\SynologenMain.master" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\FrameBrandController.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Models\FrameBrandEditView.cs" />
     <Compile Include="Models\FrameBrandListItemView.cs" />
     <Compile Include="Helpers\GridPageSortParameters.cs" />
@@ -90,7 +87,6 @@
     <Compile Include="Helpers\WpcGrid.cs" />
     <Compile Include="Helpers\WpcGridRenderer.cs" />
     <Compile Include="Helpers\Extensions\WpcGridRendererExtensions.cs" />
-    <Compile Include="Controllers\FrameColorController.cs" />
     <Compile Include="Helpers\WpcPager.cs" />
     <Compile Include="Helpers\Extensions\WpcPagerExtensions.cs" />
     <Compile Include="Code\ComponentPages.cs" />
@@ -392,12 +388,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\SynologenAdmin\Views\FrameColor\Add.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\FrameColor\Edit.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\FrameColor\Index.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\AddColor.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\EditColor.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\Colors.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Edit.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\FrameBrand\DeleteFrameBrand.ascx" />
-    <Content Include="Areas\SynologenAdmin\Views\FrameColor\FrameColorForm.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\DeleteFrameBrand.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\ColorForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\FrameForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Index.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\FrameSubMenu.ascx" />
@@ -405,13 +401,12 @@
     <Content Include="Areas\SynologenAdmin\Views\Frame\Add.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\SynologenAdmin\Views\FrameBrand\Add.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\FrameColor\DeleteFrameColor.ascx" />
-    <Content Include="Areas\SynologenAdmin\Views\FrameBrand\Edit.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\FrameBrand\Index.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\FrameBrand\FrameBrandForm.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\AddBrand.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\DeleteFrameColor.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\EditBrand.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\Brands.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\BrandForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\SynologenMVC.Master" />
-    <Content Include="Areas\SynologenAdmin\Views\Shared\Empty.Master" />
     <None Include="CodeTemplates\AddController\Controller.tt">
     </None>
     <None Include="CodeTemplates\AddView\Create.tt">

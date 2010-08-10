@@ -21,21 +21,24 @@ namespace Spinit.Wpc.Synologen.Presentation
 
 			context.MapRoute(AreaName + "FramesIndex", urlPrefix + "frames", new { controller = "Frame", action = "Index" } );
 
-			context.MapRoute(AreaName + "FrameColorsAdd", urlPrefix + "framecolors/add", new { controller = "FrameColor", action = "Add" });
 
-			context.MapRoute(AreaName + "FrameColorsDelete", urlPrefix + "framecolors/delete/{id}", new { controller = "FrameColor", action = "Delete" } );
+			context.MapRoute(AreaName + "FrameAddColor", urlPrefix + "frames/addcolor", new { controller = "Frame", action = "AddColor" });
 
-			context.MapRoute(AreaName + "FrameColorsEdit", urlPrefix + "framecolors/edit/{id}", new { controller = "FrameColor", action = "Edit" } );
+			context.MapRoute(AreaName + "FrameDeleteColor", urlPrefix + "frames/deletecolor/{id}", new { controller = "Frame", action = "DeleteColor" } );
 
-			context.MapRoute(AreaName + "FrameColorsIndex", urlPrefix + "framecolors", new { controller = "FrameColor", action = "Index" } );
+			context.MapRoute(AreaName + "FrameEditColor", urlPrefix + "frames/editcolor/{id}", new { controller = "Frame", action = "EditColor" } );
 
-			context.MapRoute(AreaName + "FrameBrandsAdd", urlPrefix + "framebrands/add", new { controller = "FrameBrand", action = "Add" });
+			context.MapRoute(AreaName + "FrameColors", urlPrefix + "frames/colors", new { controller = "Frame", action = "Colors" } );
 
-			context.MapRoute(AreaName + "FrameBrandsDelete", urlPrefix + "framebrands/delete/{id}", new { controller = "FrameBrand", action = "Delete" } );
 
-			context.MapRoute(AreaName + "FrameBrandsEdit", urlPrefix + "framebrands/edit/{id}", new { controller = "FrameBrand", action = "Edit" } );
 
-			context.MapRoute(AreaName + "FrameBrandsIndex", urlPrefix + "framebrands", new { controller = "FrameBrand", action = "Index" } );
+			context.MapRoute(AreaName + "FrameAddBrand", urlPrefix + "frames/addbrand", new { controller = "Frame", action = "AddBrand" });
+
+			context.MapRoute(AreaName + "FrameDeleteBrand", urlPrefix + "frames/deletebrand/{id}", new { controller = "Frame", action = "DeleteBrand" } );
+
+			context.MapRoute(AreaName + "FrameEditBrand", urlPrefix + "frames/editbrand/{id}", new { controller = "Frame", action = "EditBrand" } );
+
+			context.MapRoute(AreaName + "FrameBrands", urlPrefix + "frames/brands", new { controller = "Frame", action = "Brands" } );
 
 		}
 

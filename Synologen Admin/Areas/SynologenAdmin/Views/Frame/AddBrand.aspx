@@ -3,7 +3,7 @@
 <div id="dCompMain" class="Components-Synologen-FrameBrand-Edit-aspx">
 	<div class="fullBox">
 		<div class="wrap">
-			<% Html.RenderPartial("FrameBrandForm", Model); %>
+			<% Html.RenderPartial("BrandForm", Model); %>
 		</div>
 	</div>
 </div>	

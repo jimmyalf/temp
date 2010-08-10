@@ -8,15 +8,15 @@
 		</li>
 		<li>|</li>
 		<li>
-			<%=Html.ActionLink("Bågfärger","Index","FrameColor") %>
+			<%=Html.ActionLink("Bågfärger","Colors","Frame") %>
 			&nbsp;>&nbsp;
-			<%=Html.ActionLink("Ny","Add","FrameColor") %>
+			<%=Html.ActionLink("Ny","AddColor","Frame") %>
 		</li>
 		<li>|</li>
 		<li>
-			<%=Html.ActionLink("Bågmärken","Index","FrameBrand") %>
+			<%=Html.ActionLink("Bågmärken","Brands","Frame") %>
 			&nbsp;>&nbsp;
-			<%=Html.ActionLink("Ny","Add","FrameBrand") %>
+			<%=Html.ActionLink("Ny","AddBrand","Frame") %>
 		</li>
 	</ul>
 </div>

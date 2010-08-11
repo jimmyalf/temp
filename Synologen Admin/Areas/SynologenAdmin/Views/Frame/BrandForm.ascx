@@ -17,6 +17,6 @@
 		</fieldset>
     <% } %>
 	<p>
-		<%= Html.ActionLink("Back to index", "Index") %>
+		<%= Html.ActionLink("Tillbaka till bågmärken", "Index") %>
 	</p>
 	<% Html.RenderPartial("ClientValidationScripts"); %>

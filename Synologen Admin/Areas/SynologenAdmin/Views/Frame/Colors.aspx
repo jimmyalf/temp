@@ -15,16 +15,10 @@
      						column.For(x => x.Name).Named("Färg");   						
      						column.For(x => x.NumberOfFramesWithThisColor).Named("Bågar med färgen"); 
 							column.For(x => Html.ActionLink("Redigera","EditColor","Frame", new {id = x.Id}, new object()))
-								.Sortable(false)
-								.Attributes(@class => "center")
-								.Named("Redigera")
-								.DoNotEncode()
-								.HeaderAttributes(@class => "controlColumn");
-							column.For("Radera").Named("Radera")
+								.SetAsWpcControlColumn("Redigera");
+							column.For("Radera")
 								.Partial("DeleteFrameColor")
-								.Sortable(false)
-								.HeaderAttributes(@class => "controlColumn")
-								.DoNotEncode();  								
+								.SetAsWpcControlColumn("Radera");
      					}
      				)
      				.Empty("Inga bågfärger i databasen.") %>

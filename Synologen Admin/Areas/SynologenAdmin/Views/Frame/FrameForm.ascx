@@ -109,6 +109,6 @@
 		</fieldset>
     <% } %>
 	<p>
-		<%= Html.ActionLink("Back to index", "Index") %>
+		<%= Html.ActionLink("Tillbaka till bågar", "Index") %>
 	</p>
 	<% Html.RenderPartial("ClientValidationScripts"); %>

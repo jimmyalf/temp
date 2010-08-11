@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using MvcContrib.UI.Grid;
 
 namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 {
@@ -34,6 +35,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			}
 
 			return helper.WpcGrid(dataSource);
+		}
+
+		public static IGridColumn<T> SetAsWpcControlColumn<T>(this IGridColumn<T> gridColumn, string named)
+		{
+			return SetAsWpcControlColumn(gridColumn, named, false);
+		}
+		public static IGridColumn<T> SetAsWpcControlColumn<T>(this IGridColumn<T> gridColumn, string named, bool encode)
+		{
+			var returnValue =  gridColumn
+				.Sortable(false)
+				.Attributes(@class => "center")
+				.Named(named)
+				.HeaderAttributes(@class => "controlColumn");
+			return encode ? returnValue : returnValue.DoNotEncode();
 		}
 	}
 }

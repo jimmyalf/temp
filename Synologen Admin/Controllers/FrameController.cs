@@ -10,7 +10,7 @@ using Spinit.Wpc.Synologen.Presentation.Models;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
-	public class FrameController : Controller
+	public partial class FrameController : Controller
 	{
 		private readonly IFrameRepository _frameRepository;
 		private readonly IFrameColorRepository _frameColorRepository;
@@ -23,8 +23,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			_frameColorRepository = frameColorRepository;
 			_frameBrandRepository = frameBrandRepository;
 		}
-
-		#region Index
 
 		[HttpGet]
 		public ActionResult Index(string search, GridPageSortParameters gridPageSortParameters ) 
@@ -60,10 +58,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return View(new FrameListView {List = viewList, SearchWord = inModel.SearchWord});
 		}
 
-		#endregion
-
-		#region Edit
-
 		public ActionResult Edit(int id)
 		{
 			var selectableFrameColors = _frameColorRepository.GetAll();
@@ -93,10 +87,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return View(inModel);
 		}
 
-		#endregion
-
-		#region Add
-
 		public ActionResult Add()
 		{
 			var selectableFrameColors = _frameColorRepository.GetAll();
@@ -122,8 +112,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return View(inModel);
 		}
 
-		#endregion
-
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult Delete(int id) {
@@ -131,164 +119,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			//TODO: Check for connected orders during delete
 			_frameRepository.Delete(frame);
 			return RedirectToAction("Index");
-		}
-
-		[HttpGet]
-		public ActionResult Colors(GridPageSortParameters gridParameters, string error)
-		{
-			if(!string.IsNullOrEmpty(error))
-			{
-				ModelState.AddModelError(string.Empty, error);
-			}
-
-			var criteria = new PageOfFrameColorsMatchingCriteria
-			{
-				Page = gridParameters.Page, 
-				PageSize = gridParameters.PageSize ?? DefaultPageSize, 
-				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameColorListItemView,FrameColor>(gridParameters.Column), 
-				SortAscending = gridParameters.SortAscending
-			};
-
-			var list = _frameColorRepository.FindBy(criteria);
-			var viewList = list.ToSortedPagedList().ToFrameColorViewList();
-			return View(viewList);
-		}
-
-		#region Edit Color
-
-		public ActionResult EditColor(int id)
-		{
-			var frameColor = _frameColorRepository.Get(id);
-			var viewModel = frameColor.ToFrameColorEditView("Redigera bågfärg");
-			return View(viewModel);
-		}
-
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult EditColor(FrameColorEditView inModel)
-		{
-			if (ModelState.IsValid)
-			{
-				var entity = _frameColorRepository.Get(inModel.Id);
-				var frameColor = inModel.FillFrameColor(entity);
-				_frameColorRepository.Save(frameColor);
-				return RedirectToAction("Colors");
-			}
-			return View(inModel);
-		}
-
-		#endregion
-
-		#region Add Color
-
-		public ActionResult AddColor()
-		{
-			return View(new FrameColorEditView {FormLegend = "Skapa ny bågfärg"});
-		}
-
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult AddColor(FrameColorEditView inModel)
-		{
-			if (ModelState.IsValid)
-			{
-				var frameColor = inModel.ToFrameColor();
-				_frameColorRepository.Save(frameColor);
-				return RedirectToAction("Colors");
-			}
-			return View(inModel);
-		}
-
-		#endregion
-
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-        public ActionResult DeleteColor(int id)
-        {
-			var frameColor = _frameColorRepository.Get(id);
-			try{
-			    _frameColorRepository.Delete(frameColor);
-			}
-			catch
-			{
-				const string errorMessage = "Färgen kunde inte raderas då den existerar på en eller fler bågar";
-				return RedirectToAction("Colors", new {error = errorMessage});
-			}
-			return RedirectToAction("Colors");
-        }
-
-
-		[HttpGet]
-		public ActionResult Brands(GridPageSortParameters gridPageSortParameters, string error) {
-			if (!string.IsNullOrEmpty(error)) {
-				ModelState.AddModelError("", error);
-			}
-
-			var criteria = new PageOfFrameBrandsMatchingCriteria {
-				Page = gridPageSortParameters.Page,
-				PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize,
-				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameBrandListItemView, FrameBrand>(gridPageSortParameters.Column),
-				SortAscending = gridPageSortParameters.SortAscending
-			};
-
-			var list = _frameBrandRepository.FindBy(criteria);
-			var viewList = list.ToSortedPagedList().ToFrameBrandViewList();
-			return View(viewList);
-		}
-
-		#region Edit Brand
-
-		public ActionResult EditBrand(int id) {
-			var frameBrand = _frameBrandRepository.Get(id);
-			var viewModel = frameBrand.ToFrameBrandEditView("Redigera bågmärke");
-			return View(viewModel);
-		}
-
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult EditBrand(FrameBrandEditView inModel) {
-			if (ModelState.IsValid) {
-				var entity = _frameBrandRepository.Get(inModel.Id);
-				var frameBrand = inModel.FillFrameBrand(entity);
-				_frameBrandRepository.Save(frameBrand);
-				return RedirectToAction("Brands");
-			}
-			return View(inModel);
-		}
-
-		#endregion
-
-		#region Add Brand
-
-		public ActionResult AddBrand() {
-			return View(new FrameBrandEditView { FormLegend = "Skapa nytt bågmärke" });
-		}
-
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult AddBrand(FrameBrandEditView inModel) {
-			if (ModelState.IsValid) {
-				var frameBrand = inModel.ToFrameBrand();
-				_frameBrandRepository.Save(frameBrand);
-				return RedirectToAction("Brands");
-			}
-			return View(inModel);
-		}
-
-		#endregion
-
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult DeleteBrand(int id) {
-			var frameColor = _frameBrandRepository.Get(id);
-			try {
-				_frameBrandRepository.Delete(frameColor);
-			}
-			catch {
-				const string errorMessage = "Bågmärket kunde inte raderas då är knutet till en eller fler bågar";
-				return RedirectToAction("Brands", new { error = errorMessage });
-			}
-			return RedirectToAction("Brands");
 		}
 	}
 }

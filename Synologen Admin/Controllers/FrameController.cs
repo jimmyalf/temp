@@ -119,6 +119,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
 		#endregion
 
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Delete(int id) {
+			var frame = _frameRepository.Get(id);
+			//TODO: Check for connected orders during delete
+			_frameRepository.Delete(frame);
+			return RedirectToAction("Index");
+		}
+
 		[HttpGet]
 		public ActionResult Colors(GridPageSortParameters gridParameters, string error)
 		{

@@ -10,6 +10,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 			Table("SynologenFrameColor");
 			Id(x => x.Id);
 			Map(x => x.Name).Not.Nullable();
+			Map(x => x.NumberOfFramesWithThisColor)
+				.Formula("(Select Count('') from SynologenFrame Where SynologenFrame.ColorId = Id)");
 		}
 		
 	}

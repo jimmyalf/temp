@@ -33,6 +33,11 @@
 								.Named("Redigera")
 								.DoNotEncode()
 								.HeaderAttributes(@class => "controlColumn");
+							column.For("Radera").Named("Radera")
+								.Partial("DeleteFrame")
+								.Sortable(false)
+								.HeaderAttributes(@class => "controlColumn")
+								.DoNotEncode();  								
      					}
      				)
      				.Empty("Inga bågar i databasen.")

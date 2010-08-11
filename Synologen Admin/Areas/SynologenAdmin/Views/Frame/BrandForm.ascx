@@ -19,3 +19,4 @@
 	<p>
 		<%= Html.ActionLink("Back to index", "Index") %>
 	</p>
+	<% Html.RenderPartial("ClientValidationScripts"); %>

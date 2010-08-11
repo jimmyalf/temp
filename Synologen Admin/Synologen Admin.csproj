@@ -71,6 +71,17 @@
     <Content Include="Components\Synologen\SynologenMain.master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Resources\WpcConfirmationDialog.sv-SE.Designer.cs">
+      <DependentUpon>WpcConfirmationDialog.sv-SE.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Helpers\Resources\WpcConfirmationDialog.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WpcConfirmationDialog.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\WpcConfirmation.cs" />
     <Compile Include="Models\FrameBrandEditView.cs" />
     <Compile Include="Models\FrameBrandListItemView.cs" />
     <Compile Include="Helpers\GridPageSortParameters.cs" />
@@ -426,6 +437,14 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Helpers\Resources\WpcConfirmationDialog.sv-SE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>WpcConfirmationDialog.sv-SE.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Helpers\Resources\WpcConfirmationDialog.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>WpcConfirmationDialog.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Helpers\Resources\WpcPager.sv-SE.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WpcPager.sv-SE.Designer.cs</LastGenOutput>

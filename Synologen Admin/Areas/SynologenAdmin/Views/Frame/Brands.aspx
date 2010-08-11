@@ -29,6 +29,7 @@
      				.Empty("Inga bågfärger i databasen.") %>
      			</div>
 			</div>     						
-		</div>				
+		</div>
 	</div>
+	<%=Html.WpcConfirmationDialog("Är du säker på att du vill radera valt bågmärke?") %>
 </asp:Content>

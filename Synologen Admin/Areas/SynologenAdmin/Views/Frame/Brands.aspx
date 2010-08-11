@@ -13,6 +13,7 @@
      						column.For(x => x.Id).Named("ID")
      							.HeaderAttributes(@class => "controlColumn");
      						column.For(x => x.Name).Named("Färg");   						
+     						column.For(x => x.NumberOfFramesWithThisBrand).Named("Bågar med märket");
 							column.For(x => Html.ActionLink("Redigera","EditBrand","Frame", new {id = x.Id}, new object()))
 								.Sortable(false)
 								.Attributes(@class => "center")

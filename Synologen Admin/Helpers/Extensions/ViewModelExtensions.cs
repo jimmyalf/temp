@@ -110,7 +110,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		{
 			Func<FrameColor, FrameColorListItemView> typeConverter = x => new FrameColorListItemView {
 			                                                                                         	Id = x.Id,
-			                                                                                         	Name = x.Name
+			                                                                                         	Name = x.Name,
+                                                                                                        NumberOfFramesWithThisColor = x.NumberOfFramesWithThisColor
 			                                                                                         };
 			return entityList.ConvertSortedPagedList(new Converter<FrameColor, FrameColorListItemView>(typeConverter));			
 		}
@@ -119,7 +120,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		{
 			Func<FrameBrand, FrameBrandListItemView> typeConverter = x => new FrameBrandListItemView {
 			                                                                                         	Id = x.Id,
-			                                                                                         	Name = x.Name
+			                                                                                         	Name = x.Name,
+																										NumberOfFramesWithThisBrand = x.NumberOfFramesWithThisBrand
 			                                                                                         };
 			return entityList.ConvertSortedPagedList(new Converter<FrameBrand, FrameBrandListItemView>(typeConverter));
 		}

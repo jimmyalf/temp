@@ -4,5 +4,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
+		public int NumberOfFramesWithThisBrand { get; set; }
+		public bool DisableDelete { get { return NumberOfFramesWithThisBrand > 0; } }
 	}
 }

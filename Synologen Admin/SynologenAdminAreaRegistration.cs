@@ -15,11 +15,13 @@ namespace Spinit.Wpc.Synologen.Presentation
 		{
 			const string urlPrefix = "components/synologen/";
 
-			context.MapRoute(AreaName + "FramesAdd", urlPrefix + "frames/add", new { controller = "Frame", action = "Add" });
+			context.MapRoute(AreaName + "FrameAdd", urlPrefix + "frames/add", new { controller = "Frame", action = "Add" });
 
-			context.MapRoute(AreaName + "FramesEdit", urlPrefix + "frames/edit/{id}", new { controller = "Frame", action = "Edit" } );
+			context.MapRoute(AreaName + "FrameDelete", urlPrefix + "frames/delete/{id}", new { controller = "Frame", action = "Delete" } );
 
-			context.MapRoute(AreaName + "FramesIndex", urlPrefix + "frames", new { controller = "Frame", action = "Index" } );
+			context.MapRoute(AreaName + "FrameEdit", urlPrefix + "frames/edit/{id}", new { controller = "Frame", action = "Edit" } );
+
+			context.MapRoute(AreaName + "FrameIndex", urlPrefix + "frames", new { controller = "Frame", action = "Index" } );
 
 
 			context.MapRoute(AreaName + "FrameAddColor", urlPrefix + "frames/addcolor", new { controller = "Frame", action = "AddColor" });
@@ -29,7 +31,6 @@ namespace Spinit.Wpc.Synologen.Presentation
 			context.MapRoute(AreaName + "FrameEditColor", urlPrefix + "frames/editcolor/{id}", new { controller = "Frame", action = "EditColor" } );
 
 			context.MapRoute(AreaName + "FrameColors", urlPrefix + "frames/colors", new { controller = "Frame", action = "Colors" } );
-
 
 
 			context.MapRoute(AreaName + "FrameAddBrand", urlPrefix + "frames/addbrand", new { controller = "Frame", action = "AddBrand" });

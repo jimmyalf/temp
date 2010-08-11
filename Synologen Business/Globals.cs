@@ -128,6 +128,10 @@ namespace Spinit.Wpc.Synologen.Business {
 				return TimeSpan.FromMinutes(timeoutInMinutes);
 			}
 		}
+
+		static public int DefaultAdminPageSize {
+			get { return SafeConfigNumber(_setting, "defaultAdminPageSize", 40); }
+		}
 		
 	}
 }

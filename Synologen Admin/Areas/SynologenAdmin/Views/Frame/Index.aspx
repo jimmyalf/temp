@@ -27,17 +27,11 @@
 						    column.For(x => x.ArticleNumber).Named("Artikelnr");
 						    column.For(x => x.Brand).Named("Märke");
 						    column.For(x => x.Color).Named("Färg");
-							column.For(x => Html.ActionLink("Redigera","Edit","Frame", new {id = x.Id}, new object()))
-								.Sortable(false)
-								.Attributes(@class => "center")
-								.Named("Redigera")
-								.DoNotEncode()
-								.HeaderAttributes(@class => "controlColumn");
-							column.For("Radera").Named("Radera")
-								.Partial("DeleteFrame")
-								.Sortable(false)
-								.HeaderAttributes(@class => "controlColumn")
-								.DoNotEncode();  								
+							column.For(x => Html.ActionLink("Redigera", "Edit", "Frame", new {id = x.Id}, new object()))
+								.SetAsWpcControlColumn("Redigera");
+				          	column.For("Radera")
+				          		.Partial("DeleteFrame")
+				          		.SetAsWpcControlColumn("Radera");
      					}
      				)
      				.Empty("Inga bågar i databasen.")

@@ -15,16 +15,11 @@
      						column.For(x => x.Name).Named("Färg");   						
      						column.For(x => x.NumberOfFramesWithThisBrand).Named("Bågar med märket");
 							column.For(x => Html.ActionLink("Redigera","EditBrand","Frame", new {id = x.Id}, new object()))
-								.Sortable(false)
-								.Attributes(@class => "center")
-								.Named("Redigera")
-								.DoNotEncode()
-								.HeaderAttributes(@class => "controlColumn");
-							column.For("Radera").Named("Radera")
+								.SetAsWpcControlColumn("Redigera");
+							column.For("Radera")
 								.Partial("DeleteFrameBrand")
-								.Sortable(false)
-								.HeaderAttributes(@class => "controlColumn")
-								.DoNotEncode();  								
+								.SetAsWpcControlColumn("Radera");
+								 								
      					}
      				)
      				.Empty("Inga bågfärger i databasen.") %>

@@ -85,6 +85,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				_frameRepository.Save(frame);
 				return RedirectToAction("Index");
 			}
+			var selectableFrameColors = _frameColorRepository.GetAll();
+			var selectableFrameBrands = _frameBrandRepository.GetAll();
+			inModel.AvailableFrameBrands = selectableFrameBrands;
+			inModel.AvailableFrameColors = selectableFrameColors;
 			return View(inModel);
 		}
 

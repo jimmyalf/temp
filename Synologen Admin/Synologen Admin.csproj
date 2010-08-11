@@ -419,7 +419,9 @@
     <Content Include="Areas\SynologenAdmin\Views\Frame\EditBrand.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Brands.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\BrandForm.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Shared\ClientValidationScripts.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\SynologenMVC.Master" />
+    <Content Include="Areas\SynologenAdmin\Views\Shared\Empty.Master" />
     <None Include="CodeTemplates\AddController\Controller.tt">
     </None>
     <None Include="CodeTemplates\AddView\Create.tt">

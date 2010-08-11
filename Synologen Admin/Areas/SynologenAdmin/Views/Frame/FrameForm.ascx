@@ -1,8 +1,5 @@
 ﻿<%@ Control Inherits="System.Web.Mvc.ViewUserControl<FrameEditView>" %>
-
-	<script src="/CommonResources/Scripts/jquery.validate.js" type="text/javascript"></script>
-	<script src="/CommonResources/Scripts/MicrosoftMvcJQueryValidation.js" type="text/javascript"></script>	
-	<% Html.EnableClientValidation(); %>	
+	<% Html.EnableClientValidation(); %>
 	<% using (Html.BeginForm()) {%>
 		<fieldset>
 			<legend><%=Html.DisplayFor(x => x.FormLegend) %></legend>
@@ -114,3 +111,4 @@
 	<p>
 		<%= Html.ActionLink("Back to index", "Index") %>
 	</p>
+	<% Html.RenderPartial("ClientValidationScripts"); %>

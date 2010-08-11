@@ -2,6 +2,7 @@ using System;
 using NHibernate;
 using NHibernate.Criterion;
 using System.Linq.Expressions;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate
 {
@@ -27,15 +28,28 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate
 			criteria.ClearOrders();
 			return criteria;
 		}
-		public static ICriteria SetAlias<TModel>(this ICriteria criteria, Expression<Func<TModel,object>> expression)
+
+		public static ICriteria SetAlias<TModel>(this ICriteria criteria, Expression<Func<TModel,object>> expression) where TModel : class
 		{
-			var propertyName = ((MemberExpression)expression.Body).Member.Name;
+			var propertyName = expression.GetName();
 			return criteria.CreateAlias(propertyName, propertyName);
 		}
-		public static ICriteria SetAlias<TModel>(this ICriteria criteria, Expression<Func<TModel,object>> expression, string aliasName)
+		public static ICriteria SetAlias<TModel>(this ICriteria criteria, Expression<Func<TModel,object>> expression, string aliasName) where TModel : class
 		{
-			var propertyName = ((MemberExpression)expression.Body).Member.Name;
+			var propertyName = expression.GetName();
 			return criteria.CreateAlias(propertyName, aliasName);
+		}
+
+		public static AbstractCriterion ApplyFilter<TModel>(Expression<Func<TModel,string>> expression, string filterEntity) where TModel : class
+		{
+			var propertyName = expression.GetName();
+			return Restrictions.InsensitiveLike(propertyName, String.Format("%{0}%", filterEntity));
+		}
+
+		public static Junction ApplyFilterInJunction<TModel>(this Junction junction, Expression<Func<TModel,string>> expression, string filterEntity) where TModel : class
+		{
+			var propertyName = expression.GetName();
+			return junction.Add(Restrictions.InsensitiveLike(propertyName, String.Format("%{0}%", filterEntity)));
 		}
 	}
 }

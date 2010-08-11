@@ -42,6 +42,7 @@
      				)
      				.Empty("Inga bågar i databasen.")
 				%>
+				<%=Html.WpcConfirmationDialog("Är du säker på att du vill radera vald båge?") %>
 			</div>
 		</div>     						
 	</div>				

@@ -31,4 +31,5 @@
 			</div>     						
 		</div>				
 	</div>
+	<%=Html.WpcConfirmationDialog("Är du säker på att du vill radera vald bågfärg?") %>
 </asp:Content>

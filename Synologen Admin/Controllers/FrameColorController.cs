@@ -1,6 +1,5 @@
 using System.Web.Mvc;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
@@ -9,18 +8,10 @@ using Spinit.Wpc.Synologen.Presentation.Models;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
-	public class FrameColorController : Controller
+	public partial class FrameController 
 	{
-		private readonly IFrameColorRepository _frameColorRepository;
-		private const int DefaultPageSize = 10;
-
-		public FrameColorController(IFrameColorRepository frameColorRepository)
-		{
-			_frameColorRepository = frameColorRepository;
-		}
-
 		[HttpGet]
-		public ActionResult Index(GridPageSortParameters gridParameters, string error)
+		public ActionResult Colors(GridPageSortParameters gridParameters, string error)
 		{
 			if(!string.IsNullOrEmpty(error))
 			{
@@ -40,9 +31,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return View(viewList);
 		}
 
-		#region Edit
 
-		public ActionResult Edit(int id)
+		public ActionResult EditColor(int id)
 		{
 			var frameColor = _frameColorRepository.Get(id);
 			var viewModel = frameColor.ToFrameColorEditView("Redigera bågfärg");
@@ -51,45 +41,41 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit(FrameColorEditView inModel)
+		public ActionResult EditColor(FrameColorEditView inModel)
 		{
 			if (ModelState.IsValid)
 			{
 				var entity = _frameColorRepository.Get(inModel.Id);
 				var frameColor = inModel.FillFrameColor(entity);
 				_frameColorRepository.Save(frameColor);
-				return RedirectToAction("Index");
+				return RedirectToAction("Colors");
 			}
 			return View(inModel);
 		}
 
-		#endregion
 
-		#region Add
-
-		public ActionResult Add()
+		public ActionResult AddColor()
 		{
 			return View(new FrameColorEditView {FormLegend = "Skapa ny bågfärg"});
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Add(FrameColorEditView inModel)
+		public ActionResult AddColor(FrameColorEditView inModel)
 		{
 			if (ModelState.IsValid)
 			{
 				var frameColor = inModel.ToFrameColor();
 				_frameColorRepository.Save(frameColor);
-				return RedirectToAction("Index");
+				return RedirectToAction("Colors");
 			}
 			return View(inModel);
 		}
 
-		#endregion
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult DeleteColor(int id)
         {
 			var frameColor = _frameColorRepository.Get(id);
 			try{
@@ -98,10 +84,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			catch
 			{
 				const string errorMessage = "Färgen kunde inte raderas då den existerar på en eller fler bågar";
-				return RedirectToAction("Index", new {error = errorMessage});
+				return RedirectToAction("Colors", new {error = errorMessage});
 			}
-			return RedirectToAction("Index");
-        }
-
+			return RedirectToAction("Colors");
+        }	
+	
 	}
 }

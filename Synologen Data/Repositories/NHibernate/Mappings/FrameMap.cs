@@ -13,13 +13,13 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 			Map(x => x.AllowOrders).Not.Nullable();;
 			Map(x => x.ArticleNumber).Not.Nullable();;
 			References(x => x.Brand)
+				.Cascade.SaveUpdate()
 				.Column("BrandId")
-				.Cascade.All()
-				.Not.Nullable();;
+				.Not.Nullable();
 			References(x => x.Color)
+				.Cascade.SaveUpdate()
 				.Column("ColorId")
-				.Cascade.All()
-				.Not.Nullable();;
+				.Not.Nullable();
 			Map(x => x.Axis);
 			Component(x => x.Index, m =>
 			{

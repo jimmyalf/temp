@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
@@ -14,7 +15,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		private readonly IFrameRepository _frameRepository;
 		private readonly IFrameColorRepository _frameColorRepository;
 		private readonly IFrameBrandRepository _frameBrandRepository;
-		private const int DefaultPageSize = 10;
+		private readonly int DefaultPageSize = Globals.DefaultAdminPageSize;
 
 		public FrameController(IFrameRepository frameRepository, IFrameColorRepository frameColorRepository, IFrameBrandRepository frameBrandRepository)
 		{

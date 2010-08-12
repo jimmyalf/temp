@@ -48,8 +48,14 @@
     <Compile Include="Code\SynologenUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Models\MVPTestModel.cs" />
-    <Compile Include="Presenters\MVPTestPresenter.cs" />
+    <Compile Include="Logic\EventArguments\FrameOrderFormSubmitEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\FrameSelectedEventArgs.cs" />
+    <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
+    <Compile Include="Logic\Views\IFrameOrderView.cs" />
+    <Compile Include="Models\FrameListItem.cs" />
+    <Compile Include="Models\IntervalListItem.cs" />
+    <Compile Include="Models\FrameOrderModel.cs" />
+    <Compile Include="Logic\Presenters\FrameOrderPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SynologenSiteRegistry.cs" />
     <Compile Include="UnitOfWorkModule.cs" />
@@ -89,12 +95,12 @@
     <Compile Include="Wpc\Synologen\EditShop.ascx.designer.cs">
       <DependentUpon>EditShop.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\MVPTestControl.ascx.cs">
-      <DependentUpon>MVPTestControl.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\FrameOrder.ascx.cs">
+      <DependentUpon>FrameOrder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\MVPTestControl.ascx.designer.cs">
-      <DependentUpon>MVPTestControl.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\FrameOrder.ascx.designer.cs">
+      <DependentUpon>FrameOrder.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\SalesList.ascx.cs">
       <DependentUpon>SalesList.ascx</DependentUpon>
@@ -193,11 +199,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CityShopList.aspx" />
-    <Content Include="MVPTest.aspx" />
+    <Content Include="FrameOrder.aspx" />
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
-    <Content Include="Wpc\Synologen\MVPTestControl.ascx" />
+    <Content Include="Wpc\Synologen\FrameOrder.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">

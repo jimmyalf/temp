@@ -11,6 +11,11 @@
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 
 
-	public partial class MVPTestControl {
+	public partial class FrameOrder {
+		protected System.Web.UI.WebControls.DropDownList drpFrames;
+		protected System.Web.UI.WebControls.DropDownList drpIndex;
+		protected System.Web.UI.WebControls.DropDownList drpSphere;
+		protected System.Web.UI.WebControls.Button btnSave;
 	}
+
 }

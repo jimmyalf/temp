@@ -10,6 +10,6 @@
 		<a href="EditShopPage.aspx">Editera butik</a><br />
 		<a href="SettlementList.aspx">Utbetalningar till butik</a><br />
 		<a href="SecurityTimeoutPage.aspx">Säkerhetstimout sida</a><br />
-		<a href="MVPTest.aspx">Webforms-MVP Test</a>
+		<a href="FrameOrder.aspx">Webforms-MVP Test</a>
 	</div>
 </asp:Content>

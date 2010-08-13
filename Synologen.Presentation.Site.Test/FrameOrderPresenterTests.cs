@@ -7,7 +7,8 @@ using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
 using Spinit.Wpc.Synologen.Presentation.Site.Models;
 
-namespace Synologen.Presentation.Site.Test {
+namespace Spinit.Wpc.Synologen.Presentation.Site.Test
+{
 	[TestFixture]
 	public class Given_a_FrameOrderPresenter : AssertionHelper
 	{
@@ -110,6 +111,4 @@ namespace Synologen.Presentation.Site.Test {
 		}
 		
 	}
-
-
 }

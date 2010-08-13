@@ -4,7 +4,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Persistence;
 
-namespace Synologen.Presentation.Site.Test.Factories
+namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 {
 	public static class RepositoryFactory
 	{

@@ -1,8 +1,8 @@
 using System.Web.Mvc;
-using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
@@ -15,13 +15,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		private readonly IFrameRepository _frameRepository;
 		private readonly IFrameColorRepository _frameColorRepository;
 		private readonly IFrameBrandRepository _frameBrandRepository;
-		private readonly int DefaultPageSize = Globals.DefaultAdminPageSize;
-
-		public FrameController(IFrameRepository frameRepository, IFrameColorRepository frameColorRepository, IFrameBrandRepository frameBrandRepository)
+		private readonly int DefaultPageSize;
+		public FrameController(IFrameRepository frameRepository, IFrameColorRepository frameColorRepository, IFrameBrandRepository frameBrandRepository, ISettingsService settingsSetvice)
 		{
 			_frameRepository = frameRepository;
 			_frameColorRepository = frameColorRepository;
 			_frameBrandRepository = frameBrandRepository;
+			DefaultPageSize = settingsSetvice.GetDefaultPageSize();
 		}
 
 		[HttpGet]

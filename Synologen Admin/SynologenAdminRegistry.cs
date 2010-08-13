@@ -2,10 +2,12 @@ using System.Web.Mvc;
 using NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Data.Repositories;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
+using Spinit.Wpc.Synologen.Presentation.Code.Services;
 using StructureMap.Attributes;
 using StructureMap.Configuration.DSL;
 
@@ -32,7 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 			ForRequestedType<IActionCriteriaConverter<AllFramesMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<AllFramesMatchingCriteriaConverter>();
 			ForRequestedType<IActionCriteriaConverter<PageOfFrameColorsMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<PageOfFrameColorsMatchingCriteriaConverter>();
 			ForRequestedType<IActionCriteriaConverter<PageOfFrameBrandsMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameBrandsMatchingCriteriaConverter>();
-
+			ForRequestedType<ISettingsService>().TheDefaultIsConcreteType<SettingsService>();
 		}
 	}
 }

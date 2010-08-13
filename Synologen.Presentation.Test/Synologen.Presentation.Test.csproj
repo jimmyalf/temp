@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</ProjectGuid>
+    <ProjectGuid>{673CE9E1-6385-4B8A-92FE-BB5F723008F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.Core</RootNamespace>
-    <AssemblyName>Spinit.Wpc.Synologen.Core</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.Presentation.Test</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Presentation.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Build\Output\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,15 +25,31 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Build\Output\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MvcContrib, Version=2.0.36.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\MVCContrib\MvcContrib.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\Rhino Mocks\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\AspNetMvc\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -45,36 +61,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Services\ISettingsService.cs" />
-    <Compile Include="Domain\Model\Frame.cs" />
-    <Compile Include="Domain\Model\FrameBrand.cs" />
-    <Compile Include="Domain\Model\FrameColor.cs" />
-    <Compile Include="Domain\Model\Interval.cs" />
-    <Compile Include="Domain\Persistence\Criterias\AllFramesMatchingCriteria.cs" />
-    <Compile Include="Domain\Persistence\Criterias\PageOfFrameBrandsMatchingCriteria.cs" />
-    <Compile Include="Domain\Persistence\Criterias\PageOfFrameColorsMatchingCriteria.cs" />
-    <Compile Include="Domain\Persistence\Criterias\PageOfFramesMatchingCriteria.cs" />
-    <Compile Include="Domain\Persistence\IFrameBrandRepository.cs" />
-    <Compile Include="Domain\Persistence\IFrameColorRepository.cs" />
-    <Compile Include="Extensions\ExpressionExtensions.cs" />
-    <Compile Include="Extensions\ExpressionNameVisitor.cs" />
-    <Compile Include="Extensions\ListExtensions.cs" />
-    <Compile Include="Persistence\ActionCriteriaExtensions.cs" />
-    <Compile Include="Persistence\IActionCriteria.cs" />
-    <Compile Include="Domain\Persistence\IFrameRepository.cs" />
-    <Compile Include="Persistence\IActionCriteriaConverter.cs" />
-    <Compile Include="Persistence\IPagedCriteria.cs" />
-    <Compile Include="Persistence\IPagedList.cs" />
-    <Compile Include="Persistence\IReadonlyRepository.cs" />
-    <Compile Include="Persistence\IRepository.cs" />
-    <Compile Include="Persistence\ISortedCriteria.cs" />
-    <Compile Include="Persistence\ISortedPagedList.cs" />
-    <Compile Include="Persistence\IUnitOfWork.cs" />
-    <Compile Include="Persistence\PagedCriteria.cs" />
-    <Compile Include="Persistence\PagedList.cs" />
-    <Compile Include="Persistence\PagedSortedCriteria.cs" />
-    <Compile Include="Persistence\SortedPagedList.cs" />
+    <Compile Include="Factories\RepositoryFactory.cs" />
+    <Compile Include="Factories\ServiceFactory.cs" />
+    <Compile Include="FrameControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synologen Admin\Synologen Admin.csproj">
+      <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
+      <Name>Synologen Admin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

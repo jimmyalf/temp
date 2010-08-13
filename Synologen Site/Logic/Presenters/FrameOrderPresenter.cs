@@ -25,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.SubmitForm += View_SumbitForm;
 		}
 
-		private void View_SumbitForm(object sender, FrameOrderFormSubmitEventArgs e) 
+		public void View_SumbitForm(object sender, FrameOrderFormSubmitEventArgs e) 
 		{ 
 			if(e.PageIsValid)
 			{
@@ -39,7 +39,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			}
 		}
 
-		private void View_FrameSelected(object sender, FrameSelectedEventArgs e) 
+		public void View_FrameSelected(object sender, FrameSelectedEventArgs e) 
 		{
 			View.Model.Message = "Vald båge med id: " + e.SelectedFrameId;
 			View.Model.SelectedFrameId = e.SelectedFrameId;
@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Load -= View_Load;
 		}
 
-		void View_Load(object sender, EventArgs e)
+		public void View_Load(object sender, EventArgs e)
 		{
 			View.Model.Message = "Testar Web Forms MVP!";
 			var frameListItems = _repository.GetAll().ToFrameViewList().InsertFirst(new FrameListItem {Id = 0, Name = "-- Välj båge --"});

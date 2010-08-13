@@ -3,7 +3,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
 using Spinit.Wpc.Synologen.Presentation.Site.Models;
 
-namespace Synologen.Presentation.Site.Test.Factories
+namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 {
 	public static class ViewsFactory
 	{

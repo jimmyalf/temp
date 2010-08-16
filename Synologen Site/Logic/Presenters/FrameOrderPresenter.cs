@@ -44,8 +44,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.Message = "Vald båge med id: " + e.SelectedFrameId;
 			View.Model.SelectedFrameId = e.SelectedFrameId;
 			var frame = _repository.Get(e.SelectedFrameId);
-			View.Model.IndexList = frame.GetIntervalListFor(x => x.Index).InsertDefaultValue("index", View.Model.NotSelectedIntervalValue);
-			View.Model.SphereList = frame.GetIntervalListFor(x => x.Sphere).InsertDefaultValue("sfär", View.Model.NotSelectedIntervalValue);
+			//View.Model.IndexList = frame.GetIntervalListFor(x => x.Index).InsertDefaultValue("index", View.Model.NotSelectedIntervalValue);
+			//View.Model.SphereList = frame.GetIntervalListFor(x => x.Sphere).InsertDefaultValue("sfär", View.Model.NotSelectedIntervalValue);
 		}
 
 		public override void ReleaseView()

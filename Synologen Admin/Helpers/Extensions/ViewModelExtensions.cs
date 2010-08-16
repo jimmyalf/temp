@@ -40,6 +40,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		{
 			return UpdateFrameBrand(entity, viewModel);
 		}
+
+
+		public static FrameGlassType ToFrameGlassType(this FrameGlassTypeEditView viewModel)
+		{
+			return UpdateFrameGlassType(new FrameGlassType(), viewModel);
+		}
+
+		public static FrameGlassType FillFrameGlassType(this FrameGlassTypeEditView viewModel, FrameGlassType entity)
+		{
+			return UpdateFrameGlassType(entity, viewModel);
+		}
 		#endregion
 
 		#region To Edit Views
@@ -53,21 +64,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 				AvailableFrameColors = availableFrameColors,
 				BrandId = entity.Brand.Id,
 				ColorId = entity.Color.Id,
-				CylinderIncrementation = entity.Cylinder.Increment,
-				CylinderMaxValue = entity.Cylinder.Max,
-				CylinderMinValue = entity.Cylinder.Min,
 				Id = entity.Id,
-				IndexIncrementation = entity.Index.Increment,
-				IndexMaxValue = entity.Index.Max,
-				IndexMinValue = entity.Index.Min,
 				Name = entity.Name,
 				PupillaryDistanceIncrementation = entity.PupillaryDistance.Increment,
 				PupillaryDistanceMaxValue = entity.PupillaryDistance.Max,
 				PupillaryDistanceMinValue = entity.PupillaryDistance.Min,
-				SphereIncrementation = entity.Sphere.Increment,
-				SphereMaxValue = entity.Sphere.Max,
-				SphereMinValue = entity.Sphere.Min,
-				FormLegend = formLegend
+				FormLegend = formLegend,
 			};
 		}
 
@@ -88,6 +90,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 				Id = frameBrand.Id,
 				Name = frameBrand.Name,
 				FormLegend = legend
+			};
+		}
+
+		public static FrameGlassTypeEditView ToFrameGlassTypeEditView(this FrameGlassType frameGlassType, string legend)
+		{
+			return new FrameGlassTypeEditView
+			{
+				Id = frameGlassType.Id,
+				Name = frameGlassType.Name,
+				FormLegend = legend,
+                IncludeAdditionParametersInOrder = frameGlassType.IncludeAdditionParametersInOrder,
+                IncludeHeightParametersInOrder = frameGlassType.IncludeHeightParametersInOrder
 			};
 		}
 		#endregion
@@ -124,6 +138,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 																										NumberOfFramesWithThisBrand = x.NumberOfFramesWithThisBrand
 			                                                                                         };
 			return entityList.ConvertSortedPagedList(new Converter<FrameBrand, FrameBrandListItemView>(typeConverter));
+		}
+
+		public static ISortedPagedList<FrameGlassTypeListItemView> ToFrameGlassTypeViewList(this ISortedPagedList<FrameGlassType> entityList)
+		{
+			Func<FrameGlassType, FrameGlassTypeListItemView> typeConverter = x => new FrameGlassTypeListItemView
+			{
+				Id = x.Id,
+				Name = x.Name,
+				IncludeAddition = x.IncludeAdditionParametersInOrder,
+				IncludeHeight = x.IncludeHeightParametersInOrder
+			};
+			return entityList.ConvertSortedPagedList(new Converter<FrameGlassType, FrameGlassTypeListItemView>(typeConverter));
 		}
 
 		#endregion
@@ -179,11 +205,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			entity.Name = viewModel.Name;
 
 			entity
-				.SetInterval(x => x.Index, viewModel.IndexMinValue, viewModel.IndexMaxValue, viewModel.IndexIncrementation)
-				.SetInterval(x => x.Sphere, viewModel.SphereMinValue, viewModel.SphereMaxValue, viewModel.SphereIncrementation)
-				.SetInterval(x => x.Cylinder, viewModel.CylinderMinValue, viewModel.CylinderMaxValue, viewModel.CylinderIncrementation)
-				.SetInterval(x => x.PupillaryDistance, viewModel.PupillaryDistanceMinValue, viewModel.PupillaryDistanceMaxValue, viewModel.PupillaryDistanceIncrementation)
-				;
+				.SetInterval(x => x.PupillaryDistance, viewModel.PupillaryDistanceMinValue, viewModel.PupillaryDistanceMaxValue, viewModel.PupillaryDistanceIncrementation);
 
 			return entity;
 		}
@@ -197,6 +219,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		private static FrameBrand UpdateFrameBrand(FrameBrand entity, FrameBrandEditView viewModel)
 		{
 			entity.Name = viewModel.Name;
+			return entity;
+		}
+
+		private static FrameGlassType UpdateFrameGlassType(FrameGlassType entity, FrameGlassTypeEditView viewModel)
+		{
+			entity.Name = viewModel.Name;
+			entity.IncludeAdditionParametersInOrder = viewModel.IncludeAdditionParametersInOrder;
+			entity.IncludeHeightParametersInOrder = viewModel.IncludeHeightParametersInOrder;
 			return entity;
 		}
 

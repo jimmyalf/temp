@@ -23,6 +23,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 			return new MockedFrameBrandRepository();
 		}
 
+		public static IFrameGlassTypeRepository GetFrameGlassTypeRepository()
+		{
+			return new MockedFrameGlassTypeRepository();
+		}
+
 		internal class MockedFrameRepository : IFrameRepository
 		{
 			public Frame Get(int id) { throw new NotImplementedException(); }
@@ -46,19 +51,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 		public static Frame GetMockedFrame(int id)
 		{
 			return new Frame
-				{
-					AllowOrders = true,
-					ArticleNumber = "123456",
-					Axis = 50,
-					Brand = new FrameBrand {Id = 1, Name = "Björn Borg"},
-					Color = new FrameColor {Id = 1, Name = "Blå"},
-					Id = id,
-					Name = "Bra båge",
-				}
-					.SetInterval(x => x.Index, 1.5m, 1.6m, 0.1m)
-					.SetInterval(x => x.Cylinder, -2, 0, 0.25m)
-					.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5m)
-					.SetInterval(x => x.Sphere, -6, 6, 0.25m);
+			{
+				AllowOrders = true,
+				ArticleNumber = "123456",
+				//Axis = 50,
+				Brand = new FrameBrand {Id = 1, Name = "Björn Borg"},
+				Color = new FrameColor {Id = 1, Name = "Blå"},
+				Id = id,
+				Name = "Bra båge",
+			}
+				//.SetInterval(x => x.Index, 1.5m, 1.6m, 0.1m)
+				//.SetInterval(x => x.Cylinder, -2, 0, 0.25m)
+				//.SetInterval(x => x.Sphere, -6, 6, 0.25m)
+				.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5m);
+					
 		}
 
 		internal class MockedFrameColorRepository : IFrameColorRepository
@@ -77,6 +83,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 			public IEnumerable<FrameBrand> FindBy<TActionCriteria>(TActionCriteria criteria) where TActionCriteria : IActionCriteria { throw new NotImplementedException(); }
 			public void Save(FrameBrand entity) { throw new NotImplementedException(); }
 			public void Delete(FrameBrand entity) { throw new NotImplementedException(); }
+		}
+
+		internal class MockedFrameGlassTypeRepository : IFrameGlassTypeRepository
+		{
+			public FrameGlassType Get(int id) { throw new NotImplementedException(); }
+			public IEnumerable<FrameGlassType> GetAll() { throw new NotImplementedException(); }
+			public IEnumerable<FrameGlassType> FindBy<TActionCriteria>(TActionCriteria criteria) where TActionCriteria : IActionCriteria { throw new NotImplementedException(); }
+			public void Save(FrameGlassType entity) { throw new NotImplementedException(); }
+			public void Delete(FrameGlassType entity) { throw new NotImplementedException(); }
 		}
 	}
 }

@@ -15,12 +15,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		private readonly IFrameRepository _frameRepository;
 		private readonly IFrameColorRepository _frameColorRepository;
 		private readonly IFrameBrandRepository _frameBrandRepository;
+		private readonly IFrameGlassTypeRepository _frameGlassTypeRepository;
 		private readonly int DefaultPageSize;
-		public FrameController(IFrameRepository frameRepository, IFrameColorRepository frameColorRepository, IFrameBrandRepository frameBrandRepository, ISettingsService settingsSetvice)
+		public FrameController(IFrameRepository frameRepository, IFrameColorRepository frameColorRepository, IFrameBrandRepository frameBrandRepository, IFrameGlassTypeRepository frameGlassTypeRepository, ISettingsService settingsSetvice)
 		{
 			_frameRepository = frameRepository;
 			_frameColorRepository = frameColorRepository;
 			_frameBrandRepository = frameBrandRepository;
+			_frameGlassTypeRepository = frameGlassTypeRepository;
 			DefaultPageSize = settingsSetvice.GetDefaultPageSize();
 		}
 
@@ -35,7 +37,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameListItemView,Frame>(gridPageSortParameters.Column), 
 				SortAscending = gridPageSortParameters.SortAscending
 			};
-
+			HttpContext.Items.Add("Test", "Yihaaaa");
 			var list = _frameRepository.FindBy(criteria);
 			var viewList = list
 				.ToSortedPagedList()
@@ -121,4 +123,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return RedirectToAction("Index");
 		}
 	}
+
+	
 }

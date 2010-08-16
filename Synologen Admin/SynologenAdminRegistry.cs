@@ -29,11 +29,13 @@ namespace Spinit.Wpc.Synologen.Presentation
 			ForRequestedType<IFrameRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameRepository>();
 			ForRequestedType<IFrameColorRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameColorRepository>();
 			ForRequestedType<IFrameBrandRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameBrandRepository>();
+			ForRequestedType<IFrameGlassTypeRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameGlassTypeRepository>();
 
 			ForRequestedType<IActionCriteriaConverter<PageOfFramesMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<PageOfFramesMatchingCriteriaConverter>();
 			ForRequestedType<IActionCriteriaConverter<AllFramesMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<AllFramesMatchingCriteriaConverter>();
 			ForRequestedType<IActionCriteriaConverter<PageOfFrameColorsMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<PageOfFrameColorsMatchingCriteriaConverter>();
 			ForRequestedType<IActionCriteriaConverter<PageOfFrameBrandsMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameBrandsMatchingCriteriaConverter>();
+			ForRequestedType<IActionCriteriaConverter<PageOfFrameGlassTypesMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameGlassTypesMatchingCriteriaConverter>();
 			ForRequestedType<ISettingsService>().TheDefaultIsConcreteType<SettingsService>();
 		}
 	}

@@ -90,14 +90,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\CriteriaConverters\AllFramesMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\PageOfFrameGlassTypesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFrameBrandsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFrameColorsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFramesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\FrameBrandRepository.cs" />
     <Compile Include="Repositories\FrameColorRepository.cs" />
+    <Compile Include="Repositories\FrameGlassTypeRepository.cs" />
     <Compile Include="Repositories\FrameRepository.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameBrandMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameColorMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\FrameGlassTypeMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameMap.cs" />
     <Compile Include="Repositories\NHibernate\NHibernateCriteriaExtensions.cs" />
     <Compile Include="Repositories\NHibernate\NHibernateFactory.cs" />

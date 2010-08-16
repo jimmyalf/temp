@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Models;
@@ -25,16 +24,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 			return returnList;
 		}
 
-		public static IEnumerable<IntervalListItem> GetIntervalListFor(this Frame frame, Expression<Func<Frame, Interval>> expression)
+		public static IEnumerable<IntervalListItem> GetListFor(this Interval interval)
 		{
-			if (frame == null) yield break;
-			var interval = expression.Compile().Invoke(frame);
-			if (interval.Increment <= 0) yield break;
-			var currentValue = interval.Min;
-			while (currentValue <= interval.Max)
+			foreach (var value in interval.ToList())
 			{
-				yield return new IntervalListItem {Name = currentValue.ToString(), Value = currentValue};
-				currentValue += interval.Increment;
+				yield return new IntervalListItem {Name = value.ToString(), Value = value};
 			}
 			yield break;
 		}

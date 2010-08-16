@@ -1,4 +1,5 @@
 ﻿<%@ Control Inherits="System.Web.Mvc.ViewUserControl<FrameEditView>" %>
+
 	<% Html.EnableClientValidation(); %>
 	<% using (Html.BeginForm()) {%>
 		<fieldset>
@@ -24,60 +25,6 @@
 				<%= Html.DropDownListFor(x => x.BrandId, new SelectList(Model.AvailableFrameBrands, "Id", "Name", Model.BrandId), "-- Välj Märke --")%>
 				<%= Html.ValidationMessageFor(x => x.BrandId) %>
 			</p>
-			<fieldset class="interval-formItem">
-				<legend>Index</legend>
-				<p class="formItem">
-					<%= Html.LabelFor(x => x.IndexMinValue) %>
-					<%= Html.EditorFor(x => x.IndexMinValue) %>
-					<%= Html.ValidationMessageFor(x => x.IndexMinValue) %>
-				</p>
-				<p class="formItem">
-					<%= Html.LabelFor(x => x.IndexMaxValue) %>
-					<%= Html.EditorFor(x => x.IndexMaxValue) %>
-					<%= Html.ValidationMessageFor(x => x.IndexMaxValue) %>
-				</p>
-				<p class="formItem">
-					<%= Html.LabelFor(x => x.IndexIncrementation) %>
-					<%= Html.EditorFor(x => x.IndexIncrementation) %>
-					<%= Html.ValidationMessageFor(x => x.IndexIncrementation) %>
-				</p>
-			</fieldset>
-			<fieldset class="interval-formItem">
-				<legend>Sfär</legend>
-				<p class="formItem">
-					<%= Html.LabelFor(x => x.SphereMinValue) %>
-					<%= Html.EditorFor(x => x.SphereMinValue) %>
-					<%= Html.ValidationMessageFor(x => x.SphereMinValue) %>
-				</p>
-				<p class="formItem">
-					<%= Html.LabelFor(x => x.SphereMaxValue) %>
-					<%= Html.EditorFor(x => x.SphereMaxValue) %>
-					<%= Html.ValidationMessageFor(x => x.SphereMaxValue) %>
-				</p>
-				<p class="formItem">
-					<%= Html.LabelFor(x => x.SphereIncrementation) %>
-					<%= Html.EditorFor(x => x.SphereIncrementation) %>
-					<%= Html.ValidationMessageFor(x => x.SphereIncrementation) %>
-				</p>
-			</fieldset>
-			<fieldset class="interval-formItem">
-				<legend>Cylinder</legend>
-				<p class="formItem">
-					<%= Html.LabelFor(x => x.CylinderMinValue) %>
-					<%= Html.EditorFor(x => x.CylinderMinValue) %>
-					<%= Html.ValidationMessageFor(x => x.CylinderMinValue) %>
-				</p>
-				<p class="formItem">
-					<%= Html.LabelFor(x => x.CylinderMaxValue) %>
-					<%= Html.EditorFor(x => x.CylinderMaxValue) %>
-					<%= Html.ValidationMessageFor(x => x.CylinderMaxValue) %>
-				</p>
-				<p class="formItem">
-					<%= Html.LabelFor(x => x.CylinderIncrementation) %>
-					<%= Html.EditorFor(x => x.CylinderIncrementation) %>
-					<%= Html.ValidationMessageFor(x => x.CylinderIncrementation) %>
-				</p>
-			</fieldset>
 			<fieldset class="interval-formItem">
 				<legend>Pupilldistans (PD)</legend>
 				<p class="formItem">
@@ -111,4 +58,4 @@
 	<p>
 		<%= Html.ActionLink("Tillbaka till bågar", "Index") %>
 	</p>
-	<% Html.RenderPartial("ClientValidationScripts"); %>
+		

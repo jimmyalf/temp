@@ -18,5 +18,11 @@
 			&nbsp;>&nbsp;
 			<%=Html.ActionLink("Ny","AddBrand","Frame") %>
 		</li>
+		<li>|</li>
+		<li>
+			<%=Html.ActionLink("Glastyper","GlassTypes","Frame") %>
+			&nbsp;>&nbsp;
+			<%=Html.ActionLink("Ny","AddGlassType","Frame") %>
+		</li>		
 	</ul>
 </div>

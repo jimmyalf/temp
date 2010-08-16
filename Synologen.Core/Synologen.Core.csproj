@@ -45,6 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Model\FrameGlassType.cs" />
+    <Compile Include="Domain\Persistence\Criterias\PageOfFrameGlassTypesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\IFrameGlassTypeRepository.cs" />
+    <Compile Include="Domain\Services\IFrameOrderService.cs" />
     <Compile Include="Domain\Services\ISettingsService.cs" />
     <Compile Include="Domain\Model\Frame.cs" />
     <Compile Include="Domain\Model\FrameBrand.cs" />

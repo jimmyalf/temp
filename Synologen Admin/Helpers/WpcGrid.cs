@@ -27,5 +27,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 				Direction = (list.SortAscending) ? SortDirection.Ascending : SortDirection.Descending
 			};
 		}
+
 	}
 }

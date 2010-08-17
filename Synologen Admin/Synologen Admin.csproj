@@ -354,7 +354,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Content.Presentation.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Core.UI.Mvc, Version=5.0.519.2176, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Spinit.Wpc.Core.UI.Mvc, Version=5.0.529.2217, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.UI.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Wpc.Member.Business, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Business.dll</HintPath>

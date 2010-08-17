@@ -36,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				OrderBy = gridPageSortParameters.Column,
 				SortAscending = gridPageSortParameters.SortAscending
 			};
-			HttpContext.Items.Add("Test", "Yihaaaa");
+//			HttpContext.Items.Add("Test", "Yihaaaa");
 			var list = _frameRepository.FindBy(criteria);
 			var viewList = list
 				.ToSortedPagedList()

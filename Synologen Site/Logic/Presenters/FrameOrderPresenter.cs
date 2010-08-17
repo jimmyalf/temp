@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers;
@@ -58,11 +57,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.Message = "Testar Web Forms MVP!";
 			var frameListItems = _repository.GetAll().ToFrameViewList().InsertFirst(new FrameListItem {Id = 0, Name = "-- Välj båge --"});
 			View.Model.FramesList = frameListItems;
-			View.Model.IndexList = new List<IntervalListItem>().InsertDefaultValue("index", View.Model.NotSelectedIntervalValue);
-			View.Model.SphereList =  new List<IntervalListItem>().InsertDefaultValue("sfär", View.Model.NotSelectedIntervalValue);
+			//View.Model.IndexList = new List<IntervalListItem>().InsertDefaultValue("index", View.Model.NotSelectedIntervalValue);
+			//View.Model.SphereList =  new List<IntervalListItem>().InsertDefaultValue("sfär", View.Model.NotSelectedIntervalValue);
 			View.Model.FrameRequiredErrorMessage = "Båge saknas";
-			View.Model.IndexRequiredErrorMessage = "Index saknas";
-			View.Model.SphereRequiredErrorMessage = "Sfär saknas";
+			//View.Model.IndexRequiredErrorMessage = "Index saknas";
+			//View.Model.SphereRequiredErrorMessage = "Sfär saknas";
 		}
 
 	}

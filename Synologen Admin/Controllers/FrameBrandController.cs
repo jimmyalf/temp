@@ -42,6 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				var entity = _frameBrandRepository.Get(inModel.Id);
 				var frameBrand = inModel.FillFrameBrand(entity);
 				_frameBrandRepository.Save(frameBrand);
+				this.AddSuccessMessage("Märket har sparats");
 				return RedirectToAction("Brands");
 			}
 			return View(inModel);
@@ -58,6 +59,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			if (ModelState.IsValid) {
 				var frameBrand = inModel.ToFrameBrand();
 				_frameBrandRepository.Save(frameBrand);
+				this.AddSuccessMessage("Märket har sparats");
 				return RedirectToAction("Brands");
 			}
 			return View(inModel);
@@ -68,12 +70,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteBrand(int id) {
 			var frameColor = _frameBrandRepository.Get(id);
-			try {
+			try 
+			{
 				_frameBrandRepository.Delete(frameColor);
 			}
-			catch {
-				const string errorMessage = "Bågmärket kunde inte raderas då är knutet till en eller fler bågar";
-				return RedirectToAction("Brands", new { error = errorMessage });
+			catch
+			{
+				this.AddErrorMessage("Bågmärket kunde inte raderas då är knutet till en eller fler bågar");
 			}
 			return RedirectToAction("Brands");
 		}		

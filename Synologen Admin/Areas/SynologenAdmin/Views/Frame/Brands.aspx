@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <% Html.RenderPartial("FrameSubMenu"); %>
 <div id="dCompMain" class="Components-Synologen-FrameColor-Index">
-	<%=Html.ValidationSummary("Ett fel har uppstått") %>
+	<%=Html.Messages() %>
 	<div class="fullBox">
 		<div class="wrap">
 			<div>
@@ -19,7 +19,6 @@
 							column.For("Radera")
 								.Partial("DeleteFrameBrand")
 								.SetAsWpcControlColumn("Radera");
-								 								
      					}
      				)
      				.Empty("Inga bågfärger i databasen.") %>

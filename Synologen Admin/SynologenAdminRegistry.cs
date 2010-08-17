@@ -7,7 +7,7 @@ using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Data.Repositories;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
-using Spinit.Wpc.Synologen.Presentation.Code.Services;
+using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using StructureMap.Attributes;
 using StructureMap.Configuration.DSL;
 
@@ -37,6 +37,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 			ForRequestedType<IActionCriteriaConverter<PageOfFrameBrandsMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameBrandsMatchingCriteriaConverter>();
 			ForRequestedType<IActionCriteriaConverter<PageOfFrameGlassTypesMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameGlassTypesMatchingCriteriaConverter>();
 			ForRequestedType<ISettingsService>().TheDefaultIsConcreteType<SettingsService>();
+			ForRequestedType<IGridSortPropertyMappingService>().TheDefaultIsConcreteType<SynologenGridSortPropertyMappingSerice>();
 		}
 	}
 }

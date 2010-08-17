@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -34,7 +33,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				NameLike = search, 
 				Page = gridPageSortParameters.Page, 
 				PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize, 
-				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameListItemView,Frame>(gridPageSortParameters.Column), 
+				OrderBy = gridPageSortParameters.Column,
 				SortAscending = gridPageSortParameters.SortAscending
 			};
 			HttpContext.Items.Add("Test", "Yihaaaa");

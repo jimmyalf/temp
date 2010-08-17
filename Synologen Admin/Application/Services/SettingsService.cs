@@ -1,6 +1,6 @@
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
-namespace Spinit.Wpc.Synologen.Presentation.Code.Services
+namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
 	public class SettingsService : ISettingsService
 	{

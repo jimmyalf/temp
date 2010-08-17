@@ -35,6 +35,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\AspNetMvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -48,7 +52,9 @@
     <Compile Include="Domain\Model\FrameGlassType.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameGlassTypesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\IFrameGlassTypeRepository.cs" />
+    <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IFrameOrderService.cs" />
+    <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\ISettingsService.cs" />
     <Compile Include="Domain\Model\Frame.cs" />
     <Compile Include="Domain\Model\FrameBrand.cs" />

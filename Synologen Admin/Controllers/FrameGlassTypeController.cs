@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
@@ -17,7 +16,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			{
 				Page = gridParameters.Page, 
 				PageSize = gridParameters.PageSize ?? DefaultPageSize, 
-				OrderBy = ViewModelExtensions.GetTranslatedPropertyNameOrDefault<FrameGlassTypeListItemView,FrameGlassType>(gridParameters.Column), 
+				OrderBy = gridParameters.Column, 
 				SortAscending = gridParameters.SortAscending
 			};
 
@@ -25,7 +24,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			var viewList = list.ToSortedPagedList().ToFrameGlassTypeViewList();
 			return View(viewList);
 		}
-
 
 		public ActionResult AddGlassType()
 		{

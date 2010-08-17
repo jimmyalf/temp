@@ -71,7 +71,9 @@
     <Content Include="Components\Synologen\SynologenMain.master" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\Services\SettingsService.cs" />
+    <Compile Include="Application\ModelBinders\GridSortPropertyMappingModelBinder.cs" />
+    <Compile Include="Application\Services\SettingsService.cs" />
+    <Compile Include="Application\Services\SynologenGridSortPropertyMapping.cs" />
     <Compile Include="Controllers\FrameGlassTypeController.cs" />
     <Compile Include="Controllers\FrameBrandController.cs" />
     <Compile Include="Controllers\FrameColorController.cs" />

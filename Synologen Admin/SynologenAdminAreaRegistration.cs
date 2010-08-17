@@ -1,6 +1,8 @@
 using System.Web.Mvc;
 using Spinit.Wpc.Core.UI.Mvc;
 using Spinit.Wpc.Synologen.Core.Persistence;
+using Spinit.Wpc.Synologen.Presentation.Application.ModelBinders;
+using Spinit.Wpc.Synologen.Presentation.Helpers;
 
 namespace Spinit.Wpc.Synologen.Presentation
 {
@@ -9,6 +11,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 		public SynologenAdminAreaRegistration()
 		{
 			ActionCriteriaExtensions.ConstructConvertersUsing(ServiceLocation.Resolve);
+			ModelBinders.Binders[typeof(GridPageSortParameters)] = new GridSortPropertyMappingModelBinder();
 		}
 
 		public override void RegisterArea(AreaRegistrationContext context)

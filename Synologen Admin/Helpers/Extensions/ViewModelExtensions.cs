@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Presentation.Models;
 
@@ -153,47 +151,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		}
 
 		#endregion
-
-		public static string GetTranslatedPropertyNameOrDefault<TViewModel,TDomainModel>(string viewModelPropertyName)
-		{
-			//TODO: Handle mapping an a better and more generic way
-			var _propertyMapItems = new []
-			{
-				PropertyMapItem.CreateItem<FrameListItemView, Frame, string>(x => x.Brand, x => x.Brand.Name),
-				PropertyMapItem.CreateItem<FrameListItemView, Frame, string>(x => x.Color, x => x.Color.Name),
-			};
-			foreach (var item in _propertyMapItems)
-			{
-				if(
-					item.ViewModelType.Equals(typeof(TViewModel)) && 
-					item.DomainModelType.Equals(typeof(TDomainModel)) && 
-					item.ViewModelPropertyName.Equals(viewModelPropertyName))
-				{
-					return item.DomainModelPropertyName;
-				}
-			}
-			return viewModelPropertyName;
-
-		}
-
-		internal class PropertyMapItem
-		{
-			public Type ViewModelType { get; private set; }
-			public Type DomainModelType { get; private set; }
-			public string ViewModelPropertyName { get; private set; }
-			public string DomainModelPropertyName { get; private set; }
-			public static PropertyMapItem CreateItem<TViewModel,TDomainModel,TProperty>(Expression<Func<TViewModel,TProperty>> viewModel, Expression<Func<TDomainModel,TProperty>> domainModel) where TViewModel : class where TDomainModel : class
-			{
-
-				return new PropertyMapItem
-				{
-					ViewModelType = typeof (TViewModel),
-					DomainModelType = typeof (TDomainModel),
-					ViewModelPropertyName = viewModel.GetName(),
-					DomainModelPropertyName = domainModel.GetName()
-				};
-			}
-		}
 
 		private static Frame UpdateFrame(Frame entity, FrameEditView viewModel, FrameBrand brand, FrameColor color)
 		{

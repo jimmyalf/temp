@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
 		public ActionResult AddGlassType()
 		{
-			return View(new FrameGlassTypeEditView {FormLegend = "Skapa ny bågfärg"});
+			return View(new FrameGlassTypeEditView {FormLegend = "Skapa ny glastyp"});
 		}
 
 		[HttpPost]
@@ -39,6 +39,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			if (ModelState.IsValid)
 			{
 				var frameGlassType = inModel.ToFrameGlassType();
+				_frameGlassTypeRepository.Save(frameGlassType);
+				return RedirectToAction("GlassTypes");
+			}
+			return View(inModel);
+		}
+
+		public ActionResult EditGlassType(int id)
+		{
+			var frameGlassType = _frameGlassTypeRepository.Get(id);
+			var viewModel = frameGlassType.ToFrameGlassTypeEditView("Redigera glastyp");
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult EditGlassType(FrameGlassTypeEditView inModel)
+		{
+			if (ModelState.IsValid)
+			{
+				var entity = _frameGlassTypeRepository.Get(inModel.Id);
+				var frameGlassType = inModel.FillFrameGlassType(entity);
 				_frameGlassTypeRepository.Save(frameGlassType);
 				return RedirectToAction("GlassTypes");
 			}
@@ -61,6 +82,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			//TODO: Create new Success-ActionMessage to be displayed in index action
 			return RedirectToAction("GlassTypes");
         }	
-	
 	}
 }

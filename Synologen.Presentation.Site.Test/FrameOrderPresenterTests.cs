@@ -37,16 +37,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.FramesList.Count(), Is.EqualTo(1));
 			Expect(view.Model.FramesList.ToList()[0].Id, Is.EqualTo(0));
 			Expect(view.Model.FramesList.ToList()[0].Name, Is.EqualTo("-- Välj båge --"));
-			Expect(view.Model.IndexList.Count(), Is.EqualTo(1));
-			Expect(view.Model.IndexList.ToList()[0].Name, Is.EqualTo("-- Välj index --"));
-			Expect(view.Model.IndexList.ToList()[0].Value, Is.EqualTo(int.MinValue));
-			Expect(view.Model.SphereList.Count(), Is.EqualTo(1));
-			Expect(view.Model.SphereList.ToList()[0].Name, Is.EqualTo("-- Välj sfär --"));
-			Expect(view.Model.SphereList.ToList()[0].Value, Is.EqualTo(int.MinValue));
+			//Expect(view.Model.IndexList.Count(), Is.EqualTo(1));
+			//Expect(view.Model.IndexList.ToList()[0].Name, Is.EqualTo("-- Välj index --"));
+			//Expect(view.Model.IndexList.ToList()[0].Value, Is.EqualTo(int.MinValue));
+			//Expect(view.Model.SphereList.Count(), Is.EqualTo(1));
+			//Expect(view.Model.SphereList.ToList()[0].Name, Is.EqualTo("-- Välj sfär --"));
+			//Expect(view.Model.SphereList.ToList()[0].Value, Is.EqualTo(int.MinValue));
 
-			Expect(view.Model.IndexRequiredErrorMessage, Is.EqualTo("Index saknas"));
+			//Expect(view.Model.IndexRequiredErrorMessage, Is.EqualTo("Index saknas"));
 			Expect(view.Model.FrameRequiredErrorMessage, Is.EqualTo("Båge saknas"));
-			Expect(view.Model.SphereRequiredErrorMessage, Is.EqualTo("Sfär saknas"));
+			//Expect(view.Model.SphereRequiredErrorMessage, Is.EqualTo("Sfär saknas"));
 			Expect(view.Model.Message, Is.EqualTo("Testar Web Forms MVP!"));
 			Expect(view.Model.NotSelectedIntervalValue, Is.EqualTo(int.MinValue));
 			Expect(view.Model.SelectedFrameId, Is.EqualTo(0));
@@ -64,10 +64,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			//Assert
 			Expect(view.Model.Message, Is.EqualTo("Vald båge med id: 1"));
 			Expect(view.Model.SelectedFrameId, Is.EqualTo(1));
-			Expect(view.Model.IndexList.Count(), Is.EqualTo(3));
-			Expect(view.Model.IndexList.ToList()[0].Name, Is.EqualTo("-- Välj index --"));
-			Expect(view.Model.SphereList.Count(), Is.EqualTo(50));
-			Expect(view.Model.SphereList.ToList()[0].Name, Is.EqualTo("-- Välj sfär --"));
+			//Expect(view.Model.IndexList.Count(), Is.EqualTo(3));
+			//Expect(view.Model.IndexList.ToList()[0].Name, Is.EqualTo("-- Välj index --"));
+			//Expect(view.Model.SphereList.Count(), Is.EqualTo(50));
+			//Expect(view.Model.SphereList.ToList()[0].Name, Is.EqualTo("-- Välj sfär --"));
 		}
 
 		[Test]

@@ -58,18 +58,7 @@ table.radioButtonItems tbody td{
 
 .field-validation-error { color: red; }
 
-
-table .sort_desc a::after
-{
-	content:url("/common/icons/down.gif");
-	padding-left: 10px;
-}
-
-table .sort_asc a::after
-{
-	content:url("/common/icons/up.gif");
-	padding-left: 10px;
-}
+table .sortdirection { margin-left: 10px; }
 
 div.validation-summary-errors {
   clear:both;

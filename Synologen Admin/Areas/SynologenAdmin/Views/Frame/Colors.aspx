@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <% Html.RenderPartial("FrameSubMenu"); %>
 <div id="dCompMain" class="Components-Synologen-FrameBrand-Index">
-	<%=Html.ValidationSummary("Ett fel har uppstått") %>
+	<%=Html.Messages() %>
 	<div class="fullBox">
 		<div class="wrap">
 			<div>

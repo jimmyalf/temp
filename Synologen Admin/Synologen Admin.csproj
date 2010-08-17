@@ -77,6 +77,10 @@
     <Compile Include="Controllers\FrameGlassTypeController.cs" />
     <Compile Include="Controllers\FrameBrandController.cs" />
     <Compile Include="Controllers\FrameColorController.cs" />
+    <Compile Include="Helpers\Extensions\WpcActionMessageExtensions.cs" />
+    <Compile Include="Helpers\IWpcActionMessage.cs" />
+    <Compile Include="Helpers\WpcActionMessage.cs" />
+    <Compile Include="Helpers\WpcActionMessageType.cs" />
     <Compile Include="Models\FrameGlassTypeEditView.cs" />
     <Compile Include="Helpers\Resources\WpcConfirmationDialog.sv-SE.Designer.cs">
       <DependentUpon>WpcConfirmationDialog.sv-SE.resx</DependentUpon>
@@ -461,10 +465,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>WpcConfirmationDialog.sv-SE.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Helpers\Resources\WpcConfirmationDialog.resx">
+    <Resource Include="Helpers\Resources\WpcConfirmationDialog.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>WpcConfirmationDialog.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    </Resource>
     <EmbeddedResource Include="Helpers\Resources\WpcPager.sv-SE.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WpcPager.sv-SE.Designer.cs</LastGenOutput>

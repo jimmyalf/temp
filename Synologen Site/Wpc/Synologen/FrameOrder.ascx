@@ -1,7 +1,18 @@
 ﻿<%@ Control Language="C#" CodeBehind="FrameOrder.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrder" %>
 <h1><%#Model.Message %></h1>
-<p>
-	<label for="<%=drpFrames.ClientID%>">Bågar:</label>
+<style type="text/css">
+
+.interval-parameter { float:left; }
+.frame-order-item { clear:both; margin: 10px 10px 10px 0px; }
+.frame-order-item label{ display:block; clear:both; }
+.frame-order-item input{ width: 4em; }
+.form-controls { clear: both; }
+
+</style>
+
+
+<div class="frame-order-item frame">
+	<label for="<%=drpFrames.ClientID%>">Bågar</label>
 	<asp:DropDownList 
 		ID="drpFrames" 
 		Runat="server" 
@@ -19,43 +30,136 @@
 		Display="Dynamic" 
 		CssClass="invalid" 
 		ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
-</p>
-<p>
-	<label for="<%=drpIndex.ClientID%>">Index:</label>
-	<asp:DropDownList 
-		ID="drpIndex" 
-		Runat="server" 
-		DataSource='<%#Model.IndexList%>' 
-		DataValueField="Value" 
-		DataTextField="Name" />
-	<asp:RequiredFieldValidator 
-		ID="reqIndex" 
-		InitialValue="<%#Model.NotSelectedIntervalValue%>" 
-		Runat="server" 
-		ErrorMessage="<%#Model.IndexRequiredErrorMessage %>" 
-		ControlToValidate="drpIndex" 
-		Display="Dynamic" 
-		CssClass="invalid" 
-		ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
-</p>
-<p>
-	<label for="<%=drpSphere.ClientID%>">Sfär:</label>
-	<asp:DropDownList 
-		ID="drpSphere" 
-		runat="server" 
-		DataSource='<%#Model.SphereList%>' 
-		DataValueField="Value" 
-		DataTextField="Name" />
-	<asp:RequiredFieldValidator 
-		ID="reqSphere" 
-		InitialValue="<%#Model.NotSelectedIntervalValue%>" 
-		Runat="server" 
-		ErrorMessage="<%#Model.SphereRequiredErrorMessage %>" 
-		ControlToValidate="drpSphere" 
-		Display="Dynamic" 
-		CssClass="invalid" 
-		ValidationGroup="vldSubmit" >&nbsp;*</asp:RequiredFieldValidator>
-</p>
-<asp:ValidationSummary ID="vldSummary" ValidationGroup="vldSubmit" runat="server" />
-<br />
-<asp:Button ID="btnSave" runat="server" Text="Spara" ValidationGroup="vldSubmit" CausesValidation="true"/>
+</div>
+
+<div class="frame-order-item glasstype">
+	<label for="drpGlassType">Glastyp</label>
+	<select id="drpGlassType">
+		<option value="0">-- Välj Glastyp --</option>
+		<option value="20">20</option>
+		<option value="21">21</option>
+		<option value="22">..</option>
+	</select>
+</div>
+<hr />
+<div class="interval-parameter frame">
+	<div class="frame-order-item left">
+		<label for="drpPupillaryDistanceLeft">Pupilldistans V</label>
+		<select id="drpPupillaryDistanceLeft">
+			<option value="<%#Model.NotSelectedIntervalValue%>">-- Välj PD --</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">..</option>
+		</select>
+	</div>
+	<div class="frame-order-item right">
+		<label for="drpPupillaryDistanceRight">Pupilldistans H</label>
+		<select id="drpPupillaryDistanceRight">
+			<option value="<%#Model.NotSelectedIntervalValue%>">-- Välj PD --</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">..</option>
+		</select>
+	</div>
+</div>
+
+<div class="interval-parameter sphere">
+	<div class="frame-order-item left">
+		<label for="drpSphereLeft">Sfär V</label>
+		<select id="drpSphereLeft">
+			<option value="<%#Model.NotSelectedIntervalValue%>">-- Välj Sfär --</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">..</option>
+		</select>
+	</div>
+	<div class="frame-order-item right">
+		<label for="drpSphereRight">Sfär H</label>
+		<select id="drpSphereRight">
+			<option value="<%#Model.NotSelectedIntervalValue%>">-- Välj Sfär --</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">..</option>
+		</select>
+	</div>
+</div>
+
+<div class="interval-parameter cylinder">
+	<div class="frame-order-item left">
+		<label for="drpCylinderLeft">Cylinder V</label>
+		<select id="drpCylinderLeft">
+			<option value="<%#Model.NotSelectedIntervalValue%>">-- Välj Cylinder --</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">..</option>
+		</select>
+	</div>
+	<div class="frame-order-item right">
+		<label for="drpCylinderRight">Cylinder H</label>
+		<select id="drpCylinderRight">
+			<option value="<%#Model.NotSelectedIntervalValue%>">-- Välj Cylinder --</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">..</option>
+		</select>
+	</div>
+</div>
+
+<div class="interval-parameter axis">
+	<div class="frame-order-item left">
+		<label for="txtAxisLeft">Axel V</label>
+		<input type="txtAxisLeft" maxlength="3" />
+	</div>
+	<div class="frame-order-item right">
+		<label for="txtAxisRight">Axel H</label>
+		<input type="txtAxisRight" maxlength="3"  />
+	</div>
+</div>
+
+<div class="interval-parameter addition">
+	<div class="frame-order-item left">
+		<label for="drpAdditionLeft">Addition V</label>
+		<select id="drpAdditionLeft">
+			<option value="<%#Model.NotSelectedIntervalValue%>">-- Välj Addition --</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">..</option>
+		</select>
+	</div>
+	<div class="frame-order-item right">
+		<label for="drpAdditionRight">Addition H</label>
+		<select id="drpAdditionRight">
+			<option value="<%#Model.NotSelectedIntervalValue%>">-- Välj Addition --</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">..</option>
+		</select>
+	</div>
+</div>
+
+<div class="interval-parameter height">
+	<div class="frame-order-item left">
+		<label for="drpHeightLeft">Höjd V</label>
+		<select id="drpHeightLeft">
+			<option value="<%#Model.NotSelectedIntervalValue%>">-- Välj Höjd --</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">..</option>
+		</select>
+	</div>
+	<div class="frame-order-item right">
+		<label for="drpAdditionRight">Höjd H</label>
+		<select id="drpAdditionRight">
+			<option value="<%#Model.NotSelectedIntervalValue%>">-- Välj Höjd --</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">..</option>
+		</select>
+	</div>
+</div>
+
+<div class="form-controls">
+	<asp:ValidationSummary ID="vldSummary" ValidationGroup="vldSubmit" runat="server" />
+	<br />
+	<asp:Button ID="btnSave" runat="server" Text="Spara" ValidationGroup="vldSubmit" CausesValidation="true"/>
+</div>

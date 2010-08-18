@@ -82,8 +82,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			catch(SynologenDeleteItemHasConnectionsException)
 			{
 				this.AddErrorMessage("Färgen kunde inte raderas då den är knuten till en eller fler bågar");
+				return RedirectToAction("Colors");
 			}
+			this.AddSuccessMessage("Färgen har raderats");
 			return RedirectToAction("Colors");
+			
         }	
 	
 	}

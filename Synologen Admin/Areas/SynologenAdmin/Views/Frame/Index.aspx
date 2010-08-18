@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <% Html.RenderPartial("FrameSubMenu"); %>
 <div id="dCompMain" class="Components-Synologen-Frames">
+	<%=Html.Messages() %>
 	<div class="fullBox">
 		<div class="wrap">
 			<% using (Html.BeginForm()) {%>
@@ -29,9 +30,9 @@
 						    column.For(x => x.Color).Named("Färg");
 							column.For(x => Html.ActionLink("Redigera", "Edit", "Frame", new {id = x.Id}, new object()))
 								.SetAsWpcControlColumn("Redigera");
-				          	column.For("Radera")
-				          		.Partial("DeleteFrame")
-				          		.SetAsWpcControlColumn("Radera");
+							column.For(x => Html.WpcGridDeleteForm(x, "Delete", "Frame", new {id = x.Id})
+									.OverrideButtonAttributes(title => "Radera båge"))
+								.SetAsWpcControlColumn("Radera");
      					}
      				)
      				.Empty("Inga bågar i databasen.")

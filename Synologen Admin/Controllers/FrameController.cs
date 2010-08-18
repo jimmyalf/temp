@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -79,6 +80,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				var entity = _frameRepository.Get(inModel.Id);
 				var frame = inModel.FillFrame(entity, brand, color);
 				_frameRepository.Save(frame);
+				this.AddSuccessMessage("Bågen har sparats");
 				return RedirectToAction("Index");
 			}
 			var selectableFrameColors = _frameColorRepository.GetAll();
@@ -105,6 +107,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				var color = _frameColorRepository.Get(inModel.ColorId);
 				var frame = inModel.ToFrame(brand, color);
 				_frameRepository.Save(frame);
+				this.AddSuccessMessage("Bågen har sparats");
 				return RedirectToAction("Index");
 			}
 			inModel.AvailableFrameColors = _frameColorRepository.GetAll();
@@ -118,7 +121,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		public ActionResult Delete(int id) {
 			var frame = _frameRepository.Get(id);
 			//TODO: Check for connected orders during delete
-			_frameRepository.Delete(frame);
+			try
+			{
+				_frameRepository.Delete(frame);
+			}
+			catch(SynologenDeleteItemHasConnectionsException)
+			{
+				this.AddErrorMessage("Bågen kunde inte raderas då den är knuten till en eller fler beställningar");
+				return RedirectToAction("Index");
+			}
+			this.AddSuccessMessage("Bågen har raderats");
 			return RedirectToAction("Index");
 		}
 	}

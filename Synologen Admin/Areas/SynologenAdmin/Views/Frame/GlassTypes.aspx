@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <% Html.RenderPartial("FrameSubMenu"); %>
 <div id="dCompMain" class="Components-Synologen-Frames-GlassTypes-Index">
-	<%=Html.ValidationSummary("Ett fel har uppstått") %>
+	<%=Html.Messages() %>
 	<div class="fullBox">
 		<div class="wrap">
 			<div>
@@ -15,8 +15,8 @@
      						column.For(x => x.Name).Named("Glastyp");
 							column.For(x => Html.ActionLink("Redigera","EditGlassType","Frame", new {id = x.Id}, new object()))
 								.SetAsWpcControlColumn("Redigera");
-							column.For("Radera")
-								.Partial("DeleteFrameGlassType")
+							column.For(x => Html.WpcGridDeleteForm(x, "DeleteGlassType", "Frame", new {id = x.Id})
+									.OverrideButtonAttributes(title => "Radera glastyp"))
 								.SetAsWpcControlColumn("Radera");
      					}
      				)

@@ -75,7 +75,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			catch(SynologenDeleteItemHasConnectionsException)
 			{
 				this.AddErrorMessage("Bågmärket kunde inte raderas då är knutet till en eller fler bågar");
+				return RedirectToAction("Brands");
 			}
+			this.AddSuccessMessage("Färgen har raderats");
 			return RedirectToAction("Brands");
 		}		
 	}

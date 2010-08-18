@@ -1,6 +1,6 @@
-using System;
 using NHibernate;
 using NHibernate.Criterion;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
@@ -15,7 +15,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories
 		{
 			if(FrameColorHasConnectedFrames(entity))
 			{
-				throw new ArgumentException("FrameColor cannot be deleted because it has connected Frames", "entity");
+				throw new SynologenDeleteItemHasConnectionsException("FrameColor cannot be deleted because it has connected Frames");
 			}
 			base.Delete(entity);
 			return;

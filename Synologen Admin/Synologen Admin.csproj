@@ -78,9 +78,12 @@
     <Compile Include="Controllers\FrameBrandController.cs" />
     <Compile Include="Controllers\FrameColorController.cs" />
     <Compile Include="Helpers\Extensions\WpcActionMessageExtensions.cs" />
+    <Compile Include="Helpers\Extensions\WpcGridDeleteFormExtensions.cs" />
+    <Compile Include="Helpers\IDeleConfigurableGridItem.cs" />
     <Compile Include="Helpers\IWpcActionMessage.cs" />
     <Compile Include="Helpers\WpcActionMessage.cs" />
     <Compile Include="Helpers\WpcActionMessageType.cs" />
+    <Compile Include="Helpers\WpcGridDeleteForm.cs" />
     <Compile Include="Models\FrameGlassTypeEditView.cs" />
     <Compile Include="Helpers\Resources\WpcConfirmationDialog.sv-SE.Designer.cs">
       <DependentUpon>WpcConfirmationDialog.sv-SE.resx</DependentUpon>
@@ -419,7 +422,6 @@
     <Content Include="Areas\SynologenAdmin\Views\Frame\EditColor.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Colors.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Edit.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\Frame\DeleteFrameBrand.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\ColorForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\FrameForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Index.aspx" />
@@ -432,10 +434,7 @@
     <Content Include="Areas\SynologenAdmin\Views\Frame\AddGlassType.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\EditGlassType.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\GlassTypeForm.ascx" />
-    <Content Include="Areas\SynologenAdmin\Views\Frame\DeleteFrameGlassType.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\GlassTypes.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\Frame\DeleteFrame.ascx" />
-    <Content Include="Areas\SynologenAdmin\Views\Frame\DeleteFrameColor.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\EditBrand.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Brands.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\BrandForm.ascx" />

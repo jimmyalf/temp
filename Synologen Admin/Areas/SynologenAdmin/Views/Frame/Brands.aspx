@@ -16,8 +16,8 @@
      						column.For(x => x.NumberOfFramesWithThisBrand).Named("Bågar med märket");
 							column.For(x => Html.ActionLink("Redigera","EditBrand","Frame", new {id = x.Id}, new object()))
 								.SetAsWpcControlColumn("Redigera");
-							column.For("Radera")
-								.Partial("DeleteFrameBrand")
+							column.For(x => Html.WpcGridDeleteForm(x, "DeleteBrand", "Frame", new {id = x.Id})
+									.OverrideButtonAttributes(title => "Radera märke"))
 								.SetAsWpcControlColumn("Radera");
      					}
      				)

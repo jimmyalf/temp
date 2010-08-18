@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
@@ -38,6 +39,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			{
 				var frameGlassType = inModel.ToFrameGlassType();
 				_frameGlassTypeRepository.Save(frameGlassType);
+				this.AddSuccessMessage("Glastypen har sparats");
 				return RedirectToAction("GlassTypes");
 			}
 			return View(inModel);
@@ -59,6 +61,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				var entity = _frameGlassTypeRepository.Get(inModel.Id);
 				var frameGlassType = inModel.FillFrameGlassType(entity);
 				_frameGlassTypeRepository.Save(frameGlassType);
+				this.AddSuccessMessage("Glastypen har sparats");
 				return RedirectToAction("GlassTypes");
 			}
 			return View(inModel);
@@ -72,12 +75,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			try{
 			    _frameGlassTypeRepository.Delete(frameGlassType);
 			}
-			catch
+			catch(SynologenDeleteItemHasConnectionsException)
 			{
-				//TODO: Create new Failure-ActionMessage to be displayed in index action
+				this.AddErrorMessage("Glastypen kunde inte raderas då den är knuten till en eller fler beställningar");
 				return RedirectToAction("GlassTypes");
 			}
-			//TODO: Create new Success-ActionMessage to be displayed in index action
+			this.AddSuccessMessage("Glastypen har raderats");
 			return RedirectToAction("GlassTypes");
         }	
 	}

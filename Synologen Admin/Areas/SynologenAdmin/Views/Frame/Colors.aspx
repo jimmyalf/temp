@@ -16,8 +16,8 @@
      						column.For(x => x.NumberOfFramesWithThisColor).Named("Bågar med färgen"); 
 							column.For(x => Html.ActionLink("Redigera","EditColor","Frame", new {id = x.Id}, new object()))
 								.SetAsWpcControlColumn("Redigera");
-							column.For("Radera")
-								.Partial("DeleteFrameColor")
+							column.For(x => Html.WpcGridDeleteForm(x, "DeleteColor", "Frame", new {id = x.Id})
+									.OverrideButtonAttributes(title => "Radera färg"))
 								.SetAsWpcControlColumn("Radera");
      					}
      				)

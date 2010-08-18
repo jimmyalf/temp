@@ -59,7 +59,11 @@
   <ItemGroup>
     <Compile Include="Factories\RepositoryFactory.cs" />
     <Compile Include="Factories\ServiceFactory.cs" />
-    <Compile Include="FrameControllerTests.cs" />
+    <Compile Include="Factories\ViewModelFactory.cs" />
+    <Compile Include="FrameControllerBrandTests.cs" />
+    <Compile Include="FrameControllerColorTests.cs" />
+    <Compile Include="FrameControllerFrameTests.cs" />
+    <Compile Include="FrameControllerGlassTypeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

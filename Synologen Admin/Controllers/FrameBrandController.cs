@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
@@ -11,11 +12,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 	{
 
 		[HttpGet]
-		public ActionResult Brands(GridPageSortParameters gridPageSortParameters, string error) {
-			if (!string.IsNullOrEmpty(error)) {
-				ModelState.AddModelError("", error);
-			}
-
+		public ActionResult Brands(GridPageSortParameters gridPageSortParameters) 
+		{
 			var criteria = new PageOfFrameBrandsMatchingCriteria {
 				Page = gridPageSortParameters.Page,
 				PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize,
@@ -74,7 +72,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			{
 				_frameBrandRepository.Delete(frameColor);
 			}
-			catch
+			catch(SynologenDeleteItemHasConnectionsException)
 			{
 				this.AddErrorMessage("Bågmärket kunde inte raderas då är knutet till en eller fler bågar");
 			}

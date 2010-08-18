@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Exceptions\SynologenDeleteItemHasConnectionsException.cs" />
     <Compile Include="Domain\Model\FrameGlassType.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameGlassTypesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\IFrameGlassTypeRepository.cs" />

@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
@@ -10,13 +11,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 	public partial class FrameController 
 	{
 		[HttpGet]
-		public ActionResult Colors(GridPageSortParameters gridParameters, string error)
+		public ActionResult Colors(GridPageSortParameters gridParameters)
 		{
-			if(!string.IsNullOrEmpty(error))
-			{
-				ModelState.AddModelError(string.Empty, error);
-			}
-
 			var criteria = new PageOfFrameColorsMatchingCriteria
 			{
 				Page = gridParameters.Page, 
@@ -83,7 +79,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			{
 			    _frameColorRepository.Delete(frameColor);
 			}
-			catch
+			catch(SynologenDeleteItemHasConnectionsException)
 			{
 				this.AddErrorMessage("Färgen kunde inte raderas då den är knuten till en eller fler bågar");
 			}

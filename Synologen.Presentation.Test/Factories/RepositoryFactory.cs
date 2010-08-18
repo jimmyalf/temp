@@ -28,70 +28,98 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 			return new MockedFrameGlassTypeRepository();
 		}
 
-		internal class MockedFrameRepository : IFrameRepository
-		{
-			public Frame Get(int id) { throw new NotImplementedException(); }
-			public IEnumerable<Frame> GetAll() { throw new NotImplementedException(); }
-			public IEnumerable<Frame> FindBy<TActionCriteria>(TActionCriteria criteria) where TActionCriteria : IActionCriteria
-			{
-				var returnList = new List<Frame>();
-				for(var id=0; id < 10; id++)
-				{
-					returnList.Add(GetMockedFrame(id));
-				}
-				return new SortedPagedList<Frame>(returnList, 20, 1, 10, null, false);
-			}
-
-			
-
-			public void Save(Frame entity) { throw new NotImplementedException(); }
-			public void Delete(Frame entity) { throw new NotImplementedException(); }
-		}
-
 		public static Frame GetMockedFrame(int id)
 		{
-			return new Frame
-			{
-				AllowOrders = true,
-				ArticleNumber = "123456",
-				//Axis = 50,
-				Brand = new FrameBrand {Id = 1, Name = "Björn Borg"},
-				Color = new FrameColor {Id = 1, Name = "Blå"},
-				Id = id,
-				Name = "Bra båge",
-			}
-				//.SetInterval(x => x.Index, 1.5m, 1.6m, 0.1m)
-				//.SetInterval(x => x.Cylinder, -2, 0, 0.25m)
-				//.SetInterval(x => x.Sphere, -6, 6, 0.25m)
-				.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5m);
+		    return new Frame
+		    {
+		        AllowOrders = true,
+		        ArticleNumber = "123456",
+		        Brand = new FrameBrand {Id = 1, Name = "Björn Borg"},
+		        Color = new FrameColor {Id = 1, Name = "Blå"},
+		        Id = id,
+		        Name = "Bra båge",
+		    }.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5m);		
+		}
+
+		public static FrameColor GetMockedFrameColor(int id)
+		{
+		    return new FrameColor
+		    {
+		        Id = id,
+		        Name = "Brun",
+		    };
 					
 		}
 
-		internal class MockedFrameColorRepository : IFrameColorRepository
+		public static FrameBrand GetMockedFrameBrand(int id)
 		{
-			public FrameColor Get(int id) { throw new NotImplementedException(); }
-			public IEnumerable<FrameColor> GetAll() { throw new NotImplementedException(); }
-			public IEnumerable<FrameColor> FindBy<TActionCriteria>(TActionCriteria criteria) where TActionCriteria : IActionCriteria { throw new NotImplementedException(); }
-			public void Save(FrameColor entity) { throw new NotImplementedException(); }
-			public void Delete(FrameColor entity) { throw new NotImplementedException(); }
+		    return new FrameBrand
+		    {
+		        Id = id,
+		        Name = "Björn borg",
+		    };
+					
 		}
 
-		internal class MockedFrameBrandRepository : IFrameBrandRepository
+		public static FrameGlassType GetMockedFrameGlass(int id)
 		{
-			public FrameBrand Get(int id) { throw new NotImplementedException(); }
-			public IEnumerable<FrameBrand> GetAll() { throw new NotImplementedException(); }
-			public IEnumerable<FrameBrand> FindBy<TActionCriteria>(TActionCriteria criteria) where TActionCriteria : IActionCriteria { throw new NotImplementedException(); }
-			public void Save(FrameBrand entity) { throw new NotImplementedException(); }
-			public void Delete(FrameBrand entity) { throw new NotImplementedException(); }
+		    return new FrameGlassType
+		    {
+		        Id = id,
+		        Name = "Närprogressiv",
+		        IncludeAdditionParametersInOrder = true,
+		        IncludeHeightParametersInOrder = true
+		    };
+					
 		}
 
-		internal class MockedFrameGlassTypeRepository : IFrameGlassTypeRepository
+
+		internal class MockedFrameGlassTypeRepository : GenericMockRepository<FrameGlassType>, IFrameGlassTypeRepository
 		{
-			public FrameGlassType Get(int id) { throw new NotImplementedException(); }
-			public IEnumerable<FrameGlassType> GetAll() { throw new NotImplementedException(); }
-			public IEnumerable<FrameGlassType> FindBy<TActionCriteria>(TActionCriteria criteria) where TActionCriteria : IActionCriteria { throw new NotImplementedException(); }
-			public void Save(FrameGlassType entity) { throw new NotImplementedException(); }
-			public void Delete(FrameGlassType entity) { throw new NotImplementedException(); }
+			public MockedFrameGlassTypeRepository() : base(GetMockedFrameGlass) {}
+		}
+
+		internal class MockedFrameBrandRepository : GenericMockRepository<FrameBrand>, IFrameBrandRepository
+		{
+			public MockedFrameBrandRepository() : base(GetMockedFrameBrand) {}
+		}
+
+		internal class MockedFrameColorRepository : GenericMockRepository<FrameColor>, IFrameColorRepository
+		{
+			public MockedFrameColorRepository() : base(GetMockedFrameColor) {}
+		}
+
+		internal class MockedFrameRepository : GenericMockRepository<Frame>, IFrameRepository
+		{
+			public MockedFrameRepository() : base(GetMockedFrame) {}
+		}
+
+		public class GenericMockRepository<TModel> : IRepository<TModel> where TModel : class
+		{
+			public TModel SavedEntity { get; private set; }
+			public TModel DeletedEntity { get; private set; }
+			private readonly Func<int, TModel> _generateMockFunction;
+			public GenericMockRepository(Func<int, TModel> generateMockFunction)
+			{
+				_generateMockFunction = generateMockFunction;
+			}
+			public TModel Get(int id) { return _generateMockFunction(id); }
+			public IEnumerable<TModel> GetAll() {  return GenerateItems<TModel>(Get); }
+			public IEnumerable<TModel> FindBy<TActionCriteria>(TActionCriteria criteria) where TActionCriteria : IActionCriteria { return GetAll(); }
+			public void Save(TModel entity) { SavedEntity = entity; }
+			public void Delete(TModel entity) { DeletedEntity = entity; }
+		}
+
+
+		private static ISortedPagedList<TModel> GenerateItems<TModel>(Func<int,TModel> generateFromIdFunction)
+		{
+			var returnList = new List<TModel>();
+			for(var id=1; id <= 10; id++)
+			{
+				returnList.Add(generateFromIdFunction(id));
+			}
+			return new SortedPagedList<TModel>(returnList, 20, 1, 10, null, false);
 		}
 	}
+
 }

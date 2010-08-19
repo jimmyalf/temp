@@ -52,6 +52,7 @@
     <Compile Include="Logic\EventArguments\FrameSelectedEventArgs.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
     <Compile Include="Logic\Views\IFrameOrderView.cs" />
+    <Compile Include="Models\FrameGlassTypeListItem.cs" />
     <Compile Include="Models\FrameListItem.cs" />
     <Compile Include="Models\IntervalListItem.cs" />
     <Compile Include="Models\FrameOrderModel.cs" />

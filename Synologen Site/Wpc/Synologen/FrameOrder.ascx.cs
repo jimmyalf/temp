@@ -27,7 +27,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		{ 
 			if(FrameSelected != null)
 			{
-				FrameSelected(this, new FrameSelectedEventArgs {SelectedFrameId = Int32.Parse(drpFrames.SelectedValue)});
+				FrameSelected(this, 
+					new FrameSelectedEventArgs {
+						SelectedFrameId = Int32.Parse(drpFrames.SelectedValue),
+						SelectedPupillaryDistanceLeft = (decimal) double.Parse(drpPupillaryDistanceLeft.SelectedValue),
+						SelectedPupillaryDistanceRight = (decimal) double.Parse(drpPupillaryDistanceRight.SelectedValue),
+					}
+				);
 			}
 		}
 
@@ -38,8 +44,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 				SubmitForm(this,
 					new FrameOrderFormSubmitEventArgs {
 						SelectedFrameId = Int32.Parse(drpFrames.SelectedValue),
-						SelectedIndex = (decimal) double.Parse(drpIndex.SelectedValue),
-						SelectedSphere = (decimal) double.Parse(drpSphere.SelectedValue),
+						SelectedPupillaryDistanceLeft = (decimal) double.Parse(drpPupillaryDistanceLeft.SelectedValue),
+						SelectedPupillaryDistanceRight = (decimal) double.Parse(drpPupillaryDistanceRight.SelectedValue),
 						PageIsValid = Page.IsValid
 					}
 				);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers;
@@ -11,9 +12,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 	public class FrameOrderPresenter : Presenter<IFrameOrderView<FrameOrderModel>>
 	{
 		private readonly IFrameRepository _repository;
-		public FrameOrderPresenter(IFrameOrderView<FrameOrderModel> view, IFrameRepository repository) : base(view)
+		private readonly IFrameGlassTypeRepository _frameGlassTypeRepository;
+
+		public FrameOrderPresenter(IFrameOrderView<FrameOrderModel> view, IFrameRepository repository, IFrameGlassTypeRepository frameGlassTypeRepository) : base(view)
 		{
 			_repository = repository;
+			_frameGlassTypeRepository = frameGlassTypeRepository;
 			InitiateEventHandlers();
 		}
 
@@ -42,9 +46,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		{
 			View.Model.Message = "Vald båge med id: " + e.SelectedFrameId;
 			View.Model.SelectedFrameId = e.SelectedFrameId;
+			View.Model.SelectedPupillaryDistanceLeft = e.SelectedPupillaryDistanceLeft;
+			View.Model.SelectedPupillaryDistanceRight = e.SelectedPupillaryDistanceRight;
 			var frame = _repository.Get(e.SelectedFrameId);
-			//View.Model.IndexList = frame.GetIntervalListFor(x => x.Index).InsertDefaultValue("index", View.Model.NotSelectedIntervalValue);
-			//View.Model.SphereList = frame.GetIntervalListFor(x => x.Sphere).InsertDefaultValue("sfär", View.Model.NotSelectedIntervalValue);
+			View.Model.PupillaryDistanceList = frame.PupillaryDistance.GetList().InsertDefaultValue("PD", View.Model.NotSelectedIntervalValue);
 		}
 
 		public override void ReleaseView()
@@ -55,13 +60,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		public void View_Load(object sender, EventArgs e)
 		{
 			View.Model.Message = "Testar Web Forms MVP!";
-			var frameListItems = _repository.GetAll().ToFrameViewList().InsertFirst(new FrameListItem {Id = 0, Name = "-- Välj båge --"});
-			View.Model.FramesList = frameListItems;
-			//View.Model.IndexList = new List<IntervalListItem>().InsertDefaultValue("index", View.Model.NotSelectedIntervalValue);
-			//View.Model.SphereList =  new List<IntervalListItem>().InsertDefaultValue("sfär", View.Model.NotSelectedIntervalValue);
+			View.Model.FramesList = _repository.GetAll().ToFrameViewList().InsertFirst(new FrameListItem {Id = 0, Name = "-- Välj båge --"});
+			View.Model.PupillaryDistanceList = new List<IntervalListItem>().InsertDefaultValue("PD", View.Model.NotSelectedIntervalValue);
+			View.Model.GlassTypesList = _frameGlassTypeRepository.GetAll().ToFrameGlassTypeViewList().InsertFirst(new FrameGlassTypeListItem {Id = 0, Name = "-- Välj glastyp --"});
 			View.Model.FrameRequiredErrorMessage = "Båge saknas";
-			//View.Model.IndexRequiredErrorMessage = "Index saknas";
-			//View.Model.SphereRequiredErrorMessage = "Sfär saknas";
+			View.Model.GlassTypeRequiredErrorMessage = "Glastyp saknas";
+			View.Model.PupillaryDistanceRequiredErrorMessage = "PD saknas";
+
+			View.Model.SelectedPupillaryDistanceLeft = View.Model.NotSelectedIntervalValue;
+			View.Model.SelectedPupillaryDistanceRight = View.Model.NotSelectedIntervalValue;
 		}
 
 	}

@@ -17,6 +17,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 			return list.ConvertAll(typeConverter);
 		}
 
+		public static IEnumerable<FrameGlassTypeListItem> ToFrameGlassTypeViewList(this IEnumerable<FrameGlassType> list)
+		{
+			Func<FrameGlassType,FrameGlassTypeListItem> typeConverter = x => new FrameGlassTypeListItem {
+				Id = x.Id,
+				Name = x.Name,
+			};
+			return list.ConvertAll(typeConverter);
+		}
+
 		public static IEnumerable<TModel> InsertFirst<TModel>(this IEnumerable<TModel> list, TModel item)
 		{
 			var returnList =  list.ToList();
@@ -24,7 +33,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 			return returnList;
 		}
 
-		public static IEnumerable<IntervalListItem> GetListFor(this Interval interval)
+		public static IEnumerable<IntervalListItem> GetList(this Interval interval)
 		{
 			foreach (var value in interval.ToList())
 			{

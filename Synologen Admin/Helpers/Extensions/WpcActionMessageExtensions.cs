@@ -7,7 +7,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 {
 	public static class WpcActionMessageExtensions
 	{
-		private const string DefaultActionMessagesTempDataKey = "WpcActionMessages";
+		public const string DefaultActionMessagesTempDataKey = "WpcActionMessages";
 
 		public static void AddSuccessMessage(this ControllerBase controller, string message)
 		{

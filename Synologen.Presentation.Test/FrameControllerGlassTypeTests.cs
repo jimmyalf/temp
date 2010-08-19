@@ -53,13 +53,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 
 		[Test]
-		public void When_EditGlassType_POST_Is_Called_Saved_DomainItem_Has_Expected_Values()
+		public void When_EditGlassType_POST_Is_Called_Saved_DomainItem_Has_Expected_Values_And_Redirects()
 		{
 			//Arrange
 			var viewModel = ViewModelFactory.GetGlassTypeEditView(4);
+			const string expectedActionMessage = "Glastypen har sparats";
 
 			//Act
-			controller.EditGlassType(viewModel);
+			var result = (RedirectToRouteResult) controller.EditGlassType(viewModel);
+			var actionMessage = controller.GetWpcActionMessages();
 			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameGlassType>) frameGlassTypeRepository).SavedEntity;
 
 			//Assert
@@ -68,7 +70,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(savedItem.Name, Is.EqualTo(viewModel.Name));
 			Expect(savedItem.IncludeAdditionParametersInOrder, Is.EqualTo(viewModel.IncludeAdditionParametersInOrder));
 			Expect(savedItem.IncludeHeightParametersInOrder, Is.EqualTo(viewModel.IncludeHeightParametersInOrder));
+			Expect(result.RouteValues["action"], Is.EqualTo("GlassTypes"));
+			Expect(actionMessage.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessage.First().Type, Is.EqualTo(WpcActionMessageType.Success));
+		}
 
+		[Test]
+		public void When_EditGlassType_POST_With_Invalid_ModelState_Is_Called_Validation_Fails_And_Does_Not_Redirect()
+		{
+			//Arrange
+
+			//Act
+			controller.ModelState.AddModelError("*", "Invalid model state");
+			var result = controller.EditGlassType(null);
+			var viewResult = result as ViewResult ?? new ViewResult();
+			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameGlassType>) frameGlassTypeRepository).SavedEntity;
+
+			//Assert
+			Expect(savedItem, Is.Null);
+			Expect(viewResult.ViewData.ModelState.IsValid, Is.EqualTo(false));
+			Expect(result is RedirectToRouteResult, Is.False);
 		}
 
 		[Test]
@@ -90,13 +111,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 
 		[Test]
-		public void When_AddGlassType_POST_Is_Called_Saved_DomainItem_Has_Expected_Values()
+		public void When_AddGlassType_POST_Is_Called_Saved_DomainItem_Has_Expected_Values_And_Redirects()
 		{
 			//Arrange
 			var viewModel = ViewModelFactory.GetGlassTypeEditView(0);
+			const string expectedActionMessage = "Glastypen har sparats";
 
 			//Act
-			controller.AddGlassType(viewModel);
+			var result = (RedirectToRouteResult)controller.AddGlassType(viewModel);
+			var actionMessage = controller.GetWpcActionMessages();
 			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameGlassType>) frameGlassTypeRepository).SavedEntity;
 
 			//Assert
@@ -105,21 +128,66 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(savedItem.Name, Is.EqualTo(viewModel.Name));
 			Expect(savedItem.IncludeAdditionParametersInOrder, Is.EqualTo(viewModel.IncludeAdditionParametersInOrder));
 			Expect(savedItem.IncludeHeightParametersInOrder, Is.EqualTo(viewModel.IncludeHeightParametersInOrder));
+			Expect(result.RouteValues["action"], Is.EqualTo("GlassTypes"));
+			Expect(actionMessage.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessage.First().Type, Is.EqualTo(WpcActionMessageType.Success));
 		}
 
 		[Test]
-		public void When_DeleteGlassType_POST_Is_Called_Deleted_DomainItem_Has_Expected_Values()
+		public void When_AddGlassType_POST_With_Invalid_ModelState_Is_Called_Validation_Fails_And_Does_Not_Redirect()
+		{
+			//Arrange
+
+			//Act
+			controller.ModelState.AddModelError("*", "Invalid model state");
+			var result = controller.AddGlassType(null);
+			var viewResult = result as ViewResult ?? new ViewResult();
+			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameGlassType>) frameGlassTypeRepository).SavedEntity;
+
+			//Assert
+			Expect(savedItem, Is.Null);
+			Expect(viewResult.ViewData.ModelState.IsValid, Is.False);
+			Expect(result is RedirectToRouteResult, Is.False);
+		}
+
+		[Test]
+		public void When_DeleteGlassType_POST_Is_Called_Deleted_DomainItem_Has_Expected_Values_And_Redirects()
 		{
 			//Arrange
 			const int itemId = 1;
+			const string expectedActionMessage = "Glastypen har raderats";
 
 			//Act
-			controller.DeleteGlassType(itemId);
+			var result =  (RedirectToRouteResult) controller.DeleteGlassType(itemId);
+			var actionMessage = controller.GetWpcActionMessages();
 			var deletedItem = ((RepositoryFactory.GenericMockRepository<FrameGlassType>) frameGlassTypeRepository).DeletedEntity;
 
 			//Assert
 			Expect(deletedItem, Is.Not.Null);
 			Expect(deletedItem.Id, Is.EqualTo(itemId));
+			Expect(result.RouteValues["action"], Is.EqualTo("GlassTypes"));
+			Expect(actionMessage.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessage.First().Type, Is.EqualTo(WpcActionMessageType.Success));
+
+		}
+
+		[Test]
+		public void When_DeleteGlassType_POST_Is_Called_With_An_Item_That_Has_Conncetions_An_ErrorMessage_Is_Registered_And_Redirects()
+		{
+			//Arrange
+			const int itemId = -1;
+			const string expectedActionMessage = "Glastypen kunde inte raderas då den är knuten till en eller fler beställningar";
+
+			//Act
+			var result =  (RedirectToRouteResult) controller.DeleteGlassType(itemId);
+			var actionMessage = controller.GetWpcActionMessages();
+			var deletedItem = ((RepositoryFactory.GenericMockRepository<FrameGlassType>) frameGlassTypeRepository).DeletedEntity;
+
+			//Assert
+			Expect(deletedItem, Is.Null);
+			Expect(result.RouteValues["action"], Is.EqualTo("GlassTypes"));
+			Expect(actionMessage.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessage.First().Type, Is.EqualTo(WpcActionMessageType.Error));
 
 		}
 

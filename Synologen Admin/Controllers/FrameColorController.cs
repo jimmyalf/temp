@@ -43,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				var entity = _frameColorRepository.Get(inModel.Id);
 				var frameColor = inModel.FillFrameColor(entity);
 				_frameColorRepository.Save(frameColor);
-				this.AddSuccessMessage("Färgen har sparats");
+				this.AddSuccessMessage("Bågfärgen har sparats");
 				return RedirectToAction("Colors");
 			}
 			return View(inModel);
@@ -63,7 +63,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			{
 				var frameColor = inModel.ToFrameColor();
 				_frameColorRepository.Save(frameColor);
-				this.AddSuccessMessage("Färgen har sparats");
+				this.AddSuccessMessage("Bågfärgen har sparats");
 				return RedirectToAction("Colors");
 			}
 			return View(inModel);
@@ -81,10 +81,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			}
 			catch(SynologenDeleteItemHasConnectionsException)
 			{
-				this.AddErrorMessage("Färgen kunde inte raderas då den är knuten till en eller fler bågar");
+				this.AddErrorMessage("Bågfärgen kunde inte raderas då den är knuten till en eller fler bågar");
 				return RedirectToAction("Colors");
 			}
-			this.AddSuccessMessage("Färgen har raderats");
+			this.AddSuccessMessage("Bågfärgen har raderats");
 			return RedirectToAction("Colors");
 			
         }	

@@ -51,20 +51,41 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 
 		[Test]
-		public void When_EditColor_POST_Is_Called_Saved_DomainItem_Has_Expected_Values()
+		public void When_EditColor_POST_Is_Called_Saved_DomainItem_Has_Expected_Values_And_Redirects()
 		{
 			//Arrange
 			var viewModel = ViewModelFactory.GetFrameColorEditView(7);
+			const string expectedActionMessage = "Bågfärgen har sparats";
 
 			//Act
-			controller.EditColor(viewModel);
+			var result = (RedirectToRouteResult) controller.EditColor(viewModel);
+			var actionMessages = controller.GetWpcActionMessages();
 			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameColor>) frameColorRepository).SavedEntity;
 
 			//Assert
 			Expect(savedItem, Is.Not.Null);
 			Expect(savedItem.Id, Is.EqualTo(viewModel.Id));
 			Expect(savedItem.Name, Is.EqualTo(viewModel.Name));
+			Expect(result.RouteValues["action"], Is.EqualTo("Colors"));
+			Expect(actionMessages.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessages.First().Type, Is.EqualTo(WpcActionMessageType.Success));
+		}
 
+		[Test]
+		public void When_EditColor_POST_With_Invalid_ModelState_Is_Called_Validation_Fails_And_Does_Not_Redirect()
+		{
+			//Arrange
+
+			//Act
+			controller.ModelState.AddModelError("*", "Invalid model state");
+			var result = controller.EditColor(null);
+			var viewResult = result as ViewResult ?? new ViewResult();
+			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameColor>) frameColorRepository).SavedEntity;
+
+			//Assert
+			Expect(savedItem, Is.Null);
+			Expect(viewResult.ViewData.ModelState.IsValid, Is.EqualTo(false));
+			Expect(result is RedirectToRouteResult, Is.False);
 		}
 
 		[Test]
@@ -84,34 +105,80 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 
 		[Test]
-		public void When_AddColor_POST_Is_Called_Saved_DomainItem_Has_Expected_Values()
+		public void When_AddColor_POST_Is_Called_Saved_DomainItem_Has_Expected_Values_And_Redirects()
 		{
 			//Arrange
 			var viewModel = ViewModelFactory.GetFrameColorEditView(0);
+			const string expectedActionMessage = "Bågfärgen har sparats";
 
 			//Act
-			controller.AddColor(viewModel);
+			var result = (RedirectToRouteResult) controller.AddColor(viewModel);
+			var actionMessages = controller.GetWpcActionMessages();
 			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameColor>) frameColorRepository).SavedEntity;
 
 			//Assert
 			Expect(savedItem, Is.Not.Null);
 			Expect(savedItem.Id, Is.EqualTo(viewModel.Id));
 			Expect(savedItem.Name, Is.EqualTo(viewModel.Name));
+			Expect(result.RouteValues["action"], Is.EqualTo("Colors"));
+			Expect(actionMessages.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessages.First().Type, Is.EqualTo(WpcActionMessageType.Success));
 		}
 
 		[Test]
-		public void When_DeleteColor_POST_Is_Called_Deleted_DomainItem_Has_Expected_Values()
+		public void When_AddColor_POST_With_Invalid_ModelState_Is_Called_Validation_Fails_And_Does_Not_Redirect()
+		{
+			//Arrange
+
+			//Act
+			controller.ModelState.AddModelError("*", "Invalid model state");
+			var result = controller.AddColor(null);
+			var viewResult = result as ViewResult ?? new ViewResult();
+			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameColor>) frameColorRepository).SavedEntity;
+
+			//Assert
+			Expect(savedItem, Is.Null);
+			Expect(viewResult.ViewData.ModelState.IsValid, Is.False);
+			Expect(result is RedirectToRouteResult, Is.False);
+		}
+
+		[Test]
+		public void When_DeleteColor_POST_Is_Called_Deleted_DomainItem_Has_Expected_Values_And_Redirects()
 		{
 			//Arrange
 			const int itemId = 1;
+			const string expectedActionMessage = "Bågfärgen har raderats";
 
 			//Act
-			controller.DeleteColor(itemId);
+			var result = (RedirectToRouteResult) controller.DeleteColor(itemId);
+			var actionMessages = controller.GetWpcActionMessages();
 			var deletedItem = ((RepositoryFactory.GenericMockRepository<FrameColor>) frameColorRepository).DeletedEntity;
 
 			//Assert
 			Expect(deletedItem, Is.Not.Null);
 			Expect(deletedItem.Id, Is.EqualTo(itemId));
+			Expect(result.RouteValues["action"], Is.EqualTo("Colors"));
+			Expect(actionMessages.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessages.First().Type, Is.EqualTo(WpcActionMessageType.Success));
+		}
+
+		[Test]
+		public void When_DeleteColor_POST_Is_Called_With_An_Item_That_Has_Conncetions_An_ErrorMessage_Is_Registered_And_Redirects()
+		{
+			//Arrange
+			const int itemId = -1;
+			const string expectedActionMessage = "Bågfärgen kunde inte raderas då den är knuten till en eller fler bågar";
+
+			//Act
+			var result =  (RedirectToRouteResult) controller.DeleteColor(itemId);
+			var actionMessage = controller.GetWpcActionMessages();
+			var deletedItem = ((RepositoryFactory.GenericMockRepository<FrameColor>) frameColorRepository).DeletedEntity;
+
+			//Assert
+			Expect(deletedItem, Is.Null);
+			Expect(result.RouteValues["action"], Is.EqualTo("Colors"));
+			Expect(actionMessage.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessage.First().Type, Is.EqualTo(WpcActionMessageType.Error));
 
 		}
 

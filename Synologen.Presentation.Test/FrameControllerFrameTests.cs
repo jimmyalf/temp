@@ -106,13 +106,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 
 		[Test]
-		public void When_Edit_POST_Is_Called_Saved_DomainItem_Has_Expected_Values()
+		public void When_Edit_POST_Is_Called_Saved_DomainItem_Has_Expected_Values_And_Redirects()
 		{
 			//Arrange
 			var viewModel = ViewModelFactory.GetFrameEditView(3);
+			const string expectedActionMessage = "Bågen har sparats";
 
 			//Act
-			controller.Edit(viewModel);
+			var result = (RedirectToRouteResult) controller.Edit(viewModel);
+			var actionMessages = controller.GetWpcActionMessages();
 			var savedItem = ((RepositoryFactory.GenericMockRepository<Frame>) frameRepository).SavedEntity;
 
 			//Assert
@@ -126,6 +128,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(savedItem.PupillaryDistance.Increment, Is.EqualTo(viewModel.PupillaryDistanceIncrementation));
 			Expect(savedItem.PupillaryDistance.Max, Is.EqualTo(viewModel.PupillaryDistanceMaxValue));
 			Expect(savedItem.PupillaryDistance.Min, Is.EqualTo(viewModel.PupillaryDistanceMinValue));
+			Expect(result.RouteValues["action"], Is.EqualTo("Index"));
+			Expect(actionMessages.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessages.First().Type, Is.EqualTo(WpcActionMessageType.Success));
+		}
+
+		[Test]
+		public void When_Edit_POST_With_Invalid_ModelState_Is_Called_Validation_Fails_And_Does_Not_Redirect()
+		{
+			//Arrange
+			var viewModel = ViewModelFactory.GetFrameEditView(3);
+
+			//Act
+			controller.ModelState.AddModelError("*", "Invalid model state");
+			var result = controller.Edit(viewModel);
+			var viewResult = result as ViewResult ?? new ViewResult();
+			var savedItem = ((RepositoryFactory.GenericMockRepository<Frame>) frameRepository).SavedEntity;
+
+			//Assert
+			Expect(savedItem, Is.Null);
+			Expect(viewResult.ViewData.ModelState.IsValid, Is.EqualTo(false));
+			Expect(result is RedirectToRouteResult, Is.False);
 		}
 
 		[Test]
@@ -153,13 +176,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 
 		[Test]
-		public void When_Add_POST_Is_Called_Saved_DomainItem_Has_Expected_Values()
+		public void When_Add_POST_Is_Called_Saved_DomainItem_Has_Expected_Values_And_Redirects()
 		{
 			//Arrange
 			var viewModel = ViewModelFactory.GetFrameEditView(0);
+			const string expectedActionMessage = "Bågen har sparats";
 
 			//Act
-			controller.Add(viewModel);
+			var result = (RedirectToRouteResult) controller.Add(viewModel);
+			var actionMessages = controller.GetWpcActionMessages();
 			var savedItem = ((RepositoryFactory.GenericMockRepository<Frame>) frameRepository).SavedEntity;
 
 			//Assert
@@ -173,21 +198,66 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(savedItem.PupillaryDistance.Increment, Is.EqualTo(viewModel.PupillaryDistanceIncrementation));
 			Expect(savedItem.PupillaryDistance.Max, Is.EqualTo(viewModel.PupillaryDistanceMaxValue));
 			Expect(savedItem.PupillaryDistance.Min, Is.EqualTo(viewModel.PupillaryDistanceMinValue));
+			Expect(result.RouteValues["action"], Is.EqualTo("Index"));
+			Expect(actionMessages.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessages.First().Type, Is.EqualTo(WpcActionMessageType.Success));
 		}
 
 		[Test]
-		public void When_Delete_POST_Is_Called_Deleted_DomainItem_Has_Expected_Values()
+		public void When_Add_POST_With_Invalid_ModelState_Is_Called_Validation_Fails_And_Does_Not_Redirect()
+		{
+			//Arrange
+			var viewModel = ViewModelFactory.GetFrameEditView(0);
+
+			//Act
+			controller.ModelState.AddModelError("*", "Invalid model state");
+			var result = controller.Add(viewModel);
+			var viewResult = result as ViewResult ?? new ViewResult();
+			var savedItem = ((RepositoryFactory.GenericMockRepository<Frame>) frameRepository).SavedEntity;
+
+			//Assert
+			Expect(savedItem, Is.Null);
+			Expect(viewResult.ViewData.ModelState.IsValid, Is.False);
+			Expect(result is RedirectToRouteResult, Is.False);
+		}
+
+		[Test]
+		public void When_Delete_POST_Is_Called_Deleted_DomainItem_Has_Expected_Values_And_Redirects()
 		{
 			//Arrange
 			const int itemId = 1;
+			const string expectedActionMessage = "Bågen har raderats";
 
 			//Act
-			controller.Delete(itemId);
+			var result = (RedirectToRouteResult) controller.Delete(itemId);
+			var actionMessages = controller.GetWpcActionMessages();
 			var deletedItem = ((RepositoryFactory.GenericMockRepository<Frame>) frameRepository).DeletedEntity;
 
 			//Assert
 			Expect(deletedItem, Is.Not.Null);
 			Expect(deletedItem.Id, Is.EqualTo(itemId));
+			Expect(result.RouteValues["action"], Is.EqualTo("Index"));
+			Expect(actionMessages.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessages.First().Type, Is.EqualTo(WpcActionMessageType.Success));
+		}
+
+		[Test]
+		public void When_Delete_POST_Is_Called_With_An_Item_That_Has_Conncetions_An_ErrorMessage_Is_Registered_And_Redirects()
+		{
+			//Arrange
+			const int itemId = -1;
+			const string expectedActionMessage = "Bågen kunde inte raderas då den är knuten till en eller fler beställningar";
+
+			//Act
+			var result =  (RedirectToRouteResult) controller.Delete(itemId);
+			var actionMessage = controller.GetWpcActionMessages();
+			var deletedItem = ((RepositoryFactory.GenericMockRepository<Frame>) frameRepository).DeletedEntity;
+
+			//Assert
+			Expect(deletedItem, Is.Null);
+			Expect(result.RouteValues["action"], Is.EqualTo("Index"));
+			Expect(actionMessage.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessage.First().Type, Is.EqualTo(WpcActionMessageType.Error));
 
 		}
 	}

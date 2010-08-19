@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Persistence;
@@ -107,7 +108,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 			public IEnumerable<TModel> GetAll() {  return GenerateItems<TModel>(Get); }
 			public IEnumerable<TModel> FindBy<TActionCriteria>(TActionCriteria criteria) where TActionCriteria : IActionCriteria { return GetAll(); }
 			public void Save(TModel entity) { SavedEntity = entity; }
-			public void Delete(TModel entity) { DeletedEntity = entity; }
+			public void Delete(TModel entity)
+			{
+				var id = TryGetId(entity);
+				if(id.HasValue && id.Value <= 0) throw new SynologenDeleteItemHasConnectionsException("Mocked message");
+				DeletedEntity = entity;
+			}
+		}
+
+		private static int? TryGetId<TModel>(TModel entity)
+		{
+			try{
+				var propertyInfo = typeof(TModel).GetProperty("Id");
+				if(propertyInfo == null) return null;
+				var value = propertyInfo.GetValue(entity, null);
+				return (value is int) ? (int) value : (int?) null;
+			}
+			catch{ return null; }
 		}
 
 

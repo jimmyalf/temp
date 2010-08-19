@@ -51,20 +51,41 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 
 		[Test]
-		public void When_EditBrand_POST_Is_Called_Saved_DomainItem_Has_Expected_Values()
+		public void When_EditBrand_POST_Is_Called_Saved_DomainItem_Has_Expected_Values_And_Redirects()
 		{
 			//Arrange
 			var viewModel = ViewModelFactory.GetFrameBrandEditView(9);
+			const string expectedActionMessage = "Bågmärket har sparats";
 
 			//Act
-			controller.EditBrand(viewModel);
+			var result = (RedirectToRouteResult) controller.EditBrand(viewModel);
+			var actionMessage = controller.GetWpcActionMessages();
 			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameBrand>) frameBrandRepository).SavedEntity;
 
 			//Assert
 			Expect(savedItem, Is.Not.Null);
 			Expect(savedItem.Id, Is.EqualTo(viewModel.Id));
 			Expect(savedItem.Name, Is.EqualTo(viewModel.Name));
+			Expect(result.RouteValues["action"], Is.EqualTo("Brands"));
+			Expect(actionMessage.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessage.First().Type, Is.EqualTo(WpcActionMessageType.Success));
+		}
 
+		[Test]
+		public void When_EditBrand_POST_With_Invalid_ModelState_Is_Called_Validation_Fails_And_Does_Not_Redirect()
+		{
+			//Arrange
+
+			//Act
+			controller.ModelState.AddModelError("*", "Invalid model state");
+			var result = controller.EditBrand(null);
+			var viewResult = result as ViewResult ?? new ViewResult();
+			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameBrand>) frameBrandRepository).SavedEntity;
+
+			//Assert
+			Expect(savedItem, Is.Null);
+			Expect(viewResult.ViewData.ModelState.IsValid, Is.EqualTo(false));
+			Expect(result is RedirectToRouteResult, Is.False);
 		}
 
 		[Test]
@@ -84,34 +105,80 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 
 		[Test]
-		public void When_AddBrand_POST_Is_Called_Saved_DomainItem_Has_Expected_Values()
+		public void When_AddBrand_POST_Is_Called_Saved_DomainItem_Has_Expected_Values_And_Redirects()
 		{
 			//Arrange
 			var viewModel = ViewModelFactory.GetFrameBrandEditView(0);
+			const string expectedActionMessage = "Bågmärket har sparats";
 
 			//Act
-			controller.AddBrand(viewModel);
+			var result = (RedirectToRouteResult) controller.AddBrand(viewModel);
+			var actionMessage = controller.GetWpcActionMessages();
 			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameBrand>) frameBrandRepository).SavedEntity;
 
 			//Assert
 			Expect(savedItem, Is.Not.Null);
 			Expect(savedItem.Id, Is.EqualTo(viewModel.Id));
 			Expect(savedItem.Name, Is.EqualTo(viewModel.Name));
+			Expect(result.RouteValues["action"], Is.EqualTo("Brands"));
+			Expect(actionMessage.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessage.First().Type, Is.EqualTo(WpcActionMessageType.Success));
 		}
 
 		[Test]
-		public void When_DeleteBrand_POST_Is_Called_Deleted_DomainItem_Has_Expected_Values()
+		public void When_AddBrand_POST_With_Invalid_ModelState_Is_Called_Validation_Fails_And_Does_Not_Redirect()
+		{
+			//Arrange
+
+			//Act
+			controller.ModelState.AddModelError("*", "Invalid model state");
+			var result = controller.AddBrand(null);
+			var viewResult = result as ViewResult ?? new ViewResult();
+			var savedItem = ((RepositoryFactory.GenericMockRepository<FrameBrand>) frameBrandRepository).SavedEntity;
+
+			//Assert
+			Expect(savedItem, Is.Null);
+			Expect(viewResult.ViewData.ModelState.IsValid, Is.False);
+			Expect(result is RedirectToRouteResult, Is.False);
+		}
+
+		[Test]
+		public void When_DeleteBrand_POST_Is_Called_Deleted_DomainItem_Has_Expected_Values_And_Redirects()
 		{
 			//Arrange
 			const int itemId = 1;
+			const string expectedActionMessage = "Bågmärket har raderats";
 
 			//Act
-			controller.DeleteBrand(itemId);
+			var result =  (RedirectToRouteResult) controller.DeleteBrand(itemId);
+			var actionMessage = controller.GetWpcActionMessages();
 			var deletedItem = ((RepositoryFactory.GenericMockRepository<FrameBrand>) frameBrandRepository).DeletedEntity;
 
 			//Assert
 			Expect(deletedItem, Is.Not.Null);
 			Expect(deletedItem.Id, Is.EqualTo(itemId));
+			Expect(result.RouteValues["action"], Is.EqualTo("Brands"));
+			Expect(actionMessage.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessage.First().Type, Is.EqualTo(WpcActionMessageType.Success));
+		}
+
+		[Test]
+		public void When_DeleteBrand_POST_Is_Called_With_An_Item_That_Has_Conncetions_An_ErrorMessage_Is_Registered_And_Redirects()
+		{
+			//Arrange
+			const int itemId = -1;
+			const string expectedActionMessage = "Bågmärket kunde inte raderas då det är knutet till en eller fler bågar";
+
+			//Act
+			var result =  (RedirectToRouteResult) controller.DeleteBrand(itemId);
+			var actionMessage = controller.GetWpcActionMessages();
+			var deletedItem = ((RepositoryFactory.GenericMockRepository<FrameBrand>) frameBrandRepository).DeletedEntity;
+
+			//Assert
+			Expect(deletedItem, Is.Null);
+			Expect(result.RouteValues["action"], Is.EqualTo("Brands"));
+			Expect(actionMessage.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessage.First().Type, Is.EqualTo(WpcActionMessageType.Error));
 
 		}
 	}

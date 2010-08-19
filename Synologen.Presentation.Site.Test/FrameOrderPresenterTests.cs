@@ -15,13 +15,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 		private FrameOrderPresenter presenter;
 		private IFrameOrderView<FrameOrderModel> view;
 		private IFrameRepository repository;
+		private IFrameGlassTypeRepository frameGlassTypeRepository;
 
 		[SetUp]
 		public void Context()
 		{
 			repository = Factories.RepositoryFactory.GetFrameRepository();
+			frameGlassTypeRepository = Factories.RepositoryFactory.GetFrameGlassRepository();
 			view = Factories.ViewsFactory.GetFrameOrderView();
-			presenter = new FrameOrderPresenter(view, repository);
+			presenter = new FrameOrderPresenter(view, repository, frameGlassTypeRepository);
 		}
 
 		[Test]
@@ -34,29 +36,41 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			presenter.View_Load(null, eventArgs);
 
 			//Assert
+			Expect(view.Model.SelectedFrameId, Is.EqualTo(0));
+			Expect(view.Model.SelectedPupillaryDistanceLeft, Is.EqualTo(int.MinValue));
+			Expect(view.Model.SelectedPupillaryDistanceRight, Is.EqualTo(int.MinValue));
+
 			Expect(view.Model.FramesList.Count(), Is.EqualTo(1));
 			Expect(view.Model.FramesList.ToList()[0].Id, Is.EqualTo(0));
 			Expect(view.Model.FramesList.ToList()[0].Name, Is.EqualTo("-- Välj båge --"));
-			//Expect(view.Model.IndexList.Count(), Is.EqualTo(1));
-			//Expect(view.Model.IndexList.ToList()[0].Name, Is.EqualTo("-- Välj index --"));
-			//Expect(view.Model.IndexList.ToList()[0].Value, Is.EqualTo(int.MinValue));
-			//Expect(view.Model.SphereList.Count(), Is.EqualTo(1));
-			//Expect(view.Model.SphereList.ToList()[0].Name, Is.EqualTo("-- Välj sfär --"));
-			//Expect(view.Model.SphereList.ToList()[0].Value, Is.EqualTo(int.MinValue));
 
-			//Expect(view.Model.IndexRequiredErrorMessage, Is.EqualTo("Index saknas"));
+			Expect(view.Model.PupillaryDistanceList.Count(), Is.EqualTo(1));
+			Expect(view.Model.PupillaryDistanceList.ToList()[0].Value, Is.EqualTo(int.MinValue));
+			Expect(view.Model.PupillaryDistanceList.ToList()[0].Name, Is.EqualTo("-- Välj PD --"));
+
+			Expect(view.Model.GlassTypesList.Count(), Is.EqualTo(1));
+			Expect(view.Model.GlassTypesList.ToList()[0].Id, Is.EqualTo(0));
+			Expect(view.Model.GlassTypesList.ToList()[0].Name, Is.EqualTo("-- Välj glastyp --"));
+
 			Expect(view.Model.FrameRequiredErrorMessage, Is.EqualTo("Båge saknas"));
-			//Expect(view.Model.SphereRequiredErrorMessage, Is.EqualTo("Sfär saknas"));
+			Expect(view.Model.PupillaryDistanceRequiredErrorMessage, Is.EqualTo("PD saknas"));
+			Expect(view.Model.GlassTypeRequiredErrorMessage, Is.EqualTo("Glastyp saknas"));
+
 			Expect(view.Model.Message, Is.EqualTo("Testar Web Forms MVP!"));
 			Expect(view.Model.NotSelectedIntervalValue, Is.EqualTo(int.MinValue));
-			Expect(view.Model.SelectedFrameId, Is.EqualTo(0));
+			
 		}
 
 		[Test]
 		public void When_Frame_Is_Selected_Model_Has_Expected_Values()
 		{
 			//Arrange
-			var frameSelectedEventArgs = new FrameSelectedEventArgs {SelectedFrameId = 1};
+			var frameSelectedEventArgs = new FrameSelectedEventArgs
+			{
+				SelectedFrameId = 1, 
+				SelectedPupillaryDistanceLeft = 22, 
+				SelectedPupillaryDistanceRight = 33
+			};
 
 			//Act
 			presenter.View_FrameSelected(null, frameSelectedEventArgs);
@@ -64,10 +78,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			//Assert
 			Expect(view.Model.Message, Is.EqualTo("Vald båge med id: 1"));
 			Expect(view.Model.SelectedFrameId, Is.EqualTo(1));
-			//Expect(view.Model.IndexList.Count(), Is.EqualTo(3));
-			//Expect(view.Model.IndexList.ToList()[0].Name, Is.EqualTo("-- Välj index --"));
-			//Expect(view.Model.SphereList.Count(), Is.EqualTo(50));
-			//Expect(view.Model.SphereList.ToList()[0].Name, Is.EqualTo("-- Välj sfär --"));
+			Expect(view.Model.PupillaryDistanceList.Count(), Is.EqualTo(42));
+			Expect(view.Model.SelectedPupillaryDistanceLeft, Is.EqualTo(22));
+			Expect(view.Model.SelectedPupillaryDistanceRight, Is.EqualTo(33));
 		}
 
 		[Test]
@@ -78,8 +91,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			{
 				PageIsValid = true,
 				SelectedFrameId = 1,
-				SelectedIndex = 1.6m,
-				SelectedSphere = -5.25m
 			};
 
 			//Act
@@ -98,8 +109,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			{
 				PageIsValid = false,
 				SelectedFrameId = 1,
-				SelectedIndex = 1.6m,
-				SelectedSphere = -5.25m
 			};
 
 			//Act

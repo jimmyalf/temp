@@ -17,12 +17,12 @@
 			</p>
 			<p class="formItem">
 				<%= Html.LabelFor(x => x.ColorId) %>
-				<%= Html.DropDownListFor(x => x.ColorId, new SelectList(Model.AvailableFrameColors, "Id", "Name", Model.ColorId), "-- Välj Färg --")%>
+				<%= Html.WpcDropDownListFor(x => x.ColorId, x => x.AvailableFrameColors, x => x.Id, x => x.Name, "-- Välj Färg --") %>
 				<%= Html.ValidationMessageFor(x => x.ColorId) %>
 			</p>
 			<p class="formItem">
 				<%= Html.LabelFor(x => x.BrandId) %>
-				<%= Html.DropDownListFor(x => x.BrandId, new SelectList(Model.AvailableFrameBrands, "Id", "Name", Model.BrandId), "-- Välj Märke --")%>
+				<%= Html.WpcDropDownListFor(x => x.BrandId, x=> x.AvailableFrameBrands, x => x.Id, x => x.Name, "-- Välj Märke --")%>
 				<%= Html.ValidationMessageFor(x => x.BrandId) %>
 			</p>
 			<fieldset class="interval-formItem">

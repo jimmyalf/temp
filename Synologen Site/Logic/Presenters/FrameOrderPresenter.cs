@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers;
@@ -24,32 +25,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		private void InitiateEventHandlers()
 		{
 			View.Load += View_Load;
-			View.FrameSelected += View_FrameSelected;
+			View.FrameSelected += View_BindModel;
 			View.SubmitForm += View_SumbitForm;
+			View.GlassTypeSelected += View_BindModel;
 		}
 
-		public void View_SumbitForm(object sender, FrameOrderFormSubmitEventArgs e) 
+		public void View_Load(object sender, EventArgs e)
+		{
+			InitializeModel();
+		}
+
+		public void View_BindModel(object sender, FrameFormEventArgs e)
+		{
+			UpdateModel(e);
+		}
+
+		public void View_SumbitForm(object sender, FrameFormEventArgs e) 
 		{ 
 			if(e.PageIsValid)
 			{
 				//TODO: Save frame order && redirect user to thank you page
-				View.Model.Message = "Submit returned a valid result and should now create an order and redirect";
 			}
 			else
 			{
 				View.Model.SelectedFrameId = e.SelectedFrameId;
-				View.Model.Message = "Submit did not return a valid result!";
 			}
-		}
-
-		public void View_FrameSelected(object sender, FrameSelectedEventArgs e) 
-		{
-			View.Model.Message = "Vald båge med id: " + e.SelectedFrameId;
-			View.Model.SelectedFrameId = e.SelectedFrameId;
-			View.Model.SelectedPupillaryDistanceLeft = e.SelectedPupillaryDistanceLeft;
-			View.Model.SelectedPupillaryDistanceRight = e.SelectedPupillaryDistanceRight;
-			var frame = _repository.Get(e.SelectedFrameId);
-			View.Model.PupillaryDistanceList = frame.PupillaryDistance.GetList().InsertDefaultValue("PD", View.Model.NotSelectedIntervalValue);
 		}
 
 		public override void ReleaseView()
@@ -57,9 +57,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Load -= View_Load;
 		}
 
-		public void View_Load(object sender, EventArgs e)
+		public void UpdateModel(FrameFormEventArgs e)
 		{
-			View.Model.Message = "Testar Web Forms MVP!";
+			View.Model.SelectedFrameId = e.SelectedFrameId;
+			View.Model.SelectedGlassTypeId = e.SelectedGlassTypeId;
+
+			var frame = _repository.Get(e.SelectedFrameId);
+
+			View.Model.PupillaryDistanceList = frame.PupillaryDistance.GetList().InsertDefaultValue("PD", View.Model.NotSelectedIntervalValue);
+			View.Model.SelectedPupillaryDistanceLeft = View.Model.PupillaryDistanceList.Any(x => x.Value.Equals(e.SelectedPupillaryDistanceLeft)) ? e.SelectedPupillaryDistanceLeft : View.Model.NotSelectedIntervalValue;
+			View.Model.SelectedPupillaryDistanceRight = View.Model.PupillaryDistanceList.Any(x => x.Value.Equals(e.SelectedPupillaryDistanceRight)) ? e.SelectedPupillaryDistanceRight : View.Model.NotSelectedIntervalValue;
+		}
+
+		public void InitializeModel()
+		{
 			View.Model.FramesList = _repository.GetAll().ToFrameViewList().InsertFirst(new FrameListItem {Id = 0, Name = "-- Välj båge --"});
 			View.Model.PupillaryDistanceList = new List<IntervalListItem>().InsertDefaultValue("PD", View.Model.NotSelectedIntervalValue);
 			View.Model.GlassTypesList = _frameGlassTypeRepository.GetAll().ToFrameGlassTypeViewList().InsertFirst(new FrameGlassTypeListItem {Id = 0, Name = "-- Välj glastyp --"});

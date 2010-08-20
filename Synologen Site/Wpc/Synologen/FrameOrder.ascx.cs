@@ -10,8 +10,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 	[PresenterBinding(typeof(FrameOrderPresenter))] 
 	public partial class FrameOrder : MvpUserControl<FrameOrderModel>, IFrameOrderView<FrameOrderModel> {
 
-		public event EventHandler<FrameSelectedEventArgs> FrameSelected;
-		public event EventHandler<FrameOrderFormSubmitEventArgs> SubmitForm;
+		public event EventHandler<FrameFormEventArgs> FrameSelected;
+		public event EventHandler<FrameFormEventArgs> SubmitForm;
+		public event EventHandler<FrameFormEventArgs> GlassTypeSelected;
 
 		protected void Page_Load(object sender, EventArgs e) {
 			WireupEventProxy();
@@ -19,37 +20,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 
 		private void WireupEventProxy()
 		{
-			drpFrames.SelectedIndexChanged += OnFrameChange;
-			btnSave.Click += OnSubmit;
+			drpFrames.SelectedIndexChanged += (sender, e) => HandleEvent(FrameSelected);
+			drpGlassTypes.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
+			btnSave.Click += (sender, e) => HandleEvent(SubmitForm);
 		}
 
-		protected void OnFrameChange(object sender, EventArgs e) 
-		{ 
-			if(FrameSelected != null)
-			{
-				FrameSelected(this, 
-					new FrameSelectedEventArgs {
-						SelectedFrameId = Int32.Parse(drpFrames.SelectedValue),
-						SelectedPupillaryDistanceLeft = (decimal) double.Parse(drpPupillaryDistanceLeft.SelectedValue),
-						SelectedPupillaryDistanceRight = (decimal) double.Parse(drpPupillaryDistanceRight.SelectedValue),
-					}
-				);
-			}
+		protected void HandleEvent(EventHandler<FrameFormEventArgs> eventhandler)
+		{
+			if(eventhandler == null) return;
+			var eventArgs = GetEventArgs();
+			eventhandler(this, eventArgs);
 		}
 
-		protected void OnSubmit(object sender, EventArgs e) 
-		{ 
-			if(SubmitForm != null)
+		private FrameFormEventArgs GetEventArgs()
+		{
+			return new FrameFormEventArgs
 			{
-				SubmitForm(this,
-					new FrameOrderFormSubmitEventArgs {
-						SelectedFrameId = Int32.Parse(drpFrames.SelectedValue),
-						SelectedPupillaryDistanceLeft = (decimal) double.Parse(drpPupillaryDistanceLeft.SelectedValue),
-						SelectedPupillaryDistanceRight = (decimal) double.Parse(drpPupillaryDistanceRight.SelectedValue),
-						PageIsValid = Page.IsValid
-					}
-				);
-			}
+				SelectedFrameId = Int32.Parse(drpFrames.SelectedValue),
+				SelectedGlassTypeId = Int32.Parse(drpGlassTypes.SelectedValue),
+				SelectedPupillaryDistanceLeft = (decimal) double.Parse(drpPupillaryDistanceLeft.SelectedValue),
+				SelectedPupillaryDistanceRight = (decimal) double.Parse(drpPupillaryDistanceRight.SelectedValue),
+				PageIsValid = Page.IsValid
+			};
 		}
 	}
 }

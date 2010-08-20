@@ -48,8 +48,7 @@
     <Compile Include="Code\SynologenUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Logic\EventArguments\FrameOrderFormSubmitEventArgs.cs" />
-    <Compile Include="Logic\EventArguments\FrameSelectedEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\FrameFormEventArgs.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
     <Compile Include="Logic\Views\IFrameOrderView.cs" />
     <Compile Include="Models\FrameGlassTypeListItem.cs" />

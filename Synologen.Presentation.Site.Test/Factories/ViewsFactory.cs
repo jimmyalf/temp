@@ -17,8 +17,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 		{
 			public event EventHandler Load;
 			public FrameOrderModel Model { get; set; }
-			public event EventHandler<FrameSelectedEventArgs> FrameSelected;
-			public event EventHandler<FrameOrderFormSubmitEventArgs> SubmitForm;
+			public event EventHandler<FrameFormEventArgs> FrameSelected;
+			public event EventHandler<FrameFormEventArgs> SubmitForm;
+			public event EventHandler<FrameFormEventArgs> GlassTypeSelected;
 		}
 	}
 }

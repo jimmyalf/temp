@@ -30,10 +30,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 		public void When_View_Is_Loaded_Model_Has_Expected_Values()
 		{
 			//Arrange
-			var eventArgs = new EventArgs();
 
 			//Act
-			presenter.View_Load(null, eventArgs);
+			presenter.View_Load(null, new EventArgs());
 
 			//Assert
 			Expect(view.Model.SelectedFrameId, Is.EqualTo(0));
@@ -56,68 +55,56 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.PupillaryDistanceRequiredErrorMessage, Is.EqualTo("PD saknas"));
 			Expect(view.Model.GlassTypeRequiredErrorMessage, Is.EqualTo("Glastyp saknas"));
 
-			Expect(view.Model.Message, Is.EqualTo("Testar Web Forms MVP!"));
 			Expect(view.Model.NotSelectedIntervalValue, Is.EqualTo(int.MinValue));
 			
 		}
 
 		[Test]
-		public void When_Frame_Is_Selected_Model_Has_Expected_Values()
+		public void When_Model_Is_Bound_Selected_Model_Has_Expected_Values()
 		{
 			//Arrange
-			var frameSelectedEventArgs = new FrameSelectedEventArgs
+			var frameSelectedEventArgs = new FrameFormEventArgs
 			{
 				SelectedFrameId = 1, 
+				SelectedGlassTypeId = 1,
 				SelectedPupillaryDistanceLeft = 22, 
 				SelectedPupillaryDistanceRight = 33
 			};
 
 			//Act
-			presenter.View_FrameSelected(null, frameSelectedEventArgs);
+			presenter.View_Load(null, new EventArgs());
+			presenter.View_BindModel(null, frameSelectedEventArgs);
 
 			//Assert
-			Expect(view.Model.Message, Is.EqualTo("Vald båge med id: 1"));
 			Expect(view.Model.SelectedFrameId, Is.EqualTo(1));
+			Expect(view.Model.SelectedGlassTypeId, Is.EqualTo(1));
 			Expect(view.Model.PupillaryDistanceList.Count(), Is.EqualTo(42));
 			Expect(view.Model.SelectedPupillaryDistanceLeft, Is.EqualTo(22));
 			Expect(view.Model.SelectedPupillaryDistanceRight, Is.EqualTo(33));
 		}
 
 		[Test]
-		public void When_Form_Is_Valid_And_Submitted_Model_Has_Expected_Values()
+		public void When_Model_Is_Bound_Model_With_Invalid_Parameters_Get_Default_Values()
 		{
 			//Arrange
-			var frameOrderFormSubmitEventArgs = new FrameOrderFormSubmitEventArgs
+			var frameSelectedEventArgs = new FrameFormEventArgs
 			{
-				PageIsValid = true,
-				SelectedFrameId = 1,
+				SelectedFrameId = 1, 
+				SelectedGlassTypeId = 1,
+				SelectedPupillaryDistanceLeft = 200, 
+				SelectedPupillaryDistanceRight = -20
 			};
 
 			//Act
-			presenter.View_SumbitForm(null, frameOrderFormSubmitEventArgs);
-
-			//Assert
-			//TODO: Save frame order && redirect user to thank you page
-			Expect(view.Model.Message, Is.EqualTo("Submit returned a valid result and should now create an order and redirect"));
-		}
-
-		[Test]
-		public void When_Form_Is_Invalid_And_Submitted_Model_Has_Expected_Values()
-		{
-			//Arrange
-			var frameOrderFormSubmitEventArgs = new FrameOrderFormSubmitEventArgs
-			{
-				PageIsValid = false,
-				SelectedFrameId = 1,
-			};
-
-			//Act
-			presenter.View_SumbitForm(null, frameOrderFormSubmitEventArgs);
+			presenter.View_Load(null, new EventArgs());
+			presenter.View_BindModel(null, frameSelectedEventArgs);
 
 			//Assert
 			Expect(view.Model.SelectedFrameId, Is.EqualTo(1));
-			Expect(view.Model.Message, Is.EqualTo("Submit did not return a valid result!"));
+			Expect(view.Model.SelectedGlassTypeId, Is.EqualTo(1));
+			Expect(view.Model.PupillaryDistanceList.Count(), Is.EqualTo(42));
+			Expect(view.Model.SelectedPupillaryDistanceLeft, Is.EqualTo(int.MinValue));
+			Expect(view.Model.SelectedPupillaryDistanceRight, Is.EqualTo(int.MinValue));
 		}
-		
 	}
 }

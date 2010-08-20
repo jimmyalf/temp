@@ -6,7 +6,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Views
 {
 	public interface IFrameOrderView<T> : IView<T> where T : class, new()
 	{
-		event EventHandler<FrameSelectedEventArgs> FrameSelected;
-		event EventHandler<FrameOrderFormSubmitEventArgs> SubmitForm;
+		event EventHandler<FrameFormEventArgs> FrameSelected;
+		event EventHandler<FrameFormEventArgs> SubmitForm;
+		event EventHandler<FrameFormEventArgs> GlassTypeSelected;
 	}
 }

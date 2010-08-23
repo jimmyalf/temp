@@ -1,9 +1,8 @@
-using System;
 using NHibernate;
-using NHibernate.Criterion;
 using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Persistence;
+using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 {
@@ -15,8 +14,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 		{
 			return _session
 				.CreateCriteria<Frame>()
-				//.Add(Restrictions.Gt("Id", source.IdGreaterThen))
-				.Add(Restrictions.InsensitiveLike("Name", String.Format("%{0}%", source.NameLike)));
+				.FilterName<Frame>(x => x.Name, source.NameLike);
 		}
 	}
 }

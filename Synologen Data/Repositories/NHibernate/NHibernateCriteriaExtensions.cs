@@ -34,6 +34,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate
 			var propertyName = expression.GetName();
 			return criteria.CreateAlias(propertyName, propertyName);
 		}
+
 		public static ICriteria SetAlias<TModel>(this ICriteria criteria, Expression<Func<TModel,object>> expression, string aliasName) where TModel : class
 		{
 			var propertyName = expression.GetName();
@@ -42,14 +43,33 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate
 
 		public static AbstractCriterion ApplyFilter<TModel>(Expression<Func<TModel,string>> expression, string filterEntity) where TModel : class
 		{
+			return ApplyFilter(expression, filterEntity, MatchMode.Anywhere);
+		}
+
+		public static AbstractCriterion ApplyFilter<TModel>(Expression<Func<TModel,string>> expression, string filterEntity, MatchMode matchMode) where TModel : class
+		{
 			var propertyName = expression.GetName();
-			return Restrictions.InsensitiveLike(propertyName, String.Format("%{0}%", filterEntity));
+			return Restrictions.InsensitiveLike(propertyName, filterEntity, matchMode);
+		}
+
+        public static ICriteria FilterName<TModel>(this ICriteria criteria, Expression<Func<TModel,string>> expression, string filterEntity) where TModel : class
+		{
+        	return FilterName(criteria, expression, filterEntity, MatchMode.Anywhere);
+		}
+
+		public static ICriteria FilterName<TModel>(this ICriteria criteria, Expression<Func<TModel,string>> expression, string filterEntity, MatchMode matchMode) where TModel : class
+		{
+        	return criteria.Add(ApplyFilter(expression, filterEntity, matchMode));
 		}
 
 		public static Junction ApplyFilterInJunction<TModel>(this Junction junction, Expression<Func<TModel,string>> expression, string filterEntity) where TModel : class
 		{
-			var propertyName = expression.GetName();
-			return junction.Add(Restrictions.InsensitiveLike(propertyName, String.Format("%{0}%", filterEntity)));
+			return ApplyFilterInJunction(junction, expression, filterEntity, MatchMode.Anywhere);
+		}
+
+		public static Junction ApplyFilterInJunction<TModel>(this Junction junction, Expression<Func<TModel,string>> expression, string filterEntity, MatchMode matchMode) where TModel : class
+		{
+			return junction.Add(ApplyFilter(expression, filterEntity, matchMode));
 		}
 	}
 }

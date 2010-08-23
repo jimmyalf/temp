@@ -442,6 +442,14 @@
     <Content Include="Areas\SynologenAdmin\Views\Shared\ClientValidationScripts.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\SynologenMVC.Master" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\Empty.Master" />
+    <Content Include="ChangeLocation.aspx" />
+    <Content Include="Error.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Index.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="logout.aspx" />
+    <Content Include="NoAccess.aspx" />
+    <Content Include="BaseMain.master" />
     <None Include="CodeTemplates\AddController\Controller.tt">
     </None>
     <None Include="CodeTemplates\AddView\Create.tt">
@@ -456,6 +464,7 @@
     </None>
     <None Include="CodeTemplates\AddView\List.tt">
     </None>
+    <Content Include="Window.master" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

@@ -1,6 +1,7 @@
 using System.Linq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 {
@@ -77,29 +78,28 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		}
 
 
-		//[Test]
-		//public void Can_get_frames_by_PageOfFramesMatchingCriteria_paged()
-		//{
-		//    //Arrange
-		//    const int expectedNumberOfFramesMatchingCriteria = 5;
-		//    var criteria = new PageOfFramesMatchingCriteria
-		//    {
-		//        NameLike = null,
-		//        OrderBy = null,
-		//        Page = 1,
-		//        PageSize = expectedNumberOfFramesMatchingCriteria,
-		//        SortAscending = true
-		//    };
+		[Test]
+		public void Can_get_frames_by_PageOfFramesMatchingCriteria_paged()
+		{
+		    //Arrange
+		    const int expectedNumberOfFramesMatchingCriteria = 3;
+		    var criteria = new PageOfFrameColorsMatchingCriteria
+		    {
+		        OrderBy = null,
+		        Page = 1,
+		        PageSize = expectedNumberOfFramesMatchingCriteria,
+		        SortAscending = true
+		    };
 
-		//    //Act
-		//    var framesMatchingCriteria = FrameValidationRepository.FindBy(criteria);
+		    //Act
+		    var framesMatchingCriteria = FrameValidationRepository.FindBy(criteria);
 			
-		//    //Assert
-		//    Expect(framesMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfFramesMatchingCriteria));
-		//    Expect(framesMatchingCriteria.First().Name, Is.EqualTo("Testbåge 1"));
-		//    Expect(framesMatchingCriteria.Last().Name, Is.EqualTo("Testbåge 5"));
+		    //Assert
+		    Expect(framesMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfFramesMatchingCriteria));
+		    Expect(framesMatchingCriteria.First().Name, Is.EqualTo("Testbåge 1"));
+		    Expect(framesMatchingCriteria.Last().Name, Is.EqualTo("Testbåge 5"));
 			
-		//}
+		}
 
 		//[Test]
 		//public void Can_get_frames_by_PageOfFramesMatchingCriteria_sorted_by_frame_id()

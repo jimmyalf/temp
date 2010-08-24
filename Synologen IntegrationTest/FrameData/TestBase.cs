@@ -52,8 +52,17 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			{
 			    return new PageOfFramesMatchingCriteriaConverter(GetNewSession());
 			}
-			throw new ArrayTypeMismatchException(String.Format("No criteria converter has been defined for {0}", objectToResolve));
+			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<PageOfFrameColorsMatchingCriteria, ICriteria>)))
+			{
+				return new PageOfFrameColorsMatchingCriteriaConverter(GetNewSession());
+			}
+			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<PageOfFrameBrandsMatchingCriteria, ICriteria>)))
+			{
+				return new PageOfFrameBrandsMatchingCriteriaConverter(GetNewSession());
+			}
+			throw new ArgumentException(String.Format("No criteria converter has been defined for {0}", objectToResolve), "objectToResolve");
 		}
+
 
 		private static string ConnectionString{
 			get

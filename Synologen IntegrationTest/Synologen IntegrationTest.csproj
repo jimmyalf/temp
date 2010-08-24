@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrameData\TestFrameBrands.cs" />
     <Compile Include="FrameData\TestFrameColors.cs" />
     <Compile Include="FrameData\Factories\FactoryHelpers.cs" />
     <Compile Include="FrameData\Factories\FrameFactory.cs" />

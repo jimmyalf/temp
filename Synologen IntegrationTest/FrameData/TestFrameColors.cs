@@ -77,125 +77,96 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			Expect(() => FrameColorRepository.Delete(SavedFrameColors.First()), Throws.InstanceOf<SynologenDeleteItemHasConnectionsException>());
 		}
 
-
 		[Test]
-		public void Can_get_frames_by_PageOfFramesMatchingCriteria_paged()
+		public void Can_get_colors_by_PageOfFrameColorsMatchingCriteria_paged()
 		{
 		    //Arrange
-		    const int expectedNumberOfFramesMatchingCriteria = 3;
+		    const int expectedNumberOfItemsMatchingCriteria = 5;
 		    var criteria = new PageOfFrameColorsMatchingCriteria
 		    {
 		        OrderBy = null,
 		        Page = 1,
-		        PageSize = expectedNumberOfFramesMatchingCriteria,
+		        PageSize = expectedNumberOfItemsMatchingCriteria,
 		        SortAscending = true
 		    };
 
 		    //Act
-		    var framesMatchingCriteria = FrameValidationRepository.FindBy(criteria);
+		    var frameColorsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
 			
 		    //Assert
-		    Expect(framesMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfFramesMatchingCriteria));
-		    Expect(framesMatchingCriteria.First().Name, Is.EqualTo("Testbåge 1"));
-		    Expect(framesMatchingCriteria.Last().Name, Is.EqualTo("Testbåge 5"));
+		    Expect(frameColorsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+		    Expect(frameColorsMatchingCriteria.First().Name, Is.EqualTo("Svart"));
+		    Expect(frameColorsMatchingCriteria.Last().Name, Is.EqualTo("Brun"));
 			
 		}
 
-		//[Test]
-		//public void Can_get_frames_by_PageOfFramesMatchingCriteria_sorted_by_frame_id()
-		//{
-		//    //Arrange
-		//    const int expectedNumberOfFramesMatchingCriteria = 36;
-		//    var criteria = new PageOfFramesMatchingCriteria
-		//    {
-		//        NameLike = null,
-		//        OrderBy = "Id",
-		//        Page = 1,
-		//        PageSize = 100,
-		//        SortAscending = true
-		//    };
+		[Test]
+		public void Can_get_colors_by_PageOfFrameColorsMatchingCriteria_sorted_by_id()
+		{
+		    //Arrange
+		    const int expectedNumberOfItemsMatchingCriteria = 6;
+		    var criteria = new PageOfFrameColorsMatchingCriteria
+		    {
+		        OrderBy = "Id",
+		        Page = 1,
+		        PageSize = 100,
+		        SortAscending = true
+		    };
 
-		//    //Act
-		//    var framesMatchingCriteria = FrameValidationRepository.FindBy(criteria);
+		    //Act
+		    var itemsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
 			
-		//    //Assert
-		//    Expect(framesMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfFramesMatchingCriteria));
-		//    Expect(framesMatchingCriteria.First().Name, Is.EqualTo("Testbåge 1"));
-		//    Expect(framesMatchingCriteria.Last().Name, Is.EqualTo("Testbåge 36"));
+		    //Assert
+		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+		    Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Svart"));
+		    Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Silver"));
 			
-		//}
+		}
 
-		//[Test]
-		//public void Can_get_frames_by_PageOfFramesMatchingCriteria_sorted_by_frame_name()
-		//{
-		//    //Arrange
-		//    const int expectedNumberOfFramesMatchingCriteria = 36;
-		//    var criteria = new PageOfFramesMatchingCriteria
-		//    {
-		//        NameLike = null,
-		//        OrderBy = "Name",
-		//        Page = 1,
-		//        PageSize = 100,
-		//        SortAscending = true
-		//    };
+		[Test]
+		public void Can_get_colors_by_PageOfFrameColorsMatchingCriteria_sorted_by_name()
+		{
+		    //Arrange
+		    const int expectedNumberOfItemsMatchingCriteria = 6;
+		    var criteria = new PageOfFrameColorsMatchingCriteria
+		    {
+		        OrderBy = "Name",
+		        Page = 1,
+		        PageSize = 100,
+		        SortAscending = true
+		    };
 
-		//    //Act
-		//    var framesMatchingCriteria = FrameValidationRepository.FindBy(criteria);
+		    //Act
+		    var itemsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
 			
-		//    //Assert
-		//    Expect(framesMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfFramesMatchingCriteria));
-		//    Expect(framesMatchingCriteria.First().Name, Is.EqualTo("Testbåge 1"));
-		//    Expect(framesMatchingCriteria.Last().Name, Is.EqualTo("Testbåge 9"));
+		    //Assert
+		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+		    Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Blå"));
+		    Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Svart"));
 			
-		//}
+		}
 
-		//[Test]
-		//public void Can_get_frames_by_PageOfFramesMatchingCriteria_sorted_by_color_name()
-		//{
-		//    //Arrange
-		//    const int expectedNumberOfFramesMatchingCriteria = 36;
-		//    var criteria = new PageOfFramesMatchingCriteria
-		//    {
-		//        NameLike = null,
-		//        OrderBy = "Color.Name",
-		//        Page = 1,
-		//        PageSize = 100,
-		//        SortAscending = true
-		//    };
+		[Test]
+		public void Can_get_colors_by_PageOfFrameColorsMatchingCriteria_sorted_descending()
+		{
+		    //Arrange
+		    const int expectedNumberOfItemsMatchingCriteria = 6;
+		    var criteria = new PageOfFrameColorsMatchingCriteria
+		    {
+		        OrderBy = "Id",
+		        Page = 1,
+		        PageSize = 100,
+		        SortAscending = false
+		    };
 
-		//    //Act
-		//    var framesMatchingCriteria = FrameValidationRepository.FindBy(criteria);
+		    //Act
+		    var itemsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
 			
-		//    //Assert
-		//    Expect(framesMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfFramesMatchingCriteria));
-		//    Expect(framesMatchingCriteria.First().Color.Name, Is.EqualTo("Blå"));
-		//    Expect(framesMatchingCriteria.Last().Color.Name, Is.EqualTo("Svart"));
-			
-		//}
-
-		//[Test]
-		//public void Can_get_frames_by_PageOfFramesMatchingCriteria_sorted_descending()
-		//{
-		//    //Arrange
-		//    const int expectedNumberOfFramesMatchingCriteria = 36;
-		//    var criteria = new PageOfFramesMatchingCriteria
-		//    {
-		//        NameLike = null,
-		//        OrderBy = "Id",
-		//        Page = 1,
-		//        PageSize = 100,
-		//        SortAscending = false
-		//    };
-
-		//    //Act
-		//    var framesMatchingCriteria = FrameValidationRepository.FindBy(criteria);
-			
-		//    //Assert
-		//    Expect(framesMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfFramesMatchingCriteria));
-		//    Expect(framesMatchingCriteria.First().Name, Is.EqualTo("Testbåge 36"));
-		//    Expect(framesMatchingCriteria.Last().Name, Is.EqualTo("Testbåge 1"));
-			
-		//}
+		    //Assert
+		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+		    Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Silver"));
+		    Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Svart"));
+		}
 
 	}
 }

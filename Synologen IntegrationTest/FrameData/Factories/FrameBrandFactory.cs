@@ -21,5 +21,11 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData.Factories
 				new FrameBrand{ Name = "Pilgrim" },
 			};
 		}
+
+		public static FrameBrand ScrabmleFrameBrand(FrameBrand brand) 
+		{
+			brand.Name = brand.Name.Reverse();
+			return brand;
+		}
 	}
 }

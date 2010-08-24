@@ -30,10 +30,12 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			FrameRepository = new FrameRepository(testSession);
 			FrameColorRepository = new FrameColorRepository(testSession);
 			FrameBrandRepository = new FrameBrandRepository(testSession);
+			FrameGlassTypeRepository = new FrameGlassTypeRepository(testSession);
 
 			FrameValidationRepository = new FrameRepository(validationSession);
 			FrameColorValidationRepository = new FrameColorRepository(validationSession);
 			FrameBrandValidationRepository = new FrameBrandRepository(validationSession);
+			FrameGlassTypeValidationRepository = new FrameGlassTypeRepository(validationSession);
 
 			SavedFrameColors = Factories.FrameColorFactory.GetFrameColors();
 			SavedFrameColors.ToList().ForEach(x => FrameColorRepository.Save(x));
@@ -43,6 +45,9 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 
 			SavedFrames = Factories.FrameFactory.GetFrames(SavedFrameBrands, SavedFrameColors);
 			SavedFrames.ToList().ForEach(x => FrameRepository.Save(x));
+
+			SavedFrameGlassTypes = Factories.FrameGlassTypeFactory.GetGlassTypes();
+			SavedFrameGlassTypes.ToList().ForEach(x => FrameGlassTypeRepository.Save(x));
 		}
 
 		private object ResolveCriteriaConverters<TType>(TType objectToResolve)
@@ -60,9 +65,12 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			{
 				return new PageOfFrameBrandsMatchingCriteriaConverter(GetNewSession());
 			}
+			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<PageOfFrameGlassTypesMatchingCriteria, ICriteria>)))
+			{
+				return new PageOfFrameGlassTypesMatchingCriteriaConverter(GetNewSession());
+			}
 			throw new ArgumentException(String.Format("No criteria converter has been defined for {0}", objectToResolve), "objectToResolve");
 		}
-
 
 		private static string ConnectionString{
 			get
@@ -75,14 +83,17 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		public IFrameRepository FrameRepository { get; private set; }
 		public IFrameColorRepository FrameColorRepository { get; private set; }
 		public IFrameBrandRepository FrameBrandRepository { get; private set; }
+		public IFrameGlassTypeRepository FrameGlassTypeRepository { get; private set; }
 
 		public IFrameRepository FrameValidationRepository { get; private set; }
 		public IFrameColorRepository FrameColorValidationRepository { get; private set; }
 		public IFrameBrandRepository FrameBrandValidationRepository { get; private set; }
+		public IFrameGlassTypeRepository FrameGlassTypeValidationRepository { get; private set; }
 
 		public IEnumerable<Frame> SavedFrames { get; private set; }
 		public IEnumerable<FrameColor> SavedFrameColors { get; private set; }
 		public IEnumerable<FrameBrand> SavedFrameBrands { get; private set; }
+		public IEnumerable<FrameGlassType> SavedFrameGlassTypes { get; private set; }
 
 		protected ISession GetNewSession()
 		{
@@ -133,8 +144,5 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			ExecuteStatement(sqlConnection, String.Format("DELETE FROM {0}", tableName));
 			ExecuteStatement(sqlConnection, String.Format("DBCC CHECKIDENT ({0}, reseed, 0)", tableName));
 		}
-
-
-		
 	}
 }

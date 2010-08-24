@@ -8,7 +8,6 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 	[TestFixture]
 	public class Given_a_framebrand : TestBase
 	{
-
 		[SetUp]
 		public void Context()
 		{
@@ -75,6 +74,16 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			
 		    //Assert
 		    Expect(() => FrameBrandRepository.Delete(SavedFrameBrands.First()), Throws.InstanceOf<SynologenDeleteItemHasConnectionsException>());
+		}
+	}
+
+	[TestFixture]
+	public class Given_multiple_framebrands : TestBase
+	{
+		[SetUp]
+		public void Context()
+		{
+			SetupDefaultContext();
 		}
 
 		[Test]
@@ -167,6 +176,5 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		    Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Pilgrim"));
 		    Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Prada"));
 		}
-
 	}
 }

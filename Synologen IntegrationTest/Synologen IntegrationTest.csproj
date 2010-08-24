@@ -75,7 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrameData\Factories\FrameGlassTypeFactory.cs" />
-    <Compile Include="FrameData\Factories\TestShop.cs" />
+    <Compile Include="FrameData\Factories\FrameOrderFactory.cs" />
+    <Compile Include="FrameData\TestFrameOrder.cs" />
+    <Compile Include="FrameData\TestShop.cs" />
     <Compile Include="FrameData\TestFrameBrands.cs" />
     <Compile Include="FrameData\TestFrameColors.cs" />
     <Compile Include="FrameData\Factories\FactoryHelpers.cs" />

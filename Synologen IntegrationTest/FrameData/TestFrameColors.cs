@@ -77,6 +77,17 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			Expect(() => FrameColorRepository.Delete(SavedFrameColors.First()), Throws.InstanceOf<SynologenDeleteItemHasConnectionsException>());
 		}
 
+	}
+
+	[TestFixture]
+	public class Given_multiple_framecolors : TestBase
+	{
+		[SetUp]
+		public void Context()
+		{
+			SetupDefaultContext();
+		}
+
 		[Test]
 		public void Can_get_colors_by_PageOfFrameColorsMatchingCriteria_paged()
 		{

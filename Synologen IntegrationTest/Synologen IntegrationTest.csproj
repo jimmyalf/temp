@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrameData\Factories\FrameGlassTypeFactory.cs" />
     <Compile Include="FrameData\TestFrameBrands.cs" />
     <Compile Include="FrameData\TestFrameColors.cs" />
     <Compile Include="FrameData\Factories\FactoryHelpers.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="FrameData\Factories\FrameColorFactory.cs" />
     <Compile Include="FrameData\Factories\FrameBrandFactory.cs" />
     <Compile Include="FrameData\TestBase.cs" />
+    <Compile Include="FrameData\TestFrameGlassTypes.cs" />
     <Compile Include="FrameData\TestFrames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Webservice\TestWebService.cs" />

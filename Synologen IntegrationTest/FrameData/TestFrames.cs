@@ -7,7 +7,6 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 	[TestFixture]
 	public class Given_a_frame : TestBase
 	{
-
 		[SetUp]
 		public void Context()
 		{
@@ -84,6 +83,16 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			//Assert
 			Expect(persistedFrame, Is.Null);
 
+		}
+	}
+
+	[TestFixture]
+	public class Given_multiple_frames : TestBase
+	{
+		[SetUp]
+		public void Context()
+		{
+			SetupDefaultContext();
 		}
 
 		[Test]

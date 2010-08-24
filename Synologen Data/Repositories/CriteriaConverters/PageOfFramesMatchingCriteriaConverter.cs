@@ -13,6 +13,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 
 		public ICriteria Convert(PageOfFramesMatchingCriteria source)
 		{
+			
 			return _session
 				.CreateCriteria<Frame>()
 				.SetAlias<Frame>(x => x.Color)
@@ -27,4 +28,6 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 				.Page(source.Page, source.PageSize);
 		}
 	}
+
+	
 }

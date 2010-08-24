@@ -2,6 +2,7 @@ using System;
 using NHibernate;
 using NHibernate.Criterion;
 using System.Linq.Expressions;
+using NHibernate.Impl;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate
@@ -71,5 +72,19 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate
 		{
 			return junction.Add(ApplyFilter(expression, filterEntity, matchMode));
 		}
+
+		//public static ICriteria<TEntity> ToGenericCriteria<TEntity>(this ISession session)
+		//{
+		//    return new CriteriaImpl<TEntity>(session);
+		//}
+
+		
 	}
+
+	//public class CriteriaImpl<TEntity> : CriteriaImpl, ICriteria<TEntity>
+	//{
+	//    public CriteriaImpl(ISession session) : base(typeof(TEntity), session.GetSessionImplementation()) {  }
+	//}
+
+	//public interface ICriteria<TEntity> : ICriteria{}
 }

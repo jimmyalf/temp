@@ -1,5 +1,6 @@
 using System.Linq;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
@@ -71,17 +72,29 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		}
 
 		[Test]
-		public void Can_delete_persisted_frame()
+		public void Can_delete_persisted_frame_without_connections()
+		{
+		    //Arrange
+			var frameWithoutConnections = Factories.FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First());
+			FrameRepository.Save(frameWithoutConnections);
+
+		    //Act
+		    FrameRepository.Delete(frameWithoutConnections);
+		    var persistedFrame = FrameValidationRepository.Get(frameWithoutConnections.Id);
+			
+		    //Assert
+		    Expect(persistedFrame, Is.Null);
+		}
+
+		[Test]
+		public void Cannot_delete_persisted_frame_with_connections()
 		{
 			//Arrange
-			var savedFrameId = SavedFrames.First().Id;
 
 			//Act
-			FrameRepository.Delete(SavedFrames.First());
-			var persistedFrame = FrameValidationRepository.Get(savedFrameId);
 			
-			//Assert
-			Expect(persistedFrame, Is.Null);
+		    //Assert
+			Expect(() => FrameRepository.Delete(SavedFrames.First()), Throws.InstanceOf<SynologenDeleteItemHasConnectionsException>());
 
 		}
 	}

@@ -56,7 +56,9 @@
     <Compile Include="Domain\Model\FrameOrder\Shop.cs" />
     <Compile Include="Domain\Model\FrameOrder\ShopAddress.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameGlassTypesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\PageOfFrameOrdersMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\IFrameGlassTypeRepository.cs" />
+    <Compile Include="Domain\Persistence\IFrameOrderRepository.cs" />
     <Compile Include="Domain\Persistence\IShopRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IFrameOrderService.cs" />

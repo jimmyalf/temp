@@ -23,9 +23,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrder
 
 		private bool FrameBrandHasConnectedFrames(FrameBrand entity)
 		{
+			//return entity.NumberOfFramesWithThisBrand > 0;
 			var framesWithGivenColor = Session.CreateCriteria<Frame>()
-				.Add(Restrictions.Eq("Brand.Id", entity.Id))
-				.GetCount().UniqueResult<long>();
+			    .Add(Restrictions.Eq("Brand.Id", entity.Id))
+			    .GetCount().UniqueResult<long>();
 			return (framesWithGivenColor > 0);
 		}
 	}

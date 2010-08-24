@@ -13,12 +13,14 @@ using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrder;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
+using Spinit.Wpc.Synologen.Integration.Test.FrameData.Factories;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 {
 	public class TestBase : AssertionHelper
 	{
 		private ISessionFactory _sessionFactory;
+		const int testableShopId = 158;
 
 		public void SetupDefaultContext()
 		{
@@ -32,23 +34,29 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			FrameBrandRepository = new FrameBrandRepository(testSession);
 			FrameGlassTypeRepository = new FrameGlassTypeRepository(testSession);
 			ShopRepository = new ShopRepository(testSession);
+			FrameOrderRepository = new FrameOrderRepository(testSession);
 
 			FrameValidationRepository = new FrameRepository(validationSession);
 			FrameColorValidationRepository = new FrameColorRepository(validationSession);
 			FrameBrandValidationRepository = new FrameBrandRepository(validationSession);
 			FrameGlassTypeValidationRepository = new FrameGlassTypeRepository(validationSession);
+			FrameOrderValidationRepository = new FrameOrderRepository(validationSession);
 
-			SavedFrameColors = Factories.FrameColorFactory.GetFrameColors();
+			SavedFrameColors = FrameColorFactory.GetFrameColors();
 			SavedFrameColors.ToList().ForEach(x => FrameColorRepository.Save(x));
 
-			SavedFrameBrands = Factories.FrameBrandFactory.GetFrameBrands();
+			SavedFrameBrands = FrameBrandFactory.GetFrameBrands();
 			SavedFrameBrands.ToList().ForEach(x => FrameBrandRepository.Save(x));
 
-			SavedFrames = Factories.FrameFactory.GetFrames(SavedFrameBrands, SavedFrameColors);
+			SavedFrames = FrameFactory.GetFrames(SavedFrameBrands, SavedFrameColors);
 			SavedFrames.ToList().ForEach(x => FrameRepository.Save(x));
 
-			SavedFrameGlassTypes = Factories.FrameGlassTypeFactory.GetGlassTypes();
+			SavedFrameGlassTypes = FrameGlassTypeFactory.GetGlassTypes();
 			SavedFrameGlassTypes.ToList().ForEach(x => FrameGlassTypeRepository.Save(x));
+
+			var savedShop = ShopRepository.Get(testableShopId);
+			SavedFrameOrders = FrameOrderFactory.GetFrameOrders(SavedFrames, SavedFrameGlassTypes, savedShop);
+			SavedFrameOrders.ToList().ForEach(x => FrameOrderRepository.Save(x));
 		}
 
 		private object ResolveCriteriaConverters<TType>(TType objectToResolve)
@@ -70,6 +78,10 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			{
 				return new PageOfFrameGlassTypesMatchingCriteriaConverter(GetNewSession());
 			}
+			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<PageOfFrameOrdersMatchingCriteria, ICriteria>)))
+			{
+				return new PageOfFrameOrdersMatchingCriteriaConverter(GetNewSession());
+			}
 			throw new ArgumentException(String.Format("No criteria converter has been defined for {0}", objectToResolve), "objectToResolve");
 		}
 
@@ -86,16 +98,19 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		public IFrameBrandRepository FrameBrandRepository { get; private set; }
 		public IFrameGlassTypeRepository FrameGlassTypeRepository { get; private set; }
 		public IShopRepository ShopRepository { get; private set; }
+		public IFrameOrderRepository FrameOrderRepository { get; private set; }
 
 		public IFrameRepository FrameValidationRepository { get; private set; }
 		public IFrameColorRepository FrameColorValidationRepository { get; private set; }
 		public IFrameBrandRepository FrameBrandValidationRepository { get; private set; }
 		public IFrameGlassTypeRepository FrameGlassTypeValidationRepository { get; private set; }
+		public IFrameOrderRepository FrameOrderValidationRepository { get; private set; }
 
 		public IEnumerable<Frame> SavedFrames { get; private set; }
 		public IEnumerable<FrameColor> SavedFrameColors { get; private set; }
 		public IEnumerable<FrameBrand> SavedFrameBrands { get; private set; }
 		public IEnumerable<FrameGlassType> SavedFrameGlassTypes { get; private set; }
+		public IEnumerable<FrameOrder> SavedFrameOrders { get; private set; }
 
 		protected ISession GetNewSession()
 		{
@@ -113,6 +128,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			}
 			var sqlConnection = new SqlConnection(ConnectionString);
 			sqlConnection.Open();
+			DeleteAndResetIndexForTable(sqlConnection, "SynologenFrameOrder");
 			DeleteAndResetIndexForTable(sqlConnection, "SynologenFrame");
 			DeleteAndResetIndexForTable(sqlConnection, "SynologenFrameGlassType");
 			DeleteAndResetIndexForTable(sqlConnection, "SynologenFrameColor");

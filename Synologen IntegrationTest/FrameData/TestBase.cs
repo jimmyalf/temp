@@ -6,12 +6,12 @@ using System.Data.SqlClient;
 using System.Linq;
 using NHibernate;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Core.Domain.Model;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Persistence;
-using Spinit.Wpc.Synologen.Data.Repositories;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
+using Spinit.Wpc.Synologen.Data.Repositories.FrameOrder;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
@@ -31,6 +31,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			FrameColorRepository = new FrameColorRepository(testSession);
 			FrameBrandRepository = new FrameBrandRepository(testSession);
 			FrameGlassTypeRepository = new FrameGlassTypeRepository(testSession);
+			ShopRepository = new ShopRepository(testSession);
 
 			FrameValidationRepository = new FrameRepository(validationSession);
 			FrameColorValidationRepository = new FrameColorRepository(validationSession);
@@ -84,6 +85,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		public IFrameColorRepository FrameColorRepository { get; private set; }
 		public IFrameBrandRepository FrameBrandRepository { get; private set; }
 		public IFrameGlassTypeRepository FrameGlassTypeRepository { get; private set; }
+		public IShopRepository ShopRepository { get; private set; }
 
 		public IFrameRepository FrameValidationRepository { get; private set; }
 		public IFrameColorRepository FrameColorValidationRepository { get; private set; }

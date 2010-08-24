@@ -50,17 +50,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Exceptions\SynologenDeleteItemHasConnectionsException.cs" />
-    <Compile Include="Domain\Model\FrameGlassType.cs" />
+    <Compile Include="Domain\Model\FrameOrder\EyeParameter.cs" />
+    <Compile Include="Domain\Model\FrameOrder\FrameGlassType.cs" />
+    <Compile Include="Domain\Model\FrameOrder\FrameOrder.cs" />
+    <Compile Include="Domain\Model\FrameOrder\Shop.cs" />
+    <Compile Include="Domain\Model\FrameOrder\ShopAddress.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameGlassTypesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\IFrameGlassTypeRepository.cs" />
+    <Compile Include="Domain\Persistence\IShopRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IFrameOrderService.cs" />
     <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\ISettingsService.cs" />
-    <Compile Include="Domain\Model\Frame.cs" />
-    <Compile Include="Domain\Model\FrameBrand.cs" />
-    <Compile Include="Domain\Model\FrameColor.cs" />
-    <Compile Include="Domain\Model\Interval.cs" />
+    <Compile Include="Domain\Model\FrameOrder\Frame.cs" />
+    <Compile Include="Domain\Model\FrameOrder\FrameBrand.cs" />
+    <Compile Include="Domain\Model\FrameOrder\FrameColor.cs" />
+    <Compile Include="Domain\Model\FrameOrder\Interval.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllFramesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameBrandsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameColorsMatchingCriteria.cs" />

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Spinit.Wpc.Synologen.Core.Domain.Model
+namespace Spinit.Wpc.Synologen.Core.Domain.Model.Frame
 {
 	public class Interval
 	{

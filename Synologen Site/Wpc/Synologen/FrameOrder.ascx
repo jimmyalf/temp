@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" CodeBehind="FrameOrder.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrder" %>
-<h1><%#Model.Message %></h1>
 <style type="text/css">
 
 .interval-parameter { float:left; }
@@ -33,13 +32,24 @@
 </div>
 
 <div class="frame-order-item glasstype">
-	<label for="drpGlassType">Glastyp</label>
-	<select id="drpGlassType">
-		<option value="0">-- Välj Glastyp --</option>
-		<option value="20">20</option>
-		<option value="21">21</option>
-		<option value="22">..</option>
-	</select>
+	<label for="<%=drpGlassTypes.ClientID%>">Bågar</label>
+	<asp:DropDownList 
+		ID="drpGlassTypes" 
+		Runat="server" 
+		DataSource='<%#Model.GlassTypesList%>' 
+		SelectedValue='<%#Model.SelectedGlassTypeId%>'
+		AutoPostBack="true"
+		DataValueField="Id"
+		DataTextField="Name" />
+	<asp:RequiredFieldValidator 
+		ID="RequiredFieldValidator1" 
+		InitialValue="0" 
+		Runat="server" 
+		ErrorMessage="<%#Model.GlassTypeRequiredErrorMessage %>" 
+		ControlToValidate="drpFrames" 
+		Display="Dynamic" 
+		CssClass="invalid" 
+		ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 </div>
 <hr />
 <div class="interval-parameter frame">

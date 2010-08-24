@@ -1,5 +1,5 @@
 using NHibernate;
-using Spinit.Wpc.Synologen.Core.Domain.Model;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;

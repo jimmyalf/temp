@@ -1,7 +1,8 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Spinit.Wpc.Synologen.Core.Domain.Model;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Frame;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Models;
 
@@ -44,13 +45,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 
 		public static IEnumerable<IntervalListItem> InsertDefaultValue(this IEnumerable<IntervalListItem> list, string entityName, decimal NotSelectedValue)
 		{
-			var defaultValue = new IntervalListItem {Name = String.Format("-- VÃ¤lj {0} --", entityName), Value = NotSelectedValue};
+			var defaultValue = new IntervalListItem {Name = String.Format("-- Välj {0} --", entityName), Value = NotSelectedValue};
 			return list.InsertFirst(defaultValue);
 		}
 
 		public static IEnumerable<IntervalListItem> InsertDefaultValue(string entityName, decimal NotSelectedValue)
 		{
-			var defaultValue = new IntervalListItem {Name = String.Format("-- VÃ¤lj {0} --", entityName), Value = NotSelectedValue};
+			var defaultValue = new IntervalListItem {Name = String.Format("-- Välj {0} --", entityName), Value = NotSelectedValue};
 			return new List<IntervalListItem>().InsertFirst(defaultValue);
 		}
 	}

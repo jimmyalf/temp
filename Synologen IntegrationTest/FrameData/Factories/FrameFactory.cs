@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Core.Domain.Model;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.FrameData.Factories
 {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Core.Domain.Model;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Models;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories;

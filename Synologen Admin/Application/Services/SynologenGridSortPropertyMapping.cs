@@ -1,4 +1,4 @@
-using Spinit.Wpc.Synologen.Core.Domain.Model;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Controllers;
 using Spinit.Wpc.Synologen.Presentation.Models;

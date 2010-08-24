@@ -1,7 +1,7 @@
-Ôªøusing System.Linq;
+using System.Linq;
 using System.Web.Mvc;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Core.Domain.Model;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Controllers;
@@ -98,7 +98,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(model.AvailableFrameColors.Count(), Is.EqualTo(10));
 			Expect(model.BrandId, Is.EqualTo(domainItem.Brand.Id));
 			Expect(model.ColorId, Is.EqualTo(domainItem.Color.Id));
-			Expect(model.FormLegend, Is.EqualTo("Redigera b√•ge"));
+			Expect(model.FormLegend, Is.EqualTo("Redigera bÂge"));
 			Expect(model.Id, Is.EqualTo(domainItem.Id));
 			Expect(model.PupillaryDistanceIncrementation, Is.EqualTo(domainItem.PupillaryDistance.Increment));
 			Expect(model.PupillaryDistanceMaxValue, Is.EqualTo(domainItem.PupillaryDistance.Max));
@@ -110,7 +110,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		{
 			//Arrange
 			var viewModel = ViewModelFactory.GetFrameEditView(3);
-			const string expectedActionMessage = "B√•gen har sparats";
+			const string expectedActionMessage = "BÂgen har sparats";
 
 			//Act
 			var result = (RedirectToRouteResult) controller.Edit(viewModel);
@@ -168,7 +168,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(model.AvailableFrameColors.Count(), Is.EqualTo(10));
 			Expect(model.BrandId, Is.EqualTo(0));
 			Expect(model.ColorId, Is.EqualTo(0));
-			Expect(model.FormLegend, Is.EqualTo("Skapa ny b√•ge"));
+			Expect(model.FormLegend, Is.EqualTo("Skapa ny bÂge"));
 			Expect(model.Id, Is.EqualTo(0));
 			Expect(model.PupillaryDistanceIncrementation, Is.EqualTo(0.5m));
 			Expect(model.PupillaryDistanceMaxValue, Is.EqualTo(40));
@@ -180,7 +180,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		{
 			//Arrange
 			var viewModel = ViewModelFactory.GetFrameEditView(0);
-			const string expectedActionMessage = "B√•gen har sparats";
+			const string expectedActionMessage = "BÂgen har sparats";
 
 			//Act
 			var result = (RedirectToRouteResult) controller.Add(viewModel);
@@ -226,7 +226,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		{
 			//Arrange
 			const int itemId = 1;
-			const string expectedActionMessage = "B√•gen har raderats";
+			const string expectedActionMessage = "BÂgen har raderats";
 
 			//Act
 			var result = (RedirectToRouteResult) controller.Delete(itemId);
@@ -246,7 +246,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		{
 			//Arrange
 			const int itemId = -1;
-			const string expectedActionMessage = "B√•gen kunde inte raderas d√• den √§r knuten till en eller fler best√§llningar";
+			const string expectedActionMessage = "BÂgen kunde inte raderas dÂ den ‰r knuten till en eller fler best‰llningar";
 
 			//Act
 			var result =  (RedirectToRouteResult) controller.Delete(itemId);

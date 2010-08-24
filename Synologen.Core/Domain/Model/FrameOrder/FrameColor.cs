@@ -1,4 +1,4 @@
-namespace Spinit.Wpc.Synologen.Core.Domain.Model
+namespace Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder
 {
 	public class FrameColor
 	{

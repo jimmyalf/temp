@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
-using Spinit.Wpc.Synologen.Core.Domain.Model;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Persistence;
 

@@ -3,5 +3,5 @@ using Spinit.Wpc.Synologen.Core.Persistence;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Persistence
 {
-	public interface IFrameColorRepository : IRepository<FrameColor> { }
+	public interface IShopRepository : IReadonlyRepository<Shop> { }
 }

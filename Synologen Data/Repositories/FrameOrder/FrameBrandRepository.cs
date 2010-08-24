@@ -1,11 +1,11 @@
 using NHibernate;
 using NHibernate.Criterion;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
-using Spinit.Wpc.Synologen.Core.Domain.Model;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 
-namespace Spinit.Wpc.Synologen.Data.Repositories
+namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrder
 {
 	public class FrameBrandRepository : NHibernateRepository<FrameBrand>, IFrameBrandRepository
 	{

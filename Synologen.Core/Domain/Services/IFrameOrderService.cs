@@ -1,4 +1,4 @@
-using Spinit.Wpc.Synologen.Core.Domain.Model;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Frame;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services
 {

@@ -1,5 +1,5 @@
 using FluentNHibernate.Mapping;
-using Spinit.Wpc.Synologen.Core.Domain.Model;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 {

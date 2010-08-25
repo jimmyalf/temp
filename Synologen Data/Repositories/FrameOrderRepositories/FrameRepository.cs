@@ -5,7 +5,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 
-namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrder
+namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories
 {
 	public class FrameRepository : NHibernateRepository<Frame>, IFrameRepository
 	{
@@ -23,7 +23,6 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrder
 
 		private bool FrameHasConnectedOrders(Frame entity)
 		{
-			//TODO: Replace with a check of "connected number of orders" property on entity
 			var ordersWithGivenFrame = Session.CreateCriteria<Core.Domain.Model.FrameOrder.FrameOrder>()
 				.Add(Restrictions.Eq("Frame.Id", entity.Id))
 				.GetCount().UniqueResult<long>();

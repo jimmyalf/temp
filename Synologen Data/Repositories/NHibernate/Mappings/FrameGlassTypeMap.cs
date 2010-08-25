@@ -15,6 +15,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 				.Not.Nullable();
 			Map(x => x.IncludeHeightParametersInOrder)
 				.Not.Nullable();
+			Map(x => x.NumberOfConnectedOrdersWithThisGlassType)
+				.Formula("(Select Count('') from SynologenFrameOrder Where SynologenFrameOrder.GlassTypeId = Id)");
 		}
 	}
 }

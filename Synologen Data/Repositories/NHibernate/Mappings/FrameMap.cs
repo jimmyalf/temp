@@ -31,6 +31,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 			  m.Map(x => x.Max).Column("PupillaryDistanceMax").Not.Nullable();
 			  m.Map(x => x.Increment).Column("PupillaryDistanceIncrement").Not.Nullable();
 			});
+			Map(x => x.NumberOfConnectedOrdersWithThisFrame)
+				.Formula("(Select Count('') from SynologenFrameOrder Where SynologenFrameOrder.FrameId = Id)");
 		}
 	}
 }

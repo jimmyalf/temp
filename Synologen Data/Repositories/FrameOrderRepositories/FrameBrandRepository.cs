@@ -5,7 +5,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 
-namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrder
+namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories
 {
 	public class FrameBrandRepository : NHibernateRepository<FrameBrand>, IFrameBrandRepository
 	{
@@ -25,8 +25,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrder
 		{
 			//return entity.NumberOfFramesWithThisBrand > 0;
 			var framesWithGivenColor = Session.CreateCriteria<Frame>()
-			    .Add(Restrictions.Eq("Brand.Id", entity.Id))
-			    .GetCount().UniqueResult<long>();
+				.Add(Restrictions.Eq("Brand.Id", entity.Id))
+				.GetCount().UniqueResult<long>();
 			return (framesWithGivenColor > 0);
 		}
 	}

@@ -95,11 +95,11 @@
     <Compile Include="Repositories\CriteriaConverters\PageOfFrameColorsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFrameOrdersMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFramesMatchingCriteriaConverter.cs" />
-    <Compile Include="Repositories\FrameOrder\FrameBrandRepository.cs" />
-    <Compile Include="Repositories\FrameOrder\FrameColorRepository.cs" />
-    <Compile Include="Repositories\FrameOrder\FrameGlassTypeRepository.cs" />
-    <Compile Include="Repositories\FrameOrder\FrameOrderRepository.cs" />
-    <Compile Include="Repositories\FrameOrder\FrameRepository.cs" />
+    <Compile Include="Repositories\FrameOrderRepositories\FrameBrandRepository.cs" />
+    <Compile Include="Repositories\FrameOrderRepositories\FrameColorRepository.cs" />
+    <Compile Include="Repositories\FrameOrderRepositories\FrameGlassTypeRepository.cs" />
+    <Compile Include="Repositories\FrameOrderRepositories\FrameOrderRepository.cs" />
+    <Compile Include="Repositories\FrameOrderRepositories\FrameRepository.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameBrandMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameColorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameGlassTypeMap.cs" />
@@ -111,7 +111,7 @@
     <Compile Include="Repositories\NHibernate\NHibernateReadonlyRepository.cs" />
     <Compile Include="Repositories\NHibernate\NHibernateRepository.cs" />
     <Compile Include="Repositories\NHibernate\NHibernateUnitOfWork.cs" />
-    <Compile Include="Repositories\FrameOrder\ShopRepository.cs" />
+    <Compile Include="Repositories\FrameOrderRepositories\ShopRepository.cs" />
     <Compile Include="SqlProviderConcern.cs" />
     <Compile Include="SqlProviderCountry.cs" />
     <Compile Include="SqlProviderInvoicingMethod.cs" />

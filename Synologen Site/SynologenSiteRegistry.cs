@@ -1,7 +1,7 @@
 using NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Persistence;
-using Spinit.Wpc.Synologen.Data.Repositories.FrameOrder;
+using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 using StructureMap.Attributes;
 using StructureMap.Configuration.DSL;

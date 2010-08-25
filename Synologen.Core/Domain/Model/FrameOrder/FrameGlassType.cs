@@ -6,5 +6,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder
 		public virtual string Name { get; set; }
 		public virtual bool IncludeAdditionParametersInOrder { get; set; }
 		public virtual bool IncludeHeightParametersInOrder { get; set; }
+		public virtual int NumberOfConnectedOrdersWithThisGlassType { get; private set; }
 	}
 }

@@ -17,6 +17,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder
 		public virtual FrameBrand Brand { get; set; }
 		public virtual Interval PupillaryDistance { get; private set; }
 		public virtual bool AllowOrders { get; set; }
+		public virtual int NumberOfConnectedOrdersWithThisFrame { get; set; }
+
 		public virtual Frame SetInterval(Expression<Func<Frame, Interval>> expression, decimal minValue, decimal maxValue, decimal incrementation) 
 		{
 			expression.Compile().Invoke(this).Increment = incrementation;

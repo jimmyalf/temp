@@ -11,7 +11,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
-using Spinit.Wpc.Synologen.Data.Repositories.FrameOrder;
+using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 using Spinit.Wpc.Synologen.Integration.Test.FrameData.Factories;
 

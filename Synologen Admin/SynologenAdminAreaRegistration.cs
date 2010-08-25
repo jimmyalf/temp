@@ -2,7 +2,6 @@ using System.Web.Mvc;
 using Spinit.Wpc.Core.UI.Mvc;
 using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Presentation.Application.ModelBinders;
-using Spinit.Wpc.Synologen.Presentation.Helpers;
 
 namespace Spinit.Wpc.Synologen.Presentation
 {
@@ -11,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 		public SynologenAdminAreaRegistration()
 		{
 			ActionCriteriaExtensions.ConstructConvertersUsing(ServiceLocation.Resolve);
-			ModelBinders.Binders[typeof(GridPageSortParameters)] = new GridSortPropertyMappingModelBinder();
+			ModelBinders.Binders.DefaultBinder = new GridSortPropertyMappingModelBinder();
 		}
 
 		public override void RegisterArea(AreaRegistrationContext context)
@@ -40,6 +39,9 @@ namespace Spinit.Wpc.Synologen.Presentation
 			context.MapRoute(AreaName + "FrameDeleteGlassType", urlPrefix + "frames/deleteglasstype/{id}", new { controller = "Frame", action = "DeleteGlassType" } );
 			context.MapRoute(AreaName + "FrameEditGlassType", urlPrefix + "frames/editglasstype/{id}", new { controller = "Frame", action = "EditGlassType" } );
 			context.MapRoute(AreaName + "FrameGlassTypes", urlPrefix + "frames/glasstypes", new { controller = "Frame", action = "GlassTypes" } );
+
+
+			context.MapRoute(AreaName + "FrameOrders", urlPrefix + "frames/orders", new { controller = "Frame", action = "FrameOrders" } );
 
 		}
 

@@ -73,10 +73,11 @@
   <ItemGroup>
     <Compile Include="Application\ModelBinders\GridSortPropertyMappingModelBinder.cs" />
     <Compile Include="Application\Services\SettingsService.cs" />
-    <Compile Include="Application\Services\SynologenGridSortPropertyMapping.cs" />
+    <Compile Include="Application\Services\SynologenGridSortPropertyMappingSerice.cs" />
     <Compile Include="Controllers\FrameGlassTypeController.cs" />
     <Compile Include="Controllers\FrameBrandController.cs" />
     <Compile Include="Controllers\FrameColorController.cs" />
+    <Compile Include="Controllers\FrameOrderController.cs" />
     <Compile Include="Helpers\Extensions\WpcActionMessageExtensions.cs" />
     <Compile Include="Helpers\Extensions\WpcGridDeleteFormExtensions.cs" />
     <Compile Include="Helpers\IDeleConfigurableGridItem.cs" />
@@ -289,6 +290,8 @@
     <Compile Include="Models\FrameGlassTypeListItemView.cs" />
     <Compile Include="Models\FrameListItemView.cs" />
     <Compile Include="Models\FrameListView.cs" />
+    <Compile Include="Models\FrameOrderListItemView.cs" />
+    <Compile Include="Models\FrameOrderListView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SynologenAdminAreaRegistration.cs" />
     <Compile Include="SynologenAdminRegistry.cs" />
@@ -433,6 +436,7 @@
   <ItemGroup>
     <Content Include="Areas\SynologenAdmin\Views\Frame\AddBrand.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\AddGlassType.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\FrameOrders.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\EditGlassType.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\GlassTypeForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\GlassTypes.aspx" />

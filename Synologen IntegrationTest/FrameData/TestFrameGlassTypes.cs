@@ -1,5 +1,6 @@
 using System.Linq;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
@@ -17,6 +18,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		public void Can_get_persisted_frameglasstype()
 		{
 		    //Arrange
+			const int expectedNumberOfOrderConnections = 36;
 
 		    //Act
 		    var savedFrameGlassType = SavedFrameGlassTypes.First();
@@ -28,12 +30,14 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		    Expect(persistedFrameGlassType.Name, Is.EqualTo(savedFrameGlassType.Name));
 			Expect(persistedFrameGlassType.IncludeAdditionParametersInOrder, Is.EqualTo(savedFrameGlassType.IncludeAdditionParametersInOrder));
 			Expect(persistedFrameGlassType.IncludeHeightParametersInOrder, Is.EqualTo(savedFrameGlassType.IncludeHeightParametersInOrder));
+			Expect(persistedFrameGlassType.NumberOfConnectedOrdersWithThisGlassType, Is.EqualTo(expectedNumberOfOrderConnections));
 		}
 
 		[Test]
 		public void Can_edit_persisted_frameglasstype()
 		{
 		    //Arrange
+			const int expectedNumberOfOrderConnections = 36;
 
 		    //Act
 		    var editedFrameGlassType = Factories.FrameGlassTypeFactory.ScrabmleFrameGlass(SavedFrameGlassTypes.First());
@@ -46,10 +50,11 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		    Expect(persistedFrameGlassType.Name, Is.EqualTo(editedFrameGlassType.Name));
 			Expect(persistedFrameGlassType.IncludeAdditionParametersInOrder, Is.EqualTo(editedFrameGlassType.IncludeAdditionParametersInOrder));
 			Expect(persistedFrameGlassType.IncludeHeightParametersInOrder, Is.EqualTo(editedFrameGlassType.IncludeHeightParametersInOrder));
+			Expect(persistedFrameGlassType.NumberOfConnectedOrdersWithThisGlassType, Is.EqualTo(expectedNumberOfOrderConnections));
 		}
 
 		[Test]
-		public void Can_delete_persisted_frameglasstype()
+		public void Can_delete_persisted_frameglasstype_without_connections()
 		{
 		    //Arrange
 			var frameGlassType = Factories.FrameGlassTypeFactory.GetGlassType();
@@ -62,6 +67,17 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		    //Assert
 		    Expect(persistedFrameGlassType, Is.Null);
 
+		}
+
+		[Test]
+		public void Cannot_delete_persisted_frameglasstype_with_connections()
+		{
+		    //Arrange
+
+		    //Act
+			
+		    //Assert
+		    Expect(() => FrameGlassTypeValidationRepository.Delete(SavedFrameGlassTypes.First()), Throws.InstanceOf<SynologenDeleteItemHasConnectionsException>());
 		}
 	}
 

@@ -19,6 +19,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		{
 			//Arrange
 			const int expectedNumberOfFrameConnections = 6;
+			const int expectedNumberOfOrderConnections = 4;
 
 			//Act
 			var savedFrame = SavedFrames.First();
@@ -40,6 +41,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			Expect(persistedFrame.PupillaryDistance.Increment, Is.EqualTo(savedFrame.PupillaryDistance.Increment));
 			Expect(persistedFrame.PupillaryDistance.Max, Is.EqualTo(savedFrame.PupillaryDistance.Max));
 			Expect(persistedFrame.PupillaryDistance.Min, Is.EqualTo(savedFrame.PupillaryDistance.Min));
+			Expect(persistedFrame.NumberOfConnectedOrdersWithThisFrame, Is.EqualTo(expectedNumberOfOrderConnections));
 		}
 
 		[Test]
@@ -47,6 +49,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		{
 			//Arrange
 			const int expectedNumberOfFrameConnections = 6;
+			const int expectedNumberOfOrderConnections = 4;
 
 			//Act
 			var editedFrame = Factories.FrameFactory.ScrabmleFrame(SavedFrames.First());
@@ -69,6 +72,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			Expect(persistedFrame.PupillaryDistance.Increment, Is.EqualTo(editedFrame.PupillaryDistance.Increment));
 			Expect(persistedFrame.PupillaryDistance.Max, Is.EqualTo(editedFrame.PupillaryDistance.Max));
 			Expect(persistedFrame.PupillaryDistance.Min, Is.EqualTo(editedFrame.PupillaryDistance.Min));
+			Expect(persistedFrame.NumberOfConnectedOrdersWithThisFrame, Is.EqualTo(expectedNumberOfOrderConnections));
 		}
 
 		[Test]

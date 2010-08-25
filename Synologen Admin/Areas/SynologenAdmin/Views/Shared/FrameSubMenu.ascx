@@ -23,6 +23,10 @@
 			<%=Html.ActionLink("Glastyper","GlassTypes","Frame") %>
 			&nbsp;>&nbsp;
 			<%=Html.ActionLink("Ny","AddGlassType","Frame") %>
-		</li>		
+		</li>
+		<li>|</li>
+		<li>
+			<%=Html.ActionLink("Beställningar","FrameOrders","Frame") %>
+		</li>			
 	</ul>
 </div>

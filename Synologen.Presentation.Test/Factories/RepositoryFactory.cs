@@ -29,6 +29,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 			return new MockedFrameGlassTypeRepository();
 		}
 
+		public static IFrameOrderRepository GetFrameOrderRepository()
+		{
+			return new MockedFrameOrderRepository();
+		}
+
 		public static Frame GetMockedFrame(int id)
 		{
 		    return new Frame
@@ -74,6 +79,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 					
 		}
 
+		public static FrameOrder GetMockedFrameOrder(int id)
+		{
+			return new FrameOrder {
+				Addition = new EyeParameter { Left = 1.75M, Right = 2.25M },
+				Axis = new EyeParameter { Left = 70, Right = 155 },
+				Created = new DateTime(2010, 08, 24, 13, 45, 0),
+				Cylinder = new EyeParameter { Left = 0.60M, Right = 1.55M },
+				Frame = GetMockedFrame(1),
+				GlassType = GetMockedFrameGlass(1),
+				Height = new EyeParameter { Left = 19, Right = 26 },
+				OrderingShop = GetMockedShop(1),
+				PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
+				Sent = new DateTime(2010, 08, 24, 13, 45, 0),
+				Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M }
+			};
+		}
+
+		private static Shop GetMockedShop(int id) {
+			return new Shop {
+				Address = new ShopAddress {
+					AddressLineOne = null,
+					AddressLineTwo = "Datavägen 2",
+					City = "Askim",
+					PostalCode = "43632"
+				},
+				Id = id,
+				Name = "Testbutiken i Askim"
+			};
+		}
+
 
 		internal class MockedFrameGlassTypeRepository : GenericMockRepository<FrameGlassType>, IFrameGlassTypeRepository
 		{
@@ -94,6 +129,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 		{
 			public MockedFrameRepository() : base(GetMockedFrame) {}
 		}
+
+		internal class MockedFrameOrderRepository : GenericMockRepository<FrameOrder>, IFrameOrderRepository
+		{
+			public MockedFrameOrderRepository() : base(GetMockedFrameOrder) {}
+		}
+
+		
 
 		public class GenericMockRepository<TModel> : IRepository<TModel> where TModel : class
 		{
@@ -137,6 +179,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 			}
 			return new SortedPagedList<TModel>(returnList, 20, 1, 10, null, false);
 		}
+
 	}
 
 }

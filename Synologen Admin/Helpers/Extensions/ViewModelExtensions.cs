@@ -150,6 +150,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			return entityList.ConvertSortedPagedList(new Converter<FrameGlassType, FrameGlassTypeListItemView>(typeConverter));
 		}
 
+		public static ISortedPagedList<FrameOrderListItemView> ToFrameOrderViewList(this ISortedPagedList<FrameOrder> entityList)
+		{
+			Func<FrameOrder, FrameOrderListItemView> typeConverter = x => new FrameOrderListItemView
+			{
+				Id = x.Id,
+                Frame = x.Frame.Name,
+                GlassType = x.GlassType.Name,
+                Sent = x.IsSent,
+                Shop = x.OrderingShop.Name,
+                Created = x.Created.ToString("yyyy-MM-dd")
+			};
+			return entityList.ConvertSortedPagedList(new Converter<FrameOrder, FrameOrderListItemView>(typeConverter));
+		}
+
 		#endregion
 
 		private static Frame UpdateFrame(Frame entity, FrameEditView viewModel, FrameBrand brand, FrameColor color)

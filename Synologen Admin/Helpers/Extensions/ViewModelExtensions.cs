@@ -106,6 +106,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
                 IncludeHeightParametersInOrder = frameGlassType.IncludeHeightParametersInOrder
 			};
 		}
+
+		public static FrameOrderView ToFrameOrderView(this FrameOrder frameOrder)
+		{
+			return new FrameOrderView()
+			{
+			};
+		}
 		#endregion
 
 		#region To View Lists

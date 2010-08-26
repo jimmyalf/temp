@@ -88,6 +88,7 @@
     <Compile Include="Helpers\WpcActionMessageType.cs" />
     <Compile Include="Helpers\WpcDropDownList.cs" />
     <Compile Include="Helpers\WpcGridDeleteForm.cs" />
+    <Compile Include="Models\EyeParameterViewModel.cs" />
     <Compile Include="Models\FrameGlassTypeEditView.cs" />
     <Compile Include="Helpers\Resources\WpcConfirmationDialog.sv-SE.Designer.cs">
       <DependentUpon>WpcConfirmationDialog.sv-SE.resx</DependentUpon>
@@ -294,6 +295,7 @@
     <Compile Include="Models\FrameListView.cs" />
     <Compile Include="Models\FrameOrderListItemView.cs" />
     <Compile Include="Models\FrameOrderListView.cs" />
+    <Compile Include="Models\FrameOrderView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SynologenAdminAreaRegistration.cs" />
     <Compile Include="SynologenAdminRegistry.cs" />
@@ -446,6 +448,7 @@
     <Content Include="Areas\SynologenAdmin\Views\Frame\Brands.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\BrandForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\ClientValidationScripts.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Shared\DisplayTemplates\EyeParameterView.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\SynologenMVC.Master" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\Empty.Master" />
     <Content Include="ChangeLocation.aspx" />

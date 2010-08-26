@@ -1,8 +1,10 @@
+using System.Collections.Specialized;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
-using MvcContrib.Sorting;
-
+using Moq;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Models;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories;
 
@@ -18,18 +20,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			var viewModel = new FrameOrderListView();
 			var expectedFirstItem = RepositoryFactory.GetMockedFrameOrder(1);
 			var expectedCreatedDate = expectedFirstItem.Created.ToString("yyyy-MM-dd");
+			const string searchString = "SearchString≈ƒ÷";
+			var encodedSearchString = HttpUtility.UrlEncode(searchString);
 
 			//Act
-			var result = (ViewResult) controller.FrameOrders(viewModel);
+			var result = (ViewResult) controller.FrameOrders(encodedSearchString, viewModel);
 			var model = (FrameOrderListView) result.ViewData.Model;
 
 			//Assert
-			Expect(model.Search, Is.EqualTo(null));
+			Expect(model.SearchTerm, Is.EqualTo(searchString));
 			Expect(model.Column, Is.EqualTo(null));
 			Expect(model.Direction, Is.EqualTo(SortDirection.Ascending));
 			Expect(model.Page, Is.EqualTo(1));
 			Expect(model.PageSize, Is.EqualTo(null));
-			Expect(model.SortAscending, Is.EqualTo(true));
+			Expect(model.Direction, Is.EqualTo(SortDirection.Ascending));
 			Expect(model.List.Count(), Is.EqualTo(10));
 			Expect(model.List.First().Id, Is.EqualTo(expectedFirstItem.Id));
 			Expect(model.List.First().Frame, Is.EqualTo(expectedFirstItem.Frame.Name));
@@ -44,28 +48,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		{
 			//Arrange
 			const string searchword = "TestSearchWord";
-			var viewModel = new FrameOrderListView {Search = searchword};
-			var expectedFirstItem = RepositoryFactory.GetMockedFrameOrder(1);
-			var expectedCreatedDate = expectedFirstItem.Created.ToString("yyyy-MM-dd");
+			var inputQueryString = new NameValueCollection {{"Page", "1"}, {"Column", "Name"}};
+			var controllerContext = new Mock<ControllerContext>();
+			var viewModel = new FrameOrderListView {SearchTerm = searchword};
 
 			//Act
-			var result = (ViewResult) controller.FrameOrders(viewModel);
-			var model = (FrameOrderListView) result.ViewData.Model;
+			controllerContext.SetupGet(x => x.HttpContext.Request.QueryString).Returns(inputQueryString);
+			controller.ControllerContext = controllerContext.Object;
+			var result = (RedirectToRouteResult) controller.FrameOrders(viewModel);
 
 			//Assert
-			Expect(model.Search, Is.EqualTo(searchword));
-			Expect(model.Column, Is.EqualTo("Frame"));
-			Expect(model.Direction, Is.EqualTo(SortDirection.Ascending));
-			Expect(model.Page, Is.EqualTo(1));
-			Expect(model.PageSize, Is.EqualTo(null));
-			Expect(model.SortAscending, Is.EqualTo(true));
-			Expect(model.List.Count(), Is.EqualTo(10));
-			Expect(model.List.First().Id, Is.EqualTo(expectedFirstItem.Id));
-			Expect(model.List.First().Frame, Is.EqualTo(expectedFirstItem.Frame.Name));
-			Expect(model.List.First().GlassType, Is.EqualTo(expectedFirstItem.GlassType.Name));
-			Expect(model.List.First().Shop, Is.EqualTo(expectedFirstItem.OrderingShop.Name));
-			Expect(model.List.First().Sent, Is.EqualTo(true));
-			Expect(model.List.First().Created, Is.EqualTo(expectedCreatedDate));
+			Expect(result.RouteValues["action"], Is.EqualTo("FrameOrders"));
+			Expect(result.RouteValues["search"], Is.EqualTo("TestSearchWord"));
+			Expect(result.RouteValues["Page"], Is.EqualTo("1"));
+			Expect(result.RouteValues["Column"], Is.EqualTo("Name"));
 		}
 	}
 }

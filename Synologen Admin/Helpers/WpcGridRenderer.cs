@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using MvcContrib.Sorting;
 using MvcContrib.UI.Grid;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 
@@ -36,7 +35,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 				var isSortedByThisColumn = (GridModel.SortOptions.Column == column.Name);
 				if (isSortedByThisColumn) 
 				{
-					var sortClass = GridModel.SortOptions.Direction == SortDirection.Ascending ? "sort_asc" : "sort_desc";
+					var sortClass = GridModel.SortOptions.Direction == MvcContrib.Sorting.SortDirection.Ascending ? "sort_asc" : "sort_desc";
 					attributes = attributes.SetClass(sortClass);
 				}
 			}
@@ -69,9 +68,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 
 				if(isSortedByThisColumn)
 				{
-					sortOptions.Direction = (GridModel.SortOptions.Direction == SortDirection.Ascending)
-						? SortDirection.Descending 
-						: SortDirection.Ascending;
+					sortOptions.Direction = (GridModel.SortOptions.Direction == MvcContrib.Sorting.SortDirection.Ascending)
+						? MvcContrib.Sorting.SortDirection.Descending 
+						: MvcContrib.Sorting.SortDirection.Ascending;
 				}
 
 				var routeValues = new RouteValueDictionary(sortOptions);
@@ -98,9 +97,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 			}
 		}
 
-		protected void RenderUpDownImage(SortDirection direction)
+		protected void RenderUpDownImage(MvcContrib.Sorting.SortDirection direction)
 		{
-			var isAscending = (GridModel.SortOptions.Direction == SortDirection.Ascending);
+			var isAscending = (GridModel.SortOptions.Direction == MvcContrib.Sorting.SortDirection.Ascending);
 			var cssClass =  isAscending ? DefaultSortingAscendingImageClass : DefaultSortingDescendingImageClass;
 			var imageUrl = isAscending ? DefaultSortingAscendingImageUrl : DefaultSortingDecendingImageUrl;
 			RenderText(String.Format(DefaultSortingImageFormat, imageUrl, cssClass));

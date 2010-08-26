@@ -78,6 +78,8 @@
     <Compile Include="Controllers\FrameBrandController.cs" />
     <Compile Include="Controllers\FrameColorController.cs" />
     <Compile Include="Controllers\FrameOrderController.cs" />
+    <Compile Include="Helpers\Extensions\NameValueCollectionExtensions.cs" />
+    <Compile Include="Helpers\Extensions\RouteValueDictionaryExtensions.cs" />
     <Compile Include="Helpers\Extensions\WpcActionMessageExtensions.cs" />
     <Compile Include="Helpers\Extensions\WpcGridDeleteFormExtensions.cs" />
     <Compile Include="Helpers\IDeleConfigurableGridItem.cs" />
@@ -454,6 +456,13 @@
     <Content Include="logout.aspx" />
     <Content Include="NoAccess.aspx" />
     <Content Include="BaseMain.master" />
+    <None Include="Application\ModelBinders\_svn\all-wcprops" />
+    <None Include="Application\ModelBinders\_svn\entries" />
+    <None Include="Application\ModelBinders\_svn\text-base\GridSortPropertyMappingModelBinder.cs.svn-base" />
+    <None Include="Application\Services\_svn\all-wcprops" />
+    <None Include="Application\Services\_svn\entries" />
+    <None Include="Application\Services\_svn\text-base\SettingsService.cs.svn-base" />
+    <None Include="Application\Services\_svn\text-base\SynologenGridSortPropertyMappingSerice.cs.svn-base" />
     <None Include="CodeTemplates\AddController\Controller.tt">
     </None>
     <None Include="CodeTemplates\AddView\Create.tt">
@@ -490,6 +499,18 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WpcPager.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Application\ModelBinders\_svn\prop-base\" />
+    <Folder Include="Application\ModelBinders\_svn\props\" />
+    <Folder Include="Application\ModelBinders\_svn\tmp\prop-base\" />
+    <Folder Include="Application\ModelBinders\_svn\tmp\props\" />
+    <Folder Include="Application\ModelBinders\_svn\tmp\text-base\" />
+    <Folder Include="Application\Services\_svn\prop-base\" />
+    <Folder Include="Application\Services\_svn\props\" />
+    <Folder Include="Application\Services\_svn\tmp\prop-base\" />
+    <Folder Include="Application\Services\_svn\tmp\props\" />
+    <Folder Include="Application\Services\_svn\tmp\text-base\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" Condition="" />

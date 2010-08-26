@@ -1,5 +1,8 @@
+using System.Collections.Specialized;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using Moq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
@@ -39,16 +42,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		public void When_Index_GET_Is_Called_Returned_ViewModel_Has_Expected_Values()
 		{
 			//Arrange
-			const string searchword = "TestSearchWord";
+			const string searchword = "TestSearchWord≈ƒ÷";
+			var encodedSearchWord = HttpUtility.UrlEncode("TestSearchWord≈ƒ÷");
 			var gridPageSortParameters = new GridPageSortParameters();
 			var expectedFirstItem = RepositoryFactory.GetMockedFrame(1);
 
 			//Act
-			var result = (ViewResult) controller.Index(searchword, gridPageSortParameters);
+			var result = (ViewResult) controller.Index(encodedSearchWord, gridPageSortParameters);
 			var model = (FrameListView) result.ViewData.Model;
 
 			//Assert
-			Expect(model.SearchWord, Is.EqualTo(searchword));
+			Expect(model.SearchTerm, Is.EqualTo(searchword));
 			Expect(model.List.Count(), Is.EqualTo(10));
 			Expect(model.List.First().AllowOrders, Is.EqualTo(expectedFirstItem.AllowOrders));
 			Expect(model.List.First().ArticleNumber, Is.EqualTo(expectedFirstItem.ArticleNumber));
@@ -63,23 +67,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		{
 			//Arrange
 			const string searchword = "TestSearchWord";
-			var viewModel = new FrameListView {SearchWord = searchword};
-			var gridPageSortParameters = new GridPageSortParameters();
-			var expectedFirstItem = RepositoryFactory.GetMockedFrame(1);
+			var inputQueryString = new NameValueCollection {{"Page", "1"}, {"Column", "Name"}};
+			var controllerContext = new Mock<ControllerContext>();
+			var viewModel = new FrameListView {SearchTerm = searchword};
 
 			//Act
-			var result = (ViewResult) controller.Index(viewModel, gridPageSortParameters);
-			var model = (FrameListView) result.ViewData.Model;
+			controllerContext.SetupGet(x => x.HttpContext.Request.QueryString).Returns(inputQueryString);
+			controller.ControllerContext = controllerContext.Object;
+			var result = (RedirectToRouteResult) controller.Index(viewModel);
 
 			//Assert
-			Expect(model.SearchWord, Is.EqualTo(searchword));
-			Expect(model.List.Count(), Is.EqualTo(10));
-			Expect(model.List.First().AllowOrders, Is.EqualTo(expectedFirstItem.AllowOrders));
-			Expect(model.List.First().ArticleNumber, Is.EqualTo(expectedFirstItem.ArticleNumber));
-			Expect(model.List.First().Brand, Is.EqualTo(expectedFirstItem.Brand.Name));
-			Expect(model.List.First().Color, Is.EqualTo(expectedFirstItem.Color.Name));
-			Expect(model.List.First().Id, Is.EqualTo(expectedFirstItem.Id));
-			Expect(model.List.First().Name, Is.EqualTo(expectedFirstItem.Name));
+			Expect(result.RouteValues["action"], Is.EqualTo("Index"));
+			Expect(result.RouteValues["search"], Is.EqualTo("TestSearchWord"));
+			Expect(result.RouteValues["Page"], Is.EqualTo("1"));
+			Expect(result.RouteValues["Column"], Is.EqualTo("Name"));
 		}
 
 		[Test]

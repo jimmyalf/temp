@@ -2,7 +2,7 @@
 <div id="dCompSubNavigation">
 	<ul id="SubMenu">
 		<li>
-			<%=Html.ActionLink("Bågar","Index","Frame") %>
+			<%=Html.ActionLink("Bågar","Index","Frame", new RouteValueDictionary(), null) %>
 			&nbsp;>&nbsp;
 			<%=Html.ActionLink("Ny","Add","Frame") %>
 		</li>

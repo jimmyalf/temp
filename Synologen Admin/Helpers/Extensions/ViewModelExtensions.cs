@@ -111,14 +111,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		#region To View Lists
 		public static ISortedPagedList<FrameListItemView> ToFrameViewList(this ISortedPagedList<Frame> entityList)
 		{
-			Func<Frame,FrameListItemView> typeConverter = x => new FrameListItemView {
-			                                                                         	AllowOrders = x.AllowOrders,
-			                                                                         	ArticleNumber = x.ArticleNumber,
-			                                                                         	Brand = x.Brand.Name,
-			                                                                         	Color = x.Color.Name,
-			                                                                         	Id = x.Id,
-			                                                                         	Name = x.Name,
-			                                                                         };
+			Func<Frame, FrameListItemView> typeConverter = x => new FrameListItemView {
+				AllowOrders = x.AllowOrders,
+				ArticleNumber = x.ArticleNumber,
+				Brand = x.Brand.Name,
+				Color = x.Color.Name,
+				Id = x.Id,
+				Name = x.Name,
+                NumberOfOrdersWithThisFrame = x.NumberOfConnectedOrdersWithThisFrame
+			};
 			return entityList.ConvertSortedPagedList(new Converter<Frame, FrameListItemView>(typeConverter));
 		}
 
@@ -149,7 +150,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 				Id = x.Id,
 				Name = x.Name,
 				IncludeAddition = x.IncludeAdditionParametersInOrder,
-				IncludeHeight = x.IncludeHeightParametersInOrder
+				IncludeHeight = x.IncludeHeightParametersInOrder,
+                NumberOfOrdersWithThisGlassType = x.NumberOfConnectedOrdersWithThisGlassType
 			};
 			return entityList.ConvertSortedPagedList(new Converter<FrameGlassType, FrameGlassTypeListItemView>(typeConverter));
 		}
@@ -163,7 +165,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
                 GlassType = x.GlassType.Name,
                 Sent = x.IsSent,
                 Shop = x.OrderingShop.Name,
-                Created = x.Created.ToString("yyyy-MM-dd")
+                Created = x.Created.ToString("yyyy-MM-dd"),
 			};
 			return entityList.ConvertSortedPagedList(new Converter<FrameOrder, FrameOrderListItemView>(typeConverter));
 		}

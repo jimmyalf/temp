@@ -9,15 +9,15 @@
 			<fieldset>
 				<legend>Bågar</legend>
 				<p class="formItem">
-					<%= Html.LabelFor(x => x.SearchWord) %>
-					<%= Html.EditorFor(x => x.SearchWord) %>
+					<%= Html.LabelFor(x => x.SearchTerm) %>
+					<%= Html.EditorFor(x => x.SearchTerm) %>
 				</p>
 				<p class="formCommands">
 					<input type="submit" value="Sök" class="btnBig" />
 				</p>
 			</fieldset>
 			<% } %>
-			<%= Html.WpcPager(Model.List).ExtraQueryParameters(new NameValueCollection{{"search", Model.SearchWord}})%>
+			<%= Html.WpcPager(Model.List)%>
 			<div>
 				<%= Html.WpcGrid(Model.List)
 					.Columns(

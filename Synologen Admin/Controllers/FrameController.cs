@@ -1,3 +1,5 @@
+using System;
+using System.Web;
 using System.Web.Mvc;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
@@ -31,36 +33,44 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[HttpGet]
 		public ActionResult Index(string search, GridPageSortParameters gridPageSortParameters ) 
 		{
+			var decodedSearchTerm = search.UrlDecode();
 			var criteria = new PageOfFramesMatchingCriteria
 			{
-				NameLike = search, 
+				NameLike = decodedSearchTerm,
 				Page = gridPageSortParameters.Page, 
 				PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize, 
 				OrderBy = gridPageSortParameters.Column,
-				SortAscending = gridPageSortParameters.SortAscending
+				SortAscending = gridPageSortParameters.Direction == SortDirection.Ascending
 			};
 //			HttpContext.Items.Add("Test", "Yihaaaa");
 			var list = _frameRepository.FindBy(criteria);
 			var viewList = list
 				.ToSortedPagedList()
 				.ToFrameViewList();
-			return View(new FrameListView {List = viewList, SearchWord = search});
+			var viewModel = new FrameListView {List = viewList, SearchTerm = decodedSearchTerm};
+			return View(viewModel);
 		}
 
 		[HttpPost]
-		public ActionResult Index(FrameListView inModel, GridPageSortParameters gridPageSortParameters)
+		public ActionResult Index(FrameListView inModel)
 		{
-			var list = _frameRepository.FindBy(new PageOfFramesMatchingCriteria
+			var routeValues = ControllerContext.HttpContext.Request.QueryString
+				.ToRouteValueDictionary()
+				.BlackList("controller", "action");
+			if(String.IsNullOrEmpty(inModel.SearchTerm))
 			{
-				NameLike = inModel.SearchWord,
-				Page = gridPageSortParameters.Page,
-				PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize
-			});
-			var viewList = list
-				.ToSortedPagedList()
-				.ToFrameViewList();
-			return View(new FrameListView {List = viewList, SearchWord = inModel.SearchWord});
+			    routeValues.TryRemoveRouteValue("search");
+			}
+			else
+			{
+			    routeValues.AddOrReplaceRouteValue("search", inModel.SearchTerm.UrlEncode());
+			}
+			return RedirectToAction("Index", routeValues);
 		}
+
+
+
+		
 
 		public ActionResult Edit(int id)
 		{

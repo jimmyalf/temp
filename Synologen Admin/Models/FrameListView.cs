@@ -7,6 +7,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 	{
 		public ISortedPagedList<FrameListItemView> List { get; set; }
 		[DisplayName("Filtrera")]
-		public string SearchWord { get; set; }
+		public string SearchTerm { get; set; }
 	}
 }

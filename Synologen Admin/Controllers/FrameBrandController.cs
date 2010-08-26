@@ -18,7 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				Page = gridPageSortParameters.Page,
 				PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize,
 				OrderBy = gridPageSortParameters.Column,
-				SortAscending = gridPageSortParameters.SortAscending
+				SortAscending = gridPageSortParameters.Direction == SortDirection.Ascending
 			};
 
 			var list = _frameBrandRepository.FindBy(criteria);

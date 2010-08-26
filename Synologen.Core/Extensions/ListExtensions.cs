@@ -27,5 +27,6 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		{
 			return input.ToList().ConvertAll(new Converter<TFromModel, TToModel>(converterFunction));
 		}
+
 	}
 }

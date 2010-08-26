@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Web;
+using System.Web.Routing;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Presentation.Models;
 
@@ -165,6 +169,29 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		}
 
 		#endregion
+
+		public static RouteValueDictionary AddOrReplaceRouteValue<TViewModel>(this TViewModel viewViewModel, Expression<Func<TViewModel,string>> viewModelProperty, RouteValueDictionary dictionary) where TViewModel : class
+		{
+			var key = viewModelProperty.GetName().ToLower();
+			var value = viewModelProperty.Compile().Invoke(viewViewModel);
+			var encodedValue = HttpUtility.UrlEncode(value);
+			return dictionary.AddOrReplaceRouteValue(key, encodedValue);
+		}
+
+		public static RouteValueDictionary TryRemoveRouteValue<TViewModel>(this TViewModel viewModel,  Expression<Func<TViewModel,string>> propertyExpression, RouteValueDictionary dictionary) where TViewModel : class
+		{
+			var key = propertyExpression.GetName().ToLower();
+			return dictionary.TryRemoveRouteValue(key);
+		}
+
+		public static string UrlEncode(this string value)
+		{
+			return string.IsNullOrEmpty(value) ? value : HttpUtility.UrlEncode(value);
+		}
+		public static string UrlDecode(this string value)
+		{
+			return string.IsNullOrEmpty(value) ? value : HttpUtility.UrlDecode(value);
+		}
 
 		private static Frame UpdateFrame(Frame entity, FrameEditView viewModel, FrameBrand brand, FrameColor color)
 		{

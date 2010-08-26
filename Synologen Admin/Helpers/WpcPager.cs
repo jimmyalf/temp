@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Specialized;
 using System.Text;
 using System.Web;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Core.Persistence;
+using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 
 namespace Spinit.Wpc.Synologen.Presentation.Helpers
 {
@@ -20,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		private string _paginationLast = Resources.WpcPager.LastText;
 		private string _pageQueryName = "page";
 		private Func<int, string> _urlBuilder;
-		private NameValueCollection _extraQueryParameters;
+		//private NameValueCollection _extraQueryParameters;
 
 		/// <summary>
 		/// Creates a new instance of the Pager class.
@@ -44,11 +43,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 			return this;
 		}
 
-		public WpcPager ExtraQueryParameters(NameValueCollection extraQueryParameters) 
-		{
-			_extraQueryParameters = extraQueryParameters;
-			return this;
-		}
+		//public WpcPager ExtraQueryParameters(NameValueCollection extraQueryParameters) 
+		//{
+		//    _extraQueryParameters = extraQueryParameters;
+		//    return this;
+		//}
 
 		public WpcPager ContainerClass(string className) 
 		{
@@ -102,6 +101,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 			_paginationLast = last;
 			return this;
 		}
+
 
 		/// <summary>
 		/// Uses a lambda expression to generate the URL for the page links.
@@ -196,39 +196,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		}
 
 		private string CreateDefaultUrl(int pageNumber) {
-			var queryString = CreateQueryString(_request.QueryString);
+			var parameterCollection = _request.QueryString.AddReplaceItem(_pageQueryName, pageNumber.ToString());
+			var queryString = parameterCollection.ToQueryString();
 			var filePath = _request.FilePath;
-			var url = string.Format("{0}?{1}={2}{3}", filePath, _pageQueryName, pageNumber, queryString);
+			var url = string.Format("{0}?{1}", filePath, queryString);
 			return url;
-		}
-
-		private string CreateQueryString(NameValueCollection values) {
-			var builder = new StringBuilder();
-
-			if (values != null)
-			{
-				foreach (string key in values.Keys)
-				{
-					if (key == _pageQueryName || _extraQueryParameters.HasKey(key))
-						continue;
-
-					foreach (var value in values.GetValues(key) ?? new string[0])
-					{
-						builder.AppendFormat("&amp;{0}={1}", key, HttpUtility.HtmlEncode(value));
-					}
-				}
-			}
-			if (_extraQueryParameters != null)
-			{
-				foreach (string queryParameterKey in _extraQueryParameters.Keys)
-				{
-					var value = _extraQueryParameters[queryParameterKey];
-					if (value == null)
-						continue;
-					builder.AppendFormat("&amp;{0}={1}", queryParameterKey, HttpUtility.HtmlEncode(value));
-				}
-			}
-			return builder.ToString();
 		}
 	}
 }

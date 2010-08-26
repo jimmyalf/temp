@@ -19,21 +19,25 @@
 			<% } %>
 			<%= Html.WpcPager(Model.List)%>
 			<div>
-				<%= Html.WpcGrid(Model.List)
-					.Columns(
-						column => {
-     						column.For(x => x.Id).Named("ID")
-     							.HeaderAttributes(@class => "controlColumn");
-     						column.For(x => x.Frame).Named("Båge");
-						    column.For(x => x.GlassType).Named("Glastyp");
-						    column.For(x => x.Shop).Named("Butik");
-						    column.For(x => x.Sent).Named("Skickad");
-						    column.For(x => x.Created).Named("Skapad");
-							column.For(x => Html.ActionLink("Visa", "ViewFrame", "Frame", new {id = x.Id}, new object()))
-								.SetAsWpcControlColumn("Visa");
-     					}
-     				)
-     				.Empty("Inga ordrar i databasen.")
+				<%
+               Html.WpcGrid(Model.List).Columns(column =>
+               {
+               	column.For(x => x.Id).Named("ID").HeaderAttributes(@class => "controlColumn");
+               	column.For(x => x.Frame).Named("Båge");
+               	column.For(x => x.GlassType).Named("Glastyp");
+               	column.For(x => x.Shop).Named("Butik");
+               	column.For("Skickad").Action(p => { %>
+					<td class="center">
+					<%if(p.Sent){%>
+						<img title="Active" src="/common/icons/True.png" alt="Active"/>
+					<%} else { %>
+						<img title="Inactive" src="/common/icons/False.png" alt="Inactive"/>
+					<%} %>
+					</td>
+				<%});
+               	column.For(x => x.Created).Named("Skapad");
+               	column.For(x => Html.ActionLink("Visa", "ViewFrame", "Frame", new {id = x.Id}, new object())).SetAsWpcControlColumn("Visa");
+               }).Empty("Inga ordrar i databasen.").Render();
 				%>
 				<%=Html.WpcConfirmationDialog("Är du säker på att du vill radera vald order?") %>
 			</div>

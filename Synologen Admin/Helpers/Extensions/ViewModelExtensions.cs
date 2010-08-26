@@ -190,6 +190,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		{
 			return string.IsNullOrEmpty(value) ? value : HttpUtility.UrlEncode(value);
 		}
+
 		public static string UrlDecode(this string value)
 		{
 			return string.IsNullOrEmpty(value) ? value : HttpUtility.UrlDecode(value);

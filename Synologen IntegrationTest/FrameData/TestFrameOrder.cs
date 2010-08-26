@@ -105,6 +105,81 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		}
 
 		[Test]
+		public void Can_get_frame_orders_by_PageOfFrameOrdersMatchingCriteria_filtered_by_glass_type()
+		{
+			//Arrange
+			const int expectedNumberOfFramesMatchingCriteria = 36;
+			var criteria = new PageOfFrameOrdersMatchingCriteria
+			{
+				Search = "Enstyrke",
+				OrderBy = null,
+				Page = 1,
+				PageSize = 100,
+				SortAscending = true
+			};
+
+			//Act
+			var framesMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
+			
+			//Assert
+			Expect(framesMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfFramesMatchingCriteria));
+			foreach (var order in framesMatchingCriteria)
+			{
+				Expect(order.GlassType.Name, ContainsSubstring(criteria.Search));
+			}
+		}
+
+		[Test]
+		public void Can_get_frame_orders_by_PageOfFrameOrdersMatchingCriteria_filtered_by_shop_name()
+		{
+			//Arrange
+			const int expectedNumberOfFramesMatchingCriteria = 144;
+			var criteria = new PageOfFrameOrdersMatchingCriteria
+			{
+				Search = "Testbutik för bågbeställning",
+				OrderBy = null,
+				Page = 1,
+				PageSize = 200,
+				SortAscending = true
+			};
+
+			//Act
+			var framesMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
+			
+			//Assert
+			Expect(framesMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfFramesMatchingCriteria));
+			foreach (var order in framesMatchingCriteria)
+			{
+				Expect(order.OrderingShop.Name, ContainsSubstring(criteria.Search));
+			}
+		}
+
+		[Test]
+		public void Can_get_frame_orders_by_PageOfFrameOrdersMatchingCriteria_filtered_by_frame_name()
+		{
+			//Arrange
+			const int expectedNumberOfFramesMatchingCriteria = 4;
+			var criteria = new PageOfFrameOrdersMatchingCriteria
+			{
+				Search = "Testbåge 36",
+				OrderBy = null,
+				Page = 1,
+				PageSize = 100,
+				SortAscending = true
+			};
+
+			//Act
+			var framesMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
+			
+			//Assert
+			Expect(framesMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfFramesMatchingCriteria));
+			foreach (var order in framesMatchingCriteria)
+			{
+				Expect(order.Frame.Name, ContainsSubstring(criteria.Search));
+			}
+		}
+
+		[Test]
 		public void Can_get_frame_orders_by_PageOfFrameOrdersMatchingCriteria_paged()
 		{
 			//Arrange

@@ -26,6 +26,7 @@
                	column.For(x => x.Frame).Named("Båge");
                	column.For(x => x.GlassType).Named("Glastyp");
                	column.For(x => x.Shop).Named("Butik");
+               	column.For(x => x.Created).Named("Skapad");               	
                	column.For("Skickad").Action(p => { %>
 					<td class="center">
 					<%if(p.Sent){%>
@@ -35,8 +36,8 @@
 					<%} %>
 					</td>
 				<%});
-               	column.For(x => x.Created).Named("Skapad");
-               	column.For(x => Html.ActionLink("Visa", "ViewFrame", "Frame", new {id = x.Id}, new object())).SetAsWpcControlColumn("Visa");
+               	column.For(x => Html.ActionLink("Visa", "ViewFrameOrder", "Frame", new {id = x.Id}, new object()))
+               		.SetAsWpcControlColumn("Visa");
                }).Empty("Inga ordrar i databasen.").Render();
 				%>
 				<%=Html.WpcConfirmationDialog("Är du säker på att du vill radera vald order?") %>

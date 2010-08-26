@@ -28,7 +28,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return View(viewModel);
 		}
 
-		
 		[HttpPost]
 		public ActionResult FrameOrders(FrameOrderListView viewModel)
 		{
@@ -46,8 +45,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return RedirectToAction("FrameOrders", routeValues);
 		}
 
-
-	
-		
+		[HttpGet]
+		public ActionResult ViewFrameOrder(int id)
+		{
+			var frameOrder = _frameOrderRepository.Get(id);
+			var viewModel = frameOrder.ToFrameOrderView();
+			return View(viewModel);
+		}
 	}
 }

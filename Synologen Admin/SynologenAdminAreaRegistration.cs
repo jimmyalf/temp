@@ -42,6 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 
 
 			context.MapRoute(AreaName + "FrameOrders", urlPrefix + "frames/orders", new { controller = "Frame", action = "FrameOrders" } );
+			context.MapRoute(AreaName + "ViewFrameOrders", urlPrefix + "frames/orders/view/{id}", new { controller = "Frame", action = "ViewFrameOrder" } );
 
 		}
 

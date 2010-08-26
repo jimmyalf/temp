@@ -68,10 +68,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return RedirectToAction("Index", routeValues);
 		}
 
-
-
-		
-
 		public ActionResult Edit(int id)
 		{
 			var selectableFrameColors = _frameColorRepository.GetAll();

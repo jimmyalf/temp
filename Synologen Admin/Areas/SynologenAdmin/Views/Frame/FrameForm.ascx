@@ -43,6 +43,22 @@
 					<%= Html.ValidationMessageFor(x => x.PupillaryDistanceIncrementation) %>
 				</p>
 			</fieldset>
+			<fieldset>
+				<legend>Lagersaldo</legend>
+				<p class="display-item clearLeft">
+					<%= Html.LabelFor(x => x.CurrentStock) %>
+					<%= Html.DisplayFor(x => x.CurrentStock) %>				
+				</p>
+				<p class="display-item clearLeft">
+					<%= Html.LabelFor(x => x.StockDate) %>
+					<%= Html.DisplayFor(x => x.StockDate) %>				
+				</p>	
+				<p class="formItem clearLeft">
+					<%= Html.LabelFor(x => x.StockAtStockDate) %>
+					<%= Html.EditorFor(x => x.StockAtStockDate) %>	
+					<%= Html.ValidationMessageFor(x => x.StockAtStockDate) %>
+				</p>
+			</fieldset> 
 			<p class="formItem">
 				<%= Html.LabelFor(x => x.AllowOrders) %>
 				<%= Html.EditorFor(x => x.AllowOrders) %>
@@ -51,7 +67,7 @@
 			<p class="formCommands">
 				<%= Html.AntiForgeryToken() %>
 				<%= Html.HiddenFor(x => x.Id) %>
-				<input type="submit" value="Save" class="btnBig" />
+				<input type="submit" value="Spara båge" class="btnBig" />
 			</p>
 		</fieldset>
     <% } %>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
@@ -36,6 +37,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 
 		public static Frame GetMockedFrame(int id)
 		{
+			var mockedStock = new Mock<FrameStock>();
+			mockedStock.SetupGet(x => x.StockAtStockDate).Returns(200);
+			mockedStock.SetupGet(x => x.CurrentStock).Returns(196);
+			mockedStock.SetupGet(x => x.StockDate).Returns(new DateTime(2010, 08, 01, 0, 0, 0));
 		    return new Frame
 		    {
 		        AllowOrders = true,
@@ -44,6 +49,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 		        Color = new FrameColor {Id = 1, Name = "Blå"},
 		        Id = id,
 		        Name = "Bra båge",
+                //Stock = new FrameStock{StockAtStockDate=200, StockDate = new DateTime(2010,08,01,0,0,0)}
+				Stock = mockedStock.Object
 		    }.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5m);		
 		}
 

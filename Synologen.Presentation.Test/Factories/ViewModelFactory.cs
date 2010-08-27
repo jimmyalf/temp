@@ -6,8 +6,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 	{
 		public static FrameEditView GetFrameEditView(int id)
 		{
-			return new FrameEditView
-			{
+			return new FrameEditView {
 				AllowOrders = true,
 				ArticleNumber = "123",
 				AvailableFrameBrands = null,
@@ -20,6 +19,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 				PupillaryDistanceIncrementation = 0.22m,
 				PupillaryDistanceMaxValue = 11,
 				PupillaryDistanceMinValue = 12,
+				CurrentStock = 196,
+				StockAtStockDate = 200, 
+				StockDate = "2010-08-01"
 			};
 		}
 

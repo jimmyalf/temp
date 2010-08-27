@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
@@ -131,6 +132,37 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(savedItem.PupillaryDistance.Increment, Is.EqualTo(viewModel.PupillaryDistanceIncrementation));
 			Expect(savedItem.PupillaryDistance.Max, Is.EqualTo(viewModel.PupillaryDistanceMaxValue));
 			Expect(savedItem.PupillaryDistance.Min, Is.EqualTo(viewModel.PupillaryDistanceMinValue));
+			Expect(result.RouteValues["action"], Is.EqualTo("Index"));
+			Expect(actionMessages.First().Message, Is.EqualTo(expectedActionMessage));
+			Expect(actionMessages.First().Type, Is.EqualTo(WpcActionMessageType.Success));
+		}
+
+		[Test]
+		public void When_Edit_POST_Is_Called_With_Updated_Stock_Saved_DomainItem_Has_Expected_Values_And_Redirects()
+		{
+			//Arrange
+			var viewModel = ViewModelFactory.GetFrameEditView(3);
+			viewModel.StockAtStockDate = 350;
+			const string expectedActionMessage = "Bågen har sparats";
+
+			//Act
+			var result = (RedirectToRouteResult) controller.Edit(viewModel);
+			var actionMessages = controller.GetWpcActionMessages();
+			var savedItem = ((RepositoryFactory.GenericMockRepository<Frame>) frameRepository).SavedEntity;
+
+			//Assert
+			Expect(savedItem, Is.Not.Null);
+			Expect(savedItem.AllowOrders, Is.EqualTo(viewModel.AllowOrders));
+			Expect(savedItem.ArticleNumber, Is.EqualTo(viewModel.ArticleNumber));
+			Expect(savedItem.Brand.Id, Is.EqualTo(viewModel.BrandId));
+			Expect(savedItem.Color.Id, Is.EqualTo(viewModel.ColorId));
+			Expect(savedItem.Id, Is.EqualTo(viewModel.Id));
+			Expect(savedItem.Name, Is.EqualTo(viewModel.Name));
+			Expect(savedItem.PupillaryDistance.Increment, Is.EqualTo(viewModel.PupillaryDistanceIncrementation));
+			Expect(savedItem.PupillaryDistance.Max, Is.EqualTo(viewModel.PupillaryDistanceMaxValue));
+			Expect(savedItem.PupillaryDistance.Min, Is.EqualTo(viewModel.PupillaryDistanceMinValue));
+			Expect(savedItem.Stock.StockAtStockDate, Is.EqualTo(viewModel.StockAtStockDate));
+			Expect(savedItem.Stock.StockDate.ToString("yyyy-MM-dd"), Is.EqualTo(DateTime.Now.ToString("yyyy-MM-dd")));
 			Expect(result.RouteValues["action"], Is.EqualTo("Index"));
 			Expect(actionMessages.First().Message, Is.EqualTo(expectedActionMessage));
 			Expect(actionMessages.First().Type, Is.EqualTo(WpcActionMessageType.Success));

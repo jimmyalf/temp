@@ -72,6 +72,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 				PupillaryDistanceMaxValue = entity.PupillaryDistance.Max,
 				PupillaryDistanceMinValue = entity.PupillaryDistance.Min,
 				FormLegend = formLegend,
+            	CurrentStock = entity.Stock.CurrentStock, 
+				StockAtStockDate = entity.Stock.StockAtStockDate, 
+				StockDate = entity.Stock.StockDate.ToString("yyyy-MM-dd")
+
 			};
 		}
 
@@ -125,7 +129,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
                 Shop = frameOrder.OrderingShop.Name,
                 ShopCity = frameOrder.OrderingShop.Address.City,
                 Sphere = new EyeParameterViewModel(frameOrder.Sphere),
-                Notes = frameOrder.Notes
+                Notes = frameOrder.Notes,
 			};
 		}
 		#endregion
@@ -226,6 +230,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			entity.Color = color;
 			entity.Id = viewModel.Id;
 			entity.Name = viewModel.Name;
+			if(entity.Stock == null) entity.Stock = new FrameStock();
+			if(entity.Stock.StockAtStockDate != viewModel.StockAtStockDate)
+			{
+				entity.Stock.StockAtStockDate = viewModel.StockAtStockDate;
+				entity.Stock.StockDate = DateTime.Now;
+			}
 
 			entity
 				.SetInterval(x => x.PupillaryDistance, viewModel.PupillaryDistanceMinValue, viewModel.PupillaryDistanceMaxValue, viewModel.PupillaryDistanceIncrementation);

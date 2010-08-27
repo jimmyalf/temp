@@ -26,44 +26,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 		[Required(ErrorMessage="Märke saknas")]
 		public int BrandId { get; set; }
 
-		//[DisplayName("Min")]
-		//[Required(ErrorMessage="Index min saknas")]
-		//public decimal IndexMinValue { get; set; }
+		[DisplayName("Aktuellt lagersaldo")]
+		public int? CurrentStock { get; set; }
 
-		//[DisplayName("Max")]
-		//[Required(ErrorMessage="Index max saknas")]
-		//public decimal IndexMaxValue { get; set; }
+		[DisplayName("Lagersaldo")]
+		[Range(1, int.MaxValue, ErrorMessage = "Lagersaldo måste vara större än noll")]
+		public int StockAtStockDate { get; set; }
 
-		//[DisplayName("Inkrement")]
-		//[GreaterThanZero(ErrorMessage = "Värdet måste vara större än noll")]
-		//[Required(ErrorMessage="Index intervall inkrement saknas")]
-		//public decimal IndexIncrementation { get; set; }
-
-		//[DisplayName("Min")]
-		//[Required(ErrorMessage="Sfär min saknas")]
-		//public decimal SphereMinValue { get; set; }
-
-		//[DisplayName("Max")]
-		//[Required(ErrorMessage="Sfär max saknas")]
-		//public decimal SphereMaxValue { get; set; }
-
-		//[DisplayName("Inkrement")]
-		//[GreaterThanZero(ErrorMessage = "Värdet måste vara större än noll")]
-		//[Required(ErrorMessage="Sfär intervall inkrement saknas")]
-		//public decimal SphereIncrementation { get; set; }
-
-		//[DisplayName("Min")]
-		//[Required(ErrorMessage="Cylinder min saknas")]
-		//public decimal CylinderMinValue { get; set; }
-
-		//[DisplayName("Max")]
-		//[Required(ErrorMessage="Cylinder max saknas")]
-		//public decimal CylinderMaxValue { get; set; }
-
-		//[DisplayName("Inkrement")]
-		//[GreaterThanZero(ErrorMessage = "Värdet måste vara större än noll")]
-		//[Required(ErrorMessage="Cylinder intervall inkrement saknas")]
-		//public decimal CylinderIncrementation { get; set; }
+		[DisplayName("Lagersaldo uppdaterades senast")]
+		public string StockDate { get; set; }
 
 		[DisplayName("Min")]
 		[GreaterThanZero(ErrorMessage = "Värdet måste vara större än noll")]
@@ -79,32 +50,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 		[GreaterThanZero(ErrorMessage = "Värdet måste vara större än noll")]
 		[Required(ErrorMessage="Pupill-distans intervall inkrement saknas")]
 		public decimal PupillaryDistanceIncrementation { get; set; }
-
-		//[DisplayName("Min")]
-		//[Required(ErrorMessage="Addition min saknas")]
-		//public decimal AdditionMinValue { get; set; }
-
-		//[DisplayName("Max")]
-		//[Required(ErrorMessage="Addition max saknas")]
-		//public decimal AdditionMaxValue { get; set; }
-
-		//[DisplayName("Inkrement")]
-		//[GreaterThanZero(ErrorMessage = "Värdet måste vara större än noll")]
-		//[Required(ErrorMessage="Addition intervall inkrement saknas")]
-		//public decimal AdditionIncrementation { get; set; }
-
-		//[DisplayName("Min")]
-		//[Required(ErrorMessage="Höjd min saknas")]
-		//public decimal HeightMinValue { get; set; }
-
-		//[DisplayName("Max")]
-		//[Required(ErrorMessage="Höjd max saknas")]
-		//public decimal HeightMaxValue { get; set; }
-
-		//[DisplayName("Inkrement")]
-		//[GreaterThanZero(ErrorMessage = "Värdet måste vara större än noll")]
-		//[Required(ErrorMessage="Höjd intervall inkrement saknas")]
-		//public decimal HeightIncrementation { get; set; }
 
 		[DisplayName("Tillgänglig för beställning")]
 		public bool AllowOrders { get; set; }

@@ -1,20 +1,22 @@
+using System.ComponentModel;
+
 namespace Spinit.Wpc.Synologen.Presentation.Models
 {
 	public class FrameOrderView
 	{
-		public string Created { get; set; }
-		public string Sent { get; set; }
-		public string Frame { get; set; }
-		public string FrameArticleNumber { get; set; }
-		public string GlassType { get; set; }
-		public int Id { get; set; }
-		public string Shop { get; set; }
-		public string ShopCity { get; set; }
-		public EyeParameterViewModel Addition { get; set; }
-		public EyeParameterViewModel Axis { get; set; }
-		public EyeParameterViewModel Cylinder { get; set; }
-		public EyeParameterViewModel Height { get; set; }
-		public EyeParameterViewModel PupillaryDistance { get; set; }
-		public EyeParameterViewModel Sphere { get; set; }
+		[DisplayName("Skapad")] public string Created { get; set; }
+		[DisplayName("Skickad")] public string Sent { get; set; }
+		[DisplayName("Båge")] public string Frame { get; set; }
+		[DisplayName("Artnr.")] public string FrameArticleNumber { get; set; }
+		[DisplayName("Glastyp")] public string GlassType { get; set; }
+		[DisplayName("Id")]public int Id { get; set; }
+		[DisplayName("Butik")]public string Shop { get; set; }
+		[DisplayName("Butiksort")]public string ShopCity { get; set; }
+		[DisplayName("Addition")]public EyeParameterViewModel Addition { get; set; }
+		[DisplayName("Axel")]public EyeParameterViewModel Axis { get; set; }
+		[DisplayName("Cylinder")]public EyeParameterViewModel Cylinder { get; set; }
+		[DisplayName("Höjd")]public EyeParameterViewModel Height { get; set; }
+		[DisplayName("PD")]public EyeParameterViewModel PupillaryDistance { get; set; }
+		[DisplayName("Sfär")]public EyeParameterViewModel Sphere { get; set; }
 	}
 }

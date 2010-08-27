@@ -37,12 +37,16 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData.Factories
 				foreach (var color in colors)
 				{
 					returnList.Add(new Frame {
-							AllowOrders = true,
-							ArticleNumber = String.Format("98765-{0}", counter),
-							Brand = brand,
-							Color = color,
-							Name = string.Format("Testbåge {0}", counter)
-						}.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5M)
+						AllowOrders = true,
+						ArticleNumber = String.Format("98765-{0}", counter),
+						Brand = brand,
+						Color = color,
+						Name = string.Format("Testbåge {0}", counter),
+						Stock = new FrameStock {
+							StockAtStockDate = 200,
+							StockDate = new DateTime(2010, 08, 01, 0, 0, 0),
+						}
+					}.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5M)
 					);
 					counter++;
 				}

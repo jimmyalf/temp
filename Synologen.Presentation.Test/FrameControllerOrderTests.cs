@@ -64,41 +64,41 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(result.RouteValues["Column"], Is.EqualTo("Name"));
 		}
 
-		[Test]
-		public void When_ViewFrameOrder_GET_Is_Called_Returned_ViewModel_Has_Expected_Values()
-		{
-			//Arrange
-			const int frameOrderId = 1;
-			var domainItem = RepositoryFactory.GetMockedFrameOrder(frameOrderId);
+		//[Test]
+		//public void When_ViewFrameOrder_GET_Is_Called_Returned_ViewModel_Has_Expected_Values()
+		//{
+		//    //Arrange
+		//    const int frameOrderId = 1;
+		//    var domainItem = RepositoryFactory.GetMockedFrameOrder(frameOrderId);
 
-			//Act
-			var result = (ViewResult) controller.ViewFrameOrder(frameOrderId);
-			var model = (FrameOrderView) result.ViewData.Model;
+		//    //Act
+		//    var result = (ViewResult) controller.ViewFrameOrder(frameOrderId);
+		//    var model = (FrameOrderView) result.ViewData.Model;
 
-			//Assert
-			Expect(model, Is.Not.Null);
+		//    //Assert
+		//    Expect(model, Is.Not.Null);
 			
-			Expect(model.Addition.Left, Is.EqualTo(domainItem.Addition.Left));
-			Expect(model.Addition.Right, Is.EqualTo(domainItem.Addition.Right));
-			Expect(model.Axis.Left, Is.EqualTo(domainItem.Axis.Left));
-			Expect(model.Axis.Right, Is.EqualTo(domainItem.Axis.Right));
-			Expect(model.Created, Is.EqualTo(domainItem.Created.ToString("yyyy-MM-dd HH:mm")));
-			Expect(model.Cylinder.Left, Is.EqualTo(domainItem.Cylinder.Left));
-			Expect(model.Cylinder.Right, Is.EqualTo(domainItem.Cylinder.Right));
-			Expect(model.Frame, Is.EqualTo(domainItem.Frame.Name));
-			Expect(model.FrameArticleNumber, Is.EqualTo(domainItem.Frame.ArticleNumber));
-			Expect(model.GlassType, Is.EqualTo(domainItem.GlassType.Name));
-			Expect(model.Height.Left, Is.EqualTo(domainItem.Height.Left));
-			Expect(model.Height.Right, Is.EqualTo(domainItem.Height.Right));
-			Expect(model.Id, Is.EqualTo(domainItem.Id));
-			Expect(model.Shop, Is.EqualTo(domainItem.OrderingShop.Name));
-			Expect(model.ShopCity, Is.EqualTo(domainItem.OrderingShop.Address.City));
-			Expect(model.PupillaryDistance.Left, Is.EqualTo(domainItem.PupillaryDistance.Left));
-			Expect(model.PupillaryDistance.Right, Is.EqualTo(domainItem.PupillaryDistance.Right));
-			Expect(model.Sent, Is.EqualTo(domainItem.Sent.Value.ToString("yyyy-MM-dd HH:mm")));
-			Expect(model.Sphere.Left, Is.EqualTo(domainItem.Sphere.Left));
-			Expect(model.Sphere.Right, Is.EqualTo(domainItem.Sphere.Right));
+		//    Expect(model.Addition.Left, Is.EqualTo(domainItem.Addition.Left));
+		//    Expect(model.Addition.Right, Is.EqualTo(domainItem.Addition.Right));
+		//    Expect(model.Axis.Left, Is.EqualTo(domainItem.Axis.Left));
+		//    Expect(model.Axis.Right, Is.EqualTo(domainItem.Axis.Right));
+		//    Expect(model.Created, Is.EqualTo(domainItem.Created.ToString("yyyy-MM-dd HH:mm")));
+		//    Expect(model.Cylinder.Left, Is.EqualTo(domainItem.Cylinder.Left));
+		//    Expect(model.Cylinder.Right, Is.EqualTo(domainItem.Cylinder.Right));
+		//    Expect(model.Frame, Is.EqualTo(domainItem.Frame.Name));
+		//    Expect(model.FrameArticleNumber, Is.EqualTo(domainItem.Frame.ArticleNumber));
+		//    Expect(model.GlassType, Is.EqualTo(domainItem.GlassType.Name));
+		//    Expect(model.Height.Left, Is.EqualTo(domainItem.Height.Left));
+		//    Expect(model.Height.Right, Is.EqualTo(domainItem.Height.Right));
+		//    Expect(model.Id, Is.EqualTo(domainItem.Id));
+		//    Expect(model.Shop, Is.EqualTo(domainItem.OrderingShop.Name));
+		//    Expect(model.ShopCity, Is.EqualTo(domainItem.OrderingShop.Address.City));
+		//    Expect(model.PupillaryDistance.Left, Is.EqualTo(domainItem.PupillaryDistance.Left));
+		//    Expect(model.PupillaryDistance.Right, Is.EqualTo(domainItem.PupillaryDistance.Right));
+		//    Expect(model.Sent, Is.EqualTo(domainItem.Sent.Value.ToString("yyyy-MM-dd HH:mm")));
+		//    Expect(model.Sphere.Left, Is.EqualTo(domainItem.Sphere.Left));
+		//    Expect(model.Sphere.Right, Is.EqualTo(domainItem.Sphere.Right));
 
-		}
+		//}
 	}
 }

@@ -88,3 +88,22 @@ ul.action-messages.contains-success{
   background-color:#009900;
   background-image:url(/common/img/SuccessBG.png);
 }
+
+ 
+#synologen-content fieldset .display-item label
+{
+	min-width: 6em;
+	display:inline-block;
+}
+
+.display-item 
+{
+	width: 30em;
+	float:left;	
+}
+.display-item.eyeparameter
+{
+	width: 16em;
+	float:left;	
+}
+

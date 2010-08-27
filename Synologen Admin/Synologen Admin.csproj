@@ -480,6 +480,7 @@
     </None>
     <None Include="CodeTemplates\AddView\List.tt">
     </None>
+    <Content Include="Areas\SynologenAdmin\Views\Frame\ViewFrameOrder.aspx" />
     <Content Include="Window.master" />
   </ItemGroup>
   <ItemGroup>

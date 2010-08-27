@@ -38,9 +38,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 		public static Frame GetMockedFrame(int id)
 		{
 			var mockedStock = new Mock<FrameStock>();
-			mockedStock.SetupGet(x => x.StockAtStockDate).Returns(200);
+			mockedStock.SetupProperty(x => x.StockAtStockDate,200);
 			mockedStock.SetupGet(x => x.CurrentStock).Returns(196);
-			mockedStock.SetupGet(x => x.StockDate).Returns(new DateTime(2010, 08, 01, 0, 0, 0));
+			mockedStock.SetupProperty(x => x.StockDate, new DateTime(2010, 08, 01, 0, 0, 0));
 		    return new Frame
 		    {
 		        AllowOrders = true,

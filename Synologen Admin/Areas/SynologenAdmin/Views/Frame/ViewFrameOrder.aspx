@@ -44,14 +44,18 @@
 						<%= Html.LabelFor(x => x.Axis) %>
 						<%= Html.DisplayFor(x => x.Axis,"EyeParameterView") %>
 					</p>
+					<%= if(Model.Addition != null){ %>
 					<p class="display-item eyeparameter">
 						<%= Html.LabelFor(x => x.Addition) %>
 						<%= Html.DisplayFor(x => x.Addition,"EyeParameterView") %>
 					</p>
+					<%} %>
+					<%= if(Model.Height != null){ %>
 					<p class="display-item eyeparameter">
 						<%= Html.LabelFor(x => x.Height) %>
 						<%= Html.DisplayFor(x => x.Height,"EyeParameterView") %>
-					</p>										
+					</p>
+					<%} %>															
 				</fieldset>					
 				<p class="display-item clearLeft">
 					<%= Html.LabelFor(x => x.Created) %>

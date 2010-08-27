@@ -98,6 +98,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		    Expect(model.Sent, Is.EqualTo(domainItem.Sent.Value.ToString("yyyy-MM-dd HH:mm")));
 		    Expect(model.Sphere.Left, Is.EqualTo(domainItem.Sphere.Left));
 		    Expect(model.Sphere.Right, Is.EqualTo(domainItem.Sphere.Right));
+			Expect(model.Notes, Is.EqualTo(domainItem.Notes));
 
 		}
 	}

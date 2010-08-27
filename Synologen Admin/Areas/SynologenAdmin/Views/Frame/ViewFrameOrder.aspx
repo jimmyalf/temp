@@ -62,6 +62,11 @@
 					<%= Html.DisplayFor(x => x.Sent) %>
 				</p>								
 				<p class="display-item clearLeft">
+					<%= Html.LabelFor(x => x.Notes) %>
+					<br />
+					<%= Html.DisplayFor(x => x.Notes) %>
+				</p>					
+				<p class="display-item clearLeft">
 					<%= Html.ActionLink("Tillbaka till beställningar", "FrameOrders") %>
 				</p>
 			</fieldset>				

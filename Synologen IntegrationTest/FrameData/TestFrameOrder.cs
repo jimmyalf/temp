@@ -43,6 +43,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			Expect(persistedFrameColor.Sent, Is.EqualTo(savedFrameOrder.Sent));
 			Expect(persistedFrameColor.Sphere.Left, Is.EqualTo(savedFrameOrder.Sphere.Left));
 			Expect(persistedFrameColor.Sphere.Right, Is.EqualTo(savedFrameOrder.Sphere.Right));
+			Expect(persistedFrameColor.Notes, Is.EqualTo(savedFrameOrder.Notes));
 		}
 
 		[Test]

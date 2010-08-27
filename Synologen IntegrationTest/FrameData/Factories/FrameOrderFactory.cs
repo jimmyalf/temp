@@ -24,7 +24,8 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData.Factories
 							OrderingShop = shop,
 							PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
 							Sent = new DateTime(2010, 08, 24, 13, 45, 0),
-							Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M }
+							Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M },
+                            Notes = "Snabb leverans."
 						});
 				}
 			}

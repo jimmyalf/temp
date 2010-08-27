@@ -125,6 +125,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
                 Shop = frameOrder.OrderingShop.Name,
                 ShopCity = frameOrder.OrderingShop.Address.City,
                 Sphere = new EyeParameterViewModel(frameOrder.Sphere),
+                Notes = frameOrder.Notes
 			};
 		}
 		#endregion

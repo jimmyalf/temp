@@ -92,7 +92,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 				OrderingShop = GetMockedShop(1),
 				PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
 				Sent = new DateTime(2010, 08, 24, 13, 45, 0),
-				Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M }
+				Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M },
+                Notes = "Leverans helst innan fredag."
 			};
 		}
 

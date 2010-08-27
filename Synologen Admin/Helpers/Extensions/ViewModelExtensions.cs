@@ -109,8 +109,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 
 		public static FrameOrderView ToFrameOrderView(this FrameOrder frameOrder)
 		{
-			return new FrameOrderView()
+			return new FrameOrderView
 			{
+                Addition = (frameOrder.Addition != null) ? new EyeParameterViewModel(frameOrder.Addition) : null,
+                Axis = new EyeParameterViewModel(frameOrder.Axis),
+                Created = frameOrder.Created.ToString("yyyy-MM-dd HH:mm"),
+                Cylinder = new EyeParameterViewModel(frameOrder.Cylinder),
+                Frame = frameOrder.Frame.Name,
+                FrameArticleNumber = frameOrder.Frame.ArticleNumber,
+                GlassType = frameOrder.GlassType.Name,
+                Height = (frameOrder.Height != null) ? new EyeParameterViewModel(frameOrder.Height) : null,
+                Id = frameOrder.Id,
+                PupillaryDistance = new EyeParameterViewModel(frameOrder.PupillaryDistance),
+                Sent = frameOrder.Sent.HasValue ? frameOrder.Sent.Value.ToString("yyyy-MM-dd HH:mm") : null,
+                Shop = frameOrder.OrderingShop.Name,
+                ShopCity = frameOrder.OrderingShop.Address.City,
+                Sphere = new EyeParameterViewModel(frameOrder.Sphere),
 			};
 		}
 		#endregion

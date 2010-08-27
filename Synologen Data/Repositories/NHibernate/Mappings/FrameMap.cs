@@ -33,6 +33,14 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 			});
 			Map(x => x.NumberOfConnectedOrdersWithThisFrame)
 				.Formula("(Select Count('') from SynologenFrameOrder Where SynologenFrameOrder.FrameId = Id)");
+
+			Component(x => x.Stock, stock =>
+			{
+				stock.Map(x => x.StockAtStockDate).Column("StockAtStockDate").Nullable();
+				stock.Map(x => x.StockDate).Column("StockDate").Nullable();
+				stock.Map(x => x.CurrentStock)
+					.Formula("(Select StockAtStockDate - Count('') from SynologenFrameOrder Where SynologenFrameOrder.FrameId = Id AND SynologenFrameOrder.Sent > StockDate)");
+			});
 		}
 	}
 }

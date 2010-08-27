@@ -20,30 +20,30 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			var savedFrameOrder = SavedFrameOrders.First();
 
 			//Act
-			var persistedFrameColor = FrameOrderValidationRepository.Get(savedFrameOrder.Id);
+			var persistedFrameOrder = FrameOrderValidationRepository.Get(savedFrameOrder.Id);
 			
 			//Assert
-			Expect(persistedFrameColor, Is.Not.Null);
-			Expect(persistedFrameColor.Id, Is.EqualTo(savedFrameOrder.Id));
-			Expect(persistedFrameColor.Addition.Left, Is.EqualTo(savedFrameOrder.Addition.Left));
-			Expect(persistedFrameColor.Addition.Right, Is.EqualTo(savedFrameOrder.Addition.Right));
-			Expect(persistedFrameColor.Axis.Left, Is.EqualTo(savedFrameOrder.Axis.Left));
-			Expect(persistedFrameColor.Axis.Right, Is.EqualTo(savedFrameOrder.Axis.Right));
-			Expect(persistedFrameColor.Created, Is.EqualTo(savedFrameOrder.Created));
-			Expect(persistedFrameColor.Cylinder.Left, Is.EqualTo(savedFrameOrder.Cylinder.Left));
-			Expect(persistedFrameColor.Cylinder.Right, Is.EqualTo(savedFrameOrder.Cylinder.Right));
-			Expect(persistedFrameColor.Frame.Id, Is.EqualTo(savedFrameOrder.Frame.Id));
-			Expect(persistedFrameColor.GlassType.Id, Is.EqualTo(savedFrameOrder.GlassType.Id));
-			Expect(persistedFrameColor.Height.Left, Is.EqualTo(savedFrameOrder.Height.Left));
-			Expect(persistedFrameColor.Height.Right, Is.EqualTo(savedFrameOrder.Height.Right));
-			Expect(persistedFrameColor.IsSent, Is.EqualTo(savedFrameOrder.IsSent));
-			Expect(persistedFrameColor.OrderingShop.Id, Is.EqualTo(savedFrameOrder.OrderingShop.Id));
-			Expect(persistedFrameColor.PupillaryDistance.Left, Is.EqualTo(savedFrameOrder.PupillaryDistance.Left));
-			Expect(persistedFrameColor.PupillaryDistance.Right, Is.EqualTo(savedFrameOrder.PupillaryDistance.Right));
-			Expect(persistedFrameColor.Sent, Is.EqualTo(savedFrameOrder.Sent));
-			Expect(persistedFrameColor.Sphere.Left, Is.EqualTo(savedFrameOrder.Sphere.Left));
-			Expect(persistedFrameColor.Sphere.Right, Is.EqualTo(savedFrameOrder.Sphere.Right));
-			Expect(persistedFrameColor.Notes, Is.EqualTo(savedFrameOrder.Notes));
+			Expect(persistedFrameOrder, Is.Not.Null);
+			Expect(persistedFrameOrder.Id, Is.EqualTo(savedFrameOrder.Id));
+			Expect(persistedFrameOrder.Addition.Left, Is.EqualTo(savedFrameOrder.Addition.Left));
+			Expect(persistedFrameOrder.Addition.Right, Is.EqualTo(savedFrameOrder.Addition.Right));
+			Expect(persistedFrameOrder.Axis.Left, Is.EqualTo(savedFrameOrder.Axis.Left));
+			Expect(persistedFrameOrder.Axis.Right, Is.EqualTo(savedFrameOrder.Axis.Right));
+			Expect(persistedFrameOrder.Created, Is.EqualTo(savedFrameOrder.Created));
+			Expect(persistedFrameOrder.Cylinder.Left, Is.EqualTo(savedFrameOrder.Cylinder.Left));
+			Expect(persistedFrameOrder.Cylinder.Right, Is.EqualTo(savedFrameOrder.Cylinder.Right));
+			Expect(persistedFrameOrder.Frame.Id, Is.EqualTo(savedFrameOrder.Frame.Id));
+			Expect(persistedFrameOrder.GlassType.Id, Is.EqualTo(savedFrameOrder.GlassType.Id));
+			Expect(persistedFrameOrder.Height.Left, Is.EqualTo(savedFrameOrder.Height.Left));
+			Expect(persistedFrameOrder.Height.Right, Is.EqualTo(savedFrameOrder.Height.Right));
+			Expect(persistedFrameOrder.IsSent, Is.EqualTo(savedFrameOrder.IsSent));
+			Expect(persistedFrameOrder.OrderingShop.Id, Is.EqualTo(savedFrameOrder.OrderingShop.Id));
+			Expect(persistedFrameOrder.PupillaryDistance.Left, Is.EqualTo(savedFrameOrder.PupillaryDistance.Left));
+			Expect(persistedFrameOrder.PupillaryDistance.Right, Is.EqualTo(savedFrameOrder.PupillaryDistance.Right));
+			Expect(persistedFrameOrder.Sent, Is.EqualTo(savedFrameOrder.Sent));
+			Expect(persistedFrameOrder.Sphere.Left, Is.EqualTo(savedFrameOrder.Sphere.Left));
+			Expect(persistedFrameOrder.Sphere.Right, Is.EqualTo(savedFrameOrder.Sphere.Right));
+			Expect(persistedFrameOrder.Notes, Is.EqualTo(savedFrameOrder.Notes));
 		}
 
 		[Test]
@@ -78,6 +78,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			Expect(persistedFrameOrder.Sent, Is.EqualTo(editedFrameOrder.Sent));
 			Expect(persistedFrameOrder.Sphere.Left, Is.EqualTo(editedFrameOrder.Sphere.Left));
 			Expect(persistedFrameOrder.Sphere.Right, Is.EqualTo(editedFrameOrder.Sphere.Right));
+			Expect(persistedFrameOrder.Notes, Is.EqualTo(editedFrameOrder.Notes));
 		}
 
 		[Test]

@@ -25,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData.Factories
 							PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
 							Sent = new DateTime(2010, 08, 24, 13, 45, 0),
 							Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M },
-                            Notes = "Snabb leverans."
+                            Notes = "Snabb leverans.",
 						});
 				}
 			}
@@ -42,6 +42,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData.Factories
 			order.PupillaryDistance = new EyeParameter {Left = 38, Right = 22};
 			order.Sent = order.Sent.Value.Subtract(new TimeSpan(2, 1, 1, 0));
 			order.Sphere = new EyeParameter {Left = 2.75M, Right = -5.25M};
+			order.Notes = order.Notes.Reverse();
 			return order;
 		}
 	}

@@ -18,8 +18,8 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		public void Can_get_persisted_frame()
 		{
 			//Arrange
-			const int expectedNumberOfFrameConnections = 6;
 			const int expectedNumberOfOrderConnections = 4;
+			const int expectedStock = 196;
 
 			//Act
 			var savedFrame = SavedFrames.First();
@@ -31,17 +31,16 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			Expect(persistedFrame.AllowOrders, Is.EqualTo(savedFrame.AllowOrders));
 			Expect(persistedFrame.ArticleNumber, Is.EqualTo(savedFrame.ArticleNumber));
 			Expect(persistedFrame.Brand.Id, Is.EqualTo(savedFrame.Brand.Id));
-			Expect(persistedFrame.Brand.Name, Is.EqualTo(savedFrame.Brand.Name));
-			Expect(persistedFrame.Brand.NumberOfFramesWithThisBrand, Is.EqualTo(expectedNumberOfFrameConnections));
 			Expect(persistedFrame.Color.Id, Is.EqualTo(savedFrame.Color.Id));
-			Expect(persistedFrame.Color.Name, Is.EqualTo(savedFrame.Color.Name));
-			Expect(persistedFrame.Color.NumberOfFramesWithThisColor, Is.EqualTo(expectedNumberOfFrameConnections));
 			Expect(persistedFrame.Id, Is.EqualTo(savedFrame.Id));
 			Expect(persistedFrame.Name, Is.EqualTo(savedFrame.Name));
 			Expect(persistedFrame.PupillaryDistance.Increment, Is.EqualTo(savedFrame.PupillaryDistance.Increment));
 			Expect(persistedFrame.PupillaryDistance.Max, Is.EqualTo(savedFrame.PupillaryDistance.Max));
 			Expect(persistedFrame.PupillaryDistance.Min, Is.EqualTo(savedFrame.PupillaryDistance.Min));
 			Expect(persistedFrame.NumberOfConnectedOrdersWithThisFrame, Is.EqualTo(expectedNumberOfOrderConnections));
+			Expect(persistedFrame.Stock.StockAtStockDate, Is.EqualTo(savedFrame.Stock.StockAtStockDate));
+			Expect(persistedFrame.Stock.StockDate, Is.EqualTo(savedFrame.Stock.StockDate));
+			Expect(persistedFrame.Stock.CurrentStock, Is.EqualTo(expectedStock));
 		}
 
 		[Test]
@@ -50,6 +49,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			//Arrange
 			const int expectedNumberOfFrameConnections = 6;
 			const int expectedNumberOfOrderConnections = 4;
+			const int expectedStock = 196;
 
 			//Act
 			var editedFrame = Factories.FrameFactory.ScrabmleFrame(SavedFrames.First());
@@ -73,6 +73,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			Expect(persistedFrame.PupillaryDistance.Max, Is.EqualTo(editedFrame.PupillaryDistance.Max));
 			Expect(persistedFrame.PupillaryDistance.Min, Is.EqualTo(editedFrame.PupillaryDistance.Min));
 			Expect(persistedFrame.NumberOfConnectedOrdersWithThisFrame, Is.EqualTo(expectedNumberOfOrderConnections));
+			Expect(persistedFrame.Stock.CurrentStock, Is.EqualTo(expectedStock));
 		}
 
 		[Test]

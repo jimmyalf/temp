@@ -18,5 +18,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 		[DisplayName("Höjd")]public EyeParameterViewModel Height { get; set; }
 		[DisplayName("PD")]public EyeParameterViewModel PupillaryDistance { get; set; }
 		[DisplayName("Sfär")]public EyeParameterViewModel Sphere { get; set; }
+		[DisplayName("Anteckningar")]public string Notes { get; set; }
 	}
 }

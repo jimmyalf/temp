@@ -132,6 +132,50 @@ namespace Spinit.Wpc.Synologen.Business {
 		static public int DefaultAdminPageSize {
 			get { return SafeConfigNumber(_setting, "defaultAdminPageSize", 40); }
 		}
-		
+
+
+		static public decimal FrameOrderSphereIncrement { 
+			get { return SafeConfigDecimal(_setting, "FrameOrderSphereIncrement", 0.25M); }
+		} 
+		static public decimal FrameOrderSphereMax { 
+			get { return SafeConfigDecimal(_setting, "FrameOrderSphereMax", 6); }
+		} 
+		static public decimal FrameOrderSphereMin { 
+			get { return SafeConfigDecimal(_setting, "FrameOrderSphereMin", -6); }
+		} 
+		static public decimal FrameOrderCylinderIncrement { 
+			get { return SafeConfigDecimal(_setting, "FrameOrderCylinderIncrement", 0.25M); }
+		} 
+		static public decimal FrameOrderCylinderMax { 
+			get { return SafeConfigDecimal(_setting, "FrameOrderCylinderMax", 2); }
+		} 
+		static public decimal FrameOrderCylinderMin { 
+			get { return SafeConfigDecimal(_setting, "FrameOrderCylinderMin", 0); }
+		} 
+		static public decimal FrameOrderAdditionIncrement { 
+			get { return SafeConfigDecimal(_setting, "FrameOrderAdditionIncrement", 0.25M); }
+		} 
+		static public decimal FrameOrderAdditionMax { 
+			get { return SafeConfigDecimal(_setting, "FrameOrderAdditionMax", 3); }
+		} 
+		static public decimal FrameOrderAdditionMin { 
+			get { return SafeConfigDecimal(_setting, "FrameOrderAdditionMin", 1); }
+		} 
+		static public decimal FrameOrderHeightIncrement { 
+			get { return SafeConfigDecimal(_setting, "FrameOrderHeightIncrement", 1); }
+		} 
+		static public decimal FrameOrderHeightMax { 
+			get { return SafeConfigDecimal(_setting, "FrameOrderHeightMax", 28); }
+		} 
+		static public decimal FrameOrderHeightMin { 
+			get { return SafeConfigDecimal(_setting, "FrameOrderHeightMin", 18); }
+		} 
+
+		private static decimal SafeConfigDecimal(string configSection, string configKey, decimal value)
+		{
+			var defaultValueAsFloat = Convert.ToSingle(value);
+			var floatValue = SafeConfigNumber(configSection, configKey, defaultValueAsFloat);
+			return Convert.ToDecimal(floatValue);
+		}
 	}
 }

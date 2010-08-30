@@ -4,13 +4,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 {
 	public static class ServiceFactory
 	{
-		public static ISettingsService GetSettingsService()
+		public static IAdminSettingsService GetSettingsService()
 		{
 			return new MockedSettingsService();
 		}
 	}
 
-	internal class MockedSettingsService : ISettingsService {
+	internal class MockedSettingsService : IAdminSettingsService {
 		public int GetDefaultPageSize() { return 10; }
 	}
 }

@@ -49,11 +49,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		{ 
 			if(e.PageIsValid)
 			{
-				//TODO: Save frame order && redirect user to thank you page
+				//TODO: Save frame order && redirect user to display order/send page
 			}
 			else
 			{
-				View.Model.SelectedFrameId = e.SelectedFrameId;
+				UpdateModel(e);
 			}
 		}
 
@@ -79,29 +79,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.CylinderRequiredErrorMessage = "Cylinder saknas";
 			View.Model.AdditionRequiredErrorMessage = "Addition saknas";
 			View.Model.HeightRequiredMessage = "Höjd saknas";
+			View.Model.AxisRequiredMessage = "Axel saknas";
+			View.Model.AxisRangeMessage = "Axel måste vara ett heltal i intervallet 0-180";
 			
 		}
 
 		public void UpdateModel(FrameFormEventArgs e)
 		{
+			if(e.SelectedFrameId>0){
+				var frame = _frameRepository.Get(e.SelectedFrameId);
+				View.Model.PupillaryDistance = e.GetEyeParameter(x => x.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
+			}
 
-			var frame = _frameRepository.Get(e.SelectedFrameId);
-			var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
+			FrameGlassType glassType = null;
+			if(e.SelectedGlassTypeId>0){
+				glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
+				View.Model.HeightParametersEnabled = glassType.IncludeHeightParametersInOrder;
+				View.Model.AdditionParametersEnabled = glassType.IncludeAdditionParametersInOrder;
+			}
 
 			View.Model.SelectedFrameId = e.SelectedFrameId;
 			View.Model.SelectedGlassTypeId = e.SelectedGlassTypeId;
-			View.Model.HeightParametersEnabled = glassType.IncludeHeightParametersInOrder;
-			View.Model.AdditionParametersEnabled = glassType.IncludeAdditionParametersInOrder;
-			View.Model.PupillaryDistance = e.GetEyeParameter(x => x.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
 			View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, _frameOrderSettingsService.Sphere.GetList(), "Sfär");
 			View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, _frameOrderSettingsService.Cylinder.GetList(), "Cylinder");
 			View.Model.AxisSelection = new EyeParameter {Left = e.SelectedAxis.Left, Right = e.SelectedAxis.Right};
 
-			if(glassType.IncludeAdditionParametersInOrder)
+			if(glassType != null && glassType.IncludeAdditionParametersInOrder)
 			{
 				View.Model.Addition = e.GetEyeParameter(x => x.SelectedAddition, _frameOrderSettingsService.Addition.GetList(), "Addition");
 			}
-			if(glassType.IncludeHeightParametersInOrder)
+			if(glassType != null && glassType.IncludeHeightParametersInOrder)
 			{
 				View.Model.Height = e.GetEyeParameter(x => x.SelectedHeight, _frameOrderSettingsService.Height.GetList(), "Höjd");
 			}

@@ -97,6 +97,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.Height.List.ToList()[0].Name, Is.EqualTo("-- Välj Höjd --"));
 			Expect(view.Model.HeightRequiredMessage, Is.EqualTo("Höjd saknas"));
 
+			Expect(view.Model.AxisRangeMessage, Is.EqualTo("Axel saknas"));
+			Expect(view.Model.AxisRequiredMessage, Is.EqualTo("Axel måste ligga i intervallet 0-180"));
+
 			Expect(view.Model.NotSelectedIntervalValue, Is.EqualTo(int.MinValue));
 			Expect(view.Model.HeightParametersEnabled, Is.False);
 			Expect(view.Model.AdditionParametersEnabled, Is.False);

@@ -24,14 +24,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		{
 			drpFrames.SelectedIndexChanged += (sender, e) => HandleEvent(FrameSelected);
 			drpGlassTypes.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
-			btnSave.Click += (sender, e) => HandleEvent(SubmitForm);
+			btnSave.Click += (sender, e) => HandleEvent(SubmitForm, true);
 		}
 
-		protected void HandleEvent(EventHandler<FrameFormEventArgs> eventhandler)
+		protected void HandleEvent(EventHandler<FrameFormEventArgs> eventhandler, bool validate)
 		{
 			if(eventhandler == null) return;
 			var eventArgs = GetEventArgs();
+			if(validate) {
+				Page.Validate();
+				eventArgs.PageIsValid = Page.IsValid;
+			}
 			eventhandler(this, eventArgs);
+		}
+		protected void HandleEvent(EventHandler<FrameFormEventArgs> eventhandler)
+		{
+			HandleEvent(eventhandler, false);
 		}
 
 		private FrameFormEventArgs GetEventArgs()
@@ -42,25 +50,34 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 				SelectedGlassTypeId = drpGlassTypes.SelectedValue.ToIntOrDefault(0),
 				SelectedPupillaryDistance = new EyeParameter
 				{
-					Left = drpPupillaryDistanceLeft.SelectedValue.ToDecimalOrDefault(0),
-					Right = drpPupillaryDistanceRight.SelectedValue.ToDecimalOrDefault(0)
+					Left = drpPupillaryDistanceLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
+					Right = drpPupillaryDistanceRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
 				},
 				SelectedSphere = new EyeParameter
 				{
-					Left = drpSphereLeft.SelectedValue.ToDecimalOrDefault(0),
-					Right = drpSphereRight.SelectedValue.ToDecimalOrDefault(0)
+					Left = drpSphereLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
+					Right = drpSphereRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
 				},
 				SelectedCylinder = new EyeParameter
 				{
-					Left = drpCylinderLeft.SelectedValue.ToDecimalOrDefault(0),
-					Right = drpCylinderRight.SelectedValue.ToDecimalOrDefault(0)
+					Left = drpCylinderLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
+					Right = drpCylinderRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
 				},
 				SelectedAxis = new EyeParameter
 				{
 					Left = txtAxisLeft.Text.ToDecimalOrDefault(0),
 					Right = txtAxisRight.Text.ToDecimalOrDefault(0)
 				},
-				PageIsValid = Page.IsValid
+                SelectedAddition = new EyeParameter
+                {
+                	Left = drpAdditionLeft.SelectedValue.ToDecimalOrDefault(0),
+					Right = drpAdditionRight.SelectedValue.ToDecimalOrDefault(0)
+                },
+                SelectedHeight = new EyeParameter
+                {
+                	Left = drpHeightLeft.SelectedValue.ToDecimalOrDefault(0),
+					Right = drpHeightRight.SelectedValue.ToDecimalOrDefault(0)
+                }
 			};
 		}
 

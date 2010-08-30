@@ -20,6 +20,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		protected System.Web.UI.WebControls.DropDownList drpSphereRight;
 		protected System.Web.UI.WebControls.DropDownList drpCylinderLeft;
 		protected System.Web.UI.WebControls.DropDownList drpCylinderRight;
+		protected System.Web.UI.WebControls.DropDownList drpAdditionLeft;
+		protected System.Web.UI.WebControls.DropDownList drpAdditionRight;
+		protected System.Web.UI.WebControls.DropDownList drpHeightLeft;
+		protected System.Web.UI.WebControls.DropDownList drpHeightRight;
 		protected System.Web.UI.WebControls.TextBox txtAxisLeft;
 		protected System.Web.UI.WebControls.TextBox txtAxisRight;
 		protected System.Web.UI.WebControls.Button btnSave;

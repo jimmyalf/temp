@@ -22,6 +22,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 		public string CylinderRequiredErrorMessage { get; set; }
 		public string AdditionRequiredErrorMessage { get; set; }
 		public string HeightRequiredMessage { get; set; }
+		public string AxisRequiredMessage { get; set; }
+		public string AxisRangeMessage { get; set; }
 
 		public int SelectedFrameId { get; set; }
 		public int SelectedGlassTypeId { get; set; }
@@ -30,5 +32,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 		public bool HeightParametersEnabled{ get; set;}
 
 		public int NotSelectedIntervalValue { get { return int.MinValue; } }
+
+		
 	}
 }

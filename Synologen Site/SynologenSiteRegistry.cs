@@ -1,8 +1,10 @@
 using NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.Services;
 using StructureMap.Attributes;
 using StructureMap.Configuration.DSL;
 
@@ -18,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 
 			ForRequestedType<IFrameRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameRepository>();
 			ForRequestedType<IFrameGlassTypeRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameGlassTypeRepository>();
+			ForRequestedType<IFrameOrderSettingsService>().TheDefaultIsConcreteType<FrameOrderSettingsService>();
 		}
 	}
 }

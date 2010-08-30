@@ -1,4 +1,5 @@
 ﻿using System;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
@@ -38,8 +39,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			{
 				SelectedFrameId = Int32.Parse(drpFrames.SelectedValue),
 				SelectedGlassTypeId = Int32.Parse(drpGlassTypes.SelectedValue),
-				SelectedPupillaryDistanceLeft = (decimal) double.Parse(drpPupillaryDistanceLeft.SelectedValue),
-				SelectedPupillaryDistanceRight = (decimal) double.Parse(drpPupillaryDistanceRight.SelectedValue),
+				SelectedPupillaryDistance = new EyeParameter
+				{
+					Left = (decimal) double.Parse(drpPupillaryDistanceLeft.SelectedValue),
+					Right = (decimal) double.Parse(drpPupillaryDistanceRight.SelectedValue)
+				},
+				SelectedSphere = new EyeParameter
+				{
+					Left = (decimal) double.Parse(drpSphereLeft.SelectedValue),
+					Right = (decimal) double.Parse(drpSphereRight.SelectedValue)
+				},
+				SelectedCylinder = new EyeParameter
+				{
+					Left = (decimal) double.Parse(drpCylinderLeft.SelectedValue),
+					Right = (decimal) double.Parse(drpCylinderRight.SelectedValue)
+				},
 				PageIsValid = Page.IsValid
 			};
 		}

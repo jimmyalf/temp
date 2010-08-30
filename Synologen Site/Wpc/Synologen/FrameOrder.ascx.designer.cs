@@ -16,6 +16,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		protected System.Web.UI.WebControls.DropDownList drpPupillaryDistanceLeft;
 		protected System.Web.UI.WebControls.DropDownList drpPupillaryDistanceRight;
 		protected System.Web.UI.WebControls.DropDownList drpGlassTypes;
+		protected System.Web.UI.WebControls.DropDownList drpSphereLeft;
+		protected System.Web.UI.WebControls.DropDownList drpSphereRight;
+		protected System.Web.UI.WebControls.DropDownList drpCylinderLeft;
+		protected System.Web.UI.WebControls.DropDownList drpCylinderRight;
 		protected System.Web.UI.WebControls.Button btnSave;
 	}
 

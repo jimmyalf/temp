@@ -57,6 +57,7 @@
     <Compile Include="Factories\ViewsFactory.cs" />
     <Compile Include="FrameOrderPresenterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Factories\ServiceFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen Site\Synologen Site.csproj">

@@ -39,7 +39,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 			ForRequestedType<IActionCriteriaConverter<PageOfFrameBrandsMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameBrandsMatchingCriteriaConverter>();
 			ForRequestedType<IActionCriteriaConverter<PageOfFrameGlassTypesMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameGlassTypesMatchingCriteriaConverter>();
 			ForRequestedType<IActionCriteriaConverter<PageOfFrameOrdersMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameOrdersMatchingCriteriaConverter>();
-			ForRequestedType<ISettingsService>().TheDefaultIsConcreteType<SettingsService>();
+			ForRequestedType<IAdminSettingsService>().TheDefaultIsConcreteType<SettingsService>();
 			ForRequestedType<IGridSortPropertyMappingService>().TheDefaultIsConcreteType<SynologenGridSortPropertyMappingSerice>();
 		}
 	}

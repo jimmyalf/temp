@@ -64,7 +64,7 @@
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IFrameOrderService.cs" />
     <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />
-    <Compile Include="Domain\Services\ISettingsService.cs" />
+    <Compile Include="Domain\Services\IAdminSettingsService.cs" />
     <Compile Include="Domain\Model\FrameOrder\Frame.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameBrand.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameColor.cs" />
@@ -75,6 +75,7 @@
     <Compile Include="Domain\Persistence\Criterias\PageOfFramesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\IFrameBrandRepository.cs" />
     <Compile Include="Domain\Persistence\IFrameColorRepository.cs" />
+    <Compile Include="Domain\Services\IFrameOrderSettingsService.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Extensions\ExpressionNameVisitor.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />

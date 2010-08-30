@@ -49,7 +49,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 		        Color = new FrameColor {Id = 1, Name = "Blå"},
 		        Id = id,
 		        Name = "Bra båge",
-                //Stock = new FrameStock{StockAtStockDate=200, StockDate = new DateTime(2010,08,01,0,0,0)}
 				Stock = mockedStock.Object
 		    }.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5m);		
 		}

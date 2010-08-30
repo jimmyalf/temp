@@ -52,6 +52,7 @@
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
     <Compile Include="Logic\Services\FrameOrderSettingsService.cs" />
     <Compile Include="Logic\Views\IFrameOrderView.cs" />
+    <Compile Include="Models\EyeParameterIntervalListAndSelection.cs" />
     <Compile Include="Models\FrameGlassTypeListItem.cs" />
     <Compile Include="Models\FrameListItem.cs" />
     <Compile Include="Models\IntervalListItem.cs" />

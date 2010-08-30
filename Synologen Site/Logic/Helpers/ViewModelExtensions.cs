@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
 using Spinit.Wpc.Synologen.Presentation.Site.Models;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
@@ -52,6 +53,33 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 		{
 			var defaultValue = new IntervalListItem {Name = String.Format("-- Välj {0} --", entityName), Value = NotSelectedValue};
 			return new List<IntervalListItem>().InsertFirst(defaultValue);
+		}
+
+
+		public static EyeParameterIntervalListAndSelection GetEyeParameter(this FrameFormEventArgs e, Func<FrameFormEventArgs,EyeParameter> selectedEyeParameters, IEnumerable<IntervalListItem> listItems, string defaultValueText)
+		{
+			
+			var selection = selectedEyeParameters.Invoke(e);
+			var returnValue = new EyeParameterIntervalListAndSelection
+			{
+				List = listItems.InsertDefaultValue(defaultValueText, int.MinValue),
+				Selection = new EyeParameter
+				{
+					Left = listItems.Any(x => x.Value.Equals(selection.Left)) ? selection.Left : int.MinValue, 
+					Right = listItems.Any(x => x.Value.Equals(selection.Right)) ? selection.Right : int.MinValue,
+				}
+			};
+			return returnValue;
+		}
+
+		public static EyeParameterIntervalListAndSelection CreateDefaultEyeParameter(this IEnumerable<IntervalListItem> listItems, string defaultValueText)
+		{
+			var returnValue = new EyeParameterIntervalListAndSelection
+			{
+				List = listItems.InsertDefaultValue(defaultValueText, int.MinValue), 
+				Selection = new EyeParameter {Left = int.MinValue, Right = int.MinValue}
+			};
+			return returnValue;
 		}
 	}
 }

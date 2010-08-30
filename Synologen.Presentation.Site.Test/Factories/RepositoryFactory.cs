@@ -41,9 +41,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 				return new FrameGlassType
 				{
 					Id = id,
-					IncludeAdditionParametersInOrder = true,
-					IncludeHeightParametersInOrder = false,
-					Name = "Närprogressiva"
+					IncludeAdditionParametersInOrder = (id%2==0),
+					IncludeHeightParametersInOrder = (id%4==0),
+					Name = "Närprogressiva",
 				};
 			}
 		}

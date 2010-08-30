@@ -1,5 +1,6 @@
 ﻿using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
@@ -37,25 +38,32 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		{
 			return new FrameFormEventArgs
 			{
-				SelectedFrameId = Int32.Parse(drpFrames.SelectedValue),
-				SelectedGlassTypeId = Int32.Parse(drpGlassTypes.SelectedValue),
+				SelectedFrameId = drpFrames.SelectedValue.ToIntOrDefault(0),
+				SelectedGlassTypeId = drpGlassTypes.SelectedValue.ToIntOrDefault(0),
 				SelectedPupillaryDistance = new EyeParameter
 				{
-					Left = (decimal) double.Parse(drpPupillaryDistanceLeft.SelectedValue),
-					Right = (decimal) double.Parse(drpPupillaryDistanceRight.SelectedValue)
+					Left = drpPupillaryDistanceLeft.SelectedValue.ToDecimalOrDefault(0),
+					Right = drpPupillaryDistanceRight.SelectedValue.ToDecimalOrDefault(0)
 				},
 				SelectedSphere = new EyeParameter
 				{
-					Left = (decimal) double.Parse(drpSphereLeft.SelectedValue),
-					Right = (decimal) double.Parse(drpSphereRight.SelectedValue)
+					Left = drpSphereLeft.SelectedValue.ToDecimalOrDefault(0),
+					Right = drpSphereRight.SelectedValue.ToDecimalOrDefault(0)
 				},
 				SelectedCylinder = new EyeParameter
 				{
-					Left = (decimal) double.Parse(drpCylinderLeft.SelectedValue),
-					Right = (decimal) double.Parse(drpCylinderRight.SelectedValue)
+					Left = drpCylinderLeft.SelectedValue.ToDecimalOrDefault(0),
+					Right = drpCylinderRight.SelectedValue.ToDecimalOrDefault(0)
+				},
+				SelectedAxis = new EyeParameter
+				{
+					Left = txtAxisLeft.Text.ToDecimalOrDefault(0),
+					Right = txtAxisRight.Text.ToDecimalOrDefault(0)
 				},
 				PageIsValid = Page.IsValid
 			};
 		}
+
+
 	}
 }

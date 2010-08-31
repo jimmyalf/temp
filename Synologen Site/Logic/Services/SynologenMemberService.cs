@@ -1,3 +1,4 @@
+using Spinit.Wpc.Content.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
@@ -50,6 +51,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
 				}
 			}
 			return 0;
+		}
+
+		public string GetPageUrl(int pageId)
+		{
+			var connectionString = Utility.Business.Globals.ConnectionString("WpcServer");
+			var treeRepository = new Tree(connectionString);
+			return treeRepository.GetFileUrlDownString(pageId);
 		}
 	}
 }

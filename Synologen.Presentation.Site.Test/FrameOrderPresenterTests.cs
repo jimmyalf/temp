@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
+using Moq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
@@ -258,11 +260,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
                 PageIsValid = true
 			};
 			const int expectedShopId = 5;
-
+			const string expectedRedirectUrl = "/test/url/";
+			const int expectedSavedItemId = 10;
+			var expectedRedirectUrlWithQueryString = String.Concat(expectedRedirectUrl, "?frameorder=", expectedSavedItemId);
+			var mockedHttpContext = new Mock<HttpContextBase>();
+			var mockedHttpResponse = new Mock<HttpResponseBase>();
 
 			//Act
+			mockedHttpContext.SetupGet(x => x.Response).Returns(mockedHttpResponse.Object);
 			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedShopId(expectedShopId);
+			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedPageUrl(expectedRedirectUrl);
+			((RepositoryFactory.MockedFramOrderRepository) frameOrderRepository).SetSavedId(expectedSavedItemId);
+			presenter.HttpContext = mockedHttpContext.Object;
 			presenter.View_Load(null, new EventArgs());
+			presenter.View.RedirectPageId = 5;
 			presenter.View_SumbitForm(null, frameSelectedEventArgs);
 			var savedEntity = ((RepositoryFactory.MockedFramOrderRepository) frameOrderRepository).SavedItem;
 
@@ -287,6 +298,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(savedEntity.Sent, Is.Null);
 			Expect(savedEntity.Sphere.Left, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Left));
 			Expect(savedEntity.Sphere.Right, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Right));
+			mockedHttpResponse.Verify(x => x.Redirect(expectedRedirectUrlWithQueryString),Times.Once());
 		}
 	}
 }

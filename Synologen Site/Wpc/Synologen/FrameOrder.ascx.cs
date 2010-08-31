@@ -15,6 +15,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		public event EventHandler<FrameFormEventArgs> FrameSelected;
 		public event EventHandler<FrameFormEventArgs> SubmitForm;
 		public event EventHandler<FrameFormEventArgs> GlassTypeSelected;
+		public int RedirectPageId { get; set; }
+
 
 		protected void Page_Load(object sender, EventArgs e) {
 			WireupEventProxy();
@@ -81,6 +83,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
                 Notes = txtNotes.Text
 			};
 		}
+
 
 
 	}

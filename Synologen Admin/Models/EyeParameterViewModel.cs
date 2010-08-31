@@ -10,6 +10,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 			Left = parameter.Left;
 			Right = parameter.Right;
 		}
+
+		public EyeParameterViewModel(NullableEyeParameter parameter)
+		{
+			Left = parameter.Left ?? int.MinValue;
+			Right = parameter.Right ?? int.MinValue;
+		}
 		public EyeParameterViewModel(){}
 
 		[DisplayName("Vänster")]

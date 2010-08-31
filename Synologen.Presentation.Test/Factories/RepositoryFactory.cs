@@ -88,13 +88,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 		public static FrameOrder GetMockedFrameOrder(int id)
 		{
 			return new FrameOrder {
-				Addition = new EyeParameter { Left = 1.75M, Right = 2.25M },
+				Addition = new NullableEyeParameter { Left = 1.75M, Right = 2.25M },
 				Axis = new EyeParameter { Left = 70, Right = 155 },
 				Created = new DateTime(2010, 08, 24, 13, 45, 0),
 				Cylinder = new EyeParameter { Left = 0.60M, Right = 1.55M },
 				Frame = GetMockedFrame(1),
 				GlassType = GetMockedFrameGlass(1),
-				Height = new EyeParameter { Left = 19, Right = 26 },
+				Height = new NullableEyeParameter { Left = 19, Right = 26 },
 				OrderingShop = GetMockedShop(1),
 				PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
 				Sent = new DateTime(2010, 08, 24, 13, 45, 0),

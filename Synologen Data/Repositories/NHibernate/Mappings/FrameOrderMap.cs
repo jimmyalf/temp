@@ -8,7 +8,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 		{
 			Table("SynologenFrameOrder");
 			Id(x => x.Id);
-			Map(x => x.Sent);
+			Map(x => x.Sent).Nullable();
 			Map(x => x.Created).Not.Nullable();
 			Map(x => x.Notes).Nullable();
 			Component(x => x.Addition, m =>

@@ -8,6 +8,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
 using Spinit.Wpc.Synologen.Presentation.Site.Models;
+using Spinit.Wpc.Synologen.Presentation.Site.Test.Factories;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 {
@@ -16,18 +17,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 	{
 		private FrameOrderPresenter presenter;
 		private IFrameOrderView<FrameOrderModel> view;
-		private IFrameRepository repository;
+		private IFrameRepository frameRepository;
 		private IFrameGlassTypeRepository frameGlassTypeRepository;
+		private IFrameOrderRepository frameOrderRepository;
 		private IFrameOrderSettingsService frameOrderSettingsService;
+		private ISynologenMemberService synologenMemberService;
+		private IShopRepository shopRepository;
 
 		[SetUp]
 		public void Context()
 		{
-			repository = Factories.RepositoryFactory.GetFrameRepository();
-			frameGlassTypeRepository = Factories.RepositoryFactory.GetFrameGlassRepository();
-			frameOrderSettingsService = Factories.ServiceFactory.GetFrameOrderSettingsService();
-			view = Factories.ViewsFactory.GetFrameOrderView();
-			presenter = new FrameOrderPresenter(view, repository, frameGlassTypeRepository, frameOrderSettingsService);
+			frameRepository = RepositoryFactory.GetFrameRepository();
+			frameGlassTypeRepository = RepositoryFactory.GetFrameGlassRepository();
+			frameOrderRepository = RepositoryFactory.GetFramOrderRepository();
+			shopRepository = RepositoryFactory.GetShopRepository();
+			frameOrderSettingsService = ServiceFactory.GetFrameOrderSettingsService();
+			synologenMemberService = ServiceFactory.GetSessionProviderService();
+			view = ViewsFactory.GetFrameOrderView();
+			presenter = new FrameOrderPresenter(view, frameRepository, frameGlassTypeRepository, frameOrderRepository, shopRepository, synologenMemberService, frameOrderSettingsService);
 		}
 
 		[Test]
@@ -97,12 +104,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.Height.List.ToList()[0].Name, Is.EqualTo("-- Välj Höjd --"));
 			Expect(view.Model.HeightRequiredMessage, Is.EqualTo("Höjd saknas"));
 
-			Expect(view.Model.AxisRangeMessage, Is.EqualTo("Axel saknas"));
-			Expect(view.Model.AxisRequiredMessage, Is.EqualTo("Axel måste ligga i intervallet 0-180"));
+			Expect(view.Model.AxisRequiredMessage, Is.EqualTo("Axel saknas"));
+			Expect(view.Model.AxisRangeMessage, Is.EqualTo("Axel anges som ett heltal i intervallet 0-180"));
 
 			Expect(view.Model.NotSelectedIntervalValue, Is.EqualTo(int.MinValue));
 			Expect(view.Model.HeightParametersEnabled, Is.False);
 			Expect(view.Model.AdditionParametersEnabled, Is.False);
+			Expect(view.Model.Notes, Is.Null);
 		}
 
 		[Test]
@@ -119,6 +127,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
                 SelectedAxis = new EyeParameter{ Left = 20, Right = 179},
 				SelectedAddition = new EyeParameter{Left = 1.25M, Right = 2.75M},
 				SelectedHeight = new EyeParameter{Left = 19, Right = 27},
+				Notes = "Skynda på"
 			};
 			const int expectedNumberOfFramesInList = 11;
 			const int expectedNumberOfGlassTypesInList = 11;
@@ -157,6 +166,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.Height.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Right));
 			Expect(view.Model.HeightParametersEnabled, Is.True);
 			Expect(view.Model.AdditionParametersEnabled, Is.True);
+			Expect(view.Model.Notes, Is.EqualTo(frameSelectedEventArgs.Notes));
 		}
 
 		[Test]
@@ -206,6 +216,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				SelectedAxis = new EyeParameter{ Left = -1, Right = 181},
 				SelectedAddition = new EyeParameter{Left = 0.75M, Right = 3.75M},
 				SelectedHeight = new EyeParameter{Left = 17, Right = 33},
+				Notes = "Skynda på"
 			};
 
 			//Act
@@ -227,6 +238,55 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.Addition.Selection.Right, Is.EqualTo(int.MinValue));
 			Expect(view.Model.Height.Selection.Left, Is.EqualTo(int.MinValue));
 			Expect(view.Model.Height.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(view.Model.Notes, Is.EqualTo(frameSelectedEventArgs.Notes));
+		}
+
+		[Test]
+		public void When_Form_Is_Submitted_Saved_Item_Has_Expected_Values()
+		{
+			//Arrange
+			var frameSelectedEventArgs = new FrameFormEventArgs {
+				SelectedFrameId = 5,
+				SelectedGlassTypeId = 8,
+				SelectedPupillaryDistance = new EyeParameter { Left = 22, Right = 33 },
+				SelectedSphere = new EyeParameter { Left = -5, Right = 2.25M },
+				SelectedCylinder = new EyeParameter { Left = 0.25M, Right = 1.75M },
+				SelectedAxis = new EyeParameter { Left = 20, Right = 179 },
+				SelectedAddition = new EyeParameter { Left = 1.25M, Right = 2.75M },
+				SelectedHeight = new EyeParameter { Left = 19, Right = 27 },
+				Notes = "Skynda på",
+                PageIsValid = true
+			};
+			const int expectedShopId = 5;
+
+
+			//Act
+			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedShopId(expectedShopId);
+			presenter.View_Load(null, new EventArgs());
+			presenter.View_SumbitForm(null, frameSelectedEventArgs);
+			var savedEntity = ((RepositoryFactory.MockedFramOrderRepository) frameOrderRepository).SavedItem;
+
+			//Assert
+			Expect(savedEntity, Is.Not.Null);
+			Expect(savedEntity.Addition.Left, Is.EqualTo(frameSelectedEventArgs.SelectedAddition.Left));
+			Expect(savedEntity.Addition.Right, Is.EqualTo(frameSelectedEventArgs.SelectedAddition.Right));
+			Expect(savedEntity.Axis.Left, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Left));
+			Expect(savedEntity.Axis.Right, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Right));
+			Expect(savedEntity.Created.ToString("yyyy-MM-dd HH:mm"), Is.EqualTo(DateTime.Now.ToString("yyyy-MM-dd HH:mm")));
+			Expect(savedEntity.Cylinder.Left, Is.EqualTo(frameSelectedEventArgs.SelectedCylinder.Left));
+			Expect(savedEntity.Cylinder.Right, Is.EqualTo(frameSelectedEventArgs.SelectedCylinder.Right));
+			Expect(savedEntity.Frame.Id, Is.EqualTo(frameSelectedEventArgs.SelectedFrameId));
+			Expect(savedEntity.GlassType.Id, Is.EqualTo(frameSelectedEventArgs.SelectedGlassTypeId));
+			Expect(savedEntity.Height.Left, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Left));
+			Expect(savedEntity.Height.Right, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Right));
+			Expect(savedEntity.IsSent, Is.EqualTo(false));
+			Expect(savedEntity.Notes, Is.EqualTo(frameSelectedEventArgs.Notes));
+			Expect(savedEntity.OrderingShop.Id, Is.EqualTo(expectedShopId));
+			Expect(savedEntity.PupillaryDistance.Left, Is.EqualTo(frameSelectedEventArgs.SelectedPupillaryDistance.Left));
+			Expect(savedEntity.PupillaryDistance.Right, Is.EqualTo(frameSelectedEventArgs.SelectedPupillaryDistance.Right));
+			Expect(savedEntity.Sent, Is.Null);
+			Expect(savedEntity.Sphere.Left, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Left));
+			Expect(savedEntity.Sphere.Right, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Right));
 		}
 	}
 }

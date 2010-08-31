@@ -1,3 +1,4 @@
+using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
@@ -8,6 +9,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 		{
 			return new MockFrameOrderSettingsService();
 		}
+
+		public static ISynologenMemberService GetSessionProviderService()
+		{
+			return new MockedSessionProviderService();
+		}
+
 		internal class MockFrameOrderSettingsService : IFrameOrderSettingsService{
 			public MockFrameOrderSettingsService()
 			{
@@ -21,5 +28,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 			public Interval Addition { get; private set; }
 			public Interval Height { get; private set; }
 		}
+
+		internal class MockedSessionProviderService : ISynologenMemberService {
+			private int _shopId;
+
+			public void SetMockedShopId(int id){ _shopId = id;}
+			public int GetCurrentShopId() { return _shopId; }
+			public int GetCurrentMemberId() { throw new NotImplementedException(); }
+		}
 	}
+
+	
 }

@@ -8,19 +8,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 	public static class ViewsFactory
 	{
 		
-		public static IFrameOrderView<FrameOrderModel> GetFrameOrderView()
+		public static IEditFrameOrderView<EditFrameOrderModel> GetFrameOrderView()
 		{
-			return new MockedFrameOrderView();
+			return new MockedEditFrameOrderView();
 		}
 
-		internal class MockedFrameOrderView : IFrameOrderView<FrameOrderModel>
+		internal class MockedEditFrameOrderView : IEditFrameOrderView<EditFrameOrderModel>
 		{
 			public event EventHandler Load;
-			public FrameOrderModel Model { get; set; }
+			public EditFrameOrderModel Model { get; set; }
 			public event EventHandler<FrameFormEventArgs> FrameSelected;
 			public event EventHandler<FrameFormEventArgs> SubmitForm;
 			public event EventHandler<FrameFormEventArgs> GlassTypeSelected;
 			public int RedirectPageId { get; set; }
 		}
+
+		public static IViewFrameOrderView<ViewFrameOrderModel> GetViewFrameOrderView() {
+			return new MockedViewFrameOrderView();
+		}
+	}
+
+	public class MockedViewFrameOrderView : IViewFrameOrderView<ViewFrameOrderModel> {
+		public event EventHandler Load;
+		public ViewFrameOrderModel Model { get; set; }
 	}
 }

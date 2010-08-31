@@ -12,7 +12,7 @@ using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 {
-	public class FrameOrderPresenter : Presenter<IFrameOrderView<FrameOrderModel>>
+	public class EditFrameOrderPresenter : Presenter<IEditFrameOrderView<EditFrameOrderModel>>
 	{
 		private readonly IFrameRepository _frameRepository;
 		private readonly IFrameGlassTypeRepository _frameGlassTypeRepository;
@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		private readonly FrameListItem DefaultFrame = new FrameListItem {Id = 0, Name = "-- Välj båge --"};
 		private readonly AllOrderableFramesCriteria AllOrderableFramesCriteria = new AllOrderableFramesCriteria();
 
-		public FrameOrderPresenter(IFrameOrderView<FrameOrderModel> view, IFrameRepository repository, IFrameGlassTypeRepository frameGlassTypeRepository, IFrameOrderRepository frameOrderRepository, IShopRepository shopRepository, ISynologenMemberService sessionProviderService, IFrameOrderSettingsService frameOrderSettingsService) : base(view)
+		public EditFrameOrderPresenter(IEditFrameOrderView<EditFrameOrderModel> view, IFrameRepository repository, IFrameGlassTypeRepository frameGlassTypeRepository, IFrameOrderRepository frameOrderRepository, IShopRepository shopRepository, ISynologenMemberService sessionProviderService, IFrameOrderSettingsService frameOrderSettingsService) : base(view)
 		{
 			_frameRepository = repository;
 			_frameGlassTypeRepository = frameGlassTypeRepository;

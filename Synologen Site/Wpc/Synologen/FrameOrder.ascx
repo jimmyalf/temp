@@ -314,6 +314,10 @@
 	</div>
 </div>
 
+<div class="frame-order-item notes">
+	<asp:TextBox ID="txtNotes" runat="server" TextMode="MultiLine" />
+</div>
+
 <div class="form-controls">
 	<asp:ValidationSummary ID="vldSummary" ValidationGroup="vldSubmit" runat="server" />
 	<br />

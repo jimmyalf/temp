@@ -15,14 +15,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 	{
 		private readonly IFrameRepository _frameRepository;
 		private readonly IFrameGlassTypeRepository _frameGlassTypeRepository;
+		private readonly IFrameOrderRepository _frameOrderRepository;
+		private readonly IShopRepository _shopRepository;
+		private readonly ISynologenMemberService _sessionProviderService;
 		private readonly IFrameOrderSettingsService _frameOrderSettingsService;
 		private readonly IEnumerable<IntervalListItem> EmptyIntervalList = new List<IntervalListItem>();
 		private readonly FrameListItem DefaultFrame = new FrameListItem {Id = 0, Name = "-- Välj båge --"};
 
-		public FrameOrderPresenter(IFrameOrderView<FrameOrderModel> view, IFrameRepository repository, IFrameGlassTypeRepository frameGlassTypeRepository, IFrameOrderSettingsService frameOrderSettingsService) : base(view)
+		public FrameOrderPresenter(IFrameOrderView<FrameOrderModel> view, IFrameRepository repository, IFrameGlassTypeRepository frameGlassTypeRepository, IFrameOrderRepository frameOrderRepository, IShopRepository shopRepository, ISynologenMemberService sessionProviderService, IFrameOrderSettingsService frameOrderSettingsService) : base(view)
 		{
 			_frameRepository = repository;
 			_frameGlassTypeRepository = frameGlassTypeRepository;
+			_frameOrderRepository = frameOrderRepository;
+			_shopRepository = shopRepository;
+			_sessionProviderService = sessionProviderService;
 			_frameOrderSettingsService = frameOrderSettingsService;
 			InitiateEventHandlers();
 		}
@@ -49,7 +55,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		{ 
 			if(e.PageIsValid)
 			{
-				//TODO: Save frame order && redirect user to display order/send page
+				var frame = _frameRepository.Get(e.SelectedFrameId);
+				var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
+				var shopId = _sessionProviderService.GetCurrentShopId();
+				var shop = _shopRepository.Get(shopId);
+				var frameOrder = e.ToFrameOrder(frame, glassType, shop);
+				_frameOrderRepository.Save(frameOrder);
+				//TODO: Redirect
 			}
 			else
 			{
@@ -80,7 +92,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.AdditionRequiredErrorMessage = "Addition saknas";
 			View.Model.HeightRequiredMessage = "Höjd saknas";
 			View.Model.AxisRequiredMessage = "Axel saknas";
-			View.Model.AxisRangeMessage = "Axel måste vara ett heltal i intervallet 0-180";
+			View.Model.AxisRangeMessage = "Axel anges som ett heltal i intervallet 0-180";
 			
 		}
 
@@ -103,6 +115,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, _frameOrderSettingsService.Sphere.GetList(), "Sfär");
 			View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, _frameOrderSettingsService.Cylinder.GetList(), "Cylinder");
 			View.Model.AxisSelection = new EyeParameter {Left = e.SelectedAxis.Left, Right = e.SelectedAxis.Right};
+			View.Model.Notes = e.Notes;
 
 			if(glassType != null && glassType.IncludeAdditionParametersInOrder)
 			{
@@ -114,4 +127,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			}
 		}
 	}
+
+
 }

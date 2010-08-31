@@ -47,6 +47,22 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		}
 
 		[Test]
+		public void Can_save_frame_order_with_nullable_values()
+		{
+			//Arrange
+			var orderToSave = Factories.FrameOrderFactory.GetFrameOrder(SavedFrames.First(), SavedFrameGlassTypes.First(), SavedShop);
+			orderToSave.Sent = null;
+			orderToSave.Addition = null;
+			orderToSave.Height = null;
+			orderToSave.Notes = null;
+
+			//Act
+			
+			//Assert
+			Assert.DoesNotThrow(() => FrameOrderValidationRepository.Save(orderToSave));
+		}
+
+		[Test]
 		public void Can_edit_persisted_frame_order()
 		{
 			//Arrange

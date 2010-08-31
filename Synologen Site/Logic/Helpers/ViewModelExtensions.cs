@@ -27,6 +27,32 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 			return list.ConvertAll(typeConverter);
 		}
 
+		public static FrameOrder ToFrameOrder(this FrameFormEventArgs eventArgs, Frame frame, FrameGlassType glassType, Shop orderingShop)
+		{
+			return new FrameOrder {
+				Addition = new NullableEyeParameter
+				{
+					Left = (eventArgs.SelectedAddition.Left != int.MinValue) ? eventArgs.SelectedAddition.Left : (decimal?)null,
+					Right = (eventArgs.SelectedAddition.Right != int.MinValue) ? eventArgs.SelectedAddition.Right : (decimal?)null,
+				},
+				Axis = eventArgs.SelectedAxis,
+				Created = DateTime.Now,
+				Cylinder = eventArgs.SelectedCylinder,
+				Frame = frame,
+				GlassType = glassType,
+				Height = new NullableEyeParameter
+				{
+					Left = (eventArgs.SelectedHeight.Left != int.MinValue) ? eventArgs.SelectedHeight.Left : (decimal?)null,
+					Right = (eventArgs.SelectedHeight.Right != int.MinValue) ? eventArgs.SelectedHeight.Right : (decimal?)null,
+				},
+				Notes = String.IsNullOrEmpty(eventArgs.Notes)? null : eventArgs.Notes,
+				OrderingShop = orderingShop,
+				PupillaryDistance = eventArgs.SelectedPupillaryDistance,
+				Sent = null,
+				Sphere = eventArgs.SelectedSphere
+			};
+		}
+
 		public static IEnumerable<TModel> InsertFirst<TModel>(this IEnumerable<TModel> list, TModel item)
 		{
 			var returnList =  list.ToList();

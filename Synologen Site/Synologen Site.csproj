@@ -51,6 +51,7 @@
     <Compile Include="Logic\EventArguments\FrameFormEventArgs.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
     <Compile Include="Logic\Services\FrameOrderSettingsService.cs" />
+    <Compile Include="Logic\Services\SynologenMemberService.cs" />
     <Compile Include="Logic\Views\IFrameOrderView.cs" />
     <Compile Include="Models\EyeParameterIntervalListAndSelection.cs" />
     <Compile Include="Models\FrameGlassTypeListItem.cs" />

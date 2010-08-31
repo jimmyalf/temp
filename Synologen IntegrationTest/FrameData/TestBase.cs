@@ -54,8 +54,8 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			SavedFrameGlassTypes = FrameGlassTypeFactory.GetGlassTypes();
 			SavedFrameGlassTypes.ToList().ForEach(x => FrameGlassTypeRepository.Save(x));
 
-			var savedShop = ShopRepository.Get(testableShopId);
-			SavedFrameOrders = FrameOrderFactory.GetFrameOrders(SavedFrames, SavedFrameGlassTypes, savedShop);
+			SavedShop = ShopRepository.Get(testableShopId);
+			SavedFrameOrders = FrameOrderFactory.GetFrameOrders(SavedFrames, SavedFrameGlassTypes, SavedShop);
 			SavedFrameOrders.ToList().ForEach(x => FrameOrderRepository.Save(x));
 		}
 
@@ -111,6 +111,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		public IEnumerable<FrameBrand> SavedFrameBrands { get; private set; }
 		public IEnumerable<FrameGlassType> SavedFrameGlassTypes { get; private set; }
 		public IEnumerable<FrameOrder> SavedFrameOrders { get; private set; }
+		public Shop SavedShop { get; private set; }
 
 		protected ISession GetNewSession()
 		{

@@ -53,6 +53,7 @@
     <Compile Include="Domain\Model\FrameOrder\EyeParameter.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameGlassType.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameOrder.cs" />
+    <Compile Include="Domain\Model\FrameOrder\NullableEyeParameter.cs" />
     <Compile Include="Domain\Model\FrameOrder\Shop.cs" />
     <Compile Include="Domain\Model\FrameOrder\ShopAddress.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameStock.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Domain\Persistence\IFrameBrandRepository.cs" />
     <Compile Include="Domain\Persistence\IFrameColorRepository.cs" />
     <Compile Include="Domain\Services\IFrameOrderSettingsService.cs" />
+    <Compile Include="Domain\Services\ISynologenMemberService.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Extensions\ExpressionNameVisitor.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />

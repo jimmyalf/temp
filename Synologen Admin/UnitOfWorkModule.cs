@@ -1,7 +1,7 @@
 using System;
 using System.Web;
+using Spinit.Data;
 using Spinit.Wpc.Core.UI.Mvc;
-using Spinit.Wpc.Synologen.Core.Persistence;
 
 namespace Spinit.Wpc.Synologen.Presentation
 {

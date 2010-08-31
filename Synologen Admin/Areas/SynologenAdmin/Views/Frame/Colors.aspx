@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.master" Inherits="System.Web.Mvc.ViewPage<Spinit.Wpc.Synologen.Core.Persistence.ISortedPagedList<FrameColorListItemView>>" %>
+﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<FrameColorListItemView>>" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <% Html.RenderPartial("FrameSubMenu"); %>
 <div id="dCompMain" class="Components-Synologen-FrameBrand-Index">

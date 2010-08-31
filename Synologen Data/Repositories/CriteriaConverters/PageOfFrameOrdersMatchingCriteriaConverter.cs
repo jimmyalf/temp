@@ -1,19 +1,35 @@
 using NHibernate;
-using NHibernate.Criterion;
+using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
-using Spinit.Wpc.Synologen.Core.Persistence;
-using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
+
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 {
-	public class PageOfFrameOrdersMatchingCriteriaConverter : IActionCriteriaConverter<PageOfFrameOrdersMatchingCriteria, ICriteria>
+	public class PageOfFrameOrdersMatchingCriteriaConverter : NHibernateActionCriteriaConverter<PageOfFrameOrdersMatchingCriteria, FrameOrder>
 	{
-		private readonly ISession _session;
-		public PageOfFrameOrdersMatchingCriteriaConverter(ISession session) { _session = session; }
-		public ICriteria Convert(PageOfFrameOrdersMatchingCriteria source)
+		public PageOfFrameOrdersMatchingCriteriaConverter(ISession session) : base(session) {}
+
+		public override ICriteria Convert(PageOfFrameOrdersMatchingCriteria source)
 		{
-			return _session
+			return Criteria
+				.CreateAlias(x => x.Frame)
+				.CreateAlias(x => x.GlassType)
+				.CreateAlias(x => x.OrderingShop)
+				.FilterByAny(filter =>
+				{
+					filter.By(x => x.Frame.Name);
+					filter.By(x => x.GlassType.Name);
+					filter.By(x => x.OrderingShop.Name);
+				}, source.Search)
+				.Sort(source.OrderBy, source.SortAscending)
+				.Page(source.Page, source.PageSize);
+		}
+	}
+}
+
+/*
+ 			return _session
 				.CreateCriteria<FrameOrder>()
 				.SetAlias<FrameOrder>(x => x.Frame)
 				.SetAlias<FrameOrder>(x => x.GlassType)
@@ -25,6 +41,4 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 				)
 				.Sort(source.OrderBy, source.SortAscending)
 				.Page(source.Page, source.PageSize);
-		}
-	}
-}
+ */

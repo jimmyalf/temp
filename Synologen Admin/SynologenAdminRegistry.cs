@@ -1,9 +1,10 @@
 using System.Web.Mvc;
 using NHibernate;
+using Spinit.Data;
+using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
@@ -34,10 +35,11 @@ namespace Spinit.Wpc.Synologen.Presentation
 			ForRequestedType<IFrameOrderRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameOrderRepository>();
 
 			ForRequestedType<IActionCriteriaConverter<PageOfFramesMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<PageOfFramesMatchingCriteriaConverter>();
-			ForRequestedType<IActionCriteriaConverter<AllFramesMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<AllFramesMatchingCriteriaConverter>();
-			ForRequestedType<IActionCriteriaConverter<PageOfFrameColorsMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<PageOfFrameColorsMatchingCriteriaConverter>();
-			ForRequestedType<IActionCriteriaConverter<PageOfFrameBrandsMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameBrandsMatchingCriteriaConverter>();
-			ForRequestedType<IActionCriteriaConverter<PageOfFrameGlassTypesMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameGlassTypesMatchingCriteriaConverter>();
+			//ForRequestedType<IActionCriteriaConverter<AllFramesMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<AllFramesMatchingCriteriaConverter>();
+			//ForRequestedType<IActionCriteriaConverter<PageOfFrameColorsMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<PageOfFrameColorsMatchingCriteriaConverter>();
+			//ForRequestedType<IActionCriteriaConverter<PageOfFrameBrandsMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameBrandsMatchingCriteriaConverter>();
+			//ForRequestedType<IActionCriteriaConverter<PageOfFrameGlassTypesMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameGlassTypesMatchingCriteriaConverter>();
+			ForRequestedType<IActionCriteriaConverter<PagedSortedCriteria, ICriteria>>().TheDefaultIsConcreteType<PagedSortedCriteriaConverter>();
 			ForRequestedType<IActionCriteriaConverter<PageOfFrameOrdersMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameOrdersMatchingCriteriaConverter>();
 			ForRequestedType<IAdminSettingsService>().TheDefaultIsConcreteType<SettingsService>();
 			ForRequestedType<IGridSortPropertyMappingService>().TheDefaultIsConcreteType<SynologenGridSortPropertyMappingSerice>();

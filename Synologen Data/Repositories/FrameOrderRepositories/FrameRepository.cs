@@ -1,9 +1,9 @@
 using NHibernate;
 using NHibernate.Criterion;
+using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
-using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories
 {
@@ -25,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories
 		{
 			var ordersWithGivenFrame = Session.CreateCriteria<Core.Domain.Model.FrameOrder.FrameOrder>()
 				.Add(Restrictions.Eq("Frame.Id", entity.Id))
-				.GetCount().UniqueResult<long>();
+				.ToCountCriteria().UniqueResult<long>();
 			return (ordersWithGivenFrame > 0);
 		}
 	}

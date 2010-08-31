@@ -1,7 +1,6 @@
 using System;
 using System.Web.Mvc;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
@@ -22,7 +21,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
                 SortAscending = viewModel.Direction == SortDirection.Ascending
 			};
 			viewModel.List = _frameOrderRepository.FindBy(criteria)
-				.ToSortedPagedList()
 				.ToFrameOrderViewList();
 			viewModel.SearchTerm = search.UrlDecode();
 			return View(viewModel);

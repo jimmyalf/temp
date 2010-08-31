@@ -1,14 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Web;
-using Spinit.Wpc.Synologen.Core.Persistence;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 
 namespace Spinit.Wpc.Synologen.Presentation.Helpers
 {
-	public class WpcPager 
+	public class WpcPager<TModel> where TModel : class
 	{
-		private readonly IPagedList _pagedList;
+		private readonly IExtendedEnumerable<TModel> _pagedList;
 		private readonly HttpRequestBase _request;
 
 		private string _paginationContainerClass = "wpcPager";
@@ -24,11 +25,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		/// <summary>
 		/// Creates a new instance of the Pager class.
 		/// </summary>
-		/// <param name="pagedList">The IPagedList datasource</param>
+		/// <param name="list">The IEnumerable datasource</param>
 		/// <param name="request">The current HTTP Request</param>
-		public WpcPager(IPagedList pagedList, HttpRequestBase request) 
+		public WpcPager(IEnumerable<TModel> list, HttpRequestBase request) 
 		{
-			_pagedList = pagedList;
+			_pagedList = list.ToExtendedEnumerable();
 			_request = request;
 
 			_urlBuilder = CreateDefaultUrl;
@@ -37,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		/// <summary>
 		/// Specifies the query string parameter to use when generating pager links. The default is 'page'
 		/// </summary>
-		public WpcPager QueryParam(string queryStringParam) 
+		public WpcPager<TModel> QueryParam(string queryStringParam) 
 		{
 			_pageQueryName = queryStringParam;
 			return this;
@@ -49,7 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		//    return this;
 		//}
 
-		public WpcPager ContainerClass(string className) 
+		public WpcPager<TModel> ContainerClass(string className) 
 		{
 			_paginationContainerClass = className;
 			return this;
@@ -60,7 +61,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		/// Specifies the format to use when rendering a pagination containing multiple pages. 
 		/// The default is 'Page {0} of {1} ({2} items)' (eg 'Page 1 of 2 (60 items)')
 		/// </summary>
-		public WpcPager Format(string format) 
+		public WpcPager<TModel> Format(string format) 
 		{
 			_paginationFormat = format;
 			return this;
@@ -69,7 +70,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		/// <summary>
 		/// Text for the 'first' link.
 		/// </summary>
-		public WpcPager First(string first) 
+		public WpcPager<TModel> First(string first) 
 		{
 			_paginationFirst = first;
 			return this;
@@ -78,7 +79,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		/// <summary>
 		/// Text for the 'prev' link
 		/// </summary>
-		public WpcPager Previous(string previous) 
+		public WpcPager<TModel> Previous(string previous) 
 		{
 			_paginationPrev = previous;
 			return this;
@@ -87,7 +88,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		/// <summary>
 		/// Text for the 'next' link
 		/// </summary>
-		public WpcPager Next(string next) 
+		public WpcPager<TModel> Next(string next) 
 		{
 			_paginationNext = next;
 			return this;
@@ -96,7 +97,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		/// <summary>
 		/// Text for the 'last' link
 		/// </summary>
-		public WpcPager Last(string last) 
+		public WpcPager<TModel> Last(string last) 
 		{
 			_paginationLast = last;
 			return this;
@@ -107,7 +108,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		/// Uses a lambda expression to generate the URL for the page links.
 		/// </summary>
 		/// <param name="urlBuilder">Lambda expression for generating the URL used in the page links</param>
-		public WpcPager Link(Func<int, string> urlBuilder) 
+		public WpcPager<TModel> Link(Func<int, string> urlBuilder) 
 		{
 			_urlBuilder = urlBuilder;
 			return this;
@@ -115,7 +116,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 
 		public override string ToString() 
 		{
-			if (_pagedList.Total == 0) return null;
+			if (_pagedList.TotalCount == 0) return null;
 
 			var builder = new StringBuilder();
 
@@ -160,7 +161,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 
 			builder.Append(" | ");
 
-			builder.AppendFormat(_paginationFormat, _pagedList.Page, _pagedList.NumberOfPages, _pagedList.Total);
+			builder.AppendFormat(_paginationFormat, _pagedList.Page, _pagedList.NumberOfPages, _pagedList.TotalCount);
 
 			builder.Append(" | ");
 

@@ -1,5 +1,7 @@
 using System.Web.Mvc;
+using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
@@ -14,15 +16,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[HttpGet]
 		public ActionResult Brands(GridPageSortParameters gridPageSortParameters) 
 		{
-			var criteria = new PageOfFrameBrandsMatchingCriteria {
+			var criteria = new PagedSortedCriteria<FrameBrand> {
 				Page = gridPageSortParameters.Page,
 				PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize,
 				OrderBy = gridPageSortParameters.Column,
 				SortAscending = gridPageSortParameters.Direction == SortDirection.Ascending
-			};
+			} as PagedSortedCriteria;
 
 			var list = _frameBrandRepository.FindBy(criteria);
-			var viewList = list.ToSortedPagedList().ToFrameBrandViewList();
+			var viewList = list.ToFrameBrandViewList();
 			return View(viewList);
 		}
 

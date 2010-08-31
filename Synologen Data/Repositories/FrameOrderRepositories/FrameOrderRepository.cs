@@ -1,6 +1,6 @@
 using NHibernate;
+using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
-using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories
 {

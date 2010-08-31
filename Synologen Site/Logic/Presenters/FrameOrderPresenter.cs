@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers;
@@ -21,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		private readonly IFrameOrderSettingsService _frameOrderSettingsService;
 		private readonly IEnumerable<IntervalListItem> EmptyIntervalList = new List<IntervalListItem>();
 		private readonly FrameListItem DefaultFrame = new FrameListItem {Id = 0, Name = "-- Välj båge --"};
+		private readonly AllOrderableFramesCriteria AllOrderableFramesCriteria = new AllOrderableFramesCriteria();
 
 		public FrameOrderPresenter(IFrameOrderView<FrameOrderModel> view, IFrameRepository repository, IFrameGlassTypeRepository frameGlassTypeRepository, IFrameOrderRepository frameOrderRepository, IShopRepository shopRepository, ISynologenMemberService sessionProviderService, IFrameOrderSettingsService frameOrderSettingsService) : base(view)
 		{
@@ -76,7 +78,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 
 		public void InitializeModel()
 		{
-			View.Model.FramesList = _frameRepository.GetAll().ToFrameViewList().InsertFirst(DefaultFrame);
+			View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).ToFrameViewList().InsertFirst(DefaultFrame);
 			View.Model.PupillaryDistance = EmptyIntervalList.CreateDefaultEyeParameter("PD");
 			View.Model.GlassTypesList = _frameGlassTypeRepository.GetAll().ToFrameGlassTypeViewList().InsertFirst(new FrameGlassTypeListItem {Id = 0, Name = "-- Välj glastyp --"});
 			View.Model.Sphere = _frameOrderSettingsService.Sphere.GetList().CreateDefaultEyeParameter("Sfär");

@@ -114,6 +114,44 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		}
 
 		[Test]
+		public void Can_get_all_frames()
+		{
+			//Arrange
+			const int expectedNumberOfAllFrames = 36;
+
+			//Act
+			var allFrames = FrameValidationRepository.GetAll();
+			
+			//Assert
+			Expect(allFrames.Count(), Is.EqualTo(expectedNumberOfAllFrames));
+		}
+
+		[Test]
+		public void Can_get_frames_by_AllOrderableFramesCritera()
+		{
+			//Arrange
+			const int expectedNumberOfFramesMatchingCriteria = 36;
+			const int expectedNumberOfAllFrames = 37;
+			var criteria = new AllOrderableFramesCriteria();
+			var extraFrame = Factories.FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First());
+			extraFrame.AllowOrders = false;
+
+			//Act
+			FrameRepository.Save(extraFrame);
+			var framesMatchingCriteria = FrameValidationRepository.FindBy(criteria);
+			var allFrames = FrameValidationRepository.GetAll();
+			
+			//Assert
+			Expect(framesMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfFramesMatchingCriteria));
+			Expect(allFrames.Count(), Is.EqualTo(expectedNumberOfAllFrames));
+			foreach (var frame in framesMatchingCriteria)
+			{
+				Expect(frame.AllowOrders, Is.True);
+			}
+			
+		}
+
+		[Test]
 		public void Can_get_frames_by_PageOfFramesMatchingCriteria_filtered_by_frame_name()
 		{
 			//Arrange

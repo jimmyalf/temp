@@ -1,9 +1,9 @@
 using NHibernate;
 using NHibernate.Criterion;
+using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
-using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories
 {
@@ -26,7 +26,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories
 			//return entity.NumberOfFramesWithThisColor > 0;
 			var framesWithGivenColor = Session.CreateCriteria<Frame>()
 				.Add(Restrictions.Eq("Color.Id", entity.Id))
-				.GetCount().UniqueResult<long>();
+				.ToCountCriteria().UniqueResult<long>();
 			return (framesWithGivenColor > 0);
 		}
 	}

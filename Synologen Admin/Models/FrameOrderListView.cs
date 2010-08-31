@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using System.ComponentModel;
-using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 
 namespace Spinit.Wpc.Synologen.Presentation.Models
@@ -8,6 +8,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 	{
 		[DisplayName("Filtrera")]
 		public string SearchTerm { get; set; }
-		public ISortedPagedList<FrameOrderListItemView> List { get; set; }
+		public IEnumerable<FrameOrderListItemView> List { get; set; }
 	}
 }

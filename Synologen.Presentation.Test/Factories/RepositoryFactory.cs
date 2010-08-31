@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Moq;
+using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
-using Spinit.Wpc.Synologen.Core.Persistence;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 {
@@ -177,14 +177,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 		}
 
 
-		private static ISortedPagedList<TModel> GenerateItems<TModel>(Func<int,TModel> generateFromIdFunction)
+		private static IEnumerable<TModel> GenerateItems<TModel>(Func<int,TModel> generateFromIdFunction) where TModel : class
 		{
 			var returnList = new List<TModel>();
 			for(var id=1; id <= 10; id++)
 			{
 				returnList.Add(generateFromIdFunction(id));
 			}
-			return new SortedPagedList<TModel>(returnList, 20, 1, 10, null, false);
+			return new ExtendedEnumerable<TModel>(returnList, 20, 1, 10, null, false);
 		}
 
 	}

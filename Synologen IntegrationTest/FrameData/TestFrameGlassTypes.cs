@@ -1,7 +1,8 @@
 using System.Linq;
 using NUnit.Framework;
+using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 {
@@ -95,7 +96,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		{
 		    //Arrange
 		    const int expectedNumberOfItemsMatchingCriteria = 3;
-		    var criteria = new PageOfFrameGlassTypesMatchingCriteria
+		    var criteria = new PagedSortedCriteria(typeof(FrameGlassType))
 		    {
 		        OrderBy = null,
 		        Page = 1,
@@ -118,7 +119,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		{
 		    //Arrange
 		    const int expectedNumberOfItemsMatchingCriteria = 4;
-		    var criteria = new PageOfFrameGlassTypesMatchingCriteria
+		    var criteria = new PagedSortedCriteria(typeof(FrameGlassType))
 		    {
 		        OrderBy = "Id",
 		        Page = 1,
@@ -141,7 +142,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		{
 		    //Arrange
 		    const int expectedNumberOfItemsMatchingCriteria = 4;
-		    var criteria = new PageOfFrameGlassTypesMatchingCriteria
+		    var criteria = new PagedSortedCriteria(typeof(FrameGlassType))
 		    {
 		        OrderBy = "Name",
 		        Page = 1,
@@ -163,7 +164,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		{
 		    //Arrange
 		    const int expectedNumberOfItemsMatchingCriteria = 4;
-		    var criteria = new PageOfFrameGlassTypesMatchingCriteria
+		    var criteria = new PagedSortedCriteria(typeof(FrameGlassType))
 		    {
 		        OrderBy = "Id",
 		        Page = 1,

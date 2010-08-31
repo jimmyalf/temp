@@ -1,7 +1,8 @@
 using System.Linq;
 using NUnit.Framework;
+using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 {
@@ -91,13 +92,12 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		{
 		    //Arrange
 		    const int expectedNumberOfItemsMatchingCriteria = 5;
-		    var criteria = new PageOfFrameBrandsMatchingCriteria
-		    {
+		    var criteria = new PagedSortedCriteria<FrameBrand> {
 		        OrderBy = null,
 		        Page = 1,
 		        PageSize = expectedNumberOfItemsMatchingCriteria,
 		        SortAscending = true
-		    };
+		    } as PagedSortedCriteria;
 
 		    //Act
 		    var itemsMatchingCriteria = FrameBrandValidationRepository.FindBy(criteria);
@@ -114,13 +114,13 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		{
 		    //Arrange
 		    const int expectedNumberOfItemsMatchingCriteria = 6;
-		    var criteria = new PageOfFrameBrandsMatchingCriteria
+		    var criteria = new PagedSortedCriteria<FrameBrand>
 		    {
 		        OrderBy = "Id",
 		        Page = 1,
 		        PageSize = 100,
 		        SortAscending = true
-		    };
+		    } as PagedSortedCriteria;
 
 		    //Act
 		    var itemsMatchingCriteria = FrameBrandValidationRepository.FindBy(criteria);
@@ -137,13 +137,13 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		{
 		    //Arrange
 		    const int expectedNumberOfItemsMatchingCriteria = 6;
-		    var criteria = new PageOfFrameBrandsMatchingCriteria
+		    var criteria = new PagedSortedCriteria<FrameBrand>
 		    {
 		        OrderBy = "Name",
 		        Page = 1,
 		        PageSize = 100,
 		        SortAscending = true
-		    };
+		    } as PagedSortedCriteria;
 
 		    //Act
 		    var itemsMatchingCriteria = FrameBrandValidationRepository.FindBy(criteria);
@@ -160,13 +160,13 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		{
 		    //Arrange
 		    const int expectedNumberOfItemsMatchingCriteria = 6;
-		    var criteria = new PageOfFrameBrandsMatchingCriteria
+		    var criteria = new PagedSortedCriteria<FrameBrand>
 		    {
 		        OrderBy = "Id",
 		        Page = 1,
 		        PageSize = 100,
 		        SortAscending = false
-		    };
+		    } as PagedSortedCriteria;
 
 		    //Act
 		    var itemsMatchingCriteria = FrameBrandValidationRepository.FindBy(criteria);

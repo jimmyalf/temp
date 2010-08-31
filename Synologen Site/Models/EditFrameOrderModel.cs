@@ -3,7 +3,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 {
-	public class FrameOrderModel
+	public class EditFrameOrderModel
 	{
 		
 		public IEnumerable<FrameListItem> FramesList { get; set; }

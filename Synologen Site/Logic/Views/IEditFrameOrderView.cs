@@ -4,7 +4,7 @@ using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Views
 {
-	public interface IFrameOrderView<T> : IView<T> where T : class, new()
+	public interface IEditFrameOrderView<T> : IView<T> where T : class, new()
 	{
 		event EventHandler<FrameFormEventArgs> FrameSelected;
 		event EventHandler<FrameFormEventArgs> SubmitForm;

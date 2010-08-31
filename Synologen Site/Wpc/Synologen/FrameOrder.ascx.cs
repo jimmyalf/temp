@@ -9,8 +9,8 @@ using WebFormsMvp;
 using WebFormsMvp.Web;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
-	[PresenterBinding(typeof(FrameOrderPresenter))] 
-	public partial class FrameOrder : MvpUserControl<FrameOrderModel>, IFrameOrderView<FrameOrderModel> {
+	[PresenterBinding(typeof(EditFrameOrderPresenter))] 
+	public partial class FrameOrder : MvpUserControl<EditFrameOrderModel>, IEditFrameOrderView<EditFrameOrderModel> {
 
 		public event EventHandler<FrameFormEventArgs> FrameSelected;
 		public event EventHandler<FrameFormEventArgs> SubmitForm;

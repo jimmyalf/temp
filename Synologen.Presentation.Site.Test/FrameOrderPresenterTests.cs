@@ -17,8 +17,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 	[TestFixture]
 	public class Given_a_FrameOrderPresenter : AssertionHelper
 	{
-		private FrameOrderPresenter presenter;
-		private IFrameOrderView<FrameOrderModel> view;
+		private EditFrameOrderPresenter presenter;
+		private IEditFrameOrderView<EditFrameOrderModel> view;
 		private IFrameRepository frameRepository;
 		private IFrameGlassTypeRepository frameGlassTypeRepository;
 		private IFrameOrderRepository frameOrderRepository;
@@ -36,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			frameOrderSettingsService = ServiceFactory.GetFrameOrderSettingsService();
 			synologenMemberService = ServiceFactory.GetSessionProviderService();
 			view = ViewsFactory.GetFrameOrderView();
-			presenter = new FrameOrderPresenter(view, frameRepository, frameGlassTypeRepository, frameOrderRepository, shopRepository, synologenMemberService, frameOrderSettingsService);
+			presenter = new EditFrameOrderPresenter(view, frameRepository, frameGlassTypeRepository, frameOrderRepository, shopRepository, synologenMemberService, frameOrderSettingsService);
 		}
 
 		[Test]

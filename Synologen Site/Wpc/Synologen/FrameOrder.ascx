@@ -6,6 +6,7 @@
 .frame-order-item label{ display:block; clear:both; }
 .frame-order-item input{ width: 4em; }
 .form-controls { clear: both; }
+.frame-order-item.notes textarea { width: 25em; min-height:8em; }
 
 </style>
 
@@ -315,6 +316,7 @@
 </div>
 
 <div class="frame-order-item notes">
+	<label for="<%=txtNotes.ClientID%>">Anteckningar</label>
 	<asp:TextBox ID="txtNotes" runat="server" TextMode="MultiLine" />
 </div>
 

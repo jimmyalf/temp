@@ -1,5 +1,8 @@
 using System.Web.Mvc;
+using Spinit.Data;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
@@ -13,16 +16,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[HttpGet]
 		public ActionResult Colors(GridPageSortParameters gridParameters)
 		{
-			var criteria = new PageOfFrameColorsMatchingCriteria
+			var criteria = new PagedSortedCriteria<FrameColor>
 			{
 				Page = gridParameters.Page, 
 				PageSize = gridParameters.PageSize ?? DefaultPageSize, 
 				OrderBy = gridParameters.Column, 
 				SortAscending = gridParameters.Direction == SortDirection.Ascending
-			};
+			} as PagedSortedCriteria;
 
 			var list = _frameColorRepository.FindBy(criteria);
-			var viewList = list.ToSortedPagedList().ToFrameColorViewList();
+			var viewList = list.ToFrameColorViewList();
 			return View(viewList);
 		}
 

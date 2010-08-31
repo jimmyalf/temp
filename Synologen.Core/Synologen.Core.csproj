@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Spinit, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -57,7 +65,7 @@
     <Compile Include="Domain\Model\FrameOrder\Shop.cs" />
     <Compile Include="Domain\Model\FrameOrder\ShopAddress.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameStock.cs" />
-    <Compile Include="Domain\Persistence\Criterias\PageOfFrameGlassTypesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameOrdersMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\IFrameGlassTypeRepository.cs" />
     <Compile Include="Domain\Persistence\IFrameOrderRepository.cs" />
@@ -70,9 +78,6 @@
     <Compile Include="Domain\Model\FrameOrder\FrameBrand.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameColor.cs" />
     <Compile Include="Domain\Model\FrameOrder\Interval.cs" />
-    <Compile Include="Domain\Persistence\Criterias\AllFramesMatchingCriteria.cs" />
-    <Compile Include="Domain\Persistence\Criterias\PageOfFrameBrandsMatchingCriteria.cs" />
-    <Compile Include="Domain\Persistence\Criterias\PageOfFrameColorsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFramesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\IFrameBrandRepository.cs" />
     <Compile Include="Domain\Persistence\IFrameColorRepository.cs" />
@@ -82,21 +87,7 @@
     <Compile Include="Extensions\ExpressionNameVisitor.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Persistence\ActionCriteriaExtensions.cs" />
-    <Compile Include="Persistence\IActionCriteria.cs" />
     <Compile Include="Domain\Persistence\IFrameRepository.cs" />
-    <Compile Include="Persistence\IActionCriteriaConverter.cs" />
-    <Compile Include="Persistence\IPagedCriteria.cs" />
-    <Compile Include="Persistence\IPagedList.cs" />
-    <Compile Include="Persistence\IReadonlyRepository.cs" />
-    <Compile Include="Persistence\IRepository.cs" />
-    <Compile Include="Persistence\ISortedCriteria.cs" />
-    <Compile Include="Persistence\ISortedPagedList.cs" />
-    <Compile Include="Persistence\IUnitOfWork.cs" />
-    <Compile Include="Persistence\PagedCriteria.cs" />
-    <Compile Include="Persistence\PagedList.cs" />
-    <Compile Include="Persistence\PagedSortedCriteria.cs" />
-    <Compile Include="Persistence\SortedPagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

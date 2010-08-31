@@ -1,14 +1,18 @@
 using NHibernate;
+using Spinit.Data;
+using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Data;
+using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Services;
 using StructureMap.Attributes;
 using StructureMap.Configuration.DSL;
+//using IUnitOfWork=Spinit.Wpc.Synologen.Core.Persistence.IUnitOfWork;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site
 {
@@ -28,6 +32,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 			ForRequestedType<IFrameOrderSettingsService>().TheDefaultIsConcreteType<FrameOrderSettingsService>();
 			ForRequestedType<ISynologenMemberService>().TheDefaultIsConcreteType<SynologenMemberService>();
 			ForRequestedType<ISqlProvider>().TheDefault.Is.ConstructedBy(() => new SqlProvider(connectionString));
+
+			ForRequestedType<IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>>().TheDefaultIsConcreteType<AllOrderableFramesCriteriaConverter>();
+
 		}
 	}
 }

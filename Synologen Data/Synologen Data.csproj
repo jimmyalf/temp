@@ -57,6 +57,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Data, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data.NHibernate, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Data.NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
@@ -89,10 +97,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\CriteriaConverters\AllFramesMatchingCriteriaConverter.cs" />
-    <Compile Include="Repositories\CriteriaConverters\PageOfFrameGlassTypesMatchingCriteriaConverter.cs" />
-    <Compile Include="Repositories\CriteriaConverters\PageOfFrameBrandsMatchingCriteriaConverter.cs" />
-    <Compile Include="Repositories\CriteriaConverters\PageOfFrameColorsMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\AllOrderableFramesCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFrameOrdersMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFramesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\FrameBrandRepository.cs" />
@@ -108,9 +113,6 @@
     <Compile Include="Repositories\NHibernate\Mappings\ShopMap.cs" />
     <Compile Include="Repositories\NHibernate\NHibernateCriteriaExtensions.cs" />
     <Compile Include="Repositories\NHibernate\NHibernateFactory.cs" />
-    <Compile Include="Repositories\NHibernate\NHibernateReadonlyRepository.cs" />
-    <Compile Include="Repositories\NHibernate\NHibernateRepository.cs" />
-    <Compile Include="Repositories\NHibernate\NHibernateUnitOfWork.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\ShopRepository.cs" />
     <Compile Include="SqlProviderConcern.cs" />
     <Compile Include="SqlProviderCountry.cs" />

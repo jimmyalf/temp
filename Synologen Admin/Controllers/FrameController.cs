@@ -44,7 +44,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 //			HttpContext.Items.Add("Test", "Yihaaaa");
 			var list = _frameRepository.FindBy(criteria);
 			var viewList = list
-				.ToSortedPagedList()
 				.ToFrameViewList();
 			var viewModel = new FrameListView {List = viewList, SearchTerm = decodedSearchTerm};
 			return View(viewModel);

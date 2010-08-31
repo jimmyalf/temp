@@ -1,6 +1,6 @@
 using System.Web.Mvc;
+using Spinit.Data;
 using Spinit.Wpc.Core.UI.Mvc;
-using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Presentation.Application.ModelBinders;
 
 namespace Spinit.Wpc.Synologen.Presentation

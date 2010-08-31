@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Routing;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Presentation.Models;
 
 namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
@@ -135,7 +135,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		#endregion
 
 		#region To View Lists
-		public static ISortedPagedList<FrameListItemView> ToFrameViewList(this ISortedPagedList<Frame> entityList)
+		public static IEnumerable<FrameListItemView> ToFrameViewList(this IEnumerable<Frame> entityList)
 		{
 			Func<Frame, FrameListItemView> typeConverter = x => new FrameListItemView {
 				AllowOrders = x.AllowOrders,
@@ -146,30 +146,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 				Name = x.Name,
                 NumberOfOrdersWithThisFrame = x.NumberOfConnectedOrdersWithThisFrame
 			};
-			return entityList.ConvertSortedPagedList(new Converter<Frame, FrameListItemView>(typeConverter));
+			return entityList.ConvertSortedPagedList(typeConverter);
 		}
 
-		public static ISortedPagedList<FrameColorListItemView> ToFrameColorViewList(this ISortedPagedList<FrameColor> entityList)
+		public static IEnumerable<FrameColorListItemView> ToFrameColorViewList(this IEnumerable<FrameColor> entityList)
 		{
 			Func<FrameColor, FrameColorListItemView> typeConverter = x => new FrameColorListItemView {
 			                                                                                         	Id = x.Id,
 			                                                                                         	Name = x.Name,
                                                                                                         NumberOfFramesWithThisColor = x.NumberOfFramesWithThisColor
 			                                                                                         };
-			return entityList.ConvertSortedPagedList(new Converter<FrameColor, FrameColorListItemView>(typeConverter));			
+			return entityList.ConvertSortedPagedList(typeConverter);
 		}
 
-		public static ISortedPagedList<FrameBrandListItemView> ToFrameBrandViewList(this ISortedPagedList<FrameBrand> entityList)
+		public static IEnumerable<FrameBrandListItemView> ToFrameBrandViewList(this IEnumerable<FrameBrand> entityList)
 		{
 			Func<FrameBrand, FrameBrandListItemView> typeConverter = x => new FrameBrandListItemView {
 			                                                                                         	Id = x.Id,
 			                                                                                         	Name = x.Name,
 																										NumberOfFramesWithThisBrand = x.NumberOfFramesWithThisBrand
 			                                                                                         };
-			return entityList.ConvertSortedPagedList(new Converter<FrameBrand, FrameBrandListItemView>(typeConverter));
+			return entityList.ConvertSortedPagedList(typeConverter);
 		}
 
-		public static ISortedPagedList<FrameGlassTypeListItemView> ToFrameGlassTypeViewList(this ISortedPagedList<FrameGlassType> entityList)
+		public static IEnumerable<FrameGlassTypeListItemView> ToFrameGlassTypeViewList(this IEnumerable<FrameGlassType> entityList)
 		{
 			Func<FrameGlassType, FrameGlassTypeListItemView> typeConverter = x => new FrameGlassTypeListItemView
 			{
@@ -179,10 +179,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 				IncludeHeight = x.IncludeHeightParametersInOrder,
                 NumberOfOrdersWithThisGlassType = x.NumberOfConnectedOrdersWithThisGlassType
 			};
-			return entityList.ConvertSortedPagedList(new Converter<FrameGlassType, FrameGlassTypeListItemView>(typeConverter));
+			return entityList.ConvertSortedPagedList(typeConverter);
 		}
 
-		public static ISortedPagedList<FrameOrderListItemView> ToFrameOrderViewList(this ISortedPagedList<FrameOrder> entityList)
+		public static IEnumerable<FrameOrderListItemView> ToFrameOrderViewList(this IEnumerable<FrameOrder> entityList)
 		{
 			Func<FrameOrder, FrameOrderListItemView> typeConverter = x => new FrameOrderListItemView
 			{
@@ -193,7 +193,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
                 Shop = x.OrderingShop.Name,
                 Created = x.Created.ToString("yyyy-MM-dd"),
 			};
-			return entityList.ConvertSortedPagedList(new Converter<FrameOrder, FrameOrderListItemView>(typeConverter));
+			return entityList.ConvertSortedPagedList(typeConverter);
 		}
 
 		#endregion
@@ -263,5 +263,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			return entity;
 		}
 
+		public static IEnumerable<TOutputModel> ConvertSortedPagedList<TModel, TOutputModel>(this IEnumerable<TModel> enumerable, Func<TModel, TOutputModel> converter) where TOutputModel : class where TModel : class {
+			return enumerable.ToExtendedEnumerable().ConvertSortedPagedList(converter);
+		}
+
+		public static IEnumerable<TOutputModel> ConvertSortedPagedList<TModel, TOutputModel>(this IExtendedEnumerable<TModel> enumerable, Func<TModel, TOutputModel> converter) where TOutputModel : class {
+			//return new ExtendedEnumerable<TOutputModel>(enumerable.ConvertAll(converter), enumerable.TotalCount, enumerable.Page, enumerable.PageSize, enumerable.SortedBy, enumerable.SortedAscending);
+			return enumerable.ConvertAll(converter);
+		}
 	}
 }

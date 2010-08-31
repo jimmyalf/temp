@@ -6,10 +6,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using NHibernate;
 using NUnit.Framework;
+using Spinit.Data;
+using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
-using Spinit.Wpc.Synologen.Core.Persistence;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
@@ -66,21 +67,17 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			{
 			    return new PageOfFramesMatchingCriteriaConverter(GetNewSession());
 			}
-			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<PageOfFrameColorsMatchingCriteria, ICriteria>)))
+			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<PagedSortedCriteria, ICriteria>)))
 			{
-				return new PageOfFrameColorsMatchingCriteriaConverter(GetNewSession());
-			}
-			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<PageOfFrameBrandsMatchingCriteria, ICriteria>)))
-			{
-				return new PageOfFrameBrandsMatchingCriteriaConverter(GetNewSession());
-			}
-			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<PageOfFrameGlassTypesMatchingCriteria, ICriteria>)))
-			{
-				return new PageOfFrameGlassTypesMatchingCriteriaConverter(GetNewSession());
+				return new PagedSortedCriteriaConverter(GetNewSession());
 			}
 			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<PageOfFrameOrdersMatchingCriteria, ICriteria>)))
 			{
 				return new PageOfFrameOrdersMatchingCriteriaConverter(GetNewSession());
+			}
+			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>)))
+			{
+				return new AllOrderableFramesCriteriaConverter(GetNewSession());
 			}
 			throw new ArgumentException(String.Format("No criteria converter has been defined for {0}", objectToResolve), "objectToResolve");
 		}

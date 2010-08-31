@@ -20,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 			public event EventHandler<FrameFormEventArgs> FrameSelected;
 			public event EventHandler<FrameFormEventArgs> SubmitForm;
 			public event EventHandler<FrameFormEventArgs> GlassTypeSelected;
+			public int RedirectPageId { get; set; }
 		}
 	}
 }

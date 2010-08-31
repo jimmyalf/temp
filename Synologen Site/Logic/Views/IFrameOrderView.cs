@@ -9,5 +9,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Views
 		event EventHandler<FrameFormEventArgs> FrameSelected;
 		event EventHandler<FrameFormEventArgs> SubmitForm;
 		event EventHandler<FrameFormEventArgs> GlassTypeSelected;
+		int RedirectPageId { get; set; }
 	}
 }

@@ -98,12 +98,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 
 		internal class MockedBaseClass<TEntity> : IRepository<TEntity> where TEntity : class
 		{
+			private int _savedId;
 			public TEntity SavedItem { get; private set; }
 			public virtual TEntity Get(int id){ throw new NotImplementedException();}
 			public IEnumerable<TEntity> GetAll() { return GenerateItems<TEntity>(Get); }
 			public IEnumerable<TEntity> FindBy<TActionCriteria>(TActionCriteria criteria) where TActionCriteria : IActionCriteria { return GetAll(); }
-			public void Save(TEntity entity) { SavedItem = entity; }
+			public void Save(TEntity entity)
+			{
+				TrySetId(entity, _savedId);
+				SavedItem = entity;
+				
+			}
 			public void Delete(TEntity entity) { throw new NotImplementedException(); }
+			public void SetSavedId(int id) { _savedId = id; }
 		}
 
 
@@ -117,6 +124,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 		//    }
 		//    catch{ return null; }
 		//}
+
+		private static void TrySetId<TModel>(TModel entity, int id)
+		{
+	        var propertyInfo = typeof(TModel).GetProperty("Id");
+	        if(propertyInfo == null) return;
+	    	propertyInfo.SetValue(entity, id, null);
+		}
 
 
 		private static IEnumerable<TModel> GenerateItems<TModel>(Func<int,TModel> generateFromIdFunction)

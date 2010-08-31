@@ -18,7 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		private readonly IFrameGlassTypeRepository _frameGlassTypeRepository;
 		private readonly IFrameOrderRepository _frameOrderRepository;
 		private readonly IShopRepository _shopRepository;
-		private readonly ISynologenMemberService _sessionProviderService;
+		private readonly ISynologenMemberService _synologenMemberService;
 		private readonly IFrameOrderSettingsService _frameOrderSettingsService;
 		private readonly IEnumerable<IntervalListItem> EmptyIntervalList = new List<IntervalListItem>();
 		private readonly FrameListItem DefaultFrame = new FrameListItem {Id = 0, Name = "-- Välj båge --"};
@@ -30,7 +30,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			_frameGlassTypeRepository = frameGlassTypeRepository;
 			_frameOrderRepository = frameOrderRepository;
 			_shopRepository = shopRepository;
-			_sessionProviderService = sessionProviderService;
+			_synologenMemberService = sessionProviderService;
 			_frameOrderSettingsService = frameOrderSettingsService;
 			InitiateEventHandlers();
 		}
@@ -59,11 +59,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			{
 				var frame = _frameRepository.Get(e.SelectedFrameId);
 				var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
-				var shopId = _sessionProviderService.GetCurrentShopId();
+				var shopId = _synologenMemberService.GetCurrentShopId();
 				var shop = _shopRepository.Get(shopId);
 				var frameOrder = e.ToFrameOrder(frame, glassType, shop);
 				_frameOrderRepository.Save(frameOrder);
-				//TODO: Redirect
+				if (View.RedirectPageId > 0)
+				{
+					var url = _synologenMemberService.GetPageUrl(View.RedirectPageId);
+					url = String.Concat(url, "?frameorder=", frameOrder.Id);
+					HttpContext.Response.Redirect(url);
+				}
+				
 			}
 			else
 			{

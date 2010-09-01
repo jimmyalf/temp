@@ -15,14 +15,14 @@ using Spinit.Wpc.Synologen.Presentation.Site.Test.Factories;
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 {
 	[TestFixture]
-	public class Given_a_FrameOrderPresenter : AssertionHelper
+	public class Given_a_EditFrameOrderPresenter : AssertionHelper
 	{
 		private EditFrameOrderPresenter presenter;
 		private IEditFrameOrderView<EditFrameOrderModel> view;
 		private IFrameRepository frameRepository;
 		private IFrameGlassTypeRepository frameGlassTypeRepository;
 		private IFrameOrderRepository frameOrderRepository;
-		private IFrameOrderSettingsService frameOrderSettingsService;
+		private IFrameOrderService frameOrderService;
 		private ISynologenMemberService synologenMemberService;
 		private IShopRepository shopRepository;
 
@@ -33,10 +33,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			frameGlassTypeRepository = RepositoryFactory.GetFrameGlassRepository();
 			frameOrderRepository = RepositoryFactory.GetFramOrderRepository();
 			shopRepository = RepositoryFactory.GetShopRepository();
-			frameOrderSettingsService = ServiceFactory.GetFrameOrderSettingsService();
-			synologenMemberService = ServiceFactory.GetSessionProviderService();
+			frameOrderService = ServiceFactory.GetFrameOrderSettingsService();
+			synologenMemberService = ServiceFactory.GetSynologenMemberService();
 			view = ViewsFactory.GetFrameOrderView();
-			presenter = new EditFrameOrderPresenter(view, frameRepository, frameGlassTypeRepository, frameOrderRepository, shopRepository, synologenMemberService, frameOrderSettingsService);
+			presenter = new EditFrameOrderPresenter(view, frameRepository, frameGlassTypeRepository, frameOrderRepository, shopRepository, synologenMemberService, frameOrderService);
 		}
 
 		[Test]
@@ -119,7 +119,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 		public void When_Model_Is_Bound_Selected_Model_Has_Expected_Values()
 		{
 			//Arrange
-			var frameSelectedEventArgs = new FrameFormEventArgs
+			var frameSelectedEventArgs = new EditFrameFormEventArgs
 			{
 				SelectedFrameId = 5, 
 				SelectedGlassTypeId = 8,  // Returns a glasstype with both addition and height
@@ -175,7 +175,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 		public void When_Model_Is_Bound_Without_Addition_Or_Height_Selected_Model_Has_Expected_Values()
 		{
 			//Arrange
-			var frameSelectedEventArgs = new FrameFormEventArgs
+			var frameSelectedEventArgs = new EditFrameFormEventArgs
 			{
 				SelectedFrameId = 5, 
 				SelectedGlassTypeId = 1, // Returns a glasstype without addition or height
@@ -208,7 +208,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 		public void When_Model_Is_Bound_Model_With_Invalid_Parameters_Get_Default_Values()
 		{
 			//Arrange
-			var frameSelectedEventArgs = new FrameFormEventArgs
+			var frameSelectedEventArgs = new EditFrameFormEventArgs
 			{
 				SelectedFrameId = 1, 
 				SelectedGlassTypeId = 8,
@@ -247,7 +247,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 		public void When_Form_Is_Submitted_Saved_Item_Has_Expected_Values()
 		{
 			//Arrange
-			var frameSelectedEventArgs = new FrameFormEventArgs {
+			var frameSelectedEventArgs = new EditFrameFormEventArgs {
 				SelectedFrameId = 5,
 				SelectedGlassTypeId = 8,
 				SelectedPupillaryDistance = new EyeParameter { Left = 22, Right = 33 },

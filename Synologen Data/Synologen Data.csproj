@@ -111,7 +111,6 @@
     <Compile Include="Repositories\NHibernate\Mappings\FrameMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameOrderMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopMap.cs" />
-    <Compile Include="Repositories\NHibernate\NHibernateCriteriaExtensions.cs" />
     <Compile Include="Repositories\NHibernate\NHibernateFactory.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\ShopRepository.cs" />
     <Compile Include="SqlProviderConcern.cs" />

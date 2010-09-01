@@ -1,10 +1,14 @@
-using Spinit.Wpc.Synologen.Business;
+using System;
+using System.Text;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers;
+using Spinit.Wpc.Utility.Business;
+using Globals=Spinit.Wpc.Synologen.Business.Globals;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
 {
-	public class FrameOrderSettingsService : IFrameOrderSettingsService
+	public class FrameOrderSettingsService : IFrameOrderService
 	{
 		public Interval Sphere { 
 			get
@@ -51,6 +55,60 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
 					Min = Globals.FrameOrderHeightMin
 				};
 			}
+		}
+
+		public string EmailOrderSupplierEmail
+		{
+			get { return Globals.FrameOrderSupplierEmail; }
+		}
+
+		public string EmailOrderFrom
+		{
+			get { return Globals.FrameOrderFromEmail; }
+		}
+
+		public string EmailOrderSubject
+		{
+			get { return Globals.FrameOrderEmailSubject; }
+		}
+
+		public string CreateOrderEmailBody(FrameOrder order)
+		{
+			var builder = new StringBuilder()
+				.AppendFormatLine("Butik: {0}",order.OrderingShop.Name)
+				.AppendFormatLine("Butiksort: {0}",order.OrderingShop.Address.City)
+				.AppendFormatLine("Båge: {0}",order.Frame.Name)
+				.AppendFormatLine("Båge Artnr: {0}",order.Frame.ArticleNumber)
+				.AppendFormatLine("PD Vänster: {0}", order.PupillaryDistance.Left)
+				.AppendFormatLine("PD Höger: {0}", order.PupillaryDistance.Right)
+				.AppendFormatLine("Glastyp: {0}", order.GlassType.Name)
+				.AppendFormatLine("Sfär Vänster: {0}", order.Sphere.Left)
+				.AppendFormatLine("Sfär Höger: {0}", order.Sphere.Right)
+				.AppendFormatLine("Cylinder Vänster: {0}", order.Cylinder.Left)
+				.AppendFormatLine("Cylinder Höger: {0}", order.Cylinder.Right)
+				.AppendFormatLine("Axel Vänster: {0}", order.Axis.Left)
+				.AppendFormatLine("Axel Höger: {0}", order.Axis.Right)
+				.AppendFormatLine("Addition Vänster: {0}", (order.Addition !=null) ?  order.Addition.Left : null)
+				.AppendFormatLine("Addition Höger: {0}", (order.Addition !=null) ?  order.Addition.Right : null)
+				.AppendFormatLine("Höjd Vänster: {0}", (order.Height !=null) ?  order.Height.Left : null)
+				.AppendFormatLine("Höjd Höger: {0}", (order.Height !=null) ?  order.Height.Right : null);
+			return builder.ToString();
+		}
+
+		public void SendEmail(string body)
+		{
+			SpinitServices.SendMail(
+				EmailOrderSupplierEmail, 
+				null, 
+				EmailOrderFrom, 
+				null,
+				EmailOrderSubject,
+				body,
+				null,
+				SpinitServices.Priority.Medium,
+				null,
+				DateTime.Now 
+			);
 		}
 	}
 }

@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 			return list.ConvertAll(typeConverter);
 		}
 
-		public static FrameOrder ToFrameOrder(this FrameFormEventArgs eventArgs, Frame frame, FrameGlassType glassType, Shop orderingShop)
+		public static FrameOrder ToFrameOrder(this EditFrameFormEventArgs eventArgs, Frame frame, FrameGlassType glassType, Shop orderingShop)
 		{
 			return new FrameOrder {
 				Addition = new NullableEyeParameter
@@ -82,7 +82,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 		}
 
 
-		public static EyeParameterIntervalListAndSelection GetEyeParameter(this FrameFormEventArgs e, Func<FrameFormEventArgs,EyeParameter> selectedEyeParameters, IEnumerable<IntervalListItem> listItems, string defaultValueText)
+		public static EyeParameterIntervalListAndSelection GetEyeParameter(this EditFrameFormEventArgs e, Func<EditFrameFormEventArgs,EyeParameter> selectedEyeParameters, IEnumerable<IntervalListItem> listItems, string defaultValueText)
 		{
 			
 			var selection = selectedEyeParameters.Invoke(e);

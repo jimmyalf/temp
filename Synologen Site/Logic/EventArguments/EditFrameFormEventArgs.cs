@@ -3,7 +3,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments
 {
-	public class FrameFormEventArgs : EventArgs
+	public class EditFrameFormEventArgs : EventArgs
 	{
 		public EyeParameter SelectedPupillaryDistance { get; set; }
 		public EyeParameter SelectedSphere { get; set; }

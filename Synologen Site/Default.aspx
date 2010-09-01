@@ -10,6 +10,9 @@
 		<a href="EditShopPage.aspx">Editera butik</a><br />
 		<a href="SettlementList.aspx">Utbetalningar till butik</a><br />
 		<a href="SecurityTimeoutPage.aspx">Säkerhetstimout sida</a><br />
-		<a href="FrameOrder.aspx">Webforms-MVP Test</a>
+		<a href="FrameOrder.aspx">Skapa glasögonbeställning</a><br />
+		<a href="FrameOrderView.aspx?frameorder=1">Visa glasögonbeställning för order 1</a><br />
+		<a href="FrameOrderView.aspx?frameorder=145">Visa glasögonbeställning för order 145</a>
+		<a href="FrameOrderView.aspx?frameorder=-1S">Visa glasögonbeställning för order -1</a>
 	</div>
 </asp:Content>

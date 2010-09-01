@@ -17,9 +17,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 		{
 			public event EventHandler Load;
 			public EditFrameOrderModel Model { get; set; }
-			public event EventHandler<FrameFormEventArgs> FrameSelected;
-			public event EventHandler<FrameFormEventArgs> SubmitForm;
-			public event EventHandler<FrameFormEventArgs> GlassTypeSelected;
+			public event EventHandler<EditFrameFormEventArgs> FrameSelected;
+			public event EventHandler<EditFrameFormEventArgs> SubmitForm;
+			public event EventHandler<EditFrameFormEventArgs> GlassTypeSelected;
 			public int RedirectPageId { get; set; }
 		}
 
@@ -30,6 +30,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 
 	public class MockedViewFrameOrderView : IViewFrameOrderView<ViewFrameOrderModel> {
 		public event EventHandler Load;
+		public event EventHandler SendOrder;
 		public ViewFrameOrderModel Model { get; set; }
+		public int RedirectAfterSentOrderPageId { get; set; }
+		public int EditPageId { get; set; }
 	}
 }

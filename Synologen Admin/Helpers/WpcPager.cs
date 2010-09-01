@@ -139,7 +139,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers
 		protected virtual void RenderPager(StringBuilder builder) 
 		{ 
 			//If we're on page 1 then there's no need to render a link to the first page. 
-			if (_pagedList.Page == 1) 
+			if (_pagedList.Page <=1) 
 			{
 				builder.Append(_paginationFirst);
 			}

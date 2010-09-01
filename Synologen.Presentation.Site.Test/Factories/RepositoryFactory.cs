@@ -60,23 +60,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 
 		internal class MockedFramOrderRepository : MockedBaseClass<FrameOrder>, IFrameOrderRepository
 		{
-			//public override FrameOrder Get(int id)
-			//{
-			//    return new FrameOrder {
-			//        Addition = new EyeParameter { Left = 1.75M, Right = 2.25M },
-			//        Axis = new EyeParameter { Left = 70, Right = 155 },
-			//        Created = new DateTime(2010, 08, 24, 13, 45, 0),
-			//        Cylinder = new EyeParameter { Left = 0.60M, Right = 1.55M },
-			//        Frame = GetMockedFrame(1),
-			//        GlassType = GetMockedFrameGlass(1),
-			//        Height = new EyeParameter { Left = 19, Right = 26 },
-			//        OrderingShop = GetMockedShop(1),
-			//        PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
-			//        Sent = new DateTime(2010, 08, 24, 13, 45, 0),
-			//        Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M },
-			//        Notes = "Leverans helst innan fredag."
-			//    };
-			//}
+			public override FrameOrder Get(int id)
+			{
+				if(id<=0) return null;
+			    return new FrameOrder {
+			        Addition = new NullableEyeParameter { Left = 1.75M, Right = 2.25M },
+			        Axis = new EyeParameter { Left = 70, Right = 155 },
+			        Created = new DateTime(2010, 08, 24, 13, 45, 0),
+			        Cylinder = new EyeParameter { Left = 0.60M, Right = 1.55M },
+			        Frame = new Frame
+			        {
+			        	ArticleNumber = "123987456",
+						Brand = new FrameBrand{ Name="Björn Borg" },
+                        Color = new FrameColor{ Name="Gul" },
+                        Name = "Testbåge 123",
+			        },
+			        GlassType = new FrameGlassType{Name = "Progressiv"},
+			        Height = new NullableEyeParameter { Left = null, Right = null },
+			        OrderingShop = new Shop
+			        {
+						Id = 5,
+			        	Name = "Bågbutiken AB",
+                        Address = new ShopAddress{City = "Stockholm"}
+			        },
+			        PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
+			        Sent = null,
+			        Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M },
+			        Notes = "Leverans helst innan fredag.",
+                    Id = id
+			    };
+			}
 		}
 
 		internal class MockedShopRepository : MockedBaseClass<Shop>,IShopRepository

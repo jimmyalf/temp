@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
@@ -12,9 +12,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 	[PresenterBinding(typeof(EditFrameOrderPresenter))] 
 	public partial class FrameOrder : MvpUserControl<EditFrameOrderModel>, IEditFrameOrderView<EditFrameOrderModel> {
 
-		public event EventHandler<FrameFormEventArgs> FrameSelected;
-		public event EventHandler<FrameFormEventArgs> SubmitForm;
-		public event EventHandler<FrameFormEventArgs> GlassTypeSelected;
+		public event EventHandler<EditFrameFormEventArgs> FrameSelected;
+		public event EventHandler<EditFrameFormEventArgs> SubmitForm;
+		public event EventHandler<EditFrameFormEventArgs> GlassTypeSelected;
 		public int RedirectPageId { get; set; }
 
 
@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			btnSave.Click += (sender, e) => HandleEvent(SubmitForm, true);
 		}
 
-		protected void HandleEvent(EventHandler<FrameFormEventArgs> eventhandler, bool validate)
+		protected void HandleEvent(EventHandler<EditFrameFormEventArgs> eventhandler, bool validate)
 		{
 			if(eventhandler == null) return;
 			var eventArgs = GetEventArgs();
@@ -39,14 +39,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			}
 			eventhandler(this, eventArgs);
 		}
-		protected void HandleEvent(EventHandler<FrameFormEventArgs> eventhandler)
+		protected void HandleEvent(EventHandler<EditFrameFormEventArgs> eventhandler)
 		{
 			HandleEvent(eventhandler, false);
 		}
 
-		private FrameFormEventArgs GetEventArgs()
+		private EditFrameFormEventArgs GetEventArgs()
 		{
-			return new FrameFormEventArgs
+			return new EditFrameFormEventArgs
 			{
 				SelectedFrameId = drpFrames.SelectedValue.ToIntOrDefault(0),
 				SelectedGlassTypeId = drpGlassTypes.SelectedValue.ToIntOrDefault(0),

@@ -171,6 +171,18 @@ namespace Spinit.Wpc.Synologen.Business {
 			get { return SafeConfigDecimal(_setting, "FrameOrderHeightMin", 18); }
 		} 
 
+		static public string FrameOrderSupplierEmail {
+			get { return SafeConfigString(_setting, "FrameOrderSupplierEmail", "info@spinit.se"); }
+		}
+
+		static public string FrameOrderFromEmail {
+			get { return SafeConfigString(_setting, "FrameOrderFromEmail", "info@spinit.se"); }
+		}
+
+		static public string FrameOrderEmailSubject {
+			get { return SafeConfigString(_setting, "FrameOrderEmailSubject", "Glasögonbeställning från synologen"); }
+		}
+
 		private static decimal SafeConfigDecimal(string configSection, string configKey, decimal value)
 		{
 			var defaultValueAsFloat = Convert.ToSingle(value);

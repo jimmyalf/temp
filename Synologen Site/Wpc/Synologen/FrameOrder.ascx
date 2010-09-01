@@ -323,5 +323,5 @@
 <div class="form-controls">
 	<asp:ValidationSummary ID="vldSummary" ValidationGroup="vldSubmit" runat="server" />
 	<br />
-	<asp:Button ID="btnSave" runat="server" Text="Spara" ValidationGroup="vldSubmit" CausesValidation="true"/>
+	<asp:Button ID="btnSave" runat="server" Text="Spara och visa sammanställning" ValidationGroup="vldSubmit" CausesValidation="true"/>
 </div>

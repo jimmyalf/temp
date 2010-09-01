@@ -268,7 +268,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		}
 
 		public static IEnumerable<TOutputModel> ConvertSortedPagedList<TModel, TOutputModel>(this IExtendedEnumerable<TModel> enumerable, Func<TModel, TOutputModel> converter) where TOutputModel : class {
-			//return new ExtendedEnumerable<TOutputModel>(enumerable.ConvertAll(converter), enumerable.TotalCount, enumerable.Page, enumerable.PageSize, enumerable.SortedBy, enumerable.SortedAscending);
 			return enumerable.ConvertAll(converter);
 		}
 	}

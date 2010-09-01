@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 			ForRequestedType<IFrameGlassTypeRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameGlassTypeRepository>();
 			ForRequestedType<IFrameOrderRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameOrderRepository>();
 			ForRequestedType<IShopRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<ShopRepository>();
-			ForRequestedType<IFrameOrderSettingsService>().TheDefaultIsConcreteType<FrameOrderSettingsService>();
+			ForRequestedType<IFrameOrderService>().TheDefaultIsConcreteType<FrameOrderSettingsService>();
 			ForRequestedType<ISynologenMemberService>().TheDefaultIsConcreteType<SynologenMemberService>();
 			ForRequestedType<ISqlProvider>().TheDefault.Is.ConstructedBy(() => new SqlProvider(connectionString));
 

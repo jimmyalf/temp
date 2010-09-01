@@ -75,6 +75,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
 		public string CreateOrderEmailBody(FrameOrder order)
 		{
 			var builder = new StringBuilder()
+				.AppendFormatLine("Beställnings-id: {0}", order.Id)
 				.AppendFormatLine("Butik: {0}",order.OrderingShop.Name)
 				.AppendFormatLine("Butiksort: {0}",order.OrderingShop.Address.City)
 				.AppendFormatLine("Båge: {0}",order.Frame.Name)
@@ -91,7 +92,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
 				.AppendFormatLine("Addition Vänster: {0}", (order.Addition !=null) ?  order.Addition.Left : null)
 				.AppendFormatLine("Addition Höger: {0}", (order.Addition !=null) ?  order.Addition.Right : null)
 				.AppendFormatLine("Höjd Vänster: {0}", (order.Height !=null) ?  order.Height.Left : null)
-				.AppendFormatLine("Höjd Höger: {0}", (order.Height !=null) ?  order.Height.Right : null);
+				.AppendFormatLine("Höjd Höger: {0}", (order.Height !=null) ?  order.Height.Right : null)
+				.AppendFormatLine("Anteckningar: \r\n{0}", order.Notes);
 			return builder.ToString();
 		}
 

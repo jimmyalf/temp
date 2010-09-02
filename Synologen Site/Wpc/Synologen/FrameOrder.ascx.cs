@@ -11,7 +11,6 @@ using WebFormsMvp.Web;
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 	[PresenterBinding(typeof(EditFrameOrderPresenter))] 
 	public partial class FrameOrder : MvpUserControl<EditFrameOrderModel>, IEditFrameOrderView<EditFrameOrderModel> {
-
 		public event EventHandler<EditFrameFormEventArgs> FrameSelected;
 		public event EventHandler<EditFrameFormEventArgs> SubmitForm;
 		public event EventHandler<EditFrameFormEventArgs> GlassTypeSelected;
@@ -83,8 +82,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
                 Notes = txtNotes.Text
 			};
 		}
-
-
 
 	}
 }

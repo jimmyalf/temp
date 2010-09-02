@@ -10,14 +10,18 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder
 
 		public IEnumerable<decimal> ToList()
 		{
-			if (Increment <= 0) yield break;
+			var returnList = new List<decimal>();
+			//if (Increment <= 0) yield break;
+			if (Increment <= 0) return returnList;
 			var currentValue = Min;
 			while (currentValue <= Max)
 			{
-				yield return currentValue;
+				//yield return currentValue;
+				returnList.Add(currentValue);
 				currentValue += Increment;
 			}
-			yield break;
+			//yield break;
+			return returnList;
 		}
 	}
 }

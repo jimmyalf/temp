@@ -90,25 +90,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 
 		public static IEnumerable<IntervalListItem> GetList(this Interval interval)
 		{
-			var returnList = new List<IntervalListItem>();
 			foreach (var value in interval.ToList())
 			{
-				returnList.Add(new IntervalListItem {Name = value.ToString(), Value = value});
-				//yield return new IntervalListItem {Name = value.ToString(), Value = value};
+				yield return new IntervalListItem {Name = value.ToString("G2"), Value = value.ToString("G2")};
 			}
-			//yield break;
-			return returnList;
+			yield break;
+
 		}
 
 		public static IEnumerable<IntervalListItem> InsertDefaultValue(this IEnumerable<IntervalListItem> list, string entityName, decimal NotSelectedValue)
 		{
-			var defaultValue = new IntervalListItem {Name = String.Format("-- Välj {0} --", entityName), Value = NotSelectedValue};
+			var defaultValue = new IntervalListItem {Name = String.Format("-- Välj {0} --", entityName), Value = NotSelectedValue.ToString("G2")};
 			return list.InsertFirst(defaultValue);
 		}
 
 		public static IEnumerable<IntervalListItem> InsertDefaultValue(string entityName, decimal NotSelectedValue)
 		{
-			var defaultValue = new IntervalListItem {Name = String.Format("-- Välj {0} --", entityName), Value = NotSelectedValue};
+			var defaultValue = new IntervalListItem {Name = String.Format("-- Välj {0} --", entityName), Value = NotSelectedValue.ToString("G2")};
 			return new List<IntervalListItem>().InsertFirst(defaultValue);
 		}
 
@@ -153,7 +151,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 			var rightValue = (selection.Right.HasValue && list.Any(x => x.Value.Equals(selection.Right.Value))) ? selection.Right.Value : int.MinValue;
 			var returnValue = new EyeParameterIntervalListAndSelection
 			{
-				List = list,
+				List = new List<IntervalListItem>(list),
 				Selection = new EyeParameter { Left = new decimal((double)leftValue),  Right = new decimal((double)rightValue) }
 			};
 			return returnValue;

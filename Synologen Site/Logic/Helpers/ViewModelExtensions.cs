@@ -120,8 +120,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 				List = listItems.InsertDefaultValue(defaultValueText, int.MinValue),
 				Selection = new EyeParameter
 				{
-					Left = listItems.Any(x => x.Value.Equals(selection.Left)) ? selection.Left : int.MinValue, 
-					Right = listItems.Any(x => x.Value.Equals(selection.Right)) ? selection.Right : int.MinValue,
+					Left = listItems.Any(x => x.Value.Equals(selection.Left.ToString("G2"))) ? selection.Left : int.MinValue, 
+					Right = listItems.Any(x => x.Value.Equals(selection.Right.ToString("G2"))) ? selection.Right : int.MinValue,
 				}
 			};
 			return returnValue;
@@ -135,8 +135,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 				List = listItems.InsertDefaultValue(defaultValueText, int.MinValue),
 				Selection = new EyeParameter
 				{
-					Left = listItems.Any(x => x.Value.Equals(selection.Left)) ? selection.Left : int.MinValue, 
-					Right = listItems.Any(x => x.Value.Equals(selection.Right)) ? selection.Right : int.MinValue,
+					Left = listItems.Any(x => x.Value.Equals(selection.Left.ToString("G2"))) ? selection.Left : int.MinValue, 
+					Right = listItems.Any(x => x.Value.Equals(selection.Right.ToString("G2"))) ? selection.Right : int.MinValue,
 				}
 			};
 			return returnValue;
@@ -146,13 +146,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 		{
 			
 			var selection = selectedEyeParameters.Invoke(framOrder);
-			var list = listItems.InsertDefaultValue(defaultValueText, int.MinValue);
-			var leftValue = (selection.Left.HasValue && list.Any(x => x.Value.Equals(selection.Left.Value))) ? selection.Left.Value : int.MinValue;
-			var rightValue = (selection.Right.HasValue && list.Any(x => x.Value.Equals(selection.Right.Value))) ? selection.Right.Value : int.MinValue;
 			var returnValue = new EyeParameterIntervalListAndSelection
 			{
-				List = new List<IntervalListItem>(list),
-				Selection = new EyeParameter { Left = new decimal((double)leftValue),  Right = new decimal((double)rightValue) }
+				List = listItems.InsertDefaultValue(defaultValueText, int.MinValue),
+				Selection = new EyeParameter
+				{
+					Left = (selection.Left.HasValue && listItems.Any(x => x.Value.Equals(selection.Left.Value.ToString("G2")))) ? selection.Left.Value : int.MinValue,
+					Right = (selection.Right.HasValue && listItems.Any(x => x.Value.Equals(selection.Right.Value.ToString("G2")))) ? selection.Right.Value : int.MinValue
+				}
 			};
 			return returnValue;
 		}

@@ -189,7 +189,7 @@
 			MaximumValue="180"
 			ControlToValidate="txtAxisLeft"
 			ErrorMessage='<%#Model.AxisRangeMessage %>'
-			Type="Integer"
+			Type="Double"
 			ValidationGroup="vldSubmit">&nbsp;*</asp:RangeValidator>
 		<asp:RequiredFieldValidator 
 			ID="reqAxisLeft" 
@@ -212,7 +212,7 @@
 			MaximumValue="180"
 			ControlToValidate="txtAxisRight"
 			ErrorMessage='<%#Model.AxisRangeMessage %>'
-			Type="Integer"
+			Type="Double"
 			ValidationGroup="vldSubmit">&nbsp;*</asp:RangeValidator>
 		<asp:RequiredFieldValidator 
 			ID="reqAxisRight" 
@@ -273,7 +273,6 @@
 <div class="interval-parameter height">
 	<div class="frame-order-item left">
 		<label for="<%=drpHeightLeft.ClientID%>">Höjd V</label>
-		<%#Model.Height.Selection.Left%>
 		<asp:DropDownList 
 			ID="drpHeightLeft" 
 			Runat="server" 
@@ -295,7 +294,6 @@
 	</div>
 	<div class="frame-order-item right">
 		<label for="<%=drpHeightRight.ClientID%>">Höjd H</label>
-		<%#Model.Height.Selection.Right%>
 		<asp:DropDownList 
 			ID="drpHeightRight" 
 			Runat="server" 

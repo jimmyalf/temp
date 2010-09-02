@@ -74,6 +74,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		public override void ReleaseView()
 		{
 			View.Load -= View_Load;
+			View.FrameSelected -= View_BindModel;
+			View.SubmitForm -= View_SumbitForm;
+			View.GlassTypeSelected -= View_BindModel;
 		}
 
 		public void InitializeModel()

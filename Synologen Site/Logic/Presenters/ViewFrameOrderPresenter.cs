@@ -110,6 +110,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		public override void ReleaseView()
 		{
 			View.Load -= View_Load;
+			View.SendOrder -= View_SendOrder;
 		}
 
 		private int GetFrameOrderId()

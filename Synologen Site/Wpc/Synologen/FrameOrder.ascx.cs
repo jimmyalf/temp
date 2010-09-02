@@ -16,7 +16,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		public event EventHandler<EditFrameFormEventArgs> GlassTypeSelected;
 		public int RedirectPageId { get; set; }
 
-
 		protected void Page_Load(object sender, EventArgs e) {
 			WireupEventProxy();
 		}

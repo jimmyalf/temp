@@ -64,6 +64,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssertionHelpers\AssertionExtensions.cs" />
+    <Compile Include="EqualityComparers\EyeParameterEqualityComparer.cs" />
     <Compile Include="Factories\RepositoryFactory.cs" />
     <Compile Include="Factories\ViewsFactory.cs" />
     <Compile Include="EditFrameOrderPresenterTests.cs" />

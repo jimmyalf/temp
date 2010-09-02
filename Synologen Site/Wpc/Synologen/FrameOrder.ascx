@@ -179,7 +179,7 @@
 <div class="interval-parameter axis">
 	<div class="frame-order-item left">
 		<label for="<%=txtAxisLeft.ClientID%>">Axel V</label>
-		<asp:TextBox ID="txtAxisLeft" runat="server" maxlength="3"  />
+		<asp:TextBox ID="txtAxisLeft" runat="server" maxlength="3" Text='<%#Model.AxisSelection.Left %>' />
 		<asp:RangeValidator 
 			ID="rngAxisLeft" 
 			runat="server" 
@@ -202,7 +202,7 @@
 	</div>
 	<div class="frame-order-item right">
 		<label for="<%=txtAxisRight.ClientID%>">Axel H</label>
-		<asp:TextBox ID="txtAxisRight" runat="server" maxlength="3" />
+		<asp:TextBox ID="txtAxisRight" runat="server" maxlength="3" Text='<%#Model.AxisSelection.Right %>' />
 		<asp:RangeValidator 
 			ID="rngAxisRight" 
 			runat="server" 
@@ -273,6 +273,7 @@
 <div class="interval-parameter height">
 	<div class="frame-order-item left">
 		<label for="<%=drpHeightLeft.ClientID%>">Höjd V</label>
+		<%#Model.Height.Selection.Left%>
 		<asp:DropDownList 
 			ID="drpHeightLeft" 
 			Runat="server" 
@@ -294,6 +295,7 @@
 	</div>
 	<div class="frame-order-item right">
 		<label for="<%=drpHeightRight.ClientID%>">Höjd H</label>
+		<%#Model.Height.Selection.Right%>
 		<asp:DropDownList 
 			ID="drpHeightRight" 
 			Runat="server" 

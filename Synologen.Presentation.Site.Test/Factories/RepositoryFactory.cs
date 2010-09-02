@@ -63,32 +63,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 			public override FrameOrder Get(int id)
 			{
 				if(id<=0) return null;
-			    return new FrameOrder {
-			        Addition = new NullableEyeParameter { Left = 1.75M, Right = 2.25M },
-			        Axis = new EyeParameter { Left = 70, Right = 155 },
-			        Created = new DateTime(2010, 08, 24, 13, 45, 0),
-			        Cylinder = new EyeParameter { Left = 0.60M, Right = 1.55M },
-			        Frame = new Frame
-			        {
-			        	ArticleNumber = "123987456",
-						Brand = new FrameBrand{ Name="Björn Borg" },
-                        Color = new FrameColor{ Name="Gul" },
-                        Name = "Testbåge 123",
-			        },
-			        GlassType = new FrameGlassType{Name = "Progressiv"},
-			        Height = new NullableEyeParameter { Left = null, Right = null },
-			        OrderingShop = new Shop
-			        {
+				return new FrameOrder {
+					Axis = new EyeParameter { Left = 70, Right = 155 },
+					Created = new DateTime(2010, 08, 24, 13, 45, 0),
+					Cylinder = new EyeParameter { Left = 0.25M, Right = 1.75M },
+					Frame = new Frame {
+						ArticleNumber = "123987456",
+						Brand = new FrameBrand { Name = "Björn Borg" },
+						Color = new FrameColor { Name = "Gul" },
+						Name = "Testbåge 123",
+						PupillaryDistance = { Min = 20, Max = 40, Increment = 1 },
+					},
+					GlassType = new FrameGlassType { 
+						Name = "Progressiv",
+                        IncludeAdditionParametersInOrder = true,
+                        IncludeHeightParametersInOrder = false
+					},
+					
+					OrderingShop = new Shop {
 						Id = 5,
-			        	Name = "Bågbutiken AB",
-                        Address = new ShopAddress{City = "Stockholm"}
-			        },
-			        PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
-			        Sent = null,
-			        Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M },
-			        Notes = "Leverans helst innan fredag.",
-                    Id = id
-			    };
+						Name = "Bågbutiken AB",
+						Address = new ShopAddress { City = "Stockholm" }
+					},
+					PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
+					Sent = null,
+					Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M },
+					Notes = "Leverans helst innan fredag.",
+					Id = id,
+					Addition = new NullableEyeParameter { Left = 1.75M, Right = 2.25M },
+					Height = new NullableEyeParameter { Left = null, Right = null },
+				};
 			}
 		}
 

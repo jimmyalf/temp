@@ -33,6 +33,10 @@
 				<fieldset style="clear:both">
 					<legend>Parametrar</legend>
 					<p class="display-item eyeparameter">
+						<%= Html.LabelFor(x => x.PupillaryDistance) %>
+						<%= Html.DisplayFor(x => x.PupillaryDistance,"EyeParameterView") %>
+					</p>					
+					<p class="display-item eyeparameter">
 						<%= Html.LabelFor(x => x.Sphere) %>
 						<%= Html.DisplayFor(x => x.Sphere,"EyeParameterView") %>
 					</p>

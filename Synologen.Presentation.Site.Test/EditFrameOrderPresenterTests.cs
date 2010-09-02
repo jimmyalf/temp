@@ -142,6 +142,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.Notes, Is.EqualTo(expectedFrameOrder.Notes));
 			Expect(view.Model.OrderHasBeenSent, Is.EqualTo(expectedFrameOrder.Sent.HasValue));
 			Expect(view.Model.UserDoesNotHaveAccessToThisOrder, Is.EqualTo(expectedFrameOrder.OrderingShop.Id != expectedShopId));
+			Expect(view.Model.OrderDoesNotExist, Is.EqualTo(expectedFrameOrder == null));
 		}
 
 		[Test]

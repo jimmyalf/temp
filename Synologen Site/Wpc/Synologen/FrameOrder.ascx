@@ -331,6 +331,9 @@
 <%if(Model.OrderHasBeenSent) { %>
 <p>Begärd beställning har skickats och kan därmed ej editeras längre. Var god kontakta systemadministratören.</p>
 <% } %>
+<%if (Model.OrderDoesNotExist) { %>
+<p>Begärd beställning kunde inte hittas. Var god kontakta systemadministratören.</p>
+<%} %>
 <%if (Model.UserDoesNotHaveAccessToThisOrder) { %>
 <p>Rättighet för att redigera beställning saknas. Var god kontakta systemadministratören.</p>
 <%} %>

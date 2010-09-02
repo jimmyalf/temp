@@ -10,6 +10,7 @@
 
 </style>
 
+<%if(Model.DisplayForm) { %>
 
 <div class="frame-order-item frame">
 	<label for="<%=drpFrames.ClientID%>">Bågar</label>
@@ -325,3 +326,11 @@
 	<br />
 	<asp:Button ID="btnSave" runat="server" Text="Granska" ValidationGroup="vldSubmit" CausesValidation="true"/>
 </div>
+
+<% } %>
+<%if(Model.OrderHasBeenSent) { %>
+<p>Begärd beställning har skickats och kan därmed ej editeras längre. Var god kontakta systemadministratören.</p>
+<% } %>
+<%if (Model.UserDoesNotHaveAccessToThisOrder) { %>
+<p>Rättighet för att redigera beställning saknas. Var god kontakta systemadministratören.</p>
+<%} %>

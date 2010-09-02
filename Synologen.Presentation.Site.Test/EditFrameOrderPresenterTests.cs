@@ -120,10 +120,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			var requestParams = new NameValueCollection {{"frameorder", "5"}};
 			var expectedFrameOrder = frameOrderRepository.Get(5);
+			const int expectedShopId = 10;
 			
 			//Act
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
 			presenter.HttpContext = mockedHttpContext.Object;
+			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedShopId(expectedShopId);
 			presenter.View_Load(null, new EventArgs());
 
 			//Assert
@@ -138,6 +140,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.HeightParametersEnabled, Is.EqualTo(expectedFrameOrder.GlassType.IncludeHeightParametersInOrder));
 			Expect(view.Model.AdditionParametersEnabled, Is.EqualTo(expectedFrameOrder.GlassType.IncludeAdditionParametersInOrder));
 			Expect(view.Model.Notes, Is.EqualTo(expectedFrameOrder.Notes));
+			Expect(view.Model.OrderHasBeenSent, Is.EqualTo(expectedFrameOrder.Sent.HasValue));
+			Expect(view.Model.UserDoesNotHaveAccessToThisOrder, Is.EqualTo(expectedFrameOrder.OrderingShop.Id != expectedShopId));
 		}
 
 		[Test]

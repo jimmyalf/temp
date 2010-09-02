@@ -154,8 +154,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			if(frameOrder.GlassType.IncludeHeightParametersInOrder)
 			{
 				View.Model.Height = frameOrder.GetEyeParameter(x => x.Height, _frameOrderService.Height.GetList(), "Höjd");
-				
 			}
+			View.Model.OrderHasBeenSent = frameOrder.Sent.HasValue;
+			View.Model.UserDoesNotHaveAccessToThisOrder = frameOrder.OrderingShop.Id != _synologenMemberService.GetCurrentShopId();
+
 		}
 
 		private int SaveUpdateFrameOrder(EditFrameFormEventArgs e) {

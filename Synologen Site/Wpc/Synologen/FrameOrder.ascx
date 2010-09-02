@@ -61,7 +61,7 @@
 			ID="drpPupillaryDistanceLeft" 
 			Runat="server" 
 			DataSource='<%#Model.PupillaryDistance.List%>' 
-			SelectedValue='<%#Model.PupillaryDistance.Selection.Left.ToString("G2")%>'
+			SelectedValue='<%#Model.PupillaryDistance.Selection.Left.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name" />
 		<asp:RequiredFieldValidator 
@@ -80,7 +80,7 @@
 			ID="drpPupillaryDistanceRight" 
 			Runat="server" 
 			DataSource='<%#Model.PupillaryDistance.List%>' 
-			SelectedValue='<%#Model.PupillaryDistance.Selection.Right.ToString("G2")%>'
+			SelectedValue='<%#Model.PupillaryDistance.Selection.Right.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name" />
 		<asp:RequiredFieldValidator 
@@ -102,7 +102,7 @@
 			ID="drpSphereLeft" 
 			Runat="server" 
 			DataSource='<%#Model.Sphere.List%>' 
-			SelectedValue='<%#Model.Sphere.Selection.Left.ToString("G2")%>'
+			SelectedValue='<%#Model.Sphere.Selection.Left.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name" />
 		<asp:RequiredFieldValidator 
@@ -121,7 +121,7 @@
 			ID="drpSphereRight" 
 			Runat="server" 
 			DataSource='<%#Model.Sphere.List%>' 
-			SelectedValue='<%#Model.Sphere.Selection.Right.ToString("G2")%>'
+			SelectedValue='<%#Model.Sphere.Selection.Right.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name" />
 		<asp:RequiredFieldValidator 
@@ -143,7 +143,7 @@
 			ID="drpCylinderLeft" 
 			Runat="server" 
 			DataSource='<%#Model.Cylinder.List%>' 
-			SelectedValue='<%#Model.Cylinder.Selection.Left.ToString("G2")%>'
+			SelectedValue='<%#Model.Cylinder.Selection.Left.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name" />
 		<asp:RequiredFieldValidator 
@@ -162,7 +162,7 @@
 			ID="drpCylinderRight" 
 			Runat="server" 
 			DataSource='<%#Model.Cylinder.List%>' 
-			SelectedValue='<%#Model.Cylinder.Selection.Right.ToString("G2")%>'
+			SelectedValue='<%#Model.Cylinder.Selection.Right.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name" />
 		<asp:RequiredFieldValidator 
@@ -233,7 +233,7 @@
 			ID="drpAdditionLeft" 
 			Runat="server" 
 			DataSource='<%#Model.Addition.List%>' 
-			SelectedValue='<%#Model.Addition.Selection.Left.ToString("G2")%>'
+			SelectedValue='<%#Model.Addition.Selection.Left.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name"
 			Enabled='<%#Model.AdditionParametersEnabled %>' />
@@ -254,7 +254,7 @@
 			ID="drpAdditionRight" 
 			Runat="server" 
 			DataSource='<%#Model.Addition.List%>' 
-			SelectedValue='<%#Model.Addition.Selection.Right.ToString("G2")%>'
+			SelectedValue='<%#Model.Addition.Selection.Right.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name"
 			Enabled='<%#Model.AdditionParametersEnabled %>' />
@@ -278,7 +278,7 @@
 			ID="drpHeightLeft" 
 			Runat="server" 
 			DataSource='<%#Model.Height.List%>' 
-			SelectedValue='<%#Model.Height.Selection.Left.ToString("G2")%>'
+			SelectedValue='<%#Model.Height.Selection.Left.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name"
 			Enabled='<%#Model.HeightParametersEnabled %>' />
@@ -299,7 +299,7 @@
 			ID="drpHeightRight" 
 			Runat="server" 
 			DataSource='<%#Model.Height.List%>' 
-			SelectedValue='<%#Model.Height.Selection.Right.ToString("G2")%>'
+			SelectedValue='<%#Model.Height.Selection.Right.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name"
 			Enabled='<%#Model.HeightParametersEnabled %>' />

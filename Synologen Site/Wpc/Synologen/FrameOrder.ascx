@@ -317,7 +317,7 @@
 
 <div class="frame-order-item notes">
 	<label for="<%=txtNotes.ClientID%>">Anteckningar</label>
-	<asp:TextBox ID="txtNotes" runat="server" TextMode="MultiLine" />
+	<asp:TextBox ID="txtNotes" runat="server" TextMode="MultiLine" Text='<%#Model.Notes%>' />
 </div>
 
 <div class="form-controls">

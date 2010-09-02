@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 
@@ -38,7 +39,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 		public bool UserDoesNotHaveAccessToThisOrder{ get; set; }
 		public bool DisplayForm
 		{
-			get { return (OrderHasBeenSent == false && UserDoesNotHaveAccessToThisOrder == false); }
+			get { return (
+				OrderHasBeenSent == false && 
+				UserDoesNotHaveAccessToThisOrder == false &&
+				OrderDoesNotExist == false);
+			}
 		}
+
+		public bool OrderDoesNotExist { get; set; }
 	}
 }

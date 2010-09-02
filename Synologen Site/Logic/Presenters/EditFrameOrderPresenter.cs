@@ -137,6 +137,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 
 		public void UpdateModel(FrameOrder frameOrder)
 		{
+			if(frameOrder == null)
+			{
+				View.Model.OrderDoesNotExist = true;
+				return;
+			}
 			View.Model.PupillaryDistance = frameOrder.GetEyeParameter(x => x.PupillaryDistance, frameOrder.Frame.PupillaryDistance.GetList(), "PD");
 			View.Model.HeightParametersEnabled = frameOrder.GlassType.IncludeHeightParametersInOrder;
 			View.Model.AdditionParametersEnabled = frameOrder.GlassType.IncludeAdditionParametersInOrder;

@@ -32,7 +32,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 			Func<FrameOrder,FrameOrderListItemModel> typeConverter = frameOrder => new FrameOrderListItemModel {
 				Id = frameOrder.Id,
                 FrameName = frameOrder.Frame.Name,
-                Sent = frameOrder.Sent.HasValue
+                Sent = frameOrder.Sent.HasValue ? frameOrder.Sent.Value.ToString("yyyy-MM-dd HH:mm") : null
 			};
 			return list.ConvertAll(typeConverter);
 		}

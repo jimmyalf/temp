@@ -51,7 +51,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.List.Count(), Is.EqualTo(10));
 			Expect(view.Model.List.First().Id, Is.EqualTo(expectedFirstItem.Id));
 			Expect(view.Model.List.First().FrameName, Is.EqualTo(expectedFirstItem.Frame.Name));
-			Expect(view.Model.List.First().Sent, Is.EqualTo(expectedFirstItem.Sent.HasValue));
+			Expect(view.Model.List.First().Sent, Is.EqualTo(null));
 			Expect(view.Model.ViewPageUrl, Is.EqualTo(expectedViewRedirectUrl));
 		}
 		

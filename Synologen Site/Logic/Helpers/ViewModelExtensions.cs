@@ -27,32 +27,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 			return list.ConvertAll(typeConverter);
 		}
 
+		public static IEnumerable<FrameOrderListItemModel> ToFrameOrderListItems(this IEnumerable<FrameOrder> list)
+		{
+			Func<FrameOrder,FrameOrderListItemModel> typeConverter = frameOrder => new FrameOrderListItemModel {
+				Id = frameOrder.Id,
+                FrameName = frameOrder.Frame.Name,
+                Sent = frameOrder.Sent.HasValue
+			};
+			return list.ConvertAll(typeConverter);
+		}
+
 		public static FrameOrder ToFrameOrder(this EditFrameFormEventArgs eventArgs, Frame frame, FrameGlassType glassType, Shop orderingShop)
 		{
 			var frameOrder = new FrameOrder {Frame = frame, GlassType = glassType, OrderingShop = orderingShop};
 			return UpdateFrameOrder(frameOrder, eventArgs);
-			//return new FrameOrder {
-			//    Addition = new NullableEyeParameter
-			//    {
-			//        Left = (eventArgs.SelectedAddition.Left != int.MinValue) ? eventArgs.SelectedAddition.Left : (decimal?)null,
-			//        Right = (eventArgs.SelectedAddition.Right != int.MinValue) ? eventArgs.SelectedAddition.Right : (decimal?)null,
-			//    },
-			//    Axis = eventArgs.SelectedAxis,
-			//    Created = DateTime.Now,
-			//    Cylinder = eventArgs.SelectedCylinder,
-			//    Frame = frame,
-			//    GlassType = glassType,
-			//    Height = new NullableEyeParameter
-			//    {
-			//        Left = (eventArgs.SelectedHeight.Left != int.MinValue) ? eventArgs.SelectedHeight.Left : (decimal?)null,
-			//        Right = (eventArgs.SelectedHeight.Right != int.MinValue) ? eventArgs.SelectedHeight.Right : (decimal?)null,
-			//    },
-			//    Notes = String.IsNullOrEmpty(eventArgs.Notes)? null : eventArgs.Notes,
-			//    OrderingShop = orderingShop,
-			//    PupillaryDistance = eventArgs.SelectedPupillaryDistance,
-			//    Sent = null,
-			//    Sphere = eventArgs.SelectedSphere
-			//};
 		}
 
 		public static FrameOrder FillFrameOrder(this EditFrameFormEventArgs eventArgs, FrameOrder frameOrder)

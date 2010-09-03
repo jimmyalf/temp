@@ -334,6 +334,26 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			Expect(itemsMatchingCriteria.Last().GlassType.Id, Is.EqualTo(1));
 		}
 
+		[Test]
+		public void Can_get_frame_orders_by_AllFrameOrdersForShopCriteria()
+		{
+		    //Arrange
+		    const int expectedNumberOfItemsMatchingCriteria = 144;
+			const int expectedShopId = 158;
+		    var criteria = new AllFrameOrdersForShopCriteria
+		    {
+				ShopId = expectedShopId
+		    };
+
+		    //Act
+		    var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
+			
+		    //Assert
+		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+			Expect(itemsMatchingCriteria.First().OrderingShop.Id, Is.EqualTo(expectedShopId));
+			Expect(itemsMatchingCriteria.Last().OrderingShop.Id, Is.EqualTo(expectedShopId));
+		}
+
 
 	}
 }

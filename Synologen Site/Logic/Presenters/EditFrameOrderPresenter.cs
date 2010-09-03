@@ -160,8 +160,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			{
 				View.Model.Height = frameOrder.GetEyeParameter(x => x.Height, _frameOrderService.Height.GetList(), "Höjd");
 			}
+			if(frameOrder.OrderingShop.Id != _synologenMemberService.GetCurrentShopId())
+			{
+				View.Model.UserDoesNotHaveAccessToThisOrder = true;
+				return;
+			}
+
 			View.Model.OrderHasBeenSent = frameOrder.Sent.HasValue;
-			View.Model.UserDoesNotHaveAccessToThisOrder = frameOrder.OrderingShop.Id != _synologenMemberService.GetCurrentShopId();
+			
 
 		}
 

@@ -51,17 +51,21 @@
     <Compile Include="Logic\EventArguments\EditFrameFormEventArgs.cs" />
     <Compile Include="Logic\Helpers\StringBuilderExtensions.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
+    <Compile Include="Logic\Presenters\ListFrameOrdersPresenter.cs" />
     <Compile Include="Logic\Presenters\ViewFrameOrderPresenter.cs" />
     <Compile Include="Logic\Services\FrameOrderSettingsService.cs" />
     <Compile Include="Logic\Services\SynologenMemberService.cs" />
     <Compile Include="Logic\Views\IEditFrameOrderView.cs" />
+    <Compile Include="Logic\Views\IListFrameOrdersView.cs" />
     <Compile Include="Logic\Views\IViewFrameOrderView.cs" />
     <Compile Include="Models\EyeParameterIntervalListAndSelection.cs" />
     <Compile Include="Models\FrameGlassTypeListItem.cs" />
     <Compile Include="Models\FrameListItem.cs" />
+    <Compile Include="Models\FrameOrderListItemModel.cs" />
     <Compile Include="Models\IntervalListItem.cs" />
     <Compile Include="Models\EditFrameOrderModel.cs" />
     <Compile Include="Logic\Presenters\EditFrameOrderPresenter.cs" />
+    <Compile Include="Models\ListFrameOrdersModel.cs" />
     <Compile Include="Models\ViewFrameOrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SynologenSiteRegistry.cs" />
@@ -107,6 +111,13 @@
     </Compile>
     <Compile Include="Wpc\Synologen\FrameOrder.ascx.designer.cs">
       <DependentUpon>FrameOrder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\FrameOrderList.ascx.cs">
+      <DependentUpon>FrameOrderList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\FrameOrderList.ascx.designer.cs">
+      <DependentUpon>FrameOrderList.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\FrameOrderView.ascx.cs">
       <DependentUpon>FrameOrderView.ascx</DependentUpon>
@@ -212,12 +223,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CityShopList.aspx" />
+    <Content Include="FrameOrderList.aspx" />
     <Content Include="FrameOrderView.aspx" />
     <Content Include="FrameOrder.aspx" />
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
     <Content Include="Wpc\Synologen\FrameOrder.ascx" />
+    <Content Include="Wpc\Synologen\FrameOrderList.ascx" />
     <Content Include="Wpc\Synologen\FrameOrderView.ascx" />
   </ItemGroup>
   <ItemGroup>

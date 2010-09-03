@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 
 		public static IFrameOrderRepository GetFramOrderRepository()
 		{
-			return new MockedFramOrderRepository();
+			return new MockedFrameOrderRepository();
 		}
 
 		public static IShopRepository GetShopRepository() 
@@ -58,7 +58,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 			}
 		}
 
-		internal class MockedFramOrderRepository : MockedBaseClass<FrameOrder>, IFrameOrderRepository
+		internal class MockedFrameOrderRepository : MockedBaseClass<FrameOrder>, IFrameOrderRepository
 		{
 			public override FrameOrder Get(int id)
 			{
@@ -117,9 +117,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 		{
 			private int _savedId;
 			public TEntity SavedItem { get; private set; }
+			public IActionCriteria GivenFindByActionCriteria { get; private set; }
 			public virtual TEntity Get(int id){ throw new NotImplementedException();}
 			public IEnumerable<TEntity> GetAll() { return GenerateItems<TEntity>(Get); }
-			public IEnumerable<TEntity> FindBy<TActionCriteria>(TActionCriteria criteria) where TActionCriteria : IActionCriteria { return GetAll(); }
+			public IEnumerable<TEntity> FindBy<TActionCriteria>(TActionCriteria criteria) where TActionCriteria : IActionCriteria
+			{
+				GivenFindByActionCriteria = criteria;
+				return GetAll();
+			}
 			public void Save(TEntity entity)
 			{
 				TrySetId(entity, _savedId);

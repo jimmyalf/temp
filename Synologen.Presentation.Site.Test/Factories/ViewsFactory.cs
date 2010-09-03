@@ -26,13 +26,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 		public static IViewFrameOrderView<ViewFrameOrderModel> GetViewFrameOrderView() {
 			return new MockedViewFrameOrderView();
 		}
+
+		internal class MockedViewFrameOrderView : IViewFrameOrderView<ViewFrameOrderModel> {
+			public event EventHandler Load;
+			public event EventHandler SendOrder;
+			public ViewFrameOrderModel Model { get; set; }
+			public int RedirectAfterSentOrderPageId { get; set; }
+			public int EditPageId { get; set; }
+		}
+
+		public static IListFrameOrdersView<ListFrameOrdersModel> GetListFrameOrdersPresenterView() {
+			return new MockedListFrameOrdersPresenterView();
+		}
+		internal class MockedListFrameOrdersPresenterView: IListFrameOrdersView<ListFrameOrdersModel> {
+			public event EventHandler Load;
+			public ListFrameOrdersModel Model { get; set; }
+			public int ViewPageId { get; set; }
+		}
 	}
 
-	public class MockedViewFrameOrderView : IViewFrameOrderView<ViewFrameOrderModel> {
-		public event EventHandler Load;
-		public event EventHandler SendOrder;
-		public ViewFrameOrderModel Model { get; set; }
-		public int RedirectAfterSentOrderPageId { get; set; }
-		public int EditPageId { get; set; }
-	}
+	
 }

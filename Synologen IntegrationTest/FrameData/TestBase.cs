@@ -79,6 +79,10 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			{
 				return new AllOrderableFramesCriteriaConverter(GetNewSession());
 			}
+			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>)))
+			{
+				return new AllFrameOrdersForShopCriteriaConverter(GetNewSession());
+			}
 			throw new ArgumentException(String.Format("No criteria converter has been defined for {0}", objectToResolve), "objectToResolve");
 		}
 

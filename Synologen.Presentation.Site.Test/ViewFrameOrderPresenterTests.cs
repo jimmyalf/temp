@@ -144,7 +144,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			presenter.View.RedirectAfterSentOrderPageId = 5;
 		    presenter.View_Load(null, eventArgs);
 			presenter.View_SendOrder(null, eventArgs);
-			var savedEntity = ((RepositoryFactory.MockedFramOrderRepository) frameOrderRepository).SavedItem;
+			var savedEntity = ((RepositoryFactory.MockedFrameOrderRepository) frameOrderRepository).SavedItem;
 			var emailBody = ((ServiceFactory.MockFrameOrderSettingsService) _frameOrderService).SentEmailBody;
 
 		    //Assert

@@ -34,6 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 			ForRequestedType<ISqlProvider>().TheDefault.Is.ConstructedBy(() => new SqlProvider(connectionString));
 
 			ForRequestedType<IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>>().TheDefaultIsConcreteType<AllOrderableFramesCriteriaConverter>();
+			ForRequestedType<IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>>().TheDefaultIsConcreteType<AllFrameOrdersForShopCriteriaConverter>();
 
 		}
 	}

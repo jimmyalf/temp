@@ -12,7 +12,8 @@
 		<a href="SecurityTimeoutPage.aspx">Säkerhetstimout sida</a><br />
 		<a href="FrameOrder.aspx">Skapa glasögonbeställning</a><br />
 		<a href="FrameOrderView.aspx?frameorder=1">Visa glasögonbeställning för order 1</a><br />
-		<a href="FrameOrderView.aspx?frameorder=145">Visa glasögonbeställning för order 145</a>
-		<a href="FrameOrderView.aspx?frameorder=-1S">Visa glasögonbeställning för order -1</a>
+		<a href="FrameOrderView.aspx?frameorder=145">Visa glasögonbeställning för order 145</a><br />
+		<a href="FrameOrderView.aspx?frameorder=-1">Visa glasögonbeställning för order -1</a><br />
+		<a href="FrameOrderList.aspx">Visa beställningslista</a>
 	</div>
 </asp:Content>

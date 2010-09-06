@@ -135,23 +135,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			var mockedHttpResponse = new Mock<HttpResponseBase>();
 			var requestParams = new NameValueCollection {{"frameorder", "5"}};
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			const string expectedEmailBody = "TestOrderEmailBody";
 
 		    //Act
 			mockedHttpContext.SetupGet(x => x.Response).Returns(mockedHttpResponse.Object);
 			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedPageUrl(expectedRedirectUrl);
-			((ServiceFactory.MockFrameOrderSettingsService) _frameOrderService).SendOrder(frameOrder);
 			presenter.HttpContext = mockedHttpContext.Object;
 			presenter.View.RedirectAfterSentOrderPageId = 5;
 		    presenter.View_Load(null, eventArgs);
 			presenter.View_SendOrder(null, eventArgs);
 			var savedEntity = ((RepositoryFactory.MockedFrameOrderRepository) frameOrderRepository).SavedItem;
-			var emailBody = ((ServiceFactory.MockFrameOrderSettingsService) _frameOrderService).SentFrameOrder;
+			var sentFrameOrder = ((ServiceFactory.MockFrameOrderSettingsService) _frameOrderService).SentFrameOrder;
 
 		    //Assert
 			Expect(savedEntity.Sent, Is.Not.Null);
 			Expect(savedEntity.Sent.Value.ToString("yyyy-MM-dd HH:mm"), Is.EqualTo(DateTime.Now.ToString("yyyy-MM-dd HH:mm")));
-			Expect(emailBody, Is.EqualTo(expectedEmailBody));
+			Expect(sentFrameOrder.Id, Is.EqualTo(5));
 			mockedHttpResponse.Verify(x => x.Redirect(expectedRedirectUrl),Times.Once());
 
 		}

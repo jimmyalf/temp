@@ -127,7 +127,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 			}
 			public void Save(TEntity entity)
 			{
-				TrySetId(entity, _savedId);
+				if(_savedId > 0){
+					TrySetId(entity, _savedId);
+				}
 				SavedItem = entity;
 				
 			}
@@ -136,16 +138,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 		}
 
 
-		//private static int? TryGetId<TModel>(TModel entity)
-		//{
-		//    try{
-		//        var propertyInfo = typeof(TModel).GetProperty("Id");
-		//        if(propertyInfo == null) return null;
-		//        var value = propertyInfo.GetValue(entity, null);
-		//        return (value is int) ? (int) value : (int?) null;
-		//    }
-		//    catch{ return null; }
-		//}
+		private static int? TryGetId<TModel>(TModel entity)
+		{
+		    try{
+		        var propertyInfo = typeof(TModel).GetProperty("Id");
+		        if(propertyInfo == null) return null;
+		        var value = propertyInfo.GetValue(entity, null);
+		        return (value is int) ? (int) value : (int?) null;
+		    }
+		    catch{ return null; }
+		}
 
 		private static void TrySetId<TModel>(TModel entity, int id)
 		{

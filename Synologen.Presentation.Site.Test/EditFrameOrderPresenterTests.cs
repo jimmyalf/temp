@@ -29,6 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 		private IShopRepository shopRepository;
 		private readonly Func<EyeParameter, EyeParameter, bool> EyeparameterEquality = (objectOne, objectTwo) => (objectOne.Left == objectTwo.Left && objectOne.Right == objectTwo.Right);
 		private readonly Func<EyeParameter, NullableEyeParameter, bool> NullableEyeparameterEquality = (objectOne, objectTwo) => (objectOne.Left == objectTwo.Left && objectOne.Right == objectTwo.Right) || (objectOne.Left == int.MinValue && objectTwo.Left == null && objectOne.Right == int.MinValue && objectTwo.Right == null);
+		private ISynologenSettingsService synologenSettingsService;
 
 		[SetUp]
 		public void Context()
@@ -38,9 +39,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			frameOrderRepository = RepositoryFactory.GetFramOrderRepository();
 			shopRepository = RepositoryFactory.GetShopRepository();
 			frameOrderService = ServiceFactory.GetFrameOrderSettingsService();
+			synologenSettingsService = ServiceFactory.GetSynologenSettingsService();
 			synologenMemberService = ServiceFactory.GetSynologenMemberService();
 			view = ViewsFactory.GetFrameOrderView();
-			presenter = new EditFrameOrderPresenter(view, frameRepository, frameGlassTypeRepository, frameOrderRepository, shopRepository, synologenMemberService, frameOrderService);
+			presenter = new EditFrameOrderPresenter(view, frameRepository, frameGlassTypeRepository, frameOrderRepository, shopRepository, synologenMemberService, frameOrderService, synologenSettingsService);
 		}
 
 		[Test]

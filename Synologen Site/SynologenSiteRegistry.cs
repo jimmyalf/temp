@@ -12,7 +12,6 @@ using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Services;
 using StructureMap.Attributes;
 using StructureMap.Configuration.DSL;
-//using IUnitOfWork=Spinit.Wpc.Synologen.Core.Persistence.IUnitOfWork;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site
 {
@@ -20,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 	{
 		public SynologenSiteRegistry()
 		{
-			var connectionString = Utility.Business.Globals.ConnectionString("WpcServer");
+			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);
 			ForRequestedType<ISessionFactory>().CacheBy(InstanceScope.Singleton).TheDefault.Is.ConstructedBy(NHibernateFactory.Instance.GetSessionFactory);
 			ForRequestedType<ISession>().TheDefault.Is.ConstructedBy(x => ((NHibernateUnitOfWork)x.GetInstance<IUnitOfWork>()).Session);
 			ForRequestedType<IUnitOfWork>().CacheBy(InstanceScope.Hybrid).TheDefault.Is.OfConcreteType<NHibernateUnitOfWork>();
@@ -29,7 +28,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 			ForRequestedType<IFrameGlassTypeRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameGlassTypeRepository>();
 			ForRequestedType<IFrameOrderRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameOrderRepository>();
 			ForRequestedType<IShopRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<ShopRepository>();
-			ForRequestedType<IFrameOrderService>().TheDefaultIsConcreteType<FrameOrderSettingsService>();
+			ForRequestedType<IFrameOrderService>().TheDefaultIsConcreteType<SynologenFrameOrderService>();
+			ForRequestedType<ISynologenSettingsService>().TheDefaultIsConcreteType<SynologenSettingsService>();
+			ForRequestedType<IEmailService>().TheDefaultIsConcreteType<EmailService>();
 			ForRequestedType<ISynologenMemberService>().TheDefaultIsConcreteType<SynologenMemberService>();
 			ForRequestedType<ISqlProvider>().TheDefault.Is.ConstructedBy(() => new SqlProvider(connectionString));
 

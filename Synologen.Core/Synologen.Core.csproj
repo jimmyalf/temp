@@ -75,6 +75,7 @@
     <Compile Include="Domain\Persistence\IFrameOrderRepository.cs" />
     <Compile Include="Domain\Persistence\IShopRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
+    <Compile Include="Domain\Services\IEmailService.cs" />
     <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IAdminSettingsService.cs" />
     <Compile Include="Domain\Model\FrameOrder\Frame.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Domain\Persistence\IFrameColorRepository.cs" />
     <Compile Include="Domain\Services\IFrameOrderService.cs" />
     <Compile Include="Domain\Services\ISynologenMemberService.cs" />
+    <Compile Include="Domain\Services\ISynologenSettingsService.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Extensions\ExpressionNameVisitor.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />

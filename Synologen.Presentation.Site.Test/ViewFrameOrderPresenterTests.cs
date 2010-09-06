@@ -128,6 +128,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 		public void When_Form_Is_Sent_Saved_Item_Has_Expected_Values()
 		{
 		    //Arrange
+			var frameOrder = frameOrderRepository.Get(10);
 		    var eventArgs = new EventArgs();
 			const string expectedRedirectUrl = "/test/url/";
 			var mockedHttpContext = new Mock<HttpContextBase>();
@@ -139,13 +140,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 		    //Act
 			mockedHttpContext.SetupGet(x => x.Response).Returns(mockedHttpResponse.Object);
 			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedPageUrl(expectedRedirectUrl);
-			((ServiceFactory.MockFrameOrderSettingsService) _frameOrderService).SetupEmailBody(expectedEmailBody);
+			((ServiceFactory.MockFrameOrderSettingsService) _frameOrderService).SendOrder(frameOrder);
 			presenter.HttpContext = mockedHttpContext.Object;
 			presenter.View.RedirectAfterSentOrderPageId = 5;
 		    presenter.View_Load(null, eventArgs);
 			presenter.View_SendOrder(null, eventArgs);
 			var savedEntity = ((RepositoryFactory.MockedFrameOrderRepository) frameOrderRepository).SavedItem;
-			var emailBody = ((ServiceFactory.MockFrameOrderSettingsService) _frameOrderService).SentEmailBody;
+			var emailBody = ((ServiceFactory.MockFrameOrderSettingsService) _frameOrderService).SentFrameOrder;
 
 		    //Assert
 			Expect(savedEntity.Sent, Is.Not.Null);

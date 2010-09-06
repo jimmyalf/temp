@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
@@ -15,10 +16,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 			return new MockedSessionProviderService();
 		}
 
-		internal class MockFrameOrderSettingsService : IFrameOrderService{
-			private string _bodytext;
+		public static ISynologenSettingsService GetSynologenSettingsService() { 
+			return new MockedSynologenSettingsService();
+		}
 
-			public MockFrameOrderSettingsService()
+		internal class MockedSynologenSettingsService : ISynologenSettingsService
+		{
+			public MockedSynologenSettingsService()
 			{
 				Sphere = new Interval {Increment = 0.25M, Max = 6, Min = -6};
 				Cylinder = new Interval {Increment = 0.25M, Max = 2, Min = 0};
@@ -36,16 +40,38 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 			public string EmailOrderSupplierEmail { get; private set; }
 			public string EmailOrderFrom { get; private set; }
 			public string EmailOrderSubject { get; private set; }
-
-			public string SentEmailBody { get; private set; }
-			public void SetupEmailBody(string bodyText){ _bodytext = bodyText;}
-
-			public string CreateOrderEmailBody(FrameOrder order) { return _bodytext; }
-			public void SendEmail(string body)
-			{
-				SentEmailBody = _bodytext;
+			public string GetFrameOrderEmailBodyTemplate() { 
+			var builder = new StringBuilder()
+			    .AppendLine("Beställnings-id: {OrderId}")
+			    .AppendLine("Butik: {ShopName}")
+			    .AppendLine("Butiksort: {ShopCity}")
+			    .AppendLine("Båge: {FrameName}")
+			    .AppendLine("Båge Artnr: {ArticleNumber}")
+			    .AppendLine("PD Vänster: {PDLeft}")
+			    .AppendLine("PD Höger: {PDRight}")
+			    .AppendLine("Glastyp: {GlassTypeName}")
+			    .AppendLine("Sfär Vänster: {SphereLeft}")
+			    .AppendLine("Sfär Höger: {SphereRight}")
+			    .AppendLine("Cylinder Vänster: {CylinderLeft}")
+			    .AppendLine("Cylinder Höger: {CylinderRight}")
+			    .AppendLine("Axel Vänster: {AxisLeft}")
+			    .AppendLine("Axel Höger: {AxisRight}")
+			    .AppendLine("Addition Vänster: {AdditionLeft}")
+			    .AppendLine("Addition Höger: {AdditionRight}")
+			    .AppendLine("Höjd Vänster: {HeightLeft}")
+			    .AppendLine("Höjd Höger: {HeightRight}")
+			    .AppendLine("Anteckningar: \r\n{Notes}");
+			return builder.ToString();
 			}
 		}
+
+		internal class MockFrameOrderSettingsService : IFrameOrderService{
+			public FrameOrder SentFrameOrder { get; private set; }
+			public void SendOrder(FrameOrder order) {
+				SentFrameOrder = order;
+			}
+		}
+
 
 		internal class MockedSessionProviderService : ISynologenMemberService {
 			private int _shopId;
@@ -57,6 +83,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 			public int GetCurrentMemberId() { throw new NotImplementedException(); }
 			public string GetPageUrl(int pageId) { return _pageUrl; }
 		}
+
 	}
 
 	

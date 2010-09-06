@@ -48,8 +48,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		}
 
 		private void SendEmail(FrameOrder frameOrder) {
-			var body = _frameOrderService.CreateOrderEmailBody(frameOrder);
-			_frameOrderService.SendEmail(body);
+			_frameOrderService.SendOrder(frameOrder);
 		}
 
 		private void InitializeModel() {

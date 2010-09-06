@@ -53,8 +53,10 @@
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
     <Compile Include="Logic\Presenters\ListFrameOrdersPresenter.cs" />
     <Compile Include="Logic\Presenters\ViewFrameOrderPresenter.cs" />
-    <Compile Include="Logic\Services\FrameOrderSettingsService.cs" />
+    <Compile Include="Logic\Services\EmailService.cs" />
+    <Compile Include="Logic\Services\SynologenFrameOrderService.cs" />
     <Compile Include="Logic\Services\SynologenMemberService.cs" />
+    <Compile Include="Logic\Services\SynologenSettingsService.cs" />
     <Compile Include="Logic\Views\IEditFrameOrderView.cs" />
     <Compile Include="Logic\Views\IListFrameOrdersView.cs" />
     <Compile Include="Logic\Views\IViewFrameOrderView.cs" />

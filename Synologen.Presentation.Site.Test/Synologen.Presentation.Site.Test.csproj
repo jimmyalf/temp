@@ -69,6 +69,8 @@
     <Compile Include="Factories\RepositoryFactory.cs" />
     <Compile Include="Factories\ViewsFactory.cs" />
     <Compile Include="EditFrameOrderPresenterTests.cs" />
+    <Compile Include="FrameOrderServiceTest.cs" />
+    <Compile Include="SynologenSettingsServiceTest.cs" />
     <Compile Include="ListFrameOrdersPresenterTest.cs" />
     <Compile Include="ViewFrameOrderPresenterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

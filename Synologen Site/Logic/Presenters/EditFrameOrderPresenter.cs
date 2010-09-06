@@ -20,11 +20,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		private readonly IShopRepository _shopRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
 		private readonly IFrameOrderService _frameOrderService;
+		private readonly ISynologenSettingsService _synologenSettingsService;
 		private readonly IEnumerable<IntervalListItem> EmptyIntervalList = new List<IntervalListItem>();
 		private readonly FrameListItem DefaultFrame = new FrameListItem {Id = 0, Name = "-- Välj båge --"};
 		private readonly AllOrderableFramesCriteria AllOrderableFramesCriteria = new AllOrderableFramesCriteria();
 
-		public EditFrameOrderPresenter(IEditFrameOrderView<EditFrameOrderModel> view, IFrameRepository repository, IFrameGlassTypeRepository frameGlassTypeRepository, IFrameOrderRepository frameOrderRepository, IShopRepository shopRepository, ISynologenMemberService sessionProviderService, IFrameOrderService frameOrderService) : base(view)
+		public EditFrameOrderPresenter(IEditFrameOrderView<EditFrameOrderModel> view, IFrameRepository repository, IFrameGlassTypeRepository frameGlassTypeRepository, IFrameOrderRepository frameOrderRepository, IShopRepository shopRepository, ISynologenMemberService sessionProviderService, IFrameOrderService frameOrderService, ISynologenSettingsService synologenSettingsService) : base(view)
 		{
 			_frameRepository = repository;
 			_frameGlassTypeRepository = frameGlassTypeRepository;
@@ -32,6 +33,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			_shopRepository = shopRepository;
 			_synologenMemberService = sessionProviderService;
 			_frameOrderService = frameOrderService;
+			_synologenSettingsService = synologenSettingsService;
 			InitiateEventHandlers();
 		}
 
@@ -84,8 +86,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).ToFrameViewList().InsertFirst(DefaultFrame);
 			View.Model.PupillaryDistance = EmptyIntervalList.CreateDefaultEyeParameter("PD");
 			View.Model.GlassTypesList = _frameGlassTypeRepository.GetAll().ToFrameGlassTypeViewList().InsertFirst(new FrameGlassTypeListItem {Id = 0, Name = "-- Välj glastyp --"});
-			View.Model.Sphere = _frameOrderService.Sphere.GetList().CreateDefaultEyeParameter("Sfär");
-			View.Model.Cylinder = _frameOrderService.Cylinder.GetList().CreateDefaultEyeParameter("Cylinder");
+			View.Model.Sphere = _synologenSettingsService.Sphere.GetList().CreateDefaultEyeParameter("Sfär");
+			View.Model.Cylinder = _synologenSettingsService.Cylinder.GetList().CreateDefaultEyeParameter("Cylinder");
 			View.Model.Addition = EmptyIntervalList.CreateDefaultEyeParameter("Addition");
 			View.Model.Height = EmptyIntervalList.CreateDefaultEyeParameter("Höjd");
 			View.Model.FrameRequiredErrorMessage = "Båge saknas";
@@ -119,19 +121,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 
 			View.Model.SelectedFrameId = e.SelectedFrameId;
 			View.Model.SelectedGlassTypeId = e.SelectedGlassTypeId;
-			View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, _frameOrderService.Sphere.GetList(), "Sfär");
-			View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, _frameOrderService.Cylinder.GetList(), "Cylinder");
+			View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, _synologenSettingsService.Sphere.GetList(), "Sfär");
+			View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, _synologenSettingsService.Cylinder.GetList(), "Cylinder");
 			View.Model.AxisSelectionLeft = e.SelectedAxisLeft;
 			View.Model.AxisSelectionRight = e.SelectedAxisRight;
 			View.Model.Notes = e.Notes;
 
 			if(glassType != null && glassType.IncludeAdditionParametersInOrder)
 			{
-				View.Model.Addition = e.GetEyeParameter(x => x.SelectedAddition, _frameOrderService.Addition.GetList(), "Addition");
+				View.Model.Addition = e.GetEyeParameter(x => x.SelectedAddition, _synologenSettingsService.Addition.GetList(), "Addition");
 			}
 			if(glassType != null && glassType.IncludeHeightParametersInOrder)
 			{
-				View.Model.Height = e.GetEyeParameter(x => x.SelectedHeight, _frameOrderService.Height.GetList(), "Höjd");
+				View.Model.Height = e.GetEyeParameter(x => x.SelectedHeight, _synologenSettingsService.Height.GetList(), "Höjd");
 			}
 		}
 
@@ -147,19 +149,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.AdditionParametersEnabled = frameOrder.GlassType.IncludeAdditionParametersInOrder;
 			View.Model.SelectedFrameId = frameOrder.Frame.Id;
 			View.Model.SelectedGlassTypeId = frameOrder.GlassType.Id;
-			View.Model.Sphere = frameOrder.GetEyeParameter(x => x.Sphere, _frameOrderService.Sphere.GetList(), "Sfär");
-			View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, _frameOrderService.Cylinder.GetList(), "Cylinder");
+			View.Model.Sphere = frameOrder.GetEyeParameter(x => x.Sphere, _synologenSettingsService.Sphere.GetList(), "Sfär");
+			View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, _synologenSettingsService.Cylinder.GetList(), "Cylinder");
 			View.Model.AxisSelectionLeft = Convert.ToInt32(frameOrder.Axis.Left);
 			View.Model.AxisSelectionRight = Convert.ToInt32(frameOrder.Axis.Right);
 			View.Model.Notes = frameOrder.Notes;
 
 			if(frameOrder.GlassType.IncludeAdditionParametersInOrder)
 			{
-				View.Model.Addition = frameOrder.GetEyeParameter(x => x.Addition, _frameOrderService.Addition.GetList(), "Addition");
+				View.Model.Addition = frameOrder.GetEyeParameter(x => x.Addition, _synologenSettingsService.Addition.GetList(), "Addition");
 			}
 			if(frameOrder.GlassType.IncludeHeightParametersInOrder)
 			{
-				View.Model.Height = frameOrder.GetEyeParameter(x => x.Height, _frameOrderService.Height.GetList(), "Höjd");
+				View.Model.Height = frameOrder.GetEyeParameter(x => x.Height, _synologenSettingsService.Height.GetList(), "Höjd");
 			}
 			if(frameOrder.OrderingShop.Id != _synologenMemberService.GetCurrentShopId())
 			{

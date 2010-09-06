@@ -12,6 +12,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 		{
 			return Criteria
 				.CreateAlias(x => x.OrderingShop)
+				.CreateAlias(x => x.Frame)
 				.FilterEqual(x => x.OrderingShop.Id, source.ShopId);
 		}
 	}

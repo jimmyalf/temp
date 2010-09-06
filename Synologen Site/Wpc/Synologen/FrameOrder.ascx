@@ -169,7 +169,7 @@
 <div class="interval-parameter axis">
 	<div class="frame-order-item left">
 		<label for="<%=txtAxisLeft.ClientID%>">Axel V</label>
-		<asp:TextBox ID="txtAxisLeft" runat="server" maxlength="3" Text='<%#Model.AxisSelection.Left %>' />
+		<asp:TextBox ID="txtAxisLeft" runat="server" maxlength="3" Text='<%#Model.AxisSelectionLeft %>' />
 		<asp:RangeValidator 
 			ID="rngAxisLeft" 
 			runat="server" 
@@ -179,7 +179,7 @@
 			MaximumValue="180"
 			ControlToValidate="txtAxisLeft"
 			ErrorMessage='<%#Model.AxisRangeMessage %>'
-			Type="Double"
+			Type="Integer"
 			ValidationGroup="vldSubmit">&nbsp;*</asp:RangeValidator>
 		<asp:RequiredFieldValidator 
 			ID="reqAxisLeft" 
@@ -192,7 +192,7 @@
 	</div>
 	<div class="frame-order-item right">
 		<label for="<%=txtAxisRight.ClientID%>">Axel H</label>
-		<asp:TextBox ID="txtAxisRight" runat="server" maxlength="3" Text='<%#Model.AxisSelection.Right %>' />
+		<asp:TextBox ID="txtAxisRight" runat="server" maxlength="3" Text='<%#Model.AxisSelectionRight %>' />
 		<asp:RangeValidator 
 			ID="rngAxisRight" 
 			runat="server" 
@@ -202,7 +202,7 @@
 			MaximumValue="180"
 			ControlToValidate="txtAxisRight"
 			ErrorMessage='<%#Model.AxisRangeMessage %>'
-			Type="Double"
+			Type="Integer"
 			ValidationGroup="vldSubmit">&nbsp;*</asp:RangeValidator>
 		<asp:RequiredFieldValidator 
 			ID="reqAxisRight" 

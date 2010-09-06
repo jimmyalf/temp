@@ -71,8 +71,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.Sphere.Selection.Right, Is.EqualTo(int.MinValue));
 			Expect(view.Model.Cylinder.Selection.Left, Is.EqualTo(int.MinValue));
 			Expect(view.Model.Cylinder.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.AxisSelection.Left, Is.EqualTo(0));
-			Expect(view.Model.AxisSelection.Right, Is.EqualTo(0));
+			Expect(view.Model.AxisSelectionLeft, Is.EqualTo(0));
+			Expect(view.Model.AxisSelectionRight, Is.EqualTo(0));
 			Expect(view.Model.Addition.Selection.Left, Is.EqualTo(int.MinValue));
 			Expect(view.Model.Addition.Selection.Right, Is.EqualTo(int.MinValue));
 			Expect(view.Model.Height.Selection.Left, Is.EqualTo(int.MinValue));
@@ -134,7 +134,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			ExpectEqual(view.Model.PupillaryDistance.Selection, expectedFrameOrder.PupillaryDistance, EyeparameterEquality);
 			ExpectEqual(view.Model.Sphere.Selection, expectedFrameOrder.Sphere, EyeparameterEquality);
 			ExpectEqual(view.Model.Cylinder.Selection, expectedFrameOrder.Cylinder, EyeparameterEquality);
-			ExpectEqual(view.Model.AxisSelection, expectedFrameOrder.Axis, EyeparameterEquality);
+			Expect(view.Model.AxisSelectionLeft, Is.EqualTo(expectedFrameOrder.Axis.Left));
+			Expect(view.Model.AxisSelectionRight, Is.EqualTo(expectedFrameOrder.Axis.Right));
 			ExpectEqual(view.Model.Height.Selection, expectedFrameOrder.Height, NullableEyeparameterEquality);
 			ExpectEqual(view.Model.Addition.Selection, expectedFrameOrder.Addition, NullableEyeparameterEquality);
 			Expect(view.Model.HeightParametersEnabled, Is.EqualTo(expectedFrameOrder.GlassType.IncludeHeightParametersInOrder));
@@ -156,7 +157,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				SelectedPupillaryDistance = new EyeParameter{Left = 22, Right = 33},
 				SelectedSphere = new EyeParameter{Left = -5, Right = 2.25M},
                 SelectedCylinder = new EyeParameter{ Left = 0.25M, Right = 1.75M}, 
-                SelectedAxis = new EyeParameter{ Left = 20, Right = 179},
+                SelectedAxisLeft = 20,
+				SelectedAxisRight = 179,
 				SelectedAddition = new EyeParameter{Left = 1.25M, Right = 2.75M},
 				SelectedHeight = new EyeParameter{Left = 19, Right = 27},
 				Notes = "Skynda på"
@@ -194,8 +196,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.Sphere.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Right));
 			Expect(view.Model.Cylinder.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedCylinder.Left));
 			Expect(view.Model.Cylinder.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedCylinder.Right));
-			Expect(view.Model.AxisSelection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Left));
-			Expect(view.Model.AxisSelection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Right));
+			Expect(view.Model.AxisSelectionLeft, Is.EqualTo(frameSelectedEventArgs.SelectedAxisLeft));
+			Expect(view.Model.AxisSelectionRight, Is.EqualTo(frameSelectedEventArgs.SelectedAxisRight));
 			Expect(view.Model.Addition.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedAddition.Left));
 			Expect(view.Model.Addition.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedAddition.Right));
 			Expect(view.Model.Height.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Left));
@@ -216,7 +218,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				SelectedPupillaryDistance = new EyeParameter{Left = 22, Right = 33},
 				SelectedSphere = new EyeParameter{Left = -5, Right = 2.25M},
                 SelectedCylinder = new EyeParameter{ Left = 0.25M, Right = 1.75M}, 
-                SelectedAxis = new EyeParameter{ Left = 20, Right = 179},
+                SelectedAxisLeft = 20,
+				SelectedAxisRight = 179,
 				SelectedAddition = new EyeParameter{Left = 1.25M, Right = 2.75M},
 				SelectedHeight = new EyeParameter{Left = 19, Right = 27},
 			};
@@ -251,7 +254,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				SelectedPupillaryDistance = new EyeParameter{Left = 200, Right = -20},
 				SelectedSphere = new EyeParameter{Left =10, Right = 42},
 				SelectedCylinder = new EyeParameter{Left = -0.25M, Right = 3},
-				SelectedAxis = new EyeParameter{ Left = -1, Right = 181},
+				SelectedAxisLeft = -1,
+				SelectedAxisRight = 181,
 				SelectedAddition = new EyeParameter{Left = 0.75M, Right = 3.75M},
 				SelectedHeight = new EyeParameter{Left = 17, Right = 33},
 				Notes = "Skynda på"
@@ -275,8 +279,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.Sphere.Selection.Right, Is.EqualTo(int.MinValue));
 			Expect(view.Model.Cylinder.Selection.Left, Is.EqualTo(int.MinValue));
 			Expect(view.Model.Cylinder.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.AxisSelection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Left));
-			Expect(view.Model.AxisSelection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Right));
+			Expect(view.Model.AxisSelectionLeft, Is.EqualTo(frameSelectedEventArgs.SelectedAxisLeft));
+			Expect(view.Model.AxisSelectionRight, Is.EqualTo(frameSelectedEventArgs.SelectedAxisRight));
 			Expect(view.Model.Addition.Selection.Left, Is.EqualTo(int.MinValue));
 			Expect(view.Model.Addition.Selection.Right, Is.EqualTo(int.MinValue));
 			Expect(view.Model.Height.Selection.Left, Is.EqualTo(int.MinValue));
@@ -294,7 +298,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				SelectedPupillaryDistance = new EyeParameter { Left = 22, Right = 33 },
 				SelectedSphere = new EyeParameter { Left = -5, Right = 2.25M },
 				SelectedCylinder = new EyeParameter { Left = 0.25M, Right = 1.75M },
-				SelectedAxis = new EyeParameter { Left = 20, Right = 179 },
+				SelectedAxisLeft = 20,
+				SelectedAxisRight = 179,
 				SelectedAddition = new EyeParameter { Left = 1.25M, Right = 2.75M },
 				SelectedHeight = new EyeParameter { Left = 19, Right = 27 },
 				Notes = "Skynda på",
@@ -325,8 +330,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(savedEntity, Is.Not.Null);
 			Expect(savedEntity.Addition.Left, Is.EqualTo(frameSelectedEventArgs.SelectedAddition.Left));
 			Expect(savedEntity.Addition.Right, Is.EqualTo(frameSelectedEventArgs.SelectedAddition.Right));
-			Expect(savedEntity.Axis.Left, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Left));
-			Expect(savedEntity.Axis.Right, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Right));
+			Expect(savedEntity.Axis.Left, Is.EqualTo(frameSelectedEventArgs.SelectedAxisLeft));
+			Expect(savedEntity.Axis.Right, Is.EqualTo(frameSelectedEventArgs.SelectedAxisRight));
 			Expect(savedEntity.Created.ToString("yyyy-MM-dd HH:mm"), Is.EqualTo(DateTime.Now.ToString("yyyy-MM-dd HH:mm")));
 			Expect(savedEntity.Cylinder.Left, Is.EqualTo(frameSelectedEventArgs.SelectedCylinder.Left));
 			Expect(savedEntity.Cylinder.Right, Is.EqualTo(frameSelectedEventArgs.SelectedCylinder.Right));

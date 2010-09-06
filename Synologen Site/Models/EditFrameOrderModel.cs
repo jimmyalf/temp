@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 {
@@ -14,7 +12,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 		public EyeParameterIntervalListAndSelection PupillaryDistance { get; set; }
 		public EyeParameterIntervalListAndSelection Addition { get; set; }
 		public EyeParameterIntervalListAndSelection Height { get; set; }
-		public EyeParameter AxisSelection { get; set; }
+		public int AxisSelectionRight { get; set; }
+		public int AxisSelectionLeft { get; set; }
 
 		public string FrameRequiredErrorMessage { get; set; }
 		public string PupillaryDistanceRequiredErrorMessage { get; set; }

@@ -101,7 +101,7 @@
       <DependentUpon>WpcConfirmationDialog.resx</DependentUpon>
     </Compile>
     <Compile Include="Helpers\WpcConfirmation.cs" />
-    <Compile Include="Helpers\WpcDisabled.cs" />
+    <Compile Include="Helpers\WpcGenerics.cs" />
     <Compile Include="Models\FrameBrandEditView.cs" />
     <Compile Include="Models\FrameBrandListItemView.cs" />
     <Compile Include="Helpers\GridPageSortParameters.cs" />

@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		{
 			var frameOrderId = GetFrameOrderId();
 			var frameOrder = _frameOrderRepository.Get(frameOrderId);
-			SendEmail(frameOrder);
+			_frameOrderService.SendOrder(frameOrder);
 			SetFrameOrderSent(frameOrder);
 			if (View.RedirectAfterSentOrderPageId > 0)
 			{
@@ -47,9 +47,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			}
 		}
 
-		private void SendEmail(FrameOrder frameOrder) {
-			_frameOrderService.SendOrder(frameOrder);
-		}
 
 		private void InitializeModel() {
 			var frameOrderId = GetFrameOrderId();

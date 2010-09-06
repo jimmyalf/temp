@@ -349,7 +349,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(savedEntity.Sent, Is.Null);
 			Expect(savedEntity.Sphere.Left, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Left));
 			Expect(savedEntity.Sphere.Right, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Right));
-			mockedHttpResponse.Verify(x => x.Redirect(expectedRedirectUrlWithQueryString),Times.Once());
+			mockedHttpResponse.Verify(x => x.Redirect(expectedRedirectUrlWithQueryString));
 		}
 	}
 }

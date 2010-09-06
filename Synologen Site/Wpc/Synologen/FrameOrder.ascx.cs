@@ -63,11 +63,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 					Left = drpCylinderLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
 					Right = drpCylinderRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
 				},
-				SelectedAxis = new EyeParameter
-				{
-					Left = txtAxisLeft.Text.ToDecimalOrDefault(0),
-					Right = txtAxisRight.Text.ToDecimalOrDefault(0)
-				},
+				SelectedAxisLeft = txtAxisLeft.Text.ToIntOrDefault(),
+				SelectedAxisRight = txtAxisRight.Text.ToIntOrDefault(),
                 SelectedAddition = new EyeParameter
                 {
                 	Left = drpAdditionLeft.SelectedValue.ToDecimalOrDefault(0),

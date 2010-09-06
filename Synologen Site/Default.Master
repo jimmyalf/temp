@@ -6,7 +6,8 @@
 <head runat="server">
     <title>Untitled Page</title>
     <%--<link media="screen" rel="stylesheet" type="text/css" href="http://demo.ogonapoteket.se/CommonResources/Css/Screen_476.css" />--%>
-    <link media="screen" rel="stylesheet" type="text/css" href="Default.css">
+    <!--<link media="screen" rel="stylesheet" type="text/css" href="Default.css">-->
+    <link href="http://synologen-nu.wpc.nu/commonresources/styles/Extranet.css" type="text/css" rel="stylesheet" media="screen" /> 
     <style>
     .shop-city {background-color: rgb(213, 222, 213);}
     .shop-link,

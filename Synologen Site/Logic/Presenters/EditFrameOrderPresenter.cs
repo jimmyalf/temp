@@ -88,7 +88,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.Cylinder = _frameOrderService.Cylinder.GetList().CreateDefaultEyeParameter("Cylinder");
 			View.Model.Addition = EmptyIntervalList.CreateDefaultEyeParameter("Addition");
 			View.Model.Height = EmptyIntervalList.CreateDefaultEyeParameter("Höjd");
-			View.Model.AxisSelection = new EyeParameter {Left = 0, Right = 0};
 			View.Model.FrameRequiredErrorMessage = "Båge saknas";
 			View.Model.GlassTypeRequiredErrorMessage = "Glastyp saknas";
 			View.Model.PupillaryDistanceRequiredErrorMessage = "PD saknas";
@@ -122,7 +121,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.SelectedGlassTypeId = e.SelectedGlassTypeId;
 			View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, _frameOrderService.Sphere.GetList(), "Sfär");
 			View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, _frameOrderService.Cylinder.GetList(), "Cylinder");
-			View.Model.AxisSelection = new EyeParameter {Left = e.SelectedAxis.Left, Right = e.SelectedAxis.Right};
+			View.Model.AxisSelectionLeft = e.SelectedAxisLeft;
+			View.Model.AxisSelectionRight = e.SelectedAxisRight;
 			View.Model.Notes = e.Notes;
 
 			if(glassType != null && glassType.IncludeAdditionParametersInOrder)
@@ -149,7 +149,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.SelectedGlassTypeId = frameOrder.GlassType.Id;
 			View.Model.Sphere = frameOrder.GetEyeParameter(x => x.Sphere, _frameOrderService.Sphere.GetList(), "Sfär");
 			View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, _frameOrderService.Cylinder.GetList(), "Cylinder");
-			View.Model.AxisSelection = new EyeParameter {Left = frameOrder.Axis.Left, Right = frameOrder.Axis.Right};
+			View.Model.AxisSelectionLeft = Convert.ToInt32(frameOrder.Axis.Left);
+			View.Model.AxisSelectionRight = Convert.ToInt32(frameOrder.Axis.Right);
 			View.Model.Notes = frameOrder.Notes;
 
 			if(frameOrder.GlassType.IncludeAdditionParametersInOrder)

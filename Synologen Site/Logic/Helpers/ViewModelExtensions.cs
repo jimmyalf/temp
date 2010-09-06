@@ -55,7 +55,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 				Left = (eventArgs.SelectedAddition.Left != int.MinValue) ? eventArgs.SelectedAddition.Left : (decimal?)null,
 				Right = (eventArgs.SelectedAddition.Right != int.MinValue) ? eventArgs.SelectedAddition.Right : (decimal?)null,
 			};
-			frameOrder.Axis = eventArgs.SelectedAxis;
+			frameOrder.Axis = new EyeParameter { Left = eventArgs.SelectedAxisLeft, Right = eventArgs.SelectedAxisRight };
 			frameOrder.Created = DateTime.Now;
 			frameOrder.Cylinder = eventArgs.SelectedCylinder;
 			frameOrder.Height = new NullableEyeParameter {

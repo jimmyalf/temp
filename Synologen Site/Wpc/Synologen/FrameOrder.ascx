@@ -1,15 +1,4 @@
 ﻿<%@ Control Language="C#" CodeBehind="FrameOrder.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrder" %>
-<style type="text/css">
-
-.interval-parameter { float:left; }
-.frame-order-item { clear:both; margin: 10px 10px 10px 0px; }
-.frame-order-item label{ display:block; clear:both; }
-.frame-order-item input{ width: 4em; }
-.form-controls { clear: both; }
-.frame-order-item.notes textarea { width: 25em; min-height:8em; }
-
-</style>
-
 <%if(Model.DisplayForm) { %>
 
 <div class="frame-order-item frame">

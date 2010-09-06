@@ -1,7 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FrameOrderView.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrderView" %>
-<style type="text/css">
-.frame-order-view label {width: 15em; display:inline-block;}
-</style>
 <%if(Model.DisplayOrder) { %>
 <div class="frame-order-view">
 	<p><label>Cylinder Vänster: </label><span><%#Model.CylinderLeft%></span></p>

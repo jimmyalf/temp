@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Customer">
+    <Position X="2" Y="1" Width="1.75" />
+    <AssociationLine Name="Subscriptions" Type="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.75" Y="1.896" />
+        <Point X="4.917" Y="1.896" />
+        <Point X="4.917" Y="3.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.378" Y="0.558" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAAAAAAAAAAAAAAAAAAAAAAAEIgAAAAg=</HashCode>
+      <FileName>Domain\Model\LensSubscription\Customer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Subscriptions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.SubscriptionTransaction">
+    <Position X="2.25" Y="6.25" Width="2" />
+    <AssociationLine Name="Subscription" Type="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.167" Y="6.25" />
+        <Point X="3.167" Y="5.013" />
+        <Point X="4" Y="5.013" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.298" Y="-0.586" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Type" Type="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.TransactionType">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.922" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAACAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Domain\Model\LensSubscription\SubscriptionTransaction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Subscription" />
+      <Property Name="Type" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Shop">
+    <Position X="7" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Model\LensSubscription\Shop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription">
+    <Position X="4" Y="3.5" Width="2" />
+    <AssociationLine Name="Transactions" Type="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.SubscriptionTransaction" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5" Y="5.423" />
+        <Point X="5" Y="5.875" />
+        <Point X="4.25" Y="5.875" />
+        <Point X="4.25" Y="6.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.588" Y="0.487" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Customer" Type="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Customer" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4" Y="4.172" />
+        <Point X="2.438" Y="4.172" />
+        <Point X="2.438" Y="2.759" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Shop" Type="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Shop" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6" Y="3.88" />
+        <Point X="6.375" Y="3.88" />
+        <Point X="6.375" Y="1.399" />
+        <Point X="7" Y="1.399" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAGAAAgEAAAAAAAAAAAAAAAAAACAABABIgAAAgAAAAA=</HashCode>
+      <FileName>Domain\Model\LensSubscription\Subscription.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Customer" />
+      <Property Name="Shop" />
+      <Property Name="Status" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Transactions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.SubscriptionStatus">
+    <Position X="7" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Model\LensSubscription\SubscriptionStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.TransactionType">
+    <Position X="6.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Model\LensSubscription\TransactionType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

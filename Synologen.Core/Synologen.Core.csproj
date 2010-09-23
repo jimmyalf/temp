@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Exceptions\SynologenDeleteItemHasConnectionsException.cs" />
+    <Compile Include="Domain\Model\Entity.cs" />
     <Compile Include="Domain\Model\FrameOrder\EyeParameter.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameGlassType.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameOrder.cs" />
@@ -68,6 +69,12 @@
     <Compile Include="Domain\Model\FrameOrder\Shop.cs" />
     <Compile Include="Domain\Model\FrameOrder\ShopAddress.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameStock.cs" />
+    <Compile Include="Domain\Model\LensSubscription\Customer.cs" />
+    <Compile Include="Domain\Model\LensSubscription\Shop.cs" />
+    <Compile Include="Domain\Model\LensSubscription\Subscription.cs" />
+    <Compile Include="Domain\Model\LensSubscription\SubscriptionStatus.cs" />
+    <Compile Include="Domain\Model\LensSubscription\SubscriptionTransaction.cs" />
+    <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllFrameOrdersForShopCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameOrdersMatchingCriteria.cs" />
@@ -94,6 +101,9 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Domain\Persistence\IFrameRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LensSubscription.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

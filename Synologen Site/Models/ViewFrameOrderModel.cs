@@ -26,7 +26,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 		public string ShopCity { get; set; }
 		public string CreatedDate { get; set; }
 		public string SentDate { get; set; }
-		public string Notes { get; set; }
+		public string Reference { get; set; }
 		public string EditPageUrl { get; set; }
 		public bool OrderDoesNotExist { get; set; }
 		public bool UserDoesNotHaveAccessToThisOrder { get; set; }

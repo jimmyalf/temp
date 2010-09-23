@@ -43,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			Expect(persistedFrameOrder.Sent, Is.EqualTo(savedFrameOrder.Sent));
 			Expect(persistedFrameOrder.Sphere.Left, Is.EqualTo(savedFrameOrder.Sphere.Left));
 			Expect(persistedFrameOrder.Sphere.Right, Is.EqualTo(savedFrameOrder.Sphere.Right));
-			Expect(persistedFrameOrder.Notes, Is.EqualTo(savedFrameOrder.Notes));
+			Expect(persistedFrameOrder.Reference, Is.EqualTo(savedFrameOrder.Reference));
 		}
 
 		[Test]
@@ -54,7 +54,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			orderToSave.Sent = null;
 			orderToSave.Addition = null;
 			orderToSave.Height = null;
-			orderToSave.Notes = null;
+			orderToSave.Reference = null;
 
 			//Act
 			
@@ -94,7 +94,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 			Expect(persistedFrameOrder.Sent, Is.EqualTo(editedFrameOrder.Sent));
 			Expect(persistedFrameOrder.Sphere.Left, Is.EqualTo(editedFrameOrder.Sphere.Left));
 			Expect(persistedFrameOrder.Sphere.Right, Is.EqualTo(editedFrameOrder.Sphere.Right));
-			Expect(persistedFrameOrder.Notes, Is.EqualTo(editedFrameOrder.Notes));
+			Expect(persistedFrameOrder.Reference, Is.EqualTo(editedFrameOrder.Reference));
 		}
 
 		[Test]

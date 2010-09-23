@@ -16,7 +16,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder
 		public virtual NullableEyeParameter Height { get; set; }
 		public virtual DateTime Created { get; set; }
 		public virtual DateTime? Sent { get; set; }
-		public virtual string Notes { get; set; }
+		public virtual string Reference { get; set; }
 		public virtual bool IsSent
 		{
 			get { return (Sent.HasValue); }

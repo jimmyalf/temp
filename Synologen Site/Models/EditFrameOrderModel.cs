@@ -32,7 +32,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 		public bool HeightParametersEnabled{ get; set;}
 
 		public int NotSelectedIntervalValue { get { return int.MinValue; } }
-		public string Notes { get; set; }
+		public string Reference { get; set; }
 
 		public bool OrderHasBeenSent{ get; set; }
 		public bool UserDoesNotHaveAccessToThisOrder{ get; set; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -80,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 				View.Model.HeightLeft = frameOrder.Height.Left;
 				View.Model.HeightRight = frameOrder.Height.Right;
 			}
-			View.Model.Notes = frameOrder.Notes;
+			View.Model.Reference = frameOrder.Reference;
 			View.Model.PupillaryDistanceLeft = frameOrder.PupillaryDistance.Left;
 			View.Model.PupillaryDistanceRight = frameOrder.PupillaryDistance.Right;
 			View.Model.SentDate = frameOrder.Sent.HasValue ? frameOrder.Sent.Value.ToString("yyyy-MM-dd HH:mm") : null;

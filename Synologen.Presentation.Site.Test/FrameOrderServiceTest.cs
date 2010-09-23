@@ -67,7 +67,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			    .AppendLine("Addition Höger: {AdditionRight}")
 			    .AppendLine("Höjd Vänster: {HeightLeft}")
 			    .AppendLine("Höjd Höger: {HeightRight}")
-			    .AppendLine("Anteckningar: \r\n{Notes}");
+			    .AppendLine("Anteckningar: \r\n{Reference}");
 			return builder.ToString();
 		
 	}
@@ -93,7 +93,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				.AppendFormatLine("Addition Höger: {0}", (frameOrder.Addition != null) ? frameOrder.Addition.Right : null)
 				.AppendFormatLine("Höjd Vänster: {0}", (frameOrder.Height != null) ? frameOrder.Height.Left : null)
 				.AppendFormatLine("Höjd Höger: {0}", (frameOrder.Height != null) ? frameOrder.Height.Right : null)
-				.AppendFormatLine("Anteckningar: \r\n{0}", frameOrder.Notes)
+				.AppendFormatLine("Anteckningar: \r\n{0}", frameOrder.Reference)
 				.ToString();
 		}
 		

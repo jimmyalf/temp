@@ -26,7 +26,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		protected System.Web.UI.WebControls.DropDownList drpHeightRight;
 		protected System.Web.UI.WebControls.TextBox txtAxisLeft;
 		protected System.Web.UI.WebControls.TextBox txtAxisRight;
-		protected System.Web.UI.WebControls.TextBox txtNotes;
+		protected System.Web.UI.WebControls.TextBox txtReference;
 		protected System.Web.UI.WebControls.Button btnSave;
 	}
 

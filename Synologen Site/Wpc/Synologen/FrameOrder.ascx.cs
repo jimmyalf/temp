@@ -75,7 +75,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
                 	Left = drpHeightLeft.SelectedValue.ToDecimalOrDefault(0),
 					Right = drpHeightRight.SelectedValue.ToDecimalOrDefault(0)
                 },
-                Notes = txtNotes.Text
+                Reference = txtReference.Text
 			};
 		}
 

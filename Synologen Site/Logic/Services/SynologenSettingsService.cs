@@ -89,7 +89,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
 			    .AppendLine("Addition Höger: {AdditionRight}")
 			    .AppendLine("Höjd Vänster: {HeightLeft}")
 			    .AppendLine("Höjd Höger: {HeightRight}")
-			    .AppendLine("Anteckningar: \r\n{Notes}");
+			    .AppendLine("Referens: \r\n{Reference}");
 			return builder.ToString();
 		}
 	}

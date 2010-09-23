@@ -43,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
 			    .Replace("{AdditionRight}", (order.Addition !=null) ?  order.Addition.Right.ToString() : null)
 			    .Replace("{HeightLeft}", (order.Height !=null) ?  order.Height.Left.ToString() : null)
 			    .Replace("{HeightRight}", (order.Height !=null) ?  order.Height.Right.ToString() : null)
-			    .Replace("{Notes}", order.Notes);
+			    .Replace("{Reference}", order.Reference);
 		}
 	}
 }

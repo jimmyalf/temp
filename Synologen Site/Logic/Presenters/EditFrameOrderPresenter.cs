@@ -125,7 +125,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, _synologenSettingsService.Cylinder.GetList(), "Cylinder");
 			View.Model.AxisSelectionLeft = e.SelectedAxisLeft;
 			View.Model.AxisSelectionRight = e.SelectedAxisRight;
-			View.Model.Notes = e.Notes;
+			View.Model.Reference = e.Reference;
 
 			if(glassType != null && glassType.IncludeAdditionParametersInOrder)
 			{
@@ -153,7 +153,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, _synologenSettingsService.Cylinder.GetList(), "Cylinder");
 			View.Model.AxisSelectionLeft = Convert.ToInt32(frameOrder.Axis.Left);
 			View.Model.AxisSelectionRight = Convert.ToInt32(frameOrder.Axis.Right);
-			View.Model.Notes = frameOrder.Notes;
+			View.Model.Reference = frameOrder.Reference;
 
 			if(frameOrder.GlassType.IncludeAdditionParametersInOrder)
 			{

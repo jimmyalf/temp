@@ -88,7 +88,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 					PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
 					Sent = null,
 					Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M },
-					Notes = "Leverans helst innan fredag.",
+					Reference = "Leverans helst innan fredag.",
 					Id = id,
 					Addition = new NullableEyeParameter { Left = 1.75M, Right = 2.25M },
 					Height = new NullableEyeParameter { Left = null, Right = null },

@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
@@ -81,38 +81,38 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.Height.Selection.Right, Is.EqualTo(int.MinValue));
 			Expect(view.Model.FramesList.Count(), Is.EqualTo(expectedNumberOfFrames));
 			Expect(view.Model.FramesList.First().Id, Is.EqualTo(0));
-			Expect(view.Model.FramesList.First().Name, Is.EqualTo("-- VÃ¤lj bÃ¥ge --"));
-			Expect(view.Model.FrameRequiredErrorMessage, Is.EqualTo("BÃ¥ge saknas"));
+			Expect(view.Model.FramesList.First().Name, Is.EqualTo("-- Välj båge --"));
+			Expect(view.Model.FrameRequiredErrorMessage, Is.EqualTo("Båge saknas"));
 			Expect(view.Model.GlassTypesList.Count(), Is.EqualTo(expectedNumberOfGlassTypes));
 			Expect(view.Model.GlassTypesList.First().Id, Is.EqualTo(0));
-			Expect(view.Model.GlassTypesList.First().Name, Is.EqualTo("-- VÃ¤lj glastyp --"));
+			Expect(view.Model.GlassTypesList.First().Name, Is.EqualTo("-- Välj glastyp --"));
 			Expect(view.Model.GlassTypeRequiredErrorMessage, Is.EqualTo("Glastyp saknas"));
 			Expect(view.Model.PupillaryDistance.List.Count(), Is.EqualTo(expectedNumberOfPDs));
 			Expect(view.Model.PupillaryDistance.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
-			Expect(view.Model.PupillaryDistance.List.First().Name, Is.EqualTo("-- VÃ¤lj PD --"));
+			Expect(view.Model.PupillaryDistance.List.First().Name, Is.EqualTo("-- Välj PD --"));
 			Expect(view.Model.PupillaryDistanceRequiredErrorMessage, Is.EqualTo("PD saknas"));
 			Expect(view.Model.Sphere.List.Count(), Is.EqualTo(expectedNumberOfSpheres));
 			Expect(view.Model.Sphere.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
-			Expect(view.Model.Sphere.List.First().Name, Is.EqualTo("-- VÃ¤lj SfÃ¤r --"));
-			Expect(view.Model.SphereRequiredErrorMessage, Is.EqualTo("SfÃ¤r saknas"));
+			Expect(view.Model.Sphere.List.First().Name, Is.EqualTo("-- Välj Sfär --"));
+			Expect(view.Model.SphereRequiredErrorMessage, Is.EqualTo("Sfär saknas"));
 			Expect(view.Model.Cylinder.List.Count(), Is.EqualTo(expectedNumberOfCylinders));
 			Expect(view.Model.Cylinder.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
-			Expect(view.Model.Cylinder.List.First().Name, Is.EqualTo("-- VÃ¤lj Cylinder --"));
+			Expect(view.Model.Cylinder.List.First().Name, Is.EqualTo("-- Välj Cylinder --"));
 			Expect(view.Model.CylinderRequiredErrorMessage, Is.EqualTo("Cylinder saknas"));
 			Expect(view.Model.Addition.List.Count(), Is.EqualTo(expectedNumberOfAdditions));
 			Expect(view.Model.Addition.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
-			Expect(view.Model.Addition.List.First().Name, Is.EqualTo("-- VÃ¤lj Addition --"));
+			Expect(view.Model.Addition.List.First().Name, Is.EqualTo("-- Välj Addition --"));
 			Expect(view.Model.AdditionRequiredErrorMessage, Is.EqualTo("Addition saknas"));
 			Expect(view.Model.Height.List.Count(), Is.EqualTo(expectedNumberOfHeights));
 			Expect(view.Model.Height.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
-			Expect(view.Model.Height.List.First().Name, Is.EqualTo("-- VÃ¤lj HÃ¶jd --"));
-			Expect(view.Model.HeightRequiredMessage, Is.EqualTo("HÃ¶jd saknas"));
+			Expect(view.Model.Height.List.First().Name, Is.EqualTo("-- Välj Höjd --"));
+			Expect(view.Model.HeightRequiredMessage, Is.EqualTo("Höjd saknas"));
 			Expect(view.Model.AxisRequiredMessage, Is.EqualTo("Axel saknas"));
 			Expect(view.Model.AxisRangeMessage, Is.EqualTo("Axel anges som ett heltal i intervallet 0-180"));
 			Expect(view.Model.NotSelectedIntervalValue, Is.EqualTo(int.MinValue));
 			Expect(view.Model.HeightParametersEnabled, Is.False);
 			Expect(view.Model.AdditionParametersEnabled, Is.False);
-			Expect(view.Model.Notes, Is.Null);
+			Expect(view.Model.Reference, Is.Null);
 		}
 
 		[Test]
@@ -142,7 +142,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			ExpectEqual(view.Model.Addition.Selection, expectedFrameOrder.Addition, NullableEyeparameterEquality);
 			Expect(view.Model.HeightParametersEnabled, Is.EqualTo(expectedFrameOrder.GlassType.IncludeHeightParametersInOrder));
 			Expect(view.Model.AdditionParametersEnabled, Is.EqualTo(expectedFrameOrder.GlassType.IncludeAdditionParametersInOrder));
-			Expect(view.Model.Notes, Is.EqualTo(expectedFrameOrder.Notes));
+			Expect(view.Model.Reference, Is.EqualTo(expectedFrameOrder.Reference));
 			Expect(view.Model.OrderHasBeenSent, Is.EqualTo(expectedFrameOrder.Sent.HasValue));
 			Expect(view.Model.UserDoesNotHaveAccessToThisOrder, Is.EqualTo(expectedFrameOrder.OrderingShop.Id != expectedShopId));
 			Expect(view.Model.OrderDoesNotExist, Is.EqualTo(expectedFrameOrder == null));
@@ -163,7 +163,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				SelectedAxisRight = 179,
 				SelectedAddition = new EyeParameter{Left = 1.25M, Right = 2.75M},
 				SelectedHeight = new EyeParameter{Left = 19, Right = 27},
-				Notes = "Skynda pÃ¥"
+				Reference = "Skynda på"
 			};
 			const int expectedNumberOfFramesInList = 11;
 			const int expectedNumberOfGlassTypesInList = 11;
@@ -206,7 +206,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.Height.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Right));
 			Expect(view.Model.HeightParametersEnabled, Is.True);
 			Expect(view.Model.AdditionParametersEnabled, Is.True);
-			Expect(view.Model.Notes, Is.EqualTo(frameSelectedEventArgs.Notes));
+			Expect(view.Model.Reference, Is.EqualTo(frameSelectedEventArgs.Reference));
 		}
 
 		[Test]
@@ -260,7 +260,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				SelectedAxisRight = 181,
 				SelectedAddition = new EyeParameter{Left = 0.75M, Right = 3.75M},
 				SelectedHeight = new EyeParameter{Left = 17, Right = 33},
-				Notes = "Skynda pÃ¥"
+				Reference = "Skynda på"
 			};
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			var requestParams = new NameValueCollection();
@@ -287,7 +287,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.Addition.Selection.Right, Is.EqualTo(int.MinValue));
 			Expect(view.Model.Height.Selection.Left, Is.EqualTo(int.MinValue));
 			Expect(view.Model.Height.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Notes, Is.EqualTo(frameSelectedEventArgs.Notes));
+			Expect(view.Model.Reference, Is.EqualTo(frameSelectedEventArgs.Reference));
 		}
 
 		[Test]
@@ -304,7 +304,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				SelectedAxisRight = 179,
 				SelectedAddition = new EyeParameter { Left = 1.25M, Right = 2.75M },
 				SelectedHeight = new EyeParameter { Left = 19, Right = 27 },
-				Notes = "Skynda pÃ¥",
+				Reference = "Skynda på",
                 PageIsValid = true
 			};
 			const int expectedShopId = 5;
@@ -342,7 +342,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(savedEntity.Height.Left, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Left));
 			Expect(savedEntity.Height.Right, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Right));
 			Expect(savedEntity.IsSent, Is.EqualTo(false));
-			Expect(savedEntity.Notes, Is.EqualTo(frameSelectedEventArgs.Notes));
+			Expect(savedEntity.Reference, Is.EqualTo(frameSelectedEventArgs.Reference));
 			Expect(savedEntity.OrderingShop.Id, Is.EqualTo(expectedShopId));
 			Expect(savedEntity.PupillaryDistance.Left, Is.EqualTo(frameSelectedEventArgs.SelectedPupillaryDistance.Left));
 			Expect(savedEntity.PupillaryDistance.Right, Is.EqualTo(frameSelectedEventArgs.SelectedPupillaryDistance.Right));

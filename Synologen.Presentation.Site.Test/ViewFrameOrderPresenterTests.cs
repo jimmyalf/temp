@@ -70,7 +70,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.GlassTypeName, Is.EqualTo(expectedFrameOrder.GlassType.Name));
 			Expect(view.Model.HeightLeft, Is.EqualTo(expectedFrameOrder.Height.Left));
 			Expect(view.Model.HeightRight, Is.EqualTo(expectedFrameOrder.Height.Right));
-			Expect(view.Model.Notes, Is.EqualTo(expectedFrameOrder.Notes));
+			Expect(view.Model.Reference, Is.EqualTo(expectedFrameOrder.Reference));
 			Expect(view.Model.OrderDoesNotExist, Is.False);
 			Expect(view.Model.PupillaryDistanceLeft, Is.EqualTo(expectedFrameOrder.PupillaryDistance.Left));
 			Expect(view.Model.PupillaryDistanceRight, Is.EqualTo(expectedFrameOrder.PupillaryDistance.Right));

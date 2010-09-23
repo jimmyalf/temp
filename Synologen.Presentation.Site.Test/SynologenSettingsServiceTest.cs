@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				.AppendLine("Addition Höger: {AdditionRight}")
 				.AppendLine("Höjd Vänster: {HeightLeft}")
 				.AppendLine("Höjd Höger: {HeightRight}")
-				.AppendLine("Anteckningar: \r\n{Notes}")
+				.AppendLine("Anteckningar: \r\n{Reference}")
 				.ToString();
 			//Act
 			var template = service.GetFrameOrderEmailBodyTemplate();

@@ -10,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 			Id(x => x.Id);
 			Map(x => x.Sent).Nullable();
 			Map(x => x.Created).Not.Nullable();
-			Map(x => x.Notes).Nullable();
+			Map(x => x.Reference).Nullable().Length(255);
 			Component(x => x.Addition, m =>
 			{
 				m.Map(x => x.Left).Column("AdditionLeft").Nullable();

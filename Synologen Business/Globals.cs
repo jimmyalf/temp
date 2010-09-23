@@ -147,10 +147,10 @@ namespace Spinit.Wpc.Synologen.Business {
 			get { return SafeConfigDecimal(_setting, "FrameOrderCylinderIncrement", 0.25M); }
 		} 
 		static public decimal FrameOrderCylinderMax { 
-			get { return SafeConfigDecimal(_setting, "FrameOrderCylinderMax", 2); }
+			get { return SafeConfigDecimal(_setting, "FrameOrderCylinderMax", 0); }
 		} 
 		static public decimal FrameOrderCylinderMin { 
-			get { return SafeConfigDecimal(_setting, "FrameOrderCylinderMin", 0); }
+			get { return SafeConfigDecimal(_setting, "FrameOrderCylinderMin", -2); }
 		} 
 		static public decimal FrameOrderAdditionIncrement { 
 			get { return SafeConfigDecimal(_setting, "FrameOrderAdditionIncrement", 0.25M); }

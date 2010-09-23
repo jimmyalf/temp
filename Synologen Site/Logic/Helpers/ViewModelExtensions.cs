@@ -62,7 +62,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 				Left = (eventArgs.SelectedHeight.Left != int.MinValue) ? eventArgs.SelectedHeight.Left : (decimal?)null,
 				Right = (eventArgs.SelectedHeight.Right != int.MinValue) ? eventArgs.SelectedHeight.Right : (decimal?)null,
 			};
-			frameOrder.Notes = String.IsNullOrEmpty(eventArgs.Notes) ? null : eventArgs.Notes;
+			frameOrder.Reference = String.IsNullOrEmpty(eventArgs.Reference) ? null : eventArgs.Reference;
 			frameOrder.PupillaryDistance = eventArgs.SelectedPupillaryDistance;
 			frameOrder.Sent = null;
 			frameOrder.Sphere = eventArgs.SelectedSphere;

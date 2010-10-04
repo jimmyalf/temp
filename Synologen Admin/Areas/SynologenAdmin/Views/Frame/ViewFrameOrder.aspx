@@ -32,31 +32,30 @@
 				</p>
 				<fieldset style="clear:both">
 					<legend>Parametrar</legend>
-					<p class="display-item eyeparameter">
-						<%= Html.LabelFor(x => x.PupillaryDistance) %>
+					<p class="display-item eyeparameter template">
+						<label>&nbsp;</label>
+						<span>Höger</span>
+						<span>Vänster</span>
+					</p>					
+					<p class="display-item eyeparameter pd">
 						<%= Html.DisplayFor(x => x.PupillaryDistance,"EyeParameterView") %>
 					</p>					
-					<p class="display-item eyeparameter">
-						<%= Html.LabelFor(x => x.Sphere) %>
+					<p class="display-item eyeparameter sphere">
 						<%= Html.DisplayFor(x => x.Sphere,"EyeParameterView") %>
 					</p>
-					<p class="display-item eyeparameter">
-						<%= Html.LabelFor(x => x.Cylinder) %>
+					<p class="display-item eyeparameter cylinder">
 						<%= Html.DisplayFor(x => x.Cylinder,"EyeParameterView") %>
 					</p>					
-					<p class="display-item eyeparameter">
-						<%= Html.LabelFor(x => x.Axis) %>
+					<p class="display-item eyeparameter axis">
 						<%= Html.DisplayFor(x => x.Axis,"EyeParameterView") %>
 					</p>
 					<% if(Model.Addition != null){ %>
-					<p class="display-item eyeparameter">
-						<%= Html.LabelFor(x => x.Addition) %>
+					<p class="display-item eyeparameter addition">
 						<%= Html.DisplayFor(x => x.Addition,"EyeParameterView") %>
 					</p>
 					<%} %>
 					<% if(Model.Height != null){ %>
-					<p class="display-item eyeparameter">
-						<%= Html.LabelFor(x => x.Height) %>
+					<p class="display-item eyeparameter height">
 						<%= Html.DisplayFor(x => x.Height,"EyeParameterView") %>
 					</p>
 					<%} %>															

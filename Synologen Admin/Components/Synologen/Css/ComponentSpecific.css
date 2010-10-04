@@ -101,9 +101,13 @@ ul.action-messages.contains-success{
 	width: 30em;
 	float:left;	
 }
-.display-item.eyeparameter
+
+.display-item.eyeparameter span { display: block; margin-top: 5px; }
+.display-item.eyeparameter {width: 7em; float:left;	 }
+.display-item.eyeparameter.template
 {
-	width: 16em;
-	float:left;	
-}
+	font-weight:bold;
+	font-family: Arial, Tahoma, 'Lucida Grande', Verdana, sans-serif;
+	font-size: 1em;						
+}	
 

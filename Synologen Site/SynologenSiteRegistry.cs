@@ -1,6 +1,5 @@
 using NHibernate;
 using Spinit.Data;
-using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
@@ -8,9 +7,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
-using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Services;
-using StructureMap.Attributes;
 using StructureMap.Configuration.DSL;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site
@@ -19,23 +16,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 	{
 		public SynologenSiteRegistry()
 		{
+			For<IFrameRepository>().HybridHttpOrThreadLocalScoped().Use<FrameRepository>();
+			For<IFrameGlassTypeRepository>().HybridHttpOrThreadLocalScoped().Use<FrameGlassTypeRepository>();
+			For<IFrameOrderRepository>().HybridHttpOrThreadLocalScoped().Use<FrameOrderRepository>();
+			For<IShopRepository>().HybridHttpOrThreadLocalScoped().Use<ShopRepository>();
+			For<IFrameOrderService>().Use<SynologenFrameOrderService>();
+			For<ISynologenSettingsService>().Use<SynologenSettingsService>();
+			For<IEmailService>().Use<EmailService>();
+			For<ISynologenMemberService>().Use<SynologenMemberService>();
 			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);
-			ForRequestedType<ISessionFactory>().CacheBy(InstanceScope.Singleton).TheDefault.Is.ConstructedBy(NHibernateFactory.Instance.GetSessionFactory);
-			ForRequestedType<ISession>().TheDefault.Is.ConstructedBy(x => ((NHibernateUnitOfWork)x.GetInstance<IUnitOfWork>()).Session);
-			ForRequestedType<IUnitOfWork>().CacheBy(InstanceScope.Hybrid).TheDefault.Is.OfConcreteType<NHibernateUnitOfWork>();
+			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
 
-			ForRequestedType<IFrameRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameRepository>();
-			ForRequestedType<IFrameGlassTypeRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameGlassTypeRepository>();
-			ForRequestedType<IFrameOrderRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameOrderRepository>();
-			ForRequestedType<IShopRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<ShopRepository>();
-			ForRequestedType<IFrameOrderService>().TheDefaultIsConcreteType<SynologenFrameOrderService>();
-			ForRequestedType<ISynologenSettingsService>().TheDefaultIsConcreteType<SynologenSettingsService>();
-			ForRequestedType<IEmailService>().TheDefaultIsConcreteType<EmailService>();
-			ForRequestedType<ISynologenMemberService>().TheDefaultIsConcreteType<SynologenMemberService>();
-			ForRequestedType<ISqlProvider>().TheDefault.Is.ConstructedBy(() => new SqlProvider(connectionString));
-
-			ForRequestedType<IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>>().TheDefaultIsConcreteType<AllOrderableFramesCriteriaConverter>();
-			ForRequestedType<IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>>().TheDefaultIsConcreteType<AllFrameOrdersForShopCriteriaConverter>();
+			For<IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>>().Use<AllOrderableFramesCriteriaConverter>();
+			For<IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>>().Use<AllFrameOrdersForShopCriteriaConverter>();
 
 		}
 	}

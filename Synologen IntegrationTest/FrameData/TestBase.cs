@@ -8,6 +8,7 @@ using NHibernate;
 using NUnit.Framework;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
+using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;

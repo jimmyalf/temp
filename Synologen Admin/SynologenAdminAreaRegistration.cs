@@ -9,7 +9,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 	{
 		public SynologenAdminAreaRegistration()
 		{
-			ActionCriteriaExtensions.ConstructConvertersUsing(ServiceLocation.Resolve);
+			//ActionCriteriaExtensions.ConstructConvertersUsing(ServiceLocation.Resolve);
 			ModelBinders.Binders.DefaultBinder = new GridSortPropertyMappingModelBinder();
 		}
 

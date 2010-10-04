@@ -4,6 +4,7 @@ xcopy "%rootPath%\Dependancies\Spinit.Wpc\Spinit.Wpc.Content.Presentation.Site.d
 xcopy "%rootPath%\Dependancies\Spinit.Wpc\Spinit.Wpc.Content.Data.dll" 	"%rootPath%\Synologen Site\bin\" /R /K /Y /Q
 xcopy "%rootPath%\Dependancies\Spinit.Wpc\Spinit.Wpc.Content.Business.dll" 	"%rootPath%\Synologen Site\bin\" /R /K /Y /Q
 xcopy "%rootPath%\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Business.dll" 	"%rootPath%\Synologen Site\bin\" /R /K /Y /Q
+xcopy "%rootPath%\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.Dependencies.NHibernate.dll" 	"%rootPath%\Synologen Site\bin\" /R /K /Y /Q
 xcopy "%rootPath%\Dependancies\Spinit\Spinit.Data.dll" 	"%rootPath%\Synologen Site\bin\" /R /K /Y /Q
 xcopy "%rootPath%\Dependancies\Spinit\Spinit.Services.Client.dll" 	"%rootPath%\Synologen Site\bin\" /R /K /Y /Q
 xcopy "%rootPath%\Dependancies\FluentNHibernate\NHibernate.ByteCode.Castle.dll" 	"%rootPath%\Synologen Site\bin\" /R /K /Y /Q

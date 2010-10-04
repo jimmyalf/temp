@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Spinit.Wpc.Core.UI.Mvc;
+using Spinit.Wpc.Core.UI;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 
@@ -11,7 +11,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.ModelBinders
 
 		public GridSortPropertyMappingModelBinder()
 		{
-			_mappingService = ServiceLocation.Resolve<IGridSortPropertyMappingService>();
+			_mappingService = ServiceLocator.Current.GetInstance<IGridSortPropertyMappingService>();
 		}
 
 		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext) 

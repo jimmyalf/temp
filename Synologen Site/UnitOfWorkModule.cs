@@ -1,7 +1,7 @@
 using System;
 using System.Web;
 using Spinit.Data;
-using Spinit.Wpc.Core.UI.Mvp.Site;
+using Spinit.Wpc.Core.UI;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site
 {
@@ -19,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 
 		public void Dispose()
 		{
-			var unitOfWork = Container.Resolve<IUnitOfWork>();
+			var unitOfWork = ServiceLocator.Current.GetInstance<IUnitOfWork>();
 			try
 			{
 				unitOfWork.Commit();

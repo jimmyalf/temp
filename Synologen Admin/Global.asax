@@ -1,1 +1,1 @@
-<%@ Application Inherits="Spinit.Wpc.Base.Presentation.Global" Language="C#" %>
+<%@ Application Inherits="Spinit.Wpc.Base.Presentation.WpcAdminGlobal" Language="C#" %>

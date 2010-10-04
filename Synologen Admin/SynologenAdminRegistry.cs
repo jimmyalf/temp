@@ -9,6 +9,7 @@ using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
+using StructureMap;
 using StructureMap.Attributes;
 using StructureMap.Configuration.DSL;
 
@@ -24,10 +25,11 @@ namespace Spinit.Wpc.Synologen.Presentation
 				x.AddAllTypesOf<IController>().NameBy(c => c.Name);
 			});
 
-
+			/*
 			ForRequestedType<ISessionFactory>().CacheBy(InstanceScope.Singleton).TheDefault.Is.ConstructedBy(NHibernateFactory.Instance.GetSessionFactory);
 			ForRequestedType<ISession>().TheDefault.Is.ConstructedBy(x => ((NHibernateUnitOfWork)x.GetInstance<IUnitOfWork>()).Session);
 			ForRequestedType<IUnitOfWork>().CacheBy(InstanceScope.Hybrid).TheDefault.Is.OfConcreteType<NHibernateUnitOfWork>();
+			 */
 			ForRequestedType<IFrameRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameRepository>();
 			ForRequestedType<IFrameColorRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameColorRepository>();
 			ForRequestedType<IFrameBrandRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameBrandRepository>();

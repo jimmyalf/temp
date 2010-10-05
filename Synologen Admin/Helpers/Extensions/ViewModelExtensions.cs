@@ -116,7 +116,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			return new FrameOrderView
 			{
                 Addition = (frameOrder.Addition != null) ? new EyeParameterViewModel(frameOrder.Addition) : null,
-                Axis = new EyeParameterViewModel(frameOrder.Axis),
+                Axis = new EyeParameterViewModel(frameOrder.Axis){ Format="N0" },
                 Created = frameOrder.Created.ToString("yyyy-MM-dd HH:mm"),
                 Cylinder = new EyeParameterViewModel(frameOrder.Cylinder),
                 Frame = frameOrder.Frame.Name,

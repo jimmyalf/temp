@@ -22,5 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 		public decimal Left { get; set; }
 		[DisplayName("Höger")]
 		public decimal Right { get; set; }
+
+		public string Format { get; set; }
 	}
 }

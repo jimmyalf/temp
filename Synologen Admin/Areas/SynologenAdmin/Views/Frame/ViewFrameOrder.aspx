@@ -36,10 +36,7 @@
 						<label>&nbsp;</label>
 						<span>Höger</span>
 						<span>Vänster</span>
-					</p>					
-					<p class="display-item eyeparameter pd">
-						<%= Html.DisplayFor(x => x.PupillaryDistance,"EyeParameterView") %>
-					</p>					
+					</p>									
 					<p class="display-item eyeparameter sphere">
 						<%= Html.DisplayFor(x => x.Sphere,"EyeParameterView") %>
 					</p>
@@ -54,11 +51,14 @@
 						<%= Html.DisplayFor(x => x.Addition,"EyeParameterView") %>
 					</p>
 					<%} %>
+					<p class="display-item eyeparameter pd">
+						<%= Html.DisplayFor(x => x.PupillaryDistance,"EyeParameterView") %>
+					</p>					
 					<% if(Model.Height != null){ %>
 					<p class="display-item eyeparameter height">
 						<%= Html.DisplayFor(x => x.Height,"EyeParameterView") %>
 					</p>
-					<%} %>															
+					<%} %>																		
 				</fieldset>					
 				<p class="display-item clearLeft">
 					<%= Html.LabelFor(x => x.Created) %>

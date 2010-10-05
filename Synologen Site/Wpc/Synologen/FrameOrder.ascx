@@ -43,47 +43,6 @@
 		ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 </div>
 <hr />
-<div class="interval-parameter pupillarydistance">
-	<div class="frame-order-item right">
-		<label for="<%=drpPupillaryDistanceRight.ClientID%>">Pupilldistans H</label>
-		<asp:DropDownList 
-			ID="drpPupillaryDistanceRight" 
-			Runat="server" 
-			DataSource='<%#Model.PupillaryDistance.List%>' 
-			SelectedValue='<%#Model.PupillaryDistance.Selection.Right.ToString("N2")%>'
-			DataValueField="Value"
-			DataTextField="Name" />
-		<asp:RequiredFieldValidator 
-			ID="reqPupillaryDistanceRight" 
-			InitialValue='<%#Model.NotSelectedIntervalValue.ToString("N2") %>'
-			Runat="server" 
-			ErrorMessage='<%#Model.PupillaryDistanceRequiredErrorMessage %>'
-			ControlToValidate="drpPupillaryDistanceRight" 
-			Display="Dynamic" 
-			CssClass="invalid" 
-			ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
-	</div>
-	<div class="frame-order-item left">
-		<label for="<%=drpPupillaryDistanceLeft.ClientID%>">Pupilldistans V</label>
-		<asp:DropDownList 
-			ID="drpPupillaryDistanceLeft" 
-			Runat="server" 
-			DataSource='<%#Model.PupillaryDistance.List%>' 
-			SelectedValue='<%#Model.PupillaryDistance.Selection.Left.ToString("N2")%>'
-			DataValueField="Value"
-			DataTextField="Name" />
-		<asp:RequiredFieldValidator 
-			ID="reqPupillaryDistanceLeft" 
-			InitialValue='<%#Model.NotSelectedIntervalValue.ToString("N2") %>'
-			Runat="server" 
-			ErrorMessage="<%#Model.PupillaryDistanceRequiredErrorMessage %>" 
-			ControlToValidate="drpPupillaryDistanceLeft" 
-			Display="Dynamic" 
-			CssClass="invalid" 
-			ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
-	</div>	
-</div>
-
 <div class="interval-parameter sphere">
 	<div class="frame-order-item right">
 		<label for="<%=drpSphereRight.ClientID%>">Sfär H</label>
@@ -260,6 +219,46 @@
 	</div>	
 </div>
 
+<div class="interval-parameter pupillarydistance">
+	<div class="frame-order-item right">
+		<label for="<%=drpPupillaryDistanceRight.ClientID%>">Pupilldistans H</label>
+		<asp:DropDownList 
+			ID="drpPupillaryDistanceRight" 
+			Runat="server" 
+			DataSource='<%#Model.PupillaryDistance.List%>' 
+			SelectedValue='<%#Model.PupillaryDistance.Selection.Right.ToString("N2")%>'
+			DataValueField="Value"
+			DataTextField="Name" />
+		<asp:RequiredFieldValidator 
+			ID="reqPupillaryDistanceRight" 
+			InitialValue='<%#Model.NotSelectedIntervalValue.ToString("N2") %>'
+			Runat="server" 
+			ErrorMessage='<%#Model.PupillaryDistanceRequiredErrorMessage %>'
+			ControlToValidate="drpPupillaryDistanceRight" 
+			Display="Dynamic" 
+			CssClass="invalid" 
+			ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+	</div>
+	<div class="frame-order-item left">
+		<label for="<%=drpPupillaryDistanceLeft.ClientID%>">Pupilldistans V</label>
+		<asp:DropDownList 
+			ID="drpPupillaryDistanceLeft" 
+			Runat="server" 
+			DataSource='<%#Model.PupillaryDistance.List%>' 
+			SelectedValue='<%#Model.PupillaryDistance.Selection.Left.ToString("N2")%>'
+			DataValueField="Value"
+			DataTextField="Name" />
+		<asp:RequiredFieldValidator 
+			ID="reqPupillaryDistanceLeft" 
+			InitialValue='<%#Model.NotSelectedIntervalValue.ToString("N2") %>'
+			Runat="server" 
+			ErrorMessage="<%#Model.PupillaryDistanceRequiredErrorMessage %>" 
+			ControlToValidate="drpPupillaryDistanceLeft" 
+			Display="Dynamic" 
+			CssClass="invalid" 
+			ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+	</div>	
+</div>
 <div class="interval-parameter height">
 	<div class="frame-order-item right">
 		<label for="<%=drpHeightRight.ClientID%>">Höjd H</label>

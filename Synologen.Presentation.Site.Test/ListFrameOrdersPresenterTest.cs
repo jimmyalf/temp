@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Web;
+using Moq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
@@ -53,6 +56,42 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(view.Model.List.First().FrameName, Is.EqualTo(expectedFirstItem.Frame.Name));
 			Expect(view.Model.List.First().Sent, Is.EqualTo(null));
 			Expect(view.Model.ViewPageUrl, Is.EqualTo(expectedViewRedirectUrl));
+		}
+
+		[Test]
+		public void When_Shop_Has_Slim_Jim_Access_Ensure_Model_Has_Expected_values()
+		{
+			//Arrange
+			var mockedHttpContext = new Mock<HttpContextBase>();
+			var requestParams = new NameValueCollection();
+			((ServiceFactory.MockedSessionProviderService)synologenMemberService).SetShopHasAccess(true);
+			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
+			presenter.HttpContext = mockedHttpContext.Object;
+			
+			//Act
+			presenter.View_Load(null, new EventArgs());
+
+			//Assert
+			Expect(view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.False);
+			Expect(view.Model.DisplayList, Is.True);
+		}
+
+		[Test]
+		public void When_Shop_Does_Not_Have_Slim_Jim_Access_Ensure_Model_Has_Expected_values()
+		{
+			//Arrange
+			var mockedHttpContext = new Mock<HttpContextBase>();
+			var requestParams = new NameValueCollection();
+			((ServiceFactory.MockedSessionProviderService)synologenMemberService).SetShopHasAccess(false);
+			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
+			presenter.HttpContext = mockedHttpContext.Object;
+			
+			//Act
+			presenter.View_Load(null, new EventArgs());
+
+			//Assert
+			Expect(view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.True);
+			Expect(view.Model.DisplayList, Is.False);
 		}
 		
 	}

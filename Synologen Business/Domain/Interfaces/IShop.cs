@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
-namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
-	public interface IShop{
+namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces
+{
+	public interface IShop
+	{
 		[DataMember] int ShopId { get; set; }
 		[DataMember] string Name { get; set; }
 		[DataMember] string Number { get; set; }
@@ -30,5 +33,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		[DataMember] Concern Concern { get; set; }
 		string ContactCombinedName { get; }
 		bool HasConcern { get; }
+		ShopAccess Access { get; set; }
 	}
 }

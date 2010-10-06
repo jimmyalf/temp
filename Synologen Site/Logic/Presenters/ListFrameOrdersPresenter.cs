@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -44,6 +45,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			{
 				View.Model.ViewPageUrl = _synologenMemberService.GetPageUrl(View.ViewPageId);
 			}
+			View.Model.ShopDoesNotHaveAccessToFrameOrders = !_synologenMemberService.ShopHasAccessTo(ShopAccess.SlimJim);
 		}
 	}
 }

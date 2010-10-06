@@ -63,6 +63,7 @@
     <Compile Include="Models\EyeParameterIntervalListAndSelection.cs" />
     <Compile Include="Models\FrameGlassTypeListItem.cs" />
     <Compile Include="Models\FrameListItem.cs" />
+    <Compile Include="Models\FrameOrderBaseModel.cs" />
     <Compile Include="Models\FrameOrderListItemModel.cs" />
     <Compile Include="Models\IntervalListItem.cs" />
     <Compile Include="Models\EditFrameOrderModel.cs" />

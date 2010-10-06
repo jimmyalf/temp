@@ -351,5 +351,41 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(savedEntity.Sphere.Right, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Right));
 			mockedHttpResponse.Verify(x => x.Redirect(expectedRedirectUrlWithQueryString));
 		}
+
+		[Test]
+		public void When_Shop_Has_Slim_Jim_Access_Ensure_Model_Has_Expected_values()
+		{
+			//Arrange
+			var mockedHttpContext = new Mock<HttpContextBase>();
+			var requestParams = new NameValueCollection();
+			((ServiceFactory.MockedSessionProviderService)synologenMemberService).SetShopHasAccess(true);
+			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
+			presenter.HttpContext = mockedHttpContext.Object;
+			
+			//Act
+			presenter.View_Load(null, new EventArgs());
+
+			//Assert
+			Expect(view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.False);
+			Expect(view.Model.DisplayForm, Is.True);
+		}
+
+		[Test]
+		public void When_Shop_Does_Not_Have_Slim_Jim_Access_Ensure_Model_Has_Expected_values()
+		{
+			//Arrange
+			var mockedHttpContext = new Mock<HttpContextBase>();
+			var requestParams = new NameValueCollection();
+			((ServiceFactory.MockedSessionProviderService)synologenMemberService).SetShopHasAccess(false);
+			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
+			presenter.HttpContext = mockedHttpContext.Object;
+			
+			//Act
+			presenter.View_Load(null, new EventArgs());
+
+			//Assert
+			Expect(view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.True);
+			Expect(view.Model.DisplayForm, Is.False);
+		}
 	}
 }

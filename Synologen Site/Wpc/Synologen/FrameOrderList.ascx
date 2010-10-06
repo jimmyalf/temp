@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" CodeBehind="FrameOrderList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrderList" %>
+<%if(Model.DisplayList){ %>
 <asp:Repeater ID="rptFrameOrders" runat="server" DataSource='<%#Model.List%>'>
 <HeaderTemplate>
 <div class="synologen-control">
@@ -23,4 +24,8 @@
 </div>
 </FooterTemplate>
 </asp:Repeater>
+<%} %>
+<%if(Model.ShopDoesNotHaveAccessToFrameOrders){ %>
+<p>Rättighet till beställningslista kan inte medges. Var god kontakta systemadministratören.</p>
+<%} %>
 

@@ -76,6 +76,10 @@
 					<div class="formItem clearLeft">
 						<label class="labelLong">Utrustning</label>
 						<asp:CheckBoxList id="chkEquipment" runat="server" DataValueField="cId" DataTextField="cName" RepeatColumns="2" RepeatLayout="Table" />
+					</div>
+					<div class="formItem clearLeft">
+						<label class="labelLong">Rättigheter</label>
+						<asp:CheckBoxList id="chkShopAccess" runat="server" DataValueField="Value" DataTextField="Text" RepeatColumns="2" RepeatLayout="Table" />
 					</div>							
                 </fieldset>			
 				                	

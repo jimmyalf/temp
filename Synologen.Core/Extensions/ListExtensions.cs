@@ -33,6 +33,15 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			    input.SortedAscending
 			);
 		}
+		public static IEnumerable<TType> Ignore<TType>(this IEnumerable<TType> list, params TType[] ignore)
+		{
+			foreach (var item in  list)
+			{
+				if(ignore.Contains(item)) continue;
+				yield return item;
+			}
+			yield break;
+		}
 
 	}
 }

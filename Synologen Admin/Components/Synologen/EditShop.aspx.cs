@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
-using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Code;
+using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Models;
 using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
 
@@ -22,6 +26,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			PopulateCategories();
 			PopulateEquipment();
 			PopulateGiros();
+			PopulateAccessOptions();
 		}
 
 		private void PopulateGiros() {
@@ -29,6 +34,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			drpGiroType.DataBind();
 			drpGiroType.Items.Insert(0,new ListItem("-- Välj Giro typ --","0"));
 			TryPopulateSelectedGiro();
+		}
+
+		private void PopulateAccessOptions()
+		{
+			Func<ShopAccess, SelectItem> converter = x => new SelectItem {Text = x.GetEnumDisplayName(), Value = x.ToInteger()};
+			chkShopAccess.DataSource = EnumExtensions.Enumerate<ShopAccess>().Ignore(ShopAccess.None).Select(converter);
+			chkShopAccess.DataBind();
+			PopulateSelectedAccessOptions();
+		}
+
+		private void PopulateSelectedAccessOptions() 
+		{ 
+			if (_shop == null) return;
+			foreach (ListItem checkBox in chkShopAccess.Items) {
+				var checkBoxValue = Int32.Parse(checkBox.Value).ToEnum<ShopAccess>();
+				checkBox.Selected = _shop.Access.HasOption(checkBoxValue);
+			}
 		}
 
 		private void TryPopulateSelectedGiro() {
@@ -46,10 +68,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		private void PopulateSelectedEquipment() {
 			if (_shop == null) return;
-			List<int> selectedShopEquipment = Provider.GetAllEquipmentIdsPerShop(_shop.ShopId);
+			var selectedShopEquipment = Provider.GetAllEquipmentIdsPerShop(_shop.ShopId);
 			foreach (ListItem checkBox in chkEquipment.Items) {
-				int checkBoxValue = Int32.Parse(checkBox.Value);
-				bool isSelected = selectedShopEquipment.Contains(checkBoxValue);
+				var checkBoxValue = Int32.Parse(checkBox.Value);
+				var isSelected = selectedShopEquipment.Contains(checkBoxValue);
 				checkBox.Selected = isSelected;
 			}
 		}
@@ -136,9 +158,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			_shop.GiroId = Int32.Parse(drpGiroType.SelectedValue);
 			_shop.GiroNumber = txtGiroNumber.Text;
 			_shop.GiroSupplier = txtGiroSupplier.Text;
+			var selectedItems = chkShopAccess.GetSelectedItems();
+			_shop.Access = selectedItems.Any() ? selectedItems
+					.Select(x => Int32.Parse(x.Value).ToEnum<ShopAccess>())
+					.Aggregate((a, b) => a | b) : ShopAccess.None;
 			Provider.AddUpdateDeleteShop(action, ref _shop);
-
-			bool connectToAllContractCustomers = _shop.CategoryId == Globals.MasterShopCategoryId;
+			var connectToAllContractCustomers = _shop.CategoryId == Globals.MasterShopCategoryId;
 			ConnectSelectedContractCustomers(connectToAllContractCustomers);
 			ConnectSelectedEquipment();
 

@@ -325,3 +325,6 @@
 <%if (Model.OrderDoesNotExist) { %>
 <p>Begärd beställning kunde inte hittas. Var god kontakta systemadministratören.</p>
 <%} %>
+<%if(Model.ShopDoesNotHaveAccessToFrameOrders){ %>
+<p>Rättighet till beställningsformulär kan inte medges. Var god kontakta systemadministratören.</p>
+<%} %>

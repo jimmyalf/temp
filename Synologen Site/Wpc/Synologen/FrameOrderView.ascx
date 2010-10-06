@@ -39,3 +39,7 @@
 <%if (Model.UserDoesNotHaveAccessToThisOrder) { %>
 <p>Rättighet för att se beställning saknas. Var god kontakta systemadministratören.</p>
 <%} %>
+
+<%if(Model.ShopDoesNotHaveAccessToFrameOrders){ %>
+<p>Rättighet för att se beställning kan inte medges. Var god kontakta systemadministratören.</p>
+<%} %>

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 {
-	public class EditFrameOrderModel
+	public class EditFrameOrderModel : FrameOrderBaseModel
 	{
 		
 		public IEnumerable<FrameListItem> FramesList { get; set; }
@@ -36,15 +36,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 
 		public bool OrderHasBeenSent{ get; set; }
 		public bool UserDoesNotHaveAccessToThisOrder{ get; set; }
+		public bool OrderDoesNotExist { get; set; }
 		public bool DisplayForm
 		{
 			get { return (
 				OrderHasBeenSent == false && 
 				UserDoesNotHaveAccessToThisOrder == false &&
-				OrderDoesNotExist == false);
+				OrderDoesNotExist == false &&
+				ShopDoesNotHaveAccessToFrameOrders == false);
 			}
 		}
 
-		public bool OrderDoesNotExist { get; set; }
+		
 	}
 }

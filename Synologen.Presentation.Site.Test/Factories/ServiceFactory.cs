@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
@@ -76,12 +77,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 		internal class MockedSessionProviderService : ISynologenMemberService {
 			private int _shopId;
 			private string _pageUrl;
+			private bool _shopHasAccess;
 
 			public void SetMockedShopId(int id){ _shopId = id;}
 			public void SetMockedPageUrl(string url){ _pageUrl = url;}
+			public void SetShopHasAccess(bool value){ _shopHasAccess = value;}
 			public int GetCurrentShopId() { return _shopId; }
 			public int GetCurrentMemberId() { throw new NotImplementedException(); }
 			public string GetPageUrl(int pageId) { return _pageUrl; }
+			public bool ShopHasAccessTo(ShopAccess accessOption) { return _shopHasAccess; }
 		}
 
 	}

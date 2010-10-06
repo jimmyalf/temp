@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
@@ -100,6 +102,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Model.AxisRequiredMessage = "Axel saknas";
 			View.Model.AxisRangeMessage = "Axel anges som ett heltal i intervallet 0-180";
 			var frameOrderId = GetFrameOrderId();
+			View.Model.ShopDoesNotHaveAccessToFrameOrders = !_synologenMemberService.ShopHasAccessTo(ShopAccess.SlimJim);
 			if (frameOrderId <= 0) return;
 			var frameOrder = _frameOrderRepository.Get(frameOrderId);
 			UpdateModel(frameOrder);
@@ -170,8 +173,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			}
 
 			View.Model.OrderHasBeenSent = frameOrder.Sent.HasValue;
-			
-
 		}
 
 		private int SaveUpdateFrameOrder(EditFrameFormEventArgs e) {

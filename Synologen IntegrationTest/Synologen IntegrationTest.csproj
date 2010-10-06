@@ -86,6 +86,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContractSales\Factories\ShopFactory.cs" />
+    <Compile Include="ContractSales\TestBase.cs" />
+    <Compile Include="ContractSales\TestShop.cs" />
     <Compile Include="FrameData\Factories\FrameGlassTypeFactory.cs" />
     <Compile Include="FrameData\Factories\FrameOrderFactory.cs" />
     <Compile Include="FrameData\TestFrameOrder.cs" />

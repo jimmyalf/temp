@@ -19,15 +19,21 @@ namespace Spinit.Wpc.Synologen.Business.Utility {
 			catch { return defaultValue; }
 		}
 
-		public static bool GetSessionValue(string sessionName, bool defaultValue) {
-			try { return (bool)(HttpContext.Current.Session[sessionName]); }
+		//public static bool GetSessionValue(string sessionName, bool defaultValue) {
+		//    try { return (bool)(HttpContext.Current.Session[sessionName]); }
+		//    catch { return defaultValue; }
+		//}
+
+		public static TModel GetSessionValue<TModel>(string sessionName, TModel defaultValue) where TModel:struct
+		{
+			try { return (TModel)(HttpContext.Current.Session[sessionName]); }
 			catch { return defaultValue; }
 		}
 
-		public static DateTime GetSessionValue(string sessionName, DateTime defaultValue) {
-			try { return (DateTime)(HttpContext.Current.Session[sessionName]); }
-			catch { return defaultValue; }
-		}
+		//public static DateTime GetSessionValue(string sessionName, DateTime defaultValue) {
+		//    try { return (DateTime)(HttpContext.Current.Session[sessionName]); }
+		//    catch { return defaultValue; }
+		//}
 
 		public static void SetSessionValue(string sessionName, object value) {
 			HttpContext.Current.Session[sessionName] = value;

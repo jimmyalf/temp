@@ -49,6 +49,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			//Act
 			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedPageUrl(expectedEditRedirectUrl);
 			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedShopId(expectedShopId);
+			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetShopHasAccess(true);
 			presenter.HttpContext = httpContext.Object;
 			presenter.View.EditPageId = 1;
 			presenter.View_Load(null, eventArgs);
@@ -152,6 +153,56 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 			Expect(sentFrameOrder.Id, Is.EqualTo(5));
 			mockedHttpResponse.Verify(x => x.Redirect(expectedRedirectUrl),Times.Once());
 
+		}
+
+		[Test]
+		public void When_Shop_Has_Slim_Jim_Access_Ensure_Model_Has_Expected_values()
+		{
+			//Arrange
+			var eventArgs = new EventArgs();
+			var requestParams = new NameValueCollection {{"frameorder", "5"}};
+			var httpContext = new Mock<HttpContextBase>();
+			httpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
+			const int expectedShopId = 5;
+			const string expectedEditRedirectUrl = "/test/url/";
+			
+
+			//Act
+			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedPageUrl(expectedEditRedirectUrl);
+			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedShopId(expectedShopId);
+			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetShopHasAccess(true);
+			presenter.HttpContext = httpContext.Object;
+			presenter.View.EditPageId = 1;
+			presenter.View_Load(null, eventArgs);
+
+			//Assert
+			Expect(view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.False);
+			Expect(view.Model.DisplayOrder, Is.True);
+		}
+
+		[Test]
+		public void When_Shop_Does_Not_Have_Slim_Jim_Access_Ensure_Model_Has_Expected_values()
+		{
+			//Arrange
+			var eventArgs = new EventArgs();
+			var requestParams = new NameValueCollection {{"frameorder", "5"}};
+			var httpContext = new Mock<HttpContextBase>();
+			httpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
+			const int expectedShopId = 5;
+			const string expectedEditRedirectUrl = "/test/url/";
+			
+
+			//Act
+			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedPageUrl(expectedEditRedirectUrl);
+			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedShopId(expectedShopId);
+			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetShopHasAccess(false);
+			presenter.HttpContext = httpContext.Object;
+			presenter.View.EditPageId = 1;
+			presenter.View_Load(null, eventArgs);
+
+			//Assert
+			Expect(view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.True);
+			Expect(view.Model.DisplayOrder, Is.False);
 		}
 	}
 }

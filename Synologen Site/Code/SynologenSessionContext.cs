@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 	public static class SynologenSessionContext {
@@ -66,5 +67,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code {
 			set { Business.Utility.Session.SetSessionValue(NAME + "UseDetailedSettlementView", value); }
 		}
 
+		public static ShopAccess MemberShopAccessOptions
+		{
+			get { return Business.Utility.Session.GetSessionValue(NAME + "MemberShopAccessOptions", ShopAccess.None); }
+			set { Business.Utility.Session.SetSessionValue(NAME + "MemberShopAccessOptions", value); }
+		}
 	}
 }

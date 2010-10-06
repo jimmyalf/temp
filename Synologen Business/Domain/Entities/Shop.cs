@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 	[DataContract]
-	public class Shop : IShop{
+	public class Shop : IShop
+	{
 		[DataMember] public int ShopId { get; set; }
 		[DataMember] public string Name { get; set; }
 		[DataMember] public string Number { get; set; }
@@ -38,5 +40,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 			get { return String.Concat( ContactFirstName ?? String.Empty,  " ",  ContactLastName ?? String.Empty ).Trim(); }
 		}
 		public bool HasConcern { get{ return Concern != null;} }
+		public ShopAccess Access { get; set; }
 	}
 }

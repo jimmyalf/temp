@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -51,6 +52,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 		private void InitializeModel() {
 			var frameOrderId = GetFrameOrderId();
 			var frameOrder = _frameOrderRepository.Get(frameOrderId);
+			View.Model.ShopDoesNotHaveAccessToFrameOrders = !_synologenMemberService.ShopHasAccessTo(ShopAccess.SlimJim);
 			if(frameOrder == null)
 			{
 				View.Model.OrderDoesNotExist = true;

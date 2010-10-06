@@ -1,6 +1,8 @@
 using Spinit.Wpc.Content.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 using Spinit.Wpc.Utility.Core;
 
@@ -58,6 +60,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
 			var connectionString = Utility.Business.Globals.ConnectionString("WpcServer");
 			var treeRepository = new Tree(connectionString);
 			return treeRepository.GetFileUrlDownString(pageId);
+		}
+
+		public bool ShopHasAccessTo(ShopAccess accessOption)
+		{
+			if(SynologenSessionContext.MemberShopAccessOptions.HasOption(accessOption)) return true;
+			var currentShopId = GetCurrentShopId();
+			var shop = _sqlProvider.GetShop(currentShopId);
+			SynologenSessionContext.MemberShopAccessOptions = shop.Access;
+			return shop.Access.HasOption(accessOption);
 		}
 	}
 }

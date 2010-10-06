@@ -1,6 +1,6 @@
 namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 {
-	public class ViewFrameOrderModel
+	public class ViewFrameOrderModel : FrameOrderBaseModel
 	{
 		public bool OrderHasBeenSent { get; set; }
 		public decimal CylinderLeft { get; set; }
@@ -32,7 +32,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 		public bool UserDoesNotHaveAccessToThisOrder { get; set; }
 		public bool DisplayOrder
 		{
-			get { return (OrderDoesNotExist == false && UserDoesNotHaveAccessToThisOrder == false); }
+			get { return (
+				OrderDoesNotExist == false && 
+				UserDoesNotHaveAccessToThisOrder == false &&
+                ShopDoesNotHaveAccessToFrameOrders == false); 
+			}
 		}
 
 		

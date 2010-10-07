@@ -13,8 +13,8 @@
 						<label class="labelShort clearLeft">Period</label><span><%=GetSettlementPeriodNumber(Settlement.CreatedDate)%></span><br />
 					</div>
 					<div class="formItem">						
-						<label class="labelShort clearLeft">Utbetalas inkl moms</label><span><%=TotalValueIncludingVAT %></span><br />
-						<label class="labelShort clearLeft">Utbetalas exkl moms</label><span><%=TotalValueExcludingVAT %></span><br />
+						<label class="labelShort clearLeft">Utbetalas inkl moms</label><span><%=TotalValueIncludingVAT.ToString("C2") %></span><br />
+						<label class="labelShort clearLeft">Utbetalas exkl moms</label><span><%=TotalValueExcludingVAT.ToString("C2") %></span><br />
 					</div>		
 					<div class="formCommands hide-on-print">	
 						<input class="btnBig" type="button" OnClick="window.location='Settlements.aspx';" value="Tillbaka">
@@ -35,8 +35,8 @@
 					</asp:TemplateField>
 					<asp:BoundField headerText="Bankgiro" DataField="cGiroNumber" SortExpression="cIdcGiroNumber"/>
                     <asp:BoundField headerText="Antal fakturor" DataField="cNumberOfOrders" SortExpression="cNumberOfOrders" ItemStyle-CssClass="hide-on-print" HeaderStyle-CssClass="hide-on-print"/>					
-					<asp:BoundField headerText="Utbetalas exkl moms" DataFormatString="{0:F0}" DataField="cPriceExcludingVAT" SortExpression="cPriceExcludingVAT" ItemStyle-CssClass="hide-on-print" HeaderStyle-CssClass="hide-on-print"/>
-					<asp:BoundField headerText="Utbetalas inkl moms" DataFormatString="{0:F0}" DataField="cPriceIncludingVAT" SortExpression="cPriceIncludingVAT"/>                    
+					<asp:BoundField headerText="Utbetalas exkl moms" DataFormatString="{0:C2}" DataField="cPriceExcludingVAT" SortExpression="cPriceExcludingVAT" ItemStyle-CssClass="hide-on-print" HeaderStyle-CssClass="hide-on-print"/>
+					<asp:BoundField headerText="Utbetalas inkl moms" DataFormatString="{0:C2}" DataField="cPriceIncludingVAT" SortExpression="cPriceIncludingVAT"/>                    
                 </Columns>
             </asp:gridview>
 			</div>

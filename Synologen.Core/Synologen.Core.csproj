@@ -73,9 +73,13 @@
     <Compile Include="Domain\Model\FrameOrder\Shop.cs" />
     <Compile Include="Domain\Model\FrameOrder\ShopAddress.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameStock.cs" />
+    <Compile Include="Domain\Model\LensSubscription\Country.cs" />
     <Compile Include="Domain\Model\LensSubscription\Customer.cs" />
+    <Compile Include="Domain\Model\LensSubscription\CustomerAddress.cs" />
+    <Compile Include="Domain\Model\LensSubscription\CustomerContact.cs" />
     <Compile Include="Domain\Model\LensSubscription\Shop.cs" />
     <Compile Include="Domain\Model\LensSubscription\Subscription.cs" />
+    <Compile Include="Domain\Model\LensSubscription\SubscriptionPaymentInfo.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionStatus.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionTransaction.cs" />
     <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
@@ -111,7 +115,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="LensSubscription.cd" />
+    <None Include="Domain\Model\LensSubscription\LensSubscription.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

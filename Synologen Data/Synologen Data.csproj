@@ -106,13 +106,17 @@
     <Compile Include="Repositories\FrameOrderRepositories\FrameGlassTypeRepository.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\FrameOrderRepository.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\FrameRepository.cs" />
+    <Compile Include="Repositories\LensSubscriptionRepositories\LensSubscriptionCustomerRepository.cs" />
+    <Compile Include="Repositories\LensSubscriptionRepositories\SubscriptionRepository.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameBrandMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameColorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameGlassTypeMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameOrderMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\CustomerMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopMap.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\ShopRepository.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SubscriptionMap.cs" />
     <Compile Include="SqlProviderConcern.cs" />
     <Compile Include="SqlProviderCountry.cs" />
     <Compile Include="SqlProviderInvoicingMethod.cs" />

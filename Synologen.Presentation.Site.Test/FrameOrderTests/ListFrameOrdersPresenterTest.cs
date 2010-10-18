@@ -12,7 +12,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
 using Spinit.Wpc.Synologen.Presentation.Site.Models;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.Factories;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Test
+namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 {
 	[TestFixture]
 	public class Given_a_ListFrameOrdersPresenter : AssertionHelper

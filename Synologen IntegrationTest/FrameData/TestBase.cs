@@ -14,7 +14,6 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
-using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
 using Spinit.Wpc.Synologen.Integration.Test.FrameData.Factories;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
@@ -28,6 +27,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		{
 			ActionCriteriaExtensions.ConstructConvertersUsing(ResolveCriteriaConverters);
 			SetupData();
+			NHibernateFactory.MappingAssemblies.Add(typeof(Data.Repositories.NHibernate.Mappings.FrameMap).Assembly);
 			_sessionFactory = NHibernateFactory.Instance.GetSessionFactory();
 			var testSession = GetNewSession();
 			var validationSession = GetNewSession();

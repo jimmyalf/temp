@@ -51,6 +51,9 @@
     <Compile Include="Logic\EventArguments\EditFrameFormEventArgs.cs" />
     <Compile Include="Logic\Helpers\StringBuilderExtensions.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
+    <Compile Include="Logic\Views\ICreateLensSubscriptionView.cs" />
+    <Compile Include="Models\CreateLensSubscriptionModel.cs" />
+    <Compile Include="Logic\Presenters\CreateLensSubscriptionPresenter.cs" />
     <Compile Include="Logic\Presenters\ListFrameOrdersPresenter.cs" />
     <Compile Include="Logic\Presenters\ViewFrameOrderPresenter.cs" />
     <Compile Include="Logic\Services\EmailService.cs" />

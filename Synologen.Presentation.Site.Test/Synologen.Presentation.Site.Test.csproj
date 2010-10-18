@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Shouldly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\Shouldly.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Data, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
@@ -68,11 +72,12 @@
     <Compile Include="EqualityComparers\EyeParameterEqualityComparer.cs" />
     <Compile Include="Factories\RepositoryFactory.cs" />
     <Compile Include="Factories\ViewsFactory.cs" />
-    <Compile Include="EditFrameOrderPresenterTests.cs" />
-    <Compile Include="FrameOrderServiceTest.cs" />
-    <Compile Include="SynologenSettingsServiceTest.cs" />
-    <Compile Include="ListFrameOrdersPresenterTest.cs" />
-    <Compile Include="ViewFrameOrderPresenterTests.cs" />
+    <Compile Include="FrameOrderTests\EditFrameOrderPresenterTests.cs" />
+    <Compile Include="FrameOrderTests\FrameOrderServiceTest.cs" />
+    <Compile Include="FrameOrderTests\SynologenSettingsServiceTest.cs" />
+    <Compile Include="FrameOrderTests\ListFrameOrdersPresenterTest.cs" />
+    <Compile Include="FrameOrderTests\ViewFrameOrderPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\CreateLensSubscriptionPresenterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Factories\ServiceFactory.cs" />
   </ItemGroup>

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Services;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Test
+namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 {
 	[TestFixture]
 	public class Given_A_SynologenSettingsService : AssertionHelper

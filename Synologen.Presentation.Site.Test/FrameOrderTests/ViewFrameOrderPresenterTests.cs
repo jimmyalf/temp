@@ -10,9 +10,8 @@ using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
 using Spinit.Wpc.Synologen.Presentation.Site.Models;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.Factories;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Test
+namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 {
-
 	[TestFixture]
 	public class Given_a_FrameOrderViewPresenter : AssertionHelper
 	{
@@ -128,26 +127,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 		[Test]
 		public void When_Form_Is_Sent_Saved_Item_Has_Expected_Values()
 		{
-		    //Arrange
+			//Arrange
 			var frameOrder = frameOrderRepository.Get(10);
-		    var eventArgs = new EventArgs();
+			var eventArgs = new EventArgs();
 			const string expectedRedirectUrl = "/test/url/";
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			var mockedHttpResponse = new Mock<HttpResponseBase>();
 			var requestParams = new NameValueCollection {{"frameorder", "5"}};
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
 
-		    //Act
+			//Act
 			mockedHttpContext.SetupGet(x => x.Response).Returns(mockedHttpResponse.Object);
 			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedPageUrl(expectedRedirectUrl);
 			presenter.HttpContext = mockedHttpContext.Object;
 			presenter.View.RedirectAfterSentOrderPageId = 5;
-		    presenter.View_Load(null, eventArgs);
+			presenter.View_Load(null, eventArgs);
 			presenter.View_SendOrder(null, eventArgs);
 			var savedEntity = ((RepositoryFactory.MockedFrameOrderRepository) frameOrderRepository).SavedItem;
 			var sentFrameOrder = ((ServiceFactory.MockFrameOrderSettingsService) _frameOrderService).SentFrameOrder;
 
-		    //Assert
+			//Assert
 			Expect(savedEntity.Sent, Is.Not.Null);
 			Expect(savedEntity.Sent.Value.ToString("yyyy-MM-dd HH:mm"), Is.EqualTo(DateTime.Now.ToString("yyyy-MM-dd HH:mm")));
 			Expect(sentFrameOrder.Id, Is.EqualTo(5));

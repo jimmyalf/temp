@@ -1,8 +1,10 @@
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 {
-	public class SubscriptionStatus : Entity
+	public enum SubscriptionStatus 
 	{
-		public string Name { get; set; }
-		public bool AutomaticPaymentEnabled { get; set; }
+		Created = 1,
+		Active = 2,
+		Stopped = 3,
+		Expired = 4,
 	}
 }

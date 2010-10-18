@@ -47,6 +47,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Shouldly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\Shouldly.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Data, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
@@ -90,6 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonDataTestHelpers\DataHelper.cs" />
     <Compile Include="ContractSales\Factories\ShopFactory.cs" />
     <Compile Include="ContractSales\TestBase.cs" />
     <Compile Include="ContractSales\TestShop.cs" />
@@ -99,13 +104,18 @@
     <Compile Include="FrameData\TestShop.cs" />
     <Compile Include="FrameData\TestFrameBrands.cs" />
     <Compile Include="FrameData\TestFrameColors.cs" />
-    <Compile Include="FrameData\Factories\FactoryHelpers.cs" />
+    <Compile Include="CommonDataTestHelpers\FactoryHelpers.cs" />
     <Compile Include="FrameData\Factories\FrameFactory.cs" />
     <Compile Include="FrameData\Factories\FrameColorFactory.cs" />
     <Compile Include="FrameData\Factories\FrameBrandFactory.cs" />
     <Compile Include="FrameData\TestBase.cs" />
     <Compile Include="FrameData\TestFrameGlassTypes.cs" />
     <Compile Include="FrameData\TestFrames.cs" />
+    <Compile Include="CommonDataTestHelpers\NHibernateRepositoryTester.cs" />
+    <Compile Include="CommonDataTestHelpers\BaseRepositoryTester.cs" />
+    <Compile Include="LensSubscriptionData\Factories\CustomerFactory.cs" />
+    <Compile Include="LensSubscriptionData\Factories\SubscriptionFactory.cs" />
+    <Compile Include="LensSubscriptionData\SubscriptionRepositoryTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Webservice\TestWebService.cs" />
   </ItemGroup>

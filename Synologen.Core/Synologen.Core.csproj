@@ -88,11 +88,13 @@
     <Compile Include="Domain\Persistence\Criterias\AllFrameOrdersForShopCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameOrdersMatchingCriteria.cs" />
-    <Compile Include="Domain\Persistence\IFrameGlassTypeRepository.cs" />
-    <Compile Include="Domain\Persistence\IFrameOrderRepository.cs" />
-    <Compile Include="Domain\Persistence\ILensSubscriptionCustomerRepository.cs" />
-    <Compile Include="Domain\Persistence\ILensSubscriptionRepository.cs" />
-    <Compile Include="Domain\Persistence\IShopRepository.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IFrameGlassTypeRepository.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IFrameOrderRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\ICountryRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\ICustomerRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\IShopRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\ISubscriptionRepository.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IShopRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />
     <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />
@@ -102,8 +104,8 @@
     <Compile Include="Domain\Model\FrameOrder\FrameColor.cs" />
     <Compile Include="Domain\Model\FrameOrder\Interval.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFramesMatchingCriteria.cs" />
-    <Compile Include="Domain\Persistence\IFrameBrandRepository.cs" />
-    <Compile Include="Domain\Persistence\IFrameColorRepository.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IFrameBrandRepository.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IFrameColorRepository.cs" />
     <Compile Include="Domain\Services\IFrameOrderService.cs" />
     <Compile Include="Domain\Services\ISynologenMemberService.cs" />
     <Compile Include="Domain\Services\ISynologenSettingsService.cs" />
@@ -114,7 +116,7 @@
     <Compile Include="Extensions\IntegerExtionsions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Domain\Persistence\IFrameRepository.cs" />
+    <Compile Include="Domain\Persistence\FrameOrder\IFrameRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

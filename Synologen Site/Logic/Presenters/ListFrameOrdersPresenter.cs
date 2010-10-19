@@ -1,7 +1,7 @@
 using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;

@@ -5,7 +5,7 @@ using System.Web;
 using Moq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters;

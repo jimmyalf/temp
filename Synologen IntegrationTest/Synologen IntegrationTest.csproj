@@ -92,6 +92,7 @@
     <Reference Include="System.ServiceModel">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonDataTestHelpers\DataHelper.cs" />
@@ -113,7 +114,10 @@
     <Compile Include="FrameData\TestFrames.cs" />
     <Compile Include="CommonDataTestHelpers\NHibernateRepositoryTester.cs" />
     <Compile Include="CommonDataTestHelpers\BaseRepositoryTester.cs" />
+    <Compile Include="LensSubscriptionData\CustomerRepositoryTester.cs" />
+    <Compile Include="LensSubscriptionData\Factories\CountryFactory.cs" />
     <Compile Include="LensSubscriptionData\Factories\CustomerFactory.cs" />
+    <Compile Include="LensSubscriptionData\Factories\ShopFactory.cs" />
     <Compile Include="LensSubscriptionData\Factories\SubscriptionFactory.cs" />
     <Compile Include="LensSubscriptionData\SubscriptionRepositoryTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,5 +11,12 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		public virtual CustomerAddress Address { get; set; }
 		public virtual IEnumerable<Subscription> Subscriptions { get; private set; }
 		public virtual string PersonalIdNumber { get; set; }
+
+		public Customer()
+		{
+			Contact = new CustomerContact();
+			Address = new CustomerAddress();
+			Subscriptions = new Subscription[] { };
+		}
 	}
 }

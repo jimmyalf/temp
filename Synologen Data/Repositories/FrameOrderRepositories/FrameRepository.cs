@@ -3,7 +3,7 @@ using NHibernate.Criterion;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories
 {

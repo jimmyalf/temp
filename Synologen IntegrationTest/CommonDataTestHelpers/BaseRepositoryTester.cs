@@ -47,6 +47,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.CommonDataTestHelpers
 			var sqlConnection = new SqlConnection(DataHelper.ConnectionString);
 			sqlConnection.Open();
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscription");
+			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionCustomer");
 			sqlConnection.Close();
 		}
 

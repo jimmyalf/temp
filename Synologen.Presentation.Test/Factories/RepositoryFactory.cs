@@ -4,7 +4,7 @@ using Moq;
 using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 {

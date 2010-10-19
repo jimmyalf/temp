@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 {

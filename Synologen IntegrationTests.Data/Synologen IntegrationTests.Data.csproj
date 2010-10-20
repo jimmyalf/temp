@@ -131,14 +131,6 @@
       <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
       <Name>Synologen Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen ServiceLibrary\Synologen ServiceLibrary.csproj">
-      <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
-      <Name>Synologen ServiceLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Synologen WebService\Synologen WebService.csproj">
-      <Project>{74466C1B-0F03-4356-BA44-CF8983F5347E}</Project>
-      <Name>Synologen WebService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>

@@ -4,9 +4,9 @@ using System.Web;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
-using Spinit.Wpc.Synologen.Presentation.Site.Models;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
+using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 {

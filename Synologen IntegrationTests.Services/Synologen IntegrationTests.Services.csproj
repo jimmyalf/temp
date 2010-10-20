@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{26F55ECD-2C74-4FEC-8EB4-3FBF3EC357C7}</ProjectGuid>
+    <ProjectGuid>{2DFB7B51-C123-4D3E-ACFB-DEF7F5FFC63E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.Integration.Data.Test</RootNamespace>
-    <AssemblyName>Spinit.Wpc.Synologen.Integration.Data.Test</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.Integration.Services.Test</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Integration.Services.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -95,32 +95,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonDataTestHelpers\DataHelper.cs" />
-    <Compile Include="ContractSales\Factories\ShopFactory.cs" />
-    <Compile Include="ContractSales\TestBase.cs" />
-    <Compile Include="ContractSales\TestShop.cs" />
-    <Compile Include="FrameData\Factories\FrameGlassTypeFactory.cs" />
-    <Compile Include="FrameData\Factories\FrameOrderFactory.cs" />
-    <Compile Include="FrameData\TestFrameOrder.cs" />
-    <Compile Include="FrameData\TestShop.cs" />
-    <Compile Include="FrameData\TestFrameBrands.cs" />
-    <Compile Include="FrameData\TestFrameColors.cs" />
-    <Compile Include="CommonDataTestHelpers\FactoryHelpers.cs" />
-    <Compile Include="FrameData\Factories\FrameFactory.cs" />
-    <Compile Include="FrameData\Factories\FrameColorFactory.cs" />
-    <Compile Include="FrameData\Factories\FrameBrandFactory.cs" />
-    <Compile Include="FrameData\TestBase.cs" />
-    <Compile Include="FrameData\TestFrameGlassTypes.cs" />
-    <Compile Include="FrameData\TestFrames.cs" />
-    <Compile Include="CommonDataTestHelpers\NHibernateRepositoryTester.cs" />
-    <Compile Include="LensSubscriptionData\BaseRepositoryTester.cs" />
-    <Compile Include="LensSubscriptionData\CustomerRepositoryTester.cs" />
-    <Compile Include="LensSubscriptionData\Factories\CountryFactory.cs" />
-    <Compile Include="LensSubscriptionData\Factories\CustomerFactory.cs" />
-    <Compile Include="LensSubscriptionData\Factories\ShopFactory.cs" />
-    <Compile Include="LensSubscriptionData\Factories\SubscriptionFactory.cs" />
-    <Compile Include="LensSubscriptionData\SubscriptionRepositoryTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestWebService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">

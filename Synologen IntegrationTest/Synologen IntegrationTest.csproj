@@ -113,7 +113,7 @@
     <Compile Include="FrameData\TestFrameGlassTypes.cs" />
     <Compile Include="FrameData\TestFrames.cs" />
     <Compile Include="CommonDataTestHelpers\NHibernateRepositoryTester.cs" />
-    <Compile Include="CommonDataTestHelpers\BaseRepositoryTester.cs" />
+    <Compile Include="LensSubscriptionData\BaseRepositoryTester.cs" />
     <Compile Include="LensSubscriptionData\CustomerRepositoryTester.cs" />
     <Compile Include="LensSubscriptionData\Factories\CountryFactory.cs" />
     <Compile Include="LensSubscriptionData\Factories\CustomerFactory.cs" />

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NHibernate;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.Integration.Test.CommonDataTestHelpers;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 {
@@ -22,8 +18,8 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				Shop shop = new ShopRepository(session).Get(158);
-				Country country = new CountryRepository(session).Get(1);
+				var shop = new ShopRepository(session).Get(TestShopId);
+				var country = new CountryRepository(session).Get(TestCountryId);
 				_customerToSave = Factories.CustomerFactory.Get(country, shop);
 			};
 
@@ -60,8 +56,8 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				Shop shop = new ShopRepository(session).Get(158);
-				Country country = new CountryRepository(session).Get(1);
+				var shop = new ShopRepository(session).Get(TestShopId);
+				var country = new CountryRepository(session).Get(TestCountryId);
 				_customerToEdit = Factories.CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(_customerToEdit);
 				_customerToEdit = Factories.CustomerFactory.Edit(_customerToEdit);
@@ -100,8 +96,8 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		{
 			Context = (ISession session) =>
 			{
-				Shop shop = new ShopRepository(session).Get(158);
-				Country country = new CountryRepository(session).Get(1);
+				var shop = new ShopRepository(session).Get(TestShopId);
+				var country = new CountryRepository(session).Get(TestCountryId);
 				_customerToDelete = Factories.CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(_customerToDelete);
 			};
@@ -131,8 +127,8 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				Shop shop = new ShopRepository(session).Get(158);
-				Country country = new CountryRepository(session).Get(1);
+				var shop = new ShopRepository(session).Get(TestShopId);
+				var country = new CountryRepository(session).Get(TestCountryId);
 				_customerToAdd1 = Factories.CustomerFactory.Get(country, shop);
 				_customerToAdd2 = Factories.CustomerFactory.Get(country, shop);
 			};
@@ -170,9 +166,9 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				Shop shop1 = new ShopRepository(session).Get(158);
-				Shop shop2 = new ShopRepository(session).Get(159);
- 				Country country = new CountryRepository(session).Get(1);
+				var shop1 = new ShopRepository(session).Get(TestShopId);
+				var shop2 = new ShopRepository(session).Get(159);
+ 				var country = new CountryRepository(session).Get(1);
 				_customerToAdd1 = Factories.CustomerFactory.Get(country, shop1);
 				_customerToAdd2 = Factories.CustomerFactory.Get(country, shop2);
 				_customerToAdd3 = Factories.CustomerFactory.Get(country, shop1);
@@ -216,12 +212,12 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				Shop shop1 = new ShopRepository(session).Get(159);
-				Country country = new CountryRepository(session).Get(1);
-				_customerToAdd1 = Factories.CustomerFactory.Get(country, shop1, "Gunnar", "Gustafsson", "8206113411");
-				_customerToAdd2 = Factories.CustomerFactory.Get(country, shop1, "Katarina", "Malm", "8911063462");
-				_customerToAdd3 = Factories.CustomerFactory.Get(country, shop1, "Fredrik", "Holmberg", "7512235792");
-				_customerToAdd4 = Factories.CustomerFactory.Get(country, shop1, "Eva-Lisa", "Davidsson", "8007202826");
+				var shop = new ShopRepository(session).Get(159);
+				var country = new CountryRepository(session).Get(TestCountryId);
+				_customerToAdd1 = Factories.CustomerFactory.Get(country, shop, "Gunnar", "Gustafsson", "8206113411");
+				_customerToAdd2 = Factories.CustomerFactory.Get(country, shop, "Katarina", "Malm", "8911063462");
+				_customerToAdd3 = Factories.CustomerFactory.Get(country, shop, "Fredrik", "Holmberg", "7512235792");
+				_customerToAdd4 = Factories.CustomerFactory.Get(country, shop, "Eva-Lisa", "Davidsson", "8007202826");
 			};
 
 			Because = repository =>

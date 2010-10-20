@@ -19,7 +19,9 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		{
 			Context = (ISession session) =>
 			{
-				var customer = CustomerFactory.Get();
+				var shop = new ShopRepository(session).Get(158);
+				var country = new CountryRepository(session).Get(1);
+				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
 				_subscriptionToSave = SubscriptionFactory.Get(customer);
 			};
@@ -54,7 +56,9 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		{
 			Context = (ISession session) =>
 			{
-				var customer = CustomerFactory.Get();
+				var shop = new ShopRepository(session).Get(158);
+				var country = new CountryRepository(session).Get(1);
+				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
 				var subscriptionToSave = SubscriptionFactory.Get(customer);
 				new SubscriptionRepository(session).Save(subscriptionToSave);
@@ -91,7 +95,9 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		{
 			Context = (ISession session) =>
 			{
-				var customer = CustomerFactory.Get();
+				var shop = new ShopRepository(session).Get(158);
+				var country = new CountryRepository(session).Get(1);
+				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
 				_subscriptionToDelete = SubscriptionFactory.Get(customer);
 				new SubscriptionRepository(session).Save(_subscriptionToDelete);

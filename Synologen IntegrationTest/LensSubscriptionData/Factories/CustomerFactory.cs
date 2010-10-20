@@ -29,9 +29,28 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData.Factories
 		
 		}
 
-		public static Customer Get()
+		public static Customer Get(Country country, Shop shop, string firstName, string lastName, string personalIdNumber)
 		{
-			return new Customer();
+
+			return new Customer
+			{
+				Address =
+					new CustomerAddress
+					{
+						AddressLineOne = "Datavägen 2",
+						AddressLineTwo = "Box 416 57",
+						City = "Gävle",
+						Country = country,
+						PostalCode = "436 32"
+					}
+				,
+				Contact = new CustomerContact { Email = "paiv@home.se", MobilePhone = "0702624715", Phone = "0322-16660" },
+				FirstName = firstName,
+				LastName = lastName,
+				PersonalIdNumber = personalIdNumber,
+				Shop = shop
+			};
+
 		}
 
 		public static Customer Edit(Customer customer)

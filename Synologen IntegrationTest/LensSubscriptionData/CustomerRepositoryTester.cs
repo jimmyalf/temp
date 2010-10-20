@@ -6,6 +6,7 @@ using NHibernate;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Integration.Test.CommonDataTestHelpers;
 
@@ -151,10 +152,143 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 				var savedCustomers = new CustomerRepository(session).GetAll();
 				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd1.Id);
 				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd2.Id);
+			});
+		}
+
+	}
+
+	[TestFixture]
+	[Category("CustomerRepositoryTester")]
+	public class When_fetching_all_customers_for_a_shop : BaseRepositoryTester<CustomerRepository>
+	{
+		private Customer _customerToAdd1;
+		private Customer _customerToAdd2;
+		private Customer _customerToAdd3;
+		private Customer _customerToAdd4;
+
+		public When_fetching_all_customers_for_a_shop()
+		{
+			Context = session =>
+			{
+				Shop shop1 = new ShopRepository(session).Get(158);
+				Shop shop2 = new ShopRepository(session).Get(159);
+ 				Country country = new CountryRepository(session).Get(1);
+				_customerToAdd1 = Factories.CustomerFactory.Get(country, shop1);
+				_customerToAdd2 = Factories.CustomerFactory.Get(country, shop2);
+				_customerToAdd3 = Factories.CustomerFactory.Get(country, shop1);
+				_customerToAdd4 = Factories.CustomerFactory.Get(country, shop2);
+			};
+
+			Because = repository =>
+			{
+				repository.Save(_customerToAdd1);
+				repository.Save(_customerToAdd2);
+				repository.Save(_customerToAdd3);
+				repository.Save(_customerToAdd4);
+			};
+		}
+
+		[Test]
+		public void Should_get_all_customers_for_a_shop()
+		{
+			AssertUsing(session =>
+			{
+
+				var criteria = new CustomersForShopMatchingCriteria {ShopId = 159};
+				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
+				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd2.Id);
+				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd4.Id);
+				savedCustomers.Count().ShouldBe(2);
+			});
+		}
+	}
+
+	[TestFixture]
+	[Category("CustomerRepositoryTester")]
+	public class When_fetching_customers_for_a_shop_by_search : BaseRepositoryTester<CustomerRepository>
+	{
+		private Customer _customerToAdd1;
+		private Customer _customerToAdd2;
+		private Customer _customerToAdd3;
+		private Customer _customerToAdd4;
+
+		public When_fetching_customers_for_a_shop_by_search()
+		{
+			Context = session =>
+			{
+				Shop shop1 = new ShopRepository(session).Get(159);
+				Country country = new CountryRepository(session).Get(1);
+				_customerToAdd1 = Factories.CustomerFactory.Get(country, shop1, "Gunnar", "Gustafsson", "8206113411");
+				_customerToAdd2 = Factories.CustomerFactory.Get(country, shop1, "Katarina", "Malm", "8911063462");
+				_customerToAdd3 = Factories.CustomerFactory.Get(country, shop1, "Fredrik", "Holmberg", "7512235792");
+				_customerToAdd4 = Factories.CustomerFactory.Get(country, shop1, "Eva-Lisa", "Davidsson", "8007202826");
+			};
+
+			Because = repository =>
+			{
+				repository.Save(_customerToAdd1);
+				repository.Save(_customerToAdd2);
+				repository.Save(_customerToAdd3);
+				repository.Save(_customerToAdd4);
+			};
+		}
+
+		[Test]
+		public void Should_get_customers_matching_firstname_search_for_a_shop()
+		{
+			AssertUsing(session =>
+			{
+
+				var criteria = new CustomersForShopMatchingCriteria { ShopId = 159, SearchTerm = "Gun"};
+				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
+				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd1.Id);
+				savedCustomers.Count().ShouldBe(1);
+			});
+		}
+
+		[Test]
+		public void Should_get_customers_matching_lastname_search_for_a_shop()
+		{
+			AssertUsing(session =>
+			{
+
+				var criteria = new CustomersForShopMatchingCriteria { ShopId = 159, SearchTerm = "sson" };
+				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
+				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd1.Id);
+				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd4.Id);
 				savedCustomers.Count().ShouldBe(2);
 			});
 		}
 
+		[Test]
+		public void Should_get_customers_matching_personalidnumber_search_for_a_shop()
+		{
+			AssertUsing(session =>
+			{
+
+				var criteria = new CustomersForShopMatchingCriteria { ShopId = 159, SearchTerm = "34" };
+				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
+				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd1.Id);
+				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd2.Id);
+				savedCustomers.Count().ShouldBe(2);
+			});
+		}
+
+		[Test]
+		public void Should_get_all_customers_search_for_a_shop()
+		{
+			AssertUsing(session =>
+			{
+
+				var criteria = new CustomersForShopMatchingCriteria { ShopId = 159, SearchTerm = "" };
+				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
+				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd1.Id);
+				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd2.Id);
+				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd3.Id);
+				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd4.Id);
+				savedCustomers.Count().ShouldBe(4);
+			});
+		}
 	}
 
 }

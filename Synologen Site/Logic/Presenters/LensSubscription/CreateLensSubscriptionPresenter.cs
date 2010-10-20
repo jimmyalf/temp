@@ -1,9 +1,9 @@
 using System;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using WebFormsMvp;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
+namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription
 {
 	public class CreateLensSubscriptionPresenter : Presenter<ICreateLensSubscriptionView>
 	{
@@ -23,5 +23,4 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			View.Load -= View_Load;
 		}
 	}
-
 }

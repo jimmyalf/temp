@@ -51,9 +51,11 @@
     <Compile Include="Logic\EventArguments\EditFrameFormEventArgs.cs" />
     <Compile Include="Logic\Helpers\StringBuilderExtensions.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
-    <Compile Include="Logic\Views\ICreateLensSubscriptionView.cs" />
-    <Compile Include="Models\CreateLensSubscriptionModel.cs" />
-    <Compile Include="Logic\Presenters\CreateLensSubscriptionPresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\ListCustomersPresenter.cs" />
+    <Compile Include="Logic\Views\LensSubscription\ICreateLensSubscriptionView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\IListCustomersView.cs" />
+    <Compile Include="Models\LensSubscription\CreateLensSubscriptionModel.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\CreateLensSubscriptionPresenter.cs" />
     <Compile Include="Logic\Presenters\ListFrameOrdersPresenter.cs" />
     <Compile Include="Logic\Presenters\ViewFrameOrderPresenter.cs" />
     <Compile Include="Logic\Services\EmailService.cs" />
@@ -71,6 +73,8 @@
     <Compile Include="Models\IntervalListItem.cs" />
     <Compile Include="Models\EditFrameOrderModel.cs" />
     <Compile Include="Logic\Presenters\EditFrameOrderPresenter.cs" />
+    <Compile Include="Models\LensSubscription\ListCustomersItemModel.cs" />
+    <Compile Include="Models\LensSubscription\ListCustomersModel.cs" />
     <Compile Include="Models\ListFrameOrdersModel.cs" />
     <Compile Include="Models\ViewFrameOrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,6 +135,13 @@
     </Compile>
     <Compile Include="Wpc\Synologen\FrameOrderView.ascx.designer.cs">
       <DependentUpon>FrameOrderView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptionCustomersList.ascx.cs">
+      <DependentUpon>LensSubscriptionCustomersList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptionCustomersList.ascx.designer.cs">
+      <DependentUpon>LensSubscriptionCustomersList.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\SalesList.ascx.cs">
       <DependentUpon>SalesList.ascx</DependentUpon>
@@ -229,6 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CityShopList.aspx" />
+    <Content Include="LensSubscriptionCustomersList.aspx" />
     <Content Include="FrameOrderList.aspx" />
     <Content Include="FrameOrderView.aspx" />
     <Content Include="FrameOrder.aspx" />
@@ -238,6 +250,7 @@
     <Content Include="Wpc\Synologen\FrameOrder.ascx" />
     <Content Include="Wpc\Synologen\FrameOrderList.ascx" />
     <Content Include="Wpc\Synologen\FrameOrderView.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptionCustomersList.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
@@ -344,6 +357,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

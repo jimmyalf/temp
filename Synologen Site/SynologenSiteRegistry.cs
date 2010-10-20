@@ -2,13 +2,19 @@ using NHibernate;
 using Spinit.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
+using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
+using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Services;
 using StructureMap.Configuration.DSL;
+using IShopRepository=Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder.IShopRepository;
+using ShopRepository=Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories.ShopRepository;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site
 {
@@ -21,6 +27,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 			For<IFrameOrderRepository>().HybridHttpOrThreadLocalScoped().Use<FrameOrderRepository>();
 			For<IShopRepository>().HybridHttpOrThreadLocalScoped().Use<ShopRepository>();
 			For<IFrameOrderService>().Use<SynologenFrameOrderService>();
+			For<ICustomerRepository>().HybridHttpOrThreadLocalScoped().Use<CustomerRepository>();
+			For<ICountryRepository>().HybridHttpOrThreadLocalScoped().Use<CountryRepository>();
+			For<Core.Domain.Persistence.LensSubscription.IShopRepository>().HybridHttpOrThreadLocalScoped().Use<Data.Repositories.LensSubscriptionRepositories.ShopRepository>();
+
 			For<ISynologenSettingsService>().Use<SynologenSettingsService>();
 			For<IEmailService>().Use<EmailService>();
 			For<ISynologenMemberService>().Use<SynologenMemberService>();
@@ -29,7 +39,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 
 			For<IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>>().Use<AllOrderableFramesCriteriaConverter>();
 			For<IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>>().Use<AllFrameOrdersForShopCriteriaConverter>();
-
+			For<IActionCriteriaConverter<CustomersForShopMatchingCriteria, ICriteria>>().Use<CustomersForShopMatchingCriteriaConverter>();
 		}
 	}
 }

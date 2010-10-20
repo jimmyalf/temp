@@ -4,7 +4,6 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.Integration.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData.Factories;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
@@ -19,8 +18,8 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		{
 			Context = (ISession session) =>
 			{
-				var shop = new ShopRepository(session).Get(158);
-				var country = new CountryRepository(session).Get(1);
+				var shop = new ShopRepository(session).Get(TestShopId);
+				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
 				_subscriptionToSave = SubscriptionFactory.Get(customer);
@@ -56,8 +55,8 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		{
 			Context = (ISession session) =>
 			{
-				var shop = new ShopRepository(session).Get(158);
-				var country = new CountryRepository(session).Get(1);
+				var shop = new ShopRepository(session).Get(TestShopId);
+				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
 				var subscriptionToSave = SubscriptionFactory.Get(customer);
@@ -95,8 +94,8 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		{
 			Context = (ISession session) =>
 			{
-				var shop = new ShopRepository(session).Get(158);
-				var country = new CountryRepository(session).Get(1);
+				var shop = new ShopRepository(session).Get(TestShopId);
+				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
 				_subscriptionToDelete = SubscriptionFactory.Get(customer);

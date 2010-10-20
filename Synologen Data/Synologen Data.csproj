@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Repositories\CriteriaConverters\AllFrameOrdersForShopCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\AllOrderableFramesCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\LensSubscription\CustomersForShopMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFrameOrdersMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFramesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\FrameBrandRepository.cs" />

@@ -15,9 +15,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 				GetCustomer(3, "Lotta", "Olsson", "4906103207"),
 			};
 		}
-		public static Customer Get()
+		public static Customer Get(int id)
 		{
-			return GetCustomer(1, "Eva", "Bergström", "8407143778");
+			return GetCustomer(id, "Eva", "Bergström", "8407143778");
 		}
 
 		private static Customer GetCustomer(int id, string firstName, string lastName, string personalIdNumber)

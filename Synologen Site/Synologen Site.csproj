@@ -49,6 +49,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Logic\EventArguments\EditFrameFormEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\LensSubscription\SaveSubscriptionEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SearchEventArgs.cs" />
     <Compile Include="Logic\Helpers\StringBuilderExtensions.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
@@ -358,9 +359,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

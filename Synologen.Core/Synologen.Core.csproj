@@ -114,6 +114,7 @@
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Extensions\ExpressionNameVisitor.cs" />
+    <Compile Include="Extensions\GenericsExtensions.cs" />
     <Compile Include="Extensions\IntegerExtionsions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

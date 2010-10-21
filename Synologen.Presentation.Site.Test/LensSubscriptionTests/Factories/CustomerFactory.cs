@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories
@@ -10,12 +8,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 	{
 		public static IEnumerable<Customer> GetList()
 		{
-			return new []
-			       	{
-			       		new Customer { FirstName = "Eva", LastName = "Bergström", PersonalIdNumber = "8407143778" },
-			       		new Customer { FirstName = "Lasse", LastName = "Larsson", PersonalIdNumber = "5406011857" },
-			       		new Customer { FirstName = "Lotta", LastName = "Olsson", PersonalIdNumber = "4906103207" }
-			       	};
+			return new[]
+			{
+				GetCustomer(1, "Eva", "Bergström", "8407143778"), 
+				GetCustomer(2, "Lasse", "Larsson", "5406011857"),
+				GetCustomer(3, "Lotta", "Olsson", "4906103207"),
+			};
+		}
+		public static Customer Get()
+		{
+			return GetCustomer(1, "Eva", "Bergström", "8407143778");
+		}
+
+		private static Customer GetCustomer(int id, string firstName, string lastName, string personalIdNumber)
+		{
+			var mockedCustomer = new Mock<Customer>();
+			mockedCustomer.SetupGet(x => x.Id).Returns(id);
+			mockedCustomer.SetupGet(x => x.FirstName).Returns(firstName);
+			mockedCustomer.SetupGet(x => x.LastName).Returns(lastName);
+			mockedCustomer.SetupGet(x => x.PersonalIdNumber).Returns(personalIdNumber);
+			return mockedCustomer.Object;
 		}
 	}
 }

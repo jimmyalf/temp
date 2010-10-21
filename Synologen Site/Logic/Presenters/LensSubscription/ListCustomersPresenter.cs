@@ -16,8 +16,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 		private readonly ICustomerRepository _customerRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
 
-		public ListCustomersPresenter(IListCustomersView view, ICustomerRepository customerRepository, ISynologenMemberService synologenMemberService)
-			: base(view)
+		public ListCustomersPresenter(IListCustomersView view, ICustomerRepository customerRepository, ISynologenMemberService synologenMemberService) : base(view)
 		{
 			_customerRepository = customerRepository;
 			_synologenMemberService = synologenMemberService;
@@ -49,7 +48,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 				FirstName = x.FirstName,
 				LastName = x.LastName,
 				PersonalIdNumber = x.PersonalIdNumber,
-				EditPageUrl = editUrl + "?customer=" + x.Id
+				EditPageUrl = String.Format("{0}?customer={1}", editUrl, x.Id)
 			};
 			var shopId = _synologenMemberService.GetCurrentShopId();
 			var criteria = new CustomersForShopMatchingCriteria { ShopId = shopId, SearchTerm = searchTerm };

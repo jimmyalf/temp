@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" CodeBehind="LensSubscriptionCustomersList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptionCustomersList" %>
-
-<asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
+<label for="<%=txtSearch.ClientID%>">Sök</label>
+<asp:TextBox ID="txtSearch" runat="server" />
 <asp:Button ID="btnSearch" runat="server" Text="Sök" />
 <asp:Repeater ID="rptCustomers" runat="server" DataSource='<%#Model.List%>'>
 	<HeaderTemplate >
@@ -10,12 +10,12 @@
 			</tr>
 	</HeaderTemplate>
 	<ItemTemplate>
-		<tr>
-			<td><%# Eval("FirstName")%></td>
-			<td><%# Eval("LastName")%></td>
-			<td><%# Eval("PersonalIdNumber")%></td>
-			<td><a href="<%# Eval("EditPageUrl")%>" >Redigera</a></td>
-		</tr>
+			<tr>
+				<td><%# Eval("FirstName")%></td>
+				<td><%# Eval("LastName")%></td>
+				<td><%# Eval("PersonalIdNumber")%></td>
+				<td><a href="<%# Eval("EditPageUrl")%>" >Redigera</a></td>
+			</tr>
 	</ItemTemplate>
 	<FooterTemplate>
 		</table>

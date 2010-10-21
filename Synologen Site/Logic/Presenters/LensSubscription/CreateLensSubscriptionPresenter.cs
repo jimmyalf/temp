@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using WebFormsMvp;
@@ -7,15 +8,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 {
 	public class CreateLensSubscriptionPresenter : Presenter<ICreateLensSubscriptionView>
 	{
+		private readonly ICustomerRepository _customerRepository;
 
-		public CreateLensSubscriptionPresenter(ICreateLensSubscriptionView view) : base(view)
+		public CreateLensSubscriptionPresenter(ICreateLensSubscriptionView view, ICustomerRepository customerRepository) : base(view)
 		{
+			_customerRepository = customerRepository;
 			View.Load += View_Load;
 		}
 
 		public void View_Load(object sender, EventArgs e)
 		{
-			View.Model.CustomerId = HttpContext.Request.Params["customer"].ToIntOrDefault();
+			var customerId = HttpContext.Request.Params["customer"].ToIntOrDefault();
+			var customer = _customerRepository.Get(customerId);
+			View.Model.CustomerName = customer.ParseName(x => x.FirstName, x => x.LastName);
 		}
 
 		public override void ReleaseView()

@@ -15,6 +15,7 @@
 		<a href="FrameOrderView.aspx?frameorder=145">Visa glasögonbeställning för order 145</a><br />
 		<a href="FrameOrderView.aspx?frameorder=-1">Visa glasögonbeställning för order -1</a><br />
 		<a href="FrameOrderList.aspx">Visa beställningslista</a><br />
-		<a href="LensSubscriptionCustomersList.aspx">Visa linsabonnemang kunder</a>
+		<a href="LensSubscriptionCustomersList.aspx">Visa linsabonnemang kunder</a><br />
+		<a href="LensSubscriptionCreateSubscription.aspx?customer=1">Skapa linsabonnemang för kund(med id=1)</a>
 	</div>
 </asp:Content>

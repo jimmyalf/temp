@@ -26,11 +26,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 			For<IFrameGlassTypeRepository>().HybridHttpOrThreadLocalScoped().Use<FrameGlassTypeRepository>();
 			For<IFrameOrderRepository>().HybridHttpOrThreadLocalScoped().Use<FrameOrderRepository>();
 			For<IShopRepository>().HybridHttpOrThreadLocalScoped().Use<ShopRepository>();
-			For<IFrameOrderService>().Use<SynologenFrameOrderService>();
+			
 			For<ICustomerRepository>().HybridHttpOrThreadLocalScoped().Use<CustomerRepository>();
+			For<ISubscriptionRepository>().HybridHttpOrThreadLocalScoped().Use<SubscriptionRepository>();
 			For<ICountryRepository>().HybridHttpOrThreadLocalScoped().Use<CountryRepository>();
 			For<Core.Domain.Persistence.LensSubscription.IShopRepository>().HybridHttpOrThreadLocalScoped().Use<Data.Repositories.LensSubscriptionRepositories.ShopRepository>();
-
+			For<IFrameOrderService>().Use<SynologenFrameOrderService>();
 			For<ISynologenSettingsService>().Use<SynologenSettingsService>();
 			For<IEmailService>().Use<EmailService>();
 			For<ISynologenMemberService>().Use<SynologenMemberService>();

@@ -7,10 +7,10 @@ using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.Integration.Test.CommonDataTestHelpers;
-using Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData.Factories;
+using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 {
 	public abstract class BaseRepositoryTester<TRepository> : NHibernateRepositoryTester<TRepository>
 	{
@@ -20,17 +20,17 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		protected override Action SetUp()
 		{
 			return () => 
-			{
-				SetupData();
-				ActionCriteriaExtensions.ConstructConvertersUsing(ResolveCriteriaConverters);
-			};
+			       	{
+			       		SetupData();
+			       		ActionCriteriaExtensions.ConstructConvertersUsing(ResolveCriteriaConverters);
+			       	};
 		}
 
 		protected override ISessionFactory GetSessionFactory()
 		{
 			if(!NHibernateFactory.MappingAssemblies.Any())
 			{
-				var assembly = typeof (Data.Repositories.NHibernate.Mappings.LensSubscriptions.SubscriptionMap).Assembly;
+				var assembly = typeof(Synologen.Data.Repositories.NHibernate.Mappings.LensSubscriptions.SubscriptionMap).Assembly;
 				NHibernateFactory.MappingAssemblies.Add(assembly);				
 			}
 			return NHibernateFactory.Instance.GetSessionFactory();

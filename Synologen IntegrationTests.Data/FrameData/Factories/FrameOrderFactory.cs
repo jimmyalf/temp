@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
-using Spinit.Wpc.Synologen.Integration.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.FrameData.Factories
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData.Factories
 {
 	public static class FrameOrderFactory {
 		public static IEnumerable<FrameOrder> GetFrameOrders(IEnumerable<Frame> frames, IEnumerable<FrameGlassType> glassTypes, Shop shop) 

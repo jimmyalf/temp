@@ -12,9 +12,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 		{
 			return new []
 			       	{
-			       		new Customer {FirstName = "Eva", LastName = "Bergström", PersonalIdNumber = "8407143778"},
-			       		new Customer {FirstName = "Lasse", LastName = "Larsson", PersonalIdNumber = "5406011857"},
-			       		new Customer {FirstName = "Lotta", LastName = "Olsson", PersonalIdNumber = "4906103207"}
+			       		new Customer { FirstName = "Eva", LastName = "Bergström", PersonalIdNumber = "8407143778" },
+			       		new Customer { FirstName = "Lasse", LastName = "Larsson", PersonalIdNumber = "5406011857" },
+			       		new Customer { FirstName = "Lotta", LastName = "Olsson", PersonalIdNumber = "4906103207" }
 			       	};
 		}
 	}

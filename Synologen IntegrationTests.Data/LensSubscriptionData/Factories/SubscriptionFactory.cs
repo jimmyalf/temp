@@ -1,8 +1,8 @@
 using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Integration.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData.Factories
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories
 {
 	public static class SubscriptionFactory
 	{

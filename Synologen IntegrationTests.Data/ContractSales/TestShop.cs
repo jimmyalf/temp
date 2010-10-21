@@ -3,7 +3,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Utility.Business;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.ContractSales
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 {
 	[TestFixture]
 	public class Given_a_persisted_shop : TestBase 

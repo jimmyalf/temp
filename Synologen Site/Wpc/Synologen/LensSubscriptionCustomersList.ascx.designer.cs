@@ -11,8 +11,9 @@
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 {
 
-
 	public partial class LensSubscriptionCustomersList
 	{
+		protected System.Web.UI.WebControls.Button btnSearch;
+		protected System.Web.UI.WebControls.TextBox txtSearch;
 	}
 }

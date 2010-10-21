@@ -2,7 +2,7 @@ using System;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.ContractSales.Factories
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories
 {
 	public static class ShopFactory
 	{

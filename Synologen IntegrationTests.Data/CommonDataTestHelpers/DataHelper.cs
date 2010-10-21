@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.CommonDataTestHelpers
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers
 {
 	public static  class DataHelper
 	{

@@ -2,7 +2,7 @@ using System.Linq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 {
 	[TestFixture]
 	public class Given_a_frame_order: TestBase

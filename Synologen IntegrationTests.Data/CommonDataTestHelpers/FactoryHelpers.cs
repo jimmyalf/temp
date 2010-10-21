@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.CommonDataTestHelpers
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers
 {
 	public static class FactoryHelpers
 	{

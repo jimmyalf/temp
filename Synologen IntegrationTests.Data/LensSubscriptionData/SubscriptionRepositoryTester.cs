@@ -4,9 +4,10 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData.Factories;
+using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData;
+using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 {
 	[TestFixture]
 	[Category("SubscriptionRepositoryTester")]
@@ -17,13 +18,13 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		public When_adding_a_subscription()
 		{
 			Context = (ISession session) =>
-			{
-				var shop = new ShopRepository(session).Get(TestShopId);
-				var country = new CountryRepository(session).Get(TestCountryId);
-				var customer = CustomerFactory.Get(country, shop);
-				new CustomerRepository(session).Save(customer);
-				_subscriptionToSave = SubscriptionFactory.Get(customer);
-			};
+			          	{
+			          		var shop = new ShopRepository(session).Get(TestShopId);
+			          		var country = new CountryRepository(session).Get(TestCountryId);
+			          		var customer = CustomerFactory.Get(country, shop);
+			          		new CustomerRepository(session).Save(customer);
+			          		_subscriptionToSave = SubscriptionFactory.Get(customer);
+			          	};
 
 			Because = (SubscriptionRepository repository) => repository.Save(_subscriptionToSave);
 		}
@@ -32,16 +33,16 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		public void Should_save_the_subscription()
 		{
 			AssertUsing(session => 
-			{
-				var savedSubscription = new SubscriptionRepository(session).Get(_subscriptionToSave.Id);
-				savedSubscription.ShouldBe(_subscriptionToSave);
-				savedSubscription.ActivatedDate.ShouldBe(_subscriptionToSave.ActivatedDate);
-				savedSubscription.CreatedDate.ShouldBe(_subscriptionToSave.CreatedDate);
-				savedSubscription.Customer.ShouldBe(_subscriptionToSave.Customer);
-				savedSubscription.PaymentInfo.ShouldBe(_subscriptionToSave.PaymentInfo);
-				savedSubscription.Status.ShouldBe(_subscriptionToSave.Status);
-				savedSubscription.Transactions.Count().ShouldBe(_subscriptionToSave.Transactions.Count());
-			});
+			            	{
+			            		var savedSubscription = new SubscriptionRepository(session).Get(_subscriptionToSave.Id);
+			            		savedSubscription.ShouldBe(_subscriptionToSave);
+			            		savedSubscription.ActivatedDate.ShouldBe(_subscriptionToSave.ActivatedDate);
+			            		savedSubscription.CreatedDate.ShouldBe(_subscriptionToSave.CreatedDate);
+			            		savedSubscription.Customer.ShouldBe(_subscriptionToSave.Customer);
+			            		savedSubscription.PaymentInfo.ShouldBe(_subscriptionToSave.PaymentInfo);
+			            		savedSubscription.Status.ShouldBe(_subscriptionToSave.Status);
+			            		savedSubscription.Transactions.Count().ShouldBe(_subscriptionToSave.Transactions.Count());
+			            	});
 		}
 	}
 
@@ -54,15 +55,15 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		public When_editing_a_subscription()
 		{
 			Context = (ISession session) =>
-			{
-				var shop = new ShopRepository(session).Get(TestShopId);
-				var country = new CountryRepository(session).Get(TestCountryId);
-				var customer = CustomerFactory.Get(country, shop);
-				new CustomerRepository(session).Save(customer);
-				var subscriptionToSave = SubscriptionFactory.Get(customer);
-				new SubscriptionRepository(session).Save(subscriptionToSave);
-				_subscriptionToEdit = SubscriptionFactory.Edit(subscriptionToSave);
-			};
+			          	{
+			          		var shop = new ShopRepository(session).Get(TestShopId);
+			          		var country = new CountryRepository(session).Get(TestCountryId);
+			          		var customer = CustomerFactory.Get(country, shop);
+			          		new CustomerRepository(session).Save(customer);
+			          		var subscriptionToSave = SubscriptionFactory.Get(customer);
+			          		new SubscriptionRepository(session).Save(subscriptionToSave);
+			          		_subscriptionToEdit = SubscriptionFactory.Edit(subscriptionToSave);
+			          	};
 
 			Because = (SubscriptionRepository repository) => repository.Save(_subscriptionToEdit);
 		}
@@ -71,16 +72,16 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		public void Should_edit_the_subscription()
 		{
 			AssertUsing(session => 
-			{
-				var fetchedSubscription = new SubscriptionRepository(session).Get(_subscriptionToEdit.Id);
-				fetchedSubscription.ShouldBe(_subscriptionToEdit);
-				fetchedSubscription.ActivatedDate.ShouldBe(_subscriptionToEdit.ActivatedDate);
-				fetchedSubscription.CreatedDate.ShouldBe(_subscriptionToEdit.CreatedDate);
-				fetchedSubscription.Customer.ShouldBe(_subscriptionToEdit.Customer);
-				fetchedSubscription.PaymentInfo.ShouldBe(_subscriptionToEdit.PaymentInfo);
-				fetchedSubscription.Status.ShouldBe(_subscriptionToEdit.Status);
-				fetchedSubscription.Transactions.Count().ShouldBe(_subscriptionToEdit.Transactions.Count());
-			});
+			            	{
+			            		var fetchedSubscription = new SubscriptionRepository(session).Get(_subscriptionToEdit.Id);
+			            		fetchedSubscription.ShouldBe(_subscriptionToEdit);
+			            		fetchedSubscription.ActivatedDate.ShouldBe(_subscriptionToEdit.ActivatedDate);
+			            		fetchedSubscription.CreatedDate.ShouldBe(_subscriptionToEdit.CreatedDate);
+			            		fetchedSubscription.Customer.ShouldBe(_subscriptionToEdit.Customer);
+			            		fetchedSubscription.PaymentInfo.ShouldBe(_subscriptionToEdit.PaymentInfo);
+			            		fetchedSubscription.Status.ShouldBe(_subscriptionToEdit.Status);
+			            		fetchedSubscription.Transactions.Count().ShouldBe(_subscriptionToEdit.Transactions.Count());
+			            	});
 		}
 	}
 
@@ -93,14 +94,14 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		public When_deleting_a_subscription()
 		{
 			Context = (ISession session) =>
-			{
-				var shop = new ShopRepository(session).Get(TestShopId);
-				var country = new CountryRepository(session).Get(TestCountryId);
-				var customer = CustomerFactory.Get(country, shop);
-				new CustomerRepository(session).Save(customer);
-				_subscriptionToDelete = SubscriptionFactory.Get(customer);
-				new SubscriptionRepository(session).Save(_subscriptionToDelete);
-			};
+			          	{
+			          		var shop = new ShopRepository(session).Get(TestShopId);
+			          		var country = new CountryRepository(session).Get(TestCountryId);
+			          		var customer = CustomerFactory.Get(country, shop);
+			          		new CustomerRepository(session).Save(customer);
+			          		_subscriptionToDelete = SubscriptionFactory.Get(customer);
+			          		new SubscriptionRepository(session).Save(_subscriptionToDelete);
+			          	};
 
 			Because = (SubscriptionRepository repository) => repository.Delete(_subscriptionToDelete);
 		}
@@ -109,10 +110,10 @@ namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData
 		public void Should_delete_the_subscription()
 		{
 			AssertUsing(session => 
-			{
-				var fetchedSubscription = new SubscriptionRepository(session).Get(_subscriptionToDelete.Id);
-				fetchedSubscription.ShouldBe(null);
-			});
+			            	{
+			            		var fetchedSubscription = new SubscriptionRepository(session).Get(_subscriptionToDelete.Id);
+			            		fetchedSubscription.ShouldBe(null);
+			            	});
 		}
 	}
 }

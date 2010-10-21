@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.LensSubscriptionData.Factories
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories
 {
 	public static class ShopFactory
 	{

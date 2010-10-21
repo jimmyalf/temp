@@ -4,7 +4,7 @@ using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 {
 	[TestFixture]
 	public class Given_a_framecolor : TestBase

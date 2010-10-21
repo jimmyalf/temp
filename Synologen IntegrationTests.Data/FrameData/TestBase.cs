@@ -12,10 +12,10 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
-using Spinit.Wpc.Synologen.Integration.Test.CommonDataTestHelpers;
-using Spinit.Wpc.Synologen.Integration.Test.FrameData.Factories;
+using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData.Factories;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 {
 	public class TestBase : AssertionHelper
 	{
@@ -26,7 +26,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.FrameData
 		{
 			ActionCriteriaExtensions.ConstructConvertersUsing(ResolveCriteriaConverters);
 			SetupData();
-			NHibernateFactory.MappingAssemblies.Add(typeof(Data.Repositories.NHibernate.Mappings.FrameMap).Assembly);
+			NHibernateFactory.MappingAssemblies.Add(typeof(Synologen.Data.Repositories.NHibernate.Mappings.FrameMap).Assembly);
 			_sessionFactory = NHibernateFactory.Instance.GetSessionFactory();
 			var testSession = GetNewSession();
 			var validationSession = GetNewSession();

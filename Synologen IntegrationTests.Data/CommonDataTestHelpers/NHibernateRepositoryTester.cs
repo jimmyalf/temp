@@ -2,7 +2,7 @@ using System;
 using NHibernate;
 using NUnit.Framework;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.CommonDataTestHelpers
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers
 {
 	public abstract class NHibernateRepositoryTester<TRepository>
 	{

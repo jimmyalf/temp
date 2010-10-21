@@ -4,7 +4,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Utility.Business;
 
-namespace Spinit.Wpc.Synologen.Integration.Test.ContractSales
+namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 {
 	public class TestBase : AssertionHelper
 	{

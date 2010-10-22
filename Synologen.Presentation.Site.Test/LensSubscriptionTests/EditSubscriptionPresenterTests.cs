@@ -25,12 +25,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
 		private readonly Mock<HttpContextBase> _mockedHttpContext;
 		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
+		private readonly int _subscriptionId;
 
 		public When_loading_edit_subscription_view()
 		{
 			//Arrange
-			const int customerId = 1;
-			const int shopId = 1;
+			_subscriptionId = 1;
+			const int customerId = 2;
+			const int shopId = 3;
 			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(1));
 			_mockedView = MvpHelpers.GetMockedView<IEditLensSubscriptionView, EditLensSubscriptionModel>();
 			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
@@ -38,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
 			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-			_mockedHttpContext = MvpHelpers.GetMockedHttpContext().SetupSingleQuery("subscription", "1");
+			_mockedHttpContext = MvpHelpers.GetMockedHttpContext().SetupSingleQuery("subscription", _subscriptionId.ToString());
 			var presenter = new EditLensSubscriptionPresenter(_mockedView.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object){HttpContext = _mockedHttpContext.Object};
 
 			//Act
@@ -60,6 +62,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
 			view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
 			view.Model.DisplayForm.ShouldBe(true);
+		}
+
+		[Test]
+		public void Presenter_should_ask_for_expected_subscription_shop_id_and_access()
+		{
+			_mockedSubscriptionRepository.Verify(x => x.Get(It.Is<int>(id => id.Equals(_subscriptionId))));
+			_mockedSynologenMemberService.Verify(x => x.GetCurrentShopId());
+			_mockedSynologenMemberService.Verify(x => x.ShopHasAccessTo(It.Is<ShopAccess>( access => access.Equals(ShopAccess.LensSubscription))));
 		}
 	}
 }

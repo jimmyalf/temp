@@ -23,6 +23,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 		{
 			return GetCustomer(id, "Eva", "Bergström", "8407143778", shopId);
 		}
+		public static Customer Get(int id, Mock<Shop> mockedShop)
+		{
+			return GetCustomer(id, "Eva", "Bergström", "8407143778", mockedShop);
+		}
 
 		private static Customer GetCustomer(int id, string firstName, string lastName, string personalIdNumber, int shopId)
 		{
@@ -34,6 +38,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			var mockedShop = new Mock<Shop>();
 			mockedShop.SetupGet(x => x.Id).Returns(shopId);
 			mockedShop.SetupGet(x => x.Name).Returns("Butik");
+			mockedCustomer.SetupGet(x => x.Shop).Returns(mockedShop.Object);
+			return mockedCustomer.Object;
+		}
+		private static Customer GetCustomer(int id, string firstName, string lastName, string personalIdNumber, Mock<Shop> mockedShop)
+		{
+			var mockedCustomer = new Mock<Customer>();
+			mockedCustomer.SetupGet(x => x.Id).Returns(id);
+			mockedCustomer.SetupGet(x => x.FirstName).Returns(firstName);
+			mockedCustomer.SetupGet(x => x.LastName).Returns(lastName);
+			mockedCustomer.SetupGet(x => x.PersonalIdNumber).Returns(personalIdNumber);
 			mockedCustomer.SetupGet(x => x.Shop).Returns(mockedShop.Object);
 			return mockedCustomer.Object;
 		}

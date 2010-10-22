@@ -3,8 +3,10 @@ using System.Web;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
@@ -22,16 +24,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly Mock<IEditLensSubscriptionView> _mockedView;
 		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
 		private readonly Mock<HttpContextBase> _mockedHttpContext;
+		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
 
 		public When_loading_edit_subscription_view()
 		{
 			//Arrange
+			const int customerId = 1;
+			const int shopId = 1;
 			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(1));
 			_mockedView = MvpHelpers.GetMockedView<IEditLensSubscriptionView, EditLensSubscriptionModel>();
 			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
-			_mockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(SubscriptionFactory.Get(CustomerFactory.Get(1)));
+			_mockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId)));
+			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
+			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
+			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 			_mockedHttpContext = MvpHelpers.GetMockedHttpContext().SetupSingleQuery("subscription", "1");
-			var presenter = new EditLensSubscriptionPresenter(_mockedView.Object, _mockedSubscriptionRepository.Object){HttpContext = _mockedHttpContext.Object};
+			var presenter = new EditLensSubscriptionPresenter(_mockedView.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object){HttpContext = _mockedHttpContext.Object};
 
 			//Act
 			presenter.View_Load(null,new EventArgs());
@@ -49,6 +57,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			view.Model.MonthlyAmount.ShouldBe(_expectedSubscription.PaymentInfo.MonthlyAmount);
 			view.Model.Status.ShouldBe(_expectedSubscription.Status.GetEnumDisplayName());
 			view.Model.Status.ShouldBe("Aktiv");
+			view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+			view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
+			view.Model.DisplayForm.ShouldBe(true);
 		}
 	}
 }

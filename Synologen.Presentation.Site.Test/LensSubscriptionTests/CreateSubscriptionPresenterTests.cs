@@ -166,7 +166,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			_mockedHttpResponse = new Mock<HttpResponseBase>();
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(new NameValueCollection{{"customer",customerId.ToString()}});
-			mockedHttpContext.SetupGet(x => x.Request.AppRelativeCurrentExecutionFilePath).Returns(_currentPageUrl);
 			mockedHttpContext.SetupGet(x => x.Response).Returns(_mockedHttpResponse.Object);
 			mockedHttpContext.SetupGet(x => x.Request.Url).Returns(new Uri(currentPageUri));
 

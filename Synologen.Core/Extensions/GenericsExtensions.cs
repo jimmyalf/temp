@@ -16,11 +16,31 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			{
 				return _firstName;
 			}
-			if( String.IsNullOrEmpty(_lastName) == false)
-			{
-				return  _lastName;
-			}
-			return String.Empty;
+			return String.IsNullOrEmpty(_lastName) == false ? _lastName : String.Empty;
+		}
+
+		public static TResult With<TInput, TResult>(this TInput o, Func<TInput, TResult> evaluator) 
+		    where TResult : class 
+		    where TInput : class
+		{
+		    return o == null ? null : evaluator(o);
+		}
+		public static TResult? With<TInput, TResult>(this TInput o, Func<TInput, TResult?> evaluator) 
+			where TResult : struct 
+			where TInput : class
+		{
+			return o == null ? null : evaluator(o);
+		}
+
+		public static TResult Return<TInput,TResult>(this TInput o, Func<TInput, TResult> evaluator, TResult failureValue) 
+			where TInput: class
+		{
+			return o == null ? failureValue : evaluator(o);
+		}
+		public static TResult Return<TInput,TResult>(this TInput? o, Func<TInput?, TResult> evaluator, TResult failureValue) 
+		    where TInput: struct
+		{
+		    return o == null ? failureValue : evaluator(o);
 		}
 	}
 }

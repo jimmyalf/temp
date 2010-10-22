@@ -72,4 +72,83 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedSynologenMemberService.Verify(x => x.ShopHasAccessTo(It.Is<ShopAccess>( access => access.Equals(ShopAccess.LensSubscription))));
 		}
 	}
+
+	[TestFixture]
+	[Category("EditLensSubscriptionPresenterTester")]
+	public class When_loading_edit_subscription_view_with_customer_belonging_to_another_shop 
+	{
+
+		private readonly Mock<IEditLensSubscriptionView> _mockedView;
+		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
+		private readonly Mock<HttpContextBase> _mockedHttpContext;
+		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
+		private readonly int _subscriptionId;
+
+		public When_loading_edit_subscription_view_with_customer_belonging_to_another_shop()
+		{
+			//Arrange
+			_subscriptionId = 1;
+			const int customerId = 2;
+			const int shopId = 3;
+			_mockedView = MvpHelpers.GetMockedView<IEditLensSubscriptionView, EditLensSubscriptionModel>();
+			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
+			_mockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId)));
+			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
+			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId + 1);
+			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
+			_mockedHttpContext = MvpHelpers.GetMockedHttpContext().SetupSingleQuery("subscription", _subscriptionId.ToString());
+			var presenter = new EditLensSubscriptionPresenter(_mockedView.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object){HttpContext = _mockedHttpContext.Object};
+
+			//Act
+			presenter.View_Load(null,new EventArgs());
+		}
+
+		[Test]
+		public void Model_should_have_expected_values()
+		{
+			var view = _mockedView.Object;
+			view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+			view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(true);
+			view.Model.DisplayForm.ShouldBe(false);
+		}
+	}
+
+	[TestFixture]
+	[Category("EditLensSubscriptionPresenterTester")]
+	public class When_loading_edit_subscription_view_with_shop_not_having_lens_subscription_access
+	{
+		private readonly Mock<IEditLensSubscriptionView> _mockedView;
+		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
+		private readonly Mock<HttpContextBase> _mockedHttpContext;
+		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
+		private readonly int _subscriptionId;
+
+		public When_loading_edit_subscription_view_with_shop_not_having_lens_subscription_access()
+		{
+			//Arrange
+			_subscriptionId = 1;
+			const int customerId = 2;
+			const int shopId = 3;
+			_mockedView = MvpHelpers.GetMockedView<IEditLensSubscriptionView, EditLensSubscriptionModel>();
+			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
+			_mockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId)));
+			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
+			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
+			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(false);
+			_mockedHttpContext = MvpHelpers.GetMockedHttpContext().SetupSingleQuery("subscription", _subscriptionId.ToString());
+			var presenter = new EditLensSubscriptionPresenter(_mockedView.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object){HttpContext = _mockedHttpContext.Object};
+
+			//Act
+			presenter.View_Load(null,new EventArgs());
+		}
+
+		[Test]
+		public void Model_should_have_expected_values()
+		{
+			var view = _mockedView.Object;
+			view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(true);
+			view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
+			view.Model.DisplayForm.ShouldBe(false);
+		}
+	}
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
@@ -14,6 +13,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 	public partial class LensSubscriptionCreateSubscription : MvpUserControl<CreateLensSubscriptionModel>, ICreateLensSubscriptionView
 	{
 		public event EventHandler<SaveSubscriptionEventArgs> Submit;
+		public int RedirectOnSavePageId { get; set; }
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -33,24 +33,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 			};
 			Submit(this, args);
 		}
-
-		//protected void ValidateLength(object source, ServerValidateEventArgs args)
-		//{
-		//    var control = source as CustomValidator;
-		//    if(control == null)
-		//    {
-		//        args.IsValid = false;
-		//        return;
-		//    }
-		//    if(control.ControlToValidate.Equals(txtClearingNumber.ID))
-		//    {
-		//        args.IsValid = args.Value.Length.Equals(4);
-		//    }
-		//    if(control.ControlToValidate.Equals(txtAccountNumber.ID))
-		//    {
-		//        args.IsValid = args.Value.Length <= 12;
-		//    }
-		//    return;
-		//}
 	}
 }

@@ -51,6 +51,7 @@
     <Compile Include="Logic\EventArguments\EditFrameFormEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SaveSubscriptionEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SearchEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\LensSubscription\UpdateSubscriptionEventArgs.cs" />
     <Compile Include="Logic\Helpers\StringBuilderExtensions.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\EditLensSubscriptionPresenter.cs" />

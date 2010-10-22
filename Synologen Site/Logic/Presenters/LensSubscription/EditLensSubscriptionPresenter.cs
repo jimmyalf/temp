@@ -4,6 +4,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using WebFormsMvp;
 
@@ -19,11 +20,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			_subscriptionRepository = subscriptionRepository;
 			_synologenMemberService = synologenMemberService;
 			View.Load += View_Load;
+			View.Submit += View_Submit;
 		}
 
 		public override void ReleaseView()
 		{
 			View.Load -= View_Load;
+			View.Submit -= View_Submit;
 		}
 		public void View_Load(object sender, EventArgs e)
 		{
@@ -43,6 +46,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 		{ 
 			View.Model.ShopDoesNotHaveAccessToLensSubscriptions = !_synologenMemberService.ShopHasAccessTo(ShopAccess.LensSubscription);
 			View.Model.ShopDoesNotHaveAccessGivenCustomer = !_synologenMemberService.GetCurrentShopId().Equals(subscription.Customer.Shop.Id);
+		}
+
+		public void View_Submit(object sender, SaveSubscriptionEventArgs eventArgs)
+		{
+			TrySaveSubscription(eventArgs);
+			TryRedirect();
+		}
+
+		private void TrySaveSubscription(SaveSubscriptionEventArgs args)
+		{
+			var subscriptionId = HttpContext.Request.Params["subscription"].ToIntOrDefault();
+			if(subscriptionId <= 0) return;
+			var subscription = _subscriptionRepository.Get(subscriptionId);
+			subscription.PaymentInfo.AccountNumber = args.AccountNumber;
+			subscription.PaymentInfo.ClearingNumber = args.ClearingNumber;
+			subscription.PaymentInfo.MonthlyAmount = args.MonthlyAmount;
+			_subscriptionRepository.Save(subscription);
+		}
+
+		private void TryRedirect()
+		{
+			if(View.RedirectOnSavePageId <= 0)
+			{
+				var currentpage = HttpContext.Request.Url.PathAndQuery;
+				HttpContext.Response.Redirect(currentpage);
+				return;
+			}
+			var redirectPageUrl = _synologenMemberService.GetPageUrl(View.RedirectOnSavePageId);
+			if(String.IsNullOrEmpty(redirectPageUrl)) return;
+			HttpContext.Response.Redirect(redirectPageUrl);
 		}
 	}
 }

@@ -8,6 +8,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
@@ -33,14 +34,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_subscriptionId = 1;
 			const int customerId = 2;
 			const int shopId = 3;
-			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(1));
+			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId));
 			_mockedView = MvpHelpers.GetMockedView<IEditLensSubscriptionView, EditLensSubscriptionModel>();
 			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
-			_mockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId)));
+			_mockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
 			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
 			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-			_mockedHttpContext = MvpHelpers.GetMockedHttpContext().SetupSingleQuery("subscription", _subscriptionId.ToString());
+			_mockedHttpContext = new HttpContextMock().SetupSingleQuery("subscription", _subscriptionId.ToString());
 			var presenter = new EditLensSubscriptionPresenter(_mockedView.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object){HttpContext = _mockedHttpContext.Object};
 
 			//Act
@@ -75,6 +76,125 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
+	public class When_submitting_edit_subscription_view 
+	{
+		private readonly Subscription _expectedSubscription;
+		private readonly Mock<IEditLensSubscriptionView> _mockedView;
+		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
+		private readonly HttpContextMock _mockedHttpContext;
+		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
+		private readonly int _subscriptionId;
+		private readonly SaveSubscriptionEventArgs _saveEventArgs;
+		private readonly string _redirectUrl;
+		private readonly int _redirectPageId;
+
+		public When_submitting_edit_subscription_view()
+		{
+			//Arrange
+			_subscriptionId = 1;
+			const int customerId = 2;
+			const int shopId = 3;
+			_redirectPageId = 55;
+			_redirectUrl = "/test/redirect/";
+			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId));
+			_mockedView = MvpHelpers.GetMockedView<IEditLensSubscriptionView, EditLensSubscriptionModel>();
+			_mockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
+			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
+			_mockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
+			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
+			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
+			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
+			_mockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
+			_mockedHttpContext = new HttpContextMock().SetupSingleQuery("subscription", _subscriptionId.ToString());
+			var presenter = new EditLensSubscriptionPresenter(_mockedView.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object){HttpContext = _mockedHttpContext.Object};
+			_saveEventArgs = new SaveSubscriptionEventArgs
+			{
+				AccountNumber = _expectedSubscription.PaymentInfo.AccountNumber.Reverse(),
+				ClearingNumber = _expectedSubscription.PaymentInfo.ClearingNumber.Reverse(),
+				MonthlyAmount = _expectedSubscription.PaymentInfo.MonthlyAmount + 255.21M
+			};
+
+
+			//Act
+			presenter.View_Submit(null, _saveEventArgs);
+		}
+
+		[Test]
+		public void Presenter_saves_subscription_with_expected_values()
+		{
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.ActivatedDate.Value.IsSameDay(_expectedSubscription.ActivatedDate.Value))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.CreatedDate.IsSameDay(_expectedSubscription.CreatedDate))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Customer.Id.Equals(_expectedSubscription.Customer.Id))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Id.Equals(_expectedSubscription.Id))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.AccountNumber.Equals(_saveEventArgs.AccountNumber))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.ClearingNumber.Equals(_saveEventArgs.ClearingNumber))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.MonthlyAmount.Equals(_saveEventArgs.MonthlyAmount))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Status.Equals(_expectedSubscription.Status))));
+		}
+
+		[Test]
+		public void Presenter_get_expected_page_url_and_perfoms_redirect()
+		{
+			_mockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
+			_mockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_redirectUrl))));
+		}
+
+	}
+
+	[TestFixture]
+	[Category("CreateLensSubscriptionPresenterTester")]
+	public class When_submitting_edit_subscription_view_with_no_set_redirect_on_save_page_id
+	{
+		private readonly Subscription _expectedSubscription;
+		private readonly Mock<IEditLensSubscriptionView> _mockedView;
+		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
+		private readonly HttpContextMock _mockedHttpContext;
+		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
+		private readonly int _subscriptionId;
+		private readonly SaveSubscriptionEventArgs _saveEventArgs;
+		private readonly string _currentPageUrl;
+
+		public When_submitting_edit_subscription_view_with_no_set_redirect_on_save_page_id()
+		{
+			//Arrange
+			_subscriptionId = 1;
+			const int customerId = 2;
+			const int shopId = 3;
+			_currentPageUrl = "/test/redirect/";
+			//var currentPageUri = "http://www.test.se" + _currentPageUrl;
+			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId));
+			_mockedView = MvpHelpers.GetMockedView<IEditLensSubscriptionView, EditLensSubscriptionModel>();
+			_mockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(0);
+			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
+			_mockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
+			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
+			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
+			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
+			_mockedHttpContext = new HttpContextMock()
+				.SetupSingleQuery("subscription", _subscriptionId.ToString())
+				.SetupPathAndQuery(_currentPageUrl);
+			var presenter = new EditLensSubscriptionPresenter(_mockedView.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object){HttpContext = _mockedHttpContext.Object};
+			_saveEventArgs = new SaveSubscriptionEventArgs
+			{
+				AccountNumber = _expectedSubscription.PaymentInfo.AccountNumber.Reverse(),
+				ClearingNumber = _expectedSubscription.PaymentInfo.ClearingNumber.Reverse(),
+				MonthlyAmount = _expectedSubscription.PaymentInfo.MonthlyAmount + 255.21M
+			};
+
+
+			//Act
+			presenter.View_Submit(null, _saveEventArgs);
+		}
+
+		[Test]
+		public void Presenter_perfoms_redirect_to_current_page()
+		{
+			_mockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_currentPageUrl))));
+		}
+	}
+
+	[TestFixture]
+	[Category("EditLensSubscriptionPresenterTester")]
 	public class When_loading_edit_subscription_view_with_customer_belonging_to_another_shop 
 	{
 
@@ -96,7 +216,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
 			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId + 1);
 			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-			_mockedHttpContext = MvpHelpers.GetMockedHttpContext().SetupSingleQuery("subscription", _subscriptionId.ToString());
+			_mockedHttpContext = new HttpContextMock().SetupSingleQuery("subscription", _subscriptionId.ToString());
 			var presenter = new EditLensSubscriptionPresenter(_mockedView.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object){HttpContext = _mockedHttpContext.Object};
 
 			//Act
@@ -135,7 +255,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
 			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(false);
-			_mockedHttpContext = MvpHelpers.GetMockedHttpContext().SetupSingleQuery("subscription", _subscriptionId.ToString());
+			_mockedHttpContext = new HttpContextMock().SetupSingleQuery("subscription", _subscriptionId.ToString());
 			var presenter = new EditLensSubscriptionPresenter(_mockedView.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object){HttpContext = _mockedHttpContext.Object};
 
 			//Act

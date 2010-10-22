@@ -8,5 +8,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription
 	public interface ICreateLensSubscriptionView : IView<CreateLensSubscriptionModel>
 	{
 		event EventHandler<SaveSubscriptionEventArgs> Submit;
+		int RedirectOnSavePageId { get; set; }
 	}
 }

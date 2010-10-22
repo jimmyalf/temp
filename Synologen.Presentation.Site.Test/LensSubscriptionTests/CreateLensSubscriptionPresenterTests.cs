@@ -78,6 +78,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
 		private readonly SaveSubscriptionEventArgs _saveEventArgs;
 		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
+		private readonly string _redirectUrl;
+		private readonly int _redirectPageId;
+		private readonly Mock<HttpResponseBase> _mockedHttpResponse;
 
 
 		public When_submitting_create_subscription_view()
@@ -85,11 +88,92 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			//Arrange
 			const int customerId = 5;
 			const int shopId = 5;
+			_redirectPageId = 55;
+			_redirectUrl = "/test/redirect/";
 			var mockedHttpContext = new Mock<HttpContextBase>();
+			_mockedHttpResponse = new Mock<HttpResponseBase>();
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(new NameValueCollection{{"customer",customerId.ToString()}});
+			mockedHttpContext.SetupGet(x => x.Response).Returns(_mockedHttpResponse.Object);
+
 
 			var mockedView = new Mock<ICreateLensSubscriptionView>();
 			mockedView.SetupGet(x => x.Model).Returns(new CreateLensSubscriptionModel());
+			mockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
+			view = mockedView.Object;
+
+			var mockedCustomerRepository = new Mock<ICustomerRepository>();
+			mockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId, shopId));
+
+			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
+			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
+			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
+			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
+			_mockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
+			presenter = new CreateLensSubscriptionPresenter(view, mockedCustomerRepository.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object) {HttpContext = mockedHttpContext.Object};
+
+			//Act
+			_saveEventArgs = new SaveSubscriptionEventArgs
+			{
+				AccountNumber = "123456789",
+                ClearingNumber = "1234",
+                MonthlyAmount = 699.25M
+			};
+
+			presenter.View_Submit(null, _saveEventArgs);
+		}
+
+		[Test]
+		public void Presenter_gets_expected_customer()
+		{
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.CreatedDate.IsSameDay(DateTime.Now))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Customer.Id.Equals(5))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.AccountNumber.Equals(_saveEventArgs.AccountNumber))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.ClearingNumber.Equals(_saveEventArgs.ClearingNumber))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.MonthlyAmount.Equals(_saveEventArgs.MonthlyAmount))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Status.Equals(SubscriptionStatus.Created))));
+		}
+
+		[Test]
+		public void Presenter_get_expected_page_url_and_perfoms_redirect()
+		{
+			_mockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
+			_mockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_redirectUrl))));
+		}
+	}
+
+	[TestFixture]
+	[Category("CreateLensSubscriptionPresenterTester")]
+	public class When_submitting_create_subscription_view_with_no_set_redirect_on_save_page_id
+	{
+		protected CreateLensSubscriptionPresenter presenter;
+		private readonly ICreateLensSubscriptionView view;
+		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
+		private readonly SaveSubscriptionEventArgs _saveEventArgs;
+		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
+		private readonly string _currentPageUrl;
+		//private readonly int _redirectPageId;
+		private readonly Mock<HttpResponseBase> _mockedHttpResponse;
+
+
+		public When_submitting_create_subscription_view_with_no_set_redirect_on_save_page_id()
+		{
+			//Arrange
+			const int customerId = 5;
+			const int shopId = 5;
+			//_redirectPageId = 55;
+			_currentPageUrl = "/test/redirect/";
+			var currentPageUri = "http://www.test.se" + _currentPageUrl;
+			var mockedHttpContext = new Mock<HttpContextBase>();
+			_mockedHttpResponse = new Mock<HttpResponseBase>();
+			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(new NameValueCollection{{"customer",customerId.ToString()}});
+			mockedHttpContext.SetupGet(x => x.Request.AppRelativeCurrentExecutionFilePath).Returns(_currentPageUrl);
+			mockedHttpContext.SetupGet(x => x.Response).Returns(_mockedHttpResponse.Object);
+			mockedHttpContext.SetupGet(x => x.Request.Url).Returns(new Uri(currentPageUri));
+
+
+			var mockedView = new Mock<ICreateLensSubscriptionView>();
+			mockedView.SetupGet(x => x.Model).Returns(new CreateLensSubscriptionModel());
+			mockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(0);
 			view = mockedView.Object;
 
 			var mockedCustomerRepository = new Mock<ICustomerRepository>();
@@ -113,14 +197,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		}
 
 		[Test]
-		public void Presenter_gets_expected_customer()
+		public void Presenter_perfoms_redirect_to_current_page()
 		{
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.CreatedDate.IsSameDay(DateTime.Now))));
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Customer.Id.Equals(5))));
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.AccountNumber.Equals(_saveEventArgs.AccountNumber))));
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.ClearingNumber.Equals(_saveEventArgs.ClearingNumber))));
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.MonthlyAmount.Equals(_saveEventArgs.MonthlyAmount))));
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Status.Equals(SubscriptionStatus.Created))));
+			_mockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_currentPageUrl))));
 		}
 	}
 

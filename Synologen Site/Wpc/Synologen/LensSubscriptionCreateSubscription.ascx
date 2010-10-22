@@ -16,7 +16,7 @@
 	<label for="<%=txtMonthlyAmount.ClientID%>">Månadsavgift</label>
 	<asp:TextBox ID="txtMonthlyAmount" runat="server" />
 	<asp:RequiredFieldValidator ID="reqtxtMonthlyAmount" runat="server" ErrorMessage="Månadsavgift måste anges" ControlToValidate="txtMonthlyAmount" Display="Dynamic">*</asp:RequiredFieldValidator>
-	<asp:RangeValidator ID="rngtxtMonthlyAmount" runat="server" ErrorMessage="Månadsavgift måste anges som ett positivt tal med kommatecken som decimalavgränsare" ControlToValidate="txtMonthlyAmount" Display="Dynamic" MinimumValue="0" MaximumValue='<%#Int32.MaxValue%>' Type="Double" >*</asp:RangeValidator>
+	<asp:RangeValidator ID="rngtxtMonthlyAmount" runat="server" ErrorMessage="Månadsavgift måste anges som ett positivt tal med kommatecken som decimalavgränsare" ControlToValidate="txtMonthlyAmount" Display="Dynamic" MinimumValue="0" MaximumValue='99999,99' Type="Double" >*</asp:RangeValidator>
 	
 	<asp:Button ID="btnSave" runat="server" Text="Spara" />
 	

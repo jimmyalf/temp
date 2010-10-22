@@ -48,7 +48,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 
 		public void View_Submit(object sender, SaveSubscriptionEventArgs args)
 		{
+			TrySaveSubscription(args);
+			TryRedirect();
+		}
+
+		private void TrySaveSubscription(SaveSubscriptionEventArgs args)
+		{
 			var customerId = HttpContext.Request.Params["customer"].ToIntOrDefault();
+			if(customerId <= 0) return;
 			Func<Customer, SaveSubscriptionEventArgs, Subscription> converter = (customer,eventArgs) => new Subscription
 			{
 				CreatedDate = DateTime.Now,
@@ -70,6 +77,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 		{
 			var shop = _customerRepository.Get(customerId).Shop;
 			return _synologenMemberService.GetCurrentShopId().Equals(shop.Id);
+		}
+
+		private void TryRedirect()
+		{
+			if(View.RedirectOnSavePageId <= 0)
+			{
+				var currentpage = HttpContext.Request.Url.PathAndQuery;
+				HttpContext.Response.Redirect(currentpage);
+				return;
+			}
+			var redirectPageUrl = _synologenMemberService.GetPageUrl(View.RedirectOnSavePageId);
+			if(String.IsNullOrEmpty(redirectPageUrl)) return;
+			HttpContext.Response.Redirect(redirectPageUrl);
 		}
 	}
 }

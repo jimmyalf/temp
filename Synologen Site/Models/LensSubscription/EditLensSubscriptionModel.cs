@@ -13,7 +13,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 		public bool ShopDoesNotHaveAccessGivenCustomer { get; set; }
 		public bool DisplayForm
 		{
-			get { return ShopDoesNotHaveAccessGivenCustomer == false && ShopDoesNotHaveAccessGivenCustomer == false; }
+			get { 
+				return ShopDoesNotHaveAccessToLensSubscriptions == false 
+				&& ShopDoesNotHaveAccessGivenCustomer == false; 
+			}
 		}
 	}
 }

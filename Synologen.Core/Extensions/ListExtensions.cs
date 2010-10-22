@@ -43,5 +43,13 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			yield break;
 		}
 
+		public static IEnumerable<TType> ToEnumerable<TType>(this TType[] list)
+		{
+			foreach (var item in  list)
+			{
+				yield return item;
+			}
+			yield break;
+		}
 	}
 }

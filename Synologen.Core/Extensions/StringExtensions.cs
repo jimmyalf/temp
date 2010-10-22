@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Spinit.Wpc.Synologen.Core.Extensions
 {
 	public static class StringExtensions
@@ -34,6 +36,17 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		public static int ToInt(this string textValue)
 		{
 			return int.Parse(textValue);
+		}
+
+		public static string Reverse(this string value)
+		{
+			var charArray = value.ToCharArray().ToEnumerable().Reverse().ToArray();
+			return new string(charArray);
+		}
+
+		public static string AppendUrl(this string value, string urlToAppend)
+		{
+			return string.Concat(value.TrimEnd('/'), "/", urlToAppend.TrimStart('/'));
 		}
 	}
 }

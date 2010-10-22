@@ -82,6 +82,7 @@
     <Compile Include="LensSubscriptionTests\Factories\CustomerFactory.cs" />
     <Compile Include="LensSubscriptionTests\Factories\SubscriptionFactory.cs" />
     <Compile Include="LensSubscriptionTests\ListCustomerPresenterTest.cs" />
+    <Compile Include="MockHelpers\HttpContextMock.cs" />
     <Compile Include="MockHelpers\MvpHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Factories\ServiceFactory.cs" />

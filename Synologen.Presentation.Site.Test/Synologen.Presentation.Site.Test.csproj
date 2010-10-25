@@ -77,8 +77,11 @@
     <Compile Include="FrameOrderTests\SynologenSettingsServiceTest.cs" />
     <Compile Include="FrameOrderTests\ListFrameOrdersPresenterTest.cs" />
     <Compile Include="FrameOrderTests\ViewFrameOrderPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\CreateCustomerPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\CreateLensSubscriptionPresenterTests.cs" />
     <Compile Include="LensSubscriptionTests\CreateSubscriptionPresenterTests.cs" />
     <Compile Include="LensSubscriptionTests\EditSubscriptionPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\Factories\CountryFactory.cs" />
     <Compile Include="LensSubscriptionTests\Factories\CustomerFactory.cs" />
     <Compile Include="LensSubscriptionTests\Factories\SubscriptionFactory.cs" />
     <Compile Include="LensSubscriptionTests\ListCustomerPresenterTest.cs" />

@@ -1,4 +1,4 @@
-<%@ Page Language="C#"  MasterPageFile="~/Default.master" AutoEventWireup="true" Title="Intran�t" %>
+﻿<%@ Page Language="C#"  MasterPageFile="~/Default.master" AutoEventWireup="true" Title="Intranät" %>
 <asp:Content ID="cnt1" ContentPlaceHolderID="Content" Runat="Server">
 <asp:Literal ID="ltPageId" Text="190" Visible="false" runat="server"/>
 <style type="text/css">
@@ -6,8 +6,6 @@
 .synologen-form input[type="submit"] { display:block; }
 </style>
 <p>
-	<WpcSynologen:LensSubscriptionCustomersList ID="synologenMvpTestControl" EditPageId="190" runat="server"  />
+	<WpcSynologen:LensSubscriptionCreateCustomer ID="synologenMvpTestControl" EditPageId="190" runat="server"  />
 </p>
 </asp:Content>
-
-

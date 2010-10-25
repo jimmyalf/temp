@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
@@ -18,6 +15,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 				GetMockedCountry(3, "Finland"),
 				GetMockedCountry(4, "Danmark"),
 			};
+		}
+		public static Country Get(int id)
+		{
+			return GetMockedCountry(id, "Sverige");
 		}
 
 		private static Country GetMockedCountry(int id, string name)

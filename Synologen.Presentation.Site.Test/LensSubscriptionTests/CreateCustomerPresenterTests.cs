@@ -84,17 +84,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
 		private readonly SaveCustomerEventArgs _saveEventArgs;
 		private readonly Country[] _countryList;
+		private readonly Country _selectedCountry;
+		private readonly int _shopId;
 
 		public When_submitting_create_customer_view()
 		{
 			// Arrange
-			const int shopId = 5;
+			_shopId = 5;
+			const int selectedCountryId = 5;
 			_countryList = CountryFactory.GetList().ToArray();
+			_selectedCountry = CountryFactory.Get(selectedCountryId);
 			var mockedShop = new Mock<Shop>();
-			mockedShop.SetupGet(x => x.Id).Returns(shopId);
+			mockedShop.SetupGet(x => x.Id).Returns(_shopId);
 
 			_mockedCountryRepository = new Mock<ICountryRepository>();
 			_mockedCountryRepository.Setup(x => x.GetAll()).Returns(_countryList);
+			_mockedCountryRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_selectedCountry);
 
 			var mockedView = new Mock<ICreateCustomerView>();
 			mockedView.SetupGet(x => x.Model).Returns(new CreateCustomerModel());
@@ -107,7 +112,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			
 			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
 			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
+			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(_shopId);
 			
 			_presenter = new CreateCustomerPresenter(_view, 
 													_mockedCustomerRepository.Object,
@@ -123,7 +128,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				AddressLineOne = "Vinkelslipsgatan 32",
 				AddressLineTwo = "Uppgång 3H",
 				City = "Storstad",
-				CountryId = 1,
+				CountryId = _selectedCountry.Id,
 				Email = "carina.melander@gmail.com",
 				MobilePhone = "0704-565675",
 				PersonalIdNumber = "8106296729",
@@ -148,8 +153,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.PersonalIdNumber.Equals(_saveEventArgs.PersonalIdNumber))));
 			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Contact.Phone.Equals(_saveEventArgs.Phone))));
 			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Address.PostalCode.Equals(_saveEventArgs.PostalCode))));
+			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Shop.Id.Equals(_shopId))));
+		}
 
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Shop.Id.Equals(5))));
+		[Test]
+		public void Presenter_fetches_expected_country_and_shop()
+		{
+			_mockedCountryRepository.Verify(x => x.Get(It.Is<int>(id => id.Equals(_selectedCountry.Id))));
+			_mockedShopRepository.Verify(x => x.Get(It.Is<int>(id => id.Equals(_shopId))));
 		}
 	}
 

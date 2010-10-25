@@ -52,31 +52,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 		public void View_Submit(object o, SaveCustomerEventArgs args)
 		{
 
-			Shop shopToUse = _shopRepository.Get(_synologenMemberService.GetCurrentShopId());
-			Country countryToUse = _countryRepository.Get(args.CountryId);
+			var shopToUse = _shopRepository.Get(_synologenMemberService.GetCurrentShopId());
+			var countryToUse = _countryRepository.Get(args.CountryId);
 
-			Func<Shop, SaveCustomerEventArgs, Customer> converter = (shop, eventArgs) =>
-            new Customer
-            	{
-            		Contact = new CustomerContact
-            		          	{
-            		          		Email = eventArgs.Email,
-            		          		MobilePhone = eventArgs.MobilePhone,
-            		          		Phone = eventArgs.Phone
-            		          	},
-            		Address = new CustomerAddress
-            		          	{
-            		          		AddressLineOne = eventArgs.AddressLineOne,
-            		          		AddressLineTwo = eventArgs.AddressLineTwo,
-            		          		City = eventArgs.City,
-									Country = countryToUse,
-									PostalCode = eventArgs.PostalCode
-            		          	},
-            		FirstName = eventArgs.FirstName,
-            		LastName = eventArgs.LastName,
-            		PersonalIdNumber = eventArgs.PersonalIdNumber,
-            		Shop = shop
-            	};
+			Func<Shop, SaveCustomerEventArgs, Customer> converter = (shop, eventArgs) => new Customer
+			{
+				Contact = new CustomerContact
+				{
+					Email = eventArgs.Email,
+					MobilePhone = eventArgs.MobilePhone,
+					Phone = eventArgs.Phone
+				},
+				Address = new CustomerAddress
+				{
+					AddressLineOne = eventArgs.AddressLineOne,
+					AddressLineTwo = eventArgs.AddressLineTwo,
+					City = eventArgs.City,
+					Country = countryToUse,
+					PostalCode = eventArgs.PostalCode
+				},
+				FirstName = eventArgs.FirstName,
+				LastName = eventArgs.LastName,
+				PersonalIdNumber = eventArgs.PersonalIdNumber,
+				Shop = shop
+			};
 
 			var customerToSave = converter.Invoke(shopToUse, args);
 			_customerRepository.Save(customerToSave);

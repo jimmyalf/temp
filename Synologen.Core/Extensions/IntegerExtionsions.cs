@@ -8,5 +8,11 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		{
 			return (T) Enum.ToObject(typeof (T), value);
 		}
+
+		public static char GetChar(this int value)
+		{
+			var list = "ABCDEFGHIJKLMNOPQRSTUVXYZÅÄÖ".ToCharArray();
+			return list[value % (list.Length - 1)];
+		}
 	}
 }

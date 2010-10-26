@@ -17,7 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 {
 	
 	[TestFixture]
-	[Category("SubscriptionRepositoryTester")]
+	[Category("SubscriptionListPresenterTester")]
 	public class When_loading_customer_list_view
 	{
 		protected ListCustomersPresenter _presenter;
@@ -84,7 +84,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 
 	[TestFixture]
-	[Category("SubscriptionRepositoryTester")]
+	[Category("SubscriptionListPresenterTester")]
 	public class When_searching_customer_list_view
 	{
 		protected ListCustomersPresenter _presenter;

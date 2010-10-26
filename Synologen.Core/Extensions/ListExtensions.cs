@@ -33,6 +33,7 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			    input.SortedAscending
 			);
 		}
+
 		public static IEnumerable<TType> Ignore<TType>(this IEnumerable<TType> list, params TType[] ignore)
 		{
 			foreach (var item in  list)
@@ -50,6 +51,16 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 				yield return item;
 			}
 			yield break;
+		}
+
+		public static IEnumerable<TType> Append<TType>(this IEnumerable<TType> list, IEnumerable<TType> listToAppend )
+		{
+			return listToAppend.ToArray().Concat(listToAppend);
+		}
+
+		public static IEnumerable<TType> ForEach<TType>(this IEnumerable<TType> list, IEnumerable<TType> listToAppend )
+		{
+			return listToAppend.ToArray().Concat(listToAppend);
 		}
 	}
 }

@@ -18,14 +18,16 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 	{
 		protected int TestCountryId = 1;
 		protected int TestShopId = 158;
+		protected int TestShop2Id = 159;
+		
 
 		protected override Action SetUp()
 		{
-			return () => 
-			       	{
-			       		SetupData();
-			       		ActionCriteriaExtensions.ConstructConvertersUsing(ResolveCriteriaConverters);
-			       	};
+			return () =>
+			{
+				SetupData();
+				ActionCriteriaExtensions.ConstructConvertersUsing(ResolveCriteriaConverters);
+			};
 		}
 
 		protected override ISessionFactory GetSessionFactory()
@@ -57,6 +59,11 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			{
 				return new CustomersForShopMatchingCriteriaConverter(GetSessionFactory().OpenSession());
 			}
+			if (objectToResolve.Equals(typeof(IActionCriteriaConverter<PageOfSubscriptionsMatchingCriteria, ICriteria>)))
+			{
+				return new PageOfSubscriptionsMatchingCriteriaConverter(GetSessionFactory().OpenSession());
+			}
+
 			throw new ArgumentException(String.Format("No criteria converter has been defined for {0}", objectToResolve), "objectToResolve");
 		}
 

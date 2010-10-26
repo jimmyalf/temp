@@ -529,6 +529,7 @@
     <Folder Include="Application\Services\_svn\tmp\prop-base\" />
     <Folder Include="Application\Services\_svn\tmp\props\" />
     <Folder Include="Application\Services\_svn\tmp\text-base\" />
+    <Folder Include="Areas\SynologenAdmin\Views\LensSubscription\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" Condition="" />

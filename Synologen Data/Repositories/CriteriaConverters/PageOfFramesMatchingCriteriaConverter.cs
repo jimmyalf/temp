@@ -29,18 +29,3 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 
 	
 }
-
-/*
- 			return _session
-				.CreateCriteria<Frame>()
-				.SetAlias<Frame>(x => x.Color)
-				.SetAlias<Frame>(x => x.Brand)
-				.Add(Restrictions.Disjunction()
-					.ApplyFilterInJunction<Frame>(x => x.Name, source.NameLike)
-					.ApplyFilterInJunction<Frame>(x => x.ArticleNumber, source.NameLike)
-					.ApplyFilterInJunction<Frame>(x => x.Color.Name, source.NameLike)
-					.ApplyFilterInJunction<Frame>(x => x.Brand.Name, source.NameLike)
-				)
-				.Sort(source.OrderBy, source.SortAscending)
-				.Page(source.Page, source.PageSize);
- */

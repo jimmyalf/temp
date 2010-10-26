@@ -9,23 +9,26 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 		{
 
 			return new Customer
-			       	{
-			       		Address =
-			       			new CustomerAddress
-			       				{
-			       					AddressLineOne = "Datavägen 2",
-			       					AddressLineTwo = "Box 416 57",
-			       					City = "Gävle",
-			       					Country = country,
-			       					PostalCode = "436 32"
-			       				}
-			       		,
-			       		Contact = new CustomerContact {Email = "paiv@home.se", MobilePhone = "0702624715", Phone = "0322-16660"},
-			       		FirstName = "Sune",
-			       		LastName = "Mangs",
-			       		PersonalIdNumber = "7301146069",
-			       		Shop = shop
-			       	};
+			{
+				Address = new CustomerAddress
+				{
+					AddressLineOne = "Datavägen 2",
+					AddressLineTwo = "Box 416 57",
+					City = "Gävle",
+					Country = country,
+					PostalCode = "436 32"
+				},
+				Contact = new CustomerContact
+				{
+					Email = "paiv@home.se",
+					MobilePhone = "0702624715",
+					Phone = "0322-16660"
+				},
+				FirstName = "Sune",
+				LastName = "Mangs",
+				PersonalIdNumber = "7301146069",
+				Shop = shop
+			};
 		
 		}
 
@@ -34,23 +37,25 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 
 			return new Customer
 			{
-				Address =
-					new CustomerAddress
-					{
-						AddressLineOne = "Datavägen 2",
-						AddressLineTwo = "Box 416 57",
-						City = "Gävle",
-						Country = country,
-						PostalCode = "436 32"
-					}
-				,
-				Contact = new CustomerContact { Email = "paiv@home.se", MobilePhone = "0702624715", Phone = "0322-16660" },
+				Address = new CustomerAddress
+				{
+					AddressLineOne = "Datavägen 2",
+					AddressLineTwo = "Box 416 57",
+					City = "Gävle",
+					Country = country,
+					PostalCode = "436 32"
+				},
+				Contact = new CustomerContact
+				{
+					Email = "paiv@home.se",
+					MobilePhone = "0702624715",
+					Phone = "0322-16660"
+				},
 				FirstName = firstName,
 				LastName = lastName,
 				PersonalIdNumber = personalIdNumber,
 				Shop = shop
 			};
-
 		}
 
 		public static Customer Edit(Customer customer)

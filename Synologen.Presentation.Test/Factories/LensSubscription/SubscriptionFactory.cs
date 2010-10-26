@@ -26,9 +26,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription
 		{
 			var customer = new Customer
 			{
-				FirstName = "Adam " + id,
-				LastName = "Bertil " + id,
-                Shop = new Shop{ Name = "Optiker " + id}
+				FirstName = "Adam " + id.GetChar(),
+				LastName = "Bertil " + id.GetChar(),
+                Shop = new Shop{ Name = "Optiker " + id.GetChar()}
 			};
 			var mockedSubscription = new Mock<Subscription>();
 			mockedSubscription.SetupGet(x => x.Id).Returns(id);

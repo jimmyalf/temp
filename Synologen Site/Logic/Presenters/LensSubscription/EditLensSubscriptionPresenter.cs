@@ -12,6 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 {
 	public class EditLensSubscriptionPresenter : Presenter<IEditLensSubscriptionView>
 	{
+		private const string SubscriptionRequestParameter = "subscription";
 		private readonly ISubscriptionRepository _subscriptionRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
 
@@ -21,18 +22,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			_synologenMemberService = synologenMemberService;
 			View.Load += View_Load;
 			View.Submit += View_Submit;
+			View.StopSubscription += View_StopSubscription;
+			View.StartSubscription += View_StartSubscription;
 		}
 
 		public override void ReleaseView()
 		{
 			View.Load -= View_Load;
 			View.Submit -= View_Submit;
+			View.StopSubscription -= View_StopSubscription;
+			View.StartSubscription -= View_StartSubscription;
 		}
 		public void View_Load(object sender, EventArgs e)
 		{
-			var subscriptionId = HttpContext.Request.Params["subscription"].ToIntOrDefault();
-			var subscription = _subscriptionRepository.Get(subscriptionId);
-			CheckAccess(subscription);
+			var subscription = TryGetSubscription();
+			SetAccess(subscription);
+			if(!View.Model.DisplayForm) return;
+			View.Model.StopButtonEnabled = subscription.Status == SubscriptionStatus.Active;
+			View.Model.StartButtonEnabled = subscription.Status == SubscriptionStatus.Stopped;
 			View.Model.AccountNumber = subscription.PaymentInfo.AccountNumber;
 			View.Model.ActivatedDate = subscription.With(x => x.ActivatedDate).Return(x => x.Value.ToString("yyyy-MM-dd"), String.Empty);
 			View.Model.ClearingNumber = subscription.PaymentInfo.ClearingNumber;
@@ -42,27 +49,56 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.Model.Status = subscription.Status.GetEnumDisplayName();
 		}
 
-		private void CheckAccess(Subscription subscription) 
-		{ 
-			View.Model.ShopDoesNotHaveAccessToLensSubscriptions = !_synologenMemberService.ShopHasAccessTo(ShopAccess.LensSubscription);
-			View.Model.ShopDoesNotHaveAccessGivenCustomer = !_synologenMemberService.GetCurrentShopId().Equals(subscription.Customer.Shop.Id);
-		}
-
 		public void View_Submit(object sender, SaveSubscriptionEventArgs eventArgs)
 		{
 			TrySaveSubscription(eventArgs);
 			TryRedirect();
 		}
 
+		public void View_StopSubscription(object sender, EventArgs e)
+		{
+			TryUpdateSubscriptionStatus(SubscriptionStatus.Stopped);
+			TryRedirect();
+		}
+
+		public void View_StartSubscription(object sender, EventArgs e) 
+		{ 
+			TryUpdateSubscriptionStatus(SubscriptionStatus.Active);
+			TryRedirect();
+		}
+
+		private void SetAccess(Subscription subscription) 
+		{
+			if(subscription == null)
+			{
+				View.Model.SubscriptionDoesNotExist = true;
+				return;
+			}
+			View.Model.ShopDoesNotHaveAccessToLensSubscriptions = !_synologenMemberService.ShopHasAccessTo(ShopAccess.LensSubscription);
+			View.Model.ShopDoesNotHaveAccessGivenCustomer = !_synologenMemberService.GetCurrentShopId().Equals(subscription.Customer.Shop.Id);
+		}
+
 		private void TrySaveSubscription(SaveSubscriptionEventArgs args)
 		{
-			var subscriptionId = HttpContext.Request.Params["subscription"].ToIntOrDefault();
-			if(subscriptionId <= 0) return;
-			var subscription = _subscriptionRepository.Get(subscriptionId);
+			var subscription = TryGetSubscription();
 			subscription.PaymentInfo.AccountNumber = args.AccountNumber;
 			subscription.PaymentInfo.ClearingNumber = args.ClearingNumber;
 			subscription.PaymentInfo.MonthlyAmount = args.MonthlyAmount;
 			_subscriptionRepository.Save(subscription);
+		}
+
+		public void TryUpdateSubscriptionStatus(SubscriptionStatus newStatus)
+		{
+			var subscription = TryGetSubscription();
+			subscription.Status = newStatus;
+			_subscriptionRepository.Save(subscription);
+			TryRedirect();
+		}
+
+		public Subscription TryGetSubscription()
+		{
+			var subscriptionId = HttpContext.Request.Params[SubscriptionRequestParameter].ToIntOrDefault();
+			return subscriptionId <= 0 ? null : _subscriptionRepository.Get(subscriptionId);
 		}
 
 		private void TryRedirect()

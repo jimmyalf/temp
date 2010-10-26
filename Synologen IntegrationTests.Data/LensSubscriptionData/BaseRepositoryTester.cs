@@ -4,7 +4,9 @@ using System.Linq;
 using NHibernate;
 using Spinit.Data;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
@@ -82,10 +84,13 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			var shop = new ShopRepository(session).Get(TestShopId);
 			var country = new CountryRepository(session).Get(TestCountryId);
 			var reposititory = new CustomerRepository(session);
+			var subscriptionRepository = new SubscriptionRepository(session);
 			for (var i = 0; i < 5; i++)
 			{
 				var customerToSave = CustomerFactory.Get(country, shop, "Tore " + i, "Alm " + i, "630610613" + i);
 				reposititory.Save(customerToSave);
+				var subscriptionToSave = SubscriptionFactory.Get(customerToSave, ((i % 3) +1).ToEnum<SubscriptionStatus>());
+				subscriptionRepository.Save(subscriptionToSave);
 			}
 		}
 

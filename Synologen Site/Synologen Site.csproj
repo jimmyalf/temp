@@ -48,13 +48,6 @@
     <Compile Include="Code\SynologenUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="LensSubscriptionCreateCustomer.aspx.cs">
-      <DependentUpon>LensSubscriptionCreateCustomer.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="LensSubscriptionCreateCustomer.aspx.designer.cs">
-      <DependentUpon>LensSubscriptionCreateCustomer.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Logic\EventArguments\EditFrameFormEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SaveCustomerEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SaveSubscriptionEventArgs.cs" />
@@ -103,6 +96,13 @@
     </Compile>
     <Compile Include="Wpc\Synologen\CityShopList.ascx.designer.cs">
       <DependentUpon>CityShopList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx.cs">
+      <DependentUpon>LensSubscriptionEditSubscription.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx.designer.cs">
+      <DependentUpon>LensSubscriptionEditSubscription.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\EditMember.ascx.cs">
       <DependentUpon>EditMember.ascx</DependentUpon>
@@ -271,6 +271,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CityShopList.aspx" />
+    <Content Include="LensSubscriptionEditSubscription.aspx" />
     <Content Include="LensSubscriptionCreateCustomer.aspx" />
     <Content Include="LensSubscriptionCreateSubscription.aspx" />
     <Content Include="LensSubscriptionCustomersList.aspx" />
@@ -280,6 +281,7 @@
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx" />
     <Content Include="Wpc\Synologen\FrameOrder.ascx" />
     <Content Include="Wpc\Synologen\FrameOrderList.ascx" />
     <Content Include="Wpc\Synologen\FrameOrderView.ascx" />
@@ -393,9 +395,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

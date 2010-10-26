@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers
 		public Mock<HttpResponseBase> MockedHttpResponse { get; set; }
 		public Mock<HttpRequestBase> MockedHttpRequest { get; set; }
 
-		public HttpContextMock SetupPathAndQuery(string pathAndQueryUrl)
+		public HttpContextMock SetupRelativePathAndQuery(string pathAndQueryUrl)
 		{
 			var fullUrl = "http://www.test.se".AppendUrl(pathAndQueryUrl);
 			MockedHttpRequest.SetupGet(x => x.Url).Returns(new Uri(fullUrl));

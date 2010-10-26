@@ -8,6 +8,10 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 	{
 		public static Subscription Get(Customer customer)
 		{
+			return Get(customer, SubscriptionStatus.Stopped);
+		}
+		public static Subscription Get(Customer customer, SubscriptionStatus status)
+		{
 			return new Subscription
 			{
 				ActivatedDate = new DateTime(2010, 10, 18),
@@ -19,7 +23,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
                     MonthlyAmount = 595
                 },
                 Customer = customer,
-                Status = SubscriptionStatus.Stopped,
+                Status = status,
 			};
 		}
 

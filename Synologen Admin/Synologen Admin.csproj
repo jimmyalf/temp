@@ -72,12 +72,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\ModelBinders\GridSortPropertyMappingModelBinder.cs" />
+    <Compile Include="Application\Services\ILensSubscriptionViewService.cs" />
+    <Compile Include="Application\Services\LensSubscriptionViewService.cs" />
     <Compile Include="Application\Services\SettingsService.cs" />
     <Compile Include="Application\Services\SynologenGridSortPropertyMappingSerice.cs" />
     <Compile Include="Controllers\FrameGlassTypeController.cs" />
     <Compile Include="Controllers\FrameBrandController.cs" />
     <Compile Include="Controllers\FrameColorController.cs" />
     <Compile Include="Controllers\FrameOrderController.cs" />
+    <Compile Include="Controllers\LensSubscriptionController.cs" />
     <Compile Include="Helpers\Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Helpers\Extensions\RouteValueDictionaryExtensions.cs" />
     <Compile Include="Helpers\Extensions\WebFormsExtensions.cs" />
@@ -297,6 +300,8 @@
     <Compile Include="Models\FrameOrderListItemView.cs" />
     <Compile Include="Models\FrameOrderListView.cs" />
     <Compile Include="Models\FrameOrderView.cs" />
+    <Compile Include="Models\LensSubscription\SubscriptionListItemView.cs" />
+    <Compile Include="Models\LensSubscription\SubscriptionListView.cs" />
     <Compile Include="Models\SelectItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SynologenAdminAreaRegistration.cs" />

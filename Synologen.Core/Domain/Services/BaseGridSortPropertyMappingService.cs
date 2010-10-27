@@ -18,29 +18,9 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		/// <typeparam name="TDomainModel">Domain model type</typeparam>
 		/// <param name="viewModel">ViewModel property to map</param>
 		/// <param name="domainModel">DomainModel property to map</param>
-		protected void Map<TController, TViewModel, TDomainModel>(Expression<Func<TViewModel, string>> viewModel, Expression<Func<TDomainModel, string>> domainModel)
+		protected void Map<TController, TViewModel, TDomainModel>(Expression<Func<TViewModel, object>> viewModel, Expression<Func<TDomainModel, object>> domainModel)
 			where TViewModel : class
 			where TDomainModel : class
-			where TController : IController
-		{
-			if (_mapItems == null)
-				_mapItems = new List<PropertyMapItem>();
-			_mapItems.Add(PropertyMapItem.CreateItem(viewModel, domainModel, typeof (TController).Name));
-		}
-
-		/// <summary>
-		/// Creates a mapping for given properties
-		/// </summary>
-		/// <typeparam name="TController">Controller</typeparam>
-		/// <typeparam name="TViewModel">View model type</typeparam>
-		/// <typeparam name="TDomainModel">Domain model type</typeparam>
-		/// <typeparam name="TType">Common property type</typeparam>
-		/// <param name="viewModel">ViewModel property to map</param>
-		/// <param name="domainModel">DomainModel property to map</param>
-		protected void Map<TController, TViewModel, TDomainModel, TType>(Expression<Func<TViewModel, TType>> viewModel, Expression<Func<TDomainModel, TType>> domainModel)
-			where TViewModel : class
-			where TDomainModel : class
-			where TType : struct
 			where TController : IController
 		{
 			if (_mapItems == null)
@@ -68,7 +48,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 			public string ViewModelPropertyName { get; private set; }
 			public string DomainModelPropertyName { get; private set; }
 			public string ControllerName { get; private set; }
-			public static PropertyMapItem CreateItem<TViewModel,TDomainModel,TProperty>(Expression<Func<TViewModel,TProperty>> viewModel, Expression<Func<TDomainModel,TProperty>> domainModel, string controllerName) where TViewModel : class where TDomainModel : class
+			public static PropertyMapItem CreateItem<TViewModel,TDomainModel,TPropertyType1, TPropertyType2>(Expression<Func<TViewModel,TPropertyType1>> viewModel, Expression<Func<TDomainModel,TPropertyType2>> domainModel, string controllerName) where TViewModel : class where TDomainModel : class
 			{
 				return new PropertyMapItem
 				{

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
                 Status = subscription.Status.GetEnumDisplayName(),
                 SubscriptionId = subscription.Id
 			};
-			return (subscriptions == null)? new SubscriptionListItemView[]{} : subscriptions.Select(converter);
+			return (subscriptions == null)? new SubscriptionListItemView[]{} : subscriptions.ConvertSortedPagedList(converter);
 		}
 	}
 }

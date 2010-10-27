@@ -466,6 +466,7 @@
     <Content Include="Areas\SynologenAdmin\Views\Frame\EditBrand.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Brands.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\BrandForm.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\LensSubscription\Index.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\ClientValidationScripts.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\DisplayTemplates\EyeParameterView.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\SynologenMVC.Master" />
@@ -534,7 +535,6 @@
     <Folder Include="Application\Services\_svn\tmp\prop-base\" />
     <Folder Include="Application\Services\_svn\tmp\props\" />
     <Folder Include="Application\Services\_svn\tmp\text-base\" />
-    <Folder Include="Areas\SynologenAdmin\Views\LensSubscription\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" Condition="" />

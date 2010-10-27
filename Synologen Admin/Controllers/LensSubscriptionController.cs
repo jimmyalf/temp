@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
@@ -9,7 +10,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 	public class LensSubscriptionController : Controller
 	{
 		private readonly ILensSubscriptionViewService _lensSubscriptionViewService;
-		public LensSubscriptionController(ILensSubscriptionViewService lensSubscriptionViewService ) { _lensSubscriptionViewService = lensSubscriptionViewService; }
+		private readonly int DefaultPageSize;
+
+		public LensSubscriptionController(ILensSubscriptionViewService lensSubscriptionViewService, IAdminSettingsService adminSettingsService)
+		{
+			DefaultPageSize = adminSettingsService.GetDefaultPageSize();
+			_lensSubscriptionViewService = lensSubscriptionViewService;
+		}
 
 		public ActionResult Index(GridPageSortParameters pageSortParameters)
 		{
@@ -17,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			{
 				OrderBy = pageSortParameters.Column,
                 Page = pageSortParameters.Page,
-                PageSize = pageSortParameters.PageSize ?? 40,
+                PageSize = pageSortParameters.PageSize ?? DefaultPageSize,
                 SortAscending = pageSortParameters.Direction == SortDirection.Ascending
 			};
 			var model = new SubscriptionListView

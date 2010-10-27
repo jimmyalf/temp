@@ -5,6 +5,7 @@ using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;
 
@@ -193,6 +194,54 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			var firstItemStatus = matchingItems.First().Status;
 			var lastItemStatus = matchingItems.Last().Status;
 			firstItemStatus.ShouldBeLessThan(lastItemStatus);
+		}
+
+		[Test]
+		public void Should_get_expected_items_when_searching_for_last_names()
+		{
+			var criteria = new PageOfSubscriptionsMatchingCriteria { SearchTerm = "sson",  PageSize = 100 };
+			var matchingItems = GetResult(session => new SubscriptionRepository(session).FindBy(criteria));
+			matchingItems.Count().ShouldBeGreaterThan(0);
+			foreach (var item in matchingItems)
+			{
+				item.Customer.LastName.ShouldContain(criteria.SearchTerm);
+			}
+		}
+
+		[Test]
+		public void Should_get_expected_items_when_searching_for_first_names()
+		{
+			var criteria = new PageOfSubscriptionsMatchingCriteria { SearchTerm = "Eva-Lisa",  PageSize = 100 };
+			var matchingItems = GetResult(session => new SubscriptionRepository(session).FindBy(criteria));
+			matchingItems.Count().ShouldBeGreaterThan(0);
+			foreach (var item in matchingItems)
+			{
+				item.Customer.FirstName.ShouldContain(criteria.SearchTerm);
+			}
+		}
+
+		[Test]
+		public void Should_get_expected_items_when_searching_for_personal_id_number()
+		{
+			var criteria = new PageOfSubscriptionsMatchingCriteria { SearchTerm = "11",  PageSize = 100 };
+			var matchingItems = GetResult(session => new SubscriptionRepository(session).FindBy(criteria));
+			matchingItems.Count().ShouldBeGreaterThan(0);
+			foreach (var item in matchingItems)
+			{
+				item.Customer.PersonalIdNumber.ShouldContain(criteria.SearchTerm);
+			}
+		}
+
+		[Test]
+		public void Should_get_expected_items_when_searching_for_shop_name()
+		{
+			var criteria = new PageOfSubscriptionsMatchingCriteria { SearchTerm = "bågbeställning",  PageSize = 100 };
+			var matchingItems = GetResult(session => new SubscriptionRepository(session).FindBy(criteria));
+			matchingItems.Count().ShouldBeGreaterThan(0);
+			foreach (var item in matchingItems)
+			{
+				item.Customer.Shop.Name.ShouldContain(criteria.SearchTerm);
+			}
 		}
 	}
 }

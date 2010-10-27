@@ -1,6 +1,4 @@
 using System.Web.Mvc;
-using Spinit.Data;
-using Spinit.Wpc.Core.UI.Mvc;
 using Spinit.Wpc.Synologen.Presentation.Application.ModelBinders;
 
 namespace Spinit.Wpc.Synologen.Presentation
@@ -9,7 +7,6 @@ namespace Spinit.Wpc.Synologen.Presentation
 	{
 		public SynologenAdminAreaRegistration()
 		{
-			//ActionCriteriaExtensions.ConstructConvertersUsing(ServiceLocation.Resolve);
 			ModelBinders.Binders.DefaultBinder = new GridSortPropertyMappingModelBinder();
 		}
 
@@ -44,6 +41,8 @@ namespace Spinit.Wpc.Synologen.Presentation
 			context.MapRoute(AreaName + "FrameOrders", urlPrefix + "frames/orders", new { controller = "Frame", action = "FrameOrders" } );
 			context.MapRoute(AreaName + "ViewFrameOrders", urlPrefix + "frames/orders/view/{id}", new { controller = "Frame", action = "ViewFrameOrder" } );
 
+			context.MapRoute(AreaName + "LensSubscriptions", urlPrefix + "lens-subscriptions", new { controller = "LensSubscription", action = "Index" } );
+			
 		}
 
 		public override string AreaName

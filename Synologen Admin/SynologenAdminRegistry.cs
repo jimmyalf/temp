@@ -3,14 +3,15 @@ using NHibernate;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
+using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
-using Spinit.Wpc.Synologen.Data.Repositories.NHibernate;
+using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
-using StructureMap;
-using StructureMap.Attributes;
 using StructureMap.Configuration.DSL;
 
 namespace Spinit.Wpc.Synologen.Presentation
@@ -25,26 +26,21 @@ namespace Spinit.Wpc.Synologen.Presentation
 				x.AddAllTypesOf<IController>().NameBy(c => c.Name);
 			});
 
-			/*
-			ForRequestedType<ISessionFactory>().CacheBy(InstanceScope.Singleton).TheDefault.Is.ConstructedBy(NHibernateFactory.Instance.GetSessionFactory);
-			ForRequestedType<ISession>().TheDefault.Is.ConstructedBy(x => ((NHibernateUnitOfWork)x.GetInstance<IUnitOfWork>()).Session);
-			ForRequestedType<IUnitOfWork>().CacheBy(InstanceScope.Hybrid).TheDefault.Is.OfConcreteType<NHibernateUnitOfWork>();
-			 */
-			ForRequestedType<IFrameRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameRepository>();
-			ForRequestedType<IFrameColorRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameColorRepository>();
-			ForRequestedType<IFrameBrandRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameBrandRepository>();
-			ForRequestedType<IFrameGlassTypeRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameGlassTypeRepository>();
-			ForRequestedType<IFrameOrderRepository>().CacheBy(InstanceScope.Hybrid).TheDefaultIsConcreteType<FrameOrderRepository>();
+			For<IFrameRepository>().HybridHttpOrThreadLocalScoped().Use<FrameRepository>();
+			For<IFrameColorRepository>().HybridHttpOrThreadLocalScoped().Use<FrameColorRepository>();
+			For<IFrameBrandRepository>().HybridHttpOrThreadLocalScoped().Use<FrameBrandRepository>();
+			For<IFrameGlassTypeRepository>().HybridHttpOrThreadLocalScoped().Use<FrameGlassTypeRepository>();
+			For<IFrameOrderRepository>().HybridHttpOrThreadLocalScoped().Use<FrameOrderRepository>();
+			For<ISubscriptionRepository>().HybridHttpOrThreadLocalScoped().Use<SubscriptionRepository>();
 
-			ForRequestedType<IActionCriteriaConverter<PageOfFramesMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<PageOfFramesMatchingCriteriaConverter>();
-			//ForRequestedType<IActionCriteriaConverter<AllFramesMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<AllFramesMatchingCriteriaConverter>();
-			//ForRequestedType<IActionCriteriaConverter<PageOfFrameColorsMatchingCriteria, ICriteria>>().TheDefault.Is.OfConcreteType<PageOfFrameColorsMatchingCriteriaConverter>();
-			//ForRequestedType<IActionCriteriaConverter<PageOfFrameBrandsMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameBrandsMatchingCriteriaConverter>();
-			//ForRequestedType<IActionCriteriaConverter<PageOfFrameGlassTypesMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameGlassTypesMatchingCriteriaConverter>();
-			ForRequestedType<IActionCriteriaConverter<PagedSortedCriteria, ICriteria>>().TheDefaultIsConcreteType<PagedSortedCriteriaConverter>();
-			ForRequestedType<IActionCriteriaConverter<PageOfFrameOrdersMatchingCriteria, ICriteria>>().TheDefaultIsConcreteType<PageOfFrameOrdersMatchingCriteriaConverter>();
-			ForRequestedType<IAdminSettingsService>().TheDefaultIsConcreteType<SettingsService>();
-			ForRequestedType<IGridSortPropertyMappingService>().TheDefaultIsConcreteType<SynologenGridSortPropertyMappingSerice>();
+			For<IActionCriteriaConverter<PageOfFramesMatchingCriteria, ICriteria>>().Use<PageOfFramesMatchingCriteriaConverter>();
+			For<IActionCriteriaConverter<PagedSortedCriteria, ICriteria>>().Use<PagedSortedCriteriaConverter>();
+			For<IActionCriteriaConverter<PageOfFrameOrdersMatchingCriteria, ICriteria>>().Use<PageOfFrameOrdersMatchingCriteriaConverter>();
+			For<IActionCriteriaConverter<PageOfSubscriptionsMatchingCriteria, ICriteria>>().Use<PageOfSubscriptionsMatchingCriteriaConverter>();
+
+			For<IAdminSettingsService>().Use<SettingsService>();
+			For<IGridSortPropertyMappingService>().Use<SynologenGridSortPropertyMappingSerice>();
+			For<ILensSubscriptionViewService>().HybridHttpOrThreadLocalScoped().Use<LensSubscriptionViewService>();
 		}
 	}
 }

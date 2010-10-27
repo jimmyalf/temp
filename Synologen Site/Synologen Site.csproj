@@ -55,11 +55,13 @@
     <Compile Include="Logic\EventArguments\LensSubscription\UpdateSubscriptionEventArgs.cs" />
     <Compile Include="Logic\Helpers\StringBuilderExtensions.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\EditCustomerPresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\CreateCustomerPresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\EditLensSubscriptionPresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\ListCustomersPresenter.cs" />
     <Compile Include="Logic\Views\LensSubscription\ICreateCustomerView.cs" />
     <Compile Include="Logic\Views\LensSubscription\ICreateLensSubscriptionView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\IEditCustomerView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IEditLensSubscriptionView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListCustomersView.cs" />
     <Compile Include="Models\LensSubscription\CreateCustomerModel.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="Models\IntervalListItem.cs" />
     <Compile Include="Models\EditFrameOrderModel.cs" />
     <Compile Include="Logic\Presenters\EditFrameOrderPresenter.cs" />
+    <Compile Include="Models\LensSubscription\EditCustomerModel.cs" />
     <Compile Include="Models\LensSubscription\EditLensSubscriptionModel.cs" />
     <Compile Include="Models\LensSubscription\ListCustomersItemModel.cs" />
     <Compile Include="Models\LensSubscription\ListCustomersModel.cs" />
@@ -96,13 +99,6 @@
     </Compile>
     <Compile Include="Wpc\Synologen\CityShopList.ascx.designer.cs">
       <DependentUpon>CityShopList.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx.cs">
-      <DependentUpon>LensSubscriptionEditSubscription.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx.designer.cs">
-      <DependentUpon>LensSubscriptionEditSubscription.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\EditMember.ascx.cs">
       <DependentUpon>EditMember.ascx</DependentUpon>
@@ -173,6 +169,20 @@
     </Compile>
     <Compile Include="Wpc\Synologen\LensSubscriptionCustomersList.ascx.designer.cs">
       <DependentUpon>LensSubscriptionCustomersList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptionEditCustomer.ascx.cs">
+      <DependentUpon>LensSubscriptionEditCustomer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptionEditCustomer.ascx.designer.cs">
+      <DependentUpon>LensSubscriptionEditCustomer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx.cs">
+      <DependentUpon>LensSubscriptionEditSubscription.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx.designer.cs">
+      <DependentUpon>LensSubscriptionEditSubscription.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\SalesList.ascx.cs">
       <DependentUpon>SalesList.ascx</DependentUpon>
@@ -278,6 +288,7 @@
     <Content Include="FrameOrderList.aspx" />
     <Content Include="FrameOrderView.aspx" />
     <Content Include="FrameOrder.aspx" />
+    <Content Include="LensSubscriptionEditCustomer.aspx" />
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
@@ -288,6 +299,7 @@
     <Content Include="Wpc\Synologen\LensSubscriptionCreateCustomer.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptionCreateSubscription.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptionCustomersList.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptionEditCustomer.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
@@ -395,6 +407,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

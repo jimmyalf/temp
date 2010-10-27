@@ -2,9 +2,9 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 {
 	public class CustomerContact
 	{
-		public string Email { get; set; }
-		public string MobilePhone { get; set; }
-		public string Phone { get; set; }
+		public virtual string Email { get; set; }
+		public virtual string MobilePhone { get; set; }
+		public virtual string Phone { get; set; }
 
 		public override bool Equals(object obj)
 		{

@@ -2,6 +2,7 @@ using System.Linq;
 using NHibernate;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
@@ -42,6 +43,42 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				savedCustomer.Shop.ShouldBe(_customerToSave.Shop);
 				savedCustomer.Subscriptions.Count().ShouldBe(_customerToSave.Subscriptions.Count());
 
+			});
+		}
+
+	}
+
+	[TestFixture]
+	[Category("CustomerRepositoryTester")]
+	public class When_adding_a_customer_with_subscriptions : BaseRepositoryTester<CustomerRepository>
+	{
+		private Customer _customerToSave;
+		private Subscription[] _subscriptionsToSave;
+
+		public When_adding_a_customer_with_subscriptions()
+		{
+			Context = session =>
+			{
+				var shop = new ShopRepository(session).Get(TestShopId);
+				var country = new CountryRepository(session).Get(TestCountryId);
+				_customerToSave = CustomerFactory.Get(country, shop);
+			};
+
+			Because = repository =>
+			{
+				repository.Save(_customerToSave);
+				_subscriptionsToSave = new[] { SubscriptionFactory.Get(_customerToSave),  SubscriptionFactory.Get(_customerToSave) };
+				_subscriptionsToSave.Each( subscription => new SubscriptionRepository(GetSessionFactory().OpenSession()).Save(subscription));
+			};
+		}
+
+		[Test]
+		public void Should_save_the_customer_with_subscriptions()
+		{
+			AssertUsing(session =>
+			{
+				var savedCustomer = new CustomerRepository(session).Get(_customerToSave.Id);
+				savedCustomer.Subscriptions.Count().ShouldBe(_subscriptionsToSave.Count());
 			});
 		}
 

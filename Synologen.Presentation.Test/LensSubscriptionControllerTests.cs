@@ -22,7 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		private readonly SubscriptionListView _viewModel;
 		private readonly Subscription[] _subscriptions;
 		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
-		private GridPageSortParameters _gridPageSortParameters;
+		private readonly GridPageSortParameters _gridPageSortParameters;
 
 		public When_loading_subscription_list_action()
 		{
@@ -55,6 +55,45 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			firstItem.ShopName.ShouldBe(_subscriptions[0].Customer.Shop.Name);
 			firstItem.Status.ShouldBe(_subscriptions[0].Status.GetEnumDisplayName());
 			firstItem.SubscriptionId.ShouldBe(_subscriptions[0].Id);
+		}
+
+		[Test]
+		public void Controller_constructs_expected_criteria()
+		{
+			_mockedSubscriptionRepository.Verify(x => x.FindBy(It.Is<PageOfSubscriptionsMatchingCriteria>(criteria => Equals(criteria.OrderBy, _gridPageSortParameters.Column))));
+			_mockedSubscriptionRepository.Verify(x => x.FindBy(It.Is<PageOfSubscriptionsMatchingCriteria>(criteria => criteria.Page.Equals(_gridPageSortParameters.Page))));
+			_mockedSubscriptionRepository.Verify(x => x.FindBy(It.Is<PageOfSubscriptionsMatchingCriteria>(criteria => criteria.PageSize.Equals(_gridPageSortParameters.PageSize))));
+			_mockedSubscriptionRepository.Verify(x => x.FindBy(It.Is<PageOfSubscriptionsMatchingCriteria>(criteria => criteria.SortAscending.Equals(_gridPageSortParameters.Direction == SortDirection.Ascending))));
+		}
+	}
+
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_loading_subscription_list_action_with_sort_order_and_paging_selected
+	{
+		private readonly Subscription[] _subscriptions;
+		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
+		private readonly GridPageSortParameters _gridPageSortParameters;
+
+		public When_loading_subscription_list_action_with_sort_order_and_paging_selected()
+		{
+			// Arrange
+			_subscriptions = SubscriptionFactory.GetList().ToArray();
+			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
+			_mockedSubscriptionRepository.Setup(x => x.FindBy(It.IsAny<PageOfSubscriptionsMatchingCriteria>())).Returns(_subscriptions);
+			var viewService = new LensSubscriptionViewService(_mockedSubscriptionRepository.Object);
+			
+			var controller = new LensSubscriptionController(viewService);
+
+			//Act
+			_gridPageSortParameters = new GridPageSortParameters
+			{
+				Column = "Customer.LastName",
+				Direction = SortDirection.Ascending,
+				Page = 2,
+				PageSize = 10
+			};
+			controller.Index(_gridPageSortParameters);
 		}
 
 		[Test]

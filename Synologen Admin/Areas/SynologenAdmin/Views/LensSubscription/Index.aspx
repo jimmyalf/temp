@@ -4,6 +4,17 @@
 	<div class="fullBox">
 		<div class="wrap">
 			<% using (Html.BeginForm()) {%>
+			<fieldset>
+				<legend>Linsabonnemang</legend>
+				<p class="formItem">
+					<%= Html.LabelFor(x => x.SearchTerm) %>
+					<%= Html.EditorFor(x => x.SearchTerm) %>
+				</p>
+				<p class="formCommands">
+					<input type="submit" value="Sök" class="btnBig" />
+				</p>
+			</fieldset>
+			<% } %>
 			<%= Html.WpcPager(Model.List)%>
 			<div>
 				<%= Html.WpcGrid(Model.List).Columns( column => 
@@ -17,8 +28,6 @@
 							.SetAsWpcControlColumn("Visa");
  					}).Empty("Inga abonnemang i databasen.")
 				%>
-				
-			<%} %>
 			</div>
 		</div>     						
 	</div>				

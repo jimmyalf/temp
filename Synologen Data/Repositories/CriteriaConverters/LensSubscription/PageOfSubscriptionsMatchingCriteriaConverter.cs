@@ -13,16 +13,23 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscrip
 
 		public override ICriteria Convert(PageOfSubscriptionsMatchingCriteria source) 
 		{
-			var orderBy = GetOrderBy(source.OrderBy);
-
+			var orderBy = TranslateProperty(source.OrderBy);
+			var customerShopName = TranslateProperty(Property(x => x.Customer.Shop.Name));
 			return Criteria
 				.CreateAlias(x => x.Customer)
 				.CreateAlias(x => x.Customer.Shop, CustomerShopAlias)
+				.FilterByAny(filter =>
+				{
+					filter.By(x => x.Customer.LastName);
+					filter.By(x => x.Customer.FirstName);
+					filter.By(x => x.Customer.PersonalIdNumber);
+					filter.By(customerShopName);
+				}, source.SearchTerm)
 				.Page(source.Page, source.PageSize)
 				.Sort(orderBy, source.SortAscending);
 		}
 
-		private string GetOrderBy(string orderBy)
+		private string TranslateProperty(string orderBy)
 		{
 			return orderBy == null ? null : orderBy.Replace(Property(x => x.Customer.Shop), CustomerShopAlias);
 		}

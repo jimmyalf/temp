@@ -4,7 +4,6 @@ using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
@@ -41,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				OrderBy = gridPageSortParameters.Column,
 				SortAscending = gridPageSortParameters.Direction == SortDirection.Ascending
 			};
-//			HttpContext.Items.Add("Test", "Yihaaaa");
+//			HttpContext.Items.Add("Test", "Use flag to determine MVC or Webform masterpage");
 			var list = _frameRepository.FindBy(criteria);
 			var viewList = list
 				.ToFrameViewList();

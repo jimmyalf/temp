@@ -33,6 +33,9 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.LensSubscri
 				m.Map(x => x.MobilePhone);
 				m.Map(x => x.Phone);
 			});
+			HasMany(x => x.Subscriptions)
+			  .Inverse()
+			  .Cascade.All();
 		}
 	}
 }

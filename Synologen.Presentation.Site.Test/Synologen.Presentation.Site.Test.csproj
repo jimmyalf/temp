@@ -79,6 +79,7 @@
     <Compile Include="FrameOrderTests\ViewFrameOrderPresenterTests.cs" />
     <Compile Include="LensSubscriptionTests\CreateCustomerPresenterTests.cs" />
     <Compile Include="LensSubscriptionTests\CreateSubscriptionPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\EditCustomerPresenterTests.cs.cs" />
     <Compile Include="LensSubscriptionTests\EditSubscriptionPresenterTests.cs" />
     <Compile Include="LensSubscriptionTests\Factories\CountryFactory.cs" />
     <Compile Include="LensSubscriptionTests\Factories\CustomerFactory.cs" />
@@ -87,7 +88,7 @@
     <Compile Include="MockHelpers\HttpContextMock.cs" />
     <Compile Include="MockHelpers\MvpHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Factories\ServiceFactory.cs" />
+    <Compile Include="FrameOrderTests\ServiceFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen Site\Synologen Site.csproj">

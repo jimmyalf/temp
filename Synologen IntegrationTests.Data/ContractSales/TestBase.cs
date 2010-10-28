@@ -11,16 +11,18 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		protected SqlProvider Provider;
 		protected Shop TestShop;
 		const int testableShopId = 158;
+		public const int TestableShopMemberId = 485;
+		public const int TestableCompanyId = 57;
 		const string connectionStringname = "WpcServer";
 
 
 		public void SetupDefaultContext()
 		{
 			Provider = new SqlProvider(ConnectionString);
-			SetupTestShop();
+			SetupTestData();
 		}
 
-		private void SetupTestShop() 
+		private void SetupTestData() 
 		{
 			TestShop = Factories.ShopFactory.GetShop(testableShopId);
 			Provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref TestShop);

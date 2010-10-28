@@ -34,5 +34,17 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers
 				return ConfigurationManager.ConnectionStrings[connectionStringname].ConnectionString;
 			}
 		}
+
+		public static TType Parse<TType>(this DataRow row, string columnName)
+		{
+			return (TType) row[columnName];
+		}
+
+		public static TType? ParseNullable<TType>(this DataRow row, string columnName)
+			where TType:struct
+		{
+			if(row.IsNull(columnName)) return null;
+			return (TType?) row[columnName];
+		}
 	}
 }

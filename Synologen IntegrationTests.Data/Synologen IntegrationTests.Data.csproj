@@ -101,7 +101,9 @@
   <ItemGroup>
     <Compile Include="CommonDataTestHelpers\DataHelper.cs" />
     <Compile Include="ContractSales\Factories\ShopFactory.cs" />
+    <Compile Include="ContractSales\Factories\OrderFactory.cs" />
     <Compile Include="ContractSales\TestBase.cs" />
+    <Compile Include="ContractSales\TestSettlement.cs" />
     <Compile Include="ContractSales\TestShop.cs" />
     <Compile Include="FrameData\Factories\FrameGlassTypeFactory.cs" />
     <Compile Include="FrameData\Factories\FrameOrderFactory.cs" />

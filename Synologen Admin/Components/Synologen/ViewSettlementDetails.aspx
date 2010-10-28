@@ -3,8 +3,7 @@
 	<div id="dCompMain" class="Components-Synologen-ViewSettlementDetails-aspx">
 		<div class="fullBox">
 			<div class="wrap">
-				<h2>
-					Utbetalning</h2>
+				<h2>Utbetalning</h2>
 				<fieldset>
 					<legend>Utbetalningsdetaljer</legend>
 					<div class="formItem clearLeft">
@@ -23,13 +22,10 @@
 				</fieldset>		
 				<br />
 				<asp:gridview id="gvSettlementDetails" 
-				runat="server" 
-				datakeynames="cId,cPriceIncludingVAT,cPriceExcludingVAT" 
-				skinid="Striped" 
-				>
+					runat="server" 
+					datakeynames="cId,cPriceIncludingVAT,cPriceExcludingVAT" 
+					skinid="Striped">
                 <Columns>
-                    <%--<asp:BoundField headerText="Id" DataField="cId" SortExpression="cId"/>--%>
-					<%--<asp:BoundField headerText="Butik Id" DataField="cShopId" SortExpression="cShopId"/>--%>
 					<asp:TemplateField HeaderText="Butik" HeaderStyle-CssClass="wide-column" SortExpression="cShopNumber" >
 						<ItemTemplate><%# Eval("cShopNumber")%> - <%# Eval("cShopName")%></ItemTemplate>
 					</asp:TemplateField>

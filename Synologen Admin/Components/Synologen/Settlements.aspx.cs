@@ -13,9 +13,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		private void CheckForAvailableInvoicedOrdersToSettle() {
 			var statusFilter = Business.Globals.ReadyForSettlementStatusId;
-			 var numberOfOrdersReadyForSettlement = Provider.GetNumberOfOrderWithSpecificStatus(statusFilter);
-			btnCreateSettlement.Enabled = (numberOfOrdersReadyForSettlement != 0);
+			NumberOfOrdersReadyForSettlement = Provider.GetNumberOfOrderWithSpecificStatus(statusFilter);
+			btnCreateSettlement.Enabled = (NumberOfOrdersReadyForSettlement != 0);
 		}
+
+		protected int NumberOfOrdersReadyForSettlement { get; private set; }
 
 
 		private void PopulateContractCustomerArticles() {

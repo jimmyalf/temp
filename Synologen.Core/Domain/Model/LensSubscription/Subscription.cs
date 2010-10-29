@@ -14,7 +14,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		}
 		public virtual Customer Customer { get; set; }
 		public virtual SubscriptionPaymentInfo PaymentInfo { get; set; }
-		public virtual IEnumerable<SubscriptionTransaction> Transactions { get; private set; }
+		public virtual IEnumerable<SubscriptionTransaction> Transactions { get; set; }
 		public virtual SubscriptionStatus Status { get; set; }
 		public virtual DateTime CreatedDate { get; set; }
 		public virtual DateTime? ActivatedDate { get; set; }

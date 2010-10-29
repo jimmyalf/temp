@@ -78,6 +78,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			}
 			var sqlConnection = new SqlConnection(DataHelper.ConnectionString);
 			sqlConnection.Open();
+			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionTransaction");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscription");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionCustomer");
 			sqlConnection.Close();
@@ -92,12 +93,15 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			var country = new CountryRepository(session).Get(TestCountryId);
 			var reposititory = new CustomerRepository(session);
 			var subscriptionRepository = new SubscriptionRepository(session);
+			var transactionRepository = new TransactionRepository(session);
 			for (var i = 0; i < 5; i++)
 			{
 				var customerToSave = CustomerFactory.Get(country, shop, "Tore " + i, "Alm " + i, "630610613" + i);
 				reposititory.Save(customerToSave);
 				var subscriptionToSave = SubscriptionFactory.Get(customerToSave, ((i % 3) +1).ToEnum<SubscriptionStatus>());
 				subscriptionRepository.Save(subscriptionToSave);
+				var transactionToSave = TransactionFactory.Get(subscriptionToSave, ((i % 2) + 1).ToEnum<TransactionType>(), ((i % 3) + 1).ToEnum<TransactionReason>());
+				transactionRepository.Save(transactionToSave);
 			}
 		}
 

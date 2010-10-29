@@ -112,6 +112,7 @@
     <Compile Include="Repositories\LensSubscriptionRepositories\CustomerRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\ShopRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\SubscriptionRepository.cs" />
+    <Compile Include="Repositories\LensSubscriptionRepositories\TransactionRepository.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameBrandMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameColorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameGlassTypeMap.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\CountryMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\CustomerMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\ShopMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\TransactionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopMap.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\ShopRepository.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SubscriptionMap.cs" />

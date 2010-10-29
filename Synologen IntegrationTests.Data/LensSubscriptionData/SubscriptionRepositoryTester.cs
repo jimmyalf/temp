@@ -243,4 +243,47 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			}
 		}
 	}
+
+
+	[TestFixture]
+	[Category("SubscriptionRepositoryTester")]
+	public class When_fetching_all_transactions_for_a_subscription : BaseRepositoryTester<SubscriptionRepository>
+	{
+		private SubscriptionTransaction[] _transactions;
+		private Subscription _subscription;
+
+		public When_fetching_all_transactions_for_a_subscription()
+		{
+			Context = session =>
+			{
+				var shop = new ShopRepository(session).Get(TestShopId);
+				var country = new CountryRepository(session).Get(TestCountryId);
+
+				var customer = CustomerFactory.Get(country, shop);
+				new CustomerRepository(session).Save(customer);
+				_subscription = SubscriptionFactory.Get(customer);
+
+				new SubscriptionRepository(session).Save(_subscription);
+
+				_transactions = TransactionFactory.GetList(_subscription);
+				//_subscription.Transactions = _transactions;
+			};
+
+			Because = repository => _transactions.Each(x => new TransactionRepository(GetSessionFactory().OpenSession()).Save(x));
+			
+		}
+
+		[Test]
+		public void Should_get_all_transactions_for_a_subscription()
+		{
+			AssertUsing(session =>
+			{
+				var savedSubscription = new SubscriptionRepository(session).Get(_subscription.Id);
+				savedSubscription.Transactions.ShouldContain(_transactions[0]);
+				savedSubscription.Transactions.ShouldContain(_transactions[1]);
+				savedSubscription.Transactions.ShouldContain(_transactions[2]);
+				savedSubscription.Transactions.Count().ShouldBe(3);
+			});
+		}
+	}
 }

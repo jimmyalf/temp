@@ -23,5 +23,6 @@
 	<a href="LensSubscriptionEditSubscription.aspx?subscription=1">Redigera linsabonnemang 1</a>
 	<a href="LensSubscriptionCreateCustomer.aspx">Skapa kund för linsabonnemang</a>
 	<a href="LensSubscriptionEditCustomer.aspx?customer=1">Redigera kund för linsabonnemang (med id=1)</a>
+	<a href="LensSubscriptionTransactionsList.aspx?subscription=1">Visa transaktioner för linsabonnemang (med id=1)</a>
 </div>
 </asp:Content>

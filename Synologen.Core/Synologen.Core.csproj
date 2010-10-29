@@ -97,6 +97,7 @@
     <Compile Include="Domain\Persistence\LensSubscription\IShopRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ISubscriptionRepository.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IShopRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />
     <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />

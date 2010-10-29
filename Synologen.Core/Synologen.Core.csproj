@@ -65,6 +65,26 @@
   <ItemGroup>
     <Compile Include="Attributes\EnumDisplayNameAttribute.cs" />
     <Compile Include="Domain\Exceptions\SynologenDeleteItemHasConnectionsException.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\FileBase.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\Payer.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentReciever.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentType.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\PeriodCode.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\Consent.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\ConsentCommentCode.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\ConsentFile.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\ConsentInformationCode.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\Error.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\ErrorCommentCode.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\ErrorsFile.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\Payment.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\PaymentResult.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\PaymentsFile.cs" />
+    <Compile Include="Domain\Model\Autogiro\Send\Consent.cs" />
+    <Compile Include="Domain\Model\Autogiro\Send\ConsentsFile.cs" />
+    <Compile Include="Domain\Model\Autogiro\Send\ConsentType.cs" />
+    <Compile Include="Domain\Model\Autogiro\Send\Payment.cs" />
+    <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
     <Compile Include="Domain\Model\Entity.cs" />
     <Compile Include="Domain\Model\FrameOrder\EyeParameter.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameGlassType.cs" />

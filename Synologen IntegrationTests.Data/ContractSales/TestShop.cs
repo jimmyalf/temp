@@ -51,8 +51,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		public void Can_update_shop_Access()
 		{
 			//Arrange
-			var editedShop = Factories.ShopFactory.GetShop(TestShop.ShopId);
-			editedShop.Access = ShopAccess.LensSubscription | ShopAccess.SlimJim;
+			var editedShop = Factories.ShopFactory.GetShop(TestShop.ShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
 
 			//Act
 			Provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref editedShop);

@@ -48,6 +48,13 @@
     <Compile Include="Code\SynologenUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="LensSubscriptionTransactionsList.aspx.cs">
+      <DependentUpon>LensSubscriptionTransactionsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LensSubscriptionTransactionsList.aspx.designer.cs">
+      <DependentUpon>LensSubscriptionTransactionsList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Logic\EventArguments\EditFrameFormEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SaveCustomerEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SaveSubscriptionEventArgs.cs" />
@@ -59,11 +66,13 @@
     <Compile Include="Logic\Presenters\LensSubscription\CreateCustomerPresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\EditLensSubscriptionPresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\ListCustomersPresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\ListTransactionsPresenter.cs" />
     <Compile Include="Logic\Views\LensSubscription\ICreateCustomerView.cs" />
     <Compile Include="Logic\Views\LensSubscription\ICreateLensSubscriptionView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IEditCustomerView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IEditLensSubscriptionView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListCustomersView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\IListTransactionView.cs" />
     <Compile Include="Models\LensSubscription\CreateCustomerModel.cs" />
     <Compile Include="Models\LensSubscription\CreateLensSubscriptionModel.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\CreateLensSubscriptionPresenter.cs" />
@@ -88,6 +97,9 @@
     <Compile Include="Models\LensSubscription\EditLensSubscriptionModel.cs" />
     <Compile Include="Models\LensSubscription\ListCustomersItemModel.cs" />
     <Compile Include="Models\LensSubscription\ListCustomersModel.cs" />
+    <Compile Include="Models\LensSubscription\ListSubscriptionsItemModel.cs" />
+    <Compile Include="Models\LensSubscription\ListTransactionModel.cs" />
+    <Compile Include="Models\LensSubscription\SubscriptionTransactionListItemModel.cs" />
     <Compile Include="Models\ListFrameOrdersModel.cs" />
     <Compile Include="Models\ViewFrameOrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -183,6 +195,13 @@
     </Compile>
     <Compile Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx.designer.cs">
       <DependentUpon>LensSubscriptionEditSubscription.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptionTransactionsList.ascx.cs">
+      <DependentUpon>LensSubscriptionTransactionsList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptionTransactionsList.ascx.designer.cs">
+      <DependentUpon>LensSubscriptionTransactionsList.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\SalesList.ascx.cs">
       <DependentUpon>SalesList.ascx</DependentUpon>
@@ -289,6 +308,7 @@
     <Content Include="FrameOrderView.aspx" />
     <Content Include="FrameOrder.aspx" />
     <Content Include="LensSubscriptionEditCustomer.aspx" />
+    <Content Include="LensSubscriptionTransactionsList.aspx" />
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
@@ -300,6 +320,7 @@
     <Content Include="Wpc\Synologen\LensSubscriptionCreateSubscription.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptionCustomersList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptionEditCustomer.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptionTransactionsList.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">

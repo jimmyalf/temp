@@ -125,7 +125,9 @@
     <Compile Include="LensSubscriptionData\Factories\CustomerFactory.cs" />
     <Compile Include="LensSubscriptionData\Factories\ShopFactory.cs" />
     <Compile Include="LensSubscriptionData\Factories\SubscriptionFactory.cs" />
+    <Compile Include="LensSubscriptionData\Factories\TransactionFactory.cs" />
     <Compile Include="LensSubscriptionData\SubscriptionRepositoryTester.cs" />
+    <Compile Include="LensSubscriptionData\TransactionRepostitoryTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

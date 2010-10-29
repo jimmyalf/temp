@@ -6,11 +6,11 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories
 {
 	public static class ShopFactory
 	{
-		public static Shop GetShop(int id)
+		public static Shop GetShop(int id, ShopAccess access)
 		{
 			return new Shop
 			{
-				//Access = ShopAccess.None,
+				Access = access,
 				Active = true,
 				Address = "Spinit AB",
 				Address2 = "Datavägen 2",

@@ -1,6 +1,7 @@
 using System.Configuration;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Utility.Business;
 
@@ -24,11 +25,17 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 
 		private void SetupTestData() 
 		{
-			TestShop = Factories.ShopFactory.GetShop(testableShopId);
+			TestShop = Factories.ShopFactory.GetShop(testableShopId, ShopAccess.None);
 			Provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref TestShop);
 		}
 
 		private static string ConnectionString { get { return ConfigurationManager.ConnectionStrings[connectionStringname].ConnectionString; } }
 
+		[TearDown]
+		public void ResetTestData()
+		{
+			TestShop = Factories.ShopFactory.GetShop(testableShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
+			Provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref TestShop);
+		}
 	}
 }

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Web;
 using Moq;
 using NUnit.Framework;
@@ -33,9 +31,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			var mockedView = new Mock<ICreateTransactionView>();
 			mockedView.SetupGet(x => x.Model).Returns(new CreateTransactionModel());
 			_view = mockedView.Object;
+
+			var mockedHttpContext = new Mock<HttpContextBase>();
+			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(new NameValueCollection());
+
 			_mockedTransactionRepository = new Mock<ITransactionRepository>();
 			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
-			var presenter = new CreateTransactionPresenter(mockedView.Object, _mockedTransactionRepository.Object, _mockedSubscriptionRepository.Object);
+			var presenter = new CreateTransactionPresenter(mockedView.Object, _mockedTransactionRepository.Object, _mockedSubscriptionRepository.Object) { HttpContext = mockedHttpContext.Object };
 
 			// Act
 			presenter.View_Load(null, new EventArgs());
@@ -164,7 +166,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 	[Category("CreateTransactionPresenterTester")]
 	public class Presenter_gets_reason_and_redirects_to_current_page
 	{
-		private readonly ICreateTransactionView _view;
+		
 		private readonly Mock<ITransactionRepository> _mockedTransactionRepository;
 		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
 		private const int _subscriptionId = 5;
@@ -187,7 +189,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			mockedHttpContext.SetupGet(x => x.Response).Returns(_mockedHttpResponse.Object);
 			mockedHttpContext.SetupGet(x => x.Request.Url).Returns(new Uri(currentPageUri + string.Format("?subscription={0}", _subscriptionId)));
 
-			_view = mockedView.Object;
 			_mockedTransactionRepository = new Mock<ITransactionRepository>();
 			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
 			var presenter = new CreateTransactionPresenter(
@@ -215,7 +216,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 	[Category("CreateTransactionPresenterTester")]
 	public class Presenter_gets_cancel_and_redirects_to_current_page
 	{
-		private readonly ICreateTransactionView _view;
 		private readonly Mock<ITransactionRepository> _mockedTransactionRepository;
 		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
 		private const int _subscriptionId = 5;
@@ -238,7 +238,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			mockedHttpContext.SetupGet(x => x.Response).Returns(_mockedHttpResponse.Object);
 			mockedHttpContext.SetupGet(x => x.Request.Url).Returns(new Uri(currentPageUri + string.Format("?subscription={0}", _subscriptionId)));
 
-			_view = mockedView.Object;
 			_mockedTransactionRepository = new Mock<ITransactionRepository>();
 			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
 			var presenter = new CreateTransactionPresenter(

@@ -72,7 +72,7 @@
     <Compile Include="Domain\Model\Autogiro\CommonTypes\PeriodCode.cs" />
     <Compile Include="Domain\Model\Autogiro\Recieve\Consent.cs" />
     <Compile Include="Domain\Model\Autogiro\Recieve\ConsentCommentCode.cs" />
-    <Compile Include="Domain\Model\Autogiro\Recieve\ConsentFile.cs" />
+    <Compile Include="Domain\Model\Autogiro\Recieve\ConsentsFile.cs" />
     <Compile Include="Domain\Model\Autogiro\Recieve\ConsentInformationCode.cs" />
     <Compile Include="Domain\Model\Autogiro\Recieve\Error.cs" />
     <Compile Include="Domain\Model\Autogiro\Recieve\ErrorCommentCode.cs" />
@@ -140,6 +140,7 @@
     <Compile Include="Extensions\GenericsExtensions.cs" />
     <Compile Include="Extensions\IntegerExtionsions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\StringBuilderExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IFrameRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

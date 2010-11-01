@@ -39,7 +39,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 		private void Save(object sender, EventArgs e) 
 		{
 			if (Submit == null) return;
-			Page.Validate();
+			Page.Validate("vgCreateSubscription");
 			if(Page.IsValid == false) return;
 			var args = new SaveSubscriptionEventArgs
 			{

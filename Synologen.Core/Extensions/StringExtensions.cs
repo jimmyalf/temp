@@ -1,4 +1,5 @@
 using System.Linq;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Core.Extensions
 {

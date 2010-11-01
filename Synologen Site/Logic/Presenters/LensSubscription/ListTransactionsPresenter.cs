@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 using WebFormsMvp;
@@ -16,15 +13,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 	public class ListTransactionsPresenter : Presenter<IListTransactionView>
 	{
 		private readonly ISubscriptionRepository _subscriptionRepository;
-		private readonly ISynologenMemberService _synologenMemberService;
 
 		public ListTransactionsPresenter(IListTransactionView view, 
-										ISubscriptionRepository subscriptionRepository,
-										ISynologenMemberService synologenMemberService)
+										ISubscriptionRepository subscriptionRepository)
 			: base(view)
 		{
 			_subscriptionRepository = subscriptionRepository;
-			_synologenMemberService = synologenMemberService;
 			View.Load += View_Load;
 		}
 

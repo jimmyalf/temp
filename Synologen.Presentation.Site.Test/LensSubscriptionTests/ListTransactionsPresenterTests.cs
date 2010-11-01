@@ -25,7 +25,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 		private readonly IListTransactionView _view;
 		private readonly Mock<ISubscriptionRepository> _subscriptionRepository;
-		private readonly Mock<ISynologenMemberService> _synologenMemberService;
 		private readonly SubscriptionTransaction[] _transactionList;
 
 		public When_loading_transaction_list_view()
@@ -47,9 +46,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_subscriptionRepository = new Mock<ISubscriptionRepository>();
 			_subscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(subscription);
 
-			_synologenMemberService = new Mock<ISynologenMemberService>();
-
-			var presenter = new ListTransactionsPresenter(view.Object, _subscriptionRepository.Object, _synologenMemberService.Object) { HttpContext = mockedHttpContext.Object };
+			var presenter = new ListTransactionsPresenter(view.Object, _subscriptionRepository.Object) { HttpContext = mockedHttpContext.Object };
 
 			//Act
 			presenter.View_Load(null, new EventArgs());

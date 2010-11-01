@@ -38,5 +38,10 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		{
 			return Convert.ToInt32(value);
 		}
+
+		public static string ToNumberString(this Enum value)
+		{
+			return value.ToInteger().ToString();
+		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" CodeBehind="LensSubscriptionEditSubscription.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptionEditSubscription" %>
 <%@ Register  Src="~/Wpc/Synologen/LensSubscriptionTransactionsList.ascx" TagName="LensSubscriptionTransactionsList" TagPrefix="WpcSynologen" %>
+<%@ Register  Src="~/Wpc/Synologen/LensSubscriptionCreateTransaction.ascx" TagName="LensSubscriptionCreateTransaction" TagPrefix="WpcSynologen" %>
 <%if(Model.DisplayForm){%>
 <fieldset class="synologen-form">
 	<legend>Redigera abonnemang för <%=Model.CustomerName %></legend>
@@ -31,6 +32,7 @@
 	<asp:ValidationSummary ID="vldSummary" runat="server" />
 </fieldset>
 <WpcSynologen:LensSubscriptionTransactionsList ID="ctrlLensSubscriptionTransactionsList" runat="server"  />
+<WpcSynologen:LensSubscriptionCreateTransaction ID="ctrlLensSubscriptionCreateTransaction" runat="server"  />
 <%} %>
 <%if(Model.ShopDoesNotHaveAccessGivenCustomer){%>
 <p>Rättighet för att hantera given kund saknas. Var god kontakta systemadministratören.</p>

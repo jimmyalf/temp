@@ -79,6 +79,7 @@
     <Compile Include="FrameOrderTests\ViewFrameOrderPresenterTests.cs" />
     <Compile Include="LensSubscriptionTests\CreateCustomerPresenterTests.cs" />
     <Compile Include="LensSubscriptionTests\CreateSubscriptionPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\CreateTransactionPresenterTests.cs" />
     <Compile Include="LensSubscriptionTests\EditCustomerPresenterTests.cs.cs" />
     <Compile Include="LensSubscriptionTests\EditSubscriptionPresenterTests.cs" />
     <Compile Include="LensSubscriptionTests\Factories\CountryFactory.cs" />

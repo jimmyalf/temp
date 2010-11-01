@@ -8,4 +8,7 @@
 <p>
 	<WpcSynologen:LensSubscriptionTransactionsList ID="synologenMvpTestControl" runat="server"  />
 </p>
+<p>
+	<WpcSynologen:LensSubscriptionCreateTransaction ID="synologenMvpTestControl2" runat="server"  />
+</p>
 </asp:Content>

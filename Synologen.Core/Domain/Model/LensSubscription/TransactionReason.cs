@@ -4,10 +4,10 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 {
 	public enum TransactionReason
 	{
-		[EnumDisplayName("Inbetalning")]
+		[EnumDisplayName("Insättning")]
 		Payment = 1,
 
-		[EnumDisplayName("Utbetalning")]
+		[EnumDisplayName("Uttag")]
 		Withdrawal = 2,
 
 		[EnumDisplayName("Korrigering")]

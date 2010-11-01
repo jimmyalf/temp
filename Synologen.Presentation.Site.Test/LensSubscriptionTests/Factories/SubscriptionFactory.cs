@@ -1,4 +1,5 @@
 using System;
+using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -9,6 +10,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 		public static Subscription Get(Customer customer)
 		{
 			return CreateSubscription(customer, 2, 10, "123456789", "0089", 455.23M, SubscriptionStatus.Active);
+		}
+
+		public static Subscription Get(int id, Customer customer)
+		{
+			return CreateSubscription(id, customer, 2, 10, "123456789", "0089", 455.23M, SubscriptionStatus.Active);
+		}
+
+		private static Subscription CreateSubscription(int id, Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, SubscriptionStatus status)
+		{
+			var mockedSubscription = new Mock<Subscription>();
+			mockedSubscription.SetupGet(x => x.Id).Returns(id);
+			mockedSubscription.SetupGet(x => x.ActivatedDate).Returns(DateTime.Now.SubtractDays(activatedSubtractDays));
+			mockedSubscription.SetupGet(x => x.CreatedDate).Returns(DateTime.Now.SubtractDays(createdSubtractDays));
+			mockedSubscription.SetupGet(x => x.PaymentInfo).Returns(new SubscriptionPaymentInfo
+				{
+					AccountNumber = accountNumber,
+					ClearingNumber = clearingNumber,
+					MonthlyAmount = MonthlyAmount
+				});
+			mockedSubscription.SetupGet(x => x.Status).Returns(status);
+			mockedSubscription.SetupGet(x => x.Customer).Returns(customer);
+			return mockedSubscription.Object;	
 		}
 
 		public static Subscription[] GetList(Customer customer)

@@ -58,10 +58,13 @@
     <Compile Include="Logic\EventArguments\EditFrameFormEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SaveCustomerEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SaveSubscriptionEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\LensSubscription\SaveTransactionEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SearchEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\LensSubscription\TransactionReasonEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\UpdateSubscriptionEventArgs.cs" />
     <Compile Include="Logic\Helpers\StringBuilderExtensions.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\CreateTransactionPresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\EditCustomerPresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\CreateCustomerPresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\EditLensSubscriptionPresenter.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="Logic\Presenters\LensSubscription\ListTransactionsPresenter.cs" />
     <Compile Include="Logic\Views\LensSubscription\ICreateCustomerView.cs" />
     <Compile Include="Logic\Views\LensSubscription\ICreateLensSubscriptionView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\ICreateTransactionView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IEditCustomerView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IEditLensSubscriptionView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListCustomersView.cs" />
@@ -93,6 +97,7 @@
     <Compile Include="Models\IntervalListItem.cs" />
     <Compile Include="Models\EditFrameOrderModel.cs" />
     <Compile Include="Logic\Presenters\EditFrameOrderPresenter.cs" />
+    <Compile Include="Models\LensSubscription\CreateTransactionModel.cs" />
     <Compile Include="Models\LensSubscription\EditCustomerModel.cs" />
     <Compile Include="Models\LensSubscription\EditLensSubscriptionModel.cs" />
     <Compile Include="Models\LensSubscription\ListCustomersItemModel.cs" />
@@ -174,6 +179,13 @@
     </Compile>
     <Compile Include="Wpc\Synologen\LensSubscriptionCreateSubscription.ascx.designer.cs">
       <DependentUpon>LensSubscriptionCreateSubscription.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptionCreateTransaction.ascx.cs">
+      <DependentUpon>LensSubscriptionCreateTransaction.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptionCreateTransaction.ascx.designer.cs">
+      <DependentUpon>LensSubscriptionCreateTransaction.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\LensSubscriptionCustomersList.ascx.cs">
       <DependentUpon>LensSubscriptionCustomersList.ascx</DependentUpon>
@@ -312,6 +324,7 @@
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptionCreateTransaction.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx" />
     <Content Include="Wpc\Synologen\FrameOrder.ascx" />
     <Content Include="Wpc\Synologen\FrameOrderList.ascx" />

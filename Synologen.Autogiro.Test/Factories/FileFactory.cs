@@ -2,7 +2,7 @@ using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 
-namespace Synologen.Autogiro.Test.Factories
+namespace Spinit.Wpc.Synologen.Autogiro.Test.Factories
 {
 	public static  class FileFactory
 	{
@@ -40,11 +40,5 @@ namespace Synologen.Autogiro.Test.Factories
 				}
 			};
 		}
-		/*
-0120041026AUTOGIRO                                            4711170009912346  
-82200410270    00000010203040510000000750000009912346ÅRSKORT-2005                             
-82200410270    00000020304050620000000250000009912346KVARTAL-2005                             
-32200410280    00000030405060730000000125000009912346ÅTERBET         
-		 */
 	}
 }

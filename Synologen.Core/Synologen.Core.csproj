@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Attributes\EnumDisplayNameAttribute.cs" />
     <Compile Include="Domain\Exceptions\SynologenDeleteItemHasConnectionsException.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\EqualBase.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\FileBase.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\Payer.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentReciever.cs" />
@@ -119,6 +120,8 @@
     <Compile Include="Domain\Persistence\FrameOrder\IShopRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
+    <Compile Include="Domain\Services\IAutogiroLineParserService.cs" />
+    <Compile Include="Domain\Services\IAutogiroParserService.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />
     <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IAdminSettingsService.cs" />

@@ -20,6 +20,7 @@
 				<ProjectToBuild Include="$(SolutionDir)Synologen Test\Synologen Unit Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen.Presentation.Site.Test\Synologen.Presentation.Site.Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen.Presentation.Test\Synologen.Presentation.Test.csproj"/>
+				<ProjectToBuild Include="$(SolutionDir)Synologen.Autogiro.Test\Synologen.Autogiro.Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen IntegrationTests.Data\Synologen IntegrationTests.Data.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>
@@ -40,6 +41,7 @@
 				<ProjectToBuild Include="$(SolutionDir)Synologen Test\Synologen Unit Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen.Presentation.Site.Test\Synologen.Presentation.Site.Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen.Presentation.Test\Synologen.Presentation.Test.csproj"/>
+				<ProjectToBuild Include="$(SolutionDir)Synologen.Autogiro.Test\Synologen.Autogiro.Test.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen IntegrationTests.Data\Synologen IntegrationTests.Data.csproj"/>				
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj"/>
 				<ProjectToBuild Include="$(SolutionDir)Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>

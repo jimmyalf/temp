@@ -1,11 +1,11 @@
-namespace Synologen.Autogiro.Test
+namespace Spinit.Wpc.Synologen.Autogiro.Test
 {
 	public interface IAutogiroParserService
 	{
-		string ParseConsents(Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.ConsentsFile file);
-		string ParsePayments(Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.PaymentsFile file);
-		Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.PaymentsFile ReadPayments(string fileContents);
-		Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.ConsentsFile ReadConsents(string fileContents);
-		Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.ErrorsFile ReadErrors(string fileContents);
+		string ParseConsents(Core.Domain.Model.Autogiro.Send.ConsentsFile file);
+		string ParsePayments(Core.Domain.Model.Autogiro.Send.PaymentsFile file);
+		Core.Domain.Model.Autogiro.Recieve.PaymentsFile ReadPayments(string fileContents);
+		Core.Domain.Model.Autogiro.Recieve.ConsentsFile ReadConsents(string fileContents);
+		Core.Domain.Model.Autogiro.Recieve.ErrorsFile ReadErrors(string fileContents);
 	}
 }

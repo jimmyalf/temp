@@ -8,8 +8,8 @@
     <ProjectGuid>{58BC1C43-F7A7-42C4-AF4F-2052349493B4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen.Autogiro.Test</RootNamespace>
-    <AssemblyName>Synologen.Autogiro.Test</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.Autogiro.Test</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Autogiro.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

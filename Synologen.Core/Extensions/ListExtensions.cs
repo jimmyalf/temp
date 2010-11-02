@@ -62,5 +62,30 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		{
 			return listToAppend.ToArray().Concat(listToAppend);
 		}
+
+		public static IEnumerable<TType> Except<TType>(this IEnumerable<TType> list, IgnoreType type)
+		{
+			switch (type)
+			{
+				case IgnoreType.First:
+					return list.Skip(1);
+				case IgnoreType.Last:
+					return list.Take(list.Count() - 1);
+				case IgnoreType.FirstAndLast:
+					return list.Except(IgnoreType.First).Except(IgnoreType.Last);
+				default:
+					throw new ArgumentOutOfRangeException("type");
+			}
+		}
+
+		public enum IgnoreType
+		{
+			First,
+			Last,
+			FirstAndLast
+		}
+
 	}
+
+
 }

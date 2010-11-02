@@ -4,6 +4,5 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve
 {
 	public class PaymentsFile : FileBase<Payment>
 	{
-		
 	}
 }

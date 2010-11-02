@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{58BC1C43-F7A7-42C4-AF4F-2052349493B4}</ProjectGuid>
+    <ProjectGuid>{2E5D8A26-6535-4A7A-A5CE-794614C41A27}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.Autogiro.Test</RootNamespace>
-    <AssemblyName>Spinit.Wpc.Synologen.Autogiro.Test</AssemblyName>
+    <RootNamespace>Spinit.Wp.Synologen.Autogiro</RootNamespace>
+    <AssemblyName>Spinit.Wp.Synologen.Autogiro</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Build\Output\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,20 +25,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Build\Output\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Shouldly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Tools\Shouldly.dll</HintPath>
-    </Reference>
     <Reference Include="Spinit, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
@@ -57,20 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutogiroParserServiceTests.cs" />
     <Compile Include="Helpers\AutogiroFileContentsExtensions.cs" />
-    <Compile Include="Helpers\DateTimeTestConstraint.cs" />
-    <Compile Include="Helpers\ShouldBeDateTimeTestExtensions.cs" />
-    <Compile Include="Factories\FileFactory.cs" />
-    <Compile Include="Factories\FileContentFactory.cs" />
+    <Compile Include="AutogiroLineParserService.cs" />
+    <Compile Include="AutogiroParserService.cs" />
+    <Compile Include="Helpers\ReadLineInfoExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\ReadLineInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen.Autogiro\Synologen.Autogiro.csproj">
-      <Project>{2E5D8A26-6535-4A7A-A5CE-794614C41A27}</Project>
-      <Name>Synologen.Autogiro</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>

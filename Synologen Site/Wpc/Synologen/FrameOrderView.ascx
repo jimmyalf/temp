@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FrameOrderView.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrderView" %>
 <%if(Model.DisplayOrder) { %>
+<div id="synologen-view-frame-order" class="synologen-control">
 <div class="frame-order-view">
 	<p><label>Märke: </label><span><%#Model.FrameBrand%></span></p>
 	<p><label>Båge: </label><span><%#Model.FrameName%></span></p>
@@ -25,7 +26,7 @@
 	<p><label>Beställning skickad: </label><span><%#Model.SentDate%></span></p>	
 </div>
 <%} %>
-
+</div>
 <%if(!Model.OrderHasBeenSent && Model.DisplayOrder) { %>
 <a href="<%#Model.EditPageUrl%>">Fortsätt redigera</a>
 &nbsp;|&nbsp;

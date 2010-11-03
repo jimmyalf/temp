@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LensSubscriptionCreateTransaction.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptionCreateTransaction" %>
+<div id="synologen-create-lens-subscription-transaction" class="synologen-control">
 <fieldset class="synologen-form">
 	<legend>Ny transaktion</legend>
 	<% if (Model.DisplayChooseReason) { %>
@@ -26,3 +27,4 @@
 	<% } %>
 
 </fieldset>
+</div>

@@ -48,13 +48,6 @@
     <Compile Include="Code\SynologenUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="LensSubscriptionTransactionsList.aspx.cs">
-      <DependentUpon>LensSubscriptionTransactionsList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="LensSubscriptionTransactionsList.aspx.designer.cs">
-      <DependentUpon>LensSubscriptionTransactionsList.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Logic\EventArguments\EditFrameFormEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SaveCustomerEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SaveSubscriptionEventArgs.cs" />
@@ -441,9 +434,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

@@ -4,7 +4,7 @@
 	<asp:Repeater ID="rptTransactions" runat="server" DataSource='<%#Model.List%>'>
 		<HeaderTemplate >
 			<table>
-				<tr>
+				<tr class="synologen-table-headerrow">
 					<th>Typ</th><th>Orsak</th><th>Belopp</th><th>Datum</th>
 				</tr>
 		</HeaderTemplate>

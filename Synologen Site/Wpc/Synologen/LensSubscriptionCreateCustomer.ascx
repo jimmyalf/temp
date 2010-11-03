@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LensSubscriptionCreateCustomer.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptionCreateCustomer" %>
 <%if(Model.DisplayForm){%>
+<div id="synologen-create-lens-subscription-customer" class="synologen-control">
 <fieldset class="synologen-form">
 	<legend>Skapa ny kund</legend>
 
@@ -49,6 +50,7 @@
 	<asp:Button ID="btnSave" runat="server" Text="Spara" />
 
 </fieldset>
+</div>
 <%} %> 
 <%if(Model.ShopDoesNotHaveAccessToLensSubscriptions){%>
 <p>Rättighet till linsbeställning kan inte medges. Var god kontakta systemadministratören.</p>

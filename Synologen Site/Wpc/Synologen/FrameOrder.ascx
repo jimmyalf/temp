@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" CodeBehind="FrameOrder.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrder" %>
 <%if(Model.DisplayForm) { %>
-
+<div id="synologen-create-frame-order" class="synologen-control">
 <div class="frame-order-item frame">
 	<label for="<%=drpFrames.ClientID%>">Bågar</label>
 	<asp:DropDownList 
@@ -314,7 +314,7 @@
 	<br />
 	<asp:Button ID="btnSave" runat="server" Text="Granska" ValidationGroup="vldSubmit" CausesValidation="true"/>
 </div>
-
+</div>
 <% } %>
 <%if(Model.OrderHasBeenSent) { %>
 <p>Begärd beställning har skickats och kan därmed ej editeras längre. Var god kontakta systemadministratören.</p>

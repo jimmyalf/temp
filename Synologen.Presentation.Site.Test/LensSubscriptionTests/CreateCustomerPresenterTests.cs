@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
@@ -14,6 +12,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories;
+using Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 {
@@ -86,10 +85,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly Country[] _countryList;
 		private readonly Country _selectedCountry;
 		private readonly int _shopId;
+		private readonly HttpContextMock _mockedHttpContext;
+		private readonly string _redirectUrl;
+		private readonly int _redirectPageId;
 
 		public When_submitting_create_customer_view()
 		{
 			// Arrange
+			_redirectPageId = 55;
+			_redirectUrl = "/test/redirect/";
+			_mockedHttpContext = new HttpContextMock();
+
 			_shopId = 5;
 			const int selectedCountryId = 5;
 			_countryList = CountryFactory.GetList().ToArray();
@@ -103,6 +109,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 			var mockedView = new Mock<ICreateCustomerView>();
 			mockedView.SetupGet(x => x.Model).Returns(new CreateCustomerModel());
+			mockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
 			_view = mockedView.Object;
 
 			_mockedShopRepository = new Mock<IShopRepository>();
@@ -113,12 +120,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
 			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(_shopId);
-			
-			_presenter = new CreateCustomerPresenter(_view, 
-													_mockedCustomerRepository.Object,
-													_mockedShopRepository.Object, 
-													_mockedCountryRepository.Object,
-													_mockedSynologenMemberService.Object);
+			_mockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
+
+			_presenter = new CreateCustomerPresenter(
+				_view, 
+				_mockedCustomerRepository.Object, 
+				_mockedShopRepository.Object,                                   
+				_mockedCountryRepository.Object, 
+				_mockedSynologenMemberService.Object
+			)
+			{
+				HttpContext = _mockedHttpContext.Object
+			};
 			
 			// Act
 			_saveEventArgs = new SaveCustomerEventArgs
@@ -161,6 +174,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		{
 			_mockedCountryRepository.Verify(x => x.Get(It.Is<int>(id => id.Equals(_selectedCountry.Id))));
 			_mockedShopRepository.Verify(x => x.Get(It.Is<int>(id => id.Equals(_shopId))));
+		}
+
+		[Test]
+		public void Presenter_get_expected_page_url_and_perfoms_redirect()
+		{
+			_mockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
+			_mockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_redirectUrl))));
 		}
 	}
 

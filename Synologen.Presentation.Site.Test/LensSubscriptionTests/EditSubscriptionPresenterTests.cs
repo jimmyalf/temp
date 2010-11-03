@@ -218,6 +218,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly SaveSubscriptionEventArgs _saveEventArgs;
 		private readonly string _redirectUrl;
 		private readonly int _redirectPageId;
+		private readonly string _expectedRedirectUrl;
 
 		public When_submitting_edit_subscription_view()
 		{
@@ -227,6 +228,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			const int shopId = 3;
 			_redirectPageId = 55;
 			_redirectUrl = "/test/redirect/";
+			_expectedRedirectUrl = String.Concat(_redirectUrl, "?customer=", customerId);
 			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId));
 			_mockedView = MvpHelpers.GetMockedView<IEditLensSubscriptionView, EditLensSubscriptionModel>();
 			_mockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
@@ -267,7 +269,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
 			_mockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
-			_mockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_redirectUrl))));
+			_mockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_expectedRedirectUrl))));
 		}
 
 	}
@@ -284,6 +286,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly int _subscriptionId;
 		private readonly string _redirectUrl;
 		private readonly int _redirectPageId;
+		private string _expectedRedirectUrl;
 
 		public When_stopping_subscription_view()
 		{
@@ -293,6 +296,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			const int shopId = 3;
 			_redirectPageId = 55;
 			_redirectUrl = "/test/redirect/";
+			_expectedRedirectUrl = String.Concat(_redirectUrl, "?customer=", customerId);
 			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId));
 			_mockedView = MvpHelpers.GetMockedView<IEditLensSubscriptionView, EditLensSubscriptionModel>();
 			_mockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
@@ -319,7 +323,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
 			_mockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
-			_mockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_redirectUrl))));
+			_mockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_expectedRedirectUrl))));
 		}
 
 	}
@@ -336,6 +340,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly int _subscriptionId;
 		private readonly string _redirectUrl;
 		private readonly int _redirectPageId;
+		private string _expectedRedirectUrl;
 
 		public When_starting_subscription_view()
 		{
@@ -345,6 +350,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			const int shopId = 3;
 			_redirectPageId = 55;
 			_redirectUrl = "/test/redirect/";
+			_expectedRedirectUrl = String.Concat(_redirectUrl, "?customer=", customerId);
 			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId));
 			_expectedSubscription.Status = SubscriptionStatus.Stopped;
 			_mockedView = MvpHelpers.GetMockedView<IEditLensSubscriptionView, EditLensSubscriptionModel>();
@@ -372,7 +378,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
 			_mockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
-			_mockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_redirectUrl))));
+			_mockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_expectedRedirectUrl))));
 		}
 
 	}

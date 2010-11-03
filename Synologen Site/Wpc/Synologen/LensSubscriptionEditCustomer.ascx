@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LensSubscriptionEditCustomer.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptionEditCustomer" %>
 <%if(Model.DisplayForm){%>
+<div id="synologen-create-lens-subscription-customer-edit" class="synologen-control">
 <fieldset class="synologen-form">
 	<legend>Redigera kund</legend>
 
@@ -49,26 +50,27 @@
 	<asp:Button ID="btnSave" runat="server" Text="Spara" />
 </fieldset>
 <fieldset>
-		<legend>Kundens abonnemang</legend>
-		<asp:Repeater ID="rptSubscriptions" runat="server" DataSource='<%#Model.Subscriptions%>'>
-			<HeaderTemplate >
-				<table>
-					<tr>
-						<th>Skapad</th><th>Status</th><th>Redigera</th>
-					</tr>
-			</HeaderTemplate>
-			<ItemTemplate>
-					<tr>
-						<td><%# Eval("CreatedDate")%></td>
-						<td><%# Eval("Status")%></td>
-						<td><a href="<%# Eval("EditSubscriptionPageUrl")%>" >Redigera</a></td>
-					</tr>
-			</ItemTemplate>
-			<FooterTemplate>
-				</table>
-			</FooterTemplate>
-		</asp:Repeater>
-	</fieldset>
+	<legend>Kundens abonnemang</legend>
+	<asp:Repeater ID="rptSubscriptions" runat="server" DataSource='<%#Model.Subscriptions%>'>
+		<HeaderTemplate >
+			<table>
+				<tr class="synologen-table-headerrow">
+					<th>Skapad</th><th>Status</th><th>Redigera</th>
+				</tr>
+		</HeaderTemplate>
+		<ItemTemplate>
+				<tr>
+					<td><%# Eval("CreatedDate")%></td>
+					<td><%# Eval("Status")%></td>
+					<td><a href="<%# Eval("EditSubscriptionPageUrl")%>" >Redigera</a></td>
+				</tr>
+		</ItemTemplate>
+		<FooterTemplate>
+			</table>
+		</FooterTemplate>
+	</asp:Repeater>
+</fieldset>
+</div>
 <%} %> 
 <%if(Model.ShopDoesNotHaveAccessToLensSubscriptions){%>
 <p>Rättighet till linsbeställning kan inte medges. Var god kontakta systemadministratören.</p>

@@ -2,6 +2,7 @@
 <%@ Register  Src="~/Wpc/Synologen/LensSubscriptionTransactionsList.ascx" TagName="LensSubscriptionTransactionsList" TagPrefix="WpcSynologen" %>
 <%@ Register  Src="~/Wpc/Synologen/LensSubscriptionCreateTransaction.ascx" TagName="LensSubscriptionCreateTransaction" TagPrefix="WpcSynologen" %>
 <%if(Model.DisplayForm){%>
+<div id="synologen-create-lens-subscription-edit" class="synologen-control">
 <fieldset class="synologen-form">
 	<legend>Redigera abonnemang för <%=Model.CustomerName %></legend>
 	
@@ -33,6 +34,7 @@
 </fieldset>
 <WpcSynologen:LensSubscriptionTransactionsList ID="ctrlLensSubscriptionTransactionsList" runat="server"  />
 <WpcSynologen:LensSubscriptionCreateTransaction ID="ctrlLensSubscriptionCreateTransaction" runat="server"  />
+</div>
 <%} %>
 <%if(Model.ShopDoesNotHaveAccessGivenCustomer){%>
 <p>Rättighet för att hantera given kund saknas. Var god kontakta systemadministratören.</p>

@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" CodeBehind="LensSubscriptionCreateSubscription.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptionCreateSubscription" %>
 <%if(Model.DisplayForm){%>
+<div id="synologen-create-lens-subscription" class="synologen-control">
 <fieldset class="synologen-form">
 	<legend>Skapa abonnemang för <%=Model.CustomerName %></legend>
 	
@@ -22,6 +23,7 @@
 	
 	<asp:ValidationSummary ID="vldSummary" runat="server" />
 </fieldset>
+</div>
 <%} %>
 <%if(Model.ShopDoesNotHaveAccessGivenCustomer){%>
 <p>Rättighet för att hantera given kund saknas. Var god kontakta systemadministratören.</p>

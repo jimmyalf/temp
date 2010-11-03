@@ -25,10 +25,11 @@
 	<p class="readonly-parameter"><label>Skapad</label><span><%#Model.CreatedDate %></span></p>
 	<p class="readonly-parameter"><label>Status</label><span><%#Model.Status %></span></p>
 	
-	
-	<asp:Button ID="btnSave" runat="server" Text="Spara" />
-	<asp:Button ID="btnStop" runat="server" Text="Stoppa abonnemang" Visible='<%#Model.StopButtonEnabled %>' />
-	<asp:Button ID="btnStart" runat="server" Text="Starta abonnemang" Visible='<%#Model.StartButtonEnabled %>' />
+	<div class="control-actions">
+		<asp:Button ID="btnSave" runat="server" Text="Spara" />
+		<asp:Button ID="btnStop" runat="server" Text="Stoppa abonnemang" Visible='<%#Model.StopButtonEnabled %>' />
+		<asp:Button ID="btnStart" runat="server" Text="Starta abonnemang" Visible='<%#Model.StartButtonEnabled %>' />
+	</div>
 	
 	<asp:ValidationSummary ID="vldSummary" runat="server" />
 </fieldset>

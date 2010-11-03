@@ -47,7 +47,9 @@
 
 	<asp:ValidationSummary ID="vldSummary" runat="server" />	
 
-	<asp:Button ID="btnSave" runat="server" Text="Spara" />
+	<div class="control-actions">
+		<asp:Button ID="btnSave" runat="server" Text="Spara" />
+	</div>
 </fieldset>
 <fieldset>
 	<legend>Kundens abonnemang</legend>

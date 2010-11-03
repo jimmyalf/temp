@@ -20,7 +20,7 @@
 	<label for="<%=txtEmail.ClientID%>">E-post</label>
 	<asp:TextBox ID="txtEmail" runat="server" />
 	<asp:RequiredFieldValidator ID="reqtxtEmail" runat="server" ErrorMessage="E-post måste anges" ControlToValidate="txtEmail" Display="Dynamic">*</asp:RequiredFieldValidator>
-	<asp:RegularExpressionValidator ID="regextxtEmail" ValidationExpression="^b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$" runat="server" ErrorMessage="Ogiltig e-post-adress" Display="Dynamic" ControlToValidate="txtEmail">*</asp:RegularExpressionValidator>	
+	<asp:RegularExpressionValidator ID="regextxtEmail" ValidationExpression="^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" runat="server" ErrorMessage="Ogiltig e-post-adress" Display="Dynamic" ControlToValidate="txtEmail">*</asp:RegularExpressionValidator>	
 		
 	<label for="<%=txtMobilePhone.ClientID%>">Mobiltelefon</label>
 	<asp:TextBox ID="txtMobilePhone" runat="server" />

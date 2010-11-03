@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
@@ -34,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 
 		public void View_Load(object sender, EventArgs e)
 		{
-			Func<Country, CountryListItemModel> converter = (country) => new CountryListItemModel { Value = country.Id.ToString(), Text = country.Name };
+			Func<Country, CountryListItemModel> converter = country => new CountryListItemModel { Value = country.Id.ToString(), Text = country.Name };
 			
 			if (!_synologenMemberService.ShopHasAccessTo(ShopAccess.LensSubscription))
 			{
@@ -79,6 +76,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 
 			var customerToSave = converter.Invoke(shopToUse, args);
 			_customerRepository.Save(customerToSave);
+			TryRedirect();
+		}
+
+		private void TryRedirect()
+		{
+			if(View.RedirectOnSavePageId <= 0)
+			{
+				var currentpage = HttpContext.Request.Url.PathAndQuery;
+				HttpContext.Response.Redirect(currentpage);
+				return;
+			}
+			var redirectPageUrl = _synologenMemberService.GetPageUrl(View.RedirectOnSavePageId);
+			if(String.IsNullOrEmpty(redirectPageUrl)) return;
+			HttpContext.Response.Redirect(redirectPageUrl);
 		}
 	}
 }

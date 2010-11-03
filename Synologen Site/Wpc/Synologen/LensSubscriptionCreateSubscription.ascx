@@ -19,7 +19,9 @@
 	<asp:RequiredFieldValidator ID="reqtxtMonthlyAmount" ValidationGroup="vgCreateSubscription" runat="server" ErrorMessage="Månadsavgift måste anges" ControlToValidate="txtMonthlyAmount" Display="Dynamic">*</asp:RequiredFieldValidator>
 	<asp:RangeValidator ID="rngtxtMonthlyAmount" ValidationGroup="vgCreateSubscription" runat="server" ErrorMessage="Månadsavgift måste anges som ett positivt tal med kommatecken som decimalavgränsare" ControlToValidate="txtMonthlyAmount" Display="Dynamic" MinimumValue="0" MaximumValue='99999,99' Type="Double" >*</asp:RangeValidator>
 	
-	<asp:Button ID="btnSave" ValidationGroup="vgCreateSubscription" runat="server" Text="Spara" />
+	<div class="control-actions">
+		<asp:Button ID="btnSave" ValidationGroup="vgCreateSubscription" runat="server" Text="Spara" />
+	</div>
 	
 	<asp:ValidationSummary ID="vldSummary" runat="server" />
 </fieldset>

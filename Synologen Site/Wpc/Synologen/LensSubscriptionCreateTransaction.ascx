@@ -3,8 +3,10 @@
 <fieldset class="synologen-form">
 	<legend>Ny transaktion</legend>
 	<% if (Model.DisplayChooseReason) { %>
-	<asp:Button ID="btnWithdrawal" ValidationGroup="vgCreateTransaction" runat="server" Text="Uttag" />
-	<asp:Button ID="btnCorrection" ValidationGroup="vgCreateTransaction" runat="server" Text="Korrigering" />
+	<div class="control-actions">
+		<asp:Button ID="btnWithdrawal" ValidationGroup="vgCreateTransaction" runat="server" Text="Uttag" />
+		<asp:Button ID="btnCorrection" ValidationGroup="vgCreateTransaction" runat="server" Text="Korrigering" />
+	</div>
 	<% } %>
 	<% if (Model.DisplaySaveCorrection) { %>
 	<label for="<%=drpTransactionType.ClientID%>">Typ</label>
@@ -20,8 +22,10 @@
 	<% } %>
 	
 	<% if (Model.DisplaySaveWithdrawal || Model.DisplaySaveCorrection) { %>
-	<asp:Button ID="btnSave" ValidationGroup="vgCreateTransaction" runat="server" Text="Spara" />
-	<asp:Button ID="btnCancel" runat="server" Text="Avbryt" />
+	<div class="control-actions">
+		<asp:Button ID="btnSave" ValidationGroup="vgCreateTransaction" runat="server" Text="Spara" />
+		<asp:Button ID="btnCancel" runat="server" Text="Avbryt" />
+	</div>
 	
 	<asp:ValidationSummary ID="vldSummary" ValidationGroup="vgCreateTransaction" runat="server" />
 	<% } %>

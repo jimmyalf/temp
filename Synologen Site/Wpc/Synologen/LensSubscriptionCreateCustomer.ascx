@@ -46,8 +46,10 @@
 	<asp:DropDownList ID="drpCountry" runat="server" DataSource='<%#Model.List%>' DataValueField="Value" DataTextField="Text" />
 
 	<asp:ValidationSummary ID="vldSummary" runat="server" />	
-
-	<asp:Button ID="btnSave" runat="server" Text="Spara" />
+	
+	<div class="control-actions">
+		<asp:Button ID="btnSave" runat="server" Text="Spara" />
+	</div>
 
 </fieldset>
 </div>

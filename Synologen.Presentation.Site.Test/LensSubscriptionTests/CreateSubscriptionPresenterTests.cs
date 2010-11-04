@@ -82,15 +82,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly string _redirectUrl;
 		private readonly int _redirectPageId;
 		private readonly HttpContextMock _mockedHttpContext;
+		private int _customerId;
 
 		public When_submitting_create_subscription_view()
 		{
 			//Arrange
-			const int customerId = 5;
+			_customerId = 5;
 			const int shopId = 5;
 			_redirectPageId = 55;
 			_redirectUrl = "/test/redirect/";
-			_mockedHttpContext = new HttpContextMock().SetupSingleQuery("customer", customerId.ToString());
+			_mockedHttpContext = new HttpContextMock().SetupSingleQuery("customer", _customerId.ToString());
 
 			var mockedView = new Mock<ICreateLensSubscriptionView>();
 			mockedView.SetupGet(x => x.Model).Returns(new CreateLensSubscriptionModel());
@@ -98,7 +99,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			view = mockedView.Object;
 
 			var mockedCustomerRepository = new Mock<ICustomerRepository>();
-			mockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId, shopId));
+			mockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(_customerId, shopId));
 
 			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
 			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
@@ -133,7 +134,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
 			_mockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
-			_mockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_redirectUrl))));
+			_mockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(String.Concat(_redirectUrl,"?customerId=",_customerId)))));
 		}
 	}
 

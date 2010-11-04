@@ -89,7 +89,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			}
 			var redirectPageUrl = _synologenMemberService.GetPageUrl(View.RedirectOnSavePageId);
 			if(String.IsNullOrEmpty(redirectPageUrl)) return;
-			HttpContext.Response.Redirect(redirectPageUrl);
+			var customerId = HttpContext.Request.Params["customer"].ToIntOrDefault();
+			HttpContext.Response.Redirect(String.Concat(redirectPageUrl, "?customerId=", customerId));
 		}
 	}
 }

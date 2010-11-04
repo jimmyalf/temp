@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using AutoMapper;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -17,7 +18,6 @@ namespace Spinit.Wpc.Synologen.Presentation
 
 			// Model to ViewModel
 			CreateMap<Subscription, SubscriptionView>()
-				//.ForMember(to => to.CustomerName, m => m.MapFrom(s => s.Customer.ParseName(x => x.FirstName, x => x.LastName)))
 				.ForMember(to => to.CustomerName, m => m.ResolveUsing<CustomerNameValueResolver>().FromMember(x => x.Customer))
 				.ForMember(cv => cv.Activated, m => m.MapFrom(x => x.ActivatedDate))
 				.ForMember(cv => cv.Created, m => m.MapFrom(x => x.CreatedDate))
@@ -30,8 +30,12 @@ namespace Spinit.Wpc.Synologen.Presentation
 				.ForMember(cv => cv.MobilePhone, m => m.MapFrom(x => x.Customer.Contact.MobilePhone))
 				.ForMember(cv => cv.Phone, m => m.MapFrom(x => x.Customer.Contact.Phone))
 				.ForMember(cv => cv.PersonalIdNumber, m => m.MapFrom(x => x.Customer.PersonalIdNumber))
-				.ForMember(cv => cv.ShopName, m => m.MapFrom(x => x.Customer.Shop.Name));
-
+				.ForMember(cv => cv.ShopName, m => m.MapFrom(x => x.Customer.Shop.Name))
+				.ForMember(cv => cv.TransactionList, m => m.ResolveUsing<TransactionValueResolver>().FromMember(x => x.Transactions))
+				.ForMember(cv => cv.AccountNumber, m => m.MapFrom(x => x.PaymentInfo.AccountNumber))
+				.ForMember(cv => cv.ClearingNumber, m => m.MapFrom(x => x.PaymentInfo.ClearingNumber))
+				.ForMember(cv => cv.MonthlyAmount, m => m.MapFrom(x => x.PaymentInfo.MonthlyAmount.ToString("C2", new CultureInfo("sv-SE"))))
+				.ForMember(cv => cv.Status, m => m.MapFrom(x => x.Status.GetEnumDisplayName()));
 		}
 	}
 }

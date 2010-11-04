@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AutoMapper;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
@@ -25,6 +26,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
                 SubscriptionId = subscription.Id
 			};
 			return (subscriptions == null)? new SubscriptionListItemView[]{} : subscriptions.ConvertSortedPagedList(converter);
+		}
+
+		public SubscriptionView GetSubscription(int subscriptionId)
+		{
+			var subscription = _subscriptionRepository.Get(subscriptionId);
+			return Mapper.Map<Subscription, SubscriptionView>(subscription);
 		}
 	}
 }

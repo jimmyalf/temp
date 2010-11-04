@@ -6,5 +6,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
 	public interface ILensSubscriptionViewService {
 		IEnumerable<SubscriptionListItemView> GetSubscriptions(PageOfSubscriptionsMatchingCriteria criteria);
+		SubscriptionView GetSubscription(int subscriptionId);
 	}
 }

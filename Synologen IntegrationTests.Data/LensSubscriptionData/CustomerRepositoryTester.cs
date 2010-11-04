@@ -252,10 +252,10 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			{
 				var shop = new ShopRepository(session).Get(159);
 				var country = new CountryRepository(session).Get(TestCountryId);
-				_customerToAdd1 = CustomerFactory.Get(country, shop, "Gunnar", "Gustafsson", "8206113411");
-				_customerToAdd2 = CustomerFactory.Get(country, shop, "Katarina", "Malm", "8911063462");
-				_customerToAdd3 = CustomerFactory.Get(country, shop, "Fredrik", "Holmberg", "7512235792");
-				_customerToAdd4 = CustomerFactory.Get(country, shop, "Eva-Lisa", "Davidsson", "8007202826");
+				_customerToAdd1 = CustomerFactory.Get(country, shop, "Gunnar", "Gustafsson", "198206113411");
+				_customerToAdd2 = CustomerFactory.Get(country, shop, "Katarina", "Malm", "198911063462");
+				_customerToAdd3 = CustomerFactory.Get(country, shop, "Fredrik", "Holmberg", "197512235792");
+				_customerToAdd4 = CustomerFactory.Get(country, shop, "Eva-Lisa", "Davidsson", "198007202826");
 			};
 
 			Because = repository =>

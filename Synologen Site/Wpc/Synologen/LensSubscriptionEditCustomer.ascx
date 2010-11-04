@@ -72,7 +72,7 @@
 		</FooterTemplate>
 	</asp:Repeater>
 	<div class="control-actions">
-		<a href="<%#Model.Create.CreateSubscriptionPageUrl%>">Skapa nytt abonnemang &raquo;</a>
+		<a href="<%=Model.CreateSubscriptionPageUrl%>">Skapa nytt abonnemang &raquo;</a>
 	</div>
 </fieldset>
 </div>

@@ -133,10 +133,10 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customers = new[]
 				{
-					CustomerFactory.Get(country, shop1, "Gunnar", "Gustafsson", "8206113411"),
-					CustomerFactory.Get(country, shop2, "Katarina", "Malm", "8911063462"),
-					CustomerFactory.Get(country, shop1, "Fredrik", "Holmberg", "7512235792"),
-					CustomerFactory.Get(country, shop2, "Eva-Lisa", "Davidsson", "8007202826"),
+					CustomerFactory.Get(country, shop1, "Gunnar", "Gustafsson", "198206113411"),
+					CustomerFactory.Get(country, shop2, "Katarina", "Malm", "198911063462"),
+					CustomerFactory.Get(country, shop1, "Fredrik", "Holmberg", "197512235792"),
+					CustomerFactory.Get(country, shop2, "Eva-Lisa", "Davidsson", "198007202826"),
 				};
 				customers.Each(new CustomerRepository(session).Save);
 				

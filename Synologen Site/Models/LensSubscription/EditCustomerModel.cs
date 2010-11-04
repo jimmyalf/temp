@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+﻿using System.Collections.Generic;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 {
@@ -11,7 +7,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 
 		public EditCustomerModel()
 		{
-			List = new List<CountryListItemModel> { };
+			List = new List<CountryListItemModel>();
 		}
 
 		public string FirstName { get; set; }
@@ -39,6 +35,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 				&& ShopDoesNotHaveAccessGivenCustomer == false;
 			}
 		}
+
+		public string CreateSubscriptionPageUrl { get; set; }
 	}
 
 	public class SubscriptionListItemModel

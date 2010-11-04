@@ -34,20 +34,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 
 		public void View_Load(object sender, EventArgs e)
 		{
-			Func<Country, CountryListItemModel> countryConverter = (country) => new CountryListItemModel { Value = country.Id.ToString(), Text = country.Name };
+			Func<Country, CountryListItemModel> countryConverter = country => new CountryListItemModel { Value = country.Id.ToString(), Text = country.Name };
 
 			var editUrl = View.EditSubscriptionPageId == 0 ? "#" : _synologenMemberService.GetPageUrl(View.EditSubscriptionPageId);
-			Func<Subscription, SubscriptionListItemModel> subscriptionConverter = (subscription) =>
-				new SubscriptionListItemModel
-					{
-						CreatedDate = subscription.CreatedDate.ToString(("yyyy-MM-dd")),
-						Status = subscription.Status.GetEnumDisplayName(),
-						EditSubscriptionPageUrl = String.Format("{0}?subscription={1}", editUrl, subscription.Id)	
-					};
+			var createUrl = View.CreateSubscriptionPageId == 0 ? "#" : _synologenMemberService.GetPageUrl(View.CreateSubscriptionPageId);
+			Func<Subscription, SubscriptionListItemModel> subscriptionConverter = subscription => new SubscriptionListItemModel
+			{
+				CreatedDate = subscription.CreatedDate.ToString(("yyyy-MM-dd")),
+				Status = subscription.Status.GetEnumDisplayName(),
+				EditSubscriptionPageUrl = String.Format("{0}?subscription={1}", editUrl, subscription.Id)
+			};
 			
 			var customerId = HttpContext.Request.Params["customer"].ToIntOrDefault();
 			var customer = _customerRepository.Get(customerId);
 			CheckAccess(customer);
+			View.Model.CreateSubscriptionPageUrl = String.Format("{0}?customer={1}", createUrl, customerId);
 			View.Model.AddressLineOne = customer.Address.AddressLineOne;
 			View.Model.AddressLineTwo = customer.Address.AddressLineTwo;
 			View.Model.City = customer.Address.City;
@@ -68,7 +69,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.Model.ShopDoesNotHaveAccessToLensSubscriptions = !_synologenMemberService.ShopHasAccessTo(ShopAccess.LensSubscription);
 			View.Model.ShopDoesNotHaveAccessGivenCustomer = !_synologenMemberService.GetCurrentShopId().Equals(customer.Shop.Id);
 		}
-
 
 		public void View_Submit(object sender, SaveCustomerEventArgs args)
 		{
@@ -113,7 +113,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			if (String.IsNullOrEmpty(redirectPageUrl)) return;
 			HttpContext.Response.Redirect(redirectPageUrl);
 		}
-
 
 		public override void ReleaseView()
 		{

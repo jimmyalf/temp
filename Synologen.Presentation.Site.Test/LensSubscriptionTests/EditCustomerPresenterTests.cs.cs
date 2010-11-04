@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Web;
 using Moq;
 using NUnit.Framework;
@@ -11,7 +8,6 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
@@ -24,9 +20,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("EditCustomerPresenterTester")]
-	public class When_loading_create_edit_customer_view
+	public class When_loading_edit_customer_view
 	{
-		private const int _customerId = 5;
+		private readonly int _customerId;
 		private readonly Country[] _countryList;
 		private readonly Customer _expectedCustomer;
 		private readonly Mock<IEditCustomerView> _mockedView;
@@ -35,19 +31,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
 		private readonly Mock<HttpContextBase> _mockedHttpContext;
 		private readonly string _editPageUrl;
+		private readonly string _createPageUrl;
 
-		public When_loading_create_edit_customer_view()
+		public When_loading_edit_customer_view()
 		{
 			// Arrange
 			
 			const int shopId = 5;
 			const int countryId = 1;
-			_editPageUrl = "/testPage";
+			const int editSubscriptionPageId = 55;
+			const int createSubscriptionPageId = 155;
+			_customerId = 5;
+			_editPageUrl = "/testPage/edit/";
+			_createPageUrl = "/testPage/create/";
 
 			_expectedCustomer = CustomerFactory.Get(_customerId, countryId, shopId);
 
 			_mockedView = MvpHelpers.GetMockedView<IEditCustomerView, EditCustomerModel>();
-			_mockedView.SetupGet(x => x.EditSubscriptionPageId).Returns(55);
+			_mockedView.SetupGet(x => x.EditSubscriptionPageId).Returns(editSubscriptionPageId);
+			_mockedView.SetupGet(x => x.CreateSubscriptionPageId).Returns(createSubscriptionPageId);
 
 			Func<Country, CountryListItemModel> countryConverter = (country) => new CountryListItemModel { Value = country.Id.ToString(), Text = country.Name };
 			_countryList = CountryFactory.GetList().ToArray();
@@ -62,7 +64,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
 			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-			_mockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+			_mockedSynologenMemberService.Setup(x => x.GetPageUrl(It.Is<int>(id => id.Equals(createSubscriptionPageId)))).Returns(_createPageUrl);
+			_mockedSynologenMemberService.Setup(x => x.GetPageUrl(It.Is<int>(id => id.Equals(editSubscriptionPageId)))).Returns(_editPageUrl);
 			
 			_mockedHttpContext = new HttpContextMock().SetupSingleQuery("customer", _customerId.ToString());
 
@@ -108,6 +111,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
 			view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
 			view.Model.DisplayForm.ShouldBe(true);
+			view.Model.CreateSubscriptionPageUrl.ShouldBe(String.Concat(_createPageUrl, "?customer=", _customerId));
 		}
 
 		
@@ -120,7 +124,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		}
 
 	}
-
 
 	[TestFixture]
 	[Category("EditCustomerPresenterTester")]

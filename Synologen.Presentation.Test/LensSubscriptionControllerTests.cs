@@ -1,3 +1,5 @@
+using System;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -257,16 +259,33 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			_viewModel = (SubscriptionView) view.ViewData.Model;
 		}
 
-		//[Test]
-		//public void ViewModel_should_have_expected_values()
-		//{
-		//    _viewModel.Activated.ShouldBe(_subscription.ActivatedDate.Value.ToString("yyyy-MM-dd"));
-		//    _viewModel.AddressLineOne.ShouldBe(_subscription.Customer.Address.AddressLineOne);
-		//    _viewModel.AddressLineTwo.ShouldBe(_subscription.Customer.Address.AddressLineTwo);
-		//    _viewModel.City.ShouldBe(_subscription.Customer.Address.City);
-		//    _viewModel.Country.ShouldBe(_subscription.Customer.Address.Country.Name);
-		//    Assert.Inconclusive("No tests yet");
-		//}
+		[Test]
+		public void ViewModel_should_have_expected_values()
+		{
+		    _viewModel.Activated.ShouldBe(_subscription.ActivatedDate.Value.ToString("yyyy-MM-dd"));
+		    _viewModel.AddressLineOne.ShouldBe(_subscription.Customer.Address.AddressLineOne);
+		    _viewModel.AddressLineTwo.ShouldBe(_subscription.Customer.Address.AddressLineTwo);
+		    _viewModel.City.ShouldBe(_subscription.Customer.Address.City);
+		    _viewModel.Country.ShouldBe(_subscription.Customer.Address.Country.Name);
+			_viewModel.PostalCode.ShouldBe(_subscription.Customer.Address.PostalCode);
+			_viewModel.Email.ShouldBe(_subscription.Customer.Contact.Email);
+			_viewModel.MobilePhone.ShouldBe(_subscription.Customer.Contact.MobilePhone);
+			_viewModel.Phone.ShouldBe(_subscription.Customer.Contact.Phone);
+			_viewModel.CustomerName.ShouldBe(String.Concat(_subscription.Customer.FirstName," ",_subscription.Customer.LastName));
+			_viewModel.PersonalIdNumber.ShouldBe(_subscription.Customer.PersonalIdNumber);
+			_viewModel.ShopName.ShouldBe(_subscription.Customer.Shop.Name);
+			_viewModel.AccountNumber.ShouldBe(_subscription.PaymentInfo.AccountNumber);
+			_viewModel.ClearingNumber.ShouldBe(_subscription.PaymentInfo.ClearingNumber);
+			_viewModel.MonthlyAmount.ShouldBe(_subscription.PaymentInfo.MonthlyAmount.ToString("C2", new CultureInfo("sv-SE")));
+			_viewModel.Status.ShouldBe(_subscription.Status.GetEnumDisplayName());
+			_subscription.Transactions.For((index,transaction) =>
+			{
+				_viewModel.TransactionList.ElementAt(index).Amount.ShouldBe(transaction.Amount.ToString("C2", new CultureInfo("sv-SE")));
+				_viewModel.TransactionList.ElementAt(index).Date.ShouldBe(transaction.CreatedDate.ToString("yyyy-MM-dd"));
+				_viewModel.TransactionList.ElementAt(index).Reason.ShouldBe(transaction.Reason.GetEnumDisplayName());
+				_viewModel.TransactionList.ElementAt(index).Type.ShouldBe(transaction.Type.GetEnumDisplayName());
+			});
+		}
 	}
 
 	

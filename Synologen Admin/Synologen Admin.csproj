@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\AutomapperMappings\CustomerNameValueProvider.cs" />
+    <Compile Include="Application\AutomapperMappings\TransactionValueResolver.cs" />
     <Compile Include="Application\ModelBinders\GridSortPropertyMappingModelBinder.cs" />
     <Compile Include="Application\Services\ILensSubscriptionViewService.cs" />
     <Compile Include="Application\Services\LensSubscriptionViewService.cs" />
@@ -304,6 +305,7 @@
     <Compile Include="Models\LensSubscription\SubscriptionListItemView.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionListView.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionView.cs" />
+    <Compile Include="Models\LensSubscription\TransactionListItemView.cs" />
     <Compile Include="Models\SelectItem.cs" />
     <Compile Include="Application\AutomapperMappings\NullableDateFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -476,6 +478,7 @@
     <Content Include="Areas\SynologenAdmin\Views\Frame\Brands.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\BrandForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\LensSubscription\Index.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\LensSubscription\ViewSubscription.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\ClientValidationScripts.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\DisplayTemplates\EyeParameterView.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\SynologenMVC.Master" />

@@ -58,9 +58,14 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			return listToAppend.ToArray().Concat(listToAppend);
 		}
 
-		public static IEnumerable<TType> ForEach<TType>(this IEnumerable<TType> list, IEnumerable<TType> listToAppend )
+		public static void For<TType>(this IEnumerable<TType> list, Action<int,TType> enumerableAction)
 		{
-			return listToAppend.ToArray().Concat(listToAppend);
+			var index = 0;
+			foreach (var item in list)
+			{
+				enumerableAction.Invoke(index, item);
+				index++;
+			}
 		}
 
 		public static IEnumerable<TType> Except<TType>(this IEnumerable<TType> list, IgnoreType type)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Spinit.Wpc.Synologen.Presentation.Models.LensSubscription
 {
@@ -17,5 +18,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.LensSubscription
 		public string CustomerName { get; set; }
 		public string PersonalIdNumber { get; set; }
 		public string ShopName { get; set; }
+		public IEnumerable<TransactionListItemView> TransactionList { get; set; }
+		public string AccountNumber { get; set; }
+		public string ClearingNumber { get; set; }
+		public string MonthlyAmount { get; set; }
+		public string Status { get; set; }
 	}
 }

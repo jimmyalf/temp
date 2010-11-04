@@ -52,5 +52,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			}
 			return RedirectToAction("Index", routeValues);
 		}
+
+		[HttpGet]
+		public ActionResult ViewSubscription(int id)
+		{
+			var viewModel = _lensSubscriptionViewService.GetSubscription(id);
+			return View(viewModel);
+		}
 	}
 }

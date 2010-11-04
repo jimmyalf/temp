@@ -7,6 +7,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 		public void Bootstrap(WpcBootstrapperContext context)
 		{
 			Bootstrapper.Bootstrap(Dependency.NHibernate, context);
+			Bootstrapper.Bootstrap(Dependency.AutoMapper, context);
 		}
 	}
 }

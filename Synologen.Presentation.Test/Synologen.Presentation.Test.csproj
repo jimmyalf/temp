@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\AutoMapper\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=3.1.416.3, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\Moq\Moq.dll</HintPath>
@@ -88,6 +92,7 @@
     <Compile Include="FrameControllerColorTests.cs" />
     <Compile Include="FrameControllerFrameTests.cs" />
     <Compile Include="FrameControllerGlassTypeTests.cs" />
+    <Compile Include="GlobalTestBase.cs" />
     <Compile Include="LensSubscriptionControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Factories\LensSubscription\SubscriptionFactory.cs" />
@@ -97,6 +102,10 @@
     <ProjectReference Include="..\Synologen Admin\Synologen Admin.csproj">
       <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
       <Name>Synologen Admin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
+      <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
+      <Name>Synologen Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>

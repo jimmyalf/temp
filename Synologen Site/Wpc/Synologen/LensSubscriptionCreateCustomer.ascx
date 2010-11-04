@@ -15,7 +15,7 @@
 	<label for="<%=txtPersonalIdNumber.ClientID%>">Personnummer</label>
 	<asp:TextBox ID="txtPersonalIdNumber" runat="server" />
 	<asp:RequiredFieldValidator ID="reqtxtPersonalIdNumber" runat="server" ErrorMessage="Personnummer måste anges" ControlToValidate="txtPersonalIdNumber" Display="Dynamic">*</asp:RequiredFieldValidator>
-	<asp:RegularExpressionValidator ID="regextxtPersonalIdNumber" ValidationExpression="\b(19\d{2}|20\d{2}|\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{4}\b" runat="server" ErrorMessage="Personnummer måste anges som ÅÅÅÅMMDDXXXX" Display="Dynamic" ControlToValidate="txtPersonalIdNumber">*</asp:RegularExpressionValidator>
+	<asp:RegularExpressionValidator ID="regextxtPersonalIdNumber" ValidationExpression="\b(19\d{2}|20\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{4}\b" runat="server" ErrorMessage="Personnummer måste anges som ÅÅÅÅMMDDXXXX" Display="Dynamic" ControlToValidate="txtPersonalIdNumber">*</asp:RegularExpressionValidator>
 	
 	<label for="<%=txtEmail.ClientID%>">E-post</label>
 	<asp:TextBox ID="txtEmail" runat="server" />

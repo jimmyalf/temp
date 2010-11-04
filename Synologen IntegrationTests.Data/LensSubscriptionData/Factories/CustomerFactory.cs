@@ -26,7 +26,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 				},
 				FirstName = "Sune",
 				LastName = "Mangs",
-				PersonalIdNumber = "7301146069",
+				PersonalIdNumber = "197301146069",
 				Shop = shop
 			};
 		

@@ -116,6 +116,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
                 MonthlyAmount = 699.25M
 			};
 
+			presenter.View_Load(null, new EventArgs());
 			presenter.View_Submit(null, _saveEventArgs);
 		}
 
@@ -189,6 +190,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
                 MonthlyAmount = 699.25M
 			};
 
+			presenter.View_Load(null, new EventArgs());
 			presenter.View_Submit(null, _saveEventArgs);
 		}
 

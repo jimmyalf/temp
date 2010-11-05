@@ -166,20 +166,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedHttpContext = new HttpContextMock().SetupSingleQuery("customer", _customerId.ToString());
 			var presenter = new EditCustomerPresenter(_mockedView.Object, _mockedCustomerRepository.Object, _mockedCountryRepository.Object, _mockedSynologenMemberService.Object) { HttpContext = _mockedHttpContext.Object };
 			_saveEventArgs = new SaveCustomerEventArgs
-								{
-									AddressLineOne = _expectedCustomer.Address.AddressLineOne,
-									AddressLineTwo = _expectedCustomer.Address.AddressLineTwo,
-									City = _expectedCustomer.Address.City,
-									CountryId = _expectedCustomer.Address.Country.Id,
-									Email = _expectedCustomer.Contact.Email,
-									FirstName = _expectedCustomer.FirstName,
-									LastName = _expectedCustomer.LastName,
-									MobilePhone = _expectedCustomer.Contact.MobilePhone,
-									PersonalIdNumber = _expectedCustomer.PersonalIdNumber,
-									Phone = _expectedCustomer.Contact.Phone
-								};
+			{
+				AddressLineOne = _expectedCustomer.Address.AddressLineOne,
+				AddressLineTwo = _expectedCustomer.Address.AddressLineTwo,
+				City = _expectedCustomer.Address.City,
+				CountryId = _expectedCustomer.Address.Country.Id,
+				Email = _expectedCustomer.Contact.Email,
+				FirstName = _expectedCustomer.FirstName,
+				LastName = _expectedCustomer.LastName,
+				MobilePhone = _expectedCustomer.Contact.MobilePhone,
+				PersonalIdNumber = _expectedCustomer.PersonalIdNumber,
+				Phone = _expectedCustomer.Contact.Phone
+			};
 
 			// Act
+			presenter.View_Load(null, new EventArgs());
 			presenter.View_Submit(null, _saveEventArgs);
 		}
 
@@ -264,6 +265,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			};
 
 			// Act
+			presenter.View_Load(null, new EventArgs());
 			presenter.View_Submit(null, _saveEventArgs);
 		}
 

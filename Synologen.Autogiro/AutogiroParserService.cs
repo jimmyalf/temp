@@ -41,12 +41,16 @@ namespace Spinit.Wp.Synologen.Autogiro
 			{
 				Reciever = new PaymentReciever
 				{
-					BankgiroNumber =  fileRows[0].ReadFrom(69).To(78).TrimStart('0'),
-					CustomerNumber =  fileRows[0].ReadFrom(63).To(68).TrimStart('0')
+					BankgiroNumber =  fileRows.First().ReadFrom(69).To(78).TrimStart('0'),
+					CustomerNumber =  fileRows.First().ReadFrom(63).To(68).TrimStart('0')
 				},
-				WriteDate = fileRows[0].ReadFrom(3).To(10).ParseDate(),
+				WriteDate = fileRows.First().ReadFrom(3).To(10).ParseDate(),
 				Posts = fileRows.Except(ListExtensions.IgnoreType.FirstAndLast)
 					.Select(line => _autogiroLineParserService.ReadPaymentLine(line)),
+                NumberOfCreditsInFile = fileRows.Last().ReadFrom(41).To(46).ToInt(),
+				NumberOfDebitsInFile = fileRows.Last().ReadFrom(47).To(52).ToInt(),
+				TotalCreditAmountInFile = fileRows.Last().ReadFrom(29).To(40).ParseAmount(),
+				TotalDebitAmountInFile = fileRows.Last().ReadFrom(57).To(68).ParseAmount()
 			};
 		}
 

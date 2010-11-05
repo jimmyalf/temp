@@ -201,6 +201,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 			// Act
 			var eventArgs = new TransactionReasonEventArgs { Reason = TransactionReason.Withdrawal };
+			
+			presenter.View_Load(null, new EventArgs());
 			presenter.View_SetReason(null, eventArgs);
 		}
 
@@ -249,6 +251,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			};
 
 			// Act
+			presenter.View_Load(null, new EventArgs());
 			presenter.View_Cancel(null, null);
 		}
 
@@ -306,6 +309,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 									TransactionReason = "2"
 								};
 
+			presenter.View_Load(null, new EventArgs());
 			presenter.View_Submit(null, _saveEventArgs);
 		}
 

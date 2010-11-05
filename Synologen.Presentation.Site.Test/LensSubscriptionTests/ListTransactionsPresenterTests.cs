@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
-using System.Text;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
@@ -55,7 +52,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			Func<SubscriptionTransaction, SubscriptionTransactionListItemModel> transactionConverter = (transaction) =>
+			Func<SubscriptionTransaction, SubscriptionTransactionListItemModel> transactionConverter = transaction =>
 				new SubscriptionTransactionListItemModel
 				{
 					CreatedDate = transaction.CreatedDate.ToString("yyyy-MM-dd"),
@@ -64,7 +61,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 					Type = transaction.Type.GetEnumDisplayName()
 				};
 
-			IEnumerable<SubscriptionTransactionListItemModel>  modelListItems = _transactionList.Select(transactionConverter);
+			var  modelListItems = _transactionList.Select(transactionConverter);
 
 			_view.Model.List.Count().ShouldBe(3);
 			for (var i = 0; i < _transactionList.Length; i++)

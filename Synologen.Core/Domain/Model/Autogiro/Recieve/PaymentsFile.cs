@@ -4,5 +4,9 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve
 {
 	public class PaymentsFile : FileBase<Payment>
 	{
+		public decimal TotalCreditAmountInFile { get; set; }
+		public decimal TotalDebitAmountInFile { get; set; }
+		public int NumberOfCreditsInFile { get; set; }
+		public int NumberOfDebitsInFile { get; set; }
 	}
 }

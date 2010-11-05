@@ -68,6 +68,12 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			}
 		}
 
+		public static void ForElementAtIndex<TType>(this IEnumerable<TType> list, int index, Action<TType> action)
+		{
+			action.Invoke(list.ElementAt(index));
+		}
+
+
 		public static IEnumerable<TType> Except<TType>(this IEnumerable<TType> list, IgnoreType type)
 		{
 			switch (type)

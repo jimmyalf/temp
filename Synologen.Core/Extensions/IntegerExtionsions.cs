@@ -14,5 +14,10 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			var list = "ABCDEFGHIJKLMNOPQRSTUVXYZÅÄÖ".ToCharArray();
 			return list[value % (list.Length - 1)];
 		}
+
+		public static void AsIndexFor(this int indexValue, Action<int> action)
+		{
+			action.Invoke(indexValue);
+		}
 	}
 }

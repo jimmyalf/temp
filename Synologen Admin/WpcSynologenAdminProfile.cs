@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 				.ForMember(cv => cv.Email, m => m.MapFrom(x => x.Customer.Contact.Email))
 				.ForMember(cv => cv.MobilePhone, m => m.MapFrom(x => x.Customer.Contact.MobilePhone))
 				.ForMember(cv => cv.Phone, m => m.MapFrom(x => x.Customer.Contact.Phone))
-				.ForMember(cv => cv.PersonalIdNumber, m => m.MapFrom(x => x.Customer.PersonalIdNumber))
+				.ForMember(cv => cv.PersonalIdNumber, m => m.MapFrom(x => x.Customer.PersonalIdNumber.FormatPersonalIdNumber()))
 				.ForMember(cv => cv.ShopName, m => m.MapFrom(x => x.Customer.Shop.Name))
 				.ForMember(cv => cv.TransactionList, m => m.ResolveUsing<TransactionValueResolver>().FromMember(x => x.Transactions))
 				.ForMember(cv => cv.AccountNumber, m => m.MapFrom(x => x.PaymentInfo.AccountNumber))

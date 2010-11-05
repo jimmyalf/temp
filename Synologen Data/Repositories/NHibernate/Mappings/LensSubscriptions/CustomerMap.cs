@@ -11,7 +11,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.LensSubscri
 			Id(x => x.Id);
 			Map(x => x.FirstName);
 			Map(x => x.LastName);
-			Map(x => x.PersonalIdNumber);
+			Map(x => x.PersonalIdNumber)
+				.Length(12);
 			References(x => x.Shop)
 					.Cascade.None()
 					.Column("ShopId")

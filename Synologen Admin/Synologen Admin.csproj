@@ -83,6 +83,7 @@
     <Compile Include="Controllers\FrameColorController.cs" />
     <Compile Include="Controllers\FrameOrderController.cs" />
     <Compile Include="Controllers\LensSubscriptionController.cs" />
+    <Compile Include="Helpers\Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Helpers\Extensions\RouteValueDictionaryExtensions.cs" />
     <Compile Include="Helpers\Extensions\WebFormsExtensions.cs" />

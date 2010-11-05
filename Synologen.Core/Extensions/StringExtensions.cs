@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
@@ -48,6 +49,15 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		public static string AppendUrl(this string value, string urlToAppend)
 		{
 			return string.Concat(value.TrimEnd('/'), "/", urlToAppend.TrimStart('/'));
+		}
+
+		public static string FormatPersonalIdNumber(this string value)
+		{
+			if(value.Length != 12)
+			{
+				throw new ArgumentException("Invalid length (personal Id number length needs to be 12 digits long)", "value");
+			}
+			return value.Insert(8, "-");
 		}
 	}
 }

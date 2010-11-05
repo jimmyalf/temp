@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using NHibernate;
 using Spinit.Data;
+using Spinit.Extensions;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
@@ -100,8 +101,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				reposititory.Save(customerToSave);
 				var subscriptionToSave = SubscriptionFactory.Get(customerToSave, ((i % 3) +1).ToEnum<SubscriptionStatus>());
 				subscriptionRepository.Save(subscriptionToSave);
-				var transactionToSave = TransactionFactory.Get(subscriptionToSave, ((i % 2) + 1).ToEnum<TransactionType>(), ((i % 3) + 1).ToEnum<TransactionReason>());
-				transactionRepository.Save(transactionToSave);
+				TransactionFactory.GetList(subscriptionToSave).Each(transactionRepository.Save);
 			}
 		}
 

@@ -149,6 +149,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				PostalCode = "688 44"
 			};
 
+			_presenter.View_Load(null, new EventArgs());
 			_presenter.View_Submit(null, _saveEventArgs);
 		}
 

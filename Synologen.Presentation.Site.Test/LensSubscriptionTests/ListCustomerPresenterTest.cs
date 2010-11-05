@@ -114,6 +114,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_presenter = new ListCustomersPresenter(_view, _customerRepository.Object, _synologenMemberService.Object);
 
 			//Act
+			_presenter.View_Load(null, new EventArgs());
 			_presenter.SearchList(null, new SearchEventArgs { SearchTerm = "Test" });
 
 		}
@@ -121,8 +122,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_creates_expected_criteria()
 		{
-			_customerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => y.ShopId.Equals(159))));
-			_customerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => y.SearchTerm.Equals("Test"))));
+			_customerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => y.ShopId.Equals(159))), Times.Exactly(2));
+			_customerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => Equals(y.SearchTerm, null))), Times.Once());
+			_customerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => Equals(y.SearchTerm, "Test"))), Times.Once());
 		}
 
 		[Test]

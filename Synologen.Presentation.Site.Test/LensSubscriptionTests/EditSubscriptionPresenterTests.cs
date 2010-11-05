@@ -249,6 +249,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 
 			//Act
+			presenter.View_Load(null, new EventArgs());
 			presenter.View_Submit(null, _saveEventArgs);
 		}
 
@@ -310,6 +311,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			var presenter = new EditLensSubscriptionPresenter(_mockedView.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object){HttpContext = _mockedHttpContext.Object};
 
 			//Act
+			presenter.View_Load(null, new EventArgs());
 			presenter.View_StopSubscription(null, new EventArgs());
 		}
 
@@ -365,6 +367,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			var presenter = new EditLensSubscriptionPresenter(_mockedView.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object){HttpContext = _mockedHttpContext.Object};
 
 			//Act
+			presenter.View_Load(null, new EventArgs());
 			presenter.View_StartSubscription(null, new EventArgs());
 		}
 
@@ -424,6 +427,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 
 			//Act
+			presenter.View_Load(null, new EventArgs());
 			presenter.View_Submit(null, _saveEventArgs);
 		}
 

@@ -43,7 +43,8 @@ namespace Spinit.Wp.Synologen.Autogiro.Helpers
 			{
 				throw new ArgumentException("Cannot parse into decimal, string is too short", "value");
 			}
-			var valueWithInsertedCommaSeparator = value.Insert(value.Length - 3, ",").ToDecimal();
+			var commaIndex = value.Length - 2;
+			var valueWithInsertedCommaSeparator = value.Insert(commaIndex, ",").ToDecimal();
 			return valueWithInsertedCommaSeparator;
 		}
 

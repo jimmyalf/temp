@@ -80,15 +80,15 @@
 					</p>												
 				</fieldset>
 					<fieldset>
-						<legend>Transaktioner</legend>
+						<legend><%=Html.GetDisplayNameFor(x => x.TransactionList) %></legend>
 						<p class="display-item clearLeft">						
 							<table class="striped">
-								<tr class="header"><th>Datum</th><th>Belopp</th><th>Typ</th><th>Orsak</th></tr>
+								<tr class="header"><th>Datum</th><th>Insättningar</th><th>Utbetalningar</th><th>Orsak</th></tr>
 								<%foreach (var item in Model.TransactionList) {%>
 								<tr class="gridrow">
 									<td><%= item.Date %></td>
-									<td><%= item.Amount %></td>
-									<td><%= item.Type %></td>
+									<td><%= item.DepositAmount %></td>
+									<td><%= item.WithdrawalAmount %></td>
 									<td><%= item.Reason %></td>
 								</tr>
 								<%}%>
@@ -96,7 +96,7 @@
 						</p>						
 					</fieldset>				
 				<p class="display-item clearLeft">
-					<%= Html.ActionLink("Tillbaka till abonnemang", "Index") %>
+					<a href='<%= Url.Action("Index") %>'>Tillbaka till abonnemang &raquo;</a>
 				</p>
 			</fieldset>				
 		</div>

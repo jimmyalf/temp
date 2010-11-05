@@ -4,7 +4,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.LensSubscription
 	{
 		public string Reason { get; set; }
 		public string Date { get; set; }
-		public string Amount { get; set; }
-		public string Type { get; set; }
+		public string DepositAmount { get; set; }
+		public string WithdrawalAmount { get; set; }
 	}
 }

@@ -15,10 +15,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.AutomapperMappings
 		{
 			Func<SubscriptionTransaction,TransactionListItemView> converter = transaction => new TransactionListItemView
 			{
-				Amount = transaction.Amount.ToString("C2", new CultureInfo("sv-SE")),
+				DepositAmount =  (transaction.Type.Equals(TransactionType.Deposit)) ? transaction.Amount.ToString("C2", new CultureInfo("sv-SE")) : String.Empty,
+				WithdrawalAmount =  (transaction.Type.Equals(TransactionType.Withdrawal)) ? transaction.Amount.Invert().ToString("C2", new CultureInfo("sv-SE")) : String.Empty,
 				Date = transaction.CreatedDate.ToString("yyyy-MM-dd"),
 				Reason = transaction.Reason.GetEnumDisplayName(),
-				Type = transaction.Type.GetEnumDisplayName()
 			};
 			return source.Select(converter);
 		}

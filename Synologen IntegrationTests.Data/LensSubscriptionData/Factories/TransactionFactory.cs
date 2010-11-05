@@ -26,32 +26,30 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 		public static SubscriptionTransaction[] GetList(Subscription subscription)
 		{
 			return new[]
-			       	{
-			       		new SubscriptionTransaction
-			       			{
-			       				Amount = 100.10M,
-			       				CreatedDate = new DateTime(2010, 10, 24),
-			       				Reason = TransactionReason.Correction,
-			       				Type = TransactionType.Deposit,
-								Subscription = subscription
-			       			},
-			       		new SubscriptionTransaction
-			       			{
-			       				Amount = 200.20M,
-			       				CreatedDate = new DateTime(2010, 10, 25),
-			       				Reason = TransactionReason.Payment,
-			       				Type = TransactionType.Withdrawal,
-								Subscription = subscription
-			       			},
-			       		new SubscriptionTransaction
-			       			{
-			       				Amount = 300.30M,
-			       				CreatedDate = new DateTime(2010, 10, 26),
-			       				Reason = TransactionReason.Withdrawal,
-			       				Type = TransactionType.Deposit,
-								Subscription = subscription
-			       			}
-			       	};
+			{
+				new SubscriptionTransaction
+				{
+					Amount = 100.10M,
+					CreatedDate = new DateTime(2010, 10, 24),
+					Reason = TransactionReason.Correction,
+					Type = TransactionType.Deposit,
+					Subscription = subscription
+				}, new SubscriptionTransaction
+				{
+					Amount = 200.20M,
+					CreatedDate = new DateTime(2010, 10, 25),
+					Reason = TransactionReason.Payment,
+					Type = TransactionType.Deposit,
+					Subscription = subscription
+				}, new SubscriptionTransaction
+				{
+					Amount = 300.30M,
+					CreatedDate = new DateTime(2010, 10, 26),
+					Reason = TransactionReason.Withdrawal,
+					Type = TransactionType.Withdrawal,
+					Subscription = subscription
+				}
+			};
 		}
 
 	}

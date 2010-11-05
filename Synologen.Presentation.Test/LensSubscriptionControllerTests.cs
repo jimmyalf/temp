@@ -262,6 +262,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void ViewModel_should_have_expected_values()
 		{
+			var expectedPersonalIdNumber = String.Concat(_subscription.Customer.PersonalIdNumber.Substring(0, 8), "-",
+			                                             _subscription.Customer.PersonalIdNumber.Substring(8, 4));
+
 		    _viewModel.Activated.ShouldBe(_subscription.ActivatedDate.Value.ToString("yyyy-MM-dd"));
 		    _viewModel.AddressLineOne.ShouldBe(_subscription.Customer.Address.AddressLineOne);
 		    _viewModel.AddressLineTwo.ShouldBe(_subscription.Customer.Address.AddressLineTwo);
@@ -272,7 +275,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			_viewModel.MobilePhone.ShouldBe(_subscription.Customer.Contact.MobilePhone);
 			_viewModel.Phone.ShouldBe(_subscription.Customer.Contact.Phone);
 			_viewModel.CustomerName.ShouldBe(String.Concat(_subscription.Customer.FirstName," ",_subscription.Customer.LastName));
-			_viewModel.PersonalIdNumber.ShouldBe(_subscription.Customer.PersonalIdNumber);
+			_viewModel.PersonalIdNumber.ShouldBe(expectedPersonalIdNumber);
 			_viewModel.ShopName.ShouldBe(_subscription.Customer.Shop.Name);
 			_viewModel.AccountNumber.ShouldBe(_subscription.PaymentInfo.AccountNumber);
 			_viewModel.ClearingNumber.ShouldBe(_subscription.PaymentInfo.ClearingNumber);
@@ -280,10 +283,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			_viewModel.Status.ShouldBe(_subscription.Status.GetEnumDisplayName());
 			_subscription.Transactions.For((index,transaction) =>
 			{
-				_viewModel.TransactionList.ElementAt(index).Amount.ShouldBe(transaction.Amount.ToString("C2", new CultureInfo("sv-SE")));
+				if(transaction.Type.Equals(TransactionType.Deposit))
+				{
+					_viewModel.TransactionList.ElementAt(index).DepositAmount.ShouldBe(transaction.Amount.ToString("C2", new CultureInfo("sv-SE")));	
+				}
+				else
+				{
+					_viewModel.TransactionList.ElementAt(index).WithdrawalAmount.ShouldBe(transaction.Amount.Invert().ToString("C2", new CultureInfo("sv-SE")));					
+				}
 				_viewModel.TransactionList.ElementAt(index).Date.ShouldBe(transaction.CreatedDate.ToString("yyyy-MM-dd"));
 				_viewModel.TransactionList.ElementAt(index).Reason.ShouldBe(transaction.Reason.GetEnumDisplayName());
-				_viewModel.TransactionList.ElementAt(index).Type.ShouldBe(transaction.Type.GetEnumDisplayName());
 			});
 		}
 	}

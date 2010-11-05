@@ -77,19 +77,33 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription
 					CreatedDate = new DateTime(2010, 08, 25),
 					Reason = TransactionReason.Payment,
 					Subscription = new Subscription(),
-					Type = TransactionType.Withdrawal
+					Type = TransactionType.Deposit
 				}, new SubscriptionTransaction
 				{
 					Amount = 588.65M,
 					CreatedDate = new DateTime(2010, 09, 25),
 					Reason = TransactionReason.Payment,
 					Subscription = new Subscription(),
-					Type = TransactionType.Withdrawal
+					Type = TransactionType.Deposit
 				}, new SubscriptionTransaction
 				{
 					Amount = 588.65M,
 					CreatedDate = new DateTime(2010, 10, 25),
 					Reason = TransactionReason.Payment,
+					Subscription = new Subscription(),
+					Type = TransactionType.Deposit
+				}, new SubscriptionTransaction
+				{
+					Amount = 5.50M,
+					CreatedDate = new DateTime(2010, 10, 25),
+					Reason = TransactionReason.Correction,
+					Subscription = new Subscription(),
+					Type = TransactionType.Deposit
+				}, new SubscriptionTransaction
+				{
+					Amount = 955,
+					CreatedDate = new DateTime(2010, 10, 25),
+					Reason = TransactionReason.Withdrawal,
 					Subscription = new Subscription(),
 					Type = TransactionType.Withdrawal
 				},

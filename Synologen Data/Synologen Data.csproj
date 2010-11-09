@@ -113,6 +113,10 @@
     <Compile Include="Repositories\LensSubscriptionRepositories\ShopRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\SubscriptionRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\TransactionRepository.cs" />
+    <Compile Include="Repositories\ContractSalesRepositories\SettlementRepository.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractSaleMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ShopMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ShopSettlementMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameBrandMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameColorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameGlassTypeMap.cs" />

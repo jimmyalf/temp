@@ -8,6 +8,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscripti
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 using WebFormsMvp;
+using Shop=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Shop;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription
 {

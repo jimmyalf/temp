@@ -1,6 +1,6 @@
 using System;
-using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories
 {

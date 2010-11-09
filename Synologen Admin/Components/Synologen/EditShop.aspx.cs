@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
-using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -11,13 +9,17 @@ using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
 using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
+using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
-namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
-	public partial class EditShop : SynologenPage {
+namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen 
+{
+	public partial class EditShop : SynologenPage 
+	{
 		private int _shopId;
 		private Shop _shop;
 
-		protected void Page_Load(object sender, EventArgs e) {
+		protected void Page_Load(object sender, EventArgs e) 
+		{
 			if (Request.Params["id"] != null)
 				_shopId = Convert.ToInt32(Request.Params["id"]);
 			if (Page.IsPostBack) return;
@@ -29,7 +31,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			PopulateAccessOptions();
 		}
 
-		private void PopulateGiros() {
+		private void PopulateGiros() 
+		{
 			drpGiroType.DataSource = Provider.GetGiros(0, null);
 			drpGiroType.DataBind();
 			drpGiroType.Items.Insert(0,new ListItem("-- Välj Giro typ --","0"));
@@ -53,20 +56,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			}
 		}
 
-		private void TryPopulateSelectedGiro() {
+		private void TryPopulateSelectedGiro() 
+		{
 			if (_shop==null) return;
 			if (_shop.GiroId<=0) return;
 			try {drpGiroType.SelectedValue = _shop.GiroId.ToString();}
 			catch{return;}
 		}
 
-		private void PopulateEquipment() {
+		private void PopulateEquipment() 
+		{
 			chkEquipment.DataSource = Provider.GetShopEquipment(0, 0, null);
 			chkEquipment.DataBind();
 			PopulateSelectedEquipment();
 		}
 
-		private void PopulateSelectedEquipment() {
+		private void PopulateSelectedEquipment() 
+		{
 			if (_shop == null) return;
 			var selectedShopEquipment = Provider.GetAllEquipmentIdsPerShop(_shop.ShopId);
 			foreach (ListItem checkBox in chkEquipment.Items) {
@@ -76,41 +82,45 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			}
 		}
 
-		private void PopulateCategories() {
-			//rdblCategories.DataSource = Provider.GetCategories(LocationId, LanguageId);
+		private void PopulateCategories() 
+		{
 			rdblCategories.DataSource = Provider.GetShopCategories(0);
 			rdblCategories.DataBind();
 			PopulateSelectedCategories();
 		}
 
-		private void PopulateSelectedCategories() {
+		private void PopulateSelectedCategories() 
+		{
 			if (_shop == null) return;
 			foreach (ListItem radioButton in rdblCategories.Items) {
-				int checkBoxValue = Int32.Parse(radioButton.Value);
-				bool isSelected = checkBoxValue == _shop.CategoryId;
+				var checkBoxValue = Int32.Parse(radioButton.Value);
+				var isSelected = checkBoxValue == _shop.CategoryId;
 				radioButton.Selected = isSelected;
 			}
 		}
 
-		private void PopulateContractCustomers() {
+		private void PopulateContractCustomers() 
+		{
 			chkContractCustomers.DataSource = Provider.GetContracts(FetchCustomerContract.All, 0, 0, null);
 			chkContractCustomers.DataBind();
 			PopulateSelectedContractCustomers();
 		}
 
 
-		private void PopulateSelectedContractCustomers() {
+		private void PopulateSelectedContractCustomers() 
+		{
 			if (_shop==null) return;
-			List<int> selectedContractCustomers = Provider.GetContractIdsPerShop(_shop.ShopId, null);
+			var selectedContractCustomers = Provider.GetContractIdsPerShop(_shop.ShopId, null);
 			foreach(ListItem checkBox in chkContractCustomers.Items) {
-				int checkBoxValue = Int32.Parse(checkBox.Value);
-				bool isSelected = selectedContractCustomers.Contains(checkBoxValue);
+				var checkBoxValue = Int32.Parse(checkBox.Value);
+				var isSelected = selectedContractCustomers.Contains(checkBoxValue);
 				checkBox.Selected = isSelected;
 			}
 			
 		}
 
-		private void PopulateShop() {
+		private void PopulateShop() 
+		{
 			if(_shopId<=0) return;
 			_shop = Provider.GetShop(_shopId);
 			txtZip.Text = _shop.Zip;
@@ -131,8 +141,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			txtGiroSupplier.Text = _shop.GiroSupplier;
 		}
 
-		protected void btnSave_Click(object sender, EventArgs e) {
-			Enumerations.Action action = Enumerations.Action.Create;
+		protected void btnSave_Click(object sender, EventArgs e) 
+		{
+			var action = Enumerations.Action.Create;
 			_shop = new Shop();
 			if (_shopId>0) {
 				action = Enumerations.Action.Update;
@@ -170,20 +181,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			Response.Redirect(ComponentPages.Shops,true);
 		}
 
-		private void ConnectSelectedContractCustomers(bool connectToAllContractCustomers) {
+		private void ConnectSelectedContractCustomers(bool connectToAllContractCustomers) 
+		{
 			Provider.DisconnectShopFromAllContracts(_shop.ShopId);
 			foreach (ListItem checkBox in chkContractCustomers.Items) {
-				int contractCustomerId = Int32.Parse(checkBox.Value);
+				var contractCustomerId = Int32.Parse(checkBox.Value);
 				if (checkBox.Selected || connectToAllContractCustomers) {
 					Provider.ConnectShopToContract(_shop.ShopId, contractCustomerId);
 				}
 			}
 		}
 
-		private void ConnectSelectedEquipment() {
+		private void ConnectSelectedEquipment() 
+		{
 			Provider.DisconnectShopFromAllEquipment(_shop.ShopId);
 			foreach (ListItem checkBox in chkEquipment.Items) {
-				int equipmentId = Int32.Parse(checkBox.Value);
+				var equipmentId = Int32.Parse(checkBox.Value);
 				if (checkBox.Selected) {
 					Provider.ConnectShopToEquipment(_shop.ShopId, equipmentId);
 				}

@@ -1,13 +1,18 @@
+using System;
 using System.Configuration;
+using System.Linq;
+using NHibernate;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Data;
+using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Utility.Business;
+using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 {
-	public class TestBase : AssertionHelper
+	public class TestBase<TModel> :  NHibernateRepositoryTester<TModel> //: AssertionHelper
 	{
 		protected SqlProvider Provider;
 		protected Shop TestShop;
@@ -36,6 +41,11 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		{
 			TestShop = Factories.ShopFactory.GetShop(testableShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
 			Provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref TestShop);
+		}
+
+		protected override ISessionFactory GetSessionFactory() 
+		{ 
+			return NHibernateFactory.Instance.GetSessionFactory();
 		}
 	}
 }

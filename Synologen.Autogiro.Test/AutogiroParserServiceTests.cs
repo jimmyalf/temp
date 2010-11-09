@@ -2,15 +2,13 @@ using System;
 using System.Linq;
 using NUnit.Framework;
 using Shouldly;
-using Spinit.Extensions;
 using Spinit.Wp.Synologen.Autogiro;
 using Spinit.Wpc.Synologen.Autogiro.Test.Factories;
-using Spinit.Wpc.Synologen.Autogiro.Test.Helpers;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using DateTimeTolerance=Spinit.Wpc.Synologen.Autogiro.Test.Helpers.DateTimeTolerance;
+using Spinit.ShouldlyExtensions;
 
 namespace Spinit.Wpc.Synologen.Autogiro.Test
 {

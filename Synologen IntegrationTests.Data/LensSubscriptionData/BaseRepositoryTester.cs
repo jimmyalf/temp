@@ -33,11 +33,11 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 
 		protected override ISessionFactory GetSessionFactory()
 		{
-			if(!NHibernateFactory.MappingAssemblies.Any())
-			{
-				var assembly = typeof(Synologen.Data.Repositories.NHibernate.Mappings.LensSubscriptions.SubscriptionMap).Assembly;
-				NHibernateFactory.MappingAssemblies.Add(assembly);				
-			}
+			//if(!NHibernateFactory.MappingAssemblies.Any())
+			//{
+			//    var assembly = typeof(Synologen.Data.Repositories.NHibernate.Mappings.LensSubscriptions.SubscriptionMap).Assembly;
+			//    NHibernateFactory.MappingAssemblies.Add(assembly);				
+			//}
 			return NHibernateFactory.Instance.GetSessionFactory();
 		}
 

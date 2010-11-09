@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.ShouldlyExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\Spinit.ShouldlyExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -59,8 +63,6 @@
   <ItemGroup>
     <Compile Include="AutogiroParserServiceTests.cs" />
     <Compile Include="Helpers\AutogiroFileContentsExtensions.cs" />
-    <Compile Include="Helpers\DateTimeTestConstraint.cs" />
-    <Compile Include="Helpers\ShouldBeDateTimeTestExtensions.cs" />
     <Compile Include="Factories\FileFactory.cs" />
     <Compile Include="Factories\FileContentFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

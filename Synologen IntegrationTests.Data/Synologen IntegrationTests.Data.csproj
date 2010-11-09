@@ -67,6 +67,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.ShouldlyExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\Spinit.ShouldlyExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Wpc.Core.Dependencies.NHibernate, Version=5.0.0.1809, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Synologen Site\Bin\Spinit.Wpc.Core.Dependencies.NHibernate.dll</HintPath>
@@ -119,6 +123,7 @@
     <Compile Include="FrameData\TestFrameGlassTypes.cs" />
     <Compile Include="FrameData\TestFrames.cs" />
     <Compile Include="CommonDataTestHelpers\NHibernateRepositoryTester.cs" />
+    <Compile Include="GlobalTestBase.cs" />
     <Compile Include="LensSubscriptionData\BaseRepositoryTester.cs" />
     <Compile Include="LensSubscriptionData\CustomerRepositoryTester.cs" />
     <Compile Include="LensSubscriptionData\Factories\CountryFactory.cs" />

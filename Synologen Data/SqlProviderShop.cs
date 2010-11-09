@@ -4,12 +4,12 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Utility.Business;
+using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {

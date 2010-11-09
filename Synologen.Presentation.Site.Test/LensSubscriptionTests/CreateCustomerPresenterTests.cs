@@ -13,6 +13,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers;
+using Shop=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Shop;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 {
@@ -46,7 +47,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 
 			_mockedCustomerRepository = new Mock<ICustomerRepository>();
-			Func<Country, CountryListItemModel> converter = (country) => new CountryListItemModel { Value = country.Id.ToString(), Text = country.Name };
+			Func<Country, CountryListItemModel> converter = country => new CountryListItemModel { Value = country.Id.ToString(), Text = country.Name };
 			mockedView.SetupGet(x => x.Model).Returns(new CreateCustomerModel { List = _countryList.Select(converter) });
 			_view = mockedView.Object;
 

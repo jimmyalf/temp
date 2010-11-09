@@ -86,6 +86,10 @@
     <Compile Include="Domain\Model\Autogiro\Send\ConsentType.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\Payment.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
+    <Compile Include="Domain\Model\ContractSales\ContractSale.cs" />
+    <Compile Include="Domain\Model\ContractSales\Shop.cs" />
+    <Compile Include="Domain\Model\ContractSales\ShopSettlement.cs" />
+    <Compile Include="Domain\Model\ContractSales\Transaction.cs" />
     <Compile Include="Domain\Model\Entity.cs" />
     <Compile Include="Domain\Model\FrameOrder\EyeParameter.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameGlassType.cs" />
@@ -106,6 +110,7 @@
     <Compile Include="Domain\Model\LensSubscription\TransactionReason.cs" />
     <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
     <Compile Include="Domain\Model\ContractSales\ShopAccess.cs" />
+    <Compile Include="Domain\Persistence\ContractSales\ISettlementRepository.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllFrameOrdersForShopCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\CustomersForShopMatchingCriteria.cs" />
@@ -136,8 +141,10 @@
     <Compile Include="Domain\Services\ISynologenMemberService.cs" />
     <Compile Include="Domain\Services\ISynologenSettingsService.cs" />
     <Compile Include="Extensions\ComparisonExtensions.cs" />
+    <Compile Include="Extensions\DataRowCollectionExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\DecimalExtensions.cs" />
+    <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Extensions\ExpressionNameVisitor.cs" />
@@ -151,6 +158,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Domain\Model\LensSubscription\LensSubscription.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synologen EDI\Synologen EDI.csproj">
+      <Project>{8554B3AF-CA2A-499F-B921-A80804B99056}</Project>
+      <Name>Synologen EDI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

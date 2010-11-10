@@ -1,9 +1,13 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using AutoMapper;
+using Spinit.Wpc.Synologen.Business.Utility;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Application.AutomapperMappings;
+using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation
@@ -16,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 			ForSourceType<DateTime>().AddFormatter<StandardDateFormatter>();
 			ForSourceType<DateTime?>().AddFormatter<NullableDateFormatter>();
 
+			
 			// Model to ViewModel
 			CreateMap<Subscription, SubscriptionView>()
 				.ForMember(to => to.CustomerName, m => m.ResolveUsing<CustomerNameValueResolver>().FromMember(x => x.Customer))
@@ -36,6 +41,12 @@ namespace Spinit.Wpc.Synologen.Presentation
 				.ForMember(cv => cv.ClearingNumber, m => m.MapFrom(x => x.PaymentInfo.ClearingNumber))
 				.ForMember(cv => cv.MonthlyAmount, m => m.MapFrom(x => x.PaymentInfo.MonthlyAmount.ToString("C2", new CultureInfo("sv-SE"))))
 				.ForMember(cv => cv.Status, m => m.MapFrom(x => x.Status.GetEnumDisplayName()));
+
+			CreateMap<ShopSettlement, SettlementView>()
+				.ForMember(x => x.Period, m => m.MapFrom(x => General.GetSettlementPeriodNumber(x.CreatedDate)))
+				.ForMember(x => x.SumAmountIncludingVAT, m => m.MapFrom(x => x.ContractSales.Sum(y => y.TotalAmountIncludingVAT)))
+				.ForMember(x => x.SumAmountExcludingVAT, m => m.MapFrom(x => x.ContractSales.Sum(y => y.TotalAmountExcludingVAT)))
+				.ForMember(x => x.SettlementItems, m => m.ResolveUsing<ContractSaleValueResolver>().FromMember(x => x.ContractSales));
 		}
 	}
 }

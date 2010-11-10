@@ -5,5 +5,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 	public interface IContractSalesViewService
 	{
 		SettlementView GetSettlement(int settlementId);
+		SettlementListView GetSettlements();
 	}
 }

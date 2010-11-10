@@ -1,0 +1,10 @@
+using Spinit.Data;
+
+namespace Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales
+{
+	public class AllContractSalesMatchingCriteria : IActionCriteria
+	{
+		public int ContractSaleStatus { get; set; }
+		public bool InvoiceNumberIsNull { get; set; }
+	}
+}

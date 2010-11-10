@@ -5,5 +5,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 	public class SettingsService : IAdminSettingsService
 	{
 		public int GetDefaultPageSize() { return Business.Globals.DefaultAdminPageSize; }
+		public int GetContractSalesReadyForSettlementStatus() { return Business.Globals.ReadyForSettlementStatusId; }
 	}
 }

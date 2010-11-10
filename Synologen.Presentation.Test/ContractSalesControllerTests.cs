@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.Linq;
 using System.Web.Mvc;
 using Moq;
@@ -42,13 +42,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void ViewModel_should_have_expected_values()
 		{
-			var amountsIncludingVAT = _settlement.ContractSales.GroupBy(x => x.Shop.Id).Select(x => x.Sum(y => y.TotalAmountIncludingVAT));
-			var amountsExcludingVAT = _settlement.ContractSales.GroupBy(x => x.Shop.Id).Select(x => x.Sum(y => y.TotalAmountExcludingVAT));
-			var shops = _settlement.ContractSales.GroupBy(x => x.Shop.Id, x => x.Shop).Select(x => x.FirstOrDefault());
-			var numberOfContracts = _settlement.ContractSales.GroupBy(x => x.Shop.Id).Select(x => x.Count());
-			_viewModel.CreatedDate.ShouldBe(_settlement.CreatedDate.ToString("yyyy-MM-dd"));
+			var sales = _settlement.ContractSales.OrderBy(x => x.Shop.Id);
+			var amountsIncludingVAT = sales.GroupBy(x => x.Shop.Id).Select(x => x.Sum(y => y.TotalAmountIncludingVAT));
+			var amountsExcludingVAT = sales.GroupBy(x => x.Shop.Id).Select(x => x.Sum(y => y.TotalAmountExcludingVAT));
+			var shops = sales.GroupBy(x => x.Shop.Id, x => x.Shop).Select(x => x.FirstOrDefault());
+			var numberOfContracts = sales.GroupBy(x => x.Shop.Id).Select(x => x.Count());
+			_viewModel.CreatedDate.ShouldBe(_settlement.CreatedDate.ToString("yyyy-MM-dd HH:mm"));
 			_viewModel.Id.ShouldBe(_settlement.Id);
 			_viewModel.Period.ShouldBe("1045");
+			_viewModel.SumAmountExcludingVAT.ShouldBe(sales.Sum(y => y.TotalAmountExcludingVAT).ToString("C2"));
+			_viewModel.SumAmountIncludingVAT.ShouldBe(sales.Sum(y => y.TotalAmountIncludingVAT).ToString("C2"));
+			_viewModel.SettlementItems.Count().ShouldBe(2);
 			_viewModel.SettlementItems.Count().ShouldBe(2);
 			_viewModel.SettlementItems.For((index,settlementItem) =>
 			{

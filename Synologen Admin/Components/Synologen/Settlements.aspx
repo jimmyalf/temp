@@ -29,7 +29,7 @@
 					</asp:TemplateField>
 					<asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderStyle-CssClass="controlColumn" HeaderText="Detaljer" >
 						<ItemTemplate>
-							<a href="ViewSettlementDetails.aspx?settlementId=<%# DataBinder.Eval(Container.DataItem, "cId")%>">Visa detaljer</a>
+							<a href="/components/synologen/contract-sales/settlement/<%# DataBinder.Eval(Container.DataItem, "cId")%>">Visa detaljer</a>
 						</ItemTemplate>
 					</asp:TemplateField>					
                 </Columns>

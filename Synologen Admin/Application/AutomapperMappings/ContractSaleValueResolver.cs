@@ -12,7 +12,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.AutomapperMappings
 	{
 		protected override IEnumerable<ShopSettlementItem> ResolveCore(IEnumerable<ContractSale> source) 
 		{
-			var uniqueGroupings = source.GroupBy(x => x.Shop.Id);
+			var orderedSales = source.OrderBy(x => x.Shop.Id);
+			var uniqueGroupings = orderedSales.GroupBy(x => x.Shop.Id);
 			var amountExcludingVatArray = uniqueGroupings.Select(x => x.Sum(y => y.TotalAmountExcludingVAT));
 			var amountIncludingVatArray = uniqueGroupings.Select(x => x.Sum(y => y.TotalAmountIncludingVAT));
 			var numberOfItemsInEachGroup = uniqueGroupings.Select(x => x.Count());

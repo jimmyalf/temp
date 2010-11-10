@@ -53,6 +53,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\FluentNHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Data.Schema, Version=9.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.Data.Schema.UnitTesting, Version=9.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
@@ -90,6 +93,7 @@
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -110,7 +114,9 @@
     <Compile Include="Repositories\FrameOrderRepositories\FrameRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\CountryRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\CustomerRepository.cs" />
+    <Compile Include="Repositories\LensSubscriptionRepositories\DatabaseSetup.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\ShopRepository.cs" />
+    <Compile Include="Repositories\LensSubscriptionRepositories\SubscriptionErrorRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\SubscriptionRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\TransactionRepository.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\SettlementRepository.cs" />
@@ -125,6 +131,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\CountryMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\CustomerMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\ShopMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SubscriptionErrorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\TransactionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopMap.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\ShopRepository.cs" />
@@ -186,6 +193,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Repositories\LensSubscriptionRepositories\app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

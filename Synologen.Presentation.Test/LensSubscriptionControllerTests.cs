@@ -280,7 +280,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			_viewModel.ClearingNumber.ShouldBe(_subscription.PaymentInfo.ClearingNumber);
 			_viewModel.MonthlyAmount.ShouldBe(_subscription.PaymentInfo.MonthlyAmount.ToString("C2", new CultureInfo("sv-SE")));
 			_viewModel.Status.ShouldBe(_subscription.Status.GetEnumDisplayName());
-			_subscription.Transactions.For((index,transaction) =>
+			_subscription.Transactions.For((index, transaction) =>
 			{
 				if(transaction.Type.Equals(TransactionType.Deposit))
 				{
@@ -293,6 +293,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				_viewModel.TransactionList.ElementAt(index).Date.ShouldBe(transaction.CreatedDate.ToString("yyyy-MM-dd"));
 				_viewModel.TransactionList.ElementAt(index).Reason.ShouldBe(transaction.Reason.GetEnumDisplayName());
 			});
+			_subscription.Errors.For((index, error) =>
+         		{
+         			_viewModel.ErrorList.ElementAt(index).Type.ShouldBe(error.Type.GetEnumDisplayName());
+					_viewModel.ErrorList.ElementAt(index).CreatedDate.ShouldBe(error.CreatedDate.ToString("yyyy-MM-dd"));
+					if (error.HandledDate.HasValue)
+						_viewModel.ErrorList.ElementAt(index).HandledDate.ShouldBe(error.HandledDate.Value.ToString("yyyy-MM-dd"));
+					else
+						_viewModel.ErrorList.ElementAt(index).HandledDate.ShouldBe(string.Empty);
+         		}
+			);
 		}
 	}
 

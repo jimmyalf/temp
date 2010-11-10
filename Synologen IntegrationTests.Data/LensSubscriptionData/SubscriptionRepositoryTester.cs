@@ -43,6 +43,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			            		savedSubscription.PaymentInfo.ShouldBe(_subscriptionToSave.PaymentInfo);
 			            		savedSubscription.Status.ShouldBe(_subscriptionToSave.Status);
 			            		savedSubscription.Transactions.Count().ShouldBe(_subscriptionToSave.Transactions.Count());
+								savedSubscription.Errors.Count().ShouldBe(_subscriptionToSave.Errors.Count());
 			            	});
 		}
 	}
@@ -82,6 +83,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			            		fetchedSubscription.PaymentInfo.ShouldBe(_subscriptionToEdit.PaymentInfo);
 			            		fetchedSubscription.Status.ShouldBe(_subscriptionToEdit.Status);
 			            		fetchedSubscription.Transactions.Count().ShouldBe(_subscriptionToEdit.Transactions.Count());
+								fetchedSubscription.Errors.Count().ShouldBe(_subscriptionToEdit.Errors.Count());
 			            	});
 		}
 	}
@@ -266,7 +268,6 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				new SubscriptionRepository(session).Save(_subscription);
 
 				_transactions = TransactionFactory.GetList(_subscription);
-				//_subscription.Transactions = _transactions;
 			};
 
 			Because = repository => _transactions.Each(x => new TransactionRepository(GetSessionFactory().OpenSession()).Save(x));
@@ -283,6 +284,49 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				savedSubscription.Transactions.ShouldContain(_transactions[1]);
 				savedSubscription.Transactions.ShouldContain(_transactions[2]);
 				savedSubscription.Transactions.Count().ShouldBe(3);
+			});
+		}
+	}
+
+	[TestFixture]
+	[Category("SubscriptionRepositoryTester")]
+	public class When_fetching_all_errors_for_a_subscription : BaseRepositoryTester<SubscriptionErrorRepository>
+	{
+
+		private SubscriptionError[] _errors;
+		private Subscription _subscription;
+
+		public When_fetching_all_errors_for_a_subscription()
+		{
+			Context = session =>
+          	{
+          		var shop = new ShopRepository(session).Get(TestShopId);
+          		var country = new CountryRepository(session).Get(TestCountryId);
+
+          		var customer = CustomerFactory.Get(country, shop);
+          		new CustomerRepository(session).Save(customer);
+          		_subscription = SubscriptionFactory.Get(customer);
+
+				new SubscriptionRepository(session).Save(_subscription);
+
+          		_errors = SubscriptionErrorFactory.GetList(_subscription);
+          	};
+
+			Because = repository => _errors.Each(x => new SubscriptionErrorRepository(GetSessionFactory().OpenSession()).Save(x));
+		}
+
+		[Test]
+		public void Should_get_all_errors_for_a_subscription()
+		{
+			AssertUsing(session =>
+			{
+				var savedSubscription = new SubscriptionRepository(session).Get(_subscription.Id);
+
+				for (int i = 0; i < 6; i++)
+				{
+					savedSubscription.Errors.ShouldContain(_errors[i]);
+				}
+				savedSubscription.Errors.Count().ShouldBe(6);
 			});
 		}
 	}

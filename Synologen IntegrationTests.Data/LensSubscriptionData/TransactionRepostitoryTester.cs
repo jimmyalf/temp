@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NHibernate;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Shouldly;
-using System.Text;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;

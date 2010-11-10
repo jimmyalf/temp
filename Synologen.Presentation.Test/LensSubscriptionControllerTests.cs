@@ -2,7 +2,6 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
-using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using Shouldly;

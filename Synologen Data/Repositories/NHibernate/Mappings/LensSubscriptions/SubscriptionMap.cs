@@ -27,6 +27,9 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.LensSubscri
 			HasMany(x => x.Transactions)
 			  .Inverse()
 			  .Cascade.All();
+			HasMany(x => x.Errors)
+			  .Inverse()
+			  .Cascade.All();
 		}
 	}
 }

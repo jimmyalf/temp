@@ -58,5 +58,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.LensSubscription
 
 		[DisplayName("Abonnemangstatus")]
 		public string Status { get; set; }
+
+		[DisplayName("Autogiro fel-lista")]
+		public IEnumerable<ErrorListItemView> ErrorList { get; set; }
 	}
 }

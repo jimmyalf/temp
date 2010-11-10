@@ -32,6 +32,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 			For<ICountryRepository>().HybridHttpOrThreadLocalScoped().Use<CountryRepository>();
 			For<Core.Domain.Persistence.LensSubscription.IShopRepository>().HybridHttpOrThreadLocalScoped().Use<Data.Repositories.LensSubscriptionRepositories.ShopRepository>();
 			For<ITransactionRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionRepository>();
+			For<ISubscriptionErrorRepository>().HybridHttpOrThreadLocalScoped().Use<ISubscriptionErrorRepository>();
 			For<IFrameOrderService>().Use<SynologenFrameOrderService>();
 			For<ISynologenSettingsService>().Use<SynologenSettingsService>();
 			For<IEmailService>().Use<EmailService>();

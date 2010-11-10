@@ -108,6 +108,55 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription
 					Type = TransactionType.Withdrawal
 				},
 			};
+			var subscriptionErrors = new[]
+			{
+				new SubscriptionError
+					{
+						Type = SubscriptionErrorType.NoAccount,
+						CreatedDate = new DateTime(2010, 11, 1),
+						HandledDate = new DateTime(2010, 11, 2),
+						IsHandled = true,
+						Subscription = new Subscription()
+					},
+				new SubscriptionError
+					{
+						Type = SubscriptionErrorType.NoCoverage,
+						CreatedDate = new DateTime(2010, 11, 2),
+						IsHandled = false,
+						Subscription = new Subscription()
+					},
+				new SubscriptionError
+					{
+						Type = SubscriptionErrorType.NotApproved,
+						CreatedDate = new DateTime(2010, 11, 3),
+						HandledDate = new DateTime(2010, 11, 3),
+						IsHandled = true,
+						Subscription = new Subscription()
+					},
+				new SubscriptionError
+					{
+						Type = SubscriptionErrorType.NotChargeable,
+						CreatedDate = new DateTime(2010, 11, 4),
+						IsHandled = false,
+						Subscription = new Subscription()
+					},
+				new SubscriptionError
+					{
+						Type = SubscriptionErrorType.NotPermitted,
+						CreatedDate = new DateTime(2010, 11, 5),
+						HandledDate = new DateTime(2010, 11, 5),
+						IsHandled = true, 
+						Subscription = new Subscription()
+					},
+				new SubscriptionError
+					{
+						Type = SubscriptionErrorType.Stopped,
+						CreatedDate = new DateTime(2010, 11, 6),
+						IsHandled = false,
+						Subscription = new Subscription()
+					}
+			};
+
 			var mockedSubscription = new Mock<Subscription>();
 			mockedSubscription.SetupGet(x => x.Id).Returns(id);
 			mockedSubscription.SetupGet(x => x.ActivatedDate).Returns(new DateTime(2010,11,02));
@@ -116,6 +165,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription
 			mockedSubscription.SetupGet(x => x.Transactions).Returns(transactions);
 			mockedSubscription.SetupGet(x => x.Customer).Returns(customer);
 			mockedSubscription.SetupGet(x => x.Status).Returns(SubscriptionStatus.Active);
+			mockedSubscription.SetupGet(x => x.Errors).Returns(subscriptionErrors);
 			return mockedSubscription.Object;
 		}
 	}

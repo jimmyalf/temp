@@ -91,6 +91,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			var reposititory = new CustomerRepository(session);
 			var subscriptionRepository = new SubscriptionRepository(session);
 			var transactionRepository = new TransactionRepository(session);
+			var errorRepository = new SubscriptionErrorRepository(session);
 			for (var i = 0; i < 5; i++)
 			{
 				var customerToSave = CustomerFactory.Get(country, shop, "Tore " + i, "Alm " + i, "19630610613" + i);
@@ -98,6 +99,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				var subscriptionToSave = SubscriptionFactory.Get(customerToSave, ((i % 3) +1).ToEnum<SubscriptionStatus>());
 				subscriptionRepository.Save(subscriptionToSave);
 				TransactionFactory.GetList(subscriptionToSave).Each(transactionRepository.Save);
+				SubscriptionErrorFactory.GetList(subscriptionToSave).Each(errorRepository.Save);
 			}
 		}
 

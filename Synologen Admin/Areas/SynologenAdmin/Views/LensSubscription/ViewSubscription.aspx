@@ -80,6 +80,21 @@
 					</p>												
 				</fieldset>
 					<fieldset>
+						<legend><%=Html.GetDisplayNameFor(x => x.ErrorList) %></legend>
+						<p class="display-item clearLeft">						
+							<table class="striped">
+								<tr class="header"><th>Datum</th><th>Typ av fel</th><th>Hanterad</th></tr>
+								<%foreach (var item in Model.ErrorList) {%>
+								<tr class="gridrow">
+									<td><%= item.CreatedDate %></td>
+									<td><%= item.Type %></td>
+									<td><%= item.HandledDate %></td>
+								</tr>
+								<%}%>
+							</table>
+						</p>						
+					</fieldset>				
+					<fieldset>
 						<legend><%=Html.GetDisplayNameFor(x => x.TransactionList) %></legend>
 						<p class="display-item clearLeft">						
 							<table class="striped">

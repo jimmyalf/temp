@@ -104,6 +104,8 @@
     <Compile Include="Domain\Model\LensSubscription\CustomerContact.cs" />
     <Compile Include="Domain\Model\LensSubscription\Shop.cs" />
     <Compile Include="Domain\Model\LensSubscription\Subscription.cs" />
+    <Compile Include="Domain\Model\LensSubscription\SubscriptionError.cs" />
+    <Compile Include="Domain\Model\LensSubscription\SubscriptionErrorType.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionPaymentInfo.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionStatus.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionTransaction.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="Domain\Persistence\LensSubscription\ICountryRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ICustomerRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\IShopRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\ISubscriptionErrorRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ISubscriptionRepository.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IShopRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />

@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Application\AutomapperMappings\ContractSaleValueResolver.cs" />
     <Compile Include="Application\AutomapperMappings\CustomerNameValueProvider.cs" />
+    <Compile Include="Application\AutomapperMappings\SubscriptionErrorValueResolver.cs" />
     <Compile Include="Application\AutomapperMappings\TransactionValueResolver.cs" />
     <Compile Include="Application\ModelBinders\GridSortPropertyMappingModelBinder.cs" />
     <Compile Include="Application\Services\ContractSalesViewService.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="Models\FrameOrderListItemView.cs" />
     <Compile Include="Models\FrameOrderListView.cs" />
     <Compile Include="Models\FrameOrderView.cs" />
+    <Compile Include="Models\LensSubscription\ErrorListItemView.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionListItemView.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionListView.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionView.cs" />
@@ -576,6 +578,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

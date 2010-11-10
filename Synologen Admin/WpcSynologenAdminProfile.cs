@@ -43,9 +43,10 @@ namespace Spinit.Wpc.Synologen.Presentation
 				.ForMember(cv => cv.Status, m => m.MapFrom(x => x.Status.GetEnumDisplayName()));
 
 			CreateMap<ShopSettlement, SettlementView>()
+				.ForMember(x => x.CreatedDate, m => m.MapFrom(x => x.CreatedDate.ToString("yyyy-MM-dd HH:mm")))
 				.ForMember(x => x.Period, m => m.MapFrom(x => General.GetSettlementPeriodNumber(x.CreatedDate)))
-				.ForMember(x => x.SumAmountIncludingVAT, m => m.MapFrom(x => x.ContractSales.Sum(y => y.TotalAmountIncludingVAT)))
-				.ForMember(x => x.SumAmountExcludingVAT, m => m.MapFrom(x => x.ContractSales.Sum(y => y.TotalAmountExcludingVAT)))
+				.ForMember(x => x.SumAmountIncludingVAT, m => m.MapFrom(x => x.ContractSales.Sum(y => y.TotalAmountIncludingVAT).ToString("C2")))
+				.ForMember(x => x.SumAmountExcludingVAT, m => m.MapFrom(x => x.ContractSales.Sum(y => y.TotalAmountExcludingVAT).ToString("C2")))
 				.ForMember(x => x.SettlementItems, m => m.ResolveUsing<ContractSaleValueResolver>().FromMember(x => x.ContractSales));
 		}
 	}

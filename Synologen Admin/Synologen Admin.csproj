@@ -475,6 +475,7 @@
     <Content Include="Areas\SynologenAdmin\Views\Frame\Add.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\SynologenAdmin\Views\ContractSales\ViewSettlement.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\AddBrand.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\AddGlassType.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\FrameOrders.aspx" />

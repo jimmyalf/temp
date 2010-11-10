@@ -6,27 +6,45 @@
 
 /* PageSpecific
 ================================================*/
-.Components-Synologen-ViewSettlementDetails-aspx table {
+.Components-Synologen-ViewSettlementDetails-aspx table,
+.Components-Synologen-ContractSales-ViewSettlement-aspx table 
+{
 	width: 100%; 
+	border-collapse:collapse;
 }
-.Components-Synologen-ViewSettlementDetails-aspx table .header {
+.Components-Synologen-ViewSettlementDetails-aspx table .header,
+.Components-Synologen-ContractSales-ViewSettlement-aspx table .header
+{
 	font-weight: bold; 
 	text-align: left; 
 	border-bottom: solid 1px black;
+	
 }
 
-.Components-Synologen-ViewSettlementDetails-aspx table th {
+.Components-Synologen-ViewSettlementDetails-aspx table th,
+.Components-Synologen-ContractSales-ViewSettlement-aspx table th 
+{
 	width: 150px; 
 	text-align: left;
 }
-.Components-Synologen-ViewSettlementDetails-aspx table th.wide-column {
+.Components-Synologen-ViewSettlementDetails-aspx table th.wide-column,
+.Components-Synologen-ContractSales-ViewSettlement-aspx table th.wide-column
+{
 	width: 300px; 
 	text-align: left;
 }
-.Components-Synologen-ViewSettlementDetails-aspx .hide-on-print {
+.hide-on-print 
+{
 	display:none; 
 }
-.Components-Synologen-ViewSettlementDetails-aspx label.labelShort {
+.Components-Synologen-ViewSettlementDetails-aspx label.labelShort 
+{
 	width:125px; 
 	display:inline-block; 
+}
+
+.Components-Synologen-ContractSales-ViewSettlement-aspx fieldset label
+{
+	width: 13em;
+	display:inline-block;
 }

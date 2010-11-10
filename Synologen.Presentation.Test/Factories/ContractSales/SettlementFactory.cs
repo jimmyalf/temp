@@ -13,11 +13,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 			settlementMock.SetupGet(x => x.CreatedDate).Returns(new DateTime(2010, 11, 09));
 			settlementMock.SetupGet(x => x.ContractSales).Returns( new[]
             {
-				ContractSaleFactory.GetContractSale(1, ShopFactory.GetShop(1)),
-				ContractSaleFactory.GetContractSale(2, ShopFactory.GetShop(1)),
 				ContractSaleFactory.GetContractSale(3, ShopFactory.GetShop(2)),
 				ContractSaleFactory.GetContractSale(4, ShopFactory.GetShop(2)),
+				ContractSaleFactory.GetContractSale(1, ShopFactory.GetShop(1)),
 				ContractSaleFactory.GetContractSale(5, ShopFactory.GetShop(2)),
+				ContractSaleFactory.GetContractSale(2, ShopFactory.GetShop(1)),
 			});
 			return settlementMock.Object;
 		}

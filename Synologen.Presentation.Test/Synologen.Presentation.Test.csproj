@@ -85,6 +85,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractSalesControllerTests.cs" />
+    <Compile Include="Factories\ContractSales\ContractSaleFactory.cs" />
+    <Compile Include="Factories\ContractSales\ShopFactory.cs" />
     <Compile Include="FrameControllerOrderTests.cs" />
     <Compile Include="Factories\RepositoryFactory.cs" />
     <Compile Include="Factories\ServiceFactory.cs" />

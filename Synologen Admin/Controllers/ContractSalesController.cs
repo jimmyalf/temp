@@ -17,5 +17,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			var viewModel = _viewService.GetSettlement(id);
 			return View(viewModel);
 		}
+
+		public ActionResult Settlements()
+		{
+			var viewModel = _viewService.GetSettlements();
+			return View(viewModel);
+		}
 	}
 }

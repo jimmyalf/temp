@@ -1,3 +1,4 @@
+using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
@@ -6,11 +7,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 	{
 		public static IAdminSettingsService GetSettingsService()
 		{
-			return new MockedSettingsService();
+			var mockedService =  new Mock<IAdminSettingsService>();
+			mockedService.Setup(x => x.GetDefaultPageSize()).Returns(10);
+			return mockedService.Object;
 		}
-	}
-
-	internal class MockedSettingsService : IAdminSettingsService {
-		public int GetDefaultPageSize() { return 10; }
 	}
 }

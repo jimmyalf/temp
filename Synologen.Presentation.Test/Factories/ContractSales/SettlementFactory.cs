@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
@@ -21,31 +23,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 			});
 			return settlementMock.Object;
 		}
-	}
 
-	public class ShopFactory
-	{
-		public static Shop GetShop(int id)
+		public static IEnumerable<ShopSettlement> GetList() 
 		{
-			var shopMock = new Mock<Shop>();
-			shopMock.SetupGet(x => x.Id).Returns(id);
-			shopMock.SetupGet(x => x.BankGiroNumber).Returns("123456987");
-			shopMock.SetupGet(x => x.Name).Returns("Örebro Optik");
-			shopMock.SetupGet(x => x.Number).Returns("1350");
-			return shopMock.Object;
-		}			
-	}
-
-	public class ContractSaleFactory
-	{
-		public static ContractSale GetContractSale(int id, Shop shop)
+			return GetList(15);
+		}
+		public static IEnumerable<ShopSettlement> GetList(int numberOfItems) 
 		{
-			var contractSaleMock = new Mock<ContractSale>();
-			contractSaleMock.SetupGet(x => x.Id).Returns(id);
-			contractSaleMock.SetupGet(x => x.Shop).Returns(shop);
-			contractSaleMock.SetupGet(x => x.TotalAmountExcludingVAT).Returns(18956.23M);
-			contractSaleMock.SetupGet(x => x.TotalAmountIncludingVAT).Returns(26956.53M);
-			return contractSaleMock.Object;
+			return Enumerable.Range(0, numberOfItems).Select(index => Get(index));
 		}
 	}
 }

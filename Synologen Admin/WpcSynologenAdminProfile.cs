@@ -49,6 +49,9 @@ namespace Spinit.Wpc.Synologen.Presentation
 				.ForMember(x => x.SumAmountIncludingVAT, m => m.MapFrom(x => x.ContractSales.Sum(y => y.TotalAmountIncludingVAT).ToString("C2")))
 				.ForMember(x => x.SumAmountExcludingVAT, m => m.MapFrom(x => x.ContractSales.Sum(y => y.TotalAmountExcludingVAT).ToString("C2")))
 				.ForMember(x => x.SettlementItems, m => m.ResolveUsing<ContractSaleValueResolver>().FromMember(x => x.ContractSales));
+
+			CreateMap<ShopSettlement, SettlementListViewItem>()
+				.ForMember(x => x.NumberOfContractSalesInSettlement, m => m.MapFrom(x => x.ContractSales.Count()));
 		}
 	}
 }

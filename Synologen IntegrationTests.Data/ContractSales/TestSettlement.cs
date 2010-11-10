@@ -1,5 +1,4 @@
 using System;
-using System.Data;
 using System.Linq;
 using NUnit.Framework;
 using Shouldly;
@@ -16,7 +15,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 {
 	[TestFixture]
 	[Category("TestSettlement")]
-	public class When_creating_a_settlement : TestBase<SettlementRepository>
+	public class When_creating_a_settlement_using_sqlprovider : BaseRepositoryTester<SettlementRepository>
 	{
 		private int _settlementId;
 		private const int settlementableOrderStatus = 6;
@@ -27,7 +26,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		private double _expectedSumExcludingVAT;
 		private int _expectedNumberOfOrdersInSettlement;
 
-		public When_creating_a_settlement()
+		public When_creating_a_settlement_using_sqlprovider()
 		{
 			Context = session => 
 			{

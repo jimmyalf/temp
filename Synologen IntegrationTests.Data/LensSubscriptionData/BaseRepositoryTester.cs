@@ -33,11 +33,6 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 
 		protected override ISessionFactory GetSessionFactory()
 		{
-			//if(!NHibernateFactory.MappingAssemblies.Any())
-			//{
-			//    var assembly = typeof(Synologen.Data.Repositories.NHibernate.Mappings.LensSubscriptions.SubscriptionMap).Assembly;
-			//    NHibernateFactory.MappingAssemblies.Add(assembly);				
-			//}
 			return NHibernateFactory.Instance.GetSessionFactory();
 		}
 
@@ -79,6 +74,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			}
 			var sqlConnection = new SqlConnection(DataHelper.ConnectionString);
 			sqlConnection.Open();
+			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionError");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionTransaction");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscription");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionCustomer");

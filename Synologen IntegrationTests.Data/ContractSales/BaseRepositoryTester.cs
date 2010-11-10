@@ -12,7 +12,7 @@ using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 {
-	public class TestBase<TModel> :  NHibernateRepositoryTester<TModel> //: AssertionHelper
+	public class BaseRepositoryTester<TModel> :  NHibernateRepositoryTester<TModel> //: AssertionHelper
 	{
 		protected SqlProvider Provider;
 		protected Shop TestShop;

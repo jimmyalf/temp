@@ -8,7 +8,7 @@ using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 {
 	[TestFixture]
-	public class Given_a_persisted_shop : TestBase <SettlementRepository>
+	public class Given_a_persisted_shop : BaseRepositoryTester <SettlementRepository>
 	{
 		
 		public Given_a_persisted_shop()

@@ -114,7 +114,6 @@
     <Compile Include="Repositories\FrameOrderRepositories\FrameRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\CountryRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\CustomerRepository.cs" />
-    <Compile Include="Repositories\LensSubscriptionRepositories\DatabaseSetup.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\ShopRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\SubscriptionErrorRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\SubscriptionRepository.cs" />

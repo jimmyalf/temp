@@ -12,6 +12,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSal
 			Map(x => x.TotalAmountExcludingVAT).Column("cInvoiceSumExcludingVAT");
 			Map(x => x.TotalAmountIncludingVAT).Column("cInvoiceSumIncludingVAT");
 			References(x => x.Shop).Column("cSalesPersonShopId");
+			Map(x => x.StatusId).Column("cStatusId");
+			Map(x => x.InvoiceNumber).Column("cInvoiceNumber").Nullable();
 		}
 	}
 }

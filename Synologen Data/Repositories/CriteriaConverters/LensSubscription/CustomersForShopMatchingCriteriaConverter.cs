@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NHibernate;
-using NHibernate.Criterion;
+﻿using NHibernate;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
@@ -18,15 +13,13 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscrip
 
 		public override ICriteria Convert(CustomersForShopMatchingCriteria source)
 		{
-			return Criteria
-				.CreateAlias(x => x.Shop)
+			return Criteria.CreateAlias(x => x.Shop)
 				.FilterEqual(x => x.Shop.Id, source.ShopId)
-				.FilterByAny(filter =>
-				             	{
-									filter.By(x => x.FirstName);
-									filter.By(x => x.LastName);
-									filter.By(x => x.PersonalIdNumber);
-				             	}, source.SearchTerm);
+				.FilterByAny(filter => {
+					filter.By(x => x.FirstName);
+					filter.By(x => x.LastName);
+					filter.By(x => x.PersonalIdNumber);
+				}, source.SearchTerm);
 		}
 	}
 }

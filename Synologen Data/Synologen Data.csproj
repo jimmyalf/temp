@@ -101,8 +101,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\ContractSalesRepositories\ContractSaleRepository.cs" />
     <Compile Include="Repositories\CriteriaConverters\AllFrameOrdersForShopCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\AllOrderableFramesCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\ContractSales\AllContractSalesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\CustomersForShopMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfSubscriptionsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFrameOrdersMatchingCriteriaConverter.cs" />

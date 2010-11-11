@@ -30,7 +30,6 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		{
 			Context = session => 
 			{
-				SetupDefaultContext();
 				_ordersToSave = new[]
 				{
 					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, TestShop.ShopId, TestableShopMemberId),

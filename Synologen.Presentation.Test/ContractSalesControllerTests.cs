@@ -1,16 +1,16 @@
- using System;
- using System.Collections.Generic;
- using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
- using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
- using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
- using Spinit.Wpc.Synologen.Core.Domain.Services;
- using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Controllers;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
@@ -121,7 +121,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 
 		[Test]
-		public void Verify_Repositories_and_Services_were_called_with_expected_parameters()
+		public void Repositories_and_Services_were_called_with_expected_parameters()
 		{
 			_mockedSettlementRepository.Verify(x => x.GetAll(), Times.Once());
 			_mockedContractSaleRepository.Verify(x => x.FindBy(It.Is<AllContractSalesMatchingCriteria>(criteria => criteria.ContractSaleStatus.Equals(_readyForSettlementStatus))), Times.Once());

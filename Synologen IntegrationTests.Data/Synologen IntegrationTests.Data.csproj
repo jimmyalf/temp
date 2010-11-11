@@ -107,6 +107,7 @@
     <Compile Include="ContractSales\Factories\ShopFactory.cs" />
     <Compile Include="ContractSales\Factories\OrderFactory.cs" />
     <Compile Include="ContractSales\BaseRepositoryTester.cs" />
+    <Compile Include="ContractSales\TestContractSales.cs" />
     <Compile Include="ContractSales\TestSettlement.cs" />
     <Compile Include="ContractSales\TestShop.cs" />
     <Compile Include="FrameData\Factories\FrameGlassTypeFactory.cs" />

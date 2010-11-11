@@ -13,7 +13,6 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		
 		public Given_a_persisted_shop()
 		{
-			Context = session => SetupDefaultContext();
 			Because = session => { };
 		}
 

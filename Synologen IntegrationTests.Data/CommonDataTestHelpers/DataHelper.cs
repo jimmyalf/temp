@@ -27,6 +27,11 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers
 			ExecuteStatement(sqlConnection, String.Format("DBCC CHECKIDENT ({0}, reseed, 0)", tableName));
 		}
 
+		public static void DeleteForTable(SqlConnection sqlConnection, string tableName)
+		{
+			ExecuteStatement(sqlConnection, String.Format("DELETE FROM {0}", tableName));
+		}
+
 		public static string ConnectionString{
 			get
 			{

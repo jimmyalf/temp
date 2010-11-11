@@ -1,6 +1,5 @@
 using System;
 using System.Data.SqlClient;
-using System.Linq;
 using NHibernate;
 using Spinit.Data;
 using Spinit.Extensions;

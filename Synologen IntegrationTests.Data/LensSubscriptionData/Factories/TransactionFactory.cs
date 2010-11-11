@@ -48,6 +48,13 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 					Reason = TransactionReason.Withdrawal,
 					Type = TransactionType.Withdrawal,
 					Subscription = subscription
+				}, new SubscriptionTransaction
+				{
+					Amount = 400.45M,
+					CreatedDate = new DateTime(2010, 10, 27),
+					Reason = TransactionReason.PaymentFailed,
+					Type = TransactionType.Deposit,
+					Subscription = subscription
 				}
 			};
 		}

@@ -33,6 +33,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			       				CreatedDate = new DateTime(2010, 10, 26),
 			       				Reason = TransactionReason.Withdrawal,
 			       				Type = TransactionType.Deposit
+			       			},
+						new SubscriptionTransaction
+			       			{
+			       				Amount = 85.90M,
+			       				CreatedDate = new DateTime(2010, 11, 03),
+			       				Reason = TransactionReason.PaymentFailed,
+			       				Type = TransactionType.Deposit
 			       			}
 			       	};
 

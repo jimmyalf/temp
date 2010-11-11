@@ -283,7 +283,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				savedSubscription.Transactions.ShouldContain(_transactions[0]);
 				savedSubscription.Transactions.ShouldContain(_transactions[1]);
 				savedSubscription.Transactions.ShouldContain(_transactions[2]);
-				savedSubscription.Transactions.Count().ShouldBe(3);
+				savedSubscription.Transactions.ShouldContain(_transactions[3]);
+				savedSubscription.Transactions.Count().ShouldBe(4);
 			});
 		}
 	}

@@ -106,7 +106,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription
 					Reason = TransactionReason.Withdrawal,
 					Subscription = new Subscription(),
 					Type = TransactionType.Withdrawal
-				},
+				}, new SubscriptionTransaction
+				{
+					Amount = 955,
+					CreatedDate = new DateTime(2010, 11, 5),
+					Reason = TransactionReason.PaymentFailed,
+					Subscription = new Subscription(),
+					Type = TransactionType.Deposit
+				}
 			};
 			var subscriptionErrors = new[]
 			{

@@ -11,6 +11,9 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		Withdrawal = 2,
 
 		[EnumDisplayName("Korrigering")]
-		Correction = 3
+		Correction = 3,
+
+		[EnumDisplayName("Misslyckad överföring, nytt försök kommer att ske")]
+		PaymentFailed = 4
 	}
 }

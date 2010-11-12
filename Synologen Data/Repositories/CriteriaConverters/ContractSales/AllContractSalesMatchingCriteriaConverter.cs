@@ -12,8 +12,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.ContractSale
 		public override ICriteria Convert(AllContractSalesMatchingCriteria source)
 		{
 			return Criteria
-				.FilterEqual(x => x.StatusId, source.ContractSaleStatus)
-				.FilterEqual(x => x.InvoiceNumber, source.InvoiceNumber);
+				.FilterEqual(x => x.StatusId, source.ContractSaleStatus);
+			//return source.InvoiceNumber.HasValue ? 
+			//    criteria.FilterEqual(x => x.InvoiceNumber, source.InvoiceNumber.Value) : 
+			//    criteria.Add(Restrictions.IsNull(Property(x => x.InvoiceNumber)));
 		}
 	}
 }

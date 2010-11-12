@@ -43,6 +43,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 			FrameGlassTypeValidationRepository = new FrameGlassTypeRepository(validationSession);
 			FrameOrderValidationRepository = new FrameOrderRepository(validationSession);
 
+
+			// TODO: Try to refactor out these initiations and do them in global end rather than before each test to increase test speed
 			SavedFrameColors = FrameColorFactory.GetFrameColors();
 			SavedFrameColors.ToList().ForEach(x => FrameColorRepository.Save(x));
 

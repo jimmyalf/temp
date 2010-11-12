@@ -2,15 +2,10 @@ using System;
 using System.Data.SqlClient;
 using NHibernate;
 using Spinit.Data;
-using Spinit.Extensions;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
-using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
-using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;
 
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 {
@@ -78,28 +73,6 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscription");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionCustomer");
 			sqlConnection.Close();
-
-
-			SetupTestData();
-		}
-
-		private void SetupTestData() {
-			var session = GetSessionFactory().OpenSession();
-			var shop = new ShopRepository(session).Get(TestShopId);
-			var country = new CountryRepository(session).Get(TestCountryId);
-			var reposititory = new CustomerRepository(session);
-			var subscriptionRepository = new SubscriptionRepository(session);
-			var transactionRepository = new TransactionRepository(session);
-			var errorRepository = new SubscriptionErrorRepository(session);
-			for (var i = 0; i < 5; i++)
-			{
-				var customerToSave = CustomerFactory.Get(country, shop, "Tore " + i, "Alm " + i, "19630610613" + i);
-				reposititory.Save(customerToSave);
-				var subscriptionToSave = SubscriptionFactory.Get(customerToSave, ((i % 3) +1).ToEnum<SubscriptionStatus>());
-				subscriptionRepository.Save(subscriptionToSave);
-				TransactionFactory.GetList(subscriptionToSave).Each(transactionRepository.Save);
-				SubscriptionErrorFactory.GetList(subscriptionToSave).Each(errorRepository.Save);
-			}
 		}
 
 		protected virtual bool IsDevelopmentServer(string connectionString)

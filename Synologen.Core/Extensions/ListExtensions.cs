@@ -55,7 +55,7 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 
 		public static IEnumerable<TType> Append<TType>(this IEnumerable<TType> list, IEnumerable<TType> listToAppend )
 		{
-			return listToAppend.ToArray().Concat(listToAppend);
+			return list.ToArray().Concat(listToAppend);
 		}
 
 		public static void For<TType>(this IEnumerable<TType> list, Action<int,TType> enumerableAction)

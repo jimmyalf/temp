@@ -20,8 +20,8 @@
 					<div><%= Html.LabelFor(x => x.SumAmountExcludingVAT)%>
 					<span><%=Html.DisplayFor(x => x.SumAmountExcludingVAT) %></span></div>
 				</div>		
-				<div class="formCommands hide-on-print">	
-					<input class="btnBig" type="button" OnClick="window.location='/components/synologen/Settlements.aspx';" value="Tillbaka">
+				<div class="formCommands hide-on-print">
+					<input class="btnBig" type="button" OnClick="window.location='<%=Url.Action("Settlements") %>';" value="Tillbaka">
 					<input class="btnBig" type="button" OnClick="window.print();return false;" value="Skriv ut">
 				</div>										
 			</fieldset>

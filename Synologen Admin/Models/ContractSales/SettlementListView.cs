@@ -6,5 +6,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 	{
 		public int NumberOfContractSalesReadyForInvocing { get; set; }
 		public IEnumerable<SettlementListViewItem> Settlements { get; set; }
+		public bool DisplayCreateSettlementsButton
+		{
+			get { return (NumberOfContractSalesReadyForInvocing > 0); }
+		}
 	}
 }

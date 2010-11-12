@@ -1,5 +1,7 @@
-namespace Spinit.Wpc.Synologen.Presentation.Code {
-	public class ComponentPages {
+namespace Spinit.Wpc.Synologen.Presentation.Code 
+{
+	public class ComponentPages 
+	{
 		private const string  PageBase = "~/Components/Synologen/";
 
 		public const string AddFiles = PageBase + "AddFiles.aspx";
@@ -22,7 +24,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Code {
 		public const string ShopCategories = PageBase + "ShopCategories.aspx";
 		public const string ShopEquipment = PageBase + "ShopEquipment.aspx";
 		public const string OrderStatus = PageBase + "OrderStatus.aspx";
-		public const string Settlements = PageBase + "Settlements.aspx";
+		//public const string Settlements = PageBase + "Settlements.aspx";
+		public const string Settlements = "/components/synologen/contract-sales/settlements";
+		
+		
 
 		// Opq Pages
 		public const string OpqIndex = PageBase + "OpqIndex.aspx";

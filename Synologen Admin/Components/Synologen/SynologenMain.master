@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" MasterPageFile="~/components/ComponentMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.SynologenMain" Codebehind="SynologenMain.master.cs" %>
+<%@ Master Language="C#" MasterPageFile="~/components/ComponentMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.SynologenMain" Codebehind="SynologenMain.master.cs" %>
 <asp:Content ID="MainComponent" ContentPlaceHolderID="ComponentMainPlc" Runat="Server">
  <div id="dCompNavigation">
 	<asp:PlaceHolder ID="phSynologenMenu" runat="server" />

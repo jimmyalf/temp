@@ -5,13 +5,17 @@
 		<div class="wrap">
 			<h2>Butiksutbetalningar</h2>
 			<% using (Html.BeginForm()) {%>
+			
 			<fieldset>
 				<div class="formItem">
 		            <label class="labelLong">Antal ordrar redo för utbetalning: <%=Model.NumberOfContractSalesReadyForInvocing %></label>
 		        </div>
+		        <% if(Model.DisplayCreateSettlementsButton){ %>
 				<div class="formCommands">
+					<%= Html.AntiForgeryToken() %>
 					<input type="submit" value="Skapa utbetalning" class="btnBig" />
-				</div>				
+				</div>
+				<%} %>
 			</fieldset>
 			<% } %>
 			<br />

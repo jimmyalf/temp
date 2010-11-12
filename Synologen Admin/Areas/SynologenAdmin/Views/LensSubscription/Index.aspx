@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<Spinit.Wpc.Synologen.Presentation.Models.LensSubscription.SubscriptionListView>" %>
+﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<SubscriptionListView>" %>
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
 <div id="dCompMain" class="Components-Synologen-LensSubscriptions">
 	<div class="fullBox">
@@ -11,6 +11,7 @@
 					<%= Html.EditorFor(x => x.SearchTerm) %>
 				</p>
 				<p class="formCommands">
+					<%= Html.AntiForgeryToken() %>
 					<input type="submit" value="Sök" class="btnBig" />
 				</p>
 			</fieldset>

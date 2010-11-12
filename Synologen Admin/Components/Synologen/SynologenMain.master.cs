@@ -26,10 +26,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 					.AppendLine(String.Format(styleSheetReferenceFormat, "ComponentPrint.css", "print"))
 					.ToString()
 			};
-		
-			//link.Text = String.Format("<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}Css/ComponentSpecific.css\" media=\"screen,projection\" />", baseUrl);
-			//link.Text += String.Format("<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}Css/PageSpecific.css\" media=\"screen,projection\" />", baseUrl);
-			//link.Text += String.Format("<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}Css/ComponentPrint.css\" media=\"print\" />", baseUrl);
+
 			Page.Header.Controls.Add(literal);
             
 			synologenMenu = smartMenu.Get("SynologenMenu");
@@ -71,7 +68,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			itemCollection.AddItem("Artikel", null, "Artiklar", "Lista Artiklar", null,ComponentPages.Articles, null, null, false, true);
 			itemCollection.AddItem("Avtal", null, "Avtal", "Lista Avtal", null,ComponentPages.Contracts, null, null, false, true);
 			itemCollection.AddItem("Fakturor", null, "Fakturor", "Lista Fakturor", null, ComponentPages.Orders, null, null, false, true);
-			//itemCollection.AddItem("Utbetalningar", null, "Utbetalningar", "Lista/Skapa utbetalningar", null, ComponentPages.Settlements, null, null, false, true);
 			itemCollection.AddItem("Utbetalningar", null, "Utbetalningar", "Lista/Skapa utbetalningar", null, ComponentPages.Settlements, null, null, false, true);
 			itemCollection.AddItem("opq", null, "OP-Q", "Administrera OP-Q", null, ComponentPages.OpqIndex, null, null, false, true);
 			itemCollection.AddItem("frameOrders", null, "Bågbeställning", "Administrera Bågbeställningar", null, "/components/synologen/frames", null, null, false, true);

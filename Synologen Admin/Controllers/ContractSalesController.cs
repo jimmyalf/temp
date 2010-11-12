@@ -23,5 +23,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			var viewModel = _viewService.GetSettlements();
 			return View(viewModel);
 		}
+
+		[HttpPost]
+		[ActionName("Settlements")]
+		[ValidateAntiForgeryToken]
+		public ActionResult CreateSettlement()
+		{
+			var settlementId = _viewService.CreateSettlement();
+			return RedirectToAction("ViewSettlement", new { id = settlementId });
+		}
 	}
 }

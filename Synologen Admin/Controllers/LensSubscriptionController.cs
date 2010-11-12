@@ -37,6 +37,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		}
 
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public ActionResult Index(SubscriptionListView inModel)
 		{
 			var routeValues = ControllerContext.HttpContext.Request.QueryString

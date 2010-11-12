@@ -4,12 +4,14 @@ using Spinit.Data;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
+using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.ContractSales;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
@@ -41,6 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 			For<IActionCriteriaConverter<PagedSortedCriteria, ICriteria>>().Use<PagedSortedCriteriaConverter>();
 			For<IActionCriteriaConverter<PageOfFrameOrdersMatchingCriteria, ICriteria>>().Use<PageOfFrameOrdersMatchingCriteriaConverter>();
 			For<IActionCriteriaConverter<PageOfSubscriptionsMatchingCriteria, ICriteria>>().Use<PageOfSubscriptionsMatchingCriteriaConverter>();
+			For<IActionCriteriaConverter<AllContractSalesMatchingCriteria, ICriteria>>().Use<AllContractSalesMatchingCriteriaConverter>();
 
 			For<IAdminSettingsService>().Use<SettingsService>();
 			For<IGridSortPropertyMappingService>().Use<SynologenGridSortPropertyMappingSerice>();

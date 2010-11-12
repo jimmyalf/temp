@@ -36,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			var criteriaForSettlementsReadyForInvoicing = new AllContractSalesMatchingCriteria
 			{
 				ContractSaleStatus = _settingsService.GetContractSalesReadyForSettlementStatus(), 
-				InvoiceNumber = null
+				//InvoiceNumber = null
 			};
 			var contractSalesReadyForSettlement = _contractSaleRepository.FindBy(criteriaForSettlementsReadyForInvoicing);
 			return new SettlementListView

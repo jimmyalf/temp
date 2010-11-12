@@ -5,6 +5,7 @@ using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;
 
@@ -141,8 +142,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 					CustomerFactory.Get(country, shop2, "Eva-Lisa", "Davidsson", "198007202826"),
 				};
 				customers.Each(new CustomerRepository(session).Save);
-				
-				_savedSubscriptions = customers.Select(x=> SubscriptionFactory.Get(x)).ToArray();
+				_savedSubscriptions = customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Active))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Stopped))).ToArray();
 			
 			};
 

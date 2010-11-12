@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 
@@ -12,15 +11,6 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 			return Get(customer, SubscriptionStatus.Stopped);
 		}
 
-		//public static IEnumerable<Subscription> Get(IEnumerable<Customer> customers)
-		//{
-		//    if(customers == null) yield break;
-		//    foreach (var customer in customers)
-		//    {
-		//        yield return Get(customer);
-		//    }
-		//    yield break;
-		//}
 		public static Subscription Get(Customer customer, SubscriptionStatus status)
 		{
 			return new Subscription

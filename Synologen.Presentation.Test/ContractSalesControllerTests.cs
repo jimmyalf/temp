@@ -114,7 +114,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			_viewModel.Settlements.Count().ShouldBe(_settlements.Count());
 			_viewModel.Settlements.For((index, settlement) =>
 			{
-				settlement.CreatedDate.ShouldBe(_settlements.ElementAt(index).CreatedDate.ToString("yyyy-MM-dd"));
+				settlement.CreatedDate.ShouldBe(_settlements.ElementAt(index).CreatedDate.ToString("yyyy-MM-dd HH:mm"));
 				settlement.Id.ShouldBe(_settlements.ElementAt(index).Id);
 				settlement.NumberOfContractSalesInSettlement.ShouldBe(_settlements.ElementAt(index).ContractSales.Count());
 			});

@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.OPQ.Business;
-using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 using Spinit.Wpc.Synologen.OPQ.Presentation;
 using Spinit.Extensions;
-using Spinit.Wpc.Synologen.Presentation;
+using Spinit.Wpc.Synologen.Presentation.Components.Synologen;
 using Spinit.Wpc.Utility.Business.SmartMenu;
+using FileCategories=Spinit.Wpc.Synologen.OPQ.Core.FileCategories;
 
 namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 {

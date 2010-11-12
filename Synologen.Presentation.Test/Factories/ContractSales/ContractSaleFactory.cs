@@ -19,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 
 		public static IEnumerable<ContractSale> GetList(int numberOfItems) 
 		{
-			return Enumerable.Range(1, numberOfItems + 1).Select(index => GetContractSale(index, ShopFactory.GetShop(index)));
+			return Enumerable.Range(1, numberOfItems).Select(index => GetContractSale(index, ShopFactory.GetShop(index)));
 		}
 	}
 }

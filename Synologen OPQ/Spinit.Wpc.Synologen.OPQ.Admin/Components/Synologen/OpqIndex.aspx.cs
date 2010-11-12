@@ -13,10 +13,12 @@ using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Synologen.OPQ.Presentation;
 using Spinit.Wpc.Synologen.Presentation;
+using Spinit.Wpc.Synologen.Presentation.Components.Synologen;
 using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Utility.Business.SmartMenu;
 using Enumerations=Spinit.Wpc.Synologen.OPQ.Presentation.Enumerations;
 using Spinit.Extensions;
+using FileCategories=Spinit.Wpc.Synologen.OPQ.Core.FileCategories;
 
 namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 {

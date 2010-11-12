@@ -19,7 +19,6 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		private IEnumerable<Order> _orders;
 		private const int settlementableOrderStatus = 6;
 		private const int nonSettlementableOrderStatus = 5;
-		//private const long testInvoiceNumber = 1865;
 
 		public When_fetching_contract_sales_by_AllContractSalesMatchingCriteria()
 		{
@@ -61,20 +60,5 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				contractSale.StatusId.ShouldBe(criteria.ContractSaleStatus);
 			});
 		}
-
-		//[Test]
-		//public void Should_get_expected_items_matching_criteria_with_given_status_and_invoice_number()
-		//{
-		//    var expectedContractSalesMatchingCriteria = _orders.Where(x => x.StatusId.Equals(nonSettlementableOrderStatus));
-		//    var criteria = new AllContractSalesMatchingCriteria { ContractSaleStatus = nonSettlementableOrderStatus };//, InvoiceNumber = testInvoiceNumber };
-		//    var matchingItems = GetResult(session => new ContractSaleRepository(session).FindBy(criteria));
-
-		//    matchingItems.Count().ShouldBe(expectedContractSalesMatchingCriteria.Count());
-		//    matchingItems.For((index,contractSale) =>
-		//    {
-		//        contractSale.Id.ShouldBe(expectedContractSalesMatchingCriteria.ElementAt(index).Id);
-		//        contractSale.StatusId.ShouldBe(expectedContractSalesMatchingCriteria.ElementAt(index).StatusId);
-		//    });
-		//}
 	}
 }

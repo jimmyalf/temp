@@ -156,6 +156,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			_mockedSettlementRepository.Verify(x => x.GetAll(), Times.Once());
 			_mockedContractSaleRepository.Verify(x => x.FindBy(It.Is<AllContractSalesMatchingCriteria>(criteria => criteria.ContractSaleStatus.Equals(_readyForSettlementStatus))), Times.Once());
 			_mockedSettingsService.Verify(x => x.GetContractSalesReadyForSettlementStatus(), Times.Once());
+			_mockedTransactionRepository.Verify(x => x.FindBy(It.Is<AllTransactionsMatchingCriteria>(criteria => criteria.Reason.Value.Equals(TransactionReason.Payment))));
+			_mockedTransactionRepository.Verify(x => x.FindBy(It.Is<AllTransactionsMatchingCriteria>(criteria => criteria.Type.Value.Equals(TransactionType.Deposit))));
+			_mockedTransactionRepository.Verify(x => x.FindBy(It.Is<AllTransactionsMatchingCriteria>(criteria => criteria.SettlementStatus.Equals(SettlementStatus.DoesNotHaveSettlement))));
 		}
 	}
 

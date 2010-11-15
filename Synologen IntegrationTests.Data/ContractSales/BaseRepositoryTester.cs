@@ -19,10 +19,11 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 	{
 		protected SqlProvider Provider;
 		protected Shop TestShop;
-		const int testableShopId = 158;
+		protected const int testableShopId = 158;
 		public const int TestableShopMemberId = 485;
 		public const int TestableCompanyId = 57;
 		const string connectionStringname = "WpcServer";
+        protected int TestCountryId = 1;
 
 		protected override Action SetUp()
 		{
@@ -46,8 +47,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 			var sqlConnection = new SqlConnection(DataHelper.ConnectionString);
 
 			sqlConnection.Open();
-			
 			DataHelper.DeleteForTable(sqlConnection, "tblSynologenSettlementOrderConnection");
+			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionTransaction");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "tblSynologenSettlement");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "tblSynologenOrderHistory");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "tblSynologenOrderItems");

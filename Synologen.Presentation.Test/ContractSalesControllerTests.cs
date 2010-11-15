@@ -94,7 +94,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		private readonly Mock<IAdminSettingsService> _mockedSettingsService;
 		private readonly Mock<IContractSaleRepository> _mockedContractSaleRepository;
 		private readonly Mock<ITransactionRepository> _mockedTransactionRepository;
-		private readonly IEnumerable<Core.Domain.Model.LensSubscription.SubscriptionTransaction> _expectedLensSubscriptionTransactionsReadyForInvocing;
+		private readonly IEnumerable<SubscriptionTransaction> _expectedLensSubscriptionTransactionsReadyForInvocing;
 		
 
 		public When_loading_settlements_list_with_new_settlementable_contract_sales_and_transactions()
@@ -303,7 +303,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		private readonly RedirectToRouteResult _redirectToRouteResult;
 		private readonly Mock<ISqlProvider> _mockedSynologenSqlProvider;
 		private readonly int _expectedNewSettlementId;
-		private Mock<ITransactionRepository> _mockedTransactionRepository;
+		private readonly Mock<ITransactionRepository> _mockedTransactionRepository;
 
 		public When_creating_a_settlement()
 		{

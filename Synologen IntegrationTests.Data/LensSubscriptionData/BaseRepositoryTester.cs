@@ -53,6 +53,10 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			{
 				return new PageOfSubscriptionsMatchingCriteriaConverter(GetSessionFactory().OpenSession());
 			}
+			if (objectToResolve.Equals(typeof(IActionCriteriaConverter<AllTransactionsMatchingCriteria, ICriteria>)))
+			{
+				return new AllTransactionsMatchingCriteriaConverter(GetSessionFactory().OpenSession());
+			}
 
 			throw new ArgumentException(String.Format("No criteria converter has been defined for {0}", objectToResolve), "objectToResolve");
 		}

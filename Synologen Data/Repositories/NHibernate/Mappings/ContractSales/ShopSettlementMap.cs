@@ -14,6 +14,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSal
 				.Table("tblSynologenSettlementOrderConnection")
 				.ParentKeyColumn("cSettlementId")
 				.ChildKeyColumn("cOrderId");
+			HasMany(x => x.LensSubscriptionTransactions)
+				.KeyColumn("SettlementId");
 		}
 	}
 }

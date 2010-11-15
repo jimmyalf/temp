@@ -1,14 +1,18 @@
 using System;
 using System.Linq;
+using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
 using Spinit.ShouldlyExtensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
+using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories;
+using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
@@ -25,6 +29,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		private double _expectedSumIncludingVAT;
 		private double _expectedSumExcludingVAT;
 		private int _expectedNumberOfOrdersInSettlement;
+		private Subscription _subscription;
+		private SubscriptionTransaction[] _transactions;
 
 		public When_creating_a_settlement_using_sqlprovider()
 		{
@@ -43,10 +49,28 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				_expectedSumIncludingVAT = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus)).Sum(x => x.InvoiceSumIncludingVAT);
 				_expectedSumExcludingVAT = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus)).Sum(x => x.InvoiceSumExcludingVAT);
 				_expectedNumberOfOrdersInSettlement = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus)).Count();
+				var shop = new ShopRepository(session).Get(testableShopId);
+				var country = new CountryRepository(session).Get(TestCountryId);
+				var customer = CustomerFactory.Get(country, shop);
+				new CustomerRepository(session).Save(customer);
+				_subscription = SubscriptionFactory.Get(customer);
+				new SubscriptionRepository(session).Save(_subscription);
+				
 			};
 			Because = repository =>
 			{
 				_settlementId = Provider.AddSettlement(settlementableOrderStatus, orderStatusAfterSettlement);
+				var settlementMock = new Mock<Core.Domain.Model.LensSubscription.Settlement>();
+				settlementMock.SetupGet(x => x.Id).Returns(_settlementId);
+				var settlement = settlementMock.Object;
+				var transactionRepository = new TransactionRepository(base.GetSessionFactory().OpenSession());
+				_transactions = TransactionFactory.GetList(_subscription);
+				_transactions.For((index, transaction) =>
+				{
+					transaction.Settlement = settlement;
+					transactionRepository.Save(transaction);
+				});
+
 			};
 		}
 
@@ -79,7 +103,6 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 			 AssertUsing(session =>
 			{
 				var settlement = new SettlementRepository(session).Get(_settlementId);
-				settlement.ContractSales.Count().ShouldBe(_expectedNumberOfOrdersInSettlement);
 				settlement.ContractSales.Each(contractSale =>
 				{
 					contractSale.Shop.Id.ShouldBe(TestShop.ShopId);
@@ -100,9 +123,12 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 					contractSale.TotalAmountExcludingVAT.ShouldBe(_ordersToSave.ElementAt(2).InvoiceSumExcludingVAT.ToDecimal());
 					contractSale.TotalAmountIncludingVAT.ShouldBe(_ordersToSave.ElementAt(2).InvoiceSumIncludingVAT.ToDecimal());
 				});
+				settlement.LensSubscriptionTransactions.For((index,transaction) => {
+					transaction.Amount.ShouldBe(_transactions.ElementAt(index).Amount);
+					transaction.Id.ShouldBe(_transactions.ElementAt(index).Id);
+				});
 				settlement.CreatedDate.ShouldBe(DateTime.Now, DateTimeTolerance.SameYearMonthDate);
 				settlement.Id.ShouldBe(_settlementId);
-				settlement.LensSubscriptionTransactions.ShouldBe(null);
 			});
 		}
 	}

@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
@@ -48,7 +49,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				ContractSaleStatus = _settingsService.GetContractSalesReadyForSettlementStatus()
 			};
 
-			var transactionsCriteria = new AllTransactionsMatchingCriteria { ConnectedToSettlement = true };
+			var transactionsCriteria = new AllTransactionsMatchingCriteria
+			{
+				SettlementStatus = SettlementStatus.DoesNotHaveSettlement,
+                Reason = TransactionReason.Payment,
+                Type = TransactionType.Deposit
+			};
 
 			var contractSalesReadyForSettlement = _contractSaleRepository.FindBy(criteriaForSettlementsReadyForInvoicing);
 			var transactionsReadyForSettlement = _transactionRepository.FindBy(transactionsCriteria);

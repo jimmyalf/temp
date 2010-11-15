@@ -105,6 +105,7 @@
     <Compile Include="Repositories\CriteriaConverters\AllFrameOrdersForShopCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\AllOrderableFramesCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\ContractSales\AllContractSalesMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllTransactionsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\CustomersForShopMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfSubscriptionsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFrameOrdersMatchingCriteriaConverter.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractSaleMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ShopMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ShopSettlementMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\TransactionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameBrandMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameColorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameGlassTypeMap.cs" />
@@ -131,6 +133,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\FrameOrderMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\CountryMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\CustomerMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SettlementMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\ShopMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SubscriptionErrorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\TransactionMap.cs" />

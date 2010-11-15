@@ -19,6 +19,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.LensSubscri
 				.Cascade.None()
 				.Column("SubscriptionId")
 				.Not.Nullable();
+			References(x => x.Settlement)
+				.Cascade.None()
+				.Column("SettlementId")
+				.Nullable();
 		}
 
 	}

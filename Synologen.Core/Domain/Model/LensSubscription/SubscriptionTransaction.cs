@@ -9,5 +9,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		public virtual TransactionType Type { get; set; }
 		public virtual TransactionReason Reason { get; set; }
 		public virtual DateTime CreatedDate { get; set; }
+		public virtual Settlement Settlement { get; set; }
 	}
 }

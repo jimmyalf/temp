@@ -21,6 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 				ContractSaleFactory.GetContractSale(5, ShopFactory.GetShop(2)),
 				ContractSaleFactory.GetContractSale(2, ShopFactory.GetShop(1)),
 			});
+			settlementMock.SetupGet(x => x.LensSubscriptionTransactions).Returns(TransactionFactory.GetList());
 			return settlementMock.Object;
 		}
 

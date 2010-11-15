@@ -9,6 +9,7 @@
 			<fieldset>
 				<div class="formItem">
 		            <label class="labelLong">Antal ordrar redo för utbetalning: <%=Model.NumberOfContractSalesReadyForInvocing %></label>
+		            <label class="labelLong">Antal transaktioner redo för utbetalning: <%=Model.NumberOfLensSubscriptionTransactionsReadyForInvocing %></label>
 		        </div>
 		        <% if(Model.DisplayCreateSettlementsButton){ %>
 				<div class="formCommands">
@@ -24,7 +25,8 @@
 					{
  						column.For(x => x.Id).Named("Id").Sortable(false);;
  						column.For(x => x.CreatedDate).Named("Skapad").Sortable(false);
-					    column.For(x => x.NumberOfContractSalesInSettlement).Named("Antal fakturor").Sortable(false);;
+					    column.For(x => x.NumberOfContractSalesInSettlement).Named("Antal fakturor").Sortable(false);
+					    column.For(x => x.NumberOfLensSubscriptionTransactionsInSettlement).Named("Antal transaktioner").Sortable(false);
 					    column.For(x => x).Named("Fakturor").Action(settlement => { %>				    
 							<td><a href="/Components/Synologen/Orders.aspx?settlementId=<%=settlement.Id%>">Visa fakturor</a></td>
 						<%}).SetAsWpcControlColumn("Fakturor");

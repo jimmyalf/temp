@@ -52,6 +52,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 
 			CreateMap<ShopSettlement, SettlementListViewItem>()
 				.ForMember(x => x.NumberOfContractSalesInSettlement, m => m.MapFrom(x => x.ContractSales.Count()))
+				.ForMember(x => x.NumberOfLensSubscriptionTransactionsInSettlement, m => m.MapFrom(x => x.LensSubscriptionTransactions.Count()))
 				.ForMember(x => x.CreatedDate, m => m.MapFrom(x => x.CreatedDate.ToString("yyyy-MM-dd HH:mm")));
 		}
 	}

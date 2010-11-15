@@ -102,6 +102,7 @@
     <Compile Include="Domain\Model\LensSubscription\Customer.cs" />
     <Compile Include="Domain\Model\LensSubscription\CustomerAddress.cs" />
     <Compile Include="Domain\Model\LensSubscription\CustomerContact.cs" />
+    <Compile Include="Domain\Model\LensSubscription\Settlement.cs" />
     <Compile Include="Domain\Model\LensSubscription\Shop.cs" />
     <Compile Include="Domain\Model\LensSubscription\Subscription.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionError.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Domain\Persistence\Criterias\AllFrameOrdersForShopCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\ContractSales\AllContractSalesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllTransactionsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\CustomersForShopMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfSubscriptionsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameOrdersMatchingCriteria.cs" />

@@ -16,7 +16,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factorie
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 {
 	[TestFixture]
-	[Category("SubscriptionListPresenterTester")]
+	[Category("TransactionListPresenterTester")]
 	public class When_loading_transaction_list_view
 	{
 

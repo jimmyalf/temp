@@ -84,9 +84,11 @@
     <Compile Include="LensSubscriptionTests\EditSubscriptionPresenterTests.cs" />
     <Compile Include="LensSubscriptionTests\Factories\CountryFactory.cs" />
     <Compile Include="LensSubscriptionTests\Factories\CustomerFactory.cs" />
+    <Compile Include="LensSubscriptionTests\Factories\SubscriptionErrorFactory.cs" />
     <Compile Include="LensSubscriptionTests\Factories\SubscriptionFactory.cs" />
     <Compile Include="LensSubscriptionTests\Factories\TransactionFactory.cs" />
     <Compile Include="LensSubscriptionTests\ListCustomerPresenterTest.cs" />
+    <Compile Include="LensSubscriptionTests\ListSubscriptionErrorPresenterTest.cs" />
     <Compile Include="LensSubscriptionTests\ListTransactionsPresenterTests.cs" />
     <Compile Include="MockHelpers\HttpContextMock.cs" />
     <Compile Include="MockHelpers\MvpHelpers.cs" />

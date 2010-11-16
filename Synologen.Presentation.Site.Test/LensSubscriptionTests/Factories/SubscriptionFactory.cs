@@ -52,6 +52,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			return CreateSubscriptionWithTransactions(customer, 2, 10, "123456789", "0089", 455.23M, SubscriptionStatus.Active);
 		}
 
+		public static Subscription GetWithErrors(Customer customer)
+		{
+			return CreateSubscriptionWithErrors(customer, 2, 10, "123456789", "0089", 455.23M, SubscriptionStatus.Active);
+		}
+
+		private static Subscription CreateSubscriptionWithErrors(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, SubscriptionStatus status)
+		{
+			var subscription = new Subscription
+			{
+				ActivatedDate = DateTime.Now.SubtractDays(activatedSubtractDays),
+				CreatedDate = DateTime.Now.SubtractDays(createdSubtractDays),
+				Customer = customer,
+				PaymentInfo = new SubscriptionPaymentInfo
+				{
+					AccountNumber = accountNumber,
+					ClearingNumber = clearingNumber,
+					MonthlyAmount = MonthlyAmount
+				},
+				Status = status,
+			};
+			subscription.Errors = SubscriptionErrorFactory.GetList(subscription);
+			return subscription;
+		}
+
 		private static Subscription CreateSubscriptionWithTransactions(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, SubscriptionStatus status)
 		{
 			var subscription = new Subscription
@@ -70,6 +94,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			subscription.Transactions = TransactionFactory.GetList(subscription);
 			return subscription;
 		}
+
+
 
 		public static Subscription CreateSubscription(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, SubscriptionStatus status)
 		{

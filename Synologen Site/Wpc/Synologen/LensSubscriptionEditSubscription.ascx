@@ -1,4 +1,6 @@
 ﻿<%@ Control Language="C#" CodeBehind="LensSubscriptionEditSubscription.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptionEditSubscription" %>
+<%@ Import Namespace="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen"%>
+<%@ Register  Src="~/Wpc/Synologen/LensSubscriptionErrorList.ascx" TagName="LensSubscriptionErrorList" TagPrefix="WpcSynologen" %>
 <%@ Register  Src="~/Wpc/Synologen/LensSubscriptionTransactionsList.ascx" TagName="LensSubscriptionTransactionsList" TagPrefix="WpcSynologen" %>
 <%@ Register  Src="~/Wpc/Synologen/LensSubscriptionCreateTransaction.ascx" TagName="LensSubscriptionCreateTransaction" TagPrefix="WpcSynologen" %>
 <%if(Model.DisplayForm){%>
@@ -33,6 +35,7 @@
 		<asp:Button ID="btnStart" runat="server" Text="Starta abonnemang" Visible='<%#Model.StartButtonEnabled %>' />
 	</div>
 </fieldset>
+<WpcSynologen:LensSubscriptionErrorList ID="ctrlLensSubscriptionErrorList" runat="server"  />
 <WpcSynologen:LensSubscriptionTransactionsList ID="ctrlLensSubscriptionTransactionsList" runat="server"  />
 <WpcSynologen:LensSubscriptionCreateTransaction ID="ctrlLensSubscriptionCreateTransaction" runat="server"  />
 </div>

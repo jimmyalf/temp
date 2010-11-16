@@ -89,7 +89,6 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test
 		}
 
 
-
 		private void SetupLensSubscriptionData() {
 			var session = GetSessionFactory().OpenSession();
 			var shop = new ShopRepository(session).Get(TestShopId);

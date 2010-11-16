@@ -2,9 +2,8 @@
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 {
-	public class ListTransactionModel
+	public class ListSubscriptionErrorModel
 	{
-		public IEnumerable<SubscriptionTransactionListItemModel> List { get; set; }
+		public IEnumerable<SubscriptionErrorListItemModel> List { get; set; }
 	}
-
 }

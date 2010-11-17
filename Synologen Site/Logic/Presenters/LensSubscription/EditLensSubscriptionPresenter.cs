@@ -54,7 +54,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			if(View.ReturnPageId>0)
 			{
 				var url = _synologenMemberService.GetPageUrl(View.ReturnPageId);
-				View.Model.ReturnUrl = String.Format("{0}?{1}", url, subscription.Customer.Id);
+				View.Model.ReturnUrl = String.Format("{0}?customer={1}", url, subscription.Customer.Id);
 			}
 			else
 			{

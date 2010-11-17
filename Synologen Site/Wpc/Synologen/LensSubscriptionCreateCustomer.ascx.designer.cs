@@ -27,5 +27,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 		protected System.Web.UI.WebControls.TextBox txtCity;
 		protected System.Web.UI.WebControls.TextBox txtPostalCode;
 		protected System.Web.UI.WebControls.DropDownList drpCountry;
+		protected System.Web.UI.WebControls.TextBox txtNotes;
 	}
 }

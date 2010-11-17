@@ -21,6 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 		public string City { get; set; }
 		public string PostalCode { get; set; }
 		public int CountryId { get; set; }
+		public string Notes { get; set; }
 
 		public IEnumerable<CountryListItemModel> List { get; set; }
 		public IEnumerable<SubscriptionListItemModel> Subscriptions { get; set; }

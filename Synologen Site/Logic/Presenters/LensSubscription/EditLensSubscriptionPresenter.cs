@@ -48,6 +48,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.Model.CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			View.Model.MonthlyAmount = subscription.PaymentInfo.MonthlyAmount;
 			View.Model.Status = subscription.Status.GetEnumDisplayName();
+			View.Model.Notes = subscription.Notes;
 		}
 
 		public void View_Submit(object sender, SaveSubscriptionEventArgs eventArgs)
@@ -85,6 +86,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			subscription.PaymentInfo.AccountNumber = args.AccountNumber;
 			subscription.PaymentInfo.ClearingNumber = args.ClearingNumber;
 			subscription.PaymentInfo.MonthlyAmount = args.MonthlyAmount;
+			subscription.Notes = args.Notes;
 			_subscriptionRepository.Save(subscription);
 		}
 

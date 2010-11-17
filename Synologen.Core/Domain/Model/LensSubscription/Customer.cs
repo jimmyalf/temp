@@ -11,6 +11,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		public virtual CustomerAddress Address { get; set; }
 		public virtual IEnumerable<Subscription> Subscriptions { get; set; }
 		public virtual string PersonalIdNumber { get; set; }
+		public virtual string Notes { get; set; }
 
 		public Customer()
 		{

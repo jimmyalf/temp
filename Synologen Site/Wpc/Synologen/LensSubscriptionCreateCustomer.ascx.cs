@@ -36,7 +36,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 			           		MobilePhone = txtMobilePhone.Text,
 			           		PersonalIdNumber = txtPersonalIdNumber.Text,
 							PostalCode = txtPostalCode.Text,
-			           		Phone = txtPhone.Text
+			           		Phone = txtPhone.Text,
+							Notes = txtNotes.Text
 			           	};
 			Submit(this, args);
 		}

@@ -18,5 +18,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 		protected System.Web.UI.WebControls.TextBox txtAccountNumber;
 		protected System.Web.UI.WebControls.TextBox txtClearingNumber;
 		protected System.Web.UI.WebControls.TextBox txtMonthlyAmount;
+		protected System.Web.UI.WebControls.TextBox txtNotes;
 	}
 }

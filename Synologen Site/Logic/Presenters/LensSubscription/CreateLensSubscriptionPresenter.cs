@@ -69,6 +69,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 					MonthlyAmount = eventArgs.MonthlyAmount
 				},
 				Status = SubscriptionStatus.Created,
+				Notes = eventArgs.Notes
 			};
 			var customerToSave = _customerRepository.Get(customerId);
 			var subscriptionToSave = converter.Invoke(customerToSave,args);

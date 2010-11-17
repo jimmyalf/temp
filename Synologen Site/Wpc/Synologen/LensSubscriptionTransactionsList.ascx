@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LensSubscriptionTransactionsList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptionTransactionsList" %>
 <fieldset>
 	<legend>Transaktioner</legend>
+	<% if (Model.HasTransactions) {%>
 	<asp:Repeater ID="rptTransactions" runat="server" DataSource='<%#Model.List%>'>
 		<HeaderTemplate >
 			<table>
@@ -20,4 +21,7 @@
 			</table>
 		</FooterTemplate>
 	</asp:Repeater>
+	<% } 
+		else { %><p>Det finns inga transaktioner att visa.</p><%
+	} %>
 </fieldset>

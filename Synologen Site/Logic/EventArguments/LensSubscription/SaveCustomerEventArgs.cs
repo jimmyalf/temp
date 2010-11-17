@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription
 {
@@ -19,6 +15,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscr
 		public string City { get; set; }
 		public string PostalCode { get; set; }
 		public int CountryId { get; set; }
+		public string Notes { get; set; }
 
 		public int ShopId { get; set; }
 	}

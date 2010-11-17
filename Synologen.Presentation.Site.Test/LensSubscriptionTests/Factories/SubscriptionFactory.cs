@@ -9,7 +9,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 	{
 		public static Subscription Get(Customer customer)
 		{
-			return CreateSubscription(customer, 2, 10, "123456789", "0089", 455.23M, SubscriptionStatus.Active);
+			return CreateSubscription(customer, 2, 10, "123456789", "0089", 455.23M, SubscriptionStatus.Active, "Fritextfält");
 		}
 
 		public static Subscription Get(int id, Customer customer)
@@ -40,10 +40,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			return new []
 			       	{
 			       		
-						CreateSubscription(customer, 3, 10, "111122222", "0001", 500M, SubscriptionStatus.Active), 
-						CreateSubscription(customer, 4, 11, "222233333", "0002", 600M, SubscriptionStatus.Created), 
-						CreateSubscription(customer, 5, 12, "333344444", "0003", 700M, SubscriptionStatus.Expired), 
-						CreateSubscription(customer, 6, 13, "444455555", "0004", 800M, SubscriptionStatus.Stopped)
+						CreateSubscription(customer, 3, 10, "111122222", "0001", 500M, SubscriptionStatus.Active, "Fritext 1"), 
+						CreateSubscription(customer, 4, 11, "222233333", "0002", 600M, SubscriptionStatus.Created, "Fritext 2"), 
+						CreateSubscription(customer, 5, 12, "333344444", "0003", 700M, SubscriptionStatus.Expired, "Fritext 3"), 
+						CreateSubscription(customer, 6, 13, "444455555", "0004", 800M, SubscriptionStatus.Stopped, "Fritext 4")
 			       	};
 		}
 
@@ -97,7 +97,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 
 
 
-		public static Subscription CreateSubscription(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, SubscriptionStatus status)
+		public static Subscription CreateSubscription(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, SubscriptionStatus status, string notes)
 		{
 			return new Subscription
 			{
@@ -111,6 +111,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 					MonthlyAmount = MonthlyAmount
 				},
 				Status = status,
+				Notes = notes
 			};
 		}
 	}

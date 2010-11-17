@@ -34,6 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			var subscriptionId = HttpContext.Request.Params["subscription"].ToIntOrDefault();
 			var subscription = _subscriptionRepository.Get(subscriptionId);
 			View.Model.List = subscription.Transactions.Select(transactionConverter);
+			View.Model.HasTransactions = (subscription.Transactions.Count() > 0);
 		}
 
 		public override void ReleaseView()

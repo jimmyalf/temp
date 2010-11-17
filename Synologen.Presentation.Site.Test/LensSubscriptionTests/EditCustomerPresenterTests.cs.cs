@@ -98,6 +98,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			view.Model.PersonalIdNumber.ShouldBe(_expectedCustomer.PersonalIdNumber);
 			view.Model.Phone.ShouldBe(_expectedCustomer.Contact.Phone);
 			view.Model.PostalCode.ShouldBe(_expectedCustomer.Address.PostalCode);
+			view.Model.Notes.ShouldBe(_expectedCustomer.Notes);
 
 			view.Model.List.Count().ShouldBe(4);
 			view.Model.Subscriptions.Count().ShouldBe(4);
@@ -177,7 +178,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				LastName = _expectedCustomer.LastName,
 				MobilePhone = _expectedCustomer.Contact.MobilePhone,
 				PersonalIdNumber = _expectedCustomer.PersonalIdNumber,
-				Phone = _expectedCustomer.Contact.Phone
+				Phone = _expectedCustomer.Contact.Phone,
+				Notes = _expectedCustomer.Notes
 			};
 
 			// Act
@@ -201,6 +203,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.FirstName.Equals(_expectedCustomer.FirstName))));
 			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.LastName.Equals(_expectedCustomer.LastName))));
 			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.PersonalIdNumber.Equals(_expectedCustomer.PersonalIdNumber))));
+			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Notes.Equals(_expectedCustomer.Notes))));
 			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Shop.Id.Equals(_expectedCustomer.Shop.Id))));
 		}
 
@@ -262,7 +265,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				LastName = _expectedCustomer.LastName,
 				MobilePhone = _expectedCustomer.Contact.MobilePhone,
 				PersonalIdNumber = _expectedCustomer.PersonalIdNumber,
-				Phone = _expectedCustomer.Contact.Phone
+				Phone = _expectedCustomer.Contact.Phone,
+				Notes = _expectedCustomer.Notes
 			};
 
 			// Act

@@ -23,6 +23,9 @@
 	<asp:RequiredFieldValidator ID="reqtxtMonthlyAmount" runat="server" ErrorMessage="Månadsavgift måste anges" ControlToValidate="txtMonthlyAmount" Display="Dynamic">*</asp:RequiredFieldValidator>
 	<asp:RangeValidator ID="rngtxtMonthlyAmount" runat="server" ErrorMessage="Månadsavgift måste anges som ett positivt tal med kommatecken som decimalavgränsare" ControlToValidate="txtMonthlyAmount" Display="Dynamic" MinimumValue="0" MaximumValue='99999,99' Type="Double" >*</asp:RangeValidator>
 	
+	<label for="<%=txtNotes.ClientID%>">Anteckningar</label>
+	<asp:TextBox ID="txtNotes" TextMode="MultiLine" Text='<%#Model.Notes%>' runat="server" />
+	
 	<p class="readonly-parameter"><label>Aktiverad</label><span><%#Model.ActivatedDate %></span></p>
 	<p class="readonly-parameter"><label>Skapad</label><span><%#Model.CreatedDate %></span></p>
 	<p class="readonly-parameter"><label>Status</label><span><%#Model.Status %></span></p>

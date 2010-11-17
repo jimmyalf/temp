@@ -64,6 +64,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			var  modelListItems = _transactionList.Select(transactionConverter);
 
 			_view.Model.List.Count().ShouldBe(4);
+			_view.Model.HasTransactions.ShouldBe(true);
 			for (var i = 0; i < _transactionList.Length; i++)
 			{
 				_view.Model.List.ToArray()[i].Amount.ShouldBe(modelListItems.ToArray()[i].Amount);

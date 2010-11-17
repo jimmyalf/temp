@@ -42,7 +42,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				savedCustomer.PersonalIdNumber.ShouldBe(_customerToSave.PersonalIdNumber);
 				savedCustomer.Shop.ShouldBe(_customerToSave.Shop);
 				savedCustomer.Subscriptions.Count().ShouldBe(_customerToSave.Subscriptions.Count());
-
+				savedCustomer.Notes.ShouldBe(_customerToSave.Notes);
 			});
 		}
 
@@ -119,6 +119,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				savedCustomer.PersonalIdNumber.ShouldBe(_customerToEdit.PersonalIdNumber);
 				savedCustomer.Shop.ShouldBe(_customerToEdit.Shop);
 				savedCustomer.Subscriptions.Count().ShouldBe(_customerToEdit.Subscriptions.Count());
+				savedCustomer.Notes.ShouldBe(_customerToEdit.Notes);
 			});
 		}
 

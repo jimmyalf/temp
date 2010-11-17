@@ -40,6 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			var subscriptionId = HttpContext.Request.Params["subscription"];
 			var subscription = _subscriptionRepository.Get(subscriptionId.ToIntOrDefault());
 			View.Model.List = subscription.Errors.Select(errorConverter);
+			View.Model.HasErrors = (subscription.Errors.Count() > 0); 
 		}
 
 		public void View_SetHandled(object sender, SetErrorHandledEventArgs args)

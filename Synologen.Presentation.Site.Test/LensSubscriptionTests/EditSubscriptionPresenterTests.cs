@@ -59,6 +59,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			view.Model.AccountNumber.ShouldBe(_expectedSubscription.PaymentInfo.AccountNumber);
 			view.Model.ClearingNumber.ShouldBe(_expectedSubscription.PaymentInfo.ClearingNumber);
 			view.Model.MonthlyAmount.ShouldBe(_expectedSubscription.PaymentInfo.MonthlyAmount);
+			view.Model.Notes.ShouldBe(_expectedSubscription.Notes);
 			view.Model.Status.ShouldBe(_expectedSubscription.Status.GetEnumDisplayName());
 			view.Model.Status.ShouldBe("Aktiv");
 			view.Model.StopButtonEnabled.ShouldBe(true);
@@ -245,7 +246,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			{
 				AccountNumber = _expectedSubscription.PaymentInfo.AccountNumber.Reverse(),
 				ClearingNumber = _expectedSubscription.PaymentInfo.ClearingNumber.Reverse(),
-				MonthlyAmount = _expectedSubscription.PaymentInfo.MonthlyAmount + 255.21M
+				MonthlyAmount = _expectedSubscription.PaymentInfo.MonthlyAmount + 255.21M,
+				Notes = _expectedSubscription.Notes.Reverse()
 			};
 
 
@@ -265,6 +267,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.ClearingNumber.Equals(_saveEventArgs.ClearingNumber))));
 			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.MonthlyAmount.Equals(_saveEventArgs.MonthlyAmount))));
 			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Status.Equals(_expectedSubscription.Status))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Notes.Equals(_expectedSubscription.Notes))));
 		}
 
 		[Test]
@@ -423,7 +426,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			{
 				AccountNumber = _expectedSubscription.PaymentInfo.AccountNumber.Reverse(),
 				ClearingNumber = _expectedSubscription.PaymentInfo.ClearingNumber.Reverse(),
-				MonthlyAmount = _expectedSubscription.PaymentInfo.MonthlyAmount + 255.21M
+				MonthlyAmount = _expectedSubscription.PaymentInfo.MonthlyAmount + 255.21M,
+				Notes = _expectedSubscription.Notes.Reverse()
 			};
 
 

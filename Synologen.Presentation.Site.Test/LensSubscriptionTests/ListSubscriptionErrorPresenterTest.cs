@@ -72,6 +72,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			var modelListItems = _errorList.Select(errorConverter);
 
 			_view.Model.List.Count().ShouldBe(6);
+			_view.Model.HasErrors.ShouldBe(true);
 			for (var i = 0; i < _errorList.Length; i++)
 			{
 				

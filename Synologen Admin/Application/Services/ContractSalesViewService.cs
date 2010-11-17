@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
@@ -70,7 +71,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		{
 			var statusFrom = _settingsService.GetContractSalesReadyForSettlementStatus();
 			var statusTo = _settingsService.GetContractSalesAfterSettlementStatus();
-			return _synologenSqlProvider.AddSettlement(statusFrom, statusTo);
+			var settlementId =  _synologenSqlProvider.AddSettlement(statusFrom, statusTo);
+			ConnectTransactionsToSettlement(settlementId);
+			return settlementId;
 		}
+
+		public void ConnectTransactionsToSettlement(int settlement)
+		{
+			var criteria = new AllTransactionsMatchingCriteria
+			{
+				Reason = TransactionReason.Payment,
+				SettlementStatus = SettlementStatus.DoesNotHaveSettlement,
+				Type = TransactionType.Deposit
+			};
+
+			var transactionsToConnectToSettlement = _transactionRepository.FindBy(criteria);
+			transactionsToConnectToSettlement.Each(transaction => 
+			{
+				transaction.Settlement = new Settlement(settlement);
+				_transactionRepository.Save(transaction);
+			});
+		}
+
+
 	}
 }

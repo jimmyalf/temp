@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test
 	{
 		protected int TestCountryId = 1;
 		protected int TestShopId = 158;
-		//protected int TestShop2Id = 159;
+		protected int TestShop2Id = 159;
 
 		[SetUp]
 		public void RunBeforeAnyTests()
@@ -52,7 +52,6 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test
 			}
 			const int settlementableOrderStatus = 6;
 			const int nonSettlementableOrderStatus = 5;
-			//const long testInvoiceNumber = 1865;
 			const int testableShopId = 158;
 			const int TestableShopMemberId = 485;
 			const int TestableCompanyId = 57;
@@ -91,15 +90,17 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test
 
 		private void SetupLensSubscriptionData() {
 			var session = GetSessionFactory().OpenSession();
-			var shop = new ShopRepository(session).Get(TestShopId);
+			var shop1 = new ShopRepository(session).Get(TestShopId);
+			var shop2 = new ShopRepository(session).Get(TestShop2Id);
 			var country = new CountryRepository(session).Get(TestCountryId);
 			var reposititory = new CustomerRepository(session);
 			var subscriptionRepository = new SubscriptionRepository(session);
 			var transactionRepository = new TransactionRepository(session);
 			var errorRepository = new SubscriptionErrorRepository(session);
-			for (var i = 0; i < 5; i++)
+			for (var i = 0; i < 20; i++)
 			{
-				var customerToSave = CustomerFactory.Get(country, shop, "Tore " + i, "Alm " + i, "19630610613" + i);
+				var shop = (i % 3 == 0) ? shop1 : shop2;
+				var customerToSave = CustomerFactory.Get(country, shop, "Tore " + i, "Alm " + i, "19630610613" + (i%9));
 				reposititory.Save(customerToSave);
 				var subscriptionToSave = SubscriptionFactory.Get(customerToSave, ((i % 3) +1).ToEnum<SubscriptionStatus>());
 				subscriptionRepository.Save(subscriptionToSave);

@@ -14,6 +14,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 	public class EditLensSubscriptionPresenter : Presenter<IEditLensSubscriptionView>
 	{
 		private const string SubscriptionRequestParameter = "subscription";
+		private const string DateTimeFormat = "yyyy-MM-dd";
 		private readonly ISubscriptionRepository _subscriptionRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
 
@@ -34,6 +35,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.StopSubscription -= View_StopSubscription;
 			View.StartSubscription -= View_StartSubscription;
 		}
+
 		public void View_Load(object sender, EventArgs e)
 		{
 			var subscription = TryGetSubscription();
@@ -42,13 +44,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.Model.StopButtonEnabled = subscription.Status == SubscriptionStatus.Active;
 			View.Model.StartButtonEnabled = subscription.Status == SubscriptionStatus.Stopped;
 			View.Model.AccountNumber = subscription.PaymentInfo.AccountNumber;
-			View.Model.ActivatedDate = subscription.With(x => x.ActivatedDate).Return(x => x.Value.ToString("yyyy-MM-dd"), String.Empty);
+			View.Model.ActivatedDate = subscription.With(x => x.ActivatedDate).Return(x => x.Value.ToString(DateTimeFormat), String.Empty);
 			View.Model.ClearingNumber = subscription.PaymentInfo.ClearingNumber;
-			View.Model.CreatedDate = subscription.CreatedDate.ToString("yyyy-MM-dd");
+			View.Model.CreatedDate = subscription.CreatedDate.ToString(DateTimeFormat);
 			View.Model.CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			View.Model.MonthlyAmount = subscription.PaymentInfo.MonthlyAmount;
 			View.Model.Status = subscription.Status.GetEnumDisplayName();
 			View.Model.Notes = subscription.Notes;
+			if(View.ReturnPageId>0)
+			{
+				var url = _synologenMemberService.GetPageUrl(View.ReturnPageId);
+				View.Model.ReturnUrl = String.Format("{0}?{1}", url, subscription.Customer.Id);
+			}
+			else
+			{
+				View.Model.ReturnUrl = "#";
+			}
 		}
 
 		public void View_Submit(object sender, SaveSubscriptionEventArgs eventArgs)

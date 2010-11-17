@@ -24,5 +24,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 
 		public bool StopButtonEnabled { get; set; }
 		public bool StartButtonEnabled { get; set; }
+		public string ReturnUrl { get; set; }
 	}
 }

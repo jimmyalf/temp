@@ -11,5 +11,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription
 		event EventHandler<EventArgs> StopSubscription;
 		event EventHandler<EventArgs> StartSubscription;
 		int RedirectOnSavePageId { get; set; }
+		int ReturnPageId { get; set; }
 	}
 }

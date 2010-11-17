@@ -190,21 +190,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_saves_customer_with_expected_values()
 		{
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Address.AddressLineOne.Equals(_expectedCustomer.Address.AddressLineOne))));
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Address.AddressLineTwo.Equals(_expectedCustomer.Address.AddressLineTwo))));
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Address.City.Equals(_expectedCustomer.Address.City))));
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Address.PostalCode.Equals(_expectedCustomer.Address.PostalCode))));
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Address.Country.Id.Equals(_expectedCustomer.Address.Country.Id))));
+			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>( customer => 
+				customer.Address.AddressLineOne.Equals(_expectedCustomer.Address.AddressLineOne) &&
+				customer.Address.AddressLineTwo.Equals(_expectedCustomer.Address.AddressLineTwo) && 
+				customer.Address.City.Equals(_expectedCustomer.Address.City) &&
+				customer.Address.PostalCode.Equals(_expectedCustomer.Address.PostalCode) &&
+				customer.Address.Country.Id.Equals(_expectedCustomer.Address.Country.Id) &&
+				customer.Contact.Email.Equals(_expectedCustomer.Contact.Email) &&
+				customer.Contact.MobilePhone.Equals(_expectedCustomer.Contact.MobilePhone) &&
+				customer.Contact.Phone.Equals(_expectedCustomer.Contact.Phone) &&
+				customer.FirstName.Equals(_expectedCustomer.FirstName) &&
+				customer.LastName.Equals(_expectedCustomer.LastName) &&
+				customer.PersonalIdNumber.Equals(_expectedCustomer.PersonalIdNumber) &&
+				customer.Notes.Equals(_expectedCustomer.Notes) &&
+				customer.Shop.Id.Equals(_expectedCustomer.Shop.Id)
+			 )));
 
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Contact.Email.Equals(_expectedCustomer.Contact.Email))));
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Contact.MobilePhone.Equals(_expectedCustomer.Contact.MobilePhone))));
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Contact.Phone.Equals(_expectedCustomer.Contact.Phone))));
-			
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.FirstName.Equals(_expectedCustomer.FirstName))));
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.LastName.Equals(_expectedCustomer.LastName))));
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.PersonalIdNumber.Equals(_expectedCustomer.PersonalIdNumber))));
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Notes.Equals(_expectedCustomer.Notes))));
-			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Shop.Id.Equals(_expectedCustomer.Shop.Id))));
 		}
 
 		[Test]

@@ -2,6 +2,7 @@ using System;
 using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories
 {
@@ -9,7 +10,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 	{
 		public static Subscription Get(Customer customer)
 		{
-			return CreateSubscription(customer, 2, 10, "123456789", "0089", 455.23M, SubscriptionStatus.Active, "Fritextfält");
+			return Get(customer, SubscriptionStatus.Active);
+		}
+		public static Subscription Get(Customer customer, SubscriptionStatus status)
+		{
+			return CreateSubscription(customer, 2, 10, "123456789", "0089", 455.23M, status, "Fritextfält");
 		}
 
 		public static Subscription Get(int id, Customer customer)
@@ -112,6 +117,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 				},
 				Status = status,
 				Notes = notes
+			};
+		}
+
+		public static SaveSubscriptionEventArgs GetSaveSubscriptionEventArgs(Subscription subscription) 
+		{
+			return new SaveSubscriptionEventArgs
+			{
+				AccountNumber = subscription.PaymentInfo.AccountNumber.Reverse(),
+				ClearingNumber = subscription.PaymentInfo.ClearingNumber.Reverse(),
+				MonthlyAmount = subscription.PaymentInfo.MonthlyAmount + 255.21M,
+				Notes = subscription.Notes.Reverse()
 			};
 		}
 	}

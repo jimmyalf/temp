@@ -37,6 +37,10 @@
 		<asp:Button ID="btnStop" runat="server" Text="Stoppa abonnemang" Visible='<%#Model.StopButtonEnabled %>' />
 		<asp:Button ID="btnStart" runat="server" Text="Starta abonnemang" Visible='<%#Model.StartButtonEnabled %>' />
 	</div>
+	<div class="control-actions">
+		<a href='<%=Model.ReturnUrl%>'>Tillbaka &raquo;</a>
+	</div>
+	
 </fieldset>
 <WpcSynologen:LensSubscriptionErrorList ID="ctrlLensSubscriptionErrorList" runat="server"  />
 <WpcSynologen:LensSubscriptionTransactionsList ID="ctrlLensSubscriptionTransactionsList" runat="server"  />

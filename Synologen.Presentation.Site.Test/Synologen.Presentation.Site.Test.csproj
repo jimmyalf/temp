@@ -90,6 +90,7 @@
     <Compile Include="LensSubscriptionTests\ListCustomerPresenterTest.cs" />
     <Compile Include="LensSubscriptionTests\ListSubscriptionErrorPresenterTest.cs" />
     <Compile Include="LensSubscriptionTests\ListTransactionsPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\SubscriptionTestbase.cs" />
     <Compile Include="MockHelpers\HttpContextMock.cs" />
     <Compile Include="MockHelpers\MvpHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

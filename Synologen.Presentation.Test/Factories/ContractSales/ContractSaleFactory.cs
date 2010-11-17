@@ -9,11 +9,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 	{
 		public static ContractSale GetContractSale(int id, Shop shop)
 		{
+			return GetContractSale(id, shop, 26956.53M);
+		}
+		
+		public static ContractSale GetContractSale(int id, Shop shop, decimal amount)
+		{
 			var contractSaleMock = new Mock<ContractSale>();
 			contractSaleMock.SetupGet(x => x.Id).Returns(id);
 			contractSaleMock.SetupGet(x => x.Shop).Returns(shop);
-			contractSaleMock.SetupGet(x => x.TotalAmountExcludingVAT).Returns(18956.23M);
-			contractSaleMock.SetupGet(x => x.TotalAmountIncludingVAT).Returns(26956.53M);
+			contractSaleMock.SetupGet(x => x.TotalAmountIncludingVAT).Returns(amount);
 			return contractSaleMock.Object;
 		}
 

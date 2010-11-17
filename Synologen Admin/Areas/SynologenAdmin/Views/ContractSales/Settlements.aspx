@@ -30,7 +30,7 @@
 					    column.For(x => x).Named("Fakturor").Action(settlement => { %>				    
 							<td><a href="/Components/Synologen/Orders.aspx?settlementId=<%=settlement.Id%>">Visa fakturor</a></td>
 						<%}).SetAsWpcControlColumn("Fakturor");
-						column.For(x => Html.ActionLink("Visa detaljer", "ViewSubscription", "LensSubscription", new {id = x.Id}, new object()))
+						column.For(x => Html.ActionLink("Visa detaljer", "ViewSettlement", "ContractSales", new {id = x.Id}, new object()))
 							.SetAsWpcControlColumn("Detaljer");
  					}).Empty("Inga utbetalningar i databasen.").Render();
 				%>

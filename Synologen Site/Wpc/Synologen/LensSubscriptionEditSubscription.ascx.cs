@@ -16,6 +16,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 		public event EventHandler<EventArgs> StopSubscription;
 		public event EventHandler<EventArgs> StartSubscription;
 		public int RedirectOnSavePageId { get; set; }
+		public int ReturnPageId  { get; set; }
 
 		protected void Page_Load(object sender, EventArgs e)
 		{

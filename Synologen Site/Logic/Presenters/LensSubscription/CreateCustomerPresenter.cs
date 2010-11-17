@@ -73,7 +73,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 				FirstName = eventArgs.FirstName,
 				LastName = eventArgs.LastName,
 				PersonalIdNumber = eventArgs.PersonalIdNumber,
-				Shop = shop
+				Shop = shop,
+				Notes = eventArgs.Notes
 			};
 
 			var customerToSave = converter.Invoke(shopToUse, args);

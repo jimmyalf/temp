@@ -29,7 +29,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 			{
 				AccountNumber = txtAccountNumber.Text,
 				ClearingNumber = txtClearingNumber.Text,
-				MonthlyAmount = txtMonthlyAmount.Text.ToDecimalOrDefault()
+				MonthlyAmount = txtMonthlyAmount.Text.ToDecimalOrDefault(),
+				Notes = txtNotes.Text
 			};
 			Submit(this, args);
 		}

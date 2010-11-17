@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LensSubscriptionErrorList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptionErrorList" %>
 <fieldset>
 	<legend>Autogiro fel-lista</legend>
+	<% if (Model.HasErrors) {%>
 	<asp:Repeater ID="rptErrors" OnItemCommand="SetHandled_ItemCommand" runat="server" DataSource='<%#Model.List%>'>
 		<HeaderTemplate >
 			<table>
@@ -20,4 +21,7 @@
 			</table>
 		</FooterTemplate>
 	</asp:Repeater>
+	<% } 
+		else { %><p>Det finns inga fel att visa.</p><%
+	} %>
 </fieldset>

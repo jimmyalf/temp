@@ -27,7 +27,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 				FirstName = "Sune",
 				LastName = "Mangs",
 				PersonalIdNumber = "197301146069",
-				Shop = shop
+				Shop = shop,
+				Notes = "Till varje kund hör ett anteckningsfält"
 			};
 		
 		}
@@ -54,7 +55,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 				FirstName = firstName,
 				LastName = lastName,
 				PersonalIdNumber = personalIdNumber,
-				Shop = shop
+				Shop = shop,
+				Notes = "Till varje kund hör ett anteckningsfält"
 			};
 		}
 
@@ -70,6 +72,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 			customer.FirstName = customer.FirstName.Reverse();
 			customer.LastName = customer.LastName.Reverse();
 			customer.PersonalIdNumber = customer.PersonalIdNumber.Reverse();
+			customer.Notes = customer.Notes.Reverse();
 
 			return customer;
 		}

@@ -45,6 +45,9 @@
 	<label for="<%=drpCountry.ClientID%>">Land</label>
 	<asp:DropDownList ID="drpCountry" runat="server" DataSource='<%#Model.List%>' DataValueField="Value" DataTextField="Text" />
 
+	<label for="<%=txtNotes.ClientID%>">Anteckningar</label>
+	<asp:TextBox ID="txtNotes" TextMode="MultiLine" runat="server" />
+
 	<asp:ValidationSummary ID="vldSummary" runat="server" />	
 	
 	<div class="control-actions">

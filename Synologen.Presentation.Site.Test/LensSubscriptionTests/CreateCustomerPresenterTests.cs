@@ -148,7 +148,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				MobilePhone = "0704-565675",
 				PersonalIdNumber = "8106296729",
 				Phone = "0783-45674537",
-				PostalCode = "688 44"
+				PostalCode = "688 44",
+				Notes = "Här kan man skriva vad man vill."
 			};
 
 			_presenter.View_Load(null, new EventArgs());
@@ -170,6 +171,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Contact.Phone.Equals(_saveEventArgs.Phone))));
 			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Address.PostalCode.Equals(_saveEventArgs.PostalCode))));
 			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Shop.Id.Equals(_shopId))));
+			_mockedCustomerRepository.Verify(x => x.Save(It.Is<Customer>(c => c.Notes.Equals(_saveEventArgs.Notes))));
 		}
 
 		[Test]

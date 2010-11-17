@@ -12,6 +12,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.LensSubscri
 			Map(x => x.CreatedDate);
 			Map(x => x.ActivatedDate)
 				.Nullable();
+			Map(x => x.Notes);
 			Component(x => x.PaymentInfo, m =>
 			{
 				m.Map(x => x.AccountNumber);

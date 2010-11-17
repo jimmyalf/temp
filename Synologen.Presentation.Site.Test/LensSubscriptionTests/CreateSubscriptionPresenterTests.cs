@@ -114,7 +114,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			{
 				AccountNumber = "123456789",
                 ClearingNumber = "1234",
-                MonthlyAmount = 699.25M
+                MonthlyAmount = 699.25M,
+				Notes = "Plats för valfria anteckningar"
 			};
 
 			presenter.View_Load(null, new EventArgs());
@@ -130,6 +131,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.ClearingNumber.Equals(_saveEventArgs.ClearingNumber))));
 			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.MonthlyAmount.Equals(_saveEventArgs.MonthlyAmount))));
 			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Status.Equals(SubscriptionStatus.Created))));
+			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Notes.Equals(_saveEventArgs.Notes))));
 		}
 
 		[Test]
@@ -188,7 +190,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			{
 				AccountNumber = "123456789",
                 ClearingNumber = "1234",
-                MonthlyAmount = 699.25M
+                MonthlyAmount = 699.25M,
+				Notes = "Plats för valfria anteckningar"
 			};
 
 			presenter.View_Load(null, new EventArgs());

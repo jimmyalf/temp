@@ -25,6 +25,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
                 },
                 Customer = customer,
                 Status = status,
+				Notes = "Till varje abonnemang hör ett anteckningsfält"
 			};
 		}
 
@@ -36,6 +37,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 			subscription.PaymentInfo.ClearingNumber = subscription.PaymentInfo.ClearingNumber.Reverse();
 			subscription.PaymentInfo.MonthlyAmount = subscription.PaymentInfo.MonthlyAmount + 15;
 			subscription.Status = subscription.Status.Next();
+			subscription.Notes = subscription.Notes.Reverse();
 			return subscription;
 		}
 	}

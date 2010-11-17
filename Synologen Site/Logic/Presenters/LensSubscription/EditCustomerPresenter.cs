@@ -62,6 +62,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.Model.PostalCode = customer.Address.PostalCode;
 			View.Model.List = _countryRepository.GetAll().Select(countryConverter);
 			View.Model.Subscriptions = customer.Subscriptions.Select(subscriptionConverter);
+			View.Model.Notes = customer.Notes;
 		}
 
 		private void CheckAccess(Customer customer)
@@ -97,6 +98,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			customer.FirstName = args.FirstName;
 			customer.LastName = args.LastName;
 			customer.PersonalIdNumber = args.PersonalIdNumber;
+			customer.Notes = args.Notes;
 
 			_customerRepository.Save(customer);
 		}

@@ -45,6 +45,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			            		savedSubscription.Status.ShouldBe(_subscriptionToSave.Status);
 			            		savedSubscription.Transactions.Count().ShouldBe(_subscriptionToSave.Transactions.Count());
 								savedSubscription.Errors.Count().ShouldBe(_subscriptionToSave.Errors.Count());
+								savedSubscription.Notes.ShouldBe(_subscriptionToSave.Notes);
 			            	});
 		}
 	}
@@ -85,6 +86,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			            		fetchedSubscription.Status.ShouldBe(_subscriptionToEdit.Status);
 			            		fetchedSubscription.Transactions.Count().ShouldBe(_subscriptionToEdit.Transactions.Count());
 								fetchedSubscription.Errors.Count().ShouldBe(_subscriptionToEdit.Errors.Count());
+								fetchedSubscription.Notes.ShouldBe(_subscriptionToEdit.Notes);
 			            	});
 		}
 	}

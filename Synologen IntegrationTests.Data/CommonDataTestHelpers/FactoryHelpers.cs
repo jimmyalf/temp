@@ -10,7 +10,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers
 			return new string(input.ToCharArray().Reverse().ToArray());
 		}
 
-		public static T Next<T>(this T src) where T : struct {
+		public static T Next<T>(this T src) where T : struct 
+		{
 			if (!typeof(T).IsEnum) throw new ArgumentException(String.Format("Argument {0} is Not of enum type",typeof(T).FullName));
 
 			var Arr = (T[])Enum.GetValues(src.GetType());

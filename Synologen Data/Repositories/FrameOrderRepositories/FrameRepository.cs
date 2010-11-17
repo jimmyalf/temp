@@ -23,7 +23,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories
 
 		private bool FrameHasConnectedOrders(Frame entity)
 		{
-			var ordersWithGivenFrame = Session.CreateCriteria<Core.Domain.Model.FrameOrder.FrameOrder>()
+			var ordersWithGivenFrame = Session.CreateCriteria<FrameOrder>()
 				.Add(Restrictions.Eq("Frame.Id", entity.Id))
 				.ToCountCriteria().UniqueResult<long>();
 			return (ordersWithGivenFrame > 0);

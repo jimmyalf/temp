@@ -295,6 +295,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(_readyForSettlementStatus);
 				MockedSettingsService.Setup(x => x.GetContractSalesAfterSettlementStatus()).Returns(_afterSettlementStatus);
 				MockedSynologenSqlProvider.Setup(x => x.AddSettlement(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedNewSettlementId);
+				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(_transactions);
 			};
 			Because = () =>
 			{
@@ -326,24 +327,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			));
 		}
 
-		//TODO: Tests for connecting transactions
-		//[Test]
-		//public void Transactions_ready_for_settlement_are_fetched()
-		//{
-		//    MockedTransactionRepository.Verify(x => x.FindBy(It.Is<AllTransactionsMatchingCriteria>( 
-		//        criteria => 
-		//            criteria.Reason.Equals(TransactionReason.Payment) &&
-		//            criteria.Type.Equals(TransactionType.Deposit) &&
-		//            criteria.SettlementStatus.Equals(SettlementStatus.DoesNotHaveSettlement)
-		//    )));
-		//}
+		[Test]
+		public void Transactions_ready_for_settlement_are_fetched()
+		{
+		    MockedTransactionRepository.Verify(x => x.FindBy(It.Is<AllTransactionsMatchingCriteria>( 
+		        criteria => 
+		            criteria.Reason.Equals(TransactionReason.Payment) &&
+		            criteria.Type.Equals(TransactionType.Deposit) &&
+		            criteria.SettlementStatus.Equals(SettlementStatus.DoesNotHaveSettlement)
+		    )));
+		}
 
-		//[Test]
-		//public void All_fetched_transactions_get_connected_to_settlement()
-		//{
-		//    _transactions.Each( transaction => MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(
-		//        transactionSaved => transactionSaved.Settlement.Id.Equals(transaction.Id)
-		//    ))));
-		//}
+		[Test]
+		public void All_fetched_transactions_get_connected_to_settlement()
+		{
+			_transactions.Each( transaction => MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>( transactionSaved => 
+				transactionSaved.Settlement.Id.Equals(_expectedNewSettlementId) &&
+				transactionSaved.Id.Equals(transaction.Id)
+			))));
+
+		}
 	}
 }

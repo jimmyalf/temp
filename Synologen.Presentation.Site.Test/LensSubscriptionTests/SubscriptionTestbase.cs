@@ -41,5 +41,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		protected HttpContextMock MockedHttpContext;
 		protected Mock<ISynologenMemberService> MockedSynologenMemberService;
 		protected EditLensSubscriptionPresenter Presenter;
+
+		protected void AssertUsing(Action<IEditLensSubscriptionView> action)
+		{
+			action(MockedView.Object);
+		}
+
+		protected TResult GetResult<TResult>(Func<IEditLensSubscriptionView, TResult> function)
+		{
+			return function(MockedView.Object);
+		}
 	}
 }

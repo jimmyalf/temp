@@ -6,6 +6,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
+using Spinit.Wpc.Synologen.Presentation.Controllers;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test
 {
@@ -15,7 +16,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		protected ContractSalesTestbase()
 		{
 			Context = () => { };
-			Because = () => { throw new AssertionException("An action for Because has not been set!"); };
+			Because = controller =>  { throw new AssertionException("An action for Because has not been set!"); };
 		}
 
 		[SetUp]
@@ -32,17 +33,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedSettingsService.Object,
 				MockedTransactionRepository.Object,
 				MockedSynologenSqlProvider.Object);
+			Controller = new ContractSalesController(ViewService);
 			Context();
-			Because();
+			Because(Controller);
 		}
 
 		protected Action Context;
-		protected Action Because;
+		protected Action<ContractSalesController> Because;
 		protected Mock<ISettlementRepository> MockedSettlementRepository;
 		protected Mock<IAdminSettingsService> MockedSettingsService;
 		protected Mock<IContractSaleRepository> MockedContractSaleRepository;
 		protected Mock<ISqlProvider> MockedSynologenSqlProvider;
 		protected Mock<ITransactionRepository> MockedTransactionRepository;
 		protected ContractSalesViewService ViewService;
+		protected ContractSalesController Controller;
 	}
 }

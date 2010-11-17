@@ -10,7 +10,6 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Presentation.Controllers;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription;
@@ -31,12 +30,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			_settlementId = 5;
 			_settlement = SettlementFactory.Get(_settlementId);
 
-			Context = () => {
+			Context = () => 
+			{
 				MockedSettlementRepository.Setup(x => x.Get(It.Is<int>(id => id.Equals(_settlementId)))).Returns(_settlement);
 			};
 
-			Because = () => {
-				var controller = new ContractSalesController(ViewService);
+			Because = controller => 
+			{
 				var view = (ViewResult)controller.ViewSettlement(_settlementId);
 				_viewModel = (SettlementView)view.ViewData.Model;
 			};
@@ -95,7 +95,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 		public When_loading_settlements_list_with_new_settlementable_contract_sales_and_transactions()
 		{
-			// Arrange
 			_readyForSettlementStatus = 6;
 			_expectedContractSalesReadyForInvocing = ContractSaleFactory.GetList(23);
 			_expectedLensSubscriptionTransactionsReadyForInvocing = SubscriptionTransactionFactory.GetList();
@@ -109,9 +108,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(_readyForSettlementStatus);
 			};
 
-			Because = () =>
+			Because = controller =>
 			{
-				var controller = new ContractSalesController(ViewService);
 				var view = (ViewResult) controller.Settlements();
 				_viewModel = (SettlementListView) view.ViewData.Model;
 			};
@@ -188,9 +186,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
 			};
 
-			Because = () =>
+			Because = controller =>
 			{
-				var controller = new ContractSalesController(ViewService);
 				var view = (ViewResult) controller.Settlements();
 				_viewModel = (SettlementListView) view.ViewData.Model;
 			};
@@ -223,9 +220,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
 			};
-			Because = () =>
+			Because = controller =>
 			{
-				var controller = new ContractSalesController(ViewService);
 				var view = (ViewResult) controller.Settlements();
 				_viewModel = (SettlementListView) view.ViewData.Model;
 			};
@@ -258,11 +254,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
 			};
-			Because = () =>
+
+			Because = controller =>
 			{
-				var controller = new ContractSalesController(ViewService);
-				var view = (ViewResult) controller.Settlements();
-				_viewModel = (SettlementListView) view.ViewData.Model;
+				var viewResult = (ViewResult) controller.Settlements();
+				_viewModel = (SettlementListView) viewResult.ViewData.Model;
 			};
 		}
 
@@ -297,11 +293,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedSynologenSqlProvider.Setup(x => x.AddSettlement(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedNewSettlementId);
 				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(_transactions);
 			};
-			Because = () =>
-			{
-				var controller = new ContractSalesController(ViewService);
-				_redirectToRouteResult = (RedirectToRouteResult) controller.CreateSettlement();
-			};
+			Because = controller => _redirectToRouteResult = (RedirectToRouteResult) controller.CreateSettlement();
 		}
 
 		[Test]

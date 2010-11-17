@@ -47,21 +47,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			var view = MockedView.Object;
-			view.Model.ActivatedDate.ShouldBe(_expectedSubscription.ActivatedDate.Value.ToString("yyyy-MM-dd"));
-			view.Model.CreatedDate.ShouldBe(_expectedSubscription.CreatedDate.ToString("yyyy-MM-dd"));
-			view.Model.CustomerName.ShouldBe(_expectedSubscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
-			view.Model.AccountNumber.ShouldBe(_expectedSubscription.PaymentInfo.AccountNumber);
-			view.Model.ClearingNumber.ShouldBe(_expectedSubscription.PaymentInfo.ClearingNumber);
-			view.Model.MonthlyAmount.ShouldBe(_expectedSubscription.PaymentInfo.MonthlyAmount);
-			view.Model.Status.ShouldBe(_expectedSubscription.Status.GetEnumDisplayName());
-			view.Model.Status.ShouldBe("Aktiv");
-			view.Model.StopButtonEnabled.ShouldBe(true);
-			view.Model.StartButtonEnabled.ShouldBe(false);
-			view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
-			view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
-			view.Model.DisplayForm.ShouldBe(true);
-			view.Model.ReturnUrl.ShouldBe(_expectedReturnUrl);
+			AssertUsing( view =>
+			{
+				view.Model.ActivatedDate.ShouldBe(_expectedSubscription.ActivatedDate.Value.ToString("yyyy-MM-dd"));
+				view.Model.CreatedDate.ShouldBe(_expectedSubscription.CreatedDate.ToString("yyyy-MM-dd"));
+				view.Model.CustomerName.ShouldBe(_expectedSubscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
+				view.Model.AccountNumber.ShouldBe(_expectedSubscription.PaymentInfo.AccountNumber);
+				view.Model.ClearingNumber.ShouldBe(_expectedSubscription.PaymentInfo.ClearingNumber);
+				view.Model.MonthlyAmount.ShouldBe(_expectedSubscription.PaymentInfo.MonthlyAmount);
+				view.Model.Status.ShouldBe(_expectedSubscription.Status.GetEnumDisplayName());
+				view.Model.Status.ShouldBe("Aktiv");
+				view.Model.StopButtonEnabled.ShouldBe(true);
+				view.Model.StartButtonEnabled.ShouldBe(false);
+				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
+				view.Model.DisplayForm.ShouldBe(true);
+				view.Model.ReturnUrl.ShouldBe(_expectedReturnUrl);
+			});
+
 		}
 
 		[Test]
@@ -79,7 +82,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		}
 	}
 
-		[TestFixture]
+	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
 	public class When_loading_edit_subscription_view_with_no_set_return_page_id : SubscriptionTestbase
 	{
@@ -108,8 +111,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			var view = MockedView.Object;
-			view.Model.ReturnUrl.ShouldBe("#");
+			AssertUsing(view => view.Model.ReturnUrl.ShouldBe("#"));
 		}
 	}
 
@@ -140,10 +142,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			var view = MockedView.Object;
-			view.Model.Status.ShouldBe("Stoppad");
-			view.Model.StopButtonEnabled.ShouldBe(false);
-			view.Model.StartButtonEnabled.ShouldBe(true);
+			AssertUsing( view =>
+			{
+				view.Model.Status.ShouldBe("Stoppad");
+				view.Model.StopButtonEnabled.ShouldBe(false);
+				view.Model.StartButtonEnabled.ShouldBe(true);
+			});
 		}
 
 	}
@@ -176,10 +180,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			var view = MockedView.Object;
-			view.Model.Status.ShouldBe("Skapad");
-			view.Model.StopButtonEnabled.ShouldBe(false);
-			view.Model.StartButtonEnabled.ShouldBe(false);
+			AssertUsing( view =>
+			{
+				view.Model.Status.ShouldBe("Skapad");
+				view.Model.StopButtonEnabled.ShouldBe(false);
+				view.Model.StartButtonEnabled.ShouldBe(false);				
+			});
 		}
 
 	}
@@ -198,6 +204,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			const int customerId = 2;
 			const int shopId = 3;
 			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId), SubscriptionStatus.Expired);
+
 			Context = () =>
 			{
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
@@ -213,10 +220,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			var view = MockedView.Object;
-			view.Model.Status.ShouldBe("Utgången");
-			view.Model.StopButtonEnabled.ShouldBe(false);
-			view.Model.StartButtonEnabled.ShouldBe(false);
+			AssertUsing( view =>
+			{
+				view.Model.Status.ShouldBe("Utgången");
+				view.Model.StopButtonEnabled.ShouldBe(false);
+				view.Model.StartButtonEnabled.ShouldBe(false);	
+			});
 		}
 
 	}
@@ -263,14 +272,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_saves_subscription_with_expected_values()
 		{
-			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.ActivatedDate.Value.IsSameDay(_expectedSubscription.ActivatedDate.Value))));
-			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.CreatedDate.IsSameDay(_expectedSubscription.CreatedDate))));
-			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Customer.Id.Equals(_expectedSubscription.Customer.Id))));
-			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Id.Equals(_expectedSubscription.Id))));
-			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.AccountNumber.Equals(_saveEventArgs.AccountNumber))));
-			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.ClearingNumber.Equals(_saveEventArgs.ClearingNumber))));
-			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.MonthlyAmount.Equals(_saveEventArgs.MonthlyAmount))));
-			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Status.Equals(_expectedSubscription.Status))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => 
+				subscription.ActivatedDate.Value.IsSameDay(_expectedSubscription.ActivatedDate.Value) && 
+				subscription.CreatedDate.IsSameDay(_expectedSubscription.CreatedDate) &&
+				subscription.Customer.Id.Equals(_expectedSubscription.Customer.Id) &&
+				subscription.Id.Equals(_expectedSubscription.Id) &&
+				subscription.PaymentInfo.AccountNumber.Equals(_saveEventArgs.AccountNumber) &&
+				subscription.PaymentInfo.ClearingNumber.Equals(_saveEventArgs.ClearingNumber) &&
+				subscription.PaymentInfo.MonthlyAmount.Equals(_saveEventArgs.MonthlyAmount) &&
+				subscription.Status.Equals(_expectedSubscription.Status)
+			)));
+
 		}
 
 		[Test]
@@ -459,10 +471,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			var view = MockedView.Object;
-			view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
-			view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(true);
-			view.Model.DisplayForm.ShouldBe(false);
+			AssertUsing( view =>
+			{
+				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(true);
+				view.Model.DisplayForm.ShouldBe(false);	
+			});
 		}
 	}
 
@@ -492,10 +506,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			var view = MockedView.Object;
-			view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(true);
-			view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
-			view.Model.DisplayForm.ShouldBe(false);
+			AssertUsing( view =>
+			{
+				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(true);
+				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
+				view.Model.DisplayForm.ShouldBe(false);	
+			});
 		}
 	}
 
@@ -525,11 +541,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			var view = MockedView.Object;
-			view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
-			view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
-			view.Model.SubscriptionDoesNotExist.ShouldBe(true);
-			view.Model.DisplayForm.ShouldBe(false);
+			AssertUsing( view =>
+			{
+				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
+				view.Model.SubscriptionDoesNotExist.ShouldBe(true);
+				view.Model.DisplayForm.ShouldBe(false);	
+			});
 		}
 	}
 }

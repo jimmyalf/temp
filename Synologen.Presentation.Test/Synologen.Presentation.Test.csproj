@@ -85,8 +85,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractSalesControllerTests.cs" />
+    <Compile Include="ContractSalesTestbase.cs" />
     <Compile Include="Factories\ContractSales\ContractSaleFactory.cs" />
+    <Compile Include="Factories\ContractSales\CustomerFactory.cs" />
     <Compile Include="Factories\ContractSales\ShopFactory.cs" />
+    <Compile Include="Factories\ContractSales\SubscriptionFactory.cs" />
     <Compile Include="Factories\ContractSales\TransactionFactory.cs" />
     <Compile Include="Factories\LensSubscription\SubscriptionErrorFactory.cs" />
     <Compile Include="Factories\LensSubscription\SubscriptionTransactionFactory.cs" />

@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Application\AutomapperMappings\ContractSaleValueResolver.cs" />
     <Compile Include="Application\AutomapperMappings\CustomerNameValueProvider.cs" />
+    <Compile Include="Application\AutomapperMappings\SettlementViewTypeConverter.cs" />
     <Compile Include="Application\AutomapperMappings\SubscriptionErrorValueResolver.cs" />
     <Compile Include="Application\AutomapperMappings\TransactionValueResolver.cs" />
     <Compile Include="Application\ModelBinders\GridSortPropertyMappingModelBinder.cs" />

@@ -87,8 +87,10 @@
     <Compile Include="Domain\Model\Autogiro\Send\Payment.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
     <Compile Include="Domain\Model\ContractSales\ContractSale.cs" />
+    <Compile Include="Domain\Model\ContractSales\Customer.cs" />
     <Compile Include="Domain\Model\ContractSales\Shop.cs" />
     <Compile Include="Domain\Model\ContractSales\ShopSettlement.cs" />
+    <Compile Include="Domain\Model\ContractSales\Subscription.cs" />
     <Compile Include="Domain\Model\ContractSales\Transaction.cs" />
     <Compile Include="Domain\Model\Entity.cs" />
     <Compile Include="Domain\Model\FrameOrder\EyeParameter.cs" />
@@ -158,6 +160,7 @@
     <Compile Include="Extensions\ExpressionNameVisitor.cs" />
     <Compile Include="Extensions\GenericsExtensions.cs" />
     <Compile Include="Extensions\IntegerExtionsions.cs" />
+    <Compile Include="Extensions\KeyEqualityComparer.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\StringBuilderExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

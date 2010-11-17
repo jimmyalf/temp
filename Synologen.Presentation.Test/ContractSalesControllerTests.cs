@@ -1,20 +1,15 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
-using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Controllers;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales;
@@ -24,10 +19,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 {
 	[TestFixture]
 	[Category("ContractSalesControllerTests")]
-	public class When_loading_settlement_view
+	public class When_loading_settlement_view : ContractSalesTestbase
 	{
 		private readonly int _settlementId;
-		private readonly SettlementView _viewModel;
+		private SettlementView _viewModel;
 		private readonly ShopSettlement _settlement;
 
 		public When_loading_settlement_view()
@@ -35,98 +30,91 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			// Arrange
 			_settlementId = 5;
 			_settlement = SettlementFactory.Get(_settlementId);
-			var mockedSettlementRepository = new Mock<ISettlementRepository>();
-			var mockedContractSaleRepository = new Mock<IContractSaleRepository>();
-			var mockedTransactionRepository = new Mock<ITransactionRepository>();
-			var mockedSettingsService = new Mock<IAdminSettingsService>();
-			var mockedSynologenSqlProvider = new Mock<ISqlProvider>();
-			mockedSettlementRepository.Setup(x => x.Get(It.Is<int>(id => id.Equals(_settlementId)))).Returns(_settlement);
 
+			Context = () => {
+				MockedSettlementRepository.Setup(x => x.Get(It.Is<int>(id => id.Equals(_settlementId)))).Returns(_settlement);
+			};
 
-			var viewService = new ContractSalesViewService(
-				mockedSettlementRepository.Object, 
-				mockedContractSaleRepository.Object, 
-				mockedSettingsService.Object,
-				mockedTransactionRepository.Object,
-				mockedSynologenSqlProvider.Object);
-			
-			var controller = new ContractSalesController(viewService);
-
-			var view = (ViewResult) controller.ViewSettlement(_settlementId);
-			_viewModel = (SettlementView) view.ViewData.Model;
+			Because = () => {
+				var controller = new ContractSalesController(ViewService);
+				var view = (ViewResult)controller.ViewSettlement(_settlementId);
+				_viewModel = (SettlementView)view.ViewData.Model;
+			};
 		}
 
 		[Test]
 		public void ViewModel_should_have_expected_values()
 		{
-			var sales = _settlement.ContractSales.OrderBy(x => x.Shop.Id);
-			var amountsIncludingVAT = sales.GroupBy(x => x.Shop.Id).Select(x => x.Sum(y => y.TotalAmountIncludingVAT));
-			var amountsExcludingVAT = sales.GroupBy(x => x.Shop.Id).Select(x => x.Sum(y => y.TotalAmountExcludingVAT));
-			var shops = sales.GroupBy(x => x.Shop.Id, x => x.Shop).Select(x => x.FirstOrDefault());
-			var numberOfContracts = sales.GroupBy(x => x.Shop.Id).Select(x => x.Count());
 			_viewModel.CreatedDate.ShouldBe(_settlement.CreatedDate.ToString("yyyy-MM-dd HH:mm"));
 			_viewModel.Id.ShouldBe(_settlement.Id);
 			_viewModel.Period.ShouldBe("1045");
-			_viewModel.SumAmountExcludingVAT.ShouldBe(sales.Sum(y => y.TotalAmountExcludingVAT).ToString("C2"));
-			_viewModel.SumAmountIncludingVAT.ShouldBe(sales.Sum(y => y.TotalAmountIncludingVAT).ToString("C2"));
-			_viewModel.SettlementItems.Count().ShouldBe(2);
-			_viewModel.SettlementItems.For((index,settlementItem) =>
+			_viewModel.SumAmountIncludingVAT.ShouldBe((4546.11M).ToString("C2"));
+			_viewModel.SettlementItems.Count().ShouldBe(4);
+			_viewModel.SettlementItems.Each(settlementItem => 
 			{
-				settlementItem.BankGiroNumber.ShouldBe(shops.ElementAt(index).BankGiroNumber);
-				settlementItem.NumberOfContractSalesInSettlement.ShouldBe(numberOfContracts.ElementAt(index));
-				settlementItem.ShopDescription.ShouldBe(String.Format("{0} - {1}", shops.ElementAt(index).Number, shops.ElementAt(index).Name));
-				settlementItem.SumAmountExcludingVAT.ShouldBe(amountsExcludingVAT.ElementAt(index).ToString("C2"));
-				settlementItem.SumAmountIncludingVAT.ShouldBe(amountsIncludingVAT.ElementAt(index).ToString("C2"));
-
+				settlementItem.BankGiroNumber.ShouldBe("123456987");
+				settlementItem.ShopDescription.ShouldBe("1350 - Örebro Optik");
+			});
+			_viewModel.SettlementItems.ForElementAtIndex( 0, settlementItem =>  
+			{
+			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(2);
+				settlementItem.NumberOfLensSubscriptionTransactionsInSettlement.ShouldBe(4);
+			    settlementItem.SumAmountIncludingVAT.ShouldBe(1592.87M.ToString("C2"));
+			});
+			_viewModel.SettlementItems.ForElementAtIndex( 1, settlementItem =>  
+			{
+			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(3);
+				settlementItem.NumberOfLensSubscriptionTransactionsInSettlement.ShouldBe(2);
+			    settlementItem.SumAmountIncludingVAT.ShouldBe(2145.34M.ToString("C2"));
+			});
+			_viewModel.SettlementItems.ForElementAtIndex( 2, settlementItem =>  
+			{
+			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(1);
+				settlementItem.NumberOfLensSubscriptionTransactionsInSettlement.ShouldBe(0);
+			    settlementItem.SumAmountIncludingVAT.ShouldBe(678.90M.ToString("C2"));
+			});
+			_viewModel.SettlementItems.ForElementAtIndex( 3, settlementItem =>  
+			{
+			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(0);
+				settlementItem.NumberOfLensSubscriptionTransactionsInSettlement.ShouldBe(1);
+			    settlementItem.SumAmountIncludingVAT.ShouldBe(129M.ToString("C2"));
 			});
 		}
 	}
 
 	[TestFixture]
 	[Category("ContractSalesControllerTests")]
-	public class When_loading_settlements_list_with_new_settlementable_contract_sales_and_transactions
+	public class When_loading_settlements_list_with_new_settlementable_contract_sales_and_transactions : ContractSalesTestbase
 	{
-		private readonly SettlementListView _viewModel;
-		private readonly IEnumerable<ShopSettlement> _settlements;
+		private SettlementListView _viewModel;
+		private readonly IList<ShopSettlement> _settlements;
 		private readonly IEnumerable<ContractSale> _expectedContractSalesReadyForInvocing;
 		private readonly int _readyForSettlementStatus;
-		private readonly Mock<ISettlementRepository> _mockedSettlementRepository;
-		private readonly Mock<IAdminSettingsService> _mockedSettingsService;
-		private readonly Mock<IContractSaleRepository> _mockedContractSaleRepository;
-		private readonly Mock<ITransactionRepository> _mockedTransactionRepository;
 		private readonly IEnumerable<SubscriptionTransaction> _expectedLensSubscriptionTransactionsReadyForInvocing;
 		
 
 		public When_loading_settlements_list_with_new_settlementable_contract_sales_and_transactions()
 		{
 			// Arrange
+			_readyForSettlementStatus = 6;
 			_expectedContractSalesReadyForInvocing = ContractSaleFactory.GetList(23);
 			_expectedLensSubscriptionTransactionsReadyForInvocing = SubscriptionTransactionFactory.GetList();
-			_readyForSettlementStatus = 6;
-			_settlements = SettlementFactory.GetList();
-			_mockedSettlementRepository = new Mock<ISettlementRepository>();
-			_mockedContractSaleRepository = new Mock<IContractSaleRepository>();
-			_mockedTransactionRepository = new Mock<ITransactionRepository>();
-			_mockedSettingsService = new Mock<IAdminSettingsService>();
-			var mockedSynologenSqlProvider = new Mock<ISqlProvider>();
+			_settlements = SettlementFactory.GetList().ToList();
 
-			_mockedSettlementRepository.Setup(x => x.GetAll()).Returns(_settlements);
-			_mockedContractSaleRepository.Setup(x => x.FindBy(It.IsAny<AllContractSalesMatchingCriteria>())).Returns(_expectedContractSalesReadyForInvocing);
-			_mockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(_expectedLensSubscriptionTransactionsReadyForInvocing);
-			_mockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(_readyForSettlementStatus);
-			
+			Context = () =>
+			{
+				MockedSettlementRepository.Setup(x => x.GetAll()).Returns(_settlements);
+				MockedContractSaleRepository.Setup(x => x.FindBy(It.IsAny<AllContractSalesMatchingCriteria>())).Returns(_expectedContractSalesReadyForInvocing);
+				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(_expectedLensSubscriptionTransactionsReadyForInvocing);
+				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(_readyForSettlementStatus);
+			};
 
-			var viewService = new ContractSalesViewService(
-				_mockedSettlementRepository.Object, 
-				_mockedContractSaleRepository.Object, 
-				_mockedSettingsService.Object,
-				_mockedTransactionRepository.Object,
-				mockedSynologenSqlProvider.Object);
-
-			var controller = new ContractSalesController(viewService);
-
-			var view = (ViewResult) controller.Settlements();
-			_viewModel = (SettlementListView) view.ViewData.Model;
+			Because = () =>
+			{
+				var controller = new ContractSalesController(ViewService);
+				var view = (ViewResult) controller.Settlements();
+				_viewModel = (SettlementListView) view.ViewData.Model;
+			};
 		}
 
 		[Test]
@@ -137,10 +125,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			_viewModel.Settlements.Count().ShouldBe(_settlements.Count());
 			_viewModel.Settlements.For((index, settlement) =>
 			{
-				settlement.CreatedDate.ShouldBe(_settlements.ElementAt(index).CreatedDate.ToString("yyyy-MM-dd HH:mm"));
-				settlement.Id.ShouldBe(_settlements.ElementAt(index).Id);
-				settlement.NumberOfContractSalesInSettlement.ShouldBe(_settlements.ElementAt(index).ContractSales.Count());
-				settlement.NumberOfLensSubscriptionTransactionsInSettlement.ShouldBe(_settlements.ElementAt(index).LensSubscriptionTransactions.Count());
+			    settlement.CreatedDate.ShouldBe(_settlements.ElementAt(index).CreatedDate.ToString("yyyy-MM-dd HH:mm"));
+			    settlement.Id.ShouldBe(_settlements.ElementAt(index).Id);
+			    settlement.NumberOfContractSalesInSettlement.ShouldBe(_settlements.ElementAt(index).ContractSales.Count());
+			    settlement.NumberOfLensSubscriptionTransactionsInSettlement.ShouldBe(_settlements.ElementAt(index).LensSubscriptionTransactions.Count());
 			});
 		}
 
@@ -151,22 +139,39 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 
 		[Test]
-		public void Repositories_and_Services_were_called_with_expected_parameters()
+		public void Settings_service_is_called_to_get_settlementable_contract_sale_status()
 		{
-			_mockedSettlementRepository.Verify(x => x.GetAll(), Times.Once());
-			_mockedContractSaleRepository.Verify(x => x.FindBy(It.Is<AllContractSalesMatchingCriteria>(criteria => criteria.ContractSaleStatus.Equals(_readyForSettlementStatus))), Times.Once());
-			_mockedSettingsService.Verify(x => x.GetContractSalesReadyForSettlementStatus(), Times.Once());
-			_mockedTransactionRepository.Verify(x => x.FindBy(It.Is<AllTransactionsMatchingCriteria>(criteria => criteria.Reason.Value.Equals(TransactionReason.Payment))));
-			_mockedTransactionRepository.Verify(x => x.FindBy(It.Is<AllTransactionsMatchingCriteria>(criteria => criteria.Type.Value.Equals(TransactionType.Deposit))));
-			_mockedTransactionRepository.Verify(x => x.FindBy(It.Is<AllTransactionsMatchingCriteria>(criteria => criteria.SettlementStatus.Equals(SettlementStatus.DoesNotHaveSettlement))));
+			MockedSettingsService.Verify(x => x.GetContractSalesReadyForSettlementStatus(), Times.Once());
+		}
+
+		[Test]
+		public void All_contract_sales_with_given_status_are_fetched()
+		{
+			MockedContractSaleRepository.Verify(x => x.FindBy(It.Is<AllContractSalesMatchingCriteria>(criteria => criteria.ContractSaleStatus.Equals(_readyForSettlementStatus))), Times.Once());
+		}
+
+		[Test]
+		public void All_settlements_are_fetched()
+		{
+			MockedSettlementRepository.Verify(x => x.GetAll(), Times.Once());
+		}
+
+		[Test]
+		public void Expected_transactions_ready_for_settlement_are_fetched()
+		{
+			MockedTransactionRepository.Verify(x => x.FindBy(It.Is<AllTransactionsMatchingCriteria>( criteria => 
+				criteria.Reason.Equals(TransactionReason.Payment) &&
+				criteria.Type.Equals(TransactionType.Deposit) &&
+				criteria.SettlementStatus.Equals(SettlementStatus.DoesNotHaveSettlement)
+			)));
 		}
 	}
 
 	[TestFixture]
 	[Category("ContractSalesControllerTests")]
-	public class When_loading_settlements_list_with_settlementable_contract_sales
+	public class When_loading_settlements_list_with_settlementable_contract_sales : ContractSalesTestbase
 	{
-		private readonly SettlementListView _viewModel;
+		private SettlementListView _viewModel;
 
 		public When_loading_settlements_list_with_settlementable_contract_sales()
 		{
@@ -174,28 +179,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			var expectedLensSubscriptionTransactionsReadyForInvocing = Enumerable.Empty<SubscriptionTransaction>();
 			const int readyForSettlementStatus = 6;
 			var settlements = SettlementFactory.GetList();
-			var mockedSettlementRepository = new Mock<ISettlementRepository>();
-			var mockedContractSaleRepository = new Mock<IContractSaleRepository>();
-			var mockedTransactionRepository = new Mock<ITransactionRepository>();
-			var mockedSettingsService = new Mock<IAdminSettingsService>();
-			var mockedSynologenSqlProvider = new Mock<ISqlProvider>();
 
-			mockedSettlementRepository.Setup(x => x.GetAll()).Returns(settlements);
-			mockedContractSaleRepository.Setup(x => x.FindBy(It.IsAny<AllContractSalesMatchingCriteria>())).Returns(expectedContractSalesReadyForInvocing);
-			mockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
-			mockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
+			Context = () => 
+			{
+				MockedSettlementRepository.Setup(x => x.GetAll()).Returns(settlements);
+				MockedContractSaleRepository.Setup(x => x.FindBy(It.IsAny<AllContractSalesMatchingCriteria>())).Returns(expectedContractSalesReadyForInvocing);
+				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
+				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
+			};
 
-			var viewService = new ContractSalesViewService(
-				mockedSettlementRepository.Object, 
-				mockedContractSaleRepository.Object, 
-				mockedSettingsService.Object,
-				mockedTransactionRepository.Object,
-				mockedSynologenSqlProvider.Object);
-
-			var controller = new ContractSalesController(viewService);
-
-			var view = (ViewResult) controller.Settlements();
-			_viewModel = (SettlementListView) view.ViewData.Model;
+			Because = () =>
+			{
+				var controller = new ContractSalesController(ViewService);
+				var view = (ViewResult) controller.Settlements();
+				_viewModel = (SettlementListView) view.ViewData.Model;
+			};
 		}
 
 		[Test]
@@ -208,38 +206,29 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 	[TestFixture]
 	[Category("ContractSalesControllerTests")]
-	public class When_loading_settlements_list_with_settlementable_transactions
+	public class When_loading_settlements_list_with_settlementable_transactions : ContractSalesTestbase
 	{
-		private readonly SettlementListView _viewModel;
+		private SettlementListView _viewModel;
 
 		public When_loading_settlements_list_with_settlementable_transactions()
 		{
+			const int readyForSettlementStatus = 6;
 			var expectedContractSalesReadyForInvocing = Enumerable.Empty<ContractSale>();
 			var expectedLensSubscriptionTransactionsReadyForInvocing = SubscriptionTransactionFactory.GetList();
-			const int readyForSettlementStatus = 6;
 			var settlements = SettlementFactory.GetList();
-			var mockedSettlementRepository = new Mock<ISettlementRepository>();
-			var mockedContractSaleRepository = new Mock<IContractSaleRepository>();
-			var mockedTransactionRepository = new Mock<ITransactionRepository>();
-			var mockedSettingsService = new Mock<IAdminSettingsService>();
-			var mockedSynologenSqlProvider = new Mock<ISqlProvider>();
-
-			mockedSettlementRepository.Setup(x => x.GetAll()).Returns(settlements);
-			mockedContractSaleRepository.Setup(x => x.FindBy(It.IsAny<AllContractSalesMatchingCriteria>())).Returns(expectedContractSalesReadyForInvocing);
-			mockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
-			mockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
-
-			var viewService = new ContractSalesViewService(
-				mockedSettlementRepository.Object, 
-				mockedContractSaleRepository.Object, 
-				mockedSettingsService.Object,
-				mockedTransactionRepository.Object,
-				mockedSynologenSqlProvider.Object);
-
-			var controller = new ContractSalesController(viewService);
-
-			var view = (ViewResult) controller.Settlements();
-			_viewModel = (SettlementListView) view.ViewData.Model;
+			Context = () => 
+			{
+				MockedSettlementRepository.Setup(x => x.GetAll()).Returns(settlements);
+				MockedContractSaleRepository.Setup(x => x.FindBy(It.IsAny<AllContractSalesMatchingCriteria>())).Returns(expectedContractSalesReadyForInvocing);
+				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
+				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
+			};
+			Because = () =>
+			{
+				var controller = new ContractSalesController(ViewService);
+				var view = (ViewResult) controller.Settlements();
+				_viewModel = (SettlementListView) view.ViewData.Model;
+			};
 		}
 
 		[Test]
@@ -252,9 +241,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 	[TestFixture]
 	[Category("ContractSalesControllerTests")]
-	public class When_loading_settlements_list_with_no_settlementable_contract_sales_or_transactions
+	public class When_loading_settlements_list_with_no_settlementable_contract_sales_or_transactions : ContractSalesTestbase
 	{
-		private readonly SettlementListView _viewModel;
+		private SettlementListView _viewModel;
 
 		public When_loading_settlements_list_with_no_settlementable_contract_sales_or_transactions()
 		{
@@ -262,28 +251,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			var expectedLensSubscriptionTransactionsReadyForInvocing = Enumerable.Empty<SubscriptionTransaction>();
 			const int readyForSettlementStatus = 6;
 			var settlements = SettlementFactory.GetList();
-			var mockedSettlementRepository = new Mock<ISettlementRepository>();
-			var mockedContractSaleRepository = new Mock<IContractSaleRepository>();
-			var mockedTransactionRepository = new Mock<ITransactionRepository>();
-			var mockedSettingsService = new Mock<IAdminSettingsService>();
-			var mockedSynologenSqlProvider = new Mock<ISqlProvider>();
-
-			mockedSettlementRepository.Setup(x => x.GetAll()).Returns(settlements);
-			mockedContractSaleRepository.Setup(x => x.FindBy(It.IsAny<AllContractSalesMatchingCriteria>())).Returns(expectedContractSalesReadyForInvocing);
-			mockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
-			mockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
-
-			var viewService = new ContractSalesViewService(
-				mockedSettlementRepository.Object, 
-				mockedContractSaleRepository.Object, 
-				mockedSettingsService.Object,
-				mockedTransactionRepository.Object,
-				mockedSynologenSqlProvider.Object);
-
-			var controller = new ContractSalesController(viewService);
-
-			var view = (ViewResult) controller.Settlements();
-			_viewModel = (SettlementListView) view.ViewData.Model;
+			Context = () => 
+			{
+				MockedSettlementRepository.Setup(x => x.GetAll()).Returns(settlements);
+				MockedContractSaleRepository.Setup(x => x.FindBy(It.IsAny<AllContractSalesMatchingCriteria>())).Returns(expectedContractSalesReadyForInvocing);
+				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
+				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
+			};
+			Because = () =>
+			{
+				var controller = new ContractSalesController(ViewService);
+				var view = (ViewResult) controller.Settlements();
+				_viewModel = (SettlementListView) view.ViewData.Model;
+			};
 		}
 
 		[Test]
@@ -296,44 +276,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 	[TestFixture]
 	[Category("ContractSalesControllerTests")]
-	public class When_creating_a_settlement
+	public class When_creating_a_settlement : ContractSalesTestbase
 	{
 		private readonly int _readyForSettlementStatus;
 		private readonly int _afterSettlementStatus;
-		private readonly Mock<ISettlementRepository> _mockedSettlementRepository;
-		private readonly Mock<IAdminSettingsService> _mockedSettingsService;
-		private readonly Mock<IContractSaleRepository> _mockedContractSaleRepository;
-		private readonly RedirectToRouteResult _redirectToRouteResult;
-		private readonly Mock<ISqlProvider> _mockedSynologenSqlProvider;
+		private RedirectToRouteResult _redirectToRouteResult;
 		private readonly int _expectedNewSettlementId;
-		private readonly Mock<ITransactionRepository> _mockedTransactionRepository;
+		private readonly IEnumerable<SubscriptionTransaction> _transactions;
 
 		public When_creating_a_settlement()
 		{
-			// Arrange
 			_readyForSettlementStatus = 6;
 			_afterSettlementStatus = 8;
 			_expectedNewSettlementId = 33;
-			_mockedSettlementRepository = new Mock<ISettlementRepository>();
-			_mockedContractSaleRepository = new Mock<IContractSaleRepository>();
-			_mockedTransactionRepository = new Mock<ITransactionRepository>();
-			_mockedSettingsService = new Mock<IAdminSettingsService>();
-			_mockedSynologenSqlProvider = new Mock<ISqlProvider>();
-
-			_mockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(_readyForSettlementStatus);
-			_mockedSettingsService.Setup(x => x.GetContractSalesAfterSettlementStatus()).Returns(_afterSettlementStatus);
-			_mockedSynologenSqlProvider.Setup(x => x.AddSettlement(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedNewSettlementId);
-
-			var viewService = new ContractSalesViewService(
-				_mockedSettlementRepository.Object,
-				_mockedContractSaleRepository.Object, 
-				_mockedSettingsService.Object,
-				_mockedTransactionRepository.Object,
-				_mockedSynologenSqlProvider.Object);
-
-			var controller = new ContractSalesController(viewService);
-
-			_redirectToRouteResult = (RedirectToRouteResult) controller.CreateSettlement();
+			_transactions = SubscriptionTransactionFactory.GetList();
+			Context = () => 
+			{
+				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(_readyForSettlementStatus);
+				MockedSettingsService.Setup(x => x.GetContractSalesAfterSettlementStatus()).Returns(_afterSettlementStatus);
+				MockedSynologenSqlProvider.Setup(x => x.AddSettlement(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedNewSettlementId);
+			};
+			Because = () =>
+			{
+				var controller = new ContractSalesController(ViewService);
+				_redirectToRouteResult = (RedirectToRouteResult) controller.CreateSettlement();
+			};
 		}
 
 		[Test]
@@ -344,14 +311,39 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 
 		[Test]
-		public void Repositories_and_Services_were_called_with_expected_parameters()
+		public void Settings_service_was_called_to_get_contract_sale_statuses()
 		{
-			_mockedSynologenSqlProvider.Verify(x => x.AddSettlement(
+			MockedSettingsService.Verify(x => x.GetContractSalesReadyForSettlementStatus(), Times.Once());
+			MockedSettingsService.Verify(x => x.GetContractSalesAfterSettlementStatus(), Times.Once());
+		}
+
+		[Test]
+		public void Settlement_gets_created_with_expected_contract_sale_filters()
+		{
+			MockedSynologenSqlProvider.Verify(x => x.AddSettlement(
 				It.Is<int>(statusBefore => statusBefore.Equals(_readyForSettlementStatus)),
 				It.Is<int>(statusBefore => statusBefore.Equals(_afterSettlementStatus))
 			));
-			_mockedSettingsService.Verify(x => x.GetContractSalesReadyForSettlementStatus(), Times.Once());
-			_mockedSettingsService.Verify(x => x.GetContractSalesAfterSettlementStatus(), Times.Once());
 		}
+
+		//TODO: Tests for connecting transactions
+		//[Test]
+		//public void Transactions_ready_for_settlement_are_fetched()
+		//{
+		//    MockedTransactionRepository.Verify(x => x.FindBy(It.Is<AllTransactionsMatchingCriteria>( 
+		//        criteria => 
+		//            criteria.Reason.Equals(TransactionReason.Payment) &&
+		//            criteria.Type.Equals(TransactionType.Deposit) &&
+		//            criteria.SettlementStatus.Equals(SettlementStatus.DoesNotHaveSettlement)
+		//    )));
+		//}
+
+		//[Test]
+		//public void All_fetched_transactions_get_connected_to_settlement()
+		//{
+		//    _transactions.Each( transaction => MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(
+		//        transactionSaved => transactionSaved.Settlement.Id.Equals(transaction.Id)
+		//    ))));
+		//}
 	}
 }

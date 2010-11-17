@@ -4,8 +4,8 @@
     <Position X="2.25" Y="1" Width="1.75" />
     <AssociationLine Name="Address" Type="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.CustomerAddress" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2.25" Y="1.627" />
-        <Point X="0.812" Y="1.627" />
+        <Point X="2.25" Y="1.575" />
+        <Point X="0.812" Y="1.575" />
         <Point X="0.812" Y="2.5" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -14,7 +14,7 @@
     </AssociationLine>
     <AssociationLine Name="Subscriptions" Type="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2.812" Y="2.976" />
+        <Point X="2.812" Y="2.812" />
         <Point X="2.812" Y="3.562" />
         <Point X="4" Y="3.562" />
       </Path>
@@ -29,6 +29,7 @@
     <ShowAsAssociation>
       <Property Name="Contact" />
       <Property Name="Address" />
+      <Property Name="Shop" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Subscriptions" />
@@ -52,7 +53,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAIAAAAAAACAAAAAAAQAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAEAAAAAAIAAAAIAAAAAAACAAAAAAAAAAwAAAAAAAAA=</HashCode>
       <FileName>Domain\Model\LensSubscription\SubscriptionTransaction.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -91,7 +92,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>ACGAAAAEAAAAAAAAAAAAAAAAAAAQAAAAAgAAAAAAAAA=</HashCode>
+      <HashCode>ACGAAAAEAAAAAQAAAAAAAAAAAAAQAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Domain\Model\LensSubscription\Subscription.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -156,7 +157,7 @@
   <Enum Name="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.TransactionReason">
     <Position X="5.5" Y="7" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAAAAIAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAEAEAAAAIAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Model\LensSubscription\TransactionReason.cs</FileName>
     </TypeIdentifier>
   </Enum>

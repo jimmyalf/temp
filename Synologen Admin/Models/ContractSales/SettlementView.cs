@@ -17,8 +17,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 		[DisplayName("Utbetalas inkl moms")]
 		public string SumAmountIncludingVAT { get; set; }
 		
-		[DisplayName("Utbetalas exkl moms")]
-		public string SumAmountExcludingVAT { get; set; }
+		//[DisplayName("Utbetalas exkl moms")]
+		//public string SumAmountExcludingVAT { get; set; }
+
 		public IEnumerable<ShopSettlementItem> SettlementItems { get; set; }
 	}
 }

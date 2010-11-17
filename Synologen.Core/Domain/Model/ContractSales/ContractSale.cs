@@ -4,7 +4,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales
 	{
 		public virtual Shop Shop { get; set; }
 		public virtual decimal TotalAmountIncludingVAT { get; set; }
-		public virtual decimal TotalAmountExcludingVAT { get; set; }
 		public virtual int StatusId { get; set; }
 	}
 }

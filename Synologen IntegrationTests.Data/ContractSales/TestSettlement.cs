@@ -113,14 +113,12 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				settlement.ContractSales.ForElementAtIndex(0, contractSale => 
 				{
 					contractSale.Id.ShouldBe(_ordersToSave.ElementAt(0).Id);
-					contractSale.TotalAmountExcludingVAT.ShouldBe(_ordersToSave.ElementAt(0).InvoiceSumExcludingVAT.ToDecimal());
 					contractSale.TotalAmountIncludingVAT.ShouldBe(_ordersToSave.ElementAt(0).InvoiceSumIncludingVAT.ToDecimal());
 
 				});
 				settlement.ContractSales.ForElementAtIndex(1, contractSale => 
 				{
 					contractSale.Id.ShouldBe(_ordersToSave.ElementAt(2).Id);
-					contractSale.TotalAmountExcludingVAT.ShouldBe(_ordersToSave.ElementAt(2).InvoiceSumExcludingVAT.ToDecimal());
 					contractSale.TotalAmountIncludingVAT.ShouldBe(_ordersToSave.ElementAt(2).InvoiceSumIncludingVAT.ToDecimal());
 				});
 				settlement.LensSubscriptionTransactions.For((index,transaction) => {

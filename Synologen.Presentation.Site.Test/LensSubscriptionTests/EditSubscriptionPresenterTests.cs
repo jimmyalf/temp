@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			const int shopId = 3;
 			const string url = "/test/url/";
 			_returnUrlPageId = 99;
-			_expectedReturnUrl = String.Format("{0}?{1}", url, customerId);
+			_expectedReturnUrl = String.Format("{0}?customer={1}", url, customerId);
 			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId));
 
 			Context = () =>

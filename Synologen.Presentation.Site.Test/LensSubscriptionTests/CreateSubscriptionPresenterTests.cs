@@ -1,88 +1,69 @@
 using System;
-using System.Collections.Specialized;
-using System.Web;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories;
-using Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers;
+using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.TestHelpers;
 using Subscription=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 {
 	[TestFixture]
 	[Category("CreateLensSubscriptionPresenterTester")]
-	public class When_loading_create_subscription_view 
+	public class When_loading_create_subscription_view : CreateSubscriptionTestbase
 	{
-		protected CreateLensSubscriptionPresenter presenter;
-		private readonly ICreateLensSubscriptionView view;
-		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
-		private readonly Mock<ICustomerRepository> _mockedCustomerRepository;
-		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
-
-
 		public When_loading_create_subscription_view()
 		{
-			//Arrange
 			const int customerId = 5;
 			const int shopId = 5;
-			var mockedHttpContext = new Mock<HttpContextBase>();
-			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(new NameValueCollection{{"customer",customerId.ToString()}});
 
-			var mockedView = new Mock<ICreateLensSubscriptionView>();
-			mockedView.SetupGet(x => x.Model).Returns(new CreateLensSubscriptionModel());
-			view = mockedView.Object;
+			Context = () =>
+			{
+				MockedHttpContext.SetupSingleQuery("customer", customerId.ToString());
+				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId,shopId));
+				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
+				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
+			};
 
-			_mockedCustomerRepository = new Mock<ICustomerRepository>();
-			_mockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId,shopId));
-
-			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
-			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
-			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
-			presenter = new CreateLensSubscriptionPresenter(view, _mockedCustomerRepository.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object) {HttpContext = mockedHttpContext.Object};
-
-			//Act
-			presenter.View_Load(null,new EventArgs());
+			Because = presenter => presenter.View_Load(null, new EventArgs());
 		}
 
 		[Test]
 		public void Presenter_gets_expected_customer()
 		{
-			_mockedCustomerRepository.Verify(x => x.Get(It.Is<int>(id => id.Equals(5))));
+			MockedCustomerRepository.Verify(x => x.Get(It.Is<int>(id => id.Equals(5))));
 		}
 
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			view.Model.CustomerName.ShouldBe("Eva Bergström");
-			view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
-			view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
-			view.Model.DisplayForm.ShouldBe(true);
+			AssertUsing( view => view.Model.CustomerName.ShouldBe("Eva Bergström"));
+		}
+
+		[Test]
+		public void Form_should_be_displayed()
+		{
+			AssertUsing(view =>
+			{
+				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
+				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+				view.Model.DisplayForm.ShouldBe(true);	
+			});
 		}
 	}
 
 	[TestFixture]
 	[Category("CreateLensSubscriptionPresenterTester")]
-	public class When_submitting_create_subscription_view
+	public class When_submitting_create_subscription_view : CreateSubscriptionTestbase
 	{
-		protected CreateLensSubscriptionPresenter presenter;
-		private readonly ICreateLensSubscriptionView view;
-		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
 		private readonly SaveSubscriptionEventArgs _saveEventArgs;
-		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
 		private readonly string _redirectUrl;
 		private readonly int _redirectPageId;
-		private readonly HttpContextMock _mockedHttpContext;
 		private readonly int _customerId;
 
 		public When_submitting_create_subscription_view()
@@ -92,209 +73,147 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			const int shopId = 5;
 			_redirectPageId = 55;
 			_redirectUrl = "/test/redirect/";
-			_mockedHttpContext = new HttpContextMock().SetupSingleQuery("customer", _customerId.ToString());
+			_saveEventArgs = SubscriptionFactory.GetSaveSubscriptionEventArgs();
 
-			var mockedView = new Mock<ICreateLensSubscriptionView>();
-			mockedView.SetupGet(x => x.Model).Returns(new CreateLensSubscriptionModel());
-			mockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
-			view = mockedView.Object;
-
-			var mockedCustomerRepository = new Mock<ICustomerRepository>();
-			mockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(_customerId, shopId));
-
-			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
-			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
-			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
-			_mockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
-			presenter = new CreateLensSubscriptionPresenter(view, mockedCustomerRepository.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object) {HttpContext = _mockedHttpContext.Object};
-
-			//Act
-			_saveEventArgs = new SaveSubscriptionEventArgs
+			Context = () =>
 			{
-				AccountNumber = "123456789",
-                ClearingNumber = "1234",
-                MonthlyAmount = 699.25M,
-				Notes = "Plats för valfria anteckningar"
+				MockedHttpContext.SetupSingleQuery("customer", _customerId.ToString());
+				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
+				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(_customerId, shopId));
+				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
+				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
+				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
 			};
 
-			presenter.View_Load(null, new EventArgs());
-			presenter.View_Submit(null, _saveEventArgs);
+			Because = presenter =>
+			{
+				presenter.View_Load(null, new EventArgs());
+				presenter.View_Submit(null, _saveEventArgs);
+			};
 		}
 
 		[Test]
 		public void Presenter_gets_expected_subscription()
 		{
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.CreatedDate.IsSameDay(DateTime.Now))));
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Customer.Id.Equals(5))));
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.AccountNumber.Equals(_saveEventArgs.AccountNumber))));
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.ClearingNumber.Equals(_saveEventArgs.ClearingNumber))));
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.MonthlyAmount.Equals(_saveEventArgs.MonthlyAmount))));
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Status.Equals(SubscriptionStatus.Created))));
-			_mockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Notes.Equals(_saveEventArgs.Notes))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.CreatedDate.IsSameDay(DateTime.Now))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Customer.Id.Equals(5))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.AccountNumber.Equals(_saveEventArgs.AccountNumber))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.ClearingNumber.Equals(_saveEventArgs.ClearingNumber))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.PaymentInfo.MonthlyAmount.Equals(_saveEventArgs.MonthlyAmount))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Status.Equals(SubscriptionStatus.Created))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Notes.Equals(_saveEventArgs.Notes))));
 		}
 
 		[Test]
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
-			_mockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
-			_mockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(String.Concat(_redirectUrl,"?customer=",_customerId)))));
+			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
+			MockedHttpContext.VerifyRedirect("{0}?customer={1}",_redirectUrl, _customerId);
 		}
 	}
 
 	[TestFixture]
 	[Category("CreateLensSubscriptionPresenterTester")]
-	public class When_submitting_create_subscription_view_with_no_set_redirect_on_save_page_id
+	public class When_submitting_create_subscription_view_with_no_set_redirect_on_save_page_id : CreateSubscriptionTestbase
 	{
-		protected CreateLensSubscriptionPresenter presenter;
-		private readonly ICreateLensSubscriptionView view;
-		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
-		private readonly SaveSubscriptionEventArgs _saveEventArgs;
-		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
 		private readonly string _currentPageUrl;
-		//private readonly int _redirectPageId;
-		private readonly Mock<HttpResponseBase> _mockedHttpResponse;
-
 
 		public When_submitting_create_subscription_view_with_no_set_redirect_on_save_page_id()
 		{
 			//Arrange
 			const int customerId = 5;
 			const int shopId = 5;
-			//_redirectPageId = 55;
+			const int noredirectPageId = 0;
 			_currentPageUrl = "/test/redirect/";
-			var currentPageUri = "http://www.test.se" + _currentPageUrl;
-			var mockedHttpContext = new Mock<HttpContextBase>();
-			_mockedHttpResponse = new Mock<HttpResponseBase>();
-			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(new NameValueCollection{{"customer",customerId.ToString()}});
-			mockedHttpContext.SetupGet(x => x.Response).Returns(_mockedHttpResponse.Object);
-			mockedHttpContext.SetupGet(x => x.Request.Url).Returns(new Uri(currentPageUri));
+			var saveEventArgs = SubscriptionFactory.GetSaveSubscriptionEventArgs();
 
-
-			var mockedView = new Mock<ICreateLensSubscriptionView>();
-			mockedView.SetupGet(x => x.Model).Returns(new CreateLensSubscriptionModel());
-			mockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(0);
-			view = mockedView.Object;
-
-			var mockedCustomerRepository = new Mock<ICustomerRepository>();
-			mockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId, shopId));
-
-			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
-			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
-			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
-			presenter = new CreateLensSubscriptionPresenter(view, mockedCustomerRepository.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object) {HttpContext = mockedHttpContext.Object};
-
-			//Act
-			_saveEventArgs = new SaveSubscriptionEventArgs
+			Context = () =>
 			{
-				AccountNumber = "123456789",
-                ClearingNumber = "1234",
-                MonthlyAmount = 699.25M,
-				Notes = "Plats för valfria anteckningar"
+				MockedHttpContext.SetupSingleQuery("customer", customerId.ToString());
+				MockedHttpContext.SetupCurrentPathAndQuery(_currentPageUrl);
+				MockedView.SetupGet(x => x.Model).Returns(new CreateLensSubscriptionModel());
+				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(noredirectPageId);
+				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId, shopId));
+				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
+				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 			};
 
-			presenter.View_Load(null, new EventArgs());
-			presenter.View_Submit(null, _saveEventArgs);
+			Because = presenter =>
+			{
+				presenter.View_Load(null, new EventArgs());
+				presenter.View_Submit(null, saveEventArgs);
+			};
 		}
 
 		[Test]
 		public void Presenter_perfoms_redirect_to_current_page()
 		{
-			_mockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_currentPageUrl))));
+			MockedHttpContext.VerifyRedirect(_currentPageUrl);
 		}
 	}
 
 	[TestFixture]
 	[Category("CreateLensSubscriptionPresenterTester")]
-	public class When_loading_create_subscription_view_with_customer_belonging_to_another_shop 
+	public class When_loading_create_subscription_view_with_customer_belonging_to_another_shop : CreateSubscriptionTestbase
 	{
-		protected CreateLensSubscriptionPresenter presenter;
-		private readonly ICreateLensSubscriptionView view;
-		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
-		private readonly Mock<ICustomerRepository> _mockedCustomerRepository;
-		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
-
-
 		public When_loading_create_subscription_view_with_customer_belonging_to_another_shop()
 		{
-			//Arrange
 			const int customerId = 5;
-			var mockedHttpContext = new Mock<HttpContextBase>();
-			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(new NameValueCollection{{"customer",customerId.ToString()}});
+			const int shopId = 5;
+			const int otherShopId = 4;
 
-			var mockedView = new Mock<ICreateLensSubscriptionView>();
-			mockedView.SetupGet(x => x.Model).Returns(new CreateLensSubscriptionModel());
-			view = mockedView.Object;
+			Context = () => 
+			{
+				MockedHttpContext.SetupSingleQuery("customer", customerId.ToString());
+				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId, otherShopId));
+				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
+				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
+			};
 
-			_mockedCustomerRepository = new Mock<ICustomerRepository>();
-			_mockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId, 5));
-
-			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
-
-			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
-			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(4);
-
-			presenter = new CreateLensSubscriptionPresenter(view, _mockedCustomerRepository.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object) {HttpContext = mockedHttpContext.Object};
-
-			//Act
-			presenter.View_Load(null,new EventArgs());
+			Because = presenter => presenter.View_Load(null,new EventArgs());
 		}
 
 		[Test]
-		public void Model_should_have_expected_values()
+		public void Shop_does_not_have_access_to_given_customer_message_should_be_displayed()
 		{
-			view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(true);
-			view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
-			view.Model.DisplayForm.ShouldBe(false);
+			AssertUsing( view =>
+			{
+				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(true);
+				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+				view.Model.DisplayForm.ShouldBe(false);	
+			});
 		}
 	}
 
 	[TestFixture]
 	[Category("CreateLensSubscriptionPresenterTester")]
-	public class When_loading_create_subscription_view_with_shop_not_having_lens_subscription_access 
+	public class When_loading_create_subscription_view_with_shop_not_having_lens_subscription_access : CreateSubscriptionTestbase
 	{
-		protected CreateLensSubscriptionPresenter presenter;
-		private readonly ICreateLensSubscriptionView view;
-		private readonly Mock<ISubscriptionRepository> _mockedSubscriptionRepository;
-		private readonly Mock<ICustomerRepository> _mockedCustomerRepository;
-		private readonly Mock<ISynologenMemberService> _mockedSynologenMemberService;
-
-
 		public When_loading_create_subscription_view_with_shop_not_having_lens_subscription_access()
 		{
-			//Arrange
 			const int customerId = 5;
 			const int shopId = 11;
-			var mockedHttpContext = new Mock<HttpContextBase>();
-			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(new NameValueCollection{{"customer",customerId.ToString()}});
 
-			var mockedView = new Mock<ICreateLensSubscriptionView>();
-			mockedView.SetupGet(x => x.Model).Returns(new CreateLensSubscriptionModel());
-			view = mockedView.Object;
+			Context = () => 
+			{
+				MockedHttpContext.SetupSingleQuery("customer", customerId.ToString());
+				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId, shopId));
+				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(false);
+				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
+			};
 
-			_mockedCustomerRepository = new Mock<ICustomerRepository>();
-			_mockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId, shopId));
-
-			_mockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
-
-			_mockedSynologenMemberService = new Mock<ISynologenMemberService>();
-			_mockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(false);
-			_mockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
-
-			presenter = new CreateLensSubscriptionPresenter(view, _mockedCustomerRepository.Object, _mockedSubscriptionRepository.Object, _mockedSynologenMemberService.Object) {HttpContext = mockedHttpContext.Object};
-
-			//Act
-			presenter.View_Load(null,new EventArgs());
+			Because = presenter => presenter.View_Load(null,new EventArgs());
 		}
 
 		[Test]
-		public void Model_should_have_expected_values()
+		public void Shop_does_not_have_access_to_lens_subscriptions_message_should_be_displayed()
 		{
-			view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
-			view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(true);
-			view.Model.DisplayForm.ShouldBe(false);
+			AssertUsing( view =>
+			{
+				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
+				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(true);
+				view.Model.DisplayForm.ShouldBe(false);	
+			});
 		}
 	}
 }

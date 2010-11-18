@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers
 		public Mock<HttpResponseBase> MockedHttpResponse { get; set; }
 		public Mock<HttpRequestBase> MockedHttpRequest { get; set; }
 
-		public HttpContextMock SetupRelativePathAndQuery(string pathAndQueryUrl)
+		public HttpContextMock SetupCurrentPathAndQuery(string pathAndQueryUrl)
 		{
 			var fullUrl = "http://www.test.se".AppendUrl(pathAndQueryUrl);
 			MockedHttpRequest.SetupGet(x => x.Url).Returns(new Uri(fullUrl));
@@ -35,6 +35,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers
 		public HttpContextMock SetupSingleQuery(string key, string value)
 		{
 			return SetupQueryString(new NameValueCollection { { key, value } });
+		}
+
+		public void VerifyRedirect(string pathAndQuery)
+		{
+			MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(pathAndQuery))));
+		}
+		public void VerifyRedirect(string format, params object[] parameters)
+		{
+			var expectedUrl = string.Format(format, parameters);
+			MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(expectedUrl))));
 		}
 	}
 }

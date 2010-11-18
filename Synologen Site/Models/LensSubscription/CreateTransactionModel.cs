@@ -8,58 +8,41 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 	public class CreateTransactionModel
 	{
 
-		public CreateTransactionModel()
-		{
-			TypeList = CreateTypeList();
-		}
-
-		private static List<TransactionListItemModel> CreateTypeList()
-		{
-			return new List<TransactionListItemModel>
-					{
-			       		new TransactionListItemModel { Text = "Välj typ", Value = "0" },
-						new TransactionListItemModel { Text = TransactionType.Deposit.GetEnumDisplayName(), Value = ((int) TransactionType.Deposit).ToString() },
-						new TransactionListItemModel { Text = TransactionType.Withdrawal.GetEnumDisplayName(), Value = ((int) TransactionType.Withdrawal).ToString() }
-			       	};
-
-		}
-
-		public  decimal Amount { get; set; }
+		public decimal Amount { get; set; }
 		public TransactionType Type { get; set; }
 		public TransactionReason Reason { get; set; }
 		public DateTime CreatedDate { get; set; }
 
-		public IEnumerable<TransactionListItemModel> TypeList { get; set; }
-
-		public bool DisplaySaveWithdrawal
-		{
+		public IEnumerable<TransactionListItemModel> TypeList {
 			get
 			{
-				return Reason == TransactionReason.Withdrawal;
+				return new List<TransactionListItemModel>
+				{
+					new TransactionListItemModel { Text = "Välj typ", Value = "0" },
+					new TransactionListItemModel
+					{
+						Text = TransactionType.Deposit.GetEnumDisplayName(),
+						Value = TransactionType.Deposit.ToInteger().ToString()
+					},
+					new TransactionListItemModel
+					{
+						Text = TransactionType.Withdrawal.GetEnumDisplayName(),
+						Value = TransactionType.Withdrawal.ToInteger().ToString()
+					}
+				};
 			}
 		}
 
-		public bool DisplaySaveCorrection
-		{
-			get
-			{
-				return Reason == TransactionReason.Correction;
-			}
-		}
+		public bool DisplaySaveWithdrawal { get { return Reason == TransactionReason.Withdrawal; } }
 
-		public bool DisplayChooseReason
-		{
+		public bool DisplaySaveCorrection { get { return Reason == TransactionReason.Correction; } }
+
+		public bool DisplayChooseReason { 
 			get
 			{
 				return (Reason != TransactionReason.Withdrawal
 				&& Reason != TransactionReason.Correction);
 			}
 		}
-	}
-
-	public class TransactionListItemModel
-	{
-		public string Value { get; set; }
-		public string Text { get; set; }
 	}
 }

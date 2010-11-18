@@ -28,15 +28,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 
 		public void View_Load(object sender, EventArgs e)
 		{
-			Func<SubscriptionError, SubscriptionErrorListItemModel> errorConverter = (error) =>
-			 new SubscriptionErrorListItemModel
-         		{
-         			CreatedDate = error.CreatedDate.ToString("yyyy-MM-dd"),
-         			TypeName = error.Type.GetEnumDisplayName(),
-         			HandledDate = error.HandledDate.HasValue ? error.HandledDate.Value.ToString("yyyy-MM-dd") : string.Empty,
-         			ErrorId = error.Id.ToString(),
-					IsVisible = error.IsHandled ? false : true
-				};
+			Func<SubscriptionError, SubscriptionErrorListItemModel> errorConverter = error => new SubscriptionErrorListItemModel
+     		{
+     			CreatedDate = error.CreatedDate.ToString("yyyy-MM-dd"),
+     			TypeName = error.Type.GetEnumDisplayName(),
+     			HandledDate = error.HandledDate.HasValue ? error.HandledDate.Value.ToString("yyyy-MM-dd") : string.Empty,
+     			ErrorId = error.Id.ToString(),
+				IsVisible = error.IsHandled ? false : true
+			};
 			var subscriptionId = HttpContext.Request.Params["subscription"];
 			var subscription = _subscriptionRepository.Get(subscriptionId.ToIntOrDefault());
 			View.Model.List = subscription.Errors.Select(errorConverter);

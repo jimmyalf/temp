@@ -1,143 +1,130 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
-using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories;
+using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.TestHelpers;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 {
 	
 	[TestFixture]
 	[Category("SubscriptionListPresenterTester")]
-	public class When_loading_customer_list_view
+	public class When_loading_customer_list_view : ListCustomersTestbase
 	{
-		protected ListCustomersPresenter _presenter;
-		private readonly IListCustomersView _view;
-		private readonly Customer[] _customersList;
-		private readonly Mock<ICustomerRepository> _customerRepository;
-		private readonly Mock<ISynologenMemberService> _synologenMemberService;
+		private readonly IList<Customer> _customersList;
 		private readonly string _editPageUrl;
 
 		public When_loading_customer_list_view()
 		{
 			// Arrange
-			_customersList = CustomerFactory.GetList().ToArray();
+			_customersList = CustomerFactory.GetList().ToList();
 			_editPageUrl = "/testPage";
 
-			var view = new Mock<IListCustomersView>();
-			_customerRepository = new Mock<ICustomerRepository>();
-			_customerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
+			Context = () =>
+			{
+				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
+				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
+				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+			};
 
-			view.SetupGet(x => x.Model).Returns(new ListCustomersModel());
-			view.SetupGet(x => x.EditPageId).Returns(67);
-			_view = view.Object;
-
-			_synologenMemberService = new Mock<ISynologenMemberService>();
-			_synologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-			_synologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
-
-			_presenter = new ListCustomersPresenter(_view, _customerRepository.Object, _synologenMemberService.Object);
-
-			//Act
-			_presenter.View_Load(null, new EventArgs());
+			Because = presenter => presenter.View_Load(null, new EventArgs());
 			
 		}
 
 		[Test]
 		public void Presenter_creates_expected_criteria()
 		{
-			_customerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => y.ShopId.Equals(159))));
-			_customerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => Equals(y.SearchTerm, null))));
+			MockedCustomerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => y.ShopId.Equals(159))));
+			MockedCustomerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => Equals(y.SearchTerm, null))));
 		}
 
 		[Test]
 		public void Presenter_asks_for_expected_page_url_and_shop_id()
 		{
-			_synologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>(y => y.Equals(67))));
-			_synologenMemberService.Verify(x => x.GetCurrentShopId());
+			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>(y => y.Equals(67))));
+			MockedSynologenMemberService.Verify(x => x.GetCurrentShopId());
 		}
 
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			_view.Model.List.Count().ShouldBe(3);
-			for (var i = 0; i < _customersList.Length; i++)
+			AssertUsing( view =>
 			{
-				_view.Model.List.ToArray()[i].FirstName.ShouldBe(_customersList[i].FirstName);
-				_view.Model.List.ToArray()[i].LastName.ShouldBe(_customersList[i].LastName);
-				_view.Model.List.ToArray()[i].PersonalIdNumber.ShouldBe(_customersList[i].PersonalIdNumber);
-				_view.Model.List.ToArray()[i].EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList[i].Id);
-			}
+				view.Model.List.Count().ShouldBe(_customersList.Count());
+				view.Model.List.For((index, customerItem) =>
+				{
+					view.Model.List.ElementAt(index).FirstName.ShouldBe(_customersList.ElementAt(index).FirstName);
+					view.Model.List.ElementAt(index).LastName.ShouldBe(_customersList.ElementAt(index).LastName);
+					view.Model.List.ElementAt(index).PersonalIdNumber.ShouldBe(_customersList.ElementAt(index).PersonalIdNumber);
+					view.Model.List.ElementAt(index).EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList.ElementAt(index).Id);
+				});	
+			});
 		}
-
-
 	}
 
 
 	[TestFixture]
 	[Category("SubscriptionListPresenterTester")]
-	public class When_searching_customer_list_view
+	public class When_searching_customer_list_view : ListCustomersTestbase
 	{
-		protected ListCustomersPresenter _presenter;
-		private readonly IListCustomersView _view;
-		private readonly Customer[] _customersList;
-		private readonly Mock<ICustomerRepository> _customerRepository;
-		private readonly Mock<ISynologenMemberService> _synologenMemberService;
+		private readonly IList<Customer> _customersList;
 		private readonly string _editPageUrl;
 
 		public When_searching_customer_list_view()
 		{
 			// Arrange
-			_customersList = CustomerFactory.GetList().ToArray();
+			_customersList = CustomerFactory.GetList().ToList();
 			_editPageUrl = "/testPage";
-			var view = new Mock<IListCustomersView>();
-			_customerRepository = new Mock<ICustomerRepository>();
-			_customerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 
-			view.SetupGet(x => x.Model).Returns(new ListCustomersModel());
-			view.SetupGet(x => x.EditPageId).Returns(67);
-			_view = view.Object;
+			Context = () =>
+			{
+				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
+				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
+				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+			};
 
-			_synologenMemberService = new Mock<ISynologenMemberService>();
-			_synologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-			_synologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
-
-			_presenter = new ListCustomersPresenter(_view, _customerRepository.Object, _synologenMemberService.Object);
-
-			//Act
-			_presenter.View_Load(null, new EventArgs());
-			_presenter.SearchList(null, new SearchEventArgs { SearchTerm = "Test" });
-
+			Because = presenter => {
+				presenter.View_Load(null, new EventArgs());
+				presenter.SearchList(null, new SearchEventArgs { SearchTerm = "Test" });
+			};
 		}
 
 		[Test]
 		public void Presenter_creates_expected_criteria()
 		{
-			_customerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => y.ShopId.Equals(159))), Times.Exactly(2));
-			_customerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => Equals(y.SearchTerm, null))), Times.Once());
-			_customerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => Equals(y.SearchTerm, "Test"))), Times.Once());
+			MockedCustomerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>( criteria => 
+				Equals(criteria.SearchTerm, null) && 
+				criteria.ShopId.Equals(159)
+			)), Times.Once());
+			MockedCustomerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>( criteria => 
+				Equals(criteria.SearchTerm, "Test") &&
+				criteria.ShopId.Equals(159)
+			)), Times.Once());
 		}
 
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			_view.Model.List.Count().ShouldBe(3);
-			for (var i = 0; i < _customersList.Length; i++)
+			AssertUsing( view =>
 			{
-				_view.Model.List.ToArray()[i].FirstName.ShouldBe(_customersList[i].FirstName);
-				_view.Model.List.ToArray()[i].LastName.ShouldBe(_customersList[i].LastName);
-				_view.Model.List.ToArray()[i].PersonalIdNumber.ShouldBe(_customersList[i].PersonalIdNumber);
-				_view.Model.List.ToArray()[i].EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList[i].Id);
-			}
+				view.Model.List.Count().ShouldBe(_customersList.Count());
+				view.Model.List.For((index, customerItem) =>
+				{
+					view.Model.List.ElementAt(index).FirstName.ShouldBe(_customersList.ElementAt(index).FirstName);
+					view.Model.List.ElementAt(index).LastName.ShouldBe(_customersList.ElementAt(index).LastName);
+					view.Model.List.ElementAt(index).PersonalIdNumber.ShouldBe(_customersList.ElementAt(index).PersonalIdNumber);
+					view.Model.List.ElementAt(index).EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList.ElementAt(index).Id);
+				});	
+			});
 		}
 
 

@@ -103,6 +103,7 @@
     <Compile Include="Models\LensSubscription\ListTransactionModel.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionErrorListItemModel.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionTransactionListItemModel.cs" />
+    <Compile Include="Models\LensSubscription\TransactionListItemModel.cs" />
     <Compile Include="Models\ListFrameOrdersModel.cs" />
     <Compile Include="Models\ViewFrameOrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -447,9 +448,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

@@ -68,6 +68,16 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			}
 		}
 
+		public static void ForBoth<TType1,TType2>(this IEnumerable<TType1> list1,IList<TType2> list2,  Action<TType1, TType2> enumerableAction)
+		{
+			var index = 0;
+			foreach (var item in list1)
+			{
+				enumerableAction.Invoke(item, list2.ElementAt(index));
+				index++;
+			}
+		}
+
 		public static void ForElementAtIndex<TType>(this IEnumerable<TType> list, int index, Action<TType> action)
 		{
 			action.Invoke(list.ElementAt(index));

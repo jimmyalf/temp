@@ -13,20 +13,19 @@ using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription;
+using Spinit.Wpc.Synologen.Presentation.Test.TestHelpers;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test
 {
 	[TestFixture]
 	[Category("ContractSalesControllerTests")]
-	public class When_loading_settlement_view : ContractSalesTestbase
+	public class When_loading_settlement_view : ContractSalesTestbase<SettlementView>
 	{
 		private readonly int _settlementId;
-		private SettlementView _viewModel;
 		private readonly ShopSettlement _settlement;
 
 		public When_loading_settlement_view()
 		{
-			// Arrange
 			_settlementId = 5;
 			_settlement = SettlementFactory.Get(_settlementId);
 
@@ -35,45 +34,41 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedSettlementRepository.Setup(x => x.Get(It.Is<int>(id => id.Equals(_settlementId)))).Returns(_settlement);
 			};
 
-			Because = controller => 
-			{
-				var view = (ViewResult)controller.ViewSettlement(_settlementId);
-				_viewModel = (SettlementView)view.ViewData.Model;
-			};
+			Because = controller => controller.ViewSettlement(_settlementId);
 		}
 
 		[Test]
 		public void ViewModel_should_have_expected_values()
 		{
-			_viewModel.CreatedDate.ShouldBe(_settlement.CreatedDate.ToString("yyyy-MM-dd HH:mm"));
-			_viewModel.Id.ShouldBe(_settlement.Id);
-			_viewModel.Period.ShouldBe("1045");
-			_viewModel.SumAmountIncludingVAT.ShouldBe((4546.11M).ToString("C2"));
-			_viewModel.SettlementItems.Count().ShouldBe(4);
-			_viewModel.SettlementItems.Each(settlementItem => 
+			ViewModel.CreatedDate.ShouldBe(_settlement.CreatedDate.ToString("yyyy-MM-dd HH:mm"));
+			ViewModel.Id.ShouldBe(_settlement.Id);
+			ViewModel.Period.ShouldBe("1045");
+			ViewModel.SumAmountIncludingVAT.ShouldBe((4546.11M).ToString("C2"));
+			ViewModel.SettlementItems.Count().ShouldBe(4);
+			ViewModel.SettlementItems.Each(settlementItem => 
 			{
 				settlementItem.BankGiroNumber.ShouldBe("123456987");
 				settlementItem.ShopDescription.ShouldBe("1350 - Örebro Optik");
 			});
-			_viewModel.SettlementItems.ForElementAtIndex( 0, settlementItem =>  
+			ViewModel.SettlementItems.ForElementAtIndex( 0, settlementItem =>  
 			{
 			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(2);
 				settlementItem.NumberOfLensSubscriptionTransactionsInSettlement.ShouldBe(4);
 			    settlementItem.SumAmountIncludingVAT.ShouldBe(1592.87M.ToString("C2"));
 			});
-			_viewModel.SettlementItems.ForElementAtIndex( 1, settlementItem =>  
+			ViewModel.SettlementItems.ForElementAtIndex( 1, settlementItem =>  
 			{
 			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(3);
 				settlementItem.NumberOfLensSubscriptionTransactionsInSettlement.ShouldBe(2);
 			    settlementItem.SumAmountIncludingVAT.ShouldBe(2145.34M.ToString("C2"));
 			});
-			_viewModel.SettlementItems.ForElementAtIndex( 2, settlementItem =>  
+			ViewModel.SettlementItems.ForElementAtIndex( 2, settlementItem =>  
 			{
 			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(1);
 				settlementItem.NumberOfLensSubscriptionTransactionsInSettlement.ShouldBe(0);
 			    settlementItem.SumAmountIncludingVAT.ShouldBe(678.90M.ToString("C2"));
 			});
-			_viewModel.SettlementItems.ForElementAtIndex( 3, settlementItem =>  
+			ViewModel.SettlementItems.ForElementAtIndex( 3, settlementItem =>  
 			{
 			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(0);
 				settlementItem.NumberOfLensSubscriptionTransactionsInSettlement.ShouldBe(1);
@@ -84,9 +79,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 	[TestFixture]
 	[Category("ContractSalesControllerTests")]
-	public class When_loading_settlements_list_with_new_settlementable_contract_sales_and_transactions : ContractSalesTestbase
+	public class When_loading_settlements_list_with_new_settlementable_contract_sales_and_transactions : ContractSalesTestbase<SettlementListView>
 	{
-		private SettlementListView _viewModel;
 		private readonly IList<ShopSettlement> _settlements;
 		private readonly IEnumerable<ContractSale> _expectedContractSalesReadyForInvocing;
 		private readonly int _readyForSettlementStatus;
@@ -108,20 +102,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(_readyForSettlementStatus);
 			};
 
-			Because = controller =>
-			{
-				var view = (ViewResult) controller.Settlements();
-				_viewModel = (SettlementListView) view.ViewData.Model;
-			};
+			Because = controller => controller.Settlements();
 		}
 
 		[Test]
 		public void ViewModel_should_have_expected_values()
 		{
-			_viewModel.NumberOfContractSalesReadyForInvocing.ShouldBe(_expectedContractSalesReadyForInvocing.Count());
-			_viewModel.NumberOfLensSubscriptionTransactionsReadyForInvocing.ShouldBe(_expectedLensSubscriptionTransactionsReadyForInvocing.Count());
-			_viewModel.Settlements.Count().ShouldBe(_settlements.Count());
-			_viewModel.Settlements.For((index, settlement) =>
+			ViewModel.NumberOfContractSalesReadyForInvocing.ShouldBe(_expectedContractSalesReadyForInvocing.Count());
+			ViewModel.NumberOfLensSubscriptionTransactionsReadyForInvocing.ShouldBe(_expectedLensSubscriptionTransactionsReadyForInvocing.Count());
+			ViewModel.Settlements.Count().ShouldBe(_settlements.Count());
+			ViewModel.Settlements.For((index, settlement) =>
 			{
 			    settlement.CreatedDate.ShouldBe(_settlements.ElementAt(index).CreatedDate.ToString("yyyy-MM-dd HH:mm"));
 			    settlement.Id.ShouldBe(_settlements.ElementAt(index).Id);
@@ -133,7 +123,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void Create_settlement_button_should_be_visible()
 		{
-			_viewModel.DisplayCreateSettlementsButton.ShouldBe(true);
+			ViewModel.DisplayCreateSettlementsButton.ShouldBe(true);
 		}
 
 		[Test]
@@ -167,10 +157,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 	[TestFixture]
 	[Category("ContractSalesControllerTests")]
-	public class When_loading_settlements_list_with_settlementable_contract_sales : ContractSalesTestbase
+	public class When_loading_settlements_list_with_settlementable_contract_sales : ContractSalesTestbase<SettlementListView>
 	{
-		private SettlementListView _viewModel;
-
 		public When_loading_settlements_list_with_settlementable_contract_sales()
 		{
 			var expectedContractSalesReadyForInvocing = ContractSaleFactory.GetList(15);
@@ -186,27 +174,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
 			};
 
-			Because = controller =>
-			{
-				var view = (ViewResult) controller.Settlements();
-				_viewModel = (SettlementListView) view.ViewData.Model;
-			};
+			Because = controller => controller.Settlements();
 		}
 
 		[Test]
 		public void Create_settlement_button_should_be_visible()
 		{
-			_viewModel.DisplayCreateSettlementsButton.ShouldBe(true);
+			ViewModel.DisplayCreateSettlementsButton.ShouldBe(true);
 		}
 
 	}
 
 	[TestFixture]
 	[Category("ContractSalesControllerTests")]
-	public class When_loading_settlements_list_with_settlementable_transactions : ContractSalesTestbase
+	public class When_loading_settlements_list_with_settlementable_transactions : ContractSalesTestbase<SettlementListView>
 	{
-		private SettlementListView _viewModel;
-
 		public When_loading_settlements_list_with_settlementable_transactions()
 		{
 			const int readyForSettlementStatus = 6;
@@ -220,27 +202,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
 			};
-			Because = controller =>
-			{
-				var view = (ViewResult) controller.Settlements();
-				_viewModel = (SettlementListView) view.ViewData.Model;
-			};
+			Because = controller => controller.Settlements();
 		}
 
 		[Test]
 		public void Create_settlement_button_should_be_visible()
 		{
-			_viewModel.DisplayCreateSettlementsButton.ShouldBe(true);
+			ViewModel.DisplayCreateSettlementsButton.ShouldBe(true);
 		}
 
 	}
 
 	[TestFixture]
 	[Category("ContractSalesControllerTests")]
-	public class When_loading_settlements_list_with_no_settlementable_contract_sales_or_transactions : ContractSalesTestbase
+	public class When_loading_settlements_list_with_no_settlementable_contract_sales_or_transactions : ContractSalesTestbase<SettlementListView>
 	{
-		private SettlementListView _viewModel;
-
 		public When_loading_settlements_list_with_no_settlementable_contract_sales_or_transactions()
 		{
 			var expectedContractSalesReadyForInvocing = Enumerable.Empty<ContractSale>();
@@ -255,28 +231,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
 			};
 
-			Because = controller =>
-			{
-				var viewResult = (ViewResult) controller.Settlements();
-				_viewModel = (SettlementListView) viewResult.ViewData.Model;
-			};
+			Because = controller => controller.Settlements();
 		}
 
 		[Test]
 		public void Create_settlement_button_should_be_hidden()
 		{
-			_viewModel.DisplayCreateSettlementsButton.ShouldBe(false);
+			ViewModel.DisplayCreateSettlementsButton.ShouldBe(false);
 		}
 
 	}
 
 	[TestFixture]
 	[Category("ContractSalesControllerTests")]
-	public class When_creating_a_settlement : ContractSalesTestbase
+	public class When_creating_a_settlement : ContractSalesTestbase<RedirectToRouteResult>
 	{
 		private readonly int _readyForSettlementStatus;
 		private readonly int _afterSettlementStatus;
-		private RedirectToRouteResult _redirectToRouteResult;
 		private readonly int _expectedNewSettlementId;
 		private readonly IEnumerable<SubscriptionTransaction> _transactions;
 
@@ -293,14 +264,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				MockedSynologenSqlProvider.Setup(x => x.AddSettlement(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedNewSettlementId);
 				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(_transactions);
 			};
-			Because = controller => _redirectToRouteResult = (RedirectToRouteResult) controller.CreateSettlement();
+			Because = controller => controller.CreateSettlement();
 		}
 
 		[Test]
 		public void Controller_redirects_to_view_page_for_newly_created_settlement()
 		{
-			_redirectToRouteResult.RouteValues["action"].ShouldBe("ViewSettlement");
-			_redirectToRouteResult.RouteValues["id"].ShouldBe(_expectedNewSettlementId);
+			ViewModel.RouteValues["action"].ShouldBe("ViewSettlement");
+			ViewModel.RouteValues["id"].ShouldBe(_expectedNewSettlementId);
 		}
 
 		[Test]

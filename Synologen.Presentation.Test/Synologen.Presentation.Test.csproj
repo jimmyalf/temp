@@ -85,7 +85,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractSalesControllerTests.cs" />
-    <Compile Include="ContractSalesTestbase.cs" />
+    <Compile Include="TestHelpers\ContractSalesTestbase.cs" />
+    <Compile Include="TestHelpers\ControllerTestbase.cs" />
     <Compile Include="Factories\ContractSales\ContractSaleFactory.cs" />
     <Compile Include="Factories\ContractSales\CustomerFactory.cs" />
     <Compile Include="Factories\ContractSales\ShopFactory.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Factories\LensSubscription\SubscriptionFactory.cs" />
     <Compile Include="Factories\ContractSales\SettlementFactory.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="TestHelpers\LensSubscriptionTestbase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen Admin\Synologen Admin.csproj">

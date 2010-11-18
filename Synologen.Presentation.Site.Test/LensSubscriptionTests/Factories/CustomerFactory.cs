@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories
 {
@@ -33,18 +35,50 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 							   "08.45634235", "Solvägen 25", "3A", "Stockholm", "533 21", "Fritextfält", countryId, shopId);
 		}
 
+		public static SaveCustomerEventArgs GetSaveCustomerEventArgs(Customer customer)
+		{
+			return new SaveCustomerEventArgs
+			{
+				AddressLineOne = customer.Address.AddressLineOne,
+				AddressLineTwo = customer.Address.AddressLineTwo,
+				City = customer.Address.City,
+				PostalCode = customer.Address.PostalCode,
+				CountryId = customer.Address.Country.Id,
+				Email = customer.Contact.Email,
+				FirstName = customer.FirstName,
+				LastName = customer.LastName,
+				MobilePhone = customer.Contact.MobilePhone,
+				PersonalIdNumber = customer.PersonalIdNumber,
+				Phone = customer.Contact.Phone,
+				Notes = customer.Notes
+			};
+		}
+
+		public static SaveCustomerEventArgs GetSaveCustomerEventArgs(int countryId) 
+		{ 
+			return  new SaveCustomerEventArgs
+			{
+				FirstName = "Carina",
+				LastName = "Melander",
+				AddressLineOne = "Vinkelslipsgatan 32",
+				AddressLineTwo = "Uppgång 3H",
+				City = "Storstad",
+				CountryId = countryId,
+				Email = "carina.melander@gmail.com",
+				MobilePhone = "0704-565675",
+				PersonalIdNumber = "8106296729",
+				Phone = "0783-45674537",
+				PostalCode = "688 44",
+				Notes = "Här kan man skriva vad man vill."
+			};
+		}
+
 		private static Customer GetCustomer(int id, string firstName, string lastName, string personalIdNumber, int shopId)
 		{
-			var mockedCustomer = new Mock<Customer>();
-			mockedCustomer.SetupGet(x => x.Id).Returns(id);
-			mockedCustomer.SetupGet(x => x.FirstName).Returns(firstName);
-			mockedCustomer.SetupGet(x => x.LastName).Returns(lastName);
-			mockedCustomer.SetupGet(x => x.PersonalIdNumber).Returns(personalIdNumber);
 			var mockedShop = new Mock<Shop>();
 			mockedShop.SetupGet(x => x.Id).Returns(shopId);
 			mockedShop.SetupGet(x => x.Name).Returns("Butik");
-			mockedCustomer.SetupGet(x => x.Shop).Returns(mockedShop.Object);
-			return mockedCustomer.Object;
+			return GetCustomer(id, firstName, lastName, personalIdNumber, mockedShop);
 		}
 
 		private static Customer GetCustomer(int id, string firstName, string lastName, string personalIdNumber, Mock<Shop> mockedShop)
@@ -79,31 +113,32 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			mockedCustomer.SetupGet(x => x.LastName).Returns(lastName);
 			mockedCustomer.SetupGet(x => x.PersonalIdNumber).Returns(personalIdNumber);
 			mockedCustomer.SetupGet(x => x.Notes).Returns(notes);
-
-			var mockedShop = new Mock<Shop>();
-			mockedShop.SetupGet(x => x.Id).Returns(shopId);
-			mockedShop.SetupGet(x => x.Name).Returns("Butik");
-			mockedCustomer.SetupGet(x => x.Shop).Returns(mockedShop.Object);
+			mockedCustomer.SetupGet(x => x.Shop).Returns(ShopFactory.Get(shopId));
 
 			var mockedCountry = CountryFactory.Get(countryId);
 
-			var mockedAddress = new Mock<CustomerAddress>();
-			mockedAddress.SetupGet(x => x.AddressLineOne).Returns(addressLineOne);
-			mockedAddress.SetupGet(x => x.AddressLineTwo).Returns(addressLineTwo);
-			mockedAddress.SetupGet(x => x.City).Returns(city);
-			mockedAddress.SetupGet(x => x.Country).Returns(mockedCountry);
-			mockedAddress.SetupGet(x => x.PostalCode).Returns(postalCode);
+			var address = new CustomerAddress
+			{
+				AddressLineOne = addressLineOne,
+				AddressLineTwo = addressLineTwo,
+				City = city,
+				Country = mockedCountry,
+				PostalCode = postalCode,
+			};
 
-			var mockedContact = new Mock<CustomerContact>();
-			mockedContact.SetupGet(x => x.Email).Returns(email);
-			mockedContact.SetupGet(x => x.MobilePhone).Returns(mobilePhone);
-			mockedContact.SetupGet(x => x.Phone).Returns(phone);
+			var contact = new CustomerContact
+			{
+				Email = email, 
+				MobilePhone = mobilePhone, 
+				Phone = phone
+			};
 
-			mockedCustomer.SetupGet(x => x.Address).Returns(mockedAddress.Object);
-			mockedCustomer.SetupGet(x => x.Contact).Returns(mockedContact.Object);
+			mockedCustomer.SetupGet(x => x.Address).Returns(address);
+			mockedCustomer.SetupGet(x => x.Contact).Returns(contact);
 			mockedCustomer.SetupGet(x => x.Subscriptions).Returns(SubscriptionFactory.GetList(mockedCustomer.Object));
 
 			return mockedCustomer.Object;
 		}
+
 	}
 }

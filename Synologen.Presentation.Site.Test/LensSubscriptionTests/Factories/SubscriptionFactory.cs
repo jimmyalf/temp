@@ -130,5 +130,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 				Notes = subscription.Notes.Reverse()
 			};
 		}
+
+		public static SaveSubscriptionEventArgs GetSaveSubscriptionEventArgs()
+		{
+			return new SaveSubscriptionEventArgs
+			{
+				AccountNumber = "123456789",
+                ClearingNumber = "1234",
+                MonthlyAmount = 699.25M,
+				Notes = "Plats för valfria anteckningar"
+			};
+		}
 	}
 }

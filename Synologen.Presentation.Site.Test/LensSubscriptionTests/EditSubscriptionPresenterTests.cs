@@ -7,13 +7,14 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories;
+using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.TestHelpers;
 using Subscription=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 {
 	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
-	public class When_loading_edit_subscription_view : SubscriptionTestbase
+	public class When_loading_edit_subscription_view : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
 
@@ -41,6 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.Is<int>(pageId => pageId.Equals(_returnUrlPageId)))).Returns(url);
 			};
+
 			Because = presenter => presenter.View_Load(null, new EventArgs());
 		}
 
@@ -64,7 +66,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				view.Model.DisplayForm.ShouldBe(true);
 				view.Model.ReturnUrl.ShouldBe(_expectedReturnUrl);
 			});
-
 		}
 
 		[Test]
@@ -84,7 +85,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
-	public class When_loading_edit_subscription_view_with_no_set_return_page_id : SubscriptionTestbase
+	public class When_loading_edit_subscription_view_with_no_set_return_page_id : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
 
@@ -117,7 +118,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
-	public class When_loading_edit_subscription_view_with_stopped_subscription : SubscriptionTestbase
+	public class When_loading_edit_subscription_view_with_stopped_subscription : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
 		private readonly int _subscriptionId;
@@ -154,7 +155,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
-	public class When_loading_edit_subscription_view_with_created_subscription : SubscriptionTestbase
+	public class When_loading_edit_subscription_view_with_created_subscription : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
 		private readonly int _subscriptionId;
@@ -192,7 +193,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
-	public class When_loading_edit_subscription_view_with_expired_subscription : SubscriptionTestbase
+	public class When_loading_edit_subscription_view_with_expired_subscription : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
 		private readonly int _subscriptionId;
@@ -232,7 +233,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
-	public class When_submitting_edit_subscription_view : SubscriptionTestbase
+	public class When_submitting_edit_subscription_view : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
 		private readonly int _subscriptionId;
@@ -296,7 +297,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
-	public class When_stopping_subscription_view : SubscriptionTestbase
+	public class When_stopping_subscription_view : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
 		private readonly int _subscriptionId;
@@ -348,7 +349,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
-	public class When_starting_subscription_view : SubscriptionTestbase
+	public class When_starting_subscription_view : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
 		private readonly int _subscriptionId;
@@ -401,7 +402,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("CreateLensSubscriptionPresenterTester")]
-	public class When_submitting_edit_subscription_view_with_no_set_redirect_on_save_page_id : SubscriptionTestbase
+	public class When_submitting_edit_subscription_view_with_no_set_redirect_on_save_page_id : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
 		private readonly int _subscriptionId;
@@ -426,7 +427,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedHttpContext
 					.SetupSingleQuery("subscription", _subscriptionId.ToString())
-					.SetupRelativePathAndQuery(_currentPageUrl);
+					.SetupCurrentPathAndQuery(_currentPageUrl);
 			};
 
 			Because = presenter =>
@@ -445,7 +446,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
-	public class When_loading_edit_subscription_view_with_customer_belonging_to_another_shop : SubscriptionTestbase
+	public class When_loading_edit_subscription_view_with_customer_belonging_to_another_shop : EditSubscriptionTestbase
 	{
 		private readonly int _subscriptionId;
 
@@ -482,7 +483,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
-	public class When_loading_edit_subscription_view_with_shop_not_having_lens_subscription_access : SubscriptionTestbase
+	public class When_loading_edit_subscription_view_with_shop_not_having_lens_subscription_access : EditSubscriptionTestbase
 	{
 		private readonly int _subscriptionId;
 
@@ -517,7 +518,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 
 	[TestFixture]
 	[Category("EditLensSubscriptionPresenterTester")]
-	public class When_loading_edit_subscription_view_with_a_non_existing_subscription : SubscriptionTestbase
+	public class When_loading_edit_subscription_view_with_a_non_existing_subscription : EditSubscriptionTestbase
 	{
 		private readonly int _subscriptionId;
 

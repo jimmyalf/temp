@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -19,6 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 		private readonly ICountryRepository _countryRepository;
 		private readonly ICustomerRepository _customerRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
+		private const int SwedenCountryId = 1;
 
 		public EditCustomerPresenter(IEditCustomerView view, ICustomerRepository customerRepository, ICountryRepository countryRepository, ISynologenMemberService synologenMemberService)
 			: base(view)
@@ -27,15 +27,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			_countryRepository = countryRepository;
 			_synologenMemberService = synologenMemberService;
 
-
 			View.Load += View_Load;
 			View.Submit += View_Submit;
 		}
 
 		public void View_Load(object sender, EventArgs e)
 		{
-			Func<Country, CountryListItemModel> countryConverter = country => new CountryListItemModel { Value = country.Id.ToString(), Text = country.Name };
-
 			var editUrl = View.EditSubscriptionPageId == 0 ? "#" : _synologenMemberService.GetPageUrl(View.EditSubscriptionPageId);
 			var createUrl = View.CreateSubscriptionPageId == 0 ? "#" : _synologenMemberService.GetPageUrl(View.CreateSubscriptionPageId);
 			Func<Subscription, SubscriptionListItemModel> subscriptionConverter = subscription => new SubscriptionListItemModel
@@ -60,7 +57,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.Model.PersonalIdNumber = customer.PersonalIdNumber;
 			View.Model.Phone = customer.Contact.Phone;
 			View.Model.PostalCode = customer.Address.PostalCode;
-			View.Model.List = _countryRepository.GetAll().Select(countryConverter);
 			View.Model.Subscriptions = customer.Subscriptions.Select(subscriptionConverter);
 			View.Model.Notes = customer.Notes;
 		}
@@ -80,7 +76,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 		private void TrySaveCustomer(SaveCustomerEventArgs args)
 		{
 
-			var countryToUse = _countryRepository.Get(args.CountryId);
+			var countryToUse = _countryRepository.Get(SwedenCountryId);
 			var customerId = HttpContext.Request.Params["customer"].ToIntOrDefault();
 			if (customerId <= 0) return;
 			var customer = _customerRepository.Get(customerId);

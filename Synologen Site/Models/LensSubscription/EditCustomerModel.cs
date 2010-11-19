@@ -4,12 +4,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 {
 	public class EditCustomerModel
 	{
-
-		public EditCustomerModel()
-		{
-			List = new List<CountryListItemModel>();
-		}
-
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string PersonalIdNumber { get; set; }
@@ -22,10 +16,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 		public string PostalCode { get; set; }
 		public int CountryId { get; set; }
 		public string Notes { get; set; }
-
-		public IEnumerable<CountryListItemModel> List { get; set; }
 		public IEnumerable<SubscriptionListItemModel> Subscriptions { get; set; }
-
 		public bool ShopDoesNotHaveAccessToLensSubscriptions { get; set; }
 		public bool ShopDoesNotHaveAccessGivenCustomer { get; set; }
 		public bool DisplayForm
@@ -38,12 +29,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 		}
 
 		public string CreateSubscriptionPageUrl { get; set; }
-	}
-
-	public class SubscriptionListItemModel
-	{
-		public string CreatedDate { get; set; }
-		public string Status { get; set; }
-		public string EditSubscriptionPageUrl { get; set; }
 	}
 }

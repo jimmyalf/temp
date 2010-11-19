@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.TestHelpers;
@@ -18,33 +15,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 	[Category("CreateCustomerPresenterTester")]
 	public class  When_loading_create_customer_view_with_shop_having_lens_subscription_access : CreateCustomerTestbase
 	{
-		private readonly IList<Country> _countryList;
-
 		public When_loading_create_customer_view_with_shop_having_lens_subscription_access()
 		{
-			_countryList = CountryFactory.GetList().ToList();
-
-			Context = () =>
-			{
-				MockedCountryRepository.Setup(x => x.GetAll()).Returns(_countryList);
-				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-			};
+			Context = () => MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
-		}
-
-		[Test]
-		public void Country_list_is_populated()
-		{
-			AssertUsing( view =>
-			{
-				view.Model.List.Count().ShouldBe(_countryList.Count);
-				view.Model.List.For((index, country) =>
-				{
-					country.Text.ShouldBe(_countryList.ElementAt(index).Name);
-					country.Value.ShouldBe(_countryList.ElementAt(index).Id.ToString());
-				});
-			});
 		}
 
 		[Test]
@@ -64,7 +39,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 	{
 		public When_loading_create_customer_view_with_shop_not_having_lens_subscription_access()
 		{
-			// Arrange
 			const int shopId = 5;
 			var shop = ShopFactory.Get(shopId);
 
@@ -94,26 +68,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 	public class When_submitting_create_customer_view : CreateCustomerTestbase
 	{
 		private readonly SaveCustomerEventArgs _saveEventArgs;
-		private readonly IList<Country> _countryList;
 		private readonly Country _selectedCountry;
 		private readonly int _shopId;
 		private readonly string _redirectUrl;
 		private readonly int _redirectPageId;
+		private readonly int _swedenCountryId;
 
 		public When_submitting_create_customer_view()
 		{
 			_redirectPageId = 55;
 			_redirectUrl = "/test/redirect/";
 			_shopId = 5;
-			const int selectedCountryId = 5;
+			_swedenCountryId = 1;
 			var shop = ShopFactory.Get(_shopId);
-			_countryList = CountryFactory.GetList().ToList();
-			_selectedCountry = CountryFactory.Get(selectedCountryId);
+			_selectedCountry = CountryFactory.Get(_swedenCountryId);
+			_saveEventArgs = CustomerFactory.GetSaveCustomerEventArgs();
 
-			_saveEventArgs = CustomerFactory.GetSaveCustomerEventArgs(selectedCountryId);
 			Context = () =>
 			{
-				MockedCountryRepository.Setup(x => x.GetAll()).Returns(_countryList);
 				MockedCountryRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_selectedCountry);
 				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
 				MockedShopRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(shop);
@@ -138,7 +110,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				customer.Address.AddressLineOne.Equals(_saveEventArgs.AddressLineOne) && 
 				customer.Address.AddressLineTwo.Equals(_saveEventArgs.AddressLineTwo) && 
 				customer.Address.City.Equals(_saveEventArgs.City) && 
-				customer.Address.Country.Id.Equals(_saveEventArgs.CountryId) && 
+				customer.Address.Country.Id.Equals(_swedenCountryId) && 
 				customer.Contact.Email.Equals(_saveEventArgs.Email) && 
 				customer.Contact.MobilePhone.Equals(_saveEventArgs.MobilePhone) && 
 				customer.PersonalIdNumber.Equals(_saveEventArgs.PersonalIdNumber) && 

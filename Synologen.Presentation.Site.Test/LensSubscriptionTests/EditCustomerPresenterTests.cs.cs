@@ -4,7 +4,6 @@ using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers;
@@ -17,7 +16,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 	public class When_loading_edit_customer_view : EditCustomerTestbase
 	{
 		private readonly int _customerId;
-		private readonly Country[] _countryList;
 		private readonly Customer _expectedCustomer;
 		private readonly string _editPageUrl;
 		private readonly string _createPageUrl;
@@ -27,20 +25,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			// Arrange
 			
 			const int shopId = 5;
-			const int countryId = 1;
+			const int swedenCountryId = 1;
 			const int editSubscriptionPageId = 55;
 			const int createSubscriptionPageId = 155;
 			_customerId = 5;
 			_editPageUrl = "/testPage/edit/";
 			_createPageUrl = "/testPage/create/";
-			_expectedCustomer = CustomerFactory.Get(_customerId, countryId, shopId);
-			_countryList = CountryFactory.GetList().ToArray();
+			_expectedCustomer = CustomerFactory.Get(_customerId, swedenCountryId, shopId);
 			Context = () =>
 			{
 				MockedView.SetupGet(x => x.EditSubscriptionPageId).Returns(editSubscriptionPageId);
 				MockedView.SetupGet(x => x.CreateSubscriptionPageId).Returns(createSubscriptionPageId);
 				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedCustomer);
-				MockedCountryRepository.Setup(x => x.GetAll()).Returns(_countryList);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.Is<int>(id => id.Equals(createSubscriptionPageId)))).Returns(_createPageUrl);
@@ -71,7 +67,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				view.Model.PostalCode.ShouldBe(_expectedCustomer.Address.PostalCode);
 				view.Model.Notes.ShouldBe(_expectedCustomer.Notes);
 
-				view.Model.List.Count().ShouldBe(4);
 				view.Model.Subscriptions.Count().ShouldBe(4);
 				for (var i = 0; i < _expectedCustomer.Subscriptions.Count(); i++)
 				{
@@ -111,16 +106,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			// Arrange
 			const int customerId = 12;
 			const int shopId = 6;
-			const int countryId = 1;
+			const int swedenCountryId = 1;
 			_redirectPageId = 22;
 			_redirectUrl = "/test/redirect/";
-			_expectedCustomer = CustomerFactory.Get(customerId, countryId, shopId);
+			_expectedCustomer = CustomerFactory.Get(customerId, swedenCountryId, shopId);
 			var saveEventArgs = CustomerFactory.GetSaveCustomerEventArgs(_expectedCustomer);
 			Context = () =>
 			{
 				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
 				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedCustomer);
-				MockedCountryRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CountryFactory.Get(countryId));
+				MockedCountryRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CountryFactory.Get(swedenCountryId));
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
@@ -178,17 +173,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		{
 			const int customerId = 12;
 			const int shopId = 6;
-			const int countryId = 1;
+			const int swedenCountryId = 1;
 			const int noRedirectPageId = 0;
 			_currentPageUrl = "/test/redirect/"; 
-			var expectedCustomer = CustomerFactory.Get(customerId, countryId, shopId);
+			var expectedCustomer = CustomerFactory.Get(customerId, swedenCountryId, shopId);
 			var saveEventArgs = CustomerFactory.GetSaveCustomerEventArgs(expectedCustomer);
+			var sweden = CountryFactory.Get(swedenCountryId);
 
 			Context = () =>
 			{
 				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(noRedirectPageId);
 				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(expectedCustomer);
-				MockedCountryRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CountryFactory.Get(countryId));
+				MockedCountryRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(sweden);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_currentPageUrl);
@@ -216,9 +212,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		public When_loading_edit_customer_view_with_customer_belonging_to_another_shop()
 		{
 			const int shopId = 5;
-			const int countryId = 1;
+			const int swedenCountryId = 1;
 			const int customerId = 5;
-			var expectedCustomer = CustomerFactory.Get(customerId, countryId, shopId);
+			var expectedCustomer = CustomerFactory.Get(customerId, swedenCountryId, shopId);
 
 			Context = () =>
 			{
@@ -250,9 +246,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		public When_loading_edit_customer_view_with_with_shop_not_having_lens_subscription_access()
 		{
 			const int shopId = 5;
-			const int countryId = 1;
+			const int swedenCountryId = 1;
 			const int customerId = 5;
-			var expectedCustomer = CustomerFactory.Get(customerId, countryId, shopId);
+			var expectedCustomer = CustomerFactory.Get(customerId, swedenCountryId, shopId);
 
 			Context = () =>
 			{

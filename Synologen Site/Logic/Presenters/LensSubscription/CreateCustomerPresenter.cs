@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
-using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 using WebFormsMvp;
 using Customer=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Customer;
 using Shop=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Shop;
@@ -19,6 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 		private readonly IShopRepository _shopRepository;
 		private readonly ICustomerRepository _customerRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
+		private const int SwedenCountryId = 1;
 
 		public CreateCustomerPresenter(ICreateCustomerView view, ICustomerRepository customerRepository, IShopRepository shopRepository, ICountryRepository countryRepository, ISynologenMemberService synologenMemberService)
 			: base(view)
@@ -33,13 +32,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 
 		public void View_Load(object sender, EventArgs e)
 		{
-			Func<Country, CountryListItemModel> converter = country => new CountryListItemModel { Value = country.Id.ToString(), Text = country.Name };
-			
 			if (!_synologenMemberService.ShopHasAccessTo(ShopAccess.LensSubscription))
 			{
 				View.Model.ShopDoesNotHaveAccessToLensSubscriptions = true;
 			}
-			View.Model.List = _countryRepository.GetAll().Select(converter);
 		}
 
 		public override void ReleaseView()
@@ -50,9 +46,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 
 		public void View_Submit(object o, SaveCustomerEventArgs args)
 		{
-
 			var shopToUse = _shopRepository.Get(_synologenMemberService.GetCurrentShopId());
-			var countryToUse = _countryRepository.Get(args.CountryId);
+			var countryToUse = _countryRepository.Get(SwedenCountryId);
 
 			Func<Shop, SaveCustomerEventArgs, Customer> converter = (shop, eventArgs) => new Customer
 			{

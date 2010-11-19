@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.TestHelpers
 			GetPresenter = () => { throw new AssertionException("An action for GetPresenter has not been set!"); };
 		}
 
-		[SetUp]
+		[TestFixtureSetUp]
 		protected void SetUpTest()
 		{
 			MockedView = MvpHelpers.GetMockedView<TView, TModel>();

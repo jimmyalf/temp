@@ -42,9 +42,6 @@
 	<asp:TextBox ID="txtPostalCode" runat="server" />
 	<asp:RequiredFieldValidator ID="reqtxtPostalCode" runat="server" ErrorMessage="Postnummer måste anges" ControlToValidate="txtPostalCode" Display="Dynamic">*</asp:RequiredFieldValidator>
 	
-	<label for="<%=drpCountry.ClientID%>">Land</label>
-	<asp:DropDownList ID="drpCountry" runat="server" DataSource='<%#Model.List%>' DataValueField="Value" DataTextField="Text" />
-
 	<label for="<%=txtNotes.ClientID%>">Anteckningar</label>
 	<asp:TextBox ID="txtNotes" TextMode="MultiLine" runat="server" />
 

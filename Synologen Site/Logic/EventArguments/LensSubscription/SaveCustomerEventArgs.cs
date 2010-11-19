@@ -14,7 +14,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscr
 		public string AddressLineTwo { get; set; }
 		public string City { get; set; }
 		public string PostalCode { get; set; }
-		public int CountryId { get; set; }
+		//public int CountryId { get; set; }
 		public string Notes { get; set; }
 
 		public int ShopId { get; set; }

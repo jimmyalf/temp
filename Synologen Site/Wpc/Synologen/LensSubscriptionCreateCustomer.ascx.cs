@@ -29,7 +29,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 			           		AddressLineOne = txtAddressLineOne.Text,
 			           		AddressLineTwo = txtAddressLineTwo.Text,
 			           		City = txtCity.Text,
-			           		CountryId = int.Parse(drpCountry.SelectedValue),
 			           		Email = txtEmail.Text,
 			           		FirstName = txtFirstName.Text,
 			           		LastName = txtLastName.Text,

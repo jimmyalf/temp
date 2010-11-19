@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
@@ -43,7 +42,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 				AddressLineTwo = customer.Address.AddressLineTwo,
 				City = customer.Address.City,
 				PostalCode = customer.Address.PostalCode,
-				CountryId = customer.Address.Country.Id,
 				Email = customer.Contact.Email,
 				FirstName = customer.FirstName,
 				LastName = customer.LastName,
@@ -54,7 +52,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			};
 		}
 
-		public static SaveCustomerEventArgs GetSaveCustomerEventArgs(int countryId) 
+		public static SaveCustomerEventArgs GetSaveCustomerEventArgs() 
 		{ 
 			return  new SaveCustomerEventArgs
 			{
@@ -63,7 +61,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 				AddressLineOne = "Vinkelslipsgatan 32",
 				AddressLineTwo = "Uppgång 3H",
 				City = "Storstad",
-				CountryId = countryId,
 				Email = "carina.melander@gmail.com",
 				MobilePhone = "0704-565675",
 				PersonalIdNumber = "8106296729",

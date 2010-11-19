@@ -40,7 +40,9 @@ namespace Spinit.Wpc.Synologen.Presentation
 				.ForMember(cv => cv.ClearingNumber, m => m.MapFrom(x => x.PaymentInfo.ClearingNumber))
 				.ForMember(cv => cv.MonthlyAmount, m => m.MapFrom(x => x.PaymentInfo.MonthlyAmount.ToString("C2", new CultureInfo("sv-SE"))))
 				.ForMember(cv => cv.Status, m => m.MapFrom(x => x.Status.GetEnumDisplayName()))
-				.ForMember(cv => cv.ErrorList, m => m.ResolveUsing<SubscriptionErrorValueResolver>().FromMember(x => x.Errors));
+				.ForMember(cv => cv.ErrorList, m => m.ResolveUsing<SubscriptionErrorValueResolver>().FromMember(x => x.Errors))
+				.ForMember(cv => cv.CustomerNotes, m => m.MapFrom(x => x.Customer.Notes))
+				.ForMember(cv => cv.SubscriptionNotes, m => m.MapFrom(x => x.Notes));
 
 			CreateMap<ShopSettlement, SettlementView>().ConvertUsing(new SettlementViewTypeConverter());
 

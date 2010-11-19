@@ -2,17 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Presentation.Application.Services;
-using Spinit.Wpc.Synologen.Presentation.Controllers;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
@@ -246,6 +241,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			ViewModel.ClearingNumber.ShouldBe(_subscription.PaymentInfo.ClearingNumber);
 			ViewModel.MonthlyAmount.ShouldBe(_subscription.PaymentInfo.MonthlyAmount.ToString("C2", new CultureInfo("sv-SE")));
 			ViewModel.Status.ShouldBe(_subscription.Status.GetEnumDisplayName());
+			ViewModel.CustomerNotes.ShouldBe(_subscription.Customer.Notes);
+			ViewModel.SubscriptionNotes.ShouldBe(_subscription.Notes);
 		}
 
 		[Test]

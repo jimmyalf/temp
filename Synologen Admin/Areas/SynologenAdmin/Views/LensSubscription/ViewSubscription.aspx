@@ -34,7 +34,11 @@
 					<p class="display-item">
 						<%= Html.LabelFor(x => x.MonthlyAmount) %>
 						<%= Html.DisplayFor(x => x.MonthlyAmount) %>
-					</p>					
+					</p>
+					<p class="formItem clearLeft">
+						<%= Html.LabelFor(x => x.SubscriptionNotes) %>
+						<span><%= Html.DisplayFor(x => x.SubscriptionNotes) %></span>
+					</p>	
 				</fieldset>
 				<fieldset>
 					<legend>Kunduppgifter</legend>
@@ -77,7 +81,11 @@
 					<p class="display-item clearLeft">
 						<%= Html.LabelFor(x => x.Country) %>
 						<%= Html.DisplayFor(x => x.Country) %>
-					</p>												
+					</p>
+					<p class="formItem clearLeft">
+						<%= Html.LabelFor(x => x.CustomerNotes) %>
+						<span ><%= Html.DisplayFor(x => x.CustomerNotes) %></span>
+					</p>										
 				</fieldset>
 					<fieldset>
 						<legend><%=Html.GetDisplayNameFor(x => x.ErrorList) %></legend>

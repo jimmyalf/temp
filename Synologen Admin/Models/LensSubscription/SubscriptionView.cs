@@ -61,5 +61,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.LensSubscription
 
 		[DisplayName("Autogiro fel-lista")]
 		public IEnumerable<ErrorListItemView> ErrorList { get; set; }
+
+		[DisplayName("Kund-anteckningar")]
+		public string CustomerNotes { get; set; }
+
+		[DisplayName("Abonnemang-anteckningar")]
+		public string SubscriptionNotes { get; set; }
 	}
 }

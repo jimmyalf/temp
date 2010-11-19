@@ -16,7 +16,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 			GetController = () => { throw new AssertionException("An action for GetController has not been set!"); };
 		}
 
-		[SetUp]
+		[TestFixtureSetUp]
 		protected virtual void SetUpTest()
 		{
 			SetUp();
@@ -41,7 +41,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 			Because = controller => { throw new AssertionException("An action for Because has not been set!"); };
 		}
 
-		[SetUp]
+		[TestFixtureSetUp]
 		protected override void SetUpTest()
 		{
 			SetUp();

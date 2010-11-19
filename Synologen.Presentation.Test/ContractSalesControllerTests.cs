@@ -164,11 +164,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			var expectedContractSalesReadyForInvocing = ContractSaleFactory.GetList(15);
 			var expectedLensSubscriptionTransactionsReadyForInvocing = Enumerable.Empty<SubscriptionTransaction>();
 			const int readyForSettlementStatus = 6;
-			var settlements = SettlementFactory.GetList();
-
 			Context = () => 
 			{
-				MockedSettlementRepository.Setup(x => x.GetAll()).Returns(settlements);
 				MockedContractSaleRepository.Setup(x => x.FindBy(It.IsAny<AllContractSalesMatchingCriteria>())).Returns(expectedContractSalesReadyForInvocing);
 				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
@@ -194,10 +191,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			const int readyForSettlementStatus = 6;
 			var expectedContractSalesReadyForInvocing = Enumerable.Empty<ContractSale>();
 			var expectedLensSubscriptionTransactionsReadyForInvocing = SubscriptionTransactionFactory.GetList();
-			var settlements = SettlementFactory.GetList();
 			Context = () => 
 			{
-				MockedSettlementRepository.Setup(x => x.GetAll()).Returns(settlements);
 				MockedContractSaleRepository.Setup(x => x.FindBy(It.IsAny<AllContractSalesMatchingCriteria>())).Returns(expectedContractSalesReadyForInvocing);
 				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
@@ -222,10 +217,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			var expectedContractSalesReadyForInvocing = Enumerable.Empty<ContractSale>();
 			var expectedLensSubscriptionTransactionsReadyForInvocing = Enumerable.Empty<SubscriptionTransaction>();
 			const int readyForSettlementStatus = 6;
-			var settlements = SettlementFactory.GetList();
 			Context = () => 
 			{
-				MockedSettlementRepository.Setup(x => x.GetAll()).Returns(settlements);
 				MockedContractSaleRepository.Setup(x => x.FindBy(It.IsAny<AllContractSalesMatchingCriteria>())).Returns(expectedContractSalesReadyForInvocing);
 				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);

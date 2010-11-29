@@ -8,9 +8,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 {
 	public static class SettlementFactory
 	{
-		public static ShopSettlement Get(int id)
+		public static Settlement Get(int id)
 		{
-			var settlementMock = new Mock<ShopSettlement>();
+			var settlementMock = new Mock<Settlement>();
 			settlementMock.SetupGet(x => x.Id).Returns(id);
 			settlementMock.SetupGet(x => x.CreatedDate).Returns(new DateTime(2010, 11, 09));
 			settlementMock.SetupGet(x => x.ContractSales).Returns(ContractSales);
@@ -18,11 +18,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 			return settlementMock.Object;
 		}
 
-		public static IEnumerable<ShopSettlement> GetList() 
+		public static IEnumerable<Settlement> GetList() 
 		{
 			return GetList(15);
 		}
-		public static IEnumerable<ShopSettlement> GetList(int numberOfItems) 
+		public static IEnumerable<Settlement> GetList(int numberOfItems) 
 		{
 			return Enumerable.Range(0, numberOfItems).Select(index => Get(index));
 		}

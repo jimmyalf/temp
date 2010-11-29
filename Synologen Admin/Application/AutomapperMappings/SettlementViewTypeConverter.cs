@@ -8,9 +8,9 @@ using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.AutomapperMappings
 {
-	public class SettlementViewTypeConverter : TypeConverter<ShopSettlement, SettlementView>
+	public class SettlementViewTypeConverter : TypeConverter<Settlement, SettlementView>
 	{
-		protected override SettlementView ConvertCore(ShopSettlement source) 
+		protected override SettlementView ConvertCore(Settlement source) 
 		{ 
 			var alluniqueShops =
 				source.ContractSales.Select(x => x.Shop).Union(

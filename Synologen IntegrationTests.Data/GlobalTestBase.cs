@@ -4,6 +4,7 @@ using NHibernate;
 using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data;
@@ -25,12 +26,9 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test
 		[SetUp]
 		public void RunBeforeAnyTests()
 		{
-			//Setup NHibernate
-            if(!NHibernateFactory.MappingAssemblies.Any())
-			{
-				var assembly = typeof(Synologen.Data.Repositories.NHibernate.Mappings.LensSubscriptions.SubscriptionMap).Assembly;
-				NHibernateFactory.MappingAssemblies.Add(assembly);				
-			}
+			if (NHibernateFactory.MappingAssemblies.Any()) return;
+			var assembly = typeof(Synologen.Data.Repositories.NHibernate.Mappings.LensSubscriptions.SubscriptionMap).Assembly;
+			NHibernateFactory.MappingAssemblies.Add(assembly);
 		}
 
 		[TearDown]
@@ -55,20 +53,33 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test
 			const int testableShopId = 158;
 			const int TestableShopMemberId = 485;
 			const int TestableCompanyId = 57;
+			const int TestableContractId = 14;
+
+			var article = ArticleFactory.Get();
+			provider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref article);
+			var contractArticleConnection = ArticleFactory.GetContractArticleConnection(article, TestableContractId, 999.23F);
+			provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref contractArticleConnection);
+
 			var orders = new[]
 			{
-				OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId),
-				OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId),
-				OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId),
-				OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId),
-				OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId),
-				OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId),
-				OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId),
+				OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
+				OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
+				OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
+				OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
+				OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
+				OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
+				OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
 			};
 			orders.Each(order =>
 			{
 				provider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref order);
 				provider.AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
+				order.OrderItems.Each(orderItem =>
+				{
+					IOrderItem tempOrder = orderItem;
+					tempOrder.OrderId = order.Id;
+					provider.AddUpdateDeleteOrderItem(Enumerations.Action.Create, ref tempOrder);
+				});
 			});				
 		}
 

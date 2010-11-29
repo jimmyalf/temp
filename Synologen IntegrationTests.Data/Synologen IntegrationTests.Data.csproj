@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonDataTestHelpers\DataHelper.cs" />
+    <Compile Include="ContractSales\Factories\ArticleFactory.cs" />
     <Compile Include="ContractSales\Factories\ShopFactory.cs" />
     <Compile Include="ContractSales\Factories\OrderFactory.cs" />
     <Compile Include="ContractSales\BaseRepositoryTester.cs" />

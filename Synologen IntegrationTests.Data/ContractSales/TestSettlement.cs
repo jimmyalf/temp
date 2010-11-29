@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
@@ -6,6 +7,7 @@ using Shouldly;
 using Spinit.Extensions;
 using Spinit.ShouldlyExtensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
@@ -25,26 +27,38 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		private const int settlementableOrderStatus = 6;
 		private const int nonSettlementableOrderStatus = 5;
 		private const int orderStatusAfterSettlement = 8;
-		private Order[] _ordersToSave;
+		private IList<Order> _ordersToSave;
 		private double _expectedSumIncludingVAT;
 		private double _expectedSumExcludingVAT;
 		private int _expectedNumberOfOrdersInSettlement;
 		private Subscription _subscription;
 		private SubscriptionTransaction[] _transactions;
+		private Article _article;
 
 		public When_creating_a_settlement_using_sqlprovider()
 		{
 			Context = session => 
 			{
-				_ordersToSave = new[]
+				_article = ArticleFactory.Get();
+				Provider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref _article);
+				var contractArticleConnection = ArticleFactory.GetContractArticleConnection(_article, TestableContractId, 999.23F);
+				Provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref contractArticleConnection);
+				_ordersToSave = new List<Order>
 				{
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, TestShop.ShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, TestShop.ShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, TestShop.ShopId, TestableShopMemberId),
+					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, TestShop.ShopId, TestableShopMemberId, _article.Id),
+					OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, TestShop.ShopId, TestableShopMemberId, _article.Id),
+					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, TestShop.ShopId, TestableShopMemberId, _article.Id),
 				};
-				_ordersToSave.Each(order => {
+				_ordersToSave.Each(order => 
+				{
 					Provider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref order);
 					Provider.AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
+					order.OrderItems.Each(orderItem =>
+					{
+						IOrderItem tempOrder = orderItem;
+						tempOrder.OrderId = order.Id;
+						Provider.AddUpdateDeleteOrderItem(Enumerations.Action.Create, ref tempOrder);
+					});
 				});
 				_expectedSumIncludingVAT = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus)).Sum(x => x.InvoiceSumIncludingVAT);
 				_expectedSumExcludingVAT = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus)).Sum(x => x.InvoiceSumExcludingVAT);
@@ -77,10 +91,16 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		[Test]
 		public void Should_contain_expected_invoices_when_fetching_with_sql_data_provider()
 		{
-			float totalValueIncludingVAT;
-			float totalValueExcludingVAT;
 			var settlement = Provider.GetSettlement(_settlementId);
 			settlement.NumberOfConnectedOrders.ShouldBe(_expectedNumberOfOrdersInSettlement);
+			settlement.CreatedDate.ShouldBe(DateTime.Now, DateTimeTolerance.SameYearMonthDate);
+		}
+
+		[Test]
+		public void Can_get_detailed_settlement_items_using_sql_data_provider()
+		{
+			float totalValueIncludingVAT;
+			float totalValueExcludingVAT;
 			var settlementDetailsDataSet = Provider.GetSettlementDetailsDataSet(_settlementId, out totalValueIncludingVAT, out totalValueExcludingVAT, null);
 			settlementDetailsDataSet.Tables[0].Rows.AsEnumerable().ForElementAtIndex(0, dataRow =>
 			{
@@ -128,6 +148,67 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				settlement.CreatedDate.ShouldBe(DateTime.Now, DateTimeTolerance.SameYearMonthDate);
 				settlement.Id.ShouldBe(_settlementId);
 			});
+		}
+
+		[Test]
+		public void Can_get_simple_settlement_items_for_shop_using_sql_provider()
+		{
+			bool allOrdersMarkedAsPayed;
+			float orderValueIncludingVAT;
+			float orderValueExcludingVAT;
+			var expectedUniqueArticleQuanity = _ordersToSave
+				.Where(order => order.StatusId.Equals(settlementableOrderStatus))
+				.Sum(x => x.OrderItems.Sum(y => y.NumberOfItems));
+			var expectedNumberOfRowsInDataSet = _ordersToSave.SelectMany(x => x.OrderItems).Select(x => x.ArticleId).Distinct().Count();
+			var settlementDataSet = Provider.GetSettlementsOrderItemsDataSetSimple(TestShop.ShopId, _settlementId, null /*orderBy*/, out allOrdersMarkedAsPayed, out orderValueIncludingVAT, out orderValueExcludingVAT);
+
+			settlementDataSet.Tables[0].Rows.Count.ShouldBe(expectedNumberOfRowsInDataSet);
+			settlementDataSet.Tables[0].Rows.AsEnumerable().ForElementAtIndex(0, dataRow =>
+			{
+			    dataRow.Parse<int>("cArticleId").ShouldBe(_article.Id);
+				dataRow.Parse<string>("cArticleNumber").ShouldBe(_article.Number);
+				dataRow.Parse<string>("cArticleName").ShouldBe(_article.Name);
+				dataRow.Parse<int>("cNumberOfItems").ShouldBe(expectedUniqueArticleQuanity);
+				dataRow.Parse<bool?>("cNoVAT").ShouldBe(false);
+				dataRow.Parse<double>("cPriceSummary").ShouldBe(_expectedSumExcludingVAT);
+			});
+			allOrdersMarkedAsPayed.ShouldBe(false);
+			orderValueIncludingVAT.ShouldBe((float) _expectedSumIncludingVAT);
+			orderValueExcludingVAT.ShouldBe((float) _expectedSumExcludingVAT);
+		}
+
+		[Test]
+		public void Can_get_detailed_settlement_items_for_shop_using_sql_provider()
+		{
+			bool allOrdersMarkedAsPayed;
+			float orderValueIncludingVAT;
+			float orderValueExcludingVAT;
+			var expectedNumberOfRowsInDataSet = _ordersToSave.Where(order => order.StatusId.Equals(settlementableOrderStatus))
+				.SelectMany(x => x.OrderItems).Count();
+
+			var settlementDataSet = Provider.GetSettlementsOrderItemsDataSetDetailed(
+				TestShop.ShopId,
+				_settlementId,
+				null /*orderBy*/,
+				out allOrdersMarkedAsPayed,
+				out orderValueIncludingVAT,
+				out orderValueExcludingVAT);
+			settlementDataSet.Tables[0].Rows.Count.ShouldBe(expectedNumberOfRowsInDataSet);
+			settlementDataSet.Tables[0].Rows.AsEnumerable().ForElementAtIndex(0, dataRow =>
+			{
+				dataRow.Parse<int>("cOrderId").ShouldBe(_ordersToSave.First().Id);
+				dataRow.Parse<int>("cArticleId").ShouldBe(_article.Id);
+				dataRow.Parse<int>("cNumberOfItems").ShouldBe(_ordersToSave.First().OrderItems.First().NumberOfItems);
+				dataRow.Parse<bool?>("cNoVAT").ShouldBe(false);
+				dataRow.Parse<string>("cArticleNumber").ShouldBe(_article.Number);
+				dataRow.Parse<string>("cArticleName").ShouldBe(_article.Name);
+				dataRow.Parse<bool>("cOrderMarkedAsPayed").ShouldBe(false);
+				dataRow.Parse<double>("cPriceSummary").ShouldBe(_ordersToSave.First().OrderItems.First().DisplayTotalPrice);
+				dataRow.Parse<string>("cCompany").ShouldBe("Test Företag AB");
+			});
+			allOrdersMarkedAsPayed.ShouldBe(false);
+			orderValueIncludingVAT.ShouldBe((float) _expectedSumIncludingVAT);
+			orderValueExcludingVAT.ShouldBe((float) _expectedSumExcludingVAT);
 		}
 	}
 }

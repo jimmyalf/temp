@@ -3,9 +3,9 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSales
 {
-	public class ShopSettlementMap : ClassMap<ShopSettlement>
+	public class SettlementMap : ClassMap<Settlement>
 	{
-		public ShopSettlementMap()
+		public SettlementMap()
 		{
 			Table("tblSynologenSettlement");
 			Id(x => x.Id).Column("cId");

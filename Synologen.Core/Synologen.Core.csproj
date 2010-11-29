@@ -89,7 +89,7 @@
     <Compile Include="Domain\Model\ContractSales\ContractSale.cs" />
     <Compile Include="Domain\Model\ContractSales\Customer.cs" />
     <Compile Include="Domain\Model\ContractSales\Shop.cs" />
-    <Compile Include="Domain\Model\ContractSales\ShopSettlement.cs" />
+    <Compile Include="Domain\Model\ContractSales\Settlement.cs" />
     <Compile Include="Domain\Model\ContractSales\Subscription.cs" />
     <Compile Include="Domain\Model\ContractSales\Transaction.cs" />
     <Compile Include="Domain\Model\Entity.cs" />

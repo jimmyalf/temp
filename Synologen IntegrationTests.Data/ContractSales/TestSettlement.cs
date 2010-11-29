@@ -69,6 +69,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				new CustomerRepository(session).Save(customer);
 				_subscription = SubscriptionFactory.Get(customer);
 				new SubscriptionRepository(session).Save(_subscription);
+				_transactions = TransactionFactory.GetList(_subscription);
 				
 			};
 			Because = repository =>
@@ -78,13 +79,11 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				settlementMock.SetupGet(x => x.Id).Returns(_settlementId);
 				var settlement = settlementMock.Object;
 				var transactionRepository = new TransactionRepository(base.GetSessionFactory().OpenSession());
-				_transactions = TransactionFactory.GetList(_subscription);
 				_transactions.For((index, transaction) =>
 				{
 					transaction.Settlement = settlement;
 					transactionRepository.Save(transaction);
 				});
-
 			};
 		}
 

@@ -6,7 +6,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories
 {
-	public class SettlementRepository : NHibernateRepository<ShopSettlement>, ISettlementRepository 
+	public class SettlementRepository : NHibernateRepository<Settlement>, ISettlementRepository 
 	{
 		public SettlementRepository(ISession session) : base(session) {}
 		public int GetNumberOfOrdersWithGivenStatusAndNoInvoiceNumberSet(int status) { throw new NotImplementedException(); }

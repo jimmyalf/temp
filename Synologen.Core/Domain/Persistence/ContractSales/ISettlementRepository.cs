@@ -3,5 +3,5 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales
 {
-	public interface ISettlementRepository : IReadonlyRepository<ShopSettlement> { }
+	public interface ISettlementRepository : IReadonlyRepository<Settlement> { }
 }

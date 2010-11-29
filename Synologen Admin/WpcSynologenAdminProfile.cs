@@ -44,9 +44,9 @@ namespace Spinit.Wpc.Synologen.Presentation
 				.ForMember(cv => cv.CustomerNotes, m => m.MapFrom(x => x.Customer.Notes))
 				.ForMember(cv => cv.SubscriptionNotes, m => m.MapFrom(x => x.Notes));
 
-			CreateMap<ShopSettlement, SettlementView>().ConvertUsing(new SettlementViewTypeConverter());
+			CreateMap<Settlement, SettlementView>().ConvertUsing(new SettlementViewTypeConverter());
 
-			CreateMap<ShopSettlement, SettlementListViewItem>()
+			CreateMap<Settlement, SettlementListViewItem>()
 				.ForMember(x => x.NumberOfContractSalesInSettlement, m => m.MapFrom(x => x.ContractSales.Count()))
 				.ForMember(x => x.NumberOfLensSubscriptionTransactionsInSettlement, m => m.MapFrom(x => x.LensSubscriptionTransactions.Count()))
 				.ForMember(x => x.CreatedDate, m => m.MapFrom(x => x.CreatedDate.ToString("yyyy-MM-dd HH:mm")));

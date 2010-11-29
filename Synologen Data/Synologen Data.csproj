@@ -125,7 +125,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractSaleMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\CustomerMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ShopMap.cs" />
-    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ShopSettlementMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\SettlementMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\SubscriptionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\TransactionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameBrandMap.cs" />

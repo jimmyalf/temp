@@ -14,6 +14,7 @@ using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Test.TestHelpers;
+using Settlement=Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Settlement;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test
 {
@@ -22,7 +23,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 	public class When_loading_settlement_view : ContractSalesTestbase<SettlementView>
 	{
 		private readonly int _settlementId;
-		private readonly ShopSettlement _settlement;
+		private readonly Settlement _settlement;
 
 		public When_loading_settlement_view()
 		{
@@ -81,7 +82,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 	[Category("ContractSalesControllerTests")]
 	public class When_loading_settlements_list_with_new_settlementable_contract_sales_and_transactions : ContractSalesTestbase<SettlementListView>
 	{
-		private readonly IList<ShopSettlement> _settlements;
+		private readonly IList<Settlement> _settlements;
 		private readonly IEnumerable<ContractSale> _expectedContractSalesReadyForInvocing;
 		private readonly int _readyForSettlementStatus;
 		private readonly IEnumerable<SubscriptionTransaction> _expectedLensSubscriptionTransactionsReadyForInvocing;

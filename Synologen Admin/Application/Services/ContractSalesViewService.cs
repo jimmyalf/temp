@@ -11,6 +11,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
+using Settlement=Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Settlement;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
@@ -39,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		public SettlementView GetSettlement(int settlementId) 
 		{
 			var settlement = _settlementRepository.Get(settlementId);
-			return Mapper.Map<ShopSettlement, SettlementView>(settlement);
+			return Mapper.Map<Settlement, SettlementView>(settlement);
 		}
 
 		public SettlementListView GetSettlements()
@@ -63,7 +64,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			{
 				NumberOfContractSalesReadyForInvocing = contractSalesReadyForSettlement.Count(),
 				NumberOfLensSubscriptionTransactionsReadyForInvocing = transactionsReadyForSettlement.Count(),
-				Settlements = Mapper.Map<IEnumerable<ShopSettlement>, IEnumerable<SettlementListViewItem>>(settlements)
+				Settlements = Mapper.Map<IEnumerable<Settlement>, IEnumerable<SettlementListViewItem>>(settlements)
 			};
 		}
 
@@ -88,7 +89,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			var transactionsToConnectToSettlement = _transactionRepository.FindBy(criteria);
 			transactionsToConnectToSettlement.Each(transaction => 
 			{
-				transaction.Settlement = new Settlement(settlement);
+				transaction.Settlement = new Core.Domain.Model.LensSubscription.Settlement(settlement);
 				_transactionRepository.Save(transaction);
 			});
 		}

@@ -12,5 +12,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 		public string Type { get; set; }
 		public string Reason { get; set; }
 		public string CreatedDate { get; set; }
+		public string HasSettlement { get; set; }
 	}
 }

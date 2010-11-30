@@ -9,18 +9,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Test
 {
 	public abstract class ListTransactionsTestbase : PresenterTestbase<ListTransactionsPresenter, IListTransactionView, ListTransactionModel>
 	{
-		protected Mock<ISubscriptionRepository> MockedSubscriptionRepository;
+		protected Mock<ITransactionRepository> MockedTransactionRepository;
 
 		protected ListTransactionsTestbase()
 		{
 			SetUp = () =>
 			{
-				MockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
+				MockedTransactionRepository = new Mock<ITransactionRepository>();
 			};
 
 			GetPresenter = () => 
 			{
-				return new ListTransactionsPresenter(MockedView.Object, MockedSubscriptionRepository.Object);
+				return new ListTransactionsPresenter(MockedView.Object, MockedTransactionRepository.Object);
 			};
 		}
 	}

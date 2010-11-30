@@ -88,8 +88,8 @@
     <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
     <Compile Include="Domain\Model\ContractSales\ContractSale.cs" />
     <Compile Include="Domain\Model\ContractSales\Customer.cs" />
-    <Compile Include="Domain\Model\ContractSales\Shop.cs" />
     <Compile Include="Domain\Model\ContractSales\Settlement.cs" />
+    <Compile Include="Domain\Model\ContractSales\Shop.cs" />
     <Compile Include="Domain\Model\ContractSales\Subscription.cs" />
     <Compile Include="Domain\Model\ContractSales\Transaction.cs" />
     <Compile Include="Domain\Model\Entity.cs" />
@@ -121,6 +121,7 @@
     <Compile Include="Domain\Persistence\Criterias\ContractSales\AllContractSalesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllTransactionsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\CustomersForShopMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\TransactionsForSubscriptionMatchingCriteria.cs.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfSubscriptionsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameOrdersMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IFrameGlassTypeRepository.cs" />

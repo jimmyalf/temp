@@ -19,6 +19,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscrip
 					filter.By(x => x.FirstName);
 					filter.By(x => x.LastName);
 					filter.By(x => x.PersonalIdNumber);
+
 				}, source.SearchTerm);
 		}
 	}

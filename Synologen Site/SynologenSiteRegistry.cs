@@ -43,6 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site
 			For<IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>>().Use<AllOrderableFramesCriteriaConverter>();
 			For<IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>>().Use<AllFrameOrdersForShopCriteriaConverter>();
 			For<IActionCriteriaConverter<CustomersForShopMatchingCriteria, ICriteria>>().Use<CustomersForShopMatchingCriteriaConverter>();
+			For<IActionCriteriaConverter<TransactionsForSubscriptionMatchingCriteria, ICriteria>>().Use<TransactionsForSubscriptionMatchingCriteriaConverter>();
 		}
 	}
 }

@@ -108,6 +108,7 @@
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllTransactionsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\CustomersForShopMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfSubscriptionsMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\LensSubscription\TransactionsForSubscriptionMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFrameOrdersMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFramesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\FrameBrandRepository.cs" />

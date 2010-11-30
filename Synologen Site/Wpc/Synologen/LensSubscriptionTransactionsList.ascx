@@ -6,7 +6,7 @@
 		<HeaderTemplate >
 			<table>
 				<tr class="synologen-table-headerrow">
-					<th>Typ</th><th>Orsak</th><th>Belopp</th><th>Datum</th>
+					<th>Typ</th><th>Orsak</th><th>Belopp</th><th>Datum</th><th>Utbetald</th>
 				</tr>
 		</HeaderTemplate>
 		<ItemTemplate>
@@ -15,6 +15,7 @@
 					<td><%# Eval("Reason")%></td>
 					<td><%# Eval("Amount")%></td>
 					<td><%# Eval("CreatedDate")%></td>
+					<td><%# Eval("HasSettlement")%></td>
 				</tr>
 		</ItemTemplate>
 		<FooterTemplate>

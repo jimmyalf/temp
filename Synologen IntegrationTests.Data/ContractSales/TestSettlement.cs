@@ -38,6 +38,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		private Article _article;
 		private int _expectedNumberOfOrdersInSettlementForShop1;
 		private SubscriptionTransaction[] _transactions2;
+		private ContractArticleConnection _contractArticleConnection;
 
 		public When_creating_a_settlement_using_sqlprovider()
 		{
@@ -45,8 +46,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 			{
 				_article = ArticleFactory.Get();
 				Provider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref _article);
-				var contractArticleConnection = ArticleFactory.GetContractArticleConnection(_article, TestableContractId, 999.23F);
-				Provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref contractArticleConnection);
+				_contractArticleConnection = ArticleFactory.GetContractArticleConnection(_article, TestableContractId, 999.23F, true);
+				Provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref _contractArticleConnection);
 				_ordersToSave = new List<Order>
 				{
 					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId, _article.Id),
@@ -187,7 +188,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				dataRow.Parse<string>("cArticleNumber").ShouldBe(_article.Number);
 				dataRow.Parse<string>("cArticleName").ShouldBe(_article.Name);
 				dataRow.Parse<int>("cNumberOfItems").ShouldBe(expectedUniqueArticleQuanityForShop1);
-				dataRow.Parse<bool?>("cNoVAT").ShouldBe(false);
+				dataRow.Parse<bool?>("cNoVAT").ShouldBe(_contractArticleConnection.NoVAT);
 				dataRow.Parse<double>("cPriceSummary").ShouldBe(_expectedSumExcludingVATForShop1);
 			});
 			allOrdersMarkedAsPayed.ShouldBe(false);
@@ -219,7 +220,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				dataRow.Parse<int>("cOrderId").ShouldBe(_ordersToSave.First().Id);
 				dataRow.Parse<int>("cArticleId").ShouldBe(_article.Id);
 				dataRow.Parse<int>("cNumberOfItems").ShouldBe(_ordersToSave.First().OrderItems.First().NumberOfItems);
-				dataRow.Parse<bool?>("cNoVAT").ShouldBe(false);
+				dataRow.Parse<bool?>("cNoVAT").ShouldBe(_contractArticleConnection.NoVAT);
 				dataRow.Parse<string>("cArticleNumber").ShouldBe(_article.Number);
 				dataRow.Parse<string>("cArticleName").ShouldBe(_article.Name);
 				dataRow.Parse<bool>("cOrderMarkedAsPayed").ShouldBe(false);
@@ -246,9 +247,12 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				settlementForShop.SaleItems.ForBoth(expectedSaleItems, (saleItem, originalItem) =>
 				{
 					saleItem.Article.Name.ShouldBe(_article.Name);
+					saleItem.Article.Number.ShouldBe(_article.Number);
+					saleItem.Article.IsVATFree(TestableContractId).Value.ShouldBe(_contractArticleConnection.NoVAT);
 					saleItem.Article.Id.ShouldBe(_article.Id);
 					saleItem.Id.ShouldBe(originalItem.Id);
 					saleItem.Quantity.ShouldBe(originalItem.NumberOfItems);
+					saleItem.ValueExcludingVAT.ShouldBe((decimal)originalItem.SinglePrice);
 				});
 				settlementForShop.LensSubscriptionTransactions.ForBoth(_transactions, (transaction, originalItem) =>
 				{

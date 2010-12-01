@@ -11,6 +11,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSal
 			Id(x => x.Id).Column("cId");
 			References(x => x.Article).Column("cArticleId");
 			Map(x => x.Quantity).Column("cNumberOfItems");
+			Map(x => x.ValueExcludingVAT).Column("cSinglePrice");
 			References(x => x.Sale).Column("cOrderId");
 		}
 	}

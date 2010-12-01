@@ -14,7 +14,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories
 			};
 		}
 
-		public static ContractArticleConnection GetContractArticleConnection(Article article, int contractCustomerId, float price)
+		public static ContractArticleConnection GetContractArticleConnection(Article article, int contractCustomerId, float price, bool isVATFree)
 		{
 			return new ContractArticleConnection
 			{
@@ -25,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories
 				ArticleNumber = article.Number,
 				ContractCustomerId = contractCustomerId,
 				EnableManualPriceOverride = false,
-				NoVAT = false,
+				NoVAT = isVATFree,
 				Price = price,
 				SPCSAccountNumber = "12345"
 			};

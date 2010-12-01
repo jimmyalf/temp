@@ -14,8 +14,18 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSal
 				.Table("tblSynologenSettlementOrderConnection")
 				.ParentKeyColumn("cSettlementId")
 				.ChildKeyColumn("cOrderId");
-			HasMany(x => x.LensSubscriptionTransactions)
-				.KeyColumn("SettlementId");
+				//.Fetch.Join()
+				//.ApplyFilter<ShopFilter>("Shop.cId = :shopId");
+			HasMany(x => x.LensSubscriptionTransactions).KeyColumn("SettlementId");
 		}
 	}
+
+	//public class ShopFilter : FilterDefinition
+	//{
+	//    public ShopFilter()
+	//    {
+	//        WithName("ShopFilter")
+	//            .AddParameter("shopId", NHibernateUtil.Int32);
+	//    }
+	//}
 }

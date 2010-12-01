@@ -20,7 +20,9 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		protected SqlProvider Provider;
 		protected Shop TestShop;
 		protected const int testableShopId = 158;
+		protected const int testableShopId2 = 159;
 		public const int TestableShopMemberId = 485;
+		public const int TestableShop2MemberId = 484;
 		public const int TestableCompanyId = 57;
 		public const int TestableContractId = 14;
 		const string connectionStringname = "WpcServer";

@@ -58,6 +58,11 @@
     <Compile Include="Logic\EventArguments\LensSubscription\UpdateSubscriptionEventArgs.cs" />
     <Compile Include="Logic\Helpers\StringBuilderExtensions.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
+    <Compile Include="Models\ContractSales\SettlementDetailedContractSaleListItemModel.cs" />
+    <Compile Include="Models\ContractSales\SettlementSimpleContractSaleListItemModel.cs" />
+    <Compile Include="Models\ContractSales\ViewSettlementModel.cs" />
+    <Compile Include="Logic\Views\ContractSales\IViewSettlementView.cs" />
+    <Compile Include="Logic\Presenters\ContractSales\ViewSettlementPresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\CreateTransactionPresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\EditCustomerPresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\CreateCustomerPresenter.cs" />

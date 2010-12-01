@@ -10,8 +10,12 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSal
 			Table("tblSynologenOrder");
 			Id(x => x.Id).Column("cId");
 			Map(x => x.TotalAmountIncludingVAT).Column("cInvoiceSumIncludingVAT");
-			References(x => x.Shop).Column("cSalesPersonShopId");
+			References(x => x.Shop)
+				.Column("cSalesPersonShopId")
+				.Fetch.Join();
 			Map(x => x.StatusId).Column("cStatusId");
+			HasMany(x => x.SaleItems)
+				.KeyColumn("cOrderId");
 		}
 	}
 }

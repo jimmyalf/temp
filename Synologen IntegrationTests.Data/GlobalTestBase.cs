@@ -57,7 +57,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test
 
 			var article = ArticleFactory.Get();
 			provider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref article);
-			var contractArticleConnection = ArticleFactory.GetContractArticleConnection(article, TestableContractId, 999.23F);
+			var contractArticleConnection = ArticleFactory.GetContractArticleConnection(article, TestableContractId, 999.23F, false);
 			provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref contractArticleConnection);
 
 			var orders = new[]

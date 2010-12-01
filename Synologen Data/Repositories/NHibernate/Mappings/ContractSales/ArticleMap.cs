@@ -10,6 +10,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSal
 			Table("tblSynologenArticle");
 			Id(x => x.Id).Column("cId");
 			Map(x => x.Name).Column("cName");
+			Map(x => x.Number).Column("cArticleNumber");
+			HasMany(x => x.ContractArticles)
+				.KeyColumn("cArticleId")
+				.Fetch.Join();
 		}
 	}
 }

@@ -12,6 +12,8 @@
 	<a href="MembersList.aspx">Butiksmedlemmar</a>
 	<a href="EditShopPage.aspx">Editera butik</a>
 	<a href="SettlementList.aspx">Utbetalningar till butik</a>
+	<a href="ViewSettlementPage.aspx?settlementId=1">Utbetalning 1 (ny) till butik</a>
+	<a href="ViewSettlementOldPage.aspx?settlementId=1">Utbetalning 1 (gammal) till butik</a>
 	<a href="SecurityTimeoutPage.aspx">Säkerhetstimout sida</a>
 	<a href="FrameOrder.aspx">Skapa glasögonbeställning</a>
 	<a href="FrameOrderView.aspx?frameorder=1">Visa glasögonbeställning för order 1</a>

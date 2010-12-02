@@ -1,4 +1,5 @@
 using Moq;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.ContractSales;
@@ -12,6 +13,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests.TestHelp
 	{
 		protected Mock<ISettlementRepository> MockedSettlementRepository;
 		protected Mock<ISynologenMemberService> MockedSynologenMemberService;
+		protected Mock<ISqlProvider> MockedSqlProvider;
 
 		protected ViewSettlementTestbase()
 		{
@@ -19,6 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests.TestHelp
 			{
 				MockedSettlementRepository = new Mock<ISettlementRepository>();
 				MockedSynologenMemberService = new Mock<ISynologenMemberService>();
+				MockedSqlProvider = new Mock<ISqlProvider>();
 			};
 
 			GetPresenter = () => 
@@ -26,7 +29,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests.TestHelp
 				return new ViewSettlementPresenter(
 					MockedView.Object,
 					MockedSettlementRepository.Object,
-					MockedSynologenMemberService.Object);
+					MockedSynologenMemberService.Object,
+					MockedSqlProvider.Object);
 			};
 		}
 

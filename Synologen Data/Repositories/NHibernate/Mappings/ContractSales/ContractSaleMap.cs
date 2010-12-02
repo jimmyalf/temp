@@ -19,6 +19,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSal
 			References(x => x.ContractCompany)
 				.Column("cCompanyId")
 				.Fetch.Join();
+			Map(x => x.MarkedAsPayed).Column("cOrderMarkedAsPayed");
 		}
 	}
 }

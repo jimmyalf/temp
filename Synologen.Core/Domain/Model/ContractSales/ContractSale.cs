@@ -9,5 +9,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales
 		public virtual int StatusId { get; set; }
 		public virtual IEnumerable<SaleItem> SaleItems { get; set;}
 		public virtual ContractCompany ContractCompany { get; set; }
+		public virtual bool MarkedAsPayed { get; set; }
 	}
 }

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewSettlementMVP.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ViewSettlement" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewSettlementOld.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ViewSettlementOld" %>
 <div class="synologen-control">
 	<fieldset><legend>Utbetalningsuppgifter</legend>
 		<label>Utbetalning:</label><span><%=Settlement.Id %></span><br />

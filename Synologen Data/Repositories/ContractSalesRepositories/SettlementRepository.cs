@@ -14,24 +14,26 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories
 
 		public ShopSettlement GetForShop(int id, int shopId)
 		{
+			HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
 			var settlement = Session.CreateCriteria<Settlement>()
 				.Add(Restrictions.Eq("Id", id))
-				.CreateAlias("LensSubscriptionTransactions.Subscription", "TransactionSubscription")
-				.CreateAlias("TransactionSubscription.Customer", "SubscriptionCustomer")
-				.CreateAlias("SubscriptionCustomer.Shop", "CustomerShop")
-				.SetFetchMode("LensSubscriptionTransactions", FetchMode.Eager)
-				.Add(Restrictions.Eq("CustomerShop.Id", shopId))
+				//.CreateAlias("LensSubscriptionTransactions.Subscription", "TransactionSubscription")
+				//.CreateAlias("TransactionSubscription.Customer", "SubscriptionCustomer")
+				//.CreateAlias("SubscriptionCustomer.Shop", "CustomerShop")
+				//.SetFetchMode("LensSubscriptionTransactions", FetchMode.Eager)
+				//.Add(Restrictions.Eq("CustomerShop.Id", shopId))
 			    .UniqueResult<Settlement>();
 			var contractSaleItemsForShop = settlement.ContractSales.Where(x => x.Shop.Id.Equals(shopId));
 			var transactionsForShop = settlement.LensSubscriptionTransactions.Where(x => x.Subscription.Customer.Shop.Id.Equals(shopId));
 			var shopSettlement = new ShopSettlement
 			{
-			    Id = settlement.Id,
-			    CreatedDate = settlement.CreatedDate,
-			    Shop = Session.Get<Shop>(id),
-			    LensSubscriptionTransactions = transactionsForShop.OrderBy(x => x.Id).ToList(),
-			    SaleItems = contractSaleItemsForShop.SelectMany(x => x.SaleItems).ToList(),
-				ContractSalesValueIncludingVAT = contractSaleItemsForShop.Sum(x => x.TotalAmountIncludingVAT)
+				Id = settlement.Id,
+				CreatedDate = settlement.CreatedDate,
+				Shop = Session.Get<Shop>(id),
+				LensSubscriptionTransactions = transactionsForShop.OrderBy(x => x.Id).ToList(),
+				SaleItems = contractSaleItemsForShop.SelectMany(x => x.SaleItems).ToList(),
+				ContractSalesValueIncludingVAT = contractSaleItemsForShop.Sum(x => x.TotalAmountIncludingVAT),
+				AllContractSalesHaveBeenMarkedAsPayed = contractSaleItemsForShop.All(x => x.MarkedAsPayed)
 			};
 			return shopSettlement;
 

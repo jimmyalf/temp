@@ -51,6 +51,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests
 		}
 
 		[Test]
+		public void Mark_as_payed_button_is_enabled()
+		{
+			AssertUsing( view => view.Model.MarkAsPayedButtonEnabled.ShouldBe(true));
+		}
+
+		[Test]
 		public void View_model_has_expected_settment_properties()
 		{
 			AssertUsing( view =>
@@ -163,6 +169,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests
 
 	[TestFixture]
 	[Category("CreateCustomerPresenterTester")]
+	public class When_loading_view_settlement_where_orders_have_beed_marked_as_payed : ViewSettlementTestbase
+	{
+		private readonly ShopSettlement _expectedSettlement;
+		public When_loading_view_settlement_where_orders_have_beed_marked_as_payed()
+		{
+			_expectedSettlement = ShopSettlementFactory.Get(50);
+			_expectedSettlement.AllContractSalesHaveBeenMarkedAsPayed = true;
+			Context = () =>
+			{
+				MockedSettlementRepository.Setup(x => x.GetForShop(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedSettlement);
+			};
+
+			Because = presenter => presenter.View_Load(null, new EventArgs());
+		}
+
+		[Test]
+		public void Mark_as_payed_button_is_disabled()
+		{
+			AssertUsing( view => view.Model.MarkAsPayedButtonEnabled.ShouldBe(false));
+		}
+	}
+
+	[TestFixture]
+	[Category("CreateCustomerPresenterTester")]
 	public class When_switching_settlement_view_mode_to_detailed_mode : ViewSettlementTestbase
 	{
 		private readonly ShopSettlement _expectedSettlement;
@@ -198,5 +228,47 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests
 		{
 			AssertUsing( view => view.Model.DisplaySimpleView.ShouldBe(false));
 		}
+	}
+
+	[TestFixture]
+	[Category("CreateCustomerPresenterTester")]
+	public class When_clicking_mark_as_payed : ViewSettlementTestbase
+	{
+		private readonly ShopSettlement _expectedSettlement;
+		private readonly int _expectedCurrentShopId;
+
+		public When_clicking_mark_as_payed()
+		{
+			_expectedSettlement = ShopSettlementFactory.Get(50);
+			_expectedCurrentShopId = 5;
+			Context = () =>
+			{
+				MockedSettlementRepository.Setup(x => x.GetForShop(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedSettlement);
+				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(_expectedCurrentShopId);
+				MockedHttpContext.SetupSingleQuery("settlementId", _expectedSettlement.Id.ToString());
+			};
+
+			Because = presenter =>
+			{
+				presenter.View_Load(null, new EventArgs());
+				presenter.View_MarkAllSaleItemsAsPayed(null, new EventArgs());
+			};
+		}
+
+		[Test]
+		public void Mark_as_payed_button_is_disabled()
+		{
+			AssertUsing( view => view.Model.MarkAsPayedButtonEnabled.ShouldBe(false));
+		}
+
+		[Test]
+		public void Presenter_marks_all_orders_as_payed()
+		{
+			MockedSqlProvider.Verify(x => x.MarkOrdersInSettlementAsPayedPerShop(
+				It.Is<int>(settlementId => settlementId.Equals(_expectedSettlement.Id)),
+				It.Is<int>(settlementId => settlementId.Equals(_expectedCurrentShopId))
+			));
+		}
+
 	}
 }

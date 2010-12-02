@@ -10,6 +10,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
@@ -243,6 +244,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				settlementForShop.SaleItems.Count().ShouldBe(expectedSaleItems.Count());
 				settlementForShop.LensSubscriptionTransactions.Count().ShouldBe(_transactions.Count());
 				settlementForShop.ContractSalesValueIncludingVAT.ShouldBe((decimal)expectedContractSales.Sum(x => x.InvoiceSumIncludingVAT));
+				settlementForShop.AllContractSalesHaveBeenMarkedAsPayed.ShouldBe(false);
 				settlementForShop.SaleItems.ForBoth(expectedSaleItems, (saleItem, originalItem) =>
 				{
 					saleItem.Article.Name.ShouldBe(_article.Name);
@@ -262,6 +264,17 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 					transaction.Id.ShouldBe(originalItem.Id);
 					transaction.Subscription.Id.ShouldBe(originalItem.Subscription.Id);
 				});
+			});
+		}
+
+		[Test]
+		public void Can_get_settlement_for_shop_using_nhibernate_contining_only_shop_specific_transactions_and_sale_items_with_sale_items_marked_as_payed()
+		{
+			new SqlProvider(DataHelper.ConnectionString).MarkOrdersInSettlementAsPayedPerShop(_settlementId, testableShopId);
+			AssertUsing(session =>
+			{
+				var settlementForShop = new SettlementRepository(session).GetForShop(_settlementId, testableShopId);
+				settlementForShop.AllContractSalesHaveBeenMarkedAsPayed.ShouldBe(true);
 			});
 		}
 	}

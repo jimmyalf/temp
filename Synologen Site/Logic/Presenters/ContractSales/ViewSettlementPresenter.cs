@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -14,17 +15,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.ContractSales
 	{
 		private readonly ISettlementRepository _settlementRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
+		private readonly ISqlProvider _sqlService;
 		private const string SettlementRequestParameterName = "settlementId";
 		private const string UseDetailedSettlementViewSessionKey = "UseDetailedSettlementView";
 		private const string SimpleButtonText = "Visa enkelt";
 		private const string DetailedButtonText = "Visa detaljer";
 
-		public ViewSettlementPresenter(IViewSettlementView view, ISettlementRepository settlementRepository, ISynologenMemberService synologenMemberService) : base(view)
+		public ViewSettlementPresenter(IViewSettlementView view, ISettlementRepository settlementRepository, ISynologenMemberService synologenMemberService, ISqlProvider sqlService) : base(view)
 		{
 			_settlementRepository = settlementRepository;
 			_synologenMemberService = synologenMemberService;
+			_sqlService = sqlService;
 			View.Load += View_Load;
 			View.SwitchView += View_SwitchView;
+			View.MarkAllSaleItemsAsPayed += View_MarkAllSaleItemsAsPayed;
 		}
 
 		public void View_Load(object sender, EventArgs e)
@@ -41,6 +45,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.ContractSales
 			View.Model.DetailedContractSales = settlementForShop.SaleItems.Select(DetailedSalesItemConverter);
 			View.Model.SimpleContractSales = settlementForShop.SaleItems.OrderBy(x => x.Article.Id).GroupBy(x => x.Article.Id).Select(SimpleSalesItemConverter);
 			View.Model.SwitchViewButtonText = (useDetailedView) ? SimpleButtonText : DetailedButtonText;
+			View.Model.MarkAsPayedButtonEnabled = !settlementForShop.AllContractSalesHaveBeenMarkedAsPayed;
 		}
 
 		public void View_SwitchView(object sender, EventArgs e)
@@ -49,6 +54,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.ContractSales
 			HttpContext.Session[UseDetailedSettlementViewSessionKey] = newUseDetailedViewSetting;
 			View.Model.SwitchViewButtonText = (newUseDetailedViewSetting) ? SimpleButtonText : DetailedButtonText;
 			View.Model.DisplayDetailedView = newUseDetailedViewSetting;
+		}
+
+		public void View_MarkAllSaleItemsAsPayed(object o, EventArgs args)
+		{
+			var shopId = _synologenMemberService.GetCurrentShopId();
+			var settlementId = HttpContext.Request.Params[SettlementRequestParameterName].ToIntOrDefault();
+			_sqlService.MarkOrdersInSettlementAsPayedPerShop(settlementId, shopId);
+			View.Model.MarkAsPayedButtonEnabled = false;
 		}
 
 
@@ -87,6 +100,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.ContractSales
 		public override void ReleaseView()
 		{
 			View.Load -= View_Load;
+			View.SwitchView -= View_SwitchView;
+			View.MarkAllSaleItemsAsPayed -= View_MarkAllSaleItemsAsPayed;
 		}
 	}
 }

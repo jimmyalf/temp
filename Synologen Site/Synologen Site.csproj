@@ -122,12 +122,12 @@
     <Compile Include="Wpc\Synologen\CityShopList.ascx.designer.cs">
       <DependentUpon>CityShopList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\ViewSettlementMVP.ascx.cs">
-      <DependentUpon>ViewSettlementMVP.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\ViewSettlement.ascx.cs">
+      <DependentUpon>ViewSettlement.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\ViewSettlementMVP.ascx.designer.cs">
-      <DependentUpon>ViewSettlementMVP.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\ViewSettlement.ascx.designer.cs">
+      <DependentUpon>ViewSettlement.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\EditMember.ascx.cs">
       <DependentUpon>EditMember.ascx</DependentUpon>
@@ -276,12 +276,12 @@
     <Compile Include="Wpc\Synologen\ViewOrder.ascx.designer.cs">
       <DependentUpon>ViewOrder.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\ViewSettlement.ascx.cs">
-      <DependentUpon>ViewSettlement.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\ViewSettlementOld.ascx.cs">
+      <DependentUpon>ViewSettlementOld.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\ViewSettlement.ascx.designer.cs">
-      <DependentUpon>ViewSettlement.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\ViewSettlementOld.ascx.designer.cs">
+      <DependentUpon>ViewSettlementOld.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -311,7 +311,7 @@
     <Content Include="Default.Master" />
     <Content Include="EditOrderPage.aspx" />
     <Content Include="MembersList.aspx" />
-    <Content Include="ViewSettlementPage.aspx" />
+    <Content Include="ViewSettlementOldPage.aspx" />
     <Content Include="Wpc\Synologen\EditMember.ascx" />
     <Content Include="Wpc\Synologen\EditOrder.ascx" />
     <Content Include="Wpc\Synologen\CreateOrder.ascx" />
@@ -327,10 +327,11 @@
     <Content Include="Wpc\Synologen\SettlementList.ascx" />
     <Content Include="Wpc\Synologen\ShopMemberList.ascx" />
     <Content Include="Wpc\Synologen\ViewOrder.ascx" />
-    <Content Include="Wpc\Synologen\ViewSettlement.ascx" />
+    <Content Include="Wpc\Synologen\ViewSettlementOld.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CityShopList.aspx" />
+    <Content Include="ViewSettlementPage.aspx" />
     <Content Include="LensSubscriptionEditSubscription.aspx" />
     <Content Include="LensSubscriptionCreateCustomer.aspx" />
     <Content Include="LensSubscriptionCreateSubscription.aspx" />
@@ -343,7 +344,7 @@
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
-    <Content Include="Wpc\Synologen\ViewSettlementMVP.ascx" />
+    <Content Include="Wpc\Synologen\ViewSettlement.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptionCreateTransaction.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx" />
     <Content Include="Wpc\Synologen\FrameOrder.ascx" />

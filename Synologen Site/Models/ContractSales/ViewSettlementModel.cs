@@ -4,6 +4,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.ContractSales
 {
 	public class ViewSettlementModel 
 	{
+		public ViewSettlementModel()
+		{
+			MarkAsPayedButtonEnabled = true;
+		}
 		public int SettlementId { get; set; }
 		public string ShopNumber { get; set; }
 		public string Period { get; set; }
@@ -13,5 +17,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.ContractSales
 		public bool DisplayDetailedView{ get; set; }
 		public bool DisplaySimpleView{ get { return !DisplayDetailedView; } }
 		public string SwitchViewButtonText { get; set; }
+		public bool MarkAsPayedButtonEnabled { get; set; }
 	}
 }

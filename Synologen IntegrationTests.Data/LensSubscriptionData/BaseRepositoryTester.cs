@@ -61,8 +61,12 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			{
 				return new TransactionsForSubscriptionMatchingCriteriaConverter(GetSessionFactory().OpenSession());
 			}
+			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<AllUnhandledSubscriptionErrorsForShopCriteria,ICriteria>)))
+			{
+				return new AllUnhandledSubscriptionErrorsForShopCriteriaConverter(GetSessionFactory().OpenSession());
+			}
 
-			throw new ArgumentException(String.Format("No criteria converter has been defined for {0}", objectToResolve), "objectToResolve");
+			throw new ArgumentException(String.Format("No criteria converter has been defined for {0}.\r\n Create a converter in base class.", objectToResolve), "objectToResolve");
 		}
 
 		private void SetupData() 

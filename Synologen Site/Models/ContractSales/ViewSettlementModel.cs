@@ -10,5 +10,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.ContractSales
 		public string ContractSalesValueIncludingVAT { get; set; }
 		public IEnumerable<SettlementDetailedContractSaleListItemModel> DetailedContractSales { get; set; }
 		public IEnumerable<SettlementSimpleContractSaleListItemModel> SimpleContractSales { get; set; }
+		public bool DisplayDetailedView{ get; set; }
+		public bool DisplaySimpleView{ get { return !DisplayDetailedView; } }
+		public string SwitchViewButtonText { get; set; }
 	}
 }

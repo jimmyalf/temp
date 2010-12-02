@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Core.Extensions
 {
@@ -33,6 +32,18 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		{
 			int output;
 			return int.TryParse(textValue, out output) ? output : default(int);
+		}
+
+		public static bool ToBoolOrDefault(this string textValue, bool defaultValue)
+		{
+			bool output;
+			return bool.TryParse(textValue, out output) ? output : defaultValue;
+		}
+
+		public static bool ToBoolOrDefault(this string textValue)
+		{
+			bool output;
+			return bool.TryParse(textValue, out output) ? output : default(bool);
 		}
 
 		public static int ToInt(this string textValue)

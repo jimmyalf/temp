@@ -167,6 +167,7 @@
     <Compile Include="Extensions\IntegerExtionsions.cs" />
     <Compile Include="Extensions\KeyEqualityComparer.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringBuilderExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IFrameRepository.cs" />

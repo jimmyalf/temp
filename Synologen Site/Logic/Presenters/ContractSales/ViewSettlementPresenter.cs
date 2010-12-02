@@ -14,31 +14,43 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.ContractSales
 	{
 		private readonly ISettlementRepository _settlementRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
+		private const string SettlementRequestParameterName = "settlementId";
+		private const string UseDetailedSettlementViewSessionKey = "UseDetailedSettlementView";
+		private const string SimpleButtonText = "Visa enkelt";
+		private const string DetailedButtonText = "Visa detaljer";
 
 		public ViewSettlementPresenter(IViewSettlementView view, ISettlementRepository settlementRepository, ISynologenMemberService synologenMemberService) : base(view)
 		{
 			_settlementRepository = settlementRepository;
 			_synologenMemberService = synologenMemberService;
 			View.Load += View_Load;
+			View.SwitchView += View_SwitchView;
 		}
 
 		public void View_Load(object sender, EventArgs e)
 		{
-			var settlementId = HttpContext.Request["settlement"].ToIntOrDefault();
+			var settlementId = HttpContext.Request.Params[SettlementRequestParameterName].ToIntOrDefault();
+			var useDetailedView = HttpContext.Session[UseDetailedSettlementViewSessionKey].ToTypeOrDefault(false);
 			var shopId = _synologenMemberService.GetCurrentShopId();
 			var settlementForShop = _settlementRepository.GetForShop(settlementId, shopId);
+			View.Model.DisplayDetailedView = useDetailedView;
 			View.Model.SettlementId = settlementForShop.Id;
 			View.Model.ShopNumber = settlementForShop.Shop.Number;
 			View.Model.Period = Business.Utility.General.GetSettlementPeriodNumber(settlementForShop.CreatedDate);
 			View.Model.ContractSalesValueIncludingVAT = settlementForShop.ContractSalesValueIncludingVAT.ToString("C2");
 			View.Model.DetailedContractSales = settlementForShop.SaleItems.Select(DetailedSalesItemConverter);
 			View.Model.SimpleContractSales = settlementForShop.SaleItems.OrderBy(x => x.Article.Id).GroupBy(x => x.Article.Id).Select(SimpleSalesItemConverter);
+			View.Model.SwitchViewButtonText = (useDetailedView) ? SimpleButtonText : DetailedButtonText;
 		}
 
-		public override void ReleaseView()
+		public void View_SwitchView(object sender, EventArgs e)
 		{
-			View.Load -= View_Load;
+			var newUseDetailedViewSetting = !View.Model.DisplayDetailedView;
+			HttpContext.Session[UseDetailedSettlementViewSessionKey] = newUseDetailedViewSetting;
+			View.Model.SwitchViewButtonText = (newUseDetailedViewSetting) ? SimpleButtonText : DetailedButtonText;
+			View.Model.DisplayDetailedView = newUseDetailedViewSetting;
 		}
+
 
 		private static Func<SaleItem,SettlementDetailedContractSaleListItemModel> DetailedSalesItemConverter
 		{
@@ -70,6 +82,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.ContractSales
 					ValueExcludingVAT = saleItemGroup.Sum(x => x.TotalPriceExcludingVAT()).ToString("C2")
 				};
 			}
+		}
+
+		public override void ReleaseView()
+		{
+			View.Load -= View_Load;
 		}
 	}
 }

@@ -22,13 +22,16 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories
 				.SetFetchMode("LensSubscriptionTransactions", FetchMode.Eager)
 				.Add(Restrictions.Eq("CustomerShop.Id", shopId))
 			    .UniqueResult<Settlement>();
+			var contractSaleItemsForShop = settlement.ContractSales.Where(x => x.Shop.Id.Equals(shopId));
+			var transactionsForShop = settlement.LensSubscriptionTransactions.Where(x => x.Subscription.Customer.Shop.Id.Equals(shopId));
 			var shopSettlement = new ShopSettlement
 			{
 			    Id = settlement.Id,
 			    CreatedDate = settlement.CreatedDate,
 			    Shop = Session.Get<Shop>(id),
-			    LensSubscriptionTransactions = settlement.LensSubscriptionTransactions.Where(x => x.Subscription.Customer.Shop.Id.Equals(shopId)).OrderBy(x => x.Id).ToList(),
-			    SaleItems = settlement.ContractSales.Where(x => x.Shop.Id.Equals(shopId)).SelectMany(x => x.SaleItems).ToList()
+			    LensSubscriptionTransactions = transactionsForShop.OrderBy(x => x.Id).ToList(),
+			    SaleItems = contractSaleItemsForShop.SelectMany(x => x.SaleItems).ToList(),
+				ContractSalesValueIncludingVAT = contractSaleItemsForShop.Sum(x => x.TotalAmountIncludingVAT)
 			};
 			return shopSettlement;
 

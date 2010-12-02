@@ -1,3 +1,4 @@
+using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services

@@ -121,7 +121,7 @@
     <Compile Include="Repositories\LensSubscriptionRepositories\TransactionRepository.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\SettlementRepository.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ArticleMap.cs" />
-    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractArticleMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractCompanyMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractSaleMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\CustomerMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\SaleItemMap.cs" />

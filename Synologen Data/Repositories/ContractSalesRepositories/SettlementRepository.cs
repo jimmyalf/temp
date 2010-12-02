@@ -1,6 +1,5 @@
 using System.Linq;
 using NHibernate;
-using NHibernate.Criterion;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
@@ -14,15 +13,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories
 
 		public ShopSettlement GetForShop(int id, int shopId)
 		{
-			HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-			var settlement = Session.CreateCriteria<Settlement>()
-				.Add(Restrictions.Eq("Id", id))
-				//.CreateAlias("LensSubscriptionTransactions.Subscription", "TransactionSubscription")
-				//.CreateAlias("TransactionSubscription.Customer", "SubscriptionCustomer")
-				//.CreateAlias("SubscriptionCustomer.Shop", "CustomerShop")
-				//.SetFetchMode("LensSubscriptionTransactions", FetchMode.Eager)
-				//.Add(Restrictions.Eq("CustomerShop.Id", shopId))
-			    .UniqueResult<Settlement>();
+			var settlement = Get(id);
 			var contractSaleItemsForShop = settlement.ContractSales.Where(x => x.Shop.Id.Equals(shopId));
 			var transactionsForShop = settlement.LensSubscriptionTransactions.Where(x => x.Subscription.Customer.Shop.Id.Equals(shopId));
 			var shopSettlement = new ShopSettlement

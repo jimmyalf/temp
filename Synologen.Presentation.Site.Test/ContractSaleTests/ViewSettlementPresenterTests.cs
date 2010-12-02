@@ -12,20 +12,42 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests
 {
 	[TestFixture]
 	[Category("CreateCustomerPresenterTester")]
-	public class  When_loading_viewe_settlement_view : ViewSettlementTestbase
+	public class When_loading_view_settlement_view_in_default_simple_mode : ViewSettlementTestbase
 	{
 		private readonly string _expectedPeriod;
 		private readonly ShopSettlement _expectedSettlement;
-		public When_loading_viewe_settlement_view()
+		private readonly int _expectedCurrentShopId;
+		public When_loading_view_settlement_view_in_default_simple_mode()
 		{
 			_expectedPeriod = "1048";
+			_expectedCurrentShopId = 5;
 			_expectedSettlement = ShopSettlementFactory.Get(50);
 			Context = () =>
 			{
 				MockedSettlementRepository.Setup(x => x.GetForShop(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedSettlement);
+				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(_expectedCurrentShopId);
+				MockedHttpContext.SetupSingleQuery("settlementId", _expectedSettlement.Id.ToString());
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
+		}
+
+		[Test]
+		public void Switch_view_button_has_expected_text()
+		{
+			AssertUsing( view => view.Model.SwitchViewButtonText.ShouldBe("Visa detaljer"));
+		}
+
+		[Test]
+		public void Simple_view_is_displayed()
+		{
+			AssertUsing( view => view.Model.DisplaySimpleView.ShouldBe(true));
+		}
+
+		[Test]
+		public void Detailed_view_is_hidden()
+		{
+			AssertUsing( view => view.Model.DisplayDetailedView.ShouldBe(false));
 		}
 
 		[Test]
@@ -39,6 +61,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests
 				view.Model.ContractSalesValueIncludingVAT.ShouldBe(_expectedSettlement.ContractSalesValueIncludingVAT.ToString("C2"));
 				view.Model.DetailedContractSales.Count().ShouldBe(_expectedSettlement.SaleItems.Count());
 				view.Model.SimpleContractSales.Count().ShouldBe(_expectedSettlement.SaleItems.Select(x => x.Article.Id).Distinct().Count());
+				view.Model.SwitchViewButtonText.ShouldBe("Visa detaljer");
 			});
 		}
 
@@ -84,6 +107,96 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests
 				viewItem.Quantity.ShouldBe("9");
 				viewItem.ValueExcludingVAT.ShouldBe("499,95 kr");
 			}));
+		}
+
+		[Test]
+		public void Presenter_fetches_current_shop_id_from_member_service()
+		{
+			MockedSynologenMemberService.Verify(x => x.GetCurrentShopId(), Times.Once());
+		}
+
+		[Test]
+		public void Presenter_fetches_shop_settlement_from_settlement_respository()
+		{
+			MockedSettlementRepository.Verify(x => x.GetForShop(
+				It.Is<int>( settlementId => settlementId.Equals(_expectedSettlement.Id)),
+				It.Is<int>( shopId => shopId.Equals(_expectedCurrentShopId))
+			));
+		}
+	}
+
+	[TestFixture]
+	[Category("CreateCustomerPresenterTester")]
+	public class When_loading_view_settlement_view_in_detailed_mode : ViewSettlementTestbase
+	{
+		private readonly ShopSettlement _expectedSettlement;
+		public When_loading_view_settlement_view_in_detailed_mode()
+		{
+			_expectedSettlement = ShopSettlementFactory.Get(50);
+			Context = () =>
+			{
+				MockedSettlementRepository.Setup(x => x.GetForShop(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedSettlement);
+				MockedHttpContext.SetupSessionValue("UseDetailedSettlementView", true);
+			};
+
+			Because = presenter => presenter.View_Load(null, new EventArgs());
+		}
+
+		[Test]
+		public void Switch_view_button_has_expected_text()
+		{
+			AssertUsing( view => view.Model.SwitchViewButtonText.ShouldBe("Visa enkelt"));
+		}
+
+		[Test]
+		public void Detailed_view_is_displayed()
+		{
+			AssertUsing( view => view.Model.DisplayDetailedView.ShouldBe(true));
+		}
+
+		[Test]
+		public void Simple_view_is_hidden()
+		{
+			AssertUsing( view => view.Model.DisplaySimpleView.ShouldBe(false));
+		}
+	}
+
+	[TestFixture]
+	[Category("CreateCustomerPresenterTester")]
+	public class When_switching_settlement_view_mode_to_detailed_mode : ViewSettlementTestbase
+	{
+		private readonly ShopSettlement _expectedSettlement;
+		public When_switching_settlement_view_mode_to_detailed_mode()
+		{
+			_expectedSettlement = ShopSettlementFactory.Get(50);
+			Context = () =>
+			{
+				MockedSettlementRepository.Setup(x => x.GetForShop(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedSettlement);
+			};
+
+			Because = presenter =>
+			{
+				presenter.View_Load(null, new EventArgs());
+				presenter.View_SwitchView(null, new EventArgs());
+			};
+		}
+
+		[Test]
+		public void Switch_view_button_has_expected_text()
+		{
+			AssertUsing( view => view.Model.SwitchViewButtonText.ShouldBe("Visa enkelt"));
+		}
+
+		[Test]
+		public void Detailed_view_is_displayed()
+		{
+			AssertUsing( view => view.Model.DisplayDetailedView.ShouldBe(true));
+		}
+
+		[Test]
+		public void Simple_view_is_hidden()
+		{
+			AssertUsing( view => view.Model.DisplaySimpleView.ShouldBe(false));
 		}
 	}
 }

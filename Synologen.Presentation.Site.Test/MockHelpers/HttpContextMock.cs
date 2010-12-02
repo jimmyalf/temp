@@ -12,14 +12,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers
 		{
 			MockedHttpResponse = new Mock<HttpResponseBase>();
 			MockedHttpRequest = new Mock<HttpRequestBase>();
+			MockedHttpSessionState = new Mock<HttpSessionStateBase>();
 			MockedHttpRequest.SetupGet(x => x.Params).Returns(new NameValueCollection());
 			MockedHttpRequest.SetupGet(x => x.Url).Returns(new Uri("http://www.test.se/test/"));
 			SetupGet(x => x.Response).Returns(MockedHttpResponse.Object);
 			SetupGet(x => x.Request).Returns(MockedHttpRequest.Object);
+			SetupGet(x => x.Session).Returns(MockedHttpSessionState.Object);
 		}
 
 		public Mock<HttpResponseBase> MockedHttpResponse { get; set; }
 		public Mock<HttpRequestBase> MockedHttpRequest { get; set; }
+		public Mock<HttpSessionStateBase> MockedHttpSessionState { get; set; }
 
 		public HttpContextMock SetupCurrentPathAndQuery(string pathAndQueryUrl)
 		{
@@ -35,6 +38,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers
 		public HttpContextMock SetupSingleQuery(string key, string value)
 		{
 			return SetupQueryString(new NameValueCollection { { key, value } });
+		}
+
+		public HttpContextMock SetupSessionValue(string key, object value)
+		{
+			MockedHttpSessionState.SetupGet(x => x[key]).Returns(value);
+			return this;
 		}
 
 		public void VerifyRedirect(string pathAndQuery)

@@ -122,6 +122,13 @@
     <Compile Include="Wpc\Synologen\CityShopList.ascx.designer.cs">
       <DependentUpon>CityShopList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\ViewSettlementMVP.ascx.cs">
+      <DependentUpon>ViewSettlementMVP.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ViewSettlementMVP.ascx.designer.cs">
+      <DependentUpon>ViewSettlementMVP.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\EditMember.ascx.cs">
       <DependentUpon>EditMember.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -336,6 +343,7 @@
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
+    <Content Include="Wpc\Synologen\ViewSettlementMVP.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptionCreateTransaction.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx" />
     <Content Include="Wpc\Synologen\FrameOrder.ascx" />

@@ -238,21 +238,23 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 			AssertUsing(session =>
 			{
 				var settlementForShop = new SettlementRepository(session).GetForShop(_settlementId, testableShopId);
-				var expectedSaleItems = _ordersToSave
-					.Where(x => x.SalesPersonShopId.Equals(testableShopId) 
-						&& x.StatusId.Equals(settlementableOrderStatus))
-					.SelectMany(x => x.OrderItems).ToList();
+				var expectedContractSales = _ordersToSave.Where(x => x.SalesPersonShopId.Equals(testableShopId) && x.StatusId.Equals(settlementableOrderStatus));
+				var expectedSaleItems = expectedContractSales.SelectMany(x => x.OrderItems).ToList();
 				settlementForShop.SaleItems.Count().ShouldBe(expectedSaleItems.Count());
 				settlementForShop.LensSubscriptionTransactions.Count().ShouldBe(_transactions.Count());
+				settlementForShop.ContractSalesValueIncludingVAT.ShouldBe((decimal)expectedContractSales.Sum(x => x.InvoiceSumIncludingVAT));
 				settlementForShop.SaleItems.ForBoth(expectedSaleItems, (saleItem, originalItem) =>
 				{
 					saleItem.Article.Name.ShouldBe(_article.Name);
 					saleItem.Article.Number.ShouldBe(_article.Number);
-					saleItem.Article.IsVATFree(TestableContractId).Value.ShouldBe(_contractArticleConnection.NoVAT);
 					saleItem.Article.Id.ShouldBe(_article.Id);
 					saleItem.Id.ShouldBe(originalItem.Id);
 					saleItem.Quantity.ShouldBe(originalItem.NumberOfItems);
-					saleItem.ValueExcludingVAT.ShouldBe((decimal)originalItem.SinglePrice);
+					saleItem.TotalPriceExcludingVAT().ShouldBe((decimal)originalItem.DisplayTotalPrice);
+					saleItem.Sale.ContractCompany.Id.ShouldBe(TestableCompanyId);
+					saleItem.Sale.ContractCompany.Name.ShouldBe("Test Företag AB");
+					saleItem.Sale.ContractCompany.ContractId.ShouldBe(TestableContractId);
+					saleItem.IsVATFree.ShouldBe(_contractArticleConnection.NoVAT);
 				});
 				settlementForShop.LensSubscriptionTransactions.ForBoth(_transactions, (transaction, originalItem) =>
 				{

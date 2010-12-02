@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\Shouldly.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Data, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
@@ -69,6 +73,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssertionHelpers\AssertionExtensions.cs" />
+    <Compile Include="ContractSaleTests\Factories\ContractCompanyFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\ArticleFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\ContractSaleFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\SalesItemFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\ShopFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\TransactionFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\ShopSettlementFactory.cs" />
+    <Compile Include="ContractSaleTests\TestHelpers\ViewSettlementTestbase.cs" />
+    <Compile Include="ContractSaleTests\ViewSettlementPresenterTests.cs" />
     <Compile Include="EqualityComparers\EyeParameterEqualityComparer.cs" />
     <Compile Include="Factories\RepositoryFactory.cs" />
     <Compile Include="Factories\ViewsFactory.cs" />

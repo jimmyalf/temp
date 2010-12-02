@@ -87,6 +87,7 @@
     <Compile Include="Domain\Model\Autogiro\Send\Payment.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
     <Compile Include="Domain\Model\ContractSales\Article.cs" />
+    <Compile Include="Domain\Model\ContractSales\ContractCompany.cs" />
     <Compile Include="Domain\Model\ContractSales\ContractSale.cs" />
     <Compile Include="Domain\Model\ContractSales\Customer.cs" />
     <Compile Include="Domain\Model\ContractSales\SaleItem.cs" />

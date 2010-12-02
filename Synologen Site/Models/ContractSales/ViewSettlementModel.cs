@@ -7,7 +7,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.ContractSales
 		public int SettlementId { get; set; }
 		public string ShopNumber { get; set; }
 		public string Period { get; set; }
-		public string ValueIncludingVAT { get; set; }
+		public string ContractSalesValueIncludingVAT { get; set; }
 		public IEnumerable<SettlementDetailedContractSaleListItemModel> DetailedContractSales { get; set; }
 		public IEnumerable<SettlementSimpleContractSaleListItemModel> SimpleContractSales { get; set; }
 	}

@@ -17,6 +17,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			return mockedSubscriptionError.Object;
 		}
 
+		public static SubscriptionError[] GetList()
+		{
+			var customer = CustomerFactory.Get(1);
+			var subscription = SubscriptionFactory.Get(customer);
+			return GetList(subscription);
+		}
+
 		public static SubscriptionError[] GetList(Subscription subscription)
 		{
 			return new [] {

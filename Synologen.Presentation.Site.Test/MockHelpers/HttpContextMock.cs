@@ -8,13 +8,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers
 {
 	public class HttpContextMock : Mock<HttpContextBase>
 	{
+		private readonly string domainAddress = "http://www.test.se/";
 		public HttpContextMock()
 		{
 			MockedHttpResponse = new Mock<HttpResponseBase>();
 			MockedHttpRequest = new Mock<HttpRequestBase>();
 			MockedHttpSessionState = new Mock<HttpSessionStateBase>();
 			MockedHttpRequest.SetupGet(x => x.Params).Returns(new NameValueCollection());
-			MockedHttpRequest.SetupGet(x => x.Url).Returns(new Uri("http://www.test.se/test/"));
+			MockedHttpRequest.SetupGet(x => x.Url).Returns(new Uri(domainAddress));
 			SetupGet(x => x.Response).Returns(MockedHttpResponse.Object);
 			SetupGet(x => x.Request).Returns(MockedHttpRequest.Object);
 			SetupGet(x => x.Session).Returns(MockedHttpSessionState.Object);
@@ -26,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers
 
 		public HttpContextMock SetupCurrentPathAndQuery(string pathAndQueryUrl)
 		{
-			var fullUrl = "http://www.test.se".AppendUrl(pathAndQueryUrl);
+			var fullUrl = domainAddress.AppendUrl(pathAndQueryUrl);
 			MockedHttpRequest.SetupGet(x => x.Url).Returns(new Uri(fullUrl));
 			return this;
 		}

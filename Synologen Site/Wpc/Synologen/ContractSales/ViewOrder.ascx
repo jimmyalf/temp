@@ -1,20 +1,20 @@
-ï»¿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewOrder.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ViewOrder" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewOrder.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales.ViewOrder" %>
 <div id="synologen-view-order" class="synologen-control">
 <asp:PlaceHolder ID="plViewOrder" runat="server" Visible="true">
 	<fieldset><legend>Fakturauppgifter</legend>
 		<label>Ordernummer:</label><span><%=Order.Id%></span><br />
-		<label>FÃ¶retag:</label><span><asp:Literal ID="ltCompany" runat="server" /></span><br />
+		<label>Företag:</label><span><asp:Literal ID="ltCompany" runat="server" /></span><br />
 		<label>Enhet:</label><span><%=Order.CompanyUnit%></span><br />
-		<label>KostnadsstÃ¤lle:</label><span><%=Order.RstText %></span><br />
-		<label>FÃ¶rnamn:</label><span><%=Order.CustomerFirstName%></span><br />
+		<label>Kostnadsställe:</label><span><%=Order.RstText %></span><br />
+		<label>Förnamn:</label><span><%=Order.CustomerFirstName%></span><br />
 		<label>Efternamn:</label><span><%=Order.CustomerLastName%></span><br />
 		<label>Personnummer:</label><span><%=Order.PersonalIdNumber%></span><br />
 		<label>Epost:</label><a href="mailto:<%=Order.Email%>"><%=Order.Email%></a><br />
 		<label>Telefon:</label><span><%=Order.Phone%></span><br />
-		<label>FÃ¶rsÃ¤ljare:</label><span><asp:Literal ID="ltSalesPersonName" runat="server" /></span><br />
+		<label>Försäljare:</label><span><asp:Literal ID="ltSalesPersonName" runat="server" /></span><br />
 		<label>Status:</label><span><asp:Literal ID="ltOrderStatus" runat="server" /></span><br />
 		<label>Skapad:</label><span><%=Order.CreatedDate.ToShortDateString()%></span><br />
-		<label>Status Ã¤ndrades:</label><span><%=OrderUpdateDate%></span><br />
+		<label>Status ändrades:</label><span><%=OrderUpdateDate%></span><br />
 		<label>Utbetald:</label><span><%=Order.MarkedAsPayedByShop ? "Ja" : "Nej" %></span><br />
 	</fieldset>
 	<br /><br />	
@@ -43,11 +43,11 @@
 	<div class="control-actions clearLeft">
 		<%--<asp:Button ID="btnBack" runat="server" Text="Tillbaka" OnClick="btnBack_Click" />--%>
 		<a href="<%=Spinit.Wpc.Synologen.Presentation.Site.Code.SynologenSessionContext.SalesListPage %>">Tillbaka</a>
-		<%--<asp:Button ID="btnMarkAsPayed" runat="server" Text="Markera som utbetald" OnClick="btnMarkAsPayed_Click" ValidationGroup="vldSubmit" OnClientClick="return confirm('Ã„r du sÃ¤ker pÃ¥ att du vill markera ordern som utbetald?');" />--%>
+		<%--<asp:Button ID="btnMarkAsPayed" runat="server" Text="Markera som utbetald" OnClick="btnMarkAsPayed_Click" ValidationGroup="vldSubmit" OnClientClick="return confirm('Är du säker på att du vill markera ordern som utbetald?');" />--%>
 	</div>
 </asp:PlaceHolder>
 <asp:PlaceHolder ID="plNoAccessMessage" runat="server" Visible="false">
-<p class="error-message"><strong>!</strong>&nbsp;Du har inte rÃ¤tt att se vald order.</p><br />
+<p class="error-message"><strong>!</strong>&nbsp;Du har inte rätt att se vald order.</p><br />
 <%--<asp:Button ID="btnErrorBack" runat="server" Text="Tillbaka" OnClick="btnBack_Click" />--%>
 <a href="<%=Spinit.Wpc.Synologen.Presentation.Site.Code.SynologenSessionContext.SalesListPage %>">Tillbaka</a>
 </asp:PlaceHolder>

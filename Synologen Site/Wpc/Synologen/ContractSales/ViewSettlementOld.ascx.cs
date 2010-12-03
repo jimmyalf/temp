@@ -1,11 +1,12 @@
 using System;
 using System.Data;
-using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
-	public partial class ViewSettlementOld : SynologenUserControl {
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
+{
+	public partial class ViewSettlementOld : SynologenUserControl 
+	{
 		private int _settlementId;
 		private Settlement _settlement;
 		private bool _allOrdersMarkedAsPayed;

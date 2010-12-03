@@ -9,8 +9,10 @@ using Spinit.Wpc.Synologen.Presentation.Site.Code;
 using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
-	public partial class EditOrder : SynologenSalesUserControl {
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
+{
+	public partial class EditOrder : SynologenSalesUserControl 
+	{
 		private int _orderId;
 		private Order _order;
 

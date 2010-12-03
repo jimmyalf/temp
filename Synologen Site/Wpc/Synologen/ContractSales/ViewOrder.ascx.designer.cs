@@ -8,15 +8,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
-    
-    public partial class ViewOrder {
-        protected System.Web.UI.WebControls.PlaceHolder plViewOrder;
-        protected System.Web.UI.WebControls.Literal ltCompany;
-        protected System.Web.UI.WebControls.Literal ltSalesPersonName;
-        protected System.Web.UI.WebControls.Literal ltOrderStatus;
-        protected System.Web.UI.WebControls.GridView gvOrderItemsCart;
-        protected System.Web.UI.WebControls.Literal ltTotalPrice;
-        protected System.Web.UI.WebControls.PlaceHolder plNoAccessMessage;
-    }
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
+{
+	public partial class ViewOrder {
+		protected System.Web.UI.WebControls.PlaceHolder plViewOrder;
+		protected System.Web.UI.WebControls.Literal ltCompany;
+		protected System.Web.UI.WebControls.Literal ltSalesPersonName;
+		protected System.Web.UI.WebControls.Literal ltOrderStatus;
+		protected System.Web.UI.WebControls.GridView gvOrderItemsCart;
+		protected System.Web.UI.WebControls.Literal ltTotalPrice;
+		protected System.Web.UI.WebControls.PlaceHolder plNoAccessMessage;
+	}
 }

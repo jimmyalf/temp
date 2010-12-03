@@ -8,63 +8,62 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
-    
-    
-    public partial class ViewSettlementOld {
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
+{
+	public partial class ViewSettlementOld {
         
-        /// <summary>
-        /// btnSwitchView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSwitchView;
+		/// <summary>
+		/// btnSwitchView control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button btnSwitchView;
         
-        /// <summary>
-        /// btnMarkAsPayed control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMarkAsPayed;
+		/// <summary>
+		/// btnMarkAsPayed control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button btnMarkAsPayed;
         
-        /// <summary>
-        /// plSimpleView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder plSimpleView;
+		/// <summary>
+		/// plSimpleView control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.PlaceHolder plSimpleView;
         
-        /// <summary>
-        /// rptSettlementOrderItemsSimple control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptSettlementOrderItemsSimple;
+		/// <summary>
+		/// rptSettlementOrderItemsSimple control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Repeater rptSettlementOrderItemsSimple;
         
-        /// <summary>
-        /// plDetailedView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder plDetailedView;
+		/// <summary>
+		/// plDetailedView control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.PlaceHolder plDetailedView;
         
-        /// <summary>
-        /// rptSettlementOrderItemsDetailed control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptSettlementOrderItemsDetailed;
-    }
+		/// <summary>
+		/// rptSettlementOrderItemsDetailed control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Repeater rptSettlementOrderItemsDetailed;
+	}
 }

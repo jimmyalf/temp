@@ -5,7 +5,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Models.ContractSales;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen 
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
 {
 	[PresenterBinding(typeof(ViewSettlementPresenter))]
 	public partial class ViewSettlement : MvpUserControl<ViewSettlementModel>, IViewSettlementView

@@ -1,8 +1,8 @@
-ï»¿<%@ Control Language="C#" CodeBehind="FrameOrder.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrder" %>
+<%@ Control Language="C#" CodeBehind="Order.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrders.Order" %>
 <%if(Model.DisplayForm) { %>
 <div id="synologen-create-frame-order" class="synologen-control">
 <div class="frame-order-item frame">
-	<label for="<%=drpFrames.ClientID%>">BÃ¥gar</label>
+	<label for="<%=drpFrames.ClientID%>">Bågar</label>
 	<asp:DropDownList 
 		ID="drpFrames" 
 		Runat="server" 
@@ -45,7 +45,7 @@
 <hr />
 <div class="interval-parameter sphere">
 	<div class="frame-order-item right">
-		<label for="<%=drpSphereRight.ClientID%>">SfÃ¤r H</label>
+		<label for="<%=drpSphereRight.ClientID%>">Sfär H</label>
 		<asp:DropDownList 
 			ID="drpSphereRight" 
 			Runat="server" 
@@ -64,7 +64,7 @@
 			ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 	</div>
 	<div class="frame-order-item left">
-		<label for="<%=drpSphereLeft.ClientID%>">SfÃ¤r V</label>
+		<label for="<%=drpSphereLeft.ClientID%>">Sfär V</label>
 		<asp:DropDownList 
 			ID="drpSphereLeft" 
 			Runat="server" 
@@ -261,7 +261,7 @@
 </div>
 <div class="interval-parameter height">
 	<div class="frame-order-item right">
-		<label for="<%=drpHeightRight.ClientID%>">HÃ¶jd H</label>
+		<label for="<%=drpHeightRight.ClientID%>">Höjd H</label>
 		<asp:DropDownList 
 			ID="drpHeightRight" 
 			Runat="server" 
@@ -282,7 +282,7 @@
 			Enabled='<%#Model.HeightParametersEnabled %>' >&nbsp;*</asp:RequiredFieldValidator>
 	</div>
 	<div class="frame-order-item left">
-		<label for="<%=drpHeightLeft.ClientID%>">HÃ¶jd V</label>
+		<label for="<%=drpHeightLeft.ClientID%>">Höjd V</label>
 		<asp:DropDownList 
 			ID="drpHeightLeft" 
 			Runat="server" 
@@ -317,14 +317,14 @@
 </div>
 <% } %>
 <%if(Model.OrderHasBeenSent) { %>
-<p>BegÃ¤rd bestÃ¤llning har skickats och kan dÃ¤rmed ej editeras lÃ¤ngre. Var god kontakta systemadministratÃ¶ren.</p>
+<p>Begärd beställning har skickats och kan därmed ej editeras längre. Var god kontakta systemadministratören.</p>
 <% } %>
 <%if (Model.UserDoesNotHaveAccessToThisOrder) { %>
-<p>RÃ¤ttighet fÃ¶r att redigera bestÃ¤llning saknas. Var god kontakta systemadministratÃ¶ren.</p>
+<p>Rättighet för att redigera beställning saknas. Var god kontakta systemadministratören.</p>
 <%} %>
 <%if (Model.OrderDoesNotExist) { %>
-<p>BegÃ¤rd bestÃ¤llning kunde inte hittas. Var god kontakta systemadministratÃ¶ren.</p>
+<p>Begärd beställning kunde inte hittas. Var god kontakta systemadministratören.</p>
 <%} %>
 <%if(Model.ShopDoesNotHaveAccessToFrameOrders){ %>
-<p>RÃ¤ttighet till bestÃ¤llningsformulÃ¤r kan inte medges. Var god kontakta systemadministratÃ¶ren.</p>
+<p>Rättighet till beställningsformulär kan inte medges. Var god kontakta systemadministratören.</p>
 <%} %>

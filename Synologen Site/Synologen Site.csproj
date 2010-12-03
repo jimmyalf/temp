@@ -157,26 +157,26 @@
     <Compile Include="Wpc\Synologen\EditShop.ascx.designer.cs">
       <DependentUpon>EditShop.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\FrameOrders\FrameOrder.ascx.cs">
-      <DependentUpon>FrameOrder.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\FrameOrders\Order.ascx.cs">
+      <DependentUpon>Order.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\FrameOrders\FrameOrder.ascx.designer.cs">
-      <DependentUpon>FrameOrder.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\FrameOrders\Order.ascx.designer.cs">
+      <DependentUpon>Order.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\FrameOrders\FrameOrderList.ascx.cs">
-      <DependentUpon>FrameOrderList.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\FrameOrders\OrderList.ascx.cs">
+      <DependentUpon>OrderList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\FrameOrders\FrameOrderList.ascx.designer.cs">
-      <DependentUpon>FrameOrderList.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\FrameOrders\OrderList.ascx.designer.cs">
+      <DependentUpon>OrderList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\FrameOrders\FrameOrderView.ascx.cs">
-      <DependentUpon>FrameOrderView.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\FrameOrders\OrderView.ascx.cs">
+      <DependentUpon>OrderView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\FrameOrders\FrameOrderView.ascx.designer.cs">
-      <DependentUpon>FrameOrderView.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\FrameOrders\OrderView.ascx.designer.cs">
+      <DependentUpon>OrderView.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\LensSubscriptions\CreateCustomer.ascx.cs">
       <DependentUpon>CreateCustomer.ascx</DependentUpon>
@@ -347,9 +347,9 @@
     <Content Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\CreateTransaction.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\EditSubscription.ascx" />
-    <Content Include="Wpc\Synologen\FrameOrders\FrameOrder.ascx" />
-    <Content Include="Wpc\Synologen\FrameOrders\FrameOrderList.ascx" />
-    <Content Include="Wpc\Synologen\FrameOrders\FrameOrderView.ascx" />
+    <Content Include="Wpc\Synologen\FrameOrders\Order.ascx" />
+    <Content Include="Wpc\Synologen\FrameOrders\OrderList.ascx" />
+    <Content Include="Wpc\Synologen\FrameOrders\OrderView.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\CreateCustomer.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\CreateSubscription.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\CustomersList.ascx" />

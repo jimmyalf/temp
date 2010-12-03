@@ -1,4 +1,4 @@
-ï»¿<%@ Control Language="C#" CodeBehind="FrameOrderList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrderList" %>
+<%@ Control Language="C#" CodeBehind="OrderList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrders.OrderList" %>
 <%if(Model.DisplayList){ %>
 <div id="synologen-list-frame-orders" class="synologen-control">
 <asp:Repeater ID="rptFrameOrders" runat="server" DataSource='<%#Model.List%>'>
@@ -6,8 +6,8 @@
 <div class="synologen-control">
 	<table>
 		<tr class="synologen-table-headerrow">
-			<th>BestÃ¤llningsnr</th>
-			<th>BÃ¥ge</th>
+			<th>Beställningsnr</th>
+			<th>Båge</th>
 			<th>Skickad</th>
 			<th>Visa</th>
 		</tr>
@@ -17,7 +17,7 @@
 	<td><%# Eval("Id")%></td>
 	<td><%# Eval("FrameName")%></td>
 	<td><%# Eval("Sent")%></td>
-	<td><a href="<%# Model.ViewPageUrl%>?frameorder=<%# Eval("Id")%>" title="Visa bestÃ¤llning">Visa</a></td>
+	<td><a href="<%# Model.ViewPageUrl%>?frameorder=<%# Eval("Id")%>" title="Visa beställning">Visa</a></td>
 </tr>
 </ItemTemplate>
 <FooterTemplate>
@@ -28,6 +28,6 @@
 </div>
 <%} %>
 <%if(Model.ShopDoesNotHaveAccessToFrameOrders){ %>
-<p>RÃ¤ttighet till bestÃ¤llningslista kan inte medges. Var god kontakta systemadministratÃ¶ren.</p>
+<p>Rättighet till beställningslista kan inte medges. Var god kontakta systemadministratören.</p>
 <%} %>
 

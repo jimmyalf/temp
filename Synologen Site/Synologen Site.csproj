@@ -299,19 +299,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EditShopPage.aspx" />
-    <Content Include="SalesList.aspx" />
-    <Content Include="CreateOrder.aspx" />
-    <Content Include="SecurityTimeoutPage.aspx" />
-    <Content Include="SettlementList.aspx" />
-    <Content Include="ShopList.aspx" />
-    <Content Include="EditMemberPage.aspx" />
-    <Content Include="ViewOrderPage.aspx" />
+    <None Include="Testpages\EditShopPage.aspx" />
+    <None Include="Testpages\SalesList.aspx" />
+    <None Include="Testpages\CreateOrder.aspx" />
+    <None Include="Testpages\SecurityTimeoutPage.aspx" />
+    <None Include="Testpages\SettlementList.aspx" />
+    <None Include="Testpages\ShopList.aspx" />
+    <None Include="Testpages\EditMemberPage.aspx" />
+    <None Include="Testpages\ViewOrderPage.aspx" />
     <Content Include="Default.css" />
     <Content Include="Default.Master" />
-    <Content Include="EditOrderPage.aspx" />
-    <Content Include="MembersList.aspx" />
-    <Content Include="ViewSettlementOldPage.aspx" />
+    <None Include="Testpages\EditOrderPage.aspx" />
+    <None Include="Testpages\MembersList.aspx" />
+    <None Include="Testpages\ViewSettlementOldPage.aspx" />
     <Content Include="Wpc\Synologen\EditMember.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\EditOrder.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\CreateOrder.ascx" />
@@ -330,17 +330,17 @@
     <Content Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CityShopList.aspx" />
-    <Content Include="ViewSettlementPage.aspx" />
-    <Content Include="LensSubscriptionEditSubscription.aspx" />
-    <Content Include="LensSubscriptionCreateCustomer.aspx" />
-    <Content Include="LensSubscriptionCreateSubscription.aspx" />
-    <Content Include="LensSubscriptionCustomersList.aspx" />
-    <Content Include="FrameOrderList.aspx" />
-    <Content Include="FrameOrderView.aspx" />
-    <Content Include="FrameOrder.aspx" />
-    <Content Include="LensSubscriptionEditCustomer.aspx" />
-    <Content Include="LensSubscriptionTransactionsList.aspx" />
+    <None Include="Testpages\CityShopList.aspx" />
+    <None Include="Testpages\ViewSettlementPage.aspx" />
+    <None Include="Testpages\LensSubscriptionEditSubscription.aspx" />
+    <None Include="Testpages\LensSubscriptionCreateCustomer.aspx" />
+    <None Include="Testpages\LensSubscriptionCreateSubscription.aspx" />
+    <None Include="Testpages\LensSubscriptionCustomersList.aspx" />
+    <None Include="Testpages\FrameOrderList.aspx" />
+    <None Include="Testpages\FrameOrderView.aspx" />
+    <None Include="Testpages\FrameOrder.aspx" />
+    <None Include="Testpages\LensSubscriptionEditCustomer.aspx" />
+    <None Include="Testpages\LensSubscriptionTransactionsList.aspx" />
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />

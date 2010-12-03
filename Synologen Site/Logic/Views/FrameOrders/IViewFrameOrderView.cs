@@ -1,7 +1,7 @@
 using System;
 using WebFormsMvp;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Views
+namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.FrameOrders
 {
 	public interface IViewFrameOrderView<T> : IView<T> where T : class, new()
 	{

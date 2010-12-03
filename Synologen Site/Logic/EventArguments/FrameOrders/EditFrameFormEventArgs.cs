@@ -1,7 +1,7 @@
 using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments
+namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.FrameOrders
 {
 	public class EditFrameFormEventArgs : EventArgs
 	{

@@ -1,7 +1,7 @@
-﻿using System;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
-using Spinit.Wpc.Synologen.Presentation.Site.Models;
+using System;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.FrameOrders;
+using Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 

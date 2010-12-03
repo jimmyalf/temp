@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Models
+namespace Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders
 {
 	public class EyeParameterIntervalListAndSelection
 	{

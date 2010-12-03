@@ -5,14 +5,13 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.FrameOrders;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
-using Spinit.Wpc.Synologen.Presentation.Site.Models;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.FrameOrders;
+using Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders;
 using WebFormsMvp;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
+namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 {
 	public class EditFrameOrderPresenter : Presenter<IEditFrameOrderView<EditFrameOrderModel>>
 	{
@@ -202,6 +201,4 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
 			return Int32.TryParse(frameOrderId, out integerframeOrderId) ? integerframeOrderId : -1;
 		}
 	}
-
-
 }

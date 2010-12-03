@@ -48,7 +48,7 @@
     <Compile Include="Code\SynologenUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Logic\EventArguments\EditFrameFormEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\FrameOrders\EditFrameFormEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SaveCustomerEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SaveSubscriptionEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\SaveTransactionEventArgs.cs" />
@@ -81,23 +81,23 @@
     <Compile Include="Models\LensSubscription\CreateCustomerModel.cs" />
     <Compile Include="Models\LensSubscription\CreateLensSubscriptionModel.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\CreateLensSubscriptionPresenter.cs" />
-    <Compile Include="Logic\Presenters\ListFrameOrdersPresenter.cs" />
-    <Compile Include="Logic\Presenters\ViewFrameOrderPresenter.cs" />
+    <Compile Include="Logic\Presenters\FrameOrders\ListFrameOrdersPresenter.cs" />
+    <Compile Include="Logic\Presenters\FrameOrders\ViewFrameOrderPresenter.cs" />
     <Compile Include="Logic\Services\EmailService.cs" />
     <Compile Include="Logic\Services\SynologenFrameOrderService.cs" />
     <Compile Include="Logic\Services\SynologenMemberService.cs" />
     <Compile Include="Logic\Services\SynologenSettingsService.cs" />
-    <Compile Include="Logic\Views\IEditFrameOrderView.cs" />
-    <Compile Include="Logic\Views\IListFrameOrdersView.cs" />
-    <Compile Include="Logic\Views\IViewFrameOrderView.cs" />
-    <Compile Include="Models\EyeParameterIntervalListAndSelection.cs" />
-    <Compile Include="Models\FrameGlassTypeListItem.cs" />
-    <Compile Include="Models\FrameListItem.cs" />
-    <Compile Include="Models\FrameOrderBaseModel.cs" />
-    <Compile Include="Models\FrameOrderListItemModel.cs" />
-    <Compile Include="Models\IntervalListItem.cs" />
-    <Compile Include="Models\EditFrameOrderModel.cs" />
-    <Compile Include="Logic\Presenters\EditFrameOrderPresenter.cs" />
+    <Compile Include="Logic\Views\FrameOrders\IEditFrameOrderView.cs" />
+    <Compile Include="Logic\Views\FrameOrders\IListFrameOrdersView.cs" />
+    <Compile Include="Logic\Views\FrameOrders\IViewFrameOrderView.cs" />
+    <Compile Include="Models\FrameOrders\EyeParameterIntervalListAndSelection.cs" />
+    <Compile Include="Models\FrameOrders\FrameGlassTypeListItem.cs" />
+    <Compile Include="Models\FrameOrders\FrameListItem.cs" />
+    <Compile Include="Models\FrameOrders\FrameOrderBaseModel.cs" />
+    <Compile Include="Models\FrameOrders\FrameOrderListItemModel.cs" />
+    <Compile Include="Models\FrameOrders\IntervalListItem.cs" />
+    <Compile Include="Models\FrameOrders\EditFrameOrderModel.cs" />
+    <Compile Include="Logic\Presenters\FrameOrders\EditFrameOrderPresenter.cs" />
     <Compile Include="Models\LensSubscription\CreateTransactionModel.cs" />
     <Compile Include="Models\LensSubscription\EditCustomerModel.cs" />
     <Compile Include="Models\LensSubscription\EditLensSubscriptionModel.cs" />
@@ -110,8 +110,8 @@
     <Compile Include="Models\LensSubscription\SubscriptionListItemModel.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionTransactionListItemModel.cs" />
     <Compile Include="Models\LensSubscription\TransactionListItemModel.cs" />
-    <Compile Include="Models\ListFrameOrdersModel.cs" />
-    <Compile Include="Models\ViewFrameOrderModel.cs" />
+    <Compile Include="Models\FrameOrders\ListFrameOrdersModel.cs" />
+    <Compile Include="Models\FrameOrders\ViewFrameOrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SynologenSiteRegistry.cs" />
     <Compile Include="WpcSynologenSiteBootstrapper.cs" />

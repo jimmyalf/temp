@@ -231,6 +231,13 @@
     <Compile Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx.designer.cs">
       <DependentUpon>ErrorList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionErrorList.ascx.cs">
+      <DependentUpon>ShopSubscriptionErrorList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionErrorList.ascx.designer.cs">
+      <DependentUpon>ShopSubscriptionErrorList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx.cs">
       <DependentUpon>TransactionsList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -345,6 +352,7 @@
     <None Include="Testpages\FrameOrder.aspx" />
     <None Include="Testpages\LensSubscriptionEditCustomer.aspx" />
     <None Include="Testpages\LensSubscriptionTransactionsList.aspx" />
+    <None Include="Testpages\LensSubscriptionShopSubscriptionErrorsList.aspx" />
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
@@ -359,6 +367,7 @@
     <Content Include="Wpc\Synologen\LensSubscriptions\CustomersList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\EditCustomer.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionErrorList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx" />
   </ItemGroup>
   <ItemGroup>

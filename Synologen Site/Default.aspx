@@ -26,5 +26,6 @@
 	<a href="/Testpages/LensSubscriptionCreateCustomer.aspx">Skapa kund för linsabonnemang</a>
 	<a href="/Testpages/LensSubscriptionEditCustomer.aspx?customer=1">Redigera kund för linsabonnemang (med id=1)</a>
 	<a href="/Testpages/LensSubscriptionTransactionsList.aspx?subscription=1">Visa transaktioner för linsabonnemang (med id=1)</a>
+	<a href="/Testpages/LensSubscriptionShopSubscriptionErrorsList.aspx">Visa alla ohanterade fel för butik</a>
 </div>
 </asp:Content>

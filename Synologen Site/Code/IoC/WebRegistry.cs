@@ -47,6 +47,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code.IoC
 			For<IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>>().Use<AllFrameOrdersForShopCriteriaConverter>();
 			For<IActionCriteriaConverter<CustomersForShopMatchingCriteria, ICriteria>>().Use<CustomersForShopMatchingCriteriaConverter>();
 			For<IActionCriteriaConverter<TransactionsForSubscriptionMatchingCriteria, ICriteria>>().Use<TransactionsForSubscriptionMatchingCriteriaConverter>();
+			For<IActionCriteriaConverter<AllUnhandledSubscriptionErrorsForShopCriteria, ICriteria>>().Use<AllUnhandledSubscriptionErrorsForShopCriteriaConverter>();
 		}
 	}
 }

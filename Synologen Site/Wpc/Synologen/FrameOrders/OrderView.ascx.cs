@@ -5,11 +5,10 @@ using Spinit.Wpc.Synologen.Presentation.Site.Models;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrders
 {
-
 	[PresenterBinding(typeof(ViewFrameOrderPresenter))]
-	public partial class FrameOrderView : MvpUserControl<ViewFrameOrderModel>, IViewFrameOrderView<ViewFrameOrderModel>
+	public partial class OrderView : MvpUserControl<ViewFrameOrderModel>, IViewFrameOrderView<ViewFrameOrderModel>
 	{
 		public event EventHandler SendOrder;
 		public int RedirectAfterSentOrderPageId { get; set; }

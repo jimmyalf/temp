@@ -8,9 +8,11 @@ using Spinit.Wpc.Synologen.Presentation.Site.Models;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrders
+{
 	[PresenterBinding(typeof(EditFrameOrderPresenter))] 
-	public partial class FrameOrder : MvpUserControl<EditFrameOrderModel>, IEditFrameOrderView<EditFrameOrderModel> {
+	public partial class Order : MvpUserControl<EditFrameOrderModel>, IEditFrameOrderView<EditFrameOrderModel> 
+	{
 		public event EventHandler<EditFrameFormEventArgs> FrameSelected;
 		public event EventHandler<EditFrameFormEventArgs> SubmitForm;
 		public event EventHandler<EditFrameFormEventArgs> GlassTypeSelected;
@@ -65,17 +67,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 				},
 				SelectedAxisLeft = txtAxisLeft.Text.ToIntOrDefault(),
 				SelectedAxisRight = txtAxisRight.Text.ToIntOrDefault(),
-                SelectedAddition = new EyeParameter
-                {
-                	Left = drpAdditionLeft.SelectedValue.ToDecimalOrDefault(0),
+				SelectedAddition = new EyeParameter
+				{
+					Left = drpAdditionLeft.SelectedValue.ToDecimalOrDefault(0),
 					Right = drpAdditionRight.SelectedValue.ToDecimalOrDefault(0)
-                },
-                SelectedHeight = new EyeParameter
-                {
-                	Left = drpHeightLeft.SelectedValue.ToDecimalOrDefault(0),
+				},
+				SelectedHeight = new EyeParameter
+				{
+					Left = drpHeightLeft.SelectedValue.ToDecimalOrDefault(0),
 					Right = drpHeightRight.SelectedValue.ToDecimalOrDefault(0)
-                },
-                Reference = txtReference.Text
+				},
+				Reference = txtReference.Text
 			};
 		}
 

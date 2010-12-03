@@ -4,10 +4,11 @@ using Spinit.Wpc.Synologen.Presentation.Site.Models;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrders
 {
 	[PresenterBinding(typeof(ListFrameOrdersPresenter))] 
-	public partial class FrameOrderList : MvpUserControl<ListFrameOrdersModel>, IListFrameOrdersView<ListFrameOrdersModel> {
+	public partial class OrderList : MvpUserControl<ListFrameOrdersModel>, IListFrameOrdersView<ListFrameOrdersModel> 
+	{
 		public int ViewPageId { get; set; }
 	}
 }

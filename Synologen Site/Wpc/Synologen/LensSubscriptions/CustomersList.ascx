@@ -1,13 +1,13 @@
-ï»¿<%@ Control Language="C#" CodeBehind="LensSubscriptionCustomersList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptionCustomersList" %>
+<%@ Control Language="C#" CodeBehind="CustomersList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.CustomersList" %>
 <div id="synologen-create-lens-subscription-customer-list" class="synologen-control">
-<label for="<%=txtSearch.ClientID%>">SÃ¶k</label>
+<label for="<%=txtSearch.ClientID%>">Sök</label>
 <asp:TextBox ID="txtSearch" runat="server" />
-<asp:Button ID="btnSearch" runat="server" Text="SÃ¶k" />
+<asp:Button ID="btnSearch" runat="server" Text="Sök" />
 <asp:Repeater ID="rptCustomers" runat="server" DataSource='<%#Model.List%>'>
 	<HeaderTemplate >
 		<table>
 			<tr class="synologen-table-headerrow">
-				<th>FÃ¶rnamn</th><th>Efternamn</th><th>Personnummer</th><th>Redigera</th>
+				<th>Förnamn</th><th>Efternamn</th><th>Personnummer</th><th>Redigera</th>
 			</tr>
 	</HeaderTemplate>
 	<ItemTemplate>

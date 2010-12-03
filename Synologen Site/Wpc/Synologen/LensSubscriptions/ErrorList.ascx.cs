@@ -7,10 +7,10 @@ using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 {
 	[PresenterBinding(typeof(ListSubscriptionErrorsPresenter))]
-	public partial class LensSubscriptionErrorList : MvpUserControl<ListSubscriptionErrorModel>, IListSubscriptionErrorView
+	public partial class ErrorList : MvpUserControl<ListSubscriptionErrorModel>, IListSubscriptionErrorView
 	{
 		public event EventHandler<SetErrorHandledEventArgs> SetHandled;
 

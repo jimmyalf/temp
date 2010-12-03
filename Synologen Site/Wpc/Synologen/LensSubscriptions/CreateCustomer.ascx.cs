@@ -6,16 +6,13 @@ using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 {
-	[PresenterBinding(typeof(EditCustomerPresenter))]
-	public partial class LensSubscriptionEditCustomer : MvpUserControl<EditCustomerModel>, IEditCustomerView
+	[PresenterBinding(typeof(CreateCustomerPresenter))] 
+	public partial class CreateCustomer : MvpUserControl<CreateCustomerModel>, ICreateCustomerView
 	{
 		public event EventHandler<SaveCustomerEventArgs> Submit;
-
 		public int RedirectOnSavePageId { get; set; }
-		public int EditSubscriptionPageId { get; set; }
-		public int CreateSubscriptionPageId { get; set; }
 
 		protected void Page_Load(object sender, EventArgs e)
 		{

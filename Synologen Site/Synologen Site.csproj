@@ -178,61 +178,61 @@
     <Compile Include="Wpc\Synologen\FrameOrders\FrameOrderView.ascx.designer.cs">
       <DependentUpon>FrameOrderView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateCustomer.ascx.cs">
-      <DependentUpon>LensSubscriptionCreateCustomer.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CreateCustomer.ascx.cs">
+      <DependentUpon>CreateCustomer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateCustomer.ascx.designer.cs">
-      <DependentUpon>LensSubscriptionCreateCustomer.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CreateCustomer.ascx.designer.cs">
+      <DependentUpon>CreateCustomer.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateSubscription.ascx.cs">
-      <DependentUpon>LensSubscriptionCreateSubscription.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CreateSubscription.ascx.cs">
+      <DependentUpon>CreateSubscription.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateSubscription.ascx.designer.cs">
-      <DependentUpon>LensSubscriptionCreateSubscription.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CreateSubscription.ascx.designer.cs">
+      <DependentUpon>CreateSubscription.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateTransaction.ascx.cs">
-      <DependentUpon>LensSubscriptionCreateTransaction.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CreateTransaction.ascx.cs">
+      <DependentUpon>CreateTransaction.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateTransaction.ascx.designer.cs">
-      <DependentUpon>LensSubscriptionCreateTransaction.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CreateTransaction.ascx.designer.cs">
+      <DependentUpon>CreateTransaction.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCustomersList.ascx.cs">
-      <DependentUpon>LensSubscriptionCustomersList.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CustomersList.ascx.cs">
+      <DependentUpon>CustomersList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCustomersList.ascx.designer.cs">
-      <DependentUpon>LensSubscriptionCustomersList.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CustomersList.ascx.designer.cs">
+      <DependentUpon>CustomersList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionEditCustomer.ascx.cs">
-      <DependentUpon>LensSubscriptionEditCustomer.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\EditCustomer.ascx.cs">
+      <DependentUpon>EditCustomer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionEditCustomer.ascx.designer.cs">
-      <DependentUpon>LensSubscriptionEditCustomer.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\EditCustomer.ascx.designer.cs">
+      <DependentUpon>EditCustomer.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionEditSubscription.ascx.cs">
-      <DependentUpon>LensSubscriptionEditSubscription.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\EditSubscription.ascx.cs">
+      <DependentUpon>EditSubscription.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionEditSubscription.ascx.designer.cs">
-      <DependentUpon>LensSubscriptionEditSubscription.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\EditSubscription.ascx.designer.cs">
+      <DependentUpon>EditSubscription.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionErrorList.ascx.cs">
-      <DependentUpon>LensSubscriptionErrorList.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx.cs">
+      <DependentUpon>ErrorList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionErrorList.ascx.designer.cs">
-      <DependentUpon>LensSubscriptionErrorList.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx.designer.cs">
+      <DependentUpon>ErrorList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionTransactionsList.ascx.cs">
-      <DependentUpon>LensSubscriptionTransactionsList.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx.cs">
+      <DependentUpon>TransactionsList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionTransactionsList.ascx.designer.cs">
-      <DependentUpon>LensSubscriptionTransactionsList.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx.designer.cs">
+      <DependentUpon>TransactionsList.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\ContractSales\SalesList.ascx.cs">
       <DependentUpon>SalesList.ascx</DependentUpon>
@@ -345,17 +345,17 @@
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateTransaction.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionEditSubscription.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\CreateTransaction.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\EditSubscription.ascx" />
     <Content Include="Wpc\Synologen\FrameOrders\FrameOrder.ascx" />
     <Content Include="Wpc\Synologen\FrameOrders\FrameOrderList.ascx" />
     <Content Include="Wpc\Synologen\FrameOrders\FrameOrderView.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateCustomer.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateSubscription.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCustomersList.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionEditCustomer.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionErrorList.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionTransactionsList.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\CreateCustomer.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\CreateSubscription.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\CustomersList.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\EditCustomer.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">

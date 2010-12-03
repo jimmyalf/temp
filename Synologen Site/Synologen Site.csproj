@@ -122,11 +122,11 @@
     <Compile Include="Wpc\Synologen\CityShopList.ascx.designer.cs">
       <DependentUpon>CityShopList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\ViewSettlement.ascx.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx.cs">
       <DependentUpon>ViewSettlement.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\ViewSettlement.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx.designer.cs">
       <DependentUpon>ViewSettlement.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\EditMember.ascx.cs">
@@ -136,18 +136,18 @@
     <Compile Include="Wpc\Synologen\EditMember.ascx.designer.cs">
       <DependentUpon>EditMember.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\EditOrder.ascx.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\EditOrder.ascx.cs">
       <DependentUpon>EditOrder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\EditOrder.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\EditOrder.ascx.designer.cs">
       <DependentUpon>EditOrder.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\CreateOrder.ascx.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\CreateOrder.ascx.cs">
       <DependentUpon>CreateOrder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\CreateOrder.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\CreateOrder.ascx.designer.cs">
       <DependentUpon>CreateOrder.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\EditShop.ascx.cs">
@@ -157,88 +157,88 @@
     <Compile Include="Wpc\Synologen\EditShop.ascx.designer.cs">
       <DependentUpon>EditShop.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\FrameOrder.ascx.cs">
+    <Compile Include="Wpc\Synologen\FrameOrders\FrameOrder.ascx.cs">
       <DependentUpon>FrameOrder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\FrameOrder.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\FrameOrders\FrameOrder.ascx.designer.cs">
       <DependentUpon>FrameOrder.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\FrameOrderList.ascx.cs">
+    <Compile Include="Wpc\Synologen\FrameOrders\FrameOrderList.ascx.cs">
       <DependentUpon>FrameOrderList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\FrameOrderList.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\FrameOrders\FrameOrderList.ascx.designer.cs">
       <DependentUpon>FrameOrderList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\FrameOrderView.ascx.cs">
+    <Compile Include="Wpc\Synologen\FrameOrders\FrameOrderView.ascx.cs">
       <DependentUpon>FrameOrderView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\FrameOrderView.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\FrameOrders\FrameOrderView.ascx.designer.cs">
       <DependentUpon>FrameOrderView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionCreateCustomer.ascx.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateCustomer.ascx.cs">
       <DependentUpon>LensSubscriptionCreateCustomer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionCreateCustomer.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateCustomer.ascx.designer.cs">
       <DependentUpon>LensSubscriptionCreateCustomer.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionCreateSubscription.ascx.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateSubscription.ascx.cs">
       <DependentUpon>LensSubscriptionCreateSubscription.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionCreateSubscription.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateSubscription.ascx.designer.cs">
       <DependentUpon>LensSubscriptionCreateSubscription.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionCreateTransaction.ascx.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateTransaction.ascx.cs">
       <DependentUpon>LensSubscriptionCreateTransaction.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionCreateTransaction.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateTransaction.ascx.designer.cs">
       <DependentUpon>LensSubscriptionCreateTransaction.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionCustomersList.ascx.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCustomersList.ascx.cs">
       <DependentUpon>LensSubscriptionCustomersList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionCustomersList.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCustomersList.ascx.designer.cs">
       <DependentUpon>LensSubscriptionCustomersList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionEditCustomer.ascx.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionEditCustomer.ascx.cs">
       <DependentUpon>LensSubscriptionEditCustomer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionEditCustomer.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionEditCustomer.ascx.designer.cs">
       <DependentUpon>LensSubscriptionEditCustomer.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionEditSubscription.ascx.cs">
       <DependentUpon>LensSubscriptionEditSubscription.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionEditSubscription.ascx.designer.cs">
       <DependentUpon>LensSubscriptionEditSubscription.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionErrorList.ascx.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionErrorList.ascx.cs">
       <DependentUpon>LensSubscriptionErrorList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionErrorList.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionErrorList.ascx.designer.cs">
       <DependentUpon>LensSubscriptionErrorList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionTransactionsList.ascx.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionTransactionsList.ascx.cs">
       <DependentUpon>LensSubscriptionTransactionsList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\LensSubscriptionTransactionsList.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionTransactionsList.ascx.designer.cs">
       <DependentUpon>LensSubscriptionTransactionsList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\SalesList.ascx.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\SalesList.ascx.cs">
       <DependentUpon>SalesList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\SalesList.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\SalesList.ascx.designer.cs">
       <DependentUpon>SalesList.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\SecurityLogout.ascx.cs">
@@ -248,11 +248,11 @@
     <Compile Include="Wpc\Synologen\SecurityLogout.ascx.designer.cs">
       <DependentUpon>SecurityLogout.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\SettlementList.ascx.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\SettlementList.ascx.cs">
       <DependentUpon>SettlementList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\SettlementList.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\SettlementList.ascx.designer.cs">
       <DependentUpon>SettlementList.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\ShopList.ascx.cs">
@@ -269,18 +269,18 @@
     <Compile Include="Wpc\Synologen\ShopMemberList.ascx.designer.cs">
       <DependentUpon>ShopMemberList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\ViewOrder.ascx.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\ViewOrder.ascx.cs">
       <DependentUpon>ViewOrder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\ViewOrder.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\ViewOrder.ascx.designer.cs">
       <DependentUpon>ViewOrder.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\ViewSettlementOld.ascx.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx.cs">
       <DependentUpon>ViewSettlementOld.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\ViewSettlementOld.ascx.designer.cs">
+    <Compile Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx.designer.cs">
       <DependentUpon>ViewSettlementOld.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -313,8 +313,8 @@
     <Content Include="MembersList.aspx" />
     <Content Include="ViewSettlementOldPage.aspx" />
     <Content Include="Wpc\Synologen\EditMember.ascx" />
-    <Content Include="Wpc\Synologen\EditOrder.ascx" />
-    <Content Include="Wpc\Synologen\CreateOrder.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\EditOrder.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\CreateOrder.ascx" />
     <Content Include="Wpc\Synologen\EditShop.ascx" />
     <Content Include="Wpc\Synologen\Images\add.png" />
     <Content Include="Wpc\Synologen\Images\edit.png" />
@@ -322,12 +322,12 @@
     <Content Include="Wpc\Synologen\Images\stop.png" />
     <Content Include="Wpc\Synologen\Images\user.png" />
     <Content Include="Wpc\Synologen\Images\view.png" />
-    <Content Include="Wpc\Synologen\SalesList.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\SalesList.ascx" />
     <Content Include="Wpc\Synologen\SecurityLogout.ascx" />
-    <Content Include="Wpc\Synologen\SettlementList.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\SettlementList.ascx" />
     <Content Include="Wpc\Synologen\ShopMemberList.ascx" />
-    <Content Include="Wpc\Synologen\ViewOrder.ascx" />
-    <Content Include="Wpc\Synologen\ViewSettlementOld.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\ViewOrder.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CityShopList.aspx" />
@@ -344,18 +344,18 @@
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
-    <Content Include="Wpc\Synologen\ViewSettlement.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptionCreateTransaction.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptionEditSubscription.ascx" />
-    <Content Include="Wpc\Synologen\FrameOrder.ascx" />
-    <Content Include="Wpc\Synologen\FrameOrderList.ascx" />
-    <Content Include="Wpc\Synologen\FrameOrderView.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptionCreateCustomer.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptionCreateSubscription.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptionCustomersList.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptionEditCustomer.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptionErrorList.ascx" />
-    <Content Include="Wpc\Synologen\LensSubscriptionTransactionsList.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateTransaction.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionEditSubscription.ascx" />
+    <Content Include="Wpc\Synologen\FrameOrders\FrameOrder.ascx" />
+    <Content Include="Wpc\Synologen\FrameOrders\FrameOrderList.ascx" />
+    <Content Include="Wpc\Synologen\FrameOrders\FrameOrderView.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateCustomer.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCreateSubscription.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionCustomersList.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionEditCustomer.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionErrorList.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\LensSubscriptionTransactionsList.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">

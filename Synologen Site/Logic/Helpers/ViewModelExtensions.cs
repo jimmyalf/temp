@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
-using Spinit.Wpc.Synologen.Presentation.Site.Models;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.FrameOrders;
+using Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 	public static class ViewModelExtensions {

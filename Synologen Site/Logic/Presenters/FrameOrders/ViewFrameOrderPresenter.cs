@@ -3,11 +3,11 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
-using Spinit.Wpc.Synologen.Presentation.Site.Models;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.FrameOrders;
+using Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders;
 using WebFormsMvp;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters
+namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 {
 	public class ViewFrameOrderPresenter : Presenter<IViewFrameOrderView<ViewFrameOrderModel>>
 	{

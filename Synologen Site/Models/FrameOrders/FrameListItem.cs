@@ -1,4 +1,4 @@
-namespace Spinit.Wpc.Synologen.Presentation.Site.Models
+namespace Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders
 {
 	public class FrameListItem
 	{

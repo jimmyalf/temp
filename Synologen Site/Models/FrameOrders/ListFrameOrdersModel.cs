@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Models
+namespace Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders
 {
 	public class ListFrameOrdersModel : FrameOrderBaseModel
 	{

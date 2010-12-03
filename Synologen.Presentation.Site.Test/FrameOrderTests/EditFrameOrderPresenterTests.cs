@@ -7,10 +7,10 @@ using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters;
-using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views;
-using Spinit.Wpc.Synologen.Presentation.Site.Models;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.FrameOrders;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders;
+using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.FrameOrders;
+using Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.AssertionHelpers;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.Factories;
 

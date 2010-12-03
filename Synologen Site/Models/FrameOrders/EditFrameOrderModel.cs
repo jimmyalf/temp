@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Models
+namespace Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders
 {
 	public class EditFrameOrderModel : FrameOrderBaseModel
 	{
@@ -40,10 +40,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 		public bool DisplayForm
 		{
 			get { return (
-				OrderHasBeenSent == false && 
-				UserDoesNotHaveAccessToThisOrder == false &&
-				OrderDoesNotExist == false &&
-				ShopDoesNotHaveAccessToFrameOrders == false);
+			             	OrderHasBeenSent == false && 
+			             	UserDoesNotHaveAccessToThisOrder == false &&
+			             	OrderDoesNotExist == false &&
+			             	ShopDoesNotHaveAccessToFrameOrders == false);
 			}
 		}
 

@@ -1,4 +1,4 @@
-namespace Spinit.Wpc.Synologen.Presentation.Site.Models
+namespace Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders
 {
 	public class ViewFrameOrderModel : FrameOrderBaseModel
 	{
@@ -33,9 +33,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models
 		public bool DisplayOrder
 		{
 			get { return (
-				OrderDoesNotExist == false && 
-				UserDoesNotHaveAccessToThisOrder == false &&
-                ShopDoesNotHaveAccessToFrameOrders == false); 
+			             	OrderDoesNotExist == false && 
+			             	UserDoesNotHaveAccessToThisOrder == false &&
+			             	ShopDoesNotHaveAccessToFrameOrders == false); 
 			}
 		}
 

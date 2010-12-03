@@ -7,10 +7,10 @@ using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 {
 	[PresenterBinding(typeof(EditLensSubscriptionPresenter))] 
-	public partial class LensSubscriptionEditSubscription : MvpUserControl<EditLensSubscriptionModel>, IEditLensSubscriptionView
+	public partial class EditSubscription : MvpUserControl<EditLensSubscriptionModel>, IEditLensSubscriptionView
 	{
 		public event EventHandler<SaveSubscriptionEventArgs> Submit;
 		public event EventHandler<EventArgs> StopSubscription;

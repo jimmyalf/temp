@@ -6,10 +6,10 @@ using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 {
 	[PresenterBinding(typeof(ListCustomersPresenter))] 
-	public partial class LensSubscriptionCustomersList : MvpUserControl<ListCustomersModel>, IListCustomersView
+	public partial class CustomersList : MvpUserControl<ListCustomersModel>, IListCustomersView
 	{
 		public event EventHandler<SearchEventArgs> SearchList;
 		public int EditPageId { get; set;}
@@ -31,6 +31,4 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 
 		}
 	}
-
-
 }

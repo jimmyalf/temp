@@ -8,10 +8,10 @@ using Spinit.Wpc.Synologen.Core.Extensions;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 {
 	[PresenterBinding(typeof(CreateTransactionPresenter))] 
-	public partial class LensSubscriptionCreateTransaction : MvpUserControl<CreateTransactionModel>, ICreateTransactionView
+	public partial class CreateTransaction : MvpUserControl<CreateTransactionModel>, ICreateTransactionView
 	{
 		public event EventHandler<SaveTransactionEventArgs> Submit;
 		public event EventHandler<TransactionReasonEventArgs> SetReasonToWithdrawal;
@@ -50,11 +50,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 			Page.Validate("vgCreateTransaction");
 			if (Page.IsValid == false) return;
 			var args = new SaveTransactionEventArgs
-			           	{
-			           		Amount = decimal.Parse(txtAmount.Text),
-			           		TransactionReason = Model.Reason.ToNumberString(),
-							TransactionType = drpTransactionType.SelectedValue
-			           	};
+			{
+				Amount = decimal.Parse(txtAmount.Text),
+				TransactionReason = Model.Reason.ToNumberString(),
+				TransactionType = drpTransactionType.SelectedValue
+			};
 			Submit(this, args);
 		}
 	}

@@ -1,8 +1,8 @@
-﻿<%@ Control Language="C#" CodeBehind="LensSubscriptionEditSubscription.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptionEditSubscription" %>
+﻿<%@ Control Language="C#" CodeBehind="EditSubscription.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.EditSubscription" %>
 <%@ Import Namespace="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen"%>
-<%@ Register  Src="~/Wpc/Synologen/LensSubscriptionErrorList.ascx" TagName="LensSubscriptionErrorList" TagPrefix="WpcSynologen" %>
-<%@ Register  Src="~/Wpc/Synologen/LensSubscriptionTransactionsList.ascx" TagName="LensSubscriptionTransactionsList" TagPrefix="WpcSynologen" %>
-<%@ Register  Src="~/Wpc/Synologen/LensSubscriptionCreateTransaction.ascx" TagName="LensSubscriptionCreateTransaction" TagPrefix="WpcSynologen" %>
+<%@ Register  Src="~/Wpc/Synologen/LensSubscriptions/ErrorList.ascx" TagName="ErrorList" TagPrefix="WpcSynologen" %>
+<%@ Register  Src="~/Wpc/Synologen/LensSubscriptions/TransactionsList.ascx" TagName="TransactionsList" TagPrefix="WpcSynologen" %>
+<%@ Register  Src="~/Wpc/Synologen/LensSubscriptions/CreateTransaction.ascx" TagName="CreateTransaction" TagPrefix="WpcSynologen" %>
 <%if(Model.DisplayForm){%>
 <div id="synologen-create-lens-subscription-edit" class="synologen-control">
 <fieldset class="synologen-form">
@@ -42,9 +42,9 @@
 	</div>
 	
 </fieldset>
-<WpcSynologen:LensSubscriptionErrorList ID="ctrlLensSubscriptionErrorList" runat="server"  />
-<WpcSynologen:LensSubscriptionTransactionsList ID="ctrlLensSubscriptionTransactionsList" runat="server"  />
-<WpcSynologen:LensSubscriptionCreateTransaction ID="ctrlLensSubscriptionCreateTransaction" runat="server"  />
+<WpcSynologen:ErrorList ID="ctrlLensSubscriptionErrorList" runat="server"  />
+<WpcSynologen:TransactionsList ID="ctrlLensSubscriptionTransactionsList" runat="server"  />
+<WpcSynologen:CreateTransaction ID="ctrlLensSubscriptionCreateTransaction" runat="server"  />
 </div>
 <%} %>
 <%if(Model.ShopDoesNotHaveAccessGivenCustomer){%>

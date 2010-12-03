@@ -104,6 +104,8 @@
     <Compile Include="LensSubscriptionTests\ListCustomerPresenterTest.cs" />
     <Compile Include="LensSubscriptionTests\ListSubscriptionErrorPresenterTest.cs" />
     <Compile Include="LensSubscriptionTests\ListTransactionsPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\ShopSubscriptionErrorListPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\TestHelpers\ShopSubscriptionErrorListTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\CreateCustomerTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\CreateSubscriptionTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\CreateTransactionTestbase.cs" />

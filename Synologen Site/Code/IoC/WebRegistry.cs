@@ -18,11 +18,11 @@ using StructureMap.Configuration.DSL;
 using IShopRepository=Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder.IShopRepository;
 using ShopRepository=Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories.ShopRepository;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site
+namespace Spinit.Wpc.Synologen.Presentation.Site.Code.IoC
 {
-	public class SynologenSiteRegistry : Registry
+	public class WebRegistry : Registry
 	{
-		public SynologenSiteRegistry()
+		public WebRegistry()
 		{
 			For<IFrameRepository>().HybridHttpOrThreadLocalScoped().Use<FrameRepository>();
 			For<IFrameGlassTypeRepository>().HybridHttpOrThreadLocalScoped().Use<FrameGlassTypeRepository>();

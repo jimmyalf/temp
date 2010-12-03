@@ -113,8 +113,8 @@
     <Compile Include="Models\FrameOrders\ListFrameOrdersModel.cs" />
     <Compile Include="Models\FrameOrders\ViewFrameOrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SynologenSiteRegistry.cs" />
-    <Compile Include="WpcSynologenSiteBootstrapper.cs" />
+    <Compile Include="Code\IoC\WebRegistry.cs" />
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Wpc\Synologen\CityShopList.ascx.cs">
       <DependentUpon>CityShopList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

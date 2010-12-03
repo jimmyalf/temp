@@ -8,9 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
-    
-    public partial class SettlementList {
-        protected System.Web.UI.WebControls.Repeater rptSettlements;
-    }
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
+{
+	public partial class SettlementList {
+		protected System.Web.UI.WebControls.Repeater rptSettlements;
+	}
 }

@@ -1,14 +1,14 @@
-ï»¿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewSettlement.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ViewSettlement" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewSettlement.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales.ViewSettlement" %>
 <div class="synologen-control">
 	<fieldset><legend>Utbetalningsuppgifter</legend>
 		<label>Utbetalning:</label><span><%#Model.SettlementId %></span><br />
 		<label>Butiknummer:</label><span><%#Model.ShopNumber %></span><br />
 		<label>Period:</label><span><%#Model.Period %></span><br />
-		<label>AvtalsfÃ¶rsÃ¤ljningsvÃ¤rde inkl moms:</label><span><%#Model.ContractSalesValueIncludingVAT %></span><br />
+		<label>Avtalsförsäljningsvärde inkl moms:</label><span><%#Model.ContractSalesValueIncludingVAT %></span><br />
 		<a href="<%=Spinit.Wpc.Synologen.Presentation.Site.Code.SynologenSessionContext.SettlementListPage %>">&laquo;&nbsp;Tillbaka</a><br /><br />
 	</fieldset><br />
 	<asp:Button ID="btnSwitchView" runat="server" Text="Visa detaljer" OnClick="btnSwitchView_Click" />
-	<asp:Button ID="btnMarkAsPayed" runat="server" Text="Markera som utbetalda" OnClick="btnMarkAsPayed_Click" OnClientClick="return confirm('Ã„r du sÃ¤ker pÃ¥ att du vill markera fakturor som utbetalda?');"  Enabled='<%#Model.MarkAsPayedButtonEnabled %>'/>
+	<asp:Button ID="btnMarkAsPayed" runat="server" Text="Markera som utbetalda" OnClick="btnMarkAsPayed_Click" OnClientClick="return confirm('Är du säker på att du vill markera fakturor som utbetalda?');"  Enabled='<%#Model.MarkAsPayedButtonEnabled %>'/>
 	<input type="button" onclick="window.print();return false;" value="Skriv ut"/>
 	<br />
 	<asp:PlaceHolder ID="plSimpleView" runat="server" Visible='<%#Model.DisplaySimpleView%>'>
@@ -19,7 +19,7 @@
 				<th>Artikelnummer</th>
 				<th>Artikel</th>
 				<th>Antal</th>
-				<th>VÃ¤rde</th>
+				<th>Värde</th>
 				<th>Momsfri</th>
 			</tr>			
 	</HeaderTemplate>
@@ -43,11 +43,11 @@
 		<table>
 			<tr class="synologen-table-headerrow">	
 				<th>Order Nr</th>
-				<th>AvtalsfÃ¶retag</th>
+				<th>Avtalsföretag</th>
 				<th>Artikelnummer</th>
 				<th>Artikel</th>
 				<th>Antal</th>
-				<th>VÃ¤rde</th>
+				<th>Värde</th>
 				<th>Momsfri</th>
 			</tr>			
 	</HeaderTemplate>

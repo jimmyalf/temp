@@ -1,4 +1,4 @@
-ï»¿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditOrder.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.EditOrder"  %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditOrder.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales.EditOrder"  %>
 <asp:PlaceHolder ID="plEditOrder" runat="server" Visible="true">
 <div id="synologen-edit-order" class="synologen-control">
 <fieldset><legend>Kunduppgifter</legend>
@@ -7,19 +7,19 @@
 	<asp:DropDownList ID="drpContracts" runat="server" DataTextField="cName" DataValueField="cId" AutoPostBack="true" OnSelectedIndexChanged="drpContracts_SelectedIndexChanged"/>
 	<asp:RequiredFieldValidator id="reqContracts" InitialValue="0" runat="server" errormessage="Avtal saknas" controltovalidate="drpContracts" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
 	<br />
-	<label>FÃ¶retag *</label>
+	<label>Företag *</label>
 	<asp:DropDownList ID="drpCompany" runat="server" DataTextField="cName" DataValueField="cId" AutoPostBack="true" OnSelectedIndexChanged="drpCompany_SelectedIndexChanged" />
-	<asp:RequiredFieldValidator id="reqCompany" InitialValue="0" runat="server" errormessage="FÃ¶retag saknas" controltovalidate="drpCompany" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
+	<asp:RequiredFieldValidator id="reqCompany" InitialValue="0" runat="server" errormessage="Företag saknas" controltovalidate="drpCompany" Display="Dynamic" CssClass="invalid" ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
 	<br />
-	<label>Kundens<br />KostnadsstÃ¤lle <asp:Literal ID="ltRequiredRST" runat="server" Text='<%#GetControlIsRequiredCharacter("txtRST")%>' /></label>
+	<label>Kundens<br />Kostnadsställe <asp:Literal ID="ltRequiredRST" runat="server" Text='<%#GetControlIsRequiredCharacter("txtRST")%>' /></label>
 	<asp:TextBox id="txtRST" runat="server" />
 	<asp:CustomValidator id="valRST" runat="server" ControlToValidate="txtRST" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>
 	<br />
-	<label>Kundens<br />FÃ¶retagsenhet <asp:Literal ID="ltRequiredCompanyUnit" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCompanyUnit")%>' /></label>
+	<label>Kundens<br />Företagsenhet <asp:Literal ID="ltRequiredCompanyUnit" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCompanyUnit")%>' /></label>
 	<asp:TextBox id="txtCompanyUnit" runat="server" />
 	<asp:CustomValidator id="vldCompanyUnit" runat="server" ControlToValidate="txtCompanyUnit" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>	
 	<br />
-	<label>Kundens<br />FÃ¶rnamn <asp:Literal ID="ltRequiredCustomerFirstName" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCustomerFirstName")%>' /></label>
+	<label>Kundens<br />Förnamn <asp:Literal ID="ltRequiredCustomerFirstName" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCustomerFirstName")%>' /></label>
 	<asp:TextBox id="txtCustomerFirstName" runat="server" />
 	<asp:CustomValidator id="vldCustomerFirstName" runat="server" ControlToValidate="txtCustomerFirstName" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>
 	<br />
@@ -28,7 +28,7 @@
 	<asp:CustomValidator id="vldCustomerLastName" runat="server" ControlToValidate="txtCustomerLastName" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>	
 	<br />
 	<label>Kundens<br />Personnummer <asp:Literal ID="ltRequiredPersonalIDNumber" runat="server" Text='<%#GetControlIsRequiredCharacter("txtPersonalIDNumber")%>' /></label>
-	<asp:TextBox id="txtPersonalIDNumber" runat="server" /><span>&nbsp;(Ã…Ã…Ã…Ã…MMDD-NNNN)</span>
+	<asp:TextBox id="txtPersonalIDNumber" runat="server" /><span>&nbsp;(ÅÅÅÅMMDD-NNNN)</span>
 	<asp:CustomValidator id="vldPersonalIDNumber" runat="server" ControlToValidate="txtPersonalIDNumber" OnServerValidate="PerformCustomValidation" Display="Dynamic" ValidationGroup="vldSubmit" ValidateEmptyText="true">&nbsp;*</asp:CustomValidator>
 	<br />
 	<label>Kundens<br />Ordernummer <asp:Literal ID="ltRequiredCustomerOrderNumber" runat="server" Text='<%#GetControlIsRequiredCharacter("txtCustomerOrderNumber")%>' /></label>
@@ -58,17 +58,17 @@
 		<asp:PlaceHolder ID="plManualPrice" runat="server" Visible="false">
 		<label>Pris</label>
 			<asp:TextBox ID="txtManualPrice" runat="server"/>
-			<asp:RequiredFieldValidator id="reqManualParice" runat="server" errormessage="Pris krÃ¤vs" controltovalidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>
-			<asp:RegularExpressionValidator id="regexManualPrice" runat="server" ErrorMessage="Pris mÃ¥ste anges i numerisk form med utan decimaler." ControlToValidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd" ValidationExpression="^[1-9]{1}[0-9]*$">*</asp:RegularExpressionValidator>
+			<asp:RequiredFieldValidator id="reqManualParice" runat="server" errormessage="Pris krävs" controltovalidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>
+			<asp:RegularExpressionValidator id="regexManualPrice" runat="server" ErrorMessage="Pris måste anges i numerisk form med utan decimaler." ControlToValidate="txtManualPrice" Display="Dynamic" ValidationGroup="vldAdd" ValidationExpression="^[1-9]{1}[0-9]*$">*</asp:RegularExpressionValidator>
 		<br />
 		</asp:PlaceHolder>	
 		<label>Antal</label>
 			<asp:DropDownList ID="drpNumberOfItems" runat="server" Enabled="false" />
-			<asp:RequiredFieldValidator id="reqNumberOfItems" InitialValue="0" runat="server" errormessage="Antal mÃ¥ste vÃ¤ljas" controltovalidate="drpNumberOfItems" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>			
+			<asp:RequiredFieldValidator id="reqNumberOfItems" InitialValue="0" runat="server" errormessage="Antal måste väljas" controltovalidate="drpNumberOfItems" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>			
 		<br />
 			<label>Noteringar</label>
 			<asp:TextBox ID="txtNotes" runat="server" />
-			<asp:ImageButton ID="btnAddArticle" ImageUrl="~/Wpc/Synologen/Images/Add.png" ToolTip="LÃ¤gg till"  AlternateText="LÃ¤gg till" runat="server" OnClick="btnAdd_Click" ValidationGroup="vldAdd" />
+			<asp:ImageButton ID="btnAddArticle" ImageUrl="~/Wpc/Synologen/Images/Add.png" ToolTip="Lägg till"  AlternateText="Lägg till" runat="server" OnClick="btnAdd_Click" ValidationGroup="vldAdd" />
 	</fieldset>
 	<br />
 	<div id="order-items-cart" class="clearLeft">
@@ -103,14 +103,14 @@
 	</div>
 	<div class="clearLeft"><label>Totalpris exkl moms: </label><span><asp:Literal id="ltTotalPrice" runat="server" /></span></div>
 	<div class="control-actions clearLeft">
-		<asp:CustomValidator ID="vldCheckSession" OnServerValidate="SessionValidation" runat="server" ErrorMessage="Du har varit inloggad f&ouml;r l&auml;nge och tappat din session, var v&auml;nlig logga in igen fÃ¶r att registrera f&ouml;rs&auml;ljningar." Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:CustomValidator>
+		<asp:CustomValidator ID="vldCheckSession" OnServerValidate="SessionValidation" runat="server" ErrorMessage="Du har varit inloggad f&ouml;r l&auml;nge och tappat din session, var v&auml;nlig logga in igen för att registrera f&ouml;rs&auml;ljningar." Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:CustomValidator>
 		<%--<asp:Button ID="btnBack" runat="server" Text="Tillbaka" OnClick="btnBack_Click" />--%>
 		<a href="<%=Spinit.Wpc.Synologen.Presentation.Site.Code.SynologenSessionContext.SalesListPage %>">Tillbaka</a>
-		<asp:Button ID="btnSave" runat="server" Text="Spara Ã¤ndringar" OnClick="btnSave_Click" ValidationGroup="vldSubmit" OnClientClick="return confirm('Ã„r du sÃ¤ker pÃ¥ att du vill spara ordern?');" />
-		<%--<asp:Button ID="btnMarkAsPayed" runat="server" Text="Markera som utbetald" OnClick="btnMarkAsPayed_Click" ValidationGroup="vldSubmit" OnClientClick="return confirm('Ã„r du sÃ¤ker pÃ¥ att du vill markera ordern som utbetald?');" Visible="false" />--%>
-		<asp:Button ID="btnAbort" runat="server" Text="Makulera order" OnClick="btnAbort_Click" OnClientClick="return confirm('Ã„r du sÃ¤ker pÃ¥ att du vill makulera ordern?');" />
-		<asp:Button ID="btnHalt" runat="server" Text="SÃ¤tt som vilande" OnClick="btnHalt_Click" OnClientClick="return confirm('Ã„r du sÃ¤ker pÃ¥ att du vill sÃ¤tta ordern som vilande?');" />
-		<asp:Button ID="btnAbortHalt" runat="server" Text="Avbryt vilande" OnClick="btnAbortHalt_Click" OnClientClick="return confirm('Ã„r du sÃ¤ker pÃ¥ att du avbryta vilande order?');" />
+		<asp:Button ID="btnSave" runat="server" Text="Spara ändringar" OnClick="btnSave_Click" ValidationGroup="vldSubmit" OnClientClick="return confirm('Är du säker på att du vill spara ordern?');" />
+		<%--<asp:Button ID="btnMarkAsPayed" runat="server" Text="Markera som utbetald" OnClick="btnMarkAsPayed_Click" ValidationGroup="vldSubmit" OnClientClick="return confirm('Är du säker på att du vill markera ordern som utbetald?');" Visible="false" />--%>
+		<asp:Button ID="btnAbort" runat="server" Text="Makulera order" OnClick="btnAbort_Click" OnClientClick="return confirm('Är du säker på att du vill makulera ordern?');" />
+		<asp:Button ID="btnHalt" runat="server" Text="Sätt som vilande" OnClick="btnHalt_Click" OnClientClick="return confirm('Är du säker på att du vill sätta ordern som vilande?');" />
+		<asp:Button ID="btnAbortHalt" runat="server" Text="Avbryt vilande" OnClick="btnAbortHalt_Click" OnClientClick="return confirm('Är du säker på att du avbryta vilande order?');" />
 	</div>
 	<div class="error-summary clearLeft">
 		<asp:ValidationSummary id="valSummary" ValidationGroup="vldSubmit" runat="server" HeaderText="F&ouml;ljande f&auml;lt &auml;r obligatoriska eller felaktigt ifyllda :" ShowSummary="true" DisplayMode="List" />
@@ -121,7 +121,7 @@
 </div>
 </asp:PlaceHolder>
 <asp:PlaceHolder ID="plNoAccessMessage" runat="server" Visible="false">
-<p class="error-message"><strong>!</strong>&nbsp;Du har inte rÃ¤tt att redigera vald order.</p><br />
+<p class="error-message"><strong>!</strong>&nbsp;Du har inte rätt att redigera vald order.</p><br />
 <%--<asp:Button ID="btnErrorBack" runat="server" Text="Tillbaka" OnClick="btnBack_Click" />--%>
 <a href="<%=Spinit.Wpc.Synologen.Presentation.Site.Code.SynologenSessionContext.SalesListPage %>">Tillbaka</a>
 </asp:PlaceHolder>

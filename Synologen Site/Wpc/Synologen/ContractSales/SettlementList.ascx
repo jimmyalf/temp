@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SettlementList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.SettlementList" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SettlementList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales.SettlementList" %>
 <asp:Repeater ID="rptSettlements" runat="server">
 <HeaderTemplate>
 <div class="synologen-control">

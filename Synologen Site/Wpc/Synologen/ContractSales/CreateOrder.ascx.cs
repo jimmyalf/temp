@@ -8,8 +8,10 @@ using Spinit.Wpc.Synologen.Presentation.Site.Code;
 using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
-	public partial class CreateOrder : SynologenSalesUserControl {
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
+{
+	public partial class CreateOrder : SynologenSalesUserControl 
+	{
 		protected void Page_Load(object sender, EventArgs e) {
 			btnSave.Enabled = CheckEnableSaveOrder();
 			if (Page.IsPostBack) return;
@@ -90,7 +92,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 		}
 
 		protected void OrderItemsValidation(object source, ServerValidateEventArgs args) {
-		    args.IsValid = (SynologenSessionContext.OrderItemsInCart.Count > 0);
+			args.IsValid = (SynologenSessionContext.OrderItemsInCart.Count > 0);
 		}
 
 		protected void btnAdd_Click(object sender, EventArgs e) {

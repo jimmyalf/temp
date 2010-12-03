@@ -3,8 +3,10 @@ using System.Data;
 using Spinit.Wpc.Synologen.Business.Utility;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
-	public partial class SettlementList : SynologenUserControl {
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
+{
+	public partial class SettlementList : SynologenUserControl 
+	{
 		private string _shopNumber;
 
 		protected void Page_Load(object sender, EventArgs e) {

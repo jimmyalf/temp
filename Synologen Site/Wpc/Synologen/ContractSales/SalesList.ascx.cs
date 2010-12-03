@@ -3,8 +3,10 @@ using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
-	public partial class SalesList : SynologenUserControl {
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
+{
+	public partial class SalesList : SynologenUserControl 
+	{
 		private int _shopId;
 		private int _contractId;
 		//private readonly List<int> _listOfEditableStatuses = Globals.EditableOrderStatusList;

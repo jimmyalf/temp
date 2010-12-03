@@ -3,8 +3,10 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Site.Code;
 using Spinit.Wpc.Utility.Business;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
-	public partial class ViewOrder : SynologenUserControl {
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
+{
+	public partial class ViewOrder : SynologenUserControl 
+	{
 		private int _orderId;
 		private Order _order;
 

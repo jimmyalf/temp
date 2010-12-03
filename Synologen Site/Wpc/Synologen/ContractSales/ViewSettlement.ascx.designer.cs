@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen 
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
 {
-    public partial class ViewSettlement { }
+	public partial class ViewSettlement { }
 }

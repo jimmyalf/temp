@@ -18,7 +18,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve
 		MaxAmountNotAllowed = 24,
 		IncorrectPaymentReceiverBankgiroNumber = 29,
 		PaymentReceiverBankgiroNumberMissing = 30,
-		NewConcent = 32,
+		NewConsent = 32,
 		Canceled = 33
 	}
 }

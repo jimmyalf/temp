@@ -5,6 +5,6 @@ namespace Spinit.Wp.Synologen.Autogiro
 {
 	public class PaymentsFileReader : AutogiroFileReader<PaymentsFile,Payment>
 	{
-		public PaymentsFileReader() : base(new PaymentsFileContentReader(), new PaymentItemReader()) {}
+		public PaymentsFileReader(string fileContent) : base(new PaymentsFileContentReader(fileContent), new PaymentItemReader()) {}
 	}
 }

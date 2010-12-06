@@ -49,9 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseContentReader.cs" />
     <Compile Include="BaseWriter.cs" />
     <Compile Include="ConsentHeaderWriter.cs" />
+    <Compile Include="ConsentItemReader.cs" />
     <Compile Include="ConsentItemWriter.cs" />
+    <Compile Include="ConsentsFileContentReader.cs" />
+    <Compile Include="ConsentsFileReader.cs" />
     <Compile Include="ConsentsFileWriter.cs" />
     <Compile Include="Helpers\AutogiroFileContentsExtensions.cs" />
     <Compile Include="PaymentsFileContentReader.cs" />

@@ -62,11 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutogiroParserServiceTests.cs" />
-    <Compile Include="Helpers\AutogiroFileContentsExtensions.cs" />
     <Compile Include="Factories\FileFactory.cs" />
     <Compile Include="Factories\FileContentFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helpers\ReadLineInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen.Autogiro\Synologen.Autogiro.csproj">

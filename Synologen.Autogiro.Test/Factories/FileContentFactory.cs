@@ -4,6 +4,9 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test.Factories
 {
 	public static class FileContentFactory
 	{
+		/// <summary>
+		/// Medgivanderegister
+		/// </summary>
 		public static string GetLayoutA()
 		{
 			return new StringBuilder()
@@ -17,6 +20,9 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test.Factories
 				.ToString();
 		}
 
+		/// <summary>
+		/// Betalningsunderlag
+		/// </summary>
 		public static string GetLayoutB()
 		{
 			return new StringBuilder()
@@ -27,6 +33,9 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test.Factories
 				.ToString();
 		}
 
+		/// <summary>
+		/// Redovisning av utförda och avvisade betalningar
+		/// </summary>
 		public static string GetLayoutD()
 		{
 			return new StringBuilder()
@@ -47,6 +56,24 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test.Factories
 				.AppendLine("82200410280    000000000000101400000009690000099123460809014                   1")
 				.AppendLine("82200410280    000000000000101500000004890000099123460809015                   9")
 				.Append("09200410279900              0000016874000000010000140000000000547500000000000000")
+				.ToString();
+		}
+
+		/// <summary>
+		/// Medgivandeavisering
+		/// </summary>
+		public static string GetLayoutE() 
+		{
+			return new StringBuilder()
+				.AppendLine("012004011899000009912346AG-MEDAVI                                               ")
+				.AppendLine("7300099123460000000000023344330012121212000019121212121200000041020041018000000 ")
+				.AppendLine("7300099123460000000000034433890132323211100000555600052100000043220041018041026 ")
+				.AppendLine("7300099123460000000000042233500100123560000019680305111100000043220041018041026 ")
+				.AppendLine("7300099123460000000000052244700100000123456719460817222200000043220041018041026 ")
+				.AppendLine("7300099123460000000000061155134800000987600019461017333300000043220041018041026 ")
+				.AppendLine("7300099123460000000000044333600000123456777019490730444400000041020041018000000 ")
+				.AppendLine("7300099123460000195809010000                                 033320041018000000 ")
+				.Append("092004101899000000007                                                           ")
 				.ToString();
 		}
 	}

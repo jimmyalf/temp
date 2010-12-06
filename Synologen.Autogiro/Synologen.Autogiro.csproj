@@ -49,10 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseWriter.cs" />
+    <Compile Include="ConsentHeaderWriter.cs" />
+    <Compile Include="ConsentItemWriter.cs" />
+    <Compile Include="ConsentsFileWriter.cs" />
     <Compile Include="Helpers\AutogiroFileContentsExtensions.cs" />
-    <Compile Include="AutogiroLineParserService.cs" />
-    <Compile Include="AutogiroParserService.cs" />
+    <Compile Include="PaymentsFileContentReader.cs" />
+    <Compile Include="PaymentsFileReader.cs" />
     <Compile Include="Helpers\ReadLineInfoExtensions.cs" />
+    <Compile Include="PaymentHeaderWriter.cs" />
+    <Compile Include="PaymentItemReader.cs" />
+    <Compile Include="PaymentItemWriter.cs" />
+    <Compile Include="PaymentsFileWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\ReadLineInfo.cs" />
   </ItemGroup>

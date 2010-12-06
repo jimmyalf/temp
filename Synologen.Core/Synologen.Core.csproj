@@ -65,8 +65,19 @@
   <ItemGroup>
     <Compile Include="Attributes\EnumDisplayNameAttribute.cs" />
     <Compile Include="Domain\Exceptions\SynologenDeleteItemHasConnectionsException.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\AutogiroFileReader.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\AutogiroFileWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IFileReader.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\EqualBase.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\FileBase.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IAutogiroFile.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IAutogiroFileReader.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IAutogiroFileWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IFooterWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IHeaderWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IItemReader.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IItemWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IWriter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\Payer.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentReciever.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentType.cs" />
@@ -140,8 +151,6 @@
     <Compile Include="Domain\Persistence\FrameOrder\IShopRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
-    <Compile Include="Domain\Services\IAutogiroLineParserService.cs" />
-    <Compile Include="Domain\Services\IAutogiroParserService.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />
     <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IAdminSettingsService.cs" />

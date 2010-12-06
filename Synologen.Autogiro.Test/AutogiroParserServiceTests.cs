@@ -16,15 +16,13 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 	[Category("AutogiroParserServiceTester")]
 	public class When_parsing_consents_to_send
 	{
-		private readonly IAutogiroParserService _parserService;
 		private readonly string _parsedFileContent;
 
 		public When_parsing_consents_to_send()
 		{
-			var autogiroLineParserService = new AutogiroLineParserService();
-			_parserService = new AutogiroParserService(autogiroLineParserService);
 			var concentsFile = FileFactory.GetConsentsFile();
-			_parsedFileContent = _parserService.ParseConsents(concentsFile);
+			var fileWriter = new ConsentsFileWriter();
+			_parsedFileContent = fileWriter.Write(concentsFile);
 		}
 
 		[Test]
@@ -39,15 +37,13 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 	[Category("AutogiroParserServiceTester")]
 	public class When_parsing_payments_to_send
 	{
-		private readonly IAutogiroParserService _parserService;
 		private readonly string _parsedFileContent;
 
 		public When_parsing_payments_to_send()
 		{
-			var autogiroLineParserService = new AutogiroLineParserService();
-			_parserService = new AutogiroParserService(autogiroLineParserService);
 			var paymentsFile = FileFactory.GetPaymentsFile();
-			_parsedFileContent = _parserService.ParsePayments(paymentsFile);
+			var fileWriter = new PaymentsFileWriter();
+			_parsedFileContent = fileWriter.Write(paymentsFile);
 		}
 
 		[Test]
@@ -63,17 +59,15 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 	[Category("AutogiroParserServiceTester")]
 	public class When_parsing_payments_from_filecontent
 	{
-	    private readonly IAutogiroParserService _parserService;
 	    private readonly PaymentsFile _paymentsFile;
 	    private readonly int _expectedNumberOfPosts;
 
 	    public When_parsing_payments_from_filecontent()
 	    {
-	        var autogiroLineParserService = new AutogiroLineParserService();
 	        _expectedNumberOfPosts = 15;
-	        _parserService = new AutogiroParserService(autogiroLineParserService);
+	    	var fileReader = new PaymentsFileReader();
 	        var fileContent = FileContentFactory.GetLayoutD();
-	        _paymentsFile = _parserService.ReadPayments(fileContent);
+	    	_paymentsFile = fileReader.Read(fileContent);
 	    }
 
 	    [Test]
@@ -95,10 +89,22 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reciever.BankgiroNumber.ShouldBe(expectedReciever.BankgiroNumber);
 				switch (index)
 				{
-					case 11: post.Type.ShouldBe(PaymentType.Credit); break;
-					case 12: post.Result.ShouldBe(PaymentResult.AGConnectionMissing); break;
-					case 13: post.Result.ShouldBe(PaymentResult.InsufficientFunds); break;
-					case 14: post.Result.ShouldBe(PaymentResult.WillTryAgain); break;
+					case 11: 
+						post.Result.ShouldBe(PaymentResult.Approved);
+						post.Type.ShouldBe(PaymentType.Credit); 
+						break;
+					case 12: 
+						post.Result.ShouldBe(PaymentResult.AGConnectionMissing);
+						post.Type.ShouldBe(PaymentType.Debit);
+						break;
+					case 13: 
+						post.Result.ShouldBe(PaymentResult.InsufficientFunds); 
+						post.Type.ShouldBe(PaymentType.Debit);
+						break;
+					case 14: 
+						post.Result.ShouldBe(PaymentResult.WillTryAgain); 
+						post.Type.ShouldBe(PaymentType.Debit);
+						break;
 					default: 
 						post.Result.ShouldBe(PaymentResult.Approved); 
 						post.Type.ShouldBe(PaymentType.Debit);

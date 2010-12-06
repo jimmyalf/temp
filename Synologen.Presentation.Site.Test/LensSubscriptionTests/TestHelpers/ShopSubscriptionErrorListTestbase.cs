@@ -8,7 +8,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Test.TestHelpers;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.TestHelpers
 {
-	public class ShopSubscriptionErrorListTestbase : PresenterTestbase<ShopSubscriptionErrorListPresenter, IShopSubscriptionErrorListView, ShopSubscriptionErrorListModel>
+	public abstract class ShopSubscriptionErrorListTestbase : PresenterTestbase<ShopSubscriptionErrorListPresenter, IShopSubscriptionErrorListView, ShopSubscriptionErrorListModel>
 	{
 		protected Mock<ISynologenMemberService> MockedSynologenMemberService;
 		protected Mock<ISubscriptionErrorRepository> MockedSubscriptionErrorRepository;

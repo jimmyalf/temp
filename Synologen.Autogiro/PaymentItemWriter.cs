@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wp.Synologen.Autogiro.Helpers;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -15,8 +16,8 @@ namespace Spinit.Wp.Synologen.Autogiro
 				item.PeriodCode.ToInteger(),
 				Pad(4),
 				item.Transmitter.CustomerNumber.PadLeft(16, '0'),
-				item.Amount.ToString("F2", System.Globalization.CultureInfo.InvariantCulture).Replace(".", "").PadLeft(12, '0'),
-				item.Reciever.BankgiroNumber.PadLeft(10, '0'),
+				item.Amount.ParseAmount().PadLeft(12, '0'),
+				item.RecieverBankgiroNumber.PadLeft(10, '0'),
 				item.Reference.PadRight(16),
 				Pad(11));
 		}

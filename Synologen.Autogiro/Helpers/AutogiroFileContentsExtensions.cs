@@ -48,6 +48,11 @@ namespace Spinit.Wp.Synologen.Autogiro.Helpers
 			return valueWithInsertedCommaSeparator;
 		}
 
+		public static string ParseAmount(this decimal value)
+		{
+			return value.ToString("F2", System.Globalization.CultureInfo.InvariantCulture).Replace(".", "");
+		}
+
 		public static PaymentResult ParsePaymentResult(this string value)
 		{
 			if(value.Length != 1)

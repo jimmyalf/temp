@@ -11,7 +11,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve
 		ConsentCanceledByBankgiroBecauseOfMissingStatement = 07,
 		ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsederation = 10,
 		ConsentTemporarilyStoppedByPayer = 11,
-		TemporaryCocentStopRevoked = 12,
+		TemporaryConsentStopRevoked = 12,
 		IncorrectPersonalIdNumber = 20,
 		IncorrectPayerNumber = 21,
 		IncorrectAccountNumber = 23,

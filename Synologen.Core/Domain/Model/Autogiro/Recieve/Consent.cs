@@ -6,8 +6,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve
 	public class Consent
 	{
 		public Payer Transmitter { get; set; }
-		public string AccountNumber { get; set; }
-		public string ClearingNumber { get; set; }
+		public Account Account { get; set; }
 		public string PersonalIdNumber { get; set; }
 		public string OrgNumber { get; set; }
 		public ConsentInformationCode InformationCode { get; set; }

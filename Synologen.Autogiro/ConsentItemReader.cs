@@ -16,8 +16,11 @@ namespace Spinit.Wp.Synologen.Autogiro
                 ActionDate = line.ReadFrom(66).To(73).ParseDate(),
                 InformationCode = ParseConsentInformationCode(line.ReadFrom(62).To(63).ToInt()),
 				Transmitter = new Payer{ CustomerNumber = line.ReadFrom(13).To(28).TrimStart('0') },
-                ClearingNumber = (UseAccountNumberData(line)) ? line.ReadFrom(29).To(32) : null,
-				AccountNumber = (UseAccountNumberData(line)) ? line.ReadFrom(33).To(44).TrimStart('0') : null,
+				Account = new Account
+				{
+					ClearingNumber = (UseAccountNumberData(line)) ? line.ReadFrom(29).To(32) : null,
+					AccountNumber = (UseAccountNumberData(line)) ? line.ReadFrom(33).To(44).TrimStart('0') : null,
+				},
 				PersonalIdNumber = (UsePersonalData(line)) ? GetAsPersonalIdNumber(line.ReadFrom(45).To(56)) : null,
 				OrgNumber = (UsePersonalData(line)) ? GetAsOrgNumber(line.ReadFrom(45).To(56)) : null,
                 CommentCode = line.ReadFrom(64).To(65).ToInt().ToEnum<ConsentCommentCode>(),

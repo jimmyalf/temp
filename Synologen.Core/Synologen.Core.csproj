@@ -92,6 +92,7 @@
     <Compile Include="Domain\Model\Autogiro\Recieve\Payment.cs" />
     <Compile Include="Domain\Model\Autogiro\Recieve\PaymentResult.cs" />
     <Compile Include="Domain\Model\Autogiro\Recieve\PaymentsFile.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\Account.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\Consent.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\ConsentsFile.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\ConsentType.cs" />

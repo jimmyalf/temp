@@ -348,7 +348,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Components\Synologen\EditContractCompany.aspx" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
@@ -526,6 +525,7 @@
     </None>
     <None Include="CodeTemplates\AddView\List.tt">
     </None>
+    <Content Include="Web.config" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\ViewFrameOrder.aspx" />
     <Content Include="Window.master" />
   </ItemGroup>
@@ -589,5 +589,6 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-Admin.bat"</PostBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
   </PropertyGroup>
 </Project>

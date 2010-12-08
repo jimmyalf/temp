@@ -4,20 +4,22 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Spinit.Wp.Synologen.Autogiro
+namespace Spinit.Wp.Synologen.Autogiro.Readers
 {
-	public class ConsentsFileContentReader : BaseContentReader, IFileReader<ConsentsFile, Consent> 
+	public class ConsentsFileContentReader : BaseReader, IFileReader<ConsentsFile, Consent> 
 	{
-		public ConsentsFileContentReader(string fileContents) : base(fileContents) {  }
-		public ConsentsFile Read(IItemReader<Consent> itemReader)
+		public ConsentsFile Read(string fileContent, IItemReader<Consent> itemReader)
 		{
+			SetupBase(fileContent);
 			return new ConsentsFile
 			{
 				PaymentRecieverBankgiroNumber = FirstRow.ReadFrom(15).To(24).TrimStart('0'),
-                WriteDate = FirstRow.ReadFrom(3).To(10).ParseDate(),
-                NumberOfItemsInFile = LastRow.ReadFrom(15).To(21).ToInt(),
+				WriteDate = FirstRow.ReadFrom(3).To(10).ParseDate(),
+				NumberOfItemsInFile = LastRow.ReadFrom(15).To(21).ToInt(),
 				Posts = AllRowsButFirstAndLast.Select(line => itemReader.Read(line)),
 			};
 		}
+
+		
 	}
 }

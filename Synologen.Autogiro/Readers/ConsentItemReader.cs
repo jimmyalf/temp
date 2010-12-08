@@ -4,7 +4,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Spinit.Wp.Synologen.Autogiro
+namespace Spinit.Wp.Synologen.Autogiro.Readers
 {
 	public class ConsentItemReader : IItemReader<Consent> 
 	{
@@ -13,8 +13,8 @@ namespace Spinit.Wp.Synologen.Autogiro
 			return new Consent
 			{
 				RecieverBankgiroNumber = line.ReadFrom(3).To(12).TrimStart('0'),
-                ActionDate = line.ReadFrom(66).To(73).ParseDate(),
-                InformationCode = ParseConsentInformationCode(line.ReadFrom(62).To(63).ToInt()),
+				ActionDate = line.ReadFrom(66).To(73).ParseDate(),
+				InformationCode = ParseConsentInformationCode(line.ReadFrom(62).To(63).ToInt()),
 				Transmitter = new Payer{ CustomerNumber = line.ReadFrom(13).To(28).TrimStart('0') },
 				Account = new Account
 				{
@@ -23,7 +23,7 @@ namespace Spinit.Wp.Synologen.Autogiro
 				},
 				PersonalIdNumber = (UsePersonalData(line)) ? GetAsPersonalIdNumber(line.ReadFrom(45).To(56)) : null,
 				OrgNumber = (UsePersonalData(line)) ? GetAsOrgNumber(line.ReadFrom(45).To(56)) : null,
-                CommentCode = line.ReadFrom(64).To(65).ToInt().ToEnum<ConsentCommentCode>(),
+				CommentCode = line.ReadFrom(64).To(65).ToInt().ToEnum<ConsentCommentCode>(),
 				ConsentValidForDate = ReadConsentValidationDate(line)
 			};
 		}

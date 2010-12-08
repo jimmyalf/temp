@@ -3,7 +3,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Spinit.Wp.Synologen.Autogiro
+namespace Spinit.Wp.Synologen.Autogiro.Writers
 {
 	public class ConsentItemWriter : BaseWriter, IItemWriter<Consent>
 	{

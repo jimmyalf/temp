@@ -4,14 +4,13 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Spinit.Wp.Synologen.Autogiro
+namespace Spinit.Wp.Synologen.Autogiro.Readers
 {
-	public class PaymentsFileContentReader : BaseContentReader, IFileReader<PaymentsFile, Payment>
+	public class PaymentsFileContentReader : BaseReader, IFileReader<PaymentsFile, Payment>
 	{
-		public PaymentsFileContentReader(string fileContents) : base(fileContents) {}
-
-		public PaymentsFile Read(IItemReader<Payment> itemReader) 
+		public PaymentsFile Read(string fileContent, IItemReader<Payment> itemReader) 
 		{ 
+			SetupBase(fileContent);
 			return new PaymentsFile
 			{
 				Reciever = new PaymentReciever

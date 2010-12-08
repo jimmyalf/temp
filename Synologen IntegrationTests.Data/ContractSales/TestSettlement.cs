@@ -244,6 +244,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				settlementForShop.SaleItems.Count().ShouldBe(expectedSaleItems.Count());
 				settlementForShop.LensSubscriptionTransactions.Count().ShouldBe(_transactions.Count());
 				settlementForShop.ContractSalesValueIncludingVAT.ShouldBe((decimal)expectedContractSales.Sum(x => x.InvoiceSumIncludingVAT));
+				settlementForShop.LensSubscriptionsValueIncludingVAT.ShouldBe(_transactions.Sum(x => x.Amount));
 				settlementForShop.AllContractSalesHaveBeenMarkedAsPayed.ShouldBe(false);
 				settlementForShop.SaleItems.ForBoth(expectedSaleItems, (saleItem, originalItem) =>
 				{
@@ -260,9 +261,12 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				});
 				settlementForShop.LensSubscriptionTransactions.ForBoth(_transactions, (transaction, originalItem) =>
 				{
+					transaction.CreatedDate.ShouldBe(originalItem.CreatedDate);
 					transaction.Amount.ShouldBe(originalItem.Amount);
 					transaction.Id.ShouldBe(originalItem.Id);
 					transaction.Subscription.Id.ShouldBe(originalItem.Subscription.Id);
+					transaction.Subscription.Customer.FirstName.ShouldBe(originalItem.Subscription.Customer.FirstName);
+					transaction.Subscription.Customer.LastName.ShouldBe(originalItem.Subscription.Customer.LastName);
 				});
 			});
 		}

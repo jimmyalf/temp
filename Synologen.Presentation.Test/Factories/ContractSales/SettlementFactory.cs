@@ -39,13 +39,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 					var subscription3 = SubscriptionFactory.Get(3, 3, 100);
 					_transactions = new []
 					{
-						TransactionFactory.Get(1, 285.45M, subscription1),
-						TransactionFactory.Get(2, 12.86M, subscription1),
-						TransactionFactory.Get(3, 775, subscription2),
-						TransactionFactory.Get(4, 256, subscription1),
-						TransactionFactory.Get(5, 125, subscription1),
-						TransactionFactory.Get(6, 555.55M, subscription2),
-						TransactionFactory.Get(7, 129, subscription3),
+						TransactionFactory.Get(1, 285.45M, subscription1, new DateTime(2010, 12, 1)),
+						TransactionFactory.Get(2, 12.86M, subscription1, new DateTime(2010, 12, 2)),
+						TransactionFactory.Get(3, 775, subscription2, new DateTime(2010, 12, 3)),
+						TransactionFactory.Get(4, 256, subscription1, new DateTime(2010, 12, 4)),
+						TransactionFactory.Get(5, 125, subscription1, new DateTime(2010, 12, 5)),
+						TransactionFactory.Get(6, 555.55M, subscription2, new DateTime(2010, 12, 6)),
+						TransactionFactory.Get(7, 129, subscription3, new DateTime(2010, 12, 7)),
 					};
 				}
 				return _transactions;

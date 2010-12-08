@@ -14,7 +14,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests.Factorie
 				LensSubscriptionTransactions = TransactionFactory.GetList(),
 				SaleItems = SalesItemFactory.GetList(ContractCompanyFactory.Get()),
 				Shop = ShopFactory.Get(55),
-                ContractSalesValueIncludingVAT = 1234.56M
+                ContractSalesValueIncludingVAT = 1234.56M,
+				LensSubscriptionsValueIncludingVAT = 987.65M,
 			};
 		}
 	}

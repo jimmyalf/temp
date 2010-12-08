@@ -78,6 +78,7 @@
     <Compile Include="ContractSaleTests\Factories\ContractSaleFactory.cs" />
     <Compile Include="ContractSaleTests\Factories\SalesItemFactory.cs" />
     <Compile Include="ContractSaleTests\Factories\ShopFactory.cs" />
+    <Compile Include="ContractSaleTests\Factories\SubscriptionFactory.cs" />
     <Compile Include="ContractSaleTests\Factories\TransactionFactory.cs" />
     <Compile Include="ContractSaleTests\Factories\ShopSettlementFactory.cs" />
     <Compile Include="ContractSaleTests\TestHelpers\ViewSettlementTestbase.cs" />

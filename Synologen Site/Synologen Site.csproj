@@ -487,5 +487,6 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-Site.bat"</PostBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
   </PropertyGroup>
 </Project>

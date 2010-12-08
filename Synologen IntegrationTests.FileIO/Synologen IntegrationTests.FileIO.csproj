@@ -35,7 +35,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Shouldly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\Shouldly.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -49,14 +58,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Autogiro\AutogiroWriteTests.cs" />
+    <Compile Include="Autogiro\AutogiroReadTests.cs" />
+    <Compile Include="Autogiro\Factories\FileContentFactory.cs" />
+    <Compile Include="Autogiro\Factories\FileFactory.cs" />
     <Compile Include="GlobalTestBase.cs" />
+    <Compile Include="Helpers\IOBase.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ReadTestfiles\Autogiro\" />
+    <Content Include="ReadTestfiles\Autogiro\AGP Layout D.txt" />
+    <Content Include="ReadTestfiles\Autogiro\AGP Layout E.txt" />
+    <Content Include="ReadTestfiles\Autogiro\AGP Layout F.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synologen.Autogiro\Synologen.Autogiro.csproj">
+      <Project>{2E5D8A26-6535-4A7A-A5CE-794614C41A27}</Project>
+      <Name>Synologen.Autogiro</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="WriteOutput\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

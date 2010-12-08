@@ -106,5 +106,21 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test.Factories
 				.Append("092004101899000000018                                                           ")
 				.ToString();
 		}
+
+		/// <summary>
+		/// Fellista registerkontroll
+		/// </summary>
+		public static string GetLayoutF()
+		{
+			return new StringBuilder()
+				.AppendLine("0120041022AUTOGIRO9900FELLISTA REG.KONTRL                     4711170009912346  ")
+				.AppendLine("82200410230   0000000000000101000000050000                01                    ")
+				.AppendLine("82200410230   0000000000000102000000020000                03                    ")
+				.AppendLine("82200410230   0000000000000103000000010000                02                    ")
+				.AppendLine("82200410230   0000000000000104000000015000                07                    ")
+				.AppendLine("09200410229900000000000000000000000004000000095000                          ")
+				.ToString();
+		}
+
 	}
 }

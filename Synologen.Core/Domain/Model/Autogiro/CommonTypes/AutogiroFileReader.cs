@@ -12,9 +12,9 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes
 			_itemReader = itemReader;
 		}
 
-		public TFile Read()
+		public TFile Read(string fileContent)
 		{
-			return _fileReader.Read(_itemReader);
+			return _fileReader.Read(fileContent, _itemReader);
 		}
 	}
 }

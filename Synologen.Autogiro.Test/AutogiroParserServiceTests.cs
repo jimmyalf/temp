@@ -3,7 +3,8 @@ using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
-using Spinit.Wp.Synologen.Autogiro;
+using Spinit.Wp.Synologen.Autogiro.Readers;
+using Spinit.Wp.Synologen.Autogiro.Writers;
 using Spinit.Wpc.Synologen.Autogiro.Test.Factories;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
@@ -70,8 +71,8 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 			_expectedWriteDate = new DateTime(2004, 10, 27);
 			_expectedReciever = new PaymentReciever { BankgiroNumber = "9912346", CustomerNumber = "471117" };
 			var fileContent = FileContentFactory.GetLayoutD();
-	    	var fileReader = new PaymentsFileReader(fileContent);
-	    	_paymentsFile = fileReader.Read();
+	    	var fileReader = new PaymentsFileReader();
+	    	_paymentsFile = fileReader.Read(fileContent);
 	    }
 
 	    [Test]
@@ -236,8 +237,8 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 			_expectedWriteDate = new DateTime(2004, 01, 18);
 			_expectedRecieverBankgiroNumber = "9912346";
 			var fileContent = FileContentFactory.GetLayoutE();
-	    	var fileReader = new ConsentsFileReader(fileContent);
-	    	_consentsFile = fileReader.Read();
+	    	var fileReader = new ConsentsFileReader();
+	    	_consentsFile = fileReader.Read(fileContent);
 		}
 
 		[Test]
@@ -334,8 +335,8 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 		public When_reading_complementary_consents()
 		{
 			var fileContent = FileContentFactory.GetComplementaryLayoutE();
-	    	var fileReader = new ConsentsFileReader(fileContent);
-	    	_consentsFile = fileReader.Read();
+	    	var fileReader = new ConsentsFileReader();
+	    	_consentsFile = fileReader.Read(fileContent);
 		}
 
 		[Test]

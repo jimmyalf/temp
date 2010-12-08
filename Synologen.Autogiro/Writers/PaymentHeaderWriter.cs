@@ -2,12 +2,12 @@ using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 
-namespace Spinit.Wp.Synologen.Autogiro
+namespace Spinit.Wp.Synologen.Autogiro.Writers
 {
-	public class ConsentHeaderWriter : BaseWriter, IHeaderWriter<ConsentsFile>
+	public class PaymentHeaderWriter : BaseWriter, IHeaderWriter<PaymentsFile>
 	{
-		public string Write(ConsentsFile item) 
-		{ 
+		public string Write(PaymentsFile item)
+		{
 			return String.Format("01{0}AUTOGIRO{1}{2}{3}{4}",
 				item.WriteDate.ToString("yyyyMMdd"),
 				Pad(44),

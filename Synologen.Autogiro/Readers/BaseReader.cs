@@ -3,11 +3,11 @@ using System.Linq;
 using Spinit.Wp.Synologen.Autogiro.Helpers;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Spinit.Wp.Synologen.Autogiro
+namespace Spinit.Wp.Synologen.Autogiro.Readers
 {
-	public abstract class BaseContentReader
+	public abstract class BaseReader
 	{
-		protected BaseContentReader(string fileContents)
+		public void SetupBase(string fileContents)
 		{
 			FileContents = fileContents;
 			FileRows = fileContents.SplitIntoRows();

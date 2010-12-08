@@ -49,22 +49,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseContentReader.cs" />
-    <Compile Include="BaseWriter.cs" />
-    <Compile Include="ConsentHeaderWriter.cs" />
-    <Compile Include="ConsentItemReader.cs" />
-    <Compile Include="ConsentItemWriter.cs" />
-    <Compile Include="ConsentsFileContentReader.cs" />
-    <Compile Include="ConsentsFileReader.cs" />
-    <Compile Include="ConsentsFileWriter.cs" />
+    <Compile Include="AutogiroFileWriter.cs" />
+    <Compile Include="Readers\BaseReader.cs" />
+    <Compile Include="AutogiroFileReader.cs" />
+    <Compile Include="Writers\BaseWriter.cs" />
+    <Compile Include="Writers\ConsentHeaderWriter.cs" />
+    <Compile Include="Readers\ConsentItemReader.cs" />
+    <Compile Include="Writers\ConsentItemWriter.cs" />
+    <Compile Include="Readers\ConsentsFileContentReader.cs" />
+    <Compile Include="Readers\ConsentsFileReader.cs" />
+    <Compile Include="Writers\ConsentsFileWriter.cs" />
     <Compile Include="Helpers\AutogiroFileContentsExtensions.cs" />
-    <Compile Include="PaymentsFileContentReader.cs" />
-    <Compile Include="PaymentsFileReader.cs" />
+    <Compile Include="Readers\PaymentsFileContentReader.cs" />
+    <Compile Include="Readers\PaymentsFileReader.cs" />
     <Compile Include="Helpers\ReadLineInfoExtensions.cs" />
-    <Compile Include="PaymentHeaderWriter.cs" />
-    <Compile Include="PaymentItemReader.cs" />
-    <Compile Include="PaymentItemWriter.cs" />
-    <Compile Include="PaymentsFileWriter.cs" />
+    <Compile Include="Writers\PaymentHeaderWriter.cs" />
+    <Compile Include="Readers\PaymentItemReader.cs" />
+    <Compile Include="Writers\PaymentItemWriter.cs" />
+    <Compile Include="Writers\PaymentsFileWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\ReadLineInfo.cs" />
   </ItemGroup>

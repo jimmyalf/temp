@@ -17,13 +17,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests
 		private readonly string _expectedPeriod;
 		private readonly ShopSettlement _expectedSettlement;
 		private readonly int _expectedCurrentShopId;
+		private readonly string _expectedSubscriptionUrl;
+		private readonly int _expectedSubscriptionPageId;
 		public When_loading_view_settlement_view_in_default_simple_mode()
 		{
 			_expectedPeriod = "1048";
 			_expectedCurrentShopId = 5;
+			_expectedSubscriptionUrl = "/test/url";
+			_expectedSubscriptionPageId = 8;
 			_expectedSettlement = ShopSettlementFactory.Get(50);
 			Context = () =>
 			{
+				MockedView.SetupGet(x => x.SubscriptionPageId).Returns(_expectedSubscriptionPageId);
+				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_expectedSubscriptionUrl);
 				MockedSettlementRepository.Setup(x => x.GetForShop(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedSettlement);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(_expectedCurrentShopId);
 				MockedHttpContext.SetupSingleQuery("settlementId", _expectedSettlement.Id.ToString());
@@ -68,6 +74,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests
 				view.Model.DetailedContractSales.Count().ShouldBe(_expectedSettlement.SaleItems.Count());
 				view.Model.SimpleContractSales.Count().ShouldBe(_expectedSettlement.SaleItems.Select(x => x.Article.Id).Distinct().Count());
 				view.Model.SwitchViewButtonText.ShouldBe("Visa detaljer");
+				view.Model.LensSubscriptionsValueIncludingVAT.ShouldBe(_expectedSettlement.LensSubscriptionsValueIncludingVAT.ToString("C2"));
+				view.Model.LensSubscriptionTransactionsCount.ShouldBe(_expectedSettlement.LensSubscriptionTransactions.Count().ToString());
 			});
 		}
 
@@ -112,6 +120,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests
 				viewItem.IsVATFree.ShouldBe("Ja");
 				viewItem.Quantity.ShouldBe("9");
 				viewItem.ValueExcludingVAT.ShouldBe("499,95 kr");
+			}));
+		}
+
+		[Test]
+		public void View_model_has_expected_detailed_transaction_properties()
+		{
+			AssertUsing(view => view.Model.DetailedSubscriptionTransactions.ForBoth(_expectedSettlement.LensSubscriptionTransactions.ToList(), (viewItem, domainItem) =>
+			{
+				viewItem.CustomerName.ShouldBe(domainItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
+				viewItem.SubscriptionLink.ShouldBe(String.Format("{0}?subscription={1}", _expectedSubscriptionUrl, domainItem.Subscription.Id));
+				viewItem.Amount.ShouldBe(domainItem.Amount.ToString("C2"));
+				viewItem.Date.ShouldBe(domainItem.CreatedDate.ToString("yyyy-MM-dd"));
 			}));
 		}
 

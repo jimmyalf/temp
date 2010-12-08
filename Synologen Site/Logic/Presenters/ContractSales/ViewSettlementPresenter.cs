@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -37,11 +38,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.ContractSales
 			var useDetailedView = HttpContext.Session[UseDetailedSettlementViewSessionKey].ToTypeOrDefault(false);
 			var shopId = _synologenMemberService.GetCurrentShopId();
 			var settlementForShop = _settlementRepository.GetForShop(settlementId, shopId);
+			var subscriptionPageUrl = SubscriptionPageUrlResolver(View.SubscriptionPageId);
+
 			View.Model.DisplayDetailedView = useDetailedView;
 			View.Model.SettlementId = settlementForShop.Id;
 			View.Model.ShopNumber = settlementForShop.Shop.Number;
 			View.Model.Period = Business.Utility.General.GetSettlementPeriodNumber(settlementForShop.CreatedDate);
 			View.Model.ContractSalesValueIncludingVAT = settlementForShop.ContractSalesValueIncludingVAT.ToString("C2");
+			View.Model.LensSubscriptionsValueIncludingVAT = settlementForShop.LensSubscriptionsValueIncludingVAT.ToString("C2");
+			View.Model.LensSubscriptionTransactionsCount = settlementForShop.LensSubscriptionTransactions.Count().ToString();
+			View.Model.DetailedSubscriptionTransactions = settlementForShop.LensSubscriptionTransactions.Select(transaction => DetailedTransactionsConverter(transaction, subscriptionPageUrl)); 
 			View.Model.DetailedContractSales = settlementForShop.SaleItems.Select(DetailedSalesItemConverter);
 			View.Model.SimpleContractSales = settlementForShop.SaleItems.OrderBy(x => x.Article.Id).GroupBy(x => x.Article.Id).Select(SimpleSalesItemConverter);
 			View.Model.SwitchViewButtonText = (useDetailedView) ? SimpleButtonText : DetailedButtonText;
@@ -94,6 +100,29 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.ContractSales
 					Quantity = saleItemGroup.Sum(x => x.Quantity).ToString(),
 					ValueExcludingVAT = saleItemGroup.Sum(x => x.TotalPriceExcludingVAT()).ToString("C2")
 				};
+			}
+		}
+
+		private static Func<Transaction, string, SettlementDetailedSubscriptionTransactionsListItemModel> DetailedTransactionsConverter
+		{
+			get
+			{
+				return (transactionItem, subscriptionPageUrl) => new SettlementDetailedSubscriptionTransactionsListItemModel
+              	{
+              		Amount = transactionItem.Amount.ToString("C2"),
+              		Date = transactionItem.CreatedDate.ToString("yyyy-MM-dd"),
+					SubscriptionLink = String.Format("{0}?subscription={1}", subscriptionPageUrl, transactionItem.Subscription.Id),
+					CustomerName = transactionItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName)
+              	};
+			}
+		}
+
+
+		private Func<int, string> SubscriptionPageUrlResolver
+		{
+			get
+			{
+				return pageId => (pageId <= 0) ? "#" : _synologenMemberService.GetPageUrl(pageId);
 			}
 		}
 

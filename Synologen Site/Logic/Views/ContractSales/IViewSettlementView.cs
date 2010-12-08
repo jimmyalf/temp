@@ -8,5 +8,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.ContractSales
 	{
 		event EventHandler SwitchView;
 		event EventHandler MarkAllSaleItemsAsPayed;
+		int SubscriptionPageId { get; set; }
 	}
 }

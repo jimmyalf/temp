@@ -10,6 +10,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSal
 			Table("SynologenLensSubscriptionTransaction");
 			Id(x => x.Id);
 			Map(x => x.Amount);
+			Map(x => x.CreatedDate);
 			References(x => x.Subscription)
 				.Fetch.Join()
 				.Cascade.None()

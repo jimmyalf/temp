@@ -61,6 +61,7 @@
     <Compile Include="Logic\Presenters\LensSubscription\ShopSubscriptionErrorListPresenter.cs" />
     <Compile Include="Logic\Views\LensSubscription\IShopSubscriptionErrorListView.cs" />
     <Compile Include="Models\ContractSales\SettlementDetailedContractSaleListItemModel.cs" />
+    <Compile Include="Models\ContractSales\SettlementDetailedsubscriptionTransactionsListItemModel.cs" />
     <Compile Include="Models\ContractSales\SettlementSimpleContractSaleListItemModel.cs" />
     <Compile Include="Models\ContractSales\ViewSettlementModel.cs" />
     <Compile Include="Logic\Views\ContractSales\IViewSettlementView.cs" />
@@ -476,6 +477,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

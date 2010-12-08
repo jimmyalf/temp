@@ -13,6 +13,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
 		public event EventHandler SwitchView;
 		public event EventHandler MarkAllSaleItemsAsPayed;
 
+		public int SubscriptionPageId { get; set; }
+
 		protected void btnSwitchView_Click(object sender, EventArgs e) 
 		{ 
 			if(SwitchView == null) return;

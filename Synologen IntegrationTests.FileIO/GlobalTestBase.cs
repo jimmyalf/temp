@@ -1,11 +1,10 @@
 ﻿using NUnit.Framework;
 
-namespace Synologen_IntegrationTests.FileIO
+namespace Spinit.Wpc.Synologen.Integration.FileIO.Test
 {
 	[SetUpFixture]
 	public class GlobalTestBase
 	{
-
 		[SetUp]
 		public void RunBeforeAnyTests(){ }
 

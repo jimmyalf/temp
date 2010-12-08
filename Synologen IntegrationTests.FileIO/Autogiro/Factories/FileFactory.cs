@@ -2,7 +2,7 @@ using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 
-namespace Spinit.Wpc.Synologen.Autogiro.Test.Factories
+namespace Spinit.Wpc.Synologen.Integration.FileIO.Test.Autogiro.Factories
 {
 	public static class FileFactory
 	{

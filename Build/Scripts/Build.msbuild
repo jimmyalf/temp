@@ -60,7 +60,7 @@
 		<Exec Command="$(NAntExecutable) -buildfile:PreBuild.build"/>
 	</Target>
 	<Target Name="Build" DependsOnTargets="PreBuild">
-		<MSBuild Projects="@(ProjectToBuild)" Targets="Rebuild;" Properties="Configuration=Release;" BuildInParallel="true" />
+		<MSBuild Projects="@(ProjectToBuild)" Targets="Rebuild;" Properties="Configuration=Release;" />
 	</Target>
 
 	<Target Name="PostBuild" DependsOnTargets="Build">

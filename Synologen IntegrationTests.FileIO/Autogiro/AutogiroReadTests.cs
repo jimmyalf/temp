@@ -79,4 +79,41 @@ namespace Spinit.Wpc.Synologen.Integration.FileIO.Test.Autogiro
 			_readConsentsFile.NumberOfItemsInFile.ShouldBe(7);
 		}
 	}
+
+	[TestFixture]
+	[Category("AutogiroFileReaderTester")]
+	public class When_reading_errors_file : IOBase
+	{
+		private ErrorsFile _readErrorsFile;
+		private readonly DateTime _expectedWriteDate;
+		private readonly PaymentReciever _expectedReciever;
+		private AutogiroFileReader<ErrorsFile> _reader;
+
+		public When_reading_errors_file()
+		{
+			_expectedWriteDate = new DateTime(2004, 10, 22);
+			_expectedReciever = new PaymentReciever { BankgiroNumber = "9912346", CustomerNumber = "471117" };
+			var filePath = GetReadFilePath(@"Autogiro\AGP Layout F.txt");
+			Context = () =>
+			{
+				var fileReader = new ErrorFileReader();
+				_reader = new AutogiroFileReader<ErrorsFile>(fileReader, filePath);
+			};
+			Because = () => _readErrorsFile = _reader.Read();
+		}
+
+		[Test]
+		public void File_object_has_expected_properties_set()
+		{
+			_readErrorsFile.WriteDate.ShouldBe(_expectedWriteDate);
+			_readErrorsFile.NumberOfCreditsInFile.ShouldBe(1);
+			_readErrorsFile.NumberOfDebitsInFile.ShouldBe(3);
+			_readErrorsFile.Reciever.BankgiroNumber.ShouldBe(_expectedReciever.BankgiroNumber);
+			_readErrorsFile.Reciever.CustomerNumber.ShouldBe(_expectedReciever.CustomerNumber);
+			_readErrorsFile.TotalCreditAmountInFile.ShouldBe(100M);
+			_readErrorsFile.TotalDebitAmountInFile.ShouldBe(850M);
+			_readErrorsFile.Posts.Count().ShouldBe(4);
+
+		}
+	}
 }

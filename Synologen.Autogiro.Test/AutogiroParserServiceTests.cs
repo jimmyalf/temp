@@ -435,4 +435,82 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 			});
 		}
 	}
+
+	[TestFixture]
+	[Category("AutogiroParsingTester")]
+	public class When_reading_errors
+	{
+		private readonly ErrorsFile _errorsFile;
+		private readonly DateTime _expectedWriteDate;
+		private readonly DateTime _expectedPaymentDate;
+		private readonly int _expectedNumberOfPosts;
+		private readonly PaymentReciever _expectedReciever;
+
+		public When_reading_errors()
+		{
+			_expectedNumberOfPosts = 4;
+			_expectedWriteDate = new DateTime(2004, 10, 22);
+			_expectedPaymentDate =  new DateTime(2004, 10, 23);
+			_expectedReciever = new PaymentReciever { BankgiroNumber = "9912346", CustomerNumber = "471117" };
+			var fileContent = FileContentFactory.GetLayoutF();
+			var fileReader = new ErrorFileReader();
+			_errorsFile = fileReader.Read(fileContent);
+		}
+
+		[Test]
+		public void Errors_model_contains_expected_data()
+		{
+			_errorsFile.WriteDate.ShouldBe(_expectedWriteDate);
+			_errorsFile.Reciever.BankgiroNumber.ShouldBe(_expectedReciever.BankgiroNumber);
+			_errorsFile.Reciever.CustomerNumber.ShouldBe(_expectedReciever.CustomerNumber);
+			_errorsFile.NumberOfCreditsInFile.ShouldBe(1);
+			_errorsFile.NumberOfDebitsInFile.ShouldBe(3);
+			_errorsFile.TotalCreditAmountInFile.ShouldBe(100.00M);
+			_errorsFile.TotalDebitAmountInFile.ShouldBe(850.00M);
+			_errorsFile.Posts.Count().ShouldBe(_expectedNumberOfPosts);
+
+			_errorsFile.Posts.For((index, post) =>
+          	{
+          		post.PeriodCode.ShouldBe(PeriodCode.PaymentOnceOnSelectedDate);
+          		post.PaymentDate.ShouldBe(_expectedPaymentDate);
+          		post.NumberOfReoccuringTransactionsLeft.ShouldBe(null);
+          	});
+
+			_errorsFile.Posts.ForElementAtIndex(0, post =>
+			{
+				post.Amount.ShouldBe(500M);
+				post.Reference.ShouldBe(string.Empty);
+				post.CommentCode.ShouldBe(ErrorCommentCode.ConsentMissing);
+				post.Transmitter.CustomerNumber.ShouldBe("101");
+				post.Type.ShouldBe(PaymentType.Debit);
+			});
+
+			_errorsFile.Posts.ForElementAtIndex(1, post =>
+           	{
+				post.Amount.ShouldBe(200M);
+				post.Reference.ShouldBe(string.Empty);
+           		post.CommentCode.ShouldBe(ErrorCommentCode.ConsentStopped);
+				post.Transmitter.CustomerNumber.ShouldBe("102");
+				post.Type.ShouldBe(PaymentType.Debit);
+           	});
+
+			_errorsFile.Posts.ForElementAtIndex(2, post =>
+           	{
+				post.Amount.ShouldBe(100M);
+				post.Reference.ShouldBe(string.Empty);
+           		post.CommentCode.ShouldBe(ErrorCommentCode.AccountNotYetApproved);
+				post.Transmitter.CustomerNumber.ShouldBe("103");
+				post.Type.ShouldBe(PaymentType.Credit);
+           	});
+
+			_errorsFile.Posts.ForElementAtIndex(3, post =>
+			{
+				post.Amount.ShouldBe(150M);
+				post.Reference.ShouldBe("TESTREF");
+				post.CommentCode.ShouldBe(ErrorCommentCode.NotYetDebitable);
+				post.Transmitter.CustomerNumber.ShouldBe("104");
+				post.Type.ShouldBe(PaymentType.Debit);
+           	});
+		}
+	}
 }

@@ -18,22 +18,16 @@ namespace Spinit.Wpc.Synologen.Integration.FileIO.Test.Helpers
 			WriteRootPath = ConfigurationManager.AppSettings[WriteOutputRootPathKey];
 			Because = () => { throw new AssertionException("An action for Because has not been set!"); };
 			Context = () => {  };
+			SetUp = () => {  };
 		}
 
 		[SetUp]
 		public void Setup()
 		{
+			SetUp.Invoke();
 			var directory = Directory.GetParent(WriteRootPath);
 			if(directory == null) throw new Exception(String.Format("Write root path \"{0}\" could not be located.", WriteRootPath));
-			directory.GetFiles().Each( file =>
-			{
-				file.Delete();
-			});
-			directory.GetDirectories().Each( dir =>
-			{
-				if (dir.Name.ToLower().Contains("svn")) return;
-				dir.Delete();
-			});
+			directory.GetFiles().Each(file => file.Delete());
 			Context();
 			Because();
 		}

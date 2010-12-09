@@ -52,6 +52,9 @@
     <Compile Include="AutogiroFileWriter.cs" />
     <Compile Include="Readers\BaseReader.cs" />
     <Compile Include="AutogiroFileReader.cs" />
+    <Compile Include="Readers\ErrorFileContentReader.cs" />
+    <Compile Include="Readers\ErrorFileReader.cs" />
+    <Compile Include="Readers\ErrorItemReader.cs" />
     <Compile Include="Writers\BaseWriter.cs" />
     <Compile Include="Writers\ConsentHeaderWriter.cs" />
     <Compile Include="Readers\ConsentItemReader.cs" />

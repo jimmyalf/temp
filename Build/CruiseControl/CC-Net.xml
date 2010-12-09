@@ -34,7 +34,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 				<executable>C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe</executable>
 				<workingDirectory>C:\Develop\WPC4\Current\CustomerSpecific\Synologen\Build\Scripts\</workingDirectory>
 				<projectFile>Build.msbuild</projectFile>
-				<buildArgs>/p:Configuration=ContinuousBuild /m</buildArgs>
+				<buildArgs>/p:Configuration=ContinuousBuild /m:2</buildArgs>
 				<timeout units="minutes">20</timeout>
 				<logger>C:\Program\CruiseControl.NET-1.4.4\server\ThoughtWorks.CruiseControl.MsBuild.dll</logger>
 			</msbuild>			

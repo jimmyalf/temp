@@ -8,18 +8,17 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		public static decimal ToDecimalOrDefault(this string textValue, decimal defaultValue)
 		{
 			decimal output;
-			return decimal.TryParse(textValue, out output) ? output : defaultValue;
+			return decimal.TryParse(textValue.Replace('.',','), out output) ? output : defaultValue;
 		}
 
 		public static decimal ToDecimalOrDefault(this string textValue)
 		{
-			decimal output;
-			return decimal.TryParse(textValue, out output) ? output : default(decimal);
+			return ToDecimalOrDefault(textValue, default(decimal));
 		}
 
 		public static decimal ToDecimal(this string textValue)
 		{
-			return decimal.Parse(textValue);
+			return decimal.Parse(textValue.Replace('.',','));
 		}
 
 		public static int ToIntOrDefault(this string textValue, int defaultValue)

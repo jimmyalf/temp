@@ -66,7 +66,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 				{
 					AccountNumber = eventArgs.AccountNumber, 
 					ClearingNumber = eventArgs.ClearingNumber, 
-					MonthlyAmount = eventArgs.MonthlyAmount
+					MonthlyAmount = eventArgs.MonthlyAmount.ToDecimalOrDefault()
 				},
 				Status = SubscriptionStatus.Created,
 				Notes = eventArgs.Notes

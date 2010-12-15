@@ -56,7 +56,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				view.Model.CustomerName.ShouldBe(_expectedSubscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
 				view.Model.AccountNumber.ShouldBe(_expectedSubscription.PaymentInfo.AccountNumber);
 				view.Model.ClearingNumber.ShouldBe(_expectedSubscription.PaymentInfo.ClearingNumber);
-				view.Model.MonthlyAmount.ShouldBe(_expectedSubscription.PaymentInfo.MonthlyAmount);
+				view.Model.MonthlyAmount.ShouldBe(_expectedSubscription.PaymentInfo.MonthlyAmount.ToString());
 				view.Model.Status.ShouldBe(_expectedSubscription.Status.GetEnumDisplayName());
 				view.Model.Status.ShouldBe("Aktiv");
 				view.Model.StopButtonEnabled.ShouldBe(true);
@@ -280,7 +280,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				subscription.Id.Equals(_expectedSubscription.Id) &&
 				subscription.PaymentInfo.AccountNumber.Equals(_saveEventArgs.AccountNumber) &&
 				subscription.PaymentInfo.ClearingNumber.Equals(_saveEventArgs.ClearingNumber) &&
-				subscription.PaymentInfo.MonthlyAmount.Equals(_saveEventArgs.MonthlyAmount) &&
+				subscription.PaymentInfo.MonthlyAmount.Equals(_saveEventArgs.MonthlyAmount.ToDecimal()) &&
 				subscription.Status.Equals(_expectedSubscription.Status)
 			)));
 

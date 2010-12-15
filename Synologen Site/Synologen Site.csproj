@@ -56,9 +56,16 @@
     <Compile Include="Logic\EventArguments\LensSubscription\SetErrorHandledEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\TransactionReasonEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\UpdateSubscriptionEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\ValidatedEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\ValidatePasswordEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\ValidationEventArgs.cs" />
+    <Compile Include="Logic\Helpers\PlaceHolderExtensions.cs" />
     <Compile Include="Logic\Helpers\StringBuilderExtensions.cs" />
+    <Compile Include="Logic\Helpers\TemplateControlImplementation.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\ShopSubscriptionErrorListPresenter.cs" />
+    <Compile Include="Logic\Presenters\ValidationButtonPresenter.cs" />
+    <Compile Include="Logic\Views\IValidationButtonView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IShopSubscriptionErrorListView.cs" />
     <Compile Include="Models\ContractSales\SettlementDetailedContractSaleListItemModel.cs" />
     <Compile Include="Models\ContractSales\SettlementDetailedsubscriptionTransactionsListItemModel.cs" />
@@ -117,8 +124,14 @@
     <Compile Include="Models\LensSubscription\TransactionListItemModel.cs" />
     <Compile Include="Models\FrameOrders\ListFrameOrdersModel.cs" />
     <Compile Include="Models\FrameOrders\ViewFrameOrderModel.cs" />
+    <Compile Include="Models\MessageContainer.cs" />
+    <Compile Include="Models\ValidationButtonModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Code\IoC\WebRegistry.cs" />
+    <Compile Include="Testpages\TestButtonPage.aspx.cs">
+      <DependentUpon>TestButtonPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="WebBootstrapper.cs" />
     <Compile Include="Wpc\Synologen\CityShopList.ascx.cs">
       <DependentUpon>CityShopList.ascx</DependentUpon>
@@ -295,6 +308,13 @@
     <Compile Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx.designer.cs">
       <DependentUpon>ViewSettlementOld.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\ValidationButton.ascx.cs">
+      <DependentUpon>ValidationButton.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ValidationButton.ascx.designer.cs">
+      <DependentUpon>ValidationButton.ascx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
@@ -354,6 +374,7 @@
     <None Include="Testpages\LensSubscriptionEditCustomer.aspx" />
     <None Include="Testpages\LensSubscriptionTransactionsList.aspx" />
     <None Include="Testpages\LensSubscriptionShopSubscriptionErrorsList.aspx" />
+    <Content Include="Testpages\TestButtonPage.aspx" />
     <Content Include="Web.config" />
     <Content Include="Wpc\Synologen\CityShopList.ascx" />
     <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
@@ -370,6 +391,7 @@
     <Content Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionErrorList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx" />
+    <Content Include="Wpc\Synologen\ValidationButton.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
@@ -477,9 +499,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

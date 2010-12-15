@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.UI.WebControls;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
@@ -14,13 +15,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 	{
 		public event EventHandler<SetErrorHandledEventArgs> SetHandled;
 
-		protected void Page_Load(object sender, EventArgs args) { }
-
 		public void SetHandled_ItemCommand(object sender, RepeaterCommandEventArgs e)
 		{
-			var args = new SetErrorHandledEventArgs { ErrorId = int.Parse(e.CommandName) };
+			var args = new SetErrorHandledEventArgs{ ErrorId = e.CommandName.ToInt() };
 			SetHandled(this, args);
 		}
-
 	}
 }

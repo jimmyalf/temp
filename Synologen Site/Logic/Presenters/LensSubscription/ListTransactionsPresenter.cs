@@ -24,15 +24,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 
 		public void View_Load(object sender, EventArgs e)
 		{
-			Func<SubscriptionTransaction, SubscriptionTransactionListItemModel> transactionConverter = (transaction) =>
-				new SubscriptionTransactionListItemModel
-				{
-					CreatedDate = transaction.CreatedDate.ToString("yyyy-MM-dd"),
-					Amount = transaction.Amount,
-					Reason = transaction.Reason.GetEnumDisplayName(),
-					Type = transaction.Type.GetEnumDisplayName(),
-					HasSettlement = (transaction.Settlement != null) ? "Ja" : String.Empty
-				};
+			Func<SubscriptionTransaction, SubscriptionTransactionListItemModel> transactionConverter = transaction => new SubscriptionTransactionListItemModel
+			{
+				CreatedDate = transaction.CreatedDate.ToString("yyyy-MM-dd"),
+				Amount = transaction.Amount,
+				Reason = transaction.Reason.GetEnumDisplayName(),
+				Type = transaction.Type.GetEnumDisplayName(),
+				HasSettlement = (transaction.Settlement != null) ? "Ja" : String.Empty
+			};
 			var subscriptionId = HttpContext.Request.Params["subscription"].ToIntOrDefault();
 			
 			var criteria = new TransactionsForSubscriptionMatchingCriteria { SubscriptionId = subscriptionId };

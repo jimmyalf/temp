@@ -1,5 +1,4 @@
 ﻿using System;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
@@ -29,7 +28,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 			{
 				AccountNumber = txtAccountNumber.Text,
 				ClearingNumber = txtClearingNumber.Text,
-				MonthlyAmount = txtMonthlyAmount.Text.ToDecimalOrDefault(),
+				MonthlyAmount = txtMonthlyAmount.Text,
 				Notes = txtNotes.Text
 			};
 			Submit(this, args);

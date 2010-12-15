@@ -70,5 +70,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
 			SynologenSessionContext.MemberShopAccessOptions = shop.Access;
 			return shop.Access.HasOption(accessOption);
 		}
+
+		public bool ValidateUserPassword(string password) 
+		{ 
+			var connectionString = Utility.Business.Globals.ConnectionString("WpcServer");
+			var userRepository = new Base.Data.User(connectionString);
+			var userName = GetUserName();
+			return userRepository.PasswordIsValidated(userName, password);
+		}
+
+		public string GetUserName()
+		{
+			return PublicUser.Current.User.UserName;
+		}
 	}
 }

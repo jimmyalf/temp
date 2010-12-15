@@ -67,11 +67,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 				View.Model.AdditionLeft = frameOrder.Addition.Left;
 				View.Model.AdditionRight = frameOrder.Addition.Right;
 			}
-			View.Model.AxisSelectionLeft = frameOrder.Axis.Left;
-			View.Model.AxisSelectionRight = frameOrder.Axis.Right;
+			if(frameOrder.Axis != null)
+			{
+				View.Model.AxisSelectionLeft = frameOrder.Axis.Left;
+				View.Model.AxisSelectionRight = frameOrder.Axis.Right;	
+			}
 			View.Model.CreatedDate = frameOrder.Created.ToString("yyyy-MM-dd HH:mm");
-			View.Model.CylinderLeft = frameOrder.Cylinder.Left;
-			View.Model.CylinderRight = frameOrder.Cylinder.Right;
+			if(frameOrder.Cylinder != null)
+			{
+				View.Model.CylinderLeft = frameOrder.Cylinder.Left;
+				View.Model.CylinderRight = frameOrder.Cylinder.Right;
+			}
+
 			View.Model.FrameArticleNumber = frameOrder.Frame.ArticleNumber;
 			View.Model.FrameColor = frameOrder.Frame.Color.Name;
 			View.Model.FrameBrand = frameOrder.Frame.Brand.Name;

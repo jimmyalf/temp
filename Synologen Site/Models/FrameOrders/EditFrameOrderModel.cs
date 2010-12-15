@@ -12,14 +12,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders
 		public EyeParameterIntervalListAndSelection PupillaryDistance { get; set; }
 		public EyeParameterIntervalListAndSelection Addition { get; set; }
 		public EyeParameterIntervalListAndSelection Height { get; set; }
-		public int AxisSelectionRight { get; set; }
-		public int AxisSelectionLeft { get; set; }
+		public int? AxisSelectionRight { get; set; }
+		public int? AxisSelectionLeft { get; set; }
 
 		public string FrameRequiredErrorMessage { get; set; }
 		public string PupillaryDistanceRequiredErrorMessage { get; set; }
 		public string GlassTypeRequiredErrorMessage { get; set; }
 		public string SphereRequiredErrorMessage { get; set; }
-		public string CylinderRequiredErrorMessage { get; set; }
+		//public string CylinderRequiredErrorMessage { get; set; }
 		public string AdditionRequiredErrorMessage { get; set; }
 		public string HeightRequiredMessage { get; set; }
 		public string AxisRequiredMessage { get; set; }
@@ -40,13 +40,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders
 		public bool DisplayForm
 		{
 			get { return (
-			             	OrderHasBeenSent == false && 
-			             	UserDoesNotHaveAccessToThisOrder == false &&
-			             	OrderDoesNotExist == false &&
-			             	ShopDoesNotHaveAccessToFrameOrders == false);
+				OrderHasBeenSent == false && 
+				UserDoesNotHaveAccessToThisOrder == false &&
+				OrderDoesNotExist == false &&
+				ShopDoesNotHaveAccessToFrameOrders == false);
 			}
 		}
 
-		
+		public bool AxisValueLeftIsRequired { get; set; }
+		public bool AxisValueRightIsRequired { get; set; }
 	}
 }

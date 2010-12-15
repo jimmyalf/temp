@@ -76,9 +76,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>4413</DevelopmentServerPort>
           <DevelopmentServerVPath>/SynologenWebService</DevelopmentServerVPath>
-          <IISUrl>http://localhost/SynologenWebService</IISUrl>
+          <IISUrl>http://localhost/SynologenWebService2</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

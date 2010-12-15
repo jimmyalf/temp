@@ -3,14 +3,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders
 	public class ViewFrameOrderModel : FrameOrderBaseModel
 	{
 		public bool OrderHasBeenSent { get; set; }
-		public decimal CylinderLeft { get; set; }
-		public decimal CylinderRight { get; set; }
+		public decimal? CylinderLeft { get; set; }
+		public decimal? CylinderRight { get; set; }
 		public decimal SphereLeft { get; set; }
 		public decimal SphereRight { get; set; }
 		public decimal PupillaryDistanceLeft { get; set; }
 		public decimal PupillaryDistanceRight { get; set; }
-		public decimal AxisSelectionLeft { get; set; }
-		public decimal AxisSelectionRight { get; set; }
+		public int? AxisSelectionLeft { get; set; }
+		public int? AxisSelectionRight { get; set; }
 		public decimal? AdditionLeft { get; set; }
 		public decimal? AdditionRight { get; set; }
 		public decimal? HeightLeft { get; set; }

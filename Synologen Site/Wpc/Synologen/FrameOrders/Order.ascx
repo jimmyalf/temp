@@ -91,18 +91,10 @@
 			ID="drpCylinderRight" 
 			Runat="server" 
 			DataSource='<%#Model.Cylinder.List%>' 
+			AutoPostBack="true"
 			SelectedValue='<%#Model.Cylinder.Selection.Right.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name" />
-		<asp:RequiredFieldValidator 
-			ID="reqCylinderRight" 
-			InitialValue='<%#Model.NotSelectedIntervalValue.ToString("N2") %>'
-			Runat="server" 
-			ErrorMessage='<%#Model.CylinderRequiredErrorMessage %>'
-			ControlToValidate="drpCylinderRight" 
-			Display="Dynamic" 
-			CssClass="invalid" 
-			ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 	</div>
 	<div class="frame-order-item left">
 		<label for="<%=drpCylinderLeft.ClientID%>">Cylinder V</label>
@@ -110,18 +102,10 @@
 			ID="drpCylinderLeft" 
 			Runat="server" 
 			DataSource='<%#Model.Cylinder.List%>' 
+			AutoPostBack="true"
 			SelectedValue='<%#Model.Cylinder.Selection.Left.ToString("N2")%>'
 			DataValueField="Value"
 			DataTextField="Name" />
-		<asp:RequiredFieldValidator 
-			ID="reqCylinderLeft" 
-			InitialValue='<%#Model.NotSelectedIntervalValue.ToString("N2") %>'
-			Runat="server" 
-			ErrorMessage='<%#Model.CylinderRequiredErrorMessage %>'
-			ControlToValidate="drpCylinderLeft" 
-			Display="Dynamic" 
-			CssClass="invalid" 
-			ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 	</div>	
 </div>
 
@@ -147,7 +131,8 @@
 			CssClass="invalid"
 			ControlToValidate="txtAxisRight"
 			ValidationGroup="vldSubmit"
-			ErrorMessage='<%#Model.AxisRequiredMessage %>'>&nbsp;*</asp:RequiredFieldValidator>		
+			ErrorMessage='<%#Model.AxisRequiredMessage %>'
+			Enabled='<%#Model.AxisValueRightIsRequired%>'>&nbsp;*</asp:RequiredFieldValidator>		
 	</div>
 	<div class="frame-order-item left">
 		<label for="<%=txtAxisLeft.ClientID%>">Axel V</label>
@@ -170,7 +155,8 @@
 			CssClass="invalid"
 			ControlToValidate="txtAxisLeft"
 			ValidationGroup="vldSubmit"
-			ErrorMessage='<%#Model.AxisRequiredMessage %>'>&nbsp;*</asp:RequiredFieldValidator>
+			ErrorMessage='<%#Model.AxisRequiredMessage %>'
+			Enabled='<%#Model.AxisValueLeftIsRequired%>'>&nbsp;*</asp:RequiredFieldValidator>
 	</div>	
 </div>
 

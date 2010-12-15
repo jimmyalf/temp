@@ -18,8 +18,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 			});
 			Component(x => x.Axis, m =>
 			{
-				m.Map(x => x.Left).Column("AxisLeft");
-				m.Map(x => x.Right).Column("AxisRight");
+				m.Map(x => x.Left).Column("AxisLeft").Nullable();;
+				m.Map(x => x.Right).Column("AxisRight").Nullable();;
 			});
 			Component(x => x.Sphere, m =>
 			{
@@ -33,8 +33,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 			});
 			Component(x => x.Cylinder, m =>
 			{
-				m.Map(x => x.Left).Column("CylinderLeft");
-				m.Map(x => x.Right).Column("CylinderRight");
+				m.Map(x => x.Left).Column("CylinderLeft").Nullable();;
+				m.Map(x => x.Right).Column("CylinderRight").Nullable();;
 			});
 			Component(x => x.Height, m =>
 			{

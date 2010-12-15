@@ -11,7 +11,7 @@
 		<li class="parameter-item template"><label>&nbsp;</label><span>Höger:</span><span>Vänster:</span></li>
 		<li class="parameter-item sphere"><label>Sfär</label><span><%#Model.SphereRight%></span><span><%#Model.SphereLeft%></span></li>
 		<li class="parameter-item cylinder"><label>Cylinder</label><span><%#Model.CylinderRight%></span><span><%#Model.CylinderLeft%></span></li>
-		<li class="parameter-item axis"><label>Axel</label><span><%#Model.AxisSelectionRight.ToString("N0")%></span><span><%#Model.AxisSelectionLeft.ToString("N0")%></span></li>
+		<li class="parameter-item axis"><label>Axel</label><span><%#Model.AxisSelectionRight%></span><span><%#Model.AxisSelectionLeft%></span></li>
 		<li class="parameter-item addition"><label>Addition</label><span><%#Model.AdditionRight%></span><span><%#Model.AdditionLeft%></span></li>
 	</ul>
 	<ul class="parameter-list">

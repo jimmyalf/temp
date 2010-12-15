@@ -50,24 +50,56 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 
 		private static FrameOrder UpdateFrameOrder(FrameOrder frameOrder, EditFrameFormEventArgs eventArgs)
 		{
-			frameOrder.Addition = new NullableEyeParameter
-			{
-				Left = (eventArgs.SelectedAddition.Left != int.MinValue) ? eventArgs.SelectedAddition.Left : (decimal?)null,
-				Right = (eventArgs.SelectedAddition.Right != int.MinValue) ? eventArgs.SelectedAddition.Right : (decimal?)null,
-			};
-			frameOrder.Axis = new EyeParameter { Left = eventArgs.SelectedAxisLeft, Right = eventArgs.SelectedAxisRight };
+			frameOrder.Addition = ParseNullableEyeParameter(eventArgs.SelectedAddition);
+			//    = new NullableEyeParameter
+			//{
+			//    Left = (eventArgs.SelectedAddition.Left != int.MinValue) ? eventArgs.SelectedAddition.Left : (decimal?)null,
+			//    Right = (eventArgs.SelectedAddition.Right != int.MinValue) ? eventArgs.SelectedAddition.Right : (decimal?)null,
+			//};
+			frameOrder.Axis = ParseNullableEyeParameter(eventArgs.SelectedAxis);
+			//    = new NullableEyeParameter
+			//{
+			//    Left = (eventArgs.SelectedAxis.Left != int.MinValue) ? eventArgs.SelectedAxis.Left : (decimal?)null,
+			//    Right = (eventArgs.SelectedAxis.Right != int.MinValue) ? eventArgs.SelectedAxis.Right : (decimal?)null,
+			//};
 			frameOrder.Created = DateTime.Now;
-			frameOrder.Cylinder = eventArgs.SelectedCylinder;
-			frameOrder.Height = new NullableEyeParameter {
-				Left = (eventArgs.SelectedHeight.Left != int.MinValue) ? eventArgs.SelectedHeight.Left : (decimal?)null,
-				Right = (eventArgs.SelectedHeight.Right != int.MinValue) ? eventArgs.SelectedHeight.Right : (decimal?)null,
-			};
+			frameOrder.Cylinder = ParseNullableEyeParameter(eventArgs.SelectedCylinder);
+			//    new NullableEyeParameter 
+			//{
+			//    Left = (eventArgs.SelectedCylinder.Left != int.MinValue) ? eventArgs.SelectedCylinder.Left : (decimal?)null,
+			//    Right = (eventArgs.SelectedCylinder.Right != int.MinValue) ? eventArgs.SelectedCylinder.Right : (decimal?)null,
+			//};
+			frameOrder.Height = ParseNullableEyeParameter(eventArgs.SelectedHeight);
+			//new NullableEyeParameter 
+			//{
+			//    Left = (eventArgs.SelectedHeight.Left != int.MinValue) ? eventArgs.SelectedHeight.Left : (decimal?)null,
+			//    Right = (eventArgs.SelectedHeight.Right != int.MinValue) ? eventArgs.SelectedHeight.Right : (decimal?)null,
+			//};
 			frameOrder.Reference = String.IsNullOrEmpty(eventArgs.Reference) ? null : eventArgs.Reference;
 			frameOrder.PupillaryDistance = eventArgs.SelectedPupillaryDistance;
 			frameOrder.Sent = null;
 			frameOrder.Sphere = eventArgs.SelectedSphere;
 			return frameOrder;
 		}
+
+		private static NullableEyeParameter ParseNullableEyeParameter(EyeParameter eyeParameter)
+		{
+			return new NullableEyeParameter 
+			{
+				Left = (eyeParameter.Left != int.MinValue) ? eyeParameter.Left : (decimal?)null,
+				Right = (eyeParameter.Right != int.MinValue) ? eyeParameter.Right : (decimal?)null,
+			};
+		}
+
+		private static NullableEyeParameter<int?> ParseNullableEyeParameter(EyeParameter<int> eyeParameter)
+		{
+			return new NullableEyeParameter<int?> 
+			{
+				Left = ( eyeParameter.Left != int.MinValue) ? eyeParameter.Left : (int?)null,
+				Right = (eyeParameter.Right != int.MinValue) ? eyeParameter.Right : (int?)null,
+			};
+		}
+
 
 		public static IEnumerable<TModel> InsertFirst<TModel>(this IEnumerable<TModel> list, TModel item)
 		{
@@ -134,16 +166,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 		{
 			
 			var selection = selectedEyeParameters.Invoke(framOrder);
-			var returnValue = new EyeParameterIntervalListAndSelection
+			var eyeParameter = new EyeParameter{Left = int.MinValue, Right = int.MinValue};
+			if(selection != null)
 			{
-				List = listItems.InsertDefaultValue(defaultValueText, int.MinValue),
-				Selection = new EyeParameter
+				eyeParameter = new EyeParameter
 				{
 					Left = (selection.Left.HasValue && listItems.Any(x => x.Value.Equals(selection.Left.Value.ToString("N2")))) ? selection.Left.Value : int.MinValue,
 					Right = (selection.Right.HasValue && listItems.Any(x => x.Value.Equals(selection.Right.Value.ToString("N2")))) ? selection.Right.Value : int.MinValue
-				}
+				};
+			}
+			return new EyeParameterIntervalListAndSelection
+			{
+				List = listItems.InsertDefaultValue(defaultValueText, int.MinValue),
+                Selection = eyeParameter
 			};
-			return returnValue;
 		}
 
 		public static EyeParameterIntervalListAndSelection CreateDefaultEyeParameter(this IEnumerable<IntervalListItem> listItems, string defaultValueText)

@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.UpdateForm += View_UpdateForm;
 		}
 
-		private void View_UpdateForm(object sender, SaveSubscriptionEventArgs e) 
+		public void View_UpdateForm(object sender, SaveSubscriptionEventArgs e) 
 		{
 			View.Model.AccountNumber = e.AccountNumber;
 			View.Model.ClearingNumber = e.ClearingNumber;

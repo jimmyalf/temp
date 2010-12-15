@@ -551,4 +551,35 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			});
 		}
 	}
+
+	[TestFixture]
+	[Category("EditLensSubscriptionPresenterTester")]
+	public class When_updating_subscription_view : EditSubscriptionTestbase
+	{
+		private readonly SaveSubscriptionEventArgs _updateEventArgs;
+
+		public When_updating_subscription_view()
+		{
+			_updateEventArgs = SubscriptionFactory.GetSaveSubscriptionEventArgs();
+			Context = () => { };
+
+			Because = presenter =>
+			{
+				presenter.View_Load(null, new EventArgs());
+				presenter.View_UpdateForm(null, _updateEventArgs);
+			};
+		}
+
+		[Test]
+		public void Model_should_have_expected_values()
+		{
+			AssertUsing( view =>
+			{
+				view.Model.AccountNumber.ShouldBe(_updateEventArgs.AccountNumber);
+				view.Model.ClearingNumber.ShouldBe(_updateEventArgs.ClearingNumber);
+				view.Model.MonthlyAmount.ShouldBe(_updateEventArgs.MonthlyAmount);
+				view.Model.Notes.ShouldBe(_updateEventArgs.Notes);
+			});
+		}
+	}
 }

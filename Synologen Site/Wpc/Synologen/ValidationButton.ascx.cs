@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.UI;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters;
@@ -80,25 +81,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen
 
 		protected void btn_Validate(object sender, EventArgs e) 
 		{
-			if (Event != null) Event(sender, e);
-			if (ValidateClick != null) ValidateClick(sender, e);
+			Event.TryInvoke(sender, e);
+			ValidateClick.TryInvoke(sender, e);
 		}
 
 		protected void btn_Submit(object sender, EventArgs e) 
 		{
-			if (Event != null) Event(sender, e);
+			Event.TryInvoke(sender, e);
 			var eventArgs = new ValidationEventArgs(txtPassword.Text);
 			if (Validation != null) eventArgs.Validation += Validation;
 			if (ValidateFailure != null) eventArgs.ValidationFailure += ValidateFailure;
 			if (ValidateSuccess != null) eventArgs.ValidationSuccess += ValidateSuccess;
-			if (SubmitClick != null) SubmitClick(sender, eventArgs);
+			SubmitClick.TryInvoke(sender, eventArgs);
 		}
 
 		protected void btn_Close(object sender, EventArgs e) 
 		{
-			if (Event != null) Event(sender, e);
-			if (CloseClick != null) CloseClick(sender, e);
+			Event.TryInvoke(sender, e);
+			CloseClick.TryInvoke(sender, e);
 		}
-
 	}
 }

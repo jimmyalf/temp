@@ -126,7 +126,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			{
 				AccountNumber = subscription.PaymentInfo.AccountNumber.Reverse(),
 				ClearingNumber = subscription.PaymentInfo.ClearingNumber.Reverse(),
-				MonthlyAmount = subscription.PaymentInfo.MonthlyAmount + 255.21M,
+				MonthlyAmount = (subscription.PaymentInfo.MonthlyAmount + 255.21M).ToString(),
 				Notes = subscription.Notes.Reverse()
 			};
 		}
@@ -137,7 +137,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			{
 				AccountNumber = "123456789",
                 ClearingNumber = "1234",
-                MonthlyAmount = 699.25M,
+                MonthlyAmount = 699.25M.ToString(),
 				Notes = "Plats för valfria anteckningar"
 			};
 		}

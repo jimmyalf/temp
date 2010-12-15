@@ -59,17 +59,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			if (subscriptionId <= 0) return;
 			var subscription = _subscriptionRepository.Get(subscriptionId);
 			var transactionToSave = new SubscriptionTransaction
-			                        	{
-			                        		Amount = args.Amount,
-			                        		Type =
-			                        			(TransactionType)
-			                        			Enum.Parse(typeof (TransactionType), args.TransactionType),
-			                        		Reason = 
-												(TransactionReason)
-		                        		         Enum.Parse(typeof (TransactionReason), args.TransactionReason),
-			                        		CreatedDate = DateTime.Now,
-											Subscription = subscription
-			                        	};
+			{
+				Amount = args.Amount,
+				Type = (TransactionType) Enum.Parse(typeof (TransactionType), args.TransactionType),
+				Reason = (TransactionReason) Enum.Parse(typeof (TransactionReason), args.TransactionReason),
+				CreatedDate = DateTime.Now,
+				Subscription = subscription
+			};
 			_transactionRepository.Save(transactionToSave);
 
 			RedirectToCurrentPage(subscriptionId);

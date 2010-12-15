@@ -8,10 +8,31 @@
     <%--<link media="screen" rel="stylesheet" type="text/css" href="http://demo.ogonapoteket.se/CommonResources/Css/Screen_476.css" />--%>
     <!--<link media="screen" rel="stylesheet" type="text/css" href="Default.css">-->
     <link href="http://synologen-nu.wpc.nu/commonresources/styles/Extranet.css" type="text/css" rel="stylesheet" media="screen" /> 
-    <style>
+    <style type="text/css">
     .shop-city {background-color: rgb(213, 222, 213);}
     .shop-link,
     .shop-no-link {font-weight: bold;}
+	.user-validation-form 
+	{
+		background-color: white;
+		position:relative; 
+		padding:20px 20px 50px 20px;
+		border: solid 1px #98A399;
+		width: 300px;
+		margin: 20% auto;
+	}
+	.user-validation-form-container
+	{
+		width:100%;
+		height:100%;
+		position:absolute; 
+		left:0px; 
+		top:0px;
+		background-image:url(http://www.ogonapoteket.se/CommonResources/Files/www.ogonapoteket.se/Images/Bilder/Mallelement/pop-up-box-bg.png);
+		z-index:15;
+	}
+	.user-validation-form .error{display:block; float:left; clear:both;}
+    
     </style>
 </head>
 <body>

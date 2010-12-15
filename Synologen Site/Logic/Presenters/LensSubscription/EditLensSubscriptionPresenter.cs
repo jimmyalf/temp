@@ -26,6 +26,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.Submit += View_Submit;
 			View.StopSubscription += View_StopSubscription;
 			View.StartSubscription += View_StartSubscription;
+			View.UpdateForm += View_UpdateForm;
+		}
+
+		private void View_UpdateForm(object sender, SaveSubscriptionEventArgs e) 
+		{
+			View.Model.AccountNumber = e.AccountNumber;
+			View.Model.ClearingNumber = e.ClearingNumber;
+			View.Model.MonthlyAmount = e.MonthlyAmount;
+			View.Model.Notes = e.Notes;
 		}
 
 		public override void ReleaseView()
@@ -48,7 +57,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.Model.ClearingNumber = subscription.PaymentInfo.ClearingNumber;
 			View.Model.CreatedDate = subscription.CreatedDate.ToString(DateTimeFormat);
 			View.Model.CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
-			View.Model.MonthlyAmount = subscription.PaymentInfo.MonthlyAmount;
+			View.Model.MonthlyAmount = subscription.PaymentInfo.MonthlyAmount.ToString();
 			View.Model.Status = subscription.Status.GetEnumDisplayName();
 			View.Model.Notes = subscription.Notes;
 			if(View.ReturnPageId>0)
@@ -96,7 +105,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			var subscription = TryGetSubscription();
 			subscription.PaymentInfo.AccountNumber = args.AccountNumber;
 			subscription.PaymentInfo.ClearingNumber = args.ClearingNumber;
-			subscription.PaymentInfo.MonthlyAmount = args.MonthlyAmount;
+			subscription.PaymentInfo.MonthlyAmount = args.MonthlyAmount.ToDecimalOrDefault();
 			subscription.Notes = args.Notes;
 			_subscriptionRepository.Save(subscription);
 		}

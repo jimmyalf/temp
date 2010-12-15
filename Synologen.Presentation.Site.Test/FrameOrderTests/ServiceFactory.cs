@@ -86,6 +86,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 			public int GetCurrentMemberId() { throw new NotImplementedException(); }
 			public string GetPageUrl(int pageId) { return _pageUrl; }
 			public bool ShopHasAccessTo(ShopAccess accessOption) { return _shopHasAccess; }
+			public bool ValidateUserPassword(string password) { throw new NotImplementedException(); }
+			public string GetUserName() { throw new NotImplementedException(); }
 		}
 
 	}

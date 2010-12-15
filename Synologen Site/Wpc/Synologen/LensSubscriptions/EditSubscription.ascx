@@ -3,6 +3,7 @@
 <%@ Register  Src="~/Wpc/Synologen/LensSubscriptions/ErrorList.ascx" TagName="ErrorList" TagPrefix="WpcSynologen" %>
 <%@ Register  Src="~/Wpc/Synologen/LensSubscriptions/TransactionsList.ascx" TagName="TransactionsList" TagPrefix="WpcSynologen" %>
 <%@ Register  Src="~/Wpc/Synologen/LensSubscriptions/CreateTransaction.ascx" TagName="CreateTransaction" TagPrefix="WpcSynologen" %>
+<%@ Register Src="~/Wpc/Synologen/ValidationButton.ascx" TagPrefix="WpcSynologen" TagName="ValidationButton" %>
 <%if(Model.DisplayForm){%>
 <div id="synologen-create-lens-subscription-edit" class="synologen-control">
 <fieldset class="synologen-form">
@@ -33,9 +34,10 @@
 	<asp:ValidationSummary ID="vldSummary" runat="server" />
 	
 	<div class="control-actions">
-		<asp:Button ID="btnSave" runat="server" Text="Spara" />
-		<asp:Button ID="btnStop" runat="server" Text="Stoppa abonnemang" Visible='<%#Model.StopButtonEnabled %>' />
-		<asp:Button ID="btnStart" runat="server" Text="Starta abonnemang" Visible='<%#Model.StartButtonEnabled %>' />
+		<WpcSynologen:ValidationButton runat="server" OnValidateSuccess="btn_Save" OnEvent="Update_Form" />
+		<asp:Button ID="btnStop" runat="server" Text="Stoppa abonnemang" OnClick="btn_Stop" Visible='<%#Model.StopButtonEnabled %>' />
+		<asp:Button ID="btnStart" runat="server" Text="Starta abonnemang" OnClick="btn_Start" Visible='<%#Model.StartButtonEnabled %>' />
+
 	</div>
 	<div class="control-actions">
 		<a href='<%=Model.ReturnUrl%>'>Tillbaka &raquo;</a>

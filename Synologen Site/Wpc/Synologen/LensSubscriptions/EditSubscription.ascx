@@ -46,7 +46,7 @@
 </fieldset>
 <WpcSynologen:ErrorList ID="ctrlLensSubscriptionErrorList" runat="server"  />
 <WpcSynologen:TransactionsList ID="ctrlLensSubscriptionTransactionsList" runat="server"  />
-<WpcSynologen:CreateTransaction ID="ctrlLensSubscriptionCreateTransaction" runat="server"  />
+<WpcSynologen:CreateTransaction ID="ctrlLensSubscriptionCreateTransaction" runat="server" />
 </div>
 <%} %>
 <%if(Model.ShopDoesNotHaveAccessGivenCustomer){%>

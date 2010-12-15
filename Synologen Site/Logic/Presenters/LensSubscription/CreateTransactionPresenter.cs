@@ -22,6 +22,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.SetReasonToCorrection += View_SetReason;
 			View.SetReasonToWithdrawal += View_SetReason;
 			View.Cancel += View_Cancel;
+			View.FormUpdate += Form_Update;
+		}
+
+		public void Form_Update(object sender, UpdateTransactionModelEventArgs e) 
+		{
+			View.Model.Amount = e.Amount;
+			View.Model.SelectedTransactionType = e.TransactionType;
 		}
 
 		public void View_Load(object sender, EventArgs e)
@@ -51,6 +58,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.SetReasonToCorrection -= View_SetReason;
 			View.SetReasonToWithdrawal -= View_SetReason;
 			View.Cancel -= View_Cancel;
+			View.FormUpdate -= Form_Update;
 		}
 
 		public void View_Submit(object sender, SaveTransactionEventArgs args)

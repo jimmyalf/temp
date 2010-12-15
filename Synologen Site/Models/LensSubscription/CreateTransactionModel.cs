@@ -8,7 +8,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 	public class CreateTransactionModel
 	{
 
-		public decimal Amount { get; set; }
+		public string Amount { get; set; }
 		public TransactionType Type { get; set; }
 		public TransactionReason Reason { get; set; }
 		public DateTime CreatedDate { get; set; }
@@ -44,5 +44,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 				&& Reason != TransactionReason.Correction);
 			}
 		}
+
+		public int SelectedTransactionType { get; set; }
 	}
 }

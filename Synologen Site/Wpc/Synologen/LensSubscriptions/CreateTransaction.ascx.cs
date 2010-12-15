@@ -17,31 +17,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 		public event EventHandler<TransactionReasonEventArgs> SetReasonToWithdrawal;
 		public event EventHandler<TransactionReasonEventArgs> SetReasonToCorrection;
 		public event EventHandler Cancel;
+		public event EventHandler Event;
+		public event EventHandler<UpdateTransactionModelEventArgs> FormUpdate;
 
-		protected void Page_Load(object sender, EventArgs e)
+		public void ReasonToWithdrawal(object sender, EventArgs e)
 		{
-			btnSave.Click += Save;
-			btnWithdrawal.Click += ReasonToWithdrawal;
-			btnCorrection.Click += ReasonToCorrection;
-			btnCancel.Click += Cancel;
-		}
-
-		private void ReasonToWithdrawal(object sender, EventArgs e)
-		{
+			Event.TryInvoke(sender, e);
 			if (SetReasonToCorrection == null) return;
 			var args = new TransactionReasonEventArgs { Reason = TransactionReason.Withdrawal };
 			SetReasonToWithdrawal(this, args);
 		}
 
-		private void ReasonToCorrection(object sender, EventArgs e)
+		public void ReasonToCorrection(object sender, EventArgs e)
 		{
+			Event.TryInvoke(sender, e);
 			if (SetReasonToCorrection == null) return;
 			var args = new TransactionReasonEventArgs { Reason = TransactionReason.Correction };
 			SetReasonToCorrection(this, args);
 		}
 
-		private void Save(object sender, EventArgs e)
+		public void Save(object sender, EventArgs e)
 		{
+			Event.TryInvoke(sender, e);
 			if (Submit == null) return;
 
 			if (Model.Reason == TransactionReason.Withdrawal)
@@ -56,6 +53,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 				TransactionType = drpTransactionType.SelectedValue
 			};
 			Submit(this, args);
+		}
+
+		public void btnCancel_Click(object sender, EventArgs e) 
+		{
+			Event.TryInvoke(sender, e);
+			Cancel.TryInvoke(sender, e);
+		}
+
+		public void Update_Form(object sender, EventArgs e) 
+		{
+			var args = new UpdateTransactionModelEventArgs
+			{
+				Amount = txtAmount.Text,
+				TransactionType = drpTransactionType.SelectedValue.ToIntOrDefault()
+			};
+			FormUpdate.TryInvoke(sender, args);
 		}
 	}
 }

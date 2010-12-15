@@ -137,7 +137,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			{
 				AccountNumber = "123456789",
                 ClearingNumber = "1234",
-                MonthlyAmount = 699.25M.ToString(),
+                MonthlyAmount = "699.25",
 				Notes = "Plats för valfria anteckningar"
 			};
 		}

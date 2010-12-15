@@ -4,6 +4,8 @@ using System.Web;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
+using Spinit.Wpc.Synologen.Presentation.Controllers;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Models;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories;
@@ -100,6 +102,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		    Expect(model.Sphere.Right, Is.EqualTo(domainItem.Sphere.Right));
 			Expect(model.Notes, Is.EqualTo(domainItem.Reference));
 
+		}
+
+		[Test]
+		public void When_ViewFrameOrder_GET_Is_Called_With_FrameOrder_Missing_Cylinder_And_Axis_Returned_ViewModel_Has_Expected_Values()
+		{
+		    //Arrange
+		    const int frameOrderId = 1;
+			var expectedFrameOrder = RepositoryFactory.GetMockedFrameOrder(frameOrderId);
+			expectedFrameOrder.Axis = null;
+			expectedFrameOrder.Cylinder = null;
+			var mockedFrameRepository = new Mock<IFrameOrderRepository>();
+			mockedFrameRepository.Setup(x => x.Get(It.Is<int>(id => id.Equals(frameOrderId)))).Returns(expectedFrameOrder);
+			var testController = new FrameController(frameRepository, frameColorRepository, frameBrandRepository, frameGlassTypeRepository, mockedFrameRepository.Object, _adminSettingsService);
+
+		    //Act
+		    var result = (ViewResult) testController.ViewFrameOrder(frameOrderId);
+		    var model = (FrameOrderView) result.ViewData.Model;
+
+		    //Assert
+		
+		    Expect(model.Axis.DisplayLeftValue, Is.False);
+		    Expect(model.Axis.DisplayRightValue, Is.False);
+		    Expect(model.Cylinder.DisplayLeftValue, Is.False);
+		    Expect(model.Cylinder.DisplayRightValue, Is.False);
 		}
 	}
 }

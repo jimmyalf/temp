@@ -43,6 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.Submit -= View_Submit;
 			View.StopSubscription -= View_StopSubscription;
 			View.StartSubscription -= View_StartSubscription;
+			View.UpdateForm -= View_UpdateForm;
 		}
 
 		public void View_Load(object sender, EventArgs e)

@@ -241,4 +241,41 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			MockedHttpContext.VerifyRedirect("{0}?subscription={1}", _currentPageUrl, _subscriptionId);
 		}
 	}
+
+
+	[TestFixture]
+	[Category("CreateTransactionPresenterTester")]
+	public class When_updating_create_transaction_view : CreateTransactionTestbase
+	{
+		private UpdateTransactionModelEventArgs _updateEventArgs;
+
+		public When_updating_create_transaction_view()
+		{
+			Context = () =>
+			{
+				_updateEventArgs = new UpdateTransactionModelEventArgs
+				{
+					Amount = "1234.56", 
+					TransactionType = TransactionType.Deposit.ToInteger()
+				};
+			};
+
+			Because = presenter =>
+			{
+				presenter.View_Load(null, new EventArgs());
+				presenter.Form_Update(null, _updateEventArgs);
+			};
+		}
+
+		[Test]
+		public void Model_should_contain_updated_values()
+		{
+			AssertUsing(view => 
+			{
+				view.Model.Amount.ShouldBe(_updateEventArgs.Amount);
+				view.Model.SelectedTransactionType.ShouldBe(_updateEventArgs.TransactionType);
+			});
+		}
+
+	}
 }

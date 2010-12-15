@@ -1,4 +1,5 @@
 ﻿using System;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
@@ -20,14 +21,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 
 		protected void btn_Start(object sender, EventArgs e)
 		{
-			if(StartSubscription == null) return;
-			StartSubscription(this, e);
+			StartSubscription.TryInvoke(sender, e);
 		}
 
 		protected void btn_Stop(object sender, EventArgs e)
 		{
-			if(StopSubscription == null) return;
-			StopSubscription(this, e);
+			StopSubscription.TryInvoke(sender, e);
 		}
 
 		protected void btn_Save(object sender, EventArgs e) 
@@ -41,8 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 
 		protected void Update_Form(object sender, EventArgs e) 
 		{
-			var args = GetEventArgs();
-			if(UpdateForm!= null) UpdateForm(this, args);
+			UpdateForm.TryInvoke(sender, GetEventArgs());
 		}
 
 		private SaveSubscriptionEventArgs GetEventArgs()

@@ -64,9 +64,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 			{
 				if(id<=0) return null;
 				return new FrameOrder {
-					Axis = new EyeParameter { Left = 70, Right = 155 },
+					Axis = new NullableEyeParameter<int?> { Left = 70, Right = 155 },
 					Created = new DateTime(2010, 08, 24, 13, 45, 0),
-					Cylinder = new EyeParameter { Left = 0.25M, Right = 1.75M },
+					Cylinder = new NullableEyeParameter { Left = 0.25M, Right = 1.75M },
 					Frame = new Frame {
 						ArticleNumber = "123987456",
 						Brand = new FrameBrand { Name = "Björn Borg" },

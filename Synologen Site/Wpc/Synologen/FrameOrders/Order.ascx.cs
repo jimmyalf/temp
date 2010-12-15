@@ -26,6 +26,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrders
 		{
 			drpFrames.SelectedIndexChanged += (sender, e) => HandleEvent(FrameSelected);
 			drpGlassTypes.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
+			drpCylinderLeft.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
+			drpCylinderRight.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
 			btnSave.Click += (sender, e) => HandleEvent(SubmitForm, true);
 		}
 
@@ -65,19 +67,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.FrameOrders
 					Left = drpCylinderLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
 					Right = drpCylinderRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
 				},
-				SelectedAxisLeft = txtAxisLeft.Text.ToIntOrDefault(),
-				SelectedAxisRight = txtAxisRight.Text.ToIntOrDefault(),
-				SelectedAddition = new EyeParameter
+				SelectedAxis = new EyeParameter<int>
 				{
-					Left = drpAdditionLeft.SelectedValue.ToDecimalOrDefault(0),
+					Left = txtAxisLeft.Text.ToIntOrDefault(int.MinValue),
+					Right = txtAxisRight.Text.ToIntOrDefault(int.MinValue)
+				},
+                SelectedAddition = new EyeParameter
+                {
+                	Left = drpAdditionLeft.SelectedValue.ToDecimalOrDefault(0),
 					Right = drpAdditionRight.SelectedValue.ToDecimalOrDefault(0)
-				},
-				SelectedHeight = new EyeParameter
-				{
-					Left = drpHeightLeft.SelectedValue.ToDecimalOrDefault(0),
+                },
+                SelectedHeight = new EyeParameter
+                {
+                	Left = drpHeightLeft.SelectedValue.ToDecimalOrDefault(0),
 					Right = drpHeightRight.SelectedValue.ToDecimalOrDefault(0)
-				},
-				Reference = txtReference.Text
+                },
+                Reference = txtReference.Text
 			};
 		}
 

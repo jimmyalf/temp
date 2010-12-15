@@ -20,20 +20,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 		private readonly IFrameOrderRepository _frameOrderRepository;
 		private readonly IShopRepository _shopRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
-		private readonly IFrameOrderService _frameOrderService;
 		private readonly ISynologenSettingsService _synologenSettingsService;
 		private readonly IEnumerable<IntervalListItem> EmptyIntervalList = new List<IntervalListItem>();
 		private readonly FrameListItem DefaultFrame = new FrameListItem {Id = 0, Name = "-- Välj båge --"};
 		private readonly AllOrderableFramesCriteria AllOrderableFramesCriteria = new AllOrderableFramesCriteria();
 
-		public EditFrameOrderPresenter(IEditFrameOrderView<EditFrameOrderModel> view, IFrameRepository repository, IFrameGlassTypeRepository frameGlassTypeRepository, IFrameOrderRepository frameOrderRepository, IShopRepository shopRepository, ISynologenMemberService sessionProviderService, IFrameOrderService frameOrderService, ISynologenSettingsService synologenSettingsService) : base(view)
+		public EditFrameOrderPresenter(IEditFrameOrderView<EditFrameOrderModel> view, IFrameRepository repository, IFrameGlassTypeRepository frameGlassTypeRepository, IFrameOrderRepository frameOrderRepository, IShopRepository shopRepository, ISynologenMemberService sessionProviderService, ISynologenSettingsService synologenSettingsService) : base(view)
 		{
 			_frameRepository = repository;
 			_frameGlassTypeRepository = frameGlassTypeRepository;
 			_frameOrderRepository = frameOrderRepository;
 			_shopRepository = shopRepository;
 			_synologenMemberService = sessionProviderService;
-			_frameOrderService = frameOrderService;
 			_synologenSettingsService = synologenSettingsService;
 			InitiateEventHandlers();
 		}
@@ -95,7 +93,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 			View.Model.GlassTypeRequiredErrorMessage = "Glastyp saknas";
 			View.Model.PupillaryDistanceRequiredErrorMessage = "PD saknas";
 			View.Model.SphereRequiredErrorMessage = "Sfär saknas";
-			View.Model.CylinderRequiredErrorMessage = "Cylinder saknas";
 			View.Model.AdditionRequiredErrorMessage = "Addition saknas";
 			View.Model.HeightRequiredMessage = "Höjd saknas";
 			View.Model.AxisRequiredMessage = "Axel saknas";
@@ -121,12 +118,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 				View.Model.AdditionParametersEnabled = glassType.IncludeAdditionParametersInOrder;
 			}
 
+			View.Model.AxisValueLeftIsRequired = e.SelectedCylinder.Left != int.MinValue;
+			View.Model.AxisValueRightIsRequired = e.SelectedCylinder.Right != int.MinValue;
 			View.Model.SelectedFrameId = e.SelectedFrameId;
 			View.Model.SelectedGlassTypeId = e.SelectedGlassTypeId;
 			View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, _synologenSettingsService.Sphere.GetList(), "Sfär");
 			View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, _synologenSettingsService.Cylinder.GetList(), "Cylinder");
-			View.Model.AxisSelectionLeft = e.SelectedAxisLeft;
-			View.Model.AxisSelectionRight = e.SelectedAxisRight;
+			View.Model.AxisSelectionLeft = (e.SelectedAxis.Left == int.MinValue) ? (int?)null : e.SelectedAxis.Left;
+			View.Model.AxisSelectionRight = (e.SelectedAxis.Right == int.MinValue) ? (int?)null : e.SelectedAxis.Right;
 			View.Model.Reference = e.Reference;
 
 			if(glassType != null && glassType.IncludeAdditionParametersInOrder)
@@ -153,9 +152,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 			View.Model.SelectedGlassTypeId = frameOrder.GlassType.Id;
 			View.Model.Sphere = frameOrder.GetEyeParameter(x => x.Sphere, _synologenSettingsService.Sphere.GetList(), "Sfär");
 			View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, _synologenSettingsService.Cylinder.GetList(), "Cylinder");
-			View.Model.AxisSelectionLeft = Convert.ToInt32(frameOrder.Axis.Left);
-			View.Model.AxisSelectionRight = Convert.ToInt32(frameOrder.Axis.Right);
+			View.Model.AxisSelectionLeft = (frameOrder.Axis == null || frameOrder.Axis.Left == null) ? (int?)null : frameOrder.Axis.Left.Value;
+			View.Model.AxisSelectionRight = (frameOrder.Axis == null || frameOrder.Axis.Right == null) ? (int?)null : frameOrder.Axis.Right.Value;
 			View.Model.Reference = frameOrder.Reference;
+
+			View.Model.AxisValueLeftIsRequired = View.Model.Cylinder.Selection.Left != int.MinValue;
+			View.Model.AxisValueRightIsRequired = View.Model.Cylinder.Selection.Left != int.MinValue;
 
 			if(frameOrder.GlassType.IncludeAdditionParametersInOrder)
 			{

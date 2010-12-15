@@ -477,6 +477,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\Templates.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Templates.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Wpc\Synologen\Css\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

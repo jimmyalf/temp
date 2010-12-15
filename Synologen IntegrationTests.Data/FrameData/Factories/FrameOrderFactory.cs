@@ -23,9 +23,9 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData.Factories
 		{
 			return new FrameOrder {
 				Addition = new NullableEyeParameter { Left = 1.75M, Right = 2.25M },
-				Axis = new EyeParameter { Left = 70, Right = 155 },
+				Axis = new NullableEyeParameter<int?> { Left = 70, Right = 155 },
 				Created = new DateTime(2010, 08, 24, 13, 45, 0),
-				Cylinder = new EyeParameter { Left = 0.60M, Right = 1.55M },
+				Cylinder = new NullableEyeParameter { Left = 0.60M, Right = 1.55M },
 				Frame = frame,
 				GlassType = glassType,
 				Height = new NullableEyeParameter { Left = 19, Right = 26 },
@@ -41,9 +41,9 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData.Factories
 		public static FrameOrder ScrabmleFrameOrder(FrameOrder order) 
 		{
 			order.Addition = new NullableEyeParameter {Left = 2.75M, Right = 1.25M};
-			order.Axis = new EyeParameter {Left = 155, Right = 70};
+			order.Axis = new NullableEyeParameter<int?> {Left = 155, Right = 70};
 			order.Created = order.Created.Subtract(new TimeSpan(2, 1, 1, 0));
-			order.Cylinder = new EyeParameter {Left = 1.55M, Right = 0.60M};
+			order.Cylinder = new NullableEyeParameter {Left = 1.55M, Right = 0.60M};
 			order.Height = new NullableEyeParameter {Left = 26, Right = 19};
 			order.PupillaryDistance = new EyeParameter {Left = 38, Right = 22};
 			order.Sent = order.Sent.Value.Subtract(new TimeSpan(2, 1, 1, 0));

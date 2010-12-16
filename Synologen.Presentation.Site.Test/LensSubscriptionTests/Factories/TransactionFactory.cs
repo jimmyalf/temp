@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories
@@ -43,6 +42,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			       			}
 			       	};
 
+		}
+
+		public static IList<TransactionArticle> GetArticleList()
+		{
+			return new List<TransactionArticle>
+			{
+				GetArticle(1),
+				GetArticle(2),
+				GetArticle(3),
+				GetArticle(4),
+				GetArticle(5),
+				GetArticle(6),
+			};
+		}
+
+		public static TransactionArticle GetArticle(int id)
+		{
+			var mockedArticle = new Mock<TransactionArticle>();
+			mockedArticle.SetupGet(x => x.Id).Returns(id);
+			mockedArticle.SetupGet(x => x.Name).Returns("Artikel " + id);
+			mockedArticle.SetupGet(x => x.NumberOfConnectedTransactions).Returns((id % 3)*2);
+			return mockedArticle.Object;
 		}
 	}
 

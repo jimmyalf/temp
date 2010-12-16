@@ -65,6 +65,10 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			{
 				return new AllUnhandledSubscriptionErrorsForShopCriteriaConverter(GetSessionFactory().OpenSession());
 			}
+			if(objectToResolve.Equals(typeof(IActionCriteriaConverter<AllActiveTransactionArticlesCriteria,ICriteria>)))
+			{
+				return new AllActiveTransactionArticlesCriteriaConverter(GetSessionFactory().OpenSession());
+			}
 
 			throw new ArgumentException(String.Format("No criteria converter has been defined for {0}.\r\n Create a converter in base class.", objectToResolve), "objectToResolve");
 		}
@@ -84,6 +88,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionTransaction");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscription");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionCustomer");
+			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionTransactionArticle");
 			sqlConnection.Close();
 		}
 

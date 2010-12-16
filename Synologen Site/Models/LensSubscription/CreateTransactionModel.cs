@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -8,30 +9,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 	public class CreateTransactionModel
 	{
 
+		public CreateTransactionModel()
+		{
+			Articles = Enumerable.Empty<ListItem>();
+		}
 		public string Amount { get; set; }
 		public TransactionType Type { get; set; }
 		public TransactionReason Reason { get; set; }
 		public DateTime CreatedDate { get; set; }
 
-		public IEnumerable<TransactionListItemModel> TypeList {
-			get
-			{
-				return new List<TransactionListItemModel>
-				{
-					new TransactionListItemModel { Text = "Välj typ", Value = "0" },
-					new TransactionListItemModel
-					{
-						Text = TransactionType.Deposit.GetEnumDisplayName(),
-						Value = TransactionType.Deposit.ToInteger().ToString()
-					},
-					new TransactionListItemModel
-					{
-						Text = TransactionType.Withdrawal.GetEnumDisplayName(),
-						Value = TransactionType.Withdrawal.ToInteger().ToString()
-					}
-				};
-			}
-		}
+		public IEnumerable<ListItem> TypeList { get { return GetList(); } }
 
 		public bool DisplaySaveWithdrawal { get { return Reason == TransactionReason.Withdrawal; } }
 
@@ -46,5 +33,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 		}
 
 		public int SelectedTransactionType { get; set; }
+		public int SelectedArticleValue { get; set; }
+		public IEnumerable<ListItem> Articles { get; set; }
+
+		private static IEnumerable<ListItem> GetList()
+		{
+			return new List<ListItem>
+			{
+				new ListItem { Text = "Välj typ", Value = "0" },
+				new ListItem
+				{
+					Text = TransactionType.Deposit.GetEnumDisplayName(),
+					Value = TransactionType.Deposit.ToInteger().ToString()
+				},
+				new ListItem
+				{
+					Text = TransactionType.Withdrawal.GetEnumDisplayName(),
+					Value = TransactionType.Withdrawal.ToInteger().ToString()
+				}
+			};
+		}
+		
 	}
 }

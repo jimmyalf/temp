@@ -13,6 +13,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 	public partial class CreateTransaction
 	{
 		protected System.Web.UI.WebControls.DropDownList drpTransactionType;
+		protected System.Web.UI.WebControls.DropDownList drpArticle;
 		protected System.Web.UI.WebControls.TextBox txtAmount;
 		protected System.Web.UI.WebControls.RequiredFieldValidator reqtxtAmount;
 		protected System.Web.UI.WebControls.RangeValidator rngtxtAmount;

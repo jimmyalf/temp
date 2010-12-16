@@ -50,7 +50,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 			{
 				Amount = decimal.Parse(txtAmount.Text),
 				TransactionReason = Model.Reason.ToNumberString(),
-				TransactionType = drpTransactionType.SelectedValue
+				TransactionType = drpTransactionType.SelectedValue,
+                SelectedArticleValue = drpArticle.SelectedValue.ToIntOrDefault()
 			};
 			Submit(this, args);
 		}
@@ -66,7 +67,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 			var args = new UpdateTransactionModelEventArgs
 			{
 				Amount = txtAmount.Text,
-				TransactionType = drpTransactionType.SelectedValue.ToIntOrDefault()
+				TransactionType = drpTransactionType.SelectedValue.ToIntOrDefault(),
+				SelectedArticleValue = drpArticle.SelectedValue.ToIntOrDefault()
 			};
 			FormUpdate.TryInvoke(sender, args);
 		}

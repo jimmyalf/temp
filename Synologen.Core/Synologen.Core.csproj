@@ -130,6 +130,7 @@
     <Compile Include="Domain\Model\LensSubscription\SubscriptionPaymentInfo.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionStatus.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionTransaction.cs" />
+    <Compile Include="Domain\Model\LensSubscription\TransactionArticle.cs" />
     <Compile Include="Domain\Model\LensSubscription\TransactionReason.cs" />
     <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
     <Compile Include="Domain\Model\ContractSales\ShopAccess.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Domain\Persistence\Criterias\AllFrameOrdersForShopCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\ContractSales\AllContractSalesMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllActiveTransactionArticlesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllTransactionsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllUnhandledSubscriptionErrorsForShopCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\CustomersForShopMatchingCriteria.cs" />
@@ -152,6 +154,7 @@
     <Compile Include="Domain\Persistence\LensSubscription\ISubscriptionErrorRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ISubscriptionRepository.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IShopRepository.cs" />
+    <Compile Include="Domain\Persistence\LensSubscription\ITransactionArticleRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />

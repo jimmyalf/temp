@@ -11,6 +11,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Test
 	{
 		protected Mock<ITransactionRepository> MockedTransactionRepository;
 		protected Mock<ISubscriptionRepository> MockedSubscriptionRepository;
+		protected Mock<ITransactionArticleRepository> MockedTransactionArticleRepository;
 
 		protected CreateTransactionTestbase()
 		{
@@ -18,11 +19,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Test
 			{
 				MockedTransactionRepository = new Mock<ITransactionRepository>();
 				MockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
+				MockedTransactionArticleRepository = new Mock<ITransactionArticleRepository>();
 			};
 
 			GetPresenter = () =>
 			{
-				return new CreateTransactionPresenter(MockedView.Object, MockedTransactionRepository.Object,MockedSubscriptionRepository.Object);
+				return new CreateTransactionPresenter(
+					MockedView.Object, 
+					MockedTransactionRepository.Object,
+					MockedSubscriptionRepository.Object, 
+					MockedTransactionArticleRepository.Object);
 			};
 		}
 

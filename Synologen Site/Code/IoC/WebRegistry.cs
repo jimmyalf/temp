@@ -42,12 +42,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code.IoC
 			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
 			For<ISettlementRepository>().Use<SettlementRepository>();
+			For<ITransactionArticleRepository>().Use<TransactionArticleRepository>();
 
 			For<IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>>().Use<AllOrderableFramesCriteriaConverter>();
 			For<IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>>().Use<AllFrameOrdersForShopCriteriaConverter>();
 			For<IActionCriteriaConverter<CustomersForShopMatchingCriteria, ICriteria>>().Use<CustomersForShopMatchingCriteriaConverter>();
 			For<IActionCriteriaConverter<TransactionsForSubscriptionMatchingCriteria, ICriteria>>().Use<TransactionsForSubscriptionMatchingCriteriaConverter>();
 			For<IActionCriteriaConverter<AllUnhandledSubscriptionErrorsForShopCriteria, ICriteria>>().Use<AllUnhandledSubscriptionErrorsForShopCriteriaConverter>();
+			For<IActionCriteriaConverter<AllActiveTransactionArticlesCriteria, ICriteria>>().Use<AllActiveTransactionArticlesCriteriaConverter>();
 		}
 	}
 }

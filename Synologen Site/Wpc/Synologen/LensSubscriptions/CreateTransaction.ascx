@@ -21,6 +21,12 @@
 	<asp:RangeValidator ID="rngtxtAmount" ValidationGroup="vgCreateTransaction" runat="server" ErrorMessage="Belopp måste anges som ett positivt tal med kommatecken som decimalavgränsare" ControlToValidate="txtAmount" Display="Dynamic" MinimumValue="0" MaximumValue='99999,99' Type="Double" >*</asp:RangeValidator>
 	<% } %>
 	
+	<% if (Model.DisplaySaveWithdrawal) { %>
+	<label for="<%=drpArticle.ClientID%>">Belopp</label>
+	<asp:DropDownList ID="drpArticle" runat="server" DataSource='<%#Model.Articles%>' DataTextField="Text" DataValueField="Value" SelectedValue='<%#Model.SelectedArticleValue%>' />
+	<asp:RequiredFieldValidator ID="reqdrpArticle" InitialValue="0" ValidationGroup="vgCreateTransaction" runat="server" ErrorMessage="Artikel är obligatorisk vid uttag" ControlToValidate="drpArticle" Display="Dynamic">*</asp:RequiredFieldValidator>
+	<% } %>
+	
 	<% if (Model.DisplaySaveWithdrawal || Model.DisplaySaveCorrection) { %>
 	<div class="control-actions">
 		<WpcSynologen:ValidationButton runat="server" OnValidateSuccess="Save" OnEvent="Update_Form" />

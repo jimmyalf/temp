@@ -114,16 +114,15 @@
     <Compile Include="Models\LensSubscription\ListCustomersItemModel.cs" />
     <Compile Include="Models\LensSubscription\ListCustomersModel.cs" />
     <Compile Include="Models\LensSubscription\ListSubscriptionErrorModel .cs" />
-    <Compile Include="Models\LensSubscription\ListSubscriptionsItemModel.cs" />
     <Compile Include="Models\LensSubscription\ListTransactionModel.cs" />
     <Compile Include="Models\LensSubscription\ShopSubscriptionErrorListItemModel.cs" />
     <Compile Include="Models\LensSubscription\ShopSubscriptionErrorListModel.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionErrorListItemModel.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionListItemModel.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionTransactionListItemModel.cs" />
-    <Compile Include="Models\LensSubscription\TransactionListItemModel.cs" />
     <Compile Include="Models\FrameOrders\ListFrameOrdersModel.cs" />
     <Compile Include="Models\FrameOrders\ViewFrameOrderModel.cs" />
+    <Compile Include="Models\ListItem.cs" />
     <Compile Include="Models\MessageContainer.cs" />
     <Compile Include="Models\ValidationButtonModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

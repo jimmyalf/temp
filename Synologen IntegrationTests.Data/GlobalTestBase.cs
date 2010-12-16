@@ -108,6 +108,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test
 			var subscriptionRepository = new SubscriptionRepository(session);
 			var transactionRepository = new TransactionRepository(session);
 			var errorRepository = new SubscriptionErrorRepository(session);
+			var transactionArticleRepository = new TransactionArticleRepository(session);
 			for (var i = 0; i < 20; i++)
 			{
 				var shop = (i % 3 == 0) ? shop1 : shop2;
@@ -118,6 +119,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test
 				TransactionFactory.GetList(subscriptionToSave).Each(transactionRepository.Save);
 				SubscriptionErrorFactory.GetList(subscriptionToSave).Each(errorRepository.Save);
 			}
+			TransactionArticleFactory.GetList().Each(transactionArticleRepository.Save);
 		}
 
 		protected ISessionFactory GetSessionFactory()

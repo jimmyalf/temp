@@ -1,9 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.ShouldlyExtensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -15,9 +19,32 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 	[Category("CreateTransactionPresenterTester")]
 	public class When_loading_create_transaction_view_without_reason : CreateTransactionTestbase
 	{
+		private readonly IList<TransactionArticle> _expectedArticles;
+
 		public When_loading_create_transaction_view_without_reason()
 		{
+			_expectedArticles = TransactionFactory.GetArticleList();
+			Context = () =>
+			{
+				MockedTransactionArticleRepository.Setup(x => x.FindBy(It.IsAny<AllActiveTransactionArticlesCriteria>())).Returns(_expectedArticles);
+			};
 			Because = presenter => presenter.View_Load(null, new EventArgs());
+		}
+
+		[Test]
+		public void Article_list_has_items()
+		{
+			AssertUsing(view => 
+			{
+				view.Model.Articles.First().Text.ShouldBe("-- Välj artikel --");
+				view.Model.Articles.First().Value.ShouldBe("0");
+				view.Model.Articles.Except(ListExtensions.IgnoreType.First).ShouldBeSameLengthAs(_expectedArticles);
+				view.Model.Articles.Except(ListExtensions.IgnoreType.First).ForBoth(_expectedArticles, (viewArticle, domainArticle) =>
+				{
+					viewArticle.Text.ShouldBe(domainArticle.Name);
+					viewArticle.Value.ShouldBe(domainArticle.Id.ToString());
+				});
+			});
 		}
 
 		[Test]
@@ -184,7 +211,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		}
 	}
 
-
 	[TestFixture]
 	[Category("CreateTransactionPresenterTester")]
 	public class When_submitting_create_transaction_view : CreateTransactionTestbase
@@ -193,6 +219,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly string _currentPageUrl;
 		private readonly TransactionType _expectedTransactionType;
 		private readonly TransactionReason _expectedTransactionReason;
+		private readonly TransactionArticle _expectedSelectedArticle;
 		private const int _subscriptionId = 5;
 
 		public When_submitting_create_transaction_view()
@@ -204,12 +231,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_currentPageUrl = "/test/redirect/";
 			_expectedTransactionType = TransactionType.Deposit;
 			_expectedTransactionReason = TransactionReason.Payment;
+			_expectedSelectedArticle = TransactionFactory.GetArticle(3);
 			var subscription = SubscriptionFactory.Get(_subscriptionId, CustomerFactory.Get(customerId, countryId, shopId));
 			_saveEventArgs = new SaveTransactionEventArgs
 			{
 				Amount = 1234.56M, 
 				TransactionType = _expectedTransactionType.ToInteger().ToString(), 
-				TransactionReason = _expectedTransactionReason.ToInteger().ToString()
+				TransactionReason = _expectedTransactionReason.ToInteger().ToString(),
+				SelectedArticleValue = _expectedSelectedArticle.Id
 			};
 
 			Context = () => 
@@ -217,6 +246,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
 				MockedHttpContext.SetupCurrentPathAndQuery(_currentPageUrl);
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(subscription);
+				MockedTransactionArticleRepository.Setup(x => x.Get(It.Is<int>(id => id.Equals(_expectedSelectedArticle.Id)))).Returns(_expectedSelectedArticle);
 			};
 
 			Because = presenter =>
@@ -233,6 +263,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(t => t.Type.Equals(_expectedTransactionType))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(t => t.Reason.Equals(_expectedTransactionReason))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(t => t.Subscription.Id.Equals(_subscriptionId))));
+			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(t => t.Article.Id.Equals(_expectedSelectedArticle.Id))));
 		}
 
 		[Test]
@@ -241,7 +272,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			MockedHttpContext.VerifyRedirect("{0}?subscription={1}", _currentPageUrl, _subscriptionId);
 		}
 	}
-
 
 	[TestFixture]
 	[Category("CreateTransactionPresenterTester")]
@@ -256,7 +286,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				_updateEventArgs = new UpdateTransactionModelEventArgs
 				{
 					Amount = "1234.56", 
-					TransactionType = TransactionType.Deposit.ToInteger()
+					TransactionType = TransactionType.Deposit.ToInteger(),
+					SelectedArticleValue = 5
 				};
 			};
 
@@ -274,6 +305,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			{
 				view.Model.Amount.ShouldBe(_updateEventArgs.Amount);
 				view.Model.SelectedTransactionType.ShouldBe(_updateEventArgs.TransactionType);
+				view.Model.SelectedArticleValue.ShouldBe(_updateEventArgs.SelectedArticleValue);
 			});
 		}
 

@@ -107,6 +107,7 @@
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllUnhandledSubscriptionErrorsForShopCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\CustomersForShopMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfSubscriptionsMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfTransactionArticlesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\TransactionsForSubscriptionMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFrameOrdersMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFramesMatchingCriteriaConverter.cs" />

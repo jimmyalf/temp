@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
@@ -58,8 +59,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 	[Category("TransactionRepositoryTester")]
 	public class When_fetching_transactions_by_TransactionsForSubscriptionsMatchingCriteria : BaseRepositoryTester<TransactionRepository>
 	{
-		private SubscriptionTransaction[] _transactions;
-		private SubscriptionTransaction[] _otherTransactions;
+		private IList<SubscriptionTransaction> _transactions;
+		private IList<SubscriptionTransaction> _otherTransactions;
 		private Subscription _subscription;
 		private Subscription _otherSubscription;
 		private Settlement _settlement;
@@ -133,7 +134,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 	[Category("ContractSalesRepositoryTester")]
 	public class When_fetching_transactions_by_AllTransactionsMatchingCriteria : BaseRepositoryTester<TransactionRepository>
 	{
-		private SubscriptionTransaction[] _transactions;
+		private IList<SubscriptionTransaction> _transactions;
 		private Settlement _settlement;
 		private const int settlementableOrderStatus = 6;
 		private const int afterSettlementOrderStatus = 8;

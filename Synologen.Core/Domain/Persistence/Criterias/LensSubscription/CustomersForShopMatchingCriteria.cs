@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Spinit.Data;
+﻿using Spinit.Data;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription
 {

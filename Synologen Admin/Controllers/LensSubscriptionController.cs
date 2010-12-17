@@ -60,5 +60,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			var viewModel = _lensSubscriptionViewService.GetSubscription(id);
 			return View(viewModel);
 		}
+
+		[HttpGet]
+		public ActionResult TransactionArticles(string search, GridPageSortParameters pageSortParameters) 
+		{
+			var decodedSearchTerm = search.UrlDecode();
+			var criteria = new PageOfTransactionArticlesMatchingCriteria(decodedSearchTerm)
+			{
+				OrderBy = pageSortParameters.Column,
+                Page = pageSortParameters.Page,
+                PageSize = pageSortParameters.PageSize ?? DefaultPageSize,
+                SortAscending = pageSortParameters.Direction == SortDirection.Ascending
+			};
+			var viewModel = new TransactionArticleListView { Articles = _lensSubscriptionViewService.GetTransactionArticles(criteria), SearchTerm = decodedSearchTerm };
+			return View(viewModel);
+		}
 	}
 }

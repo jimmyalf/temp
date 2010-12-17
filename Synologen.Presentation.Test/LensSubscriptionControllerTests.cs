@@ -5,6 +5,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.ShouldlyExtensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -271,5 +272,153 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 	}
 
-	
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_loading_transaction_article_list : LensSubscriptionTestbase<TransactionArticleListView>
+	{
+		private int _defaultPageSize;
+		private IList<TransactionArticle> _articles;
+		private readonly GridPageSortParameters _gridPageSortParameters;
+
+		public When_loading_transaction_article_list()
+		{
+			Context = () => 
+			{
+				_defaultPageSize = 33;
+				_articles = TransactionArticleFactory.GetList();
+				MockedAdminSettingsService.Setup(x => x.GetDefaultPageSize()).Returns(_defaultPageSize);
+				MockedTransactionArticleRepository.Setup(x => x.FindBy(It.IsAny<PageOfTransactionArticlesMatchingCriteria>())).Returns(_articles);
+			};
+			
+			_gridPageSortParameters = new GridPageSortParameters
+			{
+				Column = null,
+				Direction = SortDirection.Ascending,
+				Page = 1,
+				PageSize = null
+			};
+			Because = controller => controller.TransactionArticles(null, _gridPageSortParameters);
+		}
+
+		[Test]
+		public void ViewModel_has_no_search_term()
+		{
+
+			ViewModel.SearchTerm.ShouldBe(null);
+		}
+
+		[Test]
+		public void ViewModel_has_expected_articles()
+		{
+			ViewModel.Articles.ShouldBeSameLengthAs(_articles);
+			ViewModel.SearchTerm.ShouldBe(null);
+			ViewModel.Articles.ForBoth(_articles, (viewArticle, domainArticle) =>
+			{
+				viewArticle.ArticleId.ShouldBe(domainArticle.Id);
+				viewArticle.Active.ShouldBe(domainArticle.Active);
+				viewArticle.Name.ShouldBe(domainArticle.Name);
+				viewArticle.NumberOfConnectedTransactions.ShouldBe(domainArticle.NumberOfConnectedTransactions);
+				viewArticle.Deletable.ShouldBe(domainArticle.NumberOfConnectedTransactions == 0);
+			});
+		}
+
+		[Test]
+		public void Controller_constructs_expected_criteria_to_retrieve_articles()
+		{
+			MockedTransactionArticleRepository.Verify(x => x.FindBy(It.Is<PageOfTransactionArticlesMatchingCriteria>(criteria =>
+				Equals(criteria.OrderBy, _gridPageSortParameters.Column) &&
+				Equals(criteria.Page, _gridPageSortParameters.Page) &&
+				Equals(criteria.PageSize, _defaultPageSize) &&
+				Equals(criteria.SortAscending, _gridPageSortParameters.Direction == SortDirection.Ascending) &&
+				Equals(criteria.SearchTerm, null)
+			)));
+		}
+	}
+
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_loading_transaction_article_list_with_sort_order_and_paging_selected : LensSubscriptionTestbase<TransactionArticleListView>
+	{
+
+		private int _defaultPageSize;
+		private IList<TransactionArticle> _articles;
+		private readonly GridPageSortParameters _gridPageSortParameters;
+
+		public When_loading_transaction_article_list_with_sort_order_and_paging_selected()
+		{
+			Context = () => 
+			{
+				_defaultPageSize = 33;
+				_articles = TransactionArticleFactory.GetList();
+				MockedAdminSettingsService.Setup(x => x.GetDefaultPageSize()).Returns(_defaultPageSize);
+				MockedTransactionArticleRepository.Setup(x => x.FindBy(It.IsAny<PageOfTransactionArticlesMatchingCriteria>())).Returns(_articles);
+			};
+			
+			_gridPageSortParameters = new GridPageSortParameters
+			{
+				Column = "Id",
+				Direction = SortDirection.Ascending,
+				Page = 2,
+				PageSize = 20
+			};
+			Because = controller => controller.TransactionArticles(null, _gridPageSortParameters);
+		}
+
+		[Test]
+		public void Controller_constructs_expected_criteria()
+		{
+			MockedTransactionArticleRepository.Verify(x => x.FindBy(It.Is<PageOfTransactionArticlesMatchingCriteria>(criteria => 
+				Equals(criteria.OrderBy, _gridPageSortParameters.Column) &&
+				Equals(criteria.Page, _gridPageSortParameters.Page) &&
+				Equals(criteria.PageSize, _gridPageSortParameters.PageSize) &&
+				Equals(criteria.SortAscending, _gridPageSortParameters.Direction == SortDirection.Ascending) &&
+				Equals(criteria.SearchTerm, null)
+			)));
+		}
+	}
+
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_searching_transaction_article_list : LensSubscriptionTestbase<TransactionArticleListView>
+	{
+		private readonly GridPageSortParameters _gridPageSortParameters;
+		private int _defaultPageSize;
+		private string _searchTerm;
+
+		public When_searching_transaction_article_list()
+		{
+			Context = () => 
+			{
+				_defaultPageSize = 33;
+				_searchTerm = "abc едц";
+				MockedAdminSettingsService.Setup(x => x.GetDefaultPageSize()).Returns(_defaultPageSize);
+			};
+
+			_gridPageSortParameters = new GridPageSortParameters
+			{
+				Column = null,
+				Direction = SortDirection.Ascending,
+				Page = 1,
+				PageSize = null,
+			};
+			Because = controller =>
+			{
+				var encodedSearchTerm = _searchTerm.UrlEncode();
+				return controller.TransactionArticles(encodedSearchTerm, _gridPageSortParameters);
+			};
+		}
+
+
+		[Test]
+		public void Controller_constructs_expected_criteria()
+		{
+			MockedTransactionArticleRepository.Verify(x => x.FindBy(It.Is<PageOfTransactionArticlesMatchingCriteria>(criteria => 
+				Equals(criteria.OrderBy, _gridPageSortParameters.Column) &&
+				Equals(criteria.Page, _gridPageSortParameters.Page) &&
+				Equals(criteria.PageSize, _defaultPageSize) &&
+				Equals(criteria.SortAscending, _gridPageSortParameters.Direction == SortDirection.Ascending) &&
+				Equals(criteria.SearchTerm, _searchTerm)
+			)));
+		}
+	}
 }

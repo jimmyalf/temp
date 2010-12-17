@@ -2,11 +2,12 @@ using System;
 using System.Globalization;
 using System.Linq;
 using AutoMapper;
-using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Application.AutomapperMappings;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
+using Settlement=Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Settlement;
 using Subscription=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription;
 
 namespace Spinit.Wpc.Synologen.Presentation
@@ -50,6 +51,12 @@ namespace Spinit.Wpc.Synologen.Presentation
 				.ForMember(x => x.NumberOfContractSalesInSettlement, m => m.MapFrom(x => x.ContractSales.Count()))
 				.ForMember(x => x.NumberOfLensSubscriptionTransactionsInSettlement, m => m.MapFrom(x => x.LensSubscriptionTransactions.Count()))
 				.ForMember(x => x.CreatedDate, m => m.MapFrom(x => x.CreatedDate.ToString("yyyy-MM-dd HH:mm")));
+
+			CreateMap<TransactionArticle, TransactionArticleListItem>()
+				.ForMember(x => x.Active, m => m.MapFrom(x => x.Active))
+				.ForMember(x => x.ArticleId, m => m.MapFrom(x => x.Id))
+				.ForMember(x => x.Name, m => m.MapFrom(x => x.Name))
+				.ForMember(x => x.NumberOfConnectedTransactions, m => m.MapFrom(x => x.NumberOfConnectedTransactions));
 		}
 	}
 }

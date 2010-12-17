@@ -10,6 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 	{
 		protected Mock<ISubscriptionRepository> MockedSubscriptionRepository;
 		protected Mock<IAdminSettingsService> MockedAdminSettingsService;
+		protected Mock<ITransactionArticleRepository>  MockedTransactionArticleRepository;
 		private ILensSubscriptionViewService ViewService;
 
 		protected LensSubscriptionTestbase()
@@ -18,7 +19,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 			{
 				MockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
 				MockedAdminSettingsService = new Mock<IAdminSettingsService>();
-				ViewService = new LensSubscriptionViewService(MockedSubscriptionRepository.Object);
+				MockedTransactionArticleRepository = new Mock<ITransactionArticleRepository>();
+				ViewService = new LensSubscriptionViewService(MockedSubscriptionRepository.Object, MockedTransactionArticleRepository.Object);
 			};
 			GetController = () => new LensSubscriptionController(ViewService, MockedAdminSettingsService.Object);
 		}

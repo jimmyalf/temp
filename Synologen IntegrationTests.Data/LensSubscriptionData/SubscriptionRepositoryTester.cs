@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NUnit.Framework;
@@ -254,7 +255,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 	[Category("SubscriptionRepositoryTester")]
 	public class When_fetching_all_transactions_for_a_subscription : BaseRepositoryTester<SubscriptionRepository>
 	{
-		private SubscriptionTransaction[] _transactions;
+		private IList<SubscriptionTransaction> _transactions;
 		private Subscription _subscription;
 
 		public When_fetching_all_transactions_for_a_subscription()

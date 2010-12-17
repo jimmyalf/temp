@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories
@@ -28,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 			};
 		}
 
-		public static SubscriptionTransaction[] GetList(Subscription subscription)
+		public static IList<SubscriptionTransaction> GetList(Subscription subscription)
 		{
 			return new[]
 			{

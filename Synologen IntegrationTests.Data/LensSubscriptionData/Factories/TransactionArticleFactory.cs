@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories
 {
@@ -14,6 +17,15 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 			};
 		}
 
+		public static TransactionArticle Get(int id) 
+		{
+			return new TransactionArticle
+			{
+				Name = String.Concat("Artikel ", id.GetChar()),
+				Active = (id % 3 == 0),
+			};
+		}
+
 		public static IList<TransactionArticle> GetList() 
 		{
 			return new List<TransactionArticle>
@@ -25,6 +37,12 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 				new TransactionArticle{ Name="Artikel E", Active = false },
 				new TransactionArticle{ Name="Artikel F", Active = true },
 			};
+		}
+
+		public static IList<TransactionArticle> GetList(int numberOfItems) 
+		{
+			Func<int,TransactionArticle> converter = Get;
+			return converter.GenerateRange(0,50).ToList();
 		}
 	}
 }

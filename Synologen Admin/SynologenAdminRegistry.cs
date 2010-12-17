@@ -41,6 +41,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 			For<ISettlementRepository>().HybridHttpOrThreadLocalScoped().Use<SettlementRepository>();
 			For<IContractSaleRepository>().HybridHttpOrThreadLocalScoped().Use<ContractSaleRepository>();
 			For<ITransactionRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionRepository>();
+			For<ITransactionArticleRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionArticleRepository>();
 
 			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
@@ -51,6 +52,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 			For<IActionCriteriaConverter<PageOfSubscriptionsMatchingCriteria, ICriteria>>().Use<PageOfSubscriptionsMatchingCriteriaConverter>();
 			For<IActionCriteriaConverter<AllContractSalesMatchingCriteria, ICriteria>>().Use<AllContractSalesMatchingCriteriaConverter>();
 			For<IActionCriteriaConverter<AllTransactionsMatchingCriteria, ICriteria>>().Use<AllTransactionsMatchingCriteriaConverter>();
+			For<IActionCriteriaConverter<PageOfTransactionArticlesMatchingCriteria, ICriteria>>().Use<PageOfTransactionArticlesMatchingCriteriaConverter>();
 			
 
 			For<IAdminSettingsService>().Use<SettingsService>();

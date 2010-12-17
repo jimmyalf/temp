@@ -35,10 +35,10 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		private double _expectedSumExcludingVAT;
 		private int _expectedNumberOfOrdersInSettlement;
 		private Subscription _subscription;
-		private SubscriptionTransaction[] _transactions;
+		private IList<SubscriptionTransaction> _transactions;
 		private Article _article;
 		private int _expectedNumberOfOrdersInSettlementForShop1;
-		private SubscriptionTransaction[] _transactions2;
+		private IList<SubscriptionTransaction> _transactions2;
 		private ContractArticleConnection _contractArticleConnection;
 
 		public When_creating_a_settlement_using_sqlprovider()

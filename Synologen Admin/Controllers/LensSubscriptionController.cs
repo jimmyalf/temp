@@ -75,5 +75,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			var viewModel = new TransactionArticleListView { Articles = _lensSubscriptionViewService.GetTransactionArticles(criteria), SearchTerm = decodedSearchTerm };
 			return View(viewModel);
 		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult TransactionArticles(TransactionArticleListView inModel)
+		{
+			var routeValues = ControllerContext.HttpContext.Request.QueryString
+				.ToRouteValueDictionary()
+				.BlackList("controller", "action");
+			if(String.IsNullOrEmpty(inModel.SearchTerm))
+			{
+			    routeValues.TryRemoveRouteValue("search");
+			}
+			else
+			{
+			    routeValues.AddOrReplaceRouteValue("search", inModel.SearchTerm.UrlEncode());
+			}
+			return RedirectToAction("TransactionArticles", routeValues);
+		}
 	}
 }

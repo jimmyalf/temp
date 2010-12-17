@@ -317,6 +317,8 @@
     <Compile Include="Models\LensSubscription\SubscriptionListItemView.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionListView.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionView.cs" />
+    <Compile Include="Models\LensSubscription\TransactionArticleListView.cs" />
+    <Compile Include="Models\LensSubscription\TransactionArticleListItem.cs" />
     <Compile Include="Models\LensSubscription\TransactionListItemView.cs" />
     <Compile Include="Models\SelectItem.cs" />
     <Compile Include="Application\AutomapperMappings\NullableDateFormatter.cs" />

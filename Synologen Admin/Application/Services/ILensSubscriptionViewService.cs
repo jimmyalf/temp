@@ -4,8 +4,10 @@ using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
-	public interface ILensSubscriptionViewService {
+	public interface ILensSubscriptionViewService 
+	{
 		IEnumerable<SubscriptionListItemView> GetSubscriptions(PageOfSubscriptionsMatchingCriteria criteria);
 		SubscriptionView GetSubscription(int subscriptionId);
+		IEnumerable<TransactionArticleListItem> GetTransactionArticles(PageOfTransactionArticlesMatchingCriteria criteria);
 	}
 }

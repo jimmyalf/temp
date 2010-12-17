@@ -83,7 +83,6 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			action.Invoke(list.ElementAt(index));
 		}
 
-
 		public static IEnumerable<TType> Except<TType>(this IEnumerable<TType> list, IgnoreType type)
 		{
 			switch (type)
@@ -104,6 +103,16 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			First,
 			Last,
 			FirstAndLast
+		}
+
+		public static IEnumerable<TModel> GenerateRange<TModel>(this Func<int,TModel> converter, int startIndex, int count )
+		{
+			var range = Enumerable.Range(startIndex, count);
+			foreach (var index in range)
+			{
+				yield return converter(index);
+			}
+			yield break;
 		}
 
 	}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
@@ -13,7 +14,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 	public class LensSubscriptionViewService : ILensSubscriptionViewService
 	{
 		private readonly ISubscriptionRepository _subscriptionRepository;
-		public LensSubscriptionViewService(ISubscriptionRepository subscriptionRepository) { _subscriptionRepository = subscriptionRepository; }
+		private readonly ITransactionArticleRepository _transactionArticleRepository;
+
+		public LensSubscriptionViewService(ISubscriptionRepository subscriptionRepository, ITransactionArticleRepository transactionArticleRepository)
+		{
+			_subscriptionRepository = subscriptionRepository;
+			_transactionArticleRepository = transactionArticleRepository;
+		}
 
 		public IEnumerable<SubscriptionListItemView> GetSubscriptions(PageOfSubscriptionsMatchingCriteria criteria)
 		{
@@ -32,6 +39,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		{
 			var subscription = _subscriptionRepository.Get(subscriptionId);
 			return Mapper.Map<Subscription, SubscriptionView>(subscription);
+		}
+
+		public IEnumerable<TransactionArticleListItem> GetTransactionArticles(PageOfTransactionArticlesMatchingCriteria criteria) 
+		{
+			var articles = _transactionArticleRepository.FindBy(criteria);
+			return articles == null 
+				? Enumerable.Empty<TransactionArticleListItem>() 
+				: articles.ConvertSortedPagedList(article => Mapper.Map<TransactionArticle,TransactionArticleListItem>(article));
 		}
 	}
 }

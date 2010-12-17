@@ -21,6 +21,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			Map<LensSubscriptionController, SubscriptionListItemView, Subscription>(x => x.CustomerName, x => x.Customer.LastName);
 			Map<LensSubscriptionController, SubscriptionListItemView, Subscription>(x => x.ShopName, x => x.Customer.Shop.Name);
 			Map<LensSubscriptionController, SubscriptionListItemView, Subscription>(x => x.Status, x => x.Status);
+
+			Map<LensSubscriptionController, TransactionArticleListItem, TransactionArticle>(x => x.ArticleId, x => x.Id);
+			Map<LensSubscriptionController, TransactionArticleListItem, TransactionArticle>(x => x.Name, x => x.Name);
+			Map<LensSubscriptionController, TransactionArticleListItem, TransactionArticle>(x => x.Active, x => x.Active);
+			Map<LensSubscriptionController, TransactionArticleListItem, TransactionArticle>(x => x.NumberOfConnectedTransactions, x => x.NumberOfConnectedTransactions);
 		}
 	}
 }

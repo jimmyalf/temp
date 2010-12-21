@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Presentation.Helpers;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 {
@@ -23,8 +25,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 			Context();
 			Controller = GetController();
 			Because(Controller);
+			ActionMessages = Controller.GetWpcActionMessages();
 		}
 
+		protected IList<IWpcActionMessage> ActionMessages;
 		protected Func<TController> GetController;
 		protected Action Context;
 		protected Action SetUp;
@@ -49,6 +53,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 			Controller = GetController();
 			var actionResult = Because(Controller);
 			ViewModel = GetViewModel(actionResult);
+			ActionMessages = Controller.GetWpcActionMessages();
 		}
 		protected TViewModel ViewModel;
 		protected new Func<TController,ActionResult> Because;

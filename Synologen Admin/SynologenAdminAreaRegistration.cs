@@ -43,7 +43,11 @@ namespace Spinit.Wpc.Synologen.Presentation
 
 			context.MapRoute(AreaName + "LensSubscriptions", urlPrefix + "lens-subscriptions", new { controller = "LensSubscription", action = "Index" } );
 			context.MapRoute(AreaName + "LensSubscription", urlPrefix + "lens-subscription/{id}", new { controller = "LensSubscription", action = "ViewSubscription" } );
+
 			context.MapRoute(AreaName + "LensSubscriptionTransactionArticles", urlPrefix + "lens-subscriptions/transaction-articles", new { controller = "LensSubscription", action = "TransactionArticles" } );
+			context.MapRoute(AreaName + "LensSubscriptionTransactionArticleEdit", urlPrefix + "lens-subscriptions/transaction-article/{id}", new { controller = "LensSubscription", action = "EditTransactionArticle" } );
+			context.MapRoute(AreaName + "LensSubscriptionTransactionArticleAdd", urlPrefix + "lens-subscriptions/add-transaction-article", new { controller = "LensSubscription", action = "AddTransactionArticle" } );
+			context.MapRoute(AreaName + "LensSubscriptionTransactionArticleDelete", urlPrefix + "lens-subscriptions/delete-transaction-article/{id}", new { controller = "LensSubscription", action = "DeleteTransactionArticle" } );
 
 			context.MapRoute(AreaName + "ContractSalesSettlement", urlPrefix + "contract-sales/settlement/{id}", new { controller = "ContractSales", action = "ViewSettlement" } );
 			context.MapRoute(AreaName + "ContractSalesSettlements", urlPrefix + "contract-sales/settlements/", new { controller = "ContractSales", action = "Settlements" } );

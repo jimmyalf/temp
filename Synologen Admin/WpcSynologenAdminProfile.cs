@@ -57,6 +57,11 @@ namespace Spinit.Wpc.Synologen.Presentation
 				.ForMember(x => x.ArticleId, m => m.MapFrom(x => x.Id))
 				.ForMember(x => x.Name, m => m.MapFrom(x => x.Name))
 				.ForMember(x => x.NumberOfConnectedTransactions, m => m.MapFrom(x => x.NumberOfConnectedTransactions));
+
+			CreateMap<TransactionArticle, TransactionArticleModel>()
+				.ForMember(x => x.Id, m => m.MapFrom(x => x.Id))
+				.ForMember(x => x.Name, m => m.MapFrom(x => x.Name))
+				.ForMember(x => x.Active, m => m.MapFrom(x => x.Active));
 		}
 	}
 }

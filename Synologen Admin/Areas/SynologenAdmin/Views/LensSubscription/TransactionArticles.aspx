@@ -2,6 +2,7 @@
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
 <% Html.RenderPartial("LensSubscriptionSubMenu"); %>
 <div id="dCompMain" class="Components-Synologen-LensSubscription-Transaction-Articles">
+    <%=Html.Messages() %>
 	<div class="fullBox">
 		<div class="wrap">
 			<% using (Html.BeginForm()) {%>
@@ -25,10 +26,13 @@
  							.HeaderAttributes(@class => "controlColumn");
  						column.For(x => x.Name).Named("Artikelnamn");
 					    column.For(x => x.NumberOfConnectedTransactions).Named("Antal transaktioner");
-					    column.For(x => x.Active).Named("Status");
-						column.For(x => Html.ActionLink("Visa", "ViewTransactionArticle", "LensSubscription", new {id = x.ArticleId}, new object()))
+					    column.For(x => x.RenderCheckboxFor( prop=> prop.Active)).DoNotEncode().SetAsWpcControlColumn("Aktiv");
+						column.For(x => Html.ActionLink("Redigera", "EditTransactionArticle", "LensSubscription", new {id = x.ArticleId}, new object()))
 							.SetAsWpcControlColumn("Redigera");
- 					}).Empty("Inga abonnemang i databasen.")
+						column.For(x => Html.WpcGridDeleteForm(x, "DeleteTransactionArticle", "LensSubscription", new {id = x.ArticleId})
+								.OverrideButtonAttributes(title => "Radera artikel"))
+							.SetAsWpcControlColumn("Radera");
+ 					}).Empty("Inga artiklar i databasen.")
 				%>
 			</div>
 		</div>     						

@@ -319,6 +319,7 @@
     <Compile Include="Models\LensSubscription\SubscriptionView.cs" />
     <Compile Include="Models\LensSubscription\TransactionArticleListView.cs" />
     <Compile Include="Models\LensSubscription\TransactionArticleListItem.cs" />
+    <Compile Include="Models\LensSubscription\TransactionArticleModel.cs" />
     <Compile Include="Models\LensSubscription\TransactionListItemView.cs" />
     <Compile Include="Models\SelectItem.cs" />
     <Compile Include="Application\AutomapperMappings\NullableDateFormatter.cs" />
@@ -492,6 +493,9 @@
     <Content Include="Areas\SynologenAdmin\Views\Frame\EditBrand.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\Brands.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\BrandForm.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\LensSubscription\AddTransactionArticle.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\LensSubscription\TransactionArticleForm.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\LensSubscription\EditTransactionArticle.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\LensSubscription\LensSubscriptionSubMenu.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\LensSubscription\TransactionArticles.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\LensSubscription\Index.aspx" />
@@ -586,6 +590,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

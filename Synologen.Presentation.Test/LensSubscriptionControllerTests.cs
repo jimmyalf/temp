@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
@@ -12,6 +13,7 @@ using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
+using Spinit.Wpc.Synologen.Presentation.Test.Factories;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Test.TestHelpers;
 
@@ -318,7 +320,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				viewArticle.Active.ShouldBe(domainArticle.Active);
 				viewArticle.Name.ShouldBe(domainArticle.Name);
 				viewArticle.NumberOfConnectedTransactions.ShouldBe(domainArticle.NumberOfConnectedTransactions);
-				viewArticle.Deletable.ShouldBe(domainArticle.NumberOfConnectedTransactions == 0);
+				viewArticle.AllowDelete.ShouldBe(domainArticle.NumberOfConnectedTransactions == 0);
 			});
 		}
 
@@ -420,5 +422,291 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				Equals(criteria.SearchTerm, _searchTerm)
 			)));
 		}
+	}
+
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_loading_edit_transaction_article_view : LensSubscriptionTestbase<TransactionArticleModel>
+	{
+		private TransactionArticle _expectedTransactionArticle;
+
+		public When_loading_edit_transaction_article_view()
+		{
+			Context = () =>
+			{
+				_expectedTransactionArticle = TransactionArticleFactory.Get(77);
+				MockedTransactionArticleRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedTransactionArticle);
+			};
+			Because = controller => controller.EditTransactionArticle(_expectedTransactionArticle.Id);
+		}
+
+		[Test]
+		public void ViewModel_has_expected_values()
+		{
+			ViewModel.Id.ShouldBe(_expectedTransactionArticle.Id);
+			ViewModel.Name.ShouldBe(_expectedTransactionArticle.Name);
+			ViewModel.Active.ShouldBe(_expectedTransactionArticle.Active);
+			ViewModel.FormLegend.ShouldBe("Redigera transaktionsartikel");
+		}
+
+		[Test]
+		public void Controller_fetches_expected_transaction_article_from_repository()
+		{
+			MockedTransactionArticleRepository.Verify(x => x.Get(It.Is<int>(id => id.Equals(_expectedTransactionArticle.Id))));
+		}
+	}
+
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_posting_edit_transaction_article_view : LensSubscriptionTestbase<RedirectToRouteResult>
+	{
+		private TransactionArticleModel _expectedViewModel;
+		private TransactionArticle _expectedTransactionArticle;
+		private readonly string _expectedActionMessage;
+
+		public When_posting_edit_transaction_article_view()
+		{
+			Context = () =>
+			{
+				_expectedViewModel = TransactionArticleFactory.GetViewModel(77);
+				_expectedTransactionArticle = TransactionArticleFactory.Get(77);
+				MockedTransactionArticleRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedTransactionArticle);
+			};
+			Because = controller => controller.EditTransactionArticle(_expectedViewModel);
+			_expectedActionMessage = "Transaktionsartikeln har uppdaterats";
+		}
+
+		[Test]
+		public void Controller_fetches_expected_item_to_update()
+		{
+			MockedTransactionArticleRepository.Verify(x => x.Get(It.Is<int>( id =>
+				id.Equals(_expectedTransactionArticle.Id)
+			)));
+		}
+		
+		[Test]
+		public void Controller_saves_item_with_expected_values()
+		{
+			MockedTransactionArticleRepository.Verify(x => x.Save(It.Is<TransactionArticle>( article =>
+				article.Id.Equals(_expectedViewModel.Id) &&
+				article.Name.Equals(_expectedViewModel.Name) && 
+				article.Active.Equals(_expectedViewModel.Active)
+			)));
+		}
+
+		[Test]
+		public void Controller_redirects_to_list()
+		{
+			ViewModel.RouteValues["action"].ShouldBe("TransactionArticles");
+		}
+
+		[Test]
+		public void Action_message_has_been_set()
+		{
+			ActionMessages.Count.ShouldBe(1);
+			ActionMessages.First().Message.ShouldBe(_expectedActionMessage);
+			ActionMessages.First().Type.ShouldBe(WpcActionMessageType.Success);
+		}
+	}
+
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_posting_edit_transaction_article_view_with_validation_errors : LensSubscriptionTestbase<TransactionArticleModel>
+	{
+		private TransactionArticleModel _expectedViewModel;
+
+		public When_posting_edit_transaction_article_view_with_validation_errors()
+		{
+			Context = () =>
+			{
+				_expectedViewModel = TransactionArticleFactory.GetViewModel(77);
+			};
+			Because = controller =>
+			{
+				controller.ModelState.AddModelError("test","errorMessage");
+				return controller.EditTransactionArticle(_expectedViewModel);
+			};
+		}
+
+		[Test]
+		public void Controller_returns_expected_invalid_model()
+		{
+			ViewModel.FormLegend.ShouldBe(_expectedViewModel.FormLegend);
+			ViewModel.Active.ShouldBe(_expectedViewModel.Active);
+			ViewModel.Id.ShouldBe(_expectedViewModel.Id);
+			ViewModel.Name.ShouldBe(_expectedViewModel.Name);
+		}
+	}
+
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_loading_add_transaction_article_view : LensSubscriptionTestbase<TransactionArticleModel>
+	{
+		public When_loading_add_transaction_article_view()
+		{
+			Context = () => {};
+			Because = controller => controller.AddTransactionArticle();
+		}
+
+		[Test]
+		public void ViewModel_has_expected_default_values()
+		{
+			ViewModel.Id.ShouldBe(0);
+			ViewModel.Name.ShouldBe(null);
+			ViewModel.Active.ShouldBe(true);
+			ViewModel.FormLegend.ShouldBe("Skapa transaktionsartikel");
+		}
+	}
+
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_posting_add_transaction_article_view : LensSubscriptionTestbase<RedirectToRouteResult>
+	{
+		private TransactionArticleModel _expectedViewModel;
+		private string _expectedActionMessage;
+
+		public When_posting_add_transaction_article_view()
+		{
+			Context = () =>
+			{
+				_expectedActionMessage = "Transaktionsartikeln har sparats";
+				_expectedViewModel = TransactionArticleFactory.GetViewModel(0);
+			};
+			Because = controller => controller.AddTransactionArticle(_expectedViewModel);
+		}
+
+		[Test]
+		public void Controller_saves_item_with_expected_values()
+		{
+			MockedTransactionArticleRepository.Verify(x => x.Save(It.Is<TransactionArticle>( article =>
+				article.Id.Equals(_expectedViewModel.Id) &&
+				article.Name.Equals(_expectedViewModel.Name) && 
+				article.Active.Equals(_expectedViewModel.Active)
+			)));
+		}
+
+		[Test]
+		public void Controller_redirects_to_list()
+		{
+			ViewModel.RouteValues["action"].ShouldBe("TransactionArticles");
+		}
+
+		[Test]
+		public void Action_message_has_been_set()
+		{
+			ActionMessages.Count.ShouldBe(1);
+			ActionMessages.First().Message.ShouldBe(_expectedActionMessage);
+			ActionMessages.First().Type.ShouldBe(WpcActionMessageType.Success);
+		}
+
+	}
+
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_posting_add_transaction_article_view_with_validation_errors : LensSubscriptionTestbase<TransactionArticleModel>
+	{
+		private TransactionArticleModel _expectedViewModel;
+
+		public When_posting_add_transaction_article_view_with_validation_errors()
+		{
+			Context = () =>
+			{
+				_expectedViewModel = TransactionArticleFactory.GetViewModel(0);
+			};
+			Because = controller =>
+			{
+				controller.ModelState.AddModelError("test","errorMessage");
+				return controller.AddTransactionArticle(_expectedViewModel);
+			};
+		}
+
+		[Test]
+		public void Controller_returns_expected_invalid_model()
+		{
+			ViewModel.FormLegend.ShouldBe(_expectedViewModel.FormLegend);
+			ViewModel.Active.ShouldBe(_expectedViewModel.Active);
+			ViewModel.Id.ShouldBe(_expectedViewModel.Id);
+			ViewModel.Name.ShouldBe(_expectedViewModel.Name);
+		}
+	}
+
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_posting_delete_transaction_article : LensSubscriptionTestbase<RedirectToRouteResult>
+	{
+		private TransactionArticle _expectedArticle;
+		private string _expectedActionMessage;
+
+		public When_posting_delete_transaction_article()
+		{
+			Context = () =>
+			{
+				_expectedActionMessage = "Transaktionsartikeln har raderats";
+				_expectedArticle = TransactionArticleFactory.Get(77);
+				MockedTransactionArticleRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedArticle);
+			};
+			
+			Because = controller => controller.DeleteTransactionArticle(_expectedArticle.Id);
+		}
+
+		[Test]
+		public void Controller_fetches_and_deletes_expected_transaction_article()
+		{
+			MockedTransactionArticleRepository.Verify(x => x.Get(It.Is<int>(id => id.Equals(_expectedArticle.Id))));
+			MockedTransactionArticleRepository.Verify(x => x.Delete(It.Is<TransactionArticle>(article => article.Id.Equals(_expectedArticle.Id))));
+		}
+
+		[Test]
+		public void Controller_redirects_to_list()
+		{
+			ViewModel.RouteValues["action"].ShouldBe("TransactionArticles");
+		}
+
+		[Test]
+		public void Action_message_has_been_set()
+		{
+			ActionMessages.Count.ShouldBe(1);
+			ActionMessages.First().Message.ShouldBe(_expectedActionMessage);
+			ActionMessages.First().Type.ShouldBe(WpcActionMessageType.Success);
+		}
+
+	}
+
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_posting_delete_transaction_article_with_invalid_state : LensSubscriptionTestbase<RedirectToRouteResult>
+	{
+		private TransactionArticle _expectedArticle;
+		private string _expectedActionMessage;
+
+		public When_posting_delete_transaction_article_with_invalid_state()
+		{
+			Context = () =>
+			{
+				_expectedActionMessage = "Transaktionsartikeln kunde inte raderas";
+				_expectedArticle = TransactionArticleFactory.Get(77);
+			};
+			
+			Because = controller =>
+			{
+				controller.ModelState.AddModelError("key","errorMessage");
+				return controller.DeleteTransactionArticle(_expectedArticle.Id);
+			};
+		}
+
+		[Test]
+		public void Controller_redirects_to_list()
+		{
+			ViewModel.RouteValues["action"].ShouldBe("TransactionArticles");
+		}
+
+		[Test]
+		public void Action_error_message_has_been_set()
+		{
+			ActionMessages.Count.ShouldBe(1);
+			ActionMessages.First().Message.ShouldBe(_expectedActionMessage);
+			ActionMessages.First().Type.ShouldBe(WpcActionMessageType.Error);
+		}
+
 	}
 }

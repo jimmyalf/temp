@@ -9,5 +9,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		IEnumerable<SubscriptionListItemView> GetSubscriptions(PageOfSubscriptionsMatchingCriteria criteria);
 		SubscriptionView GetSubscription(int subscriptionId);
 		IEnumerable<TransactionArticleListItem> GetTransactionArticles(PageOfTransactionArticlesMatchingCriteria criteria);
+		TransactionArticleModel GetTransactionArticle(int id);
+		void SaveTransactionArticle(TransactionArticleModel model);
+		void DeleteTransactionArticle(int id);
 	}
 }

@@ -113,7 +113,7 @@
     <Compile Include="Factories\ContractSales\SettlementFactory.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="TestHelpers\LensSubscriptionTestbase.cs" />
-    <Compile Include="TransactionArticleFactory.cs" />
+    <Compile Include="Factories\TransactionArticleFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen Admin\Synologen Admin.csproj">

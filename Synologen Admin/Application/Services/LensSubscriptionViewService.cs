@@ -48,5 +48,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				? Enumerable.Empty<TransactionArticleListItem>() 
 				: articles.ConvertSortedPagedList(article => Mapper.Map<TransactionArticle,TransactionArticleListItem>(article));
 		}
+
+		public TransactionArticleModel GetTransactionArticle(int id) 
+		{
+			var article = _transactionArticleRepository.Get(id);
+			return article == null ? new TransactionArticleModel() : Mapper.Map<TransactionArticle, TransactionArticleModel>(article);
+		}
+
+		public void SaveTransactionArticle(TransactionArticleModel model)
+		{
+			var articleToUpdate = (model.Id > 0) 
+				?  _transactionArticleRepository.Get(model.Id) 
+				: new TransactionArticle();
+			articleToUpdate.Active = model.Active;
+			articleToUpdate.Name = model.Name;
+			_transactionArticleRepository.Save(articleToUpdate);
+		}
+
+		public void DeleteTransactionArticle(int id)
+		{
+			var article = _transactionArticleRepository.Get(id);
+			_transactionArticleRepository.Delete(article);
+		}
 	}
 }

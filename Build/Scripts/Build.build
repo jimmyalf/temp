@@ -61,6 +61,7 @@
 					<arg value="/nologo" />
 					<arg value="/property:Configuration=Release" />
 					<arg value="/m:2" />
+					<arg value="/p:BuildInParallel=true" />
 				</exec>
 			</do>
 		</foreach>

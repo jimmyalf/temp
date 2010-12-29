@@ -7,7 +7,7 @@
 			START PROJECT CONFIGURATION
 ******************************************************************************* -->
 
-	<property name="dir.source" value="${dir.root}\" />
+	<property name="dir.source" value="${dir.root}" />
 	<property name="dir.dependencies" value="${dir.root}Dependancies\" />
 	<property name="dir.build.output" value="${dir.root}Build\Output\" />
 	<property name="dir.build.reports" value="${dir.root}Build\Reports\" />

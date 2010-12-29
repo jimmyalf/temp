@@ -1,2 +1,3 @@
-"C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe" "Build\Scripts\Build.msbuild" /property:Configuration=ContinuousBuild
+SET currentdir=%CD%
+"Dependancies\Tools\NAnt\NAnt.exe" "-buildfile:Build\Scripts\Build.build"  "-D:currentdir=%currentdir%" "-D:configuration=ContinuousBuild" -nologo
 PAUSE

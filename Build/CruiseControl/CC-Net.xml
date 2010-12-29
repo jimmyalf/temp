@@ -29,7 +29,6 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 				<buildArgs>-D:configuration=ContinuousBuild</buildArgs>
 				<nologo>true</nologo>
 				<buildTimeoutSeconds>1200</buildTimeoutSeconds>
-				<logger>ThoughtWorks.CruiseControl.MsBuild.XMLLogger,C:\Program\CruiseControl.NET-1.4.4\server\ThoughtWorks.CruiseControl.MsBuild.dll</logger>
 			</nant>
 		</tasks>
 	

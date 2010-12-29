@@ -43,7 +43,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 		-->
 		<tasks>
 			<nant>
-				<executable>..\..\Dependencies\Tools\NAnt\NAnt.exe</executable>
+				<executable>..\..\Dependancies\Tools\NAnt\NAnt.exe</executable>
 				<baseDirectory>Build\Scripts\</baseDirectory>
 				<buildFile>Build.build</buildFile>
 				<buildArgs>-D:configuration=ContinuousBuild</buildArgs>

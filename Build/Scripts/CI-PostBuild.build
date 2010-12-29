@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<project name="CIPostBuild" default="ContinuousIntegrationPostBuild">
-	<target name="ContinuousIntegrationPostBuild" description="Performing CI postbuild tasks (NAnt)">
-		<echo message="Performing CI postbuild tasks (NAnt)" />
-		<nant buildfile="Publish.build"/>
-	</target>
-</project>

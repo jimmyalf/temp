@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<project name="CIPreBuild" default="ContinuousIntegrationPreBuild">
-	<target name="ContinuousIntegrationPreBuild" description="Performing CI prebuild tasks (NAnt)">
-		<echo message="Performing CI prebuild tasks (NAnt)" />
-	</target>
-</project>

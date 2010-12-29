@@ -41,6 +41,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 			For<ISettlementRepository>().HybridHttpOrThreadLocalScoped().Use<SettlementRepository>();
 			For<IContractSaleRepository>().HybridHttpOrThreadLocalScoped().Use<ContractSaleRepository>();
 			For<ITransactionRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionRepository>();
+			For<ICustomerRepository>().HybridHttpOrThreadLocalScoped().Use<CustomerRepository>();
 			For<ITransactionArticleRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionArticleRepository>();
 
 			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);

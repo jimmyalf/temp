@@ -1,4 +1,7 @@
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
+using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 {
@@ -55,6 +58,38 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 				IncludeHeightParametersInOrder = false,
 				Name = "Frän glastyp"
 			};
+		}
+
+		public static SubscriptionView GetSubscriptionView(int subscriptionId, int customerId)
+		{
+			return new SubscriptionView
+			       	{
+			       		AccountNumber = "9876543321",
+			       		Activated = "Ja",
+			       		AddressLineOne = "Kullerstensgatan 14",
+			       		AddressLineTwo = "Ingång F",
+			       		City = "Storstad",
+			       		ClearingNumber = "1133",
+			       		Country = "Sverige",
+			       		Created = "2010-11-25",
+			       		CustomerId = customerId,
+			       		CustomerNotes = "Anteckningar",
+			       		PostalCode = "122 55",
+			       		Email = "test@test.nu",
+			       		MobilePhone = "07026677883",
+			       		Phone = "08-44556677",
+			       		CustomerName = "Adam Bertil",
+			       		PersonalIdNumber = "781121-0496",
+			       		ShopName = "Testbutik",
+			       		TransactionList = null,
+			       		MonthlyAmount = "666,66",
+			       		Status = SubscriptionStatus.Active.GetEnumDisplayName(),
+			       		ErrorList = null,
+			       		SubscriptionNotes = "Abonnemangsanteckningar",
+			       		FirstName = "Adam",
+			       		LastName = "Bertil"
+			       	};
+			
 		}
 	}
 }

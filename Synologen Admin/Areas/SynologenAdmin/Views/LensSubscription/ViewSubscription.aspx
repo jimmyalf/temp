@@ -1,92 +1,118 @@
 ﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<SubscriptionView>" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-<div id="dCompMain" class="Components-Synologen-LensSubscription-View-aspx">
+	<div id="dCompMain" class="Components-Synologen-LensSubscription-View-aspx">
 	<div class="fullBox">
 		<div class="wrap">
+		
+			<% Html.EnableClientValidation(); %>
+			<% using (Html.BeginForm("Edit", "LensSubscription")) {%>
 			<fieldset>
 				<legend>Linsabonnemang</legend>
 				<fieldset>
 					<legend>Abonemmanginformation</legend>
 					<p class="display-item clearLeft">
-						<%= Html.LabelFor(x => x.ShopName) %>
-						<%= Html.DisplayFor(x => x.ShopName) %>
+						<%=Html.LabelFor(x => x.ShopName)%>
+						<%=Html.DisplayFor(x => x.ShopName)%>
 					</p>					
-					<p class="display-item clearLeft">
-						<%= Html.LabelFor(x => x.AccountNumber) %>
-						<%= Html.DisplayFor(x => x.AccountNumber) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.AccountNumber)%>
+						<%=Html.EditorFor(x => x.AccountNumber)%>
+						<%=Html.ValidationMessageFor(x => x.AccountNumber) %>
 					</p>				
-					<p class="display-item">
-						<%= Html.LabelFor(x => x.ClearingNumber) %>
-						<%= Html.DisplayFor(x => x.ClearingNumber) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.ClearingNumber)%>
+						<%=Html.EditorFor(x => x.ClearingNumber)%>
+						<%=Html.ValidationMessageFor(x => x.ClearingNumber) %>
 					</p>
 					<p class="display-item clearLeft">
-						<%= Html.LabelFor(x => x.Status) %>
-						<%= Html.DisplayFor(x => x.Status) %>
+						<%=Html.LabelFor(x => x.Status)%>
+						<%=Html.DisplayFor(x => x.Status)%>
 					</p>
 					<p class="display-item">
-						<%= Html.LabelFor(x => x.Activated) %>
-						<%= Html.DisplayFor(x => x.Activated) %>
+						<%=Html.LabelFor(x => x.Activated)%>
+						<%=Html.DisplayFor(x => x.Activated)%>
 					</p>				
 					<p class="display-item clearLeft">
-						<%= Html.LabelFor(x => x.Created) %>
-						<%= Html.DisplayFor(x => x.Created) %>
+						<%=Html.LabelFor(x => x.Created)%>
+						<%=Html.DisplayFor(x => x.Created)%>
 					</p>
-					<p class="display-item">
-						<%= Html.LabelFor(x => x.MonthlyAmount) %>
-						<%= Html.DisplayFor(x => x.MonthlyAmount) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.MonthlyAmount)%>
+						<%=Html.EditorFor(x => x.MonthlyAmount)%>
+						<%=Html.ValidationMessageFor(x => x.ClearingNumber) %>
 					</p>
-					<p class="formItem clearLeft">
-						<%= Html.LabelFor(x => x.SubscriptionNotes) %>
-						<span><%= Html.DisplayFor(x => x.SubscriptionNotes) %></span>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.SubscriptionNotes)%>
+						<span><%=Html.TextAreaFor(x => x.SubscriptionNotes)%></span>
 					</p>	
 				</fieldset>
 				<fieldset>
 					<legend>Kunduppgifter</legend>
-					<p class="display-item clearLeft">
-						<%= Html.LabelFor(x => x.CustomerName) %>
-						<%= Html.DisplayFor(x => x.CustomerName) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.FirstName)%>
+						<%= Html.EditorFor(x => x.FirstName) %>
+						<%=Html.ValidationMessageFor(x => x.FirstName) %>
 					</p>
-					<p class="display-item">
-						<%= Html.LabelFor(x => x.PersonalIdNumber) %>
-						<%= Html.DisplayFor(x => x.PersonalIdNumber) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.LastName)%>
+						<%= Html.EditorFor(x => x.LastName) %>
+						<%=Html.ValidationMessageFor(x => x.LastName) %>
+					</p>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.PersonalIdNumber)%>
+						<%=Html.EditorFor(x => x.PersonalIdNumber)%>
+						<%=Html.ValidationMessageFor(x => x.PersonalIdNumber) %>
 					</p>					
-					<p class="display-item clearLeft">
-						<%= Html.LabelFor(x => x.Phone) %>
-						<%= Html.DisplayFor(x => x.Phone) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.Phone)%>
+						<%=Html.EditorFor(x => x.Phone)%>
+						<%=Html.ValidationMessageFor(x => x.Phone) %>
 					</p>				
-					<p class="display-item">
-						<%= Html.LabelFor(x => x.MobilePhone) %>
-						<%= Html.DisplayFor(x => x.MobilePhone) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.MobilePhone)%>
+						<%=Html.EditorFor(x => x.MobilePhone)%>
+						<%=Html.ValidationMessageFor(x => x.MobilePhone) %>
 					</p>
-					<p class="display-item clearLeft">
-						<%= Html.LabelFor(x => x.Email) %>
-						<%= Html.DisplayFor(x => x.Email) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.Email)%>
+						<%=Html.EditorFor(x => x.Email)%>
+						<%=Html.ValidationMessageFor(x => x.Email) %>
 					</p>		
-					<p class="display-item clearLeft">
-						<%= Html.LabelFor(x => x.AddressLineOne) %>
-						<%= Html.DisplayFor(x => x.AddressLineOne) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.AddressLineOne)%>
+						<%=Html.EditorFor(x => x.AddressLineOne)%>
+						<%=Html.ValidationMessageFor(x => x.AddressLineOne) %>
 					</p>
-					<p class="display-item">
-						<%= Html.LabelFor(x => x.AddressLineTwo) %>
-						<%= Html.DisplayFor(x => x.AddressLineTwo) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.AddressLineTwo)%>
+						<%=Html.EditorFor(x => x.AddressLineTwo)%>
+						<%=Html.ValidationMessageFor(x => x.AddressLineTwo) %>
 					</p>
-					<p class="display-item clearLeft">
-						<%= Html.LabelFor(x => x.PostalCode) %>
-						<%= Html.DisplayFor(x => x.PostalCode) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.PostalCode)%>
+						<%=Html.EditorFor(x => x.PostalCode)%>
+						<%=Html.ValidationMessageFor(x => x.PostalCode) %>
 					</p>
-					<p class="display-item">
-						<%= Html.LabelFor(x => x.City) %>
-						<%= Html.DisplayFor(x => x.City) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.City)%>
+						<%=Html.EditorFor(x => x.City)%>
+						<%=Html.ValidationMessageFor(x => x.City) %>
 					</p>
-					<p class="display-item clearLeft">
-						<%= Html.LabelFor(x => x.Country) %>
-						<%= Html.DisplayFor(x => x.Country) %>
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.Country)%>
+						<%=Html.DisplayFor(x => x.Country)%>
 					</p>
-					<p class="formItem clearLeft">
-						<%= Html.LabelFor(x => x.CustomerNotes) %>
-						<span ><%= Html.DisplayFor(x => x.CustomerNotes) %></span>
-					</p>										
+					<p class="formItem">
+						<%=Html.LabelFor(x => x.CustomerNotes)%>
+						<span ><%=Html.TextAreaFor(x => x.CustomerNotes)%></span>
+					</p>	
 				</fieldset>
+					<p class="formCommands">
+						<%= Html.AntiForgeryToken() %>
+						<%= Html.HiddenFor(x => x.CustomerId) %>
+						<input type="submit" value="Spara abonnemang" class="btnBig" />
+					</p>									
+				<% } %>
 					<fieldset>
 						<legend><%=Html.GetDisplayNameFor(x => x.ErrorList) %></legend>
 						<p class="display-item clearLeft">						

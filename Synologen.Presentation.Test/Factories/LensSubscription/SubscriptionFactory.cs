@@ -60,7 +60,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription
 				{
 					Email = "info@spinit.se",
                     MobilePhone = "0708-223344",
-                    Phone = "031-7483008"
+                    Phone = "031-7483008",
 				},
                 PersonalIdNumber = "197010245467",
 			};
@@ -75,11 +75,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription
 			mockedSubscription.SetupGet(x => x.Id).Returns(id);
 			mockedSubscription.SetupGet(x => x.ActivatedDate).Returns(new DateTime(2010,11,02));
 			mockedSubscription.SetupGet(x => x.CreatedDate).Returns(new DateTime(2010,11,01));
-			mockedSubscription.SetupGet(x => x.PaymentInfo).Returns(paymentInfo);
+			mockedSubscription.SetupProperty(x => x.PaymentInfo, paymentInfo);
 			mockedSubscription.SetupGet(x => x.Transactions).Returns(SubscriptionTransactionFactory.GetList());
-			mockedSubscription.SetupGet(x => x.Customer).Returns(customer);
+			mockedSubscription.SetupProperty(x => x.Customer, customer);
 			mockedSubscription.SetupGet(x => x.Status).Returns(SubscriptionStatus.Active);
 			mockedSubscription.SetupGet(x => x.Errors).Returns(SubscriptionErrorFactory.GetList());
+			mockedSubscription.SetupProperty(x => x.Notes, "Lite text här");
 			return mockedSubscription.Object;
 		}
 	}

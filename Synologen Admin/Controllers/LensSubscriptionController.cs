@@ -1,6 +1,7 @@
 using System;
 using System.Web.Mvc;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
@@ -13,11 +14,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 	{
 		private readonly ILensSubscriptionViewService _lensSubscriptionViewService;
 		private readonly int _defaultPageSize;
+		private readonly ISubscriptionRepository _subscriptionRepository;
 
-		public LensSubscriptionController(ILensSubscriptionViewService lensSubscriptionViewService, IAdminSettingsService adminSettingsService)
+		public LensSubscriptionController(ILensSubscriptionViewService lensSubscriptionViewService, IAdminSettingsService adminSettingsService, ISubscriptionRepository subscriptionRepository)
 		{
 			_defaultPageSize = adminSettingsService.GetDefaultPageSize();
 			_lensSubscriptionViewService = lensSubscriptionViewService;
+			_subscriptionRepository = subscriptionRepository;
 		}
 
 		[HttpGet]
@@ -59,6 +62,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		{
 			var viewModel = _lensSubscriptionViewService.GetSubscription(id);
 			return View(viewModel);
+		}
+
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit(SubscriptionView inModel, int id)
+		{
+			if (ModelState.IsValid)
+			{
+				var subscriptionEntity = _subscriptionRepository.Get(id);
+				var subscription = inModel.FillSubscription(subscriptionEntity);
+				_subscriptionRepository.Save(subscription);
+
+				this.AddSuccessMessage("Abonnemanget har sparats");
+				return RedirectToAction("Index");
+			}
+			var viewModel = _lensSubscriptionViewService.GetSubscription(id);
+			return View("ViewSubscription", viewModel.FillSubscription(inModel));
 		}
 
 		[HttpGet]

@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		public SubscriptionView GetSubscription(int subscriptionId)
 		{
 			var subscription = _subscriptionRepository.Get(subscriptionId);
-			return Mapper.Map<Subscription, SubscriptionView>(subscription);
+			return  Mapper.Map<Subscription, SubscriptionView>(subscription);
 		}
 
 		public IEnumerable<TransactionArticleListItem> GetTransactionArticles(PageOfTransactionArticlesMatchingCriteria criteria) 

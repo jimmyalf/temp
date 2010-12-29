@@ -5,8 +5,10 @@ using System.Web;
 using System.Web.Routing;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
+using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 {
@@ -53,6 +55,57 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		{
 			return UpdateFrameGlassType(entity, viewModel);
 		}
+
+		public static Customer FillCustomer(this SubscriptionView viewModel, Customer entity)
+		{
+			return UpdateCustomer(entity, viewModel);	
+		}
+
+
+		public static SubscriptionView FillCustomer(this SubscriptionView viewModel, SubscriptionView customerModel)
+		{
+			viewModel.AddressLineOne = customerModel.AddressLineOne;
+			viewModel.AddressLineTwo = customerModel.AddressLineTwo;
+			viewModel.City = customerModel.City;
+			viewModel.Country = customerModel.Country;
+			viewModel.CustomerId = customerModel.CustomerId;
+			viewModel.CustomerName = customerModel.CustomerName;
+			viewModel.CustomerNotes = customerModel.CustomerNotes;
+			viewModel.Email = customerModel.Email;
+			viewModel.FirstName = customerModel.FirstName;
+			viewModel.LastName = customerModel.LastName;
+			viewModel.MobilePhone = customerModel.MobilePhone;
+			viewModel.PersonalIdNumber = customerModel.PersonalIdNumber;
+			viewModel.PostalCode = customerModel.PostalCode;
+			return viewModel;
+		}
+
+		public static Subscription FillSubscription(this SubscriptionView viewModel, Subscription entity)
+		{
+			return UpdateSubscription(entity, viewModel);
+		}
+
+		public static SubscriptionView FillSubscription(this SubscriptionView viewModel, SubscriptionView subscriptionModel)
+		{
+			viewModel.AddressLineOne = subscriptionModel.AddressLineOne;
+			viewModel.AddressLineTwo = subscriptionModel.AddressLineTwo;
+			viewModel.City = subscriptionModel.City;
+			viewModel.PostalCode = subscriptionModel.PostalCode;
+			viewModel.Email = subscriptionModel.Email;
+			viewModel.MobilePhone = subscriptionModel.MobilePhone;
+			viewModel.Phone = subscriptionModel.Phone;
+			viewModel.PersonalIdNumber = subscriptionModel.PersonalIdNumber;
+			viewModel.AccountNumber = subscriptionModel.AccountNumber;
+			viewModel.ClearingNumber = subscriptionModel.ClearingNumber;
+			viewModel.MonthlyAmount = subscriptionModel.MonthlyAmount;
+			viewModel.CustomerNotes = subscriptionModel.CustomerNotes;
+			viewModel.SubscriptionNotes = subscriptionModel.SubscriptionNotes;
+			viewModel.FirstName = subscriptionModel.FirstName;
+			viewModel.LastName = subscriptionModel.LastName;
+
+			return viewModel;
+		}
+
 		#endregion
 
 		#region To Edit Views
@@ -260,6 +313,35 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			entity.Name = viewModel.Name;
 			entity.IncludeAdditionParametersInOrder = viewModel.IncludeAdditionParametersInOrder;
 			entity.IncludeHeightParametersInOrder = viewModel.IncludeHeightParametersInOrder;
+			return entity;
+		}
+
+
+		private static Customer UpdateCustomer(Customer entity, SubscriptionView viewModel)
+		{
+			entity.Address.AddressLineOne = viewModel.AddressLineOne;
+			entity.Address.AddressLineTwo = viewModel.AddressLineTwo;
+			entity.Address.City = viewModel.City;
+			entity.Address.PostalCode = viewModel.PostalCode;
+			entity.FirstName = viewModel.FirstName;
+			entity.LastName = viewModel.LastName;
+			entity.Notes = viewModel.CustomerNotes;
+			entity.PersonalIdNumber = viewModel.PersonalIdNumber;
+			entity.Contact.Email = viewModel.Email;
+			entity.Contact.MobilePhone = viewModel.MobilePhone;
+			entity.Contact.Phone = viewModel.Phone;
+			return entity;
+		}
+
+
+		private static Subscription UpdateSubscription(Subscription entity, SubscriptionView viewModel)
+		{
+			entity.Notes = viewModel.SubscriptionNotes;
+			entity.PaymentInfo.AccountNumber = viewModel.AccountNumber;
+			entity.PaymentInfo.ClearingNumber = viewModel.ClearingNumber;
+			entity.PaymentInfo.MonthlyAmount = viewModel.MonthlyAmount.ToDecimalOrDefault();
+			var entityCustomer = entity.Customer;
+			entity.Customer = UpdateCustomer(entityCustomer, viewModel);
 			return entity;
 		}
 

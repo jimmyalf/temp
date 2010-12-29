@@ -209,17 +209,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 	[Category("LensSubscriptionControllerTests")]
 	public class When_loading_subscription_view : LensSubscriptionTestbase<SubscriptionView>
 	{
-		private readonly int _subscriptionId;
 		private readonly Subscription _subscription;
 
 		public When_loading_subscription_view()
 		{
-			_subscriptionId = 5;
-			_subscription = SubscriptionFactory.GetFull(_subscriptionId);
+			int subscriptionId = 5;
+			_subscription = SubscriptionFactory.GetFull(subscriptionId);
 
 			Context = () => MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_subscription);
 
-			Because = controller => controller.ViewSubscription(_subscriptionId);
+			Because = controller => controller.ViewSubscription(subscriptionId);
 		}
 
 		[Test]
@@ -237,12 +236,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			ViewModel.Email.ShouldBe(_subscription.Customer.Contact.Email);
 			ViewModel.MobilePhone.ShouldBe(_subscription.Customer.Contact.MobilePhone);
 			ViewModel.Phone.ShouldBe(_subscription.Customer.Contact.Phone);
-			ViewModel.CustomerName.ShouldBe(String.Concat(_subscription.Customer.FirstName," ",_subscription.Customer.LastName));
+			ViewModel.FirstName.ShouldBe("Adam");
+			ViewModel.LastName.ShouldBe("Bertil");
+			ViewModel.CustomerId.ShouldBe(_subscription.Customer.Id);
 			ViewModel.PersonalIdNumber.ShouldBe(expectedPersonalIdNumber);
 			ViewModel.ShopName.ShouldBe(_subscription.Customer.Shop.Name);
 			ViewModel.AccountNumber.ShouldBe(_subscription.PaymentInfo.AccountNumber);
 			ViewModel.ClearingNumber.ShouldBe(_subscription.PaymentInfo.ClearingNumber);
-			ViewModel.MonthlyAmount.ShouldBe(_subscription.PaymentInfo.MonthlyAmount.ToString("C2", new CultureInfo("sv-SE")));
+			ViewModel.MonthlyAmount.ShouldBe(_subscription.PaymentInfo.MonthlyAmount.ToString("F", new CultureInfo("sv-SE")));
 			ViewModel.Status.ShouldBe(_subscription.Status.GetEnumDisplayName());
 			ViewModel.CustomerNotes.ShouldBe(_subscription.Customer.Notes);
 			ViewModel.SubscriptionNotes.ShouldBe(_subscription.Notes);
@@ -709,4 +710,154 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 
 	}
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_editing_subscription_view : LensSubscriptionTestbase<RedirectToRouteResult>
+	{
+
+		private readonly Subscription _subscription;
+		private readonly SubscriptionView _savedSubscriptionView;
+		private readonly string _expectedActionMessage; 
+
+		public When_editing_subscription_view()
+		{
+			int subscriptionId = 5;
+			int customerId = 4;
+			_expectedActionMessage = "Abonnemanget har sparats";
+			_subscription = SubscriptionFactory.GetFull(subscriptionId);
+			_savedSubscriptionView = ViewModelFactory.GetSubscriptionView(subscriptionId, customerId);
+
+			Context = () => MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_subscription);
+
+			Because = controller => controller.Edit(_savedSubscriptionView, subscriptionId);
+		}
+
+
+		[Test]
+		public void Saved_subscription_should_have_expected_values()
+		{
+
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.ActivatedDate.Equals(_subscription.ActivatedDate))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.CreatedDate.Equals(_subscription.CreatedDate))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Errors.Count().Equals(_subscription.Errors.Count()))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Notes.Equals(_savedSubscriptionView.SubscriptionNotes))));
+			
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.PaymentInfo.AccountNumber.Equals(_savedSubscriptionView.AccountNumber))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.PaymentInfo.ClearingNumber.Equals(_savedSubscriptionView.ClearingNumber))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.PaymentInfo.MonthlyAmount.Equals(_savedSubscriptionView.MonthlyAmount.ToDecimalOrDefault()))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Status.Equals(_subscription.Status))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Transactions.Count().Equals(_subscription.Transactions.Count()))));
+
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.Address.AddressLineOne.Equals(_savedSubscriptionView.AddressLineOne))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.Address.AddressLineTwo.Equals(_savedSubscriptionView.AddressLineTwo))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.Address.City.Equals(_savedSubscriptionView.City))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.Address.PostalCode.Equals(_savedSubscriptionView.PostalCode))));
+	
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.Contact.Email.Equals(_savedSubscriptionView.Email))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.Contact.MobilePhone.Equals(_savedSubscriptionView.MobilePhone))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.Contact.Phone.Equals(_savedSubscriptionView.Phone))));
+
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.FirstName.Equals(_savedSubscriptionView.FirstName))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.LastName.Equals(_savedSubscriptionView.LastName))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.Notes.Equals(_savedSubscriptionView.CustomerNotes))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.PersonalIdNumber.Equals(_savedSubscriptionView.PersonalIdNumber))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.Shop.Equals(_subscription.Customer.Shop))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.Subscriptions.Equals(_subscription.Customer.Subscriptions))));
+
+		}
+
+		[Test]
+		public void Controller_redirects_to_list()
+		{
+			ViewModel.RouteValues["action"].ShouldBe("Index");
+		}
+
+		[Test]
+		public void Action_message_has_been_set()
+		{
+			ActionMessages.Count.ShouldBe(1);
+			ActionMessages.First().Message.ShouldBe(_expectedActionMessage);
+			ActionMessages.First().Type.ShouldBe(WpcActionMessageType.Success);
+		}
+
+	}
+
+	[TestFixture]
+	[Category("LensSubscriptionControllerTests")]
+	public class When_posting_edit_subscription_view_with_validation_errors : LensSubscriptionTestbase<SubscriptionView>
+	{
+		private SubscriptionView _expectedViewModel;
+		private Subscription _subscription;
+
+		public When_posting_edit_subscription_view_with_validation_errors()
+		{
+			const int subscriptionId = 5;
+			const int customerId = 4;
+
+			Context = () =>
+			{
+				_subscription = SubscriptionFactory.GetFull(subscriptionId);
+				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_subscription);
+				_expectedViewModel = ViewModelFactory.GetSubscriptionView(subscriptionId, customerId);
+			};
+			Because = controller =>
+			{
+				controller.ModelState.AddModelError("test", "errorMessage");
+				return controller.Edit(_expectedViewModel, subscriptionId);
+			};
+		}
+
+		[Test]
+		public void ViewModel_should_have_expected_values()
+		{
+			ViewModel.Activated.ShouldBe(_subscription.ActivatedDate.Value.ToString("yyyy-MM-dd"));
+			ViewModel.AddressLineOne.ShouldBe(_expectedViewModel.AddressLineOne);
+			ViewModel.AddressLineTwo.ShouldBe(_expectedViewModel.AddressLineTwo);
+			ViewModel.City.ShouldBe(_expectedViewModel.City);
+			ViewModel.Country.ShouldBe(_subscription.Customer.Address.Country.Name);
+			ViewModel.PostalCode.ShouldBe(_expectedViewModel.PostalCode);
+			ViewModel.Email.ShouldBe(_expectedViewModel.Email);
+			ViewModel.MobilePhone.ShouldBe(_expectedViewModel.MobilePhone);
+			ViewModel.Phone.ShouldBe(_expectedViewModel.Phone);
+			ViewModel.FirstName.ShouldBe(_expectedViewModel.FirstName);
+			ViewModel.LastName.ShouldBe(_expectedViewModel.LastName);
+			ViewModel.CustomerId.ShouldBe(_subscription.Customer.Id);
+			ViewModel.PersonalIdNumber.ShouldBe(_expectedViewModel.PersonalIdNumber);
+			ViewModel.AccountNumber.ShouldBe(_expectedViewModel.AccountNumber);
+			ViewModel.ClearingNumber.ShouldBe(_expectedViewModel.ClearingNumber);
+			ViewModel.MonthlyAmount.ShouldBe(_expectedViewModel.MonthlyAmount);
+			ViewModel.Status.ShouldBe(_subscription.Status.GetEnumDisplayName());
+			ViewModel.CustomerNotes.ShouldBe(_expectedViewModel.CustomerNotes);
+			ViewModel.SubscriptionNotes.ShouldBe(_expectedViewModel.SubscriptionNotes);
+		}
+
+		[Test]
+		public void ViewModel_should_have_expected_transactions()
+		{
+			ViewModel.TransactionList.ForBoth(_subscription.Transactions.ToList(), (viewModelTransaction, transaction) =>
+			{
+				var transactionAmount = transaction.Amount.ToString("C2", new CultureInfo("sv-SE"));
+				var invertedTransactionAmount = transaction.Amount.Invert().ToString("C2", new CultureInfo("sv-SE"));
+				viewModelTransaction.DepositAmount.ShouldBe(transaction.Type.Equals(TransactionType.Deposit) ? transactionAmount : String.Empty);
+				viewModelTransaction.WithdrawalAmount.ShouldBe(transaction.Type.Equals(TransactionType.Withdrawal) ? invertedTransactionAmount : String.Empty);
+				viewModelTransaction.Date.ShouldBe(transaction.CreatedDate.ToString("yyyy-MM-dd"));
+				viewModelTransaction.Reason.ShouldBe(transaction.Reason.GetEnumDisplayName());
+			});
+		}
+
+		[Test]
+		public void ViewModel_should_have_expected_errors()
+		{
+			ViewModel.ErrorList.ForBoth(_subscription.Errors.ToList(), (viewModelError, error) =>
+			{
+				viewModelError.Type.ShouldBe(error.Type.GetEnumDisplayName());
+				viewModelError.CreatedDate.ShouldBe(error.CreatedDate.ToString("yyyy-MM-dd"));
+				viewModelError.HandledDate.ShouldBe(error.HandledDate.Return(x => x.Value.ToString("yyyy-MM-dd"), String.Empty));
+			});
+		}
+
+
+	}
+
+	
 }

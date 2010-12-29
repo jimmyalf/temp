@@ -22,7 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 				MockedTransactionArticleRepository = new Mock<ITransactionArticleRepository>();
 				ViewService = new LensSubscriptionViewService(MockedSubscriptionRepository.Object, MockedTransactionArticleRepository.Object);
 			};
-			GetController = () => new LensSubscriptionController(ViewService, MockedAdminSettingsService.Object);
+			GetController = () => new LensSubscriptionController(ViewService, MockedAdminSettingsService.Object, MockedSubscriptionRepository.Object);
 		}
 	}
 }

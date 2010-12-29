@@ -29,18 +29,29 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 			<intervalTrigger seconds="480" />
 		</triggers>
 	  
+	  <!--
 		<tasks>
 			<msbuild>
 				<executable>C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe</executable>
 				<workingDirectory>C:\Develop\WPC4\Current\CustomerSpecific\Synologen\Build\Scripts\</workingDirectory>
 				<projectFile>Build.msbuild</projectFile>
 				<buildArgs>/p:Configuration=ContinuousBuild /m:2</buildArgs>
-				<!--<timeout units="minutes">20</timeout>-->
 				<buildTimeoutSeconds>1200</buildTimeoutSeconds>
 				<logger>C:\Program\CruiseControl.NET-1.4.4\server\ThoughtWorks.CruiseControl.MsBuild.dll</logger>
 			</msbuild>			
 		</tasks>
-		
+		-->
+		<tasks>
+			<nant>
+				<executable>..\..\Dependencies\Tools\NAnt\NAnt.exe</executable>
+				<baseDirectory>Build\Scripts\</baseDirectory>
+				<buildFile>Build.build</buildFile>
+				<buildArgs>-D:configuration=ContinuousBuild</buildArgs>
+				<nologo>true</nologo>
+				<buildTimeoutSeconds>1200</buildTimeoutSeconds>
+				<logger>C:\Program\CruiseControl.NET-1.4.4\server\ThoughtWorks.CruiseControl.MsBuild.dll</logger>
+			</nant>
+		</tasks>
 	
 	  
 		<publishers>	

@@ -1,41 +1,35 @@
 <?xml version="1.0"?>
-<project name="PostBuild" default="PostBuild">
+<project name="PostBuild">
 	<target name="PostBuild" description="Performing postbuild tasks (NAnt)">
-		<echo message="Performing postbuild asks (NAnt)" />
+		<echo message="Performing postbuild tasks (NAnt)" />
 		
-		<property name="nunit.console" value="Tools\NUnit\nunit-console.exe"/>
-		<property name="nunit.build.dependenciesdir" value="..\..\Dependancies\"/>
-		<property name="nunit.build.outputdir" value="..\Output\"/>
-		<property name="nunit.build.reportsdir" value="..\Reports\"/>
-
-		<echo message="Running all tests in ${nunit.build.outputdir}" />
-		<echo message="Output reports to ${nunit.build.reportsdir}" />
-				
-		<property name="nunit.build.execresult" value="0" />
+		<echo message="Running all tests in ${dir.build.output}" />
+		<echo message="Output reports to ${dir.build.reports}" />
 		
 		<foreach item="File" property="filename">
 			<in>
 				<items>
-					<include name="${nunit.build.outputdir}*.Test.dll" />
+					<include name="${dir.build.output}**\*Test.dll" />
 				</items>
 			</in>
 			<do>
 				<echo message="*************************************************" />
 				<echo message="Running tests in ${path::get-file-name(filename)}" />
 				<echo message="*************************************************" />
-							
-				<exec program="${nunit.console}" basedir="${nunit.build.dependenciesdir}" failonerror="false" resultproperty="testresult">
+				
+				<exec program="Tools\NUnit\nunit-console.exe" basedir="${dir.dependencies}">
+					<arg value="/nologo" />
 					<arg value="${filename}" />
-					<arg value="/xml=${nunit.build.reportsdir}${path::get-file-name-without-extension(filename)}-Results.xml" />
+					<arg value="/xml=${dir.build.reports}${path::get-file-name-without-extension(filename)}-Results.xml" />
 				</exec>
 				
-				<property name="nunit.build.execresult" value="${testresult}" unless="${int::parse(nunit.build.execresult) != 0}" />
-								
 				<echo message="" />
 				<echo message="" />
 			</do>
 		</foreach>
-		
-		<fail message="Failures reported in unit tests." unless="${int::parse(nunit.build.execresult) == 0}" />
+	</target>
+	
+	<target name="ContinuousIntegrationPostBuild" description="Performing CI-postbuild tasks (NAnt)" depends="PostBuild">
+		<echo message="Performing CI-postbuild tasks (NAnt)" />		
 	</target>
 </project>

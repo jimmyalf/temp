@@ -100,6 +100,11 @@
     <Compile Include="Domain\Model\Autogiro\Send\ConsentType.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\Payment.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
+    <Compile Include="Domain\Model\BGWebService\ConsentToSend.cs" />
+    <Compile Include="Domain\Model\BGWebService\PaymentToSend.cs" />
+    <Compile Include="Domain\Model\BGWebService\RecievedConsent.cs" />
+    <Compile Include="Domain\Model\BGWebService\RecievedError.cs" />
+    <Compile Include="Domain\Model\BGWebService\RecievedPayment.cs" />
     <Compile Include="Domain\Model\ContractSales\Article.cs" />
     <Compile Include="Domain\Model\ContractSales\ContractCompany.cs" />
     <Compile Include="Domain\Model\ContractSales\ContractSale.cs" />
@@ -158,6 +163,8 @@
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionArticleRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
+    <Compile Include="Domain\Services\BGWebService\IBGWebService.cs" />
+    <Compile Include="Domain\Services\Coordinator\ICoordinatorService.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />
     <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IAdminSettingsService.cs" />

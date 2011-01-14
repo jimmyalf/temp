@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\log4Net\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
@@ -166,6 +170,7 @@
     <Compile Include="Domain\Services\BGWebService\IBGWebService.cs" />
     <Compile Include="Domain\Services\Coordinator\ICoordinatorService.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />
+    <Compile Include="Domain\Services\IEventLoggingService.cs" />
     <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IAdminSettingsService.cs" />
     <Compile Include="Domain\Model\FrameOrder\Frame.cs" />
@@ -176,6 +181,7 @@
     <Compile Include="Domain\Persistence\FrameOrder\IFrameBrandRepository.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IFrameColorRepository.cs" />
     <Compile Include="Domain\Services\IFrameOrderService.cs" />
+    <Compile Include="Domain\Services\ILoggingService.cs" />
     <Compile Include="Domain\Services\ISynologenMemberService.cs" />
     <Compile Include="Domain\Services\ISynologenSettingsService.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />

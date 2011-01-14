@@ -5,14 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{518FC91C-EF3B-444F-9B2C-A8DA26A3C90F}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen.ServiceCoordinator</RootNamespace>
-    <AssemblyName>Synologen.ServiceCoordinator</AssemblyName>
+    <RootNamespace>Synologen.ServiceCoordinator.Test</RootNamespace>
+    <AssemblyName>Synologen.ServiceCoordinator.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject>Synologen.ServiceCoordinator.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,9 +35,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\log4Net\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+    <Reference Include="Moq, Version=3.1.416.3, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\StructureMap\StructureMap.dll</HintPath>
+      <HintPath>..\Dependancies\Tools\Moq\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Shouldly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\Shouldly\Shouldly.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -54,27 +61,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoordinatorService.cs" />
-    <Compile Include="Ioc\ServiceRegistry.cs" />
-    <Compile Include="Logging\EventLogLogger.cs" />
-    <Compile Include="Logging\Log4NetLogger.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="LoggingServiceTest.cs" />
+    <Compile Include="TestHelpers\LoggingServiceTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ConsentRecieverService.cs" />
-    <Compile Include="Services\ConsentSenderService.cs" />
-    <Compile Include="Services\ErrorRecieverService.cs" />
-    <Compile Include="Services\PaymentRecieverService.cs" />
-    <Compile Include="Services\PaymentSenderService.cs" />
-    <Compile Include="Services\ServiceBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\Synologen.ServiceCoordinator\Synologen.ServiceCoordinator.csproj">
+      <Project>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</Project>
+      <Name>Synologen.ServiceCoordinator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

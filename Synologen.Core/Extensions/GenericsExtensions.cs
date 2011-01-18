@@ -42,5 +42,10 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		{
 		    return o == null ? failureValue : evaluator(o);
 		}
+
+		public static string SafeToString(this object value)
+		{
+			return value == null ? null : value.ToString();
+		}
 	}
 }

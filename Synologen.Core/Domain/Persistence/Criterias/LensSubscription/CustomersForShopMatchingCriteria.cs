@@ -6,5 +6,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscriptio
 	{
 		public int ShopId { get; set; }
 		public string SearchTerm { get; set; }
+		public string OrderBy { get; set; }
+		public bool SortAscending { get; set; }
 	}
 }

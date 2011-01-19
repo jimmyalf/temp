@@ -12,6 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions
 	public partial class CustomersList : MvpUserControl<ListCustomersModel>, IListCustomersView
 	{
 		public event EventHandler<SearchEventArgs> SearchList;
+		//public event EventHandler<SearchAndSortEventArgs> SearchWithSortList;
 		public int EditPageId { get; set;}
 
 		protected void Page_Load(object sender, EventArgs e)

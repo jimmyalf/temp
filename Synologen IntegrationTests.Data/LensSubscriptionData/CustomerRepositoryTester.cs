@@ -340,5 +340,152 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				savedCustomers.Count().ShouldBe(4);
 			});
 		}
+
+		[Test]
+		public void Should_get_all_customers_search_for_a_shop_orderd_by_firstname_asc()
+		{
+			AssertUsing(session =>
+			{
+
+				var criteria = new CustomersForShopMatchingCriteria
+				{
+					ShopId = 159,
+					SearchTerm = "",
+					OrderBy = "FirstName",
+					SortAscending = true
+				};
+				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
+				var firstItemName = savedCustomers.First().FirstName;
+				var lastItemName = savedCustomers.Last().FirstName;
+				firstItemName.ShouldBeLessThan(lastItemName);
+				savedCustomers.Count().ShouldBe(4);
+			});
+		}
+
+		[Test]
+		public void Should_get_all_customers_search_for_a_shop_orderd_by_firstname_desc()
+		{
+			AssertUsing(session =>
+			{
+
+				var criteria = new CustomersForShopMatchingCriteria
+				{
+					ShopId = 159,
+					SearchTerm = "",
+					OrderBy = "FirstName",
+					SortAscending = false
+				};
+				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
+				var firstItemName = savedCustomers.First().FirstName;
+				var lastItemName = savedCustomers.Last().FirstName;
+				firstItemName.ShouldBeGreaterThan(lastItemName);
+				savedCustomers.Count().ShouldBe(4);
+			});
+		}
+
+		[Test]
+		public void Should_get_all_customers_search_for_a_shop_orderd_by_lastname_asc()
+		{
+			AssertUsing(session =>
+			{
+
+				var criteria = new CustomersForShopMatchingCriteria
+				{
+					ShopId = 159,
+					SearchTerm = "",
+					OrderBy = "LastName",
+					SortAscending = true
+				};
+				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
+				var firstItemName = savedCustomers.First().FirstName;
+				var lastItemName = savedCustomers.Last().FirstName;
+				firstItemName.ShouldBeLessThan(lastItemName);
+				savedCustomers.Count().ShouldBe(4);
+			});
+		}
+
+		[Test]
+		public void Should_get_all_customers_search_for_a_shop_orderd_by_lastname_desc()
+		{
+			AssertUsing(session =>
+			{
+
+				var criteria = new CustomersForShopMatchingCriteria
+				{
+					ShopId = 159,
+					SearchTerm = "",
+					OrderBy = "LastName",
+					SortAscending = false
+				};
+				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
+				var firstItemName = savedCustomers.First().LastName;
+				var lastItemName = savedCustomers.Last().LastName;
+				firstItemName.ShouldBeGreaterThan(lastItemName);
+				savedCustomers.Count().ShouldBe(4);
+			});
+		}
+
+		[Test]
+		public void Should_get_all_customers_search_for_a_shop_orderd_by_personalidnumber_asc()
+		{
+			AssertUsing(session =>
+			{
+
+				var criteria = new CustomersForShopMatchingCriteria
+				{
+					ShopId = 159,
+					SearchTerm = "",
+					OrderBy = "PersonalIdNumber",
+					SortAscending = true
+				};
+				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
+				var firstItemNumber = savedCustomers.First().PersonalIdNumber;
+				var lastItemNumber = savedCustomers.Last().PersonalIdNumber;
+				firstItemNumber.ShouldBeLessThan(lastItemNumber);
+				savedCustomers.Count().ShouldBe(4);
+			});
+		}
+
+		[Test]
+		public void Should_get_all_customers_search_for_a_shop_orderd_by_personalidnumber_desc()
+		{
+			AssertUsing(session =>
+			{
+
+				var criteria = new CustomersForShopMatchingCriteria
+				{
+					ShopId = 159,
+					SearchTerm = "",
+					OrderBy = "PersonalIdNumber",
+					SortAscending = false
+				};
+				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
+				var firstItemNumber = savedCustomers.First().PersonalIdNumber;
+				var lastItemNumber = savedCustomers.Last().PersonalIdNumber;
+				firstItemNumber.ShouldBeGreaterThan(lastItemNumber);
+				savedCustomers.Count().ShouldBe(4);
+			});
+		}
+
+		[Test]
+		public void Should_get_customers_matching_firstname_search_for_a_shop_orderd_by_lastname_desc()
+		{
+			AssertUsing(session =>
+			{
+
+				var criteria = new CustomersForShopMatchingCriteria
+				{
+					ShopId = 159,
+					SearchTerm = "sson",
+					OrderBy = "LastName",
+					SortAscending = false
+				};
+				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
+				var firstItemName = savedCustomers.First().LastName;
+				var lastItemName = savedCustomers.Last().LastName;
+				firstItemName.ShouldBeGreaterThan(lastItemName);
+				savedCustomers.Count().ShouldBe(2);
+			});
+		}
 	}
 }

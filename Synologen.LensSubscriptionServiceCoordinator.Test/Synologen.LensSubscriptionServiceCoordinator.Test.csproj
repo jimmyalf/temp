@@ -70,7 +70,7 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.ServiceCoordinator\Synologen.ServiceCoordinator.csproj">
+    <ProjectReference Include="..\Synologen.LensSubscriptionServiceCoordinator\Synologen.LensSubscriptionServiceCoordinator.csproj">
       <Project>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</Project>
       <Name>Synologen.ServiceCoordinator</Name>
     </ProjectReference>

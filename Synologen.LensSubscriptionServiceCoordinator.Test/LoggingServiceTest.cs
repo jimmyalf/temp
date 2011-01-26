@@ -10,7 +10,7 @@ namespace Synologen.ServiceCoordinator.Test
 	[Category("LoggingServiceTest")]
 	public class When_logging_debug_level : LoggingServiceTestBase
 	{
-		private static string _message = "Loggningsmeddelande";
+		private const string _message = "Loggningsmeddelande";
 
 		public When_logging_debug_level()
 		{
@@ -55,7 +55,7 @@ namespace Synologen.ServiceCoordinator.Test
 	[Category("LoggingServiceTest")]
 	public class When_logging_info_level : LoggingServiceTestBase
 	{
-		private static string _message = "Loggningsmeddelande";
+		private const string _message = "Loggningsmeddelande";
 
 		public When_logging_info_level()
 		{
@@ -100,7 +100,7 @@ namespace Synologen.ServiceCoordinator.Test
 	[Category("LoggingServiceTest")]
 	public class When_logging_warning_level : LoggingServiceTestBase
 	{
-		private static string _message = "Loggningsmeddelande";
+		private const string _message = "Loggningsmeddelande";
 
 		public When_logging_warning_level()
 		{
@@ -146,7 +146,7 @@ namespace Synologen.ServiceCoordinator.Test
 	[Category("LoggingServiceTest")]
 	public class When_logging_error_level : LoggingServiceTestBase
 	{
-		private static string _message = "Loggningsmeddelande";
+		private const string _message = "Loggningsmeddelande";
 
 		public When_logging_error_level()
 		{
@@ -191,9 +191,9 @@ namespace Synologen.ServiceCoordinator.Test
 	[Category("LoggingServiceTest")]
 	public class When_logging_error_level_with_exception : LoggingServiceTestBase
 	{
-		private static string _description = "Loggningsmeddelande";
+		private const string _description = "Loggningsmeddelande";
 		private static string _message = "Loggningsmeddelande";
-		private Mock<Exception> _mockedException;
+		private readonly Mock<Exception> _mockedException;
 
 		public When_logging_error_level_with_exception()
 		{
@@ -224,7 +224,7 @@ namespace Synologen.ServiceCoordinator.Test
 	[Category("LoggingServiceTest")]
 	public class When_logging_fatal_level : LoggingServiceTestBase
 	{
-		private static string _message = "Loggningsmeddelande";
+		private const string _message = "Loggningsmeddelande";
 
 		public When_logging_fatal_level()
 		{
@@ -269,9 +269,9 @@ namespace Synologen.ServiceCoordinator.Test
 	[Category("LoggingServiceTest")]
 	public class When_logging_fatal_level_with_exception : LoggingServiceTestBase
 	{
-		private static string _description = "Loggningsmeddelande";
+		private const string _description = "Loggningsmeddelande";
 		private static string _message;
-		private Mock<Exception> _mockedException;
+		private readonly Mock<Exception> _mockedException;
 
 		public When_logging_fatal_level_with_exception()
 		{
@@ -406,8 +406,8 @@ namespace Synologen.ServiceCoordinator.Test
 	[Category("LoggingServiceTest")]
 	public class When_logging_error_level_to_eventlog_with_exception : LoggingServiceTestBase
 	{
-		private static string _description = "Loggningsmeddelande";
-		private Mock<Exception> _mockedException;
+		private const string _description = "Loggningsmeddelande";
+		private readonly Mock<Exception> _mockedException;
 		private static Exception _exception;
 
 		public When_logging_error_level_to_eventlog_with_exception()

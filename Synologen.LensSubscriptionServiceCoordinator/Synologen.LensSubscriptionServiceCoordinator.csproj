@@ -12,7 +12,7 @@
     <AssemblyName>Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject>Synologen.ServiceCoordinator.Program</StartupObject>
+    <StartupObject>Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,6 +36,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\log4Net\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Data, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\StructureMap\StructureMap.dll</HintPath>
@@ -54,18 +58,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoordinatorService.cs" />
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Ioc\ServiceRegistry.cs" />
     <Compile Include="Logging\EventLogLogger.cs" />
+    <Compile Include="Logging\Log4NetFactory.cs" />
     <Compile Include="Logging\Log4NetLogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ConsentRecieverService.cs" />
-    <Compile Include="Services\ConsentSenderService.cs" />
-    <Compile Include="Services\ErrorRecieverService.cs" />
-    <Compile Include="Services\PaymentRecieverService.cs" />
-    <Compile Include="Services\PaymentSenderService.cs" />
-    <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Tasks\SendConsentsTask.cs" />
+    <Compile Include="Tasks\TaskBase.cs" />
+    <Compile Include="TestBgWebServiceClient.cs" />
+    <Compile Include="TestSubscriptionRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">

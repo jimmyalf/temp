@@ -1,10 +1,14 @@
-﻿namespace Synologen.ServiceCoordinator
+﻿using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
+using StructureMap;
+
+namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator
 {
-	class Program
+	public class Program
 	{
-		static void Main(string[] args)
+		public static void Main(string[] args)
 		{
-			
+			Bootstrapper.Bootstrap();
+			var tasks = ObjectFactory.GetAllInstances<ITask>();
 
 		}
 	}

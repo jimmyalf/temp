@@ -1,9 +1,8 @@
 namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 {
-	public interface ICoordinatorService
+	public interface ITask
 	{
-		void Start();
 		void Execute();
-		void Stop();
+		string TaskName { get; }
 	}
 }

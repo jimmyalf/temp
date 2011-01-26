@@ -148,6 +148,7 @@
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\ContractSales\AllContractSalesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllActiveTransactionArticlesCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsToSendConsentsForCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllTransactionsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllUnhandledSubscriptionErrorsForShopCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\CustomersForShopMatchingCriteria.cs" />
@@ -167,8 +168,7 @@
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionArticleRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
-    <Compile Include="Domain\Services\BGWebService\IBGWebService.cs" />
-    <Compile Include="Domain\Services\Coordinator\ICoordinatorService.cs" />
+    <Compile Include="Domain\Services\Coordinator\ITask.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />
     <Compile Include="Domain\Services\IEventLoggingService.cs" />
     <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />
@@ -182,6 +182,7 @@
     <Compile Include="Domain\Persistence\FrameOrder\IFrameColorRepository.cs" />
     <Compile Include="Domain\Services\IFrameOrderService.cs" />
     <Compile Include="Domain\Services\ILoggingService.cs" />
+    <Compile Include="Domain\Services\IBGWebService.cs" />
     <Compile Include="Domain\Services\ISynologenMemberService.cs" />
     <Compile Include="Domain\Services\ISynologenSettingsService.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />

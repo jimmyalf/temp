@@ -3,12 +3,16 @@
  <div id="dCompNavigation">
 	<asp:PlaceHolder ID="phSynologenMenu" runat="server" />
 </div>
+
 <div id="dCompSubNavigation">
 	<asp:PlaceHolder ID="phSynologenSubMenu" runat="server" />
+	<asp:ContentPlaceHolder ID="SubMenuPlaceHolder" runat="server"></asp:ContentPlaceHolder>
 </div>
 	<div id="validation-message">
+	<%--<asp:PlaceHolder ID="plValidationSummaries" runat="server">--%>
        	<asp:ValidationSummary ID="validationSummary" runat="server" EnableViewState="False" HeaderText="Ett fel uppstod" SkinId="Error" ValidationGroup="Error" />
 		<asp:ValidationSummary ID="validationSummarySuccess" runat="server" EnableViewState="False" HeaderText="Lyckades" SkinId="Success" ValidationGroup="Success" />
+	<%--</asp:PlaceHolder>--%>
 	</div>
     <div id="synologen-content">
         <asp:contentplaceholder id="phSynologen" runat="server"></asp:contentplaceholder>

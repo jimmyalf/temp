@@ -1,4 +1,9 @@
 ﻿<%@ Master Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master"  Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<asp:Content ID="SynologenSubMenu" ContentPlaceHolderID="SubMenuPlaceHolder" runat="server">
+<asp:ContentPlaceHolder id="SubMenu" runat="server"></asp:ContentPlaceHolder>
+</asp:Content>
+
 <asp:Content ID="SynologenMainContent" ContentPlaceHolderID="phSynologen" runat="server">
 </form>
 <asp:contentplaceholder id="MainContent" runat="server"></asp:contentplaceholder>

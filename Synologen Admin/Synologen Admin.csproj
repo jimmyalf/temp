@@ -83,6 +83,13 @@
     <Compile Include="Application\Services\LensSubscriptionViewService.cs" />
     <Compile Include="Application\Services\SettingsService.cs" />
     <Compile Include="Application\Services\SynologenGridSortPropertyMappingSerice.cs" />
+    <Compile Include="BaseMain.master.cs">
+      <DependentUpon>BaseMain.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaseMain.master.designer.cs">
+      <DependentUpon>BaseMain.master</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\ContractSalesController.cs" />
     <Compile Include="Controllers\FrameGlassTypeController.cs" />
     <Compile Include="Controllers\FrameBrandController.cs" />

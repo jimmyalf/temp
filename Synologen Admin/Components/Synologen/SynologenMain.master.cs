@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Web;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business.SmartMenu;
@@ -45,6 +46,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			else{
 				CreateSynologenMenu();
 			}
+			//plValidationSummaries.Visible = !HttpContext.Current.Items.Contains("MVC");
+
 		}
 
 

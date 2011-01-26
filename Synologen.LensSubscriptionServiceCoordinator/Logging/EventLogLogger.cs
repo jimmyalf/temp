@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
-namespace Synologen.ServiceCoordinator.Logging
+namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 {
 	public class EventLogLogger : IEventLoggingService
 	{

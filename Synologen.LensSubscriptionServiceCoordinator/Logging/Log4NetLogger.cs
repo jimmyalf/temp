@@ -1,41 +1,42 @@
-﻿using System;
+using System;
 using log4net;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
-namespace Synologen.ServiceCoordinator.Logging
+namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 {
 	public class Log4NetLogger : ILoggingService
 	{
 		private static ILog _logger;
 		private static IEventLoggingService _eventLogger;
 
-		public Log4NetLogger(string applicationName)
-		{
-			_logger = _logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
-			log4net.Config.XmlConfigurator.Configure();
-			_eventLogger = new EventLogLogger(applicationName);
-		}
+		//public Log4NetLogger(string applicationName)
+		//{
+		//    _logger = _logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
+		//    log4net.Config.XmlConfigurator.Configure();
+		//    _eventLogger = new EventLogLogger(applicationName);
+		//}
 
-		public Log4NetLogger(ILog logger, string applicationName)
+		public Log4NetLogger(ILog logger, IEventLoggingService eventLogger)
 		{
 			_logger = logger;
+			_eventLogger = eventLogger; //new EventLogLogger(applicationName);
 			log4net.Config.XmlConfigurator.Configure();
-			_eventLogger = new EventLogLogger(applicationName);
+			
 		}
 
-		// For unit testing set runConfigure to false
-		public Log4NetLogger(ILog logger, bool runConfigure, string applicationName)
-		{
-			_logger = logger;
-			_eventLogger = new EventLogLogger(applicationName);
-			if (runConfigure)
-				log4net.Config.XmlConfigurator.Configure();
-		}
+		//// For unit testing set runConfigure to false
+		//public Log4NetLogger(ILog logger, bool runConfigure, string applicationName)
+		//{
+		//    _logger = logger;
+		//    _eventLogger = new EventLogLogger(applicationName);
+		//    if (runConfigure)
+		//        log4net.Config.XmlConfigurator.Configure();
+		//}
 
-		public Log4NetLogger(IEventLoggingService eventLogger)
-		{
-			_eventLogger = eventLogger;
-		}
+		//public Log4NetLogger(IEventLoggingService eventLogger)
+		//{
+		//    _eventLogger = eventLogger;
+		//}
 
 		public void LogDebug(string message)
 		{

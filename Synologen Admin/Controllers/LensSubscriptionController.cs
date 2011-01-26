@@ -58,7 +58,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult ViewSubscription(int id)
+		public ActionResult EditSubscription(int id)
 		{
 			var viewModel = _lensSubscriptionViewService.GetSubscription(id);
 			return View(viewModel);
@@ -79,7 +79,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				return RedirectToAction("Index");
 			}
 			var viewModel = _lensSubscriptionViewService.GetSubscription(id);
-			return View("ViewSubscription", viewModel.FillSubscription(inModel));
+			return View("EditSubscription", viewModel.FillSubscription(inModel));
 		}
 
 		[HttpGet]

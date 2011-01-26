@@ -1,6 +1,6 @@
 ﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<SubscriptionView>" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-	<div id="dCompMain" class="Components-Synologen-LensSubscription-View-aspx">
+	<div id="dCompMain" class="Components-Synologen-LensSubscription-Edit-aspx">
 	<div class="fullBox">
 		<div class="wrap">
 		
@@ -13,8 +13,20 @@
 					<p class="display-item clearLeft">
 						<%=Html.LabelFor(x => x.ShopName)%>
 						<%=Html.DisplayFor(x => x.ShopName)%>
-					</p>					
-					<p class="formItem">
+					</p>
+					<p class="display-item clearLeft">
+						<%=Html.LabelFor(x => x.Status)%>
+						<%=Html.DisplayFor(x => x.Status)%>
+					</p>
+					<p class="display-item clearLeft">
+						<%=Html.LabelFor(x => x.Created)%>
+						<%=Html.DisplayFor(x => x.Created)%>
+					</p>
+					<p class="display-item clearLeft">
+						<%=Html.LabelFor(x => x.Activated)%>
+						<%=Html.DisplayFor(x => x.Activated)%>
+					</p>
+					<p class="formItem clearLeft">
 						<%=Html.LabelFor(x => x.AccountNumber)%>
 						<%=Html.EditorFor(x => x.AccountNumber)%>
 						<%=Html.ValidationMessageFor(x => x.AccountNumber) %>
@@ -23,18 +35,6 @@
 						<%=Html.LabelFor(x => x.ClearingNumber)%>
 						<%=Html.EditorFor(x => x.ClearingNumber)%>
 						<%=Html.ValidationMessageFor(x => x.ClearingNumber) %>
-					</p>
-					<p class="display-item clearLeft">
-						<%=Html.LabelFor(x => x.Status)%>
-						<%=Html.DisplayFor(x => x.Status)%>
-					</p>
-					<p class="display-item">
-						<%=Html.LabelFor(x => x.Activated)%>
-						<%=Html.DisplayFor(x => x.Activated)%>
-					</p>				
-					<p class="display-item clearLeft">
-						<%=Html.LabelFor(x => x.Created)%>
-						<%=Html.DisplayFor(x => x.Created)%>
 					</p>
 					<p class="formItem">
 						<%=Html.LabelFor(x => x.MonthlyAmount)%>
@@ -45,9 +45,6 @@
 						<%=Html.LabelFor(x => x.SubscriptionNotes)%>
 						<span><%=Html.TextAreaFor(x => x.SubscriptionNotes)%></span>
 					</p>	
-				</fieldset>
-				<fieldset>
-					<legend>Kunduppgifter</legend>
 					<p class="formItem">
 						<%=Html.LabelFor(x => x.FirstName)%>
 						<%= Html.EditorFor(x => x.FirstName) %>
@@ -98,20 +95,20 @@
 						<%=Html.EditorFor(x => x.City)%>
 						<%=Html.ValidationMessageFor(x => x.City) %>
 					</p>
-					<p class="formItem">
+					<p class="display-item">
 						<%=Html.LabelFor(x => x.Country)%>
 						<%=Html.DisplayFor(x => x.Country)%>
 					</p>
-					<p class="formItem">
+					<p class="formItem clearLeft">
 						<%=Html.LabelFor(x => x.CustomerNotes)%>
 						<span ><%=Html.TextAreaFor(x => x.CustomerNotes)%></span>
-					</p>	
-				</fieldset>
-					<p class="formCommands">
+					</p>
+					<p class="formItem formCommands">
 						<%= Html.AntiForgeryToken() %>
 						<%= Html.HiddenFor(x => x.CustomerId) %>
 						<input type="submit" value="Spara abonnemang" class="btnBig" />
-					</p>									
+					</p>	
+				</fieldset>									
 				<% } %>
 					<fieldset>
 						<legend><%=Html.GetDisplayNameFor(x => x.ErrorList) %></legend>

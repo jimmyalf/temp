@@ -26,8 +26,8 @@
  						column.For(x => x.ShopName).Named("Butik");
 					    column.For(x => x.CustomerName).Named("Kund");
 					    column.For(x => x.Status).Named("Status");
-						column.For(x => Html.ActionLink("Visa", "ViewSubscription", "LensSubscription", new {id = x.SubscriptionId}, new object()))
-							.SetAsWpcControlColumn("Visa");
+						column.For(x => Html.ActionLink("Redigera", "EditSubscription", "LensSubscription", new {id = x.SubscriptionId}, new object()))
+							.SetAsWpcControlColumn("Redigera");
  					}).Empty("Inga abonnemang i databasen.")
 				%>
 			</div>

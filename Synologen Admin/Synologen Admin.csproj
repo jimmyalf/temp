@@ -494,13 +494,14 @@
     <Content Include="Areas\SynologenAdmin\Views\Frame\Brands.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\BrandForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\LensSubscription\AddTransactionArticle.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\LensSubscription\TransactionArticleForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\LensSubscription\EditTransactionArticle.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\LensSubscription\LensSubscriptionSubMenu.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\LensSubscription\TransactionArticleForm.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\LensSubscription\TransactionArticles.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\LensSubscription\Index.aspx" />
-    <Content Include="Areas\SynologenAdmin\Views\LensSubscription\ViewSubscription.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\LensSubscription\EditSubscription.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\ClientValidationScripts.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Shared\DisplayTemplates\String.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\DisplayTemplates\EyeParameterView.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\SynologenMVC.Master" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\Empty.Master" />
@@ -590,9 +591,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

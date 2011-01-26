@@ -1,6 +1,10 @@
 ﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<TransactionArticleListView>" %>
-<asp:Content ContentPlaceHolderID="MainContent" runat="server">
+
+<asp:Content ContentPlaceHolderID="SubMenu" runat="server">
 <% Html.RenderPartial("LensSubscriptionSubMenu"); %>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="MainContent" runat="server">
 <div id="dCompMain" class="Components-Synologen-LensSubscription-Transaction-Articles">
     <%=Html.Messages() %>
 	<div class="fullBox">

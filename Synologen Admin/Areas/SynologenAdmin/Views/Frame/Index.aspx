@@ -1,6 +1,10 @@
 ﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.master" Inherits="System.Web.Mvc.ViewPage<FrameListView>" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+<asp:Content ContentPlaceHolderID="SubMenu" runat="server">
 <% Html.RenderPartial("FrameSubMenu"); %>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="MainContent" runat="server">
 <div id="dCompMain" class="Components-Synologen-Frames">
 	<%=Html.Messages() %>
 	<div class="fullBox">

@@ -40,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 				OrderBy = gridPageSortParameters.Column,
 				SortAscending = gridPageSortParameters.Direction == SortDirection.Ascending
 			};
-//			HttpContext.Items.Add("Test", "Use flag to determine MVC or Webform masterpage");
+			//HttpContext.Items.Add("MVC", "Use flag to determine MVC or Webform masterpage");
 			var list = _frameRepository.FindBy(criteria);
 			var viewList = list
 				.ToFrameViewList();

@@ -218,7 +218,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 			Context = () => MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_subscription);
 
-			Because = controller => controller.ViewSubscription(subscriptionId);
+			Because = controller => controller.EditSubscription(subscriptionId);
 		}
 
 		[Test]

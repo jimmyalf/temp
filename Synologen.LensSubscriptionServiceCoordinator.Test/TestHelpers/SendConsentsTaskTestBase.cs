@@ -3,7 +3,7 @@ using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks;
 
 namespace Synologen.ServiceCoordinator.Test.TestHelpers
 {
-	public class SendConsentsTaskTestBase : TaskTestBase
+	public abstract class SendConsentsTaskTestBase : TaskTestBase
 	{
 		protected override ITask GetTask() 
 		{

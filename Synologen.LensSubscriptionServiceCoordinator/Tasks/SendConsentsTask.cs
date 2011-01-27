@@ -30,14 +30,14 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 			RunLoggedTask(() =>
 			{
 				var subscriptions = _subscriptionRepository.FindBy(new AllSubscriptionsToSendConsentsForCriteria()) ?? Enumerable.Empty<Subscription>();
-				LoggingService.LogDebug("Fetched {0} subscriptions to send consents for", subscriptions.Count().ToString());
+				LogDebug("Fetched {0} subscriptions to send consents for", subscriptions.Count());
 				foreach (var subscription in subscriptions)
 				{
 					var consent = ConvertSubscription(subscription);
 					_bgWebService.SendConsent(consent);
 					//subscription.ConsentSent = true;
 					_subscriptionRepository.Save(subscription);
-					LoggingService.LogDebug("Consent for subscription with id \"{0}\" has been sent.", subscription.Id.ToString());
+					LogDebug("Consent for subscription with id \"{0}\" has been sent.", subscription.Id);
 				}
 			});
 		}

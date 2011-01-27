@@ -2,7 +2,7 @@ using System;
 using log4net;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
+namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging
 {
 	public class Log4NetLogger : ILoggingService
 	{
@@ -43,7 +43,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			_logger.Debug(message);
 		}
 
-		public void LogDebug(string format, params string[] parameters)
+		public void LogDebug(string format, params object[] parameters)
 		{
 			_logger.Debug(string.Format(format, parameters));
 		}
@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			_logger.Info(message);
 		}
 
-		public void LogInfo(string format, params string[] parameters)
+		public void LogInfo(string format, params object[] parameters)
 		{
 			_logger.Info(string.Format(format, parameters));
 		}
@@ -63,7 +63,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			_logger.Warn(message);
 		}
 
-		public void LogWarning(string format, params string[] parameters)
+		public void LogWarning(string format, params object[] parameters)
 		{
 			_logger.Warn(string.Format(format, parameters));
 		}
@@ -80,7 +80,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			LogError(format, ex.Source, ex.Message, ex.StackTrace);
 		}
 
-		public void LogError(string format, params string[] parameters)
+		public void LogError(string format, params object[] parameters)
 		{
 			_logger.Error(string.Format(format, parameters));
 		}
@@ -90,7 +90,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			_logger.Fatal(message);
 		}
 
-		public void LogFatal(string format, params string[] parameters)
+		public void LogFatal(string format, params object[] parameters)
 		{
 			_logger.Fatal(string.Format(format, parameters));
 		}
@@ -107,7 +107,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			_eventLogger.Info(message);
 		}
 
-		public void LogInfoEventLog(string format, params string[] parameters)
+		public void LogInfoEventLog(string format, params object[] parameters)
 		{
 			_eventLogger.Info(format, parameters);
 		}
@@ -117,7 +117,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			_eventLogger.Warning(message);
 		}
 
-		public void LogWarningEventLog(string format, params string[] parameters)
+		public void LogWarningEventLog(string format, params object[] parameters)
 		{
 			_eventLogger.Warning(format, parameters);
 		}
@@ -127,7 +127,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			_eventLogger.Error(message);
 		}
 
-		public void LogErrorEventLog(string format, params string[] parameters)
+		public void LogErrorEventLog(string format, params object[] parameters)
 		{
 			_eventLogger.Error(format, parameters);
 		}
@@ -142,7 +142,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			_eventLogger.SuccessAudit(message);
 		}
 
-		public void LogSuccessAudit(string format, params string[] parameters)
+		public void LogSuccessAudit(string format, params object[] parameters)
 		{
 			_eventLogger.SuccessAudit(format, parameters);
 		}
@@ -152,7 +152,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			_eventLogger.FailureAudit(message);
 		}
 
-		public void LogFailureAudit(string format, params string[] parameters)
+		public void LogFailureAudit(string format, params object[] parameters)
 		{
 			_eventLogger.FailureAudit(format, parameters);
 		}

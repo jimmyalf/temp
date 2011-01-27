@@ -1,22 +1,21 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using log4net;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
-using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging;
+using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging;
 using StructureMap.Configuration.DSL;
 
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Ioc
+namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Ioc
 {
-	public class ServiceRegistry : Registry
+	public class TaskRunnerRegistry : Registry
 	{
-		public ServiceRegistry()
+		public TaskRunnerRegistry()
 		{
 			For<ILog>().Use(Log4NetFactory.Create);
 			For<IEventLoggingService>().Use(new EventLogLogger("TaskRunner"));
 			For<ILoggingService>().Use<Log4NetLogger>();
-			For<IBGWebService>().Use<TestBgWebServiceClient>();
+			For<IBGWebService>().Use<BgWebServiceClient>();
 			For<ISubscriptionRepository>().Use<TestSubscriptionRepository>();
 			Scan(x =>
 			{

@@ -3,7 +3,7 @@ using log4net;
 using Moq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging;
+using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging;
 
 namespace Synologen.ServiceCoordinator.Test.TestHelpers
 {

@@ -19,6 +19,10 @@
 						<%=Html.DisplayFor(x => x.Status)%>
 					</p>
 					<p class="display-item clearLeft">
+						<%=Html.LabelFor(x => x.ConsentStatus)%>
+						<%=Html.DisplayFor(x => x.ConsentStatus)%>
+					</p>
+					<p class="display-item clearLeft">
 						<%=Html.LabelFor(x => x.Created)%>
 						<%=Html.DisplayFor(x => x.Created)%>
 					</p>

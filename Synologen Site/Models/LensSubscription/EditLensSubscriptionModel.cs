@@ -9,6 +9,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription
 		public string ClearingNumber { get; set; }
 		public string MonthlyAmount { get; set; }
 		public string Status { get; set; }
+		public string ConsentStatus { get; set; }
 		public string Notes { get; set; }
 		public bool ShopDoesNotHaveAccessToLensSubscriptions { get; set; }
 		public bool ShopDoesNotHaveAccessGivenCustomer { get; set; }

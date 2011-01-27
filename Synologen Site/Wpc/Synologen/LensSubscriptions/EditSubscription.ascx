@@ -30,6 +30,7 @@
 	<p class="readonly-parameter"><label>Aktiverad</label><span><%#Model.ActivatedDate %></span></p>
 	<p class="readonly-parameter"><label>Skapad</label><span><%#Model.CreatedDate %></span></p>
 	<p class="readonly-parameter"><label>Status</label><span><%#Model.Status %></span></p>
+	<p class="readonly-parameter"><label>Medgivande</label><span><%#Model.ConsentStatus %></span></p>
 	
 	<asp:ValidationSummary ID="vldSummary" runat="server" />
 	

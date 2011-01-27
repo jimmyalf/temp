@@ -65,6 +65,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
 				view.Model.DisplayForm.ShouldBe(true);
 				view.Model.ReturnUrl.ShouldBe(_expectedReturnUrl);
+				view.Model.ConsentStatus.ShouldBe(_expectedSubscription.ConsentStatus.GetEnumDisplayName());
 			});
 		}
 

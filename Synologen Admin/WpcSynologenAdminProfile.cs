@@ -46,7 +46,8 @@ namespace Spinit.Wpc.Synologen.Presentation
 				.ForMember(cv => cv.SubscriptionNotes, m => m.MapFrom(x => x.Notes))
 				.ForMember(cv => cv.FirstName, m => m.MapFrom(x => x.Customer.FirstName))
 				.ForMember(cv => cv.LastName, m => m.MapFrom(x => x.Customer.LastName))
-				.ForMember(cv => cv.CustomerId, m => m.MapFrom(x => x.Customer.Id));
+				.ForMember(cv => cv.CustomerId, m => m.MapFrom(x => x.Customer.Id))
+				.ForMember(cv => cv.ConsentStatus, m => m.MapFrom(x => x.ConsentStatus.GetEnumDisplayName()));
 
 			CreateMap<Settlement, SettlementView>().ConvertUsing(new SettlementViewTypeConverter());
 

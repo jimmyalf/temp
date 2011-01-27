@@ -1,6 +1,6 @@
 using log4net;
 
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
+namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging
 {
 	public static class Log4NetFactory
 	{

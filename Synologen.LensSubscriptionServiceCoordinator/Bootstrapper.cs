@@ -1,4 +1,4 @@
-using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Ioc;
+using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Ioc;
 using StructureMap;
 
 namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator
@@ -7,7 +7,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator
 	{
 		public static void Bootstrap()
 		{
-			ObjectFactory.Initialize(x => x.AddRegistry<ServiceRegistry>());
+			ObjectFactory.Initialize(x => x.AddRegistry<TaskRunnerRegistry>());
 		}
 		
 	}

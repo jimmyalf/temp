@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
+namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging
 {
 	public class EventLogLogger : IEventLoggingService
 	{
@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			EventLog.WriteEntry(_applicationName, message, EventLogEntryType.Information);
 		}
 
-		public void Info(string format, params string[] parameters)
+		public void Info(string format, params object[] parameters)
 		{
 			EventLog.WriteEntry(_applicationName, string.Format(format, parameters), EventLogEntryType.Information);
 		}
@@ -30,7 +30,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			EventLog.WriteEntry(_applicationName, message, EventLogEntryType.Warning);
 		}
 
-		public void Warning(string format, params string[] parameters)
+		public void Warning(string format, params object[] parameters)
 		{
 			EventLog.WriteEntry(_applicationName, string.Format(format, parameters), EventLogEntryType.Warning);
 		}
@@ -40,7 +40,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			EventLog.WriteEntry(_applicationName, message, EventLogEntryType.Error);
 		}
 
-		public void Error(string format, params string[] parameters)
+		public void Error(string format, params object[] parameters)
 		{
 			EventLog.WriteEntry(_applicationName, string.Format(format, parameters), EventLogEntryType.Warning);
 		}
@@ -57,7 +57,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			EventLog.WriteEntry(_applicationName, message, EventLogEntryType.SuccessAudit);
 		}
 
-		public void SuccessAudit(string format, params string[] parameters)
+		public void SuccessAudit(string format, params object[] parameters)
 		{
 			EventLog.WriteEntry(_applicationName, string.Format(format, parameters), EventLogEntryType.SuccessAudit);
 		}
@@ -67,7 +67,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Logging
 			EventLog.WriteEntry(_applicationName, message, EventLogEntryType.FailureAudit);
 		}
 
-		public void FailureAudit(string format, params string[] parameters)
+		public void FailureAudit(string format, params object[] parameters)
 		{
 			EventLog.WriteEntry(_applicationName, string.Format(format, parameters), EventLogEntryType.FailureAudit);
 		}

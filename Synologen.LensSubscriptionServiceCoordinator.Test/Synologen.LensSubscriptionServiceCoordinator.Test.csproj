@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LoggingServiceTest.cs" />
+    <Compile Include="Test.cs" />
     <Compile Include="TestHelpers\LoggingServiceTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

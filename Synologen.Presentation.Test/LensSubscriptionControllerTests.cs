@@ -213,7 +213,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 		public When_loading_subscription_view()
 		{
-			int subscriptionId = 5;
+			const int subscriptionId = 5;
 			_subscription = SubscriptionFactory.GetFull(subscriptionId);
 
 			Context = () => MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_subscription);
@@ -247,6 +247,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			ViewModel.Status.ShouldBe(_subscription.Status.GetEnumDisplayName());
 			ViewModel.CustomerNotes.ShouldBe(_subscription.Customer.Notes);
 			ViewModel.SubscriptionNotes.ShouldBe(_subscription.Notes);
+			ViewModel.ConsentStatus.ShouldBe(_subscription.ConsentStatus.GetEnumDisplayName());
 		}
 
 		[Test]

@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Models.LensSubscription
 {
@@ -93,5 +91,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.LensSubscription
 		[Required(ErrorMessage = "Efternamn måste anges")]
 		public string LastName { get; set; }
 
+		[DisplayName("Medgivandestatus")]
+		public string ConsentStatus { get; set; }
 	}
 }

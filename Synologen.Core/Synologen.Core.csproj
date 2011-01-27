@@ -137,6 +137,7 @@
     <Compile Include="Domain\Model\LensSubscription\Settlement.cs" />
     <Compile Include="Domain\Model\LensSubscription\Shop.cs" />
     <Compile Include="Domain\Model\LensSubscription\Subscription.cs" />
+    <Compile Include="Domain\Model\LensSubscription\SubscriptionConsentStatus.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionError.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionErrorType.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionPaymentInfo.cs" />

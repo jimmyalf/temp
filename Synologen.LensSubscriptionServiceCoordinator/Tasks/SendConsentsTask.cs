@@ -19,12 +19,6 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 			_subscriptionRepository = subscriptionRepository;
 		}
 
-
-		public static ConsentToSend ConvertSubscription(Subscription subscription)
-		{
-			return new ConsentToSend();
-		}
-
 		public override void Execute()
 		{
 			RunLoggedTask(() =>
@@ -35,11 +29,22 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 				{
 					var consent = ConvertSubscription(subscription);
 					_bgWebService.SendConsent(consent);
-					//subscription.ConsentSent = true;
+					subscription.ConsentStatus = SubscriptionConsentStatus.Sent;
 					_subscriptionRepository.Save(subscription);
 					LogDebug("Consent for subscription with id \"{0}\" has been sent.", subscription.Id);
 				}
 			});
+		}
+
+		public static ConsentToSend ConvertSubscription(Subscription subscription)
+		{
+			return new ConsentToSend
+			{
+				BankAccountNumber = subscription.PaymentInfo.AccountNumber,
+				ClearingNumber = subscription.PaymentInfo.ClearingNumber,
+				PersonalIdNumber = subscription.Customer.PersonalIdNumber,
+                SubscriptionId = subscription.Id
+			};
 		}
 	}
 }

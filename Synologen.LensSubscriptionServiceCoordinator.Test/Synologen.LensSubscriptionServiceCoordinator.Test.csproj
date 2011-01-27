@@ -47,6 +47,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\Shouldly\Shouldly.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -61,8 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\TestHelper.cs" />
     <Compile Include="LoggingServiceTest.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="SendConsentsTaskTester.cs" />
+    <Compile Include="Factories\SubscriptionFactory.cs" />
+    <Compile Include="TestHelpers\SendConsentsTaskTestBase.cs" />
+    <Compile Include="TestHelpers\TaskTestBase.cs" />
     <Compile Include="TestHelpers\LoggingServiceTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -60,6 +60,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.Model.CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			View.Model.MonthlyAmount = subscription.PaymentInfo.MonthlyAmount.ToString();
 			View.Model.Status = subscription.Status.GetEnumDisplayName();
+			View.Model.ConsentStatus = subscription.ConsentStatus.GetEnumDisplayName();
 			View.Model.Notes = subscription.Notes;
 			if(View.ReturnPageId>0)
 			{

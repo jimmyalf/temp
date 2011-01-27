@@ -12,7 +12,10 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 			Errors = new SubscriptionError[] {};
 			PaymentInfo = new SubscriptionPaymentInfo();
 			Status = SubscriptionStatus.Created;
+			ConsentStatus = SubscriptionConsentStatus.NotSent;
 		}
+
+		public virtual SubscriptionConsentStatus ConsentStatus { get; set; }
 		public virtual Customer Customer { get; set; }
 		public virtual SubscriptionPaymentInfo PaymentInfo { get; set; }
 		public virtual IEnumerable<SubscriptionTransaction> Transactions { get; set; }

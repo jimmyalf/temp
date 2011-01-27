@@ -26,6 +26,7 @@
 		<include name="${dir.source}Synologen.Autogiro.Test\Synologen.Autogiro.Test.csproj"/>
 		<include name="${dir.source}Synologen IntegrationTests.Data\Synologen IntegrationTests.Data.csproj"/>
 		<include name="${dir.source}Synologen IntegrationTests.FileIO\Synologen IntegrationTests.FileIO.csproj"/>
+		<include name="${dir.source}Synologen.LensSubscriptionServiceCoordinator.Test\Synologen.LensSubscriptionServiceCoordinator.Test.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business.Test\Spinit.Wpc.Synologen.OPQ.Business.Test.csproj"/>

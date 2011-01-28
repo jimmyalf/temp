@@ -14,7 +14,7 @@ using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using StructureMap.Configuration.DSL;
 
-namespace Spinit.Wpc.Synologen.Presentation
+namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 {
 	public class SynologenAdminRegistry : Registry
 	{

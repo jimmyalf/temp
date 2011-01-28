@@ -13,6 +13,11 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 
 		public static Subscription Get(Customer customer, SubscriptionStatus status)
 		{
+			return Get(customer, status, SubscriptionConsentStatus.Sent);
+		}
+
+		public static Subscription Get(Customer customer, SubscriptionStatus status, SubscriptionConsentStatus consentStatus)
+		{
 			return new Subscription
 			{
 				ActivatedDate = new DateTime(2010, 10, 18),
@@ -26,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
                 Customer = customer,
                 Status = status,
 				Notes = "Till varje abonnemang hör ett anteckningsfält",
-                ConsentStatus = SubscriptionConsentStatus.Sent
+                ConsentStatus = consentStatus
 			};
 		}
 

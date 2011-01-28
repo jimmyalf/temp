@@ -30,8 +30,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 				Shop = shop,
 				Notes = "Till varje kund hör ett anteckningsfält"
 			};
-		
 		}
+
 
 		public static Customer Get(Country country, Shop shop, string firstName, string lastName, string personalIdNumber)
 		{

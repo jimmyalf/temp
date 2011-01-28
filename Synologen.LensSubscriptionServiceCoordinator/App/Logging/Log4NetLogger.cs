@@ -75,9 +75,10 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging
 
 		public void LogError(string message, Exception ex)
 		{
-			LogError(message);
-			const string format = "Source: {0}, Message: {1}, Stacktrace: {2}";
-			LogError(format, ex.Source, ex.Message, ex.StackTrace);
+			//LogError(message);
+			//const string format = "Source: {0}, Message: {1}, Stacktrace: {2}";
+			//LogError(format, ex.Source, ex.Message, ex.StackTrace);
+			_logger.Error(message, ex);
 		}
 
 		public void LogError(string format, params object[] parameters)
@@ -97,9 +98,10 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging
 
 		public void LogFatal(string message, Exception ex)
 		{
-			LogFatal(message);
-			const string format = "Source: {0}, Message: {1}, Stacktrace: {2}";
-			LogFatal(format, ex.Source, ex.Message, ex.StackTrace);
+			//LogFatal(message);
+			//const string format = "Source: {0}, Message: {1}, Stacktrace: {2}";
+			//LogFatal(format, ex.Source, ex.Message, ex.StackTrace);
+			_logger.Fatal(message, ex);
 		}
 
 		public void LogInfoEventLog(string message)

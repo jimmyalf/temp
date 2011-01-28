@@ -1,8 +1,6 @@
 using System;
-using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
+namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 {
 	public abstract class TaskBase : ITask
 	{
@@ -32,22 +30,22 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 
 		public virtual void LogDebug(string message)
 		{
-		    _loggingService.LogDebug("{0}: {1}", TaskName, message);
+			_loggingService.LogDebug("{0}: {1}", TaskName, message);
 		}
 
 		public virtual void LogDebug(string format, params object[] parameters)
 		{
-		    _loggingService.LogDebug("{0}: {1}", TaskName, String.Format(format, parameters));
+			_loggingService.LogDebug("{0}: {1}", TaskName, String.Format(format, parameters));
 		}
 
 		public virtual void LogInfo(string message)
 		{
-		    _loggingService.LogInfo("{0}: {1}", TaskName, message);
+			_loggingService.LogInfo("{0}: {1}", TaskName, message);
 		}
 
 		public virtual void LogInfo(string format, params object[] parameters)
 		{
-		    _loggingService.LogInfo("{0}: {1}", TaskName, String.Format(format, parameters));
+			_loggingService.LogInfo("{0}: {1}", TaskName, String.Format(format, parameters));
 		}
 
 		public abstract void Execute();

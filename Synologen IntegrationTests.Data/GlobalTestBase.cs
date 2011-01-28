@@ -116,7 +116,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test
 				var shop = (i % 3 == 0) ? shop1 : shop2;
 				var customerToSave = CustomerFactory.Get(country, shop, "Tore " + i, "Alm " + i, "19630610613" + (i%9));
 				reposititory.Save(customerToSave);
-				var subscriptionToSave = SubscriptionFactory.Get(customerToSave, ((i % 3) +1).ToEnum<SubscriptionStatus>());
+				var subscriptionToSave = SubscriptionFactory.Get(customerToSave, (i % 2) == 1 ? true : false );
 				subscriptionRepository.Save(subscriptionToSave);
 				TransactionFactory.GetList(subscriptionToSave).Each(transaction =>
 				{

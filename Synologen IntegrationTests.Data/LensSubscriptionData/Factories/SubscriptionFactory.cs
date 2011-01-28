@@ -8,15 +8,15 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 	{
 		public static Subscription Get(Customer customer)
 		{
-			return Get(customer, SubscriptionStatus.Stopped);
+			return Get(customer, false);
 		}
 
-		public static Subscription Get(Customer customer, SubscriptionStatus status)
+		public static Subscription Get(Customer customer, bool isActive)
 		{
-			return Get(customer, status, SubscriptionConsentStatus.Sent);
+			return Get(customer, isActive, SubscriptionConsentStatus.Sent);
 		}
 
-		public static Subscription Get(Customer customer, SubscriptionStatus status, SubscriptionConsentStatus consentStatus)
+		public static Subscription Get(Customer customer, bool isActive, SubscriptionConsentStatus consentStatus)
 		{
 			return new Subscription
 			{
@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
                     MonthlyAmount = 595
                 },
                 Customer = customer,
-                Status = status,
+				Active = isActive,
 				Notes = "Till varje abonnemang hör ett anteckningsfält",
                 ConsentStatus = consentStatus
 			};
@@ -42,7 +42,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 			subscription.PaymentInfo.AccountNumber = subscription.PaymentInfo.AccountNumber.Reverse();
 			subscription.PaymentInfo.ClearingNumber = subscription.PaymentInfo.ClearingNumber.Reverse();
 			subscription.PaymentInfo.MonthlyAmount = subscription.PaymentInfo.MonthlyAmount + 15;
-			subscription.Status = subscription.Status.Next();
+			subscription.Active = !subscription.Active;
 			subscription.Notes = subscription.Notes.Reverse();
 			subscription.ConsentStatus = subscription.ConsentStatus.Next();
 			return subscription;

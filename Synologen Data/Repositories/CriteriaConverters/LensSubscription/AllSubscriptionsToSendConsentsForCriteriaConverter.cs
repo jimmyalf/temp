@@ -13,7 +13,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscrip
 		{
 			return Criteria
 				.FilterEqual(x => x.ConsentStatus, SubscriptionConsentStatus.NotSent)
-				.FilterEqual(x => x.Status, SubscriptionStatus.Active);
+				.FilterEqual(x => x.Active, true);
 		}
 	}
 }

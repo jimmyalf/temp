@@ -57,7 +57,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			{
 				subscription.CustomerName.ShouldBe(_subscriptions.ElementAt(index).Customer.FirstName + " " + _subscriptions.ElementAt(index).Customer.LastName);
 				subscription.ShopName.ShouldBe(_subscriptions.ElementAt(index).Customer.Shop.Name);
-				subscription.Status.ShouldBe(_subscriptions.ElementAt(index).Status.GetEnumDisplayName());
+				subscription.Status.ShouldBe(_subscriptions.ElementAt(index).Active ? SubscriptionStatus.Started.GetEnumDisplayName() : SubscriptionStatus.Stopped.GetEnumDisplayName());
 				subscription.SubscriptionId.ShouldBe(_subscriptions.ElementAt(index).Id);
 			});
 		}
@@ -227,7 +227,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			var expectedPersonalIdNumber = String.Concat(
 				_subscription.Customer.PersonalIdNumber.Substring(0, 8), "-", _subscription.Customer.PersonalIdNumber.Substring(8, 4));
 
-		    ViewModel.Activated.ShouldBe(_subscription.ActivatedDate.Value.ToString("yyyy-MM-dd"));
+		    ViewModel.ConsentDate.ShouldBe(_subscription.ActivatedDate.Value.ToString("yyyy-MM-dd"));
 		    ViewModel.AddressLineOne.ShouldBe(_subscription.Customer.Address.AddressLineOne);
 		    ViewModel.AddressLineTwo.ShouldBe(_subscription.Customer.Address.AddressLineTwo);
 		    ViewModel.City.ShouldBe(_subscription.Customer.Address.City);
@@ -244,7 +244,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			ViewModel.AccountNumber.ShouldBe(_subscription.PaymentInfo.AccountNumber);
 			ViewModel.ClearingNumber.ShouldBe(_subscription.PaymentInfo.ClearingNumber);
 			ViewModel.MonthlyAmount.ShouldBe(_subscription.PaymentInfo.MonthlyAmount.ToString("F", new CultureInfo("sv-SE")));
-			ViewModel.Status.ShouldBe(_subscription.Status.GetEnumDisplayName());
+			ViewModel.Status.ShouldBe(_subscription.Active ? SubscriptionStatus.Started.GetEnumDisplayName() : SubscriptionStatus.Stopped.GetEnumDisplayName());
 			ViewModel.CustomerNotes.ShouldBe(_subscription.Customer.Notes);
 			ViewModel.SubscriptionNotes.ShouldBe(_subscription.Notes);
 			ViewModel.ConsentStatus.ShouldBe(_subscription.ConsentStatus.GetEnumDisplayName());
@@ -746,7 +746,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.PaymentInfo.AccountNumber.Equals(_savedSubscriptionView.AccountNumber))));
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.PaymentInfo.ClearingNumber.Equals(_savedSubscriptionView.ClearingNumber))));
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.PaymentInfo.MonthlyAmount.Equals(_savedSubscriptionView.MonthlyAmount.ToDecimalOrDefault()))));
-			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Status.Equals(_subscription.Status))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Active.Equals(_subscription.Active))));
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Transactions.Count().Equals(_subscription.Transactions.Count()))));
 
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(y => y.Customer.Address.AddressLineOne.Equals(_savedSubscriptionView.AddressLineOne))));
@@ -811,7 +811,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void ViewModel_should_have_expected_values()
 		{
-			ViewModel.Activated.ShouldBe(_subscription.ActivatedDate.Value.ToString("yyyy-MM-dd"));
+			ViewModel.ConsentDate.ShouldBe(_subscription.ActivatedDate.Value.ToString("yyyy-MM-dd"));
 			ViewModel.AddressLineOne.ShouldBe(_expectedViewModel.AddressLineOne);
 			ViewModel.AddressLineTwo.ShouldBe(_expectedViewModel.AddressLineTwo);
 			ViewModel.City.ShouldBe(_expectedViewModel.City);
@@ -827,7 +827,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			ViewModel.AccountNumber.ShouldBe(_expectedViewModel.AccountNumber);
 			ViewModel.ClearingNumber.ShouldBe(_expectedViewModel.ClearingNumber);
 			ViewModel.MonthlyAmount.ShouldBe(_expectedViewModel.MonthlyAmount);
-			ViewModel.Status.ShouldBe(_subscription.Status.GetEnumDisplayName());
+			ViewModel.Status.ShouldBe(_subscription.Active ? SubscriptionStatus.Started.GetEnumDisplayName() : SubscriptionStatus.Stopped.GetEnumDisplayName());
 			ViewModel.CustomerNotes.ShouldBe(_expectedViewModel.CustomerNotes);
 			ViewModel.SubscriptionNotes.ShouldBe(_expectedViewModel.SubscriptionNotes);
 		}

@@ -23,8 +23,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.LensSubscri
 				.Cascade.None()
 				.Column("CustomerId")
 				.Not.Nullable();
-			Map(x => x.Status)
-				.CustomType(typeof (SubscriptionStatus));
+			Map(x => x.Active);
 			Map(x => x.ConsentStatus)
 				.CustomType(typeof (SubscriptionConsentStatus));
 			HasMany(x => x.Transactions)

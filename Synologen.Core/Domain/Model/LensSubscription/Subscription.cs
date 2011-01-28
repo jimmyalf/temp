@@ -11,7 +11,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 			Transactions = new SubscriptionTransaction[] {};
 			Errors = new SubscriptionError[] {};
 			PaymentInfo = new SubscriptionPaymentInfo();
-			Status = SubscriptionStatus.Created;
+			Active = false;
 			ConsentStatus = SubscriptionConsentStatus.NotSent;
 		}
 
@@ -19,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		public virtual Customer Customer { get; set; }
 		public virtual SubscriptionPaymentInfo PaymentInfo { get; set; }
 		public virtual IEnumerable<SubscriptionTransaction> Transactions { get; set; }
-		public virtual SubscriptionStatus Status { get; set; }
+		public virtual bool Active { get; set; } 
 		public virtual DateTime CreatedDate { get; set; }
 		public virtual DateTime? ActivatedDate { get; set; }
 		public virtual IEnumerable<SubscriptionError> Errors { get; set; }

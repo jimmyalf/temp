@@ -19,16 +19,16 @@
 						<%=Html.DisplayFor(x => x.Status)%>
 					</p>
 					<p class="display-item clearLeft">
-						<%=Html.LabelFor(x => x.ConsentStatus)%>
-						<%=Html.DisplayFor(x => x.ConsentStatus)%>
-					</p>
-					<p class="display-item clearLeft">
 						<%=Html.LabelFor(x => x.Created)%>
 						<%=Html.DisplayFor(x => x.Created)%>
 					</p>
 					<p class="display-item clearLeft">
-						<%=Html.LabelFor(x => x.Activated)%>
-						<%=Html.DisplayFor(x => x.Activated)%>
+						<%=Html.LabelFor(x => x.ConsentStatus)%>
+						<%=Html.DisplayFor(x => x.ConsentStatus)%>
+					</p>
+					<p class="display-item clearLeft">
+						<%=Html.LabelFor(x => x.ConsentDate)%>
+						<%=Html.DisplayFor(x => x.ConsentDate)%>
 					</p>
 					<p class="formItem clearLeft">
 						<%=Html.LabelFor(x => x.AccountNumber)%>

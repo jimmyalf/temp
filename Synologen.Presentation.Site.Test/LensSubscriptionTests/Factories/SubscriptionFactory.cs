@@ -8,21 +8,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 {
 	public static class SubscriptionFactory
 	{
+
+		private static bool Subscription_Is_Active = true;
+		private static bool Subscription_Not_Active = false;
+
 		public static Subscription Get(Customer customer)
 		{
-			return Get(customer, SubscriptionStatus.Active);
+			return Get(customer, Subscription_Is_Active);
 		}
-		public static Subscription Get(Customer customer, SubscriptionStatus status)
+		public static Subscription Get(Customer customer, bool isActive)
 		{
-			return CreateSubscription(customer, 2, 10, "123456789", "0089", 455.23M, status, "Fritextfält");
+			return CreateSubscription(customer, 2, 10, "123456789", "0089", 455.23M, isActive, "Fritextfält");
 		}
 
 		public static Subscription Get(int id, Customer customer)
 		{
-			return CreateSubscription(id, customer, 2, 10, "123456789", "0089", 455.23M, SubscriptionStatus.Active);
+			return CreateSubscription(id, customer, 2, 10, "123456789", "0089", 455.23M, Subscription_Not_Active);
 		}
 
-		private static Subscription CreateSubscription(int id, Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, SubscriptionStatus status)
+		private static Subscription CreateSubscription(int id, Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, bool isActive)
 		{
 			var mockedSubscription = new Mock<Subscription>();
 			mockedSubscription.SetupGet(x => x.Id).Returns(id);
@@ -34,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 					ClearingNumber = clearingNumber,
 					MonthlyAmount = MonthlyAmount
 				});
-			mockedSubscription.SetupGet(x => x.Status).Returns(status);
+			mockedSubscription.SetupGet(x => x.Active).Returns(isActive);
 			mockedSubscription.SetupGet(x => x.Customer).Returns(customer);
 			return mockedSubscription.Object;	
 		}
@@ -45,24 +49,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			return new []
 			       	{
 			       		
-						CreateSubscription(customer, 3, 10, "111122222", "0001", 500M, SubscriptionStatus.Active, "Fritext 1"), 
-						CreateSubscription(customer, 4, 11, "222233333", "0002", 600M, SubscriptionStatus.Created, "Fritext 2"), 
-						CreateSubscription(customer, 5, 12, "333344444", "0003", 700M, SubscriptionStatus.Expired, "Fritext 3"), 
-						CreateSubscription(customer, 6, 13, "444455555", "0004", 800M, SubscriptionStatus.Stopped, "Fritext 4")
+						CreateSubscription(customer, 3, 10, "111122222", "0001", 500M, Subscription_Is_Active, "Fritext 1"), 
+						CreateSubscription(customer, 4, 11, "222233333", "0002", 600M, Subscription_Not_Active, "Fritext 2"), 
+						CreateSubscription(customer, 5, 12, "333344444", "0003", 700M, Subscription_Is_Active, "Fritext 3"), 
+						CreateSubscription(customer, 6, 13, "444455555", "0004", 800M, Subscription_Not_Active, "Fritext 4")
 			       	};
 		}
 
 		public static Subscription GetWithTransactions(Customer customer)
 		{
-			return CreateSubscriptionWithTransactions(customer, 2, 10, "123456789", "0089", 455.23M, SubscriptionStatus.Active);
+			return CreateSubscriptionWithTransactions(customer, 2, 10, "123456789", "0089", 455.23M, Subscription_Is_Active);
 		}
 
 		public static Subscription GetWithErrors(Customer customer)
 		{
-			return CreateSubscriptionWithErrors(customer, 2, 10, "123456789", "0089", 455.23M, SubscriptionStatus.Active);
+			return CreateSubscriptionWithErrors(customer, 2, 10, "123456789", "0089", 455.23M, Subscription_Is_Active);
 		}
 
-		private static Subscription CreateSubscriptionWithErrors(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, SubscriptionStatus status)
+		private static Subscription CreateSubscriptionWithErrors(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, bool isActive)
 		{
 			var subscription = new Subscription
 			{
@@ -75,13 +79,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 					ClearingNumber = clearingNumber,
 					MonthlyAmount = MonthlyAmount
 				},
-				Status = status,
+				Active = isActive,
 			};
 			subscription.Errors = SubscriptionErrorFactory.GetList(subscription);
 			return subscription;
 		}
 
-		private static Subscription CreateSubscriptionWithTransactions(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, SubscriptionStatus status)
+		private static Subscription CreateSubscriptionWithTransactions(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, bool isActive)
 		{
 			var subscription = new Subscription
 			{
@@ -94,7 +98,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 					ClearingNumber = clearingNumber,
 					MonthlyAmount = MonthlyAmount
 				},
-				Status = status,
+				Active = isActive,
 			};
 			subscription.Transactions = TransactionFactory.GetList(subscription);
 			return subscription;
@@ -102,7 +106,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 
 
 
-		public static Subscription CreateSubscription(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, SubscriptionStatus status, string notes)
+		public static Subscription CreateSubscription(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, bool isActive, string notes)
 		{
 			return new Subscription
 			{
@@ -115,7 +119,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 					ClearingNumber = clearingNumber,
 					MonthlyAmount = MonthlyAmount
 				},
-				Status = status,
+				Active = isActive,
 				Notes = notes
 			};
 		}

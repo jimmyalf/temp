@@ -4,6 +4,8 @@ using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Factories;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers;
@@ -71,7 +73,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				for (var i = 0; i < _expectedCustomer.Subscriptions.Count(); i++)
 				{
 					view.Model.Subscriptions.ToArray()[i].CreatedDate.Equals(_expectedCustomer.Subscriptions.ToArray()[i].CreatedDate);
-					view.Model.Subscriptions.ToArray()[i].Status.Equals(_expectedCustomer.Subscriptions.ToArray()[i].Status);
+					view.Model.Subscriptions.ToArray()[i].Status.Equals(_expectedCustomer.Subscriptions.ToArray()[i].Active ? SubscriptionStatus.Started.GetEnumDisplayName() : SubscriptionStatus.Stopped.GetEnumDisplayName());
 					view.Model.Subscriptions.ToArray()[i].EditSubscriptionPageUrl.ShouldBe(_editPageUrl + "?subscription=" + _expectedCustomer.Subscriptions.ToArray()[i].Id);
 				}
 

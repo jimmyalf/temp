@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 			// Model to ViewModel
 			CreateMap<Subscription, SubscriptionView>()
 				.ForMember(to => to.CustomerName, m => m.ResolveUsing<CustomerNameValueResolver>().FromMember(x => x.Customer))
-				.ForMember(cv => cv.Activated, m => m.MapFrom(x => x.ActivatedDate))
+				.ForMember(cv => cv.ConsentDate, m => m.MapFrom(x => x.ActivatedDate))
 				.ForMember(cv => cv.Created, m => m.MapFrom(x => x.CreatedDate))
 				.ForMember(cv => cv.AddressLineOne, m => m.MapFrom(x => x.Customer.Address.AddressLineOne))
 				.ForMember(cv => cv.AddressLineTwo, m => m.MapFrom(x => x.Customer.Address.AddressLineTwo))
@@ -40,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation
 				.ForMember(cv => cv.AccountNumber, m => m.MapFrom(x => x.PaymentInfo.AccountNumber))
 				.ForMember(cv => cv.ClearingNumber, m => m.MapFrom(x => x.PaymentInfo.ClearingNumber))
 				.ForMember(cv => cv.MonthlyAmount, m => m.MapFrom(x => x.PaymentInfo.MonthlyAmount.ToString("F", new CultureInfo("sv-SE"))))
-				.ForMember(cv => cv.Status, m => m.MapFrom(x => x.Status.GetEnumDisplayName()))
+				.ForMember(cv => cv.Status, m => m.MapFrom(x => x.Active ? SubscriptionStatus.Started.GetEnumDisplayName() : SubscriptionStatus.Stopped.GetEnumDisplayName()))
 				.ForMember(cv => cv.ErrorList, m => m.ResolveUsing<SubscriptionErrorValueResolver>().FromMember(x => x.Errors))
 				.ForMember(cv => cv.CustomerNotes, m => m.MapFrom(x => x.Customer.Notes))
 				.ForMember(cv => cv.SubscriptionNotes, m => m.MapFrom(x => x.Notes))

@@ -65,7 +65,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 			return new SubscriptionView
 			       	{
 			       		AccountNumber = "9876543321",
-			       		Activated = "Ja",
+			       		ConsentDate = "Ja",
 			       		AddressLineOne = "Kullerstensgatan 14",
 			       		AddressLineTwo = "Ingång F",
 			       		City = "Storstad",
@@ -83,7 +83,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 			       		ShopName = "Testbutik",
 			       		TransactionList = null,
 			       		MonthlyAmount = "666,66",
-			       		Status = SubscriptionStatus.Active.GetEnumDisplayName(),
+			       		Status = SubscriptionStatus.Started.GetEnumDisplayName(),
 			       		ErrorList = null,
 			       		SubscriptionNotes = "Abonnemangsanteckningar",
 			       		FirstName = "Adam",

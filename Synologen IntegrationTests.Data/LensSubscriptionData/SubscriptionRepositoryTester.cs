@@ -336,4 +336,56 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			});
 		}
 	}
+
+	[TestFixture]
+	[Category("SubscriptionRepositoryTester")]
+	public class When_fetching_subscriptions_by_AllSubscriptionsToSendConsentsForCriteria : BaseRepositoryTester<SubscriptionRepository>
+	{
+		private IList<Subscription> _savedSubscriptions;
+
+		public When_fetching_subscriptions_by_AllSubscriptionsToSendConsentsForCriteria()
+		{
+			Context = session =>
+			{
+				var shop = new ShopRepository(session).Get(TestShopId);
+				var country = new CountryRepository(session).Get(TestCountryId);
+				var customers = new[]
+				{
+					CustomerFactory.Get(country, shop, "Gunnar", "Gustafsson", "198206113411"),
+					CustomerFactory.Get(country, shop, "Katarina", "Malm", "198911063462"),
+					CustomerFactory.Get(country, shop, "Fredrik", "Holmberg", "197512235792"),
+					CustomerFactory.Get(country, shop, "Eva-Lisa", "Davidsson", "198007202826"),
+				};
+				customers.Each(new CustomerRepository(session).Save);
+				_savedSubscriptions = customers
+					.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Active, SubscriptionConsentStatus.Accepted))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Active, SubscriptionConsentStatus.Denied)))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Active, SubscriptionConsentStatus.NotSent)))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Active, SubscriptionConsentStatus.Sent)))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Stopped, SubscriptionConsentStatus.Accepted)))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Stopped, SubscriptionConsentStatus.Denied)))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Stopped, SubscriptionConsentStatus.NotSent)))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Stopped, SubscriptionConsentStatus.Sent)))
+					.ToArray();
+			
+			};
+
+			Because = repository => _savedSubscriptions.Each(repository.Save);
+		}
+		
+		[Test]
+		public void Criteria_only_fetches_active_subscriptions_with_consent_not_sent()
+		{
+			AssertUsing(session =>
+			{
+				var subscriptions = new SubscriptionRepository(session).FindBy(new AllSubscriptionsToSendConsentsForCriteria());
+				subscriptions.Count().ShouldBe(4);
+				subscriptions.Each(subscription =>
+				{
+					subscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.NotSent);
+					subscription.Status.ShouldBe(SubscriptionStatus.Active);
+				});
+			});
+		}
+	}
 }

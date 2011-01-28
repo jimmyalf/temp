@@ -208,15 +208,17 @@ namespace Synologen.ServiceCoordinator.Test
 			Because = logger => logger.LogError(_description, _mockedException.Object);
 		}
 
+		public static string Message { get { return _message; } }
+
 		[Test]
 		public void Should_call_expected_method_with_expected_params()
 		{
-			MockedLogger.Verify(x => x.Debug(_message), Times.Never());
-			MockedLogger.Verify(x => x.Info(_message), Times.Never());
-			MockedLogger.Verify(x => x.Warn(_message), Times.Never());
-			MockedLogger.Verify(x => x.Error(_message), Times.Once());
-			MockedLogger.Verify(x => x.Fatal(_message), Times.Never());
-			MockedLogger.Verify(x => x.Error(_description), Times.Once());
+			//MockedLogger.Verify(x => x.Debug(_message), Times.Never());
+			//MockedLogger.Verify(x => x.Info(_message), Times.Never());
+			//MockedLogger.Verify(x => x.Warn(_message), Times.Never());
+			//MockedLogger.Verify(x => x.Error(_message), Times.Once());
+			//MockedLogger.Verify(x => x.Fatal(_message), Times.Never());
+			MockedLogger.Verify(x => x.Error(_description, _mockedException.Object), Times.Once());
 		}
 	}
 
@@ -286,15 +288,17 @@ namespace Synologen.ServiceCoordinator.Test
 			Because = logger => logger.LogFatal(_description, _mockedException.Object);
 		}
 
+		public static string Message { get { return _message; } }
+
 		[Test]
 		public void Should_call_expected_method_with_expected_params()
 		{
-			MockedLogger.Verify(x => x.Debug(_message), Times.Never());
-			MockedLogger.Verify(x => x.Info(_message), Times.Never());
-			MockedLogger.Verify(x => x.Warn(_message), Times.Never());
-			MockedLogger.Verify(x => x.Error(_message), Times.Never());
-			MockedLogger.Verify(x => x.Fatal(_message), Times.Once());
-			MockedLogger.Verify(x => x.Fatal(_description), Times.Once());
+			//MockedLogger.Verify(x => x.Debug(_message), Times.Never());
+			//MockedLogger.Verify(x => x.Info(_message), Times.Never());
+			//MockedLogger.Verify(x => x.Warn(_message), Times.Never());
+			//MockedLogger.Verify(x => x.Error(_message), Times.Never());
+			//MockedLogger.Verify(x => x.Fatal(_message), Times.Once());
+			MockedLogger.Verify(x => x.Fatal(_description, _mockedException.Object), Times.Once());
 		}
 	}
 

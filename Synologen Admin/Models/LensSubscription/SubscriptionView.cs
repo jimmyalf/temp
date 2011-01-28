@@ -6,8 +6,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.LensSubscription
 {
 	public class SubscriptionView
 	{
-		[DisplayName("Aktiverad")]
-		public string Activated { get; set; }
+		[DisplayName("Autogiro medgiven")]
+		public string ConsentDate { get; set; }
 
 		[DisplayName("Skapad")]
 		public string Created { get; set; }

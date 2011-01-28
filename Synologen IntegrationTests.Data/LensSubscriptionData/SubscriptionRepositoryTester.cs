@@ -43,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
         		savedSubscription.CreatedDate.ShouldBe(_subscriptionToSave.CreatedDate);
         		savedSubscription.Customer.ShouldBe(_subscriptionToSave.Customer);
         		savedSubscription.PaymentInfo.ShouldBe(_subscriptionToSave.PaymentInfo);
-        		savedSubscription.Status.ShouldBe(_subscriptionToSave.Status);
+				savedSubscription.Active.ShouldBe(_subscriptionToSave.Active);
         		savedSubscription.Transactions.Count().ShouldBe(_subscriptionToSave.Transactions.Count());
 				savedSubscription.Errors.Count().ShouldBe(_subscriptionToSave.Errors.Count());
 				savedSubscription.Notes.ShouldBe(_subscriptionToSave.Notes);
@@ -85,7 +85,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
         		fetchedSubscription.CreatedDate.ShouldBe(_subscriptionToEdit.CreatedDate);
         		fetchedSubscription.Customer.ShouldBe(_subscriptionToEdit.Customer);
         		fetchedSubscription.PaymentInfo.ShouldBe(_subscriptionToEdit.PaymentInfo);
-        		fetchedSubscription.Status.ShouldBe(_subscriptionToEdit.Status);
+				fetchedSubscription.Active.ShouldBe(_subscriptionToEdit.Active);
         		fetchedSubscription.Transactions.Count().ShouldBe(_subscriptionToEdit.Transactions.Count());
 				fetchedSubscription.Errors.Count().ShouldBe(_subscriptionToEdit.Errors.Count());
 				fetchedSubscription.Notes.ShouldBe(_subscriptionToEdit.Notes);
@@ -136,6 +136,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
+				bool isActive = true;
 				var shop1 = new ShopRepository(session).Get(TestShopId);
 				var shop2 = new ShopRepository(session).Get(TestShop2Id);
 				var country = new CountryRepository(session).Get(TestCountryId);
@@ -147,8 +148,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 					CustomerFactory.Get(country, shop2, "Eva-Lisa", "Davidsson", "198007202826"),
 				};
 				customers.Each(new CustomerRepository(session).Save);
-				_savedSubscriptions = customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Active))
-					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Stopped))).ToArray();
+				_savedSubscriptions = customers.Select(customer => SubscriptionFactory.Get(customer, isActive))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, !isActive))).ToArray();
 			
 			};
 
@@ -196,11 +197,11 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 		[Test]
 		public void Should_get_expected_items_ordered_by_status()
 		{
-			var criteria = new PageOfSubscriptionsMatchingCriteria { OrderBy = "Status", PageSize = 100 };
+			var criteria = new PageOfSubscriptionsMatchingCriteria { OrderBy = "Active", PageSize = 100 };
 			var matchingItems = GetResult(session => new SubscriptionRepository(session).FindBy(criteria));
-			var firstItemStatus = matchingItems.First().Status;
-			var lastItemStatus = matchingItems.Last().Status;
-			firstItemStatus.ShouldBeLessThan(lastItemStatus);
+			var firstItemActiveStatus = matchingItems.First().Active;
+			var lastItemActiveStatus = matchingItems.Last().Active;
+			firstItemActiveStatus.ShouldBeLessThan(lastItemActiveStatus);
 		}
 
 		[Test]
@@ -342,6 +343,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 	public class When_fetching_subscriptions_by_AllSubscriptionsToSendConsentsForCriteria : BaseRepositoryTester<SubscriptionRepository>
 	{
 		private IList<Subscription> _savedSubscriptions;
+		private const bool Subscription_Is_Active = true;
+		private const bool Subscription_Not_Active = false;
 
 		public When_fetching_subscriptions_by_AllSubscriptionsToSendConsentsForCriteria()
 		{
@@ -358,14 +361,14 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				};
 				customers.Each(new CustomerRepository(session).Save);
 				_savedSubscriptions = customers
-					.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Active, SubscriptionConsentStatus.Accepted))
-					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Active, SubscriptionConsentStatus.Denied)))
-					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Active, SubscriptionConsentStatus.NotSent)))
-					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Active, SubscriptionConsentStatus.Sent)))
-					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Stopped, SubscriptionConsentStatus.Accepted)))
-					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Stopped, SubscriptionConsentStatus.Denied)))
-					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Stopped, SubscriptionConsentStatus.NotSent)))
-					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, SubscriptionStatus.Stopped, SubscriptionConsentStatus.Sent)))
+					.Select(customer => SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Accepted))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Denied)))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.NotSent)))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Sent)))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, Subscription_Not_Active, SubscriptionConsentStatus.Accepted)))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, Subscription_Not_Active, SubscriptionConsentStatus.Denied)))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, Subscription_Not_Active, SubscriptionConsentStatus.NotSent)))
+					.Append(customers.Select(customer => SubscriptionFactory.Get(customer, Subscription_Not_Active, SubscriptionConsentStatus.Sent)))
 					.ToArray();
 			
 			};
@@ -383,7 +386,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				subscriptions.Each(subscription =>
 				{
 					subscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.NotSent);
-					subscription.Status.ShouldBe(SubscriptionStatus.Active);
+					subscription.Active.ShouldBe(Subscription_Is_Active);
 				});
 			});
 		}

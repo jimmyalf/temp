@@ -68,7 +68,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 					ClearingNumber = eventArgs.ClearingNumber, 
 					MonthlyAmount = eventArgs.MonthlyAmount.ToDecimalOrDefault()
 				},
-				Status = SubscriptionStatus.Created,
+				Active = false,
 				Notes = eventArgs.Notes
 			};
 			var customerToSave = _customerRepository.Get(customerId);

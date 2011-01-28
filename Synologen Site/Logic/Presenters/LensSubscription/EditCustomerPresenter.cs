@@ -3,6 +3,7 @@ using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
@@ -38,7 +39,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			Func<Subscription, SubscriptionListItemModel> subscriptionConverter = subscription => new SubscriptionListItemModel
 			{
 				CreatedDate = subscription.CreatedDate.ToString(("yyyy-MM-dd")),
-				Status = subscription.Status.GetEnumDisplayName(),
+				Status = subscription.Active ? SubscriptionStatus.Started.GetEnumDisplayName() : SubscriptionStatus.Stopped.GetEnumDisplayName(),
 				EditSubscriptionPageUrl = String.Format("{0}?subscription={1}", editUrl, subscription.Id)
 			};
 			

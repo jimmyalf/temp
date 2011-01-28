@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			{
 				CustomerName = subscription.With(x => x.Customer).ParseName(x => x.FirstName, x => x.LastName),
 				ShopName = subscription.With(x => x.Customer).With(x => x.Shop).Return(x => x.Name, String.Empty),
-                Status = subscription.Status.GetEnumDisplayName(),
+                Status = subscription.Active ? SubscriptionStatus.Started.GetEnumDisplayName() : SubscriptionStatus.Stopped.GetEnumDisplayName(),
                 SubscriptionId = subscription.Id
 			};
 			return (subscriptions == null)? new SubscriptionListItemView[]{} : subscriptions.ConvertSortedPagedList(converter);

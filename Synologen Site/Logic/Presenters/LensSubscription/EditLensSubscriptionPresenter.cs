@@ -14,6 +14,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 	public class EditLensSubscriptionPresenter : Presenter<IEditLensSubscriptionView>
 	{
 		private const string SubscriptionRequestParameter = "subscription";
+		private const bool IsActive = true;
+		private const bool IsNotActive = false;
 		private const string DateTimeFormat = "yyyy-MM-dd";
 		private readonly ISubscriptionRepository _subscriptionRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
@@ -51,15 +53,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			var subscription = TryGetSubscription();
 			SetAccess(subscription);
 			if(!View.Model.DisplayForm) return;
-			View.Model.StopButtonEnabled = subscription.Status == SubscriptionStatus.Active;
-			View.Model.StartButtonEnabled = subscription.Status == SubscriptionStatus.Stopped;
+			View.Model.StopButtonEnabled = subscription.Active;
+			View.Model.StartButtonEnabled = !subscription.Active;
 			View.Model.AccountNumber = subscription.PaymentInfo.AccountNumber;
 			View.Model.ActivatedDate = subscription.With(x => x.ActivatedDate).Return(x => x.Value.ToString(DateTimeFormat), String.Empty);
 			View.Model.ClearingNumber = subscription.PaymentInfo.ClearingNumber;
 			View.Model.CreatedDate = subscription.CreatedDate.ToString(DateTimeFormat);
 			View.Model.CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			View.Model.MonthlyAmount = subscription.PaymentInfo.MonthlyAmount.ToString();
-			View.Model.Status = subscription.Status.GetEnumDisplayName();
+			View.Model.Status = subscription.Active ? SubscriptionStatus.Started.GetEnumDisplayName() : SubscriptionStatus.Stopped.GetEnumDisplayName();
 			View.Model.ConsentStatus = subscription.ConsentStatus.GetEnumDisplayName();
 			View.Model.Notes = subscription.Notes;
 			if(View.ReturnPageId>0)
@@ -81,13 +83,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 
 		public void View_StopSubscription(object sender, EventArgs e)
 		{
-			TryUpdateSubscriptionStatus(SubscriptionStatus.Stopped);
+			TryUpdateSubscriptionStatus(IsNotActive);
 			TryRedirect();
 		}
 
 		public void View_StartSubscription(object sender, EventArgs e) 
-		{ 
-			TryUpdateSubscriptionStatus(SubscriptionStatus.Active);
+		{
+			TryUpdateSubscriptionStatus(IsActive);
 			TryRedirect();
 		}
 
@@ -112,10 +114,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			_subscriptionRepository.Save(subscription);
 		}
 
-		public void TryUpdateSubscriptionStatus(SubscriptionStatus newStatus)
+		public void TryUpdateSubscriptionStatus(bool isActive)
 		{
 			var subscription = TryGetSubscription();
-			subscription.Status = newStatus;
+			subscription.Active = isActive;
 			_subscriptionRepository.Save(subscription);
 			TryRedirect();
 		}

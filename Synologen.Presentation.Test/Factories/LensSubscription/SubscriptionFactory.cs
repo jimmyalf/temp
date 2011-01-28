@@ -10,22 +10,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription
 {
 	public static class SubscriptionFactory 
 	{
+		private const bool Subscription_Is_Active = true;
+		private const bool Subscription_Not_Active = false;
+
 		public static IEnumerable<Subscription> GetList() 
 		{
 			for (var i = 0; i < 50; i++)
 			{
-				var status = (1 + (i % 3)).ToEnum<SubscriptionStatus>();
-				yield return Get(i, status);
+				bool isActive = (i % 2) == 1 ? Subscription_Is_Active : Subscription_Not_Active;
+				yield return Get(i, isActive);
 			}
 			yield break;
 		}
 
 		public static Subscription Get(int id)
 		{
-			return Get(id, SubscriptionStatus.Active);
+			return Get(id, Subscription_Is_Active);
 		}
 
-		public static Subscription Get(int id, SubscriptionStatus status)
+		public static Subscription Get(int id, bool isActive)
 		{
 			var customer = new Customer
 			{
@@ -36,7 +39,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription
 			var mockedSubscription = new Mock<Subscription>();
 			mockedSubscription.SetupGet(x => x.Id).Returns(id);
 			mockedSubscription.SetupGet(x => x.Customer).Returns(customer);
-			mockedSubscription.SetupGet(x => x.Status).Returns(status);
+			mockedSubscription.SetupGet(x => x.Active).Returns(isActive);
 			return mockedSubscription.Object;
 		}
 
@@ -78,7 +81,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription
 			mockedSubscription.SetupProperty(x => x.PaymentInfo, paymentInfo);
 			mockedSubscription.SetupGet(x => x.Transactions).Returns(SubscriptionTransactionFactory.GetList());
 			mockedSubscription.SetupProperty(x => x.Customer, customer);
-			mockedSubscription.SetupGet(x => x.Status).Returns(SubscriptionStatus.Active);
+			mockedSubscription.SetupGet(x => x.Active).Returns(Subscription_Is_Active);
 			mockedSubscription.SetupGet(x => x.Errors).Returns(SubscriptionErrorFactory.GetList());
 			mockedSubscription.SetupProperty(x => x.Notes, "Lite text här");
 			return mockedSubscription.Object;

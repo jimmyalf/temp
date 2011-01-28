@@ -57,8 +57,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				view.Model.AccountNumber.ShouldBe(_expectedSubscription.PaymentInfo.AccountNumber);
 				view.Model.ClearingNumber.ShouldBe(_expectedSubscription.PaymentInfo.ClearingNumber);
 				view.Model.MonthlyAmount.ShouldBe(_expectedSubscription.PaymentInfo.MonthlyAmount.ToString());
-				view.Model.Status.ShouldBe(_expectedSubscription.Status.GetEnumDisplayName());
-				view.Model.Status.ShouldBe("Aktiv");
+				view.Model.Status.ShouldBe(_expectedSubscription.Active ? SubscriptionStatus.Started.GetEnumDisplayName() : SubscriptionStatus.Stopped.GetEnumDisplayName());
+				view.Model.Status.ShouldBe(SubscriptionStatus.Started.GetEnumDisplayName());
 				view.Model.StopButtonEnabled.ShouldBe(true);
 				view.Model.StartButtonEnabled.ShouldBe(false);
 				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
@@ -130,7 +130,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_subscriptionId = 1;
 			const int customerId = 2;
 			const int shopId = 3;
-			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId), SubscriptionStatus.Stopped);
+			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId), false);
 			Context = () =>
 			{
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
@@ -146,7 +146,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		{
 			AssertUsing( view =>
 			{
-				view.Model.Status.ShouldBe("Stoppad");
+				view.Model.Status.ShouldBe(SubscriptionStatus.Stopped.GetEnumDisplayName());
 				view.Model.StopButtonEnabled.ShouldBe(false);
 				view.Model.StartButtonEnabled.ShouldBe(true);
 			});
@@ -167,7 +167,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_subscriptionId = 1;
 			const int customerId = 2;
 			const int shopId = 3;
-			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId), SubscriptionStatus.Created);
+			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId), false);
 			Context = () =>
 			{
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
@@ -184,49 +184,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		{
 			AssertUsing( view =>
 			{
-				view.Model.Status.ShouldBe("Skapad");
+				view.Model.Status.ShouldBe(SubscriptionStatus.Stopped.GetEnumDisplayName());
 				view.Model.StopButtonEnabled.ShouldBe(false);
-				view.Model.StartButtonEnabled.ShouldBe(false);				
-			});
-		}
-
-	}
-
-	[TestFixture]
-	[Category("EditLensSubscriptionPresenterTester")]
-	public class When_loading_edit_subscription_view_with_expired_subscription : EditSubscriptionTestbase
-	{
-		private readonly Subscription _expectedSubscription;
-		private readonly int _subscriptionId;
-
-		public When_loading_edit_subscription_view_with_expired_subscription()
-		{
-			//Arrange
-			_subscriptionId = 1;
-			const int customerId = 2;
-			const int shopId = 3;
-			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId), SubscriptionStatus.Expired);
-
-			Context = () =>
-			{
-				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
-				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
-				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
-			};
-
-			//Act
-			Because = presenter => presenter.View_Load(null, new EventArgs());
-		}
-
-		[Test]
-		public void Model_should_have_expected_values()
-		{
-			AssertUsing( view =>
-			{
-				view.Model.Status.ShouldBe("Utgången");
-				view.Model.StopButtonEnabled.ShouldBe(false);
-				view.Model.StartButtonEnabled.ShouldBe(false);	
+				view.Model.StartButtonEnabled.ShouldBe(true);				
 			});
 		}
 
@@ -282,7 +242,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				subscription.PaymentInfo.AccountNumber.Equals(_saveEventArgs.AccountNumber) &&
 				subscription.PaymentInfo.ClearingNumber.Equals(_saveEventArgs.ClearingNumber) &&
 				subscription.PaymentInfo.MonthlyAmount.Equals(_saveEventArgs.MonthlyAmount.ToDecimal()) &&
-				subscription.Status.Equals(_expectedSubscription.Status)
+				subscription.Active.Equals(_expectedSubscription.Active)
 			)));
 
 		}
@@ -336,7 +296,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_saves_subscription_with_expected_values()
 		{
-			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Status.Equals(SubscriptionStatus.Stopped))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Active.Equals(false))));
 		}
 
 		[Test]
@@ -367,7 +327,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_redirectPageId = 55;
 			_redirectUrl = "/test/redirect/";
 			_expectedRedirectUrl = String.Concat(_redirectUrl, "?customer=", customerId);
-			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId), SubscriptionStatus.Stopped);
+			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId), false);
 
 			Context = () =>
 			{
@@ -389,7 +349,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_saves_subscription_with_expected_values()
 		{
-			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Status.Equals(SubscriptionStatus.Active))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(c => c.Active.Equals(true))));
 		}
 
 		[Test]

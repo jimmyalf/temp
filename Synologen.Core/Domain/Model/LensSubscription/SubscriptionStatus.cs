@@ -4,16 +4,10 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 {
 	public enum SubscriptionStatus 
 	{
-		[EnumDisplayName("Skapad")]
-		Created = 1,
-
-		[EnumDisplayName("Aktiv")]
-		Active = 2,
-
 		[EnumDisplayName("Stoppad")]
-		Stopped = 3,
+		Stopped = 1,
 
-		[EnumDisplayName("Utgången")]
-		Expired = 4,
+		[EnumDisplayName("Startad")]
+		Started = 2,
 	}
 }

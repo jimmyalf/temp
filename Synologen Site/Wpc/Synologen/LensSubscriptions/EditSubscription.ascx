@@ -27,10 +27,11 @@
 	<label for="<%=txtNotes.ClientID%>">Anteckningar</label>
 	<asp:TextBox ID="txtNotes" TextMode="MultiLine" Text='<%#Model.Notes%>' runat="server" />
 	
-	<p class="readonly-parameter"><label>Aktiverad</label><span><%#Model.ActivatedDate %></span></p>
+	
 	<p class="readonly-parameter"><label>Skapad</label><span><%#Model.CreatedDate %></span></p>
 	<p class="readonly-parameter"><label>Status</label><span><%#Model.Status %></span></p>
 	<p class="readonly-parameter"><label>Medgivande</label><span><%#Model.ConsentStatus %></span></p>
+	<p class="readonly-parameter"><label>Autogiro medgiven</label><span><%#Model.ActivatedDate %></span></p>
 	
 	<asp:ValidationSummary ID="vldSummary" runat="server" />
 	

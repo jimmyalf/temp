@@ -17,13 +17,13 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 		{
 			try
 			{
-				_loggingService.LogInfo("Started {0} Task Execution", TaskName);
+				LogInfo("Started Task Execution");
 				action.Invoke();
-				_loggingService.LogInfo("Finished {0} Task Execution", TaskName);
+				LogInfo("Finished Task Execution");
 			}
 			catch(Exception ex)
 			{
-				_loggingService.LogError(String.Format("Caught exception while executing \"{0}\"", TaskName),ex);
+				_loggingService.LogError(String.Format("{0}: Caught exception while executing task", TaskName),ex);
 			}
 		}
 

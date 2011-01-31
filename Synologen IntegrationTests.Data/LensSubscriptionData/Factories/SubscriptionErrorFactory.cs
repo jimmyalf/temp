@@ -1,6 +1,6 @@
 ﻿using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories
 {
@@ -35,14 +35,14 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 					},
 				new SubscriptionError
 					{
-						Type = SubscriptionErrorType.NotChargeable,
+						Type = SubscriptionErrorType.NotDebitable,
 						CreatedDate = new DateTime(2010, 11, 4),
 						IsHandled = false,
 						Subscription = subscription
 					},
 				new SubscriptionError
 					{
-						Type = SubscriptionErrorType.NotPermitted,
+						Type = SubscriptionErrorType.ConsentMissing,
 						CreatedDate = new DateTime(2010, 11, 5),
 						HandledDate = new DateTime(2010, 11, 5),
 						IsHandled = true, 
@@ -50,7 +50,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 					},
 				new SubscriptionError
 					{
-						Type = SubscriptionErrorType.Stopped,
+						Type = SubscriptionErrorType.CosentStopped,
 						CreatedDate = new DateTime(2010, 11, 6),
 						IsHandled = false,
 						Subscription = subscription
@@ -88,14 +88,5 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 				return new DateTime(myDate.Year, myDate.Month, myDate.Day);
 			}
 		}
-
-		// Shift enum number one step
-		//private static SubscriptionErrorType SetType(SubscriptionErrorType type)
-		//{
-		//    var enumSize = Enum.GetValues(typeof(SubscriptionErrorType)).Length;
-		//    var code = (int) type;
-		//    code = (code % enumSize) + 1;
-		//    return (SubscriptionErrorType) code;
-		//}
 	}
 }

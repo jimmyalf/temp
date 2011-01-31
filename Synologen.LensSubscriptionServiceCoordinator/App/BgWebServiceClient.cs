@@ -7,5 +7,6 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App
 	public class BgWebServiceClient : ClientBase<IBGWebService>, IBGWebService
 	{
 		public void SendConsent(ConsentToSend consent) { Channel.SendConsent(consent); }
+		public RecievedError[] GetNewErrors() { return Channel.GetNewErrors(); }
 	}
 }

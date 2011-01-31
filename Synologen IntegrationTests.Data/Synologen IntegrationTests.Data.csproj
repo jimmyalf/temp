@@ -121,7 +121,6 @@
     <Compile Include="FrameData\TestShop.cs" />
     <Compile Include="FrameData\TestFrameBrands.cs" />
     <Compile Include="FrameData\TestFrameColors.cs" />
-    <Compile Include="CommonDataTestHelpers\FactoryHelpers.cs" />
     <Compile Include="FrameData\Factories\FrameFactory.cs" />
     <Compile Include="FrameData\Factories\FrameColorFactory.cs" />
     <Compile Include="FrameData\Factories\FrameBrandFactory.cs" />

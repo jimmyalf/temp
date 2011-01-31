@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
-using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData.Factories
 {

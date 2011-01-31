@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
@@ -52,14 +52,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 					},
 				new SubscriptionError
 					{
-						Type = SubscriptionErrorType.NotChargeable,
+						Type = SubscriptionErrorType.NotDebitable,
 						CreatedDate = new DateTime(2010, 11, 4),
 						IsHandled = false,
 						Subscription = subscription
 					},
 				new SubscriptionError
 					{
-						Type = SubscriptionErrorType.NotPermitted,
+						Type = SubscriptionErrorType.ConsentMissing,
 						CreatedDate = new DateTime(2010, 11, 5),
 						HandledDate = new DateTime(2010, 11, 5),
 						IsHandled = true, 
@@ -67,7 +67,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 					},
 				new SubscriptionError
 					{
-						Type = SubscriptionErrorType.Stopped,
+						Type = SubscriptionErrorType.CosentStopped,
 						CreatedDate = new DateTime(2010, 11, 6),
 						IsHandled = false,
 						Subscription = subscription

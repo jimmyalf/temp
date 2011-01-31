@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\MockBgWebServiceClient.cs" />
     <Compile Include="App\BgWebServiceClient.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="App\IoC\TaskRunnerRegistry.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="App\Logging\Log4NetLogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tasks\ReceiveErrorsTask.cs" />
     <Compile Include="Tasks\SendConsentsTask.cs" />
   </ItemGroup>
   <ItemGroup>

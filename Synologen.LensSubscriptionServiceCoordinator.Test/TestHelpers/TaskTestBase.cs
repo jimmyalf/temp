@@ -16,6 +16,8 @@ namespace Synologen.ServiceCoordinator.Test.TestHelpers
 		protected Mock<ISubscriptionRepository> MockedSubscriptionRepository;
 		protected Mock<ILog> MockedLogger;
 		protected Mock<IEventLoggingService> MockedEventLoggingService;
+		protected Mock<ISubscriptionErrorRepository> MockedSubscriptionErrorRepository;
+		protected Mock<ITransactionRepository> MockedTransactionRepository;
 		protected Log4NetLogger LoggingService;
 
 		protected TaskTestBase()
@@ -24,6 +26,8 @@ namespace Synologen.ServiceCoordinator.Test.TestHelpers
 			MockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
 			MockedLogger = new Mock<ILog>();
 			MockedEventLoggingService = new Mock<IEventLoggingService>();
+			MockedSubscriptionErrorRepository = new Mock<ISubscriptionErrorRepository>();
+			MockedTransactionRepository = new Mock<ITransactionRepository>();
 			LoggingService = new Log4NetLogger(MockedLogger.Object, MockedEventLoggingService.Object);
 			
 			Context = () => { };

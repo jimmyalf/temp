@@ -8,5 +8,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 	{
 		[OperationContract]
 		void SendConsent(ConsentToSend consent);
+
+		[OperationContract]
+		RecievedError[] GetNewErrors();
 	}
 }

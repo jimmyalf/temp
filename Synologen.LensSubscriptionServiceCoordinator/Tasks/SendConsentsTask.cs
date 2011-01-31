@@ -28,23 +28,28 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 				LogDebug("Fetched {0} subscriptions to send consents for", subscriptions.Count());
 				foreach (var subscription in subscriptions)
 				{
-					var consent = ConvertSubscription(subscription);
-					_bgWebService.SendConsent(consent);
-					subscription.ConsentStatus = SubscriptionConsentStatus.Sent;
-					_subscriptionRepository.Save(subscription);
-					LogDebug("Consent for subscription with id \"{0}\" has been sent.", subscription.Id);
+					SendConsentAndUpdateSubscriptionStatus(subscription);
 				}
 			});
 		}
 
-		public static ConsentToSend ConvertSubscription(Subscription subscription)
+		protected virtual void SendConsentAndUpdateSubscriptionStatus(Subscription subscription)
+		{
+			var consent = ConvertSubscription(subscription);
+			_bgWebService.SendConsent(consent);
+			subscription.ConsentStatus = SubscriptionConsentStatus.Sent;
+			_subscriptionRepository.Save(subscription);
+			LogDebug("Consent for subscription with id \"{0}\" has been sent.", subscription.Id);
+		}
+
+		protected virtual ConsentToSend ConvertSubscription(Subscription subscription)
 		{
 			return new ConsentToSend
 			{
 				BankAccountNumber = subscription.PaymentInfo.AccountNumber,
 				ClearingNumber = subscription.PaymentInfo.ClearingNumber,
 				PersonalIdNumber = subscription.Customer.PersonalIdNumber,
-                SubscriptionId = subscription.Id
+                PayerId = subscription.Id
 			};
 		}
 	}

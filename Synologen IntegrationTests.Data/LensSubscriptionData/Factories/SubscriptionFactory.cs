@@ -1,6 +1,7 @@
 using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories
 {

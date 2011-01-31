@@ -12,15 +12,15 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		NoAccount = 2,
 
 		[EnumDisplayName("Utgår, medgivande saknas)")]
-		NotPermitted = 3,
+		ConsentMissing = 3,
 
 		[EnumDisplayName("Utgår, konto ej godkänt")]
 		NotApproved = 4,
 
-		[EnumDisplayName(" Utgår, medgivande stoppat")]
-		Stopped = 5,
+		[EnumDisplayName("Utgår, medgivande stoppat")]
+		CosentStopped = 5,
 
 		[EnumDisplayName("Avvisad, ännu ej debiterbar")]
-		NotChargeable = 6
+		NotDebitable = 6
 	}
 }

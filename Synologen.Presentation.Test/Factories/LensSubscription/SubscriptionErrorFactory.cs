@@ -37,9 +37,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription
 				Get(SubscriptionErrorType.NoAccount, new DateTime(2010, 11, 1), new DateTime(2010, 11, 2), true),
 				Get(SubscriptionErrorType.NoCoverage, new DateTime(2010, 11, 2), null, false),
 				Get(SubscriptionErrorType.NotApproved, new DateTime(2010, 11, 3), new DateTime(2010, 11, 3), true),
-				Get(SubscriptionErrorType.NotChargeable, new DateTime(2010, 11, 4), null, false),
-				Get(SubscriptionErrorType.NotPermitted, new DateTime(2010, 11, 5), new DateTime(2010, 11, 5), true),
-				Get(SubscriptionErrorType.Stopped, new DateTime(2010, 11, 6), null, false),
+				Get(SubscriptionErrorType.NotDebitable, new DateTime(2010, 11, 4), null, false),
+				Get(SubscriptionErrorType.ConsentMissing, new DateTime(2010, 11, 5), new DateTime(2010, 11, 5), true),
+				Get(SubscriptionErrorType.CosentStopped, new DateTime(2010, 11, 6), null, false),
 			};
 		}
 	}

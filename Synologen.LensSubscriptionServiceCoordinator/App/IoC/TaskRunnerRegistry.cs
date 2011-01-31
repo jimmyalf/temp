@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿#define DEBUG
+using System.Reflection;
 using log4net;
 using NHibernate;
 using Spinit.Data;
@@ -11,7 +12,6 @@ using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging;
 using StructureMap.Configuration.DSL;
-
 namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Ioc
 {
 	public class TaskRunnerRegistry : Registry
@@ -23,14 +23,18 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Ioc
 			For<ISessionFactory>().Singleton().Use(NHibernateFactory.Instance.GetSessionFactory);
 			For<ISession>().Use(x => ((NHibernateUnitOfWork)x.GetInstance<IUnitOfWork>()).Session);
 			For<ISubscriptionRepository>().Use<SubscriptionRepository>();
+			For<ISubscriptionErrorRepository>().Use<SubscriptionErrorRepository>();
 
 			// Logging
 			For<ILog>().Use(Log4NetFactory.Create);
 			For<IEventLoggingService>().Use(new EventLogLogger("TaskRunner"));
 			For<ILoggingService>().Singleton().Use<Log4NetLogger>();
-
-
+	
+			#if (DEBUG)
+			For<IBGWebService>().Use<MockBgWebServiceClient>();
+			#else
 			For<IBGWebService>().Use<BgWebServiceClient>();
+			#endif
 			
 			// Task scan
 			Scan(x =>

@@ -14,9 +14,9 @@ namespace Synologen.ServiceCoordinator.Test.TestHelpers
 	{
 		protected Mock<IBGWebService> MockedWebServiceClient;
 		protected Mock<ISubscriptionRepository> MockedSubscriptionRepository;
+		protected Mock<ISubscriptionErrorRepository> MockedSubscriptionErrorRepository;
 		protected Mock<ILog> MockedLogger;
 		protected Mock<IEventLoggingService> MockedEventLoggingService;
-		protected Mock<ISubscriptionErrorRepository> MockedSubscriptionErrorRepository;
 		protected Mock<ITransactionRepository> MockedTransactionRepository;
 		protected Log4NetLogger LoggingService;
 

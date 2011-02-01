@@ -87,6 +87,7 @@
     <Compile Include="App\Logging\Log4NetLogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tasks\ReceiveConsentsTask.cs" />
     <Compile Include="Tasks\ReceiveErrorsTask.cs" />
     <Compile Include="Tasks\SendConsentsTask.cs" />
   </ItemGroup>

@@ -260,7 +260,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Account.AccountNumber.ShouldBe("121212120000");
 				post.PersonalIdNumber.ShouldBe("191212121212");
 				post.OrgNumber.ShouldBe(null);
-				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsederation);
+				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsideration);
 				post.ConsentValidForDate.ShouldBe(null);
 			});
 	    	_consentsFile.Posts.ForElementAtIndex(1, post =>
@@ -310,7 +310,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Account.AccountNumber.ShouldBe("1234567770");
 				post.PersonalIdNumber.ShouldBe("194907304444");
 				post.OrgNumber.ShouldBe(null);
-				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsederation);
+				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsideration);
 				post.ConsentValidForDate.ShouldBe(null);
 			});
 	    	_consentsFile.Posts.ForElementAtIndex(6, post =>
@@ -380,7 +380,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 			});
 	    	_consentsFile.Posts.ForElementAtIndex(7, post =>
 			{
-				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsederation);
+				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsideration);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
 			});
 	    	_consentsFile.Posts.ForElementAtIndex(8, post =>

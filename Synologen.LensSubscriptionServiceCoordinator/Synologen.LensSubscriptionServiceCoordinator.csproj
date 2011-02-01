@@ -83,7 +83,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="App\IoC\TaskRunnerRegistry.cs" />
     <Compile Include="App\Logging\EventLogLogger.cs" />
-    <Compile Include="App\Logging\Log4NetFactory.cs" />
+    <Compile Include="App\Logging\LogFactory.cs" />
     <Compile Include="App\Logging\Log4NetLogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

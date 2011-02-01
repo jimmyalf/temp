@@ -26,9 +26,9 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Ioc
 			For<ISubscriptionErrorRepository>().Use<SubscriptionErrorRepository>();
 
 			// Logging
-			For<ILog>().Use(Log4NetFactory.Create);
-			For<IEventLoggingService>().Use(new EventLogLogger("TaskRunner"));
-			For<ILoggingService>().Singleton().Use<Log4NetLogger>();
+			//For<ILog>().Use(LogFactory.Create);
+			//For<IEventLoggingService>().Use(new EventLogLogger("TaskRunner"));
+			For<ILoggingService>().Singleton().Use(LogFactory.CreateLoggingService());
 	
 			#if (DEBUG)
 			For<IBGWebService>().Use<MockBgWebServiceClient>();

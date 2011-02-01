@@ -8,5 +8,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App
 	{
 		public void SendConsent(ConsentToSend consent) { Channel.SendConsent(consent); }
 		public RecievedError[] GetNewErrors() { return Channel.GetNewErrors(); }
+		public RecievedConsent[] GetConsents() { return Channel.GetConsents(); }
+		public void SetConsentHandled(int id) { Channel.SetConsentHandled(id); }
 	}
 }

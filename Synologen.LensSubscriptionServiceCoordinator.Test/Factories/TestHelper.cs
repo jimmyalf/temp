@@ -13,5 +13,14 @@ namespace Synologen.ServiceCoordinator.Test.Factories
 			}
 			yield break;
 		}
+
+		public static T Next<T>(this T src) where T : struct
+		{
+			if (!typeof(T).IsEnum) throw new ArgumentException(String.Format("Argument {0} is Not of enum type", typeof(T).FullName));
+
+			var Arr = (T[])Enum.GetValues(src.GetType());
+			var j = Array.IndexOf(Arr, src) + 1;
+			return (Arr.Length == j) ? Arr[0] : Arr[j];
+		}
 	}
 }

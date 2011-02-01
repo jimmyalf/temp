@@ -73,9 +73,12 @@
     <Compile Include="TestHelpers\RecieveErrorsTaskTestBase.cs" />
     <Compile Include="RecieveErrorsTaskTester.cs" />
     <Compile Include="Factories\TestHelper.cs" />
+    <Compile Include="Factories\ConsentFactory.cs" />
     <Compile Include="LoggingServiceTest.cs" />
+    <Compile Include="ReceiveConsentsTaskTester.cs" />
     <Compile Include="SendConsentsTaskTester.cs" />
     <Compile Include="Factories\SubscriptionFactory.cs" />
+    <Compile Include="TestHelpers\ReceiveConsentsTaskBase.cs" />
     <Compile Include="TestHelpers\SendConsentsTaskTestBase.cs" />
     <Compile Include="TestHelpers\TaskTestBase.cs" />
     <Compile Include="TestHelpers\LoggingServiceTestBase.cs" />
@@ -90,6 +93,9 @@
       <Project>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</Project>
       <Name>Synologen.ServiceCoordinator</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

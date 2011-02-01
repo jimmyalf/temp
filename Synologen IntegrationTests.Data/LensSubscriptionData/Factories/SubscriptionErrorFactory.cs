@@ -1,4 +1,5 @@
 ﻿using System;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -9,10 +10,11 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 		public static SubscriptionError[] GetList(Subscription subscription)
 		{
 			return new[]
-			{
-				new SubscriptionError
-					{
-						Type = SubscriptionErrorType.NoAccount,
+			       	{
+			      new SubscriptionError
+			       	{
+			       		Type = SubscriptionErrorType.NoAccount,
+			       		Code = ConsentInformationCode.AnswerToNewAccountApplication,
 						CreatedDate = new DateTime(2010, 11, 1),
 						HandledDate = new DateTime(2010, 11, 2),
 						IsHandled = true,
@@ -21,6 +23,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 				new SubscriptionError
 					{
 						Type = SubscriptionErrorType.NoCoverage,
+						Code = ConsentInformationCode.InitiatedByPayer,
 						CreatedDate = new DateTime(2010, 11, 2),
 						IsHandled = false,
 						Subscription = subscription
@@ -28,6 +31,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 				new SubscriptionError
 					{
 						Type = SubscriptionErrorType.NotApproved,
+						Code = ConsentInformationCode.InitiatedByPayersBank,
 						CreatedDate = new DateTime(2010, 11, 3),
 						HandledDate = new DateTime(2010, 11, 3),
 						IsHandled = true,
@@ -36,6 +40,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 				new SubscriptionError
 					{
 						Type = SubscriptionErrorType.NotDebitable,
+						Code = ConsentInformationCode.InitiatedByPaymentRecipient,
 						CreatedDate = new DateTime(2010, 11, 4),
 						IsHandled = false,
 						Subscription = subscription
@@ -43,6 +48,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 				new SubscriptionError
 					{
 						Type = SubscriptionErrorType.ConsentMissing,
+						Code = ConsentInformationCode.PaymentRecieversBankGiroAccountClosed,
 						CreatedDate = new DateTime(2010, 11, 5),
 						HandledDate = new DateTime(2010, 11, 5),
 						IsHandled = true, 
@@ -51,6 +57,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 				new SubscriptionError
 					{
 						Type = SubscriptionErrorType.CosentStopped,
+						Code = ConsentInformationCode.AnswerToNewAccountApplication,
 						CreatedDate = new DateTime(2010, 11, 6),
 						IsHandled = false,
 						Subscription = subscription
@@ -63,6 +70,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 			return new SubscriptionError
 			       	{
 			       		Type = SubscriptionErrorType.NotApproved,
+						Code = ConsentInformationCode.InitiatedByPaymentRecipient,
 			       		CreatedDate = new DateTime(2010, 10, 10),
 			       		HandledDate = new DateTime(2010, 11, 10),
 			       		IsHandled = false,
@@ -76,6 +84,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 			subscriptionError.HandledDate = SetHandledDate(subscriptionError.HandledDate);
 			subscriptionError.IsHandled = !subscriptionError.IsHandled;
 			subscriptionError.Type = subscriptionError.Type.Next();
+			subscriptionError.Code = subscriptionError.Code.Next();
 			return subscriptionError;
 		}
 

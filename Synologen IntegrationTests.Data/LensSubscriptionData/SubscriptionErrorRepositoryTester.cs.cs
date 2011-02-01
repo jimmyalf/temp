@@ -45,6 +45,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				
 				savedError.ShouldBe(_errorToSave);
 				savedError.Type.ShouldBe(_errorToSave.Type);
+				savedError.Code.ShouldBe(_errorToSave.Code);
 				savedError.CreatedDate.ShouldBe(_errorToSave.CreatedDate);
 				savedError.HandledDate.ShouldBe(_errorToSave.HandledDate);
 				savedError.IsHandled.ShouldBe(_errorToSave.IsHandled);
@@ -89,6 +90,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 
 				savedError.ShouldBe(_errorToEdit);
 				savedError.Type.ShouldBe(_errorToEdit.Type);
+				savedError.Code.ShouldBe(_errorToEdit.Code);
 				savedError.CreatedDate.ShouldBe(_errorToEdit.CreatedDate);
 				savedError.HandledDate.ShouldBe(_errorToEdit.HandledDate);
 				savedError.IsHandled.ShouldBe(_errorToEdit.IsHandled);

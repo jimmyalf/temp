@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="EditOrder.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.EditOrder" Title="Untitled Page" %>
+ï»¿<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="EditOrder.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.EditOrder" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
     <div id="dCompMain" class="Components-Synologen-EditOrder-aspx">
         <div class="fullBox">
@@ -9,16 +9,16 @@
 					<div class="formItem">
 						<label class="labelShort">Id: </label><span><asp:Literal id="ltOrderNumber" runat="server" /></span><br /><br />
 						<label class="labelShort">SPCS Fakturanummer: </label><span><asp:Literal id="ltSPCSOrderNumber" runat="server" /></span><br /><br />
-						<label class="labelShort">SPCS värde inkl moms: </label><span><asp:Literal id="ltSPCSValueIncludingVAT" runat="server" /></span><br /><br />
-						<label class="labelShort">SPCS värde exkl moms: </label><span><asp:Literal id="ltSPCSValueExcludingVAT" runat="server" /></span><br /><br />					
+						<label class="labelShort">SPCS vÃ¤rde inkl moms: </label><span><asp:Literal id="ltSPCSValueIncludingVAT" runat="server" /></span><br /><br />
+						<label class="labelShort">SPCS vÃ¤rde exkl moms: </label><span><asp:Literal id="ltSPCSValueExcludingVAT" runat="server" /></span><br /><br />					
 						<label class="labelShort">Avtal: </label><span><asp:Literal ID="ltContractName" runat="server" /></span><br /><br />					
 					</div>
 					<div class="formItem">
-						<label class="labelLong">Företag</label>
+						<label class="labelLong">FÃ¶retag</label>
 						<asp:DropDownList ID="drpCompanies" runat="server" DataValueField="cId" DataTextField="cName" OnSelectedIndexChanged="drpCompany_SelectedIndexChanged" AutoPostBack="true"  />
 					</div>
 					<div class="formItem">
-						<label class="labelLong">Kostnadsställe</label>
+						<label class="labelLong">KostnadsstÃ¤lle</label>
 						<asp:TextBox id="txtRST" runat="server" />
 						<asp:RangeValidator ID="vldRST" runat="server" ErrorMessage="RST felaktigt. (Skall vara 5 siffror)" Type="Integer" MinimumValue="10000" MaximumValue="99999" ControlToValidate="txtRST" Display="Dynamic" ValidationGroup="Error">*</asp:RangeValidator>
 						<%--<asp:DropDownList ID="drpRSTs" runat="server" DataValueField="cId" DataTextField="cName" />--%>
@@ -36,7 +36,7 @@
 						<asp:TextBox id="txtUnit" runat="server" />
 					</div>					
 					<div class="formItem clearLeft">
-						<label class="labelLong">Kund förnamn</label>
+						<label class="labelLong">Kund fÃ¶rnamn</label>
 						<asp:TextBox id="txtCustomerFirstName" runat="server" />
 					</div>	
 					<div class="formItem clearLeft">
@@ -61,8 +61,8 @@
 					<div class="formItem">
 						<label class="labelShort">Butik: </label><span><asp:Literal id="ltShopName" runat="server" /></span><br /><br />
 						<label class="labelShort">Registrerad av: </label><span><asp:Literal id="ltmemberName" runat="server" /></span><br /><br />
-						<label class="labelShort">Försäljning registrerad: </label><span><asp:Literal id="ltSaleDate" runat="server" /></span><br /><br />
-						<label class="labelShort">Försäljning uppdaterad: </label><span><asp:Literal id="ltUpdateDate" runat="server" /></span><br /><br />
+						<label class="labelShort">FÃ¶rsÃ¤ljning registrerad: </label><span><asp:Literal id="ltSaleDate" runat="server" /></span><br /><br />
+						<label class="labelShort">FÃ¶rsÃ¤ljning uppdaterad: </label><span><asp:Literal id="ltUpdateDate" runat="server" /></span><br /><br />
 						<label class="labelShort">Markerad som utbetald: </label><span><asp:Literal id="ltMarkedAsPayed" runat="server" /></span>
 					</div>					
 				</div>					
@@ -75,9 +75,9 @@
 						</div>
 						<div class="formItem clearLeft"><label class="labelLong">Antal</label>
 							<asp:DropDownList ID="drpNumberOfItems" runat="server" />
-							<asp:RequiredFieldValidator id="reqNumberOfItems" InitialValue="0" runat="server" errormessage="Antal måste väljas" controltovalidate="drpNumberOfItems" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>			
+							<asp:RequiredFieldValidator id="reqNumberOfItems" InitialValue="0" runat="server" errormessage="Antal mÃ¥ste vÃ¤ljas" controltovalidate="drpNumberOfItems" Display="Dynamic" ValidationGroup="vldAdd">*</asp:RequiredFieldValidator>			
 						</div>
-						<div class="formItem clearLeft"><label class="labelLong">Noteringar</label><asp:TextBox ID="txtNotes" runat="server" />&nbsp;<asp:Button ID="btnAddArticle"  runat="server" OnClick="btnAdd_Click" ValidationGroup="vldAdd" Text="Lägg till" /></div>
+						<div class="formItem clearLeft"><label class="labelLong">Noteringar</label><asp:TextBox ID="txtNotes" runat="server" />&nbsp;<asp:Button ID="btnAddArticle"  runat="server" OnClick="btnAdd_Click" ValidationGroup="vldAdd" Text="LÃ¤gg till" /></div>
 					</div>  		        
 					<label class="labelLong">Orderrader</label>
 					<asp:GridView ID="gvOrderItems" OnRowDeleting="gvOrderItems_Deleting"	runat="server" DataKeyNames="Id,TemporaryId" SkinID="Striped" >
@@ -93,14 +93,14 @@
 									<asp:Image id="imgVATFree" runat="server" />
 								</ItemTemplate>
 							</asp:TemplateField>
-							<asp:BoundField headerText="Noteringar" DataField="CustomerNotes"/>
+							<asp:BoundField headerText="Noteringar" DataField="Notes"/>
 							<asp:ButtonField headertext="Radera" commandname="Delete"  Text="Radera"   HeaderStyle-CssClass="controlColumn" ControlStyle-CssClass="btnSmall"  ItemStyle-HorizontalAlign="Center"/>
 						</Columns>
 					</asp:GridView>
 					<asp:CustomValidator ID="vldCheckAnyOrderItems" OnServerValidate="OrderItemsValidation" runat="server" ErrorMessage="Orderrader saknas." Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:CustomValidator>
 					<br /><br />
 					<div class="formItem clearLeft">
-						<label class="labelLong">Försäljningshistorik</label>
+						<label class="labelLong">FÃ¶rsÃ¤ljningshistorik</label>
 						<asp:Repeater ID="rptOrderHistory" runat="server">
 						<HeaderTemplate><ul id="order-history"></HeaderTemplate>
 						<ItemTemplate><li><%# DataBinder.Eval(Container.DataItem, "cCreatedDate","{0:yyyy-MM-dd HH:mm}") %>:&nbsp;&nbsp;<%# DataBinder.Eval(Container.DataItem, "cText") %></li></ItemTemplate>
@@ -117,7 +117,7 @@
 						<input type="button" name="inputBack" class="btnBig" onclick="javascript:window.history.back();" value="Tillbaka" />					
 					    <asp:button ID="btnSave" runat="server" CommandName="Save" OnClick="btnSave_Click" Text="Spara" SkinId="Big" CausesValidation="true" ValidationGroup="vldSubmit"/>
 					    <asp:Button ID="btnAbort" runat="server" Text="Avbryt order" OnClick="btnAbort_Click" SkinId="Big" />
-					    <asp:Button ID="btnHalt" runat="server" Text="Sätt som vilande" OnClick="btnHalt_Click" SkinId="Big" />
+					    <asp:Button ID="btnHalt" runat="server" Text="SÃ¤tt som vilande" OnClick="btnHalt_Click" SkinId="Big" />
 						<asp:Button ID="btnAbortHalt" runat="server" Text="Avbryt vilande" OnClick="btnAbortHalt_Click" SkinId="Big" />
 					</div>
 					

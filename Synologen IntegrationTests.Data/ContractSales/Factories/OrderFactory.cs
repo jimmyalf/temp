@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
@@ -33,7 +34,11 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories
 					GetOrderItem(articleId, 0),
 					GetOrderItem(articleId, 0),
 					GetOrderItem(articleId, 0),
-				}
+				},
+                CompanyUnit = "1234",
+                CustomerFirstName = "Adam",
+				CustomerLastName = "Bertil",
+                PersonalIdNumber = "197010245111"
 			};
 			order.InvoiceSumExcludingVAT = order.OrderItems.Sum(x => x.DisplayTotalPrice);
 			order.InvoiceSumIncludingVAT = order.InvoiceSumExcludingVAT * 1.25F;

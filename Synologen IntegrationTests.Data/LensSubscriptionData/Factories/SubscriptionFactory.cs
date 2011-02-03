@@ -27,14 +27,36 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
                 {
                 	AccountNumber = "123546789",
                     ClearingNumber = "1122",
-                    MonthlyAmount = 595
+                    MonthlyAmount = 595,
+					PaymentSentDate = new DateTime(2010, 11, 28)
                 },
                 Customer = customer,
 				Active = isActive,
 				Notes = "Till varje abonnemang hör ett anteckningsfält",
-                ConsentStatus = consentStatus
+                ConsentStatus = consentStatus,
 			};
 		}
+
+		public static Subscription Get(Customer customer, bool isActive, SubscriptionConsentStatus consentStatus, DateTime? paymentSent)
+		{
+			return new Subscription
+			{
+				ActivatedDate = new DateTime(2010, 10, 18),
+				CreatedDate = new DateTime(2010, 10, 01),
+				PaymentInfo = new SubscriptionPaymentInfo
+				{
+					AccountNumber = "123546789",
+					ClearingNumber = "1122",
+					MonthlyAmount = 595,
+					PaymentSentDate = paymentSent
+				},
+				Customer = customer,
+				Active = isActive,
+				Notes = "Till varje abonnemang hör ett anteckningsfält",
+				ConsentStatus = consentStatus,
+			};
+		}
+
 
 		public static Subscription Edit(Subscription subscription) 
 		{
@@ -46,6 +68,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 			subscription.Active = !subscription.Active;
 			subscription.Notes = subscription.Notes.Reverse();
 			subscription.ConsentStatus = subscription.ConsentStatus.Next();
+			subscription.PaymentInfo.PaymentSentDate = subscription.PaymentInfo.PaymentSentDate.Value.AddMonths(1);
 			return subscription;
 		}
 	}

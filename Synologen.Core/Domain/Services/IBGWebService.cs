@@ -15,8 +15,10 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		[OperationContract]
 		void SetConsentHandled(int id);
 
-
 		[OperationContract]
 		RecievedError[] GetNewErrors();
+
+		[OperationContract]
+		void SendPayment(PaymentToSend payment);
 	}
 }

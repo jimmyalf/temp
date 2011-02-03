@@ -90,6 +90,7 @@
     <Compile Include="Tasks\ReceiveConsentsTask.cs" />
     <Compile Include="Tasks\ReceiveErrorsTask.cs" />
     <Compile Include="Tasks\SendConsentsTask.cs" />
+    <Compile Include="Tasks\SendPaymentsTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">

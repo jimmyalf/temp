@@ -104,6 +104,7 @@
     <Compile Include="Repositories\CriteriaConverters\ContractSales\AllContractSalesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllActiveTransactionArticlesCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllSubscriptionsToSendConsentsForCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllSubscriptionsToSendPaymentsForCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllTransactionsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllUnhandledSubscriptionErrorsForShopCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\CustomersForShopMatchingCriteriaConverter.cs" />

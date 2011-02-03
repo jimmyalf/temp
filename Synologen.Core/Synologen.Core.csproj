@@ -154,6 +154,7 @@
     <Compile Include="Domain\Persistence\Criterias\ContractSales\AllContractSalesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllActiveTransactionArticlesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsToSendConsentsForCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsToSendPaymentsForCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllTransactionsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllUnhandledSubscriptionErrorsForShopCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\CustomersForShopMatchingCriteria.cs" />

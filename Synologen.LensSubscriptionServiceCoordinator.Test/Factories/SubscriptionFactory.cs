@@ -18,6 +18,7 @@ namespace Synologen.ServiceCoordinator.Test.Factories
 			mockedSubscription.SetupProperty(x => x.Customer.PersonalIdNumber, "197502065019");
 			mockedSubscription.SetupProperty(x => x.PaymentInfo.ClearingNumber, "0123");
 			mockedSubscription.SetupProperty(x => x.PaymentInfo.AccountNumber, "12345678");
+			mockedSubscription.SetupProperty(x => x.PaymentInfo.MonthlyAmount, 399);
 			mockedSubscription.SetupProperty(x => x.ConsentStatus);
 			mockedSubscription.SetupProperty(x => x.ActivatedDate);
 			return mockedSubscription.Object;

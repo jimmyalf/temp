@@ -18,6 +18,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.LensSubscri
 				m.Map(x => x.AccountNumber);
 				m.Map(x => x.ClearingNumber);
 				m.Map(x => x.MonthlyAmount);
+				m.Map(x => x.PaymentSentDate)
+					.Nullable();
 			});
 			References(x => x.Customer)
 				.Cascade.None()

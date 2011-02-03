@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\ErrorFactory.cs" />
+    <Compile Include="SendPaymentsTaskTester.cs" />
     <Compile Include="TestHelpers\RecieveErrorsTaskTestBase.cs" />
     <Compile Include="RecieveErrorsTaskTester.cs" />
     <Compile Include="Factories\TestHelper.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Factories\SubscriptionFactory.cs" />
     <Compile Include="TestHelpers\ReceiveConsentsTaskBase.cs" />
     <Compile Include="TestHelpers\SendConsentsTaskTestBase.cs" />
+    <Compile Include="TestHelpers\SendPaymentsTaskTestBase.cs" />
     <Compile Include="TestHelpers\TaskTestBase.cs" />
     <Compile Include="TestHelpers\LoggingServiceTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

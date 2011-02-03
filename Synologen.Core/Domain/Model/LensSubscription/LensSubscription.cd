@@ -12,24 +12,19 @@
         <Position X="-0.721" Y="0.381" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="Subscriptions" Type="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="2.812" Y="2.812" />
-        <Point X="2.812" Y="3.562" />
-        <Point X="4" Y="3.562" />
-      </Path>
+    <AssociationLine Name="Subscriptions" Type="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.568" Y="-0.263" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAACAAAAAAAAACAAAACAAAEAgAAAAg=</HashCode>
+      <HashCode>AAAgAEAAAAAAAAAACAAAAAAAAACAAAACAAAEAgAAAAg=</HashCode>
       <FileName>Domain\Model\LensSubscription\Customer.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
+      <Property Name="Shop" />
       <Property Name="Contact" />
       <Property Name="Address" />
-      <Property Name="Shop" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Subscriptions" />
@@ -53,7 +48,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAIAAAAIAAAAAAACAAAAAAAAAAwAAAAAAAAA=</HashCode>
+      <HashCode>AAEAAAAAAIAAAAIAAAAAEACAEAAAAAAAAwAAAAAAAAA=</HashCode>
       <FileName>Domain\Model\LensSubscription\SubscriptionTransaction.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -86,19 +81,13 @@
         <Position X="-1.557" Y="0.633" Height="0.16" Width="0.982" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="Status" Type="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.SubscriptionStatus">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.767" Y="0.403" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>ACGAAAAEAAAAAQAAAAAAAAAAAAAQAAAAAgAAAAAAAAA=</HashCode>
+      <HashCode>ACGgAAAAAAAAAQAAAAAAAAAAAAAQAAAoAgAAAAAAAAA=</HashCode>
       <FileName>Domain\Model\LensSubscription\Subscription.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Customer" />
       <Property Name="PaymentInfo" />
-      <Property Name="Status" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Transactions" />
@@ -136,7 +125,7 @@
   <Class Name="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.SubscriptionPaymentInfo">
     <Position X="7.5" Y="3.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAQAAAAAAAAgAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAEAAAAQAAAAAAAAgAAAAAAAAAgBAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Model\LensSubscription\SubscriptionPaymentInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -150,7 +139,7 @@
   <Enum Name="Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.SubscriptionStatus">
     <Position X="7.5" Y="5.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAQhAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Model\LensSubscription\SubscriptionStatus.cs</FileName>
     </TypeIdentifier>
   </Enum>

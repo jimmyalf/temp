@@ -74,8 +74,17 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		[EnumDisplayName("Begäran om autogiro-medgivande cancellerades")]
 		Canceled = 23,
 
+		[EnumDisplayName("Betalning avvisades, täckning saknades")]
+		PaymentRejectedInsufficientFunds = 24,
+
+		[EnumDisplayName("Betalning avvisades, AG-koppling saknas (kontot avslutat eller makulerat av betalaren i internetbanken)")]
+		PaymentRejectedAgConnectionMissing = 25,
+		
+		[EnumDisplayName("Betalning avvisades, AG-koppling saknas (kontot avslutat eller makulerat av betalaren i internetbanken)")]
+		PaymentFailureWillTryAgain = 26,
+
 		[EnumDisplayName("Okänt fel")]
-		Unknown = 24,
+		Unknown = 27,
 
 	}
 }

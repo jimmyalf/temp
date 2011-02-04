@@ -108,10 +108,11 @@
     <Compile Include="Domain\Model\Autogiro\Send\Payment.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
     <Compile Include="Domain\Model\BGWebService\ConsentToSend.cs" />
+    <Compile Include="Domain\Model\BGWebService\Enums.cs" />
     <Compile Include="Domain\Model\BGWebService\PaymentToSend.cs" />
     <Compile Include="Domain\Model\BGWebService\RecievedConsent.cs" />
     <Compile Include="Domain\Model\BGWebService\RecievedError.cs" />
-    <Compile Include="Domain\Model\BGWebService\RecievedPayment.cs" />
+    <Compile Include="Domain\Model\BGWebService\ReceivedPayment.cs" />
     <Compile Include="Domain\Model\ContractSales\Article.cs" />
     <Compile Include="Domain\Model\ContractSales\ContractCompany.cs" />
     <Compile Include="Domain\Model\ContractSales\ContractSale.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Domain\Model\FrameOrder\Shop.cs" />
     <Compile Include="Domain\Model\FrameOrder\ShopAddress.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameStock.cs" />
+    <Compile Include="Domain\Model\LensSubscription\ConsentInformationCode.cs" />
     <Compile Include="Domain\Model\LensSubscription\Country.cs" />
     <Compile Include="Domain\Model\LensSubscription\Customer.cs" />
     <Compile Include="Domain\Model\LensSubscription\CustomerAddress.cs" />

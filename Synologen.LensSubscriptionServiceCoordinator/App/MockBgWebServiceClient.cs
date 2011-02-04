@@ -12,5 +12,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App
 		public void SendPayment(PaymentToSend payment) { return; }
 		public RecievedConsent[] GetConsents() { return new RecievedConsent[]{}; }
 		public void SetConsentHandled(int id) { return; }
+		public ReceivedPayment[] GetPayments() { return new ReceivedPayment[]{}; }
+		public void SetPaymentHandled(int id) { return; }
 	}
 }

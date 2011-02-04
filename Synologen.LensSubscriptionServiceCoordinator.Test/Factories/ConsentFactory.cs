@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -21,7 +20,7 @@ namespace Synologen.ServiceCoordinator.Test.Factories
 		{
 			var consent = new RecievedConsent
 			              	{
-								SubscriptionId = subscriptionId,
+								PayerId = subscriptionId,
 			              		ConsentId = id,
 			              		ActionDate = DateTime.Now.AddDays(-2),
 			              		ConsentValidForDate = DateTime.Now.AddDays(1),
@@ -35,7 +34,7 @@ namespace Synologen.ServiceCoordinator.Test.Factories
 		{
 			var consent = new RecievedConsent
 			{
-				SubscriptionId = id,
+				PayerId = id,
 				ActionDate = DateTime.Now.AddDays(-2),
 				ConsentValidForDate = DateTime.Now.AddDays(1),
 				InformationCode = InformationCode.Next(),

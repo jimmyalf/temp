@@ -7,6 +7,8 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
+using Spinit.Extensions;
+using PaymentType=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.PaymentType;
 
 namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 {
@@ -28,10 +30,8 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 			{
 				var subscriptions = _subscriptionRepository.FindBy(new AllSubscriptionsToSendPaymentsForCriteria()) ?? Enumerable.Empty<Subscription>();
 				LogDebug("Fetched {0} subscriptions to send payments for", subscriptions.Count());
-				foreach (var subscription in subscriptions)
-				{
-					SendPaymentAndUpdateSubscriptionPaymentDate(subscription);
-				}
+				
+				subscriptions.Each(SendPaymentAndUpdateSubscriptionPaymentDate);
 			});
 		}
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using FluentNHibernate.Mapping;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.LensSubscriptions

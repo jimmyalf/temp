@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Synologen.ServiceCoordinator.Test.Factories;
@@ -55,35 +55,21 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
+		public void Task_fetches_matching_subscriptions_from_repository()
+		{
+			expectedConsents.Each(recievedConsent =>
+				MockedSubscriptionRepository.Verify(x =>
+					x.Get(It.Is<int>(id => id.Equals(recievedConsent.PayerId))
+			)));
+		}
+
+		[Test]
 		public void Task_sends_consenthandled_to_webservice()
 		{
 			MockedWebServiceClient.Verify(
 				x => x.SetConsentHandled(It.IsAny<int>()),
 				Times.Exactly(expectedConsents.Count())
 			);
-		}
-	}
-
-	[TestFixture]
-	public class When_receiving_consents_replies : ReceiveConsentsTaskBase
-	{
-		private IEnumerable<RecievedConsent> expectedConsents;
-		private Subscription expectedSubscription;
-		private static int subscriptionId = 1;
-
-		public When_receiving_consents_replies()
-		{
-			Context = () =>
-			{
-				expectedConsents = ConsentFactory.GetList(subscriptionId);
-				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
-
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(expectedConsents.ToArray);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(It.IsAny<int>()))
-					.Returns(expectedSubscription);
-			};
-			Because = task => task.Execute();
 		}
 
 		[Test]
@@ -93,6 +79,7 @@ namespace Synologen.ServiceCoordinator.Test
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.IsAny<SubscriptionError>()), Times.Exactly(17));
 		}
 	}
+
 
 	[TestFixture]
 	public class When_receiving_consent_accepted : ReceiveConsentsTaskBase
@@ -150,7 +137,7 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
@@ -158,7 +145,7 @@ namespace Synologen.ServiceCoordinator.Test
 		[Test]
 		public void task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -192,15 +179,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -234,15 +221,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -276,15 +263,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -318,15 +305,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -360,15 +347,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -401,15 +388,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -442,15 +429,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -483,15 +470,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -525,15 +512,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -567,15 +554,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -609,15 +596,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -651,15 +638,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -693,15 +680,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -735,15 +722,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));
@@ -777,15 +764,15 @@ namespace Synologen.ServiceCoordinator.Test
 		}
 
 		[Test]
-		public void subscription_is_updated_with_consentstatus()
+		public void Subscription_is_updated_with_consentstatus()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Denied))));
 		}
 
 		[Test]
-		public void task_adds_subscription_error_with_expected_type()
+		public void Task_adds_subscription_error_with_expected_type()
 		{
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(receivedConsent.InformationCode))));
+			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.Code.Equals(GetSubscriptionErrorInformationCode(receivedConsent.InformationCode)))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.HandledDate.Equals(null))));
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.Is<SubscriptionError>(subscriptionError => subscriptionError.IsHandled.Equals(false))));

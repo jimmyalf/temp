@@ -1,11 +1,11 @@
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService
 {
-	public class PaymentToSend
+	public class ReceivedPayment
 	{
+		public int PaymentId { get; set; }
 		public int PayerId { get; set; }
-		public PaymentType Type { get; set; }
 		public decimal Amount { get; set; }
-		public string Reference { get; set; }
+		public PaymentResult Result { get; set; }
 	}
 }

@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
+using Spinit.Extensions;
+using ConsentCommentCode=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentCommentCode;
+using ConsentInformationCode=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.ConsentInformationCode;
 
 namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 {
@@ -26,30 +30,35 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 		{
 			RunLoggedTask(() =>
           	{
-          		RecievedConsent[] consents = _bgWebService.GetConsents();
-          		LogDebug("Fetched {0} consent replies from bgc server", consents.Length);
+				var consents = _bgWebService.GetConsents() ?? Enumerable.Empty<RecievedConsent>();
+          		LogDebug("Fetched {0} consent replies from bgc server", consents.Count());
 
-          		foreach (var consent in consents)
-          		{
-          			var subscription = _subscriptionRepository.Get(consent.SubscriptionId);
-          			SubscriptionErrorType errorTypeCode = SubscriptionErrorType.Unknown;
-
-          			bool isConsented = GetSubscriptionErrorType(consent.CommentCode, ref errorTypeCode);
-
-          			if (isConsented)
-          			{
-          				UpdateSubscription(subscription, consent, true);
-          				LogDebug("Consent for subscription with id \"{0}\" was accepted.", subscription.Id);
-          			}
-          			else
-          			{
-          				SaveSubscriptionError(subscription, errorTypeCode, consent);
-          				UpdateSubscription(subscription, consent, false);
-          				LogDebug("Consent for subscription with id \"{0}\" was denied.", subscription.Id);
-          			}
-					_bgWebService.SetConsentHandled(consent.ConsentId);
-          		}
+          		consents.Each(consent =>
+              	{
+              		SaveConsent(consent);
+              		_bgWebService.SetConsentHandled(consent.ConsentId);
+              	});
           	});
+		}
+
+		private void SaveConsent(RecievedConsent consent)
+		{
+			var subscription = _subscriptionRepository.Get(consent.PayerId);
+			SubscriptionErrorType errorTypeCode = SubscriptionErrorType.Unknown;
+
+			bool isConsented = GetSubscriptionErrorType(consent.CommentCode, ref errorTypeCode);
+
+			if (isConsented)
+			{
+				UpdateSubscription(subscription, consent, true);
+				LogDebug("Consent for subscription with id \"{0}\" was accepted.", subscription.Id);
+			}
+			else
+			{
+				SaveSubscriptionError(subscription, errorTypeCode, consent);
+				UpdateSubscription(subscription, consent, false);
+				LogDebug("Consent for subscription with id \"{0}\" was denied.", subscription.Id);
+			}
 		}
 
 		private void SaveSubscriptionError(Subscription subscription, SubscriptionErrorType errorTypeCode, RecievedConsent consent)
@@ -58,10 +67,28 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 					                        	{
 					                        		Subscription = subscription,
 					                        		Type = errorTypeCode,
-					                        		Code = consent.InformationCode,
+					                        		Code = GetSubscriptionErrorInformationCode(consent.InformationCode),
 					                        		CreatedDate = DateTime.Now
 					                        	};
 			_subscriptionErrorRepository.Save(subscriptionError);
+		}
+
+		private static ConsentInformationCode? GetSubscriptionErrorInformationCode(Core.Domain.Model.BGWebService.ConsentInformationCode? code)
+		{
+			switch (code)
+			{
+				case Core.Domain.Model.BGWebService.ConsentInformationCode.AnswerToNewAccountApplication:
+					return ConsentInformationCode.AnswerToNewAccountApplication;
+				case Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPayer:
+					return ConsentInformationCode.InitiatedByPayer;
+				case  Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPayersBank:
+					return ConsentInformationCode.InitiatedByPayersBank;
+				case Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPaymentRecipient:
+					return ConsentInformationCode.InitiatedByPaymentRecipient;
+				case Core.Domain.Model.BGWebService.ConsentInformationCode.PaymentRecieversBankGiroAccountClosed:
+					return ConsentInformationCode.PaymentRecieversBankGiroAccountClosed;
+			}
+			throw new ArgumentOutOfRangeException("code");
 		}
 
 		private void UpdateSubscription(Subscription subscription, RecievedConsent consent, bool isAccepted)
@@ -72,10 +99,10 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 			_subscriptionRepository.Save(subscription);
 		}
 
-		private static bool GetSubscriptionErrorType(ConsentCommentCode commentCode, ref SubscriptionErrorType errorTypeCode)
+		private static bool GetSubscriptionErrorType(ConsentCommentCode commentType, ref SubscriptionErrorType errorTypeCode)
 		{
 			bool isConsented;
-			switch (commentCode)
+			switch (commentType)
 			{
 				case ConsentCommentCode.NewConsent:
 					isConsented = true;
@@ -149,9 +176,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 					isConsented = false;
 					break;
 				default:
-					errorTypeCode = SubscriptionErrorType.Unknown;
-					isConsented = false;
-					break;
+					throw new ArgumentOutOfRangeException("errorTypeCode");
 			}
 			return isConsented;
 		}

@@ -20,5 +20,11 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 
 		[OperationContract]
 		void SendPayment(PaymentToSend payment);
+
+		[OperationContract]
+		ReceivedPayment[] GetPayments();
+
+		[OperationContract]
+		void SetPaymentHandled(int id);
 	}
 }

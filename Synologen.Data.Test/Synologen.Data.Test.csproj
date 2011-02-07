@@ -145,11 +145,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
+    <ProjectReference Include="..\Synologen.Business\Synologen.Business.csproj">
       <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
       <Name>Synologen Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Data\Synologen Data.csproj">
+    <ProjectReference Include="..\Synologen.Data\Synologen.Data.csproj">
       <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
       <Name>Synologen Data</Name>
     </ProjectReference>

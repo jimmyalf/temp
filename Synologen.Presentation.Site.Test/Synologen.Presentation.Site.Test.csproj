@@ -126,11 +126,11 @@
     <Compile Include="FrameOrderTests\ServiceFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen Business\Synologen.Business.csproj">
+    <ProjectReference Include="..\Synologen.Business\Synologen.Business.csproj">
       <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
       <Name>Synologen.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Site\Synologen.Presentation.Site.csproj">
+    <ProjectReference Include="..\Synologen.Presentation.Site\Synologen.Presentation.Site.csproj">
       <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
       <Name>Synologen.Presentation.Site</Name>
     </ProjectReference>

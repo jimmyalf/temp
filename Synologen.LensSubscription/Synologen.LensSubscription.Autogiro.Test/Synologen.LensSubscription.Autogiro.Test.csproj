@@ -8,8 +8,8 @@
     <ProjectGuid>{58BC1C43-F7A7-42C4-AF4F-2052349493B4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.Autogiro.Test</RootNamespace>
-    <AssemblyName>Spinit.Wpc.Synologen.Autogiro.Test</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Test</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -67,7 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen.LensSubscription.Autogiro\Synologen.Autogiro.csproj">
+    <ProjectReference Include="..\Synologen.LensSubscription.Autogiro\Synologen.LensSubscription.Autogiro.csproj">
       <Project>{2E5D8A26-6535-4A7A-A5CE-794614C41A27}</Project>
       <Name>Synologen.Autogiro</Name>
     </ProjectReference>

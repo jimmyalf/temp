@@ -67,15 +67,15 @@
     <Compile Include="SvefakturaValidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
+    <ProjectReference Include="..\..\Synologen Business\Synologen Business.csproj">
       <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
       <Name>Synologen Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen EDI\Synologen EDI.csproj">
+    <ProjectReference Include="..\Synologen.ContractSale.EDI\Synologen EDI.csproj">
       <Project>{8554B3AF-CA2A-499F-B921-A80804B99056}</Project>
       <Name>Synologen EDI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Svefaktura\Synologen Svefaktura.csproj">
+    <ProjectReference Include="..\Synologen.ContractSale.Svefaktura\Synologen Svefaktura.csproj">
       <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
       <Name>Synologen Svefaktura</Name>
     </ProjectReference>

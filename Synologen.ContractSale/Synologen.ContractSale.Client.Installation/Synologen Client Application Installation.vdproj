@@ -639,7 +639,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6A3787F85F3F4104B0AF219DE5328155"
             {
-            "SourcePath" = "8:..\\Dependancies\\Client Dependencies\\UninstallClient.txt"
+            "SourcePath" = "8:..\\..\\Dependancies\\Client Dependencies\\UninstallClient.txt"
             "TargetName" = "8:UninstallClient.lnk"
             "Tag" = "8:"
             "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
@@ -690,7 +690,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7C21CB1864414741BFAC06F11BDEA4D4"
             {
-            "SourcePath" = "8:..\\Dependancies\\Client Dependencies\\install-logo.jpg"
+            "SourcePath" = "8:..\\..\\Dependancies\\Client Dependencies\\install-logo.jpg"
             "TargetName" = "8:install-logo.jpg"
             "Tag" = "8:"
             "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
@@ -741,7 +741,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8B0980AAC5B74880AA2718AC2E486F7C"
             {
-            "SourcePath" = "8:..\\Dependancies\\Client Dependencies\\Synologen.Client.exe.config"
+            "SourcePath" = "8:..\\..\\Dependancies\\Client Dependencies\\Synologen.Client.exe.config"
             "TargetName" = "8:Synologen.Client.exe.config"
             "Tag" = "8:"
             "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
@@ -885,7 +885,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C6DDE8D1F2F743DC9053F51DB4C2990E"
             {
-            "SourcePath" = "8:..\\Dependancies\\Synologen ADK\\Adk.dll"
+            "SourcePath" = "8:..\\..\\Dependancies\\Synologen ADK\\Adk.dll"
             "TargetName" = "8:Adk.dll"
             "Tag" = "8:"
             "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
@@ -1040,7 +1040,7 @@
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:..\\Dependancies\\Synologen ADK\\AdkNetWrapper.dll"
+            "SourcePath" = "8:..\\..\\Dependancies\\Synologen ADK\\AdkNetWrapper.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_3058A739B96248FB87B1674B792E849A"

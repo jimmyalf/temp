@@ -1,3 +1,2 @@
-set rootPath=%~dp0..
-xcopy "%rootPath%\Dependancies\Spinit ADK\Adk.dll" 	"%rootPath%\Synologen Client\bin\Debug\" /R /K /Y /Q
-xcopy "%rootPath%\Dependancies\Spinit ADK\Adk.dll" 	"%rootPath%\Synologen Client\bin\Release\" /R /K /Y /Q
+xcopy "%1..\..\Dependancies\Spinit ADK\Adk.dll" 	"bin\Debug\" /R /K /Y /Q
+xcopy "%1..\..\Dependancies\Spinit ADK\Adk.dll" 	"bin\Release\" /R /K /Y /Q

@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Build\Output\</OutputPath>
+    <OutputPath>..\..\Build\Output\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,7 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Build\Output\</OutputPath>
+    <OutputPath>..\..\Build\Output\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,23 +35,23 @@
   <ItemGroup>
     <Reference Include="nunit.framework, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
+      <HintPath>..\..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -124,39 +124,39 @@
     <Compile Include="EDI\TestEDI.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
+    <ProjectReference Include="..\..\Synologen Business\Synologen Business.csproj">
       <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
       <Name>Synologen Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Data\Synologen Data.csproj">
+    <ProjectReference Include="..\..\Synologen Data\Synologen Data.csproj">
       <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
       <Name>Synologen Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen EDI\Synologen EDI.csproj">
+    <ProjectReference Include="..\Synologen.ContractSale.EDI\Synologen EDI.csproj">
       <Project>{8554B3AF-CA2A-499F-B921-A80804B99056}</Project>
       <Name>Synologen EDI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen ServiceLibrary\Synologen ServiceLibrary.csproj">
+    <ProjectReference Include="..\Synologen.ContractSale.ServiceLibrary\Synologen ServiceLibrary.csproj">
       <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
       <Name>Synologen ServiceLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Site\Synologen Site.csproj">
+    <ProjectReference Include="..\..\Synologen Site\Synologen Site.csproj">
       <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
       <Name>Synologen Site</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Svefaktura\Synologen Svefaktura.csproj">
+    <ProjectReference Include="..\Synologen.ContractSale.Svefaktura\Synologen Svefaktura.csproj">
       <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
       <Name>Synologen Svefaktura</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Utility\Synologen Invoicing Utility.csproj">
+    <ProjectReference Include="..\Synologen.ContractSale.Utility\Synologen Invoicing Utility.csproj">
       <Project>{84326EE0-5F6E-4133-A852-AF781AF74682}</Project>
       <Name>Synologen Invoicing Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Visma\Synologen Visma.csproj">
+    <ProjectReference Include="..\..\Synologen Visma\Synologen Visma.csproj">
       <Project>{F83AEC3E-114B-42F9-AF36-12B985FB1EFC}</Project>
       <Name>Synologen Visma</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen WebService\Synologen WebService.csproj">
+    <ProjectReference Include="..\Synologen.ContractSale.WebService\Synologen WebService.csproj">
       <Project>{74466C1B-0F03-4356-BA44-CF8983F5347E}</Project>
       <Name>Synologen WebService</Name>
     </ProjectReference>

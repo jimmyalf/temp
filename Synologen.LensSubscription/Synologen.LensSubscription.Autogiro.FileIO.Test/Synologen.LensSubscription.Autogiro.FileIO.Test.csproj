@@ -8,8 +8,8 @@
     <ProjectGuid>{525B913E-0792-4103-B7FF-A62D93F9BB72}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.Integration.FileIO.Test</RootNamespace>
-    <AssemblyName>Spinit.Wpc.Synologen.Integration.FileIO.Test</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.LensSubscription.Autogiro.FileIO.Test</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.LensSubscription.Autogiro.FileIO.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -76,7 +76,7 @@
     <Content Include="ReadTestfiles\Autogiro\AGP Layout F.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen.LensSubscription.Autogiro\Synologen.Autogiro.csproj">
+    <ProjectReference Include="..\Synologen.LensSubscription.Autogiro\Synologen.LensSubscription.Autogiro.csproj">
       <Project>{2E5D8A26-6535-4A7A-A5CE-794614C41A27}</Project>
       <Name>Synologen.Autogiro</Name>
     </ProjectReference>

@@ -8,8 +8,8 @@
     <ProjectGuid>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator</RootNamespace>
-    <AssemblyName>Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Program</StartupObject>
@@ -119,7 +119,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
-    <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-LensSubscriptionServiceCoordinator.bat"</PostBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

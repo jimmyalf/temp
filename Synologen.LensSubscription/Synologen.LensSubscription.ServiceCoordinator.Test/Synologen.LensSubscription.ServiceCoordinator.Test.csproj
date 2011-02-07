@@ -8,8 +8,8 @@
     <ProjectGuid>{518FC91C-EF3B-444F-9B2C-A8DA26A3C90F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen.ServiceCoordinator.Test</RootNamespace>
-    <AssemblyName>Synologen.ServiceCoordinator.Test</AssemblyName>
+    <RootNamespace>Synologen.LensSubscription.ServiceCoordinator.Test</RootNamespace>
+    <AssemblyName>Synologen.LensSubscription.ServiceCoordinator.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -94,7 +94,7 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.LensSubscription.ServiceCoordinator\Synologen.LensSubscriptionServiceCoordinator.csproj">
+    <ProjectReference Include="..\Synologen.LensSubscription.ServiceCoordinator\Synologen.LensSubscription.ServiceCoordinator.csproj">
       <Project>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</Project>
       <Name>Synologen.ServiceCoordinator</Name>
     </ProjectReference>

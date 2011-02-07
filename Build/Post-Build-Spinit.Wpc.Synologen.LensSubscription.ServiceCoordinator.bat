@@ -1,8 +1,7 @@
-set rootPath=%~dp0..\..
-xcopy "%rootPath%\Dependancies\FluentNHibernate\NHibernate.ByteCode.Castle.dll" 	"%rootPath%\Synologen.LensSubscription\Synologen.LensSubscription.ServiceCoordinator\bin\Debug\" /R /K /Y /Q
-xcopy "%rootPath%\Dependancies\FluentNHibernate\Castle.DynamicProxy2.dll" 			"%rootPath%\Synologen.LensSubscription\Synologen.LensSubscription.ServiceCoordinator\bin\Debug\" /R /K /Y /Q
-xcopy "%rootPath%\Dependancies\FluentNHibernate\Castle.Core.dll" 					"%rootPath%\Synologen.LensSubscription\Synologen.LensSubscription.ServiceCoordinator\bin\Debug\" /R /K /Y /Q
+xcopy "%1..\..\Dependancies\FluentNHibernate\NHibernate.ByteCode.Castle.dll" 	"%1bin\Debug\" /R /K /Y /Q
+xcopy "%1..\..\Dependancies\FluentNHibernate\Castle.DynamicProxy2.dll" 			"%1bin\Debug\" /R /K /Y /Q
+xcopy "%1..\..\Dependancies\FluentNHibernate\Castle.Core.dll" 					"%1bin\Debug\" /R /K /Y /Q
 
-xcopy "%rootPath%\Dependancies\FluentNHibernate\NHibernate.ByteCode.Castle.dll" 	"%rootPath%\Synologen.LensSubscription\Synologen.LensSubscription.ServiceCoordinator\bin\Release\" /R /K /Y /Q
-xcopy "%rootPath%\Dependancies\FluentNHibernate\Castle.DynamicProxy2.dll" 			"%rootPath%\Synologen.LensSubscription\Synologen.LensSubscription.ServiceCoordinator\bin\Release\" /R /K /Y /Q
-xcopy "%rootPath%\Dependancies\FluentNHibernate\Castle.Core.dll" 					"%rootPath%\Synologen.LensSubscription\Synologen.LensSubscription.ServiceCoordinator\bin\Release\" /R /K /Y /Q
+xcopy "%1..\..\Dependancies\FluentNHibernate\NHibernate.ByteCode.Castle.dll" 	"%1bin\Release\" /R /K /Y /Q
+xcopy "%1..\..\Dependancies\FluentNHibernate\Castle.DynamicProxy2.dll" 			"%1bin\Release\" /R /K /Y /Q
+xcopy "%1..\..\Dependancies\FluentNHibernate\Castle.Core.dll" 					"%1bin\Release\" /R /K /Y /Q

@@ -78,7 +78,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Synologen.LensSubscription.Autogiro\Synologen.LensSubscription.Autogiro.csproj">
       <Project>{2E5D8A26-6535-4A7A-A5CE-794614C41A27}</Project>
-      <Name>Synologen.Autogiro</Name>
+      <Name>Synologen.LensSubscription.Autogiro</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>

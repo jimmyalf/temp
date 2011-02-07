@@ -96,7 +96,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Synologen.LensSubscription.ServiceCoordinator\Synologen.LensSubscription.ServiceCoordinator.csproj">
       <Project>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</Project>
-      <Name>Synologen.ServiceCoordinator</Name>
+      <Name>Synologen.LensSubscription.ServiceCoordinator</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

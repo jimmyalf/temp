@@ -116,13 +116,13 @@
     <Compile Include="Factories\TransactionArticleFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen Admin\Synologen Admin.csproj">
+    <ProjectReference Include="..\Synologen Admin\Synologen.Presentation.csproj">
       <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
-      <Name>Synologen Admin</Name>
+      <Name>Synologen.Presentation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
+    <ProjectReference Include="..\Synologen Business\Synologen.Business.csproj">
       <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
-      <Name>Synologen Business</Name>
+      <Name>Synologen.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>

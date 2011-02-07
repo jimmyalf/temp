@@ -105,7 +105,7 @@
       <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
       <Name>Synologen Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen ServiceLibrary\Synologen ServiceLibrary.csproj">
+    <ProjectReference Include="..\Synologen.ContractSale\Synologen.ContractSale.ServiceLibrary\Synologen ServiceLibrary.csproj">
       <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
       <Name>Synologen ServiceLibrary</Name>
     </ProjectReference>

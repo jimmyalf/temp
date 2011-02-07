@@ -136,19 +136,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen Business\Synologen Business.csproj">
+    <ProjectReference Include="..\..\Synologen Business\Synologen Business.csproj">
       <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
       <Name>Synologen Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen EDI\Synologen EDI.csproj">
+    <ProjectReference Include="..\Synologen.ContractSale.EDI\Synologen EDI.csproj">
       <Project>{8554B3AF-CA2A-499F-B921-A80804B99056}</Project>
       <Name>Synologen EDI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen ServiceLibrary\Synologen ServiceLibrary.csproj">
+    <ProjectReference Include="..\Synologen.ContractSale.ServiceLibrary\Synologen ServiceLibrary.csproj">
       <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
       <Name>Synologen ServiceLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Visma\Synologen Visma.csproj">
+    <ProjectReference Include="..\..\Synologen Visma\Synologen Visma.csproj">
       <Project>{F83AEC3E-114B-42F9-AF36-12B985FB1EFC}</Project>
       <Name>Synologen Visma</Name>
     </ProjectReference>
@@ -170,7 +170,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-Client.bat"</PostBuildEvent>
-    <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\..\Build\Post-Build-Client.bat" "$(ProjectDir)"</PostBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
   </PropertyGroup>
 </Project>

@@ -17,16 +17,14 @@
 	<!-- Include all projects to build -->
 	<!-- To exclude projects from normal build, append the following: if="${configuration=='ContinuousBuild'}" -->
 	<fileset id="projects">
-		<include name="${dir.source}Synologen Admin\Synologen Admin.csproj"/>
-		<include name="${dir.source}Synologen Site\Synologen Site.csproj"/>
-		<include name="${dir.source}Synologen WebService\Synologen WebService.csproj"/>
-		<include name="${dir.source}Synologen Test\Synologen Unit Test.csproj"/>
 		<include name="${dir.source}Synologen.Presentation.Site.Test\Synologen.Presentation.Site.Test.csproj"/>
 		<include name="${dir.source}Synologen.Presentation.Test\Synologen.Presentation.Test.csproj"/>
-		<include name="${dir.source}Synologen.Autogiro.Test\Synologen.Autogiro.Test.csproj"/>
-		<include name="${dir.source}Synologen IntegrationTests.Data\Synologen IntegrationTests.Data.csproj"/>
-		<include name="${dir.source}Synologen IntegrationTests.FileIO\Synologen IntegrationTests.FileIO.csproj"/>
-		<include name="${dir.source}Synologen.LensSubscriptionServiceCoordinator.Test\Synologen.LensSubscriptionServiceCoordinator.Test.csproj"/>
+		<include name="${dir.source}Synologen.Data.Test\Synologen IntegrationTests.Data.csproj"/>
+		<include name="${dir.source}Synologen.ContractSale\Synologen.ContractSale.WebService\Synologen WebService.csproj"/>
+		<include name="${dir.source}Synologen.ContractSale\Synologen.ContractSale.Test\Synologen Unit Test.csproj"/>
+		<include name="${dir.source}Synologen.LensSubscription\Synologen.LensSubscription.Autogiro.Test\Synologen.Autogiro.Test.csproj"/>
+		<include name="${dir.source}Synologen.LensSubscription\Synologen.LensSubscription.Autogiro.FileIO.Test\Synologen IntegrationTests.FileIO.csproj"/>
+		<include name="${dir.source}Synologen.LensSubscription\Synologen.LensSubscription.ServiceCoordinator.Test\Synologen.LensSubscriptionServiceCoordinator.Test.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business.Test\Spinit.Wpc.Synologen.OPQ.Business.Test.csproj"/>

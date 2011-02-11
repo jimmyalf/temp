@@ -30,12 +30,12 @@ namespace Spinit.Wpc.Synologen.LensSubscription.BGServiceCoordinator.IoC
 			});
 
 			// Register criteria converters
-			//Scan(x =>
-			//{
-			//    x.AssemblyContainingType<PageOfFramesMatchingCriteriaConverter>();
-			//    x.Assembly(typeof(NHibernateActionCriteriaConverter<,>).Assembly.FullName);
-			//    x.ConnectImplementationsToTypesClosing(typeof(IActionCriteriaConverter<,>));
-			//});
+			Scan(x =>
+			{
+			    x.AssemblyContainingType<NHibernateFactory>();
+			    x.Assembly(typeof(NHibernateActionCriteriaConverter<,>).Assembly.FullName);
+			    x.ConnectImplementationsToTypesClosing(typeof(IActionCriteriaConverter<,>));
+			});
 		}
 	}
 }

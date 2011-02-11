@@ -4,7 +4,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</ProjectGuid>
+    <ProjectGuid>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Spinit.Wpc.Synologen.Data</RootNamespace>

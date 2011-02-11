@@ -107,6 +107,8 @@
     <Compile Include="Domain\Model\Autogiro\Send\ConsentType.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\Payment.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
+    <Compile Include="Domain\Model\BGServer\SectionType.cs" />
+    <Compile Include="Domain\Model\BGServer\ReceivedFileSection.cs" />
     <Compile Include="Domain\Model\BGWebService\ConsentToSend.cs" />
     <Compile Include="Domain\Model\BGWebService\Enums.cs" />
     <Compile Include="Domain\Model\BGWebService\PaymentToSend.cs" />
@@ -150,9 +152,11 @@
     <Compile Include="Domain\Model\LensSubscription\TransactionReason.cs" />
     <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
     <Compile Include="Domain\Model\ContractSales\ShopAccess.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IReceivedFileRepository.cs" />
     <Compile Include="Domain\Persistence\ContractSales\ISettlementRepository.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllFrameOrdersForShopCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedConsentFileSectionsCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\ContractSales\AllContractSalesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllActiveTransactionArticlesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsToSendConsentsForCriteria.cs" />

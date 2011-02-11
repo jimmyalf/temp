@@ -10,9 +10,10 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging;
+using Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.Logging;
 using StructureMap.Configuration.DSL;
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Ioc
+
+namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.IoC
 {
 	public class TaskRunnerRegistry : Registry
 	{
@@ -30,11 +31,11 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Ioc
 			//For<IEventLoggingService>().Use(new EventLogLogger("TaskRunner"));
 			For<ILoggingService>().Singleton().Use(LogFactory.CreateLoggingService());
 	
-			#if (DEBUG)
+#if (DEBUG)
 			For<IBGWebService>().Use<MockBgWebServiceClient>();
-			#else
+#else
 			For<IBGWebService>().Use<BgWebServiceClient>();
-			#endif
+#endif
 			
 			// Task scan
 			Scan(x =>

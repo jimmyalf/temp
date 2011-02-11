@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
-namespace Synologen.ServiceCoordinator.Test.Factories
+namespace Synologen.LensSubscription.ServiceCoordinator.Test.Factories
 {
 	public static class SubscriptionFactory 
 	{

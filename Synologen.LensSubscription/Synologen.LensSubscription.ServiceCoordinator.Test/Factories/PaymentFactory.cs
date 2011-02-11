@@ -2,7 +2,7 @@
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Synologen.ServiceCoordinator.Test.Factories
+namespace Synologen.LensSubscription.ServiceCoordinator.Test.Factories
 {
 	public static class PaymentFactory
 	{
@@ -14,7 +14,7 @@ namespace Synologen.ServiceCoordinator.Test.Factories
 		private static ReceivedPayment Get(int id, int subscriptionId)
 		{
 			return new ReceivedPayment
-	       	{ 
+			{ 
 				Amount = 150.45M,
 				PayerId = subscriptionId,
 				PaymentId = id,
@@ -26,7 +26,7 @@ namespace Synologen.ServiceCoordinator.Test.Factories
 		{
 			return new []
 			{
-	       		new ReceivedPayment 
+				new ReceivedPayment 
 				{ 
 					Amount = 222.22M,
 					PaymentId = 140101,

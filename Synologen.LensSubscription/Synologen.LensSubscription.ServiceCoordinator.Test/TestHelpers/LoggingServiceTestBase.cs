@@ -3,9 +3,9 @@ using log4net;
 using Moq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging;
+using Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.Logging;
 
-namespace Synologen.ServiceCoordinator.Test.TestHelpers
+namespace Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers
 {
 	[TestFixture]
 	public abstract class LoggingServiceTestBase
@@ -22,8 +22,8 @@ namespace Synologen.ServiceCoordinator.Test.TestHelpers
 		{
 			MockedLogger = new Mock<ILog>();
 			MockedEventLogger = new Mock<IEventLoggingService>();
-		    Context = () => { };
-		    Because = logger => { throw new AssertionException("An action for Because has not been set!"); };
+			Context = () => { };
+			Because = logger => { throw new AssertionException("An action for Because has not been set!"); };
 		}
 
 		[TestFixtureSetUp]

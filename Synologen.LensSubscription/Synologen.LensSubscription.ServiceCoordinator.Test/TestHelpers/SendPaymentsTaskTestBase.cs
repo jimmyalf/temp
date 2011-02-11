@@ -1,8 +1,7 @@
-﻿using System;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks;
 
-namespace Synologen.ServiceCoordinator.Test.TestHelpers
+namespace Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers
 {
 	public abstract class SendPaymentsTaskTestBase : TaskTestBase
 	{

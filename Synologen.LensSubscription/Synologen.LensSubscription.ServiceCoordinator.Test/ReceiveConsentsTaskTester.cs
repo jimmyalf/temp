@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
@@ -6,12 +6,11 @@ using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers;
 using Synologen.ServiceCoordinator.Test.Factories;
-using Synologen.ServiceCoordinator.Test.TestHelpers;
 
-namespace Synologen.ServiceCoordinator.Test
+namespace Synologen.LensSubscription.ServiceCoordinator.Test
 {
-
 	[TestFixture]
 	public class When_executing_receive_consents_task : ReceiveConsentsTaskBase
 	{
@@ -69,7 +68,7 @@ namespace Synologen.ServiceCoordinator.Test
 			MockedWebServiceClient.Verify(
 				x => x.SetConsentHandled(It.IsAny<int>()),
 				Times.Exactly(expectedConsents.Count())
-			);
+				);
 		}
 
 		[Test]
@@ -79,7 +78,6 @@ namespace Synologen.ServiceCoordinator.Test
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.IsAny<SubscriptionError>()), Times.Exactly(17));
 		}
 	}
-
 
 	[TestFixture]
 	public class When_receiving_consent_accepted : ReceiveConsentsTaskBase

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
@@ -6,10 +6,10 @@ using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
+using Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers;
 using Synologen.ServiceCoordinator.Test.Factories;
-using Synologen.ServiceCoordinator.Test.TestHelpers;
 
-namespace Synologen.ServiceCoordinator.Test
+namespace Synologen.LensSubscription.ServiceCoordinator.Test
 {
 	[TestFixture]
 	public class When_executing_send_payments_task : SendPaymentsTaskTestBase
@@ -60,7 +60,7 @@ namespace Synologen.ServiceCoordinator.Test
 					sentPayment.PayerId.Equals(subscription.Id) &&
 					sentPayment.Reference.Equals(subscription.Customer.PersonalIdNumber) &&
 					sentPayment.Type.Equals(PaymentType.Debit)
-			))));
+				))));
 		}
 
 		[Test]

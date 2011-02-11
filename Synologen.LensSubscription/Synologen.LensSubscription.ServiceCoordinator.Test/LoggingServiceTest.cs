@@ -1,11 +1,10 @@
 using System;
 using NUnit.Framework;
 using Moq;
-using Synologen.ServiceCoordinator.Test.TestHelpers;
+using Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers;
 
-namespace Synologen.ServiceCoordinator.Test
+namespace Synologen.LensSubscription.ServiceCoordinator.Test
 {
-
 	[TestFixture]
 	[Category("LoggingServiceTest")]
 	public class When_logging_debug_level : LoggingServiceTestBase
@@ -140,7 +139,6 @@ namespace Synologen.ServiceCoordinator.Test
 			MockedLogger.Verify(x => x.Fatal(_message), Times.Never());
 		}
 	}
-
 
 	[TestFixture]
 	[Category("LoggingServiceTest")]
@@ -354,7 +352,6 @@ namespace Synologen.ServiceCoordinator.Test
 			MockedEventLogger.Verify(x => x.Warning(_message), Times.Once());
 		}
 	}
-
 
 	[TestFixture]
 	[Category("LoggingServiceTest")]

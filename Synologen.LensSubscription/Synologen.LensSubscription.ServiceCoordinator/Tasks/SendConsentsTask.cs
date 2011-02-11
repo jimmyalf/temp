@@ -6,7 +6,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
+namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Tasks
 {
 	public class SendConsentsTask : TaskBase
 	{
@@ -49,7 +49,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 				BankAccountNumber = subscription.PaymentInfo.AccountNumber,
 				ClearingNumber = subscription.PaymentInfo.ClearingNumber,
 				PersonalIdNumber = subscription.Customer.PersonalIdNumber,
-                PayerId = subscription.Id
+				PayerId = subscription.Id
 			};
 		}
 	}

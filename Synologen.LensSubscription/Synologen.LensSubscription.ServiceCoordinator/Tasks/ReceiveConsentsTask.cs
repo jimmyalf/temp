@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
@@ -10,7 +9,7 @@ using Spinit.Extensions;
 using ConsentCommentCode=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentCommentCode;
 using ConsentInformationCode=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.ConsentInformationCode;
 
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
+namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Tasks
 {
 	public class ReceiveConsentsTask : TaskBase
 	{
@@ -29,16 +28,16 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 		public override void Execute()
 		{
 			RunLoggedTask(() =>
-          	{
+			{
 				var consents = _bgWebService.GetConsents() ?? Enumerable.Empty<RecievedConsent>();
-          		LogDebug("Fetched {0} consent replies from bgc server", consents.Count());
+				LogDebug("Fetched {0} consent replies from bgc server", consents.Count());
 
-          		consents.Each(consent =>
-              	{
-              		SaveConsent(consent);
-              		_bgWebService.SetConsentHandled(consent.ConsentId);
-              	});
-          	});
+				consents.Each(consent =>
+				{
+					SaveConsent(consent);
+					_bgWebService.SetConsentHandled(consent.ConsentId);
+				});
+			});
 		}
 
 		private void SaveConsent(RecievedConsent consent)
@@ -64,12 +63,12 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 		private void SaveSubscriptionError(Subscription subscription, SubscriptionErrorType errorTypeCode, RecievedConsent consent)
 		{
 			var subscriptionError = new SubscriptionError
-					                        	{
-					                        		Subscription = subscription,
-					                        		Type = errorTypeCode,
-					                        		Code = GetSubscriptionErrorInformationCode(consent.InformationCode),
-					                        		CreatedDate = DateTime.Now
-					                        	};
+			{
+				Subscription = subscription,
+				Type = errorTypeCode,
+				Code = GetSubscriptionErrorInformationCode(consent.InformationCode),
+				CreatedDate = DateTime.Now
+			};
 			_subscriptionErrorRepository.Save(subscriptionError);
 		}
 

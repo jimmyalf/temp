@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
@@ -9,7 +8,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Extensions;
 using PaymentResult=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.PaymentResult;
 
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
+namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Tasks
 {
 	public class ReceivePaymentsTask : TaskBase
 	{
@@ -30,16 +29,16 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 		public override void Execute()
 		{
 			RunLoggedTask(() =>
-          	{
-          		var payments = _bgWebService.GetPayments() ?? Enumerable.Empty<ReceivedPayment>();
-          		LogDebug("Fetched {0} payment results from bgc server", payments.Count());
+			{
+				var payments = _bgWebService.GetPayments() ?? Enumerable.Empty<ReceivedPayment>();
+				LogDebug("Fetched {0} payment results from bgc server", payments.Count());
 
-          		payments.Each(payment =>
-              	{
-              		SaveTransactionOrError(payment);
+				payments.Each(payment =>
+				{
+					SaveTransactionOrError(payment);
 					_bgWebService.SetPaymentHandled(payment.PaymentId);
-              	});
-          	});
+				});
+			});
 		}
 
 		private void SaveTransactionOrError(ReceivedPayment payment)
@@ -69,18 +68,18 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 		{
 			_transactionsRepository.Save(transaction);
 			LogDebug("Payment for subscription with id \"{0}\" {1}.",
-											transaction.Subscription.Id, 
-											transaction.Reason == TransactionReason.Payment ? "was accepted" : "failed");
+			         transaction.Subscription.Id, 
+			         transaction.Reason == TransactionReason.Payment ? "was accepted" : "failed");
 		}
 
 		private SubscriptionError ConvertSubscriptionError(ReceivedPayment payment)
 		{
 			return new SubscriptionError
-        	{
-        		CreatedDate = DateTime.Now,
-        		Type = ConvertToSubscriptionErrorType(payment.Result),
-        		Subscription = _subscriptionRepository.Get(payment.PayerId)
-        	};
+			{
+				CreatedDate = DateTime.Now,
+				Type = ConvertToSubscriptionErrorType(payment.Result),
+				Subscription = _subscriptionRepository.Get(payment.PayerId)
+			};
 		}
 
 		private static SubscriptionErrorType ConvertToSubscriptionErrorType(PaymentResult result)
@@ -119,12 +118,12 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 		{
 			return new SubscriptionTransaction
 			{
-	       		Amount = payment.Amount,
-	       		CreatedDate = DateTime.Now,
-	       		Reason = ConvertToTransactionReason(payment.Result),
-	       		Type = TransactionType.Deposit,
-      			Subscription = _subscriptionRepository.Get(payment.PayerId)
-      		};
+				Amount = payment.Amount,
+				CreatedDate = DateTime.Now,
+				Reason = ConvertToTransactionReason(payment.Result),
+				Type = TransactionType.Deposit,
+				Subscription = _subscriptionRepository.Get(payment.PayerId)
+			};
 		}
 	}
 }

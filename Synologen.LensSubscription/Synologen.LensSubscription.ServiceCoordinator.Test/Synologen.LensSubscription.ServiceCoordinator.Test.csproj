@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{518FC91C-EF3B-444F-9B2C-A8DA26A3C90F}</ProjectGuid>
+    <ProjectGuid>{F2F6510D-0E98-4437-A53F-43E4E7DB743F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Synologen.LensSubscription.ServiceCoordinator.Test</RootNamespace>

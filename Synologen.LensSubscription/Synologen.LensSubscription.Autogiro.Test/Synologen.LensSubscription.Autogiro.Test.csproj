@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{58BC1C43-F7A7-42C4-AF4F-2052349493B4}</ProjectGuid>
+    <ProjectGuid>{E214A7DA-DE95-4E48-89C4-298DDD64A328}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Test</RootNamespace>

@@ -11,8 +11,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscrip
 	public class AllSubscriptionsToSendPaymentsForCriteriaConverter : NHibernateActionCriteriaConverter<AllSubscriptionsToSendPaymentsForCriteria, Subscription>, IActionCriteria
 	{
 		public AllSubscriptionsToSendPaymentsForCriteriaConverter(ISession session) : base(session) {}
-		//CurrentSession.CreateCriteria(typeof(Object)).Add(Expression.Eq(Projections.SqlFunction("day", NHibernateUtil.DateTime, Projections.Property("DateTimeProperty")), pvDay))
-		public override ICriteria Convert(AllSubscriptionsToSendPaymentsForCriteria source)
+
+        public override ICriteria Convert(AllSubscriptionsToSendPaymentsForCriteria source)
 		{
 			return Criteria
 				.FilterEqual(x => x.ConsentStatus, SubscriptionConsentStatus.Accepted)

@@ -116,17 +116,17 @@
     <Compile Include="Factories\TransactionArticleFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen.Presentation\Synologen.Presentation.csproj">
-      <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
-      <Name>Synologen.Presentation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Synologen.Business\Synologen.Business.csproj">
-      <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
+      <Project>{4DA48962-8E31-4E14-9E25-E43430E982D1}</Project>
       <Name>Synologen.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Presentation\Synologen.Presentation.csproj">
+      <Project>{C328719F-BCF2-411B-A6BD-0C2CEF1DA3D7}</Project>
+      <Name>Synologen.Presentation</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

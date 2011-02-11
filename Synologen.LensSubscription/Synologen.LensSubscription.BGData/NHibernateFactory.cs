@@ -14,7 +14,7 @@ namespace Spinit.Synologen.LensSubscription.BGData
 		public NHibernateFactory()
 		{
 			_configuration = Fluently.Configure()
-				.Database(MsSqlConfiguration.MsSql2000.ConnectionString(c => c.FromConnectionStringWithKey("AutogiroDatabase")))
+                .Database(MsSqlConfiguration.MsSql2000.ConnectionString(c => c.FromConnectionStringWithKey("BGServer")))
 				.Mappings(config => 
 				{
 					config.FluentMappings.Conventions.Setup(s => s.Add(AutoImport.Never()));

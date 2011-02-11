@@ -5,9 +5,9 @@ using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
-using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging;
+using Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.Logging;
 
-namespace Synologen.ServiceCoordinator.Test.TestHelpers
+namespace Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers
 {
 	[TestFixture]
 	public abstract class TaskTestBase
@@ -37,8 +37,8 @@ namespace Synologen.ServiceCoordinator.Test.TestHelpers
 		[TestFixtureSetUp]
 		protected void SetUpTest()
 		{
-		    Context();
-		    Because(GetTask());
+			Context();
+			Because(GetTask());
 		}
 
 		protected abstract ITask GetTask();

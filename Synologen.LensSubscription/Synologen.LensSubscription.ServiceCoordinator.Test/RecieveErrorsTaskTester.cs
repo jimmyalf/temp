@@ -5,10 +5,10 @@ using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers;
 using Synologen.ServiceCoordinator.Test.Factories;
-using Synologen.ServiceCoordinator.Test.TestHelpers;
 
-namespace Synologen.ServiceCoordinator.Test
+namespace Synologen.LensSubscription.ServiceCoordinator.Test
 {
 	[TestFixture]
 	public class When_executing_recieve_errors_task : RecieveErrorsTaskTestBase
@@ -20,10 +20,10 @@ namespace Synologen.ServiceCoordinator.Test
 		{
 			Context = () =>
 			{
-			    expectedErrors = ErrorFactory.GetList().ToArray();
+				expectedErrors = ErrorFactory.GetList().ToArray();
 				expectedSubscription = SubscriptionFactory.Get(3);
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(expectedSubscription);
-			    MockedWebServiceClient.Setup(x => x.GetNewErrors()).Returns(expectedErrors);
+				MockedWebServiceClient.Setup(x => x.GetNewErrors()).Returns(expectedErrors);
 			};
 			Because = task => task.Execute();
 		}
@@ -31,20 +31,20 @@ namespace Synologen.ServiceCoordinator.Test
 		[Test]
 		public void Task_fetches_errors_from_webservice()
 		{
-		    MockedWebServiceClient.Verify(x => x.GetNewErrors());
+			MockedWebServiceClient.Verify(x => x.GetNewErrors());
 		}
 
 		[Test]
 		public void Task_stores_subscription_errors_in_repository()
 		{
 			expectedErrors.Each(recievedError => 
-				MockedSubscriptionErrorRepository.Verify(x => 
-					x.Save(It.Is<SubscriptionError>( error =>
-                        Equals(error.CreatedDate.Date, DateTime.Today) &&
-                        Equals(error.HandledDate, null) &&
-                        Equals(error.IsHandled, false) &&
-                        Equals(error.Subscription.Id, expectedSubscription.Id) &&
-                        ExpectedErrorTypeConversionMatches(error.Type, recievedError.CommentCode)
+                MockedSubscriptionErrorRepository.Verify(x => 
+					 x.Save(It.Is<SubscriptionError>( error =>
+						Equals(error.CreatedDate.Date, DateTime.Today) &&
+						Equals(error.HandledDate, null) &&
+						Equals(error.IsHandled, false) &&
+						Equals(error.Subscription.Id, expectedSubscription.Id) &&
+						ExpectedErrorTypeConversionMatches(error.Type, recievedError.CommentCode)
 			))));
 		}
 
@@ -60,8 +60,8 @@ namespace Synologen.ServiceCoordinator.Test
 		[Test]
 		public void Task_loggs_start_and_stop_info_messages()
 		{
-		    MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Started"))), Times.Once());
-		    MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Finished"))), Times.Once());
+			MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Started"))), Times.Once());
+			MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Finished"))), Times.Once());
 		}
 
 		private static bool ExpectedErrorTypeConversionMatches(SubscriptionErrorType subscriptionErrorType, ErrorType errorType)

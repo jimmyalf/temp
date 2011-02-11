@@ -6,10 +6,10 @@ using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
+using Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers;
 using Synologen.ServiceCoordinator.Test.Factories;
-using Synologen.ServiceCoordinator.Test.TestHelpers;
 
-namespace Synologen.ServiceCoordinator.Test
+namespace Synologen.LensSubscription.ServiceCoordinator.Test
 {
 	[TestFixture]
 	public class When_executing_send_consents_task : SendConsentsTaskTestBase
@@ -47,7 +47,7 @@ namespace Synologen.ServiceCoordinator.Test
 			MockedWebServiceClient.Verify(
 				x => x.SendConsent(It.IsAny<ConsentToSend>()), 
 				Times.Exactly(expectedSubscriptions.Count())
-			);
+				);
 		}
 
 		[Test]
@@ -58,8 +58,8 @@ namespace Synologen.ServiceCoordinator.Test
 					sentConsent.BankAccountNumber.Equals(subscription.PaymentInfo.AccountNumber) && 
 					sentConsent.ClearingNumber.Equals(subscription.PaymentInfo.ClearingNumber) &&
 					sentConsent.PersonalIdNumber.Equals(subscription.Customer.PersonalIdNumber) &&
-                    sentConsent.PayerId.Equals(subscription.Id)
-        	))));
+					sentConsent.PayerId.Equals(subscription.Id)
+			))));
 		}
 
 		[Test]
@@ -69,7 +69,7 @@ namespace Synologen.ServiceCoordinator.Test
 				MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(savedSubscription => 
 					savedSubscription.Id.Equals(subscription.Id) &&
 					savedSubscription.ConsentStatus.Equals(SubscriptionConsentStatus.Sent)
-        	))));
+			))));
 		}
 	}
 }

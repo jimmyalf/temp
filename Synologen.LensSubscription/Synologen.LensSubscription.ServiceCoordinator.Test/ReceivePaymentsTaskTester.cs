@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
@@ -6,10 +6,10 @@ using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers;
 using Synologen.ServiceCoordinator.Test.Factories;
-using Synologen.ServiceCoordinator.Test.TestHelpers;
 
-namespace Synologen.ServiceCoordinator.Test
+namespace Synologen.LensSubscription.ServiceCoordinator.Test
 {
 	[TestFixture]
 	public class When_executing_receive_payments_task : ReceivePaymentsTaskTestBase
@@ -58,9 +58,9 @@ namespace Synologen.ServiceCoordinator.Test
 		public void Task_fetches_matching_subscriptions_from_repository()
 		{
 			expectedPayments.Each(recievedPayment =>
-				MockedSubscriptionRepository.Verify(x =>
-					x.Get(It.Is<int>(id => id.Equals(recievedPayment.PayerId))
-			)));
+			                      MockedSubscriptionRepository.Verify(x =>
+			                                                          x.Get(It.Is<int>(id => id.Equals(recievedPayment.PayerId))
+			                                                          	)));
 		}
 
 		[Test]

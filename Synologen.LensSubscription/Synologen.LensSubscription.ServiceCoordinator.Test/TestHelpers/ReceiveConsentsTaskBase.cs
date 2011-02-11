@@ -1,18 +1,18 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks;
 using ConsentInformationCode=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.ConsentInformationCode;
 
-namespace Synologen.ServiceCoordinator.Test.TestHelpers
+namespace Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers
 {
 	public abstract class ReceiveConsentsTaskBase : TaskTestBase
 	{
 		protected override ITask GetTask()
 		{
 			return new ReceiveConsentsTask(MockedWebServiceClient.Object, 
-										MockedSubscriptionRepository.Object,
-			                            MockedSubscriptionErrorRepository.Object,
-										LoggingService);
+			                               MockedSubscriptionRepository.Object,
+			                               MockedSubscriptionErrorRepository.Object,
+			                               LoggingService);
 		}
 
 		protected static ConsentInformationCode? GetSubscriptionErrorInformationCode(Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode? code)

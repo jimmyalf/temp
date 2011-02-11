@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Synologen.ServiceCoordinator.Test.Factories
+namespace Synologen.LensSubscription.ServiceCoordinator.Test.Factories
 {
 	public static class ConsentFactory
 	{
-		private static ConsentInformationCode InformationCode = ConsentInformationCode.InitiatedByPayer;
-		private static ConsentCommentCode CommentCode = ConsentCommentCode.ConsentTurnedDownByBank;
+		private static readonly ConsentInformationCode InformationCode = ConsentInformationCode.InitiatedByPayer;
+		private static readonly ConsentCommentCode CommentCode = ConsentCommentCode.ConsentTurnedDownByBank;
 
 		public static IEnumerable<RecievedConsent> GetList(int subscriptionId)
 		{
-			IEnumerable<RecievedConsent> list = TestHelper.GenerateSequence(x => Get(x, subscriptionId), 18);
+			var list = TestHelper.GenerateSequence(x => Get(x, subscriptionId), 18);
 			return list;
 		}
 
 		public static RecievedConsent Get(int id, int subscriptionId)
 		{
 			var consent = new RecievedConsent
-			              	{
-								PayerId = subscriptionId,
-			              		ConsentId = id,
-			              		ActionDate = DateTime.Now.AddDays(-2),
-			              		ConsentValidForDate = DateTime.Now.AddDays(1),
-								InformationCode = InformationCode.SkipValues(id),
-			              		CommentCode = CommentCode.SkipValues(id)
-			              	};
+			{
+				PayerId = subscriptionId,
+				ConsentId = id,
+				ActionDate = DateTime.Now.AddDays(-2),
+				ConsentValidForDate = DateTime.Now.AddDays(1),
+				InformationCode = InformationCode.SkipValues(id),
+				CommentCode = CommentCode.SkipValues(id)
+			};
 			return consent;
 		}
 

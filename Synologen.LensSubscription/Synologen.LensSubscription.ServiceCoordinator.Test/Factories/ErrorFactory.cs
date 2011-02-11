@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Synologen.ServiceCoordinator.Test.Factories
+namespace Synologen.LensSubscription.ServiceCoordinator.Test.Factories
 {
 	public static class ErrorFactory 
 	{

@@ -5,8 +5,8 @@ using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Synologen.LensSubscription.ServiceCoordinator.Test.Factories;
 using Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers;
-using Synologen.ServiceCoordinator.Test.Factories;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Test
 {

@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Spinit.Wpc.Synologen.LensSubscription.BGServiceCoordinator.Logging;
+using Spinit.Wpc.Synologen.LensSubscription.BGServiceCoordinator.Services;
 
-namespace LensSubscription.BGServiceCoordinator
+namespace Spinit.Wpc.Synologen.LensSubscription.BGServiceCoordinator
 {
 	class Program
 	{
-		static void Main(string[] args)
+		public static void Main(string[] args)
 		{
+			var loggingService = LogFactory.CreateLoggingService();
+			loggingService.LogDebug("Taskrunner bootstrapping starting...");
+			Bootstrapper.Bootstrap();
+			loggingService.LogDebug("Taskrunner bootstrapping finished.");
+			var taskrunner = new TaskRunnerService(loggingService);
+			taskrunner.Run();
 		}
 	}
 }

@@ -24,6 +24,7 @@ namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.IoC
 			For<ISession>().Use(x => ((NHibernateUnitOfWork)x.GetInstance<IUnitOfWork>()).Session);
 			For<ISubscriptionRepository>().Use<SubscriptionRepository>();
 			For<ISubscriptionErrorRepository>().Use<SubscriptionErrorRepository>();
+			For<ITransactionRepository>().Use<TransactionRepository>();
 
 			// Logging
 			//For<ILog>().Use(LogFactory.Create);

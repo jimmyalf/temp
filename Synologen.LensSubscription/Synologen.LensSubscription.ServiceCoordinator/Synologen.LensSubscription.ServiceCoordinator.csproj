@@ -80,7 +80,6 @@
   <ItemGroup>
     <Compile Include="App\MockBgWebServiceClient.cs" />
     <Compile Include="App\BgWebServiceClient.cs" />
-    <Compile Include="App\Services\TaskRunnerService.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="App\IoC\TaskRunnerRegistry.cs" />
     <Compile Include="App\Logging\LogFactory.cs" />

@@ -181,7 +181,7 @@
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\EventLogLogger.cs" />
-    <Compile Include="Domain\Services\TaskRunnerServiceBase.cs" />
+    <Compile Include="Domain\Services\TaskRunnerService.cs" />
     <Compile Include="Domain\Services\Coordinator\ITask.cs" />
     <Compile Include="Domain\Services\Coordinator\TaskBase.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />

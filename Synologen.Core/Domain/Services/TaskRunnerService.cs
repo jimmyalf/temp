@@ -6,14 +6,17 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services
 {
-	public abstract class TaskRunnerServiceBase : ITaskRunnerService
+	public class TaskRunnerService : ITaskRunnerService
 	{
 		private readonly ILoggingService _loggingService;
+		private readonly IEnumerable<ITask> _tasks;
 
-		protected TaskRunnerServiceBase(ILoggingService loggingService)
+		public TaskRunnerService(ILoggingService loggingService, IEnumerable<ITask> tasks)
 		{
 			_loggingService = loggingService;
+			_tasks = tasks ?? Enumerable.Empty<ITask>();
 		}
+
 
 		public virtual void Run()
 		{
@@ -31,10 +34,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 
 		protected virtual void RunTasks(ILoggingService loggingService)
 		{
-			loggingService.LogDebug("Taskrunner fetching tasks from container...");
-			var tasks = GetTasks() ?? Enumerable.Empty<ITask>();
-			loggingService.LogInfo("Taskrunner scan found {0} tasks ({1})", tasks.Count(), tasks.Select(x => x.TaskName).Aggregate((taskA,taskB) => taskA + ", " + taskB));
-			tasks.Each(task => ExecuteLoggedTask(task, loggingService));
+			_tasks.Each(task => ExecuteLoggedTask(task, loggingService));
 		}
 
 		protected virtual void ExecuteLoggedTask(ITask task, ILoggingService loggingService)
@@ -50,7 +50,5 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 				loggingService.LogError(String.Format("Taskrunner got exception while executing \"{0}\"", task.TaskName), ex);
 			}
 		}
-
-		protected abstract IEnumerable<ITask> GetTasks();
 	}
 }

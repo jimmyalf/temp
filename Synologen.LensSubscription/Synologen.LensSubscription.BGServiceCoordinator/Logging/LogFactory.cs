@@ -1,6 +1,5 @@
 using log4net;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.Logging;
 
 namespace Spinit.Wpc.Synologen.LensSubscription.BGServiceCoordinator.Logging
 {

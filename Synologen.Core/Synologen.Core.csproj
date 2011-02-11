@@ -176,6 +176,8 @@
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionArticleRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
+    <Compile Include="Domain\Services\EventLogLogger.cs" />
+    <Compile Include="Domain\Services\TaskRunnerServiceBase.cs" />
     <Compile Include="Domain\Services\Coordinator\ITask.cs" />
     <Compile Include="Domain\Services\Coordinator\TaskBase.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />
@@ -194,6 +196,7 @@
     <Compile Include="Domain\Services\IBGWebService.cs" />
     <Compile Include="Domain\Services\ISynologenMemberService.cs" />
     <Compile Include="Domain\Services\ISynologenSettingsService.cs" />
+    <Compile Include="Domain\Services\ITaskRunnerService.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="Extensions\ComparisonExtensions.cs" />
     <Compile Include="Extensions\DataRowCollectionExtensions.cs" />

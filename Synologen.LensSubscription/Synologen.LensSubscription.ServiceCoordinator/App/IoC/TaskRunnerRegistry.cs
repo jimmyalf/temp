@@ -1,6 +1,5 @@
 ﻿#define DEBUG
 using System.Reflection;
-using log4net;
 using NHibernate;
 using Spinit.Data;
 using Spinit.Data.NHibernate;

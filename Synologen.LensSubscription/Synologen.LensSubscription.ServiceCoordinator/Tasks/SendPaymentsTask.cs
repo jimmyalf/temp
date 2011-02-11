@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
@@ -10,7 +9,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Extensions;
 using PaymentType=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.PaymentType;
 
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
+namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Tasks
 {
 	public class SendPaymentsTask :TaskBase
 	{
@@ -37,7 +36,7 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 
 		private void SendPaymentAndUpdateSubscriptionPaymentDate(Subscription subscription)
 		{
-			PaymentToSend payment = ConvertSubscription(subscription);
+			var payment = ConvertSubscription(subscription);
 			_bgWebService.SendPayment(payment);
 			subscription.PaymentInfo.PaymentSentDate = DateTime.Now;
 			_subscriptionRepository.Save(subscription);
@@ -47,12 +46,12 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.Tasks
 		private static PaymentToSend ConvertSubscription(Subscription subscription)
 		{
 			var payment = new PaymentToSend
-		              	{
-		              		Amount = subscription.PaymentInfo.MonthlyAmount,
-		              		Reference = subscription.Customer.PersonalIdNumber,
-		                    Type = PaymentType.Debit,
-		                    PayerId = subscription.Id
-		                };
+			{
+				Amount = subscription.PaymentInfo.MonthlyAmount,
+				Reference = subscription.Customer.PersonalIdNumber,
+				Type = PaymentType.Debit,
+				PayerId = subscription.Id
+			};
 			return payment;
 		}
 	}

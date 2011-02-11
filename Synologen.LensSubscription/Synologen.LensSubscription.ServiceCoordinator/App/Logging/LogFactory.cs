@@ -1,13 +1,13 @@
 using log4net;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging
+namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.Logging
 {
 	public static class LogFactory
 	{
 		public static ILog CreateLogger()
 		{
-			return LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+			return LogManager.GetLogger("TaskRunner");
 		}
 
 		public static IEventLoggingService CreateEventLogger()

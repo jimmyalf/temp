@@ -1,8 +1,8 @@
 using Spinit.Data;
-using Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Ioc;
+using Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.IoC;
 using StructureMap;
 
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator
+namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator
 {
 	public static class Bootstrapper
 	{

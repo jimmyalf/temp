@@ -2,41 +2,19 @@ using System;
 using log4net;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
-namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging
+namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.Logging
 {
 	public class Log4NetLogger : ILoggingService
 	{
 		private static ILog _logger;
 		private static IEventLoggingService _eventLogger;
 
-		//public Log4NetLogger(string applicationName)
-		//{
-		//    _logger = _logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
-		//    log4net.Config.XmlConfigurator.Configure();
-		//    _eventLogger = new EventLogLogger(applicationName);
-		//}
-
 		public Log4NetLogger(ILog logger, IEventLoggingService eventLogger)
 		{
 			_logger = logger;
-			_eventLogger = eventLogger; //new EventLogLogger(applicationName);
+			_eventLogger = eventLogger;
 			log4net.Config.XmlConfigurator.Configure();
-			
 		}
-
-		//// For unit testing set runConfigure to false
-		//public Log4NetLogger(ILog logger, bool runConfigure, string applicationName)
-		//{
-		//    _logger = logger;
-		//    _eventLogger = new EventLogLogger(applicationName);
-		//    if (runConfigure)
-		//        log4net.Config.XmlConfigurator.Configure();
-		//}
-
-		//public Log4NetLogger(IEventLoggingService eventLogger)
-		//{
-		//    _eventLogger = eventLogger;
-		//}
 
 		public void LogDebug(string message)
 		{
@@ -75,9 +53,6 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging
 
 		public void LogError(string message, Exception ex)
 		{
-			//LogError(message);
-			//const string format = "Source: {0}, Message: {1}, Stacktrace: {2}";
-			//LogError(format, ex.Source, ex.Message, ex.StackTrace);
 			_logger.Error(message, ex);
 		}
 
@@ -98,9 +73,6 @@ namespace Spinit.Wpc.Synologen.LensSubscriptionServiceCoordinator.App.Logging
 
 		public void LogFatal(string message, Exception ex)
 		{
-			//LogFatal(message);
-			//const string format = "Source: {0}, Message: {1}, Stacktrace: {2}";
-			//LogFatal(format, ex.Source, ex.Message, ex.StackTrace);
 			_logger.Fatal(message, ex);
 		}
 

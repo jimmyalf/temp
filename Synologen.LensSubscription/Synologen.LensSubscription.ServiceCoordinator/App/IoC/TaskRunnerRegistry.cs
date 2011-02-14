@@ -3,7 +3,7 @@ using System.Reflection;
 using NHibernate;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
-using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Spinit.Synologen.LensSubscription.BGData;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
@@ -27,8 +27,6 @@ namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.IoC
 			For<ITransactionRepository>().Use<TransactionRepository>();
 
 			// Logging
-			//For<ILog>().Use(LogFactory.Create);
-			//For<IEventLoggingService>().Use(new EventLogLogger("TaskRunner"));
 			For<ILoggingService>().Singleton().Use(LogFactory.CreateLoggingService());
 	
 #if (DEBUG)

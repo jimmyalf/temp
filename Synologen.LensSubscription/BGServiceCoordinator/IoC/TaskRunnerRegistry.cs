@@ -1,14 +1,14 @@
-﻿using System.Reflection;
+using System.Reflection;
 using NHibernate;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
-using Spinit.Synologen.LensSubscription.BGData;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
-using Spinit.Wpc.Synologen.LensSubscription.BGServiceCoordinator.Logging;
 using StructureMap.Configuration.DSL;
+using Synologen.LensSubscription.BGData;
+using Synologen.LensSubscription.BGServiceCoordinator.Logging;
 
-namespace Spinit.Wpc.Synologen.LensSubscription.BGServiceCoordinator.IoC
+namespace Synologen.LensSubscription.BGServiceCoordinator.IoC
 {
 	public class TaskRunnerRegistry : Registry
 	{
@@ -32,9 +32,9 @@ namespace Spinit.Wpc.Synologen.LensSubscription.BGServiceCoordinator.IoC
 			// Register criteria converters
 			Scan(x =>
 			{
-			    x.AssemblyContainingType<NHibernateFactory>();
-			    x.Assembly(typeof(NHibernateActionCriteriaConverter<,>).Assembly.FullName);
-			    x.ConnectImplementationsToTypesClosing(typeof(IActionCriteriaConverter<,>));
+				x.AssemblyContainingType<NHibernateFactory>();
+				x.Assembly(typeof(NHibernateActionCriteriaConverter<,>).Assembly.FullName);
+				x.ConnectImplementationsToTypesClosing(typeof(IActionCriteriaConverter<,>));
 			});
 		}
 	}

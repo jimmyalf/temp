@@ -1,7 +1,8 @@
 using System;
 using System.Diagnostics;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Utility.Types;
+using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.Types;
 
 namespace Spinit.Wpc.Synologen.Test.EDI {
 	[TestFixture]
@@ -22,11 +23,11 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 		[Test]
 		public void Test_Invoice_Parsing_Output() {
 			const int orderId = 265;
-			var order = Mock.Utility.GetMockOrderRow(orderId);
-			var shop = Mock.Utility.GetMockShopRow();
+			var order = Mock.Utility.GetMockOrder(orderId);
+			var shop = Mock.Utility.GetMockShop();
 			var orderItems = Mock.Utility.GetMockOrderItems(orderId);
-			var company = Mock.Utility.GetMockCompanyRow();
-			var invoice = Utility.General.CreateInvoiceEDI(order, orderItems, company, shop, ediSettings);
+			var company = Mock.Utility.GetMockCompany();
+			var invoice = General.CreateInvoiceEDI(order, /*orderItems, company, shop,*/ ediSettings);
 			var invoiceText = invoice.Parse();
 			Debug.WriteLine(invoiceText);
 			var expectedString = String.Concat(

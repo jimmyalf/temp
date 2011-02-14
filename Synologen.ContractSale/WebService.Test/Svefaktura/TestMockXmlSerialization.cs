@@ -6,12 +6,13 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Business.Interfaces;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
-using Spinit.Wpc.Synologen.Utility;
-using Spinit.Wpc.Synologen.Utility.Types;
+using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
 
 namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 	[TestFixture]
@@ -71,10 +72,10 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			var settings = GetMockSettings();
 			var order = GetMockOrder();
 			var orderItems = GetMockOrderItems();
-			return Utility.Convert.ToSvefakturaInvoice(settings, order, orderItems, company, shop);
+			return Convert.ToSvefakturaInvoice(settings, order);//, orderItems, company, shop);
 		}
-		public ShopRow GetMockShop() {
-			return new ShopRow {
+		public Shop GetMockShop() {
+			return new Shop {
 				ContactFirstName = "Adam",
                 ContactLastName = "Bertil",
 				Phone = "0811122233",
@@ -82,8 +83,8 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
                 Email ="sales@modernaprodukter.se"
 			};
 		}
-		public CompanyRow GetMockCompany() {
-			return new CompanyRow {
+		public Company GetMockCompany() {
+			return new Company {
 				InvoiceFreeTextFormat = "Här kan jag beskriva fakturan med fritext",
 				InvoiceCompanyName = "Johnssons byggvaror",
                 Address2 = "Rådhusgatan 5",
@@ -104,7 +105,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 				ExemptionReason = "F-skattebevis finns",
 				SellingOrganizationNumber = "5565624223",
 				TaxAccountingCode = "SE556562422301",
-                SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
+                //SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
                 SellingOrganizationContactName = "A Person, Fakturaavd",
 				BankGiro = "9551548524585",
                 BankgiroBankIdentificationCode = "SKIASESS",
@@ -113,8 +114,8 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
                 VATAmount = 0.25m
 			};
 		}
-		public OrderRow GetMockOrder() {
-			return new OrderRow {
+		public Order GetMockOrder() {
+			return new Order {
 				InvoiceNumber = 15,
                 CustomerFirstName = "Pelle",
 				CustomerLastName = "Svensson",
@@ -125,7 +126,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 		}
 		public List<IOrderItem> GetMockOrderItems() {
 			return new List<IOrderItem> {
-				new OrderItemRow {
+				new OrderItem {
 					ArticleDisplayName = "Falu rödfärg",
                     NumberOfItems = 120,
                     DisplayTotalPrice = 4980,
@@ -134,7 +135,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 					Notes = "Fritext på fakturaraden",
 					ArticleDisplayNumber = "12345"
 				},
-				new OrderItemRow {
+				new OrderItem {
 					ArticleDisplayName = "Pensel 20 mm",
                     NumberOfItems = 10,
                     DisplayTotalPrice = 500,

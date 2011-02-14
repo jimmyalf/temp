@@ -1,22 +1,20 @@
 using System;
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Business.Interfaces;
-using Spinit.Wpc.Synologen.Data.Types;
-using Spinit.Wpc.Synologen.ServiceLibrary;
-using Spinit.Wpc.Synologen.Visma.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Test.Mock {
 	public static class Utility {
 
-		#region ShopData/IShop/ShopRow
-		public static ShopData GetMockShopData() {
-			return new ShopData(GetMockIShop());
+		#region ShopData/IShop/Shop
+		public static Shop GetMockShopData() {
+			return GetMockShop();
 		}
 		public static IShop GetMockIShop() {
-			return GetMockShopRow();
+			return GetMockShop();
 		}
-		public static ShopRow GetMockShopRow() {
-			return new ShopRow {
+		public static Shop GetMockShop() {
+			return new Shop {
 			                   	Active = true,
 			                   	Address = String.Empty,
 			                   	Address2 = "Gustav Adolfstorg 51",
@@ -39,15 +37,15 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		}
 		#endregion
 
-		#region OrderItemData/IOrderItem/OrderItemRow
-		private static OrderItemData GetMockOrderItem(int orderId) {
-			return new OrderItemData(GetMockIOrderItem(orderId, orderId + 1));
+		#region OrderItemData/IOrderItem/OrderItem
+		private static OrderItem GetMockOrderItem(int orderId) {
+			return new OrderItem(GetMockIOrderItem(orderId, orderId + 1));
 		}
 		private static IOrderItem GetMockIOrderItem(int orderId, int orderItemId) {
-			return GetMockOrderItemRow(orderId, orderItemId);
+			return GetMockOrderItem(orderId, orderItemId);
 		}
-		public static OrderItemRow GetMockOrderItemRow(int orderId,int orderItemId) {
-			return new OrderItemRow {
+		public static OrderItem GetMockOrderItem(int orderId,int orderItemId) {
+			return new OrderItem {
 			                        	ArticleDisplayName = "Synundersökning",
 			                        	ArticleDisplayNumber = "3210",
 			                        	ArticleId = 1,
@@ -62,20 +60,20 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		}
 		#endregion
 
-		#region ContractCompanyData/ICompany/CompanyRow
-		public static ContractCompanyData GetMockCompany() {
-			return new ContractCompanyData(GetMockICompany());
-		}
-		private static ICompany GetMockICompany() {
-			return GetMockCompanyRow();
-		}
-		public static CompanyRow GetMockCompanyRow() {
-			return new CompanyRow {
+		#region ContractCompanyData/ICompany/Company
+		//public static Company GetMockCompany() {
+		//    return new Company(GetMockICompany());
+		//}
+		//private static ICompany GetMockICompany() {
+		//    return GetMockCompany();
+		//}
+		public static Company GetMockCompany() {
+			return new Company {
 				PostBox = "Swedbank",
 				StreetName = "Fakturagruppen RST",
 				BankCode = "8999",
 				City = "Stockholm",
-				CompanyCode = "900",
+				//CompanyCode = "900",
 				ContractId = 1,
 				Id = 4,
 				Name = "Swedbank",
@@ -91,16 +89,16 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		}
 		#endregion
 
-		#region OrderData/IOrder/OrderRow
-		public static OrderData GetMockOrderData(int orderId) {
-			return new OrderData(GetMockIOrder(orderId)) {
+		#region OrderData/IOrder/Order
+		public static Order GetMockOrderData(int orderId) {
+			return new Order(GetMockIOrder(orderId)) {
 			                                             	ContractCompany = GetMockCompany(),
-			                                             	OrderItems = new List<OrderItemData> {GetMockOrderItem(orderId)},
+			                                             	OrderItems = new List<OrderItem> {GetMockOrderItem(orderId)},
 			                                             	SellingShop = GetMockShopData(),
 			                                             };
 		}
-		public static OrderRow GetMockOrderRow(int orderId) {
-			return new OrderRow {
+		public static Order GetMockOrder(int orderId) {
+			return new Order {
 			                    	CompanyId = 1,
 			                    	CompanyUnit = "Bygg & Inredning",
 			                    	CreatedDate = new DateTime(2009, 09, 23),
@@ -112,7 +110,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 			                    	MarkedAsPayedByShop = false,
 			                    	PersonalIdNumber = "197001015374",
 			                    	Phone = "031123456",
-			                    	RSTId = 0,
+			                    	//RSTId = 0,
 									RstText = "45403",
 			                    	SalesPersonMemberId = 1,
 			                    	SalesPersonShopId = 1,
@@ -121,7 +119,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 			                    };
 		}
 		private static IOrder GetMockIOrder(int orderId) {
-			return GetMockOrderRow(orderId);
+			return GetMockOrder(orderId);
 		}
 		#endregion
 
@@ -138,7 +136,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 
 		public static List<IOrderItem> GetMockOrderItems(int id) {
 			var list = new List<IOrderItem> {
-				new OrderItemRow {
+				new OrderItem {
      					ArticleDisplayName = "Synundersökning (momsbefriad)",
 						ArticleDisplayNumber = "1000",
      					NumberOfItems = 1,
@@ -146,21 +144,21 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
      					OrderId = id,
      					NoVAT = true
 				},
-				new OrderItemRow {
+				new OrderItem {
      					ArticleDisplayName = "Företagsbåge",
 						ArticleDisplayNumber = "2000",
      					NumberOfItems = 1,
      					SinglePrice = 400,
      					OrderId = id
 				},
-				new OrderItemRow {
+				new OrderItem {
      					ArticleDisplayName = "G närprogressiva plast (standard)",
 						ArticleDisplayNumber = "3110",
      					NumberOfItems = 2,
      					SinglePrice = 220,
      					OrderId = id
 				},
-				new OrderItemRow {
+				new OrderItem {
      					ArticleDisplayName = "Superantireflex plast inkl. hårdyta",
 						ArticleDisplayNumber = "3412",
      					NumberOfItems = 2,

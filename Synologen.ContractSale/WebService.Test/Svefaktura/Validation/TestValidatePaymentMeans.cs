@@ -1,8 +1,8 @@
 using System.Linq;
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
-using Spinit.Wpc.Synologen.Utility;
 namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 	[TestFixture]
 	public class TestValidatePaymentMeans : AssertionHelper {

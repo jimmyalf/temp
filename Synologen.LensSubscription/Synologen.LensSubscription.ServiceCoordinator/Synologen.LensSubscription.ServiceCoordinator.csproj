@@ -53,10 +53,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit\Spinit.Data.NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Core.Dependencies.NHibernate, Version=5.0.0.1809, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Synologen Site\Bin\Spinit.Wpc.Core.Dependencies.NHibernate.dll</HintPath>
-    </Reference>
     <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\StructureMap\StructureMap.dll</HintPath>
@@ -104,6 +100,10 @@
     <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.LensSubscription.BGData\Synologen.LensSubscription.BGData.csproj">
+      <Project>{003B6ADC-A08B-4D0E-9E34-FA43A03F2075}</Project>
+      <Name>Synologen.LensSubscription.BGData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

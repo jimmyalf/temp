@@ -1,18 +1,18 @@
-﻿#define DEBUG
+#define DEBUG
 using System.Reflection;
 using NHibernate;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
-using Spinit.Synologen.LensSubscription.BGData;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.Logging;
 using StructureMap.Configuration.DSL;
+using Synologen.LensSubscription.BGData;
+using Synologen.LensSubscription.ServiceCoordinator.App.Logging;
 
-namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.IoC
+namespace Synologen.LensSubscription.ServiceCoordinator.App.IoC
 {
 	public class TaskRunnerRegistry : Registry
 	{

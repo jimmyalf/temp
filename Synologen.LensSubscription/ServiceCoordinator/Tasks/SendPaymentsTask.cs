@@ -9,7 +9,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Extensions;
 using PaymentType=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.PaymentType;
 
-namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Tasks
+namespace Synologen.LensSubscription.ServiceCoordinator.Tasks
 {
 	public class SendPaymentsTask :TaskBase
 	{

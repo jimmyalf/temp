@@ -1,7 +1,7 @@
 using log4net;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
-namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.Logging
+namespace Synologen.LensSubscription.ServiceCoordinator.App.Logging
 {
 	public static class LogFactory
 	{

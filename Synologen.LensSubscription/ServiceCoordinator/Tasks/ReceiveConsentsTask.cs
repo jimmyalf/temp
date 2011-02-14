@@ -9,7 +9,7 @@ using Spinit.Extensions;
 using ConsentCommentCode=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentCommentCode;
 using ConsentInformationCode=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.ConsentInformationCode;
 
-namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Tasks
+namespace Synologen.LensSubscription.ServiceCoordinator.Tasks
 {
 	public class ReceiveConsentsTask : TaskBase
 	{
@@ -72,19 +72,19 @@ namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Tasks
 			_subscriptionErrorRepository.Save(subscriptionError);
 		}
 
-		private static ConsentInformationCode? GetSubscriptionErrorInformationCode(Core.Domain.Model.BGWebService.ConsentInformationCode? code)
+		private static ConsentInformationCode? GetSubscriptionErrorInformationCode(Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode? code)
 		{
 			switch (code)
 			{
-				case Core.Domain.Model.BGWebService.ConsentInformationCode.AnswerToNewAccountApplication:
+				case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.AnswerToNewAccountApplication:
 					return ConsentInformationCode.AnswerToNewAccountApplication;
-				case Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPayer:
+				case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPayer:
 					return ConsentInformationCode.InitiatedByPayer;
-				case  Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPayersBank:
+				case  Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPayersBank:
 					return ConsentInformationCode.InitiatedByPayersBank;
-				case Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPaymentRecipient:
+				case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPaymentRecipient:
 					return ConsentInformationCode.InitiatedByPaymentRecipient;
-				case Core.Domain.Model.BGWebService.ConsentInformationCode.PaymentRecieversBankGiroAccountClosed:
+				case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.PaymentRecieversBankGiroAccountClosed:
 					return ConsentInformationCode.PaymentRecieversBankGiroAccountClosed;
 			}
 			throw new ArgumentOutOfRangeException("code");

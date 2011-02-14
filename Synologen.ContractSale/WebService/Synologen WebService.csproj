@@ -54,7 +54,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen.ContractSale.ServiceLibrary\Synologen ServiceLibrary.csproj">
+    <ProjectReference Include="..\ServiceLibrary\Synologen ServiceLibrary.csproj">
       <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
       <Name>Synologen ServiceLibrary</Name>
     </ProjectReference>

@@ -1,6 +1,6 @@
 using System;
 
-namespace Spinit.Wpc.Synologen.Integration.FileIO.Test.Helpers
+namespace Synologen.LensSubscription.Autogiro.FileIO.Test.Helpers
 {
 	public static class StringExtensions
 	{

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Spinit.Wp.Synologen.Autogiro.Helpers;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Synologen.LensSubscription.Autogiro.Helpers;
 
-namespace Spinit.Wp.Synologen.Autogiro.Readers
+namespace Synologen.LensSubscription.Autogiro.Readers
 {
 	public abstract class BaseReader
 	{

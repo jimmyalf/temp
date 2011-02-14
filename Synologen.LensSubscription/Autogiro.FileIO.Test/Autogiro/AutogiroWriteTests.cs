@@ -1,14 +1,12 @@
 using NUnit.Framework;
 using Shouldly;
-using Spinit.Wp.Synologen.Autogiro;
-using Spinit.Wp.Synologen.Autogiro.Writers;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
-using Spinit.Wpc.Synologen.Integration.FileIO.Test.Autogiro.Factories;
-using Spinit.Wpc.Synologen.Integration.FileIO.Test.Helpers;
+using Synologen.LensSubscription.Autogiro.FileIO.Test.Autogiro.Factories;
+using Synologen.LensSubscription.Autogiro.FileIO.Test.Helpers;
+using Synologen.LensSubscription.Autogiro.Writers;
 
-namespace Spinit.Wpc.Synologen.Integration.FileIO.Test.Autogiro
+namespace Synologen.LensSubscription.Autogiro.FileIO.Test.Autogiro
 {
-
 	[TestFixture]
 	[Category("AutogiroFileWriterTester")]
 	public class When_writing_payments_file : IOBase
@@ -67,5 +65,4 @@ namespace Spinit.Wpc.Synologen.Integration.FileIO.Test.Autogiro
 			writtenFileContents.ShouldBe(_expectedFileContents);
 		}
 	}
-
 }

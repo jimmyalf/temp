@@ -4,7 +4,7 @@ using System.IO;
 using NUnit.Framework;
 using Spinit.Extensions;
 
-namespace Spinit.Wpc.Synologen.Integration.FileIO.Test.Helpers
+namespace Synologen.LensSubscription.Autogiro.FileIO.Test.Helpers
 {
 	[TestFixture]
 	public abstract class IOBase

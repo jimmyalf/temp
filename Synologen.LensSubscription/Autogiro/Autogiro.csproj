@@ -8,8 +8,8 @@
     <ProjectGuid>{FE99D598-0516-4E6E-ACF2-E4745942EFD2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wp.Synologen.Autogiro</RootNamespace>
-    <AssemblyName>Spinit.Wp.Synologen.Autogiro</AssemblyName>
+    <RootNamespace>Synologen.LensSubscription.Autogiro</RootNamespace>
+    <AssemblyName>Synologen.LensSubscription.Autogiro</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

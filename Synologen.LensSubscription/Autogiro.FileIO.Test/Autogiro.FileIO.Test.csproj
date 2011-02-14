@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E214A7DA-DE95-4E48-89C4-298DDD64A328}</ProjectGuid>
+    <ProjectGuid>{525B913E-0792-4103-B7FF-A62D93F9BB72}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Test</RootNamespace>
-    <AssemblyName>Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Test</AssemblyName>
+    <RootNamespace>Synologen.LensSubscription.Autogiro.FileIO.Test</RootNamespace>
+    <AssemblyName>Synologen.LensSubscription.Autogiro.FileIO.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,11 +43,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit\Spinit.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.ShouldlyExtensions, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependancies\Tools\Shouldly\Spinit.ShouldlyExtensions.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -61,20 +58,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutogiroParserServiceTests.cs" />
-    <Compile Include="Factories\FileFactory.cs" />
-    <Compile Include="Factories\FileContentFactory.cs" />
+    <Compile Include="Autogiro\AutogiroWriteTests.cs" />
+    <Compile Include="Autogiro\AutogiroReadTests.cs" />
+    <Compile Include="Autogiro\Factories\FileContentFactory.cs" />
+    <Compile Include="Autogiro\Factories\FileFactory.cs" />
+    <Compile Include="GlobalTestBase.cs" />
+    <Compile Include="Helpers\IOBase.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen.LensSubscription.Autogiro\Synologen.LensSubscription.Autogiro.csproj">
-      <Project>{2E5D8A26-6535-4A7A-A5CE-794614C41A27}</Project>
-      <Name>Synologen.LensSubscription.Autogiro</Name>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReadTestfiles\Autogiro\AGP Layout D.txt" />
+    <Content Include="ReadTestfiles\Autogiro\AGP Layout E.txt" />
+    <Content Include="ReadTestfiles\Autogiro\AGP Layout F.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Autogiro\Autogiro.csproj">
+      <Project>{FE99D598-0516-4E6E-ACF2-E4745942EFD2}</Project>
+      <Name>Autogiro</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WriteOutput\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -84,4 +96,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

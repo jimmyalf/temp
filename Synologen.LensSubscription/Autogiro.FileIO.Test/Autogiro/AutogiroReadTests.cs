@@ -2,15 +2,13 @@ using System;
 using System.Linq;
 using NUnit.Framework;
 using Shouldly;
-using Spinit.Wp.Synologen.Autogiro;
-using Spinit.Wp.Synologen.Autogiro.Readers;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
-using Spinit.Wpc.Synologen.Integration.FileIO.Test.Helpers;
+using Synologen.LensSubscription.Autogiro.FileIO.Test.Helpers;
+using Synologen.LensSubscription.Autogiro.Readers;
 
-namespace Spinit.Wpc.Synologen.Integration.FileIO.Test.Autogiro
+namespace Synologen.LensSubscription.Autogiro.FileIO.Test.Autogiro
 {
-
 	[TestFixture]
 	[Category("AutogiroFileReaderTester")]
 	public class When_reading_payments_file : IOBase
@@ -23,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Integration.FileIO.Test.Autogiro
 
 		public When_reading_payments_file()
 		{
-	        _expectedNumberOfPosts = 15;
+			_expectedNumberOfPosts = 15;
 			_expectedWriteDate = new DateTime(2004, 10, 27);
 			_expectedReciever = new PaymentReciever { BankgiroNumber = "9912346", CustomerNumber = "471117" };
 			var filePath = GetReadFilePath(@"Autogiro\AGP Layout D.txt");
@@ -38,13 +36,13 @@ namespace Spinit.Wpc.Synologen.Integration.FileIO.Test.Autogiro
 		[Test]
 		public void File_object_has_expected_properties_set()
 		{
-	        _readPaymentsFile.WriteDate.ShouldBe(_expectedWriteDate);
-	        _readPaymentsFile.Reciever.ShouldBe(_expectedReciever);
+			_readPaymentsFile.WriteDate.ShouldBe(_expectedWriteDate);
+			_readPaymentsFile.Reciever.ShouldBe(_expectedReciever);
 			_readPaymentsFile.NumberOfCreditsInFile.ShouldBe(1);
 			_readPaymentsFile.NumberOfDebitsInFile.ShouldBe(14);
 			_readPaymentsFile.TotalCreditAmountInFile.ShouldBe(16874);
 			_readPaymentsFile.TotalDebitAmountInFile.ShouldBe(5475);
-	        _readPaymentsFile.Posts.Count().ShouldBe(_expectedNumberOfPosts);
+			_readPaymentsFile.Posts.Count().ShouldBe(_expectedNumberOfPosts);
 		}
 	}
 

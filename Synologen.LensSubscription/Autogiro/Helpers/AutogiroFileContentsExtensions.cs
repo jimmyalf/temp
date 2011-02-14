@@ -2,7 +2,7 @@ using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Spinit.Wp.Synologen.Autogiro.Helpers
+namespace Synologen.LensSubscription.Autogiro.Helpers
 {
 	public static class AutogiroFileContentsExtensions
 	{

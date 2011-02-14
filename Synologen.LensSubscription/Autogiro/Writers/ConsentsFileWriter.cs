@@ -1,7 +1,7 @@
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 
-namespace Spinit.Wp.Synologen.Autogiro.Writers
+namespace Synologen.LensSubscription.Autogiro.Writers
 {
 	public class ConsentsFileWriter : AutogiroFileWriter<ConsentsFile,  Consent>
 	{

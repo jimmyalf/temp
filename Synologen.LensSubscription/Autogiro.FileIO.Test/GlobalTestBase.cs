@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Spinit.Wpc.Synologen.Integration.FileIO.Test
+namespace Synologen.LensSubscription.Autogiro.FileIO.Test
 {
 	[SetUpFixture]
 	public class GlobalTestBase

@@ -3,7 +3,7 @@ using System.IO;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 
-namespace Spinit.Synologen.LensSubscription.BGData
+namespace Synologen.LensSubscription.BGData
 {
 	public class SchemaExporter
 	{

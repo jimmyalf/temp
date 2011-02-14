@@ -4,7 +4,7 @@ using FluentNHibernate.Conventions.Helpers;
 using NHibernate;
 using NHibernate.Cfg;
 
-namespace Spinit.Synologen.LensSubscription.BGData
+namespace Synologen.LensSubscription.BGData
 {
 	public class NHibernateFactory
 	{
@@ -14,7 +14,7 @@ namespace Spinit.Synologen.LensSubscription.BGData
 		public NHibernateFactory()
 		{
 			_configuration = Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2000.ConnectionString(c => c.FromConnectionStringWithKey("BGServer")))
+				.Database(MsSqlConfiguration.MsSql2000.ConnectionString(c => c.FromConnectionStringWithKey("BGServer")))
 				.Mappings(config => 
 				{
 					config.FluentMappings.Conventions.Setup(s => s.Add(AutoImport.Never()));

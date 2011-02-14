@@ -8,8 +8,8 @@
     <ProjectGuid>{003B6ADC-A08B-4D0E-9E34-FA43A03F2075}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Synologen.LensSubscription.BGData</RootNamespace>
-    <AssemblyName>Spinit.Synologen.LensSubscription.BGData</AssemblyName>
+    <RootNamespace>Synologen.LensSubscription.BGData</RootNamespace>
+    <AssemblyName>Synologen.LensSubscription.BGData</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

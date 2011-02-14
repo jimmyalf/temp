@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
-using Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Tasks;
+using Synologen.LensSubscription.ServiceCoordinator.Tasks;
 using ConsentInformationCode=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.ConsentInformationCode;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers

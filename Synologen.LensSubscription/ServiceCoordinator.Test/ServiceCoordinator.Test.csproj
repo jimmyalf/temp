@@ -94,9 +94,9 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.LensSubscription.ServiceCoordinator\Synologen.LensSubscription.ServiceCoordinator.csproj">
+    <ProjectReference Include="..\ServiceCoordinator\ServiceCoordinator.csproj">
       <Project>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</Project>
-      <Name>Synologen.LensSubscription.ServiceCoordinator</Name>
+      <Name>ServiceCoordinator</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

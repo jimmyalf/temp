@@ -1,4 +1,4 @@
-namespace Spinit.Wp.Synologen.Autogiro.Helpers
+namespace Synologen.LensSubscription.Autogiro.Helpers
 {
 	public static class ReadLineInfoExtensions
 	{

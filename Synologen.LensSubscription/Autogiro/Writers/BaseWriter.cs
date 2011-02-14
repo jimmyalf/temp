@@ -1,6 +1,6 @@
 using System;
 
-namespace Spinit.Wp.Synologen.Autogiro.Writers
+namespace Synologen.LensSubscription.Autogiro.Writers
 {
 	public class BaseWriter
 	{

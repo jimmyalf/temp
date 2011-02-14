@@ -2,7 +2,7 @@ using System.IO;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 
-namespace Spinit.Wp.Synologen.Autogiro
+namespace Synologen.LensSubscription.Autogiro
 {
 	public class AutogiroFileWriter<TFile>
 	{

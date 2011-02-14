@@ -1,6 +1,6 @@
 using System;
 
-namespace Spinit.Wp.Synologen.Autogiro.Helpers
+namespace Synologen.LensSubscription.Autogiro.Helpers
 {
 	public class ReadLineInfo
 	{

@@ -3,14 +3,14 @@ using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
-using Spinit.Wp.Synologen.Autogiro.Readers;
-using Spinit.Wp.Synologen.Autogiro.Writers;
-using Spinit.Wpc.Synologen.Autogiro.Test.Factories;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Synologen.LensSubscription.Autogiro.Readers;
+using Synologen.LensSubscription.Autogiro.Test.Factories;
+using Synologen.LensSubscription.Autogiro.Writers;
 
-namespace Spinit.Wpc.Synologen.Autogiro.Test
+namespace Synologen.LensSubscription.Autogiro.Test
 {
 	[TestFixture]
 	[Category("AutogiroParsingTester")]
@@ -58,33 +58,33 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 	[Category("AutogiroParsingTester")]
 	public class When_reading_payments
 	{
-	    private readonly PaymentsFile _paymentsFile;
-	    private readonly int _expectedNumberOfPosts;
+		private readonly PaymentsFile _paymentsFile;
+		private readonly int _expectedNumberOfPosts;
 		private readonly PaymentReciever _expectedReciever;
 		private readonly DateTime _expectedWriteDate;
 		private readonly DateTime _expectedPaymentDate;
 
 		public When_reading_payments()
-	    {
-	        _expectedNumberOfPosts = 15;
+		{
+			_expectedNumberOfPosts = 15;
 			_expectedPaymentDate = new DateTime(2004, 10, 28);
 			_expectedWriteDate = new DateTime(2004, 10, 27);
 			_expectedReciever = new PaymentReciever { BankgiroNumber = "9912346", CustomerNumber = "471117" };
 			var fileContent = FileContentFactory.GetLayoutD();
-	    	var fileReader = new PaymentsFileReader();
-	    	_paymentsFile = fileReader.Read(fileContent);
-	    }
+			var fileReader = new PaymentsFileReader();
+			_paymentsFile = fileReader.Read(fileContent);
+		}
 
-	    [Test]
-	    public void Payments_model_contains_expected_data()
-	    {
-	        _paymentsFile.WriteDate.ShouldBe(_expectedWriteDate);
-	        _paymentsFile.Reciever.ShouldBe(_expectedReciever);
+		[Test]
+		public void Payments_model_contains_expected_data()
+		{
+			_paymentsFile.WriteDate.ShouldBe(_expectedWriteDate);
+			_paymentsFile.Reciever.ShouldBe(_expectedReciever);
 			_paymentsFile.NumberOfCreditsInFile.ShouldBe(1);
 			_paymentsFile.NumberOfDebitsInFile.ShouldBe(14);
 			_paymentsFile.TotalCreditAmountInFile.ShouldBe(16874);
 			_paymentsFile.TotalDebitAmountInFile.ShouldBe(5475);
-	        _paymentsFile.Posts.Count().ShouldBe(_expectedNumberOfPosts);
+			_paymentsFile.Posts.Count().ShouldBe(_expectedNumberOfPosts);
 			_paymentsFile.Posts.For((index,post) =>
 			{
 				post.PeriodCode.ShouldBe(PeriodCode.PaymentOnceOnSelectedDate);
@@ -98,7 +98,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				}
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(0, post =>
+			_paymentsFile.Posts.ForElementAtIndex(0, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.Approved); 
 				post.Transmitter.CustomerNumber.ShouldBe("1001");
@@ -106,7 +106,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809001");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(1, post =>
+			_paymentsFile.Posts.ForElementAtIndex(1, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.Approved); 
 				post.Transmitter.CustomerNumber.ShouldBe("1002");
@@ -114,7 +114,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809002");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(2, post =>
+			_paymentsFile.Posts.ForElementAtIndex(2, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.Approved); 
 				post.Transmitter.CustomerNumber.ShouldBe("1004");
@@ -122,7 +122,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809004");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(3, post =>
+			_paymentsFile.Posts.ForElementAtIndex(3, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.Approved); 
 				post.Transmitter.CustomerNumber.ShouldBe("1005");
@@ -130,7 +130,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809005");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(4, post =>
+			_paymentsFile.Posts.ForElementAtIndex(4, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.Approved); 
 				post.Transmitter.CustomerNumber.ShouldBe("1006");
@@ -138,7 +138,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809006");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(5, post =>
+			_paymentsFile.Posts.ForElementAtIndex(5, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.Approved); 
 				post.Transmitter.CustomerNumber.ShouldBe("1007");
@@ -146,7 +146,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809007");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(6, post =>
+			_paymentsFile.Posts.ForElementAtIndex(6, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.Approved); 
 				post.Transmitter.CustomerNumber.ShouldBe("1008");
@@ -154,7 +154,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809008");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(7, post =>
+			_paymentsFile.Posts.ForElementAtIndex(7, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.Approved); 
 				post.Transmitter.CustomerNumber.ShouldBe("1009");
@@ -162,7 +162,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809009");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(8, post =>
+			_paymentsFile.Posts.ForElementAtIndex(8, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.Approved); 
 				post.Transmitter.CustomerNumber.ShouldBe("1010");
@@ -170,7 +170,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809010");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(9, post =>
+			_paymentsFile.Posts.ForElementAtIndex(9, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.Approved); 
 				post.Transmitter.CustomerNumber.ShouldBe("1011");
@@ -178,7 +178,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809011");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(10, post =>
+			_paymentsFile.Posts.ForElementAtIndex(10, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.Approved); 
 				post.Transmitter.CustomerNumber.ShouldBe("1012");
@@ -186,7 +186,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809012");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(11, post =>
+			_paymentsFile.Posts.ForElementAtIndex(11, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.Approved);
 				post.Transmitter.CustomerNumber.ShouldBe("1014");
@@ -194,7 +194,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809745");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(12, post =>
+			_paymentsFile.Posts.ForElementAtIndex(12, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.AGConnectionMissing);
 				post.Transmitter.CustomerNumber.ShouldBe("1013");
@@ -202,7 +202,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809013");
 			});
 
-	    	_paymentsFile.Posts.ForElementAtIndex(13, post =>
+			_paymentsFile.Posts.ForElementAtIndex(13, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.InsufficientFunds);
 				post.Transmitter.CustomerNumber.ShouldBe("1014");
@@ -210,14 +210,14 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.Reference.ShouldBe("0809014");
 			});
 
-    		_paymentsFile.Posts.ForElementAtIndex(14, post =>
+			_paymentsFile.Posts.ForElementAtIndex(14, post =>
 			{
 				post.Result.ShouldBe(PaymentResult.WillTryAgain); 
 				post.Transmitter.CustomerNumber.ShouldBe("1015");
 				post.Amount.ShouldBe(489);
 				post.Reference.ShouldBe("0809015");
 			});
-	    }
+		}
 	}
 
 	[TestFixture]
@@ -237,8 +237,8 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 			_expectedWriteDate = new DateTime(2004, 01, 18);
 			_expectedRecieverBankgiroNumber = "9912346";
 			var fileContent = FileContentFactory.GetLayoutE();
-	    	var fileReader = new ConsentsFileReader();
-	    	_consentsFile = fileReader.Read(fileContent);
+			var fileReader = new ConsentsFileReader();
+			_consentsFile = fileReader.Read(fileContent);
 		}
 
 		[Test]
@@ -253,7 +253,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.ActionDate.ShouldBe(_expectedActionDate);
 				post.InformationCode.ShouldBe(ConsentInformationCode.InitiatedByPaymentRecipient);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(0, post =>
+			_consentsFile.Posts.ForElementAtIndex(0, post =>
 			{
 				post.Transmitter.CustomerNumber.ShouldBe("23344");
 				post.Account.ClearingNumber.ShouldBe("3300");
@@ -263,7 +263,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsideration);
 				post.ConsentValidForDate.ShouldBe(null);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(1, post =>
+			_consentsFile.Posts.ForElementAtIndex(1, post =>
 			{
 				post.Transmitter.CustomerNumber.ShouldBe("34433");
 				post.Account.ClearingNumber.ShouldBe("8901");
@@ -273,7 +273,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.CommentCode.ShouldBe(ConsentCommentCode.NewConsent);
 				post.ConsentValidForDate.Value.ShouldBe(_expectedConsentValidForDateDate);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(2, post =>
+			_consentsFile.Posts.ForElementAtIndex(2, post =>
 			{
 				post.Transmitter.CustomerNumber.ShouldBe("42233");
 				post.Account.ClearingNumber.ShouldBe("5001");
@@ -283,7 +283,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.CommentCode.ShouldBe(ConsentCommentCode.NewConsent);
 				post.ConsentValidForDate.Value.ShouldBe(_expectedConsentValidForDateDate);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(3, post =>
+			_consentsFile.Posts.ForElementAtIndex(3, post =>
 			{
 				post.Transmitter.CustomerNumber.ShouldBe("52244");
 				post.Account.ClearingNumber.ShouldBe("7001");
@@ -293,7 +293,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.CommentCode.ShouldBe(ConsentCommentCode.NewConsent);
 				post.ConsentValidForDate.Value.ShouldBe(_expectedConsentValidForDateDate);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(4, post =>
+			_consentsFile.Posts.ForElementAtIndex(4, post =>
 			{
 				post.Transmitter.CustomerNumber.ShouldBe("61155");
 				post.Account.ClearingNumber.ShouldBe("1348");
@@ -303,7 +303,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.CommentCode.ShouldBe(ConsentCommentCode.NewConsent);
 				post.ConsentValidForDate.Value.ShouldBe(_expectedConsentValidForDateDate);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(5, post =>
+			_consentsFile.Posts.ForElementAtIndex(5, post =>
 			{
 				post.Transmitter.CustomerNumber.ShouldBe("44333");
 				post.Account.ClearingNumber.ShouldBe("6000");
@@ -313,7 +313,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsideration);
 				post.ConsentValidForDate.ShouldBe(null);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(6, post =>
+			_consentsFile.Posts.ForElementAtIndex(6, post =>
 			{
 				post.Transmitter.CustomerNumber.ShouldBe("195809010000");
 				post.Account.ClearingNumber.ShouldBe(null);
@@ -335,100 +335,100 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 		public When_reading_complementary_consents()
 		{
 			var fileContent = FileContentFactory.GetComplementaryLayoutE();
-	    	var fileReader = new ConsentsFileReader();
-	    	_consentsFile = fileReader.Read(fileContent);
+			var fileReader = new ConsentsFileReader();
+			_consentsFile = fileReader.Read(fileContent);
 		}
 
 		[Test]
 		public void Consents_model_contains_expected_comment_codes_and_information_codes()
 		{
 			_consentsFile.NumberOfItemsInFile.ShouldBe(18);
-	    	_consentsFile.Posts.ForElementAtIndex(0, post =>
+			_consentsFile.Posts.ForElementAtIndex(0, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentTurnedDownByBank);
 				post.InformationCode.ShouldBe(ConsentInformationCode.InitiatedByPaymentRecipient);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(1, post =>
+			_consentsFile.Posts.ForElementAtIndex(1, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentTurnedDownByPayer);
 				post.InformationCode.ShouldBe(ConsentInformationCode.InitiatedByPaymentRecipient);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(2, post =>
+			_consentsFile.Posts.ForElementAtIndex(2, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.AccountTypeNotApproved);
 				post.InformationCode.ShouldBe(ConsentInformationCode.InitiatedByPayer);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(3, post =>
+			_consentsFile.Posts.ForElementAtIndex(3, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentMissingInBankgiroConsentRegister);
 				post.InformationCode.ShouldBe(ConsentInformationCode.InitiatedByPayer);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(4, post =>
+			_consentsFile.Posts.ForElementAtIndex(4, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.IncorrectAccountOrPersonalIdNumber);
 				post.InformationCode.ShouldBe(ConsentInformationCode.AnswerToNewAccountApplication);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(5, post =>
+			_consentsFile.Posts.ForElementAtIndex(5, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentCanceledByBankgiro);
 				post.InformationCode.ShouldBe(ConsentInformationCode.InitiatedByPayersBank);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(6, post =>
+			_consentsFile.Posts.ForElementAtIndex(6, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentCanceledByBankgiroBecauseOfMissingStatement);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(7, post =>
+			_consentsFile.Posts.ForElementAtIndex(7, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsideration);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(8, post =>
+			_consentsFile.Posts.ForElementAtIndex(8, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.ConsentTemporarilyStoppedByPayer);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(9, post =>
+			_consentsFile.Posts.ForElementAtIndex(9, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.TemporaryConsentStopRevoked);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(10, post =>
+			_consentsFile.Posts.ForElementAtIndex(10, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.IncorrectPersonalIdNumber);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(11, post =>
+			_consentsFile.Posts.ForElementAtIndex(11, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.IncorrectPayerNumber);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(12, post =>
+			_consentsFile.Posts.ForElementAtIndex(12, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.IncorrectAccountNumber);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(13, post =>
+			_consentsFile.Posts.ForElementAtIndex(13, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.MaxAmountNotAllowed);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(14, post =>
+			_consentsFile.Posts.ForElementAtIndex(14, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.IncorrectPaymentReceiverBankgiroNumber);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(15, post =>
+			_consentsFile.Posts.ForElementAtIndex(15, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.PaymentReceiverBankgiroNumberMissing);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(16, post =>
+			_consentsFile.Posts.ForElementAtIndex(16, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.NewConsent);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
 			});
-	    	_consentsFile.Posts.ForElementAtIndex(17, post =>
+			_consentsFile.Posts.ForElementAtIndex(17, post =>
 			{
 				post.CommentCode.ShouldBe(ConsentCommentCode.Canceled);
 				post.InformationCode.ShouldBe(ConsentInformationCode.PaymentRecieversBankGiroAccountClosed);
@@ -470,11 +470,11 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 			_errorsFile.Posts.Count().ShouldBe(_expectedNumberOfPosts);
 
 			_errorsFile.Posts.For((index, post) =>
-          	{
-          		post.PeriodCode.ShouldBe(PeriodCode.PaymentOnceOnSelectedDate);
-          		post.PaymentDate.ShouldBe(_expectedPaymentDate);
-          		post.NumberOfReoccuringTransactionsLeft.ShouldBe(null);
-          	});
+			{
+				post.PeriodCode.ShouldBe(PeriodCode.PaymentOnceOnSelectedDate);
+				post.PaymentDate.ShouldBe(_expectedPaymentDate);
+				post.NumberOfReoccuringTransactionsLeft.ShouldBe(null);
+			});
 
 			_errorsFile.Posts.ForElementAtIndex(0, post =>
 			{
@@ -486,22 +486,22 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 			});
 
 			_errorsFile.Posts.ForElementAtIndex(1, post =>
-           	{
+			{
 				post.Amount.ShouldBe(200M);
 				post.Reference.ShouldBe(string.Empty);
-           		post.CommentCode.ShouldBe(ErrorCommentCode.ConsentStopped);
+				post.CommentCode.ShouldBe(ErrorCommentCode.ConsentStopped);
 				post.Transmitter.CustomerNumber.ShouldBe("102");
 				post.Type.ShouldBe(PaymentType.Debit);
-           	});
+			});
 
 			_errorsFile.Posts.ForElementAtIndex(2, post =>
-           	{
+			{
 				post.Amount.ShouldBe(100M);
 				post.Reference.ShouldBe(string.Empty);
-           		post.CommentCode.ShouldBe(ErrorCommentCode.AccountNotYetApproved);
+				post.CommentCode.ShouldBe(ErrorCommentCode.AccountNotYetApproved);
 				post.Transmitter.CustomerNumber.ShouldBe("103");
 				post.Type.ShouldBe(PaymentType.Credit);
-           	});
+			});
 
 			_errorsFile.Posts.ForElementAtIndex(3, post =>
 			{
@@ -510,7 +510,7 @@ namespace Spinit.Wpc.Synologen.Autogiro.Test
 				post.CommentCode.ShouldBe(ErrorCommentCode.NotYetDebitable);
 				post.Transmitter.CustomerNumber.ShouldBe("104");
 				post.Type.ShouldBe(PaymentType.Debit);
-           	});
+			});
 		}
 	}
 }

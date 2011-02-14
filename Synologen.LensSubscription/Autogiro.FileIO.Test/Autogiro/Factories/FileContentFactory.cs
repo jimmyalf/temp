@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Spinit.Wpc.Synologen.Integration.FileIO.Test.Autogiro.Factories
+namespace Synologen.LensSubscription.Autogiro.FileIO.Test.Autogiro.Factories
 {
 	public static class FileContentFactory
 	{

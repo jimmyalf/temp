@@ -8,8 +8,8 @@
     <ProjectGuid>{6C0BA65D-5A1D-4E93-A553-C6D54994D56A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen.LensSubscription.BGServiceTest</RootNamespace>
-    <AssemblyName>Synologen.LensSubscription.BGServiceTest</AssemblyName>
+    <RootNamespace>Synologen.LensSubscription.BGService.Test</RootNamespace>
+    <AssemblyName>Synologen.LensSubscription.BGService.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

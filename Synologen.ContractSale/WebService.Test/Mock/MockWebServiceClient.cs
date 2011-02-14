@@ -1,5 +1,9 @@
+using System;
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.ServiceLibrary;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
 namespace Spinit.Wpc.Synologen.Test.Mock {
 	public class MockWebServiceClient : ISynologenService {
@@ -8,13 +12,13 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 
 		#region Implementation of ISynologenService
 
-		public List<OrderData> GetOrdersForInvoicing() {
-			return new List<OrderData> { Utility.GetMockOrderData(orderIdCounter++) };
+		public List<Order> GetOrdersForInvoicing() {
+			return new List<Order> { Utility.GetMockOrderData(orderIdCounter++) };
 		}
 
 		public void SetOrderInvoiceNumber(int orderId, long newInvoiceNumber, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {}
 
-		public int LogMessage(LogTypeData logType, string message) {
+		public int LogMessage(LogType logType, string message) {
 			return logMessageNumberCounter++;
 		}
 
@@ -24,9 +28,25 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 			return list;
 		}
 
-		public void UpdateOrderStatuses(InvoiceStatusData invoiceStatus) {}
+		/// <summary>
+		/// Updates WPC order-status with information in given status object
+		/// </summary>
+		public void UpdateOrderStatuses(long invoiceNumber, bool invoiceIsCanceled, bool invoiceIsPayed) { }
 
-		public void UpdateOrderStatuses(List<InvoiceStatusData> listOfStatusUpdates) {}
+		/// <summary>
+		/// Sends given order as invoice
+		/// <exception cref="WebserviceException">Will throw exception if order could not be invoiced successfully</exception>
+		/// </summary>
+		public void SendInvoice(int orderId) { }
+
+		/// <summary>
+		/// Sends given orders as invoices
+		/// </summary>
+		public void SendInvoices(List<int> orderIds, string statusReportEmailAddress) { throw new NotImplementedException(); }
+
+		//public void UpdateOrderStatuses(InvoiceStatus invoiceStatus) {}
+
+		//public void UpdateOrderStatuses(List<InvoiceStatus> listOfStatusUpdates) {}
 
 		public void SendInvoiceEDI(int orderId) {}
 

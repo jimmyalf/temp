@@ -1,14 +1,15 @@
-using Spinit.Wpc.Synologen.ServiceLibrary;
-using Spinit.Wpc.Synologen.Visma.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+
 
 namespace Spinit.Wpc.Synologen.Test.Mock {
-	public class MockAdkHandler : IAdkHandler {
+	public class MockAdkHandler : IAdkHandler 
+	{
 		private int invoiceNumberCounter = 555;
 
 		public void OpenCompany() {}
 
 		public void CloseCompany() {}
-		public double AddInvoice(OrderData order, bool markAsPrinted, bool useNoGeneralVAT, out double invoiceSumIncludingVAT, out double invoiceSumExcludingVAT) {
+		public double AddInvoice(IOrder order, bool markAsPrinted, bool useNoGeneralVAT, out double invoiceSumIncludingVAT, out double invoiceSumExcludingVAT) {
 			invoiceSumIncludingVAT = 0;
 			invoiceSumExcludingVAT = 0;
 			return invoiceNumberCounter++;
@@ -16,7 +17,7 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 
 		public void CancelInvoice(double invoiceNumber) {}
 
-		public PaymentInfo GetInvoicePaymentInfo(double vismaOrderId) {
+		public IInvoiceStatus GetInvoicePaymentInfo(double vismaOrderId) {
 			return Utility.GetMockPaymentInfo((long)vismaOrderId);
 		}
 

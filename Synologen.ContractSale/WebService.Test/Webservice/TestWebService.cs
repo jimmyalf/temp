@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using Spinit.Wpc.Synologen.ServiceLibrary;
-using Spinit.Wpc.Synologen.WebService;
 
 namespace Spinit.Wpc.Synologen.Test.Webservice {
 	//[TestFixture]
@@ -23,25 +22,25 @@ namespace Spinit.Wpc.Synologen.Test.Webservice {
 			client.Close();
 		}
 
-		[Test]
-		public void OfflineGetOrdersForInvoicing(){
-			var service = new SynologenService(connectionString);
-			var orders = service.GetOrdersForInvoicing();
-			Assert.IsNotNull(orders);
-			Assert.LessOrEqual(0, orders.Count);
-		}
+		//[Test]
+		//public void OfflineGetOrdersForInvoicing(){
+		//    var service = new SynologenService(connectionString);
+		//    var orders = service.GetOrdersForInvoicing();
+		//    Assert.IsNotNull(orders);
+		//    Assert.LessOrEqual(0, orders.Count);
+		//}
 
-		[Test]
-		public void OfflineGetOrderItems(){
-			var service = new SynologenService(connectionString);
-			var orders = service.GetOrdersForInvoicing();
-			Assert.IsNotNull(orders);
-			Assert.LessOrEqual(0, orders.Count);
-			foreach (var order in orders){
-				Assert.IsNotNull(order.OrderItems);
-				Assert.LessOrEqual(0, order.OrderItems.Count);
-			}
-		}
+		//[Test]
+		//public void OfflineGetOrderItems(){
+		//    var service = new SynologenService(connectionString);
+		//    var orders = service.GetOrdersForInvoicing();
+		//    Assert.IsNotNull(orders);
+		//    Assert.LessOrEqual(0, orders.Count);
+		//    foreach (var order in orders){
+		//        Assert.IsNotNull(order.OrderItems);
+		//        Assert.LessOrEqual(0, order.OrderItems.Count);
+		//    }
+		//}
 
 		[Test]
 		public void WebServiceGetOrdersForInvoicing(){

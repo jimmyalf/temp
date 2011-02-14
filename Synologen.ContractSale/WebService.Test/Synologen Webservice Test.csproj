@@ -137,7 +137,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Synologen.Presentation.Site\Synologen.Presentation.Site.csproj">
       <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
-      <Name>Synologen Site</Name>
+      <Name>Synologen.Presentation.Site</Name>
     </ProjectReference>
     <ProjectReference Include="..\Svefaktura\Synologen Svefaktura.csproj">
       <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
@@ -145,7 +145,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Utility\Synologen Invoicing Utility.csproj">
       <Project>{84326EE0-5F6E-4133-A852-AF781AF74682}</Project>
-      <Name>Synologen Utility</Name>
+      <Name>Synologen Invoicing Utility</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Synologen Visma\Synologen Visma.csproj">
       <Project>{F83AEC3E-114B-42F9-AF36-12B985FB1EFC}</Project>

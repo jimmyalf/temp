@@ -155,7 +155,7 @@
     <Content Include="Components\Synologen\SynologenOpq.master" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Synologen Admin\Synologen Admin.csproj">
+    <ProjectReference Include="..\..\Synologen.Presentation\Synologen.Presentation.csproj">
       <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
       <Name>Synologen Admin</Name>
     </ProjectReference>
@@ -242,15 +242,6 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1897</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Spinit.Wpc.Synologen.OPQ.Admin</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

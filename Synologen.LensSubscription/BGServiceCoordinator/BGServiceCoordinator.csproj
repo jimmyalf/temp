@@ -8,8 +8,8 @@
     <ProjectGuid>{0EB3860A-9087-4AF2-BAD9-A1AEA964999D}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.LensSubscription.BGServiceCoordinator</RootNamespace>
-    <AssemblyName>Spinit.Wpc.Synologen.LensSubscription.BGServiceCoordinator</AssemblyName>
+    <RootNamespace>Synologen.LensSubscription.BGServiceCoordinator</RootNamespace>
+    <AssemblyName>Synologen.LensSubscription.BGServiceCoordinator</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -80,9 +80,9 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.LensSubscription.BGData\Synologen.LensSubscription.BGData.csproj">
+    <ProjectReference Include="..\BGData\BGData.csproj">
       <Project>{003B6ADC-A08B-4D0E-9E34-FA43A03F2075}</Project>
-      <Name>Synologen.LensSubscription.BGData</Name>
+      <Name>BGData</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

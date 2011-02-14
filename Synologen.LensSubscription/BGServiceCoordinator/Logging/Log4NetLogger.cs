@@ -2,7 +2,7 @@ using System;
 using log4net;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
-namespace Spinit.Wpc.Synologen.LensSubscription.BGServiceCoordinator.Logging
+namespace Synologen.LensSubscription.BGServiceCoordinator.Logging
 {
 	public class Log4NetLogger : ILoggingService
 	{

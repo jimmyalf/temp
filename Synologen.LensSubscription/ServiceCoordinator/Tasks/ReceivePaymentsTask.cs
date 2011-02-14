@@ -8,7 +8,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Extensions;
 using PaymentResult=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.PaymentResult;
 
-namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Tasks
+namespace Synologen.LensSubscription.ServiceCoordinator.Tasks
 {
 	public class ReceivePaymentsTask : TaskBase
 	{

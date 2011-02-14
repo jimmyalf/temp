@@ -6,7 +6,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
-namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.Tasks
+namespace Synologen.LensSubscription.ServiceCoordinator.Tasks
 {
 	public class SendConsentsTask : TaskBase
 	{

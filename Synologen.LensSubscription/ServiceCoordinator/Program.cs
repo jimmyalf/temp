@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
-using Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator.App.Logging;
 using StructureMap;
+using Synologen.LensSubscription.ServiceCoordinator.App.Logging;
 
-namespace Spinit.Wpc.Synologen.LensSubscription.ServiceCoordinator
+namespace Synologen.LensSubscription.ServiceCoordinator
 {
 	public class Program
 	{

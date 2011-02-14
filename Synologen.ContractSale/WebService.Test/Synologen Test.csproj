@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2731D6EA-3A53-4F8B-A78E-15D3864F8148}</ProjectGuid>
+    <ProjectGuid>{08A2EECC-1FCD-42BF-9B75-B573F644E277}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Spinit.Wpc.Synologen.Test</RootNamespace>
@@ -126,23 +126,23 @@
       <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
       <Name>Synologen Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen EDI\Synologen EDI.csproj">
+    <ProjectReference Include="..\EDI\Synologen EDI.csproj">
       <Project>{8554B3AF-CA2A-499F-B921-A80804B99056}</Project>
       <Name>Synologen EDI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen ServiceLibrary\Synologen ServiceLibrary.csproj">
+    <ProjectReference Include="..\ServiceLibrary\Synologen ServiceLibrary.csproj">
       <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
       <Name>Synologen ServiceLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Site\Synologen Site.csproj">
+    <ProjectReference Include="..\..\Synologen.Presentation.Site\Synologen.Presentation.Site.csproj">
       <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
       <Name>Synologen Site</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Svefaktura\Synologen Svefaktura.csproj">
+    <ProjectReference Include="..\Svefaktura\Synologen Svefaktura.csproj">
       <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
       <Name>Synologen Svefaktura</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen Utility\Synologen Utility.csproj">
+    <ProjectReference Include="..\Utility\Synologen Invoicing Utility.csproj">
       <Project>{84326EE0-5F6E-4133-A852-AF781AF74682}</Project>
       <Name>Synologen Utility</Name>
     </ProjectReference>
@@ -150,7 +150,7 @@
       <Project>{F83AEC3E-114B-42F9-AF36-12B985FB1EFC}</Project>
       <Name>Synologen Visma</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen WebService\Synologen WebService.csproj">
+    <ProjectReference Include="..\WebService\Synologen WebService.csproj">
       <Project>{74466C1B-0F03-4356-BA44-CF8983F5347E}</Project>
       <Name>Synologen WebService</Name>
     </ProjectReference>

@@ -214,7 +214,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Synologen.Presentation.Site\Synologen.Presentation.Site.csproj">
       <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
-      <Name>Synologen Site</Name>
+      <Name>Synologen.Presentation.Site</Name>
     </ProjectReference>
     <ProjectReference Include="..\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj">
       <Project>{372FA2B3-85C4-417F-B178-65DA9D7B2749}</Project>

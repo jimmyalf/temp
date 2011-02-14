@@ -22,9 +22,10 @@
 		<include name="${dir.source}Synologen.Data.Test\Synologen.Data.Test.csproj"/>
 		<include name="${dir.source}Synologen.ContractSale\Synologen.ContractSale.WebService\Synologen WebService.csproj"/>
 		<include name="${dir.source}Synologen.ContractSale\Synologen.ContractSale.Test\Synologen Unit Test.csproj"/>
-		<include name="${dir.source}Synologen.LensSubscription\Synologen.LensSubscription.Autogiro.Test\Synologen.LensSubscription.Autogiro.Test.csproj"/>
-		<include name="${dir.source}Synologen.LensSubscription\Synologen.LensSubscription.Autogiro.FileIO.Test\Synologen.LensSubscription.Autogiro.FileIO.Test.csproj"/>
-		<include name="${dir.source}Synologen.LensSubscription\Synologen.LensSubscription.ServiceCoordinator.Test\Synologen.LensSubscription.ServiceCoordinator.Test.csproj"/>
+		<include name="${dir.source}Synologen.LensSubscription\Autogiro.Test\Autogiro.Test.csproj"/>
+		<include name="${dir.source}Synologen.LensSubscription\Autogiro.FileIO.Test\Autogiro.FileIO.Test.csproj"/>
+		<include name="${dir.source}Synologen.LensSubscription\ServiceCoordinator.Test\ServiceCoordinator.Test.csproj"/>
+		<include name="${dir.source}Synologen.LensSubscription\ServiceCoordinator.Test\BGServiceCoordinator.Test.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business.Test\Spinit.Wpc.Synologen.OPQ.Business.Test.csproj"/>

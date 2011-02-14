@@ -1,6 +1,5 @@
-using System;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Data.Types;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Visma.Utility;
 
 namespace Spinit.Wpc.Synologen.Test.Visma {
@@ -10,31 +9,31 @@ namespace Spinit.Wpc.Synologen.Test.Visma {
 		#region RST and CompanyUnit Formatting
 		[Test]
 		public void TestGetRSTDescription() {
-			var order = new OrderRow {RstText = "01234", CompanyUnit = "Testenheten"};
+			var order = new Order {RstText = "01234", CompanyUnit = "Testenheten"};
 			var description = Formatting.BuildOrderRstDescription(order, 30);
 			Assert.AreEqual("RST: 01234, Enhet: Testenheten",description);
 		}
 		[Test]
 		public void TestGetRSTDescription_RST_Missing() {
-			var order = new OrderRow {CompanyUnit = "Testenheten"};
+			var order = new Order {CompanyUnit = "Testenheten"};
 			var description = Formatting.BuildOrderRstDescription(order, 30);
 			Assert.AreEqual("Enhet: Testenheten",description);
 		}
 		[Test]
 		public void TestGetRSTDescription_CompanyUnit_Missing() {
-			var order = new OrderRow {RstText = "01234"};
+			var order = new Order {RstText = "01234"};
 			var description = Formatting.BuildOrderRstDescription(order, 30);
 			Assert.AreEqual("RST: 01234",description);
 		}
 		[Test]
 		public void TestGetRSTDescription_EmptyOrder() {
-			var order = new OrderRow();
+			var order = new Order();
 			var description = Formatting.BuildOrderRstDescription(order, 30);
 			Assert.AreEqual(null, description);
 		}
 		[Test]
 		public void TestGetRSTDescription_Gets_Truncated() {
-			var order = new OrderRow {RstText = "01234", CompanyUnit = "Testenheten"};
+			var order = new Order {RstText = "01234", CompanyUnit = "Testenheten"};
 			var description = Formatting.BuildOrderRstDescription(order, 20);
 			Assert.AreEqual(20, description.Length);
 		}
@@ -43,55 +42,55 @@ namespace Spinit.Wpc.Synologen.Test.Visma {
 		#region Customer Info
 		[Test]
 		public void TestGetCustomerDescription() {
-			var order = new OrderRow {PersonalIdNumber = "19700101-5374", CustomerFirstName = "Adam", CustomerLastName = "Bertil"};
+			var order = new Order {PersonalIdNumber = "19700101-5374", CustomerFirstName = "Adam", CustomerLastName = "Bertil"};
 			var description = Formatting.BuildOrderCustomerDescription(order, 40);
 			Assert.AreEqual("Kund: 19700101-5374, Adam Bertil",description);
 		}
 		[Test]
 		public void TestGetCustomerDescription_PersonalIdNumber_Missing() {
-			var order = new OrderRow {CustomerFirstName = "Adam", CustomerLastName = "Bertil"};
+			var order = new Order {CustomerFirstName = "Adam", CustomerLastName = "Bertil"};
 			var description = Formatting.BuildOrderCustomerDescription(order, 40);
 			Assert.AreEqual("Kund: Adam Bertil",description);
 		}
 		[Test]
 		public void TestGetCustomerDescription_CustomerFirstName_Missing() {
-			var order = new OrderRow {PersonalIdNumber = "19700101-5374", CustomerLastName = "Bertil"};
+			var order = new Order {PersonalIdNumber = "19700101-5374", CustomerLastName = "Bertil"};
 			var description = Formatting.BuildOrderCustomerDescription(order, 40);
 			Assert.AreEqual("Kund: 19700101-5374, Bertil",description);
 		}
 		[Test]
 		public void TestGetCustomerDescription_CustomerLastName_Missing() {
-			var order = new OrderRow {PersonalIdNumber = "19700101-5374", CustomerFirstName = "Adam"};
+			var order = new Order {PersonalIdNumber = "19700101-5374", CustomerFirstName = "Adam"};
 			var description = Formatting.BuildOrderCustomerDescription(order, 40);
 			Assert.AreEqual("Kund: 19700101-5374, Adam",description);
 		}
 		[Test]
 		public void TestGetCustomerDescription_Missing_All_But_PersonalIdNumber() {
-			var order = new OrderRow {PersonalIdNumber = "19700101-5374"};
+			var order = new Order {PersonalIdNumber = "19700101-5374"};
 			var description = Formatting.BuildOrderCustomerDescription(order, 40);
 			Assert.AreEqual("Kund: 19700101-5374",description);
 		}
 		[Test]
 		public void TestGetCustomerDescription_Missing_All_But_CustomerFirstName() {
-			var order = new OrderRow {CustomerFirstName = "Adam"};
+			var order = new Order {CustomerFirstName = "Adam"};
 			var description = Formatting.BuildOrderCustomerDescription(order, 40);
 			Assert.AreEqual("Kund: Adam",description);
 		}
 		[Test]
 		public void TestGetCustomerDescription_Missing_All_But_CustomerLastName() {
-			var order = new OrderRow { CustomerLastName = "Bertil"};
+			var order = new Order { CustomerLastName = "Bertil"};
 			var description = Formatting.BuildOrderCustomerDescription(order, 40);
 			Assert.AreEqual("Kund: Bertil",description);
 		}
 		[Test]
 		public void TestGetCustomerDescription_Empty() {
-			var order = new OrderRow();
+			var order = new Order();
 			var description = Formatting.BuildOrderCustomerDescription(order, 40);
 			Assert.AreEqual(null, description);
 		}
 		[Test]
 		public void TestGetCustomerDescription_Gets_Truncated() {
-			var order = new OrderRow {PersonalIdNumber = "19700101-5374", CustomerFirstName = "Adam", CustomerLastName = "Bertil"};
+			var order = new Order {PersonalIdNumber = "19700101-5374", CustomerFirstName = "Adam", CustomerLastName = "Bertil"};
 			var description = Formatting.BuildOrderCustomerDescription(order, 20);
 			Assert.AreEqual(20, description.Length);
 		}

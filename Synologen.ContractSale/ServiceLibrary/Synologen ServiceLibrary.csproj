@@ -101,23 +101,23 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Synologen Business\Synologen Business.csproj">
-      <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
-      <Name>Synologen Business</Name>
+    <ProjectReference Include="..\..\Synologen.Business\Synologen.Business.csproj">
+      <Project>{4DA48962-8E31-4E14-9E25-E43430E982D1}</Project>
+      <Name>Synologen.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Synologen Data\Synologen Data.csproj">
-      <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
-      <Name>Synologen Data</Name>
+    <ProjectReference Include="..\..\Synologen.Data\Synologen.Data.csproj">
+      <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
+      <Name>Synologen.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\EDI\Synologen EDI.csproj">
       <Project>{8554B3AF-CA2A-499F-B921-A80804B99056}</Project>
       <Name>Synologen EDI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.ContractSale.Svefaktura\Synologen Svefaktura.csproj">
+    <ProjectReference Include="..\Svefaktura\Synologen Svefaktura.csproj">
       <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
       <Name>Synologen Svefaktura</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.ContractSale.Utility\Synologen Invoicing Utility.csproj">
+    <ProjectReference Include="..\Utility\Synologen Invoicing Utility.csproj">
       <Project>{84326EE0-5F6E-4133-A852-AF781AF74682}</Project>
       <Name>Synologen Invoicing Utility</Name>
     </ProjectReference>

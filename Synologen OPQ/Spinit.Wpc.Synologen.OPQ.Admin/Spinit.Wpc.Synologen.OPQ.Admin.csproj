@@ -161,7 +161,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Synologen.Presentation\Synologen.Presentation.csproj">
       <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
-      <Name>Synologen Admin</Name>
+      <Name>Synologen.Presentation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj">
       <Project>{372FA2B3-85C4-417F-B178-65DA9D7B2749}</Project>

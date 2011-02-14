@@ -208,9 +208,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Synologen Business\Synologen Business.csproj">
-      <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
-      <Name>Synologen Business</Name>
+    <ProjectReference Include="..\..\Synologen.Business\Synologen.Business.csproj">
+      <Project>{4DA48962-8E31-4E14-9E25-E43430E982D1}</Project>
+      <Name>Synologen.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Synologen.Presentation.Site\Synologen.Presentation.Site.csproj">
       <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>

@@ -96,7 +96,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 				var settlementMock = new Mock<Core.Domain.Model.LensSubscription.Settlement>();
 				settlementMock.SetupGet(x => x.Id).Returns(_settlementId);
 				var settlement = settlementMock.Object;
-				var transactionRepository = new TransactionRepository(base.GetSessionFactory().OpenSession());
+				var transactionRepository = new TransactionRepository(GetSessionFactory().OpenSession());
 				_transactions.For((index, transaction) =>
 				{
 					transaction.Settlement = settlement;

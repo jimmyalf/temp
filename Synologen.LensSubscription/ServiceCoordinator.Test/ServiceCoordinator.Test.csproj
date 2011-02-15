@@ -69,23 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\ErrorFactory.cs" />
-    <Compile Include="Factories\PaymentFactory.cs" />
-    <Compile Include="ReceivePaymentsTaskTester.cs" />
-    <Compile Include="SendPaymentsTaskTester.cs" />
-    <Compile Include="TestHelpers\ReceivePaymentsTaskTestBase.cs" />
-    <Compile Include="TestHelpers\RecieveErrorsTaskTestBase.cs" />
-    <Compile Include="RecieveErrorsTaskTester.cs" />
     <Compile Include="Factories\TestHelper.cs" />
-    <Compile Include="Factories\ConsentFactory.cs" />
     <Compile Include="LoggingServiceTest.cs" />
-    <Compile Include="ReceiveConsentsTaskTester.cs" />
-    <Compile Include="SendConsentsTaskTester.cs" />
-    <Compile Include="Factories\SubscriptionFactory.cs" />
-    <Compile Include="TestHelpers\ReceiveConsentsTaskBase.cs" />
-    <Compile Include="TestHelpers\SendConsentsTaskTestBase.cs" />
-    <Compile Include="TestHelpers\SendPaymentsTaskTestBase.cs" />
-    <Compile Include="TestHelpers\TaskTestBase.cs" />
     <Compile Include="TestHelpers\LoggingServiceTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

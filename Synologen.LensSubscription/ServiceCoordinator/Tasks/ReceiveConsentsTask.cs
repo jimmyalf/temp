@@ -42,7 +42,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Tasks
 
 		private void SaveConsent(RecievedConsent consent)
 		{
-			var subscription = _subscriptionRepository.Get(consent.PayerId);
+			var subscription = _subscriptionRepository.Get(consent.PayerNumber);
 			SubscriptionErrorType errorTypeCode = SubscriptionErrorType.Unknown;
 
 			bool isConsented = GetSubscriptionErrorType(consent.CommentCode, ref errorTypeCode);

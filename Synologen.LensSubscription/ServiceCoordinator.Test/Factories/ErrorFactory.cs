@@ -18,7 +18,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test.Factories
 			{
 				Amount = 15 * id,
 				CommentCode = ErrorType.AccountNotYetApproved.SkipValues(id),
-				PayerId = id,
+				PayerNumber = id,
 				Reference = String.Format("Reference {0}", id)
 			};
 		}

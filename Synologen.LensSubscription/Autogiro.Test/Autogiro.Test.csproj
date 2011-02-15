@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E214A7DA-DE95-4E48-89C4-298DDD64A328}</ProjectGuid>
+    <ProjectGuid>{EBAAC519-3B56-41B1-B47C-9026F65029BC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Synologen.LensSubscription.Autogiro.Test</RootNamespace>
@@ -72,7 +72,7 @@
       <Name>Synologen.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Autogiro\Autogiro.csproj">
-      <Project>{FE99D598-0516-4E6E-ACF2-E4745942EFD2}</Project>
+      <Project>{7C407C94-D0DC-460E-957E-3FC9E0AFAC1F}</Project>
       <Name>Autogiro</Name>
     </ProjectReference>
   </ItemGroup>

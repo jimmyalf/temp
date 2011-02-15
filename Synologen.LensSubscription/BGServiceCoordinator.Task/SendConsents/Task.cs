@@ -92,7 +92,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 				RecieverBankgiroNumber = _bgConfigurationSettings.GetPaymentRecieverBankGiroNumber(),
 				Transmitter = new Payer
 				{
-					CustomerNumber = consentsToSend.CustomerNumber
+					CustomerNumber = consentsToSend.PayerNumber
 				},
 				Type = ToConsentType(consentsToSend.Type)
 			};

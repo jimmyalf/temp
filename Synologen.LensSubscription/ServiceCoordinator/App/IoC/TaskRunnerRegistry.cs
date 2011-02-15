@@ -3,13 +3,13 @@ using System.Reflection;
 using NHibernate;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
+using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using StructureMap.Configuration.DSL;
-using Synologen.LensSubscription.BGData;
 using Synologen.LensSubscription.ServiceCoordinator.App.Logging;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.App.IoC

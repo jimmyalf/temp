@@ -20,7 +20,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test.Factories
 		{
 			var consent = new RecievedConsent
 			{
-				PayerId = subscriptionId,
+				PayerNumber = subscriptionId,
 				ConsentId = id,
 				ActionDate = DateTime.Now.AddDays(-2),
 				ConsentValidForDate = DateTime.Now.AddDays(1),
@@ -34,7 +34,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test.Factories
 		{
 			var consent = new RecievedConsent
 			{
-				PayerId = id,
+				PayerNumber = id,
 				ActionDate = DateTime.Now.AddDays(-2),
 				ConsentValidForDate = DateTime.Now.AddDays(1),
 				InformationCode = InformationCode.Next(),

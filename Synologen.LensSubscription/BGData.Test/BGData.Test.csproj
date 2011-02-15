@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{633AACB0-D833-4EFB-91D5-643C1BC4E03D}</ProjectGuid>
+    <ProjectGuid>{DC10AD72-4CA1-4A3C-B980-407D249A07B6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Synologen.LensSubscription.BGData.Test</RootNamespace>
@@ -95,7 +95,7 @@
       <Name>Synologen.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\BGData\BGData.csproj">
-      <Project>{003B6ADC-A08B-4D0E-9E34-FA43A03F2075}</Project>
+      <Project>{245CC0F4-C211-4998-81D6-F18506B0B952}</Project>
       <Name>BGData</Name>
     </ProjectReference>
   </ItemGroup>

@@ -53,7 +53,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test
 		{
 			expectedErrors.Each(recievedError => 
 				MockedSubscriptionRepository.Verify(x => 
-					x.Get(It.Is<int>( id => id.Equals(recievedError.PayerId))
+					x.Get(It.Is<int>( id => id.Equals(recievedError.PayerNumber))
 			)));
 		}
 

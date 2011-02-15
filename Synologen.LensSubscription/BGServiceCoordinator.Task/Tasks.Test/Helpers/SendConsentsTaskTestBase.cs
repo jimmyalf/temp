@@ -39,7 +39,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 	            Equals(consent.OrgNumber, bgConsentToSend.OrgNumber) &&
 	            Equals(consent.PersonalIdNumber, bgConsentToSend.PersonalIdNumber) &&
 	            Equals(consent.RecieverBankgiroNumber, recieverBankGiroNumber) &&
-	            Equals(consent.Transmitter.CustomerNumber, bgConsentToSend.CustomerNumber) &&
+	            Equals(consent.Transmitter.CustomerNumber, bgConsentToSend.PayerNumber) &&
 	            Equals(consent.Type.ToInteger(), bgConsentToSend.Type.ToInteger());
 		}
 	}

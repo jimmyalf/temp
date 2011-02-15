@@ -16,7 +16,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test.Factories
 			return new ReceivedPayment
 			{ 
 				Amount = 150.45M,
-				PayerId = subscriptionId,
+				PayerNumber = subscriptionId,
 				PaymentId = id,
 				Result = PaymentResult.Approved.SkipValues(id)
 			};
@@ -31,7 +31,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test.Factories
 					Amount = 222.22M,
 					PaymentId = 140101,
 					Result = result,
-					PayerId = subscriptionId
+					PayerNumber = subscriptionId
 				}
 			}; 
 		}

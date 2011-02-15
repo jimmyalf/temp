@@ -38,7 +38,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App.IoC
 			// Task scan
 			Scan(x =>
 			{
-				x.Assembly(Assembly.GetExecutingAssembly());
+				//x.Assembly(Assembly.GetExecutingAssembly());
+				x.AssembliesFromApplicationBaseDirectory(IsServiceCoordinatorTaskAssembly);
 				x.AddAllTypesOf<ITask>();
 			});
 
@@ -49,6 +50,12 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App.IoC
 				x.Assembly(typeof(NHibernateActionCriteriaConverter<,>).Assembly.FullName);
 				x.ConnectImplementationsToTypesClosing(typeof(IActionCriteriaConverter<,>));
 			});
+		}
+
+		protected virtual bool IsServiceCoordinatorTaskAssembly(Assembly assembly)
+		{
+			var assemblyName = assembly.GetName().Name;
+			return assemblyName.StartsWith("Synologen.LensSubscription.ServiceCoordinator.Task.");
 		}
 	}
 }

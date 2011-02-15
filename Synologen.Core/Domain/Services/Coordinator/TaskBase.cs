@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 {
@@ -11,6 +12,12 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 		{
 			_loggingService = loggingService;
 			TaskName = taskName ?? DefaultTaskName;
+		}
+
+		protected TaskBase(string taskName,  ILoggingService loggingService, Enum taskOrder) 
+			: this(taskName, loggingService)
+		{
+			TaskOrder = taskOrder.ToInteger();
 		}
 
 		public virtual void RunLoggedTask(Action action)
@@ -51,5 +58,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 		public abstract void Execute();
 
 		public virtual string TaskName { get; private set; }
+
+		public int TaskOrder { get; protected set; }
 	}
 }

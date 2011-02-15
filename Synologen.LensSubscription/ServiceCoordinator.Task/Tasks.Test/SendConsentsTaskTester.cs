@@ -1,9 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
+using Moq;
+using NUnit.Framework;
+using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
-namespace Synologen.LensSubscription.ServiceCoordinator.Test
+namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 {
 	[TestFixture]
 	public class When_executing_send_consents_task : SendConsentsTaskTestBase
@@ -48,22 +54,22 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test
 		public void Task_converts_subscriptions_into_consents()
 		{
 			expectedSubscriptions.Each(subscription => 
-				MockedWebServiceClient.Verify(x => x.SendConsent(It.Is<ConsentToSend>(sentConsent => 
-					sentConsent.BankAccountNumber.Equals(subscription.PaymentInfo.AccountNumber) && 
-					sentConsent.ClearingNumber.Equals(subscription.PaymentInfo.ClearingNumber) &&
-					sentConsent.PersonalIdNumber.Equals(subscription.Customer.PersonalIdNumber) &&
-					sentConsent.PayerId.Equals(subscription.Id)
-			))));
+			                           MockedWebServiceClient.Verify(x => x.SendConsent(It.Is<ConsentToSend>(sentConsent => 
+			                                                                                                 sentConsent.BankAccountNumber.Equals(subscription.PaymentInfo.AccountNumber) && 
+			                                                                                                 sentConsent.ClearingNumber.Equals(subscription.PaymentInfo.ClearingNumber) &&
+			                                                                                                 sentConsent.PersonalIdNumber.Equals(subscription.Customer.PersonalIdNumber) &&
+			                                                                                                 sentConsent.PayerId.Equals(subscription.Id)
+			                                                                            	))));
 		}
 
 		[Test]
 		public void Task_updates_sent_consents_to_repository()
 		{
 			expectedSubscriptions.Each(subscription => 
-				MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(savedSubscription => 
-					savedSubscription.Id.Equals(subscription.Id) &&
-					savedSubscription.ConsentStatus.Equals(SubscriptionConsentStatus.Sent)
-			))));
+			                           MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(savedSubscription => 
+			                                                                                               savedSubscription.Id.Equals(subscription.Id) &&
+			                                                                                               savedSubscription.ConsentStatus.Equals(SubscriptionConsentStatus.Sent)
+			                                                                           	))));
 		}
 	}
 }

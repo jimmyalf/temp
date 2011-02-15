@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</ProjectGuid>
+    <ProjectGuid>{8993AF81-8925-4CA9-8ACF-EC3F868D065E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Synologen.LensSubscription.ServiceCoordinator</RootNamespace>
@@ -52,6 +52,10 @@
     <Reference Include="Spinit.Data.NHibernate, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit\Spinit.Data.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Core.Dependencies.NHibernate, Version=5.0.0.1809, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.Dependencies.NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -100,10 +104,6 @@
     <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BGData\BGData.csproj">
-      <Project>{003B6ADC-A08B-4D0E-9E34-FA43A03F2075}</Project>
-      <Name>BGData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

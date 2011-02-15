@@ -21,7 +21,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 					AccountNumber = "1212121212",
 					ClearingNumber = "8901"
 				},
-				CustomerNumber = "471117",
+				PayerNumber = "471117",
                 OrgNumber = null,
                 PersonalIdNumber = "194608170000",
 				SendDate = null,

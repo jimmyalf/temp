@@ -109,6 +109,8 @@
     <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
     <Compile Include="Domain\Model\BGServer\Account.cs" />
     <Compile Include="Domain\Model\BGServer\BGConsentToSend.cs" />
+    <Compile Include="Domain\Model\BGServer\BGReceivedConsent.cs" />
+    <Compile Include="Domain\Model\BGServer\ConsentInformationCode.cs" />
     <Compile Include="Domain\Model\BGServer\ConsentType.cs" />
     <Compile Include="Domain\Model\BGServer\FileSectionToSend.cs" />
     <Compile Include="Domain\Model\BGServer\SectionType.cs" />

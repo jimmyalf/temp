@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F2F6510D-0E98-4437-A53F-43E4E7DB743F}</ProjectGuid>
+    <ProjectGuid>{20A77B25-AB69-40DD-A972-9EEB8BE89D89}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Synologen.LensSubscription.ServiceCoordinator.Test</RootNamespace>
@@ -95,7 +95,7 @@
       <Name>Synologen.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ServiceCoordinator\ServiceCoordinator.csproj">
-      <Project>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</Project>
+      <Project>{8993AF81-8925-4CA9-8ACF-EC3F868D065E}</Project>
       <Name>ServiceCoordinator</Name>
     </ProjectReference>
   </ItemGroup>

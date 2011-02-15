@@ -59,7 +59,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test
 		{
 			expectedPayments.Each(recievedPayment =>
 			                      MockedSubscriptionRepository.Verify(x =>
-			                                                          x.Get(It.Is<int>(id => id.Equals(recievedPayment.PayerId))
+			                                                          x.Get(It.Is<int>(id => id.Equals(recievedPayment.PayerNumber))
 			                                                          	)));
 		}
 

@@ -50,7 +50,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Tasks
 				Amount = subscription.PaymentInfo.MonthlyAmount,
 				Reference = subscription.Customer.PersonalIdNumber,
 				Type = PaymentType.Debit,
-				PayerId = subscription.Id
+				PayerNumber = subscription.Id
 			};
 			return payment;
 		}

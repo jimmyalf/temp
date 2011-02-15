@@ -76,13 +76,13 @@
     <Content Include="ReadTestfiles\Autogiro\AGP Layout F.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Autogiro\Autogiro.csproj">
-      <Project>{FE99D598-0516-4E6E-ACF2-E4745942EFD2}</Project>
-      <Name>Autogiro</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Autogiro\Autogiro.csproj">
+      <Project>{7C407C94-D0DC-460E-957E-3FC9E0AFAC1F}</Project>
+      <Name>Autogiro</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

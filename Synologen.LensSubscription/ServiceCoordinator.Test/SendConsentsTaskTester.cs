@@ -58,7 +58,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test
 					sentConsent.BankAccountNumber.Equals(subscription.PaymentInfo.AccountNumber) && 
 					sentConsent.ClearingNumber.Equals(subscription.PaymentInfo.ClearingNumber) &&
 					sentConsent.PersonalIdNumber.Equals(subscription.Customer.PersonalIdNumber) &&
-					sentConsent.PayerId.Equals(subscription.Id)
+					sentConsent.PayerNumber.Equals(subscription.Id)
 			))));
 		}
 

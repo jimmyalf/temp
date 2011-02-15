@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using NHibernate;
 using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
-using Synologen.LensSubscription.BGData.Repositories.CriteriaConverters;
+using Synologen.LensSubscription.BGData.CriteriaConverters;
 using Synologen.LensSubscription.BGData.Test.CommonDataTestHelpers;
 
 namespace Synologen.LensSubscription.BGData.Test

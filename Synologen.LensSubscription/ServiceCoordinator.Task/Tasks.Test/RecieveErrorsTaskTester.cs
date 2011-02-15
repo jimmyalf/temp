@@ -1,9 +1,14 @@
 using System;
 using System.Linq;
+using Moq;
+using NUnit.Framework;
+using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
-namespace Synologen.LensSubscription.ServiceCoordinator.Test
+namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 {
 	[TestFixture]
 	public class When_executing_recieve_errors_task : RecieveErrorsTaskTestBase
@@ -33,23 +38,23 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test
 		public void Task_stores_subscription_errors_in_repository()
 		{
 			expectedErrors.Each(recievedError => 
-                MockedSubscriptionErrorRepository.Verify(x => 
-					 x.Save(It.Is<SubscriptionError>( error =>
-						Equals(error.CreatedDate.Date, DateTime.Today) &&
-						Equals(error.HandledDate, null) &&
-						Equals(error.IsHandled, false) &&
-						Equals(error.Subscription.Id, expectedSubscription.Id) &&
-						ExpectedErrorTypeConversionMatches(error.Type, recievedError.CommentCode)
-			))));
+			                    MockedSubscriptionErrorRepository.Verify(x => 
+			                                                             x.Save(It.Is<SubscriptionError>( error =>
+			                                                                                              Equals(error.CreatedDate.Date, DateTime.Today) &&
+			                                                                                              Equals(error.HandledDate, null) &&
+			                                                                                              Equals(error.IsHandled, false) &&
+			                                                                                              Equals(error.Subscription.Id, expectedSubscription.Id) &&
+			                                                                                              ExpectedErrorTypeConversionMatches(error.Type, recievedError.CommentCode)
+			                                                                    	))));
 		}
 
 		[Test]
 		public void Task_fetches_matching_subscriptions_from_repository()
 		{
 			expectedErrors.Each(recievedError => 
-				MockedSubscriptionRepository.Verify(x => 
-					x.Get(It.Is<int>( id => id.Equals(recievedError.PayerId))
-			)));
+			                    MockedSubscriptionRepository.Verify(x => 
+			                                                        x.Get(It.Is<int>( id => id.Equals(recievedError.PayerId))
+			                                                        	)));
 		}
 
 		[Test]

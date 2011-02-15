@@ -1,10 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Moq;
+using NUnit.Framework;
+using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
-namespace Synologen.LensSubscription.ServiceCoordinator.Test
+namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 {
 	[TestFixture]
 	public class When_executing_receive_consents_task : ReceiveConsentsTaskBase
@@ -52,9 +57,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test
 		public void Task_fetches_matching_subscriptions_from_repository()
 		{
 			expectedConsents.Each(recievedConsent =>
-				MockedSubscriptionRepository.Verify(x =>
-					x.Get(It.Is<int>(id => id.Equals(recievedConsent.PayerId))
-			)));
+			                      MockedSubscriptionRepository.Verify(x =>
+			                                                          x.Get(It.Is<int>(id => id.Equals(recievedConsent.PayerId))
+			                                                          	)));
 		}
 
 		[Test]

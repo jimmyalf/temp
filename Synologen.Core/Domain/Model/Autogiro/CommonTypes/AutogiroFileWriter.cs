@@ -33,7 +33,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes
 			}
 			if(_itemWriter != null)
 			{
-				file.Posts.Each(payment => builder.AppendLine(_itemWriter.Write(payment)));	
+				file.Posts.Each(rowItem => builder.AppendLine(_itemWriter.Write(rowItem)));	
 			}
 
 			if(_footerWriter != null)

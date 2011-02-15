@@ -14,7 +14,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		public TaskRunnerService(ILoggingService loggingService, IEnumerable<ITask> tasks)
 		{
 			_loggingService = loggingService;
-			_tasks = tasks ?? Enumerable.Empty<ITask>();
+			_tasks = (tasks ?? Enumerable.Empty<ITask>())
+				.OrderBy(x => x.TaskOrder);
 		}
 
 

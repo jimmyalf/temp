@@ -94,8 +94,21 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 				{
 					CustomerNumber = consentsToSend.CustomerNumber
 				},
-				Type = ConsentType.New
+				Type = ToConsentType(consentsToSend.Type)
 			};
+		}
+
+		protected virtual ConsentType ToConsentType(Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.ConsentType inputType)
+		{
+			switch (inputType)
+			{
+				case Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.ConsentType.New:
+					return ConsentType.New;
+				case Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.ConsentType.Cancellation:
+					return ConsentType.Cancellation;
+				default:
+					throw new ArgumentOutOfRangeException("inputType");
+			}
 		}
 	}
 }

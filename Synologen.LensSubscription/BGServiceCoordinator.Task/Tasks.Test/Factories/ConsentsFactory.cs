@@ -25,7 +25,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
                 OrgNumber = null,
                 PersonalIdNumber = "194608170000",
 				SendDate = null,
-				Type = ConsentType.New,
+				Type = ConsentType.New.SkipValues(id),
 			};
 		}
 

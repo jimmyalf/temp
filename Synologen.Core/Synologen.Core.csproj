@@ -107,6 +107,10 @@
     <Compile Include="Domain\Model\Autogiro\Send\ConsentType.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\Payment.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
+    <Compile Include="Domain\Model\BGServer\Account.cs" />
+    <Compile Include="Domain\Model\BGServer\BGConsentToSend.cs" />
+    <Compile Include="Domain\Model\BGServer\ConsentType.cs" />
+    <Compile Include="Domain\Model\BGServer\FileSectionToSend.cs" />
     <Compile Include="Domain\Model\BGServer\SectionType.cs" />
     <Compile Include="Domain\Model\BGServer\ReceivedFileSection.cs" />
     <Compile Include="Domain\Model\BGWebService\ConsentToSend.cs" />
@@ -152,10 +156,13 @@
     <Compile Include="Domain\Model\LensSubscription\TransactionReason.cs" />
     <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
     <Compile Include="Domain\Model\ContractSales\ShopAccess.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IBGConsentToSendRepository.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IFileSectionToSendRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IReceivedFileRepository.cs" />
     <Compile Include="Domain\Persistence\ContractSales\ISettlementRepository.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllFrameOrdersForShopCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewConsentsToSendCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedConsentFileSectionsCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\ContractSales\AllContractSalesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllActiveTransactionArticlesCriteria.cs" />
@@ -182,6 +189,7 @@
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Model\BGServer\BGTaskSequenceOrder.cs" />
     <Compile Include="Domain\Services\EventLogLogger.cs" />
+    <Compile Include="Domain\Services\IBGConfigurationSettings.cs" />
     <Compile Include="Domain\Services\TaskRunnerService.cs" />
     <Compile Include="Domain\Services\Coordinator\ITask.cs" />
     <Compile Include="Domain\Services\Coordinator\TaskBase.cs" />

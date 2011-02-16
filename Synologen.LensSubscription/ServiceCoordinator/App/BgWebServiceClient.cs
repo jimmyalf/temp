@@ -10,7 +10,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App
 		public RecievedError[] GetNewErrors() { return Channel.GetNewErrors(); }
 		public void SendPayment(PaymentToSend payment) { Channel.SendPayment(payment); }
 		public ReceivedPayment[] GetPayments() { return Channel.GetPayments(); }
-		public RecievedConsent[] GetConsents() { return Channel.GetConsents(); }
+		public ReceivedConsent[] GetConsents() { return Channel.GetConsents(); }
 		public void SetConsentHandled(int id) { Channel.SetConsentHandled(id); }
 		public void SetPaymentHandled(int id) { Channel.SetPaymentHandled(id); }
 	}

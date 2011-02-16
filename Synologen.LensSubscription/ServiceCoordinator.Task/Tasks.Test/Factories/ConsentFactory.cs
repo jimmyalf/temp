@@ -10,15 +10,15 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 		private static readonly ConsentInformationCode InformationCode = ConsentInformationCode.InitiatedByPayer;
 		private static readonly ConsentCommentCode CommentCode = ConsentCommentCode.ConsentTurnedDownByBank;
 
-		public static IEnumerable<RecievedConsent> GetList(int subscriptionId)
+		public static IEnumerable<ReceivedConsent> GetList(int subscriptionId)
 		{
 			var list = TestHelper.GenerateSequence(x => Get(x, subscriptionId), 18);
 			return list;
 		}
 
-		public static RecievedConsent Get(int id, int subscriptionId)
+		public static ReceivedConsent Get(int id, int subscriptionId)
 		{
-			var consent = new RecievedConsent
+			var consent = new ReceivedConsent
 			{
 				PayerNumber = subscriptionId,
 				ConsentId = id,
@@ -30,9 +30,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 			return consent;
 		}
 
-		public static RecievedConsent Get(int id, ConsentCommentCode commentCode)
+		public static ReceivedConsent Get(int id, ConsentCommentCode commentCode)
 		{
-			var consent = new RecievedConsent
+			var consent = new ReceivedConsent
 			{
 				PayerNumber = id,
 				ActionDate = DateTime.Now.AddDays(-2),

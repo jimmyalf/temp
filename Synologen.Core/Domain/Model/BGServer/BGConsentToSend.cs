@@ -4,11 +4,11 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGServer
 {
 	public class BGConsentToSend : Entity
 	{
-		public ConsentType Type { get; set; }
-		public string PayerNumber { get; set; }
-		public DateTime? SendDate { get; set; }
-		public Account Account { get; set; }
-		public string OrgNumber { get; set; }
-		public string PersonalIdNumber { get; set; }
+		public virtual ConsentType Type { get; set; }
+		public virtual string PayerNumber { get; set; }
+		public virtual DateTime? SendDate { get; set; }
+		public virtual Account Account { get; set; }
+		public virtual string OrgNumber { get; set; }
+		public virtual string PersonalIdNumber { get; set; }
 	}
 }

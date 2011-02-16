@@ -2,7 +2,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGServer
 {
 	public class Account
 	{
-		public string AccountNumber { get; set; }
-		public string ClearingNumber { get; set; }
+		public virtual string AccountNumber { get; set; }
+		public virtual string ClearingNumber { get; set; }
 	}
 }

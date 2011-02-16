@@ -2,7 +2,7 @@ using System;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService
 {
-	public class RecievedConsent
+	public class ReceivedConsent
 	{
 		public int PayerNumber { get; set; }
 		public int ConsentId { get; set; }

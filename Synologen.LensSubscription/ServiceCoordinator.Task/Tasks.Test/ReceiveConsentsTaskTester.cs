@@ -14,7 +14,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_executing_receive_consents_task : ReceiveConsentsTaskBase
 	{
-		private IEnumerable<RecievedConsent> expectedConsents;
+		private IEnumerable<ReceivedConsent> expectedConsents;
 		private Subscription expectedSubscription;
 		private static int subscriptionId = 1;
 
@@ -82,7 +82,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_consent_accepted : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -114,7 +114,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_ConsentTurnedDownByBank : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -156,7 +156,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_ConsentTurnedDownByPayer : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -198,7 +198,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_AccountTypeNotApproved : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -240,7 +240,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_ConsentMissingInBankgiroConsentRegister : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -282,7 +282,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_IncorrectAccountOrPersonalIdNumber : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -324,7 +324,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_ConsentCanceledByBankgiro : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -365,7 +365,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_ConsentCanceledByBankgiroBecauseOfMissingStatement : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -406,7 +406,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsideration : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -447,7 +447,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_ConsentTemporarilyStoppedByPayer : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -489,7 +489,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_TemporaryConsentStopRevoked : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -531,7 +531,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_IncorrectPersonalIdNumber : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -573,7 +573,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_IncorrectAccountNumber : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -615,7 +615,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_MaxAmountNotAllowed : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -657,7 +657,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_IncorrectPaymentReceiverBankgiroNumber : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -699,7 +699,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_PaymentReceiverBankgiroNumberMissing : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 
@@ -741,7 +741,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_receiving_Canceled : ReceiveConsentsTaskBase
 	{
-		private RecievedConsent receivedConsent;
+		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
 		private int subscriptionId = 1;
 

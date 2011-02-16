@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Linq;
-using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
+using Spinit.Extensions;
+using ConsentCommentCode=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentCommentCode;
 using ConsentInformationCode=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.ConsentInformationCode;
-using Enumerable=System.Linq.Enumerable;
 
-namespace Synologen.LensSubscription.ServiceCoordinator.Task.RecieveConsents
+namespace Synologen.LensSubscription.ServiceCoordinator.Tasks
 {
-	public class Task : TaskBase
+	public class ReceiveConsentsTask : TaskBase
 	{
 		private readonly IBGWebService _bgWebService;
 		private readonly ISubscriptionRepository _subscriptionRepository;
 		private readonly ISubscriptionErrorRepository _subscriptionErrorRepository;
 
-		public Task(IBGWebService bgWebService, ISubscriptionRepository subscriptionRepository, ISubscriptionErrorRepository subscriptionErrorRepository, ILoggingService loggingService)
+		public ReceiveConsentsTask(IBGWebService bgWebService, ISubscriptionRepository subscriptionRepository, ISubscriptionErrorRepository subscriptionErrorRepository, ILoggingService loggingService)
 			: base("ReceiveConsentsTask", loggingService)
 		{
 			_bgWebService = bgWebService;
@@ -29,7 +29,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.RecieveConsents
 		{
 			RunLoggedTask(() =>
 			{
-				var consents = _bgWebService.GetConsents() ?? Enumerable.Empty<ReceivedConsent>();
+				var consents = _bgWebService.GetConsents() ?? Enumerable.Empty<RecievedConsent>();
 				LogDebug("Fetched {0} consent replies from bgc server", consents.Count());
 
 				consents.Each(consent =>
@@ -40,12 +40,12 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.RecieveConsents
 			});
 		}
 
-		private void SaveConsent(ReceivedConsent consent)
+		private void SaveConsent(RecievedConsent consent)
 		{
 			var subscription = _subscriptionRepository.Get(consent.PayerNumber);
-			var errorTypeCode = SubscriptionErrorType.Unknown;
+			SubscriptionErrorType errorTypeCode = SubscriptionErrorType.Unknown;
 
-			var isConsented = GetSubscriptionErrorType(consent.CommentCode, ref errorTypeCode);
+			bool isConsented = GetSubscriptionErrorType(consent.CommentCode, ref errorTypeCode);
 
 			if (isConsented)
 			{
@@ -60,7 +60,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.RecieveConsents
 			}
 		}
 
-		private void SaveSubscriptionError(Subscription subscription, SubscriptionErrorType errorTypeCode, ReceivedConsent consent)
+		private void SaveSubscriptionError(Subscription subscription, SubscriptionErrorType errorTypeCode, RecievedConsent consent)
 		{
 			var subscriptionError = new SubscriptionError
 			{
@@ -90,7 +90,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.RecieveConsents
 			throw new ArgumentOutOfRangeException("code");
 		}
 
-		private void UpdateSubscription(Subscription subscription, ReceivedConsent consent, bool isAccepted)
+		private void UpdateSubscription(Subscription subscription, RecievedConsent consent, bool isAccepted)
 		{
 			subscription.ConsentStatus = isAccepted ? SubscriptionConsentStatus.Accepted : SubscriptionConsentStatus.Denied;
 			if (isAccepted)

@@ -42,12 +42,12 @@ namespace Synologen.LensSubscription.BGData.Test
 		}
 	}
 
-	[TestFixture]
-	public class When_updating_consent_to_send : BGConsentToSendRepositoryBaseTester
-	{
-		public When_updating_consent_to_send()
-		{
-			Context = () =>
-		}
-	}
+	//[TestFixture]
+	//public class When_updating_consent_to_send : BGConsentToSendRepositoryBaseTester
+	//{
+	//    public When_updating_consent_to_send()
+	//    {
+	//        Context = () =>
+	//    }
+	//}
 }

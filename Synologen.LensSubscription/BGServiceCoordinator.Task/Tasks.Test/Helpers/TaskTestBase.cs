@@ -4,10 +4,13 @@ using log4net;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Synologen.LensSubscription.BGServiceCoordinator.Logging;
+using Consent=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.Consent;
+using ConsentsFile=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.ConsentsFile;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
@@ -17,9 +20,13 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		protected ILog Log;
 		protected IEventLoggingService EventLoggingService;
 		protected IBGConsentToSendRepository BGConsentToSendRepository;
+	    protected IBGReceivedConsentRepository BGReceivedConsentRepository;
 		protected IFileSectionToSendRepository FileSectionToSendRepository;
+	    protected IReceivedFileRepository ReceivedFileRepository;
 		protected IAutogiroFileWriter<ConsentsFile, Consent> ConsentFileWriter;
-		protected IBGConfigurationSettings BGConfigurationSettings;
+        protected IAutogiroFileReader<Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.ConsentsFile, Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.Consent> ConsentFileReader;
+
+        protected IBGConfigurationSettings BGConfigurationSettings;
 		protected Log4NetLogger Log4NetLogger;
 
 		protected TaskTestBase()
@@ -28,9 +35,12 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			EventLoggingService = A.Fake<IEventLoggingService>();
 			Log4NetLogger = new Log4NetLogger(Log, EventLoggingService);
 			BGConsentToSendRepository = A.Fake<IBGConsentToSendRepository>();
+		    BGReceivedConsentRepository = A.Fake<IBGReceivedConsentRepository>();
 			FileSectionToSendRepository = A.Fake<IFileSectionToSendRepository>();
+		    ReceivedFileRepository = A.Fake<IReceivedFileRepository>();
 			ConsentFileWriter = A.Fake<IAutogiroFileWriter<ConsentsFile, Consent>>();
-			BGConfigurationSettings = A.Fake<IBGConfigurationSettings>();
+            ConsentFileReader = A.Fake<IAutogiroFileReader<Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.ConsentsFile, Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.Consent>>();
+            BGConfigurationSettings = A.Fake<IBGConfigurationSettings>();
 			
 			Context = () => { };
 			Because = logger => { throw new AssertionException("An action for Because has not been set!"); };

@@ -11,7 +11,7 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 			{
 				CreatedDate = new DateTime(2011, 02, 02, 15, 30, 0),
 				HandledDate = new DateTime(2011, 02, 02, 15, 30, 36),
-				SectionData = new String('A', 100000),
+				SectionData = new String('A', 100),
 				Type = SectionType.ReceivedConsents,
 				TypeName = "ReceivedConsents"
 			};

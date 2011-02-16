@@ -70,7 +70,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\ConsentsFactory.cs" />
+    <Compile Include="Helpers\ReceiveConsentsBase.cs" />
     <Compile Include="Helpers\SendConsentsTaskTestBase.cs" />
+    <Compile Include="ReceiveConsentsTaskTester.cs" />
     <Compile Include="SendConsentsTaskTester.cs" />
     <Compile Include="Helpers\TaskTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,6 +85,10 @@
     <ProjectReference Include="..\..\BGServiceCoordinator\BGServiceCoordinator.csproj">
       <Project>{0EB3860A-9087-4AF2-BAD9-A1AEA964999D}</Project>
       <Name>BGServiceCoordinator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReceiveConsents\ReceiveConsents.csproj">
+      <Project>{0BAE058D-24F4-41ED-8CF9-AD128B59F211}</Project>
+      <Name>ReceiveConsents</Name>
     </ProjectReference>
     <ProjectReference Include="..\SendConsents\SendConsents.csproj">
       <Project>{2BCC56E0-2100-42B5-B91D-A8FDEAE5C28F}</Project>

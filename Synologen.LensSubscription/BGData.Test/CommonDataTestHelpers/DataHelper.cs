@@ -24,7 +24,7 @@ namespace Synologen.LensSubscription.BGData.Test.CommonDataTestHelpers
 		public static void DeleteAndResetIndexForTable(IDbConnection sqlConnection, string tableName)
 		{
 			ExecuteStatement(sqlConnection, String.Format("DELETE FROM {0}", tableName));
-			ExecuteStatement(sqlConnection, String.Format("DBCC CHECKIDENT ({0}, reseed, 0)", tableName));
+			ExecuteStatement(sqlConnection, String.Format("DBCC CHECKIDENT ({0}, reseed, 1)", tableName));
 		}
 
 		public static void DeleteForTable(IDbConnection sqlConnection, string tableName)

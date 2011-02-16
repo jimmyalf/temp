@@ -42,12 +42,63 @@ namespace Synologen.LensSubscription.BGData.Test
 		}
 	}
 
-	//[TestFixture]
-	//public class When_updating_consent_to_send : BGConsentToSendRepositoryBaseTester
-	//{
-	//    public When_updating_consent_to_send()
-	//    {
-	//        Context = () =>
-	//    }
-	//}
+	[TestFixture]
+	public class When_updating_consent_to_send : BGConsentToSendRepositoryBaseTester
+	{
+		private BGConsentToSend editedConsent;
+
+		public When_updating_consent_to_send()
+	    {
+	    	Context = session =>
+	    	{
+	    		editedConsent = ConsentFactory.Get();
+				CreateRepository(session).Save(editedConsent);
+	    		ConsentFactory.Edit(editedConsent);
+	    	};
+	    	Because = repository => repository.Save(editedConsent);
+	    }
+
+		[Test]
+		public void Consent_is_updated()
+		{
+			AssertUsing(session =>
+			{
+				var fetchedConsent = CreateRepository(session).Get(editedConsent.Id);
+				fetchedConsent.Account.AccountNumber.ShouldBe(editedConsent.Account.AccountNumber);
+				fetchedConsent.Account.ClearingNumber.ShouldBe(editedConsent.Account.ClearingNumber);
+				fetchedConsent.Id.ShouldBe(editedConsent.Id);
+				fetchedConsent.OrgNumber.ShouldBe(editedConsent.OrgNumber);
+				fetchedConsent.PayerNumber.ShouldBe(editedConsent.PayerNumber);
+				fetchedConsent.PersonalIdNumber.ShouldBe(editedConsent.PersonalIdNumber);
+				fetchedConsent.SendDate.ShouldBe(editedConsent.SendDate);
+				fetchedConsent.Type.ShouldBe(editedConsent.Type);
+			});
+		}
+	}
+
+	[TestFixture]
+	public class When_deleting_consent_to_send : BGConsentToSendRepositoryBaseTester
+	{
+		private BGConsentToSend deletedConsent;
+
+		public When_deleting_consent_to_send()
+	    {
+	    	Context = session => 
+			{
+	    		deletedConsent = ConsentFactory.Get();
+				CreateRepository(session).Save(deletedConsent);
+	    	};
+	    	Because = repository => repository.Delete(deletedConsent);
+	    }
+
+		[Test]
+		public void Consent_is_deleted()
+		{
+			AssertUsing(session =>
+			{
+				var fetchedConsent = CreateRepository(session).Get(deletedConsent.Id);
+				fetchedConsent.ShouldBe(null);
+			});
+		}
+	}
 }

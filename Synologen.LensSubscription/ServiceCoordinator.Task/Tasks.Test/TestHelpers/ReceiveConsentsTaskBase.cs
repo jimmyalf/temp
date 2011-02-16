@@ -8,7 +8,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 	{
 		protected override ITask GetTask()
 		{
-			return new RecieveConsents.Task(
+			return new ReceiveConsents.Task(
 				MockedWebServiceClient.Object, 
 				MockedSubscriptionRepository.Object,
 				MockedSubscriptionErrorRepository.Object,

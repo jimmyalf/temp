@@ -8,8 +8,8 @@
     <ProjectGuid>{89214057-4062-4D9D-B507-325792853EC4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen.LensSubscription.ServiceCoordinator.Task.RecievePayments</RootNamespace>
-    <AssemblyName>Synologen.LensSubscription.ServiceCoordinator.Task.RecievePayments</AssemblyName>
+    <RootNamespace>Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments</RootNamespace>
+    <AssemblyName>Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

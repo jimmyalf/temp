@@ -52,6 +52,7 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 
 		public static string Reverse(this string value)
 		{
+			if(value == null) return value;
 			var charArray = value.ToCharArray().ToEnumerable().Reverse().ToArray();
 			return new string(charArray);
 		}

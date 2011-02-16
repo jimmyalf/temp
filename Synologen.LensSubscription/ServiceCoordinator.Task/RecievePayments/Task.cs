@@ -77,7 +77,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.RecievePayments
 			{
 				CreatedDate = DateTime.Now,
 				Type = ConvertToSubscriptionErrorType(payment.Result),
-				Subscription = _subscriptionRepository.Get(payment.PayerId)
+				Subscription = _subscriptionRepository.Get(payment.PayerNumber)
 			};
 		}
 
@@ -121,7 +121,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.RecievePayments
 				CreatedDate = DateTime.Now,
 				Reason = ConvertToTransactionReason(payment.Result),
 				Type = TransactionType.Deposit,
-				Subscription = _subscriptionRepository.Get(payment.PayerId)
+				Subscription = _subscriptionRepository.Get(payment.PayerNumber)
 			};
 		}
 	}

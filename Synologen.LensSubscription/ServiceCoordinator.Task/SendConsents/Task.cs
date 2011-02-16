@@ -49,7 +49,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 				BankAccountNumber = subscription.PaymentInfo.AccountNumber,
 				ClearingNumber = subscription.PaymentInfo.ClearingNumber,
 				PersonalIdNumber = subscription.Customer.PersonalIdNumber,
-				PayerId = subscription.Id
+				PayerNumber = subscription.Id
 			};
 		}
 	}

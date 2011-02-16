@@ -57,9 +57,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		public void Task_fetches_matching_subscriptions_from_repository()
 		{
 			expectedConsents.Each(recievedConsent =>
-			                      MockedSubscriptionRepository.Verify(x =>
-			                                                          x.Get(It.Is<int>(id => id.Equals(recievedConsent.PayerId))
-			                                                          	)));
+              MockedSubscriptionRepository.Verify(x =>
+				x.Get(It.Is<int>(id => id.Equals(recievedConsent.PayerNumber))
+			)));
 		}
 
 		[Test]

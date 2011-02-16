@@ -40,7 +40,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.RecieveErrors
 		}
 		protected virtual SubscriptionError ConvertError(RecievedError error)
 		{
-			var subscription = _subscriptionRepository.Get(error.PayerId);
+			var subscription = _subscriptionRepository.Get(error.PayerNumber);
 			return new SubscriptionError
 			{
 				CreatedDate = DateTime.Now,

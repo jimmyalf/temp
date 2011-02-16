@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Output\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Output\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -57,11 +57,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
+    <ProjectReference Include="..\..\..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.LensSubscription\Autogiro\Autogiro.csproj">
+    <ProjectReference Include="..\..\Autogiro\Autogiro.csproj">
       <Project>{7C407C94-D0DC-460E-957E-3FC9E0AFAC1F}</Project>
       <Name>Autogiro</Name>
     </ProjectReference>

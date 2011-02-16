@@ -54,22 +54,22 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		public void Task_converts_subscriptions_into_consents()
 		{
 			expectedSubscriptions.Each(subscription => 
-			                           MockedWebServiceClient.Verify(x => x.SendConsent(It.Is<ConsentToSend>(sentConsent => 
-			                                                                                                 sentConsent.BankAccountNumber.Equals(subscription.PaymentInfo.AccountNumber) && 
-			                                                                                                 sentConsent.ClearingNumber.Equals(subscription.PaymentInfo.ClearingNumber) &&
-			                                                                                                 sentConsent.PersonalIdNumber.Equals(subscription.Customer.PersonalIdNumber) &&
-			                                                                                                 sentConsent.PayerId.Equals(subscription.Id)
-			                                                                            	))));
+				MockedWebServiceClient.Verify(x => x.SendConsent(It.Is<ConsentToSend>(sentConsent => 
+					sentConsent.BankAccountNumber.Equals(subscription.PaymentInfo.AccountNumber) && 
+					sentConsent.ClearingNumber.Equals(subscription.PaymentInfo.ClearingNumber) &&
+					sentConsent.PersonalIdNumber.Equals(subscription.Customer.PersonalIdNumber) &&
+					sentConsent.PayerNumber.Equals(subscription.Id)
+			))));
 		}
 
 		[Test]
 		public void Task_updates_sent_consents_to_repository()
 		{
 			expectedSubscriptions.Each(subscription => 
-			                           MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(savedSubscription => 
-			                                                                                               savedSubscription.Id.Equals(subscription.Id) &&
-			                                                                                               savedSubscription.ConsentStatus.Equals(SubscriptionConsentStatus.Sent)
-			                                                                           	))));
+				MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(savedSubscription => 
+					savedSubscription.Id.Equals(subscription.Id) &&
+					savedSubscription.ConsentStatus.Equals(SubscriptionConsentStatus.Sent)
+			))));
 		}
 	}
 }

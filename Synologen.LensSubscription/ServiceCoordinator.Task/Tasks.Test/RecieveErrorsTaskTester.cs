@@ -37,24 +37,22 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_stores_subscription_errors_in_repository()
 		{
-			expectedErrors.Each(recievedError => 
-			                    MockedSubscriptionErrorRepository.Verify(x => 
-			                                                             x.Save(It.Is<SubscriptionError>( error =>
-			                                                                                              Equals(error.CreatedDate.Date, DateTime.Today) &&
-			                                                                                              Equals(error.HandledDate, null) &&
-			                                                                                              Equals(error.IsHandled, false) &&
-			                                                                                              Equals(error.Subscription.Id, expectedSubscription.Id) &&
-			                                                                                              ExpectedErrorTypeConversionMatches(error.Type, recievedError.CommentCode)
-			                                                                    	))));
+			expectedErrors.Each(recievedError => MockedSubscriptionErrorRepository.Verify(x => 
+                 x.Save(It.Is<SubscriptionError>( error =>
+					  Equals(error.CreatedDate.Date, DateTime.Today) &&
+					  Equals(error.HandledDate, null) &&
+					  Equals(error.IsHandled, false) &&
+					  Equals(error.Subscription.Id, expectedSubscription.Id) &&
+					  ExpectedErrorTypeConversionMatches(error.Type, recievedError.CommentCode)
+			))));
 		}
 
 		[Test]
 		public void Task_fetches_matching_subscriptions_from_repository()
 		{
-			expectedErrors.Each(recievedError => 
-			                    MockedSubscriptionRepository.Verify(x => 
-			                                                        x.Get(It.Is<int>( id => id.Equals(recievedError.PayerId))
-			                                                        	)));
+			expectedErrors.Each(recievedError => MockedSubscriptionRepository.Verify(x => 
+				x.Get(It.Is<int>( id => id.Equals(recievedError.PayerNumber))
+			)));
 		}
 
 		[Test]

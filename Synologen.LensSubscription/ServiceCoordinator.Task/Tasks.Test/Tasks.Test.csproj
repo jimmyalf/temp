@@ -94,7 +94,7 @@
     </ProjectReference>
     <ProjectReference Include="..\ReceiveConsents\ReceiveConsents.csproj">
       <Project>{F30AAD16-9E89-40C1-9AAC-EC08ADEE667E}</Project>
-      <Name>ReceiveConsents %28Lenssubscription\ServiceCoordinatorTask\ReceiveConsents%29</Name>
+      <Name>ReceiveConsents %28LensSubscription\ServiceCoordinator.Tasks\ReceiveConsents%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceiveErrors\ReceiveErrors.csproj">
       <Project>{3BB41EB8-4B02-4C33-B622-42E3F6382E6B}</Project>

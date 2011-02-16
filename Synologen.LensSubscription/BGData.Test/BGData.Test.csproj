@@ -84,8 +84,10 @@
   <ItemGroup>
     <Compile Include="BaseTesters\BaseRepositoryTester.cs" />
     <Compile Include="BaseTesters\ConsentToSendRepositoryBaseTester.cs" />
+    <Compile Include="BGReceivedConsentRepositoryTester.cs" />
     <Compile Include="CommonDataTestHelpers\DataHelper.cs" />
     <Compile Include="CommonDataTestHelpers\NHibernateRepositoryTester.cs" />
+    <Compile Include="Factories\ReceivedConsentFactory.cs" />
     <Compile Include="Factories\ConsentFactory.cs" />
     <Compile Include="ConsentToSendRepositoryTester.cs" />
     <Compile Include="Factories\ReceivedFileSectionFactory.cs" />

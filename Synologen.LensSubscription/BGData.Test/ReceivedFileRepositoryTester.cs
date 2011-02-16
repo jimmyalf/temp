@@ -24,7 +24,7 @@ namespace Synologen.LensSubscription.BGData.Test
 		}
 
 		[Test]
-		public void Should_save_the_transaction()
+		public void Should_save_the_section()
 		{
 			AssertUsing(session =>
 			{
@@ -35,6 +35,7 @@ namespace Synologen.LensSubscription.BGData.Test
 				savedSection.SectionData.ShouldBe(_sectionToSave.SectionData);
 				savedSection.Type.ShouldBe(_sectionToSave.Type);
 				savedSection.TypeName.ShouldBe(_sectionToSave.TypeName);
+                savedSection.HasBeenHandled.ShouldBe(_sectionToSave.HasBeenHandled);
 			});
 		}
 	}

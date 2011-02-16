@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
@@ -41,15 +42,17 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents
 
                 consentFileSections.Each(consentFileSection =>
                 {
-                     ConsentsFile file = _fileReader.Read(consentFileSection.SectionData);
-                     var consents = file.Posts;
+                    ConsentsFile file = _fileReader.Read(consentFileSection.SectionData);
+                    var consents = file.Posts;
 
-                     consents.Each(consent =>
-                     {
-                         BGReceivedConsent receivedConsent = ToBGConsent(consent);
-                         _bgReceivedConsentRepository.Save(receivedConsent);
-                     });
-                     LogDebug("Saved {0} consents to repository", consents.Count());
+                    consents.Each(consent =>
+                    {
+                        BGReceivedConsent receivedConsent = ToBGConsent(consent);
+                        _bgReceivedConsentRepository.Save(receivedConsent);
+                    });
+                    consentFileSection.HandledDate = DateTime.Now;
+                    _receivedFileSectionRepository.Save(consentFileSection);
+                    LogDebug("Saved {0} consents to repository", consents.Count());
                 });
             });
         }

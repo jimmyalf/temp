@@ -61,9 +61,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappings\ReceivedConsentMap.cs" />
     <Compile Include="Mappings\BGConsentToSendMap.cs" />
     <Compile Include="NHibernateFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BGReceivedConsentRepository.cs" />
     <Compile Include="Repositories\BGConsentToSendRepository.cs" />
     <Compile Include="SchemaExporter.cs" />
     <Compile Include="CriteriaConverters\AllUnhandledReceivedConsentFileSectionsCriteriaConverter.cs" />

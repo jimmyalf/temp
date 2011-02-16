@@ -86,7 +86,7 @@
     </ProjectReference>
     <ProjectReference Include="..\SendConsents\SendConsents.csproj">
       <Project>{2BCC56E0-2100-42B5-B91D-A8FDEAE5C28F}</Project>
-      <Name>SendConsents %28Lenssubscription\BGServiceCoordinator.Task\SendConsents%29</Name>
+      <Name>SendConsents %28Lenssubscription\BGServiceCoordinatorTask\SendConsents%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

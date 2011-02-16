@@ -2,6 +2,7 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Synologen.LensSubscription.BGData.Repositories;
+using Synologen.LensSubscription.BGData.Test.BaseTesters;
 using Synologen.LensSubscription.BGData.Test.Factories;
 
 namespace Synologen.LensSubscription.BGData.Test

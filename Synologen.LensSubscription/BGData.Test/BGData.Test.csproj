@@ -82,10 +82,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseRepositoryTester.cs" />
+    <Compile Include="BaseTesters\BaseRepositoryTester.cs" />
+    <Compile Include="BaseTesters\ConsentToSendRepositoryBaseTester.cs" />
     <Compile Include="CommonDataTestHelpers\DataHelper.cs" />
     <Compile Include="CommonDataTestHelpers\NHibernateRepositoryTester.cs" />
+    <Compile Include="Factories\ConsentFactory.cs" />
+    <Compile Include="ConsentToSendRepositoryTester.cs" />
     <Compile Include="Factories\ReceivedFileSectionFactory.cs" />
+    <Compile Include="GlobalTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceivedFileRepositoryTester.cs" />
   </ItemGroup>
@@ -97,6 +101,10 @@
     <ProjectReference Include="..\BGData\BGData.csproj">
       <Project>{245CC0F4-C211-4998-81D6-F18506B0B952}</Project>
       <Name>BGData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceCoordinator.Task\Tasks.Test\Tasks.Test.csproj">
+      <Project>{AF53A197-30BB-47A8-B8CC-85E9E3F96AE1}</Project>
+      <Name>Tasks.Test %28Lenssubscription\ServiceCoordinatorTask\Tasks.Test%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

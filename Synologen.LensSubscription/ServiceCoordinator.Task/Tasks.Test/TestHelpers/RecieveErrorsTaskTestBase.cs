@@ -6,7 +6,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 	{
 		protected override ITask GetTask()
 		{
-			return new RecieveErrors.Task(
+			return new ReceiveErrors.Task(
 				LoggingService, 
 				MockedWebServiceClient.Object,
 				MockedSubscriptionErrorRepository.Object,

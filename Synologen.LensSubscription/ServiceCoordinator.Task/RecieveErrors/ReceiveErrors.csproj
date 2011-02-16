@@ -8,8 +8,8 @@
     <ProjectGuid>{3BB41EB8-4B02-4C33-B622-42E3F6382E6B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen.LensSubscription.ServiceCoordinator.Task.RecieveErrors</RootNamespace>
-    <AssemblyName>Synologen.LensSubscription.ServiceCoordinator.Task.RecieveErrors</AssemblyName>
+    <RootNamespace>Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors</RootNamespace>
+    <AssemblyName>Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

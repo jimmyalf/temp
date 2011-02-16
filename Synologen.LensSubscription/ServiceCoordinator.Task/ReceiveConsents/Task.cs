@@ -9,7 +9,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using ConsentInformationCode=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.ConsentInformationCode;
 using Enumerable=System.Linq.Enumerable;
 
-namespace Synologen.LensSubscription.ServiceCoordinator.Task.RecieveConsents
+namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 {
 	public class Task : TaskBase
 	{

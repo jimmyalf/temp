@@ -7,7 +7,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
-namespace Synologen.LensSubscription.ServiceCoordinator.Task.RecieveErrors
+namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 {
 	public class Task : TaskBase
 	{

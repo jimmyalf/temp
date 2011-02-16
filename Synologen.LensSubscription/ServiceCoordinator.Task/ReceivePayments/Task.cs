@@ -7,7 +7,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
-namespace Synologen.LensSubscription.ServiceCoordinator.Task.RecievePayments
+namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 {
 	public class Task : TaskBase
 	{

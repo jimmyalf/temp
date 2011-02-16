@@ -92,17 +92,17 @@
       <Project>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</Project>
       <Name>ServiceCoordinator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RecieveConsents\RecieveConsents.csproj">
+    <ProjectReference Include="..\ReceiveConsents\ReceiveConsents.csproj">
       <Project>{F30AAD16-9E89-40C1-9AAC-EC08ADEE667E}</Project>
-      <Name>RecieveConsents</Name>
+      <Name>ReceiveConsents %28Lenssubscription\ServiceCoordinatorTask\ReceiveConsents%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RecieveErrors\RecieveErrors.csproj">
+    <ProjectReference Include="..\ReceiveErrors\ReceiveErrors.csproj">
       <Project>{3BB41EB8-4B02-4C33-B622-42E3F6382E6B}</Project>
-      <Name>RecieveErrors</Name>
+      <Name>ReceiveErrors</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RecievePayments\RecievePayments.csproj">
+    <ProjectReference Include="..\ReceivePayments\ReceivePayments.csproj">
       <Project>{89214057-4062-4D9D-B507-325792853EC4}</Project>
-      <Name>RecievePayments</Name>
+      <Name>ReceivePayments</Name>
     </ProjectReference>
     <ProjectReference Include="..\SendConsents\SendConsents.csproj">
       <Project>{0A21E04A-CFD1-41A8-8D82-D469AE55883F}</Project>

@@ -6,7 +6,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 	{
 		protected override ITask GetTask()
 		{
-			return new SendPayments.Task(Log4NetLogger);
+			return new SendPayments.Task(
+				Log4NetLogger,
+				BGPaymentToSendRepository);
 		}
 	}
 }

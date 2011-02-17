@@ -23,8 +23,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         {
             Context = () =>
             {
-                receivedSections = ReceivedConsentsFactory.GetList();
-                ConsentsFile consentFileSection = ReceivedConsentsFactory.GetReceivedConsentFileSection();
+                receivedSections = RecievedFileSectionFactory.GetList();
+                var consentFileSection = ReceivedConsentsFactory.GetReceivedConsentFileSection();
                 _savedConsent = ReceivedConsentsFactory.GetConsent();
 
                 A.CallTo(() => ReceivedFileRepository.FindBy(A<AllUnhandledReceivedConsentFileSectionsCriteria>

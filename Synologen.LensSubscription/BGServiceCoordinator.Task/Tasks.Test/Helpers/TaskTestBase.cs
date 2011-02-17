@@ -3,8 +3,6 @@ using FakeItEasy;
 using log4net;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
@@ -29,7 +27,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		protected IAutogiroFileWriter<ConsentsFile, Consent> ConsentFileWriter;
 	    protected IAutogiroFileReader<PaymentsFile, Payment> PaymentFileReader;
         protected IAutogiroFileReader<Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.ConsentsFile, Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.Consent> ConsentFileReader;
-
+		protected IBGPaymentToSendRepository BGPaymentToSendRepository;
         protected IBGConfigurationSettings BGConfigurationSettings;
 		protected Log4NetLogger Log4NetLogger;
 
@@ -43,6 +41,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		    BGReceivedPaymentRepository = A.Fake<IBGReceivedPaymentRepository>();
             FileSectionToSendRepository = A.Fake<IFileSectionToSendRepository>();
 		    ReceivedFileRepository = A.Fake<IReceivedFileRepository>();
+			BGPaymentToSendRepository = A.Fake<IBGPaymentToSendRepository>();
 			ConsentFileWriter = A.Fake<IAutogiroFileWriter<ConsentsFile, Consent>>();
             ConsentFileReader = A.Fake<IAutogiroFileReader<Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.ConsentsFile, Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.Consent>>();
             PaymentFileReader = A.Fake<IAutogiroFileReader<PaymentsFile, Payment>>();

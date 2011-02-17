@@ -27,7 +27,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 				BGConsentToSendRepository, 
 				FileSectionToSendRepository,
 				ConsentFileWriter,
-				BGConfigurationSettings);
+				BgConfigurationSettingsService);
 		}
 
 		protected virtual bool MatchConsents(IEnumerable<Consent> parsedConsents, IList<BGConsentToSend> originalConsents, string recieverBankGiroNumber)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using FakeItEasy;
 using NUnit.Framework;
@@ -31,8 +31,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 				fileData = ConsentsFactory.GetTestConsentFileData();
 				A.CallTo(() => BGConsentToSendRepository.FindBy(A<AllNewConsentsToSendCriteria>.Ignored.Argument)).Returns(consentsToSend);
 				A.CallTo(() => ConsentFileWriter.Write(A<ConsentsFile>.Ignored)).Returns(fileData);
-				A.CallTo(() => BGConfigurationSettings.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
-				A.CallTo(() => BGConfigurationSettings.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
+				A.CallTo(() => BgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
+				A.CallTo(() => BgConfigurationSettingsService.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
 			};
 			Because = task => task.Execute();
 		}

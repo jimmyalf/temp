@@ -17,20 +17,20 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendPayments
 	public class Task : TaskBase
 	{
 		private readonly IBGPaymentToSendRepository _bgPaymentToSendRepository;
-		private readonly IBGConfigurationSettings _bgConfigurationSettings;
+		private readonly IBGConfigurationSettingsService _bgConfigurationSettingsService;
 		private readonly IAutogiroFileWriter<PaymentsFile, Payment> _paymentFileWriter;
 		private readonly IFileSectionToSendRepository _fileSectionToSendRepository;
 
 		public Task(
 			ILoggingService loggingService, 
 			IBGPaymentToSendRepository bgPaymentToSendRepository,
-			IBGConfigurationSettings bgConfigurationSettings,
+			IBGConfigurationSettingsService bgConfigurationSettingsService,
 			IAutogiroFileWriter<PaymentsFile,Payment> paymentFileWriter,
 			IFileSectionToSendRepository fileSectionToSendRepository) 
 			: base("SendPayments", loggingService, BGTaskSequenceOrder.SendTask)
 		{
 			_bgPaymentToSendRepository = bgPaymentToSendRepository;
-			_bgConfigurationSettings = bgConfigurationSettings;
+			_bgConfigurationSettingsService = bgConfigurationSettingsService;
 			_paymentFileWriter = paymentFileWriter;
 			_fileSectionToSendRepository = fileSectionToSendRepository;
 		}
@@ -69,8 +69,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendPayments
 				Posts = consentsToSend.Select(consent => ToConsent(consent)),
 				Reciever = new PaymentReciever
 				{
-					BankgiroNumber = _bgConfigurationSettings.GetPaymentRecieverBankGiroNumber(),
-					CustomerNumber = _bgConfigurationSettings.GetPaymentRevieverCustomerNumber()
+					BankgiroNumber = _bgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber(),
+					CustomerNumber = _bgConfigurationSettingsService.GetPaymentRevieverCustomerNumber()
 				},
 				WriteDate = DateTime.Now
 			};
@@ -83,7 +83,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendPayments
 				Amount = paymentToSend.Amount,
 				PaymentDate = paymentToSend.PaymentDate,
 				PeriodCode = paymentToSend.PeriodCode.ToInteger().ToEnum<PeriodCode>(),
-				RecieverBankgiroNumber = _bgConfigurationSettings.GetPaymentRecieverBankGiroNumber(),
+				RecieverBankgiroNumber = _bgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber(),
 				Reference = paymentToSend.Reference,
 				Transmitter = new Payer
 				{

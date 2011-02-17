@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Spinit.Extensions;
@@ -19,21 +19,21 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 		private readonly IBGConsentToSendRepository _bgConsentToSendRepository;
 		private readonly IFileSectionToSendRepository _fileSectionToSendRepository;
 		private readonly IAutogiroFileWriter<ConsentsFile, Consent> _fileWriter;
-		private readonly IBGConfigurationSettings _bgConfigurationSettings;
+		private readonly IBGConfigurationSettingsService _bgConfigurationSettingsService;
 
 		public Task(
 			ILoggingService loggingService, 
 			IBGConsentToSendRepository bgConsentToSendRepository, 
 			IFileSectionToSendRepository fileSectionToSendRepository, 
 			IAutogiroFileWriter<ConsentsFile,  Consent> fileWriter ,
-			IBGConfigurationSettings bgConfigurationSettings
+			IBGConfigurationSettingsService bgConfigurationSettingsService
 		) 
 			: base("SendConsents", loggingService, BGTaskSequenceOrder.SendTask)
 		{
 			_bgConsentToSendRepository = bgConsentToSendRepository;
 			_fileSectionToSendRepository = fileSectionToSendRepository;
 			_fileWriter = fileWriter;
-			_bgConfigurationSettings = bgConfigurationSettings;
+			_bgConfigurationSettingsService = bgConfigurationSettingsService;
 		}
 
 		public override void Execute()
@@ -71,8 +71,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 				Posts = consentsToSend.Select(consent => ToConsent(consent)),
 				Reciever = new PaymentReciever
 				{
-					BankgiroNumber = _bgConfigurationSettings.GetPaymentRecieverBankGiroNumber(),
-					CustomerNumber = _bgConfigurationSettings.GetPaymentRevieverCustomerNumber()
+					BankgiroNumber = _bgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber(),
+					CustomerNumber = _bgConfigurationSettingsService.GetPaymentRevieverCustomerNumber()
 				},
 				WriteDate = DateTime.Now
 			};
@@ -89,7 +89,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 				},
 				OrgNumber = consentsToSend.OrgNumber,
 				PersonalIdNumber = consentsToSend.PersonalIdNumber,
-				RecieverBankgiroNumber = _bgConfigurationSettings.GetPaymentRecieverBankGiroNumber(),
+				RecieverBankgiroNumber = _bgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber(),
 				Transmitter = new Payer
 				{
 					CustomerNumber = consentsToSend.PayerNumber

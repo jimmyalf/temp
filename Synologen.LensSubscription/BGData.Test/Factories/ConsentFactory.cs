@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -7,6 +8,10 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 	public static class ConsentFactory 
 	{
 		public static BGConsentToSend Get()
+		{
+			return Get(0);
+		}
+		public static BGConsentToSend Get(int seed)
 		{ 
 			return new BGConsentToSend
 			{
@@ -18,8 +23,10 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 				PayerNumber = "471117",
 				OrgNumber = null,
 				PersonalIdNumber = "194608170000",
-				SendDate = new DateTime(2011,02,16),
-				Type = ConsentType.New,
+				SendDate = (seed % 2 == 0) 
+					? new DateTime(2011,02,16).AddDays(seed) 
+					: (DateTime?) null,
+				Type = ConsentType.New.SkipValues(seed),
 			};
 		}
 
@@ -33,6 +40,12 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 			item.SendDate = item.SendDate.HasValue ? item.SendDate.Value.AddDays(5) : new DateTime(2011,02,16);
 			item.Type = item.Type.Next();
 			return item;
+		}
+
+		public static IEnumerable<BGConsentToSend> GetList() 
+		{
+			Func<int, BGConsentToSend> generateItem = seed => Get(seed);
+			return generateItem.GenerateRange(0, 15);
 		}
 	}
 }

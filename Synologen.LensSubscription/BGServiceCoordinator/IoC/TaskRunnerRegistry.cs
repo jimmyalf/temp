@@ -12,6 +12,7 @@ using Synologen.LensSubscription.Autogiro.Writers;
 using Synologen.LensSubscription.BGData;
 using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.BGServiceCoordinator.Logging;
+using Synologen.LensSubscription.BGServiceCoordinator.Services;
 using Send_Consent=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.Consent;
 using Send_Payment=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.Payment;
 using Send_ConsentsFile=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.ConsentsFile;
@@ -41,7 +42,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.IoC
 			// Task scan
 			Scan(x =>
 			{
-				x.Assembly(Assembly.GetExecutingAssembly());
+				x.AssembliesFromApplicationBaseDirectory(IsServiceCoordinatorTaskAssembly);
 				x.AddAllTypesOf<ITask>();
 			});
 
@@ -64,7 +65,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.IoC
 			For<IAutogiroFileReader<Read_PaymentsFile, Read_Payment>>().Use<PaymentsFileReader>();
 			
 
-			//For<IBGConfigurationSettingsService>().Use<BGConfigurationSettingsService>();
+			For<IBGConfigurationSettingsService>().Use<BGConfigurationSettingsService>();
 
 			// Register criteria converters
 			Scan(x =>
@@ -73,6 +74,12 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.IoC
 				x.Assembly(typeof(NHibernateActionCriteriaConverter<,>).Assembly.FullName);
 				x.ConnectImplementationsToTypesClosing(typeof(IActionCriteriaConverter<,>));
 			});
+		}
+
+		protected virtual bool IsServiceCoordinatorTaskAssembly(Assembly assembly)
+		{
+			var assemblyName = assembly.GetName().Name;
+			return assemblyName.StartsWith("Synologen.LensSubscription.BGServiceCoordinator.Task.");
 		}
 	}
 }

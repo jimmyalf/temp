@@ -16,7 +16,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		protected IEventLoggingService EventLoggingService;
 		protected IFileSectionToSendRepository FileSectionToSendRepository;
 	    protected IReceivedFileRepository ReceivedFileRepository;
-        protected IBGConfigurationSettings BGConfigurationSettings;
+        protected IBGConfigurationSettingsService BgConfigurationSettingsService;
 		protected Log4NetLogger Log4NetLogger;
 
 		protected TaskTestBase()
@@ -26,7 +26,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			Log4NetLogger = new Log4NetLogger(Log, EventLoggingService);
             FileSectionToSendRepository = A.Fake<IFileSectionToSendRepository>();
 		    ReceivedFileRepository = A.Fake<IReceivedFileRepository>();
-			BGConfigurationSettings = A.Fake<IBGConfigurationSettings>();
+			BgConfigurationSettingsService = A.Fake<IBGConfigurationSettingsService>();
 			
 			Context = () => { };
 			Because = logger => { throw new AssertionException("An action for Because has not been set!"); };

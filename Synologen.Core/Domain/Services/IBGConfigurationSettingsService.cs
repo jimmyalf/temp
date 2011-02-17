@@ -1,6 +1,6 @@
 namespace Spinit.Wpc.Synologen.Core.Domain.Services
 {
-	public interface IBGConfigurationSettings
+	public interface IBGConfigurationSettingsService
 	{
 		string GetPaymentRecieverBankGiroNumber();
 		string GetPaymentRevieverCustomerNumber();

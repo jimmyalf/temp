@@ -30,8 +30,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 				fileData = PaymentsFactory.GetTestPaymentFileData();
 				paymentsToSend = PaymentsFactory.GetList();
 				A.CallTo(() => BGPaymentToSendRepository.FindBy(A<AllNewPaymentsToSendCriteria>.Ignored.Argument)).Returns(paymentsToSend);
-				A.CallTo(() => BGConfigurationSettings.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
-				A.CallTo(() => BGConfigurationSettings.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
+				A.CallTo(() => BgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
+				A.CallTo(() => BgConfigurationSettingsService.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
 				A.CallTo(() => PaymentFileWriter.Write(A<PaymentsFile>.Ignored)).Returns(fileData);
 			};
 			Because = task => task.Execute();

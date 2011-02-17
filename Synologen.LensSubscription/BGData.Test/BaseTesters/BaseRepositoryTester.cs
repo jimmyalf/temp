@@ -27,17 +27,6 @@ namespace Synologen.LensSubscription.BGData.Test.BaseTesters
 			DataHelper.DeleteAndResetIndexForTable(session.Connection, "BGConsentToSend");
 		}
 
-		//private object ResolveCriteriaConverters<TType>(TType objectToResolve)
-		//{
-
-		//    if (objectToResolve.Equals(typeof(IActionCriteriaConverter<AllUnhandledReceivedConsentFileSectionsCriteria, ICriteria>)))
-		//    {
-		//        return new AllUnhandledReceivedConsentFileSectionsCriteriaConverter(GetSessionFactory().OpenSession());
-		//    }
-		//    return null;
-           
-		//}
-
 		protected virtual bool IsDevelopmentServer(string connectionString)
 		{
 			if (connectionString.ToLower().Contains("black")) return true;

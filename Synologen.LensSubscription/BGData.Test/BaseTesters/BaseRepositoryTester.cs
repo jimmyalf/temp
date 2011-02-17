@@ -1,8 +1,5 @@
 using System;
 using NHibernate;
-using Spinit.Data;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
-using Synologen.LensSubscription.BGData.CriteriaConverters;
 using Synologen.LensSubscription.BGData.Test.CommonDataTestHelpers;
 
 namespace Synologen.LensSubscription.BGData.Test.BaseTesters
@@ -11,11 +8,7 @@ namespace Synologen.LensSubscription.BGData.Test.BaseTesters
 	{
 		protected override Action SetUp()
 		{
-			return () =>
-			{
-				SetupData(GetSessionFactory().OpenSession());
-				ActionCriteriaExtensions.ConstructConvertersUsing(ResolveCriteriaConverters);
-			};
+			return () => SetupData(GetSessionFactory().OpenSession());
 		}
 
 		private void SetupData(ISession session)
@@ -34,16 +27,16 @@ namespace Synologen.LensSubscription.BGData.Test.BaseTesters
 			DataHelper.DeleteAndResetIndexForTable(session.Connection, "BGConsentToSend");
 		}
 
-		private object ResolveCriteriaConverters<TType>(TType objectToResolve)
-		{
+		//private object ResolveCriteriaConverters<TType>(TType objectToResolve)
+		//{
 
-			if (objectToResolve.Equals(typeof(IActionCriteriaConverter<AllUnhandledReceivedConsentFileSectionsCriteria, ICriteria>)))
-			{
-				return new AllUnhandledReceivedConsentFileSectionsCriteriaConverter(GetSessionFactory().OpenSession());
-			}
-			return null;
+		//    if (objectToResolve.Equals(typeof(IActionCriteriaConverter<AllUnhandledReceivedConsentFileSectionsCriteria, ICriteria>)))
+		//    {
+		//        return new AllUnhandledReceivedConsentFileSectionsCriteriaConverter(GetSessionFactory().OpenSession());
+		//    }
+		//    return null;
            
-		}
+		//}
 
 		protected virtual bool IsDevelopmentServer(string connectionString)
 		{

@@ -1,6 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
+using FluentNHibernate.Utils;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Synologen.LensSubscription.BGData.Test.BaseTesters;
 using Synologen.LensSubscription.BGData.Test.Factories;
 
@@ -101,4 +105,35 @@ namespace Synologen.LensSubscription.BGData.Test
 			});
 		}
 	}
+
+	[TestFixture]
+	public class When_fetching_consents_by_AllNewConsentsToSendCriteria : BGConsentToSendRepositoryBaseTester
+	{
+		private IEnumerable<BGConsentToSend> consents;
+		private int expectedNumberOfFetchedConsents;
+
+		public When_fetching_consents_by_AllNewConsentsToSendCriteria()
+		{
+			Context = session =>
+			{
+				consents = ConsentFactory.GetList();
+				expectedNumberOfFetchedConsents = consents
+					.Where(x => Equals(x.SendDate, null))
+					.Count();
+			};
+			Because = repository => consents.Each(repository.Save);
+		}
+
+		[Test]
+		public void Should_get_all_consents_that_has_not_been_sent()
+		{
+			AssertUsing(session =>
+			{
+				var fetchedConsents = CreateRepository(session).FindBy(new AllNewConsentsToSendCriteria());
+				fetchedConsents.Count().ShouldBe(expectedNumberOfFetchedConsents);
+				fetchedConsents.Each(consent => consent.SendDate.ShouldBe(null));
+			});
+		}
+	}
+
 }

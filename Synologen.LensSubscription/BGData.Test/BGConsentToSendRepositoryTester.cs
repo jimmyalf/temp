@@ -11,7 +11,7 @@ using Synologen.LensSubscription.BGData.Test.Factories;
 
 namespace Synologen.LensSubscription.BGData.Test
 {
-	[TestFixture]
+	[TestFixture, Category("ConsentToSendRepositoryTests")]
 	public class When_persisting_a_consent_to_send : BaseRepositoryTester<BGConsentToSendRepository>
 	{
 		private BGConsentToSend savedConsentToSend;
@@ -47,12 +47,12 @@ namespace Synologen.LensSubscription.BGData.Test
 		}
 	}
 
-	[TestFixture]
-	public class When_updating_consent_to_send : BaseRepositoryTester<BGConsentToSendRepository>
+	[TestFixture, Category("ConsentToSendRepositoryTests")]
+	public class When_updating_a_consent_to_send : BaseRepositoryTester<BGConsentToSendRepository>
 	{
 		private BGConsentToSend editedConsent;
 
-		public When_updating_consent_to_send()
+		public When_updating_a_consent_to_send()
 	    {
 	    	Context = session =>
 	    	{
@@ -81,12 +81,12 @@ namespace Synologen.LensSubscription.BGData.Test
 		}
 	}
 
-	[TestFixture]
-	public class When_deleting_consent_to_send : BaseRepositoryTester<BGConsentToSendRepository>
+	[TestFixture, Category("ConsentToSendRepositoryTests")]
+	public class When_deleting_a_consent_to_send : BaseRepositoryTester<BGConsentToSendRepository>
 	{
 		private BGConsentToSend deletedConsent;
 
-		public When_deleting_consent_to_send()
+		public When_deleting_a_consent_to_send()
 	    {
 	    	Context = session => 
 			{
@@ -107,7 +107,7 @@ namespace Synologen.LensSubscription.BGData.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ConsentToSendRepositoryTests")]
 	public class When_fetching_consents_by_AllNewConsentsToSendCriteria : BaseRepositoryTester<BGConsentToSendRepository>
 	{
 		private IEnumerable<BGConsentToSend> consents;

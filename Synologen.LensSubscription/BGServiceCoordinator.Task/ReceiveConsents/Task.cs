@@ -65,7 +65,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents
                   CommentCode = consent.CommentCode,
                   ConsentValidForDate = consent.ConsentValidForDate,
                   InformationCode = consent.InformationCode,
-                  PayerNumber = int.Parse(consent.Transmitter.CustomerNumber)
+                  PayerNumber = int.Parse(consent.Transmitter.CustomerNumber),
+                  CreatedDate = DateTime.Now
             };
         }
     }

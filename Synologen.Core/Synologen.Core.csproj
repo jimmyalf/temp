@@ -110,6 +110,7 @@
     <Compile Include="Domain\Model\BGServer\Account.cs" />
     <Compile Include="Domain\Model\BGServer\BGConsentToSend.cs" />
     <Compile Include="Domain\Model\BGServer\BGReceivedConsent.cs" />
+    <Compile Include="Domain\Model\BGServer\BGReceivedPayment.cs" />
     <Compile Include="Domain\Model\BGServer\ConsentType.cs" />
     <Compile Include="Domain\Model\BGServer\FileSectionToSend.cs" />
     <Compile Include="Domain\Model\BGServer\SectionType.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Domain\Model\LensSubscription\TransactionReason.cs" />
     <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
     <Compile Include="Domain\Model\ContractSales\ShopAccess.cs" />
+    <Compile Include="Domain\Persistence\BGServer\BGReceivedPaymentRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IBGConsentToSendRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IBGReceivedConsentRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IFileSectionToSendRepository.cs" />
@@ -166,6 +168,7 @@
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewConsentsToSendCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedConsentFileSectionsCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedPaymentFileSectionsCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\ContractSales\AllContractSalesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllActiveTransactionArticlesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsToSendConsentsForCriteria.cs" />

@@ -14,16 +14,19 @@ using Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers;
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 {
     [TestFixture]
-    public class When_receiveing_consents : ReceiveConsentsBase
+    public class When_receiveing_consents : ReceiveConsentsTaskTestBase
     {
         private IEnumerable<ReceivedFileSection> receivedSections;
+        private Consent _savedConsent;
+
         public When_receiveing_consents()
         {
             Context = () =>
             {
                 receivedSections = ReceivedConsentsFactory.GetList();
                 ConsentsFile consentFileSection = ReceivedConsentsFactory.GetReceivedConsentFileSection();
-                
+                _savedConsent = ReceivedConsentsFactory.GetConsent();
+
                 A.CallTo(() => ReceivedFileRepository.FindBy(A<AllUnhandledReceivedConsentFileSectionsCriteria>
                                                       .Ignored.Argument)).Returns(receivedSections);
                 A.CallTo(() => ConsentFileReader.Read(A<string>.Ignored)).Returns(consentFileSection);
@@ -69,11 +72,12 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         {
             A.CallTo(() => BGReceivedConsentRepository.Save(
                             A<BGReceivedConsent>
-				            .That.Matches(x => x.ActionDate.Date.Equals(DateTime.Now.Date))
-				            .And.Matches(x => x.CommentCode.Equals(ConsentCommentCode.NewConsent))
-				            .And.Matches(x => x.ConsentValidForDate.Equals(DateTime.Now.Date))
-				            .And.Matches(x => x.InformationCode.Equals(ConsentInformationCode.InitiatedByPayer))
-                            .And.Matches(x => x.PayerNumber.Equals(999))
+                            .That.Matches(x => x.ActionDate.Equals(_savedConsent.ActionDate))
+                            .And.Matches(x => x.CommentCode.Equals(_savedConsent.CommentCode))
+                            .And.Matches(x => x.ConsentValidForDate.Equals(_savedConsent.ConsentValidForDate))
+                            .And.Matches(x => x.InformationCode.Equals(_savedConsent.InformationCode))
+                            .And.Matches(x => x.PayerNumber.Equals(int.Parse(_savedConsent.Transmitter.CustomerNumber)))
+                            .And.Matches(x => x.CreatedDate.Date.Equals(DateTime.Now.Date))
 			            )).MustHaveHappened();
         }
 
@@ -84,9 +88,6 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
                 A<ReceivedFileSection>
                     .That.Matches(x => Equals(x.HasBeenHandled, true))
                 ))) ;
-
         }
-
     }
-
 }

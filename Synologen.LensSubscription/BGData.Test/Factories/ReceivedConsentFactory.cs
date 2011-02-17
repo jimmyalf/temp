@@ -14,7 +14,8 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
                     CommentCode = ConsentCommentCode.NewConsent,
                     ConsentValidForDate = new DateTime(2011, 02, 11, 12, 0, 0, 0),
                     InformationCode = ConsentInformationCode.InitiatedByPayer,
-                    PayerNumber = 4355
+                    PayerNumber = 4355,
+                    CreatedDate = new DateTime(2011, 02, 10, 18, 02, 12),
                 };
         }
     }

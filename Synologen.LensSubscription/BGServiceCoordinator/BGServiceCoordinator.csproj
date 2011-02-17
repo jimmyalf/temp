@@ -54,6 +54,7 @@
       <HintPath>..\..\Dependancies\StructureMap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -73,6 +74,7 @@
     <Compile Include="Logging\LogFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BGConfigurationSettingsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

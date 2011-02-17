@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Factories\ConsentsFactory.cs" />
     <Compile Include="Factories\PaymentsFactory.cs" />
+    <Compile Include="Factories\TestHelper.cs" />
     <Compile Include="Factories\ReceivedConsentsFactory.cs" />
     <Compile Include="Factories\RecievedFileSectionFactory.cs" />
     <Compile Include="Helpers\ReceiveConsentsTaskTestBase.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Helpers\SendConsentsTaskTestBase.cs" />
     <Compile Include="Helpers\SendPaymentsTaskTestBase.cs" />
     <Compile Include="ReceiveConsentsTaskTester.cs" />
+    <Compile Include="ReceivePaymentsTaskTester.cs" />
     <Compile Include="SendConsentsTaskTester.cs" />
     <Compile Include="Helpers\TaskTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

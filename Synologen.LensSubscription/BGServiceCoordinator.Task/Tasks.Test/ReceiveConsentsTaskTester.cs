@@ -16,19 +16,19 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
     [TestFixture]
     public class When_receiveing_consents : ReceiveConsentsTaskTestBase
     {
-        private IEnumerable<ReceivedFileSection> receivedSections;
+        private IEnumerable<ReceivedFileSection> _receivedSections;
         private Consent _savedConsent;
 
         public When_receiveing_consents()
         {
             Context = () =>
             {
-                receivedSections = RecievedFileSectionFactory.GetList();
-                var consentFileSection = ReceivedConsentsFactory.GetReceivedConsentFileSection();
+                _receivedSections = ReceivedConsentsFactory.GetList();
+                ConsentsFile consentFileSection = ReceivedConsentsFactory.GetReceivedConsentFileSection();
                 _savedConsent = ReceivedConsentsFactory.GetConsent();
 
                 A.CallTo(() => ReceivedFileRepository.FindBy(A<AllUnhandledReceivedConsentFileSectionsCriteria>
-                                                      .Ignored.Argument)).Returns(receivedSections);
+                                                      .Ignored.Argument)).Returns(_receivedSections);
                 A.CallTo(() => ConsentFileReader.Read(A<string>.Ignored)).Returns(consentFileSection);
             };
             Because = task => task.Execute();
@@ -84,9 +84,10 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_updates_consentsection_as_handled()
         {
-            receivedSections.Each(receivedSection => A.CallTo(() => ReceivedFileRepository.Save(
+            _receivedSections.Each(receivedSection => A.CallTo(() => ReceivedFileRepository.Save(
                 A<ReceivedFileSection>
                     .That.Matches(x => Equals(x.HasBeenHandled, true))
+                    .And.Matches(x => x.HandledDate.Value.Date.Equals(DateTime.Now.Date))
                 ))) ;
         }
     }

@@ -27,7 +27,7 @@ namespace Synologen.LensSubscription.BGData.Test
         {
             AssertUsing(session =>
             {
-                var savedConsent = new BGReceivedConsentRepository(session).Get(_consentToSave.Id);
+                var savedConsent = CreateRepository(session).Get(_consentToSave.Id);
                 savedConsent.ShouldBe(_consentToSave);
                 savedConsent.ActionDate.ShouldBe(_consentToSave.ActionDate);
                 savedConsent.CommentCode.ShouldBe(_consentToSave.CommentCode);
@@ -35,6 +35,65 @@ namespace Synologen.LensSubscription.BGData.Test
                 savedConsent.InformationCode.ShouldBe(_consentToSave.InformationCode);
                 savedConsent.PayerNumber.ShouldBe(_consentToSave.PayerNumber);
                 savedConsent.CreatedDate.ShouldBe(_consentToSave.CreatedDate);
+            });
+        }
+    }
+
+    [TestFixture]
+    public class When_updating_received_consent : BaseRepositoryTester<BGReceivedConsentRepository>
+    {
+        private BGReceivedConsent editedConsent;
+
+        public When_updating_received_consent()
+        {
+            Context = session =>
+            {
+                editedConsent = ReceivedConsentFactory.Get();
+                CreateRepository(session).Save(editedConsent);
+                ReceivedConsentFactory.Edit(editedConsent);
+            };
+            Because = repository => repository.Save(editedConsent);
+        }
+
+        [Test]
+        public void Consent_is_updated()
+        {
+            AssertUsing(session =>
+            {
+                var fetchedConsent = CreateRepository(session).Get(editedConsent.Id);
+                fetchedConsent.Id.ShouldBe(editedConsent.Id);
+                fetchedConsent.ActionDate.ShouldBe(editedConsent.ActionDate);
+                fetchedConsent.CommentCode.ShouldBe(editedConsent.CommentCode);
+                fetchedConsent.ConsentValidForDate.ShouldBe(editedConsent.ConsentValidForDate);
+                fetchedConsent.InformationCode.ShouldBe(editedConsent.InformationCode);
+                fetchedConsent.PayerNumber.ShouldBe(editedConsent.PayerNumber);
+                fetchedConsent.CreatedDate.ShouldBe(editedConsent.CreatedDate);
+            });
+        }
+    }
+
+    [TestFixture]
+    public class When_deleting_received_consent : BaseRepositoryTester<BGReceivedConsentRepository>
+    {
+        private BGReceivedConsent deletedConsent;
+
+        public When_deleting_received_consent()
+        {
+            Context = session =>
+            {
+                deletedConsent = ReceivedConsentFactory.Get();
+                CreateRepository(session).Save(deletedConsent);
+            };
+            Because = repository => repository.Delete(deletedConsent);
+        }
+
+        [Test]
+        public void Consent_is_deleted()
+        {
+            AssertUsing(session =>
+            {
+                var fetchedConsent = CreateRepository(session).Get(deletedConsent.Id);
+                fetchedConsent.ShouldBe(null);
             });
         }
     }

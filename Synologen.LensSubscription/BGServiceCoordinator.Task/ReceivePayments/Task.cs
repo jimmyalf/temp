@@ -64,7 +64,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
                 PayerNumber = int.Parse(payment.Transmitter.CustomerNumber),
                 PaymentDate = payment.PaymentDate,
                 Reference = payment.Reference,
-                Result = payment.Result,
+                ResultType = payment.Result,
                 CreatedDate = DateTime.Now
             };
         }

@@ -70,4 +70,27 @@ namespace Synologen.LensSubscription.BGData.Test
 			});
 		}
 	}
+
+	[TestFixture, Category("FileSectionToSendRepositoryTests")]
+	public class When_deleting_a_file_section_to_send : BaseRepositoryTester<FileSectionToSendRepository>
+	{
+		private FileSectionToSend fileSectionToSend;
+
+		public When_deleting_a_file_section_to_send()
+		{
+			Context = session =>
+			{
+				fileSectionToSend = FileSectionToSendFactory.Get();
+				CreateRepository(session).Save(fileSectionToSend);
+			};
+
+			Because = repository => repository.Delete(fileSectionToSend);
+		}
+
+		[Test]
+		public void File_section_has_been_deleted()
+		{
+			GetResult(session => CreateRepository(session).Get(fileSectionToSend.Id)).ShouldBe(null);
+		}
+	}
 }

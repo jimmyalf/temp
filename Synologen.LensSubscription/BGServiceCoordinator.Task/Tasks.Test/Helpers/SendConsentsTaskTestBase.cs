@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using FakeItEasy;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -8,6 +11,15 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
 	public abstract class SendConsentsTaskTestBase : TaskTestBase
 	{
+		protected IBGConsentToSendRepository BGConsentToSendRepository;
+		protected IAutogiroFileWriter<ConsentsFile, Consent> ConsentFileWriter;
+
+		protected SendConsentsTaskTestBase()
+		{
+			BGConsentToSendRepository = A.Fake<IBGConsentToSendRepository>();
+			ConsentFileWriter = A.Fake<IAutogiroFileWriter<ConsentsFile, Consent>>();
+		}
+
 		protected override ITask GetTask() 
 		{
 			return new SendConsents.Task(

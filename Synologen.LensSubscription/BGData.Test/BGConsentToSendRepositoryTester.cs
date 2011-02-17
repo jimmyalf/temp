@@ -12,11 +12,11 @@ using Synologen.LensSubscription.BGData.Test.Factories;
 namespace Synologen.LensSubscription.BGData.Test
 {
 	[TestFixture, Category("ConsentToSendRepositoryTests")]
-	public class When_persisting_a_consent_to_send : BaseRepositoryTester<BGConsentToSendRepository>
+	public class When_adding_a_consent_to_send : BaseRepositoryTester<BGConsentToSendRepository>
 	{
 		private BGConsentToSend savedConsentToSend;
 
-		public When_persisting_a_consent_to_send()
+		public When_adding_a_consent_to_send()
 		{
 			Context = session =>
 			{
@@ -30,7 +30,7 @@ namespace Synologen.LensSubscription.BGData.Test
 		}
 
 		[Test]
-		public void Consent_has_been_persisted()
+		public void Consent_has_been_added()
 		{
 			AssertUsing(session =>
 			{

@@ -30,8 +30,8 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 				PaymentDate = new DateTime(2011, 03, 30),
 				PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
 				Reference = "Synhälsan i Göteborg",
-				SendDate = (seed % 2 == 0) 
-					? (DateTime?) null
+				SendDate = seed.IsEven() 
+					? null as DateTime?
 					: new DateTime(2011,02,17),
 				Type = PaymentType.Debit.SkipValues(seed)
 			};
@@ -45,7 +45,7 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 			paymentToSend.PeriodCode = paymentToSend.PeriodCode.Next();
 			paymentToSend.Reference = paymentToSend.Reference.Reverse();
 			paymentToSend.SendDate = (paymentToSend.SendDate.HasValue) 
-				? (DateTime?) null 
+				? null as DateTime? 
 				: new DateTime(2011, 03, 30);
 			paymentToSend.Type = paymentToSend.Type.Next();
 		}

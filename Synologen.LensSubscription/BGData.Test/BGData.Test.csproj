@@ -92,12 +92,14 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CommonDataTestHelpers\DataHelper.cs" />
     <Compile Include="CommonDataTestHelpers\NHibernateRepositoryTester.cs" />
+    <Compile Include="Factories\FileSectionToSendFactory.cs" />
     <Compile Include="Factories\PaymentToSendFactory.cs" />
     <Compile Include="Factories\ReceivedConsentFactory.cs" />
     <Compile Include="Factories\ConsentToSendFactory.cs" />
     <Compile Include="BGConsentToSendRepositoryTester.cs" />
     <Compile Include="Factories\ReceivedFileSectionFactory.cs" />
     <Compile Include="Factories\ReceivedPaymentFactory.cs" />
+    <Compile Include="FileToSendRepositoryTester.cs" />
     <Compile Include="GlobalTestBase.cs" />
     <Compile Include="IoC\TestRegistry.cs" />
     <Compile Include="BGPaymentToSendRepositoryTester.cs" />

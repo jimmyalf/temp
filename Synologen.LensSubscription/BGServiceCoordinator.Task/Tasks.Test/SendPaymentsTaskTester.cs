@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -13,13 +16,23 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 	[TestFixture]
 	public class When_sending_payments : SendPaymentsTaskTestBase
 	{
-		private IEnumerable<BGPaymentToSend> paymentsToSend;
+		private IList<BGPaymentToSend> paymentsToSend;
+		private string paymentRecieverBankGiroNumber;
+		private string paymentRecieverCustomerNumber;
+		private string fileData;
 
 		public When_sending_payments()
 		{
 			Context = () =>
 			{
+				paymentRecieverBankGiroNumber = "555555";
+				paymentRecieverCustomerNumber = "123456";
+				fileData = PaymentsFactory.GetTestPaymentFileData();
 				paymentsToSend = PaymentsFactory.GetList();
+				A.CallTo(() => BGPaymentToSendRepository.FindBy(A<AllNewPaymentsToSendCriteria>.Ignored.Argument)).Returns(paymentsToSend);
+				A.CallTo(() => BGConfigurationSettings.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
+				A.CallTo(() => BGConfigurationSettings.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
+				A.CallTo(() => PaymentFileWriter.Write(A<PaymentsFile>.Ignored)).Returns(fileData);
 			};
 			Because = task => task.Execute();
 		}
@@ -44,30 +57,40 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 				.MustHaveHappened();
 		}
 
-		//[Test]
-		//public void Task_parses_fetched_payments_into_payment_file()
-		//{
-		//    //A.CallTo(() => PaymentFileWriter.Write(
-		//    //    A<PaymentsFile>
-		//    //    //.That.Matches(x => MatchConsents(x.Posts, consentsToSend, paymentRecieverBankGiroNumber))
-		//    //    //.And.Matches(x => x.Reciever.BankgiroNumber.Equals(paymentRecieverBankGiroNumber))
-		//    //    //.And.Matches(x => x.Reciever.CustomerNumber.Equals(paymentRecieverCustomerNumber))
-		//    //    //.And.Matches(x => x.WriteDate.Date.Equals(DateTime.Now.Date))
-		//    //)).MustHaveHappened();
-		//    Assert.Ignore("Add test");
-		//}
+		[Test]
+		public void Task_parses_fetched_payments_into_payment_file()
+		{
+		    A.CallTo(() => PaymentFileWriter.Write(
+		        A<PaymentsFile>
+					.That.Matches(x => MatchPayments(x.Posts, paymentsToSend, paymentRecieverBankGiroNumber))
+					.And.Matches(x => x.Reciever.BankgiroNumber.Equals(paymentRecieverBankGiroNumber))
+					.And.Matches(x => x.Reciever.CustomerNumber.Equals(paymentRecieverCustomerNumber))
+					.And.Matches(x => x.WriteDate.Date.Equals(DateTime.Now.Date))
+		    )).MustHaveHappened();
+		}
 
-		//[Test]
-		//public void Task_stores_payments_as_a_file_section_to_send()
-		//{
-		//    Assert.Inconclusive("No test");
-		//}
+		[Test]
+		public void Task_stores_payments_as_a_file_section_to_send()
+		{
+			A.CallTo(() => FileSectionToSendRepository.Save(
+				A<FileSectionToSend>
+				.That.Matches(x => x.CreatedDate.Date.Equals(DateTime.Now.Date))
+				.And.Matches(x => x.HasBeenSent.Equals(false))
+				.And.Matches(x => x.SectionData.Equals(fileData))
+				.And.Matches(x => Equals(x.SentDate, null))
+				.And.Matches(x => x.Type.Equals(SectionType.PaymentsToSend))
+				.And.Matches(x => x.TypeName.Equals("PaymentsToSend"))
+			)).MustHaveHappened();
+		}
 
-		//[Test]
-		//public void Task_updates_payments_as_sent()
-		//{
-
-		//    Assert.Inconclusive("No test");
-		//}
+		[Test]
+		public void Task_updates_payments_as_sent()
+		{
+			paymentsToSend.Each(paymentToSend => A.CallTo(() => BGPaymentToSendRepository.Save(
+        		A<BGPaymentToSend>
+        			.That.Matches(x => x.Id.Equals(paymentToSend.Id))
+        			.And.Matches(x => Equals(x.SendDate.Value.Date, DateTime.Now.Date))
+            )).MustHaveHappened());
+		}
 	}
 }

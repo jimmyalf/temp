@@ -114,6 +114,8 @@
     <Compile Include="Domain\Model\BGServer\BGReceivedPayment.cs" />
     <Compile Include="Domain\Model\BGServer\ConsentType.cs" />
     <Compile Include="Domain\Model\BGServer\FileSectionToSend.cs" />
+    <Compile Include="Domain\Model\BGServer\PaymentPeriodCode.cs" />
+    <Compile Include="Domain\Model\BGServer\PaymentType.cs" />
     <Compile Include="Domain\Model\BGServer\SectionType.cs" />
     <Compile Include="Domain\Model\BGServer\ReceivedFileSection.cs" />
     <Compile Include="Domain\Model\BGWebService\ConsentToSend.cs" />

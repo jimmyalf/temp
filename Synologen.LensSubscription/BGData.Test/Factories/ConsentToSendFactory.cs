@@ -5,7 +5,7 @@ using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Synologen.LensSubscription.BGData.Test.Factories
 {
-	public static class ConsentFactory 
+	public static class ConsentToSendFactory 
 	{
 		public static BGConsentToSend Get()
 		{

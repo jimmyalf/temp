@@ -10,5 +10,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGServer
         public virtual DateTime? ConsentValidForDate { get; set; }
         public virtual ConsentInformationCode? InformationCode { get; set; }
         public virtual ConsentCommentCode CommentCode { get; set; }
+        public virtual DateTime CreatedDate { get; set; }
     }
 }

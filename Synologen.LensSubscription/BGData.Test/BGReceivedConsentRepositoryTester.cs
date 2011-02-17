@@ -34,6 +34,7 @@ namespace Synologen.LensSubscription.BGData.Test
                 savedConsent.ConsentValidForDate.ShouldBe(_consentToSave.ConsentValidForDate);
                 savedConsent.InformationCode.ShouldBe(_consentToSave.InformationCode);
                 savedConsent.PayerNumber.ShouldBe(_consentToSave.PayerNumber);
+                savedConsent.CreatedDate.ShouldBe(_consentToSave.CreatedDate);
             });
         }
     }

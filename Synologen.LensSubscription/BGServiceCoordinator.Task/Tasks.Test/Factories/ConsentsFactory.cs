@@ -73,7 +73,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
             return GenerateSequence<Consent>(GetConsent, 10);
         }
 
-        private static Consent GetConsent()
+        public static Consent GetConsent()
         {
             return new Consent
             {

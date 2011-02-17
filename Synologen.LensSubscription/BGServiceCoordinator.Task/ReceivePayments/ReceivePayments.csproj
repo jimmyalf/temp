@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FAD88534-E185-41E6-ABCB-8CDD1D4165B4}</ProjectGuid>
+    <ProjectGuid>{DBECE0FB-E41C-4845-A467-1CF604931EC5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen.LensSubscription.BGServiceCoordinator.Task.Test</RootNamespace>
-    <AssemblyName>Synologen.LensSubscription.BGServiceCoordinator.Task.Test</AssemblyName>
+    <RootNamespace>Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments</RootNamespace>
+    <AssemblyName>Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\Build\Output\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,28 +25,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\Build\Output\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FakeItEasy, Version=1.0.0.5, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dependancies\Tools\FakeItEasy\FakeItEasy.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dependancies\log4Net\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dependancies\Tools\Shouldly\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Shouldly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dependancies\Tools\Shouldly\Shouldly.dll</HintPath>
-    </Reference>
     <Reference Include="Spinit, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Dependancies\Spinit\Spinit.dll</HintPath>
@@ -69,13 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\ConsentsFactory.cs" />
-    <Compile Include="Helpers\ReceiveConsentsTaskTestBase.cs" />
-    <Compile Include="Helpers\ReceivePaymentsTaskTestBase.cs" />
-    <Compile Include="Helpers\SendConsentsTaskTestBase.cs" />
-    <Compile Include="ReceiveConsentsTaskTester.cs" />
-    <Compile Include="SendConsentsTaskTester.cs" />
-    <Compile Include="Helpers\TaskTestBase.cs" />
+    <Compile Include="Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,21 +61,9 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\BGServiceCoordinator\BGServiceCoordinator.csproj">
-      <Project>{0EB3860A-9087-4AF2-BAD9-A1AEA964999D}</Project>
-      <Name>BGServiceCoordinator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ReceiveConsents\ReceiveConsents.csproj">
-      <Project>{0BAE058D-24F4-41ED-8CF9-AD128B59F211}</Project>
-      <Name>ReceiveConsents</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ReceivePayments\ReceivePayments.csproj">
-      <Project>{DBECE0FB-E41C-4845-A467-1CF604931EC5}</Project>
-      <Name>ReceivePayments %28LensSubscription\BGServiceCoordinator.Tasks\ReceivePayments%29</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SendConsents\SendConsents.csproj">
-      <Project>{2BCC56E0-2100-42B5-B91D-A8FDEAE5C28F}</Project>
-      <Name>SendConsents %28Lenssubscription\BGServiceCoordinatorTask\SendConsents%29</Name>
+    <ProjectReference Include="..\..\Autogiro\Autogiro.csproj">
+      <Project>{7C407C94-D0DC-460E-957E-3FC9E0AFAC1F}</Project>
+      <Name>Autogiro</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

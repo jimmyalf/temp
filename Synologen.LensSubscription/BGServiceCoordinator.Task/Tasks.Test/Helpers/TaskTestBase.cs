@@ -11,6 +11,8 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Synologen.LensSubscription.BGServiceCoordinator.Logging;
 using Consent=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.Consent;
 using ConsentsFile=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.ConsentsFile;
+using Payment=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.Payment;
+using PaymentsFile=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.PaymentsFile;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
@@ -21,9 +23,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		protected IEventLoggingService EventLoggingService;
 		protected IBGConsentToSendRepository BGConsentToSendRepository;
 	    protected IBGReceivedConsentRepository BGReceivedConsentRepository;
+	    protected IBGReceivedPaymentRepository BGReceivedPaymentRepository;
 		protected IFileSectionToSendRepository FileSectionToSendRepository;
 	    protected IReceivedFileRepository ReceivedFileRepository;
 		protected IAutogiroFileWriter<ConsentsFile, Consent> ConsentFileWriter;
+	    protected IAutogiroFileReader<PaymentsFile, Payment> PaymentFileReader;
         protected IAutogiroFileReader<Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.ConsentsFile, Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.Consent> ConsentFileReader;
 
         protected IBGConfigurationSettings BGConfigurationSettings;
@@ -36,10 +40,12 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			Log4NetLogger = new Log4NetLogger(Log, EventLoggingService);
 			BGConsentToSendRepository = A.Fake<IBGConsentToSendRepository>();
 		    BGReceivedConsentRepository = A.Fake<IBGReceivedConsentRepository>();
-			FileSectionToSendRepository = A.Fake<IFileSectionToSendRepository>();
+		    BGReceivedPaymentRepository = A.Fake<IBGReceivedPaymentRepository>();
+            FileSectionToSendRepository = A.Fake<IFileSectionToSendRepository>();
 		    ReceivedFileRepository = A.Fake<IReceivedFileRepository>();
 			ConsentFileWriter = A.Fake<IAutogiroFileWriter<ConsentsFile, Consent>>();
             ConsentFileReader = A.Fake<IAutogiroFileReader<Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.ConsentsFile, Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.Consent>>();
+            PaymentFileReader = A.Fake<IAutogiroFileReader<PaymentsFile, Payment>>();
             BGConfigurationSettings = A.Fake<IBGConfigurationSettings>();
 			
 			Context = () => { };

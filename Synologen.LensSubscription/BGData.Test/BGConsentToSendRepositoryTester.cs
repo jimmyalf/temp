@@ -20,7 +20,7 @@ namespace Synologen.LensSubscription.BGData.Test
 		{
 			Context = session =>
 			{
-				savedConsentToSend = ConsentFactory.Get();
+				savedConsentToSend = ConsentToSendFactory.Get();
 			};
 
 			Because = repository =>
@@ -56,9 +56,9 @@ namespace Synologen.LensSubscription.BGData.Test
 	    {
 	    	Context = session =>
 	    	{
-	    		editedConsent = ConsentFactory.Get();
+	    		editedConsent = ConsentToSendFactory.Get();
 				CreateRepository(session).Save(editedConsent);
-	    		ConsentFactory.Edit(editedConsent);
+	    		ConsentToSendFactory.Edit(editedConsent);
 	    	};
 	    	Because = repository => repository.Save(editedConsent);
 	    }
@@ -90,7 +90,7 @@ namespace Synologen.LensSubscription.BGData.Test
 	    {
 	    	Context = session => 
 			{
-	    		deletedConsent = ConsentFactory.Get();
+	    		deletedConsent = ConsentToSendFactory.Get();
 				CreateRepository(session).Save(deletedConsent);
 	    	};
 	    	Because = repository => repository.Delete(deletedConsent);
@@ -117,7 +117,7 @@ namespace Synologen.LensSubscription.BGData.Test
 		{
 			Context = session =>
 			{
-				consents = ConsentFactory.GetList();
+				consents = ConsentToSendFactory.GetList();
 				expectedNumberOfFetchedConsents = consents
 					.Where(x => Equals(x.SendDate, null))
 					.Count();

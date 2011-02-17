@@ -1,6 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.BGData.Test.BaseTesters;
 using Synologen.LensSubscription.BGData.Test.Factories;
@@ -99,6 +103,36 @@ namespace Synologen.LensSubscription.BGData.Test
 		public void Payment_was_deleted_from_repository()
 		{
 			GetResult(session => CreateRepository(session).Get(paymentToSend.Id)).ShouldBe(null);
+		}
+	}
+
+	[TestFixture, Category("ConsentToSendRepositoryTests")]
+	public class When_fetching_payments_by_AllNewPaymentsToSendCriteria : BaseRepositoryTester<BGPaymentToSendRepository>
+	{
+		private IEnumerable<BGPaymentToSend> payments;
+		private int expectedNumberOfFetchedPayments;
+
+		public When_fetching_payments_by_AllNewPaymentsToSendCriteria()
+		{
+			Context = session =>
+			{
+				payments = PaymentToSendFactory.GetList();
+				expectedNumberOfFetchedPayments = payments
+					.Where(x => Equals(x.SendDate, null))
+					.Count();
+			};
+			Because = repository => payments.Each(repository.Save);
+		}
+
+		[Test]
+		public void Should_get_all_payments_that_has_not_been_sent()
+		{
+			AssertUsing(session =>
+			{
+				var fetchedPayments = CreateRepository(session).FindBy(new AllNewPaymentsToSendCriteria());
+				fetchedPayments.Count().ShouldBe(expectedNumberOfFetchedPayments);
+				fetchedPayments.Each(payment => payment.SendDate.ShouldBe(null));
+			});
 		}
 	}
 }

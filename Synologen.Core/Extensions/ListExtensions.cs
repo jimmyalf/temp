@@ -68,8 +68,9 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			}
 		}
 
-		public static void ForBoth<TType1,TType2>(this IEnumerable<TType1> list1,IList<TType2> list2,  Action<TType1, TType2> enumerableAction)
+		public static void ForBoth<TType1,TType2>(this IEnumerable<TType1> list1, IList<TType2> list2,  Action<TType1, TType2> enumerableAction)
 		{
+			if (list1.Count() != list2.Count()) throw new ArgumentOutOfRangeException("list2", "Lists have different length");
 			var index = 0;
 			foreach (var item in list1)
 			{

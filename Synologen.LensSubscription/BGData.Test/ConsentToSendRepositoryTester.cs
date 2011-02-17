@@ -5,13 +5,14 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
+using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.BGData.Test.BaseTesters;
 using Synologen.LensSubscription.BGData.Test.Factories;
 
 namespace Synologen.LensSubscription.BGData.Test
 {
 	[TestFixture]
-	public class When_persisting_a_consent_to_send : BGConsentToSendRepositoryBaseTester
+	public class When_persisting_a_consent_to_send : BaseRepositoryTester<BGConsentToSendRepository>
 	{
 		private BGConsentToSend savedConsentToSend;
 
@@ -47,7 +48,7 @@ namespace Synologen.LensSubscription.BGData.Test
 	}
 
 	[TestFixture]
-	public class When_updating_consent_to_send : BGConsentToSendRepositoryBaseTester
+	public class When_updating_consent_to_send : BaseRepositoryTester<BGConsentToSendRepository>
 	{
 		private BGConsentToSend editedConsent;
 
@@ -81,7 +82,7 @@ namespace Synologen.LensSubscription.BGData.Test
 	}
 
 	[TestFixture]
-	public class When_deleting_consent_to_send : BGConsentToSendRepositoryBaseTester
+	public class When_deleting_consent_to_send : BaseRepositoryTester<BGConsentToSendRepository>
 	{
 		private BGConsentToSend deletedConsent;
 
@@ -107,7 +108,7 @@ namespace Synologen.LensSubscription.BGData.Test
 	}
 
 	[TestFixture]
-	public class When_fetching_consents_by_AllNewConsentsToSendCriteria : BGConsentToSendRepositoryBaseTester
+	public class When_fetching_consents_by_AllNewConsentsToSendCriteria : BaseRepositoryTester<BGConsentToSendRepository>
 	{
 		private IEnumerable<BGConsentToSend> consents;
 		private int expectedNumberOfFetchedConsents;

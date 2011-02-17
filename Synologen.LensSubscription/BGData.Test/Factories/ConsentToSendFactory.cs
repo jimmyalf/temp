@@ -23,9 +23,9 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 				PayerNumber = "471117",
 				OrgNumber = null,
 				PersonalIdNumber = "194608170000",
-				SendDate = (seed % 2 == 0) 
+				SendDate = seed.IsEven()
 					? new DateTime(2011,02,16).AddDays(seed) 
-					: (DateTime?) null,
+					: null as DateTime?,
 				Type = ConsentType.New.SkipValues(seed),
 			};
 		}

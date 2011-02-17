@@ -69,6 +69,7 @@
     <Compile Include="CriteriaConverters\AllNewPaymentsToSendCriteriaConverter.cs" />
     <Compile Include="CriteriaConverters\AllUnhandledReceivedPaymentFileSectionsCriteriaConverter.cs" />
     <Compile Include="Mappings\BGPaymentToSendMap.cs" />
+    <Compile Include="Mappings\FileSectionToSendMap.cs" />
     <Compile Include="Mappings\ReceivedConsentMap.cs" />
     <Compile Include="Mappings\BGConsentToSendMap.cs" />
     <Compile Include="Mappings\ReceivedPaymentMap.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Repositories\BGReceivedConsentRepository.cs" />
     <Compile Include="Repositories\BGConsentToSendRepository.cs" />
     <Compile Include="Repositories\BGReceivedPaymentRepository.cs" />
+    <Compile Include="Repositories\FileSectionToSendRepository.cs" />
     <Compile Include="SchemaExporter.cs" />
     <Compile Include="CriteriaConverters\AllUnhandledReceivedConsentFileSectionsCriteriaConverter.cs" />
     <Compile Include="Mappings\ReceivedFileSectionMap.cs" />

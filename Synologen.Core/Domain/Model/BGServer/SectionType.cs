@@ -13,7 +13,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGServer
         [EnumDisplayName("ReceivedErrors")]
         ReceivedErrors = 3,
 
-        [EnumDisplayName("PaymentToSends")]
+        [EnumDisplayName("PaymentsToSend")]
         PaymentsToSend = 4,
 
         [EnumDisplayName("ConsentsToSend")]

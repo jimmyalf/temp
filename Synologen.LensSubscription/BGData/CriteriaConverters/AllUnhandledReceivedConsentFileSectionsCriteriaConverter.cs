@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using System;
+using NHibernate;
 using NHibernate.Criterion;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;

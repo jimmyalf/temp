@@ -25,7 +25,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
             Context = () =>
             {
                 _receivedSections = ReceivedPaymentsFactory.GetList();
-                PaymentsFile paymentsFileSection = ReceivedPaymentsFactory.GetReceivedPaymentsFileSection();
+                var paymentsFileSection = ReceivedPaymentsFactory.GetReceivedPaymentsFileSection();
                 _savedPayment = ReceivedPaymentsFactory.GetPayment();
 
                 A.CallTo(() => ReceivedFileRepository.FindBy(A<AllUnhandledReceivedPaymentFileSectionsCriteria>
@@ -36,7 +36,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         }
 
         [Test]
-        public void Task_has_send_task_ordering()
+        public void Task_has_receive_task_ordering()
         {
             Task.TaskOrder.ShouldBe(BGTaskSequenceOrder.ReadTask.ToInteger());
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+﻿using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
@@ -9,6 +8,6 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents.R
     {
     	public Task(ILoggingService loggingService) : base("ReceiveErrors", loggingService, BGTaskSequenceOrder.ReadTask) {}
 
-    	public override void Execute() { throw new NotImplementedException(); }
+    	public override void Execute() { return; }
     }
 }

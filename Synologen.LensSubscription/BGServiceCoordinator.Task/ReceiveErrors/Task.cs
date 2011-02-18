@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents.ReceiveErrors
 {
-    public class Task
+    public class Task : TaskBase
     {
+    	public Task(ILoggingService loggingService) : base("ReceiveErrors", loggingService, BGTaskSequenceOrder.ReadTask) {}
+
+    	public override void Execute() { throw new NotImplementedException(); }
     }
 }

@@ -1,3 +1,4 @@
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
@@ -21,7 +22,12 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         {
             Task.TaskOrder.ShouldBe(BGTaskSequenceOrder.ReadTask.ToInteger());
         }
+
+        [Test]
+        public void Task_loggs_start_and_stop_messages()
+        {
+            A.CallTo(() => Log.Info(A<string>.That.Contains("Started"))).MustHaveHappened();
+			A.CallTo(() => Log.Info(A<string>.That.Contains("Finished"))).MustHaveHappened();
+        }
 	}
-
-
 }

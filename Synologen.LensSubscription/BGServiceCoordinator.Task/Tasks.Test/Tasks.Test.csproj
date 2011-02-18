@@ -75,11 +75,13 @@
     <Compile Include="Factories\ReceivedConsentsFactory.cs" />
     <Compile Include="Factories\RecievedFileSectionFactory.cs" />
     <Compile Include="Helpers\ReceiveConsentsTaskTestBase.cs" />
+    <Compile Include="Helpers\ReceiveErrorsTaskTestBase.cs" />
     <Compile Include="Helpers\ReceivePaymentsTaskTestBase.cs" />
     <Compile Include="Helpers\SendConsentsTaskTestBase.cs" />
     <Compile Include="Helpers\SendPaymentsTaskTestBase.cs" />
     <Compile Include="ReceiveConsentsTaskTester.cs" />
     <Compile Include="ReceivePaymentsTaskTester.cs" />
+    <Compile Include="RecieveErrorsTaskTester.cs" />
     <Compile Include="SendConsentsTaskTester.cs" />
     <Compile Include="Helpers\TaskTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,6 +99,10 @@
     <ProjectReference Include="..\ReceiveConsents\ReceiveConsents.csproj">
       <Project>{0BAE058D-24F4-41ED-8CF9-AD128B59F211}</Project>
       <Name>ReceiveConsents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReceiveErrors\ReceiveErrors.csproj">
+      <Project>{AF74CA7A-75E2-487C-97E5-1AA0CACA0F9B}</Project>
+      <Name>ReceiveErrors %28Lenssubscription\BGServiceCoordinatorTask\ReceiveErrors%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceivePayments\ReceivePayments.csproj">
       <Project>{DBECE0FB-E41C-4845-A467-1CF604931EC5}</Project>

@@ -64,6 +64,9 @@
     <Compile Include="AutogiroParserServiceTests.cs" />
     <Compile Include="Factories\FileFactory.cs" />
     <Compile Include="Factories\FileContentFactory.cs" />
+    <Compile Include="Factories\MessageFactory.cs" />
+    <Compile Include="TestHelpers\HMACMessageDigestServiceTestBase.cs" />
+    <Compile Include="HMACMessageDigestServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

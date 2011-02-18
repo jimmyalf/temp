@@ -22,7 +22,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator
 				loggingService.LogDebug("Taskrunner bootstrapping finished.");
 				loggingService.LogDebug("Taskrunner is fetching tasks from container...");		
 				var tasks = ObjectFactory.GetAllInstances<ITask>();
-				loggingService.LogInfo("Taskrunner scan found {0} tasks ({1})", tasks.Count(), tasks.Select(x => x.TaskName).Aggregate((taskA,taskB) => taskA + ", " + taskB));
+				loggingService.LogInfo(GetTaskScanLogMessage(tasks));
 				if(IsInProductionEnvironment(args))
 				{
 					var taskrunner = new TaskRunnerService(loggingService, tasks);
@@ -43,6 +43,17 @@ namespace Synologen.LensSubscription.BGServiceCoordinator
 		private static bool IsInProductionEnvironment(IEnumerable<string> args)
 		{
 			return args.Where(arg => arg.ToLower().Contains(InProductionArgument.ToLower())).Any();
+		}
+
+		private static string GetTaskScanLogMessage(IEnumerable<ITask> tasks)
+		{
+			if(tasks == null || tasks.Count() == 0)
+			{
+				return "Taskrunner scan found no tasks";
+			}
+			return String.Format("Taskrunner scan found {0} tasks ({1})", 
+				tasks.Count(),
+				tasks.Select(x => x.TaskName).Aggregate((taskA, taskB) => taskA + ", " + taskB));
 		}
 	}
 }

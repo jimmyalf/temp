@@ -79,6 +79,7 @@
     <Compile Include="Repositories\BGReceivedConsentRepository.cs" />
     <Compile Include="Repositories\BGConsentToSendRepository.cs" />
     <Compile Include="Repositories\BGReceivedPaymentRepository.cs" />
+    <Compile Include="Repositories\BGRecievedErrorRepository.cs" />
     <Compile Include="Repositories\FileSectionToSendRepository.cs" />
     <Compile Include="SchemaExporter.cs" />
     <Compile Include="CriteriaConverters\AllUnhandledReceivedConsentFileSectionsCriteriaConverter.cs" />

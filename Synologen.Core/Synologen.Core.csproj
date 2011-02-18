@@ -111,6 +111,7 @@
     <Compile Include="Domain\Model\BGServer\BGConsentToSend.cs" />
     <Compile Include="Domain\Model\BGServer\BGPaymentToSend.cs" />
     <Compile Include="Domain\Model\BGServer\BGReceivedConsent.cs" />
+    <Compile Include="Domain\Model\BGServer\BGReceivedError.cs" />
     <Compile Include="Domain\Model\BGServer\BGReceivedPayment.cs" />
     <Compile Include="Domain\Model\BGServer\ConsentType.cs" />
     <Compile Include="Domain\Model\BGServer\FileSectionToSend.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
     <Compile Include="Domain\Model\ContractSales\ShopAccess.cs" />
     <Compile Include="Domain\Persistence\BGServer\IBGPaymentToSendRepository.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IBGReceivedErrorRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IBGReceivedPaymentRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IBGConsentToSendRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IBGReceivedConsentRepository.cs" />

@@ -43,10 +43,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		}
 		public static IGridColumn<T> SetAsWpcControlColumn<T>(this IGridColumn<T> gridColumn, string named, bool encode)
 		{
-			var returnValue =  gridColumn
-				.Sortable(false)
-				.Attributes(@class => "center")
-				.Named(named)
+			var returnValue =
+				gridColumn.Sortable(false).Attributes(@class => "center").Named(named)
 				.HeaderAttributes(@class => "controlColumn");
 			return encode ? returnValue : returnValue.DoNotEncode();
 		}

@@ -116,6 +116,13 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			yield break;
 		}
 
+		public static string ToHexString(this byte[] bytes)
+		{
+			if(bytes == null || bytes.Count() == 0) return String.Empty;
+			var characters = bytes.SelectMany(byteItem => byteItem.ToString("X2")).ToArray();
+			return new string(characters);
+		}
+
 	}
 
 

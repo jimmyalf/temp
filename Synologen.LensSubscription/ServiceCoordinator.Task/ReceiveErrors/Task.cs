@@ -29,11 +29,13 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 			RunLoggedTask(() =>
 			{
 				var errors = _bgWebService.GetNewErrors() ?? Enumerable.Empty<RecievedError>();
-				var errorsToSave = errors.Select(error => ConvertError(error));
-				LogDebug("Fetched {0} errors from BG Webservice", errorsToSave.Count());
-				errorsToSave.Each(subscriptionError =>
+				//var errorsToSave = errors.Select(error => ConvertError(error));
+				LogDebug("Fetched {0} errors from BG Webservice", errors.Count());
+				errors.Each(error =>
 				{
+					var subscriptionError = ConvertError(error);
 					_subscriptionErrorRepository.Save(subscriptionError);
+					_bgWebService.SetErrorHandled(error.ErrorId);
 					LogDebug("Saved subscription error \"{0}\" for subscription \"{1}\"", subscriptionError.Id, subscriptionError.Subscription.Id);
 				});
 			});

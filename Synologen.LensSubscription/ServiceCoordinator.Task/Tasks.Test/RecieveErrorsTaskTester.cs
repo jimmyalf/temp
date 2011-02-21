@@ -62,6 +62,15 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 			MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Finished"))), Times.Once());
 		}
 
+		[Test]
+		public void Task_sets_payment_as_handled_to_webservice()
+		{
+			expectedErrors.Each(error => 
+				MockedWebServiceClient.Verify(x => x.SetErrorHandled(
+						It.Is<int>(id => id.Equals(error.ErrorId))
+			)));
+		}
+
 		private static bool ExpectedErrorTypeConversionMatches(SubscriptionErrorType subscriptionErrorType, ErrorType errorType)
 		{
 			if(errorType ==  ErrorType.ConsentMissing)

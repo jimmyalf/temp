@@ -23,7 +23,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedErrors = ErrorFactory.GetList().ToArray();
 				expectedSubscription = SubscriptionFactory.Get(3);
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(expectedSubscription);
-				MockedWebServiceClient.Setup(x => x.GetNewErrors()).Returns(expectedErrors);
+				MockedWebServiceClient.Setup(x => x.GetErrors()).Returns(expectedErrors);
 			};
 			Because = task => task.Execute();
 		}
@@ -31,7 +31,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_fetches_errors_from_webservice()
 		{
-			MockedWebServiceClient.Verify(x => x.GetNewErrors());
+			MockedWebServiceClient.Verify(x => x.GetErrors());
 		}
 
 		[Test]

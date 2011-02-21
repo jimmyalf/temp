@@ -55,7 +55,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         }
 
         [Test]
-        public void Task_logs_after_each_handled_sections()
+        public void Task_logs_after_each_handled_section()
         {
             A.CallTo(() => Log.Debug(A<string>.That.Contains("Saved 10 payments to repository"))).MustHaveHappened();
         }

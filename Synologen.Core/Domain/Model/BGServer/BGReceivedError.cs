@@ -10,5 +10,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGServer
         public decimal Amount { get; set; }
         public string Reference { get; set; }
         public ErrorCommentCode CommentCode { get; set; }
+        public virtual DateTime CreatedDate { get; set; }
     }
 }

@@ -26,5 +26,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 
 		[OperationContract]
 		void SetPaymentHandled(int id);
+
+		[OperationContract]
+		void SetErrorHandled(int id);
 	}
 }

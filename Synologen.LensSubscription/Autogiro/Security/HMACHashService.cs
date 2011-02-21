@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Synologen.LensSubscription.Autogiro.Security
@@ -25,6 +26,13 @@ namespace Synologen.LensSubscription.Autogiro.Security
 			var normalizedMessage = NormalizeMessage(message);
 			Console.WriteLine(normalizedMessage);
 			var messageBytes = _encoding.GetBytes(normalizedMessage);
+			for (int i = 0; i < messageBytes.Count(); i++)
+			{
+				
+			}
+			//messageBytes.Each( item => (item == 0x3F) ? 0xC3 : item)
+			messageBytes.Each(item => Console.Write("{0}, ", item.ToString("X2")));
+			
 			var hash = _hmacService.ComputeHash(messageBytes);
 			var trucatedHash = hash.Take(16).ToArray();
 			return ByteArrayToHexString(trucatedHash);

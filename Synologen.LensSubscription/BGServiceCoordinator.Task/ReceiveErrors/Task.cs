@@ -8,6 +8,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents.R
     {
     	public Task(ILoggingService loggingService) : base("ReceiveErrors", loggingService, BGTaskSequenceOrder.ReadTask) {}
 
-    	public override void Execute() { return; }
+    	public override void Execute()
+    	{
+    		base.RunLoggedTask(() => {});
+    	}
     }
 }

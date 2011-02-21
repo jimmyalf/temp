@@ -8,8 +8,8 @@
     <ProjectGuid>{AF74CA7A-75E2-487C-97E5-1AA0CACA0F9B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents.ReceiveErrors</RootNamespace>
-    <AssemblyName>Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents.ReceiveErrors</AssemblyName>
+    <RootNamespace>Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveErrors</RootNamespace>
+    <AssemblyName>Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveErrors</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Spinit, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>

@@ -70,5 +70,14 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			}
 			return value.Insert(8, "-");
 		}
+
+		public static byte[] ToByteArray(this string hexString)
+		{
+			if(String.IsNullOrEmpty(hexString)) return new byte[0];
+			return Enumerable.Range(0, hexString.Length)
+				.Where(x => 0 == x % 2)
+				.Select(x => Convert.ToByte(hexString.Substring(x, 2), 16))
+				.ToArray();
+		}
 	}
 }

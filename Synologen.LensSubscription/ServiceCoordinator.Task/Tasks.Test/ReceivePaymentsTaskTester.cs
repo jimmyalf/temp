@@ -74,6 +74,15 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		{
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.IsAny<SubscriptionError>()), Times.Exactly(8));
 		}
+
+		[Test]
+		public void Task_sets_payment_as_handled_to_webservice()
+		{
+			expectedPayments.Each(payment => 
+				MockedWebServiceClient.Verify(x => x.SetPaymentHandled(
+						It.Is<int>(id => id.Equals(payment.PaymentId))
+			)));
+		}
 	}
 
 	[TestFixture]

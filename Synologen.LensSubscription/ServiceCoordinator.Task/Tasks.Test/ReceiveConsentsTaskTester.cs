@@ -65,10 +65,10 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_sends_consenthandled_to_webservice()
 		{
-			MockedWebServiceClient.Verify(
-				x => x.SetConsentHandled(It.IsAny<int>()),
-				Times.Exactly(expectedConsents.Count())
-				);
+			expectedConsents.Each(consent => 
+				MockedWebServiceClient.Verify(x => x.SetConsentHandled(
+						It.Is<int>(id => id.Equals(consent.ConsentId))
+			)));
 		}
 
 		[Test]

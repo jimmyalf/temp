@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -13,6 +12,7 @@ namespace Synologen.LensSubscription.Autogiro.Security
 		private readonly HMACSHA256 _hmacService;
 		private readonly byte[] _key;
 		private readonly Encoding _encoding;
+		private const int TruncatedHashLength = 16;
 
 		public HMACHashService(string hexKey)
 		{
@@ -25,8 +25,8 @@ namespace Synologen.LensSubscription.Autogiro.Security
 		{
 			var normalizedMessage = NormalizeMessage(message);
 			var hash = _hmacService.ComputeHash(normalizedMessage);
-			var trucatedHash = hash.Take(16).ToArray();
-			trucatedHash.ToHexString();
+			var trucatedHash = hash.Take(TruncatedHashLength).ToArray();
+			return trucatedHash.ToHexString();
 		}
 
 		protected virtual byte[] NormalizeMessage (string message)

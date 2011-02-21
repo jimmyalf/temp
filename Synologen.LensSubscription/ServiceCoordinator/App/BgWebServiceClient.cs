@@ -13,5 +13,6 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App
 		public ReceivedConsent[] GetConsents() { return Channel.GetConsents(); }
 		public void SetConsentHandled(int id) { Channel.SetConsentHandled(id); }
 		public void SetPaymentHandled(int id) { Channel.SetPaymentHandled(id); }
+		public void SetErrorHandled(int id) { Channel.SetErrorHandled(id); }
 	}
 }

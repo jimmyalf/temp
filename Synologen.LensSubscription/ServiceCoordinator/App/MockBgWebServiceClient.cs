@@ -13,5 +13,6 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App
 		public void SetConsentHandled(int id) { return; }
 		public ReceivedPayment[] GetPayments() { return new ReceivedPayment[]{}; }
 		public void SetPaymentHandled(int id) { return; }
+		public void SetErrorHandled(int id) { return; }
 	}
 }

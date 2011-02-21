@@ -7,11 +7,11 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App
 	public class MockBgWebServiceClient : ClientBase<IBGWebService>, IBGWebService
 	{
 		public void SendConsent(ConsentToSend consent) { return; }
-		public RecievedError[] GetNewErrors() { return new RecievedError[]{}; }
 		public void SendPayment(PaymentToSend payment) { return; }
 		public ReceivedConsent[] GetConsents() { return new ReceivedConsent[]{}; }
-		public void SetConsentHandled(int id) { return; }
 		public ReceivedPayment[] GetPayments() { return new ReceivedPayment[]{}; }
+		public RecievedError[] GetErrors() { return new RecievedError[]{}; }
+		public void SetConsentHandled(int id) { return; }
 		public void SetPaymentHandled(int id) { return; }
 		public void SetErrorHandled(int id) { return; }
 	}

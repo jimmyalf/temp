@@ -7,7 +7,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App
 	public class BgWebServiceClient : ClientBase<IBGWebService>, IBGWebService
 	{
 		public void SendConsent(ConsentToSend consent) { Channel.SendConsent(consent); }
-		public RecievedError[] GetNewErrors() { return Channel.GetNewErrors(); }
+		public RecievedError[] GetErrors() { return Channel.GetErrors(); }
 		public void SendPayment(PaymentToSend payment) { Channel.SendPayment(payment); }
 		public ReceivedPayment[] GetPayments() { return Channel.GetPayments(); }
 		public ReceivedConsent[] GetConsents() { return Channel.GetConsents(); }

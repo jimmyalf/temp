@@ -28,7 +28,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 		{
 			RunLoggedTask(() =>
 			{
-				var errors = _bgWebService.GetNewErrors() ?? Enumerable.Empty<RecievedError>();
+				var errors = _bgWebService.GetErrors() ?? Enumerable.Empty<RecievedError>();
 				//var errorsToSave = errors.Select(error => ConvertError(error));
 				LogDebug("Fetched {0} errors from BG Webservice", errors.Count());
 				errors.Each(error =>

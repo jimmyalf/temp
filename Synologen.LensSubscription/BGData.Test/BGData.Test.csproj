@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="BaseTesters\BaseRepositoryTester.cs" />
     <Compile Include="BGReceivedConsentRepositoryTester.cs" />
+    <Compile Include="BGReceivedErrorRepositoryTester.cs" />
     <Compile Include="BGReceivedPaymentRepositoryTester.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CommonDataTestHelpers\DataHelper.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Factories\ReceivedConsentFactory.cs" />
     <Compile Include="Factories\ConsentToSendFactory.cs" />
     <Compile Include="BGConsentToSendRepositoryTester.cs" />
+    <Compile Include="Factories\ReceivedErrorFactory.cs" />
     <Compile Include="Factories\ReceivedFileSectionFactory.cs" />
     <Compile Include="Factories\ReceivedPaymentFactory.cs" />
     <Compile Include="FileToSendRepositoryTester.cs" />

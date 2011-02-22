@@ -73,6 +73,7 @@
     <Compile Include="Mappings\FileSectionToSendMap.cs" />
     <Compile Include="Mappings\ReceivedConsentMap.cs" />
     <Compile Include="Mappings\BGConsentToSendMap.cs" />
+    <Compile Include="Mappings\ReceivedErrorMap.cs" />
     <Compile Include="Mappings\ReceivedPaymentMap.cs" />
     <Compile Include="NHibernateFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,7 +81,7 @@
     <Compile Include="Repositories\BGReceivedConsentRepository.cs" />
     <Compile Include="Repositories\BGConsentToSendRepository.cs" />
     <Compile Include="Repositories\BGReceivedPaymentRepository.cs" />
-    <Compile Include="Repositories\BGRecievedErrorRepository.cs" />
+    <Compile Include="Repositories\BGReceivedErrorRepository.cs" />
     <Compile Include="Repositories\FileSectionToSendRepository.cs" />
     <Compile Include="SchemaExporter.cs" />
     <Compile Include="CriteriaConverters\AllUnhandledReceivedConsentFileSectionsCriteriaConverter.cs" />

@@ -4,19 +4,20 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 
 namespace Synologen.LensSubscription.BGData.Mappings
 {
-    public class ReceivedPaymentMap : ClassMap<BGReceivedPayment>
+    public class ReceivedErrorMap : ClassMap<BGReceivedError>
     {
-        public ReceivedPaymentMap()
+        public ReceivedErrorMap()
         {
-            Table("ReceivedPayments");
+            Table("ReceivedError");
             Id(x => x.Id);
-            Map(x => x.PayerNumber).Not.Nullable();
             Map(x => x.Amount).Not.Nullable();
-            Map(x => x.ResultType)
-                .CustomType(typeof (PaymentResult))
+            Map(x => x.PayerNumber).Not.Nullable();
+            Map(x => x.CommentCode)
+                .CustomType(typeof(ErrorCommentCode))
+                .Not.Nullable();
+            Map(x => x.PaymentDate)
                 .Not.Nullable();
             Map(x => x.Reference).Nullable();
-            Map(x => x.PaymentDate).Not.Nullable();
             Map(x => x.CreatedDate).Not.Nullable();
         }
     }

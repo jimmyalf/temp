@@ -10,16 +10,16 @@ namespace Synologen.LensSubscription.BGData.Mappings
         {
             Table("ReceivedConsents");
 			Id(x => x.Id);
-			Map(x => x.PayerNumber);
-            Map(x => x.ActionDate);
-			Map(x => x.ConsentValidForDate)
-				.Nullable();
+			Map(x => x.PayerNumber).Not.Nullable();
+            Map(x => x.ActionDate).Not.Nullable();
+			Map(x => x.ConsentValidForDate).Nullable();
 			Map(x => x.InformationCode)
                 .CustomType(typeof(ConsentInformationCode))
                 .Nullable();
             Map(x => x.CommentCode)
-                .CustomType(typeof(ConsentCommentCode));
-            Map(x => x.CreatedDate);
+                .CustomType(typeof(ConsentCommentCode))
+                .Not.Nullable();
+            Map(x => x.CreatedDate).Not.Nullable();
         }
     }
 }

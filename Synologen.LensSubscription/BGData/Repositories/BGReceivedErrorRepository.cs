@@ -5,9 +5,9 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 
 namespace Synologen.LensSubscription.BGData.Repositories
 {
-    public class BGRecievedErrorRepository : NHibernateRepository<BGReceivedError>, IBGReceivedErrorRepository
+    public class BGReceivedErrorRepository : NHibernateRepository<BGReceivedError>, IBGReceivedErrorRepository
     {
-        public BGRecievedErrorRepository(ISession session) : base(session)
+        public BGReceivedErrorRepository(ISession session) : base(session)
         {
         }
     }

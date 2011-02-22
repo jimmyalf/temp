@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
@@ -34,7 +32,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
             {
                 NumberOfCreditsInFile = 0,
                 NumberOfDebitsInFile = 10,
-                Reciever = GetPaymentReceiver(),
+                Reciever = new PaymentReciever 
+                            {
+                                BankgiroNumber = "444-555-666",
+                                CustomerNumber = "99999"
+                            },
                 TotalCreditAmountInFile = 0,
                 TotalDebitAmountInFile = 4444,
                 Posts = GetErrors(),
@@ -47,18 +49,19 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
             return TestHelper.GenerateSequence<Error>(GetError, 10);
         }
 
-        private static PaymentReciever GetPaymentReceiver()
-        {
-            return new PaymentReciever
-            {
-                BankgiroNumber = "444-555-666",
-                CustomerNumber = "99999"
-            };
-        }
-
         public static Error GetError()
         {
-            return new Error();
+            return new Error
+            {
+                Amount = 199.50M,
+                CommentCode = ErrorCommentCode.AccountNotYetApproved,
+                NumberOfReoccuringTransactionsLeft = 0,
+                PaymentDate = DateTime.Now.AddDays(-2),
+                PeriodCode = PeriodCode.PaymentOnceOnSelectedDate,
+                Reference = "Ref.",
+                Transmitter = new Payer { CustomerNumber = "664411"},
+                Type = Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes.PaymentType.Debit
+            };
         }
     }
 }

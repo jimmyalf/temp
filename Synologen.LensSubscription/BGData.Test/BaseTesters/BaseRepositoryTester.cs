@@ -27,7 +27,10 @@ namespace Synologen.LensSubscription.BGData.Test.BaseTesters
 			DataHelper.DeleteAndResetIndexForTable(session.Connection, "BGConsentToSend");
 			DataHelper.DeleteAndResetIndexForTable(session.Connection, "BGPaymentToSend");
 			DataHelper.DeleteAndResetIndexForTable(session.Connection, "FileSectionToSend");
-		}
+            DataHelper.DeleteAndResetIndexForTable(session.Connection, "ReceivedConsents");
+            DataHelper.DeleteAndResetIndexForTable(session.Connection, "ReceivedPayments");
+            DataHelper.DeleteAndResetIndexForTable(session.Connection, "ReceivedErrors");
+        }
 
 		protected virtual bool IsDevelopmentServer(string connectionString)
 		{

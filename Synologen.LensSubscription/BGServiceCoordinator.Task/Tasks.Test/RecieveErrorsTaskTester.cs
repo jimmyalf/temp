@@ -41,57 +41,55 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
             Task.TaskOrder.ShouldBe(BGTaskSequenceOrder.ReadTask.ToInteger());
         }
 
-        //[Test]
-        //public void Task_loggs_start_and_stop_messages()
-        //{
-        //    A.CallTo(() => Log.Info(A<string>.That.Contains("Started"))).MustHaveHappened();
-        //    A.CallTo(() => Log.Info(A<string>.That.Contains("Finished"))).MustHaveHappened();
-        //}
+        [Test]
+        public void Task_loggs_start_and_stop_messages()
+        {
+            A.CallTo(() => Log.Info(A<string>.That.Contains("Started"))).MustHaveHappened();
+            A.CallTo(() => Log.Info(A<string>.That.Contains("Finished"))).MustHaveHappened();
+        }
 
-        //[Test]
-        //public void Task_logs_number_of_received_sections()
-        //{
-        //    A.CallTo(() => Log.Debug(A<string>.That.Contains("Fetched 15 error file sections from repository"))).MustHaveHappened();
-        //}
+        [Test]
+        public void Task_logs_number_of_received_sections()
+        {
+            A.CallTo(() => Log.Debug(A<string>.That.Contains("Fetched 15 error file sections from repository"))).MustHaveHappened();
+        }
 
+        [Test]
+        public void Task_logs_after_each_handled_section()
+        {
+            A.CallTo(() => Log.Debug(A<string>.That.Contains("Saved 10 errors to repository"))).MustHaveHappened();
+        }
 
-        //[Test]
-        //public void Task_logs_after_each_handled_section()
-        //{
-        //    A.CallTo(() => Log.Debug(A<string>.That.Contains("Saved 10 errors to repository"))).MustHaveHappened();
-        //}
+        [Test]
+        public void Task_fetches_new_paymentsections_from_repository()
+        {
+            A.CallTo(() => ReceivedFileRepository.FindBy(
+                               A<AllUnhandledReceivedErrorFileSectionsCriteria>.Ignored.Argument))
+                               .MustHaveHappened();
+        }
 
-        //[Test]
-        //public void Task_fetches_new_paymentsections_from_repository()
-        //{
-        //    A.CallTo(() => ReceivedFileRepository.FindBy(
-        //                       A<AllUnhandledReceivedErrorFileSectionsCriteria>.Ignored.Argument))
-        //                       .MustHaveHappened();
-        //}
+        [Test]
+        public void Task_saves_fetched_fileposts_as_errors()
+        {
+            A.CallTo(() => BGReceivedErrorRepository.Save(
+                            A<BGReceivedError>
+                            .That.Matches(x => x.Amount.Equals(_savedError.Amount))
+                            .And.Matches(x => x.CreatedDate.Date.Equals(DateTime.Now.Date))
+                            .And.Matches(x => x.PayerNumber.Equals(int.Parse(_savedError.Transmitter.CustomerNumber)))
+                            .And.Matches(x => x.PaymentDate.Date.Equals(_savedError.PaymentDate.Date))
+                            .And.Matches(x => x.Reference.Equals(_savedError.Reference))
+                            .And.Matches(x => x.CommentCode.Equals(_savedError.CommentCode))
+                        )).MustHaveHappened();
+        }
 
-        //[Test]
-        //public void Task_saves_fetched_fileposts_as_errors()
-        //{
-        //    A.CallTo(() => BGReceivedErrorRepository.Save(
-        //                    A<BGReceivedError>
-        //                    .That.Matches(x => x.Amount.Equals(_savedError.Amount))
-        //                    .And.Matches(x => x.CreatedDate.Date.Equals(DateTime.Now.Date))
-        //                    .And.Matches(x => x.PayerNumber.Equals(int.Parse(_savedError.Transmitter.CustomerNumber)))
-        //                    .And.Matches(x => x.PaymentDate.Date.Equals(_savedError.PaymentDate.Date))
-        //                    .And.Matches(x => x.Reference.Equals(_savedError.Reference))
-        //                    .And.Matches(x => x.CommentCode.Equals(_savedError.CommentCode))
-        //                )).MustHaveHappened();
-        //}
-
-
-        //[Test]
-        //public void Task_updates_errorsection_as_handled()
-        //{
-        //    _receivedSections.Each(receivedSection => A.CallTo(() => ReceivedFileRepository.Save(
-        //        A<ReceivedFileSection>
-        //            .That.Matches(x => Equals(x.HasBeenHandled, true))
-        //            .And.Matches(x => x.HandledDate.Value.Date.Equals(DateTime.Now.Date))
-        //        )));
-        //}
+        [Test]
+        public void Task_updates_errorsection_as_handled()
+        {
+            _receivedSections.Each(receivedSection => A.CallTo(() => ReceivedFileRepository.Save(
+                A<ReceivedFileSection>
+                    .That.Matches(x => Equals(x.HasBeenHandled, true))
+                    .And.Matches(x => x.HandledDate.Value.Date.Equals(DateTime.Now.Date))
+                )));
+        }
 	}
 }

@@ -72,6 +72,7 @@ namespace Synologen.LensSubscription.BGData.Test
                 var fetchedSections = CreateRepository(session).FindBy(new AllUnhandledReceivedConsentFileSectionsCriteria());
                 fetchedSections.Count().ShouldBe(expectedNumberOfFetchedSections);
                 fetchedSections.Each(section => section.HandledDate.ShouldBe(null));
+                fetchedSections.Each(section => section.Type.ShouldBe(SectionType.ReceivedConsents));
             });
         }
     }
@@ -103,6 +104,39 @@ namespace Synologen.LensSubscription.BGData.Test
                 var fetchedSections = CreateRepository(session).FindBy(new AllUnhandledReceivedPaymentFileSectionsCriteria());
                 fetchedSections.Count().ShouldBe(expectedNumberOfFetchedSections);
                 fetchedSections.Each(section => section.HandledDate.ShouldBe(null));
+                fetchedSections.Each(section => section.Type.ShouldBe(SectionType.ReceivedPayments));
+            });
+        }
+    }
+
+    [TestFixture]
+    public class When_fetching_sections_by_AllUnhandledReceivedErrorFileSectionsCriteria : BaseRepositoryTester<ReceivedFileRepository>
+    {
+        private IEnumerable<ReceivedFileSection> sections;
+        private int expectedNumberOfFetchedSections;
+
+        public When_fetching_sections_by_AllUnhandledReceivedErrorFileSectionsCriteria()
+        {
+            Context = session =>
+            {
+                sections = ReceivedFileSectionFactory.GetList();
+                expectedNumberOfFetchedSections = sections
+                    .Where(x => Equals(x.HandledDate, null))
+                    .Where(x => Equals(x.Type, SectionType.ReceivedErrors))
+                    .Count();
+            };
+            Because = repository => sections.Each(repository.Save);
+        }
+
+        [Test]
+        public void Should_get_all_error_file_sections_that_has_not_been_handled()
+        {
+            AssertUsing(session =>
+            {
+                var fetchedSections = CreateRepository(session).FindBy(new AllUnhandledReceivedErrorFileSectionsCriteria());
+                fetchedSections.Count().ShouldBe(expectedNumberOfFetchedSections);
+                fetchedSections.Each(section => section.HandledDate.ShouldBe(null));
+                fetchedSections.Each(section => section.Type.ShouldBe(SectionType.ReceivedErrors));
             });
         }
     }

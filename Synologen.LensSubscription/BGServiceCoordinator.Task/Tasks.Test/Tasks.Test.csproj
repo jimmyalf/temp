@@ -79,6 +79,7 @@
     <Compile Include="Helpers\ReceiveErrorsTaskTestBase.cs" />
     <Compile Include="Helpers\ReceivePaymentsTaskTestBase.cs" />
     <Compile Include="Helpers\SendConsentsTaskTestBase.cs" />
+    <Compile Include="Helpers\SendFileTaskTestBase.cs" />
     <Compile Include="Helpers\SendPaymentsTaskTestBase.cs" />
     <Compile Include="ReceiveConsentsTaskTester.cs" />
     <Compile Include="ReceivePaymentsTaskTester.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="SendConsentsTaskTester.cs" />
     <Compile Include="Helpers\TaskTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendFileTaskTester.cs" />
     <Compile Include="SendPaymentsTaskTester.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +114,10 @@
     <ProjectReference Include="..\SendConsents\SendConsents.csproj">
       <Project>{2BCC56E0-2100-42B5-B91D-A8FDEAE5C28F}</Project>
       <Name>SendConsents %28Lenssubscription\BGServiceCoordinatorTask\SendConsents%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SendFile\SendFile.csproj">
+      <Project>{8096311E-FEC9-49C5-AF54-90F4177E9DCC}</Project>
+      <Name>SendFile</Name>
     </ProjectReference>
     <ProjectReference Include="..\SendPayments\SendPayments.csproj">
       <Project>{037FF430-01ED-4D67-B5AE-737CEFD952CD}</Project>

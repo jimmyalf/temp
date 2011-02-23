@@ -65,6 +65,7 @@
     <Compile Include="Factories\FileFactory.cs" />
     <Compile Include="Factories\FileContentFactory.cs" />
     <Compile Include="Factories\MessageFactory.cs" />
+    <Compile Include="TamperProtectedFileWriterTests.cs" />
     <Compile Include="TestHelpers\HMACMessageDigestServiceTestBase.cs" />
     <Compile Include="HMACHashServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

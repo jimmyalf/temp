@@ -123,6 +123,14 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			return new string(characters);
 		}
 
+		public static string AsString(this IEnumerable<char> characterList)
+		{
+			if(characterList == null) return null;
+			return characterList.Count() == 0 
+				? String.Empty 
+				: new string(characterList.ToArray());
+		}
+
 	}
 
 

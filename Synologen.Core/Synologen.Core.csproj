@@ -86,6 +86,7 @@
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IHeaderWriter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IItemReader.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IItemWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\ITamperProtectedFileWriter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IWriter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\Payer.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentReciever.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewConsentsToSendCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewPaymentsToSendCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledFileSectionsToSendCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedConsentFileSectionsCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedErrorFileSectionsCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedPaymentFileSectionsCriteria.cs" />

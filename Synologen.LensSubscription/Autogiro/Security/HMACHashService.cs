@@ -13,6 +13,7 @@ namespace Synologen.LensSubscription.Autogiro.Security
 		private readonly byte[] _key;
 		private readonly Encoding _encoding;
 		private const int TruncatedHashLength = 16;
+		private const string HashCondensateTypeName = "HMAC";
 
 		public HMACHashService(string hexKey)
 		{
@@ -28,6 +29,8 @@ namespace Synologen.LensSubscription.Autogiro.Security
 			var trucatedHash = hash.Take(TruncatedHashLength).ToArray();
 			return trucatedHash.ToHexString();
 		}
+
+		public string CondensateTypeName { get { return HashCondensateTypeName; } }
 
 		protected virtual byte[] NormalizeMessage (string message)
 		{

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FakeItEasy;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -22,13 +23,18 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 
 		public static FileSectionToSend Get(int seed)
 		{
-			return new FileSectionToSend
-			{
-				CreatedDate = new DateTime(2011, 02, 23),
-				SectionData = Enumerable.Repeat(seed.GetChar(), 100).AsString(),
-				SentDate = null,
-				Type = seed.IsEven() ? SectionType.ConsentsToSend : SectionType.PaymentsToSend
-			};
+			var item = A.Fake<FileSectionToSend>(x => x.Wrapping(
+				new FileSectionToSend
+				{
+					CreatedDate = new DateTime(2011, 02, 23),
+					SectionData = Enumerable.Repeat(seed.GetChar(), 100).AsString(),
+					SentDate = null,
+					Type = seed.IsEven() ? SectionType.ConsentsToSend : SectionType.PaymentsToSend
+				}
+			));
+			A.CallTo(() => item.Id).Returns(seed);
+
+			return item;
 		}
 
 		public static string GetFileDataWithOpeningTamperProtectionRow(IEnumerable<FileSectionToSend> fileSections, DateTime writeDate)
@@ -44,6 +50,14 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 				.AppendLine(openingTamperProtectionRow)
 				.AppendLine(fileData)
 				.ToString();
+		}
+
+		public static string GenerateTamperProtectedFileData()
+		{
+			Func<int, string> generateString = seed => Enumerable.Repeat(seed.GetChar(), 50).AsString();
+			var lines = generateString.GenerateRange(1, 15);
+			return lines
+				.Aggregate((line, nextLine) => string.Format("{0}\r\n{1}", line, nextLine));
 		}
 	}
 }

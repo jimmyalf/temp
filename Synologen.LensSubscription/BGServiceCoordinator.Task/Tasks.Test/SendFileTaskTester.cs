@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories;
 using Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers;
@@ -14,17 +17,20 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 	public class When_sending_file : SendFileTaskTestBase
 	{
 		private IEnumerable<FileSectionToSend> fileSections;
-		private string expectedFileDataWithOpeningTamperProtectionRow;
+		private string expectedTamperProtectedFileData;
+		private string expectedFtpFileName;
 
 		public When_sending_file()
 		{
 			Context = () =>
 			{
 				fileSections = FileSectionToSendFactory.GetList();
-				expectedFileDataWithOpeningTamperProtectionRow = FileSectionToSendFactory.GetFileDataWithOpeningTamperProtectionRow(fileSections, WriteDate);
+				expectedFtpFileName = "ftpFileName.txt";
+				expectedTamperProtectedFileData = FileSectionToSendFactory.GenerateTamperProtectedFileData();
 				A.CallTo(() => FileSectionToSendRepository.FindBy(A<AllUnhandledFileSectionsToSendCriteria>.Ignored.Argument)).
 					Returns(fileSections);
-				A.CallTo(() => HashService.CondensateTypeName).Returns("HMAC");
+				A.CallTo(() => TamperProtectedFileWriter.Write(A<string>.Ignored)).Returns(expectedTamperProtectedFileData);
+				A.CallTo(() => FtpService.SendFile(A<string>.Ignored)).Returns(new FtpSendResult(expectedFtpFileName));
 
 			};
 			Because = task => task.Execute();
@@ -50,15 +56,24 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		}
 
 		[Test]
-		public void Task_creates_message_authentication_code_value_hash()
+		public void Task_sends_file_over_ftp()
 		{
-			A.CallTo(() => HashService.GetHash(TamperProtectedFileWriter.KeyVerificationToken)).MustHaveHappened();
+			A.CallTo(() => FtpService.SendFile(expectedTamperProtectedFileData)).MustHaveHappened();
 		}
 
 		[Test]
-		public void Task_creates_key_verification_value_hash()
+		public void Task_updates_file_sections_as_sent()
 		{
-			A.CallTo(() => HashService.GetHash(expectedFileDataWithOpeningTamperProtectionRow)).MustHaveHappened();
+			fileSections.Each(fileSection => A.CallTo(() => 
+				FileSectionToSendRepository.Save(
+					A<FileSectionToSend>.That.Matches(x => x.SentDate.HasValue && Equals(x.SentDate.Value.Date, DateTime.Now.Date)))
+				).MustHaveHappened());
+		}
+
+		[Test]
+		public void Task_stores_a_file_copy_of_sent_file_using_same_filename_as_ftp_service()
+		{
+			A.CallTo(() => FileWriterService.WriteFileToDisk(expectedTamperProtectedFileData, expectedFtpFileName)).MustHaveHappened();
 		}
 	}
 
@@ -76,12 +91,6 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		public void Task_loggs_found_no_new_file_sections_to_send_message()
 		{
 			A.CallTo(() => Log.Info(A<string>.That.Contains("Found no new file sections to send."))).MustHaveHappened();
-		}
-
-		[Test]
-		public void Task_does_not_create_any_hashes()
-		{
-			A.CallTo(() => HashService.GetHash(A<string>.Ignored)).MustNotHaveHappened();
 		}
 	}
 }

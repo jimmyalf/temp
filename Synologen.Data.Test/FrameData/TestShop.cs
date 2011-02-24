@@ -1,8 +1,9 @@
 using NUnit.Framework;
+using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
+namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 {
-	[TestFixture]
+	[TestFixture, Category("TestShop")]
 	public class Given_a_persisted_shop : TestBase
 	{
 		[SetUp]

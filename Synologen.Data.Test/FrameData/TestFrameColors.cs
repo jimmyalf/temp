@@ -3,10 +3,11 @@ using NUnit.Framework;
 using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
+using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
+namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 {
-	[TestFixture]
+	[TestFixture, Category("TestFrameColors")]
 	public class Given_a_framecolor : TestBase
 	{
 
@@ -36,16 +37,16 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		[Test]
 		public void Can_edit_persisted_framecolor()
 		{
-		    //Arrange
-		    const int expectedNumberOfFrameConnections = 6;
+			//Arrange
+			const int expectedNumberOfFrameConnections = 6;
 
-		    //Act
-		    var editedFrameColor = Factories.FrameColorFactory.ScrabmleFrameColor(SavedFrameColors.First());
-		    FrameColorRepository.Save(editedFrameColor);
-		    var persistedFrameColor = FrameColorValidationRepository.Get(SavedFrameColors.First().Id);
+			//Act
+			var editedFrameColor = Integration.Data.Test.FrameData.Factories.FrameColorFactory.ScrabmleFrameColor(SavedFrameColors.First());
+			FrameColorRepository.Save(editedFrameColor);
+			var persistedFrameColor = FrameColorValidationRepository.Get(SavedFrameColors.First().Id);
 			
-		    //Assert
-		    Expect(persistedFrameColor, Is.Not.Null);
+			//Assert
+			Expect(persistedFrameColor, Is.Not.Null);
 			Expect(persistedFrameColor.Id, Is.EqualTo(editedFrameColor.Id));
 			Expect(persistedFrameColor.Name, Is.EqualTo(editedFrameColor.Name));
 			Expect(persistedFrameColor.NumberOfFramesWithThisColor, Is.EqualTo(expectedNumberOfFrameConnections));
@@ -54,16 +55,16 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		[Test]
 		public void Can_delete_persisted_framecolor_without_connections()
 		{
-		    //Arrange
-			var frameColorWithoutConnections = Factories.FrameColorFactory.GetFrameColor();
+			//Arrange
+			var frameColorWithoutConnections = Integration.Data.Test.FrameData.Factories.FrameColorFactory.GetFrameColor();
 			FrameColorRepository.Save(frameColorWithoutConnections);
 
-		    //Act
-		    FrameColorRepository.Delete(frameColorWithoutConnections);
-		    var persistedFrameColor = FrameColorValidationRepository.Get(frameColorWithoutConnections.Id);
+			//Act
+			FrameColorRepository.Delete(frameColorWithoutConnections);
+			var persistedFrameColor = FrameColorValidationRepository.Get(frameColorWithoutConnections.Id);
 			
-		    //Assert
-		    Expect(persistedFrameColor, Is.Null);
+			//Assert
+			Expect(persistedFrameColor, Is.Null);
 
 		}
 
@@ -74,13 +75,13 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 
 			//Act
 			
-		    //Assert
+			//Assert
 			Expect(() => FrameColorRepository.Delete(SavedFrameColors.First()), Throws.InstanceOf<SynologenDeleteItemHasConnectionsException>());
 		}
 
 	}
 
-	[TestFixture]
+	[TestFixture, Category("TestFrameColors")]
 	public class Given_multiple_framecolors : TestBase
 	{
 		[SetUp]
@@ -92,92 +93,92 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		[Test]
 		public void Can_get_colors_by_PageOfFrameColorsMatchingCriteria_paged()
 		{
-		    //Arrange
-		    const int expectedNumberOfItemsMatchingCriteria = 5;
-		    var criteria = new PagedSortedCriteria<FrameColor>
-		    {
-		        OrderBy = null,
-		        Page = 1,
-		        PageSize = expectedNumberOfItemsMatchingCriteria,
-		        SortAscending = true
-		    } as PagedSortedCriteria;
+			//Arrange
+			const int expectedNumberOfItemsMatchingCriteria = 5;
+			var criteria = new PagedSortedCriteria<FrameColor>
+			{
+				OrderBy = null,
+				Page = 1,
+				PageSize = expectedNumberOfItemsMatchingCriteria,
+				SortAscending = true
+			} as PagedSortedCriteria;
 
-		    //Act
-		    var frameColorsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
+			//Act
+			var frameColorsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
 			
-		    //Assert
-		    Expect(frameColorsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-		    Expect(frameColorsMatchingCriteria.First().Name, Is.EqualTo("Svart"));
-		    Expect(frameColorsMatchingCriteria.Last().Name, Is.EqualTo("Brun"));
+			//Assert
+			Expect(frameColorsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+			Expect(frameColorsMatchingCriteria.First().Name, Is.EqualTo("Svart"));
+			Expect(frameColorsMatchingCriteria.Last().Name, Is.EqualTo("Brun"));
 			
 		}
 
 		[Test]
 		public void Can_get_colors_by_PageOfFrameColorsMatchingCriteria_sorted_by_id()
 		{
-		    //Arrange
-		    const int expectedNumberOfItemsMatchingCriteria = 6;
-		    var criteria = new PagedSortedCriteria<FrameColor>
-		    {
-		        OrderBy = "Id",
-		        Page = 1,
-		        PageSize = 100,
-		        SortAscending = true
-		    } as PagedSortedCriteria;
+			//Arrange
+			const int expectedNumberOfItemsMatchingCriteria = 6;
+			var criteria = new PagedSortedCriteria<FrameColor>
+			{
+				OrderBy = "Id",
+				Page = 1,
+				PageSize = 100,
+				SortAscending = true
+			} as PagedSortedCriteria;
 
-		    //Act
-		    var itemsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
+			//Act
+			var itemsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
 			
-		    //Assert
-		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-		    Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Svart"));
-		    Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Silver"));
+			//Assert
+			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Svart"));
+			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Silver"));
 			
 		}
 
 		[Test]
 		public void Can_get_colors_by_PageOfFrameColorsMatchingCriteria_sorted_by_name()
 		{
-		    //Arrange
-		    const int expectedNumberOfItemsMatchingCriteria = 6;
-		    var criteria = new PagedSortedCriteria<FrameColor>
-		    {
-		        OrderBy = "Name",
-		        Page = 1,
-		        PageSize = 100,
-		        SortAscending = true
-		    } as PagedSortedCriteria;
+			//Arrange
+			const int expectedNumberOfItemsMatchingCriteria = 6;
+			var criteria = new PagedSortedCriteria<FrameColor>
+			{
+				OrderBy = "Name",
+				Page = 1,
+				PageSize = 100,
+				SortAscending = true
+			} as PagedSortedCriteria;
 
-		    //Act
-		    var itemsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
+			//Act
+			var itemsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
 			
-		    //Assert
-		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-		    Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Blå"));
-		    Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Svart"));
+			//Assert
+			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Blå"));
+			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Svart"));
 			
 		}
 
 		[Test]
 		public void Can_get_colors_by_PageOfFrameColorsMatchingCriteria_sorted_descending()
 		{
-		    //Arrange
-		    const int expectedNumberOfItemsMatchingCriteria = 6;
-		    var criteria = new PagedSortedCriteria<FrameColor>
-		    {
-		        OrderBy = "Id",
-		        Page = 1,
-		        PageSize = 100,
-		        SortAscending = false
-		    } as PagedSortedCriteria;
+			//Arrange
+			const int expectedNumberOfItemsMatchingCriteria = 6;
+			var criteria = new PagedSortedCriteria<FrameColor>
+			{
+				OrderBy = "Id",
+				Page = 1,
+				PageSize = 100,
+				SortAscending = false
+			} as PagedSortedCriteria;
 
-		    //Act
-		    var itemsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
+			//Act
+			var itemsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
 			
-		    //Assert
-		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-		    Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Silver"));
-		    Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Svart"));
+			//Assert
+			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Silver"));
+			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Svart"));
 		}
 
 	}

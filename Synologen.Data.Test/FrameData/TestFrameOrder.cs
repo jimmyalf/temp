@@ -1,10 +1,11 @@
 using System.Linq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
+namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 {
-	[TestFixture]
+	[TestFixture, Category("TestFrameOrders")]
 	public class Given_a_frame_order: TestBase
 	{
 		[SetUp]
@@ -50,7 +51,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		public void Can_save_frame_order_with_nullable_values()
 		{
 			//Arrange
-			var orderToSave = Factories.FrameOrderFactory.GetFrameOrder(SavedFrames.First(), SavedFrameGlassTypes.First(), SavedShop);
+			var orderToSave = Integration.Data.Test.FrameData.Factories.FrameOrderFactory.GetFrameOrder(SavedFrames.First(), SavedFrameGlassTypes.First(), SavedShop);
 			orderToSave.Sent = null;
 			orderToSave.Addition = null;
 			orderToSave.Height = null;
@@ -66,7 +67,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		public void Can_edit_persisted_frame_order()
 		{
 			//Arrange
-			var editedFrameOrder = Factories.FrameOrderFactory.ScrabmleFrameOrder(SavedFrameOrders.First());
+			var editedFrameOrder = Integration.Data.Test.FrameData.Factories.FrameOrderFactory.ScrabmleFrameOrder(SavedFrameOrders.First());
 
 			//Act
 			
@@ -113,7 +114,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("TestFrameOrders")]
 	public class Given_multiple_frame_orders : TestBase
 	{
 		[SetUp]
@@ -224,21 +225,21 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		[Test]
 		public void Can_get_frame_orders_by_PageOfFrameOrdersMatchingCriteria_sorted_by_id()
 		{
-		    //Arrange
-		    const int expectedNumberOfItemsMatchingCriteria = 144;
-		    var criteria = new PageOfFrameOrdersMatchingCriteria
-		    {
-		        OrderBy = "Id",
-		        Page = 1,
-		        PageSize = 200,
-		        SortAscending = true
-		    };
+			//Arrange
+			const int expectedNumberOfItemsMatchingCriteria = 144;
+			var criteria = new PageOfFrameOrdersMatchingCriteria
+			{
+				OrderBy = "Id",
+				Page = 1,
+				PageSize = 200,
+				SortAscending = true
+			};
 
-		    //Act
-		    var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
+			//Act
+			var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
 			
-		    //Assert
-		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+			//Assert
+			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
 			Expect(itemsMatchingCriteria.First().Frame.Id, Is.EqualTo(1));
 			Expect(itemsMatchingCriteria.First().GlassType.Id, Is.EqualTo(1));
 			Expect(itemsMatchingCriteria.Last().Frame.Id, Is.EqualTo(36));
@@ -249,21 +250,21 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		[Test]
 		public void Can_get_frame_orders_by_PageOfFrameOrdersMatchingCriteria_sorted_by_frame_name()
 		{
-		    //Arrange
-		    const int expectedNumberOfItemsMatchingCriteria = 144;
-		    var criteria = new PageOfFrameOrdersMatchingCriteria
-		    {
-		        OrderBy = "Frame.Name",
-		        Page = 1,
-		        PageSize = 200,
-		        SortAscending = true
-		    };
+			//Arrange
+			const int expectedNumberOfItemsMatchingCriteria = 144;
+			var criteria = new PageOfFrameOrdersMatchingCriteria
+			{
+				OrderBy = "Frame.Name",
+				Page = 1,
+				PageSize = 200,
+				SortAscending = true
+			};
 
-		    //Act
-		    var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
+			//Act
+			var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
 			
-		    //Assert
-		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+			//Assert
+			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
 			Expect(itemsMatchingCriteria.First().Frame.Name, Is.EqualTo("Testbåge 1"));
 			Expect(itemsMatchingCriteria.Last().Frame.Name, Is.EqualTo("Testbåge 9"));
 		}
@@ -271,21 +272,21 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		[Test]
 		public void Can_get_frame_orders_by_PageOfFrameOrdersMatchingCriteria_sorted_by_glass_type_name()
 		{
-		    //Arrange
-		    const int expectedNumberOfItemsMatchingCriteria = 144;
-		    var criteria = new PageOfFrameOrdersMatchingCriteria
-		    {
-		        OrderBy = "GlassType.Name",
-		        Page = 1,
-		        PageSize = 200,
-		        SortAscending = true
-		    };
+			//Arrange
+			const int expectedNumberOfItemsMatchingCriteria = 144;
+			var criteria = new PageOfFrameOrdersMatchingCriteria
+			{
+				OrderBy = "GlassType.Name",
+				Page = 1,
+				PageSize = 200,
+				SortAscending = true
+			};
 
-		    //Act
-		    var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
+			//Act
+			var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
 			
-		    //Assert
-		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+			//Assert
+			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
 			Expect(itemsMatchingCriteria.First().GlassType.Name, Is.EqualTo("Enstyrke"));
 			Expect(itemsMatchingCriteria.Last().GlassType.Name, Is.EqualTo("Rumprogressiva"));
 		}
@@ -293,41 +294,41 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		[Test]
 		public void Can_get_frame_orders_by_PageOfFrameOrdersMatchingCriteria_sorted_by_shop_name()
 		{
-		    //Arrange
-		    const int expectedNumberOfItemsMatchingCriteria = 144;
-		    var criteria = new PageOfFrameOrdersMatchingCriteria
-		    {
-		        OrderBy = "OrderingShop.Name",
-		        Page = 1,
-		        PageSize = 200,
-		        SortAscending = true
-		    };
+			//Arrange
+			const int expectedNumberOfItemsMatchingCriteria = 144;
+			var criteria = new PageOfFrameOrdersMatchingCriteria
+			{
+				OrderBy = "OrderingShop.Name",
+				Page = 1,
+				PageSize = 200,
+				SortAscending = true
+			};
 
-		    //Act
-		    var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
+			//Act
+			var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
 			
-		    //Assert
-		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+			//Assert
+			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
 		}
 
 		[Test]
 		public void Can_get_frame_orders_by_PageOfFrameOrdersMatchingCriteria_sorted_descending()
 		{
-		    //Arrange
-		    const int expectedNumberOfItemsMatchingCriteria = 144;
-		    var criteria = new PageOfFrameOrdersMatchingCriteria
-		    {
-		        OrderBy = "Id",
-		        Page = 1,
-		        PageSize = 200,
-		        SortAscending = false
-		    };
+			//Arrange
+			const int expectedNumberOfItemsMatchingCriteria = 144;
+			var criteria = new PageOfFrameOrdersMatchingCriteria
+			{
+				OrderBy = "Id",
+				Page = 1,
+				PageSize = 200,
+				SortAscending = false
+			};
 
-		    //Act
-		    var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
+			//Act
+			var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
 			
-		    //Assert
-		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+			//Assert
+			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
 			Expect(itemsMatchingCriteria.First().Frame.Id, Is.EqualTo(36));
 			Expect(itemsMatchingCriteria.First().GlassType.Id, Is.EqualTo(4));
 			Expect(itemsMatchingCriteria.Last().Frame.Id, Is.EqualTo(1));
@@ -337,19 +338,19 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		[Test]
 		public void Can_get_frame_orders_by_AllFrameOrdersForShopCriteria()
 		{
-		    //Arrange
-		    const int expectedNumberOfItemsMatchingCriteria = 144;
+			//Arrange
+			const int expectedNumberOfItemsMatchingCriteria = 144;
 			const int expectedShopId = 158;
-		    var criteria = new AllFrameOrdersForShopCriteria
-		    {
+			var criteria = new AllFrameOrdersForShopCriteria
+			{
 				ShopId = expectedShopId
-		    };
+			};
 
-		    //Act
-		    var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
+			//Act
+			var itemsMatchingCriteria = FrameOrderValidationRepository.FindBy(criteria);
 			
-		    //Assert
-		    Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+			//Assert
+			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
 			Expect(itemsMatchingCriteria.First().OrderingShop.Id, Is.EqualTo(expectedShopId));
 			Expect(itemsMatchingCriteria.Last().OrderingShop.Id, Is.EqualTo(expectedShopId));
 		}

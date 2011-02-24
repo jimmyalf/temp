@@ -2,10 +2,11 @@ using System.Linq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
+namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 {
-	[TestFixture]
+	[TestFixture, Category("TestFrames")]
 	public class Given_a_frame : TestBase
 	{
 		[SetUp]
@@ -52,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 			const int expectedStock = 196;
 
 			//Act
-			var editedFrame = Factories.FrameFactory.ScrabmleFrame(SavedFrames.First());
+			var editedFrame = Integration.Data.Test.FrameData.Factories.FrameFactory.ScrabmleFrame(SavedFrames.First());
 			FrameRepository.Save(editedFrame);
 			var persistedFrame = FrameValidationRepository.Get(SavedFrames.First().Id);
 			
@@ -79,16 +80,16 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		[Test]
 		public void Can_delete_persisted_frame_without_connections()
 		{
-		    //Arrange
-			var frameWithoutConnections = Factories.FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First());
+			//Arrange
+			var frameWithoutConnections = Integration.Data.Test.FrameData.Factories.FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First());
 			FrameRepository.Save(frameWithoutConnections);
 
-		    //Act
-		    FrameRepository.Delete(frameWithoutConnections);
-		    var persistedFrame = FrameValidationRepository.Get(frameWithoutConnections.Id);
+			//Act
+			FrameRepository.Delete(frameWithoutConnections);
+			var persistedFrame = FrameValidationRepository.Get(frameWithoutConnections.Id);
 			
-		    //Assert
-		    Expect(persistedFrame, Is.Null);
+			//Assert
+			Expect(persistedFrame, Is.Null);
 		}
 
 		[Test]
@@ -98,13 +99,13 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 
 			//Act
 			
-		    //Assert
+			//Assert
 			Expect(() => FrameRepository.Delete(SavedFrames.First()), Throws.InstanceOf<SynologenDeleteItemHasConnectionsException>());
 
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("TestFrames")]
 	public class Given_multiple_frames : TestBase
 	{
 		[SetUp]
@@ -133,7 +134,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 			const int expectedNumberOfFramesMatchingCriteria = 36;
 			const int expectedNumberOfAllFrames = 37;
 			var criteria = new AllOrderableFramesCriteria();
-			var extraFrame = Factories.FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First());
+			var extraFrame = Integration.Data.Test.FrameData.Factories.FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First());
 			extraFrame.AllowOrders = false;
 
 			//Act

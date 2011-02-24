@@ -10,7 +10,7 @@ using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 {
-	[TestFixture]
+	[TestFixture, Category("RecieveErrorsTaskTests")]
 	public class When_executing_recieve_errors_task : RecieveErrorsTaskTestBase
 	{
 		private RecievedError[] expectedErrors;

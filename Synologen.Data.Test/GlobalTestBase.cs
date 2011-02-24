@@ -5,16 +5,14 @@ using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;
 using Spinit.Wpc.Utility.Business;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test
+namespace Spinit.Wpc.Synologen.Data.Test
 {
 	[SetUpFixture]
 	public class GlobalTestBase
@@ -27,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test
 		public void RunBeforeAnyTests()
 		{
 			if (NHibernateFactory.MappingAssemblies.Any()) return;
-			var assembly = typeof(Synologen.Data.Repositories.NHibernate.Mappings.LensSubscriptions.SubscriptionMap).Assembly;
+			var assembly = typeof(Repositories.NHibernate.Mappings.LensSubscriptions.SubscriptionMap).Assembly;
 			NHibernateFactory.MappingAssemblies.Add(assembly);
 		}
 

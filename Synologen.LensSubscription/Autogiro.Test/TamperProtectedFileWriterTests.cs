@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace Synologen.LensSubscription.Autogiro.Test
 {
-	[TestFixture]
+	[TestFixture, Category("TamperProtectedFileWriterTests")]
 	public class TamperProtectedFileWriterTests
 	{
 		

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Synologen.LensSubscription.BGData.Repositories;
@@ -11,8 +7,7 @@ using Synologen.LensSubscription.BGData.Test.Factories;
 
 namespace Synologen.LensSubscription.BGData.Test
 {
-    [TestFixture]
-    [Category("ReceivedErrorRepositoryTester")]
+    [TestFixture, Category("ReceivedErrorRepositoryTester")]
     public class When_adding_a_receivederror : BaseRepositoryTester<BGReceivedErrorRepository>
     {
         private BGReceivedError _errorToSave;
@@ -43,8 +38,7 @@ namespace Synologen.LensSubscription.BGData.Test
         }
     }
 
-    [TestFixture]
-    [Category("ReceivedErrorRepositoryTester")]
+    [TestFixture, Category("ReceivedErrorRepositoryTester")]
     public class When_updateing_a_receivederror : BaseRepositoryTester<BGReceivedErrorRepository>
     {
 
@@ -77,7 +71,7 @@ namespace Synologen.LensSubscription.BGData.Test
         }
     }
 
-    [TestFixture]
+    [TestFixture, Category("ReceivedErrorRepositoryTester")]
     public class When_deleting_received_error : BaseRepositoryTester<BGReceivedErrorRepository>
     {
         private BGReceivedError _errorToDelete;

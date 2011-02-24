@@ -11,8 +11,7 @@ using Synologen.LensSubscription.BGData.Test.Factories;
 
 namespace Synologen.LensSubscription.BGData.Test
 {
-	[TestFixture]
-	[Category("ReceivedFileRepositoryTester")]
+	[TestFixture, Category("ReceivedFileRepositoryTester")]
 	public class When_adding_a_section : BaseRepositoryTester<ReceivedFileRepository>
 	{
 		private ReceivedFileSection _sectionToSave;
@@ -44,8 +43,7 @@ namespace Synologen.LensSubscription.BGData.Test
 		}
 	}
 
-
-    [TestFixture]
+    [TestFixture, Category("ReceivedFileRepositoryTester")]
     public class When_fetching_sections_by_AllUnhandledReceivedConsentFileSectionsCriteria : BaseRepositoryTester<ReceivedFileRepository>
     {
         private IEnumerable<ReceivedFileSection> sections;
@@ -77,7 +75,7 @@ namespace Synologen.LensSubscription.BGData.Test
         }
     }
 
-    [TestFixture]
+    [TestFixture, Category("ReceivedFileRepositoryTester")]
     public class When_fetching_sections_by_AllUnhandledReceivedPaymentFileSectionsCriteria : BaseRepositoryTester<ReceivedFileRepository>
     {
         private IEnumerable<ReceivedFileSection> sections;
@@ -109,7 +107,7 @@ namespace Synologen.LensSubscription.BGData.Test
         }
     }
 
-    [TestFixture]
+    [TestFixture, Category("ReceivedFileRepositoryTester")]
     public class When_fetching_sections_by_AllUnhandledReceivedErrorFileSectionsCriteria : BaseRepositoryTester<ReceivedFileRepository>
     {
         private IEnumerable<ReceivedFileSection> sections;

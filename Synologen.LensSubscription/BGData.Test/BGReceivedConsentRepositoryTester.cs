@@ -7,8 +7,7 @@ using Synologen.LensSubscription.BGData.Test.Factories;
 
 namespace Synologen.LensSubscription.BGData.Test
 {
-    [TestFixture]
-    [Category("ReceivedConsentRepositoryTester")]
+    [TestFixture, Category("ReceivedConsentRepositoryTester")]
     public class When_adding_a_recievedconsent : BaseRepositoryTester<BGReceivedConsentRepository>
     {
         private BGReceivedConsent _consentToSave;
@@ -39,7 +38,7 @@ namespace Synologen.LensSubscription.BGData.Test
         }
     }
 
-    [TestFixture]
+    [TestFixture, Category("ReceivedConsentRepositoryTester")]
     public class When_updating_received_consent : BaseRepositoryTester<BGReceivedConsentRepository>
     {
         private BGReceivedConsent editedConsent;
@@ -72,7 +71,7 @@ namespace Synologen.LensSubscription.BGData.Test
         }
     }
 
-    [TestFixture]
+    [TestFixture, Category("ReceivedConsentRepositoryTester")]
     public class When_deleting_received_consent : BaseRepositoryTester<BGReceivedConsentRepository>
     {
         private BGReceivedConsent deletedConsent;

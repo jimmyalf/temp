@@ -13,7 +13,7 @@ using Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 {
-	[TestFixture]
+	[TestFixture, Category("SendPaymentsTaskTests")]
 	public class When_sending_payments : SendPaymentsTaskTestBase
 	{
 		private IList<BGPaymentToSend> paymentsToSend;

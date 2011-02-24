@@ -14,7 +14,7 @@ using Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers;
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 {
 
-    [TestFixture]
+    [TestFixture, Category("ReceivePaymentsTaskTests")]
     public class When_receiveing_payments : ReceivePaymentsTaskTestBase
     {
         private IEnumerable<ReceivedFileSection> _receivedSections;

@@ -13,7 +13,7 @@ using Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 {
-    [TestFixture]
+    [TestFixture, Category("ReceiveConsentsTaskTests")]
     public class When_receiveing_consents : ReceiveConsentsTaskTestBase
     {
         private IEnumerable<ReceivedFileSection> _receivedSections;

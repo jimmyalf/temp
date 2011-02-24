@@ -9,7 +9,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Logic.Services;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 {
-	[TestFixture]
+	[TestFixture, Category("FrameOrderServiceTests")]
 	public class Given_A_FrameOrderService
 	{
 		private IFrameOrderService service;

@@ -5,7 +5,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Logic.Services;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 {
-	[TestFixture]
+	[TestFixture, Category("SynologenSettingsServiceTests")]
 	public class Given_A_SynologenSettingsService : AssertionHelper
 	{
 		private ISynologenSettingsService service;

@@ -4,7 +4,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
+namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 {
 	public static class ServiceFactory {
 		public static IFrameOrderService GetFrameOrderSettingsService() 
@@ -42,27 +42,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 			public string EmailOrderFrom { get; private set; }
 			public string EmailOrderSubject { get; private set; }
 			public string GetFrameOrderEmailBodyTemplate() { 
-			var builder = new StringBuilder()
-			    .AppendLine("Beställnings-id: {OrderId}")
-			    .AppendLine("Butik: {ShopName}")
-			    .AppendLine("Butiksort: {ShopCity}")
-			    .AppendLine("Båge: {FrameName}")
-			    .AppendLine("Båge Artnr: {ArticleNumber}")
-			    .AppendLine("PD Vänster: {PDLeft}")
-			    .AppendLine("PD Höger: {PDRight}")
-			    .AppendLine("Glastyp: {GlassTypeName}")
-			    .AppendLine("Sfär Vänster: {SphereLeft}")
-			    .AppendLine("Sfär Höger: {SphereRight}")
-			    .AppendLine("Cylinder Vänster: {CylinderLeft}")
-			    .AppendLine("Cylinder Höger: {CylinderRight}")
-			    .AppendLine("Axel Vänster: {AxisLeft}")
-			    .AppendLine("Axel Höger: {AxisRight}")
-			    .AppendLine("Addition Vänster: {AdditionLeft}")
-			    .AppendLine("Addition Höger: {AdditionRight}")
-			    .AppendLine("Höjd Vänster: {HeightLeft}")
-			    .AppendLine("Höjd Höger: {HeightRight}")
-			    .AppendLine("Anteckningar: \r\n{Reference}");
-			return builder.ToString();
+				var builder = new StringBuilder()
+					.AppendLine("Beställnings-id: {OrderId}")
+					.AppendLine("Butik: {ShopName}")
+					.AppendLine("Butiksort: {ShopCity}")
+					.AppendLine("Båge: {FrameName}")
+					.AppendLine("Båge Artnr: {ArticleNumber}")
+					.AppendLine("PD Vänster: {PDLeft}")
+					.AppendLine("PD Höger: {PDRight}")
+					.AppendLine("Glastyp: {GlassTypeName}")
+					.AppendLine("Sfär Vänster: {SphereLeft}")
+					.AppendLine("Sfär Höger: {SphereRight}")
+					.AppendLine("Cylinder Vänster: {CylinderLeft}")
+					.AppendLine("Cylinder Höger: {CylinderRight}")
+					.AppendLine("Axel Vänster: {AxisLeft}")
+					.AppendLine("Axel Höger: {AxisRight}")
+					.AppendLine("Addition Vänster: {AdditionLeft}")
+					.AppendLine("Addition Höger: {AdditionRight}")
+					.AppendLine("Höjd Vänster: {HeightLeft}")
+					.AppendLine("Höjd Höger: {HeightRight}")
+					.AppendLine("Anteckningar: \r\n{Reference}");
+				return builder.ToString();
 			}
 		}
 
@@ -91,6 +91,4 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 		}
 
 	}
-
-	
 }

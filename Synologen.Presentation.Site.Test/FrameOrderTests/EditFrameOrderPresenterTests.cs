@@ -14,9 +14,9 @@ using Spinit.Wpc.Synologen.Presentation.Site.Models.FrameOrders;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.AssertionHelpers;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.Factories;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Test
+namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 {
-	[TestFixture]
+	[TestFixture, Category("EditFrameOrderPresenterTests")]
 	public class Given_a_EditFrameOrderPresenter : WpcAssertionHelper
 	{
 		private EditFrameOrderPresenter presenter;
@@ -160,7 +160,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				SelectedGlassTypeId = 8,  // Returns a glasstype with both addition and height
 				SelectedPupillaryDistance = new EyeParameter{Left = 22, Right = 33},
 				SelectedSphere = new EyeParameter{Left = -5, Right = 2.25M},
-                SelectedCylinder = new EyeParameter{ Left = 0.25M, Right = 1.75M}, 
+				SelectedCylinder = new EyeParameter{ Left = 0.25M, Right = 1.75M}, 
 				SelectedAxis = new EyeParameter<int>{Left = 20, Right = 179},
 				SelectedAddition = new EyeParameter{Left = 1.25M, Right = 2.75M},
 				SelectedHeight = new EyeParameter{Left = 19, Right = 27},
@@ -222,7 +222,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				SelectedGlassTypeId = 1, // Returns a glasstype without addition or height
 				SelectedPupillaryDistance = new EyeParameter{Left = 22, Right = 33},
 				SelectedSphere = new EyeParameter{Left = -5, Right = 2.25M},
-                SelectedCylinder = new EyeParameter{ Left = 0.25M, Right = 1.75M}, 
+				SelectedCylinder = new EyeParameter{ Left = 0.25M, Right = 1.75M}, 
 				SelectedAxis = new EyeParameter<int>{Left = 20, Right = 179},
 				SelectedAddition = new EyeParameter{Left = 1.25M, Right = 2.75M},
 				SelectedHeight = new EyeParameter{Left = 19, Right = 27},
@@ -261,8 +261,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				SelectedSphere = new EyeParameter{Left = -5, Right = 2.25M},
 				SelectedAddition = new EyeParameter{Left = 1.25M, Right = 2.75M},
 				SelectedHeight = new EyeParameter{Left = 19, Right = 27},
-                SelectedCylinder = new EyeParameter{Left = int.MinValue, Right = int.MinValue},
-                SelectedAxis =  new  EyeParameter<int>{Left = int.MinValue, Right = int.MinValue},
+				SelectedCylinder = new EyeParameter{Left = int.MinValue, Right = int.MinValue},
+				SelectedAxis =  new  EyeParameter<int>{Left = int.MinValue, Right = int.MinValue},
 			};
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			var requestParams = new NameValueCollection();
@@ -340,7 +340,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test
 				SelectedAddition = new EyeParameter { Left = 1.25M, Right = 2.75M },
 				SelectedHeight = new EyeParameter { Left = 19, Right = 27 },
 				Reference = "Skynda på",
-                PageIsValid = true
+				PageIsValid = true
 			};
 			const int expectedShopId = 5;
 			const string expectedRedirectUrl = "/test/url/";

@@ -14,7 +14,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Test.Factories;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 {
-	[TestFixture]
+	[TestFixture, Category("ListFrameOrdersPresenterTests")]
 	public class Given_a_ListFrameOrdersPresenter : AssertionHelper
 	{
 		private IListFrameOrdersView<ListFrameOrdersModel> view;

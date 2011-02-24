@@ -12,7 +12,7 @@ using Spinit.Wpc.Synologen.Presentation.Test.Factories;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test
 {
-	[TestFixture]
+	[TestFixture, Category("FrameControllerOrderTests")]
 	public partial class Given_A_FrameController
 	{
 		[Test]

@@ -1,14 +1,109 @@
+using System;
+using FakeItEasy;
 using NUnit.Framework;
+using Shouldly;
+using Synologen.LensSubscription.BGService.Test.BaseHelpers;
 
 namespace Synologen.LensSubscription.BGService.Test
 {
-	[TestFixture]
-	public class FileWriterServiceTests
+	[TestFixture, Category("BGSentFileWriterServiceTests")]
+	public class When_writing_file_to_disk : BGSentFileWriterServiceTestBase
 	{
-		[Test]
-		public void AddTest()
+		private string fileData;
+		private string fileName;
+		private string filesFolderPath;
+		private string filePath;
+
+		public When_writing_file_to_disk()
 		{
-			Assert.Inconclusive("Add tests");
+			Context = () =>
+			{
+				fileData = "ABCDEFG";
+				fileName = "testfile.txt";
+				filesFolderPath = @"C:\Folder1\Folder2\Folder3";
+				filePath = String.Format(@"{0}\{1}", filesFolderPath, fileName);
+				A.CallTo(() => BGConfigurationSettingsService.GetSentFilesFolderPath()).Returns(filesFolderPath);
+			};
+			Because = fileWriterService => fileWriterService.WriteFileToDisk(fileData, fileName);
+		}
+
+		[Test]
+		public void File_path_is_fetched_from_settings_service()
+		{
+			A.CallTo(() => BGConfigurationSettingsService.GetSentFilesFolderPath()).MustHaveHappened();
+		}
+
+		[Test]
+		public void File_is_written_to_disk_using_io_service()
+		{
+			A.CallTo(() => FileIOService.WriteFile(filePath, fileData)).MustHaveHappened();
 		}
 	}
+
+	[TestFixture, Category("BGSentFileWriterServiceTests")]
+	public class When_writing_file_to_disk_and_a_file_already_exists : BGSentFileWriterServiceTestBase
+	{
+		private string fileData;
+		private string fileName;
+		private string filesFolderPath;
+		private Exception caughtException;
+
+		public When_writing_file_to_disk_and_a_file_already_exists()
+		{
+			Context = () =>
+			{
+				fileData = "ABCDEFG";
+				fileName = "testfile.txt";
+				filesFolderPath = @"C:\Folder1\Folder2\Folder3";
+				A.CallTo(() => BGConfigurationSettingsService.GetSentFilesFolderPath()).Returns(filesFolderPath);
+				A.CallTo(() => FileIOService.FileExists(A<string>.Ignored)).Returns(true);
+			};
+			Because = fileWriterService =>
+			{
+				try { fileWriterService.WriteFileToDisk(fileData, fileName); }
+				catch(Exception ex) { caughtException = ex; }
+
+			};
+		}
+
+		[Test]
+		public void An_illegal_argument_exception_is_thrown()
+		{
+			caughtException.ShouldBeTypeOf(typeof(ArgumentException));
+		}
+
+	}
+
+	[TestFixture, Category("BGSentFileWriterServiceTests")]
+	public class When_writing_file_to_disk_with_illegal_file_name : BGSentFileWriterServiceTestBase
+	{
+		private string fileData;
+		private string fileName;
+		private string filesFolderPath;
+		private Exception caughtException;
+
+		public When_writing_file_to_disk_with_illegal_file_name()
+		{
+			Context = () =>
+			{
+				fileData = "ABCDEFG";
+				fileName = @"\\Folder\testfile.txt";
+				filesFolderPath = @"C:\Folder1\Folder2\Folder3";
+				A.CallTo(() => BGConfigurationSettingsService.GetSentFilesFolderPath()).Returns(filesFolderPath);
+			};
+			Because = fileWriterService =>
+			{
+				try { fileWriterService.WriteFileToDisk(fileData, fileName); }
+				catch(Exception ex) { caughtException = ex; }
+
+			};
+		}
+
+		[Test]
+		public void An_illegal_argument_exception_is_thrown()
+		{
+			caughtException.ShouldBeTypeOf(typeof(ArgumentException));
+		}
+	}
+
 }

@@ -4,5 +4,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 	{
 		string GetPaymentRecieverBankGiroNumber();
 		string GetPaymentRevieverCustomerNumber();
+		string GetSentFilesFolderPath();
 	}
 }

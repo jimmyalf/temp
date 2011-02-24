@@ -8,43 +8,12 @@ namespace Synologen.LensSubscription.BGData.Test.CommonDataTestHelpers
 	{
 		protected override void ExecuteContext()
 		{
-			ISession contextSession = null;
-	        try
-	        {
-	            using (contextSession = GetSessionFactory().OpenSession())
-	            {
-	                Context(contextSession);
-	            }
-	        }
-	        catch
-	        {
-	            if (contextSession != null)
-	            {
-	                contextSession.Dispose();
-	            }
-	            throw;
-	        }
+			ExecuteWithNewSession(session => Context(session));
 		}
 
 		protected override void ExecuteBecause()
 		{
-			ISession becauseSession = null;
-	        try
-	        {
-	            using (becauseSession = GetSessionFactory().OpenSession())
-	            {
-	                var repository = CreateRepository(becauseSession);
-	                Because(repository);
-	            }
-	        }
-	        catch
-	        {
-	            if (becauseSession != null)
-	            {
-	                becauseSession.Dispose();
-	            }
-	            throw;
-	        }
+			ExecuteWithNewSession(session => Because(CreateRepository(session)));
 		}
 
 		protected override TRepository GetTestModel()
@@ -62,6 +31,38 @@ namespace Synologen.LensSubscription.BGData.Test.CommonDataTestHelpers
 
 	    protected TResult GetResult<TResult>(Func<ISession, TResult> function)
 	    {
+	    	return GetWithNewSession(function);
+	    }
+
+		protected void AssertUsing(Action<ISession> action)
+	    {
+			ExecuteWithNewSession(action);
+	    }
+
+		protected abstract ISessionFactory GetSessionFactory();
+
+		private void ExecuteWithNewSession(Action<ISession> action)
+		{
+			ISession contextSession = null;
+	        try
+	        {
+	            using (contextSession = GetSessionFactory().OpenSession())
+	            {
+	                action(contextSession);
+	            }
+	        }
+	        catch
+	        {
+	            if (contextSession != null)
+	            {
+	                contextSession.Dispose();
+	            }
+	            throw;
+	        }
+		}
+
+		private TResult GetWithNewSession<TResult>(Func<ISession, TResult> function)
+		{
 	        ISession verificationSession = null;
 	        TResult result;
 	        try
@@ -80,28 +81,6 @@ namespace Synologen.LensSubscription.BGData.Test.CommonDataTestHelpers
 	            throw;
 	        }
 	        return result;
-	    }
-
-		protected void AssertUsing(Action<ISession> action)
-	    {
-	        ISession verificationSession = null;
-	        try
-	        {
-	            using (verificationSession = GetSessionFactory().OpenSession())
-	            {
-	                action(verificationSession);
-	            }
-	        }
-	        catch
-	        {
-	            if (verificationSession != null)
-	            {
-	                verificationSession.Dispose();
-	            }
-	            throw;
-	        }
-	    }
-
-		protected abstract ISessionFactory GetSessionFactory();
+		}
 	}
 }

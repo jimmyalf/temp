@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace Synologen.LensSubscription.BGService.Test
 {
-	[TestFixture]
+	[TestFixture, Category("FtpServiceTest")]
 	public class FtpServiceTest
 	{
 		

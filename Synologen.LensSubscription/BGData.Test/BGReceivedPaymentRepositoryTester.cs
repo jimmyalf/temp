@@ -7,8 +7,7 @@ using Synologen.LensSubscription.BGData.Test.Factories;
 
 namespace Synologen.LensSubscription.BGData.Test
 {
-    [TestFixture]
-    [Category("ReceivedConsentRepositoryTester")]
+    [TestFixture, Category("ReceivedConsentRepositoryTester")]
     public class When_adding_a_recieved_payment : BaseRepositoryTester<BGReceivedPaymentRepository>
     {
         private BGReceivedPayment _paymentToSave;
@@ -39,7 +38,7 @@ namespace Synologen.LensSubscription.BGData.Test
         }
     }
 
-    [TestFixture]
+    [TestFixture, Category("ReceivedConsentRepositoryTester")]
     public class When_updating_received_payment : BaseRepositoryTester<BGReceivedPaymentRepository>
     {
         private BGReceivedPayment editedPayment;
@@ -72,7 +71,7 @@ namespace Synologen.LensSubscription.BGData.Test
         }
     }
 
-    [TestFixture]
+    [TestFixture, Category("ReceivedConsentRepositoryTester")]
     public class When_deleting_received_payment : BaseRepositoryTester<BGReceivedPaymentRepository>
     {
         private BGReceivedPayment deletedPayment;

@@ -5,7 +5,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
-	public abstract class SendFileTaskTestBase : TaskTestBase
+	public abstract class SendFileTaskTestBase : CommonTaskTestBase
 	{
 		protected ITamperProtectedFileWriter TamperProtectedFileWriter;
 		protected IFtpService FtpService;

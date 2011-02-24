@@ -6,7 +6,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
-	public abstract class ReceiveErrorsTaskTestBase : TaskTestBase
+	public abstract class ReceiveErrorsTaskTestBase : CommonTaskTestBase
 	{
 		protected IBGReceivedErrorRepository BGReceivedErrorRepository;
         protected IAutogiroFileReader<ErrorsFile, Error> ErrorFileReader;

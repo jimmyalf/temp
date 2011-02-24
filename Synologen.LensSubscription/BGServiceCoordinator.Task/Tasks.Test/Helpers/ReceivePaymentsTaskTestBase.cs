@@ -1,4 +1,4 @@
-﻿using FakeItEasy;
+using FakeItEasy;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
@@ -6,7 +6,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
-    public abstract class ReceivePaymentsTaskTestBase : TaskTestBase
+    public abstract class ReceivePaymentsTaskTestBase : CommonTaskTestBase
     {
     	protected IBGReceivedPaymentRepository BGReceivedPaymentRepository;
     	protected IAutogiroFileReader<PaymentsFile, Payment> PaymentFileReader;

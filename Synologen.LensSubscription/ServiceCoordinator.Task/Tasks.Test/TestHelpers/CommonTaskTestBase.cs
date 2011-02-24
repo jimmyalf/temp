@@ -1,4 +1,3 @@
-using System;
 using log4net;
 using Moq;
 using NUnit.Framework;
@@ -6,11 +5,12 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Synologen.LensSubscription.ServiceCoordinator.App.Logging;
+using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 {
 	[TestFixture]
-	public abstract class TaskTestBase
+	public abstract class CommonTaskTestBase : BehaviorTestBase<ITask>
 	{
 		protected Mock<IBGWebService> MockedWebServiceClient;
 		protected Mock<ISubscriptionRepository> MockedSubscriptionRepository;
@@ -20,7 +20,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 		protected Mock<ITransactionRepository> MockedTransactionRepository;
 		protected Log4NetLogger LoggingService;
 
-		protected TaskTestBase()
+		protected override void SetUp()
 		{
 			MockedWebServiceClient = new Mock<IBGWebService>();
 			MockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
@@ -29,21 +29,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 			MockedSubscriptionErrorRepository = new Mock<ISubscriptionErrorRepository>();
 			MockedTransactionRepository = new Mock<ITransactionRepository>();
 			LoggingService = new Log4NetLogger(MockedLogger.Object, MockedEventLoggingService.Object);
-			
-			Context = () => { };
-			Because = logger => { throw new AssertionException("An action for Because has not been set!"); };
-		}
-
-		[TestFixtureSetUp]
-		protected void SetUpTest()
-		{
-			Context();
-			Because(GetTask());
 		}
 
 		protected abstract ITask GetTask();
-
-		protected Action Context;
-		protected Action<ITask> Because;
+		protected override ITask GetTestModel() { return GetTask(); }
 	}
 }

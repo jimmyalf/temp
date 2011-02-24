@@ -2,7 +2,7 @@ using System;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
-using Synologen.LensSubscription.BGService.Test.BaseHelpers;
+using Synologen.LensSubscription.BGService.Test.TestHelpers;
 
 namespace Synologen.LensSubscription.BGService.Test
 {

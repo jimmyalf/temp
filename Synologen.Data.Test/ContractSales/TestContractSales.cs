@@ -10,7 +10,7 @@ using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Utility.Business;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
+namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
 	[TestFixture]
 	[Category("ContractSalesRepositoryTester")]
@@ -51,7 +51,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		{
 			var expectedContractSalesMatchingCriteria = _orders.Where(x => x.StatusId.Equals(settlementableOrderStatus));
 			var criteria = new AllContractSalesMatchingCriteria { ContractSaleStatus = settlementableOrderStatus };//, InvoiceNumber = null };
-		    var matchingItems = GetResult(session => new ContractSaleRepository(session).FindBy(criteria));
+			var matchingItems = GetResult(session => new ContractSaleRepository(session).FindBy(criteria));
 
 			matchingItems.Count().ShouldBe(expectedContractSalesMatchingCriteria.Count());
 			matchingItems.For((index,contractSale) =>

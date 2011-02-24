@@ -13,6 +13,7 @@ using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
+using Spinit.Wpc.Synologen.Data.Test.ContractSales;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;

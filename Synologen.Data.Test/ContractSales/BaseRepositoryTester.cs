@@ -7,13 +7,12 @@ using Spinit.Data;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
-using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.ContractSales;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Utility.Business;
 using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
+namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
 	public class BaseRepositoryTester<TModel> :  NHibernateRepositoryTester<TModel> //: AssertionHelper
 	{
@@ -26,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		public const int TestableCompanyId = 57;
 		public const int TestableContractId = 14;
 		const string connectionStringname = "WpcServer";
-        protected int TestCountryId = 1;
+		protected int TestCountryId = 1;
 
 		protected override Action SetUp()
 		{
@@ -64,7 +63,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 
 		private void SetupTestData() 
 		{
-			TestShop = Factories.ShopFactory.GetShop(testableShopId, ShopAccess.None);
+			TestShop = Integration.Data.Test.ContractSales.Factories.ShopFactory.GetShop(testableShopId, ShopAccess.None);
 			Provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref TestShop);
 		}
 
@@ -73,7 +72,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		[TearDown]
 		public void ResetTestData()
 		{
-			TestShop = Factories.ShopFactory.GetShop(testableShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
+			TestShop = Integration.Data.Test.ContractSales.Factories.ShopFactory.GetShop(testableShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
 			Provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref TestShop);
 		}
 

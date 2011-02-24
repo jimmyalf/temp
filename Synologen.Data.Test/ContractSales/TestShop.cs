@@ -5,9 +5,9 @@ using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Utility.Business;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
+namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
-	[TestFixture]
+	[TestFixture, Category("TestSqlProviderForShop")]
 	public class Given_a_persisted_shop : BaseRepositoryTester <SettlementRepository>
 	{
 		
@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		public void Can_update_shop_Access()
 		{
 			//Arrange
-			var editedShop = Factories.ShopFactory.GetShop(TestShop.ShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
+			var editedShop = Integration.Data.Test.ContractSales.Factories.ShopFactory.GetShop(TestShop.ShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
 
 			//Act
 			Provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref editedShop);

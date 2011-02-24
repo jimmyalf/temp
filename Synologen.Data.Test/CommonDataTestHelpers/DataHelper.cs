@@ -1,13 +1,12 @@
 using System;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers
+namespace Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers
 {
 	public static  class DataHelper
 	{
-		public static void ExecuteStatement(SqlConnection sqlConnection, string sqlStatement)
+		public static void ExecuteStatement(IDbConnection sqlConnection, string sqlStatement)
 		{
 			var transaction = sqlConnection.BeginTransaction();
 			using (var cmd = sqlConnection.CreateCommand()) {
@@ -21,13 +20,13 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers
 			transaction.Commit();
 		}
 
-		public static void DeleteAndResetIndexForTable(SqlConnection sqlConnection, string tableName)
+		public static void DeleteAndResetIndexForTable(IDbConnection sqlConnection, string tableName)
 		{
 			ExecuteStatement(sqlConnection, String.Format("DELETE FROM {0}", tableName));
 			ExecuteStatement(sqlConnection, String.Format("DBCC CHECKIDENT ({0}, reseed, 0)", tableName));
 		}
 
-		public static void DeleteForTable(SqlConnection sqlConnection, string tableName)
+		public static void DeleteForTable(IDbConnection sqlConnection, string tableName)
 		{
 			ExecuteStatement(sqlConnection, String.Format("DELETE FROM {0}", tableName));
 		}

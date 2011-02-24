@@ -5,12 +5,14 @@ using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
+using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
-using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
-using Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Utility.Business;
+using ShopFactory=Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories.ShopFactory;
 
 namespace Spinit.Wpc.Synologen.Data.Test
 {
@@ -32,13 +34,14 @@ namespace Spinit.Wpc.Synologen.Data.Test
 		[TearDown]
 		public void RunAfterAnyTests()
 		{
+			var provider = GetSqlProvider();
 			SetupLensSubscriptionData();
-			SetupContractSaleSettlementData();
+			SetupContractSaleSettlementData(provider);
+			ResetTestShop(provider);
 		}
 
-		private void SetupContractSaleData() 
+		private void SetupContractSaleData(ISqlProvider provider) 
 		{ 
-			var provider = new SqlProvider(DataHelper.ConnectionString);
 			if(String.IsNullOrEmpty(DataHelper.ConnectionString)){
 				throw new OperationCanceledException("Connectionstring could not be found in configuration");
 			}
@@ -81,21 +84,29 @@ namespace Spinit.Wpc.Synologen.Data.Test
 			});				
 		}
 
-		private void SetupContractSaleSettlementData() 
+		private void SetupContractSaleSettlementData(ISqlProvider provider) 
 		{ 
-			var provider = new SqlProvider(DataHelper.ConnectionString);
-			
 			const int settlementableOrderStatus = 6;
 			const int orderStatusAfterSettlement = 8;
 			Action action  = () => 
 			{
-				SetupContractSaleData();
+				SetupContractSaleData(provider);
 				provider.AddSettlement(settlementableOrderStatus, orderStatusAfterSettlement);	
 			};
 			action.Times(5);
-			SetupContractSaleData();
+			SetupContractSaleData(provider);
 		}
 
+		private void ResetTestShop(ISqlProvider provider)
+		{
+			var testShop = ShopFactory.GetShop(TestShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
+			provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref testShop);
+		}
+
+		private static ISqlProvider GetSqlProvider()
+		{
+			return new SqlProvider(DataHelper.ConnectionString);
+		}
 
 		private void SetupLensSubscriptionData() {
 			var session = GetSessionFactory().OpenSession();

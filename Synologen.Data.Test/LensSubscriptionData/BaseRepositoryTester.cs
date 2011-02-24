@@ -5,6 +5,7 @@ using Spinit.Data;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
+using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 
 namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
@@ -16,13 +17,13 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		protected int TestShop2Id = 159;
 		
 
-		protected override Action SetUp()
+		protected override void SetUp()
 		{
-			return () =>
-			{
+			//return () =>
+			//{
 				SetupData();
 				ActionCriteriaExtensions.ConstructConvertersUsing(ResolveCriteriaConverters);
-			};
+			//};
 		}
 
 		protected override ISessionFactory GetSessionFactory()
@@ -30,17 +31,17 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 			return NHibernateFactory.Instance.GetSessionFactory();
 		}
 
-		public Action<ISession> Arrange
-		{
-			get { return Context; }
-			set { Context = value; }
-		}
+		//public Action<ISession> Arrange
+		//{
+		//    get { return Context; }
+		//    set { Context = value; }
+		//}
 
-		public Action<TRepository> Act
-		{
-			get { return Because; }
-			set { Because = value; }
-		}
+		//public Action<TRepository> Act
+		//{
+		//    get { return Because; }
+		//    set { Because = value; }
+		//}
 
 		private object ResolveCriteriaConverters<TType>(TType objectToResolve)
 		{

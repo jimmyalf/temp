@@ -12,8 +12,8 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
-using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
-using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData.Factories;
+using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synologen.Data.Test.FrameData.Factories;
 
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 {

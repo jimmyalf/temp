@@ -1,6 +1,7 @@
 using System.Linq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Data.Test.FrameData.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
 
 namespace Spinit.Wpc.Synologen.Data.Test.FrameData
@@ -51,7 +52,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_save_frame_order_with_nullable_values()
 		{
 			//Arrange
-			var orderToSave = Integration.Data.Test.FrameData.Factories.FrameOrderFactory.GetFrameOrder(SavedFrames.First(), SavedFrameGlassTypes.First(), SavedShop);
+			var orderToSave = FrameOrderFactory.GetFrameOrder(SavedFrames.First(), SavedFrameGlassTypes.First(), SavedShop);
 			orderToSave.Sent = null;
 			orderToSave.Addition = null;
 			orderToSave.Height = null;
@@ -67,7 +68,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_edit_persisted_frame_order()
 		{
 			//Arrange
-			var editedFrameOrder = Integration.Data.Test.FrameData.Factories.FrameOrderFactory.ScrabmleFrameOrder(SavedFrameOrders.First());
+			var editedFrameOrder = FrameOrderFactory.ScrabmleFrameOrder(SavedFrameOrders.First());
 
 			//Act
 			

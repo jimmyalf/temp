@@ -4,10 +4,12 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
-using Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories;
+using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
@@ -19,6 +21,13 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		private IEnumerable<Order> _orders;
 		private const int settlementableOrderStatus = 6;
 		private const int nonSettlementableOrderStatus = 5;
+		private ISqlProvider Provider;
+
+		protected override void SetUp()
+		{
+			Provider = new SqlProvider(DataHelper.ConnectionString);
+			base.SetUp();
+		}
 
 		public When_fetching_contract_sales_by_AllContractSalesMatchingCriteria()
 		{
@@ -26,13 +35,13 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			{
 				_orders = new[]
 				{
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, TestShop.ShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, TestShop.ShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, TestShop.ShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, TestShop.ShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, TestShop.ShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, TestShop.ShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, TestShop.ShopId, TestableShopMemberId),
+					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId),
+					OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId),
+					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId),
+					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId),
+					OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId),
+					OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId),
+					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId),
 				};
 			};
 

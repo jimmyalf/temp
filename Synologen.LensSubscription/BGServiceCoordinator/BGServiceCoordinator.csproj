@@ -72,6 +72,7 @@
     <Compile Include="App\Logging\Log4NetLogger.cs" />
     <Compile Include="App\Logging\LogFactory.cs" />
     <Compile Include="App\Services\BGConfigurationSettingsService.cs" />
+    <Compile Include="App\Services\BGSentFileWriterService.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

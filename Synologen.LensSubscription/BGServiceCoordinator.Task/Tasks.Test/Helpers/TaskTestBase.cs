@@ -5,7 +5,7 @@ using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
-using Synologen.LensSubscription.BGServiceCoordinator.Logging;
+using Synologen.LensSubscription.BGServiceCoordinator.App.Logging;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {

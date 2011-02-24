@@ -205,6 +205,7 @@
     <Compile Include="Domain\Model\BGServer\BGTaskSequenceOrder.cs" />
     <Compile Include="Domain\Services\EventLogLogger.cs" />
     <Compile Include="Domain\Services\IBGConfigurationSettingsService.cs" />
+    <Compile Include="Domain\Services\IFileIOService.cs" />
     <Compile Include="Domain\Services\IFileWriterService.cs" />
     <Compile Include="Domain\Services\IFtpService.cs" />
     <Compile Include="Domain\Services\IHashService.cs" />

@@ -13,7 +13,7 @@ using Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 {
-	[TestFixture]
+	[TestFixture, Category("SendFileTaskTests")]
 	public class When_sending_file : SendFileTaskTestBase
 	{
 		private IEnumerable<FileSectionToSend> fileSections;
@@ -77,7 +77,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("SendFileTaskTests")]
 	public class When_sending_file_and_no_new_file_sections_exist : SendFileTaskTestBase
 	{
 		

@@ -113,6 +113,10 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.Test.Core\Synologen.Test.Core.csproj">
+      <Project>{0E1C212C-6E52-4FBA-97AD-3BFD4A35E153}</Project>
+      <Name>Synologen.Test.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BGData\BGData.csproj">
       <Project>{245CC0F4-C211-4998-81D6-F18506B0B952}</Project>
       <Name>BGData</Name>

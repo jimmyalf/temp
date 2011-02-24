@@ -6,9 +6,9 @@ namespace Synologen.LensSubscription.BGData.Test.BaseTesters
 {
 	public abstract class BaseRepositoryTester<TRepository> : NHibernateRepositoryTester<TRepository>
 	{
-		protected override Action SetUp()
+		protected override void SetUp()
 		{
-			return () => SetupData(GetSessionFactory().OpenSession());
+			SetupData(GetSessionFactory().OpenSession());
 		}
 
 		private void SetupData(ISession session)

@@ -47,6 +47,7 @@ namespace Synologen.Test.Core
 
 	public abstract class BehaviorTestBase<TTestModel> : BehaviorTestBase
 	{
+		protected TTestModel _testModel;
 		protected BehaviorTestBase()
 		{
 			Context = () => { };
@@ -61,7 +62,7 @@ namespace Synologen.Test.Core
 		{
 			SetUp();
 			ExecuteContext();
-			TestModel = GetTestModel();
+			_testModel = GetTestModel();
 			ExecuteBecause();
 		}
 
@@ -72,8 +73,38 @@ namespace Synologen.Test.Core
 
 		protected abstract TTestModel GetTestModel();
 
-		protected TTestModel TestModel { get; private set;}
+		protected TTestModel TestModel { get { return _testModel; } }
 
 		protected new Action<TTestModel> Because { get; set;}
+	}
+
+	public abstract class BehaviorTestBase<TTestModel,TContextModel> : BehaviorTestBase<TTestModel>
+	{
+		protected BehaviorTestBase()
+		{
+			Context = parameter => { };
+			Because = parameter =>
+			{
+				throw new AssertionException("An action for Because has not been set!");
+			};
+		}
+
+		[SetUp]
+		protected override void SetUpTest()
+		{
+			SetUp();
+			ExecuteContext();
+			_testModel = GetTestModel();
+			ExecuteBecause();
+		}
+
+		protected override void ExecuteContext()
+		{
+			Context(GetContextModel());
+		}
+
+		protected abstract TContextModel GetContextModel();
+
+		protected new Action<TContextModel> Context { get; set;}
 	}
 }

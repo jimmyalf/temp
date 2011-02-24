@@ -1,43 +1,35 @@
 using System;
-using System.Configuration;
-using System.Data.SqlClient;
 using NHibernate;
-using NUnit.Framework;
 using Spinit.Data;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.ContractSales;
+using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
-using Spinit.Wpc.Utility.Business;
-using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
 	public class BaseRepositoryTester<TModel> :  NHibernateRepositoryTester<TModel> //: AssertionHelper
 	{
-		protected SqlProvider Provider;
-		protected Shop TestShop;
 		protected const int testableShopId = 158;
 		protected const int testableShopId2 = 159;
 		public const int TestableShopMemberId = 485;
 		public const int TestableShop2MemberId = 484;
 		public const int TestableCompanyId = 57;
 		public const int TestableContractId = 14;
-		const string connectionStringname = "WpcServer";
 		protected int TestCountryId = 1;
 
-		protected override Action SetUp()
+		public BaseRepositoryTester()
 		{
-			return () =>
-			{
-				Provider = new SqlProvider(ConnectionString);
-				SetupData();
-				ActionCriteriaExtensions.ConstructConvertersUsing(ResolveCriteriaConverters);
-			};
+			ActionCriteriaExtensions.ConstructConvertersUsing(ResolveCriteriaConverters);
 		}
 
-		private void SetupData() 
+		protected override void SetUp()
+		{
+			SetupData(GetSessionFactory().OpenSession());
+		}
+
+		private void SetupData(ISession session)
 		{
 			if(String.IsNullOrEmpty(DataHelper.ConnectionString)){
 				throw new OperationCanceledException("Connectionstring could not be found in configuration");
@@ -46,34 +38,14 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			{
 				throw new OperationCanceledException("Make sure you are running tests against a development database!");
 			}
-			var sqlConnection = new SqlConnection(DataHelper.ConnectionString);
-
-			sqlConnection.Open();
-			DataHelper.DeleteForTable(sqlConnection, "tblSynologenSettlementOrderConnection");
-			DataHelper.DeleteForTable(sqlConnection, "tblSynologenContractArticleConnection");
-			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionTransaction");
-			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "tblSynologenSettlement");
-			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "tblSynologenOrderHistory");
-			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "tblSynologenOrderItems");
-			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "tblSynologenOrder");
-			sqlConnection.Close();
-
-			SetupTestData();
-		}
-
-		private void SetupTestData() 
-		{
-			TestShop = Integration.Data.Test.ContractSales.Factories.ShopFactory.GetShop(testableShopId, ShopAccess.None);
-			Provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref TestShop);
-		}
-
-		private static string ConnectionString { get { return ConfigurationManager.ConnectionStrings[connectionStringname].ConnectionString; } }
-
-		[TearDown]
-		public void ResetTestData()
-		{
-			TestShop = Integration.Data.Test.ContractSales.Factories.ShopFactory.GetShop(testableShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
-			Provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref TestShop);
+			DataHelper.DeleteForTable(session.Connection, "tblSynologenSettlementOrderConnection");
+			DataHelper.DeleteForTable(session.Connection, "tblSynologenContractArticleConnection");
+			DataHelper.DeleteAndResetIndexForTable(session.Connection, "SynologenLensSubscriptionTransaction");
+			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenSettlement");
+			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenOrderHistory");
+			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenOrderItems");
+			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenOrder");
+			session.Connection.Close();
 		}
 
 		protected override ISessionFactory GetSessionFactory() 

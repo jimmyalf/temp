@@ -2,6 +2,7 @@ using System.Linq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Data.Test.FrameData.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
 
 namespace Spinit.Wpc.Synologen.Data.Test.FrameData
@@ -53,7 +54,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			const int expectedStock = 196;
 
 			//Act
-			var editedFrame = Integration.Data.Test.FrameData.Factories.FrameFactory.ScrabmleFrame(SavedFrames.First());
+			var editedFrame = FrameFactory.ScrabmleFrame(SavedFrames.First());
 			FrameRepository.Save(editedFrame);
 			var persistedFrame = FrameValidationRepository.Get(SavedFrames.First().Id);
 			
@@ -81,7 +82,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_delete_persisted_frame_without_connections()
 		{
 			//Arrange
-			var frameWithoutConnections = Integration.Data.Test.FrameData.Factories.FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First());
+			var frameWithoutConnections = FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First());
 			FrameRepository.Save(frameWithoutConnections);
 
 			//Act
@@ -134,7 +135,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			const int expectedNumberOfFramesMatchingCriteria = 36;
 			const int expectedNumberOfAllFrames = 37;
 			var criteria = new AllOrderableFramesCriteria();
-			var extraFrame = Integration.Data.Test.FrameData.Factories.FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First());
+			var extraFrame = FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First());
 			extraFrame.AllowOrders = false;
 
 			//Act

@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
+using Spinit.Wpc.Synologen.Data.Test.FrameData.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
 
 namespace Spinit.Wpc.Synologen.Data.Test.FrameData
@@ -42,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			const int expectedNumberOfOrderConnections = 36;
 
 			//Act
-			var editedFrameGlassType = Integration.Data.Test.FrameData.Factories.FrameGlassTypeFactory.ScrabmleFrameGlass(SavedFrameGlassTypes.First());
+			var editedFrameGlassType = FrameGlassTypeFactory.ScrabmleFrameGlass(SavedFrameGlassTypes.First());
 			FrameGlassTypeRepository.Save(editedFrameGlassType);
 			var persistedFrameGlassType = FrameGlassTypeValidationRepository.Get(SavedFrameGlassTypes.First().Id);
 			
@@ -59,7 +60,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_delete_persisted_frameglasstype_without_connections()
 		{
 			//Arrange
-			var frameGlassType = Integration.Data.Test.FrameData.Factories.FrameGlassTypeFactory.GetGlassType();
+			var frameGlassType = FrameGlassTypeFactory.GetGlassType();
 			FrameGlassTypeRepository.Save(frameGlassType);
 
 			//Act

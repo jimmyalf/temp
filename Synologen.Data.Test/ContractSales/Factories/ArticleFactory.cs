@@ -1,6 +1,6 @@
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories
+namespace Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories
 {
 	public static class ArticleFactory
 	{

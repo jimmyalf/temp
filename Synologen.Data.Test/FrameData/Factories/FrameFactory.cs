@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData.Factories
+namespace Spinit.Wpc.Synologen.Data.Test.FrameData.Factories
 {
 	public static class FrameFactory
 	{
@@ -48,7 +48,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData.Factories
 							StockDate = new DateTime(2010, 08, 01, 0, 0, 0),
 						}
 					}.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5M)
-					);
+						);
 					counter++;
 				}
 			}

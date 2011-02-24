@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
+using Spinit.Wpc.Synologen.Data.Test.FrameData.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
 
 namespace Spinit.Wpc.Synologen.Data.Test.FrameData
@@ -40,7 +41,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			const int expectedNumberOfFrameConnections = 6;
 
 			//Act
-			var editedFrameBrand = Integration.Data.Test.FrameData.Factories.FrameBrandFactory.ScrabmleFrameBrand(SavedFrameBrands.First());
+			var editedFrameBrand = FrameBrandFactory.ScrabmleFrameBrand(SavedFrameBrands.First());
 			FrameBrandRepository.Save(editedFrameBrand);
 			var persistedFrameBrand = FrameBrandValidationRepository.Get(SavedFrameBrands.First().Id);
 			
@@ -55,7 +56,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_delete_persisted_framebrand_without_connections()
 		{
 			//Arrange
-			var frameBrandWithoutConnections = Integration.Data.Test.FrameData.Factories.FrameBrandFactory.GetFrameBrand();
+			var frameBrandWithoutConnections = FrameBrandFactory.GetFrameBrand();
 			FrameBrandRepository.Save(frameBrandWithoutConnections);
 
 			//Act

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData.Factories
+namespace Spinit.Wpc.Synologen.Data.Test.FrameData.Factories
 {
 	public static class FrameGlassTypeFactory {
 		public static IEnumerable<FrameGlassType> GetGlassTypes() 

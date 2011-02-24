@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData.Factories
+namespace Spinit.Wpc.Synologen.Data.Test.FrameData.Factories
 {
 	public static class FrameBrandFactory {
 		public static FrameBrand GetFrameBrand()

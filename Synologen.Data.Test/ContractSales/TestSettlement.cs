@@ -12,10 +12,11 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
+using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
-using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
-using Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Utility.Business;
+using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
@@ -39,6 +40,14 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		private int _expectedNumberOfOrdersInSettlementForShop1;
 		private IList<SubscriptionTransaction> _transactions2;
 		private ContractArticleConnection _contractArticleConnection;
+		private SqlProvider Provider;
+		private Shop TestShop;
+
+		protected override void SetUp()
+		{
+			Provider = new SqlProvider(DataHelper.ConnectionString);
+			base.SetUp();
+		}
 
 		public When_creating_a_settlement_using_sqlprovider()
 		{
@@ -91,6 +100,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			};
 			Because = repository =>
 			{
+				TestShop = Provider.GetShop(testableShopId);
 				_settlementId = Provider.AddSettlement(settlementableOrderStatus, orderStatusAfterSettlement);
 				var settlementMock = new Mock<Core.Domain.Model.LensSubscription.Settlement>();
 				settlementMock.SetupGet(x => x.Id).Returns(_settlementId);
@@ -208,7 +218,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 				.SelectMany(x => x.OrderItems).Count();
 
 			var settlementDataSet = Provider.GetSettlementsOrderItemsDataSetDetailed(
-				TestShop.ShopId,
+				testableShopId,
 				_settlementId,
 				null /*orderBy*/,
 				out allOrdersMarkedAsPayed,

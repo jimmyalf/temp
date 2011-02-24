@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories
+namespace Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories
 {
 	public static class OrderFactory 
 	{
@@ -16,10 +16,10 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories
 				StatusId = settlementableOrderStatus,
 				SalesPersonShopId = shopId,
 				SalesPersonMemberId = memberId,
-                CompanyUnit = "1234",
-                CustomerFirstName = "Adam",
+				CompanyUnit = "1234",
+				CustomerFirstName = "Adam",
 				CustomerLastName = "Bertil",
-                PersonalIdNumber = "197010245111"
+				PersonalIdNumber = "197010245111"
 			};	
 		}
 		public static Order Get(int companyId, int settlementableOrderStatus, int shopId, int memberId, int articleId) 

@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
+using Spinit.Wpc.Synologen.Data.Test.FrameData.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
 
 namespace Spinit.Wpc.Synologen.Data.Test.FrameData
@@ -41,7 +42,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			const int expectedNumberOfFrameConnections = 6;
 
 			//Act
-			var editedFrameColor = Integration.Data.Test.FrameData.Factories.FrameColorFactory.ScrabmleFrameColor(SavedFrameColors.First());
+			var editedFrameColor = FrameColorFactory.ScrabmleFrameColor(SavedFrameColors.First());
 			FrameColorRepository.Save(editedFrameColor);
 			var persistedFrameColor = FrameColorValidationRepository.Get(SavedFrameColors.First().Id);
 			
@@ -56,7 +57,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_delete_persisted_framecolor_without_connections()
 		{
 			//Arrange
-			var frameColorWithoutConnections = Integration.Data.Test.FrameData.Factories.FrameColorFactory.GetFrameColor();
+			var frameColorWithoutConnections = FrameColorFactory.GetFrameColor();
 			FrameColorRepository.Save(frameColorWithoutConnections);
 
 			//Act

@@ -4,7 +4,7 @@ using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using StructureMap;
-using Synologen.LensSubscription.BGServiceCoordinator.Logging;
+using Synologen.LensSubscription.BGServiceCoordinator.App.Logging;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator
 {

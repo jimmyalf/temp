@@ -11,8 +11,8 @@ using Synologen.LensSubscription.Autogiro.Readers;
 using Synologen.LensSubscription.Autogiro.Writers;
 using Synologen.LensSubscription.BGData;
 using Synologen.LensSubscription.BGData.Repositories;
-using Synologen.LensSubscription.BGServiceCoordinator.Logging;
-using Synologen.LensSubscription.BGServiceCoordinator.Services;
+using Synologen.LensSubscription.BGServiceCoordinator.App.Logging;
+using Synologen.LensSubscription.BGServiceCoordinator.App.Services;
 using Send_Consent=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.Consent;
 using Send_Payment=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.Payment;
 using Send_ConsentsFile=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.ConsentsFile;
@@ -25,7 +25,7 @@ using Read_ConsentsFile=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.
 using Read_ErrorsFile=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.ErrorsFile;
 
 
-namespace Synologen.LensSubscription.BGServiceCoordinator.IoC
+namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 {
 	public class TaskRunnerRegistry : Registry
 	{

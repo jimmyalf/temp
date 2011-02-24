@@ -8,9 +8,9 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;
+using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
+namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 {
 	[TestFixture]
 	[Category("TransactionArticleRepositoryTester")]
@@ -32,11 +32,11 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 		{
 			AssertUsing(session =>
 			{
-			    var savedArticle = new TransactionArticleRepository(session).Get(_articleToSave.Id);
-			    savedArticle.Id.ShouldBeGreaterThan(0);
-			    savedArticle.Name.ShouldBe(_articleToSave.Name);
-			    savedArticle.Active.ShouldBe(_articleToSave.Active);
-			    savedArticle.NumberOfConnectedTransactions.ShouldBe(0);
+				var savedArticle = new TransactionArticleRepository(session).Get(_articleToSave.Id);
+				savedArticle.Id.ShouldBeGreaterThan(0);
+				savedArticle.Name.ShouldBe(_articleToSave.Name);
+				savedArticle.Active.ShouldBe(_articleToSave.Active);
+				savedArticle.NumberOfConnectedTransactions.ShouldBe(0);
 			});
 		}
 	}
@@ -74,8 +74,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 		{
 			AssertUsing(session=>
 			{
-			    var savedArticle = new TransactionArticleRepository(session).Get(_articleToSave.Id);
-			    savedArticle.NumberOfConnectedTransactions.ShouldBe(1);
+				var savedArticle = new TransactionArticleRepository(session).Get(_articleToSave.Id);
+				savedArticle.NumberOfConnectedTransactions.ShouldBe(1);
 			});
 		}
 	}

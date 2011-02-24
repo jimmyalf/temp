@@ -7,7 +7,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
+namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 {
 	public abstract class BaseRepositoryTester<TRepository> : NHibernateRepositoryTester<TRepository>
 	{

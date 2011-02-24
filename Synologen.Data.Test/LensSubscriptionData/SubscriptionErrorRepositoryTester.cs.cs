@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NUnit.Framework;
@@ -6,13 +6,11 @@ using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;
+using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
+namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 {
-
 	[TestFixture]
 	[Category("SubscriptionErrorRepositoryTester")]
 	public class When_adding_an_subscription_error : BaseRepositoryTester<SubscriptionErrorRepository>
@@ -146,5 +144,4 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			});
 		}
 	}
-
 }

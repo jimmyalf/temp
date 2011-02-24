@@ -7,9 +7,9 @@ using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
+using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories;
-using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data.Test

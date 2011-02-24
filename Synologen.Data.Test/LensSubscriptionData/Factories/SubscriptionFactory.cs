@@ -1,9 +1,8 @@
 using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories
+namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 {
 	public static class SubscriptionFactory
 	{
@@ -23,17 +22,17 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factor
 			{
 				ActivatedDate = new DateTime(2010, 10, 18),
 				CreatedDate = new DateTime(2010, 10, 01),
-                PaymentInfo = new SubscriptionPaymentInfo
-                {
-                	AccountNumber = "123546789",
-                    ClearingNumber = "1122",
-                    MonthlyAmount = 595,
+				PaymentInfo = new SubscriptionPaymentInfo
+				{
+					AccountNumber = "123546789",
+					ClearingNumber = "1122",
+					MonthlyAmount = 595,
 					PaymentSentDate = new DateTime(2010, 11, 28)
-                },
-                Customer = customer,
+				},
+				Customer = customer,
 				Active = isActive,
 				Notes = "Till varje abonnemang hör ett anteckningsfält",
-                ConsentStatus = consentStatus,
+				ConsentStatus = consentStatus,
 			};
 		}
 

@@ -4,7 +4,7 @@ using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories
+namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 {
 	public static class TransactionArticleFactory
 	{

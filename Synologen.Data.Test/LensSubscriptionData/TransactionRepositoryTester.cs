@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
@@ -8,12 +8,11 @@ using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
+using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
-using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
+namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 {
 	[TestFixture]
 	[Category("TransactionRepositoryTester")]
@@ -54,7 +53,6 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 		}
 	}
 
-
 	[TestFixture]
 	[Category("TransactionRepositoryTester")]
 	public class When_fetching_transactions_by_TransactionsForSubscriptionsMatchingCriteria : BaseRepositoryTester<TransactionRepository>
@@ -70,7 +68,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 		public When_fetching_transactions_by_TransactionsForSubscriptionsMatchingCriteria()
 		{
 			Context = session =>
-          	{
+			{
 				var shop = new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
@@ -78,7 +76,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
      
 				_subscription = SubscriptionFactory.Get(customer);
 				_otherSubscription = SubscriptionFactory.Get(customer);
-          		var subscriptionRepository = new SubscriptionRepository(session);
+				var subscriptionRepository = new SubscriptionRepository(session);
 				subscriptionRepository.Save(_subscription);
 				subscriptionRepository.Save(_otherSubscription);
 				var settlementId = new SqlProvider(DataHelper.ConnectionString).AddSettlement(settlementableOrderStatus, afterSettlementOrderStatus);
@@ -105,7 +103,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 
 				};
 
-          	};
+			};
 		}
 
 		[Test]
@@ -124,7 +122,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				itemsMatchingCriteria.For((index, transaction) => transaction.Reason.ShouldBe(expectedTransactions.ElementAt(index).Reason));
 				itemsMatchingCriteria.For((index, transaction) => transaction.Type.ShouldBe(expectedTransactions.ElementAt(index).Type));
 				itemsMatchingCriteria.For((index, transaction) => transaction.With(x => x.Settlement).Return(x => x.Id, Int32.MinValue)
-						.ShouldBe(expectedTransactions.ElementAt(index).With(x => x.Settlement).Return(x => x.Id, Int32.MinValue)));
+				                                                  	.ShouldBe(expectedTransactions.ElementAt(index).With(x => x.Settlement).Return(x => x.Id, Int32.MinValue)));
 				
 			});
 		}
@@ -200,8 +198,8 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 				var itemsMatchingCriteria = new TransactionRepository(session).FindBy(criteria);
 				itemsMatchingCriteria.Count().ShouldBe(_transactions.Count());
 				itemsMatchingCriteria.For((index,transaction) => 
-					transaction.With(x => x.Settlement).Return(x => x.Id, Int32.MinValue)
-						.ShouldBe(_transactions.ElementAt(index).With(x => x.Settlement).Return(x => x.Id, Int32.MinValue)));
+				                          transaction.With(x => x.Settlement).Return(x => x.Id, Int32.MinValue)
+				                          	.ShouldBe(_transactions.ElementAt(index).With(x => x.Settlement).Return(x => x.Id, Int32.MinValue)));
 			});
 		}
 
@@ -211,7 +209,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			var criteria = new AllTransactionsMatchingCriteria
 			{
 				SettlementStatus = SettlementStatus.Any,
-                Reason = TransactionReason.Payment
+				Reason = TransactionReason.Payment
 			};
 			var expectedMatchingItems = _transactions.Where(x => x.Reason.Equals(criteria.Reason));
 			AssertUsing(session =>
@@ -228,7 +226,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			var criteria = new AllTransactionsMatchingCriteria
 			{
 				SettlementStatus = SettlementStatus.Any,
-                Type = TransactionType.Withdrawal
+				Type = TransactionType.Withdrawal
 			};
 			var expectedMatchingItems = _transactions.Where(x => x.Type.Equals(criteria.Type));
 			AssertUsing(session =>
@@ -239,5 +237,4 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData
 			});
 		}
 	}
-
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories
+namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 {
 	public static class TransactionFactory
 	{

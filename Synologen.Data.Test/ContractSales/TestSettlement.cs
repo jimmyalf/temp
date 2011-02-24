@@ -10,16 +10,14 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.Data.Test.ContractSales;
+using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales.Factories;
-using Spinit.Wpc.Synologen.Integration.Data.Test.LensSubscriptionData.Factories;
 using Spinit.Wpc.Utility.Business;
 
-namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
+namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
 	[TestFixture]
 	[Category("TestSettlement")]
@@ -128,14 +126,14 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 			var settlementDetailsDataSet = Provider.GetSettlementDetailsDataSet(_settlementId, out totalValueIncludingVAT, out totalValueExcludingVAT, null);
 			settlementDetailsDataSet.Tables[0].Rows.AsEnumerable().ForElementAtIndex(0, dataRow =>
 			{
-			    dataRow.Parse<int>("cId").ShouldBe(_settlementId);
-			    dataRow.Parse<int>("cShopId").ShouldBe(TestShop.ShopId);
-			    dataRow.Parse<string>("cShopNumber").ShouldBe(TestShop.Number);
-			    dataRow.Parse<string>("cShopName").ShouldBe(TestShop.Name);
-			    dataRow.Parse<string>("cGiroNumber").ShouldBe(TestShop.GiroNumber);
-			    dataRow.Parse<double>("cPriceIncludingVAT").ShouldBe(_expectedSumIncludingVATForShop1);
-			    dataRow.Parse<double>("cPriceExcludingVAT").ShouldBe(_expectedSumExcludingVATForShop1);
-			    dataRow.Parse<int>("cNumberOfOrders").ShouldBe(_expectedNumberOfOrdersInSettlementForShop1);
+				dataRow.Parse<int>("cId").ShouldBe(_settlementId);
+				dataRow.Parse<int>("cShopId").ShouldBe(TestShop.ShopId);
+				dataRow.Parse<string>("cShopNumber").ShouldBe(TestShop.Number);
+				dataRow.Parse<string>("cShopName").ShouldBe(TestShop.Name);
+				dataRow.Parse<string>("cGiroNumber").ShouldBe(TestShop.GiroNumber);
+				dataRow.Parse<double>("cPriceIncludingVAT").ShouldBe(_expectedSumIncludingVATForShop1);
+				dataRow.Parse<double>("cPriceExcludingVAT").ShouldBe(_expectedSumExcludingVATForShop1);
+				dataRow.Parse<int>("cNumberOfOrders").ShouldBe(_expectedNumberOfOrdersInSettlementForShop1);
 			});
 			totalValueIncludingVAT.ShouldBe((float) _expectedSumIncludingVAT);
 			totalValueExcludingVAT.ShouldBe((float) _expectedSumExcludingVAT);
@@ -144,7 +142,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 		[Test]
 		public void Should_contain_expected_invoices_when_fetching_with_nhibernate_repository()
 		{
-			 AssertUsing(session =>
+			AssertUsing(session =>
 			{
 				var settlement = new SettlementRepository(session).Get(_settlementId);
 				settlement.ContractSales.ForElementAtIndex(0, contractSale => 
@@ -186,7 +184,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 			settlementDataSet.Tables[0].Rows.Count.ShouldBe(expectedNumberOfRowsInDataSet);
 			settlementDataSet.Tables[0].Rows.AsEnumerable().ForElementAtIndex(0, dataRow =>
 			{
-			    dataRow.Parse<int>("cArticleId").ShouldBe(_article.Id);
+				dataRow.Parse<int>("cArticleId").ShouldBe(_article.Id);
 				dataRow.Parse<string>("cArticleNumber").ShouldBe(_article.Number);
 				dataRow.Parse<string>("cArticleName").ShouldBe(_article.Name);
 				dataRow.Parse<int>("cNumberOfItems").ShouldBe(expectedUniqueArticleQuanityForShop1);
@@ -206,7 +204,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.ContractSales
 			float orderValueExcludingVAT;
 			var expectedNumberOfRowsInDataSet = _ordersToSave
 				.Where(order => order.StatusId.Equals(settlementableOrderStatus)
-					&& order.SalesPersonShopId.Equals(testableShopId))
+				                && order.SalesPersonShopId.Equals(testableShopId))
 				.SelectMany(x => x.OrderItems).Count();
 
 			var settlementDataSet = Provider.GetSettlementsOrderItemsDataSetDetailed(

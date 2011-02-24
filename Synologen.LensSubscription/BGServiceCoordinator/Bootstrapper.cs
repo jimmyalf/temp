@@ -1,6 +1,6 @@
 using Spinit.Data;
 using StructureMap;
-using Synologen.LensSubscription.BGServiceCoordinator.IoC;
+using Synologen.LensSubscription.BGServiceCoordinator.App.IoC;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator
 {

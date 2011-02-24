@@ -11,7 +11,7 @@ using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 {
-	[TestFixture]
+	[TestFixture, Category("ReceivePaymentsTaskTests")]
 	public class When_executing_receive_payments_task : ReceivePaymentsTaskTestBase
 	{
 		private IEnumerable<ReceivedPayment> expectedPayments;
@@ -85,7 +85,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceivePaymentsTaskTests")]
 	public class When_receiveing_approved_payment : ReceivePaymentsTaskTestBase
 	{
 		private ReceivedPayment[] expectedPayments;
@@ -126,7 +126,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceivePaymentsTaskTests")]
 	public class When_receiveing_rejected_payment_because_of_insufficientfunds : ReceivePaymentsTaskTestBase
 	{
 		private ReceivedPayment[] expectedPayments;
@@ -169,7 +169,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceivePaymentsTaskTests")]
 	public class When_receiveing_rejected_payment_because_of_agconnectionmissing : ReceivePaymentsTaskTestBase
 	{
 		private ReceivedPayment[] expectedPayments;
@@ -212,7 +212,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceivePaymentsTaskTests")]
 	public class When_receiveing_failed_payment : ReceivePaymentsTaskTestBase
 	{
 		private ReceivedPayment[] expectedPayments;

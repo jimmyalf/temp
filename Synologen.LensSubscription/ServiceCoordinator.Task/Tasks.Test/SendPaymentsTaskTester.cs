@@ -11,7 +11,7 @@ using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 {
-	[TestFixture]
+	[TestFixture, Category("SendPaymentsTaskTests")]
 	public class When_executing_send_payments_task : SendPaymentsTaskTestBase
 	{
 		

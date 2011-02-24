@@ -11,7 +11,7 @@ using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 {
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_executing_receive_consents_task : ReceiveConsentsTaskBase
 	{
 		private IEnumerable<ReceivedConsent> expectedConsents;
@@ -79,7 +79,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_consent_accepted : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -111,7 +111,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_ConsentTurnedDownByBank : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -153,7 +153,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_ConsentTurnedDownByPayer : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -195,7 +195,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_AccountTypeNotApproved : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -237,7 +237,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_ConsentMissingInBankgiroConsentRegister : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -279,7 +279,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_IncorrectAccountOrPersonalIdNumber : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -321,7 +321,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_ConsentCanceledByBankgiro : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -362,7 +362,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_ConsentCanceledByBankgiroBecauseOfMissingStatement : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -403,7 +403,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsideration : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -444,7 +444,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		}
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_ConsentTemporarilyStoppedByPayer : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -486,7 +486,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_TemporaryConsentStopRevoked : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -528,7 +528,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_IncorrectPersonalIdNumber : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -570,7 +570,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_IncorrectAccountNumber : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -612,7 +612,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_MaxAmountNotAllowed : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -654,7 +654,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_IncorrectPaymentReceiverBankgiroNumber : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -696,7 +696,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_PaymentReceiverBankgiroNumberMissing : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;
@@ -738,7 +738,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 
 	}
 
-	[TestFixture]
+	[TestFixture, Category("ReceiveConsentsTaskTests")]
 	public class When_receiving_Canceled : ReceiveConsentsTaskBase
 	{
 		private ReceivedConsent receivedConsent;

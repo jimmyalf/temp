@@ -11,7 +11,7 @@ using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 {
-	[TestFixture]
+	[TestFixture, Category("SendConsentsTaskTests")]
 	public class When_executing_send_consents_task : SendConsentsTaskTestBase
 	{
 		private IEnumerable<Subscription> expectedSubscriptions;

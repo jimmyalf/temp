@@ -2,7 +2,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 {
-	public abstract class RecieveErrorsTaskTestBase : TaskTestBase 
+	public abstract class RecieveErrorsTaskTestBase : CommonTaskTestBase 
 	{
 		protected override ITask GetTask()
 		{

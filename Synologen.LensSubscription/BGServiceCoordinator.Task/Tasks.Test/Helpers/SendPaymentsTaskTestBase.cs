@@ -9,7 +9,7 @@ using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
-	public abstract class SendPaymentsTaskTestBase : TaskTestBase
+	public abstract class SendPaymentsTaskTestBase : CommonTaskTestBase
 	{
 		protected IAutogiroFileWriter<PaymentsFile, Payment> PaymentFileWriter;
 		protected IBGPaymentToSendRepository BGPaymentToSendRepository;

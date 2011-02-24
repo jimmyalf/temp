@@ -6,7 +6,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
-    public abstract class ReceiveConsentsTaskTestBase : TaskTestBase
+    public abstract class ReceiveConsentsTaskTestBase : CommonTaskTestBase
     {
     	protected IBGReceivedConsentRepository BGReceivedConsentRepository;
     	protected IAutogiroFileReader<ConsentsFile, Consent> ConsentFileReader;

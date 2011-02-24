@@ -4,7 +4,7 @@ using ConsentInformationCode=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscrip
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 {
-	public abstract class ReceiveConsentsTaskBase : TaskTestBase
+	public abstract class ReceiveConsentsTaskBase : CommonTaskTestBase
 	{
 		protected override ITask GetTask()
 		{

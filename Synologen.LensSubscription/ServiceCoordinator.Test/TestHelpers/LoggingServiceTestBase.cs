@@ -1,14 +1,14 @@
-using System;
 using log4net;
 using Moq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Synologen.LensSubscription.ServiceCoordinator.App.Logging;
+using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers
 {
 	[TestFixture]
-	public abstract class LoggingServiceTestBase
+	public class LoggingServiceTestBase : BehaviorTestBase<ILoggingService>
 	{
 		protected string format = "Testar {0} {1} {2} med {3}";
 		protected string param1 = "att";
@@ -18,22 +18,15 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers
 		protected Mock<ILog> MockedLogger;
 		protected Mock<IEventLoggingService> MockedEventLogger;
 
-		protected LoggingServiceTestBase()
+		protected override void SetUp()
 		{
 			MockedLogger = new Mock<ILog>();
 			MockedEventLogger = new Mock<IEventLoggingService>();
-			Context = () => { };
-			Because = logger => { throw new AssertionException("An action for Because has not been set!"); };
 		}
 
-		[TestFixtureSetUp]
-		protected void SetUpTest()
+		protected override ILoggingService GetTestModel()
 		{
-			Context();
-			Because(new Log4NetLogger(MockedLogger.Object, MockedEventLogger.Object));
+			return new Log4NetLogger(MockedLogger.Object, MockedEventLogger.Object);
 		}
-
-		protected Action Context;
-		protected Action<ILoggingService> Because;
 	}
 }

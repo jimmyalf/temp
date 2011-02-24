@@ -9,7 +9,7 @@ using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
-	public abstract class SendConsentsTaskTestBase : TaskTestBase
+	public abstract class SendConsentsTaskTestBase : CommonTaskTestBase
 	{
 		protected IBGConsentToSendRepository BGConsentToSendRepository;
 		protected IAutogiroFileWriter<ConsentsFile, Consent> ConsentFileWriter;

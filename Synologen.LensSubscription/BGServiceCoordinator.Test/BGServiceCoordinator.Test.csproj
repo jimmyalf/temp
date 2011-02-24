@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseHelpers\BGSentFileWriterServiceTestBase.cs" />
+    <Compile Include="TestHelpers\BGSentFileWriterServiceTestBase.cs" />
     <Compile Include="FileWriterServiceTests.cs" />
     <Compile Include="FtpServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

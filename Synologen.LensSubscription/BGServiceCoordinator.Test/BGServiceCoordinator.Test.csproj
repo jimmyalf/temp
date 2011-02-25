@@ -57,9 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\FtpServiceFactory.cs" />
+    <Compile Include="TestHelpers\BGFtpServiceTestBase.cs" />
     <Compile Include="TestHelpers\BGSentFileWriterServiceTestBase.cs" />
-    <Compile Include="FileWriterServiceTests.cs" />
-    <Compile Include="FtpServiceTest.cs" />
+    <Compile Include="BGFileWriterServiceTests.cs" />
+    <Compile Include="BGFtpServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

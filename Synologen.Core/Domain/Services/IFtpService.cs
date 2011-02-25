@@ -15,4 +15,9 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		public string FileName { get; private set; }
 		//public string FileUrl { get; private set; }
 	}
+
+	public interface IFtpIOService
+	{
+		void SendFile(string fileUri, string fileData);
+	}
 }

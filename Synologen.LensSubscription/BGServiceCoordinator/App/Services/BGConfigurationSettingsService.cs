@@ -1,4 +1,3 @@
-using System;
 using System.Configuration;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
@@ -14,7 +13,13 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 		{
 			return ConfigurationManager.AppSettings["PaymentRevieverCustomerNumber"];
 		}
-
-		public string GetSentFilesFolderPath() { throw new NotImplementedException(); }
+		public string GetSentFilesFolderPath()
+		{
+			return ConfigurationManager.AppSettings["SentFilesFolderPath"];
+		}
+		public string GetFtpUploadFolderUrl()
+		{
+			return ConfigurationManager.AppSettings["FtpUploadFolderUrl"];
+		}
 	}
 }

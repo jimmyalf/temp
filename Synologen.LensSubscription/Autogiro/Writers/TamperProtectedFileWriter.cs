@@ -29,7 +29,7 @@ namespace Synologen.LensSubscription.Autogiro.Writers
 
 		}
 
-		public virtual string KeyVerificationToken
+		public static string KeyVerificationToken
 		{
 			get { return KeyVerificationTokenValue; }
 		}
@@ -50,7 +50,8 @@ namespace Synologen.LensSubscription.Autogiro.Writers
 				 GetMessageAuthenticationCode(new StringBuilder()
 					 .AppendLine(openingSealRecord)
 					 .AppendLine(fileContents)
-					 .ToString()),
+					 .ToString()
+					 .TrimEnd('\r','\n')),
 				 Pad(8));
 		}
 

@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FakeItEasy, Version=1.0.0.5, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Tools\FakeItEasy\FakeItEasy.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Tools\Shouldly\nunit.framework.dll</HintPath>
@@ -65,6 +69,8 @@
     <Compile Include="Factories\FileFactory.cs" />
     <Compile Include="Factories\FileContentFactory.cs" />
     <Compile Include="Factories\MessageFactory.cs" />
+    <Compile Include="Factories\TamperProtectedFileWriterFactory.cs" />
+    <Compile Include="TestHelpers\TamperProtectedFileWriterTestBase.cs" />
     <Compile Include="TamperProtectedFileWriterTests.cs" />
     <Compile Include="TestHelpers\HMACMessageDigestServiceTestBase.cs" />
     <Compile Include="HMACHashServiceTests.cs" />
@@ -74,6 +80,10 @@
     <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.Test.Core\Synologen.Test.Core.csproj">
+      <Project>{0E1C212C-6E52-4FBA-97AD-3BFD4A35E153}</Project>
+      <Name>Synologen.Test.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Autogiro\Autogiro.csproj">
       <Project>{7C407C94-D0DC-460E-957E-3FC9E0AFAC1F}</Project>

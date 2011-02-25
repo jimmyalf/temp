@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace Spinit.Wpc.Synologen.Core.Domain.Services
 {
 	public interface IBGConfigurationSettingsService
@@ -6,5 +8,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		string GetPaymentRevieverCustomerNumber();
 		string GetSentFilesFolderPath();
 		string GetFtpUploadFolderUrl();
+		NetworkCredential GetFtpCredential();
 	}
 }

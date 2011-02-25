@@ -1,4 +1,5 @@
 using System.Configuration;
+using System.Net;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
@@ -20,6 +21,13 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 		public string GetFtpUploadFolderUrl()
 		{
 			return ConfigurationManager.AppSettings["FtpUploadFolderUrl"];
+		}
+
+		public NetworkCredential GetFtpCredential() 
+		{ 
+			var userName = ConfigurationManager.AppSettings["FtpUserName"];
+			var password = ConfigurationManager.AppSettings["FtpPassword"];
+			return new NetworkCredential(userName, password);
 		}
 	}
 }

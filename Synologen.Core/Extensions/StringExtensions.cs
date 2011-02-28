@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Spinit.Wpc.Synologen.Core.Extensions
 {
@@ -78,6 +79,18 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 				.Where(x => 0 == x % 2)
 				.Select(x => Convert.ToByte(hexString.Substring(x, 2), 16))
 				.ToArray();
+		}
+
+		public static string RegexReplace(this string input, string pattern, string replacement)
+		{
+			if(input == null) return null;
+			if(input == string.Empty) return string.Empty;
+			return Regex.Replace(input, pattern, replacement);
+		}
+
+		public static string RegexRemove(this string input, string pattern)
+		{
+			return input.RegexReplace(pattern, String.Empty);
 		}
 	}
 }

@@ -204,6 +204,7 @@
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Model\BGServer\BGTaskSequenceOrder.cs" />
     <Compile Include="Domain\Services\EventLogLogger.cs" />
+    <Compile Include="Domain\Services\FtpCommandService.cs" />
     <Compile Include="Domain\Services\IBGConfigurationSettingsService.cs" />
     <Compile Include="Domain\Services\IFileIOService.cs" />
     <Compile Include="Domain\Services\IFileWriterService.cs" />

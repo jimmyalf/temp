@@ -11,6 +11,7 @@ using Synologen.LensSubscription.Autogiro.Readers;
 using Synologen.LensSubscription.Autogiro.Writers;
 using Synologen.LensSubscription.BGData;
 using Synologen.LensSubscription.BGData.Repositories;
+using Synologen.LensSubscription.BGServiceCoordinator.App.Factories;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Logging;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Services;
 using Send_Consent=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.Consent;
@@ -55,16 +56,23 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 			//Recieve Repositories
 			For<IBGReceivedPaymentRepository>().Use<BGReceivedPaymentRepository>();
 			For<IBGReceivedConsentRepository>().Use<BGReceivedConsentRepository>();
+			For<IBGReceivedErrorRepository>().Use<BGReceivedErrorRepository>();
 			For<IReceivedFileRepository>().Use<ReceivedFileRepository>();
 
-			//Autogiro reader/writers
+			//Autogiro reader/writers/services
 			For<IAutogiroFileWriter<Send_PaymentsFile, Send_Payment>>().Use<PaymentsFileWriter>();
 			For<IAutogiroFileWriter<Send_ConsentsFile, Send_Consent>>().Use<ConsentsFileWriter>();
 			For<IAutogiroFileReader<Read_ConsentsFile, Read_Consent>>().Use<ConsentsFileReader>();
 			For<IAutogiroFileReader<Read_ErrorsFile, Read_Error>>().Use<ErrorFileReader>();
 			For<IAutogiroFileReader<Read_PaymentsFile, Read_Payment>>().Use<PaymentsFileReader>();
-			
+			For<IFileWriterService>().Use<BGSentFileWriterService>();
+			For<ITamperProtectedFileWriter>().Use(x => TamperProtectedFileWriterFactory.Get(x.GetInstance<IHashService>()));
+			For<IHashService>().Use(x => HashServiceFactory.Get(x.GetInstance<IBGConfigurationSettingsService>()));
+			For<IFtpService>().Use<BGFtpService>().Ctor<BGFtpServiceType>().Is(BGFtpServiceType.Autogiro_Test);
+			For<IFtpIOService>().Use<BGFtpIOService>();
+			For<IFileIOService>().Use<BGFileIOService>();
 
+			//Settings
 			For<IBGConfigurationSettingsService>().Use<BGConfigurationSettingsService>();
 
 			// Register criteria converters

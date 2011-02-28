@@ -9,5 +9,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		string GetSentFilesFolderPath();
 		string GetFtpUploadFolderUrl();
 		NetworkCredential GetFtpCredential();
+		string GetHMACHashKey();
 	}
 }

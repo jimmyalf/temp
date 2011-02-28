@@ -29,5 +29,10 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 			var password = ConfigurationManager.AppSettings["FtpPassword"];
 			return new NetworkCredential(userName, password);
 		}
+
+		public string GetHMACHashKey()
+		{
+			return ConfigurationManager.AppSettings["HMACHashKey"];
+		}
 	}
 }

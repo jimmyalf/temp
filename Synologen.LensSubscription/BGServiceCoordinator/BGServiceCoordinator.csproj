@@ -76,7 +76,6 @@
     <Compile Include="App\Services\BGFtpService.cs" />
     <Compile Include="App\Services\BGFtpServiceType.cs" />
     <Compile Include="App\Services\BGSentFileWriterService.cs" />
-    <Compile Include="App\Services\CustomFtpService.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

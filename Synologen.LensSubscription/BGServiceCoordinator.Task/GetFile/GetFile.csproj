@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7C407C94-D0DC-460E-957E-3FC9E0AFAC1F}</ProjectGuid>
+    <ProjectGuid>{56639B4D-5593-4A4F-9918-CBEB29BD93A2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen.LensSubscription.Autogiro</RootNamespace>
-    <AssemblyName>Synologen.LensSubscription.Autogiro</AssemblyName>
+    <RootNamespace>Synologen.LensSubscription.BGServiceCoordinator.Task.GetFile</RootNamespace>
+    <AssemblyName>Synologen.LensSubscription.BGServiceCoordinator.Task.GetFile</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,7 +33,11 @@
   <ItemGroup>
     <Reference Include="Spinit, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependancies\Spinit\Spinit.dll</HintPath>
+      <HintPath>..\..\..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -49,37 +53,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutogiroFileWriter.cs" />
-    <Compile Include="Readers\BaseReader.cs" />
-    <Compile Include="AutogiroFileReader.cs" />
-    <Compile Include="Readers\ErrorFileContentReader.cs" />
-    <Compile Include="Readers\ErrorFileReader.cs" />
-    <Compile Include="Readers\ErrorItemReader.cs" />
-    <Compile Include="Readers\ReceivedFileSplitter.cs" />
-    <Compile Include="Security\HMACHashService.cs" />
-    <Compile Include="Writers\BaseWriter.cs" />
-    <Compile Include="Writers\ConsentHeaderWriter.cs" />
-    <Compile Include="Readers\ConsentItemReader.cs" />
-    <Compile Include="Writers\ConsentItemWriter.cs" />
-    <Compile Include="Readers\ConsentsFileContentReader.cs" />
-    <Compile Include="Readers\ConsentsFileReader.cs" />
-    <Compile Include="Writers\ConsentsFileWriter.cs" />
-    <Compile Include="Helpers\AutogiroFileContentsExtensions.cs" />
-    <Compile Include="Readers\PaymentsFileContentReader.cs" />
-    <Compile Include="Readers\PaymentsFileReader.cs" />
-    <Compile Include="Helpers\ReadLineInfoExtensions.cs" />
-    <Compile Include="Writers\PaymentHeaderWriter.cs" />
-    <Compile Include="Readers\PaymentItemReader.cs" />
-    <Compile Include="Writers\PaymentItemWriter.cs" />
-    <Compile Include="Writers\PaymentsFileWriter.cs" />
+    <Compile Include="Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helpers\ReadLineInfo.cs" />
-    <Compile Include="Writers\TamperProtectedFileWriter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
+    <ProjectReference Include="..\..\..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Autogiro\Autogiro.csproj">
+      <Project>{7C407C94-D0DC-460E-957E-3FC9E0AFAC1F}</Project>
+      <Name>Autogiro</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

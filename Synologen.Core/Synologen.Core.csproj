@@ -76,6 +76,7 @@
     <Compile Include="Domain\Exceptions\SynologenDeleteItemHasConnectionsException.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\AutogiroFileReader.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\AutogiroFileWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\FileSection.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IFileReader.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\EqualBase.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\FileBase.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IHeaderWriter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IItemReader.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IItemWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\ITamperProtectedFileReader.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\ITamperProtectedFileWriter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IWriter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\Payer.cs" />
@@ -207,6 +209,7 @@
     <Compile Include="Domain\Services\FtpCommandService.cs" />
     <Compile Include="Domain\Services\IBGConfigurationSettingsService.cs" />
     <Compile Include="Domain\Services\IFileIOService.cs" />
+    <Compile Include="Domain\Services\IFileReaderService.cs" />
     <Compile Include="Domain\Services\IFileWriterService.cs" />
     <Compile Include="Domain\Services\IFtpService.cs" />
     <Compile Include="Domain\Services\IHashService.cs" />

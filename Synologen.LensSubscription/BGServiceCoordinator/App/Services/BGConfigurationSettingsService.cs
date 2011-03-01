@@ -34,5 +34,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 		{
 			return ConfigurationManager.AppSettings["HMACHashKey"];
 		}
+        public string GetReceivedFilesFolderPath()
+        {
+            return ConfigurationManager.AppSettings["ReceivedFilesFolderPath"];
+        }
 	}
 }

@@ -41,6 +41,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Data, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
@@ -77,6 +81,7 @@
     <Compile Include="App\Services\BGFtpIOService.cs" />
     <Compile Include="App\Services\BGFtpService.cs" />
     <Compile Include="App\Services\BGFtpServiceType.cs" />
+    <Compile Include="App\Services\BGReceivedFileReaderService.cs" />
     <Compile Include="App\Services\BGSentFileWriterService.cs" />
     <Compile Include="App\Services\BGFileIOService.cs" />
     <Compile Include="Bootstrapper.cs" />

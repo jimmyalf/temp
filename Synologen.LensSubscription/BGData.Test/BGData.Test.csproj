@@ -123,7 +123,7 @@
     </ProjectReference>
     <ProjectReference Include="..\ServiceCoordinator.Task\Tasks.Test\Tasks.Test.csproj">
       <Project>{AF53A197-30BB-47A8-B8CC-85E9E3F96AE1}</Project>
-      <Name>Tasks.Test %28Lenssubscription\ServiceCoordinatorTask\Tasks.Test%29</Name>
+      <Name>Tasks.Test %28LensSubscription\ServiceCoordinator.Tasks\Tasks.Test%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

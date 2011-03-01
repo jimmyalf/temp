@@ -23,6 +23,5 @@ namespace Synologen.LensSubscription.Autogiro.Readers
             // end Loop
             return fileSections;
         }
-
     }
 }

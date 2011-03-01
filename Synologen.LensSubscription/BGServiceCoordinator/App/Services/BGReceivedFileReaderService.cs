@@ -28,7 +28,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
         public string ReadFileFromDisk()
         {
             if (_fileIoService.GetNumberOfReceivedFiles(_downloadFolderPath) == 0)
-                return string.Empty;
+                return null;
 
             IEnumerable<string> fileNames = _fileIoService.GetReceivedFileNames(_downloadFolderPath);
             var recievedFileDates = new List<ReceivedFileNameDate>();
@@ -43,9 +43,10 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
             });
 
             if (recievedFileDates.Count == 0)
-                return string.Empty;
+                return null;
                 
-            return recievedFileDates.OrderBy(x => x.CreatedByBgcDate).First().FileName;
+            string earliestFile = recievedFileDates.OrderBy(x => x.CreatedByBgcDate).First().FileName;
+            return _fileIoService.ReadFile(earliestFile);
         }
 
         private static bool FileNameOk(string name, string customerNumber, string productCode)

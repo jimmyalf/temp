@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Spinit.Extensions;
@@ -45,10 +44,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_sends_payments_to_webservice()
 		{
-			MockedWebServiceClient.Verify(
-				x => x.SendPayment(It.IsAny<PaymentToSend>()),
-				Times.Exactly(expectedSubscriptions.Count())
-				);
+			expectedSubscriptions.Each(subscription => MockedWebServiceClient.Verify(x => x.SendPayment(
+					It.Is<PaymentToSend>(payment => payment.PayerNumber.Equals(subscription.BankGiroPayerNumber.Value))
+			)));
 		}
 
 		[Test]
@@ -57,7 +55,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 			expectedSubscriptions.Each(subscription =>
                MockedWebServiceClient.Verify(x => x.SendPayment(It.Is<PaymentToSend>(sentPayment =>
                  sentPayment.Amount.Equals(subscription.PaymentInfo.MonthlyAmount) &&
-                 sentPayment.PayerNumber.Equals(subscription.Id) &&
+                 sentPayment.PayerNumber.Equals(subscription.BankGiroPayerNumber) &&
                  sentPayment.Reference.Equals(subscription.Customer.PersonalIdNumber) &&
                  sentPayment.Type.Equals(PaymentType.Debit)
         	))));

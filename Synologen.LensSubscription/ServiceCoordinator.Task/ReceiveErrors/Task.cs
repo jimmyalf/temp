@@ -25,20 +25,20 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 			{
 				var subscriptionErrorRepository = repositoryResolver.GetRepository<ISubscriptionErrorRepository>();
 				var subscriptionRepository = repositoryResolver.GetRepository<ISubscriptionRepository>();
-				var errors = _bgWebService.GetErrors() ?? Enumerable.Empty<RecievedError>();
+				var errors = _bgWebService.GetErrors(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<RecievedError>();
 				LogDebug("Fetched {0} errors from BG Webservice", errors.Count());
 				errors.Each(error =>
 				{
-					var subscriptionError = ConvertError(error, subscriptionRepository);
+					var subscription = subscriptionRepository.GetByBankgiroPayerId(error.PayerNumber);
+					var subscriptionError = ConvertError(error, subscription);
 					subscriptionErrorRepository.Save(subscriptionError);
-					_bgWebService.SetErrorHandled(error.ErrorId);
+					_bgWebService.SetErrorHandled(error);
 					LogDebug("Saved subscription error \"{0}\" for subscription \"{1}\"", subscriptionError.Id, subscriptionError.Subscription.Id);
 				});
 			});
 		}
-		protected virtual SubscriptionError ConvertError(RecievedError error, ISubscriptionRepository subscriptionRepository)
+		protected virtual SubscriptionError ConvertError(RecievedError error, Subscription subscription)
 		{
-			var subscription = subscriptionRepository.Get(error.PayerNumber);
 			return new SubscriptionError
 			{
 				CreatedDate = DateTime.Now,

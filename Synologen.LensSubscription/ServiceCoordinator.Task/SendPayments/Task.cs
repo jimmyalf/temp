@@ -51,7 +51,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 				Amount = subscription.PaymentInfo.MonthlyAmount,
 				Reference = subscription.Customer.PersonalIdNumber,
 				Type = PaymentType.Debit,
-				PayerNumber = subscription.Id
+				PayerNumber = subscription.BankGiroPayerNumber.Value
 			};
 			return payment;
 		}

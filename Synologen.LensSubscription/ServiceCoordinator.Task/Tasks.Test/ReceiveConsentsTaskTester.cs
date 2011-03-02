@@ -25,10 +25,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedConsents = ConsentFactory.GetList(subscriptionId);
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(expectedConsents.ToArray);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(It.IsAny<int>()))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(It.IsAny<AutogiroServiceType>())).Returns(expectedConsents.ToArray());
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -58,7 +56,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		{
 			expectedConsents.Each(recievedConsent =>
               MockedSubscriptionRepository.Verify(x =>
-				x.Get(It.Is<int>(id => id.Equals(recievedConsent.PayerNumber))
+				x.GetByBankgiroPayerId(It.Is<int>(id => id.Equals(recievedConsent.PayerNumber))
 			)));
 		}
 
@@ -67,7 +65,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		{
 			expectedConsents.Each(consent => 
 				MockedWebServiceClient.Verify(x => x.SetConsentHandled(
-						It.Is<int>(id => id.Equals(consent.ConsentId))
+						It.Is<ReceivedConsent>(consentItem => consentItem.ConsentId.Equals(consent.ConsentId))
 			)));
 		}
 
@@ -94,10 +92,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new [] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -126,10 +122,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -158,7 +152,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	{
 		private ReceivedConsent receivedConsent;
 		private Subscription expectedSubscription;
-		private int subscriptionId = 1;
+		private const int subscriptionId = 1;
 
 		public When_receiving_ConsentTurnedDownByPayer()
 		{
@@ -168,10 +162,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -210,10 +202,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -252,10 +242,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -294,10 +282,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -336,10 +322,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -377,10 +361,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -418,10 +400,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -459,10 +439,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -501,10 +479,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -543,10 +519,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -585,10 +559,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -627,10 +599,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -669,10 +639,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -711,10 +679,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -753,10 +719,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 				var consents = new[] { receivedConsent };
 
-				MockedWebServiceClient.Setup(x => x.GetConsents()).Returns(consents);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(subscriptionId))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetConsents(AutogiroServiceType.LensSubscription)).Returns(consents);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}

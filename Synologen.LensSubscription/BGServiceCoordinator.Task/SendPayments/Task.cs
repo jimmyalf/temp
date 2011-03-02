@@ -16,38 +16,35 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendPayments
 {
 	public class Task : TaskBase
 	{
-		private readonly IBGPaymentToSendRepository _bgPaymentToSendRepository;
 		private readonly IBGConfigurationSettingsService _bgConfigurationSettingsService;
 		private readonly IAutogiroFileWriter<PaymentsFile, Payment> _paymentFileWriter;
-		private readonly IFileSectionToSendRepository _fileSectionToSendRepository;
 
 		public Task(
 			ILoggingService loggingService, 
-			IBGPaymentToSendRepository bgPaymentToSendRepository,
 			IBGConfigurationSettingsService bgConfigurationSettingsService,
 			IAutogiroFileWriter<PaymentsFile,Payment> paymentFileWriter,
-			IFileSectionToSendRepository fileSectionToSendRepository) 
-			: base("SendPayments", loggingService, BGTaskSequenceOrder.SendTask)
+			ITaskRepositoryResolver taskRepositoryResolver) 
+			: base("SendPayments", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.SendTask)
 		{
-			_bgPaymentToSendRepository = bgPaymentToSendRepository;
 			_bgConfigurationSettingsService = bgConfigurationSettingsService;
 			_paymentFileWriter = paymentFileWriter;
-			_fileSectionToSendRepository = fileSectionToSendRepository;
 		}
 
 		public override void Execute()
 		{
-			RunLoggedTask(() =>
+			RunLoggedTask(repositoryResolver =>
 			{
-				var payments = _bgPaymentToSendRepository.FindBy(new AllNewPaymentsToSendCriteria());
+				var bgPaymentToSendRepository = repositoryResolver.GetRepository<IBGPaymentToSendRepository>();
+				var fileSectionToSendRepository = repositoryResolver.GetRepository<IFileSectionToSendRepository>();
+				var payments = bgPaymentToSendRepository.FindBy(new AllNewPaymentsToSendCriteria());
 				var paymentFile = ToPaymentFile(payments);
 				var fileData = _paymentFileWriter.Write(paymentFile);
 				var section = ToFileSectionToSend(fileData);
-				_fileSectionToSendRepository.Save(section);
+				fileSectionToSendRepository.Save(section);
 				payments.Each(payment =>
 				{
 					payment.SendDate = DateTime.Now;
-					_bgPaymentToSendRepository.Save(payment);
+					bgPaymentToSendRepository.Save(payment);
 				});
 			});
 		}

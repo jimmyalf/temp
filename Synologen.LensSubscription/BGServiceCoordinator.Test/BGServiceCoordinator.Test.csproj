@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\FtpServiceFactory.cs" />
-    <Compile Include="TestCustomFtpService.cs" />
+    <Compile Include="TestFtpCommandService.cs" />
     <Compile Include="TestHelpers\BGFtpServiceTestBase.cs" />
     <Compile Include="TestHelpers\BGSentFileWriterServiceTestBase.cs" />
     <Compile Include="BGFileWriterServiceTests.cs" />

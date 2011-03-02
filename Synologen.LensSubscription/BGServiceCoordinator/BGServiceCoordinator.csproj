@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="App\Factories\HashServiceFactory.cs" />
     <Compile Include="App\Factories\TamperProtectedFileWriterFactory.cs" />
+    <Compile Include="App\IoC\ExecutingTaskLifecycle.cs" />
     <Compile Include="App\IoC\TaskRunnerRegistry.cs" />
     <Compile Include="App\Logging\Log4NetLogger.cs" />
     <Compile Include="App\Logging\LogFactory.cs" />
@@ -84,6 +85,8 @@
     <Compile Include="App\Services\BGReceivedFileReaderService.cs" />
     <Compile Include="App\Services\BGSentFileWriterService.cs" />
     <Compile Include="App\Services\BGFileIOService.cs" />
+    <Compile Include="App\Services\BGTaskRunnerService.cs" />
+    <Compile Include="App\TaskHelpers\TaskRepositoryResolver.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -91,6 +91,7 @@
     <Compile Include="BGReceivedErrorRepositoryTester.cs" />
     <Compile Include="BGReceivedPaymentRepositoryTester.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="SetupDataForManualTests.cs" />
     <Compile Include="CommonDataTestHelpers\DataHelper.cs" />
     <Compile Include="CommonDataTestHelpers\NHibernateRepositoryTester.cs" />
     <Compile Include="Factories\FileSectionToSendFactory.cs" />

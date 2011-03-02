@@ -6,31 +6,33 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 	public abstract class TaskBase : ITask
 	{
 		private readonly ILoggingService _loggingService;
+		private readonly ITaskRepositoryResolver _taskRepositoryResolver;
 		private const string DefaultTaskName = "Untitled task";
 
-		protected TaskBase(string taskName,  ILoggingService loggingService)
+		protected TaskBase(string taskName,  ILoggingService loggingService, ITaskRepositoryResolver taskRepositoryResolver)
 		{
 			_loggingService = loggingService;
+			_taskRepositoryResolver = taskRepositoryResolver;
 			TaskName = taskName ?? DefaultTaskName;
 		}
 
-		protected TaskBase(string taskName,  ILoggingService loggingService, Enum taskOrder) 
-			: this(taskName, loggingService)
+		protected TaskBase(string taskName,  ILoggingService loggingService, ITaskRepositoryResolver taskRepositoryResolver, Enum taskOrder) 
+			: this(taskName, loggingService, taskRepositoryResolver)
 		{
 			TaskOrder = taskOrder.ToInteger();
 		}
 
-		public virtual void RunLoggedTask(Action action)
+		public virtual void RunLoggedTask(Action<ITaskRepositoryResolver> action)
 		{
 			try
 			{
-				LogInfo("Started Task Execution");
-				action.Invoke();
-				LogInfo("Finished Task Execution");
+				LogInfo("Started Task Execution", TaskName);
+				action.Invoke(_taskRepositoryResolver);
+				LogInfo("Finished Task Execution", TaskName);
 			}
 			catch(Exception ex)
 			{
-				_loggingService.LogError(String.Format("{0}: Caught exception while executing task", TaskName),ex);
+				LogError(String.Format("{0}: Caught exception while executing task", TaskName),ex);
 			}
 		}
 
@@ -43,6 +45,11 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 		public virtual void LogDebug(string format, params object[] parameters)
 		{
 			_loggingService.LogDebug("{0}: {1}", TaskName, String.Format(format, parameters));
+		}
+
+		public virtual void LogError(string message, Exception ex)
+		{
+			_loggingService.LogError("{0}: {1}", TaskName, message, ex);
 		}
 
 		public virtual void LogInfo(string message)

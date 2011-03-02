@@ -9,7 +9,7 @@ namespace Synologen.LensSubscription.BGData.Mappings
 		{
 			Table("ReceivedFileSections");
 			Id(x => x.Id);
-			Map(x => x.SectionData).Not.Nullable();
+			Map(x => x.SectionData).Not.Nullable().Length(4000);
 			Map(x => x.Type)
 				.CustomType(typeof(SectionType))
                 .Not.Nullable();

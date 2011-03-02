@@ -6,10 +6,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 	{
 		protected override ITask GetTask()
 		{
-			return new SendPayments.Task(
-				MockedWebServiceClient.Object,
-				MockedSubscriptionRepository.Object,
-				LoggingService);
+			return new SendPayments.Task(LoggingService, MockedWebServiceClient.Object, TaskRepositoryResolver);
 		}
 	}
 }

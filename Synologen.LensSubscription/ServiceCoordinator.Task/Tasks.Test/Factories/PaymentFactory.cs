@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -8,7 +9,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 	{
 		public static IEnumerable<ReceivedPayment> GetList(int subscriptionId)
 		{
-			return TestHelper.GenerateSequence(x => Get(x, subscriptionId), 16);
+			Func<int, ReceivedPayment> generateItem = (id) => Get(id, subscriptionId);
+			return generateItem.GenerateRange(1, 16);
 		}
 
 		private static ReceivedPayment Get(int id, int subscriptionId)

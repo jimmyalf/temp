@@ -11,6 +11,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		private readonly ILoggingService _loggingService;
 		private readonly IEnumerable<ITask> _tasks;
 
+
 		public TaskRunnerService(ILoggingService loggingService, IEnumerable<ITask> tasks)
 		{
 			_loggingService = loggingService;
@@ -23,9 +24,9 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		{
 			try
 			{
-				_loggingService.LogInfo("Taskrunner started execution");
+				_loggingService.LogInfo(">>> Taskrunner started execution");
 				RunTasks(_loggingService);
-				_loggingService.LogInfo("Taskrunner finished execution");
+				_loggingService.LogInfo(">>> Taskrunner finished execution");
 			}
 			catch(Exception ex)
 			{
@@ -33,18 +34,39 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 			}	
 		}
 
+		protected virtual void OnExecutingTask(ITask task) { }
+		protected virtual void OnExecutedTask(ITask task) { }
+
 		protected virtual void RunTasks(ILoggingService loggingService)
 		{
-			_tasks.Each(task => ExecuteLoggedTask(task, loggingService));
+			_tasks.Each(task =>
+			{
+				ExecutingTaskContext.Current = new ExecutingTaskContext(task);
+				OnExecutingTask(task);
+				try
+				{
+					ExecuteLoggedTask(task, loggingService);
+				}
+				catch(Exception)
+				{
+					OnExecutedTask(task);
+					throw;
+				}
+				finally
+				{
+					OnExecutedTask(task);
+					ExecutingTaskContext.Current = null;
+				}
+			});
 		}
 
 		protected virtual void ExecuteLoggedTask(ITask task, ILoggingService loggingService)
 		{
 			try
 			{
-				loggingService.LogInfo("Taskrunner: Executing {0} task", task.TaskName);
+				loggingService.LogInfo("*** Taskrunner: Executing {0} task", task.TaskName);
 				task.Execute();
-				loggingService.LogInfo("Taskrunner: Finished executing {0} task", task.TaskName);
+				loggingService.LogInfo("*** Taskrunner: Finished executing {0} task", task.TaskName);
 			}
 			catch(Exception ex)
 			{

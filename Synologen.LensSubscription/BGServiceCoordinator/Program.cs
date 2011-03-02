@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using StructureMap;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Logging;
+using Synologen.LensSubscription.BGServiceCoordinator.App.Services;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator
 {
@@ -25,7 +25,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator
 				loggingService.LogInfo(GetTaskScanLogMessage(tasks));
 				if(IsInProductionEnvironment(args))
 				{
-					var taskrunner = new TaskRunnerService(loggingService, tasks);
+					var taskrunner = new BGTaskRunnerService(loggingService, tasks);
 					taskrunner.Run();
 				}
 				else

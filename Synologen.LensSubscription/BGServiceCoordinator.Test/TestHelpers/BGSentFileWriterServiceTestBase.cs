@@ -1,3 +1,4 @@
+using System;
 using FakeItEasy;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Services;
@@ -9,6 +10,7 @@ namespace Synologen.LensSubscription.BGService.Test.TestHelpers
 	{
 		protected IFileIOService FileIOService;
 		protected IBGConfigurationSettingsService BGConfigurationSettingsService;
+		protected DateTime WriteDate;
 
 		protected BGSentFileWriterServiceTestBase()
 		{
@@ -18,7 +20,7 @@ namespace Synologen.LensSubscription.BGService.Test.TestHelpers
 		
 		protected override BGSentFileWriterService GetTestModel()
 		{
-			return new BGSentFileWriterService(FileIOService, BGConfigurationSettingsService);
+			return new BGSentFileWriterService(FileIOService, BGConfigurationSettingsService, WriteDate);
 		}
 	}
 }

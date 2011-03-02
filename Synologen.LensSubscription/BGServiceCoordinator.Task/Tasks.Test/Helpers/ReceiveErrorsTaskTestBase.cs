@@ -10,20 +10,25 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 	{
 		protected IBGReceivedErrorRepository BGReceivedErrorRepository;
         protected IAutogiroFileReader<ErrorsFile, Error> ErrorFileReader;
+		
 
-		protected ReceiveErrorsTaskTestBase()
+		protected override void SetUp()
 		{
+			base.SetUp();
 			BGReceivedErrorRepository = A.Fake<IBGReceivedErrorRepository>();
 		    ErrorFileReader = A.Fake<IAutogiroFileReader<ErrorsFile, Error>>();
+			A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGReceivedErrorRepository>()).Returns(BGReceivedErrorRepository);
 		}
 
 		protected override ITask GetTask()
 		{
 			return new ReceiveErrors.Task(
                                         Log4NetLogger,
-                                        ReceivedFileRepository,
-                                        BGReceivedErrorRepository,
-                                        ErrorFileReader);
+                                        //ReceivedFileRepository,
+                                        //BGReceivedErrorRepository,
+                                        ErrorFileReader,
+										TaskRepositoryResolver
+										);
 		}
 	}
 }

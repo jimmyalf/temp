@@ -14,16 +14,9 @@ using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Factories;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Logging;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Services;
-using Send_Consent=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.Consent;
-using Send_Payment=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.Payment;
-using Send_ConsentsFile=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.ConsentsFile;
-using Send_PaymentsFile=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.PaymentsFile;
-using Read_Payment=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.Payment;
-using Read_Error=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.Error;
-using Read_PaymentsFile=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.PaymentsFile;
-using Read_Consent=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.Consent;
-using Read_ConsentsFile=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.ConsentsFile;
-using Read_ErrorsFile=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.ErrorsFile;
+using Synologen.LensSubscription.BGServiceCoordinator.App.TaskHelpers;
+using Send=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
+using Read=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
@@ -33,7 +26,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 		public TaskRunnerRegistry()
 		{
 			// NHibernate
-			For<IUnitOfWork>().HybridHttpOrThreadLocalScoped().Use<NHibernateUnitOfWork>();
+			For<IUnitOfWork>().LifecycleIs(new ExecutingTaskLifecycle()).Use<NHibernateUnitOfWork>();
 			For<ISessionFactory>().Singleton().Use(NHibernateFactory.Instance.GetSessionFactory);
 			For<ISession>().Use(x => ((NHibernateUnitOfWork)x.GetInstance<IUnitOfWork>()).Session);
 
@@ -46,6 +39,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 				x.AssembliesFromApplicationBaseDirectory(IsServiceCoordinatorTaskAssembly);
 				x.AddAllTypesOf<ITask>();
 			});
+
+			For<ITaskRepositoryResolver>().Use<TaskRepositoryResolver>();
 
 
 			//Send Repositories
@@ -60,11 +55,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 			For<IReceivedFileRepository>().Use<ReceivedFileRepository>();
 
 			//Autogiro reader/writers/services
-			For<IAutogiroFileWriter<Send_PaymentsFile, Send_Payment>>().Use<PaymentsFileWriter>();
-			For<IAutogiroFileWriter<Send_ConsentsFile, Send_Consent>>().Use<ConsentsFileWriter>();
-			For<IAutogiroFileReader<Read_ConsentsFile, Read_Consent>>().Use<ConsentsFileReader>();
-			For<IAutogiroFileReader<Read_ErrorsFile, Read_Error>>().Use<ErrorFileReader>();
-			For<IAutogiroFileReader<Read_PaymentsFile, Read_Payment>>().Use<PaymentsFileReader>();
+			For<IAutogiroFileWriter<Send.PaymentsFile, Send.Payment>>().Use<PaymentsFileWriter>();
+			For<IAutogiroFileWriter<Send.ConsentsFile, Send.Consent>>().Use<ConsentsFileWriter>();
+			For<IAutogiroFileReader<Read.ConsentsFile, Read.Consent>>().Use<ConsentsFileReader>();
+			For<IAutogiroFileReader<Read.ErrorsFile, Read.Error>>().Use<ErrorFileReader>();
+			For<IAutogiroFileReader<Read.PaymentsFile, Read.Payment>>().Use<PaymentsFileReader>();
 			For<IFileWriterService>().Use<BGSentFileWriterService>();
 			For<ITamperProtectedFileWriter>().Use(x => TamperProtectedFileWriterFactory.Get(x.GetInstance<IHashService>()));
 			For<IHashService>().Use(x => HashServiceFactory.Get(x.GetInstance<IBGConfigurationSettingsService>()));

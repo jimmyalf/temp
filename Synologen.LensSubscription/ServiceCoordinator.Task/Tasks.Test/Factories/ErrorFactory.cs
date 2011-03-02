@@ -9,7 +9,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 	{
 		public static IEnumerable<RecievedError> GetList()
 		{
-			return TestHelper.GenerateSequence<RecievedError>(Get, 15);
+			Func<int, RecievedError> generateItem = Get;
+			return generateItem.GenerateRange(1,15);
 		}
 
 		public static RecievedError Get(int id)

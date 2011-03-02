@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
@@ -13,14 +12,12 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 {
 	public class Task : TaskBase
 	{
-		private readonly IFileSectionToSendRepository _fileSectionToSendRepository;
 		private readonly ITamperProtectedFileWriter _tamperProtectedFileWriter;
 		private readonly IFtpService _ftpService;
 		private readonly IFileWriterService _fileWriterService;
 
-		public Task(ILoggingService loggingService, IFileSectionToSendRepository fileSectionToSendRepository, ITamperProtectedFileWriter tamperProtectedFileWriter, IFtpService ftpService, IFileWriterService fileWriterService) : base("SendFile", loggingService, BGTaskSequenceOrder.SendFiles)
+		public Task(ILoggingService loggingService, ITamperProtectedFileWriter tamperProtectedFileWriter, IFtpService ftpService, IFileWriterService fileWriterService, ITaskRepositoryResolver taskRepositoryResolver) : base("SendFile", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.SendFiles)
 		{
-			_fileSectionToSendRepository = fileSectionToSendRepository;
 			_tamperProtectedFileWriter = tamperProtectedFileWriter;
 			_ftpService = ftpService;
 			_fileWriterService = fileWriterService;
@@ -28,19 +25,29 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 
 		public override void Execute()
 		{
-			RunLoggedTask(() =>
+			RunLoggedTask(repositoryResolver =>
 			{
-				var fileSectionsToSend = _fileSectionToSendRepository.FindBy(new AllUnhandledFileSectionsToSendCriteria());
+				var fileSectionToSendRepository = repositoryResolver.GetRepository<IFileSectionToSendRepository>();
+				var fileSectionsToSend = fileSectionToSendRepository.FindBy(new AllUnhandledFileSectionsToSendCriteria());
 				if(fileSectionsToSend == null || fileSectionsToSend.Count() == 0)
 				{
 					LogInfo("Found no new file sections to send.");
 					return;
 				}
+				LogDebug("Found {0} new file sections to send",fileSectionsToSend.Count());
 				var fileData = ConcatenateFileSections(fileSectionsToSend);
 				var sealedFileData  = _tamperProtectedFileWriter.Write(fileData);
 				var ftpSendResult = _ftpService.SendFile(sealedFileData);
-				UpdateFileSectionsAsSent(fileSectionsToSend, _fileSectionToSendRepository);
-				_fileWriterService.WriteFileToDisk(sealedFileData, ftpSendResult.FileName);
+				LogInfo("Sent file to remote FTP successfully");
+				UpdateFileSectionsAsSent(fileSectionsToSend, fileSectionToSendRepository);
+				try
+				{
+					_fileWriterService.WriteFileToDisk(sealedFileData, ftpSendResult.FileName);
+				}
+				catch(Exception ex)
+				{
+					LogError("Caught exception while trying to save sent file to disk (Non fatal error).", ex);
+				}
 			});
 		}
 
@@ -55,11 +62,20 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 
 		private static void UpdateFileSectionsAsSent(IEnumerable<FileSectionToSend> fileSections, IFileSectionToSendRepository fileSectionToSendRepository)
 		{
-			fileSections.Each(fileSection =>
+			foreach (var fileSection in fileSections)
 			{
-				fileSection.SentDate = DateTime.Now;
-				fileSectionToSendRepository.Save(fileSection);
-			});
+				try
+				{
+					fileSection.SentDate = DateTime.Now;
+					fileSectionToSendRepository.Save(fileSection);
+				}
+				catch(Exception ex)
+				{
+					var message = ex.Message;
+					throw;
+				}
+
+			}
 		}
 	}
 }

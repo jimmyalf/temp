@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
@@ -11,34 +12,33 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 	public class Task : TaskBase
 	{
 		private readonly IBGWebService _bgWebService;
-		private readonly ISubscriptionRepository _subscriptionRepository;
 
-		public Task(IBGWebService bgWebService, ISubscriptionRepository subscriptionRepository, ILoggingService loggingService)
-			: base("SendConsentsTask", loggingService)
+		public Task(IBGWebService bgWebService, ILoggingService loggingService, ITaskRepositoryResolver taskRepositoryResolver)
+			: base("SendConsentsTask", loggingService, taskRepositoryResolver)
 		{
 			_bgWebService = bgWebService;
-			_subscriptionRepository = subscriptionRepository;
 		}
 
 		public override void Execute()
 		{
-			RunLoggedTask(() =>
+			RunLoggedTask(repositoryResolver =>
 			{
-				var subscriptions = _subscriptionRepository.FindBy(new AllSubscriptionsToSendConsentsForCriteria()) ?? Enumerable.Empty<Subscription>();
+				var subscriptionRepository = repositoryResolver.GetRepository<ISubscriptionRepository>();
+				var subscriptions = subscriptionRepository.FindBy(new AllSubscriptionsToSendConsentsForCriteria()) ?? Enumerable.Empty<Subscription>();
 				LogDebug("Fetched {0} subscriptions to send consents for", subscriptions.Count());
-				foreach (var subscription in subscriptions)
-				{
-					SendConsentAndUpdateSubscriptionStatus(subscription);
-				}
+				subscriptions.Each(subscription =>
+				{					
+					var consent = ConvertSubscription(subscription);
+					_bgWebService.SendConsent(consent);
+					UpdateSubscriptionStatus(subscription, subscriptionRepository);
+				});
 			});
 		}
 
-		protected virtual void SendConsentAndUpdateSubscriptionStatus(Subscription subscription)
+		protected virtual void UpdateSubscriptionStatus(Subscription subscription, ISubscriptionRepository subscriptionRepository)
 		{
-			var consent = ConvertSubscription(subscription);
-			_bgWebService.SendConsent(consent);
 			subscription.ConsentStatus = SubscriptionConsentStatus.Sent;
-			_subscriptionRepository.Save(subscription);
+			subscriptionRepository.Save(subscription);
 			LogDebug("Consent for subscription with id \"{0}\" has been sent.", subscription.Id);
 		}
 

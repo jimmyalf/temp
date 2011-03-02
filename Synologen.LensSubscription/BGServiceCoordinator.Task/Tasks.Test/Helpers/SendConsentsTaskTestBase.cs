@@ -14,20 +14,24 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		protected IBGConsentToSendRepository BGConsentToSendRepository;
 		protected IAutogiroFileWriter<ConsentsFile, Consent> ConsentFileWriter;
 
-		protected SendConsentsTaskTestBase()
+		protected override void SetUp()
 		{
+			base.SetUp();
+
 			BGConsentToSendRepository = A.Fake<IBGConsentToSendRepository>();
 			ConsentFileWriter = A.Fake<IAutogiroFileWriter<ConsentsFile, Consent>>();
+			A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGConsentToSendRepository>()).Returns(BGConsentToSendRepository);
 		}
 
 		protected override ITask GetTask() 
 		{
 			return new SendConsents.Task(
 				Log4NetLogger, 
-				BGConsentToSendRepository, 
-				FileSectionToSendRepository,
+				//BGConsentToSendRepository, 
+				//FileSectionToSendRepository,
 				ConsentFileWriter,
-				BgConfigurationSettingsService);
+				BgConfigurationSettingsService,
+				TaskRepositoryResolver);
 		}
 
 		protected virtual bool MatchConsents(IEnumerable<Consent> parsedConsents, IList<BGConsentToSend> originalConsents, string recieverBankGiroNumber)

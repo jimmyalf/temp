@@ -87,13 +87,13 @@
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IHeaderWriter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IItemReader.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IItemWriter.cs" />
-    <Compile Include="Domain\Model\Autogiro\CommonTypes\ITamperProtectedFileReader.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\ITamperProtectedFileWriter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IWriter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\Payer.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentReciever.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentType.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\PeriodCode.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\FileConstants.cs" />
     <Compile Include="Domain\Model\Autogiro\Recieve\Consent.cs" />
     <Compile Include="Domain\Model\Autogiro\Recieve\ConsentCommentCode.cs" />
     <Compile Include="Domain\Model\Autogiro\Recieve\ConsentsFile.cs" />

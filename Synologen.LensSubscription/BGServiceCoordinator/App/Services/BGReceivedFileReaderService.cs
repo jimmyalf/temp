@@ -25,8 +25,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
             _productCode = GetProductCode(serviceType);
         }
 
-        public string ReadFileFromDisk()
+        public string[] ReadFileFromDisk(out string name)
         {
+            name = string.Empty;
             if (_fileIoService.GetNumberOfReceivedFiles(_downloadFolderPath) == 0)
                 return null;
 
@@ -45,7 +46,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
             if (recievedFileDates.Count == 0)
                 return null;
                 
-            string earliestFile = recievedFileDates.OrderBy(x => x.CreatedByBgcDate).First().FileName;
+            string earliestFile = name = recievedFileDates.OrderBy(x => x.CreatedByBgcDate).First().FileName;
             return _fileIoService.ReadFile(earliestFile);
         }
 

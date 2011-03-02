@@ -14,44 +14,32 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.GetFile
 {
     public class Task : TaskBase
     {
-        private readonly ITamperProtectedFileReader _tamperProtectedFileReader;
         private readonly IFileReaderService _fileReaderService;
         private readonly IReceivedFileRepository _receivedFileRepository;
 
         public Task(ILoggingService loggingService,
-                    ITamperProtectedFileReader tamperProtectedFileReader,
                     IFileReaderService fileReaderService,
                     IReceivedFileRepository receivedFileRepository)
             : base("GetFile", loggingService, BGTaskSequenceOrder.FetchFiles)
         {
             
-            _tamperProtectedFileReader = tamperProtectedFileReader;
             _fileReaderService = fileReaderService;
             _receivedFileRepository = receivedFileRepository;
-            
-            // Hämta en fil med IFileReaderService
-
-            // Använd ITamperProtectedFileReader för att ta bort förändringsskyddet
-
-            // Använd Autogiro-funktion som ger tillbaka en lista på sections
-
-            // Loopa igenom listan och spara till repository
         }
 
         public override void Execute()
         {
             RunLoggedTask(() =>
-            { 
-                string file = _fileReaderService.ReadFileFromDisk();
+            {
+                string fileName;
+                string[] file = _fileReaderService.ReadFileFromDisk(out fileName);
 
-                if (String.IsNullOrEmpty(file))
+                if (file == null)
                 {
-                    LogDebug("No files found");
+                    LogDebug("No received bgc files found");
                     return;
                 }
-
-                _tamperProtectedFileReader.Read(file); // Kastar exception om inte skyddet är ok?
-
+                LogDebug("Starts read found file {0}", fileName);
                 IEnumerable<FileSection> fileSections = Autogiro.Readers.ReceivedFileSplitter.GetSections(file);
 
                 LogDebug("Found {0} sections in file", fileSections.Count());

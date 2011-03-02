@@ -7,6 +7,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 {
     public interface IFileReaderService
     {
-        string ReadFileFromDisk();
+        string[] ReadFileFromDisk(out string name);
     }
 }

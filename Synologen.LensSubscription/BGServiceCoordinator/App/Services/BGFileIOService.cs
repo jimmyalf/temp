@@ -18,9 +18,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 			return System.IO.File.Exists(filePath);
 		}
 
-	    public string ReadFile(string filePath)
+	    public string[] ReadFile(string filePath)
 	    {
-	        return System.IO.File.ReadAllText(filePath, System.Text.Encoding.GetEncoding(858));
+	        return System.IO.File.ReadAllLines(filePath, System.Text.Encoding.GetEncoding(858));
 	    }
 
 	    public int GetNumberOfReceivedFiles(string folderPath)

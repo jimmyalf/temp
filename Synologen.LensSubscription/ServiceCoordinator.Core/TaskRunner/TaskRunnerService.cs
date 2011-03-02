@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Spinit.Data;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
+using StructureMap;
+using Synologen.LensSubscription.ServiceCoordinator.Core.Context;
 
-namespace Spinit.Wpc.Synologen.Core.Domain.Services
+namespace Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner
 {
 	public class TaskRunnerService : ITaskRunnerService
 	{
@@ -35,7 +39,24 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		}
 
 		protected virtual void OnExecutingTask(ITask task) { }
-		protected virtual void OnExecutedTask(ITask task) { }
+
+		protected virtual void OnExecutedTask(ITask task)
+		{
+			var unitOfWork = ObjectFactory.GetInstance<IUnitOfWork>();
+			if(unitOfWork == null || unitOfWork.IsDisposed) return;
+			try
+			{
+				unitOfWork.Commit();
+			}
+			catch
+			{
+				unitOfWork.Rollback();
+			}
+			finally
+			{
+				unitOfWork.Dispose();
+			}
+		}
 
 		protected virtual void RunTasks(ILoggingService loggingService)
 		{

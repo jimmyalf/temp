@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using StructureMap;
 using Synologen.LensSubscription.ServiceCoordinator.App.Logging;
+using Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner;
 
 namespace Synologen.LensSubscription.ServiceCoordinator
 {

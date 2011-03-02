@@ -14,7 +14,7 @@ using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Factories;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Logging;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Services;
-using Synologen.LensSubscription.BGServiceCoordinator.App.TaskHelpers;
+using Synologen.LensSubscription.ServiceCoordinator.Core.IoC;
 using Send=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Read=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 

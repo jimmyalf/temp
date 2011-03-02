@@ -29,7 +29,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 				LogDebug("Fetched {0} subscriptions to send consents for", subscriptions.Count());
 				subscriptions.Each(subscription =>
 				{
-					if (subscription.BankGiroPayerNumber == null) GetSubscriptionPayer(subscription);
+					if (subscription.BankgiroPayerNumber == null) GetSubscriptionPayer(subscription);
 					var consent = ConvertSubscription(subscription);
 					_bgWebService.SendConsent(consent);
 					UpdateSubscriptionStatus(subscription, subscriptionRepository);
@@ -41,7 +41,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 		{
 			var customerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			var payerNumber = _bgWebService.RegisterPayer(customerName, AutogiroServiceType.LensSubscription);
-			subscription.BankGiroPayerNumber = payerNumber;
+			subscription.BankgiroPayerNumber = payerNumber;
 		}
 
 		protected virtual void UpdateSubscriptionStatus(Subscription subscription, ISubscriptionRepository subscriptionRepository)
@@ -58,7 +58,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 				BankAccountNumber = subscription.PaymentInfo.AccountNumber,
 				ClearingNumber = subscription.PaymentInfo.ClearingNumber,
 				PersonalIdNumber = subscription.Customer.PersonalIdNumber,
-				PayerNumber = subscription.BankGiroPayerNumber.Value
+				PayerNumber = subscription.BankgiroPayerNumber.Value
 			};
 		}
 	}

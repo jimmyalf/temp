@@ -13,42 +13,39 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveErrors
 {
     public class Task : TaskBase
     {
-        private readonly IBGReceivedErrorRepository _bgReceivedErrorRepository;
-        private readonly IReceivedFileRepository _receivedFileSectionRepository;
         private readonly IAutogiroFileReader<ErrorsFile, Error> _fileReader;
 
-        public Task(ILoggingService loggingService,
-                    IReceivedFileRepository receivedFileSectionRepository,
-                    IBGReceivedErrorRepository bgReceivedErrorRepository,
-                    IAutogiroFileReader<ErrorsFile, Error> fileReader)
-            : base("ReceiveErrors", loggingService, BGTaskSequenceOrder.ReadTask)
+    	public Task(ILoggingService loggingService, 
+			IAutogiroFileReader<ErrorsFile, Error> fileReader, 
+			ITaskRepositoryResolver taskRepositoryResolver)
+            : base("ReceiveErrors", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.ReadTask)
         {
-            _receivedFileSectionRepository = receivedFileSectionRepository;
-            _bgReceivedErrorRepository = bgReceivedErrorRepository;
             _fileReader = fileReader;
+        	
         }
 
         public override void Execute()
     	{
-    		base.RunLoggedTask(() =>
+    		RunLoggedTask(repositoryResolver =>
             {
-                var errorFileSections =
-                    _receivedFileSectionRepository.FindBy(new AllUnhandledReceivedErrorFileSectionsCriteria());
+				var receivedFileSectionRepository = repositoryResolver.GetRepository<IReceivedFileRepository>();
+				var bgReceivedErrorRepository = repositoryResolver.GetRepository<IBGReceivedErrorRepository>();
+                var errorFileSections = receivedFileSectionRepository.FindBy(new AllUnhandledReceivedErrorFileSectionsCriteria());
 
                 LogDebug("Fetched {0} error file sections from repository", errorFileSections.Count());
 
                 errorFileSections.Each(errorFileSection =>
                 {
-                    ErrorsFile file = _fileReader.Read(errorFileSection.SectionData);
+                    var file = _fileReader.Read(errorFileSection.SectionData);
                     var errors = file.Posts;
 
                     errors.Each(error =>
                     {
-                        BGReceivedError bgError = ToBgError(error);
-                        _bgReceivedErrorRepository.Save(bgError);
+                        var bgError = ToBgError(error);
+                        bgReceivedErrorRepository.Save(bgError);
                     });
                     errorFileSection.HandledDate = DateTime.Now;
-                    _receivedFileSectionRepository.Save(errorFileSection);
+                    receivedFileSectionRepository.Save(errorFileSection);
                     LogDebug("Saved {0} errors to repository", errors.Count());
                 });
             });

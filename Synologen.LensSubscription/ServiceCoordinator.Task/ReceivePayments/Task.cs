@@ -12,72 +12,70 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 	public class Task : TaskBase
 	{
 		private readonly IBGWebService _bgWebService;
-		private readonly ITransactionRepository _transactionsRepository;
-		private readonly ISubscriptionErrorRepository _subscriptionErrorRepository;
-		private readonly ISubscriptionRepository _subscriptionRepository;
 
-		public Task(IBGWebService bgWebService, ITransactionRepository transactionsRepository, ISubscriptionErrorRepository subscriptionErrorRepository, ISubscriptionRepository subscriptionRepository, ILoggingService loggingService)
-			: base("ReceivePaymentsTask", loggingService)
+		public Task(IBGWebService bgWebService, ILoggingService loggingService, ITaskRepositoryResolver taskRepositoryResolver)
+			: base("ReceivePaymentsTask", loggingService, taskRepositoryResolver)
 		{
 			_bgWebService = bgWebService;
-			_transactionsRepository = transactionsRepository;
-			_subscriptionErrorRepository = subscriptionErrorRepository;
-			_subscriptionRepository = subscriptionRepository;
 		}
 
 		public override void Execute()
 		{
-			RunLoggedTask(() =>
+			RunLoggedTask((repositoryResolver) =>
 			{
+				var transactionsRepository = repositoryResolver.GetRepository<ITransactionRepository>();
+				var subscriptionErrorRepository = repositoryResolver.GetRepository<ISubscriptionErrorRepository>();
+				var subscriptionRepository = repositoryResolver.GetRepository<ISubscriptionRepository>();
 				var payments = _bgWebService.GetPayments() ?? Enumerable.Empty<ReceivedPayment>();
 				LogDebug("Fetched {0} payment results from bgc server", payments.Count());
 
 				payments.Each(payment =>
 				{
-					SaveTransactionOrError(payment);
+					var subscription = subscriptionRepository.Get(payment.PayerNumber);
+					SaveTransactionOrError(payment, subscription, transactionsRepository, subscriptionRepository, subscriptionErrorRepository);
 					_bgWebService.SetPaymentHandled(payment.PaymentId);
 				});
 			});
 		}
 
-		private void SaveTransactionOrError(ReceivedPayment payment)
+		private void SaveTransactionOrError(ReceivedPayment payment, Subscription subscription, ITransactionRepository transactionRepository, ISubscriptionRepository subscriptionRepository, ISubscriptionErrorRepository subscriptionErrorRepository)
 		{
 			switch (payment.Result)
 			{
 				case PaymentResult.Approved:
 				case PaymentResult.WillTryAgain:
-					SaveTransaction(ConvertTransaction(payment));
+					SaveTransaction(ConvertTransaction(payment, subscription), transactionRepository);
 					break;
 				case PaymentResult.InsufficientFunds:
 				case PaymentResult.AGConnectionMissing:
-					SaveSubscriptionError(ConvertSubscriptionError(payment));
+					SaveSubscriptionError(ConvertSubscriptionError(payment, subscriptionRepository), subscriptionErrorRepository);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 		}
 
-		private void SaveSubscriptionError(SubscriptionError error)
+		private void SaveSubscriptionError(SubscriptionError error, ISubscriptionErrorRepository subscriptionErrorRepository)
 		{
-			_subscriptionErrorRepository.Save(error);
+			subscriptionErrorRepository.Save(error);
 			LogDebug("Payment for subscription with id \"{0}\" was rejected.", error.Subscription.Id);
 		}
 
-		private void SaveTransaction(SubscriptionTransaction transaction)
+		private void SaveTransaction(SubscriptionTransaction transaction, ITransactionRepository transactionRepository)
 		{
-			_transactionsRepository.Save(transaction);
+			transactionRepository.Save(transaction);
 			LogDebug("Payment for subscription with id \"{0}\" {1}.",
 			         transaction.Subscription.Id, 
 			         transaction.Reason == TransactionReason.Payment ? "was accepted" : "failed");
 		}
 
-		private SubscriptionError ConvertSubscriptionError(ReceivedPayment payment)
+		private static SubscriptionError ConvertSubscriptionError(ReceivedPayment payment, ISubscriptionRepository subscriptionRepository)
 		{
 			return new SubscriptionError
 			{
 				CreatedDate = DateTime.Now,
 				Type = ConvertToSubscriptionErrorType(payment.Result),
-				Subscription = _subscriptionRepository.Get(payment.PayerNumber)
+				Subscription = subscriptionRepository.Get(payment.PayerNumber)
 			};
 		}
 
@@ -113,7 +111,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 			throw new ArgumentOutOfRangeException("result");
 		}
 
-		private SubscriptionTransaction ConvertTransaction(ReceivedPayment payment)
+		private static SubscriptionTransaction ConvertTransaction(ReceivedPayment payment, Subscription subscription)
 		{
 			return new SubscriptionTransaction
 			{
@@ -121,7 +119,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 				CreatedDate = DateTime.Now,
 				Reason = ConvertToTransactionReason(payment.Result),
 				Type = TransactionType.Deposit,
-				Subscription = _subscriptionRepository.Get(payment.PayerNumber)
+				Subscription = subscription
 			};
 		}
 	}

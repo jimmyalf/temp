@@ -12,37 +12,33 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 	public class Task : TaskBase
 	{
 		private readonly IBGWebService _bgWebService;
-		private readonly ISubscriptionErrorRepository _subscriptionErrorRepository;
-		private readonly ISubscriptionRepository _subscriptionRepository;
-		
 
-		public Task(ILoggingService loggingService, IBGWebService bgWebService, ISubscriptionErrorRepository subscriptionErrorRepository, ISubscriptionRepository subscriptionRepository) 
-			: base("RecieveErrorsTask", loggingService)
+		public Task(ILoggingService loggingService, IBGWebService bgWebService, ITaskRepositoryResolver taskRepositoryResolver) 
+			: base("RecieveErrorsTask", loggingService, taskRepositoryResolver)
 		{
 			_bgWebService = bgWebService;
-			_subscriptionErrorRepository = subscriptionErrorRepository;
-			_subscriptionRepository = subscriptionRepository;
 		}
 
 		public override void Execute()
 		{
-			RunLoggedTask(() =>
+			RunLoggedTask(repositoryResolver =>
 			{
+				var subscriptionErrorRepository = repositoryResolver.GetRepository<ISubscriptionErrorRepository>();
+				var subscriptionRepository = repositoryResolver.GetRepository<ISubscriptionRepository>();
 				var errors = _bgWebService.GetErrors() ?? Enumerable.Empty<RecievedError>();
-				//var errorsToSave = errors.Select(error => ConvertError(error));
 				LogDebug("Fetched {0} errors from BG Webservice", errors.Count());
 				errors.Each(error =>
 				{
-					var subscriptionError = ConvertError(error);
-					_subscriptionErrorRepository.Save(subscriptionError);
+					var subscriptionError = ConvertError(error, subscriptionRepository);
+					subscriptionErrorRepository.Save(subscriptionError);
 					_bgWebService.SetErrorHandled(error.ErrorId);
 					LogDebug("Saved subscription error \"{0}\" for subscription \"{1}\"", subscriptionError.Id, subscriptionError.Subscription.Id);
 				});
 			});
 		}
-		protected virtual SubscriptionError ConvertError(RecievedError error)
+		protected virtual SubscriptionError ConvertError(RecievedError error, ISubscriptionRepository subscriptionRepository)
 		{
-			var subscription = _subscriptionRepository.Get(error.PayerNumber);
+			var subscription = subscriptionRepository.Get(error.PayerNumber);
 			return new SubscriptionError
 			{
 				CreatedDate = DateTime.Now,
@@ -55,16 +51,11 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 		{
 			switch (errorType)
 			{
-				case ErrorType.ConsentMissing:
-					return SubscriptionErrorType.ConsentMissing;
-				case ErrorType.AccountNotYetApproved:
-					return SubscriptionErrorType.NotApproved;
-				case ErrorType.ConsentStopped:
-					return SubscriptionErrorType.CosentStopped;
-				case ErrorType.NotYetDebitable:
-					return SubscriptionErrorType.NotDebitable;
-				default:
-					throw new ArgumentOutOfRangeException("errorType");
+				case ErrorType.ConsentMissing: return SubscriptionErrorType.ConsentMissing;
+				case ErrorType.AccountNotYetApproved: return SubscriptionErrorType.NotApproved;
+				case ErrorType.ConsentStopped: return SubscriptionErrorType.CosentStopped;
+				case ErrorType.NotYetDebitable: return SubscriptionErrorType.NotDebitable;
+				default: throw new ArgumentOutOfRangeException("errorType");
 			}
 		}
 	}

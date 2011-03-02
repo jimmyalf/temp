@@ -17,6 +17,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		protected IFileSectionToSendRepository FileSectionToSendRepository;
 	    protected IReceivedFileRepository ReceivedFileRepository;
         protected IBGConfigurationSettingsService BgConfigurationSettingsService;
+		protected ITaskRepositoryResolver TaskRepositoryResolver;
 		protected Log4NetLogger Log4NetLogger;
 
 		protected override void SetUp()
@@ -27,6 +28,10 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			FileSectionToSendRepository = A.Fake<IFileSectionToSendRepository>();
 			ReceivedFileRepository = A.Fake<IReceivedFileRepository>();
 			BgConfigurationSettingsService = A.Fake<IBGConfigurationSettingsService>();
+			TaskRepositoryResolver = A.Fake<ITaskRepositoryResolver>();
+			
+			A.CallTo(() => TaskRepositoryResolver.GetRepository<IFileSectionToSendRepository>()).Returns(FileSectionToSendRepository);
+			A.CallTo(() => TaskRepositoryResolver.GetRepository<IReceivedFileRepository>()).Returns(ReceivedFileRepository);
 		}
 
 		protected abstract ITask GetTask();

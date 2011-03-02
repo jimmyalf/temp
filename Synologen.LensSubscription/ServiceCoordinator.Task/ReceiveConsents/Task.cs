@@ -14,53 +14,51 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 	public class Task : TaskBase
 	{
 		private readonly IBGWebService _bgWebService;
-		private readonly ISubscriptionRepository _subscriptionRepository;
-		private readonly ISubscriptionErrorRepository _subscriptionErrorRepository;
 
-		public Task(IBGWebService bgWebService, ISubscriptionRepository subscriptionRepository, ISubscriptionErrorRepository subscriptionErrorRepository, ILoggingService loggingService)
-			: base("ReceiveConsentsTask", loggingService)
+		public Task(IBGWebService bgWebService, ILoggingService loggingService, ITaskRepositoryResolver taskRepositoryResolver)
+			: base("ReceiveConsentsTask", loggingService, taskRepositoryResolver)
 		{
 			_bgWebService = bgWebService;
-			_subscriptionRepository = subscriptionRepository;
-			_subscriptionErrorRepository = subscriptionErrorRepository;
 		}
 
 		public override void Execute()
 		{
-			RunLoggedTask(() =>
+			RunLoggedTask(repositoryResolver =>
 			{
+				var subscriptionRepository = repositoryResolver.GetRepository<ISubscriptionRepository>();
+				var subscriptionErrorRepository = repositoryResolver.GetRepository<ISubscriptionErrorRepository>();
 				var consents = _bgWebService.GetConsents() ?? Enumerable.Empty<ReceivedConsent>();
 				LogDebug("Fetched {0} consent replies from bgc server", consents.Count());
 
 				consents.Each(consent =>
 				{
-					SaveConsent(consent);
+					SaveConsent(consent, subscriptionRepository, subscriptionErrorRepository);
 					_bgWebService.SetConsentHandled(consent.ConsentId);
 				});
 			});
 		}
 
-		private void SaveConsent(ReceivedConsent consent)
+		private void SaveConsent(ReceivedConsent consent, ISubscriptionRepository subscriptionRepository, ISubscriptionErrorRepository subscriptionErrorRepository)
 		{
-			var subscription = _subscriptionRepository.Get(consent.PayerNumber);
+			var subscription = subscriptionRepository.Get(consent.PayerNumber);
 			var errorTypeCode = SubscriptionErrorType.Unknown;
 
 			var isConsented = GetSubscriptionErrorType(consent.CommentCode, ref errorTypeCode);
 
 			if (isConsented)
 			{
-				UpdateSubscription(subscription, consent, true);
+				UpdateSubscription(subscription, consent, true, subscriptionRepository);
 				LogDebug("Consent for subscription with id \"{0}\" was accepted.", subscription.Id);
 			}
 			else
 			{
-				SaveSubscriptionError(subscription, errorTypeCode, consent);
-				UpdateSubscription(subscription, consent, false);
+				SaveSubscriptionError(subscription, errorTypeCode, consent, subscriptionErrorRepository);
+				UpdateSubscription(subscription, consent, false, subscriptionRepository);
 				LogDebug("Consent for subscription with id \"{0}\" was denied.", subscription.Id);
 			}
 		}
 
-		private void SaveSubscriptionError(Subscription subscription, SubscriptionErrorType errorTypeCode, ReceivedConsent consent)
+		private static void SaveSubscriptionError(Subscription subscription, SubscriptionErrorType errorTypeCode, ReceivedConsent consent, ISubscriptionErrorRepository subscriptionErrorRepository)
 		{
 			var subscriptionError = new SubscriptionError
 			{
@@ -69,7 +67,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 				Code = GetSubscriptionErrorInformationCode(consent.InformationCode),
 				CreatedDate = DateTime.Now
 			};
-			_subscriptionErrorRepository.Save(subscriptionError);
+			subscriptionErrorRepository.Save(subscriptionError);
 		}
 
 		private static ConsentInformationCode? GetSubscriptionErrorInformationCode(Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode? code)
@@ -90,12 +88,12 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 			throw new ArgumentOutOfRangeException("code");
 		}
 
-		private void UpdateSubscription(Subscription subscription, ReceivedConsent consent, bool isAccepted)
+		private static void UpdateSubscription(Subscription subscription, ReceivedConsent consent, bool isAccepted, ISubscriptionRepository subscriptionRepository)
 		{
 			subscription.ConsentStatus = isAccepted ? SubscriptionConsentStatus.Accepted : SubscriptionConsentStatus.Denied;
 			if (isAccepted)
 				subscription.ActivatedDate = consent.ConsentValidForDate.Value;
-			_subscriptionRepository.Save(subscription);
+			subscriptionRepository.Save(subscription);
 		}
 
 		private static bool GetSubscriptionErrorType(ConsentCommentCode commentType, ref SubscriptionErrorType errorTypeCode)

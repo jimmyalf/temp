@@ -1,3 +1,4 @@
+using FakeItEasy;
 using log4net;
 using Moq;
 using NUnit.Framework;
@@ -19,6 +20,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 		protected Mock<IEventLoggingService> MockedEventLoggingService;
 		protected Mock<ITransactionRepository> MockedTransactionRepository;
 		protected Log4NetLogger LoggingService;
+		protected ITaskRepositoryResolver TaskRepositoryResolver;
 
 		protected override void SetUp()
 		{
@@ -29,6 +31,10 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 			MockedSubscriptionErrorRepository = new Mock<ISubscriptionErrorRepository>();
 			MockedTransactionRepository = new Mock<ITransactionRepository>();
 			LoggingService = new Log4NetLogger(MockedLogger.Object, MockedEventLoggingService.Object);
+			TaskRepositoryResolver = A.Fake<ITaskRepositoryResolver>();
+			A.CallTo(() => TaskRepositoryResolver.GetRepository<ISubscriptionRepository>()).Returns(MockedSubscriptionRepository.Object);
+			A.CallTo(() => TaskRepositoryResolver.GetRepository<ISubscriptionErrorRepository>()).Returns(MockedSubscriptionErrorRepository.Object);
+			A.CallTo(() => TaskRepositoryResolver.GetRepository<ITransactionRepository>()).Returns(MockedTransactionRepository.Object);
 		}
 
 		protected abstract ITask GetTask();

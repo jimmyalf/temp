@@ -13,51 +13,48 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents
 {
     public class Task : TaskBase
     {
-        private readonly IBGReceivedConsentRepository _bgReceivedConsentRepository;
-        private readonly IReceivedFileRepository _receivedFileSectionRepository;
         private readonly IAutogiroFileReader<ConsentsFile, Consent> _fileReader;
 
-        public Task(
+    	public Task(
             ILoggingService loggingService,
-            IReceivedFileRepository receivedFileSectionRepository,
-            IBGReceivedConsentRepository bgReceivedConsentRepository,
-            IAutogiroFileReader<ConsentsFile, Consent> fileReader)
+            IAutogiroFileReader<ConsentsFile, Consent> fileReader,
+			ITaskRepositoryResolver taskRepositoryResolver)
 
-            : base("ReceiveConsents", loggingService, BGTaskSequenceOrder.ReadTask)
+            : base("ReceiveConsents", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.ReadTask)
         {
-            _receivedFileSectionRepository = receivedFileSectionRepository;
-            _bgReceivedConsentRepository = bgReceivedConsentRepository;
+
             _fileReader = fileReader;
         }
 
 
         public override void Execute()
         {
-            RunLoggedTask(() =>
+            RunLoggedTask(repositoryResolver =>
             {
-                var consentFileSections =
-                    _receivedFileSectionRepository.FindBy(new AllUnhandledReceivedConsentFileSectionsCriteria());
+				var receivedFileSectionRepository = repositoryResolver.GetRepository<IReceivedFileRepository>();
+				var bgReceivedConsentRepository = repositoryResolver.GetRepository<IBGReceivedConsentRepository>();
+                var consentFileSections = receivedFileSectionRepository.FindBy(new AllUnhandledReceivedConsentFileSectionsCriteria());
 
                 LogDebug("Fetched {0} consent file sections from repository", consentFileSections.Count());
 
                 consentFileSections.Each(consentFileSection =>
                 {
-                    ConsentsFile file = _fileReader.Read(consentFileSection.SectionData);
+                    var file = _fileReader.Read(consentFileSection.SectionData);
                     var consents = file.Posts;
 
                     consents.Each(consent =>
                     {
-                        BGReceivedConsent receivedConsent = ToBGConsent(consent);
-                        _bgReceivedConsentRepository.Save(receivedConsent);
+                        var receivedConsent = ToBGConsent(consent);
+                        bgReceivedConsentRepository.Save(receivedConsent);
                     });
                     consentFileSection.HandledDate = DateTime.Now;
-                    _receivedFileSectionRepository.Save(consentFileSection);
+                    receivedFileSectionRepository.Save(consentFileSection);
                     LogDebug("Saved {0} consents to repository", consents.Count());
                 });
             });
         }
 
-        private BGReceivedConsent ToBGConsent(Consent consent)
+        private static BGReceivedConsent ToBGConsent(Consent consent)
         {
             return new BGReceivedConsent
             {

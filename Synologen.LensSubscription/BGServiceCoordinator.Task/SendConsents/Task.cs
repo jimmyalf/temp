@@ -16,39 +16,35 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 {
 	public class Task : TaskBase
 	{
-		private readonly IBGConsentToSendRepository _bgConsentToSendRepository;
-		private readonly IFileSectionToSendRepository _fileSectionToSendRepository;
 		private readonly IAutogiroFileWriter<ConsentsFile, Consent> _fileWriter;
 		private readonly IBGConfigurationSettingsService _bgConfigurationSettingsService;
 
 		public Task(
 			ILoggingService loggingService, 
-			IBGConsentToSendRepository bgConsentToSendRepository, 
-			IFileSectionToSendRepository fileSectionToSendRepository, 
 			IAutogiroFileWriter<ConsentsFile,  Consent> fileWriter ,
-			IBGConfigurationSettingsService bgConfigurationSettingsService
-		) 
-			: base("SendConsents", loggingService, BGTaskSequenceOrder.SendTask)
+			IBGConfigurationSettingsService bgConfigurationSettingsService,
+			ITaskRepositoryResolver taskRepositoryResolver) 
+			: base("SendConsents", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.SendTask)
 		{
-			_bgConsentToSendRepository = bgConsentToSendRepository;
-			_fileSectionToSendRepository = fileSectionToSendRepository;
 			_fileWriter = fileWriter;
 			_bgConfigurationSettingsService = bgConfigurationSettingsService;
 		}
 
 		public override void Execute()
 		{
-			RunLoggedTask(() =>
+			RunLoggedTask(repositoryResolver =>
 			{
-				var consents = _bgConsentToSendRepository.FindBy(new AllNewConsentsToSendCriteria());
+				var bgConsentToSendRepository = repositoryResolver.GetRepository<IBGConsentToSendRepository>();
+				var fileSectionToSendRepository = repositoryResolver.GetRepository<IFileSectionToSendRepository>();
+				var consents = bgConsentToSendRepository.FindBy(new AllNewConsentsToSendCriteria());
 				var consentsFile = ToConsentFile(consents);
 				var consentFileContent = _fileWriter.Write(consentsFile);
 				var fileSectionToSend = ToFileSectionToSend(consentFileContent);
-				_fileSectionToSendRepository.Save(fileSectionToSend);
+				fileSectionToSendRepository.Save(fileSectionToSend);
 				consents.Each(consent =>
 				{
 					consent.SendDate = DateTime.Now;
-					_bgConsentToSendRepository.Save(consent);
+					bgConsentToSendRepository.Save(consent);
 				});
 			});
 		}

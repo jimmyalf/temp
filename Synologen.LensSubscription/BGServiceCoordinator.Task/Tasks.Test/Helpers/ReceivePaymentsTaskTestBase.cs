@@ -11,19 +11,23 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
     	protected IBGReceivedPaymentRepository BGReceivedPaymentRepository;
     	protected IAutogiroFileReader<PaymentsFile, Payment> PaymentFileReader;
 
-    	protected ReceivePaymentsTaskTestBase()
-    	{
-    		BGReceivedPaymentRepository = A.Fake<IBGReceivedPaymentRepository>();
+		protected override void SetUp()
+		{
+			base.SetUp();
+
+			BGReceivedPaymentRepository = A.Fake<IBGReceivedPaymentRepository>();
     		PaymentFileReader = A.Fake<IAutogiroFileReader<PaymentsFile, Payment>>();
-    	}
+			A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGReceivedPaymentRepository>()).Returns(BGReceivedPaymentRepository);
+		}
 
     	protected override ITask GetTask()
         {
             return new ReceivePayments.Task(
                 Log4NetLogger,
-                ReceivedFileRepository,
-                BGReceivedPaymentRepository,
-                PaymentFileReader);
+                //ReceivedFileRepository,
+                //BGReceivedPaymentRepository,
+                PaymentFileReader,
+				TaskRepositoryResolver);
         }
     }
 }

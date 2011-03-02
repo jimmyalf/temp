@@ -12,8 +12,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 
 		public static IEnumerable<ReceivedConsent> GetList(int subscriptionId)
 		{
-			var list = TestHelper.GenerateSequence(x => Get(x, subscriptionId), 18);
-			return list;
+			Func<int,ReceivedConsent> generateItem = id => Get(id, subscriptionId);
+			return generateItem.GenerateRange(1,18);
 		}
 
 		public static ReceivedConsent Get(int id, int subscriptionId)

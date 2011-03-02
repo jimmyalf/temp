@@ -10,21 +10,24 @@ namespace Synologen.LensSubscription.BGService.Test
 	public class When_writing_file_to_disk : BGSentFileWriterServiceTestBase
 	{
 		private string fileData;
-		private string fileName;
+		private string ftpFileName;
 		private string filesFolderPath;
 		private string filePath;
+		private string expectedCreatedFileName;
 
 		public When_writing_file_to_disk()
 		{
 			Context = () =>
 			{
+				WriteDate = new DateTime(2011, 03, 02, 13, 52, 15);
 				fileData = "ABCDEFG";
-				fileName = "testfile.txt";
+				ftpFileName = "BFEP.IGAG.K123456";
+				expectedCreatedFileName = string.Format("{0}.D110302.T135215", ftpFileName);
 				filesFolderPath = @"C:\Folder1\Folder2\Folder3";
-				filePath = String.Format(@"{0}\{1}", filesFolderPath, fileName);
+				filePath = String.Format(@"{0}\{1}", filesFolderPath, expectedCreatedFileName);
 				A.CallTo(() => BGConfigurationSettingsService.GetSentFilesFolderPath()).Returns(filesFolderPath);
 			};
-			Because = fileWriterService => fileWriterService.WriteFileToDisk(fileData, fileName);
+			Because = fileWriterService => fileWriterService.WriteFileToDisk(fileData, ftpFileName);
 		}
 
 		[Test]

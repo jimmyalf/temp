@@ -1,6 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.BGData.Test.BaseTesters;
 using Synologen.LensSubscription.BGData.Test.Factories;
@@ -91,6 +95,35 @@ namespace Synologen.LensSubscription.BGData.Test
 		public void File_section_has_been_deleted()
 		{
 			GetResult(session => CreateRepository(session).Get(fileSectionToSend.Id)).ShouldBe(null);
+		}
+	}
+
+	[TestFixture, Category("FileSectionToSendRepositoryTests")]
+	public class When_fetching_file_sections_to_send_by_AllUnhandledFileSectionsToSendCriteria : BaseRepositoryTester<FileSectionToSendRepository>
+	{
+		private IEnumerable<FileSectionToSend> fileSectionsToSend;
+		private int expectedNumberOfFetchedFileSections;
+
+		public When_fetching_file_sections_to_send_by_AllUnhandledFileSectionsToSendCriteria()
+		{
+			Context = session =>
+			{
+				fileSectionsToSend = FileSectionToSendFactory.GetList();
+				expectedNumberOfFetchedFileSections = fileSectionsToSend.Where(x => Equals(x.SentDate, null)).Count();
+			};
+
+			Because = repository => fileSectionsToSend.Each(repository.Save);
+		}
+
+		[Test]
+		public void Should_get_all_file_sections_that_has_not_been_handled()
+		{
+			AssertUsing(session =>
+			{
+				var fetchedFileSections = CreateRepository(session).FindBy(new AllUnhandledFileSectionsToSendCriteria());
+				fetchedFileSections.Count().ShouldBe(expectedNumberOfFetchedFileSections);
+				fetchedFileSections.Each(fileSection => fileSection.SentDate.ShouldBe(null));
+			});
 		}
 	}
 }

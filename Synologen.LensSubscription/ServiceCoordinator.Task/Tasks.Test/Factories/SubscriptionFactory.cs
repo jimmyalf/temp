@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 {
@@ -8,7 +10,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 	{
 		public static IEnumerable<Subscription> GetList()
 		{
-			return TestHelper.GenerateSequence<Subscription>(Get, 15);
+			Func<int, Subscription> generateItem = Get;
+			return generateItem.GenerateRange(1, 15);
 		}
 
 		public static Subscription Get(int id)

@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="CriteriaConverters\AllNewConsentsToSendCriteriaConverter.cs" />
     <Compile Include="CriteriaConverters\AllNewPaymentsToSendCriteriaConverter.cs" />
+    <Compile Include="CriteriaConverters\AllUnhandledFileSectionsToSendCriteriaConverter.cs" />
     <Compile Include="CriteriaConverters\AllUnhandledReceivedErrorFileSectionsCriteriaConverter.cs" />
     <Compile Include="CriteriaConverters\AllUnhandledReceivedPaymentFileSectionsCriteriaConverter.cs" />
     <Compile Include="Mappings\BGPaymentToSendMap.cs" />

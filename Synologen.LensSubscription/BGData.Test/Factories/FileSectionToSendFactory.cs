@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -28,6 +29,12 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 			item.SectionData = item.SectionData.Reverse();
 			item.SentDate = item.SentDate.HasValue ? null as DateTime? : new DateTime(2011, 02, 17);
 			item.Type = item.Type.Next();
+		}
+
+		public static IEnumerable<FileSectionToSend> GetList() 
+		{
+			Func<int, FileSectionToSend> generateItem = Get;
+			return generateItem.GenerateRange(1, 23);
 		}
 	}
 }

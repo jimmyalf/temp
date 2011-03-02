@@ -14,19 +14,25 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		protected IAutogiroFileWriter<PaymentsFile, Payment> PaymentFileWriter;
 		protected IBGPaymentToSendRepository BGPaymentToSendRepository;
 
-		protected SendPaymentsTaskTestBase()
+		protected override void SetUp()
 		{
+			base.SetUp();
+
 			PaymentFileWriter = A.Fake<IAutogiroFileWriter<PaymentsFile, Payment>>();
 			BGPaymentToSendRepository = A.Fake<IBGPaymentToSendRepository>();
+			A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGPaymentToSendRepository>()).Returns(BGPaymentToSendRepository);
 		}
+
+
 		protected override ITask GetTask()
 		{
 			return new SendPayments.Task(
 				Log4NetLogger,
-				BGPaymentToSendRepository,
+				//BGPaymentToSendRepository,
 				BgConfigurationSettingsService,
 				PaymentFileWriter,
-				FileSectionToSendRepository);
+				//FileSectionToSendRepository,
+				TaskRepositoryResolver);
 		}
 
 		protected static bool MatchPayments(IEnumerable<Payment> parsedPayments, IList<BGPaymentToSend> originalPayments, string recieverBankGiroNumber)

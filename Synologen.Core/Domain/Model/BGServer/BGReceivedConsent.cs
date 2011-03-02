@@ -5,7 +5,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGServer
 {
     public class BGReceivedConsent : Entity
     {
-        public virtual int PayerNumber { get; set; }
+        //public virtual int PayerNumber { get; set; }
+		public virtual AutogiroPayer Payer { get; set;} 
         public virtual DateTime ActionDate { get; set; }
         public virtual DateTime? ConsentValidForDate { get; set; }
         public virtual ConsentInformationCode? InformationCode { get; set; }

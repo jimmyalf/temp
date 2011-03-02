@@ -24,6 +24,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		public virtual DateTime? ActivatedDate { get; set; }
 		public virtual IEnumerable<SubscriptionError> Errors { get; set; }
 		public virtual string Notes { get; set; }
-		public virtual int? BankGiroPayerNumber { get; set; }
+		public virtual int? BankgiroPayerNumber { get; set; }
 	}
 }

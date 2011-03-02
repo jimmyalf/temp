@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
-namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
+namespace Synologen.LensSubscription.ServiceCoordinator.Core.Context
 {
 	public class ExecutingTaskContext
 	{

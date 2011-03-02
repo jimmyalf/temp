@@ -11,6 +11,7 @@ using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using StructureMap.Configuration.DSL;
 using Synologen.LensSubscription.ServiceCoordinator.App.Logging;
+using Synologen.LensSubscription.ServiceCoordinator.Core.IoC;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.App.IoC
 {
@@ -19,7 +20,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App.IoC
 		public TaskRunnerRegistry()
 		{
 			// NHibernate
-			For<IUnitOfWork>().HybridHttpOrThreadLocalScoped().Use<NHibernateUnitOfWork>();
+			For<IUnitOfWork>().LifecycleIs(new ExecutingTaskLifecycle()).Use<NHibernateUnitOfWork>();
 			For<ISessionFactory>().Singleton().Use(NHibernateFactory.Instance.GetSessionFactory);
 			For<ISession>().Use(x => ((NHibernateUnitOfWork)x.GetInstance<IUnitOfWork>()).Session);
 			For<ISubscriptionRepository>().Use<SubscriptionRepository>();

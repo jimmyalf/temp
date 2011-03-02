@@ -100,6 +100,10 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ServiceCoordinator.Core\ServiceCoordinator.Core.csproj">
+      <Project>{938FA6F2-51AB-4542-BBC3-15F078CC7AB5}</Project>
+      <Name>ServiceCoordinator.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

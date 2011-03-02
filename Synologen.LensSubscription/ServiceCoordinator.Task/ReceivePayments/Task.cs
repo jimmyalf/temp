@@ -26,14 +26,14 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 				var transactionsRepository = repositoryResolver.GetRepository<ITransactionRepository>();
 				var subscriptionErrorRepository = repositoryResolver.GetRepository<ISubscriptionErrorRepository>();
 				var subscriptionRepository = repositoryResolver.GetRepository<ISubscriptionRepository>();
-				var payments = _bgWebService.GetPayments() ?? Enumerable.Empty<ReceivedPayment>();
+				var payments = _bgWebService.GetPayments(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedPayment>();
 				LogDebug("Fetched {0} payment results from bgc server", payments.Count());
 
 				payments.Each(payment =>
 				{
-					var subscription = subscriptionRepository.Get(payment.PayerNumber);
+					var subscription = subscriptionRepository.GetByBankgiroPayerId(payment.PayerNumber);
 					SaveTransactionOrError(payment, subscription, transactionsRepository, subscriptionRepository, subscriptionErrorRepository);
-					_bgWebService.SetPaymentHandled(payment.PaymentId);
+					_bgWebService.SetPaymentHandled(payment);
 				});
 			});
 		}
@@ -48,7 +48,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 					break;
 				case PaymentResult.InsufficientFunds:
 				case PaymentResult.AGConnectionMissing:
-					SaveSubscriptionError(ConvertSubscriptionError(payment, subscriptionRepository), subscriptionErrorRepository);
+					SaveSubscriptionError(ConvertSubscriptionError(payment, subscription), subscriptionErrorRepository);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -69,13 +69,13 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 			         transaction.Reason == TransactionReason.Payment ? "was accepted" : "failed");
 		}
 
-		private static SubscriptionError ConvertSubscriptionError(ReceivedPayment payment, ISubscriptionRepository subscriptionRepository)
+		private static SubscriptionError ConvertSubscriptionError(ReceivedPayment payment, Subscription subscription)
 		{
 			return new SubscriptionError
 			{
 				CreatedDate = DateTime.Now,
 				Type = ConvertToSubscriptionErrorType(payment.Result),
-				Subscription = subscriptionRepository.Get(payment.PayerNumber)
+				Subscription = subscription
 			};
 		}
 

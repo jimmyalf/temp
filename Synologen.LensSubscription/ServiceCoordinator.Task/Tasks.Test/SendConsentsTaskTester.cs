@@ -15,15 +15,16 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	public class When_executing_send_consents_task : SendConsentsTaskTestBase
 	{
 		private IEnumerable<Subscription> expectedSubscriptions;
+		private int payerNumber;
 
 		public When_executing_send_consents_task()
 		{
 			Context = () =>
 			{
-				expectedSubscriptions = SubscriptionFactory.GetList();
-				MockedSubscriptionRepository
-					.Setup(x => x.FindBy(It.IsAny<AllSubscriptionsToSendConsentsForCriteria>()))
-					.Returns(expectedSubscriptions);
+				payerNumber = 5;
+				expectedSubscriptions = SubscriptionFactory.GetListWithAndWithoutBankgiroPayerNumber();
+				MockedSubscriptionRepository.Setup(x => x.FindBy(It.IsAny<AllSubscriptionsToSendConsentsForCriteria>())).Returns(expectedSubscriptions);
+				MockedWebServiceClient.Setup(x => x.RegisterPayer(It.IsAny<string>(), AutogiroServiceType.LensSubscription)).Returns(payerNumber);
 			};
 			Because = task => task.Execute();
 		}
@@ -44,10 +45,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_sends_consents_to_webservice()
 		{
-			MockedWebServiceClient.Verify(
-				x => x.SendConsent(It.IsAny<ConsentToSend>()), 
-				Times.Exactly(expectedSubscriptions.Count())
-				);
+			expectedSubscriptions.Each(subscription => MockedWebServiceClient.Verify(x => x.SendConsent(
+					It.Is<ConsentToSend>(consent => consent.PayerNumber.Equals(subscription.BankGiroPayerNumber ?? payerNumber))
+			)));
 		}
 
 		[Test]
@@ -58,7 +58,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 					sentConsent.BankAccountNumber.Equals(subscription.PaymentInfo.AccountNumber) && 
 					sentConsent.ClearingNumber.Equals(subscription.PaymentInfo.ClearingNumber) &&
 					sentConsent.PersonalIdNumber.Equals(subscription.Customer.PersonalIdNumber) &&
-					sentConsent.PayerNumber.Equals(subscription.Id)
+					sentConsent.PayerNumber.Equals(subscription.BankGiroPayerNumber ?? payerNumber)
 			))));
 		}
 
@@ -70,6 +70,22 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 					savedSubscription.Id.Equals(subscription.Id) &&
 					savedSubscription.ConsentStatus.Equals(SubscriptionConsentStatus.Sent)
 			))));
+		}
+
+		[Test]
+		public void Task_registers_new_payers()
+		{
+			expectedSubscriptions.Where(x => Equals(x.BankGiroPayerNumber, null)).Each(subscription => 
+				MockedWebServiceClient.Verify(x => x.RegisterPayer(subscription.Customer.FirstName + " " + subscription.Customer.LastName, AutogiroServiceType.LensSubscription)));
+		}
+
+		[Test]
+		public void Task_updates_new_subscriptions_with_new_payer_numbers()
+		{
+			expectedSubscriptions.Where(x => Equals(x.BankGiroPayerNumber, null)).Each( subscription =>
+				MockedSubscriptionRepository.Verify(x => x.Save(
+					It.Is<Subscription>(savedSubscription => savedSubscription.BankGiroPayerNumber.Value.Equals(payerNumber))
+			)));
 		}
 	}
 }

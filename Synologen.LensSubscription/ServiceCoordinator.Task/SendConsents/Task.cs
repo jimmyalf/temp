@@ -6,6 +6,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 {
@@ -27,12 +28,20 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 				var subscriptions = subscriptionRepository.FindBy(new AllSubscriptionsToSendConsentsForCriteria()) ?? Enumerable.Empty<Subscription>();
 				LogDebug("Fetched {0} subscriptions to send consents for", subscriptions.Count());
 				subscriptions.Each(subscription =>
-				{					
+				{
+					if (subscription.BankGiroPayerNumber == null) GetSubscriptionPayer(subscription);
 					var consent = ConvertSubscription(subscription);
 					_bgWebService.SendConsent(consent);
 					UpdateSubscriptionStatus(subscription, subscriptionRepository);
 				});
 			});
+		}
+
+		private void GetSubscriptionPayer(Subscription subscription) 
+		{
+			var customerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
+			var payerNumber = _bgWebService.RegisterPayer(customerName, AutogiroServiceType.LensSubscription);
+			subscription.BankGiroPayerNumber = payerNumber;
 		}
 
 		protected virtual void UpdateSubscriptionStatus(Subscription subscription, ISubscriptionRepository subscriptionRepository)
@@ -49,7 +58,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 				BankAccountNumber = subscription.PaymentInfo.AccountNumber,
 				ClearingNumber = subscription.PaymentInfo.ClearingNumber,
 				PersonalIdNumber = subscription.Customer.PersonalIdNumber,
-				PayerNumber = subscription.Id
+				PayerNumber = subscription.BankGiroPayerNumber.Value
 			};
 		}
 	}

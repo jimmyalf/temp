@@ -25,10 +25,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedPayments = PaymentFactory.GetList(subscriptionId);
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 
-				MockedWebServiceClient.Setup(x => x.GetPayments()).Returns(expectedPayments.ToArray);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(It.IsAny<int>()))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.LensSubscription)).Returns(expectedPayments.ToArray());
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
+				
 			};
 			Because = task => task.Execute();
 		}
@@ -59,19 +58,21 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		{
 			expectedPayments.Each(recievedPayment =>
 				MockedSubscriptionRepository.Verify(x =>
-					x.Get(It.Is<int>(id => id.Equals(recievedPayment.PayerNumber))
+					x.GetByBankgiroPayerId(It.Is<int>(id => id.Equals(recievedPayment.PayerNumber))
 			)));
 		}
 
 		[Test]
 		public void Task_saves_transactions_to_repository()
 		{
+			//TODO: Consider rewriting to test actual save parameters
 			MockedTransactionRepository.Verify(x => x.Save(It.IsAny<SubscriptionTransaction>()), Times.Exactly(8));
 		}
 
 		[Test]
 		public void Task_saves_subscriptionerrors_to_repository()
 		{
+			//TODO: Consider rewriting to test actual save parameters
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.IsAny<SubscriptionError>()), Times.Exactly(8));
 		}
 
@@ -80,7 +81,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		{
 			expectedPayments.Each(payment => 
 				MockedWebServiceClient.Verify(x => x.SetPaymentHandled(
-						It.Is<int>(id => id.Equals(payment.PaymentId))
+						It.Is<ReceivedPayment>(paymentItem => paymentItem.PaymentId.Equals(payment.PaymentId))
 			)));
 		}
 	}
@@ -99,10 +100,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedPayments = PaymentFactory.Get(subscriptionId, PaymentResult.Approved);
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 
-				MockedWebServiceClient.Setup(x => x.GetPayments()).Returns(expectedPayments.ToArray);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(It.IsAny<int>()))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.LensSubscription)).Returns(expectedPayments.ToArray());
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
+
 			};
 			Because = task => task.Execute();
 		}
@@ -140,10 +140,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedPayments = PaymentFactory.Get(subscriptionId, PaymentResult.InsufficientFunds);
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 
-				MockedWebServiceClient.Setup(x => x.GetPayments()).Returns(expectedPayments.ToArray);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(It.IsAny<int>()))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.LensSubscription)).Returns(expectedPayments.ToArray());
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -183,10 +181,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedPayments = PaymentFactory.Get(subscriptionId, PaymentResult.AGConnectionMissing);
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 
-				MockedWebServiceClient.Setup(x => x.GetPayments()).Returns(expectedPayments.ToArray);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(It.IsAny<int>()))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.LensSubscription)).Returns(expectedPayments.ToArray());
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}
@@ -226,10 +222,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedPayments = PaymentFactory.Get(subscriptionId, PaymentResult.WillTryAgain);
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 
-				MockedWebServiceClient.Setup(x => x.GetPayments()).Returns(expectedPayments.ToArray);
-				MockedSubscriptionRepository
-					.Setup(x => x.Get(It.IsAny<int>()))
-					.Returns(expectedSubscription);
+				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.LensSubscription)).Returns(expectedPayments.ToArray());
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute();
 		}

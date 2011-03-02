@@ -46,7 +46,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		public void Task_sends_consents_to_webservice()
 		{
 			expectedSubscriptions.Each(subscription => MockedWebServiceClient.Verify(x => x.SendConsent(
-					It.Is<ConsentToSend>(consent => consent.PayerNumber.Equals(subscription.BankGiroPayerNumber ?? payerNumber))
+					It.Is<ConsentToSend>(consent => consent.PayerNumber.Equals(subscription.BankgiroPayerNumber ?? payerNumber))
 			)));
 		}
 
@@ -58,7 +58,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 					sentConsent.BankAccountNumber.Equals(subscription.PaymentInfo.AccountNumber) && 
 					sentConsent.ClearingNumber.Equals(subscription.PaymentInfo.ClearingNumber) &&
 					sentConsent.PersonalIdNumber.Equals(subscription.Customer.PersonalIdNumber) &&
-					sentConsent.PayerNumber.Equals(subscription.BankGiroPayerNumber ?? payerNumber)
+					sentConsent.PayerNumber.Equals(subscription.BankgiroPayerNumber ?? payerNumber)
 			))));
 		}
 
@@ -75,16 +75,16 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_registers_new_payers()
 		{
-			expectedSubscriptions.Where(x => Equals(x.BankGiroPayerNumber, null)).Each(subscription => 
+			expectedSubscriptions.Where(x => Equals(x.BankgiroPayerNumber, null)).Each(subscription => 
 				MockedWebServiceClient.Verify(x => x.RegisterPayer(subscription.Customer.FirstName + " " + subscription.Customer.LastName, AutogiroServiceType.LensSubscription)));
 		}
 
 		[Test]
 		public void Task_updates_new_subscriptions_with_new_payer_numbers()
 		{
-			expectedSubscriptions.Where(x => Equals(x.BankGiroPayerNumber, null)).Each( subscription =>
+			expectedSubscriptions.Where(x => Equals(x.BankgiroPayerNumber, null)).Each( subscription =>
 				MockedSubscriptionRepository.Verify(x => x.Save(
-					It.Is<Subscription>(savedSubscription => savedSubscription.BankGiroPayerNumber.Value.Equals(payerNumber))
+					It.Is<Subscription>(savedSubscription => savedSubscription.BankgiroPayerNumber.Value.Equals(payerNumber))
 			)));
 		}
 	}

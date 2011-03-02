@@ -35,14 +35,14 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 			mockedSubscription.SetupProperty(x => x.PaymentInfo.MonthlyAmount, 399);
 			mockedSubscription.SetupProperty(x => x.ConsentStatus);
 			mockedSubscription.SetupProperty(x => x.ActivatedDate);
-			mockedSubscription.SetupProperty(x => x.BankGiroPayerNumber, 5);
+			mockedSubscription.SetupProperty(x => x.BankgiroPayerNumber, 5);
 			return mockedSubscription.Object;
 		}
 
 		public static Subscription GetWithoutBankgiroNumber(int id)
 		{
 			var subscription = Get(id);
-			subscription.BankGiroPayerNumber = null;
+			subscription.BankgiroPayerNumber = null;
 			return subscription;
 		}
 	}

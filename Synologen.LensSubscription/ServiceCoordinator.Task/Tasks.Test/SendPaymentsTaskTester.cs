@@ -45,7 +45,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		public void Task_sends_payments_to_webservice()
 		{
 			expectedSubscriptions.Each(subscription => MockedWebServiceClient.Verify(x => x.SendPayment(
-					It.Is<PaymentToSend>(payment => payment.PayerNumber.Equals(subscription.BankGiroPayerNumber.Value))
+					It.Is<PaymentToSend>(payment => payment.PayerNumber.Equals(subscription.BankgiroPayerNumber.Value))
 			)));
 		}
 
@@ -55,7 +55,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 			expectedSubscriptions.Each(subscription =>
                MockedWebServiceClient.Verify(x => x.SendPayment(It.Is<PaymentToSend>(sentPayment =>
                  sentPayment.Amount.Equals(subscription.PaymentInfo.MonthlyAmount) &&
-                 sentPayment.PayerNumber.Equals(subscription.BankGiroPayerNumber) &&
+                 sentPayment.PayerNumber.Equals(subscription.BankgiroPayerNumber) &&
                  sentPayment.Reference.Equals(subscription.Customer.PersonalIdNumber) &&
                  sentPayment.Type.Equals(PaymentType.Debit)
         	))));

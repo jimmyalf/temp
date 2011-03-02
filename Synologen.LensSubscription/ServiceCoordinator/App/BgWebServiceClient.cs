@@ -6,13 +6,14 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App
 {
 	public class BgWebServiceClient : ClientBase<IBGWebService>, IBGWebService
 	{
+		public int RegisterPayer(string name, AutogiroServiceType serviceType) { return Channel.RegisterPayer(name, serviceType); }
 		public void SendConsent(ConsentToSend consent) { Channel.SendConsent(consent); }
-		public RecievedError[] GetErrors() { return Channel.GetErrors(); }
+		public RecievedError[] GetErrors(AutogiroServiceType serviceType) { return Channel.GetErrors(serviceType); }
+		public ReceivedPayment[] GetPayments(AutogiroServiceType serviceType) { return Channel.GetPayments(serviceType); }
+		public ReceivedConsent[] GetConsents(AutogiroServiceType serviceType) { return Channel.GetConsents(serviceType); }
 		public void SendPayment(PaymentToSend payment) { Channel.SendPayment(payment); }
-		public ReceivedPayment[] GetPayments() { return Channel.GetPayments(); }
-		public ReceivedConsent[] GetConsents() { return Channel.GetConsents(); }
-		public void SetConsentHandled(int id) { Channel.SetConsentHandled(id); }
-		public void SetPaymentHandled(int id) { Channel.SetPaymentHandled(id); }
-		public void SetErrorHandled(int id) { Channel.SetErrorHandled(id); }
+		public void SetConsentHandled(ReceivedConsent consent) { Channel.SetConsentHandled(consent); }
+		public void SetPaymentHandled(ReceivedPayment payment) { Channel.SetPaymentHandled(payment); }
+		public void SetErrorHandled(RecievedError error) { Channel.SetErrorHandled(error); }
 	}
 }

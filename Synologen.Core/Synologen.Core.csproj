@@ -108,6 +108,8 @@
     <Compile Include="Domain\Model\Autogiro\Send\Payment.cs" />
     <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
     <Compile Include="Domain\Model\BGServer\Account.cs" />
+    <Compile Include="Domain\Model\BGServer\AutogiroPayer.cs" />
+    <Compile Include="Domain\Model\BGServer\AutogiroServiceType.cs" />
     <Compile Include="Domain\Model\BGServer\BGConsentToSend.cs" />
     <Compile Include="Domain\Model\BGServer\BGPaymentToSend.cs" />
     <Compile Include="Domain\Model\BGServer\BGReceivedConsent.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="Domain\Model\BGServer\SectionType.cs" />
     <Compile Include="Domain\Model\BGServer\ReceivedFileSection.cs" />
     <Compile Include="Domain\Model\BGWebService\ConsentToSend.cs" />
+    <Compile Include="Domain\Model\BGWebService\AutogiroServiceType.cs" />
     <Compile Include="Domain\Model\BGWebService\Enums.cs" />
     <Compile Include="Domain\Model\BGWebService\PaymentToSend.cs" />
     <Compile Include="Domain\Model\BGWebService\ReceivedConsent.cs" />

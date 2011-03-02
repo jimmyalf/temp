@@ -13,8 +13,7 @@ using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
 
 namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 {
-	[TestFixture]
-	[Category("SubscriptionRepositoryTester")]
+	[TestFixture, Category("SubscriptionRepositoryTester")]
 	public class When_adding_a_subscription : BaseRepositoryTester<SubscriptionRepository>
 	{
 		private Subscription _subscriptionToSave;
@@ -50,12 +49,23 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 				savedSubscription.Notes.ShouldBe(_subscriptionToSave.Notes);
 				savedSubscription.ConsentStatus.ShouldBe(_subscriptionToSave.ConsentStatus);
 				savedSubscription.PaymentInfo.PaymentSentDate.ShouldBe(_subscriptionToSave.PaymentInfo.PaymentSentDate);
+				savedSubscription.BankgiroPayerNumber.ShouldBe(_subscriptionToSave.BankgiroPayerNumber);
+			});
+		}
+
+		[Test]
+		public void Can_fetch_subscription_by_bankgiro_number()
+		{
+			AssertUsing(session => 
+			{
+				var subscriptionById = new SubscriptionRepository(session).Get(_subscriptionToSave.Id);
+				var subscriptionByBankgiroNumber = new SubscriptionRepository(session).GetByBankgiroPayerId(_subscriptionToSave.BankgiroPayerNumber.Value);
+				subscriptionByBankgiroNumber.ShouldBe(subscriptionById);
 			});
 		}
 	}
 
-	[TestFixture]
-	[Category("SubscriptionRepositoryTester")]
+	[TestFixture, Category("SubscriptionRepositoryTester")]
 	public class When_editing_a_subscription : BaseRepositoryTester<SubscriptionRepository>
 	{
 		private Subscription _subscriptionToEdit;
@@ -93,12 +103,12 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 				fetchedSubscription.Notes.ShouldBe(_subscriptionToEdit.Notes);
 				fetchedSubscription.ConsentStatus.ShouldBe(_subscriptionToEdit.ConsentStatus);
 				fetchedSubscription.PaymentInfo.PaymentSentDate.ShouldBe(_subscriptionToEdit.PaymentInfo.PaymentSentDate);
+				fetchedSubscription.BankgiroPayerNumber.ShouldBe(_subscriptionToEdit.BankgiroPayerNumber);
 			});
 		}
 	}
 
-	[TestFixture]
-	[Category("SubscriptionRepositoryTester")]
+	[TestFixture, Category("SubscriptionRepositoryTester")]
 	public class When_deleting_a_subscription : BaseRepositoryTester<SubscriptionRepository>
 	{
 		private Subscription _subscriptionToDelete;
@@ -129,8 +139,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		}
 	}
 
-	[TestFixture]
-	[Category("SubscriptionRepositoryTester")]
+	[TestFixture, Category("SubscriptionRepositoryTester")]
 	public class When_fetching_subscriptions_by_PageOfSubscriptionsMatchingCriteria : BaseRepositoryTester<SubscriptionRepository>
 	{
 		private Subscription[] _savedSubscriptions;
@@ -256,8 +265,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		}
 	}
 
-	[TestFixture]
-	[Category("SubscriptionRepositoryTester")]
+	[TestFixture, Category("SubscriptionRepositoryTester")]
 	public class When_fetching_all_transactions_for_a_subscription : BaseRepositoryTester<SubscriptionRepository>
 	{
 		private IList<SubscriptionTransaction> _transactions;
@@ -298,8 +306,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		}
 	}
 
-	[TestFixture]
-	[Category("SubscriptionRepositoryTester")]
+	[TestFixture, Category("SubscriptionRepositoryTester")]
 	public class When_fetching_all_errors_for_a_subscription : BaseRepositoryTester<SubscriptionErrorRepository>
 	{
 
@@ -341,8 +348,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		}
 	}
 
-	[TestFixture]
-	[Category("SubscriptionRepositoryTester")]
+	[TestFixture, Category("SubscriptionRepositoryTester")]
 	public class When_fetching_subscriptions_by_AllSubscriptionsToSendConsentsForCriteria : BaseRepositoryTester<SubscriptionRepository>
 	{
 		private IList<Subscription> _savedSubscriptions;
@@ -395,8 +401,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		}
 	}
 
-	[TestFixture]
-	[Category("SubscriptionRepositoryTester")]
+	[TestFixture, Category("SubscriptionRepositoryTester")]
 	public class When_fetching_subscriptions_by_AllSubscriptionsToSendPaymentsForCriteria : BaseRepositoryTester<SubscriptionRepository>
 	{
 		private IList<Subscription> _savedSubscriptions;

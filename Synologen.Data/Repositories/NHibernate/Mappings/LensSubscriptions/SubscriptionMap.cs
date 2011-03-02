@@ -34,6 +34,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.LensSubscri
 			HasMany(x => x.Errors)
 			  .Inverse()
 			  .Cascade.All();
+			Map(x => x.BankgiroPayerNumber).Nullable();
 		}
 	}
 }

@@ -27,20 +27,20 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 			{
 				var subscriptionRepository = repositoryResolver.GetRepository<ISubscriptionRepository>();
 				var subscriptionErrorRepository = repositoryResolver.GetRepository<ISubscriptionErrorRepository>();
-				var consents = _bgWebService.GetConsents() ?? Enumerable.Empty<ReceivedConsent>();
+				var consents = _bgWebService.GetConsents(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedConsent>();
 				LogDebug("Fetched {0} consent replies from bgc server", consents.Count());
 
 				consents.Each(consent =>
 				{
 					SaveConsent(consent, subscriptionRepository, subscriptionErrorRepository);
-					_bgWebService.SetConsentHandled(consent.ConsentId);
+					_bgWebService.SetConsentHandled(consent);
 				});
 			});
 		}
 
 		private void SaveConsent(ReceivedConsent consent, ISubscriptionRepository subscriptionRepository, ISubscriptionErrorRepository subscriptionErrorRepository)
 		{
-			var subscription = subscriptionRepository.Get(consent.PayerNumber);
+			var subscription = subscriptionRepository.GetByBankgiroPayerId(consent.PayerNumber);
 			var errorTypeCode = SubscriptionErrorType.Unknown;
 
 			var isConsented = GetSubscriptionErrorType(consent.CommentCode, ref errorTypeCode);

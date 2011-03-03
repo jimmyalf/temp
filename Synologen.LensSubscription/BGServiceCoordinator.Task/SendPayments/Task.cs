@@ -37,6 +37,13 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendPayments
 				var bgPaymentToSendRepository = repositoryResolver.GetRepository<IBGPaymentToSendRepository>();
 				var fileSectionToSendRepository = repositoryResolver.GetRepository<IFileSectionToSendRepository>();
 				var payments = bgPaymentToSendRepository.FindBy(new AllNewPaymentsToSendCriteria());
+				if(payments == null || payments.Count() == 0)
+				{
+					LogInfo("Found no new payments to send.");
+					return;
+				}
+				LogDebug("Found {0} new payments to send", payments.Count());
+
 				var paymentFile = ToPaymentFile(payments);
 				var fileData = _paymentFileWriter.Write(paymentFile);
 				var section = ToFileSectionToSend(fileData);

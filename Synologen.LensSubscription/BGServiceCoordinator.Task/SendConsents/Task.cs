@@ -37,6 +37,12 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 				var fileSectionToSendRepository = repositoryResolver.GetRepository<IFileSectionToSendRepository>();
 				var bgConsentToSendRepository = repositoryResolver.GetRepository<IBGConsentToSendRepository>();
 				var consents = bgConsentToSendRepository.FindBy(new AllNewConsentsToSendCriteria());
+				if(consents == null || consents.Count() == 0)
+				{
+					LogInfo("Found no new consents to send.");
+					return;
+				}
+				LogDebug("Found {0} new consents to send", consents.Count());
 				var consentsFile = ToConsentFile(consents);
 				var consentFileContent = _fileWriter.Write(consentsFile);
 				var fileSectionToSend = ToFileSectionToSend(consentFileContent);

@@ -16,7 +16,8 @@ namespace Synologen.LensSubscription.BGData.Test
         {
             Context = session =>
             {
-                _errorToSave = ReceivedErrorFactory.Get();
+            	var payer = StoreAutogiroPayer(PayerFactory.Get);
+                _errorToSave = ReceivedErrorFactory.Get(payer);
             };
             Because = repository => repository.Save(_errorToSave);
         }
@@ -31,14 +32,14 @@ namespace Synologen.LensSubscription.BGData.Test
                 fetchedError.Amount.ShouldBe(_errorToSave.Amount);
                 fetchedError.CommentCode.ShouldBe(_errorToSave.CommentCode);
                 fetchedError.CreatedDate.Date.ShouldBe(_errorToSave.CreatedDate.Date);
-                fetchedError.PayerNumber.ShouldBe(_errorToSave.PayerNumber);
+                fetchedError.Payer.ShouldBe(_errorToSave.Payer);
                 fetchedError.PaymentDate.Date.ShouldBe(_errorToSave.PaymentDate.Date);
                 fetchedError.Reference.ShouldBe(_errorToSave.Reference);
             });
         }
     }
 
-    [TestFixture, Category("ReceivedErrorRepositoryTester")]
+	[TestFixture, Category("ReceivedErrorRepositoryTester")]
     public class When_updateing_a_receivederror : BaseRepositoryTester<BGReceivedErrorRepository>
     {
 
@@ -48,7 +49,8 @@ namespace Synologen.LensSubscription.BGData.Test
         {
             Context = session =>
             {
-                _updatedError = ReceivedErrorFactory.Get();
+            	var payer = StoreAutogiroPayer(PayerFactory.Get);
+                _updatedError = ReceivedErrorFactory.Get(payer);
                 CreateRepository(session).Save(_updatedError);
                 ReceivedErrorFactory.Edit(_updatedError);
             };
@@ -64,7 +66,7 @@ namespace Synologen.LensSubscription.BGData.Test
                 fetchedError.Amount.ShouldBe(_updatedError.Amount);
                 fetchedError.CommentCode.ShouldBe(_updatedError.CommentCode);
                 fetchedError.CreatedDate.Date.ShouldBe(_updatedError.CreatedDate.Date);
-                fetchedError.PayerNumber.ShouldBe(_updatedError.PayerNumber);
+                fetchedError.Payer.ShouldBe(_updatedError.Payer);
                 fetchedError.PaymentDate.Date.ShouldBe(_updatedError.PaymentDate.Date);
                 fetchedError.Reference.ShouldBe(_updatedError.Reference);
             });
@@ -80,7 +82,8 @@ namespace Synologen.LensSubscription.BGData.Test
         {
             Context = session =>
             {
-                _errorToDelete = ReceivedErrorFactory.Get();
+            	var payer = StoreAutogiroPayer(PayerFactory.Get);
+                _errorToDelete = ReceivedErrorFactory.Get(payer);
                 CreateRepository(session).Save(_errorToDelete);
             };
             Because = repository => repository.Delete(_errorToDelete);

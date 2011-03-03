@@ -21,8 +21,10 @@ namespace Synologen.LensSubscription.BGData.Test
 		public Setup_data_for_manual_test_of_Send_File_Task()
 		{
 			sessionFactory = NHibernateFactory.Instance.GetSessionFactory();
-			consents = ConsentToSendFactory.GetList();
-			payments = PaymentToSendFactory.GetList();
+			var payer = PayerFactory.Get();
+			new AutogiroPayerRepository(sessionFactory.OpenSession()).Save(payer);
+			consents = ConsentToSendFactory.GetList(payer);
+			payments = PaymentToSendFactory.GetList(payer);
 			paymentToSendRepository = new BGPaymentToSendRepository(sessionFactory.OpenSession());
 			consentToSendRepository = new BGConsentToSendRepository(sessionFactory.OpenSession());
 	    }

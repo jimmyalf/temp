@@ -10,7 +10,8 @@ namespace Synologen.LensSubscription.BGData.Mappings
         {
             Table("ReceivedPayments");
             Id(x => x.Id);
-            Map(x => x.PayerNumber).Not.Nullable();
+            //Map(x => x.PayerNumber).Not.Nullable();
+			References(x => x.Payer).Column("PayerId").Not.Nullable();
             Map(x => x.Amount).Not.Nullable();
             Map(x => x.ResultType)
                 .CustomType(typeof (PaymentResult))

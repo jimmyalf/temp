@@ -165,6 +165,7 @@
     <Compile Include="Domain\Model\LensSubscription\TransactionReason.cs" />
     <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
     <Compile Include="Domain\Model\ContractSales\ShopAccess.cs" />
+    <Compile Include="Domain\Persistence\BGServer\IAutogiroPayerRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IBGPaymentToSendRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IBGReceivedErrorRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IBGReceivedPaymentRepository.cs" />

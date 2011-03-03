@@ -20,7 +20,8 @@ namespace Synologen.LensSubscription.BGData.Test
 		{
 			Context = session =>
 			{
-				savedPaymentToSend = PaymentToSendFactory.Get();
+				var payer = StoreAutogiroPayer(PayerFactory.Get);
+				savedPaymentToSend = PaymentToSendFactory.Get(payer);
 			};
 
 			Because = repository =>
@@ -36,7 +37,7 @@ namespace Synologen.LensSubscription.BGData.Test
 			{
 				var fetchedPayment = CreateRepository(session).Get(savedPaymentToSend.Id);
 				fetchedPayment.Amount.ShouldBe(savedPaymentToSend.Amount);
-				fetchedPayment.CustomerNumber.ShouldBe(savedPaymentToSend.CustomerNumber);
+				fetchedPayment.Payer.ShouldBe(savedPaymentToSend.Payer);
 				fetchedPayment.Id.ShouldBe(savedPaymentToSend.Id);
 				fetchedPayment.PaymentDate.ShouldBe(savedPaymentToSend.PaymentDate);
 				fetchedPayment.PeriodCode.ShouldBe(savedPaymentToSend.PeriodCode);
@@ -57,7 +58,8 @@ namespace Synologen.LensSubscription.BGData.Test
 		{
 			Context = session =>
 			{
-				paymentToSend = PaymentToSendFactory.Get();
+				var payer = StoreAutogiroPayer(PayerFactory.Get);
+				paymentToSend = PaymentToSendFactory.Get(payer);
 				CreateRepository(session).Save(paymentToSend);
 				PaymentToSendFactory.Edit(paymentToSend);
 			};
@@ -72,7 +74,7 @@ namespace Synologen.LensSubscription.BGData.Test
 			{
 				var fetchedPayment = CreateRepository(session).Get(paymentToSend.Id);
 				fetchedPayment.Amount.ShouldBe(paymentToSend.Amount);
-				fetchedPayment.CustomerNumber.ShouldBe(paymentToSend.CustomerNumber);
+				fetchedPayment.Payer.ShouldBe(paymentToSend.Payer);
 				fetchedPayment.Id.ShouldBe(paymentToSend.Id);
 				fetchedPayment.PaymentDate.ShouldBe(paymentToSend.PaymentDate);
 				fetchedPayment.PeriodCode.ShouldBe(paymentToSend.PeriodCode);
@@ -92,7 +94,8 @@ namespace Synologen.LensSubscription.BGData.Test
 		{
 			Context = session =>
 			{
-				paymentToSend = PaymentToSendFactory.Get();
+				var payer = StoreAutogiroPayer(PayerFactory.Get);
+				paymentToSend = PaymentToSendFactory.Get(payer);
 				CreateRepository(session).Save(paymentToSend);
 			};
 
@@ -116,7 +119,8 @@ namespace Synologen.LensSubscription.BGData.Test
 		{
 			Context = session =>
 			{
-				payments = PaymentToSendFactory.GetList();
+				var payer = StoreAutogiroPayer(PayerFactory.Get);
+				payments = PaymentToSendFactory.GetList(payer);
 				expectedNumberOfFetchedPayments = payments
 					.Where(x => Equals(x.SendDate, null))
 					.Count();

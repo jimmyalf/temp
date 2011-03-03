@@ -9,7 +9,8 @@ namespace Synologen.LensSubscription.BGData.Mappings
 		{
 			Id(x => x.Id);
 			Map(x => x.Amount).Not.Nullable();
-			Map(x => x.CustomerNumber).Not.Nullable();
+			//Map(x => x.CustomerNumber).Not.Nullable();
+			References(x => x.Payer).Column("PayerId").Not.Nullable();
 			Map(x => x.PaymentDate).Not.Nullable();
 			Map(x => x.PeriodCode).CustomType(typeof(PaymentPeriodCode)).Not.Nullable();
 			Map(x => x.Reference).Nullable();

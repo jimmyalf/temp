@@ -20,7 +20,8 @@ namespace Synologen.LensSubscription.BGData.Test
 		{
 			Context = session =>
 			{
-				savedConsentToSend = ConsentToSendFactory.Get();
+				var payer = StoreAutogiroPayer(PayerFactory.Get);
+				savedConsentToSend = ConsentToSendFactory.Get(payer);
 			};
 
 			Because = repository =>
@@ -39,7 +40,7 @@ namespace Synologen.LensSubscription.BGData.Test
 				fetchedConsent.Account.ClearingNumber.ShouldBe(savedConsentToSend.Account.ClearingNumber);
 				fetchedConsent.Id.ShouldBe(savedConsentToSend.Id);
 				fetchedConsent.OrgNumber.ShouldBe(savedConsentToSend.OrgNumber);
-				fetchedConsent.PayerNumber.ShouldBe(savedConsentToSend.PayerNumber);
+				fetchedConsent.Payer.ShouldBe(savedConsentToSend.Payer);
 				fetchedConsent.PersonalIdNumber.ShouldBe(savedConsentToSend.PersonalIdNumber);
 				fetchedConsent.SendDate.ShouldBe(savedConsentToSend.SendDate);
 				fetchedConsent.Type.ShouldBe(savedConsentToSend.Type);
@@ -56,7 +57,8 @@ namespace Synologen.LensSubscription.BGData.Test
 	    {
 	    	Context = session =>
 	    	{
-	    		editedConsent = ConsentToSendFactory.Get();
+				var payer = StoreAutogiroPayer(PayerFactory.Get);
+	    		editedConsent = ConsentToSendFactory.Get(payer);
 				CreateRepository(session).Save(editedConsent);
 	    		ConsentToSendFactory.Edit(editedConsent);
 	    	};
@@ -73,7 +75,7 @@ namespace Synologen.LensSubscription.BGData.Test
 				fetchedConsent.Account.ClearingNumber.ShouldBe(editedConsent.Account.ClearingNumber);
 				fetchedConsent.Id.ShouldBe(editedConsent.Id);
 				fetchedConsent.OrgNumber.ShouldBe(editedConsent.OrgNumber);
-				fetchedConsent.PayerNumber.ShouldBe(editedConsent.PayerNumber);
+				fetchedConsent.Payer.ShouldBe(editedConsent.Payer);
 				fetchedConsent.PersonalIdNumber.ShouldBe(editedConsent.PersonalIdNumber);
 				fetchedConsent.SendDate.ShouldBe(editedConsent.SendDate);
 				fetchedConsent.Type.ShouldBe(editedConsent.Type);
@@ -90,7 +92,8 @@ namespace Synologen.LensSubscription.BGData.Test
 	    {
 	    	Context = session => 
 			{
-	    		deletedConsent = ConsentToSendFactory.Get();
+				var payer = StoreAutogiroPayer(PayerFactory.Get);
+	    		deletedConsent = ConsentToSendFactory.Get(payer);
 				CreateRepository(session).Save(deletedConsent);
 	    	};
 	    	Because = repository => repository.Delete(deletedConsent);
@@ -117,7 +120,8 @@ namespace Synologen.LensSubscription.BGData.Test
 		{
 			Context = session =>
 			{
-				consents = ConsentToSendFactory.GetList();
+				var payer = StoreAutogiroPayer(PayerFactory.Get);
+				consents = ConsentToSendFactory.GetList(payer);
 				expectedNumberOfFetchedConsents = consents
 					.Where(x => Equals(x.SendDate, null))
 					.Count();

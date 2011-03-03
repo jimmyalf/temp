@@ -7,11 +7,11 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 {
 	public static class ConsentToSendFactory 
 	{
-		public static BGConsentToSend Get()
+		public static BGConsentToSend Get(AutogiroPayer payer)
 		{
-			return Get(0);
+			return Get(0, payer);
 		}
-		public static BGConsentToSend Get(int seed)
+		public static BGConsentToSend Get(int seed, AutogiroPayer payer)
 		{ 
 			return new BGConsentToSend
 			{
@@ -20,7 +20,8 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 					AccountNumber = "1212121212",
 					ClearingNumber = "8901"
 				},
-				PayerNumber = "471117",
+				//PayerNumber = "471117",
+				Payer = payer,
 				OrgNumber = null,
 				PersonalIdNumber = "194608170000",
 				SendDate = seed.IsEven()
@@ -35,16 +36,16 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 			item.Account.AccountNumber = item.Account.AccountNumber.Reverse();
 			item.Account.ClearingNumber = item.Account.ClearingNumber.Reverse();
 			item.OrgNumber = item.OrgNumber.Reverse();
-			item.PayerNumber = item.PayerNumber.Reverse();
+			//item.PayerNumber = item.PayerNumber.Reverse();
 			item.PersonalIdNumber = item.PersonalIdNumber.Reverse();
 			item.SendDate = item.SendDate.HasValue ? item.SendDate.Value.AddDays(5) : new DateTime(2011,02,16);
 			item.Type = item.Type.Next();
 			return item;
 		}
 
-		public static IEnumerable<BGConsentToSend> GetList() 
+		public static IEnumerable<BGConsentToSend> GetList(AutogiroPayer payer) 
 		{
-			Func<int, BGConsentToSend> generateItem = seed => Get(seed);
+			Func<int, BGConsentToSend> generateItem = seed => Get(seed, payer);
 			return generateItem.GenerateRange(0, 15);
 		}
 	}

@@ -86,11 +86,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutogiroPayerRepositoryTester.cs" />
     <Compile Include="BaseTesters\BaseRepositoryTester.cs" />
     <Compile Include="BGReceivedConsentRepositoryTester.cs" />
     <Compile Include="BGReceivedErrorRepositoryTester.cs" />
     <Compile Include="BGReceivedPaymentRepositoryTester.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Factories\PayerFactory.cs" />
     <Compile Include="SetupDataForManualTests.cs" />
     <Compile Include="CommonDataTestHelpers\DataHelper.cs" />
     <Compile Include="CommonDataTestHelpers\NHibernateRepositoryTester.cs" />

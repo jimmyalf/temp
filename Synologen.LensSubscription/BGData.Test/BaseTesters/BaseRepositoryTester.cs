@@ -1,5 +1,7 @@
 using System;
 using NHibernate;
+using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.BGData.Test.CommonDataTestHelpers;
 
 namespace Synologen.LensSubscription.BGData.Test.BaseTesters
@@ -31,6 +33,13 @@ namespace Synologen.LensSubscription.BGData.Test.BaseTesters
             DataHelper.DeleteAndResetIndexForTable(session.Connection, "ReceivedPayments");
             DataHelper.DeleteAndResetIndexForTable(session.Connection, "ReceivedErrors");
         }
+
+		protected AutogiroPayer StoreAutogiroPayer(Func<AutogiroPayer> generatePayerToStore)
+		{
+			var payer = generatePayerToStore.Invoke();
+            new AutogiroPayerRepository(GetSessionFactory().OpenSession()).Save(payer);
+			return payer;
+		}
 
 		protected virtual bool IsDevelopmentServer(string connectionString)
 		{

@@ -7,26 +7,18 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 {
 	public static class PaymentToSendFactory
 	{
-		public static BGPaymentToSend Get() 
+		public static BGPaymentToSend Get(AutogiroPayer payer) 
 		{
-			return new BGPaymentToSend
-			{
-				Amount = 599.99M,
-				CustomerNumber = "55",
-				PaymentDate = new DateTime(2011, 03, 30),
-				PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
-				Reference = "Synhälsan i Göteborg",
-				SendDate = null,
-				Type = PaymentType.Debit
-			};
+			return Get(0, payer);
 		}
 
-		public static BGPaymentToSend Get(int seed) 
+		public static BGPaymentToSend Get(int seed, AutogiroPayer payer) 
 		{
 			return new BGPaymentToSend
 			{
 				Amount = 599.99M,
-				CustomerNumber = "55",
+				//CustomerNumber = "55",
+				Payer = payer,
 				PaymentDate = new DateTime(2011, 03, 30),
 				PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
 				Reference = "Synhälsan i Göteborg",
@@ -40,7 +32,7 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 		public static void Edit(BGPaymentToSend paymentToSend) 
 		{
 			paymentToSend.Amount = paymentToSend.Amount + 299.35M;
-			paymentToSend.CustomerNumber = paymentToSend.CustomerNumber.Reverse();
+			//paymentToSend.CustomerNumber = paymentToSend.CustomerNumber.Reverse();
 			paymentToSend.PaymentDate = paymentToSend.PaymentDate.AddDays(5);
 			paymentToSend.PeriodCode = paymentToSend.PeriodCode.Next();
 			paymentToSend.Reference = paymentToSend.Reference.Reverse();
@@ -50,9 +42,9 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 			paymentToSend.Type = paymentToSend.Type.Next();
 		}
 
-		public static IEnumerable<BGPaymentToSend> GetList() 
+		public static IEnumerable<BGPaymentToSend> GetList(AutogiroPayer payer) 
 		{
-			Func<int, BGPaymentToSend> generateItem = seed => Get(seed);
+			Func<int, BGPaymentToSend> generateItem = seed => Get(seed, payer);
 			return generateItem.GenerateRange(1, 25);
 		}
 	}

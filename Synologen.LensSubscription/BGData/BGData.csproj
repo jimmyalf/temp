@@ -72,12 +72,14 @@
     <Compile Include="CriteriaConverters\AllUnhandledReceivedPaymentFileSectionsCriteriaConverter.cs" />
     <Compile Include="Mappings\BGPaymentToSendMap.cs" />
     <Compile Include="Mappings\FileSectionToSendMap.cs" />
+    <Compile Include="Mappings\PayerMap.cs" />
     <Compile Include="Mappings\ReceivedConsentMap.cs" />
     <Compile Include="Mappings\BGConsentToSendMap.cs" />
     <Compile Include="Mappings\ReceivedErrorMap.cs" />
     <Compile Include="Mappings\ReceivedPaymentMap.cs" />
     <Compile Include="NHibernateFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AutogiroPayerRepository.cs" />
     <Compile Include="Repositories\BGPaymentToSendRepository.cs" />
     <Compile Include="Repositories\BGReceivedConsentRepository.cs" />
     <Compile Include="Repositories\BGConsentToSendRepository.cs" />

@@ -7,7 +7,7 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 {
     public class ReceivedConsentFactory
     {
-        public static BGReceivedConsent Get()
+        public static BGReceivedConsent Get(AutogiroPayer payer)
         {
             return new BGReceivedConsent
                 {
@@ -15,7 +15,8 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
                     CommentCode = ConsentCommentCode.NewConsent,
                     ConsentValidForDate = new DateTime(2011, 02, 11, 12, 0, 0, 0),
                     InformationCode = ConsentInformationCode.InitiatedByPayer,
-                    PayerNumber = 4355,
+                    //PayerNumber = 4355,
+					Payer = payer,
                     CreatedDate = new DateTime(2011, 02, 10, 18, 02, 12),
                 };
         }
@@ -27,7 +28,7 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
             consent.ConsentValidForDate = consent.ConsentValidForDate.Value.AddDays(3);
             consent.CreatedDate = consent.CreatedDate.AddDays(-2);
             consent.InformationCode = consent.InformationCode.Next();
-            consent.PayerNumber = consent.PayerNumber*2;
+            //consent.PayerNumber = consent.PayerNumber*2;
         }
     }
 }

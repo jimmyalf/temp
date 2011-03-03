@@ -16,7 +16,8 @@ namespace Synologen.LensSubscription.BGData.Test
         {
             Context = session =>
             {
-                _paymentToSave = ReceivedPaymentFactory.Get();
+				var payer = StoreAutogiroPayer(PayerFactory.Get);
+                _paymentToSave = ReceivedPaymentFactory.Get(payer);
             };
             Because = repository => repository.Save(_paymentToSave);
         }
@@ -30,7 +31,7 @@ namespace Synologen.LensSubscription.BGData.Test
                 fetchedPayment.Id.ShouldBe(_paymentToSave.Id);
                 fetchedPayment.Amount.ShouldBe(_paymentToSave.Amount);
                 fetchedPayment.CreatedDate.Date.ShouldBe(_paymentToSave.CreatedDate.Date);
-                fetchedPayment.PayerNumber.ShouldBe(_paymentToSave.PayerNumber);
+                fetchedPayment.Payer.ShouldBe(_paymentToSave.Payer);
                 fetchedPayment.PaymentDate.ShouldBe(_paymentToSave.PaymentDate);
                 fetchedPayment.Reference.ShouldBe(_paymentToSave.Reference);
                 fetchedPayment.ResultType.ShouldBe(_paymentToSave.ResultType);
@@ -47,7 +48,8 @@ namespace Synologen.LensSubscription.BGData.Test
         {
             Context = session =>
             {
-                editedPayment = ReceivedPaymentFactory.Get();
+				var payer = StoreAutogiroPayer(PayerFactory.Get);
+                editedPayment = ReceivedPaymentFactory.Get(payer);
                 CreateRepository(session).Save(editedPayment);
                 ReceivedPaymentFactory.Edit(editedPayment);
             };
@@ -63,7 +65,7 @@ namespace Synologen.LensSubscription.BGData.Test
                 fetchedPayment.Id.ShouldBe(editedPayment.Id);
                 fetchedPayment.Amount.ShouldBe(editedPayment.Amount);
                 fetchedPayment.CreatedDate.Date.ShouldBe(editedPayment.CreatedDate.Date);
-                fetchedPayment.PayerNumber.ShouldBe(editedPayment.PayerNumber);
+                fetchedPayment.Payer.ShouldBe(editedPayment.Payer);
                 fetchedPayment.PaymentDate.ShouldBe(editedPayment.PaymentDate);
                 fetchedPayment.Reference.ShouldBe(editedPayment.Reference);
                 fetchedPayment.ResultType.ShouldBe(editedPayment.ResultType);
@@ -80,7 +82,8 @@ namespace Synologen.LensSubscription.BGData.Test
         {
             Context = session =>
             {
-                deletedPayment = ReceivedPaymentFactory.Get();
+				var payer = StoreAutogiroPayer(PayerFactory.Get);
+                deletedPayment = ReceivedPaymentFactory.Get(payer);
                 CreateRepository(session).Save(deletedPayment);
             };
             Because = repository => repository.Delete(deletedPayment);

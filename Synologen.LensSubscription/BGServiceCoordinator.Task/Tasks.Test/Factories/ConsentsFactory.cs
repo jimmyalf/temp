@@ -9,13 +9,13 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 {
 	public static class ConsentsFactory 
 	{
-		public static IList<BGConsentToSend> GetList() 
+		public static IList<BGConsentToSend> GetList(AutogiroPayer payer) 
 		{
-			Func<int, BGConsentToSend> generateItem = Get;
+			Func<int, BGConsentToSend> generateItem = seed => Get(seed, payer);
 			return generateItem.GenerateRange(1, 15).ToList();
 		}
 
-		public static BGConsentToSend Get(int seed)
+		public static BGConsentToSend Get(int seed, AutogiroPayer payer)
 		{
 			return new BGConsentToSend
 			{
@@ -24,12 +24,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 					AccountNumber = "1212121212",
 					ClearingNumber = "8901"
 				},
-				//PayerNumber = "471117",
-				Payer = new AutogiroPayer
-				{
-					Name = "Adam Bertil",
-					ServiceType = AutogiroServiceType.LensSubscription
-				},
+				Payer = payer,
 				OrgNumber = null,
 				PersonalIdNumber = "194608170000",
 				SendDate = null,

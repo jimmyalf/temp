@@ -20,6 +20,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		private IList<BGConsentToSend> consentsToSend;
 		private string paymentRecieverBankGiroNumber;
 		private string paymentRecieverCustomerNumber;
+		private AutogiroPayer payer;
 
 		public When_sending_consents()
 		{
@@ -27,12 +28,14 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 			{
 				paymentRecieverBankGiroNumber = "555555";
 				paymentRecieverCustomerNumber = "123456";
-				consentsToSend = ConsentsFactory.GetList();
+				payer = PayerFactory.Get();
+				consentsToSend = ConsentsFactory.GetList(payer);
 				fileData = ConsentsFactory.GetTestConsentFileData();
 				A.CallTo(() => BGConsentToSendRepository.FindBy(A<AllNewConsentsToSendCriteria>.Ignored.Argument)).Returns(consentsToSend);
 				A.CallTo(() => ConsentFileWriter.Write(A<ConsentsFile>.Ignored)).Returns(fileData);
 				A.CallTo(() => BgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
 				A.CallTo(() => BgConfigurationSettingsService.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
+				A.CallTo(() => AutogiroPayerRepository.Get(A<int>.Ignored)).Returns(payer);
 			};
 			Because = task => task.Execute();
 		}

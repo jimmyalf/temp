@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\Factories\HashServiceFactory.cs" />
+    <Compile Include="App\Factories\SendFileWriterService.cs" />
     <Compile Include="App\Factories\TamperProtectedFileWriterFactory.cs" />
     <Compile Include="App\IoC\TaskRunnerRegistry.cs" />
     <Compile Include="App\Logging\Log4NetLogger.cs" />

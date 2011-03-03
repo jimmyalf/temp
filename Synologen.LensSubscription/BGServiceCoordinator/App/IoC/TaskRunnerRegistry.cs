@@ -53,6 +53,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 			For<IBGReceivedConsentRepository>().Use<BGReceivedConsentRepository>();
 			For<IBGReceivedErrorRepository>().Use<BGReceivedErrorRepository>();
 			For<IReceivedFileRepository>().Use<ReceivedFileRepository>();
+			For<IAutogiroPayerRepository>().Use<AutogiroPayerRepository>();
 
 			//Autogiro reader/writers/services
 			For<IAutogiroFileWriter<Send.PaymentsFile, Send.Payment>>().Use<PaymentsFileWriter>();
@@ -60,7 +61,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 			For<IAutogiroFileReader<Read.ConsentsFile, Read.Consent>>().Use<ConsentsFileReader>();
 			For<IAutogiroFileReader<Read.ErrorsFile, Read.Error>>().Use<ErrorFileReader>();
 			For<IAutogiroFileReader<Read.PaymentsFile, Read.Payment>>().Use<PaymentsFileReader>();
-			For<IFileWriterService>().Use<BGSentFileWriterService>();
+			For<IFileWriterService>().Use(x=> SendFileWriterServiceFactory.Get(x.GetInstance<IFileIOService>(), x.GetInstance<IBGConfigurationSettingsService>()));
 			For<ITamperProtectedFileWriter>().Use(x => TamperProtectedFileWriterFactory.Get(x.GetInstance<IHashService>()));
 			For<IHashService>().Use(x => HashServiceFactory.Get(x.GetInstance<IBGConfigurationSettingsService>()));
 			For<IFtpService>().Use<BGFtpService>().Ctor<BGFtpServiceType>().Is(BGFtpServiceType.Autogiro_Test);

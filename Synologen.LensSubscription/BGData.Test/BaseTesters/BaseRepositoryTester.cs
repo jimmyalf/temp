@@ -31,7 +31,7 @@ namespace Synologen.LensSubscription.BGData.Test.BaseTesters
 			DataHelper.DeleteAndResetIndexForTable(session.Connection, "FileSectionToSend");
             DataHelper.DeleteAndResetIndexForTable(session.Connection, "ReceivedConsents");
             DataHelper.DeleteAndResetIndexForTable(session.Connection, "ReceivedPayments");
-            DataHelper.DeleteAndResetIndexForTable(session.Connection, "ReceivedErrors");
+            DataHelper.DeleteAndResetIndexForTable(session.Connection, "ReceivedError");
         }
 
 		protected AutogiroPayer StoreAutogiroPayer(Func<AutogiroPayer> generatePayerToStore)
@@ -45,6 +45,7 @@ namespace Synologen.LensSubscription.BGData.Test.BaseTesters
 		{
 			if (connectionString.ToLower().Contains("black")) return true;
 			if (connectionString.ToLower().Contains("localhost")) return true;
+			if (connectionString.ToLower().Contains(@".\sqlexpress")) return true;
 			return false;
 		}
 

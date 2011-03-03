@@ -7,7 +7,7 @@ using Synologen.LensSubscription.BGService.Test.TestHelpers;
 namespace Synologen.LensSubscription.BGService.Test
 {
 	[TestFixture, Category("BGSentFileWriterServiceTests")]
-	public class When_writing_file_to_disk : BGSentFileWriterServiceTestBase
+	public class When_writing_file_to_disk : BGSendFileWriterServiceTestBase
 	{
 		private string fileData;
 		private string ftpFileName;
@@ -44,7 +44,7 @@ namespace Synologen.LensSubscription.BGService.Test
 	}
 
 	[TestFixture, Category("BGSentFileWriterServiceTests")]
-	public class When_writing_file_to_disk_and_a_file_already_exists : BGSentFileWriterServiceTestBase
+	public class When_writing_file_to_disk_and_a_file_already_exists : BGSendFileWriterServiceTestBase
 	{
 		private string fileData;
 		private string fileName;
@@ -78,7 +78,7 @@ namespace Synologen.LensSubscription.BGService.Test
 	}
 
 	[TestFixture, Category("BGSentFileWriterServiceTests")]
-	public class When_writing_file_to_disk_with_illegal_file_name : BGSentFileWriterServiceTestBase
+	public class When_writing_file_to_disk_with_illegal_file_name : BGSendFileWriterServiceTestBase
 	{
 		private string fileData;
 		private string fileName;

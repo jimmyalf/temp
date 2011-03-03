@@ -60,7 +60,7 @@
     <Compile Include="Factories\FtpServiceFactory.cs" />
     <Compile Include="TestFtpCommandService.cs" />
     <Compile Include="TestHelpers\BGFtpServiceTestBase.cs" />
-    <Compile Include="TestHelpers\BGSentFileWriterServiceTestBase.cs" />
+    <Compile Include="TestHelpers\BGSendFileWriterServiceTestBase.cs" />
     <Compile Include="BGFileWriterServiceTests.cs" />
     <Compile Include="BGFtpServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

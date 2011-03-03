@@ -8,6 +8,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
 {
@@ -29,6 +30,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
             {
 				var receivedFileSectionRepository = repositoryResolver.GetRepository<IReceivedFileRepository>();
 				var bgReceivedPaymentRepository = repositoryResolver.GetRepository<IBGReceivedPaymentRepository>();
+				var autogiroPayerRepository = repositoryResolver.GetRepository<IAutogiroPayerRepository>();
                 var paymentFileSections = receivedFileSectionRepository.FindBy(new AllUnhandledReceivedPaymentFileSectionsCriteria());
 
                 LogDebug("Fetched {0} payment file sections from repository", paymentFileSections.Count());
@@ -40,7 +42,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
 
                     payments.Each(payment =>
                     {
-                        var receivedConsent = ToBGPayment(payment);
+                    	var payerId = payment.Transmitter.CustomerNumber.ToInt();
+                    	var payer = autogiroPayerRepository.Get(payerId);
+                        var receivedConsent = ToBGPayment(payment, payer);
                         bgReceivedPaymentRepository.Save(receivedConsent);
                     });
                     paymentFileSection.HandledDate = DateTime.Now;
@@ -50,12 +54,13 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
             });                   
         }
 
-        private static BGReceivedPayment ToBGPayment(Payment payment)
+        private static BGReceivedPayment ToBGPayment(Payment payment, AutogiroPayer payer)
         {
             return new BGReceivedPayment
             {
                 Amount = payment.Amount,
-                PayerNumber = int.Parse(payment.Transmitter.CustomerNumber),
+                //PayerNumber = int.Parse(payment.Transmitter.CustomerNumber),
+				Payer = payer,
                 PaymentDate = payment.PaymentDate,
                 Reference = payment.Reference,
                 ResultType = payment.Result,

@@ -63,7 +63,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendPayments
 		{
 			return new PaymentsFile
 			{
-				Posts = consentsToSend.Select(consent => ToConsent(consent)),
+				Posts = consentsToSend.Select(consent => ToPayment(consent)),
 				Reciever = new PaymentReciever
 				{
 					BankgiroNumber = _bgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber(),
@@ -73,7 +73,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendPayments
 			};
 		}
 
-		protected virtual Payment ToConsent(BGPaymentToSend paymentToSend)
+		protected virtual Payment ToPayment(BGPaymentToSend paymentToSend)
 		{
 			return new Payment
 			{
@@ -84,7 +84,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendPayments
 				Reference = paymentToSend.Reference,
 				Transmitter = new Payer
 				{
-					CustomerNumber = paymentToSend.CustomerNumber
+					CustomerNumber = paymentToSend.Payer.Id.ToString()
 				},
 				Type = paymentToSend.Type.ToInteger().ToEnum<PaymentType>()
 			};

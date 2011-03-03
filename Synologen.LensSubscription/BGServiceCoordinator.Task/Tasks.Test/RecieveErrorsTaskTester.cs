@@ -18,18 +18,22 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 	{
         private IEnumerable<ReceivedFileSection> _receivedSections;
         private Error _savedError;
+		private AutogiroPayer payer;
 
 		public When_receiveing_errors()
 		{
 			Context = () =>
             {
-                _receivedSections = ReceivedErrorsFactory.GetList();
-                var errorsFileSection = ReceivedErrorsFactory.GetReceivedErrorFileSection();
-                _savedError = ReceivedErrorsFactory.GetError();
+                //_receivedSections = ReceivedErrorsFactory.GetList();
+            	payer = PayerFactory.Get();
+            	_receivedSections = RecievedFileSectionFactory.GetList(SectionType.ReceivedErrors);
+                var errorsFileSection = ReceivedErrorsFactory.GetReceivedErrorFileSection(payer.Id);
+                _savedError = ReceivedErrorsFactory.GetError(payer.Id);
 
                 A.CallTo(() => ReceivedFileRepository.FindBy(A<AllUnhandledReceivedErrorFileSectionsCriteria>
                                                       .Ignored.Argument)).Returns(_receivedSections);
                 A.CallTo(() => ErrorFileReader.Read(A<string>.Ignored)).Returns(errorsFileSection); 
+				A.CallTo(() => AutogiroPayerRepository.Get(payer.Id)).Returns(payer);
             };
 		
 			Because = task => { task.Execute();};
@@ -75,7 +79,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
                             A<BGReceivedError>
                             .That.Matches(x => x.Amount.Equals(_savedError.Amount))
                             .And.Matches(x => x.CreatedDate.Date.Equals(DateTime.Now.Date))
-                            .And.Matches(x => x.PayerNumber.Equals(int.Parse(_savedError.Transmitter.CustomerNumber)))
+                            .And.Matches(x => x.Payer.Id.ToString().Equals(_savedError.Transmitter.CustomerNumber))
                             .And.Matches(x => x.PaymentDate.Date.Equals(_savedError.PaymentDate.Date))
                             .And.Matches(x => x.Reference.Equals(_savedError.Reference))
                             .And.Matches(x => x.CommentCode.Equals(_savedError.CommentCode))

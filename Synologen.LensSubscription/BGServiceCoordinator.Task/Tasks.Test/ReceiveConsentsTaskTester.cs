@@ -18,18 +18,22 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
     {
         private IEnumerable<ReceivedFileSection> _receivedSections;
         private Consent _savedConsent;
+    	private AutogiroPayer payer;
 
-        public When_receiveing_consents()
+    	public When_receiveing_consents()
         {
             Context = () =>
             {
-                _receivedSections = ReceivedConsentsFactory.GetList();
-                ConsentsFile consentFileSection = ReceivedConsentsFactory.GetReceivedConsentFileSection();
-                _savedConsent = ReceivedConsentsFactory.GetConsent();
+            	payer = PayerFactory.Get();
+                //_receivedSections = ReceivedConsentsFactory.GetList();
+            	_receivedSections = RecievedFileSectionFactory.GetList(SectionType.ReceivedConsents);
+                var consentFileSection = ReceivedConsentsFactory.GetReceivedConsentFileSection(payer.Id);
+                _savedConsent = ReceivedConsentsFactory.GetConsent(payer.Id);
 
                 A.CallTo(() => ReceivedFileRepository.FindBy(A<AllUnhandledReceivedConsentFileSectionsCriteria>
                                                       .Ignored.Argument)).Returns(_receivedSections);
                 A.CallTo(() => ConsentFileReader.Read(A<string>.Ignored)).Returns(consentFileSection);
+            	A.CallTo(() => AutogiroPayerRepository.Get(payer.Id)).Returns(payer);
             };
             Because = task => task.Execute();
         }
@@ -76,7 +80,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
                             .And.Matches(x => x.CommentCode.Equals(_savedConsent.CommentCode))
                             .And.Matches(x => x.ConsentValidForDate.Equals(_savedConsent.ConsentValidForDate))
                             .And.Matches(x => x.InformationCode.Equals(_savedConsent.InformationCode))
-                            .And.Matches(x => x.PayerNumber.Equals(int.Parse(_savedConsent.Transmitter.CustomerNumber)))
+                            .And.Matches(x => x.Payer.Id.ToString().Equals(_savedConsent.Transmitter.CustomerNumber))
                             .And.Matches(x => x.CreatedDate.Date.Equals(DateTime.Now.Date))
 			            )).MustHaveHappened();
         }

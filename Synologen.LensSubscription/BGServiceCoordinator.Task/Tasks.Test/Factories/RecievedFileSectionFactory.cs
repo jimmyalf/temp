@@ -9,19 +9,28 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 	{
 		public static IEnumerable<ReceivedFileSection> GetList()
 		{
-			Func<int, ReceivedFileSection> generateItem = seed => Get();
-			return generateItem.GenerateRange(1, 15);
+			return GetList(SectionType.ReceivedConsents);
+		}
+
+		public static IEnumerable<ReceivedFileSection> GetList(SectionType type)
+		{
+			Func<ReceivedFileSection> generateItem = () => Get(type);
+			return generateItem.GenerateRange(15);
 		}
 
 		public static ReceivedFileSection Get()
+		{
+			return Get(SectionType.ReceivedConsents);
+		}
+		public static ReceivedFileSection Get(SectionType type)
 		{
 			return new ReceivedFileSection
 			{
 				CreatedDate = DateTime.Now.Date,
 				HandledDate = null,
 				SectionData = new string('A', 5000),
-				Type = SectionType.ReceivedConsents,
-				TypeName = SectionType.ReceivedConsents.GetEnumDisplayName()
+				Type = type,
+				TypeName = type.GetEnumDisplayName()
 			};
 		}
 	}

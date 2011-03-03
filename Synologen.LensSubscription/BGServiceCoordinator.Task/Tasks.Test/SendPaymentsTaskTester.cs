@@ -20,6 +20,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		private string paymentRecieverBankGiroNumber;
 		private string paymentRecieverCustomerNumber;
 		private string fileData;
+		private AutogiroPayer payer;
 
 		public When_sending_payments()
 		{
@@ -28,11 +29,13 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 				paymentRecieverBankGiroNumber = "555555";
 				paymentRecieverCustomerNumber = "123456";
 				fileData = PaymentsFactory.GetTestPaymentFileData();
-				paymentsToSend = PaymentsFactory.GetList();
+				payer = PayerFactory.Get();
+				paymentsToSend = PaymentsFactory.GetList(payer);
 				A.CallTo(() => BGPaymentToSendRepository.FindBy(A<AllNewPaymentsToSendCriteria>.Ignored.Argument)).Returns(paymentsToSend);
 				A.CallTo(() => BgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
 				A.CallTo(() => BgConfigurationSettingsService.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
 				A.CallTo(() => PaymentFileWriter.Write(A<PaymentsFile>.Ignored)).Returns(fileData);
+				A.CallTo(() => AutogiroPayerRepository.Get(A<int>.Ignored)).Returns(payer);
 			};
 			Because = task => task.Execute();
 		}

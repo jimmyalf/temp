@@ -18,6 +18,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 	    protected IReceivedFileRepository ReceivedFileRepository;
         protected IBGConfigurationSettingsService BgConfigurationSettingsService;
 		protected ITaskRepositoryResolver TaskRepositoryResolver;
+		protected IAutogiroPayerRepository AutogiroPayerRepository;
 		protected Log4NetLogger Log4NetLogger;
 
 		protected override void SetUp()
@@ -29,9 +30,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			ReceivedFileRepository = A.Fake<IReceivedFileRepository>();
 			BgConfigurationSettingsService = A.Fake<IBGConfigurationSettingsService>();
 			TaskRepositoryResolver = A.Fake<ITaskRepositoryResolver>();
+			AutogiroPayerRepository = A.Fake<IAutogiroPayerRepository>();
 			
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<IFileSectionToSendRepository>()).Returns(FileSectionToSendRepository);
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<IReceivedFileRepository>()).Returns(ReceivedFileRepository);
+			A.CallTo(() => TaskRepositoryResolver.GetRepository<IAutogiroPayerRepository>()).Returns(AutogiroPayerRepository);
 		}
 
 		protected abstract ITask GetTask();

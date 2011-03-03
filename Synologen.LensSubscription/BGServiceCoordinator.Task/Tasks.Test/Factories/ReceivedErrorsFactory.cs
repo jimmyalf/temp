@@ -2,31 +2,31 @@
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
-using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 {
     public class ReceivedErrorsFactory
     {
-        public static IEnumerable<ReceivedFileSection> GetList()
-        {
-            return TestHelper.GenerateSequence<ReceivedFileSection>(GetSection, 15);	
-        }
+		//public static IEnumerable<ReceivedFileSection> GetList()
+		//{
+		//    Func<int,ReceivedFileSection> getItem = GetSection()
+		//    return TestHelper.GenerateSequence<ReceivedFileSection>(GetSection, 15);	
+		//}
 
-        private static ReceivedFileSection GetSection()
-        {
-            return new ReceivedFileSection
-            {
-                CreatedDate = DateTime.Now.AddDays(-1),
-                HandledDate = null,
-                SectionData = new string('A', 5000),
-                Type = SectionType.ReceivedErrors,
-                TypeName = SectionType.ReceivedConsents.GetEnumDisplayName()
-            };
-        }
+		//private static ReceivedFileSection GetSection()
+		//{
+		//    return new ReceivedFileSection
+		//    {
+		//        CreatedDate = DateTime.Now.AddDays(-1),
+		//        HandledDate = null,
+		//        SectionData = new string('A', 5000),
+		//        Type = SectionType.ReceivedErrors,
+		//        TypeName = SectionType.ReceivedConsents.GetEnumDisplayName()
+		//    };
+		//}
 
-        public static ErrorsFile GetReceivedErrorFileSection()
+        public static ErrorsFile GetReceivedErrorFileSection(int customerNumber)
         {
             return new ErrorsFile
             {
@@ -39,17 +39,18 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
                             },
                 TotalCreditAmountInFile = 0,
                 TotalDebitAmountInFile = 4444,
-                Posts = GetErrors(),
+                Posts = GetErrors(customerNumber),
                 WriteDate = DateTime.Now.AddHours(-3)
             };
         }
 
-        private static IEnumerable<Error> GetErrors()
+        private static IEnumerable<Error> GetErrors(int customerNumber)
         {
-            return TestHelper.GenerateSequence<Error>(GetError, 10);
+        	Func<Error> generateItem = () => GetError(customerNumber);
+            return generateItem.GenerateRange(10);
         }
 
-        public static Error GetError()
+        public static Error GetError(int customerNumber)
         {
             return new Error
             {
@@ -59,7 +60,10 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
                 PaymentDate = DateTime.Now.AddDays(-2),
                 PeriodCode = PeriodCode.PaymentOnceOnSelectedDate,
                 Reference = "Ref.",
-                Transmitter = new Payer { CustomerNumber = "664411"},
+                Transmitter = new Payer
+                {
+                	CustomerNumber = customerNumber.ToString()
+                },
                 Type = Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes.PaymentType.Debit
             };
         }

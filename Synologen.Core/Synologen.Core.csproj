@@ -70,6 +70,7 @@
     <Compile Include="Attributes\EnumDisplayNameAttribute.cs" />
     <Compile Include="Domain\Exceptions\AutogiroFileDoesNotExistException.cs" />
     <Compile Include="Domain\Exceptions\AutogiroFileExistsException.cs" />
+    <Compile Include="Domain\Exceptions\AutogiroFileSplitException.cs" />
     <Compile Include="Domain\Exceptions\SynologenDeleteItemHasConnectionsException.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\AutogiroFileReader.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\AutogiroFileWriter.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IAutogiroFile.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IAutogiroFileReader.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IAutogiroFileWriter.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\IFileSplitter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IFooterWriter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IHeaderWriter.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\IItemReader.cs" />

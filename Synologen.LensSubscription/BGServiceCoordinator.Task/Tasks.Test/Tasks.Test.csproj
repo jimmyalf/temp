@@ -72,10 +72,13 @@
     <Compile Include="Factories\ConsentsFactory.cs" />
     <Compile Include="Factories\FileSectionToSendFactory.cs" />
     <Compile Include="Factories\PayerFactory.cs" />
+    <Compile Include="Factories\GetFileFactory.cs" />
     <Compile Include="Factories\PaymentsFactory.cs" />
     <Compile Include="Factories\ReceivedErrorsFactory.cs" />
     <Compile Include="Factories\ReceivedConsentsFactory.cs" />
     <Compile Include="Factories\RecievedFileSectionFactory.cs" />
+    <Compile Include="GetFileTaskTester.cs" />
+    <Compile Include="Helpers\GetFileTaskTestBase.cs" />
     <Compile Include="Helpers\ReceiveConsentsTaskTestBase.cs" />
     <Compile Include="Helpers\ReceiveErrorsTaskTestBase.cs" />
     <Compile Include="Helpers\ReceivePaymentsTaskTestBase.cs" />
@@ -107,6 +110,10 @@
     <ProjectReference Include="..\..\BGServiceCoordinator\BGServiceCoordinator.csproj">
       <Project>{0EB3860A-9087-4AF2-BAD9-A1AEA964999D}</Project>
       <Name>BGServiceCoordinator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GetFile\GetFile.csproj">
+      <Project>{56639B4D-5593-4A4F-9918-CBEB29BD93A2}</Project>
+      <Name>GetFile</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceiveConsents\ReceiveConsents.csproj">
       <Project>{0BAE058D-24F4-41ED-8CF9-AD128B59F211}</Project>

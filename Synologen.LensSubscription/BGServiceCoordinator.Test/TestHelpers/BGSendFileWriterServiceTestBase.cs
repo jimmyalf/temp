@@ -6,13 +6,13 @@ using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.BGService.Test.TestHelpers
 {
-	public abstract class BGSentFileWriterServiceTestBase : BehaviorTestBase<BGSendFileWriterService>
+	public abstract class BGSendFileWriterServiceTestBase : BehaviorTestBase<BGSendFileWriterService>
 	{
 		protected IFileIOService FileIOService;
 		protected IBGConfigurationSettingsService BGConfigurationSettingsService;
 		protected DateTime WriteDate;
 
-		protected BGSentFileWriterServiceTestBase()
+		protected BGSendFileWriterServiceTestBase()
 		{
 			FileIOService = A.Fake<IFileIOService>();
 			BGConfigurationSettingsService = A.Fake<IBGConfigurationSettingsService>();

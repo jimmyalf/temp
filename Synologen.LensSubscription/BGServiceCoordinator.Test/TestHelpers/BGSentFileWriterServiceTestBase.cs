@@ -6,7 +6,7 @@ using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.BGService.Test.TestHelpers
 {
-	public abstract class BGSentFileWriterServiceTestBase : BehaviorTestBase<BGSentFileWriterService>
+	public abstract class BGSentFileWriterServiceTestBase : BehaviorTestBase<BGSendFileWriterService>
 	{
 		protected IFileIOService FileIOService;
 		protected IBGConfigurationSettingsService BGConfigurationSettingsService;
@@ -18,9 +18,9 @@ namespace Synologen.LensSubscription.BGService.Test.TestHelpers
 			BGConfigurationSettingsService = A.Fake<IBGConfigurationSettingsService>();
 		}
 		
-		protected override BGSentFileWriterService GetTestModel()
+		protected override BGSendFileWriterService GetTestModel()
 		{
-			return new BGSentFileWriterService(FileIOService, BGConfigurationSettingsService, WriteDate);
+			return new BGSendFileWriterService(FileIOService, BGConfigurationSettingsService, WriteDate);
 		}
 	}
 }

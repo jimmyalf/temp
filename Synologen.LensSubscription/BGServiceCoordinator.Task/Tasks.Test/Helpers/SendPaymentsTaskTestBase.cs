@@ -20,7 +20,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 
 			PaymentFileWriter = A.Fake<IAutogiroFileWriter<PaymentsFile, Payment>>();
 			BGPaymentToSendRepository = A.Fake<IBGPaymentToSendRepository>();
-			A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGPaymentToSendRepository>()).Returns(BGPaymentToSendRepository);
+			TaskRepositoryResolver.AddRepository(BGPaymentToSendRepository);
+			//A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGPaymentToSendRepository>()).Returns(BGPaymentToSendRepository);
 		}
 
 

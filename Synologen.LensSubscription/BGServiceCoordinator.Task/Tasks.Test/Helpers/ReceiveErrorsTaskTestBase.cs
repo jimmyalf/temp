@@ -17,7 +17,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			base.SetUp();
 			BGReceivedErrorRepository = A.Fake<IBGReceivedErrorRepository>();
 		    ErrorFileReader = A.Fake<IAutogiroFileReader<ErrorsFile, Error>>();
-			A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGReceivedErrorRepository>()).Returns(BGReceivedErrorRepository);
+			TaskRepositoryResolver.AddRepository(BGReceivedErrorRepository);
+			//A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGReceivedErrorRepository>()).Returns(BGReceivedErrorRepository);
 		}
 
 		protected override ITask GetTask()

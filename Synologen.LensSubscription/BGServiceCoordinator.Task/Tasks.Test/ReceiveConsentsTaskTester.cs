@@ -25,7 +25,6 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
             Context = () =>
             {
             	payer = PayerFactory.Get();
-                //_receivedSections = ReceivedConsentsFactory.GetList();
             	_receivedSections = RecievedFileSectionFactory.GetList(SectionType.ReceivedConsents);
                 var consentFileSection = ReceivedConsentsFactory.GetReceivedConsentFileSection(payer.Id);
                 _savedConsent = ReceivedConsentsFactory.GetConsent(payer.Id);

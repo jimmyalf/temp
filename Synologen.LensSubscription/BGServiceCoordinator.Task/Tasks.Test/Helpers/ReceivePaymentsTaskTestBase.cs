@@ -17,7 +17,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 
 			BGReceivedPaymentRepository = A.Fake<IBGReceivedPaymentRepository>();
     		PaymentFileReader = A.Fake<IAutogiroFileReader<PaymentsFile, Payment>>();
-			A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGReceivedPaymentRepository>()).Returns(BGReceivedPaymentRepository);
+			TaskRepositoryResolver.AddRepository(BGReceivedPaymentRepository);
 		}
 
     	protected override ITask GetTask()

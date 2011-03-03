@@ -55,7 +55,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			       Equals(parsedPayment.PeriodCode.ToInteger(), originalPayment.PeriodCode.ToInteger()) &&
 			       Equals(parsedPayment.RecieverBankgiroNumber, bankGiroNumber) &&
 			       Equals(parsedPayment.Reference, originalPayment.Reference) &&
-			       Equals(parsedPayment.Transmitter.CustomerNumber, originalPayment.CustomerNumber) &&
+			       Equals(parsedPayment.Transmitter.CustomerNumber, originalPayment.Payer.Id.ToString()) &&
 			       Equals(parsedPayment.Type.ToInteger(), originalPayment.Type.ToInteger());
 		}
 	}

@@ -71,9 +71,9 @@
   <ItemGroup>
     <Compile Include="Factories\ConsentsFactory.cs" />
     <Compile Include="Factories\FileSectionToSendFactory.cs" />
+    <Compile Include="Factories\PayerFactory.cs" />
     <Compile Include="Factories\PaymentsFactory.cs" />
     <Compile Include="Factories\ReceivedErrorsFactory.cs" />
-    <Compile Include="Factories\TestHelper.cs" />
     <Compile Include="Factories\ReceivedConsentsFactory.cs" />
     <Compile Include="Factories\RecievedFileSectionFactory.cs" />
     <Compile Include="Helpers\ReceiveConsentsTaskTestBase.cs" />

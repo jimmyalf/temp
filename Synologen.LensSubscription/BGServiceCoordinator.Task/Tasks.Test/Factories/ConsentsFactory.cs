@@ -24,9 +24,14 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 					AccountNumber = "1212121212",
 					ClearingNumber = "8901"
 				},
-				PayerNumber = "471117",
-                OrgNumber = null,
-                PersonalIdNumber = "194608170000",
+				//PayerNumber = "471117",
+				Payer = new AutogiroPayer
+				{
+					Name = "Adam Bertil",
+					ServiceType = AutogiroServiceType.LensSubscription
+				},
+				OrgNumber = null,
+				PersonalIdNumber = "194608170000",
 				SendDate = null,
 				Type = ConsentType.New.SkipValues(seed),
 			};

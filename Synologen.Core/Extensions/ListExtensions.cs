@@ -116,6 +116,15 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			yield break;
 		}
 
+		public static IEnumerable<TModel> GenerateRange<TModel>(this Func<TModel> converter, int count )
+		{
+			for (var i = 0; i < count; i++)
+			{
+				yield return converter();
+			}
+			yield break;
+		}
+
 		public static string ToHexString(this byte[] bytes)
 		{
 			if(bytes == null || bytes.Count() == 0) return String.Empty;

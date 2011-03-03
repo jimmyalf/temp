@@ -9,39 +9,41 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 {
     public static class ReceivedConsentsFactory
     {
-        public static IEnumerable<ReceivedFileSection> GetList()
-        {
-            return TestHelper.GenerateSequence<ReceivedFileSection>(GetSection, 15);
-        }
+		//public static IEnumerable<ReceivedFileSection> GetList()
+		//{
+		//    Func<int, ReceivedFileSection> generateItem = seed => GetSection();
+		//    return generateItem.GenerateRange(1, 15);
+		//}
 
-        private static ReceivedFileSection GetSection()
-        {
-            return new ReceivedFileSection
-            {
-                CreatedDate = DateTime.Now.Date,
-                HandledDate = null,
-                SectionData = new string('A', 5000),
-                Type = SectionType.ReceivedConsents,
-                TypeName = SectionType.ReceivedConsents.GetEnumDisplayName()
-            };
-        }
+		//private static ReceivedFileSection GetSection()
+		//{
+		//    return new ReceivedFileSection
+		//    {
+		//        CreatedDate = DateTime.Now.Date,
+		//        HandledDate = null,
+		//        SectionData = new string('A', 5000),
+		//        Type = SectionType.ReceivedConsents,
+		//        TypeName = SectionType.ReceivedConsents.GetEnumDisplayName(),
+		//    };
+		//}
 
-        public static ConsentsFile GetReceivedConsentFileSection()
+        public static ConsentsFile GetReceivedConsentFileSection(int payerId)
         {
             return new ConsentsFile
             {
                 NumberOfItemsInFile = 10,
                 PaymentRecieverBankgiroNumber = "5555-6666-7777",
-                Posts = GetConsents()
+                Posts = GetConsents(payerId)
             };
         }
 
-        private static IEnumerable<Consent> GetConsents()
+        private static IEnumerable<Consent> GetConsents(int payerId)
         {
-            return TestHelper.GenerateSequence<Consent>(GetConsent, 10);
+        	Func<int, Consent> generateItem = seed => GetConsent(payerId);
+            return generateItem.GenerateRange(1, 10);
         }
 
-        public static Consent GetConsent()
+        public static Consent GetConsent(int payerId)
         {
             return new Consent
             {
@@ -58,7 +60,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
                 OrgNumber = "111222333444",
                 PersonalIdNumber = "194608170000",
                 RecieverBankgiroNumber = "9876543210",
-                Transmitter = new Payer { CustomerNumber = "999" }
+                Transmitter = new Payer { CustomerNumber = payerId.ToString() }
             };
         }
     }

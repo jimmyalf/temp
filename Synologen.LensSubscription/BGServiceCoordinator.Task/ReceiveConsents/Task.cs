@@ -8,6 +8,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents
 {
@@ -33,6 +34,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents
             {
 				var receivedFileSectionRepository = repositoryResolver.GetRepository<IReceivedFileRepository>();
 				var bgReceivedConsentRepository = repositoryResolver.GetRepository<IBGReceivedConsentRepository>();
+				var autogiroPayerRepository = repositoryResolver.GetRepository<IAutogiroPayerRepository>();
                 var consentFileSections = receivedFileSectionRepository.FindBy(new AllUnhandledReceivedConsentFileSectionsCriteria());
 
                 LogDebug("Fetched {0} consent file sections from repository", consentFileSections.Count());
@@ -44,7 +46,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents
 
                     consents.Each(consent =>
                     {
-                        var receivedConsent = ToBGConsent(consent);
+                    	var payerId = consent.Transmitter.CustomerNumber.ToInt();
+                    	var payer = autogiroPayerRepository.Get(payerId);
+                        var receivedConsent = ToBGConsent(consent, payer);
                         bgReceivedConsentRepository.Save(receivedConsent);
                     });
                     consentFileSection.HandledDate = DateTime.Now;
@@ -54,7 +58,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents
             });
         }
 
-        private static BGReceivedConsent ToBGConsent(Consent consent)
+        private static BGReceivedConsent ToBGConsent(Consent consent, AutogiroPayer payer)
         {
             return new BGReceivedConsent
             {
@@ -62,7 +66,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents
                   CommentCode = consent.CommentCode,
                   ConsentValidForDate = consent.ConsentValidForDate,
                   InformationCode = consent.InformationCode,
-                  PayerNumber = int.Parse(consent.Transmitter.CustomerNumber),
+                  //PayerNumber = int.Parse(consent.Transmitter.CustomerNumber),
+				  Payer = payer,
                   CreatedDate = DateTime.Now
             };
         }

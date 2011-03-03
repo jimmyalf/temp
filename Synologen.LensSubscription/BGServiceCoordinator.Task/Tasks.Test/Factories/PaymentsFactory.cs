@@ -6,20 +6,30 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using PaymentType=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes.PaymentType;
+using BGServer=Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 {
     public static class PaymentsFactory
     {
-        public static IList<BGPaymentToSend> GetList()
+        public static IList<BGPaymentToSend> GetList(AutogiroPayer payer)
         {
-            Func<int, BGPaymentToSend> generateItem = seed => Get();
-            return generateItem.GenerateRange(1, 15).ToList();
+            Func<BGPaymentToSend> generateItem = () => Get(payer);
+            return generateItem.GenerateRange(15).ToList();
         }
 
-        public static BGPaymentToSend Get()
+        public static BGPaymentToSend Get(AutogiroPayer payer)
         {
-            return new BGPaymentToSend();
+            return new BGPaymentToSend
+            {
+            	Amount = 560.23M,
+                Payer = payer,
+                PaymentDate = new DateTime(2011,03,03),
+                PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
+                Reference = "Synbutiken i Boliden",
+                SendDate = null,
+                Type = BGServer.PaymentType.Debit
+            };
         }
 
         public static string GetTestPaymentFileData()
@@ -30,24 +40,25 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 
     public static class ReceivedPaymentsFactory
     {
-        public static IEnumerable<ReceivedFileSection> GetList()
-        {
-            return TestHelper.GenerateSequence<ReceivedFileSection>(GetSection, 15);	
-        }
+		//public static IEnumerable<ReceivedFileSection> GetList()
+		//{
+		//    Func<,> <
+		//    return TestHelper.GenerateSequence<ReceivedFileSection>(GetSection, 15);	
+		//}
 
-        private static ReceivedFileSection GetSection()
-        {
-            return new ReceivedFileSection
-            {
-                CreatedDate = DateTime.Now.AddDays(-1),
-                HandledDate = null,
-                SectionData = new string('A', 5000),
-                Type = SectionType.ReceivedPayments,
-                TypeName = SectionType.ReceivedConsents.GetEnumDisplayName()
-            };
-        }
+		//private static ReceivedFileSection GetSection()
+		//{
+		//    return new ReceivedFileSection
+		//    {
+		//        CreatedDate = DateTime.Now.AddDays(-1),
+		//        HandledDate = null,
+		//        SectionData = new string('A', 5000),
+		//        Type = SectionType.ReceivedPayments,
+		//        TypeName = SectionType.ReceivedConsents.GetEnumDisplayName()
+		//    };
+		//}
 
-        public static PaymentsFile GetReceivedPaymentsFileSection()
+        public static PaymentsFile GetReceivedPaymentsFileSection(int customerId)
         {
             return new PaymentsFile
             {
@@ -56,16 +67,17 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
                 Reciever = GetPaymentReceiver(),
                 TotalCreditAmountInFile = 0,
                 TotalDebitAmountInFile = 4444,
-                Posts = GetPayments()
+                Posts = GetPayments(customerId)
             };
         }
 
-        private static IEnumerable<Payment> GetPayments()
+        private static IEnumerable<Payment> GetPayments(int customerId)
         {
-            return TestHelper.GenerateSequence<Payment>(GetPayment, 10);
+        	Func<Payment> generateItem = ()=> GetPayment(customerId);
+            return generateItem.GenerateRange(10);
         }
 
-        public static Payment GetPayment()
+        public static Payment GetPayment(int customerId)
         {
             return new Payment
             {
@@ -76,7 +88,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
                 Reciever = GetPaymentReceiver(),
                 Reference = "Hello World",
                 Result = PaymentResult.Approved,
-                Transmitter = new Payer { CustomerNumber = "888" },
+                Transmitter = new Payer { CustomerNumber = customerId.ToString() },
                 Type = PaymentType.Debit
             };
         }

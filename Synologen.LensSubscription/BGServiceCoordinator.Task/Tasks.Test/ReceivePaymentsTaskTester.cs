@@ -19,18 +19,22 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
     {
         private IEnumerable<ReceivedFileSection> _receivedSections;
         private Payment _savedPayment;
+    	private AutogiroPayer payer;
 
-        public When_receiveing_payments()
+    	public When_receiveing_payments()
         {
             Context = () =>
             {
-                _receivedSections = ReceivedPaymentsFactory.GetList();
-                var paymentsFileSection = ReceivedPaymentsFactory.GetReceivedPaymentsFileSection();
-                _savedPayment = ReceivedPaymentsFactory.GetPayment();
+                //_receivedSections = ReceivedPaymentsFactory.GetList();
+            	payer = PayerFactory.Get();
+            	_receivedSections = RecievedFileSectionFactory.GetList(SectionType.ReceivedPayments);
+                var paymentsFileSection = ReceivedPaymentsFactory.GetReceivedPaymentsFileSection(payer.Id);
+                _savedPayment = ReceivedPaymentsFactory.GetPayment(payer.Id);
 
                 A.CallTo(() => ReceivedFileRepository.FindBy(A<AllUnhandledReceivedPaymentFileSectionsCriteria>
                                                       .Ignored.Argument)).Returns(_receivedSections);
                 A.CallTo(() => PaymentFileReader.Read(A<string>.Ignored)).Returns(paymentsFileSection);
+				A.CallTo(() => AutogiroPayerRepository.Get(payer.Id)).Returns(payer);
             };
             Because = task => task.Execute();    
         }
@@ -76,7 +80,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
                             A<BGReceivedPayment>
                             .That.Matches(x => x.Amount.Equals(_savedPayment.Amount))
                             .And.Matches(x => x.CreatedDate.Date.Equals(DateTime.Now.Date))
-                            .And.Matches(x => x.PayerNumber.Equals(int.Parse(_savedPayment.Transmitter.CustomerNumber)))
+                            .And.Matches(x => x.Payer.Id.ToString().Equals(_savedPayment.Transmitter.CustomerNumber))
                             .And.Matches(x => x.PaymentDate.Date.Equals(_savedPayment.PaymentDate.Date))
                             .And.Matches(x => x.Reference.Equals(_savedPayment.Reference))
                             .And.Matches(x => x.ResultType.Equals(_savedPayment.Result))

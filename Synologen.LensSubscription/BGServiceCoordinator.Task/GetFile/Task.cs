@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
@@ -14,39 +15,51 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.GetFile
 {
     public class Task : TaskBase
     {
-        private readonly IFileReaderService _fileReaderService;
-        private readonly IReceivedFileRepository _receivedFileRepository;
+        private readonly IFileReaderService FileReaderService;
 
         public Task(ILoggingService loggingService,
                     IFileReaderService fileReaderService,
-                    IReceivedFileRepository receivedFileRepository)
-            : base("GetFile", loggingService, BGTaskSequenceOrder.FetchFiles)
+                    ITaskRepositoryResolver taskRepositoryResolver)
+            : base("GetFile", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.FetchFiles)
         {
-            
-            _fileReaderService = fileReaderService;
-            _receivedFileRepository = receivedFileRepository;
+            FileReaderService = fileReaderService;
         }
 
         public override void Execute()
         {
-            RunLoggedTask(() =>
+            RunLoggedTask(repositoryResolver =>
             {
-                string fileName;
-                string[] file = _fileReaderService.ReadFileFromDisk(out fileName);
 
-                if (file == null)
+                var receivedFileRepository = repositoryResolver.GetRepository<IReceivedFileRepository>();
+                var fileNames =  FileReaderService.GetFileNames();
+
+                if (fileNames.Count() == 0)
                 {
-                    LogDebug("No received bgc files found");
+                    LogDebug("No received files found");
                     return;
                 }
-                LogDebug("Starts read found file {0}", fileName);
-                IEnumerable<FileSection> fileSections = Autogiro.Readers.ReceivedFileSplitter.GetSections(file);
+                LogDebug("Found {0} files", fileNames.Count());
 
-                LogDebug("Found {0} sections in file", fileSections.Count());
-                fileSections.Each(section =>
+                fileNames.Each(name =>
                 {
-                    ReceivedFileSection receivedFileSection = ToReceivedFileSection(section);
-                    _receivedFileRepository.Save(receivedFileSection);
+                    try
+                    {
+                        var file = FileReaderService.ReadFileFromDisk(name);
+                        var fileSections = FileReaderService.GetSections(file);
+
+                        LogDebug("Found {0} sections in file {1}", fileSections.Count(), name);
+                        fileSections.Each(section =>
+                        {
+                            ReceivedFileSection receivedFileSection = ToReceivedFileSection(section);
+                            receivedFileRepository.Save(receivedFileSection);
+                            FileReaderService.MoveFile(name);
+                        });
+                        LogDebug("Saved {0} sections from file {1}", fileSections.Count(), name);
+                    }
+                    catch (AutogiroFileSplitException ex)
+                    {
+                        LogError(string.Format("Exception when parsing and splitting file {0}", name), ex); 
+                    }
                 });
             });
         }

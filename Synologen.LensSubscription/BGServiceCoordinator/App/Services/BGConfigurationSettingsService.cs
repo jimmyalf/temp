@@ -1,3 +1,4 @@
+using System;
 using System.Configuration;
 using System.Net;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -38,5 +39,10 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
         {
             return ConfigurationManager.AppSettings["ReceivedFilesFolderPath"];
         }
+
+	    public string GetBackupFilesFolderPath()
+	    {
+	        return "";
+	    }
 	}
 }

@@ -23,18 +23,16 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 	        return System.IO.File.ReadAllLines(filePath, System.Text.Encoding.GetEncoding(858));
 	    }
 
-	    public int GetNumberOfReceivedFiles(string folderPath)
-	    {
-            var directoryInfo = new DirectoryInfo(folderPath);
-            FileInfo[] files = directoryInfo.GetFiles();
-	        return files.Length;
-	    }
-
 	    public IEnumerable<string> GetReceivedFileNames(string folderPath)
 	    {
             var directoryInfo = new DirectoryInfo(folderPath);
             FileInfo[] files = directoryInfo.GetFiles();
 	        return files.Select(x => x.Name).ToList();
+	    }
+
+	    public void MoveFile(string source, string destination)
+	    {
+	        System.IO.File.Move(source, destination);
 	    }
 	}
 }

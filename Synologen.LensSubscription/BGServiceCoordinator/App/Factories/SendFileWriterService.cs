@@ -6,10 +6,10 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Factories
 {
 	public static class SendFileWriterServiceFactory
 	{
-		public static BGSentFileWriterService Get(IFileIOService fileIoService, IBGConfigurationSettingsService configurationSettingsService)
+		public static BGSendFileWriterService Get(IFileIOService fileIoService, IBGConfigurationSettingsService configurationSettingsService)
 		{
 			var writeDate = DateTime.Now;
-			return new BGSentFileWriterService(fileIoService, configurationSettingsService, writeDate);
+			return new BGSendFileWriterService(fileIoService, configurationSettingsService, writeDate);
 		}
 		
 	}

@@ -3,13 +3,13 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 {
-	public class BGSentFileWriterService : IFileWriterService
+	public class BGSendFileWriterService : IFileWriterService
 	{
 		private readonly IFileIOService _fileIOService;
 		private readonly IBGConfigurationSettingsService _bgConfigurationSettingsService;
 		private readonly DateTime _writeDate;
 
-		public BGSentFileWriterService(IFileIOService fileIOService, IBGConfigurationSettingsService bgConfigurationSettingsService, DateTime writeDate)
+		public BGSendFileWriterService(IFileIOService fileIOService, IBGConfigurationSettingsService bgConfigurationSettingsService, DateTime writeDate)
 		{
 			_fileIOService = fileIOService;
 			_bgConfigurationSettingsService = bgConfigurationSettingsService;

@@ -83,7 +83,7 @@
     <Compile Include="App\Services\BGFtpService.cs" />
     <Compile Include="App\Services\BGFtpServiceType.cs" />
     <Compile Include="App\Services\BGReceivedFileReaderService.cs" />
-    <Compile Include="App\Services\BGSentFileWriterService.cs" />
+    <Compile Include="App\Services\BGSendFileWriterService.cs" />
     <Compile Include="App\Services\BGFileIOService.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Program.cs" />

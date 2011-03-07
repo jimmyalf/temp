@@ -25,7 +25,7 @@ namespace Synologen.LensSubscription.BGService.Test.TestHelpers
 
         protected override BGReceivedFileReaderService GetTestModel()
         {
-            return new BGReceivedFileReaderService(FileIOService, BGConfigurationSettingsService, BGFtpServiceType.Autogiro, FileSplitter);
+            return new BGReceivedFileReaderService(FileIOService, BGConfigurationSettingsService, BGFtpServiceType.Autogiro_From_BGC, FileSplitter);
         }
 
     }

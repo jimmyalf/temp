@@ -50,15 +50,15 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.GetFile
                         {
                             var receivedFileSection = ToReceivedFileSection(section);
                             receivedFileRepository.Save(receivedFileSection);
-                            try
-                            {
-                                FileReaderService.MoveFile(name);
-                            }
-                            catch (Exception ex)
-                            {
-                                LogError("Error when moving read file to backup folder", ex);
-                            }
                         });
+                        try
+                        {
+                            FileReaderService.MoveFile(name);
+                        }
+                        catch (Exception ex)
+                        {
+                            LogError("Error when moving read file to backup folder", ex);
+                        }
                         LogDebug("Saved {0} sections from file {1}", fileSections.Count(), name);
                     }
                     catch (AutogiroFileSplitException ex)

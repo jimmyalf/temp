@@ -67,6 +67,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 			For<IFtpService>().Use<BGFtpService>().Ctor<BGFtpServiceType>().Is(BGFtpServiceType.Autogiro_Test);
 			For<IFtpIOService>().Use<BGFtpIOService>();
 			For<IFileIOService>().Use<BGFileIOService>();
+            For<IFileReaderService>().Use<BGReceivedFileReaderService>().Ctor<BGFtpServiceType>().Is(BGFtpServiceType.Autogiro_Test_From_BGC);
+            For<IFileSplitter>().Use<ReceivedFileSplitter>();
 
 			//Settings
 			For<IBGConfigurationSettingsService>().Use<BGConfigurationSettingsService>();

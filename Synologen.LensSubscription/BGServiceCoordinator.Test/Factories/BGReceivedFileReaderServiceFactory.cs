@@ -17,24 +17,26 @@ namespace Synologen.LensSubscription.BGService.Test.Factories
             fileNames[3] = string.Format("{0}.K0{1}D110101T101545", productCode, customerNumber);
             return fileNames.ToList();
         }
-
+       
         public static DateTime GetDate(int counter)
         {
-            switch (counter)
+            int a = counter % 4;
+
+            switch (a)
             {
                 case 0:
                     return new DateTime(2009, 01, 01, 10, 15, 45);
-                    
+
                 case 1:
                     return new DateTime(2010, 01, 01, 10, 15, 45);
-                    
+
                 case 2:
                     return new DateTime(2008, 01, 01, 10, 15, 45);
 
                 case 3:
                     return new DateTime(2011, 01, 01, 10, 15, 45);
             }
-            return DateTime.Now;
+            throw new ArgumentOutOfRangeException();
         }
 
         public static IEnumerable<string> GetInvalidFileNames()

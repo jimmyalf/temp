@@ -96,16 +96,6 @@ namespace Synologen.LensSubscription.BGService.Test
             };
         }
 
-
-        [Test]
-        public void Service_returns_list_of_filenames_ordered_by_date_found_in_filename()
-        {
-            _returnedFileNames.ElementAt(0).ShouldBe(_fileNames.ElementAt(2));
-            _returnedFileNames.ElementAt(1).ShouldBe(_fileNames.ElementAt(0));
-            _returnedFileNames.ElementAt(2).ShouldBe(_fileNames.ElementAt(1));
-            _returnedFileNames.ElementAt(3).ShouldBe(_fileNames.ElementAt(3));
-        }
-
         [Test]
         public void Service_calls_filesplitterservice_twice_for_each_filename()
         {
@@ -117,6 +107,15 @@ namespace Synologen.LensSubscription.BGService.Test
             A.CallTo(() => FileSplitter.GetDateFromName(_fileNames.ElementAt(1))).MustHaveHappened();
             A.CallTo(() => FileSplitter.GetDateFromName(_fileNames.ElementAt(2))).MustHaveHappened();
             A.CallTo(() => FileSplitter.GetDateFromName(_fileNames.ElementAt(3))).MustHaveHappened();
+        }
+
+        [Test]
+        public void Service_returns_list_of_filenames_ordered_by_date_found_in_filename()
+        {
+            _returnedFileNames.ElementAt(0).ShouldBe(_fileNames.ElementAt(2));
+            _returnedFileNames.ElementAt(1).ShouldBe(_fileNames.ElementAt(0));
+            _returnedFileNames.ElementAt(2).ShouldBe(_fileNames.ElementAt(1));
+            _returnedFileNames.ElementAt(3).ShouldBe(_fileNames.ElementAt(3));
         }
     }
 

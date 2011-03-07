@@ -4,6 +4,7 @@ using System.Linq;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -142,6 +143,56 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
             A.CallTo(() => FileReaderService.MoveFile(fileNames.ElementAt(0))).MustHaveHappened(Repeated.Once);
             A.CallTo(() => FileReaderService.MoveFile(fileNames.ElementAt(1))).MustHaveHappened(Repeated.Once);
             A.CallTo(() => FileReaderService.MoveFile(fileNames.ElementAt(2))).MustHaveHappened(Repeated.Once);
+        }
+    }
+
+    [TestFixture, Category("GetFileTaskTests")]
+    public class When_Filereaderservice_MoveFile_throws_exception : GetFileTaskTestBase
+    {
+        private IEnumerable<string> fileNames = GetFileFactory.GetFileName();
+        private string[] file = GetFileFactory.GetFile();
+        private IEnumerable<FileSection> sections = GetFileFactory.GetSections();
+
+        public When_Filereaderservice_MoveFile_throws_exception()
+        {
+            Context = () =>
+            {
+                A.CallTo(() => FileReaderService.GetFileNames()).Returns(fileNames);
+                A.CallTo(() => FileReaderService.ReadFileFromDisk(A<string>.Ignored)).Returns(file);
+                A.CallTo(() => FileReaderService.GetSections(A<string[]>.Ignored)).Returns(sections);
+                A.CallTo(() => FileReaderService.MoveFile(A<string>.Ignored)).Throws(new Exception());
+            };
+            Because = task => task.Execute();
+        }
+
+        [Test]
+        public void Task_logs_error()
+        {
+            A.CallTo(() => Log.Error(A<string>.That.Contains("Error when moving read file to backup folder"))).MustHaveHappened();
+        }
+    }
+
+    [TestFixture, Category("GetFileTaskTests")]
+    public class When_Filereaderservice_GetSections_throws_exception : GetFileTaskTestBase
+    {
+        private IEnumerable<string> fileNames = GetFileFactory.GetFileName();
+        private string[] file = GetFileFactory.GetFile();
+
+        public When_Filereaderservice_GetSections_throws_exception()
+        {
+            Context = () =>
+            {
+                A.CallTo(() => FileReaderService.GetFileNames()).Returns(fileNames);
+                A.CallTo(() => FileReaderService.ReadFileFromDisk(A<string>.Ignored)).Returns(file);
+                A.CallTo(() => FileReaderService.GetSections(A<string[]>.Ignored)).Throws(new AutogiroFileSplitException());
+            };
+            Because = task => task.Execute();
+        }
+
+        [Test]
+        public void Task_logs_error()
+        {
+            A.CallTo(() => Log.Error(A<string>.That.Contains(string.Format("Exception when parsing and splitting file {0}", fileNames.ElementAt(0))))).MustHaveHappened();
         }
     }
 }

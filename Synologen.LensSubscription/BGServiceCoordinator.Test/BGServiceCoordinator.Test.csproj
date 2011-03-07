@@ -57,10 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BGReceivedFileReaderServiceTests.cs" />
+    <Compile Include="Factories\BGReceivedFileReaderServiceFactory.cs" />
     <Compile Include="Factories\FtpServiceFactory.cs" />
     <Compile Include="TestFtpCommandService.cs" />
     <Compile Include="TestHelpers\BGFtpServiceTestBase.cs" />
     <Compile Include="TestHelpers\BGSendFileWriterServiceTestBase.cs" />
+    <Compile Include="TestHelpers\BGReceivedFileServiceTestBase.cs" />
     <Compile Include="BGFileWriterServiceTests.cs" />
     <Compile Include="BGFtpServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

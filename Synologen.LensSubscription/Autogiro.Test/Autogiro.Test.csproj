@@ -68,8 +68,10 @@
     <Compile Include="AutogiroParserServiceTests.cs" />
     <Compile Include="Factories\FileFactory.cs" />
     <Compile Include="Factories\FileContentFactory.cs" />
+    <Compile Include="Factories\FileSplitterFactory.cs" />
     <Compile Include="Factories\MessageFactory.cs" />
     <Compile Include="Factories\TamperProtectedFileWriterFactory.cs" />
+    <Compile Include="FileSplitterTests.cs" />
     <Compile Include="TestHelpers\TamperProtectedFileWriterTestBase.cs" />
     <Compile Include="TamperProtectedFileWriterTests.cs" />
     <Compile Include="TestHelpers\HMACMessageDigestServiceTestBase.cs" />

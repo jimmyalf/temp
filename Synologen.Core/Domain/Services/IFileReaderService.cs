@@ -11,6 +11,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
         string[] ReadFileFromDisk(string name);
         IEnumerable<string> GetFileNames();
         IEnumerable<FileSection> GetSections(string[] strings);
-        void MoveFile(string file);
+        void MoveFile(string fileName);
     }
 }

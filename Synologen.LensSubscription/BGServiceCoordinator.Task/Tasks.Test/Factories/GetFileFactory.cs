@@ -19,6 +19,14 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
             };
         }
 
+        public static IEnumerable<string> GetFileName()
+        {
+            return new List<string>
+            {
+                "UAGAG.K0999999.110301.T130426"
+            };
+        }
+
         public static string[] GetFile()
         {
             return new [] { new string('A', 255), new string('B', 255), new string('C', 255), new string('D', 255) };

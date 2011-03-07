@@ -198,7 +198,7 @@ namespace Synologen.LensSubscription.Autogiro.Test
         }
 
         [Test]
-        public void Sections_()
+        public void Sections_are_returned_with_correct_posts_and_type_()
         {
             _expectedSections.ForBoth(_sections, (expectedSection, section) => 
                     section.Posts.ShouldBe(expectedSection.Posts));

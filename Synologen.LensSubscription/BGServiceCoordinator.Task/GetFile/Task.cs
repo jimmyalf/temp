@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
@@ -50,9 +48,16 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.GetFile
                         LogDebug("Found {0} sections in file {1}", fileSections.Count(), name);
                         fileSections.Each(section =>
                         {
-                            ReceivedFileSection receivedFileSection = ToReceivedFileSection(section);
+                            var receivedFileSection = ToReceivedFileSection(section);
                             receivedFileRepository.Save(receivedFileSection);
-                            FileReaderService.MoveFile(name);
+                            try
+                            {
+                                FileReaderService.MoveFile(name);
+                            }
+                            catch (Exception ex)
+                            {
+                                LogError("Error when moving read file to backup folder", ex);
+                            }
                         });
                         LogDebug("Saved {0} sections from file {1}", fileSections.Count(), name);
                     }

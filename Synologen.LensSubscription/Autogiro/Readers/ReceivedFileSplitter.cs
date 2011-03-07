@@ -19,7 +19,9 @@ namespace Synologen.LensSubscription.Autogiro.Readers
             string dateString = dateAndTime[0];
             string timeString = dateAndTime[1];
 
-            return DateTime.ParseExact(string.Concat(dateString, timeString), "YYMMDDHHmmSS", CultureInfo.InvariantCulture);
+            string s = string.Concat(dateString, timeString);
+
+            return DateTime.ParseExact(s, "yyMMddHHmmss", CultureInfo.InvariantCulture);
         }
 
         private static string[] GetDateAndTimeStringFromName(string name)
@@ -29,8 +31,8 @@ namespace Synologen.LensSubscription.Autogiro.Readers
             string dateString = splittedName[2];
             string timeString = splittedName[3];
 
-            dateString.Substring(1, dateString.Length - 1);
-            timeString.Substring(1, timeString.Length - 1);
+            dateString = dateString.Substring(1, dateString.Length - 1);
+            timeString = timeString.Substring(1, timeString.Length - 1);
 
             return new [] { dateString, timeString };
         }
@@ -61,7 +63,7 @@ namespace Synologen.LensSubscription.Autogiro.Readers
                 ))
                 return false;
 
-            if (!(splittedName[3].StartsWith("D")
+            if (!(splittedName[3].StartsWith("T")
                 &&
                     (splittedName[3].Length == 7)
                     &&
@@ -75,7 +77,7 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 
             DateTime dummy;
             if (DateTime.TryParseExact(string.Concat(dateString, timeString),
-                                        "YYMMDDHHmmSS",
+                                        "yyMMddHHmmss",
                                         CultureInfo.InvariantCulture,
                                         DateTimeStyles.None,
                                         out dummy))
@@ -130,8 +132,8 @@ namespace Synologen.LensSubscription.Autogiro.Readers
         
         private static SectionType GetSectionType(string line)
         {
-            string errorOrPayment = line.Substring(23, 39);
-            string consent = line.Substring(25, 37);
+            string errorOrPayment = line.Substring(22, 39);
+            string consent = line.Substring(24, 37);
 
             if (consent.Trim() == FileConstants.ConsentOpeningText)
                 return SectionType.ReceivedConsents;

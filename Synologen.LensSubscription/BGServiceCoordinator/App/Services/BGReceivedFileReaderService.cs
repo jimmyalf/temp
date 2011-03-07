@@ -56,24 +56,24 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 
         public void MoveFile(string fileName)
         {
-            _fileIoService.MoveFile(string.Concat(_downloadFolderPath, "\\", fileName), string.Concat(_backupFolderPath, "\\", fileName));
+            _fileIoService.MoveFile(System.IO.Path.Combine(_downloadFolderPath, fileName), System.IO.Path.Combine(_backupFolderPath, fileName));
         }
 
         public string[] ReadFileFromDisk(string fileName)
         {
-            return _fileIoService.ReadFile(string.Concat(_downloadFolderPath, "\\", fileName));
+            return _fileIoService.ReadFile(System.IO.Path.Combine(_downloadFolderPath, fileName));
         }
 
         private static string GetProductCode(BGFtpServiceType serviceType)
         {
             switch (serviceType)
             {
-                case BGFtpServiceType.Autogiro: return "UAGAG";
-                case BGFtpServiceType.Leverantörsbetalningar: return "ULBLB";
-                case BGFtpServiceType.Löner_Kontoinsättningar: return "UKIKI";
-                case BGFtpServiceType.Autogiro_Test: return "UAGZZ";
-                case BGFtpServiceType.Leverantörsbetalningar_Test: return "ULBZZ";
-                case BGFtpServiceType.Löner_Kontoinsättningar_Test: return "UKIZZ";
+                case BGFtpServiceType.Autogiro_From_BGC: return "UAGAG";
+                case BGFtpServiceType.Leverantörsbetalningar_From_BGC: return "ULBLB";
+                case BGFtpServiceType.Löner_Kontoinsättningar_From_BGC: return "UKIKI";
+                case BGFtpServiceType.Autogiro_Test_From_BGC: return "UAGZZ";
+                case BGFtpServiceType.Leverantörsbetalningar_Test_From_BGC: return "ULBZZ";
+                case BGFtpServiceType.Löner_Kontoinsättningar_Test_From_BGC: return "UKIZZ";
                 default: throw new ArgumentOutOfRangeException("serviceType");
             }
         }

@@ -6,9 +6,9 @@ using Synologen.LensSubscription.BGData;
 
 namespace Synologen.LensSubscription.BGWebService.App.IoC
 {
-	public class WebserviceRegistry : Registry
+	public class WebServiceRegistry : Registry
 	{
-		public WebserviceRegistry()
+		public WebServiceRegistry()
 		{
 			For<IUnitOfWork>().LifecycleIs(new WcfPerOperationLifecycle()).Use<NHibernateUnitOfWork>();
 			For<ISessionFactory>().Singleton().Use(NHibernateFactory.Instance.GetSessionFactory);

@@ -7,7 +7,7 @@ namespace Synologen.LensSubscription.BGWebService.App.Bootstrapping
 	{
 		public static void Boostrap()
 		{
-			ObjectFactory.Initialize(x => x.AddRegistry<WebserviceRegistry>());
+			ObjectFactory.Initialize(x => x.AddRegistry<WebServiceRegistry>());
 		}
 	}
 }

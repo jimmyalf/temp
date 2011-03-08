@@ -4,7 +4,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Synologen.LensSubscription.BGWebService.App.Services
 {
-	public class BGService : IBGWebService
+	public class BGWebService : IBGWebService
 	{
 		public int RegisterPayer(string name, AutogiroServiceType serviceType) { throw new NotImplementedException(); }
 		public void SendConsent(ConsentToSend consent) { throw new NotImplementedException(); }

@@ -81,10 +81,10 @@
     <Compile Include="App\IoC\BGInstanceProvider.cs" />
     <Compile Include="App\IoC\BGServiceBehavior.cs" />
     <Compile Include="App\IoC\BGServiceHost.cs" />
-    <Compile Include="App\IoC\BGMapServiceHostFactory.cs" />
+    <Compile Include="App\IoC\BGServiceHostFactory.cs" />
     <Compile Include="App\IoC\WcfPerRequestLifecycle.cs" />
     <Compile Include="App\IoC\WebserviceRegistry.cs" />
-    <Compile Include="App\Services\BGService.cs" />
+    <Compile Include="App\Services\BGWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -122,4 +122,8 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -6,13 +6,13 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 	public class BGSendFileWriterService : IFileWriterService
 	{
 		private readonly IFileIOService _fileIOService;
-		private readonly IBGConfigurationSettingsService _bgConfigurationSettingsService;
+		private readonly IBGServiceCoordinatorSettingsService _bgServiceCoordinatorSettingsService;
 		private readonly DateTime _writeDate;
 
-		public BGSendFileWriterService(IFileIOService fileIOService, IBGConfigurationSettingsService bgConfigurationSettingsService, DateTime writeDate)
+		public BGSendFileWriterService(IFileIOService fileIOService, IBGServiceCoordinatorSettingsService bgServiceCoordinatorSettingsService, DateTime writeDate)
 		{
 			_fileIOService = fileIOService;
-			_bgConfigurationSettingsService = bgConfigurationSettingsService;
+			_bgServiceCoordinatorSettingsService = bgServiceCoordinatorSettingsService;
 			_writeDate = writeDate;
 		}
 
@@ -23,7 +23,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 				throw new ArgumentException("Filename contains illegal characters", "fileName");
 			}
 			var newFileName = GetUniqueFileName(fileName);
-			var filePath = GetSaveFilePath(_bgConfigurationSettingsService, newFileName);
+			var filePath = GetSaveFilePath(_bgServiceCoordinatorSettingsService, newFileName);
 			if(_fileIOService.FileExists(filePath))
 			{
 				throw new ArgumentException(String.Format("A file ({0}) already exists.", filePath), "fileName");
@@ -32,9 +32,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 			_fileIOService.WriteFile(filePath, fileContents);
 		}
 
-		private static string GetSaveFilePath(IBGConfigurationSettingsService bgConfigurationSettingsService, string fileName)
+		private static string GetSaveFilePath(IBGServiceCoordinatorSettingsService bgServiceCoordinatorSettingsService, string fileName)
 		{
-			var sentFilesFolderPath = bgConfigurationSettingsService.GetSentFilesFolderPath();
+			var sentFilesFolderPath = bgServiceCoordinatorSettingsService.GetSentFilesFolderPath();
 			var directory = new System.IO.DirectoryInfo(sentFilesFolderPath);
 			if(!directory.Exists) directory.Create();
 			return System.IO.Path.Combine(sentFilesFolderPath, fileName);

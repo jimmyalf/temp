@@ -8,18 +8,18 @@ namespace Synologen.LensSubscription.BGService.Test.TestHelpers
 	public class BGFtpServiceTestBase : BehaviorTestBase<BGFtpService>
 	{
 		protected IFtpIOService FtpIOService;
-		protected IBGConfigurationSettingsService BGConfigurationSettingsService;
+		protected IBGServiceCoordinatorSettingsService BgServiceCoordinatorSettingsService;
 
 		protected override void SetUp()
 		{
 			FtpIOService = A.Fake<IFtpIOService>();
-			BGConfigurationSettingsService = A.Fake<IBGConfigurationSettingsService>();
+			BgServiceCoordinatorSettingsService = A.Fake<IBGServiceCoordinatorSettingsService>();
 		}
 		protected override BGFtpService GetTestModel()
 		{
 			return new BGFtpService(
 				FtpIOService, 
-				BGConfigurationSettingsService,
+				BgServiceCoordinatorSettingsService,
                 BGFtpServiceType.Autogiro
 				);
 		}

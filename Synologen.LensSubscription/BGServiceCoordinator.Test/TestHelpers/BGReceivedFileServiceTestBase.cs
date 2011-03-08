@@ -13,19 +13,19 @@ namespace Synologen.LensSubscription.BGService.Test.TestHelpers
     public abstract class BGReceivedFileServiceTestBase : BehaviorTestBase<BGReceivedFileReaderService>
     {
         protected IFileIOService FileIOService;
-        protected IBGConfigurationSettingsService BGConfigurationSettingsService;
+        protected IBGServiceCoordinatorSettingsService BgServiceCoordinatorSettingsService;
         protected IFileSplitter FileSplitter;
 
         protected BGReceivedFileServiceTestBase()
         {
             FileIOService = A.Fake<IFileIOService>();
-            BGConfigurationSettingsService = A.Fake<IBGConfigurationSettingsService>();
+            BgServiceCoordinatorSettingsService = A.Fake<IBGServiceCoordinatorSettingsService>();
             FileSplitter = A.Fake<IFileSplitter>();
         }
 
         protected override BGReceivedFileReaderService GetTestModel()
         {
-            return new BGReceivedFileReaderService(FileIOService, BGConfigurationSettingsService, BGFtpServiceType.Autogiro_From_BGC, FileSplitter);
+            return new BGReceivedFileReaderService(FileIOService, BgServiceCoordinatorSettingsService, BGFtpServiceType.Autogiro, FileSplitter);
         }
 
     }

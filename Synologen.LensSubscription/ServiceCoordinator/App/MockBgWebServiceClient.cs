@@ -1,6 +1,6 @@
 using System.ServiceModel;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
-using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.App
 {

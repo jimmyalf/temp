@@ -29,7 +29,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			return new SendConsents.Task(
 				Log4NetLogger, 
 				ConsentFileWriter,
-				BgConfigurationSettingsService,
+				BgServiceCoordinatorSettingsService,
 				TaskRepositoryResolver);
 		}
 

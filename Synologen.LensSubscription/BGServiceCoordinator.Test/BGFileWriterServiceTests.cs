@@ -25,7 +25,7 @@ namespace Synologen.LensSubscription.BGService.Test
 				expectedCreatedFileName = string.Format("{0}.D110302.T135215", ftpFileName);
 				filesFolderPath = @"C:\Folder1\Folder2\Folder3";
 				filePath = String.Format(@"{0}\{1}", filesFolderPath, expectedCreatedFileName);
-				A.CallTo(() => BGConfigurationSettingsService.GetSentFilesFolderPath()).Returns(filesFolderPath);
+				A.CallTo(() => BgServiceCoordinatorSettingsService.GetSentFilesFolderPath()).Returns(filesFolderPath);
 			};
 			Because = fileWriterService => fileWriterService.WriteFileToDisk(fileData, ftpFileName);
 		}
@@ -33,7 +33,7 @@ namespace Synologen.LensSubscription.BGService.Test
 		[Test]
 		public void File_path_is_fetched_from_settings_service()
 		{
-			A.CallTo(() => BGConfigurationSettingsService.GetSentFilesFolderPath()).MustHaveHappened();
+			A.CallTo(() => BgServiceCoordinatorSettingsService.GetSentFilesFolderPath()).MustHaveHappened();
 		}
 
 		[Test]
@@ -58,7 +58,7 @@ namespace Synologen.LensSubscription.BGService.Test
 				fileData = "ABCDEFG";
 				fileName = "testfile.txt";
 				filesFolderPath = @"C:\Folder1\Folder2\Folder3";
-				A.CallTo(() => BGConfigurationSettingsService.GetSentFilesFolderPath()).Returns(filesFolderPath);
+				A.CallTo(() => BgServiceCoordinatorSettingsService.GetSentFilesFolderPath()).Returns(filesFolderPath);
 				A.CallTo(() => FileIOService.FileExists(A<string>.Ignored)).Returns(true);
 			};
 			Because = fileWriterService =>
@@ -92,7 +92,7 @@ namespace Synologen.LensSubscription.BGService.Test
 				fileData = "ABCDEFG";
 				fileName = @"\\Folder\testfile.txt";
 				filesFolderPath = @"C:\Folder1\Folder2\Folder3";
-				A.CallTo(() => BGConfigurationSettingsService.GetSentFilesFolderPath()).Returns(filesFolderPath);
+				A.CallTo(() => BgServiceCoordinatorSettingsService.GetSentFilesFolderPath()).Returns(filesFolderPath);
 			};
 			Because = fileWriterService =>
 			{

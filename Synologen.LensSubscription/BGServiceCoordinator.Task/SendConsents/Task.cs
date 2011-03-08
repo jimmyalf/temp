@@ -17,17 +17,17 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 	public class Task : TaskBase
 	{
 		private readonly IAutogiroFileWriter<ConsentsFile, Consent> _fileWriter;
-		private readonly IBGConfigurationSettingsService _bgConfigurationSettingsService;
+		private readonly IBGServiceCoordinatorSettingsService _bgServiceCoordinatorSettingsService;
 
 		public Task(
 			ILoggingService loggingService, 
 			IAutogiroFileWriter<ConsentsFile,  Consent> fileWriter ,
-			IBGConfigurationSettingsService bgConfigurationSettingsService,
+			IBGServiceCoordinatorSettingsService bgServiceCoordinatorSettingsService,
 			ITaskRepositoryResolver taskRepositoryResolver) 
 			: base("SendConsents", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.SendTask)
 		{
 			_fileWriter = fileWriter;
-			_bgConfigurationSettingsService = bgConfigurationSettingsService;
+			_bgServiceCoordinatorSettingsService = bgServiceCoordinatorSettingsService;
 		}
 
 		public override void Execute()
@@ -73,8 +73,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 				Posts = consentsToSend.Select(consent => ToConsent(consent)),
 				Reciever = new PaymentReciever
 				{
-					BankgiroNumber = _bgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber(),
-					CustomerNumber = _bgConfigurationSettingsService.GetPaymentRevieverCustomerNumber()
+					BankgiroNumber = _bgServiceCoordinatorSettingsService.GetPaymentRecieverBankGiroNumber(),
+					CustomerNumber = _bgServiceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber()
 				},
 				WriteDate = DateTime.Now
 			};
@@ -91,7 +91,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 				},
 				OrgNumber = consentsToSend.OrgNumber,
 				PersonalIdNumber = consentsToSend.PersonalIdNumber,
-				RecieverBankgiroNumber = _bgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber(),
+				RecieverBankgiroNumber = _bgServiceCoordinatorSettingsService.GetPaymentRecieverBankGiroNumber(),
 				Transmitter = new Payer
 				{
 					CustomerNumber = consentsToSend.Payer.Id.ToString()

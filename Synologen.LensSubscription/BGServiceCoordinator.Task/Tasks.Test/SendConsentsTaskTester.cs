@@ -33,8 +33,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 				fileData = ConsentsFactory.GetTestConsentFileData();
 				A.CallTo(() => BGConsentToSendRepository.FindBy(A<AllNewConsentsToSendCriteria>.Ignored.Argument)).Returns(consentsToSend);
 				A.CallTo(() => ConsentFileWriter.Write(A<ConsentsFile>.Ignored)).Returns(fileData);
-				A.CallTo(() => BgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
-				A.CallTo(() => BgConfigurationSettingsService.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
+				A.CallTo(() => BgServiceCoordinatorSettingsService.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
+				A.CallTo(() => BgServiceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
 				A.CallTo(() => AutogiroPayerRepository.Get(A<int>.Ignored)).Returns(payer);
 			};
 			Because = task => task.Execute();

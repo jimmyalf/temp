@@ -30,7 +30,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			return new SendPayments.Task(
 				Log4NetLogger,
 				//BGPaymentToSendRepository,
-				BgConfigurationSettingsService,
+				BgServiceCoordinatorSettingsService,
 				PaymentFileWriter,
 				//FileSectionToSendRepository,
 				TaskRepositoryResolver);

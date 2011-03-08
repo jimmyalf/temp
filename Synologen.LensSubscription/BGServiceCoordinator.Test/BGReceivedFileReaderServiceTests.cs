@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using FakeItEasy;
 using Shouldly;
@@ -18,7 +18,7 @@ namespace Synologen.LensSubscription.BGService.Test
         {
             Context = () =>
 			{
-                A.CallTo(() => BGConfigurationSettingsService.GetReceivedFilesFolderPath()).Returns(_downloadFolderPath);
+                A.CallTo(() => BgServiceCoordinatorSettingsService.GetReceivedFilesFolderPath()).Returns(_downloadFolderPath);
                 A.CallTo(() => FileIOService.GetReceivedFileNames(A<string>.Ignored)).Returns(Enumerable.Empty<string>());
 			};
 			Because = receivedFileReaderService =>
@@ -53,7 +53,7 @@ namespace Synologen.LensSubscription.BGService.Test
             {
                 _fileNames = BGReceivedFileReaderServiceFactory.GetInvalidFileNames();
                 A.CallTo(() => FileSplitter.FileNameOk(A<string>.Ignored, A<string>.Ignored, A<string>.Ignored)).Returns(false);
-                A.CallTo(() => BGConfigurationSettingsService.GetReceivedFilesFolderPath()).Returns(_downloadFolderPath);
+                A.CallTo(() => BgServiceCoordinatorSettingsService.GetReceivedFilesFolderPath()).Returns(_downloadFolderPath);
                 A.CallTo(() => FileIOService.GetReceivedFileNames(A<string>.Ignored)).Returns(_fileNames);
             };
             Because = receivedFileReaderService =>
@@ -84,8 +84,8 @@ namespace Synologen.LensSubscription.BGService.Test
             Context = () =>
             {
                 _fileNames = BGReceivedFileReaderServiceFactory.GetFileNames(_customerNumber, _productCode);
-                A.CallTo(() => BGConfigurationSettingsService.GetReceivedFilesFolderPath()).Returns(_downloadFolderPath);
-                A.CallTo(() => BGConfigurationSettingsService.GetPaymentRevieverCustomerNumber()).Returns(_customerNumber);
+                A.CallTo(() => BgServiceCoordinatorSettingsService.GetReceivedFilesFolderPath()).Returns(_downloadFolderPath);
+                A.CallTo(() => BgServiceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber()).Returns(_customerNumber);
                 A.CallTo(() => FileIOService.GetReceivedFileNames(A<string>.Ignored)).Returns(_fileNames);
                 A.CallTo(() => FileSplitter.FileNameOk(A<string>.Ignored, A<string>.Ignored, A<string>.Ignored)).Returns(true);
                 A.CallTo(() => FileSplitter.GetDateFromName(A<string>.Ignored)).Returns(() => BGReceivedFileReaderServiceFactory.GetDate(counter++)); 
@@ -151,8 +151,8 @@ namespace Synologen.LensSubscription.BGService.Test
         {
             Context = () =>
             {
-                A.CallTo(() => BGConfigurationSettingsService.GetReceivedFilesFolderPath()).Returns(_downloadFolderPath);
-                A.CallTo(() => BGConfigurationSettingsService.GetBackupFilesFolderPath()).Returns(_backupFolderPath);  
+                A.CallTo(() => BgServiceCoordinatorSettingsService.GetReceivedFilesFolderPath()).Returns(_downloadFolderPath);
+                A.CallTo(() => BgServiceCoordinatorSettingsService.GetBackupFilesFolderPath()).Returns(_backupFolderPath);  
             };
             Because = receivedFileReaderService =>
             {
@@ -178,7 +178,7 @@ namespace Synologen.LensSubscription.BGService.Test
         {
             Context = () =>
             {
-                A.CallTo(() => BGConfigurationSettingsService.GetReceivedFilesFolderPath()).Returns(_downloadFolderPath);
+                A.CallTo(() => BgServiceCoordinatorSettingsService.GetReceivedFilesFolderPath()).Returns(_downloadFolderPath);
             };
             Because = receivedFileReaderService =>
             {

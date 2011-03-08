@@ -5,9 +5,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Factories
 {
 	public static class HashServiceFactory
 	{
-		public static IHashService Get(IBGConfigurationSettingsService configurationSettingsService)
+		public static IHashService Get(IBGServiceCoordinatorSettingsService serviceCoordinatorSettingsService)
 		{
-			var hashKey = configurationSettingsService.GetHMACHashKey();
+			var hashKey = serviceCoordinatorSettingsService.GetHMACHashKey();
 			return new HMACHashService(hashKey);
 		}
 	}

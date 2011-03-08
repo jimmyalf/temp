@@ -9,18 +9,18 @@ namespace Synologen.LensSubscription.BGService.Test.TestHelpers
 	public abstract class BGSendFileWriterServiceTestBase : BehaviorTestBase<BGSendFileWriterService>
 	{
 		protected IFileIOService FileIOService;
-		protected IBGConfigurationSettingsService BGConfigurationSettingsService;
+		protected IBGServiceCoordinatorSettingsService BgServiceCoordinatorSettingsService;
 		protected DateTime WriteDate;
 
 		protected BGSendFileWriterServiceTestBase()
 		{
 			FileIOService = A.Fake<IFileIOService>();
-			BGConfigurationSettingsService = A.Fake<IBGConfigurationSettingsService>();
+			BgServiceCoordinatorSettingsService = A.Fake<IBGServiceCoordinatorSettingsService>();
 		}
 		
 		protected override BGSendFileWriterService GetTestModel()
 		{
-			return new BGSendFileWriterService(FileIOService, BGConfigurationSettingsService, WriteDate);
+			return new BGSendFileWriterService(FileIOService, BgServiceCoordinatorSettingsService, WriteDate);
 		}
 	}
 }

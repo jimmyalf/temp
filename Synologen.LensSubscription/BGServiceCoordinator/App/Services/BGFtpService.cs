@@ -8,19 +8,19 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 	{
 		private readonly IFtpIOService _ftpIoService;
 		private readonly BGFtpServiceType _serviceType;
-		private readonly IBGConfigurationSettingsService _configurationSettingsService;
+		private readonly IBGServiceCoordinatorSettingsService _serviceCoordinatorSettingsService;
 
-		public BGFtpService(IFtpIOService ftpIoService, IBGConfigurationSettingsService configurationSettingsService, BGFtpServiceType serviceType)
+		public BGFtpService(IFtpIOService ftpIoService, IBGServiceCoordinatorSettingsService serviceCoordinatorSettingsService, BGFtpServiceType serviceType)
 		{
 			_ftpIoService = ftpIoService;
 			_serviceType = serviceType;
-			_configurationSettingsService = configurationSettingsService;
+			_serviceCoordinatorSettingsService = serviceCoordinatorSettingsService;
 		}
 
 		public FtpSendResult SendFile(string fileData)
 		{
 			var fileName = GetFileName();
-			var ftpUploadRoot = _configurationSettingsService.GetFtpUploadFolderUrl();
+			var ftpUploadRoot = _serviceCoordinatorSettingsService.GetFtpUploadFolderUrl();
 			var ftpUri = ftpUploadRoot.AppendUrl(fileName);
 			_ftpIoService.SendFile(ftpUri, fileData);
 			return new FtpSendResult(fileName);
@@ -30,7 +30,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 		{
 			return String.Format("BFEP.{0}.{1}", 
 				GetProductCode(_serviceType),
-				_configurationSettingsService.GetPaymentRevieverCustomerNumber());
+				_serviceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber());
 		}
 
 		private static string GetProductCode(BGFtpServiceType serviceType)

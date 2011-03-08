@@ -208,11 +208,12 @@
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Model\BGServer\BGTaskSequenceOrder.cs" />
+    <Compile Include="Domain\Services\BgWebService\IBGWebServiceDTOParser.cs" />
     <Compile Include="Domain\Services\Coordinator\ITaskRepositoryResolver.cs" />
     <Compile Include="Domain\Services\Coordinator\TaskBase.cs" />
     <Compile Include="Domain\Services\EventLogLogger.cs" />
     <Compile Include="Domain\Services\FtpCommandService.cs" />
-    <Compile Include="Domain\Services\IBGConfigurationSettingsService.cs" />
+    <Compile Include="Domain\Services\IBGServiceCoordinatorSettingsService.cs" />
     <Compile Include="Domain\Services\IFileIOService.cs" />
     <Compile Include="Domain\Services\IFileReaderService.cs" />
     <Compile Include="Domain\Services\IFileWriterService.cs" />
@@ -232,7 +233,7 @@
     <Compile Include="Domain\Persistence\FrameOrder\IFrameColorRepository.cs" />
     <Compile Include="Domain\Services\IFrameOrderService.cs" />
     <Compile Include="Domain\Services\ILoggingService.cs" />
-    <Compile Include="Domain\Services\IBGWebService.cs" />
+    <Compile Include="Domain\Services\BgWebService\IBGWebService.cs" />
     <Compile Include="Domain\Services\ISynologenMemberService.cs" />
     <Compile Include="Domain\Services\ISynologenSettingsService.cs" />
     <Compile Include="Domain\Services\ITaskRunnerService.cs" />

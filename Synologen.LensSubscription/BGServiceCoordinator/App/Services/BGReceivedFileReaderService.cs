@@ -16,13 +16,13 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
         private readonly string _customerNumber;
         private readonly string _productCode;
 
-        public BGReceivedFileReaderService(IFileIOService fileIOService, IBGConfigurationSettingsService configurationSettingsService, BGFtpServiceType serviceType, IFileSplitter fileSplitter)
+        public BGReceivedFileReaderService(IFileIOService fileIOService, IBGServiceCoordinatorSettingsService serviceCoordinatorSettingsService, BGFtpServiceType serviceType, IFileSplitter fileSplitter)
         {
             _fileIoService = fileIOService;
             _fileSplitter = fileSplitter;
-            _downloadFolderPath = configurationSettingsService.GetReceivedFilesFolderPath();
-            _backupFolderPath = configurationSettingsService.GetBackupFilesFolderPath();
-            _customerNumber = configurationSettingsService.GetPaymentRevieverCustomerNumber();
+            _downloadFolderPath = serviceCoordinatorSettingsService.GetReceivedFilesFolderPath();
+            _backupFolderPath = serviceCoordinatorSettingsService.GetBackupFilesFolderPath();
+            _customerNumber = serviceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber();
             _productCode = GetProductCode(serviceType);
         }
 
@@ -68,12 +68,12 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
         {
             switch (serviceType)
             {
-                case BGFtpServiceType.Autogiro_From_BGC: return "UAGAG";
-                case BGFtpServiceType.Leverantörsbetalningar_From_BGC: return "ULBLB";
-                case BGFtpServiceType.Löner_Kontoinsättningar_From_BGC: return "UKIKI";
-                case BGFtpServiceType.Autogiro_Test_From_BGC: return "UAGZZ";
-                case BGFtpServiceType.Leverantörsbetalningar_Test_From_BGC: return "ULBZZ";
-                case BGFtpServiceType.Löner_Kontoinsättningar_Test_From_BGC: return "UKIZZ";
+                case BGFtpServiceType.Autogiro: return "UAGAG";
+                case BGFtpServiceType.Leverantörsbetalningar: return "ULBLB";
+                case BGFtpServiceType.Löner_Kontoinsättningar: return "UKIKI";
+                case BGFtpServiceType.Autogiro_Test: return "UAGZZ";
+                case BGFtpServiceType.Leverantörsbetalningar_Test: return "ULBZZ";
+                case BGFtpServiceType.Löner_Kontoinsättningar_Test: return "UKIZZ";
                 default: throw new ArgumentOutOfRangeException("serviceType");
             }
         }

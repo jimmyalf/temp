@@ -61,9 +61,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 			For<IAutogiroFileReader<Read.ConsentsFile, Read.Consent>>().Use<ConsentsFileReader>();
 			For<IAutogiroFileReader<Read.ErrorsFile, Read.Error>>().Use<ErrorFileReader>();
 			For<IAutogiroFileReader<Read.PaymentsFile, Read.Payment>>().Use<PaymentsFileReader>();
-			For<IFileWriterService>().Use(x=> SendFileWriterServiceFactory.Get(x.GetInstance<IFileIOService>(), x.GetInstance<IBGConfigurationSettingsService>()));
+			For<IFileWriterService>().Use(x=> SendFileWriterServiceFactory.Get(x.GetInstance<IFileIOService>(), x.GetInstance<IBGServiceCoordinatorSettingsService>()));
 			For<ITamperProtectedFileWriter>().Use(x => TamperProtectedFileWriterFactory.Get(x.GetInstance<IHashService>()));
-			For<IHashService>().Use(x => HashServiceFactory.Get(x.GetInstance<IBGConfigurationSettingsService>()));
+			For<IHashService>().Use(x => HashServiceFactory.Get(x.GetInstance<IBGServiceCoordinatorSettingsService>()));
 			For<IFtpService>().Use<BGFtpService>().Ctor<BGFtpServiceType>().Is(BGFtpServiceType.Autogiro_Test);
 			For<IFtpIOService>().Use<BGFtpIOService>();
 			For<IFileIOService>().Use<BGFileIOService>();
@@ -71,7 +71,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
             For<IFileSplitter>().Use<ReceivedFileSplitter>();
 
 			//Settings
-			For<IBGConfigurationSettingsService>().Use<BGConfigurationSettingsService>();
+			For<IBGServiceCoordinatorSettingsService>().Use<BGServiceCoordinatorSettingsService>();
 
 			// Register criteria converters
 			Scan(x =>

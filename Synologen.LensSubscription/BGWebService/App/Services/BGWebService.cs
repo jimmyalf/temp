@@ -1,11 +1,23 @@
 using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Synologen.LensSubscription.BGWebService.App.Services
 {
 	public class BGWebService : IBGWebService
 	{
+		private readonly IAutogiroPayerRepository _autogiroPayerRepository;
+
+		public BGWebService(IAutogiroPayerRepository autogiroPayerRepository) {
+			_autogiroPayerRepository = autogiroPayerRepository;
+		}
+
+		public bool TestConnection()
+		{
+			var allPayers = _autogiroPayerRepository.GetAll();
+			return true;
+		}
 		public int RegisterPayer(string name, AutogiroServiceType serviceType) { throw new NotImplementedException(); }
 		public void SendConsent(ConsentToSend consent) { throw new NotImplementedException(); }
 		public void SendPayment(PaymentToSend payment) { throw new NotImplementedException(); }

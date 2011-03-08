@@ -6,6 +6,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App
 {
 	public class MockBgWebServiceClient : ClientBase<IBGWebService>, IBGWebService
 	{
+		public bool TestConnection() { return true; }
 		public int RegisterPayer(string name, AutogiroServiceType serviceType) { return 0; }
 		public void SendConsent(ConsentToSend consent) { return; }
 		public void SendPayment(PaymentToSend payment) { return; }

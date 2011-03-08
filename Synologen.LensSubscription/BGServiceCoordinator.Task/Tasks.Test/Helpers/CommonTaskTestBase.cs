@@ -19,7 +19,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		protected IEventLoggingService EventLoggingService;
 		protected IFileSectionToSendRepository FileSectionToSendRepository;
 	    protected IReceivedFileRepository ReceivedFileRepository;
-        protected IBGConfigurationSettingsService BgConfigurationSettingsService;
+        protected IBGServiceCoordinatorSettingsService BgServiceCoordinatorSettingsService;
 		protected TestTaskRepositoryResolver TaskRepositoryResolver;
 		protected IAutogiroPayerRepository AutogiroPayerRepository;
 		protected Log4NetLogger Log4NetLogger;
@@ -31,7 +31,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			Log4NetLogger = new Log4NetLogger(Log, EventLoggingService);
 			FileSectionToSendRepository = A.Fake<IFileSectionToSendRepository>();
 			ReceivedFileRepository = A.Fake<IReceivedFileRepository>();
-			BgConfigurationSettingsService = A.Fake<IBGConfigurationSettingsService>();
+			BgServiceCoordinatorSettingsService = A.Fake<IBGServiceCoordinatorSettingsService>();
 			TaskRepositoryResolver = new TestTaskRepositoryResolver();
 				//A.Fake<ITaskRepositoryResolver>();
 			AutogiroPayerRepository = A.Fake<IAutogiroPayerRepository>();

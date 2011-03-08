@@ -24,8 +24,8 @@ namespace Synologen.LensSubscription.BGService.Test
 				bgCustomerNumber = "123456";
 				expectedFileName = String.Format("BFEP.IAGAG.{0}", bgCustomerNumber);
 				expectedFileUri = String.Format("{0}/{1}", ftpRootUrl, expectedFileName);
-				A.CallTo(() => BGConfigurationSettingsService.GetFtpUploadFolderUrl()).Returns(ftpRootUrl);
-				A.CallTo(() => BGConfigurationSettingsService.GetPaymentRevieverCustomerNumber()).Returns(bgCustomerNumber);
+				A.CallTo(() => BgServiceCoordinatorSettingsService.GetFtpUploadFolderUrl()).Returns(ftpRootUrl);
+				A.CallTo(() => BgServiceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber()).Returns(bgCustomerNumber);
 			};
 			Because = ftpService => ftpService.SendFile(fileData);
 		}

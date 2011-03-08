@@ -1,11 +1,10 @@
-using System;
 using System.Configuration;
 using System.Net;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 {
-	public class BGConfigurationSettingsService : IBGConfigurationSettingsService
+	public class BGServiceCoordinatorSettingsService : IBGServiceCoordinatorSettingsService
 	{
 		public string GetPaymentRecieverBankGiroNumber()
 		{
@@ -42,7 +41,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 
 	    public string GetBackupFilesFolderPath()
 	    {
-            return ConfigurationManager.AppSettings["BackupFilesFolderPath"];
+	        return "";
 	    }
 	}
 }

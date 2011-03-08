@@ -85,6 +85,7 @@
     <Compile Include="App\IoC\WcfPerRequestLifecycle.cs" />
     <Compile Include="App\IoC\WebserviceRegistry.cs" />
     <Compile Include="App\Services\BGWebService.cs" />
+    <Compile Include="App\Services\BGWebServiceDTOParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +118,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

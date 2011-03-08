@@ -1,7 +1,7 @@
 using System.ServiceModel;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 
-namespace Spinit.Wpc.Synologen.Core.Domain.Services
+namespace Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService
 {
 	[ServiceContract]
 	public interface IBGWebService 
@@ -19,6 +19,4 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		[OperationContract] void SetPaymentHandled(ReceivedPayment payment);
 		[OperationContract] void SetErrorHandled(RecievedError error);
 	}
-
-
 }

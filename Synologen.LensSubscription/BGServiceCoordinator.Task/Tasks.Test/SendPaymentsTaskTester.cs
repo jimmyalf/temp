@@ -32,8 +32,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 				payer = PayerFactory.Get();
 				paymentsToSend = PaymentsFactory.GetList(payer);
 				A.CallTo(() => BGPaymentToSendRepository.FindBy(A<AllNewPaymentsToSendCriteria>.Ignored.Argument)).Returns(paymentsToSend);
-				A.CallTo(() => BgConfigurationSettingsService.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
-				A.CallTo(() => BgConfigurationSettingsService.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
+				A.CallTo(() => BgServiceCoordinatorSettingsService.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
+				A.CallTo(() => BgServiceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
 				A.CallTo(() => PaymentFileWriter.Write(A<PaymentsFile>.Ignored)).Returns(fileData);
 				A.CallTo(() => AutogiroPayerRepository.Get(A<int>.Ignored)).Returns(payer);
 			};

@@ -2,7 +2,7 @@ using System.Net;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services
 {
-	public interface IBGConfigurationSettingsService
+	public interface IBGServiceCoordinatorSettingsService
 	{
 		string GetPaymentRecieverBankGiroNumber();
 		string GetPaymentRevieverCustomerNumber();

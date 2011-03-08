@@ -6,11 +6,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 {
 	public class BGFtpIOService : IFtpIOService
 	{
-		private readonly IBGConfigurationSettingsService _configurationSettingsService;
+		private readonly IBGServiceCoordinatorSettingsService _serviceCoordinatorSettingsService;
 
-		public BGFtpIOService(IBGConfigurationSettingsService configurationSettingsService)
+		public BGFtpIOService(IBGServiceCoordinatorSettingsService serviceCoordinatorSettingsService)
 		{
-			_configurationSettingsService = configurationSettingsService;
+			_serviceCoordinatorSettingsService = serviceCoordinatorSettingsService;
 			UsedEncoding = Encoding.GetEncoding(858);
 		}
 
@@ -35,7 +35,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 		{
 			var request = (FtpWebRequest) WebRequest.Create(fileUri);
 			request.Method = WebRequestMethods.Ftp.UploadFile;
-			request.Credentials = _configurationSettingsService.GetFtpCredential();
+			request.Credentials = _serviceCoordinatorSettingsService.GetFtpCredential();
 			request.UseBinary = true;
 			return request;
 		}

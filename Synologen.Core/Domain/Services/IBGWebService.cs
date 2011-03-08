@@ -6,6 +6,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 	[ServiceContract]
 	public interface IBGWebService 
 	{
+		[OperationContract] bool TestConnection();
 		[OperationContract] int RegisterPayer(string name, AutogiroServiceType serviceType);
 		[OperationContract] void SendConsent(ConsentToSend consent);
 		[OperationContract] void SendPayment(PaymentToSend payment);

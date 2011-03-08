@@ -28,6 +28,7 @@
 		<include name="${dir.source}Synologen.LensSubscription\ServiceCoordinator.Task\Tasks.Test\Tasks.Test.csproj" />
 		<include name="${dir.source}Synologen.LensSubscription\BGServiceCoordinator.Test\BGServiceCoordinator.Test.csproj"/>
 		<include name="${dir.source}Synologen.LensSubscription\BGServiceCoordinator.Task\Tasks.Test\Tasks.Test.csproj" />
+		<include name="${dir.source}Synologen.LensSubscription\BGWebService.Test\BGWebService.Test.csproj" />
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business.Test\Spinit.Wpc.Synologen.OPQ.Business.Test.csproj"/>

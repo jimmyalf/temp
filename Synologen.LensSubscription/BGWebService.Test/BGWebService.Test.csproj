@@ -61,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\ConsentFactory.cs" />
+    <Compile Include="Factories\PayerFactory.cs" />
     <Compile Include="TestHelpers\BGWebServiceTestBase.cs" />
     <Compile Include="BGWebServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,9 +84,6 @@
       <Project>{FF84005C-D4DE-4599-AF2F-4D66FFB29D43}</Project>
       <Name>BGWebService</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Factories\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

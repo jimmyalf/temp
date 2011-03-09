@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Tools\Shouldly\Shouldly.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Data, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
@@ -63,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Factories\ConsentFactory.cs" />
     <Compile Include="Factories\PayerFactory.cs" />
+    <Compile Include="Factories\PaymentFactory.cs" />
     <Compile Include="TestHelpers\BGWebServiceTestBase.cs" />
     <Compile Include="BGWebServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

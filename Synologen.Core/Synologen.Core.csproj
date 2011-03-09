@@ -120,6 +120,7 @@
     <Compile Include="Domain\Model\BGServer\ConsentType.cs" />
     <Compile Include="Domain\Model\BGServer\FileSectionToSend.cs" />
     <Compile Include="Domain\Model\BGServer\PaymentPeriodCode.cs" />
+    <Compile Include="Domain\Model\BGServer\PaymentResult.cs" />
     <Compile Include="Domain\Model\BGServer\PaymentType.cs" />
     <Compile Include="Domain\Model\BGServer\SectionType.cs" />
     <Compile Include="Domain\Model\BGServer\ReceivedFileSection.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewConsentsToSendCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewPaymentsToSendCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewReceivedBGPaymentsCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledFileSectionsToSendCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedConsentFileSectionsCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedErrorFileSectionsCriteria.cs" />

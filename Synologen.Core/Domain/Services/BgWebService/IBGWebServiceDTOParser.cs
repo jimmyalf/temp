@@ -11,6 +11,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService
 		BGConsentToSend ParseConsent(ConsentToSend consentToSend, AutogiroPayer payer);
 		BGPaymentToSend ParsePayment(PaymentToSend payment, AutogiroPayer payer);
 		ReceivedPayment ParsePayment(BGReceivedPayment payment);
+		RecievedError ParseError(BGReceivedError error);
 		BGServer_AutogiroServiceType ParseServiceType(BGWebService_AutogiroServiceType type);
+		
 	}
 }

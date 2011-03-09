@@ -16,18 +16,21 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 		private readonly IBGConsentToSendRepository _consentToSendRepository;
 		private readonly IBGPaymentToSendRepository _bgPaymentToSendRepository;
 		private readonly IBGReceivedPaymentRepository _bgReceivedPaymentRepository;
+		private readonly IBGReceivedErrorRepository _bgReceivedErrorRepository;
 		private readonly IBGWebServiceDTOParser _bgWebServiceDtoParser;
 
 		public BGWebService(IAutogiroPayerRepository autogiroPayerRepository, 
 			IBGConsentToSendRepository consentToSendRepository, 
 			IBGPaymentToSendRepository bgPaymentToSendRepository,
 			IBGReceivedPaymentRepository bgReceivedPaymentRepository,
+			IBGReceivedErrorRepository bgReceivedErrorRepository,
 			IBGWebServiceDTOParser bgWebServiceDtoParser)
 		{
 			_autogiroPayerRepository = autogiroPayerRepository;
 			_consentToSendRepository = consentToSendRepository;
 			_bgPaymentToSendRepository = bgPaymentToSendRepository;
 			_bgReceivedPaymentRepository = bgReceivedPaymentRepository;
+			_bgReceivedErrorRepository = bgReceivedErrorRepository;
 			_bgWebServiceDtoParser = bgWebServiceDtoParser;
 		}
 
@@ -65,7 +68,14 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 				? new ReceivedPayment[]{ } 
 				: payments.Select(payment => _bgWebServiceDtoParser.ParsePayment(payment)).ToArray();
 		}
-		public RecievedError[] GetErrors(AutogiroServiceType serviceType) { throw new NotImplementedException(); }
+		public RecievedError[] GetErrors(AutogiroServiceType serviceType)
+		{
+			var internalServiceType = _bgWebServiceDtoParser.ParseServiceType(serviceType);
+			var errors = _bgReceivedErrorRepository.FindBy(new AllNewReceivedBGErrorsCriteria(internalServiceType));
+			return errors.IsNullOrEmpty()
+				? new RecievedError[] { }
+				: errors.Select(error => _bgWebServiceDtoParser.ParseError(error)).ToArray();
+		}
 		public void SetConsentHandled(ReceivedConsent consent) { throw new NotImplementedException(); }
 		public void SetPaymentHandled(ReceivedPayment payment) { throw new NotImplementedException(); }
 		public void SetErrorHandled(RecievedError error) { throw new NotImplementedException(); }

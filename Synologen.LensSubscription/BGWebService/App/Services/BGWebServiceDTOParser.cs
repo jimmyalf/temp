@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
@@ -55,7 +56,7 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 			};
 		}
 
-		public ReceivedPayment ParsePayment(BGReceivedPayment payment) 
+		public virtual ReceivedPayment ParsePayment(BGReceivedPayment payment) 
 		{
 			return new ReceivedPayment
 			{
@@ -65,6 +66,27 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 				Result = MapPaymentResult(payment.ResultType)
 			};
 		}
+
+		public virtual RecievedError ParseError(BGReceivedError error)
+		{
+			return new RecievedError
+			{
+				Amount = error.Amount,
+				CommentCode = MapErrorCommentCode(error.CommentCode),
+				PayerNumber = error.Payer.Id,
+				Reference = error.Reference
+			};
+		}
+
+		public virtual BGServer_AutogiroServiceType ParseServiceType(WebService_AutogiroServiceType serviceType) 
+		{
+			switch (serviceType)
+			{
+				case WebService_AutogiroServiceType.LensSubscription: return BGServer_AutogiroServiceType.LensSubscription;
+				default: throw new ArgumentOutOfRangeException("serviceType");
+			}
+		}
+
 		protected virtual BGWebService_PaymentResult MapPaymentResult(BGServer_PaymentResult result)
 		{
 			switch (result)
@@ -77,24 +99,25 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 			}
 		}
 
-
-		public virtual BGServer_AutogiroServiceType ParseServiceType(WebService_AutogiroServiceType serviceType) 
-		{
-			switch (serviceType)
-			{
-				case WebService_AutogiroServiceType.LensSubscription: return BGServer_AutogiroServiceType.LensSubscription;
-				default: throw new ArgumentOutOfRangeException("serviceType");
-			}
-		}
-
-
-		private static BGServer_PaymentType MapPaymentType(WebService_PaymentType paymentType)
+		protected virtual BGServer_PaymentType MapPaymentType(WebService_PaymentType paymentType)
 		{
 			switch (paymentType)
 			{
 				case WebService_PaymentType.Debit: return BGServer_PaymentType.Debit;
 				case WebService_PaymentType.Credit: return BGServer_PaymentType.Credit;
 				default: throw new ArgumentOutOfRangeException("paymentType");
+			}
+		}
+
+		protected virtual ErrorType MapErrorCommentCode(ErrorCommentCode code)
+		{
+			switch (code)
+			{
+				case ErrorCommentCode.ConsentMissing: return ErrorType.ConsentMissing;
+				case ErrorCommentCode.AccountNotYetApproved: return ErrorType.AccountNotYetApproved;
+				case ErrorCommentCode.ConsentStopped: return ErrorType.ConsentStopped;
+				case ErrorCommentCode.NotYetDebitable: return  ErrorType.NotYetDebitable;
+				default: throw new ArgumentOutOfRangeException("code");
 			}
 		}
 	}

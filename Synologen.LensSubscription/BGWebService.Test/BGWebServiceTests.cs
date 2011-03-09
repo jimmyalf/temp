@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using FakeItEasy;
-using FakeItEasy.Core;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
@@ -297,6 +296,62 @@ namespace Synologen.LensSubscription.BGWebService.Test
 				//payment.PaymentDate.ShouldBe(returnedPayment.?); //FIX: Add impl.
 				//payment.Reference.ShouldBe(returnedPayment.?); //FIX: Add impl.
 				payment.ResultType.ShouldBe(MapPaymentResult(returnedPayment.Result));
+			});
+		}
+	}
+
+	[TestFixture, Category("BGWebServiceTests")]
+	public class When_fetching_errors : BGWebServiceTestBase
+	{
+		private RecievedError[] returnedErrors;
+		private BGWebService_AutogiroServiceType exposedServiceType;
+		private BGServer_AutogiroServiceType internalServiceType;
+		private AutogiroPayer payer;
+		private IList<BGReceivedError> errors;
+
+		public When_fetching_errors()
+		{
+			Context = () =>
+			{
+				payer = PayerFactory.Get();
+				errors = ErrorFactory.GetReceivedErrorsList(payer);
+				exposedServiceType = BGWebService_AutogiroServiceType.LensSubscription;
+				internalServiceType = BGServer_AutogiroServiceType.LensSubscription;
+				A.CallTo(() => BGReceivedErrorRepository.FindBy(A<AllNewReceivedBGErrorsCriteria>.Ignored.Argument)).Returns(errors);
+			};
+			Because = service =>
+			{
+				returnedErrors = service.GetErrors(exposedServiceType);
+			};
+		}
+
+		[Test]
+		public void Webservice_fetches_new_payments()
+		{
+			A.CallTo(() => BGReceivedErrorRepository.FindBy(
+				A<AllNewReceivedBGErrorsCriteria>
+				.That.Matches(x => x.ServiceType.Equals(internalServiceType))
+				.Argument
+			)).MustHaveHappened();
+		}
+
+		[Test]
+		public void Webservice_parses_payments()
+		{
+			errors.Each(error => A.CallTo(() => BGWebServiceDTOParser.ParseError(error)).MustHaveHappened());
+		}
+
+		[Test]
+		public void Webservice_returns_parsed_payments()
+		{
+			errors.ForBoth(returnedErrors, (error,returnedError) =>
+			{
+				error.Amount.ShouldBe(returnedError.Amount);
+				error.CommentCode.ShouldBe(MapErrorCommentCode(returnedError.CommentCode));
+				//error.CreatedDate.ShouldBe(returnedError.?); //FIX: Add impl.
+				error.Payer.Id.ShouldBe(returnedError.PayerNumber);
+				//error.PaymentDate.ShouldBe(returnedError.?); //FIX: Add impl.
+				error.Reference.ShouldBe(returnedError.Reference);
 			});
 		}
 	}

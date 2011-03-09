@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\ErrorFactory.cs" />
     <Compile Include="Factories\ConsentFactory.cs" />
     <Compile Include="Factories\PayerFactory.cs" />
     <Compile Include="Factories\PaymentFactory.cs" />

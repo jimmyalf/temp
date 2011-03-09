@@ -1,5 +1,7 @@
 using System;
 using FakeItEasy;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
+using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Synologen.LensSubscription.BGWebService.App.Services;
@@ -16,6 +18,7 @@ namespace Synologen.LensSubscription.BGWebService.Test.TestHelpers
 		protected IBGConsentToSendRepository BGConsentToSendRepository;
 		protected IBGPaymentToSendRepository BGPaymentToSendRepository;
 		protected IBGReceivedPaymentRepository BGReceivedPaymentRepository;
+		protected IBGReceivedErrorRepository BGReceivedErrorRepository;
 
 		protected override void SetUp()
 		{
@@ -23,6 +26,7 @@ namespace Synologen.LensSubscription.BGWebService.Test.TestHelpers
 			BGConsentToSendRepository = A.Fake<IBGConsentToSendRepository>();
 			BGPaymentToSendRepository = A.Fake<IBGPaymentToSendRepository>();
 			BGReceivedPaymentRepository = A.Fake<IBGReceivedPaymentRepository>();
+			BGReceivedErrorRepository = A.Fake<IBGReceivedErrorRepository>();
 			var realParser = new BGWebServiceDTOParser();
 			BGWebServiceDTOParser = A.Fake<IBGWebServiceDTOParser>(x => x.Wrapping(realParser));
 		}
@@ -34,6 +38,7 @@ namespace Synologen.LensSubscription.BGWebService.Test.TestHelpers
 				BGConsentToSendRepository,
 				BGPaymentToSendRepository,
 				BGReceivedPaymentRepository,
+				BGReceivedErrorRepository,
 				BGWebServiceDTOParser);
 		}
 
@@ -59,6 +64,18 @@ namespace Synologen.LensSubscription.BGWebService.Test.TestHelpers
 				case BGWebService_PaymentResult.AGConnectionMissing: return BGServer_PaymentResult.AGConnectionMissing;
 				case BGWebService_PaymentResult.WillTryAgain: return BGServer_PaymentResult.WillTryAgain;
 				default: throw new ArgumentOutOfRangeException("result");
+			}
+		}
+
+		protected static ErrorCommentCode MapErrorCommentCode(ErrorType type) 
+		{
+			switch (type)
+			{
+				case ErrorType.ConsentMissing: return ErrorCommentCode.ConsentMissing;
+				case ErrorType.AccountNotYetApproved: return ErrorCommentCode.AccountNotYetApproved;
+				case ErrorType.ConsentStopped: return ErrorCommentCode.ConsentStopped;
+				case ErrorType.NotYetDebitable: return ErrorCommentCode.NotYetDebitable;
+				default: throw new ArgumentOutOfRangeException("type");
 			}
 		}
 	}

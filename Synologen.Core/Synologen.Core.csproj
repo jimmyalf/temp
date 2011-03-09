@@ -181,6 +181,7 @@
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewConsentsToSendCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewPaymentsToSendCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewReceivedBGErrorsCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewReceivedBGPaymentsCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledFileSectionsToSendCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedConsentFileSectionsCriteria.cs" />

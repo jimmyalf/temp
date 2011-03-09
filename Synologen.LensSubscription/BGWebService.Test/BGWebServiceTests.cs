@@ -1,13 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using FakeItEasy;
+using FakeItEasy.Core;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Synologen.LensSubscription.BGWebService.Test.Factories;
 using Synologen.LensSubscription.BGWebService.Test.TestHelpers;
 using BGWebService_AutogiroServiceType=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.AutogiroServiceType;
 using BGServer_AutogiroServiceType=Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.AutogiroServiceType;
+using BGWebService_PaymentType=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.PaymentType;
+using BGServer_PaymentType = Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.PaymentType;
 
 namespace Synologen.LensSubscription.BGWebService.Test
 {
@@ -154,5 +161,143 @@ namespace Synologen.LensSubscription.BGWebService.Test
 			caughtException.ShouldBeTypeOf(typeof(ArgumentException));
 		}
 
+	}
+
+	[TestFixture, Category("BGWebServiceTests")]
+	public class When_sending_a_new_payment : BGWebServiceTestBase
+	{
+		private PaymentToSend payment;
+		private AutogiroPayer payer;
+		private BGServer_PaymentType outputPaymentType;
+		private BGWebService_PaymentType inputPaymentType;
+
+		public When_sending_a_new_payment()
+		{
+			Context = () =>
+			{
+				payer = PayerFactory.Get();
+				outputPaymentType = BGServer_PaymentType.Debit;
+				inputPaymentType = BGWebService_PaymentType.Debit;
+				payment = PaymentFactory.GetPaymentToSend(inputPaymentType, payer.Id);
+				A.CallTo(() => AutogiroPayerRepository.Get(payer.Id)).Returns(payer);
+			};
+
+			Because = service => service.SendPayment(payment);
+		}
+
+		[Test]
+		public void Webservice_fetches_payer_for_payment()
+		{
+			A.CallTo(() => AutogiroPayerRepository.Get(payer.Id)).MustHaveHappened();
+		}
+
+		[Test]
+		public void Webservice_parses_input_payment()
+		{
+			A.CallTo(() => BGWebServiceDTOParser.ParsePayment(payment, payer)).MustHaveHappened();
+		}
+
+		[Test]
+		public void Webservice_stores_payment()
+		{
+			A.CallTo(() => BGPaymentToSendRepository.Save(
+				A<BGPaymentToSend>
+				.That.Matches(x => x.Amount.Equals(payment.Amount))
+				.And.Matches(x => x.HasBeenSent.Equals(false))
+				.And.Matches(x => x.Payer.Id.Equals(payer.Id))
+				//.And.Matches(x => x.PaymentDate.Equals(payment.?)) //FIX: PaymentDate is Missing
+				//.And.Matches(x => x.PeriodCode.Equals(payment.?)) //FIX: PeriodCode is Missing
+				.And.Matches(x => x.Reference.Equals(payment.Reference))
+				.And.Matches(x => Equals(x.SendDate, null))
+				.And.Matches(x => x.Type.Equals(outputPaymentType))
+			)).MustHaveHappened();
+		}
+	}
+
+	[TestFixture, Category("BGWebServiceTests")]
+	public class When_sending_a_new_payment_with_a_payer_number_not_found : BGWebServiceTestBase
+	{
+		private PaymentToSend payment;
+		private Exception caughtException;
+		private int payerId;
+
+		public When_sending_a_new_payment_with_a_payer_number_not_found()
+		{
+			Context = () =>
+			{
+				payerId = 33;
+				payment = PaymentFactory.GetPaymentToSend(BGWebService_PaymentType.Debit, payerId);
+				A.CallTo(() => AutogiroPayerRepository.Get(payerId)).Returns(default(AutogiroPayer));
+			};
+
+			Because = service =>
+			{
+				caughtException = TryCatchException(() => service.SendPayment(payment));
+			};
+		}
+
+		[Test]
+		public void Webservice_throws_argument_exception()
+		{
+			caughtException.ShouldNotBe(null);
+			caughtException.ShouldBeTypeOf(typeof(ArgumentException));
+		}
+	}
+
+	[TestFixture, Category("BGWebServiceTests")]
+	public class When_fetching_payments : BGWebServiceTestBase
+	{
+		private BGWebService_AutogiroServiceType exposedServiceType;
+		private BGServer_AutogiroServiceType internalServiceType;
+		private IList<BGReceivedPayment> payments;
+		private AutogiroPayer payer;
+		private ReceivedPayment[] returnedPayments;
+
+		public When_fetching_payments()
+		{
+			Context = () =>
+			{
+				exposedServiceType = BGWebService_AutogiroServiceType.LensSubscription;
+				internalServiceType = BGServer_AutogiroServiceType.LensSubscription;
+				payer = PayerFactory.Get();
+				payments = PaymentFactory.GetReceivedPaymentList(payer);
+				A.CallTo(() => BGReceivedPaymentRepository.FindBy(A<AllNewReceivedBGPaymentsCriteria>.Ignored.Argument)).Returns(payments);
+			};
+			Because = service =>
+			{
+				returnedPayments = service.GetPayments(exposedServiceType);
+			};
+		}
+
+		[Test]
+		public void Webservice_fetches_new_payments()
+		{
+			A.CallTo(() => BGReceivedPaymentRepository.FindBy(
+				A<AllNewReceivedBGPaymentsCriteria>.
+				That.Matches(x => x.ServiceType.Equals(internalServiceType))
+				.Argument
+			)).MustHaveHappened();
+		}
+
+		[Test]
+		public void Webservice_parses_payments()
+		{
+			payments.Each(payment => A.CallTo(() => BGWebServiceDTOParser.ParsePayment(payment)).MustHaveHappened());
+		}
+
+		[Test]
+		public void Webservice_returns_parsed_payments()
+		{
+			payments.ForBoth(returnedPayments, (payment, returnedPayment) =>
+			{
+				payment.Amount.ShouldBe(returnedPayment.Amount);
+				//payment.CreatedDate.ShouldBe(returnedPayment.?); //FIX: Add impl.
+				payment.Payer.Id.ShouldBe(returnedPayment.PayerNumber);
+				payment.Id.ShouldBe(returnedPayment.PaymentId);
+				//payment.PaymentDate.ShouldBe(returnedPayment.?); //FIX: Add impl.
+				//payment.Reference.ShouldBe(returnedPayment.?); //FIX: Add impl.
+				payment.ResultType.ShouldBe(MapPaymentResult(returnedPayment.Result));
+			});
+		}
 	}
 }

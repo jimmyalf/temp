@@ -141,6 +141,10 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 				: new string(characterList.ToArray());
 		}
 
+		public static bool IsNullOrEmpty<TModel>(this IEnumerable<TModel> list)
+		{
+			return (list == null || list.Count() == 0);
+		}
 	}
 
 

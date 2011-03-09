@@ -1,7 +1,11 @@
 using System;
+using System.Linq;
+using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using AutogiroServiceType=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.AutogiroServiceType;
 
 namespace Synologen.LensSubscription.BGWebService.App.Services
@@ -10,12 +14,20 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 	{
 		private readonly IAutogiroPayerRepository _autogiroPayerRepository;
 		private readonly IBGConsentToSendRepository _consentToSendRepository;
+		private readonly IBGPaymentToSendRepository _bgPaymentToSendRepository;
+		private readonly IBGReceivedPaymentRepository _bgReceivedPaymentRepository;
 		private readonly IBGWebServiceDTOParser _bgWebServiceDtoParser;
 
-		public BGWebService(IAutogiroPayerRepository autogiroPayerRepository, IBGConsentToSendRepository consentToSendRepository, IBGWebServiceDTOParser bgWebServiceDtoParser)
+		public BGWebService(IAutogiroPayerRepository autogiroPayerRepository, 
+			IBGConsentToSendRepository consentToSendRepository, 
+			IBGPaymentToSendRepository bgPaymentToSendRepository,
+			IBGReceivedPaymentRepository bgReceivedPaymentRepository,
+			IBGWebServiceDTOParser bgWebServiceDtoParser)
 		{
 			_autogiroPayerRepository = autogiroPayerRepository;
 			_consentToSendRepository = consentToSendRepository;
+			_bgPaymentToSendRepository = bgPaymentToSendRepository;
+			_bgReceivedPaymentRepository = bgReceivedPaymentRepository;
 			_bgWebServiceDtoParser = bgWebServiceDtoParser;
 		}
 
@@ -35,9 +47,24 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 			var consent = _bgWebServiceDtoParser.ParseConsent(consentToSend, payer);
 			_consentToSendRepository.Save(consent);
 		}
-		public void SendPayment(PaymentToSend payment) { throw new NotImplementedException(); }
+		public void SendPayment(PaymentToSend paymentToSend)
+		{
+			var payer = _autogiroPayerRepository.Get(paymentToSend.PayerNumber);
+			if (payer == null) throw new ArgumentException("Cannot find Payer matching Payment payer number", "paymentToSend");
+			var payment = _bgWebServiceDtoParser.ParsePayment(paymentToSend, payer);
+			_bgPaymentToSendRepository.Save(payment);
+		}
+
 		public ReceivedConsent[] GetConsents(AutogiroServiceType serviceType) { throw new NotImplementedException(); }
-		public ReceivedPayment[] GetPayments(AutogiroServiceType serviceType) { throw new NotImplementedException(); }
+
+		public ReceivedPayment[] GetPayments(AutogiroServiceType serviceType)
+		{
+			var internalServiceType = _bgWebServiceDtoParser.ParseServiceType(serviceType);
+			var payments = _bgReceivedPaymentRepository.FindBy(new AllNewReceivedBGPaymentsCriteria(internalServiceType));
+			return payments.IsNullOrEmpty() 
+				? new ReceivedPayment[]{ } 
+				: payments.Select(payment => _bgWebServiceDtoParser.ParsePayment(payment)).ToArray();
+		}
 		public RecievedError[] GetErrors(AutogiroServiceType serviceType) { throw new NotImplementedException(); }
 		public void SetConsentHandled(ReceivedConsent consent) { throw new NotImplementedException(); }
 		public void SetPaymentHandled(ReceivedPayment payment) { throw new NotImplementedException(); }

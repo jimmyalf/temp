@@ -69,6 +69,7 @@ namespace Synologen.LensSubscription.BGData.Test
                 fetchedError.Payer.ShouldBe(_updatedError.Payer);
                 fetchedError.PaymentDate.Date.ShouldBe(_updatedError.PaymentDate.Date);
                 fetchedError.Reference.ShouldBe(_updatedError.Reference);
+				fetchedError.Handled.ShouldBe(_updatedError.Handled);
             });
         }
     }

@@ -11,7 +11,6 @@ namespace Synologen.LensSubscription.BGData.Mappings
             Table("ReceivedError");
             Id(x => x.Id);
             Map(x => x.Amount).Not.Nullable();
-            //Map(x => x.PayerNumber).Not.Nullable();
 			References(x => x.Payer).Column("PayerId").Not.Nullable();
             Map(x => x.CommentCode)
                 .CustomType(typeof(ErrorCommentCode))
@@ -20,6 +19,7 @@ namespace Synologen.LensSubscription.BGData.Mappings
                 .Not.Nullable();
             Map(x => x.Reference).Nullable();
             Map(x => x.CreatedDate).Not.Nullable();
+        	Map(x => x.Handled).Not.Nullable();
         }
     }
 }

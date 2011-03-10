@@ -13,42 +13,6 @@ using Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 {
-	[TestFixture, Explicit("Fake it easy test")]
-	public class Test_Fake_it_easy
-	{
-	    [Test]
-	    public void Test_for_problem()
-	    {
-	        var fakeRepo = A.Fake<IRepo>();
-	        A.CallTo(() => fakeRepo.Get(A<int>.Ignored)).Returns(new object());
-	        var repositoryResolver = A.Fake<IRepoResolver>();
-	        A.CallTo(() => repositoryResolver.GetRepository<IRepo>()).Returns(fakeRepo);
-	        try
-	        {
-	            var fetchedRepo = repositoryResolver.GetRepository<IRepo>();
-	            fetchedRepo.ShouldBe(fakeRepo);
-
-	        }
-			catch(Exception ex)
-			{
-			    Console.WriteLine(ex.Message);
-			    Assert.Inconclusive(ex.Message);
-			}
-	    }
-	}
-
-	public interface IConstraint{}
-	public interface IRepo
-	{
-	    object Get(int id);
-		object GetByConstraint<TConstraint>(TConstraint constraint) where TConstraint : IConstraint;
-	}
-
-	public interface IRepoResolver
-	{
-	    TRepo GetRepository<TRepo>();
-	}
-
     [TestFixture, Category("ReceivePaymentsTaskTests")]
     public class When_receiveing_payments : ReceivePaymentsTaskTestBase
     {
@@ -117,11 +81,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
                             .And.Matches(x => x.Payer.Id.ToString().Equals(_savedPayment.Transmitter.CustomerNumber))
                             .And.Matches(x => x.PaymentDate.Date.Equals(_savedPayment.PaymentDate.Date))
                             .And.Matches(x => x.Reference.Equals(_savedPayment.Reference))
-                            .And.Matches(x => x.ResultType.Equals(_savedPayment.Result))
+                            .And.Matches(x => x.ResultType.Equals(MapPaymentResultType(_savedPayment.Result)))
                         )).MustHaveHappened();
         }
 
-        [Test]
+    	[Test]
         public void Task_updates_paymentsection_as_handled()
         {
             _receivedSections.Each(receivedSection => A.CallTo(() => ReceivedFileRepository.Save(

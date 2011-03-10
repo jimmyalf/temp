@@ -1,3 +1,4 @@
+using System;
 using FakeItEasy;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
@@ -29,5 +30,17 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
                 PaymentFileReader,
 				TaskRepositoryResolver);
         }
+
+    	protected static Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.PaymentResult MapPaymentResultType(PaymentResult result)
+    	{
+    		switch (result)
+    		{
+    			case PaymentResult.Approved: return Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.PaymentResult.Approved;
+    			case PaymentResult.InsufficientFunds: return Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.PaymentResult.InsufficientFunds;
+    			case PaymentResult.AGConnectionMissing: return Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.PaymentResult.AGConnectionMissing;
+    			case PaymentResult.WillTryAgain: return Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.PaymentResult.WillTryAgain;
+    			default: throw new ArgumentOutOfRangeException("result");
+    		}
+    	}
     }
 }

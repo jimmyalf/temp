@@ -21,7 +21,6 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			BGConsentToSendRepository = A.Fake<IBGConsentToSendRepository>();
 			ConsentFileWriter = A.Fake<IAutogiroFileWriter<ConsentsFile, Consent>>();
 			TaskRepositoryResolver.AddRepository(BGConsentToSendRepository);
-			//A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGConsentToSendRepository>()).Returns(BGConsentToSendRepository);
 		}
 
 		protected override ITask GetTask() 

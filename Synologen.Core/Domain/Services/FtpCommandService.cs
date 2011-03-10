@@ -3,32 +3,40 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using Spinit.Wpc.Synologen.Core.Extensions;
+using System.Text.RegularExpressions;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services
 {
-	public class FtpCommandService : IDisposable
+	public class FtpCommandService : IFtpCommandService
 	{
-		private readonly Socket _socket;
+		private Socket _socket;
 		private const int ReadBufferBlockSize = 512;
 		private const string EndOfFile = "\r\n";
-		public event EventHandler<OnCommandExecutedEventArgs> OnCommandExecuted;
+		private const int DefaultFtpPort = 21;
+		public event EventHandler<OnCommandSentEventArgs> OnCommandSent;
 		public event EventHandler<OnResponseReceivedEventArgs> OnResponseReceived;
 
-		public FtpCommandService(string domainName) : this(ResolveDnsAddress(domainName)) { }
-
-		public FtpCommandService(IPAddress ipAddress)
+		public virtual void Open(string domainName)
 		{
-			var serverIP = new IPEndPoint(ipAddress, 21);
+			var ipAddress = ResolveDnsAddress(domainName);
+			Open(ipAddress);
+		}
+
+		public virtual void Open(IPAddress ipAddress)
+		{
+			var serverIP = new IPEndPoint(ipAddress, DefaultFtpPort);
 			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			_socket.Connect(serverIP);
 		}
 
-		public string Execute(string command)
+		public virtual string Execute(string command)
 		{
-			var bytesSent = Encoding.ASCII.GetBytes(command.TrimEnd('\r','\n') + EndOfFile);
+			var bytesSent = Encoding.ASCII.GetBytes(command.TrimEnd(EndOfFile.ToCharArray()) + EndOfFile);
 			_socket.Send(bytesSent, bytesSent.Length, SocketFlags.None);
-			OnCommandExecuted.TryInvoke(this,new OnCommandExecutedEventArgs(command));
+			if(OnCommandSent != null)
+			{
+				OnCommandSent(this, new OnCommandSentEventArgs(command));	
+			}
 			return ReadReply();
 		}
 
@@ -42,7 +50,10 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 				message += Encoding.ASCII.GetString(buffer, 0, bytes);
 				if (bytes < buffer.Length) break;
 			}
-			OnResponseReceived.TryInvoke(this,new OnResponseReceivedEventArgs(message));
+			if(OnResponseReceived != null)
+			{
+				OnResponseReceived(this, new OnResponseReceivedEventArgs(message));
+			}
 			return message;
 		}
 
@@ -58,12 +69,16 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 
 		private static string GetDomainNameFromUrl(string url)
 		{
-			return url
-				.RegexRemove(@"^(\w+):\/\/")
-				.RegexRemove("/.+");
+			var urlWithoutSchema = Regex.Replace(url, @"^(\w+):\/\/", String.Empty);
+			return Regex.Replace(urlWithoutSchema, "/.+", String.Empty);
 		}
 
-		public void Dispose() 
+		public virtual void Close()
+		{
+			Dispose();
+		}
+
+		public virtual void Dispose() 
 		{
 			_socket.Disconnect(false);
 		}
@@ -75,9 +90,9 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		public string Response { get; private set; }
 	}
 
-	public class OnCommandExecutedEventArgs : EventArgs
+	public class OnCommandSentEventArgs : EventArgs
 	{
-		public OnCommandExecutedEventArgs(string command) { Command = command; }
+		public OnCommandSentEventArgs(string command) { Command = command; }
 		public string Command { get; private set; }
 	}
 }

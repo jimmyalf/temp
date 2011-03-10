@@ -11,9 +11,15 @@ namespace Synologen.LensSubscription.BGService.Test
 
 		public TestFtpCommandService()
 		{
-			FTPCommandService = new FtpCommandService("ftp.spinit.se");
-			FTPCommandService.OnCommandExecuted += (sender, eventArgs) => Console.WriteLine("> {0}", eventArgs.Command);
+			FTPCommandService = new FtpCommandService();
+			FTPCommandService.OnCommandSent += (sender, eventArgs) => Console.WriteLine("> {0}", eventArgs.Command);
 			FTPCommandService.OnResponseReceived += (sender, eventArgs) => Console.WriteLine(eventArgs.Response);
+		}
+
+		[SetUp]
+		public void Setup()
+		{
+			FTPCommandService.Open("ftp.spinit.se");
 		}
 
 		[Test]
@@ -27,7 +33,7 @@ namespace Synologen.LensSubscription.BGService.Test
 		[TearDown]
 		public void TearDown()
 		{
-			FTPCommandService.Dispose();
+			FTPCommandService.Close();
 		}
 	}
 }

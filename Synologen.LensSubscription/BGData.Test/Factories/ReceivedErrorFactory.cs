@@ -29,6 +29,7 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
             //error.PayerNumber = error.PayerNumber*2;
             error.PaymentDate = error.PaymentDate.AddDays(-1);
             error.Reference = error.Reference.Reverse();
+        	error.SetHandled();
         }
     }
 }

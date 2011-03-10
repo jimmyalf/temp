@@ -69,6 +69,7 @@
     <Compile Include="CriteriaConverters\AllNewPaymentsToSendCriteriaConverter.cs" />
     <Compile Include="CriteriaConverters\AllNewReceivedBGErrorsMatchingServiceTypeCriteriaConverter.cs" />
     <Compile Include="CriteriaConverters\AllNewReceivedBGPaymentsCriteriaConverter.cs" />
+    <Compile Include="CriteriaConverters\AllNewReceivedBGPaymentsMatchingServiceTypeCriteriaConverter.cs" />
     <Compile Include="CriteriaConverters\AllUnhandledFileSectionsToSendCriteriaConverter.cs" />
     <Compile Include="CriteriaConverters\AllUnhandledReceivedErrorFileSectionsCriteriaConverter.cs" />
     <Compile Include="CriteriaConverters\AllUnhandledReceivedPaymentFileSectionsCriteriaConverter.cs" />

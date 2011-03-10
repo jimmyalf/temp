@@ -3,9 +3,9 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer
 {
-	public class AllNewReceivedBGPaymentsCriteria : IActionCriteria
+	public class AllNewReceivedBGPaymentsMatchingServiceTypeCriteria : IActionCriteria
 	{
-		public AllNewReceivedBGPaymentsCriteria(AutogiroServiceType serviceType)
+		public AllNewReceivedBGPaymentsMatchingServiceTypeCriteria(AutogiroServiceType serviceType)
 		{
 			ServiceType = serviceType;
 		}

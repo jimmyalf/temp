@@ -1,6 +1,10 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.BGData.Test.BaseTesters;
 using Synologen.LensSubscription.BGData.Test.Factories;
@@ -101,4 +105,40 @@ namespace Synologen.LensSubscription.BGData.Test
             });
         }
     }
+
+	[TestFixture, Category("ReceivedErrorRepositoryTester")]
+	public class When_fetching_received_errors_by_AllNewReceivedBGPaymentsMatchingServiceTypeCriteria : BaseRepositoryTester<BGReceivedPaymentRepository>
+	{
+		private AutogiroPayer payer;
+		private IEnumerable<BGReceivedPayment> payments;
+		private IEnumerable<BGReceivedPayment> expectedPayments;
+		private AutogiroServiceType serviceType;
+
+		public When_fetching_received_errors_by_AllNewReceivedBGPaymentsMatchingServiceTypeCriteria()
+		{
+			Context = session =>
+			{
+				payer = StoreAutogiroPayer(PayerFactory.Get);
+				payments = ReceivedPaymentFactory.GetList(payer);
+				serviceType = AutogiroServiceType.LensSubscription;
+				expectedPayments = payments.Where(x => x.Handled == false && x.Payer.ServiceType.Equals(serviceType));
+			};
+			Because = repository => payments.Each(repository.Save);
+		}
+
+		[Test]
+		public void Should_get_all_payments_that_has_not_been_handled_and_are_of_given_service_type()
+		{
+			AssertUsing(session =>
+			{
+				var fetchedPayments = CreateRepository(session).FindBy(new AllNewReceivedBGPaymentsMatchingServiceTypeCriteria(serviceType)).ToList();
+				fetchedPayments.Count().ShouldBe(expectedPayments.Count());
+				fetchedPayments.Each(fetchedPayment =>
+				{
+					fetchedPayment.Handled.ShouldBe(false);
+					fetchedPayment.Payer.ServiceType.ShouldBe(serviceType);
+				});
+			});
+		}
+	}
 }

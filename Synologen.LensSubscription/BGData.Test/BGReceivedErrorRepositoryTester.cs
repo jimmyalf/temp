@@ -5,7 +5,6 @@ using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.BGData.Test.BaseTesters;
 using Synologen.LensSubscription.BGData.Test.Factories;
@@ -107,14 +106,14 @@ namespace Synologen.LensSubscription.BGData.Test
     }
 
 	[TestFixture, Category("ReceivedErrorRepositoryTester")]
-	public class When_fetching_received_errors_by_AllNewReceivedBGErrorsCriteria : BaseRepositoryTester<BGReceivedErrorRepository>
+	public class When_fetching_received_errors_by_AllNewReceivedBGErrorsMatchingServiceTypeCriteria : BaseRepositoryTester<BGReceivedErrorRepository>
 	{
 		private AutogiroPayer payer;
 		private IEnumerable<BGReceivedError> errors;
 		private IEnumerable<BGReceivedError> expectedErrors;
 		private AutogiroServiceType serviceType;
 
-		public When_fetching_received_errors_by_AllNewReceivedBGErrorsCriteria()
+		public When_fetching_received_errors_by_AllNewReceivedBGErrorsMatchingServiceTypeCriteria()
 		{
 			Context = session =>
 			{

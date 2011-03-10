@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using FakeItEasy;
 using NUnit.Framework;
@@ -260,7 +260,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 				internalServiceType = BGServer_AutogiroServiceType.LensSubscription;
 				payer = PayerFactory.Get();
 				payments = PaymentFactory.GetReceivedPaymentList(payer);
-				A.CallTo(() => BGReceivedPaymentRepository.FindBy(A<AllNewReceivedBGPaymentsCriteria>.Ignored.Argument)).Returns(payments);
+				A.CallTo(() => BGReceivedPaymentRepository.FindBy(A<AllNewReceivedBGPaymentsMatchingServiceTypeCriteria>.Ignored.Argument)).Returns(payments);
 			};
 			Because = service =>
 			{
@@ -272,7 +272,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		public void Webservice_fetches_new_payments()
 		{
 			A.CallTo(() => BGReceivedPaymentRepository.FindBy(
-				A<AllNewReceivedBGPaymentsCriteria>.
+				A<AllNewReceivedBGPaymentsMatchingServiceTypeCriteria>.
 				That.Matches(x => x.ServiceType.Equals(internalServiceType))
 				.Argument
 			)).MustHaveHappened();

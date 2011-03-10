@@ -65,7 +65,7 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 		public ReceivedPayment[] GetPayments(AutogiroServiceType serviceType)
 		{
 			var internalServiceType = _bgWebServiceDtoParser.ParseServiceType(serviceType);
-			var payments = _bgReceivedPaymentRepository.FindBy(new AllNewReceivedBGPaymentsCriteria(internalServiceType));
+			var payments = _bgReceivedPaymentRepository.FindBy(new AllNewReceivedBGPaymentsMatchingServiceTypeCriteria(internalServiceType));
 			return payments.IsNullOrEmpty() 
 				? new ReceivedPayment[]{ } 
 				: payments.Select(payment => _bgWebServiceDtoParser.ParsePayment(payment)).ToArray();

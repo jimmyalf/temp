@@ -183,7 +183,7 @@
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewConsentsToSendCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewPaymentsToSendCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewReceivedBGErrorsMatchingServiceTypeCriteria.cs" />
-    <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewReceivedBGPaymentsCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewReceivedBGPaymentsMatchingServiceTypeCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledFileSectionsToSendCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedConsentFileSectionsCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedErrorFileSectionsCriteria.cs" />

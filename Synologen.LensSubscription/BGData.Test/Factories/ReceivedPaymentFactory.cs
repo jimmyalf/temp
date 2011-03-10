@@ -1,7 +1,7 @@
 ﻿using System;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using PaymentResult=Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.PaymentResult;
 
 namespace Synologen.LensSubscription.BGData.Test.Factories
 {

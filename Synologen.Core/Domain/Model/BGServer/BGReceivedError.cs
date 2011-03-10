@@ -12,5 +12,11 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGServer
         public virtual string Reference { get; set; }
         public virtual ErrorCommentCode CommentCode { get; set; }
         public virtual DateTime CreatedDate { get; set; }
+    	public virtual bool Handled { get; private set; }
+
+		public virtual void SetHandled()
+		{
+			Handled = true;
+		}
     }
 }

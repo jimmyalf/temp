@@ -28,6 +28,11 @@ namespace Synologen.LensSubscription.BGWebService.Test.Factories
 			return getItem.GenerateRange(1, 15).ToList();
 		}
 
+		public static BGReceivedPayment GetReceivedPayment(AutogiroPayer payer)
+		{
+			return GetReceivedPayment(0, payer);
+		}
+
 		public static BGReceivedPayment GetReceivedPayment(int seed, AutogiroPayer payer)
 		{
 			return new BGReceivedPayment
@@ -38,6 +43,17 @@ namespace Synologen.LensSubscription.BGWebService.Test.Factories
 				PaymentDate = new DateTime(2011, 03, 25),
 				Reference = "Ögonbutiken ABC",
 				ResultType = PaymentResult.Approved.SkipValues(seed)
+			};
+		}
+
+		public static ReceivedPayment GetReceivedPayment()
+		{
+			return new ReceivedPayment
+			{
+				Amount = 523,
+				PayerNumber = 92,
+				PaymentId = 321,
+				Result = Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.PaymentResult.Approved
 			};
 		}
 	}

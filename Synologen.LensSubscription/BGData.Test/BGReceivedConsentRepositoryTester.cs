@@ -35,6 +35,7 @@ namespace Synologen.LensSubscription.BGData.Test
                 savedConsent.InformationCode.ShouldBe(_consentToSave.InformationCode);
                 savedConsent.Payer.ShouldBe(_consentToSave.Payer);
                 savedConsent.CreatedDate.ShouldBe(_consentToSave.CreatedDate);
+				savedConsent.Handled.ShouldBe(_consentToSave.Handled);
             });
         }
     }
@@ -69,6 +70,7 @@ namespace Synologen.LensSubscription.BGData.Test
                 fetchedConsent.InformationCode.ShouldBe(editedConsent.InformationCode);
                 fetchedConsent.Payer.ShouldBe(editedConsent.Payer);
                 fetchedConsent.CreatedDate.ShouldBe(editedConsent.CreatedDate);
+				fetchedConsent.Handled.ShouldBe(editedConsent.Handled);
             });
         }
     }

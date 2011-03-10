@@ -21,6 +21,7 @@ namespace Synologen.LensSubscription.BGData.Mappings
                 .CustomType(typeof(ConsentCommentCode))
                 .Not.Nullable();
             Map(x => x.CreatedDate).Not.Nullable();
+        	Map(x => x.Handled).Not.Nullable();
         }
     }
 }

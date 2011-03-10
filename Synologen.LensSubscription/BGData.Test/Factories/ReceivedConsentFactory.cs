@@ -28,6 +28,7 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
             consent.ConsentValidForDate = consent.ConsentValidForDate.Value.AddDays(3);
             consent.CreatedDate = consent.CreatedDate.AddDays(-2);
             consent.InformationCode = consent.InformationCode.Next();
+        	consent.SetHandled();
             //consent.PayerNumber = consent.PayerNumber*2;
         }
     }

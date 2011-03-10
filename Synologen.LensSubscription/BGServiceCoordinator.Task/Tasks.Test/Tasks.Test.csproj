@@ -69,6 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ChangeRemoteFTPPasswordTaskTestBase.cs" />
+    <Compile Include="ChangeRemoteFTPPasswordTaskTester.cs" />
     <Compile Include="Factories\ConsentsFactory.cs" />
     <Compile Include="Factories\FileSectionToSendFactory.cs" />
     <Compile Include="Factories\PayerFactory.cs" />
@@ -111,6 +113,10 @@
     <ProjectReference Include="..\..\BGServiceCoordinator\BGServiceCoordinator.csproj">
       <Project>{0EB3860A-9087-4AF2-BAD9-A1AEA964999D}</Project>
       <Name>BGServiceCoordinator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChangeRemoteFTPassword\ChangeRemoteFTPassword.csproj">
+      <Project>{BDF40029-A966-4BCA-817F-AE13766B63C6}</Project>
+      <Name>ChangeRemoteFTPassword</Name>
     </ProjectReference>
     <ProjectReference Include="..\GetFile\GetFile.csproj">
       <Project>{56639B4D-5593-4A4F-9918-CBEB29BD93A2}</Project>

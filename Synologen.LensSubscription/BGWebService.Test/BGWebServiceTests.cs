@@ -149,7 +149,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 
 			Because = service =>
 			{
-				caughtException = TryCatchException(() => service.SendConsent(consentToSend));
+				caughtException = CatchException(() => service.SendConsent(consentToSend));
 			};
 		}
 
@@ -231,7 +231,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 
 			Because = service =>
 			{
-				caughtException = TryCatchException(() => service.SendPayment(payment));
+				caughtException = CatchException(() => service.SendPayment(payment));
 			};
 		}
 
@@ -354,5 +354,69 @@ namespace Synologen.LensSubscription.BGWebService.Test
 				error.Reference.ShouldBe(returnedError.Reference);
 			});
 		}
+	}
+
+	[TestFixture, Category("BGWebServiceTests")]
+	public class When_updating_error_as_handled : BGWebServiceTestBase
+	{
+		private RecievedError error;
+		private AutogiroPayer payer;
+		private BGReceivedError internalError;
+
+		public When_updating_error_as_handled()
+		{
+			Context = () =>
+			{
+				payer = PayerFactory.Get();
+				error = ErrorFactory.GetReceivedError();
+				internalError = ErrorFactory.GetReceivedError(payer);
+				A.CallTo(() => BGReceivedErrorRepository.Get(error.ErrorId)).Returns(internalError);
+			};
+
+			Because = service => service.SetErrorHandled(error);
+		}
+
+		[Test]
+		public void Error_is_fetched_from_repository()
+		{
+			A.CallTo(() => BGReceivedErrorRepository.Get(error.ErrorId)).MustHaveHappened();
+		}
+
+		[Test]
+		public void Error_is_updated_and_saved()
+		{
+			A.CallTo(() => BGReceivedErrorRepository.Save(
+				A<BGReceivedError>.That.Matches(x => x.Handled.Equals(true))
+			)).MustHaveHappened();
+		}
+	}
+
+	[TestFixture, Category("BGWebServiceTests")]
+	public class When_updating_error_as_handled_with_error_not_found : BGWebServiceTestBase
+	{
+		private RecievedError error;
+		private Exception caughtException;
+
+		public When_updating_error_as_handled_with_error_not_found()
+		{
+			Context = () =>
+			{
+				error = ErrorFactory.GetReceivedError();
+				A.CallTo(() => BGReceivedErrorRepository.Get(error.ErrorId)).Returns(default(BGReceivedError));
+			};
+
+			Because = service =>
+			{
+				caughtException = CatchException(() => service.SetErrorHandled(error));
+			};
+		}
+
+		[Test]
+		public void Webservice_throws_argument_exception()
+		{
+			caughtException.ShouldNotBe(null);
+			caughtException.ShouldBeTypeOf(typeof(ArgumentException));
+		}
+
 	}
 }

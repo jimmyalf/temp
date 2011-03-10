@@ -42,7 +42,7 @@ namespace Synologen.LensSubscription.BGWebService.Test.TestHelpers
 				BGWebServiceDTOParser);
 		}
 
-		protected Exception TryCatchException(Action action)
+		protected Exception CatchException(Action action)
 		{
 			try
 			{

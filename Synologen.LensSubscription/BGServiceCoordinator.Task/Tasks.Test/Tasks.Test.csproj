@@ -76,6 +76,7 @@
     <Compile Include="Factories\PaymentsFactory.cs" />
     <Compile Include="Factories\ReceivedErrorsFactory.cs" />
     <Compile Include="Factories\ReceivedConsentsFactory.cs" />
+    <Compile Include="Factories\ReceivedPaymentsFactory.cs" />
     <Compile Include="Factories\RecievedFileSectionFactory.cs" />
     <Compile Include="GetFileTaskTester.cs" />
     <Compile Include="Helpers\GetFileTaskTestBase.cs" />

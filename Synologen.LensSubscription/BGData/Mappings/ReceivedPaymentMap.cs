@@ -18,6 +18,7 @@ namespace Synologen.LensSubscription.BGData.Mappings
             Map(x => x.Reference).Nullable();
             Map(x => x.PaymentDate).Not.Nullable();
             Map(x => x.CreatedDate).Not.Nullable();
+        	Map(x => x.Handled).Not.Nullable();
         }
     }
 }

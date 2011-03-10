@@ -3,9 +3,8 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGServer
 {
-    public class BGReceivedConsent : Entity
+    public class BGReceivedConsent : ReceivedEntity
     {
-        //public virtual int PayerNumber { get; set; }
 		public virtual AutogiroPayer Payer { get; set;} 
         public virtual DateTime ActionDate { get; set; }
         public virtual DateTime? ConsentValidForDate { get; set; }

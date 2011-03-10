@@ -35,6 +35,7 @@ namespace Synologen.LensSubscription.BGData.Test
                 fetchedPayment.PaymentDate.ShouldBe(_paymentToSave.PaymentDate);
                 fetchedPayment.Reference.ShouldBe(_paymentToSave.Reference);
                 fetchedPayment.ResultType.ShouldBe(_paymentToSave.ResultType);
+				fetchedPayment.Handled.ShouldBe(_paymentToSave.Handled);
             });
         }
     }
@@ -69,6 +70,7 @@ namespace Synologen.LensSubscription.BGData.Test
                 fetchedPayment.PaymentDate.ShouldBe(editedPayment.PaymentDate);
                 fetchedPayment.Reference.ShouldBe(editedPayment.Reference);
                 fetchedPayment.ResultType.ShouldBe(editedPayment.ResultType);
+				fetchedPayment.Handled.ShouldBe(editedPayment.Handled);
             });
         }
     }

@@ -317,7 +317,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 				errors = ErrorFactory.GetReceivedErrorsList(payer);
 				exposedServiceType = BGWebService_AutogiroServiceType.LensSubscription;
 				internalServiceType = BGServer_AutogiroServiceType.LensSubscription;
-				A.CallTo(() => BGReceivedErrorRepository.FindBy(A<AllNewReceivedBGErrorsCriteria>.Ignored.Argument)).Returns(errors);
+				A.CallTo(() => BGReceivedErrorRepository.FindBy(A<AllNewReceivedBGErrorsMatchingServiceTypeCriteria>.Ignored.Argument)).Returns(errors);
 			};
 			Because = service =>
 			{
@@ -329,7 +329,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		public void Webservice_fetches_new_payments()
 		{
 			A.CallTo(() => BGReceivedErrorRepository.FindBy(
-				A<AllNewReceivedBGErrorsCriteria>
+				A<AllNewReceivedBGErrorsMatchingServiceTypeCriteria>
 				.That.Matches(x => x.ServiceType.Equals(internalServiceType))
 				.Argument
 			)).MustHaveHappened();
@@ -357,13 +357,13 @@ namespace Synologen.LensSubscription.BGWebService.Test
 	}
 
 	[TestFixture, Category("BGWebServiceTests")]
-	public class When_updating_error_as_handled : BGWebServiceTestBase
+	public class When_updating_received_error_as_handled : BGWebServiceTestBase
 	{
 		private RecievedError error;
 		private AutogiroPayer payer;
 		private BGReceivedError internalError;
 
-		public When_updating_error_as_handled()
+		public When_updating_received_error_as_handled()
 		{
 			Context = () =>
 			{
@@ -392,12 +392,12 @@ namespace Synologen.LensSubscription.BGWebService.Test
 	}
 
 	[TestFixture, Category("BGWebServiceTests")]
-	public class When_updating_error_as_handled_with_error_not_found : BGWebServiceTestBase
+	public class When_updating_received_error_as_handled_for_non_existing_payment : BGWebServiceTestBase
 	{
 		private RecievedError error;
 		private Exception caughtException;
 
-		public When_updating_error_as_handled_with_error_not_found()
+		public When_updating_received_error_as_handled_for_non_existing_payment()
 		{
 			Context = () =>
 			{
@@ -408,6 +408,70 @@ namespace Synologen.LensSubscription.BGWebService.Test
 			Because = service =>
 			{
 				caughtException = CatchException(() => service.SetErrorHandled(error));
+			};
+		}
+
+		[Test]
+		public void Webservice_throws_argument_exception()
+		{
+			caughtException.ShouldNotBe(null);
+			caughtException.ShouldBeTypeOf(typeof(ArgumentException));
+		}
+
+	}
+
+	[TestFixture, Category("BGWebServiceTests")]
+	public class When_updating_received_payment_as_handled : BGWebServiceTestBase
+	{
+		private AutogiroPayer payer;
+		private ReceivedPayment payment;
+		private BGReceivedPayment internalPayment;
+
+		public When_updating_received_payment_as_handled()
+		{
+			Context = () =>
+			{
+				payer = PayerFactory.Get();
+				payment = PaymentFactory.GetReceivedPayment();
+				internalPayment = PaymentFactory.GetReceivedPayment(payer);
+				A.CallTo(() => BGReceivedPaymentRepository.Get(payment.PaymentId)).Returns(internalPayment);
+			};
+
+			Because = service => service.SetPaymentHandled(payment);
+		}
+
+		[Test]
+		public void Payment_is_fetched_from_repository()
+		{
+			A.CallTo(() => BGReceivedPaymentRepository.Get(payment.PaymentId)).MustHaveHappened();
+		}
+
+		[Test]
+		public void Payment_is_updated_and_saved()
+		{
+			A.CallTo(() => BGReceivedPaymentRepository.Save(
+			    A<BGReceivedPayment>.That.Matches(x => x.Handled.Equals(true))
+			)).MustHaveHappened();
+		}
+	}
+
+	[TestFixture, Category("BGWebServiceTests")]
+	public class When_updating_received_payment_as_handled_for_non_existing_payment : BGWebServiceTestBase
+	{
+		private Exception caughtException;
+		private ReceivedPayment payment;
+
+		public When_updating_received_payment_as_handled_for_non_existing_payment()
+		{
+			Context = () =>
+			{
+				payment = PaymentFactory.GetReceivedPayment();
+				A.CallTo(() => BGReceivedPaymentRepository.Get(payment.PaymentId)).Returns(default(BGReceivedPayment));
+			};
+
+			Because = service =>
+			{
+				caughtException = CatchException(() => service.SetPaymentHandled(payment));
 			};
 		}
 

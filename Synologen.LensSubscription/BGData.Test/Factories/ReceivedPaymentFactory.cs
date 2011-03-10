@@ -29,6 +29,7 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
             payment.PaymentDate = payment.PaymentDate.AddDays(-3);
             payment.Reference = payment.Reference.Reverse();
             payment.ResultType = payment.ResultType.Next();
+        	payment.SetHandled();
         }
     }
 }

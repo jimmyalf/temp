@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
@@ -11,28 +9,28 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 	{
 		public void WriteFile(string filePath, string contents) 
 		{
-			System.IO.File.WriteAllText(filePath, contents);
+			File.WriteAllText(filePath, contents);
 		}
 		public bool FileExists(string filePath)
 		{
-			return System.IO.File.Exists(filePath);
+			return File.Exists(filePath);
 		}
 
 	    public string[] ReadFile(string filePath)
 	    {
-	        return System.IO.File.ReadAllLines(filePath, System.Text.Encoding.GetEncoding(858));
+	        return File.ReadAllLines(filePath, System.Text.Encoding.GetEncoding(858));
 	    }
 
 	    public IEnumerable<string> GetReceivedFileNames(string folderPath)
 	    {
             var directoryInfo = new DirectoryInfo(folderPath);
-            FileInfo[] files = directoryInfo.GetFiles();
+            var files = directoryInfo.GetFiles();
 	        return files.Select(x => x.Name).ToList();
 	    }
 
 	    public void MoveFile(string source, string destination)
 	    {
-	        System.IO.File.Move(source, destination);
+	        File.Move(source, destination);
 	    }
 	}
 }

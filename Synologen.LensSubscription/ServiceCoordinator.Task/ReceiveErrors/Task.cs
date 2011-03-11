@@ -14,18 +14,18 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 	{
 		private readonly IBGWebService _bgWebService;
 
-		public Task(ILoggingService loggingService, IBGWebService bgWebService, ITaskRepositoryResolver taskRepositoryResolver) 
-			: base("RecieveErrorsTask", loggingService, taskRepositoryResolver)
+		public Task(ILoggingService loggingService, IBGWebService bgWebService /*, ITaskRepositoryResolver taskRepositoryResolver */) 
+			: base("RecieveErrorsTask", loggingService /*, taskRepositoryResolver*/)
 		{
 			_bgWebService = bgWebService;
 		}
 
-		public override void Execute()
+		public override void Execute(ExecutingTaskContext context)
 		{
-			RunLoggedTask(repositoryResolver =>
+			RunLoggedTask(() =>
 			{
-				var subscriptionErrorRepository = repositoryResolver.GetRepository<ISubscriptionErrorRepository>();
-				var subscriptionRepository = repositoryResolver.GetRepository<ISubscriptionRepository>();
+				var subscriptionErrorRepository = context.GetRepository<ISubscriptionErrorRepository>();
+				var subscriptionRepository = context.GetRepository<ISubscriptionRepository>();
 				var errors = _bgWebService.GetErrors(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<RecievedError>();
 				LogDebug("Fetched {0} errors from BG Webservice", errors.Count());
 				errors.Each(error =>

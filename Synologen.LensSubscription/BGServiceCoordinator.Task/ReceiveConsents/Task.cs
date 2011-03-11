@@ -16,25 +16,22 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents
     {
         private readonly IAutogiroFileReader<ConsentsFile, Consent> _fileReader;
 
-    	public Task(
-            ILoggingService loggingService,
-            IAutogiroFileReader<ConsentsFile, Consent> fileReader,
-			ITaskRepositoryResolver taskRepositoryResolver)
+    	public Task(ILoggingService loggingService, IAutogiroFileReader<ConsentsFile, Consent> fileReader)
 
-            : base("ReceiveConsents", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.ReadTask)
+            : base("ReceiveConsents", loggingService , BGTaskSequenceOrder.ReadTask)
         {
 
             _fileReader = fileReader;
         }
 
 
-        public override void Execute()
+        public override void Execute(ExecutingTaskContext context)
         {
-            RunLoggedTask(repositoryResolver =>
+            RunLoggedTask(() =>
             {
-				var receivedFileSectionRepository = repositoryResolver.GetRepository<IReceivedFileRepository>();
-				var bgReceivedConsentRepository = repositoryResolver.GetRepository<IBGReceivedConsentRepository>();
-				var autogiroPayerRepository = repositoryResolver.GetRepository<IAutogiroPayerRepository>();
+				var receivedFileSectionRepository = context.GetRepository<IReceivedFileRepository>();
+				var bgReceivedConsentRepository = context.GetRepository<IBGReceivedConsentRepository>();
+				var autogiroPayerRepository = context.GetRepository<IAutogiroPayerRepository>();
                 var consentFileSections = receivedFileSectionRepository.FindBy(new AllUnhandledReceivedConsentFileSectionsCriteria());
 
                 LogDebug("Fetched {0} consent file sections from repository", consentFileSections.Count());

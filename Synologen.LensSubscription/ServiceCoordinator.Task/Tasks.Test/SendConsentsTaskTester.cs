@@ -26,7 +26,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				MockedSubscriptionRepository.Setup(x => x.FindBy(It.IsAny<AllSubscriptionsToSendConsentsForCriteria>())).Returns(expectedSubscriptions);
 				MockedWebServiceClient.Setup(x => x.RegisterPayer(It.IsAny<string>(), AutogiroServiceType.LensSubscription)).Returns(payerNumber);
 			};
-			Because = task => task.Execute();
+			Because = task => task.Execute(ExecutingTaskContext);
 		}
 
 		[Test]

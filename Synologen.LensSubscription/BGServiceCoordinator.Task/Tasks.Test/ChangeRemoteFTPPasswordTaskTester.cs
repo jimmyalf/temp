@@ -9,7 +9,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		public When_changing_remote_ftp_password()
 		{
 			Context = () => { };
-			Because = task => { task.Execute(); };
+			Because = task => task.Execute(ExecutingTaskContext);
 		}
 	}
 }

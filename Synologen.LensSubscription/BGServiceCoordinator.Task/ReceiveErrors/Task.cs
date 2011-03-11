@@ -16,22 +16,20 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveErrors
     {
         private readonly IAutogiroFileReader<ErrorsFile, Error> _fileReader;
 
-    	public Task(ILoggingService loggingService, 
-			IAutogiroFileReader<ErrorsFile, Error> fileReader, 
-			ITaskRepositoryResolver taskRepositoryResolver)
-            : base("ReceiveErrors", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.ReadTask)
+    	public Task(ILoggingService loggingService, IAutogiroFileReader<ErrorsFile, Error> fileReader)
+            : base("ReceiveErrors", loggingService,  BGTaskSequenceOrder.ReadTask)
         {
             _fileReader = fileReader;
         	
         }
 
-        public override void Execute()
+        public override void Execute(ExecutingTaskContext context)
     	{
-    		RunLoggedTask(repositoryResolver =>
+    		RunLoggedTask(() =>
             {
-				var receivedFileSectionRepository = repositoryResolver.GetRepository<IReceivedFileRepository>();
-				var bgReceivedErrorRepository = repositoryResolver.GetRepository<IBGReceivedErrorRepository>();
-				var autogiroPayerRepository = repositoryResolver.GetRepository<IAutogiroPayerRepository>();
+				var receivedFileSectionRepository = context.GetRepository<IReceivedFileRepository>();
+				var bgReceivedErrorRepository = context.GetRepository<IBGReceivedErrorRepository>();
+				var autogiroPayerRepository = context.GetRepository<IAutogiroPayerRepository>();
                 var errorFileSections = receivedFileSectionRepository.FindBy(new AllUnhandledReceivedErrorFileSectionsCriteria());
 
                 LogDebug("Fetched {0} error file sections from repository", errorFileSections.Count());

@@ -29,7 +29,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 				
 			};
-			Because = task => task.Execute();
+			Because = task => task.Execute(ExecutingTaskContext);
 		}
 
 		[Test]
@@ -104,7 +104,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 
 			};
-			Because = task => task.Execute();
+			Because = task => task.Execute(ExecutingTaskContext);
 		}
 
 		[Test]
@@ -143,7 +143,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.LensSubscription)).Returns(expectedPayments.ToArray());
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
-			Because = task => task.Execute();
+			Because = task => task.Execute(ExecutingTaskContext);
 		}
 
 		[Test]
@@ -184,7 +184,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.LensSubscription)).Returns(expectedPayments.ToArray());
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
-			Because = task => task.Execute();
+			Because = task => task.Execute(ExecutingTaskContext);
 		}
 
 		[Test]
@@ -225,7 +225,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.LensSubscription)).Returns(expectedPayments.ToArray());
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
-			Because = task => task.Execute();
+			Because = task => task.Execute(ExecutingTaskContext);
 		}
 
 		[Test]

@@ -25,7 +25,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 				MockedWebServiceClient.Setup(x => x.GetErrors(AutogiroServiceType.LensSubscription)).Returns(expectedErrors);
 			};
-			Because = task => task.Execute();
+			Because = task => task.Execute(ExecutingTaskContext);
 		}
 
 		[Test]

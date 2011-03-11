@@ -24,7 +24,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
             {
                 A.CallTo(() => FileReaderService.GetFileNames()).Returns(Enumerable.Empty<string>());
             };
-            Because = task => task.Execute();
+            Because = task => task.Execute(ExecutingTaskContext);
         }
 
         [Test]
@@ -57,9 +57,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
     [TestFixture, Category("GetFileTaskTests")]
     public class When_getting_a_file : GetFileTaskTestBase
     {
-        private IEnumerable<string> fileNames = GetFileFactory.GetFileNames();
-        private string[] file = GetFileFactory.GetFile();
-        private IEnumerable<FileSection> sections = GetFileFactory.GetSections();
+        private readonly IEnumerable<string> fileNames = GetFileFactory.GetFileNames();
+        private readonly string[] file = GetFileFactory.GetFile();
+        private readonly IEnumerable<FileSection> sections = GetFileFactory.GetSections();
 
         public When_getting_a_file()
         {
@@ -69,7 +69,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
                 A.CallTo(() => FileReaderService.ReadFileFromDisk(A<string>.Ignored)).Returns(file);
                 A.CallTo(() => FileReaderService.GetSections(A<string[]>.Ignored)).Returns(sections);
             };
-            Because = task => task.Execute();
+            Because = task => task.Execute(ExecutingTaskContext);
         }
 
 
@@ -149,9 +149,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
     [TestFixture, Category("GetFileTaskTests")]
     public class When_Filereaderservice_MoveFile_throws_exception : GetFileTaskTestBase
     {
-        private IEnumerable<string> fileNames = GetFileFactory.GetFileName();
-        private string[] file = GetFileFactory.GetFile();
-        private IEnumerable<FileSection> sections = GetFileFactory.GetSections();
+        private readonly IEnumerable<string> fileNames = GetFileFactory.GetFileName();
+        private readonly string[] file = GetFileFactory.GetFile();
+        private readonly IEnumerable<FileSection> sections = GetFileFactory.GetSections();
 
         public When_Filereaderservice_MoveFile_throws_exception()
         {
@@ -162,7 +162,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
                 A.CallTo(() => FileReaderService.GetSections(A<string[]>.Ignored)).Returns(sections);
                 A.CallTo(() => FileReaderService.MoveFile(A<string>.Ignored)).Throws(new Exception());
             };
-            Because = task => task.Execute();
+            Because = task => task.Execute(ExecutingTaskContext);
         }
 
         [Test]
@@ -175,8 +175,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
     [TestFixture, Category("GetFileTaskTests")]
     public class When_Filereaderservice_GetSections_throws_exception : GetFileTaskTestBase
     {
-        private IEnumerable<string> fileNames = GetFileFactory.GetFileName();
-        private string[] file = GetFileFactory.GetFile();
+        private readonly IEnumerable<string> fileNames = GetFileFactory.GetFileName();
+        private readonly string[] file = GetFileFactory.GetFile();
 
         public When_Filereaderservice_GetSections_throws_exception()
         {
@@ -186,7 +186,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
                 A.CallTo(() => FileReaderService.ReadFileFromDisk(A<string>.Ignored)).Returns(file);
                 A.CallTo(() => FileReaderService.GetSections(A<string[]>.Ignored)).Throws(new AutogiroFileSplitException());
             };
-            Because = task => task.Execute();
+            Because = task => task.Execute(ExecutingTaskContext);
         }
 
         [Test]

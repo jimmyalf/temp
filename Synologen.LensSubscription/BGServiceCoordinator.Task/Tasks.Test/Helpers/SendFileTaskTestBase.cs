@@ -21,13 +21,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		}
 		protected override ITask GetTask()
 		{
-			return new SendFile.Task(
-				Log4NetLogger, 
-				//FileSectionToSendRepository,
-				TamperProtectedFileWriter,
-				FtpService,
-				FileWriterService,
-				TaskRepositoryResolver);
+			return new SendFile.Task(Log4NetLogger, TamperProtectedFileWriter, FtpService, FileWriterService);
 		}
 	}
 }

@@ -18,18 +18,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			BGReceivedErrorRepository = A.Fake<IBGReceivedErrorRepository>();
 		    ErrorFileReader = A.Fake<IAutogiroFileReader<ErrorsFile, Error>>();
 			TaskRepositoryResolver.AddRepository(BGReceivedErrorRepository);
-			//A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGReceivedErrorRepository>()).Returns(BGReceivedErrorRepository);
 		}
 
 		protected override ITask GetTask()
 		{
-			return new ReceiveErrors.Task(
-                                        Log4NetLogger,
-                                        //ReceivedFileRepository,
-                                        //BGReceivedErrorRepository,
-                                        ErrorFileReader,
-										TaskRepositoryResolver
-										);
+			return new ReceiveErrors.Task(Log4NetLogger, ErrorFileReader);
 		}
 	}
 }

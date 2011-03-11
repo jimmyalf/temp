@@ -17,17 +17,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			BGReceivedConsentRepository = A.Fake<IBGReceivedConsentRepository>();
 			ConsentFileReader = A.Fake<IAutogiroFileReader<ConsentsFile, Consent>>();
 			TaskRepositoryResolver.AddRepository(BGReceivedConsentRepository);
-			//A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGReceivedConsentRepository>()).Returns(BGReceivedConsentRepository);
 		}
 
     	protected override ITask GetTask()
         {
-            return new ReceiveConsents.Task(
-                Log4NetLogger,
-                //ReceivedFileRepository,
-                //BGReceivedConsentRepository,
-                ConsentFileReader,
-				TaskRepositoryResolver);
+            return new ReceiveConsents.Task(Log4NetLogger, ConsentFileReader);
         }
     }
 }

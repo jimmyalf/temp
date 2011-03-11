@@ -6,19 +6,20 @@ using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using StructureMap;
-using Synologen.LensSubscription.ServiceCoordinator.Core.Context;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner
 {
 	public class TaskRunnerService : ITaskRunnerService
 	{
 		private readonly ILoggingService _loggingService;
+		private readonly ITaskRepositoryResolver _taskRepositoryResolver;
 		private readonly IEnumerable<ITask> _tasks;
 
 
-		public TaskRunnerService(ILoggingService loggingService, IEnumerable<ITask> tasks)
+		public TaskRunnerService(ILoggingService loggingService, IEnumerable<ITask> tasks, ITaskRepositoryResolver taskRepositoryResolver)
 		{
 			_loggingService = loggingService;
+			_taskRepositoryResolver = taskRepositoryResolver;
 			_tasks = (tasks ?? Enumerable.Empty<ITask>())
 				.OrderBy(x => x.TaskOrder);
 		}
@@ -62,11 +63,11 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner
 		{
 			_tasks.Each(task =>
 			{
-				ExecutingTaskContext.Current = new ExecutingTaskContext(task);
+				ExecutingTaskContext.Current = new ExecutingTaskContext(task, _taskRepositoryResolver);
 				OnExecutingTask(task);
 				try
 				{
-					ExecuteLoggedTask(task, loggingService);
+					ExecuteLoggedTask(task, loggingService, ExecutingTaskContext.Current);
 				}
 				catch(Exception)
 				{
@@ -81,12 +82,12 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner
 			});
 		}
 
-		protected virtual void ExecuteLoggedTask(ITask task, ILoggingService loggingService)
+		protected virtual void ExecuteLoggedTask(ITask task, ILoggingService loggingService, ExecutingTaskContext executingTaskContext)
 		{
 			try
 			{
 				loggingService.LogInfo("*** Taskrunner: Executing {0} task", task.TaskName);
-				task.Execute();
+				task.Execute(executingTaskContext);
 				loggingService.LogInfo("*** Taskrunner: Finished executing {0} task", task.TaskName);
 			}
 			catch(Exception ex)

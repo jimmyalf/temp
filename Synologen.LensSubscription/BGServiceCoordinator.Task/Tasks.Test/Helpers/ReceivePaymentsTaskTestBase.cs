@@ -23,12 +23,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 
     	protected override ITask GetTask()
         {
-            return new ReceivePayments.Task(
-                Log4NetLogger,
-                //ReceivedFileRepository,
-                //BGReceivedPaymentRepository,
-                PaymentFileReader,
-				TaskRepositoryResolver);
+            return new ReceivePayments.Task(Log4NetLogger, PaymentFileReader);
         }
 
     	protected static Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.PaymentResult MapPaymentResultType(PaymentResult result)

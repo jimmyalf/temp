@@ -213,6 +213,7 @@
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Model\BGServer\BGTaskSequenceOrder.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGWebServiceDTOParser.cs" />
+    <Compile Include="Domain\Services\Coordinator\ExecutingTaskContext.cs" />
     <Compile Include="Domain\Services\Coordinator\ITaskRepositoryResolver.cs" />
     <Compile Include="Domain\Services\Coordinator\TaskBase.cs" />
     <Compile Include="Domain\Services\EventLogLogger.cs" />

@@ -8,7 +8,6 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using ConsentInformationCode=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.ConsentInformationCode;
-using Enumerable=System.Linq.Enumerable;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 {
@@ -16,18 +15,17 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 	{
 		private readonly IBGWebService _bgWebService;
 
-		public Task(IBGWebService bgWebService, ILoggingService loggingService, ITaskRepositoryResolver taskRepositoryResolver)
-			: base("ReceiveConsentsTask", loggingService, taskRepositoryResolver)
+		public Task(IBGWebService bgWebService, ILoggingService loggingService) : base("ReceiveConsentsTask", loggingService)
 		{
 			_bgWebService = bgWebService;
 		}
 
-		public override void Execute()
+		public override void Execute(ExecutingTaskContext context)
 		{
-			RunLoggedTask(repositoryResolver =>
+			RunLoggedTask(() =>
 			{
-				var subscriptionRepository = repositoryResolver.GetRepository<ISubscriptionRepository>();
-				var subscriptionErrorRepository = repositoryResolver.GetRepository<ISubscriptionErrorRepository>();
+				var subscriptionRepository = context.GetRepository<ISubscriptionRepository>();
+				var subscriptionErrorRepository = context.GetRepository<ISubscriptionErrorRepository>();
 				var consents = _bgWebService.GetConsents(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedConsent>();
 				LogDebug("Fetched {0} consent replies from bgc server", consents.Count());
 

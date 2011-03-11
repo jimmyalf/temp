@@ -16,18 +16,19 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 		private readonly IFtpService _ftpService;
 		private readonly IFileWriterService _fileWriterService;
 
-		public Task(ILoggingService loggingService, ITamperProtectedFileWriter tamperProtectedFileWriter, IFtpService ftpService, IFileWriterService fileWriterService, ITaskRepositoryResolver taskRepositoryResolver) : base("SendFile", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.SendFiles)
+		public Task(ILoggingService loggingService, ITamperProtectedFileWriter tamperProtectedFileWriter, IFtpService ftpService, IFileWriterService fileWriterService) 
+			: base("SendFile", loggingService, BGTaskSequenceOrder.SendFiles)
 		{
 			_tamperProtectedFileWriter = tamperProtectedFileWriter;
 			_ftpService = ftpService;
 			_fileWriterService = fileWriterService;
 		}
 
-		public override void Execute()
+		public override void Execute(ExecutingTaskContext context)
 		{
-			RunLoggedTask(repositoryResolver =>
+			RunLoggedTask(() =>
 			{
-				var fileSectionToSendRepository = repositoryResolver.GetRepository<IFileSectionToSendRepository>();
+				var fileSectionToSendRepository = context.GetRepository<IFileSectionToSendRepository>();
 				var fileSectionsToSend = fileSectionToSendRepository.FindBy(new AllUnhandledFileSectionsToSendCriteria());
 				if(fileSectionsToSend == null || fileSectionsToSend.Count() == 0)
 				{

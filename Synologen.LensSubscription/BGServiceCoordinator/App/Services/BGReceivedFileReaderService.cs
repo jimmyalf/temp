@@ -28,25 +28,22 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 
         public IEnumerable<string> GetFileNames()
         {
-            IEnumerable<string> fileNames = _fileIoService.GetReceivedFileNames(_downloadFolderPath);
-            if (fileNames.Count() == 0)
-                return Enumerable.Empty<string>();
+			if(_downloadFolderPath == null) throw new ApplicationException("Download folder path has not been set");
+            var fileNames = _fileIoService.GetReceivedFileNames(_downloadFolderPath);
+            if (fileNames.Count() == 0) return Enumerable.Empty<string>();
             
             var recievedFileDates = new List<ReceivedFileNameDate>();
 
-            fileNames.Each(fileName =>
+        	var fileNamesToSplit = fileNames.Where(fileName => _fileSplitter.FileNameOk(fileName, _customerNumber, _productCode));
+            fileNamesToSplit.Each(fileName =>
             {
-                if (_fileSplitter.FileNameOk(fileName, _customerNumber, _productCode))
-                {
-                    DateTime date = _fileSplitter.GetDateFromName(fileName);
-                    recievedFileDates.Add(new ReceivedFileNameDate { FileName = fileName, CreatedByBgcDate = date });
-                }
+                var date = _fileSplitter.GetDateFromName(fileName);
+                recievedFileDates.Add(new ReceivedFileNameDate { FileName = fileName, CreatedByBgcDate = date });
             });
 
-            if (recievedFileDates.Count == 0)
-                return Enumerable.Empty<string>();
-
-            return recievedFileDates.OrderBy(x => x.CreatedByBgcDate).Select(x => x.FileName).ToList();
+            return recievedFileDates.Count == 0 
+				? Enumerable.Empty<string>() 
+				: recievedFileDates.OrderBy(x => x.CreatedByBgcDate).Select(x => x.FileName).ToList();
         }
 
         public IEnumerable<FileSection> GetSections(string[] file)
@@ -77,11 +74,10 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
                 default: throw new ArgumentOutOfRangeException("serviceType");
             }
         }
-    }
-
-    public class ReceivedFileNameDate
-    {
-        public string FileName { get; set; }
-        public DateTime CreatedByBgcDate { get; set; }
+	    private class ReceivedFileNameDate
+		{
+			public string FileName { get; set; }
+			public DateTime CreatedByBgcDate { get; set; }
+		}
     }
 }

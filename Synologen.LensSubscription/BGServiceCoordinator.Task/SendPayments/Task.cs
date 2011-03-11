@@ -22,20 +22,19 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendPayments
 		public Task(
 			ILoggingService loggingService, 
 			IBGServiceCoordinatorSettingsService bgServiceCoordinatorSettingsService,
-			IAutogiroFileWriter<PaymentsFile,Payment> paymentFileWriter,
-			ITaskRepositoryResolver taskRepositoryResolver) 
-			: base("SendPayments", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.SendTask)
+			IAutogiroFileWriter<PaymentsFile,Payment> paymentFileWriter) 
+			: base("SendPayments", loggingService, BGTaskSequenceOrder.SendTask)
 		{
 			_bgServiceCoordinatorSettingsService = bgServiceCoordinatorSettingsService;
 			_paymentFileWriter = paymentFileWriter;
 		}
 
-		public override void Execute()
+		public override void Execute(ExecutingTaskContext context)
 		{
-			RunLoggedTask(repositoryResolver =>
+			RunLoggedTask(() =>
 			{
-				var bgPaymentToSendRepository = repositoryResolver.GetRepository<IBGPaymentToSendRepository>();
-				var fileSectionToSendRepository = repositoryResolver.GetRepository<IFileSectionToSendRepository>();
+				var bgPaymentToSendRepository = context.GetRepository<IBGPaymentToSendRepository>();
+				var fileSectionToSendRepository = context.GetRepository<IFileSectionToSendRepository>();
 				var payments = bgPaymentToSendRepository.FindBy(new AllNewPaymentsToSendCriteria());
 				if(payments == null || payments.Count() == 0)
 				{

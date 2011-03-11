@@ -22,20 +22,19 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 		public Task(
 			ILoggingService loggingService, 
 			IAutogiroFileWriter<ConsentsFile,  Consent> fileWriter ,
-			IBGServiceCoordinatorSettingsService bgServiceCoordinatorSettingsService,
-			ITaskRepositoryResolver taskRepositoryResolver) 
-			: base("SendConsents", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.SendTask)
+			IBGServiceCoordinatorSettingsService bgServiceCoordinatorSettingsService) 
+			: base("SendConsents", loggingService, BGTaskSequenceOrder.SendTask)
 		{
 			_fileWriter = fileWriter;
 			_bgServiceCoordinatorSettingsService = bgServiceCoordinatorSettingsService;
 		}
 
-		public override void Execute()
+		public override void Execute(ExecutingTaskContext context)
 		{
-			RunLoggedTask(repositoryResolver =>
+			RunLoggedTask(() =>
 			{
-				var fileSectionToSendRepository = repositoryResolver.GetRepository<IFileSectionToSendRepository>();
-				var bgConsentToSendRepository = repositoryResolver.GetRepository<IBGConsentToSendRepository>();
+				var fileSectionToSendRepository = context.GetRepository<IFileSectionToSendRepository>();
+				var bgConsentToSendRepository = context.GetRepository<IBGConsentToSendRepository>();
 				var consents = bgConsentToSendRepository.FindBy(new AllNewConsentsToSendCriteria());
 				if(consents == null || consents.Count() == 0)
 				{

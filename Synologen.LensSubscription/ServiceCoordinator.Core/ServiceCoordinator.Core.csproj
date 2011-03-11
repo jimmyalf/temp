@@ -57,7 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\ExecutingTaskContext.cs" />
     <Compile Include="IoC\ExecutingTaskLifecycle.cs" />
     <Compile Include="IoC\TaskRepositoryResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +67,9 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Context\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

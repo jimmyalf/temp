@@ -25,11 +25,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 
 		protected override ITask GetTask() 
 		{
-			return new SendConsents.Task(
-				Log4NetLogger, 
-				ConsentFileWriter,
-				BgServiceCoordinatorSettingsService,
-				TaskRepositoryResolver);
+			return new SendConsents.Task(Log4NetLogger, ConsentFileWriter, BgServiceCoordinatorSettingsService);
 		}
 
 		protected virtual bool MatchConsents(IEnumerable<Consent> parsedConsents, IList<BGConsentToSend> originalConsents, string recieverBankGiroNumber)

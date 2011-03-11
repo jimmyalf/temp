@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using FakeItEasy;
 using log4net;
@@ -48,6 +46,14 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 
 		protected ITask Task { get { return TestModel; } }
 		protected override ITask GetTestModel() { return GetTask(); }
+
+		protected ExecutingTaskContext ExecutingTaskContext
+		{
+			get
+			{
+				return new ExecutingTaskContext(TestModel, TaskRepositoryResolver);
+			}
+		}
 	}
 
 	public class TestTaskRepositoryResolver : ITaskRepositoryResolver

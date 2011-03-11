@@ -33,7 +33,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 				A.CallTo(() => FtpService.SendFile(A<string>.Ignored)).Returns(new FtpSendResult(expectedFtpFileName));
 
 			};
-			Because = task => task.Execute();
+			Because = task => task.Execute(ExecutingTaskContext);
 		}
 
 		[Test]
@@ -84,7 +84,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		public When_sending_file_and_no_new_file_sections_exist()
 		{
 			Context = () => { };
-			Because = task => task.Execute();
+			Because = task => task.Execute(ExecutingTaskContext);
 		}
 
 		[Test]

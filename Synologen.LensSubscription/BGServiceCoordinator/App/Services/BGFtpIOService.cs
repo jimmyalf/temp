@@ -36,7 +36,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 			var request = (FtpWebRequest) WebRequest.Create(fileUri);
 			request.Method = WebRequestMethods.Ftp.UploadFile;
 			request.Credentials = _serviceCoordinatorSettingsService.GetFtpCredential();
-			request.UseBinary = true;
+			request.UseBinary = false;
 			return request;
 		}
 

@@ -15,17 +15,17 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 	{
 		private readonly IBGWebService _bgWebService;
 
-		public Task(IBGWebService bgWebService, ILoggingService loggingService, ITaskRepositoryResolver taskRepositoryResolver)
-			: base("SendConsentsTask", loggingService, taskRepositoryResolver)
+		public Task(IBGWebService bgWebService, ILoggingService loggingService)
+			: base("SendConsentsTask", loggingService)
 		{
 			_bgWebService = bgWebService;
 		}
 
-		public override void Execute()
+		public override void Execute(ExecutingTaskContext context)
 		{
-			RunLoggedTask(repositoryResolver =>
+			RunLoggedTask(() =>
 			{
-				var subscriptionRepository = repositoryResolver.GetRepository<ISubscriptionRepository>();
+				var subscriptionRepository = context.GetRepository<ISubscriptionRepository>();
 				var subscriptions = subscriptionRepository.FindBy(new AllSubscriptionsToSendConsentsForCriteria()) ?? Enumerable.Empty<Subscription>();
 				LogDebug("Fetched {0} subscriptions to send consents for", subscriptions.Count());
 				subscriptions.Each(subscription =>

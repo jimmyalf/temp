@@ -7,33 +7,34 @@ namespace Synologen.LensSubscription.BGService.Test
 	[TestFixture, Explicit("Test is for proof of concept only")]
 	public class TestFtpCommandService
 	{
-		protected FtpCommandService FTPCommandService;
+		protected FtpCommandService _ftpCommandService;
 
 		public TestFtpCommandService()
 		{
-			FTPCommandService = new FtpCommandService();
-			FTPCommandService.OnCommandSent += (sender, eventArgs) => Console.WriteLine("> {0}", eventArgs.Command);
-			FTPCommandService.OnResponseReceived += (sender, eventArgs) => Console.WriteLine(eventArgs.Response);
+			_ftpCommandService = new FtpCommandService();
+			_ftpCommandService.OnCommandSent += (sender, eventArgs) => Console.WriteLine("> {0}", eventArgs.Command);
+			_ftpCommandService.OnResponseReceived += (sender, eventArgs) => Console.WriteLine(eventArgs.Response);
 		}
 
 		[SetUp]
 		public void Setup()
 		{
-			FTPCommandService.Open("ftp.spinit.se");
+			_ftpCommandService.Open("black");
 		}
 
 		[Test]
 		public void Test_login()
 		{
-			FTPCommandService.Execute("USER spinitupload");
-			FTPCommandService.Execute("PASS bradag");
-			FTPCommandService.Execute("HELP");
+			_ftpCommandService.Execute("USER {0}", @"HOTEL\dev-ftp");
+			_ftpCommandService.Execute("PASS {0}", "zdUFQRq");
+			_ftpCommandService.Execute("STAT");
+			_ftpCommandService.Execute("HELP");
 		}
 
 		[TearDown]
 		public void TearDown()
 		{
-			FTPCommandService.Close();
+			_ftpCommandService.Close();
 		}
 	}
 }

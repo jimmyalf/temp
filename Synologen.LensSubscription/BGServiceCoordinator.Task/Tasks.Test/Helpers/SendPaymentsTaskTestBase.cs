@@ -21,19 +21,12 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			PaymentFileWriter = A.Fake<IAutogiroFileWriter<PaymentsFile, Payment>>();
 			BGPaymentToSendRepository = A.Fake<IBGPaymentToSendRepository>();
 			TaskRepositoryResolver.AddRepository(BGPaymentToSendRepository);
-			//A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGPaymentToSendRepository>()).Returns(BGPaymentToSendRepository);
 		}
 
 
 		protected override ITask GetTask()
 		{
-			return new SendPayments.Task(
-				Log4NetLogger,
-				//BGPaymentToSendRepository,
-				BgServiceCoordinatorSettingsService,
-				PaymentFileWriter,
-				//FileSectionToSendRepository,
-				TaskRepositoryResolver);
+			return new SendPayments.Task(Log4NetLogger, BgServiceCoordinatorSettingsService, PaymentFileWriter);
 		}
 
 		protected static bool MatchPayments(IEnumerable<Payment> parsedPayments, IList<BGPaymentToSend> originalPayments, string recieverBankGiroNumber)

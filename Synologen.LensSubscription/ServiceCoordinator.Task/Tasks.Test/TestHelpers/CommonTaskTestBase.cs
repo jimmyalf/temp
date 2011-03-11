@@ -40,5 +40,13 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 
 		protected abstract ITask GetTask();
 		protected override ITask GetTestModel() { return GetTask(); }
+
+		protected ExecutingTaskContext ExecutingTaskContext
+		{
+			get
+			{
+				return new ExecutingTaskContext(TestModel, TaskRepositoryResolver);
+			}
+		}
 	}
 }

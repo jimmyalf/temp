@@ -6,28 +6,25 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 	public abstract class TaskBase : ITask
 	{
 		private readonly ILoggingService _loggingService;
-		private readonly ITaskRepositoryResolver _taskRepositoryResolver;
 		private const string DefaultTaskName = "Untitled task";
 
-		protected TaskBase(string taskName,  ILoggingService loggingService, ITaskRepositoryResolver taskRepositoryResolver)
+		protected TaskBase(string taskName,  ILoggingService loggingService)
 		{
 			_loggingService = loggingService;
-			_taskRepositoryResolver = taskRepositoryResolver;
 			TaskName = taskName ?? DefaultTaskName;
 		}
 
-		protected TaskBase(string taskName,  ILoggingService loggingService, ITaskRepositoryResolver taskRepositoryResolver, Enum taskOrder) 
-			: this(taskName, loggingService, taskRepositoryResolver)
+		protected TaskBase(string taskName,  ILoggingService loggingService, Enum taskOrder) : this(taskName, loggingService)
 		{
 			TaskOrder = taskOrder.ToInteger();
 		}
 
-		public virtual void RunLoggedTask(Action<ITaskRepositoryResolver> action)
+		public virtual void RunLoggedTask(Action action)
 		{
 			try
 			{
 				LogInfo("Started Task Execution", TaskName);
-				action.Invoke(_taskRepositoryResolver);
+				action.Invoke();
 				LogInfo("Finished Task Execution", TaskName);
 			}
 			catch(Exception ex)
@@ -39,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 
 		public virtual void LogDebug(string message)
 		{
-			_loggingService.LogDebug("{0}: {1}", TaskName, message);
+			LogDebug(message, new object[]{ });
 		}
 
 		public virtual void LogDebug(string format, params object[] parameters)
@@ -54,7 +51,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 
 		public virtual void LogInfo(string message)
 		{
-			_loggingService.LogInfo("{0}: {1}", TaskName, message);
+			LogInfo(message, new object[]{ });
 		}
 
 		public virtual void LogInfo(string format, params object[] parameters)
@@ -62,7 +59,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 			_loggingService.LogInfo("{0}: {1}", TaskName, String.Format(format, parameters));
 		}
 
-		public abstract void Execute();
+		public abstract void Execute(ExecutingTaskContext context);
 
 		public virtual string TaskName { get; private set; }
 

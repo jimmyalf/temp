@@ -6,8 +6,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ChangeRemoteFTPPa
 {
 	public class Task : TaskBase
 	{
-		public Task(ILoggingService loggingService, ITaskRepositoryResolver taskRepositoryResolver) 
-			: base("ChangeRemoteFTPPassword", loggingService, taskRepositoryResolver) {}
-		public override void Execute() { throw new NotImplementedException(); }
+		private readonly IFtpCommandService _ftpCommandService;
+
+		public Task(ILoggingService loggingService, /*ITaskRepositoryResolver taskRepositoryResolver,*/ IFtpCommandService ftpCommandService) 
+			: base("ChangeRemoteFTPPassword", loggingService /*, taskRepositoryResolver*/) { _ftpCommandService = ftpCommandService; }
+
+		public override void Execute(ExecutingTaskContext context) { throw new NotImplementedException(); }
 	}
 }

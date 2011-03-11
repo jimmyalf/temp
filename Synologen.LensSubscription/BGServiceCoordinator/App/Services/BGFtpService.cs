@@ -37,18 +37,12 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 		{
 			switch (serviceType)
 			{
-				case BGFtpServiceType.Autogiro: return "IAGAG";
-                case BGFtpServiceType.Autogiro_From_BGC: return "UAGAG";
-				case BGFtpServiceType.Leverantörsbetalningar: return "ILBLB";
-                case BGFtpServiceType.Leverantörsbetalningar_From_BGC: return "ULBLB";
-				case BGFtpServiceType.Löner_Kontoinsättningar: return "IKIKI";
-                case BGFtpServiceType.Löner_Kontoinsättningar_From_BGC: return "UKIKI";
-				case BGFtpServiceType.Autogiro_Test: return "IAGZZ";
-                case BGFtpServiceType.Autogiro_Test_From_BGC: return "UAGZZ";
-				case BGFtpServiceType.Leverantörsbetalningar_Test: return "ILBZZ";
-                case BGFtpServiceType.Leverantörsbetalningar_Test_From_BGC: return "ULBZZ";
-				case BGFtpServiceType.Löner_Kontoinsättningar_Test: return "IKIZZ";
-                case BGFtpServiceType.Löner_Kontoinsättningar_Test_From_BGC: return "UKIZZ";
+                case BGFtpServiceType.Autogiro: return "IAGAG";
+                case BGFtpServiceType.Leverantörsbetalningar: return "ILBLB";
+                case BGFtpServiceType.Löner_Kontoinsättningar: return "IKIKI";
+                case BGFtpServiceType.Autogiro_Test: return "IAGZZ";
+                case BGFtpServiceType.Leverantörsbetalningar_Test: return "ILBZZ";
+                case BGFtpServiceType.Löner_Kontoinsättningar_Test: return "IKIZZ";
 				default: throw new ArgumentOutOfRangeException("serviceType");
 			}
 		}

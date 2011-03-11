@@ -14,19 +14,19 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 	{
 		private readonly IBGWebService _bgWebService;
 
-		public Task(IBGWebService bgWebService, ILoggingService loggingService, ITaskRepositoryResolver taskRepositoryResolver)
-			: base("ReceivePaymentsTask", loggingService, taskRepositoryResolver)
+		public Task(IBGWebService bgWebService, ILoggingService loggingService /*, ITaskRepositoryResolver taskRepositoryResolver*/)
+			: base("ReceivePaymentsTask", loggingService /*, taskRepositoryResolver*/)
 		{
 			_bgWebService = bgWebService;
 		}
 
-		public override void Execute()
+		public override void Execute(ExecutingTaskContext context)
 		{
-			RunLoggedTask((repositoryResolver) =>
+			RunLoggedTask(() =>
 			{
-				var transactionsRepository = repositoryResolver.GetRepository<ITransactionRepository>();
-				var subscriptionErrorRepository = repositoryResolver.GetRepository<ISubscriptionErrorRepository>();
-				var subscriptionRepository = repositoryResolver.GetRepository<ISubscriptionRepository>();
+				var transactionsRepository = context.GetRepository<ITransactionRepository>();
+				var subscriptionErrorRepository = context.GetRepository<ISubscriptionErrorRepository>();
+				var subscriptionRepository = context.GetRepository<ISubscriptionRepository>();
 				var payments = _bgWebService.GetPayments(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedPayment>();
 				LogDebug("Fetched {0} payment results from bgc server", payments.Count());
 

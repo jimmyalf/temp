@@ -25,7 +25,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 					.Setup(x => x.FindBy(It.IsAny<AllSubscriptionsToSendPaymentsForCriteria>()))
 					.Returns(expectedSubscriptions);
 			};
-			Because = task => task.Execute();
+			Because = task => task.Execute(ExecutingTaskContext);
 		}
 
 		[Test]

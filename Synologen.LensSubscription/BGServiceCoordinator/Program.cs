@@ -4,6 +4,7 @@ using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using StructureMap;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Logging;
+using Synologen.LensSubscription.ServiceCoordinator.Core.IoC;
 using Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator
@@ -22,10 +23,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator
 				loggingService.LogDebug("Taskrunner bootstrapping finished.");
 				loggingService.LogDebug("Taskrunner is fetching tasks from container...");		
 				var tasks = ObjectFactory.GetAllInstances<ITask>();
+				var taskRepositoryResolver = new TaskRepositoryResolver();
 				loggingService.LogInfo(GetTaskScanLogMessage(tasks));
 				if(IsInProductionEnvironment(args))
 				{
-					var taskrunner = new TaskRunnerService(loggingService, tasks);
+					var taskrunner = new TaskRunnerService(loggingService, tasks, taskRepositoryResolver);
 					taskrunner.Run();
 				}
 				else

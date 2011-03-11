@@ -9,7 +9,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 	{
 		protected override ITask GetTask()
 		{
-			return new ReceiveConsents.Task(MockedWebServiceClient.Object, LoggingService, TaskRepositoryResolver);
+			return new ReceiveConsents.Task(MockedWebServiceClient.Object, LoggingService);
 		}
 
 		protected static ConsentInformationCode? GetSubscriptionErrorInformationCode(Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode? code)

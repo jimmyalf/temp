@@ -15,17 +15,17 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 	{
 		private readonly IBGWebService _bgWebService;
 
-		public Task(ILoggingService loggingService, IBGWebService bgWebService, ITaskRepositoryResolver taskRepositoryResolver)
-			: base("SendPaymentsTask", loggingService, taskRepositoryResolver)
+		public Task(ILoggingService loggingService, IBGWebService bgWebService /*, ITaskRepositoryResolver taskRepositoryResolver*/)
+			: base("SendPaymentsTask", loggingService /*, taskRepositoryResolver*/)
 		{
 			_bgWebService = bgWebService;
 		}
 
-		public override void Execute()
+		public override void Execute(ExecutingTaskContext context)
 		{
-			RunLoggedTask(repositoryResolver =>
+			RunLoggedTask(() =>
 			{
-				var subscriptionRepository = repositoryResolver.GetRepository<ISubscriptionRepository>();
+				var subscriptionRepository = context.GetRepository<ISubscriptionRepository>();
 				var subscriptions = subscriptionRepository.FindBy(new AllSubscriptionsToSendPaymentsForCriteria()) ?? Enumerable.Empty<Subscription>();
 				LogDebug("Fetched {0} subscriptions to send payments for", subscriptions.Count());
 

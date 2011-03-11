@@ -36,7 +36,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 				A.CallTo(() => AutogiroPayerRepository.Get(payer.Id)).Returns(payer);
             };
 		
-			Because = task => { task.Execute();};
+			Because = task => { task.Execute(ExecutingTaskContext);};
 		}
 
         [Test]

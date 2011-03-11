@@ -1,6 +1,6 @@
 using System.Collections;
+using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using StructureMap.Pipeline;
-using Synologen.LensSubscription.ServiceCoordinator.Core.Context;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Core.IoC
 {

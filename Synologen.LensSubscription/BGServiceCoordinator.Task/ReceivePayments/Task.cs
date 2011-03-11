@@ -17,21 +17,19 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
     {
         private readonly IAutogiroFileReader<PaymentsFile, Payment> _fileReader;
 
-    	public Task(ILoggingService loggingService,
-            IAutogiroFileReader<PaymentsFile, Payment> fileReader,
-			ITaskRepositoryResolver taskRepositoryResolver)
-            : base("ReceivePayments", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.ReadTask)
+    	public Task(ILoggingService loggingService,IAutogiroFileReader<PaymentsFile, Payment> fileReader)
+            : base("ReceivePayments", loggingService, BGTaskSequenceOrder.ReadTask)
         {
             _fileReader = fileReader;
         }
 
-        public override void Execute()
+        public override void Execute(ExecutingTaskContext context)
         {
-            RunLoggedTask(repositoryResolver =>
+            RunLoggedTask(() =>
             {
-				var receivedFileSectionRepository = repositoryResolver.GetRepository<IReceivedFileRepository>();
-				var bgReceivedPaymentRepository = repositoryResolver.GetRepository<IBGReceivedPaymentRepository>();
-				var autogiroPayerRepository = repositoryResolver.GetRepository<IAutogiroPayerRepository>();
+				var receivedFileSectionRepository = context.GetRepository<IReceivedFileRepository>();
+				var bgReceivedPaymentRepository = context.GetRepository<IBGReceivedPaymentRepository>();
+				var autogiroPayerRepository = context.GetRepository<IAutogiroPayerRepository>();
                 var paymentFileSections = receivedFileSectionRepository.FindBy(new AllUnhandledReceivedPaymentFileSectionsCriteria());
 
                 LogDebug("Fetched {0} payment file sections from repository", paymentFileSections.Count());

@@ -31,6 +31,12 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 
 		public virtual string Execute(string command)
 		{
+			return Execute(command, new object[]{ });
+		}
+
+		public virtual string Execute(string format, params object[] parameters)
+		{
+			var command = string.Format(format, parameters);
 			var bytesSent = Encoding.ASCII.GetBytes(command.TrimEnd(EndOfFile.ToCharArray()) + EndOfFile);
 			_socket.Send(bytesSent, bytesSent.Length, SocketFlags.None);
 			if(OnCommandSent != null)

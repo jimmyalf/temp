@@ -15,20 +15,17 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.GetFile
     {
         private readonly IFileReaderService FileReaderService;
 
-        public Task(ILoggingService loggingService,
-                    IFileReaderService fileReaderService,
-                    ITaskRepositoryResolver taskRepositoryResolver)
-            : base("GetFile", loggingService, taskRepositoryResolver, BGTaskSequenceOrder.FetchFiles)
+        public Task(ILoggingService loggingService,IFileReaderService fileReaderService) : base("GetFile", loggingService, BGTaskSequenceOrder.FetchFiles)
         {
             FileReaderService = fileReaderService;
         }
 
-        public override void Execute()
+        public override void Execute(ExecutingTaskContext context)
         {
-            RunLoggedTask(repositoryResolver =>
+            RunLoggedTask(() =>
             {
 
-                var receivedFileRepository = repositoryResolver.GetRepository<IReceivedFileRepository>();
+                var receivedFileRepository = context.GetRepository<IReceivedFileRepository>();
                 var fileNames =  FileReaderService.GetFileNames();
 
                 if (fileNames.Count() == 0)

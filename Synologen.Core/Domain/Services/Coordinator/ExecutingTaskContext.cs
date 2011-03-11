@@ -15,7 +15,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 			Items = new Dictionary<object,object>();
 		}
 		public string ExecutingTask { get { return _executingTask.TaskName; } }
-		public TRepository GetRepository<TRepository>() { return _taskRepositoryResolver.GetRepository<TRepository>(); }
+		public TRepository Resolve<TRepository>() { return _taskRepositoryResolver.GetRepository<TRepository>(); }
 		public IDictionary Items { get; set; }
 		
 

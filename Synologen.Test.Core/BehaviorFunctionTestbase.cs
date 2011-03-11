@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Synologen.Test.Core
 {
-	public abstract class BehaviorFunctionTestbase<TEntityActionReturnValue>
+	public abstract class BehaviorFunctionTestbase<TEntityActionReturnValue> : BehaviorBase
 	{
 		protected BehaviorFunctionTestbase()
 		{

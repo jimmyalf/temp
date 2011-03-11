@@ -1,16 +1,19 @@
 using System.Net;
 using System.Text;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 {
 	public class BGFtpIOService : IFtpIOService
 	{
 		private readonly IBGServiceCoordinatorSettingsService _serviceCoordinatorSettingsService;
+		private readonly IBGFtpPasswordService _ftpPasswordService;
 
-		public BGFtpIOService(IBGServiceCoordinatorSettingsService serviceCoordinatorSettingsService)
+		public BGFtpIOService(IBGServiceCoordinatorSettingsService serviceCoordinatorSettingsService, IBGFtpPasswordService ftpPasswordService)
 		{
 			_serviceCoordinatorSettingsService = serviceCoordinatorSettingsService;
+			_ftpPasswordService = ftpPasswordService;
 			UsedEncoding = Encoding.GetEncoding(858);
 		}
 
@@ -35,7 +38,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 		{
 			var request = (FtpWebRequest) WebRequest.Create(fileUri);
 			request.Method = WebRequestMethods.Ftp.UploadFile;
-			request.Credentials = _serviceCoordinatorSettingsService.GetFtpCredential();
+			var userName = _serviceCoordinatorSettingsService.GetFtpUserName();
+			var password = _ftpPasswordService.GetCurrentPassword();
+			request.Credentials = new NetworkCredential(userName, password);
 			request.UseBinary = false;
 			return request;
 		}

@@ -28,7 +28,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 		{
 			RunLoggedTask(() =>
 			{
-				var fileSectionToSendRepository = context.GetRepository<IFileSectionToSendRepository>();
+				var fileSectionToSendRepository = context.Resolve<IFileSectionToSendRepository>();
 				var fileSectionsToSend = fileSectionToSendRepository.FindBy(new AllUnhandledFileSectionsToSendCriteria());
 				if(fileSectionsToSend == null || fileSectionsToSend.Count() == 0)
 				{
@@ -65,17 +65,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 		{
 			foreach (var fileSection in fileSections)
 			{
-				try
-				{
-					fileSection.SentDate = DateTime.Now;
-					fileSectionToSendRepository.Save(fileSection);
-				}
-				catch(Exception ex)
-				{
-					var message = ex.Message;
-					throw;
-				}
-
+				fileSection.SentDate = DateTime.Now;
+				fileSectionToSendRepository.Save(fileSection);
 			}
 		}
 	}

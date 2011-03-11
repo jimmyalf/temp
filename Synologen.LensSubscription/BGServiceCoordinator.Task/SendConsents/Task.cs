@@ -33,8 +33,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 		{
 			RunLoggedTask(() =>
 			{
-				var fileSectionToSendRepository = context.GetRepository<IFileSectionToSendRepository>();
-				var bgConsentToSendRepository = context.GetRepository<IBGConsentToSendRepository>();
+				var fileSectionToSendRepository = context.Resolve<IFileSectionToSendRepository>();
+				var bgConsentToSendRepository = context.Resolve<IBGConsentToSendRepository>();
 				var consents = bgConsentToSendRepository.FindBy(new AllNewConsentsToSendCriteria());
 				if(consents == null || consents.Count() == 0)
 				{

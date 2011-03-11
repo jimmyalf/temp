@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Synologen.Test.Core
 {
-	public abstract class BehaviorActionTestbase
+	public abstract class BehaviorActionTestbase : BehaviorBase
 	{
 		protected BehaviorActionTestbase()
 		{
@@ -41,8 +41,7 @@ namespace Synologen.Test.Core
 		}
 
 		protected Action Context;
-		protected Action Because;
-			
+		protected Action Because;			
 	}
 
 	public abstract class BehaviorActionTestbase<TTestEntity> : BehaviorActionTestbase

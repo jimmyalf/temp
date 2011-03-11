@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestHelpers\BGFtpChangePasswordServiceBaseTester.cs" />
+    <Compile Include="BGFtpChangePasswordServiceTests.cs" />
     <Compile Include="BGReceivedFileReaderServiceTests.cs" />
     <Compile Include="Factories\BGReceivedFileReaderServiceFactory.cs" />
     <Compile Include="Factories\FtpServiceFactory.cs" />

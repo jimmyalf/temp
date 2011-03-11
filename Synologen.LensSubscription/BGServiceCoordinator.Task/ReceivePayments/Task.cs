@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
@@ -27,9 +27,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
         {
             RunLoggedTask(() =>
             {
-				var receivedFileSectionRepository = context.GetRepository<IReceivedFileRepository>();
-				var bgReceivedPaymentRepository = context.GetRepository<IBGReceivedPaymentRepository>();
-				var autogiroPayerRepository = context.GetRepository<IAutogiroPayerRepository>();
+				var receivedFileSectionRepository = context.Resolve<IReceivedFileRepository>();
+				var bgReceivedPaymentRepository = context.Resolve<IBGReceivedPaymentRepository>();
+				var autogiroPayerRepository = context.Resolve<IAutogiroPayerRepository>();
                 var paymentFileSections = receivedFileSectionRepository.FindBy(new AllUnhandledReceivedPaymentFileSectionsCriteria());
 
                 LogDebug("Fetched {0} payment file sections from repository", paymentFileSections.Count());

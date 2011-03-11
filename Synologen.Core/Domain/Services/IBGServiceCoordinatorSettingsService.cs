@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Spinit.Wpc.Synologen.Core.Domain.Services
 {
 	public interface IBGServiceCoordinatorSettingsService
@@ -8,7 +6,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		string GetPaymentRevieverCustomerNumber();
 		string GetSentFilesFolderPath();
 		string GetFtpUploadFolderUrl();
-		NetworkCredential GetFtpCredential();
+		//NetworkCredential GetFtpCredential();
+		string GetFtpUserName();
 		string GetHMACHashKey();
         string GetReceivedFilesFolderPath();
 	    string GetBackupFilesFolderPath();

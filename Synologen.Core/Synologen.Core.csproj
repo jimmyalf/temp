@@ -212,6 +212,8 @@
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
     <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Model\BGServer\BGTaskSequenceOrder.cs" />
+    <Compile Include="Domain\Services\BgWebService\FtpChangePasswordException.cs" />
+    <Compile Include="Domain\Services\BgWebService\IBGFtpPasswordService.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGWebServiceDTOParser.cs" />
     <Compile Include="Domain\Services\Coordinator\ExecutingTaskContext.cs" />
     <Compile Include="Domain\Services\Coordinator\ITaskRepositoryResolver.cs" />
@@ -222,6 +224,7 @@
     <Compile Include="Domain\Services\IFileIOService.cs" />
     <Compile Include="Domain\Services\IFileReaderService.cs" />
     <Compile Include="Domain\Services\IFileWriterService.cs" />
+    <Compile Include="Domain\Services\BgWebService\IBGFtpChangePasswordService.cs" />
     <Compile Include="Domain\Services\IFtpCommandService.cs" />
     <Compile Include="Domain\Services\IFtpService.cs" />
     <Compile Include="Domain\Services\IHashService.cs" />

@@ -24,8 +24,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 		{
 			RunLoggedTask(() =>
 			{
-				var subscriptionRepository = context.GetRepository<ISubscriptionRepository>();
-				var subscriptionErrorRepository = context.GetRepository<ISubscriptionErrorRepository>();
+				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
+				var subscriptionErrorRepository = context.Resolve<ISubscriptionErrorRepository>();
 				var consents = _bgWebService.GetConsents(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedConsent>();
 				LogDebug("Fetched {0} consent replies from bgc server", consents.Count());
 

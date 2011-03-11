@@ -30,16 +30,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			FileSectionToSendRepository = A.Fake<IFileSectionToSendRepository>();
 			ReceivedFileRepository = A.Fake<IReceivedFileRepository>();
 			BgServiceCoordinatorSettingsService = A.Fake<IBGServiceCoordinatorSettingsService>();
-			TaskRepositoryResolver = new TestTaskRepositoryResolver();
-				//A.Fake<ITaskRepositoryResolver>();
 			AutogiroPayerRepository = A.Fake<IAutogiroPayerRepository>();
-
+			TaskRepositoryResolver = new TestTaskRepositoryResolver();
 			TaskRepositoryResolver.AddRepository(FileSectionToSendRepository);
 			TaskRepositoryResolver.AddRepository(ReceivedFileRepository);
 			TaskRepositoryResolver.AddRepository(AutogiroPayerRepository);
-			//A.CallTo(() => TaskRepositoryResolver.GetRepository<IFileSectionToSendRepository>()).Returns(FileSectionToSendRepository);
-			//A.CallTo(() => TaskRepositoryResolver.GetRepository<IReceivedFileRepository>()).Returns(ReceivedFileRepository);
-			//A.CallTo(() => TaskRepositoryResolver.GetRepository<IAutogiroPayerRepository>()).Returns(AutogiroPayerRepository);
 		}
 
 		protected abstract ITask GetTask();

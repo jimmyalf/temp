@@ -25,7 +25,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.GetFile
             RunLoggedTask(() =>
             {
 
-                var receivedFileRepository = context.GetRepository<IReceivedFileRepository>();
+                var receivedFileRepository = context.Resolve<IReceivedFileRepository>();
                 var fileNames =  FileReaderService.GetFileNames();
 
                 if (fileNames.Count() == 0)

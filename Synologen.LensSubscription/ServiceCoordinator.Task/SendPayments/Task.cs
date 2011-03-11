@@ -25,7 +25,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 		{
 			RunLoggedTask(() =>
 			{
-				var subscriptionRepository = context.GetRepository<ISubscriptionRepository>();
+				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
 				var subscriptions = subscriptionRepository.FindBy(new AllSubscriptionsToSendPaymentsForCriteria()) ?? Enumerable.Empty<Subscription>();
 				LogDebug("Fetched {0} subscriptions to send payments for", subscriptions.Count());
 

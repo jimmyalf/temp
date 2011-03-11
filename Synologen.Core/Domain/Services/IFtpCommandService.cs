@@ -9,5 +9,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		void Open(IPAddress ipAddress);
 		string Execute(string command);
 		void Close();
+		event EventHandler<OnCommandSentEventArgs> OnCommandSent;
+		event EventHandler<OnResponseReceivedEventArgs> OnResponseReceived;
 	}
 }

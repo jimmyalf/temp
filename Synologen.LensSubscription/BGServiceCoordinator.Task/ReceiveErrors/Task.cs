@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
@@ -27,9 +27,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveErrors
     	{
     		RunLoggedTask(() =>
             {
-				var receivedFileSectionRepository = context.GetRepository<IReceivedFileRepository>();
-				var bgReceivedErrorRepository = context.GetRepository<IBGReceivedErrorRepository>();
-				var autogiroPayerRepository = context.GetRepository<IAutogiroPayerRepository>();
+				var receivedFileSectionRepository = context.Resolve<IReceivedFileRepository>();
+				var bgReceivedErrorRepository = context.Resolve<IBGReceivedErrorRepository>();
+				var autogiroPayerRepository = context.Resolve<IAutogiroPayerRepository>();
                 var errorFileSections = receivedFileSectionRepository.FindBy(new AllUnhandledReceivedErrorFileSectionsCriteria());
 
                 LogDebug("Fetched {0} error file sections from repository", errorFileSections.Count());

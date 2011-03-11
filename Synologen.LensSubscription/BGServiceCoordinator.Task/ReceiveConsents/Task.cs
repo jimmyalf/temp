@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
@@ -29,9 +29,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveConsents
         {
             RunLoggedTask(() =>
             {
-				var receivedFileSectionRepository = context.GetRepository<IReceivedFileRepository>();
-				var bgReceivedConsentRepository = context.GetRepository<IBGReceivedConsentRepository>();
-				var autogiroPayerRepository = context.GetRepository<IAutogiroPayerRepository>();
+				var receivedFileSectionRepository = context.Resolve<IReceivedFileRepository>();
+				var bgReceivedConsentRepository = context.Resolve<IBGReceivedConsentRepository>();
+				var autogiroPayerRepository = context.Resolve<IAutogiroPayerRepository>();
                 var consentFileSections = receivedFileSectionRepository.FindBy(new AllUnhandledReceivedConsentFileSectionsCriteria());
 
                 LogDebug("Fetched {0} consent file sections from repository", consentFileSections.Count());

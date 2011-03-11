@@ -24,8 +24,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 		{
 			RunLoggedTask(() =>
 			{
-				var subscriptionErrorRepository = context.GetRepository<ISubscriptionErrorRepository>();
-				var subscriptionRepository = context.GetRepository<ISubscriptionRepository>();
+				var subscriptionErrorRepository = context.Resolve<ISubscriptionErrorRepository>();
+				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
 				var errors = _bgWebService.GetErrors(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<RecievedError>();
 				LogDebug("Fetched {0} errors from BG Webservice", errors.Count());
 				errors.Each(error =>

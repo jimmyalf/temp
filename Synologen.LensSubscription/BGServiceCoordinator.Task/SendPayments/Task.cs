@@ -33,8 +33,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendPayments
 		{
 			RunLoggedTask(() =>
 			{
-				var bgPaymentToSendRepository = context.GetRepository<IBGPaymentToSendRepository>();
-				var fileSectionToSendRepository = context.GetRepository<IFileSectionToSendRepository>();
+				var bgPaymentToSendRepository = context.Resolve<IBGPaymentToSendRepository>();
+				var fileSectionToSendRepository = context.Resolve<IFileSectionToSendRepository>();
 				var payments = bgPaymentToSendRepository.FindBy(new AllNewPaymentsToSendCriteria());
 				if(payments == null || payments.Count() == 0)
 				{

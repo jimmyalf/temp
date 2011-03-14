@@ -1,6 +1,11 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.BGData.Test.BaseTesters;
 using Synologen.LensSubscription.BGData.Test.Factories;
@@ -101,4 +106,40 @@ namespace Synologen.LensSubscription.BGData.Test
             });
         }
     }
+
+	[TestFixture, Category("ReceivedErrorRepositoryTester")]
+	public class When_fetching_received_consents_by_AllNewReceivedBGConsentsMatchingServiceTypeCriteria : BaseRepositoryTester<BGReceivedConsentRepository>
+	{
+		private AutogiroPayer payer;
+		private IEnumerable<BGReceivedConsent> consents;
+		private IEnumerable<BGReceivedConsent> expectedConsents;
+		private AutogiroServiceType serviceType;
+
+		public When_fetching_received_consents_by_AllNewReceivedBGConsentsMatchingServiceTypeCriteria()
+		{
+			Context = session =>
+			{
+				payer = StoreAutogiroPayer(PayerFactory.Get);
+				consents = ReceivedConsentFactory.GetList(payer);
+				serviceType = AutogiroServiceType.LensSubscription;
+				expectedConsents = consents.Where(x => x.Handled == false && x.Payer.ServiceType.Equals(serviceType));
+			};
+			Because = repository => consents.Each(repository.Save);
+		}
+
+		[Test]
+		public void Should_get_all_consents_that_has_not_been_handled_and_are_of_given_service_type()
+		{
+			AssertUsing(session =>
+			{
+				var fetchedPayments = CreateRepository(session).FindBy(new AllNewReceivedBGConsentsMatchingServiceTypeCriteria(serviceType)).ToList();
+				fetchedPayments.Count().ShouldBe(expectedConsents.Count());
+				fetchedPayments.Each(fetchedPayment =>
+				{
+					fetchedPayment.Handled.ShouldBe(false);
+					fetchedPayment.Payer.ServiceType.ShouldBe(serviceType);
+				});
+			});
+		}
+	}
 }

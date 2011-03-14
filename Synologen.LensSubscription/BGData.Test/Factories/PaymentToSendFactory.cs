@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -17,10 +18,9 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 			return new BGPaymentToSend
 			{
 				Amount = 599.99M,
-				//CustomerNumber = "55",
 				Payer = payer,
 				PaymentDate = new DateTime(2011, 03, 30),
-				PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
+				PaymentPeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
 				Reference = "Synhälsan i Göteborg",
 				SendDate = seed.IsEven() 
 					? null as DateTime?
@@ -32,9 +32,8 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 		public static void Edit(BGPaymentToSend paymentToSend) 
 		{
 			paymentToSend.Amount = paymentToSend.Amount + 299.35M;
-			//paymentToSend.CustomerNumber = paymentToSend.CustomerNumber.Reverse();
 			paymentToSend.PaymentDate = paymentToSend.PaymentDate.AddDays(5);
-			paymentToSend.PeriodCode = paymentToSend.PeriodCode.Next();
+			paymentToSend.PaymentPeriodCode = paymentToSend.PaymentPeriodCode.Next();
 			paymentToSend.Reference = paymentToSend.Reference.Reverse();
 			paymentToSend.SendDate = (paymentToSend.SendDate.HasValue) 
 				? null as DateTime? 

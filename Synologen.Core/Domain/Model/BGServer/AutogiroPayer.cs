@@ -1,3 +1,5 @@
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
+
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGServer
 {
 	public class AutogiroPayer : Entity

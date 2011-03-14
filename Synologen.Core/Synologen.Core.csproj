@@ -91,7 +91,7 @@
     <Compile Include="Domain\Model\Autogiro\CommonTypes\Payer.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentReciever.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentType.cs" />
-    <Compile Include="Domain\Model\Autogiro\CommonTypes\PeriodCode.cs" />
+    <Compile Include="Domain\Model\Autogiro\CommonTypes\PaymentPeriodCode.cs" />
     <Compile Include="Domain\Model\Autogiro\CommonTypes\FileConstants.cs" />
     <Compile Include="Domain\Model\Autogiro\Recieve\Consent.cs" />
     <Compile Include="Domain\Model\Autogiro\Recieve\ConsentCommentCode.cs" />
@@ -111,23 +111,17 @@
     <Compile Include="Domain\Model\Autogiro\Send\PaymentsFile.cs" />
     <Compile Include="Domain\Model\BGServer\Account.cs" />
     <Compile Include="Domain\Model\BGServer\AutogiroPayer.cs" />
-    <Compile Include="Domain\Model\BGServer\AutogiroServiceType.cs" />
     <Compile Include="Domain\Model\BGServer\BGConsentToSend.cs" />
     <Compile Include="Domain\Model\BGServer\BGPaymentToSend.cs" />
     <Compile Include="Domain\Model\BGServer\BGReceivedConsent.cs" />
     <Compile Include="Domain\Model\BGServer\BGReceivedError.cs" />
     <Compile Include="Domain\Model\BGServer\BGReceivedPayment.cs" />
-    <Compile Include="Domain\Model\BGServer\ConsentType.cs" />
     <Compile Include="Domain\Model\BGServer\FileSectionToSend.cs" />
     <Compile Include="Domain\Model\BGServer\IReceivedEntity.cs" />
-    <Compile Include="Domain\Model\BGServer\PaymentPeriodCode.cs" />
-    <Compile Include="Domain\Model\BGServer\PaymentResult.cs" />
-    <Compile Include="Domain\Model\BGServer\PaymentType.cs" />
     <Compile Include="Domain\Model\BGServer\SectionType.cs" />
     <Compile Include="Domain\Model\BGServer\ReceivedFileSection.cs" />
     <Compile Include="Domain\Model\BGWebService\ConsentToSend.cs" />
-    <Compile Include="Domain\Model\BGWebService\AutogiroServiceType.cs" />
-    <Compile Include="Domain\Model\BGWebService\Enums.cs" />
+    <Compile Include="Domain\Model\Autogiro\AutogiroServiceType.cs" />
     <Compile Include="Domain\Model\BGWebService\PaymentToSend.cs" />
     <Compile Include="Domain\Model\BGWebService\ReceivedConsent.cs" />
     <Compile Include="Domain\Model\BGWebService\RecievedError.cs" />
@@ -150,7 +144,6 @@
     <Compile Include="Domain\Model\FrameOrder\Shop.cs" />
     <Compile Include="Domain\Model\FrameOrder\ShopAddress.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameStock.cs" />
-    <Compile Include="Domain\Model\LensSubscription\ConsentInformationCode.cs" />
     <Compile Include="Domain\Model\LensSubscription\Country.cs" />
     <Compile Include="Domain\Model\LensSubscription\Customer.cs" />
     <Compile Include="Domain\Model\LensSubscription\CustomerAddress.cs" />
@@ -160,7 +153,6 @@
     <Compile Include="Domain\Model\LensSubscription\Subscription.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionConsentStatus.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionError.cs" />
-    <Compile Include="Domain\Model\LensSubscription\SubscriptionErrorInformationCode.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionErrorType.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionPaymentInfo.cs" />
     <Compile Include="Domain\Model\LensSubscription\SubscriptionStatus.cs" />
@@ -182,6 +174,7 @@
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewConsentsToSendCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewPaymentsToSendCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewReceivedBGConsentsMatchingServiceTypeCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewReceivedBGErrorsMatchingServiceTypeCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllNewReceivedBGPaymentsMatchingServiceTypeCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledFileSectionsToSendCriteria.cs" />

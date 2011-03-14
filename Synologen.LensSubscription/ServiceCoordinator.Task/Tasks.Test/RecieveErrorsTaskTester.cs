@@ -3,6 +3,8 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories;
@@ -71,21 +73,21 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 			)));
 		}
 
-		private static bool ExpectedErrorTypeConversionMatches(SubscriptionErrorType subscriptionErrorType, ErrorType errorType)
+		private static bool ExpectedErrorTypeConversionMatches(SubscriptionErrorType subscriptionErrorType, ErrorCommentCode errorType)
 		{
-			if(errorType ==  ErrorType.ConsentMissing)
+			if(errorType ==  ErrorCommentCode.ConsentMissing)
 			{
 				return subscriptionErrorType == SubscriptionErrorType.ConsentMissing;
 			}
-			if(errorType ==  ErrorType.AccountNotYetApproved)
+			if(errorType ==  ErrorCommentCode.AccountNotYetApproved)
 			{
 				return subscriptionErrorType == SubscriptionErrorType.NotApproved;
 			}
-			if(errorType ==  ErrorType.ConsentStopped)
+			if(errorType ==  ErrorCommentCode.ConsentStopped)
 			{
 				return subscriptionErrorType == SubscriptionErrorType.CosentStopped;
 			}
-			if(errorType ==  ErrorType.NotYetDebitable)
+			if(errorType ==  ErrorCommentCode.NotYetDebitable)
 			{
 				return subscriptionErrorType == SubscriptionErrorType.NotDebitable;
 			}

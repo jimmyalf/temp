@@ -87,7 +87,7 @@ namespace Synologen.LensSubscription.Autogiro.Test
 			_paymentsFile.Posts.Count().ShouldBe(_expectedNumberOfPosts);
 			_paymentsFile.Posts.For((index,post) =>
 			{
-				post.PeriodCode.ShouldBe(PeriodCode.PaymentOnceOnSelectedDate);
+				post.PaymentPeriodCode.ShouldBe(PaymentPeriodCode.PaymentOnceOnSelectedDate);
 				post.PaymentDate.ShouldBe(_expectedPaymentDate);
 				post.NumberOfReoccuringTransactionsLeft.ShouldBe(null);
 				post.Reciever.BankgiroNumber.ShouldBe(_expectedReciever.BankgiroNumber);
@@ -471,7 +471,7 @@ namespace Synologen.LensSubscription.Autogiro.Test
 
 			_errorsFile.Posts.For((index, post) =>
 			{
-				post.PeriodCode.ShouldBe(PeriodCode.PaymentOnceOnSelectedDate);
+				post.PaymentPeriodCode.ShouldBe(PaymentPeriodCode.PaymentOnceOnSelectedDate);
 				post.PaymentDate.ShouldBe(_expectedPaymentDate);
 				post.NumberOfReoccuringTransactionsLeft.ShouldBe(null);
 			});

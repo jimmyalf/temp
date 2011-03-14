@@ -40,7 +40,7 @@ namespace Synologen.LensSubscription.BGData.Test
 				fetchedPayment.Payer.ShouldBe(savedPaymentToSend.Payer);
 				fetchedPayment.Id.ShouldBe(savedPaymentToSend.Id);
 				fetchedPayment.PaymentDate.ShouldBe(savedPaymentToSend.PaymentDate);
-				fetchedPayment.PeriodCode.ShouldBe(savedPaymentToSend.PeriodCode);
+				fetchedPayment.PaymentPeriodCode.ShouldBe(savedPaymentToSend.PaymentPeriodCode);
 				fetchedPayment.Reference.ShouldBe(savedPaymentToSend.Reference);
 				fetchedPayment.SendDate.ShouldBe(savedPaymentToSend.SendDate);
 				fetchedPayment.Type.ShouldBe(savedPaymentToSend.Type);
@@ -77,7 +77,7 @@ namespace Synologen.LensSubscription.BGData.Test
 				fetchedPayment.Payer.ShouldBe(paymentToSend.Payer);
 				fetchedPayment.Id.ShouldBe(paymentToSend.Id);
 				fetchedPayment.PaymentDate.ShouldBe(paymentToSend.PaymentDate);
-				fetchedPayment.PeriodCode.ShouldBe(paymentToSend.PeriodCode);
+				fetchedPayment.PaymentPeriodCode.ShouldBe(paymentToSend.PaymentPeriodCode);
 				fetchedPayment.Reference.ShouldBe(paymentToSend.Reference);
 				fetchedPayment.SendDate.ShouldBe(paymentToSend.SendDate);
 				fetchedPayment.Type.ShouldBe(paymentToSend.Type);

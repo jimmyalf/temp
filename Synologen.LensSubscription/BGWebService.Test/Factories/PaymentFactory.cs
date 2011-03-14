@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using PaymentResult=Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.PaymentResult;
-using PaymentType=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.PaymentType;
 
 namespace Synologen.LensSubscription.BGWebService.Test.Factories
 {
@@ -53,7 +53,7 @@ namespace Synologen.LensSubscription.BGWebService.Test.Factories
 				Amount = 523,
 				PayerNumber = 92,
 				PaymentId = 321,
-				Result = Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.PaymentResult.Approved
+				Result = PaymentResult.Approved
 			};
 		}
 	}

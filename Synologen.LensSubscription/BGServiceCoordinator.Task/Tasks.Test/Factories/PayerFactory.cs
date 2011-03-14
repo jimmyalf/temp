@@ -1,4 +1,5 @@
 using FakeItEasy;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories

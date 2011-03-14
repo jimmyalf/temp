@@ -1,3 +1,5 @@
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
+
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService
 {
 	public class RecievedError
@@ -6,6 +8,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService
 		public int PayerNumber { get; set; }
 		public decimal Amount { get; set; }
 		public string Reference { get; set; }
-		public ErrorType CommentCode { get; set; }
+		public ErrorCommentCode CommentCode { get; set; }
 	}
 }

@@ -1,4 +1,5 @@
 using FluentNHibernate.Mapping;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 
 namespace Synologen.LensSubscription.BGData.Mappings

@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
@@ -14,8 +16,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 	{
 		private readonly IBGWebService _bgWebService;
 
-		public Task(ILoggingService loggingService, IBGWebService bgWebService /*, ITaskRepositoryResolver taskRepositoryResolver */) 
-			: base("RecieveErrorsTask", loggingService /*, taskRepositoryResolver*/)
+		public Task(ILoggingService loggingService, IBGWebService bgWebService) : base("RecieveErrorsTask", loggingService)
 		{
 			_bgWebService = bgWebService;
 		}
@@ -48,14 +49,14 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 			};
 		}
 
-		protected virtual SubscriptionErrorType ConvertErrorType(ErrorType errorType)
+		protected virtual SubscriptionErrorType ConvertErrorType(ErrorCommentCode errorType)
 		{
 			switch (errorType)
 			{
-				case ErrorType.ConsentMissing: return SubscriptionErrorType.ConsentMissing;
-				case ErrorType.AccountNotYetApproved: return SubscriptionErrorType.NotApproved;
-				case ErrorType.ConsentStopped: return SubscriptionErrorType.CosentStopped;
-				case ErrorType.NotYetDebitable: return SubscriptionErrorType.NotDebitable;
+				case ErrorCommentCode.ConsentMissing: return SubscriptionErrorType.ConsentMissing;
+				case ErrorCommentCode.AccountNotYetApproved: return SubscriptionErrorType.NotApproved;
+				case ErrorCommentCode.ConsentStopped: return SubscriptionErrorType.CosentStopped;
+				case ErrorCommentCode.NotYetDebitable: return SubscriptionErrorType.NotDebitable;
 				default: throw new ArgumentOutOfRangeException("errorType");
 			}
 		}

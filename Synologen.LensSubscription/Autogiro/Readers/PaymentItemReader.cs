@@ -13,7 +13,7 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 			{
 				Type = line.ReadFrom(1).To(2).ToInt().ToEnum<PaymentType>(),
 				PaymentDate = line.ReadFrom(3).To(10).ParseDate(),
-				PeriodCode = line.ReadFrom(11).To(11).ParseEnum<PeriodCode>(),
+				PaymentPeriodCode = line.ReadFrom(11).To(11).ParseEnum<PaymentPeriodCode>(),
 				NumberOfReoccuringTransactionsLeft = line.ReadFrom(12).To(14).ParseNullable<int>(StringExtensions.ToInt),
 				Transmitter = new Payer{CustomerNumber = line.ReadFrom(16).To(31).TrimStart('0')},
 				Amount = line.ReadFrom(32).To(43).ParseAmount(),

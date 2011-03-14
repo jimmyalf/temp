@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -21,7 +22,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
             	Amount = 560.23M,
                 Payer = payer,
                 PaymentDate = new DateTime(2011,03,03),
-                PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
+                PaymentPeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
                 Reference = "Synbutiken i Boliden",
                 SendDate = null,
                 Type = PaymentType.Debit

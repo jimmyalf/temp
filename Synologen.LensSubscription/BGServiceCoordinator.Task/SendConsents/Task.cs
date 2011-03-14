@@ -10,7 +10,6 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Account=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes.Account;
-using ConsentType=Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send.ConsentType;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 {
@@ -95,21 +94,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendConsents
 				{
 					CustomerNumber = consentsToSend.Payer.Id.ToString()
 				},
-				Type = ToConsentType(consentsToSend.Type)
+				Type = consentsToSend.Type
 			};
-		}
-
-		protected virtual ConsentType ToConsentType(Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.ConsentType inputType)
-		{
-			switch (inputType)
-			{
-				case Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.ConsentType.New:
-					return ConsentType.New;
-				case Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.ConsentType.Cancellation:
-					return ConsentType.Cancellation;
-				default:
-					throw new ArgumentOutOfRangeException("inputType");
-			}
 		}
 	}
 }

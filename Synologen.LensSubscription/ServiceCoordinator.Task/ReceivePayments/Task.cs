@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
@@ -14,8 +16,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 	{
 		private readonly IBGWebService _bgWebService;
 
-		public Task(IBGWebService bgWebService, ILoggingService loggingService /*, ITaskRepositoryResolver taskRepositoryResolver*/)
-			: base("ReceivePaymentsTask", loggingService /*, taskRepositoryResolver*/)
+		public Task(IBGWebService bgWebService, ILoggingService loggingService) : base("ReceivePaymentsTask", loggingService)
 		{
 			_bgWebService = bgWebService;
 		}
@@ -51,8 +52,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 				case PaymentResult.AGConnectionMissing:
 					SaveSubscriptionError(ConvertSubscriptionError(payment, subscription), subscriptionErrorRepository);
 					break;
-				default:
-					throw new ArgumentOutOfRangeException();
+				default: throw new ArgumentOutOfRangeException();
 			}
 		}
 
@@ -84,14 +84,10 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 		{
 			switch (result)
 			{
-				case PaymentResult.AGConnectionMissing:
-					return SubscriptionErrorType.PaymentRejectedAgConnectionMissing;
-				case PaymentResult.InsufficientFunds:
-					return SubscriptionErrorType.PaymentRejectedInsufficientFunds;
-				case PaymentResult.Approved:
-					throw new ArgumentException("result");
-				case PaymentResult.WillTryAgain:
-					throw new ArgumentException("result");
+				case PaymentResult.AGConnectionMissing: return SubscriptionErrorType.PaymentRejectedAgConnectionMissing;
+				case PaymentResult.InsufficientFunds: return SubscriptionErrorType.PaymentRejectedInsufficientFunds;
+				case PaymentResult.Approved: throw new ArgumentException("result");
+				case PaymentResult.WillTryAgain: throw new ArgumentException("result");
 			}
 			throw new ArgumentOutOfRangeException("result");
 		}
@@ -100,14 +96,10 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 		{
 			switch (result)
 			{
-				case PaymentResult.Approved:
-					return TransactionReason.Payment;
-				case PaymentResult.WillTryAgain:
-					return TransactionReason.PaymentFailed;
-				case PaymentResult.AGConnectionMissing:
-					throw new ArgumentException("result");
-				case PaymentResult.InsufficientFunds:
-					throw new ArgumentException("result");
+				case PaymentResult.Approved: return TransactionReason.Payment;
+				case PaymentResult.WillTryAgain: return TransactionReason.PaymentFailed;
+				case PaymentResult.AGConnectionMissing: throw new ArgumentException("result");
+				case PaymentResult.InsufficientFunds: throw new ArgumentException("result");
 			}
 			throw new ArgumentOutOfRangeException("result");
 		}

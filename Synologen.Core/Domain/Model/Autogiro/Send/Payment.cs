@@ -11,6 +11,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send
 		public decimal Amount { get; set; }
 		public string Reference { get; set; }
 		public DateTime PaymentDate { get; set; }
-		public PeriodCode PeriodCode { get; set; }
+		public PaymentPeriodCode PaymentPeriodCode { get; set; }
 	}
 }

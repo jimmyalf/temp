@@ -4,16 +4,15 @@ using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Synologen.LensSubscription.BGWebService.Test.Factories;
 using Synologen.LensSubscription.BGWebService.Test.TestHelpers;
-using BGWebService_AutogiroServiceType=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.AutogiroServiceType;
-using BGServer_AutogiroServiceType=Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.AutogiroServiceType;
-using BGWebService_PaymentType=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.PaymentType;
-using BGServer_PaymentType = Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.PaymentType;
 
 namespace Synologen.LensSubscription.BGWebService.Test
 {
@@ -42,8 +41,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 	public class When_registering_a_new_payer : BGWebServiceTestBase
 	{
 		private string payerName;
-		private BGWebService_AutogiroServiceType serviceType;
-		private BGServer_AutogiroServiceType expectedServiceType;
+		private AutogiroServiceType serviceType;
 		private int returnedPayerNumber;
 		private int payerId;
 
@@ -53,8 +51,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 			{
 				payerName = "Adam Bertil";
 				payerId = 55;
-				serviceType = BGWebService_AutogiroServiceType.LensSubscription;
-				expectedServiceType = BGServer_AutogiroServiceType.LensSubscription;
+				serviceType = AutogiroServiceType.LensSubscription;
 				A.CallTo(() => AutogiroPayerRepository.Save(A<AutogiroPayer>.Ignored)).Returns(payerId);
 			};
 			Because = service =>
@@ -64,17 +61,11 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		}
 
 		[Test]
-		public void Webservice_parses_input_into_a_payer()
-		{
-			A.CallTo(() => BGWebServiceDTOParser.GetAutogiroPayer(payerName,serviceType)).MustHaveHappened();
-		}
-
-		[Test]
 		public void Webservice_stores_payer()
 		{
 			A.CallTo(() => AutogiroPayerRepository.Save(
 				A<AutogiroPayer>.That.Matches(x => x.Name.Equals(payerName))
-				.And.Matches(x => x.ServiceType.Equals(expectedServiceType))
+				.And.Matches(x => x.ServiceType.Equals(serviceType))
 			)).MustHaveHappened();
 		}
 
@@ -167,17 +158,15 @@ namespace Synologen.LensSubscription.BGWebService.Test
 	{
 		private PaymentToSend payment;
 		private AutogiroPayer payer;
-		private BGServer_PaymentType outputPaymentType;
-		private BGWebService_PaymentType inputPaymentType;
+		private PaymentType paymentType;
 
 		public When_sending_a_new_payment()
 		{
 			Context = () =>
 			{
 				payer = PayerFactory.Get();
-				outputPaymentType = BGServer_PaymentType.Debit;
-				inputPaymentType = BGWebService_PaymentType.Debit;
-				payment = PaymentFactory.GetPaymentToSend(inputPaymentType, payer.Id);
+				paymentType = PaymentType.Debit;
+				payment = PaymentFactory.GetPaymentToSend(paymentType, payer.Id);
 				A.CallTo(() => AutogiroPayerRepository.Get(payer.Id)).Returns(payer);
 			};
 
@@ -208,7 +197,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 				//.And.Matches(x => x.PeriodCode.Equals(payment.?)) //FIX: PeriodCode is Missing
 				.And.Matches(x => x.Reference.Equals(payment.Reference))
 				.And.Matches(x => Equals(x.SendDate, null))
-				.And.Matches(x => x.Type.Equals(outputPaymentType))
+				.And.Matches(x => x.Type.Equals(paymentType))
 			)).MustHaveHappened();
 		}
 	}
@@ -225,7 +214,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 			Context = () =>
 			{
 				payerId = 33;
-				payment = PaymentFactory.GetPaymentToSend(BGWebService_PaymentType.Debit, payerId);
+				payment = PaymentFactory.GetPaymentToSend(PaymentType.Debit, payerId);
 				A.CallTo(() => AutogiroPayerRepository.Get(payerId)).Returns(default(AutogiroPayer));
 			};
 
@@ -246,8 +235,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 	[TestFixture, Category("BGWebServiceTests")]
 	public class When_fetching_payments : BGWebServiceTestBase
 	{
-		private BGWebService_AutogiroServiceType exposedServiceType;
-		private BGServer_AutogiroServiceType internalServiceType;
+		private AutogiroServiceType serviceType;
 		private IList<BGReceivedPayment> payments;
 		private AutogiroPayer payer;
 		private ReceivedPayment[] returnedPayments;
@@ -256,15 +244,14 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		{
 			Context = () =>
 			{
-				exposedServiceType = BGWebService_AutogiroServiceType.LensSubscription;
-				internalServiceType = BGServer_AutogiroServiceType.LensSubscription;
+				serviceType = AutogiroServiceType.LensSubscription;
 				payer = PayerFactory.Get();
 				payments = PaymentFactory.GetReceivedPaymentList(payer);
 				A.CallTo(() => BGReceivedPaymentRepository.FindBy(A<AllNewReceivedBGPaymentsMatchingServiceTypeCriteria>.Ignored.Argument)).Returns(payments);
 			};
 			Because = service =>
 			{
-				returnedPayments = service.GetPayments(exposedServiceType);
+				returnedPayments = service.GetPayments(serviceType);
 			};
 		}
 
@@ -273,7 +260,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		{
 			A.CallTo(() => BGReceivedPaymentRepository.FindBy(
 				A<AllNewReceivedBGPaymentsMatchingServiceTypeCriteria>.
-				That.Matches(x => x.ServiceType.Equals(internalServiceType))
+				That.Matches(x => x.ServiceType.Equals(serviceType))
 				.Argument
 			)).MustHaveHappened();
 		}
@@ -295,7 +282,61 @@ namespace Synologen.LensSubscription.BGWebService.Test
 				payment.Id.ShouldBe(returnedPayment.PaymentId);
 				//payment.PaymentDate.ShouldBe(returnedPayment.?); //FIX: Add impl.
 				//payment.Reference.ShouldBe(returnedPayment.?); //FIX: Add impl.
-				payment.ResultType.ShouldBe(MapPaymentResult(returnedPayment.Result));
+				payment.ResultType.ShouldBe(returnedPayment.Result);
+			});
+		}
+	}
+
+	[TestFixture, Category("BGWebServiceTests")]
+	public class When_fetching_consents : BGWebServiceTestBase
+	{
+		private AutogiroPayer payer;
+		private AutogiroServiceType serviceType;
+		private IEnumerable<BGReceivedConsent> consents;
+		private ReceivedConsent[] returnedConsents;
+
+		public When_fetching_consents()
+		{
+			Context = () =>
+			{
+				serviceType = AutogiroServiceType.LensSubscription;
+				payer = PayerFactory.Get();
+				consents = ConsentFactory.GetReceivedConsentList(payer);
+				A.CallTo(() => BGReceivedConsentRepository.FindBy(A<AllNewReceivedBGConsentsMatchingServiceTypeCriteria>.Ignored.Argument)).Returns(consents);
+			};
+			Because = service =>
+			{
+				returnedConsents = service.GetConsents(serviceType);
+			};
+		}
+
+		[Test]
+		public void Webservice_fetches_new_payments()
+		{
+			A.CallTo(() => BGReceivedConsentRepository.FindBy(
+				A<AllNewReceivedBGConsentsMatchingServiceTypeCriteria>.
+				That.Matches(x => x.ServiceType.Equals(serviceType))
+				.Argument
+			)).MustHaveHappened();
+		}
+
+		[Test]
+		public void Webservice_parses_payments()
+		{
+			consents.Each(consent => A.CallTo(() => BGWebServiceDTOParser.ParseConsent(consent)).MustHaveHappened());
+		}
+
+		[Test]
+		public void Webservice_returns_parsed_payments()
+		{
+			consents.ForBoth(returnedConsents, (consent, returnedConsent) =>
+			{
+				consent.ActionDate.ShouldBe(returnedConsent.ActionDate);
+				consent.CommentCode.ShouldBe(returnedConsent.CommentCode);
+				consent.ConsentValidForDate.ShouldBe(returnedConsent.ConsentValidForDate);
+				//consent.CreatedDate.ShouldBe(returnedConsent.CreatedDate); //FIX: Add created date (?)
+				consent.InformationCode.ShouldBe(returnedConsent.InformationCode);
+				consent.Payer.Id.ShouldBe(returnedConsent.PayerNumber);
 			});
 		}
 	}
@@ -304,8 +345,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 	public class When_fetching_errors : BGWebServiceTestBase
 	{
 		private RecievedError[] returnedErrors;
-		private BGWebService_AutogiroServiceType exposedServiceType;
-		private BGServer_AutogiroServiceType internalServiceType;
+		private AutogiroServiceType serviceType;
 		private AutogiroPayer payer;
 		private IList<BGReceivedError> errors;
 
@@ -315,13 +355,12 @@ namespace Synologen.LensSubscription.BGWebService.Test
 			{
 				payer = PayerFactory.Get();
 				errors = ErrorFactory.GetReceivedErrorsList(payer);
-				exposedServiceType = BGWebService_AutogiroServiceType.LensSubscription;
-				internalServiceType = BGServer_AutogiroServiceType.LensSubscription;
+				serviceType = AutogiroServiceType.LensSubscription;
 				A.CallTo(() => BGReceivedErrorRepository.FindBy(A<AllNewReceivedBGErrorsMatchingServiceTypeCriteria>.Ignored.Argument)).Returns(errors);
 			};
 			Because = service =>
 			{
-				returnedErrors = service.GetErrors(exposedServiceType);
+				returnedErrors = service.GetErrors(serviceType);
 			};
 		}
 
@@ -330,7 +369,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		{
 			A.CallTo(() => BGReceivedErrorRepository.FindBy(
 				A<AllNewReceivedBGErrorsMatchingServiceTypeCriteria>
-				.That.Matches(x => x.ServiceType.Equals(internalServiceType))
+				.That.Matches(x => x.ServiceType.Equals(serviceType))
 				.Argument
 			)).MustHaveHappened();
 		}
@@ -347,7 +386,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 			errors.ForBoth(returnedErrors, (error,returnedError) =>
 			{
 				error.Amount.ShouldBe(returnedError.Amount);
-				error.CommentCode.ShouldBe(MapErrorCommentCode(returnedError.CommentCode));
+				error.CommentCode.ShouldBe(returnedError.CommentCode);
 				//error.CreatedDate.ShouldBe(returnedError.?); //FIX: Add impl.
 				error.Payer.Id.ShouldBe(returnedError.PayerNumber);
 				//error.PaymentDate.ShouldBe(returnedError.?); //FIX: Add impl.

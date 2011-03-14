@@ -1,5 +1,6 @@
 using System.Linq;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Account=Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.Account;

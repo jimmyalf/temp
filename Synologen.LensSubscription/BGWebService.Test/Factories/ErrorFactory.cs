@@ -26,7 +26,7 @@ namespace Synologen.LensSubscription.BGWebService.Test.Factories
 			return new RecievedError
 			{
 				Amount = 853,
-				CommentCode = ErrorType.NotYetDebitable,
+				CommentCode = ErrorCommentCode.NotYetDebitable,
 				PayerNumber = 83,
 				ErrorId = 53,
 				Reference = "ABC Glas"

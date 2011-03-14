@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService
 {

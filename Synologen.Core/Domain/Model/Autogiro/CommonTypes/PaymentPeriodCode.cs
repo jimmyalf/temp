@@ -1,6 +1,6 @@
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes
 {
-	public enum PeriodCode
+	public enum PaymentPeriodCode
 	{
 		PaymentOnceOnSelectedDate = 0,
 		//MonthReoccurance = 1,

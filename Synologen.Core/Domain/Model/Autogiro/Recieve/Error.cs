@@ -7,7 +7,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve
 	{
 		public PaymentType Type { get; set; }
 		public DateTime PaymentDate { get; set; }
-		public PeriodCode PeriodCode { get; set; }
+		public PaymentPeriodCode PaymentPeriodCode { get; set; }
 		public int? NumberOfReoccuringTransactionsLeft { get; set; }
 		public Payer Transmitter { get; set; }
 		public decimal Amount { get; set; }

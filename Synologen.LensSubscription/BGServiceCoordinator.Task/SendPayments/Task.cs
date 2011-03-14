@@ -85,7 +85,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendPayments
 			{
 				Amount = paymentToSend.Amount,
 				PaymentDate = paymentToSend.PaymentDate,
-				PeriodCode = paymentToSend.PeriodCode.ToInteger().ToEnum<PeriodCode>(),
+				PaymentPeriodCode = paymentToSend.PaymentPeriodCode.ToInteger().ToEnum<PaymentPeriodCode>(),
 				RecieverBankgiroNumber = _bgServiceCoordinatorSettingsService.GetPaymentRecieverBankGiroNumber(),
 				Reference = paymentToSend.Reference,
 				Transmitter = new Payer

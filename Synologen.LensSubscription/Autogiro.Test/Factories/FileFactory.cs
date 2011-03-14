@@ -36,9 +36,9 @@ namespace Synologen.LensSubscription.Autogiro.Test.Factories
 				WriteDate = new DateTime(2004, 10, 26),
 				Posts = new[]
 				{
-					new Payment{Type = PaymentType.Debit, PaymentDate = new DateTime(2004,10,27), PeriodCode = PeriodCode.PaymentOnceOnSelectedDate, Transmitter = new Payer{CustomerNumber = "1020304051"}, Amount = 750, Reference = "ÅRSKORT-2005", RecieverBankgiroNumber = recieverBankGiroNumber},
-					new Payment{Type = PaymentType.Debit, PaymentDate = new DateTime(2004,10,27), PeriodCode = PeriodCode.PaymentOnceOnSelectedDate, Transmitter = new Payer{CustomerNumber = "2030405062"}, Amount = 250, Reference = "KVARTAL-2005", RecieverBankgiroNumber = recieverBankGiroNumber},
-					new Payment{Type = PaymentType.Credit, PaymentDate = new DateTime(2004,10,28), PeriodCode = PeriodCode.PaymentOnceOnSelectedDate, Transmitter = new Payer{CustomerNumber = "3040506073"}, Amount = 125, Reference = "ÅTERBET", RecieverBankgiroNumber = recieverBankGiroNumber},
+					new Payment{Type = PaymentType.Debit, PaymentDate = new DateTime(2004,10,27), PaymentPeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate, Transmitter = new Payer{CustomerNumber = "1020304051"}, Amount = 750, Reference = "ÅRSKORT-2005", RecieverBankgiroNumber = recieverBankGiroNumber},
+					new Payment{Type = PaymentType.Debit, PaymentDate = new DateTime(2004,10,27), PaymentPeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate, Transmitter = new Payer{CustomerNumber = "2030405062"}, Amount = 250, Reference = "KVARTAL-2005", RecieverBankgiroNumber = recieverBankGiroNumber},
+					new Payment{Type = PaymentType.Credit, PaymentDate = new DateTime(2004,10,28), PaymentPeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate, Transmitter = new Payer{CustomerNumber = "3040506073"}, Amount = 125, Reference = "ÅTERBET", RecieverBankgiroNumber = recieverBankGiroNumber},
 				}
 			};
 		}

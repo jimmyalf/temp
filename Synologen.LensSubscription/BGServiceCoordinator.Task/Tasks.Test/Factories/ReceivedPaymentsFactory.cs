@@ -34,7 +34,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 				Amount = 444,
 				NumberOfReoccuringTransactionsLeft = 0,
 				PaymentDate = DateTime.Now.AddDays(-1),
-				PeriodCode = 0,
+				PaymentPeriodCode = 0,
 				Reciever = GetPaymentReceiver(),
 				Reference = "Hello World",
 				Result = PaymentResult.Approved,

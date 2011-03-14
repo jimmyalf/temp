@@ -1,4 +1,4 @@
-namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService
+namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro
 {
 	public enum AutogiroServiceType
 	{

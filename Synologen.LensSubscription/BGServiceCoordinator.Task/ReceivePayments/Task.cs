@@ -9,7 +9,6 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using PaymentResult=Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.PaymentResult;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
 {
@@ -61,21 +60,9 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
 				Payer = payer,
                 PaymentDate = payment.PaymentDate,
                 Reference = payment.Reference,
-                ResultType = MapPaymentResult(payment.Result),
+                ResultType = payment.Result,
                 CreatedDate = DateTime.Now
             };
         }
-
-    	private static PaymentResult MapPaymentResult(Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.PaymentResult result) 
-		{
-    		switch (result)
-    		{
-    			case Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.PaymentResult.Approved: return PaymentResult.Approved;
-    			case Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.PaymentResult.InsufficientFunds: return PaymentResult.InsufficientFunds;
-    			case Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.PaymentResult.AGConnectionMissing: return PaymentResult.AGConnectionMissing;
-    			case Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve.PaymentResult.WillTryAgain: return PaymentResult.WillTryAgain;
-    			default: throw new ArgumentOutOfRangeException("result");
-    		}
-		}
     }
 }

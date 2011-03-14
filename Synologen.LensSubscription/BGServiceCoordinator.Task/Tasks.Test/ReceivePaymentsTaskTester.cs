@@ -81,7 +81,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
                             .And.Matches(x => x.Payer.Id.ToString().Equals(_savedPayment.Transmitter.CustomerNumber))
                             .And.Matches(x => x.PaymentDate.Date.Equals(_savedPayment.PaymentDate.Date))
                             .And.Matches(x => x.Reference.Equals(_savedPayment.Reference))
-                            .And.Matches(x => x.ResultType.Equals(MapPaymentResultType(_savedPayment.Result)))
+                            .And.Matches(x => x.ResultType.Equals(_savedPayment.Result))
                         )).MustHaveHappened();
         }
 

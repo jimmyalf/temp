@@ -1,13 +1,14 @@
 using System;
 using System.Linq;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
-using ConsentInformationCode=Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.ConsentInformationCode;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 {
@@ -63,29 +64,29 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 			{
 				Subscription = subscription,
 				Type = errorTypeCode,
-				Code = GetSubscriptionErrorInformationCode(consent.InformationCode),
+				Code = consent.InformationCode,
 				CreatedDate = DateTime.Now
 			};
 			subscriptionErrorRepository.Save(subscriptionError);
 		}
 
-		private static ConsentInformationCode? GetSubscriptionErrorInformationCode(Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode? code)
-		{
-			switch (code)
-			{
-				case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.AnswerToNewAccountApplication:
-					return ConsentInformationCode.AnswerToNewAccountApplication;
-				case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPayer:
-					return ConsentInformationCode.InitiatedByPayer;
-				case  Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPayersBank:
-					return ConsentInformationCode.InitiatedByPayersBank;
-				case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPaymentRecipient:
-					return ConsentInformationCode.InitiatedByPaymentRecipient;
-				case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.PaymentRecieversBankGiroAccountClosed:
-					return ConsentInformationCode.PaymentRecieversBankGiroAccountClosed;
-			}
-			throw new ArgumentOutOfRangeException("code");
-		}
+		//private static ConsentInformationCode? GetSubscriptionErrorInformationCode(Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode? code)
+		//{
+		//    switch (code)
+		//    {
+		//        case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.AnswerToNewAccountApplication:
+		//            return ConsentInformationCode.AnswerToNewAccountApplication;
+		//        case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPayer:
+		//            return ConsentInformationCode.InitiatedByPayer;
+		//        case  Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPayersBank:
+		//            return ConsentInformationCode.InitiatedByPayersBank;
+		//        case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPaymentRecipient:
+		//            return ConsentInformationCode.InitiatedByPaymentRecipient;
+		//        case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.PaymentRecieversBankGiroAccountClosed:
+		//            return ConsentInformationCode.PaymentRecieversBankGiroAccountClosed;
+		//    }
+		//    throw new ArgumentOutOfRangeException("code");
+		//}
 
 		private static void UpdateSubscription(Subscription subscription, ReceivedConsent consent, bool isAccepted, ISubscriptionRepository subscriptionRepository)
 		{

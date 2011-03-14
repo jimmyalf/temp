@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
@@ -58,7 +58,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
                 CommentCode = ErrorCommentCode.AccountNotYetApproved,
                 NumberOfReoccuringTransactionsLeft = 0,
                 PaymentDate = DateTime.Now.AddDays(-2),
-                PeriodCode = PeriodCode.PaymentOnceOnSelectedDate,
+                PaymentPeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
                 Reference = "Ref.",
                 Transmitter = new Payer
                 {

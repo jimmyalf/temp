@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using AutogiroServiceType=Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.AutogiroServiceType;
 
 namespace Synologen.LensSubscription.BGWebService.App.Services
 {
@@ -17,6 +17,7 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 		private readonly IBGPaymentToSendRepository _bgPaymentToSendRepository;
 		private readonly IBGReceivedPaymentRepository _bgReceivedPaymentRepository;
 		private readonly IBGReceivedErrorRepository _bgReceivedErrorRepository;
+		private readonly IBGReceivedConsentRepository _bgReceivedConsentRepository;
 		private readonly IBGWebServiceDTOParser _bgWebServiceDtoParser;
 
 		public BGWebService(IAutogiroPayerRepository autogiroPayerRepository, 
@@ -24,6 +25,7 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 			IBGPaymentToSendRepository bgPaymentToSendRepository,
 			IBGReceivedPaymentRepository bgReceivedPaymentRepository,
 			IBGReceivedErrorRepository bgReceivedErrorRepository,
+			IBGReceivedConsentRepository bgReceivedConsentRepository,
 			IBGWebServiceDTOParser bgWebServiceDtoParser)
 		{
 			_autogiroPayerRepository = autogiroPayerRepository;
@@ -31,6 +33,7 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 			_bgPaymentToSendRepository = bgPaymentToSendRepository;
 			_bgReceivedPaymentRepository = bgReceivedPaymentRepository;
 			_bgReceivedErrorRepository = bgReceivedErrorRepository;
+			_bgReceivedConsentRepository = bgReceivedConsentRepository;
 			_bgWebServiceDtoParser = bgWebServiceDtoParser;
 		}
 
@@ -40,7 +43,7 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 		}
 		public int RegisterPayer(string name, AutogiroServiceType serviceType)
 		{
-			var payer = _bgWebServiceDtoParser.GetAutogiroPayer(name, serviceType);
+			var payer = new AutogiroPayer { Name = name, ServiceType = serviceType };
 			return _autogiroPayerRepository.Save(payer);
 		}
 
@@ -60,12 +63,17 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 			_bgPaymentToSendRepository.Save(payment);
 		}
 
-		public ReceivedConsent[] GetConsents(AutogiroServiceType serviceType) { throw new NotImplementedException(); }
+		public ReceivedConsent[] GetConsents(AutogiroServiceType serviceType)
+		{
+			var consents = _bgReceivedConsentRepository.FindBy(new AllNewReceivedBGConsentsMatchingServiceTypeCriteria(serviceType));
+			return consents.IsNullOrEmpty() 
+				? new ReceivedConsent[]{ } 
+				: consents.Select(payment => _bgWebServiceDtoParser.ParseConsent(payment)).ToArray();
+		}
 
 		public ReceivedPayment[] GetPayments(AutogiroServiceType serviceType)
 		{
-			var internalServiceType = _bgWebServiceDtoParser.ParseServiceType(serviceType);
-			var payments = _bgReceivedPaymentRepository.FindBy(new AllNewReceivedBGPaymentsMatchingServiceTypeCriteria(internalServiceType));
+			var payments = _bgReceivedPaymentRepository.FindBy(new AllNewReceivedBGPaymentsMatchingServiceTypeCriteria(serviceType));
 			return payments.IsNullOrEmpty() 
 				? new ReceivedPayment[]{ } 
 				: payments.Select(payment => _bgWebServiceDtoParser.ParsePayment(payment)).ToArray();
@@ -73,8 +81,7 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 
 		public RecievedError[] GetErrors(AutogiroServiceType serviceType)
 		{
-			var internalServiceType = _bgWebServiceDtoParser.ParseServiceType(serviceType);
-			var errors = _bgReceivedErrorRepository.FindBy(new AllNewReceivedBGErrorsMatchingServiceTypeCriteria(internalServiceType));
+			var errors = _bgReceivedErrorRepository.FindBy(new AllNewReceivedBGErrorsMatchingServiceTypeCriteria(serviceType));
 			return errors.IsNullOrEmpty()
 				? new RecievedError[] { }
 				: errors.Select(error => _bgWebServiceDtoParser.ParseError(error)).ToArray();

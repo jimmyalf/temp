@@ -3,6 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer;
 using Synologen.LensSubscription.BGData.Repositories;

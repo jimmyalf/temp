@@ -1,5 +1,5 @@
 using Spinit.Data;
-using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.BGServer
 {

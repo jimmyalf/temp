@@ -21,7 +21,7 @@ namespace Synologen.LensSubscription.BGData.Repositories
 		{
 			return _session
 				.CreateCriteriaOf<BGFtpPassword>()
-				.Sort(x => x.Created, false)
+				.Sort(x => x.Id, false)
 				.SetMaxResults(1)
 				.UniqueResult<BGFtpPassword>();
 		}

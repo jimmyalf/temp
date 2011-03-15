@@ -82,6 +82,7 @@
     <Compile Include="App\Logging\Log4NetLogger.cs" />
     <Compile Include="App\Logging\LogFactory.cs" />
     <Compile Include="App\Services\BGFtpChangePassword.cs" />
+    <Compile Include="App\Services\BGFtpPasswordService.cs" />
     <Compile Include="App\Services\BGServiceCoordinatorSettingsService.cs" />
     <Compile Include="App\Services\BGFtpIOService.cs" />
     <Compile Include="App\Services\BGFtpService.cs" />

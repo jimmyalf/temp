@@ -5,7 +5,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
-	public class ChangeRemoteFTPPasswordTaskTestBase : CommonTaskTestBase
+	public abstract class ChangeRemoteFTPPasswordTaskTestBase : CommonTaskTestBase
 	{
 		protected IFtpCommandService FtpCommandService;
 		protected IBGFtpChangePasswordService BGFtpChangePasswordService;

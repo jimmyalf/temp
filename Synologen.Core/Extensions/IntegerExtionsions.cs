@@ -11,7 +11,12 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 
 		public static char GetChar(this int value)
 		{
-			var list = "ABCDEFGHIJKLMNOPQRSTUVXYZÅÄÖ".ToCharArray();
+			return GetChar(value, "ABCDEFGHIJKLMNOPQRSTUVXYZÅÄÖ");
+		}
+
+		public static char GetChar(this int value, string listOfAvailableChars)
+		{
+			var list = listOfAvailableChars.ToCharArray();
 			return list[value % (list.Length - 1)];
 		}
 

@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="AutogiroPayerRepositoryTester.cs" />
     <Compile Include="BaseTesters\BaseRepositoryTester.cs" />
+    <Compile Include="BGFtpPasswordRepositoryTester.cs" />
     <Compile Include="BGReceivedConsentRepositoryTester.cs" />
     <Compile Include="BGReceivedErrorRepositoryTester.cs" />
     <Compile Include="BGReceivedPaymentRepositoryTester.cs" />

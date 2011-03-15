@@ -5,6 +5,7 @@ using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using StructureMap.Configuration.DSL;
 using Synologen.LensSubscription.Autogiro.Readers;
@@ -42,18 +43,16 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 
 			For<ITaskRepositoryResolver>().Use<TaskRepositoryResolver>();
 
-
-			//Send Repositories
+			//Repositories
 			For<IBGPaymentToSendRepository>().Use<BGPaymentToSendRepository>();
 			For<IBGConsentToSendRepository>().Use<BGConsentToSendRepository>();
 			For<IFileSectionToSendRepository>().Use<FileSectionToSendRepository>();
-
-			//Recieve Repositories
 			For<IBGReceivedPaymentRepository>().Use<BGReceivedPaymentRepository>();
 			For<IBGReceivedConsentRepository>().Use<BGReceivedConsentRepository>();
 			For<IBGReceivedErrorRepository>().Use<BGReceivedErrorRepository>();
 			For<IReceivedFileRepository>().Use<ReceivedFileRepository>();
 			For<IAutogiroPayerRepository>().Use<AutogiroPayerRepository>();
+			For<IBGFtpPasswordRepository>().Use<BGFtpPasswordRepository>();
 
 			//Autogiro reader/writers/services
 			For<IAutogiroFileWriter<Send.PaymentsFile, Send.Payment>>().Use<PaymentsFileWriter>();
@@ -69,11 +68,12 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 			For<IFileIOService>().Use<BGFileIOService>();
             For<IFileReaderService>().Use<BGReceivedFileReaderService>().Ctor<BGFtpServiceType>().Is(BGFtpServiceType.Autogiro_Test);
             For<IFileSplitter>().Use<ReceivedFileSplitter>();
+			For<IFtpCommandService>().Use<FtpCommandService>();
+			For<IBGFtpPasswordService>().Use<BGFtpPasswordService>();
+			For<IBGFtpChangePasswordService>().Use<BGFtpChangePasswordService>();
 
 			//Settings
 			For<IBGServiceCoordinatorSettingsService>().Use<BGServiceCoordinatorSettingsService>();
-
-			For<IFtpCommandService>().Use<FtpCommandService>();
 
 			// Register criteria converters
 			Scan(x =>

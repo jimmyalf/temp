@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Domain.EventArgs;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 
@@ -12,6 +13,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 		protected const string NegativeResponse = "command failed";
 		protected string UserCommandFormat = "USER {0}";
 		protected string ChangePasswordCommandFormat = "PASS {0}/{1}/{1}";
+		protected string ExitCommand = "QUIT";
 
 		public BGFtpChangePasswordService(IFtpCommandService ftpCommandService, 
 			IBGServiceCoordinatorSettingsService bgServiceCoordinatorSettingsService,
@@ -34,6 +36,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 			{
 				throw new FtpChangePasswordException(passwordResponse);
 			}
+			_ftpCommandService.ExecuteNoReply(ExitCommand);
+			_ftpCommandService.Close();
 		}
 
 		protected virtual bool ValidatePasswordResponse(string response)

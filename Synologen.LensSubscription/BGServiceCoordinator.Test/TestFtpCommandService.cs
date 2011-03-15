@@ -8,7 +8,6 @@ namespace Synologen.LensSubscription.BGService.Test
 	public class TestFtpCommandService
 	{
 		protected FtpCommandService _ftpCommandService;
-
 		public TestFtpCommandService()
 		{
 			_ftpCommandService = new FtpCommandService();
@@ -25,10 +24,19 @@ namespace Synologen.LensSubscription.BGService.Test
 		[Test]
 		public void Test_login()
 		{
-			_ftpCommandService.Execute("USER {0}", @"HOTEL\dev-ftp");
-			_ftpCommandService.Execute("PASS {0}", "zdUFQRq");
+			_ftpCommandService.Execute(@"USER HOTEL\dev-ftp");
+			_ftpCommandService.Execute("PASS zdUFQRq");
 			_ftpCommandService.Execute("STAT");
-			_ftpCommandService.Execute("HELP");
+			_ftpCommandService.ExecuteNoReply("QUIT");
+		}
+
+		[Test]
+		public void Test_login2()
+		{
+			_ftpCommandService.Execute(@"USER HOTEL\dev-ftp");
+			_ftpCommandService.Execute("PASS zdUFQRq");
+			_ftpCommandService.Execute("STAT");
+			_ftpCommandService.ExecuteNoReply("QUIT");
 		}
 
 		[TearDown]

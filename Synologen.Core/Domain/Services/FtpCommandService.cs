@@ -4,12 +4,15 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using Spinit.Wpc.Synologen.Core.Domain.EventArgs;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services
 {
 	public class FtpCommandService : IFtpCommandService
 	{
 		private Socket _socket;
+		private bool _isDisposed;
 		private const int ReadBufferBlockSize = 512;
 		private const string EndOfFile = "\r\n";
 		private const int DefaultFtpPort = 21;
@@ -18,12 +21,14 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 
 		public virtual void Open(string domainName)
 		{
+			_isDisposed = false;
 			var ipAddress = ResolveDnsAddress(domainName);
 			Open(ipAddress);
 		}
 
 		public virtual void Open(IPAddress ipAddress)
 		{
+			_isDisposed = false;
 			var serverIP = new IPEndPoint(ipAddress, DefaultFtpPort);
 			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			_socket.Connect(serverIP);
@@ -31,23 +36,28 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 
 		public virtual string Execute(string command)
 		{
-			return Execute(command, new object[]{ });
+			return Execute(command, true);
 		}
 
-		public virtual string Execute(string format, params object[] parameters)
+		public void ExecuteNoReply(string command) 
+		{ 
+			Execute(command, false);
+		}
+
+		protected virtual string Execute(string command, bool readReply)
 		{
-			var command = string.Format(format, parameters);
 			var bytesSent = Encoding.ASCII.GetBytes(command.TrimEnd(EndOfFile.ToCharArray()) + EndOfFile);
 			_socket.Send(bytesSent, bytesSent.Length, SocketFlags.None);
 			if(OnCommandSent != null)
 			{
 				OnCommandSent(this, new OnCommandSentEventArgs(command));	
 			}
-			return ReadReply();
+			return readReply ? ReadReply() : String.Empty;
 		}
 
 		private string ReadReply()
 		{
+			Thread.Sleep(300);
 			var buffer = new Byte[ReadBufferBlockSize];
 			var message = string.Empty;
 			while (true)
@@ -81,24 +91,13 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 
 		public virtual void Close()
 		{
-			Dispose();
+			if(!_isDisposed) Dispose();
 		}
 
 		public virtual void Dispose() 
 		{
 			_socket.Disconnect(false);
+			_isDisposed = true;
 		}
-	}
-
-	public class OnResponseReceivedEventArgs : EventArgs
-	{
-		public OnResponseReceivedEventArgs(string response) { Response = response; }
-		public string Response { get; private set; }
-	}
-
-	public class OnCommandSentEventArgs : EventArgs
-	{
-		public OnCommandSentEventArgs(string command) { Command = command; }
-		public string Command { get; private set; }
 	}
 }

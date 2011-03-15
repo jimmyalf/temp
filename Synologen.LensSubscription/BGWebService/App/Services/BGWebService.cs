@@ -89,10 +89,10 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 
 		public void SetConsentHandled(ReceivedConsent consentToUpdate)
 		{
-		    var consent = _bgReceivedConsentRepository.Get(consentToUpdate.ConsentId);
-            if (consent == null) throw new ArgumentException(string.Format("Consent with id {0} could not be found", consentToUpdate.ConsentId));
-            consent.SetHandled();
-            _bgReceivedConsentRepository.Save(consent);
+			var consent = _bgReceivedConsentRepository.Get(consentToUpdate.ConsentId);
+			if (consent == null) throw new ArgumentException(string.Format("Consent with id {0} could not be found", consentToUpdate.ConsentId), "consentToUpdate");
+			consent.SetHandled();
+			_bgReceivedConsentRepository.Save(consent);
 		}
 
 		public void SetPaymentHandled(ReceivedPayment paymentToUpdate)

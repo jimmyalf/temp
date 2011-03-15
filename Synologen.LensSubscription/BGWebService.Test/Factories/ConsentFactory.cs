@@ -21,19 +21,24 @@ namespace Synologen.LensSubscription.BGWebService.Test.Factories
 			}; 
 		}
 
-        public static ReceivedConsent Get()
-        {
-            return new ReceivedConsent
-            {
-                ActionDate = new DateTime(2011, 03, 10),
-                CommentCode = ConsentCommentCode.NewConsent,
-                ConsentId = 45,
-                ConsentValidForDate = new DateTime(2011, 03, 11),
-                InformationCode = ConsentInformationCode.InitiatedByPayersBank,
-                PayerNumber = 88
-            };
-        }
-       
+		public static ReceivedConsent GetReceivedConsent()
+		{
+			return new ReceivedConsent
+			{
+				ActionDate = new DateTime(2011, 03, 07),
+				CommentCode = ConsentCommentCode.Canceled,
+				ConsentId = 5,
+				ConsentValidForDate = new DateTime(2011, 02, 02),
+				InformationCode = ConsentInformationCode.InitiatedByPayersBank,
+				PayerNumber = 56
+			};
+		}
+
+		public static BGReceivedConsent GetReceivedConsent(AutogiroPayer payer)
+		{
+			return GetReceivedConsent(0, payer);
+		}
+
 		public static BGReceivedConsent GetReceivedConsent(int seed, AutogiroPayer payer)
 		{
 			var returnConsent = new BGReceivedConsent

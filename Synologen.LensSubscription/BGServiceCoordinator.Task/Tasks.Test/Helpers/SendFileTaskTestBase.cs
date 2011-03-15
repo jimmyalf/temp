@@ -18,10 +18,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 			TamperProtectedFileWriter = A.Fake<ITamperProtectedFileWriter>();
 			FtpService = A.Fake<IFtpService>();
 			FileWriterService = A.Fake<IFileWriterService>();
+			TaskRepositoryResolver.AddRepository(FtpService);
 		}
 		protected override ITask GetTask()
 		{
-			return new SendFile.Task(Log4NetLogger, TamperProtectedFileWriter, FtpService, FileWriterService);
+			return new SendFile.Task(Log4NetLogger, TamperProtectedFileWriter, FileWriterService);
 		}
 	}
 }

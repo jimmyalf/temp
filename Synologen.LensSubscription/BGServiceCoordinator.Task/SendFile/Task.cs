@@ -13,14 +13,12 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 	public class Task : TaskBase
 	{
 		private readonly ITamperProtectedFileWriter _tamperProtectedFileWriter;
-		private readonly IFtpService _ftpService;
 		private readonly IFileWriterService _fileWriterService;
 
-		public Task(ILoggingService loggingService, ITamperProtectedFileWriter tamperProtectedFileWriter, IFtpService ftpService, IFileWriterService fileWriterService) 
+		public Task(ILoggingService loggingService, ITamperProtectedFileWriter tamperProtectedFileWriter, IFileWriterService fileWriterService) 
 			: base("SendFile", loggingService, BGTaskSequenceOrder.SendFiles)
 		{
 			_tamperProtectedFileWriter = tamperProtectedFileWriter;
-			_ftpService = ftpService;
 			_fileWriterService = fileWriterService;
 		}
 
@@ -29,6 +27,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 			RunLoggedTask(() =>
 			{
 				var fileSectionToSendRepository = context.Resolve<IFileSectionToSendRepository>();
+				var ftpService = context.Resolve<IFtpService>();
 				var fileSectionsToSend = fileSectionToSendRepository.FindBy(new AllUnhandledFileSectionsToSendCriteria());
 				if(fileSectionsToSend == null || fileSectionsToSend.Count() == 0)
 				{
@@ -38,7 +37,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 				LogDebug("Found {0} new file sections to send",fileSectionsToSend.Count());
 				var fileData = ConcatenateFileSections(fileSectionsToSend);
 				var sealedFileData  = _tamperProtectedFileWriter.Write(fileData);
-				var ftpSendResult = _ftpService.SendFile(sealedFileData);
+				var ftpSendResult = ftpService.SendFile(sealedFileData);
 				LogInfo("Sent file to remote FTP successfully");
 				UpdateFileSectionsAsSent(fileSectionsToSend, fileSectionToSendRepository);
 				try

@@ -92,5 +92,14 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		{
 			return input.RegexReplace(pattern, String.Empty);
 		}
+
+		public static bool ContainsAny(this string value, params string[] comparisonValues)
+		{
+			foreach (var comparisonValue in comparisonValues)
+			{
+				if(value.Contains(comparisonValue)) return true;
+			}
+			return false;
+		}
 	}
 }

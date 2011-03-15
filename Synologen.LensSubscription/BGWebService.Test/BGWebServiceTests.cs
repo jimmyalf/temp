@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
@@ -522,4 +523,63 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		}
 
 	}
+
+    [TestFixture, Category("BGWebServiceTests")]
+    public class When_updating_received_consent_as_handled : BGWebServiceTestBase
+    {
+        private AutogiroPayer payer;
+        private ReceivedConsent consent;
+        private BGReceivedConsent internalConsent;
+
+        public When_updating_received_consent_as_handled()
+        {
+            Context = () =>
+            {
+                consent = ConsentFactory.Get();
+                internalConsent = ConsentFactory.GetReceivedConsent(1, payer);
+                A.CallTo(() => BGReceivedConsentRepository.Get(consent.ConsentId)).Returns(internalConsent);       
+
+            };
+            Because = service => service.SetConsentHandled(consent);
+        }
+
+        [Test]
+        private void Consent_is_fetched_from_repository()
+        {
+            A.CallTo(() => BGReceivedConsentRepository.Get(consent.ConsentId)).MustHaveHappened();
+        }
+
+        [Test]
+        private void Consent_is_updated_and_saved()
+        {
+            A.CallTo(() => BGReceivedConsentRepository.Save(
+                A<BGReceivedConsent>.That.Matches(x => x.Handled.Equals(true)))).MustHaveHappened();
+        }
+    }
+
+    [TestFixture, Category("BGWebServiceTests")]
+    public class When_updating_received_consent_as_handled_for_non_existing_consent : BGWebServiceTestBase
+    {
+        private ReceivedConsent consent;
+        private Exception caughtException;
+
+        public When_updating_received_consent_as_handled_for_non_existing_consent()
+        {
+            Context = () =>
+            {
+                A.CallTo(() => BGReceivedConsentRepository.Get(consent.ConsentId)).Returns((BGReceivedConsent) null);
+            };
+            Because = service =>
+            {
+                caughtException = CatchException(() => service.SetConsentHandled(consent)); 
+            };
+        }
+
+        [Test]
+        private void Exception_is_thrown()
+        {
+            caughtException.ShouldNotBe(null);
+            caughtException.ShouldBeTypeOf(typeof(ArgumentException));
+        }
+    }
 }

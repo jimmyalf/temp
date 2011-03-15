@@ -46,7 +46,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 
 		public virtual void LogError(string message, Exception ex)
 		{
-			_loggingService.LogError("{0}: {1}", TaskName, message, ex);
+			_loggingService.LogError(string.Format("{0}: {1}", TaskName, message), ex);
 		}
 
 		public virtual void LogInfo(string message)

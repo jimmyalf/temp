@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Spinit.Extensions;
-using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
@@ -37,8 +36,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.GetFile
 
                 fileNames.Each(name =>
                 {
-                    try
-                    {
+					//try
+					//{
                         var file = FileReaderService.ReadFileFromDisk(name);
                         var fileSections = FileReaderService.GetSections(file);
 
@@ -48,20 +47,21 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.GetFile
                             var receivedFileSection = ToReceivedFileSection(section);
                             receivedFileRepository.Save(receivedFileSection);
                         });
-                        try
-                        {
+						//try
+						//{
                             FileReaderService.MoveFile(name);
-                        }
-                        catch (Exception ex)
-                        {
-                            LogError("Error when moving read file to backup folder", ex);
-                        }
+						//}
+						//catch (Exception ex)
+						//{
+						//    LogError("Error when moving read file to backup folder", ex);
+						//}
                         LogDebug("Saved {0} sections from file {1}", fileSections.Count(), name);
-                    }
-                    catch (AutogiroFileSplitException ex)
-                    {
-                        LogError(string.Format("Exception when parsing and splitting file {0}", name), ex); 
-                    }
+					//}
+					//catch (AutogiroFileSplitException ex)
+					//{
+						
+					//    LogError(string.Format("Exception when parsing and splitting file {0}", name), ex); 
+					//}
                 });
             });
         }

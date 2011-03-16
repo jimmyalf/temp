@@ -20,11 +20,11 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 					AccountNumber = consentToSend.BankAccountNumber,
 					ClearingNumber = consentToSend.ClearingNumber
 				},
-				OrgNumber = "MISSING", //FIX: Add explicit implementation
+                OrgNumber = consentToSend.OrgNumber, 
 				Payer = payer,
 				PersonalIdNumber = consentToSend.PersonalIdNumber,
 				SendDate = null,
-				Type = ConsentType.New //FIX: Add explicit implementation
+                Type = consentToSend.Type 
 			};
 		}
 
@@ -47,8 +47,8 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 			{
 				Amount = payment.Amount,
 				Payer = payer,
-				PaymentDate = DateTime.MinValue, //FIX: Add explicit implementation
-				PaymentPeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate, //FIX: Add explicit implementation
+                PaymentDate = payment.PaymentDate, 
+				PaymentPeriodCode = payment.PeriodCode, 
 				Reference = payment.Reference,
 				SendDate = null,
 				Type = payment.Type

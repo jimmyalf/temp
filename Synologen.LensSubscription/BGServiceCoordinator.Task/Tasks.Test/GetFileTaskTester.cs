@@ -168,7 +168,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_logs_error()
         {
-            A.CallTo(() => Log.Error(A<string>.That.Contains("Error when moving read file to backup folder"))).MustHaveHappened();
+            A.CallTo(() => Log.Error(A<string>.That.Contains("Error when moving read file to backup folder"), A<Exception>.Ignored)).MustHaveHappened();
         }
     }
 
@@ -192,7 +192,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_logs_error()
         {
-            A.CallTo(() => Log.Error(A<string>.That.Contains(string.Format("Exception when parsing and splitting file {0}", fileNames.ElementAt(0))))).MustHaveHappened();
+            A.CallTo(() => Log.Error(A<string>.That.Contains(string.Format("Exception when parsing and splitting file {0}", fileNames.ElementAt(0))), A<Exception>.Ignored)).MustHaveHappened();
         }
     }
 }

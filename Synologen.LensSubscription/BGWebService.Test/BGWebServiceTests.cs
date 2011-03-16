@@ -114,13 +114,48 @@ namespace Synologen.LensSubscription.BGWebService.Test
 				.That.Matches(x => x.Account.AccountNumber.Equals(consentToSend.BankAccountNumber))
 				.And.Matches(x => x.Account.ClearingNumber.Equals(consentToSend.ClearingNumber))
 				.And.Matches(x => x.Payer.Id.Equals(payer.Id))
-				.And.Matches(x => x.OrgNumber.Equals("MISSING")) //FIX: Add add check when implemented
+				.And.Matches(x => Equals(x.OrgNumber, null)) 
 				.And.Matches(x => x.PersonalIdNumber.Equals(consentToSend.PersonalIdNumber))
 				.And.Matches(x => Equals(x.SendDate, null))
-				.And.Matches(x => x.Type.Equals(ConsentType.New)) //FIX: Add add check when implemented
+				.And.Matches(x => x.Type.Equals(ConsentType.New)) 
 			)).MustHaveHappened();
 		}
 	}
+
+
+    [TestFixture, Category("BGWebServiceTests")]
+    public class When_sending_a_new_consent_with_orgnr : BGWebServiceTestBase
+    {
+        private ConsentToSend consentToSend;
+        private AutogiroPayer payer;
+
+        public When_sending_a_new_consent_with_orgnr()
+        {
+            Context = () =>
+            {
+                payer = PayerFactory.Get();
+                consentToSend = ConsentFactory.GetConsentWithOrgNrToSend(payer.Id);
+                A.CallTo(() => AutogiroPayerRepository.Get(payer.Id)).Returns(payer);
+            };
+
+            Because = service => service.SendConsent(consentToSend);
+        }
+
+        [Test]
+        public void Webservice_stores_consent()
+        {
+            A.CallTo(() => BGConsentToSendRepository.Save(
+                A<BGConsentToSend>
+                .That.Matches(x => x.Account.AccountNumber.Equals(consentToSend.BankAccountNumber))
+                .And.Matches(x => x.Account.ClearingNumber.Equals(consentToSend.ClearingNumber))
+                .And.Matches(x => x.Payer.Id.Equals(payer.Id))
+                .And.Matches(x => x.OrgNumber.Equals(consentToSend.OrgNumber)) 
+                .And.Matches(x => Equals(x.PersonalIdNumber, null))
+                .And.Matches(x => Equals(x.SendDate, null))
+                .And.Matches(x => x.Type.Equals(ConsentType.New)) 
+            )).MustHaveHappened();
+        }
+    }
 
 	[TestFixture, Category("BGWebServiceTests")]
 	public class When_sending_a_new_consent_with_a_payernumber_not_found : BGWebServiceTestBase
@@ -193,8 +228,8 @@ namespace Synologen.LensSubscription.BGWebService.Test
 				.That.Matches(x => x.Amount.Equals(payment.Amount))
 				.And.Matches(x => x.HasBeenSent.Equals(false))
 				.And.Matches(x => x.Payer.Id.Equals(payer.Id))
-				//.And.Matches(x => x.PaymentDate.Equals(payment.?)) //FIX: PaymentDate is Missing
-				//.And.Matches(x => x.PeriodCode.Equals(payment.?)) //FIX: PeriodCode is Missing
+				.And.Matches(x => x.PaymentDate.Equals(payment.PaymentDate)) 
+				.And.Matches(x => x.PaymentPeriodCode.Equals(payment.PeriodCode)) 
 				.And.Matches(x => x.Reference.Equals(payment.Reference))
 				.And.Matches(x => Equals(x.SendDate, null))
 				.And.Matches(x => x.Type.Equals(paymentType))

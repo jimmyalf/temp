@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -18,6 +19,7 @@ namespace Synologen.LensSubscription.BGWebService.Test.Factories
 				ClearingNumber = "9876",
 				PayerNumber = payerNumber,
 				PersonalIdNumber = "198512243364",
+                Type = ConsentType.New
 			}; 
 		}
 
@@ -59,5 +61,17 @@ namespace Synologen.LensSubscription.BGWebService.Test.Factories
 			Func<int, BGReceivedConsent> getItem = seed => GetReceivedConsent(seed, payer);
 			return getItem.GenerateRange(1, 24);
 		}
+
+        public static ConsentToSend GetConsentWithOrgNrToSend(int payerNumber)
+	    {
+	        return new ConsentToSend
+			{
+				BankAccountNumber = "132456",
+				ClearingNumber = "9876",
+				PayerNumber = payerNumber,
+				OrgNumber = "198512243364",
+                Type = ConsentType.New
+			}; 
+	    }
 	}
 }

@@ -52,7 +52,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 				Amount = subscription.PaymentInfo.MonthlyAmount,
 				Reference = subscription.Customer.PersonalIdNumber,
 				Type = PaymentType.Debit,
-				PayerNumber = subscription.BankgiroPayerNumber.Value
+				PayerNumber = subscription.BankgiroPayerNumber.Value,
+                //Todo PaymentDate = ?,
+                PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate
 			};
 			return payment;
 		}

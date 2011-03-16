@@ -1,6 +1,7 @@
 using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
@@ -60,7 +61,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 				BankAccountNumber = subscription.PaymentInfo.AccountNumber,
 				ClearingNumber = subscription.PaymentInfo.ClearingNumber,
 				PersonalIdNumber = subscription.Customer.PersonalIdNumber,
-				PayerNumber = subscription.BankgiroPayerNumber.Value
+				PayerNumber = subscription.BankgiroPayerNumber.Value,
+                Type = ConsentType.New
 			};
 		}
 	}

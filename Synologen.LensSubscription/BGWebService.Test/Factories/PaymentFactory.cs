@@ -18,7 +18,9 @@ namespace Synologen.LensSubscription.BGWebService.Test.Factories
 				Amount = 566.23M,
 				PayerNumber = payerNumber,
 				Reference = "Spinit Ögonbutik",
-				Type = type
+				Type = type,
+                PaymentDate = new DateTime(2011, 03, 27),
+                PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate
 			};
 		}
 

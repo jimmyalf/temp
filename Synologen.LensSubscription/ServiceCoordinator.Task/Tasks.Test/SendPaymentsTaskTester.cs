@@ -58,7 +58,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
                  sentPayment.Amount.Equals(subscription.PaymentInfo.MonthlyAmount) &&
                  sentPayment.PayerNumber.Equals(subscription.BankgiroPayerNumber) &&
                  sentPayment.Reference.Equals(subscription.Customer.PersonalIdNumber) &&
-                 sentPayment.Type.Equals(PaymentType.Debit)
+                 sentPayment.Type.Equals(PaymentType.Debit) &&
+                 sentPayment.PeriodCode.Equals(PaymentPeriodCode.PaymentOnceOnSelectedDate)
         	))));
 }
 

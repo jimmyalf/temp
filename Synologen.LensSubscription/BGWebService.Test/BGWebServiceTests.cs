@@ -312,12 +312,16 @@ namespace Synologen.LensSubscription.BGWebService.Test
 			payments.ForBoth(returnedPayments, (payment, returnedPayment) =>
 			{
 				payment.Amount.ShouldBe(returnedPayment.Amount);
-				//payment.CreatedDate.ShouldBe(returnedPayment.?); //FIX: Add impl.
+				payment.CreatedDate.ShouldBe(returnedPayment.CreatedDate); 
 				payment.Payer.Id.ShouldBe(returnedPayment.PayerNumber);
 				payment.Id.ShouldBe(returnedPayment.PaymentId);
-				//payment.PaymentDate.ShouldBe(returnedPayment.?); //FIX: Add impl.
-				//payment.Reference.ShouldBe(returnedPayment.?); //FIX: Add impl.
+				payment.PaymentDate.ShouldBe(returnedPayment.PaymentDate); 
+				payment.Reference.ShouldBe(returnedPayment.Reference); 
 				payment.ResultType.ShouldBe(returnedPayment.Result);
+                payment.Reciever.ShouldBe(returnedPayment.Receiver);
+                payment.Type.ShouldBe(returnedPayment.Type);
+                payment.PeriodCode.ShouldBe(returnedPayment.PeriodCode);
+                payment.NumberOfReoccuringTransactionsLeft.ShouldBe(returnedPayment.NumberOfReoccuringTransactionsLeft);
 			});
 		}
 	}
@@ -346,7 +350,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		}
 
 		[Test]
-		public void Webservice_fetches_new_payments()
+		public void Webservice_fetches_new_consents()
 		{
 			A.CallTo(() => BGReceivedConsentRepository.FindBy(
 				A<AllNewReceivedBGConsentsMatchingServiceTypeCriteria>.
@@ -356,13 +360,13 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		}
 
 		[Test]
-		public void Webservice_parses_payments()
+        public void Webservice_parses_consents()
 		{
 			consents.Each(consent => A.CallTo(() => BGWebServiceDTOParser.ParseConsent(consent)).MustHaveHappened());
 		}
 
 		[Test]
-		public void Webservice_returns_parsed_payments()
+        public void Webservice_returns_parsed_consents()
 		{
 			consents.ForBoth(returnedConsents, (consent, returnedConsent) =>
 			{
@@ -400,7 +404,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		}
 
 		[Test]
-		public void Webservice_fetches_new_payments()
+		public void Webservice_fetches_new_errors()
 		{
 			A.CallTo(() => BGReceivedErrorRepository.FindBy(
 				A<AllNewReceivedBGErrorsMatchingServiceTypeCriteria>
@@ -410,13 +414,13 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		}
 
 		[Test]
-		public void Webservice_parses_payments()
+		public void Webservice_parses_errors()
 		{
 			errors.Each(error => A.CallTo(() => BGWebServiceDTOParser.ParseError(error)).MustHaveHappened());
 		}
 
 		[Test]
-		public void Webservice_returns_parsed_payments()
+		public void Webservice_returns_parsed_errors()
 		{
 			errors.ForBoth(returnedErrors, (error,returnedError) =>
 			{
@@ -580,13 +584,13 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		}
 
 		[Test]
-		public void Payment_is_fetched_from_repository()
+		public void Consent_is_fetched_from_repository()
 		{
 			A.CallTo(() => BGReceivedConsentRepository.Get(consent.ConsentId)).MustHaveHappened();
 		}
 
 		[Test]
-		public void Payment_is_updated_and_saved()
+		public void Consent_is_updated_and_saved()
 		{
 			A.CallTo(() => BGReceivedConsentRepository.Save(
 			    A<BGReceivedConsent>.That.Matches(x => x.Handled.Equals(true))
@@ -595,12 +599,12 @@ namespace Synologen.LensSubscription.BGWebService.Test
 	}
 
 	[TestFixture, Category("BGWebServiceTests")]
-	public class When_updating_received_consent_as_handled_for_non_existing_payment : BGWebServiceTestBase
+	public class When_updating_received_consent_as_handled_for_non_existing_consent : BGWebServiceTestBase
 	{
 		private Exception caughtException;
 		private ReceivedConsent consent;
 
-		public When_updating_received_consent_as_handled_for_non_existing_payment()
+		public When_updating_received_consent_as_handled_for_non_existing_consent()
 		{
 			Context = () =>
 			{

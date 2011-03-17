@@ -42,8 +42,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
                     {
                     	var payerId = payment.Transmitter.CustomerNumber.ToInt();
                     	var payer = autogiroPayerRepository.Get(payerId);
-                        var receivedConsent = ToBGPayment(payment, payer);
-                        bgReceivedPaymentRepository.Save(receivedConsent);
+                        var receivedPayment = ToBGPayment(payment, payer);
+                        bgReceivedPaymentRepository.Save(receivedPayment);
                     });
                     paymentFileSection.HandledDate = DateTime.Now;
                     receivedFileSectionRepository.Save(paymentFileSection);
@@ -61,7 +61,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
                 PaymentDate = payment.PaymentDate,
                 Reference = payment.Reference,
                 ResultType = payment.Result,
-                CreatedDate = DateTime.Now
+                NumberOfReoccuringTransactionsLeft = payment.NumberOfReoccuringTransactionsLeft,
+                PeriodCode = payment.PaymentPeriodCode,
+                Type = payment.Type,
+                Reciever = payment.Reciever,
+                CreatedDate = DateTime.Now,
             };
         }
     }

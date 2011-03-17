@@ -45,6 +45,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 					  Equals(error.HandledDate, null) &&
 					  Equals(error.IsHandled, false) &&
 					  Equals(error.Subscription.Id, expectedSubscription.Id) &&
+					  Equals(error.BGErrorId, recievedError.ErrorId) &&
 					  ExpectedErrorTypeConversionMatches(error.Type, recievedError.CommentCode)
 			))));
 		}

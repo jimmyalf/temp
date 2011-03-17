@@ -18,7 +18,10 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 					CreatedDate = new DateTime(2010, 11, 1),
 					HandledDate = new DateTime(2010, 11, 2),
 					IsHandled = true,
-					Subscription = subscription
+					Subscription = subscription,
+					BGConsentId = 5,
+					BGErrorId = 6,
+					BGPaymentId = 7
 				},
 				new SubscriptionError
 				{
@@ -26,7 +29,10 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 					Code = ConsentInformationCode.InitiatedByPayer,
 					CreatedDate = new DateTime(2010, 11, 2),
 					IsHandled = false,
-					Subscription = subscription
+					Subscription = subscription,
+					BGConsentId = 5,
+					BGErrorId = 6,
+					BGPaymentId = 7
 				},
 				new SubscriptionError
 				{
@@ -35,7 +41,10 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 					CreatedDate = new DateTime(2010, 11, 3),
 					HandledDate = new DateTime(2010, 11, 3),
 					IsHandled = true,
-					Subscription = subscription
+					Subscription = subscription,
+					BGConsentId = 5,
+					BGErrorId = 6,
+					BGPaymentId = 7
 				},
 				new SubscriptionError
 				{
@@ -43,7 +52,10 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 					Code = ConsentInformationCode.InitiatedByPaymentRecipient,
 					CreatedDate = new DateTime(2010, 11, 4),
 					IsHandled = false,
-					Subscription = subscription
+					Subscription = subscription,
+					BGConsentId = 5,
+					BGErrorId = 6,
+					BGPaymentId = 7
 				},
 				new SubscriptionError
 				{
@@ -52,7 +64,10 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 					CreatedDate = new DateTime(2010, 11, 5),
 					HandledDate = new DateTime(2010, 11, 5),
 					IsHandled = true, 
-					Subscription = subscription
+					Subscription = subscription,
+					BGConsentId = 5,
+					BGErrorId = 6,
+					BGPaymentId = 7
 				},
 				new SubscriptionError
 				{
@@ -60,7 +75,10 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 					Code = ConsentInformationCode.AnswerToNewAccountApplication,
 					CreatedDate = new DateTime(2010, 11, 6),
 					IsHandled = false,
-					Subscription = subscription
+					Subscription = subscription,
+					BGConsentId = null,
+					BGErrorId = null,
+					BGPaymentId = null
 				}
 			};
 		}
@@ -74,7 +92,10 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 				CreatedDate = new DateTime(2010, 10, 10),
 				HandledDate = new DateTime(2010, 11, 10),
 				IsHandled = false,
-				Subscription = subscription
+				Subscription = subscription,
+                BGConsentId = 5,
+                BGErrorId = 6,
+                BGPaymentId = 7
 			};
 		}
 
@@ -85,6 +106,9 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 			subscriptionError.IsHandled = !subscriptionError.IsHandled;
 			subscriptionError.Type = subscriptionError.Type.Next();
 			subscriptionError.Code = subscriptionError.Code.Next();
+			subscriptionError.BGConsentId = null;
+			subscriptionError.BGErrorId = null;
+			subscriptionError.BGPaymentId = null;
 			return subscriptionError;
 		}
 

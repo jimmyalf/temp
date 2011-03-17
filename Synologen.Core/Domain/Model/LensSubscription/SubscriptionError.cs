@@ -11,6 +11,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		public virtual DateTime CreatedDate { get; set; }
 		public virtual DateTime? HandledDate { get; set; }
 		public virtual bool IsHandled { get; set; }
-		public int? BGErrorId { get; set; }
+		public virtual int? BGErrorId { get; set; }
+		public virtual int? BGPaymentId { get; set; }
+		public virtual int? BGConsentId { get; set; }
 	}
 }

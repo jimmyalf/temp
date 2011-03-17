@@ -40,7 +40,6 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 			AssertUsing(session =>
 			{
 				var savedError = new SubscriptionErrorRepository(session).Get(_errorToSave.Id);
-				
 				savedError.ShouldBe(_errorToSave);
 				savedError.Type.ShouldBe(_errorToSave.Type);
 				savedError.Code.ShouldBe(_errorToSave.Code);
@@ -48,6 +47,9 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 				savedError.HandledDate.ShouldBe(_errorToSave.HandledDate);
 				savedError.IsHandled.ShouldBe(_errorToSave.IsHandled);
 				savedError.Subscription.ShouldBe(_errorToSave.Subscription);
+				savedError.BGConsentId.ShouldBe(_errorToSave.BGConsentId);
+				savedError.BGErrorId.ShouldBe(_errorToSave.BGErrorId);
+				savedError.BGPaymentId.ShouldBe(_errorToSave.BGPaymentId);
 			});
 		}
 	}
@@ -93,6 +95,9 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 				savedError.HandledDate.ShouldBe(_errorToEdit.HandledDate);
 				savedError.IsHandled.ShouldBe(_errorToEdit.IsHandled);
 				savedError.Subscription.ShouldBe(_errorToEdit.Subscription);
+				savedError.BGConsentId.ShouldBe(_errorToEdit.BGConsentId);
+				savedError.BGErrorId.ShouldBe(_errorToEdit.BGErrorId);
+				savedError.BGPaymentId.ShouldBe(_errorToEdit.BGPaymentId);
 			});
 		}
 	}

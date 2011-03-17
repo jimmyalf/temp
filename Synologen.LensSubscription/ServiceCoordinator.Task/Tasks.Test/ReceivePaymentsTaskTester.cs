@@ -19,12 +19,18 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		private IEnumerable<ReceivedPayment> expectedPayments;
 		private Subscription expectedSubscription;
 		private const int subscriptionId = 1;
+		private readonly Func<ReceivedPayment, bool> IsErrorPayment = payment => (payment.Result == PaymentResult.AGConnectionMissing || payment.Result == PaymentResult.InsufficientFunds);
+		private readonly Func<ReceivedPayment, bool> IsTransactionPayment = payment => (payment.Result == PaymentResult.WillTryAgain || payment.Result == PaymentResult.Approved);
+		private IEnumerable<ReceivedPayment> expectedErrorPayments;
+		private IEnumerable<ReceivedPayment> expectedTransactionPayments;
 
 		public When_executing_receive_payments_task()
 		{
 			Context = () =>
 			{
 				expectedPayments = PaymentFactory.GetList(subscriptionId);
+				expectedErrorPayments = expectedPayments.Where(IsErrorPayment);
+				expectedTransactionPayments = expectedPayments.Where(IsTransactionPayment);
 				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
 
 				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.LensSubscription)).Returns(expectedPayments.ToArray());
@@ -67,15 +73,32 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_saves_transactions_to_repository()
 		{
-			//TODO: Consider rewriting to test actual save parameters
-			MockedTransactionRepository.Verify(x => x.Save(It.IsAny<SubscriptionTransaction>()), Times.Exactly(8));
+			expectedTransactionPayments.Each(payment => MockedTransactionRepository.Verify(x => x.Save(
+				It.Is<SubscriptionTransaction>(savedTransaction =>
+					Equals(savedTransaction.Amount, payment.Amount) &&
+					Equals(savedTransaction.Article, null) &&
+					Equals(savedTransaction.CreatedDate.Date, DateTime.Now.Date) &&
+					MatchReason(savedTransaction.Reason, payment.Result) &&
+					Equals(savedTransaction.Settlement, null) &&
+					Equals(savedTransaction.Subscription.Id, expectedSubscription.Id) &&
+					MatchTransactionType(savedTransaction.Type, payment.Type)
+			))));
 		}
 
 		[Test]
 		public void Task_saves_subscriptionerrors_to_repository()
 		{
-			//TODO: Consider rewriting to test actual save parameters
-			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.IsAny<SubscriptionError>()), Times.Exactly(8));
+			expectedErrorPayments.Each(payment => MockedSubscriptionErrorRepository.Verify(x => x.Save(
+               	It.Is<SubscriptionError>(savedError => 
+					Equals(savedError.BGErrorId, null) &&
+					Equals(savedError.BGPaymentId, payment.PaymentId) &&
+					Equals(savedError.Code, null) &&
+					Equals(savedError.CreatedDate.Date, DateTime.Now.Date) &&
+					Equals(savedError.HandledDate, null) &&
+					Equals(savedError.IsHandled, false) &&
+					Equals(savedError.Subscription.Id, expectedSubscription.Id) &&
+					MatchErrorType(savedError.Type, payment.Result)
+			))));
 		}
 
 		[Test]

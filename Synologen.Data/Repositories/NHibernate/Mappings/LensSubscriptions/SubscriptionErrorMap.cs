@@ -23,6 +23,9 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.LensSubscri
 				.Cascade.None()
 				.Column("SubscriptionId")
 				.Not.Nullable();
+			Map(x => x.BGConsentId).Nullable();
+			Map(x => x.BGErrorId).Nullable();
+			Map(x => x.BGPaymentId).Nullable();
 		}
 
 	}

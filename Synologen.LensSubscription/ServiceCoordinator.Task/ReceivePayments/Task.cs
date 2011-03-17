@@ -76,7 +76,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 			{
 				CreatedDate = DateTime.Now,
 				Type = ConvertToSubscriptionErrorType(payment.Result),
-				Subscription = subscription
+				Subscription = subscription,
+                BGPaymentId = payment.PaymentId
 			};
 		}
 

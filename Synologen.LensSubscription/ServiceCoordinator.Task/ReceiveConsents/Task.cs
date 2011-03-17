@@ -70,24 +70,6 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 			subscriptionErrorRepository.Save(subscriptionError);
 		}
 
-		//private static ConsentInformationCode? GetSubscriptionErrorInformationCode(Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode? code)
-		//{
-		//    switch (code)
-		//    {
-		//        case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.AnswerToNewAccountApplication:
-		//            return ConsentInformationCode.AnswerToNewAccountApplication;
-		//        case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPayer:
-		//            return ConsentInformationCode.InitiatedByPayer;
-		//        case  Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPayersBank:
-		//            return ConsentInformationCode.InitiatedByPayersBank;
-		//        case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.InitiatedByPaymentRecipient:
-		//            return ConsentInformationCode.InitiatedByPaymentRecipient;
-		//        case Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.ConsentInformationCode.PaymentRecieversBankGiroAccountClosed:
-		//            return ConsentInformationCode.PaymentRecieversBankGiroAccountClosed;
-		//    }
-		//    throw new ArgumentOutOfRangeException("code");
-		//}
-
 		private static void UpdateSubscription(Subscription subscription, ReceivedConsent consent, bool isAccepted, ISubscriptionRepository subscriptionRepository)
 		{
 			subscription.ConsentStatus = isAccepted ? SubscriptionConsentStatus.Accepted : SubscriptionConsentStatus.Denied;

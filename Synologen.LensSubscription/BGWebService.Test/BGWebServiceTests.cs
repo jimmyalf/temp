@@ -373,7 +373,6 @@ namespace Synologen.LensSubscription.BGWebService.Test
 				consent.ActionDate.ShouldBe(returnedConsent.ActionDate);
 				consent.CommentCode.ShouldBe(returnedConsent.CommentCode);
 				consent.ConsentValidForDate.ShouldBe(returnedConsent.ConsentValidForDate);
-				//consent.CreatedDate.ShouldBe(returnedConsent.CreatedDate); //FIX: Add created date (?)
 				consent.InformationCode.ShouldBe(returnedConsent.InformationCode);
 				consent.Payer.Id.ShouldBe(returnedConsent.PayerNumber);
 			});
@@ -426,9 +425,8 @@ namespace Synologen.LensSubscription.BGWebService.Test
 			{
 				error.Amount.ShouldBe(returnedError.Amount);
 				error.CommentCode.ShouldBe(returnedError.CommentCode);
-				//error.CreatedDate.ShouldBe(returnedError.?); //FIX: Add impl.
 				error.Payer.Id.ShouldBe(returnedError.PayerNumber);
-				//error.PaymentDate.ShouldBe(returnedError.?); //FIX: Add impl.
+				error.PaymentDate.ShouldBe(returnedError.PaymentDate);
 				error.Reference.ShouldBe(returnedError.Reference);
 			});
 		}
@@ -561,7 +559,6 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		}
 
 	}
-
 
 	[TestFixture, Category("BGWebServiceTests")]
 	public class When_updating_received_consent_as_handled : BGWebServiceTestBase

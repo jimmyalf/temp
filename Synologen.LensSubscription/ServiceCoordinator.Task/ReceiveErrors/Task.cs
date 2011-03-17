@@ -46,6 +46,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 				CreatedDate = DateTime.Now,
 				Subscription = subscription,
 				Type = ConvertErrorType(error.CommentCode),
+                BGErrorId = error.ErrorId,
 			};
 		}
 

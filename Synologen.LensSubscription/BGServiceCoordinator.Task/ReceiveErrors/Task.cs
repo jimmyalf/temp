@@ -59,8 +59,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceiveErrors
             {
                 Amount = error.Amount,
                 CommentCode = error.CommentCode,
-                 Payer = payer,
-				//PayerNumber = int.Parse(error.Transmitter.CustomerNumber),
+                Payer = payer,
                 PaymentDate = error.PaymentDate,
                 Reference = error.Reference,
                 CreatedDate = DateTime.Now

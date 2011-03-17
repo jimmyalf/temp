@@ -29,7 +29,8 @@ namespace Synologen.LensSubscription.BGWebService.Test.Factories
 				CommentCode = ErrorCommentCode.NotYetDebitable,
 				PayerNumber = 83,
 				ErrorId = 53,
-				Reference = "ABC Glas"
+				Reference = "ABC Glas",
+				PaymentDate = new DateTime(2011, 03, 25),
 			};
 		}
 

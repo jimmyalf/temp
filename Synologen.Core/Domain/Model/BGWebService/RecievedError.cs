@@ -1,3 +1,4 @@
+using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService
@@ -9,5 +10,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService
 		public decimal Amount { get; set; }
 		public string Reference { get; set; }
 		public ErrorCommentCode CommentCode { get; set; }
+		public DateTime PaymentDate { get; set; }
 	}
 }

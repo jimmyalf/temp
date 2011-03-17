@@ -1,6 +1,3 @@
-using System;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
@@ -80,42 +77,10 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 				Amount = error.Amount,
 				CommentCode = error.CommentCode,
 				PayerNumber = error.Payer.Id,
-				Reference = error.Reference
+				Reference = error.Reference,
+                ErrorId = error.Id,
+				PaymentDate = error.PaymentDate,
 			};
 		}
-
-		//protected virtual BGWebService_PaymentResult MapPaymentResult(BGServer_PaymentResult result)
-		//{
-		//    switch (result)
-		//    {
-		//        case BGServer_PaymentResult.Approved: return BGWebService_PaymentResult.Approved;
-		//        case BGServer_PaymentResult.InsufficientFunds: return BGWebService_PaymentResult.InsufficientFunds;
-		//        case BGServer_PaymentResult.AGConnectionMissing: return BGWebService_PaymentResult.AGConnectionMissing;
-		//        case BGServer_PaymentResult.WillTryAgain: return BGWebService_PaymentResult.WillTryAgain;
-		//        default: throw new ArgumentOutOfRangeException("result");
-		//    }
-		//}
-
-		//protected virtual BGServer_PaymentType MapPaymentType(WebService_PaymentType paymentType)
-		//{
-		//    switch (paymentType)
-		//    {
-		//        case WebService_PaymentType.Debit: return BGServer_PaymentType.Debit;
-		//        case WebService_PaymentType.Credit: return BGServer_PaymentType.Credit;
-		//        default: throw new ArgumentOutOfRangeException("paymentType");
-		//    }
-		//}
-
-		//protected virtual ErrorType MapErrorCommentCode(ErrorCommentCode code)
-		//{
-		//    switch (code)
-		//    {
-		//        case ErrorCommentCode.ConsentMissing: return ErrorType.ConsentMissing;
-		//        case ErrorCommentCode.AccountNotYetApproved: return ErrorType.AccountNotYetApproved;
-		//        case ErrorCommentCode.ConsentStopped: return ErrorType.ConsentStopped;
-		//        case ErrorCommentCode.NotYetDebitable: return  ErrorType.NotYetDebitable;
-		//        default: throw new ArgumentOutOfRangeException("code");
-		//    }
-		//}
 	}
 }

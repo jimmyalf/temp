@@ -21,7 +21,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 				Amount = 15 * id,
 				CommentCode = ErrorCommentCode.AccountNotYetApproved.SkipValues(id),
 				PayerNumber = id,
-				Reference = String.Format("Reference {0}", id)
+				Reference = String.Format("Reference {0}", id),
+                ErrorId = 55,
+				PaymentDate = new DateTime(2011,03,17)
 			};
 		}
 	}

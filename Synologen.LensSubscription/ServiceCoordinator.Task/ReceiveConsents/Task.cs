@@ -65,7 +65,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 				Subscription = subscription,
 				Type = errorTypeCode,
 				Code = consent.InformationCode,
-				CreatedDate = DateTime.Now
+				CreatedDate = DateTime.Now,
+				BGConsentId = consent.ConsentId
 			};
 			subscriptionErrorRepository.Save(subscriptionError);
 		}

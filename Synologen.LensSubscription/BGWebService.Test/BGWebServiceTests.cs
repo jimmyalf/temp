@@ -122,7 +122,6 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		}
 	}
 
-
     [TestFixture, Category("BGWebServiceTests")]
     public class When_sending_a_new_consent_with_orgnr : BGWebServiceTestBase
     {

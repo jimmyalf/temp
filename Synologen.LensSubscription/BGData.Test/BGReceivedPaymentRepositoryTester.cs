@@ -41,6 +41,11 @@ namespace Synologen.LensSubscription.BGData.Test
                 fetchedPayment.Reference.ShouldBe(_paymentToSave.Reference);
                 fetchedPayment.ResultType.ShouldBe(_paymentToSave.ResultType);
 				fetchedPayment.Handled.ShouldBe(_paymentToSave.Handled);
+                fetchedPayment.Type.ShouldBe(_paymentToSave.Type);
+                fetchedPayment.PeriodCode.ShouldBe(_paymentToSave.PeriodCode);
+                fetchedPayment.Reciever.ShouldBe(_paymentToSave.Reciever);
+                fetchedPayment.NumberOfReoccuringTransactionsLeft.ShouldBe
+                        (_paymentToSave.NumberOfReoccuringTransactionsLeft);
             });
         }
     }
@@ -76,6 +81,11 @@ namespace Synologen.LensSubscription.BGData.Test
                 fetchedPayment.Reference.ShouldBe(editedPayment.Reference);
                 fetchedPayment.ResultType.ShouldBe(editedPayment.ResultType);
 				fetchedPayment.Handled.ShouldBe(editedPayment.Handled);
+                fetchedPayment.Type.ShouldBe(editedPayment.Type);
+                fetchedPayment.PeriodCode.ShouldBe(editedPayment.PeriodCode);
+                fetchedPayment.Reciever.ShouldBe(editedPayment.Reciever);
+                fetchedPayment.NumberOfReoccuringTransactionsLeft.ShouldBe
+                        (editedPayment.NumberOfReoccuringTransactionsLeft);
             });
         }
     }

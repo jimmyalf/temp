@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -22,7 +23,11 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 				Payer = payer,
 				PaymentDate = new DateTime(2011, 02, 09, 04, 16, 25),
                 Reference = "Ref",
-                ResultType = PaymentResult.Approved.SkipValues(seed)
+                ResultType = PaymentResult.Approved.SkipValues(seed),
+                NumberOfReoccuringTransactionsLeft = seed,
+                PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
+                Type = (seed.IsEven()) ? PaymentType.Debit : PaymentType.Credit,
+                Reciever = new PaymentReciever { BankgiroNumber = "4654552235645", CustomerNumber = "451"}
             };
 			if(seed.IsOdd()) returnValue.SetHandled();
         	return returnValue;
@@ -35,6 +40,11 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
             payment.PaymentDate = payment.PaymentDate.AddDays(-3);
             payment.Reference = payment.Reference.Reverse();
             payment.ResultType = payment.ResultType.Next();
+            payment.NumberOfReoccuringTransactionsLeft = null;
+            payment.PeriodCode = payment.PeriodCode.Next();
+            payment.Type = (payment.Type == PaymentType.Debit) ? PaymentType.Credit : PaymentType.Debit;
+            payment.Reciever.BankgiroNumber = payment.Reciever.BankgiroNumber.Reverse();
+            payment.Reciever.CustomerNumber = payment.Reciever.CustomerNumber.Reverse();
         	payment.SetHandled();
         }
 

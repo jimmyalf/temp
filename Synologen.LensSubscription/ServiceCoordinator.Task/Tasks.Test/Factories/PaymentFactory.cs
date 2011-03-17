@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -21,7 +22,14 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 				Amount = 150.45M,
 				PayerNumber = subscriptionId,
 				PaymentId = id,
-				Result = PaymentResult.Approved.SkipValues(id)
+				Result = PaymentResult.Approved.SkipValues(id),
+                CreatedDate = new DateTime(2011, 03, 27, 19, 45, 15),
+                NumberOfReoccuringTransactionsLeft = null,
+                PaymentDate = new DateTime(2011, 03, 26, 0, 0, 0),
+                PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
+                Receiver = new PaymentReciever { BankgiroNumber = "005435467", CustomerNumber = "5601" },
+                Reference = "Referens",
+                Type = PaymentType.Debit  
 			};
 		}
 
@@ -34,7 +42,14 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 					Amount = 222.22M,
 					PaymentId = 140101,
 					Result = result,
-					PayerNumber = subscriptionId
+					PayerNumber = subscriptionId,
+                    CreatedDate = new DateTime(2011, 02, 27, 18, 35, 25),
+                    NumberOfReoccuringTransactionsLeft = null,
+                    PaymentDate = new DateTime(2011, 02, 26, 04, 20, 10),
+                    PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
+                    Receiver = new PaymentReciever { BankgiroNumber = "67574367", CustomerNumber = "8867" },
+                    Reference = "Referens",
+                    Type = PaymentType.Debit  
 				}
 			}; 
 		}

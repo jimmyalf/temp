@@ -62,7 +62,14 @@ namespace Synologen.LensSubscription.BGWebService.App.Services
 				Amount = payment.Amount,
 				PayerNumber = payment.Payer.Id,
 				PaymentId = payment.Id,
-				Result = payment.ResultType
+				Result = payment.ResultType,
+                NumberOfReoccuringTransactionsLeft = payment.NumberOfReoccuringTransactionsLeft,
+                PeriodCode = payment.PeriodCode,
+                Type = payment.Type,
+                Receiver = payment.Reciever,
+                Reference = payment.Reference,
+                PaymentDate = payment.PaymentDate,
+                CreatedDate = payment.CreatedDate
 			};
 		}
 

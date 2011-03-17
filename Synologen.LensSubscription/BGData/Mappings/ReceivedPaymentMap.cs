@@ -1,4 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 
@@ -19,6 +20,18 @@ namespace Synologen.LensSubscription.BGData.Mappings
             Map(x => x.PaymentDate).Not.Nullable();
             Map(x => x.CreatedDate).Not.Nullable();
         	Map(x => x.Handled).Not.Nullable();
+            Map(x => x.Type)
+                .CustomType(typeof (PaymentType))
+                .Not.Nullable();
+            Map(x => x.PeriodCode)
+                .CustomType(typeof (PaymentPeriodCode))
+                .Not.Nullable();
+            Map(x => x.NumberOfReoccuringTransactionsLeft).Nullable();
+            Component(x => x.Reciever, map =>
+            {
+                map.Map(x => x.BankgiroNumber).Not.Nullable();
+                map.Map(x => x.CustomerNumber).Not.Nullable();
+            });
         }
     }
 }

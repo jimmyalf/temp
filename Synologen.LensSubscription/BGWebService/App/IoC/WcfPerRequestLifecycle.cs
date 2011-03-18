@@ -29,11 +29,6 @@ namespace Synologen.LensSubscription.BGWebService.App.IoC
 				}
 			}
 			return (IObjectCache) items[ITEM_NAME];
-			//if (!OperationContext.Current.OutgoingMessageProperties.ContainsKey(ITEM_NAME))
-			//{
-			//    OperationContext.Current.OutgoingMessageProperties.Add(ITEM_NAME, new MainObjectCache());
-			//}
-			//return (IObjectCache)OperationContext.Current.OutgoingMessageProperties[ITEM_NAME]; 
 		}
 
 		public string Scope

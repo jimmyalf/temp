@@ -17,6 +17,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscr
 		//public int CountryId { get; set; }
 		public string Notes { get; set; }
 
-		public int ShopId { get; set; }
+		//public int ShopId { get; set; }
 	}
 }

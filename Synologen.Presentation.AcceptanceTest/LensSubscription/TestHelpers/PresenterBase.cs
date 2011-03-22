@@ -8,7 +8,7 @@ using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers;
 using Synologen.Test.Core;
 
-namespace Synologen.Presentation.AcceptanceTest.LensSubscription
+namespace Synologen.Presentation.AcceptanceTest.LensSubscription.TestHelpers
 {
 	public abstract class PresenterBase : BehaviorActionTestbase
 	{
@@ -47,19 +47,19 @@ namespace Synologen.Presentation.AcceptanceTest.LensSubscription
 				{
 					AddressLineOne = "AddressLineOne",
 					City = "Göteborg",
-                    PostalCode = "43632",
+					PostalCode = "43632",
 					Country = country
 				},
-                Contact = new CustomerContact
-                {
-                	Email = "abc@abc.se",
-                    MobilePhone = "0700-00 00 00",
-                    Phone = "031 - 00 00 00"
-                },
-                FirstName = "FirstName",
-                LastName = "LastName",
+				Contact = new CustomerContact
+				{
+					Email = "abc@abc.se",
+					MobilePhone = "0700-00 00 00",
+					Phone = "031 - 00 00 00"
+				},
+				FirstName = "FirstName",
+				LastName = "LastName",
 				Shop = shop,
-                PersonalIdNumber = "197910071111"
+				PersonalIdNumber = "197910071111"
 				
 			};
 		}

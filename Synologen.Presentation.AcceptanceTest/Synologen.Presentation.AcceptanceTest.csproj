@@ -102,7 +102,7 @@
   <ItemGroup>
     <Compile Include="LensSubscription\Add_Customer.cs" />
     <Compile Include="LensSubscription\Add_Subscription_To_Customer.cs" />
-    <Compile Include="LensSubscription\PresenterBase.cs" />
+    <Compile Include="LensSubscription\TestHelpers\PresenterBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

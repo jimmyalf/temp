@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
@@ -6,6 +6,7 @@ using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
+using Synologen.Presentation.AcceptanceTest.LensSubscription.TestHelpers;
 
 namespace Synologen.Presentation.AcceptanceTest.LensSubscription
 {

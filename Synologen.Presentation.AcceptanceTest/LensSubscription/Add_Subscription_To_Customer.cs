@@ -9,6 +9,7 @@ using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscripti
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Synologen.Presentation.AcceptanceTest.LensSubscription.TestHelpers;
 
 namespace Synologen.Presentation.AcceptanceTest.LensSubscription
 {

@@ -124,19 +124,19 @@
     </ProjectReference>
     <ProjectReference Include="..\ReceiveConsents\ReceiveConsents.csproj">
       <Project>{0BAE058D-24F4-41ED-8CF9-AD128B59F211}</Project>
-      <Name>ReceiveConsents %28LensSubscription\BGServiceCoordinator.Tasks\ReceiveConsents%29</Name>
+      <Name>ReceiveConsents %28Lenssubscription\BGServiceCoordinatorTask\ReceiveConsents%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceiveErrors\ReceiveErrors.csproj">
       <Project>{AF74CA7A-75E2-487C-97E5-1AA0CACA0F9B}</Project>
-      <Name>ReceiveErrors %28LensSubscription\BGServiceCoordinator.Tasks\ReceiveErrors%29</Name>
+      <Name>ReceiveErrors %28Lenssubscription\BGServiceCoordinatorTask\ReceiveErrors%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceivePayments\ReceivePayments.csproj">
       <Project>{DBECE0FB-E41C-4845-A467-1CF604931EC5}</Project>
-      <Name>ReceivePayments %28LensSubscription\BGServiceCoordinator.Tasks\ReceivePayments%29</Name>
+      <Name>ReceivePayments %28Lenssubscription\BGServiceCoordinatorTask\ReceivePayments%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\SendConsents\SendConsents.csproj">
       <Project>{2BCC56E0-2100-42B5-B91D-A8FDEAE5C28F}</Project>
-      <Name>SendConsents %28LensSubscription\BGServiceCoordinator.Tasks\SendConsents%29</Name>
+      <Name>SendConsents %28Lenssubscription\BGServiceCoordinatorTask\SendConsents%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\SendFile\SendFile.csproj">
       <Project>{8096311E-FEC9-49C5-AF54-90F4177E9DCC}</Project>
@@ -144,7 +144,7 @@
     </ProjectReference>
     <ProjectReference Include="..\SendPayments\SendPayments.csproj">
       <Project>{037FF430-01ED-4D67-B5AE-737CEFD952CD}</Project>
-      <Name>SendPayments %28LensSubscription\BGServiceCoordinator.Tasks\SendPayments%29</Name>
+      <Name>SendPayments %28Lenssubscription\BGServiceCoordinatorTask\SendPayments%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

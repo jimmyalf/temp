@@ -4,7 +4,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
@@ -28,14 +28,11 @@ namespace Synologen.Presentation.AcceptanceTest.LensSubscription
 			{
 				var countryToUse = countryRepository.Get(SwedenCountryId);
 				var shopToUse = shopRepository.Get(testShopId);
-				customer = CreateCustomer(countryToUse, shopToUse);
+				customer = Factory.CreateCustomer(countryToUse, shopToUse);
 				customerRepository.Save(customer);
 				view = A.Fake<ICreateLensSubscriptionView>();
 				httpContext.SetupSingleQuery("customer", customer.Id.ToString());
-				presenter = new CreateLensSubscriptionPresenter(view, customerRepository, subscriptionRepository, synologenMemberService)
-				{
-					HttpContext = httpContext.Object
-				};
+				presenter = ResolvePresenter<CreateLensSubscriptionPresenter, ICreateLensSubscriptionView>(view);
 				saveSubscriptionEventArgs = new SaveSubscriptionEventArgs
 				{
 					AccountNumber = "123456",
@@ -53,7 +50,7 @@ namespace Synologen.Presentation.AcceptanceTest.LensSubscription
 		[Test]
 		public void A_subscription_is_added()
 		{
-			var lastSubscription = new SubscriptionRepository(GetSession()).GetAll().Last();
+			var lastSubscription = ResolveEntity<ISubscriptionRepository>().GetAll().Last();
 			lastSubscription.ActivatedDate.ShouldBe(null);
 			lastSubscription.Active.ShouldBe(false);
 			lastSubscription.BankgiroPayerNumber.ShouldBe(null);

@@ -21,10 +21,7 @@ namespace Synologen.Presentation.AcceptanceTest.LensSubscription
 			Context = () =>
 			{
 				view = A.Fake<ICreateCustomerView>();
-				presenter = new CreateCustomerPresenter(view, customerRepository, shopRepository, countryRepository, synologenMemberService)
-				{
-					HttpContext = httpContext.Object
-				};
+				presenter = ResolvePresenter<CreateCustomerPresenter,ICreateCustomerView>(view);
 				saveEventArgs = new SaveCustomerEventArgs
 				{
 					AddressLineOne = "AddressLineOne",

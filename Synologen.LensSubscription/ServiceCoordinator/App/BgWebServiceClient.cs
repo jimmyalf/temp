@@ -5,7 +5,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.App
 {
-	public class BgWebServiceClient : ClientBase<IBGWebService>, IBGWebService
+	public class BgWebServiceClient : ClientBase<IBGWebService>, IBGWebServiceClient
 	{
 		public bool TestConnection() { return Channel.TestConnection(); }
 		public int RegisterPayer(string name, AutogiroServiceType serviceType) { return Channel.RegisterPayer(name, serviceType); }

@@ -212,6 +212,7 @@
     <Compile Include="Domain\Model\BGServer\BGTaskSequenceOrder.cs" />
     <Compile Include="Domain\Services\BgWebService\FtpChangePasswordException.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGFtpPasswordService.cs" />
+    <Compile Include="Domain\Services\BgWebService\IBGWebServiceClient.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGWebServiceDTOParser.cs" />
     <Compile Include="Domain\Services\Coordinator\ExecutingTaskContext.cs" />
     <Compile Include="Domain\Services\Coordinator\ITaskRepositoryResolver.cs" />

@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 using System.Reflection;
 using NHibernate;
 using Spinit.Data;
@@ -31,16 +31,15 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App.IoC
 			// Logging
 			For<ILoggingService>().Singleton().Use(LogFactory.CreateLoggingService());
 	
-#if (DEBUG)
-			For<IBGWebService>().Use<MockBgWebServiceClient>();
-#else
-			For<IBGWebService>().Use<BgWebServiceClient>();
-#endif
+//#if (DEBUG)
+//			For<IBGWebService>().Use<MockBgWebServiceClient>();
+//#else
+			For<IBGWebServiceClient>().Use<BgWebServiceClient>();
+//#endif
 			
 			// Task scan
 			Scan(x =>
 			{
-				//x.Assembly(Assembly.GetExecutingAssembly());
 				x.AssembliesFromApplicationBaseDirectory(IsServiceCoordinatorTaskAssembly);
 				x.AddAllTypesOf<ITask>();
 			});

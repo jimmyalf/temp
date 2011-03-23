@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using Spinit.Data;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using StructureMap;
 
@@ -11,9 +13,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner
 {
 	public class TaskRunnerService : ITaskRunnerService
 	{
-		private readonly ILoggingService _loggingService;
-		private readonly ITaskRepositoryResolver _taskRepositoryResolver;
-		private readonly IEnumerable<ITask> _tasks;
+		protected readonly ILoggingService _loggingService;
+		protected readonly ITaskRepositoryResolver _taskRepositoryResolver;
+		protected readonly IEnumerable<ITask> _tasks;
 
 
 		public TaskRunnerService(ILoggingService loggingService, IEnumerable<ITask> tasks, ITaskRepositoryResolver taskRepositoryResolver)
@@ -43,20 +45,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner
 
 		protected virtual void OnExecutedTask(ITask task)
 		{
-			var unitOfWork = ObjectFactory.GetInstance<IUnitOfWork>();
-			if(unitOfWork == null || unitOfWork.IsDisposed) return;
-			try
-			{
-				unitOfWork.Commit();
-			}
-			catch
-			{
-				unitOfWork.Rollback();
-			}
-			finally
-			{
-				unitOfWork.Dispose();
-			}
+			TryCommitAndDisposeUnitOfWork();
+			//TryCloseWebserviceClient();
 		}
 
 		protected virtual void RunTasks(ILoggingService loggingService)
@@ -95,5 +85,33 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner
 				loggingService.LogError(String.Format("Taskrunner got exception while executing \"{0}\"", task.TaskName), ex);
 			}
 		}
+
+		protected virtual void TryCommitAndDisposeUnitOfWork()
+		{
+			var unitOfWork = ObjectFactory.GetInstance<IUnitOfWork>();
+			if(unitOfWork == null || unitOfWork.IsDisposed) return;
+			try
+			{
+				unitOfWork.Commit();
+			}
+			catch
+			{
+				unitOfWork.Rollback();
+			}
+			finally
+			{
+				unitOfWork.Dispose();
+			}
+		}
+
+		//protected virtual void TryCloseWebserviceClient()
+		//{
+		//    var bgWebService = ObjectFactory.GetInstance<IBGWebService>() as ClientBase<IBGWebService>;
+		//    if(bgWebService == null) return;
+		//    if(bgWebService.State == CommunicationState.Created || bgWebService.State == CommunicationState.Opened)
+		//    {
+		//        bgWebService.Close();
+		//    }
+		//}
 	}
 }

@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
 using Spinit.Data;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using StructureMap;
 
@@ -46,7 +44,6 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner
 		protected virtual void OnExecutedTask(ITask task)
 		{
 			TryCommitAndDisposeUnitOfWork();
-			//TryCloseWebserviceClient();
 		}
 
 		protected virtual void RunTasks(ILoggingService loggingService)
@@ -103,15 +100,5 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner
 				unitOfWork.Dispose();
 			}
 		}
-
-		//protected virtual void TryCloseWebserviceClient()
-		//{
-		//    var bgWebService = ObjectFactory.GetInstance<IBGWebService>() as ClientBase<IBGWebService>;
-		//    if(bgWebService == null) return;
-		//    if(bgWebService.State == CommunicationState.Created || bgWebService.State == CommunicationState.Opened)
-		//    {
-		//        bgWebService.Close();
-		//    }
-		//}
 	}
 }

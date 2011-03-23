@@ -23,10 +23,13 @@ namespace ServiceCoordinator.AcceptanceTest.TestHelpers
 		protected IBGConsentToSendRepository bgConsentRepository;
 		protected ISubscriptionRepository subscriptionRepository;
 		protected IBGPaymentToSendRepository bgPaymentRepository;
+		protected IBGReceivedConsentRepository bgReceivedConsentRepository;
+		protected IAutogiroPayerRepository autogiroPayerRepository;
 		protected const int TestShopId = 158;
 		protected const int SwedenCountryId = 1;
 		protected static ISession intermediateSession;
-		
+		protected ISubscriptionErrorRepository subscriptionErrorRepository;
+
 
 		protected override void SetUp()
 		{
@@ -38,6 +41,9 @@ namespace ServiceCoordinator.AcceptanceTest.TestHelpers
 			subscriptionRepository = ResolveRepository<ISubscriptionRepository>(GetWPCSession);
 			bgConsentRepository = new BGConsentToSendRepository(GetBGSession());
 			bgPaymentRepository = new BGPaymentToSendRepository(GetBGSession());
+			bgReceivedConsentRepository = new BGReceivedConsentRepository(GetBGSession());
+			autogiroPayerRepository = new AutogiroPayerRepository(GetBGSession());
+			subscriptionErrorRepository = new SubscriptionErrorRepository(GetWPCSession());
 		}
 
 		protected TTask ResolveTask<TTask>() where TTask : ITask

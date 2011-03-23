@@ -14,27 +14,29 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 {
 	public class Task : TaskBase
 	{
-		private readonly IBGWebService _bgWebService;
+		private readonly IBGWebServiceClient _bgWebServiceClient;
 
-		public Task(IBGWebService bgWebService, ILoggingService loggingService) : base("ReceiveConsentsTask", loggingService)
+		public Task(IBGWebServiceClient bgWebServiceClient, ILoggingService loggingService) : base("ReceiveConsentsTask", loggingService)
 		{
-			_bgWebService = bgWebService;
+			_bgWebServiceClient = bgWebServiceClient;
 		}
 
 		public override void Execute(ExecutingTaskContext context)
 		{
 			RunLoggedTask(() =>
 			{
+				_bgWebServiceClient.Open();
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
 				var subscriptionErrorRepository = context.Resolve<ISubscriptionErrorRepository>();
-				var consents = _bgWebService.GetConsents(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedConsent>();
+				var consents = _bgWebServiceClient.GetConsents(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedConsent>();
 				LogDebug("Fetched {0} consent replies from bgc server", consents.Count());
 
 				consents.Each(consent =>
 				{
 					SaveConsent(consent, subscriptionRepository, subscriptionErrorRepository);
-					_bgWebService.SetConsentHandled(consent);
+					_bgWebServiceClient.SetConsentHandled(consent);
 				});
+				_bgWebServiceClient.Close();
 			});
 		}
 

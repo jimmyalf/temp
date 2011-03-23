@@ -3,7 +3,6 @@ using NHibernate;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers;
 using StructureMap;
 using Synologen.Test.Core;
@@ -23,7 +22,6 @@ namespace Synologen.Presentation.AcceptanceTest.LensSubscription.TestHelpers
 		protected override void SetUp()
 		{
 			testShopId = 158;
-			NHibernateFactory.MappingAssemblies.Add(typeof(SqlProvider).Assembly);
 			httpContext = new HttpContextMock();
 			customerRepository = ResolveEntity<ICustomerRepository>();
 			shopRepository = ResolveEntity<IShopRepository>();

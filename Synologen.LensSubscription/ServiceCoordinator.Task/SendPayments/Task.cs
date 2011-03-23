@@ -14,17 +14,18 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 {
 	public class Task : TaskBase
 	{
-		private readonly IBGWebService _bgWebService;
+		private readonly IBGWebServiceClient _bgWebServiceClient;
 
-		public Task(ILoggingService loggingService, IBGWebService bgWebService) : base("SendPaymentsTask", loggingService)
+		public Task(ILoggingService loggingService, IBGWebServiceClient bgWebServiceClient) : base("SendPaymentsTask", loggingService)
 		{
-			_bgWebService = bgWebService;
+			_bgWebServiceClient = bgWebServiceClient;
 		}
 
 		public override void Execute(ExecutingTaskContext context)
 		{
 			RunLoggedTask(() =>
 			{
+				_bgWebServiceClient.Open();
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
 				var subscriptions = subscriptionRepository.FindBy(new AllSubscriptionsToSendPaymentsForCriteria()) ?? Enumerable.Empty<Subscription>();
 				LogDebug("Fetched {0} subscriptions to send payments for", subscriptions.Count());
@@ -32,9 +33,10 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 				subscriptions.Each(subscription => 
 				{
 					var payment = ConvertSubscription(subscription);
-					_bgWebService.SendPayment(payment);
+					_bgWebServiceClient.SendPayment(payment);
 					UpdateSubscriptionPaymentDate(subscription, subscriptionRepository);
 				});
+				_bgWebServiceClient.Close();
 			});
 		}
 
@@ -50,10 +52,10 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 			var payment = new PaymentToSend
 			{
 				Amount = subscription.PaymentInfo.MonthlyAmount,
-				Reference = subscription.Customer.PersonalIdNumber,
+				Reference = null, //subscription.Customer.PersonalIdNumber,
 				Type = PaymentType.Debit,
 				PayerNumber = subscription.BankgiroPayerNumber.Value,
-                //Todo PaymentDate = ?,
+				PaymentDate = DateTime.Now, //FIX: PaymentDate
                 PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate
 			};
 			return payment;

@@ -57,7 +57,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
                MockedWebServiceClient.Verify(x => x.SendPayment(It.Is<PaymentToSend>(sentPayment =>
                  sentPayment.Amount.Equals(subscription.PaymentInfo.MonthlyAmount) &&
                  sentPayment.PayerNumber.Equals(subscription.BankgiroPayerNumber) &&
-                 sentPayment.Reference.Equals(subscription.Customer.PersonalIdNumber) &&
+                 Equals(sentPayment.Reference, null) &&
                  sentPayment.Type.Equals(PaymentType.Debit) &&
                  sentPayment.PeriodCode.Equals(PaymentPeriodCode.PaymentOnceOnSelectedDate)
         	))));

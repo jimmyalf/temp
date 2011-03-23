@@ -14,7 +14,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 	[TestFixture]
 	public abstract class CommonTaskTestBase : BehaviorTestBase<ITask>
 	{
-		protected Mock<IBGWebService> MockedWebServiceClient;
+		protected Mock<IBGWebServiceClient> MockedWebServiceClient;
 		protected Mock<ISubscriptionRepository> MockedSubscriptionRepository;
 		protected Mock<ISubscriptionErrorRepository> MockedSubscriptionErrorRepository;
 		protected Mock<ILog> MockedLogger;
@@ -25,7 +25,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 
 		protected override void SetUp()
 		{
-			MockedWebServiceClient = new Mock<IBGWebService>();
+			MockedWebServiceClient = new Mock<IBGWebServiceClient>();
 			MockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
 			MockedLogger = new Mock<ILog>();
 			MockedEventLoggingService = new Mock<IEventLoggingService>();

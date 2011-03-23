@@ -15,18 +15,19 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 {
 	public class Task : TaskBase
 	{
-		private readonly IBGWebService _bgWebService;
+		private readonly IBGWebServiceClient _bgWebServiceClient;
 
-		public Task(IBGWebService bgWebService, ILoggingService loggingService)
+		public Task(ILoggingService loggingService, IBGWebServiceClient bgWebServiceClient)
 			: base("SendConsentsTask", loggingService)
 		{
-			_bgWebService = bgWebService;
+			_bgWebServiceClient = bgWebServiceClient;
 		}
 
 		public override void Execute(ExecutingTaskContext context)
 		{
 			RunLoggedTask(() =>
 			{
+				_bgWebServiceClient.Open();
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
 				var subscriptions = subscriptionRepository.FindBy(new AllSubscriptionsToSendConsentsForCriteria()) ?? Enumerable.Empty<Subscription>();
 				LogDebug("Fetched {0} subscriptions to send consents for", subscriptions.Count());
@@ -34,16 +35,17 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 				{
 					if (subscription.BankgiroPayerNumber == null) GetSubscriptionPayer(subscription);
 					var consent = ConvertSubscription(subscription);
-					_bgWebService.SendConsent(consent);
+					_bgWebServiceClient.SendConsent(consent);
 					UpdateSubscriptionStatus(subscription, subscriptionRepository);
 				});
+				_bgWebServiceClient.Close();
 			});
 		}
 
 		private void GetSubscriptionPayer(Subscription subscription) 
 		{
 			var customerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
-			var payerNumber = _bgWebService.RegisterPayer(customerName, AutogiroServiceType.LensSubscription);
+			var payerNumber = _bgWebServiceClient.RegisterPayer(customerName, AutogiroServiceType.LensSubscription);
 			subscription.BankgiroPayerNumber = payerNumber;
 		}
 

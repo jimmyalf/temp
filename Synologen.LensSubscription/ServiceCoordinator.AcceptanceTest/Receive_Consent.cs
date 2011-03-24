@@ -3,7 +3,6 @@ using System.Linq;
 using NUnit.Framework;
 using ServiceCoordinator.AcceptanceTest.TestHelpers;
 using Shouldly;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
@@ -14,12 +13,11 @@ using ReceiveConsentsTask = Synologen.LensSubscription.ServiceCoordinator.Task.R
 namespace ServiceCoordinator.AcceptanceTest
 {
 	[TestFixture, Category("Feature: Receiving Payment")]
-	public class When_receiveing_a_successful_consent : TaskBase
+	public class When_receiveing_a_successful_consent : ReceiveConsentTaskbase
 	{
 		private ReceiveConsentsTask task;
 		private ITaskRunnerService taskRunnerService;
 		private int bankGiroPayerNumber;
-		private Customer customer;
 		private Subscription subscription;
 		private BGReceivedConsent consentedConsent;
 
@@ -27,22 +25,9 @@ namespace ServiceCoordinator.AcceptanceTest
 		{
 			Context = () =>
 			{
-
-				InvokeWebService(service =>
-				{
-					bankGiroPayerNumber = service.RegisterPayer("Test payer", AutogiroServiceType.LensSubscription);
-				});
-
-				var autogiroPayer = autogiroPayerRepository.Get(bankGiroPayerNumber);
-				var countryToUse = countryRepository.Get(SwedenCountryId);
-				var shopToUse = shopRepository.Get(TestShopId);
-				customer = Factory.CreateCustomer(countryToUse, shopToUse);
-				customerRepository.Save(customer);
-				subscription = Factory.CreateSentSubscription(customer, bankGiroPayerNumber);
-				subscriptionRepository.Save(subscription);
-
-				consentedConsent = Factory.CreateConsentedConsent(autogiroPayer);
-				bgReceivedConsentRepository.Save(consentedConsent);
+				bankGiroPayerNumber = RegisterPayerWithWebService();
+				subscription = StoreSubscription(customer => Factory.CreateSentSubscription(customer, bankGiroPayerNumber), bankGiroPayerNumber);
+				consentedConsent = StoreBGConsent(Factory.CreateConsentedConsent, bankGiroPayerNumber);
 
 				task = ResolveTask<ReceiveConsentsTask>();
 				taskRunnerService = GetTaskRunnerService(task);
@@ -70,12 +55,11 @@ namespace ServiceCoordinator.AcceptanceTest
 	}
 
 	[TestFixture, Category("Feature: Receiving Payment")]
-	public class When_receiveing_a_failed_consent : TaskBase
+	public class When_receiveing_a_failed_consent : ReceiveConsentTaskbase
 	{
 		private ReceiveConsentsTask task;
 		private ITaskRunnerService taskRunnerService;
 		private int bankGiroPayerNumber;
-		private Customer customer;
 		private Subscription subscription;
 		private BGReceivedConsent failedConsent;
 
@@ -83,22 +67,9 @@ namespace ServiceCoordinator.AcceptanceTest
 		{
 			Context = () =>
 			{
-
-				InvokeWebService(service =>
-				{
-					bankGiroPayerNumber = service.RegisterPayer("Test payer", AutogiroServiceType.LensSubscription);
-				});
-
-				var autogiroPayer = autogiroPayerRepository.Get(bankGiroPayerNumber);
-				var countryToUse = countryRepository.Get(SwedenCountryId);
-				var shopToUse = shopRepository.Get(TestShopId);
-				customer = Factory.CreateCustomer(countryToUse, shopToUse);
-				customerRepository.Save(customer);
-				subscription = Factory.CreateSentSubscription(customer, bankGiroPayerNumber);
-				subscriptionRepository.Save(subscription);
-
-				failedConsent = Factory.CreateFailedConsent(autogiroPayer);
-				bgReceivedConsentRepository.Save(failedConsent);
+				bankGiroPayerNumber = RegisterPayerWithWebService();
+				subscription = StoreSubscription(customer => Factory.CreateSentSubscription(customer, bankGiroPayerNumber), bankGiroPayerNumber);
+				failedConsent = StoreBGConsent(Factory.CreateFailedConsent, bankGiroPayerNumber);
 
 				task = ResolveTask<ReceiveConsentsTask>();
 				taskRunnerService = GetTaskRunnerService(task);

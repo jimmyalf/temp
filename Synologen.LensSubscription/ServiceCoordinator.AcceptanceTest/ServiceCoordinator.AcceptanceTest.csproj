@@ -86,6 +86,8 @@
   <ItemGroup>
     <Compile Include="Factory.cs" />
     <Compile Include="GlobalTestBase.cs" />
+    <Compile Include="TestHelpers\ReceiveErrorTaskbase.cs" />
+    <Compile Include="Receive_Error.cs" />
     <Compile Include="TestHelpers\ReceiveConsentTaskbase.cs" />
     <Compile Include="Receive_Consent.cs" />
     <Compile Include="Send_Consent.cs" />
@@ -119,6 +121,10 @@
     <ProjectReference Include="..\ServiceCoordinator.Task\ReceiveConsents\ReceiveConsents.csproj">
       <Project>{F30AAD16-9E89-40C1-9AAC-EC08ADEE667E}</Project>
       <Name>ReceiveConsents %28Lenssubscription\ServiceCoordinatorTask\ReceiveConsents%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceCoordinator.Task\ReceiveErrors\ReceiveErrors.csproj">
+      <Project>{3BB41EB8-4B02-4C33-B622-42E3F6382E6B}</Project>
+      <Name>ReceiveErrors %28Lenssubscription\ServiceCoordinatorTask\ReceiveErrors%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\ServiceCoordinator.Task\ReceivePayments\ReceivePayments.csproj">
       <Project>{89214057-4062-4D9D-B507-325792853EC4}</Project>

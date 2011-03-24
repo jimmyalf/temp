@@ -9,7 +9,7 @@ namespace ServiceCoordinator.AcceptanceTest.TestHelpers
 		{
 			var autogiroPayer = autogiroPayerRepository.Get(payerNumber);
 			var payment = getPayment.Invoke(autogiroPayer);
-			bgReceivedPaymnetRepository.Save(payment);
+			bgReceivedPaymentRepository.Save(payment);
 			return payment;
 		}
 	}

@@ -14,29 +14,31 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 {
 	public class Task : TaskBase
 	{
-		private readonly IBGWebService _bgWebService;
+		private readonly IBGWebServiceClient _bgWebServiceClient;
 
-		public Task(ILoggingService loggingService, IBGWebService bgWebService) : base("RecieveErrorsTask", loggingService)
+		public Task(ILoggingService loggingService, IBGWebServiceClient bgWebServiceClient) : base("RecieveErrorsTask", loggingService)
 		{
-			_bgWebService = bgWebService;
+			_bgWebServiceClient = bgWebServiceClient;
 		}
 
 		public override void Execute(ExecutingTaskContext context)
 		{
 			RunLoggedTask(() =>
 			{
+				_bgWebServiceClient.Open();
 				var subscriptionErrorRepository = context.Resolve<ISubscriptionErrorRepository>();
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
-				var errors = _bgWebService.GetErrors(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<RecievedError>();
+				var errors = _bgWebServiceClient.GetErrors(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<RecievedError>();
 				LogDebug("Fetched {0} errors from BG Webservice", errors.Count());
 				errors.Each(error =>
 				{
 					var subscription = subscriptionRepository.GetByBankgiroPayerId(error.PayerNumber);
 					var subscriptionError = ConvertError(error, subscription);
 					subscriptionErrorRepository.Save(subscriptionError);
-					_bgWebService.SetErrorHandled(error);
+					_bgWebServiceClient.SetErrorHandled(error);
 					LogDebug("Saved subscription error \"{0}\" for subscription \"{1}\"", subscriptionError.Id, subscriptionError.Subscription.Id);
 				});
+				_bgWebServiceClient.Close();
 			});
 		}
 		protected virtual SubscriptionError ConvertError(RecievedError error, Subscription subscription)

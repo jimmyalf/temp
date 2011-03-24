@@ -26,7 +26,8 @@ namespace ServiceCoordinator.AcceptanceTest.TestHelpers
 		protected ISubscriptionRepository subscriptionRepository;
 		protected IBGPaymentToSendRepository bgPaymentRepository;
 		protected IBGReceivedConsentRepository bgReceivedConsentRepository;
-		protected IBGReceivedPaymentRepository bgReceivedPaymnetRepository;
+		protected IBGReceivedPaymentRepository bgReceivedPaymentRepository;
+		protected IBGReceivedErrorRepository bgReceivedErrorRepository;
 		protected IAutogiroPayerRepository autogiroPayerRepository;
 		protected const int TestShopId = 158;
 		protected const int SwedenCountryId = 1;
@@ -45,9 +46,10 @@ namespace ServiceCoordinator.AcceptanceTest.TestHelpers
 			bgConsentRepository = new BGConsentToSendRepository(GetBGSession());
 			bgPaymentRepository = new BGPaymentToSendRepository(GetBGSession());
 			bgReceivedConsentRepository = new BGReceivedConsentRepository(GetBGSession());
-			bgReceivedPaymnetRepository = new BGReceivedPaymentRepository(GetBGSession());
+			bgReceivedPaymentRepository = new BGReceivedPaymentRepository(GetBGSession());
 			autogiroPayerRepository = new AutogiroPayerRepository(GetBGSession());
 			subscriptionErrorRepository = new SubscriptionErrorRepository(GetWPCSession());
+			bgReceivedErrorRepository = new BGReceivedErrorRepository(GetBGSession());
 		}
 
 		protected Subscription StoreSubscription(Func<Customer,Subscription> getSubscription, int payerNumber)

@@ -123,5 +123,18 @@ namespace ServiceCoordinator.AcceptanceTest
 				Type = PaymentType.Debit
 			};
 		}
+
+		public static BGReceivedError CreateError(AutogiroPayer payer) 
+		{
+			return new BGReceivedError
+			{
+				Amount = 654M,
+				CommentCode = ErrorCommentCode.NotYetDebitable,
+				CreatedDate = new DateTime(2011, 03, 24),
+				Payer = payer,
+				PaymentDate = new DateTime(2011, 03, 01),
+				Reference = "Reference"
+			};
+		}
 	}
 }

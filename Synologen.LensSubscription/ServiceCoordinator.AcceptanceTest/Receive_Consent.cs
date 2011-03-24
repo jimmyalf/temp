@@ -12,7 +12,7 @@ using ReceiveConsentsTask = Synologen.LensSubscription.ServiceCoordinator.Task.R
 
 namespace ServiceCoordinator.AcceptanceTest
 {
-	[TestFixture, Category("Feature: Receiving Payment")]
+	[TestFixture, Category("Feature: Receiving Consent")]
 	public class When_receiveing_a_successful_consent : ReceiveConsentTaskbase
 	{
 		private ReceiveConsentsTask task;
@@ -54,7 +54,7 @@ namespace ServiceCoordinator.AcceptanceTest
 		}
 	}
 
-	[TestFixture, Category("Feature: Receiving Payment")]
+	[TestFixture, Category("Feature: Receiving Consent")]
 	public class When_receiveing_a_failed_consent : ReceiveConsentTaskbase
 	{
 		private ReceiveConsentsTask task;

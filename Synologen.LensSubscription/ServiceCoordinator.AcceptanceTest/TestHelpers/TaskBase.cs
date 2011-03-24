@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using NHibernate;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
+using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -24,6 +26,7 @@ namespace ServiceCoordinator.AcceptanceTest.TestHelpers
 		protected ISubscriptionRepository subscriptionRepository;
 		protected IBGPaymentToSendRepository bgPaymentRepository;
 		protected IBGReceivedConsentRepository bgReceivedConsentRepository;
+		protected IBGReceivedPaymentRepository bgReceivedPaymnetRepository;
 		protected IAutogiroPayerRepository autogiroPayerRepository;
 		protected const int TestShopId = 158;
 		protected const int SwedenCountryId = 1;
@@ -42,8 +45,30 @@ namespace ServiceCoordinator.AcceptanceTest.TestHelpers
 			bgConsentRepository = new BGConsentToSendRepository(GetBGSession());
 			bgPaymentRepository = new BGPaymentToSendRepository(GetBGSession());
 			bgReceivedConsentRepository = new BGReceivedConsentRepository(GetBGSession());
+			bgReceivedPaymnetRepository = new BGReceivedPaymentRepository(GetBGSession());
 			autogiroPayerRepository = new AutogiroPayerRepository(GetBGSession());
 			subscriptionErrorRepository = new SubscriptionErrorRepository(GetWPCSession());
+		}
+
+		protected Subscription StoreSubscription(Func<Customer,Subscription> getSubscription, int payerNumber)
+		{
+			var countryToUse = countryRepository.Get(SwedenCountryId);
+			var shopToUse = shopRepository.Get(TestShopId);
+			var customer = Factory.CreateCustomer(countryToUse, shopToUse);
+			customerRepository.Save(customer);
+			var subscription = getSubscription.Invoke(customer);
+			subscriptionRepository.Save(subscription);
+			return subscription;
+		}
+
+		protected int RegisterPayerWithWebService()
+		{
+			var payerNumber = 0;
+			InvokeWebService(service =>
+			{
+				payerNumber = service.RegisterPayer("Test payer", AutogiroServiceType.LensSubscription);
+			});
+			return payerNumber;
 		}
 
 		protected TTask ResolveTask<TTask>() where TTask : ITask

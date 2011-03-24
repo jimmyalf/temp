@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
@@ -89,6 +90,37 @@ namespace ServiceCoordinator.AcceptanceTest
                 CreatedDate = new DateTime(2011,03,23),
                 InformationCode = informationCode,
                 Payer = payer,
+			};
+		}
+
+		public static BGReceivedPayment CreateSuccessfulPayment(AutogiroPayer payer) 
+		{
+			return CreatePayment(payer, PaymentResult.Approved);
+		}
+
+		public static BGReceivedPayment CreateFailedPayment(AutogiroPayer payer) 
+		{ 
+			return CreatePayment(payer, PaymentResult.InsufficientFunds);
+		}
+
+		private static BGReceivedPayment CreatePayment(AutogiroPayer payer, PaymentResult result)
+		{
+			return new BGReceivedPayment
+			{
+				Amount = 823M,
+				CreatedDate = new DateTime(2011, 03, 24),
+				NumberOfReoccuringTransactionsLeft = null,
+				Payer = payer,
+				PaymentDate = new DateTime(2011, 03, 24),
+				PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
+				Reciever = new PaymentReciever
+				{
+					BankgiroNumber = "123456-123",
+					CustomerNumber = "123456"
+				},
+				Reference = "Reference",
+				ResultType = result,
+				Type = PaymentType.Debit
 			};
 		}
 	}

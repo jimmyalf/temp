@@ -21,9 +21,15 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 		public override void RunLoggedTask(Action action)
 		{
 			base.RunLoggedTask(action);
-			if(BGWebServiceClient != null && BGWebServiceClient.State != CommunicationState.Closed)
+			if (BGWebServiceClient == null || BGWebServiceClient.State == CommunicationState.Closed) return;
+			try
 			{
 				BGWebServiceClient.Close();
+			}
+			catch (Exception ex)
+			{
+				BGWebServiceClient.Abort();
+				base.LogError("Got exception while attempting to clos web service client", ex);
 			}
 		}
 	}

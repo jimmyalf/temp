@@ -246,6 +246,7 @@
     <Compile Include="Domain\Services\ISynologenMemberService.cs" />
     <Compile Include="Domain\Services\ISynologenSettingsService.cs" />
     <Compile Include="Domain\Services\ITaskRunnerService.cs" />
+    <Compile Include="Domain\Services\SystemTime.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="Extensions\ComparisonExtensions.cs" />
     <Compile Include="Extensions\DataRowCollectionExtensions.cs" />

@@ -217,6 +217,7 @@
     <Compile Include="Domain\Services\Coordinator\ExecutingTaskContext.cs" />
     <Compile Include="Domain\Services\Coordinator\ITaskRepositoryResolver.cs" />
     <Compile Include="Domain\Services\Coordinator\TaskBase.cs" />
+    <Compile Include="Domain\Services\Coordinator\TaskBaseWithWebService.cs" />
     <Compile Include="Domain\Services\EventLogLogger.cs" />
     <Compile Include="Domain\Services\FtpCommandService.cs" />
     <Compile Include="Domain\Services\IBGServiceCoordinatorSettingsService.cs" />

@@ -12,31 +12,25 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 {
-	public class Task : TaskBase
+	public class Task : TaskBaseWithWebService
 	{
-		private readonly IBGWebServiceClient _bgWebServiceClient;
-
-		public Task(IBGWebServiceClient bgWebServiceClient, ILoggingService loggingService) : base("ReceiveConsentsTask", loggingService)
-		{
-			_bgWebServiceClient = bgWebServiceClient;
-		}
+		public Task(IBGWebServiceClient bgWebServiceClient, ILoggingService loggingService) 
+			: base("ReceiveConsentsTask", loggingService, bgWebServiceClient) { }
 
 		public override void Execute(ExecutingTaskContext context)
 		{
 			RunLoggedTask(() =>
 			{
-				_bgWebServiceClient.Open();
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
 				var subscriptionErrorRepository = context.Resolve<ISubscriptionErrorRepository>();
-				var consents = _bgWebServiceClient.GetConsents(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedConsent>();
+				var consents = BGWebServiceClient.GetConsents(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedConsent>();
 				LogDebug("Fetched {0} consent replies from bgc server", consents.Count());
 
 				consents.Each(consent =>
 				{
 					SaveConsent(consent, subscriptionRepository, subscriptionErrorRepository);
-					_bgWebServiceClient.SetConsentHandled(consent);
+					BGWebServiceClient.SetConsentHandled(consent);
 				});
-				_bgWebServiceClient.Close();
 			});
 		}
 

@@ -12,33 +12,27 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 {
-	public class Task : TaskBase
+	public class Task : TaskBaseWithWebService
 	{
-		private readonly IBGWebServiceClient _bgWebServiceClient;
-
-		public Task(ILoggingService loggingService, IBGWebServiceClient bgWebServiceClient) : base("RecieveErrorsTask", loggingService)
-		{
-			_bgWebServiceClient = bgWebServiceClient;
-		}
+		public Task(ILoggingService loggingService, IBGWebServiceClient bgWebServiceClient) 
+			: base("RecieveErrorsTask", loggingService, bgWebServiceClient) { }
 
 		public override void Execute(ExecutingTaskContext context)
 		{
 			RunLoggedTask(() =>
 			{
-				_bgWebServiceClient.Open();
 				var subscriptionErrorRepository = context.Resolve<ISubscriptionErrorRepository>();
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
-				var errors = _bgWebServiceClient.GetErrors(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<RecievedError>();
+				var errors = BGWebServiceClient.GetErrors(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<RecievedError>();
 				LogDebug("Fetched {0} errors from BG Webservice", errors.Count());
 				errors.Each(error =>
 				{
 					var subscription = subscriptionRepository.GetByBankgiroPayerId(error.PayerNumber);
 					var subscriptionError = ConvertError(error, subscription);
 					subscriptionErrorRepository.Save(subscriptionError);
-					_bgWebServiceClient.SetErrorHandled(error);
+					BGWebServiceClient.SetErrorHandled(error);
 					LogDebug("Saved subscription error \"{0}\" for subscription \"{1}\"", subscriptionError.Id, subscriptionError.Subscription.Id);
 				});
-				_bgWebServiceClient.Close();
 			});
 		}
 		protected virtual SubscriptionError ConvertError(RecievedError error, Subscription subscription)

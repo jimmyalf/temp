@@ -12,20 +12,15 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 {
-	public class Task : TaskBase
+	public class Task : TaskBaseWithWebService
 	{
-		private readonly IBGWebServiceClient _bgWebServiceClient;
-
-		public Task(ILoggingService loggingService, IBGWebServiceClient bgWebServiceClient) : base("SendPaymentsTask", loggingService)
-		{
-			_bgWebServiceClient = bgWebServiceClient;
-		}
+		public Task(ILoggingService loggingService, IBGWebServiceClient bgWebServiceClient) 
+			: base("SendPaymentsTask", loggingService, bgWebServiceClient) { }
 
 		public override void Execute(ExecutingTaskContext context)
 		{
 			RunLoggedTask(() =>
 			{
-				_bgWebServiceClient.Open();
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
 				var subscriptions = subscriptionRepository.FindBy(new AllSubscriptionsToSendPaymentsForCriteria()) ?? Enumerable.Empty<Subscription>();
 				LogDebug("Fetched {0} subscriptions to send payments for", subscriptions.Count());
@@ -33,10 +28,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 				subscriptions.Each(subscription => 
 				{
 					var payment = ConvertSubscription(subscription);
-					_bgWebServiceClient.SendPayment(payment);
+					BGWebServiceClient.SendPayment(payment);
 					UpdateSubscriptionPaymentDate(subscription, subscriptionRepository);
 				});
-				_bgWebServiceClient.Close();
 			});
 		}
 

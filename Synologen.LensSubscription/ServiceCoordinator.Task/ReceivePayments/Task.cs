@@ -12,33 +12,27 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 {
-	public class Task : TaskBase
+	public class Task : TaskBaseWithWebService
 	{
-		private readonly IBGWebServiceClient _bgWebServiceClient;
-
-		public Task(IBGWebServiceClient bgWebServiceClient, ILoggingService loggingService) : base("ReceivePaymentsTask", loggingService)
-		{
-			_bgWebServiceClient = bgWebServiceClient;
-		}
+		public Task(IBGWebServiceClient bgWebServiceClient, ILoggingService loggingService) 
+			: base("ReceivePaymentsTask", loggingService, bgWebServiceClient) { }
 
 		public override void Execute(ExecutingTaskContext context)
 		{
 			RunLoggedTask(() =>
 			{
-				_bgWebServiceClient.Open();
 				var transactionsRepository = context.Resolve<ITransactionRepository>();
 				var subscriptionErrorRepository = context.Resolve<ISubscriptionErrorRepository>();
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
-				var payments = _bgWebServiceClient.GetPayments(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedPayment>();
+				var payments = BGWebServiceClient.GetPayments(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedPayment>();
 				LogDebug("Fetched {0} payment results from bgc server", payments.Count());
 
 				payments.Each(payment =>
 				{
 					var subscription = subscriptionRepository.GetByBankgiroPayerId(payment.PayerNumber);
 					SaveTransactionOrError(payment, subscription, transactionsRepository, subscriptionRepository, subscriptionErrorRepository);
-					_bgWebServiceClient.SetPaymentHandled(payment);
+					BGWebServiceClient.SetPaymentHandled(payment);
 				});
-				_bgWebServiceClient.Close();
 			});
 		}
 

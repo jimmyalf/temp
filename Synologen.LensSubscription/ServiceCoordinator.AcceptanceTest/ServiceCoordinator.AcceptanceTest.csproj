@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Factory.cs" />
     <Compile Include="GlobalTestBase.cs" />
+    <Compile Include="TestHelpers\ReceiveConsentTaskbase.cs" />
     <Compile Include="Receive_Consent.cs" />
     <Compile Include="Send_Consent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

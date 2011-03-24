@@ -5,6 +5,7 @@ using Spinit.Data;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription
 {
@@ -17,17 +18,15 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscrip
 			return Criteria
 				.FilterEqual(x => x.ConsentStatus, SubscriptionConsentStatus.Accepted)
 				.FilterEqual(x => x.Active, true)
-					.Add(Restrictions.Or(
-							Restrictions.IsNull("PaymentInfo.PaymentSentDate"),
-							Restrictions.Not(
-								Restrictions.And(
-									Restrictions.Eq(
-										Projections.SqlFunction("month", NHibernateUtil.DateTime, Projections.Property("PaymentInfo.PaymentSentDate")),
-										DateTime.Now.Month),
-									Restrictions.Eq(
-										Projections.SqlFunction("year", NHibernateUtil.DateTime, Projections.Property("PaymentInfo.PaymentSentDate")),
-										DateTime.Now.Year)
-							))));
+				.Add(Restrictions.Or(
+					Restrictions.IsNull(Property(x => x.PaymentInfo.PaymentSentDate)),
+					Restrictions.Lt(Property(x => x.PaymentInfo.PaymentSentDate), FirstDateInCurrentMonth)
+				));
+		}
+
+		private static DateTime FirstDateInCurrentMonth
+		{
+			get { return new DateTime(SystemTime.Now.Year, SystemTime.Now.Month, 1); }
 		}
 	}
 }

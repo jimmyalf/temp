@@ -7,6 +7,7 @@ using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
@@ -401,13 +402,88 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		}
 	}
 
+	//[TestFixture, Category("SubscriptionRepositoryTester")]
+	//public class When_fetching_subscriptions_by_AllSubscriptionsToSendPaymentsForCriteria : BaseRepositoryTester<SubscriptionRepository>
+	//{
+	//    private IList<Subscription> _savedSubscriptions;
+	//    private const bool Subscription_Is_Active = true;
+	//    private const bool Subscription_Not_Active = false;
+	//    private DateTime dateWithOtherMonth;
+
+	//    public When_fetching_subscriptions_by_AllSubscriptionsToSendPaymentsForCriteria()
+	//    {
+	//        Context = session =>
+	//        {
+	//            var shop = new ShopRepository(session).Get(TestShopId);
+	//            var country = new CountryRepository(session).Get(TestCountryId);
+	//            var customer = CustomerFactory.Get(country, shop, "Gunnar", "Gustafsson", "198206113411");
+	//            new CustomerRepository(session).Save(customer);
+	//            dateWithOtherMonth = GetDateWithOtherMonth();
+
+	//            _savedSubscriptions = new List<Subscription>
+	//            {
+	//                SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Accepted, null),
+	//                SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Accepted, dateWithOtherMonth),
+	//                SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Accepted, DateTime.Now.AddYears(-1)),
+	//                SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Accepted, DateTime.Now),
+	//                SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Denied, dateWithOtherMonth),
+	//                SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.NotSent, null),
+	//                SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Sent, dateWithOtherMonth),
+	//                SubscriptionFactory.Get(customer, Subscription_Not_Active, SubscriptionConsentStatus.Accepted, dateWithOtherMonth),
+	//                SubscriptionFactory.Get(customer, Subscription_Not_Active, SubscriptionConsentStatus.Denied, null),
+	//                SubscriptionFactory.Get(customer, Subscription_Not_Active, SubscriptionConsentStatus.NotSent, null),
+	//                SubscriptionFactory.Get(customer, Subscription_Not_Active, SubscriptionConsentStatus.Sent, null)
+	//            };
+	//        };
+
+	//        Because = repository => _savedSubscriptions.Each(repository.Save);
+	//    }
+
+	//    private static DateTime GetDateWithOtherMonth()
+	//    {
+	//        DateTime present = DateTime.Now;
+	//        return (present.Month == 1) ? new DateTime(present.Year, present.Month + 1, present.Day) : present.AddMonths(-1); 
+	//    }
+
+
+	//    [Test]
+	//    public void Criteria_only_fetches_active_subscriptions_with_consent_and_paymentsentdate_empty_or_other_month()
+	//    {
+	//        AssertUsing(session =>
+	//        {
+	//            var subscriptions = new SubscriptionRepository(session).FindBy(new AllSubscriptionsToSendPaymentsForCriteria()).ToArray();
+	//            subscriptions.Count().ShouldBe(3);
+
+	//            Subscription subscription = subscriptions[0];
+	//            subscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.Accepted);
+	//            subscription.Active.ShouldBe(Subscription_Is_Active);
+	//            subscription.PaymentInfo.PaymentSentDate.ShouldBe(null);
+
+	//            subscription = subscriptions[1];
+	//            subscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.Accepted);
+	//            subscription.Active.ShouldBe(Subscription_Is_Active);
+	//            subscription.PaymentInfo.PaymentSentDate.Value.Year.ShouldBe(DateTime.Now.Year);
+	//            subscription.PaymentInfo.PaymentSentDate.Value.Month.ShouldBe(dateWithOtherMonth.Month);
+
+	//            subscription = subscriptions[2];
+	//            subscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.Accepted);
+	//            subscription.Active.ShouldBe(Subscription_Is_Active);
+	//            subscription.PaymentInfo.PaymentSentDate.Value.Year.ShouldBe(DateTime.Now.Year - 1);
+	//            subscription.PaymentInfo.PaymentSentDate.Value.Month.ShouldBe(DateTime.Now.Month);
+	//        });
+	//    }
+	//}
+
+
 	[TestFixture, Category("SubscriptionRepositoryTester")]
 	public class When_fetching_subscriptions_by_AllSubscriptionsToSendPaymentsForCriteria : BaseRepositoryTester<SubscriptionRepository>
 	{
 		private IList<Subscription> _savedSubscriptions;
-		private const bool Subscription_Is_Active = true;
-		private const bool Subscription_Not_Active = false;
-		private DateTime dateWithOtherMonth;
+		private IEnumerable<Subscription> fetchedSubscriptions;
+		private DateTime currentDate;
+		private DateTime firstDayInCurrentMonth;
+		private const bool Active = true;
+		private const bool InActive = false;
 
 		public When_fetching_subscriptions_by_AllSubscriptionsToSendPaymentsForCriteria()
 		{
@@ -417,58 +493,53 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop, "Gunnar", "Gustafsson", "198206113411");
 				new CustomerRepository(session).Save(customer);
-				dateWithOtherMonth = GetDateWithOtherMonth();
+				currentDate = new DateTime(2011, 03, 24);
+				firstDayInCurrentMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
 
 				_savedSubscriptions = new List<Subscription>
 				{
-					SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Accepted, null),
-					SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Accepted, dateWithOtherMonth),
-					SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Accepted, DateTime.Now.AddYears(-1)),
-					SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Accepted, DateTime.Now),
-					SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Denied, dateWithOtherMonth),
-					SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.NotSent, null),
-					SubscriptionFactory.Get(customer, Subscription_Is_Active, SubscriptionConsentStatus.Sent, dateWithOtherMonth),
-					SubscriptionFactory.Get(customer, Subscription_Not_Active, SubscriptionConsentStatus.Accepted, dateWithOtherMonth),
-					SubscriptionFactory.Get(customer, Subscription_Not_Active, SubscriptionConsentStatus.Denied, null),
-					SubscriptionFactory.Get(customer, Subscription_Not_Active, SubscriptionConsentStatus.NotSent, null),
-					SubscriptionFactory.Get(customer, Subscription_Not_Active, SubscriptionConsentStatus.Sent, null)
+					SubscriptionFactory.Get(customer, Active, SubscriptionConsentStatus.Accepted, null), // --> Should be included
+					SubscriptionFactory.Get(customer, InActive, SubscriptionConsentStatus.Accepted, null),
+					SubscriptionFactory.Get(customer, Active, SubscriptionConsentStatus.Accepted, new DateTime(2010,05,25)), // --> Should be included
+					SubscriptionFactory.Get(customer, Active, SubscriptionConsentStatus.Accepted, new DateTime(2011,01,25)), // --> Should be included
+					SubscriptionFactory.Get(customer, InActive, SubscriptionConsentStatus.Accepted, new DateTime(2011,01,25)),
+					SubscriptionFactory.Get(customer, Active, SubscriptionConsentStatus.Accepted, new DateTime(2011,02,25)), // --> Should be included
+					SubscriptionFactory.Get(customer, Active, SubscriptionConsentStatus.Accepted, new DateTime(2011,03,20)),
+					SubscriptionFactory.Get(customer, Active, SubscriptionConsentStatus.Accepted, new DateTime(2011,03,25)),
+					SubscriptionFactory.Get(customer, Active, SubscriptionConsentStatus.Accepted, new DateTime(2011,04,25)),
+					SubscriptionFactory.Get(customer, Active, SubscriptionConsentStatus.NotSent, new DateTime(2011,02,25)),
+					SubscriptionFactory.Get(customer, Active, SubscriptionConsentStatus.Denied, new DateTime(2011,02,25)),
 				};
 			};
 
-			Because = repository => _savedSubscriptions.Each(repository.Save);
+			Because = repository =>
+			{
+				_savedSubscriptions.Each(repository.Save);
+				fetchedSubscriptions = SystemTime.ReturnWhileTimeIs(currentDate, () => repository.FindBy(new AllSubscriptionsToSendPaymentsForCriteria()));
+			};
 		}
-
-		private static DateTime GetDateWithOtherMonth()
-		{
-			DateTime present = DateTime.Now;
-			return (present.Month == 1) ? new DateTime(present.Year, present.Month + 1, present.Day) : present.AddMonths(-1); 
-		}
-
 
 		[Test]
-		public void Criteria_only_fetches_active_subscriptions_with_consent_and_paymentsentdate_empty_or_other_month()
+		public void Criteria_fetches_active_subscriptions()
 		{
-			AssertUsing(session =>
+			fetchedSubscriptions.Each(subscription => subscription.Active.ShouldBe(true));
+		}
+
+		[Test]
+		public void Criteria_fetches_subscriptions_with_consent()
+		{
+			fetchedSubscriptions.Each(subscription => subscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.Accepted));
+		}
+
+		[Test]
+		public void Criteria_fetches_subscriptions_with_paymentsentdate_empty_or_from_any_previous_months()
+		{
+			fetchedSubscriptions.Each(subscription =>
 			{
-				var subscriptions = new SubscriptionRepository(session).FindBy(new AllSubscriptionsToSendPaymentsForCriteria()).ToArray();
-				subscriptions.Count().ShouldBe(3);
-
-				Subscription subscription = subscriptions[0];
-				subscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.Accepted);
-				subscription.Active.ShouldBe(Subscription_Is_Active);
-				subscription.PaymentInfo.PaymentSentDate.ShouldBe(null);
-
-				subscription = subscriptions[1];
-				subscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.Accepted);
-				subscription.Active.ShouldBe(Subscription_Is_Active);
-				subscription.PaymentInfo.PaymentSentDate.Value.Year.ShouldBe(DateTime.Now.Year);
-				subscription.PaymentInfo.PaymentSentDate.Value.Month.ShouldBe(dateWithOtherMonth.Month);
-
-				subscription = subscriptions[2];
-				subscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.Accepted);
-				subscription.Active.ShouldBe(Subscription_Is_Active);
-				subscription.PaymentInfo.PaymentSentDate.Value.Year.ShouldBe(DateTime.Now.Year - 1);
-				subscription.PaymentInfo.PaymentSentDate.Value.Month.ShouldBe(DateTime.Now.Month);
+				if(subscription.PaymentInfo.PaymentSentDate.HasValue)
+				{
+					subscription.PaymentInfo.PaymentSentDate.Value.ShouldBeLessThan(firstDayInCurrentMonth);
+				}
 			});
 		}
 	}

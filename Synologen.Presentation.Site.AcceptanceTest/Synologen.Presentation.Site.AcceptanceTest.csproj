@@ -8,8 +8,8 @@
     <ProjectGuid>{F44BC897-D22A-4103-AE03-B6826A413BE9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen.Presentation.AcceptanceTest</RootNamespace>
-    <AssemblyName>Synologen.Presentation.AcceptanceTest</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -152,4 +152,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

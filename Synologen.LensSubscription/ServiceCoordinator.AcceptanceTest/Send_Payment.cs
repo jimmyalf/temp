@@ -31,13 +31,7 @@ namespace ServiceCoordinator.AcceptanceTest
 					bankGiroPayerNumber = service.RegisterPayer("Test payer", AutogiroServiceType.LensSubscription);
 				});
 
-				var expectedPaymentDay = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentDayInMonth();
-				var cutOffDayInMonth = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentCutOffDayInMonth();
-				expectedPaymentDate = new DateTime(SystemTime.Now.Year, SystemTime.Now.Month, expectedPaymentDay);
-				if(SystemTime.Now.Day >= cutOffDayInMonth)
-				{
-					expectedPaymentDate = expectedPaymentDate.AddMonths(1);
-				}
+				expectedPaymentDate = CalculatePaymentDate();
 
 				var countryToUse = countryRepository.Get(SwedenCountryId);
 				var shopToUse = shopRepository.Get(TestShopId);
@@ -71,6 +65,18 @@ namespace ServiceCoordinator.AcceptanceTest
 		{
 			var fetchedSubscription = ResolveRepository<ISubscriptionRepository>(GetWPCSession).Get(subscription.Id);
 			fetchedSubscription.PaymentInfo.PaymentSentDate.Value.Date.ShouldBe(expectedPaymentDate);
+		}
+
+		public DateTime CalculatePaymentDate()
+		{
+			var expectedPaymentDay = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentDayInMonth();
+			var cutOffDayInMonth = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentCutOffDayInMonth();
+			var date = new DateTime(SystemTime.Now.Year, SystemTime.Now.Month, expectedPaymentDay);
+			if(SystemTime.Now.Day >= cutOffDayInMonth)
+			{
+				date = date.AddMonths(1);
+			}
+			return date;
 		}
 	}
 }

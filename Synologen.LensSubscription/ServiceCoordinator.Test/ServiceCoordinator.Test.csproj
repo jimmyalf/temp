@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FakeItEasy, Version=1.0.0.5, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Tools\FakeItEasy\FakeItEasy.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Log4net\log4net.dll</HintPath>
@@ -69,6 +73,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutogiroPaymentServiceTest.cs" />
+    <Compile Include="TestHelpers\AutogiroPaymentServiceTestBase.cs" />
     <Compile Include="LoggingServiceTest.cs" />
     <Compile Include="TestHelpers\LoggingServiceTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

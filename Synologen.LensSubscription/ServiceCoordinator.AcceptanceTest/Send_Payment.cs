@@ -20,6 +20,7 @@ namespace ServiceCoordinator.AcceptanceTest
 		private Customer customer;
 		private Subscription subscription;
 		private int bankGiroPayerNumber;
+		private DateTime expectedPaymentDate;
 
 		public When_sending_a_payment()
 		{
@@ -29,6 +30,14 @@ namespace ServiceCoordinator.AcceptanceTest
 				{
 					bankGiroPayerNumber = service.RegisterPayer("Test payer", AutogiroServiceType.LensSubscription);
 				});
+
+				var expectedPaymentDay = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentDayInMonth();
+				var cutOffDayInMonth = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentCutOffDayInMonth();
+				expectedPaymentDate = new DateTime(SystemTime.Now.Year, SystemTime.Now.Month, expectedPaymentDay);
+				if(SystemTime.Now.Day >= cutOffDayInMonth)
+				{
+					expectedPaymentDate = expectedPaymentDate.AddMonths(1);
+				}
 
 				var countryToUse = countryRepository.Get(SwedenCountryId);
 				var shopToUse = shopRepository.Get(TestShopId);
@@ -50,7 +59,7 @@ namespace ServiceCoordinator.AcceptanceTest
 			lastPayment.Amount.ShouldBe(subscription.PaymentInfo.MonthlyAmount);
 			lastPayment.HasBeenSent.ShouldBe(false);
 			lastPayment.Payer.Id.ShouldBe(bankGiroPayerNumber);
-			lastPayment.PaymentDate.Date.ShouldBe(DateTime.Now.Date); //FIX: Figure out how to config an expected payment date
+			lastPayment.PaymentDate.Date.ShouldBe(expectedPaymentDate);
 			lastPayment.PaymentPeriodCode.ShouldBe(PaymentPeriodCode.PaymentOnceOnSelectedDate);
 			lastPayment.Reference.ShouldBe(null);
 			lastPayment.SendDate.ShouldBe(null);
@@ -61,7 +70,7 @@ namespace ServiceCoordinator.AcceptanceTest
 		public void Task_updates_payment_date()
 		{
 			var fetchedSubscription = ResolveRepository<ISubscriptionRepository>(GetWPCSession).Get(subscription.Id);
-			fetchedSubscription.PaymentInfo.PaymentSentDate.Value.Date.ShouldBe(DateTime.Now.Date);
+			fetchedSubscription.PaymentInfo.PaymentSentDate.Value.Date.ShouldBe(expectedPaymentDate);
 		}
 	}
 }

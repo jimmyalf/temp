@@ -22,6 +22,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 		protected Mock<ITransactionRepository> MockedTransactionRepository;
 		protected Log4NetLogger LoggingService;
 		protected ITaskRepositoryResolver TaskRepositoryResolver;
+		protected IAutogiroPaymentService AutogiroPaymentService;
 
 		protected override void SetUp()
 		{
@@ -33,6 +34,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 			MockedTransactionRepository = new Mock<ITransactionRepository>();
 			LoggingService = new Log4NetLogger(MockedLogger.Object, MockedEventLoggingService.Object);
 			TaskRepositoryResolver = A.Fake<ITaskRepositoryResolver>();
+			AutogiroPaymentService = A.Fake<IAutogiroPaymentService>();
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<ISubscriptionRepository>()).Returns(MockedSubscriptionRepository.Object);
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<ISubscriptionErrorRepository>()).Returns(MockedSubscriptionErrorRepository.Object);
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<ITransactionRepository>()).Returns(MockedTransactionRepository.Object);

@@ -220,6 +220,7 @@
     <Compile Include="Domain\Services\Coordinator\TaskBaseWithWebService.cs" />
     <Compile Include="Domain\Services\EventLogLogger.cs" />
     <Compile Include="Domain\Services\FtpCommandService.cs" />
+    <Compile Include="Domain\Services\IAutogiroPaymentService.cs" />
     <Compile Include="Domain\Services\IBGServiceCoordinatorSettingsService.cs" />
     <Compile Include="Domain\Services\IFileIOService.cs" />
     <Compile Include="Domain\Services\IFileReaderService.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Domain\Services\IFrameOrderService.cs" />
     <Compile Include="Domain\Services\ILoggingService.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGWebService.cs" />
+    <Compile Include="Domain\Services\IServiceCoordinatorSettingsService.cs" />
     <Compile Include="Domain\Services\ISynologenMemberService.cs" />
     <Compile Include="Domain\Services\ISynologenSettingsService.cs" />
     <Compile Include="Domain\Services\ITaskRunnerService.cs" />

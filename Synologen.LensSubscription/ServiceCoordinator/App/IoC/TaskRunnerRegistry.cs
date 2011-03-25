@@ -31,11 +31,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App.IoC
 			// Logging
 			For<ILoggingService>().Singleton().Use(LogFactory.CreateLoggingService());
 	
-//#if (DEBUG)
-//			For<IBGWebService>().Use<MockBgWebServiceClient>();
-//#else
 			For<IBGWebServiceClient>().Use<BgWebServiceClient>();
-//#endif
+			For<IAutogiroPaymentService>().Use<AutogiroPaymentService>();
+			For<IServiceCoordinatorSettingsService>().Use<ServiceCoordinatorSettingsService>(); 
 			
 			// Task scan
 			Scan(x =>

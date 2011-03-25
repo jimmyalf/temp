@@ -5,7 +5,6 @@ using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.ContractSales;
 using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
-using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 
 namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {

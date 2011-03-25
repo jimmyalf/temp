@@ -33,6 +33,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 			mockedSubscription.SetupProperty(x => x.PaymentInfo.ClearingNumber, "0123");
 			mockedSubscription.SetupProperty(x => x.PaymentInfo.AccountNumber, "12345678");
 			mockedSubscription.SetupProperty(x => x.PaymentInfo.MonthlyAmount, 399);
+			mockedSubscription.SetupProperty(x => x.PaymentInfo.PaymentSentDate, null);
 			mockedSubscription.SetupProperty(x => x.ConsentStatus);
 			mockedSubscription.SetupProperty(x => x.ActivatedDate);
 			mockedSubscription.SetupProperty(x => x.BankgiroPayerNumber, 5);

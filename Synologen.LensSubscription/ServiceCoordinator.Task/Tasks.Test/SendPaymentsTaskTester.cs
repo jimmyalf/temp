@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using FakeItEasy;
 using Moq;
 using NUnit.Framework;
 using Spinit.Extensions;
@@ -16,15 +18,18 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	{
 		
 		private IEnumerable<Subscription> expectedSubscriptions;
+		private DateTime expectedPaymentDate;
 
 		public When_executing_send_payments_task()
 		{
 			Context = () =>
 			{
+				expectedPaymentDate = new DateTime(2011, 03, 25);
 				expectedSubscriptions = SubscriptionFactory.GetList();
 				MockedSubscriptionRepository
 					.Setup(x => x.FindBy(It.IsAny<AllSubscriptionsToSendPaymentsForCriteria>()))
 					.Returns(expectedSubscriptions);
+				A.CallTo(() => AutogiroPaymentService.GetPaymentDate()).Returns(expectedPaymentDate);
 			};
 			Because = task => task.Execute(ExecutingTaskContext);
 		}
@@ -46,7 +51,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		public void Task_sends_payments_to_webservice()
 		{
 			expectedSubscriptions.Each(subscription => MockedWebServiceClient.Verify(x => x.SendPayment(
-					It.Is<PaymentToSend>(payment => payment.PayerNumber.Equals(subscription.BankgiroPayerNumber.Value))
+				It.Is<PaymentToSend>(payment => payment.PayerNumber.Equals(subscription.BankgiroPayerNumber.Value))
 			)));
 		}
 
@@ -59,17 +64,19 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
                  sentPayment.PayerNumber.Equals(subscription.BankgiroPayerNumber) &&
                  Equals(sentPayment.Reference, null) &&
                  sentPayment.Type.Equals(PaymentType.Debit) &&
-                 sentPayment.PeriodCode.Equals(PaymentPeriodCode.PaymentOnceOnSelectedDate)
+                 sentPayment.PeriodCode.Equals(PaymentPeriodCode.PaymentOnceOnSelectedDate) &&
+				 sentPayment.PaymentDate.Equals(expectedPaymentDate)
         	))));
 }
 
 		[Test]
-		public void Task_updates_sent_payments_to_repository()
+		public void Task_updates_subscription_payment_date()
 		{
 			expectedSubscriptions.Each(subscription =>
 				MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(savedSubscription =>
 				   savedSubscription.Id.Equals(subscription.Id) &&
-				   savedSubscription.PaymentInfo.PaymentSentDate.Equals(savedSubscription.PaymentInfo.PaymentSentDate)
+				   //savedSubscription.PaymentInfo.PaymentSentDate.Equals(savedSubscription.PaymentInfo.PaymentSentDate) // <-- Test?
+				   savedSubscription.PaymentInfo.PaymentSentDate.Value.Equals(expectedPaymentDate)
 			))));
 		}
 	}

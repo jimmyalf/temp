@@ -6,7 +6,6 @@ using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
-using Spinit.Wpc.Synologen.Integration.Data.Test.CommonDataTestHelpers;
 
 namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 {
@@ -19,29 +18,14 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 		protected override void SetUp()
 		{
-			//return () =>
-			//{
-				SetupData();
-				ActionCriteriaExtensions.ConstructConvertersUsing(ResolveCriteriaConverters);
-			//};
+			SetupData();
+			ActionCriteriaExtensions.ConstructConvertersUsing(ResolveCriteriaConverters);
 		}
 
 		protected override ISessionFactory GetSessionFactory()
 		{
 			return NHibernateFactory.Instance.GetSessionFactory();
 		}
-
-		//public Action<ISession> Arrange
-		//{
-		//    get { return Context; }
-		//    set { Context = value; }
-		//}
-
-		//public Action<TRepository> Act
-		//{
-		//    get { return Because; }
-		//    set { Because = value; }
-		//}
 
 		private object ResolveCriteriaConverters<TType>(TType objectToResolve)
 		{

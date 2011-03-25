@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
@@ -14,8 +13,13 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 {
 	public class Task : TaskBaseWithWebService
 	{
-		public Task(ILoggingService loggingService, IBGWebServiceClient bgWebServiceClient) 
-			: base("SendPaymentsTask", loggingService, bgWebServiceClient) { }
+		private readonly IAutogiroPaymentService _autogiroPaymentService;
+
+		public Task(ILoggingService loggingService, IBGWebServiceClient bgWebServiceClient, IAutogiroPaymentService autogiroPaymentService) 
+			: base("SendPaymentsTask", loggingService, bgWebServiceClient)
+		{
+			_autogiroPaymentService = autogiroPaymentService;
+		}
 
 		public override void Execute(ExecutingTaskContext context)
 		{
@@ -24,7 +28,6 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
 				var subscriptions = subscriptionRepository.FindBy(new AllSubscriptionsToSendPaymentsForCriteria()) ?? Enumerable.Empty<Subscription>();
 				LogDebug("Fetched {0} subscriptions to send payments for", subscriptions.Count());
-
 				subscriptions.Each(subscription => 
 				{
 					var payment = ConvertSubscription(subscription);
@@ -36,12 +39,12 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 
 		private void UpdateSubscriptionPaymentDate(Subscription subscription, ISubscriptionRepository subscriptionRepository)
 		{
-			subscription.PaymentInfo.PaymentSentDate = DateTime.Now;
+			subscription.PaymentInfo.PaymentSentDate = _autogiroPaymentService.GetPaymentDate();;
 			subscriptionRepository.Save(subscription);
 			LogDebug("Payment for subscription with id \"{0}\" has been sent.", subscription.Id);
 		}
 
-		private static PaymentToSend ConvertSubscription(Subscription subscription)
+		private PaymentToSend ConvertSubscription(Subscription subscription)
 		{
 			var payment = new PaymentToSend
 			{
@@ -49,7 +52,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 				Reference = null, //subscription.Customer.PersonalIdNumber,
 				Type = PaymentType.Debit,
 				PayerNumber = subscription.BankgiroPayerNumber.Value,
-				PaymentDate = DateTime.Now, //FIX: PaymentDate
+				PaymentDate = _autogiroPaymentService.GetPaymentDate(),
                 PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate
 			};
 			return payment;

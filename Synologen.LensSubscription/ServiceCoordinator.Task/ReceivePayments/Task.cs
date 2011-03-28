@@ -27,12 +27,12 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 				var payments = BGWebServiceClient.GetPayments(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedPayment>();
 				LogDebug("Fetched {0} payment results from bgc server", payments.Count());
 
-				payments.Each(payment =>
+				payments.Each(payment => ExecuteWithExceptionHandling(context, "Got exception while processing received payment. Execution will continue to process next payment if any.", () =>
 				{
 					var subscription = subscriptionRepository.GetByBankgiroPayerId(payment.PayerNumber);
 					SaveTransactionOrError(payment, subscription, transactionsRepository, subscriptionRepository, subscriptionErrorRepository);
 					BGWebServiceClient.SetPaymentHandled(payment);
-				});
+				}));
 			});
 		}
 

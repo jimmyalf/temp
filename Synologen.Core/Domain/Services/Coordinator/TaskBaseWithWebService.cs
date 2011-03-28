@@ -29,7 +29,24 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 			catch (Exception ex)
 			{
 				BGWebServiceClient.Abort();
-				base.LogError("Got exception while attempting to clos web service client", ex);
+				base.LogError("Got exception while attempting to close web service client", ex);
+			}
+		}
+
+		public virtual void ExecuteWithExceptionHandling(ExecutingTaskContext context, string errorMessage, Action action)
+		{
+			try
+			{
+				action.Invoke();
+			}
+			catch(Exception exception)
+			{
+				LogError(errorMessage, exception);
+				if(BGWebServiceClient.State == CommunicationState.Faulted)
+				{
+					BGWebServiceClient.Abort();
+					BGWebServiceClient = context.Resolve<IBGWebServiceClient>();
+				}
 			}
 		}
 	}

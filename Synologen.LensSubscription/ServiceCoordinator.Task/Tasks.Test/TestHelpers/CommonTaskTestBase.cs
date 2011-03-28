@@ -38,6 +38,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<ISubscriptionRepository>()).Returns(MockedSubscriptionRepository.Object);
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<ISubscriptionErrorRepository>()).Returns(MockedSubscriptionErrorRepository.Object);
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<ITransactionRepository>()).Returns(MockedTransactionRepository.Object);
+			A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGWebServiceClient>()).Returns(MockedWebServiceClient.Object);
 		}
 
 		protected abstract ITask GetTask();

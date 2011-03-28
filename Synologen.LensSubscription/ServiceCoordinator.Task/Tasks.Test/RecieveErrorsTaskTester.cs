@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.ServiceModel;
+using FakeItEasy;
 using Moq;
 using NUnit.Framework;
 using Spinit.Extensions;
@@ -7,6 +9,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
@@ -73,26 +76,38 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 						It.Is<RecievedError>(errorItem => errorItem.Equals(error))
 			)));
 		}
+	}
 
-		private static bool ExpectedErrorTypeConversionMatches(SubscriptionErrorType subscriptionErrorType, ErrorCommentCode errorType)
+	[TestFixture, Category("RecieveErrorsTaskTests")]
+	public class When_receiving_errors_gets_exception_from_web_service : RecieveErrorsTaskTestBase
+	{
+		private RecievedError[] expectedErrors;
+		private Subscription expectedSubscription;
+		public When_receiving_errors_gets_exception_from_web_service()
 		{
-			if(errorType ==  ErrorCommentCode.ConsentMissing)
+			Context = () =>
 			{
-				return subscriptionErrorType == SubscriptionErrorType.ConsentMissing;
-			}
-			if(errorType ==  ErrorCommentCode.AccountNotYetApproved)
-			{
-				return subscriptionErrorType == SubscriptionErrorType.NotApproved;
-			}
-			if(errorType ==  ErrorCommentCode.ConsentStopped)
-			{
-				return subscriptionErrorType == SubscriptionErrorType.CosentStopped;
-			}
-			if(errorType ==  ErrorCommentCode.NotYetDebitable)
-			{
-				return subscriptionErrorType == SubscriptionErrorType.NotDebitable;
-			}
-			throw new AssertionException("No Matching enum");
+				expectedErrors = ErrorFactory.GetList().ToArray();
+				expectedSubscription = SubscriptionFactory.Get(3);
+
+				MockedWebServiceClient.Setup(x => x.GetErrors(It.IsAny<AutogiroServiceType>())).Returns(expectedErrors);
+				MockedWebServiceClient.Setup(x => x.SetErrorHandled(It.IsAny<RecievedError>())).Throws(new Exception("Test exception"));
+				MockedWebServiceClient.SetupGet(x => x.State).Returns(CommunicationState.Faulted);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
+			};
+			Because = task => task.Execute(ExecutingTaskContext);
+		}
+
+		[Test]
+		public void Task_logs_error_for_each_exception()
+		{
+			MockedLogger.Verify(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>()), Times.Exactly(expectedErrors.Count()));
+		}
+
+		[Test]
+		public void Task_fetches_new_webclient_for_each_exception()
+		{
+		    A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGWebServiceClient>()).MustHaveHappened(Repeated.Times(expectedErrors.Count()));
 		}
 	}
 }

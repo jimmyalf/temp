@@ -6,7 +6,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 {
 	public abstract class TaskBaseWithWebService : TaskBase
 	{
-		protected IBGWebServiceClient BGWebServiceClient{ get; set; }
+		protected IBGWebServiceClient BGWebServiceClient { get; set; }
+
 		protected TaskBaseWithWebService(string taskName, ILoggingService loggingService, IBGWebServiceClient bgWebServiceClient) 
 			: base(taskName, loggingService)
 		{

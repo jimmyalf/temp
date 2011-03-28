@@ -25,14 +25,15 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
 				var errors = BGWebServiceClient.GetErrors(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<RecievedError>();
 				LogDebug("Fetched {0} errors from BG Webservice", errors.Count());
-				errors.Each(error =>
+
+				errors.Each(error => ExecuteWithExceptionHandling(context, "Got exception while processing received error. Execution will continue to process next error if any.", () =>
 				{
 					var subscription = subscriptionRepository.GetByBankgiroPayerId(error.PayerNumber);
 					var subscriptionError = ConvertError(error, subscription);
 					subscriptionErrorRepository.Save(subscriptionError);
 					BGWebServiceClient.SetErrorHandled(error);
 					LogDebug("Saved subscription error \"{0}\" for subscription \"{1}\"", subscriptionError.Id, subscriptionError.Subscription.Id);
-				});
+				}));
 			});
 		}
 		protected virtual SubscriptionError ConvertError(RecievedError error, Subscription subscription)

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
+using FakeItEasy;
 using Moq;
 using NUnit.Framework;
 using Spinit.Extensions;
@@ -8,6 +10,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
@@ -269,6 +272,41 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		public void No_subscriptionerror_is_saved()
 		{
 			MockedSubscriptionErrorRepository.Verify(x => x.Save(It.IsAny<SubscriptionError>()), Times.Never());
+		}
+	}
+
+	[TestFixture, Category("ReceivePaymentsTaskTests")]
+	public class When_receiving_payments_gets_exception_from_web_service : ReceivePaymentsTaskTestBase
+	{
+		private IEnumerable<ReceivedPayment> expectedPayments;
+		private Subscription expectedSubscription;
+		private const int subscriptionId = 1;
+
+		public When_receiving_payments_gets_exception_from_web_service()
+		{
+			Context = () =>
+			{
+				expectedPayments = PaymentFactory.GetList(subscriptionId);
+				expectedSubscription = SubscriptionFactory.Get(subscriptionId);
+
+				MockedWebServiceClient.Setup(x => x.GetPayments(It.IsAny<AutogiroServiceType>())).Returns(expectedPayments.ToArray());
+				MockedWebServiceClient.Setup(x => x.SetPaymentHandled(It.IsAny<ReceivedPayment>())).Throws(new Exception("Test exception"));
+				MockedWebServiceClient.SetupGet(x => x.State).Returns(CommunicationState.Faulted);
+				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
+			};
+			Because = task => task.Execute(ExecutingTaskContext);
+		}
+
+		[Test]
+		public void Task_logs_error_for_each_exception()
+		{
+			MockedLogger.Verify(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>()), Times.Exactly(expectedPayments.Count()));
+		}
+
+		[Test]
+		public void Task_fetches_new_webclient_for_each_exception()
+		{
+		    A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGWebServiceClient>()).MustHaveHappened(Repeated.Times(expectedPayments.Count()));
 		}
 	}
 }

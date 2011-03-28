@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.ServiceModel;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
@@ -26,11 +27,11 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 				var consents = BGWebServiceClient.GetConsents(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedConsent>();
 				LogDebug("Fetched {0} consent replies from bgc server", consents.Count());
 
-				consents.Each(consent =>
+				consents.Each(consent => ExecuteWithExceptionHandling(context, "Got exception while processing received consent. Execution will continue to process next consent if any.", () =>
 				{
 					SaveConsent(consent, subscriptionRepository, subscriptionErrorRepository);
 					BGWebServiceClient.SetConsentHandled(consent);
-				});
+				}));
 			});
 		}
 

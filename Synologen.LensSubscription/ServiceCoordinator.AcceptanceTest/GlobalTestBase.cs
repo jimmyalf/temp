@@ -9,7 +9,7 @@ using Synologen.LensSubscription.ServiceCoordinator.App.IoC;
 using Synologen.LensSubscription.BGData;
 using NHibernateFactory=Spinit.Wpc.Core.Dependencies.NHibernate.NHibernateFactory;
 
-namespace ServiceCoordinator.AcceptanceTest
+namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 {
 	[SetUpFixture]
 	public class GlobalTestBase

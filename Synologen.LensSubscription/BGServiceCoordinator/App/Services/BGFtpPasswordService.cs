@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
@@ -10,11 +11,15 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 	public class BGFtpPasswordService : IBGFtpPasswordService
 	{
 		private readonly IBGFtpPasswordRepository _bgFTPPasswordRepository;
+		private readonly RandomNumberGenerator _cryptoServiceProvider;
+		private const int PasswordMinLength = 6;
+		private const int PasswordMaxLength = 8;
 		protected const string AllowedCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVFXYZabcdefghijklmnopqrstuvxyz";
 
 		public BGFtpPasswordService(IBGFtpPasswordRepository bgFTPPasswordRepository)
 		{
 			_bgFTPPasswordRepository = bgFTPPasswordRepository;
+			_cryptoServiceProvider = new RNGCryptoServiceProvider();
 		}
 
 		public string GetCurrentPassword()
@@ -27,13 +32,21 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 		public string GenerateNewPassword()
 		{
 			var returnString = String.Empty;
-			var random = new Random(DateTime.Now.DayOfYear + DateTime.Now.Second);
-			var length = random.Next(6, 8);
+			var random = GetSeededRandom();
+			var length = random.Next(PasswordMinLength, PasswordMaxLength);
 			while (returnString.Length < length)
 			{
 				returnString += random.Next(AllowedCharacters.Length).GetChar(AllowedCharacters);
 			}
 			return returnString;
+		}
+
+		private Random GetSeededRandom()
+		{
+			var buffer = new byte[4];
+			_cryptoServiceProvider.GetBytes(buffer);
+			var result = BitConverter.ToInt32(buffer, 0);
+			return new Random(result);
 		}
 
 		public void StoreNewActivePassword(string newActivePassword)

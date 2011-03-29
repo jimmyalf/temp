@@ -38,7 +38,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 
 	    public string GetBackupFilesFolderPath()
 	    {
-	        return "";
+	        return ConfigurationManager.AppSettings["BackupFilesFolderPath"];
 	    }
 	}
 }

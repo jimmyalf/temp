@@ -70,7 +70,8 @@
     <Compile Include="GlobalTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelpers\TaskBase.cs" />
-    <Compile Include="When_fetching_new_files.cs" />
+    <Compile Include="Get_file.cs" />
+    <Compile Include="Receiving_consents.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
@@ -93,6 +94,10 @@
       <Project>{56639B4D-5593-4A4F-9918-CBEB29BD93A2}</Project>
       <Name>GetFile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BGServiceCoordinator.Task\ReceiveConsents\ReceiveConsents.csproj">
+      <Project>{0BAE058D-24F4-41ED-8CF9-AD128B59F211}</Project>
+      <Name>ReceiveConsents %28Lenssubscription\BGServiceCoordinatorTask\ReceiveConsents%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BGServiceCoordinator\BGServiceCoordinator.csproj">
       <Project>{0EB3860A-9087-4AF2-BAD9-A1AEA964999D}</Project>
       <Name>BGServiceCoordinator</Name>
@@ -106,6 +111,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="BackupFiles\" />
     <Folder Include="ReceivedFiles\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

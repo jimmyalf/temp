@@ -65,10 +65,10 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 			consents[4].ConsentValidForDate.ShouldBe(new DateTime(2004, 10, 26));
 
 			consents[5].CommentCode.ShouldBe(ConsentCommentCode.ConsentIsAlreadyInBankgiroConsentRegisterOrUnderConsideration);
-			consents[0].ConsentValidForDate.ShouldBe(null);
+			consents[5].ConsentValidForDate.ShouldBe(null);
 
 			consents[6].CommentCode.ShouldBe(ConsentCommentCode.Canceled);
-			consents[0].ConsentValidForDate.ShouldBe(null);
+			consents[6].ConsentValidForDate.ShouldBe(null);
 
 			foreach (var consent in consents)
 			{

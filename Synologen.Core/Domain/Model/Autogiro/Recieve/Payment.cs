@@ -6,7 +6,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve
 	public class Payment
 	{
 		public Payer Transmitter { get; set; }
-		public PaymentReciever Reciever { get; set; }
+		//public PaymentReciever Reciever { get; set; }
+		public string PaymentRecieverBankgiroNumber { get; set; }
 		public PaymentType Type { get; set; }
 		public DateTime PaymentDate { get; set; }
 		public PaymentPeriodCode PaymentPeriodCode { get; set; }

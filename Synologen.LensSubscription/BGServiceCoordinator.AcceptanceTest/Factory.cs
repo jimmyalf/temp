@@ -38,6 +38,30 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 09200410279900              0000016874000000010000140000000000547500000000000000";
 		}
 
+		public static string GetReceivedPaymentData(int payerId)
+		{
+			var formattedPayerId = payerId.ToString().PadLeft(16);
+			return
+				@"0120041027AUTOGIRO9900                                        4711170009912346  
+82200410280    {PayerId}00000002430000099123460809001                                       
+82200410280    {PayerId}00000003840000099123460809002                                       
+82200410280    {PayerId}00000003350000099123460809004                                       
+82200410280    {PayerId}00000004620000099123460809005                                       
+82200410280    {PayerId}00000001720000099123460809006                                       
+82200410280    {PayerId}00000004840000099123460809007                                       
+82200410280    {PayerId}00000003140000099123460809008                                       
+82200410280    {PayerId}00000001120000099123460809009                                       
+82200410280    {PayerId}00000004870000099123460809010                                       
+82200410280    {PayerId}00000004340000099123460809011                                        
+82200410280    {PayerId}00000003370000099123460809012                                        
+32200410280    {PayerId}00000168740000099123460809745                                         
+82200410280    {PayerId}00000002530000099123460809013                   2
+82200410280    {PayerId}00000009690000099123460809014                   1
+82200410280    {PayerId}00000004890000099123460809015                   9
+09200410279900              0000016874000000010000140000000000547500000000000000"
+			.Replace("{PayerId}",formattedPayerId);
+		}
+
 		public static string GetReceivedConsentData()
 		{
 			return @"012004011899000009912346AG-MEDAVI                                                                                             
@@ -84,6 +108,17 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 				SectionData = GetReceivedConsentData(payerId),
 				Type = SectionType.ReceivedConsents,
 				TypeName = SectionType.ReceivedConsents.GetEnumDisplayName()
+			};
+		}
+
+		public static ReceivedFileSection GetReceivedPaymentFileSection(int payerId) 
+		{ 
+			return new ReceivedFileSection
+			{
+				CreatedDate = new DateTime(2011, 03, 29),
+				SectionData = GetReceivedPaymentData(payerId),
+				Type = SectionType.ReceivedPayments,
+				TypeName = SectionType.ReceivedPayments.GetEnumDisplayName()
 			};
 		}
 	}

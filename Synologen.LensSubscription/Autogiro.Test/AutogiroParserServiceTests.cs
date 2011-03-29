@@ -90,7 +90,7 @@ namespace Synologen.LensSubscription.Autogiro.Test
 				post.PaymentPeriodCode.ShouldBe(PaymentPeriodCode.PaymentOnceOnSelectedDate);
 				post.PaymentDate.ShouldBe(_expectedPaymentDate);
 				post.NumberOfReoccuringTransactionsLeft.ShouldBe(null);
-				post.Reciever.BankgiroNumber.ShouldBe(_expectedReciever.BankgiroNumber);
+				post.PaymentRecieverBankgiroNumber.ShouldBe(_expectedReciever.BankgiroNumber);
 				switch (index)
 				{
 					case 11: post.Type.ShouldBe(PaymentType.Credit); break;

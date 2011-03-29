@@ -4,6 +4,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using StructureMap;
 using Synologen.LensSubscription.BGData;
 using Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner;
@@ -16,13 +17,24 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 		protected IBGFtpPasswordService bGFtpPasswordService;
 		protected IBGServiceCoordinatorSettingsService bgServiceCoordinatorSettingsService;
 		protected IReceivedFileRepository receivedFileRepository;
+		protected IBGReceivedConsentRepository bgReceivedConsentRepository;
+		protected IAutogiroPayerRepository autogiroPayerRepository;
 
 		protected override void SetUp()
 		{
+			RebuildDatabase();
 			base.SetUp();
+			autogiroPayerRepository = ResolveRepository<IAutogiroPayerRepository>();
 			bGFtpPasswordService = ResolveRepository<IBGFtpPasswordService>();
 			bgServiceCoordinatorSettingsService = ResolveEntity<IBGServiceCoordinatorSettingsService>();
 			receivedFileRepository = ResolveRepository<IReceivedFileRepository>();
+			bgReceivedConsentRepository = ResolveRepository<IBGReceivedConsentRepository>();
+
+		}
+
+		private static void RebuildDatabase()
+		{
+			NHibernateFactory.Instance.GetConfiguration().Export();
 		}
 
 		protected TTask ResolveTask<TTask>() where TTask : ITask
@@ -64,7 +76,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 			return NHibernateFactory.Instance.GetSessionFactory().OpenSession();
 		}
 
-		protected void StoreNewBGCFileOnDisk(string contents) 
+		protected string StoreNewBGCFileOnDisk(string contents) 
 		{ 
 			var folderPath = bgServiceCoordinatorSettingsService.GetReceivedFilesFolderPath();
 			var filePath = folderPath.TrimEnd('\\') + "\\UAGZZ.K0123456.D110329.T124300";
@@ -73,6 +85,24 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 				System.IO.File.Delete(filePath);
 			}
 			System.IO.File.WriteAllText(filePath, contents);
+			return filePath;
+		}
+
+		protected string GetReadFilePath()
+		{
+			var folderPath = bgServiceCoordinatorSettingsService.GetBackupFilesFolderPath();
+			return folderPath.TrimEnd('\\') + "\\UAGZZ.K0123456.D110329.T124300";
+		}
+
+		protected void ClearFoldersOnDisk() 
+		{ 
+			var backupFolderPath = bgServiceCoordinatorSettingsService.GetBackupFilesFolderPath();
+			var receivedFolderPath = bgServiceCoordinatorSettingsService.GetReceivedFilesFolderPath();
+			var filesToDelete = System.IO.Directory.GetFiles(backupFolderPath).Append(System.IO.Directory.GetFiles(receivedFolderPath));
+			foreach (var file in filesToDelete)
+			{
+				System.IO.File.Delete(file);
+			}
 		}
 	}
 }

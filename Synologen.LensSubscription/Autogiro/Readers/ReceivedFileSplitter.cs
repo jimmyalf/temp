@@ -15,21 +15,21 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 
         public DateTime GetDateFromName(string name)
         {
-            string[] dateAndTime = GetDateAndTimeStringFromName(name);
-            string dateString = dateAndTime[0];
-            string timeString = dateAndTime[1];
+            var dateAndTime = GetDateAndTimeStringFromName(name);
+            var dateString = dateAndTime[0];
+            var timeString = dateAndTime[1];
 
-            string s = string.Concat(dateString, timeString);
+            var s = string.Concat(dateString, timeString);
 
             return DateTime.ParseExact(s, "yyMMddHHmmss", CultureInfo.InvariantCulture);
         }
 
         private static string[] GetDateAndTimeStringFromName(string name)
         {
-            string[] splittedName = name.Split(DelimiterChar);
+            var splittedName = name.Split(DelimiterChar);
 
-            string dateString = splittedName[2];
-            string timeString = splittedName[3];
+            var dateString = splittedName[2];
+            var timeString = splittedName[3];
 
             dateString = dateString.Substring(1, dateString.Length - 1);
             timeString = timeString.Substring(1, timeString.Length - 1);
@@ -39,7 +39,7 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 
         public bool FileNameOk(string name, string customerNumber, string productCode)
         {
-            string[] splittedName = name.Split(DelimiterChar);
+            var splittedName = name.Split(DelimiterChar);
 
             if (splittedName.Length != 4)
                 return false;
@@ -47,42 +47,30 @@ namespace Synologen.LensSubscription.Autogiro.Readers
             if (splittedName[0] != productCode)
                 return false;
 
-            if (!(splittedName[1].StartsWith("K0")
-                &&
-                    (splittedName[1].Length == 8)
-                    &&
+            if (!(splittedName[1].StartsWith("K0") &&
+                    (splittedName[1].Length == 8) &&
                     (splittedName[1].Substring(2, 6) == customerNumber)
                 ))
                 return false;
 
-            if (!(splittedName[2].StartsWith("D")
-                &&
-                    (splittedName[2].Length == 7)
-                    &&
+            if (!(splittedName[2].StartsWith("D") &&
+                    (splittedName[2].Length == 7) &&
                     (IsNumeric(splittedName[2].Substring(1, 6)))
                 ))
                 return false;
 
-            if (!(splittedName[3].StartsWith("T")
-                &&
-                    (splittedName[3].Length == 7)
-                    &&
+            if (!(splittedName[3].StartsWith("T") &&
+                    (splittedName[3].Length == 7) &&
                     (IsNumeric(splittedName[3].Substring(1, 6)))
                 ))
                 return false;
 
-            string[] dateAndTime = GetDateAndTimeStringFromName(name);
-            string dateString = dateAndTime[0];
-            string timeString = dateAndTime[1];
+            var dateAndTime = GetDateAndTimeStringFromName(name);
+            var dateString = dateAndTime[0];
+            var timeString = dateAndTime[1];
 
             DateTime dummy;
-            if (DateTime.TryParseExact(string.Concat(dateString, timeString),
-                                        "yyMMddHHmmss",
-                                        CultureInfo.InvariantCulture,
-                                        DateTimeStyles.None,
-                                        out dummy))
-                return true;
-            return false;
+            return DateTime.TryParseExact(string.Concat(dateString, timeString), "yyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dummy);
         }
 
         private static bool IsNumeric(string text)
@@ -92,8 +80,8 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 
         public IEnumerable<FileSection> GetSections(string[] file)
         {
-            bool expectingOpeningPost = true;
-            SectionType type = SectionType.ReceivedPayments;
+            var expectingOpeningPost = true;
+            var type = SectionType.ReceivedPayments;
             var fileSections = new List<FileSection>();
 
             if (file == null || file.Length == 0)
@@ -136,17 +124,12 @@ namespace Synologen.LensSubscription.Autogiro.Readers
         
         private static SectionType GetSectionType(string line)
         {
-            string errorOrPayment = line.Substring(22, 39);
-            string consent = line.Substring(24, 37);
+            var errorOrPayment = line.Substring(22, 39);
+            var consent = line.Substring(24, 37);
 
-            if (consent.Trim() == FileConstants.ConsentOpeningText)
-                return SectionType.ReceivedConsents;
-
-            if (errorOrPayment.Trim() == FileConstants.ErrorOpeningText)
-                return SectionType.ReceivedErrors;
-             
-            if (errorOrPayment.Trim() == String.Empty)
-                return SectionType.ReceivedPayments;
+            if (consent.Trim() == FileConstants.ConsentOpeningText) return SectionType.ReceivedConsents;
+            if (errorOrPayment.Trim() == FileConstants.ErrorOpeningText) return SectionType.ReceivedErrors;
+            if (errorOrPayment.Trim() == String.Empty) return SectionType.ReceivedPayments;
 
             throw new AutogiroFileSplitException(string.Format("Could not determine file section type: {0}", line));
         }

@@ -11,7 +11,7 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 		public PaymentsFile Read(string fileContent, IItemReader<Payment> itemReader) 
 		{ 
 			SetupBase(fileContent);
-			return new PaymentsFile
+			var paymentsFile =  new PaymentsFile
 			{
 				Reciever = new PaymentReciever
 				{
@@ -25,6 +25,7 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 				TotalCreditAmountInFile = LastRow.ReadFrom(29).To(40).ParseAmount(),
 				TotalDebitAmountInFile = LastRow.ReadFrom(57).To(68).ParseAmount()
 			};
+			return paymentsFile;
 		}
 	}
 }

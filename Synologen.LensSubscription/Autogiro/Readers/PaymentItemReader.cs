@@ -17,7 +17,7 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 				NumberOfReoccuringTransactionsLeft = line.ReadFrom(12).To(14).ParseNullable<int>(StringExtensions.ToInt),
 				Transmitter = new Payer{CustomerNumber = line.ReadFrom(16).To(31).TrimStart('0')},
 				Amount = line.ReadFrom(32).To(43).ParseAmount(),
-				Reciever = new PaymentReciever{BankgiroNumber = line.ReadFrom(44).To(53).TrimStart('0')},
+				PaymentRecieverBankgiroNumber = line.ReadFrom(44).To(53).TrimStart('0'),
 				Reference = line.ReadFrom(54).To(69).TrimEnd(' '),
 				Result = line.ReadFrom(80).To(80).ParsePaymentResult()
 			};

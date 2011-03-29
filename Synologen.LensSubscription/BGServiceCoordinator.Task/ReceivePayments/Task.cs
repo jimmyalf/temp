@@ -42,7 +42,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
                     {
                     	var payerId = payment.Transmitter.CustomerNumber.ToInt();
                     	var payer = autogiroPayerRepository.Get(payerId);
-                        var receivedPayment = ToBGPayment(payment, payer);
+                        var receivedPayment = ToBGPayment(payment, payer, file.Reciever);
                         bgReceivedPaymentRepository.Save(receivedPayment);
                     });
                     paymentFileSection.HandledDate = DateTime.Now;
@@ -52,7 +52,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
             });                   
         }
 
-        private static BGReceivedPayment ToBGPayment(Payment payment, AutogiroPayer payer)
+        private static BGReceivedPayment ToBGPayment(Payment payment, AutogiroPayer payer, PaymentReciever receiver)
         {
             return new BGReceivedPayment
             {
@@ -64,7 +64,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
                 NumberOfReoccuringTransactionsLeft = payment.NumberOfReoccuringTransactionsLeft,
                 PeriodCode = payment.PaymentPeriodCode,
                 Type = payment.Type,
-                Reciever = payment.Reciever,
+                Reciever = receiver, //payment.Reciever,
                 CreatedDate = DateTime.Now,
             };
         }

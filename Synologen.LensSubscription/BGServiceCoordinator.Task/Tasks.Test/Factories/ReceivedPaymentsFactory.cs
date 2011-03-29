@@ -35,7 +35,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 				NumberOfReoccuringTransactionsLeft = 0,
 				PaymentDate = DateTime.Now.AddDays(-1),
 				PaymentPeriodCode = 0,
-				Reciever = GetPaymentReceiver(),
+				PaymentRecieverBankgiroNumber = "444-555-666",
 				Reference = "Hello World",
 				Result = PaymentResult.Approved,
 				Transmitter = new Payer { CustomerNumber = customerId.ToString() },
@@ -45,11 +45,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 
 		private static PaymentReciever GetPaymentReceiver()
 		{
-			return new PaymentReciever
-			{
-				BankgiroNumber = "444-555-666",
-				CustomerNumber = "99999"
-			};
+		    return new PaymentReciever
+		    {
+		        BankgiroNumber = "444-555-666",
+		        CustomerNumber = "99999"
+		    };
 		}
 	}
 }

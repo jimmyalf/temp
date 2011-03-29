@@ -19,6 +19,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 		protected IReceivedFileRepository receivedFileRepository;
 		protected IBGReceivedConsentRepository bgReceivedConsentRepository;
 		protected IAutogiroPayerRepository autogiroPayerRepository;
+		protected IBGReceivedPaymentRepository bgReceivedPaymentRepository;
 
 		protected override void SetUp()
 		{
@@ -29,7 +30,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 			bgServiceCoordinatorSettingsService = ResolveEntity<IBGServiceCoordinatorSettingsService>();
 			receivedFileRepository = ResolveRepository<IReceivedFileRepository>();
 			bgReceivedConsentRepository = ResolveRepository<IBGReceivedConsentRepository>();
-
+			bgReceivedPaymentRepository = ResolveRepository<IBGReceivedPaymentRepository>();
 		}
 
 		private static void RebuildDatabase()

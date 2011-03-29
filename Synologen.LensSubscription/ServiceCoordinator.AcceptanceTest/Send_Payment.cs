@@ -1,16 +1,17 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using ServiceCoordinator.AcceptanceTest.TestHelpers;
+using ServiceCoordinator.AcceptanceTest;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpers;
 using SendPaymentTask = Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments.Task;
 
-namespace ServiceCoordinator.AcceptanceTest
+namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 {
 	[TestFixture, Category("Feature: Sending Payment")]
 	public class When_sending_a_payment : TaskBase

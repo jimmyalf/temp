@@ -29,7 +29,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 
 		public void SetupBGDatabase()
 		{
-			Synologen.LensSubscription.BGData.NHibernateFactory.Instance.GetConfiguration().Export();
+			BGData.NHibernateFactory.Instance.GetConfiguration().Export();
 		}
 
 		public void SetupWpcDatabase(ISession session)

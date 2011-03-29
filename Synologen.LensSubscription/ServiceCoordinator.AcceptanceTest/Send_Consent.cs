@@ -1,14 +1,15 @@
-﻿using System.Linq;
+using System.Linq;
 using NUnit.Framework;
-using ServiceCoordinator.AcceptanceTest.TestHelpers;
+using ServiceCoordinator.AcceptanceTest;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpers;
 using SendConsentTask = Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents.Task;
 
-namespace ServiceCoordinator.AcceptanceTest
+namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 {
 	[TestFixture, Category("Feature: Sending Consent")]
 	public class When_sending_a_consent : TaskBase

@@ -145,6 +145,14 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		{
 			return (list == null || list.Count() == 0);
 		}
+
+		public static IEnumerable<TModel> GetLast<TModel>(this IEnumerable<TModel> list, int numberOfItems)
+		{
+			if(list == null || list.Count() == 0) throw new ArgumentException("List is empty","list");
+			if(list.Count() < numberOfItems) throw new ArgumentException(String.Format("List does not contain {0} items", numberOfItems),"numberOfItems");
+			return list.Skip(Math.Max(0, list.Count() - numberOfItems)).Take(numberOfItems);
+		}
+	
 	}
 
 

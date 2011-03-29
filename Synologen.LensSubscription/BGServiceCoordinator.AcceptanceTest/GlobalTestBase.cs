@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using StructureMap;
+using Synologen.LensSubscription.BGData;
 using Synologen.LensSubscription.BGServiceCoordinator.App.IoC;
 
 namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
@@ -11,6 +12,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 		public void RunBeforeAnyTests()
 		{
 			ObjectFactory.Initialize(x => x.AddRegistry<TaskRunnerRegistry>());
+			NHibernateFactory.Instance.GetConfiguration().Export();
 			//ActionCriteriaExtensions.ConstructConvertersUsing(ObjectFactory.GetInstance);
 		}
 

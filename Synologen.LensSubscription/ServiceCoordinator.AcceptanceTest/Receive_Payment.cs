@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using ServiceCoordinator.AcceptanceTest;
 using ServiceCoordinator.AcceptanceTest.TestHelpers;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
@@ -10,7 +11,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Synologen.LensSubscription.BGData.Repositories;
 using ReceivePaymentsTask = Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments.Task;
 
-namespace ServiceCoordinator.AcceptanceTest
+namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 {
 	[TestFixture, Category("Feature: Receiving Payment")]
 	public class When_receiveing_a_successful_payment : ReceivePaymentTaskbase

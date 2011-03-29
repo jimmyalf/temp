@@ -120,7 +120,11 @@ namespace Synologen.LensSubscription.Autogiro.Readers
                 {
                     if (line.StartsWith(FileConstants.EndingSumPostType))
                     {
-                        var fileSection = new FileSection { SectionType = type, Posts = stringBuilder.ToString() };
+                        var fileSection = new FileSection
+                        {
+                        	SectionType = type, 
+							Posts = stringBuilder.ToString().TrimEnd("\r\n".ToCharArray())
+                        };
                         fileSections.Add(fileSection);
                         expectingOpeningPost = true;
                         stringBuilder = new StringBuilder();

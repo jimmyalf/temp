@@ -1,5 +1,6 @@
 using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpers;
 
 namespace ServiceCoordinator.AcceptanceTest.TestHelpers
 {

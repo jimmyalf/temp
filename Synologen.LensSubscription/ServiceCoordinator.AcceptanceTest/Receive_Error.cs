@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using ServiceCoordinator.AcceptanceTest;
 using ServiceCoordinator.AcceptanceTest.TestHelpers;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
@@ -9,7 +10,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Synologen.LensSubscription.BGData.Repositories;
 using ReceiveErrorsTask = Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors.Task;
 
-namespace ServiceCoordinator.AcceptanceTest
+namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 {
 	[TestFixture, Category("Feature: Receiving Error")]
 	public class When_receiveing_an_error : ReceiveErrorTaskbase
@@ -28,12 +29,12 @@ namespace ServiceCoordinator.AcceptanceTest
 				subscription = StoreSubscription(customer => Factory.CreateSubscriptionReadyForPayment(customer, bankGiroPayerNumber), bankGiroPayerNumber);
 				error = StoreBGError(Factory.CreateError, bankGiroPayerNumber);
 
-			    task = ResolveTask<ReceiveErrorsTask>();
-			    taskRunnerService = GetTaskRunnerService(task);
+				task = ResolveTask<ReceiveErrorsTask>();
+				taskRunnerService = GetTaskRunnerService(task);
 			};
 			Because = () =>
 			{
-			    taskRunnerService.Run();
+				taskRunnerService.Run();
 			};
 		}
 

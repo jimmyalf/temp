@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NHibernate;
+using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
@@ -20,6 +21,8 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 		protected IBGReceivedConsentRepository bgReceivedConsentRepository;
 		protected IAutogiroPayerRepository autogiroPayerRepository;
 		protected IBGReceivedPaymentRepository bgReceivedPaymentRepository;
+		protected IFileSectionToSendRepository fileSectionToSendRepository;
+		protected IBGConsentToSendRepository bgConsentToSendRepository;
 
 		protected override void SetUp()
 		{
@@ -29,8 +32,10 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 			bGFtpPasswordService = ResolveRepository<IBGFtpPasswordService>();
 			bgServiceCoordinatorSettingsService = ResolveEntity<IBGServiceCoordinatorSettingsService>();
 			receivedFileRepository = ResolveRepository<IReceivedFileRepository>();
+			fileSectionToSendRepository = ResolveRepository<IFileSectionToSendRepository>();
 			bgReceivedConsentRepository = ResolveRepository<IBGReceivedConsentRepository>();
 			bgReceivedPaymentRepository = ResolveRepository<IBGReceivedPaymentRepository>();
+			bgConsentToSendRepository = ResolveRepository<IBGConsentToSendRepository>();
 		}
 
 		private static void RebuildDatabase()
@@ -104,6 +109,15 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 			{
 				System.IO.File.Delete(file);
 			}
+		}
+
+		protected string CreateExpectedConsentFileData(BGConsentToSend consent)
+		{
+			return Factory.GetConsentData(
+				consent,
+				bgServiceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber(),
+				bgServiceCoordinatorSettingsService.GetPaymentRecieverBankGiroNumber()
+			);
 		}
 	}
 }

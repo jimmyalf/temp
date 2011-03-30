@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -120,6 +121,32 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 				Type = SectionType.ReceivedPayments,
 				TypeName = SectionType.ReceivedPayments.GetEnumDisplayName()
 			};
+		}
+
+		public static BGConsentToSend GetConsentToSend(AutogiroPayer payer) 
+		{
+			return new BGConsentToSend
+			{
+                Account = new Account { AccountNumber = "1234567890", ClearingNumber = "1234" },
+                OrgNumber = null,
+                Payer = payer,
+                PersonalIdNumber = "197501242858",
+                SendDate = null,
+				Type = ConsentType.New
+			};
+		}
+
+		public static string GetConsentData(BGConsentToSend consent, string customerNumber, string bankgiroNumber) 
+		{
+			return @"01{WriteDate}AUTOGIRO                                            {CustomerNumber}{BankgiroNumber}  
+04{BankgiroNumber}{PayerNumber}{Clearing}{AccountNumber}{PersonalIdNumber}                        "
+				.Replace("{WriteDate}", DateTime.Now.ToString("yyyyMMdd"))
+				.Replace("{CustomerNumber}", customerNumber.PadLeft(6,'0'))
+				.Replace("{BankgiroNumber}", bankgiroNumber.PadLeft(10,'0'))
+				.Replace("{PayerNumber}", consent.Payer.Id.ToString().PadLeft(16,'0'))
+				.Replace("{Clearing}", consent.Account.ClearingNumber)
+				.Replace("{AccountNumber}", consent.Account.AccountNumber.PadLeft(12,'0'))
+				.Replace("{PersonalIdNumber}", consent.PersonalIdNumber);
 		}
 	}
 }

@@ -23,6 +23,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 		protected IBGReceivedPaymentRepository bgReceivedPaymentRepository;
 		protected IFileSectionToSendRepository fileSectionToSendRepository;
 		protected IBGConsentToSendRepository bgConsentToSendRepository;
+		protected IBGPaymentToSendRepository bgPaymentToSendRepository;
 
 		protected override void SetUp()
 		{
@@ -36,6 +37,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 			bgReceivedConsentRepository = ResolveRepository<IBGReceivedConsentRepository>();
 			bgReceivedPaymentRepository = ResolveRepository<IBGReceivedPaymentRepository>();
 			bgConsentToSendRepository = ResolveRepository<IBGConsentToSendRepository>();
+			bgPaymentToSendRepository = ResolveRepository<IBGPaymentToSendRepository>();
 		}
 
 		private static void RebuildDatabase()
@@ -116,6 +118,15 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 			return Factory.GetConsentData(
 				consent,
 				bgServiceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber(),
+				bgServiceCoordinatorSettingsService.GetPaymentRecieverBankGiroNumber()
+			);
+		}
+
+		protected string CreateExpectedPaymentFileData(BGPaymentToSend payment) 
+		{
+			return Factory.GetPaymentData(
+				payment, 
+				bgServiceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber(),   
 				bgServiceCoordinatorSettingsService.GetPaymentRecieverBankGiroNumber()
 			);
 		}

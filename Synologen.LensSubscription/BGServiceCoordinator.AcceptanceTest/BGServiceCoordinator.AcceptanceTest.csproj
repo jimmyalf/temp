@@ -70,6 +70,7 @@
     <Compile Include="GlobalTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Send_consents.cs" />
+    <Compile Include="Send_payments.cs" />
     <Compile Include="TestHelpers\TaskBase.cs" />
     <Compile Include="Get_file.cs" />
     <Compile Include="Receive_consents.cs" />
@@ -107,6 +108,10 @@
     <ProjectReference Include="..\BGServiceCoordinator.Task\SendConsents\SendConsents.csproj">
       <Project>{2BCC56E0-2100-42B5-B91D-A8FDEAE5C28F}</Project>
       <Name>SendConsents %28Lenssubscription\BGServiceCoordinatorTask\SendConsents%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BGServiceCoordinator.Task\SendPayments\SendPayments.csproj">
+      <Project>{037FF430-01ED-4D67-B5AE-737CEFD952CD}</Project>
+      <Name>SendPayments %28Lenssubscription\BGServiceCoordinatorTask\SendPayments%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\BGServiceCoordinator\BGServiceCoordinator.csproj">
       <Project>{0EB3860A-9087-4AF2-BAD9-A1AEA964999D}</Project>

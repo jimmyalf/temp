@@ -182,5 +182,47 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 				.Replace("{Amount}", payment.Amount.ToString("F2", System.Globalization.CultureInfo.InvariantCulture).Replace(".", "").PadLeft(12,'0'))
 				.Replace("{Referens}", payment.Reference.PadRight(16,' '));
 		}
+
+		public static FileSectionToSend GetConsentFileSectionToSend() 
+		{
+			return new FileSectionToSend
+			{
+				CreatedDate = new DateTime(2011, 03, 30),
+				SectionData = GetConsentToSendData(),
+				SentDate = null,
+				Type = SectionType.ConsentsToSend,
+			};
+		}
+
+
+		public static FileSectionToSend GetPaymentFileSectionToSend() 
+		{
+			return new FileSectionToSend
+			{
+				CreatedDate = new DateTime(2011, 03, 30),
+				SectionData = GetPaymentToSendData(),
+				SentDate = null,
+				Type = SectionType.PaymentsToSend,
+			};
+		}
+
+		public static string GetConsentToSendData() 
+		{
+			return @"0120041015AUTOGIRO                                            4711170009912346  
+04000991234600000000000001013300001212121212191212121212                                               
+04000991234600000000000001028901003232323232005556000521                                               
+04000991234600000000000001035001000001000020196803050000                                               
+04000991234600000000000001029918000002010150194608170000                                               
+04000991234600000000000001029918000002010114193701270000                    AV   
+0300099123460000000000000242                                                    ";
+		}
+
+		public static string GetPaymentToSendData() 
+		{
+			return @"0120041026AUTOGIRO                                            4711170009912346  
+82200410270    00000010203040510000000750000009912346ÅRSKORT-2005                             
+82200410270    00000020304050620000000250000009912346KVARTAL-2005                             
+32200410280    00000030405060730000000125000009912346ÅTERBET                    ";
+		}
 	}
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Configuration;
 using NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
@@ -24,6 +25,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 		protected IFileSectionToSendRepository fileSectionToSendRepository;
 		protected IBGConsentToSendRepository bgConsentToSendRepository;
 		protected IBGPaymentToSendRepository bgPaymentToSendRepository;
+		protected string remoteFtpFolder;
 
 		protected override void SetUp()
 		{
@@ -38,6 +40,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 			bgReceivedPaymentRepository = ResolveRepository<IBGReceivedPaymentRepository>();
 			bgConsentToSendRepository = ResolveRepository<IBGConsentToSendRepository>();
 			bgPaymentToSendRepository = ResolveRepository<IBGPaymentToSendRepository>();
+			remoteFtpFolder = ConfigurationManager.AppSettings["RemoteFtpFolder"];
 		}
 
 		private static void RebuildDatabase()
@@ -106,7 +109,11 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 		{ 
 			var backupFolderPath = bgServiceCoordinatorSettingsService.GetBackupFilesFolderPath();
 			var receivedFolderPath = bgServiceCoordinatorSettingsService.GetReceivedFilesFolderPath();
-			var filesToDelete = System.IO.Directory.GetFiles(backupFolderPath).Append(System.IO.Directory.GetFiles(receivedFolderPath));
+			var sentFolderPath = bgServiceCoordinatorSettingsService.GetSentFilesFolderPath();
+			var filesToDelete = System.IO.Directory.GetFiles(backupFolderPath)
+				.Append(System.IO.Directory.GetFiles(receivedFolderPath))
+				.Append(System.IO.Directory.GetFiles(remoteFtpFolder))
+				.Append(System.IO.Directory.GetFiles(sentFolderPath));
 			foreach (var file in filesToDelete)
 			{
 				System.IO.File.Delete(file);

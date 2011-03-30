@@ -52,6 +52,7 @@
       <HintPath>..\..\Dependancies\StructureMap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -66,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Change_Ftp_Password.cs" />
+    <Compile Include="Send_file.cs" />
     <Compile Include="TestHelpers\Factory.cs" />
     <Compile Include="GlobalTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,6 +111,10 @@
       <Project>{2BCC56E0-2100-42B5-B91D-A8FDEAE5C28F}</Project>
       <Name>SendConsents %28Lenssubscription\BGServiceCoordinatorTask\SendConsents%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BGServiceCoordinator.Task\SendFile\SendFile.csproj">
+      <Project>{8096311E-FEC9-49C5-AF54-90F4177E9DCC}</Project>
+      <Name>SendFile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BGServiceCoordinator.Task\SendPayments\SendPayments.csproj">
       <Project>{037FF430-01ED-4D67-B5AE-737CEFD952CD}</Project>
       <Name>SendPayments %28Lenssubscription\BGServiceCoordinatorTask\SendPayments%29</Name>
@@ -128,6 +134,7 @@
   <ItemGroup>
     <Folder Include="BackupFiles\" />
     <Folder Include="ReceivedFiles\" />
+    <Folder Include="SentFiles\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

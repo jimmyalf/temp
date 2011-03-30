@@ -29,14 +29,12 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 		private FileSectionToSend consentFileSectionToSend;
 		private FileSectionToSend paymentFileSectionToSend;
 		private string[] remoteFtpFiles, localFiles;
-		private Encoding ftpEncoding;
 
 		public When_sending_file()
 		{
 			Context = () =>
 			{
 				ClearFoldersOnDisk();
-				ftpEncoding = Encoding.GetEncoding(858);
 				var ftpPassword = ConfigurationManager.AppSettings["FtpPassword"];
 				ResolveRepository<IBGFtpPasswordService>().StoreNewActivePassword(ftpPassword);
 				consentFileSectionToSend = Factory.GetConsentFileSectionToSend();
@@ -66,7 +64,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 		[Test]
 		public void Sent_file_contains_expected_file_data()
 		{
-			var fileData = System.IO.File.ReadAllText(remoteFtpFiles[0], ftpEncoding);
+			var fileData = System.IO.File.ReadAllText(remoteFtpFiles[0], FtpTextEncoding);
 			fileData.ShouldContain(consentFileSectionToSend.SectionData);
 			fileData.ShouldContain(paymentFileSectionToSend.SectionData);
 		}

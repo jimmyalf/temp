@@ -1,12 +1,15 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 {
 	public class BGFileIOService : IFileIOService
 	{
+		private readonly Encoding TextEncoding = System.Text.Encoding.GetEncoding(858);
+
 		public void WriteFile(string filePath, string contents) 
 		{
 			File.WriteAllText(filePath, contents);
@@ -18,7 +21,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 
 	    public string[] ReadFile(string filePath)
 	    {
-	        return File.ReadAllLines(filePath, System.Text.Encoding.GetEncoding(858));
+	        return File.ReadAllLines(filePath, TextEncoding);
 	    }
 
 	    public IEnumerable<string> GetReceivedFileNames(string folderPath)

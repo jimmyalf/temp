@@ -11,8 +11,6 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 {
     public class ReceivedFileSplitter : IFileSplitter
     {
-        private const char DelimiterChar = '.';
-
         public DateTime GetDateFromName(string name)
         {
             var dateAndTime = GetDateAndTimeStringFromName(name);
@@ -24,58 +22,29 @@ namespace Synologen.LensSubscription.Autogiro.Readers
             return DateTime.ParseExact(s, "yyMMddHHmmss", CultureInfo.InvariantCulture);
         }
 
-        private static string[] GetDateAndTimeStringFromName(string name)
-        {
-            var splittedName = name.Split(DelimiterChar);
-
-            var dateString = splittedName[2];
-            var timeString = splittedName[3];
-
-            dateString = dateString.Substring(1, dateString.Length - 1);
-            timeString = timeString.Substring(1, timeString.Length - 1);
-
-            return new [] { dateString, timeString };
-        }
+		private static string[] GetDateAndTimeStringFromName(string fileName)
+		{
+        	var regexPattern = String.Concat(@"BFEP\..+\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$");
+        	var match = Regex.Match(fileName, regexPattern);
+			if(!match.Success)
+			{
+				throw new ArgumentException("Could not recognize file name", "fileName");
+			}
+        	var dateString = match.Groups["datePart"].Captures[0].Value;
+			var timeString = match.Groups["timePart"].Captures[0].Value;
+			return new[] { dateString, timeString };
+		}
 
         public bool FileNameOk(string name, string customerNumber, string productCode)
         {
-            var splittedName = name.Split(DelimiterChar);
+        	var regexPattern = String.Concat(@"BFEP\.", productCode, @"\.K0", customerNumber, @"\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$");
+        	var match = Regex.Match(name, regexPattern);
+			if(!match.Success) return false;
 
-            if (splittedName.Length != 4)
-                return false;
+        	var dateString = match.Groups["datePart"].Captures[0].Value;
+			var timeString = match.Groups["timePart"].Captures[0].Value;
 
-            if (splittedName[0] != productCode)
-                return false;
-
-            if (!(splittedName[1].StartsWith("K0") &&
-                    (splittedName[1].Length == 8) &&
-                    (splittedName[1].Substring(2, 6) == customerNumber)
-                ))
-                return false;
-
-            if (!(splittedName[2].StartsWith("D") &&
-                    (splittedName[2].Length == 7) &&
-                    (IsNumeric(splittedName[2].Substring(1, 6)))
-                ))
-                return false;
-
-            if (!(splittedName[3].StartsWith("T") &&
-                    (splittedName[3].Length == 7) &&
-                    (IsNumeric(splittedName[3].Substring(1, 6)))
-                ))
-                return false;
-
-            var dateAndTime = GetDateAndTimeStringFromName(name);
-            var dateString = dateAndTime[0];
-            var timeString = dateAndTime[1];
-
-            DateTime dummy;
-            return DateTime.TryParseExact(string.Concat(dateString, timeString), "yyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dummy);
-        }
-
-        private static bool IsNumeric(string text)
-        {
-            return Regex.IsMatch(text, "^\\d+$");
+        	return ValidateDateTimeFormat(dateString, timeString);
         }
 
         public IEnumerable<FileSection> GetSections(string[] file)
@@ -133,5 +102,11 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 
             throw new AutogiroFileSplitException(string.Format("Could not determine file section type: {0}", line));
         }
+
+		private static bool ValidateDateTimeFormat(string dateFormat, string timeFormat)
+		{
+			DateTime dummy;
+			return DateTime.TryParseExact(string.Concat(dateFormat, timeFormat), "yyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dummy);
+		}
     }
 }

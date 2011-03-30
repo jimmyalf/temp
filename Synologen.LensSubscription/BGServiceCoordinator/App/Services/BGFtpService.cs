@@ -28,7 +28,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 
 		private string GetFileName()
 		{
-			return String.Format("BFEP.{0}.{1}", 
+			return String.Format("BFEP.{0}.K0{1}", 
 				GetProductCode(_serviceType),
 				_serviceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber());
 		}

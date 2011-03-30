@@ -90,7 +90,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 		protected string StoreNewBGCFileOnDisk(string contents) 
 		{ 
 			var folderPath = bgServiceCoordinatorSettingsService.GetReceivedFilesFolderPath();
-			var filePath = folderPath.TrimEnd('\\') + "\\UAGZZ.K0123456.D110329.T124300";
+			var filePath = folderPath.TrimEnd('\\') + "\\BFEP.UAGZZ.K0123456.D110329.T124300";
 			if(System.IO.File.Exists(filePath))
 			{
 				System.IO.File.Delete(filePath);
@@ -102,7 +102,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 		protected string GetReadFilePath()
 		{
 			var folderPath = bgServiceCoordinatorSettingsService.GetBackupFilesFolderPath();
-			return folderPath.TrimEnd('\\') + "\\UAGZZ.K0123456.D110329.T124300";
+			return folderPath.TrimEnd('\\') + "\\BFEP.UAGZZ.K0123456.D110329.T124300";
 		}
 
 		protected void ClearFoldersOnDisk() 

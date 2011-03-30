@@ -12,9 +12,9 @@ namespace Synologen.LensSubscription.Autogiro.Test.Factories
         {
             return new List<string>
             {
-                "UAGAG.K0999999.D110301.T130426",
-                "UAGAG.K0999999.D000101.T000000",
-                "UAGAG.K0999999.D991231.T235959"
+                "BFEP.UAGAG.K0999999.D110301.T130426",
+                "BFEP.UAGAG.K0999999.D000101.T000000",
+                "BFEP.UAGAG.K0999999.D991231.T235959"
             };
         }
 
@@ -32,21 +32,21 @@ namespace Synologen.LensSubscription.Autogiro.Test.Factories
         {
             return new List<string>
             {
-                "UAGAG.K0999999.D110301.T130426",
-                "UAGAG.K0999999.D000101.T000000",
-                "UAGAG.K0999999.D991231.T235959",
-                "IAGAG.K0999999.D991231.T235959",
+                "BFEP.UAGAG.K0999999.D110301.T130426",
+                "BFEP.UAGAG.K0999999.D000101.T000000",
+                "BFEP.UAGAG.K0999999.D991231.T235959",
+                "BFEP.IAGAG.K0999999.D991231.T235959",
                 "testrapport.xls",
-                "IAGAG.L0999999.D991231.T235959",
-                "IAGAG.K1999999.D991231.T235959",
-                "IAGAG.K0999991.D991231.T235959",
-                "IAGAGK0999999D991231T235959",
+                "BFEP.IAGAG.L0999999.D991231.T235959",
+                "BFEP.IAGAG.K1999999.D991231.T235959",
+                "BFEP.IAGAG.K0999991.D991231.T235959",
+                "BFEP.IAGAGK0999999D991231T235959",
                 "",
-                " IAGAGK0999999D991231T235959",
-                "UAGAG.K0999999.110301.T130426",
-                "UAGAG.K0999999.D110301.130426",
-                "UAGAG.K0999999.D110301.T1304264",
-                "UAGAG.K0999999.D1103013.T1304264"
+                "BFEP. IAGAGK0999999D991231T235959",
+                "BFEP.UAGAG.K0999999.110301.T130426",
+                "BFEP.UAGAG.K0999999.D110301.130426",
+                "BFEP.UAGAG.K0999999.D110301.T1304264",
+                "BFEP.UAGAG.K0999999.D1103013.T1304264"
             };
         }
 

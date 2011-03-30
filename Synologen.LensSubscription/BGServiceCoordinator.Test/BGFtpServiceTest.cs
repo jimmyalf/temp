@@ -22,7 +22,7 @@ namespace Synologen.LensSubscription.BGService.Test
 				fileData = FtpServiceFactory.GenerateFileData();
 				ftpRootUrl = "ftp://path/path/path";
 				bgCustomerNumber = "123456";
-				expectedFileName = String.Format("BFEP.IAGAG.{0}", bgCustomerNumber);
+				expectedFileName = String.Format("BFEP.IAGAG.K0{0}", bgCustomerNumber);
 				expectedFileUri = String.Format("{0}/{1}", ftpRootUrl, expectedFileName);
 				A.CallTo(() => BgServiceCoordinatorSettingsService.GetFtpUploadFolderUrl()).Returns(ftpRootUrl);
 				A.CallTo(() => BgServiceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber()).Returns(bgCustomerNumber);

@@ -60,7 +60,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 		public void Task_sends_file_to_remote_ftp()
 		{
 			remoteFtpFiles.Length.ShouldBe(1);
-			Regex.Match(remoteFtpFiles[0], @"BFEP\.IAG(AG|ZZ)\.\d{0,6}$").Success.ShouldBe(true);
+			Regex.IsMatch(remoteFtpFiles[0], @"BFEP\.IAG(AG|ZZ)\.K0\d{0,6}$").ShouldBe(true);
 		}
 
 		[Test]
@@ -75,7 +75,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 		public void Task_stores_a_local_copy_of_sent_file()
 		{
 			localFiles.Length.ShouldBe(1);
-			Regex.Match(localFiles[0], @"BFEP\.IAG(AG|ZZ)\.\d{0,6}\.D\d{6}\.T\d{6}$").Success.ShouldBe(true);
+			Regex.IsMatch(localFiles[0], @"BFEP\.IAG(AG|ZZ)\.K0\d{0,6}\.D\d{6}\.T\d{6}$").ShouldBe(true);
 		}
 
 		[Test]

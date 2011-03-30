@@ -6,7 +6,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Account=Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.Account;
 
-namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
+namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHelpers
 {
 	public static class Factory 
 	{
@@ -17,7 +17,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 			{
 				output += func.Invoke() + "\r\n";
 			}
-			return output.TrimEnd("\r\n".ToCharArray());
+			return output.TrimEnd('\r', '\n');
 		}
 
 		public static string GetReceivedPaymentData()
@@ -63,7 +63,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 82200410280    {PayerId}00000009690000099123460809014                   1
 82200410280    {PayerId}00000004890000099123460809015                   9
 09200410279900              0000016874000000010000140000000000547500000000000000"
-			.Replace("{PayerId}",formattedPayerId);
+					.Replace("{PayerId}",formattedPayerId);
 		}
 
 		public static string GetReceivedConsentData()
@@ -130,11 +130,11 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 		{
 			return new BGConsentToSend
 			{
-                Account = new Account { AccountNumber = "1234567890", ClearingNumber = "1234" },
-                OrgNumber = null,
-                Payer = payer,
-                PersonalIdNumber = "197501242858",
-                SendDate = null,
+				Account = new Account { AccountNumber = "1234567890", ClearingNumber = "1234" },
+				OrgNumber = null,
+				Payer = payer,
+				PersonalIdNumber = "197501242858",
+				SendDate = null,
 				Type = ConsentType.New
 			};
 		}

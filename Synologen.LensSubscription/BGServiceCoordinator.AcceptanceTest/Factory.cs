@@ -1,7 +1,10 @@
 using System;
+using System.Text;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Account=Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.Account;
 
 namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 {
@@ -136,10 +139,26 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 			};
 		}
 
+		public static BGPaymentToSend GetPaymentToSend(AutogiroPayer payer) 
+		{
+			return new BGPaymentToSend
+			{
+				Amount = 548M,
+				Payer = payer,
+				PaymentDate = new DateTime(2011, 03, 25),
+				PaymentPeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
+				Reference = "Reference ABC",
+				SendDate = null,
+				Type = PaymentType.Debit
+			};
+		}
+
 		public static string GetConsentData(BGConsentToSend consent, string customerNumber, string bankgiroNumber) 
 		{
-			return @"01{WriteDate}AUTOGIRO                                            {CustomerNumber}{BankgiroNumber}  
-04{BankgiroNumber}{PayerNumber}{Clearing}{AccountNumber}{PersonalIdNumber}                        "
+			return new StringBuilder()
+				.AppendLine("01{WriteDate}AUTOGIRO                                            {CustomerNumber}{BankgiroNumber}  ")
+				.AppendLine("04{BankgiroNumber}{PayerNumber}{Clearing}{AccountNumber}{PersonalIdNumber}                        ")
+				.ToString().TrimEnd('\r','\n')
 				.Replace("{WriteDate}", DateTime.Now.ToString("yyyyMMdd"))
 				.Replace("{CustomerNumber}", customerNumber.PadLeft(6,'0'))
 				.Replace("{BankgiroNumber}", bankgiroNumber.PadLeft(10,'0'))
@@ -147,6 +166,21 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 				.Replace("{Clearing}", consent.Account.ClearingNumber)
 				.Replace("{AccountNumber}", consent.Account.AccountNumber.PadLeft(12,'0'))
 				.Replace("{PersonalIdNumber}", consent.PersonalIdNumber);
+		}
+
+		public static string GetPaymentData(BGPaymentToSend payment, string customerNumber, string bankgiroNumber) 
+		{
+			return new StringBuilder()
+				.AppendLine("01{WriteDate}AUTOGIRO                                            {CustomerNumber}{BankgiroNumber}  ")
+				.AppendLine("82{PaymentDate}0    {PayerNumber}{Amount}{BankgiroNumber}{Referens}           ")
+				.ToString().TrimEnd('\r','\n')
+				.Replace("{WriteDate}", DateTime.Now.ToString("yyyyMMdd"))
+				.Replace("{CustomerNumber}", customerNumber.PadLeft(6,'0'))
+				.Replace("{BankgiroNumber}", bankgiroNumber.PadLeft(10,'0'))
+				.Replace("{PaymentDate}",payment.PaymentDate.ToString("yyyyMMdd"))
+				.Replace("{PayerNumber}", payment.Payer.Id.ToString().PadLeft(16,'0'))
+				.Replace("{Amount}", payment.Amount.ToString("F2", System.Globalization.CultureInfo.InvariantCulture).Replace(".", "").PadLeft(12,'0'))
+				.Replace("{Referens}", payment.Reference.PadRight(16,' '));
 		}
 	}
 }

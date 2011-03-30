@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Configuration;
+using System.Text;
 using NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
@@ -26,6 +27,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 		protected IBGConsentToSendRepository bgConsentToSendRepository;
 		protected IBGPaymentToSendRepository bgPaymentToSendRepository;
 		protected string remoteFtpFolder;
+		protected readonly Encoding FtpTextEncoding = Encoding.GetEncoding(858);
 
 		protected override void SetUp()
 		{
@@ -95,7 +97,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 			{
 				System.IO.File.Delete(filePath);
 			}
-			System.IO.File.WriteAllText(filePath, contents);
+			System.IO.File.WriteAllText(filePath, contents, FtpTextEncoding);
 			return filePath;
 		}
 

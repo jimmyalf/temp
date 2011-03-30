@@ -187,7 +187,7 @@ namespace Synologen.LensSubscription.Autogiro.Test.Factories
             sb.AppendLine("32200410230   0000000000000103000000010000                02                    ");
             sb.AppendLine("82200410230   0000000000000104000000015000TESTREF         07                    ");
             sb.AppendLine("09200410229900000001000000010000000003000000085000                 			 ");
-            return sb.ToString().TrimEnd("\r\n".ToCharArray());
+            return sb.ToString().TrimEnd('\r', '\n');
         }
 
         private static string GetConsentPosts()
@@ -201,7 +201,7 @@ namespace Synologen.LensSubscription.Autogiro.Test.Factories
             sb.AppendLine("7300099123460000000000044333600000123456777019490730444400000041020041018000000");
             sb.AppendLine("7300099123460000195809010000                                 033320041018000000");
             sb.AppendLine("092004101899000000007                                                          ");
-            return sb.ToString().TrimEnd("\r\n".ToCharArray());
+            return sb.ToString().TrimEnd('\r', '\n');
         }
 
         private static string GetPaymentPosts()
@@ -224,7 +224,7 @@ namespace Synologen.LensSubscription.Autogiro.Test.Factories
             sb.AppendLine("82200410280    000000000000101400000009690000099123460809014                  1");
             sb.AppendLine("82200410280    000000000000101500000004890000099123460809015                  9");
             sb.AppendLine("09200410279900              0000016874000000010000140000000000547500000000000000");
-            return sb.ToString().TrimEnd("\r\n".ToCharArray());
+            return sb.ToString().TrimEnd('\r', '\n');
         }
     }
 }

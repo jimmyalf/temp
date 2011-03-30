@@ -11,6 +11,9 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 {
     public class ReceivedFileSplitter : IFileSplitter
     {
+    	private const string FileNameRegexPattern = @"BFEP\.{ProductCode}\.K0{CustomerNumber}\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$";
+    	private const string FileNameDateTimeRegexPattern = @"BFEP\..+\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$";
+
         public DateTime GetDateFromName(string name)
         {
             var dateAndTime = GetDateAndTimeStringFromName(name);
@@ -24,8 +27,7 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 
 		private static string[] GetDateAndTimeStringFromName(string fileName)
 		{
-        	var regexPattern = String.Concat(@"BFEP\..+\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$");
-        	var match = Regex.Match(fileName, regexPattern);
+        	var match = Regex.Match(fileName, FileNameDateTimeRegexPattern);
 			if(!match.Success)
 			{
 				throw new ArgumentException("Could not recognize file name", "fileName");
@@ -37,7 +39,7 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 
         public bool FileNameOk(string name, string customerNumber, string productCode)
         {
-        	var regexPattern = String.Concat(@"BFEP\.", productCode, @"\.K0", customerNumber, @"\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$");
+        	var regexPattern = FileNameRegexPattern.Replace("{ProductCode}", productCode).Replace("{CustomerNumber}", customerNumber);
         	var match = Regex.Match(name, regexPattern);
 			if(!match.Success) return false;
 

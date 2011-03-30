@@ -64,7 +64,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.ReceivePayments
                 NumberOfReoccuringTransactionsLeft = payment.NumberOfReoccuringTransactionsLeft,
                 PeriodCode = payment.PaymentPeriodCode,
                 Type = payment.Type,
-                Reciever = receiver, //payment.Reciever,
+                Reciever = receiver,
                 CreatedDate = DateTime.Now,
             };
         }

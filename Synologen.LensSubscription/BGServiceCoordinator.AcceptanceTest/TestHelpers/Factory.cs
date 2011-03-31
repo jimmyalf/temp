@@ -95,15 +95,27 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 				.Replace("{PayerId}",formattedPayerId);
 		}
 
-		public static string GetReceivedErrorData()
+		public static string GetReceivedErrorData(int payerId)
 		{
+            var formattedPayerId = payerId.ToString().PadLeft(16);
 			return @"0120041022AUTOGIRO9900FELLISTA REG.KONTRL                     4711170009912346  
+82200410230   {PayerId}000000050000                01                                       
+82200410230   {PayerId}000000020000                03                                       
+32200410230   {PayerId}000000010000                02                                       
+82200410230   {PayerId}000000015000TESTREF         07                                       
+09200410229900000001000000010000000003000000085000                                                           "
+                 .Replace("{PayerId}", formattedPayerId);
+		}
+
+        public static string GetReceivedErrorData()
+        {
+            return @"0120041022AUTOGIRO9900FELLISTA REG.KONTRL                     4711170009912346  
 82200410230   0000000000000101000000050000                01                                       
 82200410230   0000000000000102000000020000                03                                       
 32200410230   0000000000000103000000010000                02                                       
 82200410230   0000000000000104000000015000TESTREF         07                                       
-09200410229900000001000000010000000003000000085000                                                           ";
-		}
+09200410229900000001000000010000000003000000085000                                                           ";        
+        }
 
 		public static ReceivedFileSection GetReceivedConsentFileSection(int payerId) 
 		{
@@ -225,5 +237,16 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 82200410270    00000020304050620000000250000009912346KVARTAL-2005                             
 32200410280    00000030405060730000000125000009912346ÅTERBET                    ";
 		}
+
+	    public static ReceivedFileSection GetReceivedErrorFileSection(int payerId)
+	    {
+	        return new ReceivedFileSection
+            {
+                SectionData = GetReceivedErrorData(payerId),
+                Type = SectionType.ReceivedErrors,
+                TypeName = SectionType.ReceivedErrors.GetEnumDisplayName(),
+                CreatedDate = new DateTime(2011, 03, 31)
+            };
+	    }
 	}
 }

@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Change_Ftp_Password.cs" />
+    <Compile Include="Receive_errors.cs" />
     <Compile Include="Send_file.cs" />
     <Compile Include="TestHelpers\Factory.cs" />
     <Compile Include="GlobalTestBase.cs" />
@@ -102,6 +103,10 @@
     <ProjectReference Include="..\BGServiceCoordinator.Task\ReceiveConsents\ReceiveConsents.csproj">
       <Project>{0BAE058D-24F4-41ED-8CF9-AD128B59F211}</Project>
       <Name>ReceiveConsents %28Lenssubscription\BGServiceCoordinatorTask\ReceiveConsents%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BGServiceCoordinator.Task\ReceiveErrors\ReceiveErrors.csproj">
+      <Project>{AF74CA7A-75E2-487C-97E5-1AA0CACA0F9B}</Project>
+      <Name>ReceiveErrors %28LensSubscription\BGServiceCoordinator.Tasks\ReceiveErrors%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\BGServiceCoordinator.Task\ReceivePayments\ReceivePayments.csproj">
       <Project>{DBECE0FB-E41C-4845-A467-1CF604931EC5}</Project>

@@ -26,6 +26,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 		protected IFileSectionToSendRepository fileSectionToSendRepository;
 		protected IBGConsentToSendRepository bgConsentToSendRepository;
 		protected IBGPaymentToSendRepository bgPaymentToSendRepository;
+	    protected IBGReceivedErrorRepository bgReceivedErrorRepository;
 		protected string remoteFtpFolder;
 		protected readonly Encoding FtpTextEncoding = Encoding.GetEncoding(858);
 
@@ -42,6 +43,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 			bgReceivedPaymentRepository = ResolveRepository<IBGReceivedPaymentRepository>();
 			bgConsentToSendRepository = ResolveRepository<IBGConsentToSendRepository>();
 			bgPaymentToSendRepository = ResolveRepository<IBGPaymentToSendRepository>();
+		    bgReceivedErrorRepository = ResolveRepository<IBGReceivedErrorRepository>();
 			remoteFtpFolder = ConfigurationManager.AppSettings["RemoteFtpFolder"];
 		}
 

@@ -39,6 +39,15 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			Expect(persistedFrame.PupillaryDistance.Increment, Is.EqualTo(savedFrame.PupillaryDistance.Increment));
 			Expect(persistedFrame.PupillaryDistance.Max, Is.EqualTo(savedFrame.PupillaryDistance.Max));
 			Expect(persistedFrame.PupillaryDistance.Min, Is.EqualTo(savedFrame.PupillaryDistance.Min));
+
+			Expect(persistedFrame.Sphere.Increment, Is.EqualTo(savedFrame.Sphere.Increment));
+			Expect(persistedFrame.Sphere.Max, Is.EqualTo(savedFrame.Sphere.Max));
+			Expect(persistedFrame.Sphere.Min, Is.EqualTo(savedFrame.Sphere.Min));
+
+			Expect(persistedFrame.Cylinder.Increment, Is.EqualTo(savedFrame.Cylinder.Increment));
+			Expect(persistedFrame.Cylinder.Max, Is.EqualTo(savedFrame.Cylinder.Max));
+			Expect(persistedFrame.Cylinder.Min, Is.EqualTo(savedFrame.Cylinder.Min));
+
 			Expect(persistedFrame.NumberOfConnectedOrdersWithThisFrame, Is.EqualTo(expectedNumberOfOrderConnections));
 			Expect(persistedFrame.Stock.StockAtStockDate, Is.EqualTo(savedFrame.Stock.StockAtStockDate));
 			Expect(persistedFrame.Stock.StockDate, Is.EqualTo(savedFrame.Stock.StockDate));
@@ -74,6 +83,15 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			Expect(persistedFrame.PupillaryDistance.Increment, Is.EqualTo(editedFrame.PupillaryDistance.Increment));
 			Expect(persistedFrame.PupillaryDistance.Max, Is.EqualTo(editedFrame.PupillaryDistance.Max));
 			Expect(persistedFrame.PupillaryDistance.Min, Is.EqualTo(editedFrame.PupillaryDistance.Min));
+
+			Expect(persistedFrame.Sphere.Increment, Is.EqualTo(editedFrame.Sphere.Increment));
+			Expect(persistedFrame.Sphere.Max, Is.EqualTo(editedFrame.Sphere.Max));
+			Expect(persistedFrame.Sphere.Min, Is.EqualTo(editedFrame.Sphere.Min));
+
+			Expect(persistedFrame.Cylinder.Increment, Is.EqualTo(editedFrame.Cylinder.Increment));
+			Expect(persistedFrame.Cylinder.Max, Is.EqualTo(editedFrame.Cylinder.Max));
+			Expect(persistedFrame.Cylinder.Min, Is.EqualTo(editedFrame.Cylinder.Min));
+
 			Expect(persistedFrame.NumberOfConnectedOrdersWithThisFrame, Is.EqualTo(expectedNumberOfOrderConnections));
 			Expect(persistedFrame.Stock.CurrentStock, Is.EqualTo(expectedStock));
 		}

@@ -41,7 +41,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 					Color = new FrameColor {Id = 1, Name = "Blå"},
 					Id = id,
 					Name = "Bra båge",
-				}.SetInterval(x => x.PupillaryDistance, 20, 40, 1);
+				}
+				.SetInterval(x => x.PupillaryDistance, 20, 40, 1)
+				.SetInterval(x => x.Sphere, -6, 6, 0.25M)
+				.SetInterval(x => x.Cylinder, -2, 0, 0.25M);
 			}
 		}
 
@@ -66,13 +69,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.Factories
 				return new FrameOrder {
 					Axis = new NullableEyeParameter<int?> { Left = 70, Right = 155 },
 					Created = new DateTime(2010, 08, 24, 13, 45, 0),
-					Cylinder = new NullableEyeParameter { Left = 0.25M, Right = 1.75M },
+					Cylinder = new NullableEyeParameter { Left = -0.25M, Right = -1.75M },
 					Frame = new Frame {
 						ArticleNumber = "123987456",
 						Brand = new FrameBrand { Name = "Björn Borg" },
 						Color = new FrameColor { Name = "Gul" },
 						Name = "Testbåge 123",
 						PupillaryDistance = { Min = 20, Max = 40, Increment = 1 },
+						Sphere = { Min = -6, Max = 6, Increment = 0.25M },
+						Cylinder = { Min = -2, Max = 0, Increment = 0.25M },
 					},
 					GlassType = new FrameGlassType { 
 						Name = "Progressiv",

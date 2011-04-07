@@ -134,52 +134,58 @@ namespace Spinit.Wpc.Synologen.Business {
 		}
 
 
-		static public decimal FrameOrderSphereIncrement { 
-			get { return SafeConfigDecimal(_setting, "FrameOrderSphereIncrement", 0.25M); }
-		} 
-		static public decimal FrameOrderSphereMax { 
-			get { return SafeConfigDecimal(_setting, "FrameOrderSphereMax", 6); }
-		} 
-		static public decimal FrameOrderSphereMin { 
-			get { return SafeConfigDecimal(_setting, "FrameOrderSphereMin", -6); }
-		} 
-		static public decimal FrameOrderCylinderIncrement { 
-			get { return SafeConfigDecimal(_setting, "FrameOrderCylinderIncrement", 0.25M); }
-		} 
-		static public decimal FrameOrderCylinderMax { 
-			get { return SafeConfigDecimal(_setting, "FrameOrderCylinderMax", 0); }
-		} 
-		static public decimal FrameOrderCylinderMin { 
-			get { return SafeConfigDecimal(_setting, "FrameOrderCylinderMin", -2); }
-		} 
-		static public decimal FrameOrderAdditionIncrement { 
+		//static public decimal FrameOrderSphereIncrement { 
+		//    get { return SafeConfigDecimal(_setting, "FrameOrderSphereIncrement", 0.25M); }
+		//} 
+		//static public decimal FrameOrderSphereMax { 
+		//    get { return SafeConfigDecimal(_setting, "FrameOrderSphereMax", 6); }
+		//} 
+		//static public decimal FrameOrderSphereMin { 
+		//    get { return SafeConfigDecimal(_setting, "FrameOrderSphereMin", -6); }
+		//} 
+		//static public decimal FrameOrderCylinderIncrement { 
+		//    get { return SafeConfigDecimal(_setting, "FrameOrderCylinderIncrement", 0.25M); }
+		//} 
+		//static public decimal FrameOrderCylinderMax { 
+		//    get { return SafeConfigDecimal(_setting, "FrameOrderCylinderMax", 0); }
+		//} 
+		//static public decimal FrameOrderCylinderMin { 
+		//    get { return SafeConfigDecimal(_setting, "FrameOrderCylinderMin", -2); }
+		//} 
+		static public decimal FrameOrderAdditionIncrement 
+		{ 
 			get { return SafeConfigDecimal(_setting, "FrameOrderAdditionIncrement", 0.25M); }
 		} 
-		static public decimal FrameOrderAdditionMax { 
+		static public decimal FrameOrderAdditionMax 
+		{ 
 			get { return SafeConfigDecimal(_setting, "FrameOrderAdditionMax", 3); }
 		} 
-		static public decimal FrameOrderAdditionMin { 
+		static public decimal FrameOrderAdditionMin 
+		{ 
 			get { return SafeConfigDecimal(_setting, "FrameOrderAdditionMin", 1); }
 		} 
-		static public decimal FrameOrderHeightIncrement { 
+		static public decimal FrameOrderHeightIncrement 
+		{ 
 			get { return SafeConfigDecimal(_setting, "FrameOrderHeightIncrement", 1); }
 		} 
-		static public decimal FrameOrderHeightMax { 
+		static public decimal FrameOrderHeightMax 
+		{ 
 			get { return SafeConfigDecimal(_setting, "FrameOrderHeightMax", 28); }
 		} 
-		static public decimal FrameOrderHeightMin { 
+		static public decimal FrameOrderHeightMin 
+		{ 
 			get { return SafeConfigDecimal(_setting, "FrameOrderHeightMin", 18); }
-		} 
-
-		static public string FrameOrderSupplierEmail {
+		}
+		static public string FrameOrderSupplierEmail 
+		{
 			get { return SafeConfigString(_setting, "FrameOrderSupplierEmail", "info@spinit.se"); }
 		}
-
-		static public string FrameOrderFromEmail {
+		static public string FrameOrderFromEmail 
+		{
 			get { return SafeConfigString(_setting, "FrameOrderFromEmail", "info@spinit.se"); }
 		}
-
-		static public string FrameOrderEmailSubject {
+		static public string FrameOrderEmailSubject 
+		{
 			get { return SafeConfigString(_setting, "FrameOrderEmailSubject", "Glasögonbeställning från synologen"); }
 		}
 

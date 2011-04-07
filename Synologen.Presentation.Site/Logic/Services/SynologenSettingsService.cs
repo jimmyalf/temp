@@ -7,28 +7,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
 {
 	public class SynologenSettingsService : ISynologenSettingsService
 	{
-		public Interval Sphere { 
-			get
-			{
-				return new Interval
-				{
-					Increment = Globals.FrameOrderCylinderIncrement, 
-					Max = Globals.FrameOrderSphereMax,
-					Min = Globals.FrameOrderSphereMin
-				};			
-			} 
-		}
-		public Interval Cylinder { 
-			get
-			{	
-				return new Interval 
-				{
-					Increment = Globals.FrameOrderCylinderIncrement,
-					Max = Globals.FrameOrderCylinderMax,
-					Min = Globals.FrameOrderCylinderMin
-				};
-			}
-		}
+		//public Interval Sphere { 
+		//    get
+		//    {
+		//        return new Interval
+		//        {
+		//            Increment = Globals.FrameOrderCylinderIncrement, 
+		//            Max = Globals.FrameOrderSphereMax,
+		//            Min = Globals.FrameOrderSphereMin
+		//        };			
+		//    } 
+		//}
+		//public Interval Cylinder { 
+		//    get
+		//    {	
+		//        return new Interval 
+		//        {
+		//            Increment = Globals.FrameOrderCylinderIncrement,
+		//            Max = Globals.FrameOrderCylinderMax,
+		//            Min = Globals.FrameOrderCylinderMin
+		//        };
+		//    }
+		//}
 		public Interval Addition
 		{
 			get

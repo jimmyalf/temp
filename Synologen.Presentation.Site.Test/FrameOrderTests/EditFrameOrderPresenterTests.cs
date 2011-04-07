@@ -49,8 +49,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 			//Arrange
 			const int expectedNumberOfFrames = 11;
 			const int expectedNumberOfPDs = 1;
-			const int expectedNumberOfSpheres = 50;
-			const int expectedNumberOfCylinders = 10;
+			const int expectedNumberOfSpheres = 1;
+			const int expectedNumberOfCylinders = 1;
 			const int expectedNumberOfGlassTypes = 11;
 			const int expectedNumberOfAdditions = 1;
 			const int expectedNumberOfHeights = 1;
@@ -160,7 +160,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 				SelectedGlassTypeId = 8,  // Returns a glasstype with both addition and height
 				SelectedPupillaryDistance = new EyeParameter{Left = 22, Right = 33},
 				SelectedSphere = new EyeParameter{Left = -5, Right = 2.25M},
-				SelectedCylinder = new EyeParameter{ Left = 0.25M, Right = 1.75M}, 
+				SelectedCylinder = new EyeParameter{ Left = -0.25M, Right = -1.75M}, 
 				SelectedAxis = new EyeParameter<int>{Left = 20, Right = 179},
 				SelectedAddition = new EyeParameter{Left = 1.25M, Right = 2.75M},
 				SelectedHeight = new EyeParameter{Left = 19, Right = 27},
@@ -170,6 +170,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 			const int expectedNumberOfGlassTypesInList = 11;
 			const int expectedNumberOfPDsInList = 22;
 			const int expectedNumberOfSpheresInList = 50;
+			//const int expectedNumberOfSpheresInList = 17;
 			const int expectedNumberOfCylindersInList = 10;
 			const int expectedNumberOfAdditionsInList = 10;
 			const int expectedNumberOfHeightsInList = 12;
@@ -292,7 +293,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 				SelectedGlassTypeId = 8,
 				SelectedPupillaryDistance = new EyeParameter{Left = 200, Right = -20},
 				SelectedSphere = new EyeParameter{Left =10, Right = 42},
-				SelectedCylinder = new EyeParameter{Left = -0.25M, Right = 3},
+				SelectedCylinder = new EyeParameter{Left = -2.25M, Right = 3},
 				SelectedAxis = new EyeParameter<int>{Left = -1, Right = 181},
 				SelectedAddition = new EyeParameter{Left = 0.75M, Right = 3.75M},
 				SelectedHeight = new EyeParameter{Left = 17, Right = 33},

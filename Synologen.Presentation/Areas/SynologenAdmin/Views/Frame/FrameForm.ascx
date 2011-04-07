@@ -43,6 +43,44 @@
 					<%= Html.ValidationMessageFor(x => x.PupillaryDistanceIncrementation) %>
 				</p>
 			</fieldset>
+			
+			<fieldset class="interval-formItem">
+				<legend>Sfär</legend>
+				<p class="formItem">
+					<%= Html.LabelFor(x => x.SphereMinValue) %>
+					<%= Html.EditorFor(x => x.SphereMinValue) %>
+					<%= Html.ValidationMessageFor(x => x.SphereMinValue) %>
+				</p>
+				<p class="formItem">
+					<%= Html.LabelFor(x => x.SphereMaxValue) %>
+					<%= Html.EditorFor(x => x.SphereMaxValue) %>
+					<%= Html.ValidationMessageFor(x => x.SphereMaxValue) %>
+				</p>
+				<p class="formItem">
+					<%= Html.LabelFor(x => x.SphereIncrementation) %>
+					<%= Html.EditorFor(x => x.SphereIncrementation) %>
+					<%= Html.ValidationMessageFor(x => x.SphereIncrementation) %>
+				</p>
+			</fieldset>
+			
+			<fieldset class="interval-formItem">
+				<legend>Cylinder</legend>
+				<p class="formItem">
+					<%= Html.LabelFor(x => x.CylinderMinValue) %>
+					<%= Html.EditorFor(x => x.CylinderMinValue) %>
+					<%= Html.ValidationMessageFor(x => x.CylinderMinValue) %>
+				</p>
+				<p class="formItem">
+					<%= Html.LabelFor(x => x.CylinderMaxValue) %>
+					<%= Html.EditorFor(x => x.CylinderMaxValue) %>
+					<%= Html.ValidationMessageFor(x => x.CylinderMaxValue) %>
+				</p>
+				<p class="formItem">
+					<%= Html.LabelFor(x => x.CylinderIncrementation) %>
+					<%= Html.EditorFor(x => x.CylinderIncrementation) %>
+					<%= Html.ValidationMessageFor(x => x.CylinderIncrementation) %>
+				</p>
+			</fieldset>
 			<fieldset>
 				<legend>Lagersaldo</legend>
 				<p class="display-item clearLeft">

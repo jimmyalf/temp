@@ -41,16 +41,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 			mockedStock.SetupProperty(x => x.StockAtStockDate,200);
 			mockedStock.SetupGet(x => x.CurrentStock).Returns(196);
 			mockedStock.SetupProperty(x => x.StockDate, new DateTime(2010, 08, 01, 0, 0, 0));
-		    return new Frame
-		    {
-		        AllowOrders = true,
-		        ArticleNumber = "123456",
-		        Brand = new FrameBrand {Id = 1, Name = "Björn Borg"},
-		        Color = new FrameColor {Id = 1, Name = "Blå"},
-		        Id = id,
-		        Name = "Bra båge",
+			return new Frame
+			{
+				AllowOrders = true,
+				ArticleNumber = "123456",
+				Brand = new FrameBrand { Id = 1, Name = "Björn Borg" },
+				Color = new FrameColor { Id = 1, Name = "Blå" },
+				Id = id,
+				Name = "Bra båge",
 				Stock = mockedStock.Object
-		    }.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5m);		
+			}
+			.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5m)
+			.SetInterval(x => x.Sphere, -6, 6, 0.25M)
+			.SetInterval(x => x.Cylinder, -2, 6, 0.25M);
 		}
 
 		public static FrameColor GetMockedFrameColor(int id)
@@ -91,7 +94,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 				Addition = new NullableEyeParameter { Left = 1.75M, Right = 2.25M },
 				Axis = new NullableEyeParameter<int?> { Left = 70, Right = 155 },
 				Created = new DateTime(2010, 08, 24, 13, 45, 0),
-				Cylinder = new NullableEyeParameter { Left = 0.60M, Right = 1.55M },
+				Cylinder = new NullableEyeParameter { Left = -0.60M, Right = -1.55M },
 				Frame = GetMockedFrame(1),
 				GlassType = GetMockedFrameGlass(1),
 				Height = new NullableEyeParameter { Left = 19, Right = 26 },

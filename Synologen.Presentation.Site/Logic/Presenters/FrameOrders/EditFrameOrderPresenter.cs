@@ -84,9 +84,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 		{
 			View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).ToFrameViewList().InsertFirst(DefaultFrame);
 			View.Model.PupillaryDistance = EmptyIntervalList.CreateDefaultEyeParameter("PD");
+			View.Model.Sphere = EmptyIntervalList.CreateDefaultEyeParameter("Sfär");
+			View.Model.Cylinder = EmptyIntervalList.CreateDefaultEyeParameter("Cylinder");
 			View.Model.GlassTypesList = _frameGlassTypeRepository.GetAll().ToFrameGlassTypeViewList().InsertFirst(new FrameGlassTypeListItem {Id = 0, Name = "-- Välj glastyp --"});
-			View.Model.Sphere = _synologenSettingsService.Sphere.GetList().CreateDefaultEyeParameter("Sfär");
-			View.Model.Cylinder = _synologenSettingsService.Cylinder.GetList().CreateDefaultEyeParameter("Cylinder");
 			View.Model.Addition = EmptyIntervalList.CreateDefaultEyeParameter("Addition");
 			View.Model.Height = EmptyIntervalList.CreateDefaultEyeParameter("Höjd");
 			View.Model.FrameRequiredErrorMessage = "Båge saknas";
@@ -109,10 +109,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 			if(e.SelectedFrameId>0){
 				var frame = _frameRepository.Get(e.SelectedFrameId);
 				View.Model.PupillaryDistance = e.GetEyeParameter(x => x.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
+				View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, frame.Sphere.GetList(), "Sfär");
+				View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, frame.Cylinder.GetList(), "Cylinder");
 			}
 
 			FrameGlassType glassType = null;
-			if(e.SelectedGlassTypeId>0){
+			if(e.SelectedGlassTypeId>0)
+			{
 				glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
 				View.Model.HeightParametersEnabled = glassType.IncludeHeightParametersInOrder;
 				View.Model.AdditionParametersEnabled = glassType.IncludeAdditionParametersInOrder;
@@ -122,8 +125,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 			View.Model.AxisValueRightIsRequired = e.SelectedCylinder.Right != int.MinValue;
 			View.Model.SelectedFrameId = e.SelectedFrameId;
 			View.Model.SelectedGlassTypeId = e.SelectedGlassTypeId;
-			View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, _synologenSettingsService.Sphere.GetList(), "Sfär");
-			View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, _synologenSettingsService.Cylinder.GetList(), "Cylinder");
 			View.Model.AxisSelectionLeft = (e.SelectedAxis.Left == int.MinValue) ? (int?)null : e.SelectedAxis.Left;
 			View.Model.AxisSelectionRight = (e.SelectedAxis.Right == int.MinValue) ? (int?)null : e.SelectedAxis.Right;
 			View.Model.Reference = e.Reference;
@@ -146,12 +147,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 				return;
 			}
 			View.Model.PupillaryDistance = frameOrder.GetEyeParameter(x => x.PupillaryDistance, frameOrder.Frame.PupillaryDistance.GetList(), "PD");
+			View.Model.Sphere = frameOrder.GetEyeParameter(x => x.Sphere, frameOrder.Frame.Sphere.GetList(), "Sfär");
+			View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, frameOrder.Frame.Cylinder.GetList(), "Cylinder");
 			View.Model.HeightParametersEnabled = frameOrder.GlassType.IncludeHeightParametersInOrder;
 			View.Model.AdditionParametersEnabled = frameOrder.GlassType.IncludeAdditionParametersInOrder;
 			View.Model.SelectedFrameId = frameOrder.Frame.Id;
 			View.Model.SelectedGlassTypeId = frameOrder.GlassType.Id;
-			View.Model.Sphere = frameOrder.GetEyeParameter(x => x.Sphere, _synologenSettingsService.Sphere.GetList(), "Sfär");
-			View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, _synologenSettingsService.Cylinder.GetList(), "Cylinder");
 			View.Model.AxisSelectionLeft = (frameOrder.Axis == null || frameOrder.Axis.Left == null) ? (int?)null : frameOrder.Axis.Left.Value;
 			View.Model.AxisSelectionRight = (frameOrder.Axis == null || frameOrder.Axis.Right == null) ? (int?)null : frameOrder.Axis.Right.Value;
 			View.Model.Reference = frameOrder.Reference;

@@ -124,6 +124,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 				PupillaryDistanceIncrementation = entity.PupillaryDistance.Increment,
 				PupillaryDistanceMaxValue = entity.PupillaryDistance.Max,
 				PupillaryDistanceMinValue = entity.PupillaryDistance.Min,
+
+				SphereIncrementation = entity.Sphere.Increment,
+				SphereMaxValue = entity.Sphere.Max,
+				SphereMinValue = entity.Sphere.Min,
+
+				CylinderIncrementation = entity.Cylinder.Increment,
+				CylinderMaxValue = entity.Cylinder.Max,
+				CylinderMinValue = entity.Cylinder.Min,
+
 				FormLegend = formLegend,
             	CurrentStock = entity.Stock.CurrentStock, 
 				StockAtStockDate = entity.Stock.StockAtStockDate, 
@@ -290,8 +299,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 				entity.Stock.StockDate = DateTime.Now;
 			}
 
-			entity
-				.SetInterval(x => x.PupillaryDistance, viewModel.PupillaryDistanceMinValue, viewModel.PupillaryDistanceMaxValue, viewModel.PupillaryDistanceIncrementation);
+			entity.SetInterval(x => x.PupillaryDistance, viewModel.PupillaryDistanceMinValue, viewModel.PupillaryDistanceMaxValue, viewModel.PupillaryDistanceIncrementation);
+			entity.SetInterval(x => x.Sphere, viewModel.SphereMinValue, viewModel.SphereMaxValue, viewModel.SphereIncrementation);
+			entity.SetInterval(x => x.Cylinder, viewModel.CylinderMinValue, viewModel.CylinderMaxValue, viewModel.CylinderIncrementation);
 
 			return entity;
 		}

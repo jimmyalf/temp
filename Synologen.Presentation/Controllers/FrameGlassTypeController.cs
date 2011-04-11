@@ -28,7 +28,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
 		public ActionResult AddGlassType()
 		{
-			return View(new FrameGlassTypeEditView {FormLegend = "Skapa ny glastyp"});
+			return View(FrameGlassTypeEditView.GetDefaultInstance("Skapa ny glastyp"));
 		}
 
 		[HttpPost]

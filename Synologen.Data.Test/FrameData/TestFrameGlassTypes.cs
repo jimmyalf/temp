@@ -34,6 +34,15 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			Expect(persistedFrameGlassType.IncludeAdditionParametersInOrder, Is.EqualTo(savedFrameGlassType.IncludeAdditionParametersInOrder));
 			Expect(persistedFrameGlassType.IncludeHeightParametersInOrder, Is.EqualTo(savedFrameGlassType.IncludeHeightParametersInOrder));
 			Expect(persistedFrameGlassType.NumberOfConnectedOrdersWithThisGlassType, Is.EqualTo(expectedNumberOfOrderConnections));
+
+			Expect(persistedFrameGlassType.Sphere.Increment, Is.EqualTo(savedFrameGlassType.Sphere.Increment));
+			Expect(persistedFrameGlassType.Sphere.Max, Is.EqualTo(savedFrameGlassType.Sphere.Max));
+			Expect(persistedFrameGlassType.Sphere.Min, Is.EqualTo(savedFrameGlassType.Sphere.Min));
+
+			Expect(persistedFrameGlassType.Cylinder.Increment, Is.EqualTo(savedFrameGlassType.Cylinder.Increment));
+			Expect(persistedFrameGlassType.Cylinder.Max, Is.EqualTo(savedFrameGlassType.Cylinder.Max));
+			Expect(persistedFrameGlassType.Cylinder.Min, Is.EqualTo(savedFrameGlassType.Cylinder.Min));
+
 		}
 
 		[Test]
@@ -54,6 +63,14 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			Expect(persistedFrameGlassType.IncludeAdditionParametersInOrder, Is.EqualTo(editedFrameGlassType.IncludeAdditionParametersInOrder));
 			Expect(persistedFrameGlassType.IncludeHeightParametersInOrder, Is.EqualTo(editedFrameGlassType.IncludeHeightParametersInOrder));
 			Expect(persistedFrameGlassType.NumberOfConnectedOrdersWithThisGlassType, Is.EqualTo(expectedNumberOfOrderConnections));
+
+			Expect(persistedFrameGlassType.Sphere.Increment, Is.EqualTo(editedFrameGlassType.Sphere.Increment));
+			Expect(persistedFrameGlassType.Sphere.Max, Is.EqualTo(editedFrameGlassType.Sphere.Max));
+			Expect(persistedFrameGlassType.Sphere.Min, Is.EqualTo(editedFrameGlassType.Sphere.Min));
+
+			Expect(persistedFrameGlassType.Cylinder.Increment, Is.EqualTo(editedFrameGlassType.Cylinder.Increment));
+			Expect(persistedFrameGlassType.Cylinder.Max, Is.EqualTo(editedFrameGlassType.Cylinder.Max));
+			Expect(persistedFrameGlassType.Cylinder.Min, Is.EqualTo(editedFrameGlassType.Cylinder.Min));
 		}
 
 		[Test]

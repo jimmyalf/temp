@@ -144,6 +144,7 @@
     <Compile Include="Domain\Model\FrameOrder\EyeParameter.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameGlassType.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameOrder.cs" />
+    <Compile Include="Domain\Model\FrameOrder\IntervalContainer.cs" />
     <Compile Include="Domain\Model\FrameOrder\NullableEyeParameter.cs" />
     <Compile Include="Domain\Model\FrameOrder\Shop.cs" />
     <Compile Include="Domain\Model\FrameOrder\ShopAddress.cs" />

@@ -51,9 +51,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 				Name = "Bra båge",
 				Stock = mockedStock.Object
 			}
-			.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5m)
-			.SetInterval(x => x.Sphere, -6, 6, 0.25M)
-			.SetInterval(x => x.Cylinder, -2, 6, 0.25M);
+			.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5m);
 		}
 
 		public static FrameColor GetMockedFrameColor(int id)
@@ -84,7 +82,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 		        Name = "Närprogressiv",
 		        IncludeAdditionParametersInOrder = true,
 		        IncludeHeightParametersInOrder = true
-		    };
+		    }
+			.SetInterval(x => x.Sphere, -6, 6, 0.25M)
+			.SetInterval(x => x.Cylinder, -2, 6, 0.25M);
 					
 		}
 

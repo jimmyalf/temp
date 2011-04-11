@@ -109,8 +109,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 			if(e.SelectedFrameId>0){
 				var frame = _frameRepository.Get(e.SelectedFrameId);
 				View.Model.PupillaryDistance = e.GetEyeParameter(x => x.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
-				View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, frame.Sphere.GetList(), "Sfär");
-				View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, frame.Cylinder.GetList(), "Cylinder");
 			}
 
 			FrameGlassType glassType = null;
@@ -119,6 +117,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 				glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
 				View.Model.HeightParametersEnabled = glassType.IncludeHeightParametersInOrder;
 				View.Model.AdditionParametersEnabled = glassType.IncludeAdditionParametersInOrder;
+				View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, glassType.Sphere.GetList(), "Sfär");
+				View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, glassType.Cylinder.GetList(), "Cylinder");
 			}
 
 			View.Model.AxisValueLeftIsRequired = e.SelectedCylinder.Left != int.MinValue;
@@ -147,8 +147,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 				return;
 			}
 			View.Model.PupillaryDistance = frameOrder.GetEyeParameter(x => x.PupillaryDistance, frameOrder.Frame.PupillaryDistance.GetList(), "PD");
-			View.Model.Sphere = frameOrder.GetEyeParameter(x => x.Sphere, frameOrder.Frame.Sphere.GetList(), "Sfär");
-			View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, frameOrder.Frame.Cylinder.GetList(), "Cylinder");
+			View.Model.Sphere = frameOrder.GetEyeParameter(x => x.Sphere, frameOrder.GlassType.Sphere.GetList(), "Sfär");
+			View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, frameOrder.GlassType.Cylinder.GetList(), "Cylinder");
 			View.Model.HeightParametersEnabled = frameOrder.GlassType.IncludeHeightParametersInOrder;
 			View.Model.AdditionParametersEnabled = frameOrder.GlassType.IncludeAdditionParametersInOrder;
 			View.Model.SelectedFrameId = frameOrder.Frame.Id;

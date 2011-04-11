@@ -107,14 +107,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(model.PupillaryDistanceIncrementation, Is.EqualTo(domainItem.PupillaryDistance.Increment));
 			Expect(model.PupillaryDistanceMaxValue, Is.EqualTo(domainItem.PupillaryDistance.Max));
 			Expect(model.PupillaryDistanceMinValue, Is.EqualTo(domainItem.PupillaryDistance.Min));
-
-			Expect(model.SphereIncrementation, Is.EqualTo(domainItem.Sphere.Increment));
-			Expect(model.SphereMaxValue, Is.EqualTo(domainItem.Sphere.Max));
-			Expect(model.SphereMinValue, Is.EqualTo(domainItem.Sphere.Min));
-
-			Expect(model.CylinderIncrementation, Is.EqualTo(domainItem.Cylinder.Increment));
-			Expect(model.CylinderMaxValue, Is.EqualTo(domainItem.Cylinder.Max));
-			Expect(model.CylinderMinValue, Is.EqualTo(domainItem.Cylinder.Min));
 		}
 
 		[Test]
@@ -140,14 +132,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(savedItem.PupillaryDistance.Increment, Is.EqualTo(viewModel.PupillaryDistanceIncrementation));
 			Expect(savedItem.PupillaryDistance.Max, Is.EqualTo(viewModel.PupillaryDistanceMaxValue));
 			Expect(savedItem.PupillaryDistance.Min, Is.EqualTo(viewModel.PupillaryDistanceMinValue));
-
-			Expect(savedItem.Sphere.Increment, Is.EqualTo(viewModel.SphereIncrementation));
-			Expect(savedItem.Sphere.Max, Is.EqualTo(viewModel.SphereMaxValue));
-			Expect(savedItem.Sphere.Min, Is.EqualTo(viewModel.SphereMinValue));
-
-			Expect(savedItem.Cylinder.Increment, Is.EqualTo(viewModel.CylinderIncrementation));
-			Expect(savedItem.Cylinder.Max, Is.EqualTo(viewModel.CylinderMaxValue));
-			Expect(savedItem.Cylinder.Min, Is.EqualTo(viewModel.CylinderMinValue));
 
 			Expect(result.RouteValues["action"], Is.EqualTo("Index"));
 			Expect(actionMessages.First().Message, Is.EqualTo(expectedActionMessage));
@@ -180,13 +164,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(savedItem.PupillaryDistance.Max, Is.EqualTo(viewModel.PupillaryDistanceMaxValue));
 			Expect(savedItem.PupillaryDistance.Min, Is.EqualTo(viewModel.PupillaryDistanceMinValue));
 
-			Expect(savedItem.Sphere.Increment, Is.EqualTo(viewModel.SphereIncrementation));
-			Expect(savedItem.Sphere.Max, Is.EqualTo(viewModel.SphereMaxValue));
-			Expect(savedItem.Sphere.Min, Is.EqualTo(viewModel.SphereMinValue));
+			//Expect(savedItem.Sphere.Increment, Is.EqualTo(viewModel.SphereIncrementation));
+			//Expect(savedItem.Sphere.Max, Is.EqualTo(viewModel.SphereMaxValue));
+			//Expect(savedItem.Sphere.Min, Is.EqualTo(viewModel.SphereMinValue));
 
-			Expect(savedItem.Cylinder.Increment, Is.EqualTo(viewModel.CylinderIncrementation));
-			Expect(savedItem.Cylinder.Max, Is.EqualTo(viewModel.CylinderMaxValue));
-			Expect(savedItem.Cylinder.Min, Is.EqualTo(viewModel.CylinderMinValue));
+			//Expect(savedItem.Cylinder.Increment, Is.EqualTo(viewModel.CylinderIncrementation));
+			//Expect(savedItem.Cylinder.Max, Is.EqualTo(viewModel.CylinderMaxValue));
+			//Expect(savedItem.Cylinder.Min, Is.EqualTo(viewModel.CylinderMinValue));
 
 			Expect(savedItem.Stock.StockAtStockDate, Is.EqualTo(viewModel.StockAtStockDate));
 			Expect(savedItem.Stock.StockDate.ToString("yyyy-MM-dd"), Is.EqualTo(DateTime.Now.ToString("yyyy-MM-dd")));
@@ -235,14 +219,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(model.PupillaryDistanceIncrementation, Is.EqualTo(0.5m));
 			Expect(model.PupillaryDistanceMaxValue, Is.EqualTo(40));
 			Expect(model.PupillaryDistanceMinValue, Is.EqualTo(20));
-
-			Expect(model.SphereIncrementation, Is.EqualTo(0.25m));
-			Expect(model.SphereMaxValue, Is.EqualTo(6));
-			Expect(model.SphereMinValue, Is.EqualTo(-6));
-
-			Expect(model.CylinderIncrementation, Is.EqualTo(0.25m));
-			Expect(model.CylinderMaxValue, Is.EqualTo(0));
-			Expect(model.CylinderMinValue, Is.EqualTo(-2));
 		}
 
 		[Test]
@@ -268,14 +244,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(savedItem.PupillaryDistance.Increment, Is.EqualTo(viewModel.PupillaryDistanceIncrementation));
 			Expect(savedItem.PupillaryDistance.Max, Is.EqualTo(viewModel.PupillaryDistanceMaxValue));
 			Expect(savedItem.PupillaryDistance.Min, Is.EqualTo(viewModel.PupillaryDistanceMinValue));
-
-			Expect(savedItem.Sphere.Increment, Is.EqualTo(viewModel.SphereIncrementation));
-			Expect(savedItem.Sphere.Max, Is.EqualTo(viewModel.SphereMaxValue));
-			Expect(savedItem.Sphere.Min, Is.EqualTo(viewModel.SphereMinValue));
-
-			Expect(savedItem.Cylinder.Increment, Is.EqualTo(viewModel.CylinderIncrementation));
-			Expect(savedItem.Cylinder.Max, Is.EqualTo(viewModel.CylinderMaxValue));
-			Expect(savedItem.Cylinder.Min, Is.EqualTo(viewModel.CylinderMinValue));
 
 			Expect(result.RouteValues["action"], Is.EqualTo("Index"));
 			Expect(actionMessages.First().Message, Is.EqualTo(expectedActionMessage));

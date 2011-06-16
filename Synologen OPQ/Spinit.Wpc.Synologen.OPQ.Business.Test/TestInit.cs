@@ -20,9 +20,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		public TestInit(Configuration config)
 		{
 			_config = config;
-			const string localServer = "Data Source=LOCALHOST";
-			Match match = Regex.Match(_config.ConnectionString, localServer, RegexOptions.IgnoreCase);
-			if (!match.Success) throw new Exception("Test must be run on local server");
+			if (!IsDevelopmentServer(_config.ConnectionString)) throw new Exception("Test must be run on local server");
 			_dataContext = new WpcSynologenDataContext(_config.ConnectionString);
 		}
 
@@ -110,6 +108,15 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 				{
 					DatabaseManager.execScriptFile(_config.ConnectionString, script);
 				}
+		}
+		
+		private bool IsDevelopmentServer(string connectionString)
+		{
+			if (connectionString.ToLower().Contains("dev")) return true;
+			if (connectionString.ToLower().Contains("black")) return true;
+			if (connectionString.ToLower().Contains("localhost")) return true;
+			if (connectionString.ToLower().Contains("Data Source=.\\")) return true;
+			return false;
 		}
 	}
 }

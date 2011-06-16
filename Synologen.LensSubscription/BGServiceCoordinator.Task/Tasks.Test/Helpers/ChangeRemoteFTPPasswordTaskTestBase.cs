@@ -7,14 +7,14 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
 	public abstract class ChangeRemoteFTPPasswordTaskTestBase : CommonTaskTestBase
 	{
-		protected IFtpCommandService FtpCommandService;
+		//protected IFtpCommandService FtpCommandService;
 		protected IBGFtpChangePasswordService BGFtpChangePasswordService;
 		protected IBGFtpPasswordService BGFtpPasswordService;
 
 		protected override void SetUp()
 		{
 			base.SetUp();
-			FtpCommandService = A.Fake<IFtpCommandService>();
+			//FtpCommandService = A.Fake<IFtpCommandService>();
 			BGFtpChangePasswordService = A.Fake<IBGFtpChangePasswordService>();
 			BGFtpPasswordService = A.Fake<IBGFtpPasswordService>();
 			TaskRepositoryResolver.AddRepository(BGFtpPasswordService);

@@ -1,6 +1,5 @@
 using System;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 {
@@ -21,8 +20,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 		{
 			var fileName = GetFileName();
 			var ftpUploadRoot = _serviceCoordinatorSettingsService.GetFtpUploadFolderUrl();
-			var ftpUri = ftpUploadRoot.AppendUrl(fileName);
-			_ftpIoService.SendFile(ftpUri, fileData);
+			_ftpIoService.SendFile(ftpUploadRoot, fileName, fileData);
 			return new FtpSendResult(fileName);
 		}
 

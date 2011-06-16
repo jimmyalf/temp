@@ -220,14 +220,12 @@
     <Compile Include="Domain\Services\Coordinator\TaskBase.cs" />
     <Compile Include="Domain\Services\Coordinator\TaskBaseWithWebService.cs" />
     <Compile Include="Domain\Services\EventLogLogger.cs" />
-    <Compile Include="Domain\Services\FtpCommandService.cs" />
     <Compile Include="Domain\Services\IAutogiroPaymentService.cs" />
     <Compile Include="Domain\Services\IBGServiceCoordinatorSettingsService.cs" />
     <Compile Include="Domain\Services\IFileIOService.cs" />
     <Compile Include="Domain\Services\IFileReaderService.cs" />
     <Compile Include="Domain\Services\IFileWriterService.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGFtpChangePasswordService.cs" />
-    <Compile Include="Domain\Services\IFtpCommandService.cs" />
     <Compile Include="Domain\Services\IFtpService.cs" />
     <Compile Include="Domain\Services\IHashService.cs" />
     <Compile Include="Domain\Services\Coordinator\ITask.cs" />

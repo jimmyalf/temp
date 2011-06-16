@@ -40,5 +40,14 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 	    {
 	        return ConfigurationManager.AppSettings["BackupFilesFolderPath"];
 	    }
+
+		public bool UseBinaryFTPTransfer
+		{
+			get
+			{
+				var useBinaryFTPTransfer = ConfigurationManager.AppSettings["UseBinaryFTPTransfer"];
+				return useBinaryFTPTransfer != null && useBinaryFTPTransfer.ToLower().Equals("true");
+			}
+		}
 	}
 }

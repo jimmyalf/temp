@@ -31,8 +31,8 @@ namespace Synologen.LensSubscription.Autogiro.Test
 				condensateTypeName = "HMAC";
 				kvvHash = TamperProtectedFileWriterFactory.GenerateFakeHash(2);
 				macHash = TamperProtectedFileWriterFactory.GenerateFakeHash(55);
-				expectedSealOpeningRecord = string.Format("00{0}{1}{2}", WriteDate.ToString("yyyyMMdd"), condensateTypeName, Enumerable.Repeat(' ', 68).AsString());
-				expectedTamperProtectionRecord = string.Format("99{0}{1}{2}        ",WriteDate.ToString("yyyyMMdd"), kvvHash, macHash);
+				expectedSealOpeningRecord = string.Format("00{0}{1}{2}", WriteDate.ToString("yyMMdd"), condensateTypeName, Enumerable.Repeat(' ', 68).AsString());
+				expectedTamperProtectionRecord = string.Format("99{0}{1}{2}        ",WriteDate.ToString("yyMMdd"), kvvHash, macHash);
 
 				A.CallTo(() => HashService.CondensateTypeName).Returns(condensateTypeName);
 				A.CallTo(() => HashService.GetHash(TamperProtectedFileWriter.KeyVerificationToken)).Returns(kvvHash);

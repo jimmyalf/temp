@@ -18,6 +18,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 
 	public interface IFtpIOService
 	{
-		void SendFile(string fileUri, string fileData);
+		//void SendFile(string fileUri, string fileData);
+		void SendFile(string serverAddress, string fileName, string fileData);
 	}
 }

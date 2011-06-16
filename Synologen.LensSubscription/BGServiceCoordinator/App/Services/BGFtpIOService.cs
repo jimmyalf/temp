@@ -1,5 +1,5 @@
-using System.Net;
 using System.Text;
+using EnterpriseDT.Net.Ftp;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 
@@ -9,43 +9,40 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 	{
 		private readonly IBGServiceCoordinatorSettingsService _serviceCoordinatorSettingsService;
 		private readonly IBGFtpPasswordService _ftpPasswordService;
+		private readonly ILoggingService _loggingService;
+		private readonly FTPClient _ftpClient;
+		protected Encoding UsedEncoding { get; private set; }
 
-		public BGFtpIOService(IBGServiceCoordinatorSettingsService serviceCoordinatorSettingsService, IBGFtpPasswordService ftpPasswordService)
+		public BGFtpIOService(IBGServiceCoordinatorSettingsService serviceCoordinatorSettingsService, IBGFtpPasswordService ftpPasswordService, ILoggingService loggingService, FTPClient ftpClient)
 		{
 			_serviceCoordinatorSettingsService = serviceCoordinatorSettingsService;
 			_ftpPasswordService = ftpPasswordService;
+			_loggingService = loggingService;
+			_ftpClient = SetupLogging(ftpClient);
 			UsedEncoding = Encoding.GetEncoding(858);
 		}
 
-		public void SendFile(string fileUri, string fileData) 
+		public void SendFile(string serverAddress, string fileName, string fileData)
 		{
-			var request = GetFtpUploadRequest(fileUri);
-            var fileContents = UsedEncoding.GetBytes(fileData);
-            request.ContentLength = fileContents.Length;
-			WriteFtpStream(request, fileContents);
-            var response = (FtpWebResponse) request.GetResponse();
-			response.Close();
-		}
-
-		private static void WriteFtpStream(WebRequest request, byte[] fileContents)
-		{
-			var requestStream = request.GetRequestStream();
-            requestStream.Write(fileContents, 0, fileContents.Length);
-            requestStream.Close();
-		}
-
-		private FtpWebRequest GetFtpUploadRequest(string fileUri)
-		{
-			var request = (FtpWebRequest) WebRequest.Create(fileUri);
-			request.Method = WebRequestMethods.Ftp.UploadFile;
 			var userName = _serviceCoordinatorSettingsService.GetFtpUserName();
 			var password = _ftpPasswordService.GetCurrentPassword();
-			request.Credentials = new NetworkCredential(userName, password);
-			request.UseBinary = false;
-			return request;
+			_ftpClient.Connect();
+			_ftpClient.User(userName);
+			_ftpClient.Password(password);
+			if(_serviceCoordinatorSettingsService.UseBinaryFTPTransfer)
+			{
+				_ftpClient.TransferType = FTPTransferType.BINARY;
+			}
+			var fileContents = UsedEncoding.GetBytes(fileData);
+			_ftpClient.Put(fileContents, fileName);
+			_ftpClient.Quit();
 		}
 
-		protected Encoding UsedEncoding { get; private set; }
-
+		private FTPClient SetupLogging(FTPClient ftpClient)
+		{
+			ftpClient.CommandSent += (sender, eventArgs) => _loggingService.LogDebug("FTP: " + eventArgs.Message);
+			ftpClient.ReplyReceived += (sender, eventArgs) => _loggingService.LogDebug("FTP: " + eventArgs.Message);
+			return ftpClient;
+		}
 	}
 }

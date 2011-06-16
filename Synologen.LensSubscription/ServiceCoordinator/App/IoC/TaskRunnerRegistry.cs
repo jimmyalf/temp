@@ -31,7 +31,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App.IoC
 			// Logging
 			For<ILoggingService>().Singleton().Use(LogFactory.CreateLoggingService());
 	
-			For<IBGWebServiceClient>().Use<BgWebServiceClient>();
+			For<IBGWebServiceClient>().AlwaysUnique().Use<BgWebServiceClient>();
 			For<IAutogiroPaymentService>().Use<AutogiroPaymentService>();
 			For<IServiceCoordinatorSettingsService>().Use<ServiceCoordinatorSettingsService>(); 
 			

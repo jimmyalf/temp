@@ -1,4 +1,6 @@
+using System;
 using System.Reflection;
+using EnterpriseDT.Net.Ftp;
 using NHibernate;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
@@ -24,8 +26,13 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 {
 	public class TaskRunnerRegistry : Registry
 	{
+		public readonly BGFtpServiceType CurrentServiceType;
+
 		public TaskRunnerRegistry()
 		{
+
+			CurrentServiceType = GetServiceType();
+
 			// NHibernate
 			For<IUnitOfWork>().LifecycleIs(new ExecutingTaskLifecycle()).Use<NHibernateUnitOfWork>();
 			For<ISessionFactory>().Singleton().Use(NHibernateFactory.Instance.GetSessionFactory);
@@ -63,17 +70,19 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 			For<IFileWriterService>().Use(x=> SendFileWriterServiceFactory.Get(x.GetInstance<IFileIOService>(), x.GetInstance<IBGServiceCoordinatorSettingsService>()));
 			For<ITamperProtectedFileWriter>().Use(x => TamperProtectedFileWriterFactory.Get(x.GetInstance<IHashService>()));
 			For<IHashService>().Use(x => HashServiceFactory.Get(x.GetInstance<IBGServiceCoordinatorSettingsService>()));
-			For<IFtpService>().Use<BGFtpService>().Ctor<BGFtpServiceType>().Is(BGFtpServiceType.Autogiro_Test);
+			For<IFtpService>().Use<BGFtpService>().Ctor<BGFtpServiceType>().Is(CurrentServiceType);
 			For<IFtpIOService>().Use<BGFtpIOService>();
 			For<IFileIOService>().Use<BGFileIOService>();
-            For<IFileReaderService>().Use<BGReceivedFileReaderService>().Ctor<BGFtpServiceType>().Is(BGFtpServiceType.Autogiro_Test);
+            For<IFileReaderService>().Use<BGReceivedFileReaderService>().Ctor<BGFtpServiceType>().Is(CurrentServiceType);
             For<IFileSplitter>().Use<ReceivedFileSplitter>();
-			For<IFtpCommandService>().Use<FtpCommandService>();
+			//For<IFtpCommandService>().Use<FtpCommandService>();
 			For<IBGFtpPasswordService>().Use<BGFtpPasswordService>();
 			For<IBGFtpChangePasswordService>().Use<BGFtpChangePasswordService>();
 
 			//Settings
 			For<IBGServiceCoordinatorSettingsService>().Use<BGServiceCoordinatorSettingsService>();
+
+			For<FTPClient>().AlwaysUnique().Use(x => FTPClientFactory.GetClient(x.GetInstance<IBGServiceCoordinatorSettingsService>()));
 
 			// Register criteria converters
 			Scan(x =>
@@ -82,6 +91,17 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.IoC
 				x.Assembly(typeof(NHibernateActionCriteriaConverter<,>).Assembly.FullName);
 				x.ConnectImplementationsToTypesClosing(typeof(IActionCriteriaConverter<,>));
 			});
+		}
+
+		private static BGFtpServiceType GetServiceType()
+		{
+			switch (Mode.Current)
+			{
+				case RunningMode.InProduction: return BGFtpServiceType.Autogiro;
+				case RunningMode.Test: return BGFtpServiceType.Autogiro_Test;
+				case RunningMode.Debug: return BGFtpServiceType.Autogiro_Test;
+				default: throw new ArgumentException("Cannot determine current taskrunner mode");
+			}
 		}
 
 		protected virtual bool IsServiceCoordinatorTaskAssembly(Assembly assembly)

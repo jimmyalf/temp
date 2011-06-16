@@ -82,6 +82,7 @@
     <Compile Include="App\AutogiroPaymentService.cs" />
     <Compile Include="App\MockBgWebServiceClient.cs" />
     <Compile Include="App\BgWebServiceClient.cs" />
+    <Compile Include="App\Mode.cs" />
     <Compile Include="App\ServiceCoordinatorSettingsService.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="App\IoC\TaskRunnerRegistry.cs" />

@@ -56,7 +56,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			View.Model.StopButtonEnabled = subscription.Active;
 			View.Model.StartButtonEnabled = !subscription.Active;
 			View.Model.AccountNumber = subscription.PaymentInfo.AccountNumber;
-			View.Model.ActivatedDate = subscription.With(x => x.ActivatedDate).Return(x => x.Value.ToString(DateTimeFormat), String.Empty);
+			View.Model.ActivatedDate = subscription.With(x => x.ActivatedDate).Return(x => x.Value.ToString(DateTimeFormat), "Nej");
 			View.Model.ClearingNumber = subscription.PaymentInfo.ClearingNumber;
 			View.Model.CreatedDate = subscription.CreatedDate.ToString(DateTimeFormat);
 			View.Model.CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);

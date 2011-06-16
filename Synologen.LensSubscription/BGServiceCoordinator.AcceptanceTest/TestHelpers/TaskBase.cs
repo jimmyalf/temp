@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using EnterpriseDT.Net.Ftp;
+using FakeItEasy;
 using NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
@@ -27,6 +31,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 		protected IBGConsentToSendRepository bgConsentToSendRepository;
 		protected IBGPaymentToSendRepository bgPaymentToSendRepository;
 	    protected IBGReceivedErrorRepository bgReceivedErrorRepository;
+		protected FTPClient FTPClient;
 		protected string remoteFtpFolder;
 		protected readonly Encoding FtpTextEncoding = Encoding.GetEncoding(858);
 
@@ -44,6 +49,11 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 			bgConsentToSendRepository = ResolveRepository<IBGConsentToSendRepository>();
 			bgPaymentToSendRepository = ResolveRepository<IBGPaymentToSendRepository>();
 		    bgReceivedErrorRepository = ResolveRepository<IBGReceivedErrorRepository>();
+			FTPClient = A.Fake<FTPClient>();
+			A.CallTo(() => FTPClient.Password(A<string>.Ignored)).Invokes(call =>
+            {
+            	FTPClient.ReplyReceived += Raise.With(new FTPMessageEventArgs("230-Password was changed.")).Now;
+            });
 			remoteFtpFolder = ConfigurationManager.AppSettings["RemoteFtpFolder"];
 		}
 
@@ -54,7 +64,9 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 
 		protected TTask ResolveTask<TTask>() where TTask : ITask
 		{
-			return ObjectFactory.GetInstance<TTask>();
+			return ObjectFactory
+				.With(typeof(FTPClient), FTPClient)
+				.GetInstance<TTask>();
 		}
 
 		protected ITaskRunnerService GetTaskRunnerService(ITask task)
@@ -116,9 +128,20 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 			var sentFolderPath = bgServiceCoordinatorSettingsService.GetSentFilesFolderPath();
 			var filesToDelete = System.IO.Directory.GetFiles(backupFolderPath)
 				.Append(System.IO.Directory.GetFiles(receivedFolderPath))
-				.Append(System.IO.Directory.GetFiles(remoteFtpFolder))
 				.Append(System.IO.Directory.GetFiles(sentFolderPath));
 			foreach (var file in filesToDelete)
+			{
+				System.IO.File.Delete(file);
+			}
+			ClearBGCFTPFiles();
+		}
+
+		private void ClearBGCFTPFiles()
+		{
+			var bgcFilesInRemoteFTP = System.IO.Directory
+				.GetFiles(remoteFtpFolder)
+				.Where(file => Regex.IsMatch(file, @"BFEP\.IAG(AG|ZZ)\.K0\d{0,6}$"));
+			foreach (var file in bgcFilesInRemoteFTP) 
 			{
 				System.IO.File.Delete(file);
 			}

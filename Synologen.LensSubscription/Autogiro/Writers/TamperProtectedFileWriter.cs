@@ -37,7 +37,7 @@ namespace Synologen.LensSubscription.Autogiro.Writers
 		protected virtual string GetOpeningSealRecord()
 		{
 			return String.Format("00{0}{1}{2}",
-                 _writeDate.ToString("yyyyMMdd"),
+                 _writeDate.ToString("yyMMdd"),
                  _hashService.CondensateTypeName,
 				 Pad(68));
 		}
@@ -45,7 +45,7 @@ namespace Synologen.LensSubscription.Autogiro.Writers
 		protected virtual string GetTamperProtectionRecord(string openingSealRecord, string fileContents)
 		{
 			return String.Format("99{0}{1}{2}{3}",
-                 _writeDate.ToString("yyyyMMdd"),
+                 _writeDate.ToString("yyMMdd"),
                  GetKeyVerificationValue(),
 				 GetMessageAuthenticationCode(new StringBuilder()
 					 .AppendLine(openingSealRecord)

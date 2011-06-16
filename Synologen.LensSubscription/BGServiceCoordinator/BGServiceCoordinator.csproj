@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="edtFTPnet, Version=2.2.1.0, Culture=neutral, PublicKeyToken=4b0c991f43097782">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\edtFTPnet.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\log4Net\log4net.dll</HintPath>
@@ -75,12 +79,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\Factories\FTPClientFactory.cs" />
     <Compile Include="App\Factories\HashServiceFactory.cs" />
     <Compile Include="App\Factories\SendFileWriterService.cs" />
     <Compile Include="App\Factories\TamperProtectedFileWriterFactory.cs" />
     <Compile Include="App\IoC\TaskRunnerRegistry.cs" />
     <Compile Include="App\Logging\Log4NetLogger.cs" />
     <Compile Include="App\Logging\LogFactory.cs" />
+    <Compile Include="App\Mode.cs" />
     <Compile Include="App\Services\BGFtpChangePassword.cs" />
     <Compile Include="App\Services\BGFtpPasswordService.cs" />
     <Compile Include="App\Services\BGServiceCoordinatorSettingsService.cs" />

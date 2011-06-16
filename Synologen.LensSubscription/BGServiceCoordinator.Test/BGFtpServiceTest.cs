@@ -31,15 +31,21 @@ namespace Synologen.LensSubscription.BGService.Test
 		}
 		
 		[Test]
-		public void File_is_sent_with_expected_fileName()
+		public void File_is_sent_with_expected_ftp_root()
 		{
-			A.CallTo(() => FtpIOService.SendFile(expectedFileUri, A<string>.Ignored)).MustHaveHappened();
+			A.CallTo(() => FtpIOService.SendFile(ftpRootUrl, A<string>.Ignored, A<string>.Ignored)).MustHaveHappened();
+		}
+
+		[Test]
+		public void File_is_sent_with_expected_ftp_name()
+		{
+			A.CallTo(() => FtpIOService.SendFile(A<string>.Ignored, expectedFileName, A<string>.Ignored)).MustHaveHappened();
 		}
 
 		[Test]
 		public void File_is_sent_with_expected_fileData()
 		{
-			A.CallTo(() => FtpIOService.SendFile(A<string>.Ignored, fileData)).MustHaveHappened();
+			A.CallTo(() => FtpIOService.SendFile(A<string>.Ignored, A<string>.Ignored, fileData)).MustHaveHappened();
 		}
 	}
 }

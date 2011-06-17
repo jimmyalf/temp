@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Globalization;
+using System.Threading;
+using NUnit.Framework;
 
 namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 {
@@ -8,7 +10,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		[SetUp, Description ("Initialize.")]
 		public void NodeManagerInit ()
 		{
-		}
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("Sv-se");
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+        }
 
 		[TearDown, Description ("Close.")]
 		public void NodeManagerCleanUp ()

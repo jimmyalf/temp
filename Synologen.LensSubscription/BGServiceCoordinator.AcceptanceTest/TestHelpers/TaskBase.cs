@@ -69,6 +69,15 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHel
 				.GetInstance<TTask>();
 		}
 
+		protected TTask ResolveTaskWithRealFtpClient<TTask>() where TTask : ITask
+		{
+			var url = bgServiceCoordinatorSettingsService.GetFtpUploadFolderUrl();
+			var client = new FTPClient {RemoteHost = url};
+			return ObjectFactory
+				.With(typeof(FTPClient), client)
+				.GetInstance<TTask>();
+		}
+
 		protected ITaskRunnerService GetTaskRunnerService(ITask task)
 		{
 			return ObjectFactory

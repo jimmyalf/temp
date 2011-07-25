@@ -41,6 +41,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Services
 	        return ConfigurationManager.AppSettings["BackupFilesFolderPath"];
 	    }
 
+	    public string ReceiveFileNameRegexPattern()
+	    {
+	        return ConfigurationManager.AppSettings["ReceiveFileNameRegexPattern"];
+	    }
+
 		public bool UseBinaryFTPTransfer
 		{
 			get

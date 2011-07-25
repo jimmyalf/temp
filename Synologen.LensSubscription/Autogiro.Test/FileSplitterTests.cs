@@ -1,30 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using FakeItEasy;
 using Spinit.Extensions;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Synologen.LensSubscription.Autogiro.Readers;
 using Synologen.LensSubscription.Autogiro.Test.Factories;
+using Synologen.LensSubscription.Autogiro.Test.TestHelpers;
 
 namespace Synologen.LensSubscription.Autogiro.Test
 {
-    [TestFixture]
-    [Category("FileSplitterTester")]
-    public class When_GetDateFromName_is_called
+    [TestFixture, Category("FileSplitterTester")]
+    public class When_GetDateFromName_is_called : FileSplitterTesteBase
     {
         private IEnumerable<string>_fileNames;
         private List<DateTime> _extractedDates;
         private readonly List<DateTime> _dates = new List<DateTime>();
+		private const string fileNameRegexPattern = @"BFEP\.{ProductCode}\.K0{CustomerNumber}\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$";
         
         public When_GetDateFromName_is_called()
         {
              _fileNames = FileSplitterFactory.GetFileNames();
              _extractedDates = FileSplitterFactory.GetDates();
-            var fileSplitter = new ReceivedFileSplitter();
-
+			A.CallTo(() => bgServiceCoordinatorSettingsService.ReceiveFileNameRegexPattern()).Returns(fileNameRegexPattern);
             _fileNames.Each(fileName => _dates.Add(fileSplitter.GetDateFromName(fileName)));
         }
 
@@ -35,41 +35,40 @@ namespace Synologen.LensSubscription.Autogiro.Test
         }
     }
 
-    [TestFixture]
-    [Category("FileSplitterTester")]
-    public class When_FileNameOk_is_called
+    [TestFixture, Category("FileSplitterTester")]
+    public class When_FileNameOk_is_called : FileSplitterTesteBase
     {
         private IEnumerable<string> _fileNames;
         private List<bool> _results = new List<bool>();
         private readonly List<bool> _expectedResults;
         private readonly string _customerNumber = "999999";
         private readonly string _productCode = "UAGAG";
+		private const string fileNameRegexPattern = @"BFEP\.({ProductCode}|UAGU4)\.K0{CustomerNumber}\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$";
 
         public When_FileNameOk_is_called()
         {
             _fileNames = FileSplitterFactory.GetValidAndInvalidFileNames();
             _expectedResults = FileSplitterFactory.GetBooleanResults();
-            var fileSplitter = new ReceivedFileSplitter();
-
+        	A.CallTo(() => bgServiceCoordinatorSettingsService.ReceiveFileNameRegexPattern()).Returns(fileNameRegexPattern);
             _fileNames.Each(fileName => _results.Add(fileSplitter.FileNameOk(fileName, _customerNumber, _productCode)));
         }
 
         [Test]
-        public void Filename_is_parsed_and_checked()
+        public void Filenames_are_parsed_and_checked()
         {
             _expectedResults.ForBoth(_results, (expectedResult, result) => result.ShouldBe(expectedResult));
         }
     }
 
-    [TestFixture]
-    [Category("FileSplitterTester")]
-    public class When_GetSections_is_called_and_file_is_empty
+    [TestFixture, Category("FileSplitterTester")]
+    public class When_GetSections_is_called_and_file_is_empty : FileSplitterTesteBase
     {
         private Exception _exception;
+		private const string fileNameRegexPattern = @"BFEP\.{ProductCode}\.K0{CustomerNumber}\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$";
         
         public When_GetSections_is_called_and_file_is_empty()
         {
-            var fileSplitter = new ReceivedFileSplitter();
+            A.CallTo(() => bgServiceCoordinatorSettingsService.ReceiveFileNameRegexPattern()).Returns(fileNameRegexPattern);
             try
             {
                 fileSplitter.GetSections(new string[] { });
@@ -88,17 +87,17 @@ namespace Synologen.LensSubscription.Autogiro.Test
         }
     }
 
-    [TestFixture]
-    [Category("FileSplitterTester")]
-    public class When_GetSections_is_called_and_file_does_not_start_with_correct_opening_type
+    [TestFixture, Category("FileSplitterTester")]
+    public class When_GetSections_is_called_and_file_does_not_start_with_correct_opening_type : FileSplitterTesteBase
     {
         private Exception _exception;
         private string[] _file;
+		private const string fileNameRegexPattern = @"BFEP\.{ProductCode}\.K0{CustomerNumber}\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$";
         public When_GetSections_is_called_and_file_does_not_start_with_correct_opening_type()
         {
-            var fileSplitter = new ReceivedFileSplitter();
             try
             {
+				A.CallTo(() => bgServiceCoordinatorSettingsService.ReceiveFileNameRegexPattern()).Returns(fileNameRegexPattern);
                 _file = FileSplitterFactory.GetFileWithoutOpeningType();
                 fileSplitter.GetSections(_file);
             }
@@ -116,17 +115,17 @@ namespace Synologen.LensSubscription.Autogiro.Test
         }
     }
 
-    [TestFixture]
-    [Category("FileSplitterTester")]
-    public class When_GetSections_is_called_and_file_does_not_end_with_correct_type
+    [TestFixture, Category("FileSplitterTester")]
+    public class When_GetSections_is_called_and_file_does_not_end_with_correct_type : FileSplitterTesteBase
     {
         private Exception _exception;
         private string[] _file;
+		private const string fileNameRegexPattern = @"BFEP\.{ProductCode}\.K0{CustomerNumber}\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$";
         public When_GetSections_is_called_and_file_does_not_end_with_correct_type()
         {
-            var fileSplitter = new ReceivedFileSplitter();
             try
             {
+				A.CallTo(() => bgServiceCoordinatorSettingsService.ReceiveFileNameRegexPattern()).Returns(fileNameRegexPattern);
                 _file = FileSplitterFactory.GetFileWithoutEndingType();
                 fileSplitter.GetSections(_file);
             }
@@ -144,18 +143,18 @@ namespace Synologen.LensSubscription.Autogiro.Test
         }
     }
 
-    [TestFixture]
-    [Category("FileSplitterTester")]
-    public class When_GetSections_is_called_and_file_contain_unknown_section_type
+    [TestFixture, Category("FileSplitterTester")]
+    public class When_GetSections_is_called_and_file_contain_unknown_section_type : FileSplitterTesteBase
     {
         private Exception _exception;
         private string[] _file;
         private static string _line = "0120041015AUTOGIRO00000000000000000000000000000000000000                        ";
+		private const string fileNameRegexPattern = @"BFEP\.{ProductCode}\.K0{CustomerNumber}\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$";
         public When_GetSections_is_called_and_file_contain_unknown_section_type()
         {
-            ReceivedFileSplitter fileSplitter = new ReceivedFileSplitter();
             try
             {
+				A.CallTo(() => bgServiceCoordinatorSettingsService.ReceiveFileNameRegexPattern()).Returns(fileNameRegexPattern);
                 _file = FileSplitterFactory.GetFileWithUnkownSectionType();
                 fileSplitter.GetSections(_file);
             }
@@ -173,19 +172,18 @@ namespace Synologen.LensSubscription.Autogiro.Test
         }
     }
 
-    [TestFixture]
-    [Category("FileSplitterTester")]
-    public class When_GetSections_is_called_and_file_contains_multiple_sections
+    [TestFixture, Category("FileSplitterTester")]
+    public class When_GetSections_is_called_and_file_contains_multiple_sections : FileSplitterTesteBase
     {
         
         private string[] _file;
         private List<FileSection> _sections;
         private IEnumerable<FileSection> _expectedSections;
+		private const string fileNameRegexPattern = @"BFEP\.{ProductCode}\.K0{CustomerNumber}\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$";
 
         public When_GetSections_is_called_and_file_contains_multiple_sections()
         {
-            ReceivedFileSplitter fileSplitter = new ReceivedFileSplitter();
-
+			A.CallTo(() => bgServiceCoordinatorSettingsService.ReceiveFileNameRegexPattern()).Returns(fileNameRegexPattern);
             _file = FileSplitterFactory.GetFileWithMultipleSections();
             _expectedSections = FileSplitterFactory.GetExpectedSections();
             _sections = (List<FileSection>) fileSplitter.GetSections(_file);

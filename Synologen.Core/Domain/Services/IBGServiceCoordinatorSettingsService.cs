@@ -11,5 +11,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
         string GetReceivedFilesFolderPath();
 	    string GetBackupFilesFolderPath();
 		bool UseBinaryFTPTransfer { get; }
+		string ReceiveFileNameRegexPattern();
 	}
 }

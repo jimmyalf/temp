@@ -46,7 +46,8 @@ namespace Synologen.LensSubscription.Autogiro.Test.Factories
                 "BFEP.UAGAG.K0999999.110301.T130426",
                 "BFEP.UAGAG.K0999999.D110301.130426",
                 "BFEP.UAGAG.K0999999.D110301.T1304264",
-                "BFEP.UAGAG.K0999999.D1103013.T1304264"
+                "BFEP.UAGAG.K0999999.D1103013.T1304264",
+				"BFEP.UAGU4.K0999999.D110301.T130426"
             };
         }
 
@@ -68,7 +69,8 @@ namespace Synologen.LensSubscription.Autogiro.Test.Factories
                          false,
                          false,
                          false,
-                         false
+                         false,
+						 true
                        };
         }
 

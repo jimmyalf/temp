@@ -6,15 +6,23 @@ using System.Text.RegularExpressions;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Synologen.LensSubscription.Autogiro.Readers
 {
     public class ReceivedFileSplitter : IFileSplitter
     {
-    	private const string FileNameRegexPattern = @"BFEP\.{ProductCode}\.K0{CustomerNumber}\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$";
+
+		//private const string FileNameRegexPattern = @"BFEP\.{ProductCode}\.K0{CustomerNumber}\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$";
+    	private readonly IBGServiceCoordinatorSettingsService _bgServiceCoordinatorSettingsService;
     	private const string FileNameDateTimeRegexPattern = @"BFEP\..+\.D(?<datePart>\d{6})\.T(?<timePart>\d{6})$";
 
-        public DateTime GetDateFromName(string name)
+    	public ReceivedFileSplitter(IBGServiceCoordinatorSettingsService bgServiceCoordinatorSettingsService)
+    	{
+    		_bgServiceCoordinatorSettingsService = bgServiceCoordinatorSettingsService;
+    	}
+
+    	public DateTime GetDateFromName(string name)
         {
             var dateAndTime = GetDateAndTimeStringFromName(name);
             var dateString = dateAndTime[0];
@@ -39,7 +47,8 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 
         public bool FileNameOk(string name, string customerNumber, string productCode)
         {
-        	var regexPattern = FileNameRegexPattern.Replace("{ProductCode}", productCode).Replace("{CustomerNumber}", customerNumber);
+        	var pattern = _bgServiceCoordinatorSettingsService.ReceiveFileNameRegexPattern();
+        	var regexPattern = pattern.Replace("{ProductCode}", productCode).Replace("{CustomerNumber}", customerNumber);
         	var match = Regex.Match(name, regexPattern);
 			if(!match.Success) return false;
 

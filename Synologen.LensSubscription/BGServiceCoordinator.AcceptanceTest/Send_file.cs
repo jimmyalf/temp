@@ -41,7 +41,7 @@ namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest
 				fileSectionToSendRepository.Save(consentFileSectionToSend);
 				fileSectionToSendRepository.Save(paymentFileSectionToSend);
 
-				task = ResolveTask<SendFileTask>();
+				task = ResolveTaskWithRealFtpClient<SendFileTask>();
 				taskRunnerService = GetTaskRunnerService(task);
 			};
 			Because = () =>

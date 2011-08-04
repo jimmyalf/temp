@@ -1,6 +1,6 @@
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
-namespace Synologen.Presentation.AcceptanceTest.LensSubscription
+namespace Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest.LensSubscription
 {
 	public static class Factory
 	{	

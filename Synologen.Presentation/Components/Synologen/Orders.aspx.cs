@@ -1,5 +1,7 @@
 using System;
 using System.Data;
+using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
@@ -252,6 +254,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 		public int SettlementId {
 			get { return _settlementId; }
+		}
+
+
+		//public string ManageOrdersUrlFormat
+		//{
+		//    get
+		//    {
+		//        var parameters = new RouteValueDictionary{ {"id", "5" } };
+		//        var path = RouteTable.Routes.GetVirtualPath(null, "SynologenAdminContractSalesManageOrder", parameters);
+		//        return "/test/page/{id}";
+		//    }
+		//}
+
+		public string GetManageOrdersUrl(object id)
+		{
+			var path = RouteTable.Routes.GetVirtualPath(null, "SynologenAdminContractSalesManageOrder", new RouteValueDictionary{{"id", id }});
+			return path.VirtualPath;
 		}
 
 	}

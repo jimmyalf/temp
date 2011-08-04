@@ -8,7 +8,7 @@ using StructureMap;
 using Synologen.Test.Core;
 using WebFormsMvp;
 
-namespace Synologen.Presentation.AcceptanceTest.LensSubscription.TestHelpers
+namespace Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest.LensSubscription.TestHelpers
 {
 	public abstract class PresenterBase : BehaviorActionTestbase
 	{

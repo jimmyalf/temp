@@ -1,25 +1,32 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using FakeItEasy;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Application.Services;
+using Spinit.Wpc.Synologen.Presentation.Code;
+using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Test.TestHelpers;
+using Spinit.Wpc.Utility.Business;
+using Spinit.Wpc.Utility.Core;
 using Settlement=Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Settlement;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test
 {
-	[TestFixture]
-	[Category("ContractSalesControllerTests")]
+	[TestFixture, Category("ContractSalesControllerTests")]
 	public class When_loading_settlement_view : ContractSalesTestbase<SettlementView>
 	{
 		private readonly int _settlementId;
@@ -78,8 +85,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 	}
 
-	[TestFixture]
-	[Category("ContractSalesControllerTests")]
+	[TestFixture, Category("ContractSalesControllerTests")]
 	public class When_loading_settlements_list_with_new_settlementable_contract_sales_and_transactions : ContractSalesTestbase<SettlementListView>
 	{
 		private readonly IList<Settlement> _settlements;
@@ -156,8 +162,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		}
 	}
 
-	[TestFixture]
-	[Category("ContractSalesControllerTests")]
+	[TestFixture, Category("ContractSalesControllerTests")]
 	public class When_loading_settlements_list_with_settlementable_contract_sales : ContractSalesTestbase<SettlementListView>
 	{
 		public When_loading_settlements_list_with_settlementable_contract_sales()
@@ -183,8 +188,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 	}
 
-	[TestFixture]
-	[Category("ContractSalesControllerTests")]
+	[TestFixture, Category("ContractSalesControllerTests")]
 	public class When_loading_settlements_list_with_settlementable_transactions : ContractSalesTestbase<SettlementListView>
 	{
 		public When_loading_settlements_list_with_settlementable_transactions()
@@ -209,8 +213,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 	}
 
-	[TestFixture]
-	[Category("ContractSalesControllerTests")]
+	[TestFixture, Category("ContractSalesControllerTests")]
 	public class When_loading_settlements_list_with_no_settlementable_contract_sales_or_transactions : ContractSalesTestbase<SettlementListView>
 	{
 		public When_loading_settlements_list_with_no_settlementable_contract_sales_or_transactions()
@@ -236,8 +239,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 	}
 
-	[TestFixture]
-	[Category("ContractSalesControllerTests")]
+	[TestFixture, Category("ContractSalesControllerTests")]
 	public class When_creating_a_settlement : ContractSalesTestbase<RedirectToRouteResult>
 	{
 		private readonly int _readyForSettlementStatus;
@@ -303,6 +305,145 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 				transactionSaved.Id.Equals(transaction.Id)
 			))));
 
+		}
+	}
+
+	[TestFixture, Category("ContractSalesControllerTests")]
+	public class When_loading_manage_order_view_with_invoiced_order : ContractSalesTestbase<OrderView>
+	{
+		private Order _order;
+		private OrderStatus _status;
+
+		public When_loading_manage_order_view_with_invoiced_order()
+		{
+			Context = () =>
+			{
+				_order = OrderFactory.GetInvoicedOrder();
+				_status = OrderFactory.GetOrderStatus();
+				MockedSynologenSqlProvider.Setup(x => x.GetOrder(_order.Id)).Returns(_order);
+				MockedSynologenSqlProvider.Setup(x => x.GetOrderStatusRow(_order.StatusId)).Returns(_status);
+			};
+			Because = controller => controller.ManageOrder(_order.Id);
+		}
+
+
+		[Test]
+		public void ViewModel_should_have_expected_invoice_values()
+		{
+			ViewModel.BackUrl.ShouldBe(ComponentPages.Orders.Replace("~",""));
+			ViewModel.Id.ShouldBe(_order.Id);
+			ViewModel.Status.ShouldBe(_status.Name);
+			ViewModel.VISMAInvoiceNumber.ShouldBe(_order.InvoiceNumber.ToString());
+		}
+
+		[Test]
+		public void ViewModel_should_display_cancel_invoice_button()
+		{
+			ViewModel.DisplayCancelButton.ShouldBe(true);
+		}
+	}
+
+	[TestFixture, Category("ContractSalesControllerTests")]
+	public class When_loading_manage_order_view_with_uninvoiced_order : ContractSalesTestbase<OrderView>
+	{
+		private Order _order;
+		private OrderStatus _status;
+
+		public When_loading_manage_order_view_with_uninvoiced_order()
+		{
+			Context = () =>
+			{
+				_order = OrderFactory.GetUnInvoicedOrder();
+				_status = OrderFactory.GetOrderStatus();
+				MockedSynologenSqlProvider.Setup(x => x.GetOrder(_order.Id)).Returns(_order);
+				MockedSynologenSqlProvider.Setup(x => x.GetOrderStatusRow(_order.StatusId)).Returns(_status);
+			};
+			Because = controller => controller.ManageOrder(_order.Id);
+		}
+
+
+		[Test]
+		public void ViewModel_should_not_display_cancel_invoice_button()
+		{
+			ViewModel.DisplayCancelButton.ShouldBe(false);
+		}
+	}
+
+	[TestFixture, Category("ContractSalesControllerTests")]
+	public class When_canceling_an_order : ContractSalesTestbase<RedirectResult>
+	{
+		private Order _order;
+		private WpcUser _user;
+
+		public When_canceling_an_order()
+		{
+			Context = () =>
+			{
+				_order = OrderFactory.GetInvoicedOrder();
+				_user = OrderFactory.GetUser();
+				MockedSynologenSqlProvider.Setup(x => x.GetOrder(_order.Id)).Returns(_order);
+				A.CallTo(() => UserContextService.GetLoggedInUser()).Returns(_user);
+			};
+			Because = controller => controller.CancelOrder(_order.Id);
+		}
+
+		[Test]
+		public void Order_should_be_updated()
+		{
+			MockedSynologenSqlProvider.Verify(x => x.AddUpdateDeleteOrder(Enumerations.Action.Update, ref _order /* Only tests method call, not parameters because of ref */));
+		}
+
+		[Test]
+		public void An_order_history_should_be_added()
+		{
+			var expectedOrderHistory = "Order makulerad manuellt av användare \"{UserName}\".".Replace("{UserName}", _user.User.UserName);
+			MockedSynologenSqlProvider.Verify(x => x.AddOrderHistory(_order.Id, expectedOrderHistory));
+		}
+
+		[Test]
+		public void A_success_message_should_be_added()
+		{
+			MessageQueue.HasMessages.ShouldBe(true);
+		}
+
+		[Test]
+		public void Controller_redirects()
+		{
+			ViewModel.Url.ShouldBe(ComponentPages.Orders);
+		}
+	}
+
+	[TestFixture, Category("ContractSalesControllerTests")]
+	public class When_canceling_an_order_fails : ContractSalesTestbase<RedirectToRouteResult>
+	{
+		private Order _order;
+		private WpcUser _user;
+
+		public When_canceling_an_order_fails()
+		{
+			Context = () =>
+			{
+				_order = OrderFactory.GetInvoicedOrder();
+				_user = OrderFactory.GetUser();
+				MockedSynologenSqlProvider.Setup(x => x.GetOrder(_order.Id)).Throws(new Exception("Testexception"));
+				A.CallTo(() => UserContextService.GetLoggedInUser()).Returns(_user);
+			};
+			Because = controller => controller.CancelOrder(_order.Id);
+		}
+
+		[Test]
+		public void Error_message_is_added()
+		{
+			var actionMessage = Controller.GetWpcActionMessages().First();
+			actionMessage.Message.ShouldStartWith("Ett fel uppstod vid fakturamakulering: Testexception<br/>");
+			actionMessage.Type.ShouldBe(WpcActionMessageType.Error);
+		}
+
+		[Test]
+		public void Controller_redirects_to_manage_order()
+		{
+			ViewModel.RouteValues["action"].ShouldBe("ManageOrder");
+			ViewModel.RouteValues["id"].ShouldBe(_order.Id);
 		}
 	}
 }

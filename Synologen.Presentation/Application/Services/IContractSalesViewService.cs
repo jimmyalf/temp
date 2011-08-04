@@ -7,5 +7,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		SettlementView GetSettlement(int settlementId);
 		SettlementListView GetSettlements();
 		int CreateSettlement();
+		OrderView GetOrder(int orderId);
 	}
 }

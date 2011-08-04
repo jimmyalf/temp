@@ -5,13 +5,13 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest.LensSubscription.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Synologen.Presentation.AcceptanceTest.LensSubscription.TestHelpers;
 
-namespace Synologen.Presentation.AcceptanceTest.LensSubscription
+namespace Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest.LensSubscription
 {
 	[TestFixture, Category("Feature: Adding subscription")]
 	public class When_adding_a_subscription_to_customer : PresenterBase

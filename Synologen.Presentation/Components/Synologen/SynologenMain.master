@@ -17,4 +17,12 @@
     <div id="synologen-content">
         <asp:contentplaceholder id="phSynologen" runat="server"></asp:contentplaceholder>
     </div>
+    
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#validation-message .success').delay(5000).slideUp('slow', function() {
+				$(this).remove();
+			});
+		});
+	</script>
 </asp:Content>

@@ -3,13 +3,13 @@ using System.Linq;
 using AutoMapper;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using Settlement=Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Settlement;
 
@@ -22,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		private readonly IAdminSettingsService _settingsService;
 		private readonly ITransactionRepository _transactionRepository;
 		private readonly ISqlProvider _synologenSqlProvider;
+		private const int InvoicedStatusId = 5;
 
 		public ContractSalesViewService(
 			ISettlementRepository settlementRepository, 
@@ -75,6 +76,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			var settlementId =  _synologenSqlProvider.AddSettlement(statusFrom, statusTo);
 			ConnectTransactionsToSettlement(settlementId);
 			return settlementId;
+		}
+
+		public OrderView GetOrder(int orderId)
+		{
+			var order = _synologenSqlProvider.GetOrder(orderId);
+			var orderStatus = _synologenSqlProvider.GetOrderStatusRow(order.StatusId);
+			return new OrderView
+			{
+				Id = order.Id,
+                Status = orderStatus.Name,
+				VISMAInvoiceNumber = order.InvoiceNumber.ToString(),
+                DisplayCancelButton = (order.StatusId == InvoicedStatusId),
+                BackUrl = ComponentPages.Orders.Replace("~","")
+			};
 		}
 
 		public void ConnectTransactionsToSettlement(int settlement)

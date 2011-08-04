@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Data;
 using Spinit.Wpc.Member.Business;
 using Spinit.Wpc.Synologen.Business;
+using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Utility.Core;
 
 
@@ -71,6 +72,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Code
 			CustomValidation.EnableViewState = false;
 			CustomValidation.Display = ValidatorDisplay.None;
 			Form.Controls.Add(CustomValidation);
+			if(MessageQueue.HasMessages)
+			{
+				var message = MessageQueue.ReadMessage();
+				DisplayMessage(message.Text, message.IsError);
+			}
 		}
 
 		public void DisplayMessage(string message, bool isError) 

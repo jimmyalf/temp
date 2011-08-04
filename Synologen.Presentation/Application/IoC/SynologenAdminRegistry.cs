@@ -42,7 +42,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
 			
-
 			// Register criteria converters
 			Scan(x =>
 			{
@@ -51,19 +50,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 				x.ConnectImplementationsToTypesClosing(typeof(IActionCriteriaConverter<,>));
 			});
 
-			//For<IActionCriteriaConverter<PageOfFramesMatchingCriteria, ICriteria>>().Use<PageOfFramesMatchingCriteriaConverter>();
-			//For<IActionCriteriaConverter<PagedSortedCriteria, ICriteria>>().Use<PagedSortedCriteriaConverter>();
-			//For<IActionCriteriaConverter<PageOfFrameOrdersMatchingCriteria, ICriteria>>().Use<PageOfFrameOrdersMatchingCriteriaConverter>();
-			//For<IActionCriteriaConverter<PageOfSubscriptionsMatchingCriteria, ICriteria>>().Use<PageOfSubscriptionsMatchingCriteriaConverter>();
-			//For<IActionCriteriaConverter<AllContractSalesMatchingCriteria, ICriteria>>().Use<AllContractSalesMatchingCriteriaConverter>();
-			//For<IActionCriteriaConverter<AllTransactionsMatchingCriteria, ICriteria>>().Use<AllTransactionsMatchingCriteriaConverter>();
-			//For<IActionCriteriaConverter<PageOfTransactionArticlesMatchingCriteria, ICriteria>>().Use<PageOfTransactionArticlesMatchingCriteriaConverter>();
-			
 			// Register GUI and settings services
 			For<IAdminSettingsService>().Use<SettingsService>();
+			For<IUserContextService>().Use<UserContextService>();
 			For<IGridSortPropertyMappingService>().Use<SynologenGridSortPropertyMappingSerice>();
 			For<ILensSubscriptionViewService>().HybridHttpOrThreadLocalScoped().Use<LensSubscriptionViewService>();
 			For<IContractSalesViewService>().HybridHttpOrThreadLocalScoped().Use<ContractSalesViewService>();
+			For<IContractSalesCommandService>().HybridHttpOrThreadLocalScoped().Use<ContractSalesCommandService>();
 		}
 	}
 }

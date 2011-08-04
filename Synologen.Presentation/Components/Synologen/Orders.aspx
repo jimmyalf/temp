@@ -76,6 +76,11 @@
                         </asp:TemplateField>                        
 						<asp:BoundField headerText="Registrerad" DataField="cCreatedDate" SortExpression="cCreatedDate" DataFormatString="{0:yyyy-MM-dd}" />
                         <asp:ButtonField Text="Redigera" HeaderText="Redigera" CommandName="Edit" ButtonType="Button" ControlStyle-CssClass="btnSmall"  ItemStyle-HorizontalAlign="Center" HeaderStyle-CssClass="controlColumn" />
+                        <asp:TemplateField HeaderText="Hantera" HeaderStyle-CssClass="controlColumn" ItemStyle-HorizontalAlign="Center"  >
+	                        <ItemTemplate>                        
+								<asp:HyperLink runat="server" NavigateUrl='<%#GetManageOrdersUrl(Eval("cId"))%>' Text="Hantera" />
+	                        </ItemTemplate>
+                        </asp:TemplateField> 
                         <%--
                         <asp:TemplateField HeaderText="Radera" HeaderStyle-CssClass="controlColumn" ItemStyle-HorizontalAlign="Center"  >
 	                        <ItemTemplate>

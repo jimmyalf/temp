@@ -4,7 +4,7 @@ using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Presentation.Site.Code.IoC;
 using StructureMap;
 
-namespace Synologen.Presentation.AcceptanceTest
+namespace Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest
 {
 	[SetUpFixture]
 	public class GlobalTestBase

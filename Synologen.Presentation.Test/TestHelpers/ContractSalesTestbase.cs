@@ -1,3 +1,4 @@
+using FakeItEasy;
 using Moq;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
@@ -16,6 +17,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 		protected Mock<IContractSaleRepository> MockedContractSaleRepository;
 		protected Mock<ISqlProvider> MockedSynologenSqlProvider;
 		protected Mock<ITransactionRepository> MockedTransactionRepository;
+		protected IContractSalesCommandService MockedContractSalesCommandService;
+		protected IUserContextService UserContextService;
 		protected ContractSalesViewService ViewService;
 
 		protected ContractSalesTestbase()
@@ -27,6 +30,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 				MockedContractSaleRepository = new Mock<IContractSaleRepository>();
 				MockedSynologenSqlProvider = new Mock<ISqlProvider>();
 				MockedTransactionRepository = new Mock<ITransactionRepository>();
+				UserContextService = A.Fake<IUserContextService>();
+				MockedContractSalesCommandService = new ContractSalesCommandService(MockedSynologenSqlProvider.Object, UserContextService);
 				ViewService = new ContractSalesViewService(
 					MockedSettlementRepository.Object,
 					MockedContractSaleRepository.Object,
@@ -34,7 +39,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 					MockedTransactionRepository.Object,
 					MockedSynologenSqlProvider.Object);
 			};
-			GetController = () =>  new ContractSalesController(ViewService);
+			GetController = () =>  new ContractSalesController(ViewService, MockedContractSalesCommandService);
 		}
 	}
 }

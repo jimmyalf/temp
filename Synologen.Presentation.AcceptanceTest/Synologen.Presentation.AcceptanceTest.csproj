@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{673CE9E1-6385-4B8A-92FE-BB5F723008F2}</ProjectGuid>
+    <ProjectGuid>{DE1DD539-C8F3-4BBE-B339-2B8C6CD38D82}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.Presentation.Test</RootNamespace>
-    <AssemblyName>Spinit.Wpc.Synologen.Presentation.Test</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.Presentation.AcceptanceTest</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Presentation.AcceptanceTest</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Build\Output\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,47 +25,55 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Build\Output\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\AutoMapper\AutoMapper.dll</HintPath>
-    </Reference>
     <Reference Include="FakeItEasy, Version=1.0.0.5, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\FakeItEasy\FakeItEasy.dll</HintPath>
     </Reference>
-    <Reference Include="Moq, Version=3.1.416.3, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+    <Reference Include="NHibernate, Version=2.1.2.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Tools\Moq\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="MvcContrib, Version=2.0.36.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\MVCContrib\MvcContrib.dll</HintPath>
+      <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Tools\Shouldly\nunit.framework.dll</HintPath>
+      <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Shouldly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\Shouldly\Shouldly.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
-    </Reference>
-    <Reference Include="Spinit.Data, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Data, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.ShouldlyExtensions, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Data.NHibernate, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Tools\Shouldly\Spinit.ShouldlyExtensions.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit\Spinit.Data.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Test.Web, Version=1.0.622.728, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Test.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Test.Web.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Test.Web.MVC.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Core.Dependencies.NHibernate, Version=5.0.0.1809, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.Dependencies.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Data, Version=4.3.606.2500, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Utility.Business, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -74,6 +82,14 @@
     <Reference Include="Spinit.Wpc.Utility.Core, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="StoryQ, Version=2.0.5.0, Culture=neutral, PublicKeyToken=90a7d07ba39412de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\StoryQ\StoryQ.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\StructureMap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -87,9 +103,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\AspNetMvc\System.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Routing">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -100,33 +113,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContractSalesControllerTests.cs" />
-    <Compile Include="Factories\ContractSales\OrderFactory.cs" />
-    <Compile Include="TestHelpers\ContractSalesTestbase.cs" />
-    <Compile Include="TestHelpers\ControllerTestbase.cs" />
-    <Compile Include="Factories\ContractSales\ContractSaleFactory.cs" />
-    <Compile Include="Factories\ContractSales\CustomerFactory.cs" />
-    <Compile Include="Factories\ContractSales\ShopFactory.cs" />
-    <Compile Include="Factories\ContractSales\SubscriptionFactory.cs" />
-    <Compile Include="Factories\ContractSales\TransactionFactory.cs" />
-    <Compile Include="Factories\LensSubscription\SubscriptionErrorFactory.cs" />
-    <Compile Include="Factories\LensSubscription\SubscriptionTransactionFactory.cs" />
-    <Compile Include="FrameControllerOrderTests.cs" />
-    <Compile Include="Factories\RepositoryFactory.cs" />
-    <Compile Include="Factories\ServiceFactory.cs" />
-    <Compile Include="Factories\ViewModelFactory.cs" />
-    <Compile Include="FrameControllerBrandTests.cs" />
-    <Compile Include="FrameControllerColorTests.cs" />
-    <Compile Include="FrameControllerFrameTests.cs" />
-    <Compile Include="FrameControllerGlassTypeTests.cs" />
+    <Compile Include="App\Bootstrapping\Bootstrapper.cs" />
+    <Compile Include="App\IoC\TestRegistry.cs" />
+    <Compile Include="CancelInvoice.cs" />
     <Compile Include="GlobalTestBase.cs" />
-    <Compile Include="LensSubscriptionControllerTests.cs" />
+    <Compile Include="Helpers\CustomUserContextService.cs" />
+    <Compile Include="Helpers\OrderFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Factories\LensSubscription\SubscriptionFactory.cs" />
-    <Compile Include="Factories\ContractSales\SettlementFactory.cs" />
-    <Compile Include="TestHelper.cs" />
-    <Compile Include="TestHelpers\LensSubscriptionTestbase.cs" />
-    <Compile Include="Factories\TransactionArticleFactory.cs" />
+    <Compile Include="Helpers\SpecTestbase.cs" />
+    <Compile Include="Helpers\StoryQ.flit.sv-SE.g.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen.Business\Synologen.Business.csproj">
@@ -137,10 +132,17 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Synologen.Data\Synologen.Data.csproj">
+      <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
+      <Name>Synologen.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Synologen.Presentation\Synologen.Presentation.csproj">
-      <Project>{C328719F-BCF2-411B-A6BD-0C2CEF1DA3D7}</Project>
+      <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
       <Name>Synologen.Presentation</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -150,4 +152,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

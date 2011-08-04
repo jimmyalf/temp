@@ -3,12 +3,12 @@ using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
+using Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest.LensSubscription.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
-using Synologen.Presentation.AcceptanceTest.LensSubscription.TestHelpers;
 
-namespace Synologen.Presentation.AcceptanceTest.LensSubscription
+namespace Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest.LensSubscription
 {
 	[TestFixture, Category("Feature: Adding customer")]
 	public class When_adding_a_new_customer : PresenterBase

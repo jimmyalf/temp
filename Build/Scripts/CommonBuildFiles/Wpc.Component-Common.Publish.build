@@ -1,0 +1,15 @@
+<project name="Deploy Common Files" default="CopyCommon">
+
+  <target name="CopyCommon" description="Copy Common files">
+    <echo message="Copy files for deployment from ${srcCommon} to ${deployCommon}" />
+    <copy todir="${deployCommon}" includeemptydirs="true">
+      <fileset basedir="${srcCommon}">
+        <exclude name="**/*.scc" />
+        <exclude name="**/desktop.ini" />
+        <exclude name="**/thumbs.db" />
+        <include name="**/*.*" />
+      </fileset>
+    </copy>	
+  </target>
+  
+</project>

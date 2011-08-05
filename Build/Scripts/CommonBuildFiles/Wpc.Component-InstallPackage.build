@@ -1,0 +1,52 @@
+<project name="Deploy Package" default="PostClean">
+	
+  <property name="zipFilePath" value="${developDir}\${compName} Deployment\" overwrite="false"/>
+  <property name="zipFileName" value="${compName}"  overwrite="false"/>
+  <property name="configuration" value="Deploy" overwrite="false" />
+	
+	
+  <target name="CopyDBScripts" description="Copy files for database distribution">
+    <echo message="Copy files for deployment from ${database} to ${deployDir}\Database\" />
+    <copy todir="${deployDir}\Database\" includeemptydirs="true">
+      <fileset basedir="${database}">
+        <include name="**/*.sql" />
+      </fileset>
+    </copy>
+  </target>
+  
+    <target name="CopyConfigs" description="Copy config files" depends="CopyDBScripts">
+    <echo message="Copy config files for deployment from ${configs} to ${deployDir}\Server\" />
+    <copy todir="${deployDir}\Server\" includeemptydirs="true">
+      <fileset basedir="${configs}">
+		<include name="**/*.config"/>
+      </fileset>
+    </copy>
+  </target>  
+  
+  <target name="Zip" description="Zip the component" depends="CopyConfigs">
+    <zip zipfile="${zipFilePath}\${zipFileName}.zip" includeemptydirs="true">
+      <fileset basedir="${deployDir}">
+        <include name="**/*" />
+      </fileset>
+    </zip>
+  </target>
+  
+	<target name="PublishZip" description="Copy Zip file to Install Package Dir" depends="Zip">
+		<echo message="Copy component package  from ${deployDir} to ${packageDir}" />
+		<copy todir="${packageDir}" includeemptydirs="true">
+			<fileset basedir="${zipFilePath}">
+				<include name="${zipFileName}.zip" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="PostClean" depends ="PublishZip" unless="${configuration=='DeployTest'}">
+		<delete>
+			<fileset basedir="${deployDir}">
+				<include name="**/*" />
+				<include name="../*.zip" />
+			</fileset>
+		</delete>
+  </target>
+  
+</project>

@@ -276,9 +276,6 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			
 			//Assert
 			Expect(framesMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfFramesMatchingCriteria));
-			Expect(framesMatchingCriteria.First().Name, Is.EqualTo("Testbåge 1"));
-			Expect(framesMatchingCriteria.Last().Name, Is.EqualTo("Testbåge 5"));
-			
 		}
 
 		[Test]

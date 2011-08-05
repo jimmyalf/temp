@@ -36,6 +36,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 			var invoice = GetMockInvoice();
 			var output = SvefakturaSerializer.Serialize(invoice, Encoding.UTF8, String.Empty, Formatting.None, null);
 			var expectedXml = GetExpectedSingleInvoiceXml();
+			//TODO: Replace with better test (exact xml text expectation makes test brittle)
 			Expect(output, Is.EqualTo(expectedXml));
 		}
 
@@ -44,6 +45,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 			var invoices = new SFTIInvoiceList{Invoices=new List<SFTIInvoiceType>{GetMockInvoice(),GetMockInvoice()}};
 			var output = SvefakturaSerializer.Serialize(invoices, Encoding.UTF8, String.Empty, Formatting.None, null);
 			var expectedXml = GetExpectedDoubleInvoiceXml();
+			//TODO: Replace with better test (exact xml text expectation makes test brittle)
 			Expect(output, Is.EqualTo(expectedXml));
 		}
 
@@ -197,7 +199,15 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 		public string GetExpectedSingleInvoiceXml() {
 			return 
 				"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-				+"<Invoice xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:cac=\"urn:sfti:CommonAggregateComponents:1:0\" xmlns:ccts=\"urn:oasis:names:tc:ubl:CoreComponentParameters:1:0\" xmlns:cur=\"urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0\" xmlns:sdt=\"urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0\" xmlns:cbc=\"urn:oasis:names:tc:ubl:CommonBasicComponents:1:0\" xmlns:udt=\"urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0\" xmlns=\"urn:sfti:documents:BasicInvoice:1:0\">"
+				+"<Invoice "
+					+"xmlns:cbc=\"urn:oasis:names:tc:ubl:CommonBasicComponents:1:0\" "
+					+"xmlns:cur=\"urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0\" " 
+					+"xmlns:ccts=\"urn:oasis:names:tc:ubl:CoreComponentParameters:1:0\" "
+					+"xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+					+"xmlns:udt=\"urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0\" "
+					+"xmlns:sdt=\"urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0\" "
+					+"xmlns:cac=\"urn:sfti:CommonAggregateComponents:1:0\" "
+					+"xmlns=\"urn:sfti:documents:BasicInvoice:1:0\">"
 				+"<ID>15</ID>"
 				+"<cbc:IssueDate>2003-09-11</cbc:IssueDate>"
 				+"<InvoiceTypeCode>380</InvoiceTypeCode>"
@@ -259,7 +269,15 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 		public string GetExpectedDoubleInvoiceXml() {
 			return 
 				"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-				+"<Invoices xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:cac=\"urn:sfti:CommonAggregateComponents:1:0\" xmlns:ccts=\"urn:oasis:names:tc:ubl:CoreComponentParameters:1:0\" xmlns:cur=\"urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0\" xmlns:sdt=\"urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0\" xmlns:cbc=\"urn:oasis:names:tc:ubl:CommonBasicComponents:1:0\" xmlns:udt=\"urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0\" xmlns=\"urn:sfti:documents:BasicInvoice:1:0\">"
+				+"<Invoices "
+					+"xmlns:cbc=\"urn:oasis:names:tc:ubl:CommonBasicComponents:1:0\" "
+					+"xmlns:cur=\"urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0\" " 
+					+"xmlns:ccts=\"urn:oasis:names:tc:ubl:CoreComponentParameters:1:0\" "
+					+"xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+					+"xmlns:udt=\"urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0\" "
+					+"xmlns:sdt=\"urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0\" "
+					+"xmlns:cac=\"urn:sfti:CommonAggregateComponents:1:0\" "
+					+"xmlns=\"urn:sfti:documents:BasicInvoice:1:0\">"
 				+"<Invoice>"
 				+"<ID>15</ID>"
 				+"<cbc:IssueDate>2003-09-11</cbc:IssueDate>"

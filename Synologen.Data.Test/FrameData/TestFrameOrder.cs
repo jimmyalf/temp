@@ -216,11 +216,6 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 
 			//Assert
 			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Frame.Id, Is.EqualTo(1));
-			Expect(itemsMatchingCriteria.First().GlassType.Id, Is.EqualTo(1));
-			Expect(itemsMatchingCriteria.Last().Frame.Id, Is.EqualTo(3));
-			Expect(itemsMatchingCriteria.Last().GlassType.Id, Is.EqualTo(1));
-
 		}
 
 		[Test]

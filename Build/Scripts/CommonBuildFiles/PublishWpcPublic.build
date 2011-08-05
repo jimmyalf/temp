@@ -1,0 +1,20 @@
+<project name="Deploy Public Project" default="Publish">
+	<target name="Publish" description="Publish Public files" >
+		<echo message="Copy files for deployment from ${srcPub} to ${deployPublic}" />
+		<copy todir="${deployPublic}" includeemptydirs="true">
+			<fileset basedir="${srcPub}">
+				<include name="bin/**/*.dll" />
+				<include name="wpc/Synologen/**/*.master" />
+				<include name="wpc/Synologen/**/*.aspx" />
+				<include name="wpc/Synologen/**/*.ascx" />
+				<include name="wpc/Synologen/**/*.asmx" />
+				<include name="wpc/Synologen/**/*.resx" />
+				<include name="wpc/Synologen/**/*.css" />
+				<include name="wpc/Synologen/**/*.js" />
+				<include name="wpc/Synologen/**/*.jpg" />
+				<include name="wpc/Synologen/**/*.png" />
+				<include name="wpc/Synologen/**/*.gif" />
+			</fileset>
+		</copy>	
+	</target>
+</project>

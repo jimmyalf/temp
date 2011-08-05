@@ -1,0 +1,12 @@
+<project name="Clean Public Project" default="Publish">
+	<target name="Clean" description="Cleans deployment directory">
+		<echo message="Clearing public deployment folder ${deployPublic}" />
+		<delete>
+			<fileset basedir="${deployPublic}">
+				<include name="bin/**/*.dll" />
+				<include name="wpc/Synologen/**/*.*" />
+			</fileset>
+		</delete>
+	</target>
+</project>
+	

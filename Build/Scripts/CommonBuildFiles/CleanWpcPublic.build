@@ -1,4 +1,4 @@
-<project name="Clean Public Project" default="Publish">
+<project name="Clean Public Project" default="Clean">
 	<target name="Clean" description="Cleans deployment directory">
 		<echo message="Clearing public deployment folder ${deployPublic}" />
 		<delete>

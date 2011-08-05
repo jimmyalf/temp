@@ -1,0 +1,47 @@
+<project name="Deploy Admin Project" default="CopyDependencies">
+
+  <target name="CopyAdmin" description="Copy Admin files">
+    <echo message="Copy files for deployment from ${srcAdmin} to ${deployAdmin}" />
+    <copy todir="${deployAdmin}" includeemptydirs="true">
+      <fileset basedir="${srcAdmin}">
+        <include name="bin/**/*${compName}*.dll" />
+        <exclude name="${compName}.config" />
+        <include name="Components/${compName}/**/*.aspx" />
+        <include name="Components/${compName}/**/*.css" />
+        <include name="Components/${compName}/**/*.ascx" />
+        <include name="Components/${compName}/**/*.asax" />
+        <include name="Components/${compName}/**/*.master" />
+        <include name="Components/${compName}/**/*.browser" />
+        <include name="Components/${compName}/**/*.skin" />
+        <include name="Components/${compName}/**/*.config" />
+        <include name="Components/${compName}/**/*.sitemap" />
+        <include name="Components/${compName}/**/*.js" />
+        <include name="Components/${compName}/**/*.gif" />
+        <include name="Components/${compName}/**/*.jpg" />
+        <include name="Components/${compName}/**/*.jpeg" />
+        <include name="Components/${compName}/**/*.png" />
+		<include name="Components/${compName}/**/*.txt" />
+		<include name="Components/${compName}/**/*.resx" />
+		<include name="Components/${compName}/**/*.xml" />
+		<include name="Areas/*${compName}*/**/*.*" />
+      </fileset>
+    </copy>
+	</target>
+	
+	<target name="CopyDependencies" description="Copy dependency assemblies" depends="CopyAdmin">
+		<echo message="Copy dependency files for deployment from ${srcAdmin} to ${deployAdmin}" />
+		<copy todir="${deployAdmin}" includeemptydirs="true">
+			<fileset basedir="${srcAdmin}">
+				<include name="bin/*.dll" />
+				<exclude name="bin/Spinit.Wpc*.dll" />
+			</fileset>
+		</copy>
+		<copy todir="${deployAdmin}" includeemptydirs="true">
+			<fileset basedir="${srcAdmin}">
+				<include name="bin/Spinit.Wpc.Common.Webcontrols.dll" />
+			</fileset>
+		</copy>		
+	</target>
+
+  
+</project>

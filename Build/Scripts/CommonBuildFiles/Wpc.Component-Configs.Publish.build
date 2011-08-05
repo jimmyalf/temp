@@ -1,0 +1,12 @@
+<project name="Deploy Project Config files" default="DeployConfigs">
+
+<target name="DeployConfigs" description="Deploys  config-files" >
+	<echo message="Copy config files for deployment from ${configs} to ${deployRoot}" />
+	<copy todir="${deployRoot}" includeemptydirs="true">
+	  <fileset basedir="${configs}">
+		<include name="**/*.config"/>
+	  </fileset>
+	</copy>
+</target>
+  
+</project>

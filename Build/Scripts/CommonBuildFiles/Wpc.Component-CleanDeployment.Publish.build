@@ -1,0 +1,16 @@
+<project name="Deploy Common Files" default="preclean" >
+
+	<target name="preclean" description="cleans build directory">
+		<delete>
+			<fileset basedir="${deployDir}">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+		<mkdir dir="${deployDir}\Database"/>
+		<mkdir dir="${deployDir}\Server"/>
+		<mkdir dir="${deployDir}\Server\Common"/>
+		<mkdir dir="${deployDir}\Server\WpcAdmin"/>
+		<mkdir dir="${deployDir}\Server\WpcPublic"/>
+	</target>
+  
+</project>

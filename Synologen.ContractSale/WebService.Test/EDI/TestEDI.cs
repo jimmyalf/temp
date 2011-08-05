@@ -15,7 +15,7 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 
 		[TestFixtureSetUp]
 		public void Setup() {
-			connectionString = "Initial Catalog=dbWpcSynologen;Data Source=BLACK;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
+			connectionString = "Initial Catalog=dbWpcSynologen5;Data Source=BLACK;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
 			provider = new SqlProvider(connectionString);
 			ediSettings = new EDIConversionSettings {
 			                                        	SenderId = "556262-6100",
@@ -52,18 +52,18 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 		//        Assert.IsNotNull(invoiceText);
 		//    }
 		//}
-		[Test]
-		public void CreateMockEDIInvoice() {
-			var orderId = 1;
-			var orderItemId = 1;
-			var order = Mock.Utility.GetMockOrder(orderId);
-			var shop = Mock.Utility.GetMockShop();
-			var orderItems = new List<OrderItem> {Mock.Utility.GetMockOrderItem(orderId, orderItemId)};
-			var company = Mock.Utility.GetMockCompany();
-			var invoice = General.CreateInvoiceEDI(order, /*orderItems, company,shop,*/ ediSettings);
-			var invoiceText = invoice.Parse();
-			Assert.IsNotNull(invoiceText);
-		}
+		//[Test]
+		//public void CreateMockEDIInvoice() {
+		//    var orderId = 1;
+		//    var orderItemId = 1;
+		//    var order = Mock.Utility.GetMockOrder(orderId);
+		//    var shop = Mock.Utility.GetMockShop();
+		//    var orderItems = new List<OrderItem> {Mock.Utility.GetMockOrderItem(orderId, orderItemId)};
+		//    var company = Mock.Utility.GetMockCompany();
+		//    var invoice = General.CreateInvoiceEDI(order, /*orderItems, company,shop,*/ ediSettings);
+		//    var invoiceText = invoice.Parse();
+		//    Assert.IsNotNull(invoiceText);
+		//}
 
 	}
 }

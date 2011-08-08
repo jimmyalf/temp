@@ -1,0 +1,8 @@
+<div>
+    <label for="_reqname" accesskey="A">Name</label><br />
+    <input id="_reqname" tabindex="1" type="text" runat="server"><br />
+    <label for="_reqemail" accesskey="A">Email</label><br />
+    <input id="_reqemail" tabindex="1" type="text" runat="server"><br />
+    <asp:Button ID="btnSend" runat="server" Text="Send" />
+    <asp:Literal ID="ltMessage" runat="server"></asp:Literal>
+</div>   

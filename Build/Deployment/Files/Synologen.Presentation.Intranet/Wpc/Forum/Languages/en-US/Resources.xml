@@ -1,0 +1,1682 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+<!-- General -->
+		<resource name = "Yes">Yes</resource>
+		<resource name = "No">No</resource>
+		<resource name = "0">0</resource>
+		<resource name = "1">1</resource>
+		<resource name = "2">2</resource>
+		<resource name = "3">3</resource>
+		<resource name = "4">4</resource>
+		<resource name = "5">5</resource>
+		<resource name = "6">6</resource>
+		<resource name = "7">7</resource>
+		<resource name = "8">8</resource>
+		<resource name = "9">9</resource>
+		<resource name = "NumberFormat">n0</resource>
+		<resource name = "NumberWhenZero">-</resource>
+                <resource name = "NoUnreadPosts">No unread posts</resource>
+                <resource name = "TodayAt">Today, </resource>
+                <resource name = "YesterdayAt">Yesterday, </resource>
+                <resource name = "Guest">Guest</resource>
+                <resource name = "Cancel">Cancel</resource>
+                <resource name = "Subforums">Subforum(s) </resource>
+                <resource name = "CommaSeperator">, </resource>
+                <resource name = "BarSeperator"> | </resource>
+                <resource name = "Enabled">enabled</resource>
+                <resource name = "Disabled">disabled</resource>
+                <resource name = "Logged"></resource>
+                <resource name = "NotLogged"></resource>
+                <resource name = "Report">Report</resource>
+                <resource name = "NotSet">Not Set</resource>
+                <resource name = "Male">Male</resource>
+                <resource name = "Female">Female</resource>
+                <resource name = "Empty"></resource>
+                <resource name = "DefaultAnonymousUsername">Anonymous</resource>
+                <resource name = "Status_Open">Active - Post has not been answered</resource>
+                <resource name = "Status_Closed">Closed</resource>
+                <resource name = "Status_NotSet">Not Set</resource>
+                <resource name = "Status_Resolved">Resolved - Post answered</resource>
+                <resource name = "Close_Window">Close</resource>
+                <resource name = "Settings_Remember">Remember Settings</resource>
+                <resource name = "Settings_Reset">Reset Settings</resource>
+                <resource name = "Cache_Warning">These changes will take affect, but due to caching it will take {0} minutes for this to be reflected on all servers in your server farm.</resource>
+                <resource name = "AutomatedEmail">"{0} - Automated Email" &lt;{1}&gt;</resource>
+                <resource name = "Add">Add</resource>
+                <resource name = "Update">Update</resource>
+                <resource name = "Delete">Delete</resource>
+                <resource name = "Save">Save</resource>
+                <resource name = "Cancel">Cancel</resource>
+                <resource name = "Remove">Remove</resource>
+                <resource name = "Reset">Reset</resource>
+                <resource name = "Search">Search</resource>
+                <resource name = "Create">Create</resource>
+                <resource name = "Edit">Edit</resource>
+                <resource name = "Send">Send</resource>
+                <resource name = "Select">Select</resource>
+                <resource name = "Actions">Actions</resource>
+                <resource name = "ID">ID</resource>
+                <resource name = "Name">Name</resource>
+                <resource name = "Description">Description</resource>
+                <resource name = "Url">Url</resource>
+                <resource name = "Image">Image</resource>
+                <resource name = "Moderation">Moderation</resource>
+                <resource name = "EmailQueue">email queue</resource>
+                <resource name = "PrintableVersion">Printable Version</resource>
+                <resource name = "MyThreadSettings">My Settings</resource>
+                <resource name = "Footer_PoweredBy">Powered by {0}</resource>
+                <resource name = "Footer_QuestionsProblems">Questions or Problems</resource>
+                <resource name = "Footer_TermsOfUse">Terms of Use</resource>
+                <resource name = "NotAvailable">NA</resource>
+
+<!-- End General -->
+
+<!-- Search -->
+                <resource name = "Search_Keywords">Enter terms separated by a space. Common terms such as 'and', 'or', 'the', 'a', 'an', etc. will not be included.</resource>
+                <resource name = "Search_ForumContstraints">Forum(s) Constraints</resource>
+<!-- End Search -->
+
+<!-- Subscriptions -->
+                <resource name = "Subscriptions_Title">Subscriptions</resource>
+<!-- End Subscriptions -->
+
+<!-- My Forums -->
+                <resource name = "ViewMyForumsThreads_Title">My Forums</resource>
+                <resource name = "ViewMyForumsThreads_Description">Posts and Threads you have participated in</resource>
+<!-- End My Forums -->
+
+<!-- EmailNotificationDropDownList -->
+                <resource name = "EmailNotificationDropDownList_NeverSend">never</resource>
+                <resource name = "EmailNotificationDropDownList_NewThreads">when new topics are posted in this forum</resource>
+                <resource name = "EmailNotificationDropDownList_NewPosts">when new posts are posted in this forum</resource>
+                <resource name = "EmailNotificationDropDownList_When">Send E-mail:</resource>
+<!-- End EmailNotificationDropDownList -->
+
+<!-- 
+Forum Exceptions 
+These string do not have to be localized as they are developer exception messages.
+-->
+                <resource name = "Exception_ForumGroupNotFound">Forum Group {0} does not exist.</resource>
+                <resource name = "Exception_ForumNotFound">Forum {0} does not exist.</resource>
+                <resource name = "Exception_UserNotFound">User {0} does not exist.</resource>
+                <resource name = "Exception_PostNotFound">Post {0} does not exist.</resource>
+                <resource name = "Exception_SkinNotSet">The SkinFileName property must be set.</resource>
+                <resource name = "Exception_SkinNotFound">The skin file: '{0}' was not found. Please ensure this file exists in your skins directory.</resource>
+                <resource name = "Exception_PostAccessDenied">Post access denied.</resource>
+                <resource name = "Exception_PostEditAccessDenied">Post edit denied.</resource>
+                <resource name = "Exception_PostEditPermissionExpired">Posting permission expired.</resource>
+                <resource name = "Exception_PostInvalidAttachmentType">Your post has been saved, but the attachment type of ({0}) was not.&lt;P&gt;The administrator has denied uploads of certain file types and the file must have only one extension (filename.ext).</resource>
+                <resource name = "Exception_PostAttachmentTooLarge">Your post has been saved, but the attachment was not.&lt;P&gt;Your attachment exceeded the forums maximum size limit of {0} KB.</resource>                
+                <resource name = "Exception_ResourceManagerStringNotFound">A value was not found in the resouces.xml file for: '{0}' please ensure this value is defined.</resource>
+                <resource name = "Exception_ResourceManagerErrorMessageNotFound">A value was not found in the messages.xml file for the message '{0}' please ensure this value is defined.</resource>                
+<!-- End Forum Exceptions -->
+
+<!-- Icon Alt Text -->
+                <resource name = "IconAlt_PrivateForumsNewPosts">Private Forums - New Posts</resource>
+                <resource name = "IconAlt_PrivateForums">Private Forums</resource>
+                <resource name = "IconAlt_NewPosts">New Posts</resource>
+                <resource name = "IconAlt_PopularPost">Popular Post</resource>
+		<resource name = "IconAlt_TopicAnnounce">Announcement - post is pinned and allows no replies</resource>
+		<resource name = "IconAlt_TopicAnnounceNotRead">Announcement - post is pinned and allows no replies (Not Read)</resource>
+		<resource name = "IconAlt_TopicPinnedAndLocked">Post is pinned and allows no replies</resource>
+		<resource name = "IconAlt_TopicPinnedAndLockedNotRead">Post is pinned and allows no replies (Not Read)</resource>
+		<resource name = "IconAlt_TopicPinned">Post is pinned</resource>
+		<resource name = "IconAlt_TopicPinnedNotRead">Post is pinned (Not Read)</resource>
+		<resource name = "IconAlt_TopicNoReplies">Post allows no replies</resource>
+		<resource name = "IconAlt_TopicNoRepliesNotRead">Post allows no replies (Not Read)</resource>
+		<resource name = "IconAlt_Topic">Post</resource>
+		<resource name = "IconAlt_TopicNotRead">Post (Not Read)</resource>
+<!-- End Icont Alt Text -->
+
+
+<!-- Anchors Text -->
+		<resources name = "A_ReturnToForum">Return to Forum</resources>
+		<resources name = "A_ReturnToPost">Return to Forum</resources>
+		<resources name = "A_Home"> Home </resources>
+		<resources name = "A_Login">Login </resources>
+<!-- End Anchors Text -->
+
+
+<!-- Skin-CreateNewAccount.ascx -->
+		<resource name = "CreateNewAccount_Title">Registration for New Account</resource>
+		<resource name = "CreateNewAccount_Description">Please complete the form below to register a new account.</resource>
+		<resource name = "CreateNewAccount_PrivacyNotice">Important: The email you enter is not public, shared in anyway, or displayed on this site.</resource>
+		<resource name = "CreateNewAccount_ForumRules">Forum Rules &amp; Terms</resource>
+		<resource name = "CreateNewAccount_ForumRulesDesc">By creating a user I agree to the rules and terms of use published on this site.</resource>
+		<resource name = "CreateNewAccount_Instructions">Depending upon how the board administrator has configured the forums, you may not be able to enter your password. If you cannot enter your password, a password will be emailed to the address you register with.</resource>
+		<resource name = "CreateNewAccount_UserName">Desired Username</resource>
+		<resource name = "CreateNewAccount_UserNameDescription">Your username is your 'handle' within the site. It is also used to sign-on to the forums.</resource>
+		<resource name = "CreateNewAccount_Password">Password</resource>
+		<resource name = "CreateNewAccount_ReEnterPassword">Re-enter Password</resource>
+		<resource name = "CreateNewAccount_PasswordDescription">Please choose a password you will use to login to the site.</resource>
+		<resource name = "CreateNewAccount_Email">Email Address</resource>
+		<resource name = "CreateNewAccount_ReEnterEmail">Re-enter Email Address</resource>
+		<resource name = "CreateNewAccount_EmailDescription">The email you enter <b>is not</b> public, shared in anyway, or displayed on this site. Your password will be emailed to this account.</resource>
+
+		<resource name = "CreateNewAccount_CreateAccount">Create User</resource>
+		<resource name = "CreateNewAccount_usernameValidator">Username is required.</resource>
+		<resource name = "CreateNewAccount_usernameRegExValidator">Username must start with a-z/A-Z character and cannot contain '&gt;' or '&lt;'.</resource>
+		<resource name = "CreateNewAccount_passwordValidator">Password is required.</resource>
+		<resource name = "CreateNewAccount_emailValidator">Email is required.</resource>
+		<resource name = "CreateNewAccount_emailRegExValidator">Must be a valid email address.</resource>
+		<resource name = "CreateNewAccount_emailNoMatch">Emails do not match!</resource>
+		<resource name = "CreateNewAccount_CreateUserStatus_DuplicateUsername">A user with this username already exists.</resource>
+		<resource name = "CreateNewAccount_CreateUserStatus_DuplicateEmailAddress">A user with this email address already exists.</resource>
+		<resource name = "CreateNewAccount_CreateUserStatus_UnknownFailure">An error occured while attempting to create this user.</resource>
+		<resource name = "CreateNewAccount_CreateUserStatus_DisallowedUsername">Filled in username is prohibited on this forum. Please choose other username.</resource>
+		<resource name = "CreateNewAccount_CreateUserStatus_Created">User created</resource>
+		
+		<resource name = "CreateNewAccount_GenAntiSpamCodeProtection">Registration Check</resource>
+		<resource name = "CreateNewAccount_ConfirmAntiSpamCodeProtection">Confirm Registration Check</resource>
+		<resource name = "CreateNewAccount_ConfirmAntiSpamCodeProtectionDescription">Please type the characters that you see in the picture. Characters are not case-sensitive.</resource>		
+		<resource name = "CreateNewAccount_AntiSpamCodeValidatorMsg">Registration check is required</resource>		
+		<resource name = "CreateNewAccount_AntiSpamCodeCustomValidatorMsg">Registration check doesn't match</resource>						
+<!-- End Skin-CreateNewAccount.ascx -->
+
+<!-- View-PostFlatView.ascx -->
+		<resource name = "PostFlatView_PreviousThread">&#171; Previous Thread </resource>
+		<resource name = "PostFlatView_PreviousNextSpacer">&amp;nbsp;</resource>
+		<resource name = "PostFlatView_NextThread">Next Thread &#187;</resource>
+		<resource name = "PostFlatView_Joined">Joined on </resource>
+		<resource name = "PostFlatView_Location"></resource>
+		<resource name = "PostFlatView_EnableThreadTrackingOn">Disable E-mail Replies</resource>
+		<resource name = "PostFlatView_EnableThreadTrackingOff">Enable E-mail Replies</resource>
+		<resource name = "PostFlatView_IPAddress">{0}</resource>
+		<resource name = "PostFlatView_Posts">Posts </resource>
+		<resource name = "PostFlatView_Attachment">&lt;B&gt;Attachment:&lt;/B&gt; </resource>
+		<resource name = "PostFlatView_PostDate">Posted: </resource>
+		<resource name = "PostFlatView_PostSubject">Post Subject: </resource>								                
+		<resource name = "PostFlatView_TopOfPage">Top of Page</resource>								                		
+		<resource name = "PostFlatView_BriefInfo">Thread Starter: &lt;B&gt;{0}&lt;/B&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;Started: &lt;B&gt;{1}&lt;/B&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;Replies: &lt;B&gt;{2}&lt;/B&gt;</resource>							                		
+		
+<!-- View-PostFlatView.ascx -->
+
+<!-- Skin-DeletePost.ascx -->
+		<resource name = "DeletePost_TitleName">Delete Post or Thread</resource>
+		<resource name = "DeletePost_TitleDescription">Use this form to delete a post or thread.</resource>
+		<resource name = "DeletePost_Title">Delete Post or Thread: {0}</resource>
+		<resource name = "DeletePost_ReasonText">Please provide a reason for why this post or thread is being deleted. This information, as well as who deleted the post, will be logged. Additionally, an email will be sent to the original post author with the reason (including who deleted the post).</resource>
+		<resource name = "DeletePost_HasChildren">Has child posts: </resource>
+		<resource name = "DeletePost_DeleteChildren">Delete Children: </resource>
+		<resource name = "DeletePost_Reason">Reason: </resource>
+		<resource name = "DeletePost_By">Deleted By: </resource>
+		<resource name = "DeletePost_SendEmail">Send Email: </resource>
+		<resource name = "DeletePost_ValidateReason">You must supply a reason why you are deleting this post.</resource>
+		<resource name = "DeletePost_PopupConfirmation">Are you sure you want to delete this post?</resource>
+		<resource name = "DeletePost_CancelDelete">Cancel</resource>
+		<resource name = "DeletePost_DeletePost">Delete Post</resource>
+		<resource name = "DeletePost_NA">(Not Applicable - Deleting Single Post)</resource>
+<!-- Skin-DeletePost.ascx -->
+
+<!-- Skin-EditProfile.ascx -->
+
+		<resource name = "EditProfile_PrivateTitle">Security / Privacy (this information is not shared or made public)</resource>
+		<resource name = "EditProfile_Title">Edit User Profile</resource>
+		<resource name = "EditProfile_SubTitle">Editing your user profile</resource>
+		<resource name = "EditProfile_AboutTitle">About You (visible to all forum members)</resource>
+		<resource name = "EditProfile_AboutUserName">Username:</resource>
+		<resource name = "EditProfile_Password">Password:</resource>
+		<resource name = "EditProfile_PasswordChange">Change Password</resource>
+		<resource name = "EditProfile_PasswordAnswer">Secret Answer:</resource>
+		<resource name = "EditProfile_PasswordAnswerChange">Change Secret Answer</resource>
+		<resource name = "EditProfile_AboutTimeZone">Timezone:</resource>
+		<resource name = "EditProfile_DateCreated">Date Account Created:</resource>
+		<resource name = "EditProfile_LastLogin">Date Last Login:</resource>
+		<resource name = "EditProfile_Birthday">Birthday:</resource>
+		<resource name = "EditProfile_PasswordFormat">Password stored as:</resource>
+		<resource name = "EditProfile_LastActivity">Date Last Active:</resource>
+		<resource name = "EditProfile_AboutGender">Gender:</resource>
+		<resource name = "EditProfile_AboutLocation">Location:</resource>
+		<resource name = "EditProfile_AboutOccupation">Occupation:</resource>
+		<resource name = "EditProfile_AboutInterests">Interests:</resource>
+		<resource name = "EditProfile_AboutWebAddress">Web Address:</resource>
+		<resource name = "EditProfile_AboutWebLog">Web Log:</resource>
+		<resource name = "EditProfile_AboutSignature">Signature:</resource>
+		<resource name = "EditProfile_ContactTitle">Public Contact Information (visible to all forum members)</resource>
+		<resource name = "EditProfile_ContactPrivateEmail">Email:</resource>
+		<resource name = "EditProfile_ContactPublicEmail">Public Email:</resource>
+		<resource name = "EditProfile_ContactMsn">MSN IM:</resource>
+		<resource name = "EditProfile_ContactAol">AOL IM:</resource>
+		<resource name = "EditProfile_ContactYahoo">Yahoo IM:</resource>
+		<resource name = "EditProfile_ContactIcq">ICQ:</resource>
+		<resource name = "EditProfile_AvatarTitle">Avatar</resource>
+		<resource name = "EditProfile_UploadAvatar">Upload Avatar:</resource>
+		<resource name = "EditProfile_AvatarEnable">Enable Avatar:</resource>
+		<resource name = "EditProfile_AvatarUrl">Avatar URL:</resource>
+		<resource name = "EditProfile_OptionsTitle">Forum Options</resource>
+		<resource name = "EditProfile_OptionsLanguage">Language:</resource>
+		<resource name = "EditProfile_EmailTitle">Email Options</resource>
+		<resource name = "EditProfile_OptionsDateFormat">Date Format:</resource>
+		<resource name = "EditProfile_OptionsHideRead">Hide Read Posts:</resource>
+		<resource name = "EditProfile_OptionsEmailTracking">Use 'Email Notifications' by default:</resource>
+		<resource name = "EditProfile_DisplayInMemberList">Display in Members list:</resource>
+		<resource name = "EditProfile_OptionsHtmlEmail">Receive Emails in HTML:</resource>
+		<resource name = "EditProfile_OptionsReceiveEmails">Receive Emails:</resource>
+		<resource name = "EditProfile_SigMaxLength">Max length of signature is {0} characters.</resource>
+		<resource name = "EditProfile_Update">Update</resource>
+		<resource name = "EditProfile_Theme">Theme:</resource>
+		<resource name = "EditProfile_UserBanTitle">Ban Information</resource>
+		<resource name = "EditProfile_UserBanPeriod">Banned for:</resource>
+		<resource name = "EditProfile_BanedUntilDate">Date until banned:</resource>
+		<resource name = "EditProfile_UserApprovalTitle">Approve User Profile</resource>
+		<resource name = "EditProfile_UserApproval">Approve now?</resource>		
+		<resource name = "EditProfile_BanExpired"> (expired!)</resource>		
+<!-- End Skin-EditProfile.ascx -->
+
+<!-- Skin-Logout.ascx -->
+		<resource name = "Logout_Title">Logout</resource>
+		<resource name = "Logout_Status">You have been successfully logged out of the Forums.</resource>
+		<resource name = "Logout_ReturnHome">Return home</resource>
+<!-- End Skin-Logout.ascx -->
+
+<!-- Skin-DisplayTitle.ascx -->
+		<resource name = "DisplayTitle_ExtraInfo">There are &lt;b&gt;{0}&lt;/b&gt; posts since last login. &lt;br /&gt;You have {1} new &lt;b&gt;{2}&lt;/b&gt;.</resource>
+<!-- End Skin-DisplayTitle.ascx -->
+
+<!-- Skin-DisplayUserWelcome.ascx -->
+		<resource name = "DisplayUserWelcome_UserWelcome">Welcome back &lt;b&gt;{0}&lt;/b&gt;!</resource>		
+		<resource name = "DisplayUserWelcome_UserLastLogin">Last login was &lt;b&gt;{0}&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;</resource>
+		<resource name = "DisplayUserWelcome_UserNewPosts">There are {0} posts since last login.&lt;br /&gt;</resource>
+		<resource name = "DisplayUserWelcome_UserPrivateMessages">You have {0} new &lt;b&gt;{1}&lt;/b&gt;.</resource>
+		<resource name = "DisplayUserWelcome_AlternateUserWelcome">Welcome to {0}.&lt;br /&gt;&lt;br /&gt;You may enhance your user experience and customize your settings if you &lt;b&gt;{1}&lt;/b&gt; for a free account. Registration is not required and is optional.</resource>		
+<!-- End Skin-DisplayUserWelcome.ascx -->
+
+<!-- Skin-DisplayTitle.ascx -->
+		<resource name = "DisplayTitle_ExtraInfo2">There are &lt;b&gt;{0}&lt;/b&gt; posts since last login. &lt;br /&gt;You have {1} new &lt;b&gt;{2}&lt;/b&gt;.</resource>
+<!-- End Skin-DisplayTitle.ascx -->
+
+<!-- Skin-DisplayTitle.ascx -->
+		<resource name = "DisplayTitle_ExtraInfo3">There are &lt;b&gt;{0}&lt;/b&gt; posts since last login. &lt;br /&gt;You have {1} new &lt;b&gt;{2}&lt;/b&gt;.</resource>
+<!-- End Skin-DisplayTitle.ascx -->
+
+<!-- Skin-Login.ascx -->
+		<resource name = "Login_Title">Login</resource>
+		<resource name = "Login_UserName">Username</resource>
+		<resource name = "Login_Password">Password</resource>
+		<resource name = "Login_autoLogin">Log in automatically</resource>
+		<resource name = "Login_loginButton">  Login  </resource>
+<!-- End Skin-Login.ascx -->
+
+<!-- Skin-LoginSmall.ascx -->
+		<resource name = "LoginSmall_Button">Login</resource>
+		<resource name = "LoginSmall_AutoLogin">Remember Me</resource>
+		<resource name = "LoginSmall_Title">Login Now</resource>
+		<resource name = "LoginSmall_Username">Username</resource>
+		<resource name = "LoginSmall_Password">Password</resource>
+		<resource name = "LoginSmall_UserOptions">User Options</resource>
+		<resource name = "LoginSmall_CreateNewAccount">Create Account</resource>
+		<resource name = "LoginSmall_ForgotPassword">Forgot Password</resource>
+<!-- End Skin-LoginSmall.ascx -->
+
+<!-- User Filter -->
+		<resource name = "UserFilterDropDownList_All">Show All</resource>
+		<resource name = "UserFilterDropDownList_ParticipatedIn">Show topics I've participated in</resource>
+		<resource name = "UserFilterDropDownList_NotParticipatedIn">Show topics I've not participated in</resource>
+		<resource name = "UserFilterDropDownList_HideAnonymous">Show topics from Anonymous users</resource>
+		<resource name = "UserFilterDropDownList_HideNonAnonymous">Show topics from non-anonymous users</resource>
+<!-- End User Filter -->
+
+<!-- Skin-Message.ascx --><!-- End Skin-Message.ascx -->
+
+<!-- View-Threads.ascx -->
+		<resource name = "ViewActiveThreads_Title">Active Topics</resource>
+		<resource name = "ViewActiveThreads_Description">Posts with recent activity</resource>
+		<resource name = "ViewUnansweredThreads_Title">Unanswered Posts</resource>
+		<resource name = "ViewUnansweredThreads_Description">List of posts that are unanswered</resource>
+		<resource name = "ViewThreads_Posts">Topics</resource>
+		<resource name = "ViewThreads_FaqsAnnouncements">Announcements and FAQs</resource>
+		<resource name = "ViewThreads_Moderators">Moderators: </resource>
+		<resource name = "ViewThreads_ActiveGuests">There are {0} guests browsing this forum.</resource>
+		<resource name = "ViewThreads_ActiveUsers">Users browsing this forum: </resource>
+		<resource name = "ViewThreads_SortedBy">Sort: </resource>
+		<resource name = "ViewThreads_FilterByDate">Date Filter: </resource>
+		<resource name = "ViewThreads_FilterByTopic">Topic Filter: </resource>
+		<resource name = "ViewThreads_FilterByIgnore">Ignore Filter: </resource>
+		<resource name = "ViewThreads_In"> in </resource>
+		<resource name = "ViewThreads_OrderFrom"> order</resource>
+		<resource name = "ViewThreads_SortThreads"> Apply! </resource>
+		<resource name = "ViewThreads_RememberSettings"> Remember! </resource>
+		<resource name = "ViewThreads_TitleThread">Thread</resource>
+		<resource name = "ViewThreads_TitleStartedBy">Started By</resource>
+		<resource name = "ViewThreads_TitleReplies">Replies</resource>
+		<resource name = "ViewThreads_TitleViews">Views</resource>
+		<resource name = "ViewThreads_TitleLastPost">Last Post</resource>
+		<resource name = "ViewThreads_HideRead">Hide topics I've read</resource>
+		<resource name = "ViewThreads_ShowRead">Show All</resource>
+		<resource name = "ViewThreads_NoTopics">&lt;br /&gt;&lt;br /&gt;Either there are no topics, or due to a filter, there are no topics to display.&lt;br /&gt;Please check the display options to determine if a filter is applied.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;</resource>
+		<resource name = "ViewThreads_ForumStats">Forum Statistics</resource>
+		<resource name = "ViewThreads_ForumOptions">Forum Options</resource>
+		<resource name = "ViewThreads_Legend">Threads Legend</resource>		
+		<resource name = "ViewThreads_Legend_AnnouncementsStickies">Announcement / Sticky</resource>		
+		<resource name = "ViewThreads_Legend_PopularTopics">Popular Topics</resource>		
+		<resource name = "ViewThreads_Legend_NormalTopics">Normal Topics</resource>		
+		<resource name = "ViewThreads_XML">View as RSS news feed in XML</resource>	
+
+		<resource name = "ViewThreads_TitleForums">Forums</resource>		
+		<resource name = "ViewThreads_TitleThreads">Threads</resource>		
+		<resource name = "ViewThreads_TitlePosts">Posts</resource>		
+		
+<!-- End View-Threads.ascx -->
+
+
+<!-- View-ThreadMove.ascx -->
+
+		<resource name = "MovePost_Title">Move Thread</resource>
+		<resource name = "MovePost_ChooseForum">Please choose the appropriate forum to move this thread to.</resource>
+		<resource name = "MovePost_Subject">Subject: </resource>
+		<resource name = "MovePost_HasReplies">Has Replies: </resource>
+		<resource name = "MovePost_PostedBy">Posted By: </resource>
+		<resource name = "MovePost_Body">Body: </resource>
+		<resource name = "MovePost_MoveTo">Move to: </resource>
+		<resource name = "MovePost_SendUserEmail"> Send user email (thread owner only) that the post was moved.</resource>
+		<resource name = "MovePost_CancelMove">Cancel</resource>
+		<resource name = "MovePost_MovePost">Move Thread</resource>
+
+<!-- End View-ThreadMove.ascx -->
+
+
+<!-- View-ThreadSplit.ascx -->
+
+		<resource name = "ThreadSplit_Title">Split Thread</resource>
+		<resource name = "ThreadSplit_Description">This tool will split a single thread into a new thread at the selected post. Please &lt;br /&gt;edit the title and choose the forum where the new thread should be created.</resource>
+		<resource name = "ThreadSplit_SendUserEmail">Send subscribers email that the post was split.</resource>
+		<resource name = "ThreadSplit_SplitThread">Split Thread</resource>
+
+<!-- End View-ThreadSplit.ascx -->
+
+<!-- View-ThreadJoin.ascx -->
+
+		<resource name = "ThreadJoin_Title">Merge Thread</resource>
+		<resource name = "ThreadJoin_Description">This tool will merge two threads into a single thread.</resource>
+		<resource name = "ThreadJoin_Select">Please enter a PostID that is within the thread to join to:</resource>
+		<resource name = "ThreadJoin_ParentID">Post ID:</resource>
+		<resource name = "ThreadJoin_ValidateButton">Find ThreadID</resource>
+		<resource name = "ThreadJoin_JoinThread">Merge Threads</resource>
+		<resource name = "ThreadJoin_SendUserEmail">Send subscribers email that the post was merged.</resource>
+		<resource name = "ThreadJoin_IsValid">Is valid thread for merge</resource>
+		<resource name = "ThreadJoin_JoinRelationship">will be appended to</resource>
+
+<!-- End View-ThreadJoin.ascx -->
+
+<!-- Skin-MyForums.ascx -->
+
+		<resource name = "MyForums_TrackingTitle">Threads you are tracking:</resource>
+		<resource name = "MyForums_NoTrackedThreads">You are not tracking any threads.</resource>
+		<resource name = "MyForums_ActiveThreadsTitle">Last 25 active threads you have participated in:</resource>
+		<resource name = "MyForums_NoParticipatedThreads">You are not tracking any threads.</resource>
+		<resource name = "MyForums_FindMorePosts">View more posts you have participated in</resource>
+
+<!-- End Skin-MyForums.ascx -->
+
+<!-- Skin-NavigationMenu.ascx --> <!-- End Skin-NavigationMenu.ascx -->
+
+<!-- Skin-SearchRedirect.ascx --> 
+		<resource name = "Search_MoreSearchOptions">More Search Options</resource>
+<!-- End Skin-SearchRedirect -->
+
+
+
+<!-- Skin-RatePost.ascx -->
+
+		<resource name = "RatePost_Title">How would you rate the quality of this post?</resource>
+		<resource name = "RatePost_Upper">Outstanding</resource>
+		<resource name = "RatePost_Lower">Poor</resource>
+		
+<!-- Skin-RatePost.ascx -->
+
+<!-- Skin-SearchRedirect.ascx --> 
+
+		<resource name = "SearchRedirect_Title">Search</resource>
+		<resource name = "SearchRedirect_SearchButton">Search</resource>
+
+<!-- End Skin-SearchRedirect.ascx -->
+
+<!-- SearchView.ascx -->
+		<resource name = "SearchViewSimple_Title">Search</resource>
+		<resource name = "SearchViewSimple_Description">Search the forums</resource>
+<!-- End SearchView.ascx -->
+
+
+<!-- Skin-Statistics.ascx -->
+
+		<resource name = "SearchView_Title">Forum Statistics</resource>
+		<resource name = "SearchView_Inline1">users have contributed to</resource>
+		<resource name = "SearchView_Inline2">threads and</resource>
+		<resource name = "SearchView_Inline3">posts.</resource>
+		<resource name = "SearchView_Inline4">In the past 24 hours, we have</resource>
+		<resource name = "SearchView_Inline5">new thread(s),</resource>
+		<resource name = "SearchView_Inline6">new post(s), and</resource>
+		<resource name = "SearchView_Inline7">new user(s)</resource>
+		<resource name = "SearchView_Past3days">In the past 3 days, </resource>
+		<resource name = "SearchView_Inline8">the most popular thread for everyone has been </resource>
+		<resource name = "SearchView_Inline9">The most posts were made to </resource>
+		<resource name = "SearchView_Inline10">Our members have mostly viewed the thread titled </resource>
+		<resource name = "SearchView_Inline11">Top 10 users in past 24 hrs</resource>
+		<resource name = "SearchView_Inline12">Please welcome our newest member</resource>
+		<resource name = "SearchView_ViewPostsFor">View posts for</resource>
+
+<!-- End Skin-Statistics.ascx -->
+
+<!-- Skin-WhoIsOnline.ascx -->
+
+		<resource name = "WhoIsOnline_Title">Who is online</resource>
+		<resource name = "WhoIsOnline_Inline1">There are currently</resource>
+		<resource name = "WhoIsOnline_GuestUsers">&lt;b&gt;{0}&lt;/b&gt; guest(s) online.</resource>
+		<resource name = "WhoIsOnline_UsersOnlineCount">There are &lt;b&gt;{0}&lt;/b&gt; of &lt;b&gt;{1}&lt;/b&gt; registered user(s) online</resource>
+		<resource name = "WhoIsOnline_Inline2">Users</resource>
+		<resource name = "WhoIsOnline_Inline3">Moderators</resource>
+		<resource name = "WhoIsOnline_Inline4">Administrators</resource>
+
+<!-- End Skin-WhoIsOnline.ascx -->
+
+<!-- View-CreateEditPost.ascx -->
+
+		<resource name = "CreateEditPost_Title_PostNewMessage">Post a New Message</resource>
+		<resource name = "CreateEditPost_Title_EditMessage">Edit an Existing Message</resource>
+		<resource name = "CreateEditPost_Title_ReplyMessage">Reply to an Existing Message</resource>
+		<resource name = "CreateEditPost_Inline1">The message you are replying to: </resource>
+		<resource name = "CreateEditPost_ReplyPrePend">Re: </resource>
+		<resource name = "CreateEditPost_CurrentEditNotes">Current edit notes: </resource>
+		<resource name = "CreateEditPost_EditNotes">Edit Notes: </resource>
+		<resource name = "CreateEditPost_EditNotesRequired">(Required)</resource>
+		<resource name = "CreateEditPost_EditNotesRecord">=== Edited by {0} @ {1} [GMT {2}] ===</resource>
+		<resource name = "CreateEditPost_Inline2">Posted By:</resource>
+		<resource name = "CreateEditPost_Inline3">Subject:</resource>
+		<resource name = "CreateEditPost_Inline4">Message:</resource>
+		<resource name = "CreateEditPost_Status">Status:</resource>
+		<resource name = "CreateEditPost_Inline5">Author:</resource>
+		<resource name = "CreateEditPost_Inline6">Editing Post As:</resource>
+		<resource name = "CreateEditPost_Inline7">Subject:</resource>
+		<resource name = "CreateEditPost_Inline8">Template:</resource>
+		<resource name = "CreateEditPost_Inline9">Message:</resource>
+		<resource name = "CreateEditPost_Inline10">Message:</resource>
+		<resource name = "CreateEditPost_Inline12">Attachment:</resource>
+		<resource name = "CreateEditPost_Inline13">Sticky Post:</resource>
+
+		<resource name = "CreateEditPost_BackButton"> &lt; Edit </resource>
+		<resource name = "CreateEditPost_PreviewPostButton"> Post </resource>
+		<resource name = "CreateEditPost_PostButton"> Post </resource>
+		<resource name = "CreateEditPost_Cancel"> Cancel </resource>
+		<resource name = "CreateEditPost_PreviewButton"> Preview > </resource>
+
+		<resource name = "CreateEditPost_postSubjectValidator">Subject required.</resource>
+		<resource name = "CreateEditPost_postBodyValidator">You must supply a message.</resource>
+		<resource name = "CreateEditPost_postBodyRichTextValidator">You must supply a message.</resource>
+		<resource name = "CreateEditPost_IsLocked"> Do not allow replies to this post.</resource>
+		<resource name = "CreateEditPost_SubscribeToThread"> Email me replies to this post.</resource>
+<!-- End View-CreateEditPost.ascx -->
+
+<!-- View-SendEmail.ascx -->
+		<resource name = "SendEmail_Description">Send email to a forum user.</resource>
+		<resource name = "SendEmail_Title">Send Email</resource>
+		<resource name = "SendEmail_From">From: </resource>
+		<resource name = "SendEmail_To">To: </resource>
+		<resource name = "SendEmail_Subject">Subject: </resource>
+		<resource name = "SendEmail_Body">Body: </resource>
+		<resource name = "SendEmail_Send"> Send Email </resource>
+		<resource name = "SendEmail_Cancel"> Cancel </resource>
+		<resource name = "SendEmail_Validator"> (Required) </resource>
+<!-- End View-SendEmail.ascx -->
+
+<!-- View-PrivateMessages.ascx -->
+   <resource name = "PrivateMessages_Title">Private Messages</resource>
+   <resource name = "PrivateMessages_Description">Private messages sent to you from other forum members</resource>
+   <resource name = "PrivateMessages_Messages">Private Message(s)</resource>
+   <resource name = "PrivateMessages_Recipients">Recipient(s)</resource>
+<!-- End View-PrivateMessages.ascx -->
+
+<!-- Skin-PrivateMessage.ascx -->
+		<resource name = "PrivateMessage_Title">Private Message</resource>
+
+		<resource name = "PrivateMessage_BackButton"> &lt; Edit </resource>
+		<resource name = "PrivateMessage_PreviewPostButton"> Post </resource>
+		<resource name = "PrivateMessage_PostButton"> Post </resource>
+		<resource name = "PrivateMessage_Cancel"> Cancel </resource>
+		<resource name = "PrivateMessage_PreviewButton"> Preview > </resource>
+<!-- End Skin-PrivateMessage.ascx -->
+
+<!-- Mark all read -->
+		<resource name = "MarkAllRead_Threads">Mark all read</resource>
+<!-- End Mark all read -->
+
+
+<!-- View-ForumGroupView.ascx -->
+		<resource name = "ForumGroupView_Inline1">Forums</resource>
+		<resource name = "ForumGroupView_Viewing">({0} Viewing)</resource>
+		<resource name = "ForumGroupView_Inline2">Threads</resource>
+		<resource name = "ForumGroupView_Inline3">Posts</resource>
+		<resource name = "ForumGroupView_Inline4">Last Post</resource>
+		<resource name = "ForumGroupView_Legend">Legend</resource>
+		<resource name = "ForumGroupView_Legend_NewPosts">New posts</resource>
+		<resource name = "ForumGroupView_Legend_NoNewPosts">No new posts</resource>
+		<resource name = "ForumGroupView_Legend_PrivateForum">Private forum</resource>
+		<resource name = "ForumGroupView_Legend_LastPostBy">by </resource>
+		<resource name = "ForumGroupView_ExpandCollapse">Collapse / Expand</resource>
+<!-- End View-ForumGroupView.ascx -->
+
+<!-- View-ForumMembers.ascx -->
+
+		<resource name = "ForumMembers_Inline1">Forum Members</resource>
+		<resource name = "ForumMembers_Inline2">Listing members of the forums</resource>
+		<resource name = "ForumMembers_AdminTitle">Forum Members Administration</resource>
+		<resource name = "ForumMembers_AdminDescription">Manage members of the forums</resource>
+		<resource name = "ForumMembers_AdminShowApproved">Show Approved Users</resource>
+		<resource name = "ForumMembers_Approved">Status</resource>
+		<resource name = "ForumMembers_Username">Username</resource>
+		<resource name = "ForumMembers_Location">Location</resource>
+		<resource name = "ForumMembers_Home">Home Page</resource>
+		<resource name = "ForumMembers_PrivateMessages">Private Message</resource>
+		<resource name = "ForumMembers_PrivateEmail">Email</resource>
+		<resource name = "ForumMembers_PublicEmail">Email</resource>
+		<resource name = "ForumMembers_WebLog">Web Log</resource>
+		<resource name = "ForumMembers_Joined">Joined</resource>
+		<resource name = "ForumMembers_SearchByUser">Search</resource>
+		<resource name = "ForumMembers_LastActive">Last Active</resource>
+		<resource name = "ForumMembers_TotalPosts">Posts</resource>
+		<resource name = "ForumMembers_FindUser">Find User: </resource>
+		<resource name = "ForumMembers_SearchButton"> Search </resource>
+		<resource name = "ForumMembers_SortBy">Sort by: </resource>
+		<resource name = "ForumMembers_OrderBy">Order: </resource>
+		<resource name = "ForumMembers_AccountStatusPrefix">Select Member Status: </resource>
+		<resource name = "ForumMembers_NoRecords">No records found</resource>
+
+<!-- End View-ForumMembers.ascx -->
+
+<!-- View-RoleMembers.ascx -->
+
+		<resource name = "RoleMembers_Title">Members of {0} role</resource>
+		<resource name = "RoleMembers_Description">Listing of all members in a particular role.</resource>
+
+<!-- End View-RoleMembers.ascx -->
+
+<!--View-ForumGroup.ascx-->
+    <resource name = "Moderate_Home_Title">Welcome to the ASP.NET Forums Moderation Control Panel</resource>
+    <resource name = "Moderate_Home_Description">The moderation control panel is used to moderate all aspects of the foums. &lt;br /&gt;Please select an area or task from the left hand side of the page.</resource>
+    <resource name = "Moderate_Home_ForumList">Below is a list of forums with posts you can moderate.</resource>    
+<!--End View-ForumGroup.ascx-->
+
+
+<!--Skin-ModeratePost.ascx-->
+    <resource name = "ModeratePost_EditPost">Edit Post</resource>
+    <resource name = "ModeratePost_EditUser">Edit User</resource>
+    <resource name = "ModeratePost_Move">Move Thread</resource>
+    <resource name = "ModerateThread_Split">Split Posts</resource>
+    <resource name = "ModerateThread_Join">Merge Thread</resource>
+    <resource name = "ModerateThread_Lock_Thread">Lock Thread</resource>
+    <resource name = "ModerateThread_Lock_Post">Lock Post</resource>
+    <resource name = "ModerateThread_UnLock_Thread">Unlock Thread</resource>
+    <resource name = "ModerateThread_UnLock_Post">Unlock Post</resource>
+    <resource name = "ModeratePost_ModerationHistory">Post History</resource>
+    <resource name = "ModerateThread_Moderate_User">Moderate User</resource>
+    <resource name = "ModerateThread_UnModerate_User">Unmoderate User</resource>
+    <resource name = "ModerateThread_CachedAction">This change will occur, but due to caching make take up to 30 seconds to take affect.</resource>
+<!--End Skin-ModeratePost.ascx-->
+
+
+<!-- Skin-ModerationMenu.ascx -->
+<resource name = "ModerationMenu_Approve">Approve</resource>
+<resource name = "ModerationMenu_ApproveReply">Approve &amp; Reply</resource>
+<resource name = "ModerationMenu_ApproveEdit">Approve &amp; Edit</resource>
+<resource name = "ModerationMenu_Move">Move Thread</resource>
+<resource name = "ModerationMenu_DeletePost">Delete Post(s)</resource>
+<resource name = "ModerationMenu_DeleteThread">Delete Thread</resource>
+<!-- End Skin-ModerationMenu.ascx -->
+
+<!-- Skin-Statistics.ascx -->
+<resource name = "Moderator_Statistics_Title">Moderation Statistics</resource>
+
+<!-- End Skin-Statistics.ascx -->
+
+<!-- Skin-CreateEditForums -->
+<resource name="CreateEditForums_Title">Create / Edit Forums</resource>
+<resource name="CreateEditForums_SubTitle">aaa</resource>
+<resource name="CreateEditForums_AboutTitle">About Forums</resource>
+<resource name="CreateEditForums_ForumID">Forum ID</resource>
+<resource name="CreateEditForums_ParentID">Parent ID</resource>
+<resource name="CreateEditForums_Name">Name</resource>
+<resource name="CreateEditForums_Description">Description</resource>
+<resource name="CreateEditForums_IsActive">Is Forum Active</resource>
+<resource name="CreateEditForums_ForumGroupID">Forum Group ID</resource>
+<resource name="CreateEditForums_DateCreated">Date Forum was Created</resource>
+<resource name="CreateEditForums_IsModerated">Is Forum Moderated</resource>
+<resource name="CreateEditForums_DaysToView">Days for posting to remain viewable</resource>
+<resource name="CreateEditForums_SortOrder">Sort Order</resource>
+<resource name="CreateEditForums_TotalPosts">Total Posts</resource>
+<resource name="CreateEditForums_TotalThreads">Total Threads</resource>
+<resource name="CreateEditForums_DisplayMask">Display Mask</resource>
+<resource name="CreateEditForums_EnablePostStatistics">Enable Post Statistics</resource>
+<resource name="CreateEditForums_EnableAutoDelete">Enable Auto Delete</resource>
+<resource name="CreateEditForums_EnableAnonymousPosting">Enable Anonymous Posting</resource>
+<resource name="CreateEditForums_AutoDeleteThreshold">Auto delete threshold</resource>
+<resource name="CreateEditForums_MostRecentPostID">Most Recent Post ID</resource>
+<resource name="CreateEditForums_MostRecentThreadID">Most Recent Thread ID</resource>
+<resource name="CreateEditForums_MostRecentPostAuthor">Most Recent Post Author</resource>
+<resource name="CreateEditForums_MostRecentPostAuthorID">Most Recent Post Author ID</resource>
+<resource name="CreateEditForums_MostRecentPostDate">Most Recent Post Date</resource>
+<resource name="CreateEditForums_PostsToModerate">Posts To Moderate</resource>
+<resource name="CreateEditForums_ForumType">Forum Type</resource>
+<resource name="CreateEditForums_IsSearchable">Is forum searchable</resource>
+<resource name="CreateEditForums_DeleteForumVerify">Deleting this forum will cause all threads and posts within this forum to be deleted as well. Are you sure you wish to continue?</resource>
+<!-- End Skin-CreateEditForums-->
+
+<!-- 
+
+	Server Control Localization
+	============================
+
+-->
+
+<!-- Navigation/JumpDropDownList.cs » -->
+		<resource name = "Navigation_JumpDropDownList_displayText">Jump to: </resource>
+		<resource name = "Navigation_JumpDropDownList_Title">(please select)</resource>
+		<resource name = "Navigation_JumpDropDownList_Seperator"> </resource>
+		<resource name = "Navigation_JumpDropDownList_Indent1">─» </resource>		
+		<resource name = "Navigation_JumpDropDownList_Indent2">└─» </resource>		
+		<resource name = "Navigation_JumpDropDownList_Indent3">└───» </resource>		
+		<resource name = "Navigation_JumpDropDownList_Home">Forums Home</resource>
+		<resource name = "Navigation_JumpDropDownList_Search">Search Forums</resource>
+		<resource name = "Navigation_JumpDropDownList_Members">Member List</resource>
+		<resource name = "Navigation_JumpDropDownList_UserOptions">User Options</resource>
+		<resource name = "Navigation_JumpDropDownList_Profile">My Control Panel</resource>
+		<resource name = "Navigation_JumpDropDownList_PrivateMessages">My Private Messages</resource>
+		<resource name = "Navigation_JumpDropDownList_MyThreads">My Forums</resource>
+		<resource name = "Navigation_JumpDropDownList_Login">Sign In</resource>
+		<resource name = "Navigation_JumpDropDownList_CreateAccount">Create a New Account</resource>
+		<resource name = "Navigation_JumpDropDownList_ForgotPassword">Forgot Password</resource>
+		<resource name = "Navigation_JumpDropDownList_AdminOptions">Admin / Moderator Options</resource>
+		<resource name = "Navigation_JumpDropDownList_AdminHome">Admin Home</resource>
+		<resource name = "Navigation_JumpDropDownList_ModeratorHome">Moderator Home</resource>
+<!-- End Navigation/JumpDropDownList.cs -->
+
+<!-- PostDisplay/PollPost.cs -->
+
+		<resource name = "PostDisplay_PollPost_buttonText">Vote</resource>
+		<resource name = "PostDisplay_PollPost_resultsText">Your vote: </resource>
+		<resource name = "PostDisplay_PollPost_totalVotes">Total votes: </resource>
+
+<!-- End PostDisplay/PollPost.cs -->
+
+<!-- Search/SearchOptions.cs -->
+		<resource name = "Search_SearchOptions_AllForums">All Forums</resource>
+		<resource name = "Search_SearchOptions_Posts">Posts</resource>
+		<resource name = "Search_SearchOptions_PostedBy">Posted By</resource>
+		<resource name = "Search_SearchOptions_MatchAll">Match All Words</resource>
+		<resource name = "Search_SearchOptions_MatchAny">Match Any Words</resource>
+		<resource name = "Search_SearchOptions_MatchExact">Match Exact Phrase</resource>
+<!-- End Search/SearchOptions.cs -->
+
+<!-- View-SearchAdvanced.ascx -->
+		<resource name = "SearchAdvanced_Title">Advanced Search</resource>
+		<resource name = "SearchAdvanced_Description">Refine your search.</resource>
+		<resource name = "SearchAdvanced_Options">Advanced Search Options</resource>
+		<resource name = "SearchAdvanced_Keywords">Keywords</resource>
+		<resource name = "SearchAdvanced_Keywords_Info">Use 'AND' and 'OR' to contain results. Use '*' or space for wildcard.</resource>
+		<resource name = "SearchAdvanced_Users">Users</resource>
+		<resource name = "SearchAdvanced_Users_Info">Enter usernames separated by ',' to constrain search by.</resource>
+		<resource name = "SearchAdvanced_Forums">Forums</resource>
+		<resource name = "SearchAdvanced_Forums_Info">Hold 'ctrl' to select multiple.</resource>		
+<!-- End View-SearchAdvanced.ascx -->
+
+<!-- View-SearchResults.ascx -->
+		<resource name = "SearchResults_Title">Search Results</resource>
+		<resource name = "SearchResults_Description">Results of your last search.</resource>
+		<resource name = "SearchResults_TotalResults">Results &lt;b&gt;{0}&lt;/b&gt; - &lt;b&gt;{1}&lt;/b&gt; of approximately &lt;b&gt;{2}&lt;/b&gt; posts.</resource>
+		<resource name = "SearchResults_SearchDuration">Search took &lt;b&gt;{0}&lt;/b&gt; seconds.</resource>
+		<resource name = "SearchResults_PostedBy">Posted by</resource>
+		<resource name = "SearchResults_PostedBy_2">in the</resource>
+		<resource name = "SearchResults_PostedBy_3">forum.</resource>
+		<resource name = "SearchResults_Posted">Posted:</resource>
+		<resource name = "SearchResults_More">More ...</resource>
+<!-- End View-SearchResults.ascx -->
+
+<!-- User/UserOnlineStatus.cs -->
+		<resource name = "User_UserOnlineStatus_isOnline"> is online. Last active: </resource>
+		<resource name = "User_UserOnlineStatus_isNotOnline"> is not online. Last active: </resource>
+<!-- End User/UserOnlineStatus.cs -->
+
+<!-- User/PostIcons.cs -->
+		<resource name = "User_PostIcons_NotRanked">Not Ranked</resource>
+		<resource name = "User_PostIcons_Top10">Top 10 Posts</resource>
+		<resource name = "User_PostIcons_Top25">Top 10 Posts</resource>
+		<resource name = "User_PostIcons_Top50">Top 10 Posts</resource>
+		<resource name = "User_PostIcons_Top75">Top 10 Posts</resource>
+		<resource name = "User_PostIcons_Top100">Top 10 Posts</resource>
+		<resource name = "User_PostIcons_Top150">Top 10 Posts</resource>
+		<resource name = "User_PostIcons_Top200">Top 10 Posts</resource>
+		<resource name = "User_PostIcons_Top500">Top 10 Posts</resource>
+
+<!-- End User/PostIcons.cs -->
+
+<!-- User/UserPermissions.cs -->
+		<resource name = "User_UserPermissions_forumModeration">Forum is {0}</resource>
+		<resource name = "User_UserPermissions_postStats">Forum statistics are {0}</resource>
+		<resource name = "User_UserPermissions_postNewTopics">You {0} post new topics</resource>
+		<resource name = "User_UserPermissions_replyToTopics">You {0} reply to topics</resource>
+		<resource name = "User_UserPermissions_deletePosts">You {0} delete your posts</resource>
+		<resource name = "User_UserPermissions_editPosts">You {0} edit your posts</resource>
+		<resource name = "User_UserPermissions_createPolls">You {0} create polls</resource>
+		<resource name = "User_UserPermissions_vote">You {0} vote in polls</resource>
+		<resource name = "User_UserPermissions_attachment">You {0} add attachments</resource>
+		<resource name = "User_UserPermissions_allow">can</resource>
+		<resource name = "User_UserPermissions_deny">cannot</resource>
+		<resource name = "User_UserPermissions_moderated">moderated</resource>
+		<resource name = "User_UserPermissions_unmoderated">unmoderated</resource>
+<!-- End User/UserPermissions.cs -->
+
+<!-- Controls/Utility/CurrentPage.cs -->
+		<resource name = "Utility_CurrentPage_text">Page {0} of {1} ({2} items)</resource>
+<!-- End Controls/Utility/CurrentPage -->
+
+<!-- Controls/Utility/CurrentTime.cs -->
+		<resource name = "Utility_CurrentTime_format">Welcome, today is {0} (GMT {1}) </resource>
+		<resource name = "Utility_CurrentTime_formatGMT">[GMT {0}]</resource>
+		<resource name = "Utility_CurrentTime_dateFormat">dddd, MMMM d, yyyy h:mm tt</resource>
+<!-- End Controls/Utility/CurrentTime.cs -->
+
+<!-- Controls/Utility/DateFilter.cs -->
+		<resource name = "Utility_DateFilter_text">threads newer than </resource>
+		<resource name = "Utility_DateFilter_LastVisit">New since last visit</resource>
+		<resource name = "Utility_DateFilter_1Day">Newer than 1 Day</resource>
+		<resource name = "Utility_DateFilter_2Days">Newer than 2 Days</resource>
+		<resource name = "Utility_DateFilter_3Days">Newer than 3 Days</resource>
+		<resource name = "Utility_DateFilter_1Week">Newer than 1 Week</resource>
+		<resource name = "Utility_DateFilter_2Weeks">Newer than 2 Weeks</resource>
+		<resource name = "Utility_DateFilter_1Month">Newer than 1 Month</resource>
+		<resource name = "Utility_DateFilter_2Months">Newer than 2 Months</resource>
+		<resource name = "Utility_DateFilter_3Months">Newer than 3 Months</resource>
+		<resource name = "Utility_DateFilter_6Months">Newer than 6 Months</resource>
+		<resource name = "Utility_DateFilter_1Year">Newer than 1 Year</resource>
+		<resource name = "Utility_DateFilter_All">Show All</resource>
+<!-- End Controls/Utility/DateFilter.cs -->
+
+<!-- 
+	Controls/Utility/DateFormatDropDownList.cs 
+	==========================================
+	- F(x) is the actual date format
+	- F(x)Text is the display text
+-->
+
+		<resource name = "Utility_DateFormatDropDownList_F1">ddd, MMM dd yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F1Text">Day, Month Days Year (Thu, May 01 2003)</resource>			
+		<resource name = "Utility_DateFormatDropDownList_F2">MMM dd, yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F2Text">Month Days, Year (May 01, 2003)</resource>					
+		<resource name = "Utility_DateFormatDropDownList_F3">dd MMM yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F3Text">Day Month Year (01 May 2003)</resource>
+		<resource name = "Utility_DateFormatDropDownList_F4">MM-dd-yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F4Text">Month-Day-Year (05-01-2003)</resource>
+		<resource name = "Utility_DateFormatDropDownList_F5">dd-MM-yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F5Text">Day-Month-Year (01-05-2003)</resource>
+		<resource name = "Utility_DateFormatDropDownList_F6">MM/dd/yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F6Text">Month/Day/Year (05/01/2003)</resource>
+		<resource name = "Utility_DateFormatDropDownList_F7">dd/MM/yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F7Text">Day/Month/Year (01/05/2003)</resource>
+
+<!-- End Controls/Utility/DateFormatDropDownList.cs -->
+
+<!-- Utility/ForumAnchor.cs -->
+
+		<resources name = "Utility_ForumAnchorType_MenuHome">Home </resources>
+		<resources name = "Utility_ForumAnchorType_MenuSearch">Search </resources>	
+		<resources name = "Utility_ForumAnchorType_MenuEditProfile">Control Panel </resources>
+		<resources name = "Utility_ForumAnchorType_MenuLogin">Login </resources>
+		<resources name = "Utility_ForumAnchorType_MenuLogout">Logout </resources>
+		<resources name = "Utility_ForumAnchorType_MenuRegister">Register </resources>
+		<resources name = "Utility_ForumAnchorType_MenuMemberList">Member List </resources>
+		<resources name = "Utility_ForumAnchorType_MenuMyForums">My Forums </resources>
+		<resources name = "Utility_ForumAnchorType_MenuFaq">Faq </resources>
+		<resources name = "Utility_ForumAnchorType_MenuModerate">Moderate </resources>
+		<resources name = "Utility_ForumAnchorType_MenuAdmin">Admin </resources>
+		<resources name = "Utility_ForumAnchorType_PostsActive">Active</resources>
+		<resources name = "Utility_ForumAnchorType_PostsUnanswered">Unanswered</resources>
+		<resources name = "Utility_ForumAnchorType_UserForgotPassword">Forget your Password?</resources>
+		<resources name = "Utility_ForumAnchorType_UserRegister">Create a New Account</resources>
+		<resources name = "Utility_ForumAnchorType_Login">Already Have an Account?</resources>
+
+<!-- End Utility/ForumAnchor.cs -->
+
+<!-- Controls/Utility/Pager.cs -->
+		<resource name = "Utility_Pager_previousButton">&#171;</resource>	
+		<resource name = "Utility_Pager_nextButton">&#187;</resource>	
+		<resource name = "Utility_Pager_firstButton">&#171; First</resource>	
+		<resource name = "Utility_Pager_lastButton">Last &#187;</resource>	
+<!-- End Controls/Utility/Pager.cs -->
+
+<!-- Controls/Utility/SearchModeDropDownList.cs -->
+		<resource name = "Utility_SearchModeDropDownList_Simple">Simple</resource> 
+		<resource name = "Utility_SearchModeDropDownList_FullText">Full Text (SQL Server only)</resource> 
+		<resource name = "Utility_SearchModeDropDownList_ForumsIndexer">Forums Indexer</resource> 
+<!-- End Controls/Utility/SearchModeDropDownList.cs -->
+
+<!-- Controls/Utility/ThreadPager.cs -->
+		<resource name = "Utility_ThreadPager_Page">Page: </resource>
+<!-- End Controls/Utility/TrheadPager.cs -->
+
+<!-- Controls/Utility/QuestionsDropDownList.cs -->
+		<resource name = "Utility_QuestionsDropDownList_Q1">What is your pet's name?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q2">What was the name of your first school?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q3">Who was your childhood hero?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q4">What is your favorite past-time?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q5">What is your all-time favorite sports team?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q6">What is your father's middle name?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q7">What was your high school mascot?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q8">What make was your first car or bike?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q9">Where did you first meet your spouse?</resource>
+<!-- End Controls/Utility/QuestionsDropDownList.cs -->
+
+<!-- Controls/Utility/UserBanDropDownList.cs -->
+		<resource name = "Utility_UserBan_Permanent">Permanent</resource>
+		<resource name = "Utility_UserBan_1Day">1 Day</resource>
+		<resource name = "Utility_UserBan_3Days">3 Days</resource>
+		<resource name = "Utility_UserBan_5Days">5 Days</resource>
+		<resource name = "Utility_UserBan_1Week">1 Week</resource>
+		<resource name = "Utility_UserBan_2Weeks">2 Weeks</resource>
+		<resource name = "Utility_UserBan_1Month">1 Month</resource>
+<!-- End Controls/Utility/UserBanDropDownList.cs -->
+
+    <!-- START Skin-ForumAdmin.ascx -->
+        <resource name="ForumAdmin_Title">Manage Forum Settings</resource>
+        <resource name="ForumAdmin_Description">Configure individual forum settings.</resource>
+        <resource name="ForumAdmin_AboutTitle">Forum Settings</resource>
+        <resource name="ForumAdmin_GeneralStatistics">Forum General Statisics</resource>
+        <!-- Start of control fields -->
+        <resource name="ForumAdmin_ForumID">Forum ID:</resource>
+        <resource name="ForumAdmin_IsActive">Enable Forum</resource>
+        <resource name="ForumAdmin_IsActive_Detail">When disabled the forum is not accessible.</resource>
+        <resource name="ForumAdmin_ParentID">Forum Parent</resource>
+        <resource name="ForumAdmin_ParentID_Detail">Select either a group or forum that this forum should be a child of.</resource>
+        <resource name="ForumAdmin_ForumGroupID">Forum Group ID</resource>
+        <resource name="ForumAdmin_Name">Name</resource>
+        <resource name="ForumAdmin_Name_Detail">Choose a concise, but descriptive, name</resource>
+        <resource name="ForumAdmin_ForumDescription">Description</resource>
+        <resource name="ForumAdmin_ForumDescription_Detail">A brief description of the forum; HTML is allowed.</resource>
+        <resource name="ForumAdmin_DateCreated">Date Created</resource>
+        <resource name="ForumAdmin_IsModerated">Moderate Posts</resource>
+        <resource name="ForumAdmin_IsModerated_Detail">When moderated, posts by moderated users require approval by a moderator before being displayed.</resource>
+        <resource name="ForumAdmin_DaysToView">Default Days To View Posts</resource>
+        <resource name="ForumAdmin_SortOrder">Default Sort Order</resource>
+        <resource name="ForumAdmin_TotalPosts">Total Number of Posts</resource>
+        <resource name="ForumAdmin_TotalThreads">Total Number of Threads</resource>
+        <resource name="ForumAdmin_DisplayMask">Display Mask</resource>
+        <resource name="ForumAdmin_EnablePostStatistics">Enable Post Statistics</resource>
+        <resource name="ForumAdmin_EnablePostStatistics_Detail">When disabled, posts made in this forum do not count towards the user's total posts.</resource>
+        <resource name="ForumAdmin_EnableAutoDelete">Enable Post Autodelete</resource>
+        <resource name="ForumAdmin_EnableAutoDelete_Detail">When enabled, posts that are not viewed within the auto-delete window are permanently deleted.</resource>
+        <resource name="ForumAdmin_EnableAnonymousPosting">Enable Anonymous Posting</resource>
+        <resource name="ForumAdmin_EnableAnonymousPosting_Detail">When enabled, non-authenticated users are allowed to post to this forum; forum permissions may affect this however.</resource>
+        <resource name="ForumAdmin_AutoDeleteThreshold">Auto-Delete Time Window (in days)</resource>
+        <resource name="ForumAdmin_AutoDeleteThreshold_Detail">The number of days that a post must not be viewed within to be auto-deleted.</resource>
+        <resource name="ForumAdmin_MostRecentPostID">Most Recent Post ID</resource>
+        <resource name="ForumAdmin_MostRecentThreadID">Most Recent Thread ID</resource>
+        <resource name="ForumAdmin_MostRecentPostAuthor">Most Recent Post Author</resource>
+        <resource name="ForumAdmin_MostRecentPostAuthorID">Most Recent Post Author ID</resource>
+        <resource name="ForumAdmin_MostRecentPostDate">Most Recent Post Date</resource>
+        <resource name="ForumAdmin_PostsToModerate">Posts To Moderate</resource>
+        <resource name="ForumAdmin_ForumType">Forum Type</resource>
+        <resource name="ForumAdmin_IsSearchable">Index Posts</resource>
+        <resource name="ForumAdmin_IsSearchable_Detail">When enabled posts are indexed for searching</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ForumAdmin.ascx -->
+
+
+    <!-- START Skin-ForumPruningAdmin.ascx -->
+        <resource name="ForumPruning_Title">NEED DESCRIPTION for ForumPruning Title</resource>
+        <resource name="ForumPruning_SubTitle">NEED DESCRIPTION for ForumPruning SubTitle</resource>
+        <resource name="ForumPruning_AboutTitle">NEED DESCRIPTION for ForumPruning About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ForumPruningAdmin_ForumId">NEED DESCRIPTION for ForumId</resource>
+        <resource name="ForumPruningAdmin_IsActive">NEED DESCRIPTION for IsActive</resource>
+        <resource name="ForumPruningAdmin_PruneMessagesDaysOld">NEED DESCRIPTION for PruneMessagesDaysOld</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ForumPruningAdmin.ascx -->
+
+
+    <!-- START Skin-ForumPermissionAdmin.ascx -->
+        <resource name="ForumPermission_Title">Manage Forum Permissions</resource>
+        <resource name="ForumPermission_SubTitle">Configure individual forum permissions for a given role.</resource>
+        <resource name="ForumPermission_AboutTitle">Forum Permissions</resource>
+        <!-- Start of control fields -->
+        <resource name="ForumPermissionAdmin_Allow">Allow</resource>
+        <resource name="ForumPermissionAdmin_Deny">Deny</resource>
+        <resource name="ForumPermissionAdmin_NotSet">Not Set</resource>
+        <resource name="ForumPermissionAdmin_ForumID">Forum Name</resource>
+        <resource name="ForumPermissionAdmin_RoleID">Role Name</resource>
+        <resource name="ForumPermissionAdmin_View">View posts</resource>
+        <resource name="ForumPermissionAdmin_View_Description">Member in role can view list of posts</resource>
+        <resource name="ForumPermissionAdmin_Read">Read posts</resource>
+        <resource name="ForumPermissionAdmin_Read_Description">Member in role can read individual posts</resource>
+        <resource name="ForumPermissionAdmin_Post">Allow Posting</resource>
+        <resource name="ForumPermissionAdmin_Post_Description">Member in role can add new posts to this forum</resource>
+        <resource name="ForumPermissionAdmin_Reply">Reply to posts</resource>
+        <resource name="ForumPermissionAdmin_Reply_Description">Member in role can reply to posts</resource>
+        <resource name="ForumPermissionAdmin_Edit">Edit own posts</resource>
+        <resource name="ForumPermissionAdmin_Edit_Description">Member in role can edit their own posts</resource>
+        <resource name="ForumPermissionAdmin_Delete">Delete their own posts</resource>
+        <resource name="ForumPermissionAdmin_Delete_Description">Member in role can delete their own posts</resource>
+        <resource name="ForumPermissionAdmin_Sticky">Allow Sticky Posts</resource>
+        <resource name="ForumPermissionAdmin_Sticky_Description">Member in role can pin posts to the top of this forum's thread list</resource>
+        <resource name="ForumPermissionAdmin_Announce">Allow announcements</resource>
+        <resource name="ForumPermissionAdmin_Announce_Description">Member in role can flag posts as announcements</resource>
+        <resource name="ForumPermissionAdmin_CreatePoll">Create polls</resource>
+        <resource name="ForumPermissionAdmin_CreatePoll_Description">Member in role can create polls to be voted on</resource>
+        <resource name="ForumPermissionAdmin_Vote">Allow voting</resource>
+        <resource name="ForumPermissionAdmin_Vote_Description">Member in role can vote in existing polls</resource>
+        <resource name="ForumPermissionAdmin_Moderate">Moderate this forum</resource>
+        <resource name="ForumPermissionAdmin_Moderate_Description">Member in role can moderate this forum</resource>
+        <resource name="ForumPermissionAdmin_Attachment">Allow attachments</resource>
+        <resource name="ForumPermissionAdmin_Attachment_Description">Member in role can add attachments to posts in this forum</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ForumPermissionAdmin.ascx -->
+
+
+    <!-- START Skin-MassEmailingAdmin.ascx -->
+        <resource name="MassEmailing_Title">Manage Mass E-Mails</resource>
+        <resource name="MassEmailing_SubTitle">Sends an e-mail to all members.</resource>
+        <resource name="MassEmailing_AboutTitle">Mass E-Mailing</resource>
+        <!-- Start of control fields -->
+        <resource name="MassEmailing_Recipients">Recipient(s)</resource>
+        <resource name="MassEmailing_Subject">Subject</resource>
+        <resource name="MassEmailing_Message">Message</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-MassEmailingAdmin.ascx -->
+
+
+    <!-- START Skin-SmileyAdmin.ascx -->
+        <resource name="Smiley_Title">Manage Smilies</resource>
+        <resource name="Smiley_SubTitle">Create and/or edit smilies (emoticons) that can be displayed in posts.</resource>
+        <resource name="Smiley_AboutTitle">Manage Smilies</resource>
+        <!-- Start of control fields -->
+        <resource name="Smiley_Code">Code</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-SmileyAdmin.ascx -->
+
+
+    <!-- START Skin-CensorshipAdmin.ascx -->
+        <resource name="Censorship_Title">Manage Censorship</resource>
+        <resource name="Censorship_SubTitle">Create and/or edit replacement words for inappropriate words or phrases posted to the forums.</resource>
+        <resource name="Censorship_AboutTitle">Manage Censorship</resource>
+        <!-- Start of control fields -->
+        <resource name="Censorship_Word">Bad Word</resource>
+        <resource name="Censorship_Replacement">Replacement Token</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-CensorshipAdmin.ascx -->
+
+
+    <!-- START Skin-NameAdmin.ascx -->
+        <resource name="Name_Title">NEED DESCRIPTION for Name Title</resource>
+        <resource name="Name_SubTitle">NEED DESCRIPTION for Name SubTitle</resource>
+        <resource name="Name_AboutTitle">NEED DESCRIPTION for Name About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="NameAdmin_DisallowedName">NEED DESCRIPTION for DisallowedName</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-NameAdmin.ascx -->
+
+
+    <!-- START Skin-ReportAdmin.ascx -->
+        <resource name="Report_Title">NEED DESCRIPTION for Report Title</resource>
+        <resource name="Report_SubTitle">NEED DESCRIPTION for Report SubTitle</resource>
+        <resource name="Report_AboutTitle">NEED DESCRIPTION for Report About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ReportAdmin_ReportId">NEED DESCRIPTION for ReportId</resource>
+        <resource name="ReportAdmin_ReportName">NEED DESCRIPTION for ReportName</resource>
+        <resource name="ReportAdmin_Active">NEED DESCRIPTION for Active</resource>
+        <resource name="ReportAdmin_ReportCommand">NEED DESCRIPTION for ReportCommand</resource>
+        <resource name="ReportAdmin_ReportScript">NEED DESCRIPTION for ReportScript</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ReportAdmin.ascx -->
+
+
+    <!-- START Skin-RoleAdmin.ascx -->
+        <resource name="Role_Title">Manage Roles</resource>
+        <resource name="Role_SubTitle">Create and/or edit roles which control what permissions a user has within a given forum.</resource>
+        <resource name="Role_AboutTitle">Role Administration</resource>
+    		<resource name="DeleteRole_PopupConfirmation">Are you sure you want to delete this role?</resource>        
+    <!-- END Skin-RoleAdmin.ascx -->
+
+
+    <!-- START Skin-StyleAdmin.ascx -->
+        <resource name="Style_Title">Style Administration</resource>
+        <resource name="Style_SubTitle">Created new or edit an existing style used by the forums.</resource>
+        <resource name="Style_AboutTitle">Style Attribute</resource>
+        <!-- Start of control fields -->
+        <resource name="StyleAdmin_StyleId">Style Id</resource>
+        <resource name="StyleAdmin_StyleName">Style Name</resource>
+        <resource name="StyleAdmin_StyleSheetTemplate">Style Sheet Template</resource>
+        <resource name="StyleAdmin_BodyBackgroundColor">Body Background Color</resource>
+        <resource name="StyleAdmin_BodyTextColor">Body Text Color</resource>
+        <resource name="StyleAdmin_LinkVisited">Link Visited Color</resource>
+        <resource name="StyleAdmin_LinkHover">Link Hover Color</resource>
+        <resource name="StyleAdmin_LinkActive">Link Active Color</resource>
+        <resource name="StyleAdmin_RowColorPrimary">Primary row color</resource>
+        <resource name="StyleAdmin_RowColorSecondary">Secondary row color</resource>
+        <resource name="StyleAdmin_RowColorTertiary">Tertiary row color</resource>
+        <resource name="StyleAdmin_RowClassPrimary">Primary row class name</resource>
+        <resource name="StyleAdmin_RowClassSecondary">Secondary row class name</resource>
+        <resource name="StyleAdmin_RowClassTertiary">Tertiary row class name</resource>
+        <resource name="StyleAdmin_HeaderColorPrimary">Primary header cell color</resource>
+        <resource name="StyleAdmin_HeaderColorSecondary">Secondary header cell color</resource>
+        <resource name="StyleAdmin_HeaderColorTertiary">Tertiary header cell color</resource>
+        <resource name="StyleAdmin_HeaderStylePrimary">Header cell primary style name</resource>
+        <resource name="StyleAdmin_HeaderStyleSecondary">Header cell secondary style name</resource>
+        <resource name="StyleAdmin_HeaderStyleTertiary">Header cell tertiary style name</resource>
+        <resource name="StyleAdmin_CellColorPrimary">Cell primary color</resource>
+        <resource name="StyleAdmin_CellColorSecondary">Cell secondary color</resource>
+        <resource name="StyleAdmin_CellColorTertiary">Cell tertiary color</resource>
+        <resource name="StyleAdmin_CellClassPrimary">Cell primary class name</resource>
+        <resource name="StyleAdmin_CellClassSecondary">Cell secondary class name</resource>
+        <resource name="StyleAdmin_CellClassTertiary">Cell tertiary class name</resource>
+        <resource name="StyleAdmin_FontFacePrimary">Font primary face </resource>
+        <resource name="StyleAdmin_FontFaceSecondary">Font secondary face</resource>
+        <resource name="StyleAdmin_FontFaceTertiary">Font tertiary face</resource>
+        <resource name="StyleAdmin_FontSizePrimary">Font primary size</resource>
+        <resource name="StyleAdmin_FontSizeSecondary">Font secondary size</resource>
+        <resource name="StyleAdmin_FontSizeTertiary">Font tertiary size</resource>
+        <resource name="StyleAdmin_FontColorPrimary">Font primary color</resource>
+        <resource name="StyleAdmin_FontColorSecondary">Font secondary color</resource>
+        <resource name="StyleAdmin_FontColorTertiary">Font tertiary color</resource>
+        <resource name="StyleAdmin_SpanClassPrimary">Span primary class name</resource>
+        <resource name="StyleAdmin_SpanClassSecondary">Span secondary class name</resource>
+        <resource name="StyleAdmin_SpanClassTertiary">Span tertiary class name</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-StyleAdmin.ascx -->
+
+
+    <!-- START Skin-ServiceAdmin.ascx -->
+        <resource name="Service_Title">NEED DESCRIPTION for Service Title</resource>
+        <resource name="Service_SubTitle">NEED DESCRIPTION for Service SubTitle</resource>
+        <resource name="Service_AboutTitle">NEED DESCRIPTION for Service About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ServiceAdmin_ServiceId">NEED DESCRIPTION for ServiceId</resource>
+        <resource name="ServiceAdmin_ServiceName">NEED DESCRIPTION for ServiceName</resource>
+        <resource name="ServiceAdmin_ServiceTypeCode">NEED DESCRIPTION for ServiceTypeCode</resource>
+        <resource name="ServiceAdmin_ServiceAssemblyPath">NEED DESCRIPTION for ServiceAssemblyPath</resource>
+        <resource name="ServiceAdmin_ServiceFullClassName">NEED DESCRIPTION for ServiceFullClassName</resource>
+        <resource name="ServiceAdmin_ServiceWorkingDirectory">NEED DESCRIPTION for ServiceWorkingDirectory</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ServiceAdmin.ascx -->
+
+
+    <!-- START Skin-ServiceScheduleAdmin.ascx -->
+        <resource name="ServiceSchedule_Title">NEED DESCRIPTION for ServiceSchedule Title</resource>
+        <resource name="ServiceSchedule_SubTitle">NEED DESCRIPTION for ServiceSchedule SubTitle</resource>
+        <resource name="ServiceSchedule_AboutTitle">NEED DESCRIPTION for ServiceSchedule About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ServiceScheduleAdmin_ServiceId">NEED DESCRIPTION for ServiceId</resource>
+        <resource name="ServiceScheduleAdmin_ScheduleName">NEED DESCRIPTION for ScheduleName</resource>
+        <resource name="ServiceScheduleAdmin_MachineName">NEED DESCRIPTION for MachineName</resource>
+        <resource name="ServiceScheduleAdmin_StartDate">NEED DESCRIPTION for StartDate</resource>
+        <resource name="ServiceScheduleAdmin_EndDate">NEED DESCRIPTION for EndDate</resource>
+        <resource name="ServiceScheduleAdmin_ServiceParameters">NEED DESCRIPTION for ServiceParameters</resource>
+        <resource name="ServiceScheduleAdmin_ScheduleTypeCode">NEED DESCRIPTION for ScheduleTypeCode</resource>
+        <resource name="ServiceScheduleAdmin_RunTimeHour">NEED DESCRIPTION for RunTimeHour</resource>
+        <resource name="ServiceScheduleAdmin_RunTimeMinute">NEED DESCRIPTION for RunTimeMinute</resource>
+        <resource name="ServiceScheduleAdmin_DelayHour">NEED DESCRIPTION for DelayHour</resource>
+        <resource name="ServiceScheduleAdmin_DelayMinute">NEED DESCRIPTION for DelayMinute</resource>
+        <resource name="ServiceScheduleAdmin_RunDaily">NEED DESCRIPTION for RunDaily</resource>
+        <resource name="ServiceScheduleAdmin_RunWeekly">NEED DESCRIPTION for RunWeekly</resource>
+        <resource name="ServiceScheduleAdmin_RunMonthly">NEED DESCRIPTION for RunMonthly</resource>
+        <resource name="ServiceScheduleAdmin_RunYearly">NEED DESCRIPTION for RunYearly</resource>
+        <resource name="ServiceScheduleAdmin_RunOnce">NEED DESCRIPTION for RunOnce</resource>
+        <resource name="ServiceScheduleAdmin_LastRunTime">NEED DESCRIPTION for LastRunTime</resource>
+        <resource name="ServiceScheduleAdmin_NextRunTime">NEED DESCRIPTION for NextRunTime</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ServiceScheduleAdmin.ascx -->
+
+
+    <!-- START Skin-ManageMember.ascx -->
+        <resource name="UserAdmin_Title">Member Administration</resource>
+        <resource name="UserAdmin_Description">User: {0}</resource>
+        <resource name="User_AboutTitle">Member Administration</resource>
+        <!-- Start of control fields -->
+        <resource name="UserAdmin_UserID">Unique user identifier</resource>
+        <resource name="UserAdmin_UserName">Chosen user name</resource>
+        <resource name="UserAdmin_Password">Password</resource>
+        <resource name="UserAdmin_Roles">Roles</resource>
+        <resource name="UserAdmin_PasswordReset">Reset/Change</resource>
+        <resource name="UserAdmin_PasswordFormat">Password stored as:</resource>
+        <resource name="UserAdmin_RolesAddRemove">Add/Remove</resource>
+        <resource name="UserAdmin_Email">Registered email address</resource>
+        <resource name="UserAdmin_DateCreated">Date account created</resource>
+        <resource name="UserAdmin_LastLogin">Date user last logged in</resource>
+        <resource name="UserAdmin_LastActivity">Date of last user activity</resource>
+        <resource name="UserAdmin_IsApproved">Is the user approved?</resource>
+        <resource name="UserAdmin_IsAnonymous">Is the user an anonymous user?</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ManageMember.ascx -->
+
+
+    <!-- START Skin-UserRoleAdmin.ascx -->
+        <resource name="UserRole_Title">User Role Management</resource>
+        <resource name="UserRole_SubTitle">Add and remove roles to a specific user.</resource>
+        <resource name="UserRole_AboutTitle">Manage User Roles</resource>
+        <!-- Start of control fields -->
+        <resource name="UserRoleAdmin_UserName">User Name</resource>
+        <resource name="UserRoleAdmin_RoleID">NEED DESCRIPTION for RoleID</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-UserRoleAdmin.ascx -->
+
+    <!-- Start Manage Ranks -->
+		<resource name="Rank_Title">Manage Ranks</resource>
+		<resource name="Rank_SubTitle">Create and/or edit ranks which are used to denote how active a user is within the forum.</resource>
+        <!-- Start of control fields -->
+        <resource name="Rank_MinPosts">Min Posts</resource>
+        <resource name="Rank_MaxPosts">Max Posts</resource>
+        <resource name="Rank_IconUrl">Icon URL</resource>
+    <!-- End Manage Ranks -->
+
+    <!-- Start View-WhoIsOnline.ascx -->
+        <resource name="WhoIsOnlineView_Title">Who Is Online</resource>
+        <resource name="WhoIsOnlineView_Description">Active Users currently on the Forums</resource>
+		<resource name = "WhoIsOnlineView_GuestUsers">There are {0} guest(s) online</resource>
+		<resource name = "WhoIsOnlineView_UsersOnlineCount">There are {0} of {1} member(s) online</resource>
+		<resource name = "WhoIsOnlineView_List_Username">Username</resource>
+		<resource name = "WhoIsOnlineView_List_LastUpdated">Last Updated</resource>
+		<resource name = "WhoIsOnlineView_List_ForumLocation">Forum Location</resource>		
+    <!-- End View-WhoIsOnline.ascx -->
+
+    <!-- Start View-ThreadRatingSummary.ascx -->
+        <resource name="ThreadRatingSummary_RatedBy">Rated By</resource>
+        <resource name="ThreadRatingSummary_Rating">Rating</resource>
+    <!-- End View-ThreadRatingSummary.ascx -->
+
+    <!-- Start View-UserProfile.ascx -->
+	<resource name = "ViewUserProfile_Title">User Profile</resource>
+	<resource name = "ViewUserProfile_Description">Viewing user profile for {0}</resource>
+	<resource name = "ViewUserProfile_About">About</resource>
+	<resource name = "ViewUserProfile_Joined">Joined</resource>
+	<resource name = "ViewUserProfile_JoinedDescription">Date joined the forums.</resource>
+	<resource name = "ViewUserProfile_LastLogin">Last login</resource>
+	<resource name = "ViewUserProfile_LastLoginDescription">Date last logged in.</resource>
+	<resource name = "ViewUserProfile_LastVisit">Last visited</resource>
+	<resource name = "ViewUserProfile_LastVisitDescription">Date last visited the forums.</resource>
+	<resource name = "ViewUserProfile_Timezone">Timezone</resource>
+	<resource name = "ViewUserProfile_TimezoneDescription">The timezone the user resides within.</resource>
+	<resource name = "ViewUserProfile_Location">Location</resource>
+	<resource name = "ViewUserProfile_Occupation">Occupation</resource>
+	<resource name = "ViewUserProfile_Interests">Interests</resource>
+	<resource name = "ViewUserProfile_WebAddress">Website</resource>
+	<resource name = "ViewUserProfile_BlogAddress">weblog</resource>
+	<resource name = "ViewUserProfile_AvatarPostSignature">Avatar and Post signature</resource>
+	<resource name = "ViewUserProfile_Avatar">Avatar</resource>
+	<resource name = "ViewUserProfile_Theme">Theme</resource>
+	<resource name = "ViewUserProfile_Signature">Signature</resource>
+	<resource name = "ViewUserProfile_Contact">Contact Information</resource>
+	<resource name = "ViewUserProfile_Email">Email</resource>
+	<resource name = "ViewUserProfile_MsnIm">MSN Instant Messenger</resource>
+	<resource name = "ViewUserProfile_AolIm">AOL Instant Messenger</resource>
+	<resource name = "ViewUserProfile_YahooIm">Yahoo Instant Messenger</resource>
+	<resource name = "ViewUserProfile_IcqIm">ICQ Instant Messenger</resource>
+	<resource name = "ViewUserProfile_PostStats">Post statistics, rank, and history</resource>
+	<resource name = "ViewUserProfile_TotalPosts">Total Posts</resource>
+	<resource name = "ViewUserProfile_PostRank">Post Rank</resource>
+
+    <!-- End View-UserProfile.ascx -->
+
+
+    <!-- Start faq.ascx -->
+        <resource name="Faq_Title">ASP.NET Forums FAQ</resource>
+        <resource name="Faq_Description">Frequently Asked Questions</resource>
+    <!-- End faq.ascx -->
+
+    <!-- Start Skin-ForgottenPassword.ascx -->
+        <resource name="ForgottenPassword_Title">Change your forgotten password</resource>
+        <resource name="ForgottenPassword_Instructions">Enter the email address used to originally create your forums account -- your password will be mailed to this email address. Once you receive your password you can use it to login.</resource>
+        <resource name="ForgottenPassword_RequiredField">Email Address is required.</resource>
+        <resource name="ForgottenPassword_InvalidEmailAddress">Invalid Email Address.</resource>
+        <resource name="ForgottenPassword_SendButton">Send Password</resource>
+        <resource name="ForgottenPassword_NextButton">Continue</resource>
+        <resource name="ForgottenPassword_EmailAddress">Email Address: </resource>
+        <resource name="ForgottenPassword_EmailNotFound">Email Address not found.</resource>
+        <resource name="ForgottenPassword_SecretQuestion">Secret Question:</resource>
+        <resource name="ForgottenPassword_SecretAnswer">Secret Answer:</resource>
+        <resource name="ForgottenPassword_SecretAnswerRequired">Secret Answer is required.</resource>
+        <resource name="ForgottenPassword_InvalidSecretAnswer">Invalid Secret Answer.</resource>
+        <resource name="ForgottenPassword_NewPassword">New Password:</resource>
+        <resource name="ForgottenPassword_RetypePassword">Retype New Password:</resource>
+        <resource name="ForgottenPassword_PasswordRequired">Password is required.</resource>
+        <resource name="ForgottenPassword_WrongPassword">Password doesn't match.</resource>
+        
+        <resource name="ForgottenPassword_Failed">Failed to update/send - no changes made.</resource>
+    <!-- End Skin-ForgottenPassword.ascx -->
+
+    <!-- Start Skin-ChangePassword.ascx -->
+        <resource name="ChangePassword_Title">Change Password</resource>
+        <resource name="ChangePassword_Instructions">Use this form to change your password. Once changed, your new password will be in effect next time you login.</resource>
+        <resource name="ChangePassword_CurrentPassword">Current Password:</resource>
+        <resource name="ChangePassword_CurrentPasswordRequired">You must supply your current password.</resource>
+        <resource name="ChangePassword_NewPassword">New Password:</resource>
+        <resource name="ChangePassword_ReEnterNewPassword">Re-enter New Password:</resource>
+        <resource name="ChangePassword_NewPasswordRequired">You must enter a new password.</resource>
+        <resource name="ChangePassword_ReEnterNewPasswordRequired">You must re-enter the new password.</resource>
+        <resource name="ChangePassword_ReEnterNewPasswordInvalid">Passwords do not match!</resource>
+        <resource name="ChangePassword_ChangePassword">Change Password</resource>
+    <!-- End Skin-ChangePassword.ascx -->
+
+    <!-- Start Skin-ChangePasswordAnswer.ascx -->
+        <resource name="ChangePasswordAnswer_Title">Change Secret Answer</resource>
+        <resource name="ChangePasswordAnswer_Instructions">Use this form to change your secret answer. Once changed, your new secret answer might be used to recover forgotten password.</resource>
+        <resource name="ChangePasswordAnswer_CurrentQuestion">Current Question:</resource>
+        <resource name="ChangePasswordAnswer_CurrentAnswer">Current Answer:</resource>
+        <resource name="ChangePasswordAnswer_CurrentAnswerRequired">You must supply your current secret answer.</resource>
+        <resource name="ChangePasswordAnswer_NewQuestion">New Question:</resource>
+        <resource name="ChangePasswordAnswer_NewAnswer">New Answer:</resource>
+        <resource name="ChangePasswordAnswer_ReEnterNewAnswer">Re-enter New Answer:</resource>
+        <resource name="ChangePasswordAnswer_NewAnswerRequired">You must enter a new answer.</resource>
+        <resource name="ChangePasswordAnswer_RegExInvalidAnswer">Secret Answer is invalid.</resource>
+        <resource name="ChangePasswordAnswer_RegExInvalidAnswer1">New Answer is invalid.</resource>
+        <resource name="ChangePasswordAnswer_ReEnterAnswerRequired">You must re-enter the new answer.</resource>
+        <resource name="ChangePasswordAnswer_ReEnterNewAnswerRequired">Secret Answer do not match!</resource>
+        <resource name="ChangePasswordAnswer_ChangeAnswer">Change Answer</resource>
+        <resource name="ChangePasswordAnswer_NotAvailable">NA. (Please leave Current Answer empty!)</resource>        
+    <!-- End Skin-ChangePasswordAnswer.ascx -->
+
+    <!-- Start Url Reverse Lookup -->
+        <resource name="ReverseLookupUrl_Viewing">Viewing {0}</resource>
+    <!-- End Url Reverse Lookup -->
+
+    <!-- Start Alpha Picker -->
+        <resource name="AlphaPicker_Spacer"></resource>
+        <resource name="AlphaPicker_All">All</resource>
+    <!-- End Alpha Picker -->
+
+    <!-- Start Members Sort Drop Down List -->
+        <resource name="MemberSortDropDownList_DateLastActive">Date Last Active</resource>
+        <resource name="MemberSortDropDownList_DateJoined">Date Joined</resource>
+        <resource name="MemberSortDropDownList_NumPosts"># of Posts</resource>
+        <resource name="MemberSortDropDownList_Username">Username</resource>
+    <!-- End Members Sort Drop Down List -->
+
+    <!-- Start Threads Sort Drop Down List -->
+        <resource name="ThreadSortDropDownList_LastPost">Last Post Date</resource>
+        <resource name="ThreadSortDropDownList_Views">Total Views</resource>
+        <resource name="ThreadSortDropDownList_StartedBy">Thread Author</resource>
+        <resource name="ThreadSortDropDownList_Replies">Total Replies</resource>
+        <resource name="ThreadSortDropDownList_Ratings">Total Ratings</resource>
+    <!-- End Threads Sort Drop Down List -->
+
+    <!-- Start Sort Order Drop Down List -->
+        <resource name="SortOrderDropDownList_Asc">Ascending</resource>
+        <resource name="SortOrderDropDownList_Desc">Descending</resource>
+    <!-- End Sort Order Drop Down List -->
+
+    <!-- Start User Image Buttons -->
+        <resource name="UserImageButtons_HomePage">Visit {0}'s homepage</resource>
+        <resource name="UserImageButtons_WebLog">Visit {0}'s weblog</resource>
+        <resource name="UserImageButtons_SearchFor">Search for posts by {0}</resource>
+        <resource name="UserImageButtons_Email">Send email to {0}</resource>
+        <resource name="UserImageButtons_PrivateMessage">Send private message to {0}</resource>
+    <!-- Start User Image Buttons -->
+
+    <!-- Admin Common Terms -->
+        <resource name="Admin_CommonTerms_Manage">Manage</resource>
+        <resource name="Admin_CommonTerms_Home">Admin Home</resource>
+        <resource name="Admin_CommonTerms_Options">Configuration Options</resource>
+        <resource name="Admin_CommonTerms_Configuration">Configuration</resource>
+        <resource name="Admin_CommonTerms_Administration">Administration</resource>
+        <resource name="Admin_CommonTerms_Moderation">Moderation</resource>
+        <resource name="Admin_CommonTerms_Permissions">Permissions</resource>
+        <resource name="Admin_CommonTerms_Pruning">Pruning</resource>
+        <resource name="Admin_CommonTerms_Forums">Forums</resource>
+        <resource name="Admin_CommonTerms_Smilies">Smilies</resource>
+        <resource name="Admin_CommonTerms_Reports">Reports</resource>
+        <resource name="Admin_CommonTerms_Members">Members</resource>
+        <resource name="Admin_CommonTerms_Roles">Roles</resource>
+        <resource name="Admin_CommonTerms_Ranks">Ranks</resource>
+		<resource name="Admin_CommonTerms_WordCensors">Word Censors</resource>        
+		<resource name="Admin_CommonTerms_DisallowNames">Disallow Names</resource>
+		<resource name="Admin_CommonTerms_BanControl">Ban Control</resource>
+		<resource name="Admin_CommonTerms_Run">Run</resource>
+		<resource name="Admin_CommonTerms_MassEmail">Mass Email</resource>
+		<resource name="Admin_CommonTerms_PreviewForums">Preview Forums</resource>
+    <!-- End Admin Common Terms -->
+
+	<!-- Start Built In Reports -->
+		<resource name="Admin_BuiltInReports">Built-in Reports</resource>
+		<resource name="Admin_BuiltInReports_Exceptions">Forum Exceptions</resource>
+	<!-- End Built In Reports -->
+    <!-- Moderation Common Terms -->
+
+        <resource name="Moderation_CommonTerms_Home">Moderation Home</resource>
+        <resource name="Moderate_PostsToModerateTitle">Posts awaiting moderation</resource>
+        <resource name="Moderate_PostsToModerateDescription">Forum: {0}</resource>
+    <!-- End Moderation Common Terms -->
+
+    <!-- User Admin -->
+		<resource name = "UserAdmin_UserID">Unique User ID</resource>
+		<resource name = "UserAdmin_AccountStatus">Account Status</resource>
+		<resource name = "UserAdmin_IsAnonymous">Is Anonymous</resource>
+		<resource name = "UserAdmin_IsAvatarApproved">Is Avatar Approved</resource>
+		<resource name = "UserAdmin_ForceLogin">Force Login on next visit</resource>
+		<resource name = "UserAdmin_ModerationLevel">Post Moderation:</resource>
+
+    <!-- End User Admin -->
+
+    <!-- Admin Member Configuration -->
+		<resource name = "Admin_Member_Configuration">Member Configuration</resource>
+		<resource name = "Admin_Member_Description">Configure Member Registration and other settings</resource>
+    <!-- End Admin Member Configuration -->
+
+    <!-- Moderation Levels -->
+		<resource name = "ModerationLevel_Unmoderated">User is not Moderated</resource>
+		<resource name = "ModerationLevel_AutoUnmoderate">User automatically Unmoderated after {0} approved posts</resource>
+		<resource name = "ModerationLevel_Moderated">User is Moderated</resource>
+		<resource name = "ModerationLevel_CannotBeUnmoderated">User cannot be Unmoderated</resource>
+		<resource name = "ModerationLevel_RequireGlobalModeratorApproval">User post approval by Global Moderator Only</resource>
+		<resource name = "ModerationLevel_RequireAdminApproval">User post approval by Administrators Only</resource>
+    <!-- End Moderation Levels -->
+
+    <!-- Account Status -->
+		<resource name = "AccountStatus_Approved">Approved</resource>
+		<resource name = "AccountStatus_ApprovalPending">Pending Approval</resource>
+		<resource name = "AccountStatus_Banned">Banned</resource>
+		<resource name = "AccountStatus_Disapproved">Disapproved</resource>
+    <!-- End Account Status -->
+
+    <!-- Post Rating -->
+		<resource name = "PostRating_Zero">Terrible</resource>
+		<resource name = "PostRating_One">Poor</resource>
+		<resource name = "PostRating_Two">Fair</resource>
+		<resource name = "PostRating_Three">Average</resource>
+		<resource name = "PostRating_Four">Good</resource>
+		<resource name = "PostRating_Five">Excellent</resource>
+		<resource name = "PostRating_Rate">Rate this topic: </resource>
+		<resource name = "PostRating_RateButton">Go!</resource>
+		<resource name = "PostRating_AltText">Rated {0} [{1} out of 5 / rated {2} time(s)].</resource>
+		<resource name = "Rating_AltText">Rated {0} [{1} out of 5].</resource>
+		<resource name = "Rating_ShowThread">Goto Post</resource>
+    <!-- End Post Rating -->
+
+    <!-- Bread Crumb -->
+		<resource name = "BreadCrumb_Seperator"> » </resource>
+		<resource name = "BreadCrumb_Moderation">Moderation</resource>
+		<resource name = "BreadCrumb_UserProfile">Viewing Profile: {0}</resource>
+		<resource name = "BreadCrumb_EditUserProfile">Edit Profile</resource>
+		<resource name = "BreadCrumb_Search">Search</resource>
+    <!-- End Bread Crumb -->
+
+    <!-- Locations -->
+		<resource name = "Location_NotFound">Unable to display user location</resource>
+		<resource name = "Location_ActiveTopics">Viewing Active Topics</resource>
+		<resource name = "Location_UnansweredTopics">Viewing Unanswered Topics</resource>
+		<resource name = "Location_Hidden">Unable to display user location</resource>
+		<resource name = "Location_Home">Forum Home</resource>
+		<resource name = "Location_Login">Logging in...</resource>
+		<resource name = "Location_Logout">Logging out...</resource>
+		<resource name = "Location_Faq">Reading forum F.A.Q.</resource>
+		<resource name = "Location_MemberList">Viewing forum members</resource>
+		<resource name = "Location_MemberProfile">Viewing User: {0}</resource>
+		<resource name = "Location_WhoIsOnline">Viewing who is online</resource>
+		<resource name = "Location_PostView">Reading: {0}</resource>
+		<resource name = "Location_PostReply">Replying to: {0}</resource>
+		<resource name = "Location_ForumGroup">Viewing Forum Group: {0}</resource>
+		<resource name = "Location_Forum">Viewing Forum: {0}</resource>
+		<resource name = "Location_PostNew">Posting a new topic in Forum: {0}</resource>
+		<resource name = "Location_Administration">Return to the Administration page</resource>
+    <!-- End Locations -->
+    
+    <!-- Forum Group Admin -->
+        <resource name="ForumGroupAdmin_Title">Manage Forum Group Settings</resource>
+        <resource name="ForumGroupAdmin_Description">Configure individual forum group settings.</resource>
+        <resource name="ForumGroupAdmin_AboutTitle">Forum Group Settings</resource>
+        <!-- Start of Control Fields -->
+        <resource name="ForumGroupAdmin_ForumGroupId">Forum Id</resource>
+        <resource name="ForumGroupAdmin_ForumGroupName">Forum Group Name</resource>
+        <!-- End of Control Fields -->
+    <!-- End Forum Group Admin -->
+    
+    <!-- Start Site Settins Admin -->
+        <resource name="Admin_SiteSettings_SubTitle">These settings allow you to control various options for the forums.</resource>
+		<resource name="Admin_SiteSettings_ManageDomain">Manage Domain</resource>
+		<resource name="Admin_SiteSettings_ManageDomain_Application">Application</resource>
+		<resource name="Admin_SiteSettings_ManageDomain_Application_Descr">Choose the application you wish to administer.</resource>
+		<resource name="Admin_SiteSettings_DisableForum">Disable Forum</resource>
+		<resource name="Admin_SiteSettings_DisableForum_Descr">When disabled only administrators and localhost requests are able to access the forums. A general 'forums' disabled message is displayed.</resource>
+		<resource name="Admin_SiteSettings_Title">General Settings</resource>
+		<resource name="Admin_SiteSettings_Name">Site Name</resource>
+		<resource name="Admin_SiteSettings_Name_Descr">The name of your forums application. Used in the display of your site.</resource>
+		<resource name="Admin_SiteSettings_Description">Site Description</resource>
+		<resource name="Admin_SiteSettings_Description_Descr">Enter a brief description to describe your forums.</resource>
+		<resource name="Admin_SiteSettings_TimeZone">Time Zone</resource>
+		<resource name="Admin_SiteSettings_TimeZone_Descr">Time zone that the forums database server is set to.</resource>
+		<resource name="Admin_SiteSettings_ThreadsPerPage">Threads/Page</resource>
+		<resource name="Admin_SiteSettings_ThreadsPerPage_Descr">The number of threads to display on each web page.</resource>
+		<resource name="Admin_SiteSettings_PostPerPage">Post/Page</resource>
+		<resource name="Admin_SiteSettings_PostPerPage_Descr">The number of posts to display on each web page</resource>
+		<resource name="Admin_SiteSettings_Attachments">Post Attachments</resource>
+		<resource name="Admin_SiteSettings_Attachments_Allow">Enable Attachments</resource>
+		<resource name="Admin_SiteSettings_Attachments_Allow_Desc">Enable users to attach files when posting.</resource>
+		<resource name="Admin_SiteSettings_Attachments_Types">Allow File Extension Types</resource>
+		<resource name="Admin_SiteSettings_Attachments_Types_Desc">These are the file types that are allowed to be uploaded. Separate multiple types with a semi-colon (gif;jpg;png).</resource>		
+		<resource name="Admin_SiteSettings_Attachments_MaxSize">Max File Size (In Kilobytes)</resource>
+		<resource name="Admin_SiteSettings_Attachments_MaxSize_Desc">The maximum file size allowed to be uploaded. (Set to 0 to disable size checking). </resource>				
+		<resource name="Admin_SiteSettings_Contact">Contact</resource>
+		<resource name="Admin_SiteSettings_Contact_AdminEmail">Admin Email Address</resource>
+		<resource name="Admin_SiteSettings_Contact_AdminEmail_Descr">Email address of the forums administrator.</resource>
+		<resource name="Admin_SiteSettings_Contact_InvalidEmail">Invalid email address.</resource>
+		<resource name="Admin_SiteSettings_Contact_CompanyName">Company/Organization Name</resource>
+		<resource name="Admin_SiteSettings_Contact_CompanyName_Descr">Name of your company (required for COPPA).</resource>
+		<resource name="Admin_SiteSettings_Contact_Company_Email">Company/Organization Email Address</resource>
+		<resource name="Admin_SiteSettings_Contact_Company_Email_Descr">Used in the 'contact us' section of the footer.</resource>
+		<resource name="Admin_SiteSettings_Contact_Fax">Company/Organization Fax Number</resource>
+		<resource name="Admin_SiteSettings_Contact_Fax_Descr">Enter the fax number where COPPA forms (if necessary) can be faxed to.</resource>
+		<resource name="Admin_SiteSettings_Contact_Address">Company/Organization Address</resource>
+		<resource name="Admin_SiteSettings_Contact_Address_Descr">Enter the address where COPPA forms (if necessary) can be mailed to.</resource>
+		<resource name="Admin_SiteSettings_Menu">Home Page Menus &amp; Sections</resource>
+		<resource name="Admin_SiteSettings_Menu_Forum">Display Forum Description</resource>
+		<resource name="Admin_SiteSettings_Menu_Forum_Descr">Displays the description for the forums.</resource>
+		<resource name="Admin_SiteSettings_Menu_Birthdays">Display Today's Birthdays</resource>
+		<resource name="Admin_SiteSettings_Menu_Birthdays_Descr">Displays members who have birthdays today.</resource>
+		<resource name="Admin_SiteSettings_Menu_CurrentTime">Display Current Time</resource>
+		<resource name="Admin_SiteSettings_Menu_CurrentTime_Descr">Displays the current (localized to the user) time on the home page.</resource>
+		<resource name="Admin_SiteSettings_Menu_WhosOnline">Display Who is Online</resource>
+		<resource name="Admin_SiteSettings_Menu_WhosOnline_Descr">Displays the 'Who Is Online' section on the home page.</resource>
+		<resource name="Admin_SiteSettings_Menu_Statistics">Display Site Statistics</resource>
+		<resource name="Admin_SiteSettings_Menu_Statistics_Descr">Displays the 'Site Statistics' section on the home page.</resource>
+		<resource name="Admin_SiteSettings_RSS">RSS Options</resource>
+		<resource name="Admin_SiteSettings_RSS_Feeds">Enable RSS Feeds for public forums</resource>
+		<resource name="Admin_SiteSettings_RSS_Feeds_Descr">Forums will generate RSS feeds for all public forums.</resource>
+		<resource name="Admin_SiteSettings_RSS_Threads">Default Threads/Feed</resource>
+		<resource name="Admin_SiteSettings_RSS_Threads_Descr">Default number of threads displayed per/feed</resource>
+		<resource name="Admin_SiteSettings_RSS_MaxThreads">Max Threads/Feed</resource>
+		<resource name="Admin_SiteSettings_RSS_MaxThreads_Descr">Maximum number of threads displayed per/feed</resource>
+		<resource name="Admin_SiteSettings_RSS_Cache">Cache Window (In Minutes)</resource>
+		<resource name="Admin_SiteSettings_RSS_Cache_Descr">How long a feed is cached for.</resource>
+		<resource name="Admin_SiteSettings_List">Member list and top posters</resource>
+		<resource name="Admin_SiteSettings_List_Display">Display Member List</resource>
+		<resource name="Admin_SiteSettings_List_Display_Descr">The member list link is removed from the navigation menu.</resource>
+		<resource name="Admin_SiteSettings_List_Searching">Enable Advanced Member Searching</resource>
+		<resource name="Admin_SiteSettings_List_Searching_Descr">Allow users to use symbols for more complex member searches.</resource>
+		<resource name="Admin_SiteSettings_List_MembersPerPage">Members per Page</resource>
+		<resource name="Admin_SiteSettings_List_MembersPerPage_Descr">Number of site members to display per page when viewing the member list.</resource>
+		<resource name="Admin_SiteSettings_List_TopPosters">Number of Top Posters</resource>
+		<resource name="Admin_SiteSettings_List_TopPosters_Descr">Number of top posters to display in the site statistics (max is 100 / min is 1).</resource>
+		<resource name="Admin_SiteSettings_Posting">User Posting</resource>
+		<resource name="Admin_SiteSettings_Posting_Dups">Allow Duplicate Posts</resource>
+		<resource name="Admin_SiteSettings_Posting_Dups_Descr">Allow posts from the same user with duplicate contents from a previous post.</resource>
+		<resource name="Admin_SiteSettings_Posting_DupsInterval">Duplicate Post Interval (In Seconds)</resource>
+		<resource name="Admin_SiteSettings_Posting_DupsInterval_Descr">When duplicate posts are not allowed, duplicates are not allowed in this interval. Set to 0 to allow no duplicates ever.</resource>
+		<resource name="Admin_SiteSettings_Posting_Emoticons">Allow Emoticons</resource>
+		<resource name="Admin_SiteSettings_Posting_Emoticons_Descr">Can users use emoticons within Posts.</resource>
+		<resource name="Admin_SiteSettings_Posting_Popular">Popular Post Replies</resource>
+		<resource name="Admin_SiteSettings_Posting_Popular_Descr">How many posts are required before a thread becomes popular?</resource>
+		<resource name="Admin_SiteSettings_Posting_Popular_View">Popular Posts Views</resource>
+		<resource name="Admin_SiteSettings_Posting_Popular_View_Descr">How many views are required before a thread becomes popular?</resource>
+		<resource name="Admin_SiteSettings_Posting_Popular_Age">Popular Posts Age (In Days)</resource>
+		<resource name="Admin_SiteSettings_Posting_Popular_Age_Descr">Days posts must be active within, i.e. received a new post.</resource>
+		<resource name="Admin_SiteSettings_Posting_Pruning">Enable automatic Thread/Post Pruning</resource>
+		<resource name="Admin_SiteSettings_Posting_Pruning_Descr">Controls the pruning or removing of old posts from the forum.</resource>
+		<resource name="Admin_SiteSettings_Posting_UserPruning">Enable automatic User Pruning</resource>
+		<resource name="Admin_SiteSettings_Posting_UserPruning_Descr">Controls the automatic removal of users that are inactive as defined elsewhere.</resource>
+		<resource name="Admin_SiteSettings_Flooding">Post Flooding</resource>
+		<resource name="Admin_SiteSettings_Flooding_Check">Enable Flood Interval Checking</resource>
+		<resource name="Admin_SiteSettings_Flooding_Check_Descr">Prevents one user from flooding the site with posts.</resource>
+		<resource name="Admin_SiteSettings_Flooding_Time">Minimum time between Posts</resource>
+		<resource name="Admin_SiteSettings_Flooding_Time_Descr">The time in seconds between posts used by the flood interval check.</resource>
+		<resource name="Admin_SiteSettings_PostReporting">Post Reporting</resource>
+		<resource name="Admin_SiteSettings_PostReporting_Allow">Enable Reporting Abusive Posts</resource>
+		<resource name="Admin_SiteSettings_PostReporting_Desc">Allow users to report a post to the administrators and moderators.</resource>
+		<resource name="Admin_SiteSettings_PostReporting_AllowAnon">Anonymous Users can Report Posts</resource>
+		<resource name="Admin_SiteSettings_PostReporting_AllowAnon_Descr">Allow anonymous users to use the reporting system (the selecting forum below must have Everyone-Post in the Role Permissions).</resource>
+		<resource name="Admin_SiteSettings_PostReporting_ToForum">Reporting Forum</resource>
+		<resource name="Admin_SiteSettings_PostReporting_ToForum_Descr">Select the forum that reports will be sent to. This forum must have the role 'Forum-Users' with post permissions to allow reporting.</resource>
+		<resource name="Admin_SiteSettings_IP">IP Address Tracking</resource>
+		<resource name="Admin_SiteSettings_IP_Enable">Enable Tracking of Poster IP Address</resource>
+		<resource name="Admin_SiteSettings_IP_Enable_Descr">Stores the IP address of the person who posted.</resource>
+		<resource name="Admin_SiteSettings_IP_Display">Display Poster IP Address Publicly</resource>
+		<resource name="Admin_SiteSettings_IP_Display_Descr">Displays the IP address of the poster.</resource>
+		<resource name="Admin_SiteSettings_IP_AdminOnly">Display Poster IP Address only to Administrators &amp; Moderators</resource>
+		<resource name="Admin_SiteSettings_IP_AdminOnly_Descr">Displays the IP address of the poster only to administrators and moderators.</resource>
+		<resource name="Admin_SiteSettings_DateTime">Date / Time Options</resource>
+		<resource name="Admin_SiteSettings_DateTime_Date">Date Format</resource>
+		<resource name="Admin_SiteSettings_DateTime_Date_Descr">The format of all dates displayed. The user can override this setting in his/her profile.</resource>
+		<resource name="Admin_SiteSettings_DateTime_Time">Time Format</resource>
+		<resource name="Admin_SiteSettings_DateTime_Time_Descr">The format of all times displayed. The user can override this setting in his/her profile.</resource>
+		<resource name="Admin_SiteSettings_DateTime_Joined">User Joined Date Format</resource>
+		<resource name="Admin_SiteSettings_DateTime_Joined_Descr">Formatting of a Date/Time when the user joined the forums. Used when displaying posts.</resource>
+		<resource name="Admin_SiteSettings_Editing">Post Editing</resource>
+		<resource name="Admin_SiteSettings_Editing_Notes">Display Edit Notes</resource>
+		<resource name="Admin_SiteSettings_Editing_Notes_Descr">When enabled displays the edits notes of a post at the bottom of the messages (before the user signature).</resource>
+		<resource name="Admin_SiteSettings_Editing_Age">Edit Post Body Age Limit (in minutes)</resource>
+		<resource name="Admin_SiteSettings_Editing_Age_Descr">When enabled enables a post title to be edited until the post has aged a specified number of minutes (set to 0 to allow infinite editing).</resource>
+		<resource name="Admin_SiteSettings_URL">Forum URLs</resource>
+		<resource name="Admin_SiteSettings_URL_Friendly">Enable Search Friendly URL Paths</resource>
+		<resource name="Admin_SiteSettings_URL_Friendly_Descr">When enabled URLs to ForumGroups, Forums, and Posts are displayed as:</resource>
+		<resource name="Admin_SiteSettings_Cookie">Cookie and Anonymous Settings</resource>
+		<resource name="Admin_SiteSettings_Cookie_SubTitle">The roles cookie is used to store an encrypted semicolon delimited string with a list of roles the user belongs to. Storing this in a cookie alleviates the need to request this data from the data source on each request to the forums.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Enabled">Roles Cookie Enabled</resource>
+		<resource name="Admin_SiteSettings_Cookie_Enabled_Descr">When enabled an HTTP cookie is used to store an encrypted string containing user roles.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Track">Track Anonymous Users</resource>
+		<resource name="Admin_SiteSettings_Cookie_Track_Descr">Controls whether the forum tracks anonymous users IP when posting.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Name">Roles Cookie Name</resource>
+		<resource name="Admin_SiteSettings_Cookie_Name_Descr">Name of the cookie used to store user roles.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Expire">Roles Cookie Expiration</resource>
+		<resource name="Admin_SiteSettings_Cookie_Expire_Descr">Time in minutes at which the roles cookie expires after being issued.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Anon_Name">Anonymous Cookie Name</resource>
+		<resource name="Admin_SiteSettings_Cookie_Anon_Name_Descr">The name of cookie used for anonymous users. Different than the one for members.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Anon_Expire">Anonymous Cookie Expriation</resource>
+		<resource name="Admin_SiteSettings_Cookie_Anon_Expire_Descr">The time in minutes before the anonymous user's cookie expires.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Domain">Cookie Domain</resource>
+		<resource name="Admin_SiteSettings_Cookie_Domain_Descr">Allows for creation of subdomain insensitive cookies (example ".yourdomain.com").</resource>
+		<resource name="Admin_SiteSettings_Anon">Anonymous</resource>
+		<resource name="Admin_SiteSettings_Anon_Allow">Allow Anonymous Posts</resource>
+		<resource name="Admin_SiteSettings_Anon_Allow_Descr">Controls whether anonymous users are allowed to post onto the forums.</resource>
+		<resource name="Admin_SiteSettings_Anon_Window">Anonymous User Online Window</resource>
+		<resource name="Admin_SiteSettings_Anon_Window_Descr">Time in minutes to track the number of anonymous users accessing the site.</resource>
+		<resource name="Admin_SiteSettings_SMTP">SMTP Settings</resource>
+		<resource name="Admin_SiteSettings_SMTP_Enable">Enable Email</resource>
+		<resource name="Admin_SiteSettings_SMTP_Enable_Descr">Enable or disable email support for the forums.</resource>
+		<resource name="Admin_SiteSettings_SMTP_Server">SMTP Server</resource>
+		<resource name="Admin_SiteSettings_SMTP_Server_Descr">SMTP server used to send mail for your forums.</resource>
+		<resource name="Admin_SiteSettings_SMTP_NeedsLogin">SMTP server login required</resource>
+		<resource name="Admin_SiteSettings_SMTP_NeedsLogin_Descr">Does the SMTP server require a login.</resource>
+		<resource name="Admin_SiteSettings_SMTP_UserName">SMTP Server Loginname</resource>
+		<resource name="Admin_SiteSettings_SMTP_UserName_Descr">The login name to use to access the SMTP server.</resource>
+		<resource name="Admin_SiteSettings_SMTP_Password">SMTP Server Password</resource>
+		<resource name="Admin_SiteSettings_SMTP_Password_Descr">The password to use when logging into the SMTP server.</resource>
+		<resource name="Admin_SiteSettings_EnablePostPreviewPopup">Enable Post Mouse-Over Popup</resource>
+		<resource name="Admin_SiteSettings_EnablePostPreviewPopup_Descr">This option controls whether a post will support popup text when the user holds their mouse pointer over the topic link.</resource>
+		<resource name="Admin_SiteSettings_AllowAutoRegistration">Allow automatic registration</resource>
+		<resource name="Admin_SiteSettings_AllowAutoRegistration_Descr">Allow automatic user registration of Windows Authenticated clients.</resource>
+		<resource name="Admin_SiteSettings_StripDomainName">Strip Domain Name</resource>
+		<resource name="Admin_SiteSettings_StripDomainName_Descr">Strip domain name prefixes from Window's Authenticated UserNames.</resource>
+    <!-- End Site Settings Admin -->
+    
+    <!-- Admin Navigation -->
+    <!-- End Admin Navigation -->
+    
+    <!-- Begin Admin Home -->
+		<resource name="Admin_Home_Welcome">Welcome to the ASP.NET Forums Administration Control Panel</resource>
+		<resource name="Admin_Home_Usage">The administration control panel is used to control and manage all aspects of the foums.&lt;br /&gt;Please select an area or task from the left hand side of the page.</resource>
+		<resource name="Admin_Home_NewVersion">There is a new version of the ASP.NET Forums available!</resource>
+		<resource name="Admin_Home_DownloadVersion">Download ASP.NET Forums version {0}</resource>
+		<resource name="Admin_Home_CustomVersion">You are running a custom build of the ASP.NET Forums!</resource>
+		<resource name="Admin_Home_UnknownVersion">Sorry, but we were unable to retrieve current ASP.NET Forums version information!</resource>
+		<resource name="Admin_Home_EnableRetrieval">To retrieve version information please enable version retrieval in the configuration section. You will also be notified of any important bugs, etc. that you may need to patch.</resource>
+		<resource name="Admin_Home_Developers">ASP.NET Forums Developers &amp; Contributors</resource>
+		<resource name="Admin_Home_ShortCuts">Shortcut Tasks</resource>
+		<resource name="Admin_Home_Running">The forums are &lt;b&gt;{0}&lt;/b&gt; and have been running since &lt;b&gt;{1}&lt;/b&gt; ({2} days, {3} hours, and {4} minutes).</resource>
+		<resource name="Admin_Home_UserWaiting">There are currently &lt;b&gt;{0}&lt;/b&gt; user(s) awaiting to be &lt;b&gt;{1}&lt;/b&gt;.</resource>
+		<resource name="Admin_Home_PostWaiting">There are currently &lt;b&gt;{0}&lt;/b&gt; post(s) awaiting &lt;b&gt;{1}&lt;/b&gt;.</resource>
+		<resource name="Admin_Home_EmailQueue">There are currently &lt;b&gt;{0}&lt;/b&gt; email(s) in the email queue. </resource>
+		<resource name="Admin_Home_EmailQueueForceSend"></resource>
+    <!-- End Admin Home -->
+    
+    <!-- Start Manage Forum Permissions -->
+		<resource name="ManageForumPermissions_Title">Manage Forum Permissions</resource>
+		<resource name="ManageForumPermissions_SubTitle">Manage and create permissions on each forum.</resource>
+		<resource name="ManageForumPermissions_About">Forum Permission Administration</resource>
+    <!-- End Manage Forum Permission -->
+    
+    <!-- Start Manage Forums -->
+		<resource name="ManageForums_Title">Manage Forums</resource>
+		<resource name="ManageForums_SubTitle">Manage and create new forums and forum groups.</resource>
+		<resource name="ManageForums_About">Forum Administration</resource>
+		<resource name="ManageForums_CreateNew">Create new forum</resource>
+		<resource name="ManageForums_CreateNewGroup">Create new forum group</resource>
+    <!-- End Manage Forums -->
+    
+    <!-- Start Manage Names -->
+		<resource name="ManageNames_Title">Manage Banned Names</resource>
+		<resource name="ManageNames_SubTitle">Controls the member names that are not allowed by using of pattern matching.</resource>
+		<resource name="ManageNames_About">Name Management</resource>
+		<resource name="ManageNames_HelpInfo">Valid patterns are: Name , *Name , Name* and *Name*.</resource>
+		<resource name="ManageNames_ReqFieldValidator">Empty name!</resource>
+		<resource name="ManageNames_RegExValidator">Wrong pattern!</resource>
+		<resource name="ManageNames_RegExWildcardReplacement">[a-zA-Z0-9]*</resource>
+    <!-- End Manage Names -->
+    
+    <!-- Start Admin Member Configuration -->
+		<resource name="MemberSettings_Registration">User Registration</resource>
+		<resource name="MemberSettings_AllowLogin">Allow Login</resource>
+		<resource name="MemberSettings_AllowLogin_Descr">When disabled, only administrators can login to the site.</resource>
+		<resource name="MemberSettings_AllowNew">Allow New User Registration</resource>
+		<resource name="MemberSettings_AllowNew_Descr">When disabled, new users cannot register.</resource>
+		<resource name="MemberSettings_NewUserModLevel">New user Moderation Level</resource>
+		<resource name="MemberSettings_NewUserModLevel_Descr">New users are moderated by default requiring a moderator to approve posts.</resource>
+		<resource name="MemberSettings_UserNameMinLength">Username minimum length</resource>
+		<resource name="MemberSettings_UserNameMinLength_Descr"></resource>
+		<resource name="MemberSettings_UserNameMaxLength">Username maximum length</resource>
+		<resource name="MemberSettings_UserNameMaxLength_Descr"></resource>
+		<resource name="MemberSettings_AutoRegisterWindows">Auto-Register for Windows Authentication</resource>
+		<resource name="MemberSettings_AutoRegisterWindows_Descr">When enabled the board will auto-register users who authenticate via Windows authentication (Primarily for Intranet use of the forums).</resource>
+		<resource name="MemberSettings_AccountActivate">Account Activation</resource>
+		<resource name="MemberSettings_AccountActivate_Descr">Controls how users obtain access to the forums. Automatic allows users to create their own accounts. Email will email a password to the new user. Admin approval requires the administrator to approve new users.</resource>
+		<resource name="MemberSettings_PasswordRecovery">Password Recovery</resource>
+		<resource name="MemberSettings_PasswordRecovery_Descr">Controls how users recover forgotten passwords.</resource>
+		<resource name="MemberSettings_PasswordStorage">Password Storage</resource>
+		<resource name="MemberSettings_PasswordStorage_Descr">Determines how passwords are stored in the database (MD5Hash is the most secure).</resource>
+		<resource name="MemberSettings_CorpaRegistration">Use COPPA Registration</resource>
+		<resource name="MemberSettings_CorpaRegistration_Descr">Use the COPPA registration system to comply with COPPA laws requiring children under the age of 13 to get parental consent before they can post </resource>
+		<resource name="MemberSettings_UserProfile">User Profile</resource>
+		<resource name="MemberSettings_AllowUserNameChanges">Allow Username changes</resource>
+		<resource name="MemberSettings_AllowUserNameChanges_Descr">Allows users to change usernames. It's <u>not recommended</u> to enable this feature, since a username is a user's handle on the board. The administrator can change any username.</resource>
+		<resource name="MemberSettings_AllowSignatures">Allow Signatures</resource>
+		<resource name="MemberSettings_AllowSignatures_Descr">Allow user to edit a message that can appear at the bottom of all their posts.</resource>
+		<resource name="MemberSettings_EnableSignatures">Enable Signatures</resource>
+		<resource name="MemberSettings_EnableSignatures_Descr">When enabled a signatures will be added to posts.</resource>
+		<resource name="MemberSettings_SignatureMaxLength">Signature maximum length</resource>
+		<resource name="MemberSettings_AllowGender">Allow Gender</resource>
+		<resource name="MemberSettings_AllowGender_Descr">When enabled (and specified by the user) the user's gender is displayed.</resource>
+		<resource name="MemberSettings_EnableUserTheme">Enable User Theme Selection</resource>
+		<resource name="MemberSettings_EnableUserTheme_Descr">If various themes are available this option allows the user to select a theme for his/her display preferences.</resource>
+		<resource name="MemberSettings_EnableReferrer">Enable Referrer System</resource>
+		<resource name="MemberSettings_EnableReferrer_Descr">Provides users with a URL that when clicked on will increment a users referrer credit for new users that join the forums.</resource>
+		<resource name="MemberSettings_Avatar">User Avatars</resource>
+		<resource name="MemberSettings_EnableAvatar">Enable Avatars</resource>
+		<resource name="MemberSettings_EnableAvatar_Descr">When enabled avatars are used.</resource>
+		<resource name="MemberSettings_EnableRemoteAvatar">Enable Remote Avatars</resource>
+		<resource name="MemberSettings_EnableRemoteAvatar_Descr">Allows avatars to be images hosted at another website.</resource>
+		<resource name="MemberSettings_AvatarSize">Avatar Dimensions</resource>
+		<resource name="MemberSettings_AvatarSize_Descr">Maximum dimensions used when displaying avatars.</resource>
+		<resource name="MemberSettings_RecoveryMode_Reset">Reset</resource>
+		<resource name="MemberSettings_RecoveryMode_Question">Question &amp; Answer</resource>
+		<resource name="MemberSettings_FormatMode_Clear">Clear Text</resource>
+		<resource name="MemberSettings_FormatMode_MD5">MD5 Hash</resource>
+		<resource name="MemberSettings_FormatMode_SHA1">Sha1 Hash</resource>
+		<resource name="MemberSettings_FormatMode_Encrypted">Encyrpted</resource>
+		<resource name="MemberSettings_ActivateMode_Automatic">Automatic</resource>
+		<resource name="MemberSettings_ActivateMode_Email">Email</resource>
+		<resource name="MemberSettings_ActivateMode_Admin">Admin Approval</resource>
+		
+    <!-- End Admin Member Configuration -->
+        
+</root>

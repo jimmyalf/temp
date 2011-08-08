@@ -1,8 +1,10 @@
 <project name="Deploy Admin Project" default="Publish">
 	<target name="Publish" description="Copy Admin files">
-		<echo message="Copy files for deployment from ${srcAdmin} to ${deployAdmin}" />
-		<copy todir="${deployAdmin}" includeemptydirs="true">
-			<fileset basedir="${srcAdmin}">
+		<echo message="Copy files for deployment from ${srcPath} to ${deployPath}" />
+		<copy todir="${deployPath}" includeemptydirs="true">
+			<fileset basedir="${srcPath}">
+				<exclude name="web.config" />
+				<exclude name="Helpers/**.*" />
 				<include name="**/*.dll" />
 				<include name="**/*.aspx" />
 				<include name="**/*.css" />

@@ -97,6 +97,7 @@
 	<!-- Publish Admin -->
  	<target name="Admin" depends="Public-Se">
 		<property name="srcPath" value="${src}\Synologen.Presentation" overwrite="true"/>
+		<property name="deployPath" value="${deployRoot}\WpcAdmin" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcAdmin.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcAdmin.build"/>
 		

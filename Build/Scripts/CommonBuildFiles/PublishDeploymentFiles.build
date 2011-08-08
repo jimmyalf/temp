@@ -1,0 +1,10 @@
+<project name="Clean Admin Project" default="Clean">
+	<target name="Clean" description="cleans deployment directory">
+		<echo message="Clearing admin deployment folder ${deployAdmin}" />
+		<delete>
+			<fileset basedir="${deployAdmin}">
+				<include name="**/*.*" />
+			</fileset>
+		</delete>
+	</target>
+</project>

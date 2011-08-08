@@ -1,0 +1,12 @@
+<%@ Master Language="C#" MasterPageFile="~/components/ComponentMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.MemberMain" Codebehind="MemberMain.master.cs" %>
+<asp:Content ID="MainComponent" ContentPlaceHolderID="ComponentMainPlc" Runat="Server">
+ <div id="dCompNavigation">
+	<asp:PlaceHolder ID="phMemberMenu" runat="server" />
+</div>
+<div id="dCompSubNavigation">
+	<asp:PlaceHolder ID="phMemberSubMenu" runat="server" />
+</div>
+    <div>
+        <asp:contentplaceholder id="phMember" runat="server"></asp:contentplaceholder>
+    </div>
+</asp:Content>

@@ -1,10 +1,12 @@
-<project name="Clean Admin Project" default="Clean">
-	<target name="Clean" description="cleans deployment directory">
-		<echo message="Clearing admin deployment folder ${deployAdmin}" />
-		<delete>
-			<fileset basedir="${deployAdmin}">
+<project name="Publish Deployment Files" default="PublishFiles">
+
+	<target name="PublishFiles" description="Publishes Deployment files">
+		<echo message="Copy deployment files from ${srcDeploymentFiles} to ${deployPath}" />
+		<copy todir="${deployPath}" includeemptydirs="true">
+			<fileset basedir="${srcDeploymentFiles}">
 				<include name="**/*.*" />
 			</fileset>
-		</delete>
+		</copy>
 	</target>
+	
 </project>

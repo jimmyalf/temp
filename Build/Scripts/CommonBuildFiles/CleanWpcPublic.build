@@ -3,10 +3,7 @@
 		<echo message="Clearing public deployment folder ${deployPath}" />
 		<delete>
 			<fileset basedir="${deployPath}">
-				<include name="*.config" />
-				<include name="*.asax" />
-				<include name="bin/**/*.*" />
-				<include name="wpc/**/*.*" />
+				<include name="**/*.*" />
 			</fileset>
 		</delete>
 	</target>

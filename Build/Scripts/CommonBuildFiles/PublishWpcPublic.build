@@ -5,6 +5,7 @@
 			<fileset basedir="${srcPath}">
 				<exclude name="web.config" />
 				<include name="bin/**/*.dll" />
+				<include name="*.asax" />
 				
 				<include name="wpc/Synologen/**/*.master" />
 				<include name="wpc/Synologen/**/*.aspx" />

@@ -11,7 +11,14 @@ namespace Spinit.Wpc.Synologen.Data {
 			try {
 				var articleDataSet = GetArticles(articleId,0,"cId");
 				var articleDataRow = articleDataSet.Tables[0].Rows[0];
-				var article = new Article {Id = Util.CheckNullInt(articleDataRow, "cId"), Description = Util.CheckNullString(articleDataRow, "cDescription"), Name = Util.CheckNullString(articleDataRow, "cName"), Number = Util.CheckNullString(articleDataRow, "cArticleNumber")};
+				var article = new Article
+				{
+					Id = Util.CheckNullInt(articleDataRow, "cId"), 
+					Description = Util.CheckNullString(articleDataRow, "cDescription"), 
+					Name = Util.CheckNullString(articleDataRow, "cName"), 
+					Number = Util.CheckNullString(articleDataRow, "cArticleNumber"),
+                    DefaultSPCSAccountNumber =  Util.CheckNullString(articleDataRow, "cDefaultSPCSAccountNumber")
+				};
 				return article;
 			}
 			catch (Exception ex) {
@@ -56,6 +63,7 @@ namespace Spinit.Wpc.Synologen.Data {
             		new SqlParameter("@number", SqlDbType.NVarChar, 50),
             		new SqlParameter("@name", SqlDbType.NVarChar, 50),
             		new SqlParameter("@description", SqlDbType.NVarChar, 255),
+					new SqlParameter("@spcsAccountNumber", SqlDbType.NVarChar, 25),
             		new SqlParameter("@status", SqlDbType.Int, 4),
             		new SqlParameter("@id", SqlDbType.Int, 4)
 				};
@@ -66,7 +74,8 @@ namespace Spinit.Wpc.Synologen.Data {
 				if (action == Enumerations.Action.Create || action == Enumerations.Action.Update) {
 					parameters[counter++].Value = article.Number ?? SqlString.Null;
 					parameters[counter++].Value = article.Name ?? SqlString.Null;
-					parameters[counter].Value = article.Description ?? SqlString.Null;
+					parameters[counter++].Value = article.Description ?? SqlString.Null;
+					parameters[counter].Value = article.DefaultSPCSAccountNumber ?? SqlString.Null;
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
 				if (action == Enumerations.Action.Create) {

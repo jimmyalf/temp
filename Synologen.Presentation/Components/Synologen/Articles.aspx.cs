@@ -1,9 +1,15 @@
 using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Routing;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Presentation.Application;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
+using Spinit.Wpc.Utility.Business.SmartMenu;
 
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 	public partial class Articles : SynologenPage {
@@ -102,6 +108,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 
 		#endregion
+
+		protected override SmartMenu.ItemCollection InitializeSubMenu()
+		{
+			var itemCollection = new SmartMenu.ItemCollection();
+			itemCollection.AddItem(
+				"new-article" /*id*/, 
+				null /*staticId*/, 
+				"Ny" /*text*/, 
+				"Skapa ny artikel" /*tooltop*/,
+				null /*cssClass*/, 
+				RouteTable.Routes.GetRoute("ContractSales", "AddArticle") /*navigateUrl*/,
+				null /*rel*/, 
+				null /*urlAliasCollection*/, 
+				false /*selected*/, 
+				true /*enabled*/
+			);
+			return itemCollection;
+		}
 
 	}
 }

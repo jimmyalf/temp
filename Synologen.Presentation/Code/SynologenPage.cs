@@ -7,6 +7,8 @@ using Spinit.Wpc.Member.Data;
 using Spinit.Wpc.Member.Business;
 using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
+using Spinit.Wpc.Synologen.Presentation.Components.Synologen;
+using Spinit.Wpc.Utility.Business.SmartMenu;
 using Spinit.Wpc.Utility.Core;
 
 
@@ -32,8 +34,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Code
 
 		protected override void OnInit(EventArgs e) {
 			Load += MemberPage_Load;
+			TrySetupSubMenu();
 			base.OnInit(e);
 			MemberPageInit();
+		}
+
+		private void TrySetupSubMenu()
+		{
+			if(Page.Master == null) return;
+			var masterPage = (SynologenMain)Page.Master;
+			var itemCollection = InitializeSubMenu();
+			if(itemCollection == null) return;
+			var phMemberSubMenu = masterPage.SubMenu;
+			var subMenu = new SmartMenu.Menu {ID = "SubMenu", ControlType = "ul", ItemControlType = "li", ItemWrapperElement = "span", MenuItems = itemCollection};
+			masterPage.SynologenSmartMenu.Render(subMenu, phMemberSubMenu);
 		}
 
 		private void MemberPageInit() {
@@ -208,6 +222,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Code
 				// access = Context.User.IsInRole(sRole);
 			}
 			return access;
+		}
+
+		protected virtual SmartMenu.ItemCollection InitializeSubMenu()
+		{
+			return null;
 		}
 	}
 }

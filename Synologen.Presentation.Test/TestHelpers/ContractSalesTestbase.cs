@@ -19,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 		protected Mock<ITransactionRepository> MockedTransactionRepository;
 		protected IContractSalesCommandService MockedContractSalesCommandService;
 		protected IUserContextService UserContextService;
-		protected ContractSalesViewService ViewService;
+		protected IContractSalesViewService ViewService;
 
 		protected ContractSalesTestbase()
 		{
@@ -31,13 +31,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 				MockedSynologenSqlProvider = new Mock<ISqlProvider>();
 				MockedTransactionRepository = new Mock<ITransactionRepository>();
 				UserContextService = A.Fake<IUserContextService>();
-				MockedContractSalesCommandService = new ContractSalesCommandService(MockedSynologenSqlProvider.Object, UserContextService);
-				ViewService = new ContractSalesViewService(
+				var commandService = new ContractSalesCommandService(MockedSynologenSqlProvider.Object, UserContextService);
+				MockedContractSalesCommandService = A.Fake<IContractSalesCommandService>(options => options.Wrapping(commandService));
+				var viewService = new ContractSalesViewService(
 					MockedSettlementRepository.Object,
 					MockedContractSaleRepository.Object,
 					MockedSettingsService.Object,
 					MockedTransactionRepository.Object,
 					MockedSynologenSqlProvider.Object);
+				ViewService = A.Fake<IContractSalesViewService>(options => options.Wrapping(viewService));
 			};
 			GetController = () =>  new ContractSalesController(ViewService, MockedContractSalesCommandService);
 		}

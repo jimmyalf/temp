@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Presentation.Application;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Utility.Business.SmartMenu;
@@ -256,21 +257,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			get { return _settlementId; }
 		}
 
-
-		//public string ManageOrdersUrlFormat
-		//{
-		//    get
-		//    {
-		//        var parameters = new RouteValueDictionary{ {"id", "5" } };
-		//        var path = RouteTable.Routes.GetVirtualPath(null, "SynologenAdminContractSalesManageOrder", parameters);
-		//        return "/test/page/{id}";
-		//    }
-		//}
-
 		public string GetManageOrdersUrl(object id)
 		{
-			var path = RouteTable.Routes.GetVirtualPath(null, "SynologenAdminContractSalesManageOrder", new RouteValueDictionary{{"id", id }});
-			return path.VirtualPath;
+			return RouteTable.Routes.GetRoute("ContractSales", "ManageOrder", new RouteValueDictionary {{"id", id}});
 		}
 
 	}

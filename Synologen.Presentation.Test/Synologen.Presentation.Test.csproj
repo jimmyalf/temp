@@ -100,7 +100,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\ContractSales\ArticleFactory.cs" />
     <Compile Include="ContractSalesControllerTests.cs" />
+    <Compile Include="ContractSalesControllerTests_Articles.cs" />
     <Compile Include="Factories\ContractSales\OrderFactory.cs" />
     <Compile Include="TestHelpers\ContractSalesTestbase.cs" />
     <Compile Include="TestHelpers\ControllerTestbase.cs" />

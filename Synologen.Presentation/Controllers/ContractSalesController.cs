@@ -6,7 +6,7 @@ using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
-	public class ContractSalesController : Controller
+	public partial class ContractSalesController : Controller
 	{
 		private readonly IContractSalesViewService _viewService;
 		private readonly IContractSalesCommandService _contractSalesCommandService;
@@ -58,6 +58,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			var settlementId = _viewService.CreateSettlement();
 			return RedirectToAction("ViewSettlement", new { id = settlementId });
 		}
-
 	}
 }

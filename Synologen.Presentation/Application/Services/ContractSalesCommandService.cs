@@ -1,3 +1,4 @@
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Utility.Business;
 
@@ -24,10 +25,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			var userName = _userContextService.GetLoggedInUser().User.UserName;
 			_synologenSqlProvider.AddOrderHistory(orderId, OrderCancelHistoryMessage.Replace("{UserName}", userName));
 		}
-	}
 
-	public interface IContractSalesCommandService
-	{
-		void CancelOrder(int orderId);
+		public void AddArticle(Article article)
+		{
+			_synologenSqlProvider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref article);
+		}
+
+		public void UpdateArticle(Article article)
+		{
+			var articleToUpdate = _synologenSqlProvider.GetArticle(article.Id);
+			articleToUpdate.DefaultSPCSAccountNumber = article.DefaultSPCSAccountNumber;
+			articleToUpdate.Description = article.Description;
+			articleToUpdate.Name = article.Name;
+			articleToUpdate.Number = article.Number;
+			_synologenSqlProvider.AddUpdateDeleteArticle(Enumerations.Action.Update, ref articleToUpdate);
+		}
 	}
 }

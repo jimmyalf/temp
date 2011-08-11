@@ -77,8 +77,10 @@
     <Compile Include="Application\AutomapperMappings\SubscriptionErrorValueResolver.cs" />
     <Compile Include="Application\AutomapperMappings\TransactionValueResolver.cs" />
     <Compile Include="Application\ModelBinders\GridSortPropertyMappingModelBinder.cs" />
+    <Compile Include="Application\MvcExtensions.cs" />
     <Compile Include="Application\Services\ContractSalesCommandService.cs" />
     <Compile Include="Application\Services\ContractSalesViewService.cs" />
+    <Compile Include="Application\Services\IContractSalesCommandService.cs" />
     <Compile Include="Application\Services\IContractSalesViewService.cs" />
     <Compile Include="Application\Services\ILensSubscriptionViewService.cs" />
     <Compile Include="Application\Services\IUserContextService.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Application\Services\SynologenGridSortPropertyMappingSerice.cs" />
     <Compile Include="Application\Services\UserContextService.cs" />
     <Compile Include="Controllers\ContractSalesController.cs" />
+    <Compile Include="Controllers\ContractSalesController_Articles.cs" />
     <Compile Include="Controllers\FrameGlassTypeController.cs" />
     <Compile Include="Controllers\FrameBrandController.cs" />
     <Compile Include="Controllers\FrameColorController.cs" />
@@ -105,6 +108,7 @@
     <Compile Include="Helpers\WpcActionMessageType.cs" />
     <Compile Include="Helpers\WpcDropDownList.cs" />
     <Compile Include="Helpers\WpcGridDeleteForm.cs" />
+    <Compile Include="Models\ContractSales\ArticleView.cs" />
     <Compile Include="Models\ContractSales\OrderView.cs" />
     <Compile Include="Models\ContractSales\SettlementListView.cs" />
     <Compile Include="Models\ContractSales\SettlementListViewItem.cs" />

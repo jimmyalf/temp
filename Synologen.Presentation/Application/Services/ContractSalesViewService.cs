@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
@@ -109,6 +111,29 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			});
 		}
 
+		public Article ParseArticle(ArticleView articleView)
+		{
+			return new Article
+			{
+				DefaultSPCSAccountNumber = articleView.DefaultSPCSAccountNumber,
+                Description = articleView.Description,
+                Id = articleView.Id,
+                Name = articleView.Name,
+                Number = articleView.ArticleNumber
+			};
+		}
 
+		public ArticleView GetArticle(int articleId)
+		{
+			var article = _synologenSqlProvider.GetArticle(articleId);
+			return new ArticleView
+			{
+				ArticleNumber = article.Number,
+				DefaultSPCSAccountNumber = article.DefaultSPCSAccountNumber,
+				Description = article.Description,
+				Id = article.Id,
+				Name = article.Name
+			};
+		}
 	}
 }

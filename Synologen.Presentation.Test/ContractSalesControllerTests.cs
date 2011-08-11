@@ -404,6 +404,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		public void A_success_message_should_be_added()
 		{
 			MessageQueue.HasMessages.ShouldBe(true);
+			MessageQueue.ReadMessage().IsError.ShouldBe(false);
 		}
 
 		[Test]
@@ -434,8 +435,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void Error_message_is_added()
 		{
-			var actionMessage = Controller.GetWpcActionMessages().First();
-			actionMessage.Message.ShouldStartWith("Ett fel uppstod vid fakturamakulering: Testexception<br/>");
+			var actionMessage = ActionMessages.First();
+			actionMessage.Message.ShouldStartWith("Ett fel uppstod vid fakturamakulering: ");
 			actionMessage.Type.ShouldBe(WpcActionMessageType.Error);
 		}
 

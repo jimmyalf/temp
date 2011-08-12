@@ -18,7 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 		[Required, DisplayName("Artikelnummer")]
 		public string ArticleNumber { get; set; }
 
-		[Required, DisplayName("SPCS kontonummer"), RegularExpression("^[0-9]{4}$", ErrorMessage = "Kontonummer måste anges so fyra siffror")]
+		[Required, DisplayName("SPCS kontonummer"), RegularExpression("^[0-9]{4}$", ErrorMessage = "Kontonummer måste anges som fyra siffror")]
 		public string DefaultSPCSAccountNumber { get; set; }
 	}
 }

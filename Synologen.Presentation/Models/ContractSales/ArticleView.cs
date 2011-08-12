@@ -6,6 +6,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 	public class ArticleView
 	{
 		public int Id { get; set; }
+		public string FormLegend { get; set; }
+		public string ArticleListUrl { get; set; }
 
 		[Required, DisplayName("Namn")]
 		public string Name { get; set; }
@@ -16,11 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 		[Required, DisplayName("Artikelnummer")]
 		public string ArticleNumber { get; set; }
 
-		[Required, DisplayName("Förifyllt SPCS kontonummer")]
+		[Required, DisplayName("SPCS kontonummer"), RegularExpression("^[0-9]{4}$", ErrorMessage = "Kontonummer måste anges so fyra siffror")]
 		public string DefaultSPCSAccountNumber { get; set; }
-
-		public string FormLegend { get; set; }
-
-		public string ArticleListUrl { get; set; }
 	}
 }

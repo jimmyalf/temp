@@ -10,6 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		int CreateSettlement();
 		OrderView GetOrder(int orderId);
 		Article ParseArticle(ArticleView articleView);
-		ArticleView GetArticle(int articleId);
+		ArticleView GetArticleView(int articleId, string formLegend);
+		ArticleView SetArticleViewDefaults(ArticleView articleView, string formLegend);
 	}
 }

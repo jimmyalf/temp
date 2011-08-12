@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 using FakeItEasy;
 using NUnit.Framework;
@@ -24,7 +23,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void Controller_returns_empty_view_model()
 		{
-			ViewModel.ShouldNotBe(null);
+			ViewModel.FormLegend.ShouldBe("Skapa ny artikel");
+			ViewModel.ArticleListUrl.ShouldBe(ComponentPages.Articles.Replace("~",""));
 		}
 	}
 
@@ -56,7 +56,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void Controller_returns_view_model()
 		{
-		    ViewModel.ShouldBe(_articleView);
+			ViewModel.ArticleNumber.ShouldBe(_articleView.ArticleNumber);
+			ViewModel.DefaultSPCSAccountNumber.ShouldBe(_articleView.DefaultSPCSAccountNumber);
+			ViewModel.Description.ShouldBe(_articleView.Description);
+			ViewModel.FormLegend.ShouldBe("Skapa ny artikel");
+			ViewModel.Id.ShouldBe(_articleView.Id);
+			ViewModel.Name.ShouldBe(_articleView.Name);
+			ViewModel.ArticleListUrl.ShouldBe(ComponentPages.Articles.Replace("~",""));
 		}
 	}
 
@@ -101,7 +107,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void Controller_redirects_to_article_list()
 		{
-		    ViewModel.Url.ShouldBe(ComponentPages.Articles);
+		    ViewModel.Url.ShouldBe(ComponentPages.Articles.Replace("~",""));
 		}
 	}
 
@@ -126,8 +132,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			ViewModel.ArticleNumber.ShouldBe(_article.Number);
 			ViewModel.DefaultSPCSAccountNumber.ShouldBe(_article.DefaultSPCSAccountNumber);
 			ViewModel.Description.ShouldBe(_article.Description);
+			ViewModel.FormLegend.ShouldBe("Redigera artikel");
 			ViewModel.Id.ShouldBe(_article.Id);
 			ViewModel.Name.ShouldBe(_article.Name);
+			ViewModel.ArticleListUrl.ShouldBe(ComponentPages.Articles.Replace("~",""));
 		}
 	}
 
@@ -216,7 +224,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void Controller_returns_view_model()
 		{
-		    ViewModel.ShouldBe(_articleView);
+			ViewModel.ArticleNumber.ShouldBe(_articleView.ArticleNumber);
+			ViewModel.DefaultSPCSAccountNumber.ShouldBe(_articleView.DefaultSPCSAccountNumber);
+			ViewModel.Description.ShouldBe(_articleView.Description);
+			ViewModel.FormLegend.ShouldBe("Redigera artikel");
+			ViewModel.Id.ShouldBe(_articleView.Id);
+			ViewModel.Name.ShouldBe(_articleView.Name);
+			ViewModel.ArticleListUrl.ShouldBe(ComponentPages.Articles.Replace("~",""));
 		}
 	}
 }

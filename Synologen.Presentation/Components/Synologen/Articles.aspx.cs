@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Web;
 using System.Web.Routing;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
@@ -11,42 +8,21 @@ using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Utility.Business.SmartMenu;
 
-namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
-	public partial class Articles : SynologenPage {
-		private int _articleId = -1;
-
-		protected void Page_Load(object sender, EventArgs e) {
-			if (Request.Params["id"] != null)
-				_articleId = Convert.ToInt32(Request.Params["id"]);
+namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen 
+{
+	public partial class Articles : SynologenPage 
+	{
+		protected void Page_Load(object sender, EventArgs e) 
+		{
 			if (Page.IsPostBack) return;
 			PopulateArticles();
-			if (_articleId > 0)
-				SetupForEdit();
 		}
 
-		private void SetupForEdit() {
-			ltHeading.Text = "Redigera artikel";
-			btnSave.Text = "Ändra";
-			var article = Provider.GetArticle(_articleId);
-			txtName.Text = article.Name;
-			txtDescription.Text = article.Description;
-			txtArticleNumber.Text = article.Number;
-		}
-
-		private void PopulateArticles() {
-			gvArticles.DataSource = Provider.GetAllArticles("cId");//, base.DefaultLanguageId);
+		private void PopulateArticles() 
+		{
+			gvArticles.DataSource = Provider.GetAllArticles("cId");
 			gvArticles.DataBind();
-			ltHeading.Text = "Lägg till artikel";
-			btnSave.Text = "Spara";
 		}
-
-		#region Category Events
-
-		/// <summary>
-		/// Add delete confirmation
-		/// </summary>
-		/// <param Name="sender">The sending object.</param>
-		/// <param Name="e">The event arguments.</param>
 
 		protected void btnDelete_AddConfirmDelete(object sender, EventArgs e) {
 			var cc = new ClientConfirmation();
@@ -54,14 +30,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		protected void gvArticles_Editing(object sender, GridViewEditEventArgs e) {
-			int index = e.NewEditIndex;
+			var index = e.NewEditIndex;
 
-			int articleId = (int)gvArticles.DataKeys[index].Value;
-			if (!IsInRole(MemberRoles.Roles.Edit)) {
+			var articleId = (int)gvArticles.DataKeys[index].Value;
+			if (!IsInRole(MemberRoles.Roles.Edit)) 
+			{
 				Response.Redirect(ComponentPages.NoAccess);
 			}
-			else {
-				Response.Redirect(ComponentPages.Articles+"?id=" + articleId, true);
+			else 
+			{
+				var url = RouteTable.Routes.GetRoute("ContractSales", "EditArticle", new RouteValueDictionary {{"id", articleId}});
+				Response.Redirect(url);
 			}
 		}
 
@@ -86,29 +65,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			}
 		}
 
-		protected void btnSave_Click(object sender, EventArgs e) {
-			var article = new Article();
-			var action = Enumerations.Action.Create;
-			if (_articleId > 0) {
-				article = Provider.GetArticle(_articleId);
-				action = Enumerations.Action.Update;
-			}
-			article.Name = txtName.Text;
-			article.Number = txtArticleNumber.Text;
-			article.Description = txtDescription.Text;
-
-			if (!IsInRole(MemberRoles.Roles.Create)) {
-				Response.Redirect(ComponentPages.NoAccess);
-			}
-			else {
-				Provider.AddUpdateDeleteArticle(action, ref article);
-				Response.Redirect(ComponentPages.Articles);
-			}
-		}
-
-
-		#endregion
-
 		protected override SmartMenu.ItemCollection InitializeSubMenu()
 		{
 			var itemCollection = new SmartMenu.ItemCollection();
@@ -126,6 +82,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			);
 			return itemCollection;
 		}
-
 	}
 }

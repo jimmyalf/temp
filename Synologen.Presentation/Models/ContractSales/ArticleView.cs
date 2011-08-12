@@ -18,5 +18,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 
 		[Required, DisplayName("Förifyllt SPCS kontonummer")]
 		public string DefaultSPCSAccountNumber { get; set; }
+
+		public string FormLegend { get; set; }
+
+		public string ArticleListUrl { get; set; }
 	}
 }

@@ -4,6 +4,7 @@
         <div class="fullBox">
             <div class="wrap">
             <h1>Artiklar</h1>
+            <%-- 
 	        <fieldset>
 		        <legend><asp:Literal id="ltHeading" runat="server" Text="Lägg till artikel"/></asp:Literal></legend>		
 		        <div class="formItem">
@@ -24,7 +25,7 @@
 		            <asp:button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Spara"  SkinId="Big" ValidationGroup="Save"/>
 		        </div>
 	        </fieldset>
-        
+			--%>
 			<br />
             <asp:GridView ID="gvArticles" 
 				OnRowDeleting="gvArticles_Deleting"

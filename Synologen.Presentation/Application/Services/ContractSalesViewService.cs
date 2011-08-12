@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
@@ -123,7 +122,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			};
 		}
 
-		public ArticleView GetArticle(int articleId)
+		public ArticleView GetArticleView(int articleId, string formLegend)
 		{
 			var article = _synologenSqlProvider.GetArticle(articleId);
 			return new ArticleView
@@ -132,8 +131,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				DefaultSPCSAccountNumber = article.DefaultSPCSAccountNumber,
 				Description = article.Description,
 				Id = article.Id,
-				Name = article.Name
+				Name = article.Name,
+                FormLegend = formLegend,
+				ArticleListUrl = ComponentPages.Articles.Replace("~","")
 			};
+		}
+
+		public ArticleView SetArticleViewDefaults(ArticleView articleView, string formLegend)
+		{
+			articleView.FormLegend = formLegend;
+			articleView.ArticleListUrl = ComponentPages.Articles.Replace("~", "");
+			return articleView;
 		}
 	}
 }

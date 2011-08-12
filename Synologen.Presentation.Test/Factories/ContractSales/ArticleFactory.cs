@@ -18,7 +18,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 				DefaultSPCSAccountNumber = "3145",
 				Description = "Bra artikel",
                 Id = articleId,
-                Name = "Article ABC"
+                Name = "Article ABC",
+				FormLegend = null
 			};
 		}
 

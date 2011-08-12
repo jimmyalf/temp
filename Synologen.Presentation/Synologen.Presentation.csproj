@@ -491,6 +491,9 @@
     <Content Include="Areas\SynologenAdmin\Views\Frame\Add.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\SynologenAdmin\Views\ContractSales\AddArticle.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\ContractSales\ArticleForm.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\ContractSales\EditArticle.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\ContractSales\ManageOrder.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\ContractSales\Settlements.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\ContractSales\ViewSettlement.aspx" />

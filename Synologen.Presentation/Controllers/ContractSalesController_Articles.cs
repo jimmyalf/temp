@@ -10,30 +10,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[HttpGet]
 		public ActionResult AddArticle()
 		{
-			return View(new ArticleView());
+			return View(_viewService.SetArticleViewDefaults(new ArticleView(), "Skapa ny artikel"));
 		}
 
 		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult AddArticle(ArticleView articleView)
 		{
-			if (!ModelState.IsValid) return View(articleView);
+			if (!ModelState.IsValid)
+			{
+				return View(_viewService.SetArticleViewDefaults(articleView, "Skapa ny artikel"));
+			}
 			var article = _viewService.ParseArticle(articleView);
 			_contractSalesCommandService.AddArticle(article);
 			MessageQueue.SetMessage("En ny artikel har sparats");
-			return Redirect(ComponentPages.Articles);
+			return Redirect(ComponentPages.Articles.Replace("~",""));
 		}
 
 		[HttpGet]
-		public ActionResult EditArticle(int articleId)
+		public ActionResult EditArticle(int id)
 		{
-			var articleView = _viewService.GetArticle(articleId);
+			var articleView = _viewService.GetArticleView(id, "Redigera artikel");
 			return View(articleView);
 		}
 
 		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult EditArticle(ArticleView articleView)
 		{
-			if (!ModelState.IsValid) return View(articleView);
+			if (!ModelState.IsValid)
+			{
+				return View(_viewService.SetArticleViewDefaults(articleView, "Redigera artikel"));
+			}
 			var article = _viewService.ParseArticle(articleView);
 			_contractSalesCommandService.UpdateArticle(article);
 			MessageQueue.SetMessage("Artikel \"{ArticleName}\" har uppdaterats".Replace("{ArticleName}", articleView.Name));

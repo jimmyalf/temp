@@ -1,8 +1,11 @@
 using System;
 using System.Web.Routing;
 using System.Web.UI.WebControls;
+using Spinit.Wpc.Core.UI;
 using Spinit.Wpc.Member.Business;
-using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Application;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
@@ -12,16 +15,52 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 {
 	public partial class Articles : SynologenPage 
 	{
+		private readonly IArticleRepository _articleRepository;
+
+		public Articles()
+		{
+			_articleRepository = ServiceLocator.Current.GetInstance<IArticleRepository>();
+		}
+
 		protected void Page_Load(object sender, EventArgs e) 
 		{
 			if (Page.IsPostBack) return;
 			PopulateArticles();
 		}
 
-		private void PopulateArticles() 
+		protected override void OnInit(EventArgs e) 
 		{
-			gvArticles.DataSource = Provider.GetAllArticles("cId");
+			pager.IndexChanged += RepopulateArticles;
+			pager.IndexButtonChanged += RepopulateArticles;
+			pager.PageSizeChanged += RepopulateArticles;
+			base.OnInit(e);
+		}
+
+		private void RepopulateArticles(object sender, EventArgs e)
+		{
+			SessionContext.ContractSalesArticles.PageIndex = pager.PageIndex;
+			SessionContext.ContractSalesArticles.PageSize = pager.PageSize;
+			PopulateArticles();
+		}
+
+		private void PopulateArticles()
+		{
+			var pageSize = SessionContext.ContractSalesArticles.PageSize;
+			var pageIndex = SessionContext.ContractSalesArticles.PageIndex;
+			var criteria = new AllArticlesMatchingCriteria
+			{
+				OrderBy = null, 
+				Page = pageIndex + 1, 
+				PageSize = pageSize, 
+				SortAscending = true
+			};
+			var items = _articleRepository.FindBy(criteria) as IExtendedEnumerable<Article>;
+			gvArticles.DataSource = items;
 			gvArticles.DataBind();
+
+			pager.PageSize = pageSize;
+			pager.TotalRecords = (int) items.TotalCount;
+			pager.TotalPages = pager.CalculateTotalPages();
 		}
 
 		protected void btnDelete_AddConfirmDelete(object sender, EventArgs e) {
@@ -59,7 +98,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 					DisplayMessage("Artikeln kan inte raderas då det finns kopplade ordrar.", true);
 					return;
 				}
-				var article = new Article {Id = articleId};
+				var article = new Business.Domain.Entities.Article {Id = articleId};
 				Provider.AddUpdateDeleteArticle(Enumerations.Action.Delete, ref article);
 				Response.Redirect(ComponentPages.Articles);
 			}

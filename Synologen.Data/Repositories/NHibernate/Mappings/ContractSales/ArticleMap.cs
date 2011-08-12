@@ -11,6 +11,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSal
 			Id(x => x.Id).Column("cId");
 			Map(x => x.Name).Column("cName");
 			Map(x => x.Number).Column("cArticleNumber");
+			Map(x => x.SPCSAccountNumber).Column("cDefaultSPCSAccountNumber");
 			//HasMany(x => x.ContractArticles)
 			//    .KeyColumn("cArticleId")
 			//    .Fetch.Join();

@@ -1,8 +1,11 @@
 using System;
 using System.Web.Mvc;
+using Spinit.Wpc.Core.UI;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
+using StructureMap;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {

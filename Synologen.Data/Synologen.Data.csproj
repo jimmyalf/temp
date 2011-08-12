@@ -98,9 +98,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\ContractSalesRepositories\ArticleRepository.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\ContractSaleRepository.cs" />
     <Compile Include="Repositories\CriteriaConverters\AllFrameOrdersForShopCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\AllOrderableFramesCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\ContractSales\AllArticlesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\ContractSales\AllContractSalesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllActiveTransactionArticlesCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllSubscriptionsToSendConsentsForCriteriaConverter.cs" />

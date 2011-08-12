@@ -175,6 +175,7 @@
     <Compile Include="Domain\Persistence\BGServer\IBGReceivedConsentRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IFileSectionToSendRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IReceivedFileRepository.cs" />
+    <Compile Include="Domain\Persistence\ContractSales\IArticleRepository.cs" />
     <Compile Include="Domain\Persistence\ContractSales\ISettlementRepository.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllFrameOrdersForShopCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllOrderableFramesCriteria.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedConsentFileSectionsCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedErrorFileSectionsCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\BGServer\AllUnhandledReceivedPaymentFileSectionsCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\ContractSales\AllArticlesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\ContractSales\AllContractSalesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllActiveTransactionArticlesCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsToSendConsentsForCriteria.cs" />

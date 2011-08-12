@@ -14,6 +14,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
     public partial class Articles {
         
         /// <summary>
+        /// pager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Spinit.Wpc.Utility.Business.Pager pager;
+        
+        /// <summary>
         /// gvArticles control.
         /// </summary>
         /// <remarks>

@@ -92,7 +92,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Code {
 			}
 		}
 
-
 		public static class Orders {
 			private const string NAME = "Orders";
 			public static int PageSize {
@@ -133,7 +132,41 @@ namespace Spinit.Wpc.Synologen.Presentation.Code {
 			}
 		}
 
+		public static PageSortSettings ContractSalesArticles
+		{
+			get { return new PageSortSettings("ContractSalesArticles", "Id"); }
+		}
 
+		public class PageSortSettings
+		{
+			private readonly string _name;
+			private readonly string _defaultSortExpression;
 
+			public PageSortSettings(string uniqueSessionName, string defaultSortExpression)
+			{
+				_name = uniqueSessionName;
+				_defaultSortExpression = defaultSortExpression;
+			}
+			public int PageSize {
+				get { return Session.GetSessionValue(_name + "IndexPageSize", DefaultPageSize); }
+				set { Session.SetSessionValue(_name + "IndexPageSize", value); }
+			}
+			public int PageIndex {
+				get { return Session.GetSessionValue(_name + "IndexPageIndex", 0); }
+				set { Session.SetSessionValue(_name + "IndexPageIndex", value); }
+			}
+			public bool SortAscending {
+				get { return Session.GetSessionValue(_name + "IndexPageSortAscending", true); }
+				set { Session.SetSessionValue(_name + "IndexPageSortAscending", value); }
+			}
+			public string SortExpression {
+				get { return Session.GetSessionValue(_name + "IndexSortExpression", _defaultSortExpression); }
+				set { Session.SetSessionValue(_name + "IndexSortExpression", value); }
+			}
+			public string SearchExpression {
+				get { return Session.GetSessionValue(_name + "IndexPageSearch", String.Empty); }
+				set { Session.SetSessionValue(_name + "IndexPageSearch", value); }
+			}
+		}
 	}
 }

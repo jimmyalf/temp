@@ -39,9 +39,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 			For<ITransactionRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionRepository>();
 			For<ICustomerRepository>().HybridHttpOrThreadLocalScoped().Use<CustomerRepository>();
 			For<ITransactionArticleRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionArticleRepository>();
+			For<IArticleRepository>().HybridHttpOrThreadLocalScoped().Use<ArticleRepository>();
 			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
-			
 			// Register criteria converters
 			Scan(x =>
 			{

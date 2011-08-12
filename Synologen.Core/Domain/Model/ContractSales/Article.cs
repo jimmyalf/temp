@@ -4,5 +4,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales
 	{
 		public virtual string Name { get; set; }
 		public virtual string Number { get; set; }
+		public virtual string SPCSAccountNumber { get; set; }
 	}
 }

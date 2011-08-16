@@ -11,6 +11,12 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.ContractSale
 		public override ICriteria Convert(AllArticlesMatchingCriteria source)
 		{
 			return Criteria
+				.FilterByAny(filter => 
+				{
+					filter.By(x => x.Name);
+					filter.By(x => x.Number);
+					filter.By(x => x.SPCSAccountNumber);
+				}, source.SearchTerm)
 				.Page(source.Page, source.PageSize)
 				.Sort(source.OrderBy, source.SortAscending);
 		}

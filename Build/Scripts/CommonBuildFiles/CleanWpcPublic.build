@@ -3,7 +3,7 @@
 		<echo message="Clearing public deployment folder ${deployPath}" />
 		<delete>
 			<fileset basedir="${deployPath}">
-				<include name="**/*.*" />
+				<include name="**/*" />
 			</fileset>
 		</delete>
 	</target>

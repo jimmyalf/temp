@@ -173,7 +173,7 @@
 			Enabled='<%#Model.AdditionParametersEnabled %>' />
 		<asp:RequiredFieldValidator 
 			ID="reqAdditionRight" 
-			InitialValue='<%#Model.NotSelectedIntervalValue %>'
+			InitialValue='<%#Model.NotSelectedIntervalValue.ToString("N2") %>'
 			Runat="server" 
 			ErrorMessage='<%#Model.AdditionRequiredErrorMessage %>' 
 			ControlToValidate="drpAdditionRight" 

@@ -39,42 +39,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 
 		public static FrameOrder ToFrameOrder(this EditFrameFormEventArgs eventArgs, Frame frame, FrameGlassType glassType, Shop orderingShop)
 		{
-			var frameOrder = new FrameOrder {Frame = frame, GlassType = glassType, OrderingShop = orderingShop};
-			return UpdateFrameOrder(frameOrder, eventArgs);
+			var frameOrder = new FrameOrder {OrderingShop = orderingShop};
+			return UpdateFrameOrder(frameOrder, frame, glassType, eventArgs);
 		}
 
-		public static FrameOrder FillFrameOrder(this EditFrameFormEventArgs eventArgs, FrameOrder frameOrder)
+		public static FrameOrder FillFrameOrder(this EditFrameFormEventArgs eventArgs, Frame frame, FrameGlassType glassType, FrameOrder frameOrder)
 		{
-			return UpdateFrameOrder(frameOrder, eventArgs);
+			return UpdateFrameOrder(frameOrder, frame, glassType, eventArgs);
 		}
 
-		private static FrameOrder UpdateFrameOrder(FrameOrder frameOrder, EditFrameFormEventArgs eventArgs)
+		private static FrameOrder UpdateFrameOrder(FrameOrder frameOrder, Frame frame, FrameGlassType glassType, EditFrameFormEventArgs eventArgs)
 		{
+			frameOrder.Frame = frame;
+			frameOrder.GlassType = glassType;
 			frameOrder.Addition = ParseNullableEyeParameter(eventArgs.SelectedAddition);
-			//    = new NullableEyeParameter
-			//{
-			//    Left = (eventArgs.SelectedAddition.Left != int.MinValue) ? eventArgs.SelectedAddition.Left : (decimal?)null,
-			//    Right = (eventArgs.SelectedAddition.Right != int.MinValue) ? eventArgs.SelectedAddition.Right : (decimal?)null,
-			//};
 			frameOrder.Axis = ParseNullableEyeParameter(eventArgs.SelectedAxis);
-			//    = new NullableEyeParameter
-			//{
-			//    Left = (eventArgs.SelectedAxis.Left != int.MinValue) ? eventArgs.SelectedAxis.Left : (decimal?)null,
-			//    Right = (eventArgs.SelectedAxis.Right != int.MinValue) ? eventArgs.SelectedAxis.Right : (decimal?)null,
-			//};
 			frameOrder.Created = DateTime.Now;
 			frameOrder.Cylinder = ParseNullableEyeParameter(eventArgs.SelectedCylinder);
-			//    new NullableEyeParameter 
-			//{
-			//    Left = (eventArgs.SelectedCylinder.Left != int.MinValue) ? eventArgs.SelectedCylinder.Left : (decimal?)null,
-			//    Right = (eventArgs.SelectedCylinder.Right != int.MinValue) ? eventArgs.SelectedCylinder.Right : (decimal?)null,
-			//};
 			frameOrder.Height = ParseNullableEyeParameter(eventArgs.SelectedHeight);
-			//new NullableEyeParameter 
-			//{
-			//    Left = (eventArgs.SelectedHeight.Left != int.MinValue) ? eventArgs.SelectedHeight.Left : (decimal?)null,
-			//    Right = (eventArgs.SelectedHeight.Right != int.MinValue) ? eventArgs.SelectedHeight.Right : (decimal?)null,
-			//};
 			frameOrder.Reference = String.IsNullOrEmpty(eventArgs.Reference) ? null : eventArgs.Reference;
 			frameOrder.PupillaryDistance = eventArgs.SelectedPupillaryDistance;
 			frameOrder.Sent = null;

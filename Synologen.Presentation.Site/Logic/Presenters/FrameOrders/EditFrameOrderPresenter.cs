@@ -183,7 +183,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.FrameOrders
 			if(frameOrderId>0)
 			{
 				var previouslySavedFrameOrder = _frameOrderRepository.Get(frameOrderId);
-				frameOrder = e.FillFrameOrder(previouslySavedFrameOrder);
+				var frame = _frameRepository.Get(e.SelectedFrameId);
+				var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
+				frameOrder = e.FillFrameOrder(frame, glassType, previouslySavedFrameOrder);
 			}
 			else{
 				var frame = _frameRepository.Get(e.SelectedFrameId);

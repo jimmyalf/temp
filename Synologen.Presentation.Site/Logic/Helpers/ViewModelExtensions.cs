@@ -50,13 +50,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 
 		private static FrameOrder UpdateFrameOrder(FrameOrder frameOrder, Frame frame, FrameGlassType glassType, EditFrameFormEventArgs eventArgs)
 		{
+			var enableAddition = (glassType != null) ? glassType.IncludeAdditionParametersInOrder : false;
+			var enableHeight = (glassType != null) ? glassType.IncludeHeightParametersInOrder : false;
 			frameOrder.Frame = frame;
 			frameOrder.GlassType = glassType;
-			frameOrder.Addition = ParseNullableEyeParameter(eventArgs.SelectedAddition);
+			frameOrder.Addition = eventArgs.ParseNullableEyeParameter(x => x.SelectedAddition, () => !enableAddition);
 			frameOrder.Axis = ParseNullableEyeParameter(eventArgs.SelectedAxis);
 			frameOrder.Created = DateTime.Now;
-			frameOrder.Cylinder = ParseNullableEyeParameter(eventArgs.SelectedCylinder);
-			frameOrder.Height = ParseNullableEyeParameter(eventArgs.SelectedHeight);
+			frameOrder.Cylinder = eventArgs.ParseNullableEyeParameter(x => x.SelectedCylinder);
+			frameOrder.Height = eventArgs.ParseNullableEyeParameter(x => x.SelectedHeight, () => !enableHeight);
 			frameOrder.Reference = String.IsNullOrEmpty(eventArgs.Reference) ? null : eventArgs.Reference;
 			frameOrder.PupillaryDistance = eventArgs.SelectedPupillaryDistance;
 			frameOrder.Sent = null;
@@ -64,13 +66,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Helpers {
 			return frameOrder;
 		}
 
-		private static NullableEyeParameter ParseNullableEyeParameter(EyeParameter eyeParameter)
+		private static NullableEyeParameter ParseNullableEyeParameter(this EditFrameFormEventArgs eventArgs, Func<EditFrameFormEventArgs,EyeParameter> parameterProperty, Func<bool> disableCondition)
 		{
+			if(disableCondition()) return new NullableEyeParameter();
+			var eyeParameter = parameterProperty(eventArgs);
 			return new NullableEyeParameter 
 			{
 				Left = (eyeParameter.Left != int.MinValue) ? eyeParameter.Left : (decimal?)null,
 				Right = (eyeParameter.Right != int.MinValue) ? eyeParameter.Right : (decimal?)null,
 			};
+		}
+
+		private static NullableEyeParameter ParseNullableEyeParameter(this EditFrameFormEventArgs eventArgs, Func<EditFrameFormEventArgs,EyeParameter> parameterProperty)
+		{
+			return ParseNullableEyeParameter(eventArgs, parameterProperty, () => false);
 		}
 
 		private static NullableEyeParameter<int?> ParseNullableEyeParameter(EyeParameter<int> eyeParameter)

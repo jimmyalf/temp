@@ -13,5 +13,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 		{
 
 		}
-	}
+    
+        public string OpqSubPageUrl { get; set; }
+    }
 }

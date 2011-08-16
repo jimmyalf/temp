@@ -5,6 +5,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 	<a href="Logout.aspx" >Logga ut</a><br />
-	<uc2:OpqMenu ID="OpqMenu1" runat="server" OpqSubPageUrl="/Spinit.Wpc.Synologen.OPQ.Site/SubPage.aspx" NodeId="68" />
-	<uc1:OpqStartPage ID="OpqStartPage1" runat="server" />
+	<uc2:OpqMenu ID="OpqMenu1" runat="server" OpqSubPageUrl="/SubPage.aspx" NodeId="68" />
+	<uc1:OpqStartPage ID="OpqStartPage1" runat="server" OpqSubPageUrl="/SubPage.aspx" />
 </asp:Content>

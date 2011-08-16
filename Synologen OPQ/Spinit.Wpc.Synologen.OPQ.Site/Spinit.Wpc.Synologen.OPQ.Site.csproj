@@ -206,6 +206,13 @@
     <Compile Include="Wpc\Synologen\OpqSubPage.ascx.designer.cs">
       <DependentUpon>OpqSubPage.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\Test.aspx.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Test.aspx.designer.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Synologen.Business\Synologen.Business.csproj">
@@ -245,8 +252,19 @@
   <ItemGroup>
     <Content Include="Opq.Master" />
     <Content Include="WebForm1.aspx" />
+    <Content Include="Wpc\Synologen\Images\icon1.png" />
+    <Content Include="Wpc\Synologen\Images\icon2.png" />
+    <Content Include="Wpc\Synologen\Images\icon3.png" />
+    <Content Include="Wpc\Synologen\Images\icon4.png" />
+    <Content Include="Wpc\Synologen\Images\icon5.png" />
+    <Content Include="Wpc\Synologen\Images\icon6.png" />
+    <Content Include="Wpc\Synologen\Images\icon7.png" />
+    <Content Include="Wpc\Synologen\Images\spacer.png" />
+    <Content Include="Wpc\Synologen\js\cloud-carousel.1.0.5.js" />
+    <Content Include="Wpc\Synologen\js\cloud-carousel.1.0.5.min.js" />
     <Content Include="Wpc\Synologen\OpqAtlas.ascx" />
     <Content Include="Wpc\Synologen\OpqSnurran.ascx" />
+    <Content Include="Wpc\Synologen\Test.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

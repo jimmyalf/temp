@@ -11,8 +11,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Code
 	public class TreeNode
 	{
 		#region Internal parameters & Constructors
-		
-		/// <summary>
+
+        private string _cssClass = "subnav";
+        
+        /// <summary>
 		/// Contructor
 		/// </summary>
 		/// <param name="name">The name of the leaf</param>
@@ -77,11 +79,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Code
 		/// </summary>
 		public bool Selected { get; set; }
 
-		/// <summary>
-		/// Get/Set for the class to be used on the li element
-		/// </summary>
-		public string CssClass { get; set; }
-
+	    /// <summary>
+	    /// Get/Set for the class to be used on the li element
+	    /// </summary>
+        public string CssClass
+        {
+            get { return _cssClass; }
+            set { _cssClass = value; }
+        }
 		#endregion
 
 		#region Public Methods
@@ -114,24 +119,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Code
 		{
 			string li = "<li{0}>{1}{2}</li>";
 			var cssClass = string.Empty;
-			if (!string.IsNullOrEmpty(CssClass))
-				cssClass = Selected
-				           	? string.Concat(" class=\"", CssClass, " ", selectedCssClass, "\"")
-				           	: string.Concat(" class=\"", CssClass, "\"");
-			else if (Selected) cssClass = string.Concat(" class=\"", selectedCssClass, "\"");
-			var liText = string.Empty;
-			if (!string.IsNullOrEmpty(Link))
-			{
-				liText = string.Concat("<a href=\"", Link, "\">", Name, "</a>");
-			}
-			else
-			{
-				liText = Name;
-			}
+			if (Selected) cssClass = string.Concat(" class=\"", selectedCssClass, "\"");
+		    string liText = !string.IsNullOrEmpty(Link) ? string.Concat("<a href=\"", Link, "\">", Name, "</a>") : Name;
 			var innerList = new StringBuilder();
 			if ((Nodes != null) && (Nodes.Count > 0))
 			{
-				innerList.Append(string.Concat("<",tag,">"));
+				innerList.Append(string.Concat("<",tag, " class=\"", CssClass, "\"", ">"));
 				foreach (var node in Nodes)
 				{
 					innerList.Append(node.ToUnordedHtmlList(selectedCssClass));

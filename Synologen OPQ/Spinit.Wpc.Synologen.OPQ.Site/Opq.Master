@@ -1,10 +1,11 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Opq.master.cs" Inherits="Spinit.Wpc.Synologen.OPQ.Site.Opq" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 	<title></title>
-    <link href="http://synologen-nu.wpc.nu/CommonResources/Css/Extranet_139.css" type="text/css" rel="stylesheet" media="screen" />    
+    <link href="http://nu.synologen.spinit.local/CommonResources/Styles/Extranet.css" type="text/css" rel="stylesheet" media="screen" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>   
 	<asp:ContentPlaceHolder ID="head" runat="server">
 	</asp:ContentPlaceHolder>
 </head>

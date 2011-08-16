@@ -46,6 +46,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 				Tree tree = GetTree(node, selectedNodes);
 				if (tree != null)
 				{
+				    tree.CssClass = "topnav";
 					ltMenu.Text = tree.ToUnordedHtmlList(SelectedItemCssClass);
 				}
 			}

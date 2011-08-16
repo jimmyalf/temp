@@ -6,7 +6,7 @@ using Spinit.Wpc.Synologen.Business.Utility;
 namespace Spinit.Wpc.Synologen.Presentation.Code {
 	public static class SessionContext {
 
-		private const int DefaultPageSize = 40;
+		private const int DefaultPageSize = 30;
 
 		public static class Shops {
 			private const string NAME = "Shops";
@@ -92,30 +92,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Code {
 			}
 		}
 
-		public static class Orders {
-			private const string NAME = "Orders";
-			public static int PageSize {
-				get { return Session.GetSessionValue(NAME + "IndexPageSize", DefaultPageSize); }
-				set { Session.SetSessionValue(NAME + "IndexPageSize", value); }
-			}
-			public static int PageIndex {
-				get { return Session.GetSessionValue(NAME + "IndexPageIndex", 0); }
-				set { Session.SetSessionValue(NAME + "IndexPageIndex", value); }
-			}
-			public static bool SortAscending {
-				get { return Session.GetSessionValue(NAME + "IndexPageSortAscending", false); }
-				set { Session.SetSessionValue(NAME + "IndexPageSortAscending", value); }
-			}
-			public static string SortExpression {
-				get { return Session.GetSessionValue(NAME + "IndexSortExpression", "cCreatedDate"); }
-				set { Session.SetSessionValue(NAME + "IndexSortExpression", value); }
-			}
-			public static string SearchExpression {
-				get { return Session.GetSessionValue(NAME + "IndexPageSearch", String.Empty); }
-				set { Session.SetSessionValue(NAME + "IndexPageSearch", value); }
-			}
-		}
-
 		public static class EditOrder{
 			private const string NAME = "SynologenAdminEditOrder";
 			public static IList<CartOrderItem> EditOrderItemsInCart {
@@ -132,40 +108,53 @@ namespace Spinit.Wpc.Synologen.Presentation.Code {
 			}
 		}
 
-		public static PageSortSettings ContractSalesArticles
+		public static PageSortSearchSettings Orders
 		{
-			get { return new PageSortSettings("ContractSalesArticles", "Id"); }
+			get { return new PageSortSearchSettings("Orders", "cCreatedDate"); }
+		}
+
+		public static PageSortSearchSettings ContractSalesArticles
+		{
+			get { return new PageSortSearchSettings("ContractSalesArticles", "Id"); }
 		}
 
 		public class PageSortSettings
 		{
-			private readonly string _name;
-			private readonly string _defaultSortExpression;
+			protected readonly string Name;
+			protected readonly string DefaultSortExpression;
 
 			public PageSortSettings(string uniqueSessionName, string defaultSortExpression)
 			{
-				_name = uniqueSessionName;
-				_defaultSortExpression = defaultSortExpression;
+				Name = uniqueSessionName;
+				DefaultSortExpression = defaultSortExpression;
 			}
 			public int PageSize {
-				get { return Session.GetSessionValue(_name + "IndexPageSize", DefaultPageSize); }
-				set { Session.SetSessionValue(_name + "IndexPageSize", value); }
+				get { return Session.GetSessionValue(Name + "IndexPageSize", DefaultPageSize); }
+				set { Session.SetSessionValue(Name + "IndexPageSize", value); }
 			}
 			public int PageIndex {
-				get { return Session.GetSessionValue(_name + "IndexPageIndex", 0); }
-				set { Session.SetSessionValue(_name + "IndexPageIndex", value); }
+				get { return Session.GetSessionValue(Name + "IndexPageIndex", 0); }
+				set { Session.SetSessionValue(Name + "IndexPageIndex", value); }
 			}
 			public bool SortAscending {
-				get { return Session.GetSessionValue(_name + "IndexPageSortAscending", true); }
-				set { Session.SetSessionValue(_name + "IndexPageSortAscending", value); }
+				get { return Session.GetSessionValue(Name + "IndexPageSortAscending", true); }
+				set { Session.SetSessionValue(Name + "IndexPageSortAscending", value); }
 			}
 			public string SortExpression {
-				get { return Session.GetSessionValue(_name + "IndexSortExpression", _defaultSortExpression); }
-				set { Session.SetSessionValue(_name + "IndexSortExpression", value); }
+				get { return Session.GetSessionValue(Name + "IndexSortExpression", DefaultSortExpression); }
+				set { Session.SetSessionValue(Name + "IndexSortExpression", value); }
 			}
-			public string SearchExpression {
-				get { return Session.GetSessionValue(_name + "IndexPageSearch", String.Empty); }
-				set { Session.SetSessionValue(_name + "IndexPageSearch", value); }
+		}
+
+		public class PageSortSearchSettings : PageSortSettings
+		{
+			public PageSortSearchSettings(string uniqueSessionName, string defaultSortExpression) 
+				: base(uniqueSessionName, defaultSortExpression) { }
+
+			public string SearchExpression 
+			{
+				get { return Session.GetSessionValue(Name + "IndexPageSearch", String.Empty); }
+				set { Session.SetSessionValue(Name + "IndexPageSearch", value); }
 			}
 		}
 	}

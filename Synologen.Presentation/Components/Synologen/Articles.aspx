@@ -4,7 +4,16 @@
         <div class="fullBox">
             <div class="wrap">
             <h1>Artiklar</h1>
-			<br />
+            <fieldset>
+                <legend>Filtrera och sök</legend>	      	                	                  	                 	                
+                <div class="formItem clearLeft">
+                    <label class="labelLong">Textfilter</label>
+                    <asp:TextBox runat="server" ID="txtSearch"/>
+                </div> 	                          
+                <div class="formItem clearLeft">
+                    <asp:Button runat="server" id="btnSearch" text="S&ouml;k"  SkinId="Big"/>
+                </div>	
+            </fieldset>
 			<div class="wpcPager"><WPC:PAGER id="pager" runat="server" /></div>
             <asp:GridView ID="gvArticles" 
 				OnRowDeleting="gvArticles_Deleting"
@@ -15,6 +24,7 @@
                 <Columns>
                     <asp:BoundField headerText="Namn" DataField="Name" SortExpression="Name"/>
                     <asp:BoundField headerText="Artikelnummer" DataField="Number" SortExpression="Number"/>
+                    <asp:BoundField headerText="SPCS Kontonummer" DataField="SPCSAccountNumber" SortExpression="SPCSAccountNumber"/>
                     <asp:ButtonField Text="Redigera" HeaderText="Redigera" CommandName="Edit" ButtonType="Button" ControlStyle-CssClass="btnSmall"  ItemStyle-HorizontalAlign="Center" HeaderStyle-CssClass="controlColumn"  />
 		            <asp:TemplateField headertext="Radera" ControlStyle-CssClass="btnSmall"  ItemStyle-HorizontalAlign="Center" HeaderStyle-CssClass="controlColumn"  >
 			            <ItemTemplate>

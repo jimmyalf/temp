@@ -68,6 +68,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			if(connectionString.ToLower().Contains("black")) return true;
 			if(connectionString.ToLower().Contains("dev")) return true;
 			if(connectionString.ToLower().Contains("localhost")) return true;
+			if(connectionString.ToLower().Contains(@".\")) return true;
 			return false;
 		}
 	}

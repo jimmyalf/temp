@@ -35,9 +35,16 @@ namespace Spinit.Wpc.Synologen.Data.Test
 		public void RunAfterAnyTests()
 		{
 			var provider = GetSqlProvider();
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			ClearTables(session);
 			SetupLensSubscriptionData();
 			SetupContractSaleSettlementData(provider);
 			ResetTestShop(provider);
+		}
+
+		private void ClearTables(ISession session)
+		{
+			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenArticle");
 		}
 
 		private void SetupContractSaleData(ISqlProvider provider) 

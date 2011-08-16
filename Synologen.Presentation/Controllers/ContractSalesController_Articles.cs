@@ -43,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			var article = _viewService.ParseArticle(articleView);
 			_contractSalesCommandService.UpdateArticle(article);
 			MessageQueue.SetMessage("Artikel \"{ArticleName}\" har uppdaterats".Replace("{ArticleName}", articleView.Name));
-			return Redirect(ComponentPages.Articles);
+			return Redirect(ComponentPages.Articles.Replace("~",""));
 		}
 	}
 }

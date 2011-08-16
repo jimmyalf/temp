@@ -328,7 +328,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 		}
 
 		[Test]
-		public void When_Form_Is_Submitted_Saved_Item_Has_Expected_Values()
+		public void When_Form_Is_Submitted_For_New_Order_Saved_Item_Has_Expected_Values()
 		{
 			//Arrange
 			var frameSelectedEventArgs = new EditFrameFormEventArgs {
@@ -350,6 +350,67 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			var mockedHttpResponse = new Mock<HttpResponseBase>();
 			var requestParams = new NameValueCollection();
+			
+
+			//Act
+			mockedHttpContext.SetupGet(x => x.Response).Returns(mockedHttpResponse.Object);
+			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
+			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedShopId(expectedShopId);
+			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedPageUrl(expectedRedirectUrl);
+			((RepositoryFactory.MockedFrameOrderRepository) frameOrderRepository).SetSavedId(expectedSavedItemId);
+			presenter.HttpContext = mockedHttpContext.Object;
+			presenter.View_Load(null, new EventArgs());
+			presenter.View.RedirectPageId = 5;
+			presenter.View_SumbitForm(null, frameSelectedEventArgs);
+			var savedEntity = ((RepositoryFactory.MockedFrameOrderRepository) frameOrderRepository).SavedItem;
+
+			//Assert
+			Expect(savedEntity, Is.Not.Null);
+			Expect(savedEntity.Addition.Left, Is.EqualTo(frameSelectedEventArgs.SelectedAddition.Left));
+			Expect(savedEntity.Addition.Right, Is.EqualTo(frameSelectedEventArgs.SelectedAddition.Right));
+			Expect(savedEntity.Axis.Left, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Left));
+			Expect(savedEntity.Axis.Right, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Right));
+			Expect(savedEntity.Created.ToString("yyyy-MM-dd HH:mm"), Is.EqualTo(DateTime.Now.ToString("yyyy-MM-dd HH:mm")));
+			Expect(savedEntity.Cylinder.Left, Is.EqualTo(frameSelectedEventArgs.SelectedCylinder.Left));
+			Expect(savedEntity.Cylinder.Right, Is.EqualTo(frameSelectedEventArgs.SelectedCylinder.Right));
+			Expect(savedEntity.Frame.Id, Is.EqualTo(frameSelectedEventArgs.SelectedFrameId));
+			Expect(savedEntity.GlassType.Id, Is.EqualTo(frameSelectedEventArgs.SelectedGlassTypeId));
+			Expect(savedEntity.Height.Left, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Left));
+			Expect(savedEntity.Height.Right, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Right));
+			Expect(savedEntity.IsSent, Is.EqualTo(false));
+			Expect(savedEntity.Reference, Is.EqualTo(frameSelectedEventArgs.Reference));
+			Expect(savedEntity.OrderingShop.Id, Is.EqualTo(expectedShopId));
+			Expect(savedEntity.PupillaryDistance.Left, Is.EqualTo(frameSelectedEventArgs.SelectedPupillaryDistance.Left));
+			Expect(savedEntity.PupillaryDistance.Right, Is.EqualTo(frameSelectedEventArgs.SelectedPupillaryDistance.Right));
+			Expect(savedEntity.Sent, Is.Null);
+			Expect(savedEntity.Sphere.Left, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Left));
+			Expect(savedEntity.Sphere.Right, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Right));
+			mockedHttpResponse.Verify(x => x.Redirect(expectedRedirectUrlWithQueryString));
+		}
+
+		[Test]
+		public void When_Form_Is_Submitted_For_Existing_Order_Saved_Item_Has_Expected_Values()
+		{
+			//Arrange
+			var frameSelectedEventArgs = new EditFrameFormEventArgs {
+				SelectedFrameId = 5,
+				SelectedGlassTypeId = 8,
+				SelectedPupillaryDistance = new EyeParameter { Left = 22, Right = 33 },
+				SelectedSphere = new EyeParameter { Left = -5, Right = 2.25M },
+				SelectedCylinder = new EyeParameter { Left = 0.25M, Right = 1.75M },
+				SelectedAxis = new EyeParameter<int> { Left = 20, Right = 179 },
+				SelectedAddition = new EyeParameter { Left = 1.25M, Right = 2.75M },
+				SelectedHeight = new EyeParameter { Left = 19, Right = 27 },
+				Reference = "Skynda på",
+				PageIsValid = true
+			};
+			const int expectedShopId = 5;
+			const string expectedRedirectUrl = "/test/url/";
+			const int expectedSavedItemId = 10;
+			var expectedRedirectUrlWithQueryString = String.Concat(expectedRedirectUrl, "?frameorder=", expectedSavedItemId);
+			var mockedHttpContext = new Mock<HttpContextBase>();
+			var mockedHttpResponse = new Mock<HttpResponseBase>();
+			var requestParams = new NameValueCollection{{"frameorder", expectedSavedItemId.ToString()}};
 			
 
 			//Act

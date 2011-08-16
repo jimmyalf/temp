@@ -66,7 +66,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 		private void AdministratörenSkickasTillArtikelListan()
 		{
 			var redirectResult = (RedirectResult) _actionResult;
-			redirectResult.Url.ShouldBe(ComponentPages.Articles);
+			redirectResult.Url.ShouldBe(ComponentPages.Articles.Replace("~",""));
 		}
 
 		private void SkapasEnNyArtikel()

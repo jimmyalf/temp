@@ -192,7 +192,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void Controller_redirects_to_article_list()
 		{
-		    ViewModel.Url.ShouldBe(ComponentPages.Articles);
+		    ViewModel.Url.ShouldBe(ComponentPages.Articles.Replace("~",""));
 		}
 	}
 

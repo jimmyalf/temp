@@ -1,9 +1,9 @@
 using System;
 using System.Web.Routing;
 using System.Web.UI.WebControls;
+using Spinit.Extensions;
 using Spinit.Wpc.Core.UI;
 using Spinit.Wpc.Member.Business;
-using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Application;
@@ -33,6 +33,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			pager.IndexChanged += RepopulateArticles;
 			pager.IndexButtonChanged += RepopulateArticles;
 			pager.PageSizeChanged += RepopulateArticles;
+			btnSearch.Click += RepopulateArticles;
 			base.OnInit(e);
 		}
 
@@ -40,27 +41,35 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 		{
 			SessionContext.ContractSalesArticles.PageIndex = pager.PageIndex;
 			SessionContext.ContractSalesArticles.PageSize = pager.PageSize;
+			SessionContext.ContractSalesArticles.SearchExpression = txtSearch.Text;
 			PopulateArticles();
+			PopulateFilteringControls(txtSearch.Text);
 		}
 
 		private void PopulateArticles()
 		{
 			var pageSize = SessionContext.ContractSalesArticles.PageSize;
 			var pageIndex = SessionContext.ContractSalesArticles.PageIndex;
-			var criteria = new AllArticlesMatchingCriteria
+			var text = SessionContext.ContractSalesArticles.SearchExpression;
+			var criteria = new AllArticlesMatchingCriteria(text)
 			{
 				OrderBy = null, 
 				Page = pageIndex + 1, 
 				PageSize = pageSize, 
 				SortAscending = true
 			};
-			var items = _articleRepository.FindBy(criteria) as IExtendedEnumerable<Article>;
+			var items = _articleRepository.FindBy(criteria).ToExtendedEnumerable();
 			gvArticles.DataSource = items;
 			gvArticles.DataBind();
-
 			pager.PageSize = pageSize;
 			pager.TotalRecords = (int) items.TotalCount;
 			pager.TotalPages = pager.CalculateTotalPages();
+
+		}
+
+		private void PopulateFilteringControls(string searchText)
+		{
+			txtSearch.Text = searchText;
 		}
 
 		protected void btnDelete_AddConfirmDelete(object sender, EventArgs e) {
@@ -121,5 +130,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			);
 			return itemCollection;
 		}
+
 	}
 }

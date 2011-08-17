@@ -131,6 +131,7 @@
     <Compile Include="Domain\Model\BGWebService\RecievedError.cs" />
     <Compile Include="Domain\Model\BGWebService\ReceivedPayment.cs" />
     <Compile Include="Domain\Model\ContractSales\Article.cs" />
+    <Compile Include="Domain\Model\ContractSales\ContractArticleConnection.cs" />
     <Compile Include="Domain\Model\ContractSales\ContractCompany.cs" />
     <Compile Include="Domain\Model\ContractSales\ContractSale.cs" />
     <Compile Include="Domain\Model\ContractSales\Customer.cs" />

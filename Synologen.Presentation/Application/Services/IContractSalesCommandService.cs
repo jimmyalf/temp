@@ -1,11 +1,10 @@
-﻿using Spinit.Wpc.Synologen.Business.Domain.Entities;
-
-namespace Spinit.Wpc.Synologen.Presentation.Application.Services
+﻿namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
 	public interface IContractSalesCommandService
 	{
 		void CancelOrder(int orderId);
-		void AddArticle(Article article);
-		void UpdateArticle(Article article);
+		void AddArticle(Business.Domain.Entities.Article article);
+		void UpdateArticle(Business.Domain.Entities.Article article);
+		void AddContractArticle(Core.Domain.Model.ContractSales.ContractArticleConnection contractArticleConnection);
 	}
 }

@@ -1,4 +1,9 @@
-﻿using Spinit.Wpc.Synologen.Business.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using FakeItEasy;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
@@ -38,6 +43,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
                 Id = articleId,
                 Name = "Article ABCDEF"
 			};
+		}
+
+		public static IList<Core.Domain.Model.ContractSales.Article> GetArticles()
+		{
+			Func<int, Core.Domain.Model.ContractSales.Article> getArticle = GetDomainArticle;
+			return getArticle.GenerateRange(1,15).ToList();
+		}
+
+		public static Core.Domain.Model.ContractSales.Article GetDomainArticle(int articleId)
+		{
+			var fakeObject = A.Fake<Core.Domain.Model.ContractSales.Article>();
+			A.CallTo(() => fakeObject.Id).Returns(articleId);
+			A.CallTo(() => fakeObject.Name).Returns("Article ABCDEF");
+			A.CallTo(() => fakeObject.Number).Returns("54321");
+			A.CallTo(() => fakeObject.SPCSAccountNumber).Returns("4513");
+			return fakeObject;
 		}
 	}
 }

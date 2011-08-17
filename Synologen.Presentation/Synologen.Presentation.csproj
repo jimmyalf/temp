@@ -91,6 +91,7 @@
     <Compile Include="Application\Services\UserContextService.cs" />
     <Compile Include="Controllers\ContractSalesController.cs" />
     <Compile Include="Controllers\ContractSalesController_Articles.cs" />
+    <Compile Include="Controllers\ContractSalesController_ContractArticles.cs" />
     <Compile Include="Controllers\FrameGlassTypeController.cs" />
     <Compile Include="Controllers\FrameBrandController.cs" />
     <Compile Include="Controllers\FrameColorController.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Helpers\WpcDropDownList.cs" />
     <Compile Include="Helpers\WpcGridDeleteForm.cs" />
     <Compile Include="Models\ContractSales\ArticleView.cs" />
+    <Compile Include="Models\ContractSales\ContractArticleView.cs" />
     <Compile Include="Models\ContractSales\OrderView.cs" />
     <Compile Include="Models\ContractSales\SettlementListView.cs" />
     <Compile Include="Models\ContractSales\SettlementListViewItem.cs" />

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
@@ -11,7 +12,9 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Code;
+using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
+using ContractArticleConnection = Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.ContractArticleConnection;
 using Settlement=Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Settlement;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
@@ -23,6 +26,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		private readonly IAdminSettingsService _settingsService;
 		private readonly ITransactionRepository _transactionRepository;
 		private readonly ISqlProvider _synologenSqlProvider;
+		private readonly IArticleRepository _articleRepository;
 		private const int InvoicedStatusId = 5;
 
 		public ContractSalesViewService(
@@ -30,13 +34,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			IContractSaleRepository contractSaleRepository, 
 			IAdminSettingsService settingsService,
 			ITransactionRepository transactionRepository,
-			ISqlProvider synologenSqlProvider)
+			ISqlProvider synologenSqlProvider,
+			IArticleRepository articleRepository)
 		{
 			_settlementRepository = settlementRepository;
 			_contractSaleRepository = contractSaleRepository;
 			_settingsService = settingsService;
 			_transactionRepository = transactionRepository;
 			_synologenSqlProvider = synologenSqlProvider;
+			_articleRepository = articleRepository;
 		}
 
 		public SettlementView GetSettlement(int settlementId) 
@@ -142,6 +148,50 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			articleView.FormLegend = formLegend;
 			articleView.ArticleListUrl = ComponentPages.Articles.Replace("~", "");
 			return articleView;
+		}
+
+		public ContractArticleView GetContractArticleView(int contractId)
+		{
+			var articleSelectList = _articleRepository
+				.GetAll()
+				.ToSelectList(x => x.Id, x => x.Name);
+			return new ContractArticleView
+			{
+				ContractId = contractId,
+				Articles = articleSelectList
+			};
+		}
+
+		public ContractArticleView UpdateContractArticleView(ContractArticleView contractArticleView, Func<Core.Domain.Model.ContractSales.Article, ContractArticleView, string> getSPCSAccountNumberFunction)
+		{
+			var articleSelectList = _articleRepository.GetAll().ToSelectList(x => x.Id, x => x.Name);
+			var selectedArticle = _articleRepository.Get(contractArticleView.SelectedArticleId);
+			var spcsAccountNumber = getSPCSAccountNumberFunction(selectedArticle, contractArticleView);
+			return new ContractArticleView
+			{
+				ContractId = contractArticleView.ContractId,
+				Articles = articleSelectList,
+                SPCSAccountNumber = spcsAccountNumber,
+                AllowCustomPricing = contractArticleView.AllowCustomPricing,
+				IsActive = contractArticleView.IsActive,
+				IsVATFreeArticle = contractArticleView.IsVATFreeArticle,
+                PriceWithoutVAT = contractArticleView.PriceWithoutVAT,
+                SelectedArticleId = contractArticleView.SelectedArticleId,                
+			};
+		}
+
+		public ContractArticleConnection ParseContractArticle(ContractArticleView contractArticleView)
+		{
+			return new ContractArticleConnection
+			{
+				Active = contractArticleView.IsActive,
+				ArticleId = contractArticleView.SelectedArticleId,
+				ContractCustomerId = contractArticleView.ContractId,
+				EnableManualPriceOverride = contractArticleView.AllowCustomPricing,
+				NoVAT = contractArticleView.IsVATFreeArticle,
+				Price = contractArticleView.PriceWithoutVAT,
+				SPCSAccountNumber = contractArticleView.SPCSAccountNumber
+			};
 		}
 	}
 }

@@ -3,10 +3,12 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using NHibernate;
 using NUnit.Framework;
 using Spinit.Test.Web;
 using Spinit.Test.Web.MVC;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 using StoryQ.Infrastructure;
 using StoryQ.sv_SE;
 using StructureMap;
@@ -16,54 +18,23 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 	public abstract class SpecTestbase
 	{
 		protected HttpContextBase HttpContext;
-		//protected User LoggedInUser;
 		protected Action Context;
 		protected Func<Funktion> Story;
-
-		////Repositories, Services etc
-		//protected CompanyRepository companyRepository;
-		//protected RealEstateObjectRepository realEstateObjectRepository;
-		//protected DistrictRepository districtRepository;
-		//protected RealEstateObjectNoteRepository realEstateObjectNoteRepository;
-		//protected DocumentCategoryRepository documentCategoryRepository;
-		//protected RealEstateObjectDocumentRepository realEstateObjectDocumentRepository;
-		//protected DocumentFileTypeRepository documentFileTypeRepository;
-		//protected ContactCategoryRepository contactCategoryRepository;
-		//protected ContactRepository contactRepository;
-		//protected RealEstateObjectDucRepository realEstateObjectDucRepository;
-		//protected CompanyDocumentRepository companyDocumentRepository;
-		//protected RealEstateObjectAlarmSourceRepository realEstateObjectAlarmSourceRepository;
-		//protected IRealEstateObjectManager realEstateObjectManager;
-		//protected IAlarmRepository alarmRepository;
-		//protected IHistoricAlarmRepository historicAlarmRepository;
-		//protected IDistrictManager districtManager;
-		//protected CompanyAccessService companyAccessService;
-		//protected RealEstateObjectAccessService realEstateObjectAccessService;
-		//protected AlarmAccessService alarmAccessService;
-		//protected HistoricAlarmAccessService historicAlarmAccessService;
-		//protected DistrictAccessService districtAccessService;
-		//protected ExternalUserCompanyRepository externalUserCompanyRepository;
-		//protected IExternalUserRepository externalUserRepository;
-		//protected IUnitSystemFunctionRepository unitSystemFunctionRepository;
-		//protected IActiveDirectoryService activeDirectoryService;
 		private Funktion _story;
 		protected int TestShopId;
 		protected int TestMemberId;
 		protected int TestContractCompanyId;
-		//protected IAlarmAccessManager alarmAccessManager;
-		//protected IAlarmPointRepository alarmPointRepository;
-		
+		protected int TestContractId;
 
 		[SetUp]
 		protected void RunBeforeEachTest()
 	    {
-			//ResetData();
+			ResetData();
 			TestShopId = 160;
 			TestMemberId = 486;
 			TestContractCompanyId = 57;
+			TestContractId = 14;
 			HttpContext = new FakeHttpContext();
-			//LoggedInUser = UserFactory.GetUser();
-			//HttpContext.SetUser(LoggedInUser);
 			if (Context != null) Context();
 			if (Story == null) throw new NotImplementedException("A story must be set for Spec. Use CreateStory function to create a story for the Spec.");
 			_story = Story();
@@ -92,62 +63,13 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		    return actionResult as FileContentResult;
 		}
 
-		//protected void ResetData()
-		//{
-		//    NHibernateFactory.Instance.GetConfiguration().Export();
-		//    SetupRepositories();
-		//    SetupAccessServices();
-		//    SetupADRepositories();
-		//}
-
-		//private void SetupRepositories()
-		//{
-		//    var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
-		//    companyRepository = new CompanyRepository(session);
-		//    realEstateObjectRepository = new RealEstateObjectRepository(session);
-		//    districtRepository = new DistrictRepository(session);
-		//    realEstateObjectNoteRepository = new RealEstateObjectNoteRepository(session);
-		//    documentCategoryRepository = new DocumentCategoryRepository(session);
-		//    realEstateObjectDocumentRepository = new RealEstateObjectDocumentRepository(session);
-		//    documentFileTypeRepository = new DocumentFileTypeRepository(session);
-		//    contactCategoryRepository = new ContactCategoryRepository(session);
-		//    contactRepository = new ContactRepository(session);
-		//    realEstateObjectDucRepository = new RealEstateObjectDucRepository(session);
-		//    alarmRepository = new AlarmRepository(session);
-		//    historicAlarmRepository = new HistoricAlarmRepository(session);
-		//    companyDocumentRepository = new CompanyDocumentRepository(session);
-		//    realEstateObjectAlarmSourceRepository = new RealEstateObjectAlarmSourceRepository(session);
-		//    externalUserCompanyRepository = new ExternalUserCompanyRepository(session);
-		//    alarmPointRepository = new AlarmPointRepository(session);
-		//    unitSystemFunctionRepository = new UnitSystemFunctionRepository(session);
-		//    realEstateObjectManager = ObjectFactory.GetInstance<IRealEstateObjectManager>();
-		//    districtManager = ObjectFactory.GetInstance<IDistrictManager>();
-		//        //new DistrictManager(districtRepository, district => new FakeActiveDirectoryService());
-
-		//    externalUserRepository = ObjectFactory.GetInstance<IExternalUserRepository>();
-		//    alarmAccessManager = ObjectFactory.GetInstance<IAlarmAccessManager>();
-
-
-		//}
-
-		//private void SetupAccessServices()
-		//{
-		//    realEstateObjectAccessService = new RealEstateObjectAccessService(realEstateObjectRepository);
-		//    alarmAccessService = new AlarmAccessService(alarmRepository, alarmAccessManager);
-		//    historicAlarmAccessService = new HistoricAlarmAccessService(historicAlarmRepository, alarmAccessManager, realEstateObjectAccessService);
-		//    districtAccessService = new DistrictAccessService(districtRepository, realEstateObjectAccessService);
-		//    companyAccessService = new CompanyAccessService(companyRepository,districtAccessService);    
-		//}
-
-		//private void SetupADRepositories()
-		//{
-		//    ((ExternalUserRepository) externalUserRepository).Purge();
-		//}
-
-		//public IList<IActionMessage> GetActionMessages(Controller controller)
-		//{
-		//    return (IList<IActionMessage>) controller.TempData["ActionMessages"];
-		//}
+		protected void ResetData()
+		{
+			var connection = ObjectFactory.GetInstance<ISession>().Connection;
+			DataHelper.DeleteForTable(connection, "tblSynologenContractArticleConnection");
+			DataHelper.DeleteForTable(connection, "tblSynologenOrderItems");
+			DataHelper.DeleteForTable(connection, "tblSynologenArticle");
+		}
 
 		public TModel WithRepository<TRepository, TModel>(Func<TRepository,TModel> function)
 		{

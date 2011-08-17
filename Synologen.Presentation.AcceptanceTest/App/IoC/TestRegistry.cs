@@ -48,6 +48,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.App.IoC
 			For<ITransactionArticleRepository>().Use<TransactionArticleRepository>();
 			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
+			For<IArticleRepository>().Use<ArticleRepository>();
 
 
 			// Register criteria converters

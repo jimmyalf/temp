@@ -1,3 +1,5 @@
+using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Presentation.AcceptanceTest.App.IoC;
 using StructureMap;
 
@@ -7,8 +9,8 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.App.Bootstrapping
 	{
 		public static void Bootstrap()
 		{
+			SetupNHibernate();
 			SetupIoC();
-			SetupNHibernateCriterias();
 			SetupStoryQ();
 		}
 
@@ -17,8 +19,9 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.App.Bootstrapping
 			ObjectFactory.Initialize(x => x.AddRegistry<TestRegistry>());
 		}
 
-		private static void SetupNHibernateCriterias()
+		private static void SetupNHibernate()
 		{
+			NHibernateFactory.MappingAssemblies.Add(typeof(SqlProvider).Assembly);
 			//ActionCriteriaExtensions.ConstructConvertersUsing(
 			//    ObjectFactory
 			//    .With(typeof(ISession), NHibernateFactory.Instance.GetSessionFactory().OpenSession())

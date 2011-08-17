@@ -1,6 +1,7 @@
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Utility.Business;
+using ContractArticleConnection = Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.ContractArticleConnection;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
@@ -39,6 +40,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			articleToUpdate.Name = article.Name;
 			articleToUpdate.Number = article.Number;
 			_synologenSqlProvider.AddUpdateDeleteArticle(Enumerations.Action.Update, ref articleToUpdate);
+		}
+
+		public void AddContractArticle(ContractArticleConnection contractArticleConnection)
+		{
+			var connection = new Business.Domain.Entities.ContractArticleConnection
+			{
+				Active = contractArticleConnection.Active,
+				ArticleId = contractArticleConnection.ArticleId,
+				ContractCustomerId = contractArticleConnection.ContractCustomerId,
+				EnableManualPriceOverride = contractArticleConnection.EnableManualPriceOverride,
+				NoVAT = contractArticleConnection.NoVAT,
+				Price = (float) contractArticleConnection.Price,
+				SPCSAccountNumber = contractArticleConnection.SPCSAccountNumber,
+			};
+
+			_synologenSqlProvider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref connection);
 		}
 	}
 }

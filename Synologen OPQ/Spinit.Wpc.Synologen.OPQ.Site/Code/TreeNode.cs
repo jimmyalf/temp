@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Web.UI.HtmlControls;
 
@@ -120,7 +121,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Code
 			string li = "<li{0}>{1}{2}</li>";
 			var cssClass = string.Empty;
 			if (Selected) cssClass = string.Concat(" class=\"", selectedCssClass, "\"");
-		    string liText = !string.IsNullOrEmpty(Link) ? string.Concat("<a href=\"", Link, "\">", Name, "</a>") : Name;
+		    string liText = !string.IsNullOrEmpty(Link) ? string.Concat("<a href=\"", Link, "\">", Name, "</a>") : String.Concat("<span>",Name,"</span>");
 			var innerList = new StringBuilder();
 			if ((Nodes != null) && (Nodes.Count > 0))
 			{

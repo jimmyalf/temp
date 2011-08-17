@@ -23,7 +23,7 @@ $(document).ready(function(){
     <a href="<%=OpqSubPageUrl %>?nodeId=26"><img class = "cloudcarousel" src="/wpc/synologen/images/icon3.png" alt=" " title=" " /></a>
     <a href="<%=OpqSubPageUrl %>?nodeId=18"><img class = "cloudcarousel" src="/wpc/synologen/images/icon2.png" alt=" " title=" " /></a>
     
-    <div  style="z-index:200; position:absolute; cursor:pointer; top:0; left:0; border:0; background:url('/wpc/synologen/images/spacer.png');width:200px;height:200px;"  id="left-but">&nbsp;</div>
-	<div  style="z-index:200; position:absolute; cursor:pointer; top:0; right:0; border:0; background:url('/wpc/synologen/images/spacer.png')100% 0%;width:200px;height:200px;" id="right-but">&nbsp;</div>
+    <div  style="z-index:1; position:absolute; cursor:pointer; top:0; left:0; border:0; background:url('/wpc/synologen/images/spacer.png');width:200px;height:200px;"  id="left-but">&nbsp;</div>
+	<div  style="z-index:1; position:absolute; cursor:pointer; top:0; right:0; border:0; background:url('/wpc/synologen/images/spacer.png')100% 0%;width:200px;height:200px;" id="right-but">&nbsp;</div>
 </div>
 

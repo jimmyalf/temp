@@ -41,7 +41,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 		[Test]
 		[Description ("Should throw exist exception")]
-		[Category ("Node-Exceptions")]
+		[Category ("NodeExceptions")]
 		public void NodeExistsExceptionOnRootLevel ()
 		{
 			try {
@@ -59,7 +59,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 		[Test]
 		[Description ("Should throw exist exception")]
-		[Category ("Node-Exceptions")]
+		[Category ("NodeExceptions")]
 		public void NodeExistsExceptionOnChildLevel ()
 		{
 			const string rootName = "node";
@@ -80,7 +80,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 		[Test]
 		[Description ("Should throw exist exception")]
-		[Category ("Node-Exceptions")]
+		[Category ("NodeExceptions")]
 		public void NodeDoesNotExistsByNameException ()
 		{
 			var bNode = new BNode (_context);
@@ -96,7 +96,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 		[Test]
 		[Description ("Should throw exist exception")]
-		[Category ("Node-Exceptions")]
+		[Category ("NodeExceptions")]
 		public void NodeDoesNotExistsByNameAndParentException ()
 		{
 			var bNode = new BNode (_context);

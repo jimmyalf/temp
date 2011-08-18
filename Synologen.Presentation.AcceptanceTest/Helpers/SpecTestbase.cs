@@ -66,9 +66,9 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		protected void ResetData()
 		{
 			var connection = ObjectFactory.GetInstance<ISession>().Connection;
-			DataHelper.DeleteForTable(connection, "tblSynologenContractArticleConnection");
-			DataHelper.DeleteForTable(connection, "tblSynologenOrderItems");
-			DataHelper.DeleteForTable(connection, "tblSynologenArticle");
+			DataHelper.DeleteAndResetIndexForTable(connection, "tblSynologenContractArticleConnection");
+			DataHelper.DeleteAndResetIndexForTable(connection, "tblSynologenOrderItems");
+			DataHelper.DeleteAndResetIndexForTable(connection, "tblSynologenArticle");
 		}
 
 		public TModel WithRepository<TRepository, TModel>(Func<TRepository,TModel> function)

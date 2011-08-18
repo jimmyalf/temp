@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
-using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
@@ -10,32 +9,54 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[HttpGet]
 		public ActionResult AddContractArticle(int contractId)
 		{
-			var viewModel = _viewService.GetContractArticleView(contractId);
+			var viewModel = _viewService.GetAddContractArticleView(contractId);
 			return View(viewModel);
 		}
 
 		[HttpPost]
-		public ActionResult UpdateAddContractArticle(ContractArticleView contractArticleView)
+		public ActionResult UpdateAddContractArticle(AddContractArticleView addContractArticleView)
 		{
-			var viewModel = _viewService.UpdateContractArticleView(contractArticleView, (selectedArticle, postedView) => selectedArticle.SPCSAccountNumber);
+			var viewModel = _viewService.UpdateContractArticleView(addContractArticleView, (selectedArticle, postedView) => selectedArticle.SPCSAccountNumber);
 			return View("AddContractArticle", viewModel);
 		}
 
 		[HttpPost]
-		public ActionResult AddContractArticle(ContractArticleView contractArticleView)
+		public ActionResult AddContractArticle(AddContractArticleView addContractArticleView)
 		{
 			if(!ModelState.IsValid)
 			{
-				var viewModel = _viewService.UpdateContractArticleView(contractArticleView, (selectedArticle, postedView) => postedView.SPCSAccountNumber);
+				var viewModel = _viewService.UpdateContractArticleView(addContractArticleView, (selectedArticle, postedView) => postedView.SPCSAccountNumber);
 				return View(viewModel);
 			}
-			var redirectUrl = "{Url}?contractId={ContractId}"
-				.Replace("{Url}", ComponentPages.ContractArticles.Replace("~", ""))
-				.Replace("{ContractId}", contractArticleView.ContractId.ToString());
-			var contractArticle = _viewService.ParseContractArticle(contractArticleView);
+			var redirectUrl = _viewService.GetContractArticleRoute(addContractArticleView.ContractId);
+			var contractArticle = _viewService.ParseContractArticle(addContractArticleView);
 			_contractSalesCommandService.AddContractArticle(contractArticle);
 			MessageQueue.SetMessage("En ny artikel har kopplats till avtalet");
 			return Redirect(redirectUrl);
 		}
+
+		[HttpGet]
+		public ActionResult EditContractArticle(int contractArticleId)
+		{
+			var viewModel = _viewService.GetEditContractArticleView(contractArticleId);
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult EditContractArticle(EditContractArticleView contractArticleView)
+		{
+			if(!ModelState.IsValid)
+			{
+				var viewModel = _viewService.UpdateContractArticleView(contractArticleView);
+				return View(viewModel);
+			}
+			var contractArticle = _viewService.ParseContractArticle(contractArticleView);
+			_contractSalesCommandService.UpdateContractArticle(contractArticle);
+			var redirectUrl = _viewService.GetContractArticleRoute(contractArticle.ContractCustomerId);
+			MessageQueue.SetMessage("Avtalsartikeln har uppdaterats");
+			return Redirect(redirectUrl);
+		}
 	}
+
+
 }

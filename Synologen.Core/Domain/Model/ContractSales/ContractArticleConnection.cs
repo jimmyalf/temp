@@ -2,6 +2,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales
 {
 	public class ContractArticleConnection
 	{
+		public int Id { get; set; }
 		public int ContractCustomerId { get; set; }
 		public int ArticleId { get; set; }
 		public decimal Price { get; set; }

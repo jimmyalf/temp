@@ -1,7 +1,9 @@
 using System;
+using System.Web.Routing;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Presentation.Application;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Utility.Business.SmartMenu;
@@ -130,11 +132,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			}
 			else 
 			{
-				if (_contractId > 0) 
+				if (_contractId > 0)
 				{
-					Response.Redirect(ComponentPages.ContractArticles + "?id=" + connectionId + "&contractId=" + _contractId, true);
+					var urlData = new RouteValueDictionary 
+					{
+						{"contractId", Request.Params["contractId"]},
+						{"contractArticleId", connectionId}
+					};
+					var url = RouteTable.Routes.GetRoute("ContractSales", "EditContractArticle", urlData);
+					Response.Redirect(url);
 				}
-				Response.Redirect(ComponentPages.ContractArticles+"?id=" + connectionId, true);
+				throw new ApplicationException("Unable to identify contract");
 			}
 		}
 
@@ -170,7 +178,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 				"Ny koppling" /*text*/, 
 				"Skapa ny artikelkoppling" /*tooltop*/,
 				null /*cssClass*/, 
-				"#" /*RouteTable.Routes.GetRoute("ContractSales", "AddArticle")*/ /*navigateUrl*/,
+				RouteTable.Routes.GetRoute("ContractSales", "AddContractArticle", new RouteValueDictionary{{"contractId" , Request.Params["contractId"]}}) /*navigateUrl*/,
 				null /*rel*/, 
 				null /*urlAliasCollection*/, 
 				false /*selected*/, 

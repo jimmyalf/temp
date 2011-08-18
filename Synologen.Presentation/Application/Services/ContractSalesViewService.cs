@@ -150,48 +150,113 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			return articleView;
 		}
 
-		public ContractArticleView GetContractArticleView(int contractId)
+		public AddContractArticleView GetAddContractArticleView(int contractId)
 		{
-			var articleSelectList = _articleRepository
-				.GetAll()
-				.ToSelectList(x => x.Id, x => x.Name);
-			return new ContractArticleView
+			var articleSelectList = _articleRepository.GetAll().ToSelectList(x => x.Id, x => x.Name);
+			var contract = _synologenSqlProvider.GetContract(contractId);
+			return new AddContractArticleView
 			{
 				ContractId = contractId,
-				Articles = articleSelectList
+				ContractName = contract.Name,
+				Articles = articleSelectList,
+                IsActive = true,
+                ContractArticleListUrl = GetContractArticleRoute(contractId)
 			};
 		}
 
-		public ContractArticleView UpdateContractArticleView(ContractArticleView contractArticleView, Func<Core.Domain.Model.ContractSales.Article, ContractArticleView, string> getSPCSAccountNumberFunction)
+		public EditContractArticleView GetEditContractArticleView(int contractArticleId)
+		{
+			var contractArticle = _synologenSqlProvider.GetContractCustomerArticleRow(contractArticleId);
+			var contract = _synologenSqlProvider.GetContract(contractArticle.ContractCustomerId);
+			return new EditContractArticleView
+			{
+				Id = contractArticleId,
+				ContractName = contract.Name,
+                AllowCustomPricing = contractArticle.EnableManualPriceOverride,
+				IsActive = contractArticle.Active,
+				IsVATFreeArticle = contractArticle.NoVAT,
+				PriceWithoutVAT = contractArticle.Price.ToString(),
+				SPCSAccountNumber = contractArticle.SPCSAccountNumber,
+                ArticleName = contractArticle.ArticleName,
+				ContractArticleListUrl = GetContractArticleRoute(contract.Id)
+			};
+		}
+
+		public AddContractArticleView UpdateContractArticleView(AddContractArticleView contractArticleView, Func<Core.Domain.Model.ContractSales.Article, AddContractArticleView, string> getSPCSAccountNumberFunction)
 		{
 			var articleSelectList = _articleRepository.GetAll().ToSelectList(x => x.Id, x => x.Name);
-			var selectedArticle = _articleRepository.Get(contractArticleView.SelectedArticleId);
+			var selectedArticle = _articleRepository.Get(contractArticleView.ArticleId);
 			var spcsAccountNumber = getSPCSAccountNumberFunction(selectedArticle, contractArticleView);
-			return new ContractArticleView
+			var contract = _synologenSqlProvider.GetContract(contractArticleView.ContractId);
+			return new AddContractArticleView
 			{
 				ContractId = contractArticleView.ContractId,
+				ContractName = contract.Name,
 				Articles = articleSelectList,
                 SPCSAccountNumber = spcsAccountNumber,
                 AllowCustomPricing = contractArticleView.AllowCustomPricing,
 				IsActive = contractArticleView.IsActive,
 				IsVATFreeArticle = contractArticleView.IsVATFreeArticle,
                 PriceWithoutVAT = contractArticleView.PriceWithoutVAT,
-                SelectedArticleId = contractArticleView.SelectedArticleId,                
+                ArticleId = contractArticleView.ArticleId,
+				ContractArticleListUrl = GetContractArticleRoute(contract.Id)
 			};
 		}
 
-		public ContractArticleConnection ParseContractArticle(ContractArticleView contractArticleView)
+		public EditContractArticleView UpdateContractArticleView(EditContractArticleView contractArticleView)
+		{
+			var contractArticle = _synologenSqlProvider.GetContractCustomerArticleRow(contractArticleView.Id);
+			var contract = _synologenSqlProvider.GetContract(contractArticle.ContractCustomerId);
+			return new EditContractArticleView
+			{
+				Id = contractArticle.Id,
+				ContractName = contract.Name,
+                SPCSAccountNumber = contractArticleView.SPCSAccountNumber,
+                AllowCustomPricing = contractArticleView.AllowCustomPricing,
+				IsActive = contractArticleView.IsActive,
+				IsVATFreeArticle = contractArticleView.IsVATFreeArticle,
+                PriceWithoutVAT = contractArticleView.PriceWithoutVAT,   
+				ArticleName = contractArticle.ArticleName,
+				ContractArticleListUrl = GetContractArticleRoute(contract.Id)
+			};
+		}
+
+
+		public ContractArticleConnection ParseContractArticle(AddContractArticleView addContractArticleView)
 		{
 			return new ContractArticleConnection
 			{
+				Active = addContractArticleView.IsActive,
+				ArticleId = addContractArticleView.ArticleId,
+				ContractCustomerId = addContractArticleView.ContractId,
+				EnableManualPriceOverride = addContractArticleView.AllowCustomPricing,
+				NoVAT = addContractArticleView.IsVATFreeArticle,
+				Price = Convert.ToInt32(addContractArticleView.PriceWithoutVAT),
+				SPCSAccountNumber = addContractArticleView.SPCSAccountNumber,
+			};
+		}
+
+		public ContractArticleConnection ParseContractArticle(EditContractArticleView contractArticleView)
+		{
+			var contractArticle = _synologenSqlProvider.GetContractCustomerArticleRow(contractArticleView.Id);
+			return new ContractArticleConnection
+			{
+				Id = contractArticleView.Id,
 				Active = contractArticleView.IsActive,
-				ArticleId = contractArticleView.SelectedArticleId,
-				ContractCustomerId = contractArticleView.ContractId,
+				ArticleId = contractArticle.ArticleId,
+				ContractCustomerId = contractArticle.ContractCustomerId,
 				EnableManualPriceOverride = contractArticleView.AllowCustomPricing,
 				NoVAT = contractArticleView.IsVATFreeArticle,
-				Price = contractArticleView.PriceWithoutVAT,
-				SPCSAccountNumber = contractArticleView.SPCSAccountNumber
+				Price = Convert.ToInt32(contractArticleView.PriceWithoutVAT),
+				SPCSAccountNumber = contractArticleView.SPCSAccountNumber,
 			};
+		}
+
+		public string GetContractArticleRoute(int contractId)
+		{
+			return "{Url}?contractId={ContractId}"
+				.Replace("{Url}", ComponentPages.ContractArticles.Replace("~", "").ToLower())
+				.Replace("{ContractId}", contractId.ToString());
 		}
 	}
 }

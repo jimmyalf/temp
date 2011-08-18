@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 	public class AddContractArticleConnection : SpecTestbase
 	{
 		private ContractSalesController _controller;
-		private ContractArticleView _contractArticleView;
+		private AddContractArticleView _addContractArticleView;
 		private ActionResult _actionResult;
 		private Article _article;
 
@@ -62,9 +62,8 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 		private void AdministratörenSkickasTillAvtalsArtikelListan()
 		{
 			var redirectResult = (RedirectResult) _actionResult;
-			var expectedRedirectUrl = "{Page}?contractId={ContractId}"
-				.Replace("{Page}", ComponentPages.ContractArticles.Replace("~", ""))
-				.Replace("{ContractId}", _contractArticleView.ContractId.ToString());
+			var expectedRedirectUrl = "/components/synologen/contractarticles.aspx?contractId={ContractId}"
+				.Replace("{ContractId}", _addContractArticleView.ContractId.ToString());
 			redirectResult.Url.ShouldBe(expectedRedirectUrl);
 		}
 
@@ -75,25 +74,25 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 				.Tables[0].AsEnumerable().First()
 				.Field<int>("cId");
 			var contractArticle = WithSqlProvider<ISqlProvider>().GetContractCustomerArticleRow(contractArticleId);
-			contractArticle.Active.ShouldBe(_contractArticleView.IsActive);
-			contractArticle.ArticleId.ShouldBe(_contractArticleView.SelectedArticleId);
-			contractArticle.ContractCustomerId.ShouldBe(_contractArticleView.ContractId);
-			contractArticle.EnableManualPriceOverride.ShouldBe(_contractArticleView.AllowCustomPricing);
-			contractArticle.NoVAT.ShouldBe(_contractArticleView.IsVATFreeArticle);
-			contractArticle.Price.ShouldBe((float)_contractArticleView.PriceWithoutVAT);
-			contractArticle.SPCSAccountNumber.ShouldBe(_contractArticleView.SPCSAccountNumber);
+			contractArticle.Active.ShouldBe(_addContractArticleView.IsActive);
+			contractArticle.ArticleId.ShouldBe(_addContractArticleView.ArticleId);
+			contractArticle.ContractCustomerId.ShouldBe(_addContractArticleView.ContractId);
+			contractArticle.EnableManualPriceOverride.ShouldBe(_addContractArticleView.AllowCustomPricing);
+			contractArticle.NoVAT.ShouldBe(_addContractArticleView.IsVATFreeArticle);
+			contractArticle.Price.ShouldBe(Convert.ToSingle(_addContractArticleView.PriceWithoutVAT));
+			contractArticle.SPCSAccountNumber.ShouldBe(_addContractArticleView.SPCSAccountNumber);
 		}
 
 		private void AdministratörenSpararAvtalsArtikelKopplingen()
 		{
-			_actionResult = _controller.AddContractArticle(_contractArticleView);
+			_actionResult = _controller.AddContractArticle(_addContractArticleView);
 		}
 
 		private void AttAdministratörenFylltIAvtalsArtikelKopplingInformation()
 		{
 			_article = ArticleFactory.GetArticle();
 			WithSqlProvider<ISqlProvider>().AddUpdateDeleteArticle(Enumerations.Action.Create, ref _article);
-			_contractArticleView = ContractArticleFactory.GetView(TestContractId, _article.Id);
+			_addContractArticleView = ContractArticleFactory.GetAddView(TestContractId, _article.Id);
 		}
 
 		[Test]
@@ -108,21 +107,21 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 
 		private void UppdaterasSPCSKontoFältetMedDefaultKontoFrånValdArtikel()
 		{
-			var viewResult = GetViewModel<ContractArticleView>(_actionResult);
+			var viewResult = GetViewModel<AddContractArticleView>(_actionResult);
 			viewResult.SPCSAccountNumber.ShouldBe(_article.DefaultSPCSAccountNumber);
-			viewResult.SPCSAccountNumber.ShouldNotBe(_contractArticleView.SPCSAccountNumber);
+			viewResult.SPCSAccountNumber.ShouldNotBe(_addContractArticleView.SPCSAccountNumber);
 		}
 
 		private void AdministratörenVäljerEnArtikelIListan()
 		{
-			_actionResult = _controller.UpdateAddContractArticle(_contractArticleView);
+			_actionResult = _controller.UpdateAddContractArticle(_addContractArticleView);
 		}
 
 		private void AttAdministratörenSkaparEnNyAvtalsArtikelKoppling()
 		{
 			_article = ArticleFactory.GetArticle();
 			WithSqlProvider<ISqlProvider>().AddUpdateDeleteArticle(Enumerations.Action.Create, ref _article);
-			_contractArticleView = ContractArticleFactory.GetView(TestContractId, _article.Id);
+			_addContractArticleView = ContractArticleFactory.GetAddView(TestContractId, _article.Id);
 		}
 	}
 }

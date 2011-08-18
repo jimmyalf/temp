@@ -14,8 +14,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		Article ParseArticle(ArticleView articleView);
 		ArticleView GetArticleView(int articleId, string formLegend);
 		ArticleView SetArticleViewDefaults(ArticleView articleView, string formLegend);
-		ContractArticleView GetContractArticleView(int contractId);
-		ContractArticleView UpdateContractArticleView(ContractArticleView contractArticleView, Func<Core.Domain.Model.ContractSales.Article, ContractArticleView, string> getSPCSAccountNumberFunction);
-		ContractArticleConnection ParseContractArticle(ContractArticleView contractArticleView);
+		AddContractArticleView GetAddContractArticleView(int contractId);
+		EditContractArticleView GetEditContractArticleView(int contractArticleId);
+		AddContractArticleView UpdateContractArticleView(AddContractArticleView addContractArticleView, Func<Core.Domain.Model.ContractSales.Article, AddContractArticleView, string> getSPCSAccountNumberFunction);
+		EditContractArticleView UpdateContractArticleView(EditContractArticleView addContractArticleView);
+		ContractArticleConnection ParseContractArticle(AddContractArticleView addContractArticleView);
+		ContractArticleConnection ParseContractArticle(EditContractArticleView addContractArticleView);
+		string GetContractArticleRoute(int contractId);
 	}
 }

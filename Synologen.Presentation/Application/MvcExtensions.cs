@@ -21,7 +21,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Application
 				}
 			}
 			var virtualPath = routeCollection.GetVirtualPath(null, routeValueDictionary);
-			if(virtualPath == null) throw new ApplicationException("Cannot find AddArticle route in route data.");
+			if(virtualPath == null) throw new ApplicationException(
+				"Unable to find specified route. \r\nController: {ControllerName}, \r\nAction: {ActionName}"
+				.Replace("{ControllerName}", controller)
+				.Replace("{ActionName}", action)
+			);
 			return virtualPath.VirtualPath;
 		}
 	}

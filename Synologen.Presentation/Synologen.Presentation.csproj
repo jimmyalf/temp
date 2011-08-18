@@ -110,7 +110,9 @@
     <Compile Include="Helpers\WpcDropDownList.cs" />
     <Compile Include="Helpers\WpcGridDeleteForm.cs" />
     <Compile Include="Models\ContractSales\ArticleView.cs" />
-    <Compile Include="Models\ContractSales\ContractArticleView.cs" />
+    <Compile Include="Models\ContractSales\AddContractArticleView.cs" />
+    <Compile Include="Models\ContractSales\EditContractArticleView.cs" />
+    <Compile Include="Models\ContractSales\IContractArticleView.cs" />
     <Compile Include="Models\ContractSales\OrderView.cs" />
     <Compile Include="Models\ContractSales\SettlementListView.cs" />
     <Compile Include="Models\ContractSales\SettlementListViewItem.cs" />
@@ -495,6 +497,8 @@
   <ItemGroup>
     <Content Include="Areas\SynologenAdmin\Views\ContractSales\AddArticle.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\ContractSales\ArticleForm.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\ContractSales\AddContractArticle.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\ContractSales\EditContractArticle.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\ContractSales\EditArticle.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\ContractSales\ManageOrder.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\ContractSales\Settlements.aspx" />

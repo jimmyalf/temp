@@ -53,26 +53,5 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('.postback-enabled').change(function() {
-			var selectedArticle = $(this).attr('value');
-			if (selectedArticle > 0) {
-				console.log(selectedArticle);
-				var url = "/components/synologen/contract-sales/article/".concat(selectedArticle,"/json");
-				$.getJSON(url, null, function(data) {
-					if (data && data.SPCSAccountNumber) {
-						var spcsAccountNumberTextBox = $('#spcs-account-number');
-						spcsAccountNumberTextBox.val(data.SPCSAccountNumber);
-						spcsAccountNumberTextBox
-							.animate({ backgroundColor: '#FFDDDD' }, 500)
-							.animate({ backgroundColor: '#FFFFFF' }, 500);
-					}
-				});
-			}
-		});
-	});
-</script>
-
 <% Html.RenderPartial("ClientValidationScripts"); %>
 </asp:Content>

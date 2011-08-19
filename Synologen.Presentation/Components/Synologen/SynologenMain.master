@@ -1,5 +1,6 @@
 <%@ Master Language="C#" MasterPageFile="~/components/ComponentMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.SynologenMain" Codebehind="SynologenMain.master.cs" %>
 <asp:Content ID="MainComponent" ContentPlaceHolderID="ComponentMainPlc" Runat="Server">
+<script src="/Components/Synologen/Scripts/Synologen.js"></script>
  <div id="dCompNavigation">
 	<asp:PlaceHolder ID="phSynologenMenu" runat="server" />
 </div>
@@ -17,12 +18,4 @@
     <div id="synologen-content">
         <asp:contentplaceholder id="phSynologen" runat="server"></asp:contentplaceholder>
     </div>
-    
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#validation-message .success').delay(5000).slideUp('slow', function() {
-				$(this).remove();
-			});
-		});
-	</script>
 </asp:Content>

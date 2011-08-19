@@ -46,11 +46,14 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 			
 		}
 
-		protected TViewModel GetViewModel<TViewModel>(ActionResult actionResult)
+		protected TViewModel GetViewModel<TViewModel>(ActionResult actionResult) where TViewModel : class
 		{
-		    var view = (ViewResult) actionResult;
-		    if(view == null) return default(TViewModel);
-		    return (TViewModel) view.ViewData.Model;
+			if(actionResult is ViewResult)
+			{
+				var view = (ViewResult) actionResult;
+				return (TViewModel) view.ViewData.Model;
+			}
+		    return  actionResult as TViewModel;
 		}
 
 		protected RedirectToRouteResult GetRedirectResult(ActionResult actionResult)

@@ -11,6 +11,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories
 				Description = "Description",
 				Name = "TestArticle",
 				Number = "12345",
+                DefaultSPCSAccountNumber = "3245"
 			};
 		}
 

@@ -258,5 +258,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				.Replace("{Url}", ComponentPages.ContractArticles.Replace("~", "").ToLower())
 				.Replace("{ContractId}", contractId.ToString());
 		}
+
+		public Core.Domain.Model.ContractSales.Article GetArticle(int articleId)
+		{
+			return _articleRepository.Get(articleId);
+		}
 	}
 }

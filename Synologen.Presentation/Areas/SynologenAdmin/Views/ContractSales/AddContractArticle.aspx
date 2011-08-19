@@ -1,16 +1,17 @@
 ﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<AddContractArticleView>" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.js"></script>
 <div id="dCompMain" class="Components-Synologen-ContractSales-AddContractArticle-aspx">
 	<div class="fullBox">
 		<div class="wrap">
 			<% Html.EnableClientValidation(); %>
 			<%= Html.ValidationSummary(true) %>
-			<% using (Html.BeginForm()) {%>
+			<% using (Html.BeginForm(null, null, FormMethod.Post, new {id="contract-article-form"})) {%>
 			<fieldset>
 				<legend>Koppla artikel till <%=Model.ContractName%></legend>
 					<p class="formItem clearLeft">
 						<%= Html.LabelFor(x => x.ArticleId) %>
-						<%= Html.DropDownListFor(x => x.ArticleId, Model.Articles, "-- Välj artikel --") %>
+						<%= Html.DropDownListFor(x => x.ArticleId, Model.Articles, "-- Välj artikel --", new { @class = "postback-enabled" }) %>
 						<%= Html.ValidationMessageFor(x => x.ArticleId) %>
 					</p>
 					<p class="formItem clearLeft">
@@ -20,7 +21,7 @@
 					</p>
 					<p class="formItem">
 						<%= Html.LabelFor(x => x.SPCSAccountNumber) %>
-						<%= Html.EditorFor(x => x.SPCSAccountNumber) %>
+						<%= Html.TextBoxFor(x => x.SPCSAccountNumber, new { id = "spcs-account-number"}) %>
 						<%= Html.ValidationMessageFor(x => x.SPCSAccountNumber) %>
 					</p>
 					<p class="formItem clearLeft">
@@ -50,6 +51,28 @@
 			</p>
 		</div>
 	</div>
-</div>	
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.postback-enabled').change(function() {
+			var selectedArticle = $(this).attr('value');
+			if (selectedArticle > 0) {
+				console.log(selectedArticle);
+				var url = "/components/synologen/contract-sales/article/".concat(selectedArticle,"/json");
+				$.getJSON(url, null, function(data) {
+					if (data && data.SPCSAccountNumber) {
+						var spcsAccountNumberTextBox = $('#spcs-account-number');
+						spcsAccountNumberTextBox.val(data.SPCSAccountNumber);
+						spcsAccountNumberTextBox
+							.animate({ backgroundColor: '#FFDDDD' }, 500)
+							.animate({ backgroundColor: '#FFFFFF' }, 500);
+					}
+				});
+			}
+		});
+	});
+</script>
+
 <% Html.RenderPartial("ClientValidationScripts"); %>
 </asp:Content>

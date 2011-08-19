@@ -21,5 +21,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		ContractArticleConnection ParseContractArticle(AddContractArticleView addContractArticleView);
 		ContractArticleConnection ParseContractArticle(EditContractArticleView addContractArticleView);
 		string GetContractArticleRoute(int contractId);
+		Core.Domain.Model.ContractSales.Article GetArticle(int articleId);
 	}
 }

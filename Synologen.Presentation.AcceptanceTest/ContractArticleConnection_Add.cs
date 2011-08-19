@@ -8,7 +8,6 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
-using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Synologen.Presentation.Controllers;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using Spinit.Wpc.Utility.Business;
@@ -107,14 +106,13 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 
 		private void UppdaterasSPCSKontoFältetMedDefaultKontoFrånValdArtikel()
 		{
-			var viewResult = GetViewModel<AddContractArticleView>(_actionResult);
-			viewResult.SPCSAccountNumber.ShouldBe(_article.DefaultSPCSAccountNumber);
-			viewResult.SPCSAccountNumber.ShouldNotBe(_addContractArticleView.SPCSAccountNumber);
+			var jsonPayload = GetViewModel<JsonResult>(_actionResult).Data as Core.Domain.Model.ContractSales.Article;
+			jsonPayload.SPCSAccountNumber.ShouldBe(_article.DefaultSPCSAccountNumber);
 		}
 
 		private void AdministratörenVäljerEnArtikelIListan()
 		{
-			_actionResult = _controller.UpdateAddContractArticle(_addContractArticleView);
+			_actionResult = _controller.GetArticle(_article.Id, "json");
 		}
 
 		private void AttAdministratörenSkaparEnNyAvtalsArtikelKoppling()

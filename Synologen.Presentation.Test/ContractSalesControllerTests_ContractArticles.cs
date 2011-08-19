@@ -58,69 +58,53 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 	}
 
 	[TestFixture, Category("ContractSalesControllerTests_ContractArticles")]
-	public class When_selecting_article_in_add_article_view_for_a_contract : ContractSalesTestbase<AddContractArticleView>
+	public class When_fetching_article_without_format : ContractSalesTestbase<Article>
 	{
-		private IList<Article> _articles;
-		private AddContractArticleView _viewModel;
-		private Article _selectedArticle;
-		private Contract _contract;
-		private string _expectedReturnUrl;
+		private Article _article;
 
-		public When_selecting_article_in_add_article_view_for_a_contract()
+		public When_fetching_article_without_format()
 		{
 			Context = () =>
 			{
-				_articles = ArticleFactory.GetArticles();
-				_selectedArticle = ArticleFactory.GetDomainArticle(7);
-				_contract = ContractFactory.GetContract(55);
-				_expectedReturnUrl = "/components/synologen/contractarticles.aspx?contractId=" + _contract.Id;
-				_viewModel = ContractArticleFactory.GetView(_contract.Id, _selectedArticle.Id);
-				A.CallTo(() => ArticleRepository.GetAll()).Returns(_articles);
-				A.CallTo(() => ArticleRepository.Get(_selectedArticle.Id)).Returns(_selectedArticle);
-				MockedSynologenSqlProvider.Setup(x => x.GetContract(_contract.Id)).Returns(_contract);
+				_article = ArticleFactory.GetDomainArticle(55);
+				A.CallTo(() => ArticleRepository.Get(_article.Id)).Returns(_article);
 			};
-			Because = controller => controller.UpdateAddContractArticle(_viewModel);
+			Because = controller => controller.GetArticle(_article.Id, null);
 		}
 
 		[Test]
-		public void View_model_has_values_from_posted_view_model()
+		public void Controller_returns_view_with_expected_view_data()
 		{
-			ViewModel.ContractId.ShouldBe(_contract.Id);
-			ViewModel.ContractName.ShouldBe(_contract.Name);
-			ViewModel.PriceWithoutVAT.ShouldBe(_viewModel.PriceWithoutVAT);
-			ViewModel.IsVATFreeArticle.ShouldBe(_viewModel.IsVATFreeArticle);
-			ViewModel.AllowCustomPricing.ShouldBe(_viewModel.AllowCustomPricing);
-			ViewModel.IsActive.ShouldBe(_viewModel.IsActive);
-			ViewModel.ArticleId.ShouldBe(_viewModel.ArticleId);
+			ViewModel.Id.ShouldBe(_article.Id);
+			ViewModel.Name.ShouldBe(_article.Name);
+			ViewModel.Number.ShouldBe(_article.Number);
+			ViewModel.SPCSAccountNumber.ShouldBe(_article.SPCSAccountNumber);
 		}
+	}
 
-		[Test]
-		public void View_model_has_expected_default_data()
-		{
-			ViewModel.ContractArticleListUrl.ShouldBe(_expectedReturnUrl);
-		}
+	[TestFixture, Category("ContractSalesControllerTests_ContractArticles")]
+	public class When_fetching_article_with_json_format : ContractSalesTestbase<JsonResult>
+	{
+		private Article _article;
 
-		[Test]
-		public void View_model_has_spcs_account_number_from_selected_article()
+		public When_fetching_article_with_json_format()
 		{
-			ViewModel.SPCSAccountNumber.ShouldBe(_selectedArticle.SPCSAccountNumber);
-		}
-
-		[Test]
-		public void View_model_does_not_have_spcs_account_number_from_posted_view_model()
-		{
-			ViewModel.SPCSAccountNumber.ShouldNotBe(_viewModel.SPCSAccountNumber);
-		}
-
-		[Test]
-		public void View_model_has_articles()
-		{
-			var selectListItems = ViewModel.Articles.Select(x => new {x.Text, x.Value});
-			selectListItems.ForBoth(_articles, (viewModelItem, domainModelItem) =>
+			Context = () =>
 			{
-				viewModelItem.Text.ShouldBe(domainModelItem.Name);
-				viewModelItem.Value.ShouldBe(domainModelItem.Id.ToString());
-			});
+				_article = ArticleFactory.GetDomainArticle(55);
+				A.CallTo(() => ArticleRepository.Get(_article.Id)).Returns(_article);
+			};
+			Because = controller => controller.GetArticle(_article.Id, "json");
+		}
+
+		[Test]
+		public void Controller_returns_view_with_expected_view_data()
+		{
+			var jsonData = ViewModel.Data as Article;
+			jsonData.Id.ShouldBe(_article.Id);
+			jsonData.Name.ShouldBe(_article.Name);
+			jsonData.Number.ShouldBe(_article.Number);
+			jsonData.SPCSAccountNumber.ShouldBe(_article.SPCSAccountNumber);
 		}
 	}
 

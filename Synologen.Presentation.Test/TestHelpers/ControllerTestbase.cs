@@ -60,13 +60,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 
 		protected TViewModel GetViewModel(ActionResult viewResult)
 		{
-			if(typeof(TViewModel).Equals(typeof(RedirectToRouteResult)) || typeof(TViewModel).Equals(typeof(RedirectResult)))
+			if(viewResult is ViewResult)
 			{
-				return viewResult as TViewModel;
+				var view = (ViewResult) viewResult;
+				return (TViewModel) view.ViewData.Model;
 			}
+			//if(typeof(TViewModel).Equals(typeof(RedirectToRouteResult)) || typeof(TViewModel).Equals(typeof(RedirectResult)))
+			//{
+				return viewResult as TViewModel;
+			//}
 
-			var view = (ViewResult) viewResult;
-			return (TViewModel) view.ViewData.Model;
+
 		}
 	}
 }

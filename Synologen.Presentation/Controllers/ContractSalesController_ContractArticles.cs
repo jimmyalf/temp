@@ -13,11 +13,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return View(viewModel);
 		}
 
-		[HttpPost]
-		public ActionResult UpdateAddContractArticle(AddContractArticleView addContractArticleView)
+		[HttpGet]
+		public ActionResult GetArticle(int articleId, string format)
 		{
-			var viewModel = _viewService.UpdateContractArticleView(addContractArticleView, (selectedArticle, postedView) => selectedArticle.SPCSAccountNumber);
-			return View("AddContractArticle", viewModel);
+			var article = _viewService.GetArticle(articleId);
+			if (format == "json") return Json(article, JsonRequestBehavior.AllowGet);
+			return View(article);
 		}
 
 		[HttpPost]

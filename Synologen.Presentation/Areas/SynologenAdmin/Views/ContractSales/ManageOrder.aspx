@@ -26,7 +26,7 @@
 							<%=Html.HiddenFor(x => x.Id) %>
 							<a href="<%=Model.BackUrl %>">&laquo Tillbaka</a>
 							&nbsp;
-							<input class="btnBig" type="submit" value="Makulera" />
+							<input class="btnBig confirm-action" type="submit" value="Makulera" title="Makulera fakturan" />
 						<% } %>
 					<% } %>
 				</div>										

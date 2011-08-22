@@ -2,11 +2,33 @@
 	$.Synologen = $.Synologen || {};
 
 	$.extend($.Synologen, {
+		Config: {
+			ConfirmAction: "Är du säker på att du vill fortsätta?",
+			ConfirmCustom: "Är du säker på att du vill {0}?"
+		}
+	});
+
+	$.extend($.Synologen, {
 		init: function() {
 			$("html").addClass("js-enabled");
+			$.Synologen.initConfirmAction();
 			$.Synologen.initAddContractArticleSPCSAccountAutoUpdate();
 			$.Synologen.initWebformsValidationMessageSuccessHiding();
 			$.Synologen.initMVCValidationMessageSuccessHiding();
+		},
+
+		initConfirmAction: function() {
+			$(".confirm-action").click($.Synologen.confirmAction);
+		},
+		
+		confirmAction: function() {
+			var title = $(this).attr("title");
+			if (title && title.length > 0) {
+				title = title.substr(0, 1).toLowerCase() + title.substr(1, title.length - 1);
+				var message = $.Synologen.Config.ConfirmCustom.replace("{0}", title);
+				return confirm(message);
+			}
+			return confirm($.Synologen.Config.ConfirmAction);
 		},
 
 		initAddContractArticleSPCSAccountAutoUpdate: function() {

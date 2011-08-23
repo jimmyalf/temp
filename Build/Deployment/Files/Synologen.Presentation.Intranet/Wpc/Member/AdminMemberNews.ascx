@@ -1,6 +1,4 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.AdminMemberNews" Codebehind="AdminMemberNews.ascx.cs" %>
-<%@ Register Src="WpcWysiwyg.ascx" TagName="WpcWysiwyg" TagPrefix="uc1" %>
-<link href="common/css/WYSIWYG.css" media="all" rel="Stylesheet" />
 <div>
 <h5>Lägg/ redigera nyheter</h5>
         <br />
@@ -12,7 +10,7 @@
                 <br />
                 <asp:TextBox ID="txtSummary" runat="server" TextMode="MultiLine" Width="300" SkinID="Wide"></asp:TextBox>
 		<br /><br />
-        <uc1:WpcWysiwyg ID="txtBody" runat="server" Width="500" ShowComponent="false" ShowInternalLink="false" /></b>
+        <WPC:WpcWysiwyg ID="txtBody" runat="server" Width="500" ShowComponent="false" ShowInternalLink="false" /></b>
         
        					    
 		    <asp:button ID="btnSave" runat="server" CommandName="SaveAndPublish" OnClick="btnSave_Click" Text="Spara nyhet" SkinId="Big"/>

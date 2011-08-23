@@ -6,6 +6,8 @@
 				<include name="**/*" />
 				<exclude name="wpc/**" />
 			</fileset>
+		</delete>
+		<delete>
 			<fileset basedir="${deployPath}\wpc">
 				<include name="**/*" />
 			</fileset>

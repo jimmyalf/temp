@@ -40,6 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\CustomOrderValidation.cs" />
+    <Compile Include="Code\MemberControlPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Code\SynologenCacheContext.cs" />
     <Compile Include="Code\SynologenSalesUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -307,6 +310,20 @@
     <Compile Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx.designer.cs">
       <DependentUpon>ViewSettlementOld.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx.cs">
+      <DependentUpon>AdminMemberFiles.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx.designer.cs">
+      <DependentUpon>AdminMemberFiles.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx.cs">
+      <DependentUpon>ViewMemberImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx.designer.cs">
+      <DependentUpon>ViewMemberImage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\ValidationButton.ascx.cs">
       <DependentUpon>ValidationButton.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -401,6 +418,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="PDFThumbnail, Version=2.0.2.0, Culture=neutral, PublicKeyToken=76bf2dedaa68ccb5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\PDFThumbnail.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
@@ -416,6 +437,10 @@
     <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Business, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Business.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Base.Data, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -436,6 +461,10 @@
     <Reference Include="Spinit.Wpc.Core.UI.Mvp, Version=5.0.593.2500, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.UI.Mvp.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Business, Version=4.3.606.2500, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Business.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -481,6 +510,25 @@
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Testpages\AdminMemberFiles.aspx" />
+    <Content Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx" />
+    <Content Include="Wpc\Synologen\Supplier\Images\delete.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\delete.png" />
+    <Content Include="Wpc\Synologen\Supplier\Images\document.png" />
+    <Content Include="Wpc\Synologen\Supplier\Images\document_icon.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\edit.png" />
+    <Content Include="Wpc\Synologen\Supplier\Images\eps.png" />
+    <Content Include="Wpc\Synologen\Supplier\Images\excel.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\pdf.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\pdf.png" />
+    <Content Include="Wpc\Synologen\Supplier\Images\photo_icon.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\powerpoint.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\standard.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\video_icon.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\word.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\word.png" />
+    <Content Include="Wpc\Synologen\Supplier\PdfThumbnail.aspx" />
+    <Content Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Wpc\Synologen\Css\" />
@@ -505,6 +553,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

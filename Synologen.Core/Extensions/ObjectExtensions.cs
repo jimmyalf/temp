@@ -19,5 +19,18 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			}
 			return default(TType);
 		}
+
+		public static object GetAnonymousPropertyValue(this object container, string propertyName)
+		{
+			if(container == null || propertyName == null) return null;
+			var type = container.GetType();
+			var p = type.GetProperty(propertyName);
+			return p == null ? null : p.GetValue(container, null);
+		}
+
+		public static TType GetAnonymousPropertyValue<TType>(this object container, string propertyName)
+		{
+			return GetAnonymousPropertyValue(container, propertyName).ToTypeOrDefault<TType>();
+		}
 	}
 }

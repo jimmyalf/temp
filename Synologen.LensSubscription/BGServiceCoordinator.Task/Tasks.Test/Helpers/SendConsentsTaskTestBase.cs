@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FakeItEasy;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
@@ -31,7 +32,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		protected virtual bool MatchConsents(IEnumerable<Consent> parsedConsents, IList<BGConsentToSend> originalConsents, string recieverBankGiroNumber)
 		{
 			var allMatches = true;
-			parsedConsents.ForBoth(originalConsents, (parsedConsent,originalConsent) =>
+			parsedConsents.And(originalConsents).Do((parsedConsent,originalConsent) =>
 			{
 				if(!ConsentIsMatch(parsedConsent, originalConsent, recieverBankGiroNumber))
 				{

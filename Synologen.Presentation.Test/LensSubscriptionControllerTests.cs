@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.ShouldlyExtensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
@@ -253,7 +254,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void ViewModel_should_have_expected_transactions()
 		{
-			ViewModel.TransactionList.ForBoth(_subscription.Transactions.ToList(), (viewModelTransaction,transaction) =>
+			ViewModel.TransactionList.And(_subscription.Transactions).Do((viewModelTransaction,transaction) =>
 			{
 				var transactionAmount = transaction.Amount.ToString("C2", new CultureInfo("sv-SE"));
 				var invertedTransactionAmount = transaction.Amount.Invert().ToString("C2", new CultureInfo("sv-SE"));
@@ -267,7 +268,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void ViewModel_should_have_expected_errors()
 		{
-			ViewModel.ErrorList.ForBoth(_subscription.Errors.ToList(), (viewModelError, error) =>
+			ViewModel.ErrorList.And(_subscription.Errors).Do( (viewModelError, error) =>
 			{
 				viewModelError.Type.ShouldBe(error.Type.GetEnumDisplayName());
 				viewModelError.CreatedDate.ShouldBe(error.CreatedDate.ToString("yyyy-MM-dd"));
@@ -316,7 +317,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		{
 			ViewModel.Articles.ShouldBeSameLengthAs(_articles);
 			ViewModel.SearchTerm.ShouldBe(null);
-			ViewModel.Articles.ForBoth(_articles, (viewArticle, domainArticle) =>
+			ViewModel.Articles.And(_articles).Do((viewArticle, domainArticle) =>
 			{
 				viewArticle.ArticleId.ShouldBe(domainArticle.Id);
 				viewArticle.Active.ShouldBe(domainArticle.Active);
@@ -835,7 +836,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void ViewModel_should_have_expected_transactions()
 		{
-			ViewModel.TransactionList.ForBoth(_subscription.Transactions.ToList(), (viewModelTransaction, transaction) =>
+			ViewModel.TransactionList.And(_subscription.Transactions).Do( (viewModelTransaction, transaction) =>
 			{
 				var transactionAmount = transaction.Amount.ToString("C2", new CultureInfo("sv-SE"));
 				var invertedTransactionAmount = transaction.Amount.Invert().ToString("C2", new CultureInfo("sv-SE"));
@@ -849,7 +850,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void ViewModel_should_have_expected_errors()
 		{
-			ViewModel.ErrorList.ForBoth(_subscription.Errors.ToList(), (viewModelError, error) =>
+			ViewModel.ErrorList.And(_subscription.Errors).Do((viewModelError, error) =>
 			{
 				viewModelError.Type.ShouldBe(error.Type.GetEnumDisplayName());
 				viewModelError.CreatedDate.ShouldBe(error.CreatedDate.ToString("yyyy-MM-dd"));

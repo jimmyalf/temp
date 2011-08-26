@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.UI.WebControls;
-using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;

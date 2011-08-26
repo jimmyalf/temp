@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FakeItEasy;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
@@ -32,7 +33,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		protected static bool MatchPayments(IEnumerable<Payment> parsedPayments, IList<BGPaymentToSend> originalPayments, string recieverBankGiroNumber)
 		{
 			var allMatches = true;
-			parsedPayments.ForBoth(originalPayments, (parsedPayment,originalPayment) =>
+			parsedPayments.And(originalPayments).Do((parsedPayment,originalPayment) =>
 			{
 				if(!PaymentIsMatch(parsedPayment, originalPayment, recieverBankGiroNumber))
 				{

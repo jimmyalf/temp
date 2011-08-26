@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Extensions;
 

@@ -47,13 +47,49 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 		{
 			
 			return new []
-			       	{
-			       		
-						CreateSubscription(customer, 3, 10, "111122222", "0001", 500M, Subscription_Is_Active, "Fritext 1"), 
-						CreateSubscription(customer, 4, 11, "222233333", "0002", 600M, Subscription_Not_Active, "Fritext 2"), 
-						CreateSubscription(customer, 5, 12, "333344444", "0003", 700M, Subscription_Is_Active, "Fritext 3"), 
-						CreateSubscription(customer, 6, 13, "444455555", "0004", 800M, Subscription_Not_Active, "Fritext 4")
-			       	};
+	       	{
+				CreateSubscription(customer, 3, 10, "111122222", "0001", 500M, Subscription_Is_Active, "Fritext 1"), 
+				CreateSubscription(customer, 4, 11, "222233333", "0002", 600M, Subscription_Not_Active, "Fritext 2"), 
+				CreateSubscription(customer, 5, 12, "333344444", "0003", 700M, Subscription_Is_Active, "Fritext 3"), 
+				CreateSubscription(customer, 6, 13, "444455555", "0004", 800M, Subscription_Not_Active, "Fritext 4")
+	       	};
+		}
+
+		public static Subscription[] GetListWithTransactions(Customer customer)
+		{
+			Func<bool, SubscriptionConsentStatus, decimal, bool, Subscription> getSubscription = (active, status, montlyAmount, hasErrors) => new Subscription
+			{
+				Active = active,
+				ConsentStatus = status,
+				Transactions = TransactionFactory.GetList(null),
+				Customer = customer,
+				PaymentInfo = new SubscriptionPaymentInfo { MonthlyAmount = montlyAmount },
+				Errors = hasErrors ? new[]{ new SubscriptionError() } : null
+			};
+			return new []
+	       	{
+				//Active
+				getSubscription(true, SubscriptionConsentStatus.Accepted, 130, false),
+				getSubscription(true, SubscriptionConsentStatus.Denied, 654.4m, false),
+				getSubscription(true, SubscriptionConsentStatus.NotSent, 320, false),
+				getSubscription(true, SubscriptionConsentStatus.Sent, 345.99m, false),
+				//Inactive
+				getSubscription(false, SubscriptionConsentStatus.Accepted, 654.75m, false),
+				getSubscription(false, SubscriptionConsentStatus.Denied, 48.63m, false),
+				getSubscription(false, SubscriptionConsentStatus.NotSent, 64.32m, false),
+				getSubscription(false, SubscriptionConsentStatus.Sent, 1200, false),
+				//Active with errors
+				getSubscription(true, SubscriptionConsentStatus.Accepted, 130, true),
+				getSubscription(true, SubscriptionConsentStatus.Denied, 654.4m, true),
+				getSubscription(true, SubscriptionConsentStatus.NotSent, 320, true),
+				getSubscription(true, SubscriptionConsentStatus.Sent, 345.99m, true),
+				//Inactive with errors
+				getSubscription(false, SubscriptionConsentStatus.Accepted, 654.75m, true),
+				getSubscription(false, SubscriptionConsentStatus.Denied, 48.63m, true),
+				getSubscription(false, SubscriptionConsentStatus.NotSent, 64.32m, true),
+				getSubscription(false, SubscriptionConsentStatus.Sent, 1200, true),
+
+	       	};
 		}
 
 		public static Subscription GetWithTransactions(Customer customer)

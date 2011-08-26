@@ -1,7 +1,7 @@
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Synologen.LensSubscription.Autogiro.Helpers;
+using Spinit.Extensions;
 
 namespace Synologen.LensSubscription.Autogiro.Readers
 {

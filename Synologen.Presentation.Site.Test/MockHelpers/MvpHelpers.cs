@@ -12,6 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.MockHelpers
 			var mockedView = new Mock<TView>();
 			var mockedModel = new Mock<TModel>();
 			mockedView.SetupGet(x => x.Model).Returns(mockedModel.Object);
+			mockedView.SetupAllProperties();
 			return mockedView;
 		}
 	}

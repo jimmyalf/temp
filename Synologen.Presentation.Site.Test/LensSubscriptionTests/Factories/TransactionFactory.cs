@@ -13,33 +13,40 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			return new[]
 			       	{
 			       		new SubscriptionTransaction
-			       			{
-			       				Amount = 100.10M,
-			       				CreatedDate = new DateTime(2010, 10, 24),
-			       				Reason = TransactionReason.Correction,
-			       				Type = TransactionType.Deposit
-			       			},
+		       			{
+		       				Amount = 100.10M,
+		       				CreatedDate = new DateTime(2010, 10, 24),
+		       				Reason = TransactionReason.Correction,
+		       				Type = TransactionType.Deposit
+		       			},
 			       		new SubscriptionTransaction
-			       			{
-			       				Amount = 200.20M,
-			       				CreatedDate = new DateTime(2010, 10, 25),
-			       				Reason = TransactionReason.Payment,
-			       				Type = TransactionType.Withdrawal
-			       			},
+		       			{
+		       				Amount = 150.10M,
+		       				CreatedDate = new DateTime(2010, 10, 23),
+		       				Reason = TransactionReason.Correction,
+		       				Type = TransactionType.Withdrawal
+		       			},
 			       		new SubscriptionTransaction
-			       			{
-			       				Amount = 300.30M,
-			       				CreatedDate = new DateTime(2010, 10, 26),
-			       				Reason = TransactionReason.Withdrawal,
-			       				Type = TransactionType.Deposit
-			       			},
+		       			{
+		       				Amount = 200.20M,
+		       				CreatedDate = new DateTime(2010, 10, 25),
+		       				Reason = TransactionReason.Payment,
+		       				Type = TransactionType.Deposit
+		       			},
+			       		new SubscriptionTransaction
+		       			{
+		       				Amount = 300.30M,
+		       				CreatedDate = new DateTime(2010, 10, 26),
+		       				Reason = TransactionReason.Withdrawal,
+		       				Type = TransactionType.Withdrawal
+		       			},
 						new SubscriptionTransaction
-			       			{
-			       				Amount = 85.90M,
-			       				CreatedDate = new DateTime(2010, 11, 03),
-			       				Reason = TransactionReason.PaymentFailed,
-			       				Type = TransactionType.Deposit
-			       			}
+		       			{
+		       				Amount = 85.90M,
+		       				CreatedDate = new DateTime(2010, 11, 03),
+		       				Reason = TransactionReason.PaymentFailed,
+		       				Type = TransactionType.Deposit
+		       			}
 			       	};
 
 		}

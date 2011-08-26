@@ -10,6 +10,8 @@ using Spinit.Wpc.Synologen.Presentation.Models;
 using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
 using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
+using Spinit.Extensions;
+using EnumExtensions = Spinit.Wpc.Synologen.Core.Extensions.EnumExtensions;
 
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen 
 {

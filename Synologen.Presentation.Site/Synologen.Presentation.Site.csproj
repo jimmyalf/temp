@@ -67,9 +67,11 @@
     <Compile Include="Logic\Helpers\TemplateControlImplementation.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\ShopSubscriptionErrorListPresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\ShopSubscriptionsPresenter.cs" />
     <Compile Include="Logic\Presenters\ValidationButtonPresenter.cs" />
     <Compile Include="Logic\Views\IValidationButtonView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IShopSubscriptionErrorListView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\IShopSubscriptionsView.cs" />
     <Compile Include="Models\ContractSales\SettlementDetailedContractSaleListItemModel.cs" />
     <Compile Include="Models\ContractSales\SettlementDetailedsubscriptionTransactionsListItemModel.cs" />
     <Compile Include="Models\ContractSales\SettlementSimpleContractSaleListItemModel.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="Models\LensSubscription\ListTransactionModel.cs" />
     <Compile Include="Models\LensSubscription\ShopSubscriptionErrorListItemModel.cs" />
     <Compile Include="Models\LensSubscription\ShopSubscriptionErrorListModel.cs" />
+    <Compile Include="Models\LensSubscription\ShopSubscriptionsModel.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionErrorListItemModel.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionListItemModel.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionTransactionListItemModel.cs" />
@@ -422,7 +425,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\PDFThumbnail.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit, Version=1.0.622.728, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
     </Reference>

@@ -3,6 +3,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests.Factories;
@@ -82,7 +83,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests
 		[Test]
 		public void View_model_has_expected_detailed_contract_sales_properties()
 		{
-			AssertUsing( view => view.Model.DetailedContractSales.ForBoth(_expectedSettlement.SaleItems.ToList(), (viewItem, domainItem) =>
+			AssertUsing( view => view.Model.DetailedContractSales.And(_expectedSettlement.SaleItems).Do( (viewItem, domainItem) =>
 			{
 				viewItem.ArticleName.ShouldBe(domainItem.Article.Name);
 				viewItem.ArticleNumber.ShouldBe(domainItem.Article.Number);
@@ -126,7 +127,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.ContractSaleTests
 		[Test]
 		public void View_model_has_expected_detailed_transaction_properties()
 		{
-			AssertUsing(view => view.Model.DetailedSubscriptionTransactions.ForBoth(_expectedSettlement.LensSubscriptionTransactions.ToList(), (viewItem, domainItem) =>
+			AssertUsing(view => view.Model.DetailedSubscriptionTransactions.And(_expectedSettlement.LensSubscriptionTransactions).Do((viewItem, domainItem) =>
 			{
 				viewItem.CustomerName.ShouldBe(domainItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
 				viewItem.SubscriptionLink.ShouldBe(String.Format("{0}?subscription={1}", _expectedSubscriptionUrl, domainItem.Subscription.Id));

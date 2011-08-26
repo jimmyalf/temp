@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FakeItEasy, Version=1.0.0.5, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\FakeItEasy\FakeItEasy.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=3.1.416.3, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\Moq\Moq.dll</HintPath>
@@ -110,6 +114,7 @@
     <Compile Include="LensSubscriptionTests\ListSubscriptionErrorPresenterTest.cs" />
     <Compile Include="LensSubscriptionTests\ListTransactionsPresenterTests.cs" />
     <Compile Include="LensSubscriptionTests\ShopSubscriptionErrorListPresenterTests.cs" />
+    <Compile Include="LensSubscriptionTests\TestHelpers\ShopSubscriptionsPresenterTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\ShopSubscriptionErrorListTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\CreateCustomerTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\CreateSubscriptionTestbase.cs" />
@@ -118,6 +123,7 @@
     <Compile Include="LensSubscriptionTests\TestHelpers\ListCustomersTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\ListSubscriptionErrorsTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\ListTransactionsTestbase.cs" />
+    <Compile Include="LensSubscriptionTests\ViewShopSubscriptionsPresenterTests.cs" />
     <Compile Include="TestHelpers\PresenterTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\EditSubscriptionTestbase.cs" />
     <Compile Include="MockHelpers\HttpContextMock.cs" />

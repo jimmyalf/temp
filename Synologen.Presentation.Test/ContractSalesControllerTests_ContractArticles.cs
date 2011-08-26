@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
@@ -49,7 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		public void View_model_has_articles()
 		{
 			var selectListItems = ViewModel.Articles.Select(x => new {x.Text, x.Value});
-			selectListItems.ForBoth(_articles, (viewModelItem, domainModelItem) =>
+			selectListItems.And(_articles).Do((viewModelItem, domainModelItem) =>
 			{
 				viewModelItem.Text.ShouldBe(domainModelItem.Name);
 				viewModelItem.Value.ShouldBe(domainModelItem.Id.ToString());
@@ -211,7 +212,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		public void View_model_has_articles()
 		{
 			var selectListItems = ViewModel.Articles.Select(x => new {x.Text, x.Value});
-			selectListItems.ForBoth(_articles, (viewModelItem, domainModelItem) =>
+			selectListItems.And(_articles).Do( (viewModelItem, domainModelItem) =>
 			{
 				viewModelItem.Text.ShouldBe(domainModelItem.Name);
 				viewModelItem.Value.ShouldBe(domainModelItem.Id.ToString());

@@ -308,7 +308,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		[Test]
 		public void Webservice_returns_parsed_payments()
 		{
-			payments.ForBoth(returnedPayments, (payment, returnedPayment) =>
+			payments.And(returnedPayments).Do((payment, returnedPayment) =>
 			{
 				payment.Amount.ShouldBe(returnedPayment.Amount);
 				payment.CreatedDate.ShouldBe(returnedPayment.CreatedDate); 
@@ -367,7 +367,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		[Test]
         public void Webservice_returns_parsed_consents()
 		{
-			consents.ForBoth(returnedConsents, (consent, returnedConsent) =>
+			consents.And(returnedConsents).Do( (consent, returnedConsent) =>
 			{
 				consent.ActionDate.ShouldBe(returnedConsent.ActionDate);
 				consent.CommentCode.ShouldBe(returnedConsent.CommentCode);
@@ -420,7 +420,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		[Test]
 		public void Webservice_returns_parsed_errors()
 		{
-			errors.ForBoth(returnedErrors, (error,returnedError) =>
+			errors.And(returnedErrors).Do( (error,returnedError) =>
 			{
 				error.Amount.ShouldBe(returnedError.Amount);
 				error.CommentCode.ShouldBe(returnedError.CommentCode);

@@ -4,6 +4,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -48,7 +49,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Model_has_expected_errors()
 		{
-			AssertUsing( view => view.Model.UnhandledErrors.ForBoth(_expectedErrors, (viewItem, domainItem) =>
+			AssertUsing( view => view.Model.UnhandledErrors.And(_expectedErrors).Do( (viewItem, domainItem) =>
 			{
 				viewItem.CreatedDate.ShouldBe(domainItem.CreatedDate.ToString("yyyy-MM-dd"));
 				viewItem.CustomerName.ShouldBe(domainItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
@@ -95,7 +96,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Model_has_default_subscription_url()
 		{
-			AssertUsing( view => view.Model.UnhandledErrors.ForBoth(_expectedErrors, (viewItem, domainItem) => viewItem.SubscriptionLink.ShouldBe(String.Format("{0}?subscription={1}", "#", domainItem.Subscription.Id))));
+			AssertUsing( view => view.Model.UnhandledErrors.And(_expectedErrors).Do((viewItem, domainItem) => viewItem.SubscriptionLink.ShouldBe(String.Format("{0}?subscription={1}", "#", domainItem.Subscription.Id))));
 		}
 	}
 }

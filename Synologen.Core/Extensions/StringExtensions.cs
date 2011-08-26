@@ -6,51 +6,6 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 {
 	public static class StringExtensions
 	{
-		public static decimal ToDecimalOrDefault(this string textValue, decimal defaultValue)
-		{
-			decimal output;
-			return decimal.TryParse(textValue.Replace('.',','), out output) ? output : defaultValue;
-		}
-
-		public static decimal ToDecimalOrDefault(this string textValue)
-		{
-			return ToDecimalOrDefault(textValue, default(decimal));
-		}
-
-		public static decimal ToDecimal(this string textValue)
-		{
-			return decimal.Parse(textValue.Replace('.',','));
-		}
-
-		public static int ToIntOrDefault(this string textValue, int defaultValue)
-		{
-			int output;
-			return int.TryParse(textValue, out output) ? output : defaultValue;	
-		}
-
-		public static int ToIntOrDefault(this string textValue)
-		{
-			int output;
-			return int.TryParse(textValue, out output) ? output : default(int);
-		}
-
-		public static bool ToBoolOrDefault(this string textValue, bool defaultValue)
-		{
-			bool output;
-			return bool.TryParse(textValue, out output) ? output : defaultValue;
-		}
-
-		public static bool ToBoolOrDefault(this string textValue)
-		{
-			bool output;
-			return bool.TryParse(textValue, out output) ? output : default(bool);
-		}
-
-		public static int ToInt(this string textValue)
-		{
-			return int.Parse(textValue);
-		}
-
 		public static string Reverse(this string value)
 		{
 			if(value == null) return value;
@@ -95,11 +50,29 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 
 		public static bool ContainsAny(this string value, params string[] comparisonValues)
 		{
-			foreach (var comparisonValue in comparisonValues)
+			return comparisonValues.Any(value.Contains);
+		}
+
+		/// <summary>
+		/// Replaces tokens in format string with given replacements
+		/// Ex: "{Token1}def{Token2}.ReplaceWith(new { Token1 = "abc", Token2 = "ghi"}) would return the string "abcdefghi"
+		/// </summary>
+		/// <param name="format">Format that may or may not contain tokens</param>
+		/// <param name="tokenReplacements">Anonymous object containing tokens to replace matching tokens in format</param>
+		/// <returns></returns>
+		public static string ReplaceWith(this string format, object tokenReplacements)
+		{
+			var output = format;
+			var tokens = Regex.Matches(format, "{[A-ö0-9]+?}");
+			foreach (var tokenMatch in tokens)
 			{
-				if(value.Contains(comparisonValue)) return true;
+				var token = tokenMatch.ToString();
+				var tokenName = token.Trim(new[] {'{', '}'});
+				var replacement = tokenReplacements.GetAnonymousPropertyValue(tokenName);
+				if(replacement == null) continue;
+				output = output.Replace(token, replacement.ToString());
 			}
-			return false;
+			return output;
 		}
 	}
 }

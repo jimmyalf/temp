@@ -51,6 +51,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\Shouldly\Shouldly.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit, Version=1.0.622.728, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Data, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
@@ -78,6 +82,10 @@
     <Reference Include="Spinit.Wpc.Utility.Core, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="StoryQ, Version=2.0.5.0, Culture=neutral, PublicKeyToken=90a7d07ba39412de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\StoryQ\StoryQ.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -109,6 +117,9 @@
     <Compile Include="LensSubscription\Add_Subscription_To_Customer.cs" />
     <Compile Include="LensSubscription\Factory.cs" />
     <Compile Include="LensSubscription\TestHelpers\PresenterBase.cs" />
+    <Compile Include="LensSubscription\TestHelpers\SpecTestbase.cs" />
+    <Compile Include="LensSubscription\TestHelpers\StoryQ.flit.sv-SE.g.cs" />
+    <Compile Include="LensSubscription\View_Shop_Subscription_Summary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

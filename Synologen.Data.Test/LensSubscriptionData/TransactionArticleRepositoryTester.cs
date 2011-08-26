@@ -106,7 +106,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 			{
 				var itemsMatchingCriteria = new TransactionArticleRepository(session).FindBy(criteria);
 				itemsMatchingCriteria.ShouldBeSameLengthAs(_expectedArticlesMatchingCriteria);
-				itemsMatchingCriteria.ForBoth(_expectedArticlesMatchingCriteria, (fetchedItem, expectedItem) =>
+				itemsMatchingCriteria.And(_expectedArticlesMatchingCriteria).Do((fetchedItem, expectedItem) =>
 				{
 					fetchedItem.Active.ShouldBe(expectedItem.Active);
 					fetchedItem.Id.ShouldBe(expectedItem.Id);

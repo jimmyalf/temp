@@ -169,7 +169,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 					contractSale.Id.ShouldBe(_ordersToSave.ElementAt(2).Id);
 					contractSale.TotalAmountIncludingVAT.ShouldBe(_ordersToSave.ElementAt(2).InvoiceSumIncludingVAT.ToDecimal());
 				});
-				settlement.LensSubscriptionTransactions.ForBoth(_transactions.Append(_transactions2).ToList(), (transaction, originalItem) => 
+				settlement.LensSubscriptionTransactions.And(_transactions.Append(_transactions2).ToList()).Do((transaction, originalItem) => 
 				{
 					transaction.Amount.ShouldBe(originalItem.Amount);
 					transaction.Id.ShouldBe(originalItem.Id);
@@ -255,7 +255,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 				settlementForShop.ContractSalesValueIncludingVAT.ShouldBe((decimal)expectedContractSales.Sum(x => x.InvoiceSumIncludingVAT));
 				settlementForShop.LensSubscriptionsValueIncludingVAT.ShouldBe(_transactions.Sum(x => x.Amount));
 				settlementForShop.AllContractSalesHaveBeenMarkedAsPayed.ShouldBe(false);
-				settlementForShop.SaleItems.ForBoth(expectedSaleItems, (saleItem, originalItem) =>
+				settlementForShop.SaleItems.And(expectedSaleItems).Do((saleItem, originalItem) =>
 				{
 					saleItem.Article.Name.ShouldBe(_article.Name);
 					saleItem.Article.Number.ShouldBe(_article.Number);
@@ -268,7 +268,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 					saleItem.Sale.ContractCompany.ContractId.ShouldBe(TestableContractId);
 					saleItem.IsVATFree.ShouldBe(_contractArticleConnection.NoVAT);
 				});
-				settlementForShop.LensSubscriptionTransactions.ForBoth(_transactions, (transaction, originalItem) =>
+				settlementForShop.LensSubscriptionTransactions.And(_transactions).Do((transaction, originalItem) =>
 				{
 					transaction.CreatedDate.ShouldBe(originalItem.CreatedDate);
 					transaction.Amount.ShouldBe(originalItem.Amount);

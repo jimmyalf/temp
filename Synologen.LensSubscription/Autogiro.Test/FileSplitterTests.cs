@@ -31,7 +31,7 @@ namespace Synologen.LensSubscription.Autogiro.Test
         [Test]
         public void Dates_are_extracted_from_filenames()
         {
-            _dates.ForBoth(_extractedDates, (date, extractedDate) => extractedDate.ShouldBe(date));
+            _dates.And(_extractedDates).Do( (date, extractedDate) => extractedDate.ShouldBe(date));
         }
     }
 
@@ -56,7 +56,7 @@ namespace Synologen.LensSubscription.Autogiro.Test
         [Test]
         public void Filenames_are_parsed_and_checked()
         {
-            _expectedResults.ForBoth(_results, (expectedResult, result) => result.ShouldBe(expectedResult));
+            _expectedResults.And(_results).Do((expectedResult, result) => result.ShouldBe(expectedResult));
         }
     }
 
@@ -198,10 +198,10 @@ namespace Synologen.LensSubscription.Autogiro.Test
         [Test]
         public void Sections_are_returned_with_correct_posts_and_type_()
         {
-            _expectedSections.ForBoth(_sections, (expectedSection, section) => 
+            _expectedSections.And(_sections).Do((expectedSection, section) => 
                     section.Posts.ShouldBe(expectedSection.Posts));
 
-            _expectedSections.ForBoth(_sections, (expectedSection, section) =>
+            _expectedSections.And(_sections).Do((expectedSection, section) =>
                     section.SectionType.ShouldBe(expectedSection.SectionType));
  
         }

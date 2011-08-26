@@ -45,6 +45,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.TestHelpers
 			action(MockedView.Object);
 		}
 
+		protected TView View
+		{
+			get { return MockedView.Object; }
+		}
+
 		protected TResult GetResult<TResult>(Func<TView, TResult> function)
 		{
 			return function(MockedView.Object);

@@ -5,6 +5,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.ShouldlyExtensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
@@ -39,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				view.Model.Articles.First().Text.ShouldBe("-- Välj artikel --");
 				view.Model.Articles.First().Value.ShouldBe("0");
 				view.Model.Articles.Except(ListExtensions.IgnoreType.First).ShouldBeSameLengthAs(_expectedArticles);
-				view.Model.Articles.Except(ListExtensions.IgnoreType.First).ForBoth(_expectedArticles, (viewArticle, domainArticle) =>
+				view.Model.Articles.Except(ListExtensions.IgnoreType.First).And(_expectedArticles).Do( (viewArticle, domainArticle) =>
 				{
 					viewArticle.Text.ShouldBe(domainArticle.Name);
 					viewArticle.Value.ShouldBe(domainArticle.Id.ToString());

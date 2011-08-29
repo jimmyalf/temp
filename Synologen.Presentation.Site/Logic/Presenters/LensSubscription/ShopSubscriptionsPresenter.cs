@@ -7,6 +7,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Core.Utility;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription;
 using WebFormsMvp;
@@ -42,32 +43,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 				CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName),
 				CurrentBalance = GetCurrentBalance(subscription.Transactions),
 				MonthlyAmount = subscription.PaymentInfo.MonthlyAmount.ToString("N2"),
-				Status = GetCurrentStatus(subscription),
+				Status = GetStatusMessage(subscription),
 				CustomerDetailsUrl = urlFormat.ReplaceWith(new { Url = getCustomerDetailsUrl(), Parameter = "customer", ParameterValue = subscription.Customer.Id }),
 				SubscriptionDetailsUrl = urlFormat.ReplaceWith(new { Url = getSubscriptionDetailsUrl(), Parameter = "subscription", ParameterValue = subscription.Id }),
 			};
-		}
-
-		protected virtual string GetCurrentStatus(Subscription subscription)
-		{
-			var key = StatusDictionary.Keys.FirstOrDefault(findMessageKey => findMessageKey(subscription));
-			return (key == null) ? "Okänd status" : StatusDictionary[key];
-		}
-
-		protected Dictionary<Func<Subscription,bool>,string> StatusDictionary
-		{
-			get
-			{
-				return new Dictionary<Func<Subscription, bool>, string>
-				{
-					{subscription => !subscription.Active, "Inaktivt"}, 
-					{subscription => subscription.Errors != null && subscription.Errors.Any(x => !x.IsHandled), "Har ohanterade fel"},
-					{subscription => subscription.ConsentStatus == SubscriptionConsentStatus.Accepted, "Medgivet"},
-					{subscription => subscription.ConsentStatus == SubscriptionConsentStatus.Denied, "Ej medgivet"},
-					{subscription => subscription.ConsentStatus == SubscriptionConsentStatus.NotSent, "Medgivande ej skickat"},
-					{subscription => subscription.ConsentStatus == SubscriptionConsentStatus.Sent, "Skickat för medgivande"},
-				};
-			}
 		}
 
 		protected virtual string GetCurrentBalance(IEnumerable<SubscriptionTransaction> transactions)
@@ -78,6 +57,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			var deposits = transactions.Where(isDeposit).Sum(x => x.Amount);
 			var withdrawals = transactions.Where(isWithdrawal).Sum(x => x.Amount);
 			return (deposits - withdrawals).ToString("N2");
+		}
+
+
+		protected string GetStatusMessage(Subscription subscription)
+		{
+			return Switch.On<Subscription,string>(subscription)
+				.Case(s => !s.Active, "Inaktivt")
+				.Case(s => s.Errors != null && s.Errors.Any(e => !e.IsHandled), "Har ohanterade fel")
+				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Accepted, "Medgivet")
+				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Denied, "Ej medgivet")
+				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.NotSent, "Medgivande ej skickat")
+				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Sent, "Skickat för medgivande")
+				.Evaluate();
 		}
 
 		public override void ReleaseView()

@@ -1,8 +1,5 @@
 using NUnit.Framework;
-using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synologen.Data;
-using Spinit.Wpc.Synologen.Presentation.Site.Code.IoC;
-using StructureMap;
+using Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest.App.Bootstrapping;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest
 {
@@ -12,9 +9,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest
 		[SetUp]
 		public void RunBeforeAnyTests()
 		{
-			//Setup Structuremap
-			ObjectFactory.Initialize(x => x.AddRegistry<WebRegistry>());
-			NHibernateFactory.MappingAssemblies.Add(typeof(SqlProvider).Assembly);
+			Bootstrapper.Bootstrap();
 		}
 
 		[TearDown]

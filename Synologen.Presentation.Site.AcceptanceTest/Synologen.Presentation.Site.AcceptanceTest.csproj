@@ -67,6 +67,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Test.Web, Version=1.0.622.728, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Test.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Wpc.Core.Dependencies.NHibernate, Version=5.0.0.1809, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.Dependencies.NHibernate.dll</HintPath>
@@ -112,6 +116,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\Bootstrapping\Bootstrapper.cs" />
+    <Compile Include="App\IoC\TestRegistry.cs" />
     <Compile Include="GlobalTestBase.cs" />
     <Compile Include="LensSubscription\Add_Customer.cs" />
     <Compile Include="LensSubscription\Add_Subscription_To_Customer.cs" />

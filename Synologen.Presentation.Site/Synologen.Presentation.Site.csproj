@@ -201,6 +201,13 @@
     <Compile Include="Wpc\Synologen\FrameOrders\OrderView.ascx.designer.cs">
       <DependentUpon>OrderView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionsList.ascx.cs">
+      <DependentUpon>ShopSubscriptionsList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionsList.ascx.designer.cs">
+      <DependentUpon>ShopSubscriptionsList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\LensSubscriptions\CreateCustomer.ascx.cs">
       <DependentUpon>CreateCustomer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -347,6 +354,10 @@
     <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.LensSubscription\BGData\BGData.csproj">
+      <Project>{245CC0F4-C211-4998-81D6-F18506B0B952}</Project>
+      <Name>BGData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -514,6 +525,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Testpages\AdminMemberFiles.aspx" />
+    <None Include="Testpages\LensSubscriptionShopSubscriptionsList.aspx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionsList.ascx" />
     <Content Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx" />
     <Content Include="Wpc\Synologen\Supplier\Images\delete.gif" />
     <Content Include="Wpc\Synologen\Supplier\Images\delete.png" />
@@ -534,6 +547,7 @@
     <Content Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Wpc\Base\" />
     <Folder Include="Wpc\Synologen\Css\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

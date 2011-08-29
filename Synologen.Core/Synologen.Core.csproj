@@ -269,7 +269,11 @@
     <Compile Include="Extensions\StringBuilderExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IFrameRepository.cs" />
+    <Compile Include="Utility\ActionSwitch.cs" />
+    <Compile Include="Utility\ReturnSwitch.cs" />
+    <Compile Include="Utility\Switch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\SwitchMapDictionary.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Domain\Model\LensSubscription\LensSubscription.cd" />

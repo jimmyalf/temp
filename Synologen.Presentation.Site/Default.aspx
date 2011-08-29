@@ -35,6 +35,7 @@
 		<a href="/Testpages/LensSubscriptionEditCustomer.aspx?customer=1">Redigera kund för linsabonnemang (med id=1)</a>
 		<a href="/Testpages/LensSubscriptionTransactionsList.aspx?subscription=1">Visa transaktioner för linsabonnemang (med id=1)</a>
 		<a href="/Testpages/LensSubscriptionShopSubscriptionErrorsList.aspx">Visa alla ohanterade fel för butik</a>
+		<a href="/Testpages/LensSubscriptionShopSubscriptionsList.aspx">Visa alla linsabonnemang för inloggad butik</a>
 	</fieldset>
 	<fieldset><legend>Leverantörskontroller</legend>
 		<a href="Testpages/AdminMemberFiles.aspx">Admin Member Files</a>

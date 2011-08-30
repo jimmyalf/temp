@@ -19,5 +19,10 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		{
 			action.Invoke(indexValue);
 		}
+
+		public static bool IsDivisibleBy(this int value, int divisibleByValue)
+		{
+			return (value % divisibleByValue == 0);
+		}
 	}
 }

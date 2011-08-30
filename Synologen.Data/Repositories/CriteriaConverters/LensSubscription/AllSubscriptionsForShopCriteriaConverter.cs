@@ -15,8 +15,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscrip
 			return Criteria
 				.CreateAlias(x => x.Customer)
 				.CreateAlias(x => x.Customer.Shop)
-				.CreateAlias(x => x.Transactions)
 				.FilterEqual(x => x.Customer.Shop.Id, source.ShopId)
+				.SetFetchMode(Property(x => x.Transactions), FetchMode.Join)
 				.SetResultTransformer(Transformers.DistinctRootEntity);
 		}
 	}

@@ -15,9 +15,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 	{
 		private readonly ITransactionRepository _transactionRepository;
 
-		public ListTransactionsPresenter(IListTransactionView view, 
-										ITransactionRepository transactionRepository)
-			: base(view)
+		public ListTransactionsPresenter(IListTransactionView view, ITransactionRepository transactionRepository) : base(view)
 		{
 			_transactionRepository = transactionRepository;
 			View.Load += View_Load;
@@ -36,8 +34,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			var subscriptionId = HttpContext.Request.Params["subscription"].ToIntOrDefault();
 			
 			var criteria = new TransactionsForSubscriptionMatchingCriteria { SubscriptionId = subscriptionId };
-			View.Model.List = _transactionRepository.FindBy(criteria).Select(transactionConverter);
-			View.Model.HasTransactions = (View.Model.List.Count() > 0);
+			var transactions = _transactionRepository.FindBy(criteria);
+			View.Model.List = transactions.Select(transactionConverter);
+			View.Model.HasTransactions = transactions.Any();
+			View.Model.CurrentBalance = SubscriptionTransaction.GetCurrentAccountBalance(transactions).ToString("N2");
 		}
 
 		public override void ReleaseView()

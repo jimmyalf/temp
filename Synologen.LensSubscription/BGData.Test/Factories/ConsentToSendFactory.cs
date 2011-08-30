@@ -36,8 +36,8 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 		{
 			item.Account.AccountNumber = item.Account.AccountNumber.Reverse();
 			item.Account.ClearingNumber = item.Account.ClearingNumber.Reverse();
-			item.OrgNumber = item.OrgNumber.Reverse();
-			item.PersonalIdNumber = item.PersonalIdNumber.Reverse();
+			item.OrgNumber = (item.OrgNumber != null) ? item.OrgNumber.Reverse() : "5501010101";
+			item.PersonalIdNumber = (item.PersonalIdNumber != null) ? item.PersonalIdNumber.Reverse() : "195608170000";
 			item.SendDate = item.SendDate.HasValue ? item.SendDate.Value.AddDays(5) : new DateTime(2011,02,16);
 			item.Type = item.Type.Next();
 			return item;

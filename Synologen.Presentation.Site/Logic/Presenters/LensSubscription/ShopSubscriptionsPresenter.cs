@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
@@ -41,24 +40,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			return new SubscriptionListItem
 			{
 				CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName),
-				CurrentBalance = GetCurrentBalance(subscription.Transactions),
+				CurrentBalance = subscription.GetCurrentAccountBalance().ToString("N2"),
 				MonthlyAmount = subscription.PaymentInfo.MonthlyAmount.ToString("N2"),
 				Status = GetStatusMessage(subscription),
 				CustomerDetailsUrl = urlFormat.ReplaceWith(new { Url = getCustomerDetailsUrl(), Parameter = "customer", ParameterValue = subscription.Customer.Id }),
 				SubscriptionDetailsUrl = urlFormat.ReplaceWith(new { Url = getSubscriptionDetailsUrl(), Parameter = "subscription", ParameterValue = subscription.Id }),
 			};
 		}
-
-		protected virtual string GetCurrentBalance(IEnumerable<SubscriptionTransaction> transactions)
-		{
-			if (transactions == null || transactions.Count() == 0) return 0.ToString("N2");
-			Func<SubscriptionTransaction, bool> isWithdrawal = transaction => (transaction.Reason == TransactionReason.Withdrawal || transaction.Reason == TransactionReason.Correction) && transaction.Type == TransactionType.Withdrawal;
-			Func<SubscriptionTransaction, bool> isDeposit = transaction => (transaction.Reason == TransactionReason.Payment || transaction.Reason == TransactionReason.Correction) && transaction.Type == TransactionType.Deposit;
-			var deposits = transactions.Where(isDeposit).Sum(x => x.Amount);
-			var withdrawals = transactions.Where(isWithdrawal).Sum(x => x.Amount);
-			return (deposits - withdrawals).ToString("N2");
-		}
-
 
 		protected string GetStatusMessage(Subscription subscription)
 		{

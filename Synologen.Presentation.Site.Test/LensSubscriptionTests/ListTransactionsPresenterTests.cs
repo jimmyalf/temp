@@ -13,20 +13,20 @@ using Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.TestHelp
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 {
-	[TestFixture]
-	[Category("TransactionListPresenterTester")]
+	[TestFixture, Category("TransactionListPresenterTester")]
 	public class When_loading_transaction_list_view : ListTransactionsTestbase
 	{
 		private readonly IList<SubscriptionTransaction> _transactionList;
+		private readonly Subscription _subscription;
 
 		public When_loading_transaction_list_view()
 		{
 			const int customerId = 5;
 			const int shopId = 5;
 			
-			var subscription = SubscriptionFactory.GetWithTransactions(CustomerFactory.Get(customerId, shopId));
-			_transactionList = subscription.Transactions.ToList();
-			Context = () => MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<TransactionsForSubscriptionMatchingCriteria>())).Returns(subscription.Transactions);	
+			_subscription = SubscriptionFactory.GetWithTransactions(CustomerFactory.Get(customerId, shopId));
+			_transactionList = _subscription.Transactions.ToList();
+			Context = () => MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<TransactionsForSubscriptionMatchingCriteria>())).Returns(_subscription.Transactions);	
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
 		}
@@ -34,15 +34,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			Func<SubscriptionTransaction, SubscriptionTransactionListItemModel> transactionConverter = (transaction) =>
-				new SubscriptionTransactionListItemModel
-				{
-					CreatedDate = transaction.CreatedDate.ToString("yyyy-MM-dd"),
-					Amount = transaction.Amount,
-					Reason = transaction.Reason.GetEnumDisplayName(),
-					Type = transaction.Type.GetEnumDisplayName(),
-					HasSettlement = (transaction.Settlement != null) ? "Ja" : String.Empty
-				};
+			Func<SubscriptionTransaction, SubscriptionTransactionListItemModel> transactionConverter = transaction => new SubscriptionTransactionListItemModel
+			{
+				CreatedDate = transaction.CreatedDate.ToString("yyyy-MM-dd"),
+				Amount = transaction.Amount,
+				Reason = transaction.Reason.GetEnumDisplayName(),
+				Type = transaction.Type.GetEnumDisplayName(),
+				HasSettlement = (transaction.Settlement != null) ? "Ja" : String.Empty
+			};
 
 			var expectedtransactionListItems = _transactionList.Select(transactionConverter);
 
@@ -50,6 +49,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			{
 				view.Model.List.Count().ShouldBe(_transactionList.Count());
 				view.Model.HasTransactions.ShouldBe(true);
+				view.Model.CurrentBalance.ShouldBe(_subscription.GetCurrentAccountBalance().ToString("N2"));
 				view.Model.List.For((index, transactionListItem) =>
 				{
 					transactionListItem.Amount.ShouldBe(expectedtransactionListItems.ElementAt(index).Amount);

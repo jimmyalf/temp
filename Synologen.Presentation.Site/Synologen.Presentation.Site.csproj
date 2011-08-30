@@ -355,10 +355,6 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.LensSubscription\BGData\BGData.csproj">
-      <Project>{245CC0F4-C211-4998-81D6-F18506B0B952}</Project>
-      <Name>BGData</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Testpages\EditShopPage.aspx" />

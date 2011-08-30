@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
@@ -22,7 +23,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 				Amount = 150.45M,
 				PayerNumber = subscriptionId,
 				PaymentId = id,
-				Result = PaymentResult.Approved.SkipValues(id),
+				Result = PaymentResult.Approved.SkipItems(id),
                 CreatedDate = new DateTime(2011, 03, 27, 19, 45, 15),
                 NumberOfReoccuringTransactionsLeft = null,
                 PaymentDate = new DateTime(2011, 03, 26, 0, 0, 0),

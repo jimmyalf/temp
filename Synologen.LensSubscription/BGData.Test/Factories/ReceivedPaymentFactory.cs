@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
@@ -23,7 +24,7 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 				Payer = payer,
 				PaymentDate = new DateTime(2011, 02, 09, 04, 16, 25),
                 Reference = "Ref",
-                ResultType = PaymentResult.Approved.SkipValues(seed),
+                ResultType = PaymentResult.Approved.SkipItems(seed),
                 NumberOfReoccuringTransactionsLeft = seed,
                 PeriodCode = PaymentPeriodCode.PaymentOnceOnSelectedDate,
                 Type = (seed.IsEven()) ? PaymentType.Debit : PaymentType.Credit,

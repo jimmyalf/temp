@@ -132,14 +132,17 @@ namespace Spinit.Wpc.Synologen.Data.Test
 				var shop = (i % 3 == 0) ? shop1 : shop2;
 				var customerToSave = CustomerFactory.Get(country, shop, "Tore " + i, "Alm " + i, "19630610613" + (i%9));
 				reposititory.Save(customerToSave);
-				var subscriptionToSave = SubscriptionFactory.Get(customerToSave, (i % 2) == 1 ? true : false );
+				var subscriptionToSave = SubscriptionFactory.Get(customerToSave, i.IsOdd() );
 				subscriptionRepository.Save(subscriptionToSave);
 				TransactionFactory.GetList(subscriptionToSave).Each(transaction =>
 				{
 					transactionRepository.Save(transaction);
 					if(i % 5 == 0) { transaction.Article = transactionArticlesToSave[i]; }
 				});
-				SubscriptionErrorFactory.GetList(subscriptionToSave).Each(errorRepository.Save);
+				if(i % 4 == 0)
+				{
+					SubscriptionErrorFactory.GetList(subscriptionToSave).Each(errorRepository.Save);
+				}
 
 			}
 

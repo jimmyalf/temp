@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Extensions;
 
 namespace Synologen.LensSubscription.BGData.Test.Factories
 {
@@ -19,7 +20,7 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 				CreatedDate = new DateTime(2011, 02, 17),
 				SectionData = "ABC\r\nDEF\r\nölkdfölsdkfölsdkf\r\n",
 				SentDate = seed.IsEven() ? (DateTime?) null : new DateTime(2011,03,01),
-				Type = SectionType.ConsentsToSend.SkipValues(seed),
+				Type = SectionType.ConsentsToSend.SkipItems(seed),
 			};
 		}
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
@@ -40,7 +41,7 @@ namespace Synologen.LensSubscription.BGWebService.Test.Factories
 			return new BGReceivedError
 			{
 				Amount = 523 - seed,
-				CommentCode = ErrorCommentCode.AccountNotYetApproved.SkipValues(seed),
+				CommentCode = ErrorCommentCode.AccountNotYetApproved.SkipItems(seed),
 				CreatedDate = new DateTime(2011, 03, 09),
 				Payer = payer,
 				PaymentDate = new DateTime(2011, 03, 25),

@@ -94,7 +94,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			}
 			if(subscription.ConsentStatus ==  SubscriptionConsentStatus.Accepted)
 			{
-				return "Medgivet";
+				return "Aktivt";
 			}
 			if(subscription.ConsentStatus ==  SubscriptionConsentStatus.Denied)
 			{

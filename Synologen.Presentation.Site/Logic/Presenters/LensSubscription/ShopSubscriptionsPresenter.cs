@@ -65,7 +65,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			return Switch.On<Subscription,string>(subscription)
 				.Case(s => !s.Active, "Inaktivt")
 				.Case(s => s.Errors != null && s.Errors.Any(e => !e.IsHandled), "Har ohanterade fel")
-				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Accepted, "Medgivet")
+				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Accepted, "Aktivt")
 				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Denied, "Ej medgivet")
 				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.NotSent, "Medgivande ej skickat")
 				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Sent, "Skickat för medgivande")

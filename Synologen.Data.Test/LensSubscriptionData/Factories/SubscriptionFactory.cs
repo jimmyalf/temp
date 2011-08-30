@@ -1,6 +1,7 @@
 using System;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 {
@@ -14,6 +15,11 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 		public static Subscription Get(Customer customer, bool isActive)
 		{
 			return Get(customer, isActive, SubscriptionConsentStatus.Sent);
+		}
+
+		public static Subscription Get(Customer customer, int seed)
+		{
+			return Get(customer, !seed.IsDivisibleBy(5), SubscriptionConsentStatus.Sent.SkipItems(seed));
 		}
 
 		public static Subscription Get(Customer customer, bool isActive, SubscriptionConsentStatus consentStatus)

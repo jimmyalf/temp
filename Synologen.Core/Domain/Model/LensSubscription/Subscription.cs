@@ -25,5 +25,10 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		public virtual IEnumerable<SubscriptionError> Errors { get; set; }
 		public virtual string Notes { get; set; }
 		public virtual int? BankgiroPayerNumber { get; set; }
+
+		public virtual decimal GetCurrentAccountBalance()
+		{
+			return SubscriptionTransaction.GetCurrentAccountBalance(Transactions);
+		}
 	}
 }

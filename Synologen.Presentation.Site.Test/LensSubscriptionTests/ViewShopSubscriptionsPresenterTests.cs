@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using FakeItEasy;
 using NUnit.Framework;
@@ -58,20 +57,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			{
 				viewItem.CustomerName.ShouldBe(domainItem.Customer.ParseName(x => x.FirstName, x => x.LastName));
 				viewItem.MonthlyAmount.ShouldBe(domainItem.PaymentInfo.MonthlyAmount.ToString("N2"));
-				viewItem.CurrentBalance.ShouldBe(GetExpectedCurrentBalance(domainItem.Transactions).ToString("N2"));
+				viewItem.CurrentBalance.ShouldBe(domainItem.GetCurrentAccountBalance().ToString("N2"));
 				viewItem.Status.ShouldBe(GetExpectedSubscriptionStatus(domainItem));
 				viewItem.CustomerDetailsUrl.ShouldBe("{Url}?customer={CustomerId}".ReplaceWith(new {Url = _customerDetailsPage, CustomerId = domainItem.Customer.Id}));
 				viewItem.SubscriptionDetailsUrl.ShouldBe("{Url}?subscription={SubscriptionId}".ReplaceWith(new {Url = _subscriptionDetailsPage, SubscriptionId = domainItem.Id}));
 			});
-		}
-
-		public decimal GetExpectedCurrentBalance(IEnumerable<SubscriptionTransaction> transactions)
-		{
-			Func<SubscriptionTransaction, bool> isWithdrawal = transaction => (transaction.Reason == TransactionReason.Withdrawal || transaction.Reason == TransactionReason.Correction) && transaction.Type == TransactionType.Withdrawal;
-			Func<SubscriptionTransaction, bool> isDeposit = transaction => (transaction.Reason == TransactionReason.Payment || transaction.Reason == TransactionReason.Correction) && transaction.Type == TransactionType.Deposit;
-			var withdrawals = transactions.Where(isWithdrawal).Sum(x => x.Amount);
-			var deposits = transactions.Where(isDeposit).Sum(x => x.Amount);
-			return deposits - withdrawals;
 		}
 
 		public string GetExpectedSubscriptionStatus(Subscription subscription)

@@ -22,6 +22,7 @@
 			</table>
 		</FooterTemplate>
 	</asp:Repeater>
+	<p>Saldo: <%=Model.CurrentBalance%></p>
 	<% } 
 		else { %><p>Det finns inga transaktioner att visa.</p><%
 	} %>

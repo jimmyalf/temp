@@ -1,6 +1,6 @@
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
-using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Synologen.LensSubscription.BGData.Test.Factories
 {

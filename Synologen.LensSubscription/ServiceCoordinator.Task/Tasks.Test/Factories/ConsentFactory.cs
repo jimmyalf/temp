@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -25,8 +26,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 				ConsentId = id,
 				ActionDate = DateTime.Now.AddDays(-2),
 				ConsentValidForDate = DateTime.Now.AddDays(1),
-				InformationCode = InformationCode.SkipValues(id),
-				CommentCode = CommentCode.SkipValues(id)
+				InformationCode = InformationCode.SkipItems(id),
+				CommentCode = CommentCode.SkipItems(id)
 			};
 			return consent;
 		}

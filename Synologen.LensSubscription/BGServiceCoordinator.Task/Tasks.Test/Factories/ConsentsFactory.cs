@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -29,7 +30,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Factories
 				OrgNumber = null,
 				PersonalIdNumber = "194608170000",
 				SendDate = null,
-				Type = ConsentType.New.SkipValues(seed),
+				Type = ConsentType.New.SkipItems(seed),
 			};
 		}
 

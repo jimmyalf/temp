@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -26,9 +27,9 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
             var consent = new BGReceivedConsent
             {
                 ActionDate = new DateTime(2011, 02, 10, 13, 35, 56),
-                CommentCode = ConsentCommentCode.NewConsent.SkipValues(seed),
+                CommentCode = ConsentCommentCode.NewConsent.SkipItems(seed),
                 ConsentValidForDate = new DateTime(2011, 02, 11, 12, 0, 0, 0),
-                InformationCode = ConsentInformationCode.InitiatedByPayer.SkipValues(seed),
+                InformationCode = ConsentInformationCode.InitiatedByPayer.SkipItems(seed),
 				Payer = payer,
                 CreatedDate = new DateTime(2011, 02, 10, 18, 02, 12),
             };

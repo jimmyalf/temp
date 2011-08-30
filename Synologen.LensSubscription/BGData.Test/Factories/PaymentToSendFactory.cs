@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -25,7 +26,7 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
 				SendDate = seed.IsEven() 
 					? null as DateTime?
 					: new DateTime(2011,02,17),
-				Type = PaymentType.Debit.SkipValues(seed)
+				Type = PaymentType.Debit.SkipItems(seed)
 			};
 		}
 

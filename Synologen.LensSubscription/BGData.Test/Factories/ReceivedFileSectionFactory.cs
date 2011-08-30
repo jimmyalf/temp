@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -30,8 +31,8 @@ namespace Synologen.LensSubscription.BGData.Test.Factories
                     ? new DateTime(2011, 02, 16).AddDays(index)
                     : (DateTime?)null,
                 SectionData = new String('A', 100),
-                Type = SectionType.ConsentsToSend.SkipValues(index),
-                TypeName = SectionType.ConsentsToSend.SkipValues(index).GetEnumDisplayName()
+                Type = SectionType.ConsentsToSend.SkipItems(index),
+                TypeName = SectionType.ConsentsToSend.SkipItems(index).GetEnumDisplayName()
             };
         }
 

@@ -1,7 +1,7 @@
 ﻿using System;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories
 {

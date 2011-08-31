@@ -294,12 +294,12 @@
 	<label for="<%=txtReference.ClientID%>">Referens</label>
 	<asp:TextBox ID="txtReference" runat="server" Text='<%#Model.Reference%>' MaxLength="255" />
 </div>
-
 <div class="form-controls">
-	<asp:ValidationSummary ID="vldSummary" ValidationGroup="vldSubmit" runat="server" />
-	<br />
 	<asp:Button ID="btnSave" runat="server" Text="Granska" ValidationGroup="vldSubmit" CausesValidation="true"/>
 </div>
+<div class="error-summary">
+	<asp:ValidationSummary ID="vldSummary" ValidationGroup="vldSubmit" runat="server" />
+ </div>	
 </div>
 <% } %>
 <%if(Model.OrderHasBeenSent) { %>

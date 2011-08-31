@@ -2,20 +2,20 @@
 <div id="synologen-view-order" class="synologen-control">
 <asp:PlaceHolder ID="plViewOrder" runat="server" Visible="true">
 	<fieldset><legend>Fakturauppgifter</legend>
-		<label>Ordernummer:</label><span><%=Order.Id%></span><br />
-		<label>Företag:</label><span><asp:Literal ID="ltCompany" runat="server" /></span><br />
-		<label>Enhet:</label><span><%=Order.CompanyUnit%></span><br />
-		<label>Kostnadsställe:</label><span><%=Order.RstText %></span><br />
-		<label>Förnamn:</label><span><%=Order.CustomerFirstName%></span><br />
-		<label>Efternamn:</label><span><%=Order.CustomerLastName%></span><br />
-		<label>Personnummer:</label><span><%=Order.PersonalIdNumber%></span><br />
-		<label>Epost:</label><a href="mailto:<%=Order.Email%>"><%=Order.Email%></a><br />
-		<label>Telefon:</label><span><%=Order.Phone%></span><br />
-		<label>Försäljare:</label><span><asp:Literal ID="ltSalesPersonName" runat="server" /></span><br />
-		<label>Status:</label><span><asp:Literal ID="ltOrderStatus" runat="server" /></span><br />
-		<label>Skapad:</label><span><%=Order.CreatedDate.ToShortDateString()%></span><br />
-		<label>Status ändrades:</label><span><%=OrderUpdateDate%></span><br />
-		<label>Utbetald:</label><span><%=Order.MarkedAsPayedByShop ? "Ja" : "Nej" %></span><br />
+		<p><label>Ordernummer:</label><span><%=Order.Id%></span></p>
+		<p><label>Företag:</label><span><asp:Literal ID="ltCompany" runat="server" /></span></p>
+		<p><label>Enhet:</label><span><%=Order.CompanyUnit%></span></p>
+		<p><label>Kostnadsställe:</label><span><%=Order.RstText %></span></p>
+		<p><label>Förnamn:</label><span><%=Order.CustomerFirstName%></span></p>
+		<p><label>Efternamn:</label><span><%=Order.CustomerLastName%></span></p>
+		<p><label>Personnummer:</label><span><%=Order.PersonalIdNumber%></span></p>
+		<p><label>Epost:</label><a href="mailto:<%=Order.Email%>"><%=Order.Email%></a></p>
+		<p><label>Telefon:</label><span><%=Order.Phone%></span></p>
+		<p><label>Försäljare:</label><span><asp:Literal ID="ltSalesPersonName" runat="server" /></span></p>
+		<p><label>Status:</label><span><asp:Literal ID="ltOrderStatus" runat="server" /></span></p>
+		<p><label>Skapad:</label><span><%=Order.CreatedDate.ToShortDateString()%></span></p>
+		<p><label>Status ändrades:</label><span><%=OrderUpdateDate%></span></p>
+		<p><label>Utbetald:</label><span><%=Order.MarkedAsPayedByShop ? "Ja" : "Nej" %></span></p>
 	</fieldset>
 	<br /><br />	
 	<div id="order-items-cart" class="clearLeft">
@@ -41,14 +41,11 @@
 	<div  class="clearLeft"><label>Totalpris exkl moms: </label><span><asp:Literal id="ltTotalPrice" runat="server" /></span></div>
 	<br /><br />
 	<div class="control-actions clearLeft">
-		<%--<asp:Button ID="btnBack" runat="server" Text="Tillbaka" OnClick="btnBack_Click" />--%>
 		<a href="<%=Spinit.Wpc.Synologen.Presentation.Site.Code.SynologenSessionContext.SalesListPage %>">Tillbaka</a>
-		<%--<asp:Button ID="btnMarkAsPayed" runat="server" Text="Markera som utbetald" OnClick="btnMarkAsPayed_Click" ValidationGroup="vldSubmit" OnClientClick="return confirm('Är du säker på att du vill markera ordern som utbetald?');" />--%>
 	</div>
 </asp:PlaceHolder>
 <asp:PlaceHolder ID="plNoAccessMessage" runat="server" Visible="false">
 <p class="error-message"><strong>!</strong>&nbsp;Du har inte rätt att se vald order.</p><br />
-<%--<asp:Button ID="btnErrorBack" runat="server" Text="Tillbaka" OnClick="btnBack_Click" />--%>
 <a href="<%=Spinit.Wpc.Synologen.Presentation.Site.Code.SynologenSessionContext.SalesListPage %>">Tillbaka</a>
 </asp:PlaceHolder>
 </div>

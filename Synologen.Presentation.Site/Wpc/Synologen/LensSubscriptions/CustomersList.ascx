@@ -1,9 +1,10 @@
 <%@ Control Language="C#" CodeBehind="CustomersList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.CustomersList" %>
-<%@ Import Namespace="Spinit.Wpc.Synologen.Presentation.Site.Models.LensSubscription"%>
 <div id="synologen-create-lens-subscription-customer-list" class="synologen-control">
-<label for="<%=txtSearch.ClientID%>">Sök</label>
-<asp:TextBox ID="txtSearch" Text='<%#Model.SearchTerm %>' runat="server" />
-<asp:Button ID="btnSearch" runat="server" Text="Sök" />
+<p>
+	<label for="<%=txtSearch.ClientID%>">Sök</label>
+	<asp:TextBox ID="txtSearch" Text='<%#Model.SearchTerm %>' runat="server" />
+	<asp:Button ID="btnSearch" runat="server" Text="Sök" />
+</p>
 <asp:Repeater ID="rptCustomers" runat="server" DataSource='<%#Model.List%>'>
 	<HeaderTemplate >
 		<table>

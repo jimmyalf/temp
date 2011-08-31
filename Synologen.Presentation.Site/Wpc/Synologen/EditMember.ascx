@@ -2,18 +2,28 @@
 <asp:PlaceHolder ID="plEditMember" runat="server" Visible="true">
 <div id="synologen-edit-member" class="synologen-control">
 <fieldset><legend>Medlemsuppgifter</legend>
-	<label>Namn</label><span><strong><asp:Literal ID="ltMemberName" runat="server" /></strong></span><br />
-	<label>E-post</label>
-	<asp:TextBox ID="txtEmail" runat="server" /><br />	
-	<label>Nytt lösenord</label>
-	<asp:TextBox ID="txtNewPassword" runat="server" TextMode="Password" />
-	<asp:RequiredFieldValidator ID="reqPassword" runat="server" ControlToValidate="txtNewPassword" ValidationGroup="vldSubmit" ErrorMessage="Lösenord får inte vara tomt." Display="Dynamic">*</asp:RequiredFieldValidator><br />
-	<label>Verifiera</label>
-	<asp:TextBox ID="txtNewPasswordVerify" runat="server" TextMode="Password" />
-	<asp:CompareValidator id="cmpPasswords" runat="server" ControlToCompare="txtNewPassword" ControlToValidate="txtNewPasswordVerify" ValidationGroup="vldSubmit" ErrorMessage="Lösenord och verifiering överensstämmer inte."  Display="Dynamic" >*</asp:CompareValidator><br />
-	<label>Aktiv</label>
-	<asp:CheckBox ID="chkActive" runat="server" /><br />
-	<br />
+	<p>
+		<label>Namn</label><span>
+		<strong><asp:Literal ID="ltMemberName" runat="server" /></strong></span>
+	</p>
+	<p>
+		<label>E-post</label>
+		<asp:TextBox ID="txtEmail" runat="server" />
+	</p>
+	<p>
+		<label>Nytt lösenord</label>
+		<asp:TextBox ID="txtNewPassword" runat="server" TextMode="Password" />
+		<asp:RequiredFieldValidator ID="reqPassword" runat="server" ControlToValidate="txtNewPassword" ValidationGroup="vldSubmit" ErrorMessage="Lösenord får inte vara tomt." Display="Dynamic">*</asp:RequiredFieldValidator>
+	</p>
+	<p>
+		<label>Verifiera</label>
+		<asp:TextBox ID="txtNewPasswordVerify" runat="server" TextMode="Password" />
+		<asp:CompareValidator id="cmpPasswords" runat="server" ControlToCompare="txtNewPassword" ControlToValidate="txtNewPasswordVerify" ValidationGroup="vldSubmit" ErrorMessage="Lösenord och verifiering överensstämmer inte."  Display="Dynamic" >*</asp:CompareValidator>
+	</p>
+	<p>
+		<label>Aktiv</label>
+		<asp:CheckBox ID="chkActive" runat="server" />
+	</p>
 </fieldset>	
 	<br />
 	<div class="control-actions">

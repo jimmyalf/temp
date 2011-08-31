@@ -22,7 +22,6 @@
 		<asp:GridView ID="gvOrderItemsCart" 
 			runat="server" 
 			DataKeyNames="cId" 
-			SkinID="Striped" 
 			AutoGenerateColumns="false" 
 			ShowHeader="true"
 			AlternatingRowStyle-CssClass="synologen-table-alternative-row"

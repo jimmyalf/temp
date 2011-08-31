@@ -4,12 +4,9 @@
 <HeaderTemplate>
 <table id="synologen-sales-list" >
 <tr class="synologen-table-headerrow">
-	<%--<th>Avtal</th--%>
 	<th>Order Nr</th>
 	<th>Företag</th>
-	<%--<th>Enhet</th>--%>
 	<th>Kund</th>
-	<%--<th>Orderrader</th>--%>
 	<th>Status</th>
 	<th>Registrerad</th>
 	<th>Utbetald</th>	
@@ -18,12 +15,9 @@
 </HeaderTemplate>
 <ItemTemplate>
 <tr class="synologen-table-row">
-	<%--<td><%# DataBinder.Eval(Container.DataItem, "cContractName") %></td>--%>
 	<td class="center-cell"><%# DataBinder.Eval(Container.DataItem, "cId") %></td>
 	<td><%# DataBinder.Eval(Container.DataItem, "cCompanyName") %></td>
-	<%--<td><%# DataBinder.Eval(Container.DataItem, "cCompanyUnit") %></td>--%>
 	<td><%# DataBinder.Eval(Container.DataItem, "cCustomerName") %></td>
-	<%--<td><%# DataBinder.Eval(Container.DataItem, "cOrderItems") %></td>--%>
 	<td><%# DataBinder.Eval(Container.DataItem, "cStatusName") %></td>
 	<td><%# DataBinder.Eval(Container.DataItem, "cCreatedDate","{0:yyyy-MM-dd}") %></td>
 	<td class="center-cell"><asp:PlaceHolder ID="plPayed" runat="server"><img src="/Wpc/Synologen/Images/Ok.png" alt="Utbetald" title="Utbetald" /></asp:PlaceHolder></td>	
@@ -35,12 +29,9 @@
 </ItemTemplate>
 <AlternatingItemTemplate>
 <tr class="synologen-table-alternative-row">
-	<%--<td><%# DataBinder.Eval(Container.DataItem, "cContractName") %></td>--%>
 	<td class="center-cell"><%# DataBinder.Eval(Container.DataItem, "cId") %></td>	
 	<td><%# DataBinder.Eval(Container.DataItem, "cCompanyName") %></td>
-	<%--<td><%# DataBinder.Eval(Container.DataItem, "cCompanyUnit") %></td>--%>
 	<td><%# DataBinder.Eval(Container.DataItem, "cCustomerName") %></td>
-	<%--<td><%# DataBinder.Eval(Container.DataItem, "cOrderItems") %></td>--%>
 	<td><%# DataBinder.Eval(Container.DataItem, "cStatusName") %></td>
 	<td><%# DataBinder.Eval(Container.DataItem, "cCreatedDate","{0:yyyy-MM-dd}") %></td>
 	<td class="center-cell"><asp:PlaceHolder ID="plPayedAlternative" runat="server"><img src="/Wpc/Synologen/Images/Ok.png" alt="Utbetald" title="Utbetald" /></asp:PlaceHolder></td>

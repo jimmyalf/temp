@@ -28,7 +28,7 @@
 	<p>
 		<label for="<%=drpArticle.ClientID%>">Belopp</label>
 		<asp:DropDownList ID="drpArticle" runat="server" DataSource='<%#Model.Articles%>' DataTextField="Text" DataValueField="Value" SelectedValue='<%#Model.SelectedArticleValue%>' />
-		<asp:RequiredFieldValidator ID="reqdrpArticle" InitialValue="0" ValidationGroup="vgCreateTransaction" runat="server" ErrorMessage="Artikel är obligatorisk vid uttag" ControlToValidate="drpArticle" Display="Dynamic">*</asp:RequiredFieldValidator>
+		<asp:RequiredFieldValidator ID="reqdrpArticle" InitialValue="0" ValidationGroup="vgCreateTransaction" runat="server" ErrorMessage="Artikel är obligatorisk vid uttag" ControlToValidate="drpArticle" Display="Dynamic" Enabled='<%#Model.DisplaySaveWithdrawal%>'>*</asp:RequiredFieldValidator>
 	</p>
 	<% } %>
 	

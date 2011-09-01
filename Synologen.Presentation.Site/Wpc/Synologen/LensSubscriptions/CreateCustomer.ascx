@@ -45,6 +45,7 @@
 	<p>
 		<label for="<%=txtCity.ClientID%>">Ort</label>
 		<asp:TextBox ID="txtCity" runat="server" />
+		<asp:RequiredFieldValidator ID="reqtxtCity" runat="server" ErrorMessage="Ort måste anges" ControlToValidate="txtCity" Display="Dynamic">*</asp:RequiredFieldValidator>
 	</p>
 	<p>
 		<label for="<%=txtPostalCode.ClientID%>">Postnummer</label>

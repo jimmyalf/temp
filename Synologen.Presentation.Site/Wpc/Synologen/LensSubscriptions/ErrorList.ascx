@@ -11,9 +11,9 @@
 		</HeaderTemplate>
 		<ItemTemplate>
 				<tr>
-					<td><%# Eval("CreatedDate")%></td>
-					<td><%# Eval("TypeName")%></td>
-					<td><%# Eval("HandledDate")%></td>
+					<td class="created"><%# Eval("CreatedDate")%></td>
+					<td class="error-type"><%# Eval("TypeName")%></td>
+					<td class="handled"><%# Eval("HandledDate")%></td>
 					<td><asp:Button ID="btnSetHandled" CommandName='<%# Eval("ErrorId")%>'  Visible=<%# Eval("IsVisible")%> runat="server" Text="Markera som hanterad" OnClientClick="return confirm('Är du säker på att du vill markera felet som hanterat?');"  /></td>
 				</tr>
 		</ItemTemplate>

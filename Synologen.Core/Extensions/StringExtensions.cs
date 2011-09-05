@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Spinit.Extensions;
 
 namespace Spinit.Wpc.Synologen.Core.Extensions
 {
@@ -61,9 +62,10 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			{
 				var token = tokenMatch.ToString();
 				var tokenName = token.Trim(new[] {'{', '}'});
-				var replacement = tokenReplacements.GetAnonymousPropertyValue(tokenName);
-				if(replacement == null) continue;
-				output = output.Replace(token, replacement.ToString());
+				var matchingProperty = tokenReplacements.GetAnonymousPropertyValue<object>(tokenName);
+				if(!matchingProperty.FoundProperty) continue;
+				var replacement = matchingProperty.With(x => x.PropertyValue).Return(x => x.ToString(), string.Empty);
+				output = output.Replace(token, replacement);
 			}
 			return output;
 		}

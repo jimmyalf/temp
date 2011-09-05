@@ -20,17 +20,39 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			return default(TType);
 		}
 
-		public static object GetAnonymousPropertyValue(this object container, string propertyName)
+		//public static PropertyMatch<object> GetAnonymousPropertyValue(this object container, string propertyName)
+		//{
+		//    var returnValue = new PropertyMatch<object> {PropertyName = propertyName};
+		//    if(container == null || propertyName == null) return null;
+		//    var type = container.GetType();
+		//    var p = type.GetProperty(propertyName);
+		//    returnValue.FoundProperty = (p != null);
+		//    if(p != null)
+		//    {
+		//        returnValue.PropertyValue = p.GetValue(container, null);
+		//    }
+		//    return returnValue;
+		//}
+
+		public static PropertyMatch<TType> GetAnonymousPropertyValue<TType>(this object container, string propertyName)
 		{
+			var returnValue = new PropertyMatch<TType> {PropertyName = propertyName};
 			if(container == null || propertyName == null) return null;
 			var type = container.GetType();
 			var p = type.GetProperty(propertyName);
-			return p == null ? null : p.GetValue(container, null);
+			returnValue.FoundProperty = (p != null);
+			if(p != null)
+			{
+				returnValue.PropertyValue = (TType) p.GetValue(container, null);
+			}
+			return returnValue;
 		}
 
-		public static TType GetAnonymousPropertyValue<TType>(this object container, string propertyName)
+		public class PropertyMatch<TType>
 		{
-			return GetAnonymousPropertyValue(container, propertyName).ToTypeOrDefault<TType>();
+			public string PropertyName { get; set; }
+			public TType PropertyValue { get; set; }
+			public bool FoundProperty { get; set; }
 		}
 	}
 }

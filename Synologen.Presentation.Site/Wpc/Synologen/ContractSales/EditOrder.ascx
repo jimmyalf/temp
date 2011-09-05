@@ -100,8 +100,7 @@
 			AlternatingRowStyle-CssClass="synologen-table-alternative-row"
 			RowStyle-CssClass="synologen-table-row"
 			HeaderStyle-CssClass="synologen-table-headerrow"
-			CssClass="synologen-table"
-			>
+			CssClass="synologen-table">
 			<Columns>
 				<asp:BoundField headerText="Artikel" DataField="ArticleDisplayName"/>
 				<asp:BoundField headerText="Artikelnr" DataField="ArticleDisplayNumber"/>
@@ -117,8 +116,8 @@
 		</asp:GridView>
 		<asp:CustomValidator ID="vldCheckAnyOrderItems" OnServerValidate="OrderItemsValidation" runat="server" ErrorMessage="Orderrader saknas." Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:CustomValidator>
 	</div>
-	<div class="clearLeft"><label>Totalpris exkl moms: </label><span><asp:Literal id="ltTotalPrice" runat="server" /></span></div>
-	<div class="control-actions clearLeft">
+	<p><label>Totalpris exkl moms: </label><span><asp:Literal id="ltTotalPrice" runat="server" /></span></p>
+	<div class="control-actions">
 		<asp:CustomValidator ID="vldCheckSession" OnServerValidate="SessionValidation" runat="server" ErrorMessage="Du har varit inloggad f&ouml;r l&auml;nge och tappat din session, var v&auml;nlig logga in igen för att registrera f&ouml;rs&auml;ljningar." Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:CustomValidator>
 		<a href="<%=Spinit.Wpc.Synologen.Presentation.Site.Code.SynologenSessionContext.SalesListPage %>">Tillbaka</a>
 		<asp:Button ID="btnSave" runat="server" Text="Spara ändringar" OnClick="btnSave_Click" ValidationGroup="vldSubmit" OnClientClick="return confirm('Är du säker på att du vill spara ordern?');" />
@@ -126,7 +125,7 @@
 		<asp:Button ID="btnHalt" runat="server" Text="Sätt som vilande" OnClick="btnHalt_Click" OnClientClick="return confirm('Är du säker på att du vill sätta ordern som vilande?');" />
 		<asp:Button ID="btnAbortHalt" runat="server" Text="Avbryt vilande" OnClick="btnAbortHalt_Click" OnClientClick="return confirm('Är du säker på att du avbryta vilande order?');" />
 	</div>
-	<div class="error-summary clearLeft">
+	<div class="error-summary">
 		<asp:ValidationSummary id="valSummary" ValidationGroup="vldSubmit" runat="server" HeaderText="F&ouml;ljande f&auml;lt &auml;r obligatoriska eller felaktigt ifyllda :" ShowSummary="true" DisplayMode="List" />
 		<asp:ValidationSummary id="valAdd" ValidationGroup="vldAdd" runat="server" HeaderText="F&ouml;ljande f&auml;lt &auml;r obligatoriska eller felaktigt ifyllda :" ShowSummary="true" DisplayMode="List" />
 		<br />

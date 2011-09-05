@@ -85,7 +85,6 @@
 			OnRowDeleting="gvOrderItemsCart_Deleting"
 			runat="server" 
 			DataKeyNames="TemporaryId" 
-			SkinID="Striped" 
 			AutoGenerateColumns="false" 
 			ShowHeader="true"
 			AlternatingRowStyle-CssClass="synologen-table-alternative-row"
@@ -107,13 +106,12 @@
 		</asp:GridView>
 		<asp:CustomValidator ID="vldCheckAnyOrderItems" OnServerValidate="OrderItemsValidation" runat="server" ErrorMessage="Orderrader saknas." Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:CustomValidator>
 	</div>		
-	<div class="clearLeft"><label>Totalpris exkl moms: </label><span><asp:Literal id="ltTotalPrice" runat="server" /></span></div>
-
-	<div class="control-actions clearLeft">
+	<p><label>Totalpris exkl moms: </label><span><asp:Literal id="ltTotalPrice" runat="server" /></span></p>
+	<div class="control-actions">
 		<asp:CustomValidator ID="vldCheckSession" OnServerValidate="SessionValidation" runat="server" ErrorMessage="Du har varit inloggad f&ouml;r l&auml;nge och tappat din session, var v&auml;nlig logga in igen för att registrera f&ouml;rs&auml;ljningar." Display="dynamic" CssClass="invalid"  ValidationGroup="vldSubmit">&nbsp;*</asp:CustomValidator>
 		<asp:Button ID="btnSave" runat="server" Text="Registrera order" Enabled="false" OnClick="btnSave_Click" ValidationGroup="vldSubmit" OnClientClick="return confirm('Är du säker på att du vill skicka ordern?');"  CausesValidation="true" />
 	</div>
-	<div class="error-summary clearLeft">
+	<div class="error-summary">
 		<asp:ValidationSummary id="valSummary" ValidationGroup="vldSubmit" runat="server" HeaderText="F&ouml;ljande f&auml;lt &auml;r obligatoriska eller felaktigt ifyllda :" ShowSummary="true" DisplayMode="List" />
 		<asp:ValidationSummary id="valAdd" ValidationGroup="vldAdd" runat="server" HeaderText="F&ouml;ljande f&auml;lt &auml;r obligatoriska eller felaktigt ifyllda :" ShowSummary="true" DisplayMode="List" />
 		<br />

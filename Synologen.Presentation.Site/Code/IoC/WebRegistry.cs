@@ -42,6 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code.IoC
 			For<IFrameOrderService>().Use<SynologenFrameOrderService>();
 			For<IEmailService>().Use<EmailService>();
 			For<ISynologenSettingsService>().Use<SynologenSettingsService>();
+		    For<IYammerService>().Use<YammerService>();
 
 			//For<IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>>().Use<AllOrderableFramesCriteriaConverter>();
 			//For<IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>>().Use<AllFrameOrdersForShopCriteriaConverter>();

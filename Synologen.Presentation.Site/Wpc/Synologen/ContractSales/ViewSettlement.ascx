@@ -73,6 +73,7 @@
 	</FooterTemplate>			
 	</asp:Repeater>	
 	</fieldset>
+	</asp:PlaceHolder>			
 	<fieldset><legend>Linsabonnemang transaktioner</legend>
 	<asp:Repeater ID="rptSettlementTransactionItemsDetailed" runat="server" DataSource='<%#Model.DetailedSubscriptionTransactions%>'>
 	<HeaderTemplate>
@@ -96,5 +97,4 @@
 	</FooterTemplate>			
 	</asp:Repeater>	
 	</fieldset>
-	</asp:PlaceHolder>			
 </div>

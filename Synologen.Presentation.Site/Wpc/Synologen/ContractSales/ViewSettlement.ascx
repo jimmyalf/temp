@@ -1,12 +1,12 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewSettlement.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales.ViewSettlement" %>
 <div class="synologen-control">
 	<fieldset><legend>Utbetalningsuppgifter</legend>
-		<p><label>Utbetalning:</label><span><%#Model.SettlementId %></span></p>
-		<p><label>Butiknummer:</label><span><%#Model.ShopNumber %></span></p>
-		<p><label>Period:</label><span><%#Model.Period %></span></p>
-		<p><label>Avtalsförsäljningsvärde inkl moms:</label><span><%#Model.ContractSalesValueIncludingVAT %></span></p>
-		<p><label>Linsabonnemangsvärde inkl moms:</label><span><%#Model.LensSubscriptionsValueIncludingVAT %></span></p>
-		<p><label>Antal linsabonnemang-transaktioner</label><span><%#Model.LensSubscriptionTransactionsCount %></span></p>
+		<p><label>Utbetalning:</label>&nbsp;<span><%#Model.SettlementId %></span></p>
+		<p><label>Butiknummer:</label>&nbsp;<span><%#Model.ShopNumber %></span></p>
+		<p><label>Period:</label>&nbsp;<span><%#Model.Period %></span></p>
+		<p><label>Avtalsförsäljningsvärde inkl moms:</label>&nbsp;<span><%#Model.ContractSalesValueIncludingVAT %></span></p>
+		<p><label>Linsabonnemangsvärde inkl moms:</label>&nbsp;<span><%#Model.LensSubscriptionsValueIncludingVAT %></span></p>
+		<p><label>Antal linsabonnemang-transaktioner:</label>&nbsp;<span><%#Model.LensSubscriptionTransactionsCount %></span></p>
 		<p><a href="<%=Spinit.Wpc.Synologen.Presentation.Site.Code.SynologenSessionContext.SettlementListPage %>">&laquo;&nbsp;Tillbaka</a></p>
 	</fieldset>
 	<div class="control-actions">
@@ -78,14 +78,15 @@
 	<HeaderTemplate>
 		<table>
 			<tr class="synologen-table-headerrow">	
-				<th>Abonnemang</th>
+				<th>Kund</th>
 				<th>Belopp</th>
 				<th>Datum</th>
 			</tr>			
 	</HeaderTemplate>
 	<ItemTemplate>
 			<tr>
-				<td><a href="<%# Eval("SubscriptionLink")%>" title="Abonnemang"><%# Eval("CustomerName")%></a></td>
+				<%--<td><a href="<%# Eval("SubscriptionLink")%>" title="Abonnemang"><%# Eval("CustomerName")%></a></td>--%>
+				<td><%# Eval("CustomerName")%></td>
 				<td><%# Eval("Amount") %></td>
 				<td><%# Eval("Date") %></td>
 			</tr>

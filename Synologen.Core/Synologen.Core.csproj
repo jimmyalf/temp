@@ -167,6 +167,16 @@
     <Compile Include="Domain\Model\LensSubscription\TransactionReason.cs" />
     <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
     <Compile Include="Domain\Model\ContractSales\ShopAccess.cs" />
+    <Compile Include="Domain\Model\Yammer\AttachmentModel.cs" />
+    <Compile Include="Domain\Model\Yammer\BodyModel.cs" />
+    <Compile Include="Domain\Model\Yammer\ImageModel.cs" />
+    <Compile Include="Domain\Model\Yammer\JsonMessageModel.cs" />
+    <Compile Include="Domain\Model\Yammer\LikedByModel.cs" />
+    <Compile Include="Domain\Model\Yammer\MessageModel.cs" />
+    <Compile Include="Domain\Model\Yammer\NameModel.cs" />
+    <Compile Include="Domain\Model\Yammer\ReferenceModel.cs" />
+    <Compile Include="Domain\Model\Yammer\StatsModel.cs" />
+    <Compile Include="Domain\Model\Yammer\YModuleModel.cs" />
     <Compile Include="Domain\Persistence\BGServer\IAutogiroPayerRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IBGFtpPasswordRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IBGPaymentToSendRepository.cs" />

@@ -40,5 +40,9 @@
 	<fieldset><legend>Leverantörskontroller</legend>
 		<a href="Testpages/AdminMemberFiles.aspx">Admin Member Files</a>
 	</fieldset>
+	<fieldset>
+	    <legend>Flöden</legend>
+	    <a href="TestPages/YammerFeed.aspx">Flöde från Yammer</a>
+	</fieldset>
 </div>
 </asp:Content>

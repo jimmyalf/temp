@@ -5,6 +5,7 @@ using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Business {
 	public class Globals : ConfigurationFetch {
 		private const String _setting = "synologen";
+	    private const string YammerSettings = "yammer";
 		/// <summary>
 		/// Specifies the component Name used in the component db
 		/// </summary>
@@ -188,6 +189,28 @@ namespace Spinit.Wpc.Synologen.Business {
 		{
 			get { return SafeConfigString(_setting, "FrameOrderEmailSubject", "Glasögonbeställning från synologen"); }
 		}
+
+        // Yammer
+	    static public string YammerNetwork
+	    {
+            get { return SafeConfigString(YammerSettings, "Network", ""); }
+	    }
+	    static public string YammerClientId
+	    {
+            get { return SafeConfigString(YammerSettings, "ClientId", ""); }
+	    }
+        static public string YammerEmailAccount
+        {
+            get { return SafeConfigString(YammerSettings, "EmailAccount", ""); }
+        }
+        static public string YammerPassword
+        {
+            get { return SafeConfigString(YammerSettings, "Password", ""); }
+        }
+        static public int YammerNumberOfMessages
+        {
+            get { return SafeConfigNumber(YammerSettings, "NumberOfMessages", 20); }
+        }
 
 		private static decimal SafeConfigDecimal(string configSection, string configKey, decimal value)
 		{

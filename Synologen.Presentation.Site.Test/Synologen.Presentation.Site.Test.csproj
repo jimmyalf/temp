@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\Moq\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json.Net35, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\Newtonsoft.Json\Newtonsoft.Json.Net35.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\Shouldly\nunit.framework.dll</HintPath>
@@ -130,6 +134,9 @@
     <Compile Include="MockHelpers\MvpHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FrameOrderTests\ServiceFactory.cs" />
+    <Compile Include="YammerTests\Factories\YammerFactory.cs" />
+    <Compile Include="YammerTests\TestHelpers\YammerTestbase.cs" />
+    <Compile Include="YammerTests\YammerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen.Business\Synologen.Business.csproj">
@@ -144,6 +151,9 @@
       <Project>{1C699F2A-5786-4F74-8193-EE395CA3BFEE}</Project>
       <Name>Synologen.Presentation.Site</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="YammerTests\Factories\messages.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

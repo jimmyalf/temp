@@ -15,7 +15,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
     public class YammerPresenter : Presenter<IYammerView>
     {
         private string _email, _password, _clientId, _network;
-        private int _numberOfMessages;
+
+        private const int MaxMessagesToFetchFromYammer = 20;
 
         private readonly IYammerView _view;
         private readonly IYammerService _service;
@@ -42,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
                 if (_view.State != null) { _view.State["YammerCookies"] = _service.CookieContainer; }
             }
 
-            _view.Model = GetMessages(_numberOfMessages);
+            _view.Model = GetMessages();
         }
 
         public override void ReleaseView()
@@ -50,18 +51,50 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
             View.Load -= View_Load;
         }
 
-        private YammerListModel GetMessages(int limit)
+        private YammerListModel GetMessages()
         {
-            var json = _service.GetJson(limit);
-            var objects = JsonConvert.DeserializeObject<JsonMessageModel>(json);
+            var objects = GetJsonObjects();
+
             if (objects == null || objects.messages.Count() == 0)
             {
                 _service.Authenticate(_network, _clientId, _email, _password);
-                json = _service.GetJson(limit);
-                objects = JsonConvert.DeserializeObject<JsonMessageModel>(json);
+                objects = GetJsonObjects();
             }
 
             return objects == null ? new YammerListModel { Messages = Enumerable.Empty<YammerListItem>() } : new YammerListModel { Messages = YammerParserService.Convert(objects) };
+        }
+
+        private JsonMessageModel GetJsonObjects()
+        {
+            var json = _service.GetJson(_view.NumberOfMessages, _view.Threaded);
+            var objects = JsonConvert.DeserializeObject<JsonMessageModel>(json);
+
+            if (objects == null)
+                return objects;
+
+            if (_view.ExcludeJoinMessages)
+            {
+                int prevOldestId = 0;
+                while (objects.messages.Count(x => YammerParserService.IsNotJoinMessage(x.body)) < _view.NumberOfMessages)
+                {
+                    var oldestId = objects.messages.Min(x => x.id);
+                    if (oldestId == prevOldestId)
+                    {
+                        break;
+                    }
+
+                    json = _service.GetJson(MaxMessagesToFetchFromYammer, _view.Threaded, oldestId);
+                    var newObjects = JsonConvert.DeserializeObject<JsonMessageModel>(json);
+                    objects.messages = objects.messages.Concat(newObjects.messages).ToArray();
+                    objects.references = objects.references.Concat(newObjects.references).ToArray();
+
+                    prevOldestId = oldestId;
+                }
+            }
+
+            var messages = _view.ExcludeJoinMessages ? objects.messages.Where(x => YammerParserService.IsNotJoinMessage(x.body)).ToList() : objects.messages.ToList();
+            objects.messages = messages.GetRange(0, Math.Min(messages.Count, _view.NumberOfMessages)).ToArray();
+            return objects;
         }
 
         private bool LivingCookiesExist()
@@ -91,12 +124,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
                 _password = Globals.YammerPassword;
                 _clientId = Globals.YammerClientId;
                 _network = Globals.YammerNetwork;
-                _numberOfMessages = Globals.YammerNumberOfMessages;
             }
             catch (Exception)
             {
                 _email = _password = _clientId = _network = String.Empty;
-                _numberOfMessages = 0;
             }
         }
     }

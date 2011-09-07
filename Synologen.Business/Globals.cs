@@ -207,10 +207,6 @@ namespace Spinit.Wpc.Synologen.Business {
         {
             get { return SafeConfigString(YammerSettings, "Password", ""); }
         }
-        static public int YammerNumberOfMessages
-        {
-            get { return SafeConfigNumber(YammerSettings, "NumberOfMessages", 20); }
-        }
 
 		private static decimal SafeConfigDecimal(string configSection, string configKey, decimal value)
 		{

@@ -10,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
 {
     public class YammerService : WebClient, IYammerService
     {
-        private const string MessagesPath = "https://www.yammer.com/api/v1/messages.json?limit={0}";
+        private const string MessagesPath = "https://www.yammer.com/api/v1/messages.json";
         private const string AuthenticationPath = "https://www.yammer.com/{0}/dialog/authenticate?client_id={1}";
 
         public CookieContainer CookieContainer { get; set; }
@@ -42,9 +42,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
             CookieContainer.Add(response.Cookies);
         }
 
+        public string GetJson(int limit, string threaded, int olderThan)
+        {
+            var url = GetUrl(limit, threaded, olderThan);
+            return DownloadString(url);
+        }
+
+        public string GetJson(int limit, string threaded)
+        {
+            var url = GetUrl(limit, threaded, 0);
+            return DownloadString(url);
+        }
+
         public string GetJson(int limit)
         {
-            return DownloadString(String.Format(MessagesPath, limit));
+            var url = GetUrl(limit, null, 0);
+            return DownloadString(url);
         }
 
         private HttpWebResponse PostAuthentication(string action, NameValueCollection postCollection)
@@ -80,6 +93,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
                 }
             }
             return sb.ToString();
+        }
+
+
+        private static string GetUrl(int limit, string threaded, int olderThan)
+        {
+            var collection = new NameValueCollection();
+            if (limit > 0)
+            {
+                collection.Add("limit", limit.ToString());
+            }
+            if (!String.IsNullOrEmpty(threaded))
+            {
+                collection.Add("threaded", threaded);
+            }
+            if (olderThan > 0)
+            {
+                collection.Add("older_than", olderThan.ToString());
+            }
+
+            var parameters = GetPostParameters(collection);
+            if (parameters.Length > 0)
+            {
+                return MessagesPath + "?" + parameters;
+            }
+            return MessagesPath;
         }
     }
 }

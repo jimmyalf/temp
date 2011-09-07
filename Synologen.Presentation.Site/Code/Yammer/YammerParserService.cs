@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Yammer;
 using Spinit.Wpc.Synologen.Presentation.Site.Models.Yammer;
@@ -72,11 +73,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code.Yammer
             {
                 foreach (var url in body.urls)
                 {
-                    body.plain = body.plain.Replace(url, String.Format("<a href='{0}'>{0}</a>", url));
+                    string formattedUrl = url;
+                    if (url.Length > 50)
+                    {
+                        formattedUrl = url.Substring(0, 47) + "...";
+                    }
+                    body.plain = body.plain.Replace(url, String.Format("<a href='{0}'>{1}</a>", url, formattedUrl));
                 }
             }
 
             return body.plain;
+        }
+
+        public static bool IsNotJoinMessage(BodyModel body)
+        {
+            return !Regex.IsMatch(body.plain, "#joined", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
         }
     }
 }

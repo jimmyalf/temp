@@ -3,7 +3,7 @@
 <asp:Button runat="server" Text='<%#ButtonText%>' OnClick="btn_Validate" />
 <%if(Model.DisplayValidationForm){ %>
 <div class="user-validation-form-container">
-	<div class="user-validation-form">
+	<asp:Panel ID="validationForm" runat="server" defaultbutton="btnSumbit" CssClass="user-validation-form">
 		<asp:PlaceHolder runat="server" ID="plHeader" />
 		<asp:PlaceHolder runat="server" ID="plMessagePlaceHolder" />
 		<label>Lösenord</label>
@@ -12,11 +12,11 @@
 		<asp:PlaceHolder runat="server" ID="plErrorMessagePlaceHolder" />
 		<% } %>
 		<div class="control-actions">
-			<asp:Button runat="server" Text='<%#ButtonSubmitText%>' OnClick="btn_Submit" />
-			<asp:Button runat="server" OnClick="btn_Close" Text="<%#CloseButtonText %>" />
+			<asp:Button runat="server" ID="btnSumbit" Text='<%#ButtonSubmitText%>' OnClick="btn_Submit" />
+			<asp:Button runat="server" ID="btnCancel" OnClick="btn_Close" Text="<%#CloseButtonText %>" />
 		</div>
 		<asp:PlaceHolder runat="server" ID="plFooter" />
-	</div>
+	</asp:Panel>
 </div>
 <% } %>
 

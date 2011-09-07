@@ -26,7 +26,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.EventArguments
 
 		private static void InvokeEvent(EventHandler<ValidatedEventArgs> eventToInvoke, ValidatedEventArgs args)
 		{
-			if(eventToInvoke != null) eventToInvoke(null, args);
+			if(eventToInvoke != null) eventToInvoke.Invoke(null, args);
 		}
 	}
 }

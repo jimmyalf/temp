@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.UI;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer;
 using Spinit.Wpc.Synologen.Presentation.Site.Logic.Views.Yammer;
 using Spinit.Wpc.Synologen.Presentation.Site.Models.Yammer;
@@ -16,5 +17,32 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.Yammer
         protected void Page_Load(object sender, EventArgs e) { }
 
         public HttpApplicationState State { get { return Application; } }
+
+        public int NumberOfMessages
+        {
+            get
+            {
+                var parameter = Request.Params.Get("limit");
+                return parameter != null ? parameter.ToIntOrDefault(10) : 10;
+            }
+        }
+
+        public string Threaded
+        {
+            get
+            {
+                var parameter = Request.Params.Get("threaded");
+                return parameter ?? String.Empty;
+            }
+        }
+
+        public bool ExcludeJoinMessages
+        {
+            get
+            {
+                var parameter = Request.Params.Get("excludejoins");
+                return parameter == null || !parameter.Equals("false");
+            }
+        }
     }
 }

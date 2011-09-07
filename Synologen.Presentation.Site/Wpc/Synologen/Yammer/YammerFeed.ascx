@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="YammerFeed.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.Yammer.YammerFeed" %>
 
-<h3 class="yammerheader">Senaste inläggen från Yammer</h3>
+<% //<h3 class="yammerheader">GO WITH THE FLOW</h3> %>
 <ul class="yammer-list">
 <asp:Repeater ID="yammerFeedRepeater" runat="server" DataSource='<%# Model.Messages %>'>
     <ItemTemplate>

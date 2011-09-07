@@ -64,7 +64,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
 
         private JsonMessageModel GetJsonObjects()
         {
-            var json = _service.GetJson(View.NumberOfMessages, View.Threaded);
+            var json = _service.GetJson(View.NumberOfMessages, View.Threaded, View.NewerThan);
             var objects = JsonConvert.DeserializeObject<JsonMessageModel>(json);
 
             if (objects == null)
@@ -75,13 +75,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
                 int prevOldestId = 0;
                 while (objects.messages.Count(x => YammerParserService.IsNotJoinMessage(x.body)) < View.NumberOfMessages)
                 {
-                    var oldestId = objects.messages.Min(x => x.id);
+                    var oldestId = objects.messages.Where(x => x.id > View.NewerThan).Min(x => x.id);
                     if (oldestId == prevOldestId)
                     {
                         break;
                     }
 
-                    json = _service.GetJson(MaxMessagesToFetchFromYammer, View.Threaded, oldestId);
+                    json = _service.GetJson(MaxMessagesToFetchFromYammer, View.Threaded, View.NewerThan, oldestId);
                     var newObjects = JsonConvert.DeserializeObject<JsonMessageModel>(json);
                     objects.messages = objects.messages.Concat(newObjects.messages).ToArray();
                     objects.references = objects.references.Concat(newObjects.references).ToArray();

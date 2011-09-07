@@ -18,6 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.Yammer
         public HttpApplicationState State { get { return Application; } }
 
         public int NumberOfMessages { get; set; }
+        public int NewerThan { get; set; }
         public bool ExcludeJoins { get; set; }
         public string Threaded { get; set; }
     }

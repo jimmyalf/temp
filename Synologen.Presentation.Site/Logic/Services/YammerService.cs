@@ -42,21 +42,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
             CookieContainer.Add(response.Cookies);
         }
 
-        public string GetJson(int limit, string threaded, int olderThan)
+        public string GetJson(int limit, string threaded, int newerThan, int olderThan)
         {
-            var url = GetUrl(limit, threaded, olderThan);
+            var url = GetUrl(limit, threaded, newerThan, olderThan);
             return DownloadString(url);
         }
 
-        public string GetJson(int limit, string threaded)
+        public string GetJson(int limit, string threaded, int newerThan)
         {
-            var url = GetUrl(limit, threaded, 0);
-            return DownloadString(url);
-        }
-
-        public string GetJson(int limit)
-        {
-            var url = GetUrl(limit, null, 0);
+            var url = GetUrl(limit, threaded, newerThan, 0);
             return DownloadString(url);
         }
 
@@ -96,7 +90,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
         }
 
 
-        private static string GetUrl(int limit, string threaded, int olderThan)
+        private static string GetUrl(int limit, string threaded, int newerThan, int olderThan)
         {
             var collection = new NameValueCollection();
             if (limit > 0)
@@ -110,6 +104,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
             if (olderThan > 0)
             {
                 collection.Add("older_than", olderThan.ToString());
+            }
+            if (newerThan > 0)
+            {
+                collection.Add("newer_than", newerThan.ToString());
             }
 
             var parameters = GetPostParameters(collection);

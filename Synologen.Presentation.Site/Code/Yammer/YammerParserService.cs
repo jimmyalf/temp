@@ -78,7 +78,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code.Yammer
                     {
                         formattedUrl = url.Substring(0, 47) + "...";
                     }
-                    body.plain = body.plain.Replace(url, String.Format("<a href='{0}'>{1}</a>", url, formattedUrl));
+                    body.plain = body.plain.Replace(url, String.Format("<a href='{0}' target='_blank'>{1}</a>", url, formattedUrl));
                 }
             }
 

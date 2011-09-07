@@ -22,7 +22,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.YammerTests
             _objects = JsonConvert.DeserializeObject<JsonMessageModel>(YammerFactory.GetJson());
             Context = () =>
             {
-                MockedService.Setup(x => x.GetJson(It.IsAny<int>(), It.IsAny<string>())).Returns(YammerFactory.GetJson);
+                MockedService.Setup(x => x.GetJson(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>())).Returns(YammerFactory.GetJson);
+                MockedService.Setup(x => x.GetJson(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>())).Returns(YammerFactory.GetJson);
                 MockedView.Setup(x => x.NumberOfMessages).Returns(10);
             };
             Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -50,7 +51,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.YammerTests
         {
             Context = () =>
             {
-                MockedService.Setup(x => x.GetJson(It.IsAny<int>(), It.IsAny<string>())).Returns(String.Empty);
+                MockedService.Setup(x => x.GetJson(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>())).Returns(String.Empty);
                 MockedView.Setup(x => x.NumberOfMessages).Returns(10);
             };
             Because = presenter => presenter.View_Load(null, new EventArgs());

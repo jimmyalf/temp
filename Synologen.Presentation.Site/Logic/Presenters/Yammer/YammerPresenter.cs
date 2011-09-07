@@ -18,12 +18,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
 
         private const int MaxMessagesToFetchFromYammer = 20;
 
-        private readonly IYammerView _view;
         private readonly IYammerService _service;
 
         public YammerPresenter(IYammerView view, IYammerService service) : base(view)
         {
-            _view = view;
             _service = service;
 
             InitSettings();
@@ -35,15 +33,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
         {
             if (LivingCookiesExist())
             {
-                _service.CookieContainer = _view.State["YammerCookies"] as CookieContainer;
+                _service.CookieContainer = View.State["YammerCookies"] as CookieContainer;
             }
             else
             {
                 _service.Authenticate(_network, _clientId, _email, _password);
-                if (_view.State != null) { _view.State["YammerCookies"] = _service.CookieContainer; }
+                if (View.State != null) { View.State["YammerCookies"] = _service.CookieContainer; }
             }
 
-            _view.Model = GetMessages();
+            View.Model = GetMessages();
         }
 
         public override void ReleaseView()
@@ -66,16 +64,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
 
         private JsonMessageModel GetJsonObjects()
         {
-            var json = _service.GetJson(_view.NumberOfMessages, _view.Threaded);
+            var json = _service.GetJson(View.NumberOfMessages, View.Threaded);
             var objects = JsonConvert.DeserializeObject<JsonMessageModel>(json);
 
             if (objects == null)
                 return objects;
 
-            if (_view.ExcludeJoinMessages)
+            if (View.ExcludeJoins)
             {
                 int prevOldestId = 0;
-                while (objects.messages.Count(x => YammerParserService.IsNotJoinMessage(x.body)) < _view.NumberOfMessages)
+                while (objects.messages.Count(x => YammerParserService.IsNotJoinMessage(x.body)) < View.NumberOfMessages)
                 {
                     var oldestId = objects.messages.Min(x => x.id);
                     if (oldestId == prevOldestId)
@@ -83,7 +81,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
                         break;
                     }
 
-                    json = _service.GetJson(MaxMessagesToFetchFromYammer, _view.Threaded, oldestId);
+                    json = _service.GetJson(MaxMessagesToFetchFromYammer, View.Threaded, oldestId);
                     var newObjects = JsonConvert.DeserializeObject<JsonMessageModel>(json);
                     objects.messages = objects.messages.Concat(newObjects.messages).ToArray();
                     objects.references = objects.references.Concat(newObjects.references).ToArray();
@@ -92,16 +90,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
                 }
             }
 
-            var messages = _view.ExcludeJoinMessages ? objects.messages.Where(x => YammerParserService.IsNotJoinMessage(x.body)).ToList() : objects.messages.ToList();
-            objects.messages = messages.GetRange(0, Math.Min(messages.Count, _view.NumberOfMessages)).ToArray();
+            var messages = View.ExcludeJoins ? objects.messages.Where(x => YammerParserService.IsNotJoinMessage(x.body)).ToList() : objects.messages.ToList();
+            objects.messages = messages.GetRange(0, Math.Min(messages.Count, View.NumberOfMessages)).ToArray();
             return objects;
         }
 
         private bool LivingCookiesExist()
         {
-            if (_view.State != null && _view.State["YammerCookies"] is CookieContainer)
+            if (View.State != null && View.State["YammerCookies"] is CookieContainer)
             {
-                var cookies = _view.State["YammerCookies"] as CookieContainer;
+                var cookies = View.State["YammerCookies"] as CookieContainer;
                 if (cookies != null)
                 {
                     var matches = cookies.GetCookies(new Uri("https://www.yammer.com"));

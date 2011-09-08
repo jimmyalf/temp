@@ -61,6 +61,9 @@ namespace Spinit.Wpc.Synologen.Presentation
 			context.MapRoute(AreaName + "ContractSalesEditContractArticle", urlPrefix + "contract-sales/contract/{contractId}/article/{contractArticleId}/edit", new { controller = "ContractSales", action = "EditContractArticle" } );
 			
 			context.MapRoute(AreaName + "ContractSalesGetArticle", urlPrefix + "contract-sales/article/{articleId}/{format}", new { controller = "ContractSales", action = "GetArticle", format = UrlParameter.Optional } );
+
+			context.MapRoute(AreaName + "Reports", urlPrefix + "reports", new { controller = "Report", action = "Index" } );
+			context.MapRoute(AreaName + "ReportsInvoiceCopy", urlPrefix + "reports/invoice-copy/{id}", new { controller = "Report", action = "InvoiceCopy" } );
 		}
 
 		public override string AreaName

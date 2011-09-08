@@ -53,10 +53,6 @@
     <Reference Include="System.ServiceModel">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\AspNetMvc\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -223,7 +219,6 @@
     <Compile Include="Domain\Persistence\FrameOrder\IShopRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionArticleRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
-    <Compile Include="Domain\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Model\BGServer\BGTaskSequenceOrder.cs" />
     <Compile Include="Domain\Services\BgWebService\FtpChangePasswordException.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGFtpPasswordService.cs" />

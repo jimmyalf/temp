@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
-namespace Spinit.Wpc.Synologen.Core.Domain.Services
+namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
 	public class BaseGridSortPropertyMappingService : IGridSortPropertyMappingService
 	{

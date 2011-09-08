@@ -78,6 +78,7 @@
     <Compile Include="Application\AutomapperMappings\TransactionValueResolver.cs" />
     <Compile Include="Application\ModelBinders\GridSortPropertyMappingModelBinder.cs" />
     <Compile Include="Application\MvcExtensions.cs" />
+    <Compile Include="Application\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Application\Services\ContractSalesCommandService.cs" />
     <Compile Include="Application\Services\ContractSalesViewService.cs" />
     <Compile Include="Application\Services\IContractSalesCommandService.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Application\Services\SettingsService.cs" />
     <Compile Include="Application\Services\SynologenGridSortPropertyMappingSerice.cs" />
     <Compile Include="Application\Services\UserContextService.cs" />
+    <Compile Include="Application\Web\SynologenController.cs" />
     <Compile Include="Controllers\ContractSalesController.cs" />
     <Compile Include="Controllers\ContractSalesController_Articles.cs" />
     <Compile Include="Controllers\ContractSalesController_ContractArticles.cs" />
@@ -96,7 +98,11 @@
     <Compile Include="Controllers\FrameBrandController.cs" />
     <Compile Include="Controllers\FrameColorController.cs" />
     <Compile Include="Controllers\FrameOrderController.cs" />
+    <Compile Include="Application\Services\InvoiceReportViewService.cs" />
+    <Compile Include="Application\Services\IInvoiceReportViewService.cs" />
     <Compile Include="Controllers\LensSubscriptionController.cs" />
+    <Compile Include="Application\Web\PDFReportResult.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Helpers\Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Helpers\Extensions\RouteValueDictionaryExtensions.cs" />
@@ -113,6 +119,7 @@
     <Compile Include="Models\ContractSales\AddContractArticleView.cs" />
     <Compile Include="Models\ContractSales\EditContractArticleView.cs" />
     <Compile Include="Models\ContractSales\IContractArticleView.cs" />
+    <Compile Include="Models\Reports\InvoiceReport.cs" />
     <Compile Include="Models\ContractSales\OrderView.cs" />
     <Compile Include="Models\ContractSales\SettlementListView.cs" />
     <Compile Include="Models\ContractSales\SettlementListViewItem.cs" />
@@ -370,6 +377,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\AutoMapper\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MvcContrib, Version=2.0.36.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\MVCContrib\MvcContrib.dll</HintPath>
@@ -467,6 +477,13 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -562,6 +579,7 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Areas\SynologenAdmin\Reports\InvoiceReport.rdlc" />
     <EmbeddedResource Include="Helpers\Resources\WpcConfirmationDialog.sv-SE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>WpcConfirmationDialog.sv-SE.Designer.cs</LastGenOutput>

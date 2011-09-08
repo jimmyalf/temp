@@ -57,6 +57,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 			For<ILensSubscriptionViewService>().HybridHttpOrThreadLocalScoped().Use<LensSubscriptionViewService>();
 			For<IContractSalesViewService>().HybridHttpOrThreadLocalScoped().Use<ContractSalesViewService>();
 			For<IContractSalesCommandService>().HybridHttpOrThreadLocalScoped().Use<ContractSalesCommandService>();
+			For<IInvoiceReportViewService>().Use<InvoiceReportViewService>();
 		}
 	}
 }

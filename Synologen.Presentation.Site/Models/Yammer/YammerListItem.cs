@@ -1,4 +1,6 @@
-﻿namespace Spinit.Wpc.Synologen.Presentation.Site.Models.Yammer
+﻿using System.Collections.Generic;
+
+namespace Spinit.Wpc.Synologen.Presentation.Site.Models.Yammer
 {
     public class YammerListItem
     {
@@ -6,5 +8,7 @@
         public string AuthorImageUrl { get; set; }
         public string AuthorName { get; set; }
         public string Content { get; set; }
+        public IEnumerable<YammerImage> Images { get; set; }
+        public IEnumerable<YammerModule> YammerModules { get; set; }
     }
 }

@@ -10,4 +10,3 @@ xcopy "%1..\Dependancies\FluentNHibernate\NHibernate.ByteCode.Castle.dll" 			"%1
 xcopy "%1..\Dependancies\FluentNHibernate\log4net.dll" 								"%1\bin\" /R /K /Y /Q
 xcopy "%1..\Dependancies\FluentNHibernate\Castle.DynamicProxy2.dll" 				"%1\bin\" /R /K /Y /Q
 xcopy "%1..\Dependancies\FluentNHibernate\Castle.Core.dll" 							"%1\bin\" /R /K /Y /Q
-xcopy "%1..\Dependancies\Reporting\Microsoft.ReportViewer.Common.dll" 				"%1\bin\" /R /K /Y /Q

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
+using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Presentation.Site.Code.Yammer;
 
@@ -17,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
 
         public YammerService()
         {
-            Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.864.0 Safari/535.2");
+            Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.220 Safari/535.1");
             CookieContainer = new CookieContainer();
         }
 
@@ -52,6 +54,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Services
         {
             var url = GetUrl(limit, threaded, newerThan, 0);
             return DownloadString(url);
+        }
+
+        public string FetchImage(string imageUrl, string fileName, string extension)
+        {
+            extension = extension ?? String.Empty;
+
+            var storagePath = Globals.YammerStoragePath.EndsWith(@"\") ? Globals.YammerStoragePath : Globals.YammerStoragePath + @"\";
+            var urlStoragePath = Globals.YammerUrlStoragePath.EndsWith("/") ? Globals.YammerUrlStoragePath : Globals.YammerUrlStoragePath + "/";
+
+            if (!Directory.Exists(storagePath))
+            {
+                return String.Empty;
+            }
+
+            if (File.Exists(storagePath + fileName + extension))
+            {
+                return urlStoragePath + fileName + extension;
+            }
+
+            var attachment = DownloadData(imageUrl);
+            var path = storagePath + fileName + extension;
+            File.WriteAllBytes(path, attachment);
+
+            return urlStoragePath + Path.GetFileName(path);
         }
 
         private HttpWebResponse PostAuthentication(string action, NameValueCollection postCollection)

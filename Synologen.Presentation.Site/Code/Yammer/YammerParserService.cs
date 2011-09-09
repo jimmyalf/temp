@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
@@ -11,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code.Yammer
 {
     public class YammerParserService
     {
-        public static IEnumerable<YammerListItem> Convert(JsonMessageModel json)
+        public static IEnumerable<YammerListItem> Convert(JsonMessageModel json, Func<string, string, string, string> fetchImage)
         {
             foreach (var message in json.messages)
             {
@@ -26,25 +27,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code.Yammer
                     Content = FormatContent(message.body),
                     AuthorImageUrl = author.mugshot_url,
                     Created = String.Format("{0:HH}:{0:mm}, {0:dd MMM yyyy}", created),
-                    Images = message.attachments.Where(IsImage).Select(x => ParseImage(x)),
+                    Images = message.attachments.Where(IsImage).Select(x => ParseImage(x, fetchImage)),
                     YammerModules = message.attachments.Where(IsYModule).Select(x => ParseYammerModule(x))
                 };
             }
         }
 
-        private static YammerImage ParseImage(AttachmentModel attachmentModel)
+        private static YammerImage ParseImage(AttachmentModel attachmentModel, Func<string, string, string, string> fetchImage)
         {
-            if (attachmentModel.image == null)
-            {
-                attachmentModel.image = new ImageModel {thumbnail_url = String.Empty, url = String.Empty};
-            }
+            var extension = Path.HasExtension(attachmentModel.image.url) ? Path.GetExtension(attachmentModel.image.url) : String.Empty;
 
-            return new YammerImage
+            var match = Regex.Match(attachmentModel.image.url, "uploads/([0-9]*)/");
+            if (match.Success && match.Groups.Count > 1)
             {
-                Name = attachmentModel.name ?? String.Empty,
-                Thumbnail = attachmentModel.image.thumbnail_url ?? String.Empty,
-                Url = attachmentModel.image.url ?? String.Empty
-            };
+                var fileName = match.Groups[1].Value;
+                var thumbnailFileName = String.Format("{0}-thumbnail", fileName);
+
+                var imageWithExt = fetchImage.Invoke(attachmentModel.image.url, fileName, extension);
+                var thumbnailWithExt = fetchImage.Invoke(attachmentModel.image.thumbnail_url, thumbnailFileName, extension);
+
+                return new YammerImage {Name = attachmentModel.name, Thumbnail = thumbnailWithExt, Url = imageWithExt};
+            }
+            return new YammerImage();
         }
 
         private static YammerModule ParseYammerModule(AttachmentModel attachmentModel)
@@ -59,7 +63,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code.Yammer
 
         private static bool IsImage(AttachmentModel attachmentModel)
         {
-            return attachmentModel.type.Equals("image");
+            return attachmentModel.type.Equals("image") && attachmentModel.image != null;
         }
         
         private static bool IsYModule(AttachmentModel attachmentModel)

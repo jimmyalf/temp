@@ -59,7 +59,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
                 objects = GetJsonObjects();
             }
 
-            return objects == null ? new YammerListModel { Messages = Enumerable.Empty<YammerListItem>() } : new YammerListModel { Messages = YammerParserService.Convert(objects) };
+            return objects == null ?
+                new YammerListModel { Messages = Enumerable.Empty<YammerListItem>() } :
+                new YammerListModel { Messages = YammerParserService.Convert(objects, _service.FetchImage) };
         }
 
         private JsonMessageModel GetJsonObjects()
@@ -101,21 +103,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
 
         private bool LivingCookiesExist()
         {
-            if (View.State != null && View.State["YammerCookies"] is CookieContainer)
-            {
-                var cookies = View.State["YammerCookies"] as CookieContainer;
-                if (cookies != null)
-                {
-                    var matches = cookies.GetCookies(new Uri("https://www.yammer.com"));
+            var cookies = GetCookies("https://www.yammer.com");
 
-                    if (matches.Cast<Cookie>().Any(cookie => cookie.Expired))
-                    {
-                        return false;
-                    }
+            if (cookies.Count > 0)
+            {
+                if (cookies.Cast<Cookie>().Any(cookie => cookie.Expired))
+                {
+                    return false;
                 }
                 return true;
             }
             return false;
+        }
+
+        private CookieCollection GetCookies(string uri)
+        {
+            if (View.State != null && View.State["YammerCookies"] is CookieContainer)
+            {
+                var allCookies = View.State["YammerCookies"] as CookieContainer;
+                if (allCookies != null)
+                {
+                    return allCookies.GetCookies(new Uri(uri));
+                }
+            }
+            return new CookieCollection();
         }
 
         private void InitSettings()

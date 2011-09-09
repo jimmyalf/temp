@@ -8,5 +8,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces
         string GetJson(int limit, string threaded, int newerThan, int olderThan);
         string GetJson(int limit, string threaded, int newerThan);
         CookieContainer CookieContainer { get; set; }
+        string FetchImage(string imageUrl, string fileName, string extension);
     }
 }

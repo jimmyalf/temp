@@ -207,6 +207,14 @@ namespace Spinit.Wpc.Synologen.Business {
         {
             get { return SafeConfigString(YammerSettings, "Password", ""); }
         }
+	    static public string YammerStoragePath
+	    {
+            get { return SafeConfigString(YammerSettings, "StoragePath", ""); }
+	    }
+        static public string YammerUrlStoragePath
+	    {
+            get { return SafeConfigString(YammerSettings, "UrlStoragePath", ""); }
+	    }
 
 		private static decimal SafeConfigDecimal(string configSection, string configKey, decimal value)
 		{

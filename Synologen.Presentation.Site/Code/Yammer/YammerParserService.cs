@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code.Yammer
                     Content = FormatContent(message.body),
                     AuthorImageUrl = author.mugshot_url,
                     Created = String.Format("{0:HH}:{0:mm}, {0:dd MMM yyyy}", created),
-                    Images = message.attachments.Where(IsImage).Select(x => ParseImage(x, fetchImage)),
+                    Images = message.attachments.Where(IsImage).Select(x => ParseImage(x, fetchImage)).Where(x => !String.IsNullOrEmpty(x.Url) || !String.IsNullOrEmpty(x.Thumbnail)),
                     YammerModules = message.attachments.Where(IsYModule).Select(x => ParseYammerModule(x))
                 };
             }
@@ -37,18 +37,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code.Yammer
         {
             var extension = Path.HasExtension(attachmentModel.image.url) ? Path.GetExtension(attachmentModel.image.url) : String.Empty;
 
-            var match = Regex.Match(attachmentModel.image.url, "uploads/([0-9]*)/");
-            if (match.Success && match.Groups.Count > 1)
-            {
-                var fileName = match.Groups[1].Value;
-                var thumbnailFileName = String.Format("{0}-thumbnail", fileName);
+            var fileName = attachmentModel.id.ToString();
+            var thumbnailFileName = String.Format("{0}-thumbnail", fileName);
 
-                var imageWithExt = fetchImage.Invoke(attachmentModel.image.url, fileName, extension);
-                var thumbnailWithExt = fetchImage.Invoke(attachmentModel.image.thumbnail_url, thumbnailFileName, extension);
+            var imageWithExt = fetchImage.Invoke(attachmentModel.image.url, fileName, extension);
+            var thumbnailWithExt = fetchImage.Invoke(attachmentModel.image.thumbnail_url, thumbnailFileName, extension);
 
-                return new YammerImage {Name = attachmentModel.name, Thumbnail = thumbnailWithExt, Url = imageWithExt};
-            }
-            return new YammerImage();
+            return new YammerImage {Name = attachmentModel.name, Thumbnail = thumbnailWithExt, Url = imageWithExt};
         }
 
         private static YammerModule ParseYammerModule(AttachmentModel attachmentModel)

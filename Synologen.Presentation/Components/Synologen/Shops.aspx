@@ -52,6 +52,7 @@
                         <asp:BoundField headerText="Id" DataField="cId" SortExpression="cId" HeaderStyle-CssClass="controlColumn" ItemStyle-HorizontalAlign="Center" />
                         <asp:BoundField headerText="Butik" DataField="cShopName" SortExpression="cShopName"/>
                         <asp:BoundField headerText="Butiknummer" DataField="cShopNumber" SortExpression="cShopNumber"/>
+                        <asp:BoundField headerText="OrgNr" DataField="cOrganizationNumber" SortExpression="cOrganizationNumber"/>
                         <asp:BoundField headerText="Stad" DataField="cCity" SortExpression="cCity"/>
                         <asp:BoundField headerText="Kategori" DataField="cCategoryName" SortExpression="cCategoryName"/>
 <%--                        <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderStyle-CssClass="controlColumn" HeaderText="Personal" >

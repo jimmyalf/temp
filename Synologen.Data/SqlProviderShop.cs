@@ -8,7 +8,6 @@ using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Utility.Business;
 using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
@@ -23,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					new SqlParameter("@categoryId", SqlDbType.Int, 4),
             		new SqlParameter("@shopName", SqlDbType.NVarChar, 50),
             		new SqlParameter("@shopNumber", SqlDbType.NVarChar, 50),
+					new SqlParameter("@organizationNumber", SqlDbType.NVarChar, 50),
             		new SqlParameter("@shopDescription", SqlDbType.NVarChar, 255),
             		new SqlParameter("@contactFirstName", SqlDbType.NVarChar, 50),
             		new SqlParameter("@contactLastName", SqlDbType.NVarChar, 50),
@@ -51,6 +51,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = shop.CategoryId;
 					parameters[counter++].Value = shop.Name ?? SqlString.Null;
 					parameters[counter++].Value = shop.Number ?? SqlString.Null;
+					parameters[counter++].Value = shop.OrganizationNumber ?? SqlString.Null;
 					parameters[counter++].Value = shop.Description ?? SqlString.Null;
 					parameters[counter++].Value = shop.ContactFirstName ?? SqlString.Null;
 					parameters[counter++].Value = shop.ContactLastName ?? SqlString.Null;
@@ -159,7 +160,8 @@ namespace Spinit.Wpc.Synologen.Data {
 				GiroNumber = Util.CheckNullString(shopDataRow, "cGiroNumber"),
 				GiroSupplier = Util.CheckNullString(shopDataRow, "cGiroSupplier"),
 				Equipment = GetAllEquipmentRowsPerShop(Util.CheckNullInt(shopDataRow, "cId")),
-				Access = Util.CheckNullInt(shopDataRow, "cShopAccess").ToEnum<ShopAccess>()
+				Access = Util.CheckNullInt(shopDataRow, "cShopAccess").ToEnum<ShopAccess>(),
+                OrganizationNumber = Util.CheckNullString(shopDataRow, "cOrganizationNumber")
 			};
 			var concernId = Util.CheckNullInt(shopDataRow, "cConcernId");
 			shopRow.Concern = (concernId>0) ? GetConcern(concernId) : null;

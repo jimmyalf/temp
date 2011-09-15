@@ -547,8 +547,8 @@
     </Content>
     <None Include="Testpages\AdminMemberFiles.aspx" />
     <None Include="Testpages\LensSubscriptionShopSubscriptionsList.aspx" />
-    <Content Include="Synologen.Presentation.csproj" />
     <Content Include="Testpages\YammerFeed.aspx" />
+    <Content Include="Wpc\Synologen\js\Synologen.js" />
     <Content Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionsList.ascx" />
     <Content Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx" />
     <Content Include="Wpc\Synologen\Supplier\Images\delete.gif" />

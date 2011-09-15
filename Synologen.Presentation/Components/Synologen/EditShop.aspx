@@ -9,6 +9,12 @@
 						<label class="labelLong">Butik</label>
 						<asp:TextBox id="txtShopName" runat="server" />
 					</div>
+					<div class="formItem">
+						<label class="labelLong">Organisationsnummer</label>
+						<asp:TextBox id="txtOrganizationNumber" runat="server" />
+						<asp:RequiredFieldValidator runat="server" ControlToValidate="txtOrganizationNumber" ErrorMessage="Organisationsnummer måste anges" Display="dynamic" >*</asp:RequiredFieldValidator>
+						<asp:RegularExpressionValidator runat="server" ValidationExpression="^\d{6}[-\+]{1}\d{4}$" ControlToValidate="txtOrganizationNumber" ErrorMessage="Organisationsnummer måste anges på giltigt format NNNNNN-NNNN" Display="dynamic">*</asp:RegularExpressionValidator>
+					</div>
 					<div class="formItem clearLeft">
 						<label class="labelLong">Butiknummer</label>
 						<asp:TextBox id="txtShopNumber" runat="server" />

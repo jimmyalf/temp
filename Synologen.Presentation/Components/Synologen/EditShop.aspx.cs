@@ -141,6 +141,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			chkActive.Checked = _shop.Active;
 			txtGiroNumber.Text = _shop.GiroNumber;
 			txtGiroSupplier.Text = _shop.GiroSupplier;
+			txtOrganizationNumber.Text = _shop.OrganizationNumber;
 		}
 
 		protected void btnSave_Click(object sender, EventArgs e) 
@@ -163,6 +164,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			_shop.MapUrl = txtMapUrl.Text;
 			_shop.Name = txtShopName.Text;
 			_shop.Number = txtShopNumber.Text;
+			_shop.OrganizationNumber = txtOrganizationNumber.Text;
 			_shop.Phone = txtPhone.Text;
 			_shop.Phone2 = txtPhone2.Text;
 			_shop.Url = txtUrl.Text;

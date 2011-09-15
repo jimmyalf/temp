@@ -29,11 +29,11 @@
 		<legend>Login</legend>
 		<div class="formItem">
 			<label for="txtUserName" class="labelLong">Username</label>
-			<asp:TextBox ID="txtUserName" runat="server" MaxLength="20" />
+			<asp:TextBox ID="txtUserName" runat="server" />
 		</div>
 		<div class="formItem">
 			<label for="txtPassword" class="labelLong">Password</label>
-			<asp:TextBox ID="txtPassword" runat="server" TextMode="Password" MaxLength="20" />
+			<asp:TextBox ID="txtPassword" runat="server" TextMode="Password" />
 		</div>
 		<div class="formItem">
 			<asp:CheckBox ID="chkRemember" runat="server" Text="Remember me" />

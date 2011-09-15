@@ -4,7 +4,8 @@
 		<copy todir="${deployPath}" includeemptydirs="true">
 			<fileset basedir="${srcPath}">
 				<exclude name="web.config" />
-				<exclude name="Helpers/**.*" />
+				<exclude name="Helpers/**/*.*" />
+				<exclude name="obj/**/*.*" />
 				<include name="**/*.dll" />
 				<include name="**/*.aspx" />
 				<include name="**/*.css" />

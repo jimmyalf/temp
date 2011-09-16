@@ -102,6 +102,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\SqlParameterCollection.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\ArticleRepository.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\ContractSaleRepository.cs" />
     <Compile Include="Repositories\CriteriaConverters\AllFrameOrdersForShopCriteriaConverter.cs" />

@@ -132,5 +132,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		DataSet GetPublicNews(int newsId, int locationId, int languageId, int categoryId, int memberId);
 		bool DisconnectContractFromAllShops(int contractId);
 		bool ContractHasShops(int contractCustomerId);
+		void SetOrderInvoiceDate(int orderId, DateTime invoiceDateTime);
 	}
 }

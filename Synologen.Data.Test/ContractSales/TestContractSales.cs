@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -11,11 +12,11 @@ using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Utility.Business;
+using Synologen.Test.Core;
 
 namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
-	[TestFixture]
-	[Category("ContractSalesRepositoryTester")]
+	[TestFixture, Category("ContractSalesRepositoryTester")]
 	public class When_fetching_contract_sales_by_AllContractSalesMatchingCriteria : BaseRepositoryTester<ContractSaleRepository>
 	{
 		private IEnumerable<Order> _orders;
@@ -68,6 +69,49 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 				contractSale.Id.ShouldBe(expectedContractSalesMatchingCriteria.ElementAt(index).Id);
 				contractSale.StatusId.ShouldBe(criteria.ContractSaleStatus);
 			});
+		}
+	}
+
+	[TestFixture]
+	public class When_setting_invoice_date_for_an_order : BehaviorTestBase<ISqlProvider>
+	{
+		private Article _article;
+		protected const int TestableShopId = 158;
+		public const int TestableShopMemberId = 485;
+		public const int TestableShop2MemberId = 484;
+		public const int TestableCompanyId = 57;
+		public const int TestableContractId = 14;
+		protected int TestCountryId = 1;
+		private ContractArticleConnection _contractArticleConnection;
+		private Order _order;
+		private DateTime _setInvoiceDate;
+
+		public When_setting_invoice_date_for_an_order()
+		{
+			Context = () =>
+			{
+				var provider = GetTestModel();
+				_article = ArticleFactory.Get();
+				provider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref _article);
+				_contractArticleConnection = ArticleFactory.GetContractArticleConnection(_article, TestableContractId, 999.23F, true);
+				provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref _contractArticleConnection);
+				_order = OrderFactory.Get(TestableCompanyId, 5 /*status*/, TestableShopId, TestableShopMemberId, _article.Id);
+				provider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref _order);
+				_setInvoiceDate = new DateTime(2011, 09, 16, 10, 27,00);
+			};
+			Because = provider => provider.SetOrderInvoiceDate(_order.Id, _setInvoiceDate);
+		}
+
+		[Test]
+		public void Invoice_date_is_set()
+		{
+			var order = GetTestModel().GetOrder(_order.Id);
+			order.InvoiceDate.ShouldBe(_setInvoiceDate);
+		}
+
+		protected override ISqlProvider GetTestModel()
+		{
+			return new SqlProvider(DataHelper.ConnectionString);
 		}
 	}
 }

@@ -32,6 +32,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 			OrderItems = order.OrderItems;
 			SellingShop = SellingShop;
 			ContractCompany = ContractCompany;
+			InvoiceDate = order.InvoiceDate;
 		}
 
 		[DataMember] public int CompanyId { get; set; }
@@ -65,5 +66,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		[DataMember] public IList<OrderItem> OrderItems{ get; set; }
 		[DataMember] public Shop SellingShop{ get; set; }
 		[DataMember] public Company ContractCompany{ get; set; }
+
+		public DateTime? InvoiceDate { get; protected set; }
 	}
 }

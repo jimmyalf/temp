@@ -47,6 +47,8 @@ namespace Spinit.Wpc.Synologen.Data.Test
 
 		private void ClearTables(ISession session)
 		{
+			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenContractArticleConnection");
+			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenOrderItems");
 			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenArticle");
 		}
 

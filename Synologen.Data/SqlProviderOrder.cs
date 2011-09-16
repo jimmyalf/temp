@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using System.Linq;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Data.Extensions;
 using Spinit.Wpc.Utility.Business;
 namespace Spinit.Wpc.Synologen.Data {
 	public partial class SqlProvider {
@@ -135,8 +138,6 @@ namespace Spinit.Wpc.Synologen.Data {
 			if (orderDataSet == null) return 0;
 			return orderDataSet.Tables[0] == null ? 0 : orderDataSet.Tables[0].Rows.Count;
 		}
-
-
 
 		/// <summary>
 		/// Fetches order all orders which have no invoice number filtered by
@@ -289,9 +290,31 @@ namespace Spinit.Wpc.Synologen.Data {
 			return AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
 		}
 
+		public void SetOrderInvoiceDate(int orderId, DateTime invoiceDateTime)
+		{
+			var parameters = new SynologenSqlParameterCollection{
+				new SqlParameter ("@orderId", SqlDbType.Int, 4),
+				new SqlParameter ("@invoiceDateTime", SqlDbType.DateTime),
+				new SqlParameter ("@status", SqlDbType.Int, 4){Direction = ParameterDirection.Output}
+			}
+			.SetValue(orderId)
+			.SetValue(invoiceDateTime);
+			RunProcedureAndCheckForDataError("spSynologenUpdateOrderInvoiceDateTime", parameters, sqlParameters => sqlParameters.Last());
+		}
+
+		private int RunProcedureAndCheckForDataError(string procedure, IEnumerable<IDataParameter> parameters, Func<IDataParameter[],IDataParameter> getStatusParameter)
+		{
+			int numAffected;
+			var parameterArray = parameters.ToArray();
+			RunProcedure(procedure, parameterArray, out numAffected);
+			var statusParameterValue = (int) getStatusParameter(parameterArray).Value;
+			if (statusParameterValue == 0) return numAffected;
+			throw new GeneralData.DatabaseInterface.DataException("Data operation failed. Error: " + statusParameterValue, statusParameterValue);
+		}
+
 		private Order ParseOrderRow(DataRow orderDataRow) {
 			try {
-				var orderRow = new Order
+				var orderRow = new DataOrder
 				{
 					Id = Util.CheckNullInt(orderDataRow, "cId"),
 					RstText = Util.CheckNullString(orderDataRow, "cRstText"),
@@ -331,15 +354,50 @@ namespace Spinit.Wpc.Synologen.Data {
 				if (!String.IsNullOrEmpty(orderDataRow["cInvoiceSumExcludingVAT"].ToString())) {
 					orderRow.InvoiceSumExcludingVAT = float.Parse(orderDataRow["cInvoiceSumExcludingVAT"].ToString());
 				}
+				if (!String.IsNullOrEmpty(orderDataRow["cInvoiceDate"].ToString())) {
+					orderRow.InvoiceDate = (DateTime)orderDataRow["cInvoiceDate"];
+				}
 				orderRow.CustomerOrderNumber = Util.CheckNullString(orderDataRow, "cCustomerOrderNumber");
 
 				orderRow.MarkedAsPayedByShop = (bool)orderDataRow["cOrderMarkedAsPayed"];
 
-				return orderRow;
+				return new Order(orderRow);
 			}
 			catch (Exception ex) {
 				throw new Exception("Exception found while parsing a Order object: " + ex.Message);
 			}
+
 		}
+
+		# region Private Repository DTO Classes
+		private class DataOrder : IOrder
+		{
+			public int CompanyId { get; set; }
+			public string CompanyUnit { get; set; }
+			public DateTime CreatedDate { get; set; }
+			public string CustomerFirstName { get; set; }
+			public string Email { get; set; }
+			public string CustomerLastName { get; set; }
+			public int Id { get; set; }
+			public long InvoiceNumber { get; set; }
+			public bool MarkedAsPayedByShop { get; set; }
+			public string PersonalIdNumber { get; set; }
+			public string Phone { get; set; }
+			public string RstText { get; set; }
+			public int SalesPersonShopId { get; set; }
+			public int StatusId { get; set; }
+			public DateTime UpdateDate { get; set; }
+			public int SalesPersonMemberId { get; set; }
+			public double InvoiceSumIncludingVAT { get; set; }
+			public double InvoiceSumExcludingVAT { get; set; }
+			public string CustomerOrderNumber { get; set; }
+			public string CustomerCombinedName { get; private set; }
+			public string PersonalBirthDateString { get; private set; }
+			public IList<OrderItem> OrderItems { get; set; }
+			public Shop SellingShop { get; set; }
+			public Company ContractCompany { get; set; }
+			public DateTime? InvoiceDate { get; set; }
+		}
+		#endregion
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 
@@ -6,7 +7,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 	public interface IOrder {
 		[DataMember] int CompanyId{ get; set; }
 		[DataMember] string CompanyUnit { get; set; }
-		[DataMember] System.DateTime CreatedDate { get; set; }
+		[DataMember] DateTime CreatedDate { get; set; }
 		[DataMember] string CustomerFirstName { get; set; }
 		[DataMember] string Email { get; set; }
 		[DataMember] string CustomerLastName { get; set; }
@@ -18,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		[DataMember] string RstText { get; set; }
 		[DataMember] int SalesPersonShopId { get; set; }
 		[DataMember] int StatusId { get; set; }
-		[DataMember] System.DateTime UpdateDate { get; set; }
+		[DataMember] DateTime UpdateDate { get; set; }
 		[DataMember] int SalesPersonMemberId { get; set; }
 		[DataMember] double InvoiceSumIncludingVAT { get; set; }
 		[DataMember] double InvoiceSumExcludingVAT { get; set; }
@@ -28,5 +29,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		[DataMember] IList<OrderItem> OrderItems { get; set; }
 		[DataMember] Shop SellingShop { get; set; }
 		[DataMember] Company ContractCompany{ get; set; }
+		DateTime? InvoiceDate { get; }
 	}
 }

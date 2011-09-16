@@ -175,9 +175,17 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 			catch(Exception ex) {
 				throw LogAndCreateException("SynologenService.SendInvoices failed ", ex);
 			}
-			finally{
+			finally
+			{
 				SendStatusReportAfterBatchInvoice(orderIds, sentOrderIds, reportEmailAddress);
+				var invoiceDateTime = GetDateTime();
+				sentOrderIds.ForEach(orderId => provider.SetOrderInvoiceDate(orderId, invoiceDateTime));
 			}
+		}
+
+		protected virtual DateTime GetDateTime()
+		{
+			return DateTime.Now;
 		}
 
 		/// <summary>

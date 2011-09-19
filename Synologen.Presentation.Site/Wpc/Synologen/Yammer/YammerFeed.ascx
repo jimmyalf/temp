@@ -4,7 +4,7 @@
 <asp:Repeater ID="yammerFeedRepeater" runat="server" DataSource='<%# Model.Messages %>'>
     <ItemTemplate>
         <li>
-            <img src='<%# Eval("AuthorImageUrl") %>' alt='<%# Eval("AuthorName") %>' /><p class="creator">av <span><%# Eval("AuthorName") %></span><br /><%# Eval("Created") %></p>
+            <p class="creator">av <span><%# Eval("AuthorName") %></span><br /><%# Eval("Created") %></p>
             
             <div class="clear"></div>
             

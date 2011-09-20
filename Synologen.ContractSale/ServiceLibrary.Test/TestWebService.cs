@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.ServiceLibrary;
+using Synologen.Client.App;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.Webservice{
 	[TestFixture, Explicit]
@@ -12,8 +13,8 @@ namespace Spinit.Wpc.Synologen.Integration.Test.Webservice{
 		//TODO: Make into integrationtest
 		public void Setup() {
 			client =  new ClientContract();
-			client.ClientCredentials.UserName.UserName = ServiceLibrary.ConfigurationSettings.Common.ClientCredentialUserName;
-			client.ClientCredentials.UserName.Password = ServiceLibrary.ConfigurationSettings.Common.ClientCredentialPassword;
+			client.ClientCredentials.UserName.UserName = Business.Utility.Configuration.Common.ClientCredentialUserName;
+			client.ClientCredentials.UserName.Password = Business.Utility.Configuration.Common.ClientCredentialPassword;
 			client.Open();
 		}
 

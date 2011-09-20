@@ -5,8 +5,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.ServiceLibrary;
 using Spinit.Wpc.Synologen.Visma;
+using Synologen.Client.App;
 using Synologen.Client.Common;
 
 namespace Synologen.Client.ChildForms {

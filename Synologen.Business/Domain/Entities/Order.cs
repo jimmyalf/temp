@@ -30,8 +30,8 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 			InvoiceSumExcludingVAT = order.InvoiceSumExcludingVAT;
 			CustomerOrderNumber = order.CustomerOrderNumber;
 			OrderItems = order.OrderItems;
-			SellingShop = SellingShop;
-			ContractCompany = ContractCompany;
+			SellingShop = order.SellingShop;
+			ContractCompany = order.ContractCompany;
 			InvoiceDate = order.InvoiceDate;
 		}
 

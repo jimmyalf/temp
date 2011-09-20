@@ -1,16 +1,15 @@
 using System;
 using System.Configuration;
 using System.ServiceModel.Configuration;
+using Spinit.Wpc.Synologen.Business.Utility.Configuration;
 
-namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
-	public class Client : BaseConfiguration {
+namespace Synologen.Client.App.ConfigurationSettings 
+{
+	public class Client : BaseConfiguration 
+	{
 
 		public static string SelectedServiceEndPointName {
 			get { return GetSafeValue("SelectedServiceEndPointName", String.Empty); }
-		}
-
-		public static string CertificateSubjectName {
-			get { return GetSafeValue("CertificateSubjectName", String.Empty); }
 		}
 
 		/// <summary>

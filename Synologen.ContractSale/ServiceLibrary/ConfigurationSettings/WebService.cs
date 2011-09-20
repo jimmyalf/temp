@@ -1,9 +1,12 @@
 using System;
 using System.Configuration;
 using System.Text;
+using Spinit.Wpc.Synologen.Business.Utility.Configuration;
 
-namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings {
-	public class WebService : BaseConfiguration {
+namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings 
+{
+	public class WebService : BaseConfiguration 
+	{
 		public static readonly Encoding DefaultEncoding = Encoding.UTF8;
 		public static string SellingOrganizationCountryName{
 			get { return GetSafeValue("SellingOrganizationCountryName", "Sverige"); }

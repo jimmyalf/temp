@@ -15,7 +15,7 @@ namespace Synologen.Client.ChildForms {
 		private void PopulateSettings() {
 			txtCommonFilePath.Text = Properties.Settings.Default.SPCSCommonFilesPath;
 			txtCommonCompanyPath.Text = Properties.Settings.Default.SPCSCompanyPath;
-			txtWebserviceAddress.Text = Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings.Client.GetEndpointAddress();
+			txtWebserviceAddress.Text = App.ConfigurationSettings.Client.GetEndpointAddress();
 			txtReportEmail.Text = Properties.Settings.Default.ReportEmailAddress;
 		}
 

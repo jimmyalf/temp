@@ -107,6 +107,10 @@
       <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
       <Name>Synologen.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Client\Synologen Client.csproj">
+      <Project>{10CF2156-8B7D-4CBA-8015-54DCFB72E1E6}</Project>
+      <Name>Synologen Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServiceLibrary\Synologen ServiceLibrary.csproj">
       <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
       <Name>Synologen ServiceLibrary</Name>

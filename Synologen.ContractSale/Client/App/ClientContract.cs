@@ -6,16 +6,17 @@ using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 
-namespace Spinit.Wpc.Synologen.ServiceLibrary {
-	public class ClientContract :  ClientBase<ISynologenService>, ISynologenService{
+namespace Synologen.Client.App {
+	public class ClientContract :  ClientBase<ISynologenService>, ISynologenService
+	{
 		readonly TimeSpan DefaultOperationTimeout =  new TimeSpan(0, 0, 10, 0);
 
 		/// <summary>
 		/// Default Constructor attempts to use config-definded service endpoint.
 		/// </summary>
 		public ClientContract() : base(ConfigurationSettings.Client.SelectedServiceEndPointName) {
-		    ClientCredentials.UserName.UserName = ConfigurationSettings.Common.ClientCredentialUserName;
-		    ClientCredentials.UserName.Password = ConfigurationSettings.Common.ClientCredentialPassword;
+		    ClientCredentials.UserName.UserName = Spinit.Wpc.Synologen.Business.Utility.Configuration.Common.ClientCredentialUserName;
+		    ClientCredentials.UserName.Password = Spinit.Wpc.Synologen.Business.Utility.Configuration.Common.ClientCredentialPassword;
 		}
 
 		/// <summary>

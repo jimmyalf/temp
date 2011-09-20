@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.ServiceLibrary;
+using Synologen.Client.App;
 
 namespace Synologen.Client.Common {
 	public static partial class ClientUtility {
@@ -84,7 +84,11 @@ namespace Synologen.Client.Common {
 				client.Close();
 				return true;
 			}
-			catch { return false; }
+			catch (Exception ex)
+			{
+				var e = ex;
+				return false;
+			}
 
 		}
 

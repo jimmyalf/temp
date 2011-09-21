@@ -15,9 +15,12 @@ using NameType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponent
 using PercentType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
 using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
-namespace Spinit.Wpc.Synologen.Invoicing{
-	public static partial class Convert {
-		private static void TryAddTaxTotal(SFTIInvoiceType invoice, SvefakturaConversionSettings settings) {
+namespace Spinit.Wpc.Synologen.Invoicing
+{
+	public static partial class Convert
+	{
+		private static void TryAddTaxTotal(SFTIInvoiceType invoice, SvefakturaConversionSettings settings) 
+		{
 			if (invoice.InvoiceLine == null) return;
 			if(invoice.TaxTotal == null) invoice.TaxTotal = new List<SFTITaxTotalType>();
 			var generatedTaxTotal = GetTaxTotal(invoice, settings.VATAmount);
@@ -63,9 +66,12 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 							BasePrice = new SFTIBasePriceType {
 							                                  	PriceAmount = TryGetValue(orderItem.SinglePrice, new PriceAmountType {Value = (decimal) orderItem.SinglePrice, amountCurrencyID = "SEK"})
 							                                  },
-							TaxCategory = new List<SFTITaxCategoryType> {
-							                                            	(orderItem.NoVAT) ?  GetTaxCategory("E", 0, "VAT", settings.VATFreeReasonMessage) : GetTaxCategory("S", VATAmount*100, "VAT", settings.VATFreeReasonMessage)
-							                                            }
+							TaxCategory = new List<SFTITaxCategoryType> 
+							{
+								(orderItem.NoVAT) 
+									?  GetTaxCategory("E", 0, "VAT", settings.VATFreeReasonMessage) 
+									: GetTaxCategory("S", VATAmount*100, "VAT", settings.VATFreeReasonMessage)
+							}
 						},
 						InvoicedQuantity = new QuantityType{Value = orderItem.NumberOfItems, quantityUnitCode = "styck"},
 						LineExtensionAmount = new ExtensionAmountType { Value = (decimal) orderItem.DisplayTotalPrice, amountCurrencyID="SEK" },
@@ -81,12 +87,25 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 		#region SellerParty
 		private static void TryAddSellerParty(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IShop shop) {
 			if (invoice.SellerParty == null) invoice.SellerParty = new SFTISellerPartyType();
-			invoice.SellerParty.Party = new SFTIPartyType {
-				PartyName = TryGetValue(settings.SellingOrganizationName, new List<NameType> {new NameType {Value = settings.SellingOrganizationName}}),
+			invoice.SellerParty.Party = new SFTIPartyType 
+			{
+				PartyName = TryGetValue(settings.SellingOrganizationName, new List<NameType>
+				{
+					new NameType {Value = settings.SellingOrganizationName}
+				}),
 				Address = GetSellerPartyAddress(settings),
 				Contact = GetSellerPartyContact(shop),
 				PartyTaxScheme = GetSellerPartyTaxScheme(settings),
-				PartyIdentification = TryGetValue(settings.SellingOrganizationNumber, new List<SFTIPartyIdentificationType> {new SFTIPartyIdentificationType {ID = new IdentifierType {Value = FormatOrganizationNumber(settings.SellingOrganizationNumber)}}})
+				PartyIdentification = TryGetValue(settings.SellingOrganizationNumber, new List<SFTIPartyIdentificationType>
+				{
+					new SFTIPartyIdentificationType
+					{
+						ID = new IdentifierType
+						{
+							Value = FormatOrganizationNumber(settings.SellingOrganizationNumber)
+						}
+					}
+				})
 			};
 			invoice.SellerParty.AccountsContact = GetSellerAccountContact(settings);
 		}
@@ -140,13 +159,14 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 		#region BuyerParty
 		private static void TryAddBuyerParty(SFTIInvoiceType invoice, ICompany company, IOrder order) {
 			if (invoice.BuyerParty == null) invoice.BuyerParty = new SFTIBuyerPartyType();
-			invoice.BuyerParty.Party = new SFTIPartyType {
-			                                             	PartyName = TryGetValue(company.InvoiceCompanyName, new List<NameType> {new NameType {Value = company.InvoiceCompanyName}}),
-			                                             	Address = GetBuyerPartyAddress(company, order),
-			                                             	Contact = GetBuyerPartyContact(order),
-			                                             	PartyTaxScheme = GetBuyerPartyTaxScheme(company),
-			                                             	PartyIdentification = TryGetValue(company.OrganizationNumber, new List<SFTIPartyIdentificationType> { new SFTIPartyIdentificationType { ID = new IdentifierType { Value = FormatOrganizationNumber(company.OrganizationNumber) } } })
-			                                             };
+			invoice.BuyerParty.Party = new SFTIPartyType
+			{
+         		PartyName = TryGetValue(company.InvoiceCompanyName, new List<NameType> {new NameType {Value = company.InvoiceCompanyName}}),
+         		Address = GetBuyerPartyAddress(company, order),
+         		Contact = GetBuyerPartyContact(order),
+         		PartyTaxScheme = GetBuyerPartyTaxScheme(company),
+         		PartyIdentification = TryGetValue(company.OrganizationNumber, new List<SFTIPartyIdentificationType> { new SFTIPartyIdentificationType { ID = new IdentifierType { Value = FormatOrganizationNumber(company.OrganizationNumber) } } })
+			 };
 		}
 
 		private static SFTIContactType GetBuyerPartyContact(IOrder row) {
@@ -196,23 +216,29 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			if (HasNotBeenSet(settings.InvoiceIssueDate) || HasNotBeenSet(giroNumber)) return;
 			if (invoice.PaymentMeans == null) invoice.PaymentMeans = new List<SFTIPaymentMeansType>();
 			invoice.PaymentMeans.Add(
-				new SFTIPaymentMeansType {
-				                         	PaymentMeansTypeCode = new PaymentMeansCodeType { Value = PaymentMeansCodeContentType.Item1 },
-				                         	PayeeFinancialAccount = new SFTIFinancialAccountType {
-				                         	                                                     	ID = new IdentifierType {Value = FormatGiroNumber(giroNumber)},
-				                         	                                                     	FinancialInstitutionBranch = TryGetValue(giroBIC, new SFTIBranchType {FinancialInstitution = new SFTIFinancialInstitutionType {ID = new IdentifierType {Value = giroBIC}}})
-				                         	                                                     },
-				                         	DuePaymentDate = GetPaymentMeansDuePaymentDate(settings.InvoiceIssueDate, company)
-				                         }
-				);
+				new SFTIPaymentMeansType
+				{
+					PaymentMeansTypeCode = new PaymentMeansCodeType { Value = PaymentMeansCodeContentType.Item1 },
+					PayeeFinancialAccount = new SFTIFinancialAccountType 
+					{
+						ID = new IdentifierType {Value = FormatGiroNumber(giroNumber)},
+						FinancialInstitutionBranch = TryGetValue(giroBIC, new SFTIBranchType
+						{
+							FinancialInstitution = new SFTIFinancialInstitutionType
+							{
+								ID = new IdentifierType {Value = giroBIC}
+							}
+						})
+					},
+					DuePaymentDate = GetPaymentMeansDuePaymentDate(settings.InvoiceIssueDate, company)
+				}
+			);
 		}
 
 		private static PaymentDateType GetPaymentMeansDuePaymentDate(DateTime invoiceIssueDate, ICompany company) {
 			if (company == null ) return null;
 			if (company.PaymentDuePeriod <= 0) return null;
-			return new  PaymentDateType {
-			                            	Value = invoiceIssueDate.AddDays(company.PaymentDuePeriod)
-			                            };
+			return new  PaymentDateType { Value = invoiceIssueDate.AddDays(company.PaymentDuePeriod) };
 		}
 		#endregion
 
@@ -220,10 +246,16 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 		private static void TryAddPaymentTerms(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, ICompany company) {
 			if (AllAreNullOrEmpty(settings.InvoicePaymentTermsTextFormat, settings.InvoiceExpieryPenaltySurchargePercent)) return;
 			var text = ParseInvoicePaymentTermsFormat(settings.InvoicePaymentTermsTextFormat, company);
-			invoice.PaymentTerms = new SFTIPaymentTermsType {
-			                                                	Note = TryGetValue(text, new NoteType {Value = text}),
-			                                                	PenaltySurchargePercent = TryGetValue(settings.InvoiceExpieryPenaltySurchargePercent, new SurchargePercentType {Value = settings.InvoiceExpieryPenaltySurchargePercent.GetValueOrDefault()})
-			                                                };
+			invoice.PaymentTerms = new SFTIPaymentTermsType 
+			{
+            	Note = TryGetValue(text, new NoteType {Value = text}),
+            	PenaltySurchargePercent = TryGetValue(
+					settings.InvoiceExpieryPenaltySurchargePercent, 
+					new SurchargePercentType
+					{
+						Value = settings.InvoiceExpieryPenaltySurchargePercent.GetValueOrDefault()
+					})
+            };
 		}
 
 		private static string ParseInvoicePaymentTermsFormat(string format, ICompany company) {
@@ -257,11 +289,18 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			var returnList = new List<SFTIPartyTaxSchemeType>();
 			if(OneOrMoreHaveValue(taxAccountingCode)){
 				returnList.Add(
-					new SFTIPartyTaxSchemeType {
-					                           	CompanyID = TryGetValue(taxAccountingCode, new IdentifierType {Value = FormatTaxAccountingCode(taxAccountingCode)}),
-					                           	TaxScheme = new SFTITaxSchemeType {ID = new IdentifierType {Value = "VAT"}}
-					                           }
-					);
+					new SFTIPartyTaxSchemeType 
+					{
+                   		CompanyID = TryGetValue(taxAccountingCode, new IdentifierType
+                   		{
+                   			Value = FormatTaxAccountingCode(taxAccountingCode)
+                   		}),
+                   		TaxScheme = new SFTITaxSchemeType
+                   		{
+                   			ID = new IdentifierType {Value = "VAT"}
+                   		}
+					}
+				);
 			}
 			if (OneOrMoreHaveValue(exemptionReason, orgNumber)){
 				returnList.Add(
@@ -290,22 +329,24 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 		}
 
 		private static SFTITaxCategoryType GetTaxCategory(string identifier, decimal percent, string TaxScheme, string vatFreeReasonMessage) {
-			return new SFTITaxCategoryType {
-			                               	ID = new IdentifierType {Value = identifier},
-			                               	Percent = new PercentType {Value = percent},
-			                               	TaxScheme = new SFTITaxSchemeType {ID = new IdentifierType {Value = TaxScheme}},
-			                               	ExemptionReason = (identifier.Equals("E")) ? new ReasonType {Value = (String.IsNullOrEmpty(vatFreeReasonMessage)) ? "Momsfri artikel" : vatFreeReasonMessage} : null
-			                               };
+			return new SFTITaxCategoryType 
+			{
+           		ID = new IdentifierType {Value = identifier},
+           		Percent = new PercentType {Value = percent},
+           		TaxScheme = new SFTITaxSchemeType {ID = new IdentifierType {Value = TaxScheme}},
+           		ExemptionReason = (identifier.Equals("E")) ? new ReasonType {Value = (String.IsNullOrEmpty(vatFreeReasonMessage)) ? "Momsfri artikel" : vatFreeReasonMessage} : null
+           };
 		}
 
 		private static SFTIContactType GetSFTIContact(string email, string name, string fax, string phone) {
 			if (AllAreNullOrEmpty( email, name, fax, phone)) return null;
-			return new SFTIContactType {
-			                           	ElectronicMail = TryGetValue(email, new MailType {Value = email}),
-			                           	Name = TryGetValue(name, new NameType {Value = name}),
-			                           	Telefax = TryGetValue(fax, new TelefaxType {Value = FormatPhoneNumber(fax)}),
-			                           	Telephone = TryGetValue(phone, new TelephoneType {Value = FormatPhoneNumber(phone)})
-			                           };
+			return new SFTIContactType 
+			{
+               	ElectronicMail = TryGetValue(email, new MailType {Value = email}),
+               	Name = TryGetValue(name, new NameType {Value = name}),
+               	Telefax = TryGetValue(fax, new TelefaxType {Value = FormatPhoneNumber(fax)}),
+               	Telephone = TryGetValue(phone, new TelephoneType {Value = FormatPhoneNumber(phone)})
+			};
 		}
 
 		private static string FormatPhoneNumber(string phoneNumber){

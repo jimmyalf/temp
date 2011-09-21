@@ -1,673 +1,470 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Types;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 
 
-namespace Spinit.Wpc.Synologen.Test.Svefaktura {
+namespace Spinit.Wpc.Synologen.Test.Svefaktura 
+{
 	[TestFixture]
-	public class TestInvoiceParsing {
-		private readonly Order emptyOrder = new Order();
-		private readonly List<IOrderItem> emptyOrderItemList = new List<IOrderItem>();
-		private readonly Company emptyCompany = new Company();
-		private readonly Shop emptyShop = new Shop();
-		private readonly SvefakturaConversionSettings emptySettings = new SvefakturaConversionSettings();
+	public class Parse_Validation
+	{
+		private Order _order;
+		private SvefakturaConversionSettings _settings;
 
-		[TestFixtureSetUp]
-		public void Setup() { }
-
-		[Test]
-		public void Test_Create_Invoice_Parameter_Checks_For_Null_And_Throws_Exceptions() {
-			Assert.Throws<ArgumentNullException>(() => General.CreateInvoiceSvefaktura(null,		/*emptyOrderItemList, emptyCompany,	emptyShop,*/	emptySettings));
-			Assert.Throws<ArgumentNullException>(() => General.CreateInvoiceSvefaktura(emptyOrder,	/*null,				emptyCompany,	emptyShop,*/	emptySettings));
-			Assert.Throws<ArgumentNullException>(() => General.CreateInvoiceSvefaktura(emptyOrder,	/*emptyOrderItemList, null,			emptyShop,*/	emptySettings));
-			Assert.Throws<ArgumentNullException>(() => General.CreateInvoiceSvefaktura(emptyOrder,	/*emptyOrderItemList, emptyCompany,	null,	*/	emptySettings));
-			Assert.Throws<ArgumentNullException>(() => General.CreateInvoiceSvefaktura(emptyOrder,	/*emptyOrderItemList, emptyCompany,	emptyShop,*/	null));
+		[SetUp]
+		public void Setup()
+		{
+			_order = Factory.Factory.GetOrder();
+			_settings = new SvefakturaConversionSettings();
 		}
 
-		#region General Invoice
 		[Test]
-		public void Test_Create_Invoice_Sets_ID() {
-			var customOrder = new Order { InvoiceNumber = 123456 };
-			var invoice = General.CreateInvoiceSvefaktura(customOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("123456", invoice.ID.Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_RequisitionistDocumentReference() {
-			var customOrder = new Order { CustomerOrderNumber = "123456"};
-			var invoice = General.CreateInvoiceSvefaktura(customOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("123456", invoice.RequisitionistDocumentReference[0].ID.Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_IssueDate() {
-		    var customSettings = new SvefakturaConversionSettings {
-		        InvoiceIssueDate = new DateTime(2009, 10, 30)
-		    };
-		    var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-		    Assert.AreEqual(new DateTime(2009, 10, 30), invoice.IssueDate.Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_InvoiceTypeCode() {
-			var customSettings = new SvefakturaConversionSettings {
-				InvoiceTypeCode = "380"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("380", invoice.InvoiceTypeCode.Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_InvoiceCurrencyCode() {
-			var customSettings = new SvefakturaConversionSettings {
-				InvoiceCurrencyCode = CurrencyCodeContentType.SEK
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual(CurrencyCodeContentType.SEK, invoice.InvoiceCurrencyCode.Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_LineItemCountNumeric() {
-			var customOrderLines = new List<IOrderItem> {new OrderItem{ArticleDisplayName = "One"}, new OrderItem{ArticleDisplayName = "Two"}};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*customOrderLines, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual(2m, invoice.LineItemCountNumeric.Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_Note() {
-		    var customCompany = new Company{InvoiceFreeTextFormat = "Invoice free text"};
-			//var freeTextRows = CommonConversion.GetFreeTextRows(company, order);
-		    var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ emptySettings);
-		    Assert.AreEqual("Invoice free text", invoice.Note.Value);
+		public void Test_Create_Invoice_Parameter_Checks_Invoice_Missing() 
+		{
+			Assert.Throws<ArgumentNullException>(() => General.CreateInvoiceSvefaktura(null, _settings));
 		}
 
-		#endregion
+		[Test]
+		public void Test_Create_Invoice_Parameter_Checks_Settings_Missing() 
+		{
+			Assert.Throws<ArgumentNullException>(() => General.CreateInvoiceSvefaktura(_order, null));
+		}
+	}
 
-		#region BuyerParty
-		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_Address_PostBox() {
-			var customCompany = new Company {
-				PostBox = "Box 7774"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("Box 7774", invoice.BuyerParty.Party.Address.Postbox.Value);
+	[TestFixture]
+	public class Parse_General_Invoice_Data
+	{
+		private Order _order;
+		private SvefakturaConversionSettings _settings;
+		private SFTIInvoiceType _invoice;
+
+		[SetUp]
+		public void Setup()
+		{
+			var company = Factory.Factory.GetCompany();
+			var shop = Factory.Factory.GetShop();
+			var orderItems = Factory.Factory.GetOrderItems();
+			_order = Factory.Factory.GetOrder(company, shop, orderItems);
+			_settings = Factory.Factory.GetSettings();
+			_invoice = General.CreateInvoiceSvefaktura(_order,  _settings);
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_Buyerparty_Address_Streetname() {
-			var customCompany = new Company {
-				StreetName = "Saab Aircraft Leasing"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("Saab Aircraft Leasing", invoice.BuyerParty.Party.Address.StreetName.Value);
+		public void Test_Create_Invoice_Sets_ID() 
+		{
+			Assert.AreEqual(_order.InvoiceNumber.ToString(), _invoice.ID.Value);
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_Address_PostalZone() {
-			var customCompany = new Company {
-				Zip = "10396"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("10396", invoice.BuyerParty.Party.Address.PostalZone.Value);
+		public void Test_Create_Invoice_Sets_RequisitionistDocumentReference() 
+		{
+			Assert.AreEqual(_order.CustomerOrderNumber, _invoice.RequisitionistDocumentReference[0].ID.Value);
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_Address_CityName() {
-			var customCompany = new Company {
-				City = "Stockholm"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("Stockholm", invoice.BuyerParty.Party.Address.CityName.Value);
+		public void Test_Create_Invoice_Sets_IssueDate() 
+		{
+
+		    Assert.AreEqual(_settings.InvoiceIssueDate, _invoice.IssueDate.Value);
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_Address_Department() {
-			var customOrder = new Order {
-				CompanyUnit = "Avdelningen för avdelningar"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(customOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("Avdelningen för avdelningar", invoice.BuyerParty.Party.Address.Department.Value);
+		public void Test_Create_Invoice_Sets_InvoiceTypeCode() 
+		{
+			Assert.AreEqual(_settings.InvoiceTypeCode, _invoice.InvoiceTypeCode.Value);
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_PartyName() {
-			var customCompany = new Company {
-				InvoiceCompanyName = "3250Saab Aircraft Leasing Holding AB"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("3250Saab Aircraft Leasing Holding AB", invoice.BuyerParty.Party.PartyName[0].Value);
+		public void Test_Create_Invoice_Sets_InvoiceCurrencyCode() 
+		{
+			Assert.AreEqual(_invoice.InvoiceCurrencyCode.Value, _invoice.InvoiceCurrencyCode.Value);
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_PartyIdentification() {
-			var customCompany = new Company {
-				OrganizationNumber = "556573780501"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("556573780501", invoice.BuyerParty.Party.PartyIdentification[0].ID.Value);
+		public void Test_Create_Invoice_Sets_LineItemCountNumeric() 
+		{
+			Assert.AreEqual(_order.OrderItems.Count, _invoice.LineItemCountNumeric.Value);
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_Contact_Name() {
-			var customOrder = new Order {
-				CustomerFirstName = "Adam",
-				CustomerLastName = "Bertil"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(customOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("Adam Bertil", invoice.BuyerParty.Party.Contact.Name.Value);
+		public void Test_Create_Invoice_Sets_Note() 
+		{
+			var expectedNote = _order.ContractCompany.InvoiceFreeTextFormat
+				.ReplaceWith(new {CustomerName = _order.CustomerCombinedName})
+				.ReplaceWith(new {CustomerPersonalIdNumber = _order.PersonalIdNumber})
+				.ReplaceWith(new {CompanyUnit = _order.CompanyUnit})
+				.ReplaceWith(new {CustomerPersonalBirthDateString = _order.PersonalBirthDateString})
+				.ReplaceWith(new {CustomerFirstName = _order.CustomerFirstName})
+				.ReplaceWith(new {CustomerLastName = _order.CustomerLastName})
+				.ReplaceWith(new {RST = _order.RstText})
+				.ReplaceWith(new {BuyerCompanyId = _order.CompanyId})
+				.ReplaceWith(new {BankCode = _order.ContractCompany.BankCode})
+				.ReplaceWith(new {SellingShopName = _order.SellingShop.Name})
+				.ReplaceWith(new {SellingShopNumber = _order.SellingShop.Number});
+		    Assert.AreEqual(expectedNote, _invoice.Note.Value);
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_Contact_With_FirstName_Missing() {
-			var customOrder = new Order {
-				CustomerLastName = "Bertil"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(customOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("Bertil", invoice.BuyerParty.Party.Contact.Name.Value);
+		public void Test_Create_Invoice_Sets_LegalTotal_TaxInclusiveTotalAmount() 
+		{
+			Assert.AreEqual(_order.InvoiceSumIncludingVAT, _invoice.LegalTotal.TaxInclusiveTotalAmount.Value);
+			Assert.AreEqual("SEK", _invoice.LegalTotal.TaxInclusiveTotalAmount.amountCurrencyID);
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_Contact_With_LastName_Missing() {
-			var customOrder = new Order {
-				CustomerFirstName = "Adam",
-			};
-			var invoice = General.CreateInvoiceSvefaktura(customOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("Adam", invoice.BuyerParty.Party.Contact.Name.Value);
+		public void Test_Create_Invoice_Sets_LegalTotal_TaxExclusiveTotalAmount()
+		{
+			Assert.AreEqual(_order.InvoiceSumExcludingVAT, _invoice.LegalTotal.TaxExclusiveTotalAmount.Value);
+			Assert.AreEqual("SEK", _invoice.LegalTotal.TaxExclusiveTotalAmount.amountCurrencyID);
 		}
-		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_Contact_Phone() {
-			var customOrder = new Order {
-				Phone = "080123456"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(customOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("080123456", invoice.BuyerParty.Party.Contact.Telephone.Value);
+	}
+
+	[TestFixture]
+	public class Parse_Invoice_BuyerParty
+	{
+		private Order _order;
+		private SvefakturaConversionSettings _settings;
+
+		[SetUp]
+		public void Setup()
+		{
+			var company = Factory.Factory.GetCompany();
+			_order = Factory.Factory.GetOrder(company);
+			_settings = Factory.Factory.GetSettings();
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_Contact_Email() {
-			var customOrder = new Order {
-                Email = "adam.bertil@saab.se"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(customOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("adam.bertil@saab.se", invoice.BuyerParty.Party.Contact.ElectronicMail.Value);
+		public void Test_Create_Invoice_Sets_BuyerParty_Address()
+		{
+			var invoice = General.CreateInvoiceSvefaktura(_order, _settings);
+
+			Assert.AreEqual(_order.ContractCompany.PostBox, invoice.BuyerParty.Party.Address.Postbox.Value);
+			Assert.AreEqual(_order.ContractCompany.StreetName, invoice.BuyerParty.Party.Address.StreetName.Value);
+			Assert.AreEqual(_order.ContractCompany.Zip, invoice.BuyerParty.Party.Address.PostalZone.Value);
+			Assert.AreEqual(_order.ContractCompany.City, invoice.BuyerParty.Party.Address.CityName.Value);
+			Assert.AreEqual(_order.CompanyUnit, invoice.BuyerParty.Party.Address.Department.Value);
+			Assert.AreEqual(_order.ContractCompany.InvoiceCompanyName, invoice.BuyerParty.Party.PartyName[0].Value);
+			Assert.AreEqual(_order.ContractCompany.OrganizationNumber, invoice.BuyerParty.Party.PartyIdentification[0].ID.Value);
+			Assert.AreEqual(_order.CustomerFirstName + " " + _order.CustomerLastName, invoice.BuyerParty.Party.Contact.Name.Value);
+			Assert.AreEqual(_order.Phone, invoice.BuyerParty.Party.Contact.Telephone.Value);
+			Assert.AreEqual(_order.Email, invoice.BuyerParty.Party.Contact.ElectronicMail.Value);
 		}
-		//TODO: Try to make single assertive
+
 		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_PartyTaxSchemes_VAT_And_SWT() {
-			var customCompany = new Company {
-				TaxAccountingCode = "SE5560360793",
-				OrganizationNumber = "5560360793",
-				//ExemptionReason = "F-skattebevis finns",
-                City = "JÄRFÄLLA",
-				//OrganizationCountryCode = CountryIdentificationCodeContentType.SE
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ emptySettings);
+		public void Test_Create_Invoice_Sets_BuyerParty_VAT_Tax_Scheme()
+		{
+			var invoice = General.CreateInvoiceSvefaktura(_order, _settings);
+
 			var vatTaxScheme = invoice.BuyerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("VAT"));
-			var swtTaxScheme = invoice.BuyerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("SWT"));
 			Assert.IsNotNull(vatTaxScheme);
-			Assert.IsNotNull(swtTaxScheme);
-			Assert.AreEqual("SE5560360793", vatTaxScheme.CompanyID.Value);
+			Assert.AreEqual(_order.ContractCompany.TaxAccountingCode, vatTaxScheme.CompanyID.Value);
 			Assert.AreEqual("VAT", vatTaxScheme.TaxScheme.ID.Value);
-			Assert.AreEqual("5560360793", swtTaxScheme.CompanyID.Value);
-			Assert.AreEqual("SWT", swtTaxScheme.TaxScheme.ID.Value);
-			Assert.AreEqual("F-skattebevis finns", swtTaxScheme.ExemptionReason.Value);
-			Assert.AreEqual("JÄRFÄLLA", swtTaxScheme.RegistrationAddress.CityName.Value);
-			Assert.AreEqual(CountryIdentificationCodeContentType.SE, swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value);
-			Assert.AreEqual(2, invoice.BuyerParty.Party.PartyTaxScheme.Count);
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_PartyTaxSchemes_VAT() {
-			var customCompany = new Company {
-				TaxAccountingCode = "SE5560360793",
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ emptySettings);
-			var vatTaxSchemeFound = invoice.BuyerParty.Party.PartyTaxScheme.Exists(x => x.TaxScheme.ID.Value.Equals("VAT") && x.CompanyID.Value.Equals("SE5560360793"));
-			Assert.IsTrue(vatTaxSchemeFound);
-		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_BuyerParty_PartyTaxSchemes_SWT() {
-			var customCompany = new Company {
-				OrganizationNumber = "5560360793",
-				//ExemptionReason = "F-skattebevis finns",
-                City = "JÄRFÄLLA",
-				//OrganizationCountryCode = CountryIdentificationCodeContentType.SE
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ emptySettings);
+		public void Test_Create_Invoice_Sets_BuyerParty_SWT_Tax_Scheme()
+		{
+			var invoice = General.CreateInvoiceSvefaktura(_order, _settings);
+
 			var swtTaxScheme = invoice.BuyerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("SWT"));
 			Assert.IsNotNull(swtTaxScheme);
-			Assert.AreEqual("5560360793", swtTaxScheme.CompanyID.Value);
+			Assert.AreEqual(_order.ContractCompany.OrganizationNumber, swtTaxScheme.CompanyID.Value);
 			Assert.AreEqual("SWT", swtTaxScheme.TaxScheme.ID.Value);
-			Assert.AreEqual("F-skattebevis finns", swtTaxScheme.ExemptionReason.Value);
-			Assert.AreEqual("JÄRFÄLLA", swtTaxScheme.RegistrationAddress.CityName.Value);
+			Assert.AreEqual(_order.ContractCompany.City, swtTaxScheme.RegistrationAddress.CityName.Value);
 			Assert.AreEqual(CountryIdentificationCodeContentType.SE, swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value);
-			Assert.AreEqual(1, invoice.BuyerParty.Party.PartyTaxScheme.Count);
+			Assert.AreEqual(_order.ContractCompany.Country.Name, swtTaxScheme.RegistrationAddress.Country.IdentificationCode.name);
 		}
 
-		#endregion
+		[Test]
+		public void Test_Create_Invoice_Sets_BuyerParty_Contact_With_FirstName_Missing() 
+		{
+			_order.CustomerFirstName = null;
 
-		#region SellerParty
-		[Test]
-		public void Test_Create_Invoice_Sets_SellerParty_Address_StreetName() {
-			var customSettings = new SvefakturaConversionSettings {
-				SellingOrganizationStreetName = "Gatan 123"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("Gatan 123", invoice.SellerParty.Party.Address.StreetName.Value);
+			var invoice = General.CreateInvoiceSvefaktura(_order, _settings);
+
+			Assert.AreEqual(_order.CustomerLastName, invoice.BuyerParty.Party.Contact.Name.Value);
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_SellerParty_Address_PostBox() {
-			var customSettings = new SvefakturaConversionSettings {
-				SellingOrganizationPostBox = "Box 111"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("Box 111", invoice.SellerParty.Party.Address.Postbox.Value);
+		public void Test_Create_Invoice_Sets_BuyerParty_Contact_With_LastName_Missing() 
+		{
+			_order.CustomerLastName = null;
+
+			var invoice = General.CreateInvoiceSvefaktura(_order, _settings);
+
+			Assert.AreEqual(_order.CustomerFirstName, invoice.BuyerParty.Party.Contact.Name.Value);
 		}
-		[Test]
-		public void Test_Create_Invoice_Sets_SellerParty_Address_PostalZone() {
-			var customSettings = new SvefakturaConversionSettings {
-				SellingOrganizationPostalCode = "26422"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("26422", invoice.SellerParty.Party.Address.PostalZone.Value);
+
+	}
+
+	[TestFixture]
+	public class Parse_Invoice_Seller_Party
+	{
+		private Order _order;
+		private SvefakturaConversionSettings _settings;
+		private SFTIPartyType _sellerParty;
+		private SFTIContactType _accountContact;
+
+		[SetUp]
+		public void Setup()
+		{
+			var company = Factory.Factory.GetCompany();
+			var shop = Factory.Factory.GetShop();
+			_order = Factory.Factory.GetOrder(company, shop);
+			_settings = Factory.Factory.GetSettings();
+			_sellerParty = General.CreateInvoiceSvefaktura(_order, _settings).SellerParty.Party;
+			_accountContact = General.CreateInvoiceSvefaktura(_order, _settings).SellerParty.AccountsContact;
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_SellerParty_Address_CityName() {
-			var customSettings = new SvefakturaConversionSettings {
-				SellingOrganizationCity = "Klippan"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("Klippan", invoice.SellerParty.Party.Address.CityName.Value);
+		public void Test_Create_Invoice_Sets_SellerParty_Address()
+		{
+			Assert.AreEqual(_settings.SellingOrganizationStreetName, _sellerParty.Address.StreetName.Value);
+			Assert.AreEqual(_settings.SellingOrganizationPostBox, _sellerParty.Address.Postbox.Value);
+			Assert.AreEqual(_settings.SellingOrganizationPostalCode, _sellerParty.Address.PostalZone.Value);
+			Assert.AreEqual(_settings.SellingOrganizationCity, _sellerParty.Address.CityName.Value);
+			Assert.AreEqual(_settings.SellingOrganizationCountry.IdentificationCode.Value, _sellerParty.Address.Country.IdentificationCode.Value);
 		}
-		//[Test]
-		//public void Test_Create_Invoice_Sets_SellerParty_Address_Country_IdentificationCode() {
-		//    var customSettings = new SvefakturaConversionSettings {
-		//        SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE
-		//    };
-		//    var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-		//    Assert.AreEqual(CountryIdentificationCodeContentType.SE, invoice.SellerParty.Party.Address.Country.IdentificationCode.Value);
-		//}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_SellerParty_PartyName() {
-			var customSettings = new SvefakturaConversionSettings {
-				SellingOrganizationName = "Synhälsan Svenska Aktiebolag"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("Synhälsan Svenska Aktiebolag", invoice.SellerParty.Party.PartyName[0].Value);
+		public void Test_Create_Invoice_Sets_SellerParty_PartyName() 
+		{
+			Assert.AreEqual(_settings.SellingOrganizationName, _sellerParty.PartyName.First().Value);
 		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_SellerParty_PartyIdentification() {
-			var customSettings = new SvefakturaConversionSettings {
-				SellingOrganizationNumber = "5562626100"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("5562626100", invoice.SellerParty.Party.PartyIdentification[0].ID.Value);
+		public void Test_Create_Invoice_Sets_SellerParty_PartyIdentification() 
+		{
+			Assert.AreEqual(_settings.SellingOrganizationNumber, _sellerParty.PartyIdentification.First().ID.Value);
 		}
-		//TODO: Try to make single assertive
+
 		[Test]
-		public void Test_Create_Invoice_Sets_SellerParty_Contact() {
-			var customShop = new Shop {
-                ContactFirstName = "Herr",
-				ContactLastName = "Försäljare",
-                Phone = "040123456",
-				Fax = "040234567", 
-				Email = "info@synbutiken.se"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, customShop,*/ emptySettings);
-			Assert.AreEqual("info@synbutiken.se", invoice.SellerParty.Party.Contact.ElectronicMail.Value);
-			Assert.AreEqual("Herr Försäljare", invoice.SellerParty.Party.Contact.Name.Value);
-			Assert.AreEqual("040234567", invoice.SellerParty.Party.Contact.Telefax.Value);
-			Assert.AreEqual("040123456", invoice.SellerParty.Party.Contact.Telephone.Value);
+		public void Test_Create_Invoice_Sets_SellerParty_Contact() 
+		{
+			var expectedContact = "{ShopName} ({ShopContact})"
+				.ReplaceWith(new { ShopName = _order.SellingShop.Name })
+				.ReplaceWith(new { ShopContact = _order.SellingShop.ContactCombinedName });
+			Assert.AreEqual(expectedContact, _sellerParty.Contact.Name.Value);
+			Assert.AreEqual(_order.SellingShop.Email, _sellerParty.Contact.ElectronicMail.Value);
+			Assert.AreEqual(_order.SellingShop.Fax, _sellerParty.Contact.Telefax.Value);
+			Assert.AreEqual(_order.SellingShop.Phone, _sellerParty.Contact.Telephone.Value);
 		}
-		//TODO: Try to make single assertive
+
 		[Test]
-		public void Test_Create_Invoice_Sets_SellerParty_AccountsContact() {
-			var customSettings = new SvefakturaConversionSettings {
-				SellingOrganizationContactEmail = "info@synologen.se",
-                SellingOrganizationContactName = "Lotta W",
-				SellingOrganizationTelephone = "043513433",
-				SellingOrganizationFax = "043513133"
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("info@synologen.se", invoice.SellerParty.AccountsContact.ElectronicMail.Value);
-			Assert.AreEqual("Lotta W", invoice.SellerParty.AccountsContact.Name.Value);
-			Assert.AreEqual("043513133", invoice.SellerParty.AccountsContact.Telefax.Value);
-			Assert.AreEqual("043513433", invoice.SellerParty.AccountsContact.Telephone.Value);
+		public void Test_Create_Invoice_Sets_SellerParty_AccountsContact()
+		{
+			Assert.AreEqual(_settings.SellingOrganizationContactEmail, _accountContact.ElectronicMail.Value);
+			Assert.AreEqual(_settings.SellingOrganizationContactName, _accountContact.Name.Value);
+			Assert.AreEqual(_settings.SellingOrganizationFax, _accountContact.Telefax.Value);
+			Assert.AreEqual(_settings.SellingOrganizationTelephone, _accountContact.Telephone.Value);
 		}
-		//TODO: Try to make single assertive
+
+
 		[Test]
-		public void Test_Create_Invoice_Sets_SellerParty_PartyTaxSchemes_VAT_And_SWT() {
-			var customSettings = new SvefakturaConversionSettings {
-				TaxAccountingCode = "SE556401196201",
-				SellingOrganizationNumber = "556401196201",
-				ExemptionReason = "Innehar F-skattebevis",
-                SellingOrganizationCity = "Klippan",
-                SellingOrganizationPostBox = "Box 111",
-				//SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
-                SellingOrganizationPostalCode = "26422",
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			var vatTaxScheme = invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("VAT"));
-			var swtTaxScheme = invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("SWT"));
-			Assert.IsNotNull(vatTaxScheme);
-			Assert.IsNotNull(swtTaxScheme);
-			Assert.AreEqual("SE556401196201", vatTaxScheme.CompanyID.Value);
+		public void Test_Create_Invoice_Sets_SellerParty_PartyTaxSchemes_VAT() 
+		{
+		    var vatTaxScheme = _sellerParty.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("VAT"));
 			Assert.AreEqual("VAT", vatTaxScheme.TaxScheme.ID.Value);
-			Assert.AreEqual("556401196201", swtTaxScheme.CompanyID.Value);
-			Assert.AreEqual("SWT", swtTaxScheme.TaxScheme.ID.Value);
-			Assert.AreEqual("Box 111", swtTaxScheme.RegistrationAddress.Postbox.Value);
-			Assert.AreEqual("Klippan", swtTaxScheme.RegistrationAddress.CityName.Value);
-			Assert.AreEqual("26422", swtTaxScheme.RegistrationAddress.PostalZone.Value);
-			Assert.AreEqual(CountryIdentificationCodeContentType.SE, swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value);
-			Assert.AreEqual(2,invoice.SellerParty.Party.PartyTaxScheme.Count);
+		    Assert.AreEqual(_settings.TaxAccountingCode, vatTaxScheme.CompanyID.Value);
 		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_SellerParty_PartyTaxSchemes_VAT() {
-			var customSettings = new SvefakturaConversionSettings {
-				TaxAccountingCode = "SE556401196201",
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			var vatTaxScheme = invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("VAT"));
-			Assert.AreEqual("SE556401196201", vatTaxScheme.CompanyID.Value);
-			Assert.AreEqual("VAT", vatTaxScheme.TaxScheme.ID.Value);
-			Assert.AreEqual(1, invoice.SellerParty.Party.PartyTaxScheme.Count);
-		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_Settings_PartyTaxSchemes_SWT() {
-			var customSettings = new SvefakturaConversionSettings {
-				SellingOrganizationNumber = "556401196201",
-				ExemptionReason = "Innehar F-skattebevis",
-                SellingOrganizationCity = "Klippan",
-                SellingOrganizationPostBox = "Box 111",
-				//SellingOrganizationCountryCode = CountryIdentificationCodeContentType.SE,
-                SellingOrganizationPostalCode = "26422",
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			var swtTaxScheme = invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("SWT"));
-			Assert.AreEqual("556401196201", swtTaxScheme.CompanyID.Value);
-			Assert.AreEqual("SWT", swtTaxScheme.TaxScheme.ID.Value);
-			Assert.AreEqual("Innehar F-skattebevis",swtTaxScheme.ExemptionReason.Value);
-			Assert.AreEqual("Box 111", swtTaxScheme.RegistrationAddress.Postbox.Value);
-			Assert.AreEqual("Klippan", swtTaxScheme.RegistrationAddress.CityName.Value);
-			Assert.AreEqual("26422", swtTaxScheme.RegistrationAddress.PostalZone.Value);
-			Assert.AreEqual(CountryIdentificationCodeContentType.SE, swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value);
-			Assert.AreEqual(1, invoice.SellerParty.Party.PartyTaxScheme.Count);
-		}
-		#endregion
 
-		#region Payment Means
 		[Test]
-		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialAccount_Id_BankGiro_And_PostGiro() {
-			var customSettings = new SvefakturaConversionSettings
+		public void Test_Create_Invoice_Sets_Settings_PartyTaxSchemes_SWT() 
+		{
+		    var swtTaxScheme = _sellerParty.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("SWT"));
+			Assert.AreEqual("SWT", swtTaxScheme.TaxScheme.ID.Value);
+		    Assert.AreEqual(_settings.SellingOrganizationNumber, swtTaxScheme.CompanyID.Value);
+		    Assert.AreEqual(_settings.ExemptionReason,swtTaxScheme.ExemptionReason.Value);
+		    Assert.AreEqual(_settings.SellingOrganizationPostBox, swtTaxScheme.RegistrationAddress.Postbox.Value);
+		    Assert.AreEqual(_settings.SellingOrganizationCity, swtTaxScheme.RegistrationAddress.CityName.Value);
+		    Assert.AreEqual(_settings.SellingOrganizationPostalCode, swtTaxScheme.RegistrationAddress.PostalZone.Value);
+		    Assert.AreEqual(_settings.SellingOrganizationCountry.IdentificationCode.Value, swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value);
+		}
+	}
+
+	[TestFixture]
+	public class Parse_Invoice_Rows
+	{
+		private Order _order;
+		private SvefakturaConversionSettings _settings;
+		private IEnumerable<OrderItem> _invoiceItems;
+
+		[SetUp]
+		public void Setup()
+		{
+			var company = Factory.Factory.GetCompany();
+			var shop = Factory.Factory.GetShop();
+			_invoiceItems = Factory.Factory.GetOrderItems();
+			_order = Factory.Factory.GetOrder(company, shop, _invoiceItems);
+			_settings = Factory.Factory.GetSettings();
+		}
+
+		[Test]
+		public void Test_Create_Invoice_Sets_InvoiceLine_Properties() 
+		{
+		    var invoice = General.CreateInvoiceSvefaktura(_order, _settings);
+			invoice.InvoiceLine.And(_invoiceItems).Do((invoiceLine, orderItem) =>
 			{
-				BankGiro = "56936677", 
-				Postgiro = "123456",
-				InvoiceIssueDate = new DateTime(2009, 10, 30)
-			};
-			var customCompany = new Company {PaymentDuePeriod = 30};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual(2, invoice.PaymentMeans.Count);
+				Assert.AreEqual(orderItem.ArticleDisplayName, invoiceLine.Item.Description.Value);
+				Assert.AreEqual(orderItem.ArticleDisplayNumber, invoiceLine.Item.SellersItemIdentification.ID.Value);
+				Assert.AreEqual(orderItem.SinglePrice, invoiceLine.Item.BasePrice.PriceAmount.Value);
+				Assert.AreEqual("SEK", invoiceLine.Item.BasePrice.PriceAmount.amountCurrencyID);
+				Assert.AreEqual(orderItem.NumberOfItems, invoiceLine.InvoicedQuantity.Value);
+				Assert.AreEqual("styck", invoiceLine.InvoicedQuantity.quantityUnitCode);
+				Assert.AreEqual(orderItem.DisplayTotalPrice, invoiceLine.LineExtensionAmount.Value);
+				Assert.AreEqual("SEK", invoiceLine.LineExtensionAmount.amountCurrencyID);
+			});
 		}
-		[Test]
-		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialAccount_Id_BankGiro() {
-			var customSettings = new SvefakturaConversionSettings {
-				BankGiro = "56936677",
-				InvoiceIssueDate = new DateTime(2009, 10, 30)
-			};
-			var customCompany = new Company {PaymentDuePeriod = 30};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("56936677", invoice.PaymentMeans[0].PayeeFinancialAccount.ID.Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialAccount_Id_PostGiro() {
-			var customSettings = new SvefakturaConversionSettings {
-				Postgiro = "123456",
-				InvoiceIssueDate = new DateTime(2009, 10, 30)
-			};
-			var customCompany = new Company {PaymentDuePeriod = 30};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("123456", invoice.PaymentMeans[0].PayeeFinancialAccount.ID.Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_PaymentMeans_DuePaymentDate() {
-			var customSettings = new SvefakturaConversionSettings {
-				BankGiro = "56936677",
-				InvoiceIssueDate = new DateTime(2009, 10, 30)
-			};
-			var customCompany = new Company{PaymentDuePeriod = 30};
-			var expectedValue = new DateTime(2009, 10, 30).AddDays(30);
-			
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual(expectedValue, invoice.PaymentMeans[0].DuePaymentDate.Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_PaymentMeans_PaymentMeansTypeCode() {
-			var customSettings = new SvefakturaConversionSettings {
-				BankGiro = "56936677",
-				InvoiceIssueDate = new DateTime(2009, 10, 30)
-			};
-			var customCompany = new Company {PaymentDuePeriod = 30};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual(PaymentMeansCodeContentType.Item1, invoice.PaymentMeans[0].PaymentMeansTypeCode.Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialInstitution_BankGiro() {
-			var customSettings = new SvefakturaConversionSettings {
-				BankGiro = "56936677",
-				BankgiroBankIdentificationCode = "BGABSESS",
-				InvoiceIssueDate = new DateTime(2009, 10, 30)
-			};
-			var customCompany = new Company {PaymentDuePeriod = 30};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("BGABSESS", invoice.PaymentMeans[0].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialInstitution() {
-			var customSettings = new SvefakturaConversionSettings {
-				Postgiro = "123456",
-				PostgiroBankIdentificationCode = "PGSISESS",
-				InvoiceIssueDate = new DateTime(2009, 10, 30)
-			};
-			var customCompany = new Company {PaymentDuePeriod = 30};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("PGSISESS", invoice.PaymentMeans[0].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value);
-		}
-		#endregion
 
-		#region Payment Terms
 		[Test]
-		public void Test_Create_Invoice_Sets_PaymentTerms_InvoicePaymentTermsTextFormat() {
-			var customSettings = new SvefakturaConversionSettings { InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto" };
-			var customCompany = new Company {PaymentDuePeriod = 29, };
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, customCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("29 dagar netto", invoice.PaymentTerms.Note.Value);
+		public void Test_Create_Invoice_Sets_InvoiceLine_Item_TaxCategory() 
+		{
+			var invoice = General.CreateInvoiceSvefaktura(_order, _settings);
+			Func<OrderItem,string> getExpectedTaxCategory = orderItem => orderItem.NoVAT ? "E" : "S";
+			Func<OrderItem,decimal> getExpectedVatPercent = orderItem => orderItem.NoVAT ? 0 : (_settings.VATAmount * 100);
+			invoice.InvoiceLine.And(_invoiceItems).Do((invoiceLine, orderItem) =>
+			{
+				Assert.AreEqual(getExpectedTaxCategory(orderItem), invoiceLine.Item.TaxCategory.First().ID.Value);
+				Assert.AreEqual(getExpectedVatPercent(orderItem), invoiceLine.Item.TaxCategory.First().Percent.Value);
+				Assert.AreEqual("VAT", invoiceLine.Item.TaxCategory.First().TaxScheme.ID.Value);
+			});
 		}
-		[Test]
-		public void Test_Create_Invoice_Sets_PaymentTerms_InvoiceExpieryPenaltySurcharge() {
-			var customSettings = new SvefakturaConversionSettings {InvoiceExpieryPenaltySurchargePercent = 12.5m};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual(12.5m, invoice.PaymentTerms.PenaltySurchargePercent.Value);
-		}
-		#endregion
 
-		#region TaxTotal
-		//TODO: Try to make single assertive
 		[Test]
-		public void Test_Create_Invoice_Sets_TaxTotal_TotalTaxAmount() {
-			var customOrder = new Order {
-				InvoiceSumIncludingVAT = 12345.789,
-				InvoiceSumExcludingVAT = 11005.456
-			};
-			var invoice = General.CreateInvoiceSvefaktura(customOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual(1340.333, invoice.TaxTotal[0].TotalTaxAmount.Value);
-			Assert.AreEqual("SEK", invoice.TaxTotal[0].TotalTaxAmount.amountCurrencyID);
+		public void Test_Create_Invoice_Sets_InvoiceLine_ID() 
+		{
+			var invoice = General.CreateInvoiceSvefaktura(_order, _settings);
+			invoice.InvoiceLine.ForEach().DoWithIndex((index, invoiceLine) =>
+			{
+				var expectedInvoiceLineID = (index + 1).ToString();
+				Assert.IsNotNull(invoiceLine.ID);
+				Assert.AreEqual(expectedInvoiceLineID, invoiceLine.ID.Value);
+			});
 		}
-		//TODO: Try to make single assertive
+	}
+
+	[TestFixture]
+	public class Parse_Invoice_Payment_Means
+	{
+		private Order _order;
+		private SvefakturaConversionSettings _settings;
+		private SFTIInvoiceType _invoice;
+		private Company _company;
+
+		[SetUp]
+		public void Setup()
+		{
+			_company = Factory.Factory.GetCompany();
+			_order = Factory.Factory.GetOrder(_company);
+			_settings = Factory.Factory.GetSettings();
+			_invoice = General.CreateInvoiceSvefaktura(_order, _settings);
+		}
+
 		[Test]
-		public void Test_Create_Invoice_Sets_TaxTotal_VATAmount() {
-			var customSettings = new SvefakturaConversionSettings {
-				VATAmount = 0.25m
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			var taxCategoryS = invoice.TaxTotal[0].TaxSubTotal.Find(x => x.TaxCategory.ID.Value.Equals("S"));
-			var taxCategoryE = invoice.TaxTotal[0].TaxSubTotal.Find(x => x.TaxCategory.ID.Value.Equals("E"));
-			Assert.IsNotNull(taxCategoryS);
+		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialInstitution_BankGiro() 
+		{
+			var paymentMeans = _invoice.PaymentMeans.Find(x => x.PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value == "BGABSESS");
+			Assert.AreEqual("BGABSESS", paymentMeans.PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value);
+			Assert.AreEqual("56936677", paymentMeans.PayeeFinancialAccount.ID.Value);
+			Assert.AreEqual(PaymentMeansCodeContentType.Item1, paymentMeans.PaymentMeansTypeCode.Value);
+			Assert.AreEqual(_settings.InvoiceIssueDate.AddDays(_company.PaymentDuePeriod), _invoice.PaymentMeans[0].DuePaymentDate.Value);
+		}
+		[Test]
+		public void Test_Create_Invoice_Sets_PaymentMeans_FinancialInstitution_PostGiro() 
+		{
+			var paymentMeans = _invoice.PaymentMeans.Find(x => x.PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value == "PGSISESS");
+			Assert.AreEqual("PGSISESS", paymentMeans.PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value);
+			Assert.AreEqual("123456", paymentMeans.PayeeFinancialAccount.ID.Value);
+			Assert.AreEqual(PaymentMeansCodeContentType.Item1, paymentMeans.PaymentMeansTypeCode.Value);
+			Assert.AreEqual(_settings.InvoiceIssueDate.AddDays(_company.PaymentDuePeriod), _invoice.PaymentMeans[0].DuePaymentDate.Value);
+		}
+	}
+
+	[TestFixture]
+	public class Parse_Invoice_Payment_Terms
+	{
+		private SvefakturaConversionSettings _settings;
+		private SFTIInvoiceType _invoice;
+		private Company _company;
+
+		[SetUp]
+		public void Setup()
+		{
+			_company = Factory.Factory.GetCompany();
+			var order = Factory.Factory.GetOrder(_company);
+			_settings = Factory.Factory.GetSettings();
+			_invoice = General.CreateInvoiceSvefaktura(order, _settings);
+		}
+
+		[Test]
+		public void Test_Create_Invoice_Sets_PaymentTerms_InvoicePaymentTermsTextFormat()
+		{
+			var expectedText = _settings.InvoicePaymentTermsTextFormat.Replace("{InvoiceNumberOfDueDays}", _company.PaymentDuePeriod.ToString());
+			Assert.AreEqual(expectedText, _invoice.PaymentTerms.Note.Value);
+		}
+
+		[Test]
+		public void Test_Create_Invoice_Sets_PaymentTerms_InvoiceExpieryPenaltySurcharge() 
+		{
+			Assert.AreEqual(_settings.InvoiceExpieryPenaltySurchargePercent, _invoice.PaymentTerms.PenaltySurchargePercent.Value);
+		}
+	}
+
+	[TestFixture]
+	public class Parse_Tax_Totals
+	{
+		private Order _order;
+		private SvefakturaConversionSettings _settings;
+		private IEnumerable<OrderItem> _invoiceItems;
+		private SFTIInvoiceType _invoice;
+
+		[SetUp]
+		public void Setup()
+		{
+			var company = Factory.Factory.GetCompany();
+			var shop = Factory.Factory.GetShop();
+			_invoiceItems = Factory.Factory.GetOrderItems();
+			_order = Factory.Factory.GetOrder(company, shop, _invoiceItems);
+			_settings = Factory.Factory.GetSettings();
+			_invoice = General.CreateInvoiceSvefaktura(_order,  _settings);
+		}
+
+		[Test]
+		public void Parse_TotalTaxAmount()
+		{
+			var tax = _invoiceItems.Where(x => !x.NoVAT).Sum(x => x.DisplayTotalPrice) * (float)_settings.VATAmount;
+			Assert.AreEqual(tax, _invoice.TaxTotal[0].TotalTaxAmount.Value);
+			Assert.AreEqual("SEK", _invoice.TaxTotal[0].TotalTaxAmount.amountCurrencyID);
+		}
+
+		[Test]
+		public void Parse_TaxFree_TaxCategory() 
+		{
+			var taxCategoryE = _invoice.TaxTotal.First().TaxSubTotal.Find(x => x.TaxCategory.ID.Value.Equals("E"));
 			Assert.IsNotNull(taxCategoryE);
+			Assert.AreEqual("E", taxCategoryE.TaxCategory.ID.Value);
+			Assert.AreEqual(0m, taxCategoryE.TaxCategory.Percent.Value);
+			Assert.AreEqual("VAT", taxCategoryE.TaxCategory.TaxScheme.ID.Value);
+		}
+
+		[Test]
+		public void Parse_StandardTax_TaxCategory() 
+		{
+			var taxCategoryS = _invoice.TaxTotal.First().TaxSubTotal.Find(x => x.TaxCategory.ID.Value.Equals("S"));
+			Assert.IsNotNull(taxCategoryS);
 			Assert.AreEqual("S", taxCategoryS.TaxCategory.ID.Value);
 			Assert.AreEqual(25.00m, taxCategoryS.TaxCategory.Percent.Value);
 			Assert.AreEqual("VAT", taxCategoryS.TaxCategory.TaxScheme.ID.Value);
-			Assert.AreEqual("E", taxCategoryE.TaxCategory.ID.Value);
-			Assert.AreEqual(0m, taxCategoryE.TaxCategory.Percent.Value);
-			Assert.AreEqual("VAT", taxCategoryE.TaxCategory.TaxScheme.ID.Value);
-			Assert.AreEqual(2, invoice.TaxTotal[0].TaxSubTotal.Count);
-		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_TaxTotal_VATFree() {
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			var taxCategoryE = invoice.TaxTotal[0].TaxSubTotal.Find(x => x.TaxCategory.ID.Value.Equals("E"));
-			Assert.IsNotNull(taxCategoryE);
-			Assert.AreEqual("E", taxCategoryE.TaxCategory.ID.Value);
-			Assert.AreEqual(0m, taxCategoryE.TaxCategory.Percent.Value);
-			Assert.AreEqual("VAT", taxCategoryE.TaxCategory.TaxScheme.ID.Value);
-			Assert.AreEqual(1, invoice.TaxTotal[0].TaxSubTotal.Count);
-		}
-		#endregion
-
-		#region LegalTotal
-				//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_LegalTotal_TaxInclusiveTotalAmount() {
-			var customOrder = new Order { InvoiceSumIncludingVAT = 123456.45 };
-			var invoice = General.CreateInvoiceSvefaktura(customOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual(123456.45m, invoice.LegalTotal.TaxInclusiveTotalAmount.Value);
-			Assert.AreEqual("SEK", invoice.LegalTotal.TaxInclusiveTotalAmount.amountCurrencyID);
-		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_LegalTotal_TaxExclusiveTotalAmount() {
-			var customOrder = new Order { InvoiceSumExcludingVAT = 123456.4545 };
-			var invoice = General.CreateInvoiceSvefaktura(customOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual(123456.4545m, invoice.LegalTotal.TaxExclusiveTotalAmount.Value);
-			Assert.AreEqual("SEK", invoice.LegalTotal.TaxExclusiveTotalAmount.amountCurrencyID);
-		}
-		//TODO: Try to make single assertive
-		//[Test]
-		//public void Test_Create_Invoice_Sets_LegalTotal_RoundOffAmount() {
-		//    var customOrder = new Order { RoundOffAmount = 0.38m };
-		//    var invoice = General.CreateInvoiceSvefaktura(customOrder, /*emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-		//    Assert.IsNotNull(invoice.LegalTotal);
-		//    Assert.IsNotNull(invoice.LegalTotal.RoundOffAmount);
-		//    Assert.AreEqual(0.38m, invoice.LegalTotal.RoundOffAmount.Value);
-		//    Assert.AreEqual("SEK", invoice.LegalTotal.RoundOffAmount.amountCurrencyID);
-		//}
-		////TODO: Try to make single assertive
-		//[Test]
-		//public void Test_Create_Invoice_Sets_LegalTotal_RoundOffAmount_Nulled() {
-		//    var customOrder1 = new Order { RoundOffAmount = null,  };
-		//    var customOrder2 = new Order { RoundOffAmount = null, InvoiceSumExcludingVAT = 123456.4545 };
-		//    var invoice1 = General.CreateInvoiceSvefaktura(customOrder1, emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-		//    var invoice2 = General.CreateInvoiceSvefaktura(customOrder2, emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-		//    Assert.IsNull(invoice1.LegalTotal);
-		//    Assert.IsNotNull(invoice2.LegalTotal);
-		//    Assert.IsNull(invoice2.LegalTotal.RoundOffAmount);
-		//}
-		////TODO: Try to make single assertive
-		//[Test]
-		//public void Test_Create_Invoice_Sets_LegalTotal_RoundOffAmount_Zero() {
-		//    var customOrder1 = new Order { RoundOffAmount = 0 };
-		//    var customOrder2 = new Order { RoundOffAmount = 0, InvoiceSumExcludingVAT = 123456.4545  };
-		//    var invoice1 = General.CreateInvoiceSvefaktura(customOrder1, emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-		//    var invoice2 = General.CreateInvoiceSvefaktura(customOrder2, emptyOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-		//    Assert.IsNull(invoice1.LegalTotal);
-		//    Assert.IsNotNull(invoice2.LegalTotal);
-		//    Assert.IsNull(invoice2.LegalTotal.RoundOffAmount);
-		//}
-		#endregion
-
-		#region InvoiceRows
-		[Test]
-		public void Test_Create_Invoice_Sets_InvoiceLine_Item_Description() {
-		    var customOrderItemList = new List<IOrderItem> {
-		        new OrderItem {
-		            ArticleDisplayName = "Lacryvisc"
-		        }
-		    };
-		    var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*customOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-		    Assert.AreEqual("Lacryvisc", invoice.InvoiceLine[0].Item.Description.Value);
-		}
-		[Test]
-		public void Test_Create_Invoice_Sets_InvoiceLine_Item_SellersItemIdentification() {
-			var customOrderItemList = new List<IOrderItem> {
-				new OrderItem {
-					ArticleDisplayNumber = "987654"
-				}
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*customOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual("987654", invoice.InvoiceLine[0].Item.SellersItemIdentification.ID.Value);
-		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_InvoiceLine_InvoicedQuantity() {
-			var customOrderItemList = new List<IOrderItem> {
-				new OrderItem {
-					NumberOfItems = 3
-				}
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*customOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual(3, invoice.InvoiceLine[0].InvoicedQuantity.Value);
-			Assert.AreEqual("styck", invoice.InvoiceLine[0].InvoicedQuantity.quantityUnitCode);
-		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_InvoiceLine_Item_BasePrice_PriceAmount_And_CurrencyID() {
-			var customOrderItemList = new List<IOrderItem> {
-				new OrderItem {
-					SinglePrice = 36.85f
-				}
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*customOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual(36.85f, invoice.InvoiceLine[0].Item.BasePrice.PriceAmount.Value);
-			Assert.AreEqual("SEK", invoice.InvoiceLine[0].Item.BasePrice.PriceAmount.amountCurrencyID);
-		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_InvoiceLine_LineExtensionAmount_And_CurrencyID() {
-			var customOrderItemList = new List<IOrderItem> {
-				new OrderItem {
-					DisplayTotalPrice = 110.55f
-				}
-			};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*customOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.AreEqual(110.55f, invoice.InvoiceLine[0].LineExtensionAmount.Value);
-			Assert.AreEqual("SEK", invoice.InvoiceLine[0].LineExtensionAmount.amountCurrencyID);
-		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_InvoiceLine_Item_TaxCategory_Has_Normal_Tax() {
-			var customOrderItemList = new List<IOrderItem> { new OrderItem { NoVAT =  false} };
-			var customSettings = new SvefakturaConversionSettings {VATAmount = 0.25m};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*customOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("S", invoice.InvoiceLine[0].Item.TaxCategory[0].ID.Value);
-			Assert.AreEqual(25m, invoice.InvoiceLine[0].Item.TaxCategory[0].Percent.Value);
-			Assert.AreEqual("VAT", invoice.InvoiceLine[0].Item.TaxCategory[0].TaxScheme.ID.Value);
-
-		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_InvoiceLine_Item_TaxCategory_Is_Tax_Free() {
-			var customOrderItemList = new List<IOrderItem> { new OrderItem { NoVAT =  true} };
-			var customSettings = new SvefakturaConversionSettings {VATAmount = 0.25m};
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*customOrderItemList, emptyCompany, emptyShop,*/ customSettings);
-			Assert.AreEqual("E", invoice.InvoiceLine[0].Item.TaxCategory[0].ID.Value);
-			Assert.AreEqual(0m, invoice.InvoiceLine[0].Item.TaxCategory[0].Percent.Value);
-			Assert.AreEqual("VAT", invoice.InvoiceLine[0].Item.TaxCategory[0].TaxScheme.ID.Value);
-		}
-		//TODO: Try to make single assertive
-		[Test]
-		public void Test_Create_Invoice_Sets_InvoiceLine_ID() {
-			var customOrderItemList = new List<IOrderItem> { new OrderItem(), new OrderItem(), new OrderItem() };
-			var invoice = General.CreateInvoiceSvefaktura(emptyOrder, /*customOrderItemList, emptyCompany, emptyShop,*/ emptySettings);
-			Assert.IsNotNull(invoice.InvoiceLine[0].ID);
-			Assert.IsNotNull(invoice.InvoiceLine[1].ID);
-			Assert.IsNotNull(invoice.InvoiceLine[2].ID);
-			Assert.AreEqual("1", invoice.InvoiceLine[0].ID.Value);
-			Assert.AreEqual("2", invoice.InvoiceLine[1].ID.Value);
-			Assert.AreEqual("3", invoice.InvoiceLine[2].ID.Value);
 		}
 
-
-		#endregion
 	}
 }

@@ -92,6 +92,7 @@
     <Compile Include="Mock\MockWebServiceClient.cs" />
     <Compile Include="EDI\TestEDIInvoiceParsing.cs" />
     <Compile Include="Mock\TestMockFlow.cs" />
+    <Compile Include="App\AssertionExtensions.cs" />
     <Compile Include="Svefaktura\Validation\TestValidateInvoiceLineAllowanceCharge.cs" />
     <Compile Include="Svefaktura\Validation\TestValidateCustomRules.cs" />
     <Compile Include="Svefaktura\Validation\TestValidateAddressLine.cs" />

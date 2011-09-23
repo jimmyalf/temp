@@ -37,7 +37,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura {
 			Expect(ruleViolations.Count(), Is.EqualTo(0), SvefakturaValidator.FormatRuleViolations(ruleViolations));
 		}
 
-		[Test]
+		[Ignore]
 		public void Test_Generate_Xml_From_Object() {
 			var output = ToXML(_invoice, Encoding.Default);
 			output = output.Replace("Windows-1252", "utf-8");

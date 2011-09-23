@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 
 namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
-	public interface ICompany {
+	public interface ICompany 
+	{
 		int Id { get; set; }
 		int ContractId { get; set; }
 		string Name { get; set; }

@@ -54,10 +54,10 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			return eDIitem;
 		}
 
-		public static List<InvoiceRow> ToEDIArticles(IList<OrderItem> orderItems, IOrder order, ICompany company) {
+		public static List<InvoiceRow> ToEDIArticles(IList<OrderItem> orderItems, IOrder order /*, ICompany company*/) {
 			var EDIArticles = new List<InvoiceRow>();
 			var articleCounter = 1;
-			var freeTextRows = CommonConversion.GetFreeTextRows(company, order);
+			var freeTextRows = CommonConversion.GetFreeTextRows(/*company,*/ order);
 			if(freeTextRows!=null && freeTextRows.Count>0){
 				var freeTextBuyerInvoiceRow = ToEDIFreeTextInformationRow(freeTextRows);
 				EDIArticles.Add(freeTextBuyerInvoiceRow);

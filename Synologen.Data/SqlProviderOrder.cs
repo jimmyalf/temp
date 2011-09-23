@@ -397,6 +397,10 @@ namespace Spinit.Wpc.Synologen.Data {
 			public Shop SellingShop { get; set; }
 			public Company ContractCompany { get; set; }
 			public DateTime? InvoiceDate { get; set; }
+			public string ParseFreeText()
+			{
+				throw new NotImplementedException();
+			}
 		}
 		#endregion
 	}

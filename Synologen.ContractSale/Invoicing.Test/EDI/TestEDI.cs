@@ -1,18 +1,18 @@
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Types;
+using Spinit.Wpc.Synologen.Test.Factory;
 
-namespace Spinit.Wpc.Synologen.Test.EDI {
+namespace Spinit.Wpc.Synologen.Invoicing.Test.EDI {
 	[TestFixture]
 	public class TestEDI 
 	{
-		private EDIConversionSettings ediSettings;
+		private EDIConversionSettings _ediSettings;
 
 		[SetUp]
 		public void Setup()
 		{
 
-			ediSettings = new EDIConversionSettings
+			_ediSettings = new EDIConversionSettings
 			{
 				SenderId = "556262-6100", 
 				BankGiro = "5693-6677", 
@@ -23,11 +23,11 @@ namespace Spinit.Wpc.Synologen.Test.EDI {
 		[Test]
 		public void Can_create_edi_invoice()
 		{
-			var company = Factory.Factory.GetCompany();
-			var shop = Factory.Factory.GetShop();
-			var invoiceItems = Factory.Factory.GetOrderItems();
-			var order = Factory.Factory.GetOrder(company, shop, invoiceItems);
-			var invoice = General.CreateInvoiceEDI(order, ediSettings);
+			var company = Factory.GetCompany();
+			var shop = Factory.GetShop();
+			var invoiceItems = Factory.GetOrderItems();
+			var order = Factory.GetOrder(company, shop, invoiceItems);
+			var invoice = General.CreateInvoiceEDI(order, _ediSettings);
 			var invoiceText = invoice.Parse();
 
 			Assert.IsNotNull(invoiceText);

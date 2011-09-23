@@ -4,7 +4,8 @@ using System.Runtime.Serialization;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 
 namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
-	public interface IOrder {
+	public interface IOrder 
+	{
 		[DataMember] int CompanyId{ get; set; }
 		[DataMember] string CompanyUnit { get; set; }
 		[DataMember] DateTime CreatedDate { get; set; }
@@ -30,5 +31,6 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		[DataMember] Shop SellingShop { get; set; }
 		[DataMember] Company ContractCompany{ get; set; }
 		DateTime? InvoiceDate { get; }
+		string ParseFreeText();
 	}
 }

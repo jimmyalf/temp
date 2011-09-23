@@ -81,11 +81,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\AssertionFailedException.cs" />
+    <Compile Include="Extensions\TestExtensions.cs" />
     <Compile Include="GeneralInvoice\TestInvoiceFreeTextParsing.cs" />
     <Compile Include="GeneralInvoice\TestInvoiceFreeTextSplitting.cs" />
     <Compile Include="Site\TestCustomOrderValidation.cs" />
     <Compile Include="Site\TestValidationTypeRequired.cs" />
     <Compile Include="Factory\Factory.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomControlCalculations.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomControlTaxTotal.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomInvoice.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomInvoiceLine.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomTaxCategory.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateCustomTaxScheme.cs" />
+    <Compile Include="Svefaktura\CustomValidation\TestValidateSellerParty.cs" />
+    <Compile Include="Svefaktura\DataParsing\TestSvefakturaCompleteparsing.cs" />
+    <Compile Include="Svefaktura\DataParsing\TestSvefakturaFormatting.cs" />
+    <Compile Include="Svefaktura\DataParsing\TestSvefakturaInvoiceParsing.cs" />
     <Compile Include="Svefaktura\TestSvefakturaInvoiceParsing.cs" />
     <Compile Include="Mock\Utility.cs" />
     <Compile Include="Mock\MockAdkHandler.cs" />
@@ -93,6 +105,7 @@
     <Compile Include="EDI\TestEDIInvoiceParsing.cs" />
     <Compile Include="Mock\TestMockFlow.cs" />
     <Compile Include="App\AssertionExtensions.cs" />
+    <Compile Include="Svefaktura\TestSvefakturaValidation.cs" />
     <Compile Include="Svefaktura\Validation\TestValidateInvoiceLineAllowanceCharge.cs" />
     <Compile Include="Svefaktura\Validation\TestValidateCustomRules.cs" />
     <Compile Include="Svefaktura\Validation\TestValidateAddressLine.cs" />
@@ -118,6 +131,8 @@
     <Compile Include="Svefaktura\Validation\TestValidateTaxScheme.cs" />
     <Compile Include="Svefaktura\Validation\TestValidateTaxSubTotal.cs" />
     <Compile Include="Svefaktura\Validation\TestValidateTaxTotal.cs" />
+    <Compile Include="Svefaktura\XmlSerialization\TestMockXmlSerialization.cs" />
+    <Compile Include="SynologenService.cs" />
     <Compile Include="Visma\TestVisma.cs" />
     <Compile Include="Svefaktura\TestMockXmlSerialization.cs" />
     <Compile Include="Visma\TestVismaFormatting.cs" />
@@ -173,9 +188,6 @@
       <Project>{74466C1B-0F03-4356-BA44-CF8983F5347E}</Project>
       <Name>Synologen WebService</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\Debug\Adk.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

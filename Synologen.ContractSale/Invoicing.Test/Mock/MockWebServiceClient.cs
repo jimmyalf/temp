@@ -4,6 +4,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Data.Types;
 
 namespace Spinit.Wpc.Synologen.Test.Mock {
 	public class MockWebServiceClient : ISynologenService {
@@ -11,6 +12,16 @@ namespace Spinit.Wpc.Synologen.Test.Mock {
 		private int orderIdCounter;
 
 		#region Implementation of ISynologenService
+
+		public OrderItemRow[] GetOrderItemsPerOrder(int orderId)
+		{
+			throw new NotImplementedException();
+		}
+
+		OrderRow[] ISynologenService.GetOrdersForInvoicing()
+		{
+			throw new NotImplementedException();
+		}
 
 		public List<Order> GetOrdersForInvoicing() {
 			return new List<Order> { Utility.GetMockOrderData(orderIdCounter++) };

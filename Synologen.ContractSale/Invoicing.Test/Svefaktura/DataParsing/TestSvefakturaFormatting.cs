@@ -5,13 +5,14 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
 
-namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing{
+namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing
+{
 	[TestFixture]
 	public class TestSvefakturaFormatting : AssertionHelper{
-		private readonly Order emptyOrder = new Order{ContractCompany = new Company(), SellingShop = new Shop(), OrderItems = new List<OrderItem>()};
+		private readonly Order emptyOrder = new Order{ContractCompany = new Company{InvoiceFreeTextFormat = ""}, SellingShop = new Shop(), OrderItems = new List<OrderItem>()};
 		private readonly Shop emptyShop = new Shop();
 		private readonly List<OrderItem> emptyOrderItems = new List<OrderItem>();
-		private readonly Company emptyCompany = new Company();
+		private readonly Company emptyCompany = new Company{InvoiceFreeTextFormat = ""};
 		private readonly SvefakturaConversionSettings emptySettings = new SvefakturaConversionSettings();
 
 		[SetUp]
@@ -74,7 +75,11 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing{
 			var customOrder = new Order {
 			                            	SellingShop = emptyShop, 
 			                            	OrderItems = emptyOrderItems,
-			                            	ContractCompany = new Company { TaxAccountingCode = "SE 555-654.123 - 645" }
+			                            	ContractCompany = new Company
+			                            	{
+			                            		TaxAccountingCode = "SE 555-654.123 - 645",
+												InvoiceFreeTextFormat = ""
+			                            	}
 			                            };
 			var invoice = Convert.ToSvefakturaInvoice(emptySettings, customOrder);
 			Expect(invoice.BuyerParty.Party.PartyTaxScheme[0].CompanyID.Value, Is.EqualTo("SE555654123645"));
@@ -92,7 +97,11 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing{
 			var customOrder = new Order {
 			                            	SellingShop = emptyShop, 
 			                            	OrderItems = emptyOrderItems,
-			                            	ContractCompany = new Company {TaxAccountingCode = "ABC", OrganizationNumber = "SE 555-654.123 - 645"}
+			                            	ContractCompany = new Company
+			                            	{
+			                            		TaxAccountingCode = "ABC", OrganizationNumber = "SE 555-654.123 - 645",
+												InvoiceFreeTextFormat = ""
+			                            	}
 			                            };
 			var invoice = Convert.ToSvefakturaInvoice(emptySettings, customOrder);
 			Expect(invoice.BuyerParty.Party.PartyTaxScheme[1].CompanyID.Value, Is.EqualTo("SE555654123645"));

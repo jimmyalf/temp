@@ -68,5 +68,39 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		[DataMember] public Company ContractCompany{ get; set; }
 
 		public DateTime? InvoiceDate { get; protected set; }
+
+		public virtual string ParseFreeText()
+		{
+			return ParseFreeText(ContractCompany, this, SellingShop);
+		}
+
+		public static string ParseFreeText(ICompany company, IOrder order, IShop shop)
+		{
+			if(company == null || company.InvoiceFreeTextFormat == null) return null;
+			var output = company.InvoiceFreeTextFormat;
+			if(order != null)
+			{
+				output = output
+					.Replace("{CustomerName}", order.CustomerCombinedName ?? String.Empty)
+					.Replace("{CustomerPersonalIdNumber}", order.PersonalIdNumber ?? String.Empty)
+					.Replace("{CompanyUnit}", order.CompanyUnit ?? String.Empty)
+					.Replace("{CustomerPersonalBirthDateString}", order.PersonalBirthDateString ?? String.Empty)
+					.Replace("{CustomerFirstName}", order.CustomerFirstName ?? String.Empty)
+					.Replace("{CustomerLastName}", order.CustomerLastName ?? String.Empty)
+					.Replace("{BuyerCompanyId}", order.CompanyId.ToString())
+					.Replace("{RST}", order.RstText ?? String.Empty);
+			}
+			if(!Equals(company, default(ICompany)))
+			{
+				output = output.Replace("{BankCode}", company.BankCode ?? String.Empty);
+			}
+			if(shop != null)
+			{
+				output = output
+					.Replace("{SellingShopName}", shop.Name ?? String.Empty)
+					.Replace("{SellingShopNumber}", shop.Number ?? String.Empty);
+			}
+			return output;
+		}
 	}
 }

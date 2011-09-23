@@ -8,8 +8,8 @@
     <ProjectGuid>{08A2EECC-1FCD-42BF-9B75-B573F644E277}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spinit.Wpc.Synologen.Test</RootNamespace>
-    <AssemblyName>Spinit.Wpc.Synologen.Test</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.Invoicing.Test</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Invoicing.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>

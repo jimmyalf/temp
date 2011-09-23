@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using NUnit.Framework;
 
-namespace Spinit.Wpc.Synologen.Test.App
+namespace Spinit.Wpc.Synologen.Invoicing.Test.App
 {
 	public static class AssertionExtensions
 	{
@@ -27,14 +26,21 @@ namespace Spinit.Wpc.Synologen.Test.App
 			throw GetError("source is not empty, it contains the following items:\r\n" + items);
 		}
 
-		private static AssertionException GetError<T,T2>(string message, Expression<Func<T,T2>> predicate)
+		public static void AssertIsNotEmpty<T>(this IEnumerable<T> source)
+		{
+			if (source == null || source.Count() == 0) throw GetError("source does not contain any items");
+			return;
+		}
+
+		private static AssertionFailedException GetError<T,T2>(string message, Expression<Func<T,T2>> predicate)
 		{
 			return GetError(message.Replace("{Predicate}", predicate.ToString()));
 		}
 
-		private static AssertionException GetError(string message)
+		private static AssertionFailedException GetError(string message)
 		{
-			return new AssertionException(message);
+			return new AssertionFailedException(message);
 		}
+
 	}
 }

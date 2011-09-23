@@ -16,7 +16,7 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			var invoiceExpieryDate = interchangeHeader.DateOfPreparation.AddDays(order.ContractCompany.PaymentDuePeriod);
 			var invoice = new Invoice(EDISettings.VATAmount, EDISettings.NumberOfDecimalsUsedAtRounding, invoiceValueIncludingVAT, invoiceValueExcludingVAT)
 			{
-				Articles = ToEDIArticles(order.OrderItems, order, order.ContractCompany),
+				Articles = ToEDIArticles(order.OrderItems, order /*, order.ContractCompany*/),
 				Buyer = GetBuyerInformation(order.ContractCompany.EDIRecipientId, order.ContractCompany),
 				BuyerOrderNumber = String.Empty,
 				BuyerRSTNumber = order.RstText,
@@ -36,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Invoicing{
 			TryAddBuyerParty(invoice, order.ContractCompany, order);
 			TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankgiroBankIdentificationCode, order.ContractCompany, settings);
 			TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode, order.ContractCompany, settings);
-			TryAddGeneralInvoiceInformation(invoice, settings, order, order.OrderItems, order.ContractCompany);
+			TryAddGeneralInvoiceInformation(invoice, settings, order, order.OrderItems /*, order.ContractCompany*/);
 			TryAddInvoiceLines(settings, invoice, order.OrderItems, settings.VATAmount);
 			TryAddPaymentTerms(invoice, settings, order.ContractCompany);
 			return invoice;

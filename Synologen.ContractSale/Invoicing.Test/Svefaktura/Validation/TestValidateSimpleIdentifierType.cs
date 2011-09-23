@@ -1,8 +1,8 @@
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.Test.App;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
-using Spinit.Wpc.Synologen.Test.App;
 
 namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation 
 {

@@ -27,14 +27,14 @@ namespace Spinit.Wpc.Synologen.Invoicing
 			invoice.TaxTotal.Add(generatedTaxTotal);
 		}
 
-		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IOrder order, IEnumerable<OrderItem> orderItems, ICompany company) {
+		private static void TryAddGeneralInvoiceInformation(SFTIInvoiceType invoice, SvefakturaConversionSettings settings, IOrder order, IEnumerable<OrderItem> orderItems /*, ICompany company*/) {
 			if(invoice == null) invoice = new SFTIInvoiceType();
-			var freeTextRows = CommonConversion.GetFreeTextRowsAsString(company, order);
+			var freeTextRows = order.ParseFreeText(); //CommonConversion.GetFreeTextRowsAsString(company, order);
 			invoice.Note = TryGetValue(freeTextRows, new NoteType {Value = freeTextRows});
 			invoice.IssueDate = TryGetValue(settings.InvoiceIssueDate, new IssueDateType {Value = settings.InvoiceIssueDate});
 			invoice.InvoiceTypeCode = TryGetValue(settings.InvoiceTypeCode, new CodeType {Value = settings.InvoiceTypeCode});
 			invoice.ID = TryGetValue(order.InvoiceNumber, new SFTISimpleIdentifierType {Value = order.InvoiceNumber.ToString()});
-			invoice.AdditionalDocumentReference = TryGetValue(company.Id, new List<SFTIDocumentReferenceType> {new SFTIDocumentReferenceType {ID = new IdentifierType {Value = company.Id.ToString(), identificationSchemeAgencyName = "SFTI", identificationSchemeID = "ACD"}}});
+			invoice.AdditionalDocumentReference = TryGetValue(order.ContractCompany.Id, new List<SFTIDocumentReferenceType> {new SFTIDocumentReferenceType {ID = new IdentifierType {Value = order.ContractCompany.Id.ToString(), identificationSchemeAgencyName = "SFTI", identificationSchemeID = "ACD"}}});
 			if (order.InvoiceSumIncludingVAT > 0 || order.InvoiceSumExcludingVAT > 0){
 				invoice.LegalTotal = new SFTILegalTotalType {
 					LineExtensionTotalAmount = TryGetLineExtensionAmount(orderItems),

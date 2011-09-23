@@ -21,7 +21,6 @@
 		<include name="${dir.source}Synologen.Presentation.Test\Synologen.Presentation.Test.csproj"/>
 		<include name="${dir.source}Synologen.Data.Test\Synologen.Data.Test.csproj"/>
 		<include name="${dir.source}Synologen.ContractSale\Invoicing.Test\Synologen.Invoicing.Test.csproj"/>
-		<include name="${dir.source}Synologen.ContractSale\Test\Synologen Unit Test.csproj"/>
 		<include name="${dir.source}Synologen.LensSubscription\Autogiro.Test\Autogiro.Test.csproj"/>
 		<include name="${dir.source}Synologen.LensSubscription\Autogiro.FileIO.Test\Autogiro.FileIO.Test.csproj"/>
 		<include name="${dir.source}Synologen.LensSubscription\ServiceCoordinator.Test\ServiceCoordinator.Test.csproj"/>

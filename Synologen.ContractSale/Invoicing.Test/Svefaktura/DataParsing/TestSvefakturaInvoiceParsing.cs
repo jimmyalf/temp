@@ -10,10 +10,10 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing{
 	[TestFixture]
 	public class TestInvoiceParsing {
-		private readonly Company emptyCompany = new Company();
+		private readonly Company emptyCompany = new Company{InvoiceFreeTextFormat = ""};
 		private readonly Shop emptyShop = new Shop();
 		private readonly IList<OrderItem> emptyOrderItems = new List<OrderItem>();
-		private readonly Order emptyOrder = new Order{ ContractCompany = new Company(),  SellingShop = new Shop(),  OrderItems = new List<OrderItem>()};
+		private readonly Order emptyOrder = new Order{ ContractCompany = new Company{ InvoiceFreeTextFormat = ""},  SellingShop = new Shop(),  OrderItems = new List<OrderItem>()};
 		private readonly SvefakturaConversionSettings emptySettings = new SvefakturaConversionSettings();
 		private const int SwedenCountryCodeNumber = 187;
 		[TestFixtureSetUp]
@@ -103,7 +103,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing{
 		public void Test_Create_Invoice_Sets_BuyerParty_Address_PostBox() {
 			var customOrder = new Order{
 			                           	SellingShop = emptyShop, OrderItems = emptyOrderItems,
-			                           	ContractCompany = new Company {PostBox = "Box 7774"}
+			                           	ContractCompany = new Company {PostBox = "Box 7774", InvoiceFreeTextFormat = ""}
 			                           };
 			var invoice = General.CreateInvoiceSvefaktura(customOrder, emptySettings);
 			Assert.AreEqual("Box 7774", invoice.BuyerParty.Party.Address.Postbox.Value);
@@ -112,7 +112,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing{
 		public void Test_Create_Invoice_Sets_Buyerparty_Address_Streetname() {
 			var customOrder = new Order {
 			                            	SellingShop = emptyShop, OrderItems = emptyOrderItems,
-			                            	ContractCompany = new Company { StreetName = "Saab Aircraft Leasing" }
+			                            	ContractCompany = new Company { StreetName = "Saab Aircraft Leasing", InvoiceFreeTextFormat = "" }
 			                            };
 			var invoice = General.CreateInvoiceSvefaktura(customOrder, emptySettings);
 			Assert.AreEqual("Saab Aircraft Leasing", invoice.BuyerParty.Party.Address.StreetName.Value);
@@ -121,7 +121,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing{
 		public void Test_Create_Invoice_Sets_BuyerParty_Address_PostalZone() {
 			var customOrder = new Order {
 			                            	SellingShop = emptyShop, OrderItems = emptyOrderItems,
-			                            	ContractCompany = new Company { Zip = "10396" }
+			                            	ContractCompany = new Company { Zip = "10396", InvoiceFreeTextFormat = "" }
 			                            };
 			var invoice = General.CreateInvoiceSvefaktura(customOrder, emptySettings);
 			Assert.AreEqual("10396", invoice.BuyerParty.Party.Address.PostalZone.Value);
@@ -131,7 +131,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing{
 			var customOrder = new Order {
 			                            	SellingShop = emptyShop, 
 			                            	OrderItems = emptyOrderItems,
-			                            	ContractCompany = new Company { City = "Stockholm" }
+			                            	ContractCompany = new Company { City = "Stockholm", InvoiceFreeTextFormat = "" }
 			                            };
 			var invoice = General.CreateInvoiceSvefaktura(customOrder, emptySettings);
 			Assert.AreEqual("Stockholm", invoice.BuyerParty.Party.Address.CityName.Value);

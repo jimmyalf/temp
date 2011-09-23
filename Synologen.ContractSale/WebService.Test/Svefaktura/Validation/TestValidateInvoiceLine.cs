@@ -8,11 +8,14 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 	[TestFixture]
 	public class TestValidateInvoiceLine : AssertionHelper {
 		[Test]
-		public void Test_Complete_InvoiceLine_Validates() {
-			var exchangeRate = new SFTIInvoiceLineType {
+		public void Test_Complete_InvoiceLine_Validates() 
+		{
+			var exchangeRate = new SFTIInvoiceLineType 
+			{
+                InvoicedQuantity = new QuantityType{quantityUnitCode = "styck", Value = 5},
 				ID = new SFTISimpleIdentifierType{Value="Invoice Line ID"},
 				LineExtensionAmount = new ExtensionAmountType{Value=1.23m},
-				Item = new SFTIItemType()
+				Item = new SFTIItemType{Description = new DescriptionType{Value = "Description"}}
 			};
 			var ruleViolations = SvefakturaValidator.ValidateObject(exchangeRate);
 			Expect(ruleViolations.Count(), Is.EqualTo(0), SvefakturaValidator.FormatRuleViolations(ruleViolations));

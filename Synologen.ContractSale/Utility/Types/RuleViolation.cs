@@ -15,5 +15,10 @@ namespace Spinit.Wpc.Synologen.Invoicing.Types{
 			ErrorMessage = String.Concat(propertyName, ": ", validationRule.ErrorMessage);
 			PropertyName = propertyName;
 		}
+
+		public override string ToString()
+		{
+			return ErrorMessage;
+		}
 	}
 }

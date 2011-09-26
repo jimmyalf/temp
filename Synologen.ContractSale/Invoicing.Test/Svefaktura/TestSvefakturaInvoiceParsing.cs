@@ -2,17 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Types;
-using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Test.Factory;
 
-
-namespace Spinit.Wpc.Synologen.Test.Svefaktura 
+namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura 
 {
 	[TestFixture]
 	public class Parse_Validation
@@ -23,7 +22,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura
 		[SetUp]
 		public void Setup()
 		{
-			_order = Factory.Factory.GetOrder();
+			_order = Factory.GetOrder();
 			_settings = new SvefakturaConversionSettings();
 		}
 
@@ -50,11 +49,11 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura
 		[SetUp]
 		public void Setup()
 		{
-			var company = Factory.Factory.GetCompany();
-			var shop = Factory.Factory.GetShop();
-			var orderItems = Factory.Factory.GetOrderItems();
-			_order = Factory.Factory.GetOrder(company, shop, orderItems);
-			_settings = Factory.Factory.GetSettings();
+			var company = Factory.GetCompany();
+			var shop = Factory.GetShop();
+			var orderItems = Factory.GetOrderItems();
+			_order = Factory.GetOrder(company, shop, orderItems);
+			_settings = Factory.GetSettings();
 			_invoice = General.CreateInvoiceSvefaktura(_order,  _settings);
 		}
 
@@ -129,7 +128,7 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura
 	}
 
 	[TestFixture]
-	public class Parse_Invoice_BuyerParty
+	public class Parse_Invoice_Buyer_Party
 	{
 		private Order _order;
 		private SvefakturaConversionSettings _settings;
@@ -137,9 +136,9 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura
 		[SetUp]
 		public void Setup()
 		{
-			var company = Factory.Factory.GetCompany();
-			_order = Factory.Factory.GetOrder(company);
-			_settings = Factory.Factory.GetSettings();
+			var company = Factory.GetCompany();
+			_order = Factory.GetOrder(company);
+			_settings = Factory.GetSettings();
 		}
 
 		[Test]
@@ -211,83 +210,82 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura
 	{
 		private Order _order;
 		private SvefakturaConversionSettings _settings;
-		private SFTIPartyType _sellerParty;
-		private SFTIContactType _accountContact;
+		private Shop _shop;
+		private SFTIInvoiceType _invoice;
 
 		[SetUp]
 		public void Setup()
 		{
-			var company = Factory.Factory.GetCompany();
-			var shop = Factory.Factory.GetShop();
-			_order = Factory.Factory.GetOrder(company, shop);
-			_settings = Factory.Factory.GetSettings();
-			_sellerParty = General.CreateInvoiceSvefaktura(_order, _settings).SellerParty.Party;
-			_accountContact = General.CreateInvoiceSvefaktura(_order, _settings).SellerParty.AccountsContact;
+			var company = Factory.GetCompany();
+			_shop = Factory.GetShop();
+			_order = Factory.GetOrder(company, _shop);
+			_settings = Factory.GetSettings();
+			_invoice = General.CreateInvoiceSvefaktura(_order, _settings);
 		}
 
 		[Test]
 		public void Test_Create_Invoice_Sets_SellerParty_Address()
 		{
-			Assert.AreEqual(_settings.SellingOrganizationStreetName, _sellerParty.Address.StreetName.Value);
-			Assert.AreEqual(_settings.SellingOrganizationPostBox, _sellerParty.Address.Postbox.Value);
-			Assert.AreEqual(_settings.SellingOrganizationPostalCode, _sellerParty.Address.PostalZone.Value);
-			Assert.AreEqual(_settings.SellingOrganizationCity, _sellerParty.Address.CityName.Value);
-			Assert.AreEqual(_settings.SellingOrganizationCountry.IdentificationCode.Value, _sellerParty.Address.Country.IdentificationCode.Value);
+			_invoice.SellerParty.Party.Address.Postbox.Value.ShouldBe(_shop.Address);
+			_invoice.SellerParty.Party.Address.StreetName.Value.ShouldBe(_shop.Address2);
+			_invoice.SellerParty.Party.Address.PostalZone.Value.ShouldBe(_shop.Zip);
+			_invoice.SellerParty.Party.Address.CityName.Value.ShouldBe(_shop.City);
+			_invoice.SellerParty.Party.Address.Country.IdentificationCode.Value.ShouldBe(CountryIdentificationCodeContentType.SE);
+			_invoice.SellerParty.Party.Address.Country.IdentificationCode.name.ShouldBe("Sverige");
 		}
 
 		[Test]
 		public void Test_Create_Invoice_Sets_SellerParty_PartyName() 
 		{
-			Assert.AreEqual(_settings.SellingOrganizationName, _sellerParty.PartyName.First().Value);
+			_invoice.SellerParty.Party.PartyName.First().Value.ShouldBe(_shop.Name);
 		}
 
 		[Test]
 		public void Test_Create_Invoice_Sets_SellerParty_PartyIdentification() 
 		{
-			Assert.AreEqual(_settings.SellingOrganizationNumber, _sellerParty.PartyIdentification.First().ID.Value);
+			 _invoice.SellerParty.Party.PartyIdentification.First().ID.Value.ShouldBe(_shop.OrganizationNumber);
 		}
 
 		[Test]
 		public void Test_Create_Invoice_Sets_SellerParty_Contact() 
 		{
-			var expectedContact = "{ShopName} ({ShopContact})"
-				.ReplaceWith(new { ShopName = _order.SellingShop.Name })
-				.ReplaceWith(new { ShopContact = _order.SellingShop.ContactCombinedName });
-			Assert.AreEqual(expectedContact, _sellerParty.Contact.Name.Value);
-			Assert.AreEqual(_order.SellingShop.Email, _sellerParty.Contact.ElectronicMail.Value);
-			Assert.AreEqual(_order.SellingShop.Fax, _sellerParty.Contact.Telefax.Value);
-			Assert.AreEqual(_order.SellingShop.Phone, _sellerParty.Contact.Telephone.Value);
+			_invoice.SellerParty.Party.Contact.Name.Value.ShouldBe(_order.SellingShop.ContactCombinedName);
+			_invoice.SellerParty.Party.Contact.ElectronicMail.Value.ShouldBe(_shop.Email);
+			_invoice.SellerParty.Party.Contact.Telefax.Value.ShouldBe(_shop.Fax);
+			_invoice.SellerParty.Party.Contact.Telephone.Value.ShouldBe(_shop.Phone);
 		}
 
 		[Test]
 		public void Test_Create_Invoice_Sets_SellerParty_AccountsContact()
 		{
-			Assert.AreEqual(_settings.SellingOrganizationContactEmail, _accountContact.ElectronicMail.Value);
-			Assert.AreEqual(_settings.SellingOrganizationContactName, _accountContact.Name.Value);
-			Assert.AreEqual(_settings.SellingOrganizationFax, _accountContact.Telefax.Value);
-			Assert.AreEqual(_settings.SellingOrganizationTelephone, _accountContact.Telephone.Value);
+			_invoice.SellerParty.AccountsContact.ElectronicMail.Value.ShouldBe(_settings.SellingOrganizationContactEmail);
+			_invoice.SellerParty.AccountsContact.Name.Value.ShouldBe(_settings.SellingOrganizationContactName);
+			_invoice.SellerParty.AccountsContact.Telefax.Value.ShouldBe(_settings.SellingOrganizationFax);
+			_invoice.SellerParty.AccountsContact.Telephone.Value.ShouldBe(_settings.SellingOrganizationTelephone);
 		}
 
 
 		[Test]
 		public void Test_Create_Invoice_Sets_SellerParty_PartyTaxSchemes_VAT() 
 		{
-		    var vatTaxScheme = _sellerParty.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("VAT"));
-			Assert.AreEqual("VAT", vatTaxScheme.TaxScheme.ID.Value);
-		    Assert.AreEqual(_settings.TaxAccountingCode, vatTaxScheme.CompanyID.Value);
+		    var vatTaxScheme = _invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("VAT"));
+			vatTaxScheme.TaxScheme.ID.Value.ShouldBe("VAT");
+		    vatTaxScheme.CompanyID.Value.ShouldBe(_settings.TaxAccountingCode);
 		}
 
 		[Test]
 		public void Test_Create_Invoice_Sets_Settings_PartyTaxSchemes_SWT() 
 		{
-		    var swtTaxScheme = _sellerParty.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("SWT"));
-			Assert.AreEqual("SWT", swtTaxScheme.TaxScheme.ID.Value);
-		    Assert.AreEqual(_settings.SellingOrganizationNumber, swtTaxScheme.CompanyID.Value);
-		    Assert.AreEqual(_settings.ExemptionReason,swtTaxScheme.ExemptionReason.Value);
-		    Assert.AreEqual(_settings.SellingOrganizationPostBox, swtTaxScheme.RegistrationAddress.Postbox.Value);
-		    Assert.AreEqual(_settings.SellingOrganizationCity, swtTaxScheme.RegistrationAddress.CityName.Value);
-		    Assert.AreEqual(_settings.SellingOrganizationPostalCode, swtTaxScheme.RegistrationAddress.PostalZone.Value);
-		    Assert.AreEqual(_settings.SellingOrganizationCountry.IdentificationCode.Value, swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value);
+		    var swtTaxScheme = _invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("SWT"));
+			swtTaxScheme.TaxScheme.ID.Value.ShouldBe("SWT");
+		    swtTaxScheme.CompanyID.Value.ShouldBe(_settings.SellingOrganizationNumber);
+		    swtTaxScheme.ExemptionReason.Value.ShouldBe(_settings.ExemptionReason);
+		    swtTaxScheme.RegistrationAddress.Postbox.Value.ShouldBe(_settings.SellingOrganizationPostBox);
+			swtTaxScheme.RegistrationAddress.StreetName.Value.ShouldBe(_settings.SellingOrganizationStreetName);
+		    swtTaxScheme.RegistrationAddress.CityName.Value.ShouldBe(_settings.SellingOrganizationCity);
+		    swtTaxScheme.RegistrationAddress.PostalZone.Value.ShouldBe(_settings.SellingOrganizationPostalCode);
+		    swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value.ShouldBe(_settings.SellingOrganizationCountry.IdentificationCode.Value);
+			swtTaxScheme.RegistrationName.Value.ShouldBe(_settings.SellingOrganizationName);
 		}
 	}
 
@@ -301,11 +299,11 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura
 		[SetUp]
 		public void Setup()
 		{
-			var company = Factory.Factory.GetCompany();
-			var shop = Factory.Factory.GetShop();
-			_invoiceItems = Factory.Factory.GetOrderItems();
-			_order = Factory.Factory.GetOrder(company, shop, _invoiceItems);
-			_settings = Factory.Factory.GetSettings();
+			var company = Factory.GetCompany();
+			var shop = Factory.GetShop();
+			_invoiceItems = Factory.GetOrderItems();
+			_order = Factory.GetOrder(company, shop, _invoiceItems);
+			_settings = Factory.GetSettings();
 		}
 
 		[Test]
@@ -363,9 +361,9 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura
 		[SetUp]
 		public void Setup()
 		{
-			_company = Factory.Factory.GetCompany();
-			_order = Factory.Factory.GetOrder(_company);
-			_settings = Factory.Factory.GetSettings();
+			_company = Factory.GetCompany();
+			_order = Factory.GetOrder(_company);
+			_settings = Factory.GetSettings();
 			_invoice = General.CreateInvoiceSvefaktura(_order, _settings);
 		}
 
@@ -399,9 +397,9 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura
 		[SetUp]
 		public void Setup()
 		{
-			_company = Factory.Factory.GetCompany();
-			var order = Factory.Factory.GetOrder(_company);
-			_settings = Factory.Factory.GetSettings();
+			_company = Factory.GetCompany();
+			var order = Factory.GetOrder(_company);
+			_settings = Factory.GetSettings();
 			_invoice = General.CreateInvoiceSvefaktura(order, _settings);
 		}
 
@@ -430,11 +428,11 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura
 		[SetUp]
 		public void Setup()
 		{
-			var company = Factory.Factory.GetCompany();
-			var shop = Factory.Factory.GetShop();
-			_invoiceItems = Factory.Factory.GetOrderItems();
-			_order = Factory.Factory.GetOrder(company, shop, _invoiceItems);
-			_settings = Factory.Factory.GetSettings();
+			var company = Factory.GetCompany();
+			var shop = Factory.GetShop();
+			_invoiceItems = Factory.GetOrderItems();
+			_order = Factory.GetOrder(company, shop, _invoiceItems);
+			_settings = Factory.GetSettings();
 			_invoice = General.CreateInvoiceSvefaktura(_order,  _settings);
 		}
 

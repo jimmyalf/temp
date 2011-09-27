@@ -98,14 +98,12 @@
     <Compile Include="Svefaktura\DataParsing\TestSvefakturaCompleteparsing.cs" />
     <Compile Include="Svefaktura\DataParsing\TestSvefakturaFormatting.cs" />
     <Compile Include="Svefaktura\DataParsing\TestSvefakturaInvoiceParsing.cs" />
-    <Compile Include="Svefaktura\TestSvefakturaInvoiceParsing.cs" />
     <Compile Include="Mock\Utility.cs" />
     <Compile Include="Mock\MockAdkHandler.cs" />
     <Compile Include="Mock\MockWebServiceClient.cs" />
     <Compile Include="EDI\TestEDIInvoiceParsing.cs" />
     <Compile Include="Mock\TestMockFlow.cs" />
     <Compile Include="App\AssertionExtensions.cs" />
-    <Compile Include="Svefaktura\TestSvefakturaValidation.cs" />
     <Compile Include="Svefaktura\Validation\TestValidateInvoiceLineAllowanceCharge.cs" />
     <Compile Include="Svefaktura\Validation\TestValidateCustomRules.cs" />
     <Compile Include="Svefaktura\Validation\TestValidateAddressLine.cs" />
@@ -134,7 +132,6 @@
     <Compile Include="Svefaktura\XmlSerialization\TestMockXmlSerialization.cs" />
     <Compile Include="SynologenService.cs" />
     <Compile Include="Visma\TestVisma.cs" />
-    <Compile Include="Svefaktura\TestMockXmlSerialization.cs" />
     <Compile Include="Visma\TestVismaFormatting.cs" />
     <Compile Include="Webservice\TestWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

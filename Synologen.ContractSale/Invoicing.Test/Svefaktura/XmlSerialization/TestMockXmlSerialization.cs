@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Xml.XPath;
 using NUnit.Framework;
+using Shouldly;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.Test.App;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
@@ -15,9 +17,11 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
 
-namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
+namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
+{
 	[TestFixture]
-	public class TestMockXmlSerialization : AssertionHelper {
+	public class TestMockXmlSerialization : AssertionHelper 
+	{
 		private const int SwedenCountryCodeNumber = 187;
 
 		[TestFixtureSetUp]
@@ -25,61 +29,69 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 
 		
 		[Test]
-		public void Test_MockInvoice_Is_Valid() {
+		public void Test_MockInvoice_Is_Valid() 
+		{
 			var invoice = GetMockInvoice();
 			var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
-			Expect(ruleViolations.Count(), Is.EqualTo(0), SvefakturaValidator.FormatRuleViolations(ruleViolations));
+			ruleViolations.AssertIsEmpty();
 		}
 
 		[Test]
-		public void Test_Xml_Ouput_Of_Invoice_Is_Correctly_Parsed() {
-			var invoice = GetMockInvoice();
-			var output = SvefakturaSerializer.Serialize(invoice, Encoding.UTF8, String.Empty, Formatting.None, null);
-			var expectedXml = GetExpectedSingleInvoiceXml();
-			//TODO: Replace with better test (exact xml text expectation makes test brittle)
-			Expect(output, Is.EqualTo(expectedXml));
-		}
-
-		[Test]
-		public void Text_Xml_Output_Of_InvoiceList_Is_Correctly_Parsed(){
+		public void Text_Xml_Output_Of_InvoiceList_Has_Multiple_Invoices()
+		{
 			var invoices = new SFTIInvoiceList{Invoices=new List<SFTIInvoiceType>{GetMockInvoice(),GetMockInvoice()}};
 			var output = SvefakturaSerializer.Serialize(invoices, Encoding.UTF8, String.Empty, Formatting.None, null);
-			var expectedXml = GetExpectedDoubleInvoiceXml();
-			//TODO: Replace with better test (exact xml text expectation makes test brittle)
-			Expect(output, Is.EqualTo(expectedXml));
+			var invoiceNodes = GetMatches(output, "/bai:Invoices/bai:Invoice");
+			invoiceNodes.Count.ShouldBe(2);
 		}
 
 		[Test]
-		public void Test_Xml_Output_Of_Invoice_Has_Correct_Encoding() {
+		public void Test_Xml_Output_Of_Invoice_Has_Correct_Encoding() 
+		{
 			var invoice = GetMockInvoice();
 			var output = SvefakturaSerializer.Serialize(invoice, Encoding.GetEncoding("iso-8859-1"), String.Empty, Formatting.None, null);
 			Expect(Regex.IsMatch(output, "<\\?xml.*encoding=\"iso-8859-1\".*\\?>"), Is.True);
 		}
 		[Test]
-		public void Test_Xml_Output_Of_InvoiceList_Has_Correct_Encoding() {
+		public void Test_Xml_Output_Of_InvoiceList_Has_Correct_Encoding() 
+		{
 			var invoices = new SFTIInvoiceList{Invoices=new List<SFTIInvoiceType>{GetMockInvoice(),GetMockInvoice()}};
 			var output = SvefakturaSerializer.Serialize(invoices, Encoding.GetEncoding("iso-8859-1"), String.Empty, Formatting.None, null);
 			Expect(Regex.IsMatch(output, "<\\?xml.*encoding=\"iso-8859-1\".*\\?>"), Is.True);
 		}
 		[Test]
-		public void Test_Xml_Output_Of_Invoice_Contains_PostOfficeHeader() {
+		public void Test_Xml_Output_Of_Invoice_Contains_PostOfficeHeader() 
+		{
 			const string postOfficeheader = "<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>";
 			var invoice = GetMockInvoice();
 			var output = SvefakturaSerializer.Serialize(invoice, Encoding.UTF8, String.Empty, Formatting.None, postOfficeheader);
 			Expect(output.Contains(postOfficeheader));
 		}
 		[Test]
-		public void Test_Xml_Output_Of_InvoiceList_Contains_PostOfficeHeader() {
+		public void Test_Xml_Output_Of_InvoiceList_Contains_PostOfficeHeader() 
+		{
 			const string postOfficeheader = "<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>";
 			var invoices = new SFTIInvoiceList{Invoices=new List<SFTIInvoiceType>{GetMockInvoice(),GetMockInvoice()}};
 			var output = SvefakturaSerializer.Serialize(invoices, Encoding.UTF8, String.Empty, Formatting.None, postOfficeheader);
 			Expect(output.Contains(postOfficeheader));
 		}
 
-		[Test, Explicit]
-		public void ReadXmlFileToGetValidationTextString() {
-			TextReader textReader = new StreamReader(@"C:\Documents and Settings\cberg\Skrivbord\fsv_test_svefaktura.xml");
-			textReader.Close();
+
+		private static XPathNodeIterator GetMatches(string xmlData, string path)
+		{
+			var doc = new XmlDocument();
+			doc.LoadXml(xmlData);
+			var navigator = doc.CreateNavigator();
+			var manager = new XmlNamespaceManager(navigator.NameTable);
+			manager.AddNamespace("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
+			manager.AddNamespace("cur", "urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0");
+			manager.AddNamespace("ccts", "urn:oasis:names:tc:ubl:CoreComponentParameters:1:0");
+			manager.AddNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+			manager.AddNamespace("udt", "urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0");
+			manager.AddNamespace("sdt", "urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0");
+			manager.AddNamespace("cac", "urn:sfti:CommonAggregateComponents:1:0");
+			manager.AddNamespace("bai","urn:sfti:documents:BasicInvoice:1:0");
+			return navigator.Select(path, manager);
 		}
 
 		#region Get Mock Data
@@ -98,7 +110,14 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization{
 				ContactLastName = "Bertil",
 				Phone = "0811122233",
 				Fax = "089876543",
-				Email = "sales@modernaprodukter.se"
+				Email = "sales@modernaprodukter.se",
+                OrganizationNumber = "555555-5555",
+                Address = "Box 123",
+				Address2 = "Storgatan 12",
+                Zip = "123 45",
+                City = "Storstad",
+                Name = "Synbutiken AB",         
+
 			};
 		}
 		public Company GetMockCompany() {

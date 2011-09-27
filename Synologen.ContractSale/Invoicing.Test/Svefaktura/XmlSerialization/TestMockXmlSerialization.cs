@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -40,7 +40,8 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 		public void Text_Xml_Output_Of_InvoiceList_Has_Multiple_Invoices()
 		{
 			var invoices = new SFTIInvoiceList{Invoices=new List<SFTIInvoiceType>{GetMockInvoice(),GetMockInvoice()}};
-			var output = SvefakturaSerializer.Serialize(invoices, Encoding.UTF8, String.Empty, Formatting.None, null);
+			var output = SvefakturaSerializer.Serialize(invoices, Encoding.UTF8, "\r\n", Formatting.Indented, null);
+			Debug.WriteLine(output);
 			var invoiceNodes = GetMatches(output, "/bai:Invoices/bai:Invoice");
 			invoiceNodes.Count.ShouldBe(2);
 		}
@@ -151,26 +152,26 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 				InvoiceIssueDate = new DateTime(2003, 09, 11),
 				InvoiceTypeCode = "380",
 				InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
-				SellingOrganizationName = "Moderna Produkter AB",
-				SellingOrganizationStreetName = "Storgatan 5",
-				SellingOrganizationCity = "Hägersten",
-				SellingOrganizationPostalCode = "12652",
+				SellingOrganizationName = "Synhälsan Svenska AB",
+				SellingOrganizationStreetName = "Strandbergsgatan 61",
+				SellingOrganizationCity = "Stockholm",
+				SellingOrganizationPostalCode = "11251",
 				ExemptionReason = "F-skattebevis finns",
-				SellingOrganizationNumber = "5565624223",
-				TaxAccountingCode = "SE556562422301",
+				SellingOrganizationNumber = "5562626100",
+				TaxAccountingCode = "SE556262610001",
 				SellingOrganizationCountry = new SFTICountryType{ IdentificationCode = new CountryIdentificationCodeType{ Value = CountryIdentificationCodeContentType.SE, name="Sverige" } },
-				SellingOrganizationContactName = "A Person, Fakturaavd",
-				BankGiro = "9551548524585",
+				SellingOrganizationContactName = "Violetta Nordlöf",
+				BankGiro = "56936677",
 				BankgiroBankIdentificationCode = "SKIASESS",
 				InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagars netto",
-				InvoiceExpieryPenaltySurchargePercent = 23,
+				InvoiceExpieryPenaltySurchargePercent = 12.5m,
 				VATAmount = 0.25m,
-				Postgiro = "123456789",
-				PostgiroBankIdentificationCode = "PGSISESS",
+				//Postgiro = "123456789",
+				//PostgiroBankIdentificationCode = "PGSISESS",
 				SellingOrganizationContactEmail = "info@synologen.se",
-				SellingOrganizationFax = "0123-456789",
-				SellingOrganizationPostBox = "Box 789",
-				SellingOrganizationTelephone = "0123-567890"
+				SellingOrganizationFax = "08-4407359",
+				//SellingOrganizationPostBox = "Box 789",
+				SellingOrganizationTelephone = "08-55536253"
 			};
 		}
 		public Order GetMockOrder() {

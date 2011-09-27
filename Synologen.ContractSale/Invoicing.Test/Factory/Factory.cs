@@ -166,14 +166,18 @@ namespace Spinit.Wpc.Synologen.Test.Factory
 		{
 			return new Shop 
 			{
+				Name = "Storstad Optik AB", 
+				OrganizationNumber = "55123456",
+				Number = "1234",
+                Address = "C/O Bolag 123",
+                Address2 = "Storgatan 12",
+				Zip = "43632",
 				City = "Storstad",
-                Name = "Storstad Optik AB",                
 				ContactFirstName = "Herr",
 				ContactLastName = "Försäljare",
 				Phone = "040123456",
 				Fax = "040234567", 
 				Email = "info@synbutiken.se",
-                Number = "1234",                
 			};
 		}
 

@@ -87,10 +87,16 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing
 
 		[Test]
 		public void Test_OrganizationNumber_Formatting_Seller(){
-			var customSettings = new SvefakturaConversionSettings { TaxAccountingCode="ABC", SellingOrganizationNumber = "SE 555-654.123 - 645"};
+			var customSettings = new SvefakturaConversionSettings
+			{
+				TaxAccountingCode="ABC", 
+				SellingOrganizationNumber = "SE 555-654.123 - 645"
+			};
+			emptyOrder.SellingShop = new Shop {OrganizationNumber = "SE 555-654.123 - 987"};
+
 			var invoice = Convert.ToSvefakturaInvoice(customSettings, emptyOrder);
 			Expect(invoice.SellerParty.Party.PartyTaxScheme[1].CompanyID.Value, Is.EqualTo("SE555654123645"));
-			Expect(invoice.SellerParty.Party.PartyIdentification[0].ID.Value, Is.EqualTo("SE555654123645"));
+			Expect(invoice.SellerParty.Party.PartyIdentification[0].ID.Value, Is.EqualTo("SE555654123987"));
 		}
 		[Test]
 		public void Test_OrganizationNumber_Formatting_Buyer(){

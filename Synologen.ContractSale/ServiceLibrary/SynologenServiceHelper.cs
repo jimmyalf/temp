@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -18,6 +19,7 @@ using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
 
 namespace Spinit.Wpc.Synologen.ServiceLibrary{
@@ -171,7 +173,8 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 			};
 		}
 
-		private static SvefakturaConversionSettings GetSvefakturaSettings() {
+		private static SvefakturaConversionSettings GetSvefakturaSettings()
+		{
 			return new SvefakturaConversionSettings
 			{
 				InvoiceIssueDate = DateTime.Now,
@@ -185,17 +188,28 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 				InvoiceExpieryPenaltySurchargePercent = ConfigurationSettings.WebService.InvoiceExpieryPenaltySurchargePercent,
 				InvoicePaymentTermsTextFormat = ConfigurationSettings.WebService.InvoicePaymentTermsTextFormat,
 				InvoiceTypeCode = ConfigurationSettings.WebService.SvefakturaInvoiceTypeCode,
-				SellingOrganizationCity = ConfigurationSettings.WebService.SellingOrganizationCity,
-				SellingOrganizationContactEmail = ConfigurationSettings.WebService.SellingOrganizationContactEmail,
-				SellingOrganizationContactName = ConfigurationSettings.WebService.SellingOrganizationContactName,
-				SellingOrganizationCountry = GetSellingOrganizationCountry(),
-				SellingOrganizationFax = ConfigurationSettings.WebService.SellingOrganizationFax,
+				Adress = new SFTIAddressType
+				{
+                    CityName = new CityNameType{ Value = ConfigurationSettings.WebService.SellingOrganizationCity},
+                    Country = GetSellingOrganizationCountry(),
+                    PostalZone = new ZoneType{Value = ConfigurationSettings.WebService.SellingOrganizationPostalCode},
+					Postbox = ConfigurationSettings.WebService.SellingOrganizationPostBox.TryGetValue<PostboxType>((postbox, value) => postbox.Value = value),
+                    StreetName = new StreetNameType{ Value = ConfigurationSettings.WebService.SellingOrganizationStreetName}
+				},
+				RegistrationAdress = new SFTIAddressType
+				{
+					CityName = ConfigurationSettings.WebService.SellingOrganizationRegistrationCity.TryGetValue<CityNameType>((city,value) => city.Value = value),
+					Country = GetSellingOrganizationCountry(),
+				},
+				Contact = new SFTIContactType
+				{
+					ElectronicMail = new MailType{Value = ConfigurationSettings.WebService.SellingOrganizationContactEmail},
+                    Name = new NameType{Value = ConfigurationSettings.WebService.SellingOrganizationContactName},
+                    Telefax = new TelefaxType{Value = ConfigurationSettings.WebService.SellingOrganizationFax},
+                    Telephone = new TelephoneType{Value = ConfigurationSettings.WebService.SellingOrganizationTelephone}
+				},
 				SellingOrganizationName = ConfigurationSettings.WebService.SellingOrganizationName,
 				SellingOrganizationNumber = ConfigurationSettings.WebService.SellingOrganizationNumber,
-				SellingOrganizationPostalCode = ConfigurationSettings.WebService.SellingOrganizationPostalCode,
-				SellingOrganizationPostBox = ConfigurationSettings.WebService.SellingOrganizationPostBox,
-				SellingOrganizationStreetName = ConfigurationSettings.WebService.SellingOrganizationStreetName,
-				SellingOrganizationTelephone = ConfigurationSettings.WebService.SellingOrganizationTelephone,
 				TaxAccountingCode = ConfigurationSettings.WebService.TaxAccountingCode,
 				VATFreeReasonMessage = ConfigurationSettings.WebService.VATFreeReasonMessage,
 			};
@@ -325,5 +339,17 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 			catch { return; }
 		}
 		#endregion
+	}
+
+	public static class HelperExtensions
+	{
+		public static TType TryGetValue<TType>(this string value, Action<TType,string> actionIfValueIsNotNull)
+			where TType : class, new()
+		{
+			if(value == null) return null;
+			var returnValue = new TType();
+			actionIfValueIsNotNull(returnValue, value);
+			return returnValue;
+		}
 	}
 }

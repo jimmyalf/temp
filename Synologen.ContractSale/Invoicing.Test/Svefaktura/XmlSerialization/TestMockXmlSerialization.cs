@@ -15,6 +15,7 @@ using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
 
 namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
@@ -153,14 +154,28 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 				InvoiceTypeCode = "380",
 				InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
 				SellingOrganizationName = "Synhälsan Svenska AB",
-				SellingOrganizationStreetName = "Strandbergsgatan 61",
-				SellingOrganizationCity = "Stockholm",
-				SellingOrganizationPostalCode = "11251",
+				Adress = new SFTIAddressType
+				{
+					StreetName = new StreetNameType{ Value = "Strandbergsgatan 61"},
+					CityName = new CityNameType{ Value = "Stockholm" },
+                    Country  = new SFTICountryType{ IdentificationCode = new CountryIdentificationCodeType{ Value = CountryIdentificationCodeContentType.SE, name="Sverige" } },
+					PostalZone = new ZoneType{ Value = "11251"}
+				},
+				RegistrationAdress = new SFTIAddressType
+				{
+					CityName = new CityNameType{ Value = "Klippan" },
+                    Country  = new SFTICountryType{ IdentificationCode = new CountryIdentificationCodeType{ Value = CountryIdentificationCodeContentType.SE, name="Sverige" } },
+				},
 				ExemptionReason = "F-skattebevis finns",
 				SellingOrganizationNumber = "5562626100",
 				TaxAccountingCode = "SE556262610001",
-				SellingOrganizationCountry = new SFTICountryType{ IdentificationCode = new CountryIdentificationCodeType{ Value = CountryIdentificationCodeContentType.SE, name="Sverige" } },
-				SellingOrganizationContactName = "Violetta Nordlöf",
+				Contact = new SFTIContactType
+				{
+					ElectronicMail = new MailType{Value = "info@synologen.se"},
+					Name = new NameType{Value = "Violetta Nordlöf"},
+					Telefax = new TelefaxType{Value = "08-4407359"},
+					Telephone = new TelephoneType{Value = "08-55536253"}
+				},
 				BankGiro = "56936677",
 				BankgiroBankIdentificationCode = "SKIASESS",
 				InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagars netto",
@@ -168,10 +183,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 				VATAmount = 0.25m,
 				//Postgiro = "123456789",
 				//PostgiroBankIdentificationCode = "PGSISESS",
-				SellingOrganizationContactEmail = "info@synologen.se",
-				SellingOrganizationFax = "08-4407359",
 				//SellingOrganizationPostBox = "Box 789",
-				SellingOrganizationTelephone = "08-55536253"
 			};
 		}
 		public Order GetMockOrder() {

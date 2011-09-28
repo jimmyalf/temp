@@ -214,6 +214,12 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings
 		public static string VATFreeReasonMessage{
 			get { return GetSafeValue("VATFreeReasonMessage", String.Empty); }
 		}
+
+		public static string SellingOrganizationRegistrationCity
+		{
+			get { return GetSafeValue("SellingOrganizationRegistrationCity", String.Empty); }
+		}
+
 		#endregion
 	}
 }

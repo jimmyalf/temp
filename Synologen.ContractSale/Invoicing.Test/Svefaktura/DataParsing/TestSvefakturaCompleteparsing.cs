@@ -8,6 +8,7 @@ using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Test.Factory;
 using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
 
 namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing
@@ -99,31 +100,33 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing
 					}
 				},
 			};
-			settings = new SvefakturaConversionSettings {
-				BankGiro = "123456789",
-				BankgiroBankIdentificationCode = "BGABSESS",
-				Postgiro = "987654321",
-				PostgiroBankIdentificationCode = "PGSISESS",
-				ExemptionReason = "Innehar f-skattebevis",
-				InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
-				InvoiceExpieryPenaltySurchargePercent = 12.50m,
-				InvoiceIssueDate = new DateTime(2009, 10, 28),
-				InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto",
-				InvoiceTypeCode = "380",
-				SellingOrganizationCity = "Klippan",
-				SellingOrganizationContactEmail = "info@synologen.se",
-				SellingOrganizationContactName = "Lotta Wieslander",
-				SellingOrganizationCountry = new SFTICountryType{ IdentificationCode = new CountryIdentificationCodeType{ Value = CountryIdentificationCodeContentType.SE, name="Sverige" } },
-				SellingOrganizationFax = "0435-134 33",
-				SellingOrganizationName = "Synologen AB",
-				SellingOrganizationNumber = "556401-1962",
-				SellingOrganizationPostalCode = "264 22",
-				SellingOrganizationPostBox = "Box 111",
-				SellingOrganizationStreetName = "Köpmansgården",
-				SellingOrganizationTelephone = "0435-134 33",
-				TaxAccountingCode = "SE556401196201",
-				VATAmount = 0.25m,
-			};
+			settings = Factory.GetSettings();
+			//settings = new SvefakturaConversionSettings {
+			//    BankGiro = "123456789",
+			//    BankgiroBankIdentificationCode = "BGABSESS",
+			//    Postgiro = "987654321",
+			//    PostgiroBankIdentificationCode = "PGSISESS",
+			//    ExemptionReason = "Innehar f-skattebevis",
+			//    InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
+			//    InvoiceExpieryPenaltySurchargePercent = 12.50m,
+			//    InvoiceIssueDate = new DateTime(2009, 10, 28),
+			//    InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto",
+			//    InvoiceTypeCode = "380",
+			//    SellingOrganizationCity = "Klippan",
+			//    SellingOrganizationContactEmail = "info@synologen.se",
+			//    SellingOrganizationContactName = "Lotta Wieslander",
+			//    SellingOrganizationCountry = new SFTICountryType{ IdentificationCode = new CountryIdentificationCodeType{ Value = CountryIdentificationCodeContentType.SE, name="Sverige" } },
+			//    SellingOrganizationFax = "0435-134 33",
+			//    SellingOrganizationName = "Synhälsan Svenska AB",
+			//    SellingOrganizationNumber = "556401-1962",
+			//    SellingOrganizationPostalCode = "264 22",
+			//    SellingOrganizationPostBox = "Box 111",
+			//    SellingOrganizationStreetName = "Köpmansgården",
+			//    SellingOrganizationTelephone = "0435-134 33",
+			//    TaxAccountingCode = "SE556401196201",
+			//    VATAmount = 0.25m,
+			//    SellingOrganizationRegistrationCity = "Klippan"
+			//};
 
 			invoice = Convert.ToSvefakturaInvoice(settings, order);
 		}
@@ -259,24 +262,27 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing
 
 		#region Settings
 		[Test]
-		public void Test_Sets_Settings_BankGiro(){
-			Expect(invoice.PaymentMeans[0].PayeeFinancialAccount.ID.Value, Is.EqualTo("123456789"));
+		public void Test_Sets_Settings_BankGiro()
+		{
+			var bankGiro = invoice.PaymentMeans.Find(x => x.PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value == "BGABSESS");
+			Expect(bankGiro.PayeeFinancialAccount.ID.Value, Is.EqualTo(settings.BankGiro));
 		}
-		[Test]
-		public void Test_Sets_Settings_BankgiroBankIdentificationCode(){
-			Expect(invoice.PaymentMeans[0].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value, Is.EqualTo("BGABSESS"));
-		}
+		//[Test]
+		//public void Test_Sets_Settings_BankgiroBankIdentificationCode(){
+		//    Expect(invoice.PaymentMeans[0].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value, Is.EqualTo("BGABSESS"));
+		//}
 		[Test]
 		public void Test_Sets_Settings_Postgiro(){
-			Expect(invoice.PaymentMeans[1].PayeeFinancialAccount.ID.Value, Is.EqualTo("987654321"));
+			var postGiro = invoice.PaymentMeans.Find(x => x.PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value == "PGSISESS");
+			Expect(postGiro.PayeeFinancialAccount.ID.Value, Is.EqualTo(settings.Postgiro));
 		}
-		[Test]
-		public void Test_Sets_Settings_PostgiroBankIdentificationCode(){
-			Expect(invoice.PaymentMeans[1].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value, Is.EqualTo("PGSISESS"));
-		}
+		//[Test]
+		//public void Test_Sets_Settings_PostgiroBankIdentificationCode(){
+		//    Expect(invoice.PaymentMeans[1].PayeeFinancialAccount.FinancialInstitutionBranch.FinancialInstitution.ID.Value, Is.EqualTo("PGSISESS"));
+		//}
 		[Test]
 		public void Test_Sets_Settings_ExemptionReason(){
-			Expect(invoice.SellerParty.Party.PartyTaxScheme[1].ExemptionReason.Value, Is.EqualTo("Innehar f-skattebevis"));
+			Expect(invoice.SellerParty.Party.PartyTaxScheme[1].ExemptionReason.Value, Is.EqualTo("Innehar F-skattebevis"));
 		}
 		[Test]
 		public void Test_Sets_Settings_InvoiceCurrencyCode(){
@@ -288,7 +294,7 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing
 		}
 		[Test]
 		public void Test_Sets_Settings_InvoiceIssueDate(){
-			Expect(invoice.IssueDate.Value, Is.EqualTo(new DateTime(2009, 10, 28)));
+			Expect(invoice.IssueDate.Value, Is.EqualTo(settings.InvoiceIssueDate));
 		}
 		[Test]
 		public void Test_Sets_Settings_InvoicePaymentTermsTextFormat_Parsed(){
@@ -313,10 +319,10 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing
 		[Test]
 		public void Test_Sets_Settings_SellingOrganization_AccountsContact()
 		{
-			Expect(invoice.SellerParty.AccountsContact.Name.Value, Is.EqualTo("Lotta Wieslander"));
-			Expect(invoice.SellerParty.AccountsContact.ElectronicMail.Value, Is.EqualTo("info@synologen.se"));
-			Expect(invoice.SellerParty.AccountsContact.Telephone.Value, Is.EqualTo("043513433"));
-			Expect(invoice.SellerParty.AccountsContact.Telefax.Value, Is.EqualTo("043513433"));
+			Expect(invoice.SellerParty.AccountsContact.Name.Value, Is.EqualTo(settings.Contact.Name.Value));
+			Expect(invoice.SellerParty.AccountsContact.ElectronicMail.Value, Is.EqualTo(settings.Contact.ElectronicMail.Value));
+			Expect(invoice.SellerParty.AccountsContact.Telephone.Value, Is.EqualTo(settings.Contact.Telephone.Value));
+			Expect(invoice.SellerParty.AccountsContact.Telefax.Value, Is.EqualTo(settings.Contact.Telefax.Value));
 		}
 
 		[Test]
@@ -346,12 +352,21 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing
 		[Test]
 		public void Test_Sets_Settings_SellingOrganization_Address()
 		{
-			var address = invoice.SellerParty.Party.PartyTaxScheme[1].RegistrationAddress;
-			address.CityName.Value.ShouldBe(settings.SellingOrganizationCity);
-			address.Postbox.Value.ShouldBe(settings.SellingOrganizationPostBox);
-			address.PostalZone.Value.ShouldBe(settings.SellingOrganizationPostalCode);
-			address.Country.IdentificationCode.Value.ShouldBe(settings.SellingOrganizationCountry.IdentificationCode.Value);
-			address.Country.IdentificationCode.name.ShouldBe(settings.SellingOrganizationCountry.IdentificationCode.name);
+			var address = invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value =="VAT").RegistrationAddress;
+			address.CityName.Value.ShouldBe(settings.Adress.CityName.Value);
+			address.Postbox.Value.ShouldBe(settings.Adress.Postbox.Value);
+			address.PostalZone.Value.ShouldBe(settings.Adress.PostalZone.Value);
+			address.Country.IdentificationCode.Value.ShouldBe(settings.Adress.Country.IdentificationCode.Value);
+			address.Country.IdentificationCode.name.ShouldBe(settings.Adress.Country.IdentificationCode.name);
+		}
+
+		[Test]
+		public void Test_Sets_Settings_SellingOrganization_Registration_Address()
+		{
+			var address = invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value =="SWT").RegistrationAddress;
+			address.CityName.Value.ShouldBe(settings.RegistrationAdress.CityName.Value);
+			address.Country.IdentificationCode.Value.ShouldBe(settings.RegistrationAdress.Country.IdentificationCode.Value);
+			address.Country.IdentificationCode.name.ShouldBe(settings.RegistrationAdress.Country.IdentificationCode.name);
 		}
 
 		[Test]
@@ -422,8 +437,8 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing
 		}
 		[Test]
 		public void Test_Sets_CompanyRow_PaymentDuePeriod(){
-			Expect(invoice.PaymentMeans[0].DuePaymentDate.Value, Is.EqualTo(new DateTime(2009, 11, 27)));
-			Expect(invoice.PaymentTerms.Note.Value.StartsWith("30"));
+			Expect(invoice.PaymentMeans[0].DuePaymentDate.Value, Is.EqualTo(settings.InvoiceIssueDate.AddDays(order.ContractCompany.PaymentDuePeriod)));
+			Expect(invoice.PaymentTerms.Note.Value.StartsWith(order.ContractCompany.PaymentDuePeriod.ToString()));
 		}
 		#endregion
 

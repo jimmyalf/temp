@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories
 				CustomerFirstName = "Adam",
 				CustomerLastName = "Bertil",
 				PersonalIdNumber = "197010245111",
-                CustomerOrderNumber = "987654",
+                CustomerOrderNumber = "987654",                
 			};	
 		}
 		public static Order Get(int companyId, int settlementableOrderStatus, int shopId, int memberId, int articleId) 

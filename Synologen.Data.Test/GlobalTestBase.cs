@@ -87,11 +87,13 @@ namespace Spinit.Wpc.Synologen.Data.Test
 			{
 				provider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref order);
 				provider.AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
+				provider.SetOrderInvoiceDate(order.Id, new DateTime(2011,09,28));
 				order.OrderItems.Each(orderItem =>
 				{
 					IOrderItem tempOrder = orderItem;
 					tempOrder.OrderId = order.Id;
 					provider.AddUpdateDeleteOrderItem(Enumerations.Action.Create, ref tempOrder);
+					
 				});
 			});				
 		}

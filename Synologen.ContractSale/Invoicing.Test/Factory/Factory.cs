@@ -5,6 +5,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
 namespace Spinit.Wpc.Synologen.Test.Factory
 {
@@ -185,19 +186,31 @@ namespace Spinit.Wpc.Synologen.Test.Factory
 		{
 			return new SvefakturaConversionSettings
 			{
-				SellingOrganizationName = "Synhälsan Svenska Aktiebolag",
-				SellingOrganizationStreetName = "Gatan 123",
-				SellingOrganizationPostBox = "Box 111",
-				SellingOrganizationPostalCode = "26422",
-				SellingOrganizationCity = "Klippan",
-				SellingOrganizationContactEmail = "info@synologen.se",
-				SellingOrganizationContactName = "Lotta W",
-				SellingOrganizationTelephone = "043513433",
-				SellingOrganizationFax = "043513133",
+				SellingOrganizationName = "Synhälsan Svenska AB",
+				Adress = new SFTIAddressType
+				{
+					StreetName = new StreetNameType{ Value = "Strandbergsgatan 61" },
+                    CityName = new CityNameType{ Value = "Stockholm" },
+					Country = GetSwedishSFTICountryType(),
+                    Postbox = new PostboxType{ Value = "Box 123" },
+					PostalZone = new ZoneType{ Value = "112 51"}
+
+				},
+				RegistrationAdress = new SFTIAddressType
+				{
+                    CityName = new CityNameType{ Value = "Klippan" },
+					Country = GetSwedishSFTICountryType(),
+				},
+				Contact = new SFTIContactType
+				{
+					ElectronicMail = new MailType{Value = "info@synologen.se"},
+                    Name = new NameType{ Value = "Violetta Nordlöf"},
+                    Telefax = new TelefaxType{Value = "084407359"},
+					Telephone = new TelephoneType{ Value = "084407350" }
+				},
 				SellingOrganizationNumber = "5562626100",
 				ExemptionReason = "Innehar F-skattebevis",
-				TaxAccountingCode = "SE556401196201",
-				SellingOrganizationCountry = GetSwedishSFTICountryType(),
+				TaxAccountingCode = "SE556262610001",
 				InvoiceIssueDate = new DateTime(2009, 10, 30),
 				InvoiceTypeCode = "380",
 				InvoiceCurrencyCode = CurrencyCodeContentType.SEK,
@@ -207,7 +220,8 @@ namespace Spinit.Wpc.Synologen.Test.Factory
 				Postgiro = "123456",
 				PostgiroBankIdentificationCode = "PGSISESS",
 				InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto",
-				InvoiceExpieryPenaltySurchargePercent = 12.5m
+				InvoiceExpieryPenaltySurchargePercent = 12.5m,
+                VATFreeReasonMessage = "Momsfri"
 			};
 		}
 

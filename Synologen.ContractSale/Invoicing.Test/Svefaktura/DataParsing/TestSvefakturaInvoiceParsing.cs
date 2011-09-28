@@ -258,10 +258,10 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura
 		[Test]
 		public void Test_Create_Invoice_Sets_SellerParty_AccountsContact()
 		{
-			_invoice.SellerParty.AccountsContact.ElectronicMail.Value.ShouldBe(_settings.SellingOrganizationContactEmail);
-			_invoice.SellerParty.AccountsContact.Name.Value.ShouldBe(_settings.SellingOrganizationContactName);
-			_invoice.SellerParty.AccountsContact.Telefax.Value.ShouldBe(_settings.SellingOrganizationFax);
-			_invoice.SellerParty.AccountsContact.Telephone.Value.ShouldBe(_settings.SellingOrganizationTelephone);
+			_invoice.SellerParty.AccountsContact.ElectronicMail.Value.ShouldBe(_settings.Contact.ElectronicMail.Value);
+			_invoice.SellerParty.AccountsContact.Name.Value.ShouldBe(_settings.Contact.Name.Value);
+			_invoice.SellerParty.AccountsContact.Telefax.Value.ShouldBe(_settings.Contact.Telefax.Value);
+			_invoice.SellerParty.AccountsContact.Telephone.Value.ShouldBe(_settings.Contact.Telephone.Value);
 		}
 
 
@@ -271,6 +271,13 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura
 		    var vatTaxScheme = _invoice.SellerParty.Party.PartyTaxScheme.Find(x => x.TaxScheme.ID.Value.Equals("VAT"));
 			vatTaxScheme.TaxScheme.ID.Value.ShouldBe("VAT");
 		    vatTaxScheme.CompanyID.Value.ShouldBe(_settings.TaxAccountingCode);
+		    vatTaxScheme.RegistrationAddress.Postbox.Value.ShouldBe(_settings.Adress.Postbox.Value);
+			vatTaxScheme.RegistrationAddress.StreetName.Value.ShouldBe(_settings.Adress.StreetName.Value);
+		    vatTaxScheme.RegistrationAddress.CityName.Value.ShouldBe(_settings.Adress.CityName.Value);
+		    vatTaxScheme.RegistrationAddress.PostalZone.Value.ShouldBe(_settings.Adress.PostalZone.Value);
+		    vatTaxScheme.RegistrationAddress.Country.IdentificationCode.name.ShouldBe(_settings.Adress.Country.IdentificationCode.name);
+			vatTaxScheme.RegistrationAddress.Country.IdentificationCode.Value.ShouldBe(_settings.Adress.Country.IdentificationCode.Value);
+			vatTaxScheme.RegistrationName.Value.ShouldBe(_settings.SellingOrganizationName);
 		}
 
 		[Test]
@@ -280,12 +287,10 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura
 			swtTaxScheme.TaxScheme.ID.Value.ShouldBe("SWT");
 		    swtTaxScheme.CompanyID.Value.ShouldBe(_settings.SellingOrganizationNumber);
 		    swtTaxScheme.ExemptionReason.Value.ShouldBe(_settings.ExemptionReason);
-		    swtTaxScheme.RegistrationAddress.Postbox.Value.ShouldBe(_settings.SellingOrganizationPostBox);
-			swtTaxScheme.RegistrationAddress.StreetName.Value.ShouldBe(_settings.SellingOrganizationStreetName);
-		    swtTaxScheme.RegistrationAddress.CityName.Value.ShouldBe(_settings.SellingOrganizationCity);
-		    swtTaxScheme.RegistrationAddress.PostalZone.Value.ShouldBe(_settings.SellingOrganizationPostalCode);
-		    swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value.ShouldBe(_settings.SellingOrganizationCountry.IdentificationCode.Value);
-			swtTaxScheme.RegistrationName.Value.ShouldBe(_settings.SellingOrganizationName);
+			swtTaxScheme.RegistrationAddress.CityName.Value.ShouldBe(_settings.RegistrationAdress.CityName.Value);
+			swtTaxScheme.RegistrationAddress.Country.IdentificationCode.name.ShouldBe(_settings.RegistrationAdress.Country.IdentificationCode.name);
+			swtTaxScheme.RegistrationAddress.Country.IdentificationCode.Value.ShouldBe(_settings.RegistrationAdress.Country.IdentificationCode.Value);
+
 		}
 	}
 

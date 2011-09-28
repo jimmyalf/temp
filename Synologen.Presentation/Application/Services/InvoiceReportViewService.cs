@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Microsoft.Reporting.WebForms;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
@@ -30,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			return new InvoiceReport 
 			{
 				Id = order.Id, 
-				InvoiceFreeText = GetInvoiceFreeText(order), 
+				InvoiceFreeText = order.ParseFreeText(), 
 				LineExtensionsTotalAmount = order.InvoiceSumExcludingVAT.ToString("N2"), 
 				TotalTaxAmount = (order.InvoiceSumIncludingVAT - order.InvoiceSumExcludingVAT).ToString("N2"), 
 				TaxInclusinveTotalAmount = order.InvoiceSumIncludingVAT.ToString("N2"), 
@@ -40,16 +41,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				InvoiceRecipientOrderNumber = order.CustomerOrderNumber ?? string.Empty,
 				InvoiceNumber = order.InvoiceNumber.ToString("N0"),
 				OrderCreatedDate = order.CreatedDate.ToString("yyyy-MM-dd"),
-				InvoiceDate = "N/A",
-                InvoiceDueDate = "N/A"
+				InvoiceDate = GetInvoiceDate(order),
+                InvoiceDueDate = GetInvoiceDueDate(order),
 			}.SetInvoiceRecipient(order.ContractCompany, order);
 		}
 
-		private static string GetInvoiceFreeText(IOrder order)
+		private static string GetInvoiceDueDate(IOrder order)
 		{
-			const string invoiceFreeText = "Beställare: {CustomerName}{NewLine}Beställarens födelsedagsdatum: {BirthdayDate}";
-			return invoiceFreeText.ReplaceWith(new {CustomerName = order.ParseName(x => x.CustomerFirstName, x => x.CustomerLastName), BirthdayDate = order.PersonalBirthDateString ?? string.Empty, NewLine});
+			return order.InvoiceDate.HasValue && order.ContractCompany != null
+				? order.InvoiceDate.Value.AddDays(order.ContractCompany.PaymentDuePeriod).ToString("yyyy-MM-dd") 
+				: "N/A";
 		}
+
+		private static string GetInvoiceDate(IOrder order)
+		{
+			return order.InvoiceDate.HasValue 
+				? order.InvoiceDate.Value.ToString("yyyy-MM-dd") 
+				: "N/A";
+		}
+
 
 		private static string GetShopContaxtText(IShop shop)
 		{
@@ -58,7 +68,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			{
 				NewLine, 
 				ShopName = shop.Name, 
-				OrganizationNumber = "N/A", 
+				shop.OrganizationNumber, 
 				Address = GetShopAddress(shop), 
 				Telephone = shop.Phone
 			});
@@ -66,21 +76,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 
 		private static string GetShopAddress(IShop shop)
 		{
-			Func<string, string, string, string> tryAdd = (input, delimiter, parameterToAdd) =>
-			{
-				var output = input;
-				if (String.IsNullOrEmpty(parameterToAdd)) return output;
-				if (!String.IsNullOrEmpty(input)) output += delimiter;
-				output += parameterToAdd;
-				return output;
-			};
-			var address = String.Empty;
-			address = tryAdd(address, ", ", shop.Address);
-			address = tryAdd(address, ", ", shop.Address2);
-			address = tryAdd(address, ", ", shop.Zip);
-			address = tryAdd(address, " ", shop.City);
-			return address;
+			return " ".AsDelimiter().ConcatenateFieldsFor(shop, 
+				x => x.Address, 
+				x => x.Address2, 
+				x => x.Zip, 
+				x => x.City);
 		}
+
+
 
 		private static IEnumerable<InvoiceRow> GetInvoiceRows(IEnumerable<OrderItem> orderItems)
 		{
@@ -92,6 +95,49 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				RowAmount = orderItem.DisplayTotalPrice.ToString("N2")
 			};
 			return orderItems.Select(parseInvoiceRow);
+		}
+	}
+
+	public class DelimiterOption
+	{
+		public string Delimiter { get; set; }
+
+		public DelimiterOption(string delimiter)
+		{
+			Delimiter = delimiter;
+		}
+
+		public string ConcatenateFields(params string[] parameters)
+		{
+			var output = string.Empty;
+			var nonEmptyParameters = parameters.Where(x => !x.IsNullOrEmpty());
+			foreach (var parameter in nonEmptyParameters)
+			{
+				if(output.IsNullOrEmpty())
+				{
+					output = parameter;
+				}
+				else
+				{
+					output += Delimiter + parameter;
+				}
+			}
+			return output;
+		}
+
+		public string ConcatenateFieldsFor<TType>(TType value, params Func<TType,string>[] parameters)
+		{
+			var evaluatedParameters = parameters.Select(func => func(value));
+			return ConcatenateFields(evaluatedParameters.ToArray());
+		}
+
+	}
+
+	public static class DelimiterOptionsExtensions
+	{
+		public static DelimiterOption AsDelimiter(this string delimiter)
+		{
+			return new DelimiterOption(delimiter);
 		}
 	}
 }

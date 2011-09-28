@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Invoicing.Types;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
 
 namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing
@@ -41,14 +43,29 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.DataParsing
 			Expect(invoice.BuyerParty.Party.Contact.Telephone.Value, Is.EqualTo("0123456789"));
 		}
 		[Test]
-		public void Test_Fax_Formatting_With_Country_Code(){
-			var customSettings = new SvefakturaConversionSettings{SellingOrganizationFax = "+46 (0) 123 - 456789"};
+		public void Test_Fax_Formatting_With_Country_Code()
+		{
+			var customSettings = new SvefakturaConversionSettings
+			{ 
+				Contact =  new SFTIContactType
+				{
+					Telefax = new TelefaxType{Value = "+46 (0) 123 - 456789"}
+				}
+			};
 			var invoice = Convert.ToSvefakturaInvoice(customSettings, emptyOrder);
 			Expect(invoice.SellerParty.AccountsContact.Telefax.Value, Is.EqualTo("+46123456789"));
 		}
+
 		[Test]
-		public void Test_Fax_Formatting_Without_Country_Code(){
-			var customSettings = new SvefakturaConversionSettings{SellingOrganizationFax = "0123 - 456789"};
+		public void Test_Fax_Formatting_Without_Country_Code()
+		{
+			var customSettings = new SvefakturaConversionSettings
+			{ 
+				Contact =  new SFTIContactType 
+				{
+					Telefax = new TelefaxType{Value = "0123 - 456789"}
+				}
+			};
 			var invoice = Convert.ToSvefakturaInvoice(customSettings, emptyOrder);
 			Expect(invoice.SellerParty.AccountsContact.Telefax.Value, Is.EqualTo("0123456789"));
 		}

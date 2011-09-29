@@ -1,4 +1,5 @@
 using System;
+using FakeItEasy;
 using Moq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
@@ -19,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 		}
 		public static Subscription Get(Customer customer, bool isActive)
 		{
-			return CreateSubscription(customer, 2, 10, "123456789", "0089", 455.23M, isActive, "Fritextfält");
+			return CreateSubscription(customer, 2, 10, "123456789", "0089", 455.23M, isActive, "Fritextfält", 55);
 		}
 
 		public static Subscription Get(int id, Customer customer)
@@ -49,10 +50,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 			
 			return new []
 	       	{
-				CreateSubscription(customer, 3, 10, "111122222", "0001", 500M, Subscription_Is_Active, "Fritext 1"), 
-				CreateSubscription(customer, 4, 11, "222233333", "0002", 600M, Subscription_Not_Active, "Fritext 2"), 
-				CreateSubscription(customer, 5, 12, "333344444", "0003", 700M, Subscription_Is_Active, "Fritext 3"), 
-				CreateSubscription(customer, 6, 13, "444455555", "0004", 800M, Subscription_Not_Active, "Fritext 4")
+				CreateSubscription(customer, 3, 10, "111122222", "0001", 500M, Subscription_Is_Active, "Fritext 1", 5), 
+				CreateSubscription(customer, 4, 11, "222233333", "0002", 600M, Subscription_Not_Active, "Fritext 2", 6), 
+				CreateSubscription(customer, 5, 12, "333344444", "0003", 700M, Subscription_Is_Active, "Fritext 3", 7), 
+				CreateSubscription(customer, 6, 13, "444455555", "0004", 800M, Subscription_Not_Active, "Fritext 4", 8)
 	       	};
 		}
 
@@ -143,22 +144,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests.Fact
 
 
 
-		public static Subscription CreateSubscription(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, bool isActive, string notes)
+		public static Subscription CreateSubscription(Customer customer, int activatedSubtractDays, int createdSubtractDays, string accountNumber, string clearingNumber, decimal MonthlyAmount, bool isActive, string notes, int subscriptionId)
 		{
-			return new Subscription
-			{
-				ActivatedDate = DateTime.Now.SubtractDays(activatedSubtractDays),
-				CreatedDate = DateTime.Now.SubtractDays(createdSubtractDays),
-				Customer = customer,
-				PaymentInfo = new SubscriptionPaymentInfo
+			var subscription = A.Fake<Subscription>(x => x.Wrapping(new Subscription
 				{
-					AccountNumber = accountNumber,
-					ClearingNumber = clearingNumber,
-					MonthlyAmount = MonthlyAmount
-				},
-				Active = isActive,
-				Notes = notes
-			};
+					ActivatedDate = DateTime.Now.SubtractDays(activatedSubtractDays),
+					CreatedDate = DateTime.Now.SubtractDays(createdSubtractDays),
+					Customer = customer,
+					PaymentInfo = new SubscriptionPaymentInfo
+					{
+						AccountNumber = accountNumber,
+						ClearingNumber = clearingNumber,
+						MonthlyAmount = MonthlyAmount
+					},
+					Active = isActive,
+					Notes = notes
+				}
+			));
+			A.CallTo(() => subscription.Id).Returns(subscriptionId);
+			return subscription;
+
 		}
 
 		public static SaveSubscriptionEventArgs GetSaveSubscriptionEventArgs(Subscription subscription) 

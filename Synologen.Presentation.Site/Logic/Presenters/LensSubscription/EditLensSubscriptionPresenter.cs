@@ -140,7 +140,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 			var redirectPageUrl = _synologenMemberService.GetPageUrl(View.RedirectOnSavePageId);
 			if(String.IsNullOrEmpty(redirectPageUrl)) return;
 			var subscription = TryGetSubscription();
-			HttpContext.Response.Redirect(String.Concat(redirectPageUrl, "?customer=", subscription.Customer.Id));
+			var query = String.Format("?customer={0}&subscription={1}", subscription.Customer.Id, subscription.Id);
+			HttpContext.Response.Redirect(String.Concat(redirectPageUrl,query));
 		}
 	}
 }

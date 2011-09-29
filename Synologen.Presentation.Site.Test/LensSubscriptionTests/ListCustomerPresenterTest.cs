@@ -22,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly IList<Customer> _customersList;
 		private readonly string _editPageUrl;
 		private readonly string _currentpageUrl;
+		private readonly string _defaultOrderParameter;
 
 		public When_loading_customer_list_view()
 		{
@@ -29,6 +30,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_customersList = CustomerFactory.GetList().ToList();
 			_editPageUrl = "/testPage";
 			_currentpageUrl = "/currentPage";
+			_defaultOrderParameter = "LastName";
 
 			Context = () =>
 			{
@@ -36,7 +38,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				MockedView.SetupGet(x => x.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
-				
 				MockedHttpContext.SetupSingleQuery("order", null);
 				MockedHttpContext.SetupSingleQuery("sort", null);
 				MockedHttpContext.SetupCurrentPathAndQuery(_currentpageUrl);
@@ -52,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		{
 			MockedCustomerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => y.ShopId.Equals(159))));
 			MockedCustomerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => Equals(y.SearchTerm, null))));
-			MockedCustomerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => Equals(y.OrderBy, null))));
+			MockedCustomerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => Equals(y.OrderBy, _defaultOrderParameter))));
 			MockedCustomerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>(y => Equals(y.SortAscending, true))));
 		}
 
@@ -93,6 +94,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		private readonly string _editPageUrl;
 		private readonly string _currentpageUrl;
 		private readonly string _searchTerm;
+		private readonly string _defaultOrderParameter;
 
 		public When_searching_customer_list_view()
 		{
@@ -101,6 +103,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 			_editPageUrl = "/testPage";
 			_currentpageUrl = "/currentPage";
 			_searchTerm = "Test";
+			_defaultOrderParameter = "LastName";
 
 			Context = () =>
 			{
@@ -120,16 +123,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_creates_expected_criteria()
 		{
-			MockedCustomerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>( criteria => 
-				Equals(criteria.SearchTerm, null) && 
-				criteria.ShopId.Equals(159) && 
-				Equals(criteria.OrderBy, null) &&
-				criteria.SortAscending.Equals(true)
-			)), Times.Once());
 			MockedCustomerRepository.Verify(x => x.FindBy(It.Is<CustomersForShopMatchingCriteria>( criteria =>
 				Equals(criteria.SearchTerm, _searchTerm) &&
 				criteria.ShopId.Equals(159) &&
-				Equals(criteria.OrderBy, null) &&
+				Equals(criteria.OrderBy, _defaultOrderParameter) &&
 				criteria.SortAscending.Equals(true)
 			)), Times.Once());
 		}

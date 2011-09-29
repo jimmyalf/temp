@@ -102,8 +102,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 
 		private static void CheckOrderParam(ref string order)
 		{
-			if (String.IsNullOrEmpty(order))
-				return;
 			switch (order)
 			{
 				case FirstNameColumn:
@@ -113,7 +111,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.LensSubscripti
 				case PersonalIdNumberColumn:
 					break;
 				default:
-					order = FirstNameColumn;
+					order = LastNameColumn;
 					break;
 			}
 		}

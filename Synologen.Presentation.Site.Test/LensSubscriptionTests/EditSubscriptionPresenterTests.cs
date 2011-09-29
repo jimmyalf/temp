@@ -198,7 +198,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 	public class When_submitting_edit_subscription_view : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
-		private readonly int _subscriptionId;
+		//private readonly int _subscriptionId;
 		private readonly SaveSubscriptionEventArgs _saveEventArgs;
 		private readonly string _redirectUrl;
 		private readonly int _redirectPageId;
@@ -207,13 +207,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		public When_submitting_edit_subscription_view()
 		{
 			//Arrange
-			_subscriptionId = 1;
+			//_subscriptionId = 1;
 			const int customerId = 2;
 			const int shopId = 3;
 			_redirectPageId = 55;
 			_redirectUrl = "/test/redirect/";
-			_expectedRedirectUrl = String.Concat(_redirectUrl, "?customer=", customerId);
 			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId));
+			_expectedRedirectUrl = String.Concat(_redirectUrl, "?customer=", customerId, "&subscription=",_expectedSubscription.Id);
 			_saveEventArgs = SubscriptionFactory.GetSaveSubscriptionEventArgs(_expectedSubscription);
 			Context = () =>
 			{
@@ -222,7 +222,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
-				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
+				MockedHttpContext.SetupSingleQuery("subscription", _expectedSubscription.Id.ToString());
 			};
 
 			Because = presenter =>
@@ -262,7 +262,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 	public class When_stopping_subscription_view : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
-		private readonly int _subscriptionId;
+		//private readonly int _subscriptionId;
 		private readonly string _redirectUrl;
 		private readonly int _redirectPageId;
 		private readonly string _expectedRedirectUrl;
@@ -270,13 +270,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		public When_stopping_subscription_view()
 		{
 			//Arrange
-			_subscriptionId = 1;
+			//_subscriptionId = 1;
 			const int customerId = 2;
 			const int shopId = 3;
 			_redirectPageId = 55;
 			_redirectUrl = "/test/redirect/";
-			_expectedRedirectUrl = String.Concat(_redirectUrl, "?customer=", customerId);
 			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId));
+			_expectedRedirectUrl = String.Concat(_redirectUrl, "?customer=", customerId, "&subscription=",_expectedSubscription.Id);
+			
 			Context = () =>
 			{
 				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
@@ -284,7 +285,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
-				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());	
+				MockedHttpContext.SetupSingleQuery("subscription", _expectedSubscription.Id.ToString());	
 			};
 
 			Because = presenter =>
@@ -314,7 +315,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 	public class When_starting_subscription_view : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
-		private readonly int _subscriptionId;
+		//private readonly int _subscriptionId;
 		private readonly string _redirectUrl;
 		private readonly int _redirectPageId;
 		private readonly string _expectedRedirectUrl;
@@ -322,13 +323,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 		public When_starting_subscription_view()
 		{
 			//Arrange
-			_subscriptionId = 1;
+			//_subscriptionId = 1;
 			const int customerId = 2;
 			const int shopId = 3;
 			_redirectPageId = 55;
 			_redirectUrl = "/test/redirect/";
-			_expectedRedirectUrl = String.Concat(_redirectUrl, "?customer=", customerId);
 			_expectedSubscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId), false);
+			_expectedRedirectUrl = String.Concat(_redirectUrl, "?customer=", customerId, "&subscription=", _expectedSubscription.Id);
 
 			Context = () =>
 			{
@@ -337,7 +338,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
-				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
+				MockedHttpContext.SetupSingleQuery("subscription", _expectedSubscription.Id.ToString());
 			};
 
 			Because = presenter =>
@@ -367,14 +368,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 	public class When_submitting_edit_subscription_view_with_no_set_redirect_on_save_page_id : EditSubscriptionTestbase
 	{
 		private readonly Subscription _expectedSubscription;
-		private readonly int _subscriptionId;
+		//private readonly int _subscriptionId;
 		private readonly SaveSubscriptionEventArgs _saveEventArgs;
 		private readonly string _currentPageUrl;
 
 		public When_submitting_edit_subscription_view_with_no_set_redirect_on_save_page_id()
 		{
 			//Arrange
-			_subscriptionId = 1;
+			//_subscriptionId = 1;
 			const int customerId = 2;
 			const int shopId = 3;
 			_currentPageUrl = "/test/redirect/";
@@ -388,7 +389,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedHttpContext
-					.SetupSingleQuery("subscription", _subscriptionId.ToString())
+					.SetupSingleQuery("subscription", _expectedSubscription.Id.ToString())
 					.SetupCurrentPathAndQuery(_currentPageUrl);
 			};
 
@@ -410,22 +411,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.LensSubscriptionTests
 	[Category("EditLensSubscriptionPresenterTester")]
 	public class When_loading_edit_subscription_view_with_customer_belonging_to_another_shop : EditSubscriptionTestbase
 	{
-		private readonly int _subscriptionId;
+		//private readonly int _subscriptionId;
 
 		public When_loading_edit_subscription_view_with_customer_belonging_to_another_shop()
 		{
 			//Arrange
-			_subscriptionId = 1;
+			//_subscriptionId = 1;
 			const int customerId = 2;
 			const int shopId = 3;
-			var subscriptions = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId));
+			var subscription = SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId));
 
 			Context = () =>
 			{
-				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(subscriptions);
+				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(subscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId + 1);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
+				MockedHttpContext.SetupSingleQuery("subscription", subscription.Id.ToString());
 			};
 
 			Because = presenter => presenter.View_Load(null,new EventArgs());

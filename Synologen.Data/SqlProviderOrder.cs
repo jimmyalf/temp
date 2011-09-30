@@ -13,8 +13,8 @@ namespace Spinit.Wpc.Synologen.Data
 	public partial class SqlProvider 
 	{
 
-		public DataSet GetOrdersByPage(int contractId, int statusId, int settlementId, DateTime intervalStart, DateTime intervalEnd, string searchString, string orderBy, int currentPage, int pageSize, ref int totalSize) {
-
+		public DataSet GetOrdersByPage(int contractId, int statusId, int settlementId, DateTime intervalStart, DateTime intervalEnd, string searchString, string orderBy, int currentPage, int pageSize, ref int totalSize) 
+		{
 			try {
 				var counter = 0;
 
@@ -43,14 +43,16 @@ namespace Spinit.Wpc.Synologen.Data
 				return retSet;
 
 			}
-			catch (SqlException e) {
+			catch (SqlException e) 
+			{
 				throw new GeneralData.DatabaseInterface.DataException("SqlException: " + e);
 			}
-
 		}
 
-		public DataSet GetOrders(int orderId, int shopId, int contractId, int salesPersonMemberId, int companyId, long invoiceNumberId, int statusId, string orderBy) {
-			try {
+		public DataSet GetOrders(int orderId, int shopId, int contractId, int salesPersonMemberId, int companyId, long invoiceNumberId, int statusId, string orderBy) 
+		{
+			try 
+			{
 				var counter = 0;
 				SqlParameter[] parameters = {
 					new SqlParameter ("@orderId", SqlDbType.Int, 4),
@@ -75,12 +77,14 @@ namespace Spinit.Wpc.Synologen.Data
 				var retSet = RunProcedure("spSynologenGetOrders", parameters, "tblSynologenOrder");
 				return retSet;
 			}
-			catch (SqlException e) {
+			catch (SqlException e) 
+			{
 				throw new GeneralData.DatabaseInterface.DataException("SqlException: " + e);
 			}
 		}
 
-		private DataSet GetOrdersForInvoicingDataSet(int statusId, int? invoicingMethodId, string orderBy) {
+		private DataSet GetOrdersForInvoicingDataSet(int statusId, int? invoicingMethodId, string orderBy)
+		{
 			try {
 				var counter = 0;
 				SqlParameter[] parameters = {
@@ -96,12 +100,14 @@ namespace Spinit.Wpc.Synologen.Data
 				var retSet = RunProcedure("spSynologenGetForInvoicing", parameters, "tblSynologenOrder");
 				return retSet;
 			}
-			catch (SqlException e) {
+			catch (SqlException e)
+			{
 				throw new GeneralData.DatabaseInterface.DataException("SqlException: " + e);
 			}
 		}
 
-		private DataSet GetOrdersForStatusCheckDataSet(int statusId, string orderBy) {
+		private DataSet GetOrdersForStatusCheckDataSet(int statusId, string orderBy)
+		{
 			try {
 				var counter = 0;
 				SqlParameter[] parameters = {
@@ -115,18 +121,21 @@ namespace Spinit.Wpc.Synologen.Data
 				var retSet = RunProcedure("spSynologenGetOrdersForStatusCheck", parameters, "tblSynologenOrder");
 				return retSet;
 			}
-			catch (SqlException e) {
+			catch (SqlException e)
+			{
 				throw new GeneralData.DatabaseInterface.DataException("SqlException: " + e);
 			}
 		}
 
-		public Order GetOrder(int orderId) {
+		public Order GetOrder(int orderId)
+		{
 			var orderDataSet = GetOrders(orderId, 0, 0, 0, 0, 0, 0, null);
 			var orderDataRow = orderDataSet.Tables[0].Rows[0];
 			return ParseOrderRow(orderDataRow);
 		}
 
-		public IList<Order> GetOrders(IList<int> orderIds){
+		public IList<Order> GetOrders(IList<int> orderIds)
+		{
 			if(orderIds == null || orderIds.Count  <= 0) return new List<Order>();
 			var returnList = new List<Order>();
 			foreach (var orderId in orderIds){
@@ -135,7 +144,8 @@ namespace Spinit.Wpc.Synologen.Data
 			return returnList;
 		}
 
-		public int GetNumberOfOrderWithSpecificStatus(int orderStatus) {
+		public int GetNumberOfOrderWithSpecificStatus(int orderStatus) 
+		{
 			var orderDataSet = GetOrders(0, 0, 0, 0, 0, 0, orderStatus, null);
 			if (orderDataSet == null) return 0;
 			return orderDataSet.Tables[0] == null ? 0 : orderDataSet.Tables[0].Rows.Count;
@@ -145,7 +155,8 @@ namespace Spinit.Wpc.Synologen.Data
 		/// Fetches order all orders which have no invoice number filtered by
 		/// status id if <param name="statusId"/> > 0
 		/// </summary>
-		public List<Order> GetOrdersForInvoicing(int statusId, int? invoicingMethodIdFilter,  string orderBy) {
+		public List<Order> GetOrdersForInvoicing(int statusId, int? invoicingMethodIdFilter,  string orderBy)
+		{
 			var listOfOrders = new List<Order>();
 			try {
 				var orderDataSet = GetOrdersForInvoicingDataSet(statusId, invoicingMethodIdFilter, orderBy);
@@ -155,18 +166,19 @@ namespace Spinit.Wpc.Synologen.Data
 				return listOfOrders;
 			}
 			catch { return listOfOrders; }
-
 		}
 
 		/// <summary>
 		/// Fetches order all order invoice numbers filtered by status id
 		/// if <param name="statusId"/> > 0
 		/// </summary>
-		public List<long> GetOrderInvoiceNumbers(int statusId, string orderBy) {
+		public List<long> GetOrderInvoiceNumbers(int statusId, string orderBy)
+		{
 			var listOfOrderIds = new List<long>();
 			try {
 				var orderDataSet = GetOrdersForStatusCheckDataSet(statusId,orderBy);
-				foreach (DataRow orderDataRow in orderDataSet.Tables[0].Rows) {
+				foreach (DataRow orderDataRow in orderDataSet.Tables[0].Rows)
+				{
 					if (!String.IsNullOrEmpty(orderDataRow["cInvoiceNumber"].ToString())) {
 						listOfOrderIds.Add(long.Parse(orderDataRow["cInvoiceNumber"].ToString()));
 					}
@@ -176,19 +188,21 @@ namespace Spinit.Wpc.Synologen.Data
 			catch { return listOfOrderIds; }
 		}
 
-		public void ChangeOrderStatus(int orderId, int newStatusId) {
+		public void ChangeOrderStatus(int orderId, int newStatusId)
+		{
 			var order = GetOrder(orderId);
 			order.StatusId = newStatusId;
 			AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
 		}
 
 		public bool AddUpdateDeleteOrder(Enumerations.Action action, ref Order order) {
-			try {
+			try 
+			{
 				int numAffected;
-				SqlParameter[] parameters = {
+				SqlParameter[] parameters =
+				{
             		new SqlParameter("@type", SqlDbType.Int, 4),
 					new SqlParameter("@companyId", SqlDbType.Int, 4),
-            		//new SqlParameter("@rstId", SqlDbType.Int, 4),
 					new SqlParameter("@rstText", SqlDbType.NVarChar, 50),
 					new SqlParameter("@statusId", SqlDbType.Int, 4),
 					new SqlParameter("@salesPersonMemberId", SqlDbType.Int, 4),
@@ -229,31 +243,38 @@ namespace Spinit.Wpc.Synologen.Data
 					parameters[counter++].Value = GetNullableSqlType(order.CustomerOrderNumber);
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
-				if (action == Enumerations.Action.Create) {
+				if (action == Enumerations.Action.Create)
+				{
 					parameters[parameters.Length - 1].Direction = ParameterDirection.Output;
 				}
-				else {
+				else 
+				{
 					parameters[parameters.Length - 1].Value = order.Id;
 				}
 
 				RunProcedure("spSynologenAddUpdateDeleteOrder", parameters, out numAffected);
 
-				if (((int)parameters[parameters.Length - 2].Value) == 0) {
+				if (((int)parameters[parameters.Length - 2].Value) == 0)
+				{
 					order.Id = (int)parameters[parameters.Length - 1].Value;
 					return true;
 				}
 				throw new GeneralData.DatabaseInterface.DataException("Insert failed. Error: " + (int)parameters[parameters.Length - 2].Value, (int)parameters[parameters.Length - 2].Value);
 			}
-			catch (SqlException e) {
+			catch (SqlException e)
+			{
 				throw new GeneralData.DatabaseInterface.DataException("SqlException: " + e);
 			}
 		}
 
-		public void UpdateOrderStatus(int newOrderStatusId, int filterOrderId, int filterShopId, int filterContractId, int filterSalesPersonMemberId, int filterCompanyId, long filterInvoiceNumberId) {
-			try {
+		public void UpdateOrderStatus(int newOrderStatusId, int filterOrderId, int filterShopId, int filterContractId, int filterSalesPersonMemberId, int filterCompanyId, long filterInvoiceNumberId) 
+		{
+			try
+			{
 				var counter = 0;
 				int numAffected;
-				SqlParameter[] parameters = {
+				SqlParameter[] parameters =
+				{
 					new SqlParameter ("@newStatusId", SqlDbType.Int, 4),
 					new SqlParameter ("@orderId", SqlDbType.Int, 4),
 					new SqlParameter ("@shopId", SqlDbType.Int, 4),
@@ -274,13 +295,15 @@ namespace Spinit.Wpc.Synologen.Data
 				parameters[counter].Direction = ParameterDirection.Output;
 				RunProcedure("spSynologenUpdateOrderStatus", parameters, out numAffected);
 			}
-			catch (SqlException e) {
+			catch (SqlException e)
+			{
 				throw new GeneralData.DatabaseInterface.DataException("SqlException: " + e);
 			}
 		}
 
 		public bool SetOrderInvoiceNumber(int orderId, long invoiceNumber, int newOrderStatusId, double invoiceSumIncludingVAT, double invoiceSumExcludingVAT) {
-			if (orderId<=0 || invoiceNumber<=0) {
+			if (orderId<=0 || invoiceNumber<=0) 
+			{
 				return false;
 			}
 			var order = GetOrder(orderId);
@@ -294,7 +317,8 @@ namespace Spinit.Wpc.Synologen.Data
 
 		public void SetOrderInvoiceDate(int orderId, DateTime invoiceDateTime)
 		{
-			var parameters = new SynologenSqlParameterCollection{
+			var parameters = new SynologenSqlParameterCollection
+			{
 				new SqlParameter ("@orderId", SqlDbType.Int, 4),
 				new SqlParameter ("@invoiceDateTime", SqlDbType.DateTime),
 				new SqlParameter ("@status", SqlDbType.Int, 4){Direction = ParameterDirection.Output}
@@ -314,7 +338,8 @@ namespace Spinit.Wpc.Synologen.Data
 			throw new GeneralData.DatabaseInterface.DataException("Data operation failed. Error: " + statusParameterValue, statusParameterValue);
 		}
 
-		private Order ParseOrderRow(DataRow orderDataRow) {
+		private Order ParseOrderRow(DataRow orderDataRow)
+		{
 			try {
 				var orderRow = new DataOrder
 				{
@@ -332,36 +357,18 @@ namespace Spinit.Wpc.Synologen.Data
 					Phone = Util.CheckNullString(orderDataRow, "cPhone"),
                     
 				};
-				if(orderRow.Id>0){
+				if(orderRow.Id>0)
+				{
 					orderRow.OrderItems = GetOrderItemsList(orderRow.Id, null, null);
 				}
-				if(orderRow.CompanyId>0){
+				if(orderRow.CompanyId>0)
+				{
 					orderRow.ContractCompany = GetCompanyRow(orderRow.CompanyId);
 				}
-				if(orderRow.SalesPersonShopId>0){
+				if(orderRow.SalesPersonShopId>0)
+				{
 					orderRow.SellingShop = GetShop(orderRow.SalesPersonShopId);
 				}
-				//if (!String.IsNullOrEmpty(orderDataRow["cInvoiceNumber"].ToString())){
-				//    orderRow.InvoiceNumber = long.Parse(orderDataRow["cInvoiceNumber"].ToString());
-				//}
-				//if (Util.CheckDateTimeInput(orderDataRow["cCreatedDate"].ToString())) {
-				//    orderRow.CreatedDate = (DateTime)orderDataRow["cCreatedDate"];
-				//}
-				//if (Util.CheckDateTimeInput(orderDataRow["cUpdatedDate"].ToString())) {
-				//    orderRow.UpdateDate = (DateTime)orderDataRow["cUpdatedDate"];
-				//}
-				//if (!String.IsNullOrEmpty(orderDataRow["cInvoiceSumIncludingVAT"].ToString()))
-				//{
-				//    orderRow.InvoiceSumIncludingVAT = orderDataRow.Field<double>("cInvoiceSumIncludingVAT");
-				//}
-				//if (!String.IsNullOrEmpty(orderDataRow["cInvoiceSumExcludingVAT"].ToString())) 
-				//{
-				//    orderRow.InvoiceSumExcludingVAT = orderDataRow.Field<double>("cInvoiceSumExcludingVAT");
-				//}
-				//if (!String.IsNullOrEmpty(orderDataRow["cInvoiceDate"].ToString())) 
-				//{
-				//    orderRow.InvoiceDate = (DateTime)orderDataRow["cInvoiceDate"];
-				//}
 				orderRow.InvoiceNumber = orderDataRow.TryGetValue<long>("cInvoiceNumber");
 				orderRow.CreatedDate = orderDataRow.TryGetValue<DateTime>("cCreatedDate");
 				orderRow.UpdateDate = orderDataRow.TryGetValue<DateTime>("cUpdatedDate");
@@ -373,7 +380,8 @@ namespace Spinit.Wpc.Synologen.Data
 
 				return new Order(orderRow);
 			}
-			catch (Exception ex) {
+			catch (Exception ex)
+			{
 				throw new Exception("Exception found while parsing a Order object: " + ex.Message);
 			}
 		}

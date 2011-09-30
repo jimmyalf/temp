@@ -221,7 +221,7 @@ Sverige</Value>
         </Style>
         <ZIndex>2</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>9.15873cm</Left>
+        <Left>8.89418cm</Left>
         <Height>0.63492cm</Height>
         <Value>Faktura - Kopia</Value>
       </Textbox>
@@ -691,7 +691,6 @@ Sverige</Value>
             <Width>1.1cm</Width>
           </TableColumn>
         </TableColumns>
-        <Height>8.0992cm</Height>
         <Footer>
           <TableRows>
             <TableRow>
@@ -813,12 +812,14 @@ Sverige</Value>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
-                      <Value>=First(Fields!InvoiceFooterText.Value, "InvoiceReport")</Value>
+                      <Value>Anmärkningar mot denna faktura skall göras inom 8 dgr för att godkännas.
+Vid betalning efter förfallodagen debiteras dröjsmålsränta med diskonto 12,5%.
+Påminnelseavgift 45 kronor.</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
               </TableCells>
-              <Height>0.63492cm</Height>
+              <Height>1.5cm</Height>
             </TableRow>
             <TableRow>
               <TableCells>
@@ -1004,7 +1005,7 @@ Sverige</Value>
         <Value>fakturafält</Value>
       </Image>
     </ReportItems>
-    <Height>13.26904cm</Height>
+    <Height>13.96428cm</Height>
   </Body>
   <Language>sv-SE</Language>
   <PageFooter>

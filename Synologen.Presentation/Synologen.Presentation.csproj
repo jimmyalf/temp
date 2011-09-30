@@ -544,6 +544,7 @@
     <Content Include="Areas\SynologenAdmin\Views\Shared\SynologenMVC.Master" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\Empty.Master" />
     <Content Include="ChangeLocation.aspx" />
+    <Content Include="Components\Synologen\Images\pdficon_small.gif" />
     <Content Include="Components\Synologen\Scripts\Synologen.js" />
     <Content Include="Error.aspx" />
     <Content Include="Global.asax" />

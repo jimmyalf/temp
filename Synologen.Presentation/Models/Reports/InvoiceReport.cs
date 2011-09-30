@@ -15,7 +15,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Reports
 		public string LineExtensionsTotalAmount { get; set; }
 		public string TotalTaxAmount { get; set; }
 		public string TaxInclusinveTotalAmount { get; set; }
-		public string InvoiceFooterText { get; set; }
+		//public string InvoiceFooterText { get; set; }
 		public string ShopContactText { get; set; }
 		public string PaymentTermsNote { get; set; }
 		public string InvoiceRecipientOrderNumber { get; set; }

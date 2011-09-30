@@ -26,7 +26,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 
 		private static InvoiceReport GetInvoiceReport(IOrder order, string penaltyChargePercent)
 		{
-			const string invoiceText = "Anmärkningar mot denna faktura skall göras inom 8 dgr för att godkännas.{NewLine}Vid betalning efter förfallodagen debiteras dröjsmålsränta med diskonto {PenaltyChargePercent}%.{NewLine}Påminnelseavgift 45 kronor.";
 			const string paymentTermsText = "{InvoiceNumberOfDueDays} dagar netto";
 			return new InvoiceReport 
 			{
@@ -34,8 +33,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				InvoiceFreeText = order.ParseFreeText(), 
 				LineExtensionsTotalAmount = order.InvoiceSumExcludingVAT.ToString("N2"), 
 				TotalTaxAmount = (order.InvoiceSumIncludingVAT - order.InvoiceSumExcludingVAT).ToString("N2"), 
-				TaxInclusinveTotalAmount = order.InvoiceSumIncludingVAT.ToString("N2"), 
-				InvoiceFooterText = invoiceText.ReplaceWith(new {PenaltyChargePercent = penaltyChargePercent, NewLine}), 
+				TaxInclusinveTotalAmount = order.InvoiceSumIncludingVAT.ToString("N2"),  
 				ShopContactText = GetShopContaxtText(order.SellingShop),
 				PaymentTermsNote = paymentTermsText.ReplaceWith(new {InvoiceNumberOfDueDays = order.ContractCompany.PaymentDuePeriod}),
 				InvoiceRecipientOrderNumber = order.CustomerOrderNumber ?? string.Empty,
@@ -63,14 +61,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 
 		private static string GetShopContaxtText(IShop shop)
 		{
-			const string shopContactText = "{ShopName} ({OrganizationNumber}){NewLine}{Address}{NewLine}{Telephone}";
+			const string shopContactText = "{ShopName} ({OrganizationNumber}){NewLine}{Address}{NewLine}{TelephoneAndEmail}";
 			return shopContactText.ReplaceWith(new
 			{
 				NewLine, 
 				ShopName = shop.Name, 
 				shop.OrganizationNumber, 
 				Address = GetShopAddress(shop), 
-				Telephone = shop.Phone
+				TelephoneAndEmail = (shop.Phone + " " + shop.Email).Trim()
 			});
 		}
 

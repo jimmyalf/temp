@@ -46,14 +46,12 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 				};
 			};
 
-			Because = repository =>
+			Because = repository => _orders.Each(order =>
 			{
-				_orders.Each(order =>
-				{
-					Provider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref order);
-					Provider.AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
-				});				
-			};
+				Provider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref order);
+				Provider.AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
+				Provider.SetOrderInvoiceDate(order.Id,  new DateTime(2011,09,30));
+			});
 		}
 
 		[Test]

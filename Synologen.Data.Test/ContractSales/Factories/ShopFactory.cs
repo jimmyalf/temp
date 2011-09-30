@@ -33,6 +33,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories
 				ShopId = id,
 				Url = String.Empty,
 				Zip = "43632",
+                OrganizationNumber = "5551234-5678"
 			};
 		}
 	}

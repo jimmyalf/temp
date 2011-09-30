@@ -99,9 +99,13 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\DataRowExtensions.cs" />
     <Compile Include="Extensions\SqlParameterCollection.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\ArticleRepository.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\ContractSaleRepository.cs" />

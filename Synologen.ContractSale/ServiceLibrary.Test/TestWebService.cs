@@ -1,6 +1,17 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Data;
+using Spinit.Wpc.Synologen.Integration.Services.Test;
+using Spinit.Wpc.Synologen.Invoicing;
+using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.ServiceLibrary;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Synologen.Client.App;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.Webservice{
@@ -86,5 +97,28 @@ namespace Spinit.Wpc.Synologen.Integration.Test.Webservice{
 
 		}
 
+		[Test]
+		public void Debugging()
+		{
+			const string connectionString = @"Initial Catalog=dbWpcSynologen;Data Source=TEAL;uid=sa;pwd=RICE17A;Pooling=true;Connect Timeout=15;";
+			var provider = new SqlProvider(connectionString);
+			var invoiceList = new List<SFTIInvoiceType>();
+			var settings = TestInvoiceParsingAndValidation.GetSettings();
+			for(var i = 4039; i <= 4074; i++)
+			{
+				var order = provider.GetOrder(i);
+				var invoice = General.CreateInvoiceSvefaktura(order, settings);
+				invoiceList.Add(invoice);
+			}
+			foreach (var invoice in invoiceList)
+			{
+				var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
+				if(ruleViolations.Any())
+				{
+					var test = "";
+				}
+			}
+			
+		}
 	}
 }

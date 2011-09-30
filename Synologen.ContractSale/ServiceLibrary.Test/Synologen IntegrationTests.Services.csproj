@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestInvoiceParsingAndValidation.cs" />
     <Compile Include="TestWebService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +115,14 @@
     <ProjectReference Include="..\ServiceLibrary\Synologen ServiceLibrary.csproj">
       <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
       <Name>Synologen ServiceLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Svefaktura\Synologen Svefaktura.csproj">
+      <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
+      <Name>Synologen Svefaktura</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Synologen Invoicing Utility.csproj">
+      <Project>{84326EE0-5F6E-4133-A852-AF781AF74682}</Project>
+      <Name>Synologen Invoicing Utility</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebService\Synologen WebService.csproj">
       <Project>{74466C1B-0F03-4356-BA44-CF8983F5347E}</Project>

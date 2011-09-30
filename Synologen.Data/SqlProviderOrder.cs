@@ -8,8 +8,10 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Data.Extensions;
 using Spinit.Wpc.Utility.Business;
-namespace Spinit.Wpc.Synologen.Data {
-	public partial class SqlProvider {
+namespace Spinit.Wpc.Synologen.Data 
+{
+	public partial class SqlProvider 
+	{
 
 		public DataSet GetOrdersByPage(int contractId, int statusId, int settlementId, DateTime intervalStart, DateTime intervalEnd, string searchString, string orderBy, int currentPage, int pageSize, ref int totalSize) {
 
@@ -339,35 +341,44 @@ namespace Spinit.Wpc.Synologen.Data {
 				if(orderRow.SalesPersonShopId>0){
 					orderRow.SellingShop = GetShop(orderRow.SalesPersonShopId);
 				}
-				if (!String.IsNullOrEmpty(orderDataRow["cInvoiceNumber"].ToString())){
-					orderRow.InvoiceNumber = long.Parse(orderDataRow["cInvoiceNumber"].ToString());
-				}
-				if (Util.CheckDateTimeInput(orderDataRow["cCreatedDate"].ToString())) {
-					orderRow.CreatedDate = (DateTime)orderDataRow["cCreatedDate"];
-				}
-				if (Util.CheckDateTimeInput(orderDataRow["cUpdatedDate"].ToString())) {
-					orderRow.UpdateDate = (DateTime)orderDataRow["cUpdatedDate"];
-				}
-				if (!String.IsNullOrEmpty(orderDataRow["cInvoiceSumIncludingVAT"].ToString())) {
-					orderRow.InvoiceSumIncludingVAT = float.Parse(orderDataRow["cInvoiceSumIncludingVAT"].ToString());
-				}
-				if (!String.IsNullOrEmpty(orderDataRow["cInvoiceSumExcludingVAT"].ToString())) {
-					orderRow.InvoiceSumExcludingVAT = float.Parse(orderDataRow["cInvoiceSumExcludingVAT"].ToString());
-				}
-				if (!String.IsNullOrEmpty(orderDataRow["cInvoiceDate"].ToString())) {
-					orderRow.InvoiceDate = (DateTime)orderDataRow["cInvoiceDate"];
-				}
-				orderRow.CustomerOrderNumber = Util.CheckNullString(orderDataRow, "cCustomerOrderNumber");
-
-				orderRow.MarkedAsPayedByShop = (bool)orderDataRow["cOrderMarkedAsPayed"];
+				//if (!String.IsNullOrEmpty(orderDataRow["cInvoiceNumber"].ToString())){
+				//    orderRow.InvoiceNumber = long.Parse(orderDataRow["cInvoiceNumber"].ToString());
+				//}
+				//if (Util.CheckDateTimeInput(orderDataRow["cCreatedDate"].ToString())) {
+				//    orderRow.CreatedDate = (DateTime)orderDataRow["cCreatedDate"];
+				//}
+				//if (Util.CheckDateTimeInput(orderDataRow["cUpdatedDate"].ToString())) {
+				//    orderRow.UpdateDate = (DateTime)orderDataRow["cUpdatedDate"];
+				//}
+				//if (!String.IsNullOrEmpty(orderDataRow["cInvoiceSumIncludingVAT"].ToString()))
+				//{
+				//    orderRow.InvoiceSumIncludingVAT = orderDataRow.Field<double>("cInvoiceSumIncludingVAT");
+				//}
+				//if (!String.IsNullOrEmpty(orderDataRow["cInvoiceSumExcludingVAT"].ToString())) 
+				//{
+				//    orderRow.InvoiceSumExcludingVAT = orderDataRow.Field<double>("cInvoiceSumExcludingVAT");
+				//}
+				//if (!String.IsNullOrEmpty(orderDataRow["cInvoiceDate"].ToString())) 
+				//{
+				//    orderRow.InvoiceDate = (DateTime)orderDataRow["cInvoiceDate"];
+				//}
+				orderRow.InvoiceNumber = orderDataRow.TryGetValue<long>("cInvoiceNumber");
+				orderRow.CreatedDate = orderDataRow.TryGetValue<DateTime>("cCreatedDate");
+				orderRow.UpdateDate = orderDataRow.TryGetValue<DateTime>("cUpdatedDate");
+				orderRow.InvoiceSumIncludingVAT = orderDataRow.TryGetValue<double>("cInvoiceSumIncludingVAT");
+				orderRow.InvoiceSumExcludingVAT = orderDataRow.TryGetValue<double>("cInvoiceSumExcludingVAT");
+				orderRow.InvoiceDate = orderDataRow.TryGetValue<DateTime>("cInvoiceDate");
+				orderRow.CustomerOrderNumber = orderDataRow.TryGetValue<string>("cCustomerOrderNumber");
+				orderRow.MarkedAsPayedByShop = orderDataRow.Field<bool>("cOrderMarkedAsPayed");
 
 				return new Order(orderRow);
 			}
 			catch (Exception ex) {
 				throw new Exception("Exception found while parsing a Order object: " + ex.Message);
 			}
-
 		}
+
+
 
 		# region Private Repository DTO Classes
 		private class DataOrder : IOrder

@@ -37,12 +37,14 @@ namespace Spinit.Wpc.Synologen.Invoicing
 			invoice.InvoiceTypeCode = TryGetValue(settings.InvoiceTypeCode, new CodeType {Value = settings.InvoiceTypeCode});
 			invoice.ID = TryGetValue(order.InvoiceNumber, new SFTISimpleIdentifierType {Value = order.InvoiceNumber.ToString()});
 			invoice.AdditionalDocumentReference = TryGetValue(order.ContractCompany.Id, new List<SFTIDocumentReferenceType> {new SFTIDocumentReferenceType {ID = new IdentifierType {Value = order.ContractCompany.Id.ToString(), identificationSchemeAgencyName = "SFTI", identificationSchemeID = "ACD"}}});
-			if (order.InvoiceSumIncludingVAT > 0 || order.InvoiceSumExcludingVAT > 0){
-				invoice.LegalTotal = new SFTILegalTotalType {
-					LineExtensionTotalAmount = TryGetLineExtensionAmount(orderItems),
-					TaxExclusiveTotalAmount = TryGetValue(order.InvoiceSumExcludingVAT, new TotalAmountType {Value = (decimal) order.InvoiceSumExcludingVAT, amountCurrencyID = "SEK"}),
-					TaxInclusiveTotalAmount = TryGetValue(order.InvoiceSumIncludingVAT, new TotalAmountType {Value = (decimal) order.InvoiceSumIncludingVAT, amountCurrencyID = "SEK"}),
-				};
+			if (order.InvoiceSumIncludingVAT > 0 || order.InvoiceSumExcludingVAT > 0)
+			{
+				invoice.LegalTotal = GetLegalTotal(invoice, order, orderItems);
+				//invoice.LegalTotal = new SFTILegalTotalType {
+				//    LineExtensionTotalAmount = TryGetLineExtensionAmount(orderItems),
+				//    TaxExclusiveTotalAmount = TryGetValue(order.InvoiceSumExcludingVAT, new TotalAmountType {Value = (decimal) order.InvoiceSumExcludingVAT, amountCurrencyID = "SEK"}),
+				//    TaxInclusiveTotalAmount = TryGetValue(order.InvoiceSumIncludingVAT, new TotalAmountType {Value = (decimal) order.InvoiceSumIncludingVAT, amountCurrencyID = "SEK"}),
+				//};
 			}
 			invoice.RequisitionistDocumentReference = TryGetValue(order.CustomerOrderNumber, new List<SFTIDocumentReferenceType> {
 			                                                                                                                     	new SFTIDocumentReferenceType {ID = new IdentifierType{Value = order.CustomerOrderNumber}}
@@ -51,6 +53,23 @@ namespace Spinit.Wpc.Synologen.Invoicing
 			invoice.InvoiceCurrencyCode = TryGetValue(settings.InvoiceCurrencyCode, new CurrencyCodeType {Value = settings.InvoiceCurrencyCode.GetValueOrDefault()});
 			invoice.TaxPointDate = TryGetValue(order.CreatedDate, new TaxPointDateType {Value = order.CreatedDate});
 			//invoice.TaxCurrencyCode = TryGetValue(settings.InvoiceCurrencyCode, new CurrencyCodeType {Value = settings.InvoiceCurrencyCode.GetValueOrDefault()});
+		}
+
+		private static SFTILegalTotalType GetLegalTotal(SFTIInvoiceType invoice, IOrder order, IEnumerable<OrderItem> orderItems)
+		{
+			var taxTotal = invoice.TaxTotal.Where(x => x.TotalTaxAmount != null).Sum(x => x.TotalTaxAmount.Value);
+			var legalTotal = new SFTILegalTotalType
+			{
+				LineExtensionTotalAmount = TryGetLineExtensionAmount(orderItems),
+				TaxExclusiveTotalAmount = TryGetValue(order.InvoiceSumExcludingVAT, new TotalAmountType {Value = (decimal) order.InvoiceSumExcludingVAT, amountCurrencyID = "SEK"}),
+				TaxInclusiveTotalAmount = TryGetValue(order.InvoiceSumIncludingVAT, new TotalAmountType {Value = (decimal) order.InvoiceSumIncludingVAT, amountCurrencyID = "SEK"}),
+			};
+			var roundOff = legalTotal.TaxInclusiveTotalAmount.Value - (taxTotal + legalTotal.TaxExclusiveTotalAmount.Value);
+			if(roundOff != 0)
+			{
+				legalTotal.RoundOffAmount = new AmountType {Value = roundOff};
+			}
+			return legalTotal;
 		}
 
 		private static void TryAddInvoiceLines(SvefakturaConversionSettings settings,  SFTIInvoiceType invoice, IEnumerable<OrderItem> orderItems , decimal VATAmount) {
@@ -399,7 +418,11 @@ namespace Spinit.Wpc.Synologen.Invoicing
 			//var result = 0m;
 			var result = (decimal) orderItems.Sum(x => x.DisplayTotalPrice);
 			//orderItems.ToList().ForEach( x => result += (decimal) x.DisplayTotalPrice);
-			return (result <= 0) ? null : new ExtensionTotalAmountType {Value = result, amountCurrencyID ="SEK"};
+			return (result <= 0) ? null : new ExtensionTotalAmountType
+			{
+				Value = result, 
+				amountCurrencyID ="SEK",
+			};
 		}
 
 		private static SFTICountryType GetSwedishCountryType()

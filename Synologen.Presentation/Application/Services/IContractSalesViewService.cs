@@ -1,4 +1,5 @@
 using System;
+using System.Web.Routing;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using ContractArticleConnection = Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.ContractArticleConnection;
@@ -10,7 +11,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		SettlementView GetSettlement(int settlementId);
 		SettlementListView GetSettlements();
 		int CreateSettlement();
-		OrderView GetOrder(int orderId);
+		OrderView GetOrder(int orderId, RequestContext requestContext);
 		Article ParseArticle(ArticleView articleView);
 		ArticleView GetArticleView(int articleId, string formLegend);
 		ArticleView SetArticleViewDefaults(ArticleView articleView, string formLegend);

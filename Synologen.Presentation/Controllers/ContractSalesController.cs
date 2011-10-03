@@ -1,5 +1,6 @@
 using System;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Spinit.Wpc.Core.UI;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
@@ -35,7 +36,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[HttpGet]
 		public ActionResult ManageOrder(int id)
 		{
-			var viewModel = _viewService.GetOrder(id);
+			Url.Action("InvoiceCopy", "Report", new RouteValueDictionary {{"id", id}});
+			var viewModel = _viewService.GetOrder(id, this.ControllerContext.RequestContext);
 			return View(viewModel);
 		}
 

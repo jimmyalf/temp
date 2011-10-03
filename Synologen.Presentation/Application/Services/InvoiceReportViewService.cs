@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Reporting.WebForms;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Presentation.Models.Reports;
+using Spinit.Wpc.Synologen.Reports.Models;
+using InvoiceRow = Spinit.Wpc.Synologen.Reports.Models.InvoiceRow;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
@@ -17,17 +17,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 
 		public ReportDataSource[] GetInvoiceReportDataSources(Order invoice)
 		{
-			var invoiceReport = GetInvoiceReport(invoice, "12,5");
+			var invoiceReport = GetInvoiceReport(invoice);
 			var invoiceRows = GetInvoiceRows(invoice.OrderItems);
-			var invoiceReportDataSource = new ReportDataSource("InvoiceReport", new List<InvoiceReport> {invoiceReport});
+			var invoiceReportDataSource = new ReportDataSource("InvoiceReport", new List<InvoiceCopyReport> {invoiceReport});
 			var invoiceRowsDataSource = new ReportDataSource("InvoiceRow", invoiceRows);
 			return new[] {invoiceReportDataSource, invoiceRowsDataSource};
 		}
 
-		private static InvoiceReport GetInvoiceReport(IOrder order, string penaltyChargePercent)
+		private static InvoiceCopyReport GetInvoiceReport(IOrder order)
 		{
 			const string paymentTermsText = "{InvoiceNumberOfDueDays} dagar netto";
-			return new InvoiceReport 
+			return new InvoiceCopyReport 
 			{
 				Id = order.Id, 
 				InvoiceFreeText = order.ParseFreeText(), 

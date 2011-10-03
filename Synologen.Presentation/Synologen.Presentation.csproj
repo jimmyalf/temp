@@ -119,7 +119,6 @@
     <Compile Include="Models\ContractSales\AddContractArticleView.cs" />
     <Compile Include="Models\ContractSales\EditContractArticleView.cs" />
     <Compile Include="Models\ContractSales\IContractArticleView.cs" />
-    <Compile Include="Models\Reports\InvoiceReport.cs" />
     <Compile Include="Models\ContractSales\OrderView.cs" />
     <Compile Include="Models\ContractSales\SettlementListView.cs" />
     <Compile Include="Models\ContractSales\SettlementListViewItem.cs" />
@@ -360,6 +359,10 @@
       <Project>{4DA48962-8E31-4E14-9E25-E43430E982D1}</Project>
       <Name>Synologen.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Synologen.ContractSale\Synologen.Reports\Synologen.Reports.csproj">
+      <Project>{126DA313-2592-4002-82AB-D25DDB743256}</Project>
+      <Name>Synologen.Reports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
@@ -544,6 +547,7 @@
     <Content Include="Areas\SynologenAdmin\Views\Shared\SynologenMVC.Master" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\Empty.Master" />
     <Content Include="ChangeLocation.aspx" />
+    <Content Include="Components\Synologen\Images\pdficon_large.gif" />
     <Content Include="Components\Synologen\Images\pdficon_small.gif" />
     <Content Include="Components\Synologen\Scripts\Synologen.js" />
     <Content Include="Error.aspx" />
@@ -582,7 +586,6 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Areas\SynologenAdmin\Reports\InvoiceReport.rdlc" />
     <EmbeddedResource Include="Helpers\Resources\WpcConfirmationDialog.sv-SE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>WpcConfirmationDialog.sv-SE.Designer.cs</LastGenOutput>

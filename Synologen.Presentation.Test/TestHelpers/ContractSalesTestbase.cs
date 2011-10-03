@@ -22,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 		protected IUserContextService UserContextService;
 		protected IContractSalesViewService ViewService;
 
+
 		protected ContractSalesTestbase()
 		{
 			SetUp = () => 
@@ -35,6 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 				var commandService = new ContractSalesCommandService(MockedSynologenSqlProvider.Object, UserContextService);
 				MockedContractSalesCommandService = A.Fake<IContractSalesCommandService>(options => options.Wrapping(commandService));
 				ArticleRepository = A.Fake<IArticleRepository>();
+
 				var viewService = new ContractSalesViewService(
 					MockedSettlementRepository.Object,
 					MockedContractSaleRepository.Object,

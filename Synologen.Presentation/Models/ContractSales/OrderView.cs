@@ -14,6 +14,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 		public string Status { get; set; }
 
 		public bool DisplayCancelButton { get; set; }
+		public bool DisplayInvoiceCopyLink { get; set; }
 		public string BackUrl { get; set; }
+		public string InvoiceCopyUrl { get; set; }
 	}
 }

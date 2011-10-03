@@ -20,12 +20,16 @@
 				</div>
 
 				<div class="formCommands hide-on-print">
-					<%if(Model.DisplayCancelButton){ %>
-						<% using (Html.BeginForm("CancelOrder","ContractSales")) {%>
-							<%=Html.AntiForgeryToken() %>
-							<%=Html.HiddenFor(x => x.Id) %>
-							<a href="<%=Model.BackUrl %>">&laquo Tillbaka</a>
-							&nbsp;
+					<% using (Html.BeginForm("CancelOrder","ContractSales")) {%>
+						<%=Html.AntiForgeryToken() %>
+						<%=Html.HiddenFor(x => x.Id) %>
+						<a href="<%=Model.BackUrl %>">&laquo Tillbaka</a>
+						<span>&nbsp;|&nbsp;</span>
+						<%if(Model.DisplayInvoiceCopyLink){ %>
+							<a href="<%=Model.InvoiceCopyUrl%>" target="_blank">Visa fakturakopia</a>
+						<%} %>
+						<span>&nbsp;</span>
+						<%if(Model.DisplayCancelButton){ %>
 							<input class="btnBig confirm-action" type="submit" value="Makulera" title="Makulera fakturan" />
 						<% } %>
 					<% } %>

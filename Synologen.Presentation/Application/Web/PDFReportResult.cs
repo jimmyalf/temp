@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System;
+using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.Reporting.WebForms;
 
@@ -7,6 +9,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Web
 	public class PDFReportResult : FileResult
 	{
 		private readonly string _reportPathOnDisk;
+		private readonly Assembly _reportAssembly;
+		private readonly string _embeddedReportFullNameSpaceName;
 		private readonly ReportDataSource[] _dataSources;
 		public string RenderedContentType;
 
@@ -16,9 +20,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Web
 			_dataSources = dataSources;
 		}
 
+		public PDFReportResult(Assembly reportAssembly, string embeddedReportFullNameSpaceName, params ReportDataSource[] dataSources) : base("N/A")
+		{
+			_reportAssembly = reportAssembly;
+			_embeddedReportFullNameSpaceName = embeddedReportFullNameSpaceName;
+			_dataSources = dataSources;
+		}
+
 		private byte[] GetFileContents()
 		{
-			var localReport = GetLocalReport(_reportPathOnDisk);
+			var localReport =  (String.IsNullOrEmpty(_reportPathOnDisk)) 
+				? GetLocalReport(_reportAssembly,_embeddedReportFullNameSpaceName)
+				: GetLocalReport(_reportPathOnDisk);
 			foreach (var reportDataSource in _dataSources)
 			{
 				localReport.DataSources.Add(reportDataSource);	
@@ -29,6 +42,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Web
 		protected virtual LocalReport GetLocalReport(string reportPathOnDisk)
 		{
 			return new LocalReport {ReportPath = _reportPathOnDisk, EnableExternalImages = true};
+		}
+		protected virtual LocalReport GetLocalReport(Assembly assembly, string embeddedReportFullNameSpaceName)
+		{
+			var stream = assembly.GetManifestResourceStream(embeddedReportFullNameSpaceName);
+			var localReport = new LocalReport();
+			localReport.LoadReportDefinition(stream);
+			return localReport;
 		}
 
 		protected virtual byte[] RenderReportData(LocalReport localReport)

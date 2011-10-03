@@ -1,0 +1,1257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DummyDataSource">
+      <rd:DataSourceID>b3c8db29-e986-49eb-a5c9-441993554998</rd:DataSourceID>
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>29.7cm</InteractiveHeight>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>21cm</InteractiveWidth>
+  <rd:GridSpacing>0.25cm</rd:GridSpacing>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <LeftMargin>2cm</LeftMargin>
+  <BottomMargin>1cm</BottomMargin>
+  <rd:ReportID>6247164a-758a-45da-be7f-3b74da04f8f4</rd:ReportID>
+  <EmbeddedImages>
+    <EmbeddedImage Name="synhalsan_pos_bw">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+    <EmbeddedImage Name="fakturafält">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <PageWidth>21cm</PageWidth>
+  <DataSets>
+    <DataSet Name="InvoiceRow">
+      <Fields>
+        <Field Name="RowAmount">
+          <DataField>RowAmount</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SinglePrice">
+          <DataField>SinglePrice</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DummyDataSource</DataSourceName>
+        <CommandText />
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceType>Spinit.Wpc.Synologen.Reports.Models.InvoiceRow, Spinit.Wpc.Synologen.Reports, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceSelectMethod>GetList</rd:ObjectDataSourceSelectMethod>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="InvoiceReport">
+      <Fields>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceRecipient">
+          <DataField>InvoiceRecipient</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceFreeText">
+          <DataField>InvoiceFreeText</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PenaltyChargePercent">
+          <DataField>PenaltyChargePercent</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LineExtensionsTotalAmount">
+          <DataField>LineExtensionsTotalAmount</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TotalTaxAmount">
+          <DataField>TotalTaxAmount</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TaxInclusinveTotalAmount">
+          <DataField>TaxInclusinveTotalAmount</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceFooterText">
+          <DataField>InvoiceFooterText</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ShopContactText">
+          <DataField>ShopContactText</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PaymentTermsNote">
+          <DataField>PaymentTermsNote</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceRecipientOrderNumber">
+          <DataField>InvoiceRecipientOrderNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceNumber">
+          <DataField>InvoiceNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OrderCreatedDate">
+          <DataField>OrderCreatedDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceDate">
+          <DataField>InvoiceDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceDueDate">
+          <DataField>InvoiceDueDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DummyDataSource</DataSourceName>
+        <CommandText />
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceType>Spinit.Wpc.Synologen.Reports.Models.InvoiceCopyReport, Spinit.Wpc.Synologen.Reports, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceSelectMethod>GetList</rd:ObjectDataSourceSelectMethod>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <Width>17.61772cm</Width>
+  <Body>
+    <ColumnSpacing>0cm</ColumnSpacing>
+    <ReportItems>
+      <Textbox Name="textbox27">
+        <rd:DefaultName>textbox27</rd:DefaultName>
+        <Top>1.25cm</Top>
+        <Width>7.75cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>6</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>9.13492cm</Left>
+        <Height>2cm</Height>
+        <Value>=First(Fields!InvoiceRecipient.Value, "InvoiceReport")</Value>
+      </Textbox>
+      <Image Name="image1">
+        <Sizing>Clip</Sizing>
+        <Width>6.00529cm</Width>
+        <MIMEType>image/png</MIMEType>
+        <Source>Embedded</Source>
+        <Style />
+        <ZIndex>5</ZIndex>
+        <Height>1.8254cm</Height>
+        <Value>synhalsan_pos_bw</Value>
+      </Image>
+      <Textbox Name="textbox59">
+        <Top>1.75cm</Top>
+        <Width>4.25cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>4</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>2cm</Height>
+        <Value>Synhälsan Svenska AB
+Strandbergsgatan 61
+112 51 Stockholm
+Sverige</Value>
+      </Textbox>
+      <Textbox Name="textbox21">
+        <Top>0.75cm</Top>
+        <Width>6cm</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>3</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>8.89418cm</Left>
+        <Height>0.25cm</Height>
+        <Value>Fakturamottagare</Value>
+      </Textbox>
+      <Textbox Name="textbox3">
+        <rd:DefaultName>textbox3</rd:DefaultName>
+        <Width>4cm</Width>
+        <Style>
+          <FontSize>14pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>8.89418cm</Left>
+        <Height>0.63492cm</Height>
+        <Value>Faktura - Kopia</Value>
+      </Textbox>
+      <Table Name="table1">
+        <ZIndex>1</ZIndex>
+        <DataSetName>InvoiceRow</DataSetName>
+        <Top>5cm</Top>
+        <Width>17.6cm</Width>
+        <Details>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>7</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="Description">
+                      <rd:DefaultName>Description</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Left>Solid</Left>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!Description.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>2</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="RowAmount">
+                      <rd:DefaultName>RowAmount</rd:DefaultName>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!Quantity.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>3</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox114">
+                      <rd:DefaultName>textbox114</rd:DefaultName>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!SinglePrice.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox153">
+                      <rd:DefaultName>textbox153</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Right>Solid</Right>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!RowAmount.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.65cm</Height>
+            </TableRow>
+          </TableRows>
+        </Details>
+        <Header>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox56">
+                      <rd:DefaultName>textbox56</rd:DefaultName>
+                      <Style>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Fakturanummer</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox60">
+                      <rd:DefaultName>textbox60</rd:DefaultName>
+                      <Style>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Leveransdatum</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox43">
+                      <rd:DefaultName>textbox43</rd:DefaultName>
+                      <Style>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Fakturadatum</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox148">
+                      <rd:DefaultName>textbox148</rd:DefaultName>
+                      <Style>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Förfallodatum</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.55cm</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="InvoiceNumber">
+                      <rd:DefaultName>InvoiceNumber</rd:DefaultName>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=First(Fields!InvoiceNumber.Value, "InvoiceReport")</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="OrderCreatedDate">
+                      <rd:DefaultName>OrderCreatedDate</rd:DefaultName>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=First(Fields!OrderCreatedDate.Value, "InvoiceReport")</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="InvoiceDate">
+                      <rd:DefaultName>InvoiceDate</rd:DefaultName>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=First(Fields!InvoiceDate.Value, "InvoiceReport")</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="InvoiceDueDate">
+                      <rd:DefaultName>InvoiceDueDate</rd:DefaultName>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=First(Fields!InvoiceDueDate.Value, "InvoiceReport")</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.63492cm</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox57">
+                      <rd:DefaultName>textbox57</rd:DefaultName>
+                      <Style>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Ert ordernummer</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox66">
+                      <rd:DefaultName>textbox66</rd:DefaultName>
+                      <Style>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Betalningsvillkor</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>8</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox54">
+                      <rd:DefaultName>textbox54</rd:DefaultName>
+                      <Style>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Säljare av denna vara/tjänst</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.55cm</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="InvoiceRecipientOrderNumber">
+                      <rd:DefaultName>InvoiceRecipientOrderNumber</rd:DefaultName>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=First(Fields!InvoiceRecipientOrderNumber.Value, "InvoiceReport")</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="PaymentTermsNote">
+                      <rd:DefaultName>PaymentTermsNote</rd:DefaultName>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=First(Fields!PaymentTermsNote.Value, "InvoiceReport")</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>8</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="ShopContactText">
+                      <rd:DefaultName>ShopContactText</rd:DefaultName>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=First(Fields!ShopContactText.Value, "InvoiceReport")</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.63492cm</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>7</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox2">
+                      <rd:DefaultName>textbox2</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Left>Solid</Left>
+                          <Top>Solid</Top>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Beskrivning</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>2</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox34">
+                      <rd:DefaultName>textbox34</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Top>Solid</Top>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Antal</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>3</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox113">
+                      <rd:DefaultName>textbox113</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Top>Solid</Top>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>À-pris</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox152">
+                      <rd:DefaultName>textbox152</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Right>Solid</Right>
+                          <Top>Solid</Top>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Summa</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.63492cm</Height>
+            </TableRow>
+          </TableRows>
+        </Header>
+        <TableColumns>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.1cm</Width>
+          </TableColumn>
+        </TableColumns>
+        <Footer>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>16</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox13">
+                      <rd:DefaultName>textbox13</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Left>Solid</Left>
+                          <Right>Solid</Right>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value />
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.63492cm</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>16</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox32">
+                      <rd:DefaultName>textbox32</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Left>Solid</Left>
+                          <Right>Solid</Right>
+                        </BorderStyle>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Synlösningen gäller</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.63492cm</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>16</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="InvoiceFreeText">
+                      <rd:DefaultName>InvoiceFreeText</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Left>Solid</Left>
+                          <Right>Solid</Right>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=First(Fields!InvoiceFreeText.Value, "InvoiceReport")</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.63492cm</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>16</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox35">
+                      <rd:DefaultName>textbox35</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Left>Solid</Left>
+                          <Right>Solid</Right>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value />
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.63492cm</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>16</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="InvoiceFooterText">
+                      <rd:DefaultName>InvoiceFooterText</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Left>Solid</Left>
+                          <Right>Solid</Right>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Anmärkningar mot denna faktura skall göras inom 8 dgr för att godkännas.
+Vid betalning efter förfallodagen debiteras dröjsmålsränta med diskonto 12,5%.
+Påminnelseavgift 45 kronor.</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>1.5cm</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox18">
+                      <rd:DefaultName>textbox18</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Left>Solid</Left>
+                          <Top>Solid</Top>
+                        </BorderStyle>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value />
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox22">
+                      <rd:DefaultName>textbox22</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Top>Solid</Top>
+                        </BorderStyle>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Summa exkl moms</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox107">
+                      <rd:DefaultName>textbox107</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Top>Solid</Top>
+                        </BorderStyle>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Moms 25%</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox159">
+                      <rd:DefaultName>textbox159</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Right>Solid</Right>
+                          <Top>Solid</Top>
+                        </BorderStyle>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Att betala</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.63492cm</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox1">
+                      <rd:DefaultName>textbox1</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Left>Solid</Left>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value />
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox12">
+                      <rd:DefaultName>textbox12</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=First(Fields!LineExtensionsTotalAmount.Value, "InvoiceReport")</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox108">
+                      <rd:DefaultName>textbox108</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=First(Fields!TotalTaxAmount.Value, "InvoiceReport")</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ColSpan>4</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox160">
+                      <rd:DefaultName>textbox160</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Right>Solid</Right>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=First(Fields!TaxInclusinveTotalAmount.Value, "InvoiceReport")</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.63492cm</Height>
+            </TableRow>
+          </TableRows>
+        </Footer>
+      </Table>
+      <Image Name="image2">
+        <Sizing>AutoSize</Sizing>
+        <Top>0.57937cm</Top>
+        <MIMEType>image/png</MIMEType>
+        <Source>Embedded</Source>
+        <Style />
+        <Left>7.96164cm</Left>
+        <Height>4.2328cm</Height>
+        <Value>fakturafält</Value>
+      </Image>
+    </ReportItems>
+    <Height>13.96428cm</Height>
+  </Body>
+  <Language>sv-SE</Language>
+  <PageFooter>
+    <ReportItems>
+      <Textbox Name="textbox83">
+        <Top>1.25cm</Top>
+        <Width>3.75cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>16</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>13.25cm</Left>
+        <Height>0.25cm</Height>
+        <Value>Innehar F-skattebevis</Value>
+      </Textbox>
+      <Textbox Name="textbox82">
+        <Top>0.75cm</Top>
+        <Width>3.75cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>15</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>13.25cm</Left>
+        <Height>0.25cm</Height>
+        <Value>SE556262610001</Value>
+      </Textbox>
+      <Textbox Name="textbox81">
+        <Top>0.5cm</Top>
+        <Width>3.75cm</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <ZIndex>14</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>13.25cm</Left>
+        <Height>0.25cm</Height>
+        <Value>Momsreg. nr.</Value>
+      </Textbox>
+      <Textbox Name="textbox80">
+        <Top>0.25cm</Top>
+        <Width>3.75cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>13</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>13.25cm</Left>
+        <Height>0.25cm</Height>
+        <Value>info@synologen.se</Value>
+      </Textbox>
+      <Textbox Name="textbox78">
+        <Width>3.75cm</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <ZIndex>12</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>13.25cm</Left>
+        <Height>0.25cm</Height>
+        <Value>E-post</Value>
+      </Textbox>
+      <Textbox Name="textbox76">
+        <Top>0.75cm</Top>
+        <Width>4cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>11</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>8.77646cm</Left>
+        <Height>0.25cm</Height>
+        <Value>5562626100</Value>
+      </Textbox>
+      <Textbox Name="textbox74">
+        <Top>0.5cm</Top>
+        <Width>4cm</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <ZIndex>10</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>8.77646cm</Left>
+        <Height>0.25cm</Height>
+        <Value>Organisationsnummer</Value>
+      </Textbox>
+      <Textbox Name="textbox72">
+        <Top>0.25cm</Top>
+        <Width>4cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>9</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>8.77646cm</Left>
+        <Height>0.25cm</Height>
+        <Value>56936677</Value>
+      </Textbox>
+      <Textbox Name="textbox69">
+        <Width>4cm</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <ZIndex>8</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>8.77646cm</Left>
+        <Height>0.25cm</Height>
+        <Value>Bankgiro</Value>
+      </Textbox>
+      <Textbox Name="textbox68">
+        <Top>1.25cm</Top>
+        <Width>4cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>7</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.43519cm</Left>
+        <Height>0.35cm</Height>
+        <Value>Klippan</Value>
+      </Textbox>
+      <Textbox Name="textbox67">
+        <Top>1cm</Top>
+        <Width>4cm</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <ZIndex>6</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.43519cm</Left>
+        <Height>0.25cm</Height>
+        <Value>Företagets säte</Value>
+      </Textbox>
+      <Textbox Name="textbox63">
+        <Top>0.75cm</Top>
+        <Width>4cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>5</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.43519cm</Left>
+        <Height>0.25cm</Height>
+        <Value>08 - 4407359</Value>
+      </Textbox>
+      <Textbox Name="textbox62">
+        <Top>0.5cm</Top>
+        <Width>4cm</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <ZIndex>4</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.44709cm</Left>
+        <Height>0.25cm</Height>
+        <Value>Fax</Value>
+      </Textbox>
+      <Textbox Name="textbox55">
+        <Top>0.25cm</Top>
+        <Width>4cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>3</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.44709cm</Left>
+        <Height>0.25cm</Height>
+        <Value>08 - 4407350</Value>
+      </Textbox>
+      <Textbox Name="textbox45">
+        <Width>4cm</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.44709cm</Left>
+        <Height>0.25cm</Height>
+        <Value>Telefon</Value>
+      </Textbox>
+      <Textbox Name="textbox15">
+        <Top>0.30026cm</Top>
+        <Width>4cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>1</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>1.25cm</Height>
+        <Value>Synhälsan Svenska AB
+Strandbergsgatan 61
+112 51 Stockholm</Value>
+      </Textbox>
+      <Textbox Name="textbox11">
+        <rd:DefaultName>textbox11</rd:DefaultName>
+        <Width>4cm</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.3cm</Height>
+        <Value>Adress</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>2.75cm</Height>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageFooter>
+  <TopMargin>1.5cm</TopMargin>
+  <PageHeight>29.7cm</PageHeight>
+</Report>

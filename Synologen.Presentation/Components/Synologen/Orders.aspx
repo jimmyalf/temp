@@ -80,14 +80,7 @@
 	                        <ItemTemplate>                        
 								<asp:HyperLink runat="server" NavigateUrl='<%#GetManageOrdersUrl(Eval("cId"))%>' Text="Hantera" />
 	                        </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Fakturakopia" HeaderStyle-CssClass="controlColumn" ItemStyle-HorizontalAlign="Center"  >
-	                        <ItemTemplate>             
-								<asp:HyperLink runat="server" NavigateUrl='<%#GetInvoiceCopyReportUrl(Eval("cId"))%>' Target="_blank" >
-								<img src="/components/synologen/images/pdficon_small.gif" alt="Fakturakopia" title="Visa fakturakopia">
-								</asp:HyperLink>
-	                        </ItemTemplate>
-                        </asp:TemplateField>                                              
+                        </asp:TemplateField>                                            
                     </Columns>
                 </asp:GridView>
             </div>

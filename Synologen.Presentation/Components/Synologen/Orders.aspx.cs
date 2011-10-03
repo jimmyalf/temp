@@ -261,10 +261,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		{
 			return RouteTable.Routes.GetRoute("ContractSales", "ManageOrder", new RouteValueDictionary {{"id", id}});
 		}
-
-		public string GetInvoiceCopyReportUrl(object id)
-		{
-			return RouteTable.Routes.GetRoute("Report", "InvoiceCopy", new RouteValueDictionary {{"id", id}});
-		}
 	}
 }

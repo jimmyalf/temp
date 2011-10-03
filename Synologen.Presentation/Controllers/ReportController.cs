@@ -2,6 +2,7 @@
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Application.Web;
+using Spinit.Wpc.Synologen.Reports.Models;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
@@ -20,8 +21,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		{
 			var invoice = _sqlProvider.GetOrder(id);
 			var dataSources = _invoiceReportViewService.GetInvoiceReportDataSources(invoice);
-			const string reportUrl = "~/Areas/SynologenAdmin/Reports/InvoiceReport.rdlc";
-			return PDFReport(reportUrl, dataSources);
+			const string embeddedReportFullName = "Spinit.Wpc.Synologen.Reports.Invoicing.InvoiceCopy.rdlc";
+			return PDFReportInAssemblyOf<InvoiceCopyReport>(embeddedReportFullName, dataSources);
 		}
 	}
 }

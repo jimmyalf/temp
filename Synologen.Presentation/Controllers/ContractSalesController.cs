@@ -36,8 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[HttpGet]
 		public ActionResult ManageOrder(int id)
 		{
-			Url.Action("InvoiceCopy", "Report", new RouteValueDictionary {{"id", id}});
-			var viewModel = _viewService.GetOrder(id, this.ControllerContext.RequestContext);
+			var viewModel = _viewService.GetOrder(id);
 			return View(viewModel);
 		}
 

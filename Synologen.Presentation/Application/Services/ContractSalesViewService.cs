@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
 using AutoMapper;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
@@ -90,7 +87,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			return settlementId;
 		}
 
-		public OrderView GetOrder(int orderId, RequestContext requestContext)
+		public OrderView GetOrder(int orderId)
 		{
 			var order = _synologenSqlProvider.GetOrder(orderId);
 			var orderStatus = _synologenSqlProvider.GetOrderStatusRow(order.StatusId);
@@ -101,15 +98,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				VISMAInvoiceNumber = order.InvoiceNumber.ToString(),
                 DisplayCancelButton = (order.StatusId == InvoicedStatusId),
                 DisplayInvoiceCopyLink = CanDisplayInvoiceCopyLink(order.StatusId),
-                InvoiceCopyUrl = GetInvoiceCopyUrl(requestContext, orderId),
                 BackUrl = ComponentPages.Orders.Replace("~","")
 			};
-		}
-
-		private string GetInvoiceCopyUrl(RequestContext requestContext, int orderId)
-		{
-			return new UrlHelper(requestContext)
-				.Action("InvoiceCopy","Report",new RouteValueDictionary {{"id", orderId}});
 		}
 
 		private bool CanDisplayInvoiceCopyLink(int orderStatusId)

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using FakeItEasy;
 using Moq;
 using NUnit.Framework;
@@ -340,6 +341,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		public void ViewModel_should_display_cancel_invoice_button()
 		{
 			ViewModel.DisplayCancelButton.ShouldBe(true);
+		}
+
+		[Test]
+		public void ViewModel_should_display_invoice_copy_link()
+		{
+			ViewModel.DisplayInvoiceCopyLink.ShouldBe(true);
 		}
 	}
 

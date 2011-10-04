@@ -15,12 +15,34 @@
 			$.Synologen.initAddContractArticleSPCSAccountAutoUpdate();
 			$.Synologen.initWebformsValidationMessageSuccessHiding();
 			$.Synologen.initMVCValidationMessageSuccessHiding();
+			$.Synologen.initHelpDialogs();
+		},
+
+		initHelpDialogs: function () {
+			$(".formItem .form-item-help").each(function() {
+				var helpContent = $(this);
+				var helpContentTitle = helpContent.attr("title");
+				var label = helpContent.parent(".formItem").children("label").first();
+				if (helpContentTitle == null) helpContentTitle = "Hjälp";
+				var $dialog = $('<div></div>')
+					.html(helpContent.html())
+					.dialog({
+						autoOpen: false,
+						title: helpContentTitle
+				});
+				label.append("<span class=\"help\" title=\"Visa hjälp\">[?]</span>");
+				var helpItem = label.children("span.help").first();
+				$(helpItem).click(function() {
+					$dialog.dialog('open');
+					return false;
+				});
+			});
 		},
 
 		initConfirmAction: function() {
 			$(".confirm-action").click($.Synologen.confirmAction);
 		},
-		
+
 		confirmAction: function() {
 			var title = $(this).attr("title");
 			if (title && title.length > 0) {

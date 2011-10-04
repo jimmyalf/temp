@@ -109,5 +109,9 @@ ul.action-messages.contains-success{
 	font-weight:bold;
 	font-family: Arial, Tahoma, 'Lucida Grande', Verdana, sans-serif;
 	font-size: 1em;						
-}	
+}
+
+/*  Help dialog styling */
+.form-item-help { display: none; }
+span.help { margin-left:5px; }
 

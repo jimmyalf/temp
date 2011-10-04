@@ -98,7 +98,8 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 			{
 				output = output
 					.Replace("{SellingShopName}", shop.Name ?? String.Empty)
-					.Replace("{SellingShopNumber}", shop.Number ?? String.Empty);
+					.Replace("{SellingShopNumber}", shop.Number ?? String.Empty)
+					.Replace("{SellingShopOrgNumber}", shop.OrganizationNumber ?? String.Empty);
 			}
 			return output;
 		}

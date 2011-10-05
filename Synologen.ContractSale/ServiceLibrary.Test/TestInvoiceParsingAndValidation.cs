@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -36,7 +37,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
 		{
 			var invoiceList = new List<SFTIInvoiceType>();
 			var orderList = new List<Order>();
-			for(var i = 4039; i <= 4074; i++)
+			for(var i = 4039; i <= 4045; i++)
 			{
 				var order = _provider.GetOrder(i);
 				orderList.Add(order);
@@ -53,7 +54,12 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
 					throw new AssertionException("Ruleviolations were found for invoice " + invoice.ID.Value);
 				}
 			}
-			
+			var encoding = Encoding.GetEncoding("ISO-8859-1");
+			var postOfficeHeader = "<?POSTNET SND=\"STREAMS000345\" REC=\"SE00087815000\" MSGTYPE=\"SYNOLOG\"?>";
+			var output = SvefakturaSerializer.Serialize(new SFTIInvoiceList {Invoices = invoiceList}, encoding, "\r\n", Formatting.Indented, postOfficeHeader);
+			Debug.Write(output);
+			var filePath = @"C:\Users\cber\Desktop\Synologen Faktura\Exempelfaktura_" + DateTime.Now.ToString("yyyy-MM-dd_HH.mm") + ".xml";
+			File.WriteAllText(filePath, output, encoding);
 		}
 
 		[Test]

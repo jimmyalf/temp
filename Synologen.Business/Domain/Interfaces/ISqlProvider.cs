@@ -70,7 +70,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces{
 		IList<Country> GetCountryRows(Func<Country, string> orderBy);
 		bool AddUpdateDeleteContractArticleConnection(Wpc.Utility.Business.Enumerations.Action action, ref ContractArticleConnection connection);
 		ContractArticleConnection GetContractCustomerArticleRow(int connectionId);
-		DataSet GetContractArticleConnections(int? connectionId, int? contractId, string orderBy);
+		DataSet GetContractArticleConnections(int? connectionId, int? contractId, bool? active, string orderBy);
 		DataSet GetContractsByPage(string searchString, string orderBy, int currentPage, int pageSize, ref int totalSize);
 		Contract GetContract(int contractCustomerId);
 		DataSet GetContracts(FetchCustomerContract type, int contractCustomer, int shopId, bool? active);

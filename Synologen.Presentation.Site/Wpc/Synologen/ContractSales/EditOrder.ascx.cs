@@ -15,6 +15,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
 	{
 		private int _orderId;
 		private Order _order;
+		private const bool ActiveArticles = true;
 
 		protected void Page_Load(object sender, EventArgs e) {
 			if (Request.Params["id"] != null){
@@ -56,7 +57,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
 
 		private void PopulateArticles() {
 			var contractId = Int32.Parse(drpContracts.SelectedValue);
-			drpArticle.DataSource = Provider.GetContractArticleConnections(0, contractId, "tblSynologenContractArticleConnection.cId");
+			drpArticle.DataSource = Provider.GetContractArticleConnections(0, contractId, ActiveArticles, "tblSynologenContractArticleConnection.cId");
 			drpArticle.DataBind();
 			drpArticle.Items.Insert(0, new ListItem("-- Välj Artikel --", "0"));
 			drpArticle.Enabled = true;

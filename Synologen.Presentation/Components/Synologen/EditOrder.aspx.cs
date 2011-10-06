@@ -10,9 +10,12 @@ using Spinit.Wpc.Utility.Business;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
 
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
-	public partial class EditOrder : SynologenPage {
+	public partial class EditOrder : SynologenPage 
+	{
+
 		private int _orderId;
 		private Order order;
+		private const bool ActiveArticles = true;
 
 		protected void Page_Load(object sender, EventArgs e) {
 
@@ -103,7 +106,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		private void PopulateArticles() {
-			drpArticle.DataSource = Provider.GetContractArticleConnections(0, order.ContractCompany.ContractId, "tblSynologenContractArticleConnection.cId");
+			drpArticle.DataSource = Provider.GetContractArticleConnections(0, order.ContractCompany.ContractId, ActiveArticles, "tblSynologenContractArticleConnection.cId");
 			drpArticle.DataBind();
 			drpArticle.Items.Insert(0, new ListItem("-- Välj Artikel --", "0"));
 			drpArticle.Enabled = true;

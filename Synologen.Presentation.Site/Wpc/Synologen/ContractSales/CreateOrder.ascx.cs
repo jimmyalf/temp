@@ -10,8 +10,9 @@ using Globals=Spinit.Wpc.Synologen.Business.Globals;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
 {
-	public partial class CreateOrder : SynologenSalesUserControl 
+	public partial class CreateOrder : SynologenSalesUserControl
 	{
+		private const bool ActiveArticles = true;
 		protected void Page_Load(object sender, EventArgs e) {
 			btnSave.Enabled = CheckEnableSaveOrder();
 			if (Page.IsPostBack) return;
@@ -40,7 +41,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales
 
 		private void PopulateArticles() {
 			var contractId = Int32.Parse(drpContracts.SelectedValue);
-			drpArticle.DataSource = Provider.GetContractArticleConnections(0, contractId, "tblSynologenContractArticleConnection.cId");
+			drpArticle.DataSource = Provider.GetContractArticleConnections(0, contractId, ActiveArticles, "tblSynologenContractArticleConnection.cId");
 			drpArticle.DataBind();
 			drpArticle.Items.Insert(0, new ListItem("-- Välj Artikel --", "0"));
 			drpArticle.Enabled = true;

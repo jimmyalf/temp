@@ -10,8 +10,9 @@ using Spinit.Wpc.Utility.Business.SmartMenu;
 
 namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen 
 {
-	public partial class ContractArticles : SynologenPage 
+	public partial class ContractArticles : SynologenPage
 	{
+		private readonly bool? AllArticles = null;
 		//private int _connectionId = -1;
 		private int _contractId = -1;
 		private Contract  _selectedContract = new Contract();
@@ -45,7 +46,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 
 		private void PopulateContractCustomerArticles() 
 		{
-			var customerArticles = Provider.GetContractArticleConnections(0, _contractId, "tblSynologenContractArticleConnection.cId");
+			var customerArticles = Provider.GetContractArticleConnections(0, _contractId, AllArticles, "tblSynologenContractArticleConnection.cId");
 			gvContractCustomerArticles.DataSource = customerArticles;
 			gvContractCustomerArticles.DataBind();
 			//ltHeading.Text = "Lägg till artikelkoppling";

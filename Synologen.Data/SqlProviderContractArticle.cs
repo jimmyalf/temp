@@ -3,8 +3,10 @@ using System.Data;
 using System.Data.SqlClient;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Utility.Business;
-namespace Spinit.Wpc.Synologen.Data {
-	public partial class SqlProvider {
+namespace Spinit.Wpc.Synologen.Data 
+{
+	public partial class SqlProvider 
+	{
 
 		public bool AddUpdateDeleteContractArticleConnection(Enumerations.Action action, ref ContractArticleConnection connection) {
 			try {
@@ -58,7 +60,7 @@ namespace Spinit.Wpc.Synologen.Data {
 
 		public ContractArticleConnection GetContractCustomerArticleRow(int connectionId) {
 			try {
-				var articleDataSet = GetContractArticleConnections(connectionId, 0, null);
+				var articleDataSet = GetContractArticleConnections(connectionId, 0, null, null);
 				var articleDataRow = articleDataSet.Tables[0].Rows[0];
 				var articleRow = new ContractArticleConnection {
 					Id = Util.CheckNullInt(articleDataRow, "cId"), 
@@ -80,18 +82,20 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public DataSet GetContractArticleConnections(int? connectionId, int? contractId, string orderBy) {
+		public DataSet GetContractArticleConnections(int? connectionId, int? contractId, bool? active, string orderBy) {
 			try {
 				var counter = 0;
 				SqlParameter[] parameters = {
 						new SqlParameter ("@connectionId", SqlDbType.Int, 4),
 						new SqlParameter ("@contractCustomerId", SqlDbType.Int, 4),
 						new SqlParameter ("@orderBy", SqlDbType.NVarChar, 255),
+						new SqlParameter ("@active", SqlDbType.Bit),
 						new SqlParameter ("@status", SqlDbType.Int, 4)
 					};
 				parameters[counter++].Value = GetNullableSqlType(connectionId);
 				parameters[counter++].Value = GetNullableSqlType(contractId);
 				parameters[counter++].Value = GetNullableSqlType(orderBy);
+				parameters[counter++].Value = GetNullableSqlType(active);
 				parameters[counter].Direction = ParameterDirection.Output;
 				var retSet = RunProcedure("spSynologenGetContractArticleConnections", parameters, "tblSynologenContractCustomerArticles");
 				return retSet;

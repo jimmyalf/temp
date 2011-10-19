@@ -173,7 +173,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			var criteria = new PageOfTransactionArticlesMatchingCriteria { OrderBy = "Name", PageSize = 100, SortAscending = false};
 			var matchingItems = GetResult(session => new TransactionArticleRepository(session).FindBy(criteria));
-			matchingItems.First().Name.ShouldBe("Artikel Z");
+			matchingItems.First().Name.ShouldBe("Artikel Ö");
 			matchingItems.Last().Name.ShouldBe("Artikel A");
 		}
 

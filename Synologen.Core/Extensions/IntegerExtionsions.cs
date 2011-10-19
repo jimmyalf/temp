@@ -12,7 +12,8 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		public static char GetChar(this int value, string listOfAvailableChars)
 		{
 			var list = listOfAvailableChars.ToCharArray();
-			return list[value % (list.Length - 1)];
+			var index = value % (list.Length);
+			return list[index];
 		}
 
 		public static void AsIndexFor(this int indexValue, Action<int> action)

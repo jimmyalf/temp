@@ -148,17 +148,16 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     <ReportItems>
       <Textbox Name="textbox27">
         <rd:DefaultName>textbox27</rd:DefaultName>
-        <Top>1.25cm</Top>
-        <Width>7.75cm</Width>
+        <Top>1.09127cm</Top>
+        <Width>6.86508cm</Width>
         <Style>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
         <ZIndex>6</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>9.13492cm</Left>
+        <Left>8.92328cm</Left>
         <Height>2cm</Height>
         <Value>=First(Fields!InvoiceRecipient.Value, "InvoiceReport")</Value>
       </Textbox>
@@ -242,7 +241,6 @@ Sverige</Value>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!Description.Value</Value>
@@ -258,7 +256,6 @@ Sverige</Value>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!Quantity.Value</Value>
@@ -274,7 +271,6 @@ Sverige</Value>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!SinglePrice.Value</Value>
@@ -293,7 +289,6 @@ Sverige</Value>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!RowAmount.Value</Value>
@@ -301,7 +296,7 @@ Sverige</Value>
                   </ReportItems>
                 </TableCell>
               </TableCells>
-              <Height>0.65cm</Height>
+              <Height>0.5cm</Height>
             </TableRow>
           </TableRows>
         </Details>
@@ -384,6 +379,7 @@ Sverige</Value>
                     <Textbox Name="InvoiceNumber">
                       <rd:DefaultName>InvoiceNumber</rd:DefaultName>
                       <Style>
+                        <TextAlign>Left</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingBottom>2pt</PaddingBottom>
@@ -487,7 +483,7 @@ Sverige</Value>
                         <PaddingTop>2pt</PaddingTop>
                       </Style>
                       <CanGrow>true</CanGrow>
-                      <Value>Säljare av denna vara/tjänst</Value>
+                      <Value>Säljare av vara/tjänst</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -687,6 +683,7 @@ Sverige</Value>
             <Width>1.1cm</Width>
           </TableColumn>
         </TableColumns>
+        <Height>8.81428cm</Height>
         <Footer>
           <TableRows>
             <TableRow>

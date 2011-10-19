@@ -82,7 +82,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
 					StreetName = new StreetNameType{ Value = "Strandbergsgatan 61" },
 					CityName = new CityNameType{ Value = "Stockholm" },
 					Country = GetSwedishSFTICountryType(),
-					Postbox = new PostboxType{ Value = "Box 123" },
+					//Postbox = new PostboxType{ Value = "Box 123" },
 					PostalZone = new ZoneType{ Value = "112 51"}
 
 				},
@@ -107,8 +107,8 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
 				VATAmount = 0.25m,
 				BankGiro = "56936677",
 				BankgiroBankIdentificationCode = "BGABSESS",
-				Postgiro = "123456",
-				PostgiroBankIdentificationCode = "PGSISESS",
+				//Postgiro = "123456",
+				//PostgiroBankIdentificationCode = "PGSISESS",
 				InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto",
 				InvoiceExpieryPenaltySurchargePercent = 12.5m,
 				VATFreeReasonMessage = "Momsfri"

@@ -110,7 +110,7 @@ namespace Spinit.Wpc.Synologen.Integration.Services.Test
 				//Postgiro = "123456",
 				//PostgiroBankIdentificationCode = "PGSISESS",
 				InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagar netto",
-				InvoiceExpieryPenaltySurchargePercent = 12.5m,
+				InvoiceExpieryPenaltySurchargePercent = 8m,
 				VATFreeReasonMessage = "Momsfri"
 			};
 		}

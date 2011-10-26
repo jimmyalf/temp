@@ -61,24 +61,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 
 		private static string GetShopContaxtText(IShop shop)
 		{
-			const string shopContactText = "{ShopName} ({OrganizationNumber}){NewLine}{Address}{NewLine}{TelephoneAndEmail}";
+			const string shopContactText = "{ShopName} ({OrganizationNumber}){NewLine}{AddressLine}{NewLine}{ZipAndCity}";
 			return shopContactText.ReplaceWith(new
 			{
 				NewLine, 
 				ShopName = shop.Name, 
 				shop.OrganizationNumber, 
-				Address = GetShopAddress(shop), 
-				TelephoneAndEmail = (shop.Phone + " " + shop.Email).Trim()
+				AddressLine = GetShopAddressLine(shop), 
+				ZipAndCity = GetShopZipAndCity(shop), 
 			});
 		}
 
-		private static string GetShopAddress(IShop shop)
+		private static string GetShopAddressLine(IShop shop)
 		{
-			return " ".AsDelimiter().ConcatenateFieldsFor(shop, 
-				x => x.Address, 
-				x => x.Address2, 
-				x => x.Zip, 
-				x => x.City);
+			if(String.IsNullOrEmpty(shop.Address2)) return shop.Address ?? string.Empty;
+			return shop.Address2;
+		}
+		private static string GetShopZipAndCity(IShop shop)
+		{
+			return "{Zip} {City}".ReplaceWith(new { shop.Zip, shop.City });
 		}
 
 
@@ -88,7 +89,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			Func<OrderItem,InvoiceRow> parseInvoiceRow = orderItem => new InvoiceRow
 			{
 				Description = orderItem.ArticleDisplayName, 
-				Quantity = orderItem.NumberOfItems.ToString(), 
+				Quantity = orderItem.NumberOfItems.ToString("N2"), 
 				SinglePrice = orderItem.SinglePrice.ToString("N2"), 
 				RowAmount = orderItem.DisplayTotalPrice.ToString("N2")
 			};

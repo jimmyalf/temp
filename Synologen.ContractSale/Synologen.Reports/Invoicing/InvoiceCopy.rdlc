@@ -175,7 +175,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         <Top>1.75cm</Top>
         <Width>4.25cm</Width>
         <Style>
-          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingLeft>5pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
@@ -238,7 +238,7 @@ Sverige</Value>
                         <BorderStyle>
                           <Left>Solid</Left>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>5pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                       </Style>
@@ -253,6 +253,7 @@ Sverige</Value>
                     <Textbox Name="RowAmount">
                       <rd:DefaultName>RowAmount</rd:DefaultName>
                       <Style>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -268,6 +269,7 @@ Sverige</Value>
                     <Textbox Name="textbox114">
                       <rd:DefaultName>textbox114</rd:DefaultName>
                       <Style>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -286,8 +288,9 @@ Sverige</Value>
                         <BorderStyle>
                           <Right>Solid</Right>
                         </BorderStyle>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingRight>5pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                       </Style>
                       <CanGrow>true</CanGrow>
@@ -311,7 +314,7 @@ Sverige</Value>
                       <rd:DefaultName>textbox56</rd:DefaultName>
                       <Style>
                         <FontWeight>700</FontWeight>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>5pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                       </Style>
@@ -380,7 +383,7 @@ Sverige</Value>
                       <rd:DefaultName>InvoiceNumber</rd:DefaultName>
                       <Style>
                         <TextAlign>Left</TextAlign>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>5pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
@@ -446,7 +449,7 @@ Sverige</Value>
                       <rd:DefaultName>textbox57</rd:DefaultName>
                       <Style>
                         <FontWeight>700</FontWeight>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>5pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                       </Style>
@@ -498,7 +501,7 @@ Sverige</Value>
                     <Textbox Name="InvoiceRecipientOrderNumber">
                       <rd:DefaultName>InvoiceRecipientOrderNumber</rd:DefaultName>
                       <Style>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>5pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
@@ -554,7 +557,7 @@ Sverige</Value>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>700</FontWeight>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>5pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
@@ -575,6 +578,7 @@ Sverige</Value>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>700</FontWeight>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -596,6 +600,7 @@ Sverige</Value>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>700</FontWeight>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -618,8 +623,9 @@ Sverige</Value>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>700</FontWeight>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingRight>5pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
@@ -724,7 +730,7 @@ Sverige</Value>
                           <Right>Solid</Right>
                         </BorderStyle>
                         <FontWeight>700</FontWeight>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>5pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
@@ -749,7 +755,7 @@ Sverige</Value>
                           <Left>Solid</Left>
                           <Right>Solid</Right>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>5pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
@@ -799,14 +805,14 @@ Sverige</Value>
                           <Left>Solid</Left>
                           <Right>Solid</Right>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>5pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
                       <Value>Anmärkningar mot denna faktura skall göras inom 8 dgr för att godkännas.
-Vid betalning efter förfallodagen debiteras dröjsmålsränta med diskonto 12,5%.
+Vid betalning efter förfallodagen debiteras dröjsmålsränta med referensränta 8%.
 Påminnelseavgift 45 kronor.</Value>
                     </Textbox>
                   </ReportItems>
@@ -847,6 +853,7 @@ Påminnelseavgift 45 kronor.</Value>
                           <Top>Solid</Top>
                         </BorderStyle>
                         <FontWeight>700</FontWeight>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -867,6 +874,7 @@ Påminnelseavgift 45 kronor.</Value>
                           <Top>Solid</Top>
                         </BorderStyle>
                         <FontWeight>700</FontWeight>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -888,8 +896,9 @@ Påminnelseavgift 45 kronor.</Value>
                           <Top>Solid</Top>
                         </BorderStyle>
                         <FontWeight>700</FontWeight>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingRight>5pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
@@ -932,6 +941,7 @@ Påminnelseavgift 45 kronor.</Value>
                         <BorderStyle>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -951,6 +961,7 @@ Påminnelseavgift 45 kronor.</Value>
                         <BorderStyle>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -971,8 +982,9 @@ Påminnelseavgift 45 kronor.</Value>
                           <Right>Solid</Right>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingRight>5pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
@@ -1221,7 +1233,7 @@ Påminnelseavgift 45 kronor.</Value>
         <Top>0.30026cm</Top>
         <Width>4cm</Width>
         <Style>
-          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingLeft>5pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
@@ -1237,7 +1249,7 @@ Strandbergsgatan 61
         <Width>4cm</Width>
         <Style>
           <FontWeight>700</FontWeight>
-          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingLeft>5pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
         </Style>

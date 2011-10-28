@@ -193,7 +193,8 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
                     CityName = new CityNameType{ Value = ConfigurationSettings.WebService.SellingOrganizationCity},
                     Country = GetSellingOrganizationCountry(),
                     PostalZone = new ZoneType{Value = ConfigurationSettings.WebService.SellingOrganizationPostalCode},
-					Postbox = ConfigurationSettings.WebService.SellingOrganizationPostBox.TryGetValue<PostboxType>((postbox, value) => postbox.Value = value),
+					Postbox = ConfigurationSettings.WebService.SellingOrganizationPostBox
+						.TryGetValue<PostboxType>((postbox, value) => postbox.Value = value),
                     StreetName = new StreetNameType{ Value = ConfigurationSettings.WebService.SellingOrganizationStreetName}
 				},
 				RegistrationAdress = new SFTIAddressType

@@ -69,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 		private void SkapasEnNyAvtalsArtikelKoppling()
 		{
 			var contractArticleId = WithSqlProvider<ISqlProvider>()
-				.GetContractArticleConnections(null,null,null)
+				.GetContractArticleConnections(null,null,null,null)
 				.Tables[0].AsEnumerable().First()
 				.Field<int>("cId");
 			var contractArticle = WithSqlProvider<ISqlProvider>().GetContractCustomerArticleRow(contractArticleId);

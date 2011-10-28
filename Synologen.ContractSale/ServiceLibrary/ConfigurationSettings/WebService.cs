@@ -140,7 +140,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings
 		}
 
 		public static string PostGiroCode{
-			get { return GetSafeValue("PostGiroCode", String.Empty); }
+			get { return GetSafeValue("PostGiroCode", (string) null); }
 		}
 
 		public static string ExemptionReason{
@@ -196,7 +196,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary.ConfigurationSettings
 		}
 
 		public static string SellingOrganizationPostBox{
-			get { return GetSafeValue("SellingOrganizationPostBox", String.Empty); }
+			get { return GetSafeValue("SellingOrganizationPostBox", (string) null); }
 		}
 
 		public static string SellingOrganizationStreetName{

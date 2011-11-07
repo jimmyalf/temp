@@ -43,6 +43,7 @@
 	<fieldset>
 	    <legend>Flöden</legend>
 	    <a href="TestPages/YammerFeed.aspx">Flöde från Yammer</a>
+	    <a href="TestPages/MiniYammerFeed.aspx">Begränsat flöde från Yammer</a>
 	</fieldset>
 </div>
 </asp:Content>

@@ -66,6 +66,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Logic.Presenters.Yammer
 
         private JsonMessageModel GetJsonObjects()
         {
+            if (View.NumberOfMessages < 0)
+            {
+                View.NumberOfMessages = Int16.MaxValue;
+            }
+
             var json = _service.GetJson(View.NumberOfMessages, View.Threaded, View.NewerThan);
             var objects = JsonConvert.DeserializeObject<JsonMessageModel>(json);
 

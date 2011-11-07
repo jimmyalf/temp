@@ -9,9 +9,9 @@ using WebFormsMvp.Web;
 
 namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.Yammer
 {
-    [PartialCaching(600)]
+    [PartialCaching(120)]
     [PresenterBinding(typeof(YammerPresenter))]
-    public partial class YammerFeed : MvpUserControl<YammerListModel>, IYammerView
+    public partial class MiniYammerFeed : MvpUserControl<YammerListModel>, IYammerView
     {
         protected void Page_Load(object sender, EventArgs e) { }
 

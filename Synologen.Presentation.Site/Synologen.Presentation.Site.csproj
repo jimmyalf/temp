@@ -351,6 +351,13 @@
     <Compile Include="Wpc\Synologen\ValidationButton.ascx.designer.cs">
       <DependentUpon>ValidationButton.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\Yammer\MiniYammerFeed.ascx.cs">
+      <DependentUpon>MiniYammerFeed.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Yammer\MiniYammerFeed.ascx.designer.cs">
+      <DependentUpon>MiniYammerFeed.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\Yammer\YammerFeed.ascx.cs">
       <DependentUpon>YammerFeed.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -547,6 +554,7 @@
     </Content>
     <None Include="Testpages\AdminMemberFiles.aspx" />
     <None Include="Testpages\LensSubscriptionShopSubscriptionsList.aspx" />
+    <Content Include="Testpages\MiniYammerFeed.aspx" />
     <Content Include="Testpages\YammerFeed.aspx" />
     <Content Include="Wpc\Synologen\js\Synologen.js" />
     <Content Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionsList.ascx" />
@@ -568,6 +576,7 @@
     <Content Include="Wpc\Synologen\Supplier\Images\word.png" />
     <Content Include="Wpc\Synologen\Supplier\PdfThumbnail.aspx" />
     <Content Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx" />
+    <Content Include="Wpc\Synologen\Yammer\MiniYammerFeed.ascx" />
     <Content Include="Wpc\Synologen\Yammer\YammerFeed.ascx" />
   </ItemGroup>
   <ItemGroup>

@@ -121,6 +121,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Code.Yammer
             return body.plain;
         }
 
+        /// <summary>
+        /// Detects wether yammer message say that someone joined the network
+        /// </summary>
         public static bool IsNotJoinMessage(BodyModel body)
         {
             return !Regex.IsMatch(body.plain, "#joined", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);

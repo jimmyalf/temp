@@ -1,0 +1,5 @@
+<%@ Master Language="C#" MasterPageFile="~/Wpc/Forum/Themes/MasterPage.master" AutoEventWireup="true" %>
+<asp:Content ID="Forum" ContentPlaceHolderID="Content" Runat="Server">
+<asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+</asp:contentplaceholder>
+</asp:Content>

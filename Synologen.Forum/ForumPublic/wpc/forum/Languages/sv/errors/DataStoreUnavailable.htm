@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>Critical Error: [DATASTOREEXCEPTION]</title>
+    <link rel="stylesheet" href="Themes/default/style/default.css" type="text/css" />
+  </head>
+  <body>
+    <center>
+    <table height="70%" width="90%">
+      <tr>
+        <td align="center" valign="middle">
+	  <h1>Critical Error: Data Store Unavailable</h1>
+          <b>The data store used by the ASP.NET Forums cannot be opened. 
+          <P>
+          Please ensure that your database is online and running and that the connection string in your web.config file is correct.</b>
+          <p>
+<br>
+<table width="100%">
+  <tr>
+    <td align="left" colspan="2">
+          To configure your connection string:
+          <P>
+1.	Open [Install Location of Forums]\web\web.config
+          <P>
+2.	Within web.config find the <forums> configuration section (<font color="darkred"><b>highlighted</b></font>) below:
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp; &nbsp;</td>
+    <td align="left" bgcolor="#CCCCCC">
+<font face="LucidiaConsole"><b>
+<pre>
+
+    &lt;configuration&gt;
+        &lt;forums&gt;
+
+          &lt;forums defaultProvder="SqlForumsProvider" defaultLanguage="en-en" &gt;
+
+            &lt;providers&gt;
+
+              &lt;add name="SqlForumsProvider" 
+                        type="Spinit.Wpc.Forum.Data.SqlDataProvider, Spinit.Wpc.Forum.SqlDataProvider" 
+                        connectionString="<font color="darkred"><u>^SqlConnectionString^</u></font>"
+                        databaseOwner = "dbo"
+              /&gt;
+
+            &lt;/providers&gt;
+
+          &lt;/forums&gt;
+
+        &lt;/forums&gt;
+    &lt;/configuration&gt;
+
+</pre>
+</b></font>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+&nbsp;
+<P>
+3. Modify the connection string value to properly identify your database. 
+<P>
+For example, to connect to a database named ‘Forums’ on the current machine with an account ‘sa’ and the password ‘password’:
+<P>
+<font face="LucidiaConsole">
+<pre>
+  connectionString = "server=.;database=Forums;uid=sa;pwd=password"
+</pre>
+</font>
+<P>
+         For more information you can also visit <a href="http://forums.asp.net">http://forums.asp.net</a> the home of the ASP.NET Forums development team.
+    </td>
+  </tr>
+</table>
+<P>
+        </td>
+      </tr>
+    </table>
+    </center>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+﻿.edtWpcWysiwyg {width: 100%; overflow: auto; height:auto}
+.edtWpcWysiwyg table {clear: none; width: auto;}
+.edtWpcWysiwyg table caption {display: table-caption;}
+.edtWpcWysiwyg thead th {padding: 0; text-align: inherit; color: inherit; background: inherit; border: inherit;}
+.edtWpcWysiwyg tbody {border: 0;}
+.edtWpcWysiwyg tbody td,
+.edtWpcWysiwyg tbody th {padding: 0; vertical-align: inherit; font-family: inherit; background-color: inherit; border: inherit;}
+.edtWpcWysiwyg tbody tr:hover th,
+.edtWpcWysiwyg tbody tr:hover td {color: inherit; background-color: inherit;}
+.edtWpcWysiwyg tbody tr:last-child td {border: inherit;}

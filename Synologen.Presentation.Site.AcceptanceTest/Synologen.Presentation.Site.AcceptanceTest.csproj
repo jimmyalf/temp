@@ -67,6 +67,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Services.Client, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Synologen.Presentation.Site\Bin\Spinit.Services.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Test.Web, Version=1.0.622.728, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Test.Web.dll</HintPath>
@@ -122,6 +126,7 @@
     <Compile Include="LensSubscription\Add_Customer.cs" />
     <Compile Include="LensSubscription\Add_Subscription_To_Customer.cs" />
     <Compile Include="LensSubscription\Factory.cs" />
+    <Compile Include="LensSubscription\Send_Frame_Orders.cs" />
     <Compile Include="LensSubscription\TestHelpers\PresenterBase.cs" />
     <Compile Include="LensSubscription\TestHelpers\SpecTestbase.cs" />
     <Compile Include="LensSubscription\TestHelpers\StoryQ.flit.sv-SE.g.cs" />

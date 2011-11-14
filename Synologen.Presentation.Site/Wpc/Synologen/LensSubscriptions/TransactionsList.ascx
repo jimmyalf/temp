@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TransactionsList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.TransactionsList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TransactionsList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.TransactionsList" %>
 <fieldset>
 	<legend>Transaktioner</legend>
 	<% if (Model.HasTransactions) {%>

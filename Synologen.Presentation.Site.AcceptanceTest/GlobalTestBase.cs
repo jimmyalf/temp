@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest.App.Bootstrapping;
 
@@ -9,6 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest
 		[SetUp]
 		public void RunBeforeAnyTests()
 		{
+			Console.WriteLine("hej");
 			Bootstrapper.Bootstrap();
 		}
 
@@ -16,6 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest
 		public void RunAfterAnyTests()
 		{
 			// ...
+			Console.WriteLine("hej då");
 		}
 	}
 }

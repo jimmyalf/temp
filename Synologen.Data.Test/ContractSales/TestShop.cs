@@ -1,17 +1,17 @@
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Test;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Utility.Business;
-using Synologen.Test.Core;
 using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
 	[TestFixture, Category("TestSqlProviderForShop")]
-	public class Given_a_persisted_shop : BehaviorTestBase<SqlProvider>
+	public class Given_a_persisted_shop : BehaviorActionTestbase<SqlProvider>
 	{
 		private Shop persistedShop;
 		private Shop TestShop;
@@ -39,7 +39,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		public void Can_get_persisted_shop()
 		{
 			//Act
-			persistedShop = GetTestModel().GetShop(testableShopId);
+			persistedShop = GetTestEntity().GetShop(testableShopId);
 
 			//Assert
 			persistedShop.Access.ShouldBe(TestShop.Access);
@@ -75,15 +75,15 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			var editedShop = ShopFactory.GetShop(TestShop.ShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
 
 			//Act
-			GetTestModel().AddUpdateDeleteShop(Enumerations.Action.Update, ref editedShop);
-			var fetchedShop = GetTestModel().GetShop(TestShop.ShopId);
+			GetTestEntity().AddUpdateDeleteShop(Enumerations.Action.Update, ref editedShop);
+			var fetchedShop = GetTestEntity().GetShop(TestShop.ShopId);
 
 			//Assert
 			fetchedShop.Access.HasOption(ShopAccess.LensSubscription).ShouldBe(true);
 			fetchedShop.Access.HasOption(ShopAccess.SlimJim).ShouldBe(true);
 		}
 
-		protected override SqlProvider GetTestModel()
+		protected override SqlProvider GetTestEntity()
 		{
 			return new SqlProvider(DataHelper.ConnectionString);
 		}

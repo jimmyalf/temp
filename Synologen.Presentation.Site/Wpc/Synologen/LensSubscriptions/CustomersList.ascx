@@ -1,15 +1,15 @@
-<%@ Control Language="C#" CodeBehind="CustomersList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.CustomersList" %>
+ï»¿<%@ Control Language="C#" CodeBehind="CustomersList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.CustomersList" %>
 <div id="synologen-create-lens-subscription-customer-list" class="synologen-control">
 <p>
-	<label for="<%=txtSearch.ClientID%>">Sök</label>
+	<label for="<%=txtSearch.ClientID%>">SÃ¶k</label>
 	<asp:TextBox ID="txtSearch" Text='<%#Model.SearchTerm %>' runat="server" />
-	<asp:Button ID="btnSearch" runat="server" Text="Sök" />
+	<asp:Button ID="btnSearch" runat="server" Text="SÃ¶k" />
 </p>
 <asp:Repeater ID="rptCustomers" runat="server" DataSource='<%#Model.List%>'>
 	<HeaderTemplate >
 		<table>
 			<tr class="synologen-table-headerrow">
-				<th><a href="<%# Model.FirstNameSortUrl %>">Förnamn</a></th><th><a href="<%# Model.LastNameSortUrl %>" >Efternamn</a></th><th><a href="<%# Model.PersonNumberSortUrl %>" >Personnummer</a></th><th>Redigera</th>
+				<th><a href="<%# Model.FirstNameSortUrl %>">FÃ¶rnamn</a></th><th><a href="<%# Model.LastNameSortUrl %>" >Efternamn</a></th><th><a href="<%# Model.PersonNumberSortUrl %>" >Personnummer</a></th><th>Redigera</th>
 			</tr>
 	</HeaderTemplate>
 	<ItemTemplate>

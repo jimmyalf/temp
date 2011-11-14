@@ -2,6 +2,7 @@ using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
+using FakeItEasy;
 using Moq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
@@ -26,7 +27,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Test.FrameOrderTests
 		public void Context()
 		{
 			frameOrderRepository = RepositoryFactory.GetFramOrderRepository();
-			view = ViewsFactory.GetListFrameOrdersPresenterView();
+			view = A.Fake<IListFrameOrdersView<ListFrameOrdersModel>>();
+				//ViewsFactory.GetListFrameOrdersPresenterView();
 			synologenMemberService = ServiceFactory.GetSynologenMemberService();
 			presenter = new ListFrameOrdersPresenter(view, frameOrderRepository, synologenMemberService);
 		}

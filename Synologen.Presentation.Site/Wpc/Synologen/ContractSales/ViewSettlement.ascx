@@ -1,21 +1,21 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewSettlement.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales.ViewSettlement" %>
+Ôªø<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewSettlement.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales.ViewSettlement" %>
 <div class="synologen-control">
 	<fieldset><legend>Utbetalningsuppgifter</legend>
 		<p><label>Utbetalning:</label>&nbsp;<span><%#Model.SettlementId %></span></p>
 		<p><label>Butiknummer:</label>&nbsp;<span><%#Model.ShopNumber %></span></p>
 		<p><label>Period:</label>&nbsp;<span><%#Model.Period %></span></p>
-		<p><label>Avtalsfˆrs‰ljningsv‰rde inkl moms:</label>&nbsp;<span><%#Model.ContractSalesValueIncludingVAT %></span></p>
-		<p><label>Linsabonnemangsv‰rde inkl moms:</label>&nbsp;<span><%#Model.LensSubscriptionsValueIncludingVAT %></span></p>
+		<p><label>Avtalsf√∂rs√§ljningsv√§rde inkl moms:</label>&nbsp;<span><%#Model.ContractSalesValueIncludingVAT %></span></p>
+		<p><label>Linsabonnemangsv√§rde inkl moms:</label>&nbsp;<span><%#Model.LensSubscriptionsValueIncludingVAT %></span></p>
 		<p><label>Antal linsabonnemang-transaktioner:</label>&nbsp;<span><%#Model.LensSubscriptionTransactionsCount %></span></p>
 		<p><a href="<%=Spinit.Wpc.Synologen.Presentation.Site.Code.SynologenSessionContext.SettlementListPage %>">&laquo;&nbsp;Tillbaka</a></p>
 	</fieldset>
 	<div class="control-actions">
 		<asp:Button ID="btnSwitchView" runat="server" Text='<%#Model.SwitchViewButtonText%>' OnClick="btnSwitchView_Click" />
-		<asp:Button ID="btnMarkAsPayed" runat="server" Text="Markera som utbetalda" OnClick="btnMarkAsPayed_Click" OnClientClick="return confirm('ƒr du s‰ker pÂ att du vill markera fakturor som utbetalda?');"  Enabled='<%#Model.MarkAsPayedButtonEnabled %>'/>
+		<asp:Button ID="btnMarkAsPayed" runat="server" Text="Markera som utbetalda" OnClick="btnMarkAsPayed_Click" OnClientClick="return confirm('√Ñr du s√§ker p√• att du vill markera fakturor som utbetalda?');"  Enabled='<%#Model.MarkAsPayedButtonEnabled %>'/>
 		<input type="button" onclick="window.print();return false;" value="Skriv ut"/>
 	</div>
 	<asp:PlaceHolder ID="plSimpleView" runat="server" Visible='<%#Model.DisplaySimpleView%>'>
-	<fieldset><legend>Avtalsfˆrs‰ljning</legend>
+	<fieldset><legend>Avtalsf√∂rs√§ljning</legend>
 	<asp:Repeater ID="rptSettlementOrderItemsSimple" runat="server" DataSource='<%#Model.SimpleContractSales%>'>
 	<HeaderTemplate>
 		<table>
@@ -23,7 +23,7 @@
 				<th>Artikelnummer</th>
 				<th>Artikel</th>
 				<th>Antal</th>
-				<th>V‰rde</th>
+				<th>V√§rde</th>
 				<th>Momsfri</th>
 			</tr>			
 	</HeaderTemplate>
@@ -43,17 +43,17 @@
 	</fieldset>
 	</asp:PlaceHolder>
 	<asp:PlaceHolder ID="plDetailedView" runat="server" Visible='<%#Model.DisplayDetailedView%>'>
-	<fieldset><legend>Avtalsfˆrs‰ljning</legend>
+	<fieldset><legend>Avtalsf√∂rs√§ljning</legend>
 	<asp:Repeater ID="rptSettlementOrderItemsDetailed" runat="server" DataSource='<%#Model.DetailedContractSales%>'>
 	<HeaderTemplate>
 		<table>
 			<tr class="synologen-table-headerrow">	
 				<th>Order Nr</th>
-				<th>Avtalsfˆretag</th>
+				<th>Avtalsf√∂retag</th>
 				<th>Artikelnummer</th>
 				<th>Artikel</th>
 				<th>Antal</th>
-				<th>V‰rde</th>
+				<th>V√§rde</th>
 				<th>Momsfri</th>
 			</tr>			
 	</HeaderTemplate>

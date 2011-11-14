@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ErrorList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.ErrorList" %>
+ï»¿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ErrorList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.ErrorList" %>
 <fieldset>
 	<legend>Autogiro fel-lista</legend>
 	<% if (Model.HasErrors) {%>
@@ -14,7 +14,7 @@
 					<td class="created"><%# Eval("CreatedDate")%></td>
 					<td class="error-type"><%# Eval("TypeName")%></td>
 					<td class="handled"><%# Eval("HandledDate")%></td>
-					<td><asp:Button ID="btnSetHandled" CommandName='<%# Eval("ErrorId")%>'  Visible=<%# Eval("IsVisible")%> runat="server" Text="Markera som hanterad" OnClientClick="return confirm('Är du säker på att du vill markera felet som hanterat?');"  /></td>
+					<td><asp:Button ID="btnSetHandled" CommandName='<%# Eval("ErrorId")%>'  Visible=<%# Eval("IsVisible")%> runat="server" Text="Markera som hanterad" OnClientClick="return confirm('Ã„r du sÃ¤ker pÃ¥ att du vill markera felet som hanterat?');"  /></td>
 				</tr>
 		</ItemTemplate>
 		<FooterTemplate>

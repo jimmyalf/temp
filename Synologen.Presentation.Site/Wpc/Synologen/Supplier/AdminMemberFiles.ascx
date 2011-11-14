@@ -1,7 +1,7 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.Supplier.AdminMemberFiles" Codebehind="AdminMemberFiles.ascx.cs" %>
+ï»¿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.Supplier.AdminMemberFiles" Codebehind="AdminMemberFiles.ascx.cs" %>
 <%@ Register TagPrefix="tc" Assembly="pdfthumbnail" Namespace="TallComponents.Web.PDF" %>
     <fieldset>
-        <legend>Lägg till fil</legend>
+        <legend>LÃ¤gg till fil</legend>
         <div class="formItem clearLeft">
                 <asp:Label ID="lblFile1" runat="server" AssociatedControlID="uplFile1" SkinId="Long" Text="Fil"/>
                 <asp:FileUpload ID="uplFile1" runat="server" />
@@ -9,12 +9,12 @@
                 <asp:TextBox ID="txtDesc1" runat="server"></asp:TextBox>
                 <asp:Label ID="lblCategory1" runat="server" AssociatedControlID="drpCategory1" SkinId="Long" Text="Kategori"/>
                 <asp:DropDownList ID="drpCategory1" runat="server" DataTextField="Name" DataValueField="Id"></asp:DropDownList>
-            <asp:Button ID="btnAdd" runat="server" Text="Lägg till" OnClick="btnAdd_Click" /></div>
+            <asp:Button ID="btnAdd" runat="server" Text="LÃ¤gg till" OnClick="btnAdd_Click" /></div>
     </fieldset>
     <fieldset>
         <legend>Filtrera</legend>		
         <div class="formItem">
-            <asp:Label ID="lblShow" runat="server" AssociatedControlID="drpFileCategories" SkinId="Long" Text="Välj kategori"/>
+            <asp:Label ID="lblShow" runat="server" AssociatedControlID="drpFileCategories" SkinId="Long" Text="VÃ¤lj kategori"/>
             <asp:DropDownList runat="server" ID="drpFileCategories" DataTextField="Name" DataValueField="Id"/>&nbsp;
             <asp:Button runat="server" id="btnSetFilter" OnClick="btnSetFilter_Click" text="Visa"/>&nbsp;|&nbsp;
             <asp:Button runat="server" id="btnShowAll" OnClick="btnShowAll_Click" text="Visa alla" />

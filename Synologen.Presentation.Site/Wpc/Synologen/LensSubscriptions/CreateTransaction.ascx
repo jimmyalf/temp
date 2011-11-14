@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CreateTransaction.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.CreateTransaction" %>
+ï»¿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CreateTransaction.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.CreateTransaction" %>
 <%@ Register Src="~/Wpc/Synologen/ValidationButton.ascx" TagPrefix="WpcSynologen" TagName="ValidationButton" %>
 <fieldset class="synologen-form">
 	<legend>Ny transaktion</legend>
@@ -12,15 +12,15 @@
 	<p>
 		<label for="<%=drpTransactionType.ClientID%>">Typ</label>
 		<asp:DropDownList ID="drpTransactionType"  runat="server" DataSource='<%#Model.TypeList%>' DataTextField="Text" DataValueField="Value" SelectedValue='<%#Model.SelectedTransactionType%>' />
-		<asp:RequiredFieldValidator ID="reqdrpTransactionType" InitialValue="0" ValidationGroup="vgCreateTransaction" runat="server" ErrorMessage="Typ måste väljas" ControlToValidate="drpTransactionType" Display="Dynamic">*</asp:RequiredFieldValidator>
+		<asp:RequiredFieldValidator ID="reqdrpTransactionType" InitialValue="0" ValidationGroup="vgCreateTransaction" runat="server" ErrorMessage="Typ mÃ¥ste vÃ¤ljas" ControlToValidate="drpTransactionType" Display="Dynamic">*</asp:RequiredFieldValidator>
 	</p>
 	<% } %>
 	<% if (Model.DisplaySaveCorrection || Model.DisplaySaveWithdrawal) { %>	
 	<p>
 		<label for="<%=txtAmount.ClientID%>">Belopp</label>
 		<asp:TextBox ID="txtAmount" runat="server" />
-		<asp:RequiredFieldValidator ID="reqtxtAmount" ValidationGroup="vgCreateTransaction" runat="server" ErrorMessage="Belopp måste anges" ControlToValidate="txtAmount" Display="Dynamic">*</asp:RequiredFieldValidator>
-		<asp:RangeValidator ID="rngtxtAmount" ValidationGroup="vgCreateTransaction" runat="server" ErrorMessage="Belopp måste anges som ett positivt tal med kommatecken som decimalavgränsare" ControlToValidate="txtAmount" Display="Dynamic" MinimumValue="0" MaximumValue='99999,99' Type="Double" >*</asp:RangeValidator>
+		<asp:RequiredFieldValidator ID="reqtxtAmount" ValidationGroup="vgCreateTransaction" runat="server" ErrorMessage="Belopp mÃ¥ste anges" ControlToValidate="txtAmount" Display="Dynamic">*</asp:RequiredFieldValidator>
+		<asp:RangeValidator ID="rngtxtAmount" ValidationGroup="vgCreateTransaction" runat="server" ErrorMessage="Belopp mÃ¥ste anges som ett positivt tal med kommatecken som decimalavgrÃ¤nsare" ControlToValidate="txtAmount" Display="Dynamic" MinimumValue="0" MaximumValue='99999,99' Type="Double" >*</asp:RangeValidator>
 	</p>
 	<% } %>
 	
@@ -28,7 +28,7 @@
 	<p>
 		<label for="<%=drpArticle.ClientID%>">Artikel</label>
 		<asp:DropDownList ID="drpArticle" runat="server" DataSource='<%#Model.Articles%>' DataTextField="Text" DataValueField="Value" SelectedValue='<%#Model.SelectedArticleValue%>' />
-		<asp:RequiredFieldValidator ID="reqdrpArticle" InitialValue="0" ValidationGroup="vgCreateTransaction" runat="server" ErrorMessage="Artikel är obligatorisk vid uttag" ControlToValidate="drpArticle" Display="Dynamic" Enabled='<%#Model.DisplaySaveWithdrawal%>'>*</asp:RequiredFieldValidator>
+		<asp:RequiredFieldValidator ID="reqdrpArticle" InitialValue="0" ValidationGroup="vgCreateTransaction" runat="server" ErrorMessage="Artikel Ã¤r obligatorisk vid uttag" ControlToValidate="drpArticle" Display="Dynamic" Enabled='<%#Model.DisplaySaveWithdrawal%>'>*</asp:RequiredFieldValidator>
 	</p>
 	<% } %>
 	

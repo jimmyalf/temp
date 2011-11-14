@@ -5,7 +5,6 @@ using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
-using Spinit.ShouldlyExtensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
@@ -125,7 +124,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		{
 			var settlement = Provider.GetSettlement(_settlementId);
 			settlement.NumberOfConnectedOrders.ShouldBe(_expectedNumberOfOrdersInSettlement);
-			settlement.CreatedDate.ShouldBe(DateTime.Now, DateTimeTolerance.SameYearMonthDate);
+			settlement.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
 		}
 
 		[Test]
@@ -174,7 +173,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 					transaction.Amount.ShouldBe(originalItem.Amount);
 					transaction.Id.ShouldBe(originalItem.Id);
 				});
-				settlement.CreatedDate.ShouldBe(DateTime.Now, DateTimeTolerance.SameYearMonthDate);
+				settlement.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
 				settlement.Id.ShouldBe(_settlementId);
 			});
 		}

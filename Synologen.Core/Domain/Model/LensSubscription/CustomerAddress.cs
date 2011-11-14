@@ -11,12 +11,30 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		public override bool Equals(object obj)
 		{
 			var entity = obj as CustomerAddress;
-			return entity != null
-				&& Equals(AddressLineOne, entity.AddressLineOne)
-				&& Equals(AddressLineTwo, entity.AddressLineTwo)
-				&& Equals(City, entity.City)
-				&& Equals(Country, entity.Country)
-				&& Equals(PostalCode, entity.PostalCode);
+			return Equals(entity);
+		}
+
+		public virtual bool Equals(CustomerAddress other)
+		{
+			return other != null
+				&& Equals(AddressLineOne, other.AddressLineOne)
+				&& Equals(AddressLineTwo, other.AddressLineTwo)
+				&& Equals(City, other.City)
+				&& Equals(Country, other.Country)
+				&& Equals(PostalCode, other.PostalCode);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				int result = (AddressLineOne != null ? AddressLineOne.GetHashCode() : 0);
+				result = (result * 397) ^ (AddressLineTwo != null ? AddressLineTwo.GetHashCode() : 0);
+				result = (result * 397) ^ (City != null ? City.GetHashCode() : 0);
+				result = (result * 397) ^ (PostalCode != null ? PostalCode.GetHashCode() : 0);
+				result = (result * 397) ^ (Country != null ? Country.GetHashCode() : 0);
+				return result;
+			}
 		}
 	}
 }

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FakeItEasy;
+﻿using FakeItEasy;
+using Spinit.Test;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Synologen.Test.Core;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Services;
 
 namespace Synologen.LensSubscription.BGService.Test.TestHelpers
 {
-    public abstract class BGReceivedFileServiceTestBase : BehaviorTestBase<BGReceivedFileReaderService>
+    public abstract class BGReceivedFileServiceTestBase : BehaviorActionTestbase<BGReceivedFileReaderService>
     {
         protected IFileIOService FileIOService;
         protected IBGServiceCoordinatorSettingsService BgServiceCoordinatorSettingsService;
@@ -23,10 +19,10 @@ namespace Synologen.LensSubscription.BGService.Test.TestHelpers
             FileSplitter = A.Fake<IFileSplitter>();
         }
 
-        protected override BGReceivedFileReaderService GetTestModel()
-        {
-            return new BGReceivedFileReaderService(FileIOService, BgServiceCoordinatorSettingsService, BGFtpServiceType.Autogiro, FileSplitter);
-        }
+		protected override BGReceivedFileReaderService GetTestEntity()
+		{
+			return new BGReceivedFileReaderService(FileIOService, BgServiceCoordinatorSettingsService, BGFtpServiceType.Autogiro, FileSplitter);
+		}
 
     }
 }

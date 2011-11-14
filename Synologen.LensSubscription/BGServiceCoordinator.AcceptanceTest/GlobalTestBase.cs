@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using Spinit.Data;
 using StructureMap;
-using Synologen.LensSubscription.BGData;
 using Synologen.LensSubscription.BGServiceCoordinator.App.IoC;
 
 namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest

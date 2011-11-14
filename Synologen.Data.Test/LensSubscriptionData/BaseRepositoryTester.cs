@@ -2,6 +2,7 @@ using System;
 using System.Data.SqlClient;
 using NHibernate;
 using Spinit.Data;
+using Spinit.Test.NHibernate;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
@@ -9,7 +10,7 @@ using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 
 namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 {
-	public abstract class BaseRepositoryTester<TRepository> : NHibernateRepositoryTester<TRepository>
+	public abstract class BaseRepositoryTester<TRepository> : NHibernateRepositoryTestbase<TRepository>
 	{
 		protected int TestCountryId = 1;
 		protected int TestShopId = 158;

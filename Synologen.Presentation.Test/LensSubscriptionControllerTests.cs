@@ -7,7 +7,6 @@ using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
-using Spinit.ShouldlyExtensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -308,14 +307,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		[Test]
 		public void ViewModel_has_no_search_term()
 		{
-
 			ViewModel.SearchTerm.ShouldBe(null);
 		}
 
 		[Test]
 		public void ViewModel_has_expected_articles()
 		{
-			ViewModel.Articles.ShouldBeSameLengthAs(_articles);
+			ViewModel.Articles.Count().ShouldBe(_articles.Count);
 			ViewModel.SearchTerm.ShouldBe(null);
 			ViewModel.Articles.And(_articles).Do((viewArticle, domainArticle) =>
 			{

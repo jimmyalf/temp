@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,8 +10,28 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Synologen.LensSubscription.BGServiceCoordinator.Task.Test</RootNamespace>
     <AssemblyName>Synologen.LensSubscription.BGServiceCoordinator.Task.Test</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,9 +59,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Dependancies\log4Net\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+    <Reference Include="nunit.framework, Version=2.5.0.9122, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dependancies\Tools\Shouldly\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Shouldly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -55,6 +75,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Test, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -102,10 +123,6 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Synologen.Test.Core\Synologen.Test.Core.csproj">
-      <Project>{0E1C212C-6E52-4FBA-97AD-3BFD4A35E153}</Project>
-      <Name>Synologen.Test.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Autogiro\Autogiro.csproj">
       <Project>{7C407C94-D0DC-460E-957E-3FC9E0AFAC1F}</Project>
       <Name>Autogiro</Name>
@@ -124,19 +141,19 @@
     </ProjectReference>
     <ProjectReference Include="..\ReceiveConsents\ReceiveConsents.csproj">
       <Project>{0BAE058D-24F4-41ED-8CF9-AD128B59F211}</Project>
-      <Name>ReceiveConsents %28Lenssubscription\BGServiceCoordinatorTask\ReceiveConsents%29</Name>
+      <Name>ReceiveConsents %28LensSubscription\BGTasks\ReceiveConsents%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceiveErrors\ReceiveErrors.csproj">
       <Project>{AF74CA7A-75E2-487C-97E5-1AA0CACA0F9B}</Project>
-      <Name>ReceiveErrors %28Lenssubscription\BGServiceCoordinatorTask\ReceiveErrors%29</Name>
+      <Name>ReceiveErrors %28LensSubscription\BGTasks\ReceiveErrors%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceivePayments\ReceivePayments.csproj">
       <Project>{DBECE0FB-E41C-4845-A467-1CF604931EC5}</Project>
-      <Name>ReceivePayments %28Lenssubscription\BGServiceCoordinatorTask\ReceivePayments%29</Name>
+      <Name>ReceivePayments %28LensSubscription\BGTasks\ReceivePayments%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\SendConsents\SendConsents.csproj">
       <Project>{2BCC56E0-2100-42B5-B91D-A8FDEAE5C28F}</Project>
-      <Name>SendConsents %28Lenssubscription\BGServiceCoordinatorTask\SendConsents%29</Name>
+      <Name>SendConsents %28LensSubscription\BGTasks\SendConsents%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\SendFile\SendFile.csproj">
       <Project>{8096311E-FEC9-49C5-AF54-90F4177E9DCC}</Project>
@@ -144,8 +161,25 @@
     </ProjectReference>
     <ProjectReference Include="..\SendPayments\SendPayments.csproj">
       <Project>{037FF430-01ED-4D67-B5AE-737CEFD952CD}</Project>
-      <Name>SendPayments %28Lenssubscription\BGServiceCoordinatorTask\SendPayments%29</Name>
+      <Name>SendPayments %28LensSubscription\BGTasks\SendPayments%29</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,10 +1,10 @@
-<%@ Control Language="C#" CodeBehind="ShopSubscriptionsList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.ShopSubscripitonsList" %>
+﻿<%@ Control Language="C#" CodeBehind="ShopSubscriptionsList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.LensSubscriptions.ShopSubscripitonsList" %>
 <div id="synologen-lens-subscription-summary-list" class="synologen-control">
 <asp:Repeater ID="rptSubscriptions" runat="server" DataSource='<%#Model.List%>'>
 	<HeaderTemplate >
 		<table>
 			<tr class="synologen-table-headerrow">
-				<th>Kund</th><th>M�nadsbelopp</th><th>Saldo</th><th>Status</th><th>Detaljer</th>
+				<th>Kund</th><th>Månadsbelopp</th><th>Saldo</th><th>Status</th><th>Detaljer</th>
 			</tr>
 	</HeaderTemplate>
 	<ItemTemplate>

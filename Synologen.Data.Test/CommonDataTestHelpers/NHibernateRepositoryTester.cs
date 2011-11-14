@@ -1,10 +1,10 @@
 using System;
 using NHibernate;
-using Synologen.Test.Core;
+using Spinit.Test;
 
 namespace Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers
 {
-	public abstract class NHibernateRepositoryTester<TRepository> : BehaviorTestBase<TRepository,ISession>
+	public abstract class NHibernateRepositoryTester<TRepository> : BehaviorActionTestbase<TRepository,ISession>
 	{
 		protected override void ExecuteContext()
 		{
@@ -16,7 +16,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers
 			ExecuteWithNewSession(session => Because(CreateRepository(session)));
 		}
 
-		protected override TRepository GetTestModel()
+		protected override TRepository GetTestEntity()
 		{
 			return CreateRepository(GetSessionFactory().OpenSession());
 		}

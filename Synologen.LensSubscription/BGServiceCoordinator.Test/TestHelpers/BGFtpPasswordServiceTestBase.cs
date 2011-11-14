@@ -1,7 +1,7 @@
 using FakeItEasy;
+using Spinit.Test;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Services;
-using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.BGService.Test.TestHelpers
 {

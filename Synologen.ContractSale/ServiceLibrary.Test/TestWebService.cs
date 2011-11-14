@@ -115,7 +115,7 @@ namespace Spinit.Wpc.Synologen.Integration.Test.Webservice{
 				var ruleViolations = SvefakturaValidator.ValidateObject(invoice);
 				if(ruleViolations.Any())
 				{
-					var test = "";
+					Console.WriteLine(ruleViolations);
 				}
 			}
 			

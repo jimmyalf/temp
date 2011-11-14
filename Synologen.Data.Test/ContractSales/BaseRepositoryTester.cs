@@ -1,6 +1,7 @@
 using System;
 using NHibernate;
 using Spinit.Data;
+using Spinit.Test.NHibernate;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.ContractSales;
@@ -8,7 +9,7 @@ using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 
 namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
-	public class BaseRepositoryTester<TModel> :  NHibernateRepositoryTester<TModel> //: AssertionHelper
+	public class BaseRepositoryTester<TModel> :  NHibernateRepositoryTestbase<TModel>
 	{
 		protected const int testableShopId = 158;
 		protected const int testableShopId2 = 159;

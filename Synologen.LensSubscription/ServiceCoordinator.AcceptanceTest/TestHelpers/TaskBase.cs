@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using NHibernate;
 using ServiceCoordinator.AcceptanceTest;
+using Spinit.Test;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
@@ -14,11 +15,10 @@ using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using StructureMap;
 using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner;
-using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpers
 {
-	public abstract class TaskBase : BehaviorTestBase
+	public abstract class TaskBase : BehaviorActionTestbase
 	{
 		protected ICountryRepository countryRepository;
 		protected IShopRepository shopRepository;

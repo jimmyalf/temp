@@ -1,11 +1,11 @@
 using FakeItEasy;
+using Spinit.Test;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Services;
-using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.BGService.Test.TestHelpers
 {
-	public class BGFtpServiceTestBase : BehaviorTestBase<BGFtpService>
+	public class BGFtpServiceTestBase : BehaviorActionTestbase<BGFtpService>
 	{
 		protected IFtpIOService FtpIOService;
 		protected IBGServiceCoordinatorSettingsService BgServiceCoordinatorSettingsService;
@@ -15,7 +15,8 @@ namespace Synologen.LensSubscription.BGService.Test.TestHelpers
 			FtpIOService = A.Fake<IFtpIOService>();
 			BgServiceCoordinatorSettingsService = A.Fake<IBGServiceCoordinatorSettingsService>();
 		}
-		protected override BGFtpService GetTestModel()
+
+		protected override BGFtpService GetTestEntity()
 		{
 			return new BGFtpService(
 				FtpIOService, 

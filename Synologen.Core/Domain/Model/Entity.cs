@@ -6,7 +6,18 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model
 		public override bool Equals(object obj)
 		{
 			var entity = obj as Entity;
-			return entity != null && entity.Id.Equals(Id);
+			return Equals(entity);
+		}
+
+		public virtual bool Equals(Entity other)
+		{
+			if(other == null) return false;
+			return other.GetHashCode() == GetHashCode();
+		}
+
+		public override int GetHashCode()
+		{
+			return Id;
 		}
 	}
 }

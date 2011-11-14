@@ -9,7 +9,6 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
-using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 {

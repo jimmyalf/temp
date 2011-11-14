@@ -1,14 +1,14 @@
+using Spinit.Test;
 using log4net;
 using Moq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Synologen.LensSubscription.ServiceCoordinator.App.Logging;
-using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers
 {
 	[TestFixture]
-	public class LoggingServiceTestBase : BehaviorTestBase<ILoggingService>
+	public class LoggingServiceTestBase : BehaviorActionTestbase<ILoggingService>
 	{
 		protected string format = "Testar {0} {1} {2} med {3}";
 		protected string param1 = "att";
@@ -24,7 +24,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers
 			MockedEventLogger = new Mock<IEventLoggingService>();
 		}
 
-		protected override ILoggingService GetTestModel()
+		protected override ILoggingService GetTestEntity()
 		{
 			return new Log4NetLogger(MockedLogger.Object, MockedEventLogger.Object);
 		}

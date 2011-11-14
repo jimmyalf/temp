@@ -1,8 +1,8 @@
 using System;
 using FakeItEasy;
+using Spinit.Test;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Synologen.LensSubscription.ServiceCoordinator.App;
-using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using NHibernate;
-using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.BGData.Test.CommonDataTestHelpers
 {

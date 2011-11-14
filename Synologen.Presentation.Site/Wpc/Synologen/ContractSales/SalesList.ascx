@@ -1,11 +1,11 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SalesList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales.SalesList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SalesList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.ContractSales.SalesList" %>
 <div class="synologen-control">
 <asp:Repeater ID="rptSales" runat="server" OnItemDataBound="rptSales_ItemDataBound" >
 <HeaderTemplate>
 <table id="synologen-sales-list" >
 <tr class="synologen-table-headerrow">
 	<th>Order Nr</th>
-	<th>F�retag</th>
+	<th>Företag</th>
 	<th>Kund</th>
 	<th>Status</th>
 	<th>Registrerad</th>

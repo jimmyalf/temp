@@ -1,4 +1,5 @@
 using FakeItEasy;
+using Spinit.Test;
 using log4net;
 using Moq;
 using NUnit.Framework;
@@ -7,12 +8,11 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Synologen.LensSubscription.ServiceCoordinator.App.Logging;
-using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 {
 	[TestFixture]
-	public abstract class CommonTaskTestBase : BehaviorTestBase<ITask>
+	public abstract class CommonTaskTestBase : BehaviorActionTestbase<ITask>
 	{
 		protected Mock<IBGWebServiceClient> MockedWebServiceClient;
 		protected Mock<ISubscriptionRepository> MockedSubscriptionRepository;
@@ -42,13 +42,16 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 		}
 
 		protected abstract ITask GetTask();
-		protected override ITask GetTestModel() { return GetTask(); }
+		protected override ITask GetTestEntity()
+		{
+			return GetTask();
+		}
 
 		protected ExecutingTaskContext ExecutingTaskContext
 		{
 			get
 			{
-				return new ExecutingTaskContext(TestModel, TaskRepositoryResolver);
+				return new ExecutingTaskContext(TestEntity, TaskRepositoryResolver);
 			}
 		}
 	}

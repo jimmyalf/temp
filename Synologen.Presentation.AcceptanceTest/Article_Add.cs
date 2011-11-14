@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Test;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;

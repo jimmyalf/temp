@@ -1,9 +1,10 @@
 using System;
 using FakeItEasy;
+using Spinit.Test;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Synologen.LensSubscription.BGWebService.App.Services;
-using Synologen.Test.Core;
 //using BGServer_PaymentResult = Spinit.Wpc.Synologen.Core.Domain.Model.BGServer.PaymentResult;
 //using BGWebService_PaymentResult = Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService.PaymentResult;
 
@@ -20,6 +21,7 @@ namespace Synologen.LensSubscription.BGWebService.Test.TestHelpers
 		protected IBGReceivedPaymentRepository BGReceivedPaymentRepository;
 		protected IBGReceivedErrorRepository BGReceivedErrorRepository;
 		protected IBGReceivedConsentRepository BGReceivedConsentRepository;
+		protected ILoggingService LoggingService;
 
 		protected override void SetUp()
 		{
@@ -29,6 +31,7 @@ namespace Synologen.LensSubscription.BGWebService.Test.TestHelpers
 			BGReceivedPaymentRepository = A.Fake<IBGReceivedPaymentRepository>();
 			BGReceivedErrorRepository = A.Fake<IBGReceivedErrorRepository>();
 			BGReceivedConsentRepository = A.Fake<IBGReceivedConsentRepository>();
+			LoggingService = A.Fake<ILoggingService>();
 			var realParser = new BGWebServiceDTOParser();
 			BGWebServiceDTOParser = A.Fake<IBGWebServiceDTOParser>(x => x.Wrapping(realParser));
 		}
@@ -42,7 +45,8 @@ namespace Synologen.LensSubscription.BGWebService.Test.TestHelpers
 				BGReceivedPaymentRepository,
 				BGReceivedErrorRepository,
 				BGReceivedConsentRepository,
-				BGWebServiceDTOParser);
+				BGWebServiceDTOParser,
+				LoggingService);
 		}
 
 		protected Exception CatchException(Action action)

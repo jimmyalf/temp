@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using EnterpriseDT.Net.Ftp;
 using FakeItEasy;
 using NHibernate;
+using Spinit.Test;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -15,11 +16,10 @@ using Spinit.Wpc.Synologen.Core.Extensions;
 using StructureMap;
 using Synologen.LensSubscription.BGData;
 using Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner;
-using Synologen.Test.Core;
 
 namespace Synologen.Lenssubscription.BGServiceCoordinator.AcceptanceTest.TestHelpers
 {
-	public abstract class TaskTestBase : BehaviorTestBase
+	public abstract class TaskTestBase : BehaviorActionTestbase
 	{
 		protected IBGFtpPasswordService bGFtpPasswordService;
 		protected IBGServiceCoordinatorSettingsService bgServiceCoordinatorSettingsService;

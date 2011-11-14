@@ -2,11 +2,13 @@ using NHibernate;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using StructureMap.Configuration.DSL;
 using Synologen.LensSubscription.BGData;
 using Synologen.LensSubscription.BGData.CriteriaConverters;
 using Synologen.LensSubscription.BGData.Repositories;
+using Synologen.LensSubscription.BGWebService.App.Logging;
 using Synologen.LensSubscription.BGWebService.App.Services;
 
 namespace Synologen.LensSubscription.BGWebService.App.IoC
@@ -28,6 +30,7 @@ namespace Synologen.LensSubscription.BGWebService.App.IoC
 			For<IBGReceivedErrorRepository>().Use<BGReceivedErrorRepository>();
 			For<IBGReceivedConsentRepository>().Use<BGReceivedConsentRepository>();
 			For<IBGWebServiceDTOParser>().Use<BGWebServiceDTOParser>();
+			For<ILoggingService>().Singleton().Use(LogFactory.CreateLoggingService);
 
 			// Register criteria converters
 			Scan(x =>

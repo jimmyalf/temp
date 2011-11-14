@@ -4,6 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
+using Spinit.Test;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
@@ -12,7 +13,6 @@ using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Utility.Business;
-using Synologen.Test.Core;
 
 namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
@@ -71,7 +71,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 	}
 
 	[TestFixture]
-	public class When_setting_invoice_date_for_an_order : BehaviorTestBase<ISqlProvider>
+	public class When_setting_invoice_date_for_an_order : BehaviorActionTestbase<ISqlProvider>
 	{
 		private Article _article;
 		protected const int TestableShopId = 158;
@@ -88,7 +88,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		{
 			Context = () =>
 			{
-				var provider = GetTestModel();
+				var provider = GetTestEntity();
 				_article = ArticleFactory.Get();
 				provider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref _article);
 				_contractArticleConnection = ArticleFactory.GetContractArticleConnection(_article, TestableContractId, 999.23F, true);
@@ -103,11 +103,11 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		[Test]
 		public void Invoice_date_is_set()
 		{
-			var order = GetTestModel().GetOrder(_order.Id);
+			var order = GetTestEntity().GetOrder(_order.Id);
 			order.InvoiceDate.ShouldBe(_setInvoiceDate);
 		}
 
-		protected override ISqlProvider GetTestModel()
+		protected override ISqlProvider GetTestEntity()
 		{
 			return new SqlProvider(DataHelper.ConnectionString);
 		}

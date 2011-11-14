@@ -1,17 +1,17 @@
 using System.Collections.Generic;
 using FakeItEasy;
+using Spinit.Test;
 using log4net;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Synologen.LensSubscription.BGServiceCoordinator.App.Logging;
-using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
-	[TestFixture]
-	public abstract class CommonTaskTestBase : BehaviorTestBase<ITask>
+	//[TestFixture]
+	public abstract class CommonTaskTestBase : BehaviorActionTestbase<ITask>
 	{
 		protected ILog Log;
 		protected IEventLoggingService EventLoggingService;
@@ -39,14 +39,17 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 
 		protected abstract ITask GetTask();
 
-		protected ITask Task { get { return TestModel; } }
-		protected override ITask GetTestModel() { return GetTask(); }
+		protected ITask Task { get { return TestEntity; } }
+		protected override ITask GetTestEntity()
+		{
+			return GetTask();
+		}
 
 		protected ExecutingTaskContext ExecutingTaskContext
 		{
 			get
 			{
-				return new ExecutingTaskContext(TestModel, TaskRepositoryResolver);
+				return new ExecutingTaskContext(TestEntity, TaskRepositoryResolver);
 			}
 		}
 	}

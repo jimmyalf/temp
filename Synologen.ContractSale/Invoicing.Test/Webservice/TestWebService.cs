@@ -5,8 +5,8 @@ using Synologen.Client.App;
 namespace Spinit.Wpc.Synologen.Test.Webservice {
 	//[TestFixture]
 	public class TestWebService{
-		private ClientContract client;
-		private string connectionString;
+		//private ClientContract client;
+		//private string connectionString;
 
 		//[TestFixtureSetUp]
 		////TODO: Make into integrationtest

@@ -93,7 +93,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.AcceptanceTest.LensSubscription
 
 		private void VisasEnListaMedSamtligaLinsabonnemang()
 		{
-			var expectedSubscriptions = _subscriptions.Where(x => x.Customer.Id == _customer.Id);
+			//var expectedSubscriptions = _subscriptions.Where(x => x.Customer.Id == _customer.Id);
+			var expectedSubscriptions = _subscriptions.Where(x => x.Customer.Shop.Id == TestShopId).OrderByDescending(x => x.Id);
 			View.Model.List.Count().ShouldBe(expectedSubscriptions.Count());
 			View.Model.List.And(expectedSubscriptions).Do((viewModel, subscription) =>
 			{

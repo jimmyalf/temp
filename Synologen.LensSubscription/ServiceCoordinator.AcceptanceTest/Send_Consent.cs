@@ -17,8 +17,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 		private SendConsentTask task;
 		private ITaskRunnerService taskRunnerService;
 		private Customer customer;
-		private Subscription subscription;
-		private int? createdPayerNumber;
+		private Subscription subscription1, subscription2;
+		private int? createdPayerNumber1, createdPayerNumber2;
 
 		public When_sending_a_consent()
 		{
@@ -28,8 +28,11 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 				var shopToUse = shopRepository.Get(TestShopId);
 				customer = Factory.CreateCustomer(countryToUse, shopToUse);
 				customerRepository.Save(customer);
-				subscription = Factory.CreateNewSubscription(customer);
-				subscriptionRepository.Save(subscription);
+				subscription1 = Factory.CreateNewSubscription(customer);
+				subscriptionRepository.Save(subscription1);
+
+				subscription2 = Factory.CreateNewSubscription(customer);
+				subscriptionRepository.Save(subscription2);
 
 				task = ResolveTask<SendConsentTask>();
 				taskRunnerService = GetTaskRunnerService(task);
@@ -38,31 +41,47 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 			Because = () =>
 			{
 				taskRunnerService.Run();
-				createdPayerNumber = ResolveRepository<ISubscriptionRepository>(GetWPCSession)
-					.Get(subscription.Id)
-					.BankgiroPayerNumber;
+				var repo = ResolveRepository<ISubscriptionRepository>(GetWPCSession);
+				createdPayerNumber1 = repo.Get(subscription1.Id).BankgiroPayerNumber;
+				createdPayerNumber2 = repo.Get(subscription2.Id).BankgiroPayerNumber;
 			};
 		}
 
 		[Test]
-		public void Webservice_stores_consent()
+		public void Webservice_stores_first_consent()
 		{
-			var lastConsent = bgConsentRepository.GetAll().Last();
-			lastConsent.Account.AccountNumber.ShouldBe(subscription.PaymentInfo.AccountNumber);
-			lastConsent.Account.ClearingNumber.ShouldBe(subscription.PaymentInfo.ClearingNumber);
-			lastConsent.OrgNumber.ShouldBe(null);
-			lastConsent.Payer.Id.ShouldBe(createdPayerNumber.Value);
-			lastConsent.PersonalIdNumber.ShouldBe(subscription.Customer.PersonalIdNumber);
-			lastConsent.SendDate.ShouldBe(null);
-			lastConsent.Type.ShouldBe(ConsentType.New);
+			var consent = bgConsentRepository.GetAll().Where(x => x.Payer.Id == createdPayerNumber1).First();
+			consent.Account.AccountNumber.ShouldBe(subscription1.PaymentInfo.AccountNumber);
+			consent.Account.ClearingNumber.ShouldBe(subscription1.PaymentInfo.ClearingNumber);
+			consent.OrgNumber.ShouldBe(null);
+			consent.Payer.Id.ShouldBe(createdPayerNumber1.Value);
+			consent.PersonalIdNumber.ShouldBe(subscription1.Customer.PersonalIdNumber);
+			consent.SendDate.ShouldBe(null);
+			consent.Type.ShouldBe(ConsentType.New);
+		}
+
+		[Test]
+		public void Webservice_stores_second_consent()
+		{
+			var consent = bgConsentRepository.GetAll().Where(x => x.Payer.Id == createdPayerNumber2).First();
+			consent.Account.AccountNumber.ShouldBe(subscription2.PaymentInfo.AccountNumber);
+			consent.Account.ClearingNumber.ShouldBe(subscription2.PaymentInfo.ClearingNumber);
+			consent.OrgNumber.ShouldBe(null);
+			consent.Payer.Id.ShouldBe(createdPayerNumber2.Value);
+			consent.PersonalIdNumber.ShouldBe(subscription2.Customer.PersonalIdNumber);
+			consent.SendDate.ShouldBe(null);
+			consent.Type.ShouldBe(ConsentType.New);
 		}
 
 		[Test]
 		public void Task_updates_consent_as_sent_and_sets_payer_number()
 		{
-			var fetchedSubscription = ResolveRepository<ISubscriptionRepository>(GetWPCSession).Get(subscription.Id);
-			fetchedSubscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.Sent);
-			fetchedSubscription.BankgiroPayerNumber.ShouldBe(createdPayerNumber);
+			var fetchedSubscription1 = ResolveRepository<ISubscriptionRepository>(GetWPCSession).Get(subscription1.Id);
+			var fetchedSubscription2 = ResolveRepository<ISubscriptionRepository>(GetWPCSession).Get(subscription2.Id);
+			fetchedSubscription1.ConsentStatus.ShouldBe(SubscriptionConsentStatus.Sent);
+			fetchedSubscription2.ConsentStatus.ShouldBe(SubscriptionConsentStatus.Sent);
+			fetchedSubscription1.BankgiroPayerNumber.ShouldBe(createdPayerNumber1);
+			fetchedSubscription2.BankgiroPayerNumber.ShouldBe(createdPayerNumber2);
 		}
 	}
 }

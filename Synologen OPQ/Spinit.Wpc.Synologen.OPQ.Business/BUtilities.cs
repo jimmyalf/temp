@@ -57,7 +57,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			try {
 				return PropertyExtension.CreateWith<ErrorText, string> (key).Invoke (null);
 			}
-			catch(Exception) {
+			catch(Exception ex) {
 				return string.Empty;
 			}
 		}

@@ -12,7 +12,7 @@
 	<property name="dir.build.output" value="${dir.root}Build\Output\" />
 	<property name="dir.build.reports" value="${dir.root}Build\Reports\" />
 	<property name="dir.build.scripts" value="${dir.root}Build\Scripts\" />
-	<property name="dir.framework" value="C:\WINDOWS\Microsoft.NET\Framework\v3.5\" />
+	<property name="dir.framework" value="C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\" />
 	
 	<!-- Include all projects to build -->
 	<!-- To exclude projects from normal build, append the following: if="${configuration=='ContinuousBuild'}" -->

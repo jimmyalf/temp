@@ -63,7 +63,7 @@
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
 		
 		<property name="srcDeploymentFiles" value="${deploymentFiles}\Synologen.Presentation.Ogonapoteket" overwrite="true"/>
-		<property name="srcDeploymentConfig" value="${deploymentConfigs}\partner.synologen.nu" overwrite="true"/>
+		<property name="srcDeploymentConfig" value="${deploymentConfigs}\www.ogonapoteket.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishDeploymentConfigs.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishDeploymentFiles.build"/>
 	</target>  

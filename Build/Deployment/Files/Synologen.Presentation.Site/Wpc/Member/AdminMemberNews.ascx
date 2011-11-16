@@ -1,8 +1,8 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.AdminMemberNews" Codebehind="AdminMemberNews.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.AdminMemberNews" Codebehind="AdminMemberNews.ascx.cs" %>
 <%@ Register Src="WpcWysiwyg.ascx" TagName="WpcWysiwyg" TagPrefix="uc1" %>
 <link href="common/css/WYSIWYG.css" media="all" rel="Stylesheet" />
 <div>
-<h5>L�gg/ redigera nyheter</h5>
+<h5>Lägg/ redigera nyheter</h5>
         <br />
                 <b><asp:Label ID="lblHeading" runat="server" Text="Rubrik" AssociatedControlID="txtHeading" SkinId="Long"/></b>
                 <br />

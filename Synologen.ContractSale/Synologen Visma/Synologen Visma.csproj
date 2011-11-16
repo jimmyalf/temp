@@ -127,6 +127,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>"$(ProjectDir)..\..\Build\Post-Build-Visma.bat"</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -17,6 +17,7 @@
 	<!-- Include all projects to build -->
 	<!-- To exclude projects from normal build, append the following: if="${configuration=='ContinuousBuild'}" -->
 	<fileset id="projects">
+		<include name="${dir.source}Synologen.Presentation.Site\Synologen.Presentation.Site.csproj"/>
 		<include name="${dir.source}Synologen.Presentation.Intranet.Test\Synologen.Presentation.Intranet.Test.csproj"/>
 		<include name="${dir.source}Synologen.Presentation.Test\Synologen.Presentation.Test.csproj"/>
 		<include name="${dir.source}Synologen.Data.Test\Synologen.Data.Test.csproj"/>

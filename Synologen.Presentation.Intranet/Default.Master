@@ -38,7 +38,7 @@
 <body>
     <form id="form1" runat="server">
     <div id="wrapper">
-		<a href="/Login/Logout.aspx">Logga ut</a>
+		<a href="Testpages/Login/Logout.aspx">Logga ut</a>
         <asp:ContentPlaceHolder ID="Content" runat="server">
         </asp:ContentPlaceHolder>
     </div>

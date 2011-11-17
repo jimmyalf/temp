@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="Wpc\Synologen\ShopList.ascx" />
   </ItemGroup>
   <ItemGroup>

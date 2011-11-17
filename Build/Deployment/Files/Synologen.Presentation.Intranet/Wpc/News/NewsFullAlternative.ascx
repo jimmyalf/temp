@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.News.Presentation.Site.NewsFullAlternative" Codebehind="NewsFullAlternative.ascx.cs" %>
+ï»¿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.News.Presentation.Site.NewsFullAlternative" Codebehind="NewsFullAlternative.ascx.cs" %>
 <div id="center_content">
 <%if (NewsId > 0) {%>
 	<div>
@@ -17,7 +17,7 @@
     <%# DataBinder.Eval(Container.DataItem, "cFormatedBody")%><br />
     <%} %>    
 	<a href='<%=ShowDetailUrl%>?newsId=<%# DataBinder.Eval(Container.DataItem, "cId") %>&Location=<%=Location%>&Language=<%=Language%>'>
-		<asp:Localize ID="locReadMore" runat="server" meta:resourcekey="locReadMore">Läs mer&nbsp;»</asp:Localize>
+		<asp:Localize ID="locReadMore" runat="server" meta:resourcekey="locReadMore">LÃ¤s mer&nbsp;Â»</asp:Localize>
 	</a><br /><br />
 </ItemTemplate>
 <FooterTemplate></div></FooterTemplate>

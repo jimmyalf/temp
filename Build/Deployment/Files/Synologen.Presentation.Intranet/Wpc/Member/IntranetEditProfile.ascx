@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IntranetEditProfile.ascx.cs" Inherits="Spinit.Wpc.Member.Presentation.Intranet.IntranetEditProfile" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IntranetEditProfile.ascx.cs" Inherits="Spinit.Wpc.Member.Presentation.Intranet.IntranetEditProfile" %>
 <div id="edit-contact-card">
     <fieldset>
         <legend>Redigera kontaktuppgifter</legend>

@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ForgottenPassword.ascx.cs" Inherits="Spinit.Wpc.Base.Presentation.Site.ForgottenPassword" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ForgottenPassword.ascx.cs" Inherits="Spinit.Wpc.Base.Presentation.Site.ForgottenPassword" %>
 
 <fieldset>
     <legend><asp:Label ID="lblHeader" runat="server"></asp:Label></legend>

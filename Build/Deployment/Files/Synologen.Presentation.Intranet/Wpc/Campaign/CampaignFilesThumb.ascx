@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="CampaignFilesThumb.ascx.cs" Inherits="CampaignFilesThumb" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="CampaignFilesThumb.ascx.cs" Inherits="CampaignFilesThumb" %>
 <%@ Register TagPrefix="tc" Assembly="pdfthumbnail" Namespace="TallComponents.Web.PDF" %>
 <h4 class="rubrik1"><asp:Label ID="lblFileCategory" runat="server" ></asp:Label></h4><br />
 <asp:DataList ID="dlThumbs" runat="server" 

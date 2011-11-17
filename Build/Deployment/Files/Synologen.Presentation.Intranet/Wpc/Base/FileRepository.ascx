@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Codebehind="FileRepository.ascx.cs"
+ï»¿<%@ Control Language="C#" AutoEventWireup="true" Codebehind="FileRepository.ascx.cs"
 	Inherits="FileRepository.FileRepository" %>
 <%@ Register Src="UploadControl.ascx" TagName="UploadControl" TagPrefix="uc1" %>
 <uc1:UploadControl id="UploadControl1" runat="server" Visible="false" />
@@ -20,21 +20,21 @@
 		<li id="copy"><asp:LinkButton ID="lbCopy" runat="server" OnCommand="ToolBarAction_Click" CommandName="Copy">Kopiera</asp:LinkButton></li>
 		<li id="paste"><asp:LinkButton ID="lbPaste" runat="server" OnCommand="ToolBarAction_Click" CommandName="Paste">Klistra in</asp:LinkButton></li>
 		<li id="rename"><asp:LinkButton ID="lbRename" runat="server" OnCommand="ToolBarAction_Click" CommandName="Rename">Byt namn</asp:LinkButton></li>
-		<li id="remove"><asp:LinkButton ID="lbRemove" runat="server" OnClientClick="return confirm('Alla förbockade filer och mappar kommer att raderas!')" OnCommand="ToolBarAction_Click" CommandName="Remove">Ta bort</asp:LinkButton></li>
+		<li id="remove"><asp:LinkButton ID="lbRemove" runat="server" OnClientClick="return confirm('Alla fÃ¶rbockade filer och mappar kommer att raderas!')" OnCommand="ToolBarAction_Click" CommandName="Remove">Ta bort</asp:LinkButton></li>
 		<li id="newfolder"><asp:LinkButton ID="lbNewFolder" runat="server" OnCommand="ToolBarAction_Click" CommandName="Newfolder">Ny mapp</asp:LinkButton></li>
 	</ul>
 	<asp:PlaceHolder ID="phNewfolder" runat="server" Visible="false">
 		<div id="add-update-folder-file">
 			<asp:Literal ID="ltFileText" runat="server" Text="Namn: " />
 			<asp:TextBox ValidationGroup="AddUpdateFile" ID="txtNewFile" runat="server"/>
-			<asp:RegularExpressionValidator ValidationExpression='^[^ \\/:*?""<>|]+([ ]+[^ \\/:*?""<>|]+)*$' ID="RegularExpressionValidator1" runat="server" ErrorMessage='Namnet får inte börja eller sluta med mellanslag eller innehålla tecknena \ / : * ? " < > |' ControlToValidate="txtNewFile" ValidationGroup="AddUpdateFile" Display="Dynamic" Text="*" />
-			<asp:RequiredFieldValidator ID="rfvNewName" ControlToValidate="txtNewFile" runat="server" ErrorMessage="Du måste ange ett namn" ValidationGroup="AddUpdateFile" Display="Dynamic" Text="*"/>
+			<asp:RegularExpressionValidator ValidationExpression='^[^ \\/:*?""<>|]+([ ]+[^ \\/:*?""<>|]+)*$' ID="RegularExpressionValidator1" runat="server" ErrorMessage='Namnet fÃ¥r inte bÃ¶rja eller sluta med mellanslag eller innehÃ¥lla tecknena \ / : * ? " < > |' ControlToValidate="txtNewFile" ValidationGroup="AddUpdateFile" Display="Dynamic" Text="*" />
+			<asp:RequiredFieldValidator ID="rfvNewName" ControlToValidate="txtNewFile" runat="server" ErrorMessage="Du mÃ¥ste ange ett namn" ValidationGroup="AddUpdateFile" Display="Dynamic" Text="*"/>
 			<asp:Literal ID="ltFileExtension" runat="server" />&nbsp;<asp:Button ID="btnSave" runat="server" Text="spara" OnCommand="ToolBarAction_Click" CommandName="AddUpdate" ValidationGroup="AddUpdateFile" />
 		</div>
 	</asp:PlaceHolder>
 	<asp:PlaceHolder ID="phComponentFileConnections" runat="server" Visible="false">
 	<div id="component-file-connections">
-		<asp:Literal ID="ltConnectionsText" runat="server" Text="Följande fil(er) används på ett eller flera ställen och kan ej tas bort:" />
+		<asp:Literal ID="ltConnectionsText" runat="server" Text="FÃ¶ljande fil(er) anvÃ¤nds pÃ¥ ett eller flera stÃ¤llen och kan ej tas bort:" />
 		<asp:Repeater runat="server" ID="rptConnectedFiles" OnItemDataBound="rptConnectedFiles_ItemDataBound">
 			<HeaderTemplate>
 				<ul>

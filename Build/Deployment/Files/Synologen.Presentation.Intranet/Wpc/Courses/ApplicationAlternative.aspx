@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="" AutoEventWireup="true" CodeBehind="ApplicationAlternative.aspx.cs" Inherits="Spinit.Wpc.Courses.Presentation.Site.Wpc.Courses.ApplicationAlternative" Title="<%$ Resources: PageTitle %>" %>
+﻿<%@ Page Language="C#" MasterPageFile="" AutoEventWireup="true" CodeBehind="ApplicationAlternative.aspx.cs" Inherits="Spinit.Wpc.Courses.Presentation.Site.Wpc.Courses.ApplicationAlternative" Title="<%$ Resources: PageTitle %>" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">		
     <div class="formItem clearLeft">
         <asp:Label ID="lblFirstName"  CssClass="labelLong" runat="server" meta:resourcekey="lblFirstName"/><br />

@@ -105,9 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\Enumerations.cs" />
-    <Compile Include="Code\OpqControlPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="Code\OpqControlPage.cs" />
     <Compile Include="Code\OpqUtility.cs" />
     <Compile Include="Code\Tree.cs" />
     <Compile Include="Code\TreeNode.cs" />
@@ -166,7 +164,6 @@
     </Compile>
     <Compile Include="Wpc\Synologen\OpqAdmin.ascx.cs">
       <DependentUpon>OpqAdmin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Wpc\Synologen\OpqAdmin.ascx.designer.cs">
       <DependentUpon>OpqAdmin.ascx</DependentUpon>
@@ -180,7 +177,6 @@
     </Compile>
     <Compile Include="Wpc\Synologen\OpqMenu.ascx.cs">
       <DependentUpon>OpqMenu.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Wpc\Synologen\OpqMenu.ascx.designer.cs">
       <DependentUpon>OpqMenu.ascx</DependentUpon>
@@ -201,7 +197,6 @@
     </Compile>
     <Compile Include="Wpc\Synologen\OpqSubPage.ascx.cs">
       <DependentUpon>OpqSubPage.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Wpc\Synologen\OpqSubPage.ascx.designer.cs">
       <DependentUpon>OpqSubPage.ascx</DependentUpon>
@@ -219,9 +214,9 @@
       <Project>{4DA48962-8E31-4E14-9E25-E43430E982D1}</Project>
       <Name>Synologen.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Synologen.Presentation.Site\Synologen.Presentation.Site.csproj">
+    <ProjectReference Include="..\..\Synologen.Presentation.Intranet\Synologen.Presentation.Intranet.csproj">
       <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
-      <Name>Synologen.Presentation.Site</Name>
+      <Name>Synologen.Presentation.Intranet</Name>
     </ProjectReference>
     <ProjectReference Include="..\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj">
       <Project>{372FA2B3-85C4-417F-B178-65DA9D7B2749}</Project>

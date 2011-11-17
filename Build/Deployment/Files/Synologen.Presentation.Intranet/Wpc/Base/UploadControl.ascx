@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UploadControl.ascx.cs" Inherits="Spinit.Wpc.Upload.UploadControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UploadControl.ascx.cs" Inherits="Spinit.Wpc.Upload.UploadControl" %>
 <div>
         
     <div id="ImageUploader">

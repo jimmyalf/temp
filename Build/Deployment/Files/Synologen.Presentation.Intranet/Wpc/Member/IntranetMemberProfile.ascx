@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IntranetMemberProfile.ascx.cs" Inherits="Spinit.Wpc.Member.Presentation.Intranet.IntranetMemberProfile" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IntranetMemberProfile.ascx.cs" Inherits="Spinit.Wpc.Member.Presentation.Intranet.IntranetMemberProfile" %>
 <div id="user-profile">
 	<h1><asp:Label ID="lblHeading" runat="server" Text=""></asp:Label></h1>
 	<asp:Image ID="imgProfilePicture" CssClass="profile-photo" runat="server" />

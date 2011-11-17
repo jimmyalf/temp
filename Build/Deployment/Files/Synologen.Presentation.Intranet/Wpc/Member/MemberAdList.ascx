@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberAdList" Codebehind="MemberAdList.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberAdList" Codebehind="MemberAdList.ascx.cs" %>
 <asp:Repeater ID="rptAds" runat="server">
 <HeaderTemplate><div id="rightlink"><ul></HeaderTemplate>
 <ItemTemplate>

@@ -1,0 +1,629 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spinit.Wpc.Synologen.Presentation.Intranet</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.Presentation.Intranet</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <UseIISExpress>true</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Build\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Wpc\Synologen\ShopList.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\Templates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Templates.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Code\CustomOrderValidation.cs" />
+    <Compile Include="Code\MemberControlPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Code\SynologenCacheContext.cs" />
+    <Compile Include="Code\SynologenSalesUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Code\SynologenSessionContext.cs" />
+    <Compile Include="Code\SynologenUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logic\EventArguments\FrameOrders\EditFrameFormEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\LensSubscription\SaveCustomerEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\LensSubscription\SaveSubscriptionEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\LensSubscription\SaveTransactionEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\LensSubscription\SearchEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\LensSubscription\SetErrorHandledEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\LensSubscription\TransactionReasonEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\LensSubscription\UpdateSubscriptionEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\ValidatedEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\ValidatePasswordEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\ValidationEventArgs.cs" />
+    <Compile Include="Logic\Helpers\PlaceHolderExtensions.cs" />
+    <Compile Include="Logic\Helpers\StringBuilderExtensions.cs" />
+    <Compile Include="Logic\Helpers\TemplateControlImplementation.cs" />
+    <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
+    <Compile Include="Logic\Services\YammerService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Code\Yammer\YammerParserService.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\ShopSubscriptionErrorListPresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\ShopSubscriptionsPresenter.cs" />
+    <Compile Include="Logic\Presenters\ValidationButtonPresenter.cs" />
+    <Compile Include="Logic\Presenters\Yammer\YammerPresenter.cs" />
+    <Compile Include="Logic\Views\IValidationButtonView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\IShopSubscriptionErrorListView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\IShopSubscriptionsView.cs" />
+    <Compile Include="Logic\Views\Yammer\IYammerView.cs" />
+    <Compile Include="Models\ContractSales\SettlementDetailedContractSaleListItemModel.cs" />
+    <Compile Include="Models\ContractSales\SettlementDetailedsubscriptionTransactionsListItemModel.cs" />
+    <Compile Include="Models\ContractSales\SettlementSimpleContractSaleListItemModel.cs" />
+    <Compile Include="Models\ContractSales\ViewSettlementModel.cs" />
+    <Compile Include="Logic\Views\ContractSales\IViewSettlementView.cs" />
+    <Compile Include="Logic\Presenters\ContractSales\ViewSettlementPresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\CreateTransactionPresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\EditCustomerPresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\CreateCustomerPresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\EditLensSubscriptionPresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\ListCustomersPresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\ListSubscriptionErrorsPresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\ListTransactionsPresenter.cs" />
+    <Compile Include="Logic\Views\LensSubscription\ICreateCustomerView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\ICreateLensSubscriptionView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\ICreateTransactionView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\IEditCustomerView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\IEditLensSubscriptionView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\IListCustomersView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\IListSubscriptionErrorView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\IListTransactionView.cs" />
+    <Compile Include="Models\LensSubscription\CreateCustomerModel.cs" />
+    <Compile Include="Models\LensSubscription\CreateLensSubscriptionModel.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\CreateLensSubscriptionPresenter.cs" />
+    <Compile Include="Logic\Presenters\FrameOrders\ListFrameOrdersPresenter.cs" />
+    <Compile Include="Logic\Presenters\FrameOrders\ViewFrameOrderPresenter.cs" />
+    <Compile Include="Logic\Services\EmailService.cs" />
+    <Compile Include="Logic\Services\SynologenFrameOrderService.cs" />
+    <Compile Include="Logic\Services\SynologenMemberService.cs" />
+    <Compile Include="Logic\Services\SynologenSettingsService.cs" />
+    <Compile Include="Logic\Views\FrameOrders\IEditFrameOrderView.cs" />
+    <Compile Include="Logic\Views\FrameOrders\IListFrameOrdersView.cs" />
+    <Compile Include="Logic\Views\FrameOrders\IViewFrameOrderView.cs" />
+    <Compile Include="Models\FrameOrders\EyeParameterIntervalListAndSelection.cs" />
+    <Compile Include="Models\FrameOrders\FrameGlassTypeListItem.cs" />
+    <Compile Include="Models\FrameOrders\FrameListItem.cs" />
+    <Compile Include="Models\FrameOrders\FrameOrderBaseModel.cs" />
+    <Compile Include="Models\FrameOrders\FrameOrderListItemModel.cs" />
+    <Compile Include="Models\FrameOrders\IntervalListItem.cs" />
+    <Compile Include="Models\FrameOrders\EditFrameOrderModel.cs" />
+    <Compile Include="Logic\Presenters\FrameOrders\EditFrameOrderPresenter.cs" />
+    <Compile Include="Models\LensSubscription\CreateTransactionModel.cs" />
+    <Compile Include="Models\LensSubscription\EditCustomerModel.cs" />
+    <Compile Include="Models\LensSubscription\EditLensSubscriptionModel.cs" />
+    <Compile Include="Models\LensSubscription\ListCustomersItemModel.cs" />
+    <Compile Include="Models\LensSubscription\ListCustomersModel.cs" />
+    <Compile Include="Models\LensSubscription\ListSubscriptionErrorModel .cs" />
+    <Compile Include="Models\LensSubscription\ListTransactionModel.cs" />
+    <Compile Include="Models\LensSubscription\ShopSubscriptionErrorListItemModel.cs" />
+    <Compile Include="Models\LensSubscription\ShopSubscriptionErrorListModel.cs" />
+    <Compile Include="Models\LensSubscription\ShopSubscriptionsModel.cs" />
+    <Compile Include="Models\LensSubscription\SubscriptionErrorListItemModel.cs" />
+    <Compile Include="Models\LensSubscription\SubscriptionListItemModel.cs" />
+    <Compile Include="Models\LensSubscription\SubscriptionTransactionListItemModel.cs" />
+    <Compile Include="Models\FrameOrders\ListFrameOrdersModel.cs" />
+    <Compile Include="Models\FrameOrders\ViewFrameOrderModel.cs" />
+    <Compile Include="Models\ListItem.cs" />
+    <Compile Include="Models\MessageContainer.cs" />
+    <Compile Include="Models\ValidationButtonModel.cs" />
+    <Compile Include="Models\Yammer\YammerImage.cs" />
+    <Compile Include="Models\Yammer\YammerListItem.cs" />
+    <Compile Include="Models\Yammer\YammerListModel.cs" />
+    <Compile Include="Models\Yammer\YammerModule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Code\IoC\WebRegistry.cs" />
+    <Compile Include="Testpages\TestButtonPage.aspx.cs">
+      <DependentUpon>TestButtonPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebBootstrapper.cs" />
+    <Compile Include="Wpc\Synologen\CityShopList.ascx.cs">
+      <DependentUpon>CityShopList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\CityShopList.ascx.designer.cs">
+      <DependentUpon>CityShopList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx.cs">
+      <DependentUpon>ViewSettlement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx.designer.cs">
+      <DependentUpon>ViewSettlement.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\EditMember.ascx.cs">
+      <DependentUpon>EditMember.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\EditMember.ascx.designer.cs">
+      <DependentUpon>EditMember.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\EditOrder.ascx.cs">
+      <DependentUpon>EditOrder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\EditOrder.ascx.designer.cs">
+      <DependentUpon>EditOrder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\CreateOrder.ascx.cs">
+      <DependentUpon>CreateOrder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\CreateOrder.ascx.designer.cs">
+      <DependentUpon>CreateOrder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\EditShop.ascx.cs">
+      <DependentUpon>EditShop.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\EditShop.ascx.designer.cs">
+      <DependentUpon>EditShop.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\FrameOrders\Order.ascx.cs">
+      <DependentUpon>Order.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\FrameOrders\Order.ascx.designer.cs">
+      <DependentUpon>Order.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\FrameOrders\OrderList.ascx.cs">
+      <DependentUpon>OrderList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\FrameOrders\OrderList.ascx.designer.cs">
+      <DependentUpon>OrderList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\FrameOrders\OrderView.ascx.cs">
+      <DependentUpon>OrderView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\FrameOrders\OrderView.ascx.designer.cs">
+      <DependentUpon>OrderView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionsList.ascx.cs">
+      <DependentUpon>ShopSubscriptionsList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionsList.ascx.designer.cs">
+      <DependentUpon>ShopSubscriptionsList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CreateCustomer.ascx.cs">
+      <DependentUpon>CreateCustomer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CreateCustomer.ascx.designer.cs">
+      <DependentUpon>CreateCustomer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CreateSubscription.ascx.cs">
+      <DependentUpon>CreateSubscription.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CreateSubscription.ascx.designer.cs">
+      <DependentUpon>CreateSubscription.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CreateTransaction.ascx.cs">
+      <DependentUpon>CreateTransaction.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CreateTransaction.ascx.designer.cs">
+      <DependentUpon>CreateTransaction.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CustomersList.ascx.cs">
+      <DependentUpon>CustomersList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\CustomersList.ascx.designer.cs">
+      <DependentUpon>CustomersList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\EditCustomer.ascx.cs">
+      <DependentUpon>EditCustomer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\EditCustomer.ascx.designer.cs">
+      <DependentUpon>EditCustomer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\EditSubscription.ascx.cs">
+      <DependentUpon>EditSubscription.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\EditSubscription.ascx.designer.cs">
+      <DependentUpon>EditSubscription.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx.cs">
+      <DependentUpon>ErrorList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx.designer.cs">
+      <DependentUpon>ErrorList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionErrorList.ascx.cs">
+      <DependentUpon>ShopSubscriptionErrorList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionErrorList.ascx.designer.cs">
+      <DependentUpon>ShopSubscriptionErrorList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx.cs">
+      <DependentUpon>TransactionsList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx.designer.cs">
+      <DependentUpon>TransactionsList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\SalesList.ascx.cs">
+      <DependentUpon>SalesList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\SalesList.ascx.designer.cs">
+      <DependentUpon>SalesList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\SecurityLogout.ascx.cs">
+      <DependentUpon>SecurityLogout.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\SecurityLogout.ascx.designer.cs">
+      <DependentUpon>SecurityLogout.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\SettlementList.ascx.cs">
+      <DependentUpon>SettlementList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\SettlementList.ascx.designer.cs">
+      <DependentUpon>SettlementList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ShopList.ascx.cs">
+      <DependentUpon>ShopList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ShopList.ascx.designer.cs">
+      <DependentUpon>ShopList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ShopMemberList.ascx.cs">
+      <DependentUpon>ShopMemberList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ShopMemberList.ascx.designer.cs">
+      <DependentUpon>ShopMemberList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\ViewOrder.ascx.cs">
+      <DependentUpon>ViewOrder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\ViewOrder.ascx.designer.cs">
+      <DependentUpon>ViewOrder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx.cs">
+      <DependentUpon>ViewSettlementOld.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx.designer.cs">
+      <DependentUpon>ViewSettlementOld.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx.cs">
+      <DependentUpon>AdminMemberFiles.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx.designer.cs">
+      <DependentUpon>AdminMemberFiles.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx.cs">
+      <DependentUpon>ViewMemberImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx.designer.cs">
+      <DependentUpon>ViewMemberImage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ValidationButton.ascx.cs">
+      <DependentUpon>ValidationButton.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ValidationButton.ascx.designer.cs">
+      <DependentUpon>ValidationButton.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Yammer\MiniYammerFeed.ascx.cs">
+      <DependentUpon>MiniYammerFeed.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Yammer\MiniYammerFeed.ascx.designer.cs">
+      <DependentUpon>MiniYammerFeed.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Yammer\YammerFeed.ascx.cs">
+      <DependentUpon>YammerFeed.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Yammer\YammerFeed.ascx.designer.cs">
+      <DependentUpon>YammerFeed.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Synologen.Business\Synologen.Business.csproj">
+      <Project>{493CAD1B-8476-41F0-9DDD-C6ABB7BF012D}</Project>
+      <Name>Synologen.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Data\Synologen.Data.csproj">
+      <Project>{6683DDA3-8D09-4A70-87AF-3184EE6512AF}</Project>
+      <Name>Synologen.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Testpages\EditShopPage.aspx" />
+    <None Include="Testpages\SalesList.aspx" />
+    <None Include="Testpages\CreateOrder.aspx" />
+    <None Include="Testpages\SecurityTimeoutPage.aspx" />
+    <None Include="Testpages\SettlementList.aspx" />
+    <None Include="Testpages\ShopList.aspx" />
+    <None Include="Testpages\EditMemberPage.aspx" />
+    <None Include="Testpages\ViewOrderPage.aspx" />
+    <Content Include="Default.css" />
+    <Content Include="Default.Master" />
+    <None Include="Testpages\EditOrderPage.aspx" />
+    <None Include="Testpages\MembersList.aspx" />
+    <None Include="Testpages\ViewSettlementOldPage.aspx" />
+    <Content Include="Wpc\Synologen\EditMember.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\EditOrder.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\CreateOrder.ascx" />
+    <Content Include="Wpc\Synologen\EditShop.ascx" />
+    <Content Include="Wpc\Synologen\Images\add.png" />
+    <Content Include="Wpc\Synologen\Images\edit.png" />
+    <Content Include="Wpc\Synologen\Images\ok.png" />
+    <Content Include="Wpc\Synologen\Images\stop.png" />
+    <Content Include="Wpc\Synologen\Images\user.png" />
+    <Content Include="Wpc\Synologen\Images\view.png" />
+    <Content Include="Wpc\Synologen\ContractSales\SalesList.ascx" />
+    <Content Include="Wpc\Synologen\SecurityLogout.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\SettlementList.ascx" />
+    <Content Include="Wpc\Synologen\ShopMemberList.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\ViewOrder.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Testpages\CityShopList.aspx" />
+    <None Include="Testpages\ViewSettlementPage.aspx" />
+    <None Include="Testpages\LensSubscriptionEditSubscription.aspx" />
+    <None Include="Testpages\LensSubscriptionCreateCustomer.aspx" />
+    <None Include="Testpages\LensSubscriptionCreateSubscription.aspx" />
+    <None Include="Testpages\LensSubscriptionCustomersList.aspx" />
+    <None Include="Testpages\FrameOrderList.aspx" />
+    <None Include="Testpages\FrameOrderView.aspx" />
+    <None Include="Testpages\FrameOrder.aspx" />
+    <None Include="Testpages\LensSubscriptionEditCustomer.aspx" />
+    <None Include="Testpages\LensSubscriptionTransactionsList.aspx" />
+    <None Include="Testpages\LensSubscriptionShopSubscriptionErrorsList.aspx" />
+    <Content Include="Testpages\TestButtonPage.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Wpc\Synologen\CityShopList.ascx" />
+    <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
+    <Content Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\CreateTransaction.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\EditSubscription.ascx" />
+    <Content Include="Wpc\Synologen\FrameOrders\Order.ascx" />
+    <Content Include="Wpc\Synologen\FrameOrders\OrderList.ascx" />
+    <Content Include="Wpc\Synologen\FrameOrders\OrderView.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\CreateCustomer.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\CreateSubscription.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\CustomersList.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\EditCustomer.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionErrorList.ascx" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx" />
+    <Content Include="Wpc\Synologen\ValidationButton.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\FluentNHibernate\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\HtmlAgilityPack\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Net35, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Tools\Newtonsoft.Json\Newtonsoft.Json.Net35.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="PDFThumbnail, Version=2.0.2.0, Culture=neutral, PublicKeyToken=76bf2dedaa68ccb5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\PDFThumbnail.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit, Version=1.0.622.728, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data.NHibernate, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Data.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Business, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Data, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Base.Presentation.Site, Version=5.0.519.2176, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Presentation.Site.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Content.Data, Version=5.0.536.2278, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Content.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Core.UI, Version=5.0.0.1809, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Core.UI.Mvp, Version=5.0.593.2500, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.UI.Mvp.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Business, Version=4.3.606.2500, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Data, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Member.Presentation.Site, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Presentation.Site.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.5.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\StructureMap\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebFormsMvp, Version=0.9.7.4, Culture=neutral, PublicKeyToken=537f18701145dff0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\WebFormsMvp\WebFormsMvp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Templates.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Templates.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Testpages\AdminMemberFiles.aspx" />
+    <None Include="Testpages\LensSubscriptionShopSubscriptionsList.aspx" />
+    <Content Include="Testpages\MiniYammerFeed.aspx" />
+    <Content Include="Testpages\YammerFeed.aspx" />
+    <Content Include="Wpc\Synologen\js\Synologen.js" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionsList.ascx" />
+    <Content Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx" />
+    <Content Include="Wpc\Synologen\Supplier\Images\delete.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\delete.png" />
+    <Content Include="Wpc\Synologen\Supplier\Images\document.png" />
+    <Content Include="Wpc\Synologen\Supplier\Images\document_icon.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\edit.png" />
+    <Content Include="Wpc\Synologen\Supplier\Images\eps.png" />
+    <Content Include="Wpc\Synologen\Supplier\Images\excel.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\pdf.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\pdf.png" />
+    <Content Include="Wpc\Synologen\Supplier\Images\photo_icon.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\powerpoint.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\standard.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\video_icon.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\word.gif" />
+    <Content Include="Wpc\Synologen\Supplier\Images\word.png" />
+    <Content Include="Wpc\Synologen\Supplier\PdfThumbnail.aspx" />
+    <Content Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx" />
+    <Content Include="Wpc\Synologen\Yammer\MiniYammerFeed.ascx" />
+    <Content Include="Wpc\Synologen\Yammer\YammerFeed.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Wpc\Base\" />
+    <Folder Include="Wpc\Synologen\Css\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2343</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2343/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Campaign.ascx.cs" Inherits="Campaign" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Campaign.ascx.cs" Inherits="Campaign" %>
 <%@ Register Src="CampaignFilesThumb.ascx" TagName="CampaignFilesThumb" TagPrefix="uc1" %>
 
 <h1>

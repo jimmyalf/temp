@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberFilesThumbs" Codebehind="MemberFilesThumbs.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberFilesThumbs" Codebehind="MemberFilesThumbs.ascx.cs" %>
 <%@ Register TagPrefix="tc" Assembly="pdfthumbnail" Namespace="TallComponents.Web.PDF" %>
 <h1>
     <asp:Label ID="lblFileCategory" runat="server"></asp:Label></h1>

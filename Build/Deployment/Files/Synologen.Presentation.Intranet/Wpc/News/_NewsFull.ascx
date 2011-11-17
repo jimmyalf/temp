@@ -1,4 +1,4 @@
-<div id="center_content"><%@ Control Language="C#" AutoEventWireup="true" CodeFile="NewsFull.ascx.cs" Inherits="NewsFull" %>
+﻿<div id="center_content"><%@ Control Language="C#" AutoEventWireup="true" CodeFile="NewsFull.ascx.cs" Inherits="NewsFull" %>
 <%if (_newsId > 0) {%>
 <div style="border: 1px solid rgb(187, 193, 198); padding: 15px; background-color: rgb(234, 239, 244); margin-bottom:15px"><b><%=newsRow.StartDate.ToShortDateString()%></b><br /><h2><%=newsRow.Heading%></h2><%=newsRow.Summary%><br />
 <%=newsRow.Body%></div>

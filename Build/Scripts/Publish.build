@@ -12,7 +12,7 @@
 	
 	<!-- Publish www.synologen.nu -->	
 	<target name="Public-Nu" >
-		<property name="srcPath" value="${src}\Synologen.Presentation.Site" overwrite="true"/>
+		<property name="srcPath" value="${src}\Synologen.Presentation.Intranet" overwrite="true"/>
 		<property name="deployPath" 	value="${deployRoot}\www.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcPublic.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
@@ -28,7 +28,7 @@
 	
 	<!-- Publish lev.synologen.nu -->
 	<target name="Public-Lev" depends="Public-Nu">
-		<property name="srcPath" value="${src}\Synologen.Presentation.Site" overwrite="true"/>
+		<property name="srcPath" value="${src}\Synologen.Presentation.Intranet" overwrite="true"/>
 		<property name="deployPath" 	value="${deployRoot}\lev.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcPublic.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
@@ -41,7 +41,7 @@
 
 	<!-- Publish partner.synologen.nu -->
 	<target name="Public-Partner" depends="Public-Lev">
-		<property name="srcPath" 		value="${src}\Synologen.Presentation.Site" overwrite="true"/>
+		<property name="srcPath" 		value="${src}\Synologen.Presentation.Intranet" overwrite="true"/>
 		<property name="deployPath" 	value="${deployRoot}\partner.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcPublic.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
@@ -54,7 +54,7 @@
 	
 	<!-- Publish www.ogonapoteket.se -->
 	<target name="Public-OgonApotek" depends="Public-Partner">
-		<property name="srcPath" 		value="${src}\Synologen.Presentation.Site" overwrite="true"/>
+		<property name="srcPath" 		value="${src}\Synologen.Presentation.Intranet" overwrite="true"/>
 		<property name="deployPath" 	value="${deployRoot}\www.ogonapoteket.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcPublic.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
@@ -70,7 +70,7 @@
 	
 	<!-- Publish www.synhalsan.se -->
 	<target name="Public-Synhalsan" depends="Public-OgonApotek">
-		<property name="srcPath" 		value="${src}\Synologen.Presentation.Site" overwrite="true"/>
+		<property name="srcPath" 		value="${src}\Synologen.Presentation.Intranet" overwrite="true"/>
 		<property name="deployPath" 	value="${deployRoot}\www.synhalsan.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcPublic.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
@@ -83,7 +83,7 @@
 	
 	<!-- Publish www.synologen.se -->
 	<target name="Public-Se" depends="Public-Synhalsan">
-		<property name="srcPath" 		value="${src}\Synologen.Presentation.Site" overwrite="true"/>
+		<property name="srcPath" 		value="${src}\Synologen.Presentation.Intranet" overwrite="true"/>
 		<property name="deployPath" 	value="${deployRoot}\www.synologen.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcPublic.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>

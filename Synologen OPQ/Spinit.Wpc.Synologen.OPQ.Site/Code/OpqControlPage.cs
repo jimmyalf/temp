@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using Spinit.Wpc.Synologen.OPQ.Core;
-using Spinit.Wpc.Synologen.Presentation.Site.Code;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Code;
 using Spinit.Wpc.Utility.Data;
 
 namespace Spinit.Wpc.Synologen.OPQ.Site.Code

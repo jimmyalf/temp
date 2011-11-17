@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberNews" Codebehind="MemberNews.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberNews" Codebehind="MemberNews.ascx.cs" %>
 <div id="center_content">
 <%if (_newsId > 0) {%>
 <div style="border: 1px solid rgb(187, 193, 198); padding: 15px; background-color: rgb(234, 239, 244); margin-bottom:15px"><b><%=newsRow.StartDate.ToShortDateString()%></b><br /><h2><%=newsRow.Heading%></h2><%=newsRow.Summary%><br />
@@ -14,7 +14,7 @@
     <%# DataBinder.Eval(Container.DataItem, "cBody")%>
     <%} %>
     <asp:HyperLink ID="hlNewsLink" NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "cId") %>' runat="server">
-L�s mer &gt; &gt;
+Läs mer &gt; &gt;
     </asp:HyperLink><br />
 </ItemTemplate>
 <FooterTemplate></div></FooterTemplate>

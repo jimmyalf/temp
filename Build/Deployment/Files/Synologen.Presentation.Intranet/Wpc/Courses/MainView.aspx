@@ -1,4 +1,4 @@
-<%@ Page Language="C#"  MasterPageFile="" AutoEventWireup="true" CodeBehind="MainView.aspx.cs" Inherits="Spinit.Wpc.Courses.Presentation.Site.Wpc.Courses.MainView" Title="<%$ Resources: PageTitle %>" %>
+﻿<%@ Page Language="C#"  MasterPageFile="" AutoEventWireup="true" CodeBehind="MainView.aspx.cs" Inherits="Spinit.Wpc.Courses.Presentation.Site.Wpc.Courses.MainView" Title="<%$ Resources: PageTitle %>" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
 <div class="main-course">
     <h3><%=MainHeading %></h3>

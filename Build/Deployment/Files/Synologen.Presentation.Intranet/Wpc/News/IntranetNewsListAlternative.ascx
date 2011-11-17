@@ -1,6 +1,6 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.News.Presentation.Intranet.Wpc.News.IntranetNewsListAlternative" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.News.Presentation.Intranet.Wpc.News.IntranetNewsListAlternative" %>
 <h5 id="newsheader<%=CategoryClass %>">
-<asp:Label id="lblCategoryName" runat="server" visible="false" Text="Senaste nytt fr�n synologerna"/>
+<asp:Label id="lblCategoryName" runat="server" visible="false" Text="Senaste nytt från synologerna"/>
 </h5>
 <asp:Repeater ID="rptNews" runat="server" OnItemDataBound="rptNews_ItemDataBound"  >
 <HeaderTemplate><div id="newsContainer<%=CategoryClass %>"></HeaderTemplate>

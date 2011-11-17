@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Base.Presentation.Site.LoginControl" Codebehind="LoginControl.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Base.Presentation.Site.LoginControl" Codebehind="LoginControl.ascx.cs" %>
 <div id="dError" runat="server"><strong>Wrong username or password! Try again.</strong></div>
 <div id="dMain">
 <fieldset>

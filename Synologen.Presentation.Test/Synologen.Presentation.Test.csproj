@@ -162,8 +162,8 @@
       <Name>Synologen.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Synologen.Presentation\Synologen.Presentation.csproj">
-      <Project>{C328719F-BCF2-411B-A6BD-0C2CEF1DA3D7}</Project>
-      <Name>Synologen.Presentation</Name>
+      <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
+      <Name>Synologen.Presentation %28Presentation\Synologen.Presentation%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

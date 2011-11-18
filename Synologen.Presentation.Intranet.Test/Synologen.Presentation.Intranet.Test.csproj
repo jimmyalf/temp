@@ -165,7 +165,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Synologen.Presentation.Intranet\Synologen.Presentation.Intranet.csproj">
       <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
-      <Name>Synologen.Presentation.Intranet</Name>
+      <Name>Synologen.Presentation.Intranet %28Presentation\Synologen.Presentation.Intranet%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,7 @@
 <asp:PlaceHolder ID="phMainProduct" runat="server" Visible="false">
 <p class="go-to-article"><asp:LinkButton ID="lbGoToArticle" cssclass="readmore" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "Id")%>' CommandName="GoToArticles" runat="server" Visible="false">Visa varor</asp:LinkButton></p>
 </asp:PlaceHolder>
-<asp:Image ID="picProduct" Visible="false" runat="server" AlternateText="  />
+<asp:Image ID="picProduct" Visible="false" runat="server" />
 </li>
 </ItemTemplate>
 <FooterTemplate></FooterTemplate>

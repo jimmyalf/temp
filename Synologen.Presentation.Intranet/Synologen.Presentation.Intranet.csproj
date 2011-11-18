@@ -40,7 +40,6 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Wpc\Synologen\ShopList.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_GlobalResources\Templates.Designer.cs">
@@ -157,13 +156,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebBootstrapper.cs" />
-    <Compile Include="Wpc\Synologen\CityShopList.ascx.cs">
-      <DependentUpon>CityShopList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Wpc\Synologen\CityShopList.ascx.designer.cs">
-      <DependentUpon>CityShopList.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx.cs">
       <DependentUpon>ViewSettlement.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -311,13 +303,6 @@
     <Compile Include="Wpc\Synologen\ContractSales\SettlementList.ascx.designer.cs">
       <DependentUpon>SettlementList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\ShopList.ascx.cs">
-      <DependentUpon>ShopList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Wpc\Synologen\ShopList.ascx.designer.cs">
-      <DependentUpon>ShopList.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Wpc\Synologen\ShopMemberList.ascx.cs">
       <DependentUpon>ShopMemberList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -437,8 +422,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Wpc\Synologen\CityShopList.ascx" />
-    <Content Include="Wpc\Synologen\CityShopListColumnized.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\CreateTransaction.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\EditSubscription.ascx" />

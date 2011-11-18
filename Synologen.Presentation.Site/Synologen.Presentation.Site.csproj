@@ -40,21 +40,29 @@
     <Reference Include="Spinit.Wpc.Base.Business">
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Business.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Core.UI, Version=5.0.0.1809, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Spinit.Wpc.Core.UI, Version=5.0.0.1809, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.UI.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Wpc.Core.UI.Mvp, Version=5.0.593.2500, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.UI.Mvp.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Member.Data">
-      <HintPath>..\Synologen.ContractSale\WebService\Bin\Spinit.Wpc.Member.Data.dll</HintPath>
+    <Reference Include="Spinit.Wpc.Member.Data, Version=4.3.606.2500, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Utility.Business">
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Utility.Core">
-      <HintPath>..\Synologen.Presentation.Ogonapoteket\bin\Spinit.Wpc.Utility.Core.dll</HintPath>
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
     </Reference>
-    <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL" />
+    <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\StructureMap\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />

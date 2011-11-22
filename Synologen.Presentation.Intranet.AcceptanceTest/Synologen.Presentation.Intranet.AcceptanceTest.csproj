@@ -89,7 +89,7 @@
     </Reference>
     <Reference Include="Spinit.Services.Client, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Synologen.Presentation.Site\Bin\Spinit.Services.Client.dll</HintPath>
+      <HintPath>..\Dependancies\Spinit\Spinit.Services.Client.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Test, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

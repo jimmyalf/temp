@@ -23,7 +23,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = (ISession session) =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
@@ -75,7 +76,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = (ISession session) =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
@@ -118,7 +120,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
@@ -149,9 +152,11 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				bool isActive = true;
-				var shop1 = new ShopRepository(session).Get(TestShopId);
-				var shop2 = new ShopRepository(session).Get(TestShop2Id);
+				const bool isActive = true;
+				var shop1 = CreateShop(session);
+					//= new ShopRepository(session).Get(TestShopId);
+				var shop2 = CreateShop(session, shopName: "Testbutik 2");
+					//= new ShopRepository(session).Get(TestShop2Id);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customers = new[]
 				{
@@ -256,7 +261,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		[Test]
 		public void Should_get_expected_items_when_searching_for_shop_name()
 		{
-			var criteria = new PageOfSubscriptionsMatchingCriteria { SearchTerm = "bågbeställning",  PageSize = 100 };
+			var criteria = new PageOfSubscriptionsMatchingCriteria { SearchTerm = "Testbutik 2",  PageSize = 100 };
 			var matchingItems = GetResult(session => new SubscriptionRepository(session).FindBy(criteria));
 			matchingItems.Count().ShouldBeGreaterThan(0);
 			foreach (var item in matchingItems)
@@ -276,7 +281,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session); 
+					//new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 
 				var customer = CustomerFactory.Get(country, shop);
@@ -318,7 +324,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session); 
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 
 				var customer = CustomerFactory.Get(country, shop);
@@ -360,7 +367,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session); 
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customers = new[]
 				{
@@ -416,7 +424,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session); 
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop, "Gunnar", "Gustafsson", "198206113411");
 				new CustomerRepository(session).Save(customer);

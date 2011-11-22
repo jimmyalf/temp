@@ -11,12 +11,6 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
 	public class BaseRepositoryTester<TModel> :  NHibernateRepositoryTestbase<TModel>
 	{
-		protected const int testableShopId = 158;
-		protected const int testableShopId2 = 159;
-		public const int TestableShopMemberId = 485;
-		public const int TestableShop2MemberId = 484;
-		public const int TestableCompanyId = 57;
-		public const int TestableContractId = 14;
 		protected int TestCountryId = 1;
 
 		public BaseRepositoryTester()
@@ -38,6 +32,9 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			{
 				throw new OperationCanceledException("Make sure you are running tests against a development database!");
 			}
+
+			DataHelper.DeleteShopsAndConnections(session.Connection);
+			DataHelper.DeleteMembersAndConnections(session.Connection);
 			DataHelper.DeleteForTable(session.Connection, "tblSynologenSettlementOrderConnection");
 			DataHelper.DeleteForTable(session.Connection, "tblSynologenContractArticleConnection");
 			DataHelper.DeleteAndResetIndexForTable(session.Connection, "SynologenLensSubscriptionTransaction");

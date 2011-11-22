@@ -23,8 +23,8 @@ namespace Spinit.Wpc.Synologen.Data.Test
 	public class GlobalTestBase
 	{
 		protected int TestCountryId = 1;
-		protected int TestShopId = 158;
-		protected int TestShop2Id = 159;
+		//protected int TestShopId = 158;
+		//protected int TestShop2Id = 159;
 
 		[SetUp]
 		public void RunBeforeAnyTests()
@@ -40,19 +40,26 @@ namespace Spinit.Wpc.Synologen.Data.Test
 			var provider = GetSqlProvider();
 			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
 			ClearTables(session);
-			SetupLensSubscriptionData();
-			SetupContractSaleSettlementData(provider);
-			ResetTestShop(provider);
+			var shop1 = DataHelper.CreateShop(provider, "Testbutik A");
+			var shop2 = DataHelper.CreateShop(provider, "Testbutik B");
+			var company = DataHelper.CreateCompany(provider);
+			DataHelper.CreateAdminUsers();
+			var memberId = DataHelper.CreateMemberForShop(provider as SqlProvider, "test", shop1.ShopId, 2 /*location id*/, "test");
+			SetupLensSubscriptionData(shop1.ShopId, shop2.ShopId);
+			SetupContractSaleSettlementData(provider, shop1.ShopId, memberId, company.Id, company.ContractId);
+			//ResetTestShop(provider);
 		}
 
 		private void ClearTables(ISession session)
 		{
+			DataHelper.DeleteMembersAndConnections(session.Connection);
+			DataHelper.DeleteShopsAndConnections(session.Connection);
 			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenContractArticleConnection");
 			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenOrderItems");
 			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenArticle");
 		}
 
-		private void SetupContractSaleData(ISqlProvider provider) 
+		private void SetupContractSaleData(ISqlProvider provider, int shopId, int memberId, int companyId, int contractId) 
 		{ 
 			if(String.IsNullOrEmpty(DataHelper.ConnectionString)){
 				throw new OperationCanceledException("Connectionstring could not be found in configuration");
@@ -63,25 +70,25 @@ namespace Spinit.Wpc.Synologen.Data.Test
 			}
 			const int settlementableOrderStatus = 6;
 			const int nonSettlementableOrderStatus = 5;
-			const int testableShopId = 158;
-			const int TestableShopMemberId = 485;
-			const int TestableCompanyId = 57;
-			const int TestableContractId = 14;
+			//const int testableShopId = 158;
+			//const int TestableShopMemberId = 485;
+			//const int TestableCompanyId = 57;
+			//const int TestableContractId = 14;
 
 			var article = ArticleFactory.Get();
 			provider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref article);
-			var contractArticleConnection = ArticleFactory.GetContractArticleConnection(article, TestableContractId, 999.23F, false);
+			var contractArticleConnection = ArticleFactory.GetContractArticleConnection(article, contractId, 999.23F, false);
 			provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref contractArticleConnection);
 
 			var orders = new[]
 			{
-				OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
-				OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
-				OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
-				OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
-				OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
-				OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
-				OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId, article.Id),
+				OrderFactory.Get(companyId, settlementableOrderStatus, shopId, memberId, article.Id),
+				OrderFactory.Get(companyId, nonSettlementableOrderStatus, shopId, memberId, article.Id),
+				OrderFactory.Get(companyId, settlementableOrderStatus, shopId, memberId, article.Id),
+				OrderFactory.Get(companyId, settlementableOrderStatus, shopId, memberId, article.Id),
+				OrderFactory.Get(companyId, nonSettlementableOrderStatus, shopId, memberId, article.Id),
+				OrderFactory.Get(companyId, nonSettlementableOrderStatus, shopId, memberId, article.Id),
+				OrderFactory.Get(companyId, settlementableOrderStatus, shopId, memberId, article.Id),
 			};
 			orders.Each(order =>
 			{
@@ -98,34 +105,34 @@ namespace Spinit.Wpc.Synologen.Data.Test
 			});				
 		}
 
-		private void SetupContractSaleSettlementData(ISqlProvider provider) 
+		private void SetupContractSaleSettlementData(ISqlProvider provider, int shopId, int memberId, int companyId, int contractId) 
 		{ 
 			const int settlementableOrderStatus = 6;
 			const int orderStatusAfterSettlement = 8;
 			Action action  = () => 
 			{
-				SetupContractSaleData(provider);
+				SetupContractSaleData(provider, shopId, memberId, companyId, contractId);
 				provider.AddSettlement(settlementableOrderStatus, orderStatusAfterSettlement);	
 			};
 			action.Times(5);
-			SetupContractSaleData(provider);
+			SetupContractSaleData(provider, shopId, memberId, companyId, contractId);
 		}
 
-		private void ResetTestShop(ISqlProvider provider)
-		{
-			var testShop = ShopFactory.GetShop(TestShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
-			provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref testShop);
-		}
+		//private void ResetTestShop(ISqlProvider provider)
+		//{
+		//    var testShop = ShopFactory.GetShop(TestShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
+		//    provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref testShop);
+		//}
 
 		private static ISqlProvider GetSqlProvider()
 		{
 			return new SqlProvider(DataHelper.ConnectionString);
 		}
 
-		private void SetupLensSubscriptionData() {
+		private void SetupLensSubscriptionData(int shop1_id, int shop2_id) {
 			var session = GetSessionFactory().OpenSession();
-			var shop1 = new ShopRepository(session).Get(TestShopId);
-			var shop2 = new ShopRepository(session).Get(TestShop2Id);
+			var shop1 = new ShopRepository(session).Get(shop1_id);
+			var shop2 = new ShopRepository(session).Get(shop2_id);
 			var country = new CountryRepository(session).Get(TestCountryId);
 			var transactionArticleRepository = new TransactionArticleRepository(session);
 			var transactionArticlesToSave = TransactionArticleFactory.GetList(55);

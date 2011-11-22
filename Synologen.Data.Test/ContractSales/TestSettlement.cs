@@ -41,6 +41,9 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		private ContractArticleConnection _contractArticleConnection;
 		private SqlProvider Provider;
 		private Shop TestShop;
+		private Shop _shop_1;
+		private Shop _shop_2;
+		private Company _company;
 
 		protected override void SetUp()
 		{
@@ -53,16 +56,21 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			Context = session => 
 			{
 				_article = ArticleFactory.Get();
+				_company = DataHelper.CreateCompany(Provider);
+				_shop_1 = DataHelper.CreateShop(Provider, "Testbutik 1");
+				_shop_2 = DataHelper.CreateShop(Provider, "Testbutik 2");
+				var memberForShop1 = DataHelper.CreateMemberForShop(Provider, "member_1", _shop_1.ShopId, 2 /*location id*/);
+				var memberForShop2 = DataHelper.CreateMemberForShop(Provider, "memeber_2",_shop_2.ShopId, 2 /*location id*/);
 				Provider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref _article);
-				_contractArticleConnection = ArticleFactory.GetContractArticleConnection(_article, TestableContractId, 999.23F, true);
+				_contractArticleConnection = ArticleFactory.GetContractArticleConnection(_article, _company.ContractId, 999.23F, true);
 				Provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref _contractArticleConnection);
 				_ordersToSave = new List<Order>
 				{
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId, _article.Id),
-					OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId, _article.Id),
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId, _article.Id),
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId2, TestableShopMemberId, _article.Id),
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId2, TestableShop2MemberId, _article.Id),
+					OrderFactory.Get(_company.Id, settlementableOrderStatus, _shop_1.ShopId, memberForShop1, _article.Id),
+					OrderFactory.Get(_company.Id, nonSettlementableOrderStatus, _shop_1.ShopId, memberForShop1, _article.Id),
+					OrderFactory.Get(_company.Id, settlementableOrderStatus, _shop_1.ShopId, memberForShop1, _article.Id),
+					OrderFactory.Get(_company.Id, settlementableOrderStatus, _shop_2.ShopId, memberForShop2, _article.Id),
+					OrderFactory.Get(_company.Id, settlementableOrderStatus, _shop_2.ShopId, memberForShop2, _article.Id),
 				};
 				_ordersToSave.Each(order => 
 				{
@@ -75,13 +83,13 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 						Provider.AddUpdateDeleteOrderItem(Enumerations.Action.Create, ref tempOrder);
 					});
 				});
-				_expectedSumIncludingVATForShop1 = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus) && x.SalesPersonShopId.Equals(testableShopId)).Sum(x => x.InvoiceSumIncludingVAT);
-				_expectedSumExcludingVATForShop1 = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus) && x.SalesPersonShopId.Equals(testableShopId)).Sum(x => x.InvoiceSumExcludingVAT);
-				_expectedNumberOfOrdersInSettlementForShop1 = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus) && x.SalesPersonShopId.Equals(testableShopId)).Count();
+				_expectedSumIncludingVATForShop1 = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus) && x.SalesPersonShopId.Equals(_shop_1.ShopId)).Sum(x => x.InvoiceSumIncludingVAT);
+				_expectedSumExcludingVATForShop1 = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus) && x.SalesPersonShopId.Equals(_shop_1.ShopId)).Sum(x => x.InvoiceSumExcludingVAT);
+				_expectedNumberOfOrdersInSettlementForShop1 = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus) && x.SalesPersonShopId.Equals(_shop_1.ShopId)).Count();
 				_expectedSumIncludingVAT = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus)).Sum(x => x.InvoiceSumIncludingVAT);
 				_expectedSumExcludingVAT = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus)).Sum(x => x.InvoiceSumExcludingVAT);
 				_expectedNumberOfOrdersInSettlement = _ordersToSave.Where(x => x.StatusId.Equals(settlementableOrderStatus)).Count();
-				var shop = new ShopRepository(session).Get(testableShopId);
+				var shop = new ShopRepository(session).Get(_shop_1.ShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
@@ -89,7 +97,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 				new SubscriptionRepository(session).Save(_subscription);
 				_transactions = TransactionFactory.GetList(_subscription);
 
-				var shop2 = new ShopRepository(session).Get(testableShopId2);
+				var shop2 = new ShopRepository(session).Get(_shop_2.ShopId);
 				var customer2 = CustomerFactory.Get(country, shop2);
 				new CustomerRepository(session).Save(customer2);
 				var subscription2 = SubscriptionFactory.Get(customer2);
@@ -99,7 +107,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			};
 			Because = repository =>
 			{
-				TestShop = Provider.GetShop(testableShopId);
+				TestShop = Provider.GetShop(_shop_1.ShopId);
 				_settlementId = Provider.AddSettlement(settlementableOrderStatus, orderStatusAfterSettlement);
 				var settlementMock = new Mock<Core.Domain.Model.LensSubscription.Settlement>();
 				settlementMock.SetupGet(x => x.Id).Returns(_settlementId);
@@ -156,7 +164,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 				var settlement = new SettlementRepository(session).Get(_settlementId);
 				settlement.ContractSales.ForElementAtIndex(0, contractSale => 
 				{
-					contractSale.Shop.Id.ShouldBe(testableShopId);
+					contractSale.Shop.Id.ShouldBe(_shop_1.ShopId);
 					contractSale.Shop.Name.ShouldBe(TestShop.Name);
 					contractSale.Shop.Number.ShouldBe(TestShop.Number);
 					contractSale.Shop.BankGiroNumber.ShouldBe(TestShop.GiroNumber);
@@ -185,10 +193,10 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			float orderValueIncludingVAT;
 			float orderValueExcludingVAT;
 			var expectedUniqueArticleQuanityForShop1 = _ordersToSave
-				.Where(order => order.StatusId.Equals(settlementableOrderStatus) && order.SalesPersonShopId.Equals(testableShopId))
+				.Where(order => order.StatusId.Equals(settlementableOrderStatus) && order.SalesPersonShopId.Equals(_shop_1.ShopId))
 				.Sum(x => x.OrderItems.Sum(y => y.NumberOfItems));
 			var expectedNumberOfRowsInDataSet = _ordersToSave.SelectMany(x => x.OrderItems).Select(x => x.ArticleId).Distinct().Count();
-			var settlementDataSet = Provider.GetSettlementsOrderItemsDataSetSimple(testableShopId, _settlementId, null /*orderBy*/, out allOrdersMarkedAsPayed, out orderValueIncludingVAT, out orderValueExcludingVAT);
+			var settlementDataSet = Provider.GetSettlementsOrderItemsDataSetSimple(_shop_1.ShopId, _settlementId, null /*orderBy*/, out allOrdersMarkedAsPayed, out orderValueIncludingVAT, out orderValueExcludingVAT);
 
 			settlementDataSet.Tables[0].Rows.Count.ShouldBe(expectedNumberOfRowsInDataSet);
 			settlementDataSet.Tables[0].Rows.AsEnumerable().ForElementAtIndex(0, dataRow =>
@@ -213,11 +221,11 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			float orderValueExcludingVAT;
 			var expectedNumberOfRowsInDataSet = _ordersToSave
 				.Where(order => order.StatusId.Equals(settlementableOrderStatus)
-				                && order.SalesPersonShopId.Equals(testableShopId))
+				                && order.SalesPersonShopId.Equals(_shop_1.ShopId))
 				.SelectMany(x => x.OrderItems).Count();
 
 			var settlementDataSet = Provider.GetSettlementsOrderItemsDataSetDetailed(
-				testableShopId,
+				_shop_1.ShopId,
 				_settlementId,
 				null /*orderBy*/,
 				out allOrdersMarkedAsPayed,
@@ -246,8 +254,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		{
 			AssertUsing(session =>
 			{
-				var settlementForShop = new SettlementRepository(session).GetForShop(_settlementId, testableShopId);
-				var expectedContractSales = _ordersToSave.Where(x => x.SalesPersonShopId.Equals(testableShopId) && x.StatusId.Equals(settlementableOrderStatus));
+				var settlementForShop = new SettlementRepository(session).GetForShop(_settlementId, _shop_1.ShopId);
+				var expectedContractSales = _ordersToSave.Where(x => x.SalesPersonShopId.Equals(_shop_1.ShopId) && x.StatusId.Equals(settlementableOrderStatus));
 				var expectedSaleItems = expectedContractSales.SelectMany(x => x.OrderItems).ToList();
 				settlementForShop.SaleItems.Count().ShouldBe(expectedSaleItems.Count());
 				settlementForShop.LensSubscriptionTransactions.Count().ShouldBe(_transactions.Count());
@@ -262,9 +270,9 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 					saleItem.Id.ShouldBe(originalItem.Id);
 					saleItem.Quantity.ShouldBe(originalItem.NumberOfItems);
 					saleItem.TotalPriceExcludingVAT().ShouldBe((decimal)originalItem.DisplayTotalPrice);
-					saleItem.Sale.ContractCompany.Id.ShouldBe(TestableCompanyId);
+					saleItem.Sale.ContractCompany.Id.ShouldBe(_company.Id);
 					saleItem.Sale.ContractCompany.Name.ShouldBe("Test Företag AB");
-					saleItem.Sale.ContractCompany.ContractId.ShouldBe(TestableContractId);
+					saleItem.Sale.ContractCompany.ContractId.ShouldBe(_company.ContractId);
 					saleItem.IsVATFree.ShouldBe(_contractArticleConnection.NoVAT);
 				});
 				settlementForShop.LensSubscriptionTransactions.And(_transactions).Do((transaction, originalItem) =>
@@ -282,10 +290,10 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		[Test]
 		public void Can_get_settlement_for_shop_using_nhibernate_contining_only_shop_specific_transactions_and_sale_items_with_sale_items_marked_as_payed()
 		{
-			new SqlProvider(DataHelper.ConnectionString).MarkOrdersInSettlementAsPayedPerShop(_settlementId, testableShopId);
+			new SqlProvider(DataHelper.ConnectionString).MarkOrdersInSettlementAsPayedPerShop(_settlementId, _shop_1.ShopId);
 			AssertUsing(session =>
 			{
-				var settlementForShop = new SettlementRepository(session).GetForShop(_settlementId, testableShopId);
+				var settlementForShop = new SettlementRepository(session).GetForShop(_settlementId, _shop_1.ShopId);
 				settlementForShop.AllContractSalesHaveBeenMarkedAsPayed.ShouldBe(true);
 			});
 		}

@@ -16,24 +16,25 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_get_persisted_shop()
 		{
 			//Arrange
-			const int testableShopId = 158;
-			const string expectedName = "Testbutik för bågbeställning";
-			const string expectedAddressLineOne = "Spinit AB";
-			const string expectedAddressLineTwo = "Datavägen 2";
-			const string expectedPostalCode = "43632";
-			const string expectedCity = "Askim";
+			//const int testableShopId = 158;
+			var shop = CreateShop(GetNewSession());
+			//const string expectedName = "Testbutik för bågbeställning";
+			//const string expectedAddressLineOne = "Spinit AB";
+			//const string expectedAddressLineTwo = "Datavägen 2";
+			//const string expectedPostalCode = "43632";
+			//const string expectedCity = "Askim";
 
 			//Act
-			var persistedShop = ShopRepository.Get(testableShopId);
+			var persistedShop = ShopRepository.Get(shop.Id);
 
 			//Assert
 			Expect(persistedShop, Is.Not.Null);
-			Expect(persistedShop.Id, Is.EqualTo(testableShopId));
-			Expect(persistedShop.Name, Is.EqualTo(expectedName));
-			Expect(persistedShop.Address.AddressLineOne, Is.EqualTo(expectedAddressLineOne));
-			Expect(persistedShop.Address.AddressLineTwo, Is.EqualTo(expectedAddressLineTwo));
-			Expect(persistedShop.Address.PostalCode, Is.EqualTo(expectedPostalCode));
-			Expect(persistedShop.Address.City, Is.EqualTo(expectedCity));
+			Expect(persistedShop.Id, Is.EqualTo(shop.Id));
+			Expect(persistedShop.Name, Is.EqualTo(shop.Name));
+			Expect(persistedShop.Address.AddressLineOne, Is.EqualTo(shop.Address.AddressLineOne));
+			Expect(persistedShop.Address.AddressLineTwo, Is.EqualTo(shop.Address.AddressLineTwo));
+			Expect(persistedShop.Address.PostalCode, Is.EqualTo(shop.Address.PostalCode));
+			Expect(persistedShop.Address.City, Is.EqualTo(shop.Address.City));
 		}
 		
 	}

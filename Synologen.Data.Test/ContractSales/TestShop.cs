@@ -1,3 +1,4 @@
+using System.Data.SqlClient;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Test;
@@ -11,35 +12,32 @@ using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
 	[TestFixture, Category("TestSqlProviderForShop")]
-	public class Given_a_persisted_shop : BehaviorActionTestbase<SqlProvider>
+	public class Given_a_persisted_shop : ContractSaleTestbase
 	{
 		private Shop persistedShop;
 		private Shop TestShop;
-		protected const int testableShopId = 158;
-		protected const int testableShopId2 = 159;
-		public const int TestableShopMemberId = 485;
-		public const int TestableShop2MemberId = 484;
-		public const int TestableCompanyId = 57;
-		public const int TestableContractId = 14;
+		//protected const int testableShopId = 158;
+		//protected const int testableShopId2 = 159;
+		//public const int TestableShopMemberId = 485;
+		//public const int TestableShop2MemberId = 484;
+		//public const int TestableCompanyId = 57;
+		//public const int TestableContractId = 14;
 
 		public Given_a_persisted_shop()
 		{
 			Context = () =>
 			{
-				TestShop = ShopFactory.GetShop(testableShopId, ShopAccess.None);				
+				TestShop = CreateShop();
+				//ShopFactory.GetShop(testableShopId, ShopAccess.None);				
 			};
-			Because = provider =>
-			{
-				
-				provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref TestShop);
-			};
+			Because = provider => provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref TestShop);
 		}
 
 		[Test]
 		public void Can_get_persisted_shop()
 		{
 			//Act
-			persistedShop = GetTestEntity().GetShop(testableShopId);
+			persistedShop = GetTestEntity().GetShop(TestShop.ShopId);
 
 			//Assert
 			persistedShop.Access.ShouldBe(TestShop.Access);
@@ -87,5 +85,29 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		{
 			return new SqlProvider(DataHelper.ConnectionString);
 		}
+	}
+
+	public abstract class ContractSaleTestbase : BehaviorActionTestbase<SqlProvider>
+	{
+		private readonly SqlProvider _sqlProvider;
+
+		protected ContractSaleTestbase()
+		{
+			_sqlProvider = new SqlProvider(DataHelper.ConnectionString);
+		}
+
+		protected override void SetUp()
+		{
+			var sqlConnection = new SqlConnection(DataHelper.ConnectionString);
+			sqlConnection.Open();
+			DataHelper.DeleteShopsAndConnections(sqlConnection);
+			sqlConnection.Close();
+		}
+
+		protected Shop CreateShop()
+		{
+			return DataHelper.CreateShop(_sqlProvider, "Testbutik");
+		}
+
 	}
 }

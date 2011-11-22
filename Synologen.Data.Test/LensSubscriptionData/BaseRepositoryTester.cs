@@ -6,16 +6,23 @@ using Spinit.Test.NHibernate;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
+using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
+using Shop = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Shop;
 
 namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 {
 	public abstract class BaseRepositoryTester<TRepository> : NHibernateRepositoryTestbase<TRepository>
 	{
 		protected int TestCountryId = 1;
-		protected int TestShopId = 158;
-		protected int TestShop2Id = 159;
-		
+		private readonly SqlProvider _sqlProvider;
+		//protected int TestShopId = 158;
+		//protected int TestShop2Id = 159;
+
+		protected BaseRepositoryTester()
+		{
+			_sqlProvider = new SqlProvider(DataHelper.ConnectionString);
+		}
 
 		protected override void SetUp()
 		{
@@ -86,7 +93,14 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscription");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionCustomer");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionTransactionArticle");
+			DataHelper.DeleteShopsAndConnections(sqlConnection);
 			sqlConnection.Close();
+		}
+
+		protected Shop CreateShop(ISession session, string shopName = "Testbutik")
+		{
+			var shop = DataHelper.CreateShop(_sqlProvider, shopName);
+			return new ShopRepository(session).Get(shop.ShopId);
 		}
 
 		protected virtual bool IsDevelopmentServer(string connectionString)

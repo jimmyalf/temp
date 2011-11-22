@@ -22,7 +22,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		private IEnumerable<Order> _orders;
 		private const int settlementableOrderStatus = 6;
 		private const int nonSettlementableOrderStatus = 5;
-		private ISqlProvider Provider;
+		private SqlProvider Provider;
 
 		protected override void SetUp()
 		{
@@ -34,15 +34,19 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		{
 			Context = session =>
 			{
+
+				var company = DataHelper.CreateCompany(Provider);
+				var shop = DataHelper.CreateShop(Provider, "Testbutik ABC");
+				var memberId = DataHelper.CreateMemberForShop(Provider, "user_abc", shop.ShopId, 2 /*location id*/);
 				_orders = new[]
 				{
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, nonSettlementableOrderStatus, testableShopId, TestableShopMemberId),
-					OrderFactory.Get(TestableCompanyId, settlementableOrderStatus, testableShopId, TestableShopMemberId),
+					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, memberId),
+					OrderFactory.Get(company.Id, nonSettlementableOrderStatus, shop.ShopId, memberId),
+					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, memberId),
+					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, memberId),
+					OrderFactory.Get(company.Id, nonSettlementableOrderStatus, shop.ShopId, memberId),
+					OrderFactory.Get(company.Id, nonSettlementableOrderStatus, shop.ShopId, memberId),
+					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, memberId),
 				};
 			};
 
@@ -74,11 +78,11 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 	public class When_setting_invoice_date_for_an_order : BehaviorActionTestbase<ISqlProvider>
 	{
 		private Article _article;
-		protected const int TestableShopId = 158;
-		public const int TestableShopMemberId = 485;
-		public const int TestableShop2MemberId = 484;
-		public const int TestableCompanyId = 57;
-		public const int TestableContractId = 14;
+		//protected const int TestableShopId = 158;
+		//public const int TestableShopMemberId = 485;
+		//public const int TestableShop2MemberId = 484;
+		//public const int TestableCompanyId = 57;
+		//public const int TestableContractId = 14;
 		protected int TestCountryId = 1;
 		private ContractArticleConnection _contractArticleConnection;
 		private Order _order;
@@ -90,10 +94,13 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			{
 				var provider = GetTestEntity();
 				_article = ArticleFactory.Get();
+				var shop = DataHelper.CreateShop(provider, "Butik ABC");
+				var company = DataHelper.CreateCompany(provider);
+				var memberId = DataHelper.CreateMemberForShop(provider as SqlProvider, "test_user",shop.ShopId, 2 /*location id*/);
 				provider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref _article);
-				_contractArticleConnection = ArticleFactory.GetContractArticleConnection(_article, TestableContractId, 999.23F, true);
+				_contractArticleConnection = ArticleFactory.GetContractArticleConnection(_article, company.ContractId, 999.23F, true);
 				provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref _contractArticleConnection);
-				_order = OrderFactory.Get(TestableCompanyId, 5 /*status*/, TestableShopId, TestableShopMemberId, _article.Id);
+				_order = OrderFactory.Get(company.Id, 5 /*status*/, shop.ShopId, memberId, _article.Id);
 				provider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref _order);
 				_setInvoiceDate = new DateTime(2011, 09, 16, 10, 27,00);
 			};

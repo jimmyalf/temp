@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				_customerToSave = CustomerFactory.Get(country, shop);
 			};
@@ -59,7 +59,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				_customerToSave = CustomerFactory.Get(country, shop);
 			};
@@ -94,7 +95,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				_customerToEdit = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(_customerToEdit);
@@ -135,7 +137,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = (ISession session) =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				_customerToDelete = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(_customerToDelete);
@@ -166,7 +169,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session); 
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				_customerToAdd1 = CustomerFactory.Get(country, shop);
 				_customerToAdd2 = CustomerFactory.Get(country, shop);
@@ -200,18 +204,21 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		private Customer _customerToAdd2;
 		private Customer _customerToAdd3;
 		private Customer _customerToAdd4;
+		private Shop _shop2;
 
 		public When_fetching_all_customers_for_a_shop()
 		{
 			Context = session =>
 			{
-				var shop1 = new ShopRepository(session).Get(TestShopId);
-				var shop2 = new ShopRepository(session).Get(159);
+				var shop1 = CreateShop(session); 
+					// new ShopRepository(session).Get(TestShopId);
+				_shop2 = CreateShop(session); 
+					// new ShopRepository(session).Get(159);
 				var country = new CountryRepository(session).Get(1);
 				_customerToAdd1 = CustomerFactory.Get(country, shop1);
-				_customerToAdd2 = CustomerFactory.Get(country, shop2);
+				_customerToAdd2 = CustomerFactory.Get(country, _shop2);
 				_customerToAdd3 = CustomerFactory.Get(country, shop1);
-				_customerToAdd4 = CustomerFactory.Get(country, shop2);
+				_customerToAdd4 = CustomerFactory.Get(country, _shop2);
 			};
 
 			Because = repository =>
@@ -229,7 +236,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 			AssertUsing(session =>
 			{
 
-				var criteria = new CustomersForShopMatchingCriteria { ShopId = 159 };
+				var criteria = new CustomersForShopMatchingCriteria { ShopId = _shop2.Id };
 				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
 				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd2.Id);
 				savedCustomers.Select(x => x.Id).ShouldContain(_customerToAdd4.Id);
@@ -246,17 +253,18 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		private Customer _customerToAdd2;
 		private Customer _customerToAdd3;
 		private Customer _customerToAdd4;
+		private Shop _shop;
 
 		public When_fetching_customers_for_a_shop_by_search()
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(159);
+				_shop = CreateShop(session);
 				var country = new CountryRepository(session).Get(TestCountryId);
-				_customerToAdd1 = CustomerFactory.Get(country, shop, "Gunnar", "Gustafsson", "198206113411");
-				_customerToAdd2 = CustomerFactory.Get(country, shop, "Katarina", "Malm", "198911063462");
-				_customerToAdd3 = CustomerFactory.Get(country, shop, "Fredrik", "Holmberg", "197512235792");
-				_customerToAdd4 = CustomerFactory.Get(country, shop, "Eva-Lisa", "Davidsson", "198007202826");
+				_customerToAdd1 = CustomerFactory.Get(country, _shop, "Gunnar", "Gustafsson", "198206113411");
+				_customerToAdd2 = CustomerFactory.Get(country, _shop, "Katarina", "Malm", "198911063462");
+				_customerToAdd3 = CustomerFactory.Get(country, _shop, "Fredrik", "Holmberg", "197512235792");
+				_customerToAdd4 = CustomerFactory.Get(country, _shop, "Eva-Lisa", "Davidsson", "198007202826");
 			};
 
 			Because = repository =>
@@ -276,7 +284,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 				var criteria = new CustomersForShopMatchingCriteria
 				{
-					ShopId = 159,
+					ShopId = _shop.Id,
 					SearchTerm = "Gun"
 				};
 				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
@@ -293,7 +301,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 				var criteria = new CustomersForShopMatchingCriteria
 				{
-					ShopId = 159,
+					ShopId = _shop.Id,
 					SearchTerm = "sson"
 				};
 				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
@@ -311,7 +319,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 				var criteria = new CustomersForShopMatchingCriteria
 				{
-					ShopId = 159,
+					ShopId = _shop.Id,
 					SearchTerm = "34"
 				};
 				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
@@ -329,7 +337,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 				var criteria = new CustomersForShopMatchingCriteria
 				{
-					ShopId = 159,
+					ShopId = _shop.Id,
 					SearchTerm = ""
 				};
 				var savedCustomers = new CustomerRepository(session).FindBy(criteria);
@@ -349,7 +357,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 				var criteria = new CustomersForShopMatchingCriteria
 				{
-					ShopId = 159,
+					ShopId = _shop.Id,
 					SearchTerm = "",
 					OrderBy = "FirstName",
 					SortAscending = true
@@ -370,7 +378,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 				var criteria = new CustomersForShopMatchingCriteria
 				{
-					ShopId = 159,
+					ShopId = _shop.Id,
 					SearchTerm = "",
 					OrderBy = "FirstName",
 					SortAscending = false
@@ -391,7 +399,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 				var criteria = new CustomersForShopMatchingCriteria
 				{
-					ShopId = 159,
+					ShopId = _shop.Id,
 					SearchTerm = "",
 					OrderBy = "LastName",
 					SortAscending = true
@@ -412,7 +420,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 				var criteria = new CustomersForShopMatchingCriteria
 				{
-					ShopId = 159,
+					ShopId = _shop.Id,
 					SearchTerm = "",
 					OrderBy = "LastName",
 					SortAscending = false
@@ -433,7 +441,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 				var criteria = new CustomersForShopMatchingCriteria
 				{
-					ShopId = 159,
+					ShopId = _shop.Id,
 					SearchTerm = "",
 					OrderBy = "PersonalIdNumber",
 					SortAscending = true
@@ -454,7 +462,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 				var criteria = new CustomersForShopMatchingCriteria
 				{
-					ShopId = 159,
+					ShopId = _shop.Id,
 					SearchTerm = "",
 					OrderBy = "PersonalIdNumber",
 					SortAscending = false
@@ -475,7 +483,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 				var criteria = new CustomersForShopMatchingCriteria
 				{
-					ShopId = 159,
+					ShopId = _shop.Id,
 					SearchTerm = "sson",
 					OrderBy = "LastName",
 					SortAscending = false

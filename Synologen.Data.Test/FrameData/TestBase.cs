@@ -10,6 +10,7 @@ using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
+using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
@@ -20,7 +21,14 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 	public class TestBase : AssertionHelper
 	{
 		private ISessionFactory _sessionFactory;
-		const int testableShopId = 158;
+		private readonly SqlProvider _sqlProvider;
+		protected Business.Domain.Entities.Shop TestShop;
+		//const int testableShopId = 158;
+
+		public TestBase()
+		{
+			_sqlProvider = new SqlProvider(DataHelper.ConnectionString);
+		}
 
 		public void SetupDefaultContext()
 		{
@@ -30,19 +38,22 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 			_sessionFactory = NHibernateFactory.Instance.GetSessionFactory();
 			var testSession = GetNewSession();
 			var validationSession = GetNewSession();
+			var shop = DataHelper.CreateShop(_sqlProvider, "Testbutik");
+
 			FrameRepository = new FrameRepository(testSession);
 			FrameColorRepository = new FrameColorRepository(testSession);
 			FrameBrandRepository = new FrameBrandRepository(testSession);
 			FrameGlassTypeRepository = new FrameGlassTypeRepository(testSession);
-			ShopRepository = new ShopRepository(testSession);
+			
 			FrameOrderRepository = new FrameOrderRepository(testSession);
-
+			ShopRepository = new ShopRepository(testSession);
 			FrameValidationRepository = new FrameRepository(validationSession);
 			FrameColorValidationRepository = new FrameColorRepository(validationSession);
 			FrameBrandValidationRepository = new FrameBrandRepository(validationSession);
 			FrameGlassTypeValidationRepository = new FrameGlassTypeRepository(validationSession);
 			FrameOrderValidationRepository = new FrameOrderRepository(validationSession);
 
+			SavedShop = ShopRepository.Get(shop.ShopId);
 
 			// TODO: Try to refactor out these initiations and do them in global end rather than before each test to increase test speed
 			SavedFrameColors = FrameColorFactory.GetFrameColors();
@@ -57,7 +68,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 			SavedFrameGlassTypes = FrameGlassTypeFactory.GetGlassTypes();
 			SavedFrameGlassTypes.ToList().ForEach(x => FrameGlassTypeRepository.Save(x));
 
-			SavedShop = ShopRepository.Get(testableShopId);
+			
 			SavedFrameOrders = FrameOrderFactory.GetFrameOrders(SavedFrames, SavedFrameGlassTypes, SavedShop);
 			SavedFrameOrders.ToList().ForEach(x => FrameOrderRepository.Save(x));
 		}
@@ -86,6 +97,12 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 				return new AllFrameOrdersForShopCriteriaConverter(GetNewSession());
 			}
 			throw new ArgumentException(String.Format("No criteria converter has been defined for {0}", objectToResolve), "objectToResolve");
+		}
+
+		protected Shop CreateShop(ISession session)
+		{
+			var shop = DataHelper.CreateShop(_sqlProvider, "Testbutik");
+			return new ShopRepository(session).Get(shop.ShopId);
 		}
 
 		public IFrameRepository FrameRepository { get; private set; }
@@ -124,11 +141,13 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 			}
 			var sqlConnection = new SqlConnection(DataHelper.ConnectionString);
 			sqlConnection.Open();
+			DataHelper.DeleteShopsAndConnections(sqlConnection);
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenFrameOrder");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenFrame");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenFrameGlassType");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenFrameColor");
 			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenFrameBrand");
+			
 			sqlConnection.Close();
 		}
 

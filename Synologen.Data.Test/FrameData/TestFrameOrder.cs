@@ -156,7 +156,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			const int expectedNumberOfFramesMatchingCriteria = 144;
 			var criteria = new PageOfFrameOrdersMatchingCriteria
 			{
-				Search = "Testbutik för bågbeställning",
+				Search = SavedShop.Name,
 				OrderBy = null,
 				Page = 1,
 				PageSize = 200,
@@ -336,10 +336,10 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		{
 			//Arrange
 			const int expectedNumberOfItemsMatchingCriteria = 144;
-			const int expectedShopId = 158;
+			//const int expectedShopId = 158;
 			var criteria = new AllFrameOrdersForShopCriteria
 			{
-				ShopId = expectedShopId
+				ShopId = SavedShop.Id
 			};
 
 			//Act
@@ -347,8 +347,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			
 			//Assert
 			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().OrderingShop.Id, Is.EqualTo(expectedShopId));
-			Expect(itemsMatchingCriteria.Last().OrderingShop.Id, Is.EqualTo(expectedShopId));
+			Expect(itemsMatchingCriteria.First().OrderingShop.Id, Is.EqualTo(SavedShop.Id));
+			Expect(itemsMatchingCriteria.Last().OrderingShop.Id, Is.EqualTo(SavedShop.Id));
 		}
 
 

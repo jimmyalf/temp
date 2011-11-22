@@ -22,7 +22,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
+					//new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
@@ -63,9 +64,10 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 		public When_editing_an_subscription_error()
 		{
-			Context = (ISession session) =>
+			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
@@ -108,21 +110,24 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 	{
 		private IList<SubscriptionError> _expectedErrorsForShop1;
 		private IList<SubscriptionError> _expectedErrorsForShop2;
+		private Shop _shop;
 
 		public When_fetching_subscription_errors_by_AllUnhandledSubscriptionErrorsForShopCriteria()
 		{
 
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				_shop = CreateShop(session);
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
-				var customer = CustomerFactory.Get(country, shop);
+				var customer = CustomerFactory.Get(country, _shop);
 				new CustomerRepository(session).Save(customer);
 				var subscription = SubscriptionFactory.Get(customer);
 				new SubscriptionRepository(session).Save(subscription);
 				_expectedErrorsForShop1 = SubscriptionErrorFactory.GetList(subscription);
 
-				var shop2 = new ShopRepository(session).Get(TestShop2Id);
+				var shop2 = CreateShop(session);
+					// new ShopRepository(session).Get(TestShop2Id);
 				var customer2 = CustomerFactory.Get(country, shop2);
 				new CustomerRepository(session).Save(customer2);
 				var subscription2 = SubscriptionFactory.Get(customer2);
@@ -139,7 +144,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		[Test]
 		public void Should_get_all_handled_subscription_errors_in_reversed_order()
 		{
-			var criteria = new AllUnhandledSubscriptionErrorsForShopCriteria(TestShopId);
+			var criteria = new AllUnhandledSubscriptionErrorsForShopCriteria(_shop.Id);
 			var expectedErrors = _expectedErrorsForShop1.Where(x => Equals(x.HandledDate, null));
 			AssertUsing( session =>
 			{

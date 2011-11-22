@@ -50,7 +50,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
@@ -126,7 +127,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);

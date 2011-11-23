@@ -23,12 +23,12 @@ namespace Synologen.LensSubscription.BGWebService.App.IoC
 			For<ISession>().Use(x => ((NHibernateUnitOfWork)x.GetInstance<IUnitOfWork>()).Session);
 
 			//Repositories and services
-			For<IAutogiroPayerRepository>().Use<AutogiroPayerRepository>();
-			For<IBGConsentToSendRepository>().Use<BGConsentToSendRepository>();
-			For<IBGPaymentToSendRepository>().Use<BGPaymentToSendRepository>();
-			For<IBGReceivedPaymentRepository>().Use<BGReceivedPaymentRepository>();
-			For<IBGReceivedErrorRepository>().Use<BGReceivedErrorRepository>();
-			For<IBGReceivedConsentRepository>().Use<BGReceivedConsentRepository>();
+			For<IAutogiroPayerRepository>().LifecycleIs(new WcfPerOperationLifecycle()).Use<AutogiroPayerRepository>();
+			For<IBGConsentToSendRepository>().LifecycleIs(new WcfPerOperationLifecycle()).Use<BGConsentToSendRepository>();
+			For<IBGPaymentToSendRepository>().LifecycleIs(new WcfPerOperationLifecycle()).Use<BGPaymentToSendRepository>();
+			For<IBGReceivedPaymentRepository>().LifecycleIs(new WcfPerOperationLifecycle()).Use<BGReceivedPaymentRepository>();
+			For<IBGReceivedErrorRepository>().LifecycleIs(new WcfPerOperationLifecycle()).Use<BGReceivedErrorRepository>();
+			For<IBGReceivedConsentRepository>().LifecycleIs(new WcfPerOperationLifecycle()).Use<BGReceivedConsentRepository>();
 			For<IBGWebServiceDTOParser>().Use<BGWebServiceDTOParser>();
 			For<ILoggingService>().Singleton().Use(LogFactory.CreateLoggingService);
 

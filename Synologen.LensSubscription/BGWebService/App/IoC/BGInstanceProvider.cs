@@ -12,13 +12,14 @@ namespace Synologen.LensSubscription.BGWebService.App.IoC
 	public class BGInstanceProvider : IInstanceProvider
 	{
 		private readonly Type _serviceType;
-		private NHibernateUnitOfWork _unitOfWork;
-		private ILoggingService _loggingService;
+		private readonly ILoggingService _loggingService;
+		private readonly UnitOfWorkManager _unitOfWorkManager;
 
 		public BGInstanceProvider(Type serviceType)
 		{
 			_serviceType = serviceType;
 			_loggingService = ObjectFactory.GetInstance<ILoggingService>();
+			_unitOfWorkManager = new UnitOfWorkManager();
 			_loggingService.LogDebug("InstanceProvider was initiated for service type \"{0}\"", serviceType.FullName);
 		}
 
@@ -29,36 +30,75 @@ namespace Synologen.LensSubscription.BGWebService.App.IoC
 
 		public object GetInstance(InstanceContext instanceContext, Message message)
 		{
-			_loggingService.LogDebug("InstanceProvider: GetInstance called");
-			_unitOfWork = ObjectFactory.GetInstance<IUnitOfWork>() as NHibernateUnitOfWork;
-			_loggingService.LogDebug("InstanceProvider: Unit of work was fetched");
-			return ObjectFactory.GetInstance(_serviceType);
+			lock(_unitOfWorkManager.SyncRoot){
+				try
+				{
+					_loggingService.LogDebug("InstanceProvider {0}: GetInstance called with message action {1}", instanceContext.GetHashCode(), GetActionUrl(message));
+					var unitOfWork = ObjectFactory.GetInstance<IUnitOfWork>() as NHibernateUnitOfWork;
+					_unitOfWorkManager.Add(instanceContext, unitOfWork);
+					_loggingService.LogDebug("InstanceProvider {0}: Unit of work was fetched", instanceContext.GetHashCode());
+				}
+				catch(Exception ex)
+				{
+					_loggingService.LogError(string.Format("Got exception while getting instance {0}", instanceContext.GetHashCode()), ex);
+				}
+				return ObjectFactory.GetInstance(_serviceType);
+			}
 		}
 
 		public void ReleaseInstance(InstanceContext instanceContext, object instance)
 		{
-			_loggingService.LogDebug("InstanceProvider: ReleaseInstance called");
-			CommitUnitOfWork();
+			lock (_unitOfWorkManager.SyncRoot)
+			{
+				try
+				{
+					_loggingService.LogDebug("InstanceProvider {0}: ReleaseInstance called", instanceContext.GetHashCode());
+					var unitOfWork = _unitOfWorkManager.Get(instanceContext);
+					CommitUnitOfWork(unitOfWork, instanceContext.GetHashCode());
+				}
+				catch(Exception ex)
+				{
+					_loggingService.LogError(string.Format("Got exception while releasing instance {0}", instanceContext.GetHashCode()), ex);
+				}	
+			}
 		}
 
-
-		protected virtual void CommitUnitOfWork()
+		private static string GetActionUrl(Message message)
 		{
-			if (_unitOfWork == null) return;
+			string actionName = null;
+			if(message != null && message.Headers != null && message.Headers.Action != null)
+			{
+				actionName = message.Headers.Action;
+			}
+			return actionName;
+		}
+
+		protected virtual void CommitUnitOfWork(IUnitOfWork unitOfWork, int instanceContextHash)
+		{
+			if (unitOfWork == null)
+			{
+				_loggingService.LogDebug("InstanceProvider {0}: Unit of work is null. Nothing to commit.", instanceContextHash);
+				return;
+			}
+			if(unitOfWork.IsDisposed)
+			{
+				_loggingService.LogDebug("InstanceProvider {0}: Unit of work is already disposed. Nothing to commit.", instanceContextHash);
+				return;
+			}
 			try
 			{
-				_unitOfWork.Commit();
-				_loggingService.LogDebug("InstanceProvider: Unit of work was committed");
+				unitOfWork.Commit();
+				_loggingService.LogDebug("InstanceProvider {0}: Unit of work was committed", instanceContextHash);
 			}
 			catch
 			{
-				_unitOfWork.Rollback();
-				_loggingService.LogDebug("InstanceProvider: Unit of work was rolled back");
+				unitOfWork.Rollback();
+				_loggingService.LogDebug("InstanceProvider {0}: Unit of work was rolled back", instanceContextHash);
 			}
 			finally
 			{
-				_unitOfWork.Dispose();
-				_loggingService.LogDebug("InstanceProvider: Unit of work was disposed");
+				unitOfWork.Dispose();
+				_loggingService.LogDebug("InstanceProvider {0}: Unit of work was disposed", instanceContextHash);
 			}
 		}
 	}

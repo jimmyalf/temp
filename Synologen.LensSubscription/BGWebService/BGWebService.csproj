@@ -76,7 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BGService.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\Bootstrapping\Bootstrapper.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="App\IoC\BGServiceBehavior.cs" />
     <Compile Include="App\IoC\BGServiceHost.cs" />
     <Compile Include="App\IoC\BGServiceHostFactory.cs" />
+    <Compile Include="App\IoC\UnitOfWorkManager.cs" />
     <Compile Include="App\IoC\WcfPerRequestLifecycle.cs" />
     <Compile Include="App\IoC\WebserviceRegistry.cs" />
     <Compile Include="App\Logging\Log4NetLogger.cs" />
@@ -102,6 +105,9 @@
       <Project>{245CC0F4-C211-4998-81D6-F18506B0B952}</Project>
       <Name>BGData</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App\Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

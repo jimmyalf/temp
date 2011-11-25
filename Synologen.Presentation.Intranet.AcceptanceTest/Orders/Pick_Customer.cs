@@ -4,9 +4,9 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 
-namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders.TestHelpers
+namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
-    [TestFixture, Category("View_Shop_Subscription_Summary")]
+    [TestFixture, Category("Pick_Customer")]
 	public class When_picking_a_customer : SpecTestbase<PickCustomerPresenter,IPickCustomerView>
     {
         private PickCustomerPresenter _pickCustomerPresenter;
@@ -35,6 +35,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders.TestH
                 .När(AnvändarenFörsökerFortsättaTillStegTvå)
                 .Så(FörflyttasAnvändarenTillVynFörStegTvå)
             );
+        }
+
+        [Test]
+        public void AnvändarenVillHämtaKunduppgifterViaPersonnummer()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttEttPersonnummerÄrIfyllt)
+                .När(AnvändarenKlickarHämta)
+                .Så(FyllsFormuläretMedKunduppgifter)
+            );
+        }
+
+        private void FyllsFormuläretMedKunduppgifter()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AnvändarenKlickarHämta()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AttEttPersonnummerÄrIfyllt()
+        {
+            throw new NotImplementedException();
         }
 
         private void FörflyttasAnvändarenTillVynFörStegTvå()

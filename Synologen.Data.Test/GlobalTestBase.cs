@@ -47,11 +47,9 @@ namespace Spinit.Wpc.Synologen.Data.Test
 			var shop1 = _dataManager.CreateShop(provider, "Testbutik A");
 			var shop2 = _dataManager.CreateShop(provider, "Testbutik B");
 			var company = _dataManager.CreateCompany(provider);
-			_dataManager.CreateAdminUsers(userRepo);
-			var memberId = _dataManager.CreateMemberForShop(userRepo, provider, "test", shop1.ShopId, 2 /*location id*/, "test");
+			var memberId = _dataManager.CreateMemberForShop(userRepo, provider, "test", shop1.ShopId, 2 /*location id*/);
 			SetupLensSubscriptionData(shop1.ShopId, shop2.ShopId);
 			SetupContractSaleSettlementData(provider, shop1.ShopId, memberId, company.Id, company.ContractId);
-			//ResetTestShop(provider);
 		}
 
 		private void ClearTables(ISession session)

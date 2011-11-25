@@ -76,7 +76,7 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			return CreateMemberForShop(userRepo, sqlProvider, userName, shopId, locationId, password);
 		}
 
-		public void CreateAdminUsers(User userRepository)
+		private static void CreateAdminUsers(User userRepository)
 		{
 			var superadminId = userRepository.Add("SuperAdmin", "g@nd@lf", "SuperAdmin", "Spinit", "info@spinit.se", 1, "Admin");
 			var adminId = userRepository.Add("Admin", "g@llum", "Admin", "Spinit", "info@spinit.se", 1, "Admin");
@@ -197,8 +197,10 @@ namespace Spinit.Wpc.Synogen.Test.Data
 		public void CleanTables()
 		{
 			var connection = new SqlConnection(ConnectionString);
+			var userRepository = new User(ConnectionString);
 			connection.Open();
 			CleanTables(connection);
+			CreateAdminUsers(userRepository);
 			connection.Close();
 		}
 

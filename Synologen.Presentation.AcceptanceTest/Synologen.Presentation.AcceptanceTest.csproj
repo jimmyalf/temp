@@ -87,6 +87,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Test.Web.MVC.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Wpc.Base.Data, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Spinit.Wpc.Core.Dependencies.NHibernate, Version=5.0.0.1809, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.Dependencies.NHibernate.dll</HintPath>
@@ -112,6 +113,7 @@
       <HintPath>..\Dependancies\StructureMap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -169,6 +171,10 @@
     <ProjectReference Include="..\Synologen.Presentation\Synologen.Presentation.csproj">
       <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
       <Name>Synologen.Presentation %28Presentation\Synologen.Presentation%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Test.Data\Synologen.Test.Data.csproj">
+      <Project>{8452B179-0891-4BBF-9A1E-381A31E41FA3}</Project>
+      <Name>Synologen.Test.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

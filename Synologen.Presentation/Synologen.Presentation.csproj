@@ -580,7 +580,9 @@
     </None>
     <None Include="CodeTemplates\AddView\List.tt">
     </None>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\SynologenAdmin\Views\Frame\ViewFrameOrder.aspx" />
     <Content Include="Window.master" />
   </ItemGroup>

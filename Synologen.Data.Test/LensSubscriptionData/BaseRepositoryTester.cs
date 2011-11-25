@@ -4,10 +4,10 @@ using NHibernate;
 using Spinit.Data;
 using Spinit.Test.NHibernate;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 using Shop = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Shop;
 
 namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
@@ -15,13 +15,15 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 	public abstract class BaseRepositoryTester<TRepository> : NHibernateRepositoryTestbase<TRepository>
 	{
 		protected int TestCountryId = 1;
-		private readonly SqlProvider _sqlProvider;
+		protected readonly SqlProvider Provider;
+		private readonly DataManager _dataManager;
 		//protected int TestShopId = 158;
 		//protected int TestShop2Id = 159;
 
 		protected BaseRepositoryTester()
 		{
-			_sqlProvider = new SqlProvider(DataHelper.ConnectionString);
+			_dataManager = new DataManager();
+			Provider = _dataManager.GetSqlProvider() as SqlProvider;
 		}
 
 		protected override void SetUp()
@@ -79,37 +81,33 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 
 		private void SetupData() 
 		{
-			if(String.IsNullOrEmpty(DataHelper.ConnectionString)){
+			if(String.IsNullOrEmpty(ConnectionString)){
 				throw new OperationCanceledException("Connectionstring could not be found in configuration");
 			}
-			if(!IsDevelopmentServer(DataHelper.ConnectionString))
+			if(!_dataManager.IsDevelopmentServer(ConnectionString))
 			{
 				throw new OperationCanceledException("Make sure you are running tests against a development database!");
 			}
-			var sqlConnection = new SqlConnection(DataHelper.ConnectionString);
+			var sqlConnection = new SqlConnection(ConnectionString);
 			sqlConnection.Open();
-			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionError");
-			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionTransaction");
-			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscription");
-			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionCustomer");
-			DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionTransactionArticle");
-			DataHelper.DeleteShopsAndConnections(sqlConnection);
+			//DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionError");
+			//DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionTransaction");
+			//DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscription");
+			//DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionCustomer");
+			//DataHelper.DeleteAndResetIndexForTable(sqlConnection, "SynologenLensSubscriptionTransactionArticle");
+			_dataManager.CleanTables(sqlConnection);
 			sqlConnection.Close();
 		}
 
 		protected Shop CreateShop(ISession session, string shopName = "Testbutik")
 		{
-			var shop = DataHelper.CreateShop(_sqlProvider, shopName);
+			var shop = _dataManager.CreateShop(Provider, shopName);
 			return new ShopRepository(session).Get(shop.ShopId);
 		}
 
-		protected virtual bool IsDevelopmentServer(string connectionString)
+		protected string ConnectionString
 		{
-			if(connectionString.ToLower().Contains("black")) return true;
-			if(connectionString.ToLower().Contains("dev")) return true;
-			if(connectionString.ToLower().Contains("localhost")) return true;
-			if(connectionString.ToLower().Contains(@".\")) return true;
-			return false;
+			get { return _dataManager.ConnectionString; }
 		}
 	}
 }

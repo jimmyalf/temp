@@ -157,6 +157,14 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Synologen.Test.Core\Synologen.Test.Core.csproj">
+      <Project>{017A45F4-FBEE-40DC-AF3C-6B9FF5BA5096}</Project>
+      <Name>Synologen.Test.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Test.Data\Synologen.Test.Data.csproj">
+      <Project>{8452B179-0891-4BBF-9A1E-381A31E41FA3}</Project>
+      <Name>Synologen.Test.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

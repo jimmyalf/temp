@@ -5,6 +5,9 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
 using Spinit.Test;
+using Spinit.Wpc.Base.Data;
+using Spinit.Wpc.Synogen.Test;
+using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
@@ -22,11 +25,13 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		private IEnumerable<Order> _orders;
 		private const int settlementableOrderStatus = 6;
 		private const int nonSettlementableOrderStatus = 5;
-		private SqlProvider Provider;
+		private SqlProvider _provider;
+		private User _userRepository;
 
 		protected override void SetUp()
 		{
-			Provider = new SqlProvider(DataHelper.ConnectionString);
+			_provider = DataManager.GetSqlProvider() as SqlProvider;
+			_userRepository = DataManager.GetUserRepository();
 			base.SetUp();
 		}
 
@@ -35,9 +40,9 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			Context = session =>
 			{
 
-				var company = DataHelper.CreateCompany(Provider);
-				var shop = DataHelper.CreateShop(Provider, "Testbutik ABC");
-				var memberId = DataHelper.CreateMemberForShop(Provider, "user_abc", shop.ShopId, 2 /*location id*/);
+				var company = DataManager.CreateCompany(_provider);
+				var shop = DataManager.CreateShop(_provider, "Testbutik ABC");
+				var memberId = DataManager.CreateMemberForShop(_userRepository, _provider, "user_abc", shop.ShopId, 2 /*location id*/);
 				_orders = new[]
 				{
 					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, memberId),
@@ -52,9 +57,9 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 
 			Because = repository => _orders.Each(order =>
 			{
-				Provider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref order);
-				Provider.AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
-				Provider.SetOrderInvoiceDate(order.Id,  new DateTime(2011,09,30));
+				_provider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref order);
+				_provider.AddUpdateDeleteOrder(Enumerations.Action.Update, ref order);
+				_provider.SetOrderInvoiceDate(order.Id,  new DateTime(2011,09,30));
 			});
 		}
 
@@ -87,16 +92,21 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		private ContractArticleConnection _contractArticleConnection;
 		private Order _order;
 		private DateTime _setInvoiceDate;
+		private readonly User _userRepository;
+		private readonly DataManager _dataManager;
 
 		public When_setting_invoice_date_for_an_order()
 		{
+			_dataManager = new DataManager();
+			_userRepository = _dataManager.GetUserRepository();
+
 			Context = () =>
 			{
 				var provider = GetTestEntity();
 				_article = ArticleFactory.Get();
-				var shop = DataHelper.CreateShop(provider, "Butik ABC");
-				var company = DataHelper.CreateCompany(provider);
-				var memberId = DataHelper.CreateMemberForShop(provider as SqlProvider, "test_user",shop.ShopId, 2 /*location id*/);
+				var shop = _dataManager.CreateShop(provider, "Butik ABC");
+				var company = _dataManager.CreateCompany(provider);
+				var memberId = _dataManager.CreateMemberForShop(_userRepository, provider as SqlProvider, "test_user",shop.ShopId, 2 /*location id*/);
 				provider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref _article);
 				_contractArticleConnection = ArticleFactory.GetContractArticleConnection(_article, company.ContractId, 999.23F, true);
 				provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref _contractArticleConnection);
@@ -116,7 +126,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 
 		protected override ISqlProvider GetTestEntity()
 		{
-			return new SqlProvider(DataHelper.ConnectionString);
+			return _dataManager.GetSqlProvider();
+			//return new SqlProvider(DataHelper.ConnectionString);
 		}
 	}
 }

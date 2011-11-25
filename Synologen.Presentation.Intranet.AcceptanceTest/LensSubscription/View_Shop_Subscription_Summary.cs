@@ -11,6 +11,7 @@ using Spinit.Wpc.Synologen.Core.Utility;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscription.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.LensSubscription;
+using Shop = Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscription
 {
@@ -24,20 +25,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 		private int _customerDetailsPageId, _subscriptionDetailsPageId;
 		private string _customerDetailsPageUrl, _subscriptionDetailsPageUrl;
 		protected readonly Func<string, string, int, string> RenderUrl = (url, parameter, id) => "{url}?{parameter}={id}".ReplaceWith(new {url, parameter, id});
+		private Shop _shop_1, _shop_2;
 
 		public When_loading_subscription_view_for_a_shop()
 		{
 			Context = () =>
 			{
 				_presenter = GetPresenter();
+				var provider = DataManager.GetSqlProvider();
+				_shop_1 = DataManager.CreateShop(provider, "Testbutik 1");
+				_shop_2 = DataManager.CreateShop(provider, "Testbutik 2");
 			};
-			Story = () =>
-			{
-				return new Berättelse("Visa abonnemangs-översikt för butik")
-					.FörAtt("Snabbt få en överblick över butikens abonnemang")
-					.Som("inloggad butikspersonal")
-					.VillJag("se en lista över butikens samtliga abonnamang");
-			};
+			Story = () => new Berättelse("Visa abonnemangs-översikt för butik")
+			              	.FörAtt("Snabbt få en överblick över butikens abonnemang")
+			              	.Som("inloggad butikspersonal")
+			              	.VillJag("se en lista över butikens samtliga abonnamang");
 		}
 
 		[Test]
@@ -53,8 +55,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 		private void AttButikenHarEttEllerFlerLinsabonnemang()
 		{
 			var countryToUse = WithRepository<ICountryRepository>().Get(SwedenCountryId);
-			var shopToUse = WithRepository<IShopRepository>().Get(TestShopId);
-			var otherShop = WithRepository<IShopRepository>().Get(OtherShopId);
+			var shopToUse = WithRepository<IShopRepository>().Get(_shop_1.ShopId);
+			var otherShop = WithRepository<IShopRepository>().Get(_shop_2.ShopId);
 
 			_customer = Factory.CreateCustomer(countryToUse, shopToUse);
 			var otherCustomer = Factory.CreateCustomer(countryToUse, otherShop);
@@ -82,7 +84,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 			A.CallTo(() => SynologenMemberService.GetPageUrl(_customerDetailsPageId)).Returns(_customerDetailsPageUrl);
 			A.CallTo(() => SynologenMemberService.GetPageUrl(_subscriptionDetailsPageId)).Returns(_subscriptionDetailsPageUrl);
 			
-			A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(TestShopId);
+			A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop_1.ShopId);
 		}
 
 		private void ButikpersonalenVisarStartsidan()
@@ -93,7 +95,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 		private void VisasEnListaMedSamtligaLinsabonnemang()
 		{
 			//var expectedSubscriptions = _subscriptions.Where(x => x.Customer.Id == _customer.Id);
-			var expectedSubscriptions = _subscriptions.Where(x => x.Customer.Shop.Id == TestShopId).OrderByDescending(x => x.Id);
+			var expectedSubscriptions = _subscriptions.Where(x => x.Customer.Shop.Id == _shop_1.ShopId).OrderByDescending(x => x.Id);
 			View.Model.List.Count().ShouldBe(expectedSubscriptions.Count());
 			View.Model.List.And(expectedSubscriptions).Do((viewModel, subscription) =>
 			{

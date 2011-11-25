@@ -179,6 +179,10 @@
       <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
       <Name>Synologen.Presentation.Intranet %28Presentation\Synologen.Presentation.Intranet%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Synologen.Test.Data\Synologen.Test.Data.csproj">
+      <Project>{8452B179-0891-4BBF-9A1E-381A31E41FA3}</Project>
+      <Name>Synologen.Test.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

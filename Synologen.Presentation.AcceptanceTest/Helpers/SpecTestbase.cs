@@ -8,7 +8,7 @@ using NUnit.Framework;
 using Spinit.Test.Web;
 using Spinit.Test.Web.MVC;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synogen.Test.Data;
 using StoryQ.Infrastructure;
 using StoryQ.sv_SE;
 using StructureMap;
@@ -21,19 +21,17 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		protected Action Context;
 		protected Func<Funktion> Story;
 		private Funktion _story;
-		protected int TestShopId;
-		protected int TestMemberId;
-		protected int TestContractCompanyId;
-		protected int TestContractId;
+		private DataManager _dataManager;
+
+		protected SpecTestbase()
+		{
+			_dataManager = new DataManager();
+		}
 
 		[SetUp]
 		protected void RunBeforeEachTest()
 	    {
 			ResetData();
-			TestShopId = 160;
-			TestMemberId = 486;
-			TestContractCompanyId = 57;
-			TestContractId = 14;
 			HttpContext = new FakeHttpContext();
 			if (Context != null) Context();
 			if (Story == null) throw new NotImplementedException("A story must be set for Spec. Use CreateStory function to create a story for the Spec.");
@@ -69,9 +67,11 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		protected void ResetData()
 		{
 			var connection = ObjectFactory.GetInstance<ISession>().Connection;
-			DataHelper.DeleteAndResetIndexForTable(connection, "tblSynologenContractArticleConnection");
-			DataHelper.DeleteAndResetIndexForTable(connection, "tblSynologenOrderItems");
-			DataHelper.DeleteAndResetIndexForTable(connection, "tblSynologenArticle");
+			_dataManager.CleanTables(connection);
+			connection.Close();
+			//DataHelper.DeleteAndResetIndexForTable(connection, "tblSynologenContractArticleConnection");
+			//DataHelper.DeleteAndResetIndexForTable(connection, "tblSynologenOrderItems");
+			//DataHelper.DeleteAndResetIndexForTable(connection, "tblSynologenArticle");
 		}
 
 		public TModel WithRepository<TRepository, TModel>(Func<TRepository,TModel> function)
@@ -118,6 +118,11 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		private static string Uncamel(string methodName)
 		{
 		    return Regex.Replace(methodName, "[A-Z_]", x => " " + x.Value.ToLowerInvariant()).Trim();
+		}
+
+		protected DataManager DataManager
+		{
+			get { return _dataManager; }
 		}
 	}
 

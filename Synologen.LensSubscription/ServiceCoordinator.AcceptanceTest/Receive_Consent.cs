@@ -27,7 +27,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 			Context = () =>
 			{
 				bankGiroPayerNumber = RegisterPayerWithWebService();
-				subscription = StoreSubscription(customer => Factory.CreateSentSubscription(customer, bankGiroPayerNumber), bankGiroPayerNumber);
+				var shop = CreateShop(GetWPCSession());
+				subscription = StoreSubscription(customer => Factory.CreateSentSubscription(customer, bankGiroPayerNumber), shop.Id, bankGiroPayerNumber);
 				consentedConsent = StoreBGConsent(Factory.CreateConsentedConsent, bankGiroPayerNumber);
 
 				task = ResolveTask<ReceiveConsentsTask>();
@@ -69,7 +70,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 			Context = () =>
 			{
 				bankGiroPayerNumber = RegisterPayerWithWebService();
-				subscription = StoreSubscription(customer => Factory.CreateSentSubscription(customer, bankGiroPayerNumber), bankGiroPayerNumber);
+				var shop = CreateShop(GetWPCSession());
+				subscription = StoreSubscription(customer => Factory.CreateSentSubscription(customer, bankGiroPayerNumber), shop.Id, bankGiroPayerNumber);
 				failedConsent = StoreBGConsent(Factory.CreateFailedConsent, bankGiroPayerNumber);
 
 				task = ResolveTask<ReceiveConsentsTask>();

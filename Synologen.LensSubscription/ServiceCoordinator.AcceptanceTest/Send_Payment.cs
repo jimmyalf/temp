@@ -35,7 +35,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 				expectedPaymentDate = CalculatePaymentDate();
 
 				var countryToUse = countryRepository.Get(SwedenCountryId);
-				var shopToUse = shopRepository.Get(TestShopId);
+				var shopToUse = CreateShop(GetWPCSession());
+					//shopRepository.Get(TestShopId);
 				customer = Factory.CreateCustomer(countryToUse, shopToUse);
 				customerRepository.Save(customer);
 				subscription = Factory.CreateSubscriptionReadyForPayment(customer, bankGiroPayerNumber);

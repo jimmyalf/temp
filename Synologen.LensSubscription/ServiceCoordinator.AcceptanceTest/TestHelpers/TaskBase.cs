@@ -4,17 +4,23 @@ using NHibernate;
 using ServiceCoordinator.AcceptanceTest;
 using Spinit.Test;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Spinit.Wpc.Synogen.Test.Data;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
+using Spinit.Wpc.Utility.Business;
 using StructureMap;
 using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner;
+using Customer = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Customer;
+using Shop = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Shop;
+using Subscription = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpers
 {
@@ -30,11 +36,18 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpe
 		protected IBGReceivedPaymentRepository bgReceivedPaymentRepository;
 		protected IBGReceivedErrorRepository bgReceivedErrorRepository;
 		protected IAutogiroPayerRepository autogiroPayerRepository;
-		protected const int TestShopId = 158;
+		//protected const int TestShopId = 158;
 		protected const int SwedenCountryId = 1;
 		protected static ISession intermediateSession;
 		protected ISubscriptionErrorRepository subscriptionErrorRepository;
+		protected ISqlProvider _sqlProvider;
+		private readonly DataManager _dataManager;
 
+		protected TaskBase()
+		{
+			_dataManager = new DataManager();
+			_sqlProvider = _dataManager.GetSqlProvider();
+		}
 
 		protected override void SetUp()
 		{
@@ -53,15 +66,21 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpe
 			bgReceivedErrorRepository = new BGReceivedErrorRepository(GetBGSession());
 		}
 
-		protected Subscription StoreSubscription(Func<Customer,Subscription> getSubscription, int payerNumber)
+		protected Subscription StoreSubscription(Func<Customer,Subscription> getSubscription, int shopId, int payerNumber)
 		{
 			var countryToUse = countryRepository.Get(SwedenCountryId);
-			var shopToUse = shopRepository.Get(TestShopId);
+			var shopToUse = shopRepository.Get(shopId);
 			var customer = Factory.CreateCustomer(countryToUse, shopToUse);
 			customerRepository.Save(customer);
 			var subscription = getSubscription.Invoke(customer);
 			subscriptionRepository.Save(subscription);
 			return subscription;
+		}
+
+		protected Shop CreateShop(ISession session, string shopName = "Testbutik")
+		{
+			var shop = _dataManager.CreateShop(_sqlProvider, shopName);
+			return new ShopRepository(session).Get(shop.ShopId);
 		}
 
 		protected int RegisterPayerWithWebService()

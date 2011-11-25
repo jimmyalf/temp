@@ -5,17 +5,15 @@ using NHibernate;
 using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
 using Spinit.Wpc.Utility.Business;
 using Shop = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Shop;
-using ShopFactory=Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories.ShopFactory;
 
 namespace Spinit.Wpc.Synologen.Data.Test
 {
@@ -23,8 +21,13 @@ namespace Spinit.Wpc.Synologen.Data.Test
 	public class GlobalTestBase
 	{
 		protected int TestCountryId = 1;
+		private readonly DataManager _dataManager;
 		//protected int TestShopId = 158;
 		//protected int TestShop2Id = 159;
+		public GlobalTestBase()
+		{
+			_dataManager = new DataManager();
+		}
 
 		[SetUp]
 		public void RunBeforeAnyTests()
@@ -37,14 +40,15 @@ namespace Spinit.Wpc.Synologen.Data.Test
 		[TearDown]
 		public void RunAfterAnyTests()
 		{
-			var provider = GetSqlProvider();
+			var provider = _dataManager.GetSqlProvider() as SqlProvider;
+			var userRepo = _dataManager.GetUserRepository();
 			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
 			ClearTables(session);
-			var shop1 = DataHelper.CreateShop(provider, "Testbutik A");
-			var shop2 = DataHelper.CreateShop(provider, "Testbutik B");
-			var company = DataHelper.CreateCompany(provider);
-			DataHelper.CreateAdminUsers();
-			var memberId = DataHelper.CreateMemberForShop(provider as SqlProvider, "test", shop1.ShopId, 2 /*location id*/, "test");
+			var shop1 = _dataManager.CreateShop(provider, "Testbutik A");
+			var shop2 = _dataManager.CreateShop(provider, "Testbutik B");
+			var company = _dataManager.CreateCompany(provider);
+			_dataManager.CreateAdminUsers(userRepo);
+			var memberId = _dataManager.CreateMemberForShop(userRepo, provider, "test", shop1.ShopId, 2 /*location id*/, "test");
 			SetupLensSubscriptionData(shop1.ShopId, shop2.ShopId);
 			SetupContractSaleSettlementData(provider, shop1.ShopId, memberId, company.Id, company.ContractId);
 			//ResetTestShop(provider);
@@ -52,19 +56,15 @@ namespace Spinit.Wpc.Synologen.Data.Test
 
 		private void ClearTables(ISession session)
 		{
-			DataHelper.DeleteMembersAndConnections(session.Connection);
-			DataHelper.DeleteShopsAndConnections(session.Connection);
-			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenContractArticleConnection");
-			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenOrderItems");
-			DataHelper.DeleteAndResetIndexForTable(session.Connection, "tblSynologenArticle");
+			_dataManager.CleanTables(session.Connection);
 		}
 
 		private void SetupContractSaleData(ISqlProvider provider, int shopId, int memberId, int companyId, int contractId) 
 		{ 
-			if(String.IsNullOrEmpty(DataHelper.ConnectionString)){
+			if(String.IsNullOrEmpty(_dataManager.ConnectionString)){
 				throw new OperationCanceledException("Connectionstring could not be found in configuration");
 			}
-			if(!IsDevelopmentServer(DataHelper.ConnectionString))
+			if(!_dataManager.IsDevelopmentServer(_dataManager.ConnectionString))
 			{
 				throw new OperationCanceledException("Make sure you are running tests against a development database!");
 			}
@@ -123,11 +123,6 @@ namespace Spinit.Wpc.Synologen.Data.Test
 		//    var testShop = ShopFactory.GetShop(TestShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
 		//    provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref testShop);
 		//}
-
-		private static ISqlProvider GetSqlProvider()
-		{
-			return new SqlProvider(DataHelper.ConnectionString);
-		}
 
 		private void SetupLensSubscriptionData(int shop1_id, int shop2_id) {
 			var session = GetSessionFactory().OpenSession();

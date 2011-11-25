@@ -41,6 +41,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.IoC
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
 			For<ISettlementRepository>().Use<SettlementRepository>();
 			For<ITransactionArticleRepository>().Use<TransactionArticleRepository>();
+			
 
 			// Register GUI and settings services
 			For<ISynologenMemberService>().Use<SynologenMemberService>();

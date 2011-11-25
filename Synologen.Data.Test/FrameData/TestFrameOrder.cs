@@ -1,8 +1,11 @@
 using System.Linq;
 using NUnit.Framework;
+using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Data.Test.FrameData.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
+using Spinit.Wpc.Synologen.Test.Core;
 
 namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 {
@@ -236,10 +239,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			
 			//Assert
 			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Frame.Id, Is.EqualTo(1));
-			Expect(itemsMatchingCriteria.First().GlassType.Id, Is.EqualTo(1));
-			Expect(itemsMatchingCriteria.Last().Frame.Id, Is.EqualTo(36));
-			Expect(itemsMatchingCriteria.Last().GlassType.Id, Is.EqualTo(4));
+			itemsMatchingCriteria.ShouldBeOrderedAscendingBy(x => x.Id);
 			
 		}
 
@@ -261,8 +261,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			
 			//Assert
 			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Frame.Name, Is.EqualTo("Testbåge 1"));
-			Expect(itemsMatchingCriteria.Last().Frame.Name, Is.EqualTo("Testbåge 9"));
+			itemsMatchingCriteria.ShouldBeOrderedAscendingBy(x => x.Frame.Name);
 		}
 
 		[Test]
@@ -283,8 +282,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			
 			//Assert
 			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().GlassType.Name, Is.EqualTo("Enstyrke"));
-			Expect(itemsMatchingCriteria.Last().GlassType.Name, Is.EqualTo("Rumprogressiva"));
+			itemsMatchingCriteria.ShouldBeOrderedAscendingBy(x => x.GlassType.Name);
 		}
 
 		[Test]
@@ -305,6 +303,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			
 			//Assert
 			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
+			itemsMatchingCriteria.ShouldBeOrderedAscendingBy(x => x.OrderingShop.Name);
 		}
 
 		[Test]
@@ -325,10 +324,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			
 			//Assert
 			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Frame.Id, Is.EqualTo(36));
-			Expect(itemsMatchingCriteria.First().GlassType.Id, Is.EqualTo(4));
-			Expect(itemsMatchingCriteria.Last().Frame.Id, Is.EqualTo(1));
-			Expect(itemsMatchingCriteria.Last().GlassType.Id, Is.EqualTo(1));
+			itemsMatchingCriteria.ShouldBeOrderedDescendingBy(x => x.Id);
 		}
 
 		[Test]
@@ -336,7 +332,6 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		{
 			//Arrange
 			const int expectedNumberOfItemsMatchingCriteria = 144;
-			//const int expectedShopId = 158;
 			var criteria = new AllFrameOrdersForShopCriteria
 			{
 				ShopId = SavedShop.Id

@@ -105,7 +105,7 @@
     </ProjectReference>
     <ProjectReference Include="..\BGWebService\BGWebService.csproj">
       <Project>{FF84005C-D4DE-4599-AF2F-4D66FFB29D43}</Project>
-      <Name>BGWebService</Name>
+      <Name>BGWebService %28LensSubscription\BGWebService%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

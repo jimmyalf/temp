@@ -1,10 +1,13 @@
 using System.Linq;
 using NUnit.Framework;
+using Shouldly;
 using Spinit.Data;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Data.Test.FrameData.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
+using Spinit.Wpc.Synologen.Test.Core;
 
 namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 {
@@ -106,8 +109,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			
 			//Assert
 			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Prada"));
-			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Quicksilver"));
+			itemsMatchingCriteria.ShouldBeOrderedAscendingBy(x => x.Id);
 			
 		}
 
@@ -115,7 +117,6 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_get_framebrands_by_PageOfFrameBrandsMatchingCriteria_sorted_by_id()
 		{
 			//Arrange
-			const int expectedNumberOfItemsMatchingCriteria = 6;
 			var criteria = new PagedSortedCriteria<FrameBrand>
 			{
 				OrderBy = "Id",
@@ -128,17 +129,15 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			var itemsMatchingCriteria = FrameBrandValidationRepository.FindBy(criteria);
 			
 			//Assert
-			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Prada"));
-			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Pilgrim"));
-			
+			itemsMatchingCriteria.ShouldBeOrderedAscendingBy(x => x.Id);
+
 		}
 
 		[Test]
 		public void Can_get_brands_by_PageOfFrameBrandsMatchingCriteria_sorted_by_name()
 		{
 			//Arrange
-			const int expectedNumberOfItemsMatchingCriteria = 6;
+
 			var criteria = new PagedSortedCriteria<FrameBrand>
 			{
 				OrderBy = "Name",
@@ -151,9 +150,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			var itemsMatchingCriteria = FrameBrandValidationRepository.FindBy(criteria);
 			
 			//Assert
-			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Björn borg"));
-			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Red or Dead"));
+			itemsMatchingCriteria.ShouldBeOrderedAscendingBy(x => x.Name);
 			
 		}
 
@@ -161,7 +158,6 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_get_brands_by_PageOfFrameBrandsMatchingCriteria_sorted_descending()
 		{
 			//Arrange
-			const int expectedNumberOfItemsMatchingCriteria = 6;
 			var criteria = new PagedSortedCriteria<FrameBrand>
 			{
 				OrderBy = "Id",
@@ -174,9 +170,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			var itemsMatchingCriteria = FrameBrandValidationRepository.FindBy(criteria);
 			
 			//Assert
-			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Pilgrim"));
-			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Prada"));
+			itemsMatchingCriteria.ShouldBeOrderedDescendingBy(x => x.Id);
 		}
 	}
 }

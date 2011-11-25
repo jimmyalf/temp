@@ -5,6 +5,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Data.Test.FrameData.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
+using Spinit.Wpc.Synologen.Test.Core;
 
 namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 {
@@ -22,7 +23,6 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_get_persisted_framecolor()
 		{
 			//Arrange
-			const int expectedNumberOfFrameConnections = 6;
 
 			//Act
 			var savedFrameColor = SavedFrameColors.First();
@@ -32,14 +32,12 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			Expect(persistedFrameColor, Is.Not.Null);
 			Expect(persistedFrameColor.Id, Is.EqualTo(savedFrameColor.Id));
 			Expect(persistedFrameColor.Name, Is.EqualTo(savedFrameColor.Name));
-			Expect(persistedFrameColor.NumberOfFramesWithThisColor, Is.EqualTo(expectedNumberOfFrameConnections));
 		}
 
 		[Test]
 		public void Can_edit_persisted_framecolor()
 		{
 			//Arrange
-			const int expectedNumberOfFrameConnections = 6;
 
 			//Act
 			var editedFrameColor = FrameColorFactory.ScrabmleFrameColor(SavedFrameColors.First());
@@ -50,7 +48,6 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			Expect(persistedFrameColor, Is.Not.Null);
 			Expect(persistedFrameColor.Id, Is.EqualTo(editedFrameColor.Id));
 			Expect(persistedFrameColor.Name, Is.EqualTo(editedFrameColor.Name));
-			Expect(persistedFrameColor.NumberOfFramesWithThisColor, Is.EqualTo(expectedNumberOfFrameConnections));
 		}
 
 		[Test]
@@ -109,16 +106,12 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			
 			//Assert
 			Expect(frameColorsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(frameColorsMatchingCriteria.First().Name, Is.EqualTo("Svart"));
-			Expect(frameColorsMatchingCriteria.Last().Name, Is.EqualTo("Brun"));
-			
 		}
 
 		[Test]
 		public void Can_get_colors_by_PageOfFrameColorsMatchingCriteria_sorted_by_id()
 		{
 			//Arrange
-			const int expectedNumberOfItemsMatchingCriteria = 6;
 			var criteria = new PagedSortedCriteria<FrameColor>
 			{
 				OrderBy = "Id",
@@ -131,17 +124,13 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			var itemsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
 			
 			//Assert
-			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Svart"));
-			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Silver"));
-			
+			itemsMatchingCriteria.ShouldBeOrderedAscendingBy(x => x.Id);
 		}
 
 		[Test]
 		public void Can_get_colors_by_PageOfFrameColorsMatchingCriteria_sorted_by_name()
 		{
 			//Arrange
-			const int expectedNumberOfItemsMatchingCriteria = 6;
 			var criteria = new PagedSortedCriteria<FrameColor>
 			{
 				OrderBy = "Name",
@@ -154,9 +143,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			var itemsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
 			
 			//Assert
-			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Blå"));
-			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Svart"));
+			itemsMatchingCriteria.ShouldBeOrderedAscendingBy(x => x.Name);
 			
 		}
 
@@ -164,7 +151,6 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_get_colors_by_PageOfFrameColorsMatchingCriteria_sorted_descending()
 		{
 			//Arrange
-			const int expectedNumberOfItemsMatchingCriteria = 6;
 			var criteria = new PagedSortedCriteria<FrameColor>
 			{
 				OrderBy = "Id",
@@ -177,9 +163,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			var itemsMatchingCriteria = FrameColorValidationRepository.FindBy(criteria);
 			
 			//Assert
-			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Silver"));
-			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Svart"));
+			itemsMatchingCriteria.ShouldBeOrderedDescendingBy(x => x.Id);
 		}
 
 	}

@@ -5,6 +5,9 @@ using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
+using Spinit.Wpc.Base.Data;
+using Spinit.Wpc.Synogen.Test;
+using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
@@ -44,10 +47,14 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		private Shop _shop_1;
 		private Shop _shop_2;
 		private Company _company;
+		private DataManager _dataManager;
+		private User _userRepository;
 
 		protected override void SetUp()
 		{
-			Provider = new SqlProvider(DataHelper.ConnectionString);
+			_dataManager = new DataManager();
+			Provider = _dataManager.GetSqlProvider() as SqlProvider;
+			_userRepository = _dataManager.GetUserRepository();
 			base.SetUp();
 		}
 
@@ -56,11 +63,11 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			Context = session => 
 			{
 				_article = ArticleFactory.Get();
-				_company = DataHelper.CreateCompany(Provider);
-				_shop_1 = DataHelper.CreateShop(Provider, "Testbutik 1");
-				_shop_2 = DataHelper.CreateShop(Provider, "Testbutik 2");
-				var memberForShop1 = DataHelper.CreateMemberForShop(Provider, "member_1", _shop_1.ShopId, 2 /*location id*/);
-				var memberForShop2 = DataHelper.CreateMemberForShop(Provider, "memeber_2",_shop_2.ShopId, 2 /*location id*/);
+				_company = _dataManager.CreateCompany(Provider);
+				_shop_1 = _dataManager.CreateShop(Provider, "Testbutik 1");
+				_shop_2 = _dataManager.CreateShop(Provider, "Testbutik 2");
+				var memberForShop1 = _dataManager.CreateMemberForShop(_userRepository, Provider, "member_1", _shop_1.ShopId, 2 /*location id*/);
+				var memberForShop2 = _dataManager.CreateMemberForShop(_userRepository, Provider, "memeber_2",_shop_2.ShopId, 2 /*location id*/);
 				Provider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref _article);
 				_contractArticleConnection = ArticleFactory.GetContractArticleConnection(_article, _company.ContractId, 999.23F, true);
 				Provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref _contractArticleConnection);
@@ -290,7 +297,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 		[Test]
 		public void Can_get_settlement_for_shop_using_nhibernate_contining_only_shop_specific_transactions_and_sale_items_with_sale_items_marked_as_payed()
 		{
-			new SqlProvider(DataHelper.ConnectionString).MarkOrdersInSettlementAsPayedPerShop(_settlementId, _shop_1.ShopId);
+			Provider.MarkOrdersInSettlementAsPayedPerShop(_settlementId, _shop_1.ShopId);
 			AssertUsing(session =>
 			{
 				var settlementForShop = new SettlementRepository(session).GetForShop(_settlementId, _shop_1.ShopId);

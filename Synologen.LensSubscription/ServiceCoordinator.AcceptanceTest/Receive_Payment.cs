@@ -27,7 +27,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 			Context = () =>
 			{
 				bankGiroPayerNumber = RegisterPayerWithWebService();
-				subscription = StoreSubscription(customer => Factory.CreateSubscriptionReadyForPayment(customer, bankGiroPayerNumber), bankGiroPayerNumber);
+				var shop = CreateShop(GetWPCSession());
+				subscription = StoreSubscription(customer => Factory.CreateSubscriptionReadyForPayment(customer, bankGiroPayerNumber), shop.Id, bankGiroPayerNumber);
 				successfulPayment = StoreBGPayment(Factory.CreateSuccessfulPayment, bankGiroPayerNumber);
 
 				task = ResolveTask<ReceivePaymentsTask>();
@@ -76,7 +77,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 			Context = () =>
 			{
 				bankGiroPayerNumber = RegisterPayerWithWebService();
-				subscription = StoreSubscription(customer => Factory.CreateSubscriptionReadyForPayment(customer, bankGiroPayerNumber), bankGiroPayerNumber);
+				var shop = CreateShop(GetWPCSession());
+				subscription = StoreSubscription(customer => Factory.CreateSubscriptionReadyForPayment(customer, bankGiroPayerNumber), shop.Id, bankGiroPayerNumber);
 				failedPayment = StoreBGPayment(Factory.CreateFailedPayment, bankGiroPayerNumber);
 
 				task = ResolveTask<ReceivePaymentsTask>();

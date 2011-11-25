@@ -2,11 +2,13 @@ using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using FakeItEasy;
+using NHibernate;
 using NUnit.Framework;
 using Spinit.Data;
 using Spinit.Extensions;
 using Spinit.Test.Web;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -23,25 +25,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 		protected Action Context;
 		protected Func<Funktion> Story;
 		private Funktion _story;
-		protected int TestShopId;
-		protected int TestMemberId;
-		protected int TestContractCompanyId;
-		protected int TestContractId;
 		protected FakeHttpContext HttpContext;
 		protected TView View;
 		protected int SwedenCountryId;
 		protected ISynologenMemberService SynologenMemberService;
-		protected int OtherShopId;
+		private readonly DataManager _dataManager;
+
+		protected SpecTestbase()
+		{
+			_dataManager = new DataManager();
+		}
 
 		[SetUp]
 		protected void RunBeforeEachTest()
 	    {
 			ResetData();
-			TestShopId = 159;
-			OtherShopId = 160;
-			//TestMemberId = 486;
-			//TestContractCompanyId = 57;
-			//TestContractId = 14;
 			SynologenMemberService = GetSynologenMemberService();
 			SwedenCountryId = 1;
 			View = GetView();
@@ -50,6 +48,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 			if (Story == null) throw new NotImplementedException("A story must be set for Spec. Use CreateStory function to create a story for the Spec.");
 			_story = Story();
 	    }
+
+		protected DataManager DataManager
+		{
+			get { return _dataManager; }
+		}
 
 		[TearDown]
 		protected void RunAfterEachTest()
@@ -81,6 +84,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 
 		protected void ResetData()
 		{
+			//DataManager.CleanTables();
 			ClearRepository<ICustomerRepository,Customer>();
 			ClearRepository<ISubscriptionRepository,Subscription>();
 			ClearRepository<ITransactionArticleRepository,TransactionArticle>();
@@ -112,7 +116,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 		//}
 		public TRepository WithRepository<TRepository>()
 		{
-			return ObjectFactory.GetInstance<TRepository>();
+			//return ObjectFactory.GetInstance<TRepository>();
+		    var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			return ObjectFactory.With(typeof (ISession), session).GetInstance<TRepository>();
+			//return (TRepository) Activator.CreateInstance(typeof (TRepository), session);
 			//var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
 			//return (TRepository) Activator.CreateInstance(typeof (TRepository), session);
 		}

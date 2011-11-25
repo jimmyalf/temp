@@ -71,7 +71,6 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 			Context = session =>
 			{
 				var shop = CreateShop(session);
-					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
@@ -81,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 				var subscriptionRepository = new SubscriptionRepository(session);
 				subscriptionRepository.Save(_subscription);
 				subscriptionRepository.Save(_otherSubscription);
-				var settlementId = new SqlProvider(DataHelper.ConnectionString).AddSettlement(settlementableOrderStatus, afterSettlementOrderStatus);
+				var settlementId = Provider.AddSettlement(settlementableOrderStatus, afterSettlementOrderStatus);
 				var settlement = new Mock<Settlement>();
 				settlement.SetupGet(x => x.Id).Returns(settlementId);
 				_settlement = settlement.Object;
@@ -150,7 +149,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 				new CustomerRepository(session).Save(customer);
 				var subscription = SubscriptionFactory.Get(customer);
 				new SubscriptionRepository(session).Save(subscription);
-				var settlementId = new SqlProvider(DataHelper.ConnectionString).AddSettlement(settlementableOrderStatus, afterSettlementOrderStatus);			
+				var settlementId = Provider.AddSettlement(settlementableOrderStatus, afterSettlementOrderStatus);			
 				_transactions = TransactionFactory.GetList(subscription);
 				var settlement = new Mock<Settlement>();
 				settlement.SetupGet(x => x.Id).Returns(settlementId);

@@ -2,9 +2,9 @@ using System.Data.SqlClient;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Test;
+using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Utility.Business;
 using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
@@ -83,30 +83,32 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 
 		protected override SqlProvider GetTestEntity()
 		{
-			return new SqlProvider(DataHelper.ConnectionString);
+			return DataManager.GetSqlProvider() as SqlProvider;
 		}
 	}
 
 	public abstract class ContractSaleTestbase : BehaviorActionTestbase<SqlProvider>
 	{
 		private readonly SqlProvider _sqlProvider;
+		protected DataManager DataManager;
 
 		protected ContractSaleTestbase()
 		{
-			_sqlProvider = new SqlProvider(DataHelper.ConnectionString);
+			DataManager = new DataManager();
+			_sqlProvider = DataManager.GetSqlProvider() as SqlProvider;
 		}
 
 		protected override void SetUp()
 		{
-			var sqlConnection = new SqlConnection(DataHelper.ConnectionString);
+			var sqlConnection = new SqlConnection(DataManager.ConnectionString);
 			sqlConnection.Open();
-			DataHelper.DeleteShopsAndConnections(sqlConnection);
+			DataManager.CleanTables(sqlConnection);
 			sqlConnection.Close();
 		}
 
 		protected Shop CreateShop()
 		{
-			return DataHelper.CreateShop(_sqlProvider, "Testbutik");
+			return DataManager.CreateShop(_sqlProvider, "Testbutik");
 		}
 
 	}

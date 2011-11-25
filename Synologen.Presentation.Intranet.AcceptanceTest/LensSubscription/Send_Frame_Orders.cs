@@ -31,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 			var session = sessionFactory.OpenSession();
 			_framOrderRepository = new FrameOrderRepository(session);
 		}
-
+        /*
 		[Test]
 		public void TestSingleOrder()
 		{
@@ -50,6 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 			}
 			Console.WriteLine("Done!");
 		}
+         * */
 	}
 
 	public class CustomSettingsService : ISynologenSettingsService

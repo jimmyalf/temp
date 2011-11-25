@@ -67,6 +67,12 @@
     <Compile Include="Logic\EventArguments\LensSubscription\SetErrorHandledEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\TransactionReasonEventArgs.cs" />
     <Compile Include="Logic\EventArguments\LensSubscription\UpdateSubscriptionEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\Orders\AutogiroDetailsEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\Orders\CreateOrderConfirmationEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\Orders\CreateOrderEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\Orders\FetchCustomerDataByPersonalIdEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\Orders\PaymentOptionsEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\Orders\PickCustomerEventArgs.cs" />
     <Compile Include="Logic\EventArguments\ValidatedEventArgs.cs" />
     <Compile Include="Logic\EventArguments\ValidatePasswordEventArgs.cs" />
     <Compile Include="Logic\EventArguments\ValidationEventArgs.cs" />
@@ -74,6 +80,11 @@
     <Compile Include="Logic\Helpers\StringBuilderExtensions.cs" />
     <Compile Include="Logic\Helpers\TemplateControlImplementation.cs" />
     <Compile Include="Logic\Helpers\ViewModelExtensions.cs" />
+    <Compile Include="Logic\Presenters\Orders\AutogiroDetailsPresenter.cs" />
+    <Compile Include="Logic\Presenters\Orders\CreateOrderConfirmationPresenter.cs" />
+    <Compile Include="Logic\Presenters\Orders\CreateOrderPresenter.cs" />
+    <Compile Include="Logic\Presenters\Orders\PaymentOptionsPresenter.cs" />
+    <Compile Include="Logic\Presenters\Orders\PickCustomerPresenter.cs" />
     <Compile Include="Logic\Services\YammerService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -85,6 +96,11 @@
     <Compile Include="Logic\Views\IValidationButtonView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IShopSubscriptionErrorListView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IShopSubscriptionsView.cs" />
+    <Compile Include="Logic\Views\Orders\IAutogiroDetailsView.cs" />
+    <Compile Include="Logic\Views\Orders\ICreateOrderConfirmationView.cs" />
+    <Compile Include="Logic\Views\Orders\ICreateOrderView.cs" />
+    <Compile Include="Logic\Views\Orders\IPaymentOptionsView.cs" />
+    <Compile Include="Logic\Views\Orders\IPickCustomerView.cs" />
     <Compile Include="Logic\Views\Yammer\IYammerView.cs" />
     <Compile Include="Models\ContractSales\SettlementDetailedContractSaleListItemModel.cs" />
     <Compile Include="Models\ContractSales\SettlementDetailedsubscriptionTransactionsListItemModel.cs" />
@@ -144,6 +160,11 @@
     <Compile Include="Models\FrameOrders\ViewFrameOrderModel.cs" />
     <Compile Include="Models\ListItem.cs" />
     <Compile Include="Models\MessageContainer.cs" />
+    <Compile Include="Models\Orders\AutogiroDetailsModel.cs" />
+    <Compile Include="Models\Orders\CreateOrderConfirmationModel.cs" />
+    <Compile Include="Models\Orders\CreateOrderModel.cs" />
+    <Compile Include="Models\Orders\PaymentOptionsModel.cs" />
+    <Compile Include="Models\Orders\PickCustomerModel.cs" />
     <Compile Include="Models\ValidationButtonModel.cs" />
     <Compile Include="Models\Yammer\YammerImage.cs" />
     <Compile Include="Models\Yammer\YammerListItem.cs" />
@@ -289,6 +310,41 @@
     <Compile Include="Wpc\Synologen\ContractSales\SalesList.ascx.designer.cs">
       <DependentUpon>SalesList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\Orders\AutogiroDetails.ascx.cs">
+      <DependentUpon>AutogiroDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\AutogiroDetails.ascx.designer.cs">
+      <DependentUpon>AutogiroDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\CreateOrder.ascx.cs">
+      <DependentUpon>CreateOrder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\CreateOrder.ascx.designer.cs">
+      <DependentUpon>CreateOrder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\CreateOrderConfirmation.ascx.cs">
+      <DependentUpon>CreateOrderConfirmation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\CreateOrderConfirmation.ascx.designer.cs">
+      <DependentUpon>CreateOrderConfirmation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\PaymentOptions.ascx.cs">
+      <DependentUpon>PaymentOptions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\PaymentOptions.ascx.designer.cs">
+      <DependentUpon>PaymentOptions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\PickCustomer.ascx.cs">
+      <DependentUpon>PickCustomer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\PickCustomer.ascx.designer.cs">
+      <DependentUpon>PickCustomer.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\SecurityLogout.ascx.cs">
       <DependentUpon>SecurityLogout.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -388,6 +444,13 @@
     <None Include="Testpages\EditOrderPage.aspx" />
     <None Include="Testpages\MembersList.aspx" />
     <None Include="Testpages\ViewSettlementOldPage.aspx" />
+    <None Include="Testpages\OrdersPickCustomer.aspx" />
+    <None Include="Testpages\OrdersCreateOrder.aspx" />
+    <None Include="Testpages\OrdersPaymentOptions.aspx" />
+    <None Include="Testpages\OrdersCreateOrderConfirmation.aspx" />
+    <None Include="Testpages\OrdersAutogiroDetails.aspx" />
+    <Content Include="Wpc\Synologen\Css\screen.css" />
+    <Content Include="Wpc\Synologen\Css\Smoothness\jquery-ui-1.8.16.custom.css" />
     <Content Include="Wpc\Synologen\EditMember.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\EditOrder.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\CreateOrder.ascx" />
@@ -399,11 +462,19 @@
     <Content Include="Wpc\Synologen\Images\user.png" />
     <Content Include="Wpc\Synologen\Images\view.png" />
     <Content Include="Wpc\Synologen\ContractSales\SalesList.ascx" />
+    <Content Include="Wpc\Synologen\js\jquery-ui-1.8.16.custom.min.js" />
+    <Content Include="Wpc\Synologen\js\OrdersScript.js" />
+    <Content Include="Wpc\Synologen\Orders\AutogiroDetails.ascx" />
+    <Content Include="Wpc\Synologen\Orders\CreateOrder.ascx" />
+    <Content Include="Wpc\Synologen\Orders\CreateOrderConfirmation.ascx" />
+    <Content Include="Wpc\Synologen\Orders\PaymentOptions.ascx" />
+    <Content Include="Wpc\Synologen\Orders\PickCustomer.ascx" />
     <Content Include="Wpc\Synologen\SecurityLogout.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\SettlementList.ascx" />
     <Content Include="Wpc\Synologen\ShopMemberList.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\ViewOrder.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\ViewSettlementOld.ascx" />
+    <Content Include="Orders.Master" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Testpages\CityShopList.aspx" />
@@ -577,7 +648,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Wpc\Base\" />
-    <Folder Include="Wpc\Synologen\Css\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

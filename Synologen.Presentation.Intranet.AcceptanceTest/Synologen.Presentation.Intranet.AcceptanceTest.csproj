@@ -152,9 +152,10 @@
     <Compile Include="LensSubscription\Add_Subscription_To_Customer.cs" />
     <Compile Include="LensSubscription\Factory.cs" />
     <Compile Include="LensSubscription\Send_Frame_Orders.cs" />
-    <Compile Include="LensSubscription\TestHelpers\PresenterBase.cs" />
-    <Compile Include="LensSubscription\TestHelpers\SpecTestbase.cs" />
-    <Compile Include="LensSubscription\TestHelpers\StoryQ.flit.sv-SE.g.cs" />
+    <Compile Include="Orders\Pick_Customer.cs" />
+    <Compile Include="TestHelpers\PresenterBase.cs" />
+    <Compile Include="TestHelpers\SpecTestbase.cs" />
+    <Compile Include="TestHelpers\StoryQ.flit.sv-SE.g.cs" />
     <Compile Include="LensSubscription\View_Shop_Subscription_Summary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -203,6 +204,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Orders\TestHelpers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

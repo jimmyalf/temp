@@ -183,6 +183,8 @@
     <Compile Include="Domain\Model\LensSubscription\TransactionReason.cs" />
     <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
     <Compile Include="Domain\Model\ContractSales\ShopAccess.cs" />
+    <Compile Include="Domain\Model\Orders\Order.cs" />
+    <Compile Include="Domain\Model\Orders\OrderCustomer.cs" />
     <Compile Include="Domain\Model\Yammer\AttachmentModel.cs" />
     <Compile Include="Domain\Model\Yammer\BodyModel.cs" />
     <Compile Include="Domain\Model\Yammer\ImageModel.cs" />
@@ -227,6 +229,7 @@
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfTransactionArticlesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\TransactionsForSubscriptionMatchingCriteria.cs.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfSubscriptionsMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\CustomerDetailsFromPersonalIdNumberCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameOrdersMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IFrameGlassTypeRepository.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IFrameOrderRepository.cs" />
@@ -240,6 +243,8 @@
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionArticleRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\ITransactionRepository.cs" />
     <Compile Include="Domain\Model\BGServer\BGTaskSequenceOrder.cs" />
+    <Compile Include="Domain\Persistence\Orders\IOrderCustomerRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\IOrderRepository.cs" />
     <Compile Include="Domain\Services\BgWebService\FtpChangePasswordException.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGFtpPasswordService.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGWebServiceClient.cs" />

@@ -6,7 +6,7 @@ using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
-using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscription.TestHelpers;
+using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.LensSubscription;

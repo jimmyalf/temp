@@ -45,5 +45,13 @@
 	    <a href="TestPages/YammerFeed.aspx">Flöde från Yammer</a>
 	    <a href="TestPages/MiniYammerFeed.aspx">Begränsat flöde från Yammer</a>
 	</fieldset>
+    <fieldset>
+	    <legend>Beställningar</legend>
+	    <a href="TestPages/OrdersPickCustomer.aspx">Välj kund</a>
+        <a href="TestPages/OrdersCreateOrder.aspx">Skapa order</a>
+        <a href="TestPages/OrdersPaymentOptions.aspx">Betalningssätt</a>
+        <a href="TestPages/OrdersAutogiroDetails.aspx">Autogiro</a>
+        <a href="TestPages/OrdersCreateOrderConfirmation.aspx">Bekräfta</a>
+	</fieldset>
 </div>
 </asp:Content>

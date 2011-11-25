@@ -3,7 +3,8 @@
 <div id="dCompMain" class="Components-Synologen-LensSubscriptions">
 	<div class="fullBox">
 		<div class="wrap">
-			<h2>Butiksutbetalningar</h2>
+			<h2>Butiksutbetalningar</h2>
+
 			<% using (Html.BeginForm()) {%>
 			
 			<fieldset>

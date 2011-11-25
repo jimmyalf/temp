@@ -3,7 +3,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscription.TestHelpers;
+using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.LensSubscription;

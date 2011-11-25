@@ -107,8 +107,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 			{
 				var currentpage = HttpContext.Request.Url.PathAndQuery;
 				HttpContext.Response.Redirect(currentpage);
+
 				return;
 			}
+            
 			var redirectPageUrl = _synologenMemberService.GetPageUrl(View.RedirectOnSavePageId);
 			if (String.IsNullOrEmpty(redirectPageUrl)) return;
 			HttpContext.Response.Redirect(redirectPageUrl);

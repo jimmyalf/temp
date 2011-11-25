@@ -2,16 +2,16 @@
 {
     public class OrderCustomer : Entity
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PersonalIdNumber { get; set; }
-        public string Email { get; set; }
-        public string MobilePhone { get; set; }
-        public string Phone { get; set; }
-        public string AddressLineOne { get; set; }
-        public string AddressLineTwo { get; set; }
-        public string City { get; set; }
-        public string PostalCode { get; set; }
-        public string Notes { get; set; }
+        public virtual string FirstName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual string PersonalIdNumber { get; set; }
+        public virtual string Email { get; set; }
+        public virtual string MobilePhone { get; set; }
+        public virtual string Phone { get; set; }
+        public virtual string AddressLineOne { get; set; }
+        public virtual string AddressLineTwo { get; set; }
+        public virtual string City { get; set; }
+        public virtual string PostalCode { get; set; }
+        public virtual string Notes { get; set; }
     }
 }

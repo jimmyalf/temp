@@ -5,6 +5,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
+using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Utility;
@@ -25,16 +26,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 		private int _customerDetailsPageId, _subscriptionDetailsPageId;
 		private string _customerDetailsPageUrl, _subscriptionDetailsPageUrl;
 		protected readonly Func<string, string, int, string> RenderUrl = (url, parameter, id) => "{url}?{parameter}={id}".ReplaceWith(new {url, parameter, id});
-		private Shop _shop_1, _shop_2;
+		private readonly Shop _shop_1, _shop_2;
 
 		public When_loading_subscription_view_for_a_shop()
 		{
-			Context = () =>
-			{
-				_presenter = GetPresenter();
 				var provider = DataManager.GetSqlProvider();
 				_shop_1 = DataManager.CreateShop(provider, "Testbutik 1");
 				_shop_2 = DataManager.CreateShop(provider, "Testbutik 2");
+			
+			Context = () =>
+			{
+				_presenter = GetPresenter();
+
 			};
 			Story = () => new Berättelse("Visa abonnemangs-översikt för butik")
 			              	.FörAtt("Snabbt få en överblick över butikens abonnemang")

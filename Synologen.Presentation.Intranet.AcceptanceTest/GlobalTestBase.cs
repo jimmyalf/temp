@@ -10,7 +10,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest
 		[SetUp]
 		public void RunBeforeAnyTests()
 		{
-			Console.WriteLine("hej");
 			Bootstrapper.Bootstrap();
 		}
 
@@ -18,7 +17,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest
 		public void RunAfterAnyTests()
 		{
 			// ...
-			Console.WriteLine("hej då");
 		}
 	}
 }

@@ -3,11 +3,11 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 {
-    class OrderCustomerMap : ClassMap<OrderCustomer>
+    public class OrderCustomerMap : ClassMap<OrderCustomer>
     {
         public OrderCustomerMap()
         {
-            Table("SynologenOrderCustomers");
+            Table("SynologenOrderCustomer");
             Id(x => x.Id);
             Map(x => x.AddressLineOne);
             Map(x => x.AddressLineTwo);

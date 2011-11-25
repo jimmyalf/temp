@@ -1,7 +1,9 @@
+using System.Linq;
 using FakeItEasy;
 using NHibernate;
 using Spinit.Test;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Test.MockHelpers;
@@ -16,18 +18,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 		protected IShopRepository shopRepository;
 		protected ICountryRepository countryRepository;
 		protected ISynologenMemberService synologenMemberService;
-		protected int testShopId;
 		protected HttpContextMock httpContext;
+		private DataManager _dataManager;
+		protected int testShopId;
+
+		protected PresenterBase()
+		{
+			_dataManager = new DataManager();
+		}
 
 		protected override void SetUp()
 		{
-			testShopId = 158;
 			httpContext = new HttpContextMock();
 			customerRepository = ResolveEntity<ICustomerRepository>();
 			shopRepository = ResolveEntity<IShopRepository>();
 			countryRepository = ResolveEntity<ICountryRepository>();
 			synologenMemberService = A.Fake<ISynologenMemberService>();
-			A.CallTo(() => synologenMemberService.GetCurrentShopId()).Returns(testShopId);
+			var shop = _dataManager.CreateShop(_dataManager.GetSqlProvider(), "Testbutik");
+			A.CallTo(() => synologenMemberService.GetCurrentShopId()).Returns(shop.ShopId);
+			testShopId = shop.ShopId;
 		}
 
 		protected ISession GetSession()
@@ -43,10 +52,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 		protected TEntity ResolveEntityWith<TEntity>(params TypeValuePair[] parameters)
 		{
 			var expression = GetDefaultInjectedExpression();
-			foreach (var parameter in parameters)
-			{
-				expression = expression.With(parameter.Type, parameter.Value);
-			}
+			expression = parameters.Aggregate(expression, (current, parameter) => current.With(parameter.Type, parameter.Value));
 			return expression.GetInstance<TEntity>();
 		}
 
@@ -80,7 +86,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 		{
 			public TypeValuePair(TEntity value) : base(typeof(TEntity),value) { }
 		}
-
+		protected override void TearDown()
+		{
+			_dataManager.CleanTables();
+		}
 
 
 	}

@@ -6,12 +6,14 @@ using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
+using Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using StructureMap.Configuration.DSL;
 using IShopRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder.IShopRepository;
@@ -41,6 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.IoC
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
 			For<ISettlementRepository>().Use<SettlementRepository>();
 			For<ITransactionArticleRepository>().Use<TransactionArticleRepository>();
+			For<IOrderCustomerRepository>().Use<OrderCustomerRepository>();
 			
 
 			// Register GUI and settings services
@@ -48,6 +51,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.IoC
 			For<IFrameOrderService>().Use<SynologenFrameOrderService>();
 			For<IEmailService>().Use<EmailService>();
 			For<ISynologenSettingsService>().Use<SynologenSettingsService>();
+			For<IViewParser>().Use<ViewParser>();
 
 			// Register criteria converters
 			Scan(x =>

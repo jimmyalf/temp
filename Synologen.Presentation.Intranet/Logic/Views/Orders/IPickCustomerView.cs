@@ -7,6 +7,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
 {
     public interface IPickCustomerView : IView<PickCustomerModel>
     {
+		int NextPageId { get; set; }
         event EventHandler<PickCustomerEventArgs> Submit;
         event EventHandler<FetchCustomerDataByPersonalIdEventArgs> FetchCustomerByPersonalIdNumber;
     }

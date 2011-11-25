@@ -85,6 +85,7 @@
     <Compile Include="Logic\Presenters\Orders\CreateOrderPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\PaymentOptionsPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\PickCustomerPresenter.cs" />
+    <Compile Include="Logic\Services\IViewParser.cs" />
     <Compile Include="Logic\Services\YammerService.cs">
       <SubType>Component</SubType>
     </Compile>

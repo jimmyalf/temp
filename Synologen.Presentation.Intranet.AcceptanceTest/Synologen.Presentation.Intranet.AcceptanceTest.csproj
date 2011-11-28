@@ -155,8 +155,10 @@
     <Compile Include="Orders\Autogiro_Details.cs" />
     <Compile Include="Orders\Confirm_Order.cs" />
     <Compile Include="Orders\Create_Order.cs" />
+    <Compile Include="Orders\OrderFactory.cs" />
     <Compile Include="Orders\Payment_Options.cs" />
     <Compile Include="Orders\Pick_Customer.cs" />
+    <Compile Include="Orders\Search_Customer.cs" />
     <Compile Include="TestHelpers\PresenterBase.cs" />
     <Compile Include="TestHelpers\SpecTestbase.cs" />
     <Compile Include="TestHelpers\StoryQ.flit.sv-SE.g.cs" />

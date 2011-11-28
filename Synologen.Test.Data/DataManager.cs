@@ -188,6 +188,11 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			Debug.WriteLine("Cleaned Contract Sales");
 		}
 
+		private void DeleteOrderCustomers(IDbConnection connection)
+		{
+			DeleteAndResetIndexForTable(connection, "SynologenOrderCustomer");
+		}
+
 		public virtual void ValidateConnectionIsDev(IDbConnection connection)
 		{
 			if(!IsDevelopmentServer(connection.ConnectionString))
@@ -209,6 +214,7 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			var userRepository = GetUserRepository();
 			ValidateConnectionIsDev(connection);
 			DeleteOPQAndConnections(connection);
+			DeleteOrderCustomers(connection);
 			DeleteLensSubscriptionsAndConnections(connection);
 			DeleteContractSalesAndConnections(connection);
 			DeleteFrameOrdersAndConnections(connection);

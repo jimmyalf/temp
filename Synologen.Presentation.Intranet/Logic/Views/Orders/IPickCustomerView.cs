@@ -9,6 +9,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
     {
 		int NextPageId { get; set; }
         event EventHandler<PickCustomerEventArgs> Submit;
-        event EventHandler<FetchCustomerDataByPersonalIdEventArgs> FetchCustomerByPersonalIdNumber;
     }
 }

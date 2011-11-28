@@ -89,7 +89,6 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			return userRepository.Add(userName, password, "Adam", "Bertil", "a.b@foretaget.se", locationId, "TestUser");
 		}
 
-
 		public Company CreateCompany(ISqlProvider provider)
 		{
 			var contract = new Contract {Name = "Testavtal", Active = true};
@@ -197,15 +196,14 @@ namespace Spinit.Wpc.Synogen.Test.Data
 		public void CleanTables()
 		{
 			var connection = new SqlConnection(ConnectionString);
-			var userRepository = new User(ConnectionString);
 			connection.Open();
 			CleanTables(connection);
-			CreateAdminUsers(userRepository);
 			connection.Close();
 		}
 
 		public void CleanTables(IDbConnection connection)
 		{
+			var userRepository = GetUserRepository();
 			ValidateConnectionIsDev(connection);
 			DeleteOPQAndConnections(connection);
 			DeleteLensSubscriptionsAndConnections(connection);
@@ -213,6 +211,7 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			DeleteFrameOrdersAndConnections(connection);
 			DeleteShopsAndConnections(connection);
 			DeleteMembersAndConnections(connection);
+			CreateAdminUsers(userRepository);
 		}
 	}
 }

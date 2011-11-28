@@ -9,22 +9,28 @@ namespace Spinit.Wpc.Synogen.Test.Data
 {
 	public class DataUtility
 	{
+		private string _connectionString;
 		public virtual string ConnectionString
 		{
-			get { return ConfigurationManager.ConnectionStrings["WpcServer"].ConnectionString; }
+			get { 
+				return _connectionString 
+				?? (_connectionString = ConfigurationManager.ConnectionStrings["WpcServer"].ConnectionString);
+			}
 		}
 
+		private ISqlProvider _sqlProvider;
 		public virtual ISqlProvider GetSqlProvider(string connectionstring = null)
 		{
-			return new SqlProvider(connectionstring ?? ConnectionString);
+			return _sqlProvider ?? (_sqlProvider =  new SqlProvider(connectionstring ?? ConnectionString));
 		}
 
+		private User _userRepository;
 		public virtual User GetUserRepository(string connectionString = null)
 		{
-			return new User(connectionString ?? ConnectionString);
+			return _userRepository ?? (_userRepository = new User(connectionString ?? ConnectionString));
 		}
 
-		public virtual void ExecuteStatement(IDbConnection sqlConnection, string sqlStatement)
+		protected virtual void ExecuteStatement(IDbConnection sqlConnection, string sqlStatement)
 		{
 			var transaction = sqlConnection.BeginTransaction();
 			using (var cmd = sqlConnection.CreateCommand()) {
@@ -38,13 +44,13 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			transaction.Commit();
 		}
 
-		public virtual void DeleteAndResetIndexForTable(IDbConnection sqlConnection, string tableName)
+		protected virtual void DeleteAndResetIndexForTable(IDbConnection sqlConnection, string tableName)
 		{
 			ExecuteStatement(sqlConnection, String.Format("DELETE FROM {0}", tableName));
 			ExecuteStatement(sqlConnection, String.Format("DBCC CHECKIDENT ({0}, reseed, 0)", tableName));
 		}
 
-		public virtual void DeleteForTable(IDbConnection sqlConnection, string tableName)
+		protected virtual void DeleteForTable(IDbConnection sqlConnection, string tableName)
 		{
 			ExecuteStatement(sqlConnection, String.Format("DELETE FROM {0}", tableName));
 		}

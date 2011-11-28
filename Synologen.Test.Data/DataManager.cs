@@ -80,8 +80,8 @@ namespace Spinit.Wpc.Synogen.Test.Data
 		{
 			var superadminId = userRepository.Add("SuperAdmin", "g@nd@lf", "SuperAdmin", "Spinit", "info@spinit.se", 1, "Admin");
 			var adminId = userRepository.Add("Admin", "g@llum", "Admin", "Spinit", "info@spinit.se", 1, "Admin");
-			userRepository.ConnectGroup(superadminId, 1 /*superadmin group*/);
-			userRepository.ConnectGroup(adminId, 2 /*global admin group*/);
+			userRepository.ConnectGroup(superadminId, (int) GroupTypeRow.TYPE.SUPER_ADMIN);
+			userRepository.ConnectGroup(adminId, (int) GroupTypeRow.TYPE.GLOBAL);
 		}
 
 		public int CreateUser(User userRepository, string userName, string password, int locationId)
@@ -131,7 +131,6 @@ namespace Spinit.Wpc.Synogen.Test.Data
 
 		private void DeleteMembersAndConnections(IDbConnection connection)
 		{
-			//Member
 			DeleteForTable(connection, "tblMemberLanguageConnection");
 			DeleteForTable(connection, "tblMemberLocationConnection");
 			DeleteForTable(connection, "tblMemberUserConnection");
@@ -140,11 +139,15 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			DeleteAndResetIndexForTable(connection, "tblMemberClassifiedAds");
 			DeleteAndResetIndexForTable(connection, "tblMembersContent");
 			DeleteAndResetIndexForTable(connection, "tblMembers");
-			//Base
-			DeleteForTable(connection, "tblBaseUsersGroups");
-			DeleteAndResetIndexForTable(connection, "tblBaseUsers");
 			Debug.WriteLine("Cleaned Members");
 		} 
+
+		private void DeleteUsers(IDbConnection connection)
+		{
+			DeleteForTable(connection, "tblBaseUsersGroups");
+			DeleteAndResetIndexForTable(connection, "tblBaseUsers");
+			Debug.WriteLine("Cleaned Users");
+		}
 
 		private void DeleteLensSubscriptionsAndConnections(IDbConnection connection)
 		{
@@ -211,6 +214,7 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			DeleteFrameOrdersAndConnections(connection);
 			DeleteShopsAndConnections(connection);
 			DeleteMembersAndConnections(connection);
+			DeleteUsers(connection);
 			CreateAdminUsers(userRepository);
 		}
 	}

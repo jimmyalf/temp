@@ -19,8 +19,14 @@
    	<fieldset>
    		<div class="progress">
    	    	<label>Steg 1 av 5</label>
-					<div id="progressbar"></div>
+			<div id="progressbar"></div>
    	    </div>
+
+		<% if (Model.DisplayCustomerMissingMessage) { %>
+			<p class="message information">
+				Ingen kund med angivet personnummer kunda hittas. Vänligen skapa ny kund.
+			</p>
+		<% } %>
     	<p>
             <label for="<%=txtFirstName.ClientID%>">Förnamn</label>
 		    <asp:TextBox ID="txtFirstName" runat="server" />
@@ -35,10 +41,10 @@
         
             <label for="<%=txtPersonalIdNumber.ClientID%>">Personnummer</label>
             <span>
-		    <asp:TextBox ID="txtPersonalIdNumber" runat="server" />
-		    <asp:RequiredFieldValidator ID="reqtxtPersonalIdNumber" runat="server" ErrorMessage="Personnummer måste anges" ControlToValidate="txtPersonalIdNumber" Display="Dynamic" ValidationGroup="PersonalIdNumberValidationGroup">*</asp:RequiredFieldValidator>
-		    <asp:RegularExpressionValidator ID="regextxtPersonalIdNumber" ValidationExpression="\b(19\d{2}|20\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{4}\b" runat="server" ErrorMessage="Personnummer måste anges som ÅÅÅÅMMDDXXXX" Display="Dynamic" ControlToValidate="txtPersonalIdNumber" ValidationGroup="PersonalIdNumberValidationGroup">*</asp:RegularExpressionValidator>
-            <asp:Button ID="btnFetchByPersonalIdNumber" runat="server" Text="Hämta →" />
+				<asp:TextBox ID="txtPersonalIdNumber" runat="server" />
+				<asp:RequiredFieldValidator ID="reqtxtPersonalIdNumber" runat="server" ErrorMessage="Personnummer måste anges" ControlToValidate="txtPersonalIdNumber" Display="Dynamic" ValidationGroup="PersonalIdNumberValidationGroup">*</asp:RequiredFieldValidator>
+				<asp:RegularExpressionValidator ID="regextxtPersonalIdNumber" ValidationExpression="^(19|20)(\d){2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{4}$" runat="server" ErrorMessage="Personnummer måste anges som ÅÅÅÅMMDDXXXX" Display="Dynamic" ControlToValidate="txtPersonalIdNumber" ValidationGroup="PersonalIdNumberValidationGroup">*</asp:RegularExpressionValidator>
+				<asp:Button ID="btnFetchByPersonalIdNumber" runat="server" Text="Hämta →" ValidationGroup="PersonalIdNumberValidationGroup" />
             </span>
 	    
         </p>
@@ -74,6 +80,7 @@
             <label for="<%=txtPostalCode.ClientID%>">Postnummer</label>
 		    <asp:TextBox ID="txtPostalCode" runat="server" />
 		    <asp:RequiredFieldValidator ID="reqtxtPostalCode" runat="server" ErrorMessage="Postnummer måste anges" ControlToValidate="txtPostalCode" Display="Dynamic">*</asp:RequiredFieldValidator>
+			<asp:RegularExpressionValidator ID="regexPostalCode" ValidationExpression="^\d{5}$" runat="server" ErrorMessage="Ogiltigt postnummer, måste anges som fem siffror utan mellanslag." Display="Dynamic" ControlToValidate="txtPostalCode">*</asp:RegularExpressionValidator>
         </p>
     	<p>
             <label for="<%=txtNotes.ClientID%>">Anteckningar</label>
@@ -84,9 +91,9 @@
 
     	<div class="next-step">
             <div class="control-actions">
+				<asp:HiddenField ID="hfCustomerId" runat="server" Value="<%#Model.CustomerId%>" /> 
                 <asp:Button ID="btnCancel" value="Avbryt" CssClass="cancel-button" />
 		        <asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" />
-                
 	        </div>
         </div>
     </fieldset>

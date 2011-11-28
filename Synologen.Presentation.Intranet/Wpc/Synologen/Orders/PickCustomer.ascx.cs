@@ -38,13 +38,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 PersonalIdNumber = txtPersonalIdNumber.Text,
                 PostalCode = txtPostalCode.Text,
                 Phone = txtPhone.Text,
-                Notes = txtNotes.Text
+                Notes = txtNotes.Text,
+				CustomerId = GetCustomerIdFromForm()
             };
-
             Submit(this, args);
-
-            
         }
+
+		private int? GetCustomerIdFromForm()
+		{
+			if (hfCustomerId == null) return null;
+			return Convert.ToInt32(hfCustomerId.Value);
+		}
 
         private void FillFormFromPersonalIdNumber(object sender, EventArgs e)
         {
@@ -52,9 +56,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             if(!Page.IsValid) return;
 
             var args = new FetchCustomerDataByPersonalIdEventArgs
-                           {
-                               PersonalIdNumber = txtPersonalIdNumber.Text
-                           };
+			{
+                PersonalIdNumber = txtPersonalIdNumber.Text
+            };
 
             FetchCustomerByPersonalIdNumber(this, args);
         }

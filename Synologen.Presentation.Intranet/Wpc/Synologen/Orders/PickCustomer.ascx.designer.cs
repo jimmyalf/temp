@@ -193,6 +193,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator reqtxtPostalCode;
         
         /// <summary>
+        /// regexPostalCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regexPostalCode;
+        
+        /// <summary>
         /// txtNotes control.
         /// </summary>
         /// <remarks>
@@ -209,6 +218,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ValidationSummary vldSummary;
+        
+        /// <summary>
+        /// hfCustomerId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfCustomerId;
         
         /// <summary>
         /// btnNextStep control.

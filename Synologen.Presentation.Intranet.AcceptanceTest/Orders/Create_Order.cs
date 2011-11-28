@@ -23,12 +23,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 return new Berättelse("Skapa beställning")
                 .FörAtt("skapa en ny beställning")
                 .Som("inloggad användare på intranätet")
-                .VillJag("kunna välja vad beställningen ska innehålla");
+                .VillJag("välja vad beställningen ska innehålla");
             };
         }
 
         [Test]
-        public void InformationenÄrKorrektIfylld()
+        public void SkapaNyBeställning()
         {
             SetupScenario(scenario => scenario
                 .Givet(AttFormuläretÄrKorrektIfyllt)

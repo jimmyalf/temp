@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
 
         [Test]
-        public void InformationenÄrKorrektIfylld()
+        public void AngeBetalningssätt()
         {
             SetupScenario(scenario => scenario
                 .Givet(AttFormuläretÄrKorrektIfyllt)

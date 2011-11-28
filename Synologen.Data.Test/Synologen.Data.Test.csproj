@@ -104,11 +104,11 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonDataTestHelpers\DataHelper.cs" />
     <Compile Include="ContractSales\Factories\ArticleFactory.cs" />
     <Compile Include="ContractSales\Factories\ShopFactory.cs" />
     <Compile Include="ContractSales\Factories\OrderFactory.cs" />

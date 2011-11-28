@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Base.Data;
-using Spinit.Wpc.Synogen.Test;
 using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
@@ -14,7 +14,6 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
 using Spinit.Wpc.Utility.Business;
@@ -150,14 +149,14 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			var settlementDetailsDataSet = Provider.GetSettlementDetailsDataSet(_settlementId, out totalValueIncludingVAT, out totalValueExcludingVAT, null);
 			settlementDetailsDataSet.Tables[0].Rows.AsEnumerable().ForElementAtIndex(0, dataRow =>
 			{
-				dataRow.Parse<int>("cId").ShouldBe(_settlementId);
-				dataRow.Parse<int>("cShopId").ShouldBe(TestShop.ShopId);
-				dataRow.Parse<string>("cShopNumber").ShouldBe(TestShop.Number);
-				dataRow.Parse<string>("cShopName").ShouldBe(TestShop.Name);
-				dataRow.Parse<string>("cGiroNumber").ShouldBe(TestShop.GiroNumber);
-				dataRow.Parse<double>("cPriceIncludingVAT").ShouldBe(_expectedSumIncludingVATForShop1);
-				dataRow.Parse<double>("cPriceExcludingVAT").ShouldBe(_expectedSumExcludingVATForShop1);
-				dataRow.Parse<int>("cNumberOfOrders").ShouldBe(_expectedNumberOfOrdersInSettlementForShop1);
+				dataRow.Field<int>("cId").ShouldBe(_settlementId);
+				dataRow.Field<int>("cShopId").ShouldBe(TestShop.ShopId);
+				dataRow.Field<string>("cShopNumber").ShouldBe(TestShop.Number);
+				dataRow.Field<string>("cShopName").ShouldBe(TestShop.Name);
+				dataRow.Field<string>("cGiroNumber").ShouldBe(TestShop.GiroNumber);
+				dataRow.Field<double>("cPriceIncludingVAT").ShouldBe(_expectedSumIncludingVATForShop1);
+				dataRow.Field<double>("cPriceExcludingVAT").ShouldBe(_expectedSumExcludingVATForShop1);
+				dataRow.Field<int>("cNumberOfOrders").ShouldBe(_expectedNumberOfOrdersInSettlementForShop1);
 			});
 			totalValueIncludingVAT.ShouldBe((float) _expectedSumIncludingVAT);
 			totalValueExcludingVAT.ShouldBe((float) _expectedSumExcludingVAT);
@@ -208,12 +207,12 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			settlementDataSet.Tables[0].Rows.Count.ShouldBe(expectedNumberOfRowsInDataSet);
 			settlementDataSet.Tables[0].Rows.AsEnumerable().ForElementAtIndex(0, dataRow =>
 			{
-				dataRow.Parse<int>("cArticleId").ShouldBe(_article.Id);
-				dataRow.Parse<string>("cArticleNumber").ShouldBe(_article.Number);
-				dataRow.Parse<string>("cArticleName").ShouldBe(_article.Name);
-				dataRow.Parse<int>("cNumberOfItems").ShouldBe(expectedUniqueArticleQuanityForShop1);
-				dataRow.Parse<bool?>("cNoVAT").ShouldBe(_contractArticleConnection.NoVAT);
-				dataRow.Parse<double>("cPriceSummary").ShouldBe(_expectedSumExcludingVATForShop1);
+				dataRow.Field<int>("cArticleId").ShouldBe(_article.Id);
+				dataRow.Field<string>("cArticleNumber").ShouldBe(_article.Number);
+				dataRow.Field<string>("cArticleName").ShouldBe(_article.Name);
+				dataRow.Field<int>("cNumberOfItems").ShouldBe(expectedUniqueArticleQuanityForShop1);
+				dataRow.Field<bool?>("cNoVAT").ShouldBe(_contractArticleConnection.NoVAT);
+				dataRow.Field<double>("cPriceSummary").ShouldBe(_expectedSumExcludingVATForShop1);
 			});
 			allOrdersMarkedAsPayed.ShouldBe(false);
 			orderValueIncludingVAT.ShouldBe((float) _expectedSumIncludingVATForShop1);
@@ -241,15 +240,15 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			settlementDataSet.Tables[0].Rows.Count.ShouldBe(expectedNumberOfRowsInDataSet);
 			settlementDataSet.Tables[0].Rows.AsEnumerable().ForElementAtIndex(0, dataRow =>
 			{
-				dataRow.Parse<int>("cOrderId").ShouldBe(_ordersToSave.First().Id);
-				dataRow.Parse<int>("cArticleId").ShouldBe(_article.Id);
-				dataRow.Parse<int>("cNumberOfItems").ShouldBe(_ordersToSave.First().OrderItems.First().NumberOfItems);
-				dataRow.Parse<bool?>("cNoVAT").ShouldBe(_contractArticleConnection.NoVAT);
-				dataRow.Parse<string>("cArticleNumber").ShouldBe(_article.Number);
-				dataRow.Parse<string>("cArticleName").ShouldBe(_article.Name);
-				dataRow.Parse<bool>("cOrderMarkedAsPayed").ShouldBe(false);
-				dataRow.Parse<double>("cPriceSummary").ShouldBe(_ordersToSave.First().OrderItems.First().DisplayTotalPrice);
-				dataRow.Parse<string>("cCompany").ShouldBe("Test Företag AB");
+				dataRow.Field<int>("cOrderId").ShouldBe(_ordersToSave.First().Id);
+				dataRow.Field<int>("cArticleId").ShouldBe(_article.Id);
+				dataRow.Field<int>("cNumberOfItems").ShouldBe(_ordersToSave.First().OrderItems.First().NumberOfItems);
+				dataRow.Field<bool?>("cNoVAT").ShouldBe(_contractArticleConnection.NoVAT);
+				dataRow.Field<string>("cArticleNumber").ShouldBe(_article.Number);
+				dataRow.Field<string>("cArticleName").ShouldBe(_article.Name);
+				dataRow.Field<bool>("cOrderMarkedAsPayed").ShouldBe(false);
+				dataRow.Field<double>("cPriceSummary").ShouldBe(_ordersToSave.First().OrderItems.First().DisplayTotalPrice);
+				dataRow.Field<string>("cCompany").ShouldBe("Test Företag AB");
 			});
 			allOrdersMarkedAsPayed.ShouldBe(false);
 			orderValueIncludingVAT.ShouldBe((float) _expectedSumIncludingVATForShop1);

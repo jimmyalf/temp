@@ -172,37 +172,23 @@
       
       <fieldset>
       <legend>Leverantörsalternativ</legend>
-      <asp:RadioButtonList runat="server" ID="SupplierOption">
-      <ul class="radio-list">
-          <li>
-           <asp:RadioButton id="SupplierOption1" 
-               Text="Till butik" 
-               Checked="False" 
-               GroupName="SupplierOptions" 
-               runat="server" />
-          </li>
-          <li>
-           <asp:RadioButton id="SupplierOption2" 
-               Text="Till kund" 
-               Checked="False" 
-               GroupName="SupplierOptions" 
-               runat="server" />
-          </li>
-          <li>
-           <asp:RadioButton id="SupplierOption3" 
-               Text="Ingen leverans" 
-               Checked="False" 
-               GroupName="SupplierOptions" 
-               runat="server" />
-          </li>
-      </ul>
+      <asp:RadioButtonList runat="server" ID="SupplierOption" RepeatDirection="Horizontal">
+      
+           <asp:ListItem 
+               Text="Till butik" />
+        
+           <asp:ListItem
+               Text="Till kund" />
+               
+           <asp:ListItem
+               Text="Ingen leverans" />
       </asp:RadioButtonList>
       </fieldset>
       
    <fieldset>
         <div class="next-step">
             <div class="control-actions">
-				<asp:HiddenField ID="hfCustomerId" runat="server" Value="<%#Model.CustomerId%>" /> 
+				
                 <asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CssClass="cancel-button" />
                 <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" />
 		        <asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" />

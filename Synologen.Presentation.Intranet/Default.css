@@ -102,7 +102,7 @@ address {width:843px; margin: 0 auto; clear:both; background: #D5DED5; font: 9px
 #left_nav ul li ul li.selected a { font-weight:bold; padding-left: 20px; line-height: 25px; border-bottom: 1px solid #D5DED5; background-color:#fff; color:#000 } 
 
 #spotnews {padding:0; border:#156a54 1px solid; margin-bottom: 0; overflow: auto;  position: relative;}
-*html #spotnews {width:100% ; height. 400px;}
+html #spotnews {width:100% ; height:400px;}
 #spotnews :after{content: ""; display: block; height: 0; clear: both;}
 
 #newsheader { padding: 5px; background:#156a54; color: #fff; margin-bottom: 0; } 

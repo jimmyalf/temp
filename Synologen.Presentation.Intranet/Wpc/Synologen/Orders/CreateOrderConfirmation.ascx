@@ -32,7 +32,7 @@
     	<p><label>Ort</label><input type="text" value="Göteborg" disabled="disabled"/></p>
     	<p><label>Postnummer</label><input type="text" value="415 18" disabled="disabled"/></p>
     	<div>
-      	<label>Artiklel/ artiklar</label>
+      	<label>Artikel/Artiklar</label>
      	<ul class="radio-list">
       	<li>Synundersökning</li>
       	<li>Linser</li>

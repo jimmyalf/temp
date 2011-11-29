@@ -107,9 +107,9 @@
             </asp:DropDownList>
 
 		</p>
-    	<p><label>Diometer</label>
+    	<p><label>Diameter</label>
             
-            <asp:DropDownList id="ddlLeftDiometer" runat="server">
+            <asp:DropDownList id="ddlLeftDiameter" runat="server">
                 <asp:ListItem value="1">
                   -14
                 </asp:ListItem>
@@ -154,9 +154,9 @@
             </asp:DropDownList>
 
 		</p>
-    	<p><label>Diometer</label>
+    	<p><label>Diameter</label>
             
-            <asp:DropDownList id="ddlRightDiometer" runat="server">
+            <asp:DropDownList id="ddlRightDiameter" runat="server">
                 <asp:ListItem value="1">
                   -14
                 </asp:ListItem>

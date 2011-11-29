@@ -1,4 +1,4 @@
-<%@ Master Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Base.Presentation.BaseMain" Codebehind="BaseMain.master.cs" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Base.Presentation.BaseMain" Codebehind="BaseMain.master.cs" %>
 <%@ Register Src="~/Common/Copyright.ascx" TagName="Copyright" TagPrefix="userControl" %>
 <%@ Register Src="~/Common/StyleSheetLoader.ascx" TagName="SSLoader" TagPrefix="userControl" %>
 <%@ Register Src="~/Common/JavaScriptLoader.ascx" TagName="JSLoader" TagPrefix="userControl" %>
@@ -16,9 +16,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" >
 	<userControl:SSLoader ID="SSLoader" runat="server" />
 	<userControl:JSLoader ID="JSLoader" runat="server" />
+	<asp:contentplaceholder id="HeaderContent" runat="server"></asp:contentplaceholder>
 </head>
 <body id="<%= Spinit.Wpc.Base.Business.Globals.ProductBodyId %>">
-<form id="BaseMainForm" runat="server" method="post">
 <div id="dContainer">
 	<div id="dHeader">
 		<div id="dSkipNavigation">
@@ -74,6 +74,5 @@
 		<div id="dCopyright"><userControl:Copyright ID="Copyright" runat="server" /></div>
 	</div>
 </div>
-</form>
 </body>
 </html>

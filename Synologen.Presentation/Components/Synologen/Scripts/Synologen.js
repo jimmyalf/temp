@@ -1,4 +1,4 @@
-﻿(function($) {
+﻿(function ($) {
 	$.Synologen = $.Synologen || {};
 
 	$.extend($.Synologen, {
@@ -9,17 +9,18 @@
 	});
 
 	$.extend($.Synologen, {
-		init: function() {
+		init: function () {
 			$("html").addClass("js-enabled");
 			$.Synologen.initConfirmAction();
 			$.Synologen.initAddContractArticleSPCSAccountAutoUpdate();
 			$.Synologen.initWebformsValidationMessageSuccessHiding();
 			$.Synologen.initMVCValidationMessageSuccessHiding();
 			$.Synologen.initHelpDialogs();
+			$.Synologen.initMainMenuSelection();
 		},
 
 		initHelpDialogs: function () {
-			$(".formItem .form-item-help").each(function() {
+			$(".formItem .form-item-help").each(function () {
 				var helpContent = $(this);
 				var helpContentTitle = helpContent.attr("title");
 				var label = helpContent.parent(".formItem").children("label").first();
@@ -29,21 +30,21 @@
 					.dialog({
 						autoOpen: false,
 						title: helpContentTitle
-				});
+					});
 				label.append("<span class=\"help\" title=\"Visa hjälp\">[?]</span>");
 				var helpItem = label.children("span.help").first();
-				$(helpItem).click(function() {
+				$(helpItem).click(function () {
 					$dialog.dialog('open');
 					return false;
 				});
 			});
 		},
 
-		initConfirmAction: function() {
+		initConfirmAction: function () {
 			$(".confirm-action").click($.Synologen.confirmAction);
 		},
 
-		confirmAction: function() {
+		confirmAction: function () {
 			var title = $(this).attr("title");
 			if (title && title.length > 0) {
 				title = title.substr(0, 1).toLowerCase() + title.substr(1, title.length - 1);
@@ -53,12 +54,12 @@
 			return confirm($.Synologen.Config.ConfirmAction);
 		},
 
-		initAddContractArticleSPCSAccountAutoUpdate: function() {
-			$('.postback-enabled').change(function() {
+		initAddContractArticleSPCSAccountAutoUpdate: function () {
+			$('.postback-enabled').change(function () {
 				var selectedArticle = $(this).attr('value');
 				if (selectedArticle > 0) {
 					var url = "/components/synologen/contract-sales/article/".concat(selectedArticle, "/json");
-					$.getJSON(url, null, function(data) {
+					$.getJSON(url, null, function (data) {
 						if (data && data.SPCSAccountNumber) {
 							var spcsAccountNumberTextBox = $('#spcs-account-number');
 							spcsAccountNumberTextBox.val(data.SPCSAccountNumber);
@@ -71,16 +72,31 @@
 			});
 		},
 
-		initWebformsValidationMessageSuccessHiding: function() {
-			$('#validation-message .success').delay(5000).slideUp('slow', function() {
+		initWebformsValidationMessageSuccessHiding: function () {
+			$('#validation-message .success').delay(5000).slideUp('slow', function () {
 				$(this).remove();
 			});
 		},
 
-		initMVCValidationMessageSuccessHiding: function() {
-			$('.action-messages.contains-success').delay(5000).slideUp('slow', function() {
+		initMVCValidationMessageSuccessHiding: function () {
+			$('.action-messages.contains-success').delay(5000).slideUp('slow', function () {
 				$(this).remove();
 			});
+		},
+		
+		initMainMenuSelection: function () {
+			var match = null;
+			$('ul#synologen-main-menu a').each(function () {
+				var link = $(this);
+				if (window.location.pathname.toLowerCase().indexOf(link.attr('href').toLowerCase()) != -1) {
+					if (match == null || link.attr('href').length > match.attr('href').length) {
+						match = link;
+					};
+				}
+			});
+			if (match != null) {
+				match.parent('li').addClass('Selected');
+			}
 		}
 	});
 

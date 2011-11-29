@@ -453,8 +453,10 @@
     <None Include="Testpages\OrdersPaymentOptions.aspx" />
     <None Include="Testpages\OrdersCreateOrderConfirmation.aspx" />
     <None Include="Testpages\OrdersAutogiroDetails.aspx" />
+    <Content Include="Wpc\Synologen\Css\jquery-ui-1.8.16.custom.css" />
     <Content Include="Wpc\Synologen\Css\screen.css" />
-    <Content Include="Wpc\Synologen\Css\Smoothness\jquery-ui-1.8.16.custom.css" />
+    <Content Include="Wpc\Synologen\Css\smoothness\images\pbar-ani.gif" />
+    <Content Include="Wpc\Synologen\Css\smoothness\jquery-ui-1.8.16.custom.css" />
     <Content Include="Wpc\Synologen\EditMember.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\EditOrder.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\CreateOrder.ascx" />

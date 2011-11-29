@@ -1,3 +1,4 @@
+using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 
@@ -51,5 +52,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				PostalCode = "41300",
 			};
 		}
+
+	    public static CreateOrderEventArgs GetOrder()
+	    {
+	        return new CreateOrderEventArgs
+	                   {
+	                       ArticleId = 1,
+                           CategoryId = 1,
+                           LeftBaseCurve = 9,
+                           LeftDiameter = -14,
+                           LeftPower = 5,
+                           RightBaseCurve = 9,
+                           RightDiameter = -14,
+                           RightPower = 5,
+                           ShipmentOption = 1,
+                           SupplierId = 15,
+                           TypeId = 1
+	                   };
+	    }
 	}
 }

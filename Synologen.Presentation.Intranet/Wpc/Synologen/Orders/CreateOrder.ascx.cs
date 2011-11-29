@@ -11,12 +11,46 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     [PresenterBinding(typeof(CreateOrderPresenter))]
     public partial class CreateOrder : MvpUserControl<CreateOrderModel>, ICreateOrderView
     {
+        public int NextPageId { get; set; }
         public event EventHandler<CreateOrderEventArgs> Submit;
         
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            btnNextStep.Click += NextStep;
+            btnPreviousStep.Click += PreviousStep;
+            btnCancel.Click += Cancel;
         }
 
+        private void Cancel(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PreviousStep(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void NextStep(object sender, EventArgs e)
+        {
+            Page.Validate();
+            if (!Page.IsValid) return;
+            if (Submit == null) return;
+            var args = new CreateOrderEventArgs
+            {
+                ArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
+                CategoryId = Convert.ToInt32(ddlPickCategory.SelectedValue),
+                ShipmentOption = Convert.ToInt32(SupplierOption.SelectedValue),
+                SupplierId = Convert.ToInt32(SupplierOption.SelectedValue),
+                TypeId = Convert.ToInt32(ddlPickKind.SelectedValue),
+                LeftBaseCurve = Convert.ToInt32(ddlLeftBaskurva.SelectedValue),
+                LeftDiameter = Convert.ToInt32(ddlLeftDiameter.SelectedValue),
+                LeftPower = Convert.ToInt32(ddlRightStrength.SelectedValue),
+                RightBaseCurve = Convert.ToInt32(ddlRightBaskurva.SelectedValue),
+                RightDiameter = Convert.ToInt32(ddlRightDiameter.SelectedValue),
+                RightPower = Convert.ToInt32(ddlRightStrength.SelectedValue)
+            };
+            Submit(this, args);
+        }
     }
 }

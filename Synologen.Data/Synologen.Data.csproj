@@ -165,6 +165,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\TransactionArticle.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\TransactionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderCustomerMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopMap.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\ShopRepository.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SubscriptionMap.cs" />

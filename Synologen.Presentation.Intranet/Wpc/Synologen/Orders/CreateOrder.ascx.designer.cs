@@ -67,13 +67,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.DropDownList ddlLeftBaskurva;
         
         /// <summary>
-        /// ddlLeftDiometer control.
+        /// ddlLeftDiameter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLeftDiometer;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLeftDiameter;
         
         /// <summary>
         /// ddlRightStrength control.
@@ -94,13 +94,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.DropDownList ddlRightBaskurva;
         
         /// <summary>
-        /// ddlRightDiometer control.
+        /// ddlRightDiameter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRightDiometer;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRightDiameter;
         
         /// <summary>
         /// SupplierOption1 control.

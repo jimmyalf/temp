@@ -585,6 +585,10 @@
     </Content>
     <Content Include="Areas\SynologenAdmin\Views\Frame\ViewFrameOrder.aspx" />
     <Content Include="Window.master" />
+    <Content Include="WindowMVC.master" />
+    <Content Include="BaseMainMVC.master" />
+    <Content Include="Components\ComponentMain.master" />
+    <Content Include="Components\ComponentMainMVC.master" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

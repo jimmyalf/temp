@@ -44,6 +44,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.IoC
 			For<ISettlementRepository>().Use<SettlementRepository>();
 			For<ITransactionArticleRepository>().Use<TransactionArticleRepository>();
 			For<IOrderCustomerRepository>().Use<OrderCustomerRepository>();
+		    For<IOrderRepository>().Use<OrderRepository>();
 			
 
 			// Register GUI and settings services

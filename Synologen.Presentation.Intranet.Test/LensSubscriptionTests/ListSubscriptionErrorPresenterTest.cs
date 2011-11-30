@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			Context = () =>
 			{
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(subscription);
-				MockedHttpContext.SetupSingleQuery("subscription",subscriptionId.ToString());
+				HttpContext.SetupRequestParameter("subscription",subscriptionId.ToString());
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -38,11 +38,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.List.Count().ShouldBe(_errorList.Count());
-				view.Model.HasErrors.ShouldBe(true);
-				view.Model.List.For((index,errorItem) =>
+				View.Model.List.Count().ShouldBe(_errorList.Count());
+				View.Model.HasErrors.ShouldBe(true);
+				View.Model.List.For((index,errorItem) =>
 				{
 					errorItem.CreatedDate.ShouldBe(_errorList.ElementAt(index).CreatedDate.ToString("yyyy-MM-dd"));
 					errorItem.TypeName.ShouldBe(_errorList.ElementAt(index).Type.GetEnumDisplayName());
@@ -50,7 +48,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 					errorItem.ErrorId.ShouldBe(_errorList.ElementAt(index).Id.ToString());
 					errorItem.IsVisible.ShouldBe(!_errorList.ElementAt(index).IsHandled);
 				});
-			});
+
 		}
 	}
 
@@ -71,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedHttpContext.SetupSingleQuery("subscription", subscriptionId.ToString());
+				HttpContext.SetupRequestParameter("subscription", subscriptionId.ToString());
 				MockedSubscriptionErrorRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(subscriptionError);
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(subscriptionWithErrors);
 			};

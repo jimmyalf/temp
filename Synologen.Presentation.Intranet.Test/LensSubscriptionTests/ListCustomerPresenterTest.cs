@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using FakeItEasy;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
@@ -35,12 +36,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			Context = () =>
 			{
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
-				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
-				MockedHttpContext.SetupSingleQuery("order", null);
-				MockedHttpContext.SetupSingleQuery("sort", null);
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentpageUrl);
+				HttpContext.SetupRequestParameter("order", null);
+				HttpContext.SetupRequestParameter("sort", null);
+				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl);
 
 			};
 
@@ -67,21 +68,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing( view =>
+			View.Model.List.Count().ShouldBe(_customersList.Count());
+			View.Model.List.For((index, customerItem) =>
 			{
-				view.Model.List.Count().ShouldBe(_customersList.Count());
-				view.Model.List.For((index, customerItem) =>
-				{
-					view.Model.List.ElementAt(index).FirstName.ShouldBe(_customersList.ElementAt(index).FirstName);
-					view.Model.List.ElementAt(index).LastName.ShouldBe(_customersList.ElementAt(index).LastName);
-					view.Model.List.ElementAt(index).PersonalIdNumber.ShouldBe(_customersList.ElementAt(index).PersonalIdNumber);
-					view.Model.List.ElementAt(index).EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList.ElementAt(index).Id);
-				});
-				view.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc");
-				view.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc");
-				view.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc");
-				view.Model.SearchTerm.ShouldBe(null);
+				View.Model.List.ElementAt(index).FirstName.ShouldBe(_customersList.ElementAt(index).FirstName);
+				View.Model.List.ElementAt(index).LastName.ShouldBe(_customersList.ElementAt(index).LastName);
+				View.Model.List.ElementAt(index).PersonalIdNumber.ShouldBe(_customersList.ElementAt(index).PersonalIdNumber);
+				View.Model.List.ElementAt(index).EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList.ElementAt(index).Id);
 			});
+			View.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc");
+			View.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc");
+			View.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc");
+			View.Model.SearchTerm.ShouldBe(null);
 		}
 	}
 
@@ -107,11 +105,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentpageUrl);
+				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl);
+				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl);
 			};
 
 			Because = presenter => {
@@ -134,21 +133,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing( view =>
+			View.Model.List.Count().ShouldBe(_customersList.Count());
+			View.Model.List.For((index, customerItem) =>
 			{
-				view.Model.List.Count().ShouldBe(_customersList.Count());
-				view.Model.List.For((index, customerItem) =>
-				{
-					view.Model.List.ElementAt(index).FirstName.ShouldBe(_customersList.ElementAt(index).FirstName);
-					view.Model.List.ElementAt(index).LastName.ShouldBe(_customersList.ElementAt(index).LastName);
-					view.Model.List.ElementAt(index).PersonalIdNumber.ShouldBe(_customersList.ElementAt(index).PersonalIdNumber);
-					view.Model.List.ElementAt(index).EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList.ElementAt(index).Id);
-				});
-				view.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc&search=" + _searchTerm);
-				view.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc&search=" + _searchTerm);
-				view.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc&search=" + _searchTerm);
-				view.Model.SearchTerm.ShouldBe(_searchTerm);
+				View.Model.List.ElementAt(index).FirstName.ShouldBe(_customersList.ElementAt(index).FirstName);
+				View.Model.List.ElementAt(index).LastName.ShouldBe(_customersList.ElementAt(index).LastName);
+				View.Model.List.ElementAt(index).PersonalIdNumber.ShouldBe(_customersList.ElementAt(index).PersonalIdNumber);
+				View.Model.List.ElementAt(index).EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList.ElementAt(index).Id);
 			});
+			View.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc&search=" + _searchTerm);
+			View.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc&search=" + _searchTerm);
+			View.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc&search=" + _searchTerm);
+			View.Model.SearchTerm.ShouldBe(_searchTerm);
 		}
 
 	}
@@ -176,13 +172,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			Context = () =>
 			{
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
-				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
 
-				var coll = new NameValueCollection {{"order", _orderColumn}, {"sort", _sortOrder}};
-				MockedHttpContext.SetupQueryString(coll);
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentpageUrl + "?order="+ _orderColumn + "&sort=" + _sortOrder);
+				HttpContext.SetupRequestParameter("order", _orderColumn);
+				HttpContext.SetupRequestParameter("sort", _sortOrder);
+				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl + "?order="+ _orderColumn + "&sort=" + _sortOrder);
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -201,14 +197,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing(view =>
-			{
-				view.Model.List.Count().ShouldBe(_customersList.Count());
-				view.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Desc");
-				view.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc");
-				view.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc");
-				view.Model.SearchTerm.ShouldBe(null);
-			});
+			View.Model.List.Count().ShouldBe(_customersList.Count());
+			View.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Desc");
+			View.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc");
+			View.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc");
+			View.Model.SearchTerm.ShouldBe(null);
 		}
 	}
 
@@ -234,13 +227,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			Context = () =>
 			{
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
-				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
 
-				var coll = new NameValueCollection {{"order", _orderColumn}, {"sort", _sortOrder}};
-				MockedHttpContext.SetupQueryString(coll);
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentpageUrl + "?order="+ _orderColumn + "&sort=" + _sortOrder);
+				HttpContext.SetupRequestParameter("order", _orderColumn);
+				HttpContext.SetupRequestParameter("sort", _sortOrder);
+
+				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl + "?order="+ _orderColumn + "&sort=" + _sortOrder);
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -259,14 +253,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing(view =>
-			{
-				view.Model.List.Count().ShouldBe(_customersList.Count());
-				view.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc");
-				view.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc");
-				view.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc");
-				view.Model.SearchTerm.ShouldBe(null);
-			});
+			View.Model.List.Count().ShouldBe(_customersList.Count());
+			View.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc");
+			View.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc");
+			View.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc");
+			View.Model.SearchTerm.ShouldBe(null);
 		}
 	}
 
@@ -292,13 +283,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			Context = () =>
 			{
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
-				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
 
-				var coll = new NameValueCollection { { "order", _orderColumn }, { "sort", _sortOrder } };
-				MockedHttpContext.SetupQueryString(coll);
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentpageUrl + "?order=" + _orderColumn + "&sort=" + _sortOrder);
+				HttpContext.SetupRequestParameter("order", _orderColumn);
+				HttpContext.SetupRequestParameter("sort", _sortOrder);
+				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl + "?order=" + _orderColumn + "&sort=" + _sortOrder);
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -317,14 +308,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing(view =>
-			{
-				view.Model.List.Count().ShouldBe(_customersList.Count());
-				view.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc");
-				view.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Desc");
-				view.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc");
-				view.Model.SearchTerm.ShouldBe(null);
-			});
+			View.Model.List.Count().ShouldBe(_customersList.Count());
+			View.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc");
+			View.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Desc");
+			View.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc");
+			View.Model.SearchTerm.ShouldBe(null);
 		}
 	}
 
@@ -350,13 +338,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			Context = () =>
 			{
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
-				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
 
-				var coll = new NameValueCollection { { "order", _orderColumn }, { "sort", _sortOrder } };
-				MockedHttpContext.SetupQueryString(coll);
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentpageUrl + "?order=" + _orderColumn + "&sort=" + _sortOrder);
+				HttpContext.SetupRequestParameter("order", _orderColumn);
+				HttpContext.SetupRequestParameter("sort", _sortOrder);
+
+				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl + "?order=" + _orderColumn + "&sort=" + _sortOrder);
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -375,14 +364,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing(view =>
-			{
-				view.Model.List.Count().ShouldBe(_customersList.Count());
-				view.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc");
-				view.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc");
-				view.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc");
-				view.Model.SearchTerm.ShouldBe(null);
-			});
+			View.Model.List.Count().ShouldBe(_customersList.Count());
+			View.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc");
+			View.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc");
+			View.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc");
+			View.Model.SearchTerm.ShouldBe(null);
 		}
 	}
 
@@ -409,13 +395,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			Context = () =>
 			{
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
-				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
 
-				var coll = new NameValueCollection { { "order", _orderColumn }, { "sort", _sortOrder } };
-				MockedHttpContext.SetupQueryString(coll);
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentpageUrl + "?order=" + _orderColumn + "&sort=" + _sortOrder);
+				HttpContext.SetupRequestParameter("order", _orderColumn);
+				HttpContext.SetupRequestParameter("sort", _sortOrder);
+				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl + "?order=" + _orderColumn + "&sort=" + _sortOrder);
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -434,14 +420,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing(view =>
-			{
-				view.Model.List.Count().ShouldBe(_customersList.Count());
-				view.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc");
-				view.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc");
-				view.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Desc");
-				view.Model.SearchTerm.ShouldBe(null);
-			});
+			View.Model.List.Count().ShouldBe(_customersList.Count());
+			View.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc");
+			View.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc");
+			View.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Desc");
+			View.Model.SearchTerm.ShouldBe(null);
 		}
 	}
 
@@ -467,13 +450,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			Context = () =>
 			{
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
-				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
 
-				var coll = new NameValueCollection { { "order", _orderColumn }, { "sort", _sortOrder } };
-				MockedHttpContext.SetupQueryString(coll);
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentpageUrl + "?order=" + _orderColumn + "&sort=" + _sortOrder);
+				HttpContext.SetupRequestParameter("order", _orderColumn);
+				HttpContext.SetupRequestParameter("sort", _sortOrder);
+				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl + "?order=" + _orderColumn + "&sort=" + _sortOrder);
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -492,14 +475,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing(view =>
-			{
-				view.Model.List.Count().ShouldBe(_customersList.Count());
-				view.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc");
-				view.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc");
-				view.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc");
-				view.Model.SearchTerm.ShouldBe(null);
-			});
+			View.Model.List.Count().ShouldBe(_customersList.Count());
+			View.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc");
+			View.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc");
+			View.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc");
+			View.Model.SearchTerm.ShouldBe(null);
 		}
 	}
 
@@ -526,13 +506,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
-				var coll = new NameValueCollection { { "order", _orderColumn }, { "sort", _sortOrder } };
-				MockedHttpContext.SetupQueryString(coll);
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentpageUrl);
+				HttpContext.SetupRequestParameter("order", _orderColumn);
+				HttpContext.SetupRequestParameter("sort", _sortOrder);
+				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl);
 			};
 
 			Because = presenter =>
@@ -555,21 +535,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing(view =>
+			View.Model.List.Count().ShouldBe(_customersList.Count());
+			View.Model.List.For((index, customerItem) =>
 			{
-				view.Model.List.Count().ShouldBe(_customersList.Count());
-				view.Model.List.For((index, customerItem) =>
-				{
-					view.Model.List.ElementAt(index).FirstName.ShouldBe(_customersList.ElementAt(index).FirstName);
-					view.Model.List.ElementAt(index).LastName.ShouldBe(_customersList.ElementAt(index).LastName);
-					view.Model.List.ElementAt(index).PersonalIdNumber.ShouldBe(_customersList.ElementAt(index).PersonalIdNumber);
-					view.Model.List.ElementAt(index).EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList.ElementAt(index).Id);
-				});
-				view.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Desc&search=" + _searchTerm);
-				view.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc&search=" + _searchTerm);
-				view.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc&search=" + _searchTerm);
-				view.Model.SearchTerm.ShouldBe(_searchTerm);
+				View.Model.List.ElementAt(index).FirstName.ShouldBe(_customersList.ElementAt(index).FirstName);
+				View.Model.List.ElementAt(index).LastName.ShouldBe(_customersList.ElementAt(index).LastName);
+				View.Model.List.ElementAt(index).PersonalIdNumber.ShouldBe(_customersList.ElementAt(index).PersonalIdNumber);
+				View.Model.List.ElementAt(index).EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList.ElementAt(index).Id);
 			});
+			View.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Desc&search=" + _searchTerm);
+			View.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc&search=" + _searchTerm);
+			View.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc&search=" + _searchTerm);
+			View.Model.SearchTerm.ShouldBe(_searchTerm);
 		}
 
 	}
@@ -598,13 +575,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
-				var coll = new NameValueCollection { { "order", _orderColumn }, { "sort", _sortOrder } };
-				MockedHttpContext.SetupQueryString(coll);
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentpageUrl);
+				HttpContext.SetupRequestParameter("order", _orderColumn);
+				HttpContext.SetupRequestParameter("sort", _sortOrder);
+				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl);
 			};
 
 			Because = presenter =>
@@ -627,21 +604,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing(view =>
+			View.Model.List.Count().ShouldBe(_customersList.Count());
+			View.Model.List.For((index, customerItem) =>
 			{
-				view.Model.List.Count().ShouldBe(_customersList.Count());
-				view.Model.List.For((index, customerItem) =>
-				{
-					view.Model.List.ElementAt(index).FirstName.ShouldBe(_customersList.ElementAt(index).FirstName);
-					view.Model.List.ElementAt(index).LastName.ShouldBe(_customersList.ElementAt(index).LastName);
-					view.Model.List.ElementAt(index).PersonalIdNumber.ShouldBe(_customersList.ElementAt(index).PersonalIdNumber);
-					view.Model.List.ElementAt(index).EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList.ElementAt(index).Id);
-				});
-				view.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc&search=" + _searchTerm);
-				view.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Desc&search=" + _searchTerm);
-				view.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc&search=" + _searchTerm);
-				view.Model.SearchTerm.ShouldBe(_searchTerm);
+				View.Model.List.ElementAt(index).FirstName.ShouldBe(_customersList.ElementAt(index).FirstName);
+				View.Model.List.ElementAt(index).LastName.ShouldBe(_customersList.ElementAt(index).LastName);
+				View.Model.List.ElementAt(index).PersonalIdNumber.ShouldBe(_customersList.ElementAt(index).PersonalIdNumber);
+				View.Model.List.ElementAt(index).EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList.ElementAt(index).Id);
 			});
+			View.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc&search=" + _searchTerm);
+			View.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Desc&search=" + _searchTerm);
+			View.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Asc&search=" + _searchTerm);
+			View.Model.SearchTerm.ShouldBe(_searchTerm);
 		}
 	}
 
@@ -668,13 +642,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedView.SetupGet(x => x.EditPageId).Returns(67);
+				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
-				var coll = new NameValueCollection { { "order", _orderColumn }, { "sort", _sortOrder } };
-				MockedHttpContext.SetupQueryString(coll);
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentpageUrl);
+				HttpContext.SetupRequestParameter("order", _orderColumn);
+				HttpContext.SetupRequestParameter("sort", _sortOrder);
+				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl);
 			};
 
 			Because = presenter =>
@@ -697,21 +671,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing(view =>
-			{
-				view.Model.List.Count().ShouldBe(_customersList.Count());
-				view.Model.List.For((index, customerItem) =>
+			View.Model.List.Count().ShouldBe(_customersList.Count());
+			View.Model.List.For((index, customerItem) =>
 				{
-					view.Model.List.ElementAt(index).FirstName.ShouldBe(_customersList.ElementAt(index).FirstName);
-					view.Model.List.ElementAt(index).LastName.ShouldBe(_customersList.ElementAt(index).LastName);
-					view.Model.List.ElementAt(index).PersonalIdNumber.ShouldBe(_customersList.ElementAt(index).PersonalIdNumber);
-					view.Model.List.ElementAt(index).EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList.ElementAt(index).Id);
+				View.Model.List.ElementAt(index).FirstName.ShouldBe(_customersList.ElementAt(index).FirstName);
+				View.Model.List.ElementAt(index).LastName.ShouldBe(_customersList.ElementAt(index).LastName);
+				View.Model.List.ElementAt(index).PersonalIdNumber.ShouldBe(_customersList.ElementAt(index).PersonalIdNumber);
+				View.Model.List.ElementAt(index).EditPageUrl.ShouldBe(_editPageUrl + "?customer=" + _customersList.ElementAt(index).Id);
 				});
-				view.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc&search=" + _searchTerm);
-				view.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc&search=" + _searchTerm);
-				view.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Desc&search=" + _searchTerm);
-				view.Model.SearchTerm.ShouldBe(_searchTerm);
-			});
+			View.Model.FirstNameSortUrl.ShouldBe(_currentpageUrl + "?order=FirstName&sort=Asc&search=" + _searchTerm);
+			View.Model.LastNameSortUrl.ShouldBe(_currentpageUrl + "?order=LastName&sort=Asc&search=" + _searchTerm);
+			View.Model.PersonNumberSortUrl.ShouldBe(_currentpageUrl + "?order=PersonalIdNumber&sort=Desc&search=" + _searchTerm);
+			View.Model.SearchTerm.ShouldBe(_searchTerm);
 		}
 	}
 

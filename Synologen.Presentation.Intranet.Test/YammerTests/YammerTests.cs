@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using FakeItEasy;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -24,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.YammerTests
             {
                 MockedService.Setup(x => x.GetJson(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>())).Returns(YammerFactory.GetJson);
                 MockedService.Setup(x => x.GetJson(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>())).Returns(YammerFactory.GetJson);
-                MockedView.Setup(x => x.NumberOfMessages).Returns(10);
+                A.CallTo(() => View.NumberOfMessages).Returns(10);
             };
             Because = presenter => presenter.View_Load(null, new EventArgs());
         }
@@ -32,14 +33,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.YammerTests
         [Test]
         public void Json_is_parsed_into_yammer_list_items()
         {
-            AssertUsing(view => view.Model.Messages.And(_objects.messages).Do((viewItem, parsedItem) =>
+            View.Model.Messages.And(_objects.messages).Do((viewItem, parsedItem) =>
             {
                 var author = _objects.references.FirstOrDefault(x => x.id == parsedItem.sender_id);
 
                 viewItem.Content.ShouldBe(parsedItem.body.plain);
                 viewItem.AuthorName.ShouldBe(author.full_name);
                 viewItem.AuthorImageUrl.ShouldBe(author.mugshot_url);
-            }));
+            });
         }
     }
 
@@ -52,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.YammerTests
             Context = () =>
             {
                 MockedService.Setup(x => x.GetJson(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>())).Returns(String.Empty);
-                MockedView.Setup(x => x.NumberOfMessages).Returns(10);
+                A.CallTo(() => View.NumberOfMessages).Returns(10);
             };
             Because = presenter => presenter.View_Load(null, new EventArgs());
         }
@@ -60,7 +61,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.YammerTests
         [Test]
         public void Json_is_parsed_into_yammer_list_items()
         {
-            AssertUsing(view => view.Model.Messages.Count().ShouldBe(0));
+            View.Model.Messages.Count().ShouldBe(0);
         }
     }
 }

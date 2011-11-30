@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests.Test
 			GetPresenter = () => 
 			{
 				return new ViewSettlementPresenter(
-					MockedView.Object,
+					View,
 					MockedSettlementRepository.Object,
 					MockedSynologenMemberService.Object,
 					MockedSqlProvider.Object);

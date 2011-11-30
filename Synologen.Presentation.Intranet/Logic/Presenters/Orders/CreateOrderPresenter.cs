@@ -1,3 +1,4 @@
+using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -16,10 +17,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         {
             _synologenMemberService = synologenMemberService;
             _orderRepository = orderRepository;
+        	View.Load += View_Load;
             View.Submit += View_Submit;
         }
 
-        public override void ReleaseView()
+    	public void View_Load(object sender, EventArgs e)
+    	{
+    	}
+
+    	public override void ReleaseView()
         {
             View.Submit -= View_Submit;
         }

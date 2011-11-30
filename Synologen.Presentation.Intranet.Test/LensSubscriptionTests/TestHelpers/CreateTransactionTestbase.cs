@@ -25,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests.
 			GetPresenter = () =>
 			{
 				return new CreateTransactionPresenter(
-					MockedView.Object, 
+					View, 
 					MockedTransactionRepository.Object,
 					MockedSubscriptionRepository.Object, 
 					MockedTransactionArticleRepository.Object);

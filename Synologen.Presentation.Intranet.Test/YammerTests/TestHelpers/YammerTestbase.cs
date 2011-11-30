@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.YammerTests.TestHelper
 
             GetPresenter = () =>
             {
-                return new YammerPresenter(MockedView.Object, MockedService.Object);
+                return new YammerPresenter(View, MockedService.Object);
             };
         }
     }

@@ -20,13 +20,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests.
 				MockedSubscriptionErrorRepository = new Mock<ISubscriptionErrorRepository>();
 			};
 
-			GetPresenter = () => 
-			{
-				return new ListSubscriptionErrorsPresenter(
-					MockedView.Object,
-					MockedSubscriptionErrorRepository.Object,
-					MockedSubscriptionRepository.Object);
-			};
+			GetPresenter = () => new ListSubscriptionErrorsPresenter(
+			                     	View,
+			                     	MockedSubscriptionErrorRepository.Object,
+			                     	MockedSubscriptionRepository.Object);
 		}
 
 

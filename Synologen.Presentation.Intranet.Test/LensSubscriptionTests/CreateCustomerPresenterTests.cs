@@ -1,4 +1,5 @@
 ﻿using System;
+using FakeItEasy;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
@@ -25,11 +26,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Form_is_displayed()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
-				view.Model.DisplayForm.ShouldBe(true);
-			});
+			View.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+			View.Model.DisplayForm.ShouldBe(true);
 		}
 	}
 
@@ -55,11 +53,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Shop_does_not_have_access_to_lens_subscription_message_should_be_displayed()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(true);
-				view.Model.DisplayForm.ShouldBe(false);	
-			});
+			View.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(true);
+			View.Model.DisplayForm.ShouldBe(false);	
 		}
 	}
 
@@ -87,7 +82,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			Context = () =>
 			{
 				MockedCountryRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_selectedCountry);
-				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
+				A.CallTo(() => View.RedirectOnSavePageId).Returns(_redirectPageId);
 				MockedShopRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(shop);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(_shopId);
@@ -132,7 +127,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
 			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
-			MockedHttpContext.VerifyRedirect(_redirectUrl);
+			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_redirectUrl);
 		}
 	}
 

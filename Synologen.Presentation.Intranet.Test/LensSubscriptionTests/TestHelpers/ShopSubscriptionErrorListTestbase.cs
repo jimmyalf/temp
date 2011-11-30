@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests.
 			GetPresenter = () => 
 			{
 				return new ShopSubscriptionErrorListPresenter(
-					MockedView.Object,
+					View,
 					MockedSynologenMemberService.Object,
 					MockedSubscriptionErrorRepository.Object
 				);

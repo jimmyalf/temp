@@ -1,4 +1,5 @@
 using System;
+using FakeItEasy;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
@@ -36,11 +37,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedView.SetupGet(x => x.ReturnPageId).Returns(_returnUrlPageId);
+				A.CallTo(() => View.ReturnPageId).Returns(_returnUrlPageId);
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
+				HttpContext.SetupRequestParameter("subscription", _subscriptionId.ToString());
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.Is<int>(pageId => pageId.Equals(_returnUrlPageId)))).Returns(url);
 			};
 
@@ -50,24 +51,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.ActivatedDate.ShouldBe(_expectedSubscription.ActivatedDate.Value.ToString("yyyy-MM-dd"));
-				view.Model.CreatedDate.ShouldBe(_expectedSubscription.CreatedDate.ToString("yyyy-MM-dd"));
-				view.Model.CustomerName.ShouldBe(_expectedSubscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
-				view.Model.AccountNumber.ShouldBe(_expectedSubscription.PaymentInfo.AccountNumber);
-				view.Model.ClearingNumber.ShouldBe(_expectedSubscription.PaymentInfo.ClearingNumber);
-				view.Model.MonthlyAmount.ShouldBe(_expectedSubscription.PaymentInfo.MonthlyAmount.ToString());
-				view.Model.Status.ShouldBe(_expectedSubscription.Active ? SubscriptionStatus.Started.GetEnumDisplayName() : SubscriptionStatus.Stopped.GetEnumDisplayName());
-				view.Model.Status.ShouldBe(SubscriptionStatus.Started.GetEnumDisplayName());
-				view.Model.StopButtonEnabled.ShouldBe(true);
-				view.Model.StartButtonEnabled.ShouldBe(false);
-				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
-				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
-				view.Model.DisplayForm.ShouldBe(true);
-				view.Model.ReturnUrl.ShouldBe(_expectedReturnUrl);
-				view.Model.ConsentStatus.ShouldBe(_expectedSubscription.ConsentStatus.GetEnumDisplayName());
-			});
+			View.Model.ActivatedDate.ShouldBe(_expectedSubscription.ActivatedDate.Value.ToString("yyyy-MM-dd"));
+			View.Model.CreatedDate.ShouldBe(_expectedSubscription.CreatedDate.ToString("yyyy-MM-dd"));
+			View.Model.CustomerName.ShouldBe(_expectedSubscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
+			View.Model.AccountNumber.ShouldBe(_expectedSubscription.PaymentInfo.AccountNumber);
+			View.Model.ClearingNumber.ShouldBe(_expectedSubscription.PaymentInfo.ClearingNumber);
+			View.Model.MonthlyAmount.ShouldBe(_expectedSubscription.PaymentInfo.MonthlyAmount.ToString());
+			View.Model.Status.ShouldBe(_expectedSubscription.Active ? SubscriptionStatus.Started.GetEnumDisplayName() : SubscriptionStatus.Stopped.GetEnumDisplayName());
+			View.Model.Status.ShouldBe(SubscriptionStatus.Started.GetEnumDisplayName());
+			View.Model.StopButtonEnabled.ShouldBe(true);
+			View.Model.StartButtonEnabled.ShouldBe(false);
+			View.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+			View.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
+			View.Model.DisplayForm.ShouldBe(true);
+			View.Model.ReturnUrl.ShouldBe(_expectedReturnUrl);
+			View.Model.ConsentStatus.ShouldBe(_expectedSubscription.ConsentStatus.GetEnumDisplayName());
 		}
 
 		[Test]
@@ -106,7 +104,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
+				HttpContext.SetupRequestParameter("subscription", _subscriptionId.ToString());
 			};
 			Because = presenter => presenter.View_Load(null, new EventArgs());
 		}
@@ -114,7 +112,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing(view => view.Model.ReturnUrl.ShouldBe("#"));
+			View.Model.ReturnUrl.ShouldBe("#");
 		}
 	}
 
@@ -137,7 +135,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
+				HttpContext.SetupRequestParameter("subscription", _subscriptionId.ToString());
 			};
 			Because = presenter => presenter.View_Load(null,new EventArgs());
 		}
@@ -145,12 +143,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.Status.ShouldBe(SubscriptionStatus.Stopped.GetEnumDisplayName());
-				view.Model.StopButtonEnabled.ShouldBe(false);
-				view.Model.StartButtonEnabled.ShouldBe(true);
-			});
+			View.Model.Status.ShouldBe(SubscriptionStatus.Stopped.GetEnumDisplayName());
+			View.Model.StopButtonEnabled.ShouldBe(false);
+			View.Model.StartButtonEnabled.ShouldBe(true);
 		}
 
 	}
@@ -174,7 +169,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
+				HttpContext.SetupRequestParameter("subscription", _subscriptionId.ToString());
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -183,12 +178,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.Status.ShouldBe(SubscriptionStatus.Stopped.GetEnumDisplayName());
-				view.Model.StopButtonEnabled.ShouldBe(false);
-				view.Model.StartButtonEnabled.ShouldBe(true);				
-			});
+			View.Model.Status.ShouldBe(SubscriptionStatus.Stopped.GetEnumDisplayName());
+			View.Model.StopButtonEnabled.ShouldBe(false);
+			View.Model.StartButtonEnabled.ShouldBe(true);				
 		}
 
 	}
@@ -217,12 +209,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			_saveEventArgs = SubscriptionFactory.GetSaveSubscriptionEventArgs(_expectedSubscription);
 			Context = () =>
 			{
-				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
+				A.CallTo(() => View.RedirectOnSavePageId).Returns(_redirectPageId);
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
-				MockedHttpContext.SetupSingleQuery("subscription", _expectedSubscription.Id.ToString());
+				HttpContext.SetupRequestParameter("subscription", _expectedSubscription.Id.ToString());
 			};
 
 			Because = presenter =>
@@ -252,7 +244,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
 			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
-			MockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_expectedRedirectUrl))));
+			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_expectedRedirectUrl);
 		}
 
 	}
@@ -280,12 +272,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			
 			Context = () =>
 			{
-				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
+				A.CallTo(() => View.RedirectOnSavePageId).Returns(_redirectPageId);
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
-				MockedHttpContext.SetupSingleQuery("subscription", _expectedSubscription.Id.ToString());	
+				HttpContext.SetupRequestParameter("subscription", _expectedSubscription.Id.ToString());	
 			};
 
 			Because = presenter =>
@@ -305,7 +297,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
 			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
-			MockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_expectedRedirectUrl))));
+			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_expectedRedirectUrl);
 		}
 
 	}
@@ -333,12 +325,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
+				A.CallTo(() => View.RedirectOnSavePageId).Returns(_redirectPageId);
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
-				MockedHttpContext.SetupSingleQuery("subscription", _expectedSubscription.Id.ToString());
+				HttpContext.SetupRequestParameter("subscription", _expectedSubscription.Id.ToString());
 			};
 
 			Because = presenter =>
@@ -358,7 +350,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
 			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
-			MockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_expectedRedirectUrl))));
+			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_expectedRedirectUrl);
 		}
 
 	}
@@ -384,13 +376,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(0);
+				A.CallTo(() => View.RedirectOnSavePageId).Returns(0);
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedHttpContext
-					.SetupSingleQuery("subscription", _expectedSubscription.Id.ToString())
-					.SetupCurrentPathAndQuery(_currentPageUrl);
+				HttpContext.SetupRequestParameter("subscription", _expectedSubscription.Id.ToString());
+				HttpContext.SetupVirtualPathAndQuery(_currentPageUrl);
 			};
 
 			Because = presenter =>
@@ -403,7 +394,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_perfoms_redirect_to_current_page()
 		{
-			MockedHttpContext.MockedHttpResponse.Verify(x => x.Redirect(It.Is<string>(url => url.Equals(_currentPageUrl))));
+			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_currentPageUrl);
 		}
 	}
 
@@ -426,7 +417,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(subscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId + 1);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedHttpContext.SetupSingleQuery("subscription", subscription.Id.ToString());
+				HttpContext.SetupRequestParameter("subscription", subscription.Id.ToString());
 			};
 
 			Because = presenter => presenter.View_Load(null,new EventArgs());
@@ -435,12 +426,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
-				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(true);
-				view.Model.DisplayForm.ShouldBe(false);	
-			});
+			View.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+			View.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(true);
+			View.Model.DisplayForm.ShouldBe(false);	
 		}
 	}
 
@@ -461,7 +449,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(SubscriptionFactory.Get(CustomerFactory.Get(customerId, shopId)));
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(false);
-				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
+				HttpContext.SetupRequestParameter("subscription", _subscriptionId.ToString());
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -470,12 +458,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(true);
-				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
-				view.Model.DisplayForm.ShouldBe(false);	
-			});
+			View.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(true);
+			View.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
+			View.Model.DisplayForm.ShouldBe(false);	
 		}
 	}
 
@@ -496,7 +481,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns((Subscription) null);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(false);
-				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
+				HttpContext.SetupRequestParameter("subscription", _subscriptionId.ToString());
 			};
 
 			Because = presenter => presenter.View_Load(null,new EventArgs());
@@ -505,13 +490,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
-				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
-				view.Model.SubscriptionDoesNotExist.ShouldBe(true);
-				view.Model.DisplayForm.ShouldBe(false);	
-			});
+			View.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+			View.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
+			View.Model.SubscriptionDoesNotExist.ShouldBe(true);
+			View.Model.DisplayForm.ShouldBe(false);	
 		}
 	}
 
@@ -536,13 +518,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.AccountNumber.ShouldBe(_updateEventArgs.AccountNumber);
-				view.Model.ClearingNumber.ShouldBe(_updateEventArgs.ClearingNumber);
-				view.Model.MonthlyAmount.ShouldBe(_updateEventArgs.MonthlyAmount);
-				view.Model.Notes.ShouldBe(_updateEventArgs.Notes);
-			});
+			View.Model.AccountNumber.ShouldBe(_updateEventArgs.AccountNumber);
+			View.Model.ClearingNumber.ShouldBe(_updateEventArgs.ClearingNumber);
+			View.Model.MonthlyAmount.ShouldBe(_updateEventArgs.MonthlyAmount);
+			View.Model.Notes.ShouldBe(_updateEventArgs.Notes);
 		}
 	}
 }

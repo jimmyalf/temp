@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FakeItEasy;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
@@ -31,7 +32,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedView.SetupGet(x => x.SubscriptionPageId).Returns(_expectedSubscriptionPageId);
+				A.CallTo(() => View.SubscriptionPageId).Returns(_expectedSubscriptionPageId);
 				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_expectedSubscriptionUrl);
 				MockedSubscriptionErrorRepository.Setup(x => x.FindBy(It.IsAny<AllUnhandledSubscriptionErrorsForShopCriteria>())).Returns(_expectedErrors);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(_expectedShopId);
@@ -43,19 +44,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_has_expected_number_of_errors()
 		{
-			AssertUsing( view => view.Model.UnhandledErrors.Count().ShouldBe(_expectedErrors.Count()));
+			View.Model.UnhandledErrors.Count().ShouldBe(_expectedErrors.Count());
 		}
 
 		[Test]
 		public void Model_has_expected_errors()
 		{
-			AssertUsing( view => view.Model.UnhandledErrors.And(_expectedErrors).Do( (viewItem, domainItem) =>
+			View.Model.UnhandledErrors.And(_expectedErrors).Do( (viewItem, domainItem) =>
 			{
 				viewItem.CreatedDate.ShouldBe(domainItem.CreatedDate.ToString("yyyy-MM-dd"));
 				viewItem.CustomerName.ShouldBe(domainItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
 				viewItem.Reason.ShouldBe(domainItem.Type.GetEnumDisplayName());
 				viewItem.SubscriptionLink.ShouldBe(String.Format("{0}?subscription={1}", _expectedSubscriptionUrl, domainItem.Subscription.Id));
-			}));
+			});
 		}
 
 		[Test]
@@ -96,7 +97,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_has_default_subscription_url()
 		{
-			AssertUsing( view => view.Model.UnhandledErrors.And(_expectedErrors).Do((viewItem, domainItem) => viewItem.SubscriptionLink.ShouldBe(String.Format("{0}?subscription={1}", "#", domainItem.Subscription.Id))));
+			View.Model.UnhandledErrors.And(_expectedErrors).Do((viewItem, domainItem) => viewItem.SubscriptionLink.ShouldBe(String.Format("{0}?subscription={1}", "#", domainItem.Subscription.Id)));
 		}
 	}
 }

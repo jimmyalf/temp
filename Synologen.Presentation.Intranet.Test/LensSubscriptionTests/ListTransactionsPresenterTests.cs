@@ -45,19 +45,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			var expectedtransactionListItems = _transactionList.Select(transactionConverter);
 
-			AssertUsing( view =>
+			View.Model.List.Count().ShouldBe(_transactionList.Count());
+			View.Model.HasTransactions.ShouldBe(true);
+			View.Model.CurrentBalance.ShouldBe(_subscription.GetCurrentAccountBalance().ToString("N2"));
+			View.Model.List.For((index, transactionListItem) =>
 			{
-				view.Model.List.Count().ShouldBe(_transactionList.Count());
-				view.Model.HasTransactions.ShouldBe(true);
-				view.Model.CurrentBalance.ShouldBe(_subscription.GetCurrentAccountBalance().ToString("N2"));
-				view.Model.List.For((index, transactionListItem) =>
-				{
-					transactionListItem.Amount.ShouldBe(expectedtransactionListItems.ElementAt(index).Amount);
-					transactionListItem.CreatedDate.ShouldBe(expectedtransactionListItems.ElementAt(index).CreatedDate);
-					transactionListItem.Reason.ShouldBe(expectedtransactionListItems.ElementAt(index).Reason);
-					transactionListItem.Type.ShouldBe(expectedtransactionListItems.ElementAt(index).Type);
-					transactionListItem.HasSettlement.ShouldBe(expectedtransactionListItems.ElementAt(index).HasSettlement);
-				});
+				transactionListItem.Amount.ShouldBe(expectedtransactionListItems.ElementAt(index).Amount);
+				transactionListItem.CreatedDate.ShouldBe(expectedtransactionListItems.ElementAt(index).CreatedDate);
+				transactionListItem.Reason.ShouldBe(expectedtransactionListItems.ElementAt(index).Reason);
+				transactionListItem.Type.ShouldBe(expectedtransactionListItems.ElementAt(index).Type);
+				transactionListItem.HasSettlement.ShouldBe(expectedtransactionListItems.ElementAt(index).HasSettlement);
 			});
 
 		}

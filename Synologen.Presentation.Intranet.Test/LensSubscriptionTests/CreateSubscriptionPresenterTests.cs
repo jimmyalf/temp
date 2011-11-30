@@ -1,4 +1,5 @@
 using System;
+using FakeItEasy;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
@@ -24,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedHttpContext.SetupSingleQuery("customer", customerId.ToString());
+				HttpContext.SetupRequestParameter("customer", customerId.ToString());
 				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId,shopId));
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
@@ -42,18 +43,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing( view => view.Model.CustomerName.ShouldBe("Eva Bergström"));
+			View.Model.CustomerName.ShouldBe("Eva Bergström");
 		}
 
 		[Test]
 		public void Form_should_be_displayed()
 		{
-			AssertUsing(view =>
-			{
-				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
-				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
-				view.Model.DisplayForm.ShouldBe(true);	
-			});
+			View.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
+			View.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+			View.Model.DisplayForm.ShouldBe(true);
 		}
 	}
 
@@ -77,8 +75,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedHttpContext.SetupSingleQuery("customer", _customerId.ToString());
-				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(_redirectPageId);
+				HttpContext.SetupRequestParameter("customer", _customerId.ToString());
+				//HttpContext.SetupRequestParameter("customer", _customerId.ToString());
+				A.CallTo(() => View.RedirectOnSavePageId).Returns(_redirectPageId);
 				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(_customerId, shopId));
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
@@ -108,7 +107,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
 			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
-			MockedHttpContext.VerifyRedirect("{0}?customer={1}",_redirectUrl, _customerId);
+			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(string.Format("{0}?customer={1}",_redirectUrl, _customerId));
 		}
 	}
 
@@ -129,10 +128,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedHttpContext.SetupSingleQuery("customer", customerId.ToString());
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentPageUrl);
-				MockedView.SetupGet(x => x.Model).Returns(new CreateLensSubscriptionModel());
-				MockedView.SetupGet(x => x.RedirectOnSavePageId).Returns(noredirectPageId);
+				HttpContext.SetupRequestParameter("customer", customerId.ToString());
+				HttpContext.SetupVirtualPathAndQuery(_currentPageUrl);
+				A.CallTo(() => View.Model).Returns(new CreateLensSubscriptionModel());
+				A.CallTo(() => View.RedirectOnSavePageId).Returns(noredirectPageId);
 				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId, shopId));
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
@@ -148,7 +147,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_perfoms_redirect_to_current_page()
 		{
-			MockedHttpContext.VerifyRedirect(_currentPageUrl);
+			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_currentPageUrl);
 		}
 	}
 
@@ -164,7 +163,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () => 
 			{
-				MockedHttpContext.SetupSingleQuery("customer", customerId.ToString());
+				HttpContext.SetupRequestParameter("customer", customerId.ToString());
 				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId, otherShopId));
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
@@ -176,12 +175,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Shop_does_not_have_access_to_given_customer_message_should_be_displayed()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(true);
-				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
-				view.Model.DisplayForm.ShouldBe(false);	
-			});
+			View.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(true);
+			View.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(false);
+			View.Model.DisplayForm.ShouldBe(false);	
 		}
 	}
 
@@ -196,7 +192,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () => 
 			{
-				MockedHttpContext.SetupSingleQuery("customer", customerId.ToString());
+				HttpContext.SetupRequestParameter("customer", customerId.ToString());
 				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(customerId, shopId));
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(false);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
@@ -208,12 +204,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Shop_does_not_have_access_to_lens_subscriptions_message_should_be_displayed()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
-				view.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(true);
-				view.Model.DisplayForm.ShouldBe(false);	
-			});
+			View.Model.ShopDoesNotHaveAccessGivenCustomer.ShouldBe(false);
+			View.Model.ShopDoesNotHaveAccessToLensSubscriptions.ShouldBe(true);
+			View.Model.DisplayForm.ShouldBe(false);	
 		}
 	}
 }

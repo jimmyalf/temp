@@ -34,28 +34,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Article_list_has_items()
 		{
-			AssertUsing(view => 
-			{
-				view.Model.Articles.First().Text.ShouldBe("-- Välj artikel --");
-				view.Model.Articles.First().Value.ShouldBe("0");
-				view.Model.Articles.Except(ListExtensions.IgnoreType.First).Count().ShouldBe(_expectedArticles.Count);
-				view.Model.Articles.Except(ListExtensions.IgnoreType.First).And(_expectedArticles).Do( (viewArticle, domainArticle) =>
+
+				View.Model.Articles.First().Text.ShouldBe("-- Välj artikel --");
+				View.Model.Articles.First().Value.ShouldBe("0");
+				View.Model.Articles.Except(ListExtensions.IgnoreType.First).Count().ShouldBe(_expectedArticles.Count);
+				View.Model.Articles.Except(ListExtensions.IgnoreType.First).And(_expectedArticles).Do( (viewArticle, domainArticle) =>
 				{
 					viewArticle.Text.ShouldBe(domainArticle.Name);
 					viewArticle.Value.ShouldBe(domainArticle.Id.ToString());
 				});
-			});
 		}
 
 		[Test]
 		public void Choose_reason_display_should_be_visible()
 		{
-			AssertUsing(view => 
-			{
-				view.Model.DisplayChooseReason.ShouldBe(true);
-				view.Model.DisplaySaveCorrection.ShouldBe(false);
-				view.Model.DisplaySaveWithdrawal.ShouldBe(false);
-			});
+			View.Model.DisplayChooseReason.ShouldBe(true);
+			View.Model.DisplaySaveCorrection.ShouldBe(false);
+			View.Model.DisplaySaveWithdrawal.ShouldBe(false);
 		}
 	}
 
@@ -68,13 +63,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			const int _subscriptionId = 5;
 			var _reasonId =TransactionReason.Withdrawal.ToInteger();
 
-			Context = () => 
+			Context = () =>
 			{
-				MockedHttpContext.SetupQueryString(new NameValueCollection
-				{
-					{ "subscription", _subscriptionId.ToString() }, 
-					{ "reason", _reasonId.ToString() }
-				});
+				HttpContext.SetupRequestParameter("subscription", _subscriptionId.ToString());
+				HttpContext.SetupRequestParameter("reason", _reasonId.ToString());
 			};
 	
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -83,22 +75,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.Type.ShouldBe(TransactionType.Withdrawal);
-				view.Model.Reason.ShouldBe(TransactionReason.Withdrawal);
-			});
+			View.Model.Type.ShouldBe(TransactionType.Withdrawal);
+			View.Model.Reason.ShouldBe(TransactionReason.Withdrawal);
 		}
 
 		[Test]
 		public void Withdrawal_display_should_be_visible()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.DisplayChooseReason.ShouldBe(false);
-				view.Model.DisplaySaveCorrection.ShouldBe(false);
-				view.Model.DisplaySaveWithdrawal.ShouldBe(true);
-			});
+			View.Model.DisplayChooseReason.ShouldBe(false);
+			View.Model.DisplaySaveCorrection.ShouldBe(false);
+			View.Model.DisplaySaveWithdrawal.ShouldBe(true);
 		}
 	}
 
@@ -110,13 +96,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		{
 			const int _subscriptionId = 5;
 			var _reasonId = TransactionReason.Correction.ToInteger();
-			Context = () => 
+			Context = () =>
 			{
-				MockedHttpContext.SetupQueryString(new NameValueCollection
-				{
-					{ "subscription", _subscriptionId.ToString() }, 
-					{ "reason", _reasonId.ToString() }
-				});
+				HttpContext.SetupRequestParameter("subscription", _subscriptionId.ToString());
+				HttpContext.SetupRequestParameter("reason", _reasonId.ToString());
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -125,18 +108,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_have_expected_values()
 		{
-			AssertUsing(view => view.Model.Reason.ShouldBe(TransactionReason.Correction));
+			View.Model.Reason.ShouldBe(TransactionReason.Correction);
 		}
 
 		[Test]
 		public void Correction_display_should_be_visible()
 		{
-			AssertUsing( view =>
-			{
-				view.Model.DisplayChooseReason.ShouldBe(false);
-				view.Model.DisplaySaveCorrection.ShouldBe(true);
-				view.Model.DisplaySaveWithdrawal.ShouldBe(false);
-			});
+			View.Model.DisplayChooseReason.ShouldBe(false);
+			View.Model.DisplaySaveCorrection.ShouldBe(true);
+			View.Model.DisplaySaveWithdrawal.ShouldBe(false);
 		}
 	}
 
@@ -155,8 +135,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () => 
 			{
-				MockedHttpContext.SetupSingleQuery("reason", _reasonId);
-				MockedHttpContext.SetupCurrentPathAndQuery(currentPagePathAndQuery);
+				HttpContext.SetupRequestParameter("reason", _reasonId);
+				HttpContext.SetupVirtualPathAndQuery(currentPagePathAndQuery);
 			};
 
 			Because = presenter =>
@@ -169,7 +149,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_perfoms_redirect_to_current_page()
 		{
-			MockedHttpContext.VerifyRedirect("{0}?subscription={1}&reason={2}", _currentPageUrl, _subscriptionId, _reasonId);
+			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(string.Format("{0}?subscription={1}&reason={2}", _currentPageUrl, _subscriptionId, _reasonId));
 		}
 	}
 
@@ -188,13 +168,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () =>
 			{
-				MockedHttpContext.SetupQueryString( new NameValueCollection
-				{
-					{ "subscription", _subscriptionId.ToString() }, 
-					{ "reason", _reasonId }
-				});
-
-				MockedHttpContext.SetupCurrentPathAndQuery(currentPagePathAndQuery);
+				HttpContext.SetupRequestParameter("subscription", _subscriptionId.ToString());
+				HttpContext.SetupRequestParameter("reason", _reasonId);
+				HttpContext.SetupVirtualPathAndQuery(currentPagePathAndQuery);
 			};
 
 			Because = presenter =>
@@ -207,7 +183,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_perfoms_redirect_to_current_page()
 		{
-			MockedHttpContext.VerifyRedirect("{0}?subscription={1}", _currentPageUrl, _subscriptionId);
+			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(string.Format("{0}?subscription={1}", _currentPageUrl, _subscriptionId));
 		}
 	}
 
@@ -243,8 +219,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 
 			Context = () => 
 			{
-				MockedHttpContext.SetupSingleQuery("subscription", _subscriptionId.ToString());
-				MockedHttpContext.SetupCurrentPathAndQuery(_currentPageUrl);
+				HttpContext.SetupRequestParameter("subscription", _subscriptionId.ToString());
+				HttpContext.SetupVirtualPathAndQuery(_currentPageUrl);
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(subscription);
 				MockedTransactionArticleRepository.Setup(x => x.Get(It.Is<int>(id => id.Equals(_expectedSelectedArticle.Id)))).Returns(_expectedSelectedArticle);
 			};
@@ -269,7 +245,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_perfoms_redirect_to_current_page()
 		{
-			MockedHttpContext.VerifyRedirect("{0}?subscription={1}", _currentPageUrl, _subscriptionId);
+			HttpContext.ResponseInstance.RedirectedUrl
+				.ShouldBe(string.Format("{0}?subscription={1}", _currentPageUrl, _subscriptionId));
 		}
 	}
 
@@ -301,12 +278,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Model_should_contain_updated_values()
 		{
-			AssertUsing(view => 
-			{
-				view.Model.Amount.ShouldBe(_updateEventArgs.Amount);
-				view.Model.SelectedTransactionType.ShouldBe(_updateEventArgs.TransactionType);
-				view.Model.SelectedArticleValue.ShouldBe(_updateEventArgs.SelectedArticleValue);
-			});
+			View.Model.Amount.ShouldBe(_updateEventArgs.Amount);
+			View.Model.SelectedTransactionType.ShouldBe(_updateEventArgs.TransactionType);
+			View.Model.SelectedArticleValue.ShouldBe(_updateEventArgs.SelectedArticleValue);
 		}
 
 	}

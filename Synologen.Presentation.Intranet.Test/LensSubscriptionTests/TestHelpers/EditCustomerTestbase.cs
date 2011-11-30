@@ -26,7 +26,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests.
 			GetPresenter = () => 
 			{
 				return new EditCustomerPresenter(
-					MockedView.Object,
+					View,
 					MockedCustomerRepository.Object,
 					MockedCountryRepository.Object,
 					MockedSynologenMemberService.Object);

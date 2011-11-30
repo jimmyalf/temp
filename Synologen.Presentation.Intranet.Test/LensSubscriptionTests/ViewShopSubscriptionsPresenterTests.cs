@@ -37,8 +37,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				A.CallTo(() => SynologenMemberService.GetPageUrl(_customerDetailsPageId)).Returns(_customerDetailsPage);
 				A.CallTo(() => SynologenMemberService.GetPageUrl(_subscriptionDetailsPageId)).Returns(_subscriptionDetailsPage);
 				A.CallTo(() => SubscriptionRepository.FindBy(A<AllSubscriptionsForShopCriteria>.That.Matches(x => x.ShopId.Equals(_shopId)).Argument)).Returns(_subscriptions);
-				MockedView.SetupGet(x => x.CustomerDetailsPageId).Returns(_customerDetailsPageId);
-				MockedView.SetupGet(x => x.SubscriptionDetailsPageId).Returns(_subscriptionDetailsPageId);
+				A.CallTo(() => View.CustomerDetailsPageId).Returns(_customerDetailsPageId);
+				A.CallTo(() => View.SubscriptionDetailsPageId).Returns(_subscriptionDetailsPageId);
 			};
 			Because = presenter => presenter.View_Load(null, null);
 		}

@@ -79,6 +79,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Test, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Test.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Test.Web, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Test.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -144,6 +152,7 @@
     <Compile Include="LensSubscriptionTests\TestHelpers\ListSubscriptionErrorsTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\ListTransactionsTestbase.cs" />
     <Compile Include="LensSubscriptionTests\ViewShopSubscriptionsPresenterTests.cs" />
+    <Compile Include="Orders\Create_Order_Tests.cs" />
     <Compile Include="TestHelpers\PresenterTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\EditSubscriptionTestbase.cs" />
     <Compile Include="MockHelpers\HttpContextMock.cs" />

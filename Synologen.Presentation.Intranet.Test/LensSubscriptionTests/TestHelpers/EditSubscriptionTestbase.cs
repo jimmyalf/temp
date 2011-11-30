@@ -23,7 +23,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests.
 
 			GetPresenter = () => 
 			{
-				return new EditLensSubscriptionPresenter(MockedView.Object,MockedSubscriptionRepository.Object,MockedSynologenMemberService.Object);
+				return new EditLensSubscriptionPresenter(View,MockedSubscriptionRepository.Object,MockedSynologenMemberService.Object);
 			};
 		}
 	}

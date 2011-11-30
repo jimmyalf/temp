@@ -18,10 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests.
 				MockedTransactionRepository = new Mock<ITransactionRepository>();
 			};
 
-			GetPresenter = () => 
-			{
-				return new ListTransactionsPresenter(MockedView.Object, MockedTransactionRepository.Object);
-			};
+			GetPresenter = () => new ListTransactionsPresenter(View, MockedTransactionRepository.Object);
 		}
 	}
 }

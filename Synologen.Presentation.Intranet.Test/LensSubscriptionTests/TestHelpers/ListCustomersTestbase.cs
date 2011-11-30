@@ -21,10 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests.
 				MockedSynologenMemberService = new Mock<ISynologenMemberService>();
 			};
 
-			GetPresenter = () => 
-			{
-				return new ListCustomersPresenter(MockedView.Object, MockedCustomerRepository.Object, MockedSynologenMemberService.Object);
-			};
+			GetPresenter = () => new ListCustomersPresenter(View, MockedCustomerRepository.Object, MockedSynologenMemberService.Object);
 		}
 	}
 }

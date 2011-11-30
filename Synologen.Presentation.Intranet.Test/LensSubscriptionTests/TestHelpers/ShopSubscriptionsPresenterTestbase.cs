@@ -20,10 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests.
 				SynologenMemberService = A.Fake<ISynologenMemberService>();
 			};
 
-			GetPresenter = () => 
-			{
-				return new ShopSubscriptionsPresenter(MockedView.Object, SubscriptionRepository, SynologenMemberService);
-			};
+			GetPresenter = () => new ShopSubscriptionsPresenter(View, SubscriptionRepository, SynologenMemberService);
 		}
 
 	}

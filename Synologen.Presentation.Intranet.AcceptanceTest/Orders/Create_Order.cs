@@ -28,192 +28,87 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 _createOrderPresenter = GetPresenter();
             };
 
-            Story = () =>
-            {
-                return new Berättelse("Spara beställning")
+            Story = () => new Berättelse("Spara beställning")
                 .FörAtt("skapa en ny beställning")
                 .Som("inloggad användare på intranätet")
                 .VillJag("spara innehållet i den nya beställningen");
-            };
         }
+
+		[Test]
+		public void VisaBeställningsFormulär()
+		{
+		    SetupScenario(scenario => scenario
+		        .Givet(AttEnKundÄrVald)
+		        .När(AttAnvändarenVisarBeställningsformuläret)
+		        .Så(VisasKundensNamn)
+			);
+		}
+
+    	[Test]
+		public void FöregåendeSteg()
+		{
+		    SetupScenario(scenario => scenario
+		        .Givet(AttAnvändarenVisarBeställningsformuläret)
+		        .När(AnvändarenKlickarPåFöregåendeSteg)
+		        .Så(FörflyttasAnvändarenTillFöregåendeSteg)
+			);
+		}
 
         [Test]
-        public void VäljArtikel()
+        public void NästaSteg()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttEnListaMedArtiklarHarLaddats)
-                .När(AnvändarenVäljerEnArtikel)
-                .Så(FyllsFormuläretMedTillgängligaAlternativFörValdArtikel));
-        }
-
-        private void AttEnListaMedArtiklarHarLaddats()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void AnvändarenVäljerEnArtikel()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void FyllsFormuläretMedTillgängligaAlternativFörValdArtikel()
-        {
-            throw new NotImplementedException();
-        }
-
-        [Test]
-        public void VäljLinstyp()
-        {
-            SetupScenario(scenario => scenario
-                .Givet(AttEnListaMedLinstyperHarLaddats)
-                .När(AnvändarenVäljerEnLinstyp)
-                .Så(FyllsFormuläretMedEnListaAvArtiklarSomÄrAvValdLinstyp));
-        }
-
-        private void AttEnListaMedLinstyperHarLaddats()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void AnvändarenVäljerEnLinstyp()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void FyllsFormuläretMedEnListaAvArtiklarSomÄrAvValdLinstyp()
-        {
-            throw new NotImplementedException();
-        }
-
-        [Test]
-        public void VäljLeverantör()
-        {
-            SetupScenario(scenario => scenario
-                .Givet(AttEnListaMedLeverantörerHarLaddats)
-                .När(AnvändarenVäljerEnLeverantör)
-                .Så(FyllsFormuläretMedEnListaAvLinstyperSomErbjudsFrånValdLeverantör)
-                    .Och(DeLeveransalternativSomErbjudsPresenteras));
-
-        }
-
-        private void DeLeveransalternativSomErbjudsPresenteras()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void AttEnListaMedLeverantörerHarLaddats()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void AnvändarenVäljerEnLeverantör()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void FyllsFormuläretMedEnListaAvLinstyperSomErbjudsFrånValdLeverantör()
-        {
-            throw new NotImplementedException();
-        }
-
-        [Test]
-        public void VäljKategori()
-        {
-            SetupScenario(scenario => scenario
-                .Givet(AttSamtligaKategorierSomHarLeverantörerHarHämtatsTillFormuläret)
-                .När(AnvändarenVäljerEnKategori)
-                .Så(FyllsFormuläretMedEnListaAvLeverantörerSomFinnsIvaldKategori));
-        }
-
-        private void FyllsFormuläretMedEnListaAvLeverantörerSomFinnsIvaldKategori()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void AttSamtligaKategorierSomHarLeverantörerHarHämtatsTillFormuläret()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void AnvändarenVäljerEnKategori()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void FyllsFormuläretMedEnListaLeverantörerSomFinnsIvaldKategori()
-        {
-            throw new NotImplementedException();
-        }
-
-        [Test]
-        public void VisaRättKunduppgifterNärAnvändarenGårTillFöregåendeSteg()
-        {
-            SetupScenario(scenario => scenario
-                .Givet(AttEnKundValtsIFöregåendeSteg)
-                .När(AnvändarenKlickarPåFöregåendeSteg)
-                .Så(FörflyttasAnvändarenTillFöregåendeSteg)
-                .Och(FormuläretÄrFylltMedKundensUppgifter));
-            
-        }
-
-        private void AnvändarenKlickarPåFöregåendeSteg()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void FörflyttasAnvändarenTillFöregåendeSteg()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void FormuläretÄrFylltMedKundensUppgifter()
-        {
-            throw new NotImplementedException();
-        }
-
-        [Test]
-        public void VisaKundensNamn()
-        {
-            SetupScenario(scenario => scenario
-                .Givet(AttEnKundValtsIFöregåendeSteg)
-                .När(FormuläretLaddas)
-                .Så(VisasKundensNamn));
-        }
-
-        private void VisasKundensNamn()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void FormuläretLaddas()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void AttEnKundValtsIFöregåendeSteg()
-        {
-            throw new NotImplementedException();
-        }
-
-        [Test]
-        public void SparaNyBeställning()
-        {
-            SetupScenario(scenario => scenario
-                .Givet(AttFormuläretÄrKorrektIfyllt)
-                .När(AnvändarenFörsökerFortsättaTillNästaSteg)
+                .Givet(AttAnvändarenFylltIBeställningsformuläret)
+                .När(AnvändarenKlickarPåNästaSteg)
                 .Så(SparasBeställningen)
-                    .Och(AnvändarenFörflyttasTillVynFörNästaSteg));
+                    .Och(AnvändarenFörflyttasTillVynFörNästaSteg)
+			);
         }
-        
-        private void AttFormuläretÄrKorrektIfyllt()
+
+		#region Arrange
+
+    	private void AttEnKundÄrVald()
+    	{
+    		throw new NotImplementedException();
+    	}
+
+		private void AttAnvändarenFylltIBeställningsformuläret()
         {
             _form = OrderFactory.GetOrder();
         }
-        
-        private void AnvändarenFörsökerFortsättaTillNästaSteg()
+
+		#endregion
+
+		#region Act
+
+    	private void AttAnvändarenVisarBeställningsformuläret()
+    	{
+    		throw new NotImplementedException();
+    	}
+
+		private void AnvändarenKlickarPåFöregåendeSteg()
+		{
+		    throw new NotImplementedException();
+		}
+
+        private void AnvändarenKlickarPåNästaSteg()
         {
             _createOrderPresenter.View_Submit(null, _form);
         }
+
+		#endregion
+
+		#region Assert
+
+		private void VisasKundensNamn()
+    	{
+    		throw new NotImplementedException();
+    	}
+
+		private void FörflyttasAnvändarenTillFöregåendeSteg()
+		{
+		    throw new NotImplementedException();
+		}
 
         private void SparasBeställningen()
         {
@@ -236,5 +131,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_testRedirectUrl);
         }
+
+		#endregion
+
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
@@ -17,6 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private CreateOrderPresenter _createOrderPresenter;
         private CreateOrderEventArgs _form;
         private string _testRedirectUrl;
+        private OrderCustomer _customer;
 
         public When_creating_an_order()
         {
@@ -26,27 +28,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 View.NextPageId = 56;
                 A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_testRedirectUrl);
                 _createOrderPresenter = GetPresenter();
-            };
-
+            };                  
+                                
             Story = () => new Berättelse("Spara beställning")
                 .FörAtt("skapa en ny beställning")
                 .Som("inloggad användare på intranätet")
                 .VillJag("spara innehållet i den nya beställningen");
-        }
-
-		[Test]
+        }                       
+                                
+		[Test]                  
 		public void VisaBeställningsFormulär()
-		{
+		{                       
 		    SetupScenario(scenario => scenario
 		        .Givet(AttEnKundÄrVald)
 		        .När(AttAnvändarenVisarBeställningsformuläret)
 		        .Så(VisasKundensNamn)
-			);
-		}
-
-    	[Test]
+			);                  
+		}                       
+                                
+    	[Test]                  
 		public void FöregåendeSteg()
-		{
+		{                       
 		    SetupScenario(scenario => scenario
 		        .Givet(AttAnvändarenVisarBeställningsformuläret)
 		        .När(AnvändarenKlickarPåFöregåendeSteg)
@@ -69,7 +71,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void AttEnKundÄrVald()
     	{
-    		throw new NotImplementedException();
+            _customer = OrderFactory.GetCustomer();
+            WithRepository<IOrderCustomerRepository>().Save(_customer);
+            HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
     	}
 
 		private void AttAnvändarenFylltIBeställningsformuläret()
@@ -83,7 +87,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void AttAnvändarenVisarBeställningsformuläret()
     	{
-    		throw new NotImplementedException();
+            _createOrderPresenter.View_Load(null, new EventArgs());
     	}
 
 		private void AnvändarenKlickarPåFöregåendeSteg()
@@ -102,7 +106,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void VisasKundensNamn()
     	{
-    		throw new NotImplementedException();
+    		View.Model.CustomerName.ShouldBe(String.Format("{0} {1}", _customer.FirstName, _customer.LastName));
     	}
 
 		private void FörflyttasAnvändarenTillFöregåendeSteg()

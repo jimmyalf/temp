@@ -31,6 +31,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 	{
 
 		protected IOrderRepository OrderRepository;
+	    protected IOrderCustomerRepository OrderCustomerRepository;
 		protected ISynologenMemberService SynologenMemberService;
 		protected CreateOrderTestbase()
 		{
@@ -44,7 +45,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 
 			GetPresenter = () => 
 			{
-				return new CreateOrderPresenter(View, OrderRepository, SynologenMemberService);
+				return new CreateOrderPresenter(View, OrderRepository, OrderCustomerRepository, SynologenMemberService);
 			};
 		}
 	}

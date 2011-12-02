@@ -1,9 +1,12 @@
 using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
 using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
@@ -12,21 +15,55 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ISynologenMemberService _synologenMemberService;
-        private readonly IOrderCustomerRepository _orderCustomerRepository;
+    	private readonly IArticleCategoryRepository _articleCategoryRepository;
+    	private readonly IViewParser _viewParser;
+    	private readonly IArticleSupplierRepository _articleSupplierRepository;
+    	private readonly IArticleTypeRepository _articleTypeRepository;
+    	private readonly IOrderCustomerRepository _orderCustomerRepository;
 
-        public CreateOrderPresenter(ICreateOrderView view, IOrderRepository orderRepository, IOrderCustomerRepository orderCustomerRepository, ISynologenMemberService synologenMemberService) : base(view)
+        public CreateOrderPresenter(
+			ICreateOrderView view, 
+			IOrderRepository orderRepository, 
+			IOrderCustomerRepository orderCustomerRepository, 
+			ISynologenMemberService synologenMemberService, 
+			IArticleCategoryRepository articleCategoryRepository,
+			IViewParser viewParser,
+			IArticleSupplierRepository articleSupplierRepository,
+			IArticleTypeRepository articleTypeRepository
+			) : base(view)
         {
             _orderCustomerRepository = orderCustomerRepository;
             _synologenMemberService = synologenMemberService;
-            _orderRepository = orderRepository;
+        	_articleCategoryRepository = articleCategoryRepository;
+        	_viewParser = viewParser;
+        	_articleSupplierRepository = articleSupplierRepository;
+        	_articleTypeRepository = articleTypeRepository;
+        	_orderRepository = orderRepository;
         	View.Load += View_Load;
             View.Submit += View_Submit;
+        	View.SelectedCategory += Selected_Category;
+        	View.SelectedSupplier += Selected_Supplier;
         }
+
+    	public void Selected_Supplier(object sender, SelectedSupplierEventArgs e)
+    	{
+    		var criteria = new ArticleTypesBySupplier(e.SupplierId);
+    		var articleTypes = _articleTypeRepository.FindBy(criteria);
+			View.Model.ArticleTypes = _viewParser.Parse(articleTypes, articleType => new ListItem(articleType.Name, articleType.Id));
+    	}
+
+    	public void Selected_Category(object sender, SelectedCategoryEventArgs e)
+    	{
+    		var criteria = new SuppliersByCategory(e.SelectedCategoryId);
+			var suppliers = _articleSupplierRepository.FindBy(criteria);
+			View.Model.Suppliers = _viewParser.Parse(suppliers, supplier => new ListItem(supplier.Name, supplier.Id));
+    	}
 
     	public override void ReleaseView()
         {
             View.Submit -= View_Submit;
             View.Load -= View_Load;
+			View.SelectedCategory -= Selected_Category;
         }
 
         public void View_Submit(object o, CreateOrderEventArgs form)
@@ -58,12 +95,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
         public void View_Load(object o, EventArgs eventArgs)
         {
-            var customerId = Convert.ToInt32(HttpContext.Request.Params["customer"]);
-            if(customerId <= 0)
-            {
-                //TODO direct back to previous step...
-                return;
-            }
+        	var customerIdParameter = HttpContext.Request.Params["customer"];
+            var customerId = Convert.ToInt32(customerIdParameter);
+
+        	var categories = _articleCategoryRepository.GetAll();
+        	View.Model.Categories = _viewParser.Parse(categories, category => new ListItem(category.Name, category.Id));
 
             var customer = _orderCustomerRepository.Get(customerId);
 
@@ -71,4 +107,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.CustomerName = String.Format("{0} {1}", customer.FirstName, customer.LastName);
         }
     }
+
+
 }

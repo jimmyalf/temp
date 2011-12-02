@@ -73,6 +73,7 @@
     <Compile Include="Logic\EventArguments\Orders\FetchCustomerDataByPersonalIdEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\PaymentOptionsEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\PickCustomerEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\Orders\SelectedSupplierEventArgs.cs" />
     <Compile Include="Logic\EventArguments\ValidatedEventArgs.cs" />
     <Compile Include="Logic\EventArguments\ValidatePasswordEventArgs.cs" />
     <Compile Include="Logic\EventArguments\ValidationEventArgs.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Logic\Views\Orders\ICreateOrderView.cs" />
     <Compile Include="Logic\Views\Orders\IPaymentOptionsView.cs" />
     <Compile Include="Logic\Views\Orders\IPickCustomerView.cs" />
+    <Compile Include="Logic\EventArguments\Orders\SelectedCategoryEventArgs.cs" />
     <Compile Include="Logic\Views\Yammer\IYammerView.cs" />
     <Compile Include="Models\ContractSales\SettlementDetailedContractSaleListItemModel.cs" />
     <Compile Include="Models\ContractSales\SettlementDetailedsubscriptionTransactionsListItemModel.cs" />

@@ -153,6 +153,7 @@
     <Compile Include="LensSubscriptionTests\TestHelpers\ListTransactionsTestbase.cs" />
     <Compile Include="LensSubscriptionTests\ViewShopSubscriptionsPresenterTests.cs" />
     <Compile Include="Orders\Create_Order_Tests.cs" />
+    <Compile Include="Orders\OrderFactory.cs" />
     <Compile Include="TestHelpers\PresenterTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\EditSubscriptionTestbase.cs" />
     <Compile Include="MockHelpers\HttpContextMock.cs" />

@@ -1,5 +1,9 @@
-﻿using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 {
@@ -7,6 +11,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 	{
 		OrderCustomer Parse(PickCustomerEventArgs args);
 		void Fill(OrderCustomer existingCustomer, PickCustomerEventArgs args);
+		IEnumerable<ListItem> Parse<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
 	}
 
 	public class ViewParser : IViewParser
@@ -43,5 +48,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			existingCustomer.Phone = args.Phone;
 			existingCustomer.PostalCode = args.PostalCode;
 		}
+
+		public IEnumerable<ListItem> Parse<TModel>(IEnumerable<TModel> list, Func<TModel,ListItem> convert)
+		{
+			if (list == null) yield break;
+			foreach (var item in list)
+			{
+				yield return convert(item);
+			}
+			yield break;
+		}
+
 	}
 }

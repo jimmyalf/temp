@@ -12,9 +12,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     public partial class CreateOrder : MvpUserControl<CreateOrderModel>, ICreateOrderView
     {
         public int NextPageId { get; set; }
-        public event EventHandler<CreateOrderEventArgs> Submit;
-        
-        protected void Page_Load(object sender, EventArgs e)
+    	public event EventHandler<SelectedSupplierEventArgs> SelectedSupplier;
+    	public event EventHandler<CreateOrderEventArgs> Submit;
+    	public event EventHandler<SelectedCategoryEventArgs> SelectedCategory;
+
+    	protected void Page_Load(object sender, EventArgs e)
         {
             btnNextStep.Click += NextStep;
             btnPreviousStep.Click += PreviousStep;
@@ -52,5 +54,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             };
             Submit(this, args);
         }
+
+    	protected void Category_SelectedIndexChanged(object sender, EventArgs e)
+    	{
+			//if (SelectedCategory == null) return;
+			//var selectedValue = ddlPickCategory.SelectedValue;
+			//var id = Convert.ToInt32(selectedValue);
+			//SelectedCategory(this,new SelectedCategoryEventArgs(id));
+    	}
     }
 }

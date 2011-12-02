@@ -1,9 +1,7 @@
 using System;
 using FakeItEasy;
-using Moq;
 using NUnit.Framework;
 using Spinit.Test.Web;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Test.MockHelpers;
 using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.TestHelpers
@@ -25,11 +23,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.TestHelpers
 		[TestFixtureSetUp]
 		protected void SetUpTest()
 		{
-			//MockedView = MvpHelpers.GetMockedView<TView, TModel>();
 			_model = new TModel();
 			_view = GetView(_model);
 			
-			HttpContext = new FakeHttpContext();//new HttpContextMock();
+			HttpContext = new FakeHttpContext();
 			SetUp();
 			Presenter = GetPresenter();
 			Presenter.HttpContext = HttpContext;
@@ -41,16 +38,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.TestHelpers
 		protected Action Context;
 		protected Action SetUp;
 		protected Action<TPresenter> Because;
-		//protected Mock<TView> MockedView;
 		protected FakeHttpContext HttpContext;
 		protected TPresenter Presenter;
 		private TView _view;
 		private TModel _model;
-
-		//protected void AssertUsing(Action<TView> action)
-		//{
-		//    action(View);
-		//}
 
 		protected virtual TView GetView(TModel model)
 		{
@@ -63,10 +54,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.TestHelpers
 		{
 			get { return _view; }
 		}
-
-		//protected TResult GetResult<TResult>(Func<TView, TResult> function)
-		//{
-		//    return function(_view);
-		//}
 	}
 }

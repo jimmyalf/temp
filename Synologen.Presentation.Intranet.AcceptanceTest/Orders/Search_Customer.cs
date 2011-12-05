@@ -60,7 +60,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void AnvändarenKlickarPåSök()
 		{
 			_searchEventArgs = OrderFactory.GetSearchCustomerEventArgs(_customer.PersonalIdNumber);
-			_presenter.View_SearchCustomer(null, _searchEventArgs);
+			_presenter.ViewSubmit(null, _searchEventArgs);
 		}
 
 		private void AttKundFinnsSedanTidigare()

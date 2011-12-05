@@ -20,10 +20,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		{
 			_synologenMember = synologenMember;
 			_orderCustomerRepository = orderCustomerRepository;
-			View.SearchCustomer += View_SearchCustomer;
+			View.Submit += ViewSubmit;
 		}
 
-		public void View_SearchCustomer(object sender, SearchCustomerEventArgs e)
+		public void ViewSubmit(object sender, SearchCustomerEventArgs e)
 		{
 			var customer = _orderCustomerRepository
 				.FindBy(new CustomerDetailsFromPersonalIdNumberCriteria {PersonalIdNumber = e.PersonalIdNumber})
@@ -43,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
 		public override void ReleaseView()
 		{
-			View.SearchCustomer -= View_SearchCustomer;
+			View.Submit -= ViewSubmit;
 		}
 	}
 }

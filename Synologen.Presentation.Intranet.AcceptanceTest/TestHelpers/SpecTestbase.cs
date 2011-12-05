@@ -76,7 +76,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 
 		protected virtual ISynologenMemberService GetSynologenMemberService()
 		{
-			var service = A.Fake<ISynologenMemberService>();;
+			var service = A.Fake<ISynologenMemberService>();
 			return service;
 		}
 

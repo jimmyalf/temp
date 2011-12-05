@@ -169,6 +169,10 @@
     <Compile Include="Repositories\NHibernate\Mappings\ShopMap.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\ShopRepository.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SubscriptionMap.cs" />
+    <Compile Include="Repositories\OrderRepositories\ArticleCategoryRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\ArticleSupplierRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\ArticleTypeRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\OrderArticleRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\OrderCustomerRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\OrderRepository.cs" />
     <Compile Include="SqlProviderConcern.cs" />

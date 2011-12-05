@@ -12,7 +12,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     public partial class CreateOrder : MvpUserControl<CreateOrderModel>, ICreateOrderView
     {
         public int NextPageId { get; set; }
-    	public event EventHandler<SelectedSupplierEventArgs> SelectedSupplier;
+        public event EventHandler<SelectedArticleTypeEventArgs> SelectedArticleType;
+        public event EventHandler<SelectedSupplierEventArgs> SelectedSupplier;
     	public event EventHandler<CreateOrderEventArgs> Submit;
     	public event EventHandler<SelectedCategoryEventArgs> SelectedCategory;
 

@@ -20,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	private readonly IArticleSupplierRepository _articleSupplierRepository;
     	private readonly IArticleTypeRepository _articleTypeRepository;
     	private readonly IOrderCustomerRepository _orderCustomerRepository;
+        private readonly IOrderArticleRepository _orderArticleRepository;
 
         public CreateOrderPresenter(
 			ICreateOrderView view, 
@@ -29,7 +30,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			IArticleCategoryRepository articleCategoryRepository,
 			IViewParser viewParser,
 			IArticleSupplierRepository articleSupplierRepository,
-			IArticleTypeRepository articleTypeRepository
+			IArticleTypeRepository articleTypeRepository,
+            IOrderArticleRepository orderArticleRepository
 			) : base(view)
         {
             _orderCustomerRepository = orderCustomerRepository;
@@ -39,10 +41,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         	_articleSupplierRepository = articleSupplierRepository;
         	_articleTypeRepository = articleTypeRepository;
         	_orderRepository = orderRepository;
+            _orderArticleRepository = orderArticleRepository;
         	View.Load += View_Load;
             View.Submit += View_Submit;
         	View.SelectedCategory += Selected_Category;
         	View.SelectedSupplier += Selected_Supplier;
+            View.SelectedArticleType += Selected_ArticleType;
         }
 
     	public void Selected_Supplier(object sender, SelectedSupplierEventArgs e)
@@ -61,11 +65,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Model.Suppliers = _viewParser.Parse(suppliers, supplier => new ListItem(supplier.Name, supplier.Id));
     	}
 
-    	public override void ReleaseView()
+        public void Selected_ArticleType(object sender, SelectedArticleTypeEventArgs e)
+        {
+            var criteria = new OrderArticlesByArticleType(e.SelectedArticleTypeId);
+            var articles = _orderArticleRepository.FindBy(criteria);
+            View.Model.OrderArticles = _viewParser.Parse(articles, article => new ListItem(article.Name, article.Id));
+        }
+
+        public override void ReleaseView()
         {
             View.Submit -= View_Submit;
             View.Load -= View_Load;
 			View.SelectedCategory -= Selected_Category;
+            View.SelectedArticleType -= Selected_ArticleType;
         }
 
         public void View_Submit(object o, CreateOrderEventArgs form)

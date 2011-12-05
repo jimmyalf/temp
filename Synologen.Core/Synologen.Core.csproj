@@ -186,6 +186,7 @@
     <Compile Include="Domain\Model\Orders\ArticleCategory.cs" />
     <Compile Include="Domain\Model\Orders\ArticleSupplier.cs" />
     <Compile Include="Domain\Model\Orders\ArticleType.cs" />
+    <Compile Include="Domain\Model\Orders\OrderArticle.cs" />
     <Compile Include="Domain\Model\Orders\OrderShippingOption.cs" />
     <Compile Include="Domain\Model\Orders\Order.cs" />
     <Compile Include="Domain\Model\Orders\OrderCustomer.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\TransactionsForSubscriptionMatchingCriteria.cs.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfSubscriptionsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\ArticleTypesBySupplier.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\OrderArticlesByArticleType.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\SuppliersByCategory.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\CustomerDetailsFromPersonalIdNumberCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameOrdersMatchingCriteria.cs" />
@@ -262,6 +264,7 @@
     <Compile Include="Domain\Persistence\Orders\IArticleCategoryRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\IArticleSupplierRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\IArticleTypeRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\IOrderArticleRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\IOrderCustomerRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\IOrderRepository.cs" />
     <Compile Include="Domain\Services\BgWebService\FtpChangePasswordException.cs" />

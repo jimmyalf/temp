@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Data;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
@@ -93,14 +94,46 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		}
 	}
 
-	[TestFixture]
+    [TestFixture]
+    [Category("Create Order Tests")]
+    public class When_article_type_is_selected : CreateOrderTestbase
+    {
+        private SelectedArticleTypeEventArgs _eventArgs;
+        private IEnumerable<OrderArticle> _articles;
+        private int _selectedArticleTypeId;
+
+        public When_article_type_is_selected()
+        {
+            Context = () =>
+                          {
+                              _selectedArticleTypeId = 2;
+                              _eventArgs = new SelectedArticleTypeEventArgs(_selectedArticleTypeId);
+                              _articles = OrderFactory.GetArticles();
+                              A.CallTo(() => OrderArticleRepository.FindBy(A<OrderArticlesByArticleType>.That.Matches(criteria => criteria.ArticleTypeId.Equals(_selectedArticleTypeId)).Argument)).Returns(_articles);
+                          };
+
+            Because = presenter => Presenter.Selected_ArticleType(null, _eventArgs);
+        }
+
+        [Test]
+        public void Articles_are_loaded()
+        {
+            View.Model.OrderArticles.And(_articles).Do((viewArticle, domainArticle) =>
+            {
+                viewArticle.Value.ShouldBe(domainArticle.Id.ToString());
+                viewArticle.Text.ShouldBe(domainArticle.Name);
+            });
+        }
+    }
+
+    [TestFixture]
 	[Category("Create Order Tests")]
-	public class When_supplier_is_selected_with_all_shipping_options : CreateOrderTestbase
+	public class When_supplier_with_all_shipping_options_is_selected : CreateOrderTestbase
 	{
 		private IEnumerable<ArticleType> _articleTypes;
 		private ArticleSupplier _supplier;
 
-		public When_supplier_is_selected_with_all_shipping_options()
+		public When_supplier_with_all_shipping_options_is_selected()
 		{
 			Context = () =>
 			{
@@ -148,12 +181,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 
 	[TestFixture]
 	[Category("Create Order Tests")]
-	public class When_supplier_is_selected_with_two_shipping_options : CreateOrderTestbase
+	public class When_supplier_with_two_shipping_options_is_selected : CreateOrderTestbase
 	{
 		private IEnumerable<ArticleType> _articleTypes;
 		private ArticleSupplier _supplier;
 
-		public When_supplier_is_selected_with_two_shipping_options()
+        public When_supplier_with_two_shipping_options_is_selected()
 		{
 			Context = () =>
 			{
@@ -200,6 +233,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		protected IViewParser ViewParser;
 		protected IArticleSupplierRepository ArticleSupplierRepository;
 		protected IArticleTypeRepository ArticleTypeRepository;
+	    protected IOrderArticleRepository OrderArticleRepository;
 
 		protected CreateOrderTestbase()
 		{
@@ -212,6 +246,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 				ViewParser = new ViewParser();
 				ArticleSupplierRepository = A.Fake<IArticleSupplierRepository>();
 				ArticleTypeRepository = A.Fake<IArticleTypeRepository>();
+			    OrderArticleRepository = A.Fake<IOrderArticleRepository>();
 			};
 
 			GetPresenter = () => new CreateOrderPresenter(
@@ -222,7 +257,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 				ArticleCategoryRepository,
 				ViewParser,
 				ArticleSupplierRepository,
-				ArticleTypeRepository
+				ArticleTypeRepository,
+                OrderArticleRepository
 			);
 		}
 	}

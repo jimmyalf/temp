@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -12,19 +13,35 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     public partial class CreateOrder : MvpUserControl<CreateOrderModel>, ICreateOrderView
     {
         public int NextPageId { get; set; }
+    	public event EventHandler<SelectedCategoryEventArgs> SelectedCategory;
         public event EventHandler<SelectedArticleTypeEventArgs> SelectedArticleType;
         public event EventHandler<SelectedSupplierEventArgs> SelectedSupplier;
-    	public event EventHandler<CreateOrderEventArgs> Submit;
-    	public event EventHandler<SelectedCategoryEventArgs> SelectedCategory;
+		public event EventHandler<CreateOrderEventArgs> Submit;
 
     	protected void Page_Load(object sender, EventArgs e)
         {
             btnNextStep.Click += NextStep;
             btnPreviousStep.Click += PreviousStep;
             btnCancel.Click += Cancel;
+    		ddlPickCategory.SelectedIndexChanged += Select_Category;
+    		ddlPickSupplier.SelectedIndexChanged += Select_Supplier;
         }
 
-        private void Cancel(object sender, EventArgs e)
+    	private void Select_Supplier(object sender, EventArgs e)
+    	{
+    		if(SelectedCategory == null) return;
+    		var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
+			SelectedCategory(this, new SelectedCategoryEventArgs(categoryId));
+    	}
+
+    	private void Select_Category(object sender, EventArgs e)
+    	{
+    		if(SelectedCategory == null) return;
+    		var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
+			SelectedCategory(this, new SelectedCategoryEventArgs(categoryId));
+    	}
+
+    	private void Cancel(object sender, EventArgs e)
         {
             throw new NotImplementedException();
         }
@@ -42,10 +59,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             var args = new CreateOrderEventArgs
             {
                 ArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
-                CategoryId = Convert.ToInt32(ddlPickCategory.SelectedValue),
+                //CategoryId = Convert.ToInt32(ddlPickCategory.SelectedValue),
                 ShipmentOption = Convert.ToInt32(SupplierOption.SelectedValue),
-                SupplierId = Convert.ToInt32(SupplierOption.SelectedValue),
-                TypeId = Convert.ToInt32(ddlPickKind.SelectedValue),
+                //SupplierId = Convert.ToInt32(SupplierOption.SelectedValue),
+                //TypeId = Convert.ToInt32(ddlPickKind.SelectedValue),
                 LeftBaseCurve = Convert.ToInt32(ddlLeftBaskurva.SelectedValue),
                 LeftDiameter = Convert.ToInt32(ddlLeftDiameter.SelectedValue),
                 LeftPower = Convert.ToInt32(ddlRightStrength.SelectedValue),
@@ -55,13 +72,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             };
             Submit(this, args);
         }
-
-    	protected void Category_SelectedIndexChanged(object sender, EventArgs e)
-    	{
-			//if (SelectedCategory == null) return;
-			//var selectedValue = ddlPickCategory.SelectedValue;
-			//var id = Convert.ToInt32(selectedValue);
-			//SelectedCategory(this,new SelectedCategoryEventArgs(id));
-    	}
     }
 }

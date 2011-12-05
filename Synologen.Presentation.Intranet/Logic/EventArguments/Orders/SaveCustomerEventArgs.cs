@@ -2,7 +2,7 @@ using System;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
 {
-    public class PickCustomerEventArgs : EventArgs
+    public class SaveCustomerEventArgs : EventArgs
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

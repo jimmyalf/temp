@@ -82,21 +82,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
         public void View_Submit(object o, CreateOrderEventArgs form)
         {
-            var order = new Order
-            {
-                ArticleId = form.ArticleId,
-                CategoryId = form.CategoryId,
-                LeftBaseCurve = form.LeftBaseCurve,
-                LeftDiameter = form.LeftDiameter,
-                LeftPower = form.LeftPower,
-                RightBaseCurve = form.RightBaseCurve,
-                RightDiameter = form.RightDiameter,
-                RightPower = form.RightPower,
-                ShipmentOption = form.ShipmentOption,
-                SupplierId = form.SupplierId,
-                TypeId = form.TypeId
-            };
-            _orderRepository.Save(order);
+			//TODO:Update save functionality to fit new order model structure
+			//var order = new Order
+			//{
+			//    ArticleId = form.ArticleId,
+			//    CategoryId = form.CategoryId,
+			//    LeftBaseCurve = form.LeftBaseCurve,
+			//    LeftDiameter = form.LeftDiameter,
+			//    LeftPower = form.LeftPower,
+			//    RightBaseCurve = form.RightBaseCurve,
+			//    RightDiameter = form.RightDiameter,
+			//    RightPower = form.RightPower,
+			//    ShipmentOption = form.ShipmentOption,
+			//    SupplierId = form.SupplierId,
+			//    TypeId = form.TypeId
+			//};
+			//_orderRepository.Save(order);
 
             Redirect();
         }

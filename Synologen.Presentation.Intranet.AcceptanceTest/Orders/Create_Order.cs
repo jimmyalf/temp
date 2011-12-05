@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
@@ -50,7 +51,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		public void FöregåendeSteg()
 		{                       
 		    SetupScenario(scenario => scenario
-		        .Givet(AttAnvändarenVisarBeställningsformuläret)
+				.Givet(AttEnKundÄrVald)
+					.Och(AttAnvändarenVisarBeställningsformuläret)
 		        .När(AnvändarenKlickarPåFöregåendeSteg)
 		        .Så(FörflyttasAnvändarenTillFöregåendeSteg)
 			);
@@ -60,7 +62,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public void NästaSteg()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttAnvändarenFylltIBeställningsformuläret)
+				.Givet(AttEnKundÄrVald)
+					.Och(AttAnvändarenFylltIBeställningsformuläret)
                 .När(AnvändarenKlickarPåNästaSteg)
                 .Så(SparasBeställningen)
                     .Och(AnvändarenFörflyttasTillVynFörNästaSteg)
@@ -118,17 +121,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             var order = WithRepository<IOrderRepository>().GetAll().First();
 
-            order.ArticleId.ShouldBe(_form.ArticleId);
-            order.CategoryId.ShouldBe(_form.CategoryId);
-            order.LeftBaseCurve.ShouldBe(_form.LeftBaseCurve);
-            order.LeftDiameter.ShouldBe(_form.LeftDiameter);
-            order.LeftPower.ShouldBe(_form.LeftPower);
-            order.RightBaseCurve.ShouldBe(_form.RightBaseCurve);
-            order.RightDiameter.ShouldBe(_form.RightDiameter);
-            order.RightPower.ShouldBe(_form.RightPower);
-            order.ShipmentOption.ShouldBe(_form.ShipmentOption);
-            order.SupplierId.ShouldBe(_form.SupplierId);
-            order.TypeId.ShouldBe(_form.TypeId);
+            order.Article.Id.ShouldBe(_form.ArticleId);
+			//order.Article.Category.Id.ShouldBe(_form.CategoryId);
+            order.LensRecipie.BaseCurve.Left.ShouldBe(_form.LeftBaseCurve);
+            order.LensRecipie.Diameter.Left.ShouldBe(_form.LeftDiameter);
+            order.LensRecipie.Power.Left.ShouldBe(_form.LeftPower);
+            order.LensRecipie.BaseCurve.Right.ShouldBe(_form.RightBaseCurve);
+            order.LensRecipie.Diameter.Right.ShouldBe(_form.RightDiameter);
+            order.LensRecipie.Power.Right.ShouldBe(_form.RightPower);
+            order.ShippingType.ToInteger().ShouldBe(_form.ShipmentOption);
+            //order.Article.Supplier.Id.ShouldBe(_form.SupplierId);
         }
 
         private void AnvändarenFörflyttasTillVynFörNästaSteg()

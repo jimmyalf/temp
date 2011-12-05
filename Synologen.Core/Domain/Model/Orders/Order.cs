@@ -1,17 +1,29 @@
+using System;
+
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 {
     public class Order : Entity
     {
-        public virtual int ArticleId { get; set; }
-        public virtual int CategoryId { get; set; }
-        public virtual int LeftBaseCurve { get; set; }
-        public virtual int LeftDiameter { get; set; }
-        public virtual int LeftPower { get; set; }
-        public virtual int RightBaseCurve { get; set; }
-        public virtual int RightDiameter { get; set; }
-        public virtual int RightPower { get; set; }
-        public virtual int ShipmentOption { get; set; }
-        public virtual int SupplierId { get; set; }
-        public virtual int TypeId { get; set; }
+    	public Order()
+    	{
+    		Created = SystemClock.Now;
+    	}
+		public virtual Article Article { get; set; }
+		public virtual LensRecipie LensRecipie { get; set; }
+        public virtual OrderShippingOption ShippingType { get; set; }
+		public virtual DateTime Created { get; protected set; }
     }
+
+	public class LensRecipie : Entity
+	{
+		public virtual EyeParameter BaseCurve { get; set; }
+		public virtual EyeParameter Diameter { get; set; }
+		public virtual EyeParameter Power { get; set; }
+	}
+
+	public class EyeParameter
+	{
+		public virtual int Left { get; set; }
+		public virtual int Right { get; set; }
+	}
 }

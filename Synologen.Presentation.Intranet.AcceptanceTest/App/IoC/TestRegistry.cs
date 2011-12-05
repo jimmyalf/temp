@@ -50,6 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.IoC
 		    For<IArticleTypeRepository>().Use<ArticleTypeRepository>();
             For<IOrderArticleRepository>().Use<OrderArticleRepository>();
 			
+			
 
 			// Register GUI and settings services
 			For<ISynologenMemberService>().Use<SynologenMemberService>();

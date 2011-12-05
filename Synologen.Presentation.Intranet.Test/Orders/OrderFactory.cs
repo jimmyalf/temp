@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FakeItEasy;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
@@ -22,12 +23,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 
 		public static IEnumerable<ArticleSupplier> GetSuppliers()
 		{
-			return Sequence.Generate(GetSupplier, 20);
+			return Sequence.Generate(() => GetSupplier(), 20);
 		}
 
-		public static ArticleSupplier GetSupplier()
+		public static ArticleSupplier GetSupplier(int id = 6, OrderShippingOption shippingOptions = OrderShippingOption.DeliveredInStore | OrderShippingOption.ToCustomer | OrderShippingOption.ToStore)
 		{
-			return new ArticleSupplier {Name = "Leverantör ABC"};
+			var fakeSupplier = A.Fake<ArticleSupplier>();
+			A.CallTo(() => fakeSupplier.Id).Returns(id);
+			fakeSupplier.Name = "Leverantör ABC";
+			fakeSupplier.ShippingOptions = shippingOptions;
+			return fakeSupplier;
 		}
 
 		public static IEnumerable<ArticleType> CreateArticleTypes()

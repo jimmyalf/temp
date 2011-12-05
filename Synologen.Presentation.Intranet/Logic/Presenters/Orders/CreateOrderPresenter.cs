@@ -49,6 +49,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	{
     		var criteria = new ArticleTypesBySupplier(e.SupplierId);
     		var articleTypes = _articleTypeRepository.FindBy(criteria);
+    		var supplier = _articleSupplierRepository.Get(e.SupplierId);
+    		View.Model.ShippingOptions = _viewParser.Parse(supplier.ShippingOptions);
 			View.Model.ArticleTypes = _viewParser.Parse(articleTypes, articleType => new ListItem(articleType.Name, articleType.Id));
     	}
 

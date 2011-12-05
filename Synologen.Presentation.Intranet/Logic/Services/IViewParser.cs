@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
 
@@ -12,6 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 		OrderCustomer Parse(PickCustomerEventArgs args);
 		void Fill(OrderCustomer existingCustomer, PickCustomerEventArgs args);
 		IEnumerable<ListItem> Parse<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
+		IEnumerable<ListItem> Parse<TEnumType>(TEnumType value) where TEnumType : struct;
 	}
 
 	public class ViewParser : IViewParser
@@ -55,6 +56,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			foreach (var item in list)
 			{
 				yield return convert(item);
+			}
+			yield break;
+		}
+
+		public IEnumerable<ListItem> Parse<TEnumType>(TEnumType value) 
+			where TEnumType : struct
+		{
+			var allEnumItems = EnumExtensions.Enumerate<TEnumType>();
+			foreach (var enumItem in allEnumItems)
+			{
+				if (!value.HasOption(enumItem)) continue;
+				var enumValue = (enumItem as Enum);
+				var textValue = enumValue.GetEnumDisplayName();
+				yield return new ListItem(textValue, enumValue.ToInteger());
 			}
 			yield break;
 		}

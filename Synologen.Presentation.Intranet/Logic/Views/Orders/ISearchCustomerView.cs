@@ -6,7 +6,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
 {
 	public interface ISearchCustomerView : IView
 	{
-		event EventHandler<SearchCustomerEventArgs> SearchCustomer;
+		event EventHandler<SearchCustomerEventArgs> Submit;
 		int EditCustomerPageId { get; set; }
 	}
 }

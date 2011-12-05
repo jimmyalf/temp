@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FakeItEasy;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
@@ -44,5 +45,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		{
 			return new ArticleType {Name = "Artikeltyp A"};
 		}
+
+	    public static IEnumerable<OrderArticle> GetArticles()
+	    {
+	        return Sequence.Generate(GetArticle, 15);
+	    }
+        public static OrderArticle GetArticle(int id = 2)
+        {
+            var fakeOrderArticle = A.Fake<OrderArticle>();
+            A.CallTo(() => fakeOrderArticle.Id).Returns(id);
+            fakeOrderArticle.Name = "Lins 1337";
+
+            return fakeOrderArticle;
+        }
 	}
 }

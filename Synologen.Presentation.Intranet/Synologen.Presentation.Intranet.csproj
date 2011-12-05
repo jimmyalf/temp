@@ -73,6 +73,7 @@
     <Compile Include="Logic\EventArguments\Orders\FetchCustomerDataByPersonalIdEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\PaymentOptionsEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\PickCustomerEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\Orders\SelectedArticleTypeEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SelectedSupplierEventArgs.cs" />
     <Compile Include="Logic\EventArguments\ValidatedEventArgs.cs" />
     <Compile Include="Logic\EventArguments\ValidatePasswordEventArgs.cs" />

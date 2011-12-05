@@ -164,6 +164,9 @@
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SubscriptionErrorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\TransactionArticle.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\TransactionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\ArticleMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\EyeParameterComponentMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\LensRecipeMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderCustomerMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopMap.cs" />
@@ -172,7 +175,7 @@
     <Compile Include="Repositories\OrderRepositories\ArticleCategoryRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\ArticleSupplierRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\ArticleTypeRepository.cs" />
-    <Compile Include="Repositories\OrderRepositories\OrderArticleRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\ArticleRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\OrderCustomerRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\OrderRepository.cs" />
     <Compile Include="SqlProviderConcern.cs" />

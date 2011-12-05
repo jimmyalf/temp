@@ -5,9 +5,9 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories
 {
-    public class OrderArticleRepository : NHibernateRepository<OrderArticle>, IOrderArticleRepository
+    public class ArticleRepository : NHibernateRepository<Article>, IArticleRepository
     {
-        public OrderArticleRepository(ISession session) : base(session)
+        public ArticleRepository(ISession session) : base(session)
         {
         }
     }

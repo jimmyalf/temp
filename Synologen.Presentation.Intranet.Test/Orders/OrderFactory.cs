@@ -46,13 +46,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 			return new ArticleType {Name = "Artikeltyp A"};
 		}
 
-	    public static IEnumerable<OrderArticle> GetArticles()
+	    public static IEnumerable<Article> GetArticles()
 	    {
 	        return Sequence.Generate(GetArticle, 15);
 	    }
-        public static OrderArticle GetArticle(int id = 2)
+        public static Article GetArticle(int id = 2)
         {
-            var fakeOrderArticle = A.Fake<OrderArticle>();
+            var fakeOrderArticle = A.Fake<Article>();
             A.CallTo(() => fakeOrderArticle.Id).Returns(id);
             fakeOrderArticle.Name = "Lins 1337";
 

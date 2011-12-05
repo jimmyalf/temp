@@ -9,12 +9,12 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
     		Created = SystemClock.Now;
     	}
 		public virtual Article Article { get; set; }
-		public virtual LensRecipie LensRecipie { get; set; }
+		public virtual LensRecipe LensRecipe { get; set; }
         public virtual OrderShippingOption ShippingType { get; set; }
 		public virtual DateTime Created { get; protected set; }
     }
 
-	public class LensRecipie : Entity
+	public class LensRecipe : Entity
 	{
 		public virtual EyeParameter BaseCurve { get; set; }
 		public virtual EyeParameter Diameter { get; set; }

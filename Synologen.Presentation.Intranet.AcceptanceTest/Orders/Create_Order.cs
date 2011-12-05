@@ -123,12 +123,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
             order.Article.Id.ShouldBe(_form.ArticleId);
 			//order.Article.Category.Id.ShouldBe(_form.CategoryId);
-            order.LensRecipie.BaseCurve.Left.ShouldBe(_form.LeftBaseCurve);
-            order.LensRecipie.Diameter.Left.ShouldBe(_form.LeftDiameter);
-            order.LensRecipie.Power.Left.ShouldBe(_form.LeftPower);
-            order.LensRecipie.BaseCurve.Right.ShouldBe(_form.RightBaseCurve);
-            order.LensRecipie.Diameter.Right.ShouldBe(_form.RightDiameter);
-            order.LensRecipie.Power.Right.ShouldBe(_form.RightPower);
+            order.LensRecipe.BaseCurve.Left.ShouldBe(_form.LeftBaseCurve);
+            order.LensRecipe.Diameter.Left.ShouldBe(_form.LeftDiameter);
+            order.LensRecipe.Power.Left.ShouldBe(_form.LeftPower);
+            order.LensRecipe.BaseCurve.Right.ShouldBe(_form.RightBaseCurve);
+            order.LensRecipe.Diameter.Right.ShouldBe(_form.RightDiameter);
+            order.LensRecipe.Power.Right.ShouldBe(_form.RightPower);
             order.ShippingType.ToInteger().ShouldBe(_form.ShipmentOption);
             //order.Article.Supplier.Id.ShouldBe(_form.SupplierId);
         }

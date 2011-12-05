@@ -16,6 +16,8 @@ using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using StructureMap.Configuration.DSL;
+using ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories.ArticleRepository;
+using IArticleRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders.IArticleRepository;
 using IShopRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder.IShopRepository;
 using ShopRepository = Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories.ShopRepository;
 
@@ -48,7 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.IoC
 		    For<IArticleCategoryRepository>().Use<ArticleCategoryRepository>();
 		    For<IArticleSupplierRepository>().Use<ArticleSupplierRepository>();
 		    For<IArticleTypeRepository>().Use<ArticleTypeRepository>();
-            For<IOrderArticleRepository>().Use<OrderArticleRepository>();
+            For<IArticleRepository>().Use<ArticleRepository>();
 			
 			
 

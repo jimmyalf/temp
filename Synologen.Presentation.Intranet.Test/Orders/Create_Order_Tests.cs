@@ -99,7 +99,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
     public class When_article_type_is_selected : CreateOrderTestbase
     {
         private SelectedArticleTypeEventArgs _eventArgs;
-        private IEnumerable<OrderArticle> _articles;
+        private IEnumerable<Article> _articles;
         private int _selectedArticleTypeId;
 
         public When_article_type_is_selected()
@@ -109,7 +109,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
                               _selectedArticleTypeId = 2;
                               _eventArgs = new SelectedArticleTypeEventArgs(_selectedArticleTypeId);
                               _articles = OrderFactory.GetArticles();
-                              A.CallTo(() => OrderArticleRepository.FindBy(A<OrderArticlesByArticleType>.That.Matches(criteria => criteria.ArticleTypeId.Equals(_selectedArticleTypeId)).Argument)).Returns(_articles);
+                              A.CallTo(() => ArticleRepository.FindBy(A<OrderArticlesByArticleType>.That.Matches(criteria => criteria.ArticleTypeId.Equals(_selectedArticleTypeId)).Argument)).Returns(_articles);
                           };
 
             Because = presenter => Presenter.Selected_ArticleType(null, _eventArgs);
@@ -233,7 +233,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		protected IViewParser ViewParser;
 		protected IArticleSupplierRepository ArticleSupplierRepository;
 		protected IArticleTypeRepository ArticleTypeRepository;
-	    protected IOrderArticleRepository OrderArticleRepository;
+	    protected IArticleRepository ArticleRepository;
 
 		protected CreateOrderTestbase()
 		{
@@ -246,7 +246,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 				ViewParser = new ViewParser();
 				ArticleSupplierRepository = A.Fake<IArticleSupplierRepository>();
 				ArticleTypeRepository = A.Fake<IArticleTypeRepository>();
-			    OrderArticleRepository = A.Fake<IOrderArticleRepository>();
+			    ArticleRepository = A.Fake<IArticleRepository>();
 			};
 
 			GetPresenter = () => new CreateOrderPresenter(
@@ -258,7 +258,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 				ViewParser,
 				ArticleSupplierRepository,
 				ArticleTypeRepository,
-                OrderArticleRepository
+                ArticleRepository
 			);
 		}
 	}

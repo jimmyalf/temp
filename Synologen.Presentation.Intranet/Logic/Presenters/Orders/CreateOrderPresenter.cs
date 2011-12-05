@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	private readonly IArticleSupplierRepository _articleSupplierRepository;
     	private readonly IArticleTypeRepository _articleTypeRepository;
     	private readonly IOrderCustomerRepository _orderCustomerRepository;
-        private readonly IOrderArticleRepository _orderArticleRepository;
+        private readonly IArticleRepository _articleRepository;
 
         public CreateOrderPresenter(
 			ICreateOrderView view, 
@@ -31,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			IViewParser viewParser,
 			IArticleSupplierRepository articleSupplierRepository,
 			IArticleTypeRepository articleTypeRepository,
-            IOrderArticleRepository orderArticleRepository
+            IArticleRepository articleRepository
 			) : base(view)
         {
             _orderCustomerRepository = orderCustomerRepository;
@@ -41,7 +41,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         	_articleSupplierRepository = articleSupplierRepository;
         	_articleTypeRepository = articleTypeRepository;
         	_orderRepository = orderRepository;
-            _orderArticleRepository = orderArticleRepository;
+            _articleRepository = articleRepository;
         	View.Load += View_Load;
             View.Submit += View_Submit;
         	View.SelectedCategory += Selected_Category;
@@ -68,7 +68,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         public void Selected_ArticleType(object sender, SelectedArticleTypeEventArgs e)
         {
             var criteria = new OrderArticlesByArticleType(e.SelectedArticleTypeId);
-            var articles = _orderArticleRepository.FindBy(criteria);
+            var articles = _articleRepository.FindBy(criteria);
             View.Model.OrderArticles = _viewParser.Parse(articles, article => new ListItem(article.Name, article.Id));
         }
 

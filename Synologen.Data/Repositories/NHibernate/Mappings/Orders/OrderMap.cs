@@ -9,9 +9,9 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
         {
             Table("SynologenOrder");
             Id(x => x.Id);
-            Map(x => x.Article);
+            References(x => x.Article).Column("ArticleId");
             //Map(x => x.CategoryId);
-        	Map(x => x.LensRecipie).Nullable();
+        	References(x => x.LensRecipe).Column("LensRecipeId").Nullable();
 			//Map(x => x.LeftBaseCurve);
 			//Map(x => x.LeftDiameter);
 			//Map(x => x.LeftPower);

@@ -3,5 +3,7 @@
 	public class ArticleSupplier : Entity
 	{
 		public string Name { get; set; }
+
+		public OrderShippingOption ShippingOptions { get; set; }
 	}
 }

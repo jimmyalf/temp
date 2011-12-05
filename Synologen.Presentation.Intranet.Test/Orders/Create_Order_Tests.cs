@@ -8,6 +8,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
@@ -94,25 +95,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 
 	[TestFixture]
 	[Category("Create Order Tests")]
-	public class When_supplier_is_selected : CreateOrderTestbase
+	public class When_supplier_is_selected_with_all_shipping_options : CreateOrderTestbase
 	{
 		private IEnumerable<ArticleType> _articleTypes;
-		private int _selectedSupplierId;
+		private ArticleSupplier _supplier;
 
-		public When_supplier_is_selected()
+		public When_supplier_is_selected_with_all_shipping_options()
 		{
 			Context = () =>
 			{
 				_articleTypes = OrderFactory.CreateArticleTypes();
-				_selectedSupplierId = 6;
+				_supplier = OrderFactory.GetSupplier(6);
 				A.CallTo(() => ArticleTypeRepository.FindBy(
 				    A<ArticleTypesBySupplier>.That.Matches(
-				        criteria => criteria.SelectedSupplierId.Equals(_selectedSupplierId)
+				        criteria => criteria.SelectedSupplierId.Equals(_supplier.Id)
 				    ).Argument
 				)).Returns(_articleTypes);
+				A.CallTo(() => ArticleSupplierRepository.Get(_supplier.Id)).Returns(_supplier);
 
 			};
-			Because = presenter => Presenter.Selected_Supplier(null, new SelectedSupplierEventArgs(_selectedSupplierId));
+			Because = presenter => Presenter.Selected_Supplier(null, new SelectedSupplierEventArgs(_supplier.Id));
 		}
 
 		[Test]
@@ -128,9 +130,66 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		[Test]
 		public void ShippingOptions_are_loaded()
 		{
-			throw new NotImplementedException();
+			View.Model.ShippingOptions.ShouldContain(option => 
+				option.Text.Equals("Till Butik")
+				&& option.Value.Equals(OrderShippingOption.ToStore.ToInteger().ToString())
+			);
+			View.Model.ShippingOptions.ShouldContain(option => 
+				option.Text.Equals("Till Kund")
+				&& option.Value.Equals(OrderShippingOption.ToCustomer.ToInteger().ToString())
+			);
+			View.Model.ShippingOptions.ShouldContain(option => 
+				option.Text.Equals("Leverans i butik")
+				&& option.Value.Equals(OrderShippingOption.DeliveredInStore.ToInteger().ToString())
+			);
 		}
+		
 	}
+
+	[TestFixture]
+	[Category("Create Order Tests")]
+	public class When_supplier_is_selected_with_two_shipping_options : CreateOrderTestbase
+	{
+		private IEnumerable<ArticleType> _articleTypes;
+		private ArticleSupplier _supplier;
+
+		public When_supplier_is_selected_with_two_shipping_options()
+		{
+			Context = () =>
+			{
+				_articleTypes = OrderFactory.CreateArticleTypes();
+				_supplier = OrderFactory.GetSupplier(6, OrderShippingOption.ToCustomer | OrderShippingOption.DeliveredInStore);
+				A.CallTo(() => ArticleTypeRepository.FindBy(
+				    A<ArticleTypesBySupplier>.That.Matches(
+				        criteria => criteria.SelectedSupplierId.Equals(_supplier.Id)
+				    ).Argument
+				)).Returns(_articleTypes);
+				A.CallTo(() => ArticleSupplierRepository.Get(_supplier.Id)).Returns(_supplier);
+
+			};
+			Because = presenter => Presenter.Selected_Supplier(null, new SelectedSupplierEventArgs(_supplier.Id));
+		}
+
+
+		[Test]
+		public void ShippingOptions_are_loaded()
+		{
+			View.Model.ShippingOptions.ShouldNotContain(option => 
+				option.Text.Equals("Till Butik")
+				&& option.Value.Equals(OrderShippingOption.ToStore.ToInteger().ToString())
+			);
+			View.Model.ShippingOptions.ShouldContain(option => 
+				option.Text.Equals("Till Kund")
+				&& option.Value.Equals(OrderShippingOption.ToCustomer.ToInteger().ToString())
+			);
+			View.Model.ShippingOptions.ShouldContain(option => 
+				option.Text.Equals("Leverans i butik")
+				&& option.Value.Equals(OrderShippingOption.DeliveredInStore.ToInteger().ToString())
+			);
+		}
+		
+	}
+
 
 	public class CreateOrderTestbase: PresenterTestbase<CreateOrderPresenter,ICreateOrderView,CreateOrderModel>
 	{

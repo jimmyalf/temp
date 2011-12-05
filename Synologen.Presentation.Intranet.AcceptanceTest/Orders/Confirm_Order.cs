@@ -31,14 +31,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         [Test]
         public void EnSammanfattningAvBeställningenVisas()
         {
-            throw new NotImplementedException();
+            Assert.Inconclusive("TODO");
         }
 
         //TODO: Det här är en abstraktion av den funktionalitet som triggas när man bekräftar beställningen. Bryt ner i delar.
         [Test]
         public void BeställningenBekräftas()
         {
-            throw new NotImplementedException();
+            Assert.Inconclusive("TODO");
         }
     }
 }

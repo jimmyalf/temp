@@ -9,13 +9,13 @@ using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
-    public class PickCustomerPresenter : Presenter<IPickCustomerView>
+    public class SaveCustomerPresenter : Presenter<ISaveCustomerView>
     {
         private readonly IOrderCustomerRepository _orderCustomerRepository;
     	private readonly IViewParser _viewParser;
     	private readonly ISynologenMemberService _synologenMemberService;
 
-    	public PickCustomerPresenter(IPickCustomerView view, IOrderCustomerRepository orderCustomerRepository, IViewParser viewParser, ISynologenMemberService synologenMemberService) : base(view)
+    	public SaveCustomerPresenter(ISaveCustomerView view, IOrderCustomerRepository orderCustomerRepository, IViewParser viewParser, ISynologenMemberService synologenMemberService) : base(view)
         {
             _orderCustomerRepository = orderCustomerRepository;
         	_viewParser = viewParser;
@@ -57,7 +57,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			}
 		}
 
-        public void View_Submit(object o, PickCustomerEventArgs args)
+        public void View_Submit(object o, SaveCustomerEventArgs args)
         {
         	OrderCustomer customer;
 			if(args.CustomerId.HasValue)

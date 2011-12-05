@@ -5,9 +5,9 @@ using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
 {
-    public interface IPickCustomerView : IView<PickCustomerModel>
+    public interface ISaveCustomerView : IView<SaveCustomerModel>
     {
 		int NextPageId { get; set; }
-        event EventHandler<PickCustomerEventArgs> Submit;
+        event EventHandler<SaveCustomerEventArgs> Submit;
     }
 }

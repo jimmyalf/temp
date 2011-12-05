@@ -13,10 +13,10 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
     [TestFixture, Category("Pick_Customer")]
-	public class When_picking_a_customer : SpecTestbase<PickCustomerPresenter,IPickCustomerView>
+	public class When_picking_a_customer : SpecTestbase<SaveCustomerPresenter,ISaveCustomerView>
     {
-        private PickCustomerPresenter _pickCustomerPresenter;
-    	private PickCustomerEventArgs _form;
+        private SaveCustomerPresenter _saveCustomerPresenter;
+    	private SaveCustomerEventArgs _form;
     	private string _testRedirectUrl;
     	private OrderCustomer _previousCustomer;
     	private string _customerNotFoundWithPersonalIdNumber;
@@ -29,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_testRedirectUrl = "/test/page";
 				View.NextPageId = 55;
 				A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_testRedirectUrl);
-				_pickCustomerPresenter = GetPresenter();
+				_saveCustomerPresenter = GetPresenter();
 			};
 			Story = () => new Berättelse("Spara kund")
 			    .FörAtt("välja en kund att knyta till nytt abonnemang")
@@ -104,7 +104,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void NärFormuläretLaddas()
     	{
-    		_pickCustomerPresenter.View_Load(null, new EventArgs());
+    		_saveCustomerPresenter.View_Load(null, new EventArgs());
     	}
 
     	private void AttEnKundHittatsIFöregåendeSteg()
@@ -154,7 +154,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		//    _fetchByPersonalId = OrderFactory.GetPersonalIdForm();
 
-		//    //_pickCustomerPresenter.FetchCustomerDataByPersonalIdNumber(null, _fetchByPersonalId);
+		//    //_saveCustomerPresenter.FetchCustomerDataByPersonalIdNumber(null, _fetchByPersonalId);
 
 		//    _form = OrderFactory.GetOrderCustomerForm(_previousCustomer.Id);
 		//}
@@ -182,7 +182,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		//private void AnvändarenKlickarHämta()
 		//{
-		//    _pickCustomerPresenter.FetchCustomerDataByPersonalIdNumber(null, _fetchByPersonalId);
+		//    _saveCustomerPresenter.FetchCustomerDataByPersonalIdNumber(null, _fetchByPersonalId);
 		//}
 
 		//private void AttEttPersonnummerÄrIfyllt()
@@ -198,7 +198,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AnvändarenFörsökerFortsättaTillNästaSteg()
         {
-            _pickCustomerPresenter.View_Submit(null, _form);
+            _saveCustomerPresenter.View_Submit(null, _form);
         }
 
         private void AttFormuläretÄrKorrektIfyllt()

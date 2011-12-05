@@ -10,7 +10,7 @@
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
     
     
-    public partial class PickCustomer {
+    public partial class SaveCustomer {
         
         /// <summary>
         /// txtFirstName control.
@@ -74,15 +74,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regextxtPersonalIdNumber;
-        
-        /// <summary>
-        /// btnFetchByPersonalIdNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFetchByPersonalIdNumber;
         
         /// <summary>
         /// txtEmail control.

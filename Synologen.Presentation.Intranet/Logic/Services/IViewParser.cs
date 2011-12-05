@@ -9,15 +9,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 {
 	public interface IViewParser
 	{
-		OrderCustomer Parse(PickCustomerEventArgs args);
-		void Fill(OrderCustomer existingCustomer, PickCustomerEventArgs args);
+		OrderCustomer Parse(SaveCustomerEventArgs args);
+		void Fill(OrderCustomer existingCustomer, SaveCustomerEventArgs args);
 		IEnumerable<ListItem> Parse<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
 		IEnumerable<ListItem> Parse<TEnumType>(TEnumType value) where TEnumType : struct;
 	}
 
 	public class ViewParser : IViewParser
 	{
-		public OrderCustomer Parse(PickCustomerEventArgs args)
+		public OrderCustomer Parse(SaveCustomerEventArgs args)
 		{
 			return new OrderCustomer
 			{
@@ -35,7 +35,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			};
 		}
 
-		public void Fill(OrderCustomer existingCustomer, PickCustomerEventArgs args)
+		public void Fill(OrderCustomer existingCustomer, SaveCustomerEventArgs args)
 		{
 			existingCustomer.AddressLineOne = args.AddressLineOne;
 			existingCustomer.AddressLineTwo = args.AddressLineTwo; 

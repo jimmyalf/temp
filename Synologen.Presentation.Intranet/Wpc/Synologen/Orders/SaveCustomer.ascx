@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PickCustomer.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders.PickCustomer" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SaveCustomer.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders.SaveCustomer" %>
 	
 <div id="page">
     <div>
@@ -38,15 +38,12 @@
 		    <asp:RequiredFieldValidator ID="reqtxtLastName" runat="server" ErrorMessage="Efternamn måste anges" ControlToValidate="txtLastName" Display="Dynamic">*</asp:RequiredFieldValidator>
         </p>
     	<p>
-        
             <label for="<%=txtPersonalIdNumber.ClientID%>">Personnummer</label>
             <span>
 				<asp:TextBox ID="txtPersonalIdNumber" runat="server" />
 				<asp:RequiredFieldValidator ID="reqtxtPersonalIdNumber" runat="server" ErrorMessage="Personnummer måste anges" ControlToValidate="txtPersonalIdNumber" Display="Dynamic" ValidationGroup="PersonalIdNumberValidationGroup">*</asp:RequiredFieldValidator>
 				<asp:RegularExpressionValidator ID="regextxtPersonalIdNumber" ValidationExpression="^(19|20)(\d){2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{4}$" runat="server" ErrorMessage="Personnummer måste anges som ÅÅÅÅMMDDXXXX" Display="Dynamic" ControlToValidate="txtPersonalIdNumber" ValidationGroup="PersonalIdNumberValidationGroup">*</asp:RegularExpressionValidator>
-				<asp:Button ID="btnFetchByPersonalIdNumber" runat="server" Text="Hämta →" ValidationGroup="PersonalIdNumberValidationGroup" />
             </span>
-	    
         </p>
     	<p>
             <label for="<%=txtEmail.ClientID%>">E-post</label>

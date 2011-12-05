@@ -183,6 +183,7 @@
     <Compile Include="Domain\Model\LensSubscription\TransactionReason.cs" />
     <Compile Include="Domain\Model\LensSubscription\TransactionType.cs" />
     <Compile Include="Domain\Model\ContractSales\ShopAccess.cs" />
+    <Compile Include="Domain\Model\Orders\Article.cs" />
     <Compile Include="Domain\Model\Orders\ArticleCategory.cs" />
     <Compile Include="Domain\Model\Orders\ArticleSupplier.cs" />
     <Compile Include="Domain\Model\Orders\ArticleType.cs" />

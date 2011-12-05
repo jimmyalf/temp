@@ -1,6 +1,6 @@
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 {
-    public class PickCustomerModel
+    public class SaveCustomerModel
     {
 		public int CustomerId { get; set; }
     	public string FirstName { get; set; }

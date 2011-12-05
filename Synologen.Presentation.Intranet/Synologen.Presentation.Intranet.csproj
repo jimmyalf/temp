@@ -72,7 +72,7 @@
     <Compile Include="Logic\EventArguments\Orders\CreateOrderEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\FetchCustomerDataByPersonalIdEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\PaymentOptionsEventArgs.cs" />
-    <Compile Include="Logic\EventArguments\Orders\PickCustomerEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\Orders\SaveCustomerEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SelectedArticleTypeEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SelectedSupplierEventArgs.cs" />
     <Compile Include="Logic\EventArguments\ValidatedEventArgs.cs" />
@@ -88,7 +88,7 @@
     <Compile Include="Logic\EventArguments\Orders\SearchCustomerEventArgs.cs" />
     <Compile Include="Logic\Views\Orders\ISearchCustomerView.cs" />
     <Compile Include="Logic\Presenters\Orders\PaymentOptionsPresenter.cs" />
-    <Compile Include="Logic\Presenters\Orders\PickCustomerPresenter.cs" />
+    <Compile Include="Logic\Presenters\Orders\SaveCustomerPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\SearchCustomer.cs" />
     <Compile Include="Logic\Services\IViewParser.cs" />
     <Compile Include="Logic\Services\YammerService.cs">
@@ -106,7 +106,7 @@
     <Compile Include="Logic\Views\Orders\ICreateOrderConfirmationView.cs" />
     <Compile Include="Logic\Views\Orders\ICreateOrderView.cs" />
     <Compile Include="Logic\Views\Orders\IPaymentOptionsView.cs" />
-    <Compile Include="Logic\Views\Orders\IPickCustomerView.cs" />
+    <Compile Include="Logic\Views\Orders\ISaveCustomerView.cs" />
     <Compile Include="Logic\EventArguments\Orders\SelectedCategoryEventArgs.cs" />
     <Compile Include="Logic\Views\Yammer\IYammerView.cs" />
     <Compile Include="Models\ContractSales\SettlementDetailedContractSaleListItemModel.cs" />
@@ -171,7 +171,7 @@
     <Compile Include="Models\Orders\CreateOrderConfirmationModel.cs" />
     <Compile Include="Models\Orders\CreateOrderModel.cs" />
     <Compile Include="Models\Orders\PaymentOptionsModel.cs" />
-    <Compile Include="Models\Orders\PickCustomerModel.cs" />
+    <Compile Include="Models\Orders\SaveCustomerModel.cs" />
     <Compile Include="Models\ValidationButtonModel.cs" />
     <Compile Include="Models\Yammer\YammerImage.cs" />
     <Compile Include="Models\Yammer\YammerListItem.cs" />
@@ -345,12 +345,12 @@
     <Compile Include="Wpc\Synologen\Orders\PaymentOptions.ascx.designer.cs">
       <DependentUpon>PaymentOptions.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\Orders\PickCustomer.ascx.cs">
-      <DependentUpon>PickCustomer.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\Orders\SaveCustomer.ascx.cs">
+      <DependentUpon>SaveCustomer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Wpc\Synologen\Orders\PickCustomer.ascx.designer.cs">
-      <DependentUpon>PickCustomer.ascx</DependentUpon>
+    <Compile Include="Wpc\Synologen\Orders\SaveCustomer.ascx.designer.cs">
+      <DependentUpon>SaveCustomer.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\SecurityLogout.ascx.cs">
       <DependentUpon>SecurityLogout.ascx</DependentUpon>
@@ -477,7 +477,7 @@
     <Content Include="Wpc\Synologen\Orders\CreateOrder.ascx" />
     <Content Include="Wpc\Synologen\Orders\CreateOrderConfirmation.ascx" />
     <Content Include="Wpc\Synologen\Orders\PaymentOptions.ascx" />
-    <Content Include="Wpc\Synologen\Orders\PickCustomer.ascx" />
+    <Content Include="Wpc\Synologen\Orders\SaveCustomer.ascx" />
     <Content Include="Wpc\Synologen\SecurityLogout.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\SettlementList.ascx" />
     <Content Include="Wpc\Synologen\ShopMemberList.ascx" />

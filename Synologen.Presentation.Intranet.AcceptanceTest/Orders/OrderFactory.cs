@@ -6,9 +6,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
 	public static class OrderFactory
 	{
-		public static PickCustomerEventArgs GetOrderCustomerForm(int? customerId = null)
+		public static SaveCustomerEventArgs GetOrderCustomerForm(int? customerId = null)
 		{
-			return new PickCustomerEventArgs
+			return new SaveCustomerEventArgs
 			{
 				AddressLineOne = "Box 123",
 				AddressLineTwo = "Datavägen 2",
@@ -58,7 +58,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	        return new CreateOrderEventArgs
 	                   {
 	                       ArticleId = 1,
-                           CategoryId = 1,
+                           //CategoryId = 1,
                            LeftBaseCurve = 9,
                            LeftDiameter = -14,
                            LeftPower = 5,
@@ -66,8 +66,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                            RightDiameter = -14,
                            RightPower = 5,
                            ShipmentOption = 1,
-                           SupplierId = 15,
-                           TypeId = 1
+                           //SupplierId = 15,
+                           //TypeId = 1
 	                   };
 	    }
 	}

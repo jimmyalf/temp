@@ -8,17 +8,15 @@ using WebFormsMvp.Web;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 {
-    [PresenterBinding(typeof(PickCustomerPresenter))]
-    public partial class PickCustomer : MvpUserControl<PickCustomerModel>, IPickCustomerView
+    [PresenterBinding(typeof(SaveCustomerPresenter))]
+    public partial class SaveCustomer : MvpUserControl<SaveCustomerModel>, ISaveCustomerView
     {
 		public int NextPageId { get; set; }
-    	public event EventHandler<PickCustomerEventArgs> Submit;
-        public event EventHandler<FetchCustomerDataByPersonalIdEventArgs> FetchCustomerByPersonalIdNumber;
+    	public event EventHandler<SaveCustomerEventArgs> Submit;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             btnNextStep.Click += NextStep;
-            btnFetchByPersonalIdNumber.Click += FillFormFromPersonalIdNumber;
         }
 
         private void NextStep(object sender, EventArgs e)
@@ -26,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             Page.Validate();
             if (!Page.IsValid) return;
 			if(Submit == null) return;
-            var args = new PickCustomerEventArgs
+            var args = new SaveCustomerEventArgs
             {
                 AddressLineOne = txtAddressLineOne.Text,
                 AddressLineTwo = txtAddressLineTwo.Text,
@@ -49,18 +47,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 			if (hfCustomerId == null) return null;
 			return Convert.ToInt32(hfCustomerId.Value);
 		}
-
-        private void FillFormFromPersonalIdNumber(object sender, EventArgs e)
-        {
-            Page.Validate("PersonalIdNumberValidationGroup");
-            if(!Page.IsValid) return;
-
-            var args = new FetchCustomerDataByPersonalIdEventArgs
-			{
-                PersonalIdNumber = txtPersonalIdNumber.Text
-            };
-
-            FetchCustomerByPersonalIdNumber(this, args);
-        }
     }
 }

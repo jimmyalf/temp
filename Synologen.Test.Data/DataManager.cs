@@ -80,8 +80,8 @@ namespace Spinit.Wpc.Synogen.Test.Data
 
 		private static void CreateAdminUsers(User userRepository)
 		{
-			var superadminId = userRepository.Add("SuperAdmin", "g@nd@lf", "SuperAdmin", "Spinit", "info@spinit.se", 1, "Admin");
-			var adminId = userRepository.Add("Admin", "g@llum", "Admin", "Spinit", "info@spinit.se", 1, "Admin");
+			var superadminId = userRepository.Add("SuperAdmin", "g@nd@lf", "SuperAdmin", "Spinit", "info@spinit.se", 2, "Admin");
+			var adminId = userRepository.Add("Admin", "g@llum", "Admin", "Spinit", "info@spinit.se", 2, "Admin");
 			userRepository.ConnectGroup(superadminId, (int) GroupTypeRow.TYPE.SUPER_ADMIN);
 			userRepository.ConnectGroup(adminId, (int) GroupTypeRow.TYPE.GLOBAL);
 		}

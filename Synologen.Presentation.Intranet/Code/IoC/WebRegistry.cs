@@ -14,6 +14,8 @@ using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using StructureMap.Configuration.DSL;
+using ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories.ArticleRepository;
+using IArticleRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders.IArticleRepository;
 using IShopRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder.IShopRepository;
 using ShopRepository = Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories.ShopRepository;
 
@@ -38,8 +40,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code.IoC
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
 			For<ISettlementRepository>().Use<SettlementRepository>();
 			For<ITransactionArticleRepository>().Use<TransactionArticleRepository>();
+			For<IOrderCustomerRepository>().Use<OrderCustomerRepository>();
 		    For<IOrderRepository>().Use<OrderRepository>();
-		    For<IOrderCustomerRepository>().Use<OrderCustomerRepository>();
+		    For<IArticleCategoryRepository>().Use<ArticleCategoryRepository>();
+		    For<IArticleSupplierRepository>().Use<ArticleSupplierRepository>();
+		    For<IArticleTypeRepository>().Use<ArticleTypeRepository>();
+            For<IArticleRepository>().Use<ArticleRepository>();
 
 			// Register GUI and settings services
 			For<ISynologenMemberService>().Use<SynologenMemberService>();
@@ -47,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code.IoC
 			For<IEmailService>().Use<EmailService>();
 			For<ISynologenSettingsService>().Use<SynologenSettingsService>();
 		    For<IYammerService>().Use<YammerService>();
-
+			For<IViewParser>().Use<ViewParser>();
 			//For<IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>>().Use<AllOrderableFramesCriteriaConverter>();
 			//For<IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>>().Use<AllFrameOrdersForShopCriteriaConverter>();
 			//For<IActionCriteriaConverter<CustomersForShopMatchingCriteria, ICriteria>>().Use<CustomersForShopMatchingCriteriaConverter>();

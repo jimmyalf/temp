@@ -78,8 +78,8 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 			var userRepo = DataManager.GetUserRepository();
 			var company = DataManager.CreateCompany(sqlProvider);
 			var shop = DataManager.CreateShop(sqlProvider, "Test_shop");
-			var memberId = DataManager.CreateMemberForShop(userRepo, sqlProvider, "test_user", shop.ShopId, 2 /*location id*/);
-			_newOrder = OrderFactory.GetOrder(company.Id, memberId, shop.ShopId);
+			var member = DataManager.CreateMemberForShop(userRepo, sqlProvider, "test_user", shop.ShopId, 2 /*location id*/);
+			_newOrder = OrderFactory.GetOrder(company.Id, member.MemberId, shop.ShopId);
 			sqlProvider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref _newOrder);
 		}
 

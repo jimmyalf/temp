@@ -49,7 +49,7 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			return shop;
 		}
 
-		public int CreateMemberForShop(User userRepository, SqlProvider sqlProvider, string userName, int shopId, int locationId, string password = "test")
+		public CreatedMemberInfo CreateMemberForShop(User userRepository, SqlProvider sqlProvider, string userName, int shopId, int locationId, string password = "test")
 		{
 			var userId = CreateUser(userRepository, userName, password, locationId);
 			if (userId < 1) throw new ArgumentException("Cannot create user with username {0}. Make sure username is unique.", userName);
@@ -67,14 +67,16 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			sqlProvider.AddUpdateDeleteMember(Enumerations.Action.Create, 1, ref member);
 			sqlProvider.AddBaseUserConnection(member.Id, userId);
 			sqlProvider.ConnectShopToMember(shopId, member.Id);
-			return member.Id;
+			return new CreatedMemberInfo(userId, member.Id);
 		}
 
-		public int CreateMemberForShop(SqlProvider sqlProvider, string userName, int shopId, int locationId, string password = "test")
+		/*
+		public CreatedMemberInfo CreateMemberForShop(SqlProvider sqlProvider, string userName, int shopId, int locationId, string password = "test")
 		{
 			var userRepo = new User(ConnectionString);
 			return CreateMemberForShop(userRepo, sqlProvider, userName, shopId, locationId, password);
 		}
+		 */
 
 		private static void CreateAdminUsers(User userRepository)
 		{
@@ -84,7 +86,7 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			userRepository.ConnectGroup(adminId, (int) GroupTypeRow.TYPE.GLOBAL);
 		}
 
-		public int CreateUser(User userRepository, string userName, string password, int locationId)
+		private int CreateUser(User userRepository, string userName, string password, int locationId)
 		{
 			return userRepository.Add(userName, password, "Adam", "Bertil", "a.b@foretaget.se", locationId, "TestUser");
 		}
@@ -116,6 +118,23 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			};
 			provider.AddUpdateDeleteCompany(Enumerations.Action.Create, ref company);
 			return company;
+		}
+
+		private void CreateShopAndTestUsers(User userRepository, SqlProvider provider)
+		{
+			var shop = CreateShop(provider, "Testbutik ABC");
+
+			var shopMember = CreateMemberForShop(userRepository, provider, "butik", shop.ShopId, 2 /* synologen.nu location id */, "butik");
+			userRepository.ConnectGroup(shopMember.UserId, 5 /*Butik user group id*/);
+			provider.ConnectToCategory(shopMember.MemberId, 1 /*Butik member group id*/);
+
+			var shopOpqMember = CreateMemberForShop(userRepository, provider, "butikopq", shop.ShopId, 2 /* synologen.nu location id */, "butikopq");
+			userRepository.ConnectGroup(shopOpqMember.UserId, 10 /*Butik opq user group id*/);
+			provider.ConnectToCategory(shopOpqMember.MemberId, 8 /*Butik opq member group id*/);
+
+			var ownerMember = CreateMemberForShop(userRepository, provider, "ägare", shop.ShopId, 2 /* synologen.nu location id */, "ägare");
+			userRepository.ConnectGroup(ownerMember.UserId, 8 /*Owner user group id*/);
+			provider.ConnectToCategory(ownerMember.MemberId, 5 /*Owner member group id*/);
 		}
 			 
 		private void DeleteShopsAndConnections(IDbConnection connection)
@@ -212,6 +231,7 @@ namespace Spinit.Wpc.Synogen.Test.Data
 		public void CleanTables(IDbConnection connection)
 		{
 			var userRepository = GetUserRepository();
+			var sqlProvider = GetSqlProvider();
 			ValidateConnectionIsDev(connection);
 			DeleteOPQAndConnections(connection);
 			DeleteOrderCustomers(connection);
@@ -222,6 +242,19 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			DeleteMembersAndConnections(connection);
 			DeleteUsers(connection);
 			CreateAdminUsers(userRepository);
+			CreateShopAndTestUsers(userRepository, sqlProvider as SqlProvider);
+		}
+	}
+
+	public sealed class CreatedMemberInfo
+	{
+		public int UserId { get; private set; }
+		public int MemberId { get; private set; }
+
+		public CreatedMemberInfo(int userId, int memberId)
+		{
+			UserId = userId;
+			MemberId = memberId;
 		}
 	}
 }

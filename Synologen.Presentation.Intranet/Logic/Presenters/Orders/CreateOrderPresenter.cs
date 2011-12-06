@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
@@ -71,6 +73,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             var articles = _articleRepository.FindBy(criteria);
             View.Model.OrderArticles = _viewParser.Parse(articles, article => new ListItem(article.Name, article.Id));
         }
+        
+        public void Selected_Article(object o, SelectedArticleEventArgs e)
+        {
+            var article = _articleRepository.Get(e.SelectedArticleId);
+            var options = article.Options;
+            if(options == null) return;
+            View.Model.PowerOptions = _viewParser.FillWithIncrementalValues(options.Power);
+            View.Model.DiameterOptions = _viewParser.FillWithIncrementalValues(options.Diameter);
+            View.Model.BaseCurveOptions = _viewParser.FillWithIncrementalValues(options.BaseCurve);
+            View.Model.AxisOptions = _viewParser.FillWithIncrementalValues(options.Axis);
+            View.Model.CylinderOptions = _viewParser.FillWithIncrementalValues(options.Cylinder);
+
+            //TODO: how is this supposed to work? O_o
+            View.Model.ItemQuantityOptions = Enumerable.Empty<ListItem>();
+        }
 
         public override void ReleaseView()
         {
@@ -121,6 +138,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.CustomerId = customerId;
             View.Model.CustomerName = String.Format("{0} {1}", customer.FirstName, customer.LastName);
         }
+
+        
     }
 
 

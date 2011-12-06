@@ -3,6 +3,7 @@
 	public class Article : Entity
 	{
 		public virtual string Name { get; set; }
+	    public virtual ArticleOptions Options { get; set; }
 		/* public virtual ArticleSupplier Supplier { get; set; }
 		public virtual ArticleCategory Category { get; set; } */
 	}

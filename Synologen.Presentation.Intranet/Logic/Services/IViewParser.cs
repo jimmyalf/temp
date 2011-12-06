@@ -13,6 +13,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 		void Fill(OrderCustomer existingCustomer, SaveCustomerEventArgs args);
 		IEnumerable<ListItem> Parse<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
 		IEnumerable<ListItem> Parse<TEnumType>(TEnumType value) where TEnumType : struct;
+	    IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence);
 	}
 
 	public class ViewParser : IViewParser
@@ -74,5 +75,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			yield break;
 		}
 
+	    public IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
+	    {
+            for (float value = sequence.Min; value <= sequence.Max; value += sequence.Increment )
+            {
+                yield return new ListItem(value.ToString(), value.ToString());
+            }
+            yield break;
+	    }
 	}
 }

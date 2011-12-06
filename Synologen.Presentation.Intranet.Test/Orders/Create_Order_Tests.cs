@@ -14,6 +14,7 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Test.TestHelpers;
 
@@ -122,6 +123,92 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
             {
                 viewArticle.Value.ShouldBe(domainArticle.Id.ToString());
                 viewArticle.Text.ShouldBe(domainArticle.Name);
+            });
+        }
+    }
+
+    [TestFixture]
+    [Category("Create Order Tests")]
+    public class When_article_is_selected : CreateOrderTestbase
+    {
+        private int _selectedArticleId;
+        private Article _article;
+        private ArticleOptions _options;
+
+        private IEnumerable<float> _powerOptions;
+        private IEnumerable<float> _baseCurveOptions;
+        private IEnumerable<float> _diameterOptions;
+        private IEnumerable<float> _axisOptions;
+        private IEnumerable<float> _cylinderOptions;
+
+        private SelectedArticleEventArgs _eventArgs;
+
+        public When_article_is_selected()
+        {
+            Context = () =>
+                          {
+                              _selectedArticleId = 2;
+                              _eventArgs = new SelectedArticleEventArgs(_selectedArticleId);
+                              _article = OrderFactory.GetArticle(_selectedArticleId);
+                              A.CallTo(() => ArticleRepository.Get(_selectedArticleId)).Returns(_article);
+                              _options = _article.Options;
+
+                              _powerOptions     = OrderFactory.GetOptionsList(_options.Power.Min, _options.Power.Max, _options.Power.Increment);
+                              _baseCurveOptions = OrderFactory.GetOptionsList(_options.BaseCurve.Min, _options.BaseCurve.Max, _options.BaseCurve.Increment);
+                              _diameterOptions  = OrderFactory.GetOptionsList(_options.Diameter.Min, _options.Diameter.Max, _options.Diameter.Increment);
+                              _axisOptions      = OrderFactory.GetOptionsList(_options.Axis.Min, _options.Axis.Max, _options.Axis.Increment);
+                              _cylinderOptions  = OrderFactory.GetOptionsList(_options.Cylinder.Min, _options.Cylinder.Max, _options.Cylinder.Increment);
+                          };
+            Because = presenter => Presenter.Selected_Article(null, _eventArgs);
+        }
+
+        [Test]
+        public void Power_options_are_loaded()
+        {
+            View.Model.PowerOptions.And(_powerOptions).Do((viewOptions, domainOptions) =>
+            {
+                viewOptions.Value.ShouldBe(domainOptions.ToString());
+                viewOptions.Text.ShouldBe(domainOptions.ToString());
+            });  
+        }
+
+        [Test]
+        public void BaseCurve_options_are_loaded()
+        {
+            View.Model.BaseCurveOptions.And(_baseCurveOptions).Do((viewOptions, domainOptions) =>
+            {
+                viewOptions.Value.ShouldBe(domainOptions.ToString());
+                viewOptions.Text.ShouldBe(domainOptions.ToString());
+            });
+        }
+
+        [Test]
+        public void Diameter_options_are_loaded()
+        {
+            View.Model.DiameterOptions.And(_diameterOptions).Do((viewOptions, domainOptions) =>
+            {
+                viewOptions.Value.ShouldBe(domainOptions.ToString());
+                viewOptions.Text.ShouldBe(domainOptions.ToString());
+            });
+        }
+
+        [Test]
+        public void Axis_options_are_loaded()
+        {
+            View.Model.AxisOptions.And(_axisOptions).Do((viewOptions, domainOptions) =>
+            {
+                viewOptions.Value.ShouldBe(domainOptions.ToString());
+                viewOptions.Text.ShouldBe(domainOptions.ToString());
+            });
+        }
+
+        [Test]
+        public void Cylinder_options_are_loaded()
+        {
+            View.Model.CylinderOptions.And(_cylinderOptions).Do((viewOptions, domainOptions) =>
+            {
+                viewOptions.Value.ShouldBe(domainOptions.ToString());
+                viewOptions.Text.ShouldBe(domainOptions.ToString());
             });
         }
     }

@@ -1,4 +1,3 @@
-using FluentNHibernate.Automapping;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Presentation.AcceptanceTest.App.IoC;

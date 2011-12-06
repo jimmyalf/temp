@@ -119,6 +119,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void SparasBeställningen()
         {
+            throw new NotImplementedException();
             var order = WithRepository<IOrderRepository>().GetAll().First();
 
             order.Article.Id.ShouldBe(_form.ArticleId);

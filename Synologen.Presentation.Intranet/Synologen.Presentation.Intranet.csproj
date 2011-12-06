@@ -325,6 +325,13 @@
     <Compile Include="Wpc\Synologen\Orders\AutogiroDetails.ascx.designer.cs">
       <DependentUpon>AutogiroDetails.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\Orders\Menu.ascx.cs">
+      <DependentUpon>Menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\Menu.ascx.designer.cs">
+      <DependentUpon>Menu.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\Orders\SearchCustomer.ascx.cs">
       <DependentUpon>SearchCustomer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -482,6 +489,7 @@
     <Content Include="Wpc\Synologen\js\jquery-ui-1.8.16.custom.min.js" />
     <Content Include="Wpc\Synologen\js\OrdersScript.js" />
     <Content Include="Wpc\Synologen\Orders\AutogiroDetails.ascx" />
+    <Content Include="Wpc\Synologen\Orders\Menu.ascx" />
     <Content Include="Wpc\Synologen\Orders\SearchCustomer.ascx" />
     <Content Include="Wpc\Synologen\Orders\CreateOrder.ascx" />
     <Content Include="Wpc\Synologen\Orders\CreateOrderConfirmation.ascx" />

@@ -7,7 +7,7 @@
 
     <nav id="tab-navigation">
     	<ul>
-    		<li class="selected"><a href="index.html"><span>1</span> S;k Kund</a></li>
+    		<li class="selected"><span>1</span> Sök Kund</li>
     		<li><span>2</span> Skapa Beställning</li>
     		<li><span>3</span> Betalningssätt</li>
     		<li><span>4</span> Autogiro Information</li>
@@ -25,8 +25,8 @@
             <label for="<%=txtPersonalIdNumber.ClientID%>">Personnummer</label>
             <span>
 				<asp:TextBox ID="txtPersonalIdNumber" runat="server" />
-				<asp:RequiredFieldValidator ID="reqtxtPersonalIdNumber" runat="server" ErrorMessage="Personnummer måste anges" ControlToValidate="txtPersonalIdNumber" Display="Dynamic" ValidationGroup="PersonalIdNumberValidationGroup">*</asp:RequiredFieldValidator>
-				<asp:RegularExpressionValidator ID="regextxtPersonalIdNumber" ValidationExpression="^(19|20)(\d){2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{4}$" runat="server" ErrorMessage="Personnummer måste anges som ÅÅÅÅMMDDXXXX" Display="Dynamic" ControlToValidate="txtPersonalIdNumber" ValidationGroup="PersonalIdNumberValidationGroup">*</asp:RegularExpressionValidator>
+				<asp:RequiredFieldValidator ID="reqtxtPersonalIdNumber" runat="server" ErrorMessage="Personnummer måste anges" ControlToValidate="txtPersonalIdNumber" Display="Dynamic">*</asp:RequiredFieldValidator>
+				<asp:RegularExpressionValidator ID="regextxtPersonalIdNumber" ValidationExpression="^(19|20)(\d){2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{4}$" runat="server" ErrorMessage="Personnummer måste anges som ÅÅÅÅMMDDXXXX" Display="Dynamic" ControlToValidate="txtPersonalIdNumber" >*</asp:RegularExpressionValidator>
             </span>
         </p>
 
@@ -34,7 +34,7 @@
     	<div class="next-step">
             <div class="control-actions">
                 <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" />
-		        <asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" />
+		        <asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" CausesValidation="true" />
 	        </div>
         </div>
     </fieldset>

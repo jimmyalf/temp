@@ -72,11 +72,11 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 				Provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref _contractArticleConnection);
 				_ordersToSave = new List<Order>
 				{
-					OrderFactory.Get(_company.Id, settlementableOrderStatus, _shop_1.ShopId, memberForShop1, _article.Id),
-					OrderFactory.Get(_company.Id, nonSettlementableOrderStatus, _shop_1.ShopId, memberForShop1, _article.Id),
-					OrderFactory.Get(_company.Id, settlementableOrderStatus, _shop_1.ShopId, memberForShop1, _article.Id),
-					OrderFactory.Get(_company.Id, settlementableOrderStatus, _shop_2.ShopId, memberForShop2, _article.Id),
-					OrderFactory.Get(_company.Id, settlementableOrderStatus, _shop_2.ShopId, memberForShop2, _article.Id),
+					OrderFactory.Get(_company.Id, settlementableOrderStatus, _shop_1.ShopId, memberForShop1.MemberId, _article.Id),
+					OrderFactory.Get(_company.Id, nonSettlementableOrderStatus, _shop_1.ShopId, memberForShop1.MemberId, _article.Id),
+					OrderFactory.Get(_company.Id, settlementableOrderStatus, _shop_1.ShopId, memberForShop1.MemberId, _article.Id),
+					OrderFactory.Get(_company.Id, settlementableOrderStatus, _shop_2.ShopId, memberForShop2.MemberId, _article.Id),
+					OrderFactory.Get(_company.Id, settlementableOrderStatus, _shop_2.ShopId, memberForShop2.MemberId, _article.Id),
 				};
 				_ordersToSave.Each(order => 
 				{

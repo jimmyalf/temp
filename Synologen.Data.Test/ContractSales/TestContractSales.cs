@@ -40,16 +40,16 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 
 				var company = DataManager.CreateCompany(_provider);
 				var shop = DataManager.CreateShop(_provider, "Testbutik ABC");
-				var memberId = DataManager.CreateMemberForShop(_userRepository, _provider, "user_abc", shop.ShopId, 2 /*location id*/);
+				var member = DataManager.CreateMemberForShop(_userRepository, _provider, "user_abc", shop.ShopId, 2 /*location id*/);
 				_orders = new[]
 				{
-					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, memberId),
-					OrderFactory.Get(company.Id, nonSettlementableOrderStatus, shop.ShopId, memberId),
-					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, memberId),
-					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, memberId),
-					OrderFactory.Get(company.Id, nonSettlementableOrderStatus, shop.ShopId, memberId),
-					OrderFactory.Get(company.Id, nonSettlementableOrderStatus, shop.ShopId, memberId),
-					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, memberId),
+					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, member.MemberId),
+					OrderFactory.Get(company.Id, nonSettlementableOrderStatus, shop.ShopId, member.MemberId),
+					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, member.MemberId),
+					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, member.MemberId),
+					OrderFactory.Get(company.Id, nonSettlementableOrderStatus, shop.ShopId, member.MemberId),
+					OrderFactory.Get(company.Id, nonSettlementableOrderStatus, shop.ShopId, member.MemberId),
+					OrderFactory.Get(company.Id, settlementableOrderStatus, shop.ShopId, member.MemberId),
 				};
 			};
 
@@ -104,11 +104,11 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 				_article = ArticleFactory.Get();
 				var shop = _dataManager.CreateShop(provider, "Butik ABC");
 				var company = _dataManager.CreateCompany(provider);
-				var memberId = _dataManager.CreateMemberForShop(_userRepository, provider as SqlProvider, "test_user",shop.ShopId, 2 /*location id*/);
+				var member = _dataManager.CreateMemberForShop(_userRepository, provider as SqlProvider, "test_user",shop.ShopId, 2 /*location id*/);
 				provider.AddUpdateDeleteArticle(Enumerations.Action.Create, ref _article);
 				_contractArticleConnection = ArticleFactory.GetContractArticleConnection(_article, company.ContractId, 999.23F, true);
 				provider.AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref _contractArticleConnection);
-				_order = OrderFactory.Get(company.Id, 5 /*status*/, shop.ShopId, memberId, _article.Id);
+				_order = OrderFactory.Get(company.Id, 5 /*status*/, shop.ShopId, member.MemberId, _article.Id);
 				provider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref _order);
 				_setInvoiceDate = new DateTime(2011, 09, 16, 10, 27,00);
 			};

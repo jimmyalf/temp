@@ -12,7 +12,7 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
-    [TestFixture, Category("Pick_Customer")]
+    [TestFixture, Category("Save_Customer")]
 	public class When_picking_a_customer : SpecTestbase<SaveCustomerPresenter,ISaveCustomerView>
     {
         private SaveCustomerPresenter _saveCustomerPresenter;
@@ -148,24 +148,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			customer.PostalCode.ShouldBe(_form.PostalCode);
     	}
 
-		//private void EnBefintligKundsPersonuppgifterHämtats()
-		//{
-		//    _previousCustomer = OrderFactory.GetCustomer();
-		//    WithRepository<IOrderCustomerRepository>().Save(_previousCustomer);
-
-		//    _fetchByPersonalId = OrderFactory.GetPersonalIdForm();
-
-		//    //_saveCustomerPresenter.FetchCustomerDataByPersonalIdNumber(null, _fetchByPersonalId);
-
-		//    _form = OrderFactory.GetOrderCustomerForm(_previousCustomer.Id);
-		//}
-
-		//private void KundenFinnsSedanTidigare()
-		//{
-		//    _previousCustomer = OrderFactory.GetCustomer();
-		//    WithRepository<IOrderCustomerRepository>().Save(_previousCustomer);
-		//}
-
     	private void FyllsFormuläretMedKunduppgifter()
     	{
     		View.Model.FirstName.ShouldBe(_previousCustomer.FirstName);
@@ -180,16 +162,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.PostalCode.ShouldBe(_previousCustomer.PostalCode);
 			View.Model.Notes.ShouldBe(_previousCustomer.Notes);
     	}
-
-		//private void AnvändarenKlickarHämta()
-		//{
-		//    _saveCustomerPresenter.FetchCustomerDataByPersonalIdNumber(null, _fetchByPersonalId);
-		//}
-
-		//private void AttEttPersonnummerÄrIfyllt()
-		//{
-		//    _fetchByPersonalId = OrderFactory.GetPersonalIdForm();
-		//}
 
         private void FörflyttasAnvändarenTillVynFörNästaSteg()
         {

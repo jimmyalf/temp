@@ -44,7 +44,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 
 		private int? GetCustomerIdFromForm()
 		{
-			if (hfCustomerId == null) return null;
+			if (hfCustomerId.Value == null) return null;
 			return Convert.ToInt32(hfCustomerId.Value);
 		}
     }

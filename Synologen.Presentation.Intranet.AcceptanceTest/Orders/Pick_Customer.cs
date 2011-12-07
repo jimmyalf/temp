@@ -86,6 +86,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             );
         }
 
+
     	private void MeddelandeVisasAttKundSaknas()
     	{
     		View.Model.DisplayCustomerMissingMessage.ShouldBe(true);

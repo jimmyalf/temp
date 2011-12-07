@@ -40,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			}
 			else
 			{
-				var  customerIdValue = Convert.ToInt32(customerId);
+				var customerIdValue = Convert.ToInt32(customerId);
 				var customer = _orderCustomerRepository.Get(customerIdValue);
     			View.Model.AddressLineOne = customer.AddressLineOne;
 				View.Model.AddressLineTwo = customer.AddressLineTwo;

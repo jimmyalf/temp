@@ -1,4 +1,5 @@
 ﻿using System;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -44,8 +45,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 
 		private int? GetCustomerIdFromForm()
 		{
-			if (hfCustomerId.Value == null) return null;
-			return Convert.ToInt32(hfCustomerId.Value);
+			if (String.IsNullOrEmpty(hfCustomerId.Value)) return null;
+			var value = hfCustomerId.Value.ToIntOrDefault();
+			return (value > 0) ? value : (int?) null;
 		}
     }
 }

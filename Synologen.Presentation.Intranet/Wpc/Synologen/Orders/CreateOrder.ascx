@@ -23,7 +23,7 @@
 	 		<div id="progressbar"></div>
    		</div>
     	<p><label>Välj Kategori</label>
-            <asp:DropDownList id="ddlPickCategory" runat="server" AutoPostBack="true" OnSelectedIndexChanged="Category_SelectedIndexChanged">
+            <asp:DropDownList id="ddlPickCategory" runat="server" AutoPostBack="true">
                 <asp:ListItem value="endagslinser">
                   Endagslinser
                 </asp:ListItem>

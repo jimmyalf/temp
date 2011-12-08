@@ -115,7 +115,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     		HttpContext.SetupRequestParameter("customer", _previousCustomer.Id.ToString());
     	}
 
-    	[Test]
+        [Test]
+        public void GåTillFöregåendeSteg()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttAnvändarenStårIVynFörAttSparaKund)
+                .När(AnvändarenKlickarPåFöregåendeSteg)
+                .Så(FörflyttasAnvändarenTillVynFörFöregåendeSteg));
+        }
+
+        private void AttAnvändarenStårIVynFörAttSparaKund()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AnvändarenKlickarPåFöregåendeSteg()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FörflyttasAnvändarenTillVynFörFöregåendeSteg()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
         public void UppdateraBefintligKund()
         {
             SetupScenario(scenario => scenario

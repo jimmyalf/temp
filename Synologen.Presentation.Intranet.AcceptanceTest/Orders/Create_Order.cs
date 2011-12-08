@@ -20,6 +20,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private CreateOrderEventArgs _form;
         private string _testRedirectUrl;
         private OrderCustomer _customer;
+        private Article _article;
+        private int _articleId;
+        private LensRecipe _lensRecipe;
 
         public When_creating_an_order()
         {
@@ -55,6 +58,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(AttAnvändarenVisarBeställningsformuläret)
 		        .När(AnvändarenKlickarPåFöregåendeSteg)
 		        .Så(FörflyttasAnvändarenTillFöregåendeSteg)
+                    .Och(FormuläretFyllsMedKundensUppgifter)
 			);
 		}
 
@@ -64,13 +68,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             SetupScenario(scenario => scenario
 				.Givet(AttEnKundÄrVald)
 					.Och(AttAnvändarenFylltIBeställningsformuläret)
+                    .Och(ValdArtikelFinnsSparad)
                 .När(AnvändarenKlickarPåNästaSteg)
-                .Så(SparasBeställningen)
+                 .Så(SparasBeställningen)
                     .Och(AnvändarenFörflyttasTillVynFörNästaSteg)
 			);
         }
 
-		#region Arrange
+        #region Arrange
 
     	private void AttEnKundÄrVald()
     	{
@@ -78,6 +83,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             WithRepository<IOrderCustomerRepository>().Save(_customer);
             HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
     	}
+
+        private void ValdArtikelFinnsSparad()
+        {
+            _article = OrderFactory.GetArticle();
+            WithRepository<IArticleRepository>().Save(_article);
+            _articleId = _article.Id;
+        }
 
 		private void AttAnvändarenFylltIBeställningsformuläret()
         {
@@ -119,24 +131,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void SparasBeställningen()
         {
-            throw new NotImplementedException();
+            
             var order = WithRepository<IOrderRepository>().GetAll().First();
 
-            order.Article.Id.ShouldBe(_form.ArticleId);
-			//order.Article.Category.Id.ShouldBe(_form.CategoryId);
+            order.Article.Id.ShouldBe(_form.ArticleId);          
+
             order.LensRecipe.BaseCurve.Left.ShouldBe(_form.LeftBaseCurve);
-            order.LensRecipe.Diameter.Left.ShouldBe(_form.LeftDiameter);
-            order.LensRecipe.Power.Left.ShouldBe(_form.LeftPower);
             order.LensRecipe.BaseCurve.Right.ShouldBe(_form.RightBaseCurve);
+            order.LensRecipe.Diameter.Left.ShouldBe(_form.LeftDiameter);
             order.LensRecipe.Diameter.Right.ShouldBe(_form.RightDiameter);
+            order.LensRecipe.Power.Left.ShouldBe(_form.LeftPower);
             order.LensRecipe.Power.Right.ShouldBe(_form.RightPower);
+            order.LensRecipe.Axis.Left.ShouldBe(_form.LeftAxis);
+            order.LensRecipe.Axis.Right.ShouldBe(_form.RightAxis);
+            order.LensRecipe.Cylinder.Left.ShouldBe(_form.LeftCylinder);
+            order.LensRecipe.Cylinder.Right.ShouldBe(_form.RightCylinder);
+
             order.ShippingType.ToInteger().ShouldBe(_form.ShipmentOption);
-            //order.Article.Supplier.Id.ShouldBe(_form.SupplierId);
+
+            //order.Article.Category.Id.ShouldBe(_form.CategoryId);
+            //order.Article.Supplier.Id.ShouldBe(_form.SupplierId);  
         }
 
         private void AnvändarenFörflyttasTillVynFörNästaSteg()
         {
             HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_testRedirectUrl);
+        }
+
+        private void FormuläretFyllsMedKundensUppgifter()
+        {
+            throw new NotImplementedException();
         }
 
 		#endregion

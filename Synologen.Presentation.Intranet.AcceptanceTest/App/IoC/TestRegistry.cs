@@ -51,6 +51,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.IoC
 		    For<IArticleSupplierRepository>().Use<ArticleSupplierRepository>();
 		    For<IArticleTypeRepository>().Use<ArticleTypeRepository>();
             For<IArticleRepository>().Use<ArticleRepository>();
+		    For<ILensRecipeRepository>().Use<LensRecipeRepository>();
 			
 			
 

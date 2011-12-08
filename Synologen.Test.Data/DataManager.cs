@@ -212,6 +212,16 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			DeleteAndResetIndexForTable(connection, "SynologenOrderCustomer");
 		}
 
+        private void DeleteLensRecipes(IDbConnection connection)
+        {
+            DeleteAndResetIndexForTable(connection, "SynologenOrder");
+        }
+
+        private void DeleteOrders(IDbConnection connection)
+        {
+            DeleteAndResetIndexForTable(connection, "SynologenOrderLensRecipe");
+        }
+
 		public virtual void ValidateConnectionIsDev(IDbConnection connection)
 		{
 			if(!IsDevelopmentServer(connection.ConnectionString))
@@ -235,6 +245,8 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			ValidateConnectionIsDev(connection);
 			DeleteOPQAndConnections(connection);
 			DeleteOrderCustomers(connection);
+            DeleteLensRecipes(connection);
+            DeleteOrders(connection);
 			DeleteLensSubscriptionsAndConnections(connection);
 			DeleteContractSalesAndConnections(connection);
 			DeleteFrameOrdersAndConnections(connection);
@@ -244,6 +256,7 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			CreateAdminUsers(userRepository);
 			CreateShopAndTestUsers(userRepository, sqlProvider as SqlProvider);
 		}
+
 	}
 
 	public sealed class CreatedMemberInfo

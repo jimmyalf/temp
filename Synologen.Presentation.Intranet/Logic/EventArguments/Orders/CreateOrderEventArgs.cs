@@ -9,12 +9,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
         //public int SupplierId { get; set; }
         //public int TypeId { get; set; }
         public int ArticleId { get; set; }
-        public int LeftPower { get; set; }
-        public int RightPower { get; set; }
-        public int LeftDiameter { get; set; }
-        public int RightDiameter { get; set; }
-        public int LeftBaseCurve { get; set; }
-        public int RightBaseCurve { get; set; }
+        public float LeftPower { get; set; }
+        public float RightPower { get; set; }
+        public float LeftDiameter { get; set; }
+        public float RightDiameter { get; set; }
+        public float LeftBaseCurve { get; set; }
+        public float RightBaseCurve { get; set; }        
+        public float LeftAxis { get; set; }
+        public float RightAxis { get; set; }
+        public float LeftCylinder { get; set; }
+        public float RightCylinder { get; set; }
+
         public int ShipmentOption { get; set; }
         public int CustomerId { get; set; }
     }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
@@ -23,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	private readonly IArticleTypeRepository _articleTypeRepository;
     	private readonly IOrderCustomerRepository _orderCustomerRepository;
         private readonly IArticleRepository _articleRepository;
+        private readonly ILensRecipeRepository _lensRecipeRepository;
 
         public CreateOrderPresenter(
 			ICreateOrderView view, 
@@ -33,7 +33,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			IViewParser viewParser,
 			IArticleSupplierRepository articleSupplierRepository,
 			IArticleTypeRepository articleTypeRepository,
-            IArticleRepository articleRepository
+            IArticleRepository articleRepository,
+            ILensRecipeRepository lensRecipeRepository
 			) : base(view)
         {
             _orderCustomerRepository = orderCustomerRepository;
@@ -44,6 +45,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         	_articleTypeRepository = articleTypeRepository;
         	_orderRepository = orderRepository;
             _articleRepository = articleRepository;
+            _lensRecipeRepository = lensRecipeRepository;
         	View.Load += View_Load;
             View.Submit += View_Submit;
         	View.SelectedCategory += Selected_Category;
@@ -99,22 +101,33 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
         public void View_Submit(object o, CreateOrderEventArgs form)
         {
-			//TODO:Update save functionality to fit new order model structure
-			//var order = new Order
-			//{
-			//    ArticleId = form.ArticleId,
-			//    CategoryId = form.CategoryId,
-			//    LeftBaseCurve = form.LeftBaseCurve,
-			//    LeftDiameter = form.LeftDiameter,
-			//    LeftPower = form.LeftPower,
-			//    RightBaseCurve = form.RightBaseCurve,
-			//    RightDiameter = form.RightDiameter,
-			//    RightPower = form.RightPower,
-			//    ShipmentOption = form.ShipmentOption,
-			//    SupplierId = form.SupplierId,
-			//    TypeId = form.TypeId
-			//};
-			//_orderRepository.Save(order);
+            var article = _articleRepository.Get(form.ArticleId);
+            if (article == null) return;
+
+            var lensRecipe = new LensRecipe
+            {
+                Axis = new EyeParameter { Left = form.LeftAxis, Right = form.RightAxis },
+                BaseCurve = new EyeParameter { Left = form.LeftBaseCurve, Right = form.RightBaseCurve },
+                Cylinder = new EyeParameter { Left = form.LeftCylinder, Right = form.RightCylinder },
+                Diameter = new EyeParameter { Left = form.LeftDiameter, Right = form.RightDiameter },
+                Power = new EyeParameter { Left = form.LeftPower, Right = form.RightPower }
+            };
+
+            _lensRecipeRepository.Save(lensRecipe);
+
+            //TODO:Update save functionality to fit new order model structure
+            var order = new Order
+            {
+                Article = article,
+                LensRecipe = lensRecipe,
+                ShippingType = (OrderShippingOption) form.ShipmentOption
+			    
+			    //SupplierId = form.SupplierId,
+			    //TypeId = form.TypeId
+			};
+			_orderRepository.Save(order);
+
+            
 
             Redirect();
         }

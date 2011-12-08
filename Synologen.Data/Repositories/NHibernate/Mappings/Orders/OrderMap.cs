@@ -9,18 +9,14 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
         {
             Table("SynologenOrder");
             Id(x => x.Id);
-            References(x => x.Article).Column("ArticleId");
-            //Map(x => x.CategoryId);
-        	References(x => x.LensRecipe).Column("LensRecipeId").Nullable();
-			//Map(x => x.LeftBaseCurve);
-			//Map(x => x.LeftDiameter);
-			//Map(x => x.LeftPower);
-			//Map(x => x.RightBaseCurve);
-			//Map(x => x.RightDiameter);
-			//Map(x => x.RightPower);
+
+            HasOne(x => x.LensRecipe);
+
+            Map(x => x.Created);
             Map(x => x.ShippingType).CustomType<int>();
-			//Map(x => x.SupplierId);
-			//Map(x => x.TypeId);
+
+            References(x => x.Article).Column("ArticleId");
+        	//References(x => x.LensRecipe).Column("LensRecipeId").Nullable();
         }
     }
 }

@@ -10,9 +10,31 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
             Table("SynologenOrderLensRecipe");
             Id(x => x.Id);
 
-            Component(x => x.Power).ColumnPrefix("Power");
-            Component(x => x.BaseCurve).ColumnPrefix("BaseCurve");
-            Component(x => x.Diameter).ColumnPrefix("Diameter");
+            Component(x => x.Power, m =>
+            {
+                m.Map(x => x.Left).Column("PowerLeft");
+                m.Map(x => x.Right).Column("PowerRight");
+            });
+            Component(x => x.BaseCurve, m =>
+            {
+                m.Map(x => x.Left).Column("BaseCurveLeft");
+                m.Map(x => x.Right).Column("BaseCurveRight");
+            });
+            Component(x => x.Diameter, m =>
+            {
+                m.Map(x => x.Left).Column("DiameterLeft");
+                m.Map(x => x.Right).Column("DiameterRight");
+            });
+            Component(x => x.Axis, m =>
+            {
+                m.Map(x => x.Left).Column("AxisLeft");
+                m.Map(x => x.Right).Column("AxisRight");
+            });
+            Component(x => x.Cylinder, m =>
+            {
+                m.Map(x => x.Left).Column("CylinderLeft");
+                m.Map(x => x.Right).Column("CylinderRight");
+            });
         }
     }
 }

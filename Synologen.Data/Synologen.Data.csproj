@@ -176,6 +176,7 @@
     <Compile Include="Repositories\OrderRepositories\ArticleSupplierRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\ArticleTypeRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\ArticleRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\LensRecipeRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\OrderCustomerRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\OrderRepository.cs" />
     <Compile Include="SqlProviderConcern.cs" />

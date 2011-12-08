@@ -53,22 +53,68 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			};
 		}
 
-	    public static CreateOrderEventArgs GetOrder()
+	    public static CreateOrderEventArgs GetOrder(int articleId=1)
 	    {
 	        return new CreateOrderEventArgs
 	                   {
-	                       ArticleId = 1,
+	                       ArticleId = articleId,
                            //CategoryId = 1,
                            LeftBaseCurve = 9,
                            LeftDiameter = -14,
                            LeftPower = 5,
+                           LeftAxis = 5,
+                           LeftCylinder = 5,
                            RightBaseCurve = 9,
                            RightDiameter = -14,
                            RightPower = 5,
+                           RightAxis = 5,
+                           RightCylinder = 5,
                            ShipmentOption = 1,
                            //SupplierId = 15,
                            //TypeId = 1
 	                   };
+	    }
+
+	    public static Article GetArticle()
+	    {
+	        return new Article
+	        {
+	            Name = "Artikel 1",
+	            Options = new ArticleOptions
+	            {
+	                Axis = new SequenceDefinition
+	                {
+	                    Increment = 0.25F,
+                        Max = 2F,
+                        Min = -1F
+                    },
+                    BaseCurve = new SequenceDefinition
+                    {
+                        Increment = 0.25F,
+                        Max = 2F,
+                        Min = -1F
+                    },
+                    Power = new SequenceDefinition
+                    {
+                        Increment = 0.25F,
+                        Max = 2F,
+                        Min = -1F
+                    },
+                    Cylinder = new SequenceDefinition
+                    {
+                        Increment = 0.25F,
+                        Max = 2F,
+                        Min = -1F
+                    },
+                    Diameter = new SequenceDefinition
+                    {
+                        Increment = 0.25F,
+                        Max = 2F,
+                        Min = -1F
+                    }
+
+                }
+	        };
 	    }
 	}
 }

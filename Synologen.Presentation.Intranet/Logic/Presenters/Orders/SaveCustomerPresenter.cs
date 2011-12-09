@@ -70,12 +70,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 				customer = _viewParser.Parse(args);
 			}
 			_orderCustomerRepository.Save(customer);
-        	Redirect();
+        	Redirect(customer.Id);
         }
 
-    	private void Redirect()
+    	private void Redirect(int customerId)
     	{
-    		var url = _synologenMemberService.GetPageUrl(View.NextPageId);
+    		var url = _synologenMemberService.GetPageUrl(View.NextPageId) + "?customer=" + customerId;
 			HttpContext.Response.Redirect(url);
     	}
 

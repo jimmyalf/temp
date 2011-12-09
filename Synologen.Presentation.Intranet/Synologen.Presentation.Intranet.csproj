@@ -325,13 +325,6 @@
     <Compile Include="Wpc\Synologen\Orders\AutogiroDetails.ascx.designer.cs">
       <DependentUpon>AutogiroDetails.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\Orders\Menu.ascx.cs">
-      <DependentUpon>Menu.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Wpc\Synologen\Orders\Menu.ascx.designer.cs">
-      <DependentUpon>Menu.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Wpc\Synologen\Orders\SearchCustomer.ascx.cs">
       <DependentUpon>SearchCustomer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -416,6 +409,7 @@
     <Compile Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx.designer.cs">
       <DependentUpon>ViewMemberImage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\WebControls\TabMenu.cs" />
     <Compile Include="Wpc\Synologen\ValidationButton.ascx.cs">
       <DependentUpon>ValidationButton.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -471,6 +465,7 @@
     <None Include="Testpages\OrdersPaymentOptions.aspx" />
     <None Include="Testpages\OrdersCreateOrderConfirmation.aspx" />
     <None Include="Testpages\OrdersAutogiroDetails.aspx" />
+    <None Include="Testpages\TabMenu.aspx" />
     <Content Include="Wpc\Synologen\Css\jquery-ui-1.8.16.custom.css" />
     <Content Include="Wpc\Synologen\Css\screen.css" />
     <Content Include="Wpc\Synologen\Css\smoothness\images\pbar-ani.gif" />
@@ -489,7 +484,6 @@
     <Content Include="Wpc\Synologen\js\jquery-ui-1.8.16.custom.min.js" />
     <Content Include="Wpc\Synologen\js\OrdersScript.js" />
     <Content Include="Wpc\Synologen\Orders\AutogiroDetails.ascx" />
-    <Content Include="Wpc\Synologen\Orders\Menu.ascx" />
     <Content Include="Wpc\Synologen\Orders\SearchCustomer.ascx" />
     <Content Include="Wpc\Synologen\Orders\CreateOrder.ascx" />
     <Content Include="Wpc\Synologen\Orders\CreateOrderConfirmation.ascx" />

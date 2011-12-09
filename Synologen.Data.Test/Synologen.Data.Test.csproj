@@ -143,6 +143,7 @@
     <Compile Include="LensSubscriptionData\TransactionArticleRepositoryTester.cs" />
     <Compile Include="LensSubscriptionData\TransactionRepositoryTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen.Business\Synologen.Business.csproj">

@@ -48,6 +48,8 @@
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
     <Compile Include="Code\CustomOrderValidation.cs" />
+    <Compile Include="Logic\Services\CachedRoutingService.cs" />
+    <Compile Include="Code\Factories\RoutingServiceFactory.cs" />
     <Compile Include="Code\MemberControlPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -87,6 +89,7 @@
     <Compile Include="Logic\Presenters\Orders\CreateOrderConfirmationPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\CreateOrderPresenter.cs" />
     <Compile Include="Logic\EventArguments\Orders\SearchCustomerEventArgs.cs" />
+    <Compile Include="Logic\Services\RoutingService.cs" />
     <Compile Include="Logic\Views\Orders\ISearchCustomerView.cs" />
     <Compile Include="Logic\Presenters\Orders\PaymentOptionsPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\SaveCustomerPresenter.cs" />
@@ -409,7 +412,7 @@
     <Compile Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx.designer.cs">
       <DependentUpon>ViewMemberImage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Wpc\Synologen\WebControls\TabMenu.cs" />
+    <Compile Include="Wpc\Synologen\WebControls\MenuControl.cs" />
     <Compile Include="Wpc\Synologen\ValidationButton.ascx.cs">
       <DependentUpon>ValidationButton.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

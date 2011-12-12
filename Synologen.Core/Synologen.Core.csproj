@@ -303,6 +303,7 @@
     <Compile Include="Domain\Services\IFrameOrderService.cs" />
     <Compile Include="Domain\Services\ILoggingService.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGWebService.cs" />
+    <Compile Include="Domain\Services\IRoutingService.cs" />
     <Compile Include="Domain\Services\IServiceCoordinatorSettingsService.cs" />
     <Compile Include="Domain\Services\ISynologenMemberService.cs" />
     <Compile Include="Domain\Services\ISynologenSettingsService.cs" />

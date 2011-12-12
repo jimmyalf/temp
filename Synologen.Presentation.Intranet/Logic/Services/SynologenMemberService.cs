@@ -1,4 +1,3 @@
-using Spinit.Wpc.Content.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -11,7 +10,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 	public class SynologenMemberService : ISynologenMemberService
 	{
 		private readonly ISqlProvider _sqlProvider;
-		public SynologenMemberService(ISqlProvider sqlProvider) { _sqlProvider = sqlProvider; }
+		private readonly IRoutingService _routingService;
+
+		public SynologenMemberService(ISqlProvider sqlProvider, IRoutingService routingService)
+		{
+			_sqlProvider = sqlProvider;
+			_routingService = routingService;
+		}
 
 		public int GetCurrentShopId()
 		{
@@ -57,9 +62,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 
 		public string GetPageUrl(int pageId)
 		{
-			var connectionString = Utility.Business.Globals.ConnectionString("WpcServer");
-			var treeRepository = new Tree(connectionString);
-			return treeRepository.GetFileUrlDownString(pageId);
+			return _routingService.GetPageUrl(pageId);
 		}
 
 		public bool ShopHasAccessTo(ShopAccess accessOption)

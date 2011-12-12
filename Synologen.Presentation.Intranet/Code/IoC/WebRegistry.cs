@@ -12,6 +12,7 @@ using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Code.Factories;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using StructureMap.Configuration.DSL;
 using ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories.ArticleRepository;
@@ -55,6 +56,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code.IoC
 			For<ISynologenSettingsService>().Use<SynologenSettingsService>();
 		    For<IYammerService>().Use<YammerService>();
 			For<IViewParser>().Use<ViewParser>();
+			For<IRoutingService>().Singleton().Use(RoutingServiceFactory.GetCachedRoutingService);
 			//For<IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>>().Use<AllOrderableFramesCriteriaConverter>();
 			//For<IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>>().Use<AllFrameOrdersForShopCriteriaConverter>();
 			//For<IActionCriteriaConverter<CustomersForShopMatchingCriteria, ICriteria>>().Use<CustomersForShopMatchingCriteriaConverter>();

@@ -420,6 +420,7 @@
     <Compile Include="Wpc\Synologen\ValidationButton.ascx.designer.cs">
       <DependentUpon>ValidationButton.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\WebControls\PageLink.cs" />
     <Compile Include="Wpc\Synologen\Yammer\MiniYammerFeed.ascx.cs">
       <DependentUpon>MiniYammerFeed.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

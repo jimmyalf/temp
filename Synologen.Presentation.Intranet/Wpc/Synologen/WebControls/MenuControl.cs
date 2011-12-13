@@ -14,6 +14,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 		private readonly IRoutingService _routingService;
 		private bool _stopRenderingLinks;
 		public bool DisableLinksAfterSelectedItem { get; set; }
+		public bool IncludeCurrentQuery { get; set; }
 
 		public MenuControl()
 		{
@@ -80,6 +81,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 				RenderItem(Controls, menuItem);
 			}
 			RenderHeaderFooterContent(FooterTemplate, Controls);
+		}
+
+		public override void DataBind()
+		{
+			CreateChildControls();
+			ChildControlsCreated = true;
 			base.DataBind();
 		}
 
@@ -87,7 +94,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 		{
 		    var url = GetUrl(item);
 		    var isCurrentPage = IsCurrentPage(url);
-			var menuData = new MenuModel(item.PageId, url, item.Text);
+			var outputUrl = url + (IncludeCurrentQuery ? Page.Request.Url.Query : string.Empty);
+			var menuData = new MenuModel(item.PageId, outputUrl, item.Text);
 			if(_stopRenderingLinks)
 			{
 				AfterSelectedMenuItemTemplate.InstantiateIn(menuData);
@@ -100,7 +108,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 			{
 				MenuItemTemplate.InstantiateIn(menuData);	
 			}
-			menuData.DataBind();
+			//menuData.DataBind();
 			collection.Add(menuData);
 			if(isCurrentPage && DisableLinksAfterSelectedItem)
 		    {
@@ -134,7 +142,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 		public int? PageId { get; private set; }
 
 		public override void RenderBeginTag(HtmlTextWriter writer) { }
-
 		public override void RenderEndTag(HtmlTextWriter writer) { }
 	}
 
@@ -172,7 +179,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 
 	public class MenuItemCollection : List<MenuItem> { }
 	
-	[ParseChildren(false, DefaultProperty = "Text")]
+	[ParseChildren(true, DefaultProperty = "Text")]
 	public class MenuItem : ITextControl
 	{
 		public int? PageId { get; set; }
@@ -180,4 +187,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 		public string Text { get; set; }
 		public string Url { get; set; }
 	}
+
 }

@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#"  MasterPageFile="~/Default.master" AutoEventWireup="true" Title="Intranät" %>
 <asp:Content ID="cnt1" ContentPlaceHolderID="Content" Runat="Server">
 <asp:Literal ID="ltPageId" Text="190" Visible="false" runat="server"/>
-<WpcSynologen:MenuControl runat="server" DisableLinksAfterSelectedItem="true">
+<WpcSynologen:MenuControl runat="server" DisableLinksAfterSelectedItem="true" IncludeCurrentQuery="true">
 	<HeaderTemplate><nav id="tab-navigation"><ul></HeaderTemplate>
 	<Items>
 		<WpcSynologen:MenuItem PageId="190"><span>1</span> Välj Kund</WpcSynologen:MenuItem>
@@ -12,5 +12,4 @@
 	</Items>
 	<FooterTemplate></ul></nav></FooterTemplate>
 </WpcSynologen:MenuControl>
-
 </asp:Content>

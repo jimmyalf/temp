@@ -1,24 +1,31 @@
-$(document).ready(function () {
-    //$(".fancybox").fancybox();
+(function ($) {
+	$.SynologenIntranet = $.SynologenIntranet || {};
 
-    var numberOfSteps = 6;
+	$.extend($.SynologenIntranet, {
+		init: function() {
+			$("html").addClass("js-enabled");
+			$.SynologenIntranet.initYammer();
+			$.SynologenIntranet.initProgressBar(6);
+		},
 
-    $(function () {
+		initYammer: function() {
+			$(".fancybox").fancybox();
+		},
 
-        for (var i = 1; i <= numberOfSteps; i++) 
-        {
-            $(".step" + i + " #progressbar").progressbar({
-                value: getPercentage(i)
-            });
-        }
+		initProgressBar: function(numberOfSteps) {
+			function getPercentage(currentStep) {
+				if (currentStep == numberOfSteps) return 100;
+				return (100 / numberOfSteps) * currentStep;
+			}
+			
+			for (var i = 1; i <= numberOfSteps; i++) {
+				$(".step" + i + " #progressbar").progressbar({
+					value: getPercentage(i)
+				});
+			}
+		}
+	});
 
-    });
+})(jQuery);
 
-    function getPercentage(currentStep) {
-        if (currentStep == numberOfSteps) {
-            return 100;
-        }
-        return (100 / numberOfSteps) * currentStep;
-    }
-});
-
+$(document).ready($.SynologenIntranet.init);

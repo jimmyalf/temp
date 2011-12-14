@@ -5,17 +5,8 @@
 		<h1>Linsabonnemang demo</h1>
 		<span class="customer-name"><b>Kund:</b> Emelie Richter</span>
 	</header>
-
-    <nav id="tab-navigation">
-    	<ul>
-    		<li class="completed"><a href="index.html"><span>1</span> Välj Kund</a></li>
-    		<li><a href="create_order.html"><span>2</span> Skapa Beställning</a></li>
-    		<li class="selected"><span>3</span> Betalningssätt</li>
-    		<li><span>4</span> Autogiro Information</li>
-    		<li><span>5</span> Bekräfta</li>
-    	</ul>
-    </nav>
-   <div id="tab-container">
+	<WpcSynologen:OrderMenu runat="server" />
+	<div id="tab-container">
       <fieldset>
       <div class="progress">
    			<label>Steg 3 av 5</label>

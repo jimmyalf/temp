@@ -74,6 +74,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 
 		protected override void CreateChildControls()
 		{
+			_stopRenderingLinks = false;
 			Controls.Clear();
 			RenderHeaderFooterContent(HeaderTemplate, Controls);
 			foreach (var menuItem in Items)
@@ -108,7 +109,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 			{
 				MenuItemTemplate.InstantiateIn(menuData);	
 			}
-			//menuData.DataBind();
 			collection.Add(menuData);
 			if(isCurrentPage && DisableLinksAfterSelectedItem)
 		    {

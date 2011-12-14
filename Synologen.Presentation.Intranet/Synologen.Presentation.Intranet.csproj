@@ -487,7 +487,6 @@
     <Content Include="Wpc\Synologen\Images\view.png" />
     <Content Include="Wpc\Synologen\ContractSales\SalesList.ascx" />
     <Content Include="Wpc\Synologen\js\jquery-ui-1.8.16.custom.min.js" />
-    <Content Include="Wpc\Synologen\js\OrdersScript.js" />
     <Content Include="Wpc\Synologen\Orders\AutogiroDetails.ascx" />
     <Content Include="Wpc\Synologen\Orders\Menu\OrderMenu.ascx" />
     <Content Include="Wpc\Synologen\Orders\SearchCustomer.ascx" />

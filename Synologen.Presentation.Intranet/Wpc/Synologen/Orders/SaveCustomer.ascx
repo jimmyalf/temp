@@ -5,16 +5,8 @@
 		<h1>Linsabonnemang demo</h1>
 	</div>
 
-    <nav id="tab-navigation">
-    	<ul>
-    		<li class="selected"><a href="index.html"><span>1</span> Välj Kund</a></li>
-    		<li><span>2</span> Skapa Beställning</li>
-    		<li><span>3</span> Betalningssätt</li>
-    		<li><span>4</span> Autogiro Information</li>
-    		<li><span>5</span> Bekräfta</li>
-    	</ul>
-    </nav>
-   <div id="tab-container">
+	<WpcSynologen:OrderMenu runat="server" />
+	<div id="tab-container">
 
    	<fieldset>
    		<div class="progress">

@@ -29,5 +29,5 @@ function getPercentage(currentStep) {
     {
         return 100; 
     }
-    return 100/numberOfSteps*currentStep;
+    return (100/numberOfSteps)*currentStep;
 }

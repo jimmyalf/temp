@@ -47,8 +47,9 @@
 	</fieldset>
     <fieldset>
 	    <legend>Beställningar</legend>
-	    <a href="TestPages/OrdersPickCustomer.aspx">Välj kund</a>
-        <a href="TestPages/OrdersCreateOrder.aspx">Skapa order</a>
+        <a href="TestPages/OrdersSearchCustomer.aspx">Sök kund</a>
+	    <a href="TestPages/OrdersSaveCustomer.aspx?customer=1">Välj kund</a>
+        <a href="TestPages/OrdersCreateOrder.aspx?customer=1">Skapa order</a>
         <a href="TestPages/OrdersPaymentOptions.aspx">Betalningssätt</a>
         <a href="TestPages/OrdersAutogiroDetails.aspx">Autogiro</a>
         <a href="TestPages/OrdersCreateOrderConfirmation.aspx">Bekräfta</a>

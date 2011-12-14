@@ -1,28 +1,16 @@
-$(document).ready(function() {
-    $(".fancybox").fancybox();
+$(document).ready(function () {
+    //$(".fancybox").fancybox();
 
-    var numberOfSteps = 5;
+    var numberOfSteps = 6;
 
     $(function () {
-        $(".step1 #progressbar").progressbar({
-            value: getPercentage(1)
-        });
 
-        $(".step2 #progressbar").progressbar({
-            value: getPercentage(2)
-        });
-
-        $(".step3 #progressbar").progressbar({
-            value: getPercentage(3)
-        });
-
-        $(".step4 #progressbar").progressbar({
-            value: getPercentage(4)
-        });
-
-        $(".step5 #progressbar").progressbar({
-            value: getPercentage(5)
-        });
+        for (var i = 1; i <= numberOfSteps; i++) 
+        {
+            $(".step" + i + " #progressbar").progressbar({
+                value: getPercentage(i)
+            });
+        }
 
     });
 

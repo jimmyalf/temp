@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CreateOrderConfirmation.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders.CreateOrderConfirmation" %>
 
-<div id="page" class="step5">
+<div id="page" class="step6">
     <header>
 		<h1>Linsabonnemang demo</h1>
 		<span class="customer-name"><b>Kund:</b> Emelie Richter</span>
@@ -18,7 +18,7 @@
    <div id="tab-container">
       <fieldset>
       <div class="progress">
-   			<label>Steg 5 av 5</label>
+   			<label>Steg 6 av 6</label>
 	 		<div id="progressbar"></div>
    	  </div>
 

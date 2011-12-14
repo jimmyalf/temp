@@ -2,8 +2,9 @@
 {
 	public class ArticleSupplier : Entity
 	{
-		public string Name { get; set; }
+		public virtual string Name { get; set; }
 
-		public OrderShippingOption ShippingOptions { get; set; }
+		public virtual OrderShippingOption ShippingOptions { get; set; }
+	    public virtual ArticleCategory NAME { get; set; }
 	}
 }

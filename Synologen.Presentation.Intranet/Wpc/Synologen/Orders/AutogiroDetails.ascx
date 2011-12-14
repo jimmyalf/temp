@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AutogiroDetails.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders.AutogiroDetails" %>
 
-<div id="page" class="step4">
+<div id="page" class="step5">
     <header>
 		<h1>Linsabonnemang demo</h1>
 		<span class="customer-name"><b>Kund:</b> Emelie Richter</span>
@@ -19,7 +19,7 @@
    
       <fieldset>
       <div class="progress">
-   			<label>Steg 4 av 5</label>
+   			<label>Steg 5 av 6</label>
 	 		<div id="progressbar"></div>
    	    </div>
     	<p><label>Bankontonummer</label><input type="text" /></p>

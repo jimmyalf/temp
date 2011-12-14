@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
-using Spinit.Data;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
@@ -14,7 +13,6 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Test.TestHelpers;
 

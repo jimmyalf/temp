@@ -5,7 +5,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
 
     public class CreateOrderEventArgs : EventArgs
     {
-        //public int CategoryId { get; set; }
+        public int CategoryId { get; set; }
         //public int SupplierId { get; set; }
         //public int TypeId { get; set; }
         public int ArticleId { get; set; }

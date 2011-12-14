@@ -68,53 +68,7 @@
             </asp:DropDownList>
     	</p>
       </fieldset>
-      <fieldset class="left-eye">
-      <legend>V</legend>
-          	<p><label>Styrka</label>
 
-            <asp:DropDownList id="ddlLeftStrength" runat="server">
-                <asp:ListItem value="1">
-                  -7,50
-                </asp:ListItem>
-                <asp:ListItem value="2">
-                  8.5
-                </asp:ListItem>
-                <asp:ListItem value="3">
-                  1.0
-                </asp:ListItem>
-            </asp:DropDownList>
-		</p>
-    	<p><label>Baskurva</label>
-
-            <asp:DropDownList id="ddlLeftBaskurva" runat="server">
-                <asp:ListItem value="1">
-                  8,5
-                </asp:ListItem>
-                <asp:ListItem value="2">
-                  9,0
-                </asp:ListItem>
-                <asp:ListItem value="3">
-                  9,5
-                </asp:ListItem>
-            </asp:DropDownList>
-
-		</p>
-    	<p><label>Diameter</label>
-            
-            <asp:DropDownList id="ddlLeftDiameter" runat="server">
-                <asp:ListItem value="1">
-                  -14
-                </asp:ListItem>
-                <asp:ListItem value="2">
-                  -15
-                </asp:ListItem>
-                <asp:ListItem value="3">
-                  -16
-                </asp:ListItem>
-            </asp:DropDownList>
-    	</p>
-      </fieldset>
-      
       <fieldset class="right-eye">
       <legend>H</legend>
           	<p><label>Styrka</label>
@@ -161,7 +115,53 @@
             </asp:DropDownList>
     	</p>
       </fieldset>
-      
+      <fieldset class="left-eye">
+      <legend>V</legend>
+          	<p><label>Styrka</label>
+
+            <asp:DropDownList id="ddlLeftStrength" runat="server">
+                <asp:ListItem value="1">
+                  -7,50
+                </asp:ListItem>
+                <asp:ListItem value="2">
+                  8.5
+                </asp:ListItem>
+                <asp:ListItem value="3">
+                  1.0
+                </asp:ListItem>
+            </asp:DropDownList>
+		</p>
+    	<p><label>Baskurva</label>
+
+            <asp:DropDownList id="ddlLeftBaskurva" runat="server">
+                <asp:ListItem value="1">
+                  8,5
+                </asp:ListItem>
+                <asp:ListItem value="2">
+                  9,0
+                </asp:ListItem>
+                <asp:ListItem value="3">
+                  9,5
+                </asp:ListItem>
+            </asp:DropDownList>
+
+		</p>
+    	<p><label>Diameter</label>
+            
+            <asp:DropDownList id="ddlLeftDiameter" runat="server">
+                <asp:ListItem value="1">
+                  -14
+                </asp:ListItem>
+                <asp:ListItem value="2">
+                  -15
+                </asp:ListItem>
+                <asp:ListItem value="3">
+                  -16
+                </asp:ListItem>
+            </asp:DropDownList>
+    	</p>
+      </fieldset>
+           
       <fieldset>
       <legend>Leverantörsalternativ</legend>
       <asp:RadioButtonList runat="server" ID="SupplierOption" RepeatDirection="Horizontal">

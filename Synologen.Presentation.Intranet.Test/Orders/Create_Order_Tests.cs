@@ -66,7 +66,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 	public class When_category_is_selected : CreateOrderTestbase
 	{
 		private SelectedCategoryEventArgs _eventArgs;
-		private IEnumerable<ArticleSupplier> _suppliers;
+	    private IEnumerable<ArticleType> _articleTypes;	 
 		private int _selectedCategoryId;
 
 		public When_category_is_selected()
@@ -75,22 +75,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 			{
 				_selectedCategoryId = 6;
 				_eventArgs = new SelectedCategoryEventArgs(_selectedCategoryId);
-				_suppliers = OrderFactory.GetSuppliers();
-				A.CallTo(() => ArticleSupplierRepository.FindBy(A<SuppliersByCategory>.That.Matches(criteria => criteria.SelectedCategoryId.Equals(_selectedCategoryId)).Argument)).Returns(_suppliers);
-
+		
+			    _articleTypes = OrderFactory.GetArticleTypes();
+		
+                A.CallTo(() => ArticleTypeRepository.FindBy(
+                    A<ArticleTypesByCategory>.That.Matches(
+                        criteria => criteria.SelectedCategoryId.Equals(_selectedCategoryId)
+                    ).Argument
+                )).Returns(_articleTypes);
 			};
 			Because = presenter => Presenter.Selected_Category(null, _eventArgs);
 		}
 
-		[Test]
-		public void Suppliers_are_loaded()
-		{
-			View.Model.Suppliers.And(_suppliers).Do((viewSupplier, domainSupplier) =>
-			{
-				viewSupplier.Value.ShouldBe(domainSupplier.Id.ToString());
-				viewSupplier.Text.ShouldBe(domainSupplier.Name);
-			});
-		}
+        [Test]
+        public void Article_types_are_loaded()
+        {
+            View.Model.ArticleTypes.And(_articleTypes).Do((viewArticleType, domainArticleType) =>
+            {
+                viewArticleType.Value.ShouldBe(domainArticleType.Id.ToString());
+                viewArticleType.Text.ShouldBe(domainArticleType.Name);
+            });
+        }
+
 	}
 
     [TestFixture]
@@ -215,35 +221,37 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 	[Category("Create Order Tests")]
 	public class When_supplier_with_all_shipping_options_is_selected : CreateOrderTestbase
 	{
-		private IEnumerable<ArticleType> _articleTypes;
+        private IEnumerable<Article> _articles;
+        private int _selectedArticleTypeId;
 		private ArticleSupplier _supplier;
 
 		public When_supplier_with_all_shipping_options_is_selected()
 		{
 			Context = () =>
 			{
-				_articleTypes = OrderFactory.CreateArticleTypes();
+			    _selectedArticleTypeId = 2;
+			    _articles = OrderFactory.GetArticles();
 				_supplier = OrderFactory.GetSupplier(6);
-				A.CallTo(() => ArticleTypeRepository.FindBy(
-				    A<ArticleTypesBySupplier>.That.Matches(
-				        criteria => criteria.SelectedSupplierId.Equals(_supplier.Id)
+				A.CallTo(() => ArticleRepository.FindBy(
+				    A<ArticlesBySupplierAndArticleType>.That.Matches(
+				        criteria => criteria.ArticleTypeId.Equals(_selectedArticleTypeId) && criteria.SupplierId.Equals(_supplier.Id)
 				    ).Argument
-				)).Returns(_articleTypes);
+				)).Returns(_articles);
 				A.CallTo(() => ArticleSupplierRepository.Get(_supplier.Id)).Returns(_supplier);
 
 			};
-			Because = presenter => Presenter.Selected_Supplier(null, new SelectedSupplierEventArgs(_supplier.Id));
+			Because = presenter => Presenter.Selected_Supplier(null, new SelectedSupplierEventArgs(_supplier.Id, _selectedArticleTypeId));
 		}
 
-		[Test]
-		public void ArticleTypes_are_loaded()
-		{
-			View.Model.ArticleTypes.And(_articleTypes).Do((viewArticleType, domainArticleType) =>
-			{
-				viewArticleType.Value.ShouldBe(domainArticleType.Id.ToString());
-				viewArticleType.Text.ShouldBe(domainArticleType.Name);
-			});
-		}
+        [Test]
+        public void Articles_are_loaded()
+        {
+            View.Model.OrderArticles.And(_articles).Do((viewArticle, domainArticle) =>
+            {
+                viewArticle.Value.ShouldBe(domainArticle.Id.ToString());
+                viewArticle.Text.ShouldBe(domainArticle.Name);
+            });
+        }
 
 		[Test]
 		public void ShippingOptions_are_loaded()
@@ -275,17 +283,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		{
 			Context = () =>
 			{
-				_articleTypes = OrderFactory.CreateArticleTypes();
+				_articleTypes = OrderFactory.GetArticleTypes();
 				_supplier = OrderFactory.GetSupplier(6, OrderShippingOption.ToCustomer | OrderShippingOption.DeliveredInStore);
 				A.CallTo(() => ArticleTypeRepository.FindBy(
 				    A<ArticleTypesBySupplier>.That.Matches(
-				        criteria => criteria.SelectedSupplierId.Equals(_supplier.Id)
+				        criteria => criteria.SelectedCategoryId.Equals(_supplier.Id)
 				    ).Argument
 				)).Returns(_articleTypes);
 				A.CallTo(() => ArticleSupplierRepository.Get(_supplier.Id)).Returns(_supplier);
 
 			};
-			Because = presenter => Presenter.Selected_Supplier(null, new SelectedSupplierEventArgs(_supplier.Id));
+			Because = presenter => Presenter.Selected_Supplier(null, new SelectedSupplierEventArgs(_supplier.Id, 0));
 		}
 
 

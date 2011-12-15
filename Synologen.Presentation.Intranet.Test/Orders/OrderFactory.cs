@@ -38,14 +38,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
             return fakeSupplier;
         }
 
-        public static IEnumerable<ArticleType> CreateArticleTypes()
+        public static IEnumerable<ArticleType> GetArticleTypes()
         {
             return Sequence.Generate(GetArticleType, 15);
         }
 
         public static ArticleType GetArticleType()
         {
-            return new ArticleType { Name = "Artikeltyp A" };
+            return new ArticleType { Name = "Endagslinser" };
         }
 
         public static IEnumerable<Article> GetArticles()

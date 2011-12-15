@@ -2,9 +2,9 @@
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders
 {
-	public class SuppliersByCategory : IActionCriteria
+	public class ArticleTypesByCategory : IActionCriteria
 	{
-		public SuppliersByCategory(int selectedCategoryId)
+		public ArticleTypesByCategory(int selectedCategoryId)
 		{
 			SelectedCategoryId = selectedCategoryId;
 		}

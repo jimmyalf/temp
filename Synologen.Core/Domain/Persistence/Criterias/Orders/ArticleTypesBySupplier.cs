@@ -4,11 +4,11 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders
 {
 	public class ArticleTypesBySupplier : IActionCriteria
 	{
-		public ArticleTypesBySupplier(int selectedSupplierId)
+		public ArticleTypesBySupplier(int selectedCategoryId)
 		{
-			SelectedSupplierId = selectedSupplierId;
+			SelectedCategoryId = selectedCategoryId;
 		}
 
-		public int SelectedSupplierId { get; set; }
+		public int SelectedCategoryId { get; set; }
 	}
 }

@@ -27,21 +27,7 @@
                 </asp:ListItem>
             </asp:DropDownList>
 		</p>
-    	<p><label>Välj Leverantör</label>
-            <asp:DropDownList id="ddlPickSupplier" runat="server">
-                <asp:ListItem value="1">
-                  Johnsson & Johnsson
-                </asp:ListItem>
-                <asp:ListItem value="2">
-                  En annan leverantör
-                </asp:ListItem>
-                <asp:ListItem value="3">
-                  En annan leverantör
-                </asp:ListItem>
-            </asp:DropDownList>
-    		
-		</p>
-    	<p><label>Välj typ</label>
+        <p><label>Välj Typ</label>
             <asp:DropDownList id="ddlPickKind" runat="server">
                 <asp:ListItem value="1">
                   Endagslinser F443A
@@ -54,6 +40,19 @@
                 </asp:ListItem>
             </asp:DropDownList>
     	</p>
+    	<p><label>Välj Leverantör</label>
+            <asp:DropDownList id="ddlPickSupplier" runat="server">
+                <asp:ListItem value="1">
+                  Johnsson & Johnsson
+                </asp:ListItem>
+                <asp:ListItem value="2">
+                  En annan leverantör
+                </asp:ListItem>
+                <asp:ListItem value="3">
+                  En annan leverantör
+                </asp:ListItem>
+            </asp:DropDownList>
+		</p>
     	<p><label>Välj Artikel</label>
             <asp:DropDownList id="ddlPickArticle" runat="server">
                 <asp:ListItem value="1">

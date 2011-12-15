@@ -55,18 +55,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
     	public void Selected_Supplier(object sender, SelectedSupplierEventArgs e)
     	{
-    		var criteria = new ArticleTypesBySupplier(e.SupplierId);
-    		var articleTypes = _articleTypeRepository.FindBy(criteria);
-    		var supplier = _articleSupplierRepository.Get(e.SupplierId);
+    		var criteria = new ArticlesBySupplierAndArticleType(e.SupplierId, e.ArticleTypeId);
+    		var articles = _articleRepository.FindBy(criteria);
+            var supplier = _articleSupplierRepository.Get(e.SupplierId);
     		View.Model.ShippingOptions = _viewParser.Parse(supplier.ShippingOptions);
-			View.Model.ArticleTypes = _viewParser.Parse(articleTypes, articleType => new ListItem(articleType.Name, articleType.Id));
+			View.Model.OrderArticles = _viewParser.Parse(articles, article => new ListItem(article.Name, article.Id));
     	}
 
     	public void Selected_Category(object sender, SelectedCategoryEventArgs e)
     	{
-    		var criteria = new SuppliersByCategory(e.SelectedCategoryId);
-			var suppliers = _articleSupplierRepository.FindBy(criteria);
-			View.Model.Suppliers = _viewParser.Parse(suppliers, supplier => new ListItem(supplier.Name, supplier.Id));
+    		var criteria = new ArticleTypesByCategory(e.SelectedCategoryId);
+			var articleTypes = _articleTypeRepository.FindBy(criteria);
+            View.Model.ArticleTypes = _viewParser.Parse(articleTypes, supplier => new ListItem(supplier.Name, supplier.Id));
     	}
 
         public void Selected_ArticleType(object sender, SelectedArticleTypeEventArgs e)

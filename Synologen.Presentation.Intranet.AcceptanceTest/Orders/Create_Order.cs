@@ -75,6 +75,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			);
         }
 
+        [Test]
+        public void AvbrytBeställning()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttAnvändarenStårIVynFörAttSkapaBeställning)
+                .När(AnvändarenAvbryterBeställningen)
+                .Så(FlyttasAnvändarenTillIntranätsidan));
+        }
+
         #region Arrange
 
     	private void AttEnKundÄrVald()
@@ -96,6 +105,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _form = OrderFactory.GetOrder();
         }
 
+        private void AnvändarenAvbryterBeställningen()
+        {
+            throw new NotImplementedException();
+        }
+
 		#endregion
 
 		#region Act
@@ -113,6 +127,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private void AnvändarenKlickarPåNästaSteg()
         {
             _createOrderPresenter.View_Submit(null, _form);
+        }
+
+        private void FlyttasAnvändarenTillIntranätsidan()
+        {
+            throw new NotImplementedException();
         }
 
 		#endregion
@@ -161,6 +180,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
 
         private void FormuläretFyllsMedKundensUppgifter()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AttAnvändarenStårIVynFörAttSkapaBeställning()
         {
             throw new NotImplementedException();
         }

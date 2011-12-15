@@ -34,11 +34,66 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             Assert.Inconclusive("TODO");
         }
 
+        [Test]
+        public void AvbrytBeställning()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttAnvändarenStårIVynFörAttBekräftaOrder)
+                    .Och(EnBeställningHarSkapats)
+                    .Och(EttNyttAbonnemangHarSkapats)
+                .När(AnvändarenAvbryterBeställningen)
+                .Så(TasAbonnemangetBort)
+                    .Och(TasBeställningenBort)
+                    .Och(AnvändarenFlyttasTillIntranätsidan));
+        }
+
         //TODO: Det här är en abstraktion av den funktionalitet som triggas när man bekräftar beställningen. Bryt ner i delar.
         [Test]
         public void BeställningenBekräftas()
         {
             Assert.Inconclusive("TODO");
         }
+
+        #region Arrange
+        private void AttAnvändarenStårIVynFörAttBekräftaOrder()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void EnBeställningHarSkapats()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void EttNyttAbonnemangHarSkapats()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Act
+        private void AnvändarenAvbryterBeställningen()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Assert
+        private void TasAbonnemangetBort()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void TasBeställningenBort()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AnvändarenFlyttasTillIntranätsidan()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
     }
 }

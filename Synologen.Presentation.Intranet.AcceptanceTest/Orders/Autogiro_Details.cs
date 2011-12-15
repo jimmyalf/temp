@@ -37,19 +37,59 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             );
         }
 
-        private void FörflyttasAnvändarenTillVynFörSteg5()
+        [Test]
+        public void AvbrytBeställning()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttAnvändarenStårIVynFörAttAngeAutogirodetaljer)
+                    .Och(EnBeställningHarSkapats)
+                .När(AnvändarenAvbryterBeställningen)
+                .Så(TasBeställningenBort)
+                    .Och(AnvändarenFlyttasTillIntranätsidan));
+        }
+
+        #region Arrange
+        private void AttAnvändarenStårIVynFörAttAngeAutogirodetaljer()
         {
             throw new NotImplementedException();
         }
 
-        private void AnvändarenFörsökerFortsättaTillSteg5()
+        private void EnBeställningHarSkapats()
         {
             throw new NotImplementedException();
         }
-
         private void AttFormuläretÄrKorrektIfyllt()
         {
             throw new NotImplementedException();
         }
+        #endregion
+
+        #region Act
+        private void AnvändarenAvbryterBeställningen()
+        {
+            throw new NotImplementedException();
+        }
+        private void AnvändarenFörsökerFortsättaTillSteg5()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Assert
+        private void TasBeställningenBort()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AnvändarenFlyttasTillIntranätsidan()
+        {
+            throw new NotImplementedException();
+        }
+        private void FörflyttasAnvändarenTillVynFörSteg5()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
     }
 }

@@ -24,7 +24,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	public When_picking_a_customer()
 		{
-            
 			Context = () =>
 			{
 				_testRedirectUrl = "/test/page";
@@ -33,11 +32,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_testRedirectUrl);
 				_saveCustomerPresenter = GetPresenter();
 			};
+
 			Story = () => new Berättelse("Spara kund")
 			    .FörAtt("välja en kund att knyta till nytt abonnemang")
 			    .Som("inloggad användare på intranätet")
 			    .VillJag("spara information om användaren");
-            
 		}
 
         [Test]
@@ -50,22 +49,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(FörflyttasAnvändarenTillVynFörNästaSteg)
             );
         }
-
-    	private void KundinformationSparas()
-    	{
-    		_customer = WithRepository<IOrderCustomerRepository>().GetAll().First();
-    		_customer.AddressLineOne.ShouldBe(_form.AddressLineOne);
-			_customer.AddressLineTwo.ShouldBe(_form.AddressLineTwo);
-			_customer.City.ShouldBe(_form.City);
-			_customer.Email.ShouldBe(_form.Email);
-			_customer.FirstName.ShouldBe(_form.FirstName);
-			_customer.LastName.ShouldBe(_form.LastName);
-			_customer.MobilePhone.ShouldBe(_form.MobilePhone);
-			_customer.Notes.ShouldBe(_form.Notes);
-			_customer.PersonalIdNumber.ShouldBe(_form.PersonalIdNumber);
-			_customer.Phone.ShouldBe(_form.Phone);
-			_customer.PostalCode.ShouldBe(_form.PostalCode);
-    	}
 
     	[Test]
         public void VisaFormulärFörBefintligKund()
@@ -88,34 +71,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             );
         }
 
-
-    	private void MeddelandeVisasAttKundSaknas()
-    	{
-    		View.Model.DisplayCustomerMissingMessage.ShouldBe(true);
-    	}
-
-    	private void FyllsFormuläretIMedPersonnummer()
-    	{
-    		View.Model.PersonalIdNumber.ShouldBe(_customerNotFoundWithPersonalIdNumber);
-    	}
-
-    	private void AttEnKundEjHittatsIFöregåendeSteg()
-    	{
-    		_customerNotFoundWithPersonalIdNumber = "123456789";
-    		HttpContext.SetupRequestParameter("personalIdNumber", _customerNotFoundWithPersonalIdNumber);
-    	}
-
-    	private void NärFormuläretLaddas()
-    	{
-    		_saveCustomerPresenter.View_Load(null, new EventArgs());
-    	}
-
-    	private void AttEnKundHittatsIFöregåendeSteg()
-    	{
-    		_customer = OrderFactory.GetCustomer();
-			WithRepository<IOrderCustomerRepository>().Save(_customer);
-    		HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
-    	}
+        [Test]
+        public void AvbrytBeställning()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttAnvändarenStårIVynFörAttSparaKund)
+                .När(AnvändarenAvbryterBeställningen)
+                .Så(FlyttasAnvändarenTillIntranätsidan));
+        }
 
         [Test]
         public void GåTillFöregåendeSteg()
@@ -126,12 +89,73 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .Så(FörflyttasAnvändarenTillVynFörFöregåendeSteg));
         }
 
+        [Test]
+        public void UppdateraBefintligKund()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttEnKundHittatsIFöregåendeSteg)
+                    .Och(AnvändarenUppdateratFormuläret)
+                .När(AnvändarenFörsökerFortsättaTillNästaSteg)
+                .Så(UppdaterasBefintligKund)
+                    .Och(FörflyttasAnvändarenTillVynFörNästaSteg)
+            );
+        }
+
+        #region Arrange
+        private void AttEnKundEjHittatsIFöregåendeSteg()
+        {
+            _customerNotFoundWithPersonalIdNumber = "123456789";
+            HttpContext.SetupRequestParameter("personalIdNumber", _customerNotFoundWithPersonalIdNumber);
+        }
+        private void AttEnKundHittatsIFöregåendeSteg()
+        {
+            _customer = OrderFactory.GetCustomer();
+            WithRepository<IOrderCustomerRepository>().Save(_customer);
+            HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
+        }
         private void AttAnvändarenStårIVynFörAttSparaKund()
         {
             throw new NotImplementedException();
         }
-
+        private void AnvändarenUppdateratFormuläret()
+        {
+            _form = OrderFactory.GetOrderCustomerForm(_customer.Id);
+        }
+        private void AttFormuläretÄrKorrektIfyllt()
+        {
+            _form = OrderFactory.GetOrderCustomerForm();
+        }
+        #endregion
+        
+        #region Act
+        private void NärFormuläretLaddas()
+        {
+            _saveCustomerPresenter.View_Load(null, new EventArgs());
+        }
+        private void AnvändarenAvbryterBeställningen()
+        {
+            throw new NotImplementedException();
+        }
         private void AnvändarenKlickarPåFöregåendeSteg()
+        {
+            throw new NotImplementedException();
+        }
+        private void AnvändarenFörsökerFortsättaTillNästaSteg()
+        {
+            _saveCustomerPresenter.View_Submit(null, _form);
+        }
+        #endregion
+
+        #region Assert
+        private void FyllsFormuläretIMedPersonnummer()
+        {
+            View.Model.PersonalIdNumber.ShouldBe(_customerNotFoundWithPersonalIdNumber);
+        }
+        private void MeddelandeVisasAttKundSaknas()
+        {
+            View.Model.DisplayCustomerMissingMessage.ShouldBe(true);
+        }
+        private void FlyttasAnvändarenTillIntranätsidan()
         {
             throw new NotImplementedException();
         }
@@ -140,70 +164,58 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             throw new NotImplementedException();
         }
-
-        [Test]
-        public void UppdateraBefintligKund()
-        {
-            SetupScenario(scenario => scenario
-                .Givet(AttEnKundHittatsIFöregåendeSteg)
-					.Och(AnvändarenUppdateratFormuläret)
-                .När(AnvändarenFörsökerFortsättaTillNästaSteg)
-                .Så(UppdaterasBefintligKund)
-					.Och(FörflyttasAnvändarenTillVynFörNästaSteg)
-            );
-        }
-
-    	private void AnvändarenUppdateratFormuläret()
-    	{
-    		_form = OrderFactory.GetOrderCustomerForm(_customer.Id);
-    	}
-
-    	private void UppdaterasBefintligKund()
-    	{
-    		var customer = WithRepository<IOrderCustomerRepository>().Get(_customer.Id);
-    		customer.AddressLineOne.ShouldBe(_form.AddressLineOne);
-			customer.AddressLineTwo.ShouldBe(_form.AddressLineTwo);
-			customer.City.ShouldBe(_form.City);
-			customer.Email.ShouldBe(_form.Email);
-			customer.FirstName.ShouldBe(_form.FirstName);
-			customer.LastName.ShouldBe(_form.LastName);
-			customer.MobilePhone.ShouldBe(_form.MobilePhone);
-			customer.Notes.ShouldBe(_form.Notes);
-			customer.PersonalIdNumber.ShouldBe(_form.PersonalIdNumber);
-			customer.Phone.ShouldBe(_form.Phone);
-			customer.PostalCode.ShouldBe(_form.PostalCode);
-    	}
-
-    	private void FyllsFormuläretMedKunduppgifter()
-    	{
-    		View.Model.FirstName.ShouldBe(_customer.FirstName);
-			View.Model.LastName.ShouldBe(_customer.LastName);
-			View.Model.PersonalIdNumber.ShouldBe(_customer.PersonalIdNumber);
-			View.Model.Email.ShouldBe(_customer.Email);
-			View.Model.MobilePhone.ShouldBe(_customer.MobilePhone);
-			View.Model.Phone.ShouldBe(_customer.Phone);
-			View.Model.AddressLineOne.ShouldBe(_customer.AddressLineOne);
-			View.Model.AddressLineTwo.ShouldBe(_customer.AddressLineTwo);
-			View.Model.City.ShouldBe(_customer.City);
-			View.Model.PostalCode.ShouldBe(_customer.PostalCode);
-			View.Model.Notes.ShouldBe(_customer.Notes);
-    	}
-
         private void FörflyttasAnvändarenTillVynFörNästaSteg()
         {
             //Assert redirect
-        	var url= _expectedRedirectUrl(_customer.Id);
-			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(url);
+            var url = _expectedRedirectUrl(_customer.Id);
+            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(url);
+        }
+        private void KundinformationSparas()
+        {
+            _customer = WithRepository<IOrderCustomerRepository>().GetAll().First();
+            _customer.AddressLineOne.ShouldBe(_form.AddressLineOne);
+            _customer.AddressLineTwo.ShouldBe(_form.AddressLineTwo);
+            _customer.City.ShouldBe(_form.City);
+            _customer.Email.ShouldBe(_form.Email);
+            _customer.FirstName.ShouldBe(_form.FirstName);
+            _customer.LastName.ShouldBe(_form.LastName);
+            _customer.MobilePhone.ShouldBe(_form.MobilePhone);
+            _customer.Notes.ShouldBe(_form.Notes);
+            _customer.PersonalIdNumber.ShouldBe(_form.PersonalIdNumber);
+            _customer.Phone.ShouldBe(_form.Phone);
+            _customer.PostalCode.ShouldBe(_form.PostalCode);
         }
 
-        private void AnvändarenFörsökerFortsättaTillNästaSteg()
+        private void UppdaterasBefintligKund()
         {
-            _saveCustomerPresenter.View_Submit(null, _form);
+            var customer = WithRepository<IOrderCustomerRepository>().Get(_customer.Id);
+            customer.AddressLineOne.ShouldBe(_form.AddressLineOne);
+            customer.AddressLineTwo.ShouldBe(_form.AddressLineTwo);
+            customer.City.ShouldBe(_form.City);
+            customer.Email.ShouldBe(_form.Email);
+            customer.FirstName.ShouldBe(_form.FirstName);
+            customer.LastName.ShouldBe(_form.LastName);
+            customer.MobilePhone.ShouldBe(_form.MobilePhone);
+            customer.Notes.ShouldBe(_form.Notes);
+            customer.PersonalIdNumber.ShouldBe(_form.PersonalIdNumber);
+            customer.Phone.ShouldBe(_form.Phone);
+            customer.PostalCode.ShouldBe(_form.PostalCode);
         }
+        private void FyllsFormuläretMedKunduppgifter()
+        {
+            View.Model.FirstName.ShouldBe(_customer.FirstName);
+            View.Model.LastName.ShouldBe(_customer.LastName);
+            View.Model.PersonalIdNumber.ShouldBe(_customer.PersonalIdNumber);
+            View.Model.Email.ShouldBe(_customer.Email);
+            View.Model.MobilePhone.ShouldBe(_customer.MobilePhone);
+            View.Model.Phone.ShouldBe(_customer.Phone);
+            View.Model.AddressLineOne.ShouldBe(_customer.AddressLineOne);
+            View.Model.AddressLineTwo.ShouldBe(_customer.AddressLineTwo);
+            View.Model.City.ShouldBe(_customer.City);
+            View.Model.PostalCode.ShouldBe(_customer.PostalCode);
+            View.Model.Notes.ShouldBe(_customer.Notes);
+        }
+        #endregion
 
-        private void AttFormuläretÄrKorrektIfyllt()
-        {
-        	_form = OrderFactory.GetOrderCustomerForm();
-        }
     }
 }

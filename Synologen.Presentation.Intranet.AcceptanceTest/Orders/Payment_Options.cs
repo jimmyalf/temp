@@ -31,24 +31,65 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             SetupScenario(scenario => scenario
                 .Givet(AttFormuläretÄrKorrektIfyllt)
+                    .Och(EnBeställningHarSkapatsIFöregåendeSteg)
                 .När(AnvändarenFörsökerFortsättaTillSteg4)
-                .Så(FörflyttasAnvändarenTillVynFörSteg4)
-            );
+                .Så(FörflyttasAnvändarenTillVynFörSteg4));
+        }
+
+        [Test]
+        public void AvbrytBeställning()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttAnvändarenStårIVynFörAttAngeBetalningssätt)
+                    .Och(EnBeställningHarSkapatsIFöregåendeSteg)
+                .När(AnvändarenAvbryterBeställningen)
+                .Så(TasBeställningenBort)
+                    .Och(AnvändarenFlyttasTillIntranätsidan));
+        }
+
+        #region Arrange
+        private void AttAnvändarenStårIVynFörAttAngeBetalningssätt()
+        {
+            throw new NotImplementedException();
+        }
+        private void EnBeställningHarSkapatsIFöregåendeSteg()
+        {
+            throw new NotImplementedException();
+        }
+        private void AttFormuläretÄrKorrektIfyllt()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Act
+        private void AnvändarenAvbryterBeställningen()
+        {
+            throw new NotImplementedException();
+        }
+        private void AnvändarenFörsökerFortsättaTillSteg4()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Assert
+        private void AnvändarenFlyttasTillIntranätsidan()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void TasBeställningenBort()
+        {
+            throw new NotImplementedException();
         }
 
         private void FörflyttasAnvändarenTillVynFörSteg4()
         {
             throw new NotImplementedException();
         }
+        #endregion
 
-        private void AnvändarenFörsökerFortsättaTillSteg4()
-        {
-            throw new NotImplementedException();
-        }
 
-        private void AttFormuläretÄrKorrektIfyllt()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

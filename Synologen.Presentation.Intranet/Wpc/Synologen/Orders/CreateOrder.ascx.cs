@@ -1,22 +1,22 @@
 ﻿using System;
-using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 using WebFormsMvp;
-using WebFormsMvp.Web;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 {
     [PresenterBinding(typeof(CreateOrderPresenter))]
-    public partial class CreateOrder : MvpUserControl<CreateOrderModel>, ICreateOrderView
+    public partial class CreateOrder : OrderUserControl<CreateOrderModel,CreateOrderEventArgs>, ICreateOrderView
     {
-        public int NextPageId { get; set; }
     	public event EventHandler<SelectedCategoryEventArgs> SelectedCategory;
         public event EventHandler<SelectedArticleTypeEventArgs> SelectedArticleType;
         public event EventHandler<SelectedSupplierEventArgs> SelectedSupplier;
-		public event EventHandler<CreateOrderEventArgs> Submit;
+    	public override event EventHandler<EventArgs> Previous;
+    	public override event EventHandler<EventArgs> Abort;
+    	public override event EventHandler<CreateOrderEventArgs> Submit;
+		
 
     	protected void Page_Load(object sender, EventArgs e)
         {

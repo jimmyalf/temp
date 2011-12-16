@@ -34,7 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
 		private void Redirect(int? customerId, string personalIdNumber)
 		{
-			var url = _synologenMember.GetPageUrl(View.EditCustomerPageId);
+			var url = _synologenMember.GetPageUrl(View.NextPageId);
 			var redirect = customerId == null 
 				? RedirectWithoutCustomerUrlFormat.ReplaceWith(new {url, personalIdNumber}) 
 				: RedirectWithCustomerUrlFormat.ReplaceWith(new {url, customerId});

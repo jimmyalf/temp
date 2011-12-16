@@ -3,15 +3,15 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 using WebFormsMvp;
-using WebFormsMvp.Web;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 {
     [PresenterBinding(typeof(SearchCustomerPresenter))]
-    public partial class SearchCustomer : MvpUserControl, ISearchCustomerView
+    public partial class SearchCustomer : OrderUserControl<SearchCustomerEventArgs>, ISearchCustomerView
     {
-		public int EditCustomerPageId { get; set; }
-    	public event EventHandler<SearchCustomerEventArgs> Submit;
+    	public override event EventHandler<EventArgs> Previous;
+    	public override event EventHandler<EventArgs> Abort;
+		public override event EventHandler<SearchCustomerEventArgs> Submit;
 
 		protected void Page_Load(object sender, EventArgs e)
 		{

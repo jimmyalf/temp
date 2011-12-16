@@ -4,18 +4,20 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 using WebFormsMvp;
-using WebFormsMvp.Web;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 {
     [PresenterBinding(typeof(CreateOrderConfirmationPresenter))]
-    public partial class CreateOrderConfirmation : MvpUserControl<CreateOrderConfirmationModel>, ICreateOrderConfirmationView
+    public partial class CreateOrderConfirmation : OrderUserControl<CreateOrderConfirmationModel,CreateOrderConfirmationEventArgs>, ICreateOrderConfirmationView
     {
+    	public override event EventHandler<EventArgs> Previous;
+    	public override event EventHandler<EventArgs> Abort;
+		public override event EventHandler<CreateOrderConfirmationEventArgs> Submit;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
-        public event EventHandler<CreateOrderConfirmationEventArgs> Submit;
     }
 }

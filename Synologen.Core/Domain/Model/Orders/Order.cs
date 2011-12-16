@@ -7,10 +7,12 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
     	public Order()
     	{
     		Created = SystemClock.Now;
+    		SelectedPaymentOption = new PaymentOption();
     	}
 		public virtual Article Article { get; set; }
 		public virtual LensRecipe LensRecipe { get; set; }
         public virtual OrderShippingOption ShippingType { get; set; }
+		public virtual PaymentOption SelectedPaymentOption { get; set; }
 		public virtual DateTime Created { get; protected set; }
     }
 

@@ -1,6 +1,12 @@
 using System;
+using FakeItEasy;
 using NUnit.Framework;
+using Shouldly;
+using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 
@@ -9,85 +15,126 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     [TestFixture, Category("Payment_Options")]
     public class When_selecting_payment_options : SpecTestbase<PaymentOptionsPresenter, IPaymentOptionsView>
     {
-        private PaymentOptionsPresenter _paymentOptionsPresenter;
+        private PaymentOptionsPresenter _presenter;
+    	private PaymentOptionsEventArgs _submitEventArgs;
+    	private Order _order;
+    	private string _abortPageUrl;
+    	private string _nextPageUrl;
+    	private Subscription _subsciption;
 
-        public When_selecting_payment_options()
+    	public When_selecting_payment_options()
         {
             Context = () =>
             {
-                _paymentOptionsPresenter = GetPresenter();
+            	_abortPageUrl = "/test/abort";
+				_nextPageUrl = "/test/next";
+            	//A.CallTo(() => View.PreviousPageId).Returns(1);
+				A.CallTo(() => View.AbortPageId).Returns(2);
+				A.CallTo(() => View.NextPageId).Returns(3);
+            	A.CallTo(() => SynologenMemberService.GetPageUrl(View.AbortPageId)).Returns(_abortPageUrl);
+				A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_nextPageUrl);
+                _presenter = GetPresenter();
             };
-            Story = () =>
-            {
-                return new Berättelse("Ange betalningssätt")
+
+            Story = () => new Berättelse("Ange betalningssätt")
                 .FörAtt("Ange betalningssätt för beställningen")
                 .Som("inloggad användare på intranätet")
                 .VillJag("kunna välja betalningssätt");
-            };
         }
 
         [Test]
-        public void AngeBetalningssätt()
+        public void AngeBetalningssättMedNyttKonto()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttFormuläretÄrKorrektIfyllt)
-                    .Och(EnBeställningHarSkapatsIFöregåendeSteg)
-                .När(AnvändarenFörsökerFortsättaTillSteg4)
-                .Så(FörflyttasAnvändarenTillVynFörSteg4));
+				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
+					.Och(AttAnvändarenValtAttBetalaMedNyttKonto)
+                .När(AnvändarenFörsökerFortsättaTillNästaSteg)
+				.Så(SparasValtBetalningsAlternativ)
+					.Och(FörflyttasAnvändarenTillNästaSteg)
+            );
         }
 
         [Test]
+        public void AngeBetalningssättMedBefintligtKonto()
+        {
+            SetupScenario(scenario => scenario
+				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
+					.Och(AttAnvändarenValtAttBetalaBefintligtKonto)
+                .När(AnvändarenFörsökerFortsättaTillNästaSteg)
+				.Så(SparasValtBetalningsAlternativ)
+					.Och(FörflyttasAnvändarenTillNästaSteg)
+            );
+        }
+
+    	[Test]
         public void AvbrytBeställning()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttAnvändarenStårIVynFörAttAngeBetalningssätt)
-                    .Och(EnBeställningHarSkapatsIFöregåendeSteg)
+                .Givet(EnBeställningHarSkapatsIFöregåendeSteg)
                 .När(AnvändarenAvbryterBeställningen)
                 .Så(TasBeställningenBort)
-                    .Och(AnvändarenFlyttasTillIntranätsidan));
+                    .Och(AnvändarenFlyttasTillAvbrytsidan));
         }
 
         #region Arrange
-        private void AttAnvändarenStårIVynFörAttAngeBetalningssätt()
-        {
-            throw new NotImplementedException();
-        }
         private void EnBeställningHarSkapatsIFöregåendeSteg()
         {
-            throw new NotImplementedException();
+        	var article = CreateWithRepository<IArticleRepository, Article>(OrderFactory.GetArticle);
+        	_order = CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(article));
+        	HttpContext.SetupRequestParameter("order", _order.Id.ToString());
+
         }
-        private void AttFormuläretÄrKorrektIfyllt()
-        {
-            throw new NotImplementedException();
-        }
+    	private void AttAnvändarenValtAttBetalaMedNyttKonto()
+    	{
+    		_submitEventArgs = new PaymentOptionsEventArgs();
+    		_subsciption = null;
+    	}
+
+    	private void AttAnvändarenValtAttBetalaBefintligtKonto()
+    	{
+    		var customer = CreateWithRepository<IOrderCustomerRepository,OrderCustomer>(() => OrderFactory.GetCustomer());
+    		_subsciption = CreateWithRepository<ISubscriptionRepository,Subscription>(() => OrderFactory.GetSubscription(customer));
+    		_submitEventArgs = new PaymentOptionsEventArgs{ SubscriptionId = _subsciption.Id};
+    	}
         #endregion
 
         #region Act
         private void AnvändarenAvbryterBeställningen()
         {
-            throw new NotImplementedException();
+            _presenter.View_Abort(null, new EventArgs());
         }
-        private void AnvändarenFörsökerFortsättaTillSteg4()
-        {
-            throw new NotImplementedException();
-        }
+    	private void AnvändarenFörsökerFortsättaTillNästaSteg()
+    	{
+    		_presenter.View_Submit(null, _submitEventArgs);
+    	}
         #endregion
 
         #region Assert
-        private void AnvändarenFlyttasTillIntranätsidan()
+        private void AnvändarenFlyttasTillAvbrytsidan()
         {
-            throw new NotImplementedException();
+			var expectedUrl = "{Url}?order={OrderId}".ReplaceWith(new {Url = _abortPageUrl, OrderId = _order.Id});
+        	HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
         }
 
         private void TasBeställningenBort()
         {
-            throw new NotImplementedException();
+            WithRepository<IOrderRepository>().Get(_order.Id).ShouldBe(null);
         }
 
-        private void FörflyttasAnvändarenTillVynFörSteg4()
-        {
-            throw new NotImplementedException();
-        }
+    	private void SparasValtBetalningsAlternativ()
+    	{
+    		var expectedType = (_subsciption == null) ? PaymentOptionType.Subscription_Autogiro_New : PaymentOptionType.Subscription_Autogiro_Existing;
+			var expectedSubscriptionId = (_subsciption == null) ? null : (int?)_subsciption.Id;
+
+			WithRepository<IOrderRepository>().Get(_order.Id).SelectedPaymentOption.Type.ShouldBe(expectedType);
+			WithRepository<IOrderRepository>().Get(_order.Id).SelectedPaymentOption.SubscriptionId.ShouldBe(expectedSubscriptionId);
+    	}
+
+    	private void FörflyttasAnvändarenTillNästaSteg()
+    	{
+    		var expectedUrl = "{Url}?order={OrderId}".ReplaceWith(new {Url = _nextPageUrl, OrderId = _order.Id});
+    		HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
+    	}
         #endregion
 
 

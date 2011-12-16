@@ -102,7 +102,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void AttAnvändarenFylltIBeställningsformuläret()
         {
-            _form = OrderFactory.GetOrder();
+            _form = OrderFactory.GetOrderEventArgs();
         }
 
         private void AnvändarenAvbryterBeställningen()

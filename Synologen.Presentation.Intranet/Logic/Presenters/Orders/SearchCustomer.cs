@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
@@ -13,37 +14,47 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 	{
 		private readonly ISynologenMemberService _synologenMember;
 		private readonly IOrderCustomerRepository _orderCustomerRepository;
-		private const string RedirectWithCustomerUrlFormat = "{url}?customer={customerId}";
-		private const string RedirectWithoutCustomerUrlFormat = "{url}?personalIdNumber={personalIdNumber}";
 
 		public SearchCustomerPresenter(ISearchCustomerView view, ISynologenMemberService synologenMember, IOrderCustomerRepository orderCustomerRepository) : base(view)
 		{
 			_synologenMember = synologenMember;
 			_orderCustomerRepository = orderCustomerRepository;
-			View.Submit += ViewSubmit;
+			View.Submit += View_Submit;
+			View.Abort += View_Abort;
 		}
 
-		public void ViewSubmit(object sender, SearchCustomerEventArgs e)
+		public void View_Submit(object sender, SearchCustomerEventArgs e)
 		{
 			var customer = _orderCustomerRepository
 				.FindBy(new CustomerDetailsFromPersonalIdNumberCriteria {PersonalIdNumber = e.PersonalIdNumber})
 				.FirstOrDefault();
-			var customerId = (customer == null) ? (int?) null : customer.Id;
-			Redirect(customerId, e.PersonalIdNumber);
+			if(customer == null)
+			{
+				Redirect(View.NextPageId, "{Url}?personalIdNumber={PersonalIdNumber}", new {e.PersonalIdNumber});
+			}
+			else
+			{
+				Redirect(View.NextPageId, "{Url}?customer={CustomerId}", new { CustomerId = customer.Id });
+			}
 		}
 
-		private void Redirect(int? customerId, string personalIdNumber)
+		public void View_Abort(object sender, EventArgs e)
 		{
-			var url = _synologenMember.GetPageUrl(View.NextPageId);
-			var redirect = customerId == null 
-				? RedirectWithoutCustomerUrlFormat.ReplaceWith(new {url, personalIdNumber}) 
-				: RedirectWithCustomerUrlFormat.ReplaceWith(new {url, customerId});
-			HttpContext.Response.Redirect(redirect);
+			Redirect(View.AbortPageId, "{Url}");
+		}
+
+
+		private void Redirect(int pageId, string format, object parameters = null)
+		{
+			var url = _synologenMember.GetPageUrl(pageId);
+			var redirectUrl = format.ReplaceWith(parameters ?? new {}).ReplaceWith(new {Url = url});
+			HttpContext.Response.Redirect(redirectUrl);
 		}
 
 		public override void ReleaseView()
 		{
-			View.Submit -= ViewSubmit;
+			View.Submit -= View_Submit;
+			View.Abort -= View_Abort;
 		}
 	}
 }

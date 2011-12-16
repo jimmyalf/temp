@@ -90,6 +90,7 @@
     <Compile Include="Logic\Presenters\Orders\CreateOrderPresenter.cs" />
     <Compile Include="Logic\EventArguments\Orders\SearchCustomerEventArgs.cs" />
     <Compile Include="Logic\Services\RoutingService.cs" />
+    <Compile Include="Logic\Views\Orders\IOrderView.cs" />
     <Compile Include="Logic\Views\Orders\ISearchCustomerView.cs" />
     <Compile Include="Logic\Presenters\Orders\PaymentOptionsPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\SaveCustomerPresenter.cs" />
@@ -327,6 +328,9 @@
     </Compile>
     <Compile Include="Wpc\Synologen\Orders\AutogiroDetails.ascx.designer.cs">
       <DependentUpon>AutogiroDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\OrderUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Wpc\Synologen\Orders\SearchCustomer.ascx.cs">
       <DependentUpon>SearchCustomer.ascx</DependentUpon>

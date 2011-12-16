@@ -1,16 +1,13 @@
 using System;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
-using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
 {
-    public interface ICreateOrderView : IView<CreateOrderModel>
+    public interface ICreateOrderView : IOrderView<CreateOrderModel, CreateOrderEventArgs>
     {
-        int NextPageId { get; set; }
         event EventHandler<SelectedArticleTypeEventArgs> SelectedArticleType;
         event EventHandler<SelectedSupplierEventArgs> SelectedSupplier;
-    	event EventHandler<CreateOrderEventArgs> Submit;
     	event EventHandler<SelectedCategoryEventArgs> SelectedCategory;
     }
 }

@@ -20,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		_synologenMemberService = synologenMemberService;
     		View.Abort += View_Abort;
         	View.Submit += View_Submit;
+			View.Previous += View_Previous;
         }
 
     	public void View_Submit(object sender, PaymentOptionsEventArgs args)
@@ -41,6 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			else
 			{
 				order.SelectedPaymentOption.Type = PaymentOptionType.Subscription_Autogiro_New;
+				order.SelectedPaymentOption.SubscriptionId = null;
 			}
 		}
 
@@ -64,5 +66,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			var redirectUrl = "{Url}?order={OrderId}".ReplaceWith(new {Url = url, OrderId = orderId});
 			HttpContext.Response.Redirect(redirectUrl);
 		}
+
+    	public void View_Previous(object sender, EventArgs eventArgs)
+    	{
+			var orderId = HttpContext.Request.Params["order"].ToInt();
+    		Redirect(View.PreviousPageId, orderId);
+    	}
     }
 }

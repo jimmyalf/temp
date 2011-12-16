@@ -4,20 +4,17 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 using WebFormsMvp;
-using WebFormsMvp.Web;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 {
     [PresenterBinding(typeof(PaymentOptionsPresenter))]
-    public partial class PaymentOptions : MvpUserControl<PaymentOptionsModel>, IPaymentOptionsView
+    public partial class PaymentOptions : OrderUserControl<PaymentOptionsModel, PaymentOptionsEventArgs>, IPaymentOptionsView
     {
-    	public int PreviousPageId { get; set; }
-    	public int NextPageId { get; set; }
-    	public int AbortPageId { get; set; }
-    	public event EventHandler<PaymentOptionsEventArgs> Submit;
-    	public event EventHandler<EventArgs> Abort;
+    	public override event EventHandler<PaymentOptionsEventArgs> Submit;
+    	public override event EventHandler<EventArgs> Abort;
+    	public override event EventHandler<EventArgs> Previous;
 
-        protected void Page_Load(object sender, EventArgs e)
+    	protected void Page_Load(object sender, EventArgs e)
         {
 
         }

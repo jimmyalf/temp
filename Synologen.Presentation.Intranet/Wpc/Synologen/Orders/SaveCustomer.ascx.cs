@@ -5,17 +5,17 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 using WebFormsMvp;
-using WebFormsMvp.Web;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 {
     [PresenterBinding(typeof(SaveCustomerPresenter))]
-    public partial class SaveCustomer : MvpUserControl<SaveCustomerModel>, ISaveCustomerView
+    public partial class SaveCustomer : OrderUserControl<SaveCustomerModel, SaveCustomerEventArgs>, ISaveCustomerView
     {
-		public int NextPageId { get; set; }
-    	public event EventHandler<SaveCustomerEventArgs> Submit;
+    	public override event EventHandler<EventArgs> Previous;
+    	public override event EventHandler<EventArgs> Abort;
+    	public override event EventHandler<SaveCustomerEventArgs> Submit;
 
-        protected void Page_Load(object sender, EventArgs e)
+    	protected void Page_Load(object sender, EventArgs e)
         {
             btnNextStep.Click += NextStep;
         }

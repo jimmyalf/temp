@@ -1,5 +1,6 @@
 using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
@@ -53,7 +54,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			};
 		}
 
-	    public static CreateOrderEventArgs GetOrder(int articleId=1)
+	    public static CreateOrderEventArgs GetOrderEventArgs(int articleId=1)
 	    {
 	        return new CreateOrderEventArgs
 	                   {
@@ -74,6 +75,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                            //TypeId = 1
 	                   };
 	    }
+
+		public static Order GetOrder(Article article, LensRecipe recipie = null)
+		{
+			return new Order
+			{
+				Article = article,
+				LensRecipe = recipie,
+				ShippingType = OrderShippingOption.ToCustomer,
+			};
+		}
 
 	    public static Article GetArticle()
 	    {
@@ -116,5 +127,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 }
 	        };
 	    }
+
+		public static Subscription GetSubscription(OrderCustomer customer)
+		{
+			return new Subscription
+			{
+				BankAccountNumber = "123456789",
+				ClearingNumber = "1234",
+				ActivatedDate = null,
+				Active = false,
+				ConsentStatus = SubscriptionConsentStatus.NotSent,
+				Customer = customer,
+			};
+		}
 	}
 }

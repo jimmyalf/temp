@@ -207,19 +207,14 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			Debug.WriteLine("Cleaned Contract Sales");
 		}
 
-		private void DeleteOrderCustomers(IDbConnection connection)
-		{
-			DeleteAndResetIndexForTable(connection, "SynologenOrderCustomer");
-		}
-
-        private void DeleteLensRecipes(IDbConnection connection)
-        {
-            DeleteAndResetIndexForTable(connection, "SynologenOrder");
-        }
-
         private void DeleteOrders(IDbConnection connection)
         {
+			DeleteAndResetIndexForTable(connection, "SynologenOrder");
             DeleteAndResetIndexForTable(connection, "SynologenOrderLensRecipe");
+			DeleteAndResetIndexForTable(connection, "SynologenOrderArticle");
+			DeleteAndResetIndexForTable(connection, "SynologenOrderSubscription");
+			DeleteAndResetIndexForTable(connection, "SynologenOrderCustomer");
+			Debug.WriteLine("Cleaned Orders");
         }
 
 		public virtual void ValidateConnectionIsDev(IDbConnection connection)
@@ -244,8 +239,6 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			var sqlProvider = GetSqlProvider();
 			ValidateConnectionIsDev(connection);
 			DeleteOPQAndConnections(connection);
-			DeleteOrderCustomers(connection);
-            DeleteLensRecipes(connection);
             DeleteOrders(connection);
 			DeleteLensSubscriptionsAndConnections(connection);
 			DeleteContractSalesAndConnections(connection);

@@ -100,6 +100,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 		    return function.Invoke(repository);
 		}
 
+		public TModel CreateWithRepository<TRepository, TModel>(Func<TModel> factoryFunction)
+			where TRepository : IRepository<TModel> 
+			where TModel : class
+		{
+			var repo = WithRepository<TRepository>();
+			var model = factoryFunction();
+			repo.Save(model);
+			return model;
+		}
+
 		public TRepository WithRepository<TRepository>()
 		{
 		    var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();

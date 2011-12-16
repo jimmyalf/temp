@@ -18,6 +18,7 @@ using StructureMap.Configuration.DSL;
 using ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories.ArticleRepository;
 using IArticleRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders.IArticleRepository;
 using IShopRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder.IShopRepository;
+using ISubscriptionRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription.ISubscriptionRepository;
 using ShopRepository = Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories.ShopRepository;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code.IoC
@@ -32,7 +33,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code.IoC
 			For<IFrameOrderRepository>().HybridHttpOrThreadLocalScoped().Use<FrameOrderRepository>();
 			For<IShopRepository>().HybridHttpOrThreadLocalScoped().Use<ShopRepository>();
 			For<ICustomerRepository>().HybridHttpOrThreadLocalScoped().Use<CustomerRepository>();
-			For<ISubscriptionRepository>().HybridHttpOrThreadLocalScoped().Use<SubscriptionRepository>();
+			For<ISubscriptionRepository>().HybridHttpOrThreadLocalScoped().Use<Data.Repositories.LensSubscriptionRepositories.SubscriptionRepository>();
 			For<ICountryRepository>().HybridHttpOrThreadLocalScoped().Use<CountryRepository>();
 			For<Core.Domain.Persistence.LensSubscription.IShopRepository>().HybridHttpOrThreadLocalScoped().Use<Data.Repositories.LensSubscriptionRepositories.ShopRepository>();
 			For<ITransactionRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionRepository>();

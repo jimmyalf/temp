@@ -2,6 +2,7 @@
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
@@ -15,19 +16,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	public class Search_Customer_Specs : SpecTestbase<SearchCustomerPresenter,ISearchCustomerView>
 	{
 		private SearchCustomerPresenter _presenter;
-		private string _expectedRedirectUrl;
+		private string _expectedNextRedirectUrl, _expectedAbortRedirectUrl;
 		private OrderCustomer _customer;
 		private SearchCustomerEventArgs _searchEventArgs;
-		private int _editCustomerPageId;
 
 		public Search_Customer_Specs()
 		{
 			Context = () =>
 			{
-				_editCustomerPageId = 55;
-				_expectedRedirectUrl = "/test/page";
-				A.CallTo(() => View.NextPageId).Returns(_editCustomerPageId);
-				A.CallTo(() => SynologenMemberService.GetPageUrl(_editCustomerPageId)).Returns(_expectedRedirectUrl);
+				_expectedNextRedirectUrl = "/test/next";
+				_expectedAbortRedirectUrl = "/test/abort";
+				A.CallTo(() => View.NextPageId).Returns(55);
+				A.CallTo(() => View.AbortPageId).Returns(22);
+				A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_expectedNextRedirectUrl);
+				A.CallTo(() => SynologenMemberService.GetPageUrl(View.AbortPageId)).Returns(_expectedAbortRedirectUrl);
 				_presenter = GetPresenter();
 			};
 
@@ -44,7 +46,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				.Givet(AttKundFinnsSedanTidigare)
 				.När(AnvändarenKlickarPåSök)
 				.Så(FlyttasAnvändarenTillKundformulär)
-					.Och(KundIdÄrIfyllt)
 			);
 		}
 
@@ -55,7 +56,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .Givet(AttKundInteFinnsSedanTidigare)
                 .När(AnvändarenKlickarPåSök)
                 .Så(FlyttasAnvändarenTillKundformulär)
-                    .Och(PersonnummerÄrIfyllt)
             );
         }
 
@@ -65,7 +65,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             SetupScenario(scenario => scenario
                 .Givet(AttAnvändarenStårIVynFörAttSökaKund)
                 .När(AnvändarenAvbryterBeställningen)
-                .Så(FlyttasAnvändarenTillIntranätsidan));
+                .Så(FlyttasAnvändarenTillAvbrytSidan));
         }
 
 
@@ -77,44 +77,41 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
         private void AttKundInteFinnsSedanTidigare()
         {
-            _searchEventArgs = OrderFactory.GetSearchCustomerEventArgs("1234" /* non existing personal id number*/);
+        	_customer = null;
         }
         private void AttAnvändarenStårIVynFörAttSökaKund()
         {
-            throw new NotImplementedException();
+            
         }
         #endregion
 
         #region Act
         private void AnvändarenKlickarPåSök()
         {
-            _searchEventArgs = OrderFactory.GetSearchCustomerEventArgs(_customer.PersonalIdNumber);
-            _presenter.ViewSubmit(null, _searchEventArgs);
+            _searchEventArgs = (_customer == null) 
+				? OrderFactory.GetSearchCustomerEventArgs("1234" /* non existing personal id number*/)
+				: OrderFactory.GetSearchCustomerEventArgs(_customer.PersonalIdNumber);
+            _presenter.View_Submit(null, _searchEventArgs);
         }
         private void AnvändarenAvbryterBeställningen()
         {
-            throw new NotImplementedException();
+        	_presenter.View_Abort(null, new EventArgs());
         }
         #endregion
 
         #region Assert
-        private void KundIdÄrIfyllt()
-        {
-            HttpContext.ResponseInstance.RedirectedUrl.ShouldEndWith("?customer=" + _customer.Id);
-        }
-
         private void FlyttasAnvändarenTillKundformulär()
         {
-            HttpContext.ResponseInstance.RedirectedUrl.ShouldStartWith(_expectedRedirectUrl);
+			var expectedUrl = (_customer == null)
+				? "{Url}?personalIdNumber={PersonalIdNumber}".ReplaceWith(new {Url = _expectedNextRedirectUrl, _searchEventArgs.PersonalIdNumber}) 
+				: "{Url}?customer={CustomerId}".ReplaceWith(new {Url = _expectedNextRedirectUrl, CustomerId = _customer.Id});
+        	
+            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
         }
 
-        private void PersonnummerÄrIfyllt()
+        private void FlyttasAnvändarenTillAvbrytSidan()
         {
-            HttpContext.ResponseInstance.RedirectedUrl.ShouldEndWith("?personalIdNumber=" + _searchEventArgs.PersonalIdNumber);
-        }
-        private void FlyttasAnvändarenTillIntranätsidan()
-        {
-            throw new NotImplementedException();
+            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_expectedAbortRedirectUrl);
         }
         #endregion
 

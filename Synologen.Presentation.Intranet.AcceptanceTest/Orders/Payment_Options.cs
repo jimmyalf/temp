@@ -18,8 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private PaymentOptionsPresenter _presenter;
     	private PaymentOptionsEventArgs _submitEventArgs;
     	private Order _order;
-    	private string _abortPageUrl;
-    	private string _nextPageUrl;
+    	private string _abortPageUrl, _nextPageUrl, _previousPageUrl;
     	private Subscription _subsciption;
 
     	public When_selecting_payment_options()
@@ -28,9 +27,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             {
             	_abortPageUrl = "/test/abort";
 				_nextPageUrl = "/test/next";
-            	//A.CallTo(() => View.PreviousPageId).Returns(1);
+            	_previousPageUrl = "/test/previous";
+            	A.CallTo(() => View.PreviousPageId).Returns(1);
 				A.CallTo(() => View.AbortPageId).Returns(2);
 				A.CallTo(() => View.NextPageId).Returns(3);
+				A.CallTo(() => SynologenMemberService.GetPageUrl(View.PreviousPageId)).Returns(_previousPageUrl);
             	A.CallTo(() => SynologenMemberService.GetPageUrl(View.AbortPageId)).Returns(_abortPageUrl);
 				A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_nextPageUrl);
                 _presenter = GetPresenter();
@@ -76,7 +77,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                     .Och(AnvändarenFlyttasTillAvbrytsidan));
         }
 
-        #region Arrange
+    	[Test]
+        public void Bakåt()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(EnBeställningHarSkapatsIFöregåendeSteg)
+                .När(AnvändarenFörsökerGåTillFöregåendeSteg)
+                .Så(FörflyttasAnvändarenTillFöregåendeSteg));
+        }
+
+    	#region Arrange
         private void EnBeställningHarSkapatsIFöregåendeSteg()
         {
         	var article = CreateWithRepository<IArticleRepository, Article>(OrderFactory.GetArticle);
@@ -107,6 +117,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	{
     		_presenter.View_Submit(null, _submitEventArgs);
     	}
+    	private void AnvändarenFörsökerGåTillFöregåendeSteg()
+    	{
+    		_presenter.View_Previous(null, new EventArgs());
+    	}
         #endregion
 
         #region Assert
@@ -133,6 +147,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private void FörflyttasAnvändarenTillNästaSteg()
     	{
     		var expectedUrl = "{Url}?order={OrderId}".ReplaceWith(new {Url = _nextPageUrl, OrderId = _order.Id});
+    		HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
+    	}
+
+    	private void FörflyttasAnvändarenTillFöregåendeSteg()
+    	{
+    		var expectedUrl = "{Url}?order={OrderId}".ReplaceWith(new {Url = _previousPageUrl, OrderId = _order.Id});
     		HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
     	}
         #endregion

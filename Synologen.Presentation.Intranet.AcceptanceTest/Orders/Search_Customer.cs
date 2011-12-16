@@ -26,7 +26,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			{
 				_editCustomerPageId = 55;
 				_expectedRedirectUrl = "/test/page";
-				A.CallTo(() => View.EditCustomerPageId).Returns(_editCustomerPageId);
+				A.CallTo(() => View.NextPageId).Returns(_editCustomerPageId);
 				A.CallTo(() => SynologenMemberService.GetPageUrl(_editCustomerPageId)).Returns(_expectedRedirectUrl);
 				_presenter = GetPresenter();
 			};

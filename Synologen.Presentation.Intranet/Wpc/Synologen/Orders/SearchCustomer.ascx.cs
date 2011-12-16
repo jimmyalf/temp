@@ -16,7 +16,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			btnNextStep.Click += btnNextStep_OnClick;
+			btnCancel.Click += btnCancel_OnClick;
 		}
+
+    	private void btnCancel_OnClick(object sender, EventArgs e)
+    	{
+    		if(Abort == null) return;
+			Abort(this, e);
+    	}
 
     	private void btnNextStep_OnClick(object sender, EventArgs e)
     	{

@@ -89,7 +89,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	#region Arrange
         private void EnBeställningHarSkapatsIFöregåendeSteg()
         {
-        	var article = CreateWithRepository<IArticleRepository, Article>(OrderFactory.GetArticle);
+        	var article = CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(null));
         	_order = CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(article));
         	HttpContext.SetupRequestParameter("order", _order.Id.ToString());
 

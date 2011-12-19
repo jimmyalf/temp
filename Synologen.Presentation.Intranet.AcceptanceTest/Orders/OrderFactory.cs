@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
@@ -87,11 +88,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			};
 		}
 
-	    public static Article GetArticle()
+	    public static Article GetArticle(ArticleType articleType)
 	    {
 	        return new Article
 	        {
 	            Name = "Artikel 1",
+                ArticleType = articleType,
 	            Options = new ArticleOptions
 	            {
 	                Axis = new SequenceDefinition
@@ -124,7 +126,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                         Max = 2F,
                         Min = -1F
                     }
-
                 }
 	        };
 	    }
@@ -164,6 +165,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 Name = "Endagslinser",
                 Category = category
             };
+        }
+
+	    public static IEnumerable<Article> GetArticles(ArticleType articleType)
+	    {
+	        return Sequence.Generate(() => GetArticle(articleType), 10);
+	    }
+
+        public static IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
+        {
+            for (float value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
+            {
+                yield return new ListItem(value.ToString(), value.ToString());
+            }
+            yield break;
         }
 	}
 }

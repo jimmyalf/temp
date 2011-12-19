@@ -43,6 +43,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
                     innerMap.Map(x => x.Min).Column("PowerMin");
                 });
             });
+
+            References(x => x.ArticleType).Column("ArticleTypeId");
         }
     }
 }

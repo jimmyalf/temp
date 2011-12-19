@@ -27,7 +27,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private LensRecipe _lensRecipe;
         private IEnumerable<ArticleCategory> _expectedCategories;
         private IEnumerable<ArticleType> _expectedArticleTypes;
+        private IEnumerable<Article> _expectedArticles;
+        private Article _expectedArticle;
         private int _selectedCategoryId;
+        private int _selectedArticleTypeId;
 
         public When_creating_an_order()
         {
@@ -69,18 +72,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public void ArtiklarLaddas()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttArtikeltyperLaddats)
+                .Givet(AttDetFinnsArtiklarAttLaddaFrånValdArtikeltyp)
                 .När(AnvändarenVäljerEnArtikeltyp)
                 .Så(LaddasArtiklar));
-            //    .Och(LaddasLeverantörer));                                              
+            //TODO:    .Och(LaddasLeverantörer));                                              
         }                                                                                 
                                                                                           
         //[Test]                                                                          
         //public void ArtiklarLaddasEfterValdLeverantör()                                 
         //{                                                                               
         //                                                                                
-        //}                                                                               
-                                                                                          
+        //}     
+        
+        [Test]
+        public void ArtikelalternativLaddas()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttDetFinnsEnSparadArtikelAttVälja)
+                .När(AnvändarenVäljerArtikeln)
+                .Så(LaddasArtikelnsAlternativ));
+        }
+
         [Test]                                                                            
 		public void FöregåendeSteg()                                                      
 		{                                                                                 
@@ -117,6 +129,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         #region Arrange
 
+        private void AttDetFinnsEnSparadArtikelAttVälja()
+        {
+            _expectedArticle = OrderFactory.GetArticle(null);
+            WithRepository<IArticleRepository>().Save(_expectedArticle);
+        }
+
         private void DetFinnsArtikelkategorierAttLadda()
         {
             _expectedCategories = OrderFactory.GetCategories();
@@ -149,9 +167,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _expectedArticleTypes = newArticleTypes;
         }
 
-        private void AttArtikeltyperLaddats()
+        private void AttDetFinnsArtiklarAttLaddaFrånValdArtikeltyp()
         {
-            throw new NotImplementedException();
+            var articleType = OrderFactory.GetArticleType(null);
+            WithRepository<IArticleTypeRepository>().Save(articleType);
+            _selectedArticleTypeId = articleType.Id;
+
+            _expectedArticles = OrderFactory.GetArticles(articleType);
+            var newArticles = new List<Article>();
+
+            foreach (var expectedArticle in _expectedArticles)
+            {
+                WithRepository<IArticleRepository>().Save(expectedArticle);
+                newArticles.Add(expectedArticle);
+            }
+
+            _expectedArticles = newArticles;
         }
 
         private void AttArtikelkategorierLaddats()
@@ -168,7 +199,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void ValdArtikelFinnsSparad()
         {
-            _article = OrderFactory.GetArticle();
+            _article = OrderFactory.GetArticle(null);
             WithRepository<IArticleRepository>().Save(_article);
             _articleId = _article.Id;
         }
@@ -187,9 +218,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		#region Act
 
+        private void AnvändarenVäljerArtikeln()
+        {
+            _createOrderPresenter.Selected_Article(null, new SelectedArticleEventArgs(_expectedArticle.Id));
+        }
+
         private void AnvändarenVäljerEnArtikeltyp()
         {
-            throw new NotImplementedException();
+            _createOrderPresenter.Selected_ArticleType(null, new SelectedArticleTypeEventArgs(_selectedCategoryId));
         }
 
         private void AnvändarenVäljerEnKategori()
@@ -221,6 +257,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		#region Assert
 
+        private void LaddasArtikelnsAlternativ()
+        {
+            View.Model.AxisOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Axis)).Do((viewModelItem, domainItem) =>
+            {
+                viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
+                viewModelItem.Text.ShouldBe(domainItem.Text);
+            });
+        }
+
         private void LaddasLeverantörer()
         {
             throw new NotImplementedException();
@@ -228,7 +273,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void LaddasArtiklar()
         {
-            throw new NotImplementedException();
+            View.Model.OrderArticles.And(_expectedArticles).Do((viewModelItem, domainItem) =>
+            {
+                viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
+                viewModelItem.Text.ShouldBe(domainItem.Name);
+            });
         }
 
         private void LaddasArtikeltyper()

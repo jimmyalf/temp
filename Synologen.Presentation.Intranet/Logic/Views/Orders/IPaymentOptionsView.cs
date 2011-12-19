@@ -5,7 +5,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
 {
     public interface IPaymentOptionsView : IOrderView<PaymentOptionsModel, PaymentOptionsEventArgs>
     {
-		int PreviousPageId { get; set; }
-		int NextPageId { get; set; }
     }
 }

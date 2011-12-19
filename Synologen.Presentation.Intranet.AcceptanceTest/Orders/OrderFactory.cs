@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
@@ -140,5 +141,29 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				Customer = customer,
 			};
 		}
+
+        public static IEnumerable<ArticleCategory> GetCategories()
+        {
+            return Sequence.Generate(GetCategory, 15);
+        }
+
+        public static ArticleCategory GetCategory()
+        {
+            return new ArticleCategory { Name = "Linser" };
+        }
+
+	    public static IEnumerable<ArticleType> GetArticleTypes(ArticleCategory category)
+	    {
+	        return Sequence.Generate(() => GetArticleType(category), 4);
+	    }
+
+        public static ArticleType GetArticleType(ArticleCategory category)
+        {
+            return new ArticleType
+            {
+                Name = "Endagslinser",
+                Category = category
+            };
+        }
 	}
 }

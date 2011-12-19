@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -23,6 +25,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private Article _article;
         private int _articleId;
         private LensRecipe _lensRecipe;
+        private IEnumerable<ArticleCategory> _expectedCategories;
+        private IEnumerable<ArticleType> _expectedArticleTypes;
+        private int _selectedCategoryId;
 
         public When_creating_an_order()
         {
@@ -39,36 +44,62 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .Som("inloggad användare på intranätet")
                 .VillJag("spara innehållet i den nya beställningen");
         }                       
-                                
+            
 		[Test]                  
 		public void VisaBeställningsFormulär()
-		{                       
-		    SetupScenario(scenario => scenario
+		{                                                                                 
+		    SetupScenario(scenario => scenario                                            
 		        .Givet(AttEnKundÄrVald)
-		        .När(AttAnvändarenVisarBeställningsformuläret)
-		        .Så(VisasKundensNamn)
-			);                  
-		}                       
-                                
-    	[Test]                  
-		public void FöregåendeSteg()
-		{                       
-		    SetupScenario(scenario => scenario
-				.Givet(AttEnKundÄrVald)
-					.Och(AttAnvändarenVisarBeställningsformuläret)
-		        .När(AnvändarenKlickarPåFöregåendeSteg)
-		        .Så(FörflyttasAnvändarenTillFöregåendeSteg)
-                    .Och(FormuläretFyllsMedKundensUppgifter)
-			);
+                    .Och(DetFinnsArtikelkategorierAttLadda)                                   
+		        .När(AttAnvändarenVisarBeställningsformuläret)                            
+		        .Så(VisasKundensNamn)                                                     
+                    .Och(ArtikelkategorierLaddas));                                                                            
 		}
+
+        [Test]                                                                            
+        public void ArtikeltyperLaddas()                                                  
+        {                                                                                 
+            SetupScenario(scenario => scenario
+                .Givet(AttDetFinnsArtikeltyperAttLaddaFrånValdKategori)
+                .När(AnvändarenVäljerEnKategori)                                          
+                .Så(LaddasArtikeltyper));
+        }
+
+        [Test]                                                                            
+        public void ArtiklarLaddas()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttArtikeltyperLaddats)
+                .När(AnvändarenVäljerEnArtikeltyp)
+                .Så(LaddasArtiklar));
+            //    .Och(LaddasLeverantörer));                                              
+        }                                                                                 
+                                                                                          
+        //[Test]                                                                          
+        //public void ArtiklarLaddasEfterValdLeverantör()                                 
+        //{                                                                               
+        //                                                                                
+        //}                                                                               
+                                                                                          
+        [Test]                                                                            
+		public void FöregåendeSteg()                                                      
+		{                                                                                 
+		    SetupScenario(scenario => scenario                                            
+				.Givet(AttEnKundÄrVald)                                                   
+					.Och(AttAnvändarenVisarBeställningsformuläret)                        
+		        .När(AnvändarenKlickarPåFöregåendeSteg)                                   
+		        .Så(FörflyttasAnvändarenTillFöregåendeSteg)                               
+                    .Och(FormuläretFyllsMedKundensUppgifter)                              
+			);                                                                            
+		}                                                                                 
 
         [Test]
         public void NästaSteg()
         {
             SetupScenario(scenario => scenario
 				.Givet(AttEnKundÄrVald)
-					.Och(AttAnvändarenFylltIBeställningsformuläret)
                     .Och(ValdArtikelFinnsSparad)
+					.Och(AttAnvändarenFylltIBeställningsformuläret)
                 .När(AnvändarenKlickarPåNästaSteg)
                  .Så(SparasBeställningen)
                     .Och(AnvändarenFörflyttasTillVynFörNästaSteg)
@@ -86,6 +117,48 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         #region Arrange
 
+        private void DetFinnsArtikelkategorierAttLadda()
+        {
+            _expectedCategories = OrderFactory.GetCategories();
+
+            var newCategories = new List<ArticleCategory>();
+
+            foreach (var expectedCategory in _expectedCategories)
+            {
+                WithRepository<IArticleCategoryRepository>().Save(expectedCategory);
+                newCategories.Add(expectedCategory);
+            }
+            _expectedCategories = newCategories;
+        }
+
+        private void AttDetFinnsArtikeltyperAttLaddaFrånValdKategori()
+        {
+            var category = OrderFactory.GetCategory();
+            WithRepository<IArticleCategoryRepository>().Save(category);
+            _selectedCategoryId = category.Id;
+
+            _expectedArticleTypes = OrderFactory.GetArticleTypes(category);
+            var newArticleTypes = new List<ArticleType>();
+
+            foreach (var expectedArticleType in _expectedArticleTypes)
+            {
+                WithRepository<IArticleTypeRepository>().Save(expectedArticleType);
+                newArticleTypes.Add(expectedArticleType);
+            }
+
+            _expectedArticleTypes = newArticleTypes;
+        }
+
+        private void AttArtikeltyperLaddats()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AttArtikelkategorierLaddats()
+        {
+            throw new NotImplementedException();
+        }
+
     	private void AttEnKundÄrVald()
     	{
             _customer = OrderFactory.GetCustomer();
@@ -101,8 +174,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
 
 		private void AttAnvändarenFylltIBeställningsformuläret()
-        {
-            _form = OrderFactory.GetOrderEventArgs();
+		{
+            _form = OrderFactory.GetOrderEventArgs(_articleId);
         }
 
         private void AnvändarenAvbryterBeställningen()
@@ -113,6 +186,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		#endregion
 
 		#region Act
+
+        private void AnvändarenVäljerEnArtikeltyp()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AnvändarenVäljerEnKategori()
+        {
+            _createOrderPresenter.Selected_Category(null, new SelectedCategoryEventArgs(_selectedCategoryId));
+        }
 
     	private void AttAnvändarenVisarBeställningsformuläret()
     	{
@@ -137,6 +220,34 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		#endregion
 
 		#region Assert
+
+        private void LaddasLeverantörer()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void LaddasArtiklar()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void LaddasArtikeltyper()
+        {
+            View.Model.ArticleTypes.And(_expectedArticleTypes).Do((viewModelItem, domainItem) =>
+            {
+                viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
+                viewModelItem.Text.ShouldBe(domainItem.Name);
+            });
+        }
+
+        private void ArtikelkategorierLaddas()
+        {
+            View.Model.Categories.And(_expectedCategories).Do((viewModelItem, domainItem) =>
+            {
+                viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
+                viewModelItem.Text.ShouldBe(domainItem.Name);
+            });
+        }
 
 		private void VisasKundensNamn()
     	{

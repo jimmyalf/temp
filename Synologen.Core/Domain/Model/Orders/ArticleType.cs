@@ -3,5 +3,6 @@
 	public class ArticleType : Entity
 	{
 		public virtual string Name { get; set; }
+	    public virtual ArticleCategory Category { get; set; }
 	}
 }

@@ -127,6 +127,7 @@
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfSubscriptionsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfTransactionArticlesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\TransactionsForSubscriptionMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\ArticleTypesByCategoryIdCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\CustomerDetailsFromPersonalIdNumberCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFrameOrdersMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFramesMatchingCriteriaConverter.cs" />
@@ -164,7 +165,9 @@
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SubscriptionErrorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\TransactionArticle.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\TransactionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\ArticleCategoryMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\ArticleMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\ArticleTypeMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\EyeParameterComponentMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\LensRecipeMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderCustomerMap.cs" />

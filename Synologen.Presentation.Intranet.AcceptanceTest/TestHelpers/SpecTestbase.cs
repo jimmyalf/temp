@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using FakeItEasy;
@@ -108,6 +109,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 			var model = factoryFunction();
 			repo.Save(model);
 			return model;
+		}
+
+		public IEnumerable<TModel> CreateItemsWithRepository<TRepository, TModel>(Func<IEnumerable<TModel>> factoryFunction)
+			where TRepository : IRepository<TModel> 
+			where TModel : class
+		{
+			var repo = WithRepository<TRepository>();
+			var items = factoryFunction();
+			foreach (var item in items)
+			{
+				repo.Save(item);
+				yield return item;
+			}
+			yield break;
 		}
 
 		public TRepository WithRepository<TRepository>()

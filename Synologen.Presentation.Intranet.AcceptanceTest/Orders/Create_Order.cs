@@ -23,8 +23,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private string _testRedirectUrl;
         private OrderCustomer _customer;
         private Article _article;
-        private int _articleId;
-        private LensRecipe _lensRecipe;
+		private int _articleId;
+		private LensRecipe _lensRecipe;
         private IEnumerable<ArticleCategory> _expectedCategories;
         private IEnumerable<ArticleType> _expectedArticleTypes;
         private IEnumerable<Article> _expectedArticles;
@@ -312,12 +312,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             
             var order = WithRepository<IOrderRepository>().GetAll().First();
-
             order.Article.Id.ShouldBe(_form.ArticleId);
-            
+            order.Customer.Id.ShouldBe(_customer.Id);
             //order.Article.Category.Id.ShouldBe(_form.CategoryId);
             //order.Article.Supplier.Id.ShouldBe(_form.SupplierId);  
-
             order.LensRecipe.BaseCurve.Left.ShouldBe(_form.LeftBaseCurve);
             order.LensRecipe.BaseCurve.Right.ShouldBe(_form.RightBaseCurve);
             order.LensRecipe.Diameter.Left.ShouldBe(_form.LeftDiameter);

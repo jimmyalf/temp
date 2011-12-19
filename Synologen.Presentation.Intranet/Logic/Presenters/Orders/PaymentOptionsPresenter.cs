@@ -1,27 +1,56 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
 using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
     public class PaymentOptionsPresenter : Presenter<IPaymentOptionsView>
     {
+    	private readonly IViewParser _viewParser;
     	private readonly IOrderRepository _orderRepository;
     	private readonly ISynologenMemberService _synologenMemberService;
+    	private readonly ISubscriptionRepository _subscriptionRepository;
 
-    	public PaymentOptionsPresenter(IPaymentOptionsView view, IOrderRepository orderRepository, ISynologenMemberService synologenMemberService) : base(view)
+    	public PaymentOptionsPresenter(
+			IPaymentOptionsView view, 
+			IViewParser viewParser,
+			IOrderRepository orderRepository, 
+			ISynologenMemberService synologenMemberService, 
+			ISubscriptionRepository subscriptionRepository) : base(view)
         {
-        	_orderRepository = orderRepository;
+    		_viewParser = viewParser;
+    		_orderRepository = orderRepository;
     		_synologenMemberService = synologenMemberService;
+    		_subscriptionRepository = subscriptionRepository;
+    		View.Load += View_Load;
     		View.Abort += View_Abort;
         	View.Submit += View_Submit;
 			View.Previous += View_Previous;
         }
+
+    	public void View_Load(object sender, EventArgs eventArgs)
+    	{
+    		var orderId = HttpContext.Request.Params["order"].ToInt();
+    		View.Model.Subscriptions = GetActiveSubscriptions(orderId);
+    	}
+
+    	public void View_Abort(object sender, EventArgs eventArgs)
+    	{
+    		var orderId = HttpContext.Request.Params["order"].ToInt();
+    		var order = _orderRepository.Get(orderId);
+			_orderRepository.Delete(order);
+			Redirect(View.AbortPageId, order.Id);
+    	}
 
     	public void View_Submit(object sender, PaymentOptionsEventArgs args)
     	{
@@ -30,6 +59,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		UpdateOrderWithPaymentOption(order, args);
 			_orderRepository.Save(order);
 			Redirect(View.NextPageId, order.Id);
+    	}
+
+    	public void View_Previous(object sender, EventArgs eventArgs)
+    	{
+			var orderId = HttpContext.Request.Params["order"].ToInt();
+    		Redirect(View.PreviousPageId, orderId);
     	}
 
 		private void UpdateOrderWithPaymentOption(Order order, PaymentOptionsEventArgs args)
@@ -46,20 +81,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			}
 		}
 
-        public override void ReleaseView()
-        {
-			View.Abort -= View_Abort;
-			View.Submit -= View_Submit;
-        }
-
-    	public void View_Abort(object sender, EventArgs eventArgs)
-    	{
-    		var orderId = HttpContext.Request.Params["order"].ToInt();
-    		var order = _orderRepository.Get(orderId);
-			_orderRepository.Delete(order);
-			Redirect(View.AbortPageId, order.Id);
-    	}
-
 		private void Redirect(int pageId, int orderId)
 		{
 			var url = _synologenMemberService.GetPageUrl(pageId);
@@ -67,10 +88,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			HttpContext.Response.Redirect(redirectUrl);
 		}
 
-    	public void View_Previous(object sender, EventArgs eventArgs)
-    	{
-			var orderId = HttpContext.Request.Params["order"].ToInt();
-    		Redirect(View.PreviousPageId, orderId);
-    	}
+		private IEnumerable<ListItem> GetActiveSubscriptions(int orderId)
+		{
+    		var customerId = _orderRepository.Get(orderId).Customer.Id;
+    		var subscriptions = _subscriptionRepository.FindBy(new ActiveAndConsentedSubscriptionsForCustomerCritieria(customerId));
+			Func<Subscription, ListItem> parser = subscription => new ListItem(subscription.BankAccountNumber, subscription.Id);
+			return _viewParser.Parse(subscriptions, parser).Concat(new[] {new ListItem("Skapa nytt konto", 0)});
+		}
+
+        public override void ReleaseView()
+        {
+			View.Abort -= View_Abort;
+			View.Submit -= View_Submit;
+			View.Previous -= View_Previous;
+			View.Load -= View_Load;
+        }
     }
 }

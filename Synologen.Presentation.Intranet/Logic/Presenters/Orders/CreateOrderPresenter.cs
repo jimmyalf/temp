@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
@@ -104,7 +105,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             var article = _articleRepository.Get(form.ArticleId);
             if (article == null) return;
 
-            var lensRecipe = new LensRecipe
+			//TODO: Move parsing into parse view-parser method
+			var lensRecipe = new LensRecipe
             {
                 Axis = new EyeParameter { Left = form.LeftAxis, Right = form.RightAxis },
                 BaseCurve = new EyeParameter { Left = form.LeftBaseCurve, Right = form.RightBaseCurve },
@@ -112,25 +114,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 Diameter = new EyeParameter { Left = form.LeftDiameter, Right = form.RightDiameter },
                 Power = new EyeParameter { Left = form.LeftPower, Right = form.RightPower }
             };
-
             _lensRecipeRepository.Save(lensRecipe);
 
             //TODO:Update save functionality to fit new order model structure
+			//TODO: Move parsing into parse view-parser method
+        	var customerId = HttpContext.Request.Params["customer"].ToInt();
+        	var customer = _orderCustomerRepository.Get(customerId);
             var order = new Order
             {
                 Article = article,
                 LensRecipe = lensRecipe,
-                ShippingType = (OrderShippingOption) form.ShipmentOption
-			    
+                ShippingType = (OrderShippingOption) form.ShipmentOption,
+			    Customer = customer
 			    //SupplierId = form.SupplierId,
 			    //TypeId = form.TypeId
 			};
 			_orderRepository.Save(order);
-
-            
-
             Redirect();
         }
+
 
         private void Redirect()
         {

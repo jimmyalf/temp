@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
@@ -78,13 +79,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	                   };
 	    }
 
-		public static Order GetOrder(Article article, LensRecipe recipie = null)
+		public static Order GetOrder(Article article, OrderCustomer customer, LensRecipe recipie = null)
 		{
 			return new Order
 			{
 				Article = article,
 				LensRecipe = recipie,
 				ShippingType = OrderShippingOption.ToCustomer,
+				Customer = customer
 			};
 		}
 
@@ -130,15 +132,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	        };
 	    }
 
-		public static Subscription GetSubscription(OrderCustomer customer)
+		public static Subscription GetSubscription(OrderCustomer customer, int seed = 0)
 		{
+			var active = seed % 3 != 0;
 			return new Subscription
 			{
 				BankAccountNumber = "123456789",
 				ClearingNumber = "1234",
 				ActivatedDate = null,
-				Active = false,
-				ConsentStatus = SubscriptionConsentStatus.NotSent,
+				Active = active,
+				ConsentStatus = SubscriptionConsentStatus.Accepted.SkipItems(seed),
 				Customer = customer,
 			};
 		}
@@ -147,7 +150,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             return Sequence.Generate(GetCategory, 15);
         }
-
+		public static IEnumerable<Subscription> GetSubscriptions(OrderCustomer customer)
+		{
+			return Sequence.Generate(seed => GetSubscription(customer, seed), 15);
+		}
         public static ArticleCategory GetCategory()
         {
             return new ArticleCategory { Name = "Linser" };

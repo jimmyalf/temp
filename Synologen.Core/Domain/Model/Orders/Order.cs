@@ -14,6 +14,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
         public virtual OrderShippingOption ShippingType { get; set; }
 		public virtual PaymentOption SelectedPaymentOption { get; set; }
 		public virtual DateTime Created { get; protected set; }
+    	public virtual OrderCustomer Customer { get; set; }
     }
 
 	public class LensRecipe : Entity

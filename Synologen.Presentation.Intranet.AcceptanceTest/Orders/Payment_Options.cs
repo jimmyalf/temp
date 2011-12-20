@@ -54,8 +54,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private void SetupDataContext()
     	{
 			var category = CreateWithRepository<IArticleCategoryRepository, ArticleCategory>(OrderFactory.GetCategory);
+    	    var supplier = CreateWithRepository<IArticleSupplierRepository, ArticleSupplier>(OrderFactory.GetSupplier);
     		var articleType = CreateWithRepository<IArticleTypeRepository, ArticleType>(() => OrderFactory.GetArticleType(category));
-        	var article = CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(articleType));
+        	var article = CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(articleType, supplier));
     		_customer = CreateWithRepository<IOrderCustomerRepository,OrderCustomer>(() => OrderFactory.GetCustomer());
     		_subsciptions = CreateItemsWithRepository<ISubscriptionRepository, Subscription>(() => OrderFactory.GetSubscriptions(_customer)).ToList();
         	_order = CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(article, _customer));
@@ -118,7 +119,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	#region Arrange
         private void EnBeställningHarSkapatsIFöregåendeSteg()
         {
-        	var article = CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(null));
+        	var article = CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(null, null));
         	var customer = CreateWithRepository<IOrderCustomerRepository, OrderCustomer>(() => OrderFactory.GetCustomer());
         	_order = CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(article, customer));
         	HttpContext.SetupRequestParameter("order", _order.Id.ToString());

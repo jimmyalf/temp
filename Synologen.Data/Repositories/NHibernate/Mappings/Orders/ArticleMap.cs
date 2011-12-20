@@ -45,6 +45,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
             });
 
             References(x => x.ArticleType).Column("ArticleTypeId");
+            References(x => x.ArticleSupplier).Column("ArticleSupplierId");
         }
     }
 }

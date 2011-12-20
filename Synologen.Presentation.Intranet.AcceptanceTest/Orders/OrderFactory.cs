@@ -90,12 +90,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			};
 		}
 
-	    public static Article GetArticle(ArticleType articleType)
+	    public static Article GetArticle(ArticleType articleType, ArticleSupplier supplier)
 	    {
 	        return new Article
 	        {
 	            Name = "Artikel 1",
                 ArticleType = articleType,
+                ArticleSupplier = supplier,
 	            Options = new ArticleOptions
 	            {
 	                Axis = new SequenceDefinition
@@ -173,9 +174,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             };
         }
 
-	    public static IEnumerable<Article> GetArticles(ArticleType articleType)
+	    public static IEnumerable<Article> GetArticles(ArticleType articleType, ArticleSupplier supplier)
 	    {
-	        return Sequence.Generate(() => GetArticle(articleType), 10);
+	        return Sequence.Generate(() => GetArticle(articleType, supplier), 10);
 	    }
 
         public static IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
@@ -185,6 +186,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 yield return new ListItem(value.ToString(), value.ToString());
             }
             yield break;
+        }
+
+	    public static IEnumerable<ArticleSupplier> GetSuppliers()
+	    {
+	        return Sequence.Generate(GetSupplier, 5);
+	    }
+
+        public static ArticleSupplier GetSupplier()
+        {
+            return new ArticleSupplier
+                       {
+                           Name = "Johnsson & McBeth",
+                       };
         }
 	}
 }

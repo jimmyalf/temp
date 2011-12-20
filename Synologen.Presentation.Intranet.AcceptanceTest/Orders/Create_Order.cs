@@ -28,9 +28,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private IEnumerable<ArticleCategory> _expectedCategories;
         private IEnumerable<ArticleType> _expectedArticleTypes;
         private IEnumerable<Article> _expectedArticles;
+        private IEnumerable<ArticleSupplier> _expectedSuppliers;
         private Article _expectedArticle;
         private int _selectedCategoryId;
         private int _selectedArticleTypeId;
+        private int _selectedSupplierId;
 
         public When_creating_an_order()
         {
@@ -68,22 +70,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .Så(LaddasArtikeltyper));
         }
 
+        [Test] 
+        public void LeverantörerLaddas()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttDetFinnsLeverantörerMedArtiklarAvValdArtikeltyp)
+                .När(AnvändarenVäljerEnArtikeltyp)
+                .Så(LaddasLeverantörer));
+        }
+
         [Test]                                                                            
         public void ArtiklarLaddas()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttDetFinnsArtiklarAttLaddaFrånValdArtikeltyp)
-                .När(AnvändarenVäljerEnArtikeltyp)
+                .Givet(AttDetFinnsArtiklarAttLaddaFrånValdLeverantörOchArtikeltyp)
+                .När(AnvändarenVäljerEnLeverantör)
                 .Så(LaddasArtiklar));
-            //TODO:    .Och(LaddasLeverantörer));                                              
-        }                                                                                 
-                                                                                          
-        //[Test]                                                                          
-        //public void ArtiklarLaddasEfterValdLeverantör()                                 
-        //{                                                                               
-        //                                                                                
-        //}     
-        
+        }
+
         [Test]
         public void ArtikelalternativLaddas()
         {
@@ -131,7 +135,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AttDetFinnsEnSparadArtikelAttVälja()
         {
-            _expectedArticle = OrderFactory.GetArticle(null);
+            _expectedArticle = OrderFactory.GetArticle(null, null);
             WithRepository<IArticleRepository>().Save(_expectedArticle);
         }
 
@@ -167,13 +171,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _expectedArticleTypes = newArticleTypes;
         }
 
-        private void AttDetFinnsArtiklarAttLaddaFrånValdArtikeltyp()
+        private void AttDetFinnsArtiklarAttLaddaFrånValdLeverantörOchArtikeltyp()
         {
             var articleType = OrderFactory.GetArticleType(null);
             WithRepository<IArticleTypeRepository>().Save(articleType);
             _selectedArticleTypeId = articleType.Id;
 
-            _expectedArticles = OrderFactory.GetArticles(articleType);
+            var articleSupplier = OrderFactory.GetSupplier();
+            WithRepository<IArticleSupplierRepository>().Save(articleSupplier);
+            _selectedSupplierId = articleSupplier.Id;
+
+            _expectedArticles = OrderFactory.GetArticles(articleType, articleSupplier);
             var newArticles = new List<Article>();
 
             foreach (var expectedArticle in _expectedArticles)
@@ -185,9 +193,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _expectedArticles = newArticles;
         }
 
-        private void AttArtikelkategorierLaddats()
+        private void AttDetFinnsLeverantörerMedArtiklarAvValdArtikeltyp()
         {
-            throw new NotImplementedException();
+            var articleType = OrderFactory.GetArticleType(null);
+            WithRepository<IArticleTypeRepository>().Save(articleType);
+            _selectedArticleTypeId = articleType.Id;
+
+            var articleSupplier = OrderFactory.GetSupplier();
+            WithRepository<IArticleSupplierRepository>().Save(articleSupplier);
+            _expectedSuppliers = new List<ArticleSupplier> { articleSupplier };
+
+            _expectedArticles = OrderFactory.GetArticles(articleType, articleSupplier);
+            var newArticles = new List<Article>();
+
+            foreach (var expectedArticle in _expectedArticles)
+            {
+                WithRepository<IArticleRepository>().Save(expectedArticle);
+                newArticles.Add(expectedArticle);
+            }
+            _expectedArticles = newArticles;
         }
 
     	private void AttEnKundÄrVald()
@@ -199,7 +223,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void ValdArtikelFinnsSparad()
         {
-            _article = OrderFactory.GetArticle(null);
+            _article = OrderFactory.GetArticle(null, null);
             WithRepository<IArticleRepository>().Save(_article);
             _articleId = _article.Id;
         }
@@ -225,7 +249,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AnvändarenVäljerEnArtikeltyp()
         {
-            _createOrderPresenter.Selected_ArticleType(null, new SelectedArticleTypeEventArgs(_selectedCategoryId));
+            _createOrderPresenter.Selected_ArticleType(null, new SelectedArticleTypeEventArgs(_selectedArticleTypeId));
+        }
+
+        private void AnvändarenVäljerEnLeverantör()
+        {
+            _createOrderPresenter.Selected_Supplier(null, new SelectedSupplierEventArgs(_selectedSupplierId, _selectedArticleTypeId));
         }
 
         private void AnvändarenVäljerEnKategori()
@@ -264,11 +293,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Text);
             });
+            View.Model.BaseCurveOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.BaseCurve)).Do((viewModelItem, domainItem) =>
+            {
+                viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
+                viewModelItem.Text.ShouldBe(domainItem.Text);
+            });
+            View.Model.CylinderOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Cylinder)).Do((viewModelItem, domainItem) =>
+            {
+                viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
+                viewModelItem.Text.ShouldBe(domainItem.Text);
+            });
+            View.Model.DiameterOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Diameter)).Do((viewModelItem, domainItem) =>
+            {
+                viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
+                viewModelItem.Text.ShouldBe(domainItem.Text);
+            });
+            View.Model.PowerOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Power)).Do((viewModelItem, domainItem) =>
+            {
+                viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
+                viewModelItem.Text.ShouldBe(domainItem.Text);
+            });
+
         }
 
         private void LaddasLeverantörer()
         {
-            throw new NotImplementedException();
+            View.Model.Suppliers.And(_expectedSuppliers).Do((viewModelItem, domainItem) =>
+            {
+                viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
+                viewModelItem.Text.ShouldBe(domainItem.Name);
+            });
         }
 
         private void LaddasArtiklar()

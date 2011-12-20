@@ -10,10 +10,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     [PresenterBinding(typeof(AutogiroDetailsPresenter))]
     public partial class AutogiroDetails : OrderUserControl<AutogiroDetailsModel, AutogiroDetailsEventArgs>, IAutogiroDetailsView
     {
-    	public override event EventHandler<EventArgs> Previous;
-    	public override event EventHandler<EventArgs> Abort;
-		public override event EventHandler<AutogiroDetailsEventArgs> Submit;
-
         protected void Page_Load(object sender, EventArgs e)
         {
 

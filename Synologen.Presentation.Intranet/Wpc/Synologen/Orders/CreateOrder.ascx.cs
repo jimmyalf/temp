@@ -13,16 +13,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	public event EventHandler<SelectedCategoryEventArgs> SelectedCategory;
         public event EventHandler<SelectedArticleTypeEventArgs> SelectedArticleType;
         public event EventHandler<SelectedSupplierEventArgs> SelectedSupplier;
-    	public override event EventHandler<EventArgs> Previous;
-    	public override event EventHandler<EventArgs> Abort;
-    	public override event EventHandler<CreateOrderEventArgs> Submit;
 		
 
     	protected void Page_Load(object sender, EventArgs e)
         {
             btnNextStep.Click += NextStep;
-            btnPreviousStep.Click += PreviousStep;
-            btnCancel.Click += Cancel;
+            btnPreviousStep.Click += TryFirePrevious;
+            btnCancel.Click += TryFireAbort;
     		ddlPickCategory.SelectedIndexChanged += Select_Category;
     		ddlPickSupplier.SelectedIndexChanged += Select_Supplier;
         }
@@ -41,21 +38,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 			SelectedCategory(this, new SelectedCategoryEventArgs(categoryId));
     	}
 
-    	private void Cancel(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void PreviousStep(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void NextStep(object sender, EventArgs e)
         {
             Page.Validate();
             if (!Page.IsValid) return;
-            if (Submit == null) return;
             var args = new CreateOrderEventArgs
             {
                 ArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
@@ -70,7 +56,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 RightDiameter = Convert.ToInt32(ddlRightDiameter.SelectedValue),
                 RightPower = Convert.ToInt32(ddlRightStrength.SelectedValue)
             };
-            Submit(this, args);
+			TryFireSubmit(sender, args);
         }
     }
 }

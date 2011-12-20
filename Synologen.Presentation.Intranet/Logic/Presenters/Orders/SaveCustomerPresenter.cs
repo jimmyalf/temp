@@ -22,7 +22,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		_synologenMemberService = synologenMemberService;
     		View.Load += View_Load;
     		View.Submit += View_Submit;
+    		View.Abort += View_Abort;
+			View.Previous += View_Previous;
         }
+
+    	public void View_Previous(object sender, EventArgs e)
+    	{
+    		Redirect(View.PreviousPageId);
+    	}
+
+    	public void View_Abort(object sender, EventArgs e)
+    	{
+    		Redirect(View.AbortPageId);
+    	}
 
     	public void View_Load(object o, EventArgs eventArgs)
     	{
@@ -70,12 +82,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 				customer = _viewParser.Parse(args);
 			}
 			_orderCustomerRepository.Save(customer);
-        	Redirect(customer.Id);
+        	Redirect(View.NextPageId, customer.Id);
         }
 
-    	private void Redirect(int customerId)
+    	private void Redirect(int pageId, int? customerId = null)
     	{
-    		var url = _synologenMemberService.GetPageUrl(View.NextPageId) + "?customer=" + customerId;
+    		var url = _synologenMemberService.GetPageUrl(pageId);
+			if (customerId.HasValue) url += "?customer=" + customerId;
 			HttpContext.Response.Redirect(url);
     	}
 
@@ -83,6 +96,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         {
 			View.Load -= View_Load;
             View.Submit -= View_Submit;
+    		View.Abort -= View_Abort;
+			View.Previous -= View_Previous;
         }
     }
 

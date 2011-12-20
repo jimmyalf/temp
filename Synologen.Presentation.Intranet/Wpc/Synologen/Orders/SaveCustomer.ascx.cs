@@ -11,10 +11,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     [PresenterBinding(typeof(SaveCustomerPresenter))]
     public partial class SaveCustomer : OrderUserControl<SaveCustomerModel, SaveCustomerEventArgs>, ISaveCustomerView
     {
-    	public override event EventHandler<EventArgs> Previous;
-    	public override event EventHandler<EventArgs> Abort;
-    	public override event EventHandler<SaveCustomerEventArgs> Submit;
-
     	protected void Page_Load(object sender, EventArgs e)
         {
             btnNextStep.Click += NextStep;
@@ -24,7 +20,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
         {
             Page.Validate();
             if (!Page.IsValid) return;
-			if(Submit == null) return;
             var args = new SaveCustomerEventArgs
             {
                 AddressLineOne = txtAddressLineOne.Text,
@@ -40,7 +35,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 Notes = txtNotes.Text,
 				CustomerId = GetCustomerIdFromForm()
             };
-            Submit(this, args);
+        	TryFireSubmit(sender, args);
         }
 
 		private int? GetCustomerIdFromForm()

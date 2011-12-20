@@ -10,14 +10,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     [PresenterBinding(typeof(CreateOrderConfirmationPresenter))]
     public partial class CreateOrderConfirmation : OrderUserControl<CreateOrderConfirmationModel,CreateOrderConfirmationEventArgs>, ICreateOrderConfirmationView
     {
-    	public override event EventHandler<EventArgs> Previous;
-    	public override event EventHandler<EventArgs> Abort;
-		public override event EventHandler<CreateOrderConfirmationEventArgs> Submit;
-
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
-
     }
 }

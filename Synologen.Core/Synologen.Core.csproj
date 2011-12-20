@@ -251,6 +251,7 @@
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfSubscriptionsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\ActiveAndConsentedSubscriptionsForCustomerCritieria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\ArticlesBySupplierAndArticleType.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\ArticleSuppliersBySelectedArticleType.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\ArticleTypesBySupplier.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\OrderArticlesByArticleType.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\ArticleTypesByCategory.cs" />

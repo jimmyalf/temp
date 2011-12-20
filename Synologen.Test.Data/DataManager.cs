@@ -216,6 +216,7 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			DeleteAndResetIndexForTable(connection, "SynologenOrderCustomer");
             DeleteAndResetIndexForTable(connection, "SynologenOrderArticleCategory");
             DeleteAndResetIndexForTable(connection, "SynologenOrderArticleType");
+            DeleteAndResetIndexForTable(connection, "SynologenOrderArticleSupplier");
 			Debug.WriteLine("Cleaned Orders");
         }
 

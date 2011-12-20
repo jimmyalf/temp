@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
@@ -72,9 +73,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
         public void Selected_ArticleType(object sender, SelectedArticleTypeEventArgs e)
         {
+            /*
             var criteria = new OrderArticlesByArticleType(e.SelectedArticleTypeId);
             var articles = _articleRepository.FindBy(criteria);
             View.Model.OrderArticles = _viewParser.Parse(articles, article => new ListItem(article.Name, article.Id));
+             */
+
+            var suppliers = _articleSupplierRepository.GetAll();
+            var filteredSuppliers = suppliers.Where(articleSupplier => articleSupplier.Articles.Where(x => x.ArticleType.Id == e.SelectedArticleTypeId).ToList().Count > 0).ToList();
+
+            View.Model.Suppliers = _viewParser.Parse(filteredSuppliers, supplier => new ListItem(supplier.Name, supplier.Id));
+
+
+            //TODO: update shipping options!
         }
         
         public void Selected_Article(object o, SelectedArticleEventArgs e)

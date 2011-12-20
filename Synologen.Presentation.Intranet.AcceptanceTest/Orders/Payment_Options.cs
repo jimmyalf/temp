@@ -62,12 +62,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		}
 
 		[Test]
-		public void VisaBefintligaKonton()
+		public void VisaBefintligaKontonOchKundNamn()
 		{
 			SetupScenario(scenario => scenario
 				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
 				.När(SidanVisas)
 				.Så(SkallKundensBefintligaAbonnemangListas)
+					.Och(KundNamnVisas)
 			);
 		}
 
@@ -200,6 +201,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.Subscriptions.Last().Value.ShouldBe("0");
 			View.Model.Subscriptions.Last().Text.ShouldBe("Skapa nytt konto");
     	}
+
+		private void KundNamnVisas()
+		{
+			View.Model.CustomerName.ShouldBe("{FirstName} {LastName}".ReplaceWith(new {_customer.FirstName, _customer.LastName}));
+		}
 
 		//public class TestObject
 		//{

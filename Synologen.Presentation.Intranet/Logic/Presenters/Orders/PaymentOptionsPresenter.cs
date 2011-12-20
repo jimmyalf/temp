@@ -41,7 +41,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	public void View_Load(object sender, EventArgs eventArgs)
     	{
     		var orderId = HttpContext.Request.Params["order"].ToInt();
-    		View.Model.Subscriptions = GetActiveSubscriptions(orderId);
+    		var customer = _orderRepository.Get(orderId).Customer;
+    		View.Model.Subscriptions = GetActiveSubscriptions(customer);
+    		View.Model.CustomerName = customer.ParseName(x => x.FirstName, x => x.LastName);
     	}
 
     	public void View_Abort(object sender, EventArgs eventArgs)
@@ -88,10 +90,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			HttpContext.Response.Redirect(redirectUrl);
 		}
 
-		private IEnumerable<ListItem> GetActiveSubscriptions(int orderId)
+		private IEnumerable<ListItem> GetActiveSubscriptions(OrderCustomer customer)
 		{
-    		var customerId = _orderRepository.Get(orderId).Customer.Id;
-    		var subscriptions = _subscriptionRepository.FindBy(new ActiveAndConsentedSubscriptionsForCustomerCritieria(customerId));
+    		var subscriptions = _subscriptionRepository.FindBy(new ActiveAndConsentedSubscriptionsForCustomerCritieria(customer.Id));
 			Func<Subscription, ListItem> parser = subscription => new ListItem(subscription.BankAccountNumber, subscription.Id);
 			return _viewParser.Parse(subscriptions, parser).Concat(new[] {new ListItem("Skapa nytt konto", 0)});
 		}

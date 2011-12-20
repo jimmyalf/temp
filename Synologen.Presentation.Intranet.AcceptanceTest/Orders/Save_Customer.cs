@@ -17,19 +17,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     {
         private SaveCustomerPresenter _saveCustomerPresenter;
     	private SaveCustomerEventArgs _form;
-    	private string _testRedirectUrl;
+    	private string _submitRedirectUrl, _abortRedirectUrl, _previousRedirectUrl;
     	private OrderCustomer _customer;
     	private string _customerNotFoundWithPersonalIdNumber;
-    	private Func<int,string> _expectedRedirectUrl;
+    	private Func<string,int,string> _getRedirectUrl;
 
     	public When_picking_a_customer()
 		{
 			Context = () =>
 			{
-				_testRedirectUrl = "/test/page";
+				_submitRedirectUrl = "/submit/page";
+				_abortRedirectUrl = "/abort/page";
+				_previousRedirectUrl = "/previous/page";
 				View.NextPageId = 55;
-				_expectedRedirectUrl = createdCustomerId => String.Format("{0}?customer={1}", _testRedirectUrl, createdCustomerId);
-				A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_testRedirectUrl);
+				View.AbortPageId = 56;
+				View.PreviousPageId = 57;
+				_getRedirectUrl = (url, createdCustomerId) => String.Format("{0}?customer={1}", url, createdCustomerId);
+				A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_submitRedirectUrl);
+				A.CallTo(() => SynologenMemberService.GetPageUrl(View.AbortPageId)).Returns(_abortRedirectUrl);
+				A.CallTo(() => SynologenMemberService.GetPageUrl(View.PreviousPageId)).Returns(_previousRedirectUrl);
 				_saveCustomerPresenter = GetPresenter();
 			};
 
@@ -77,7 +83,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             SetupScenario(scenario => scenario
                 .Givet(AttAnvändarenStårIVynFörAttSparaKund)
                 .När(AnvändarenAvbryterBeställningen)
-                .Så(FlyttasAnvändarenTillIntranätsidan));
+                .Så(FlyttasAnvändarenTillAvbrytSidan));
         }
 
         [Test]
@@ -115,7 +121,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
         private void AttAnvändarenStårIVynFörAttSparaKund()
         {
-            throw new NotImplementedException();
+            
         }
         private void AnvändarenUppdateratFormuläret()
         {
@@ -134,11 +140,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
         private void AnvändarenAvbryterBeställningen()
         {
-            throw new NotImplementedException();
+            _saveCustomerPresenter.View_Abort(null, new EventArgs());
         }
         private void AnvändarenKlickarPåFöregåendeSteg()
         {
-            throw new NotImplementedException();
+            _saveCustomerPresenter.View_Previous(null, new EventArgs());
         }
         private void AnvändarenFörsökerFortsättaTillNästaSteg()
         {
@@ -155,20 +161,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             View.Model.DisplayCustomerMissingMessage.ShouldBe(true);
         }
-        private void FlyttasAnvändarenTillIntranätsidan()
+        private void FlyttasAnvändarenTillAvbrytSidan()
         {
-            throw new NotImplementedException();
+            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_abortRedirectUrl);
         }
 
         private void FörflyttasAnvändarenTillVynFörFöregåendeSteg()
         {
-            throw new NotImplementedException();
+			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_previousRedirectUrl);
         }
+
         private void FörflyttasAnvändarenTillVynFörNästaSteg()
         {
-            //Assert redirect
-            var url = _expectedRedirectUrl(_customer.Id);
-            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(url);
+			var expectedUrl = _getRedirectUrl(_submitRedirectUrl, _customer.Id);
+			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
         }
         private void KundinformationSparas()
         {

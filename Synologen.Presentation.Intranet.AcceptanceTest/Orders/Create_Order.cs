@@ -364,12 +364,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void SparasBeställningen()
         {
-            
             var order = WithRepository<IOrderRepository>().GetAll().First();
             order.Article.Id.ShouldBe(_form.ArticleId);
             order.Customer.Id.ShouldBe(_customer.Id);
-            //order.Article.Category.Id.ShouldBe(_form.CategoryId);
-            //order.Article.Supplier.Id.ShouldBe(_form.SupplierId);  
             order.LensRecipe.BaseCurve.Left.ShouldBe(_form.LeftBaseCurve);
             order.LensRecipe.BaseCurve.Right.ShouldBe(_form.RightBaseCurve);
             order.LensRecipe.Diameter.Left.ShouldBe(_form.LeftDiameter);
@@ -382,8 +379,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             order.LensRecipe.Cylinder.Right.ShouldBe(_form.RightCylinder);
             order.ShippingType.ToInteger().ShouldBe(_form.ShipmentOption);
 
-            
-            
         }
 
         private void AnvändarenFörflyttasTillVynFörNästaSteg()

@@ -21,10 +21,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private CreateOrderPresenter _createOrderPresenter;
         private CreateOrderEventArgs _form;
         private string _testRedirectUrl;
+        private string _testRedirectAbortUrl;
+        private string _testRedirectPreviousUrl;
         private OrderCustomer _customer;
         private Article _article;
 		private int _articleId;
-		private LensRecipe _lensRecipe;
         private IEnumerable<ArticleCategory> _expectedCategories;
         private IEnumerable<ArticleType> _expectedArticleTypes;
         private IEnumerable<Article> _expectedArticles;
@@ -39,8 +40,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             Context = () =>
             {
                 _testRedirectUrl = "/test/page";
+                _testRedirectAbortUrl = "/test/page/abort";
+                _testRedirectPreviousUrl = "/test/page/previous";
                 View.NextPageId = 56;
+                View.AbortPageId = 78;
+                View.PreviousPageId = 77;
                 A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_testRedirectUrl);
+                A.CallTo(() => SynologenMemberService.GetPageUrl(View.AbortPageId)).Returns(_testRedirectAbortUrl);
+                A.CallTo(() => SynologenMemberService.GetPageUrl(View.PreviousPageId)).Returns(_testRedirectPreviousUrl);
                 _createOrderPresenter = GetPresenter();
             };                  
                                 
@@ -101,11 +108,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		public void FöregåendeSteg()                                                      
 		{                                                                                 
 		    SetupScenario(scenario => scenario                                            
-				.Givet(AttEnKundÄrVald)                                                   
-					.Och(AttAnvändarenVisarBeställningsformuläret)                        
+				.Givet(AttEnKundÄrVald)                     
 		        .När(AnvändarenKlickarPåFöregåendeSteg)                                   
-		        .Så(FörflyttasAnvändarenTillFöregåendeSteg)                               
-                    .Och(FormuläretFyllsMedKundensUppgifter)                              
+		        .Så(FörflyttasAnvändarenTillFöregåendeSteg)                                                           
 			);                                                                            
 		}                                                                                 
 
@@ -126,12 +131,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public void AvbrytBeställning()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttAnvändarenStårIVynFörAttSkapaBeställning)
+                .Givet(Ingenting)
                 .När(AnvändarenAvbryterBeställningen)
                 .Så(FlyttasAnvändarenTillIntranätsidan));
         }
 
         #region Arrange
+
+        private static void Ingenting()
+        {
+        }
 
         private void AttDetFinnsEnSparadArtikelAttVälja()
         {
@@ -193,6 +202,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _expectedArticles = newArticles;
         }
 
+        //TODO: add more data
         private void AttDetFinnsLeverantörerMedArtiklarAvValdArtikeltyp()
         {
             var articleType = OrderFactory.GetArticleType(null);
@@ -203,15 +213,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             WithRepository<IArticleSupplierRepository>().Save(articleSupplier);
             _expectedSuppliers = new List<ArticleSupplier> { articleSupplier };
 
-            _expectedArticles = OrderFactory.GetArticles(articleType, articleSupplier);
-            var newArticles = new List<Article>();
+            _expectedArticles =
+                CreateItemsWithRepository<IArticleRepository, Article>(
+                    () => OrderFactory.GetArticles(articleType, articleSupplier));
 
-            foreach (var expectedArticle in _expectedArticles)
-            {
-                WithRepository<IArticleRepository>().Save(expectedArticle);
-                newArticles.Add(expectedArticle);
-            }
-            _expectedArticles = newArticles;
         }
 
     	private void AttEnKundÄrVald()
@@ -235,7 +240,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AnvändarenAvbryterBeställningen()
         {
-            throw new NotImplementedException();
+            _createOrderPresenter.View_Abort(null, new EventArgs());
         }
 
 		#endregion
@@ -244,22 +249,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AnvändarenVäljerArtikeln()
         {
-            _createOrderPresenter.Selected_Article(null, new SelectedArticleEventArgs(_expectedArticle.Id));
+            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(0, 0, 0, _expectedArticle.Id));
         }
 
         private void AnvändarenVäljerEnArtikeltyp()
         {
-            _createOrderPresenter.Selected_ArticleType(null, new SelectedArticleTypeEventArgs(_selectedArticleTypeId));
+            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(0, _selectedArticleTypeId, 0, 0));
         }
 
         private void AnvändarenVäljerEnLeverantör()
         {
-            _createOrderPresenter.Selected_Supplier(null, new SelectedSupplierEventArgs(_selectedSupplierId, _selectedArticleTypeId));
+            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(0, _selectedArticleTypeId, _selectedSupplierId, 0));
         }
 
         private void AnvändarenVäljerEnKategori()
         {
-            _createOrderPresenter.Selected_Category(null, new SelectedCategoryEventArgs(_selectedCategoryId));
+            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(_selectedCategoryId, 0, 0, 0));
         }
 
     	private void AttAnvändarenVisarBeställningsformuläret()
@@ -269,17 +274,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void AnvändarenKlickarPåFöregåendeSteg()
 		{
-		    throw new NotImplementedException();
+            _createOrderPresenter.View_Previous(null, new EventArgs());
 		}
 
         private void AnvändarenKlickarPåNästaSteg()
         {
             _createOrderPresenter.View_Submit(null, _form);
-        }
-
-        private void FlyttasAnvändarenTillIntranätsidan()
-        {
-            throw new NotImplementedException();
         }
 
 		#endregion
@@ -359,7 +359,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void FörflyttasAnvändarenTillFöregåendeSteg()
 		{
-		    throw new NotImplementedException();
+            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_testRedirectPreviousUrl);
 		}
 
         private void SparasBeställningen()
@@ -386,14 +386,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_testRedirectUrl);
         }
 
-        private void FormuläretFyllsMedKundensUppgifter()
+        private void FlyttasAnvändarenTillIntranätsidan()
         {
-            throw new NotImplementedException();
-        }
-
-        private void AttAnvändarenStårIVynFörAttSkapaBeställning()
-        {
-            throw new NotImplementedException();
+            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_testRedirectAbortUrl);
         }
 
 		#endregion

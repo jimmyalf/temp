@@ -7,7 +7,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.Orders
 {
-    public class ArticleSuppliersBySelectedArticleTypeCriteriaConverter : NHibernateActionCriteriaConverter<ArticleSuppliersBySelectedArticleType, ArticleSuppliersBySelectedArticleTypeCriteriaConverter>
+    public class ArticleSuppliersBySelectedArticleTypeCriteriaConverter : NHibernateActionCriteriaConverter<ArticleSuppliersBySelectedArticleType, ArticleSupplier>
     {
         public ArticleSuppliersBySelectedArticleTypeCriteriaConverter(ISession session) : base(session)
         {

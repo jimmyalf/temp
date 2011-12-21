@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
@@ -12,6 +13,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 		OrderCustomer Parse(SaveCustomerEventArgs args);
 		void Fill(OrderCustomer existingCustomer, SaveCustomerEventArgs args);
 		IEnumerable<ListItem> Parse<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
+        IEnumerable<ListItem> ParseWithDefaultItem<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
 		IEnumerable<ListItem> Parse<TEnumType>(TEnumType value) where TEnumType : struct;
 	    IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence);
 	}
@@ -61,7 +63,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			yield break;
 		}
 
-		public IEnumerable<ListItem> Parse<TEnumType>(TEnumType value) 
+	    public IEnumerable<ListItem> ParseWithDefaultItem<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert)
+	    {
+	        var listWithDefaultItem = new List<ListItem> {new ListItem {Text = "-- Välj --", Value = 0.ToString()}};
+
+            if (list == null) return listWithDefaultItem;
+
+            foreach (var item in list)
+            {
+                listWithDefaultItem.Add(convert(item));
+            }
+
+	        return listWithDefaultItem;
+	    }
+
+	    public IEnumerable<ListItem> Parse<TEnumType>(TEnumType value) 
 			where TEnumType : struct
 		{
 			var allEnumItems = EnumExtensions.Enumerate<TEnumType>();

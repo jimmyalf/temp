@@ -162,7 +162,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 	    public static IEnumerable<ArticleType> GetArticleTypes(ArticleCategory category)
 	    {
-	        return Sequence.Generate(() => GetArticleType(category), 4);
+            return Sequence.Generate(() => GetArticleType(category), 4);
 	    }
 
         public static ArticleType GetArticleType(ArticleCategory category)

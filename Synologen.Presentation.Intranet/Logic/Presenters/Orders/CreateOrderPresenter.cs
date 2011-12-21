@@ -50,65 +50,70 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             _lensRecipeRepository = lensRecipeRepository;
         	View.Load += View_Load;
             View.Submit += View_Submit;
-        	View.SelectedCategory += Selected_Category;
-        	View.SelectedSupplier += Selected_Supplier;
-            View.SelectedArticleType += Selected_ArticleType;
+            View.Abort += View_Abort;
+
+            View.SelectedCategory += FillModel;
+            View.SelectedArticleType += FillModel;
+            View.SelectedSupplier += FillModel;
+            View.SelectedArticle += FillModel;
         }
 
-    	public void Selected_Supplier(object sender, SelectedSupplierEventArgs e)
-    	{
-    		var criteria = new ArticlesBySupplierAndArticleType(e.SupplierId, e.ArticleTypeId);
-    		var articles = _articleRepository.FindBy(criteria);
-            var supplier = _articleSupplierRepository.Get(e.SupplierId);
-    		View.Model.ShippingOptions = _viewParser.Parse(supplier.ShippingOptions);
-			View.Model.OrderArticles = _viewParser.Parse(articles, article => new ListItem(article.Name, article.Id));
-    	}
-
-    	public void Selected_Category(object sender, SelectedCategoryEventArgs e)
-    	{
-    		var criteria = new ArticleTypesByCategory(e.SelectedCategoryId);
-			var articleTypes = _articleTypeRepository.FindBy(criteria);
-            View.Model.ArticleTypes = _viewParser.Parse(articleTypes, supplier => new ListItem(supplier.Name, supplier.Id));
-    	}
-
-        public void Selected_ArticleType(object sender, SelectedArticleTypeEventArgs e)
+        public void FillModel(object sender, SelectedSomethingEventArgs args)
         {
-            /*
-            var criteria = new OrderArticlesByArticleType(e.SelectedArticleTypeId);
-            var articles = _articleRepository.FindBy(criteria);
-            View.Model.OrderArticles = _viewParser.Parse(articles, article => new ListItem(article.Name, article.Id));
-             */
+            if(args.SelectedCategoryId > 0)
+            {
+                var criteria = new ArticleTypesByCategory(args.SelectedCategoryId);
+                var articleTypes = _articleTypeRepository.FindBy(criteria);
+                View.Model.ArticleTypes = _viewParser.ParseWithDefaultItem(articleTypes, supplier => new ListItem(supplier.Name, supplier.Id));
+            }
+            if(args.SelectedArticleTypeId > 0)
+            {
+                var suppliers = _articleSupplierRepository.GetAll();
+                var filteredSuppliers = suppliers.Where(articleSupplier => articleSupplier.Articles.Where(x => x.ArticleType.Id == args.SelectedArticleTypeId).ToList().Count > 0).ToList();
+                View.Model.Suppliers = _viewParser.ParseWithDefaultItem(filteredSuppliers, supplier => new ListItem(supplier.Name, supplier.Id));
 
-            var suppliers = _articleSupplierRepository.GetAll();
-            var filteredSuppliers = suppliers.Where(articleSupplier => articleSupplier.Articles.Where(x => x.ArticleType.Id == e.SelectedArticleTypeId).ToList().Count > 0).ToList();
+                //TODO: update shipping options!
+            }
+            if(args.SelectedSupplierId > 0)
+            {
+                var criteria = new ArticlesBySupplierAndArticleType(args.SelectedSupplierId, args.SelectedArticleTypeId);
+                var articles = _articleRepository.FindBy(criteria);
+                View.Model.OrderArticles = _viewParser.ParseWithDefaultItem(articles, article => new ListItem(article.Name, article.Id));
 
-            View.Model.Suppliers = _viewParser.Parse(filteredSuppliers, supplier => new ListItem(supplier.Name, supplier.Id));
+                //TODO: include shipping options..
+                //var supplier = _articleSupplierRepository.Get(e.SupplierId);
+                //View.Model.ShippingOptions = _viewParser.Parse(supplier.ShippingOptions);
+                
+            }
+            if(args.SelectedArticleId > 0)
+            {
+                var article = _articleRepository.Get(args.SelectedArticleId);
+                var options = article.Options;
+                if (options == null) return;
+                View.Model.PowerOptions = _viewParser.FillWithIncrementalValues(options.Power);
+                View.Model.DiameterOptions = _viewParser.FillWithIncrementalValues(options.Diameter);
+                View.Model.BaseCurveOptions = _viewParser.FillWithIncrementalValues(options.BaseCurve);
+                View.Model.AxisOptions = _viewParser.FillWithIncrementalValues(options.Axis);
+                View.Model.CylinderOptions = _viewParser.FillWithIncrementalValues(options.Cylinder);
 
+                //TODO: how is this supposed to work? O_o
+                View.Model.ItemQuantityOptions = Enumerable.Empty<ListItem>();
+            }
 
-            //TODO: update shipping options!
-        }
-        
-        public void Selected_Article(object o, SelectedArticleEventArgs e)
-        {
-            var article = _articleRepository.Get(e.SelectedArticleId);
-            var options = article.Options;
-            if(options == null) return;
-            View.Model.PowerOptions = _viewParser.FillWithIncrementalValues(options.Power);
-            View.Model.DiameterOptions = _viewParser.FillWithIncrementalValues(options.Diameter);
-            View.Model.BaseCurveOptions = _viewParser.FillWithIncrementalValues(options.BaseCurve);
-            View.Model.AxisOptions = _viewParser.FillWithIncrementalValues(options.Axis);
-            View.Model.CylinderOptions = _viewParser.FillWithIncrementalValues(options.Cylinder);
-
-            //TODO: how is this supposed to work? O_o
-            View.Model.ItemQuantityOptions = Enumerable.Empty<ListItem>();
+            View.Model.SelectedCategoryId = args.SelectedCategoryId;
+            View.Model.SelectedArticleTypeId = args.SelectedArticleTypeId;
+            View.Model.SelectedSupplierId = args.SelectedSupplierId;
+            View.Model.SelectedArticleId = args.SelectedArticleId;
         }
 
         public override void ReleaseView()
         {
             View.Submit -= View_Submit;
             View.Load -= View_Load;
-			View.SelectedCategory -= Selected_Category;
-            View.SelectedArticleType -= Selected_ArticleType;
+			View.SelectedCategory -= FillModel;
+            View.SelectedArticle -= FillModel;
+            View.SelectedArticleType -= FillModel;
+            View.SelectedSupplier -= FillModel;
         }
 
         public void View_Submit(object o, CreateOrderEventArgs form)
@@ -144,7 +149,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             Redirect();
         }
 
-
         private void Redirect()
         {
             var url = _synologenMemberService.GetPageUrl(View.NextPageId);
@@ -157,16 +161,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             var customerId = Convert.ToInt32(customerIdParameter);
 
         	var categories = _articleCategoryRepository.GetAll();
-        	View.Model.Categories = _viewParser.Parse(categories, category => new ListItem(category.Name, category.Id));
+            var parsedCategories = _viewParser.ParseWithDefaultItem(categories, category => new ListItem(category.Name, category.Id));
+            View.Model.Categories = parsedCategories;
 
             var customer = _orderCustomerRepository.Get(customerId);
 
             View.Model.CustomerId = customerId;
             View.Model.CustomerName = String.Format("{0} {1}", customer.FirstName, customer.LastName);
+        }   
+
+        public void View_Abort(object o, EventArgs eventArgs)
+        {
+            var url = _synologenMemberService.GetPageUrl(View.AbortPageId);
+            HttpContext.Response.Redirect(url);
         }
 
-        
+        public void View_Previous(object o, EventArgs eventArgs)
+        {
+            var url = _synologenMemberService.GetPageUrl(View.PreviousPageId);
+            HttpContext.Response.Redirect(url);
+        }
     }
-
-
 }

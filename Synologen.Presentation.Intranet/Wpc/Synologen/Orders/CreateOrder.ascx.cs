@@ -10,10 +10,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     [PresenterBinding(typeof(CreateOrderPresenter))]
     public partial class CreateOrder : OrderUserControl<CreateOrderModel,CreateOrderEventArgs>, ICreateOrderView
     {
-    	public event EventHandler<SelectedCategoryEventArgs> SelectedCategory;
-        public event EventHandler<SelectedArticleTypeEventArgs> SelectedArticleType;
-        public event EventHandler<SelectedSupplierEventArgs> SelectedSupplier;
-		
+    	public event EventHandler<SelectedSomethingEventArgs> SelectedCategory;
+        public event EventHandler<SelectedSomethingEventArgs> SelectedArticleType;
+        public event EventHandler<SelectedSomethingEventArgs> SelectedSupplier;
+        public event EventHandler<SelectedSomethingEventArgs> SelectedArticle;
+        //public event EventHandler<SelectedSomethingEventArgs> SelectedSomething;
 
     	protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,22 +22,57 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             btnPreviousStep.Click += TryFirePrevious;
             btnCancel.Click += TryFireAbort;
     		ddlPickCategory.SelectedIndexChanged += Select_Category;
-    		ddlPickSupplier.SelectedIndexChanged += Select_Supplier;
+            ddlPickSupplier.SelectedIndexChanged += Select_Supplier;
+    	    ddlPickKind.SelectedIndexChanged += Select_ArticleType;
+            ddlPickArticle.SelectedIndexChanged += Select_Article;
         }
 
-    	private void Select_Supplier(object sender, EventArgs e)
+        /*
+        private void Select_Something(object sender, EventArgs e)
+        {
+            if (SelectedSomething == null) return;
+            var supplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue);
+            var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
+            var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
+            var articleId = Convert.ToInt32(ddlPickArticle.SelectedValue);
+            SelectedSomething(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId, articleId));
+        }
+        */
+
+        private void Select_Category(object sender, EventArgs e)
     	{
     		if(SelectedCategory == null) return;
     		var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-			SelectedCategory(this, new SelectedCategoryEventArgs(categoryId));
+            SelectedCategory(this, new SelectedSomethingEventArgs(categoryId, 0, 0, 0));
     	}
 
-    	private void Select_Category(object sender, EventArgs e)
-    	{
-    		if(SelectedCategory == null) return;
-    		var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-			SelectedCategory(this, new SelectedCategoryEventArgs(categoryId));
-    	}
+        private void Select_ArticleType(object sender, EventArgs e)
+        {
+            if (SelectedArticleType == null) return;
+            var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
+            var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
+
+            SelectedArticleType(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, 0, 0));
+        }
+
+        private void Select_Supplier(object sender, EventArgs e)
+        {
+            if (SelectedSupplier == null) return;
+            var supplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue);
+            var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
+            var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
+            SelectedSupplier(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId, 0));
+        }
+
+        private void Select_Article(object sender, EventArgs e)
+        {
+            if (SelectedArticle == null) return;
+            var supplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue);
+            var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
+            var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
+            var articleId = Convert.ToInt32(ddlPickArticle.SelectedValue);
+            SelectedSupplier(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId, articleId));
+        }
 
         private void NextStep(object sender, EventArgs e)
         {

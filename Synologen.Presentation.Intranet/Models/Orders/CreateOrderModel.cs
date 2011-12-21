@@ -7,12 +7,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
     {
         public CreateOrderModel()
     	{
-    		Categories = Enumerable.Empty<ListItem>();
-    		Suppliers = Enumerable.Empty<ListItem>();
-			ArticleTypes = Enumerable.Empty<ListItem>();
+    	    
+            Categories        = new List<ListItem> { new ListItem {Text = "-- Välj --", Value = 0.ToString()} }; // = Enumerable.Empty<ListItem>();
+    		Suppliers         = new List<ListItem> { new ListItem {Text = "-- Välj --", Value = 0.ToString()} }; // = Enumerable.Empty<ListItem>();
+			ArticleTypes      = new List<ListItem> { new ListItem {Text = "-- Välj --", Value = 0.ToString()} }; // = Enumerable.Empty<ListItem>();
+            OrderArticles     = new List<ListItem> { new ListItem {Text = "-- Välj --", Value = 0.ToString()} }; // = Enumerable.Empty<ListItem>();
             ShippingOptions = Enumerable.Empty<ListItem>();
-            OrderArticles = Enumerable.Empty<ListItem>();
-            
+
             PowerOptions= Enumerable.Empty<ListItem>();
             BaseCurveOptions = Enumerable.Empty<ListItem>();
             DiameterOptions= Enumerable.Empty<ListItem>();
@@ -22,6 +23,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
     	}
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
+
+        public int SelectedCategoryId { get; set; }
+        public int SelectedArticleTypeId { get; set; }
+        public int SelectedSupplierId { get; set; }
+        public int SelectedArticleId { get; set; }
+
 		public IEnumerable<ListItem> Categories { get; set; }
     	public IEnumerable<ListItem> Suppliers { get; set; }
     	public IEnumerable<ListItem> ArticleTypes { get; set; }

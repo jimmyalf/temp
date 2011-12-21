@@ -122,7 +122,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 			{
 				repo.Save(item);
 			}
-			return items;
+		    return items;
 		}
 
 		public TRepository WithRepository<TRepository>()

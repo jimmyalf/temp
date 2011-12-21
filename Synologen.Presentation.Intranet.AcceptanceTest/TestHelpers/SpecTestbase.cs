@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using FakeItEasy;
 using NHibernate;
@@ -116,13 +117,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 			where TModel : class
 		{
 			var repo = WithRepository<TRepository>();
-			var items = factoryFunction();
+			var items = factoryFunction().ToList();
 			foreach (var item in items)
 			{
 				repo.Save(item);
-				yield return item;
 			}
-			yield break;
+			return items;
 		}
 
 		public TRepository WithRepository<TRepository>()

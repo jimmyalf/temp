@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
@@ -18,7 +16,7 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
     [TestFixture, Category("Payment_Options")]
-    public class When_selecting_payment_options : SpecTestbase<PaymentOptionsPresenter, IPaymentOptionsView>
+    public class When_selecting_payment_options : OrderSpecTestbase<PaymentOptionsPresenter, IPaymentOptionsView>
     {
         private PaymentOptionsPresenter _presenter;
     	private PaymentOptionsEventArgs _submitEventArgs;
@@ -53,13 +51,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void SetupDataContext()
     	{
-			var category = CreateWithRepository<IArticleCategoryRepository, ArticleCategory>(OrderFactory.GetCategory);
-    	    var supplier = CreateWithRepository<IArticleSupplierRepository, ArticleSupplier>(OrderFactory.GetSupplier);
-    		var articleType = CreateWithRepository<IArticleTypeRepository, ArticleType>(() => OrderFactory.GetArticleType(category));
-        	var article = CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(articleType, supplier));
-    		_customer = CreateWithRepository<IOrderCustomerRepository,OrderCustomer>(() => OrderFactory.GetCustomer());
-    		_subsciptions = CreateItemsWithRepository<ISubscriptionRepository, Subscription>(() => OrderFactory.GetSubscriptions(_customer)).ToList();
-        	_order = CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(article, _customer));
+    		_customer = CreateCustomer();
+			_subsciptions = GetSubscriptions(_customer);
+        	_order = CreateOrder(customer:_customer);
 		}
 
 		[Test]

@@ -13,7 +13,7 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
     [TestFixture, Category("Save_Customer")]
-	public class When_picking_a_customer : SpecTestbase<SaveCustomerPresenter,ISaveCustomerView>
+	public class When_picking_a_customer : OrderSpecTestbase<SaveCustomerPresenter,ISaveCustomerView>
     {
         private SaveCustomerPresenter _saveCustomerPresenter;
     	private SaveCustomerEventArgs _form;
@@ -115,8 +115,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
         private void AttEnKundHittatsIFöregåendeSteg()
         {
-            _customer = OrderFactory.GetCustomer();
-            WithRepository<IOrderCustomerRepository>().Save(_customer);
+        	_customer = CreateCustomer();
             HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
         }
         private void AttAnvändarenStårIVynFörAttSparaKund()

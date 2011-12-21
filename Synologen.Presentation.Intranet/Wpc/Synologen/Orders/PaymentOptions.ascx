@@ -2,65 +2,20 @@
 <div id="page" class="step4">
 	<header>
 		<h1>Linsabonnemang demo</h1>
-		
 		<span class="customer-name"><b>Kund:</b> <%#Model.CustomerName %></span>
 	</header>
 	<WpcSynologen:OrderMenu runat="server" />
 	<div id="tab-container">
 		<fieldset>
+			<legend/>
 			<div class="progress">
 				<label>Steg 4 av 6</label>
 				<div id="progressbar" />
 			</div>
-			<%-- 
-			<table>
-				<caption>Kundens abonnemang</caption>
-				<thead>
-					<tr>
-						<th scope="col"></th>
-						<th scope="col">Referensnr</th>
-						<th scope="col">Saldo</th>
-						<th scope="col">Belopp</th>
-						<th scope="col">Antal dragningar</th>
-						<th scope="col">Status</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><input type="checkbox" /></td>
-						<td>3567834</td>
-						<td class="right">+400</td>
-						<td class="right">250</td>
-						<td>3</td>
-						<td>Aktivt</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" /></td>
-						<td>3567834</td>
-						<td class="right">+400</td>
-						<td class="right">250</td>
-						<td>3</td>
-						<td>Aktivt</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" /></td>
-						<td>3567834</td>
-						<td class="right">+400</td>
-						<td class="right">250</td>
-						<td>3</td>
-						<td>Aktivt</td>
-					</tr>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="6"><input type="button" value="Stoppa abonnemang"/> <input type="button" value="Skapa nytt abonnemang"/></td>
-					</tr>
-				</tfoot>
-			</table>
-			--%>
 			<asp:RadioButtonList runat="server" ID="rblAccounts" DataSource="<%# Model.Subscriptions %>" RepeatLayout="Flow" RepeatDirection="Horizontal" />
 		</fieldset>
 		<fieldset>
+			<legend/>
 			<div class="next-step">
 				<asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" />
 			    <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" />

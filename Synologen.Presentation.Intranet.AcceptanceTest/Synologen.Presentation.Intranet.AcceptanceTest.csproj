@@ -156,6 +156,7 @@
     <Compile Include="Orders\Confirm_Order.cs" />
     <Compile Include="Orders\Create_Order.cs" />
     <Compile Include="Orders\OrderFactory.cs" />
+    <Compile Include="Orders\OrderSpecTestbase.cs" />
     <Compile Include="Orders\Payment_Options.cs" />
     <Compile Include="Orders\Save_Customer.cs" />
     <Compile Include="Orders\Search_Customer.cs" />

@@ -13,7 +13,7 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
 	[TestFixture, Category("Search_Customer")]
-	public class Search_Customer_Specs : SpecTestbase<SearchCustomerPresenter,ISearchCustomerView>
+	public class Search_Customer_Specs : OrderSpecTestbase<SearchCustomerPresenter,ISearchCustomerView>
 	{
 		private SearchCustomerPresenter _presenter;
 		private string _expectedNextRedirectUrl, _expectedAbortRedirectUrl;
@@ -72,8 +72,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	    #region Arrange
         private void AttKundFinnsSedanTidigare()
         {
-            _customer = OrderFactory.GetCustomer();
-            WithRepository<IOrderCustomerRepository>().Save(_customer);
+        	_customer = CreateCustomer();
         }
         private void AttKundInteFinnsSedanTidigare()
         {

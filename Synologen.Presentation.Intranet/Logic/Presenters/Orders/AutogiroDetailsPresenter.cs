@@ -1,4 +1,6 @@
 using System;
+using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
@@ -10,10 +12,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     public class AutogiroDetailsPresenter : Presenter<IAutogiroDetailsView>
     {
     	private readonly IRoutingService _routingService;
+    	private readonly IOrderRepository _orderRepository;
 
-    	public AutogiroDetailsPresenter(IAutogiroDetailsView view, IRoutingService routingService) : base(view)
+    	public AutogiroDetailsPresenter(IAutogiroDetailsView view, IRoutingService routingService, IOrderRepository orderRepository) : base(view)
         {
         	_routingService = routingService;
+    		_orderRepository = orderRepository;
     		WireupEvents();
         }
 
@@ -27,7 +31,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		
     	public void View_Load(object sender, EventArgs e)
     	{
-    		throw new NotImplementedException();
+    		var order = _orderRepository.Get(OrderId);
+    		View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);
     	}
 		
 		public void View_Previous(object sender, EventArgs e)
@@ -42,6 +47,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
     	public void View_Abort(object sender, EventArgs e)
     	{
+    		var order = _orderRepository.Get(OrderId);
+			_orderRepository.Delete(order);
     		Redirect(View.AbortPageId);
     	}
 
@@ -58,5 +65,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			var url = _routingService.GetPageUrl(pageId);
 			HttpContext.Response.Redirect(url+queryString);
 		}
+
+    	private int OrderId
+    	{
+			get { return HttpContext.Request.Params["order"].ToInt(); }
+    	}
     }
 }

@@ -318,7 +318,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void LaddasLeverantörer()
         {
-            View.Model.Suppliers.And(_expectedSuppliers).Do((viewModelItem, domainItem) =>
+            var viewModelSuppliers = View.Model.Suppliers.ToList();
+            viewModelSuppliers.RemoveAt(0);
+
+            viewModelSuppliers.And(_expectedSuppliers).Do((viewModelItem, domainItem) =>
             {
                 viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Name);
@@ -327,7 +330,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void LaddasArtiklar()
         {
-            View.Model.OrderArticles.And(_expectedArticles).Do((viewModelItem, domainItem) =>
+            var viewModelArticles = View.Model.OrderArticles.ToList();
+            viewModelArticles.RemoveAt(0);
+
+            viewModelArticles.And(_expectedArticles).Do((viewModelItem, domainItem) =>
             {
                 viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Name);
@@ -336,7 +342,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void LaddasArtikeltyper()
         {
-            View.Model.ArticleTypes.And(_expectedArticleTypes).Do((viewModelItem, domainItem) =>
+            var viewModelArticleTypes = View.Model.ArticleTypes.ToList();
+            viewModelArticleTypes.RemoveAt(0);
+
+            viewModelArticleTypes.And(_expectedArticleTypes).Do((viewModelItem, domainItem) =>
             {
                 viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Name);
@@ -345,7 +354,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void ArtikelkategorierLaddas()
         {
-            View.Model.Categories.And(_expectedCategories).Do((viewModelItem, domainItem) =>
+            var viewModelCategories = View.Model.Categories.ToList();
+            viewModelCategories.RemoveAt(0);
+            viewModelCategories.And(_expectedCategories).Do((viewModelItem, domainItem) =>
             {
                 viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Name);

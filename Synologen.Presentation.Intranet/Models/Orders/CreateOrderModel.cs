@@ -19,7 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
             DiameterOptions= Enumerable.Empty<ListItem>();
             AxisOptions = Enumerable.Empty<ListItem>();
             CylinderOptions = Enumerable.Empty<ListItem>();
-            ItemQuantityOptions = Enumerable.Empty<ListItem>();
+
     	}
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }

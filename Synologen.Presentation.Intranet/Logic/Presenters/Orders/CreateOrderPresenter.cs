@@ -133,13 +133,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			    Customer = customer
 			};
 			_orderRepository.Save(order);
-            Redirect();
+            Redirect(View.NextPageId, String.Format("?order={0}", order.Id));
         }
 
-        private void Redirect()                         
+        private void Redirect(int pageId, string queryString="")
         {
-            var url = _routingService.GetPageUrl(View.NextPageId);
-            HttpContext.Response.Redirect(url);
+            var url = _routingService.GetPageUrl(pageId);
+            HttpContext.Response.Redirect(String.Format("{0}{1}", url, queryString));
         }
 
         public void View_Load(object o, EventArgs eventArgs)
@@ -159,14 +159,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
         public void View_Abort(object o, EventArgs eventArgs)
         {
-            var url = _routingService.GetPageUrl(View.AbortPageId);
-            HttpContext.Response.Redirect(url);
+            Redirect(View.AbortPageId);
         }
 
         public void View_Previous(object o, EventArgs eventArgs)
         {
-            var url = _routingService.GetPageUrl(View.PreviousPageId);
-            HttpContext.Response.Redirect(url);
+            var customerId = HttpContext.Request.Params["customer"].ToInt();
+            Redirect(View.PreviousPageId, String.Format("?customer={0}", customerId));
         }
     }
 }

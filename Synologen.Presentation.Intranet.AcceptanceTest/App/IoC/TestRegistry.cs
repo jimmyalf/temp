@@ -54,6 +54,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.IoC
 		    For<IArticleTypeRepository>().Use<ArticleTypeRepository>();
             For<IArticleRepository>().Use<ArticleRepository>();
 		    For<ILensRecipeRepository>().Use<LensRecipeRepository>();
+			For<ISubscriptionItemRepository>().Use<SubscriptionItemRepository>();
 			For<Core.Domain.Persistence.Orders.ISubscriptionRepository>().Use<Data.Repositories.OrderRepositories.SubscriptionRepository>();
 			For<IRoutingService>().Singleton().Use(RoutingServiceFactory.GetCachedRoutingService);
 			

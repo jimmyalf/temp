@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
@@ -11,6 +11,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 	public interface IViewParser
 	{
 		OrderCustomer Parse(SaveCustomerEventArgs args);
+		Subscription Parse(AutogiroDetailsEventArgs args, OrderCustomer customer);
+		SubscriptionItem Parse(AutogiroDetailsEventArgs args, Subscription subscription);
 		void Fill(OrderCustomer existingCustomer, SaveCustomerEventArgs args);
 		IEnumerable<ListItem> Parse<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
         IEnumerable<ListItem> ParseWithDefaultItem<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
@@ -35,6 +37,34 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 				PersonalIdNumber = args.PersonalIdNumber, 
 				Phone = args.Phone, 
 				PostalCode = args.PostalCode
+			};
+		}
+
+		public Subscription Parse(AutogiroDetailsEventArgs args, OrderCustomer customer)
+		{
+			return new Subscription
+			{
+				ActivatedDate = null,
+    			Active = false,
+				AutogiroPayerId = null,
+				BankAccountNumber = args.BankAccountNumber,
+				ClearingNumber = args.ClearingNumber,
+				ConsentStatus = SubscriptionConsentStatus.NotSent,
+				Customer = customer,
+    		};
+		}
+
+		public SubscriptionItem Parse(AutogiroDetailsEventArgs args, Subscription subscription)
+		{
+			return new SubscriptionItem
+			{
+				Description = args.Description,
+				Notes = args.Notes,
+				NumberOfPayments = args.NumberOfPayments,
+				NumberOfPaymentsLeft =args.NumberOfPayments,
+				Subscription = subscription,
+				TaxFreeAmount = args.TaxFreeAmount,
+				TaxedAmount = args.TaxedAmount,
 			};
 		}
 

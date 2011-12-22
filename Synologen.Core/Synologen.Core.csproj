@@ -276,6 +276,7 @@
     <Compile Include="Domain\Persistence\Orders\ILensRecipeRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\IOrderCustomerRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\IOrderRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\ISubscriptionItemRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\ISubscriptionRepository.cs" />
     <Compile Include="Domain\Services\BgWebService\FtpChangePasswordException.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGFtpPasswordService.cs" />

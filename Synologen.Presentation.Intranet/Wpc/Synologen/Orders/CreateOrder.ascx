@@ -48,9 +48,15 @@
 
 		</p>
     	<p><label>Diameter</label>
-            
             <asp:DropDownList id="ddlRightDiameter" DataSource="<% #Model.DiameterOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
-
+            </asp:DropDownList>
+    	</p>
+        <p><label>Axel</label>
+            <asp:DropDownList id="ddlRightAxis" DataSource="<% #Model.AxisOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
+            </asp:DropDownList>
+    	</p>
+        <p><label>Cylinder</label>
+            <asp:DropDownList id="ddlRightCylinder" DataSource="<% #Model.CylinderOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
     	</p>
       </fieldset>
@@ -75,21 +81,19 @@
 
             </asp:DropDownList>
     	</p>
+        <p><label>Axel</label>
+            <asp:DropDownList id="ddlLeftAxis" DataSource="<% #Model.AxisOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
+            </asp:DropDownList>
+    	</p>
+        <p><label>Cylinder</label>
+            <asp:DropDownList id="ddlLeftCylinder" DataSource="<% #Model.CylinderOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
+            </asp:DropDownList>
+    	</p>
       </fieldset>
            
       <fieldset>
       <legend>Leverantörsalternativ</legend>
-      <asp:RadioButtonList runat="server" ID="SupplierOption" RepeatDirection="Horizontal">
-      
-           <asp:ListItem 
-               Text="Till butik" />
-        
-           <asp:ListItem
-               Text="Till kund" />
-               
-           <asp:ListItem
-               Text="Ingen leverans" />
-      </asp:RadioButtonList>
+        <asp:RadioButtonList runat="server" ID="rbShippingOptions" DataSource="<%# Model.ShippingOptions %>" DataTextField="Text" DataValueField="Value" RepeatLayout="Flow" RepeatDirection="Horizontal" />
       </fieldset>
       
    <fieldset>

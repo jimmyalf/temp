@@ -76,13 +76,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		protected IArticleTypeRepository ArticleTypeRepository;
 	    protected IArticleRepository ArticleRepository;
 	    protected ILensRecipeRepository LensRecipeRepository;
+	    protected IRoutingService RoutingService;
 
 		protected CreateOrderTestbase()
 		{
 			SetUp = () =>
 			{
 				OrderRepository = A.Fake<IOrderRepository>();
-				SynologenMemberService = A.Fake<ISynologenMemberService>();
+				RoutingService = A.Fake<IRoutingService>();
 				OrderCustomerRepository = A.Fake<IOrderCustomerRepository>();
 				ArticleCategoryRepository = A.Fake<IArticleCategoryRepository>();
 				ViewParser = new ViewParser();
@@ -96,7 +97,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 				View, 
 				OrderRepository, 
 				OrderCustomerRepository, 
-				SynologenMemberService,
+				RoutingService,
 				ArticleCategoryRepository,
 				ViewParser,
 				ArticleSupplierRepository,

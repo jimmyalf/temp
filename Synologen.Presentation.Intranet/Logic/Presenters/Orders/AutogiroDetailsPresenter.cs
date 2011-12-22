@@ -9,45 +9,54 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
     public class AutogiroDetailsPresenter : Presenter<IAutogiroDetailsView>
     {
+    	private readonly IRoutingService _routingService;
 
-        private readonly ISynologenMemberService _synologenMemberService;
-
-        public AutogiroDetailsPresenter(IAutogiroDetailsView view, ISynologenMemberService synologenMemberService) : base(view)
+    	public AutogiroDetailsPresenter(IAutogiroDetailsView view, IRoutingService routingService) : base(view)
         {
-            _synologenMemberService = synologenMemberService;
+        	_routingService = routingService;
+    		WireupEvents();
+        }
 
+		private void WireupEvents()
+		{
         	View.Load += View_Load;
 			View.Abort += View_Abort;
 			View.Submit += View_Submit;
 			View.Previous += View_Previous;
-        }
-
-    	public void View_Previous(object sender, EventArgs e)
-    	{
-            var url = _synologenMemberService.GetPageUrl(View.PreviousPageId);
-            HttpContext.Response.Redirect(url);
-    	}
-
-    	public void View_Submit(object sender, AutogiroDetailsEventArgs e)
-    	{
-            var url = _synologenMemberService.GetPageUrl(View.NextPageId);
-            HttpContext.Response.Redirect(url);
-    	}
-
-    	public void View_Abort(object sender, EventArgs e)
-    	{
-            var url = _synologenMemberService.GetPageUrl(View.AbortPageId);
-            HttpContext.Response.Redirect(url);
-    	}
-
+		}
+		
     	public void View_Load(object sender, EventArgs e)
     	{
     		throw new NotImplementedException();
     	}
+		
+		public void View_Previous(object sender, EventArgs e)
+    	{
+            Redirect(View.PreviousPageId);
+    	}
+
+    	public void View_Submit(object sender, AutogiroDetailsEventArgs e)
+    	{
+            Redirect(View.NextPageId);
+    	}
+
+    	public void View_Abort(object sender, EventArgs e)
+    	{
+    		Redirect(View.AbortPageId);
+    	}
 
     	public override void ReleaseView()
         {
-			View.Load += View_Load;
+        	View.Load -= View_Load;
+			View.Abort -= View_Abort;
+			View.Submit -= View_Submit;
+			View.Previous -= View_Previous;
         }
+
+		private void Redirect(int pageId, string queryString = null)
+		{
+			var url = _routingService.GetPageUrl(pageId);
+			HttpContext.Response.Redirect(url+queryString);
+		}
     }
 }

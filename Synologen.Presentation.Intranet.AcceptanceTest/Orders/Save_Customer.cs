@@ -29,13 +29,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_submitRedirectUrl = "/submit/page";
 				_abortRedirectUrl = "/abort/page";
 				_previousRedirectUrl = "/previous/page";
-				View.NextPageId = 55;
-				View.AbortPageId = 56;
-				View.PreviousPageId = 57;
 				_getRedirectUrl = (url, createdCustomerId) => String.Format("{0}?customer={1}", url, createdCustomerId);
-				A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_submitRedirectUrl);
-				A.CallTo(() => SynologenMemberService.GetPageUrl(View.AbortPageId)).Returns(_abortRedirectUrl);
-				A.CallTo(() => SynologenMemberService.GetPageUrl(View.PreviousPageId)).Returns(_previousRedirectUrl);
+				SetupNavigationEvents(_previousRedirectUrl,_abortRedirectUrl, _submitRedirectUrl);
 				_saveCustomerPresenter = GetPresenter();
 			};
 

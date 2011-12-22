@@ -1,5 +1,4 @@
 using System;
-using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
@@ -19,28 +18,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private Func<string,int,string> _redirectUrl;
     	private string _previousUrl, _submitUrl, _abortUrl;
     	private Order _order;
+    	private AutogiroDetailsEventArgs _form;
 
     	public When_entering_autogiro_details()
         {
             Context = () =>
             {
-            	/*_previousUrl = "/previous/page";
+            	_previousUrl = "/previous/page";
 				_submitUrl = "/next/page";
 				_abortUrl = "/abort/page";
-                */
+            	SetupNavigationEvents(_previousUrl, _abortUrl, _submitUrl);
             	_redirectUrl = (url, orderId) => "{url}?order={orderId}".ReplaceWith(new {url, orderId});
-
-                _submitUrl = "/test/page";
-                _abortUrl = "/test/page/abort";
-                _previousUrl = "/test/page/previous";
-                View.NextPageId = 56;
-                View.AbortPageId = 78;
-                View.PreviousPageId = 77;
-                A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_submitUrl);
-                A.CallTo(() => SynologenMemberService.GetPageUrl(View.AbortPageId)).Returns(_abortUrl);
-                A.CallTo(() => SynologenMemberService.GetPageUrl(View.PreviousPageId)).Returns(_previousUrl);
-
-
                 _presenter = GetPresenter();
             };
 
@@ -67,22 +55,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
 					.Och(AttFormuläretÄrKorrektIfyllt)
                 .När(AnvändarenFörsökerFortsättaTillNästaSteg)
-                .Så(FörflyttasAnvändarenTillNästaSteg)
+				.Så(SkapasEttNyttKontoMedEttNyttDelAbonnemang)
+					.Och(AnvändarenFörflyttasTillNästaSteg)
             );
         }
 
-        [Test]
+    	[Test]
         public void SparaDelAbonnemangPåBefintligtKonto()
         {
             SetupScenario(scenario => scenario
 				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
 					.Och(AttFormuläretÄrKorrektIfyllt)
                 .När(AnvändarenFörsökerFortsättaTillNästaSteg)
-                .Så(FörflyttasAnvändarenTillNästaSteg)
+				.Så(SkapasEttNyttDelAbonnemangPåBefintligtKonto)
+					.Och(AnvändarenFörflyttasTillNästaSteg)
             );
         }
 
-        [Test]
+    	[Test]
         public void AvbrytBeställning()
         {
             SetupScenario(scenario => scenario
@@ -93,7 +83,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			);
         }
 
-        [Test]
+    	[Test]
         public void Tillbaka()
         {
             SetupScenario(scenario => scenario
@@ -104,14 +94,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
 
     	#region Arrange
-        private void EnBeställningHarSkapatsIFöregåendeSteg()
+    	private void EnBeställningHarSkapatsIFöregåendeSteg()
         {
             _order = CreateOrder();
         }
-
         private void AttFormuläretÄrKorrektIfyllt()
         {
-            throw new NotImplementedException();
+            _form = new AutogiroDetailsEventArgs();
         }
         #endregion
 
@@ -122,7 +111,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
         private void AnvändarenFörsökerFortsättaTillNästaSteg()
         {
-            throw new NotImplementedException();
+            _presenter.View_Submit(null, _form);
         }
     	private void AnvändarenFörsökerGåTillFöregåendeSteg()
     	{
@@ -137,34 +126,39 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         #region Assert
         private void TasBeställningenBort()
         {
-            throw new NotImplementedException();
             WithRepository<IOrderRepository>().Get(_order.Id).ShouldBe(null);
         }
 
         private void AnvändarenFlyttasTillAvbrytSidan()
         {
-            throw new NotImplementedException();
 			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_abortUrl);
         }
 
     	private void AnvändarenFlyttasTillFöregåendeSteg()
     	{
-            throw new NotImplementedException();
         	var expectedUrl = _redirectUrl(_previousUrl, _order.Id);
 			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
     	}
 
-        private void FörflyttasAnvändarenTillNästaSteg()
+        private void AnvändarenFörflyttasTillNästaSteg()
         {
-            throw new NotImplementedException();
         	var expectedUrl = _redirectUrl(_submitUrl, _order.Id);
 			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
         }
 
     	private void SkallKundNamnVisas()
     	{
-            throw new NotImplementedException();
     		View.Model.CustomerName.ShouldBe("Adam Bertil");
+    	}
+
+    	private void SkapasEttNyttKontoMedEttNyttDelAbonnemang()
+    	{
+    		throw new NotImplementedException();
+    	}
+
+    	private void SkapasEttNyttDelAbonnemangPåBefintligtKonto()
+    	{
+    		throw new NotImplementedException();
     	}
         #endregion
     }

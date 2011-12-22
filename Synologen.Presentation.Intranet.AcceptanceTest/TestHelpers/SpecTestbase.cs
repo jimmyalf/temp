@@ -29,6 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 		protected TView View;
 		protected int SwedenCountryId;
 		protected ISynologenMemberService SynologenMemberService;
+		protected IRoutingService RoutingService;
 		private readonly DataManager _dataManager;
 
 		protected SpecTestbase()
@@ -41,6 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 	    {
 			ResetData();
 			SynologenMemberService = GetSynologenMemberService();
+			RoutingService = GetRoutingService();
 			SwedenCountryId = 1;
 			View = GetView();
 			HttpContext = new FakeHttpContext();
@@ -65,6 +67,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 			var presenter = ObjectFactory
 				.With(View)
 				.With(SynologenMemberService)
+				.With(RoutingService)
 				.GetInstance<TPresenter>();
 			presenter.HttpContext = HttpContext;
 			return presenter;
@@ -80,6 +83,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 		{
 			var service = A.Fake<ISynologenMemberService>();
 			return service;
+		}
+
+		protected virtual IRoutingService GetRoutingService()
+		{
+			return A.Fake<IRoutingService>();
 		}
 
 		protected void ResetData()

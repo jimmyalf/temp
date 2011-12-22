@@ -81,16 +81,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             var args = new CreateOrderEventArgs
             {
                 ArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
-                //CategoryId = Convert.ToInt32(ddlPickCategory.SelectedValue),
-                ShipmentOption = Convert.ToInt32(SupplierOption.SelectedValue),
-                //SupplierId = Convert.ToInt32(SupplierOption.SelectedValue),
-                //TypeId = Convert.ToInt32(ddlPickKind.SelectedValue),
-                LeftBaseCurve = Convert.ToInt32(ddlLeftBaskurva.SelectedValue),
-                LeftDiameter = Convert.ToInt32(ddlLeftDiameter.SelectedValue),
-                LeftPower = Convert.ToInt32(ddlRightStrength.SelectedValue),
-                RightBaseCurve = Convert.ToInt32(ddlRightBaskurva.SelectedValue),
-                RightDiameter = Convert.ToInt32(ddlRightDiameter.SelectedValue),
-                RightPower = Convert.ToInt32(ddlRightStrength.SelectedValue)
+                ShipmentOption = Convert.ToInt32(rbShippingOptions.SelectedValue),
+
+                LeftBaseCurve = (float)Convert.ToDecimal(ddlLeftBaskurva.SelectedValue),
+                LeftDiameter = (float)Convert.ToDecimal(ddlLeftDiameter.SelectedValue),
+                LeftPower = (float)Convert.ToDecimal(ddlLeftStrength.SelectedValue),
+                LeftAxis = (float)Convert.ToDecimal(ddlLeftAxis.SelectedValue),
+                LeftCylinder = (float)Convert.ToDecimal(ddlLeftCylinder.SelectedValue),
+               
+                RightBaseCurve = (float)Convert.ToDecimal(ddlRightBaskurva.SelectedValue),
+                RightDiameter = (float)Convert.ToDecimal(ddlRightDiameter.SelectedValue),
+                RightPower = (float)Convert.ToDecimal(ddlRightStrength.SelectedValue),
+                RightAxis = (float)Convert.ToDecimal(ddlRightAxis.SelectedValue),
+                RightCylinder = (float)Convert.ToDecimal(ddlRightCylinder.SelectedValue)
             };
 			TryFireSubmit(sender, args);
         }

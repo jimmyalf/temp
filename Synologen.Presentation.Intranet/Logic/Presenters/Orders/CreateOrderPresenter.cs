@@ -17,7 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     public class CreateOrderPresenter : Presenter<ICreateOrderView>
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly ISynologenMemberService _synologenMemberService;
+        private readonly IRoutingService _routingService;
     	private readonly IArticleCategoryRepository _articleCategoryRepository;
     	private readonly IViewParser _viewParser;
     	private readonly IArticleSupplierRepository _articleSupplierRepository;
@@ -30,7 +30,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			ICreateOrderView view, 
 			IOrderRepository orderRepository, 
 			IOrderCustomerRepository orderCustomerRepository, 
-			ISynologenMemberService synologenMemberService, 
+            IRoutingService routingService,
 			IArticleCategoryRepository articleCategoryRepository,
 			IViewParser viewParser,
 			IArticleSupplierRepository articleSupplierRepository,
@@ -40,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			) : base(view)
         {
             _orderCustomerRepository = orderCustomerRepository;
-            _synologenMemberService = synologenMemberService;
+            _routingService = routingService;
         	_articleCategoryRepository = articleCategoryRepository;
         	_viewParser = viewParser;
         	_articleSupplierRepository = articleSupplierRepository;
@@ -71,8 +71,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 var suppliers = _articleSupplierRepository.GetAll();
                 var filteredSuppliers = suppliers.Where(articleSupplier => articleSupplier.Articles.Where(x => x.ArticleType.Id == args.SelectedArticleTypeId).ToList().Count > 0).ToList();
                 View.Model.Suppliers = _viewParser.ParseWithDefaultItem(filteredSuppliers, supplier => new ListItem(supplier.Name, supplier.Id));
-
-                //TODO: update shipping options!
             }
             if(args.SelectedSupplierId > 0)
             {
@@ -80,10 +78,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 var articles = _articleRepository.FindBy(criteria);
                 View.Model.OrderArticles = _viewParser.ParseWithDefaultItem(articles, article => new ListItem(article.Name, article.Id));
 
-                //TODO: include shipping options..
-                //var supplier = _articleSupplierRepository.Get(e.SupplierId);
-                //View.Model.ShippingOptions = _viewParser.Parse(supplier.ShippingOptions);
-                
+                var supplier = _articleSupplierRepository.Get(args.SelectedSupplierId);
+                View.Model.ShippingOptions = _viewParser.Parse(supplier.ShippingOptions);
             }
             if(args.SelectedArticleId > 0)
             {
@@ -121,7 +117,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             var article = _articleRepository.Get(form.ArticleId);
             if (article == null) return;
 
-			//TODO: Move parsing into parse view-parser method
 			var lensRecipe = new LensRecipe
             {
                 Axis = new EyeParameter { Left = form.LeftAxis, Right = form.RightAxis },
@@ -132,8 +127,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             };
             _lensRecipeRepository.Save(lensRecipe);
 
-            //TODO:Update save functionality to fit new order model structure
-			//TODO: Move parsing into parse view-parser method
         	var customerId = HttpContext.Request.Params["customer"].ToInt();
         	var customer = _orderCustomerRepository.Get(customerId);
             var order = new Order
@@ -142,16 +135,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 LensRecipe = lensRecipe,
                 ShippingType = (OrderShippingOption) form.ShipmentOption,
 			    Customer = customer
-			    //SupplierId = form.SupplierId,
-			    //TypeId = form.TypeId
 			};
 			_orderRepository.Save(order);
             Redirect();
         }
 
-        private void Redirect()
+        private void Redirect()                         
         {
-            var url = _synologenMemberService.GetPageUrl(View.NextPageId);
+            var url = _routingService.GetPageUrl(View.NextPageId);
             HttpContext.Response.Redirect(url);
         }
 
@@ -172,13 +163,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
         public void View_Abort(object o, EventArgs eventArgs)
         {
-            var url = _synologenMemberService.GetPageUrl(View.AbortPageId);
+            var url = _routingService.GetPageUrl(View.AbortPageId);
             HttpContext.Response.Redirect(url);
         }
 
         public void View_Previous(object o, EventArgs eventArgs)
         {
-            var url = _synologenMemberService.GetPageUrl(View.PreviousPageId);
+            var url = _routingService.GetPageUrl(View.PreviousPageId);
             HttpContext.Response.Redirect(url);
         }
     }

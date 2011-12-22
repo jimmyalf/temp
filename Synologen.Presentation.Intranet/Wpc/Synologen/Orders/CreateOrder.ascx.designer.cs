@@ -76,6 +76,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.DropDownList ddlRightDiameter;
         
         /// <summary>
+        /// ddlRightAxis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRightAxis;
+        
+        /// <summary>
+        /// ddlRightCylinder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRightCylinder;
+        
+        /// <summary>
         /// ddlLeftStrength control.
         /// </summary>
         /// <remarks>
@@ -103,13 +121,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.DropDownList ddlLeftDiameter;
         
         /// <summary>
-        /// SupplierOption control.
+        /// ddlLeftAxis control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList SupplierOption;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLeftAxis;
+        
+        /// <summary>
+        /// ddlLeftCylinder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlLeftCylinder;
+        
+        /// <summary>
+        /// rbShippingOptions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rbShippingOptions;
         
         /// <summary>
         /// btnPreviousStep control.

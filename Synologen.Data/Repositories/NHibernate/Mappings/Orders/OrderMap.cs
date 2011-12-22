@@ -10,11 +10,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
             Table("SynologenOrder");
             Id(x => x.Id);
 
-            HasOne(x => x.LensRecipe);
-
             Map(x => x.Created);
-            Map(x => x.ShippingType).CustomType<int>();
 
+            Map(x => x.ShippingType).CustomType<int>();
+            References(x => x.LensRecipe).Column("LensRecipeId");
             References(x => x.Article).Column("ArticleId");
         	References(x => x.Customer).Column("CustomerId").Not.Nullable();
         	Component(x => x.SelectedPaymentOption, paymentOption =>
@@ -22,7 +21,6 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
         		paymentOption.Map(x => x.Type).Column("PaymentOptionType").CustomType<int>();
 				paymentOption.Map(x => x.SubscriptionId).Column("PaymentOptionSubscripitonId").Nullable();
         	});
-        	//References(x => x.LensRecipe).Column("LensRecipeId").Nullable();
         }
     }
 }

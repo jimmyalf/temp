@@ -5,10 +5,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
 
     public class CreateOrderEventArgs : EventArgs
     {
-        public int CategoryId { get; set; }
-        //public int SupplierId { get; set; }
-        //public int TypeId { get; set; }
+        public int ShipmentOption { get; set; }
+        public int CustomerId { get; set; }
         public int ArticleId { get; set; }
+
         public float LeftPower { get; set; }
         public float RightPower { get; set; }
         public float LeftDiameter { get; set; }
@@ -19,8 +19,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
         public float RightAxis { get; set; }
         public float LeftCylinder { get; set; }
         public float RightCylinder { get; set; }
-
-        public int ShipmentOption { get; set; }
-        public int CustomerId { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
@@ -91,9 +90,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 View.Model.BaseCurveOptions = _viewParser.FillWithIncrementalValues(options.BaseCurve);
                 View.Model.AxisOptions = _viewParser.FillWithIncrementalValues(options.Axis);
                 View.Model.CylinderOptions = _viewParser.FillWithIncrementalValues(options.Cylinder);
-
-                //TODO: how is this supposed to work? O_o
-                View.Model.ItemQuantityOptions = Enumerable.Empty<ListItem>();
             }
 
             View.Model.SelectedCategoryId = args.SelectedCategoryId;

@@ -17,18 +17,54 @@
     	<p><label>Välj Kategori</label>
             <asp:DropDownList id="ddlPickCategory" DataSource="<% #Model.Categories %>"  SelectedValue="<%#Model.SelectedCategoryId%>" DataTextField="Text" DataValueField="Value" runat="server" AutoPostBack="true">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator1" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlPickCategory" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
         <p><label>Välj Typ</label>
             <asp:DropDownList id="ddlPickKind" DataSource="<% #Model.ArticleTypes %>" SelectedValue="<%#Model.SelectedArticleTypeId%>" DataTextField="Text" DataValueField="Value" runat="server" AutoPostBack="true">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator2" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlPickKind" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
     	</p>
     	<p><label>Välj Leverantör</label>
             <asp:DropDownList id="ddlPickSupplier" DataSource="<% #Model.Suppliers %>" SelectedValue="<%#Model.SelectedSupplierId%>" DataTextField="Text" DataValueField="Value" runat="server" AutoPostBack="true">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator3" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlPickSupplier" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Välj Artikel</label>
             <asp:DropDownList id="ddlPickArticle" DataSource="<% #Model.OrderArticles %>" SelectedValue="<%#Model.SelectedArticleId%>" DataTextField="Text" DataValueField="Value" runat="server" AutoPostBack="true">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator4" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlPickArticle" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
     	</p>
       </fieldset>
 
@@ -94,6 +130,13 @@
       <fieldset>
       <legend>Leverantörsalternativ</legend>
         <asp:RadioButtonList runat="server" ID="rbShippingOptions" DataSource="<%# Model.ShippingOptions %>" DataTextField="Text" DataValueField="Value" RepeatLayout="Flow" RepeatDirection="Horizontal" />
+        <asp:RequiredFieldValidator   
+            ID="ReqiredFieldValidator1"  
+            runat="server"  
+            ControlToValidate="rbShippingOptions"  
+            ErrorMessage="*"  
+            >  
+        </asp:RequiredFieldValidator>  
       </fieldset>
       
    <fieldset>

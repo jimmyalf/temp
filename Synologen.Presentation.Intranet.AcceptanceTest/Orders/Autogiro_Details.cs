@@ -105,7 +105,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
         private void AttFormuläretÄrKorrektIfyllt()
         {
-            _form = new AutogiroDetailsEventArgs();
+        	_form = OrderFactory.GetAutogiroDetailsEventArgs();
         }
     	private void EttNyttKontoHarValtsIFöregåendeSteg()
     	{

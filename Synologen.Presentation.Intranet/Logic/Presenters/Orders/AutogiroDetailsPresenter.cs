@@ -12,13 +12,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
     public class AutogiroDetailsPresenter : Presenter<IAutogiroDetailsView>
     {
+    	private readonly IViewParser _viewParser;
     	private readonly IRoutingService _routingService;
     	private readonly IOrderRepository _orderRepository;
+    	private readonly ISubscriptionRepository _subscriptionRepository;
+    	private readonly ISubscriptionItemRepository _subscriptionItemRepository;
 
-    	public AutogiroDetailsPresenter(IAutogiroDetailsView view, IRoutingService routingService, IOrderRepository orderRepository) : base(view)
+    	public AutogiroDetailsPresenter(
+			IAutogiroDetailsView view, 
+			IViewParser viewParser,
+			IRoutingService routingService, 
+			IOrderRepository orderRepository, 
+			ISubscriptionRepository subscriptionRepository,
+			ISubscriptionItemRepository subscriptionItemRepository) : base(view)
         {
-        	_routingService = routingService;
+    		_viewParser = viewParser;
+    		_routingService = routingService;
     		_orderRepository = orderRepository;
+    		_subscriptionRepository = subscriptionRepository;
+    		_subscriptionItemRepository = subscriptionItemRepository;
     		WireupEvents();
         }
 
@@ -43,17 +55,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
     	public void View_Submit(object sender, AutogiroDetailsEventArgs e)
     	{
-    		var subscription = new Subscription() {};
-			var subscriptionItem = new SubscriptionItem
-			{
-				Description = e.Description,
-				Notes = e.Notes,
-				NumberOfPayments = e.NumberOfPayments,
-				NumberOfPaymentsLeft = e.NumberOfPayments,
-				Subscription = subscription,
-				TaxFreeAmount = e.TaxFreeAmount,
-				TaxedAmount = e.TaxedAmount
-			};
+    		StoreSubscriptionData(e);
             Redirect(View.NextPageId);
     	}
 
@@ -71,6 +73,37 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Submit -= View_Submit;
 			View.Previous -= View_Previous;
         }
+
+		private void StoreSubscriptionData(AutogiroDetailsEventArgs e)
+		{
+			var order = _orderRepository.Get(OrderId);
+
+			//Store/Get subscription
+			var subscription = GetSubscription(e, order);
+
+			//Store subscriptionItem
+    		var subscriptionItem = _viewParser.Parse(e, subscription);
+    		_subscriptionItemRepository.Save(subscriptionItem);
+
+			//Update order
+			order.SubscriptionPayment = subscriptionItem;
+			_orderRepository.Save(order);
+		}
+
+		private Subscription GetSubscription(AutogiroDetailsEventArgs e, Order order)
+		{
+			if(order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New)
+			{
+    			var subscription = _viewParser.Parse(e, order.Customer);
+				_subscriptionRepository.Save(subscription);
+				return subscription;
+			}
+			if(order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_Existing && order.SelectedPaymentOption.SubscriptionId.HasValue)
+			{
+				return _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
+			}
+			throw new ApplicationException("Cannot figure out what subscription to use");
+		}
 
 		private void Redirect(int pageId, string queryString = null)
 		{

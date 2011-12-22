@@ -200,5 +200,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                            Name = "Johnsson & McBeth",
                        };
         }
+
+		public static AutogiroDetailsEventArgs GetAutogiroDetailsEventArgs()
+		{
+			return new AutogiroDetailsEventArgs
+			{
+				BankAccountNumber = "123456789",
+				ClearingNumber = "1234",
+				Description = "Betalning för endagslinser",
+				Notes = "Ring kund",
+				NumberOfPayments = 6,
+				TaxFreeAmount = 100,
+				TaxedAmount = 125.25M,
+			};
+		}
 	}
 }

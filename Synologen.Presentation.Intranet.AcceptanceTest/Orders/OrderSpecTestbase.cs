@@ -35,11 +35,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			return CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(articleType, supplier));
 		}
 
-		protected IEnumerable<Subscription> GetSubscriptions(OrderCustomer customer = null, Func<OrderCustomer,IEnumerable<Subscription>> factoryMethod = null)
+		protected IEnumerable<Subscription> CreateSubscriptions(OrderCustomer customer = null, Func<OrderCustomer,IEnumerable<Subscription>> factoryMethod = null)
 		{
 			customer = customer ?? CreateCustomer();
 			var getSubscriptions = factoryMethod ?? OrderFactory.GetSubscriptions;
 			return CreateItemsWithRepository<ISubscriptionRepository, Subscription>(() => getSubscriptions(customer));
+		}
+
+		protected Subscription CreateSubscription(OrderCustomer customer = null)
+		{
+			customer = customer ?? CreateCustomer();
+			return CreateWithRepository<ISubscriptionRepository, Subscription>(() => OrderFactory.GetSubscription(customer));
 		}
 
 		protected void SetupNavigationEvents(string previousPageUrl = null, string abortPageUrl = null, string nextPageUrl = null)

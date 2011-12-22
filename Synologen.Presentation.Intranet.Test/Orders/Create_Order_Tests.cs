@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
@@ -46,7 +47,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		[Test]
 		public void Categories_are_loaded()
 		{
-			View.Model.Categories.And(_expectedCategories).Do((viewModelItem, domainItem) =>
+		    var viewModelCategories = View.Model.Categories.ToList();
+            viewModelCategories.RemoveAt(0);
+			viewModelCategories.And(_expectedCategories).Do((viewModelItem, domainItem) =>
 			{
 				viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
 				viewModelItem.Text.ShouldBe(domainItem.Name);

@@ -16,11 +16,11 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
     [TestFixture, Category("Create_Order")]
-    public class When_creating_an_order : SpecTestbase<CreateOrderPresenter, ICreateOrderView>
+    public class When_creating_an_order : OrderSpecTestbase<CreateOrderPresenter, ICreateOrderView>
     {
         private CreateOrderPresenter _createOrderPresenter;
         private CreateOrderEventArgs _form;
-        private string _testRedirectUrl;
+        private string _testRedirectSubmitUrl;
         private string _testRedirectAbortUrl;
         private string _testRedirectPreviousUrl;
         private OrderCustomer _customer;
@@ -34,20 +34,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private int _selectedCategoryId;
         private int _selectedArticleTypeId;
         private int _selectedSupplierId;
+        private Order _order;
 
         public When_creating_an_order()
         {
             Context = () =>
             {
-                _testRedirectUrl = "/test/page";
+                _testRedirectSubmitUrl = "/test/page";
                 _testRedirectAbortUrl = "/test/page/abort";
                 _testRedirectPreviousUrl = "/test/page/previous";
-                View.NextPageId = 56;
-                View.AbortPageId = 78;
-                View.PreviousPageId = 77;
-                A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_testRedirectUrl);
-                A.CallTo(() => SynologenMemberService.GetPageUrl(View.AbortPageId)).Returns(_testRedirectAbortUrl);
-                A.CallTo(() => SynologenMemberService.GetPageUrl(View.PreviousPageId)).Returns(_testRedirectPreviousUrl);
+                SetupNavigationEvents(_testRedirectPreviousUrl, _testRedirectAbortUrl, _testRedirectSubmitUrl);
                 _createOrderPresenter = GetPresenter();
             };                  
                                 
@@ -370,31 +366,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void FörflyttasAnvändarenTillFöregåendeSteg()
 		{
-            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_testRedirectPreviousUrl);
+            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_testRedirectPreviousUrl + "?customer=" + _customer.Id);
 		}
 
         private void SparasBeställningen()
         {
-            var order = WithRepository<IOrderRepository>().GetAll().First();
-            order.Article.Id.ShouldBe(_form.ArticleId);
-            order.Customer.Id.ShouldBe(_customer.Id);
-            order.LensRecipe.BaseCurve.Left.ShouldBe(_form.LeftBaseCurve);
-            order.LensRecipe.BaseCurve.Right.ShouldBe(_form.RightBaseCurve);
-            order.LensRecipe.Diameter.Left.ShouldBe(_form.LeftDiameter);
-            order.LensRecipe.Diameter.Right.ShouldBe(_form.RightDiameter);
-            order.LensRecipe.Power.Left.ShouldBe(_form.LeftPower);
-            order.LensRecipe.Power.Right.ShouldBe(_form.RightPower);
-            order.LensRecipe.Axis.Left.ShouldBe(_form.LeftAxis);
-            order.LensRecipe.Axis.Right.ShouldBe(_form.RightAxis);
-            order.LensRecipe.Cylinder.Left.ShouldBe(_form.LeftCylinder);
-            order.LensRecipe.Cylinder.Right.ShouldBe(_form.RightCylinder);
-            order.ShippingType.ToInteger().ShouldBe(_form.ShipmentOption);
+            _order = WithRepository<IOrderRepository>().GetAll().First();
+            _order.Article.Id.ShouldBe(_form.ArticleId);
+            _order.Customer.Id.ShouldBe(_customer.Id);
+            _order.LensRecipe.BaseCurve.Left.ShouldBe(_form.LeftBaseCurve);
+            _order.LensRecipe.BaseCurve.Right.ShouldBe(_form.RightBaseCurve);
+            _order.LensRecipe.Diameter.Left.ShouldBe(_form.LeftDiameter);
+            _order.LensRecipe.Diameter.Right.ShouldBe(_form.RightDiameter);
+            _order.LensRecipe.Power.Left.ShouldBe(_form.LeftPower);
+            _order.LensRecipe.Power.Right.ShouldBe(_form.RightPower);
+            _order.LensRecipe.Axis.Left.ShouldBe(_form.LeftAxis);
+            _order.LensRecipe.Axis.Right.ShouldBe(_form.RightAxis);
+            _order.LensRecipe.Cylinder.Left.ShouldBe(_form.LeftCylinder);
+            _order.LensRecipe.Cylinder.Right.ShouldBe(_form.RightCylinder);
+            _order.ShippingType.ToInteger().ShouldBe(_form.ShipmentOption);
 
         }
 
         private void AnvändarenFörflyttasTillVynFörNästaSteg()
         {
-            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_testRedirectUrl);
+            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_testRedirectSubmitUrl + "?order=" + _order.Id);
         }
 
         private void FlyttasAnvändarenTillIntranätsidan()

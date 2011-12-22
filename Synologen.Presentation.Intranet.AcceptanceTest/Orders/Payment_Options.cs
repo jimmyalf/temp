@@ -34,12 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             	_abortPageUrl = "/test/abort";
 				_nextPageUrl = "/test/next";
             	_previousPageUrl = "/test/previous";
-            	A.CallTo(() => View.PreviousPageId).Returns(1);
-				A.CallTo(() => View.AbortPageId).Returns(2);
-				A.CallTo(() => View.NextPageId).Returns(3);
-				A.CallTo(() => SynologenMemberService.GetPageUrl(View.PreviousPageId)).Returns(_previousPageUrl);
-            	A.CallTo(() => SynologenMemberService.GetPageUrl(View.AbortPageId)).Returns(_abortPageUrl);
-				A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_nextPageUrl);
+				SetupNavigationEvents(_previousPageUrl, _abortPageUrl, _nextPageUrl);
                 _presenter = GetPresenter();
             };
 

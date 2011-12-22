@@ -1,10 +1,8 @@
 ﻿using System;
-using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
@@ -16,7 +14,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	public class Search_Customer_Specs : OrderSpecTestbase<SearchCustomerPresenter,ISearchCustomerView>
 	{
 		private SearchCustomerPresenter _presenter;
-		private string _expectedNextRedirectUrl, _expectedAbortRedirectUrl;
+		private string _nextUrl, _abortUrl;
 		private OrderCustomer _customer;
 		private SearchCustomerEventArgs _searchEventArgs;
 
@@ -24,12 +22,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			Context = () =>
 			{
-				_expectedNextRedirectUrl = "/test/next";
-				_expectedAbortRedirectUrl = "/test/abort";
-				A.CallTo(() => View.NextPageId).Returns(55);
-				A.CallTo(() => View.AbortPageId).Returns(22);
-				A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_expectedNextRedirectUrl);
-				A.CallTo(() => SynologenMemberService.GetPageUrl(View.AbortPageId)).Returns(_expectedAbortRedirectUrl);
+				_nextUrl = "/test/next";
+				_abortUrl = "/test/abort";
+				SetupNavigationEvents(abortPageUrl:_abortUrl, nextPageUrl: _nextUrl);
 				_presenter = GetPresenter();
 			};
 
@@ -102,15 +97,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private void FlyttasAnvändarenTillKundformulär()
         {
 			var expectedUrl = (_customer == null)
-				? "{Url}?personalIdNumber={PersonalIdNumber}".ReplaceWith(new {Url = _expectedNextRedirectUrl, _searchEventArgs.PersonalIdNumber}) 
-				: "{Url}?customer={CustomerId}".ReplaceWith(new {Url = _expectedNextRedirectUrl, CustomerId = _customer.Id});
+				? "{Url}?personalIdNumber={PersonalIdNumber}".ReplaceWith(new {Url = _nextUrl, _searchEventArgs.PersonalIdNumber}) 
+				: "{Url}?customer={CustomerId}".ReplaceWith(new {Url = _nextUrl, CustomerId = _customer.Id});
         	
             HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
         }
 
         private void FlyttasAnvändarenTillAvbrytSidan()
         {
-            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_expectedAbortRedirectUrl);
+            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_abortUrl);
         }
         #endregion
 

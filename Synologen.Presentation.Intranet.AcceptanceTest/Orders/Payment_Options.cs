@@ -47,7 +47,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private void SetupDataContext()
     	{
     		_customer = CreateCustomer();
-			_subsciptions = GetSubscriptions(_customer);
+			_subsciptions = CreateSubscriptions(_customer);
         	_order = CreateOrder(customer:_customer);
 		}
 

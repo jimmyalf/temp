@@ -1,6 +1,7 @@
 using System;
 using System.Configuration;
 using System.Data;
+using Spinit.Extensions;
 using Spinit.Wpc.Base.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Data;
@@ -47,7 +48,9 @@ namespace Spinit.Wpc.Synogen.Test.Data
 		protected virtual void DeleteAndResetIndexForTable(IDbConnection sqlConnection, string tableName)
 		{
 			ExecuteStatement(sqlConnection, String.Format("DELETE FROM {0}", tableName));
-			ExecuteStatement(sqlConnection, String.Format("DBCC CHECKIDENT ({0}, reseed, 0)", tableName));
+			var expression = "IF NOT EXISTS(select * FROM SYS.IDENTITY_COLUMNS JOIN SYS.TABLES ON SYS.IDENTITY_COLUMNS.Object_ID = SYS.TABLES.Object_ID WHERE SYS.TABLES.Name = '{TableName}' AND SYS.IDENTITY_COLUMNS.Last_Value IS NULL) DBCC CHECKIDENT ({TableName}, RESEED, 0)".ReplaceWith(new {TableName = tableName});
+			ExecuteStatement(sqlConnection, expression);
+			//ExecuteStatement(sqlConnection, String.Format("DBCC CHECKIDENT ({0}, reseed, 0)", tableName));
 		}
 
 		protected virtual void DeleteForTable(IDbConnection sqlConnection, string tableName)

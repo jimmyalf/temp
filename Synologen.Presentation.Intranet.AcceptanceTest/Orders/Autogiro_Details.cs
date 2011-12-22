@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
@@ -19,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private string _previousUrl, _submitUrl, _abortUrl;
     	private Order _order;
     	private AutogiroDetailsEventArgs _form;
+    	private Subscription _subscription;
 
     	public When_entering_autogiro_details()
         {
@@ -53,6 +55,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             SetupScenario(scenario => scenario
 				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
+					.Och(EttNyttKontoHarValtsIFöregåendeSteg)
 					.Och(AttFormuläretÄrKorrektIfyllt)
                 .När(AnvändarenFörsökerFortsättaTillNästaSteg)
 				.Så(SkapasEttNyttKontoMedEttNyttDelAbonnemang)
@@ -65,6 +68,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             SetupScenario(scenario => scenario
 				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
+					.Och(EttBefintligtKontoHarValtsIFöregåendeSteg)
 					.Och(AttFormuläretÄrKorrektIfyllt)
                 .När(AnvändarenFörsökerFortsättaTillNästaSteg)
 				.Så(SkapasEttNyttDelAbonnemangPåBefintligtKonto)
@@ -103,6 +107,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             _form = new AutogiroDetailsEventArgs();
         }
+    	private void EttNyttKontoHarValtsIFöregåendeSteg()
+    	{
+    		_order.SelectedPaymentOption = new PaymentOption {SubscriptionId = null, Type = PaymentOptionType.Subscription_Autogiro_New};
+			WithRepository<IOrderRepository>().Save(_order);
+    	}
+
+    	private void EttBefintligtKontoHarValtsIFöregåendeSteg()
+    	{
+    		_subscription = CreateSubscription(_order.Customer);
+    		_order.SelectedPaymentOption = new PaymentOption {SubscriptionId = _subscription.Id, Type = PaymentOptionType.Subscription_Autogiro_Existing};
+			WithRepository<IOrderRepository>().Save(_order);
+    	}
         #endregion
 
         #region Act
@@ -154,12 +170,39 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void SkapasEttNyttKontoMedEttNyttDelAbonnemang()
     	{
-    		throw new NotImplementedException();
+			//Assert Subscription Item
+    		var subscriptionItem = WithRepository<IOrderRepository>().Get(_order.Id).SubscriptionPayment;
+			subscriptionItem.AmountForAutogiroWithdrawal.ShouldBe(_form.TaxFreeAmount + _form.TaxedAmount);
+			subscriptionItem.Description.ShouldBe(_form.Description);
+			subscriptionItem.Notes.ShouldBe(_form.Notes);
+			subscriptionItem.NumberOfPayments.ShouldBe(_form.NumberOfPayments);
+			subscriptionItem.NumberOfPaymentsLeft.ShouldBe(_form.NumberOfPayments);
+			subscriptionItem.TaxFreeAmount.ShouldBe(_form.TaxFreeAmount);
+			subscriptionItem.TaxedAmount.ShouldBe(_form.TaxedAmount);
+			//Assert Subscription
+			subscriptionItem.Subscription.ActivatedDate.ShouldBe(null);
+			subscriptionItem.Subscription.Active.ShouldBe(true);
+			subscriptionItem.Subscription.AutogiroPayerId.ShouldBe(null);
+			subscriptionItem.Subscription.BankAccountNumber.ShouldBe(_form.BankAccountNumber);
+			subscriptionItem.Subscription.ClearingNumber.ShouldBe(_form.ClearingNumber);
+			subscriptionItem.Subscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.NotSent);
+			subscriptionItem.Subscription.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
+			subscriptionItem.Subscription.Customer.Id.ShouldBe(_order.Customer.Id);
     	}
 
     	private void SkapasEttNyttDelAbonnemangPåBefintligtKonto()
     	{
-    		throw new NotImplementedException();
+			//Assert Subscription Item
+    		var subscriptionItem = WithRepository<IOrderRepository>().Get(_order.Id).SubscriptionPayment;
+			subscriptionItem.AmountForAutogiroWithdrawal.ShouldBe(_form.TaxFreeAmount + _form.TaxedAmount);
+			subscriptionItem.Description.ShouldBe(_form.Description);
+			subscriptionItem.Notes.ShouldBe(_form.Notes);
+			subscriptionItem.NumberOfPayments.ShouldBe(_form.NumberOfPayments);
+			subscriptionItem.NumberOfPaymentsLeft.ShouldBe(_form.NumberOfPayments);
+			subscriptionItem.TaxFreeAmount.ShouldBe(_form.TaxFreeAmount);
+			subscriptionItem.TaxedAmount.ShouldBe(_form.TaxedAmount);
+			//Assert Subscription
+			subscriptionItem.Subscription.Id.ShouldBe(_subscription.Id);
     	}
         #endregion
     }

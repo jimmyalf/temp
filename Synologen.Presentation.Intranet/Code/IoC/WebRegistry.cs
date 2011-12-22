@@ -49,6 +49,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code.IoC
 		    For<IArticleTypeRepository>().Use<ArticleTypeRepository>();
             For<IArticleRepository>().Use<ArticleRepository>();
 		    For<ILensRecipeRepository>().Use<LensRecipeRepository>();
+			For<Core.Domain.Persistence.Orders.ISubscriptionRepository>().Use<Data.Repositories.OrderRepositories.SubscriptionRepository>();
 
 			// Register GUI and settings services
 			For<ISynologenMemberService>().Use<SynologenMemberService>();

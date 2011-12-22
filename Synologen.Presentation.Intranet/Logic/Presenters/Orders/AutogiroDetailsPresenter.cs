@@ -1,5 +1,6 @@
 using System;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
@@ -36,12 +37,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	}
 		
 		public void View_Previous(object sender, EventArgs e)
-    	{
-            Redirect(View.PreviousPageId);
-    	}
+		{
+			Redirect(View.PreviousPageId, "?order=" + OrderId);
+		}
 
     	public void View_Submit(object sender, AutogiroDetailsEventArgs e)
     	{
+    		var subscription = new Subscription() {};
+			var subscriptionItem = new SubscriptionItem
+			{
+				Description = e.Description,
+				Notes = e.Notes,
+				NumberOfPayments = e.NumberOfPayments,
+				NumberOfPaymentsLeft = e.NumberOfPayments,
+				Subscription = subscription,
+				TaxFreeAmount = e.TaxFreeAmount,
+				TaxedAmount = e.TaxedAmount
+			};
             Redirect(View.NextPageId);
     	}
 

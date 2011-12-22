@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Spinit">
+      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.GeneralData.DatabaseInterface">
       <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
     </Reference>

@@ -1,10 +1,12 @@
 using System;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 
@@ -22,10 +24,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             Context = () =>
             {
-            	_previousUrl = "/previous/page";
+            	/*_previousUrl = "/previous/page";
 				_submitUrl = "/next/page";
 				_abortUrl = "/abort/page";
+                */
             	_redirectUrl = (url, orderId) => "{url}?order={orderId}".ReplaceWith(new {url, orderId});
+
+                _submitUrl = "/test/page";
+                _abortUrl = "/test/page/abort";
+                _previousUrl = "/test/page/previous";
+                View.NextPageId = 56;
+                View.AbortPageId = 78;
+                View.PreviousPageId = 77;
+                A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(_submitUrl);
+                A.CallTo(() => SynologenMemberService.GetPageUrl(View.AbortPageId)).Returns(_abortUrl);
+                A.CallTo(() => SynologenMemberService.GetPageUrl(View.PreviousPageId)).Returns(_previousUrl);
+
+
                 _presenter = GetPresenter();
             };
 
@@ -94,10 +109,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _order = CreateOrder();
         }
 
-        private void EnBeställningHarSkapats()
-        {
-            throw new NotImplementedException();
-        }
         private void AttFormuläretÄrKorrektIfyllt()
         {
             throw new NotImplementedException();
@@ -126,28 +137,33 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         #region Assert
         private void TasBeställningenBort()
         {
+            throw new NotImplementedException();
             WithRepository<IOrderRepository>().Get(_order.Id).ShouldBe(null);
         }
 
         private void AnvändarenFlyttasTillAvbrytSidan()
         {
+            throw new NotImplementedException();
 			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_abortUrl);
         }
 
     	private void AnvändarenFlyttasTillFöregåendeSteg()
     	{
+            throw new NotImplementedException();
         	var expectedUrl = _redirectUrl(_previousUrl, _order.Id);
 			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
     	}
 
         private void FörflyttasAnvändarenTillNästaSteg()
         {
+            throw new NotImplementedException();
         	var expectedUrl = _redirectUrl(_submitUrl, _order.Id);
 			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
         }
 
     	private void SkallKundNamnVisas()
     	{
+            throw new NotImplementedException();
     		View.Model.CustomerName.ShouldBe("Adam Bertil");
     	}
         #endregion

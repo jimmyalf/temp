@@ -97,6 +97,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private void EnBeställningHarSkapatsIFöregåendeSteg()
         {
             _order = CreateOrder();
+    		HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
         private void AttFormuläretÄrKorrektIfyllt()
         {
@@ -148,7 +149,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void SkallKundNamnVisas()
     	{
-    		View.Model.CustomerName.ShouldBe("Adam Bertil");
+    		View.Model.CustomerName.ShouldBe(_order.Customer.FirstName + " " + _order.Customer.LastName);
     	}
 
     	private void SkapasEttNyttKontoMedEttNyttDelAbonnemang()

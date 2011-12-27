@@ -309,7 +309,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Text);
             });
-
         }
 
         private void LaddasLeverantörer()

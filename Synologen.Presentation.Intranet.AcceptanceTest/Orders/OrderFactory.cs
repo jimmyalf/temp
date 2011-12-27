@@ -181,11 +181,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         public static IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
         {
+            var list = new List<ListItem> {new ListItem {Text = "-- Välj --", Value = 0.ToString()}};
+
             for (float value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
             {
-                yield return new ListItem(value.ToString(), value.ToString());
+                list.Add(new ListItem(value.ToString(), value.ToString()));
             }
-            yield break;
+            return list;
         }
 
 	    public static IEnumerable<ArticleSupplier> GetSuppliers()

@@ -14,11 +14,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
             OrderArticles     = new List<ListItem> { new ListItem {Text = "-- Välj --", Value = 0.ToString()} }; // = Enumerable.Empty<ListItem>();
             ShippingOptions = Enumerable.Empty<ListItem>();
 
-            PowerOptions= Enumerable.Empty<ListItem>();
-            BaseCurveOptions = Enumerable.Empty<ListItem>();
-            DiameterOptions= Enumerable.Empty<ListItem>();
-            AxisOptions = Enumerable.Empty<ListItem>();
-            CylinderOptions = Enumerable.Empty<ListItem>();
+            PowerOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = 0.ToString() } };
+            BaseCurveOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = 0.ToString() } };
+            DiameterOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = 0.ToString() } };
+            AxisOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = 0.ToString() } };
+            CylinderOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = 0.ToString() } };
 
     	}
         public int CustomerId { get; set; }
@@ -28,6 +28,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public int SelectedArticleTypeId { get; set; }
         public int SelectedSupplierId { get; set; }
         public int SelectedArticleId { get; set; }
+        public int SelectedShippingOption { get; set; }
+
+        public float SelectedLeftPower { get; set; }
+        public float SelectedLeftBaseCurve { get; set; }
+        public float SelectedLeftDiameter { get; set; }
+        public float SelectedLeftCylinder { get; set; }
+        public float SelectedLeftAxis { get; set; }
+        public float SelectedRightPower { get; set; }
+        public float SelectedRightBaseCurve { get; set; }
+        public float SelectedRightDiameter { get; set; }
+        public float SelectedRightCylinder { get; set; }
+        public float SelectedRightAxis { get; set; }
 
 		public IEnumerable<ListItem> Categories { get; set; }
     	public IEnumerable<ListItem> Suppliers { get; set; }

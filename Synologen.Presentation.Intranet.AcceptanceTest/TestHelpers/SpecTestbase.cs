@@ -12,6 +12,8 @@ using Spinit.Test.Web;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using StoryQ.Infrastructure;
 using StructureMap;
 using WebFormsMvp;
@@ -29,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 		protected TView View;
 		protected int SwedenCountryId;
 		protected ISynologenMemberService SynologenMemberService;
-		protected IRoutingService RoutingService;
+		protected FakeRoutingService RoutingService;
 		private readonly DataManager _dataManager;
 
 		protected SpecTestbase()
@@ -42,7 +44,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 	    {
 			ResetData();
 			SynologenMemberService = GetSynologenMemberService();
-			RoutingService = GetRoutingService();
+			RoutingService = new FakeRoutingService();
 			SwedenCountryId = 1;
 			View = GetView();
 			HttpContext = new FakeHttpContext();
@@ -67,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 			var presenter = ObjectFactory
 				.With(View)
 				.With(SynologenMemberService)
-				.With(RoutingService)
+				.With(typeof(IRoutingService), RoutingService)
 				.GetInstance<TPresenter>();
 			presenter.HttpContext = HttpContext;
 			return presenter;
@@ -82,12 +84,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 		protected virtual ISynologenMemberService GetSynologenMemberService()
 		{
 			var service = A.Fake<ISynologenMemberService>();
+			A.CallTo(() => service.GetPageUrl(A<int>.Ignored)).Returns(caller =>
+			{
+				var pageId = (int) caller.Arguments[0];
+				return RoutingService.GetPageUrl(pageId);
+			});
 			return service;
-		}
-
-		protected virtual IRoutingService GetRoutingService()
-		{
-			return A.Fake<IRoutingService>();
 		}
 
 		protected void ResetData()

@@ -45,7 +45,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			return new Subscription
 			{
 				ActivatedDate = null,
-    			Active = false,
+    			Active = true,
 				AutogiroPayerId = null,
 				BankAccountNumber = args.BankAccountNumber,
 				ClearingNumber = args.ClearingNumber,

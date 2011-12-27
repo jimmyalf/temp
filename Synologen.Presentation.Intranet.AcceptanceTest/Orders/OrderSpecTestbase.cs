@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FakeItEasy;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
@@ -53,20 +52,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			if(!previousPageUrl.IsNullOrEmpty())
 			{
 				View.PreviousPageId = 54;
-				A.CallTo(() => SynologenMemberService.GetPageUrl(View.PreviousPageId)).Returns(previousPageUrl);
-				A.CallTo(() => RoutingService.GetPageUrl(View.PreviousPageId)).Returns(previousPageUrl);
+				RoutingService.AddRoute(View.PreviousPageId, previousPageUrl);
 			}
 			if(!abortPageUrl.IsNullOrEmpty())
 			{
 				View.AbortPageId = 55;
-				A.CallTo(() => SynologenMemberService.GetPageUrl(View.AbortPageId)).Returns(abortPageUrl);
-				A.CallTo(() => RoutingService.GetPageUrl(View.AbortPageId)).Returns(abortPageUrl);
+				RoutingService.AddRoute(View.AbortPageId, abortPageUrl);
 			}
 			if(!nextPageUrl.IsNullOrEmpty())
 			{
 				View.NextPageId = 56;
-				A.CallTo(() => SynologenMemberService.GetPageUrl(View.NextPageId)).Returns(nextPageUrl);
-				A.CallTo(() => RoutingService.GetPageUrl(View.NextPageId)).Returns(nextPageUrl);
+				RoutingService.AddRoute(View.NextPageId, nextPageUrl);
 			}
 		}
 	}

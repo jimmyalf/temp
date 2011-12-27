@@ -50,7 +50,6 @@
     <Compile Include="Code\CustomOrderValidation.cs" />
     <Compile Include="Logic\EventArguments\Orders\SelectedSomethingEventArgs.cs" />
     <Compile Include="Logic\Services\CachedRoutingService.cs" />
-    <Compile Include="Code\Factories\RoutingServiceFactory.cs" />
     <Compile Include="Code\MemberControlPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

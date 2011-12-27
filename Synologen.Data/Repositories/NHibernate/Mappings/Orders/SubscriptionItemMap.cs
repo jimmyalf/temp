@@ -7,7 +7,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 	{
 		public SubscriptionItemMap()
 		{
-			Table("OrderSubscriptionItem");
+			Table("SynologenOrderSubscriptionItem");
 			Id(x => x.Id);
 			Map(x => x.Description).Length(512).Nullable();
 			Map(x => x.Notes).Length(4000).Nullable();

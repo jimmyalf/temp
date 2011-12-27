@@ -70,7 +70,35 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
                 var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
                 var articleId = Convert.ToInt32(ddlPickArticle.SelectedValue);
-                SelectedArticle(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId, articleId));
+                var selectedShippingOption = Convert.ToInt32(rbShippingOptions.SelectedValue);
+
+                var selectedLeftBaseCurve = (float)Convert.ToDecimal(ddlLeftBaskurva.SelectedValue);
+                var selectedLeftAxis = (float)Convert.ToDecimal(ddlLeftAxis.SelectedValue);
+                var selectedLeftCylinder = (float)Convert.ToDecimal(ddlLeftCylinder.SelectedValue);
+                var selectedLeftDiameter = (float)Convert.ToDecimal(ddlLeftDiameter.SelectedValue);
+                var selectedLeftPower = (float)Convert.ToDecimal(ddlLeftStrength.SelectedValue);
+                var selectedRightBaseCurve = (float)Convert.ToDecimal(ddlRightBaskurva.SelectedValue);
+                var selectedRightAxis = (float)Convert.ToDecimal(ddlRightAxis.SelectedValue);
+                var selectedRightCylinder = (float)Convert.ToDecimal(ddlRightCylinder.SelectedValue);
+                var selectedRightDiameter = (float)Convert.ToDecimal(ddlRightDiameter.SelectedValue);
+                var selectedRightPower = (float)Convert.ToDecimal(ddlRightStrength.SelectedValue);
+
+                SelectedArticle(this, new SelectedSomethingEventArgs(
+                    categoryId, 
+                    articleTypeId, 
+                    supplierId, 
+                    articleId, 
+                    selectedShippingOption,
+                    selectedLeftPower, 
+                    selectedLeftBaseCurve, 
+                    selectedLeftDiameter, 
+                    selectedLeftCylinder,
+                    selectedLeftAxis,
+                    selectedRightPower, 
+                    selectedRightBaseCurve, 
+                    selectedRightDiameter, 
+                    selectedRightCylinder, 
+                    selectedRightAxis));
                 return;
             }
 

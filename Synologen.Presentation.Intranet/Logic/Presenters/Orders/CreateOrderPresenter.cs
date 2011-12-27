@@ -96,6 +96,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.SelectedArticleTypeId = args.SelectedArticleTypeId;
             View.Model.SelectedSupplierId = args.SelectedSupplierId;
             View.Model.SelectedArticleId = args.SelectedArticleId;
+            View.Model.SelectedShippingOption = args.SelectedShippingOption;
+
+            View.Model.SelectedLeftPower = args.SelectedLeftPower;
+            View.Model.SelectedLeftBaseCurve = args.SelectedLeftBaseCurve;
+            View.Model.SelectedLeftDiameter = args.SelectedLeftDiameter;
+            View.Model.SelectedLeftCylinder = args.SelectedLeftCylinder;
+            View.Model.SelectedLeftAxis = args.SelectedLeftAxis;
+            View.Model.SelectedRightPower = args.SelectedRightPower;
+            View.Model.SelectedRightBaseCurve = args.SelectedRightBaseCurve;
+            View.Model.SelectedRightDiameter = args.SelectedRightDiameter;
+            View.Model.SelectedRightCylinder = args.SelectedRightCylinder;
+            View.Model.SelectedRightAxis = args.SelectedRightAxis;
+
         }
 
         public override void ReleaseView()

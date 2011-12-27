@@ -71,59 +71,137 @@
       <fieldset class="right-eye">
       <legend>H</legend>
           	<p><label>Styrka</label>
-
-            <asp:DropDownList id="ddlRightStrength" DataSource="<% #Model.PowerOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
-
+            <asp:DropDownList id="ddlRightStrength" DataSource="<% #Model.PowerOptions %>" SelectedValue="<%#Model.SelectedRightPower%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator5" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlRightStrength" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Baskurva</label>
-
-            <asp:DropDownList id="ddlRightBaskurva" DataSource="<% #Model.BaseCurveOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
-
+            <asp:DropDownList id="ddlRightBaskurva" DataSource="<% #Model.BaseCurveOptions %>" SelectedValue="<%#Model.SelectedRightBaseCurve%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
-
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator6" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlRightBaskurva" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Diameter</label>
-            <asp:DropDownList id="ddlRightDiameter" DataSource="<% #Model.DiameterOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlRightDiameter" DataSource="<% #Model.DiameterOptions %>" SelectedValue="<%#Model.SelectedRightDiameter%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator7" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlRightDiameter" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Axel</label>
-            <asp:DropDownList id="ddlRightAxis" DataSource="<% #Model.AxisOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlRightAxis" DataSource="<% #Model.AxisOptions %>" SelectedValue="<%#Model.SelectedRightAxis%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator8" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlRightAxis" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Cylinder</label>
-            <asp:DropDownList id="ddlRightCylinder" DataSource="<% #Model.CylinderOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlRightCylinder" DataSource="<% #Model.CylinderOptions %>" SelectedValue="<%#Model.SelectedRightCylinder%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator9" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlRightCylinder" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
     	</p>
       </fieldset>
       <fieldset class="left-eye">
       <legend>V</legend>
           	<p><label>Styrka</label>
-
-            <asp:DropDownList id="ddlLeftStrength" DataTextField="Text" DataValueField="Value" DataSource="<% #Model.PowerOptions %>" runat="server">
-
+            <asp:DropDownList id="ddlLeftStrength" DataTextField="Text" DataValueField="Value" SelectedValue="<%#Model.SelectedLeftPower %>" DataSource="<% #Model.PowerOptions %>" runat="server">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator10" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlLeftStrength" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Baskurva</label>
-
-            <asp:DropDownList id="ddlLeftBaskurva" DataSource="<% #Model.BaseCurveOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
-
+            <asp:DropDownList id="ddlLeftBaskurva" DataSource="<% #Model.BaseCurveOptions %>" SelectedValue="<%#Model.SelectedLeftBaseCurve %>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
-
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator11" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlLeftBaskurva" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Diameter</label>
-            
-            <asp:DropDownList id="ddlLeftDiameter" DataSource="<% #Model.DiameterOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
-
+            <asp:DropDownList id="ddlLeftDiameter" DataSource="<% #Model.DiameterOptions %>" SelectedValue="<%#Model.SelectedLeftDiameter %>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator12" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlLeftDiameter" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Axel</label>
-            <asp:DropDownList id="ddlLeftAxis" DataSource="<% #Model.AxisOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlLeftAxis" DataSource="<% #Model.AxisOptions %>" SelectedValue="<%#Model.SelectedLeftAxis %>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator13" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlLeftAxis" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Cylinder</label>
-            <asp:DropDownList id="ddlLeftCylinder" DataSource="<% #Model.CylinderOptions %>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlLeftCylinder" DataSource="<% #Model.CylinderOptions %>" SelectedValue="<%#Model.SelectedLeftCylinder %>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator14" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlLeftCylinder" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
     	</p>
       </fieldset>
            
@@ -134,7 +212,7 @@
             ID="ReqiredFieldValidator1"  
             runat="server"  
             ControlToValidate="rbShippingOptions"  
-            ErrorMessage="*"  
+            ErrorMessage="*"
             >  
         </asp:RequiredFieldValidator>  
       </fieldset>

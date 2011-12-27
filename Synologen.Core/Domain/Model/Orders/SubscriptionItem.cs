@@ -1,4 +1,3 @@
-using System;
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 {
 	public class SubscriptionItem : Entity
@@ -10,6 +9,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual decimal TaxedAmount { get; set; }
 		public virtual decimal TaxFreeAmount { get; set; }
 		public virtual string Notes { get; set; }
-		public virtual decimal AmountForAutogiroWithdrawal { get { throw new NotImplementedException(); }}
+		public virtual decimal AmountForAutogiroWithdrawal { get { return TaxedAmount + TaxFreeAmount; } }
 	}
 }

@@ -1,25 +1,28 @@
 ﻿using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Content.Data;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 {
-	public class CachedRoutingService : IRoutingService
+	public class CachedRoutingService : RoutingService
 	{
-		private readonly IRoutingService _routingService;
 		private IDictionary<int, string> _cache;
 
-		public CachedRoutingService(IRoutingService routingService)
+		public CachedRoutingService()
 		{
-			_routingService = routingService;
 			_cache = new Dictionary<int, string>();
 		}
 
-		public virtual string GetPageUrl(int pageId)
+		public override string GetPageUrl(int pageId)
 		{
 			if (_cache.ContainsKey(pageId)) return _cache[pageId];
-			var url = _routingService.GetPageUrl(pageId);
+			var url = base.GetPageUrl(pageId);
 			_cache.Add(pageId, url);
 			return url;
+		}
+
+		public override string GetPageUrl(int pageId, object requestParameters)
+		{
+			return this.GetPageUrl(pageId) + base.BuildQueryString(requestParameters);
 		}
 
 		public virtual void Clear()

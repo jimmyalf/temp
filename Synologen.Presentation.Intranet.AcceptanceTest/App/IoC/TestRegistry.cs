@@ -14,7 +14,6 @@ using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Code.Factories;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using StructureMap.Configuration.DSL;
 using ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories.ArticleRepository;
@@ -56,7 +55,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.IoC
 		    For<ILensRecipeRepository>().Use<LensRecipeRepository>();
 			For<ISubscriptionItemRepository>().Use<SubscriptionItemRepository>();
 			For<Core.Domain.Persistence.Orders.ISubscriptionRepository>().Use<Data.Repositories.OrderRepositories.SubscriptionRepository>();
-			For<IRoutingService>().Singleton().Use(RoutingServiceFactory.GetCachedRoutingService);
+			For<IRoutingService>().Singleton().Use<CachedRoutingService>();
 			
 			
 

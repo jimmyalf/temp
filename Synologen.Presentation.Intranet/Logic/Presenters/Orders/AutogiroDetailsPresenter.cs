@@ -50,13 +50,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		
 		public void View_Previous(object sender, EventArgs e)
 		{
-			Redirect(View.PreviousPageId, "?order=" + OrderId);
+			Redirect(View.PreviousPageId, new {order = OrderId});
 		}
 
     	public void View_Submit(object sender, AutogiroDetailsEventArgs e)
     	{
     		StoreSubscriptionData(e);
-            Redirect(View.NextPageId);
+    		Redirect(View.NextPageId, new {order = OrderId});
     	}
 
     	public void View_Abort(object sender, EventArgs e)
@@ -105,10 +105,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			throw new ApplicationException("Cannot figure out what subscription to use");
 		}
 
-		private void Redirect(int pageId, string queryString = null)
+		private void Redirect(int pageId, object requestParameters = null)
 		{
-			var url = _routingService.GetPageUrl(pageId);
-			HttpContext.Response.Redirect(url+queryString);
+		    var url = _routingService.GetPageUrl(pageId, requestParameters);
+		    HttpContext.Response.Redirect(url);
 		}
 
     	private int OrderId

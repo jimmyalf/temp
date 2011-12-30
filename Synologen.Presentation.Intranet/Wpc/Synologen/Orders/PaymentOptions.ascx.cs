@@ -21,8 +21,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	private void btnNextStep_Click(object sender, EventArgs e)
     	{
     		var value = rblAccounts.SelectedValue.ToInt();
-			TryFireSubmit(sender, new PaymentOptionsEventArgs{SubscriptionId = value});
+    		var args = GetSubmitEventArgs(value);
+    		TryFireSubmit(sender, args);
     	}
+
+		private PaymentOptionsEventArgs GetSubmitEventArgs(int selectedSubscriptionId)
+		{
+			return (selectedSubscriptionId == 0)
+				? new PaymentOptionsEventArgs { SubscriptionId = null }
+				: new PaymentOptionsEventArgs { SubscriptionId = selectedSubscriptionId };
+		}
 
     }
 }

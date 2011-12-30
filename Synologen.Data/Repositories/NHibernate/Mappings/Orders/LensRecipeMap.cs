@@ -35,6 +35,11 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
                 m.Map(x => x.Left).Column("CylinderLeft");
                 m.Map(x => x.Right).Column("CylinderRight");
             });
+            Component(x => x.Addition, m =>
+            {
+                m.Map(x => x.Left).Column("AdditionLeft");
+                m.Map(x => x.Right).Column("AdditionRight");
+            });
         }
     }
 }

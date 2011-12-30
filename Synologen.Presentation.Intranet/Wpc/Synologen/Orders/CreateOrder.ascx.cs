@@ -77,11 +77,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 var selectedLeftCylinder = (float)Convert.ToDecimal(ddlLeftCylinder.SelectedValue);
                 var selectedLeftDiameter = (float)Convert.ToDecimal(ddlLeftDiameter.SelectedValue);
                 var selectedLeftPower = (float)Convert.ToDecimal(ddlLeftStrength.SelectedValue);
+                var selectedLeftAddition = (float)Convert.ToDecimal(ddlLeftAddition.SelectedValue);
                 var selectedRightBaseCurve = (float)Convert.ToDecimal(ddlRightBaskurva.SelectedValue);
                 var selectedRightAxis = (float)Convert.ToDecimal(ddlRightAxis.SelectedValue);
                 var selectedRightCylinder = (float)Convert.ToDecimal(ddlRightCylinder.SelectedValue);
                 var selectedRightDiameter = (float)Convert.ToDecimal(ddlRightDiameter.SelectedValue);
                 var selectedRightPower = (float)Convert.ToDecimal(ddlRightStrength.SelectedValue);
+                var selectedRightAddition = (float)Convert.ToDecimal(ddlRightAddition.SelectedValue);
 
                 SelectedArticle(this, new SelectedSomethingEventArgs(
                     categoryId, 
@@ -94,11 +96,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                     selectedLeftDiameter, 
                     selectedLeftCylinder,
                     selectedLeftAxis,
+                    selectedLeftAddition,
                     selectedRightPower, 
                     selectedRightBaseCurve, 
                     selectedRightDiameter, 
                     selectedRightCylinder, 
-                    selectedRightAxis));
+                    selectedRightAxis,
+                    selectedRightAddition));
                 return;
             }
 
@@ -112,12 +116,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 LeftPower = (float)Convert.ToDecimal(ddlLeftStrength.SelectedValue),
                 LeftAxis = (float)Convert.ToDecimal(ddlLeftAxis.SelectedValue),
                 LeftCylinder = (float)Convert.ToDecimal(ddlLeftCylinder.SelectedValue),
-               
+                LeftAddition = (float)Convert.ToDecimal(ddlLeftAddition.SelectedValue),
                 RightBaseCurve = (float)Convert.ToDecimal(ddlRightBaskurva.SelectedValue),
                 RightDiameter = (float)Convert.ToDecimal(ddlRightDiameter.SelectedValue),
                 RightPower = (float)Convert.ToDecimal(ddlRightStrength.SelectedValue),
                 RightAxis = (float)Convert.ToDecimal(ddlRightAxis.SelectedValue),
-                RightCylinder = (float)Convert.ToDecimal(ddlRightCylinder.SelectedValue)
+                RightCylinder = (float)Convert.ToDecimal(ddlRightCylinder.SelectedValue),
+                RightAddition = (float)Convert.ToDecimal(ddlRightAddition.SelectedValue)
             };
 			TryFireSubmit(sender, args);
         }

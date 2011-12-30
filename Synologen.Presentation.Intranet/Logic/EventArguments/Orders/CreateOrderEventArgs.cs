@@ -19,5 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
         public float RightAxis { get; set; }
         public float LeftCylinder { get; set; }
         public float RightCylinder { get; set; }
+        public float LeftAddition { get; set; }
+        public float RightAddition { get; set; }
     }
 }

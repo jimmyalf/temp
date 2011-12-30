@@ -26,6 +26,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual EyeParameter Power { get; set; }
 	    public virtual EyeParameter Axis { get; set; }
 	    public virtual EyeParameter Cylinder { get; set; }
+        public virtual EyeParameter Addition { get; set; }
 	}
 
 	public class EyeParameter

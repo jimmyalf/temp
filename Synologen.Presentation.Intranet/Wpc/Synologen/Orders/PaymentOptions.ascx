@@ -7,15 +7,13 @@
 	<WpcSynologen:OrderMenu runat="server" />
 	<div id="tab-container">
 		<fieldset>
-			<legend/>
 			<div class="progress">
 				<label>Steg 4 av 6</label>
 				<div id="progressbar" />
 			</div>
-			<asp:RadioButtonList runat="server" ID="rblAccounts" DataSource="<%# Model.Subscriptions %>" RepeatLayout="Flow" RepeatDirection="Horizontal" />
+			<asp:RadioButtonList runat="server" ID="rblAccounts" DataSource="<%# Model.Subscriptions %>" RepeatLayout="Flow" RepeatDirection="Horizontal" DataTextField="Text" DataValueField="Value" />
 		</fieldset>
 		<fieldset>
-			<legend/>
 			<div class="next-step">
 				<asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" />
 			    <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" />

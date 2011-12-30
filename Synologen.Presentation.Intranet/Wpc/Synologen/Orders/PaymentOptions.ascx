@@ -11,7 +11,11 @@
 				<label>Steg 4 av 6</label>
 				<div id="progressbar" />
 			</div>
-			<asp:RadioButtonList runat="server" ID="rblAccounts" DataSource="<%# Model.Subscriptions %>" RepeatLayout="Flow" RepeatDirection="Horizontal" DataTextField="Text" DataValueField="Value" />
+			<p>
+				<label>Välj konto för betalning</label>
+				<asp:RadioButtonList runat="server" ID="rblAccounts" DataSource="<%# Model.Subscriptions %>" RepeatLayout="Flow" RepeatDirection="Horizontal" DataTextField="Text" DataValueField="Value" />
+				<asp:RequiredFieldValidator runat="server" ErrorMessage="Ett konto måste anges" ControlToValidate="rblAccounts" Display="Dynamic">&nbsp;*</asp:RequiredFieldValidator>
+			</p>
 		</fieldset>
 		<fieldset>
 			<div class="next-step">

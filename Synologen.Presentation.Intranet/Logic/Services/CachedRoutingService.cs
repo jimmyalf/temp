@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Spinit.Wpc.Content.Data;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 {

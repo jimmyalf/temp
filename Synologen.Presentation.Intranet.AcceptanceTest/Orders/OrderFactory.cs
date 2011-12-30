@@ -128,6 +128,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                         Increment = 0.25F,
                         Max = 2F,
                         Min = -1F
+                    },
+                    Addition = new SequenceDefinition
+                    {
+                        Increment = 0.25F,
+                        Max = 2F,
+                        Min = -1F
                     }
                 }
 	        };
@@ -181,7 +187,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         public static IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
         {
-            var list = new List<ListItem> {new ListItem {Text = "-- Välj --", Value = 0.ToString()}};
+            var list = new List<ListItem> {new ListItem {Text = "-- Välj --", Value = (-9999).ToString()}};
 
             for (float value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
             {
@@ -198,9 +204,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public static ArticleSupplier GetSupplier()
         {
             return new ArticleSupplier
-                       {
-                           Name = "Johnsson & McBeth",
-                       };
+            {
+                Name = "Johnsson & McBeth",
+            };
         }
 
 		public static AutogiroDetailsEventArgs GetAutogiroDetailsEventArgs()

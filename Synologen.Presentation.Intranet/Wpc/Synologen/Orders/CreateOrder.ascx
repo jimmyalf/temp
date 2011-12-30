@@ -75,7 +75,7 @@
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator5" 
-		        InitialValue="0" 
+		        InitialValue="-9999" 
 		        Runat="server" 
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlRightStrength" 
@@ -83,12 +83,26 @@
 		        CssClass="" 
 		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
+          	<p><label>Addition</label>
+            <asp:DropDownList id="ddlRightAddition" DataSource="<% #Model.AdditionOptions %>" SelectedValue="<%#Model.SelectedRightAddition%>" DataTextField="Text" DataValueField="Value" runat="server">
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator15" 
+		        InitialValue="-9999" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlRightAddition" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		</p>
+
     	<p><label>Baskurva</label>
             <asp:DropDownList id="ddlRightBaskurva" DataSource="<% #Model.BaseCurveOptions %>" SelectedValue="<%#Model.SelectedRightBaseCurve%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator6" 
-		        InitialValue="0" 
+		        InitialValue="-9999" 
 		        Runat="server" 
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlRightBaskurva" 
@@ -101,7 +115,7 @@
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator7" 
-		        InitialValue="0" 
+		        InitialValue="-9999" 
 		        Runat="server" 
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlRightDiameter" 
@@ -114,7 +128,7 @@
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator8" 
-		        InitialValue="0" 
+		        InitialValue="-9999" 
 		        Runat="server" 
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlRightAxis" 
@@ -127,7 +141,7 @@
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator9" 
-		        InitialValue="0" 
+		        InitialValue="-9999" 
 		        Runat="server" 
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlRightCylinder" 
@@ -143,10 +157,23 @@
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator10" 
-		        InitialValue="0" 
+		        InitialValue="-9999" 
 		        Runat="server" 
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlLeftStrength" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		</p>
+        <p><label>Addition</label>
+            <asp:DropDownList id="ddlLeftAddition" DataSource="<% #Model.AdditionOptions %>" SelectedValue="<%#Model.SelectedLeftAddition%>" DataTextField="Text" DataValueField="Value" runat="server">
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator16" 
+		        InitialValue="-9999" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlLeftAddition" 
 		        Display="Dynamic" 
 		        CssClass="" 
 		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
@@ -156,7 +183,7 @@
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator11" 
-		        InitialValue="0" 
+		        InitialValue="-9999" 
 		        Runat="server" 
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlLeftBaskurva" 
@@ -169,7 +196,7 @@
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator12" 
-		        InitialValue="0" 
+		        InitialValue="-9999" 
 		        Runat="server" 
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlLeftDiameter" 
@@ -182,7 +209,7 @@
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator13" 
-		        InitialValue="0" 
+		        InitialValue="-9999" 
 		        Runat="server" 
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlLeftAxis" 
@@ -195,7 +222,7 @@
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator14" 
-		        InitialValue="0" 
+		        InitialValue="-9999" 
 		        Runat="server" 
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlLeftCylinder" 

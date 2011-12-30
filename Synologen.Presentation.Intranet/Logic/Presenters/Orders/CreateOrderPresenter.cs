@@ -90,6 +90,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 View.Model.BaseCurveOptions = _viewParser.FillWithIncrementalValues(options.BaseCurve);
                 View.Model.AxisOptions = _viewParser.FillWithIncrementalValues(options.Axis);
                 View.Model.CylinderOptions = _viewParser.FillWithIncrementalValues(options.Cylinder);
+                View.Model.AdditionOptions = _viewParser.FillWithIncrementalValues(options.Addition);
             }
 
             View.Model.SelectedCategoryId = args.SelectedCategoryId;
@@ -103,12 +104,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.SelectedLeftDiameter = args.SelectedLeftDiameter;
             View.Model.SelectedLeftCylinder = args.SelectedLeftCylinder;
             View.Model.SelectedLeftAxis = args.SelectedLeftAxis;
+            View.Model.SelectedLeftAddition = args.SelectedLeftAddition;
             View.Model.SelectedRightPower = args.SelectedRightPower;
             View.Model.SelectedRightBaseCurve = args.SelectedRightBaseCurve;
             View.Model.SelectedRightDiameter = args.SelectedRightDiameter;
             View.Model.SelectedRightCylinder = args.SelectedRightCylinder;
             View.Model.SelectedRightAxis = args.SelectedRightAxis;
-
+            View.Model.SelectedRightAddition = args.SelectedRightAddition;
         }
 
         public override void ReleaseView()
@@ -132,7 +134,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 BaseCurve = new EyeParameter { Left = form.LeftBaseCurve, Right = form.RightBaseCurve },
                 Cylinder = new EyeParameter { Left = form.LeftCylinder, Right = form.RightCylinder },
                 Diameter = new EyeParameter { Left = form.LeftDiameter, Right = form.RightDiameter },
-                Power = new EyeParameter { Left = form.LeftPower, Right = form.RightPower }
+                Power = new EyeParameter { Left = form.LeftPower, Right = form.RightPower },
+                Addition = new EyeParameter {Left = form.LeftAddition, Right = form.RightAddition}
             };
             _lensRecipeRepository.Save(lensRecipe);
 
@@ -168,6 +171,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
             View.Model.CustomerId = customerId;
             View.Model.CustomerName = String.Format("{0} {1}", customer.FirstName, customer.LastName);
+
+            /*-9999 is used as default select value in dropdowns where both 0 and -1 count as valid input*/
+            /*
+            View.Model.SelectedLeftPower = -9999;
+            View.Model.SelectedLeftBaseCurve = -9999;
+            View.Model.SelectedLeftDiameter = -9999;
+            View.Model.SelectedLeftCylinder = -9999;
+            View.Model.SelectedLeftAxis = -9999;
+            View.Model.SelectedLeftAddition = -9999;
+            View.Model.SelectedRightPower = -9999;
+            View.Model.SelectedRightBaseCurve = -9999;
+            View.Model.SelectedRightDiameter = -9999;
+            View.Model.SelectedRightCylinder = -9999;
+            View.Model.SelectedRightAxis = -9999;
+            View.Model.SelectedRightAddition = -9999;
+             * */
         }   
 
         public void View_Abort(object o, EventArgs eventArgs)

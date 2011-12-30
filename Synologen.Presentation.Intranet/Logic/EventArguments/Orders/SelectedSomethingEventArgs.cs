@@ -14,10 +14,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
         public float SelectedLeftDiameter { get; set; }
         public float SelectedLeftCylinder { get; set; }
         public float SelectedLeftAxis { get; set; }
+        public float SelectedLeftAddition { get; set; }
         public float SelectedRightPower { get; set; }
         public float SelectedRightBaseCurve { get; set; }
         public float SelectedRightDiameter { get; set; }
         public float SelectedRightCylinder { get; set; }
+        public float SelectedRightAddition { get; set; }
         public float SelectedRightAxis { get; set; }
 
         public SelectedSomethingEventArgs(
@@ -26,16 +28,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
             int selectedSupplierId = 0,
             int selectedArticleId = 0,
             int selectedShippingOption = 0,
-            float selectedLeftPower = 0,
-            float selectedLeftBaseCurve = 0,
-            float selectedLeftDiameter = 0,
-            float selectedLeftCylinder = 0,
-            float selectedLeftAxis = 0,
-            float selectedRightPower = 0,
-            float selectedRightBaseCurve = 0,
-            float selectedRightDiameter = 0,
-            float selectedRightCylinder = 0,
-            float selectedRightAxis = 0)
+            float selectedLeftPower = -9999,
+            float selectedLeftBaseCurve = -9999,
+            float selectedLeftDiameter = -9999,
+            float selectedLeftCylinder = -9999,
+            float selectedLeftAxis = -9999,
+            float selectedLeftAddition = -9999,
+            float selectedRightPower = -9999,
+            float selectedRightBaseCurve = -9999,
+            float selectedRightDiameter = -9999,
+            float selectedRightCylinder = -9999,
+            float selectedRightAxis = -9999,
+            float selectedRightAddition = -9999)
         {
             SelectedCategoryId = selectedCategoryId;
             SelectedArticleTypeId = selectedArticleTypeId;
@@ -47,11 +51,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
             SelectedLeftDiameter = selectedLeftDiameter;
             SelectedLeftCylinder = selectedLeftCylinder;
             SelectedLeftAxis = selectedLeftAxis;
+            SelectedLeftAddition = selectedLeftAddition;
             SelectedRightPower = selectedRightPower;
             SelectedRightBaseCurve = selectedRightBaseCurve;
             SelectedRightDiameter = selectedRightDiameter;
             SelectedRightCylinder = selectedRightCylinder;
             SelectedRightAxis = selectedRightAxis;
+            SelectedRightAddition = selectedRightAddition;
         }
     }
 }

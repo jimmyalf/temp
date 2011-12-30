@@ -309,6 +309,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Text);
             });
+            View.Model.AdditionOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Addition)).Do((viewModelItem, domainItem) =>
+            {
+                viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
+                viewModelItem.Text.ShouldBe(domainItem.Text);
+            });
         }
 
         private void LaddasLeverantörer()
@@ -383,6 +388,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _order.LensRecipe.Axis.Right.ShouldBe(_form.RightAxis);
             _order.LensRecipe.Cylinder.Left.ShouldBe(_form.LeftCylinder);
             _order.LensRecipe.Cylinder.Right.ShouldBe(_form.RightCylinder);
+
+            _order.LensRecipe.Addition.Left.ShouldBe(_form.LeftAddition);
+            _order.LensRecipe.Addition.Right.ShouldBe(_form.RightAddition);
+            
             _order.ShippingType.ToInteger().ShouldBe(_form.ShipmentOption);
 
         }

@@ -42,6 +42,12 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
                     innerMap.Map(x => x.Max).Column("PowerMax");
                     innerMap.Map(x => x.Min).Column("PowerMin");
                 });
+                map.Component(innerComponent => innerComponent.Addition, innerMap =>
+                {
+                    innerMap.Map(x => x.Increment).Column("AdditionIncrement");
+                    innerMap.Map(x => x.Max).Column("AdditionMax");
+                    innerMap.Map(x => x.Min).Column("AdditionMin");
+                });
             });
 
             References(x => x.ArticleType).Column("ArticleTypeId");

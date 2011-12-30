@@ -212,10 +212,11 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			DeleteAndResetIndexForTable(connection, "SynologenOrder");
             DeleteAndResetIndexForTable(connection, "SynologenOrderLensRecipe");
 			DeleteAndResetIndexForTable(connection, "SynologenOrderArticle");
+			DeleteAndResetIndexForTable(connection, "SynologenOrderSubscriptionItem");
 			DeleteAndResetIndexForTable(connection, "SynologenOrderSubscription");
 			DeleteAndResetIndexForTable(connection, "SynologenOrderCustomer");
+			DeleteAndResetIndexForTable(connection, "SynologenOrderArticleType");
             DeleteAndResetIndexForTable(connection, "SynologenOrderArticleCategory");
-            DeleteAndResetIndexForTable(connection, "SynologenOrderArticleType");
             DeleteAndResetIndexForTable(connection, "SynologenOrderArticleSupplier");
 			Debug.WriteLine("Cleaned Orders");
         }

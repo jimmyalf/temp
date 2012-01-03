@@ -314,6 +314,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Text);
             });
+
+            View.Model.AdditionOptionsEnabled.ShouldBe(_expectedArticle.Options.Addition.Increment > 0);
+            View.Model.AxisOptionsEnabled.ShouldBe(_expectedArticle.Options.Axis.Increment > 0);
+            View.Model.BaseCurveOptionsEnabled.ShouldBe(_expectedArticle.Options.BaseCurve.Increment > 0);
+            View.Model.CylinderOptionsEnabled.ShouldBe(_expectedArticle.Options.Cylinder.Increment > 0);
+            View.Model.PowerOptionsEnabled.ShouldBe(_expectedArticle.Options.Power.Increment > 0);
+            View.Model.DiameterOptionsEnabled.ShouldBe(_expectedArticle.Options.Diameter.Increment > 0);
         }
 
         private void LaddasLeverantörer()

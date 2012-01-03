@@ -34,6 +34,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
             SelectedRightAxis  = -9999;
             SelectedRightAddition  = -9999;
 
+            PowerOptionsEnabled = false;
+            BaseCurveOptionsEnabled = false;
+            AxisOptionsEnabled = false;
+            DiameterOptionsEnabled = false;
+            CylinderOptionsEnabled = false;
+            AdditionOptionsEnabled = false;
+
     	}
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
@@ -70,5 +77,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public IEnumerable<ListItem> CylinderOptions { get; set; }
         public IEnumerable<ListItem> AdditionOptions { get; set; }
         public IEnumerable<ListItem> ItemQuantityOptions { get; set; }
+
+        public bool PowerOptionsEnabled { get; set; }
+        public bool BaseCurveOptionsEnabled { get; set; }
+        public bool AxisOptionsEnabled { get; set; }
+        public bool DiameterOptionsEnabled { get; set; }
+        public bool CylinderOptionsEnabled { get; set; }
+        public bool AdditionOptionsEnabled { get; set; }
     }
 }

@@ -85,12 +85,42 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 var article = _articleRepository.Get(args.SelectedArticleId);
                 var options = article.Options;
                 if (options == null) return;
+                
                 View.Model.PowerOptions = _viewParser.FillWithIncrementalValues(options.Power);
+                if (View.Model.PowerOptions.ToList().Count > 1)
+                {
+                    View.Model.PowerOptionsEnabled = true;
+                }
+
                 View.Model.DiameterOptions = _viewParser.FillWithIncrementalValues(options.Diameter);
+                if (View.Model.DiameterOptions.ToList().Count > 1)
+                {
+                    View.Model.DiameterOptionsEnabled = true;
+                }
+                
                 View.Model.BaseCurveOptions = _viewParser.FillWithIncrementalValues(options.BaseCurve);
+                if (View.Model.BaseCurveOptions.ToList().Count > 1)
+                {
+                    View.Model.BaseCurveOptionsEnabled = true;
+                }
+
                 View.Model.AxisOptions = _viewParser.FillWithIncrementalValues(options.Axis);
+                if (View.Model.AxisOptions.ToList().Count > 1)
+                {
+                    View.Model.AxisOptionsEnabled = true;
+                }
+
                 View.Model.CylinderOptions = _viewParser.FillWithIncrementalValues(options.Cylinder);
+                if (View.Model.CylinderOptions.ToList().Count > 1)
+                {
+                    View.Model.CylinderOptionsEnabled = true;
+                }
+
                 View.Model.AdditionOptions = _viewParser.FillWithIncrementalValues(options.Addition);
+                if (View.Model.AdditionOptions.ToList().Count > 1)
+                {
+                    View.Model.AdditionOptionsEnabled = true;
+                }
             }
 
             View.Model.SelectedCategoryId = args.SelectedCategoryId;
@@ -130,12 +160,41 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
 			var lensRecipe = new LensRecipe
             {
-                Axis = new EyeParameter { Left = form.LeftAxis, Right = form.RightAxis },
-                BaseCurve = new EyeParameter { Left = form.LeftBaseCurve, Right = form.RightBaseCurve },
-                Cylinder = new EyeParameter { Left = form.LeftCylinder, Right = form.RightCylinder },
-                Diameter = new EyeParameter { Left = form.LeftDiameter, Right = form.RightDiameter },
-                Power = new EyeParameter { Left = form.LeftPower, Right = form.RightPower },
-                Addition = new EyeParameter {Left = form.LeftAddition, Right = form.RightAddition}
+                Axis = new EyeParameter
+                {
+                    Left = form.LeftAxis != -9999 ? form.LeftAxis : (float?) null,
+                    Right = form.RightAxis != -9999 ? form.RightAxis : (float?)null
+                },
+
+                BaseCurve = new EyeParameter
+                {
+                    Left = form.LeftBaseCurve != -9999 ? form.LeftBaseCurve : (float?)null,
+                    Right = form.RightBaseCurve != -9999 ? form.RightBaseCurve : (float?)null
+                },
+
+                Cylinder = new EyeParameter
+                {
+                    Left = form.LeftCylinder != -9999 ? form.LeftCylinder : (float?)null,
+                    Right = form.RightCylinder != -9999 ? form.RightCylinder : (float?)null
+                },
+
+                Diameter = new EyeParameter
+                {
+                    Left = form.LeftDiameter != -9999 ? form.LeftDiameter : (float?)null,
+                    Right = form.RightDiameter != -9999 ? form.RightDiameter : (float?)null
+                },
+
+                Power = new EyeParameter
+                {
+                    Left = form.LeftPower != -9999 ? form.LeftPower : (float?)null,
+                    Right = form.RightPower != -9999 ? form.RightPower : (float?)null
+                },
+
+                Addition = new EyeParameter
+                {
+                    Left = form.LeftAddition != -9999 ? form.LeftAddition : (float?)null,
+                    Right = form.RightAddition != -9999 ? form.RightAddition : (float?)null
+                }
             };
             _lensRecipeRepository.Save(lensRecipe);
 
@@ -172,21 +231,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.CustomerId = customerId;
             View.Model.CustomerName = String.Format("{0} {1}", customer.FirstName, customer.LastName);
 
-            /*-9999 is used as default select value in dropdowns where both 0 and -1 count as valid input*/
-            /*
-            View.Model.SelectedLeftPower = -9999;
-            View.Model.SelectedLeftBaseCurve = -9999;
-            View.Model.SelectedLeftDiameter = -9999;
-            View.Model.SelectedLeftCylinder = -9999;
-            View.Model.SelectedLeftAxis = -9999;
-            View.Model.SelectedLeftAddition = -9999;
-            View.Model.SelectedRightPower = -9999;
-            View.Model.SelectedRightBaseCurve = -9999;
-            View.Model.SelectedRightDiameter = -9999;
-            View.Model.SelectedRightCylinder = -9999;
-            View.Model.SelectedRightAxis = -9999;
-            View.Model.SelectedRightAddition = -9999;
-             * */
         }   
 
         public void View_Abort(object o, EventArgs eventArgs)

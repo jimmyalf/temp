@@ -29,8 +29,8 @@
 					<asp:ListItem Text="3 månader" Value="3" class="3-withdrawals" />
 					<asp:ListItem Text="6 månader" Value="6" class="6-withdrawals" />
 					<asp:ListItem Text="12 månader" Value="12" class="12-withdrawals" />
-					<asp:ListItem Text="Löpande" Value="<%=UseContinousWithdrawals %>" class="continuous-withdrawals"/>
-					<asp:ListItem Text="Valfritt" Value="<%=UseCustomNumberOfWithdrawals %>" class="custom-number-of-withdrawals" />
+					<asp:ListItem Text="Löpande" Value='<%#UseContinousWithdrawals %>' class="continuous-withdrawals"/>
+					<asp:ListItem Text="Valfritt" Value='<%#UseCustomNumberOfWithdrawals %>' class="custom-number-of-withdrawals" />
 				</asp:RadioButtonList>
     			<asp:TextBox ID="txtCustomNumberOfTransactions" runat="server" CssClass="custom-number-of-withdrawals" />
       		</div>

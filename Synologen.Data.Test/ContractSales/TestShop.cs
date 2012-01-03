@@ -64,6 +64,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			persistedShop.ShopId.ShouldBe(TestShop.ShopId);
 			persistedShop.Url.ShouldBe(TestShop.Url);
 			persistedShop.Zip.ShouldBe(TestShop.Zip);
+            persistedShop.Latitude.ShouldBe(TestShop.Latitude);
+            persistedShop.Longitude.ShouldBe(TestShop.Longitude);
 		}
 
 		[Test]

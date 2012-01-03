@@ -43,7 +43,9 @@ namespace Spinit.Wpc.Synogen.Test.Data
 				Phone2 = null,
 				ShopId = 0,
 				Url = "",
-				Zip = "43632"
+				Zip = "43632",
+                Longitude = 11.97456m,
+                Latitude = 57.70887m
 			};
 			sqlProvider.AddUpdateDeleteShop(Enumerations.Action.Create, ref shop);
 			return shop;

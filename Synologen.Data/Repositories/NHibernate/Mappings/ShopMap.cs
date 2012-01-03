@@ -17,6 +17,11 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 				m.Map(x => x.City).Column("cCity");
 				m.Map(x => x.PostalCode).Column("cZip");
 			});
+            Component(x => x.Coordinates, m =>
+            {
+                m.Map(x => x.Latitude).Column("cLatitude");
+                m.Map(x => x.Longitude).Column("cLongitude");
+            });
 		}
 	}
 }

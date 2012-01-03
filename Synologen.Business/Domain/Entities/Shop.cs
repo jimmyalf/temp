@@ -18,6 +18,8 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		[DataMember] public string Address2 { get; set; }
 		[DataMember] public string Zip { get; set; }
 		[DataMember] public string City { get; set; }
+        [DataMember] public decimal Latitude { get; set; }
+        [DataMember] public decimal Longitude { get; set; }
 		[DataMember] public string Phone { get; set; }
 		[DataMember] public string Phone2 { get; set; }
 		[DataMember] public string Fax { get; set; }

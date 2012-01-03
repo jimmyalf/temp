@@ -248,8 +248,8 @@
         <div class="next-step">
             <div class="control-actions">
 				
-                <asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CssClass="cancel-button" />
-                <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" />
+                <asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CssClass="cancel-button" CausesValidation="False" />
+                <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" />
 		        <asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" />
 	        </div>
         </div>

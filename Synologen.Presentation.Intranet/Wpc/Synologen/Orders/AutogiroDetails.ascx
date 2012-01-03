@@ -17,15 +17,18 @@
     			<label>Bankontonummer</label>
     			<asp:TextBox ID="txtBankAccountNumber" runat="server" Enabled="<%#Model.IsNewSubscription %>" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtBankAccountNumber" Enabled="<%#Model.IsNewSubscription %>" ErrorMessage="Bankontonummer måste anges" Display="Dynamic">*</asp:RequiredFieldValidator>
+  				<asp:RegularExpressionValidator ID="regextxtAccountNumber" ValidationGroup="vgCreateSubscription" ValidationExpression="^[0-9]{5,12}$" runat="server" ErrorMessage="Kontonummer måste anges som heltal med 5-12 siffror" Display="Dynamic" ControlToValidate="txtBankAccountNumber">*</asp:RegularExpressionValidator>
+		
     		</p>
     		<p>
     			<label>Clearingnummer</label>
 				<asp:TextBox ID="txtClearingNumber" runat="server" Enabled="<%#Model.IsNewSubscription %>" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtClearingNumber" Enabled="<%#Model.IsNewSubscription %>" ErrorMessage="Clearingnummer måste anges" Display="Dynamic">*</asp:RequiredFieldValidator>
+				<asp:RegularExpressionValidator ID="regextxtClearingNumber" ValidationGroup="vgCreateSubscription" ValidationExpression="^[0-9]{4}$" runat="server" ErrorMessage="Clearingnummer måste anges som heltal med 4 siffror" Display="Dynamic" ControlToValidate="txtClearingNumber">*</asp:RegularExpressionValidator>
     		</p>
     		<div>
       			<label>Abonnemangstid</label>
-				<asp:RadioButtonList ID="rblSubscriptionTime" runat="server" RepeatLayout="UnorderedList" >
+				<asp:RadioButtonList ID="rblSubscriptionTime" runat="server" RepeatLayout="UnorderedList" CssClass="radio-list" >
 					<asp:ListItem Text="3 månader" Value="3" class="3-withdrawals" />
 					<asp:ListItem Text="6 månader" Value="6" class="6-withdrawals" />
 					<asp:ListItem Text="12 månader" Value="12" class="12-withdrawals" />
@@ -33,6 +36,7 @@
 					<asp:ListItem Text="Valfritt" Value='<%#UseCustomNumberOfWithdrawals %>' class="custom-number-of-withdrawals" />
 				</asp:RadioButtonList>
     			<asp:TextBox ID="txtCustomNumberOfTransactions" runat="server" CssClass="custom-number-of-withdrawals" />
+				<asp:RequiredFieldValidator runat="server" ErrorMessage="En abonnemangstid måste anges" ControlToValidate="rblSubscriptionTime" Display="Dynamic">&nbsp;*</asp:RequiredFieldValidator>
       		</div>
     	
     		<p>

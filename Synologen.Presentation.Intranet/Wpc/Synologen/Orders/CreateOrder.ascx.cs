@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -25,6 +26,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	    ddlPickKind.SelectedIndexChanged += Select_ArticleType;
             ddlPickArticle.SelectedIndexChanged += Select_Article;
         }
+
+   
 
         private void Select_Category(object sender, EventArgs e)
     	{
@@ -58,6 +61,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
             var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
             var articleId = Convert.ToInt32(ddlPickArticle.SelectedValue);
+            
             SelectedArticle(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId, articleId));
         }
 

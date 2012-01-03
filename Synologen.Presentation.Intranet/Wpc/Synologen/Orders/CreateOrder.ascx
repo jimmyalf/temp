@@ -71,7 +71,7 @@
       <fieldset class="right-eye">
       <legend>H</legend>
           	<p><label>Styrka</label>
-            <asp:DropDownList id="ddlRightStrength" DataSource="<% #Model.PowerOptions %>" SelectedValue="<%#Model.SelectedRightPower%>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlRightStrength" DataSource="<% #Model.PowerOptions %>" Enabled="<%#Model.PowerOptionsEnabled %>" SelectedValue="<%#Model.SelectedRightPower%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator5" 
@@ -81,11 +81,13 @@
 		        ControlToValidate="ddlRightStrength" 
 		        Display="Dynamic" 
 		        CssClass="" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        ValidationGroup="vldSubmit"
+                Enabled="<%#Model.PowerOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
           	<p><label>Addition</label>
-            <asp:DropDownList id="ddlRightAddition" DataSource="<% #Model.AdditionOptions %>" SelectedValue="<%#Model.SelectedRightAddition%>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlRightAddition" DataSource="<% #Model.AdditionOptions %>" Enabled="<%#Model.AdditionOptionsEnabled %>" SelectedValue="<%#Model.SelectedRightAddition%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
+            
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator15" 
 		        InitialValue="-9999" 
@@ -94,11 +96,13 @@
 		        ControlToValidate="ddlRightAddition" 
 		        Display="Dynamic" 
 		        CssClass="" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        ValidationGroup="vldSubmit"
+                Enabled="<%#Model.AdditionOptionsEnabled %>"	>&nbsp;*</asp:RequiredFieldValidator>
+            
 		</p>
 
     	<p><label>Baskurva</label>
-            <asp:DropDownList id="ddlRightBaskurva" DataSource="<% #Model.BaseCurveOptions %>" SelectedValue="<%#Model.SelectedRightBaseCurve%>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlRightBaskurva" DataSource="<% #Model.BaseCurveOptions %>" Enabled="<%#Model.BaseCurveOptionsEnabled %>" SelectedValue="<%#Model.SelectedRightBaseCurve%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator6" 
@@ -108,10 +112,11 @@
 		        ControlToValidate="ddlRightBaskurva" 
 		        Display="Dynamic" 
 		        CssClass="" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        ValidationGroup="vldSubmit"	
+                Enabled="<%#Model.BaseCurveOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Diameter</label>
-            <asp:DropDownList id="ddlRightDiameter" DataSource="<% #Model.DiameterOptions %>" SelectedValue="<%#Model.SelectedRightDiameter%>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlRightDiameter" DataSource="<% #Model.DiameterOptions %>" Enabled="<%#Model.DiameterOptionsEnabled %>" SelectedValue="<%#Model.SelectedRightDiameter%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator7" 
@@ -121,10 +126,11 @@
 		        ControlToValidate="ddlRightDiameter" 
 		        Display="Dynamic" 
 		        CssClass="" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        ValidationGroup="vldSubmit"	
+                Enabled="<%#Model.DiameterOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Axel</label>
-            <asp:DropDownList id="ddlRightAxis" DataSource="<% #Model.AxisOptions %>" SelectedValue="<%#Model.SelectedRightAxis%>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlRightAxis" DataSource="<% #Model.AxisOptions %>" Enabled="<%#Model.AxisOptionsEnabled %>" SelectedValue="<%#Model.SelectedRightAxis%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator8" 
@@ -134,10 +140,11 @@
 		        ControlToValidate="ddlRightAxis" 
 		        Display="Dynamic" 
 		        CssClass="" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        ValidationGroup="vldSubmit"	
+                Enabled="<%#Model.AxisOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Cylinder</label>
-            <asp:DropDownList id="ddlRightCylinder" DataSource="<% #Model.CylinderOptions %>" SelectedValue="<%#Model.SelectedRightCylinder%>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlRightCylinder" DataSource="<% #Model.CylinderOptions %>" Enabled="<%#Model.CylinderOptionsEnabled %>" SelectedValue="<%#Model.SelectedRightCylinder%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator9" 
@@ -147,13 +154,14 @@
 		        ControlToValidate="ddlRightCylinder" 
 		        Display="Dynamic" 
 		        CssClass="" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        ValidationGroup="vldSubmit"	
+                Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
       </fieldset>
       <fieldset class="left-eye">
       <legend>V</legend>
           	<p><label>Styrka</label>
-            <asp:DropDownList id="ddlLeftStrength" DataTextField="Text" DataValueField="Value" SelectedValue="<%#Model.SelectedLeftPower %>" DataSource="<% #Model.PowerOptions %>" runat="server">
+            <asp:DropDownList id="ddlLeftStrength" Enabled="<%#Model.PowerOptionsEnabled %>" DataTextField="Text" DataValueField="Value" SelectedValue="<%#Model.SelectedLeftPower %>" DataSource="<% #Model.PowerOptions %>" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator10" 
@@ -163,11 +171,14 @@
 		        ControlToValidate="ddlLeftStrength" 
 		        Display="Dynamic" 
 		        CssClass="" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        ValidationGroup="vldSubmit"
+                Enabled="<%#Model.PowerOptionsEnabled %>"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
+        
         <p><label>Addition</label>
-            <asp:DropDownList id="ddlLeftAddition" DataSource="<% #Model.AdditionOptions %>" SelectedValue="<%#Model.SelectedLeftAddition%>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlLeftAddition" DataSource="<% #Model.AdditionOptions %>" Enabled="<%#Model.AdditionOptionsEnabled %>" SelectedValue="<%#Model.SelectedLeftAddition%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
+      
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator16" 
 		        InitialValue="-9999" 
@@ -176,10 +187,13 @@
 		        ControlToValidate="ddlLeftAddition" 
 		        Display="Dynamic" 
 		        CssClass="" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        ValidationGroup="vldSubmit"
+                Enabled="<%#Model.AdditionOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
+              
 		</p>
+        
     	<p><label>Baskurva</label>
-            <asp:DropDownList id="ddlLeftBaskurva" DataSource="<% #Model.BaseCurveOptions %>" SelectedValue="<%#Model.SelectedLeftBaseCurve %>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlLeftBaskurva" DataSource="<% #Model.BaseCurveOptions %>" Enabled="<%#Model.BaseCurveOptionsEnabled %>" SelectedValue="<%#Model.SelectedLeftBaseCurve %>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator11" 
@@ -189,10 +203,11 @@
 		        ControlToValidate="ddlLeftBaskurva" 
 		        Display="Dynamic" 
 		        CssClass="" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        ValidationGroup="vldSubmit"	
+                Enabled="<%#Model.BaseCurveOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Diameter</label>
-            <asp:DropDownList id="ddlLeftDiameter" DataSource="<% #Model.DiameterOptions %>" SelectedValue="<%#Model.SelectedLeftDiameter %>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlLeftDiameter" DataSource="<% #Model.DiameterOptions %>" Enabled="<%#Model.DiameterOptionsEnabled %>" SelectedValue="<%#Model.SelectedLeftDiameter %>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator12" 
@@ -202,10 +217,11 @@
 		        ControlToValidate="ddlLeftDiameter" 
 		        Display="Dynamic" 
 		        CssClass="" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        ValidationGroup="vldSubmit"	
+                Enabled="<%#Model.DiameterOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Axel</label>
-            <asp:DropDownList id="ddlLeftAxis" DataSource="<% #Model.AxisOptions %>" SelectedValue="<%#Model.SelectedLeftAxis %>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlLeftAxis" DataSource="<% #Model.AxisOptions %>" Enabled="<%#Model.AxisOptionsEnabled %>" SelectedValue="<%#Model.SelectedLeftAxis %>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator13" 
@@ -215,10 +231,11 @@
 		        ControlToValidate="ddlLeftAxis" 
 		        Display="Dynamic" 
 		        CssClass="" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        ValidationGroup="vldSubmit"	
+                Enabled="<%#Model.AxisOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Cylinder</label>
-            <asp:DropDownList id="ddlLeftCylinder" DataSource="<% #Model.CylinderOptions %>" SelectedValue="<%#Model.SelectedLeftCylinder %>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlLeftCylinder" DataSource="<% #Model.CylinderOptions %>" Enabled="<%#Model.CylinderOptionsEnabled %>" SelectedValue="<%#Model.SelectedLeftCylinder %>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator14" 
@@ -228,7 +245,8 @@
 		        ControlToValidate="ddlLeftCylinder" 
 		        Display="Dynamic" 
 		        CssClass="" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        ValidationGroup="vldSubmit"	
+                Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
       </fieldset>
            

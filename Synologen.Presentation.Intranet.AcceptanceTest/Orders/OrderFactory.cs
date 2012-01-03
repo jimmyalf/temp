@@ -131,9 +131,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                     },
                     Addition = new SequenceDefinition
                     {
-                        Increment = 0.25F,
-                        Max = 2F,
-                        Min = -1F
+                        Increment = 0F,
+                        Max = 0F,
+                        Min = 0F
                     }
                 }
 	        };
@@ -187,11 +187,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         public static IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
         {
-            var list = new List<ListItem> {new ListItem {Text = "-- Välj --", Value = (-9999).ToString()}};
+            var list = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = (-9999).ToString() } };
 
-            for (float value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
+            if (sequence.Increment > 0)
             {
-                list.Add(new ListItem(value.ToString(), value.ToString()));
+                for (float value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
+                {
+                    list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
+                }
             }
             return list;
         }

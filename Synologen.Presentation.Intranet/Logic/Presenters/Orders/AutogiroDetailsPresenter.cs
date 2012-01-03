@@ -46,6 +46,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	{
     		var order = _orderRepository.Get(OrderId);
     		View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);
+    		View.Model.SelectedArticleName = order.Article.Name;
+    		View.Model.IsNewSubscription = order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New;
+    		View.Model.EnableAutoWithdrawal = order.ShippingType.HasFlag(OrderShippingOption.ToCustomer);
+			if(order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_Existing && order.SelectedPaymentOption.SubscriptionId.HasValue)
+			{
+				var subscription = _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
+				View.Model.BankAccountNumber = subscription.BankAccountNumber;
+				View.Model.ClearingNumber = subscription.ClearingNumber;
+			}
     	}
 		
 		public void View_Previous(object sender, EventArgs e)

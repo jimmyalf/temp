@@ -40,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		}
 	}
 
-	public class SaveCustomerTestbase: PresenterTestbase<SaveCustomerPresenter,ISaveCustomerView,SaveCustomerModel>
+	public abstract class SaveCustomerTestbase: PresenterTestbase<SaveCustomerPresenter,ISaveCustomerView,SaveCustomerModel>
 	{
 		protected IOrderCustomerRepository OrderCustomerRepository;
 		protected ISynologenMemberService SynologenMemberService;

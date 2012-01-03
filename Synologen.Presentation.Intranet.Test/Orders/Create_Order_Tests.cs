@@ -6,11 +6,8 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -65,7 +62,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 	}
 
 
-	public class CreateOrderTestbase: PresenterTestbase<CreateOrderPresenter,ICreateOrderView,CreateOrderModel>
+	public abstract class CreateOrderTestbase: PresenterTestbase<CreateOrderPresenter,ICreateOrderView,CreateOrderModel>
 	{
 		protected IOrderRepository OrderRepository;
 	    protected IOrderCustomerRepository OrderCustomerRepository;

@@ -41,12 +41,29 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
 
 		[Test]
-		public void VisaKundNamn()
+		public void VisaSidaFörNyttKonto()
 		{
 			SetupScenario(scenario => scenario
 				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
+					.Och(EttNyttKontoHarValtsIFöregåendeSteg)
 				.När(SidanVisas)
 				.Så(SkallKundNamnVisas)
+					.Och(ArtikelNamnVisas)
+					.Och(KontoUppgifterSkallVaraIfyllbara)
+			);
+		}
+
+    	[Test]
+		public void VisaSidaFörBefintligtKonto()
+		{
+			SetupScenario(scenario => scenario
+				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
+					.Och(EttBefintligtKontoHarValtsIFöregåendeSteg)
+				.När(SidanVisas)
+				.Så(SkallKundNamnVisas)
+					.Och(ArtikelNamnVisas)
+					.Och(KontoUppgifterSkallEjVaraIfyllbara)
+					.Och(KontoUppgifterSkallVaraIfyllda)
 			);
 		}
 
@@ -203,6 +220,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			subscriptionItem.TaxedAmount.ShouldBe(_form.TaxedAmount);
 			//Assert Subscription
 			subscriptionItem.Subscription.Id.ShouldBe(_subscription.Id);
+    	}
+
+    	private void KontoUppgifterSkallVaraIfyllbara()
+    	{
+    		View.Model.IsNewSubscription.ShouldBe(true);
+    	}
+
+    	private void ArtikelNamnVisas()
+    	{
+    		View.Model.SelectedArticleName.ShouldBe(_order.Article.Name);
+    	}
+
+		private void KontoUppgifterSkallEjVaraIfyllbara()
+    	{
+    		View.Model.IsNewSubscription.ShouldBe(false);
+    	}
+
+    	private void KontoUppgifterSkallVaraIfyllda()
+    	{
+    		View.Model.BankAccountNumber.ShouldBe(_subscription.BankAccountNumber);
+			View.Model.ClearingNumber.ShouldBe(_subscription.ClearingNumber);
     	}
         #endregion
     }

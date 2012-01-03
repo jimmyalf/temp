@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using FakeItEasy;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 {
@@ -103,5 +100,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
             }
             yield break;
         }
+
+    	public static Order GetOrder(Article article = null, OrderCustomer customer = null, LensRecipe lensRecipe = null, int? selectedSubscriptionId = null, SubscriptionItem subscriptionItem = null, OrderShippingOption? shippingType = null)
+    	{
+			return new Order
+			{
+				Article = article ?? GetArticle(),
+				Customer = customer ?? GetCustomer(),
+				LensRecipe = lensRecipe,
+				SelectedPaymentOption = selectedSubscriptionId.HasValue
+					? new PaymentOption
+					{
+						SubscriptionId = selectedSubscriptionId,
+						Type = PaymentOptionType.Subscription_Autogiro_Existing
+					}
+					: null,
+				ShippingType = shippingType ?? OrderShippingOption.DeliveredInStore | OrderShippingOption.ToCustomer | OrderShippingOption.ToStore,
+				SubscriptionPayment = subscriptionItem
+			};
+    	}
     }
 }

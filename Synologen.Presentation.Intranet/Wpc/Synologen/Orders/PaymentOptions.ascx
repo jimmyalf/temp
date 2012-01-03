@@ -19,8 +19,8 @@
 		</fieldset>
 		<fieldset>
 			<div class="next-step">
-				<asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" />
-			    <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" />
+				<asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CausesValidation="False" />
+			    <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" />
 		        <asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" />
 			</div>
 		</fieldset>

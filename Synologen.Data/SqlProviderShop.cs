@@ -36,6 +36,8 @@ namespace Spinit.Wpc.Synologen.Data {
             		new SqlParameter("@address2", SqlDbType.NVarChar, 50),
             		new SqlParameter("@zip", SqlDbType.NVarChar, 50),
             		new SqlParameter("@city", SqlDbType.NVarChar, 50),
+                    new SqlParameter("@latitude", SqlDbType.Decimal), 
+                    new SqlParameter("@longitude", SqlDbType.Decimal), 
             		new SqlParameter("@active", SqlDbType.Bit),
             		new SqlParameter("@giroId", SqlDbType.Int,4),
             		new SqlParameter("@giroNumber", SqlDbType.NVarChar, 50),
@@ -65,6 +67,8 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = shop.Address2 ?? SqlString.Null;
 					parameters[counter++].Value = shop.Zip ?? SqlString.Null;
 					parameters[counter++].Value = shop.City ?? SqlString.Null;
+				    parameters[counter++].Value = shop.Latitude > 0 ? shop.Latitude : SqlDecimal.Null;
+				    parameters[counter++].Value = shop.Longitude > 0 ? shop.Longitude : SqlDecimal.Null;
 					parameters[counter++].Value = shop.Active;
 					parameters[counter++].Value = shop.GiroId > 0 ? shop.GiroId : SqlInt32.Null;
 					parameters[counter++].Value = shop.GiroNumber ?? SqlString.Null;
@@ -143,6 +147,8 @@ namespace Spinit.Wpc.Synologen.Data {
 				Address = Util.CheckNullString(shopDataRow, "cAddress"),
 				Address2 = Util.CheckNullString(shopDataRow, "cAddress2"),
 				City = Util.CheckNullString(shopDataRow, "cCity"),
+                Latitude = Util.CheckNullDecimal(shopDataRow, "cLatitude"),
+                Longitude = Util.CheckNullDecimal(shopDataRow, "cLongitude"),
 				ContactFirstName = Util.CheckNullString(shopDataRow, "cContactFirstName"),
 				ContactLastName = Util.CheckNullString(shopDataRow, "cContactLastName"),
 				Description = Util.CheckNullString(shopDataRow, "cShopDescription"),

@@ -78,7 +78,9 @@
     <Reference Include="Spinit.Test.NHibernate">
       <HintPath>..\Dependancies\Spinit\Spinit.Test.NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Base.Data, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Spinit.Wpc.Base.Data, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Base.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Wpc.Core.Dependencies.NHibernate, Version=5.0.0.1809, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.Dependencies.NHibernate.dll</HintPath>

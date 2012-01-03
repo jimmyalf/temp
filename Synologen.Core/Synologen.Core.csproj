@@ -158,6 +158,7 @@
     <Compile Include="Domain\Model\ContractSales\Subscription.cs" />
     <Compile Include="Domain\Model\ContractSales\Transaction.cs" />
     <Compile Include="Domain\Model\Entity.cs" />
+    <Compile Include="Domain\Model\FrameOrder\Coordinates.cs" />
     <Compile Include="Domain\Model\FrameOrder\EyeParameter.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameGlassType.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameOrder.cs" />
@@ -294,6 +295,7 @@
     <Compile Include="Domain\Services\IFileWriterService.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGFtpChangePasswordService.cs" />
     <Compile Include="Domain\Services\IFtpService.cs" />
+    <Compile Include="Domain\Services\IGeocodingService.cs" />
     <Compile Include="Domain\Services\IHashService.cs" />
     <Compile Include="Domain\Services\Coordinator\ITask.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />

@@ -33,7 +33,9 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories
 				ShopId = id,
 				Url = String.Empty,
 				Zip = "43632",
-                OrganizationNumber = "5551234-5678"
+                OrganizationNumber = "5551234-5678",
+                Longitude = 11.97456m,
+                Latitude = 57.70887m
 			};
 		}
 	}

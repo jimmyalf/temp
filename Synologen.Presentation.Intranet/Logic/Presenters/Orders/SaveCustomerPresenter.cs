@@ -100,6 +100,4 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Previous -= View_Previous;
         }
     }
-
-	
 }

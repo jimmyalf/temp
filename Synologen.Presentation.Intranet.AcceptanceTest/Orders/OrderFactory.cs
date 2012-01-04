@@ -225,5 +225,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				TaxedAmount = 125.25M,
 			};
 		}
+
+	    public static LensRecipe GetLensRecipe()
+	    {
+	        return new LensRecipe
+	        {
+	            Addition = new EyeParameter {Left = 1, Right = 1},
+                Axis = new EyeParameter { Left = 2, Right = 2 },
+                Power = new EyeParameter { Left = 3, Right = 3 },
+                BaseCurve = new EyeParameter { Left = 4, Right = 4 },
+                Diameter = new EyeParameter { Left = 5, Right = 5 },
+                Cylinder = new EyeParameter { Left = 6, Right = 6 }
+	        };
+	    }
 	}
 }

@@ -109,17 +109,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 
 	    public IEnumerable<ListItem> Parse<TEnumType>(TEnumType value) 
 			where TEnumType : struct
-		{
-			var allEnumItems = EnumExtensions.Enumerate<TEnumType>();
+	    {
+	        var listOfItems = new List<ListItem> {new ListItem {Text = "-- Välj --", Value = 0.ToString()}};
+	        var allEnumItems = EnumExtensions.Enumerate<TEnumType>();
 			foreach (var enumItem in allEnumItems)
 			{
 				if (!value.HasOption(enumItem)) continue;
 				var enumValue = (enumItem as Enum);
 				var textValue = enumValue.GetEnumDisplayName();
-				yield return new ListItem(textValue, enumValue.ToInteger());
+				listOfItems.Add(new ListItem(textValue, enumValue.ToInteger()));
 			}
-			yield break;
-		}
+	        return listOfItems;
+	    }
 
 	    public IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
 	    {

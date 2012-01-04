@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
     		Suppliers         = new List<ListItem> { new ListItem {Text = "-- Välj --", Value = 0.ToString()} };
             ArticleTypes      = new List<ListItem> { new ListItem {Text = "-- Välj --", Value = 0.ToString()} };
             OrderArticles     = new List<ListItem> { new ListItem {Text = "-- Välj --", Value = 0.ToString()} };
-            ShippingOptions = Enumerable.Empty<ListItem>();
+            ShippingOptions   = new List<ListItem> { new ListItem {Text = "-- Välj --", Value = 0.ToString()} };
 
             PowerOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = (-9999).ToString() } };
             BaseCurveOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = (-9999).ToString() } };
@@ -32,7 +32,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
             SelectedRightDiameter  = -9999;
             SelectedRightCylinder  = -9999;
             SelectedRightAxis  = -9999;
-            SelectedRightAddition  = -9999;
+            SelectedRightAddition  = -9999;            
 
             PowerOptionsEnabled = false;
             BaseCurveOptionsEnabled = false;

@@ -35,7 +35,7 @@
 					<asp:ListItem Text="Löpande" Value='<%=UseContinousWithdrawals %>' class="continuous-withdrawals"/>
 					<asp:ListItem Text="Valfritt" Value='<%=UseCustomNumberOfWithdrawals %>' class="custom-number-of-withdrawals" />
 				</asp:RadioButtonList>
-    			<asp:TextBox ID="txtCustomNumberOfTransactions" runat="server" CssClass="custom-number-of-withdrawals" />
+    			<asp:TextBox ID="txtCustomNumberOfTransactions" runat="server" CssClass="custom-number-of-withdrawals align-right" />
 				<asp:RequiredFieldValidator runat="server" ErrorMessage="En abonnemangstid måste anges" ControlToValidate="rblSubscriptionTime" Display="Dynamic">&nbsp;*</asp:RequiredFieldValidator>
       		</div>
     	

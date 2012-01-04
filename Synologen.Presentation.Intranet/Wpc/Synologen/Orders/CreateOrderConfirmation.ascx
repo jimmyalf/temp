@@ -5,17 +5,9 @@
 		<h1>Linsabonnemang demo</h1>
 		<span class="customer-name"><b>Kund:</b> Emelie Richter</span>
 	</header>
-
-    <nav id="tab-navigation">
-    	<ul>
-    		<li class="completed"><a href="index.html"><span>1</span> Välj Kund</a></li>
-    		<li><a href="create_order.html"><span>2</span> Skapa Beställning</a></li>
-    		<li><a href="payment.html"><span>3</span> Betalningssätt</a></li>
-    		<li><a href="account_information.html"><span>4</span> Autogiro Information</a></li>
-    		<li class="selected"><span>5</span> Bekräfta</li>
-    	</ul>
-    </nav>
-   <div id="tab-container">
+	
+    <WpcSynologen:OrderMenu runat="server" />
+	<div id="tab-container">
       <fieldset>
       <div class="progress">
    			<label>Steg 6 av 6</label>
@@ -62,7 +54,11 @@
       </fieldset>
       
    <fieldset>
-    	<div class="next-step"><input type="Submit" value="← Föregående steg"/><input class="cancel-button" type="Submit" value="Avbryt"/><input type="Submit" class="confirm-button" value="Bekräfta"/></div>
+		<div class="next-step">
+			<asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CausesValidation="False" />
+			<asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" />
+			<asp:Button ID="btnNextStep" runat="server" Text="Skicka" />
+		</div>
     </fieldset>
   </div>
   </div>

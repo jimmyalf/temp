@@ -50,6 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         	View.Load += View_Load;
             View.Submit += View_Submit;
             View.Abort += View_Abort;
+            View.Previous += View_Previous;
 
             View.SelectedCategory += FillModel;
             View.SelectedArticleType += FillModel;
@@ -147,6 +148,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         {
             View.Submit -= View_Submit;
             View.Load -= View_Load;
+            View.Abort -= View_Abort;
+            View.Previous -= View_Previous;
 			View.SelectedCategory -= FillModel;
             View.SelectedArticle -= FillModel;
             View.SelectedArticleType -= FillModel;

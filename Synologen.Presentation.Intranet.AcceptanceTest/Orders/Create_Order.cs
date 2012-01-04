@@ -64,6 +64,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                     .Och(ArtikelkategorierLaddas));                                                                            
 		}
 
+        [Test]
+        public void VisaBeställningsFormulärNärBeställningRedanSkapats()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttEnOrderSkapats)
+                .När(AttAnvändarenVisarBeställningsformuläret)
+                .Så(VisasKundensNamn)
+                    .Och(FormuläretFyllsMedData));
+        }
+
         [Test]                                                                            
         public void ArtikeltyperLaddas()                                                  
         {                                                                                 
@@ -222,6 +232,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
     	}
 
+        private void AttEnOrderSkapats()
+        {
+            var category = OrderFactory.GetCategory();
+            WithRepository<IArticleCategoryRepository>().Save(category);
+
+            var articleType = OrderFactory.GetArticleType(category);
+            WithRepository<IArticleTypeRepository>().Save(articleType);
+
+            var articleSupplier = OrderFactory.GetSupplier();
+            WithRepository<IArticleSupplierRepository>().Save(articleSupplier);
+
+            var article = OrderFactory.GetArticle(articleType, articleSupplier);
+            WithRepository<IArticleRepository>().Save(article);
+
+            var lensRecipe = OrderFactory.GetLensRecipe();
+            WithRepository<ILensRecipeRepository>().Save(lensRecipe);
+
+            _customer = OrderFactory.GetCustomer();
+            WithRepository<IOrderCustomerRepository>().Save(_customer);
+
+            _order = OrderFactory.GetOrder(article, _customer, lensRecipe);
+            WithRepository<IOrderRepository>().Save(_order);
+            HttpContext.SetupRequestParameter("order", _order.Id.ToString());
+        }
+
         private void ValdArtikelFinnsSparad()
         {
             _article = OrderFactory.GetArticle(null, null);
@@ -281,6 +316,34 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		#endregion
 
 		#region Assert
+
+        private void FormuläretFyllsMedData()
+        {
+            View.Model.SelectedArticleId.ShouldBe(_order.Article.Id);
+            View.Model.SelectedArticleTypeId.ShouldBe(_order.Article.ArticleType.Id);
+            View.Model.SelectedCategoryId.ShouldBe(_order.Article.ArticleType.Category.Id);
+            View.Model.SelectedSupplierId.ShouldBe(_order.Article.ArticleSupplier.Id);
+            View.Model.SelectedShippingOption.ShouldBe((int)_order.ShippingType);
+
+            View.Model.SelectedLeftAddition.ShouldBe(_order.LensRecipe.Addition.Left ?? -9999);
+            View.Model.SelectedRightAddition.ShouldBe(_order.LensRecipe.Addition.Right ?? -9999);
+
+            View.Model.SelectedLeftAxis.ShouldBe(_order.LensRecipe.Axis.Left ?? -9999);
+            View.Model.SelectedRightAxis.ShouldBe(_order.LensRecipe.Axis.Right ?? -9999);
+
+            View.Model.SelectedLeftBaseCurve.ShouldBe(_order.LensRecipe.BaseCurve.Left ?? -9999);
+            View.Model.SelectedRightBaseCurve.ShouldBe(_order.LensRecipe.BaseCurve.Right ?? -9999);
+
+            View.Model.SelectedLeftCylinder.ShouldBe(_order.LensRecipe.Cylinder.Left ?? -9999);
+            View.Model.SelectedRightCylinder.ShouldBe(_order.LensRecipe.Cylinder.Right ?? -9999);
+
+            View.Model.SelectedLeftDiameter.ShouldBe(_order.LensRecipe.Diameter.Left ?? -9999);
+            View.Model.SelectedRightDiameter.ShouldBe(_order.LensRecipe.Diameter.Right ?? -9999);
+
+            View.Model.SelectedLeftPower.ShouldBe(_order.LensRecipe.Power.Left ?? -9999);
+            View.Model.SelectedRightPower.ShouldBe(_order.LensRecipe.Power.Right ?? -9999);
+
+        }
 
         private void LaddasArtikelnsAlternativ()
         {

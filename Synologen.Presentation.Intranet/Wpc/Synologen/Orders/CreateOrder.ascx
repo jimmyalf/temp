@@ -252,14 +252,20 @@
            
       <fieldset>
       <legend>Leverantörsalternativ</legend>
-        <asp:RadioButtonList runat="server" ID="rbShippingOptions" DataSource="<%# Model.ShippingOptions %>" DataTextField="Text" DataValueField="Value" RepeatLayout="Flow" RepeatDirection="Horizontal" />
-        <asp:RequiredFieldValidator   
-            ID="ReqiredFieldValidator1"  
-            runat="server"  
-            ControlToValidate="rbShippingOptions"  
-            ErrorMessage="*"
-            >  
-        </asp:RequiredFieldValidator>  
+
+        <p>
+            <asp:DropDownList id="ddlShippingOptions" DataSource="<% #Model.ShippingOptions %>" SelectedValue="<%#Model.SelectedShippingOption %>" DataTextField="Text" DataValueField="Value" runat="server">
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator 
+		        ID="RequiredFieldValidator17" 
+		        InitialValue="0" 
+		        Runat="server" 
+		        ErrorMessage="Obligatoriskt fält" 
+		        ControlToValidate="ddlShippingOptions" 
+		        Display="Dynamic" 
+		        CssClass="" 
+		        ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
+    	</p>
       </fieldset>
       
    <fieldset>

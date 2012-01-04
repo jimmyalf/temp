@@ -61,8 +61,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
             var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
             var articleId = Convert.ToInt32(ddlPickArticle.SelectedValue);
-            
-            SelectedArticle(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId, articleId));
+            var articleOption = Convert.ToInt32(ddlShippingOptions.SelectedValue);
+
+            SelectedArticle(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId, articleId, articleOption));
         }
 
         private void NextStep(object sender, EventArgs e)
@@ -74,7 +75,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
                 var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
                 var articleId = Convert.ToInt32(ddlPickArticle.SelectedValue);
-                var selectedShippingOption = Convert.ToInt32(rbShippingOptions.SelectedValue);
+                var selectedShippingOption = Convert.ToInt32(ddlShippingOptions.SelectedValue);
 
                 var selectedLeftBaseCurve = (float)Convert.ToDecimal(ddlLeftBaskurva.SelectedValue);
                 var selectedLeftAxis = (float)Convert.ToDecimal(ddlLeftAxis.SelectedValue);
@@ -113,7 +114,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             var args = new CreateOrderEventArgs
             {
                 ArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
-                ShipmentOption = Convert.ToInt32(rbShippingOptions.SelectedValue),
+                ShipmentOption = Convert.ToInt32(ddlShippingOptions.SelectedValue),
 
                 LeftBaseCurve = (float)Convert.ToDecimal(ddlLeftBaskurva.SelectedValue),
                 LeftDiameter = (float)Convert.ToDecimal(ddlLeftDiameter.SelectedValue),

@@ -225,15 +225,51 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         	var customerIdParameter = HttpContext.Request.Params["customer"];
             var customerId = Convert.ToInt32(customerIdParameter);
 
-        	var categories = _articleCategoryRepository.GetAll();
-            var parsedCategories = _viewParser.ParseWithDefaultItem(categories, category => new ListItem(category.Name, category.Id));
-            View.Model.Categories = parsedCategories;
+            if(customerId == 0)
+            {
+                var orderIdParameter = HttpContext.Request.Params["order"];
+                var orderId = Convert.ToInt32(orderIdParameter);
+
+                var order = _orderRepository.Get(orderId);
+
+                customerId = order.Customer.Id;
+
+                var args = new SelectedSomethingEventArgs
+                               {
+                                   SelectedArticleId = order.Article.Id,
+                                   SelectedArticleTypeId = order.Article.ArticleType.Id,
+                                   SelectedCategoryId = order.Article.ArticleType.Category.Id,
+                                   SelectedShippingOption = (int)order.ShippingType,
+
+                                   SelectedSupplierId = order.Article.ArticleSupplier.Id,
+                                   SelectedLeftAddition = order.LensRecipe.Addition.Left ?? -9999,
+                                   SelectedLeftAxis = order.LensRecipe.Axis.Left ?? -9999,
+                                   SelectedLeftBaseCurve = order.LensRecipe.BaseCurve.Left ?? -9999,
+                                   SelectedLeftCylinder = order.LensRecipe.Cylinder.Left ?? -9999,
+                                   SelectedLeftDiameter = order.LensRecipe.Diameter.Left ?? -9999,
+                                   SelectedLeftPower = order.LensRecipe.Power.Left ?? -9999,
+                                   SelectedRightAddition = order.LensRecipe.Addition.Right ?? -9999,
+                                   SelectedRightAxis = order.LensRecipe.Axis.Right ?? -9999,
+                                   SelectedRightBaseCurve = order.LensRecipe.BaseCurve.Right ?? -9999,
+                                   SelectedRightCylinder = order.LensRecipe.Cylinder.Right ?? -9999,
+                                   SelectedRightDiameter = order.LensRecipe.Diameter.Right ?? -9999,
+                                   SelectedRightPower = order.LensRecipe.Power.Right ?? -9999
+
+                               };
+
+                FillModel(this, args);
+            }
+            else
+            {
+                var categories = _articleCategoryRepository.GetAll();
+                var parsedCategories = _viewParser.ParseWithDefaultItem(categories, category => new ListItem(category.Name, category.Id));
+                View.Model.Categories = parsedCategories; 
+            }
+
 
             var customer = _orderCustomerRepository.Get(customerId);
-
             View.Model.CustomerId = customerId;
-            View.Model.CustomerName = String.Format("{0} {1}", customer.FirstName, customer.LastName);
-
+            View.Model.CustomerName = String.Format("{0} {1}", customer.FirstName, customer.LastName); 
         }   
 
         public void View_Abort(object o, EventArgs eventArgs)

@@ -7,6 +7,7 @@
 			$.SynologenIntranet.initYammer();
 			$.SynologenIntranet.initProgressBar(6);
 			$.SynologenIntranet.initAutogiroDetailView();
+			$.SynologenIntranet.initRadioButtonLists();
 		},
 
 		initYammer: function () {
@@ -30,6 +31,10 @@
 			var input = $("input.custom-number-of-withdrawals");
 			var span = $("li .custom-number-of-withdrawals");
 			span.append(input);
+		},
+
+		initRadioButtonLists: function () {
+			$("ul.radioButtonItems").addClass("radio-list");
 		}
 	});
 

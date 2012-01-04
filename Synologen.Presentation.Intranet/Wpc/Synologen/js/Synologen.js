@@ -35,6 +35,11 @@
 
 		initRadioButtonLists: function () {
 			$("ul.radioButtonItems").addClass("radio-list");
+			$(".radio-list li label").each(function () {
+				var text = $(this).text();
+				$(this).replaceWith(text);
+				console.log(text);
+			});
 		}
 	});
 

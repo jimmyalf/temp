@@ -13,9 +13,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	public CreateOrderConfirmationPresenter(ICreateOrderConfirmationView view, IRoutingService routingService) : base(view)
         {
         	_routingService = routingService;
-        	View.Previous -= View_Previous;
-			View.Abort -= View_Abort;
+    		WireupEvents();
         }
+
+		private void WireupEvents()
+		{
+        	View.Previous += View_Previous;
+			View.Abort += View_Abort;
+		}
 
     	private void View_Previous(object sender, EventArgs e)
     	{
@@ -30,11 +35,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		Redirect(View.AbortPageId);
     	}
 
-    	public override void ReleaseView()
-        {
-
-        }
-
     	private int OrderId
     	{
 			get { return HttpContext.Request.Params["order"].ToInt(); }
@@ -45,5 +45,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		    var url = _routingService.GetPageUrl(pageId, requestParameters);
 		    HttpContext.Response.Redirect(url);
 		}
+
+    	public override void ReleaseView()
+        {
+			View.Previous -= View_Previous;
+			View.Abort -= View_Abort;
+        }
     }
 }

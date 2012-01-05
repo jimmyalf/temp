@@ -55,6 +55,10 @@
     <Reference Include="Spinit.Wpc.Core.UI.Mvc">
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.UI.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\Dependancies\StructureMap\StructureMap.dll</HintPath>
     </Reference>

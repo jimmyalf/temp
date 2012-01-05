@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<Spinit.Wpc.Synologen.UI.Mvc.Site.Models.ShopListItem>>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Spinit.Wpc.Synologen.UI.Mvc.Site.Models.SearchShopView>" %>
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
@@ -11,7 +11,7 @@
         var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
         var bounds = new google.maps.LatLngBounds();
 
-        <% foreach (var item in ViewData.Model) { %>
+        <% foreach (var item in ViewData.Model.Shops) { %>
         var latlng = AddElementToMap(map, <%= item.Latitude %>, <%= item.Longitude %>, "<%= item.Description %>", "<%= item.Name %>");
         bounds.extend(latlng);
         <% } %>
@@ -49,8 +49,10 @@
 	</section>
 </aside>
 
+<h2>Din sökning <%= Model.Search %> gav <%= Model.NrOfResults %> träffar</h2>
+
 <ul>
-    <% foreach (var item in ViewData.Model) { %>
+    <% foreach (var item in ViewData.Model.Shops) { %>
         <li>
             <dl>
                 <dd>Id</dd><dt><%= item.Id %></dt>

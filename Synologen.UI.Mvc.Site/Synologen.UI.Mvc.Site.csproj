@@ -95,6 +95,7 @@
   <ItemGroup>
     <Compile Include="App\Globals.cs" />
     <Compile Include="App\ViewModelParsers\ShopViewModelParserService.cs" />
+    <Compile Include="Models\SearchShopView.cs" />
     <Compile Include="Models\ShopListItem.cs" />
     <Compile Include="App\Services\GeocodingService.cs" />
     <Compile Include="SynologenAreaRegistration.cs" />

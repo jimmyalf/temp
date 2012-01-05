@@ -1,12 +1,11 @@
 ﻿using System.Web.Mvc;
 
-namespace Synologen.UI.Mvc.Site
+namespace Spinit.Wpc.Synologen.UI.Mvc.Site
 {
     public class SynologenAreaRegistration : AreaRegistration
     {
         public override void RegisterArea(AreaRegistrationContext context)
         {
-            // News routes
             context.MapRoute(
                 "SynologenRoute",
                 "Synologen/{action}/{*actionParameters}",

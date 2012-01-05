@@ -1,9 +1,12 @@
 ﻿using Spinit.Wpc.Core.UI;
 
-namespace Synologen.UI.Mvc.Site
+namespace Spinit.Wpc.Synologen.UI.Mvc.Site
 {
     public class SynologenBootstrapper : IWpcComponentBootstrapper
     {
-        public void Bootstrap(WpcBootstrapperContext context) { }
+        public void Bootstrap(WpcBootstrapperContext context)
+        {
+            Bootstrapper.Bootstrap(Dependency.NHibernate, context);
+        }
     }
 }

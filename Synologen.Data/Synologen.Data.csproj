@@ -180,6 +180,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionItemMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ShopDetails\ShopMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopMap.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\ShopRepository.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SubscriptionMap.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Repositories\OrderRepositories\OrderRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\SubscriptionItemRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\SubscriptionRepository.cs" />
+    <Compile Include="Repositories\ShopDetailsRepositories\ShopRepository.cs" />
     <Compile Include="SqlProviderConcern.cs" />
     <Compile Include="SqlProviderCountry.cs" />
     <Compile Include="SqlProviderInvoicingMethod.cs" />
@@ -253,6 +255,7 @@
   <ItemGroup>
     <None Include="Repositories\LensSubscriptionRepositories\app.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

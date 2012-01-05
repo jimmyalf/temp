@@ -1,4 +1,4 @@
-﻿namespace Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder
+﻿namespace Spinit.Wpc.Synologen.Core.Domain.Model.ShopDetails
 {
     public class Coordinates
     {

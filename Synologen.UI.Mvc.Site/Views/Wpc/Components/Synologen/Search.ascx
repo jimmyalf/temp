@@ -31,7 +31,9 @@
     }
 </script>
 
-<div id="map_canvas" style="width: 800px; height: 600px"></div>
+<article>
+    <figure class="map">
+        <div id="map_canvas" style="width: 800px; height: 600px"></div>    </figure>    <a href class="resize">Visa större karta</a></article>
 <!--Side Content-->
 <aside>
 <!--Side Navigation-->
@@ -49,24 +51,20 @@
 	</section>
 </aside>
 
-<h2>Din sökning <%= Model.Search %> gav <%= Model.NrOfResults %> träffar</h2>
+<div id="search-results">
+    <h1>Sökresultat</h1>
 
-<ul>
+    <h2>Din sökning <%= Model.Search %> gav <%= Model.NrOfResults %> träffar</h2>
+
     <% foreach (var item in ViewData.Model.Shops) { %>
-        <li>
-            <dl>
-                <dd>Id</dd><dt><%= item.Id %></dt>
-                <dd>Namn</dd><dt><%= item.Name %></dt>
-                <dd>Hemsida</dd><dt><%= item.HomePage %></dt>
-                <dd>Telefonnummer</dd><dt><%= item.Telephone %></dt>
-                <dd>Karta</dd><dt><%= item.Map %></dt>
-                <dd>Email</dd><dt><%= item.Email %></dt>
-                <dd>Longitude</dd><dt><%= item.Longitude %></dt>
-                <dd>Latitude</dd><dt><%= item.Latitude %></dt>
-                <dd>Gatuadress</dd><dt><%= item.StreetAddress %></dt>
-            </dl>
-        </li>
-     <% } %>
-</ul>
-
-
+        <article class="store-information">
+            <h2><%= item.Name %></h2>
+            <p class="tags">Vi erbjuder: <em>Ögonapoteket</em>, <em>Ögonhälsoundersökning</em></p>
+            <p>Nullam sit amet adipiscing nisi. Duis viverra nisi non lorem adipiscing consequat. Maecenas sodales placerat lacinia.</p>
+            <p>Tfn: <%= item.Telephone %><br />
+            Adress: <%= item.StreetAddress %><br />
+            E-post: <a href="<%= item.Email %>"><%= item.Email %></a>
+            </p>
+        </article>
+    <% } %>
+</div>

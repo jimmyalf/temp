@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 {
@@ -40,10 +39,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
             DiameterOptionsEnabled = false;
             CylinderOptionsEnabled = false;
             AdditionOptionsEnabled = false;
-
+    
     	}
+
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
+        public int ExistingOrderId { get; set; }
 
         public int SelectedCategoryId { get; set; }
         public int SelectedArticleTypeId { get; set; }

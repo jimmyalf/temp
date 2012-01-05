@@ -8,6 +8,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
         public int ShipmentOption { get; set; }
         public int CustomerId { get; set; }
         public int ArticleId { get; set; }
+        public int ExistingOrderId { get; set; }
 
         public float LeftPower { get; set; }
         public float RightPower { get; set; }

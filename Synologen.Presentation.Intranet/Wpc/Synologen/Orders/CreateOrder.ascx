@@ -269,6 +269,7 @@
       </fieldset>
       
    <fieldset>
+        <asp:HiddenField ID="hfExistingOrderId" runat="server" Value="<%#Model.ExistingOrderId %>" />
         <div class="next-step">
             <div class="control-actions">
 				

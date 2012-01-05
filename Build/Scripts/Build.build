@@ -19,6 +19,7 @@
 	<fileset id="projects">
 		<include name="${dir.source}Synologen.Presentation.Site\Synologen.Presentation.Site.csproj"/>
 		<include name="${dir.source}Synologen.Presentation.Intranet.Test\Synologen.Presentation.Intranet.Test.csproj"/>
+		<include name="${dir.source}Synologen.UI.Mvc.Site\Synologen.UI.Mvc.Site.csproj"/>
 		<include name="${dir.source}Synologen.Presentation.Test\Synologen.Presentation.Test.csproj"/>
 		<include name="${dir.source}Synologen.Data.Test\Synologen.Data.Test.csproj"/>
 		<include name="${dir.source}Synologen.ContractSale\Invoicing.Test\Synologen.Invoicing.Test.csproj"/>

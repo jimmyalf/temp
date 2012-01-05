@@ -142,6 +142,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.SelectedRightCylinder = args.SelectedRightCylinder;
             View.Model.SelectedRightAxis = args.SelectedRightAxis;
             View.Model.SelectedRightAddition = args.SelectedRightAddition;
+
+            View.Model.ExistingOrderId = args.ExistingOrderId;
         }
 
         public override void ReleaseView()
@@ -158,14 +160,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
         public void View_Submit(object o, CreateOrderEventArgs form)
         {
-            var article = _articleRepository.Get(form.ArticleId);
-            if (article == null) return;
+            int orderId;
+            if(form.ExistingOrderId == 0)
+            {
+                orderId = CreateNewOrder(form);
+            }
+            else
+            {
+                orderId = UpdateExistingOrder(form);
+            }
 
-			var lensRecipe = new LensRecipe
+            Redirect(View.NextPageId, String.Format("?order={0}", orderId));
+        }
+
+        private int CreateNewOrder(CreateOrderEventArgs form)
+        {
+            var article = _articleRepository.Get(form.ArticleId);
+            var lensRecipe = new LensRecipe
             {
                 Axis = new EyeParameter
                 {
-                    Left = form.LeftAxis != -9999 ? form.LeftAxis : (float?) null,
+                    Left = form.LeftAxis != -9999 ? form.LeftAxis : (float?)null,
                     Right = form.RightAxis != -9999 ? form.RightAxis : (float?)null
                 },
 
@@ -201,17 +216,69 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             };
             _lensRecipeRepository.Save(lensRecipe);
 
-        	var customerId = HttpContext.Request.Params["customer"].ToInt();
-        	var customer = _orderCustomerRepository.Get(customerId);
+            var customerId = HttpContext.Request.Params["customer"].ToInt();
+            var customer = _orderCustomerRepository.Get(customerId);
             var order = new Order
             {
                 Article = article,
                 LensRecipe = lensRecipe,
-                ShippingType = (OrderShippingOption) form.ShipmentOption,
-			    Customer = customer
-			};
-			_orderRepository.Save(order);
-            Redirect(View.NextPageId, String.Format("?order={0}", order.Id));
+                ShippingType = (OrderShippingOption)form.ShipmentOption,
+                Customer = customer
+            };
+            _orderRepository.Save(order);
+
+            return order.Id;
+        }
+
+        private int UpdateExistingOrder(CreateOrderEventArgs form)
+        {
+            //TODO: security. make sure that the order updated is the one that should be updated, for instance by checking that the order belongs to the butik trying to update an order.
+
+            var order = _orderRepository.Get(form.ExistingOrderId);
+            order.Article = _articleRepository.Get(form.ArticleId);
+            order.ShippingType = (OrderShippingOption) form.ShipmentOption;
+            _orderRepository.Save(order);
+
+            var lensRecipe = order.LensRecipe;
+
+            lensRecipe.Axis = new EyeParameter
+                        {
+                            Left = form.LeftAxis != -9999 ? form.LeftAxis : (float?) null,
+                            Right = form.RightAxis != -9999 ? form.RightAxis : (float?) null
+                        };
+            lensRecipe.Addition = new EyeParameter
+                        {
+                            Left = form.LeftAddition != -9999 ? form.LeftAddition : (float?) null,
+                            Right = form.RightAddition != -9999 ? form.RightAddition : (float?) null
+                        };
+
+            lensRecipe.Power = new EyeParameter
+                        {
+                            Left = form.LeftPower != -9999 ? form.LeftPower : (float?) null,
+                            Right = form.RightPower != -9999 ? form.RightPower : (float?) null
+                        };
+
+            lensRecipe.Diameter = new EyeParameter
+                        {
+                            Left = form.LeftDiameter != -9999 ? form.LeftDiameter : (float?) null,
+                            Right = form.RightDiameter != -9999 ? form.RightDiameter : (float?) null
+                        };
+
+            lensRecipe.Cylinder = new EyeParameter
+                        {
+                            Left = form.LeftCylinder != -9999 ? form.LeftCylinder : (float?) null,
+                            Right = form.RightCylinder != -9999 ? form.RightCylinder : (float?) null
+                        };
+
+            lensRecipe.BaseCurve = new EyeParameter
+                        {
+                            Left = form.LeftBaseCurve != -9999 ? form.LeftBaseCurve : (float?) null,
+                            Right = form.RightBaseCurve != -9999 ? form.RightBaseCurve : (float?) null
+                        };
+           
+            _lensRecipeRepository.Save(lensRecipe);
+
+            return order.Id;
         }
 
         private void Redirect(int pageId, string queryString="")
@@ -230,42 +297,45 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 var orderIdParameter = HttpContext.Request.Params["order"];
                 var orderId = Convert.ToInt32(orderIdParameter);
 
+                View.Model.ExistingOrderId = orderId;
+
                 var order = _orderRepository.Get(orderId);
 
                 customerId = order.Customer.Id;
 
                 var args = new SelectedSomethingEventArgs
-                               {
-                                   SelectedArticleId = order.Article.Id,
-                                   SelectedArticleTypeId = order.Article.ArticleType.Id,
-                                   SelectedCategoryId = order.Article.ArticleType.Category.Id,
-                                   SelectedShippingOption = (int)order.ShippingType,
+                    {
+                        SelectedArticleId = order.Article.Id,
+                        SelectedArticleTypeId = order.Article.ArticleType.Id,
+                        SelectedCategoryId = order.Article.ArticleType.Category.Id,
+                        SelectedShippingOption = (int)order.ShippingType,
+                        SelectedSupplierId = order.Article.ArticleSupplier.Id,
 
-                                   SelectedSupplierId = order.Article.ArticleSupplier.Id,
-                                   SelectedLeftAddition = order.LensRecipe.Addition.Left ?? -9999,
-                                   SelectedLeftAxis = order.LensRecipe.Axis.Left ?? -9999,
-                                   SelectedLeftBaseCurve = order.LensRecipe.BaseCurve.Left ?? -9999,
-                                   SelectedLeftCylinder = order.LensRecipe.Cylinder.Left ?? -9999,
-                                   SelectedLeftDiameter = order.LensRecipe.Diameter.Left ?? -9999,
-                                   SelectedLeftPower = order.LensRecipe.Power.Left ?? -9999,
-                                   SelectedRightAddition = order.LensRecipe.Addition.Right ?? -9999,
-                                   SelectedRightAxis = order.LensRecipe.Axis.Right ?? -9999,
-                                   SelectedRightBaseCurve = order.LensRecipe.BaseCurve.Right ?? -9999,
-                                   SelectedRightCylinder = order.LensRecipe.Cylinder.Right ?? -9999,
-                                   SelectedRightDiameter = order.LensRecipe.Diameter.Right ?? -9999,
-                                   SelectedRightPower = order.LensRecipe.Power.Right ?? -9999
+                        ExistingOrderId = order.Id,
+                        
+                        SelectedLeftAddition = (float)(order.LensRecipe.Addition != null ? order.LensRecipe.Addition.Left : -9999),
+                        SelectedLeftAxis = (float)(order.LensRecipe.Axis != null ? order.LensRecipe.Axis.Left : -9999),
+                        SelectedLeftBaseCurve = (float)(order.LensRecipe.BaseCurve != null ? order.LensRecipe.BaseCurve.Left : -9999),
+                        SelectedLeftCylinder = (float)(order.LensRecipe.Cylinder != null ? order.LensRecipe.Cylinder.Left : -9999),
+                        SelectedLeftDiameter = (float)(order.LensRecipe.Diameter != null ? order.LensRecipe.Diameter.Left : -9999),
+                        SelectedLeftPower = (float)(order.LensRecipe.Power != null ? order.LensRecipe.Power.Left : -9999),
 
-                               };
+                        SelectedRightAddition = (float)(order.LensRecipe.Addition != null ? order.LensRecipe.Addition.Right : -9999),
+                        SelectedRightAxis = (float)(order.LensRecipe.Axis != null ? order.LensRecipe.Axis.Right : -9999),
+                        SelectedRightBaseCurve = (float)(order.LensRecipe.BaseCurve != null ? order.LensRecipe.BaseCurve.Right : -9999),
+                        SelectedRightCylinder = (float)(order.LensRecipe.Cylinder != null ? order.LensRecipe.Cylinder.Right : -9999),
+                        SelectedRightDiameter = (float)(order.LensRecipe.Diameter != null ? order.LensRecipe.Diameter.Right : -9999),
+                        SelectedRightPower = (float)(order.LensRecipe.Power != null ? order.LensRecipe.Power.Right : -9999),
+                    };
 
                 FillModel(this, args);
             }
-            else
-            {
+            //else
+            //{
                 var categories = _articleCategoryRepository.GetAll();
                 var parsedCategories = _viewParser.ParseWithDefaultItem(categories, category => new ListItem(category.Name, category.Id));
                 View.Model.Categories = parsedCategories; 
-            }
-
+            //}
 
             var customer = _orderCustomerRepository.Get(customerId);
             View.Model.CustomerId = customerId;

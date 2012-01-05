@@ -4,6 +4,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
 {
     public class SelectedSomethingEventArgs : EventArgs
     {
+        public int ExistingOrderId { get; set; }
         public int SelectedCategoryId { get; set; }
         public int SelectedArticleTypeId { get; set; }
         public int SelectedSupplierId { get; set; }
@@ -27,6 +28,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
             int selectedArticleTypeId = 0,
             int selectedSupplierId = 0,
             int selectedArticleId = 0,
+            int existingOrderId = 0,
             int selectedShippingOption = 0,
             float selectedLeftPower = -9999,
             float selectedLeftBaseCurve = -9999,
@@ -58,6 +60,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
             SelectedRightCylinder = selectedRightCylinder;
             SelectedRightAxis = selectedRightAxis;
             SelectedRightAddition = selectedRightAddition;
+            ExistingOrderId = existingOrderId;
         }
     }
 }

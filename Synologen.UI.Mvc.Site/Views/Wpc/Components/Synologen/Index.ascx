@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<Spinit.Wpc.Synologen.UI.Mvc.Site.Models.ShopListItem>>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Spinit.Wpc.Synologen.UI.Mvc.Site.Models.SearchShopView>" %>
 
 <form action="/" method="get">
 	<fieldset>
@@ -7,7 +7,7 @@
 </form>
 
 <ul>
-    <% foreach (var item in ViewData.Model) { %>
+    <% foreach (var item in ViewData.Model.Shops) { %>
         
         <li>
             <dl>

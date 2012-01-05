@@ -33,11 +33,16 @@
 
 <article>
     <figure class="map">
-        <div id="map_canvas" style="width: 800px; height: 600px"></div>    </figure>    <a href class="resize">Visa större karta</a></article>
+        <div id="map_canvas" style="width: 800px; height: 600px"></div>
+    </figure>
+    <a href class="resize">Visa större karta</a>
+</article>
+
 <!--Side Content-->
 <aside>
 <!--Side Navigation-->
-	<nav>
+	<nav>
+
 	</nav>
 <!--Store Finder-->
 	<section class="find-store">

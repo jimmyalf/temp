@@ -42,7 +42,7 @@
 		<div id="content">
 			<div id="main-content">
 			    <asp:ContentPlaceHolder ID="Content" runat="server"></asp:ContentPlaceHolder>
-			    <%= Html.Action("Index", "Synologen", new { area = "Synologen", settings = new { Class = "navigation", ShowRootLevel = false, ShowDefaultPage = false, StartAtLevel = 1, StopAtLevel = 1 } }) %>
+			    <%= Html.Action("Index", "WpcSynologen", new { area = "WpcSynologen", settings = new { Class = "navigation", ShowRootLevel = false, ShowDefaultPage = false, StartAtLevel = 1, StopAtLevel = 1 } }) %>
 			</div>
 			<div id="secondary-content">
 			</div>

@@ -10,8 +10,8 @@
     <ProjectTypeGuids>{F85E285D-A4E0-4152-9332-AB1D724D3325};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen.UI.Mvc.Site</RootNamespace>
-    <AssemblyName>Synologen.UI.Mvc.Site</AssemblyName>
+    <RootNamespace>Spinit.Wpc.Synologen.UI.Mvc.Site</RootNamespace>
+    <AssemblyName>Spinit.Wpc.Synologen.UI.Mvc.Site</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
@@ -35,8 +35,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json.Net35">
+      <HintPath>..\Dependancies\Tools\Newtonsoft.Json\Newtonsoft.Json.Net35.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.2.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Data">
       <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data.NHibernate, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\Spinit\Spinit.Data.NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Core.UI">
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.UI.dll</HintPath>
@@ -78,8 +89,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ShopListSettings.cs" />
-    <Compile Include="Services\GeocodingService.cs" />
+    <Compile Include="App\Globals.cs" />
+    <Compile Include="App\ViewModelParsers\ShopViewModelParserService.cs" />
+    <Compile Include="Models\ShopListItem.cs" />
+    <Compile Include="App\Services\GeocodingService.cs" />
     <Compile Include="SynologenAreaRegistration.cs" />
     <Compile Include="SynologenBootstrapper.cs" />
     <Compile Include="Controllers\SynologenController.cs" />
@@ -90,23 +103,21 @@
     <Content Include="Views\Wpc\Components\Synologen\Index.ascx" />
     <Content Include="Views\Wpc\Components\Synologen\Search.ascx" />
     <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Scripts\" />
     <Folder Include="Views\Shared\" />
+    <Folder Include="Views\Wpc\Content\WpcComponents\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Data\Synologen.Data.csproj">
+      <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
+      <Name>Synologen.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -137,4 +148,10 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

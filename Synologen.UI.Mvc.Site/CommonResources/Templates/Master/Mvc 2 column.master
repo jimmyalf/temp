@@ -1,0 +1,53 @@
+﻿<%@ Master language="C#" Inherits="Spinit.Wpc.Core.UI.Mvc.WpcViewMasterPage" %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html id="<%= Wpc.Site.Id.ToAttribute() %>" xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= Wpc.Meta.ContentLanguage %>" lang="<%= Wpc.Meta.ContentLanguage %>">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-language" content="<%= Wpc.Meta.ContentLanguage %>" />
+	<title><%= Wpc.Page.Title %></title>
+	<%= Wpc.Meta.Keywords.Render() %>
+	<%= Wpc.Meta.Description.Render() %>
+	<%= Wpc.Page.Styles.RenderAll() %>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+	<script src="http://ajax.microsoft.com/ajax/jquery.validate/1.6/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="/CommonResources/Scripts/Site.js" type="text/javascript"></script>
+	<%= Wpc.Page.Scripts.RenderAll() %>
+	<%= Wpc.Page.Header %>
+</head>
+<body id="page-<%= Wpc.Page.Id.ToAttribute() %>" class="<%= Wpc.Page.Class.ToAttribute() %>">
+	<div id="wrap">
+		<div id="head">
+			<ul id="skip">
+				<li><a href="#content">Gå till innehållet</a></li>
+			</ul>
+			<div id="branding">
+				<a title="Till startsidan" href="/"><img height="75" width="159" alt="Demobolaget" src="/commonresources/templates/images/demobolaget-logo.gif" /></a>
+				<blockquote>
+					<p>Vi säljer dyra saker billigt</p>
+				</blockquote>
+			</div>
+			<div id="site-functions">
+				<ul>
+					<li><a href="/sitemap/">Sajtkarta</a></li>
+					<li><a href="/om-bolaget/om-webbplatsen">Om webbplatsen</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="navigation">
+			<h2 class="structural">Meny</h2>
+			<div id="main-navigation">
+			</div>
+			<div id="sub-navigation">
+			</div>
+		</div>
+		<div id="content">
+			<div id="main-content">
+			    <asp:ContentPlaceHolder ID="Content" runat="server"></asp:ContentPlaceHolder>
+			    <%= Html.Action("Index", "Synologen", new { area = "Synologen", settings = new { Class = "navigation", ShowRootLevel = false, ShowDefaultPage = false, StartAtLevel = 1, StopAtLevel = 1 } }) %>
+			</div>
+			<div id="secondary-content">
+			</div>
+		</div>
+	</div>
+	<div id="footer">© Demobolaget 2008. <a href="#">Om cookies</a> | <a href="mailto:info@demobolaget.se">info@demobolaget.se</a></div>
+</body>
+</html>

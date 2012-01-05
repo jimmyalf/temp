@@ -1,9 +1,16 @@
 ﻿using System.Web.Mvc;
-using StructureMap.Configuration.DSL;
+using Spinit.Data;
+using Spinit.Data.NHibernate;
+using Spinit.Wpc.Core.UI.Mvc;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.ShopDetails;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
+using Spinit.Wpc.Synologen.Data.Repositories.ShopDetailsRepositories;
+using Spinit.Wpc.Synologen.UI.Mvc.Site.App.Services;
 
-namespace Synologen.UI.Mvc.Site
+namespace Spinit.Wpc.Synologen.UI.Mvc.Site
 {
-    public class SynologenWebRegistry : Registry
+    public class SynologenWebRegistry : WpcRegistry
 	{
         public SynologenWebRegistry()
 		{
@@ -13,6 +20,16 @@ namespace Synologen.UI.Mvc.Site
 				x.WithDefaultConventions();
 				x.AddAllTypesOf<IController>().NameBy(c => c.Name);
 			});
+
+            Scan(x =>
+            {
+                x.AssemblyContainingType<NearbyShopsCriteriaConverter>();
+                x.Assembly(typeof(NHibernateActionCriteriaConverter<,>).Assembly.FullName);
+                x.ConnectImplementationsToTypesClosing(typeof(IActionCriteriaConverter<,>));
+            });
+
+            For<IGeocodingService>().Use<GeocodingService>();
+            For<IShopRepository>().HybridHttpOrThreadLocalScoped().Use<ShopRepository>();
 		}
 	}
 }

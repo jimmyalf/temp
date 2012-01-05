@@ -5,7 +5,7 @@ using System.Text;
 using NHibernate;
 using NHibernate.Criterion;
 using Spinit.Data.NHibernate;
-using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ShopDetails;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters

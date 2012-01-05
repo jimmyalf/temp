@@ -7,15 +7,15 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "SynologenRoute",
-                "Synologen/{action}/{*actionParameters}",
-                new { controller = "Synologen", action = "Index", actionParameters = "" }
+                "WpcSynologenRoute",
+                "WpcSynologen/{action}/{*actionParameters}",
+                new { controller = "WpcSynologen", action = "Index", actionParameters = "" }
                 );
         }
 
         public override string AreaName
         {
-            get { return "Synologen"; }
+            get { return "WpcSynologen"; }
         }
     }
 }

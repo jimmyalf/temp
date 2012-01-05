@@ -11,14 +11,14 @@ using Spinit.Wpc.Synologen.UI.Mvc.Site.Models;
 
 namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Controllers
 {
-    public class SynologenController : Controller
+    public class WpcSynologenController : Controller
     {
         private readonly IGeocodingService _geocodingService;
         private readonly IShopRepository _shopRepository;
 
         private readonly ShopViewModelParserService _shopViewModelParserService;
 
-        public SynologenController(IGeocodingService geocodingService, IShopRepository shopRepository)
+        public WpcSynologenController(IGeocodingService geocodingService, IShopRepository shopRepository)
         {
             _geocodingService = geocodingService;
             _shopRepository = shopRepository;

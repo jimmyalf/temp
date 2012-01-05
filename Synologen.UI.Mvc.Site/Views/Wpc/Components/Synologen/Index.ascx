@@ -6,24 +6,27 @@
 	</fieldset>
 </form>
 
-<ul>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Namn</th>
+        <th>Beskrivning</th>
+        <th>Hemsida</th>
+        <th>Telefonnummer</th>
+        <th>Email</th>
+        <th>Adress</th>
+    </tr>
+
     <% foreach (var item in ViewData.Model.Shops) { %>
-        
-        <li>
-            <dl>
-                <dd>Id</dd><dt><%= item.Id %></dt>
-                <dd>Namn</dd><dt><%= item.Name %></dt>
-                <dd>Hemsida</dd><dt><%= item.HomePage %></dt>
-                <dd>Telefonnummer</dd><dt><%= item.Telephone %></dt>
-                <dd>Karta</dd><dt><%= item.Map %></dt>
-                <dd>Email</dd><dt><%= item.Email %></dt>
-                <dd>Longitude</dd><dt><%= item.Longitude %></dt>
-                <dd>Latitude</dd><dt><%= item.Latitude %></dt>
-                <dd>Gatuadress</dd><dt><%= item.StreetAddress %></dt>
-            </dl>
-        </li>
-
-     <% } %>
-</ul>
-
+    <tr>
+        <td><%= item.Id %></td>
+        <td><%= item.Name %></td>
+        <td><%= item.Description %></td>
+        <td><%= item.HomePage %></td>
+        <td><%= item.Telephone %></td>
+        <td><a href="<%= item.Email %>"><%= item.Email %></a></td>
+        <td><%= item.StreetAddress %></td>
+    </tr>
+    <% } %>
+</table>
 

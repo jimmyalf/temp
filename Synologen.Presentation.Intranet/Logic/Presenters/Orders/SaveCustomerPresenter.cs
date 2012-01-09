@@ -47,6 +47,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 customerId = HttpContext.Request.Params["customer"];
                 personalIdNumber = HttpContext.Request.Params["personalIdNumber"];
             }
+            else if(HttpContext.Request.Params["customer"] == null && HttpContext.Request.Params["personalIdNumber"] != null)
+            {
+                customerId = null;
+                personalIdNumber = HttpContext.Request.Params["personalIdNumber"];
+            }
             else
             {
                 var order = _orderRepository.Get(Convert.ToInt32(HttpContext.Request.Params["order"]));

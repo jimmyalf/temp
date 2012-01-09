@@ -17,7 +17,7 @@
         },
 
         initYammer: function () {
-            //  $(".fancybox").fancybox();
+              $(".fancybox").fancybox();
         },
 
         initProgressBar: function (numberOfSteps) {

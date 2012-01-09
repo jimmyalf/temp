@@ -24,6 +24,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 
     	private void btnNextStep_Click(object sender, EventArgs e)
     	{
+			Page.Validate();
+			if(!Page.IsValid) return;
     		var args = new AutogiroDetailsEventArgs
     		{
     			BankAccountNumber = txtBankAccountNumber.Text,

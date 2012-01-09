@@ -4,7 +4,6 @@
 
 <table>
     <tr>
-        <th>Id</th>
         <th>Namn</th>
         <th>Hemsida</th>
         <th>Telefonnummer</th>
@@ -14,7 +13,6 @@
 
     <% foreach (var item in ViewData.Model.Shops) { %>
     <tr>
-        <td><%= item.Id %></td>
         <td><%= item.Name %></td>
         <td><a href="<%= item.HomePage %>"><%= item.HomePage %></a></td>
         <td><%= item.Telephone %></td>

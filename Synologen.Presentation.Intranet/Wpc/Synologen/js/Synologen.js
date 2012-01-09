@@ -12,12 +12,14 @@
         },
 
         initDisableTabLinks: function () {
-            $('#tab-container a').attr('disabled', 'disabled');
+            $('#tab-navigation a').click(function (event) {
+                event.preventDefault();
+            });
             //the underline hover thing is set to 'none' in the css...
         },
 
         initYammer: function () {
-              $(".fancybox").fancybox();
+            //$(".fancybox").fancybox();
         },
 
         initProgressBar: function (numberOfSteps) {

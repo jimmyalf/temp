@@ -39,7 +39,7 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Controllers
             else
             {
                 var coordinates = _geocodingService.GetCoordinates(search);
-                shops = _shopRepository.FindBy(new NearbyShopsCriteria(coordinates));
+                shops = _shopRepository.GetClosestShops(coordinates);
             }
 
             var viewModel = _shopViewModelParserService.ParseShops(shops, search);

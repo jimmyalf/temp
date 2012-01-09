@@ -259,7 +259,6 @@
     <Compile Include="Domain\Persistence\Criterias\Orders\ArticleTypesByCategory.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\CustomerDetailsFromPersonalIdNumberCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\PageOfFrameOrdersMatchingCriteria.cs" />
-    <Compile Include="Domain\Persistence\Criterias\NearbyShopsCriteria.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IFrameGlassTypeRepository.cs" />
     <Compile Include="Domain\Persistence\FrameOrder\IFrameOrderRepository.cs" />
     <Compile Include="Domain\Persistence\LensSubscription\IContractSaleRepository.cs" />

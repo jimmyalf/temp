@@ -38,24 +38,6 @@
     <a href class="resize">Visa större karta</a>
 </article>
 
-<!--Side Content-->
-<aside>
-<!--Side Navigation-->
-	<nav>
-
-	</nav>
-<!--Store Finder-->
-	<section class="find-store">
-		<h1>Hitta butik</h1>
-		<p><b>Vi finns i hela landet med över 120 anslutna butiker.</b></p><p>Skriv in namn på butik, postnummer eller ort nedan för att hitta en Synolog nära dig.</p>
-        <form action="/" method="get">
-			<fieldset>
-                <p><%= Html.TextBox("Search", null, new { placeholder = "Postnummer eller ort" })%><input type="submit" value="Sök" /></p>
-			</fieldset>
-		</form>
-	</section>
-</aside>
-
 <div id="search-results">
     <h1>Sökresultat</h1>
 

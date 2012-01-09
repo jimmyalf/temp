@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using NHibernate.Criterion;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ShopDetails;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ShopDetails;
@@ -7,14 +8,13 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.ShopDetails
 {
     public class ActiveShopsCriteriaConverter : NHibernateActionCriteriaConverter<ActiveShopsCriteria,Shop>
     {
-        public ActiveShopsCriteriaConverter(ISession session) : base(session)
-        {
-        }
+        public ActiveShopsCriteriaConverter(ISession session) : base(session) { }
 
         public override ICriteria Convert(ActiveShopsCriteria source)
         {
             return Session.CreateCriteriaOf<Shop>()
-                .FilterEqual(x => x.Active, true);
+                .FilterEqual(x => x.Active, true)
+                .Add(Restrictions.IsNotNull("Coordinates.Latitude"));
         }
     }
 }

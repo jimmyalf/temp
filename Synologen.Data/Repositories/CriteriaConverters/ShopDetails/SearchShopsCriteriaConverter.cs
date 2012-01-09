@@ -14,7 +14,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.ShopDetails
         {
             return Session.CreateCriteriaOf<Shop>()
                 .FilterBy(x => x.Name, source.Search, MatchMode.Anywhere)
-                .FilterEqual(x => x.Active, true);
+                .FilterEqual(x => x.Active, true)
+                .Add(Restrictions.IsNotNull("Coordinates.Latitude"));
         }
     }
 }

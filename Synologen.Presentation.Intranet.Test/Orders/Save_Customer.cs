@@ -43,6 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 	public abstract class SaveCustomerTestbase: PresenterTestbase<SaveCustomerPresenter,ISaveCustomerView,SaveCustomerModel>
 	{
 		protected IOrderCustomerRepository OrderCustomerRepository;
+	    protected IOrderRepository OrderRepository;
 		protected ISynologenMemberService SynologenMemberService;
 		protected IViewParser ViewParser;
 
@@ -52,11 +53,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 			{
 				SynologenMemberService = A.Fake<ISynologenMemberService>();
 				OrderCustomerRepository = A.Fake<IOrderCustomerRepository>();
+			    OrderRepository = A.Fake<IOrderRepository>();
+
 				ViewParser = new ViewParser();
 			};
 
 			GetPresenter = () => new SaveCustomerPresenter(
-				View, OrderCustomerRepository, ViewParser, SynologenMemberService
+				View, OrderCustomerRepository, OrderRepository, ViewParser, SynologenMemberService
 			);
 		}
 	}

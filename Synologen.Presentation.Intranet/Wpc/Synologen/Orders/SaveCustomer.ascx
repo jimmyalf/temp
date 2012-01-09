@@ -81,6 +81,7 @@
     	<div class="next-step">
             <div class="control-actions">
 				<asp:HiddenField ID="hfCustomerId" runat="server" Value="<%#Model.CustomerId%>" /> 
+                <asp:HiddenField ID="hfOrderId" runat="server" Value="<%#Model.OrderId%>" /> 
 				<asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CausesValidation="False" />
                 <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" />
 		        <asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" />

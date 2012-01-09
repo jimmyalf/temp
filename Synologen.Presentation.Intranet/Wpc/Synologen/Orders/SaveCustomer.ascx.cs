@@ -35,7 +35,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 PostalCode = txtPostalCode.Text,
                 Phone = txtPhone.Text,
                 Notes = txtNotes.Text,
-				CustomerId = GetCustomerIdFromForm()
+				CustomerId = GetCustomerIdFromForm(),
+                OrderId = GetOrderIdFromForm()
             };
         	TryFireSubmit(sender, args);
         }
@@ -46,5 +47,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 			var value = hfCustomerId.Value.ToIntOrDefault();
 			return (value > 0) ? value : (int?) null;
 		}
+        private int? GetOrderIdFromForm()
+        {
+            if (String.IsNullOrEmpty(hfOrderId.Value)) return null;
+            var value = hfOrderId.Value.ToIntOrDefault();
+            return (value > 0) ? value : (int?)null;
+        }
+
     }
 }

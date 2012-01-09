@@ -19,6 +19,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private SaveCustomerEventArgs _form;
     	private string _submitRedirectUrl, _abortRedirectUrl, _previousRedirectUrl;
     	private OrderCustomer _customer;
+        private Order _order;
+        private Article _article;
     	private string _customerNotFoundWithPersonalIdNumber;
     	private Func<string,int,string> _getRedirectUrl;
 
@@ -61,7 +63,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             );
         }
 
-    	[Test]
+        [Test]
+        public void VisaFormulärFörBefintligKundViaOrderId()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttEnOrderFinnsSkapad)
+                .När(NärFormuläretLaddas)
+                .Så(FyllsFormuläretMedKunduppgifter));
+        }
+
+        [Test]
         public void VisaFormulärFörIckeBefintligKund()
         {
             SetupScenario(scenario => scenario
@@ -113,10 +124,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         	_customer = CreateCustomer();
             HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
         }
+
+        private void AttEnOrderFinnsSkapad()
+        {
+            _customer = CreateCustomer();
+            _article = CreateArticle();
+            _order = CreateOrder(_article, _customer);
+            HttpContext.SetupRequestParameter("order", _order.Id.ToString());
+        }
+
         private void AttAnvändarenStårIVynFörAttSparaKund()
         {
-            
         }
+
         private void AnvändarenUppdateratFormuläret()
         {
             _form = OrderFactory.GetOrderCustomerForm(_customer.Id);

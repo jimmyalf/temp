@@ -16,7 +16,7 @@
 
 		<% if (Model.DisplayCustomerMissingMessage) { %>
 			<p class="message information">
-				Ingen kund med angivet personnummer kunda hittas. Vänligen skapa ny kund.
+				Ingen kund med angivet personnummer kunde hittas. Vänligen skapa ny kund.
 			</p>
 		<% } %>
     	<p>

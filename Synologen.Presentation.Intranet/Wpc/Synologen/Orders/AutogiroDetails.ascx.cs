@@ -62,6 +62,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 			int parsedValue;
 			if(String.IsNullOrEmpty(input)) return false;
 			if(!Int32.TryParse(input, out parsedValue)) return false;
+			if(parsedValue <= 0) return false;
 			return true;
 		}
     }

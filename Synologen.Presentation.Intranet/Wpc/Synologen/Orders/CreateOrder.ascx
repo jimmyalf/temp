@@ -24,8 +24,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlPickCategory" 
 		        Display="Dynamic" 
-		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        CssClass="error-message"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
         <p><label>Välj Typ</label>
             <asp:DropDownList id="ddlPickKind" DataSource="<% #Model.ArticleTypes %>" SelectedValue="<%#Model.SelectedArticleTypeId%>" DataTextField="Text" DataValueField="Value" runat="server" AutoPostBack="true">
@@ -37,8 +36,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlPickKind" 
 		        Display="Dynamic" 
-		        CssClass="error-message" 
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        CssClass="error-message" >&nbsp;*</asp:RequiredFieldValidator>
     	</p>
     	<p><label>Välj Leverantör</label>
             <asp:DropDownList id="ddlPickSupplier" DataSource="<% #Model.Suppliers %>" SelectedValue="<%#Model.SelectedSupplierId%>" DataTextField="Text" DataValueField="Value" runat="server" AutoPostBack="true">
@@ -50,8 +48,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlPickSupplier" 
 		        Display="Dynamic" 
-		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Välj Artikel</label>
             <asp:DropDownList id="ddlPickArticle" DataSource="<% #Model.OrderArticles %>" SelectedValue="<%#Model.SelectedArticleId%>" DataTextField="Text" DataValueField="Value" runat="server" AutoPostBack="true">
@@ -63,8 +60,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlPickArticle" 
 		        Display="Dynamic" 
-		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+		        CssClass="error-message"	>&nbsp;*</asp:RequiredFieldValidator>
     	</p>
       </fieldset>
 
@@ -81,7 +77,6 @@
 		        ControlToValidate="ddlRightStrength" 
 		        Display="Dynamic" 
 		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"
                 Enabled="<%#Model.PowerOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
           	<p><label>Addition</label>
@@ -96,7 +91,6 @@
 		        ControlToValidate="ddlRightAddition" 
 		        Display="Dynamic" 
 		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"
                 Enabled="<%#Model.AdditionOptionsEnabled %>"	>&nbsp;*</asp:RequiredFieldValidator>
             
 		</p>
@@ -112,7 +106,6 @@
 		        ControlToValidate="ddlRightBaskurva" 
 		        Display="Dynamic" 
 		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.BaseCurveOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Diameter</label>
@@ -126,7 +119,6 @@
 		        ControlToValidate="ddlRightDiameter" 
 		        Display="Dynamic" 
 		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.DiameterOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Axel</label>
@@ -140,7 +132,6 @@
 		        ControlToValidate="ddlRightAxis" 
 		        Display="Dynamic" 
 		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.AxisOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Cylinder</label>
@@ -154,7 +145,6 @@
 		        ControlToValidate="ddlRightCylinder" 
 		        Display="Dynamic" 
 		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
       </fieldset>
@@ -171,7 +161,6 @@
 		        ControlToValidate="ddlLeftStrength" 
 		        Display="Dynamic" 
 		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"
                 Enabled="<%#Model.PowerOptionsEnabled %>"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
         
@@ -187,7 +176,6 @@
 		        ControlToValidate="ddlLeftAddition" 
 		        Display="Dynamic" 
 		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"
                 Enabled="<%#Model.AdditionOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
               
 		</p>
@@ -203,7 +191,6 @@
 		        ControlToValidate="ddlLeftBaskurva" 
 		        Display="Dynamic" 
 		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.BaseCurveOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Diameter</label>
@@ -217,7 +204,6 @@
 		        ControlToValidate="ddlLeftDiameter" 
 		        Display="Dynamic" 
 		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.DiameterOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Axel</label>
@@ -231,7 +217,6 @@
 		        ControlToValidate="ddlLeftAxis" 
 		        Display="Dynamic" 
 		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.AxisOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Cylinder</label>
@@ -245,7 +230,6 @@
 		        ControlToValidate="ddlLeftCylinder" 
 		        Display="Dynamic" 
 		        CssClass="error-message"
-		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
       </fieldset>
@@ -263,8 +247,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlShippingOptions" 
 		        Display="Dynamic" 
-		        CssClass="error-message"
-		        ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
+		        CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
 		<asp:ValidationSummary runat="server" CssClass="error-list"/>
         <asp:HiddenField ID="hfExistingOrderId" runat="server" Value="<%#Model.ExistingOrderId %>" />

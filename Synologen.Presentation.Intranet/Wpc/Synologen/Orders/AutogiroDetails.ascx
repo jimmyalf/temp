@@ -65,7 +65,7 @@
     		<div class="next-step">
 				<asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CausesValidation="False" />
 				<asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" />
-				<asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" />
+				<asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" CausesValidation="True"/>
     		</div>
 		</fieldset>
     </div>

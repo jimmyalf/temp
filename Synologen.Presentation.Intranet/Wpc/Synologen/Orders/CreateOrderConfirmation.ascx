@@ -54,6 +54,7 @@
       </fieldset>
       
    <fieldset>
+   		<asp:ValidationSummary runat="server" CssClass="error-list" />
 		<div class="next-step">
 			<asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CausesValidation="False" />
 			<asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" />

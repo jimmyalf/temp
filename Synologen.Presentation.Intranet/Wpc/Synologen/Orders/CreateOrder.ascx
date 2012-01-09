@@ -24,7 +24,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlPickCategory" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
         <p><label>Välj Typ</label>
@@ -37,7 +37,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlPickKind" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message" 
 		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
     	</p>
     	<p><label>Välj Leverantör</label>
@@ -50,7 +50,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlPickSupplier" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Välj Artikel</label>
@@ -63,7 +63,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlPickArticle" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
     	</p>
       </fieldset>
@@ -80,7 +80,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlRightStrength" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"
                 Enabled="<%#Model.PowerOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
@@ -95,7 +95,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlRightAddition" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"
                 Enabled="<%#Model.AdditionOptionsEnabled %>"	>&nbsp;*</asp:RequiredFieldValidator>
             
@@ -111,7 +111,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlRightBaskurva" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.BaseCurveOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
@@ -125,7 +125,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlRightDiameter" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.DiameterOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
@@ -139,7 +139,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlRightAxis" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.AxisOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
@@ -153,7 +153,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlRightCylinder" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
@@ -170,7 +170,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlLeftStrength" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"
                 Enabled="<%#Model.PowerOptionsEnabled %>"	>&nbsp;*</asp:RequiredFieldValidator>
 		</p>
@@ -186,7 +186,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlLeftAddition" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"
                 Enabled="<%#Model.AdditionOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
               
@@ -202,7 +202,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlLeftBaskurva" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.BaseCurveOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
@@ -216,7 +216,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlLeftDiameter" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.DiameterOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
@@ -230,7 +230,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlLeftAxis" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.AxisOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
@@ -244,7 +244,7 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlLeftCylinder" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit"	
                 Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
@@ -263,16 +263,13 @@
 		        ErrorMessage="Obligatoriskt fält" 
 		        ControlToValidate="ddlShippingOptions" 
 		        Display="Dynamic" 
-		        CssClass="" 
+		        CssClass="error-message"
 		        ValidationGroup="vldSubmit">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
-      </fieldset>
-      
-   <fieldset>
+		<asp:ValidationSummary runat="server" CssClass="error-list"/>
         <asp:HiddenField ID="hfExistingOrderId" runat="server" Value="<%#Model.ExistingOrderId %>" />
         <div class="next-step">
             <div class="control-actions">
-				
                 <asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CssClass="cancel-button" CausesValidation="False" />
                 <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" />
 		        <asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" />

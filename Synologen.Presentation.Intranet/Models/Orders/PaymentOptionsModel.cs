@@ -12,5 +12,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 
 		public IEnumerable<ListItem> Subscriptions { get; set; }
     	public string CustomerName { get; set; }
+        public int SelectedOption { get; set; }
     }
 }

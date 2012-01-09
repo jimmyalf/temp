@@ -13,7 +13,7 @@
 			</div>
 			<p>
 				<label>Välj konto för betalning</label>
-				<asp:RadioButtonList runat="server" ID="rblAccounts" DataSource="<%# Model.Subscriptions %>" RepeatLayout="UnorderedList" DataTextField="Text" DataValueField="Value" TextAlign="Right" CssClass="radio-list" />
+				<asp:RadioButtonList runat="server" ID="rblAccounts" SelectedValue="<%# Model.SelectedOption %>" DataSource="<%# Model.Subscriptions %>" RepeatLayout="UnorderedList" DataTextField="Text" DataValueField="Value" TextAlign="Right" CssClass="radio-list" />
 				<asp:RequiredFieldValidator runat="server" ErrorMessage="Ett konto måste anges" ControlToValidate="rblAccounts" Display="Dynamic" CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 			<asp:ValidationSummary runat="server" CssClass="error-list"/>

@@ -16,5 +16,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
         public string PostalCode { get; set; }
         public string Notes { get; set; }
     	public int? CustomerId { get; set; }
+        public int? OrderId { get; set; }
     }
 }

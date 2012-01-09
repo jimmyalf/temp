@@ -31,12 +31,8 @@
     }
 </script>
 
-<article>
-    <figure class="map">
-        <div id="map_canvas" style="width: 800px; height: 600px"></div>
-    </figure>
-    <a href class="resize">Visa större karta</a>
-</article>
+<div id="map_canvas"></div>
+<a href class="resize">Visa större karta</a>
 
 <div id="search-results">
     <h1>Sökresultat</h1>
@@ -50,7 +46,7 @@
             <p>Nullam sit amet adipiscing nisi. Duis viverra nisi non lorem adipiscing consequat. Maecenas sodales placerat lacinia.</p>
             <p>Tfn: <%= item.Telephone %><br />
             Adress: <%= item.StreetAddress %><br />
-            E-post: <a href="<%= item.Email %>"><%= item.Email %></a>
+            E-post: <a href="mailto:<%= item.Email %>"><%= item.Email %></a>
             </p>
         </article>
     <% } %>

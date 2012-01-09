@@ -20,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private PaymentOptionsPresenter _presenter;
     	private PaymentOptionsEventArgs _submitEventArgs;
     	private Order _order;
+        private Subscription _subsciption;
     	private string _abortPageUrl, _nextPageUrl, _previousPageUrl;
     	private int _selectedSubscriptionId;
     	private IEnumerable<Subscription> _subsciptions;
@@ -61,7 +62,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			);
 		}
 
-    	[Test]
+        [Test]
+        public void FyllFormuläretMedValtBetalningsAlternativ()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttBetalningssättValts)
+                .När(SidanVisas)
+                .Så(BockasValtAlternativI));
+        }
+
+        [Test]
         public void AngeBetalningssättMedNyttKonto()
         {
             SetupScenario(scenario => scenario
@@ -124,6 +134,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     		_selectedSubscriptionId = _subsciptions.First().Id;
     		_submitEventArgs = new PaymentOptionsEventArgs{ SubscriptionId = _selectedSubscriptionId};
     	}
+
+        private void AttBetalningssättValts()
+        {
+            _order = CreateOrder();
+            _order.SelectedPaymentOption = new PaymentOption { Type = ((PaymentOptionType)1)};
+            WithRepository<IOrderRepository>().Save(_order);
+            HttpContext.SetupRequestParameter("order", _order.Id.ToString());
+        }
+
         #endregion
 
         #region Act
@@ -189,12 +208,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     		});
 			View.Model.Subscriptions.Last().Value.ShouldBe("0");
 			View.Model.Subscriptions.Last().Text.ShouldBe("Skapa nytt konto");
+            View.Model.SelectedOption.ShouldBe((int)_order.SelectedPaymentOption.Type);
     	}
 
 		private void KundNamnVisas()
 		{
 			View.Model.CustomerName.ShouldBe("{FirstName} {LastName}".ReplaceWith(new {_customer.FirstName, _customer.LastName}));
 		}
+
+        private void BockasValtAlternativI()
+        {
+            View.Model.SelectedOption.ShouldBe((int) _order.SelectedPaymentOption.Type);
+        }
 
 		//public class TestObject
 		//{

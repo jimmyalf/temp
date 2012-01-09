@@ -41,8 +41,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	public void View_Load(object sender, EventArgs eventArgs)
     	{
     		var orderId = HttpContext.Request.Params["order"].ToInt();
-    		var customer = _orderRepository.Get(orderId).Customer;
-    		View.Model.Subscriptions = GetActiveSubscriptions(customer);
+            var order = _orderRepository.Get(orderId);
+    	    var customer = order.Customer;
+
+            if(order.SelectedPaymentOption != null)
+            {
+                View.Model.SelectedOption = (int)order.SelectedPaymentOption.Type;
+            }
+            else
+            {
+                View.Model.SelectedOption = 0;
+            }
+
+    	    View.Model.Subscriptions = GetActiveSubscriptions(customer);
     		View.Model.CustomerName = customer.ParseName(x => x.FirstName, x => x.LastName);
     	}
 

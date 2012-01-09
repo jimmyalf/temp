@@ -152,8 +152,10 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			if(list.Count() < numberOfItems) throw new ArgumentException(String.Format("List does not contain {0} items", numberOfItems),"numberOfItems");
 			return list.Skip(Math.Max(0, list.Count() - numberOfItems)).Take(numberOfItems);
 		}
-	
+
+        public static IEnumerable<TModel> DistinctBy<TModel>(this IEnumerable<TModel> list, Func<TModel, object> property) where TModel : class
+        {
+            return list.GroupBy(property).Select(grp => grp.First());
+        }
 	}
-
-
 }

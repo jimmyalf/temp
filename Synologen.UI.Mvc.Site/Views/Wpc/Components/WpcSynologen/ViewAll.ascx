@@ -1,4 +1,6 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Spinit.Wpc.Synologen.UI.Mvc.Site.Models.SearchShopView>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Spinit.Wpc.Synologen.UI.Mvc.Site.Models.ShopListView>" %>
+
+<%= Html.Partial("Map", ViewData.Model.Shops) %>
 
 <table>
     <tr>
@@ -14,7 +16,7 @@
     <tr>
         <td><%= item.Id %></td>
         <td><%= item.Name %></td>
-        <td><%= item.HomePage %></td>
+        <td><a href="<%= item.HomePage %>"><%= item.HomePage %></a></td>
         <td><%= item.Telephone %></td>
         <td><a href="mailto:<%= item.Email %>"><%= item.Email %></a></td>
         <td><%= item.StreetAddress %></td>

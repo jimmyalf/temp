@@ -101,6 +101,7 @@
     <Compile Include="Models\SearchShopView.cs" />
     <Compile Include="Models\ShopListItem.cs" />
     <Compile Include="App\Services\GeocodingService.cs" />
+    <Compile Include="Models\ShopListView.cs" />
     <Compile Include="SynologenAreaRegistration.cs" />
     <Compile Include="SynologenBootstrapper.cs" />
     <Compile Include="Controllers\WpcSynologenController.cs" />
@@ -108,7 +109,9 @@
     <Compile Include="SynologenWebRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Wpc\Components\WpcSynologen\Index.ascx" />
+    <Content Include="Views\Wpc\Components\WpcSynologen\SearchForm.ascx" />
+    <Content Include="Views\Wpc\Components\WpcSynologen\ViewAll.ascx" />
+    <Content Include="Views\Wpc\Components\WpcSynologen\Map.ascx" />
     <Content Include="Views\Wpc\Components\WpcSynologen\Search.ascx" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />

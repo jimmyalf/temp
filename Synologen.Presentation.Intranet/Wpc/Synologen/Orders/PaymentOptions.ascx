@@ -14,10 +14,9 @@
 			<p>
 				<label>Välj konto för betalning</label>
 				<asp:RadioButtonList runat="server" ID="rblAccounts" DataSource="<%# Model.Subscriptions %>" RepeatLayout="UnorderedList" DataTextField="Text" DataValueField="Value" TextAlign="Right" CssClass="radio-list" />
-				<asp:RequiredFieldValidator runat="server" ErrorMessage="Ett konto måste anges" ControlToValidate="rblAccounts" Display="Dynamic">&nbsp;*</asp:RequiredFieldValidator>
+				<asp:RequiredFieldValidator runat="server" ErrorMessage="Ett konto måste anges" ControlToValidate="rblAccounts" Display="Dynamic" CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
-		</fieldset>
-		<fieldset>
+			<asp:ValidationSummary runat="server" CssClass="error-list"/>
 			<div class="next-step">
 				<asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CausesValidation="False" />
 			    <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" />

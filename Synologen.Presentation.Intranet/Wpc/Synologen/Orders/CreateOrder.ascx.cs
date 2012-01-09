@@ -19,6 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	protected void Page_Load(object sender, EventArgs e)
         {
             btnNextStep.Click += NextStep;
+    	    btnPreviousStep.Click += PreviousStep;
             btnPreviousStep.Click += TryFirePrevious;
             btnCancel.Click += TryFireAbort;
     		ddlPickCategory.SelectedIndexChanged += Select_Category;
@@ -132,6 +133,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 RightAddition = (float)Convert.ToDecimal(ddlRightAddition.SelectedValue)
             };
 			TryFireSubmit(sender, args);
+        }
+
+        private void PreviousStep(object sender, EventArgs e)
+        {
+            var orderId = Convert.ToInt32(hfExistingOrderId.Value);
+            var orderExists = orderId != 0 ? true : false;
+            TryFirePrevious(this, new PreviousStepFromCreateOrderArgs { OrderExists = orderExists});
         }
     }
 }

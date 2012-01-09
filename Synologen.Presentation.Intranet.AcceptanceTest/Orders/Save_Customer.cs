@@ -34,6 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_getRedirectUrl = (url, createdCustomerId) => String.Format("{0}?customer={1}", url, createdCustomerId);
 				SetupNavigationEvents(_previousRedirectUrl,_abortRedirectUrl, _submitRedirectUrl);
 				_saveCustomerPresenter = GetPresenter();
+                
 			};
 
 			Story = () => new Berättelse("Spara kund")
@@ -89,7 +90,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             SetupScenario(scenario => scenario
                 .Givet(AttAnvändarenStårIVynFörAttSparaKund)
                 .När(AnvändarenAvbryterBeställningen)
-                .Så(FlyttasAnvändarenTillAvbrytSidan));
+                .Och(FlyttasAnvändarenTillAvbrytSidan));
+        }
+
+        [Test]
+        public void AvbrytBeställningMedExisterandeOrder()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttAnvändarenStårIVynFörAttSparaKund)
+                    .Och(AttEnOrderFinnsSkapad)
+                .När(AnvändarenAvbryterBeställningen)
+                .Så(TasOrdernBort)
+                    .Och(FlyttasAnvändarenTillAvbrytSidan));
         }
 
         [Test]
@@ -99,6 +111,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .Givet(AttAnvändarenStårIVynFörAttSparaKund)
                 .När(AnvändarenKlickarPåFöregåendeSteg)
                 .Så(FörflyttasAnvändarenTillVynFörFöregåendeSteg));
+        }
+
+        [Test]
+        public void GåTillFöregåendeStegMedExisterandeOrder()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttAnvändarenStårIVynFörAttSparaKund)
+                    .Och(AttEnOrderFinnsSkapad)
+                .När(AnvändarenKlickarPåFöregåendeSteg)
+                .Så(TasOrdernBort)
+                    .Och(FörflyttasAnvändarenTillVynFörFöregåendeSteg));
         }
 
         [Test]
@@ -149,6 +172,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _customer = CreateCustomer();
             _article = CreateArticle();
             _order = CreateOrder(_article, _customer);
+            View.Model.OrderId = _order.Id;
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
 
@@ -261,6 +285,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.PostalCode.ShouldBe(_customer.PostalCode);
             View.Model.Notes.ShouldBe(_customer.Notes);
         }
+
+        private void TasOrdernBort()
+        {
+            WithRepository<IOrderRepository>().Get(_order.Id).ShouldBe(null);
+        }
+
         #endregion
 
     }

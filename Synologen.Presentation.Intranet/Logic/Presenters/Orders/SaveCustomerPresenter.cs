@@ -30,11 +30,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
     	public void View_Previous(object sender, EventArgs e)
     	{
-    		RedirectWithCustomerId(View.PreviousPageId);
+            if(View.Model.OrderId.HasValue)
+            {
+                var order = _orderRepository.Get(View.Model.OrderId.Value);
+                _orderRepository.Delete(order);
+            }
+
+    	    RedirectWithCustomerId(View.PreviousPageId);
     	}
 
     	public void View_Abort(object sender, EventArgs e)
     	{
+            if (View.Model.OrderId.HasValue)
+            {
+                var order = _orderRepository.Get(View.Model.OrderId.Value);
+                _orderRepository.Delete(order);
+            }
     		RedirectWithCustomerId(View.AbortPageId);
     	}
 

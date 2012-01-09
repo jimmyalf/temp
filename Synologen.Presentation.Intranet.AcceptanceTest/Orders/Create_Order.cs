@@ -141,6 +141,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .Så(FlyttasAnvändarenTillIntranätsidan));
         }
 
+        [Test]
+        public void AvbrytBeställningMedExisterandeOrder()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttEnOrderSkapats)
+                    .När(AnvändarenAvbryterBeställningen)
+                .Så(TasOrdernBort)
+                    .Och(FlyttasAnvändarenTillIntranätsidan));
+        }
+
+       
+
         #region Arrange
 
         private static void Ingenting()
@@ -254,6 +266,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _order = OrderFactory.GetOrder(article, _customer, lensRecipe);
             WithRepository<IOrderRepository>().Save(_order);
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
+            View.Model.ExistingOrderId = _order.Id;
         }
 
         private void ValdArtikelFinnsSparad()
@@ -304,7 +317,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void AnvändarenKlickarPåFöregåendeSteg()
 		{
-            _createOrderPresenter.View_Previous(null, new EventArgs());
+            _createOrderPresenter.View_Previous(null, new PreviousStepFromCreateOrderArgs {OrderExists = false});
 		}
 
         private void AnvändarenKlickarPåNästaSteg()
@@ -473,6 +486,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private void FlyttasAnvändarenTillIntranätsidan()
         {
             HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_testRedirectAbortUrl);
+        }
+
+        private void TasOrdernBort()
+        {
+            WithRepository<IOrderRepository>().Get(_order.Id).ShouldBe(null);
         }
 
 		#endregion

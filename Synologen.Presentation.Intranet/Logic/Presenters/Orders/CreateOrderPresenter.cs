@@ -344,6 +344,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
         public void View_Abort(object o, EventArgs eventArgs)
         {
+            if(View.Model.ExistingOrderId > 0)
+            {
+                var order = _orderRepository.Get(View.Model.ExistingOrderId);
+                _orderRepository.Delete(order);
+            }
+
             Redirect(View.AbortPageId);
         }
 

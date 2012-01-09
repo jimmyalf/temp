@@ -4,10 +4,10 @@ using NHibernate;
 using NHibernate.Criterion;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ShopDetails;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ShopDetails;
 using Spinit.Wpc.Synologen.Data.Extensions;
 
-namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
+namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.ShopDetails
 {
     public class NearbyShopsCriteriaConverter : NHibernateActionCriteriaConverter<NearbyShopsCriteria, Shop>
     {

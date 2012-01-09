@@ -8,6 +8,12 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.App.ViewModelParsers
 {
     public class ShopViewModelParserService
     {
+        public ShopListView ParseShops(IEnumerable<Shop> shops)
+        {
+            var parsedShops = shops.Select(ParseShop);
+            return new ShopListView {Shops = parsedShops};
+        }
+
         public SearchShopView ParseShops(IEnumerable<Shop> shops, string search)
         {
             var parsedShops = shops.Select(ParseShop);

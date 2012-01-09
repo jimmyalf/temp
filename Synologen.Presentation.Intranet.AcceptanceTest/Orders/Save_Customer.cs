@@ -113,6 +113,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             );
         }
 
+        [Test]
+        public void UppdateraBefintligKundMedBefintligOrder()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttEnKundHittatsViaOrderId)
+                    .Och(AnvändarenUppdateratFormuläret)
+                .När(AnvändarenFörsökerFortsättaTillNästaSteg)
+                .Så(UppdaterasBefintligKund)
+                    .Och(FörflyttasAnvändarenTillVynFörNästaStegMedOrderIdAngivet));
+        }
+
         #region Arrange
         private void AttEnKundEjHittatsIFöregåendeSteg()
         {
@@ -123,6 +134,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
         	_customer = CreateCustomer();
             HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
+        }
+
+        private void AttEnKundHittatsViaOrderId()
+        {
+            _customer = CreateCustomer();
+            _article = CreateArticle();
+            _order = CreateOrder(_article, _customer);
+            HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
 
         private void AttEnOrderFinnsSkapad()
@@ -190,6 +209,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			var expectedUrl = _getRedirectUrl(_submitRedirectUrl, _customer.Id);
 			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
         }
+
+        private void FörflyttasAnvändarenTillVynFörNästaStegMedOrderIdAngivet()
+        {
+            var expectedUrl = _getRedirectUrl(_submitRedirectUrl, _order.Id);
+            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
+        }
+
         private void KundinformationSparas()
         {
             _customer = WithRepository<IOrderCustomerRepository>().GetAll().First();

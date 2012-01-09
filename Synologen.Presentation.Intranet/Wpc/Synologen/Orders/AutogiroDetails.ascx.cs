@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.UI.WebControls;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
@@ -46,5 +47,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 				default: return selectedSubscriptionTime;
 			}
     	}
+
+    	protected void Validate_Custom_Subscription_Time(object source, ServerValidateEventArgs args)
+    	{
+    		args.IsValid = true;
+    		if(Equals(rblSubscriptionTime.SelectedValue, UseCustomNumberOfWithdrawals.ToString()))
+    		{
+    			args.IsValid = CanBeParsedToNumber(txtCustomNumberOfTransactions.Text);
+    		}
+    	}
+
+		private bool CanBeParsedToNumber(string input)
+		{
+			int parsedValue;
+			if(String.IsNullOrEmpty(input)) return false;
+			if(!Int32.TryParse(input, out parsedValue)) return false;
+			return true;
+		}
     }
 }

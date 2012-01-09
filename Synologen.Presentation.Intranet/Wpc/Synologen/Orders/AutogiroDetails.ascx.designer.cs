@@ -67,6 +67,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.TextBox txtCustomNumberOfTransactions;
         
         /// <summary>
+        /// vldCustomNumberOfWithdrawals control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator vldCustomNumberOfWithdrawals;
+        
+        /// <summary>
         /// txtVATAmount control.
         /// </summary>
         /// <remarks>

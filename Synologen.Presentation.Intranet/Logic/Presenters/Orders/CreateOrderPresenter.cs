@@ -349,9 +349,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
         public void View_Previous(object o, EventArgs eventArgs)
         {
-            var args = (PreviousStepFromCreateOrderArgs) eventArgs;
-
-            if (args.OrderExists)
+            if (((PreviousStepFromCreateOrderArgs) eventArgs).OrderExists)
             {
                 var orderId = HttpContext.Request.Params["order"].ToInt();
                 Redirect(View.PreviousPageId, String.Format("?order={0}", orderId));

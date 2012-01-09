@@ -21,13 +21,6 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site
 				x.AddAllTypesOf<IController>().NameBy(c => c.Name);
 			});
 
-            Scan(x =>
-            {
-                x.AssemblyContainingType<NearbyShopsCriteriaConverter>();
-                x.Assembly(typeof(NHibernateActionCriteriaConverter<,>).Assembly.FullName);
-                x.ConnectImplementationsToTypesClosing(typeof(IActionCriteriaConverter<,>));
-            });
-
             For<IGeocodingService>().Use<GeocodingService>();
             For<IShopRepository>().HybridHttpOrThreadLocalScoped().Use<ShopRepository>();
 		}

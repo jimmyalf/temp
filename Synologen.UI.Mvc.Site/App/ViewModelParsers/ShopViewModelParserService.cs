@@ -21,17 +21,23 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.App.ViewModelParsers
 
         private static ShopListItem ParseShop(Shop shop)
         {
+            var address = "";
+            if (shop.Address != null)
+            {
+                address = String.Format("{0} {1}", shop.Address.AddressLineOne, shop.Address.AddressLineTwo);
+            }
+
             return new ShopListItem
             {
                 Description = shop.Description,
                 Email = shop.Email,
                 HomePage = shop.Url,
                 Id = shop.Id,
-                Latitude = shop.Coordinates.Latitude,
-                Longitude = shop.Coordinates.Longitude,
+                Latitude = shop.Coordinates != null ? shop.Coordinates.Latitude : 0,
+                Longitude = shop.Coordinates != null ? shop.Coordinates.Longitude : 0,
                 Map = shop.MapUrl,
                 Name = shop.Name,
-                StreetAddress = String.Format("{0} {1}", shop.Address.AddressLineOne, shop.Address.AddressLineTwo),
+                StreetAddress = address,
                 Telephone = shop.Phone
             };
         }

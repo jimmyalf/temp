@@ -1,11 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Spinit.Wpc.Synologen.UI.Mvc.Site.Models.SearchShopView>" %>
 
-<form action="/" method="get">
-	<fieldset>
-        <p><%= Html.TextBox("Search", null, new { placeholder = "Postnummer eller ort" })%><input type="submit" value="Sök" /></p>
-	</fieldset>
-</form>
-
 <table>
     <tr>
         <th>Id</th>

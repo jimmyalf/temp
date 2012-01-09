@@ -27,19 +27,17 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
-            var search = Request.Params["search"];
-
             IEnumerable<Shop> shops;
             if (String.IsNullOrEmpty(search))
             {
-                shops = _shopRepository.GetAll();
+                shops = _shopRepository.FindBy(new PagedShopsCriteria {Page = 1, PageSize = 10});
             }
             else
             {
                 var coordinates = _geocodingService.GetCoordinates(search);
-                shops = _shopRepository.GetClosestShops(coordinates);
+                shops = _shopRepository.FindBy(new NearbyShopsCriteria {Coordinates = coordinates});
             }
 
             var viewModel = _shopViewModelParserService.ParseShops(shops, search);

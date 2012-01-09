@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Web;
 using Newtonsoft.Json;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ShopDetails;
@@ -37,8 +38,7 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.App.Services
 
         public Coordinates GetCoordinates(string address)
         {
-            // TODO: Hämta data från config
-            var url = String.Format(Globals.GoogleGeocode, address);
+            var url = String.Format(Globals.GoogleGeocode, HttpUtility.UrlEncode(address));
             var json = new WebClient().DownloadString(url);
 
             var results = JsonConvert.DeserializeObject<Json>(json);

@@ -298,7 +298,7 @@ background: linear-gradient(top, #e8e8e8 0%,#b5b5b5 100%); /* W3C */
 #tab-navigation li span {font-size: 1.2em; font-weight: bold; margin-right: 0.5em;}
 #tab-navigation li.selected {background: white;}
 #tab-navigation li.selected a {color: black;}
-#tab-navigation li a:hover, #tab-navigation li.selected a:hover {text-decoration: underline;}
+#tab-navigation li a:hover, #tab-navigation li.selected a:hover {text-decoration: none;}
 
 @media screen and (max-width: 800px) {
        #tab-navigation li { padding: 0.5em 0.8em;}

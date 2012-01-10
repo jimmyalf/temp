@@ -6,8 +6,8 @@
             $("html").addClass("js-enabled");
             $.SynologenIntranet.initYammer();
             $.SynologenIntranet.initProgressBar(6);
-            $.SynologenIntranet.initAutogiroDetailView();
             $.SynologenIntranet.initRadioButtonLists();
+            $.SynologenIntranet.initAutogiroDetailView();
             $.SynologenIntranet.initDisableTabLinks();
         },
 
@@ -35,18 +35,18 @@
             }
         },
 
-        initAutogiroDetailView: function () {
-            var input = $("input.custom-number-of-withdrawals");
-            var span = $("li .custom-number-of-withdrawals");
-            span.append(input);
-        },
-
         initRadioButtonLists: function () {
             $("ul.radioButtonItems").addClass("radio-list");
             $(".radio-list li label").each(function () {
                 var text = $(this).text();
                 $(this).replaceWith(text);
             });
+        },
+        
+        initAutogiroDetailView: function () {
+            var input = $("input.custom-number-of-withdrawals");
+            var span = $(".subscription-options li span").last();
+            span.append(input);
         }
     });
 

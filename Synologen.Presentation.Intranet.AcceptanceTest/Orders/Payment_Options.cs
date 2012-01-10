@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private PaymentOptionsPresenter _presenter;
     	private PaymentOptionsEventArgs _submitEventArgs;
     	private Order _order;
-        private Subscription _subsciption;
+        //private Subscription _subsciption;
     	private string _abortPageUrl, _nextPageUrl, _previousPageUrl;
     	private int _selectedSubscriptionId;
     	private IEnumerable<Subscription> _subsciptions;
@@ -51,13 +51,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			var article = CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(null, null));
         	_order = CreateOrder(customer:_customer, article: article);
 
-        	
-        	//var customer = CreateWithRepository<IOrderCustomerRepository, OrderCustomer>(() => OrderFactory.GetCustomer());
-        	//_order = CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(article, customer));
-
 			var otherCustomer = CreateCustomer();
-			var otherSubscriptions = CreateSubscriptions(otherCustomer);
-			var otherOrder = CreateOrder(customer:otherCustomer);
+			CreateSubscriptions(otherCustomer);
+			CreateOrder(customer:otherCustomer);
 		}
 
 		[Test]
@@ -228,6 +224,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void BockasValtAlternativI()
         {
+			if (!_order.SelectedPaymentOption.SubscriptionId.HasValue) throw new AssertionException("SubscriptionId has not been set");
             View.Model.SelectedOption.ShouldBe(_order.SelectedPaymentOption.SubscriptionId.Value);
         }
 

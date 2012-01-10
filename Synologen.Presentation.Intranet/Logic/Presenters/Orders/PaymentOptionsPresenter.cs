@@ -69,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	{
     		var orderId = HttpContext.Request.Params["order"].ToInt();
     		var order = _orderRepository.Get(orderId);
-    		UpdateOrderWithPaymentOption(order, args);
+    		SetOrderPaymentOption(order, args);
 			_orderRepository.Save(order);
 			Redirect(View.NextPageId, order.Id);
     	}
@@ -80,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		Redirect(View.PreviousPageId, orderId);
     	}
 
-		private void UpdateOrderWithPaymentOption(Order order, PaymentOptionsEventArgs args)
+		private void SetOrderPaymentOption(Order order, PaymentOptionsEventArgs args)
 		{
 			if(args.SubscriptionId.HasValue)
 			{

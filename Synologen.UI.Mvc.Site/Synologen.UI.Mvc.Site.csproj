@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Wpc\Components\WpcSynologen\SearchForm.ascx" />
+    <Content Include="Views\Wpc\Components\WpcSynologen\Show.ascx" />
     <Content Include="Views\Wpc\Components\WpcSynologen\ViewAll.ascx" />
     <Content Include="Views\Wpc\Components\WpcSynologen\Map.ascx" />
     <Content Include="Views\Wpc\Components\WpcSynologen\Search.ascx" />

@@ -2,6 +2,9 @@
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
+
+    var icon = '/CommonResources/Images/google-maps-icon.png';
+
     function initialize() {
         var myOptions = {
             zoom: 8,
@@ -17,7 +20,12 @@
         bounds.extend(latlng);
         <% } %>
 
-        map.fitBounds(bounds);
+        <% if (ViewData.Model.Count() == 1) { %>
+	    map.setCenter(bounds.getCenter());
+	    map.setZoom(12);
+        <% } else { %>
+	    map.fitBounds(bounds);
+	    <% } %>
     }
 
     google.maps.event.addDomListener(window, 'load', initialize);
@@ -26,11 +34,11 @@
     {
         var latlng = new google.maps.LatLng(lat, lng);
         var infowindow = new google.maps.InfoWindow({ content: desc });
-        var marker = new google.maps.Marker({ position: latlng, map: map, title: name });
+        var marker = new google.maps.Marker({ position: latlng, map: map, title: name, icon: icon });
         google.maps.event.addListener(marker, 'click', function() { infowindow.open(map, marker); });
         return latlng;
     }
 </script>
 
-<div id="map_canvas" style="width: 800px; height: 600px;"></div>
+<div id="map_canvas"></div>
 <a href class="resize">Visa större karta</a>

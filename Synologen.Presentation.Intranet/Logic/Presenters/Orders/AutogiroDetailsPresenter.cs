@@ -58,18 +58,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             	var subscription = _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
 				View.Model.BankAccountNumber = subscription.BankAccountNumber;
 				View.Model.ClearingNumber = subscription.ClearingNumber;
+            }
+			if(order.SubscriptionPayment != null)
+			{
                 View.Model.TaxedAmount = order.SubscriptionPayment.TaxedAmount.ToString();
                 View.Model.TaxfreeAmount = order.SubscriptionPayment.TaxFreeAmount.ToString();
                 View.Model.SelectedSubscriptionOption = order.SubscriptionPayment.NumberOfPayments;
-            }
-
-    	    //if(order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_Existing && order.SelectedPaymentOption.SubscriptionId.HasValue)
-			//{
-			//	var subscription = _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
-			//	View.Model.BankAccountNumber = subscription.BankAccountNumber;
-			//	View.Model.ClearingNumber = subscription.ClearingNumber;
-			//}
-            //
+			}
     	}
 		
 		public void View_Previous(object sender, EventArgs e)

@@ -16,13 +16,13 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.ShopDetails
         public override ICriteria Convert(NearbyShopsCriteria source)
         {
             const string unformattedOrder = "6371 * acos(cos(radians({0})) * cos(radians(cLatitude)) * cos(radians(cLongitude) - radians({1})) + sin(radians({0})) * sin(radians(cLatitude)))";
-            var order = String.Format(unformattedOrder, source.Coordinates.Latitude.ToString(CultureInfo.InvariantCulture), source.Coordinates.Longitude.ToString(CultureInfo.InvariantCulture));
+            var query = String.Format(unformattedOrder, source.Coordinates.Latitude.ToString(CultureInfo.InvariantCulture), source.Coordinates.Longitude.ToString(CultureInfo.InvariantCulture));
 
             return Session.CreateCriteriaOf<Shop>()
                 .FilterEqual(x => x.Active, true)
                 .Add(Restrictions.IsNotNull("Coordinates.Latitude"))
-                .AddOrder(OrderBySqlFormula.AddOrder(order, true))
-                .SetMaxResults(10);
+                .Add(Expression.Sql(String.Format("{0} < 100", query)))
+                .AddOrder(OrderBySqlFormula.AddOrder(query, true));
         }
     }
 }

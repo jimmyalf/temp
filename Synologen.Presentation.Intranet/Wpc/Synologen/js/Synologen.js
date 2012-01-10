@@ -18,8 +18,11 @@
             //the underline hover thing is set to 'none' in the css...
         },
 
-        initYammer: function () {
-            //$(".fancybox").fancybox();
+		initYammer: function () {
+			if($.isFunction($.fancybox))
+			{
+				$(".fancybox").fancybox();	
+			}
         },
 
         initProgressBar: function (numberOfSteps) {

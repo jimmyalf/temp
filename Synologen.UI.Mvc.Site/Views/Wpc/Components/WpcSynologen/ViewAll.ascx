@@ -2,7 +2,7 @@
 
 <%= Html.Partial("Map", ViewData.Model.Shops) %>
 
-<h1>Alla våra synologer</h1>
+<h1>Alla butiker</h1>
 
 <table>
     <tr>

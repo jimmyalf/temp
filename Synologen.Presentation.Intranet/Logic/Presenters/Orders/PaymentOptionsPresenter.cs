@@ -43,6 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		var orderId = HttpContext.Request.Params["order"].ToInt();
             var order = _orderRepository.Get(orderId);
     	    var customer = order.Customer;
+            View.Model.Subscriptions = GetActiveSubscriptions(customer);
 
             if(order.SelectedPaymentOption != null)
             {
@@ -52,8 +53,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             {
                 View.Model.SelectedOption = 0;
             }
-
-    	    View.Model.Subscriptions = GetActiveSubscriptions(customer);
     		View.Model.CustomerName = customer.ParseName(x => x.FirstName, x => x.LastName);
     	}
 

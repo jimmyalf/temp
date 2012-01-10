@@ -28,12 +28,7 @@
     		</p>
     		<div>
       			<label>Abonnemangstid</label>
-				<asp:RadioButtonList ID="rblSubscriptionTime" runat="server" RepeatLayout="UnorderedList" TextAlign="Right" CssClass="radio-list" >
-					<asp:ListItem Text="3 månader" Value="3" class="3-withdrawals" />
-					<asp:ListItem Text="6 månader" Value="6" class="6-withdrawals" />
-					<asp:ListItem Text="12 månader" Value="12" class="12-withdrawals" />
-					<asp:ListItem Text="Löpande" Value="0" class="continuous-withdrawals"/>
-					<asp:ListItem Text="Valfritt" Value="-1" class="custom-number-of-withdrawals" />
+				<asp:RadioButtonList ID="rblSubscriptionTime" DataSource="<%#Model.SubscriptionOptions %>" DataTextField="Text" DataValueField="Value" SelectedValue="<%#Model.SelectedSubscriptionOption %>" runat="server" RepeatLayout="UnorderedList" TextAlign="Right" CssClass="radio-list" >
 				</asp:RadioButtonList>
     			<asp:TextBox ID="txtCustomNumberOfTransactions" runat="server" CssClass="custom-number-of-withdrawals align-right" />
 				<asp:CustomValidator ID="vldCustomNumberOfWithdrawals" runat="server" ErrorMessage="Vid valfri abonnemangstid måste antal anges" ControlToValidate="rblSubscriptionTime" OnServerValidate="Validate_Custom_Subscription_Time" CssClass="error-message" ValidateEmptyText="True">&nbsp;*</asp:CustomValidator>
@@ -42,12 +37,12 @@
     	
     		<p>
     			<label>Momsbelopp</label>
-				<asp:TextBox ID="txtVATAmount" runat="server" />
+				<asp:TextBox ID="txtVATAmount" Text="<%#Model.TaxedAmount %>" runat="server" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtVATAmount" ErrorMessage="Momsbelopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
     		</p>
     		<p>
     			<label>Momsfritt belopp</label>
-				<asp:TextBox ID="txtVatFreeAmount" runat="server" />
+				<asp:TextBox ID="txtVatFreeAmount" Text="<%#Model.TaxfreeAmount %>" runat="server" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtVatFreeAmount" ErrorMessage="Momsfritt belopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
     		</p>
     		<p>

@@ -37,8 +37,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         	View.Submit += View_Submit;
 			View.Previous += View_Previous;
         }
-
-    	public void View_Load(object sender, EventArgs eventArgs)
+       
+        public void View_Load(object sender, EventArgs eventArgs)
     	{
     		var orderId = HttpContext.Request.Params["order"].ToInt();
             var order = _orderRepository.Get(orderId);

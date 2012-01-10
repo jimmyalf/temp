@@ -24,6 +24,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public IEnumerable<ListItem> SubscriptionOptions { get; set; }
         public int? SelectedSubscriptionOption { get; set; }
 
+        public int? CustomSubscriptionTime { get; set; }
+
         public IEnumerable<ListItem> GetSubscriptionOptions()
         {
             var options = new List<ListItem>();

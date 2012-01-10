@@ -63,7 +63,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			{
                 View.Model.TaxedAmount = order.SubscriptionPayment.TaxedAmount.ToString();
                 View.Model.TaxfreeAmount = order.SubscriptionPayment.TaxFreeAmount.ToString();
-                View.Model.SelectedSubscriptionOption = order.SubscriptionPayment.NumberOfPayments;
+                
+                if (order.SubscriptionPayment.NumberOfPayments != null)
+                {
+                    if(order.SubscriptionPayment.NumberOfPayments == 3 || 
+                       order.SubscriptionPayment.NumberOfPayments == 6 || 
+                       order.SubscriptionPayment.NumberOfPayments == 12)
+                    {
+                        View.Model.SelectedSubscriptionOption = order.SubscriptionPayment.NumberOfPayments;
+                    }
+                    else
+                    {
+                        View.Model.SelectedSubscriptionOption = -1;
+                        View.Model.CustomSubscriptionTime = order.SubscriptionPayment.NumberOfPayments;
+                    }
+                }
+                else
+                {
+                    View.Model.SelectedSubscriptionOption =  0;
+                }
 			}
     	}
 		

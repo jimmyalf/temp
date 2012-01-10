@@ -330,12 +330,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
                 FillModel(this, args);
             }
-            //else
-            //{
-                var categories = _articleCategoryRepository.GetAll();
-                var parsedCategories = _viewParser.ParseWithDefaultItem(categories, category => new ListItem(category.Name, category.Id));
-                View.Model.Categories = parsedCategories; 
-            //}
+
+            var categories = _articleCategoryRepository.GetAll();
+            var parsedCategories = _viewParser.ParseWithDefaultItem(categories, category => new ListItem(category.Name, category.Id));
+            View.Model.Categories = parsedCategories; 
 
             var customer = _orderCustomerRepository.Get(customerId);
             View.Model.CustomerId = customerId;

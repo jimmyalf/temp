@@ -43,18 +43,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		var orderId = HttpContext.Request.Params["order"].ToInt();
             var order = _orderRepository.Get(orderId);
     	    var customer = order.Customer;
-            View.Model.Subscriptions = GetActiveSubscriptions(customer);
-
-            if(order.SelectedPaymentOption != null)
-            {
-                View.Model.SelectedOption = (int)order.SelectedPaymentOption.Type;
-            }
-            else
-            {
-                View.Model.SelectedOption = 0;
-            }
+            View.Model.Subscriptions = GetSubscriptionList(customer);
+    		View.Model.SelectedOption = SetSelectedOption(order);
     		View.Model.CustomerName = customer.ParseName(x => x.FirstName, x => x.LastName);
     	}
+
+		private int SetSelectedOption(Order order)
+		{
+			if (order.SelectedPaymentOption == null) return 0;
+			if(order.SelectedPaymentOption.Type != PaymentOptionType.Subscription_Autogiro_Existing) return 0;
+            return !order.SelectedPaymentOption.SubscriptionId.HasValue 
+				? 0 
+				: order.SelectedPaymentOption.SubscriptionId.Value;
+		}
 
     	public void View_Abort(object sender, EventArgs eventArgs)
     	{
@@ -100,7 +101,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			HttpContext.Response.Redirect(redirectUrl);
 		}
 
-		private IEnumerable<ListItem> GetActiveSubscriptions(OrderCustomer customer)
+		private IEnumerable<ListItem> GetSubscriptionList(OrderCustomer customer)
 		{
     		var subscriptions = _subscriptionRepository.FindBy(new ActiveAndConsentedSubscriptionsForCustomerCritieria(customer.Id));
 			Func<Subscription, ListItem> parser = subscription => new ListItem(subscription.BankAccountNumber, subscription.Id);

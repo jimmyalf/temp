@@ -14,8 +14,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.Orders
 		public override ICriteria Convert(ActiveAndConsentedSubscriptionsForCustomerCritieria source)
 		{
 			return Criteria
-				//.FilterEqual(x => x.ConsentStatus, SubscriptionConsentStatus.Accepted)
 				.FilterEqual(x => x.Active, true)
+				.FilterEqual(x => x.Customer.Id, source.CustomerId)
 				.Add(Restrictions.Eq(Property(x => x.ConsentStatus), SubscriptionConsentStatus.Accepted.ToInteger()));
 		}
 	}

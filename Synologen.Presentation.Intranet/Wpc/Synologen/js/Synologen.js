@@ -45,8 +45,8 @@
         
         initAutogiroDetailView: function () {
             var input = $("input.custom-number-of-withdrawals");
-            var span = $(".subscription-options li span").last();
-            span.append(input);
+            var li = $(".step5 .radio-list li").last();
+            li.append(input);
         }
     });
 

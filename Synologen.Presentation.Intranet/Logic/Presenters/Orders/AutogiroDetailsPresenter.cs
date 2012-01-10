@@ -57,6 +57,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 				View.Model.BankAccountNumber = subscription.BankAccountNumber;
 				View.Model.ClearingNumber = subscription.ClearingNumber;
             }
+			//TODO: Reduce nested complexity and length
 			if(order.SubscriptionPayment != null)
 			{
                 View.Model.TaxedAmount = order.SubscriptionPayment.TaxedAmount.ToString();

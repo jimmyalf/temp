@@ -52,7 +52,7 @@
 			<%if(Model.EnableAutoWithdrawal){ %>
     		<p>
     			<label>Totaluttag</label>
-				<asp:TextBox ID="txtTotalWithdrawalAmount" runat="server" />
+				<asp:TextBox ID="txtTotalWithdrawalAmount" runat="server" Text="<%#Model.AutoWithdrawalAmount %>" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtTotalWithdrawalAmount" ErrorMessage="Totaluttag måste anges" Display="Dynamic" CssClass="error-message" Enabled='<%#Model.EnableAutoWithdrawal%>'>*</asp:RequiredFieldValidator>
     		</p>
 			<% } %>

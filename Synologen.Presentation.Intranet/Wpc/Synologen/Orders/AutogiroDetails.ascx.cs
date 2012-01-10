@@ -12,9 +12,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     [PresenterBinding(typeof(AutogiroDetailsPresenter))]
     public partial class AutogiroDetails : OrderUserControl<AutogiroDetailsModel, AutogiroDetailsEventArgs>, IAutogiroDetailsView
     {
-    	protected const int UseCustomNumberOfWithdrawals = -1;
-    	protected const int UseContinousWithdrawals = 0;
-
     	protected void Page_Load(object sender, EventArgs e)
         {
         	btnCancel.Click += TryFireAbort;
@@ -34,7 +31,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 				Notes = "? Notes",
 				NumberOfPayments = GetNumberOfPayments(),
 				TaxFreeAmount = txtVatFreeAmount.Text.ToDecimal(),
-				TaxedAmount = txtVATAmount.Text.ToDecimal()
+				TaxedAmount = txtVATAmount.Text.ToDecimal(),
+				AutoWithdrawalAmount = (String.IsNullOrEmpty(txtTotalWithdrawalAmount.Text))
+					? (decimal?) null
+					: txtTotalWithdrawalAmount.Text.ToDecimal()
     		};
     		TryFireSubmit(this, args);
     	}
@@ -44,8 +44,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     		var selectedSubscriptionTime = rblSubscriptionTime.SelectedValue.ToInt();
 			switch (selectedSubscriptionTime)
 			{
-				case UseCustomNumberOfWithdrawals: return txtCustomNumberOfTransactions.Text.ToInt();
-				case UseContinousWithdrawals: return null;
+				case AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId: return txtCustomNumberOfTransactions.Text.ToInt();
+				case AutogiroDetailsModel.UseContinousWithdrawalsId: return null;
 				default: return selectedSubscriptionTime;
 			}
     	}
@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	protected void Validate_Custom_Subscription_Time(object source, ServerValidateEventArgs args)
     	{
     		args.IsValid = true;
-    		if(Equals(rblSubscriptionTime.SelectedValue, UseCustomNumberOfWithdrawals.ToString()))
+    		if(Equals(rblSubscriptionTime.SelectedValue, AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId.ToString()))
     		{
     			args.IsValid = CanBeParsedToNumber(txtCustomNumberOfTransactions.Text);
     		}

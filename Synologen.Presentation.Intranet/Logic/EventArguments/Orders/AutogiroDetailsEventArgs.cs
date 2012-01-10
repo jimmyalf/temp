@@ -4,6 +4,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
 {
     public class AutogiroDetailsEventArgs : EventArgs
     {
+		public decimal? AutoWithdrawalAmount { get; set; }
     	public decimal TaxFreeAmount { get; set; }
     	public decimal TaxedAmount { get; set; }
     	public string Description { get; set; }

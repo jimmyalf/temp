@@ -76,6 +76,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(AttFormuläretÄrKorrektIfyllt)
                 .När(AnvändarenFörsökerFortsättaTillNästaSteg)
 				.Så(SkapasEttNyttKontoMedEttNyttDelAbonnemang)
+					.Och(TotalUttagSparas)
 					.Och(AnvändarenFörflyttasTillNästaSteg)
             );
         }
@@ -89,6 +90,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(AttFormuläretÄrKorrektIfyllt)
                 .När(AnvändarenFörsökerFortsättaTillNästaSteg)
 				.Så(SkapasEttNyttDelAbonnemangPåBefintligtKonto)
+					.Och(TotalUttagSparas)
 					.Och(AnvändarenFörflyttasTillNästaSteg)
             );
         }
@@ -221,6 +223,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			//Assert Subscription
 			subscriptionItem.Subscription.Id.ShouldBe(_subscription.Id);
     	}
+
+		private void TotalUttagSparas()
+		{
+			var order = WithRepository<IOrderRepository>().Get(_order.Id);
+			order.AutoWithdrawalAmount.ShouldBe(_form.AutoWithdrawalAmount);
+		}
 
     	private void KontoUppgifterSkallVaraIfyllbara()
     	{

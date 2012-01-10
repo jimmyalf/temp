@@ -1,41 +1,40 @@
-using System;
 using System.Collections.Generic;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 {
     public class AutogiroDetailsModel
     {
-        public AutogiroDetailsModel()
+    	public const int UseCustomNumberOfWithdrawalsId = -1;
+    	public const int UseContinousWithdrawalsId = 0;
+
+    	public AutogiroDetailsModel()
         {
-            SubscriptionOptions = GetSubscriptionOptions();
             SelectedSubscriptionOption = 3;
         }
 
         public string CustomerName { get; set; }
     	public bool IsNewSubscription { get; set; }
-    	//public bool EnableContinuousWithdrawals { get; set; }
-    	//public bool EnableCustomNumberOfWithdrawals { get; set; }
     	public string SelectedArticleName { get; set; }
     	public bool EnableAutoWithdrawal { get; set; }
     	public string BankAccountNumber { get; set; }
     	public string ClearingNumber { get; set; }
         public string TaxedAmount { get; set; }
         public string TaxfreeAmount { get; set; }
-        public IEnumerable<ListItem> SubscriptionOptions { get; set; }
+		public IEnumerable<ListItem> SubscriptionOptions { get { return GetSubscriptionOptions(); } }
         public int? SelectedSubscriptionOption { get; set; }
-
         public int? CustomSubscriptionTime { get; set; }
+    	public string AutoWithdrawalAmount { get; set; }
 
-        public IEnumerable<ListItem> GetSubscriptionOptions()
+    	private IEnumerable<ListItem> GetSubscriptionOptions()
         {
-            var options = new List<ListItem>();
-            options.Add(new ListItem { Text = "3 månader", Value = 3.ToString() });
-            options.Add(new ListItem { Text = "6 månader", Value = 6.ToString() });
-            options.Add(new ListItem { Text = "12 månader", Value = 12.ToString() });
-            options.Add(new ListItem { Text = "Löpande", Value = 0.ToString() });
-            options.Add(new ListItem { Text = "Valfritt", Value = (-1).ToString() });
-
-            return options;
+			return new List<ListItem>
+            {
+            	new ListItem("3 månader", 3), 
+				new ListItem("6 månader", 6), 
+				new ListItem("12 månader", 12), 
+				new ListItem("Löpande", UseContinousWithdrawalsId), 
+				new ListItem("Valfritt", UseCustomNumberOfWithdrawalsId)
+            };
         }
     }
 }

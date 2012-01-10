@@ -47,8 +47,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private void SetupDataContext()
     	{
     		_customer = CreateCustomer();
-			_subsciptions = CreateSubscriptions(_customer);
-        	_order = CreateOrder(customer:_customer);
+    		_subsciptions = CreateSubscriptions(_customer);
+			var article = CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(null, null));
+        	_order = CreateOrder(customer:_customer, article: article);
+
+        	
+        	//var customer = CreateWithRepository<IOrderCustomerRepository, OrderCustomer>(() => OrderFactory.GetCustomer());
+        	//_order = CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(article, customer));
+
+			var otherCustomer = CreateCustomer();
+			var otherSubscriptions = CreateSubscriptions(otherCustomer);
+			var otherOrder = CreateOrder(customer:otherCustomer);
 		}
 
 		[Test]
@@ -66,12 +75,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public void FyllFormuläretMedValtBetalningsAlternativ()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttBetalningssättValts)
+				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
+					.Och(AttBetalningssättValts)
                 .När(SidanVisas)
-                .Så(BockasValtAlternativI));
+                .Så(BockasValtAlternativI)
+			);
         }
 
-        [Test]
+    	[Test]
         public void AngeBetalningssättMedNyttKonto()
         {
             SetupScenario(scenario => scenario
@@ -117,12 +128,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	#region Arrange
         private void EnBeställningHarSkapatsIFöregåendeSteg()
         {
-        	var article = CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(null, null));
-        	var customer = CreateWithRepository<IOrderCustomerRepository, OrderCustomer>(() => OrderFactory.GetCustomer());
-        	_order = CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(article, customer));
         	HttpContext.SetupRequestParameter("order", _order.Id.ToString());
-
         }
+
     	private void AttAnvändarenValtAttBetalaMedNyttKonto()
     	{
 			_selectedSubscriptionId = default(int);
@@ -137,10 +145,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AttBetalningssättValts()
         {
-            _order = CreateOrder();
-            _order.SelectedPaymentOption = new PaymentOption { Type = ((PaymentOptionType)1)};
+        	_order.SelectedPaymentOption = new PaymentOption
+        	{
+        		Type = PaymentOptionType.Subscription_Autogiro_Existing,
+				SubscriptionId = _subsciptions.First().Id
+        	};
             WithRepository<IOrderRepository>().Save(_order);
-            HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
 
         #endregion
@@ -218,7 +228,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void BockasValtAlternativI()
         {
-            View.Model.SelectedOption.ShouldBe((int) _order.SelectedPaymentOption.Type);
+            View.Model.SelectedOption.ShouldBe(_order.SelectedPaymentOption.SubscriptionId.Value);
         }
 
 		//public class TestObject

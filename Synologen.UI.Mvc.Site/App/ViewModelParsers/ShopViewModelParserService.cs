@@ -25,12 +25,14 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.App.ViewModelParsers
             };
         }
 
-        private static ShopListItem ParseShop(Shop shop)
+        public ShopListItem ParseShop(Shop shop)
         {
             var address = "";
+            var city = "";
             if (shop.Address != null)
             {
                 address = String.Format("{0} {1}", shop.Address.AddressLineOne, shop.Address.AddressLineTwo);
+                city = shop.Address.City;
             }
 
             return new ShopListItem
@@ -44,7 +46,8 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.App.ViewModelParsers
                 Map = shop.MapUrl,
                 Name = shop.Name,
                 StreetAddress = address,
-                Telephone = shop.Phone
+                Telephone = shop.Phone,
+                City = city
             };
         }
     }

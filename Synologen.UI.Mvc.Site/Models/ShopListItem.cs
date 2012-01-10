@@ -1,4 +1,6 @@
-﻿namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Models
+﻿using System.Collections.Generic;
+
+namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Models
 {
     public class ShopListItem
     {
@@ -10,7 +12,13 @@
         public string Email { get; set; }
         public string Telephone { get; set; }
         public string StreetAddress { get; set; }
+        public string City { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
+
+        public List<ShopListItem> Shops
+        {
+            get { return new List<ShopListItem> {this};}
+        }
     }
 }

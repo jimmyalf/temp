@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ShopDetails;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ShopDetails;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ShopDetails;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -38,6 +40,14 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Controllers
             var shops = _shopRepository.FindBy(new ActiveShopsCriteria());
             var viewModel = _shopViewModelParserService.ParseShops(shops);
             return PartialView("ViewAll", viewModel);
+        }
+
+        [ChildActionOnly]
+        public ActionResult Show(int id)
+        {
+            var shop = _shopRepository.Get(id);
+            var viewModel = _shopViewModelParserService.ParseShop(shop);
+            return PartialView("Show", viewModel);
         }
 
         [ChildActionOnly]

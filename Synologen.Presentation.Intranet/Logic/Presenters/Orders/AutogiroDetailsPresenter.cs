@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
@@ -6,6 +8,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
 using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
@@ -49,12 +52,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		View.Model.SelectedArticleName = order.Article.Name;
     		View.Model.IsNewSubscription = order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New;
     		View.Model.EnableAutoWithdrawal = order.ShippingType.HasFlag(OrderShippingOption.ToCustomer);
-			if(order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_Existing && order.SelectedPaymentOption.SubscriptionId.HasValue)
-			{
-				var subscription = _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
+
+            if(order.SelectedPaymentOption.SubscriptionId.HasValue)
+            {
+            	var subscription = _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
 				View.Model.BankAccountNumber = subscription.BankAccountNumber;
 				View.Model.ClearingNumber = subscription.ClearingNumber;
-			}
+                View.Model.TaxedAmount = order.SubscriptionPayment.TaxedAmount.ToString();
+                View.Model.TaxfreeAmount = order.SubscriptionPayment.TaxFreeAmount.ToString();
+                View.Model.SelectedSubscriptionOption = order.SubscriptionPayment.NumberOfPayments;
+            }
+
+    	    //if(order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_Existing && order.SelectedPaymentOption.SubscriptionId.HasValue)
+			//{
+			//	var subscription = _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
+			//	View.Model.BankAccountNumber = subscription.BankAccountNumber;
+			//	View.Model.ClearingNumber = subscription.ClearingNumber;
+			//}
+            //
     	}
 		
 		public void View_Previous(object sender, EventArgs e)
@@ -96,6 +111,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
 			//Update order
 			order.SubscriptionPayment = subscriptionItem;
+		    order.SelectedPaymentOption.SubscriptionId = subscription.Id;
 			_orderRepository.Save(order);
 		}
 

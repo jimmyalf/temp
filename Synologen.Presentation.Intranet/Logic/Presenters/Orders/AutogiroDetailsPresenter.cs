@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
@@ -8,7 +6,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
@@ -52,7 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		View.Model.SelectedArticleName = order.Article.Name;
     		View.Model.IsNewSubscription = order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New;
     		View.Model.EnableAutoWithdrawal = order.ShippingType.HasFlag(OrderShippingOption.ToCustomer);
-
+			View.Model.AutoWithdrawalAmount = (order.AutoWithdrawalAmount.HasValue) ? order.AutoWithdrawalAmount.Value.ToString() : null;
             if(order.SelectedPaymentOption.SubscriptionId.HasValue)
             {
             	var subscription = _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
@@ -74,7 +72,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                     }
                     else
                     {
-                        View.Model.SelectedSubscriptionOption = -1;
+                        View.Model.SelectedSubscriptionOption = AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId;
                         View.Model.CustomSubscriptionTime = order.SubscriptionPayment.NumberOfPayments;
                     }
                 }
@@ -125,6 +123,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			//Update order
 			order.SubscriptionPayment = subscriptionItem;
 		    order.SelectedPaymentOption.SubscriptionId = subscription.Id;
+			order.AutoWithdrawalAmount = e.AutoWithdrawalAmount;
 			_orderRepository.Save(order);
 		}
 

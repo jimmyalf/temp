@@ -223,6 +223,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				NumberOfPayments = 6,
 				TaxFreeAmount = 100,
 				TaxedAmount = 125.25M,
+				AutoWithdrawalAmount = 900M
 			};
 		}
 

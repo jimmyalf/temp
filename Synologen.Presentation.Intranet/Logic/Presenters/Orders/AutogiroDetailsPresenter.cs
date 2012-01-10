@@ -51,15 +51,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		View.Model.IsNewSubscription = order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New;
     		View.Model.EnableAutoWithdrawal = order.ShippingType.HasFlag(OrderShippingOption.ToCustomer);
 			View.Model.AutoWithdrawalAmount = (order.AutoWithdrawalAmount.HasValue) ? order.AutoWithdrawalAmount.Value.ToString() : null;
-            if(order.SelectedPaymentOption.SubscriptionId.HasValue)
-            {
-            	var subscription = _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
-				View.Model.BankAccountNumber = subscription.BankAccountNumber;
-				View.Model.ClearingNumber = subscription.ClearingNumber;
-            }
-			//TODO: Reduce nested complexity and length
+      		
+            //TODO: Reduce nested complexity and length
 			if(order.SubscriptionPayment != null)
 			{
+                View.Model.BankAccountNumber = order.SubscriptionPayment.Subscription.BankAccountNumber;
+                View.Model.ClearingNumber = order.SubscriptionPayment.Subscription.ClearingNumber; 
                 View.Model.TaxedAmount = order.SubscriptionPayment.TaxedAmount.ToString();
                 View.Model.TaxfreeAmount = order.SubscriptionPayment.TaxFreeAmount.ToString();
                 

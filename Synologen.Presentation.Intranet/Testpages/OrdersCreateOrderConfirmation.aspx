@@ -3,6 +3,6 @@
 <asp:Literal ID="ltPageId" Text="190" Visible="false" runat="server"/>
 
 <p>
-	<WpcSynologen:OrdersCreateOrderConfirmation ID="synologenMvpTestControl" EditPageId="190" runat="server"  />
+	<WpcSynologen:OrderCreateOrderConfirmation runat="server" PreviousPageId="1005" AbortPageId="1000" NextPageId="1000" />
 </p>
 </asp:Content>

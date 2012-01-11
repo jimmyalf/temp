@@ -1,3 +1,4 @@
+#define DEBUG
 using Spinit.Data;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
@@ -58,7 +59,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code.IoC
 			For<ISynologenSettingsService>().Use<SynologenSettingsService>();
 		    For<IYammerService>().Use<YammerService>();
 			For<IViewParser>().Use<ViewParser>();
+			#if DEBUG
+			For<IRoutingService>().Singleton().Use<DebugRoutingService>();
+			#else
 			For<IRoutingService>().Singleton().Use<CachedRoutingService>();
+			#endif
 			//For<IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>>().Use<AllOrderableFramesCriteriaConverter>();
 			//For<IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>>().Use<AllFrameOrdersForShopCriteriaConverter>();
 			//For<IActionCriteriaConverter<CustomersForShopMatchingCriteria, ICriteria>>().Use<CustomersForShopMatchingCriteriaConverter>();

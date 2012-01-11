@@ -30,6 +30,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ShopDetails
                 m.Map(x => x.Latitude).Column("cLatitude");
                 m.Map(x => x.Longitude).Column("cLongitude");
             });
+
+            HasMany(x => x.Connections).ReadOnly().Table("tblSynologenShopEquipmentConnection").NotFound.Ignore();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
+﻿using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.ShopDetails
 {
@@ -14,5 +15,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.ShopDetails
         public virtual string MapUrl { get; set; }
         public virtual string Phone { get; set; }
         public virtual string Email { get; set; }
+
+        public virtual IEnumerable<ShopEquipmentConnection> Connections { get; set; }
     }
 }

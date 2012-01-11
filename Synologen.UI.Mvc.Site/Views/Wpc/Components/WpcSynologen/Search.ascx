@@ -3,19 +3,12 @@
 <%= Html.Partial("Map", ViewData.Model.Shops) %>
 
 <div id="search-results">
-    <h1>Sökresultat</h1>
+    <h1>Butiker</h1>
 
-    <h2>Din sökning <%= Model.Search %> gav <%= Model.NrOfResults %> träffar</h2>
+    <h2>Sökresultat | Din sökning <i><%= Model.Search %></i> gav <i><%= Model.NrOfResults %></i> träffar</h2>
+    <p><a href="/butiker/visa-alla">Klicka här lista alla butiker</a> </p>
 
     <% foreach (var item in ViewData.Model.Shops) { %>
-        <article class="store-information">
-            <h2><%= item.Name %></h2>
-            <p class="tags">Vi erbjuder: <em>Ögonapoteket</em>, <em>Ögonhälsoundersökning</em></p>
-            <p>Nullam sit amet adipiscing nisi. Duis viverra nisi non lorem adipiscing consequat. Maecenas sodales placerat lacinia.</p>
-            <p>Tfn: <%= item.Telephone %><br />
-            Adress: <%= item.StreetAddress %><br />
-            E-post: <a href="mailto:<%= item.Email %>"><%= item.Email %></a>
-            </p>
-        </article>
+        <%= Html.Partial("ShopDetails", item) %>
     <% } %>
 </div>

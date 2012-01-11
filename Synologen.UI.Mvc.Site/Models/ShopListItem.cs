@@ -6,6 +6,7 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Provides { get; set; }
         public string Description { get; set; }
         public string HomePage { get; set; }
         public string Map { get; set; }

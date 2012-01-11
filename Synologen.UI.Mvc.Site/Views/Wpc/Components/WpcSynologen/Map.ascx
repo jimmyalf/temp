@@ -16,7 +16,7 @@
         var latlng;
 
         <% foreach (var item in ViewData.Model) { %>
-        latlng = AddElementToMap(map, <%= item.Latitude %>, <%= item.Longitude %>, "<%= item.Description %>", "<%= item.Name %>");
+        latlng = AddElementToMap(map, <%= item.Latitude %>, <%= item.Longitude %>, "<%= item.Id %>", "<%= item.Name %>");
         bounds.extend(latlng);
         <% } %>
 
@@ -30,15 +30,13 @@
 
     google.maps.event.addDomListener(window, 'load', initialize);
 
-    function AddElementToMap(map, lat, lng, desc, name)
+    function AddElementToMap(map, lat, lng, id, name)
     {
         var latlng = new google.maps.LatLng(lat, lng);
-        var infowindow = new google.maps.InfoWindow({ content: desc });
         var marker = new google.maps.Marker({ position: latlng, map: map, title: name, icon: icon });
-        google.maps.event.addListener(marker, 'click', function() { infowindow.open(map, marker); });
+        google.maps.event.addListener(marker, 'click', function() { window.location = "/butiker/visa-butik?id=" + id; });
         return latlng;
     }
 </script>
 
 <div id="map_canvas"></div>
-<a href class="resize">Visa större karta</a>

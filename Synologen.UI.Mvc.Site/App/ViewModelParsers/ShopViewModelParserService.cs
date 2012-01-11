@@ -29,10 +29,21 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.App.ViewModelParsers
         {
             var address = "";
             var city = "";
+            var provides = "";
             if (shop.Address != null)
             {
                 address = String.Format("{0} {1}", shop.Address.AddressLineOne, shop.Address.AddressLineTwo);
                 city = shop.Address.City;
+            }
+
+            if (shop.Connections != null && shop.Connections.Count() > 0)
+            {
+                provides = shop.Connections.Where(x => x.ShopEquipment != null).Aggregate(provides, (current, connection) => current + String.Format("<em>{0}</em>, ", connection.ShopEquipment.Name));
+
+                if (provides.Length > 0)
+                {
+                    provides = provides.Substring(0, provides.Length - 2);
+                }
             }
 
             return new ShopListItem
@@ -47,7 +58,8 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.App.ViewModelParsers
                 Name = shop.Name,
                 StreetAddress = address,
                 Telephone = shop.Phone,
-                City = city
+                City = city,
+                Provides = provides
             };
         }
     }

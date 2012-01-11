@@ -207,6 +207,8 @@
     <Compile Include="Domain\Model\Orders\SubscriptionTypes\TransactionType.cs" />
     <Compile Include="Domain\Model\Orders\TransactionArticle.cs" />
     <Compile Include="Domain\Model\ShopDetails\Shop.cs" />
+    <Compile Include="Domain\Model\ShopDetails\ShopEquipment.cs" />
+    <Compile Include="Domain\Model\ShopDetails\ShopEquipmentConnection.cs" />
     <Compile Include="Domain\Model\Yammer\AttachmentModel.cs" />
     <Compile Include="Domain\Model\Yammer\BodyModel.cs" />
     <Compile Include="Domain\Model\Yammer\ImageModel.cs" />

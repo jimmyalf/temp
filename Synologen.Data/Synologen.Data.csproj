@@ -183,6 +183,8 @@
     <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionItemMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ShopDetails\ShopEquipmentConnectionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ShopDetails\ShopEquipmentMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopDetails\ShopMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopMap.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\ShopRepository.cs" />

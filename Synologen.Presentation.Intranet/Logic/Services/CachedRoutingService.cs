@@ -24,6 +24,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			return this.GetPageUrl(pageId) + base.BuildQueryString(requestParameters);
 		}
 
+		protected virtual void AddRoute(int pageId, string routePath)
+		{
+			if(_cache.ContainsKey(pageId))
+			{
+				_cache[pageId] = routePath;
+			}
+			else
+			{
+				_cache.Add(pageId, routePath);
+			}
+		}
+
 		public virtual void Clear()
 		{
 			_cache.Clear();

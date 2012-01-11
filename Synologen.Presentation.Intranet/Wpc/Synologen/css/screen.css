@@ -65,25 +65,25 @@ body {font: 1.2em/1.5em sans-serif; line-height: 1.5em; color: black; margin: 0;
     }
 }
     
-@media screen and (max-width:1101px) {
+@media screen and (max-width:1114px) {
     body {
         font-size: 0.8em;
     }
 }
 
-@media screen and (max-width:900px) {
+@media screen and (max-width:946px) {
     body {
         font-size: 0.7em;
     }
 }
 
-@media screen and (max-width:721px) {
+@media screen and (max-width:855px) {
     body {
         font-size: 0.6em;
     }
 }
 
-@media screen and (max-width:621px) {
+@media screen and (max-width:690px) {
     body {
         font-size: 0.58em;
     }
@@ -281,7 +281,7 @@ label + .radio-list {float: left;}
 /* Navigation
 ---------------------------------------------------------------*/
 #tab-navigation ul {text-transform: uppercase; width: 100%; overflow: hidden; margin: 0 0 -1px 0; padding: 0;}
-#tab-navigation li {float: left; padding: 0.5em 1em; position: relative; margin-right: 0.1%;  border-top: 1px solid #ccc; border-left: 1px solid #ccc; border-right: 1px solid #ccc; height: 2em; vertical-align: middle; text-align: center; color: #555; font-size: 1em; line-height: 2em;  
+#tab-navigation li {float: left; padding: 0.5em 1em; position: relative; margin-right: 0.1%;  border-top: 1px solid #ccc; border-left: 1px solid #ccc; border-right: 1px solid #ccc; height: 2em; vertical-align: middle; text-align: center; color: #555; font-size: 0.9em; line-height: 2em;  
 
 -webkit-border-top-right-radius: 20px;
 -moz-border-radius-topright: 20px;

@@ -3,6 +3,7 @@ using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -52,34 +53,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		View.Model.EnableAutoWithdrawal = order.ShippingType.HasFlag(OrderShippingOption.ToCustomer);
 			View.Model.AutoWithdrawalAmount = (order.AutoWithdrawalAmount.HasValue) ? order.AutoWithdrawalAmount.Value.ToString() : null;
       		
-            //TODO: Reduce nested complexity and length
-			if(order.SubscriptionPayment != null)
+			//Set values from previously selected account
+			if(order.SelectedPaymentOption.SubscriptionId.HasValue)
 			{
-                View.Model.BankAccountNumber = order.SubscriptionPayment.Subscription.BankAccountNumber;
-                View.Model.ClearingNumber = order.SubscriptionPayment.Subscription.ClearingNumber; 
-                View.Model.TaxedAmount = order.SubscriptionPayment.TaxedAmount.ToString();
-                View.Model.TaxfreeAmount = order.SubscriptionPayment.TaxFreeAmount.ToString();
-                
-                if (order.SubscriptionPayment.NumberOfPayments != null)
-                {
-                    if(order.SubscriptionPayment.NumberOfPayments == 3 || 
-                       order.SubscriptionPayment.NumberOfPayments == 6 || 
-                       order.SubscriptionPayment.NumberOfPayments == 12)
-                    {
-                        View.Model.SelectedSubscriptionOption = order.SubscriptionPayment.NumberOfPayments;
-                    }
-                    else
-                    {
-                        View.Model.SelectedSubscriptionOption = AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId;
-                        View.Model.CustomSubscriptionTime = order.SubscriptionPayment.NumberOfPayments;
-                    }
-                }
-                else
-                {
-                    View.Model.SelectedSubscriptionOption =  0;
-                }
+				var selectedSubscription = _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
+			    View.Model.BankAccountNumber = selectedSubscription.BankAccountNumber;
+			    View.Model.ClearingNumber = selectedSubscription.ClearingNumber; 
 			}
+			//Set values from previously saved view
+			if(order.SubscriptionPayment != null) UpdateViewModel(order.SubscriptionPayment);
     	}
+
+		private void UpdateViewModel(SubscriptionItem subscriptionItem)
+		{
+            View.Model.BankAccountNumber = subscriptionItem.Subscription.BankAccountNumber;
+            View.Model.ClearingNumber = subscriptionItem.Subscription.ClearingNumber; 
+            View.Model.TaxedAmount = subscriptionItem.TaxedAmount.ToString();
+            View.Model.TaxfreeAmount = subscriptionItem.TaxFreeAmount.ToString();
+            View.Model.SelectedSubscriptionOption =  0;
+			if (subscriptionItem.NumberOfPayments == null) return;
+
+			if(subscriptionItem.NumberOfPayments.Value.IsEither(3, 6, 12))
+			{
+				View.Model.SelectedSubscriptionOption = subscriptionItem.NumberOfPayments;
+			}
+			else
+			{
+				View.Model.SelectedSubscriptionOption = AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId;
+				View.Model.CustomSubscriptionTime = subscriptionItem.NumberOfPayments;
+			}
+		}
 		
 		public void View_Previous(object sender, EventArgs e)
 		{

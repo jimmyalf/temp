@@ -25,7 +25,7 @@
         <asp:ValidationSummary ID="vldSummary" runat="server" CssClass="error-list" />
     	<div class="next-step">
             <div class="control-actions">
-                <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" />
+                <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" />
 		        <asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" CausesValidation="true" />
 	        </div>
         </div>

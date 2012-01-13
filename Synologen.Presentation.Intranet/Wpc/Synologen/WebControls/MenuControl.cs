@@ -32,6 +32,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 		{
 			Items = new MenuItemCollection();
 			HeaderTemplate = new MenuItemDefaultTemplate("<ul>");
+			MenuItemTemplateWithDisabledLink = new MenuItemDefaultTemplate("<li>{Text}</li>");
 			MenuItemTemplate = new MenuItemDefaultTemplate("<li><a href=\"{Url}\">{Text}</a></li>");
 			SelectedMenuItemTemplate = new MenuItemDefaultTemplate("<li class=\"selected\"><a href=\"{Url}\">{Text}</a></li>");
 			AfterSelectedMenuItemTemplate = new MenuItemDefaultTemplate("<li>{Text}</li>");
@@ -46,6 +47,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 
 		[Description("Footer template."), TemplateContainer(typeof(HeaderFooterModel)), PersistenceMode(PersistenceMode.InnerProperty)]
 		public virtual ITemplate FooterTemplate { get; set; }
+
+		[Description("Menu item template with link disabled."), TemplateContainer(typeof(MenuModel)), PersistenceMode(PersistenceMode.InnerProperty)]
+		public virtual ITemplate MenuItemTemplateWithDisabledLink { get; set; }
 
 		[Description("Menu item template."), TemplateContainer(typeof(MenuModel)), PersistenceMode(PersistenceMode.InnerProperty)]
 		public virtual ITemplate MenuItemTemplate { get; set; }
@@ -97,7 +101,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 		    var isCurrentPage = IsCurrentPage(url);
 			var outputUrl = url + (IncludeCurrentQuery ? Page.Request.Url.Query : string.Empty);
 			var menuData = new MenuModel(item.PageId, outputUrl, item.Text);
-			if(_stopRenderingLinks)
+			if(item.DisableLink)
+			{
+				MenuItemTemplateWithDisabledLink.InstantiateIn(menuData);
+			}
+			else if(_stopRenderingLinks)
 			{
 				AfterSelectedMenuItemTemplate.InstantiateIn(menuData);
 			}
@@ -186,6 +194,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.WebControls
 		[DefaultValue(""), PersistenceMode(PersistenceMode.InnerDefaultProperty)]
 		public string Text { get; set; }
 		public string Url { get; set; }
+		public bool DisableLink { get; set; }
 	}
 
 }

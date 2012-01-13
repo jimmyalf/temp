@@ -32,12 +32,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		{
 			View.Model.PersonalIdNumber.ShouldBe(_personalIdNumber);
 		}
-
-		//[Test]
-		//public void Customer_id_not_loaded_in_form()
-		//{
-		//    View.Model.CustomerId.ShouldBe(null);
-		//}
 	}
 
 	public abstract class SaveCustomerTestbase: PresenterTestbase<SaveCustomerPresenter,ISaveCustomerView,SaveCustomerModel>
@@ -45,14 +39,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		protected IOrderCustomerRepository OrderCustomerRepository;
 	    protected IOrderRepository OrderRepository;
 		protected IRoutingService RoutingService;
-		//protected ISynologenMemberService SynologenMemberService;
 		protected IViewParser ViewParser;
 
 		protected SaveCustomerTestbase()
 		{
 			SetUp = () =>
 			{
-				//SynologenMemberService = A.Fake<ISynologenMemberService>();
 				RoutingService = A.Fake<IRoutingService>();
 				OrderCustomerRepository = A.Fake<IOrderCustomerRepository>();
 			    OrderRepository = A.Fake<IOrderRepository>();

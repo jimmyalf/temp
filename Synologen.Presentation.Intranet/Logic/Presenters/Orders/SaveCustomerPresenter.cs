@@ -79,7 +79,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 				View.Model.PersonalIdNumber = customer.PersonalIdNumber;
 				View.Model.Phone = customer.Phone;
 				View.Model.PostalCode = customer.PostalCode;
-    			//View.Model.CustomerId = customer.Id;
 			}
 			else
 			{

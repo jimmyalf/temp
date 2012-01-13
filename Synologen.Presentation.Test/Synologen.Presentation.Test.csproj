@@ -165,6 +165,10 @@
       <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
       <Name>Synologen.Presentation %28Presentation\Synologen.Presentation%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Synologen.Test.Data\Synologen.Test.Data.csproj">
+      <Project>{8452B179-0891-4BBF-9A1E-381A31E41FA3}</Project>
+      <Name>Synologen.Test.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

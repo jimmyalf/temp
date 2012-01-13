@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 {
     public class CreateOrderModel
     {
+		public const int DefaultOptionValue = -9999;
         public CreateOrderModel()
     	{
     	    
@@ -13,38 +15,38 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
             OrderArticles     = new List<ListItem> { new ListItem {Text = "-- Välj --", Value = 0.ToString()} };
             ShippingOptions   = new List<ListItem> { new ListItem {Text = "-- Välj --", Value = 0.ToString()} };
 
-            PowerOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = (-9999).ToString() } };
-            BaseCurveOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = (-9999).ToString() } };
-            DiameterOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = (-9999).ToString() } };
-            AxisOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = (-9999).ToString() } };
-            CylinderOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = (-9999).ToString() } };
-            AdditionOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = (-9999).ToString() } };
+            PowerOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = DefaultOptionValue.ToString() } };
+            BaseCurveOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = DefaultOptionValue.ToString() } };
+            DiameterOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = DefaultOptionValue.ToString() } };
+            AxisOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = DefaultOptionValue.ToString() } };
+            CylinderOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = DefaultOptionValue.ToString() } };
+            AdditionOptions = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = DefaultOptionValue.ToString() } };
 
-            SelectedLeftPower  = -9999;
-            SelectedLeftBaseCurve  = -9999;
-            SelectedLeftDiameter  = -9999;
-            SelectedLeftCylinder  = -9999;
-            SelectedLeftAxis  = -9999;
-            SelectedLeftAddition  = -9999;
-            SelectedRightPower  = -9999;
-            SelectedRightBaseCurve  = -9999;
-            SelectedRightDiameter  = -9999;
-            SelectedRightCylinder  = -9999;
-            SelectedRightAxis  = -9999;
-            SelectedRightAddition  = -9999;            
+            SelectedLeftPower  = DefaultOptionValue;
+            SelectedLeftBaseCurve  = DefaultOptionValue;
+            SelectedLeftDiameter  = DefaultOptionValue;
+            SelectedLeftCylinder  = DefaultOptionValue;
+            SelectedLeftAxis  = DefaultOptionValue;
+            SelectedLeftAddition  = DefaultOptionValue;
+            SelectedRightPower  = DefaultOptionValue;
+            SelectedRightBaseCurve  = DefaultOptionValue;
+            SelectedRightDiameter  = DefaultOptionValue;
+            SelectedRightCylinder  = DefaultOptionValue;
+            SelectedRightAxis  = DefaultOptionValue;
+            SelectedRightAddition  = DefaultOptionValue;            
 
-            PowerOptionsEnabled = false;
-            BaseCurveOptionsEnabled = false;
-            AxisOptionsEnabled = false;
-            DiameterOptionsEnabled = false;
-            CylinderOptionsEnabled = false;
-            AdditionOptionsEnabled = false;
+			//PowerOptionsEnabled = false;
+			//BaseCurveOptionsEnabled = false;
+			//AxisOptionsEnabled = false;
+			//DiameterOptionsEnabled = false;
+			//CylinderOptionsEnabled = false;
+			//AdditionOptionsEnabled = false;
     
     	}
 
-        public int CustomerId { get; set; }
+       // public int CustomerId { get; set; }
         public string CustomerName { get; set; }
-        public int ExistingOrderId { get; set; }
+        //public int ExistingOrderId { get; set; }
 
         public int SelectedCategoryId { get; set; }
         public int SelectedArticleTypeId { get; set; }
@@ -77,13 +79,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public IEnumerable<ListItem> AxisOptions { get; set; }
         public IEnumerable<ListItem> CylinderOptions { get; set; }
         public IEnumerable<ListItem> AdditionOptions { get; set; }
-        public IEnumerable<ListItem> ItemQuantityOptions { get; set; }
+        //public IEnumerable<ListItem> ItemQuantityOptions { get; set; }
 
-        public bool PowerOptionsEnabled { get; set; }
-        public bool BaseCurveOptionsEnabled { get; set; }
-        public bool AxisOptionsEnabled { get; set; }
-        public bool DiameterOptionsEnabled { get; set; }
-        public bool CylinderOptionsEnabled { get; set; }
-        public bool AdditionOptionsEnabled { get; set; }
+        public bool PowerOptionsEnabled { get { return PowerOptions.Any(item => item.Value != DefaultOptionValue.ToString()); } }
+		public bool BaseCurveOptionsEnabled { get { return BaseCurveOptions.Any(item => item.Value != DefaultOptionValue.ToString()); } }
+        public bool AxisOptionsEnabled { get { return AxisOptions.Any(item => item.Value != DefaultOptionValue.ToString()); } }
+        public bool DiameterOptionsEnabled { get { return DiameterOptions.Any(item => item.Value != DefaultOptionValue.ToString()); }  }
+        public bool CylinderOptionsEnabled { get { return CylinderOptions.Any(item => item.Value != DefaultOptionValue.ToString()); }   }
+        public bool AdditionOptionsEnabled { get { return AdditionOptions.Any(item => item.Value != DefaultOptionValue.ToString()); } }
     }
 }

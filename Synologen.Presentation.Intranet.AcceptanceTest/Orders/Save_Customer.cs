@@ -22,7 +22,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private Order _order;
         private Article _article;
     	private string _customerNotFoundWithPersonalIdNumber;
-    	private Func<string,int,string> _getRedirectUrl;
 
     	public When_picking_a_customer()
 		{
@@ -31,10 +30,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_submitRedirectUrl = "/submit/page";
 				_abortRedirectUrl = "/abort/page";
 				_previousRedirectUrl = "/previous/page";
-				_getRedirectUrl = (url, createdCustomerId) => String.Format("{0}?customer={1}", url, createdCustomerId);
 				SetupNavigationEvents(_previousRedirectUrl,_abortRedirectUrl, _submitRedirectUrl);
 				_saveCustomerPresenter = GetPresenter();
-                
 			};
 
 			Story = () => new Berättelse("Spara kund")
@@ -172,7 +169,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _customer = CreateCustomer();
             _article = CreateArticle();
             _order = CreateOrder(_article, _customer);
-            View.Model.OrderId = _order.Id;
+            //View.Model.OrderId = _order.Id;
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
 
@@ -182,7 +179,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AnvändarenUppdateratFormuläret()
         {
-            _form = OrderFactory.GetOrderCustomerForm(_customer.Id);
+            _form = OrderFactory.GetOrderCustomerForm(/*_customer.Id*/);
         }
         private void AttFormuläretÄrKorrektIfyllt()
         {
@@ -230,13 +227,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void FörflyttasAnvändarenTillVynFörNästaSteg()
         {
-			var expectedUrl = _getRedirectUrl(_submitRedirectUrl, _customer.Id);
+        	var expectedUrl = _submitRedirectUrl + "?customer=" + _customer.Id;
 			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
         }
 
         private void FörflyttasAnvändarenTillVynFörNästaStegMedOrderIdAngivet()
         {
-            var expectedUrl = _getRedirectUrl(_submitRedirectUrl, _order.Id);
+            var expectedUrl = _submitRedirectUrl + "?order=" + _order.Id;
             HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -35,24 +34,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 PostalCode = txtPostalCode.Text,
                 Phone = txtPhone.Text,
                 Notes = txtNotes.Text,
-				CustomerId = GetCustomerIdFromForm(),
-                OrderId = GetOrderIdFromForm()
+				//CustomerId = GetCustomerIdFromForm(),
+                //OrderId = GetOrderIdFromForm()
             };
         	TryFireSubmit(sender, args);
         }
 
-		private int? GetCustomerIdFromForm()
-		{
-			if (String.IsNullOrEmpty(hfCustomerId.Value)) return null;
-			var value = hfCustomerId.Value.ToIntOrDefault();
-			return (value > 0) ? value : (int?) null;
-		}
-        private int? GetOrderIdFromForm()
-        {
-            if (String.IsNullOrEmpty(hfOrderId.Value)) return null;
-            var value = hfOrderId.Value.ToIntOrDefault();
-            return (value > 0) ? value : (int?)null;
-        }
+		//private int? GetCustomerIdFromForm()
+		//{
+		//    if (String.IsNullOrEmpty(hfCustomerId.Value)) return null;
+		//    var value = hfCustomerId.Value.ToIntOrDefault();
+		//    return (value > 0) ? value : (int?) null;
+		//}
+		//private int? GetOrderIdFromForm()
+		//{
+		//    if (String.IsNullOrEmpty(hfOrderId.Value)) return null;
+		//    var value = hfOrderId.Value.ToIntOrDefault();
+		//    return (value > 0) ? value : (int?)null;
+		//}
 
     }
 }

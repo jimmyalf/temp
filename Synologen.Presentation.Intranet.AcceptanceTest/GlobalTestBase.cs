@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.Bootstrapping;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest
@@ -17,6 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest
 		public void RunAfterAnyTests()
 		{
 			// ...
+			new DataManager().CleanTables();
 		}
 	}
 }

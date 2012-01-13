@@ -47,6 +47,12 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			return comparisonValues.Any(value.Contains);
 		}
 
+		public static int? ToNullableInt(this string value)
+		{
+			if (String.IsNullOrEmpty(value)) return null;
+			return value.ToInt();
+		}
+
 		///// <summary>
 		///// Replaces tokens in format string with given replacements
 		///// Ex: "{Token1}def{Token2}.ReplaceWith(new { Token1 = "abc", Token2 = "ghi"}) would return the string "abcdefghi"

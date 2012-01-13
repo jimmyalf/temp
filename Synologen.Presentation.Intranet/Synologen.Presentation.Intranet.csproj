@@ -48,7 +48,6 @@
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
     <Compile Include="Code\CustomOrderValidation.cs" />
-    <Compile Include="Logic\EventArguments\Orders\PreviousStepFromCreateOrderArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SelectedSomethingEventArgs.cs" />
     <Compile Include="Logic\Services\CachedRoutingService.cs" />
     <Compile Include="Code\MemberControlPage.cs">

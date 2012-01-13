@@ -18,19 +18,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     {
     	private readonly IViewParser _viewParser;
     	private readonly IOrderRepository _orderRepository;
-    	private readonly ISynologenMemberService _synologenMemberService;
+    	private readonly IRoutingService _routingService;
     	private readonly ISubscriptionRepository _subscriptionRepository;
 
     	public PaymentOptionsPresenter(
 			IPaymentOptionsView view, 
 			IViewParser viewParser,
 			IOrderRepository orderRepository, 
-			ISynologenMemberService synologenMemberService, 
+			IRoutingService routingService, 
 			ISubscriptionRepository subscriptionRepository) : base(view)
         {
     		_viewParser = viewParser;
     		_orderRepository = orderRepository;
-    		_synologenMemberService = synologenMemberService;
+    		_routingService = routingService;
     		_subscriptionRepository = subscriptionRepository;
     		View.Load += View_Load;
     		View.Abort += View_Abort;
@@ -40,8 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
        
         public void View_Load(object sender, EventArgs eventArgs)
     	{
-    		var orderId = HttpContext.Request.Params["order"].ToInt();
-            var order = _orderRepository.Get(orderId);
+            var order = _orderRepository.Get(RequestOrderId);
     	    var customer = order.Customer;
             View.Model.Subscriptions = GetSubscriptionList(customer);
     		View.Model.SelectedOption = SetSelectedOption(order);
@@ -59,25 +58,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
     	public void View_Abort(object sender, EventArgs eventArgs)
     	{
-    		var orderId = HttpContext.Request.Params["order"].ToInt();
-    		var order = _orderRepository.Get(orderId);
+    		var order = _orderRepository.Get(RequestOrderId);
 			_orderRepository.Delete(order);
-			Redirect(View.AbortPageId, order.Id);
+			Redirect(View.AbortPageId);
     	}
 
     	public void View_Submit(object sender, PaymentOptionsEventArgs args)
     	{
-    		var orderId = HttpContext.Request.Params["order"].ToInt();
-    		var order = _orderRepository.Get(orderId);
+    		var order = _orderRepository.Get(RequestOrderId);
     		SetOrderPaymentOption(order, args);
 			_orderRepository.Save(order);
-			Redirect(View.NextPageId, order.Id);
+			Redirect(View.NextPageId, new {order = order.Id});
     	}
 
     	public void View_Previous(object sender, EventArgs eventArgs)
     	{
-			var orderId = HttpContext.Request.Params["order"].ToInt();
-    		Redirect(View.PreviousPageId, orderId);
+    		Redirect(View.PreviousPageId, new {order = RequestOrderId});
     	}
 
 		private void SetOrderPaymentOption(Order order, PaymentOptionsEventArgs args)
@@ -94,11 +90,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			}
 		}
 
-		private void Redirect(int pageId, int orderId)
+		private void Redirect(int pageId, object routeData = null)
 		{
-			var url = _synologenMemberService.GetPageUrl(pageId);
-			var redirectUrl = "{Url}?order={OrderId}".ReplaceWith(new {Url = url, OrderId = orderId});
-			HttpContext.Response.Redirect(redirectUrl);
+			var url = _routingService.GetPageUrl(pageId, routeData);
+			HttpContext.Response.Redirect(url);
 		}
 
 		private IEnumerable<ListItem> GetSubscriptionList(OrderCustomer customer)
@@ -107,6 +102,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			Func<Subscription, ListItem> parser = subscription => new ListItem(subscription.BankAccountNumber, subscription.Id);
 			return _viewParser.Parse(subscriptions, parser).Concat(new[] {new ListItem("Skapa nytt konto", 0)});
 		}
+
+    	private int RequestOrderId
+    	{
+    		get { return HttpContext.Request.Params["order"].ToInt(); }
+    	}
 
         public override void ReleaseView()
         {

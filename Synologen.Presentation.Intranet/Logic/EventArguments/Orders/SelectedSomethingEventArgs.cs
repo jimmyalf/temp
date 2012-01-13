@@ -4,6 +4,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
 {
     public class SelectedSomethingEventArgs : EventArgs
     {
+		public const int DefaultOptionValue = -9999;
         public int ExistingOrderId { get; set; }
         public int SelectedCategoryId { get; set; }
         public int SelectedArticleTypeId { get; set; }
@@ -28,20 +29,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
             int selectedArticleTypeId = 0,
             int selectedSupplierId = 0,
             int selectedArticleId = 0,
-            int existingOrderId = 0,
+            //int existingOrderId = 0,
             int selectedShippingOption = 0,
-            float selectedLeftPower = -9999,
-            float selectedLeftBaseCurve = -9999,
-            float selectedLeftDiameter = -9999,
-            float selectedLeftCylinder = -9999,
-            float selectedLeftAxis = -9999,
-            float selectedLeftAddition = -9999,
-            float selectedRightPower = -9999,
-            float selectedRightBaseCurve = -9999,
-            float selectedRightDiameter = -9999,
-            float selectedRightCylinder = -9999,
-            float selectedRightAxis = -9999,
-            float selectedRightAddition = -9999)
+            float selectedLeftPower = DefaultOptionValue,
+            float selectedLeftBaseCurve = DefaultOptionValue,
+            float selectedLeftDiameter = DefaultOptionValue,
+            float selectedLeftCylinder = DefaultOptionValue,
+            float selectedLeftAxis = DefaultOptionValue,
+            float selectedLeftAddition = DefaultOptionValue,
+            float selectedRightPower = DefaultOptionValue,
+            float selectedRightBaseCurve = DefaultOptionValue,
+            float selectedRightDiameter = DefaultOptionValue,
+            float selectedRightCylinder = DefaultOptionValue,
+            float selectedRightAxis = DefaultOptionValue,
+            float selectedRightAddition = DefaultOptionValue)
         {
             SelectedCategoryId = selectedCategoryId;
             SelectedArticleTypeId = selectedArticleTypeId;
@@ -60,7 +61,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
             SelectedRightCylinder = selectedRightCylinder;
             SelectedRightAxis = selectedRightAxis;
             SelectedRightAddition = selectedRightAddition;
-            ExistingOrderId = existingOrderId;
+            //ExistingOrderId = existingOrderId;
         }
     }
 }

@@ -20,7 +20,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private PaymentOptionsPresenter _presenter;
     	private PaymentOptionsEventArgs _submitEventArgs;
     	private Order _order;
-        //private Subscription _subsciption;
     	private string _abortPageUrl, _nextPageUrl, _previousPageUrl;
     	private int _selectedSubscriptionId;
     	private IEnumerable<Subscription> _subsciptions;
@@ -173,8 +172,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         #region Assert
         private void AnvändarenFlyttasTillAvbrytsidan()
         {
-			var expectedUrl = "{Url}?order={OrderId}".ReplaceWith(new {Url = _abortPageUrl, OrderId = _order.Id});
-        	HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
+			//var expectedUrl = "{Url}?order={OrderId}".ReplaceWith(new {Url = _abortPageUrl, OrderId = _order.Id});
+        	HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_abortPageUrl);
         }
 
         private void TasBeställningenBort()

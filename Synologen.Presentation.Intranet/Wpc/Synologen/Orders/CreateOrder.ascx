@@ -253,7 +253,7 @@
         <div class="next-step">
             <div class="control-actions">
                 <asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CssClass="cancel-button" CausesValidation="False" />
-                <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" />
+                <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" OnClientClick="return confirm('Detta avbryter beställningen, är du säker på att du vill avbryta beställningen?');" />
 		        <asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" />
 	        </div>
         </div>

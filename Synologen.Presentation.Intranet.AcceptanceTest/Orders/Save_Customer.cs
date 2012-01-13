@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;

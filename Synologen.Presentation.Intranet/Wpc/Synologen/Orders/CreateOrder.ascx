@@ -250,7 +250,6 @@
 		        CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
 		<asp:ValidationSummary runat="server" CssClass="error-list"/>
-        <asp:HiddenField ID="hfExistingOrderId" runat="server" Value="<%#Model.ExistingOrderId %>" />
         <div class="next-step">
             <div class="control-actions">
                 <asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CssClass="cancel-button" CausesValidation="False" />

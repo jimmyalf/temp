@@ -32,8 +32,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	{
     		if(SelectedCategory == null) return;
     		var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-            var existingOrderId = Convert.ToInt32(hfExistingOrderId.Value);
-            SelectedCategory(this, new SelectedSomethingEventArgs(categoryId, 0, 0, 0, existingOrderId));
+            SelectedCategory(this, new SelectedSomethingEventArgs(categoryId));
     	}
 
         private void Select_ArticleType(object sender, EventArgs e)
@@ -41,8 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             if (SelectedArticleType == null) return;
             var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
             var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-            var existingOrderId = Convert.ToInt32(hfExistingOrderId.Value);
-            SelectedArticleType(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, 0, 0, existingOrderId));
+            SelectedArticleType(this, new SelectedSomethingEventArgs(categoryId, articleTypeId));
         }
 
         private void Select_Supplier(object sender, EventArgs e)
@@ -51,8 +49,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             var supplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue);
             var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
             var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-            var existingOrderId = Convert.ToInt32(hfExistingOrderId.Value);
-            SelectedSupplier(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId, 0, existingOrderId));
+            SelectedSupplier(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId));
         }
 
         private void Select_Article(object sender, EventArgs e)
@@ -63,8 +60,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
             var articleId = Convert.ToInt32(ddlPickArticle.SelectedValue);
             var articleOption = Convert.ToInt32(ddlShippingOptions.SelectedValue);
-            var existingOrderId = Convert.ToInt32(hfExistingOrderId.Value);
-            SelectedArticle(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId, articleId, existingOrderId, articleOption));
+            SelectedArticle(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId, articleId, articleOption));
         }
 
         private void NextStep(object sender, EventArgs e)
@@ -77,7 +73,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
                 var articleId = Convert.ToInt32(ddlPickArticle.SelectedValue);
                 var selectedShippingOption = Convert.ToInt32(ddlShippingOptions.SelectedValue);
-                var existingOrderId = Convert.ToInt32(hfExistingOrderId.Value);
+				//TODO: Consider switching to deciamal type
                 var selectedLeftBaseCurve = (float)Convert.ToDecimal(ddlLeftBaskurva.SelectedValue);
                 var selectedLeftAxis = (float)Convert.ToDecimal(ddlLeftAxis.SelectedValue);
                 var selectedLeftCylinder = (float)Convert.ToDecimal(ddlLeftCylinder.SelectedValue);
@@ -96,7 +92,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                     articleTypeId, 
                     supplierId, 
                     articleId, 
-                    existingOrderId,
                     selectedShippingOption,
                     selectedLeftPower, 
                     selectedLeftBaseCurve, 
@@ -117,8 +112,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             {
                 ArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
                 ShipmentOption = Convert.ToInt32(ddlShippingOptions.SelectedValue),
-                ExistingOrderId = Convert.ToInt32(hfExistingOrderId.Value),
-
                 LeftBaseCurve = (float)Convert.ToDecimal(ddlLeftBaskurva.SelectedValue),
                 LeftDiameter = (float)Convert.ToDecimal(ddlLeftDiameter.SelectedValue),
                 LeftPower = (float)Convert.ToDecimal(ddlLeftStrength.SelectedValue),
@@ -137,9 +130,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 
         private void PreviousStep(object sender, EventArgs e)
         {
-            var orderId = Convert.ToInt32(hfExistingOrderId.Value);
-            var orderExists = orderId != 0 ? true : false;
-            TryFirePrevious(this, new PreviousStepFromCreateOrderArgs { OrderExists = orderExists});
+            TryFirePrevious(this, new EventArgs());
         }
     }
 }

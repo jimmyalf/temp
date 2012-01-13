@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Spinit.Wpc.Synologen.Core.Extensions
 {
@@ -24,6 +25,12 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 		public static bool IsDivisibleBy(this int value, int divisibleByValue)
 		{
 			return (value % divisibleByValue == 0);
+		}
+
+		public static bool IsEither(this int value, params int[] acceptedvalues)
+		{
+			if(acceptedvalues == null || acceptedvalues.Length <= 0) return false;
+			return acceptedvalues.Any(acceptedValue => value == acceptedValue);
 		}
 	}
 }

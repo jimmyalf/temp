@@ -2,6 +2,7 @@ using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -14,14 +15,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         private readonly IOrderCustomerRepository _orderCustomerRepository;
         private readonly IOrderRepository _orderRepository;
     	private readonly IViewParser _viewParser;
-    	private readonly ISynologenMemberService _synologenMemberService;
+    	private readonly IRoutingService _routingService;
 
-    	public SaveCustomerPresenter(ISaveCustomerView view, IOrderCustomerRepository orderCustomerRepository, IOrderRepository orderRepository, IViewParser viewParser, ISynologenMemberService synologenMemberService) : base(view)
+    	public SaveCustomerPresenter(ISaveCustomerView view, IOrderCustomerRepository orderCustomerRepository, IOrderRepository orderRepository, IViewParser viewParser, IRoutingService routingService) : base(view)
         {
             _orderCustomerRepository = orderCustomerRepository;
     	    _orderRepository = orderRepository;
         	_viewParser = viewParser;
-    		_synologenMemberService = synologenMemberService;
+    		_routingService = routingService;
     		View.Load += View_Load;
     		View.Submit += View_Submit;
     		View.Abort += View_Abort;
@@ -30,59 +31,42 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
     	public void View_Previous(object sender, EventArgs e)
     	{
-            if(View.Model.OrderId.HasValue)
+            if(RequestOrderId.HasValue)
             {
-                var order = _orderRepository.Get(View.Model.OrderId.Value);
+                var order = _orderRepository.Get(RequestOrderId.Value);
                 _orderRepository.Delete(order);
             }
-
-    	    RedirectWithCustomerId(View.PreviousPageId);
+    		Redirect(View.PreviousPageId);
     	}
 
     	public void View_Abort(object sender, EventArgs e)
     	{
-            if (View.Model.OrderId.HasValue)
+            if (RequestOrderId.HasValue)
             {
-                var order = _orderRepository.Get(View.Model.OrderId.Value);
+                var order = _orderRepository.Get(RequestOrderId.Value);
                 _orderRepository.Delete(order);
             }
-    		RedirectWithCustomerId(View.AbortPageId);
+			Redirect(View.AbortPageId);
     	}
 
     	public void View_Load(object o, EventArgs eventArgs)
     	{
-    		string customerId;
-			string personalIdNumber;
-            if(HttpContext.Request.Params["customer"] != null)
-            {
-                customerId = HttpContext.Request.Params["customer"];
-                personalIdNumber = HttpContext.Request.Params["personalIdNumber"];
-            }
-            else if(HttpContext.Request.Params["customer"] == null && HttpContext.Request.Params["personalIdNumber"] != null)
-            {
-                customerId = null;
-                personalIdNumber = HttpContext.Request.Params["personalIdNumber"];
-            }
-            else
-            {
-                var order = _orderRepository.Get(Convert.ToInt32(HttpContext.Request.Params["order"]));
-                customerId = order.Customer.Id.ToString();
-                personalIdNumber = order.Customer.PersonalIdNumber;
-                View.Model.OrderId = order.Id;
-            }
-    	    UpdateCustomer(customerId, personalIdNumber);
-    	}
-
-		private void UpdateCustomer(string customerId, string personalIdNumber)
-		{
-			if(customerId == null)
+			if(RequestOrderId.HasValue)
 			{
-				View.Model.PersonalIdNumber = personalIdNumber;
-				View.Model.DisplayCustomerMissingMessage = true;
+				var order = _orderRepository.Get(RequestOrderId.Value);
+				UpdateViewModel(order.Customer.Id, order.Customer.PersonalIdNumber);
 			}
 			else
 			{
-				var customerIdValue = Convert.ToInt32(customerId);
+    			UpdateViewModel(RequestCustomerId, RequestPersonalIdNumber);
+			}
+    	}
+
+		private void UpdateViewModel(int? customerId, string personalIdNumber)
+		{
+			if(customerId.HasValue)
+			{
+				var customerIdValue = customerId.Value;
 				var customer = _orderCustomerRepository.Get(customerIdValue);
     			View.Model.AddressLineOne = customer.AddressLineOne;
 				View.Model.AddressLineTwo = customer.AddressLineTwo;
@@ -95,47 +79,52 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 				View.Model.PersonalIdNumber = customer.PersonalIdNumber;
 				View.Model.Phone = customer.Phone;
 				View.Model.PostalCode = customer.PostalCode;
-    			View.Model.CustomerId = customer.Id;
+    			//View.Model.CustomerId = customer.Id;
+			}
+			else
+			{
+				View.Model.PersonalIdNumber = personalIdNumber;
+				View.Model.DisplayCustomerMissingMessage = true;
 			}
 		}
 
         public void View_Submit(object o, SaveCustomerEventArgs args)
         {
-        	OrderCustomer customer;
-			if(args.CustomerId.HasValue)
+        	var customer = GetCustomer(args);
+			_orderCustomerRepository.Save(customer);
+
+			if (RequestOrderId.HasValue)
 			{
-				customer = _orderCustomerRepository.Get(args.CustomerId.Value);
-				_viewParser.Fill(customer, args);
+				Redirect(View.NextPageId, new { order = RequestOrderId.Value });
 			}
 			else
 			{
-				customer = _viewParser.Parse(args);
+				Redirect(View.NextPageId, new {customer = customer.Id});
 			}
-			_orderCustomerRepository.Save(customer);
-
-            if(args.OrderId != null)
-            {
-                RedirectWithOrderId(View.NextPageId, args.OrderId);
-            }
-            else
-            {
-                RedirectWithCustomerId(View.NextPageId, customer.Id);    
-            }
         }
 
-    	private void RedirectWithCustomerId(int pageId, int? customerId = null)
-    	{
-    		var url = _synologenMemberService.GetPageUrl(pageId);
-			if (customerId.HasValue) url += "?customer=" + customerId;
+		private OrderCustomer GetCustomer(SaveCustomerEventArgs args)
+		{
+			if(RequestOrderId.HasValue)
+			{
+				var customer = _orderRepository.Get(RequestOrderId.Value).Customer;
+				_viewParser.Fill(customer, args);
+				return customer;
+			}
+			if(RequestCustomerId.HasValue)
+			{
+				var customer = _orderCustomerRepository.Get(RequestCustomerId.Value);
+				_viewParser.Fill(customer, args);
+				return customer;
+			}
+			return _viewParser.Parse(args);
+		}
+
+		private void Redirect(int pageId, object routeData = null)
+		{
+			var url = _routingService.GetPageUrl(pageId, routeData);
 			HttpContext.Response.Redirect(url);
-    	}
-
-        private void RedirectWithOrderId(int pageId, int? orderId = null)
-        {
-            var url = _synologenMemberService.GetPageUrl(pageId);
-            if (orderId.HasValue) url += "?order=" + orderId;
-            HttpContext.Response.Redirect(url);
-        }
+		}
 
         public override void ReleaseView()
         {
@@ -144,5 +133,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		View.Abort -= View_Abort;
 			View.Previous -= View_Previous;
         }
+
+    	private int? RequestCustomerId
+    	{
+    		get { return HttpContext.Request.Params["customer"].ToNullableInt(); }
+    	}
+
+    	private string RequestPersonalIdNumber
+    	{
+    		get { return HttpContext.Request.Params["personalIdNumber"]; }
+    	}
+
+    	private int? RequestOrderId
+    	{
+    		get { return HttpContext.Request.Params["order"].ToNullableInt(); }
+    	}
     }
 }

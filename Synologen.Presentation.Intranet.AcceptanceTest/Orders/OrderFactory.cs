@@ -10,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
 	public static class OrderFactory
 	{
-		public static SaveCustomerEventArgs GetOrderCustomerForm(int? customerId = null)
+		public static SaveCustomerEventArgs GetOrderCustomerForm()
 		{
 			return new SaveCustomerEventArgs
 			{
@@ -25,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				PersonalIdNumber = "197001013239",
 				Phone = "0317483000",
 				PostalCode = "43632",
-				CustomerId = customerId
+				//CustomerId = customerId
 			};
 		}
 

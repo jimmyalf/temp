@@ -266,7 +266,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _order = OrderFactory.GetOrder(article, _customer, lensRecipe);
             WithRepository<IOrderRepository>().Save(_order);
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
-            View.Model.ExistingOrderId = _order.Id;
         }
 
         private void ValdArtikelFinnsSparad()
@@ -317,7 +316,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void AnvändarenKlickarPåFöregåendeSteg()
 		{
-            _createOrderPresenter.View_Previous(null, new PreviousStepFromCreateOrderArgs {OrderExists = false});
+            _createOrderPresenter.View_Previous(null, new EventArgs());
 		}
 
         private void AnvändarenKlickarPåNästaSteg()

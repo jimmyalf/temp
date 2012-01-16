@@ -1,10 +1,13 @@
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Controllers;
 using Spinit.Wpc.Synologen.Presentation.Models;
 using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
+using Spinit.Wpc.Synologen.Presentation.Models.Order;
+using Subscription = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
@@ -27,6 +30,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			Map<LensSubscriptionController, TransactionArticleListItem, TransactionArticle>(x => x.Name, x => x.Name);
 			Map<LensSubscriptionController, TransactionArticleListItem, TransactionArticle>(x => x.Active, x => x.Active);
 			Map<LensSubscriptionController, TransactionArticleListItem, TransactionArticle>(x => x.NumberOfConnectedTransactions, x => x.NumberOfConnectedTransactions);
+
+			Map<OrderController,OrderListItem,Order>(x => x.OrderId, x => x.Id);
+			Map<OrderController,OrderListItem,Order>(x => x.CreatedDate, x => x.Created);
+			Map<OrderController,OrderListItem,Order>(x => x.CustomerName, x => x.Customer.FirstName);
+
+			Map<OrderController,CategoryListItem,ArticleCategory>(x => x.CategoryId, x => x.Id);
+			Map<OrderController,CategoryListItem,ArticleCategory>(x => x.Name, x => x.Name);
+			
 		}
 	}
 }

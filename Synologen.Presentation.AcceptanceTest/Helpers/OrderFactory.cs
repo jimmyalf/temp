@@ -1,27 +1,83 @@
-﻿using Spinit.Wpc.Synologen.Business.Domain.Entities;
+﻿using System.Collections.Generic;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 {
-	public static class OrderFactory 
+	public static class OrderFactory
 	{
-		public static Order GetOrder(int companyId, int salesPersonMemberId, int salesPersonShopId)
+		public static Order GetOrder(Article article, OrderCustomer customer, LensRecipe recipie = null)
 		{
 			return new Order
 			{
-				PersonalIdNumber = "198512242101",
-				CompanyUnit = "1030",
-				CustomerFirstName = "Adam",
-				CustomerLastName = "Bertil",
-				StatusId = 5 /* Invoiced Status */,
-				Phone = "031 - 12 34 56", 
-				Email = "adam.bertil@testbolaget.se",
-				SalesPersonMemberId = salesPersonMemberId,
-				SalesPersonShopId = salesPersonShopId,
-				RstText = "1234",
-				CustomerOrderNumber = "ABC123",
-				CompanyId = companyId,
-				InvoiceNumber = 12345
+				Article = article,
+				LensRecipe = recipie,
+				ShippingType = OrderShippingOption.ToCustomer,
+				Customer = customer
 			};
+		}
+		
+		public static Article GetArticle(ArticleType articleType, ArticleSupplier supplier)
+	    {
+	        return new Article
+	        {
+	            Name = "Artikel 1",
+                ArticleType = articleType,
+                ArticleSupplier = supplier,
+	            Options = new ArticleOptions
+	            {
+	                Axis = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
+                    BaseCurve = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
+                    Power = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
+                    Cylinder = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
+                    Diameter = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
+                    Addition = new SequenceDefinition { Increment = 0F, Max = 0F, Min = 0F }
+                }
+	        };
+	    }
+
+		public static OrderCustomer GetCustomer(string personalIdNumber = "197001013239", string firstName = "Adam", string lastName = "Bertil")
+		{
+			return new OrderCustomer
+			{
+				AddressLineOne = "Box 1234",
+				AddressLineTwo = "Datavägen 23",
+				City = "Mölndal",
+				Email = "adam.b@testbolaget.se",
+				FirstName = firstName,
+				LastName = lastName,
+				MobilePhone = "0701-987654",
+				Notes = "Anteckningar ABC DEF",
+				PersonalIdNumber = personalIdNumber,
+				Phone = "031123456",
+				PostalCode = "41300",
+			};
+		}
+
+		public static ArticleType GetArticleType(ArticleCategory category)
+        {
+            return new ArticleType
+            {
+                Name = "Endagslinser",
+                Category = category
+            };
+        }
+
+		public static ArticleSupplier GetSupplier()
+        {
+            return new ArticleSupplier
+            {
+                Name = "Johnsson & McBeth",
+            };
+        }
+
+		public static ArticleCategory GetCategory()
+        {
+            return new ArticleCategory { Name = "Linser" };
+        }
+
+		public static IEnumerable<Order> GetOrders(Article article, OrderCustomer customer, LensRecipe recipie = null)
+		{
+			return Sequence.Generate(x => GetOrder(article, customer, recipie), 30);
 		}
 	}
 }

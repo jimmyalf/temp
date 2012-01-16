@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\DataRowExtensions.cs" />
+    <Compile Include="Extensions\Filters.cs" />
     <Compile Include="Extensions\OrderBySqlFormula.cs" />
     <Compile Include="Extensions\SqlParameterCollection.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\ArticleRepository.cs" />
@@ -128,6 +129,8 @@
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfSubscriptionsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfTransactionArticlesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\TransactionsForSubscriptionMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\PageOfCategoriesMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\PageOfOrdersMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\ShopDetails\NearbyShopsCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\ActiveAndConsentedSubscriptionsForCustomerCritieriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\ArticlesBySupplierAndArticleTypeCriteriaConverter.cs" />

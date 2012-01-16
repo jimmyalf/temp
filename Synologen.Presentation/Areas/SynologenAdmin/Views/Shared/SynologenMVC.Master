@@ -21,6 +21,7 @@
 			<li><a title="Administrera OP-Q" href="/components/synologen/opqindex.aspx"><span>OP-Q</span></a></li>
 			<li><a title="Administrera Bågbeställningar" href="/components/synologen/frames"><span>Bågbeställning</span></a></li>
 			<li><a title="Administrera Linsabonnemang" href="/components/synologen/lens-subscriptions"><span>Linsabonnemang</span></a></li>
+			<li><a title="Administrera beställningar" href="/components/synologen/orders"><span>Beställningar</span></a></li>
 		</ul>
 	</div>
 	<asp:ContentPlaceHolder id="SubMenu" runat="server"></asp:ContentPlaceHolder>	

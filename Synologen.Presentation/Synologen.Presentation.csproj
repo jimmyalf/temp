@@ -47,6 +47,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Areas\SynologenAdmin\Views\Order\Categories.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Order\Articles.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Order\ArticleTypes.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Order\Suppliers.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Order\Orders.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Shared\OrderSubMenu.ascx" />
     <Content Include="Components\Synologen\Css\ComponentPrint.css" />
     <Content Include="Components\Synologen\ViewSettlementDetails.aspx" />
     <Content Include="Components\Synologen\Settlements.aspx" />
@@ -105,6 +111,7 @@
     <Compile Include="Application\Services\IInvoiceReportViewService.cs" />
     <Compile Include="Controllers\LensSubscriptionController.cs" />
     <Compile Include="Application\Web\PDFReportResult.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Helpers\Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\Extensions\NameValueCollectionExtensions.cs" />
@@ -343,6 +350,9 @@
     <Compile Include="Models\LensSubscription\TransactionArticleListItem.cs" />
     <Compile Include="Models\LensSubscription\TransactionArticleModel.cs" />
     <Compile Include="Models\LensSubscription\TransactionListItemView.cs" />
+    <Compile Include="Models\Order\CategoryListView.cs" />
+    <Compile Include="Models\Order\CommonListView.cs" />
+    <Compile Include="Models\Order\OrderListView.cs" />
     <Compile Include="Models\SelectItem.cs" />
     <Compile Include="Application\AutomapperMappings\NullableDateFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

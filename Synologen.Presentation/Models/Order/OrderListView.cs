@@ -17,7 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 				CreatedDate = order.Created.ToString("yyyy-MM-dd"),
 				CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName),
 				OrderId = order.Id.ToString(),
-				ShopName = null
+				ShopName = order.Shop.Name
 			};
 		}
 	}

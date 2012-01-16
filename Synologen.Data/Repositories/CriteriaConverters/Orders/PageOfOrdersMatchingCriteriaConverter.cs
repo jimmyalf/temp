@@ -13,6 +13,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.Orders
 		{
 			return Criteria
 				.CreateAlias(x => x.Customer)
+				.CreateAlias(x => x.Shop)
 				.SynologenFilterByAny(filter =>
 				{
 					filter.IfInt(source.SearchTerm, parsedValue => filter.Equal(x => x.Id, parsedValue));

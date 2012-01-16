@@ -1,4 +1,5 @@
 using System;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
@@ -21,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private Order _order;
     	private AutogiroDetailsEventArgs _form;
     	private Subscription _subscription;
+    	private Shop _shop;
 
     	public When_entering_autogiro_details()
         {
@@ -29,6 +31,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             	_previousUrl = "/previous/page";
 				_submitUrl = "/next/page";
 				_abortUrl = "/abort/page";
+            	_shop = CreateShop<Shop>();
+            	A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
             	SetupNavigationEvents(_previousUrl, _abortUrl, _submitUrl);
             	_redirectUrl = (url, orderId) => "{url}?order={orderId}".ReplaceWith(new {url, orderId});
                 _presenter = GetPresenter();
@@ -119,7 +123,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	#region Arrange
     	private void EnBeställningHarSkapatsIFöregåendeSteg()
         {
-            _order = CreateOrder();
+            _order = CreateOrder(_shop);
     		HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
         private void AttFormuläretÄrKorrektIfyllt()
@@ -134,7 +138,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void EttBefintligtKontoHarValtsIFöregåendeSteg()
     	{
-    		_subscription = CreateSubscription(_order.Customer);
+    		_subscription = CreateSubscription(_shop, _order.Customer);
     		_order.SelectedPaymentOption = new PaymentOption {SubscriptionId = _subscription.Id, Type = PaymentOptionType.Subscription_Autogiro_Existing};
 			WithRepository<IOrderRepository>().Save(_order);
     	}
@@ -207,6 +211,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			subscriptionItem.Subscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.NotSent);
 			subscriptionItem.Subscription.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
 			subscriptionItem.Subscription.Customer.Id.ShouldBe(_order.Customer.Id);
+			subscriptionItem.Subscription.Shop.Id.ShouldBe(_shop.Id);
     	}
 
     	private void SkapasEttNyttDelAbonnemangPåBefintligtKonto()

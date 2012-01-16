@@ -19,6 +19,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	private readonly IOrderRepository _orderRepository;
     	private readonly ISubscriptionRepository _subscriptionRepository;
     	private readonly ISubscriptionItemRepository _subscriptionItemRepository;
+    	private readonly IShopRepository _shopRepository;
+    	private readonly ISynologenMemberService _synologenMemberService;
 
     	public AutogiroDetailsPresenter(
 			IAutogiroDetailsView view, 
@@ -26,13 +28,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			IRoutingService routingService, 
 			IOrderRepository orderRepository, 
 			ISubscriptionRepository subscriptionRepository,
-			ISubscriptionItemRepository subscriptionItemRepository) : base(view)
+			ISubscriptionItemRepository subscriptionItemRepository,
+			IShopRepository shopRepository,
+			ISynologenMemberService synologenMemberService) : base(view)
         {
     		_viewParser = viewParser;
     		_routingService = routingService;
     		_orderRepository = orderRepository;
     		_subscriptionRepository = subscriptionRepository;
     		_subscriptionItemRepository = subscriptionItemRepository;
+    		_shopRepository = shopRepository;
+    		_synologenMemberService = synologenMemberService;
     		WireupEvents();
         }
 
@@ -113,9 +119,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		private void StoreSubscriptionData(AutogiroDetailsEventArgs e)
 		{
 			var order = _orderRepository.Get(OrderId);
+			var shop = _shopRepository.Get(ShopId);
 
 			//Store/Get subscription
-			var subscription = GetSubscription(e, order);
+			var subscription = GetSubscription(e, order, shop);
 
 			//Store subscriptionItem
     		var subscriptionItem = _viewParser.Parse(e, subscription);
@@ -128,11 +135,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			_orderRepository.Save(order);
 		}
 
-		private Subscription GetSubscription(AutogiroDetailsEventArgs e, Order order)
+		private Subscription GetSubscription(AutogiroDetailsEventArgs e, Order order, Shop shop)
 		{
 			if(order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New)
 			{
-    			var subscription = _viewParser.Parse(e, order.Customer);
+    			var subscription = _viewParser.Parse(e, order.Customer, shop);
 				_subscriptionRepository.Save(subscription);
 				return subscription;
 			}
@@ -152,6 +159,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	private int OrderId
     	{
 			get { return HttpContext.Request.Params["order"].ToInt(); }
+    	}
+
+    	private int ShopId
+    	{
+    		get { return _synologenMemberService.GetCurrentShopId(); }
     	}
     }
 }

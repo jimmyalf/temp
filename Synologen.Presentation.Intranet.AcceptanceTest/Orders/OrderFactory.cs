@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			return new SearchCustomerEventArgs {PersonalIdNumber = personalIdNumber};
 		}
 
-		public static OrderCustomer GetCustomer(string personalIdNumber = "197001013239")
+		public static OrderCustomer GetCustomer(Shop shop, string personalIdNumber = "197001013239")
 		{
 			return new OrderCustomer
 			{
@@ -53,6 +53,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				PersonalIdNumber = personalIdNumber,
 				Phone = "031123456",
 				PostalCode = "41300",
+				Shop = shop
 			};
 		}
 
@@ -78,14 +79,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	                   };
 	    }
 
-		public static Order GetOrder(Article article, OrderCustomer customer, LensRecipe recipie = null)
+		public static Order GetOrder(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null)
 		{
 			return new Order
 			{
 				Article = article,
 				LensRecipe = recipie,
 				ShippingType = OrderShippingOption.ToCustomer,
-				Customer = customer
+				Customer = customer,
+				Shop = shop
 			};
 		}
 
@@ -138,7 +140,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	        };
 	    }
 
-		public static Subscription GetSubscription(OrderCustomer customer, int seed = 0)
+		public static Subscription GetSubscription(Shop shop, OrderCustomer customer, int seed = 0)
 		{
 			var active = seed % 3 != 0;
 			return new Subscription
@@ -149,6 +151,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				Active = active,
 				ConsentStatus = SubscriptionConsentStatus.Accepted.SkipItems(seed),
 				Customer = customer,
+				Shop = shop
 			};
 		}
 
@@ -156,9 +159,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             return Sequence.Generate(GetCategory, 15);
         }
-		public static IEnumerable<Subscription> GetSubscriptions(OrderCustomer customer)
+		public static IEnumerable<Subscription> GetSubscriptions(Shop shop, OrderCustomer customer)
 		{
-			return Sequence.Generate(seed => GetSubscription(customer, seed), 15);
+			return Sequence.Generate(seed => GetSubscription(shop, customer, seed), 15);
 		}
         public static ArticleCategory GetCategory()
         {

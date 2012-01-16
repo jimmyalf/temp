@@ -16,13 +16,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         private readonly IOrderRepository _orderRepository;
     	private readonly IViewParser _viewParser;
     	private readonly IRoutingService _routingService;
+    	private readonly IShopRepository _shopRepository;
+    	private readonly ISynologenMemberService _synologenMemberService;
 
-    	public SaveCustomerPresenter(ISaveCustomerView view, IOrderCustomerRepository orderCustomerRepository, IOrderRepository orderRepository, IViewParser viewParser, IRoutingService routingService) : base(view)
+    	public SaveCustomerPresenter(
+			ISaveCustomerView view, 
+			IOrderCustomerRepository orderCustomerRepository, 
+			IOrderRepository orderRepository, 
+			IViewParser viewParser, 
+			IRoutingService routingService,
+			IShopRepository shopRepository,
+			ISynologenMemberService synologenMemberService) : base(view)
         {
             _orderCustomerRepository = orderCustomerRepository;
     	    _orderRepository = orderRepository;
         	_viewParser = viewParser;
     		_routingService = routingService;
+    		_shopRepository = shopRepository;
+    		_synologenMemberService = synologenMemberService;
     		View.Load += View_Load;
     		View.Submit += View_Submit;
     		View.Abort += View_Abort;
@@ -116,7 +127,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 				_viewParser.Fill(customer, args);
 				return customer;
 			}
-			return _viewParser.Parse(args);
+			var shop = _shopRepository.Get(ShopId);
+			return _viewParser.Parse(args, shop);
 		}
 
 		private void Redirect(int pageId, object routeData = null)
@@ -146,6 +158,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	private int? RequestOrderId
     	{
     		get { return HttpContext.Request.Params["order"].ToNullableInt(); }
+    	}
+
+    	private int ShopId
+    	{
+    		get { return _synologenMemberService.GetCurrentShopId(); }
     	}
     }
 }

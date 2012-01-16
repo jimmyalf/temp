@@ -10,8 +10,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 {
 	public interface IViewParser
 	{
-		OrderCustomer Parse(SaveCustomerEventArgs args);
-		Subscription Parse(AutogiroDetailsEventArgs args, OrderCustomer customer);
+		OrderCustomer Parse(SaveCustomerEventArgs args, Shop shop);
+		Subscription Parse(AutogiroDetailsEventArgs args, OrderCustomer customer, Shop shop);
 		SubscriptionItem Parse(AutogiroDetailsEventArgs args, Subscription subscription);
 		void Fill(OrderCustomer existingCustomer, SaveCustomerEventArgs args);
 		IEnumerable<ListItem> Parse<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
@@ -22,7 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 
 	public class ViewParser : IViewParser
 	{
-		public OrderCustomer Parse(SaveCustomerEventArgs args)
+		public OrderCustomer Parse(SaveCustomerEventArgs args, Shop shop)
 		{
 			return new OrderCustomer
 			{
@@ -36,11 +36,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 				Notes = args.Notes, 
 				PersonalIdNumber = args.PersonalIdNumber, 
 				Phone = args.Phone, 
-				PostalCode = args.PostalCode
+				PostalCode = args.PostalCode,
+				Shop = shop
 			};
 		}
 
-		public Subscription Parse(AutogiroDetailsEventArgs args, OrderCustomer customer)
+		public Subscription Parse(AutogiroDetailsEventArgs args, OrderCustomer customer, Shop shop)
 		{
 			return new Subscription
 			{
@@ -51,6 +52,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 				ClearingNumber = args.ClearingNumber,
 				ConsentStatus = SubscriptionConsentStatus.NotSent,
 				Customer = customer,
+				Shop = shop
     		};
 		}
 

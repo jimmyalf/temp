@@ -69,6 +69,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		protected ISubscriptionRepository SubscriptionRepository;
 		protected ISubscriptionItemRepository SubscriptionItemRepository;
 		protected IRoutingService RoutingService;
+		protected IShopRepository ShopRepository;
+		protected ISynologenMemberService SynologenMemberService;
 
 		protected AutogiroDetailsTestbase()
 		{
@@ -79,6 +81,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 				ViewParser = new ViewParser();
 				SubscriptionRepository = A.Fake<ISubscriptionRepository>();
 				SubscriptionItemRepository = A.Fake<ISubscriptionItemRepository>();
+				ShopRepository = A.Fake<IShopRepository>();
+				SynologenMemberService = A.Fake<ISynologenMemberService>();
 			};
 
 			GetPresenter = () => new AutogiroDetailsPresenter(
@@ -87,7 +91,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 				RoutingService,
 				OrderRepository,
 				SubscriptionRepository,
-				SubscriptionItemRepository
+				SubscriptionItemRepository,
+				ShopRepository,
+				SynologenMemberService
 			);
 		}
 	}

@@ -15,8 +15,9 @@ namespace Spinit.Wpc.Synogen.Test.Data
 {
 	public class DataManager : DataUtility
 	{
-		public Shop CreateShop(ISqlProvider sqlProvider, string shopName)
+		public Shop CreateShop(ISqlProvider sqlProvider = null, string shopName = "Testbutik AB")
 		{
+			var provider = sqlProvider ?? GetSqlProvider();
 			var shop = new Shop
 			{
 				Access = ShopAccess.LensSubscription | ShopAccess.SlimJim,
@@ -47,7 +48,7 @@ namespace Spinit.Wpc.Synogen.Test.Data
                 Longitude = 11.97456m,
                 Latitude = 57.70887m
 			};
-			sqlProvider.AddUpdateDeleteShop(Enumerations.Action.Create, ref shop);
+			provider.AddUpdateDeleteShop(Enumerations.Action.Create, ref shop);
 			return shop;
 		}
 

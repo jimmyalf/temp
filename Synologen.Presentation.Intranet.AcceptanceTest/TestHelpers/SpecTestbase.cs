@@ -135,6 +135,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 		    return items;
 		}
 
+		protected TShop CreateShop<TShop>(string shopName = "Testbutik")
+		{
+			var shop = _dataManager.CreateShop(shopName: shopName);
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			return session.Get<TShop>(shop.ShopId);
+		}
+
 		public TRepository WithRepository<TRepository>()
 		{
 		    var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();

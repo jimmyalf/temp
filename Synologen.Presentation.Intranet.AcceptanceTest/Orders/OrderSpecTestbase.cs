@@ -13,16 +13,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		where TPresenter : Presenter<TView> 
 		where TView : class, IView, ICommonOrderView
 	{
-		protected Order CreateOrder(Article article = null, OrderCustomer customer = null)
+		protected Order CreateOrder(Shop shop, Article article = null, OrderCustomer customer = null)
 		{
 			article = article ?? CreateArticle();
-			customer = customer ?? CreateCustomer();
-			return CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(article, customer));
+			customer = customer ?? CreateCustomer(shop);
+			return CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(shop, article, customer));
 		}
 
-		protected OrderCustomer CreateCustomer(Func<OrderCustomer> factoryMethod = null)
+		protected OrderCustomer CreateCustomer(Shop shop, Func<Shop,OrderCustomer> factoryMethod = null)
 		{
-			var customer = (factoryMethod == null) ? OrderFactory.GetCustomer() : factoryMethod();
+			var customer = (factoryMethod == null) ? OrderFactory.GetCustomer(shop) : factoryMethod(shop);
 			return CreateWithRepository<IOrderCustomerRepository, OrderCustomer>(() => customer);
 		}
 
@@ -34,17 +34,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			return CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(articleType, supplier));
 		}
 
-		protected IEnumerable<Subscription> CreateSubscriptions(OrderCustomer customer = null, Func<OrderCustomer,IEnumerable<Subscription>> factoryMethod = null)
+		protected IEnumerable<Subscription> CreateSubscriptions(Shop shop, OrderCustomer customer = null , Func<Shop,OrderCustomer,IEnumerable<Subscription>> factoryMethod = null)
 		{
-			customer = customer ?? CreateCustomer();
+			customer = customer ?? CreateCustomer(shop);
 			var getSubscriptions = factoryMethod ?? OrderFactory.GetSubscriptions;
-			return CreateItemsWithRepository<ISubscriptionRepository, Subscription>(() => getSubscriptions(customer));
+			return CreateItemsWithRepository<ISubscriptionRepository, Subscription>(() => getSubscriptions(shop, customer));
 		}
 
-		protected Subscription CreateSubscription(OrderCustomer customer = null)
+		protected Subscription CreateSubscription(Shop shop, OrderCustomer customer = null)
 		{
-			customer = customer ?? CreateCustomer();
-			return CreateWithRepository<ISubscriptionRepository, Subscription>(() => OrderFactory.GetSubscription(customer));
+			customer = customer ?? CreateCustomer(shop);
+			return CreateWithRepository<ISubscriptionRepository, Subscription>(() => OrderFactory.GetSubscription(shop, customer));
 		}
 
 		protected void SetupNavigationEvents(string previousPageUrl = null, string abortPageUrl = null, string nextPageUrl = null)

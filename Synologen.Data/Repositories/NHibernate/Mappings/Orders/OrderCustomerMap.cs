@@ -20,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
             Map(x => x.PersonalIdNumber);
             Map(x => x.Phone);
             Map(x => x.PostalCode);
+			References(x => x.Shop).Column("ShopId").Not.Nullable();
         }
     }
 }

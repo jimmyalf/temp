@@ -25,10 +25,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	private readonly IOrderCustomerRepository _orderCustomerRepository;
         private readonly IArticleRepository _articleRepository;
         private readonly ILensRecipeRepository _lensRecipeRepository;
+    	private readonly IShopRepository _shopRepository;
+    	private readonly ISynologenMemberService _synologenMemberService;
 
-		//TODO: Consider removing -9999 "magic number" and replace with a named constant
+    	//TODO: Consider removing -9999 "magic number" and replace with a named constant
 
-        public CreateOrderPresenter(ICreateOrderView view, IOrderRepository orderRepository, IOrderCustomerRepository orderCustomerRepository, IRoutingService routingService, IArticleCategoryRepository articleCategoryRepository, IViewParser viewParser, IArticleSupplierRepository articleSupplierRepository, IArticleTypeRepository articleTypeRepository, IArticleRepository articleRepository, ILensRecipeRepository lensRecipeRepository) : base(view)
+        public CreateOrderPresenter(ICreateOrderView view, IOrderRepository orderRepository, IOrderCustomerRepository orderCustomerRepository, IRoutingService routingService, IArticleCategoryRepository articleCategoryRepository, IViewParser viewParser, IArticleSupplierRepository articleSupplierRepository, IArticleTypeRepository articleTypeRepository, IArticleRepository articleRepository, ILensRecipeRepository lensRecipeRepository, IShopRepository shopRepository, ISynologenMemberService synologenMemberService) : base(view)
         {
             _orderCustomerRepository = orderCustomerRepository;
             _routingService = routingService;
@@ -39,6 +41,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         	_orderRepository = orderRepository;
             _articleRepository = articleRepository;
             _lensRecipeRepository = lensRecipeRepository;
+        	_shopRepository = shopRepository;
+        	_synologenMemberService = synologenMemberService;
         	WireupEvents();
         }
 
@@ -134,12 +138,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             _lensRecipeRepository.Save(lensRecipe);
 
             var customer = _orderCustomerRepository.Get(RequestCustomerId.Value);
+    		var shop = _shopRepository.Get(ShopId);
             var order = new Order
             {
                 Article = article,
                 LensRecipe = lensRecipe,
                 ShippingType = (OrderShippingOption) form.ShipmentOption,
-                Customer = customer
+                Customer = customer,
+				Shop = shop
             };
             _orderRepository.Save(order);
             return order.Id;
@@ -249,6 +255,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	{
     		get { return HttpContext.Request.Params["customer"].ToNullableInt(); }
     	}
+
+		private int ShopId { get { return _synologenMemberService.GetCurrentShopId(); } }
 
         public override void ReleaseView()
         {

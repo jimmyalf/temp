@@ -5,14 +5,20 @@ using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
+using Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using StructureMap.Configuration.DSL;
+using ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories.ArticleRepository;
+using IArticleRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales.IArticleRepository;
+using ISubscriptionRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription.ISubscriptionRepository;
+using SubscriptionRepository = Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories.SubscriptionRepository;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 {
@@ -40,6 +46,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 			For<ICustomerRepository>().HybridHttpOrThreadLocalScoped().Use<CustomerRepository>();
 			For<ITransactionArticleRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionArticleRepository>();
 			For<IArticleRepository>().HybridHttpOrThreadLocalScoped().Use<ArticleRepository>();
+			//Order Repositories
+			For<IOrderRepository>().HybridHttpOrThreadLocalScoped().Use<OrderRepository>();
+			For<IArticleCategoryRepository>().HybridHttpOrThreadLocalScoped().Use<ArticleCategoryRepository>();
+
 			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
 			// Register criteria converters

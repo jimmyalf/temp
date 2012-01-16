@@ -10,7 +10,7 @@
 
    	<fieldset>
    		<div class="progress">
-   	    	<label>Steg 1 av 6</label>
+   	    	<label>Steg 2 av 6</label>
 			<div id="progressbar"></div>
    	    </div>
 

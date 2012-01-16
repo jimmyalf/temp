@@ -9,6 +9,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
     		Created = SystemClock.Now;
     		SelectedPaymentOption = new PaymentOption();
     	}
+
+		public virtual Shop Shop { get; set; }
 		public virtual Article Article { get; set; }
 		public virtual LensRecipe LensRecipe { get; set; }
         public virtual OrderShippingOption ShippingType { get; set; }
@@ -18,21 +20,4 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual SubscriptionItem SubscriptionPayment { get; set; }
 		public virtual decimal? AutoWithdrawalAmount { get; set; }
     }
-
-	public class LensRecipe : Entity
-	{
-	    public virtual Order Order { get; set; }
-		public virtual EyeParameter BaseCurve { get; set; }
-		public virtual EyeParameter Diameter { get; set; }
-		public virtual EyeParameter Power { get; set; }
-	    public virtual EyeParameter Axis { get; set; }
-	    public virtual EyeParameter Cylinder { get; set; }
-        public virtual EyeParameter Addition { get; set; }
-	}
-
-	public class EyeParameter
-	{
-		public virtual float? Left { get; set; }
-		public virtual float? Right { get; set; }
-	}
 }

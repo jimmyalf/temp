@@ -184,6 +184,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\Orders\LensRecipeMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderCustomerMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\ShopMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionItemMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopDetails\ShopEquipmentConnectionMap.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Repositories\OrderRepositories\LensRecipeRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\OrderCustomerRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\OrderRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\ShopRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\SubscriptionItemRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\SubscriptionRepository.cs" />
     <Compile Include="Repositories\ShopDetailsRepositories\ShopRepository.cs" />

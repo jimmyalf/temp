@@ -40,6 +40,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 	    protected IOrderRepository OrderRepository;
 		protected IRoutingService RoutingService;
 		protected IViewParser ViewParser;
+		protected ISynologenMemberService SynologenMemberService;
+		protected IShopRepository ShopRepository;
 
 		protected SaveCustomerTestbase()
 		{
@@ -48,11 +50,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 				RoutingService = A.Fake<IRoutingService>();
 				OrderCustomerRepository = A.Fake<IOrderCustomerRepository>();
 			    OrderRepository = A.Fake<IOrderRepository>();
-
+				SynologenMemberService = A.Fake<ISynologenMemberService>();
+				ShopRepository = A.Fake<IShopRepository>();
 				ViewParser = new ViewParser();
 			};
 
-			GetPresenter = () => new SaveCustomerPresenter(View, OrderCustomerRepository, OrderRepository, ViewParser, RoutingService);
+			GetPresenter = () => new SaveCustomerPresenter(
+				View, 
+				OrderCustomerRepository, 
+				OrderRepository, 
+				ViewParser, 
+				RoutingService,
+				ShopRepository,
+				SynologenMemberService);
 		}
 	}
 }

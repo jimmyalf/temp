@@ -74,6 +74,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 	    protected IArticleRepository ArticleRepository;
 	    protected ILensRecipeRepository LensRecipeRepository;
 	    protected IRoutingService RoutingService;
+		protected IShopRepository ShopRepository;
 
 		protected CreateOrderTestbase()
 		{
@@ -88,6 +89,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 				ArticleTypeRepository = A.Fake<IArticleTypeRepository>();
 			    ArticleRepository = A.Fake<IArticleRepository>();
 			    LensRecipeRepository = A.Fake<ILensRecipeRepository>();
+				ShopRepository = A.Fake<IShopRepository>();
+				SynologenMemberService = A.Fake<ISynologenMemberService>();
 			};
 
 			GetPresenter = () => new CreateOrderPresenter(
@@ -100,7 +103,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 				ArticleSupplierRepository,
 				ArticleTypeRepository,
                 ArticleRepository,
-                LensRecipeRepository
+                LensRecipeRepository,
+				ShopRepository,
+				SynologenMemberService
 			);
 		}
 	}

@@ -17,6 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private string _nextUrl, _abortUrl;
 		private OrderCustomer _customer;
 		private SearchCustomerEventArgs _searchEventArgs;
+		private Shop _shop;
 
 		public Search_Customer_Specs()
 		{
@@ -24,6 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			{
 				_nextUrl = "/test/next";
 				_abortUrl = "/test/abort";
+				_shop = CreateShop<Shop>();
 				SetupNavigationEvents(abortPageUrl:_abortUrl, nextPageUrl: _nextUrl);
 				_presenter = GetPresenter();
 			};
@@ -67,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	    #region Arrange
         private void AttKundFinnsSedanTidigare()
         {
-        	_customer = CreateCustomer();
+        	_customer = CreateCustomer(_shop);
         }
         private void AttKundInteFinnsSedanTidigare()
         {

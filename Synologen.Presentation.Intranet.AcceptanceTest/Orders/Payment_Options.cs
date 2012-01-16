@@ -24,6 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private int _selectedSubscriptionId;
     	private IEnumerable<Subscription> _subsciptions;
     	private OrderCustomer _customer;
+    	private Shop _shop;
 
     	public When_selecting_payment_options()
         {
@@ -45,14 +46,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void SetupDataContext()
     	{
-    		_customer = CreateCustomer();
-    		_subsciptions = CreateSubscriptions(_customer);
+            _shop = CreateShop<Shop>();
+    		_customer = CreateCustomer(_shop);
+    		_subsciptions = CreateSubscriptions(_shop, _customer);
 			var article = CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(null, null));
-        	_order = CreateOrder(customer:_customer, article: article);
+        	_order = CreateOrder(_shop, customer:_customer, article: article);
 
-			var otherCustomer = CreateCustomer();
-			CreateSubscriptions(otherCustomer);
-			CreateOrder(customer:otherCustomer);
+			var otherCustomer = CreateCustomer(_shop);
+			CreateSubscriptions(_shop, otherCustomer);
+			CreateOrder(_shop, customer:otherCustomer);
 		}
 
 		[Test]

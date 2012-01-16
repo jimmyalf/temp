@@ -12,6 +12,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 			CreatedDate = SystemTime.Now;
 		}
 		public virtual OrderCustomer Customer { get; set; }
+		public virtual Shop Shop { get; set; }
 		public virtual string BankAccountNumber { get; set; }
 		public virtual string ClearingNumber { get; set; }
 		public virtual int? AutogiroPayerId { get; set; }
@@ -21,6 +22,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual SubscriptionConsentStatus ConsentStatus { get; set; }
 		public virtual DateTime CreatedDate { get; protected set; }
 		public virtual DateTime? ActivatedDate { get; set; }
-		public virtual bool Active { get; set; } 
+		public virtual bool Active { get; set; }
 	}
 }

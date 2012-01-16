@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
@@ -34,14 +35,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private int _selectedArticleTypeId;
         private int _selectedSupplierId;
         private Order _order;
+    	private Shop _shop;
 
-        public When_creating_an_order()
+    	public When_creating_an_order()
         {
             Context = () =>
             {
                 _testRedirectSubmitUrl = "/test/page";
                 _testRedirectAbortUrl = "/test/page/abort";
                 _testRedirectPreviousUrl = "/test/page/previous";
+            	_shop = CreateShop<Shop>();
+            	A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
                 SetupNavigationEvents(_testRedirectPreviousUrl, _testRedirectAbortUrl, _testRedirectSubmitUrl);
                 _createOrderPresenter = GetPresenter();
             };                  
@@ -238,7 +242,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void AttEnKundÄrVald()
     	{
-            _customer = OrderFactory.GetCustomer();
+            _customer = OrderFactory.GetCustomer(_shop);
             WithRepository<IOrderCustomerRepository>().Save(_customer);
             HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
     	}
@@ -260,10 +264,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             var lensRecipe = OrderFactory.GetLensRecipe();
             WithRepository<ILensRecipeRepository>().Save(lensRecipe);
 
-            _customer = OrderFactory.GetCustomer();
+            _customer = OrderFactory.GetCustomer(_shop);
             WithRepository<IOrderCustomerRepository>().Save(_customer);
 
-            _order = OrderFactory.GetOrder(article, _customer, lensRecipe);
+            _order = OrderFactory.GetOrder(_shop, article, _customer, lensRecipe);
             WithRepository<IOrderRepository>().Save(_order);
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
@@ -474,6 +478,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _order.LensRecipe.Addition.Right.ShouldBe(_form.RightAddition);
             
             _order.ShippingType.ToInteger().ShouldBe(_form.ShipmentOption);
+			_order.Shop.Id.ShouldBe(_shop.Id);
 
         }
 

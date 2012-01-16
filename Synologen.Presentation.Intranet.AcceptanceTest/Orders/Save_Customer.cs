@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
@@ -21,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private Order _order;
         private Article _article;
     	private string _customerNotFoundWithPersonalIdNumber;
+    	private Shop _shop;
 
     	public When_picking_a_customer()
 		{
@@ -29,6 +31,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_submitRedirectUrl = "/submit/page";
 				_abortRedirectUrl = "/abort/page";
 				_previousRedirectUrl = "/previous/page";
+				_shop = CreateShop<Shop>();
+				A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
 				SetupNavigationEvents(_previousRedirectUrl,_abortRedirectUrl, _submitRedirectUrl);
 				_saveCustomerPresenter = GetPresenter();
 			};
@@ -151,23 +155,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
         private void AttEnKundHittatsIFöregåendeSteg()
         {
-        	_customer = CreateCustomer();
+        	_customer = CreateCustomer(_shop);
             HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
         }
 
         private void AttEnKundHittatsViaOrderId()
         {
-            _customer = CreateCustomer();
+            _customer = CreateCustomer(_shop);
             _article = CreateArticle();
-            _order = CreateOrder(_article, _customer);
+            _order = CreateOrder(_shop, _article, _customer);
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
 
         private void AttEnOrderFinnsSkapad()
         {
-            _customer = CreateCustomer();
+            _customer = CreateCustomer(_shop);
             _article = CreateArticle();
-            _order = CreateOrder(_article, _customer);
+            _order = CreateOrder(_shop, _article, _customer);
             //View.Model.OrderId = _order.Id;
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
@@ -250,6 +254,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _customer.PersonalIdNumber.ShouldBe(_form.PersonalIdNumber);
             _customer.Phone.ShouldBe(_form.Phone);
             _customer.PostalCode.ShouldBe(_form.PostalCode);
+			_customer.Shop.Id.ShouldBe(_shop.Id);
         }
 
         private void UppdaterasBefintligKund()

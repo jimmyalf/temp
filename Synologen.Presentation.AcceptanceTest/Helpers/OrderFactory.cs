@@ -5,14 +5,15 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 {
 	public static class OrderFactory
 	{
-		public static Order GetOrder(Article article, OrderCustomer customer, LensRecipe recipie = null)
+		public static Order GetOrder(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null)
 		{
 			return new Order
 			{
 				Article = article,
 				LensRecipe = recipie,
 				ShippingType = OrderShippingOption.ToCustomer,
-				Customer = customer
+				Customer = customer,
+				Shop = shop
 			};
 		}
 		
@@ -35,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 	        };
 	    }
 
-		public static OrderCustomer GetCustomer(string personalIdNumber = "197001013239", string firstName = "Adam", string lastName = "Bertil")
+		public static OrderCustomer GetCustomer(Shop shop, string personalIdNumber = "197001013239", string firstName = "Adam", string lastName = "Bertil")
 		{
 			return new OrderCustomer
 			{
@@ -50,6 +51,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 				PersonalIdNumber = personalIdNumber,
 				Phone = "031123456",
 				PostalCode = "41300",
+				Shop = shop
 			};
 		}
 
@@ -75,9 +77,9 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
             return new ArticleCategory { Name = "Linser" };
         }
 
-		public static IEnumerable<Order> GetOrders(Article article, OrderCustomer customer, LensRecipe recipie = null)
+		public static IEnumerable<Order> GetOrders(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null)
 		{
-			return Sequence.Generate(x => GetOrder(article, customer, recipie), 30);
+			return Sequence.Generate(x => GetOrder(shop, article, customer, recipie), 30);
 		}
 	}
 }

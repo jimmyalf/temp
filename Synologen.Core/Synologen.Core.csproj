@@ -158,6 +158,9 @@
     <Compile Include="Domain\Model\ContractSales\Subscription.cs" />
     <Compile Include="Domain\Model\ContractSales\Transaction.cs" />
     <Compile Include="Domain\Model\Entity.cs" />
+    <Compile Include="Domain\Model\Orders\EyeParameter.cs" />
+    <Compile Include="Domain\Model\Orders\LensRecipe.cs" />
+    <Compile Include="Domain\Model\Orders\Shop.cs" />
     <Compile Include="Domain\Model\ShopDetails\Coordinates.cs" />
     <Compile Include="Domain\Model\FrameOrder\EyeParameter.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameGlassType.cs" />
@@ -285,6 +288,7 @@
     <Compile Include="Domain\Persistence\Orders\ILensRecipeRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\IOrderCustomerRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\IOrderRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\IShopRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\ISubscriptionItemRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\ISubscriptionRepository.cs" />
     <Compile Include="Domain\Persistence\ShopDetails\IShopRepository.cs" />

@@ -13,5 +13,6 @@
         public virtual string City { get; set; }
         public virtual string PostalCode { get; set; }
         public virtual string Notes { get; set; }
+		public virtual Shop Shop { get; set; }
     }
 }

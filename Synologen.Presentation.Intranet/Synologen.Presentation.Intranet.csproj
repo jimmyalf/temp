@@ -493,6 +493,7 @@
     <Content Include="Wpc\Synologen\ContractSales\SalesList.ascx" />
     <Content Include="Wpc\Synologen\js\jquery-ui-1.8.16.custom.min.js" />
     <Content Include="Wpc\Synologen\Orders\AutogiroDetails.ascx" />
+    <Content Include="TestComponents\OrderMenu.ascx" />
     <Content Include="Wpc\Synologen\Orders\Menu\OrderMenu.ascx" />
     <Content Include="Wpc\Synologen\Orders\SearchCustomer.ascx" />
     <Content Include="Wpc\Synologen\Orders\CreateOrder.ascx" />

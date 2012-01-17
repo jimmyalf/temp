@@ -18,11 +18,12 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 			};
 		}
 		
-		public static Article GetArticle(ArticleType articleType, ArticleSupplier supplier)
+		public static Article GetArticle(ArticleType articleType, ArticleSupplier supplier, string name = "Artikel", int? seed = null)
 	    {
+			var articleName = name + ((seed.HasValue) ? " " + seed.Value.GetSwedishChar() : string.Empty);
 	        return new Article
 	        {
-	            Name = "Artikel 1",
+	            Name = articleName,
                 ArticleType = articleType,
                 ArticleSupplier = supplier,
 	            Options = new ArticleOptions
@@ -36,6 +37,11 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
                 }
 	        };
 	    }
+
+		public static IEnumerable<Article> GetArticles(ArticleType articleType, ArticleSupplier supplier)
+		{
+			return Sequence.Generate(seed => GetArticle(articleType, supplier, seed: seed), 45);
+		}
 
 		public static OrderCustomer GetCustomer(Shop shop, string personalIdNumber = "197001013239", string firstName = "Adam", string lastName = "Bertil")
 		{
@@ -56,10 +62,10 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 			};
 		}
 
-		public static ArticleType GetArticleType(ArticleCategory category, int? seed = null)
+		public static ArticleType GetArticleType(ArticleCategory category, int? seed = null, string name = "Endagslinser")
         {
-			var name = "Endagslinser" + ((seed.HasValue) ? " " + seed.Value.GetSwedishChar() : string.Empty);
-            return new ArticleType { Name = name, Category = category };
+			var articleTypeName = name + ((seed.HasValue) ? " " + seed.Value.GetSwedishChar() : string.Empty);
+            return new ArticleType { Name = articleTypeName, Category = category };
         }
 
 		public static IEnumerable<ArticleType> GetArticleTypes(ArticleCategory category)
@@ -67,10 +73,10 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 			return Sequence.Generate(seed => GetArticleType(category, seed), 45);
 		}
 
-		public static ArticleSupplier GetSupplier(int? seed = null)
+		public static ArticleSupplier GetSupplier(int? seed = null, string name = "Johnsson & McBeth")
 		{
-			var name = "Johnsson & McBeth" + ((seed.HasValue) ? " " + seed.Value.GetSwedishChar() : string.Empty);
-            return new ArticleSupplier { Name = name };
+			var supplierName = name + ((seed.HasValue) ? " " + seed.Value.GetSwedishChar() : string.Empty);
+            return new ArticleSupplier { Name = supplierName };
         }
 
 		public static ArticleCategory GetCategory(string name = "Linser", int? seed = null)

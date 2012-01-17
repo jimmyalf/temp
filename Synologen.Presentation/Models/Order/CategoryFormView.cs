@@ -15,7 +15,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public int? Id { get; set; }
 		[DisplayName("Namn"), Required]
 		public string Name { get; set; }
-		public bool IsAdd { get { return !IsEdit; } }
-		public bool IsEdit { get { return Id.HasValue; } }
+		public bool IsAdd { get { return !Id.HasValue; } }
 	}
 }

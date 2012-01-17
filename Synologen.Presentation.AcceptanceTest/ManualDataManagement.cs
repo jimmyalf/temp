@@ -47,6 +47,18 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 				OrderFactory.GetOrders(_shop2, _article, _customerTwo).StoreItemsWith(_session));
 		}
 
+		[Test]
+		public void Add_article_categories()
+		{
+			OrderFactory.GetCategories().StoreItemsWith(_session);
+		}
+
+		[Test]
+		public void Add_article_suppliers()
+		{
+			OrderFactory.GetSuppliers().StoreItemsWith(_session);
+		}
+
 		protected Shop CreateShop(ISession session, string shopName = "Testbutik")
 		{
 			var shop = _dataManager.CreateShop(shopName: shopName);

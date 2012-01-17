@@ -38,6 +38,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 
 			Map<OrderController,CategoryListItem,ArticleCategory>(x => x.CategoryId, x => x.Id);
 			Map<OrderController,CategoryListItem,ArticleCategory>(x => x.Name, x => x.Name);
+
+			Map<OrderController,SupplierListItem,ArticleSupplier>(x => x.SupplierId, x => x.Id);
+			Map<OrderController,SupplierListItem,ArticleSupplier>(x => x.Name, x => x.Name);
 			
 		}
 	}

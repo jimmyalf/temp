@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage" %>
+﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<SupplierListView>" %>
 
 <asp:Content ContentPlaceHolderID="SubMenu" runat="server">
 <% Html.RenderPartial("OrderSubMenu"); %>
@@ -12,10 +12,8 @@
 			<fieldset>
 				<legend>Leverantörer</legend>
 				<p class="formItem">
-					<%--
 					<%= Html.LabelFor(x => x.SearchTerm) %>
 					<%= Html.EditorFor(x => x.SearchTerm) %>
-					--%>
 				</p>
 				<p class="formCommands">
 					<%= Html.AntiForgeryToken() %>
@@ -23,23 +21,17 @@
 				</p>
 			</fieldset>
 			<% } %>
-			Lista leverantörer...
-			<%-- 
 			<%= Html.WpcPager(Model.List)%>
 			<div>
 				<%= Html.WpcGrid(Model.List).Columns( column => 
 					{
- 						column.For(x => x.SubscriptionId).Named("ID")
- 							.HeaderAttributes(@class => "controlColumn");
- 						column.For(x => x.ShopName).Named("Butik");
-					    column.For(x => x.CustomerName).Named("Kund");
-					    column.For(x => x.Status).Named("Status");
-						column.For(x => Html.ActionLink("Redigera", "EditSubscription", "LensSubscription", new {id = x.SubscriptionId}, new object()))
+ 						column.For(x => x.SupplierId).Named("ID").HeaderAttributes(@class => "controlColumn");
+ 						column.For(x => x.Name).Named("Leverantör");
+						column.For(x => Html.ActionLink("Redigera", "EditSupplier", "Order", new {id = x.SupplierId}, new object()))
 							.SetAsWpcControlColumn("Redigera");
- 					}).Empty("Inga abonnemang i databasen.")
+ 					}).Empty("Inga leverantörer i databasen.")
 				%>
 			</div>
-			--%>
 		</div>     						
 	</div>				
 </div>

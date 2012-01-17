@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
@@ -64,22 +65,31 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
             };
         }
 
-		public static ArticleSupplier GetSupplier()
-        {
-            return new ArticleSupplier
-            {
-                Name = "Johnsson & McBeth",
-            };
+		public static ArticleSupplier GetSupplier(int? seed = null)
+		{
+			var name = "Johnsson & McBeth" + ((seed.HasValue) ? " " + seed.Value.GetSwedishChar() : string.Empty);
+            return new ArticleSupplier { Name = name };
         }
 
-		public static ArticleCategory GetCategory()
-        {
-            return new ArticleCategory { Name = "Linser" };
+		public static ArticleCategory GetCategory(int? seed = null)
+		{
+			var name = "Linser" + ((seed.HasValue) ? " " + seed.Value.GetSwedishChar() : string.Empty);
+            return new ArticleCategory { Name = name };
         }
+
+		public static IEnumerable<ArticleCategory> GetCategories()
+		{
+			return Sequence.Generate(seed => GetCategory(seed), 45);
+		}
 
 		public static IEnumerable<Order> GetOrders(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null)
 		{
 			return Sequence.Generate(x => GetOrder(shop, article, customer, recipie), 30);
+		}
+
+		public static IEnumerable<ArticleSupplier> GetSuppliers()
+		{
+			return Sequence.Generate(seed => GetSupplier(seed), 45);
 		}
 	}
 }

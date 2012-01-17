@@ -353,6 +353,7 @@
     <Compile Include="Models\Order\CategoryListView.cs" />
     <Compile Include="Models\Order\CommonListView.cs" />
     <Compile Include="Models\Order\OrderListView.cs" />
+    <Compile Include="Models\Order\SupplierListView.cs" />
     <Compile Include="Models\SelectItem.cs" />
     <Compile Include="Application\AutomapperMappings\NullableDateFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -6,11 +6,10 @@ using Spinit.Wpc.Synologen.Data.Extensions;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.Orders
 {
-	public class PageOfCategoriesMatchingCriteriaConverter : NHibernateActionCriteriaConverter<PageOfCategoriesMatchingCriteria,ArticleCategory>
+	public class PageOfSuppliersMatchingCriteriaConverter : NHibernateActionCriteriaConverter<PageOfSuppliersMatchingCriteria,ArticleSupplier>
 	{
-		public PageOfCategoriesMatchingCriteriaConverter(ISession session) : base(session) {}
-
-		public override ICriteria Convert(PageOfCategoriesMatchingCriteria source)
+		public PageOfSuppliersMatchingCriteriaConverter(ISession session) : base(session) {}
+		public override ICriteria Convert(PageOfSuppliersMatchingCriteria source)
 		{
 			return Criteria
 				.SynologenFilterByAny(filter =>

@@ -28,7 +28,7 @@
 					{
  						column.For(x => x.CategoryId).Named("ID").HeaderAttributes(@class => "controlColumn");
  						column.For(x => x.Name).Named("Kategori");
-						column.For(x => Html.ActionLink("Redigera", "EditCategory", "Order", new {id = x.CategoryId}, new object())).SetAsWpcControlColumn("Redigera");
+						column.For(x => Html.ActionLink("Redigera", "CategoryForm", "Order", new {id = x.CategoryId}, new object())).SetAsWpcControlColumn("Redigera");
  					}).Empty("Inga kategorier i databasen.")
 				%>
 			</div>

@@ -15,10 +15,12 @@ using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using StructureMap.Configuration.DSL;
-using ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories.ArticleRepository;
-using IArticleRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales.IArticleRepository;
-using ISubscriptionRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription.ISubscriptionRepository;
-using SubscriptionRepository = Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories.SubscriptionRepository;
+using ContractSales_IArticleRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales.IArticleRepository;
+using ContractSales_ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories.ArticleRepository;
+using Order_IArticleRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders.IArticleRepository;
+using Order_ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories.ArticleRepository;
+using LensSubscription_ISubscriptionRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription.ISubscriptionRepository;
+using LensSubscription_SubscriptionRepository = Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories.SubscriptionRepository;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 {
@@ -39,18 +41,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 			For<IFrameBrandRepository>().HybridHttpOrThreadLocalScoped().Use<FrameBrandRepository>();
 			For<IFrameGlassTypeRepository>().HybridHttpOrThreadLocalScoped().Use<FrameGlassTypeRepository>();
 			For<IFrameOrderRepository>().HybridHttpOrThreadLocalScoped().Use<FrameOrderRepository>();
-			For<ISubscriptionRepository>().HybridHttpOrThreadLocalScoped().Use<SubscriptionRepository>();
+			For<LensSubscription_ISubscriptionRepository>().HybridHttpOrThreadLocalScoped().Use<LensSubscription_SubscriptionRepository>();
 			For<ISettlementRepository>().HybridHttpOrThreadLocalScoped().Use<SettlementRepository>();
 			For<IContractSaleRepository>().HybridHttpOrThreadLocalScoped().Use<ContractSaleRepository>();
 			For<ITransactionRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionRepository>();
 			For<ICustomerRepository>().HybridHttpOrThreadLocalScoped().Use<CustomerRepository>();
 			For<ITransactionArticleRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionArticleRepository>();
-			For<IArticleRepository>().HybridHttpOrThreadLocalScoped().Use<ArticleRepository>();
+			For<ContractSales_IArticleRepository>().HybridHttpOrThreadLocalScoped().Use<ContractSales_ArticleRepository>();
 			//Order Repositories
 			For<IOrderRepository>().HybridHttpOrThreadLocalScoped().Use<OrderRepository>();
 			For<IArticleCategoryRepository>().HybridHttpOrThreadLocalScoped().Use<ArticleCategoryRepository>();
 			For<IArticleSupplierRepository>().HybridHttpOrThreadLocalScoped().Use<ArticleSupplierRepository>();
 			For<IArticleTypeRepository>().HybridHttpOrThreadLocalScoped().Use<ArticleTypeRepository>();
+			For<Order_IArticleRepository>().HybridHttpOrThreadLocalScoped().Use<Order_ArticleRepository>();
 			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
 			// Register criteria converters
@@ -69,6 +72,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 			For<IContractSalesViewService>().HybridHttpOrThreadLocalScoped().Use<ContractSalesViewService>();
 			For<IContractSalesCommandService>().HybridHttpOrThreadLocalScoped().Use<ContractSalesCommandService>();
 			For<IInvoiceReportViewService>().Use<InvoiceReportViewService>();
+			For<IOrderViewParser>().Use<OrderViewParser>();
 		}
 	}
 }

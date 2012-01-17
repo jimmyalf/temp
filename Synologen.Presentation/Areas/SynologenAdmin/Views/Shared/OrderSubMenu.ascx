@@ -7,22 +7,26 @@
 		<li>|</li>
 		<li>
 			<%=Html.ActionLink("Kategorier","Categories","Order") %>
-			&nbsp;>&nbsp; Ny
+			&nbsp;>&nbsp;
+			<%=Html.ActionLink("Ny","CategoryForm","Order") %>
 		</li>
 		<li>|</li>
 		<li>
 			<%=Html.ActionLink("Leverantörer","Suppliers","Order") %>
-			&nbsp;>&nbsp; Ny
+			&nbsp;>&nbsp;
+			<%=Html.ActionLink("Ny","SupplierForm","Order") %>
 		</li>
 		<li>|</li>
 		<li>
-			<%=Html.ActionLink("ArtikelTyper","ArticleTypes","Order") %>
-			 &nbsp;>&nbsp; Ny
+			<%=Html.ActionLink("Artikeltyper","ArticleTypes","Order") %>
+			&nbsp;>&nbsp;
+			<%=Html.ActionLink("Ny","ArticleTypeForm","Order") %>
 		</li>
 		<li>|</li>
 		<li>
 			<%=Html.ActionLink("Artiklar","Articles","Order") %>
 			&nbsp;>&nbsp; Ny
+			<%=Html.ActionLink("Ny","ArticleForm","Order") %>
 		</li>		
 	</ul>
 </div>

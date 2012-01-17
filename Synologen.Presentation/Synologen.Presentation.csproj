@@ -50,6 +50,7 @@
     <Content Include="Areas\SynologenAdmin\Views\Order\Categories.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\Articles.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\ArticleTypes.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Order\CategoryForm.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\Suppliers.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\Orders.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\OrderSubMenu.ascx" />
@@ -96,6 +97,7 @@
     <Compile Include="Application\Services\IUserContextService.cs" />
     <Compile Include="Application\Services\LensSubscriptionViewService.cs" />
     <Compile Include="Application\Services\MessageQueue.cs" />
+    <Compile Include="Application\Services\OrderViewParser.cs" />
     <Compile Include="Application\Services\SettingsService.cs" />
     <Compile Include="Application\Services\SynologenGridSortPropertyMappingSerice.cs" />
     <Compile Include="Application\Services\UserContextService.cs" />
@@ -350,7 +352,9 @@
     <Compile Include="Models\LensSubscription\TransactionArticleListItem.cs" />
     <Compile Include="Models\LensSubscription\TransactionArticleModel.cs" />
     <Compile Include="Models\LensSubscription\TransactionListItemView.cs" />
+    <Compile Include="Models\Order\ArticleListView.cs" />
     <Compile Include="Models\Order\ArticleTypeListView.cs" />
+    <Compile Include="Models\Order\CategoryFormView.cs" />
     <Compile Include="Models\Order\CategoryListView.cs" />
     <Compile Include="Models\Order\CommonListView.cs" />
     <Compile Include="Models\Order\OrderListView.cs" />

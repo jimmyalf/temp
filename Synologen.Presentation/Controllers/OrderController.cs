@@ -7,6 +7,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.Order;
@@ -20,6 +21,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		private readonly IArticleCategoryRepository _articleCategoryRepository;
 		private readonly IArticleSupplierRepository _articleSupplierRepository;
 		private readonly IArticleTypeRepository _articleTypeRepository;
+		private readonly IArticleRepository _articleRepository;
+		private readonly IOrderViewParser _orderViewParser;
 		private readonly int _defaultPageSize;
 
 		public OrderController(
@@ -27,13 +30,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			IAdminSettingsService adminSettingsService, 
 			IArticleCategoryRepository articleCategoryRepository,
 			IArticleSupplierRepository articleSupplierRepository,
-			IArticleTypeRepository articleTypeRepository)
+			IArticleTypeRepository articleTypeRepository,
+			IArticleRepository articleRepository,
+			IOrderViewParser orderViewParser)
 		{
 			_orderRepository = orderRepository;
 			_adminSettingsService = adminSettingsService;
 			_articleCategoryRepository = articleCategoryRepository;
 			_articleSupplierRepository = articleSupplierRepository;
 			_articleTypeRepository = articleTypeRepository;
+			_articleRepository = articleRepository;
+			_orderViewParser = orderViewParser;
 			_defaultPageSize = _adminSettingsService.GetDefaultPageSize();
 		}
 
@@ -53,11 +60,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		{
 			var routeValues = GetRouteValuesWithSearch(viewModel.SearchTerm);
 			return RedirectToAction("Orders", routeValues);
-		}
-
-		public ActionResult EditOrder()
-		{
-			return View();
 		}
 
 		#endregion
@@ -80,9 +82,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return RedirectToAction("Categories", routeValues);
 		}
 
-		public ActionResult EditCategory()
+		[HttpGet]
+		public ActionResult CategoryForm(int? id = null)
 		{
-			return View();
+			var viewModel = _orderViewParser.GetView(id, _articleCategoryRepository.Get);
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult CategoryForm(CategoryFormView viewModel)
+		{
+			if (!ModelState.IsValid) return View(viewModel);
+			var category = _orderViewParser.GetEntity(viewModel, _articleCategoryRepository.Get);
+			_articleCategoryRepository.Save(category);
+			return Redirect("Categories");
 		}
 
 		#endregion
@@ -105,7 +118,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return RedirectToAction("Suppliers", routeValues);
 		}
 
-		public ActionResult EditSupplier()
+		public ActionResult SupplierForm(int? id = null)
 		{
 			return View();
 		}
@@ -130,17 +143,37 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return RedirectToAction("ArticleTypes", routeValues);
 		}
 
-		public ActionResult EditArticleType()
+		public ActionResult ArticleTypeForm(int? id = null)
 		{
 			return View();
 		}
 
 		#endregion
 
-		public ActionResult Articles()
+		#region Articles
+
+		[HttpGet]
+		public ActionResult Articles(GridPageSortParameters pageSortParameters, string search = null)
+		{
+			var decodedSearchTerm = search.UrlDecode();
+			var articleTypes = GetItemsByCriteria<Article, PageOfArticlesMatchingCriteria>(_articleRepository, pageSortParameters, decodedSearchTerm);
+		 	var viewModel = new ArticleListView(decodedSearchTerm, articleTypes);
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult Articles(ArticleListView viewModel)
+		{
+			var routeValues = GetRouteValuesWithSearch(viewModel.SearchTerm);
+			return RedirectToAction("Articles", routeValues);
+		}
+
+		public ActionResult ArticleForm(int? id = null)
 		{
 			return View();
 		}
+
+		#endregion
 
 		private IEnumerable<TType> GetItemsByCriteria<TType,TCriteria>(IReadonlyRepository<TType> repo, GridPageSortParameters pageSortParameters, string search = null ) 
 			where TType : class

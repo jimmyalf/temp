@@ -48,6 +48,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			}
 		}
 
-		public abstract TListItemType Convert(TDomainItem items);
+		public abstract TListItemType Convert(TDomainItem item);
 	}
 }

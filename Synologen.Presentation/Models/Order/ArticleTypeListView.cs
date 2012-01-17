@@ -6,7 +6,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 	public class ArticleTypeListView : CommonListView<ArticleTypeListItem, ArticleType>
 	{
 		public ArticleTypeListView() { }
-		public ArticleTypeListView(string search, IEnumerable<ArticleType> suppliers) : base(suppliers,search) { }
+		public ArticleTypeListView(string search, IEnumerable<ArticleType> types) : base(types,search) { }
 
 		public override ArticleTypeListItem Convert(ArticleType item)
 		{

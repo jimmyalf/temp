@@ -12,7 +12,7 @@ using StructureMap;
 
 namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 {
-	[TestFixture]
+	[TestFixture, Explicit]
 	public class ManualDataManagement
 	{
 		private ISession _session;

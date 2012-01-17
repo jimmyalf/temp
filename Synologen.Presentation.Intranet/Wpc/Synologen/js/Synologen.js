@@ -8,7 +8,6 @@
 			$.SynologenIntranet.initProgressBar(6);
 			$.SynologenIntranet.initRadioButtonLists();
 			$.SynologenIntranet.initAutogiroDetailView();
-			$.SynologenIntranet.initDisableTabLinks();
 		},
 
 		initDisableTabLinks: function () {

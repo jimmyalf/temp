@@ -1,7 +1,6 @@
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
-using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Controllers;
 using Spinit.Wpc.Synologen.Presentation.Models;
@@ -41,7 +40,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 
 			Map<OrderController,SupplierListItem,ArticleSupplier>(x => x.SupplierId, x => x.Id);
 			Map<OrderController,SupplierListItem,ArticleSupplier>(x => x.Name, x => x.Name);
-			
+
+			Map<OrderController,ArticleTypeListItem,ArticleType>(x => x.ArticleTypeId, x => x.Id);
+			Map<OrderController,ArticleTypeListItem,ArticleType>(x => x.Name, x => x.Name);
+			Map<OrderController,ArticleTypeListItem,ArticleType>(x => x.CategoryName, x => x.Category.Name);
 		}
 	}
 }

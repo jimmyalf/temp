@@ -19,20 +19,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		private readonly IAdminSettingsService _adminSettingsService;
 		private readonly IArticleCategoryRepository _articleCategoryRepository;
 		private readonly IArticleSupplierRepository _articleSupplierRepository;
+		private readonly IArticleTypeRepository _articleTypeRepository;
 		private readonly int _defaultPageSize;
 
 		public OrderController(
 			IOrderRepository orderRepository, 
 			IAdminSettingsService adminSettingsService, 
 			IArticleCategoryRepository articleCategoryRepository,
-			IArticleSupplierRepository articleSupplierRepository)
+			IArticleSupplierRepository articleSupplierRepository,
+			IArticleTypeRepository articleTypeRepository)
 		{
 			_orderRepository = orderRepository;
 			_adminSettingsService = adminSettingsService;
 			_articleCategoryRepository = articleCategoryRepository;
 			_articleSupplierRepository = articleSupplierRepository;
+			_articleTypeRepository = articleTypeRepository;
 			_defaultPageSize = _adminSettingsService.GetDefaultPageSize();
 		}
+
+		#region Orders
 
 		[HttpGet]
 		public ActionResult Orders(GridPageSortParameters pageSortParameters, string search = null)
@@ -55,6 +60,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return View();
 		}
 
+		#endregion
+
+		#region Categories
+
 		[HttpGet]
 		public ActionResult Categories(GridPageSortParameters pageSortParameters, string search = null)
 		{
@@ -75,6 +84,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		{
 			return View();
 		}
+
+		#endregion
+
+		#region Suppliers
 
 		[HttpGet]
 		public ActionResult Suppliers(GridPageSortParameters pageSortParameters, string search = null)
@@ -97,10 +110,32 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return View();
 		}
 
-		public ActionResult ArticleTypes()
+		#endregion
+
+		#region ArticleTypes
+
+		[HttpGet]
+		public ActionResult ArticleTypes(GridPageSortParameters pageSortParameters, string search = null)
+		{
+			var decodedSearchTerm = search.UrlDecode();
+			var articleTypes = GetItemsByCriteria<ArticleType, PageOfArticleTypesMatchingCriteria>(_articleTypeRepository, pageSortParameters, decodedSearchTerm);
+		 	var viewModel = new ArticleTypeListView(decodedSearchTerm, articleTypes);
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult ArticleTypes(ArticleTypeListView viewModel)
+		{
+			var routeValues = GetRouteValuesWithSearch(viewModel.SearchTerm);
+			return RedirectToAction("ArticleTypes", routeValues);
+		}
+
+		public ActionResult EditArticleType()
 		{
 			return View();
 		}
+
+		#endregion
 
 		public ActionResult Articles()
 		{

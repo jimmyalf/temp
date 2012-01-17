@@ -50,6 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 			For<IOrderRepository>().HybridHttpOrThreadLocalScoped().Use<OrderRepository>();
 			For<IArticleCategoryRepository>().HybridHttpOrThreadLocalScoped().Use<ArticleCategoryRepository>();
 			For<IArticleSupplierRepository>().HybridHttpOrThreadLocalScoped().Use<ArticleSupplierRepository>();
+			For<IArticleTypeRepository>().HybridHttpOrThreadLocalScoped().Use<ArticleTypeRepository>();
 			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
 			// Register criteria converters

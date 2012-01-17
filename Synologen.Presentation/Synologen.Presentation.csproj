@@ -350,6 +350,7 @@
     <Compile Include="Models\LensSubscription\TransactionArticleListItem.cs" />
     <Compile Include="Models\LensSubscription\TransactionArticleModel.cs" />
     <Compile Include="Models\LensSubscription\TransactionListItemView.cs" />
+    <Compile Include="Models\Order\ArticleTypeListView.cs" />
     <Compile Include="Models\Order\CategoryListView.cs" />
     <Compile Include="Models\Order\CommonListView.cs" />
     <Compile Include="Models\Order\OrderListView.cs" />

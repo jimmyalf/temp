@@ -56,14 +56,16 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 			};
 		}
 
-		public static ArticleType GetArticleType(ArticleCategory category)
+		public static ArticleType GetArticleType(ArticleCategory category, int? seed = null)
         {
-            return new ArticleType
-            {
-                Name = "Endagslinser",
-                Category = category
-            };
+			var name = "Endagslinser" + ((seed.HasValue) ? " " + seed.Value.GetSwedishChar() : string.Empty);
+            return new ArticleType { Name = name, Category = category };
         }
+
+		public static IEnumerable<ArticleType> GetArticleTypes(ArticleCategory category)
+		{
+			return Sequence.Generate(seed => GetArticleType(category, seed), 45);
+		}
 
 		public static ArticleSupplier GetSupplier(int? seed = null)
 		{
@@ -71,15 +73,15 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
             return new ArticleSupplier { Name = name };
         }
 
-		public static ArticleCategory GetCategory(int? seed = null)
+		public static ArticleCategory GetCategory(string name = "Linser", int? seed = null)
 		{
-			var name = "Linser" + ((seed.HasValue) ? " " + seed.Value.GetSwedishChar() : string.Empty);
-            return new ArticleCategory { Name = name };
+			var categoryName = name + ((seed.HasValue) ? " " + seed.Value.GetSwedishChar() : string.Empty);
+            return new ArticleCategory { Name = categoryName };
         }
 
 		public static IEnumerable<ArticleCategory> GetCategories()
 		{
-			return Sequence.Generate(seed => GetCategory(seed), 45);
+			return Sequence.Generate(seed => GetCategory(seed: seed), 45);
 		}
 
 		public static IEnumerable<Order> GetOrders(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null)

@@ -21,6 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 		private OrderCustomer _customerTwo;
 		private DataManager _dataManager;
 		private Shop _shop1, _shop2;
+		private ArticleCategory _category1, _category2;
 
 		[SetUp]
 		public void Context()
@@ -28,8 +29,9 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 			_dataManager = new DataManager();
 			_dataManager.CleanTables();
 			_session = ObjectFactory.GetInstance<ISession>();
-			var category = OrderFactory.GetCategory().StoreWith(_session);
-			var articleType = OrderFactory.GetArticleType(category).StoreWith(_session);
+			_category1 = OrderFactory.GetCategory("Linser").StoreWith(_session);
+			_category2 = OrderFactory.GetCategory("Bågar").StoreWith(_session);
+			var articleType = OrderFactory.GetArticleType(_category1).StoreWith(_session);
 			var supplier = OrderFactory.GetSupplier().StoreWith(_session);
 			_shop1 = CreateShop(_session, "Testbutik A");
 			_shop2 = CreateShop(_session, "Testbutik B");
@@ -57,6 +59,13 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 		public void Add_article_suppliers()
 		{
 			OrderFactory.GetSuppliers().StoreItemsWith(_session);
+		}
+
+		[Test]
+		public void Add_article_types()
+		{
+			OrderFactory.GetArticleTypes(_category1).StoreItemsWith(_session);
+			OrderFactory.GetArticleTypes(_category2).StoreItemsWith(_session);
 		}
 
 		protected Shop CreateShop(ISession session, string shopName = "Testbutik")

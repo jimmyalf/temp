@@ -6,8 +6,11 @@
 			<% Html.EnableClientValidation(); %>
 			<% using (Html.BeginForm()) {%>
 			<fieldset>
-				<%if(Model.IsAdd){ %><legend>Skapa ny artikelkategori</legend><% } %>
-				<%if(Model.IsEdit){ %><legend>Redigera artikelkategori</legend><% } %>
+				<%if(Model.IsAdd){ %>
+				<legend>Skapa ny artikelkategori</legend>
+				<% } else{%>
+				<legend>Redigera artikelkategori</legend>
+				<% } %>
 				
 					<p class="formItem clearLeft">
 						<%=Html.LabelFor(x => x.Name)%>

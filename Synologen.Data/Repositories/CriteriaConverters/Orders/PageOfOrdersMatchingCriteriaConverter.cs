@@ -20,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.Orders
 					filter.Like(x => x.Customer.FirstName);
 					filter.Like(x => x.Customer.LastName);
 					filter.Like(x => x.Customer.PersonalIdNumber);
+					filter.Like(x => x.Shop.Name);
 				}, source.SearchTerm)
 				.Page(source.Page, source.PageSize)
 				.Sort(source.OrderBy, source.SortAscending);

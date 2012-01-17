@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 {
@@ -6,7 +7,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
     {
     	public Order()
     	{
-    		Created = SystemClock.Now;
+			Created = SystemTime.Now;
     		SelectedPaymentOption = new PaymentOption();
     	}
 

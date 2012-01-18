@@ -31,7 +31,7 @@
 				<asp:RadioButtonList ID="rblSubscriptionTime" DataSource="<%#Model.SubscriptionOptions %>" DataTextField="Text" DataValueField="Value" SelectedValue="<%#Model.SelectedSubscriptionOption %>" runat="server" RepeatLayout="UnorderedList" TextAlign="Right" CssClass="radio-list"  >
 				</asp:RadioButtonList>
     			<asp:TextBox ID="txtCustomNumberOfTransactions" Text="<%#Model.CustomSubscriptionTime %>" runat="server" CssClass="custom-number-of-withdrawals align-right" />
-				<asp:CustomValidator ID="vldCustomNumberOfWithdrawals" runat="server" ErrorMessage="Vid valfri abonnemangstid måste antal anges" ControlToValidate="rblSubscriptionTime" OnServerValidate="Validate_Custom_Subscription_Time" CssClass="error-message" ValidateEmptyText="True">&nbsp;*</asp:CustomValidator>
+				<asp:CustomValidator ID="vldCustomNumberOfWithdrawals" runat="server" ErrorMessage="Vid valfri abonnemangstid måste antal dragningar anges" ControlToValidate="rblSubscriptionTime" OnServerValidate="Validate_Custom_Subscription_Time" CssClass="error-message" ValidateEmptyText="True">&nbsp;*</asp:CustomValidator>
 				<asp:RequiredFieldValidator runat="server" ErrorMessage="En abonnemangstid måste anges" ControlToValidate="rblSubscriptionTime" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
       		</div>
     	

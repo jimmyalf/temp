@@ -12,6 +12,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     [PresenterBinding(typeof(AutogiroDetailsPresenter))]
     public partial class AutogiroDetails : OrderUserControl<AutogiroDetailsModel, AutogiroDetailsEventArgs>, IAutogiroDetailsView
     {
+        public event EventHandler<AutogiroDetailsInvalidFormEventArgs> FillForm;
+
     	protected void Page_Load(object sender, EventArgs e)
         {
         	btnCancel.Click += TryFireAbort;
@@ -22,27 +24,47 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	private void btnNextStep_Click(object sender, EventArgs e)
     	{
 			Page.Validate();
-			if(!Page.IsValid) return;
-    		var args = new AutogiroDetailsEventArgs
-    		{
-    			BankAccountNumber = txtBankAccountNumber.Text,
-				ClearingNumber = txtClearingNumber.Text,
-				Description = "? Description",
-				Notes = "? Notes",
-				NumberOfPayments = GetNumberOfPayments(),
-				TaxFreeAmount = txtVatFreeAmount.Text.ToDecimal(),
-				TaxedAmount = txtVATAmount.Text.ToDecimal(),
-				AutoWithdrawalAmount = (String.IsNullOrEmpty(txtTotalWithdrawalAmount.Text))
-					? (decimal?) null
-					: txtTotalWithdrawalAmount.Text.ToDecimal()
-    		};
+			if(!Page.IsValid)
+			{ 
+                var invalidArgs = new AutogiroDetailsInvalidFormEventArgs
+                {
+                    BankAccountNumber = txtBankAccountNumber.Text,
+                    ClearingNumber = txtClearingNumber.Text,
+                    Description = "? Description",
+                    Notes = "? Notes",
+                    CustomNumberOfPayments = txtCustomNumberOfTransactions.Text,
+                    NumberOfPaymentsSelectedValue = Convert.ToInt32(rblSubscriptionTime.SelectedValue),
+                    TaxFreeAmount = txtVatFreeAmount.Text.ToDecimal(),
+                    TaxedAmount = txtVATAmount.Text.ToDecimal(),
+                    AutoWithdrawalAmount = (String.IsNullOrEmpty(txtTotalWithdrawalAmount.Text))
+                        ? (decimal?)null
+                        : txtTotalWithdrawalAmount.Text.ToDecimal()
+                };
+                FillForm(this, invalidArgs);
+			    return;
+			}
+
+            var args = new AutogiroDetailsEventArgs
+            {
+                BankAccountNumber = txtBankAccountNumber.Text,
+                ClearingNumber = txtClearingNumber.Text,
+                Description = "? Description",
+                Notes = "? Notes",
+                NumberOfPayments = GetNumberOfPayments(),
+                TaxFreeAmount = txtVatFreeAmount.Text.ToDecimal(),
+                TaxedAmount = txtVATAmount.Text.ToDecimal(),
+                AutoWithdrawalAmount = (String.IsNullOrEmpty(txtTotalWithdrawalAmount.Text))
+                    ? (decimal?)null
+                    : txtTotalWithdrawalAmount.Text.ToDecimal()
+            };
     		TryFireSubmit(this, args);
     	}
 
     	private int? GetNumberOfPayments()
     	{
     		var selectedSubscriptionTime = rblSubscriptionTime.SelectedValue.ToInt();
-			switch (selectedSubscriptionTime)
+
+    	    switch (selectedSubscriptionTime)
 			{
 				case AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId: return txtCustomNumberOfTransactions.Text.ToInt();
 				case AutogiroDetailsModel.UseContinousWithdrawalsId: return null;

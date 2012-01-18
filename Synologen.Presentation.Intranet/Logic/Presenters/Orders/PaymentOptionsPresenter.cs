@@ -86,9 +86,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			else
 			{
 				order.SelectedPaymentOption.Type = PaymentOptionType.Subscription_Autogiro_New;
-				order.SelectedPaymentOption.SubscriptionId = null;
+                if(order.SelectedPaymentOption.SubscriptionId == null)
+                {
+                    order.SelectedPaymentOption.SubscriptionId = null;
+                }
 			}
-		}
+		}   
 
 		private void Redirect(int pageId, object routeData = null)
 		{

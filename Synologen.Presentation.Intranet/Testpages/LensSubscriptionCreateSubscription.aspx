@@ -6,7 +6,7 @@
 .synologen-form input[type="submit"] { display:block; }
 </style>
 <p>
-	<WpcSynologen:LensSubscriptionCreateSubscription ID="synologenMvpTestControl" runat="server"  />
+	<WpcSynologen:LensSubscriptionCreateSubscription runat="server"  />
 </p>
 </asp:Content>
 

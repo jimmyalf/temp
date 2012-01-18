@@ -5,7 +5,7 @@
             <div class="wrap">
             <h2>Butikkategorier</h2>
 	        <fieldset>
-		        <legend><asp:Literal id="ltHeading" runat="server" Text="Lägg till artikel"/></asp:Literal></legend>		
+		        <legend><asp:Literal id="ltHeading" runat="server" Text="Lägg till artikel"/></legend>		
 		        <div class="formItem">
 		            <label class="labelLong">Artikelnamn</label>
 					<asp:RequiredFieldValidator id="rfvArticleName" runat="server" errormessage="Namn saknas" controltovalidate="txtName" Display="Dynamic" ValidationGroup="Save">(Namn saknas!)</asp:RequiredFieldValidator>

@@ -7,7 +7,7 @@
 .synologen-form .readonly-parameter label { display:inline-block; width:8em; }
 </style>
 <p>
-	<WpcSynologen:LensSubscriptionEditSubscription ID="synologenMvpTestControl" runat="server"  />
+	<WpcSynologen:LensSubscriptionEditSubscription runat="server"  />
 </p>
 </asp:Content>
 

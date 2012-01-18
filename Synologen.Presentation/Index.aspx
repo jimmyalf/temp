@@ -41,10 +41,6 @@
 	<div class="columnBoxRight">
 	<div class="wrap">
 	<h2>In work</h2>
-	<!--
-	<ASP:DATALIST id="dltInWork" runat="server" onitemcreated="dltInWork_ItemCreated" RepeatLayout="Flow">
-	<ITEMTEMPLATE>
-	-->
 		<h3><ASP:LABEL id="lblInWork" runat="server"><%# ((Spinit.Wpc.Base.Data.ComponentRow)Container.DataItem).Name %></ASP:LABEL></h3>
 		<ASP:DATALIST id="dltComponentItemsInWork" runat="server" onitemcreated="dltComponentItemsInWork_ItemCreated" SkinID="Striped">
 			<ITEMTEMPLATE>
@@ -53,10 +49,6 @@
 				</ASP:HYPERLINK>
 			</ITEMTEMPLATE>
 		</ASP:DATALIST>
-	<!--
-	</ITEMTEMPLATE>
-	</ASP:DATALIST>
-	-->
 	</div>
 	</div>
 

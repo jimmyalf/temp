@@ -13,7 +13,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 		OrderCustomer Parse(SaveCustomerEventArgs args, Shop shop);
 		Subscription Parse(AutogiroDetailsEventArgs args, OrderCustomer customer, Shop shop);
 		SubscriptionItem Parse(AutogiroDetailsEventArgs args, Subscription subscription);
-		void Fill(OrderCustomer existingCustomer, SaveCustomerEventArgs args);
+        void UpdateSubscriptionItem(AutogiroDetailsEventArgs args, SubscriptionItem subscriptionPayment, Subscription subscription);
+        void Fill(OrderCustomer existingCustomer, SaveCustomerEventArgs args);
 		IEnumerable<ListItem> Parse<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
         IEnumerable<ListItem> ParseWithDefaultItem<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
 		IEnumerable<ListItem> Parse<TEnumType>(TEnumType value) where TEnumType : struct;
@@ -70,7 +71,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			};
 		}
 
-		public void Fill(OrderCustomer existingCustomer, SaveCustomerEventArgs args)
+	    public void UpdateSubscriptionItem(AutogiroDetailsEventArgs args, SubscriptionItem subscriptionPayment, Subscription subscription)
+	    {
+	        subscriptionPayment.Description = args.Description;
+	        subscriptionPayment.Notes = args.Notes;
+            subscriptionPayment.NumberOfPayments = args.NumberOfPayments;
+			subscriptionPayment.NumberOfPaymentsLeft = args.NumberOfPayments;
+			subscriptionPayment.TaxFreeAmount = args.TaxFreeAmount;
+			subscriptionPayment.TaxedAmount = args.TaxedAmount;
+	        subscriptionPayment.Subscription = subscription;
+
+	    }
+
+	    public void Fill(OrderCustomer existingCustomer, SaveCustomerEventArgs args)
 		{
 			existingCustomer.AddressLineOne = args.AddressLineOne;
 			existingCustomer.AddressLineTwo = args.AddressLineTwo; 

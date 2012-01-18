@@ -29,7 +29,6 @@
  						column.For(x => x.ShopName).Named("Butik");
 					    column.For(x => x.CustomerName).Named("Kund");
 						column.For(x => x.CreatedDate).Named("Skapad");
-						column.For(x => Html.ActionLink("Redigera", "EditOrder", "Order", new {id = x.OrderId}, null)).SetAsWpcControlColumn("Redigera");
  					}).Empty("Inga beställningar i databasen.")
 				%>
 			</div>

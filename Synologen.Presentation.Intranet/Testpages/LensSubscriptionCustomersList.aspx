@@ -6,7 +6,7 @@
 .synologen-form input[type="submit"] { display:block; }
 </style>
 <p>
-	<WpcSynologen:LensSubscriptionCustomersList ID="synologenMvpTestControl" EditPageId="190" runat="server"  />
+	<WpcSynologen:LensSubscriptionCustomersList EditPageId="190" runat="server"  />
 </p>
 </asp:Content>
 

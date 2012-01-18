@@ -6,9 +6,9 @@
 .synologen-form input[type="submit"] { display:block; }
 </style>
 <p>
-	<WpcSynologen:LensSubscriptionTransactionsList ID="synologenMvpTestControl" runat="server"  />
+	<WpcSynologen:LensSubscriptionTransactionsList runat="server"  />
 </p>
 <p>
-	<WpcSynologen:LensSubscriptionCreateTransaction ID="synologenMvpTestControl2" runat="server"  />
+	<WpcSynologen:LensSubscriptionCreateTransaction runat="server"  />
 </p>
 </asp:Content>

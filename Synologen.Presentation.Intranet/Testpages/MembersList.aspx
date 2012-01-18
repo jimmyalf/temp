@@ -3,6 +3,6 @@
 <asp:Literal ID="ltPageId" Text="190" Visible="false" runat="server"/>
 	<div style="float:left;margin:15px;">
 		<h2>View Member List</h2>	
-		<WpcSynologen:ShopMemberList ID="ucShopMemberList" runat="server" />
+		<WpcSynologen:ShopMemberList runat="server" />
 	</div>
 </asp:Content>

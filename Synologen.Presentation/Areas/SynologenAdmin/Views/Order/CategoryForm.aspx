@@ -21,13 +21,11 @@
 						<%= Html.HiddenFor(x => x.Id) %>
 						<input type="submit" value="Spara artikelkategori" class="btnBig" />
 					</p>	
+					<p class="display-item clearLeft">
+						<a href='<%= Url.Action("Categories") %>'>Tillbaka till kategorier &raquo;</a>
+					</p>
 				</fieldset>									
-				<% } %>
-					
-				<p class="display-item clearLeft">
-					<a href='<%= Url.Action("Categories") %>'>Tillbaka till kategorier &raquo;</a>
-				</p>
-			</fieldset>				
+				<% } %>		
 		</div>
 	</div>
 </div>	

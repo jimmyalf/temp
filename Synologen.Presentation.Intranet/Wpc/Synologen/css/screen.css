@@ -65,25 +65,25 @@ body {font: 1.2em/1.5em sans-serif; line-height: 1.5em; color: black; margin: 0;
     }
 }
     
-@media screen and (max-width:1114px) {
+@media screen and (max-width:1101px) {
     body {
         font-size: 0.8em;
     }
 }
 
-@media screen and (max-width:946px) {
+@media screen and (max-width:900px) {
     body {
         font-size: 0.7em;
     }
 }
 
-@media screen and (max-width:855px) {
+@media screen and (max-width:721px) {
     body {
         font-size: 0.6em;
     }
 }
 
-@media screen and (max-width:690px) {
+@media screen and (max-width:621px) {
     body {
         font-size: 0.58em;
     }

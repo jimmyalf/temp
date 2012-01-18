@@ -140,6 +140,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	{
     		_subscription = CreateSubscription(_shop, _order.Customer);
     		_order.SelectedPaymentOption = new PaymentOption {SubscriptionId = _subscription.Id, Type = PaymentOptionType.Subscription_Autogiro_Existing};
+    	    
 			WithRepository<IOrderRepository>().Save(_order);
     	}
         #endregion

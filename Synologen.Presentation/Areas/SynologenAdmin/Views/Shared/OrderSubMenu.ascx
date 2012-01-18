@@ -25,7 +25,7 @@
 		<li>|</li>
 		<li>
 			<%=Html.ActionLink("Artiklar","Articles","Order") %>
-			&nbsp;>&nbsp; Ny
+			&nbsp;>&nbsp;
 			<%=Html.ActionLink("Ny","ArticleForm","Order") %>
 		</li>		
 	</ul>

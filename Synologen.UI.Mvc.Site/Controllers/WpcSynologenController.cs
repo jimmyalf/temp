@@ -47,6 +47,7 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Controllers
         {
             var shop = _shopRepository.Get(id);
             var viewModel = _shopViewModelParserService.ParseShop(shop);
+            viewModel.IsDetailedView = true;
             return PartialView("Show", viewModel);
         }
 

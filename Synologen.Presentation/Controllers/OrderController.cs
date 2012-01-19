@@ -85,7 +85,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[HttpGet]
 		public ActionResult CategoryForm(int? id = null)
 		{
-			var viewModel = _orderViewParser.GetView(id, _articleCategoryRepository.Get);
+			var viewModel = _orderViewParser.GetCategoryFormView(id, _articleCategoryRepository.Get);
 			return View(viewModel);
 		}
 
@@ -96,6 +96,42 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			var category = _orderViewParser.GetEntity(viewModel, _articleCategoryRepository.Get);
 			_articleCategoryRepository.Save(category);
 			return Redirect("Categories");
+		}
+
+		#endregion
+		
+		#region ArticleTypes
+
+		[HttpGet]
+		public ActionResult ArticleTypes(GridPageSortParameters pageSortParameters, string search = null)
+		{
+			var decodedSearchTerm = search.UrlDecode();
+			var articleTypes = GetItemsByCriteria<ArticleType, PageOfArticleTypesMatchingCriteria>(_articleTypeRepository, pageSortParameters, decodedSearchTerm);
+		 	var viewModel = new ArticleTypeListView(decodedSearchTerm, articleTypes);
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult ArticleTypes(ArticleTypeListView viewModel)
+		{
+			var routeValues = GetRouteValuesWithSearch(viewModel.SearchTerm);
+			return RedirectToAction("ArticleTypes", routeValues);
+		}
+
+		[HttpGet]
+		public ActionResult ArticleTypeForm(int? id = null)
+		{
+			var viewModel = _orderViewParser.GetArticleTypeFormView(id, _articleTypeRepository.Get, _articleCategoryRepository.GetAll);
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult ArticleTypeForm(ArticleTypeFormView viewModel)
+		{
+			if (!ModelState.IsValid) return View(viewModel);
+			var articleType = _orderViewParser.GetEntity(viewModel, _articleTypeRepository.Get, _articleCategoryRepository.Get);
+			_articleTypeRepository.Save(articleType);
+			return Redirect("ArticleTypes");
 		}
 
 		#endregion
@@ -119,31 +155,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		}
 
 		public ActionResult SupplierForm(int? id = null)
-		{
-			return View();
-		}
-
-		#endregion
-
-		#region ArticleTypes
-
-		[HttpGet]
-		public ActionResult ArticleTypes(GridPageSortParameters pageSortParameters, string search = null)
-		{
-			var decodedSearchTerm = search.UrlDecode();
-			var articleTypes = GetItemsByCriteria<ArticleType, PageOfArticleTypesMatchingCriteria>(_articleTypeRepository, pageSortParameters, decodedSearchTerm);
-		 	var viewModel = new ArticleTypeListView(decodedSearchTerm, articleTypes);
-			return View(viewModel);
-		}
-
-		[HttpPost]
-		public ActionResult ArticleTypes(ArticleTypeListView viewModel)
-		{
-			var routeValues = GetRouteValuesWithSearch(viewModel.SearchTerm);
-			return RedirectToAction("ArticleTypes", routeValues);
-		}
-
-		public ActionResult ArticleTypeForm(int? id = null)
 		{
 			return View();
 		}

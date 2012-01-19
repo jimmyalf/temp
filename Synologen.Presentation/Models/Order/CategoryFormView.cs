@@ -3,18 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 {
-	public class CategoryFormView
+	public class CategoryFormView : CommonFormView
 	{
 		public CategoryFormView() { }
-		public CategoryFormView(int? id = null, string name = null)
+		public CategoryFormView(int? id = null, string name = null) : base(id)
 		{
-			Id = id;
 			Name = name;
 		}
 
-		public int? Id { get; set; }
 		[DisplayName("Namn"), Required]
 		public string Name { get; set; }
-		public bool IsAdd { get { return !Id.HasValue; } }
 	}
 }

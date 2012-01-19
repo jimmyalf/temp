@@ -16,6 +16,7 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Models
         public string City { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
+        public bool IsDetailedView { get; set; }
 
         public List<ShopListItem> Shops
         {

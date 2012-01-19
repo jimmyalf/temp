@@ -13,7 +13,7 @@
 
     <% foreach (var item in ViewData.Model.Shops) { %>
     <tr>
-        <td class="name-column"><a href="/butiker/visa-butik?id=<%= item.Id %>"><%= item.Name %></a></td>
+        <td class="name-column"><a href="/butiker/visa-butik?id=<%= item.Id %>" title="Se detaljvy"><%= item.Name %></a></td>
         <td class="address-column"><%= item.StreetAddress %></td>
         <td class="city-column"><%= item.City %></td>
         <td class="email-column"><a href="mailto:<%= item.Email %>"><%= item.Email %></a></td>

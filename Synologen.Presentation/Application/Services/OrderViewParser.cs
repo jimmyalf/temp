@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Presentation.Models.Order;
 
@@ -6,8 +8,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 {
 	public interface IOrderViewParser
 	{
-		ArticleCategory GetEntity(CategoryFormView viewModel, Func<int,ArticleCategory> getArticle);
-		CategoryFormView GetView(int? id, Func<int,ArticleCategory> getArticle);
+		ArticleCategory GetEntity(CategoryFormView viewModel, Func<int,ArticleCategory> getCategory);
+		CategoryFormView GetCategoryFormView(int? id, Func<int,ArticleCategory> getArticle);
+
+		ArticleType GetEntity(ArticleTypeFormView viewModel, Func<int, ArticleType> getArticleType, Func<int,ArticleCategory> getCategory);
+		ArticleTypeFormView GetArticleTypeFormView(int? id, Func<int, ArticleType> getArticleType, Func<IEnumerable<ArticleCategory>> getCategories);
 	}
 
 	public class OrderViewParser : IOrderViewParser
@@ -18,15 +23,35 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			category.Name = viewModel.Name;
 			return category;
 		}
-		public CategoryFormView GetView(int? id, Func<int,ArticleCategory> getArticle)
+
+		public ArticleType GetEntity(ArticleTypeFormView viewModel, Func<int, ArticleType> getArticleType, Func<int,ArticleCategory> getCategory)
+		{
+			var articleType = GetStoredItemOrNew(viewModel.Id, getArticleType);
+			var category = GetStoredItemOrNew(viewModel.CategoryId, getCategory);
+			articleType.Name = viewModel.Name;
+			articleType.Category = category;
+			return articleType;
+		}
+
+		public CategoryFormView GetCategoryFormView(int? id, Func<int,ArticleCategory> getArticle)
 		{
 			var category = GetStoredItemOrNew(id, getArticle);
 			return new CategoryFormView {Id = id, Name = category.Name};
 		}
 
-		private static TType GetStoredItemOrNew<TType>(int? id, Func<int,TType> getArticle) where TType : class, new()
+		public ArticleTypeFormView GetArticleTypeFormView(int? id, Func<int, ArticleType> getArticleType, Func<IEnumerable<ArticleCategory>> getCategories)
 		{
-			return id.HasValue ? getArticle(id.Value) : new TType();
+			var articleType = GetStoredItemOrNew(id, getArticleType);
+			var categories = getCategories();
+			return new ArticleTypeFormView(categories, id, articleType.Name)
+			{
+				CategoryId = articleType.With(x => x.Category).Return(x => x.Id, default(int)),
+			};
+		}
+
+		private static TType GetStoredItemOrNew<TType>(int? id, Func<int,TType> getitem) where TType : class, new()
+		{
+			return id.HasValue ? getitem(id.Value) : new TType();
 		}
 	}
 }

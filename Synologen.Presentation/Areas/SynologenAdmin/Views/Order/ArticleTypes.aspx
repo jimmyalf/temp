@@ -28,7 +28,7 @@
  						column.For(x => x.ArticleTypeId).Named("ID").HeaderAttributes(@class => "controlColumn");
  						column.For(x => x.Name).Named("Artikeltyp");
 						column.For(x => x.CategoryName).Named("Kategori");
-						column.For(x => Html.ActionLink("Redigera", "EditArticleType", "Order", new {id = x.ArticleTypeId}, new object()))
+						column.For(x => Html.ActionLink("Redigera", "ArticleTypeForm", "Order", new {id = x.ArticleTypeId}, new object()))
 							.SetAsWpcControlColumn("Redigera");
  					}).Empty("Inga abonnemang i databasen.")
 				%>

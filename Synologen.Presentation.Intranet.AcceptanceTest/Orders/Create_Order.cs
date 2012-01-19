@@ -59,7 +59,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		[Test]                  
 		public void VisaBeställningsFormulär()
 		{                                                                                 
-		    SetupScenario(scenario => scenario                                            
+		    SetupScenario(scenario => scenario
 		        .Givet(AttEnKundÄrVald)
                     .Och(DetFinnsArtikelkategorierAttLadda)                                   
 		        .När(AttAnvändarenVisarBeställningsformuläret)                            

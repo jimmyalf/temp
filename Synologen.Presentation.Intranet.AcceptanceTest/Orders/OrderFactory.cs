@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
@@ -79,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	                   };
 	    }
 
-		public static Order GetOrder(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null)
+		public static Order GetOrder(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null, SubscriptionItem subscriptionItem = null)
 		{
 			return new Order
 			{
@@ -87,7 +88,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				LensRecipe = recipie,
 				ShippingType = OrderShippingOption.ToCustomer,
 				Customer = customer,
-				Shop = shop
+                SubscriptionPayment = subscriptionItem,
+				Shop = shop,
+                SelectedPaymentOption = new PaymentOption {Type = PaymentOptionType.Subscription_Autogiro_New}
 			};
 		}
 
@@ -240,6 +243,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 Diameter = new EyeParameter { Left = 5, Right = 5 },
                 Cylinder = new EyeParameter { Left = 6, Right = 6 }
 	        };
+	    }
+
+	    public static SubscriptionItem GetSubscriptionItem(Subscription subscription)
+	    {
+	        return new SubscriptionItem
+	                   {
+	                       Description = "desc",
+                           Notes = "notes",
+                           NumberOfPayments = 3,
+                           NumberOfPaymentsLeft = 3,
+                           Subscription = subscription,
+                           TaxedAmount = 5000,
+                           TaxFreeAmount = 4000
+	                   };
 	    }
 	}
 }

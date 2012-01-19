@@ -28,6 +28,7 @@
  						column.For(x => x.OrderId).Named("ID").HeaderAttributes(@class => "controlColumn");
  						column.For(x => x.ShopName).Named("Butik");
 					    column.For(x => x.CustomerName).Named("Kund");
+						column.For(x => x.PersonalIDNumber).Named("Kunds Personnummer");
 						column.For(x => x.CreatedDate).Named("Skapad");
  					}).Empty("Inga beställningar i databasen.")
 				%>

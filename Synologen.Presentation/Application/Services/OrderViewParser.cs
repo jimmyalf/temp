@@ -13,6 +13,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 
 		ArticleType GetEntity(ArticleTypeFormView viewModel, Func<int, ArticleType> getArticleType, Func<int,ArticleCategory> getCategory);
 		ArticleTypeFormView GetArticleTypeFormView(int? id, Func<int, ArticleType> getArticleType, Func<IEnumerable<ArticleCategory>> getCategories);
+
+		Article GetEntity(ArticleFormView viewModel, Func<int, Article> getArticle, Func<int,ArticleSupplier> getSupplier, Func<int,ArticleType> getType);
+		ArticleFormView GetArticleFormView(int? id, Func<int, Article> getArticle, Func<IEnumerable<ArticleSupplier>> getSuppliers, Func<IEnumerable<ArticleType>> getTypes);
 	}
 
 	public class OrderViewParser : IOrderViewParser
@@ -46,6 +49,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			return new ArticleTypeFormView(categories, id, articleType.Name)
 			{
 				CategoryId = articleType.With(x => x.Category).Return(x => x.Id, default(int)),
+			};
+		}
+
+		public Article GetEntity(ArticleFormView viewModel, Func<int, Article> getArticle, Func<int,ArticleSupplier> getSupplier, Func<int,ArticleType> getType)
+		{
+			var article = GetStoredItemOrNew(viewModel.Id, getArticle);
+			var supplier = GetStoredItemOrNew(viewModel.SupplierId, getSupplier);
+			var type = GetStoredItemOrNew(viewModel.TypeId, getType);
+			article.ArticleSupplier = supplier;
+			article.ArticleType = type;
+			article.Name = viewModel.Name;
+			article.Options = viewModel.GetArticleOptions();
+			return article;
+		}
+
+		public ArticleFormView GetArticleFormView(int? id, Func<int, Article> getArticle, Func<IEnumerable<ArticleSupplier>> getSuppliers, Func<IEnumerable<ArticleType>> getTypes)
+		{
+			var article = GetStoredItemOrNew(id, getArticle);
+			var suppliers = getSuppliers();
+			var types = getTypes();
+			return new ArticleFormView(suppliers, types, id, article.Name, article.Options)
+			{
+				SupplierId = article.With(x => x.ArticleSupplier).Return(x => x.Id, default(int)),
+				TypeId = article.With(x => x.ArticleType).Return(x => x.Id, default(int)),
 			};
 		}
 

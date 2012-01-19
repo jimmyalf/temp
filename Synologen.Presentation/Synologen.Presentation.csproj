@@ -52,6 +52,7 @@
     <Content Include="Areas\SynologenAdmin\Views\Order\ArticleTypes.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\CategoryForm.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\ArticleTypeForm.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Order\ArticleForm.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\Suppliers.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\Orders.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\OrderSubMenu.ascx" />
@@ -87,6 +88,8 @@
     <Compile Include="Application\AutomapperMappings\SettlementViewTypeConverter.cs" />
     <Compile Include="Application\AutomapperMappings\SubscriptionErrorValueResolver.cs" />
     <Compile Include="Application\AutomapperMappings\TransactionValueResolver.cs" />
+    <Compile Include="Application\Extensions\ArticleOptionsExtensions.cs" />
+    <Compile Include="Application\Extensions\SequenceDefinitionViewExtensions.cs" />
     <Compile Include="Application\ModelBinders\GridSortPropertyMappingModelBinder.cs" />
     <Compile Include="Application\MvcExtensions.cs" />
     <Compile Include="Application\Services\BaseGridSortPropertyMappingService.cs" />
@@ -353,6 +356,7 @@
     <Compile Include="Models\LensSubscription\TransactionArticleListItem.cs" />
     <Compile Include="Models\LensSubscription\TransactionArticleModel.cs" />
     <Compile Include="Models\LensSubscription\TransactionListItemView.cs" />
+    <Compile Include="Models\Order\ArticleFormView.cs" />
     <Compile Include="Models\Order\ArticleListView.cs" />
     <Compile Include="Models\Order\ArticleTypeFormView.cs" />
     <Compile Include="Models\Order\ArticleTypeListView.cs" />

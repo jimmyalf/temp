@@ -1,4 +1,9 @@
 ﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<CategoryFormView>" %>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="SubMenu" runat="server">
+<% Html.RenderPartial("OrderSubMenu"); %>
+</asp:Content>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<div id="dCompMain" class="Components-Synologen-Order-Category-Edit-aspx">
 	<div class="fullBox">

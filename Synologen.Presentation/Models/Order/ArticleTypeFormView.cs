@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
@@ -13,7 +14,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public ArticleTypeFormView(IEnumerable<ArticleCategory> categories, int? id = null, string name = null) : base(id)
 		{
 			Name = name;
-			Categories = categories.ToSelectList(x => x.Id, x => x.Name);
+			SetArticleCategories(categories);
 		}
 
 		[DisplayName("Namn"), Required]
@@ -23,5 +24,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public int CategoryId { get; set; }
 
 		public SelectList Categories { get; set; }
+
+		public ArticleTypeFormView SetArticleCategories(IEnumerable<ArticleCategory> categories)
+		{
+			Categories = categories.ToSelectList(x => x.Id, x => x.Name);
+			return this;
+		}
 	}
 }

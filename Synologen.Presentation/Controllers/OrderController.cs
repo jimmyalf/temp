@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Spinit.Data;
@@ -7,6 +8,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Presentation.Application;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
@@ -128,7 +130,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[HttpPost]
 		public ActionResult ArticleTypeForm(ArticleTypeFormView viewModel)
 		{
-			if (!ModelState.IsValid) return View(viewModel);
+			if (!ModelState.IsValid)
+			{
+				return View(viewModel.SetArticleCategories(_articleCategoryRepository.GetAll()));
+			}
 			var articleType = _orderViewParser.GetEntity(viewModel, _articleTypeRepository.Get, _articleCategoryRepository.Get);
 			_articleTypeRepository.Save(articleType);
 			return Redirect("ArticleTypes");
@@ -179,9 +184,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return RedirectToAction("Articles", routeValues);
 		}
 
+		[HttpGet]
 		public ActionResult ArticleForm(int? id = null)
 		{
-			return View();
+			var viewModel = _orderViewParser.GetArticleFormView(id, _articleRepository.Get, _articleSupplierRepository.GetAll, _articleTypeRepository.GetAll);
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult ArticleForm(ArticleFormView viewModel)
+		{
+			if (!ModelState.IsValid || viewModel.HasCustomValidationErrors)
+			{
+				var validationError = viewModel.GetCustomValidationErrors();
+				ModelState.AddCustomValidationErrors(validationError);
+				return View(viewModel
+					.SetSuppliers(_articleSupplierRepository.GetAll())
+					.SetTypes(_articleTypeRepository.GetAll())
+				);
+			}
+			var article = _orderViewParser.GetEntity(viewModel, _articleRepository.Get, _articleSupplierRepository.Get, _articleTypeRepository.Get);
+			_articleRepository.Save(article);
+			return Redirect("Articles");
 		}
 
 		#endregion

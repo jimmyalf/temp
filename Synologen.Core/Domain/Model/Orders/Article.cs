@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
+﻿namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 {
 	public class Article : Entity
 	{

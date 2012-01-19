@@ -16,6 +16,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			{
 				CreatedDate = order.Created.ToString("yyyy-MM-dd"),
 				CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName),
+				PersonalIDNumber = order.Customer.PersonalIdNumber,
 				OrderId = order.Id.ToString(),
 				ShopName = order.Shop.Name
 			};
@@ -28,5 +29,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public string ShopName { get; set; }
 		public string CustomerName { get; set; }
 		public string CreatedDate { get; set; }
+		public string PersonalIDNumber { get; set; }
 	}
 }

@@ -20,7 +20,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			return CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(shop, article, customer));
 		}
 
-		protected OrderCustomer CreateCustomer(Shop shop, Func<Shop,OrderCustomer> factoryMethod = null)
+        protected Order CreateOrderWithSubscription(Shop shop, Article article = null, OrderCustomer customer = null)
+        {
+            article = article ?? CreateArticle();
+            customer = customer ?? CreateCustomer(shop);
+            var lensRecipe = CreateLensRecipe();
+            var subscription = CreateSubscription(shop);
+            var subscriptionItem = CreateSubscriptionItem(subscription);
+
+            return CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(shop, article, customer, lensRecipe, subscriptionItem));
+        }
+
+	    private LensRecipe CreateLensRecipe()
+	    {
+	        return CreateWithRepository<ILensRecipeRepository, LensRecipe>(OrderFactory.GetLensRecipe);
+	    }
+
+	    protected SubscriptionItem CreateSubscriptionItem(Subscription subscription)
+	    {
+	        return
+	            CreateWithRepository<ISubscriptionItemRepository, SubscriptionItem>(
+	                () => OrderFactory.GetSubscriptionItem(subscription));
+	    }
+
+	    protected OrderCustomer CreateCustomer(Shop shop, Func<Shop,OrderCustomer> factoryMethod = null)
 		{
 			var customer = (factoryMethod == null) ? OrderFactory.GetCustomer(shop) : factoryMethod(shop);
 			return CreateWithRepository<IOrderCustomerRepository, OrderCustomer>(() => customer);

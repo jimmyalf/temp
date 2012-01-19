@@ -14,43 +14,46 @@
 	 		<div id="progressbar"></div>
    	  </div>
 
-        <p><label>Förnamn</label><input type="text" value="Emelie" disabled="disabled" /></p>
-    	<p><label>Efternamn</label><input type="text" value="Richter" disabled="disabled" /></p>
-    	<p><label>Personnummer</label><input type="text" value="8907091234" disabled="disabled" /></p>
-    	<p><label>E-post</label><input type="text" value="emelie@richter.se" disabled="disabled" /></p>
-    	<p><label>Mobiltelefon</label><input type="text" value="0703-456 123" disabled="disabled" /></p>
-    	<p><label>Telefon</label><input type="text" value="031-456 123" disabled="disabled"/></p>
-    	<p><label>Adress</label><input type="text" value="Lindholsmgatan 3" disabled="disabled"/></p>
-    	<p><label>Ort</label><input type="text" value="Göteborg" disabled="disabled"/></p>
-    	<p><label>Postnummer</label><input type="text" value="415 18" disabled="disabled"/></p>
-    	<div>
-      	<label>Artikel/Artiklar</label>
-     	<ul class="radio-list">
-      	<li>Synundersökning</li>
-      	<li>Linser</li>
-      	<li>Linsvätska</li>
-      	</ul>
-      	</div>
+        <p><label>Förnamn</label><asp:TextBox ID="TextBox" runat="server" Enabled="false" Text='<%#Model.FirstName%>' /></p>
+    	<p><label>Efternamn</label><asp:TextBox ID="TextBox0" runat="server" Enabled="false" Text='<%#Model.LastName%>' /></p>
+    	<p><label>Personnummer</label><asp:TextBox ID="TextBox1" runat="server" Enabled="false" Text='<%#Model.PersonalIdNumber%>' /></p>
+    	<p><label>E-post</label><asp:TextBox ID="TextBox2" runat="server" Enabled="false" Text='<%#Model.Email%>' /></p>
+    	<p><label>Mobiltelefon</label><asp:TextBox ID="TextBox3" runat="server" Enabled="false" Text='<%#Model.MobilePhone%>' /></p>
+    	<p><label>Telefon</label><asp:TextBox ID="TextBox4" runat="server" Enabled="false" Text='<%#Model.Telephone%>' /></p>
+    	<p><label>Adress</label><asp:TextBox ID="TextBox5" runat="server" Enabled="false" Text='<%#Model.Address%>' /></p>
+    	<p><label>Ort</label><asp:TextBox ID="TextBox6" runat="server" Enabled="false" Text='<%#Model.City%>' /></p>
+    	<p><label>Postnummer</label><asp:TextBox ID="TextBox7" runat="server" Enabled="false" Text='<%#Model.PostalCode%>' /></p>
+      	<p><label>Artikel/Artiklar</label><asp:TextBox ID="TextBox8" runat="server" Enabled="false" Text='<%#Model.Article%>' /></p>
+     	
       </fieldset>
-      <fieldset class="left-eye">
-      <legend>V</legend>
-        <p><label>Styrka</label><input type="text" value="-7,5" disabled="disabled"/></p>
-    	<p><label>Baskurva</label><input type="text" value="8,5" disabled="disabled"/></p>
-    	<p><label>Diometer</label><input type="text" value="-14" disabled="disabled"/></p>
-      </fieldset>
-      
+
       <fieldset class="right-eye">
       <legend>H</legend>
-        <p><label>Styrka</label><input type="text" value="-7,5" disabled="disabled"/></p>
-    	<p><label>Baskurva</label><input type="text" value="8,5" disabled="disabled"/></p>
-    	<p><label>Diometer</label><input type="text" value="-14" disabled="disabled"/></p>
+        <p><label>Styrka</label><asp:TextBox ID="TextBox15" runat="server" Enabled="false" Text='<%#Model.RightPower%>' /></p>
+    	<p><label>Addition</label><asp:TextBox ID="TextBox16" runat="server" Enabled="false" Text='<%#Model.RightAddition%>' /></p>
+        <p><label>Baskurva</label><asp:TextBox ID="TextBox17" runat="server" Enabled="false" Text='<%#Model.RightBaseCurve%>' /></p>
+    	<p><label>Diameter</label><asp:TextBox ID="TextBox18" runat="server" Enabled="false" Text='<%#Model.RightDiameter%>' /></p>
+        <p><label>Axel</label><asp:TextBox ID="TextBox19" runat="server" Enabled="false" Text='<%#Model.RightAxis%>' /></p>
+        <p><label>Cylinder</label><asp:TextBox ID="TextBox20" runat="server" Enabled="false" Text='<%#Model.RightCylinder%>' /></p>
+      </fieldset>
+
+      <fieldset class="left-eye">
+      <legend>V</legend>
+        <p><label>Styrka</label><asp:TextBox ID="TextBox9" runat="server" Enabled="false" Text='<%#Model.LeftPower%>' /></p>
+    	<p><label>Addition</label><asp:TextBox ID="TextBox12" runat="server" Enabled="false" Text='<%#Model.LeftAddition%>' /></p>
+        <p><label>Baskurva</label><asp:TextBox ID="TextBox10" runat="server" Enabled="false" Text='<%#Model.LeftBaseCurve%>' /></p>
+    	<p><label>Diameter</label><asp:TextBox ID="TextBox11" runat="server" Enabled="false" Text='<%#Model.LeftDiameter%>' /></p>
+        <p><label>Axel</label><asp:TextBox ID="TextBox13" runat="server" Enabled="false" Text='<%#Model.LeftAxis%>' /></p>
+        <p><label>Cylinder</label><asp:TextBox ID="TextBox14" runat="server" Enabled="false" Text='<%#Model.LeftCylinder%>' /></p>
       </fieldset>
       
+      
+      
       <fieldset>
-    	<p><label>Leveranstyp</label><input type="text" value="Till butik" disabled="disabled"/></p>
-    	<p><label>Betalningsätt</label><input type="text" value="Abonnemang" disabled="disabled"/></p>
-        <p><label>Belopp</label><input type="text" value="3000 kr" disabled="disabled"/></p>
-        <p><label>Abonnemangstid</label><input type="text" value="6 månader" disabled="disabled"/></p>
+    	<p><label>Leveranstyp</label><asp:TextBox ID="TextBox21" runat="server" Enabled="false" Text='<%#Model.DeliveryOption%>' /></p>
+    	<p><label>Betalningsätt</label><asp:TextBox ID="TextBox22" runat="server" Enabled="false" Text='<%#Model.PaymentOption%>' /></p>
+        <p><label>Belopp</label><asp:TextBox ID="TextBox23" runat="server" Enabled="false" Text='<%#Model.Amount%>' /></p>
+        <p><label>Abonnemangstid</label><asp:TextBox ID="TextBox24" runat="server" Enabled="false" Text='<%#Model.SubscriptionTime%>' /></p>
       </fieldset>
       
    <fieldset>

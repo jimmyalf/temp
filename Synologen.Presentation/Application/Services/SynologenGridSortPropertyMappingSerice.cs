@@ -33,6 +33,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			Map<OrderController,OrderListItem,Order>(x => x.OrderId, x => x.Id);
 			Map<OrderController,OrderListItem,Order>(x => x.CreatedDate, x => x.Created);
 			Map<OrderController,OrderListItem,Order>(x => x.CustomerName, x => x.Customer.FirstName);
+			Map<OrderController,OrderListItem,Order>(x => x.CustomerName, x => x.Customer.PersonalIdNumber);
 			Map<OrderController,OrderListItem,Order>(x => x.ShopName, x => x.Shop.Name);
 
 			Map<OrderController,CategoryListItem,ArticleCategory>(x => x.CategoryId, x => x.Id);

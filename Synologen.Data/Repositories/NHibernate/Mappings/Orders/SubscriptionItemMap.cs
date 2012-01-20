@@ -13,7 +13,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 			Map(x => x.Notes).Length(4000).Nullable();
 			Map(x => x.NumberOfPayments).Nullable();
 			Map(x => x.NumberOfPaymentsLeft).Nullable();
-			References(x => x.Subscription).Column("SubscriptionId").Cascade.Delete();
+			References(x => x.Subscription).Column("SubscriptionId");
 			Map(x => x.TaxFreeAmount);
 			Map(x => x.TaxedAmount);
 		}

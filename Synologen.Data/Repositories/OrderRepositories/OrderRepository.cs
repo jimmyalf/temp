@@ -10,5 +10,18 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories
         public OrderRepository(ISession session) : base(session)
         {
         }
+
+
+    	public void DeleteOrderAndSubscriptionItem(Order order)
+    	{
+			if(order.SubscriptionPayment != null)
+			{
+    			var subscriptionItem = order.SubscriptionPayment;
+    			order.SubscriptionPayment = null;
+				Save(order);
+    			Session.Delete(subscriptionItem);
+			}
+			Delete(order);
+    	}
     }
 }

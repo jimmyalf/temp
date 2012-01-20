@@ -5,5 +5,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders
 {
     public interface IOrderRepository : IRepository<Order>
     {
+    	void DeleteOrderAndSubscriptionItem(Order order);
     }
 }

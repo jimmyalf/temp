@@ -75,6 +75,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 	    protected ILensRecipeRepository LensRecipeRepository;
 	    protected IRoutingService RoutingService;
 		protected IShopRepository ShopRepository;
+	    protected ISubscriptionRepository SubscriptionRepository;
 
 		protected CreateOrderTestbase()
 		{
@@ -90,6 +91,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 			    ArticleRepository = A.Fake<IArticleRepository>();
 			    LensRecipeRepository = A.Fake<ILensRecipeRepository>();
 				ShopRepository = A.Fake<IShopRepository>();
+			    SubscriptionRepository = A.Fake<ISubscriptionRepository>();
 				SynologenMemberService = A.Fake<ISynologenMemberService>();
 			};
 
@@ -105,6 +107,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
                 ArticleRepository,
                 LensRecipeRepository,
 				ShopRepository,
+                SubscriptionRepository,
 				SynologenMemberService
 			);
 		}

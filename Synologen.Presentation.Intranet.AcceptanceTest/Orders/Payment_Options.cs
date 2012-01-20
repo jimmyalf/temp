@@ -20,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private PaymentOptionsPresenter _presenter;
     	private PaymentOptionsEventArgs _submitEventArgs;
     	private Order _order;
+        private Subscription _subscription;
     	private string _abortPageUrl, _nextPageUrl, _previousPageUrl;
     	private int _selectedSubscriptionId;
     	private IEnumerable<Subscription> _subsciptions;
@@ -113,7 +114,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                     .Och(AnvändarenFlyttasTillAvbrytsidan));
         }
 
-    	[Test]
+        [Test]
         public void Bakåt()
         {
             SetupScenario(scenario => scenario

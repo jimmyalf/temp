@@ -58,8 +58,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
     	public void View_Abort(object sender, EventArgs eventArgs)
     	{
-    		var order = _orderRepository.Get(RequestOrderId);
-			_orderRepository.Delete(order);
+            var order = _orderRepository.Get(RequestOrderId);
+            var isNewSubscription = order.SelectedPaymentOption.Type.Equals(PaymentOptionType.Subscription_Autogiro_New);
+
+            var subscription = order.SubscriptionPayment != null ? order.SubscriptionPayment.Subscription : null;
+
+            _orderRepository.DeleteOrderAndSubscriptionItem(order);
+            if (isNewSubscription && subscription != null) _subscriptionRepository.Delete(subscription);
+
 			Redirect(View.AbortPageId);
     	}
 

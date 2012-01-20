@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.Order;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
@@ -16,6 +17,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 
 		Article GetEntity(ArticleFormView viewModel, Func<int, Article> getArticle, Func<int,ArticleSupplier> getSupplier, Func<int,ArticleType> getType);
 		ArticleFormView GetArticleFormView(int? id, Func<int, Article> getArticle, Func<IEnumerable<ArticleSupplier>> getSuppliers, Func<IEnumerable<ArticleType>> getTypes);
+
+		ArticleSupplier GetEntity(SupplierFormView viewModel, Func<int, ArticleSupplier> getSupplier);
+		SupplierFormView GetSupplierFormView(int? id, Func<int, ArticleSupplier> getSupplier);
 	}
 
 	public class OrderViewParser : IOrderViewParser
@@ -74,6 +78,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				SupplierId = article.With(x => x.ArticleSupplier).Return(x => x.Id, default(int)),
 				TypeId = article.With(x => x.ArticleType).Return(x => x.Id, default(int)),
 			};
+		}
+
+		public ArticleSupplier GetEntity(SupplierFormView viewModel, Func<int, ArticleSupplier> getSupplier)
+		{
+			var supplier = GetStoredItemOrNew(viewModel.Id, getSupplier);
+			supplier.Name = viewModel.Name;
+			supplier.ShippingOptions = viewModel.GetShippingOptions();
+			return supplier;
+		}
+
+		public SupplierFormView GetSupplierFormView(int? id, Func<int, ArticleSupplier> getSupplier)
+		{
+			var supplier = GetStoredItemOrNew(id, getSupplier);
+			return new SupplierFormView(id, supplier.Name, supplier.ShippingOptions);
 		}
 
 		private static TType GetStoredItemOrNew<TType>(int? id, Func<int,TType> getitem) where TType : class, new()

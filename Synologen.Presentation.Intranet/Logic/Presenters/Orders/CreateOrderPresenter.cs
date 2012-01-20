@@ -22,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	private readonly IViewParser _viewParser;
     	private readonly IArticleSupplierRepository _articleSupplierRepository;
     	private readonly IArticleTypeRepository _articleTypeRepository;
+        private readonly ISubscriptionRepository _subscriptionRepository;
     	private readonly IOrderCustomerRepository _orderCustomerRepository;
         private readonly IArticleRepository _articleRepository;
         private readonly ILensRecipeRepository _lensRecipeRepository;
@@ -30,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
     	//TODO: Consider removing -9999 "magic number" and replace with a named constant
 
-        public CreateOrderPresenter(ICreateOrderView view, IOrderRepository orderRepository, IOrderCustomerRepository orderCustomerRepository, IRoutingService routingService, IArticleCategoryRepository articleCategoryRepository, IViewParser viewParser, IArticleSupplierRepository articleSupplierRepository, IArticleTypeRepository articleTypeRepository, IArticleRepository articleRepository, ILensRecipeRepository lensRecipeRepository, IShopRepository shopRepository, ISynologenMemberService synologenMemberService) : base(view)
+        public CreateOrderPresenter(ICreateOrderView view, IOrderRepository orderRepository, IOrderCustomerRepository orderCustomerRepository, IRoutingService routingService, IArticleCategoryRepository articleCategoryRepository, IViewParser viewParser, IArticleSupplierRepository articleSupplierRepository, IArticleTypeRepository articleTypeRepository, IArticleRepository articleRepository, ILensRecipeRepository lensRecipeRepository, IShopRepository shopRepository, ISubscriptionRepository subscriptionRepository, ISynologenMemberService synologenMemberService) : base(view)
         {
             _orderCustomerRepository = orderCustomerRepository;
             _routingService = routingService;
@@ -38,6 +39,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         	_viewParser = viewParser;
         	_articleSupplierRepository = articleSupplierRepository;
         	_articleTypeRepository = articleTypeRepository;
+            _subscriptionRepository = subscriptionRepository;
         	_orderRepository = orderRepository;
             _articleRepository = articleRepository;
             _lensRecipeRepository = lensRecipeRepository;
@@ -233,7 +235,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             if(RequestOrderId.HasValue)
             {
                 var order = _orderRepository.Get(RequestOrderId.Value);
-                _orderRepository.Delete(order);
+                var isNewSubscription = order.SelectedPaymentOption.Type.Equals(PaymentOptionType.Subscription_Autogiro_New);
+
+                var subscription = order.SubscriptionPayment != null ? order.SubscriptionPayment.Subscription : null;
+
+                _orderRepository.DeleteOrderAndSubscriptionItem(order);
+                if (isNewSubscription && subscription != null) _subscriptionRepository.Delete(subscription);
             }
 
             Redirect(View.AbortPageId);

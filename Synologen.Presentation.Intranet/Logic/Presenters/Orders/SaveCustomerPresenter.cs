@@ -17,6 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	private readonly IViewParser _viewParser;
     	private readonly IRoutingService _routingService;
     	private readonly IShopRepository _shopRepository;
+        private readonly ISubscriptionRepository _subscriptionRepository;
     	private readonly ISynologenMemberService _synologenMemberService;
 
     	public SaveCustomerPresenter(
@@ -26,9 +27,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			IViewParser viewParser, 
 			IRoutingService routingService,
 			IShopRepository shopRepository,
+            ISubscriptionRepository subscriptionRepository,
 			ISynologenMemberService synologenMemberService) : base(view)
         {
             _orderCustomerRepository = orderCustomerRepository;
+    	    _subscriptionRepository = subscriptionRepository;
     	    _orderRepository = orderRepository;
         	_viewParser = viewParser;
     		_routingService = routingService;
@@ -44,18 +47,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	{
             if(RequestOrderId.HasValue)
             {
-                var order = _orderRepository.Get(RequestOrderId.Value);
-                _orderRepository.Delete(order);
+                RemoveOrderAndSubscription(RequestOrderId.Value);
             }
     		Redirect(View.PreviousPageId);
     	}
 
-    	public void View_Abort(object sender, EventArgs e)
+        public void View_Abort(object sender, EventArgs e)
     	{
             if (RequestOrderId.HasValue)
             {
-                var order = _orderRepository.Get(RequestOrderId.Value);
-                _orderRepository.Delete(order);
+                RemoveOrderAndSubscription(RequestOrderId.Value);
             }
 			Redirect(View.AbortPageId);
     	}
@@ -164,5 +165,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	{
     		get { return _synologenMemberService.GetCurrentShopId(); }
     	}
+
+        private void RemoveOrderAndSubscription(int orderId)
+        {
+            var order = _orderRepository.Get(RequestOrderId.Value);
+            var isNewSubscription = order.SelectedPaymentOption.Type.Equals(PaymentOptionType.Subscription_Autogiro_New);
+
+            var subscription = order.SubscriptionPayment != null ? order.SubscriptionPayment.Subscription : null;
+
+            _orderRepository.DeleteOrderAndSubscriptionItem(order);
+            if (isNewSubscription && subscription != null) _subscriptionRepository.Delete(subscription);
+        }
     }
 }

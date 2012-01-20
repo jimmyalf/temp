@@ -42,6 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 		protected IViewParser ViewParser;
 		protected ISynologenMemberService SynologenMemberService;
 		protected IShopRepository ShopRepository;
+	    protected ISubscriptionRepository SubscriptionRepository;
 
 		protected SaveCustomerTestbase()
 		{
@@ -62,6 +63,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 				ViewParser, 
 				RoutingService,
 				ShopRepository,
+                SubscriptionRepository,
 				SynologenMemberService);
 		}
 	}

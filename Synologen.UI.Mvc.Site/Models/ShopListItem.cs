@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Models
 {
@@ -17,6 +18,18 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Models
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public bool IsDetailedView { get; set; }
+
+        public string FormattedHomePage
+        {
+            get
+            {
+                if (HomePage.StartsWith("http"))
+                {
+                    return HomePage;
+                }
+                return String.Format("http://{0}", HomePage);
+            }
+        }
 
         public List<ShopListItem> Shops
         {

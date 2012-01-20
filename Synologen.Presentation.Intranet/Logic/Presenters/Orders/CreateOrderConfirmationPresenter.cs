@@ -66,7 +66,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 //TODO: are these correct??
                 //View.Model.PaymentOption = GetPaymentOptionString(order.SelectedPaymentOption.Type); 
                 View.Model.DeliveryOption = GetDeliveryOptionString(order.ShippingType);
-                View.Model.Amount = order.SubscriptionPayment.TaxedAmount + " kr";
+                View.Model.TaxedAmount = order.SubscriptionPayment.TaxedAmount + " kr";
+                View.Model.TaxfreeAmount = order.SubscriptionPayment.TaxFreeAmount + " kr";
+                View.Model.TotalWithdrawal = order.SubscriptionPayment.AmountForAutogiroWithdrawal + " kr";
                 View.Model.SubscriptionTime = GetSubscriptionTimeString(order.SubscriptionPayment.NumberOfPayments);
             }
             
@@ -79,24 +81,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
     	public void View_Abort(object sender, EventArgs e)
     	{
-            //if (RequestOrderId.HasValue)
-            //{
-            //    var order = _orderRepository.Get(RequestOrderId.Value);
-            //
-            //    _subscriptionItemRepository.Delete(order.SubscriptionPayment);
-            //
-            //    if (order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New)
-            //    {
-            //        _subscriptionRepository.Delete(order.SubscriptionPayment.Subscription);
-            //    }
-            //    else if (order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_Existing)
-            //    {
-            //        _subscriptionItemRepository.Delete(order.SubscriptionPayment);
-            //    }
-            //
-            //    _orderRepository.Delete(order);
-            //}
-    	    Redirect(View.AbortPageId);
+            if (RequestOrderId.HasValue)
+            {
+                var order = _orderRepository.Get(RequestOrderId.Value);
+                var isNewSubscription =
+                    order.SelectedPaymentOption.Type.Equals(PaymentOptionType.Subscription_Autogiro_New);
+                var subscription = order.SubscriptionPayment.Subscription;
+
+                _orderRepository.DeleteOrderAndSubscriptionItem(order);
+                if (isNewSubscription) _subscriptionRepository.Delete(subscription);
+
+                Redirect(View.AbortPageId);
+            }
     	}
 
         private int? RequestOrderId

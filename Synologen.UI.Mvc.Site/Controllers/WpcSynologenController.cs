@@ -7,6 +7,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ShopDetails;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ShopDetails;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.UI.Mvc.Site.App;
 using Spinit.Wpc.Synologen.UI.Mvc.Site.App.ViewModelParsers;
 
 namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Controllers
@@ -29,7 +30,7 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Controllers
         [ChildActionOnly]
         public ActionResult Index()
         {
-            var shops = _shopRepository.FindBy(new ActiveShopsCriteria());
+            var shops = _shopRepository.FindBy(new ActiveShopsCriteria(Globals.ViewShopsWithCategoryId));
             var viewModel = _shopViewModelParserService.ParseShops(shops);
             return PartialView("Map", viewModel.Shops);
         }
@@ -37,7 +38,7 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Controllers
         [ChildActionOnly]
         public ActionResult ViewAll()
         {
-            var shops = _shopRepository.FindBy(new ActiveShopsCriteria());
+            var shops = _shopRepository.FindBy(new ActiveShopsCriteria(Globals.ViewShopsWithCategoryId));
             var viewModel = _shopViewModelParserService.ParseShops(shops);
             return PartialView("ViewAll", viewModel);
         }
@@ -54,12 +55,12 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Controllers
         [ChildActionOnly]
         public ActionResult Search(string search)
         {
-            var shops = _shopRepository.FindBy(new SearchShopsCriteria {Search = search});
+            var shops = _shopRepository.FindBy(new SearchShopsCriteria(search, Globals.ViewShopsWithCategoryId));
 
             try
             {
                 var coordinates = _geocodingService.GetCoordinates(search);
-                var nearbyShops = _shopRepository.FindBy(new NearbyShopsCriteria {Coordinates = coordinates});
+                var nearbyShops = _shopRepository.FindBy(new NearbyShopsCriteria(coordinates, Globals.ViewShopsWithCategoryId));
                 shops = shops.Concat(nearbyShops);
             }
             catch (Exception) { }

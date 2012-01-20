@@ -13,7 +13,7 @@
     <p>Tfn: <%= ViewData.Model.Telephone %><br />
     Adress: <%= ViewData.Model.StreetAddress%>, <%= ViewData.Model.City %><br />
     E-post: <a href="mailto:<%= ViewData.Model.Email %>"><%= ViewData.Model.Email%></a><br />
-    Hemsida: <a href="<%=ViewData.Model.HomePage %>"><%=ViewData.Model.HomePage %></a>
+    Hemsida: <a href="<%=ViewData.Model.FormattedHomePage %>"><%=ViewData.Model.HomePage %></a>
     </p>
 </article>
 

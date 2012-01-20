@@ -6,6 +6,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.ShopDetails
     public class Shop
     {
         public virtual int Id { get; set; }
+        public virtual int CategoryId { get; set; }
         public virtual bool Active { get; set; }
         public virtual string Name { get; set; }
         public virtual ShopAddress Address { get; set; }

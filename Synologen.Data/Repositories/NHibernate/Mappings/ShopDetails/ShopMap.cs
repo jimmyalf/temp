@@ -10,6 +10,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ShopDetails
             Table("tblSynologenShop");
             Id(x => x.Id).Column("cId");
 
+            Map(x => x.CategoryId).Column("cCategoryId");
             Map(x => x.Active).Column("cActive");
             Map(x => x.Name).Column("cShopName");
             Map(x => x.Description).Column("cShopDescription");

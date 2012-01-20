@@ -1,4 +1,5 @@
-﻿using Spinit.Wpc.Utility.Business;
+﻿using System;
+using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.UI.Mvc.Site.App
 {
@@ -8,7 +9,12 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.App
 
         public static string GoogleGeocode
         {
-            get { return SafeConfigString(Section, "GoogleGeocode", string.Empty); }
+            get { return SafeConfigString(Section, "GoogleGeocode", String.Empty); }
+        }
+
+        public static int ViewShopsWithCategoryId
+        {
+            get { return SafeConfigNumber(Section, "ViewShopsWithCategoryId", 0); }
         }
     }
 }

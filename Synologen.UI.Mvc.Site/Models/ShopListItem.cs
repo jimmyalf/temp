@@ -23,11 +23,12 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Models
         {
             get
             {
-                if (HomePage.StartsWith("http"))
+                if (String.IsNullOrEmpty(HomePage))
                 {
-                    return HomePage;
+                    return String.Empty;
                 }
-                return String.Format("http://{0}", HomePage);
+
+                return HomePage.StartsWith("http") ? HomePage : String.Format("http://{0}", HomePage);
             }
         }
 

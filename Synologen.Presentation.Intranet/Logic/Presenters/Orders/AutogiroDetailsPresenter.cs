@@ -140,8 +140,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	public void View_Abort(object sender, EventArgs e)
     	{
     		var order = _orderRepository.Get(OrderId);
-			_orderRepository.Delete(order);
-    		Redirect(View.AbortPageId);
+    	    var isNewSubscription = order.SelectedPaymentOption.Type.Equals(PaymentOptionType.Subscription_Autogiro_New);
+
+    	    var subscription = order.SubscriptionPayment != null ? order.SubscriptionPayment.Subscription : null;
+
+    	    _orderRepository.DeleteOrderAndSubscriptionItem(order);
+    	    if(isNewSubscription && subscription != null) _subscriptionRepository.Delete(subscription);
+    		
+            Redirect(View.AbortPageId);
     	}
 
     	public override void ReleaseView()
@@ -190,24 +196,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 _subscriptionRepository.Save(subscription);
                 return subscription;
             }
-            if (!order.SelectedPaymentOption.SubscriptionId.HasValue)
+            else
             {
                 var subscription = _viewParser.Parse(e, order.Customer, shop);
                 _subscriptionRepository.Save(subscription);
                 return subscription;
             }
-		    /*
-			if(order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New)
-			{
-                var subscription = _viewParser.Parse(e, order.Customer, shop);
-				_subscriptionRepository.Save(subscription);
-				return subscription;
-			}
-			if(order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_Existing && order.SelectedPaymentOption.SubscriptionId.HasValue)
-			{
-				return _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
-			}*/
-			throw new ApplicationException("Cannot figure out what subscription to use");
+		    
 		}
 
 		private void Redirect(int pageId, object requestParameters = null)

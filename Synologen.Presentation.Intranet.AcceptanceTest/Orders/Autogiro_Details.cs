@@ -110,7 +110,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			);
         }
 
-    	[Test]
+        [Test]
+        public void AvbrytBeställningMedPrenumeration()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(EnBeställningMedAbonnemangHarSkapatsIFöregåendeSteg)
+                .När(AnvändarenAvbryterBeställningen)
+                .Så(TasBeställningenBort)
+                    .Och(AbonnebangTasBortOmDetSkapats)
+                    .Och(AnvändarenFlyttasTillAvbrytSidan)
+            );
+        }
+
+        [Test]
         public void Tillbaka()
         {
             SetupScenario(scenario => scenario
@@ -121,6 +133,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
 
     	#region Arrange
+
+        private void EnBeställningMedAbonnemangHarSkapatsIFöregåendeSteg()
+        {
+            _order = CreateOrderWithSubscription(_shop);
+            _subscription = _order.SubscriptionPayment.Subscription;
+            HttpContext.SetupRequestParameter("order", _order.Id.ToString());
+        }
+
     	private void EnBeställningHarSkapatsIFöregåendeSteg()
         {
             _order = CreateOrder(_shop);
@@ -168,6 +188,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private void TasBeställningenBort()
         {
             WithRepository<IOrderRepository>().Get(_order.Id).ShouldBe(null);
+        }
+
+        private void AbonnebangTasBortOmDetSkapats()
+        {
+            WithRepository<ISubscriptionRepository>().Get(_subscription.Id).ShouldBe(null);
         }
 
         private void AnvändarenFlyttasTillAvbrytSidan()

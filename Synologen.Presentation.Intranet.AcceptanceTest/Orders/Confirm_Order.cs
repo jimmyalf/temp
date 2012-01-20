@@ -87,6 +87,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private void EnBeställningMedEttAbonnemangHarSkapats()
         {
             _order = CreateOrderWithSubscription(_shop);
+            _subscription = _order.SubscriptionPayment.Subscription;
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
 
@@ -108,14 +109,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         #region Assert
         private void TasAbonnemangetBort()
         {
-            throw new NotImplementedException();
-            //WithRepository<IOrderRepository>().Get(_order.Id).SubscriptionPayment.ShouldBe(null);
+            WithRepository<ISubscriptionRepository>().Get(_subscription.Id).ShouldBe(null);
         }
 
         private void TasBeställningenBort()
         {
-            throw new NotImplementedException();
-            //WithRepository<IOrderRepository>().Get(_order.Id).ShouldBe(null);
+            WithRepository<IOrderRepository>().Get(_order.Id).ShouldBe(null);
         }
 
         private void AnvändarenFlyttasTillIntranätsidan()
@@ -154,7 +153,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             //View.Model.PaymentOption.ShouldBe(order.SelectedPaymentOption.Type.ToString());
 
             View.Model.DeliveryOption.ShouldBe(_presenter.GetDeliveryOptionString(order.ShippingType));
-            View.Model.Amount.ShouldBe(order.SubscriptionPayment.TaxedAmount + " kr");
+            View.Model.TaxedAmount.ShouldBe(order.SubscriptionPayment.TaxedAmount + " kr");
+            View.Model.TaxfreeAmount.ShouldBe(order.SubscriptionPayment.TaxFreeAmount + " kr");
+            View.Model.TotalWithdrawal.ShouldBe(order.SubscriptionPayment.AmountForAutogiroWithdrawal + " kr");
             View.Model.SubscriptionTime.ShouldBe(_presenter.GetSubscriptionTimeString(order.SubscriptionPayment.NumberOfPayments)); 
         }
         #endregion

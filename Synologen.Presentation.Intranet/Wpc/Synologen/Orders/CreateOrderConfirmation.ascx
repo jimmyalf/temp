@@ -51,8 +51,10 @@
       
       <fieldset>
     	<p><label>Leveranstyp</label><asp:TextBox ID="TextBox21" runat="server" Enabled="false" Text='<%#Model.DeliveryOption%>' /></p>
-    	<p><label>Betalningsätt</label><asp:TextBox ID="TextBox22" runat="server" Enabled="false" Text='<%#Model.PaymentOption%>' /></p>
-        <p><label>Belopp</label><asp:TextBox ID="TextBox23" runat="server" Enabled="false" Text='<%#Model.Amount%>' /></p>
+    	<p><label>Betalningsätt</label><asp:TextBox ID="TextBox22" runat="server" Enabled="false" Text='Autogiro' /></p>
+        <p><label>Momsbelopp</label><asp:TextBox ID="TextBox23" runat="server" Enabled="false" Text='<%#Model.TaxedAmount%>' /></p>
+        <p><label>Momsfritt belopp</label><asp:TextBox ID="TextBox25" runat="server" Enabled="false" Text='<%#Model.TaxfreeAmount%>' /></p>
+        <p><label>Totaluttag</label><asp:TextBox ID="TextBox26" runat="server" Enabled="false" Text='<%#Model.TotalWithdrawal%>' /></p>
         <p><label>Abonnemangstid</label><asp:TextBox ID="TextBox24" runat="server" Enabled="false" Text='<%#Model.SubscriptionTime%>' /></p>
       </fieldset>
       

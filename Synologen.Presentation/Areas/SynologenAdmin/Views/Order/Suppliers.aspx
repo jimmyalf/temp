@@ -27,7 +27,7 @@
 					{
  						column.For(x => x.SupplierId).Named("ID").HeaderAttributes(@class => "controlColumn");
  						column.For(x => x.Name).Named("Leverantör");
-						column.For(x => Html.ActionLink("Redigera", "EditSupplier", "Order", new {id = x.SupplierId}, new object()))
+						column.For(x => Html.ActionLink("Redigera", "SupplierForm", "Order", new {id = x.SupplierId}, new object()))
 							.SetAsWpcControlColumn("Redigera");
  					}).Empty("Inga leverantörer i databasen.")
 				%>

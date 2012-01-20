@@ -159,9 +159,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return RedirectToAction("Suppliers", routeValues);
 		}
 
+		[HttpGet]
 		public ActionResult SupplierForm(int? id = null)
 		{
-			return View();
+			var viewModel = _orderViewParser.GetSupplierFormView(id, _articleSupplierRepository.Get);
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult SupplierForm(SupplierFormView viewModel)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(viewModel);
+			}
+			var supplier = _orderViewParser.GetEntity(viewModel, _articleSupplierRepository.Get);
+			_articleSupplierRepository.Save(supplier);
+			return Redirect("Suppliers");
 		}
 
 		#endregion

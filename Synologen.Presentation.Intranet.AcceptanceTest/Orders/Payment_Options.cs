@@ -215,7 +215,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     		});
 			View.Model.Subscriptions.Last().Value.ShouldBe("0");
 			View.Model.Subscriptions.Last().Text.ShouldBe("Skapa nytt konto");
-            View.Model.SelectedOption.ShouldBe((int)_order.SelectedPaymentOption.Type);
+            View.Model.SelectedOption.ShouldBe(default(int) /*Default value*/);
     	}
 
 		private void KundNamnVisas()

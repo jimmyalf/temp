@@ -85,13 +85,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			var supplier = GetStoredItemOrNew(viewModel.Id, getSupplier);
 			supplier.Name = viewModel.Name;
 			supplier.ShippingOptions = viewModel.GetShippingOptions();
+			supplier.OrderEmailAddress = viewModel.OrderEmailAddress;
+			supplier.AcceptsOrderByEmail = viewModel.AcceptsOrderByEmail;
 			return supplier;
 		}
 
 		public SupplierFormView GetSupplierFormView(int? id, Func<int, ArticleSupplier> getSupplier)
 		{
 			var supplier = GetStoredItemOrNew(id, getSupplier);
-			return new SupplierFormView(id, supplier.Name, supplier.ShippingOptions);
+			return new SupplierFormView(id, supplier);
 		}
 
 		private static TType GetStoredItemOrNew<TType>(int? id, Func<int,TType> getitem) where TType : class, new()

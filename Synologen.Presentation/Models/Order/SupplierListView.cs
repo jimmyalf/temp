@@ -10,7 +10,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 
 		public override SupplierListItem Convert(ArticleSupplier item)
 		{
-			return new SupplierListItem {SupplierId = item.Id.ToString(), Name = item.Name};
+			return new SupplierListItem
+			{
+				SupplierId = item.Id.ToString(), 
+				Name = item.Name,
+				OrderEmail = item.OrderEmailAddress
+			};
 		}
 	}
 
@@ -18,5 +23,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 	{
 		public string SupplierId { get; set; }
 		public string Name { get; set; }
+		public string OrderEmail { get; set; }
 	}
 }

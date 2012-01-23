@@ -169,8 +169,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[HttpPost]
 		public ActionResult SupplierForm(SupplierFormView viewModel)
 		{
-			if (!ModelState.IsValid)
+			if (!ModelState.IsValid || viewModel.HasCustomValidationErrors)
 			{
+				var validationError = viewModel.GetValidationErrors();
+				ModelState.AddCustomValidationErrors(validationError);
 				return View(viewModel);
 			}
 			var supplier = _orderViewParser.GetEntity(viewModel, _articleSupplierRepository.Get);

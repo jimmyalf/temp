@@ -186,4 +186,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			return "{ PropertyName: " + PropertyName + ", ErrorMessage: " + ErrorMessage + " }";
 		}
 	}
+
+	public class ValidationError<TType> : ValidationError where TType : class
+	{
+		public ValidationError(Expression<Func<TType,object>> expression, string errorMessage) : base(expression.GetName(), errorMessage){}
+	}
 }

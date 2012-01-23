@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CategoryList.ascx.cs" Inherits="Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket.CategoryList" %>																				
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CategoryList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Ogonapoteket.wpc.Ogonapoteket.CategoryList" %>																				
 <div id="category-list"><asp:PlaceHolder ID="phCategories" runat="server" /></div>
 <asp:PlaceHolder ID="phCategoryName" Visible="false" runat="server">
 <h1 id="hCatecoryName"><asp:Literal ID="ltCategoryName" runat="server" /></h1>
@@ -9,4 +9,3 @@
 </asp:PlaceHolder> 
 
 <h2 class="title"><asp:Literal ID="ltSearchProducts" runat="server" Visible="false"></asp:Literal></h2>
-</asp:Repeater>

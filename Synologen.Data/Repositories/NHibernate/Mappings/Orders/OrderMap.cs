@@ -11,6 +11,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
             Id(x => x.Id);
 
             Map(x => x.Created);
+            Map(x => x.SpinitServicesEmailId);
 
             Map(x => x.ShippingType).CustomType<int>();
         	Map(x => x.AutoWithdrawalAmount).Nullable();

@@ -46,10 +46,12 @@
     	<p>
             <label for="<%=txtMobilePhone.ClientID%>">Mobiltelefon</label>
 		    <asp:TextBox ID="txtMobilePhone" runat="server" Text='<% #Model.MobilePhone %>' />
+			<asp:RegularExpressionValidator ValidationExpression="^[0-9-+() ]+?$" runat="server" ErrorMessage="Telefonnummer får endast innehålla siffor, mellanslag, plus och bindestreck." Display="Dynamic" ControlToValidate="txtMobilePhone" CssClass="error-message">*</asp:RegularExpressionValidator>	
         </p>
     	<p>
             <label for="<%=txtPhone.ClientID%>">Telefon</label>
 		    <asp:TextBox ID="txtPhone" runat="server" Text='<% #Model.Phone %>' />
+			<asp:RegularExpressionValidator ValidationExpression="^[0-9-+() ]+?$" runat="server" ErrorMessage="Telefonnummer får endast innehålla siffor, mellanslag, plus och bindestreck." Display="Dynamic" ControlToValidate="txtPhone" CssClass="error-message">*</asp:RegularExpressionValidator>	
         </p>
     	<p>
             <label for="<%=txtAddressLineOne.ClientID%>">Adress 1</label>

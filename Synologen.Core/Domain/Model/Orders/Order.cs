@@ -20,5 +20,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
     	public virtual OrderCustomer Customer { get; set; }
 		public virtual SubscriptionItem SubscriptionPayment { get; set; }
 		public virtual decimal? AutoWithdrawalAmount { get; set; }
+        public virtual int SpinitServicesEmailId { get; set; }
     }
 }

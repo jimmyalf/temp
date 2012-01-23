@@ -335,6 +335,17 @@
     <Compile Include="Domain\Services\ISynologenSettingsService.cs" />
     <Compile Include="Domain\Services\ITaskRunnerService.cs" />
     <Compile Include="Domain\Services\SystemTime.cs" />
+    <Compile Include="Domain\Services\Web\External\AuthenticationContext.cs" />
+    <Compile Include="Domain\Services\Web\External\AuthenticationFailedException.cs" />
+    <Compile Include="Domain\Services\Web\External\Customer.cs" />
+    <Compile Include="Domain\Services\Web\External\IAddCustomerService.cs" />
+    <Compile Include="Domain\Services\Web\External\ICustomerParser.cs" />
+    <Compile Include="Domain\Services\Web\External\IShopAuthenticationService.cs" />
+    <Compile Include="Domain\Services\Web\External\ICustomerValidator.cs" />
+    <Compile Include="Domain\Services\Web\External\ShopAuthenticationResult.cs" />
+    <Compile Include="Domain\Services\Web\External\ValidationError.cs" />
+    <Compile Include="Domain\Services\Web\External\ValidationFailedException.cs" />
+    <Compile Include="Domain\Services\Web\External\ValidationResult.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="Extensions\ComparisonExtensions.cs" />
     <Compile Include="Extensions\DataRowCollectionExtensions.cs" />

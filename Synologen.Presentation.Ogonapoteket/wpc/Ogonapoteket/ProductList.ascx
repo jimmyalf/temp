@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ProductList.ascx.cs" Inherits="Spinit.Wpc.Ogonapoteket.Presentation.Site.Wpc.Ogonapoteket.ProductList" %>																			
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ProductList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Ogonapoteket.wpc.Ogonapoteket.ProductList" %>																			
 <asp:PlaceHolder ID="phCategories" runat="server" />
 <asp:PlaceHolder ID="phCategoryName" Visible="false" runat="server">
 <h1 id="hCatecoryName"><asp:Literal ID="ltCategoryName" runat="server" /></h1>

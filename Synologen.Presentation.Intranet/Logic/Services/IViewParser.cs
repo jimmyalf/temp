@@ -19,6 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
         IEnumerable<ListItem> ParseWithDefaultItem<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
 		IEnumerable<ListItem> Parse<TEnumType>(TEnumType value) where TEnumType : struct;
 	    IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence);
+		IEnumerable<ListItem> FillWithIncrementalValues(OptionalSequenceDefinition sequence);
 	}
 
 	public class ViewParser : IViewParser
@@ -141,18 +142,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 	    {
 	        var list = new List<ListItem> {new ListItem { Text = "-- Välj --", Value = (-9999).ToString()}};
 
-            if(sequence != null)
+            if(sequence.Increment > 0)
             {
-                if (sequence.Increment > 0)
+                for (var value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
                 {
-                    for (float value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
-                    {
-                        list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
-                    }
+                    list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
                 }
             }
-	        
 	        return list;
 	    }
+
+		public IEnumerable<ListItem> FillWithIncrementalValues(OptionalSequenceDefinition sequence)
+		{
+	        var list = new List<ListItem> {new ListItem { Text = "-- Välj --", Value = (-9999).ToString()}};
+			if(sequence.DisableDefinition) return list;
+            if(sequence.Increment > 0)
+            {
+                for (var value = sequence.Min.Value; value <= sequence.Max.Value; value += sequence.Increment.Value)
+                {
+                    list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
+                }
+            }
+	        return list;
+		}
 	}
 }

@@ -67,7 +67,7 @@
       <fieldset class="right-eye">
       <legend>H</legend>
           	<p><label>Styrka</label>
-            <asp:DropDownList id="ddlRightStrength" DataSource="<% #Model.PowerOptions %>" Enabled="<%#Model.PowerOptionsEnabled %>" SelectedValue="<%#Model.SelectedRightPower%>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlRightStrength" DataSource="<% #Model.PowerOptions %>" SelectedValue="<%#Model.SelectedRightPower%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator5" 
@@ -76,8 +76,7 @@
 		        ErrorMessage="Obligatoriskt fält: Höger styrka" 
 		        ControlToValidate="ddlRightStrength" 
 		        Display="Dynamic" 
-		        CssClass="error-message"
-                Enabled="<%#Model.PowerOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
+		        CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
           	<p><label>Addition</label>
             <asp:DropDownList id="ddlRightAddition" DataSource="<% #Model.AdditionOptions %>" Enabled="<%#Model.AdditionOptionsEnabled %>" SelectedValue="<%#Model.SelectedRightAddition%>" DataTextField="Text" DataValueField="Value" runat="server">
@@ -96,7 +95,7 @@
 		</p>
 
     	<p><label>Baskurva</label>
-            <asp:DropDownList id="ddlRightBaskurva" DataSource="<% #Model.BaseCurveOptions %>" Enabled="<%#Model.BaseCurveOptionsEnabled %>" SelectedValue="<%#Model.SelectedRightBaseCurve%>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlRightBaskurva" DataSource="<% #Model.BaseCurveOptions %>" SelectedValue="<%#Model.SelectedRightBaseCurve%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator6" 
@@ -105,11 +104,10 @@
 		        ErrorMessage="Obligatoriskt fält: Höger baskurva" 
 		        ControlToValidate="ddlRightBaskurva" 
 		        Display="Dynamic" 
-		        CssClass="error-message"
-                Enabled="<%#Model.BaseCurveOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
+		        CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Diameter</label>
-            <asp:DropDownList id="ddlRightDiameter" DataSource="<% #Model.DiameterOptions %>" Enabled="<%#Model.DiameterOptionsEnabled %>" SelectedValue="<%#Model.SelectedRightDiameter%>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlRightDiameter" DataSource="<% #Model.DiameterOptions %>" SelectedValue="<%#Model.SelectedRightDiameter%>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator7" 
@@ -118,8 +116,7 @@
 		        ErrorMessage="Obligatoriskt fält: Höger diameter" 
 		        ControlToValidate="ddlRightDiameter" 
 		        Display="Dynamic" 
-		        CssClass="error-message"
-                Enabled="<%#Model.DiameterOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
+		        CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Axel</label>
             <asp:DropDownList id="ddlRightAxis" DataSource="<% #Model.AxisOptions %>" Enabled="<%#Model.AxisOptionsEnabled %>" SelectedValue="<%#Model.SelectedRightAxis%>" DataTextField="Text" DataValueField="Value" runat="server">
@@ -151,7 +148,7 @@
       <fieldset class="left-eye">
       <legend>V</legend>
           	<p><label>Styrka</label>
-            <asp:DropDownList id="ddlLeftStrength" Enabled="<%#Model.PowerOptionsEnabled %>" DataTextField="Text" DataValueField="Value" SelectedValue="<%#Model.SelectedLeftPower %>" DataSource="<% #Model.PowerOptions %>" runat="server">
+            <asp:DropDownList id="ddlLeftStrength" DataTextField="Text" DataValueField="Value" SelectedValue="<%#Model.SelectedLeftPower %>" DataSource="<% #Model.PowerOptions %>" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator10" 
@@ -160,8 +157,7 @@
 		        ErrorMessage="Obligatoriskt fält: Vänster styrka" 
 		        ControlToValidate="ddlLeftStrength" 
 		        Display="Dynamic" 
-		        CssClass="error-message"
-                Enabled="<%#Model.PowerOptionsEnabled %>"	>&nbsp;*</asp:RequiredFieldValidator>
+		        CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
         
         <p><label>Addition</label>
@@ -181,7 +177,7 @@
 		</p>
         
     	<p><label>Baskurva</label>
-            <asp:DropDownList id="ddlLeftBaskurva" DataSource="<% #Model.BaseCurveOptions %>" Enabled="<%#Model.BaseCurveOptionsEnabled %>" SelectedValue="<%#Model.SelectedLeftBaseCurve %>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlLeftBaskurva" DataSource="<% #Model.BaseCurveOptions %>" SelectedValue="<%#Model.SelectedLeftBaseCurve %>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator11" 
@@ -190,11 +186,10 @@
 		        ErrorMessage="Obligatoriskt fält: Vänster baskurva" 
 		        ControlToValidate="ddlLeftBaskurva" 
 		        Display="Dynamic" 
-		        CssClass="error-message"
-                Enabled="<%#Model.BaseCurveOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
+		        CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 		</p>
     	<p><label>Diameter</label>
-            <asp:DropDownList id="ddlLeftDiameter" DataSource="<% #Model.DiameterOptions %>" Enabled="<%#Model.DiameterOptionsEnabled %>" SelectedValue="<%#Model.SelectedLeftDiameter %>" DataTextField="Text" DataValueField="Value" runat="server">
+            <asp:DropDownList id="ddlLeftDiameter" DataSource="<% #Model.DiameterOptions %>" SelectedValue="<%#Model.SelectedLeftDiameter %>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>
             <asp:RequiredFieldValidator 
 		        ID="RequiredFieldValidator12" 
@@ -203,8 +198,7 @@
 		        ErrorMessage="Obligatoriskt fält: Vänster diameter" 
 		        ControlToValidate="ddlLeftDiameter" 
 		        Display="Dynamic" 
-		        CssClass="error-message"
-                Enabled="<%#Model.DiameterOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
+		        CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
         <p><label>Axel</label>
             <asp:DropDownList id="ddlLeftAxis" DataSource="<% #Model.AxisOptions %>" Enabled="<%#Model.AxisOptionsEnabled %>" SelectedValue="<%#Model.SelectedLeftAxis %>" DataTextField="Text" DataValueField="Value" runat="server">
@@ -233,10 +227,8 @@
                 Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
     	</p>
       </fieldset>
-           
       <fieldset>
       <legend>Leverantörsalternativ</legend>
-
         <p>
             <asp:DropDownList id="ddlShippingOptions" DataSource="<% #Model.ShippingOptions %>" SelectedValue="<%#Model.SelectedShippingOption %>" DataTextField="Text" DataValueField="Value" runat="server">
             </asp:DropDownList>

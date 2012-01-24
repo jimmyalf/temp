@@ -12,5 +12,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Extensions
 			var sequence = sequenceProperty(options);
 			return sequence == null ? new SequenceDefinitionView() : new SequenceDefinitionView(sequence);
 		}
+
+		public static OptionalSequenceDefinitionView GetOptinalDefinitionView(this ArticleOptions options, Func<ArticleOptions, OptionalSequenceDefinition> sequenceProperty)
+		{
+			if(options == null) return new OptionalSequenceDefinitionView();
+			var sequence = sequenceProperty(options);
+			return sequence == null ? new OptionalSequenceDefinitionView() : new OptionalSequenceDefinitionView(sequence);
+		}
 	}
 }

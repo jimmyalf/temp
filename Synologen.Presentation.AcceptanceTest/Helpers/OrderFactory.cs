@@ -26,17 +26,22 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 	            Name = articleName,
                 ArticleType = articleType,
                 ArticleSupplier = supplier,
-	            Options = new ArticleOptions
-	            {
-	                Axis = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
-                    BaseCurve = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
-                    Power = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
-                    Cylinder = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
-                    Diameter = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
-                    Addition = new SequenceDefinition { Increment = 0F, Max = 0F, Min = 0F }
-                }
+	            Options = GetArticleOptions()
 	        };
 	    }
+
+		public static ArticleOptions GetArticleOptions()
+		{
+			return new ArticleOptions
+			{
+				Axis = new OptionalSequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F, DisableDefinition = true},
+				BaseCurve = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
+				Power = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
+				Cylinder = new OptionalSequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
+				Diameter = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
+				Addition = new OptionalSequenceDefinition { Increment = 1F, Max = 20F, Min = 0F }
+			};
+		}
 
 		public static IEnumerable<Article> GetArticles(ArticleType articleType, ArticleSupplier supplier)
 		{
@@ -76,7 +81,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		public static ArticleSupplier GetSupplier(int? seed = null, string name = "Johnsson & McBeth")
 		{
 			var supplierName = name + ((seed.HasValue) ? " " + seed.Value.GetSwedishChar() : string.Empty);
-            return new ArticleSupplier { Name = supplierName };
+            return new ArticleSupplier { Name = supplierName, OrderEmailAddress = "info@spinit.se" };
         }
 
 		public static ArticleCategory GetCategory(string name = "Linser", int? seed = null)

@@ -17,10 +17,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 	{
 		public ArticleFormView()
 		{
-			Addition = new SequenceDefinitionView();
-			Axis = new SequenceDefinitionView();
+			Addition = new OptionalSequenceDefinitionView();
+			Axis = new OptionalSequenceDefinitionView();
 			BaseCurve = new SequenceDefinitionView();
-			Cylinder = new SequenceDefinitionView();
+			Cylinder = new OptionalSequenceDefinitionView();
 			Diameter = new SequenceDefinitionView();
 			Power = new SequenceDefinitionView();
 		}
@@ -30,10 +30,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			Name = name;
 			SetSuppliers(suppliers);
 			SetTypes(types);
-			Addition = options.GetDefinitionView(x => x.Addition);
-			Axis = options.GetDefinitionView(x => x.Axis);
+			Addition = options.GetOptinalDefinitionView(x => x.Addition);
+			Axis = options.GetOptinalDefinitionView(x => x.Axis);
 			BaseCurve = options.GetDefinitionView(x => x.BaseCurve);
-			Cylinder = options.GetDefinitionView(x => x.Cylinder);
+			Cylinder = options.GetOptinalDefinitionView(x => x.Cylinder);
 			Diameter = options.GetDefinitionView(x => x.Diameter);
 			Power = options.GetDefinitionView(x => x.Power);
 		}
@@ -63,13 +63,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public SequenceDefinitionView BaseCurve { get; set; }
 
 		[DisplayName("Axel")]
-		public SequenceDefinitionView Axis { get; set; }
+		public OptionalSequenceDefinitionView Axis { get; set; }
 
 		[DisplayName("Cylinder")]
-		public SequenceDefinitionView Cylinder { get; set; }
+		public OptionalSequenceDefinitionView Cylinder { get; set; }
 
 		[DisplayName("Addition")]
-		public SequenceDefinitionView Addition { get; set; }
+		public OptionalSequenceDefinitionView Addition { get; set; }
 
 		public int SupplierId { get; set; }
 		public int TypeId { get; set; }
@@ -110,16 +110,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			}
 		}
 
-		public ArticleOptions GetArticleOptions(float defaultValue = default(float))
+		public ArticleOptions GetArticleOptions()
 		{
 			return new ArticleOptions
 			{
-				Addition = Addition.GetSequenceDefinition(defaultValue),
-				Axis = Axis.GetSequenceDefinition(defaultValue),
-				BaseCurve = BaseCurve.GetSequenceDefinition(defaultValue),
-				Cylinder = Cylinder.GetSequenceDefinition(defaultValue),
-				Diameter = Diameter.GetSequenceDefinition(defaultValue),
-				Power = Power.GetSequenceDefinition(defaultValue)
+				Addition = Addition.GetSequenceDefinition(),
+				Axis = Axis.GetSequenceDefinition(),
+				BaseCurve = BaseCurve.GetSequenceDefinition(),
+				Cylinder = Cylinder.GetSequenceDefinition(),
+				Diameter = Diameter.GetSequenceDefinition(),
+				Power = Power.GetSequenceDefinition()
 			};
 		}
 	}
@@ -141,14 +141,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		[DisplayName("Inkrement"), RegularExpression("^(-)?[0-9]+(,[0-9]+)?$", ErrorMessage = "Angivet värde måste vara numeriskt")]
 		public float? Increment { get; set; }
 
-		public bool NoParametersSet
+		public IEnumerable<ValidationError> GetValidationErrors(string propertyName)
 		{
-			get { return Min.HasValue == false && Max.HasValue == false && Increment.HasValue == false; }
-		}
-
-		public IEnumerable<ValidationError> GetValidationErrors(string propertyName, bool allowAllNull = false)
-		{
-			if (allowAllNull && NoParametersSet) yield break;
 			if (!Min.HasValue) yield return new ValidationError(propertyName + ".Min", "Min saknar värde");
 			if (!Max.HasValue) yield return new ValidationError(propertyName + ".Max", "Max saknar värde");
 			if (!Increment.HasValue) yield return new ValidationError(propertyName + ".Increment", "Inkrement saknar värde");
@@ -161,14 +155,59 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 
 		public SequenceDefinition GetSequenceDefinition(float defaultValue = default(float))
 		{
-			return new SequenceDefinition()
+			return new SequenceDefinition 
 			{
 				Min =  Min?? defaultValue,
 				Max = Max ?? defaultValue,
 				Increment = Increment ?? defaultValue
 			};
 		}
+	}
 
+
+	public class OptionalSequenceDefinitionView
+	{
+		public OptionalSequenceDefinitionView() { }
+		public OptionalSequenceDefinitionView(OptionalSequenceDefinition definition)
+		{
+			if(definition == null) return;
+			Min = definition.Min;
+			Max = definition.Max;
+			Increment = definition.Increment;
+			Disable = definition.DisableDefinition;
+		}
+
+		[DisplayName("Min"), RegularExpression("^(-)?[0-9]+(,[0-9]+)?$", ErrorMessage = "Angivet värde måste vara numeriskt")]
+		public float? Min { get; set; }
+		[DisplayName("Max"), RegularExpression("^(-)?[0-9]+(,[0-9]+)?$", ErrorMessage = "Angivet värde måste vara numeriskt")]
+		public float? Max { get; set; }
+		[DisplayName("Inkrement"), RegularExpression("^(-)?[0-9]+(,[0-9]+)?$", ErrorMessage = "Angivet värde måste vara numeriskt")]
+		public float? Increment { get; set; }
+		[DisplayName("Avaktivera")]
+		public bool Disable { get; set; }
+
+		public IEnumerable<ValidationError> GetValidationErrors(string propertyName, bool allowAllNull = false)
+		{
+			if (Disable) yield break;
+			if (!Min.HasValue) yield return new ValidationError(propertyName + ".Min", "Min saknar värde");
+			if (!Max.HasValue) yield return new ValidationError(propertyName + ".Max", "Max saknar värde");
+			if (!Increment.HasValue) yield return new ValidationError(propertyName + ".Increment", "Inkrement saknar värde");
+			if (Increment.HasValue && Increment <= 0) yield return new ValidationError(propertyName + ".Increment", "Inkrement måste anges större än 0");
+			if(Min.HasValue && Max.HasValue && Min.Value >= Max.Value)
+			{
+			    yield return new ValidationError(propertyName + ".Min", "Min måste vara mindre än Max");
+			}
+		}
+
+		public OptionalSequenceDefinition GetSequenceDefinition(float? defaultValue = null)
+		{
+			return new OptionalSequenceDefinition {
+				Min =  Min?? defaultValue,
+				Max = Max ?? defaultValue,
+				Increment = Increment ?? defaultValue,
+				DisableDefinition = Disable
+			};
+		}
 	}
 
 	public class ValidationError

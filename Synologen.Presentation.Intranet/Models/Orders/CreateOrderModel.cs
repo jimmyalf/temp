@@ -79,13 +79,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public IEnumerable<ListItem> AxisOptions { get; set; }
         public IEnumerable<ListItem> CylinderOptions { get; set; }
         public IEnumerable<ListItem> AdditionOptions { get; set; }
-        //public IEnumerable<ListItem> ItemQuantityOptions { get; set; }
 
-        public bool PowerOptionsEnabled { get { return PowerOptions.Any(item => item.Value != DefaultOptionValue.ToString()); } }
-		public bool BaseCurveOptionsEnabled { get { return BaseCurveOptions.Any(item => item.Value != DefaultOptionValue.ToString()); } }
-        public bool AxisOptionsEnabled { get { return AxisOptions.Any(item => item.Value != DefaultOptionValue.ToString()); } }
-        public bool DiameterOptionsEnabled { get { return DiameterOptions.Any(item => item.Value != DefaultOptionValue.ToString()); }  }
-        public bool CylinderOptionsEnabled { get { return CylinderOptions.Any(item => item.Value != DefaultOptionValue.ToString()); }   }
-        public bool AdditionOptionsEnabled { get { return AdditionOptions.Any(item => item.Value != DefaultOptionValue.ToString()); } }
+        //public bool PowerOptionsEnabled { get { return PowerOptions.Any(item => item.Value != DefaultOptionValue.ToString()); } }
+		//public bool BaseCurveOptionsEnabled { get { return BaseCurveOptions.Any(item => item.Value != DefaultOptionValue.ToString()); } }
+		//public bool DiameterOptionsEnabled { get { return DiameterOptions.Any(item => item.Value != DefaultOptionValue.ToString()); }  }
+		public bool AxisOptionsEnabled { get; set; }
+        public bool CylinderOptionsEnabled { get; set; }
+        public bool AdditionOptionsEnabled { get; set; }
     }
 }

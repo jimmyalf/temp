@@ -92,8 +92,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 View.Model.DiameterOptions = _viewParser.FillWithIncrementalValues(options.Diameter);
                 View.Model.BaseCurveOptions = _viewParser.FillWithIncrementalValues(options.BaseCurve);
                 View.Model.AxisOptions = _viewParser.FillWithIncrementalValues(options.Axis);
+				View.Model.AxisOptionsEnabled = !options.Axis.DisableDefinition;
                 View.Model.CylinderOptions = _viewParser.FillWithIncrementalValues(options.Cylinder);
+				View.Model.CylinderOptionsEnabled = !options.Cylinder.DisableDefinition;
                 View.Model.AdditionOptions = _viewParser.FillWithIncrementalValues(options.Addition);
+            	View.Model.AdditionOptionsEnabled = !options.Addition.DisableDefinition;
             }
 
             View.Model.SelectedCategoryId = args.SelectedCategoryId;

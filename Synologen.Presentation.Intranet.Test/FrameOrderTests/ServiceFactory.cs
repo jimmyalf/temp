@@ -83,8 +83,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			public void SetMockedPageUrl(string url){ _pageUrl = url;}
 			public void SetShopHasAccess(bool value){ _shopHasAccess = value;}
 			public int GetCurrentShopId() { return _shopId; }
-			public int GetCurrentMemberId() { throw new NotImplementedException(); }
-			public string GetPageUrl(int pageId) { return _pageUrl; }
+			public int GetCurrentMemberId() { throw new NotImplementedException(); }            
+		    public string GetPageUrl(int pageId) { return _pageUrl; }
 			public bool ShopHasAccessTo(ShopAccess accessOption) { return _shopHasAccess; }
 			public bool ValidateUserPassword(string password) { throw new NotImplementedException(); }
 			public string GetUserName() { throw new NotImplementedException(); }

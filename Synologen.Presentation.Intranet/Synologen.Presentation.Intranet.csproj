@@ -92,6 +92,7 @@
     <Compile Include="Logic\EventArguments\Orders\SearchCustomerEventArgs.cs" />
     <Compile Include="Logic\Services\DebugRoutingService.cs" />
     <Compile Include="Logic\Services\RoutingService.cs" />
+    <Compile Include="Logic\Services\Orders\SendOrderService.cs" />
     <Compile Include="Logic\Views\Orders\IOrderView.cs" />
     <Compile Include="Logic\Views\Orders\ISearchCustomerView.cs" />
     <Compile Include="Logic\Presenters\Orders\PaymentOptionsPresenter.cs" />
@@ -576,6 +577,9 @@
     <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.GeneralData.DatabaseInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Services.Client, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Dependancies\Spinit\Spinit.Services.Client.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Base.Business, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

@@ -1,12 +1,15 @@
 using System;
 using FakeItEasy;
+using FakeItEasy.Core;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
@@ -22,6 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private string _submitUrl;
         private string _abortUrl;
         private Func<string, int, string> _redirectUrl;
+        private int _expectedEmailId;
 
         public When_confirming_an_order()
         {
@@ -29,13 +33,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             {
                 _presenter = GetPresenter();
                 _shop = CreateShop<Shop>();
-
+                _expectedEmailId = 1;
                 _previousUrl = "/previous/page";
                 _submitUrl = "/next/page";
                 _abortUrl = "/abort/page";
   
                 A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
                 
+                A.CallTo(() => SendOrderService.SendOrderByEmail(_order)).Returns(_expectedEmailId);
+
                 SetupNavigationEvents(_previousUrl, _abortUrl, _submitUrl);
                 _redirectUrl = (url, orderId) => "{url}?order={orderId}".ReplaceWith(new { url, orderId });
             };
@@ -72,11 +78,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                     .Och(AnvändarenFlyttasTillIntranätsidan));
         }
 
-        //TODO: Det här är en abstraktion av den funktionalitet som triggas när man bekräftar beställningen. Bryt ner i delar.
         [Test]
-        public void BeställningenBekräftas()
+        public void BeställningenSkickasTillLeverantör()
         {
-            Assert.Inconclusive("TODO");
+            SetupScenario(scenario => scenario
+                .Givet(EnBeställningMedEttAbonnemangHarSkapats)
+                .När(AnvändarenBekräftarBeställningen)
+                .Så(SkickasEttEmailTillLeverantören)
+                    .Och(AnvändarenFlyttasTillSidaFörFärdigBeställning)
+                );
         }
 
         #region Arrange
@@ -94,6 +104,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         #endregion
 
         #region Act
+
+        private void AnvändarenBekräftarBeställningen()
+        {
+            _presenter.View_Submit(null, new EventArgs());
+        }
+
         private void AnvändarenAvbryterBeställningen()
         {
             _presenter.View_Abort(null, new EventArgs());
@@ -158,6 +174,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.TotalWithdrawal.ShouldBe(order.SubscriptionPayment.AmountForAutogiroWithdrawal + " kr");
             View.Model.SubscriptionTime.ShouldBe(_presenter.GetSubscriptionTimeString(order.SubscriptionPayment.NumberOfPayments)); 
         }
+
+        private void SkickasEttEmailTillLeverantören()
+        {
+            WithRepository<IOrderRepository>().Get(_order.Id).SpinitServicesEmailId.ShouldNotBe(null);
+        }
+
+        private void AnvändarenFlyttasTillSidaFörFärdigBeställning()
+        {
+            var expectedUrl = _redirectUrl(_submitUrl, _order.Id);
+            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
+        }
+
         #endregion
 
     }

@@ -13,7 +13,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
             Map(x => x.Created);
             Map(x => x.SpinitServicesEmailId);
             Map(x => x.ShippingType).CustomType<int>();
-        	Map(x => x.AutoWithdrawalAmount).Nullable();
+        	Map(x => x.OrderTotalWithdrawalAmount).Nullable();
 
             References(x => x.LensRecipe).Column("LensRecipeId");
         	References(x => x.SubscriptionPayment).Column("SubscriptionItemId").Nullable();

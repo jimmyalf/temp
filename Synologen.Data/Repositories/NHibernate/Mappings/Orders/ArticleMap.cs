@@ -14,9 +14,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
             {
                 map.Component(innerComponent => innerComponent.Axis, innerMap =>
                 {
-                    innerMap.Map(x => x.Increment).Column("AxisIncrement");
-                    innerMap.Map(x => x.Max).Column("AxisMax");
-                    innerMap.Map(x => x.Min).Column("AxisMin");
+                    innerMap.Map(x => x.Increment).Column("AxisIncrement").Nullable();
+                    innerMap.Map(x => x.Max).Column("AxisMax").Nullable();
+                    innerMap.Map(x => x.Min).Column("AxisMin").Nullable();
+					innerMap.Map(x => x.DisableDefinition).Column("AxisDisableDefinition");
                 });
                 map.Component(innerComponent => innerComponent.BaseCurve, innerMap =>
                 {
@@ -26,9 +27,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
                 });
                 map.Component(innerComponent => innerComponent.Cylinder, innerMap =>
                 {
-                    innerMap.Map(x => x.Increment).Column("CylinderIncrement");
-                    innerMap.Map(x => x.Max).Column("CylinderMax");
-                    innerMap.Map(x => x.Min).Column("CylinderMin");
+                    innerMap.Map(x => x.Increment).Column("CylinderIncrement").Nullable();;
+                    innerMap.Map(x => x.Max).Column("CylinderMax").Nullable();;
+                    innerMap.Map(x => x.Min).Column("CylinderMin").Nullable();
+					innerMap.Map(x => x.DisableDefinition).Column("CylinderDisableDefinition");
                 });
                 map.Component(innerComponent => innerComponent.Diameter, innerMap =>
                 {
@@ -44,9 +46,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
                 });
                 map.Component(innerComponent => innerComponent.Addition, innerMap =>
                 {
-                    innerMap.Map(x => x.Increment).Column("AdditionIncrement");
-                    innerMap.Map(x => x.Max).Column("AdditionMax");
-                    innerMap.Map(x => x.Min).Column("AdditionMin");
+                    innerMap.Map(x => x.Increment).Column("AdditionIncrement").Nullable();
+                    innerMap.Map(x => x.Max).Column("AdditionMax").Nullable();
+                    innerMap.Map(x => x.Min).Column("AdditionMin").Nullable();
+					innerMap.Map(x => x.DisableDefinition).Column("AdditionDisableDefinition");
                 });
             });
 

@@ -55,38 +55,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
             A.CallTo(() => fakeOrderArticle.Id).Returns(id);
             fakeOrderArticle.Name = "Lins 1337";
             fakeOrderArticle.Options = new ArticleOptions
-            {
-
-                Axis =
-                    {
-                        Increment = 0.25F,
-                        Max = 2.25F,
-                        Min = -1.25F,
-                    },
-                BaseCurve =
-                    {
-                        Increment = 0.5F,
-                        Max = 2.5F,
-                        Min = -1.5F,
-                    },
-                Cylinder =
-                    {
-                        Increment = 0.25F,
-                        Max = 8.25F,
-                        Min = -5.25F,
-                    },
-                Diameter =
-                    {
-                        Increment = 0.25F,
-                        Max = 2.25F,
-                        Min = -1.25F,
-                    },
-                Power =
-                    {
-                        Increment = 0.25F,
-                        Max = 7F,
-                        Min = -7F,
-                    }
+			{
+	            Axis = new OptionalSequenceDefinition(-1, 2, 0.25F, true),
+                BaseCurve = new SequenceDefinition(-1, 2, 0.25F),
+                Power = new SequenceDefinition(-1, 2, 0.25F),
+                Cylinder = new OptionalSequenceDefinition(-1, 2, 0.25F, false),
+                Diameter = new SequenceDefinition(-1, 2, 0.25F),
+                Addition = new OptionalSequenceDefinition(2,20,1, false)
             };
             
             return fakeOrderArticle;

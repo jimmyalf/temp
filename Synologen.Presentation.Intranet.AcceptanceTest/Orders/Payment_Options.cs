@@ -50,7 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _shop = CreateShop<Shop>();
     		_customer = CreateCustomer(_shop);
     		_subsciptions = CreateSubscriptions(_shop, _customer);
-			var article = CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(null, null));
+			var article = CreateArticle();//CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(null, null));
         	_order = CreateOrder(_shop, customer:_customer, article: article);
 
 			var otherCustomer = CreateCustomer(_shop);

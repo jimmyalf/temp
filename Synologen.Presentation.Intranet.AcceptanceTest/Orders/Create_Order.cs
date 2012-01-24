@@ -25,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private string _testRedirectPreviousUrl;
         private OrderCustomer _customer;
         private Article _article;
-		private int _articleId;
+		//private int _articleId;
         private IEnumerable<ArticleCategory> _expectedCategories;
         private IEnumerable<ArticleType> _expectedArticleTypes;
         private IEnumerable<Article> _expectedArticles;
@@ -165,8 +165,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AttDetFinnsEnSparadArtikelAttVälja()
         {
-            _expectedArticle = OrderFactory.GetArticle(null, null);
-            WithRepository<IArticleRepository>().Save(_expectedArticle);
+
+			_expectedArticle = CreateArticle();//OrderFactory.GetArticle(null, null);
+            //WithRepository<IArticleRepository>().Save(_expectedArticle);
         }
 
         private void DetFinnsArtikelkategorierAttLadda()
@@ -274,14 +275,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void ValdArtikelFinnsSparad()
         {
-            _article = OrderFactory.GetArticle(null, null);
-            WithRepository<IArticleRepository>().Save(_article);
-            _articleId = _article.Id;
+			//_article = OrderFactory.GetArticle(null, null);
+			//WithRepository<IArticleRepository>().Save(_article);
+        	_article = CreateArticle();
+            //_articleId = _article.Id;
         }
 
 		private void AttAnvändarenFylltIBeställningsformuläret()
 		{
-            _form = OrderFactory.GetOrderEventArgs(_articleId);
+            _form = OrderFactory.GetOrderEventArgs(_article.Id);
         }
 
         private void AnvändarenAvbryterBeställningen()
@@ -393,12 +395,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 viewModelItem.Text.ShouldBe(domainItem.Text);
             });
 
-            View.Model.AdditionOptionsEnabled.ShouldBe(_expectedArticle.Options.Addition.Increment > 0);
-            View.Model.AxisOptionsEnabled.ShouldBe(_expectedArticle.Options.Axis.Increment > 0);
-            View.Model.BaseCurveOptionsEnabled.ShouldBe(_expectedArticle.Options.BaseCurve.Increment > 0);
-            View.Model.CylinderOptionsEnabled.ShouldBe(_expectedArticle.Options.Cylinder.Increment > 0);
-            View.Model.PowerOptionsEnabled.ShouldBe(_expectedArticle.Options.Power.Increment > 0);
-            View.Model.DiameterOptionsEnabled.ShouldBe(_expectedArticle.Options.Diameter.Increment > 0);
+            View.Model.AdditionOptionsEnabled.ShouldBe(!_expectedArticle.Options.Addition.DisableDefinition);
+            View.Model.AxisOptionsEnabled.ShouldBe(!_expectedArticle.Options.Axis.DisableDefinition);
+            View.Model.CylinderOptionsEnabled.ShouldBe(!_expectedArticle.Options.Cylinder.DisableDefinition);
+			//View.Model.BaseCurveOptionsEnabled.ShouldBe(_expectedArticle.Options.BaseCurve.Increment > 0);
+            //View.Model.PowerOptionsEnabled.ShouldBe(_expectedArticle.Options.Power.Increment > 0);
+            //View.Model.DiameterOptionsEnabled.ShouldBe(_expectedArticle.Options.Diameter.Increment > 0);
         }
 
         private void LaddasLeverantörer()

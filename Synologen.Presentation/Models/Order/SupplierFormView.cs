@@ -1,17 +1,14 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Presentation.Application.Extensions;
 
 namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 {
 	public class SupplierFormView : CommonFormView
 	{
 		public SupplierFormView() { }
-		public SupplierFormView(int? id = null, ArticleSupplier supplier = null/*string name = null, OrderShippingOption? shippingOptions = null*/) : base(id)
+		public SupplierFormView(int? id = null, ArticleSupplier supplier = null) : base(id)
 		{
 			if(supplier == null) return;
 			Name = supplier.Name;

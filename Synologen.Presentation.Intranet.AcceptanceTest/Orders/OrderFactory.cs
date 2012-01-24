@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
@@ -103,42 +102,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 ArticleSupplier = supplier,
 	            Options = new ArticleOptions
 	            {
-	                Axis = new SequenceDefinition
-	                {
-	                    Increment = 0.25F,
-                        Max = 2F,
-                        Min = -1F
-                    },
-                    BaseCurve = new SequenceDefinition
-                    {
-                        Increment = 0.25F,
-                        Max = 2F,
-                        Min = -1F
-                    },
-                    Power = new SequenceDefinition
-                    {
-                        Increment = 0.25F,
-                        Max = 2F,
-                        Min = -1F
-                    },
-                    Cylinder = new SequenceDefinition
-                    {
-                        Increment = 0.25F,
-                        Max = 2F,
-                        Min = -1F
-                    },
-                    Diameter = new SequenceDefinition
-                    {
-                        Increment = 0.25F,
-                        Max = 2F,
-                        Min = -1F
-                    },
-                    Addition = new SequenceDefinition
-                    {
-                        Increment = 0F,
-                        Max = 0F,
-                        Min = 0F
-                    }
+	                Axis = new OptionalSequenceDefinition(-1, 2, 0.25F, true),
+                    BaseCurve = new SequenceDefinition(-1, 2, 0.25F),
+                    Power = new SequenceDefinition(-1, 2, 0.25F),
+                    Cylinder = new OptionalSequenceDefinition(-1, 2, 0.25F, false),
+                    Diameter = new SequenceDefinition(-1, 2, 0.25F),
+                    Addition = new OptionalSequenceDefinition(2,20,1, false)
                 }
 	        };
 	    }
@@ -197,6 +166,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             if (sequence.Increment > 0)
             {
                 for (float value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
+                {
+                    list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
+                }
+            }
+            return list;
+        }
+
+        public static IEnumerable<ListItem> FillWithIncrementalValues(OptionalSequenceDefinition sequence)
+        {
+            var list = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = (-9999).ToString() } };
+			if(sequence.DisableDefinition) return list;
+            if (sequence.Increment > 0)
+            {
+                for (var value = sequence.Min.Value; value <= sequence.Max.Value; value += sequence.Increment.Value)
                 {
                     list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
                 }

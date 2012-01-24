@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 NumberOfPayments = GetNumberOfPayments(),
                 TaxFreeAmount = txtVatFreeAmount.Text.ToDecimal(),
                 TaxedAmount = txtVATAmount.Text.ToDecimal(),
-                AutoWithdrawalAmount = (String.IsNullOrEmpty(txtTotalWithdrawalAmount.Text))
+                OrderTotalWithdrawalAmount = (String.IsNullOrEmpty(txtTotalWithdrawalAmount.Text))
                     ? (decimal?)null
                     : txtTotalWithdrawalAmount.Text.ToDecimal()
             };

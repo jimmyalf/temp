@@ -141,13 +141,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 	    {
 	        var list = new List<ListItem> {new ListItem { Text = "-- Välj --", Value = (-9999).ToString()}};
 
-            if(sequence.Increment > 0)
+            if(sequence != null)
             {
-                for (float value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
+                if (sequence.Increment > 0)
                 {
-                    list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
+                    for (float value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
+                    {
+                        list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
+                    }
                 }
             }
+	        
 	        return list;
 	    }
 	}

@@ -258,7 +258,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void TotalUttagSparas()
 		{
 			var order = WithRepository<IOrderRepository>().Get(_order.Id);
-			order.AutoWithdrawalAmount.ShouldBe(_form.AutoWithdrawalAmount);
+			order.OrderTotalWithdrawalAmount.ShouldBe(_form.OrderTotalWithdrawalAmount);
 		}
 
     	private void KontoUppgifterSkallVaraIfyllbara()

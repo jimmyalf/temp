@@ -214,6 +214,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             return new ArticleSupplier
             {
                 Name = "Johnsson & McBeth",
+                OrderEmailAddress = "erik.kinding@spinit.se"
             };
         }
 
@@ -228,7 +229,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				NumberOfPayments = 6,
 				TaxFreeAmount = 100,
 				TaxedAmount = 125.25M,
-				AutoWithdrawalAmount = 900M
+				OrderTotalWithdrawalAmount = 900M
 			};
 		}
 

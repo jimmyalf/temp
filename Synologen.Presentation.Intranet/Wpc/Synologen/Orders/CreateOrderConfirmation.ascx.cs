@@ -14,6 +14,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
         {
 			btnPreviousStep.Click += TryFirePrevious;
         	btnCancel.Click += TryFireAbort;
+            btnNextStep.Click += btnNextStep_Click;
+        }
+
+        private void btnNextStep_Click(object sender, EventArgs e)
+        {
+            TryFireSubmit(this, new CreateOrderConfirmationEventArgs());
         }
     }
 }

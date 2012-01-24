@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SynologenFrameOrderEmailTemplate" xml:space="preserve">
     <value>&lt;html&gt;
@@ -145,6 +145,37 @@
 	&lt;/table&gt;
 	&lt;/body&gt;
 &lt;/html&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="SynologenOrderEmailTemplate" xml:space="preserve">
+    <value>&lt;html&gt;
+  &lt;head&gt;
+    &lt;style type="text/css"&gt;
+		td { padding-right: 1em; }
+		body { padding:0; margin:0; font: 0.7em Verdana, Arial, Helvetica, sans-serif; } 
+		table {font-size: 1.0em;}
+	&lt;/style&gt;
+  &lt;/head&gt;
+	&lt;body&gt;
+	&lt;table&gt;
+		&lt;tr&gt;&lt;td colspan="3"&gt;Beställnings-id: {OrderId}&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td colspan="3"&gt;Butik: {ShopName}&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td colspan="3"&gt;Butiksort: {ShopCity}&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td colspan="3"&gt;Båge: {FrameName}&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td colspan="3"&gt;Båge Artnr: {ArticleNumber}&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td colspan="3"&gt;Glastyp: {GlassTypeName}&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr class="spacer-row"&gt;&lt;td colspan="3"/&gt;&lt;/tr&gt;
+		
+		&lt;tr&gt;&lt;td&gt;Sfär Höger: {SphereRight}&lt;/td&gt;&lt;td&gt;Cylinder Höger: {CylinderRight}&lt;/td&gt;&lt;td&gt;Axel Höger: {AxisRight}&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;Sfär Vänster: {SphereLeft}&lt;/td&gt;&lt;td&gt;Cylinder Vänster: {CylinderLeft}&lt;/td&gt;&lt;td&gt;Axel Vänster: {AxisLeft}&lt;/td&gt;&lt;/tr&gt;
+		
+		&lt;tr class="spacer-row"&gt;&lt;td colspan="3"/&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;PD Höger: {PDRight}&lt;/td&gt;&lt;td&gt;Höjd Höger: {HeightRight}&lt;/td&gt;&lt;td&gt;Addition Höger: {AdditionRight}&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;PD Vänster: {PDLeft}&lt;/td&gt;&lt;td&gt;Höjd Vänster: {HeightLeft}&lt;/td&gt;&lt;td&gt;Addition Vänster: {AdditionLeft}&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr class="spacer-row"&gt;&lt;td colspan="3"/&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td colspan="3"&gt;Referens:&lt;br/&gt;{Reference}&lt;/td&gt;&lt;/tr&gt;
+	&lt;/table&gt;
+	&lt;/body&gt;
 &lt;/html&gt;</value>
   </data>
 </root>

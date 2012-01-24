@@ -1,3 +1,5 @@
+using System;
+using System.Web;
 using Spinit.Extensions;
 using Spinit.Security.Password;
 using Spinit.Services.Client;
@@ -39,16 +41,33 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.Orders
 
         private string GetEmailBody(Order order)
         {
+            var receiver = order.ShippingType.Equals(OrderShippingOption.ToCustomer) ? String.Format("{0} {1}", order.Customer.FirstName, order.Customer.LastName) : order.Shop.Name;
+            var addressLineOne = order.ShippingType.Equals(OrderShippingOption.ToCustomer)
+                                     ? order.Customer.AddressLineOne
+                                     : order.Shop.AddressLineOne;
+            var addressLineTwo = order.ShippingType.Equals(OrderShippingOption.ToCustomer)
+                                     ? order.Customer.AddressLineTwo ?? ""
+                                     : order.Shop.AddressLineTwo ?? "";
+            var city = order.ShippingType.Equals(OrderShippingOption.ToCustomer)
+                                     ? order.Customer.City
+                                     : order.Shop.City;
+            var postalCode = order.ShippingType.Equals(OrderShippingOption.ToCustomer)
+                                     ? order.Customer.PostalCode
+                                     : order.Shop.PostalCode;
+
+
             var data = new 
                            {
                                OrderId = order.Id,
                                Article = order.Article.Name,
-                               AddressLineOne = order.Customer.AddressLineOne,
-                               AddressLineTwo = order.Customer.AddressLineTwo ?? "",
-                               City = order.Customer.City,
-                               PostalCode = order.Customer.PostalCode,
-                               FirstName = order.Customer.FirstName,
-                               LastName = order.Customer.LastName,
+                               ShopName = order.Shop.Name,
+
+                               Receiver = receiver,
+                               AddressLineOne = addressLineOne,
+                               AddressLineTwo = addressLineTwo,
+                               City = city,
+                               PostalCode = postalCode,
+                               
                                LeftAddition = order.LensRecipe.Addition.Left.HasValue ? order.LensRecipe.Addition.Left.Value.ToString() : "",
                                LeftAxis = order.LensRecipe.Axis.Left.HasValue ? order.LensRecipe.Axis.Left.Value.ToString() : "",
                                LeftPower = order.LensRecipe.Power.Left.HasValue ? order.LensRecipe.Power.Left.Value.ToString() : "",
@@ -63,9 +82,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.Orders
                                RightBaseCurve = order.LensRecipe.BaseCurve.Right.HasValue ? order.LensRecipe.BaseCurve.Right.Value.ToString() : "",
                            };
 
-
-            return "<html><head></head><body>BlaLBLALBLABLLA {OrderId} KASLSADLKASKDLASKLA {RightAddition} ______ {Article}</body></html>".ReplaceWith(data);
-
+            return HttpContext.GetGlobalResourceObject("Templates", "SynologenOrderEmailTemplate").ToString().ReplaceWith(data);
+            
         }
     }
 }

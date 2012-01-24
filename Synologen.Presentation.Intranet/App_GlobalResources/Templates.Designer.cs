@@ -95,12 +95,13 @@ namespace Resources {
         ///  &lt;/head&gt;
         ///	&lt;body&gt;
         ///	&lt;table&gt;
-        ///		&lt;tr&gt;&lt;td colspan=&quot;3&quot;&gt;Beställnings-id: {OrderId}&lt;/td&gt;&lt;/tr&gt;
-        ///		&lt;tr&gt;&lt;td colspan=&quot;3&quot;&gt;Butik: {ShopName}&lt;/td&gt;&lt;/tr&gt;
-        ///		&lt;tr&gt;&lt;td colspan=&quot;3&quot;&gt;Butiksort: {ShopCity}&lt;/td&gt;&lt;/tr&gt;
-        ///		&lt;tr&gt;&lt;td colspan=&quot;3&quot;&gt;Båge: {FrameName}&lt;/td&gt;&lt;/tr&gt;
-        ///		&lt;tr&gt;&lt;td colspan=&quot;3&quot;&gt;Båge Artnr: {ArticleNumber}&lt;/td&gt;&lt;/tr&gt;
-        ///		 [rest of string was truncated]&quot;;.
+        ///		&lt;tr&gt;&lt;td colspan=&quot;6&quot;&gt;Beställnings-id: {OrderId}&lt;/td&gt;&lt;/tr&gt;
+        ///		&lt;tr&gt;&lt;td colspan=&quot;6&quot;&gt;Från butik: {ShopName}&lt;/td&gt;&lt;/tr&gt;
+        ///		&lt;tr&gt;&lt;td colspan=&quot;6&quot;&gt;Artikel: {Article}&lt;/td&gt;&lt;/tr&gt;
+        ///		&lt;tr class=&quot;spacer-row&quot;&gt;&lt;td colspan=&quot;6&quot;/&gt;&lt;/tr&gt;
+        ///		&lt;tr&gt;
+        ///			&lt;td&gt;Styrka Höger: {RightPower}&lt;/td&gt;
+        ///			&lt;td&gt;Addition [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SynologenOrderEmailTemplate {
             get {

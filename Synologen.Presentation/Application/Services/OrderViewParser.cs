@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.Order;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
@@ -86,7 +85,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			supplier.Name = viewModel.Name;
 			supplier.ShippingOptions = viewModel.GetShippingOptions();
 			supplier.OrderEmailAddress = viewModel.OrderEmailAddress;
-			supplier.AcceptsOrderByEmail = viewModel.AcceptsOrderByEmail;
 			return supplier;
 		}
 

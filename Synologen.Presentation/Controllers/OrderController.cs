@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Spinit.Data;
@@ -169,10 +168,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[HttpPost]
 		public ActionResult SupplierForm(SupplierFormView viewModel)
 		{
-			if (!ModelState.IsValid || viewModel.HasCustomValidationErrors)
+			if (!ModelState.IsValid)
 			{
-				var validationError = viewModel.GetValidationErrors();
-				ModelState.AddCustomValidationErrors(validationError);
 				return View(viewModel);
 			}
 			var supplier = _orderViewParser.GetEntity(viewModel, _articleSupplierRepository.Get);

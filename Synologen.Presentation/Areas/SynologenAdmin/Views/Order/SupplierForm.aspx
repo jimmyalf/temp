@@ -20,10 +20,6 @@
 						<%= Html.EditorFor(x => x.Name)%>
 						<%= Html.ValidationMessageFor(x => x.Name) %>
 					</p>
-					<p class="formItem clearLeft">
-						<%= Html.LabelFor(x => x.AcceptsOrderByEmail)%>
-						<%= Html.CheckBoxFor(x => x.AcceptsOrderByEmail)%>
-					</p>
 					<p class="formItem">
 						<%= Html.LabelFor(x => x.OrderEmailAddress)%>
 						<%= Html.EditorFor(x => x.OrderEmailAddress)%>

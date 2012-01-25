@@ -97,6 +97,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Components\Synologen\Controls\OpqFileGridView.ascx" />
+    <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -111,6 +113,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OpqMain.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Synologen\Controls\OpqFileGridView.ascx.cs">
+      <DependentUpon>OpqFileGridView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Synologen\Controls\OpqFileGridView.ascx.designer.cs">
+      <DependentUpon>OpqFileGridView.ascx</DependentUpon>
     </Compile>
     <Compile Include="Components\Synologen\OpqImprovments.aspx.cs">
       <DependentUpon>OpqImprovments.aspx</DependentUpon>
@@ -249,4 +258,10 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\Spinit.Wpc.Synologen.OPQ.Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>"$(ProjectDir)..\Spinit.Wpc.Synologen.OPQ.Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

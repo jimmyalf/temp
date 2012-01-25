@@ -1,0 +1,1 @@
+xcopy %1..\Spinit.Wpc.Synologen.OPQ.Config\%USERNAME%\%2\*.config 	%1..\%2\ /R /K /Y /Q /S

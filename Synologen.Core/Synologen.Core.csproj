@@ -257,6 +257,7 @@
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfTransactionArticlesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\TransactionsForSubscriptionMatchingCriteria.cs.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfSubscriptionsMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\FindShopByUserNameAndHashedPasswordCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\PageOfArticlesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\PageOfArticleTypesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\PageOfCategoriesMatchingCriteria.cs" />
@@ -305,7 +306,6 @@
     <Compile Include="Domain\Services\Coordinator\ITaskRepositoryResolver.cs" />
     <Compile Include="Domain\Services\Coordinator\TaskBase.cs" />
     <Compile Include="Domain\Services\Coordinator\TaskBaseWithWebService.cs" />
-    <Compile Include="Domain\Services\EventLogLogger.cs" />
     <Compile Include="Domain\Services\IAutogiroPaymentService.cs" />
     <Compile Include="Domain\Services\IBGServiceCoordinatorSettingsService.cs" />
     <Compile Include="Domain\Services\IFileIOService.cs" />
@@ -317,7 +317,6 @@
     <Compile Include="Domain\Services\IHashService.cs" />
     <Compile Include="Domain\Services\Coordinator\ITask.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />
-    <Compile Include="Domain\Services\IEventLoggingService.cs" />
     <Compile Include="Domain\Services\IGridSortPropertyMappingService.cs" />
     <Compile Include="Domain\Services\IAdminSettingsService.cs" />
     <Compile Include="Domain\Model\FrameOrder\Frame.cs" />
@@ -344,6 +343,7 @@
     <Compile Include="Domain\Services\Web\External\ICustomerParser.cs" />
     <Compile Include="Domain\Services\Web\External\ICustomerValidator.cs" />
     <Compile Include="Domain\Services\Web\External\IShopAuthenticationService.cs" />
+    <Compile Include="Domain\Services\Web\External\SHA1HashService.cs" />
     <Compile Include="Domain\Services\Web\External\ShopAuthenticationResult.cs" />
     <Compile Include="Domain\Services\Web\External\ValidationError.cs" />
     <Compile Include="Domain\Services\Web\External\ValidationFailedException.cs" />

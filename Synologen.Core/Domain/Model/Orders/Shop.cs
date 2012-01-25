@@ -7,5 +7,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
         public virtual string AddressLineTwo { get; set; }
         public virtual string PostalCode { get; set; }
         public virtual string City { get; set; }
+		public virtual string ExternalAccessUsername { get; set; }
+		public virtual string ExternalAccessHashedPassword { get; set; }
 	}
 }

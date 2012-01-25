@@ -10,14 +10,14 @@ namespace Synologen.LensSubscription.BGWebService.App.Logging
 			return LogManager.GetLogger("BGWebService");
 		}
 
-		public static IEventLoggingService CreateEventLogger()
-		{
-			return new EventLogLogger("BGWebService");
-		}
+		//public static IEventLoggingService CreateEventLogger()
+		//{
+		//    return new EventLogLogger("BGWebService");
+		//}
 
 		public static ILoggingService CreateLoggingService()
 		{
-			return new Log4NetLogger(CreateLogger(), CreateEventLogger());
+			return new Log4NetLogger(CreateLogger()/*, CreateEventLogger()*/);
 		}
 	}
 }

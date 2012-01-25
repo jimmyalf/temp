@@ -129,6 +129,7 @@
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfSubscriptionsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfTransactionArticlesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\TransactionsForSubscriptionMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\FindShopByUserNameAndHashedPasswordCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\PageOfArticlesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\PageOfArticleTypesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\PageOfCategoriesMatchingCriteriaConverter.cs" />

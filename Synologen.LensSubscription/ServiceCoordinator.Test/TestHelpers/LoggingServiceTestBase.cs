@@ -16,17 +16,17 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test.TestHelpers
 		protected string param3 = "meddelande";
 		protected string param4 = "string.Format";
 		protected Mock<ILog> MockedLogger;
-		protected Mock<IEventLoggingService> MockedEventLogger;
+		//protected Mock<IEventLoggingService> MockedEventLogger;
 
 		protected override void SetUp()
 		{
 			MockedLogger = new Mock<ILog>();
-			MockedEventLogger = new Mock<IEventLoggingService>();
+			//MockedEventLogger = new Mock<IEventLoggingService>();
 		}
 
 		protected override ILoggingService GetTestEntity()
 		{
-			return new Log4NetLogger(MockedLogger.Object, MockedEventLogger.Object);
+			return new Log4NetLogger(MockedLogger.Object/*, MockedEventLogger.Object*/);
 		}
 	}
 }

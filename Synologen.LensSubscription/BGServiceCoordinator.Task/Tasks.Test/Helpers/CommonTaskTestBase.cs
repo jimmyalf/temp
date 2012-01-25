@@ -14,7 +14,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 	public abstract class CommonTaskTestBase : BehaviorActionTestbase<ITask>
 	{
 		protected ILog Log;
-		protected IEventLoggingService EventLoggingService;
+		//protected IEventLoggingService EventLoggingService;
 		protected IFileSectionToSendRepository FileSectionToSendRepository;
 	    protected IReceivedFileRepository ReceivedFileRepository;
         protected IBGServiceCoordinatorSettingsService BgServiceCoordinatorSettingsService;
@@ -25,8 +25,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		protected override void SetUp()
 		{
 			Log = A.Fake<ILog>();
-			EventLoggingService = A.Fake<IEventLoggingService>();
-			Log4NetLogger = new Log4NetLogger(Log, EventLoggingService);
+			//EventLoggingService = A.Fake<IEventLoggingService>();
+			Log4NetLogger = new Log4NetLogger(Log/*, EventLoggingService*/);
 			FileSectionToSendRepository = A.Fake<IFileSectionToSendRepository>();
 			ReceivedFileRepository = A.Fake<IReceivedFileRepository>();
 			BgServiceCoordinatorSettingsService = A.Fake<IBGServiceCoordinatorSettingsService>();

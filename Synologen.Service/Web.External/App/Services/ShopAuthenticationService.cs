@@ -1,13 +1,28 @@
-﻿using Spinit.Extensions;
+﻿using System.Linq;
+using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Web.External;
 
 namespace Synologen.Service.Web.External.App.Services
 {
 	public class ShopAuthenticationService : IShopAuthenticationService 
 	{
+		private readonly IShopRepository _shopRepository;
+		private readonly IHashService _hashService;
+
+		public ShopAuthenticationService(IShopRepository shopRepository, IHashService hashService)
+		{
+			_shopRepository = shopRepository;
+			_hashService = hashService;
+		}
+
 		public ShopAuthenticationResult Authenticate(string username, string password)
 		{
-			throw new System.NotImplementedException();
+			var hashedPassword = _hashService.GetHash(password);
+			var shop = _shopRepository.FindBy(new FindShopByUserNameAndHashedPasswordCriteria(username, hashedPassword)).FirstOrDefault();
+			return shop == null ? new ShopAuthenticationResult(false) : new ShopAuthenticationResult(true, shop.Id);
 		}
 
 		public ShopAuthenticationResult Authenticate(AuthenticationContext context)

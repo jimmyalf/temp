@@ -7,18 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen {
+namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen.Controls {
     
     
-    public partial class OpqShopRoutines {
+    public partial class OpqFileGridView {
         
         /// <summary>
-        /// rptShops control.
+        /// headerText control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptShops;
+        protected global::System.Web.UI.WebControls.Literal headerText;
+        
+        /// <summary>
+        /// gvFiles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvFiles;
     }
 }

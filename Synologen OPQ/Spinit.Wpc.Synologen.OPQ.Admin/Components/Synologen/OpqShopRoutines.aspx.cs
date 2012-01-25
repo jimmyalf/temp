@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen.Controls;
 using Spinit.Wpc.Synologen.OPQ.Business;
 using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 using Spinit.Wpc.Synologen.OPQ.Presentation;
@@ -92,13 +93,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 					if (opqFile.BaseFile != null)
 					{
 						const string tag = "<a href=\"{0}\">{1}</a>";
-						string link = string.Concat(Utility.Business.Globals.FilesUrl, opqFile.BaseFile.Name);
-						string fileName = opqFile.BaseFile.Description.IsNotNullOrEmpty()
-											?
-												opqFile.BaseFile.Description.Substring(opqFile.BaseFile.Description.LastIndexOf("/") + 1)
-											:
-												opqFile.BaseFile.Name.Substring(opqFile.BaseFile.Name.LastIndexOf("/") + 1);
-						ltFile.Text = string.Format(tag, link, fileName);
+						string link = String.Concat(Utility.Business.Globals.FilesUrl, opqFile.BaseFile.Name);
+					    string fileName = opqFile.BaseFile.Description.IsNotNullOrEmpty()
+					                          ? opqFile.BaseFile.Description.Substring(opqFile.BaseFile.Description.LastIndexOf("/") + 1)
+					                          : opqFile.BaseFile.Name.Substring(opqFile.BaseFile.Name.LastIndexOf("/") + 1);
+						ltFile.Text = String.Format(tag, link, fileName);
 					}
 				}
 				if (ltFileDate != null)
@@ -106,22 +105,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 					ltFileDate.Text = opqFile.CreatedDate.ToShortDateString();
 				}
 			}
-		}
-
-		protected void gvFiles_Editing(object sender, GridViewEditEventArgs e)
-		{
-		}
-
-		protected void gvFiles_Deleting(object sender, GridViewDeleteEventArgs e)
-		{
-		}
-
-		protected void gvFiles_RowCommand(object sender, GridViewCommandEventArgs e)
-		{
-		}
-
-		protected void btnDelete_AddConfirmDelete(object sender, EventArgs e)
-		{
 		}
 
 		protected void rptShops_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -132,12 +115,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 				var shopId = (int) document.ShpId;
 				var ltShopName = (Literal) e.Item.FindControl("ltShopName");
 				var ltRoutine = (Literal) e.Item.FindControl("ltRoutine");
-				var gvFiles = (GridView) e.Item.FindControl("gvFiles");
+				var gvOwnFiles = (OpqFileGridView) e.Item.FindControl("gvOwnFiles");
+                var gvFilledFiles = (OpqFileGridView)e.Item.FindControl("gvFilledFiles");
 				var hlShopLink = (HyperLink) e.Item.FindControl("hlShopLink");
 				if (hlShopLink != null)
 				{
-					hlShopLink.NavigateUrl =
-						string.Format(ComponentPages.OpqStartQueryNodeAndShop, _nodeId, shopId);
+					hlShopLink.NavigateUrl = String.Format(ComponentPages.OpqStartQueryNodeAndShop, _nodeId, shopId);
 				}
 				if (ltShopName != null)
 				{
@@ -149,12 +132,17 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 				}
 				var bFile = new BFile(_context);
 				var shopFiles = bFile.GetFiles(_nodeId, shopId, null, FileCategories.ShopRoutineDocuments, true, true, false);
-				if ((gvFiles != null) && (shopFiles != null) && (shopFiles.Count > 0))
+                var filledFiles = bFile.GetFiles(_nodeId, shopId, null, FileCategories.ShopDocuments, true, true, false);
+				if ((gvOwnFiles != null) && (shopFiles != null) && (shopFiles.Count > 0))
 				{
-					gvFiles.DataSource = null;
-					gvFiles.DataSource = shopFiles;
-					gvFiles.DataBind();
+                    gvOwnFiles.SetDataSource(shopFiles);
+				    gvOwnFiles.Visible = true;
 				}
+                if ((gvFilledFiles != null) && (filledFiles != null) && (filledFiles.Count > 0))
+                {
+                    gvFilledFiles.SetDataSource(filledFiles);
+                    gvFilledFiles.Visible = true;
+                }
 			}
 		}
 

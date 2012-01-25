@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Components/Synologen/SynologenOpq.master"
-	AutoEventWireup="true" CodeBehind="OpqShopRoutines.aspx.cs" Inherits="Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen.OpqShopRoutines" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Components/Synologen/SynologenOpq.master" AutoEventWireup="true" CodeBehind="OpqShopRoutines.aspx.cs" Inherits="Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen.OpqShopRoutines" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phOpqMainContent" runat="server">
 	<div class="Synologen-OpqShopRoutines-aspx">
 		<div class="wrap">
@@ -15,27 +14,8 @@
 							<asp:Literal ID="ltRoutine" runat="server" />
 						</div>
 						<div id="documents">
-							<asp:GridView ID="gvFiles" 
-								runat="server" 
-								OnRowCreated="gvFiles_RowCreated" 
-								DataKeyNames="Id" 
-								SkinID="Striped" 
-								OnRowEditing="gvFiles_Editing" 
-								OnRowDeleting="gvFiles_Deleting" 
-								OnRowCommand="gvFiles_RowCommand">
-								<Columns>
-									<asp:TemplateField headertext="Namn"  ItemStyle-HorizontalAlign="Center" >
-										<ItemTemplate>
-											<asp:Literal ID="ltFile" runat="server" />
-										</ItemTemplate>
-									</asp:TemplateField>
-									<asp:TemplateField headertext="Datum"  ItemStyle-HorizontalAlign="Center" >
-										<ItemTemplate>
-											<asp:Literal ID="ltFileDate" runat="server" />
-										</ItemTemplate>
-									</asp:TemplateField>
-								</Columns>
-							</asp:GridView>          
+                            <opq:OpqFileGridView ID="gvOwnFiles" runat="server" HeaderText="Egna dokument" Visible="false" />
+                            <opq:OpqFileGridView ID="gvFilledFiles" runat="server" HeaderText="Ifyllda dokument" Visible="false" />
 						</div>
 					</li>
 				</ItemTemplate>

@@ -1,8 +1,8 @@
 using System;
-using log4net;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using log4net;
 
-namespace Synologen.LensSubscription.ServiceCoordinator.App.Logging
+namespace Synologen.Service.Web.External.App.Services
 {
 	public class Log4NetLogger : ILoggingService
 	{

@@ -1,11 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using Spinit.Extensions;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 {
 	public class ValidationResult
 	{
-		private IList<ValidationError> _errors;
+		protected IList<ValidationError> _errors;
 
 		public ValidationResult()
 		{
@@ -16,8 +19,30 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 			_errors.Add(error);
 			return this;
 		}
+
+		public ValidationResult AddError(string message)
+		{
+			return Add(new ValidationError {ErrorMessage = message});
+		}
 		public IEnumerable<ValidationError> Errors { get { return _errors; } }
 
 		public bool HasErrors{ get { return _errors.Any(); } }
+
+		public string GetErrorMessage()
+		{
+			return !HasErrors 
+				? null 
+				: Errors.Select(x => x.ErrorMessage).Aggregate((item, next) => item + "\r\n" + next);
+		}
+	}
+
+	public class ValidationResult<TType> : ValidationResult where TType : class
+	{
+		public ValidationResult<TType> AddMissingPropertyError(Expression<Func<TType,object>> property)
+		{
+			var propertyName = property.GetName();
+			AddError("{0} is required".FormatWith(propertyName));
+			return this;
+		}
 	}
 }

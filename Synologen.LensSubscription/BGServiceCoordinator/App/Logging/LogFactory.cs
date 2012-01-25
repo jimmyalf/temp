@@ -10,14 +10,14 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.App.Logging
 			return LogManager.GetLogger("BGTaskRunner");
 		}
 
-		public static IEventLoggingService CreateEventLogger()
-		{
-			return new EventLogLogger("BGTaskRunner");
-		}
+		//public static IEventLoggingService CreateEventLogger()
+		//{
+		//    return new EventLogLogger("BGTaskRunner");
+		//}
 
 		public static ILoggingService CreateLoggingService()
 		{
-			return new Log4NetLogger(CreateLogger(), CreateEventLogger());
+			return new Log4NetLogger(CreateLogger()/*, CreateEventLogger()*/);
 		}
 	}
 }

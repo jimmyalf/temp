@@ -18,7 +18,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 		protected Mock<ISubscriptionRepository> MockedSubscriptionRepository;
 		protected Mock<ISubscriptionErrorRepository> MockedSubscriptionErrorRepository;
 		protected Mock<ILog> MockedLogger;
-		protected Mock<IEventLoggingService> MockedEventLoggingService;
+		//protected Mock<IEventLoggingService> MockedEventLoggingService;
 		protected Mock<ITransactionRepository> MockedTransactionRepository;
 		protected Log4NetLogger LoggingService;
 		protected ITaskRepositoryResolver TaskRepositoryResolver;
@@ -29,10 +29,10 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 			MockedWebServiceClient = new Mock<IBGWebServiceClient>();
 			MockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
 			MockedLogger = new Mock<ILog>();
-			MockedEventLoggingService = new Mock<IEventLoggingService>();
+			//MockedEventLoggingService = new Mock<IEventLoggingService>();
 			MockedSubscriptionErrorRepository = new Mock<ISubscriptionErrorRepository>();
 			MockedTransactionRepository = new Mock<ITransactionRepository>();
-			LoggingService = new Log4NetLogger(MockedLogger.Object, MockedEventLoggingService.Object);
+			LoggingService = new Log4NetLogger(MockedLogger.Object/*, MockedEventLoggingService.Object*/);
 			TaskRepositoryResolver = A.Fake<ITaskRepositoryResolver>();
 			AutogiroPaymentService = A.Fake<IAutogiroPaymentService>();
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<ISubscriptionRepository>()).Returns(MockedSubscriptionRepository.Object);

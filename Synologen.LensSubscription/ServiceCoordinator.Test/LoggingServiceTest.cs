@@ -299,7 +299,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test
 			MockedLogger.Verify(x => x.Fatal(_description, _mockedException.Object), Times.Once());
 		}
 	}
-
+/*
 	[TestFixture]
 	[Category("LoggingServiceTest")]
 	public class When_logging_info_level_to_eventlog : LoggingServiceTestBase
@@ -497,4 +497,5 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Test
 			MockedEventLogger.Verify(x => x.FailureAudit(format, param1, param2, param3, param4), Times.Once());
 		}
 	}
+ * */
 }

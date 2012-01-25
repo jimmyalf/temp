@@ -1,5 +1,5 @@
-﻿using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
+﻿using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Web.External;
 using Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories;
 using StructureMap.Configuration.DSL;
@@ -15,6 +15,8 @@ namespace Synologen.Service.Web.External.App.IoC
 			For<IOrderCustomerRepository>().Use<OrderCustomerRepository>();
 			For<ICustomerParser>().Use<CustomerParser>();
 			For<ICustomerValidator>().Use<CustomerValidator>();
+			For<IHashService>().Use<SHA1HashService>();
+			For<ILoggingService>().Use<Log4NetLogger>();
 		}
 	}
 }

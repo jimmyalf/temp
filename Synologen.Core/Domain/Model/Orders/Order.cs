@@ -21,5 +21,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual SubscriptionItem SubscriptionPayment { get; set; }
 		public virtual decimal? OrderTotalWithdrawalAmount { get; set; }
         public virtual int? SpinitServicesEmailId { get; set; }
+        public virtual bool SendEmailForThisOrder { get; set; }
     }
 }

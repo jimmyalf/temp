@@ -1,29 +1,35 @@
 using System;
-using System.Web;
+using System.Configuration;
 using Spinit.Extensions;
 using Spinit.Security.Password;
 using Spinit.Services.Client;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
-namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.Orders
+namespace Synologen.OrderEmailSender.Services
 {
     public class SendOrderService : ISendOrderService
     {
         private readonly EmailClient2 _client;
 
         public SendOrderService()
-        {            
+        {
+            var user = ConfigurationSettings.AppSettings["SpinitSendUser"];
+            var password = ConfigurationSettings.AppSettings["Password"];
+            var passwordEncoding = ConfigurationSettings.AppSettings["PasswordEncoding"];
+            var server = ConfigurationSettings.AppSettings["ServerAddress"];
+
             ClientFactory.SetConfigurtion(ClientFactory.CreateConfiguration(
-                    Utility.Business.Globals.SpinitServicesAddress,
-                    Utility.Business.Globals.SpinitServicesUserName,
-                    Utility.Business.Globals.SpinitServicesPassword,
-                    Utility.Business.Globals.SpinitServicesPasswordType,
-                    Utility.Business.Globals.SpinitServicesPasswordEncoding)
+                    server,
+                    user,
+                    password,
+                    PasswordEncryptionType.Sha1,
+                    passwordEncoding
+                    )
             );
             _client = ClientFactory.CreateEmail2Client();
         }
-
+        
         public int SendOrderByEmail(Order order)
         {
             return ParseAndSend(order);
@@ -31,15 +37,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.Orders
 
         private int ParseAndSend(Order order)
         {
+            
             var to = order.Article.ArticleSupplier.OrderEmailAddress;
-            var from = "order@synologen.nu";
+            const string from = "order@synologen.nu";
             var body = GetEmailBody(order);
             var subject = "Beställning, " + order.Article.Name;
 
             return _client.SendMail(to, from, subject, body, EmailPriority.Medium);
         }
 
-        private string GetEmailBody(Order order)
+        private static string GetEmailBody(Order order)
         {
             var receiver = order.ShippingType.Equals(OrderShippingOption.ToCustomer) ? String.Format("{0} {1}", order.Customer.FirstName, order.Customer.LastName) : order.Shop.Name;
             var addressLineOne = order.ShippingType.Equals(OrderShippingOption.ToCustomer)
@@ -82,8 +89,52 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.Orders
                                RightBaseCurve = order.LensRecipe.BaseCurve.Right.HasValue ? order.LensRecipe.BaseCurve.Right.Value.ToString() : "",
                            };
 
-            return HttpContext.GetGlobalResourceObject("Templates", "SynologenOrderEmailTemplate").ToString().ReplaceWith(data);
+            return HtmlTemplate().ReplaceWith(data);
             
+        }
+
+        private static string HtmlTemplate()
+        {
+            return @"<html>
+              <head>
+                <style type=""text/css"">
+		            td { padding-right: 1em; }
+		            body { padding:0; margin:0; font: 0.7em Verdana, Arial, Helvetica, sans-serif; } 
+		            table {font-size: 1.0em;}
+	            </style>
+              </head>
+	            <body>
+	            <table>
+		            <tr><td colspan=""6"">Beställnings-id: {OrderId}</td></tr>
+		            <tr><td colspan=""6"">Från butik: {ShopName}</td></tr>
+		            <tr><td colspan=""6"">Artikel: {Article}</td></tr>
+		            <tr class=""spacer-row""><td colspan=""6""/></tr>
+		            <tr>
+			            <td>Styrka Höger: {RightPower}</td>
+			            <td>Addition Höger: {RightAddition}</td>
+			            <td>Baskurva Höger: {RightBaseCurve}</td>
+			            <td>Diameter Höger: {RightDiameter}</td>
+			            <td>Cylinder Höger: {RightCylinder}</td>
+			            <td>Axel Höger: {RightAxis}</td>
+		            </tr>
+		            <tr>
+			            <td>Styrka Vänster: {LeftPower}</td>
+			            <td>Addition Vänster: {LeftAddition}</td>
+			            <td>Baskurva Vänster: {LeftBaseCurve}</td>
+			            <td>Diameter Vänster: {LeftDiameter}</td>
+			            <td>Cylinder Vänster: {LeftCylinder}</td>
+			            <td>Axel Vänster: {LeftAxis}</td>
+		            </tr>
+		            <tr class=""spacer-row""><td colspan=""6""/></tr>
+		            <tr><td colspan=""6"">Leveransadress:</td></tr>
+		            <tr><td colspan=""6"">{Receiver}</td></tr>
+		            <tr><td colspan=""6"">{AddressLineOne}</td></tr>
+		            <tr><td colspan=""6"">{AddressLineTwo}</td></tr>
+		            <tr><td colspan=""6"">{PostalCode}</td></tr>
+		            <tr><td colspan=""6"">{City}</td></tr>
+	            </table>
+	            </body>
+            </html>";
         }
     }
 }

@@ -12,18 +12,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     public class CreateOrderConfirmationPresenter : Presenter<ICreateOrderConfirmationView>
     {
     	private readonly IRoutingService _routingService;
-        private readonly ISendOrderService _sendOrderService;
         private readonly IOrderRepository _orderRepository;
         private readonly ISubscriptionRepository _subscriptionRepository;
-        private readonly ISubscriptionItemRepository _subscriptionItemRepository;
 
-    	public CreateOrderConfirmationPresenter(ICreateOrderConfirmationView view, IRoutingService routingService, ISendOrderService sendOrderService, IOrderRepository orderRepository, ISubscriptionRepository subscriptionRepository, ISubscriptionItemRepository subscriptionItemRepository) : base(view)
+    	public CreateOrderConfirmationPresenter(ICreateOrderConfirmationView view, IRoutingService routingService, IOrderRepository orderRepository, ISubscriptionRepository subscriptionRepository) : base(view)
     	{
     	    _orderRepository = orderRepository;
     	    _subscriptionRepository = subscriptionRepository;
         	_routingService = routingService;
-    	    _sendOrderService = sendOrderService;
-    	    _subscriptionItemRepository = subscriptionItemRepository;
     		WireupEvents();
         }
 
@@ -91,8 +87,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             var order = _orderRepository.Get(orderId);
             if(!order.ShippingType.Equals(OrderShippingOption.DeliveredInStore))
             {
-                var emailId = _sendOrderService.SendOrderByEmail(order);
-                order.SpinitServicesEmailId = emailId;
+                order.SendEmailForThisOrder = true;
                 _orderRepository.Save(order);
             }
             

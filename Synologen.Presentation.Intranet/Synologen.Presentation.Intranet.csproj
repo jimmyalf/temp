@@ -92,7 +92,6 @@
     <Compile Include="Logic\EventArguments\Orders\SearchCustomerEventArgs.cs" />
     <Compile Include="Logic\Services\DebugRoutingService.cs" />
     <Compile Include="Logic\Services\RoutingService.cs" />
-    <Compile Include="Logic\Services\Orders\SendOrderService.cs" />
     <Compile Include="Logic\Views\Orders\IOrderView.cs" />
     <Compile Include="Logic\Views\Orders\ISearchCustomerView.cs" />
     <Compile Include="Logic\Presenters\Orders\PaymentOptionsPresenter.cs" />
@@ -683,6 +682,7 @@
     <Content Include="Wpc\Synologen\Yammer\YammerFeed.ascx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Logic\Services\Orders\" />
     <Folder Include="Wpc\Base\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

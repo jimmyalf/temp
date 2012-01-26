@@ -15,7 +15,6 @@ using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.Orders;
 using StructureMap.Configuration.DSL;
 using ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories.ArticleRepository;
 using IArticleRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders.IArticleRepository;
@@ -67,7 +66,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.IoC
 			For<IEmailService>().Use<EmailService>();
 			For<ISynologenSettingsService>().Use<SynologenSettingsService>();
 			For<IViewParser>().Use<ViewParser>();
-		    For<ISendOrderService>().Use<SendOrderService>();
 
 			// Register criteria converters
 			Scan(x =>

@@ -1,5 +1,4 @@
 using System;
-using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -67,7 +66,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 View.Model.DeliveryOption = GetDeliveryOptionString(order.ShippingType);
                 View.Model.TaxedAmount = order.SubscriptionPayment.TaxedAmount + " kr";
                 View.Model.TaxfreeAmount = order.SubscriptionPayment.TaxFreeAmount + " kr";
-                View.Model.TotalWithdrawal = order.SubscriptionPayment.AmountForAutogiroWithdrawal + " kr";
+                View.Model.Monthly = order.SubscriptionPayment.AmountForAutogiroWithdrawal + " kr";
+                
+                var totalValue = (order.SubscriptionPayment.TaxedAmount + order.SubscriptionPayment.TaxFreeAmount)*
+                                 order.SubscriptionPayment.NumberOfPayments;
+                
+                View.Model.TotalWithdrawal = totalValue + " kr";
                 View.Model.SubscriptionTime = GetSubscriptionTimeString(order.SubscriptionPayment.NumberOfPayments);
             }
             

@@ -50,7 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			return this;
 		}
 
-		[DisplayName("Namn")]
+		[DisplayName("Namn"), Required]
 		public string Name { get; set; }
 
 		[DisplayName("Styrka")]

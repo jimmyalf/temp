@@ -49,8 +49,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		[Test]
 		public void Task_loggs_start_and_stop_messages()
 		{
-		    A.CallTo(() => Log.Info(A<string>.That.Contains("Started"))).MustHaveHappened();
-		    A.CallTo(() => Log.Info(A<string>.That.Contains("Finished"))).MustHaveHappened();
+		    LoggingService.AssertInfo("Started");
+		    LoggingService.AssertInfo("Finished");
 		}
 
 		[Test]

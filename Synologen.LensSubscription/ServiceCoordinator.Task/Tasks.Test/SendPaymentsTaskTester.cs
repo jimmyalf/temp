@@ -43,8 +43,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_loggs_start_and_stop_info_messages()
 		{
-			MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Started"))), Times.Once());
-			MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Finished"))), Times.Once());
+			LoggingService.AssertInfo("Started");
+			LoggingService.AssertInfo("Finished");
 		}
 
 		[Test]

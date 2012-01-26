@@ -45,8 +45,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		[Test]
 		public void Task_loggs_start_and_stop_messages()
 		{
-			A.CallTo(() => Log.Info(A<string>.That.Contains("Started"))).MustHaveHappened();
-			A.CallTo(() => Log.Info(A<string>.That.Contains("Finished"))).MustHaveHappened();
+			LoggingService.AssertInfo("Started");
+			LoggingService.AssertInfo("Finished");
 		}
 
 		[Test]
@@ -90,7 +90,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		[Test]
 		public void Task_loggs_found_no_new_file_sections_to_send_message()
 		{
-			A.CallTo(() => Log.Info(A<string>.That.Contains("Found no new file sections to send."))).MustHaveHappened();
+			LoggingService.AssertInfo("Found no new file sections to send.");
 		}
 	}
 }

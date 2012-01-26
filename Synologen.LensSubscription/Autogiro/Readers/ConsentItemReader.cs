@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
@@ -8,6 +9,8 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 {
 	public class ConsentItemReader : IItemReader<Consent> 
 	{
+
+		public const string DateRegexPattern = "^(19|20)[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$";
 		public Consent Read(string line)
 		{
 			return new Consent
@@ -86,7 +89,10 @@ namespace Synologen.LensSubscription.Autogiro.Readers
 
 		private static DateTime? ReadConsentValidationDate(string line)
 		{
-			if(line.ReadFrom(74).To(79).Equals("000000")) return null;
+			var date = String.Concat(line.ReadFrom(66).To(67), line.ReadFrom(74).To(79));
+			if(!Regex.IsMatch(date, DateRegexPattern)) return null;
+			//if(line.ReadFrom(74).To(79).Equals("000000")) return null;
+			//if(line.ReadFrom(74).To(79).Equals("      ")) return null;
 			return String.Concat(line.ReadFrom(66).To(67), line.ReadFrom(74).To(79)).ParseDate();
 
 		}

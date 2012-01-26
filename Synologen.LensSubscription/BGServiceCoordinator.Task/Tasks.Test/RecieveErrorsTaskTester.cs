@@ -48,20 +48,20 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_loggs_start_and_stop_messages()
         {
-            A.CallTo(() => Log.Info(A<string>.That.Contains("Started"))).MustHaveHappened();
-            A.CallTo(() => Log.Info(A<string>.That.Contains("Finished"))).MustHaveHappened();
+            LoggingService.AssertInfo("Started");
+            LoggingService.AssertInfo("Finished");
         }
 
         [Test]
         public void Task_logs_number_of_received_sections()
         {
-            A.CallTo(() => Log.Debug(A<string>.That.Contains("Fetched 15 error file sections from repository"))).MustHaveHappened();
+            LoggingService.AssertDebug("Fetched 15 error file sections from repository");
         }
 
         [Test]
         public void Task_logs_after_each_handled_section()
         {
-            A.CallTo(() => Log.Debug(A<string>.That.Contains("Saved 10 errors to repository"))).MustHaveHappened();
+            LoggingService.AssertDebug("Saved 10 errors to repository");
         }
 
         [Test]

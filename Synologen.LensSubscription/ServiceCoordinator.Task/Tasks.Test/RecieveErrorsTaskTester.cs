@@ -4,6 +4,7 @@ using System.ServiceModel;
 using FakeItEasy;
 using Moq;
 using NUnit.Framework;
+using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
@@ -63,8 +64,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_loggs_start_and_stop_info_messages()
 		{
-			MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Started"))), Times.Once());
-			MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Finished"))), Times.Once());
+			LoggingService.AssertInfo("Started");
+			LoggingService.AssertInfo("Finished");
 		}
 
 		[Test]
@@ -100,7 +101,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_logs_error_for_each_exception()
 		{
-			MockedLogger.Verify(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>()), Times.Exactly(expectedErrors.Count()));
+			LoggingService.AssertError(messages => messages.Count == expectedErrors.Count());
 		}
 
 		[Test]

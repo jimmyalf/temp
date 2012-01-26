@@ -1,32 +1,25 @@
 using System.Collections.Generic;
 using FakeItEasy;
 using Spinit.Test;
-using log4net;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
-using Synologen.LensSubscription.BGServiceCoordinator.App.Logging;
 
 namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 {
-	//[TestFixture]
 	public abstract class CommonTaskTestBase : BehaviorActionTestbase<ITask>
 	{
-		protected ILog Log;
-		//protected IEventLoggingService EventLoggingService;
 		protected IFileSectionToSendRepository FileSectionToSendRepository;
 	    protected IReceivedFileRepository ReceivedFileRepository;
         protected IBGServiceCoordinatorSettingsService BgServiceCoordinatorSettingsService;
 		protected TestTaskRepositoryResolver TaskRepositoryResolver;
 		protected IAutogiroPayerRepository AutogiroPayerRepository;
-		protected Log4NetLogger Log4NetLogger;
+		protected FakeLoggingService LoggingService;
 
 		protected override void SetUp()
 		{
-			Log = A.Fake<ILog>();
-			//EventLoggingService = A.Fake<IEventLoggingService>();
-			Log4NetLogger = new Log4NetLogger(Log/*, EventLoggingService*/);
+			LoggingService = new FakeLoggingService();
 			FileSectionToSendRepository = A.Fake<IFileSectionToSendRepository>();
 			ReceivedFileRepository = A.Fake<IReceivedFileRepository>();
 			BgServiceCoordinatorSettingsService = A.Fake<IBGServiceCoordinatorSettingsService>();

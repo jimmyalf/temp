@@ -21,7 +21,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 
     	protected override ITask GetTask()
         {
-            return new ReceiveConsents.Task(Log4NetLogger, ConsentFileReader);
+            return new ReceiveConsents.Task(LoggingService, ConsentFileReader);
         }
     }
 }

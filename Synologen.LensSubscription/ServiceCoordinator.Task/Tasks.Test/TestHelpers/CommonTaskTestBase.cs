@@ -1,13 +1,11 @@
 using FakeItEasy;
 using Spinit.Test;
-using log4net;
 using Moq;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
-using Synologen.LensSubscription.ServiceCoordinator.App.Logging;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 {
@@ -17,10 +15,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 		protected Mock<IBGWebServiceClient> MockedWebServiceClient;
 		protected Mock<ISubscriptionRepository> MockedSubscriptionRepository;
 		protected Mock<ISubscriptionErrorRepository> MockedSubscriptionErrorRepository;
-		protected Mock<ILog> MockedLogger;
-		//protected Mock<IEventLoggingService> MockedEventLoggingService;
+		protected FakeLoggingService LoggingService;
 		protected Mock<ITransactionRepository> MockedTransactionRepository;
-		protected Log4NetLogger LoggingService;
 		protected ITaskRepositoryResolver TaskRepositoryResolver;
 		protected IAutogiroPaymentService AutogiroPaymentService;
 
@@ -28,11 +24,9 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 		{
 			MockedWebServiceClient = new Mock<IBGWebServiceClient>();
 			MockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
-			MockedLogger = new Mock<ILog>();
-			//MockedEventLoggingService = new Mock<IEventLoggingService>();
 			MockedSubscriptionErrorRepository = new Mock<ISubscriptionErrorRepository>();
 			MockedTransactionRepository = new Mock<ITransactionRepository>();
-			LoggingService = new Log4NetLogger(MockedLogger.Object/*, MockedEventLoggingService.Object*/);
+			LoggingService = new FakeLoggingService();
 			TaskRepositoryResolver = A.Fake<ITaskRepositoryResolver>();
 			AutogiroPaymentService = A.Fake<IAutogiroPaymentService>();
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<ISubscriptionRepository>()).Returns(MockedSubscriptionRepository.Object);

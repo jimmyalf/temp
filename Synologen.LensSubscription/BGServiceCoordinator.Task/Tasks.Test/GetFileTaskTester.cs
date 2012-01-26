@@ -36,8 +36,8 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_loggs_start_and_stop_messages()
         {
-            A.CallTo(() => Log.Info(A<string>.That.Contains("Started"))).MustHaveHappened();
-            A.CallTo(() => Log.Info(A<string>.That.Contains("Finished"))).MustHaveHappened();
+			LoggingService.AssertInfo("Started");
+			LoggingService.AssertInfo("Finished");
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_loggs_that_no_file_was_found()
         {
-            A.CallTo(() => Log.Debug(A<string>.That.Contains("No received files found"))).MustHaveHappened();
+        	LoggingService.AssertDebug("No received files found");
         }
 
     }
@@ -82,7 +82,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_loggs_number_of_found_files()
         {
-            A.CallTo(() => Log.Debug(A<string>.That.Contains(string.Format("Found {0} files", fileNames.Count())))).MustHaveHappened();
+			LoggingService.AssertDebug("Found {0} files", fileNames.Count());
         }
 
         [Test]
@@ -102,9 +102,10 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_loggs_number_of_found_sections()
         {
-            A.CallTo(() => Log.Debug(A<string>.That.Contains(string.Format("Found {0} sections in file {1}", sections.Count(), fileNames.ElementAt(0))))).MustHaveHappened(Repeated.Once);
-            A.CallTo(() => Log.Debug(A<string>.That.Contains(string.Format("Found {0} sections in file {1}", sections.Count(), fileNames.ElementAt(1))))).MustHaveHappened(Repeated.Once);
-            A.CallTo(() => Log.Debug(A<string>.That.Contains(string.Format("Found {0} sections in file {1}", sections.Count(), fileNames.ElementAt(2))))).MustHaveHappened(Repeated.Once);
+			foreach (var fileName in fileNames)
+			{
+				LoggingService.AssertDebug("Found {0} sections in file {1}", sections.Count(), fileName);
+			}
         }
 
         [Test]
@@ -132,9 +133,10 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_loggs_number_of_saved_sections()
         {
-            A.CallTo(() => Log.Debug(A<string>.That.Contains(string.Format("Saved {0} sections from file {1}", sections.Count(), fileNames.ElementAt(0))))).MustHaveHappened(Repeated.Once);
-            A.CallTo(() => Log.Debug(A<string>.That.Contains(string.Format("Saved {0} sections from file {1}", sections.Count(), fileNames.ElementAt(1))))).MustHaveHappened(Repeated.Once);
-            A.CallTo(() => Log.Debug(A<string>.That.Contains(string.Format("Saved {0} sections from file {1}", sections.Count(), fileNames.ElementAt(2))))).MustHaveHappened(Repeated.Once);
+        	foreach (var fileName in fileNames)
+        	{
+        		LoggingService.AssertDebug("Saved {0} sections from file {1}", sections.Count(), fileName);
+        	}
         }
 
         [Test]
@@ -168,7 +170,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_logs_error()
         {
-            A.CallTo(() => Log.Error(A<string>.That.Contains("Error when moving read file to backup folder"), A<Exception>.Ignored)).MustHaveHappened();
+        	LoggingService.AssertError<Exception>("Error when moving read file to backup folder");
         }
     }
 
@@ -192,7 +194,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_logs_error()
         {
-            A.CallTo(() => Log.Error(A<string>.That.Contains(string.Format("Exception when parsing and splitting file {0}", fileNames.ElementAt(0))), A<Exception>.Ignored)).MustHaveHappened();
+        	LoggingService.AssertError<AutogiroFileSplitException>("Exception when parsing and splitting file {0}", fileNames.First());
         }
     }
 }

@@ -34,30 +34,36 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 		}
 
 
-		public virtual void LogDebug(string message)
-		{
-			LogDebug(message, new object[]{ });
-		}
+		//public virtual void LogDebug(string message)
+		//{
+		//    _loggingService.LogDebug(LogPrefix + message);
+		//    //LogDebug(message, new object[]{ });
+		//}
 
 		public virtual void LogDebug(string format, params object[] parameters)
 		{
-			_loggingService.LogDebug("{0}: {1}", TaskName, String.Format(format, parameters));
+			//_loggingService.LogDebug("{0}: {1}", TaskName, String.Format(format, parameters));
+			_loggingService.LogDebug(LogPrefix + format, parameters);
 		}
 
 		public virtual void LogError(string message, Exception ex)
 		{
-			_loggingService.LogError(string.Format("{0}: {1}", TaskName, message), ex);
+			_loggingService.LogError(LogPrefix + message, ex);
 		}
 
-		public virtual void LogInfo(string message)
-		{
-			LogInfo(message, new object[]{ });
-		}
+		//public virtual void LogInfo(string message)
+		//{
+		//    _loggingService.LogInfo(LogPrefix + message);
+		//    //LogInfo(message, new object[]{ });
+		//}
 
 		public virtual void LogInfo(string format, params object[] parameters)
 		{
-			_loggingService.LogInfo("{0}: {1}", TaskName, String.Format(format, parameters));
+			_loggingService.LogInfo(LogPrefix + format, parameters);
+			//_loggingService.LogInfo("{0}: {1}", TaskName, String.Format(format, parameters));
 		}
+
+		protected virtual string LogPrefix { get { return String.Format("{0}: ", TaskName); } }
 
 		public abstract void Execute(ExecutingTaskContext context);
 

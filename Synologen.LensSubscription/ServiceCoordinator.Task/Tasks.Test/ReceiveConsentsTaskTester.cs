@@ -39,21 +39,21 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_logs_start_and_stop_info_messages()
 		{
-			MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Started"))), Times.Once());
-			MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Finished"))), Times.Once());
+			LoggingService.AssertInfo("Started");
+			LoggingService.AssertInfo("Finished");
 		}
 
 		[Test]
 		public void Task_logs_number_of_received_consents()
 		{
-			MockedLogger.Verify(x => x.Debug(It.Is<string>(message => message.Contains("Fetched 18 consent replies from bgc server"))), Times.Once());
+			LoggingService.AssertDebug("Fetched 18 consent replies from bgc server");
 		}
 
 		[Test]
 		public void Task_logs_after_each_handled_consent()
 		{
-			MockedLogger.Verify(x => x.Debug(It.Is<string>(message => message.Contains("accepted"))), Times.Exactly(1));
-			MockedLogger.Verify(x => x.Debug(It.Is<string>(message => message.Contains("denied"))), Times.Exactly(17));
+			LoggingService.AssertDebug("accepted");
+			LoggingService.AssertDebug(messages => messages.Count(x => x.Contains("denied")) == 17);
 		}
 
 		[Test]
@@ -785,7 +785,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_logs_error_for_each_exception()
 		{
-			MockedLogger.Verify(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>()), Times.Exactly(expectedConsents.Count()));
+			LoggingService.AssertError(messages => messages.Count == expectedConsents.Count());
 		}
 
 		[Test]

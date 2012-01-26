@@ -22,7 +22,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		}
 		protected override ITask GetTask()
 		{
-			return new SendFile.Task(Log4NetLogger, TamperProtectedFileWriter, FileWriterService);
+			return new SendFile.Task(LoggingService, TamperProtectedFileWriter, FileWriterService);
 		}
 	}
 }

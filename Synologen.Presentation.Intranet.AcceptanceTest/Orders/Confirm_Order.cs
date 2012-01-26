@@ -6,10 +6,8 @@ using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
-using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
@@ -84,7 +82,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             SetupScenario(scenario => scenario
                 .Givet(EnBeställningMedEttAbonnemangHarSkapats)
                 .När(AnvändarenBekräftarBeställningen)
-                .Så(SkickasEttEmailTillLeverantören)
+                .Så(FlaggasOrderFörAttBliSkickadSomEpost)
                     .Och(AnvändarenFlyttasTillSidaFörFärdigBeställning)
                 );
         }
@@ -175,9 +173,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.SubscriptionTime.ShouldBe(_presenter.GetSubscriptionTimeString(order.SubscriptionPayment.NumberOfPayments)); 
         }
 
-        private void SkickasEttEmailTillLeverantören()
+        private void FlaggasOrderFörAttBliSkickadSomEpost()
         {
-            WithRepository<IOrderRepository>().Get(_order.Id).SpinitServicesEmailId.ShouldNotBe(null);
+            WithRepository<IOrderRepository>().Get(_order.Id).SendEmailForThisOrder.ShouldBe(true);
         }
 
         private void AnvändarenFlyttasTillSidaFörFärdigBeställning()

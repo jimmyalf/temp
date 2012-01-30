@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
+using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
@@ -8,6 +9,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Data;
+using Spinit.Wpc.Synologen.Data.DataServices;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
@@ -48,7 +50,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 			For<ICustomerRepository>().HybridHttpOrThreadLocalScoped().Use<CustomerRepository>();
 			For<ITransactionArticleRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionArticleRepository>();
 			For<ContractSales_IArticleRepository>().HybridHttpOrThreadLocalScoped().Use<ContractSales_ArticleRepository>();
-			//Order Repositories
+			
+            //Order Repositories
 			For<IOrderRepository>().HybridHttpOrThreadLocalScoped().Use<OrderRepository>();
 			For<IArticleCategoryRepository>().HybridHttpOrThreadLocalScoped().Use<ArticleCategoryRepository>();
 			For<IArticleSupplierRepository>().HybridHttpOrThreadLocalScoped().Use<ArticleSupplierRepository>();
@@ -56,7 +59,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 			For<Order_IArticleRepository>().HybridHttpOrThreadLocalScoped().Use<Order_ArticleRepository>();
 			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
-			// Register criteria converters
+			
+            // Register criteria converters
 			Scan(x =>
 			{
 				x.AssemblyContainingType<PageOfFramesMatchingCriteriaConverter>();

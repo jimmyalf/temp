@@ -1,6 +1,4 @@
-﻿using System;
-using System.Dynamic;
-using System.ServiceModel;
+﻿using System.Dynamic;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
@@ -189,16 +187,6 @@ namespace Synologen.Service.Web.External.AcceptanceTest
 		}
 
 		#endregion
-
-		private void WithClient(Action<AddCustomerClient> action)
-		{
-			if(_client.State == CommunicationState.Created) _client.Open();
-			action(_client);
-			if(_client.State == CommunicationState.Opened || _client.State == CommunicationState.Created)
-			{
-				_client.Close();
-			}
-		}
 
 		private dynamic GetCustomerToPersist(int shopId, string personalIdNumber = "197001011234")
 		{

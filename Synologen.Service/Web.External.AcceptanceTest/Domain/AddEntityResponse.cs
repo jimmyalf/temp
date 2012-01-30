@@ -3,9 +3,9 @@ using System.Runtime.Serialization;
 namespace Synologen.Service.Web.External.AcceptanceTest.Domain
 {
 	[DataContract(Namespace = ServiceSettings.Namespace)]
-	public class AuthenticationContext
+	public class AddEntityResponse
 	{
-		[DataMember] public string UserName { get; set; }
-		[DataMember] public string Password { get; set; }
+		[DataMember] public AddEntityResponseType Type { get; set; }
+		[DataMember] public ValidationError[] ValidationErrors { get; set; }
 	}
 }

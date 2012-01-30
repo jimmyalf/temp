@@ -78,10 +78,13 @@
   <ItemGroup>
     <Compile Include="Add_Customer.cs" />
     <Compile Include="Domain\AddCustomerClient.cs" />
+    <Compile Include="Domain\AddEntityResponse.cs" />
+    <Compile Include="Domain\AddEntityResponseType.cs" />
     <Compile Include="Domain\AuthenticationContext.cs" />
     <Compile Include="Domain\Customer.cs" />
     <Compile Include="Domain\IAddCustomerService.cs" />
     <Compile Include="Domain\ServiceSettings.cs" />
+    <Compile Include="Domain\ValidationError.cs" />
     <Compile Include="GlobalTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecTestbase.cs" />

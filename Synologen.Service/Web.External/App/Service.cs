@@ -12,7 +12,7 @@ namespace Synologen.Service.Web.External.App
 		private readonly IOrderCustomerRepository _customerRepository;
 		private readonly IShopRepository _shopRepository;
 		private readonly ICustomerParser _customerParser;
-		private readonly ICustomerValidator _customerValidator;
+		private readonly IValidator<Customer> _customerValidator;
 		private readonly ILoggingService _loggingService;
 
 		public Service(
@@ -20,7 +20,7 @@ namespace Synologen.Service.Web.External.App
 			IOrderCustomerRepository customerRepository,
 			IShopRepository shopRepository,
 			ICustomerParser customerParser, 
-			ICustomerValidator customerValidator,
+			IValidator<Customer> customerValidator,
 			ILoggingService loggingService)
 		{
 			_shopAuthenticationService = shopAuthenticationService;
@@ -57,7 +57,7 @@ namespace Synologen.Service.Web.External.App
 		{
 			var validationResult = _customerValidator.Validate(customer);
 			if (!validationResult.HasErrors) return;
-			_loggingService.LogError("Validation failed for customer " + validationResult.GetErrorMessage());
+			_loggingService.LogError("Validation failed for customer {0} :\r\nValidationErrors: {1}.", customer, validationResult.GetErrorMessage());
 			throw new ValidationFailedException(validationResult);
 		}
 	}

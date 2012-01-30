@@ -2,24 +2,31 @@ using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
-using Spinit.Wpc.Core.Dependencies.NHibernate;
+using Simple.Data;
 using Spinit.Wpc.Synogen.Test.Data;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Domain.Services.Web.External;
+using StoryQ;
 using StoryQ.Infrastructure;
-using StoryQ.sv_SE;
-using StructureMap;
 
-namespace Web.External.AcceptanceTest
+namespace Synologen.Service.Web.External.AcceptanceTest
 {
 	public abstract class SpecTestbase
 	{
 		protected Action Context;
-		protected Func<Funktion> Story;
-		private Funktion _story;
+		
+		protected Func<Feature> Story;
+		private Feature _story;
 		private DataManager _dataManager;
+		protected IHashService HashService;
+		protected dynamic DB;
 
 		protected SpecTestbase()
 		{
 			_dataManager = new DataManager();
+			HashService = new SHA1HashService();
+			DB = Database.OpenNamedConnection("WpcServer");
 		}
 
 		[SetUp]
@@ -37,35 +44,35 @@ namespace Web.External.AcceptanceTest
 			
 		}
 
-		public TModel WithRepository<TRepository, TModel>(Func<TRepository,TModel> function)
-		{
-			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
-			var repository = (TRepository) Activator.CreateInstance(typeof (TRepository), session);
-			return function.Invoke(repository);
-		}
-		public TRepository WithRepository<TRepository>()
-		{
-			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
-			return (TRepository) Activator.CreateInstance(typeof (TRepository), session);
-		}
+		//public TModel WithRepository<TRepository, TModel>(Func<TRepository,TModel> function)
+		//{
+		//    var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+		//    var repository = (TRepository) Activator.CreateInstance(typeof (TRepository), session);
+		//    return function.Invoke(repository);
+		//}
+		//public TRepository WithRepository<TRepository>()
+		//{
+		//    var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+		//    return (TRepository) Activator.CreateInstance(typeof (TRepository), session);
+		//}
 
-		public TSqlProvider WithSqlProvider<TSqlProvider>()
-		{
-			return ObjectFactory.GetInstance<TSqlProvider>();
-		}
+		//public TSqlProvider WithSqlProvider<TSqlProvider>()
+		//{
+		//    return ObjectFactory.GetInstance<TSqlProvider>();
+		//}
 
 
 		protected void SetupScenario(Func<Scenario, FragmentBase> scenarioAction)
 		{
 			var callingMethod = new StackFrame(1).GetMethod();
-			var scenario = _story.MedScenario(Uncamel(callingMethod.Name));
+			var scenario = _story.WithScenario(Uncamel(callingMethod.Name));
 			scenarioAction(scenario).ExecuteWithReport(callingMethod);
 		}
 
 		protected void SetupScenario(string scenarioDescription, Func<Scenario, FragmentBase> scenarioAction)
 		{
 			var callingMethod = new StackFrame(1).GetMethod();
-			var scenario = _story.MedScenario(scenarioDescription);
+			var scenario = _story.WithScenario(scenarioDescription);
 			scenarioAction(scenario).ExecuteWithReport(callingMethod);
 		}
 
@@ -77,6 +84,14 @@ namespace Web.External.AcceptanceTest
 		protected DataManager DataManager
 		{
 			get { return _dataManager; }
+		}
+
+		public Shop CreateShopWithExternalAccess(string externalAccessUserName, string externalAccessPassword)
+		{
+			var hashedPassword = HashService.GetHash(externalAccessPassword);
+			return _dataManager.CreateShop(shopName: "Testbutik med Extern Access", externalAccessUserName: externalAccessUserName, externalAccessHashedPassword: hashedPassword);
+			//var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			//return session.Get<TShopType>(shop.ShopId);
 		}
 	}
 }

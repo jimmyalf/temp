@@ -20,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			return default(TType);
 		}
 
+
 		//public static PropertyMatch<object> GetAnonymousPropertyValue(this object container, string propertyName)
 		//{
 		//    var returnValue = new PropertyMatch<object> {PropertyName = propertyName};

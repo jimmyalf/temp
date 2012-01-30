@@ -14,6 +14,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
             Map(x => x.AddressLineTwo).Column("cAddress2");
             Map(x => x.PostalCode).Column("cZip");
             Map(x => x.City).Column("cCity");
+			Map(x => x.ExternalAccessUsername).Column("cExternalAccessUsername");
+			Map(x => x.ExternalAccessHashedPassword).Column("cExternalAccessHashedPassword");
 		}
 	}
 }

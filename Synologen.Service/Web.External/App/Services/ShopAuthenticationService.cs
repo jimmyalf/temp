@@ -20,6 +20,7 @@ namespace Synologen.Service.Web.External.App.Services
 
 		public ShopAuthenticationResult Authenticate(string username, string password)
 		{
+			if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) return new ShopAuthenticationResult(false);
 			var hashedPassword = _hashService.GetHash(password);
 			var shop = _shopRepository.FindBy(new FindShopByUserNameAndHashedPasswordCriteria(username, hashedPassword)).FirstOrDefault();
 			return shop == null ? new ShopAuthenticationResult(false) : new ShopAuthenticationResult(true, shop.Id);

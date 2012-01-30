@@ -1,8 +1,8 @@
 using System.Runtime.Serialization;
 
-namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
+namespace Synologen.Service.Web.External.AcceptanceTest.Domain
 {
-	[DataContract(Namespace = "http://www.synologen.se/service.web.external/")]
+	[DataContract(Namespace = ServiceSettings.Namespace)]
 	public class AuthenticationContext
 	{
 		[DataMember] public string UserName { get; set; }
@@ -10,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 
 		public override string ToString()
 		{
-			return "{ UserName: " + UserName + ", Password: " + Password + " }";
+			return "{UserName: \"" + UserName + "\", Password: \"" + Password + "\"}";
 		}
 	}
 }

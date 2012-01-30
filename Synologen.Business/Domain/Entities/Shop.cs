@@ -41,6 +41,8 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		public string ContactCombinedName {
 			get { return String.Concat( ContactFirstName ?? String.Empty,  " ",  ContactLastName ?? String.Empty ).Trim(); }
 		}
+		public string ExternalAccessUsername { get; set; }
+		public string ExternalAccessHashedPassword { get; set; }
 		public string OrganizationNumber { get; set; }
 		public bool HasConcern { get{ return Concern != null;} }
 		public ShopAccess Access { get; set; }

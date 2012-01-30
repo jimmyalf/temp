@@ -4,7 +4,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services.Web.External;
 
 namespace Synologen.Service.Web.External.App.Services
 {
-	public class CustomerValidator : ICustomerValidator
+	public class CustomerValidator : IValidator<Customer>
 	{
 		public ValidationResult Validate(Customer customer)
 		{

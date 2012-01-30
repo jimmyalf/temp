@@ -342,7 +342,7 @@
     <Compile Include="Domain\Services\Web\External\Customer.cs" />
     <Compile Include="Domain\Services\Web\External\IAddCustomerService.cs" />
     <Compile Include="Domain\Services\Web\External\ICustomerParser.cs" />
-    <Compile Include="Domain\Services\Web\External\ICustomerValidator.cs" />
+    <Compile Include="Domain\Services\Web\External\IValidator.cs" />
     <Compile Include="Domain\Services\Web\External\IShopAuthenticationService.cs" />
     <Compile Include="Domain\Services\Web\External\SHA1HashService.cs" />
     <Compile Include="Domain\Services\Web\External\ShopAuthenticationResult.cs" />

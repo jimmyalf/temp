@@ -15,7 +15,7 @@ namespace Spinit.Wpc.Synogen.Test.Data
 {
 	public class DataManager : DataUtility
 	{
-		public Shop CreateShop(ISqlProvider sqlProvider = null, string shopName = "Testbutik AB")
+		public Shop CreateShop(ISqlProvider sqlProvider = null, string shopName = "Testbutik AB", string externalAccessUserName = "test.butik", string externalAccessHashedPassword = "6250625B226DF62870AE23AF8D3FAC0760D71588" /*TestPassword*/)
 		{
 			var provider = sqlProvider ?? GetSqlProvider();
 			var shop = new Shop
@@ -46,7 +46,9 @@ namespace Spinit.Wpc.Synogen.Test.Data
 				Url = "",
 				Zip = "43632",
                 Longitude = 11.97456m,
-                Latitude = 57.70887m
+                Latitude = 57.70887m,
+				ExternalAccessHashedPassword = externalAccessHashedPassword,
+				ExternalAccessUsername = externalAccessUserName
 			};
 			provider.AddUpdateDeleteShop(Enumerations.Action.Create, ref shop);
 			return shop;
@@ -72,14 +74,6 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			sqlProvider.ConnectShopToMember(shopId, member.Id);
 			return new CreatedMemberInfo(userId, member.Id);
 		}
-
-		/*
-		public CreatedMemberInfo CreateMemberForShop(SqlProvider sqlProvider, string userName, int shopId, int locationId, string password = "test")
-		{
-			var userRepo = new User(ConnectionString);
-			return CreateMemberForShop(userRepo, sqlProvider, userName, shopId, locationId, password);
-		}
-		 */
 
 		private static void CreateAdminUsers(User userRepository)
 		{

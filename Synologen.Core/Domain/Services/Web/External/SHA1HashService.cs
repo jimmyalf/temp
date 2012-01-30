@@ -12,7 +12,9 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 			var buffer = Encoding.UTF8.GetBytes(message);
 			var computedHash = provider.ComputeHash(buffer);
 			provider.Clear();
-			return BitConverter.ToString(computedHash);
+			return BitConverter
+				.ToString(computedHash)
+				.Replace("-","");
 		}
 
 		public string CondensateTypeName

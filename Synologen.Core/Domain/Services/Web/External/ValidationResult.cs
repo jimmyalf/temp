@@ -28,11 +28,11 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 
 		public bool HasErrors{ get { return _errors.Any(); } }
 
-		public string GetErrorMessage()
+		public string GetErrorMessage(string delimiter = ", ")
 		{
 			return !HasErrors 
 				? null 
-				: Errors.Select(x => x.ErrorMessage).Aggregate((item, next) => item + "\r\n" + next);
+				: Errors.Select(x => x.ErrorMessage).Aggregate((item, next) => item + delimiter + next);
 		}
 	}
 

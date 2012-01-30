@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="Synologen.Service.Web.External.App.Service"  %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Synologen.Service.Web.External.App.Service" Factory="Synologen.Service.Web.External.App.IoC.ServiceHostFactory"  %>

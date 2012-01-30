@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 {
@@ -10,6 +11,10 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 
 		public override string ToString()
 		{
+			return this.BuildStringOutput()
+				.With(x => x.UserName)
+				.With(x => x.Password)
+				.ToString();
 			return "{ UserName: " + UserName + ", Password: " + Password + " }";
 		}
 	}

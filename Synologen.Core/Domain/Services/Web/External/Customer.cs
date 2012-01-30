@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 {
@@ -18,17 +19,18 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 
 		public override string ToString()
 		{
-			return "{"
-				+" PersonalNumber: " + PersonalNumber 
-				+ ", FirstName: " + FirstName
-				+ ", LastName: " + LastName
-				+ ", Address1: " + Address1
-				+ ", Address2: " + Address2
-				+ ", PostalCode: " + PostalCode
-				+ ", City: " + City
-				+ ", Phone: " + Phone
-				+ ", MobilePhone: " + MobilePhone
-				+ ", Email: " + Email + " }";
+			return this.BuildStringOutput()
+				.With(x => x.FirstName)
+				.With(x => x.LastName)
+				.With(x => x.PersonalNumber)
+				.With(x => x.Address1)
+				.With(x => x.Address2)
+				.With(x => x.PostalCode)
+				.With(x => x.City)
+				.With(x => x.Phone)
+				.With(x => x.MobilePhone)
+				.With(x => x.Email)
+				.ToString();
 		}
 	}
 }

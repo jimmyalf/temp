@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.ServiceModel;
 using NUnit.Framework;
 using Shouldly;
@@ -16,10 +17,10 @@ namespace Synologen.Service.Web.External.AcceptanceTest
 		private AddCustomerClient _client;
 		private Customer _customer;
 		private AuthenticationContext _authenticationContext;
-		private Exception _caughtException;
 		private string _shopUsername;
 		private string _shopPassword;
 		private Shop _shop;
+		private AddEntityResponse _response;
 
 		public Add_Customer()
 		{
@@ -43,8 +44,18 @@ namespace Synologen.Service.Web.External.AcceptanceTest
 				.Given(ValidAuthentication)
 					.And(ValidCustomer)
 				.When(ACustomerIsAdded)
-				.Then(ACustomerShouldBeAdded)
-					.And(NoExceptionShouldBeThrown));
+				.Then(ACustomerWasPersisted)
+					.And(ResponseShowsCustomerWasAdded));
+		}
+
+		[Test]
+		public void AddExistingCustomer()
+		{
+			SetupScenario(scenario => scenario
+				.Given(ValidAuthentication)
+					.And(ValidExistingCustomer)
+				.When(ACustomerIsAdded)
+				.Then(ResponseShowsCustomerAlreadyExists));
 		}
 
 		[Test]
@@ -54,22 +65,56 @@ namespace Synologen.Service.Web.External.AcceptanceTest
 				.Given(InvalidAuthentication)
 					.And(ValidCustomer)
 				.When(ACustomerIsAdded)
-				.Then(AnAuthenticationExceptionShouldBeThrown));
+				.Then(ResponseShowsAuthenticationFailed));
 		}
 
+		[Test]
+		public void AddCustomerWithCustomerDataMissing()
+		{
+			SetupScenario(scenario => scenario
+				.Given(ValidAuthentication)
+					.And(CustomerWithFieldsMissing)
+				.When(ACustomerIsAdded)
+				.Then(ResponseShowsValidationFailed)
+					.And(ResponseContainsValidationErrorsForMissingFields));
+		}
 
 		[Test]
 		public void AddCustomerWithInvalidCustomerData()
 		{
 			SetupScenario(scenario => scenario
 				.Given(ValidAuthentication)
-					.And(InvalidCustomer)
+					.And(CustomerWithInvalidPersonalNumber)
 				.When(ACustomerIsAdded)
-				.Then(AValidationExceptionShouldBeThrown));
+				.Then(ResponseShowsValidationFailed)
+					.And(ResponseContainsValidationErrorsForInvalidPersonalNumber));
 		}
 
 		#region Arrange
 		private void ValidCustomer()
+		{
+			_customer = GetCustomer();
+		}
+		private void ValidExistingCustomer()
+		{
+			ValidCustomer();
+			var customer = GetCustomerToPersist(_shop.ShopId, _customer.PersonalNumber);
+			DB.SynologenOrderCustomer.Insert(customer);
+		}
+
+		private void ValidAuthentication()
+		{
+			_authenticationContext = new AuthenticationContext {UserName = _shopUsername, Password = _shopPassword};
+		}
+		private void InvalidAuthentication()
+		{
+			_authenticationContext = new AuthenticationContext {UserName = _shopUsername, Password = "InvalidPassword"};
+		}
+		private void CustomerWithFieldsMissing()
+		{
+			_customer = new Customer();
+		}
+		private void CustomerWithInvalidPersonalNumber()
 		{
 			_customer = new Customer
 			{
@@ -78,81 +123,72 @@ namespace Synologen.Service.Web.External.AcceptanceTest
 				Address1 = "Storgatan 2",
 				City = "Storstad",
 				PostalCode = "1234",
-				PersonalNumber = "197001011234"
+				PersonalNumber = "7001011234"
 			};
-		}
-
-
-		private void ValidAuthentication()
-		{
-			_authenticationContext = new AuthenticationContext {UserName = _shopUsername, Password = _shopPassword};
-		}
-
-		private void InvalidAuthentication()
-		{
-			_authenticationContext = new AuthenticationContext {UserName = _shopUsername, Password = "InvalidPassword"};
-		}
-		private void InvalidCustomer()
-		{
-			_customer = new Customer();
 		}
 		#endregion
 
 		#region Act
 		private void ACustomerIsAdded()
 		{
-			WithClient(client =>
-			{
-				_caughtException = TryCatchException(() => client.AddCustomer(_authenticationContext, _customer));
-			});
+			_response = _client.AddCustomer(_authenticationContext, _customer);
 		}
 		#endregion
 
 		#region Assert
-		private void ACustomerShouldBeAdded()
+		private void ACustomerWasPersisted()
 		{
 			var customer = DB.SynologenOrderCustomer.FindByShopId(_shop.ShopId);
 			Assert.NotNull(customer);
-			Assert.AreEqual(customer.AddressLineOne, _customer.Address1);
-			Assert.AreEqual(customer.AddressLineTwo, _customer.Address2);
-			Assert.AreEqual(customer.Email, _customer.Email);
-			Assert.AreEqual(customer.MobilePhone, _customer.MobilePhone);
-			Assert.AreEqual(customer.Phone, _customer.Phone);
-			Assert.AreEqual(customer.FirstName, _customer.FirstName);
-			Assert.AreEqual(customer.LastName, _customer.LastName);
-			Assert.AreEqual(customer.Notes, null);
-			Assert.AreEqual(customer.PersonalIdNumber, _customer.PersonalNumber);
+			Assert.AreEqual(_customer.Address1, customer.AddressLineOne);
+			Assert.AreEqual(_customer.Address2, customer.AddressLineTwo);
+			Assert.AreEqual(_customer.City, customer.City);
+			Assert.AreEqual(_customer.PostalCode, customer.PostalCode);
+			Assert.AreEqual(_customer.Email, customer.Email);
+			Assert.AreEqual(_customer.MobilePhone, customer.MobilePhone);
+			Assert.AreEqual(_customer.Phone, customer.Phone);
+			Assert.AreEqual(_customer.FirstName, customer.FirstName);
+			Assert.AreEqual(_customer.LastName, customer.LastName);
+			Assert.AreEqual(null, customer.Notes);
+			Assert.AreEqual(_customer.PersonalNumber, customer.PersonalIdNumber);
+			Assert.AreEqual( _customer.Email, customer.Email);
 		}
 
-
-		private void AnAuthenticationExceptionShouldBeThrown()
+		private void ResponseShowsAuthenticationFailed()
 		{
-			_caughtException.ShouldBeTypeOf<FaultException>();
-			_caughtException.Message.ShouldContain("authenticated");
+			_response.Type.ShouldBe(AddEntityResponseType.AuthenticationFailed);
 		}
-		private void AValidationExceptionShouldBeThrown()
+		private void ResponseShowsValidationFailed()
 		{
-			_caughtException.ShouldBeTypeOf<FaultException>();
-			_caughtException.Message.ShouldContain("Firstname");
-			_caughtException.Message.ShouldContain("LastName");
-			_caughtException.Message.ShouldContain("PersonalNumber");
-			_caughtException.Message.ShouldContain("Address1");
-			_caughtException.Message.ShouldContain("PostalCode");
-			_caughtException.Message.ShouldContain("City");
+			_response.Type.ShouldBe(AddEntityResponseType.ValidationFailed);
 		}
 
-		private void NoExceptionShouldBeThrown()
+		private void ResponseShowsCustomerWasAdded()
 		{
-			_caughtException.ShouldBe(null);
+			_response.Type.ShouldBe(AddEntityResponseType.EntityWasAdded);
 		}
+
+		private void ResponseContainsValidationErrorsForMissingFields()
+		{
+			_response.ValidationErrors.ShouldContain(x => x.ErrorMessage.Contains("FirstName"));
+			_response.ValidationErrors.ShouldContain(x => x.ErrorMessage.Contains("LastName"));
+			_response.ValidationErrors.ShouldContain(x => x.ErrorMessage.Contains("PersonalNumber"));
+			_response.ValidationErrors.ShouldContain(x => x.ErrorMessage.Contains("Address1"));
+			_response.ValidationErrors.ShouldContain(x => x.ErrorMessage.Contains("PostalCode"));
+			_response.ValidationErrors.ShouldContain(x => x.ErrorMessage.Contains("City"));
+		}
+
+		private void ResponseContainsValidationErrorsForInvalidPersonalNumber()
+		{
+			_response.ValidationErrors.ShouldContain(x => x.ErrorMessage.Contains("PersonalNumber") && x.ErrorMessage.Contains("format"));
+		}
+
+		private void ResponseShowsCustomerAlreadyExists()
+		{
+			_response.Type.ShouldBe(AddEntityResponseType.EntityAlreadyExists);
+		}
+
 		#endregion
-
-		private Exception TryCatchException(Action action)
-		{
-			try { action(); }
-			catch(Exception ex) { return ex; }
-			return null;
-		}
 
 		private void WithClient(Action<AddCustomerClient> action)
 		{
@@ -163,6 +199,40 @@ namespace Synologen.Service.Web.External.AcceptanceTest
 				_client.Close();
 			}
 		}
-	}
 
+		private dynamic GetCustomerToPersist(int shopId, string personalIdNumber = "197001011234")
+		{
+			dynamic dynamicCustomer = new ExpandoObject();
+			dynamicCustomer.ShopId = shopId;
+			dynamicCustomer.PersonalIdNumber = personalIdNumber;
+			dynamicCustomer.FirstName = "Adam";
+			dynamicCustomer.LastName = "Bertil";
+			dynamicCustomer.AddressLineOne = "Storgatan 2";
+			dynamicCustomer.AddressLineTwo = "Box 123";
+			dynamicCustomer.City = "Storstad";
+			dynamicCustomer.PostalCode = "1234";
+			dynamicCustomer.Email = "a.b@test.se";
+			dynamicCustomer.MobilePhone = "+46 708-12 34 56";
+			dynamicCustomer.Phone = "031-123456";
+			return dynamicCustomer;
+		}
+
+		private Customer GetCustomer()
+		{
+			return new Customer
+			{
+				FirstName = "Adam", 
+				LastName = "Bertil",
+				Address1 = "Storgatan 2",
+				City = "Storstad",
+				PostalCode = "1234",
+				PersonalNumber = "197001011234",
+				Address2 = "Box 123",
+				Email = "a.b@test.se",
+				MobilePhone = "+46 708-12 34 56",
+				Phone = "031-123456"
+			};
+		}
+
+	}
 }

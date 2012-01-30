@@ -257,6 +257,7 @@
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfTransactionArticlesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\TransactionsForSubscriptionMatchingCriteria.cs.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfSubscriptionsMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\FindCustomerByPersonalNumberCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\FindShopByUserNameAndHashedPasswordCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\PageOfArticlesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\PageOfArticleTypesMatchingCriteria.cs" />
@@ -337,6 +338,8 @@
     <Compile Include="Domain\Services\ISynologenSettingsService.cs" />
     <Compile Include="Domain\Services\ITaskRunnerService.cs" />
     <Compile Include="Domain\Services\SystemTime.cs" />
+    <Compile Include="Domain\Services\Web\External\AddEntityResponse.cs" />
+    <Compile Include="Domain\Services\Web\External\AddEntityResponseType.cs" />
     <Compile Include="Domain\Services\Web\External\AuthenticationContext.cs" />
     <Compile Include="Domain\Services\Web\External\AuthenticationFailedException.cs" />
     <Compile Include="Domain\Services\Web\External\Customer.cs" />

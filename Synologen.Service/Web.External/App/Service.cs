@@ -1,4 +1,7 @@
-﻿using System.ServiceModel;
+﻿using System.Linq;
+using System.ServiceModel;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Web.External;
@@ -31,15 +34,31 @@ namespace Synologen.Service.Web.External.App
 			_loggingService = loggingService;
 		}
 
-		public void AddCustomer(AuthenticationContext authenticationContext, Customer customer)
+		public AddEntityResponse AddCustomer(AuthenticationContext authenticationContext, Customer customer)
 		{
 			_loggingService.LogInfo("AddCustomer called");
-			var result = CheckAuthentication(authenticationContext);
-			ValidateInput(customer);
-			var shop = _shopRepository.Get(result.ShopId);
+
+			var authenticationResult = CheckAuthentication(authenticationContext);
+			if(!authenticationResult.IsAuthenticated) return new AddEntityResponse(AddEntityResponseType.AuthenticationFailed);
+
+			var validationResult = ValidateInput(customer);
+			if(validationResult.HasErrors) return new AddEntityResponse(AddEntityResponseType.ValidationFailed, validationResult.Errors);
+
+			var foundCustomer = CheckCustomerExists(customer);
+			if(foundCustomer != null) return new AddEntityResponse(AddEntityResponseType.EntityAlreadyExists);
+
+			var storedCustomer = StoreCustomer(authenticationResult, customer);
+
+			_loggingService.LogInfo("Customer was stored with id {0}", storedCustomer.Id);
+			return new AddEntityResponse(AddEntityResponseType.EntityWasAdded);
+		}
+
+		private OrderCustomer StoreCustomer(ShopAuthenticationResult authenticationResult, Customer customer)
+		{
+			var shop = _shopRepository.Get(authenticationResult.ShopId);
 			var customerToSave = _customerParser.Parse(customer, shop);
 			_customerRepository.Save(customerToSave);
-			_loggingService.LogInfo("Customer was stored with id {0}", customerToSave.Id);
+			return customerToSave;
 		}
 
 		private ShopAuthenticationResult CheckAuthentication(AuthenticationContext context)
@@ -48,17 +67,25 @@ namespace Synologen.Service.Web.External.App
 			if(!authenticationResult.IsAuthenticated)
 			{
 				_loggingService.LogError("Authentication failed for context " + context);
-				throw new AuthenticationFailedException("Context cannot be authenticated!");
 			}
 			return authenticationResult;
 		}
 
-		private void ValidateInput(Customer customer)
+		private ValidationResult ValidateInput(Customer customer)
 		{
 			var validationResult = _customerValidator.Validate(customer);
-			if (!validationResult.HasErrors) return;
-			_loggingService.LogError("Validation failed for customer {0} :\r\nValidationErrors: {1}.", customer, validationResult.GetErrorMessage());
-			throw new ValidationFailedException(validationResult);
+			if (validationResult.HasErrors)
+			{
+				_loggingService.LogError("Validation failed for customer {0} :\r\nValidationErrors: {1}.", customer, validationResult.GetErrorMessage());	
+			}
+			return validationResult;
+		}
+
+		private OrderCustomer CheckCustomerExists(Customer customer)
+		{
+			return _customerRepository
+				.FindBy(new FindCustomerByPersonalNumberCriteria(customer.PersonalNumber))
+				.FirstOrDefault();
 		}
 	}
 

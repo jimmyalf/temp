@@ -52,6 +52,32 @@
 						<div class="formItem"><label class="labelLong">Kontaktperson efternamn</label>
 						<asp:TextBox id="txtContactLastName" runat="server" /></div>																		
 					</div>
+                    <div class="formItem clearLeft">    
+                        <label for="<%= btnFetchCoordinates.ClientID %>">Hämta koordinater för angiven adress</label>
+                        <asp:Button ID="btnFetchCoordinates" runat="server" Text="Hämta koordinater" OnClick="btnFetchCoordinates_OnClick" />
+                    </div>
+                    <div class="formItem infoItem">
+                        <p>För att butiken ska visas på karta, måste man antingen hämta eller ange koordinater för den.</p>
+                    </div>
+                    <div class="formItem clearLeft">
+                        <label class="labelLong">Latitud</label>
+						<asp:TextBox id="txtLatitude" runat="server" />
+                    </div>
+                    <div class="formItem">
+                        <label class="labelLong">Longitud</label>
+						<asp:TextBox id="txtLongitude" runat="server" />
+                    </div>
+                    <div class="formItem clearLeft">
+                        <asp:PlaceHolder ID="phLinkToMap" runat="server">
+                            <button disabled="disabled">Visa koordinater</button>
+                        </asp:PlaceHolder>
+                    </div>
+                    <div class="formItem infoItem">
+                        <p>
+                            När du väl hämtat rätt koordinater, kan du kontrollera dessa genom länken till vänster.
+                            Du får upp en karta vilken innehåller en grön pil, där den gröna pilen motsvarar dina koordinater.
+                        </p>
+                    </div>
 					<div class="formItem clearLeft">
 						<label class="labelLong">Giro-typ</label>
 						<asp:DropDownList id="drpGiroType" runat="server" DataValueField="cId" DataTextField="cName" />				

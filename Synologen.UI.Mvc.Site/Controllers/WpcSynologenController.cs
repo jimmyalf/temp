@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ShopDetails;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ShopDetails;
@@ -57,13 +58,12 @@ namespace Spinit.Wpc.Synologen.UI.Mvc.Site.Controllers
         {
             var shops = _shopRepository.FindBy(new SearchShopsCriteria(search, Globals.ViewShopsWithCategoryId));
 
-            try
+            var coordinates = _geocodingService.GetCoordinates(HttpUtility.UrlEncode(search));
+            if (coordinates != null)
             {
-                var coordinates = _geocodingService.GetCoordinates(search);
                 var nearbyShops = _shopRepository.FindBy(new NearbyShopsCriteria(coordinates, Globals.ViewShopsWithCategoryId));
                 shops = shops.Concat(nearbyShops);
             }
-            catch (Exception) { }
 
             shops = shops.DistinctBy(x => x.Id);
             var viewModel = _shopViewModelParserService.ParseShops(shops, search);

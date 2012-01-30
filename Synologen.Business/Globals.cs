@@ -189,6 +189,14 @@ namespace Spinit.Wpc.Synologen.Business {
 		{
 			get { return SafeConfigString(_setting, "FrameOrderEmailSubject", "Glasögonbeställning från synologen"); }
 		}
+        static public string GoogleGeocode
+        {
+            get { return SafeConfigString(_setting, "GoogleGeocode", String.Empty); }
+        }
+        static public string GoogleShowCoordinates
+        {
+            get { return SafeConfigString(_setting, "GoogleShowCoordinates", String.Empty); }
+        }
 
         // Yammer
 	    static public string YammerNetwork

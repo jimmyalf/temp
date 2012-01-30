@@ -100,7 +100,6 @@
     <Compile Include="App\ViewModelParsers\ShopViewModelParserService.cs" />
     <Compile Include="Models\SearchShopView.cs" />
     <Compile Include="Models\ShopListItem.cs" />
-    <Compile Include="App\Services\GeocodingService.cs" />
     <Compile Include="Models\ShopListView.cs" />
     <Compile Include="SynologenAreaRegistration.cs" />
     <Compile Include="SynologenBootstrapper.cs" />

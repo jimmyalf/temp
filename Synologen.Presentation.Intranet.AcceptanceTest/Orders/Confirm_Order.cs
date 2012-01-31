@@ -60,8 +60,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             SetupScenario(scenario => scenario
                 .Givet(EnBeställningMedEttAbonnemangHarSkapats)
                 .När(AnvändarenVisarFormuläretFörAttBekräfta)
-                .Så(VisasEnSammanställningAvOrdern)
-                );
+                .Så(VisasEnSammanställningAvOrdern));
         }
 
         [Test]
@@ -167,9 +166,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             //View.Model.PaymentOption.ShouldBe(order.SelectedPaymentOption.Type.ToString());
 
             View.Model.DeliveryOption.ShouldBe(_presenter.GetDeliveryOptionString(order.ShippingType));
-            View.Model.TaxedAmount.ShouldBe(order.SubscriptionPayment.TaxedAmount + " kr");
-            View.Model.TaxfreeAmount.ShouldBe(order.SubscriptionPayment.TaxFreeAmount + " kr");
-            View.Model.TotalWithdrawal.ShouldBe(order.SubscriptionPayment.AmountForAutogiroWithdrawal + " kr");
+            View.Model.TaxedAmount.ShouldBe(order.SubscriptionPayment.TaxedAmount.ToString("C"));
+            View.Model.TaxfreeAmount.ShouldBe(order.SubscriptionPayment.TaxFreeAmount.ToString("C"));
+            View.Model.TotalWithdrawal.ShouldBe(order.OrderTotalWithdrawalAmount.Value.ToString("C"));
+			View.Model.Monthly.ShouldBe(order.SubscriptionPayment.AmountForAutogiroWithdrawal.ToString("C"));
             View.Model.SubscriptionTime.ShouldBe(_presenter.GetSubscriptionTimeString(order.SubscriptionPayment.NumberOfPayments)); 
         }
 

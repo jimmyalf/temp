@@ -32,13 +32,14 @@ namespace Synologen.Service.Web.External.App.IoC
 			lock(_unitOfWorkManager.SyncRoot){
 				try
 				{
-					_loggingService.LogDebug("InstanceProvider {0}: CreateInstance called", instanceContext.GetHashCode());
+					_loggingService.LogDebug("Instance {0}: {1} instantiation started.", instanceContext.GetHashCode(), message.Headers.Action);
 					var unitOfWork = ObjectFactory.GetInstance<IUnitOfWork>() as NHibernateUnitOfWork;
 					_unitOfWorkManager.Add(instanceContext, unitOfWork);
 				}
 				catch(Exception ex)
 				{
-					_loggingService.LogError(string.Format("InstanceProvider {0}: Got exception while getting instance.", instanceContext.GetHashCode()), ex);
+					var errorMessage = string.Format("Instance {0}: {1} got exception during instantiation.", instanceContext.GetHashCode(), message.Headers.Action);
+					_loggingService.LogError(errorMessage, ex);
 					throw;
 				}
 				return ObjectFactory.GetInstance(_serviceType);
@@ -51,13 +52,13 @@ namespace Synologen.Service.Web.External.App.IoC
 			{
 				try
 				{
-					_loggingService.LogDebug("InstanceProvider {0}: ReleaseInstance called", instanceContext.GetHashCode());
+					_loggingService.LogDebug("Instance {0}: Releasing instance.", instanceContext.GetHashCode());
 					var unitOfWork = _unitOfWorkManager.Get(instanceContext);
 					CommitUnitOfWork(unitOfWork, instanceContext);
 				}
 				catch(Exception ex)
 				{
-					_loggingService.LogError(string.Format("InstanceProvider {0}: Got exception while releasing instance.", instanceContext.GetHashCode()), ex);
+					_loggingService.LogError(string.Format("Instance {0}: Got exception while releasing instance.", instanceContext.GetHashCode()), ex);
 					throw;
 				}	
 			}
@@ -69,17 +70,17 @@ namespace Synologen.Service.Web.External.App.IoC
 			try
 			{
 				unitOfWork.Commit();
-				_loggingService.LogDebug("InstanceProvider {0}: Unit of work was comitted.", instanceContext.GetHashCode());
+				_loggingService.LogDebug("Instance {0}: Unit of work was comitted.", instanceContext.GetHashCode());
 			}
 			catch
 			{
 				unitOfWork.Rollback();
-				_loggingService.LogDebug("InstanceProvider {0}: Unit of work was rolled back.", instanceContext.GetHashCode());
+				_loggingService.LogDebug("Instance {0}: Unit of work was rolled back.", instanceContext.GetHashCode());
 			}
 			finally
 			{
 				unitOfWork.Dispose();
-				_loggingService.LogDebug("InstanceProvider {0}: Unit of work was disposed.", instanceContext.GetHashCode());
+				_loggingService.LogDebug("Instance {0}: Unit of work was disposed.", instanceContext.GetHashCode());
 			}
 		}
 	}

@@ -3,7 +3,7 @@ using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 {
-	[DataContract(Namespace = "http://www.synologen.se/service.web.external/")]
+	[DataContract(Namespace = ServiceSettings.Namespace)]
 	public class Customer
 	{
 		[DataMember] public string PersonalNumber { get; set; }

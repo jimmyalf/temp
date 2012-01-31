@@ -3,7 +3,7 @@ using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 {
-	[DataContract(Namespace = "http://www.synologen.se/service.web.external/")]
+	[DataContract(Namespace = ServiceSettings.Namespace)]
 	public class AuthenticationContext
 	{
 		[DataMember] public string UserName { get; set; }
@@ -15,7 +15,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 				.With(x => x.UserName)
 				.With(x => x.Password)
 				.ToString();
-			return "{ UserName: " + UserName + ", Password: " + Password + " }";
 		}
 	}
 }

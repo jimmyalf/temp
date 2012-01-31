@@ -1,4 +1,4 @@
-﻿namespace Synologen.Service.Web.External.AcceptanceTest.Domain
+﻿namespace Spinit.Wpc.Synologen.Core.Domain.Services.Web.External
 {
 	public static class ServiceSettings
 	{

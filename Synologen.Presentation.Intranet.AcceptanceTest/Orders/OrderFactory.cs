@@ -89,7 +89,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				Customer = customer,
                 SubscriptionPayment = subscriptionItem,
 				Shop = shop,
-                SelectedPaymentOption = new PaymentOption {Type = PaymentOptionType.Subscription_Autogiro_New}
+                SelectedPaymentOption = new PaymentOption {Type = PaymentOptionType.Subscription_Autogiro_New},
+				OrderTotalWithdrawalAmount = 8000
 			};
 		}
 

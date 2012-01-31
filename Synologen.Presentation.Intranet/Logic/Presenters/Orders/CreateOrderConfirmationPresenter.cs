@@ -64,18 +64,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 //TODO: are these correct??
                 //View.Model.PaymentOption = GetPaymentOptionString(order.SelectedPaymentOption.Type); 
                 View.Model.DeliveryOption = GetDeliveryOptionString(order.ShippingType);
-                View.Model.TaxedAmount = order.SubscriptionPayment.TaxedAmount + " kr";
-                View.Model.TaxfreeAmount = order.SubscriptionPayment.TaxFreeAmount + " kr";
-                View.Model.Monthly = order.SubscriptionPayment.AmountForAutogiroWithdrawal + " kr";
-                
-                var totalValue = (order.SubscriptionPayment.TaxedAmount + order.SubscriptionPayment.TaxFreeAmount)*
-                                 order.SubscriptionPayment.NumberOfPayments;
-                
-                View.Model.TotalWithdrawal = totalValue + " kr";
+                View.Model.TaxedAmount = GetCurrencyString(order.SubscriptionPayment.TaxedAmount);
+                View.Model.TaxfreeAmount = GetCurrencyString(order.SubscriptionPayment.TaxFreeAmount);
+                View.Model.Monthly = GetCurrencyString(order.SubscriptionPayment.AmountForAutogiroWithdrawal);
+            	View.Model.TotalWithdrawal = GetCurrencyString(order.OrderTotalWithdrawalAmount);
                 View.Model.SubscriptionTime = GetSubscriptionTimeString(order.SubscriptionPayment.NumberOfPayments);
             }
             
         }
+
+    	private string GetCurrencyString(decimal? value)
+		{
+			return value.HasValue ? value.Value.ToString("C") : 0.ToString("C");
+		}
 
         public void View_Submit(object o, EventArgs eventArgs)
         {

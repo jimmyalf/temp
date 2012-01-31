@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.ServiceModel;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
@@ -37,18 +38,16 @@ namespace Synologen.Service.Web.External.App
 		public AddEntityResponse AddCustomer(AuthenticationContext authenticationContext, Customer customer)
 		{
 			_loggingService.LogInfo("AddCustomer called");
-
 			var authenticationResult = CheckAuthentication(authenticationContext);
 			if(!authenticationResult.IsAuthenticated) return new AddEntityResponse(AddEntityResponseType.AuthenticationFailed);
 
 			var validationResult = ValidateInput(customer);
 			if(validationResult.HasErrors) return new AddEntityResponse(AddEntityResponseType.ValidationFailed, validationResult.Errors);
 
-			var foundCustomer = CheckCustomerExists(customer);
+			var foundCustomer = TryGetCustomer(customer);
 			if(foundCustomer != null) return new AddEntityResponse(AddEntityResponseType.EntityAlreadyExists);
 
 			var storedCustomer = StoreCustomer(authenticationResult, customer);
-
 			_loggingService.LogInfo("Customer was stored with id {0}", storedCustomer.Id);
 			return new AddEntityResponse(AddEntityResponseType.EntityWasAdded);
 		}
@@ -66,7 +65,7 @@ namespace Synologen.Service.Web.External.App
 			var authenticationResult = _shopAuthenticationService.Authenticate(context);
 			if(!authenticationResult.IsAuthenticated)
 			{
-				_loggingService.LogError("Authentication failed for context " + context);
+				_loggingService.LogWarning("Authentication failed for context " + context);
 			}
 			return authenticationResult;
 		}
@@ -76,12 +75,12 @@ namespace Synologen.Service.Web.External.App
 			var validationResult = _customerValidator.Validate(customer);
 			if (validationResult.HasErrors)
 			{
-				_loggingService.LogError("Validation failed for customer {0} :\r\nValidationErrors: {1}.", customer, validationResult.GetErrorMessage());	
+				_loggingService.LogWarning("Validation failed for customer {0} :\r\nValidationErrors: {1}.", customer, validationResult.GetErrorMessage());	
 			}
 			return validationResult;
 		}
 
-		private OrderCustomer CheckCustomerExists(Customer customer)
+		private OrderCustomer TryGetCustomer(Customer customer)
 		{
 			return _customerRepository
 				.FindBy(new FindCustomerByPersonalNumberCriteria(customer.PersonalNumber))

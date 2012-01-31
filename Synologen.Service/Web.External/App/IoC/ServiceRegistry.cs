@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using System.ServiceModel.Dispatcher;
+using NHibernate;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
@@ -16,6 +17,9 @@ namespace Synologen.Service.Web.External.App.IoC
 	{
 		public ServiceRegistry()
 		{
+			//WCF
+			For<IErrorHandler>().Use<ErrorHandler>();
+
 			//NHibernate
 			For<ISessionFactory>().Singleton().Use(NHibernateFactory.Instance.GetSessionFactory);
 			For<IUnitOfWork>().LifecycleIs(new WcfPerOperationLifecycle()).Use<NHibernateUnitOfWork>();

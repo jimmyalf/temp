@@ -26,6 +26,7 @@
 	</div>
 	<asp:ContentPlaceHolder id="SubMenu" runat="server"></asp:ContentPlaceHolder>	
     <div id="synologen-content">
+    	<%=Html.Messages() %>
         <asp:contentplaceholder id="MainContent" runat="server"></asp:contentplaceholder>
     </div>
 </asp:Content>

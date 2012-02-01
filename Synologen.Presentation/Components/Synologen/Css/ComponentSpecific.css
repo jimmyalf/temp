@@ -64,7 +64,7 @@ ul.action-messages{
   clear:both;
   display:block;
   float:left;
-  top:-10px;
+  /*top:-10px;*/
   width:100%;
   background-origin:initial;
   background-position:0 0;

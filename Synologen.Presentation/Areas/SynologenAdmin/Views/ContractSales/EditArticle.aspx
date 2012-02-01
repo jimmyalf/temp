@@ -3,7 +3,7 @@
 <div id="dCompMain" class="Components-Synologen-ContractSales-EditArticle-aspx">
 	<div class="fullBox">
 		<div class="wrap">
-			<% Html.RenderPartial("ArticleForm", Model); %>									
+			<% Html.RenderPartial("ArticleForm", Model); %>			
 		</div>
 	</div>
 </div>	

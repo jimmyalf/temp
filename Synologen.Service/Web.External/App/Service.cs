@@ -44,7 +44,11 @@ namespace Synologen.Service.Web.External.App
 			if(validationResult.HasErrors) return new AddEntityResponse(AddEntityResponseType.ValidationFailed, validationResult.Errors);
 
 			var foundCustomer = TryGetCustomer(customer);
-			if(foundCustomer != null) return new AddEntityResponse(AddEntityResponseType.EntityAlreadyExists);
+			if(foundCustomer != null)
+			{
+				_loggingService.LogInfo("Customer could not be added because a matching customer already exists.");
+				return new AddEntityResponse(AddEntityResponseType.EntityAlreadyExists);
+			}
 
 			var storedCustomer = StoreCustomer(authenticationResult, customer);
 			_loggingService.LogInfo("Customer was stored with id {0}", storedCustomer.Id);

@@ -29,9 +29,9 @@
  						column.For(x => x.Name).Named("Artikel");
 					    column.For(x => x.Type).Named("Typ");
 					    column.For(x => x.Supplier).Named("Leverantör");
-						column.For(x => Html.ActionLink("Redigera", "ArticleForm", "Order", new {id = x.ArticleId}, new object()))
-							.SetAsWpcControlColumn("Redigera");
- 					}).Empty("Inga abonnemang i databasen.")
+						column.For(x => Html.ActionLink("Redigera", "ArticleForm", "Order", new {id = x.ArticleId}, new object())).SetAsWpcControlColumn("Redigera");
+						column.For(x => Html.WpcGridDeleteForm(x, "DeleteArticle", "Order", new {id = x.ArticleId}).OverrideButtonAttributes(title => "Radera artikel")).SetAsWpcControlColumn("Radera");
+ 					}).Empty("Inga artiklar i databasen.")
 				%>
 			</div>
 		</div>     						

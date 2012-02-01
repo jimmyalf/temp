@@ -257,6 +257,9 @@
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfTransactionArticlesMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\TransactionsForSubscriptionMatchingCriteria.cs.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\PageOfSubscriptionsMatchingCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllArticlesWithArticleTypeCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllArticlesWithSupplierCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllOrdersWithArticleCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\FindCustomerByPersonalNumberCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\FindShopByUserNameAndHashedPasswordCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\PageOfArticlesMatchingCriteria.cs" />

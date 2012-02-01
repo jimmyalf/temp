@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Spinit.Data;
@@ -138,6 +139,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return Redirect("ArticleTypes");
 		}
 
+		[HttpPost]
+		public ActionResult DeleteArticleType(int id)
+		{
+			var anyArticleWithArticleType = _articleRepository.FindBy(new AllArticlesWithArticleTypeCriteria(id)).Any();
+			if(anyArticleWithArticleType)
+			{
+				this.AddErrorMessage("Artikeltypen kunde inte raderas då den är knuten till en eller flera artiklar");
+				return RedirectToAction("ArticleTypes");
+			}
+			var articleType = _articleTypeRepository.Get(id);
+			_articleTypeRepository.Delete(articleType);
+
+			this.AddSuccessMessage("Artikeltypen har raderats");
+			return RedirectToAction("ArticleTypes");
+		}
+
 		#endregion
 
 		#region Suppliers
@@ -175,6 +192,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			var supplier = _orderViewParser.GetEntity(viewModel, _articleSupplierRepository.Get);
 			_articleSupplierRepository.Save(supplier);
 			return Redirect("Suppliers");
+		}
+
+		[HttpPost]
+		public ActionResult DeleteSupplier(int id)
+		{
+			var anyArticleWithSupplier = _articleRepository.FindBy(new AllArticlesWithSupplierCriteria(id)).Any();
+			if(anyArticleWithSupplier)
+			{
+				this.AddErrorMessage("Leverantören kunde inte raderas då den är knuten till en eller flera artiklar");
+				return RedirectToAction("Suppliers");
+			}
+			var supplier = _articleSupplierRepository.Get(id);
+			_articleSupplierRepository.Delete(supplier);
+
+			this.AddSuccessMessage("Leverantören har raderats");
+			return RedirectToAction("Suppliers");
 		}
 
 		#endregion
@@ -219,6 +252,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			var article = _orderViewParser.GetEntity(viewModel, _articleRepository.Get, _articleSupplierRepository.Get, _articleTypeRepository.Get);
 			_articleRepository.Save(article);
 			return Redirect("Articles");
+		}
+
+		[HttpPost]
+		public ActionResult DeleteArticle(int id)
+		{
+			var anyOrdersWithArticle = _orderRepository.FindBy(new AllOrdersWithArticleCriteria(id)).Any();
+			if(anyOrdersWithArticle)
+			{
+				this.AddErrorMessage("Artikeln kunde inte raderas då den är knuten till en eller flera beställningar");
+				return RedirectToAction("Articles");
+			}
+			var article = _articleRepository.Get(id);
+			_articleRepository.Delete(article);
+
+			this.AddSuccessMessage("Artikeln har raderats");
+			return RedirectToAction("Articles");
 		}
 
 		#endregion

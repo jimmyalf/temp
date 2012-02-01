@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FakeItEasy;
 using FakeItEasy.Core;
 using NUnit.Framework;
@@ -138,7 +139,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private void VisasEnSammanställningAvOrdern()
         {
             var order = WithRepository<IOrderRepository>().Get(_order.Id);
-
             View.Model.Address.ShouldBe(String.Format("{0} {1}", order.Customer.AddressLineOne ?? "", order.Customer.AddressLineTwo ?? ""));
             View.Model.City.ShouldBe(order.Customer.City);
             View.Model.Email.ShouldBe(order.Customer.Email ?? "");

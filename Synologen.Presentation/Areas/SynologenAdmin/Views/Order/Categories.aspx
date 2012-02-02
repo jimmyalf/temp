@@ -29,6 +29,7 @@
  						column.For(x => x.CategoryId).Named("ID").HeaderAttributes(@class => "controlColumn");
  						column.For(x => x.Name).Named("Kategori");
 						column.For(x => Html.ActionLink("Redigera", "CategoryForm", "Order", new {id = x.CategoryId}, new object())).SetAsWpcControlColumn("Redigera");
+						column.For(x => Html.WpcGridDeleteForm(x, "DeleteCategory", "Order", new {id = x.CategoryId}).OverrideButtonAttributes(title => "Radera kategori")).SetAsWpcControlColumn("Radera");
  					}).Empty("Inga kategorier i databasen.")
 				%>
 			</div>

@@ -100,6 +100,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return Redirect("Categories");
 		}
 
+		[HttpPost]
+		public ActionResult DeleteCategory(int id)
+		{
+			var anyArticleTypeWithCategory = _articleTypeRepository.FindBy(new AllArticleTypesWithCategoryCriteria(id)).Any();
+			if(anyArticleTypeWithCategory)
+			{
+				this.AddErrorMessage("Artikelkategorin kunde inte raderas då den är knuten till en eller flera artikeltyper");
+				return RedirectToAction("Categories");
+			}
+			var category = _articleCategoryRepository.Get(id);
+			_articleCategoryRepository.Delete(category);
+
+			this.AddSuccessMessage("Artikelkategorin har raderats");
+			return RedirectToAction("Categories");
+		}
+
 		#endregion
 		
 		#region ArticleTypes

@@ -14,7 +14,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			{
 				ArticleTypeId = item.Id.ToString(), 
 				Name = item.Name,
-				CategoryName = item.Category.Name
+				CategoryName = item.Category.Name,
+				Active = item.Active
 			};
 		}
 	}
@@ -23,5 +24,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public string ArticleTypeId { get; set; }
 		public string Name { get; set; }
 		public string CategoryName { get; set; }
+		public bool Active { get; set; }
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Presentation.Models.Order;
 
@@ -27,34 +26,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		{
 			var category = GetStoredItemOrNew(viewModel.Id, getArticle);
 			category.Name = viewModel.Name;
+			category.Active = viewModel.Active;
 			return category;
 		}
-
 		public ArticleType GetEntity(ArticleTypeFormView viewModel, Func<int, ArticleType> getArticleType, Func<int,ArticleCategory> getCategory)
 		{
 			var articleType = GetStoredItemOrNew(viewModel.Id, getArticleType);
 			var category = GetStoredItemOrNew(viewModel.CategoryId, getCategory);
 			articleType.Name = viewModel.Name;
 			articleType.Category = category;
+			articleType.Active = viewModel.Active;
 			return articleType;
 		}
-
-		public CategoryFormView GetCategoryFormView(int? id, Func<int,ArticleCategory> getArticle)
+		public ArticleSupplier GetEntity(SupplierFormView viewModel, Func<int, ArticleSupplier> getSupplier)
 		{
-			var category = GetStoredItemOrNew(id, getArticle);
-			return new CategoryFormView {Id = id, Name = category.Name};
+			var supplier = GetStoredItemOrNew(viewModel.Id, getSupplier);
+			supplier.Name = viewModel.Name;
+			supplier.ShippingOptions = viewModel.GetShippingOptions();
+			supplier.OrderEmailAddress = viewModel.OrderEmailAddress;
+			supplier.Active = viewModel.Active;
+			return supplier;
 		}
-
-		public ArticleTypeFormView GetArticleTypeFormView(int? id, Func<int, ArticleType> getArticleType, Func<IEnumerable<ArticleCategory>> getCategories)
-		{
-			var articleType = GetStoredItemOrNew(id, getArticleType);
-			var categories = getCategories();
-			return new ArticleTypeFormView(categories, id, articleType.Name)
-			{
-				CategoryId = articleType.With(x => x.Category).Return(x => x.Id, default(int)),
-			};
-		}
-
 		public Article GetEntity(ArticleFormView viewModel, Func<int, Article> getArticle, Func<int,ArticleSupplier> getSupplier, Func<int,ArticleType> getType)
 		{
 			var article = GetStoredItemOrNew(viewModel.Id, getArticle);
@@ -64,30 +56,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			article.ArticleType = type;
 			article.Name = viewModel.Name;
 			article.Options = viewModel.GetArticleOptions();
+			article.Active = viewModel.Active;
 			return article;
 		}
 
+		public CategoryFormView GetCategoryFormView(int? id, Func<int,ArticleCategory> getArticle)
+		{
+			var category = GetStoredItemOrNew(id, getArticle);
+			return new CategoryFormView(id, category);
+		}
+		public ArticleTypeFormView GetArticleTypeFormView(int? id, Func<int, ArticleType> getArticleType, Func<IEnumerable<ArticleCategory>> getCategories)
+		{
+			var articleType = GetStoredItemOrNew(id, getArticleType);
+			var categories = getCategories();
+			return new ArticleTypeFormView(categories, id, articleType);
+		}
 		public ArticleFormView GetArticleFormView(int? id, Func<int, Article> getArticle, Func<IEnumerable<ArticleSupplier>> getSuppliers, Func<IEnumerable<ArticleType>> getTypes)
 		{
 			var article = GetStoredItemOrNew(id, getArticle);
 			var suppliers = getSuppliers();
 			var types = getTypes();
-			return new ArticleFormView(suppliers, types, id, article.Name, article.Options)
-			{
-				SupplierId = article.With(x => x.ArticleSupplier).Return(x => x.Id, default(int)),
-				TypeId = article.With(x => x.ArticleType).Return(x => x.Id, default(int)),
-			};
+			return new ArticleFormView(suppliers, types, id, article);
 		}
-
-		public ArticleSupplier GetEntity(SupplierFormView viewModel, Func<int, ArticleSupplier> getSupplier)
-		{
-			var supplier = GetStoredItemOrNew(viewModel.Id, getSupplier);
-			supplier.Name = viewModel.Name;
-			supplier.ShippingOptions = viewModel.GetShippingOptions();
-			supplier.OrderEmailAddress = viewModel.OrderEmailAddress;
-			return supplier;
-		}
-
 		public SupplierFormView GetSupplierFormView(int? id, Func<int, ArticleSupplier> getSupplier)
 		{
 			var supplier = GetStoredItemOrNew(id, getSupplier);

@@ -7,8 +7,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 {
 	public class SupplierFormView : CommonFormView
 	{
-		public SupplierFormView() { }
-		public SupplierFormView(int? id = null, ArticleSupplier supplier = null) : base(id)
+		public SupplierFormView()
+		{
+			Active = true;
+		}
+		public SupplierFormView(int? id, ArticleSupplier supplier) : base(id)
 		{
 			if(supplier == null) return;
 			Name = supplier.Name;
@@ -16,7 +19,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			ShipToCustomer = supplier.ShippingOptions.HasFlag(OrderShippingOption.ToCustomer);
 			DeliveredOverCounter = supplier.ShippingOptions.HasFlag(OrderShippingOption.DeliveredInStore);
 			OrderEmailAddress = supplier.OrderEmailAddress;
+			Active = supplier.Active;
 		}
+
+		[DisplayName("Aktiv")]
+		public bool Active { get; set; }
 
 		[DisplayName("Till Butik")]
 		public bool ShipToStore { get; set; }

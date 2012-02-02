@@ -153,6 +153,10 @@
 								<%=Html.ValidationMessageFor(x => x.Power.Increment)%>
 							</p>
 					</fieldset>
+					<p class="formItem clearLeft">
+						<%= Html.LabelFor(x => x.Active)%>
+						<%= Html.EditorFor(x => x.Active)%>
+					</p>
 					<p class="formItem formCommands">
 						<%= Html.AntiForgeryToken() %>
 						<%= Html.HiddenFor(x => x.Id) %>

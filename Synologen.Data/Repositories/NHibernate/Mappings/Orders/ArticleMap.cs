@@ -52,9 +52,9 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 					innerMap.Map(x => x.DisableDefinition).Column("AdditionDisableDefinition");
                 });
             });
-
             References(x => x.ArticleType).Column("ArticleTypeId");
             References(x => x.ArticleSupplier).Column("ArticleSupplierId");
+			Map(x => x.Active);
         }
     }
 }

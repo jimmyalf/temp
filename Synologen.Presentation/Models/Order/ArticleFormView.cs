@@ -23,19 +23,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			Cylinder = new OptionalSequenceDefinitionView();
 			Diameter = new SequenceDefinitionView();
 			Power = new SequenceDefinitionView();
+			Active = true;
 		}
 
-		public ArticleFormView(IEnumerable<ArticleSupplier> suppliers, IEnumerable<ArticleType> types, int? id = null, string name = null, ArticleOptions options = null) : base(id)
+		public ArticleFormView(IEnumerable<ArticleSupplier> suppliers, IEnumerable<ArticleType> types, int? id, Article article) : base(id)
 		{
-			Name = name;
+			Name = article.Name;
 			SetSuppliers(suppliers);
 			SetTypes(types);
-			Addition = options.GetOptinalDefinitionView(x => x.Addition);
-			Axis = options.GetOptinalDefinitionView(x => x.Axis);
-			BaseCurve = options.GetDefinitionView(x => x.BaseCurve);
-			Cylinder = options.GetOptinalDefinitionView(x => x.Cylinder);
-			Diameter = options.GetDefinitionView(x => x.Diameter);
-			Power = options.GetDefinitionView(x => x.Power);
+			Addition = article.Options.GetOptinalDefinitionView(x => x.Addition);
+			Axis = article.Options.GetOptinalDefinitionView(x => x.Axis);
+			BaseCurve = article.Options.GetDefinitionView(x => x.BaseCurve);
+			Cylinder = article.Options.GetOptinalDefinitionView(x => x.Cylinder);
+			Diameter = article.Options.GetDefinitionView(x => x.Diameter);
+			Power = article.Options.GetDefinitionView(x => x.Power);
+			SupplierId = article.With(x => x.ArticleSupplier).Return(x => x.Id, default(int));
+			TypeId = article.With(x => x.ArticleType).Return(x => x.Id, default(int));
+			Active = article.Active;
 		}
 
 		public ArticleFormView SetSuppliers(IEnumerable<ArticleSupplier> suppliers)
@@ -49,6 +53,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			Types = types.ToSelectList(x => x.Id, x => x.Name);
 			return this;
 		}
+
+		[DisplayName("Aktiv")]
+		public bool Active { get; set; }
 
 		[DisplayName("Namn"), Required]
 		public string Name { get; set; }

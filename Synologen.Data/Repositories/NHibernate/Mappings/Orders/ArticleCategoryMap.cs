@@ -9,8 +9,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
         {
             Table("SynologenOrderArticleCategory");
             Id(x => x.Id);
-
             Map(x => x.Name);
+			Map(x => x.Active);
         }
     }
 }

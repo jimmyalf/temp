@@ -25,11 +25,15 @@
 						<%=Html.LabelFor(x => x.Name)%>
 						<%=Html.EditorFor(x => x.Name)%>
 					</p>
+					<p class="formItem clearLeft">
+						<%= Html.LabelFor(x => x.Active)%>
+						<%= Html.EditorFor(x => x.Active)%>
+					</p>
 					<p class="formItem formCommands">
 						<%= Html.AntiForgeryToken() %>
 						<%= Html.HiddenFor(x => x.Id) %>
 						<input type="submit" value="Spara artikeltyp" class="btnBig" />
-					</p>	
+					</p>
 					<p class="display-item clearLeft">
 						<a href='<%= Url.Action("ArticleTypes") %>'>Tillbaka till artikeltyper &raquo;</a>
 					</p>

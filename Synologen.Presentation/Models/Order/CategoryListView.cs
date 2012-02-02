@@ -11,7 +11,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 
 		public override CategoryListItem Convert(ArticleCategory item)
 		{
-			return new CategoryListItem {CategoryId = item.Id.ToString(), Name = item.Name};
+			return new CategoryListItem
+			{
+				CategoryId = item.Id.ToString(), 
+				Name = item.Name,
+				Active = item.Active
+			};
 		}
 	}
 
@@ -19,5 +24,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 	{
 		public string CategoryId { get; set; }
 		public string Name { get; set; }
+		public bool Active { get; set; }
 	}
 }

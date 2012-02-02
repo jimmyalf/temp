@@ -14,7 +14,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			{
 				SupplierId = item.Id.ToString(), 
 				Name = item.Name,
-				OrderEmail = item.OrderEmailAddress
+				OrderEmail = item.OrderEmailAddress,
+				Active = item.Active
 			};
 		}
 	}
@@ -24,5 +25,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public string SupplierId { get; set; }
 		public string Name { get; set; }
 		public string OrderEmail { get; set; }
+		public bool Active { get; set; }
 	}
 }

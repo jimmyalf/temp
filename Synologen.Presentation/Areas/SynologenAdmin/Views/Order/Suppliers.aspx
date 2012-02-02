@@ -27,6 +27,7 @@
 					{
  						column.For(x => x.SupplierId).Named("ID").HeaderAttributes(@class => "controlColumn");
  						column.For(x => x.Name).Named("Leverantör");
+						column.For(x => x.RenderCheckboxFor(prop=> prop.Active)).DoNotEncode().SetAsWpcControlColumn("Aktiv");
 						column.For(x => Html.ActionLink("Redigera", "SupplierForm", "Order", new {id = x.SupplierId}, new object())).SetAsWpcControlColumn("Redigera");
 						column.For(x => Html.WpcGridDeleteForm(x, "DeleteSupplier", "Order", new {id = x.SupplierId}).OverrideButtonAttributes(title => "Radera leverantör")).SetAsWpcControlColumn("Radera");
  					}).Empty("Inga leverantörer i databasen.")

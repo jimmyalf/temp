@@ -21,6 +21,10 @@
 						<%=Html.LabelFor(x => x.Name)%>
 						<%=Html.EditorFor(x => x.Name)%>
 					</p>
+					<p class="formItem clearLeft">
+						<%= Html.LabelFor(x => x.Active)%>
+						<%= Html.EditorFor(x => x.Active)%>
+					</p>
 					<p class="formItem formCommands">
 						<%= Html.AntiForgeryToken() %>
 						<%= Html.HiddenFor(x => x.Id) %>

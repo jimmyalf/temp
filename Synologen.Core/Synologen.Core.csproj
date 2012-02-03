@@ -193,7 +193,6 @@
     <Compile Include="Domain\Model\Orders\ArticleOptions.cs" />
     <Compile Include="Domain\Model\Orders\ArticleSupplier.cs" />
     <Compile Include="Domain\Model\Orders\ArticleType.cs" />
-    <Compile Include="Domain\Model\Orders\OrderArticle.cs" />
     <Compile Include="Domain\Model\Orders\OrderShippingOption.cs" />
     <Compile Include="Domain\Model\Orders\Order.cs" />
     <Compile Include="Domain\Model\Orders\OrderCustomer.cs" />

@@ -51,9 +51,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		protected Article CreateArticle(ArticleCategory category = null, ArticleType articleType = null, ArticleSupplier supplier = null)
 		{
-			category = category ?? CreateWithRepository<IArticleCategoryRepository, ArticleCategory>(OrderFactory.GetCategory);
+			category = category ?? CreateWithRepository<IArticleCategoryRepository, ArticleCategory>(() => OrderFactory.GetCategory());
 			articleType = articleType ?? CreateWithRepository<IArticleTypeRepository, ArticleType>(() => OrderFactory.GetArticleType(category));
-			supplier = supplier ?? CreateWithRepository<IArticleSupplierRepository, ArticleSupplier>(OrderFactory.GetSupplier);
+			supplier = supplier ?? CreateWithRepository<IArticleSupplierRepository, ArticleSupplier>(() =>OrderFactory.GetSupplier());
 			return CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(articleType, supplier));
 		}
 

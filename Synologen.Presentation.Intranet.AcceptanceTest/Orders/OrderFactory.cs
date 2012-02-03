@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
@@ -94,7 +95,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			};
 		}
 
-	    public static Article GetArticle(ArticleType articleType, ArticleSupplier supplier)
+	    public static Article GetArticle(ArticleType articleType, ArticleSupplier supplier, bool active = true)
 	    {
 	        return new Article
 	        {
@@ -109,7 +110,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                     Cylinder = new OptionalSequenceDefinition(-1, 2, 0.25F, false),
                     Diameter = new SequenceDefinition(-1, 2, 0.25F),
                     Addition = new OptionalSequenceDefinition(2,20,1, false)
-                }
+                },
+				Active = active
 	        };
 	    }
 
@@ -130,34 +132,40 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         public static IEnumerable<ArticleCategory> GetCategories()
         {
-            return Sequence.Generate(GetCategory, 15);
+            return 
+				Sequence.Generate(() => GetCategory(true), 15)
+				.Concat(Sequence.Generate(() =>GetCategory(false),15));
         }
 		public static IEnumerable<Subscription> GetSubscriptions(Shop shop, OrderCustomer customer)
 		{
 			return Sequence.Generate(seed => GetSubscription(shop, customer, seed), 15);
 		}
-        public static ArticleCategory GetCategory()
+        public static ArticleCategory GetCategory(bool active = true)
         {
-            return new ArticleCategory { Name = "Linser" };
+            return new ArticleCategory { Name = "Linser" , Active = active};
         }
 
 	    public static IEnumerable<ArticleType> GetArticleTypes(ArticleCategory category)
 	    {
-            return Sequence.Generate(() => GetArticleType(category), 4);
+            return Sequence.Generate(() => GetArticleType(category,true), 4)
+				.Concat(Sequence.Generate(() => GetArticleType(category, false), 4));
 	    }
 
-        public static ArticleType GetArticleType(ArticleCategory category)
+        public static ArticleType GetArticleType(ArticleCategory category, bool active = true)
         {
             return new ArticleType
             {
                 Name = "Endagslinser",
-                Category = category
+                Category = category,
+				Active = active
             };
         }
 
 	    public static IEnumerable<Article> GetArticles(ArticleType articleType, ArticleSupplier supplier)
 	    {
-	        return Sequence.Generate(() => GetArticle(articleType, supplier), 10);
+	        return 
+				Sequence.Generate(() => GetArticle(articleType, supplier, true), 10)
+				.Concat(Sequence.Generate(() => GetArticle(articleType, supplier, false), 10));
 	    }
 
         public static IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
@@ -190,15 +198,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 	    public static IEnumerable<ArticleSupplier> GetSuppliers()
 	    {
-	        return Sequence.Generate(GetSupplier, 5);
+	        return Sequence.Generate(() => GetSupplier(true), 5).Concat(Sequence.Generate(() => GetSupplier(false), 5));
 	    }
 
-        public static ArticleSupplier GetSupplier()
+        public static ArticleSupplier GetSupplier(bool active = true)
         {
             return new ArticleSupplier
             {
                 Name = "Johnsson & McBeth",
-                OrderEmailAddress = "erik.kinding@spinit.se"
+                OrderEmailAddress = "erik.kinding@spinit.se",
+				Active = active
             };
         }
 

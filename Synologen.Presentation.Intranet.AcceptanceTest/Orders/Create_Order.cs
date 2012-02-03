@@ -25,17 +25,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private string _testRedirectPreviousUrl;
         private OrderCustomer _customer;
         private Article _article;
-		//private int _articleId;
-        private IEnumerable<ArticleCategory> _expectedCategories;
-        private IEnumerable<ArticleType> _expectedArticleTypes;
-        private IEnumerable<Article> _expectedArticles;
-        private IEnumerable<ArticleSupplier> _expectedSuppliers;
+        private IEnumerable<ArticleCategory> _allCategories;
+        private IEnumerable<ArticleType> _allArticleTypes;
+        private IEnumerable<Article> _allArticles;
+        private IEnumerable<ArticleSupplier> _allSuppliers;
         private Article _expectedArticle;
-        private int _selectedCategoryId;
-        private int _selectedArticleTypeId;
-        private int _selectedSupplierId;
         private Order _order;
     	private Shop _shop;
+    	private ArticleCategory _selectedCategory;
+    	private ArticleType _selectedArticleType;
+    	private ArticleSupplier _selectedSupplier;
 
     	public When_creating_an_order()
         {
@@ -78,30 +77,35 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
 
         [Test]                                                                            
-        public void ArtikeltyperLaddas()                                                  
-        {                                                                                 
+        public void ArtikeltyperLaddas()
+        {
             SetupScenario(scenario => scenario
-                .Givet(AttDetFinnsArtikeltyperAttLaddaFrånValdKategori)
-                .När(AnvändarenVäljerEnKategori)                                          
-                .Så(LaddasArtikeltyper));
+				.Givet(DetFinnsArtikelkategorierAttLadda)
+					.Och(AttDetFinnsArtikeltyperAttLaddaFrånValdKategori)
+                .När(AnvändarenVäljerEnKategori)
+                .Så(LaddasAktivaArtikeltyper));
         }
 
         [Test] 
         public void LeverantörerLaddas()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttDetFinnsLeverantörerMedArtiklarAvValdArtikeltyp)
+				.Givet(AttDetFinnsLeverantörerMedArtiklarAvValdArtikeltyp)
                 .När(AnvändarenVäljerEnArtikeltyp)
-                .Så(LaddasLeverantörer));
+                .Så(LaddasAktivaLeverantörer)
+			);
         }
 
         [Test]                                                                            
         public void ArtiklarLaddas()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttDetFinnsArtiklarAttLaddaFrånValdLeverantörOchArtikeltyp)
+				.Givet(DetFinnsArtikelkategorierAttLadda)
+					.Och(AttDetFinnsArtikeltyperAttLaddaFrånValdKategori)
+					.Och(AttDetFinnsLeverantörerMedArtiklarAvValdArtikeltyp)
+					.Och(AttDetFinnsArtiklarAttLaddaFrånValdLeverantörOchArtikeltyp)
                 .När(AnvändarenVäljerEnLeverantör)
-                .Så(LaddasArtiklar));
+                .Så(LaddasAktivaArtiklar));
         }
 
         [Test]
@@ -113,15 +117,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .Så(LaddasArtikelnsAlternativ));
         }
 
-        [Test]                                                                            
-		public void FöregåendeSteg()                                                      
-		{                                                                                 
-		    SetupScenario(scenario => scenario                                            
-				.Givet(AttEnKundÄrVald)                     
-		        .När(AnvändarenKlickarPåFöregåendeSteg)                                   
-		        .Så(FörflyttasAnvändarenTillFöregåendeSteg)                                                           
-			);                                                                            
-		}                                                                                 
+        [Test]
+		public void FöregåendeSteg()
+		{
+		    SetupScenario(scenario => scenario
+				.Givet(AttEnKundÄrVald)
+		        .När(AnvändarenKlickarPåFöregåendeSteg)
+		        .Så(FörflyttasAnvändarenTillFöregåendeSteg)
+			);
+		}
 
         [Test]
         public void NästaSteg()
@@ -165,80 +169,34 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AttDetFinnsEnSparadArtikelAttVälja()
         {
-
-			_expectedArticle = CreateArticle();//OrderFactory.GetArticle(null, null);
-            //WithRepository<IArticleRepository>().Save(_expectedArticle);
+			_expectedArticle = CreateArticle();
         }
 
         private void DetFinnsArtikelkategorierAttLadda()
         {
-            _expectedCategories = OrderFactory.GetCategories();
-
-            var newCategories = new List<ArticleCategory>();
-
-            foreach (var expectedCategory in _expectedCategories)
-            {
-                WithRepository<IArticleCategoryRepository>().Save(expectedCategory);
-                newCategories.Add(expectedCategory);
-            }
-            _expectedCategories = newCategories;
+        	_allCategories = CreateItemsWithRepository<IArticleCategoryRepository, ArticleCategory>(OrderFactory.GetCategories);
         }
 
         private void AttDetFinnsArtikeltyperAttLaddaFrånValdKategori()
         {
-            var category = OrderFactory.GetCategory();
-            WithRepository<IArticleCategoryRepository>().Save(category);
-            _selectedCategoryId = category.Id;
-
-            _expectedArticleTypes = OrderFactory.GetArticleTypes(category);
-            var newArticleTypes = new List<ArticleType>();
-
-            foreach (var expectedArticleType in _expectedArticleTypes)
-            {
-                WithRepository<IArticleTypeRepository>().Save(expectedArticleType);
-                newArticleTypes.Add(expectedArticleType);
-            }
-
-            _expectedArticleTypes = newArticleTypes;
+        	_selectedCategory = _allCategories.First();
+        	_allArticleTypes = CreateItemsWithRepository<IArticleTypeRepository, ArticleType>(() => OrderFactory.GetArticleTypes(_selectedCategory));
         }
 
         private void AttDetFinnsArtiklarAttLaddaFrånValdLeverantörOchArtikeltyp()
         {
-            var articleType = OrderFactory.GetArticleType(null);
-            WithRepository<IArticleTypeRepository>().Save(articleType);
-            _selectedArticleTypeId = articleType.Id;
-
-            var articleSupplier = OrderFactory.GetSupplier();
-            WithRepository<IArticleSupplierRepository>().Save(articleSupplier);
-            _selectedSupplierId = articleSupplier.Id;
-
-            _expectedArticles = OrderFactory.GetArticles(articleType, articleSupplier);
-            var newArticles = new List<Article>();
-
-            foreach (var expectedArticle in _expectedArticles)
-            {
-                WithRepository<IArticleRepository>().Save(expectedArticle);
-                newArticles.Add(expectedArticle);
-            }
-
-            _expectedArticles = newArticles;
+        	_selectedArticleType = _allArticleTypes.First();
+        	_selectedSupplier = _allSuppliers.First();
+        	_allArticles = CreateItemsWithRepository<IArticleRepository,Article>(() =>OrderFactory.GetArticles(_selectedArticleType, _selectedSupplier));
         }
 
-        //TODO: add more data
         private void AttDetFinnsLeverantörerMedArtiklarAvValdArtikeltyp()
         {
-            var articleType = OrderFactory.GetArticleType(null);
-            WithRepository<IArticleTypeRepository>().Save(articleType);
-            _selectedArticleTypeId = articleType.Id;
-
-            var articleSupplier = OrderFactory.GetSupplier();
-            WithRepository<IArticleSupplierRepository>().Save(articleSupplier);
-            _expectedSuppliers = new List<ArticleSupplier> { articleSupplier };
-
-            _expectedArticles =
-                CreateItemsWithRepository<IArticleRepository, Article>(
-                    () => OrderFactory.GetArticles(articleType, articleSupplier));
-
+        	_selectedCategory = CreateWithRepository<IArticleCategoryRepository,ArticleCategory>(() =>OrderFactory.GetCategory());
+        	_selectedArticleType = CreateWithRepository<IArticleTypeRepository, ArticleType>(() => OrderFactory.GetArticleType(_selectedCategory));
+        	_allSuppliers = CreateItemsWithRepository<IArticleSupplierRepository, ArticleSupplier>(OrderFactory.GetSuppliers).ToList();
+			//Create an article for each supplier
+        	_allSuppliers.Each(supplier => CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(_selectedArticleType, supplier)));
         }
 
     	private void AttEnKundÄrVald()
@@ -275,10 +233,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void ValdArtikelFinnsSparad()
         {
-			//_article = OrderFactory.GetArticle(null, null);
-			//WithRepository<IArticleRepository>().Save(_article);
         	_article = CreateArticle();
-            //_articleId = _article.Id;
         }
 
 		private void AttAnvändarenFylltIBeställningsformuläret()
@@ -297,22 +252,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AnvändarenVäljerArtikeln()
         {
-            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(0, 0, 0, _expectedArticle.Id));
+            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(selectedArticleId: _expectedArticle.Id));
         }
 
         private void AnvändarenVäljerEnArtikeltyp()
         {
-            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(0, _selectedArticleTypeId, 0, 0));
+            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(selectedArticleTypeId: _selectedArticleType.Id));
         }
 
         private void AnvändarenVäljerEnLeverantör()
         {
-            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(0, _selectedArticleTypeId, _selectedSupplierId, 0));
+            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(selectedArticleTypeId: _selectedArticleType.Id, selectedSupplierId: _selectedSupplier.Id));
         }
 
         private void AnvändarenVäljerEnKategori()
         {
-            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(_selectedCategoryId, 0, 0, 0));
+            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(_selectedCategory.Id));
         }
 
     	private void AttAnvändarenVisarBeställningsformuläret()
@@ -403,36 +358,34 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             //View.Model.DiameterOptionsEnabled.ShouldBe(_expectedArticle.Options.Diameter.Increment > 0);
         }
 
-        private void LaddasLeverantörer()
+        private void LaddasAktivaLeverantörer()
         {
-            var viewModelSuppliers = View.Model.Suppliers.ToList();
-            viewModelSuppliers.RemoveAt(0);
+            var viewModelSuppliers = View.Model.Suppliers.ToList().Skip(1);
+        	var activeSuppliers = _allSuppliers.Where(x => x.Active);
 
-            viewModelSuppliers.And(_expectedSuppliers).Do((viewModelItem, domainItem) =>
+            viewModelSuppliers.And(activeSuppliers).Do((viewModelItem, domainItem) =>
             {
                 viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Name);
             });
         }
 
-        private void LaddasArtiklar()
+        private void LaddasAktivaArtiklar()
         {
-            var viewModelArticles = View.Model.OrderArticles.ToList();
-            viewModelArticles.RemoveAt(0);
-
-            viewModelArticles.And(_expectedArticles).Do((viewModelItem, domainItem) =>
+            var viewModelArticles = View.Model.OrderArticles.ToList().Skip(1);
+        	var activeArticles = _allArticles.Where(x => x.Active);
+            viewModelArticles.And(activeArticles).Do((viewModelItem, domainItem) =>
             {
                 viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Name);
             });
         }
-
-        private void LaddasArtikeltyper()
+		
+        private void LaddasAktivaArtikeltyper()
         {
-            var viewModelArticleTypes = View.Model.ArticleTypes.ToList();
-            viewModelArticleTypes.RemoveAt(0);
-
-            viewModelArticleTypes.And(_expectedArticleTypes).Do((viewModelItem, domainItem) =>
+            var viewModelArticleTypes = View.Model.ArticleTypes.ToList().Skip(1);
+        	var activeArticleTypes = _allArticleTypes.Where(x => x.Active);
+            viewModelArticleTypes.And(activeArticleTypes).Do((viewModelItem, domainItem) =>
             {
                 viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Name);
@@ -441,9 +394,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void ArtikelkategorierLaddas()
         {
-            var viewModelCategories = View.Model.Categories.ToList();
-            viewModelCategories.RemoveAt(0);
-            viewModelCategories.And(_expectedCategories).Do((viewModelItem, domainItem) =>
+            var viewModelCategories = View.Model.Categories.ToList().Skip(1);
+        	var activeCategories = _allCategories.Where(x => x.Active);
+            viewModelCategories.And(activeCategories).Do((viewModelItem, domainItem) =>
             {
                 viewModelItem.Value.ShouldBe(domainItem.Id.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Name);

@@ -269,7 +269,7 @@
     <Compile Include="Domain\Persistence\Criterias\Orders\PageOfSuppliersMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\SortedPagedSearchCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\ShopDetails\NearbyShopsCriteria.cs" />
-    <Compile Include="Domain\Persistence\Criterias\Orders\ActiveAndConsentedSubscriptionsForCustomerCritieria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\ActiveSubscriptionsForCustomerCritieria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\ArticlesBySupplierAndArticleType.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\ArticleSuppliersBySelectedArticleType.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\ArticleTypesBySupplier.cs" />

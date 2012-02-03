@@ -145,7 +145,7 @@
     <Compile Include="Repositories\CriteriaConverters\Orders\PageOfOrdersMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\PageOfSuppliersMatchingCriteriaConvertner.cs" />
     <Compile Include="Repositories\CriteriaConverters\ShopDetails\NearbyShopsCriteriaConverter.cs" />
-    <Compile Include="Repositories\CriteriaConverters\Orders\ActiveAndConsentedSubscriptionsForCustomerCritieriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\ActiveSubscriptionsForCustomerCritieriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\ArticlesBySupplierAndArticleTypeCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\ArticleSuppliersBySelectedArticleTypeCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\ArticleTypesByCategoryIdCriteriaConverter.cs" />

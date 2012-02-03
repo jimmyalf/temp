@@ -65,19 +65,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             if(args.SelectedCategoryId > 0)
             {
                 var criteria = new ArticleTypesByCategory(args.SelectedCategoryId);
-                var articleTypes = _articleTypeRepository.FindBy(criteria);
+                var articleTypes = _articleTypeRepository.FindBy(criteria).Where(x => x.Active);
                 View.Model.ArticleTypes = _viewParser.ParseWithDefaultItem(articleTypes, supplier => new ListItem(supplier.Name, supplier.Id));
             }
             if(args.SelectedArticleTypeId > 0)
             {
                 var suppliers = _articleSupplierRepository.GetAll();
-                var filteredSuppliers = suppliers.Where(articleSupplier => articleSupplier.Articles.Where(x => x.ArticleType.Id == args.SelectedArticleTypeId).ToList().Count > 0).ToList();
+            	Func<ArticleSupplier, bool> activeSuppliersWithArticlesOfSelectedType = articleSupplier => articleSupplier.Articles.Any(x => x.ArticleType.Id == args.SelectedArticleTypeId) && articleSupplier.Active;
+                var filteredSuppliers = suppliers.Where(activeSuppliersWithArticlesOfSelectedType).ToList();
                 View.Model.Suppliers = _viewParser.ParseWithDefaultItem(filteredSuppliers, supplier => new ListItem(supplier.Name, supplier.Id));
             }
             if(args.SelectedSupplierId > 0)
             {
                 var criteria = new ArticlesBySupplierAndArticleType(args.SelectedSupplierId, args.SelectedArticleTypeId);
-                var articles = _articleRepository.FindBy(criteria);
+                var articles = _articleRepository.FindBy(criteria).Where(x => x.Active);
                 View.Model.OrderArticles = _viewParser.ParseWithDefaultItem(articles, article => new ListItem(article.Name, article.Id));
 
                 var supplier = _articleSupplierRepository.Get(args.SelectedSupplierId);
@@ -118,6 +119,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.SelectedRightAxis = args.SelectedRightAxis;
             View.Model.SelectedRightAddition = args.SelectedRightAddition;
         }
+
 
         public void View_Submit(object o, CreateOrderEventArgs form)
         {
@@ -216,7 +218,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 FillModel(this, args);
             }
 
-            var categories = _articleCategoryRepository.GetAll();
+            var categories = _articleCategoryRepository.GetAll().Where(x => x.Active);
             var parsedCategories = _viewParser.ParseWithDefaultItem(categories, category => new ListItem(category.Name, category.Id));
             View.Model.Categories = parsedCategories; 
 

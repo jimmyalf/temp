@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -105,10 +107,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			HttpContext.Response.Redirect(url);
 		}
 
-		private IEnumerable<ListItem> GetSubscriptionList(OrderCustomer customer)
+		private IEnumerable<ListItem> GetSubscriptionList(Entity customer)
 		{
     		var subscriptions = _subscriptionRepository.FindBy(new ActiveAndConsentedSubscriptionsForCustomerCritieria(customer.Id));
-			Func<Subscription, ListItem> parser = subscription => new ListItem(subscription.BankAccountNumber, subscription.Id);
+			Func<Subscription, string> getText = subscription => "{AccountNumber} ({ConsentStatus})".ReplaceWith(new {AccountNumber = subscription.BankAccountNumber, ConsentStatus = subscription.ConsentStatus.GetEnumDisplayName()});
+			Func<Subscription, ListItem> parser = subscription => new ListItem(getText(subscription), subscription.Id);
 			return _viewParser.Parse(subscriptions, parser).Concat(new[] {new ListItem("Skapa nytt konto", 0)});
 		}
 

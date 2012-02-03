@@ -7,6 +7,7 @@ using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
@@ -20,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private PaymentOptionsPresenter _presenter;
     	private PaymentOptionsEventArgs _submitEventArgs;
     	private Order _order;
-        private Subscription _subscription;
+        //private Subscription _subscription;
     	private string _abortPageUrl, _nextPageUrl, _previousPageUrl;
     	private int _selectedSubscriptionId;
     	private IEnumerable<Subscription> _subsciptions;
@@ -50,7 +51,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _shop = CreateShop<Shop>();
     		_customer = CreateCustomer(_shop);
     		_subsciptions = CreateSubscriptions(_shop, _customer);
-			var article = CreateArticle();//CreateWithRepository<IArticleRepository, Article>(() => OrderFactory.GetArticle(null, null));
+			var article = CreateArticle();
         	_order = CreateOrder(_shop, customer:_customer, article: article);
 
 			var otherCustomer = CreateCustomer(_shop);
@@ -64,7 +65,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			SetupScenario(scenario => scenario
 				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
 				.När(SidanVisas)
-				.Så(SkallKundensBefintligaAbonnemangListas)
+				.Så(SkallKundensBefintligaKontonListas)
 					.Och(KundNamnVisas)
 			);
 		}
@@ -205,19 +206,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     		HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
     	}
 
-    	private void SkallKundensBefintligaAbonnemangListas()
+    	private void SkallKundensBefintligaKontonListas()
     	{
 			var viewModelsubscriptions = View.Model.Subscriptions.Take(View.Model.Subscriptions.Count() - 1);
     		var matchingSubscriptions = _subsciptions.Where(x => x.Active && x.ConsentStatus == SubscriptionConsentStatus.Accepted);
     		viewModelsubscriptions.And(matchingSubscriptions).Do((viewItem, domainItem) =>
     		{
+    			var expectedText = GetExpectedSubscriptionAccountText(domainItem);
+				viewItem.Text.ShouldBe(expectedText);
     			viewItem.Value.ShouldBe(domainItem.Id.ToString());
-				viewItem.Text.ShouldBe(domainItem.BankAccountNumber);
     		});
 			View.Model.Subscriptions.Last().Value.ShouldBe("0");
 			View.Model.Subscriptions.Last().Text.ShouldBe("Skapa nytt konto");
             View.Model.SelectedOption.ShouldBe(default(int) /*Default value*/);
     	}
+
+		private string GetExpectedSubscriptionAccountText(Subscription subscription)
+		{
+			return subscription.BankAccountNumber + " (" + subscription.ConsentStatus.GetEnumDisplayName() + ")";
+		}
 
 		private void KundNamnVisas()
 		{

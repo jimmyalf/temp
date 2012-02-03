@@ -5,7 +5,6 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
@@ -21,7 +20,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private PaymentOptionsPresenter _presenter;
     	private PaymentOptionsEventArgs _submitEventArgs;
     	private Order _order;
-        //private Subscription _subscription;
     	private string _abortPageUrl, _nextPageUrl, _previousPageUrl;
     	private int _selectedSubscriptionId;
     	private IEnumerable<Subscription> _subsciptions;
@@ -176,7 +174,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         #region Assert
         private void AnvändarenFlyttasTillAvbrytsidan()
         {
-			//var expectedUrl = "{Url}?order={OrderId}".ReplaceWith(new {Url = _abortPageUrl, OrderId = _order.Id});
         	HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_abortPageUrl);
         }
 
@@ -209,7 +206,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private void SkallKundensBefintligaKontonListas()
     	{
 			var viewModelsubscriptions = View.Model.Subscriptions.Take(View.Model.Subscriptions.Count() - 1);
-    		var matchingSubscriptions = _subsciptions.Where(x => x.Active && x.ConsentStatus == SubscriptionConsentStatus.Accepted);
+    		var matchingSubscriptions = _subsciptions.Where(x => x.Active);
     		viewModelsubscriptions.And(matchingSubscriptions).Do((viewItem, domainItem) =>
     		{
     			var expectedText = GetExpectedSubscriptionAccountText(domainItem);
@@ -236,76 +233,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			if (!_order.SelectedPaymentOption.SubscriptionId.HasValue) throw new AssertionException("SubscriptionId has not been set");
             View.Model.SelectedOption.ShouldBe(_order.SelectedPaymentOption.SubscriptionId.Value);
         }
-
-		//public class TestObject
-		//{
-		//    public override string ToString()
-		//    {
-		//        return "Testobject";
-		//    }
-		//}
-
-
-		//public static void CheckLengthsDiffer<T1,T2>(IEnumerable<T1> expression1, IEnumerable<T2> expression2)
-		//{
-		//    var objectOneInfo = new ExpressionInfo<IEnumerable<T1>>(expression1);
-		//    var objectTwoInfo = new ExpressionInfo<IEnumerable<T2>>(expression2);
-		//    throw new ApplicationException("{" + objectOneInfo.BodyName + "}[" + objectOneInfo.Value.Count() + "] has a different length than {" + objectTwoInfo.BodyName + "}[" + objectTwoInfo.Value.Count() + "]");
-		//    var properties = typeof(IEnumerable<T1>).GetProperties();
-		//    if(properties.Length != 1) return;
-		//    var name = properties[0].Name;
-		//}
-
-
-		//public static void CheckBothAreNull<T1,T2>(Expression<Func<T1>> expression1, Expression<Func<T2>> expression2) where T1:class where T2:class
-		//{
-		//    var objectOneInfo = new ExpressionInfo<T1>(expression1);
-		//    var objectTwoInfo = new ExpressionInfo<T2>(expression2);
-		//    if(objectOneInfo.Value == null && objectTwoInfo.Value == null)
-		//    {
-		//        throw new ApplicationException("Both {" + objectOneInfo.BodyName + "} and {" + objectOneInfo.BodyName + "} are null");
-		//    }
-		//}
-
-		//public class ExpressionInfo<T>
-		//{
-		//    public string BodyName { get; private set; }
-		//    public T Value { get; private set; }
-		//    public ExpressionInfo(Expression<Func<T>> expression)
-		//    {
-		//        var body = ((MemberExpression) expression.Body);
-		//        BodyName = body.Member.Name;
-		//        Value = (T)((FieldInfo) body.Member).GetValue(((ConstantExpression) body.Expression).Value);
-		//    }
-		//}
-
-		//public class TypeInfo<T>
-		//{
-		//    public string BodyName { get; private set; }
-		//    public T Value { get; private set; }
-		//    public TypeInfo(T input)
-		//    {
-		//        Value = input;
-		//        var properties = typeof(T).GetProperties();
-		//        if(properties.Length != 1) return;
-		//        var name = properties[0].Name;
-		//    }
-		//}
-
-		
-		//public static void CheckEitherIsNull<T1,T2>(Expression<Func<T1>> expression1, Expression<Func<T2>> expression2) where T1:class where T2:class
-		//{
-		//    var objectOneInfo = new ExpressionInfo<T1>(expression1);
-		//    var objectTwoInfo = new ExpressionInfo<T2>(expression2);
-		//    if(objectOneInfo.Value == null)
-		//    {
-		//        throw new ApplicationException("{" + objectOneInfo.BodyName + "}(null) is null but {" + objectTwoInfo.BodyName + "}(" + objectTwoInfo.Value + ") is not");
-		//    }
-		//    if(objectTwoInfo.Value == null)
-		//    {
-		//        throw new ApplicationException("{" + objectOneInfo.BodyName + "}(" + objectOneInfo.Value + ") is not null but {" + objectTwoInfo.BodyName + "}(null) is");
-		//    }
-		//}
         #endregion
     }
 }

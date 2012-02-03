@@ -2,11 +2,11 @@
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders
 {
-	public class ActiveAndConsentedSubscriptionsForCustomerCritieria : IActionCriteria
+	public class ActiveSubscriptionsForCustomerCritieria : IActionCriteria
 	{
 		public int CustomerId { get; set; }
 
-		public ActiveAndConsentedSubscriptionsForCustomerCritieria(int customerId)
+		public ActiveSubscriptionsForCustomerCritieria(int customerId)
 		{
 			CustomerId = customerId;
 		}

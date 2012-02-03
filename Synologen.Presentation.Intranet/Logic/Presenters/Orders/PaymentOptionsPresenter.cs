@@ -109,7 +109,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
 		private IEnumerable<ListItem> GetSubscriptionList(Entity customer)
 		{
-    		var subscriptions = _subscriptionRepository.FindBy(new ActiveAndConsentedSubscriptionsForCustomerCritieria(customer.Id));
+    		var subscriptions = _subscriptionRepository.FindBy(new ActiveSubscriptionsForCustomerCritieria(customer.Id));
 			Func<Subscription, string> getText = subscription => "{AccountNumber} ({ConsentStatus})".ReplaceWith(new {AccountNumber = subscription.BankAccountNumber, ConsentStatus = subscription.ConsentStatus.GetEnumDisplayName()});
 			Func<Subscription, ListItem> parser = subscription => new ListItem(getText(subscription), subscription.Id);
 			return _viewParser.Parse(subscriptions, parser).Concat(new[] {new ListItem("Skapa nytt konto", 0)});

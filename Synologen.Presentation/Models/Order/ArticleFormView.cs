@@ -142,11 +142,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			Increment = definition.Increment;
 		}
 		[DisplayName("Min"), RegularExpression("^(-)?[0-9]+(,[0-9]+)?$", ErrorMessage = "Angivet värde måste vara numeriskt")]
-		public float? Min { get; set; }
+		public decimal? Min { get; set; }
 		[DisplayName("Max"), RegularExpression("^(-)?[0-9]+(,[0-9]+)?$", ErrorMessage = "Angivet värde måste vara numeriskt")]
-		public float? Max { get; set; }
+		public decimal? Max { get; set; }
 		[DisplayName("Inkrement"), RegularExpression("^(-)?[0-9]+(,[0-9]+)?$", ErrorMessage = "Angivet värde måste vara numeriskt")]
-		public float? Increment { get; set; }
+		public decimal? Increment { get; set; }
 
 		public IEnumerable<ValidationError> GetValidationErrors(string propertyName)
 		{
@@ -160,7 +160,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			}
 		}
 
-		public SequenceDefinition GetSequenceDefinition(float defaultValue = default(float))
+		public SequenceDefinition GetSequenceDefinition(decimal defaultValue = default(decimal))
 		{
 			return new SequenceDefinition 
 			{
@@ -185,11 +185,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		}
 
 		[DisplayName("Min"), RegularExpression("^(-)?[0-9]+(,[0-9]+)?$", ErrorMessage = "Angivet värde måste vara numeriskt")]
-		public float? Min { get; set; }
+		public decimal? Min { get; set; }
 		[DisplayName("Max"), RegularExpression("^(-)?[0-9]+(,[0-9]+)?$", ErrorMessage = "Angivet värde måste vara numeriskt")]
-		public float? Max { get; set; }
+		public decimal? Max { get; set; }
 		[DisplayName("Inkrement"), RegularExpression("^(-)?[0-9]+(,[0-9]+)?$", ErrorMessage = "Angivet värde måste vara numeriskt")]
-		public float? Increment { get; set; }
+		public decimal? Increment { get; set; }
 		[DisplayName("Avaktivera")]
 		public bool Disable { get; set; }
 
@@ -206,7 +206,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			}
 		}
 
-		public OptionalSequenceDefinition GetSequenceDefinition(float? defaultValue = null)
+		public OptionalSequenceDefinition GetSequenceDefinition(decimal? defaultValue = null)
 		{
 			return new OptionalSequenceDefinition {
 				Min =  Min?? defaultValue,

@@ -104,11 +104,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 ArticleSupplier = supplier,
 	            Options = new ArticleOptions
 	            {
-	                Axis = new OptionalSequenceDefinition(-1, 2, 0.25F, true),
-                    BaseCurve = new SequenceDefinition(-1, 2, 0.25F),
-                    Power = new SequenceDefinition(-1, 2, 0.25F),
-                    Cylinder = new OptionalSequenceDefinition(-1, 2, 0.25F, false),
-                    Diameter = new SequenceDefinition(-1, 2, 0.25F),
+	                Axis = new OptionalSequenceDefinition(-1, 2, 0.25M, true),
+                    BaseCurve = new SequenceDefinition(-1, 2, 0.25M),
+                    Power = new SequenceDefinition(-1, 2, 0.25M),
+                    Cylinder = new OptionalSequenceDefinition(-1, 2, 0.25M, false),
+                    Diameter = new SequenceDefinition(-1, 2, 0.25M),
                     Addition = new OptionalSequenceDefinition(2,20,1, false)
                 },
 				Active = active
@@ -170,31 +170,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         public static IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
         {
-            var list = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = (-9999).ToString() } };
-
-            if (sequence.Increment > 0)
-            {
-                for (float value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
-                {
-                    list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
-                }
-            }
-            return list;
+			yield return new ListItem("-- Välj --","-9999");
+        	foreach (var value in GetValuesForDefinition(sequence.Min, sequence.Max, sequence.Increment))
+        	{
+        		yield return new ListItem {Value = value.ToString("N2"), Text = value.ToString("N2")};
+        	}
         }
 
         public static IEnumerable<ListItem> FillWithIncrementalValues(OptionalSequenceDefinition sequence)
         {
-            var list = new List<ListItem> { new ListItem { Text = "-- Välj --", Value = (-9999).ToString() } };
-			if(sequence.DisableDefinition) return list;
-            if (sequence.Increment > 0)
-            {
-                for (var value = sequence.Min.Value; value <= sequence.Max.Value; value += sequence.Increment.Value)
-                {
-                    list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
-                }
-            }
-            return list;
+			yield return new ListItem("-- Välj --","-9999");
+			if(sequence.DisableDefinition) yield break;
+        	foreach (var value in GetValuesForDefinition(sequence.Min ?? default(decimal), sequence.Max  ?? default(decimal), sequence.Increment  ?? default(decimal)))
+        	{
+        		yield return new ListItem {Value = value.ToString("N2"), Text = value.ToString("N2")};
+        	}
         }
+
+		private static IEnumerable<decimal> GetValuesForDefinition(decimal min, decimal max, decimal increment)
+		{
+			if (increment <= 0) yield return min;
+            for (var value = min; value <= max; value += increment)
+            {
+            	yield return value;
+            }
+		}
 
 	    public static IEnumerable<ArticleSupplier> GetSuppliers()
 	    {

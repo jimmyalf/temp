@@ -4,14 +4,14 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
     {
     	public SequenceDefinition() { }
 
-    	public SequenceDefinition(float min, float max, float increment)
+    	public SequenceDefinition(decimal min, decimal max, decimal increment)
     	{
     		Min = min;
     		Max = max;
     		Increment = increment;
     	}
-        public virtual float Min { get; set; }
-        public virtual float Max { get; set; }
-        public virtual float Increment { get; set; }
+        public virtual decimal Min { get; set; }
+        public virtual decimal Max { get; set; }
+        public virtual decimal Increment { get; set; }
     }
 }

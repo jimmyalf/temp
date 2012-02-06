@@ -56,25 +56,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
             fakeOrderArticle.Name = "Lins 1337";
             fakeOrderArticle.Options = new ArticleOptions
 			{
-	            Axis = new OptionalSequenceDefinition(-1, 2, 0.25F, true),
-                BaseCurve = new SequenceDefinition(-1, 2, 0.25F),
-                Power = new SequenceDefinition(-1, 2, 0.25F),
-                Cylinder = new OptionalSequenceDefinition(-1, 2, 0.25F, false),
-                Diameter = new SequenceDefinition(-1, 2, 0.25F),
+	            Axis = new OptionalSequenceDefinition(-1, 2, 0.25M, true),
+                BaseCurve = new SequenceDefinition(-1, 2, 0.25M),
+                Power = new SequenceDefinition(-1, 2, 0.25M),
+                Cylinder = new OptionalSequenceDefinition(-1, 2, 0.25M, false),
+                Diameter = new SequenceDefinition(-1, 2, 0.25M),
                 Addition = new OptionalSequenceDefinition(2,20,1, false)
             };
             
             return fakeOrderArticle;
         }
 
-        public static IEnumerable<float> GetOptionsList(float min, float max, float increment)
-        {
-            for (float value = min; value <= max; value += increment)
-            {
-                yield return value;
-            }
-            yield break;
-        }
+		//public static IEnumerable<float> GetOptionsList(float min, float max, float increment)
+		//{
+		//    for (float value = min; value <= max; value += increment)
+		//    {
+		//        yield return value;
+		//    }
+		//    yield break;
+		//}
 
     	public static Order GetOrder(Article article = null, OrderCustomer customer = null, LensRecipe lensRecipe = null, int? selectedSubscriptionId = null, SubscriptionItem subscriptionItem = null, OrderShippingOption? shippingType = null)
     	{

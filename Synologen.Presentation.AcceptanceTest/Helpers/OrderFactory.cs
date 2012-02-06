@@ -34,12 +34,12 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		{
 			return new ArticleOptions
 			{
-				Axis = new OptionalSequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F, DisableDefinition = true},
-				BaseCurve = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
-				Power = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
-				Cylinder = new OptionalSequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
-				Diameter = new SequenceDefinition { Increment = 0.25F, Max = 2F, Min = -1F },
-				Addition = new OptionalSequenceDefinition { Increment = 1F, Max = 20F, Min = 0F }
+				Axis = new OptionalSequenceDefinition { Increment = 0.25M, Max = 2M, Min = -1M, DisableDefinition = true},
+				BaseCurve = new SequenceDefinition { Increment = 0.25M, Max = 2M, Min = -1M },
+				Power = new SequenceDefinition { Increment = 0.25M, Max = 2M, Min = -1M },
+				Cylinder = new OptionalSequenceDefinition { Increment = 0.25M, Max = 2M, Min = -1M },
+				Diameter = new SequenceDefinition { Increment = 0.25M, Max = 2M, Min = -1M },
+				Addition = new OptionalSequenceDefinition { Increment = 1M, Max = 20M, Min = 0M }
 			};
 		}
 

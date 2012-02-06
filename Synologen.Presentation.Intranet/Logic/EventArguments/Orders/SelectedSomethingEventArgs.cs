@@ -11,18 +11,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
         public int SelectedSupplierId { get; set; }
         public int SelectedArticleId { get; set; }
         public int SelectedShippingOption { get; set; }
-        public float SelectedLeftPower { get; set; }
-        public float SelectedLeftBaseCurve { get; set; }
-        public float SelectedLeftDiameter { get; set; }
-        public float SelectedLeftCylinder { get; set; }
-        public float SelectedLeftAxis { get; set; }
-        public float SelectedLeftAddition { get; set; }
-        public float SelectedRightPower { get; set; }
-        public float SelectedRightBaseCurve { get; set; }
-        public float SelectedRightDiameter { get; set; }
-        public float SelectedRightCylinder { get; set; }
-        public float SelectedRightAddition { get; set; }
-        public float SelectedRightAxis { get; set; }
+        public decimal SelectedLeftPower { get; set; }
+        public decimal SelectedLeftBaseCurve { get; set; }
+        public decimal SelectedLeftDiameter { get; set; }
+        public decimal SelectedLeftCylinder { get; set; }
+        public decimal SelectedLeftAxis { get; set; }
+        public decimal SelectedLeftAddition { get; set; }
+        public decimal SelectedRightPower { get; set; }
+        public decimal SelectedRightBaseCurve { get; set; }
+        public decimal SelectedRightDiameter { get; set; }
+        public decimal SelectedRightCylinder { get; set; }
+        public decimal SelectedRightAddition { get; set; }
+        public decimal SelectedRightAxis { get; set; }
 
         public SelectedSomethingEventArgs(
             int selectedCategoryId = 0,
@@ -31,18 +31,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
             int selectedArticleId = 0,
             //int existingOrderId = 0,
             int selectedShippingOption = 0,
-            float selectedLeftPower = DefaultOptionValue,
-            float selectedLeftBaseCurve = DefaultOptionValue,
-            float selectedLeftDiameter = DefaultOptionValue,
-            float selectedLeftCylinder = DefaultOptionValue,
-            float selectedLeftAxis = DefaultOptionValue,
-            float selectedLeftAddition = DefaultOptionValue,
-            float selectedRightPower = DefaultOptionValue,
-            float selectedRightBaseCurve = DefaultOptionValue,
-            float selectedRightDiameter = DefaultOptionValue,
-            float selectedRightCylinder = DefaultOptionValue,
-            float selectedRightAxis = DefaultOptionValue,
-            float selectedRightAddition = DefaultOptionValue)
+            decimal selectedLeftPower = DefaultOptionValue,
+            decimal selectedLeftBaseCurve = DefaultOptionValue,
+            decimal selectedLeftDiameter = DefaultOptionValue,
+            decimal selectedLeftCylinder = DefaultOptionValue,
+            decimal selectedLeftAxis = DefaultOptionValue,
+            decimal selectedLeftAddition = DefaultOptionValue,
+            decimal selectedRightPower = DefaultOptionValue,
+            decimal selectedRightBaseCurve = DefaultOptionValue,
+            decimal selectedRightDiameter = DefaultOptionValue,
+            decimal selectedRightCylinder = DefaultOptionValue,
+            decimal selectedRightAxis = DefaultOptionValue,
+            decimal selectedRightAddition = DefaultOptionValue)
         {
             SelectedCategoryId = selectedCategoryId;
             SelectedArticleTypeId = selectedArticleTypeId;

@@ -229,7 +229,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			}
         } 
 
-		private float GetEyeParameterValueOrDefault(EyeParameter parameter, Func<EyeParameter,float?> value)
+		private decimal GetEyeParameterValueOrDefault(EyeParameter parameter, Func<EyeParameter,decimal?> value)
 		{
 			if (parameter == null) return -9999;
 			return value(parameter) ?? -9999;

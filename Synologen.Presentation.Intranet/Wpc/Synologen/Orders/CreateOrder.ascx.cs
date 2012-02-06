@@ -74,18 +74,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 var articleId = Convert.ToInt32(ddlPickArticle.SelectedValue);
                 var selectedShippingOption = Convert.ToInt32(ddlShippingOptions.SelectedValue);
 				//TODO: Consider switching to deciamal type
-                var selectedLeftBaseCurve = (float)Convert.ToDecimal(ddlLeftBaskurva.SelectedValue);
-                var selectedLeftAxis = (float)Convert.ToDecimal(ddlLeftAxis.SelectedValue);
-                var selectedLeftCylinder = (float)Convert.ToDecimal(ddlLeftCylinder.SelectedValue);
-                var selectedLeftDiameter = (float)Convert.ToDecimal(ddlLeftDiameter.SelectedValue);
-                var selectedLeftPower = (float)Convert.ToDecimal(ddlLeftStrength.SelectedValue);
-                var selectedLeftAddition = (float)Convert.ToDecimal(ddlLeftAddition.SelectedValue);
-                var selectedRightBaseCurve = (float)Convert.ToDecimal(ddlRightBaskurva.SelectedValue);
-                var selectedRightAxis = (float)Convert.ToDecimal(ddlRightAxis.SelectedValue);
-                var selectedRightCylinder = (float)Convert.ToDecimal(ddlRightCylinder.SelectedValue);
-                var selectedRightDiameter = (float)Convert.ToDecimal(ddlRightDiameter.SelectedValue);
-                var selectedRightPower = (float)Convert.ToDecimal(ddlRightStrength.SelectedValue);
-                var selectedRightAddition = (float)Convert.ToDecimal(ddlRightAddition.SelectedValue);
+                var selectedLeftBaseCurve = Convert.ToDecimal(ddlLeftBaskurva.SelectedValue);
+                var selectedLeftAxis = Convert.ToDecimal(ddlLeftAxis.SelectedValue);
+                var selectedLeftCylinder = Convert.ToDecimal(ddlLeftCylinder.SelectedValue);
+                var selectedLeftDiameter = Convert.ToDecimal(ddlLeftDiameter.SelectedValue);
+                var selectedLeftPower = Convert.ToDecimal(ddlLeftStrength.SelectedValue);
+                var selectedLeftAddition = Convert.ToDecimal(ddlLeftAddition.SelectedValue);
+                var selectedRightBaseCurve = Convert.ToDecimal(ddlRightBaskurva.SelectedValue);
+                var selectedRightAxis = Convert.ToDecimal(ddlRightAxis.SelectedValue);
+                var selectedRightCylinder = Convert.ToDecimal(ddlRightCylinder.SelectedValue);
+                var selectedRightDiameter = Convert.ToDecimal(ddlRightDiameter.SelectedValue);
+                var selectedRightPower = Convert.ToDecimal(ddlRightStrength.SelectedValue);
+                var selectedRightAddition = Convert.ToDecimal(ddlRightAddition.SelectedValue);
 
                 SelectedArticle(this, new SelectedSomethingEventArgs(
                     categoryId, 
@@ -112,18 +112,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             {
                 ArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
                 ShipmentOption = Convert.ToInt32(ddlShippingOptions.SelectedValue),
-                LeftBaseCurve = (float)Convert.ToDecimal(ddlLeftBaskurva.SelectedValue),
-                LeftDiameter = (float)Convert.ToDecimal(ddlLeftDiameter.SelectedValue),
-                LeftPower = (float)Convert.ToDecimal(ddlLeftStrength.SelectedValue),
-                LeftAxis = (float)Convert.ToDecimal(ddlLeftAxis.SelectedValue),
-                LeftCylinder = (float)Convert.ToDecimal(ddlLeftCylinder.SelectedValue),
-                LeftAddition = (float)Convert.ToDecimal(ddlLeftAddition.SelectedValue),
-                RightBaseCurve = (float)Convert.ToDecimal(ddlRightBaskurva.SelectedValue),
-                RightDiameter = (float)Convert.ToDecimal(ddlRightDiameter.SelectedValue),
-                RightPower = (float)Convert.ToDecimal(ddlRightStrength.SelectedValue),
-                RightAxis = (float)Convert.ToDecimal(ddlRightAxis.SelectedValue),
-                RightCylinder = (float)Convert.ToDecimal(ddlRightCylinder.SelectedValue),
-                RightAddition = (float)Convert.ToDecimal(ddlRightAddition.SelectedValue)
+                LeftBaseCurve = Convert.ToDecimal(ddlLeftBaskurva.SelectedValue),
+                LeftDiameter = Convert.ToDecimal(ddlLeftDiameter.SelectedValue),
+                LeftPower = Convert.ToDecimal(ddlLeftStrength.SelectedValue),
+                LeftAxis = Convert.ToDecimal(ddlLeftAxis.SelectedValue),
+                LeftCylinder = Convert.ToDecimal(ddlLeftCylinder.SelectedValue),
+                LeftAddition = Convert.ToDecimal(ddlLeftAddition.SelectedValue),
+                RightBaseCurve = Convert.ToDecimal(ddlRightBaskurva.SelectedValue),
+                RightDiameter = Convert.ToDecimal(ddlRightDiameter.SelectedValue),
+                RightPower = Convert.ToDecimal(ddlRightStrength.SelectedValue),
+                RightAxis = Convert.ToDecimal(ddlRightAxis.SelectedValue),
+                RightCylinder = Convert.ToDecimal(ddlRightCylinder.SelectedValue),
+                RightAddition = Convert.ToDecimal(ddlRightAddition.SelectedValue)
             };
 			TryFireSubmit(sender, args);
         }

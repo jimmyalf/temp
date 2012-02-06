@@ -138,32 +138,60 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 	        return listOfItems;
 	    }
 
-	    public IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
-	    {
-	        var list = new List<ListItem> {new ListItem { Text = "-- Välj --", Value = (-9999).ToString()}};
+		//public IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
+		//{
+		//    var list = new List<ListItem> {new ListItem { Text = "-- Välj --", Value = (-9999).ToString()}};
 
-            if(sequence.Increment > 0)
-            {
-                for (var value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
-                {
-                    list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
-                }
-            }
-	        return list;
-	    }
+		//    if(sequence.Increment > 0)
+		//    {
+		//        for (var value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
+		//        {
+		//            list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
+		//        }
+		//    }
+		//    return list;
+		//}
 
-		public IEnumerable<ListItem> FillWithIncrementalValues(OptionalSequenceDefinition sequence)
+		//public IEnumerable<ListItem> FillWithIncrementalValues(OptionalSequenceDefinition sequence)
+		//{
+		//    var list = new List<ListItem> {new ListItem { Text = "-- Välj --", Value = (-9999).ToString()}};
+		//    if(sequence.DisableDefinition) return list;
+		//    if(sequence.Increment > 0)
+		//    {
+		//        for (var value = sequence.Min.Value; value <= sequence.Max.Value; value += sequence.Increment.Value)
+		//        {
+		//            list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
+		//        }
+		//    }
+		//    return list;
+		//}
+
+        public IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
+        {
+			yield return new ListItem("-- Välj --","-9999");
+        	foreach (var value in GetValuesForDefinition(sequence.Min, sequence.Max, sequence.Increment))
+        	{
+        		yield return new ListItem {Value = value.ToString(), Text = value.ToString()};
+        	}
+        }
+
+        public IEnumerable<ListItem> FillWithIncrementalValues(OptionalSequenceDefinition sequence)
+        {
+			yield return new ListItem("-- Välj --","-9999");
+			if(sequence.DisableDefinition) yield break;
+        	foreach (var value in GetValuesForDefinition(sequence.Min ?? default(decimal), sequence.Max  ?? default(decimal), sequence.Increment  ?? default(decimal)))
+        	{
+        		yield return new ListItem {Value = value.ToString(), Text = value.ToString()};
+        	}
+        }
+
+		private static IEnumerable<decimal> GetValuesForDefinition(decimal min, decimal max, decimal increment)
 		{
-	        var list = new List<ListItem> {new ListItem { Text = "-- Välj --", Value = (-9999).ToString()}};
-			if(sequence.DisableDefinition) return list;
-            if(sequence.Increment > 0)
+			if (increment <= 0) yield return min;
+            for (var value = min; value <= max; value += increment)
             {
-                for (var value = sequence.Min.Value; value <= sequence.Max.Value; value += sequence.Increment.Value)
-                {
-                    list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
-                }
+            	yield return value;
             }
-	        return list;
 		}
 	}
 }

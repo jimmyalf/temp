@@ -11,27 +11,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
         public int ArticleId { get; set; }
         //public int ExistingOrderId { get; set; }
 
-        public float LeftPower { get; set; }
-        public float RightPower { get; set; }
-        public float LeftDiameter { get; set; }
-        public float RightDiameter { get; set; }
-        public float LeftBaseCurve { get; set; }
-        public float RightBaseCurve { get; set; }        
-        public float LeftAxis { get; set; }
-        public float RightAxis { get; set; }
-        public float LeftCylinder { get; set; }
-        public float RightCylinder { get; set; }
-        public float LeftAddition { get; set; }
-        public float RightAddition { get; set; }
+        public decimal LeftPower { get; set; }
+        public decimal RightPower { get; set; }
+        public decimal LeftDiameter { get; set; }
+        public decimal RightDiameter { get; set; }
+        public decimal LeftBaseCurve { get; set; }
+        public decimal RightBaseCurve { get; set; }        
+        public decimal LeftAxis { get; set; }
+        public decimal RightAxis { get; set; }
+        public decimal LeftCylinder { get; set; }
+        public decimal RightCylinder { get; set; }
+        public decimal LeftAddition { get; set; }
+        public decimal RightAddition { get; set; }
 
-		public EyeParameter GetEyeParameter(Func<CreateOrderEventArgs,float> left, Func<CreateOrderEventArgs,float> right)
+		public EyeParameter GetEyeParameter(Func<CreateOrderEventArgs,decimal> left, Func<CreateOrderEventArgs,decimal> right, decimal defaultValue = -9999)
 		{
 			var leftValue = left(this);
 			var rightValue = right(this);
 			return new EyeParameter
 			{
-				Left = leftValue.Equals(-9999F) ? (float?)null : leftValue,
-				Right = rightValue.Equals(-9999F) ? (float?)null : rightValue
+				Left = leftValue.Equals(defaultValue) ? (decimal?) null : leftValue,
+				Right = rightValue.Equals(defaultValue) ? (decimal?) null : rightValue
 			};
 		}
     }

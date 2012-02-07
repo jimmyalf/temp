@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories
 			{
 				Id = settlement.Id,
 				CreatedDate = settlement.CreatedDate,
-				Shop = Session.Get<Shop>(id),
+				Shop = Session.Get<Shop>(shopId),
 				LensSubscriptionTransactions = transactionsForShop.OrderByDescending(x => x.CreatedDate).ToList(),
 				SaleItems = contractSaleItemsForShop.SelectMany(x => x.SaleItems).ToList(),
 				ContractSalesValueIncludingVAT = contractSaleItemsForShop.Sum(x => x.TotalAmountIncludingVAT),

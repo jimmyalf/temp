@@ -42,7 +42,7 @@ namespace Spinit.Wpc.Synologen.Business.Utility {
 		}
 
 		public static string GetSettlementPeriodNumber(DateTime date) {
-			int weekNumber = GetIso8601WeekOfYear(date);
+			string weekNumber = GetIso8601WeekOfYear(date).ToString().PadLeft(2,'0');
 			return date.ToString("yy") + weekNumber;
 		}
 

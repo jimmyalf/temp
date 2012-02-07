@@ -13,19 +13,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 	{
 		private readonly IRoutingService _routingService;
 		private readonly IOrderCustomerRepository _orderCustomerRepository;
+		private readonly ISynologenMemberService _synologenMemberService;
 
-		public SearchCustomerPresenter(ISearchCustomerView view, IRoutingService routingService, IOrderCustomerRepository orderCustomerRepository) : base(view)
+		public SearchCustomerPresenter(
+			ISearchCustomerView view, 
+			IRoutingService routingService, 
+			IOrderCustomerRepository orderCustomerRepository,
+			ISynologenMemberService synologenMemberService) : base(view)
 		{
 			_routingService = routingService;
 			_orderCustomerRepository = orderCustomerRepository;
+			_synologenMemberService = synologenMemberService;
 			View.Submit += View_Submit;
 			View.Abort += View_Abort;
 		}
 
 		public void View_Submit(object sender, SearchCustomerEventArgs e)
 		{
+			var shopId = _synologenMemberService.GetCurrentShopId();
 			var customer = _orderCustomerRepository
-				.FindBy(new CustomerDetailsFromPersonalIdNumberCriteria {PersonalIdNumber = e.PersonalIdNumber})
+				.FindBy(new CustomerDetailsFromPersonalIdNumberCriteria(e.PersonalIdNumber, shopId))
 				.FirstOrDefault();
 			if(customer == null) Redirect(View.NextPageId, new {personalIdNumber = e.PersonalIdNumber});
 			else Redirect(View.NextPageId, new {customer = customer.Id});

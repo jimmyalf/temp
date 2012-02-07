@@ -12,8 +12,6 @@ using Spinit.Test.Web;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using StoryQ.Infrastructure;
 using StructureMap;
 using WebFormsMvp;

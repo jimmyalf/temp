@@ -1,4 +1,5 @@
 ﻿using System;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
@@ -18,6 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private OrderCustomer _customer;
 		private SearchCustomerEventArgs _searchEventArgs;
 		private Shop _shop;
+		private Shop _otherShop;
 
 		public Search_Customer_Specs()
 		{
@@ -26,8 +28,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_nextUrl = "/test/next";
 				_abortUrl = "/test/abort";
 				_shop = CreateShop<Shop>();
+				_otherShop = CreateShop<Shop>();
+				CreateCustomer(_otherShop);
 				SetupNavigationEvents(abortPageUrl:_abortUrl, nextPageUrl: _nextUrl);
 				_presenter = GetPresenter();
+				A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
 			};
 
 			Story = () => new Berättelse("Sök kund")
@@ -40,7 +45,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		public void KundExisterar()
 		{
 			SetupScenario(scenario => scenario
-				.Givet(AttKundFinnsSedanTidigare)
+				.Givet(AttKundKoppladTillButikFinnsSedanTidigare)
 				.När(AnvändarenKlickarPåSök)
 				.Så(FlyttasAnvändarenTillKundformulär)
 			);
@@ -67,9 +72,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 
 	    #region Arrange
-        private void AttKundFinnsSedanTidigare()
+        private void AttKundKoppladTillButikFinnsSedanTidigare()
         {
         	_customer = CreateCustomer(_shop);
+			
         }
         private void AttKundInteFinnsSedanTidigare()
         {

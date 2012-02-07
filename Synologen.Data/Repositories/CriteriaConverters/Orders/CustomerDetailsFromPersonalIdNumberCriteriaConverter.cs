@@ -8,13 +8,14 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.Orders
 {
     public class CustomerDetailsFromPersonalIdNumberCriteriaConverter : NHibernateActionCriteriaConverter<CustomerDetailsFromPersonalIdNumberCriteria, OrderCustomer>, IActionCriteria
     {
-        public CustomerDetailsFromPersonalIdNumberCriteriaConverter(ISession session) : base(session)
-        {
-        }
+        public CustomerDetailsFromPersonalIdNumberCriteriaConverter(ISession session) : base(session) { }
 
         public override ICriteria Convert(CustomerDetailsFromPersonalIdNumberCriteria source)
         {
-            return Criteria.FilterEqual(x => x.PersonalIdNumber, source.PersonalIdNumber);
+            return Criteria
+				.CreateAlias(x => x.Shop)
+				.FilterEqual(x => x.Shop.Id, source.ShopId)
+				.FilterEqual(x => x.PersonalIdNumber, source.PersonalIdNumber);
         }
     }
 }

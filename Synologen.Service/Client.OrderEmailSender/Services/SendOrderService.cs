@@ -15,20 +15,6 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
         {
         	_client = client;
         	_configurationSettings = configurationSettings;
-        	//var user = ConfigurationSettings.AppSettings["SpinitSendUser"];
-        	//var password = ConfigurationSettings.AppSettings["Password"];
-        	//var passwordEncoding = ConfigurationSettings.AppSettings["PasswordEncoding"];
-        	//var server = ConfigurationSettings.AppSettings["ServerAddress"];
-
-        	//ClientFactory.SetConfigurtion(ClientFactory.CreateConfiguration(
-        	//        server,
-        	//        user,
-        	//        password,
-        	//        PasswordEncryptionType.Sha1,
-        	//        passwordEncoding
-        	//        )
-        	//);
-        	//_client = ClientFactory.CreateEmail2Client();
         }
 
     	public int SendOrderByEmail(Order order)
@@ -40,14 +26,12 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
         {
             
             var to = order.Article.ArticleSupplier.OrderEmailAddress;
-            //const string from = "order@synologen.nu";
         	var from = _configurationSettings.OrderSenderEmailAddress;
             var body = GetEmailBody(order);
         	var subject = _configurationSettings.OrderEmailSubjectFormat.ReplaceWith(new
         	{
         		OrderArticleName = order.Article.Name
         	});
-            //var subject = "Beställning, " + order.Article.Name;
 
             return _client.SendMail(to, from, subject, body, EmailPriority.Medium);
         }
@@ -83,18 +67,18 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
                 City = city,
                 PostalCode = postalCode,
                                
-                LeftAddition = order.LensRecipe.Addition.Return(x => x.Left.GetStringValue() ,null),//.HasValue ? order.LensRecipe.Addition.Left.Value.ToString() : "",
-                LeftAxis = order.LensRecipe.Axis.Return(x => x.Left.GetStringValue() ,null),//.HasValue ? order.LensRecipe.Axis.Left.Value.ToString() : "",
-                LeftPower = order.LensRecipe.Power.Return(x => x.Left.GetStringValue() ,null),//.HasValue ? order.LensRecipe.Power.Left.Value.ToString() : "",
-                LeftCylinder = order.LensRecipe.Cylinder.Return(x => x.Left.GetStringValue() ,null),//.HasValue ? order.LensRecipe.Cylinder.Left.Value.ToString() : "",
-                LeftDiameter = order.LensRecipe.Diameter.Return(x => x.Left.GetStringValue() ,null),//.HasValue ? order.LensRecipe.Diameter.Left.Value.ToString() : "",
-                LeftBaseCurve = order.LensRecipe.BaseCurve.Return(x => x.Left.GetStringValue() ,null),//.HasValue ? order.LensRecipe.BaseCurve.Left.Value.ToString() : "",
-                RightAddition = order.LensRecipe.Addition.Return(x => x.Left.GetStringValue() ,null),//.HasValue ? order.LensRecipe.Addition.Right.Value.ToString() : "",
-                RightAxis = order.LensRecipe.Axis.Return(x => x.Right.GetStringValue() ,null),//.HasValue ? order.LensRecipe.Axis.Right.Value.ToString() : "",
-                RightPower = order.LensRecipe.Power.Return(x => x.Right.GetStringValue() ,null),//.HasValue ? order.LensRecipe.Power.Right.Value.ToString() : "",
-                RightCylinder = order.LensRecipe.Cylinder.Return(x => x.Right.GetStringValue() ,null),//.HasValue ? order.LensRecipe.Cylinder.Right.Value.ToString() : "",
-                RightDiameter = order.LensRecipe.Diameter.Return(x => x.Right.GetStringValue() ,null),//.HasValue ? order.LensRecipe.Diameter.Right.Value.ToString() : "",
-                RightBaseCurve = order.LensRecipe.BaseCurve.Return(x => x.Right.GetStringValue() ,null),//.HasValue ? order.LensRecipe.BaseCurve.Right.Value.ToString() : "",
+                LeftAddition = order.LensRecipe.Addition.Return(x => x.Left.GetStringValue() ,null),
+                LeftAxis = order.LensRecipe.Axis.Return(x => x.Left.GetStringValue() ,null),
+                LeftPower = order.LensRecipe.Power.Return(x => x.Left.GetStringValue() ,null),
+                LeftCylinder = order.LensRecipe.Cylinder.Return(x => x.Left.GetStringValue() ,null),
+                LeftDiameter = order.LensRecipe.Diameter.Return(x => x.Left.GetStringValue() ,null),
+                LeftBaseCurve = order.LensRecipe.BaseCurve.Return(x => x.Left.GetStringValue() ,null),
+                RightAddition = order.LensRecipe.Addition.Return(x => x.Left.GetStringValue() ,null),
+                RightAxis = order.LensRecipe.Axis.Return(x => x.Right.GetStringValue() ,null),
+                RightPower = order.LensRecipe.Power.Return(x => x.Right.GetStringValue() ,null),
+                RightCylinder = order.LensRecipe.Cylinder.Return(x => x.Right.GetStringValue() ,null),
+                RightDiameter = order.LensRecipe.Diameter.Return(x => x.Right.GetStringValue() ,null),
+                RightBaseCurve = order.LensRecipe.BaseCurve.Return(x => x.Right.GetStringValue() ,null),
             };
             return HtmlTemplate().ReplaceWith(data);
             

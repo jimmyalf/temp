@@ -8,8 +8,8 @@
     <ProjectGuid>{78B28448-BF30-4DCA-889A-684E08FAF06C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Synologen.OrderEmailSender</RootNamespace>
-    <AssemblyName>Synologen.OrderEmailSender</AssemblyName>
+    <RootNamespace>Synologen.Service.Client.OrderEmailSender</RootNamespace>
+    <AssemblyName>Synologen.Service.Client.OrderEmailSender</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -35,30 +35,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentNHibernate, Version=1.1.0.685, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL" />
-    <Reference Include="NHibernate">
-      <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
+    <Reference Include="FluentNHibernate, Version=1.1.0.685, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <HintPath>..\..\Dependancies\FluentNHibernate\FluentNHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate.ByteCode.Castle">
-      <HintPath>..\Dependancies\FluentNHibernate\NHibernate.ByteCode.Castle.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Spinit">
-      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data">
-      <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data.NHibernate">
-      <HintPath>..\Dependancies\Spinit\Spinit.Data.NHibernate.dll</HintPath>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.Data.NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Services.Client">
-      <HintPath>..\Dependancies\Spinit\Spinit.Services.Client.dll</HintPath>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.Services.Client.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Core.Dependencies.NHibernate">
-      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.Dependencies.NHibernate.dll</HintPath>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.Dependencies.NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap">
-      <HintPath>..\Dependancies\StructureMap\StructureMap.dll</HintPath>
+      <HintPath>..\..\Dependancies\StructureMap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -70,23 +73,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Extensions\DecimalExtensions.cs" />
     <Compile Include="Application\IoC\AppRegistry.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Factory\EmailClientFactory.cs" />
+    <Compile Include="Logging\Log4NetLogger.cs" />
+    <Compile Include="Logging\LogFactory.cs" />
     <Compile Include="OrderSender.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ConfigurationSettings.cs" />
+    <Compile Include="Services\IConfigurationSettings.cs" />
     <Compile Include="Services\SendOrderService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Synologen.Core\Synologen.Core.csproj">
+    <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.Data\Synologen.Data.csproj">
+    <ProjectReference Include="..\..\Synologen.Data\Synologen.Data.csproj">
       <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
       <Name>Synologen.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.Presentation\Synologen.Presentation.csproj">
+    <ProjectReference Include="..\..\Synologen.Presentation\Synologen.Presentation.csproj">
       <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
       <Name>Synologen.Presentation</Name>
     </ProjectReference>
@@ -96,7 +105,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>"$(ProjectDir)..\..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -82,9 +82,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             SetupScenario(scenario => scenario
                 .Givet(EnBeställningMedEttAbonnemangHarSkapats)
                 .När(AnvändarenBekräftarBeställningen)
-                .Så(FlaggasOrderFörAttBliSkickadSomEpost)
-                    .Och(AnvändarenFlyttasTillSidaFörFärdigBeställning)
-                );
+				.Så(AnvändarenFlyttasTillSidaFörFärdigBeställning)
+			);
         }
 
         #region Arrange
@@ -173,10 +172,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.SubscriptionTime.ShouldBe(_presenter.GetSubscriptionTimeString(order.SubscriptionPayment.NumberOfPayments)); 
         }
 
-        private void FlaggasOrderFörAttBliSkickadSomEpost()
-        {
-            WithRepository<IOrderRepository>().Get(_order.Id).SendEmailForThisOrder.ShouldBe(true);
-        }
+		//private void FlaggasOrderFörAttBliSkickadSomEpost()
+		//{
+		//    WithRepository<IOrderRepository>().Get(_order.Id).SendEmailForThisOrder.ShouldBe(true);
+		//}
 
         private void AnvändarenFlyttasTillSidaFörFärdigBeställning()
         {

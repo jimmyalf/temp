@@ -82,22 +82,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         {
             if(RequestOrderId.HasValue)
             {
-                SubmitOrder(RequestOrderId.Value);
+				Redirect(View.NextPageId, new { order = RequestOrderId });
+               // SubmitOrder(RequestOrderId.Value);
             }
+			throw new ApplicationException("View cannot be submitted without order id");
             
         }
 
-        private void SubmitOrder(int orderId)
-        {
-            var order = _orderRepository.Get(orderId);
-            if(!order.ShippingType.Equals(OrderShippingOption.DeliveredInStore))
-            {
-                order.SendEmailForThisOrder = true;
-                _orderRepository.Save(order);
-            }
+		//private void SubmitOrder(int orderId)
+		//{
+		//    var order = _orderRepository.Get(orderId);
+		//    if(!order.ShippingType.Equals(OrderShippingOption.DeliveredInStore))
+		//    {
+		//        order.SendEmailForThisOrder = true;
+		//        _orderRepository.Save(order);
+		//    }
             
-            Redirect(View.NextPageId, new { order = RequestOrderId });
-        }
+		//    //Redirect(View.NextPageId, new { order = RequestOrderId });
+		//}
 
         public void View_Previous(object sender, EventArgs e)
     	{

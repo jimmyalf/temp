@@ -259,6 +259,7 @@
     <Compile Include="Domain\Persistence\Criterias\Orders\AllArticlesWithArticleTypeCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\AllArticlesWithSupplierCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\AllArticleTypesWithCategoryCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllOrdersToSendEmailForCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\AllOrdersWithArticleCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\FindCustomerByPersonalNumberCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\FindShopByUserNameAndHashedPasswordCriteria.cs" />

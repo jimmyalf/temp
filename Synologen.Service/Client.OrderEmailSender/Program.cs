@@ -19,7 +19,6 @@ namespace Synologen.Service.Client.OrderEmailSender
 			catch(Exception ex)
 			{
 				loggingService.LogError("Encountered an exception while sending orders.", ex);
-				throw;
 			}
 			finally
 			{

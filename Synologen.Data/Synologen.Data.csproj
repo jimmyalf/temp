@@ -127,6 +127,8 @@
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllSubscriptionsForShopCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllSubscriptionsToSendConsentsForCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllSubscriptionsToSendPaymentsForCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\AllSubscriptionsToSendConsentsForCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\AllSubscriptionsToSendPaymentsForCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllTransactionsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllUnhandledSubscriptionErrorsForShopCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\CustomersForShopMatchingCriteriaConverter.cs" />
@@ -199,8 +201,11 @@
     <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderCustomerMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\ShopMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionErrorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionItemMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionPendingPaymentMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\TransactionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopDetails\ShopEquipmentConnectionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopDetails\ShopEquipmentMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopDetails\ShopMap.cs" />
@@ -211,12 +216,15 @@
     <Compile Include="Repositories\OrderRepositories\ArticleSupplierRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\ArticleTypeRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\ArticleRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\SubscriptionPendingPaymentRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\LensRecipeRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\OrderCustomerRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\OrderRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\ShopRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\SubscriptionErrorRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\SubscriptionItemRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\SubscriptionRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\TransactionRepository.cs" />
     <Compile Include="Repositories\ShopDetailsRepositories\ShopRepository.cs" />
     <Compile Include="SqlProviderConcern.cs" />
     <Compile Include="SqlProviderCountry.cs" />

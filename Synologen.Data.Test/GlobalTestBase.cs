@@ -5,13 +5,13 @@ using NHibernate;
 using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
 using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
+using Spinit.Wpc.Synologen.Test.Data;
 using Spinit.Wpc.Utility.Business;
 using Shop = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Shop;
 

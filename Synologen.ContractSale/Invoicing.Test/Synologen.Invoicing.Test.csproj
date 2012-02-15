@@ -200,10 +200,6 @@
       <Project>{F83AEC3E-114B-42F9-AF36-12B985FB1EFC}</Project>
       <Name>Synologen Visma</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebService\Synologen WebService.csproj">
-      <Project>{74466C1B-0F03-4356-BA44-CF8983F5347E}</Project>
-      <Name>Synologen WebService</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

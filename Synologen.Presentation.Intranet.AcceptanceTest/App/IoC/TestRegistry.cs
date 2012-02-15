@@ -19,7 +19,9 @@ using StructureMap.Configuration.DSL;
 using ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories.ArticleRepository;
 using IArticleRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders.IArticleRepository;
 using IShopRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder.IShopRepository;
+using ISubscriptionErrorRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription.ISubscriptionErrorRepository;
 using ISubscriptionRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription.ISubscriptionRepository;
+using ITransactionRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription.ITransactionRepository;
 using ShopRepository = Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories.ShopRepository;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.IoC
@@ -40,8 +42,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.IoC
 			For<ISubscriptionRepository>().HybridHttpOrThreadLocalScoped().Use<Data.Repositories.LensSubscriptionRepositories.SubscriptionRepository>();
 			For<ICountryRepository>().HybridHttpOrThreadLocalScoped().Use<CountryRepository>();
 			For<Core.Domain.Persistence.LensSubscription.IShopRepository>().HybridHttpOrThreadLocalScoped().Use<Data.Repositories.LensSubscriptionRepositories.ShopRepository>();
-			For<ITransactionRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionRepository>();
-			For<ISubscriptionErrorRepository>().HybridHttpOrThreadLocalScoped().Use<SubscriptionErrorRepository>();
+			For<ITransactionRepository>().HybridHttpOrThreadLocalScoped().Use<Data.Repositories.LensSubscriptionRepositories.TransactionRepository>();
+			For<ISubscriptionErrorRepository>().HybridHttpOrThreadLocalScoped().Use<Data.Repositories.LensSubscriptionRepositories.SubscriptionErrorRepository>();
 			var connectionString = Utility.Business.Globals.ConnectionString(Utility.Business.Globals.ConnectionName);
 			For<ISqlProvider>().Use(() => new SqlProvider(connectionString));
 			For<ISettlementRepository>().Use<SettlementRepository>();

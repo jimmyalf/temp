@@ -11,7 +11,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
             Id(x => x.Id);
             Map(x => x.Name);
 			Map(x => x.OrderEmailAddress);
-            Map(x => x.ShippingOptions).CustomType<int>();
+            Map(x => x.ShippingOptions).CustomType<OrderShippingOption>();
             HasMany(x => x.Articles).Inverse().KeyColumn("ArticleSupplierId").Cascade.AllDeleteOrphan();
 			Map(x => x.Active);
         }

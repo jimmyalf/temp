@@ -242,15 +242,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	    public static SubscriptionItem GetSubscriptionItem(Subscription subscription)
 	    {
 	        return new SubscriptionItem
-	                   {
-	                       Description = "desc",
-                           Notes = "notes",
-                           NumberOfPayments = 3,
-                           NumberOfPaymentsLeft = 3,
-                           Subscription = subscription,
-                           TaxedAmount = 5000,
-                           TaxFreeAmount = 4000
-	                   };
+	        {
+	            Description = "desc",
+                Notes = "notes",
+                WithdrawalsLimit = 3,
+                PerformedWithdrawals = 0,
+                Subscription = subscription,
+                TaxedAmount = 5000,
+                TaxFreeAmount = 4000
+	        };
 	    }
 	}
 }

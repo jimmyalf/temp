@@ -23,7 +23,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
         	References(x => x.Shop).Column("ShopId").Not.Nullable();
         	Component(x => x.SelectedPaymentOption, paymentOption =>
         	{
-        		paymentOption.Map(x => x.Type).Column("PaymentOptionType").CustomType<int>();
+        		paymentOption.Map(x => x.Type).Column("PaymentOptionType").CustomType<PaymentOptionType>();
 				paymentOption.Map(x => x.SubscriptionId).Column("PaymentOptionSubscripitonId").Nullable();
         	});
         }

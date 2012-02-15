@@ -107,7 +107,7 @@
     </ProjectReference>
     <ProjectReference Include="..\ServiceCoordinator\ServiceCoordinator.csproj">
       <Project>{8993AF81-8925-4CA9-8ACF-EC3F868D065E}</Project>
-      <Name>ServiceCoordinator</Name>
+      <Name>ServiceCoordinator %28LensSubscription\ServiceCoordinator%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

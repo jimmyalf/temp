@@ -23,5 +23,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual DateTime CreatedDate { get; protected set; }
 		public virtual DateTime? ActivatedDate { get; set; }
 		public virtual bool Active { get; set; }
+		public virtual DateTime? LastPaymentSent { get; set; }
 	}
 }

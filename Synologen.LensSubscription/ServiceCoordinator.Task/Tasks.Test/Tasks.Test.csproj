@@ -97,6 +97,7 @@
     <Compile Include="Factories\ConsentFactory.cs" />
     <Compile Include="Factories\ErrorFactory.cs" />
     <Compile Include="Factories\PaymentFactory.cs" />
+    <Compile Include="Factories\PendingPaymentFactory.cs" />
     <Compile Include="Factories\SubscriptionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceiveConsentsTaskTester.cs" />
@@ -117,8 +118,8 @@
       <Name>Synologen.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ServiceCoordinator\ServiceCoordinator.csproj">
-      <Project>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</Project>
-      <Name>ServiceCoordinator</Name>
+      <Project>{8993AF81-8925-4CA9-8ACF-EC3F868D065E}</Project>
+      <Name>ServiceCoordinator %28LensSubscription\ServiceCoordinator%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceiveConsents\ReceiveConsents.csproj">
       <Project>{F30AAD16-9E89-40C1-9AAC-EC08ADEE667E}</Project>

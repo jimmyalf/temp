@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
@@ -11,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual TransactionType Type { get; set; }
 		public virtual TransactionReason Reason { get; set; }
 		public virtual DateTime CreatedDate { get; set; }
-		public virtual int SettlementId { get; set; }
+		public virtual int? SettlementId { get; set; }
 		public virtual SubscriptionTransactionArticle Article { get; set;}
 
 		//public static decimal GetCurrentAccountBalance(IEnumerable<SubscriptionTransaction> transactions)

@@ -1,3 +1,4 @@
+using System;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
@@ -15,6 +16,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.Orders
 
         public override ICriteria Convert(ArticleSuppliersBySelectedArticleType source)
         {
+			throw new NotImplementedException("Nothing is implemented here!");
             return Session.CreateCriteriaOf<ArticleSupplier>();
         }
     }

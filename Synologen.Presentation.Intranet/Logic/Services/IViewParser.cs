@@ -64,8 +64,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			{
 				Description = args.Description,
 				Notes = args.Notes,
-				NumberOfPayments = args.NumberOfPayments,
-				NumberOfPaymentsLeft =args.NumberOfPayments,
+				WithdrawalsLimit = args.NumberOfPayments,
 				Subscription = subscription,
 				TaxFreeAmount = args.TaxFreeAmount,
 				TaxedAmount = args.TaxedAmount,
@@ -76,8 +75,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 	    {
 	        subscriptionPayment.Description = args.Description;
 	        subscriptionPayment.Notes = args.Notes;
-            subscriptionPayment.NumberOfPayments = args.NumberOfPayments;
-			subscriptionPayment.NumberOfPaymentsLeft = args.NumberOfPayments;
+            subscriptionPayment.WithdrawalsLimit = args.NumberOfPayments;
 			subscriptionPayment.TaxFreeAmount = args.TaxFreeAmount;
 			subscriptionPayment.TaxedAmount = args.TaxedAmount;
 	        subscriptionPayment.Subscription = subscription;

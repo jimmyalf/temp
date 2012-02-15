@@ -1,15 +1,16 @@
 using System;
 using System.Linq;
-using System.ServiceModel;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
+using Subscription = Spinit.Wpc.Synologen.Core.Domain.Model.Orders.Subscription;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 {
@@ -24,7 +25,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 			{
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
 				var subscriptionErrorRepository = context.Resolve<ISubscriptionErrorRepository>();
-				var consents = BGWebServiceClient.GetConsents(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<ReceivedConsent>();
+				var consents = BGWebServiceClient.GetConsents(AutogiroServiceType.SubscriptionVersion2) ?? Enumerable.Empty<ReceivedConsent>();
 				LogDebug("Fetched {0} consent replies from bgc server", consents.Count());
 
 				consents.Each(consent => ExecuteWithExceptionHandling(context, "Got exception while processing received consent. Execution will continue to process next consent if any.", () =>
@@ -72,7 +73,10 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 		{
 			subscription.ConsentStatus = isAccepted ? SubscriptionConsentStatus.Accepted : SubscriptionConsentStatus.Denied;
 			if (isAccepted)
-				subscription.ActivatedDate = consent.ConsentValidForDate.Value;
+			{
+				if(!consent.ConsentValidForDate.HasValue) throw new ApplicationException("Consent Valid date was not set.");
+				subscription.ActivatedDate = consent.ConsentValidForDate.Value;	
+			}
 			subscriptionRepository.Save(subscription);
 		}
 

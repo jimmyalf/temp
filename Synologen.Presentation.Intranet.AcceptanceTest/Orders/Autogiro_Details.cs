@@ -224,8 +224,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			subscriptionItem.AmountForAutogiroWithdrawal.ShouldBe(_form.TaxFreeAmount + _form.TaxedAmount);
 			subscriptionItem.Description.ShouldBe(_form.Description);
 			subscriptionItem.Notes.ShouldBe(_form.Notes);
-			subscriptionItem.NumberOfPayments.ShouldBe(_form.NumberOfPayments);
-			subscriptionItem.NumberOfPaymentsLeft.ShouldBe(_form.NumberOfPayments);
+			subscriptionItem.WithdrawalsLimit.ShouldBe(_form.NumberOfPayments);
+			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
 			subscriptionItem.TaxFreeAmount.ShouldBe(_form.TaxFreeAmount);
 			subscriptionItem.TaxedAmount.ShouldBe(_form.TaxedAmount);
 			//Assert Subscription
@@ -247,8 +247,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			subscriptionItem.AmountForAutogiroWithdrawal.ShouldBe(_form.TaxFreeAmount + _form.TaxedAmount);
 			subscriptionItem.Description.ShouldBe(_form.Description);
 			subscriptionItem.Notes.ShouldBe(_form.Notes);
-			subscriptionItem.NumberOfPayments.ShouldBe(_form.NumberOfPayments);
-			subscriptionItem.NumberOfPaymentsLeft.ShouldBe(_form.NumberOfPayments);
+			subscriptionItem.WithdrawalsLimit.ShouldBe(_form.NumberOfPayments);
+			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
 			subscriptionItem.TaxFreeAmount.ShouldBe(_form.TaxFreeAmount);
 			subscriptionItem.TaxedAmount.ShouldBe(_form.TaxedAmount);
 			//Assert Subscription

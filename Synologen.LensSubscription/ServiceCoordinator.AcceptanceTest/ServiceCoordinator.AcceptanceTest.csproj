@@ -62,6 +62,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Tools\Shouldly\Shouldly.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Spinit.Data, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
@@ -111,13 +112,10 @@
   <ItemGroup>
     <Compile Include="Factory.cs" />
     <Compile Include="GlobalTestBase.cs" />
-    <Compile Include="TestHelpers\ReceiveErrorTaskbase.cs" />
     <Compile Include="Receive_Error.cs" />
-    <Compile Include="TestHelpers\ReceiveConsentTaskbase.cs" />
     <Compile Include="Receive_Consent.cs" />
     <Compile Include="Send_Consent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestHelpers\ReceivePaymentTaskbase.cs" />
     <Compile Include="Receive_Payment.cs" />
     <Compile Include="TestHelpers\TaskBase.cs" />
     <Compile Include="Send_Payment.cs" />
@@ -169,7 +167,7 @@
     </ProjectReference>
     <ProjectReference Include="..\ServiceCoordinator\ServiceCoordinator.csproj">
       <Project>{8993AF81-8925-4CA9-8ACF-EC3F868D065E}</Project>
-      <Name>ServiceCoordinator</Name>
+      <Name>ServiceCoordinator %28LensSubscription\ServiceCoordinator%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

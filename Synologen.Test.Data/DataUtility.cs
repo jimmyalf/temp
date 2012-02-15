@@ -6,7 +6,7 @@ using Spinit.Wpc.Base.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Data;
 
-namespace Spinit.Wpc.Synogen.Test.Data
+namespace Spinit.Wpc.Synologen.Test.Data
 {
 	public class DataUtility
 	{

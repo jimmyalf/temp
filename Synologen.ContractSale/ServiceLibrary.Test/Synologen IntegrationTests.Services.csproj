@@ -144,10 +144,6 @@
       <Project>{84326EE0-5F6E-4133-A852-AF781AF74682}</Project>
       <Name>Synologen Invoicing Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebService\Synologen WebService.csproj">
-      <Project>{74466C1B-0F03-4356-BA44-CF8983F5347E}</Project>
-      <Name>Synologen WebService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>

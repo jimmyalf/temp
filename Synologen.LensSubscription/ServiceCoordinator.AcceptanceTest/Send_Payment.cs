@@ -1,12 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using ServiceCoordinator.AcceptanceTest;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpers;
 using SendPaymentTask = Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments.Task;
@@ -16,12 +17,14 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 	[TestFixture, Category("Feature: Sending Payment")]
 	public class When_sending_a_payment : TaskBase
 	{
-		private ITaskRunnerService taskRunnerService;
-		private SendPaymentTask task;
-		private Customer customer;
-		private Subscription subscription;
-		private int bankGiroPayerNumber;
-		private DateTime expectedPaymentDate;
+		private ITaskRunnerService _taskRunnerService;
+		private SendPaymentTask _task;
+		private OrderCustomer _customer;
+		private Subscription _subscription;
+		private int _bankGiroPayerNumber;
+		private DateTime _expectedPaymentDate;
+		private IEnumerable<SubscriptionItem> _subscriptionItems;
+		private decimal _expectedPaymentAmount;
 
 		public When_sending_a_payment()
 		{
@@ -29,47 +32,58 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 			{
 				InvokeWebService(service =>
 				{
-					bankGiroPayerNumber = service.RegisterPayer("Test payer", AutogiroServiceType.LensSubscription);
+					_bankGiroPayerNumber = service.RegisterPayer("Test payer", AutogiroServiceType.SubscriptionVersion2);
 				});
 
-				expectedPaymentDate = CalculatePaymentDate();
-
-				var countryToUse = countryRepository.Get(SwedenCountryId);
-				var shopToUse = CreateShop(GetWPCSession());
-					//shopRepository.Get(TestShopId);
-				customer = Factory.CreateCustomer(countryToUse, shopToUse);
-				customerRepository.Save(customer);
-				subscription = Factory.CreateSubscriptionReadyForPayment(customer, bankGiroPayerNumber);
-				subscriptionRepository.Save(subscription);
-				task = ResolveTask<SendPaymentTask>();
-				taskRunnerService = GetTaskRunnerService(task);
+				_expectedPaymentDate = CalculatePaymentDate();
+				var shopToUse = CreateShop<Shop>();
+				_customer = StoreWithWpcSession(() =>Factory.CreateCustomer(shopToUse));
+				_subscription = StoreWithWpcSession(() => Factory.CreateSubscription(_customer, shopToUse, _bankGiroPayerNumber, Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes.SubscriptionConsentStatus.Accepted, new DateTime(2011, 01, 01)));
+				_subscriptionItems = StoreItemsWithWpcSession(() => Factory.CreateSubscriptionItems(_subscription));
+				_task = ResolveTask<SendPaymentTask>();
+				_taskRunnerService = GetTaskRunnerService(_task);
+				_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Sum(x => x.AmountForAutogiroWithdrawal);
 			};
 
-			Because = () => taskRunnerService.Run();
+			Because = () => _taskRunnerService.Run();
 		}
 
 		[Test]
 		public void Webservice_stores_payment()
 		{
-			var lastPayment = bgPaymentRepository.GetAll().Last();
-			lastPayment.Amount.ShouldBe(subscription.PaymentInfo.MonthlyAmount);
-			lastPayment.HasBeenSent.ShouldBe(false);
-			lastPayment.Payer.Id.ShouldBe(bankGiroPayerNumber);
-			lastPayment.PaymentDate.Date.ShouldBe(expectedPaymentDate);
-			lastPayment.PaymentPeriodCode.ShouldBe(PaymentPeriodCode.PaymentOnceOnSelectedDate);
-			lastPayment.Reference.ShouldBe(null);
-			lastPayment.SendDate.ShouldBe(null);
-			lastPayment.Type.ShouldBe(PaymentType.Debit);
+			var pendingPayment = GetAll<SubscriptionPendingPayment>(GetWPCSession).Single();
+			var payment = GetAll<BGPaymentToSend>(GetBGSession).Single();
+			payment.Amount.ShouldBe(_expectedPaymentAmount);
+			payment.HasBeenSent.ShouldBe(false);
+			payment.Payer.Id.ShouldBe(_bankGiroPayerNumber);
+			payment.PaymentDate.Date.ShouldBe(_expectedPaymentDate);
+			payment.PaymentPeriodCode.ShouldBe(PaymentPeriodCode.PaymentOnceOnSelectedDate);
+			payment.Reference.ShouldBe(pendingPayment.Id.ToString());
+			payment.SendDate.ShouldBe(null);
+			payment.Type.ShouldBe(PaymentType.Debit);
+		}
+
+		[Test]
+		public void Task_creates_a_pending_payment()
+		{
+			var pendingPayment = GetAll<SubscriptionPendingPayment>(GetWPCSession).Single();
+			pendingPayment.Amount.ShouldBe(_expectedPaymentAmount);
+			pendingPayment.Created.Date.ShouldBe(SystemTime.Now.Date);
+			pendingPayment.HasBeenPayed.ShouldBe(false);
+			_subscriptionItems.Where(x => x.IsActive).Each(subscriptionItem => 
+				pendingPayment.SubscriptionItems.ShouldContain(x => x.Id == subscriptionItem.Id)
+			);
+
 		}
 
 		[Test]
 		public void Task_updates_payment_date()
 		{
-			var fetchedSubscription = ResolveRepository<ISubscriptionRepository>(GetWPCSession).Get(subscription.Id);
-			fetchedSubscription.PaymentInfo.PaymentSentDate.Value.Date.ShouldBe(expectedPaymentDate);
+			var fetchedSubscription = Get<Subscription>(GetWPCSession, _subscription.Id);
+			fetchedSubscription.LastPaymentSent.Value.Date.ShouldBe(_expectedPaymentDate);
 		}
 
-		public DateTime CalculatePaymentDate()
+		private DateTime CalculatePaymentDate()
 		{
 			var expectedPaymentDay = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentDayInMonth();
 			var cutOffDayInMonth = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentCutOffDayInMonth();

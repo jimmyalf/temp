@@ -6,13 +6,13 @@ using Shouldly;
 using Spinit.Extensions;
 using Spinit.Test;
 using Spinit.Wpc.Base.Data;
-using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories;
 using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
+using Spinit.Wpc.Synologen.Test.Data;
 using Spinit.Wpc.Utility.Business;
 
 namespace Spinit.Wpc.Synologen.Data.Test.ContractSales

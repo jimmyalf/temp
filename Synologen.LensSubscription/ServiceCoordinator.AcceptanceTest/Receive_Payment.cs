@@ -1,120 +1,134 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using ServiceCoordinator.AcceptanceTest;
-using ServiceCoordinator.AcceptanceTest.TestHelpers;
 using Shouldly;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Synologen.LensSubscription.BGData.Repositories;
+using Spinit.Wpc.Synologen.Core.Extensions;
+using Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpers;
 using ReceivePaymentsTask = Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments.Task;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 {
 	[TestFixture, Category("Feature: Receiving Payment")]
-	public class When_receiveing_a_successful_payment : ReceivePaymentTaskbase
+	public class When_receiveing_a_successful_payment : TaskBase
 	{
-		private ReceivePaymentsTask task;
-		ITaskRunnerService taskRunnerService;
-		private int bankGiroPayerNumber;
-		private Subscription subscription;
-		private BGReceivedPayment successfulPayment;
+		private ReceivePaymentsTask _task;
+		ITaskRunnerService _taskRunnerService;
+		private int _bankGiroPayerNumber;
+		private Subscription _subscription;
+		private BGReceivedPayment _successfulPayment;
+		private IEnumerable<SubscriptionItem> _subscriptionItems;
+		private SubscriptionPendingPayment _pendingPayment;
 
 		public When_receiveing_a_successful_payment()
 		{
 			Context = () =>
 			{
-				bankGiroPayerNumber = RegisterPayerWithWebService();
-				var shop = CreateShop(GetWPCSession());
-				subscription = StoreSubscription(customer => Factory.CreateSubscriptionReadyForPayment(customer, bankGiroPayerNumber), shop.Id, bankGiroPayerNumber);
-				successfulPayment = StoreBGPayment(Factory.CreateSuccessfulPayment, bankGiroPayerNumber);
-
-				task = ResolveTask<ReceivePaymentsTask>();
-				taskRunnerService = GetTaskRunnerService(task);
+				_bankGiroPayerNumber = RegisterPayerWithWebService();
+				var shop = CreateShop<Shop>();
+				_subscription = StoreSubscription(customer => Factory.CreateSubscription(customer, shop, _bankGiroPayerNumber, SubscriptionConsentStatus.Accepted, new DateTime(2011,01,01)), shop.Id);
+				_subscriptionItems = StoreItemsWithWpcSession(() => Factory.CreateSubscriptionItems(_subscription));
+				_pendingPayment = StoreWithWpcSession(() => Factory.CreatePendingPayment(_subscriptionItems.ToList()));
+				_successfulPayment = StoreBGPayment(getPayment => Factory.CreateSuccessfulPayment(getPayment, _pendingPayment.Id.ToString(), _pendingPayment.Amount), _bankGiroPayerNumber);
+				_task = ResolveTask<ReceivePaymentsTask>();
+				_taskRunnerService = GetTaskRunnerService(_task);
 			};
-			Because = () =>
-			{
-				taskRunnerService.Run();
-			};
+			Because = () => _taskRunnerService.Run();
 		}
 
 
 		[Test]
+		public void PendingPayment_is_updated()
+		{
+			var pendingPayment = Get<SubscriptionPendingPayment>(GetWPCSession, _pendingPayment.Id);
+			pendingPayment.HasBeenPayed.ShouldBe(true);
+		}
+
+		[Test]
+		public void SubscriptionItems_are_updated()
+		{
+			var subscriptionItems = GetAll<SubscriptionItem>(GetWPCSession)
+				.With(x => x.Id)
+				.In(_pendingPayment.SubscriptionItems, x => x.Id);
+			subscriptionItems.And(_pendingPayment.SubscriptionItems).Do((freshSubscriptionItem, staleSubscriptionItem) => 
+				freshSubscriptionItem.PerformedWithdrawals.ShouldBe(staleSubscriptionItem.PerformedWithdrawals + 1)
+			);
+		}
+
+		[Test]
 		public void Task_creates_a_transaction()
 		{
-			var fetchedSubscription = ResolveRepository<ISubscriptionRepository>(GetWPCSession).Get(subscription.Id);
-			fetchedSubscription.Transactions.Count().ShouldBe(1);
-			var newTransaction = fetchedSubscription.Transactions.First();
-			newTransaction.Amount.ShouldBe(successfulPayment.Amount);
-			newTransaction.Article.ShouldBe(null);
-			newTransaction.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
-			newTransaction.Reason.ShouldBe(TransactionReason.Payment);
-			newTransaction.Settlement.ShouldBe(null);
-			newTransaction.Type.ShouldBe(TransactionType.Deposit);
+			var transaction = Get<Subscription>(GetWPCSession, _subscription.Id).Transactions.Single();
+			transaction.Amount.ShouldBe(_successfulPayment.Amount);
+			transaction.Article.ShouldBe(null);
+			transaction.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
+			transaction.Reason.ShouldBe(TransactionReason.Payment);
+			transaction.SettlementId.ShouldBe(null);
+			transaction.Type.ShouldBe(TransactionType.Deposit);
 		}
 
 		[Test]
 		public void Task_updates_recieved_payment_as_handled()
 		{
-			var payment = new BGReceivedPaymentRepository(GetBGSession()).Get(successfulPayment.Id);
+			var payment = Get<BGReceivedPayment>(GetBGSession, _successfulPayment.Id);
 			payment.Handled.ShouldBe(true);
 		}
 	}
 
 	[TestFixture, Category("Feature: Receiving Payment")]
-	public class When_receiveing_a_failed_payment : ReceivePaymentTaskbase
+	public class When_receiveing_a_failed_payment : TaskBase
 	{
-		private ReceivePaymentsTask task;
-		ITaskRunnerService taskRunnerService;
-		private int bankGiroPayerNumber;
-		private Subscription subscription;
-		private BGReceivedPayment failedPayment;
+		private ReceivePaymentsTask _task;
+		ITaskRunnerService _taskRunnerService;
+		private int _bankGiroPayerNumber;
+		private Subscription _subscription;
+		private BGReceivedPayment _failedPayment;
 
 		public When_receiveing_a_failed_payment()
 		{
 			Context = () =>
 			{
-				bankGiroPayerNumber = RegisterPayerWithWebService();
-				var shop = CreateShop(GetWPCSession());
-				subscription = StoreSubscription(customer => Factory.CreateSubscriptionReadyForPayment(customer, bankGiroPayerNumber), shop.Id, bankGiroPayerNumber);
-				failedPayment = StoreBGPayment(Factory.CreateFailedPayment, bankGiroPayerNumber);
+				_bankGiroPayerNumber = RegisterPayerWithWebService();
+				var shop = CreateShop<Shop>();
+				_subscription = StoreSubscription(customer => Factory.CreateSubscription(customer, shop, _bankGiroPayerNumber, SubscriptionConsentStatus.Accepted, new DateTime(2011,01,01)), shop.Id);
+				_failedPayment = StoreBGPayment(Factory.CreateFailedPayment, _bankGiroPayerNumber);
 
-				task = ResolveTask<ReceivePaymentsTask>();
-				taskRunnerService = GetTaskRunnerService(task);
+				_task = ResolveTask<ReceivePaymentsTask>();
+				_taskRunnerService = GetTaskRunnerService(_task);
 			};
-			Because = () =>
-			{
-				taskRunnerService.Run();
-			};
+			Because = () => _taskRunnerService.Run();
 		}
 
 
 		[Test]
 		public void Task_does_not_create_a_transaction()
 		{
-			var fetchedSubscription = ResolveRepository<ISubscriptionRepository>(GetWPCSession).Get(subscription.Id);
+			var fetchedSubscription = Get<Subscription>(GetWPCSession, _subscription.Id);
 			fetchedSubscription.Transactions.Count().ShouldBe(0);
 		}
 
 		[Test]
 		public void Task_creates_a_subscription_error()
 		{
-			var lastError = subscriptionErrorRepository.GetAll().Last();
-			lastError.BGPaymentId.ShouldBe(failedPayment.Id);
-			lastError.Code.ShouldBe(null);
-			lastError.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
-			lastError.HandledDate.ShouldBe(null);
-			lastError.IsHandled.ShouldBe(false);
-			lastError.Subscription.Id.ShouldBe(subscription.Id);
-			lastError.Type.ShouldBe(SubscriptionErrorType.PaymentRejectedInsufficientFunds);
+			var subscriptionError = GetAll<SubscriptionError>(GetWPCSession).Single();
+			subscriptionError.BGPaymentId.ShouldBe(_failedPayment.Id);
+			subscriptionError.Code.ShouldBe(null);
+			subscriptionError.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
+			subscriptionError.HandledDate.ShouldBe(null);
+			subscriptionError.IsHandled.ShouldBe(false);
+			subscriptionError.Subscription.Id.ShouldBe(_subscription.Id);
+			subscriptionError.Type.ShouldBe(SubscriptionErrorType.PaymentRejectedInsufficientFunds);
 		}
 
 		[Test]
 		public void Task_updates_recieved_payment_as_handled()
 		{
-			var payment = new BGReceivedPaymentRepository(GetBGSession()).Get(failedPayment.Id);
+			var payment = Get<BGReceivedPayment>(GetBGSession, _failedPayment.Id);
 			payment.Handled.ShouldBe(true);
 		}
 	}

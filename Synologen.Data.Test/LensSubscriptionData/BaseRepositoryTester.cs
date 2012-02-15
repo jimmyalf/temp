@@ -4,10 +4,12 @@ using NHibernate;
 using Spinit.Data;
 using Spinit.Test.NHibernate;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
+using Spinit.Wpc.Synologen.Test.Data;
+using AllSubscriptionsToSendConsentsForCriteria = Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription.AllSubscriptionsToSendConsentsForCriteria;
+using AllSubscriptionsToSendConsentsForCriteriaConverter = Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscription.AllSubscriptionsToSendConsentsForCriteriaConverter;
 using Shop = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Shop;
 
 namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData

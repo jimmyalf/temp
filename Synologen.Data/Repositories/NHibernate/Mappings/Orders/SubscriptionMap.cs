@@ -1,5 +1,6 @@
 ﻿using FluentNHibernate.Mapping;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 {
@@ -14,12 +15,13 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 			Map(x => x.AutogiroPayerId).Nullable();
 			Map(x => x.BankAccountNumber).Length(12);
 			Map(x => x.ClearingNumber).Length(4);
-			Map(x => x.ConsentStatus).CustomType<int>();
+			Map(x => x.ConsentStatus).CustomType<SubscriptionConsentStatus>();
 			Map(x => x.CreatedDate);
 			References(x => x.Customer).Column("CustomerId");
 			References(x => x.Shop).Column("ShopId").Not.Nullable();
-			//HasMany(x => x.SubscriptionItems);
-			//HasMany(x => x.Transactions);
+			Map(x => x.LastPaymentSent).Nullable();
+			HasMany(x => x.SubscriptionItems).KeyColumn("SubscriptionId");
+			HasMany(x => x.Transactions).KeyColumn("SubscriptionId");
 		} 
 	}
 }

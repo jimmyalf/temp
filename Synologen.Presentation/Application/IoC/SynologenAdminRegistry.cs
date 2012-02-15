@@ -19,6 +19,7 @@ using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using StructureMap.Configuration.DSL;
 using ContractSales_IArticleRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales.IArticleRepository;
 using ContractSales_ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories.ArticleRepository;
+using ITransactionRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription.ITransactionRepository;
 using Order_IArticleRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders.IArticleRepository;
 using Order_ArticleRepository = Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories.ArticleRepository;
 using LensSubscription_ISubscriptionRepository = Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription.ISubscriptionRepository;
@@ -46,7 +47,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 			For<LensSubscription_ISubscriptionRepository>().HybridHttpOrThreadLocalScoped().Use<LensSubscription_SubscriptionRepository>();
 			For<ISettlementRepository>().HybridHttpOrThreadLocalScoped().Use<SettlementRepository>();
 			For<IContractSaleRepository>().HybridHttpOrThreadLocalScoped().Use<ContractSaleRepository>();
-			For<ITransactionRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionRepository>();
+			For<ITransactionRepository>().HybridHttpOrThreadLocalScoped().Use<Data.Repositories.LensSubscriptionRepositories.TransactionRepository>();
 			For<ICustomerRepository>().HybridHttpOrThreadLocalScoped().Use<CustomerRepository>();
 			For<ITransactionArticleRepository>().HybridHttpOrThreadLocalScoped().Use<TransactionArticleRepository>();
 			For<ContractSales_IArticleRepository>().HybridHttpOrThreadLocalScoped().Use<ContractSales_ArticleRepository>();

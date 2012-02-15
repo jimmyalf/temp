@@ -11,6 +11,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
+using AllSubscriptionsToSendConsentsForCriteria = Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription.AllSubscriptionsToSendConsentsForCriteria;
 
 namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 {
@@ -356,7 +357,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		}
 	}
 
-	[TestFixture, Category("SubscriptionRepositoryTester")]
+	[TestFixture, Category("SubscriptionRepositoryTester"), Ignore("")]
 	public class When_fetching_subscriptions_by_AllSubscriptionsToSendConsentsForCriteria : BaseRepositoryTester<SubscriptionRepository>
 	{
 		private IList<Subscription> _savedSubscriptions;

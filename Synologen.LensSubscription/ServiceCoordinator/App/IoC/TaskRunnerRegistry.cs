@@ -1,15 +1,14 @@
-//#define DEBUG
 using System.Reflection;
 using NHibernate;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
-using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
+using Spinit.Wpc.Synologen.Data.Repositories.OrderRepositories;
 using StructureMap.Configuration.DSL;
 using Synologen.LensSubscription.ServiceCoordinator.App.Logging;
 using Synologen.LensSubscription.ServiceCoordinator.Core.IoC;
@@ -25,6 +24,11 @@ namespace Synologen.LensSubscription.ServiceCoordinator.App.IoC
 			For<ISessionFactory>().Singleton().Use(NHibernateFactory.Instance.GetSessionFactory);
 			For<ISession>().Use(x => ((NHibernateUnitOfWork)x.GetInstance<IUnitOfWork>()).Session);
 			For<ISubscriptionRepository>().Use<SubscriptionRepository>();
+			For<ISubscriptionRepository>().Use<SubscriptionRepository>();
+			For<ISubscriptionItemRepository>().Use<SubscriptionItemRepository>();
+			For<ISubscriptionErrorRepository>().Use<SubscriptionErrorRepository>();
+			For<ITransactionRepository>().Use<TransactionRepository>();
+			For<ISubscriptionPendingPaymentRepository>().Use<SubscriptionPendingPaymentRepository>();
 			For<ISubscriptionErrorRepository>().Use<SubscriptionErrorRepository>();
 			For<ITransactionRepository>().Use<TransactionRepository>();
 

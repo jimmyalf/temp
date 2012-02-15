@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NUnit.Framework;
-using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers;
+using Spinit.Wpc.Synologen.Test.Data;
 using StructureMap;
 
 namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest

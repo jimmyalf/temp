@@ -4,11 +4,10 @@ using System.ServiceModel;
 using FakeItEasy;
 using Moq;
 using NUnit.Framework;
-using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
@@ -28,7 +27,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedErrors = ErrorFactory.GetList().ToArray();
 				expectedSubscription = SubscriptionFactory.Get(3);
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
-				MockedWebServiceClient.Setup(x => x.GetErrors(AutogiroServiceType.LensSubscription)).Returns(expectedErrors);
+				MockedWebServiceClient.Setup(x => x.GetErrors(AutogiroServiceType.SubscriptionVersion2)).Returns(expectedErrors);
 			};
 			Because = task => task.Execute(ExecutingTaskContext);
 		}
@@ -36,7 +35,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_fetches_errors_from_webservice()
 		{
-			MockedWebServiceClient.Verify(x => x.GetErrors(AutogiroServiceType.LensSubscription));
+			MockedWebServiceClient.Verify(x => x.GetErrors(AutogiroServiceType.SubscriptionVersion2));
 		}
 
 		[Test]

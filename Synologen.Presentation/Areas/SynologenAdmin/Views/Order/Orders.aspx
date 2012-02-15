@@ -30,6 +30,7 @@
 					    column.For(x => x.CustomerName).Named("Kund");
 						column.For(x => x.PersonalIDNumber).Named("Kunds Personnummer");
 						column.For(x => x.CreatedDate).Named("Skapad");
+						column.For(x => Html.ActionLink("Visa", "OrderView", "Order", new {id = x.OrderId}, new object())).SetAsWpcControlColumn("Visa");
  					}).Empty("Inga beställningar i databasen.")
 				%>
 			</div>

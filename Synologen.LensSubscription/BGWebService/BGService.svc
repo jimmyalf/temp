@@ -1,4 +1,0 @@
-﻿<%@ ServiceHost Language="C#" 
-Debug="true" 
-Service="Synologen.LensSubscription.BGWebService.App.Services.BGWebService" 
-Factory="Synologen.LensSubscription.BGWebService.App.IoC.BGServiceHostFactory" %>

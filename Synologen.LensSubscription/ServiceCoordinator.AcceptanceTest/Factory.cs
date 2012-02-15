@@ -1,73 +1,65 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Spinit;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
+using OrderSubscription = Spinit.Wpc.Synologen.Core.Domain.Model.Orders.Subscription;
 
-namespace ServiceCoordinator.AcceptanceTest
+namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 {
 	public static class Factory
 	{
-		public static Customer CreateCustomer(Country country, Shop shop) 
+		public static OrderCustomer CreateCustomer(Shop shop)
 		{ 
-			return new Customer
+			return new OrderCustomer
 			{
-				Address = new CustomerAddress
-				{
-					AddressLineOne = "AddressLineOne",
-					City = "Göteborg",
-					PostalCode = "43632",
-					Country = country
-				},
-				Contact = new CustomerContact
-				{
-					Email = "abc@abc.se",
-					MobilePhone = "0700-00 00 00",
-					Phone = "031 - 00 00 00"
-				},
-				FirstName = "FirstName",
-				LastName = "LastName",
-				Shop = shop,
-				PersonalIdNumber = "197910071111"
+				AddressLineOne = "Storgatan 1",
+				AddressLineTwo = "Box 1234",
+				City = "Storstad",
+				Email = "test.kund@test.se",
+				FirstName = "Adam",
+				LastName = "Bertil",
+				MobilePhone = "0701-234567",
+				Notes = "Anteckningar...",
+				PersonalIdNumber = "197001011234",
+				Phone = "031-123456",
+				PostalCode = "12345",
+				Shop = shop
 			};
 		}
 
-		public static Subscription CreateNewSubscription(Customer customer)
-		{
-			return CreateSubscription(customer, SubscriptionConsentStatus.NotSent, null, null);
-		}
-
-		public static Subscription CreateSentSubscription(Customer customer, int bankgiroPayerNumber)
-		{
-			return CreateSubscription(customer, SubscriptionConsentStatus.Sent, new DateTime(2011, 02, 01), bankgiroPayerNumber);
-		}
-
-		public static Subscription CreateSubscriptionReadyForPayment(Customer customer, int bankgiroPayerNumber)
-		{
-			return CreateSubscription(customer, SubscriptionConsentStatus.Accepted, new DateTime(2011, 02, 01), bankgiroPayerNumber);
-		}
-
-		private static Subscription CreateSubscription(Customer customer, SubscriptionConsentStatus status, DateTime? sentDate, int? bankgiroNumber)
+		public static OrderSubscription CreateSubscription(
+			OrderCustomer customer, 
+			Shop shop,
+			int? autogiroPayerId = null, 
+			SubscriptionConsentStatus consentStatus = SubscriptionConsentStatus.NotSent,
+			DateTime? sentDate = null)
 		{
 			return new Subscription
 			{
 				ActivatedDate = null,
 				Active = true,
-				BankgiroPayerNumber = bankgiroNumber,
-				ConsentStatus = status,
-				CreatedDate = new DateTime(2011, 01, 22),
+				AutogiroPayerId = autogiroPayerId,
+				ConsentStatus = consentStatus,
+				//CreatedDate = new DateTime(2011, 01, 22),
 				Customer = customer,
 				Errors = null,
-				Notes = "Notes...",
-				PaymentInfo = new SubscriptionPaymentInfo
-				{
-					AccountNumber = "123456",
-					ClearingNumber = "1234",
-					MonthlyAmount = 355,
-					PaymentSentDate = sentDate
-				},
+				//Notes = "Notes...",
+				BankAccountNumber = "123456",
+				ClearingNumber = "1234",
+				LastPaymentSent = sentDate,
 				Transactions = null,
+				Shop = shop
 			};
+		}
+
+		public static IEnumerable<OrderSubscription> CreateSubscriptions(OrderCustomer customer, Shop shop, int? autogiroPayerId = null, SubscriptionConsentStatus consentStatus = SubscriptionConsentStatus.NotSent, DateTime? sentDate = null)
+		{
+			return Sequence.Generate(() => CreateSubscription(customer, shop, autogiroPayerId, consentStatus, sentDate), 10);
 		}
 
 		public static BGReceivedConsent CreateConsentedConsent(AutogiroPayer payer) 
@@ -93,9 +85,9 @@ namespace ServiceCoordinator.AcceptanceTest
 			};
 		}
 
-		public static BGReceivedPayment CreateSuccessfulPayment(AutogiroPayer payer) 
+		public static BGReceivedPayment CreateSuccessfulPayment(AutogiroPayer payer, string reference = "Reference", decimal amount = 823M) 
 		{
-			return CreatePayment(payer, PaymentResult.Approved);
+			return CreatePayment(payer, PaymentResult.Approved, reference, amount);
 		}
 
 		public static BGReceivedPayment CreateFailedPayment(AutogiroPayer payer) 
@@ -103,11 +95,11 @@ namespace ServiceCoordinator.AcceptanceTest
 			return CreatePayment(payer, PaymentResult.InsufficientFunds);
 		}
 
-		private static BGReceivedPayment CreatePayment(AutogiroPayer payer, PaymentResult result)
+		private static BGReceivedPayment CreatePayment(AutogiroPayer payer, PaymentResult result, string reference = "Reference", decimal amount = 823M)
 		{
 			return new BGReceivedPayment
 			{
-				Amount = 823M,
+				Amount = amount,
 				CreatedDate = new DateTime(2011, 03, 24),
 				NumberOfReoccuringTransactionsLeft = null,
 				Payer = payer,
@@ -118,7 +110,7 @@ namespace ServiceCoordinator.AcceptanceTest
 					BankgiroNumber = "123456-123",
 					CustomerNumber = "123456"
 				},
-				Reference = "Reference",
+				Reference = reference,
 				ResultType = result,
 				Type = PaymentType.Debit
 			};
@@ -134,6 +126,40 @@ namespace ServiceCoordinator.AcceptanceTest
 				Payer = payer,
 				PaymentDate = new DateTime(2011, 03, 01),
 				Reference = "Reference"
+			};
+		}
+
+		public static SubscriptionItem CreateSubscriptionItem(OrderSubscription subscription, int? withdrawalsLimit = 12, int performedWithdrawals = 0)
+		{
+			return new SubscriptionItem
+			{
+				Description = "Beskrivande text",
+				Notes = "Anteckningar",
+				WithdrawalsLimit = withdrawalsLimit,
+				PerformedWithdrawals = performedWithdrawals,
+				Subscription = subscription,
+				TaxFreeAmount = 150,
+				TaxedAmount = 300
+			};
+		}
+
+		public static IEnumerable<SubscriptionItem> CreateSubscriptionItems(OrderSubscription subscription)
+		{
+			return new []
+			{
+				CreateSubscriptionItem(subscription), //Active subscription item with limit
+				CreateSubscriptionItem(subscription, null), //Active subscription item without limit
+				CreateSubscriptionItem(subscription, 12, 12) //Expired subscription item
+			};
+		}
+
+		public static SubscriptionPendingPayment CreatePendingPayment(IList<SubscriptionItem> subscriptionItems)
+		{
+			return new SubscriptionPendingPayment
+			{
+				Amount = subscriptionItems.Where(x => x.IsActive).Sum(x => x.AmountForAutogiroWithdrawal),
+				HasBeenPayed = false,
+				SubscriptionItems = subscriptionItems.Where(x => x.IsActive).ToList()
 			};
 		}
 	}

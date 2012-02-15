@@ -4,8 +4,9 @@ using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
@@ -23,7 +24,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors
 			{
 				var subscriptionErrorRepository = context.Resolve<ISubscriptionErrorRepository>();
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
-				var errors = BGWebServiceClient.GetErrors(AutogiroServiceType.LensSubscription) ?? Enumerable.Empty<RecievedError>();
+				var errors = BGWebServiceClient.GetErrors(AutogiroServiceType.SubscriptionVersion2) ?? Enumerable.Empty<RecievedError>();
 				LogDebug("Fetched {0} errors from BG Webservice", errors.Count());
 
 				errors.Each(error => ExecuteWithExceptionHandling(context, "Got exception while processing received error. Execution will continue to process next error if any.", () =>

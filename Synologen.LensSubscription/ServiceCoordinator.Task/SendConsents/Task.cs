@@ -1,11 +1,13 @@
+using System;
 using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Send;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
@@ -26,7 +28,10 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 				LogDebug("Fetched {0} subscriptions to send consents for", subscriptions.Count());
 				subscriptions.Each(subscription =>
 				{
-					if (subscription.BankgiroPayerNumber == null) GetSubscriptionPayer(subscription);
+					if (subscription.AutogiroPayerId == null)
+					{
+						subscription.AutogiroPayerId = CreateAutogiroPayerNumber(subscription);
+					}
 					var consent = ConvertSubscription(subscription);
 					BGWebServiceClient.SendConsent(consent);
 					UpdateSubscriptionStatus(subscription, subscriptionRepository);
@@ -34,11 +39,11 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 			});
 		}
 
-		private void GetSubscriptionPayer(Subscription subscription) 
+		private int CreateAutogiroPayerNumber(Subscription subscription) 
 		{
 			var customerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
-			var payerNumber = BGWebServiceClient.RegisterPayer(customerName, AutogiroServiceType.LensSubscription);
-			subscription.BankgiroPayerNumber = payerNumber;
+			var payerNumber = BGWebServiceClient.RegisterPayer(customerName, AutogiroServiceType.SubscriptionVersion2);
+			return payerNumber;
 		}
 
 		protected virtual void UpdateSubscriptionStatus(Subscription subscription, ISubscriptionRepository subscriptionRepository)
@@ -50,12 +55,17 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendConsents
 
 		protected virtual ConsentToSend ConvertSubscription(Subscription subscription)
 		{
+			if(!subscription.AutogiroPayerId.HasValue)
+			{
+				var errorMessage = string.Format("No autogiro payer id has been set for subscription {0} !", subscription.Id);
+				throw new ApplicationException(errorMessage);
+			}
 			return new ConsentToSend
 			{
-				BankAccountNumber = subscription.PaymentInfo.AccountNumber,
-				ClearingNumber = subscription.PaymentInfo.ClearingNumber,
+				BankAccountNumber = subscription.BankAccountNumber,
+				ClearingNumber = subscription.ClearingNumber,
 				PersonalIdNumber = subscription.Customer.PersonalIdNumber,
-				PayerNumber = subscription.BankgiroPayerNumber.Value,
+				PayerNumber = subscription.AutogiroPayerId.Value,
                 Type = ConsentType.New
 			};
 		}

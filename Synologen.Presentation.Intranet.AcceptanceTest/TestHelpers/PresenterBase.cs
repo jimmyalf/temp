@@ -3,10 +3,10 @@ using FakeItEasy;
 using NHibernate;
 using Spinit.Test;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Test.MockHelpers;
+using Spinit.Wpc.Synologen.Test.Data;
 using StructureMap;
 using WebFormsMvp;
 

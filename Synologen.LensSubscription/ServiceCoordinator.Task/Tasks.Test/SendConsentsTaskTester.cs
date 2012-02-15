@@ -5,8 +5,9 @@ using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
@@ -15,17 +16,17 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	[TestFixture, Category("SendConsentsTaskTests")]
 	public class When_executing_send_consents_task : SendConsentsTaskTestBase
 	{
-		private IEnumerable<Subscription> expectedSubscriptions;
-		private int payerNumber;
+		private IEnumerable<Subscription> _expectedSubscriptions;
+		private int _payerNumber;
 
 		public When_executing_send_consents_task()
 		{
 			Context = () =>
 			{
-				payerNumber = 5;
-				expectedSubscriptions = SubscriptionFactory.GetListWithAndWithoutBankgiroPayerNumber();
-				MockedSubscriptionRepository.Setup(x => x.FindBy(It.IsAny<AllSubscriptionsToSendConsentsForCriteria>())).Returns(expectedSubscriptions);
-				MockedWebServiceClient.Setup(x => x.RegisterPayer(It.IsAny<string>(), AutogiroServiceType.LensSubscription)).Returns(payerNumber);
+				_payerNumber = 5;
+				_expectedSubscriptions = SubscriptionFactory.GetListWithAndWithoutBankgiroPayerNumber();
+				MockedSubscriptionRepository.Setup(x => x.FindBy(It.IsAny<AllSubscriptionsToSendConsentsForCriteria>())).Returns(_expectedSubscriptions);
+				MockedWebServiceClient.Setup(x => x.RegisterPayer(It.IsAny<string>(), AutogiroServiceType.SubscriptionVersion2)).Returns(_payerNumber);
 			};
 			Because = task => task.Execute(ExecutingTaskContext);
 		}
@@ -46,27 +47,27 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_sends_consents_to_webservice()
 		{
-			expectedSubscriptions.Each(subscription => MockedWebServiceClient.Verify(x => x.SendConsent(
-					It.Is<ConsentToSend>(consent => consent.PayerNumber.Equals(subscription.BankgiroPayerNumber ?? payerNumber))
+			_expectedSubscriptions.Each(subscription => MockedWebServiceClient.Verify(x => x.SendConsent(
+					It.Is<ConsentToSend>(consent => consent.PayerNumber.Equals(subscription.AutogiroPayerId ?? _payerNumber))
 			)));
 		}
 
 		[Test]
 		public void Task_converts_subscriptions_into_consents()
 		{
-			expectedSubscriptions.Each(subscription => 
+			_expectedSubscriptions.Each(subscription => 
 				MockedWebServiceClient.Verify(x => x.SendConsent(It.Is<ConsentToSend>(sentConsent => 
-					sentConsent.BankAccountNumber.Equals(subscription.PaymentInfo.AccountNumber) && 
-					sentConsent.ClearingNumber.Equals(subscription.PaymentInfo.ClearingNumber) &&
+					sentConsent.BankAccountNumber.Equals(subscription.BankAccountNumber) && 
+					sentConsent.ClearingNumber.Equals(subscription.ClearingNumber) &&
 					sentConsent.PersonalIdNumber.Equals(subscription.Customer.PersonalIdNumber) &&
-					sentConsent.PayerNumber.Equals(subscription.BankgiroPayerNumber ?? payerNumber)
+					sentConsent.PayerNumber.Equals(subscription.AutogiroPayerId ?? _payerNumber)
 			))));
 		}
 
 		[Test]
 		public void Task_updates_sent_consents_to_repository()
 		{
-			expectedSubscriptions.Each(subscription => 
+			_expectedSubscriptions.Each(subscription => 
 				MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(savedSubscription => 
 					savedSubscription.Id.Equals(subscription.Id) &&
 					savedSubscription.ConsentStatus.Equals(SubscriptionConsentStatus.Sent)
@@ -76,16 +77,16 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_registers_new_payers()
 		{
-			expectedSubscriptions.Where(x => Equals(x.BankgiroPayerNumber, null)).Each(subscription => 
-				MockedWebServiceClient.Verify(x => x.RegisterPayer(subscription.Customer.FirstName + " " + subscription.Customer.LastName, AutogiroServiceType.LensSubscription)));
+			_expectedSubscriptions.Where(x => Equals(x.AutogiroPayerId, null)).Each(subscription => 
+				MockedWebServiceClient.Verify(x => x.RegisterPayer(subscription.Customer.FirstName + " " + subscription.Customer.LastName, AutogiroServiceType.SubscriptionVersion2)));
 		}
 
 		[Test]
 		public void Task_updates_new_subscriptions_with_new_payer_numbers()
 		{
-			expectedSubscriptions.Where(x => Equals(x.BankgiroPayerNumber, null)).Each( subscription =>
+			_expectedSubscriptions.Where(x => Equals(x.AutogiroPayerId, null)).Each( subscription =>
 				MockedSubscriptionRepository.Verify(x => x.Save(
-					It.Is<Subscription>(savedSubscription => savedSubscription.BankgiroPayerNumber.Value.Equals(payerNumber))
+					It.Is<Subscription>(savedSubscription => savedSubscription.AutogiroPayerId.Value.Equals(_payerNumber))
 			)));
 		}
 	}

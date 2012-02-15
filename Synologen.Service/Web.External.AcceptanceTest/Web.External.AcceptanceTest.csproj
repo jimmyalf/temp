@@ -108,7 +108,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Web.External\Web.External.csproj">
       <Project>{E788095C-6969-4368-9398-37EF2E80F5BF}</Project>
-      <Name>Web.External</Name>
+      <Name>Web.External %28Service\Web.External%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -158,6 +158,7 @@
     <Compile Include="Domain\Model\ContractSales\Subscription.cs" />
     <Compile Include="Domain\Model\ContractSales\Transaction.cs" />
     <Compile Include="Domain\Model\Entity.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionPendingPayment.cs" />
     <Compile Include="Domain\Model\Orders\EyeParameter.cs" />
     <Compile Include="Domain\Model\Orders\LensRecipe.cs" />
     <Compile Include="Domain\Model\Orders\OptionalSequenceDefinition.cs" />
@@ -250,6 +251,8 @@
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsForShop.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsToSendConsentsForCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsToSendPaymentsForCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllSubscriptionsToSendConsentsForCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllSubscriptionsToSendPaymentsForCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllTransactionsMatchingCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllUnhandledSubscriptionErrorsForShopCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\CustomersForShopMatchingCriteria.cs" />
@@ -300,8 +303,11 @@
     <Compile Include="Domain\Persistence\Orders\IOrderCustomerRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\IOrderRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\IShopRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\ISubscriptionErrorRepository.cs" />
     <Compile Include="Domain\Persistence\Orders\ISubscriptionItemRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\ISubscriptionPendingPayment.cs" />
     <Compile Include="Domain\Persistence\Orders\ISubscriptionRepository.cs" />
+    <Compile Include="Domain\Persistence\Orders\ITransactionRepository.cs" />
     <Compile Include="Domain\Persistence\ShopDetails\IShopRepository.cs" />
     <Compile Include="Domain\Services\BgWebService\FtpChangePasswordException.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGFtpPasswordService.cs" />

@@ -8,7 +8,7 @@ using NUnit.Framework;
 using Spinit.Test.Web;
 using Spinit.Test.Web.MVC;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synogen.Test.Data;
+using Spinit.Wpc.Synologen.Test.Data;
 using StoryQ.Infrastructure;
 using StoryQ.sv_SE;
 using StructureMap;

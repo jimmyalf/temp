@@ -1,61 +1,58 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using ServiceCoordinator.AcceptanceTest;
-using ServiceCoordinator.AcceptanceTest.TestHelpers;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Synologen.LensSubscription.BGData.Repositories;
+using Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpers;
 using ReceiveErrorsTask = Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveErrors.Task;
+using Subscription = Spinit.Wpc.Synologen.Core.Domain.Model.Orders.Subscription;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest
 {
 	[TestFixture, Category("Feature: Receiving Error")]
-	public class When_receiveing_an_error : ReceiveErrorTaskbase
+	public class When_receiveing_an_error : TaskBase
 	{
-		private ReceiveErrorsTask task;
-		private ITaskRunnerService taskRunnerService;
-		private int bankGiroPayerNumber;
-		private Subscription subscription;
-		private BGReceivedError error;
+		private ReceiveErrorsTask _task;
+		private ITaskRunnerService _taskRunnerService;
+		private int _bankGiroPayerNumber;
+		private BGReceivedError _error;
+		private Subscription _subscription;
 
 		public When_receiveing_an_error()
 		{
 			Context = () =>
 			{
-				var shop = CreateShop(GetWPCSession());
-				bankGiroPayerNumber = RegisterPayerWithWebService();
-				subscription = StoreSubscription(customer => Factory.CreateSubscriptionReadyForPayment(customer, bankGiroPayerNumber), shop.Id, bankGiroPayerNumber);
-				error = StoreBGError(Factory.CreateError, bankGiroPayerNumber);
+				var shop = CreateShop<Shop>();
+				_bankGiroPayerNumber = RegisterPayerWithWebService();
+				_subscription = StoreSubscription(customer => Factory.CreateSubscription(customer, shop, _bankGiroPayerNumber, SubscriptionConsentStatus.Accepted, new DateTime(2011,01,01)), shop.Id);
+				_error = StoreBGError(Factory.CreateError, _bankGiroPayerNumber);
 
-				task = ResolveTask<ReceiveErrorsTask>();
-				taskRunnerService = GetTaskRunnerService(task);
+				_task = ResolveTask<ReceiveErrorsTask>();
+				_taskRunnerService = GetTaskRunnerService(_task);
 			};
-			Because = () =>
-			{
-				taskRunnerService.Run();
-			};
+			Because = () => _taskRunnerService.Run();
 		}
 
 		[Test]
 		public void Task_creates_a_subscription_error()
 		{
-			var lastError = subscriptionErrorRepository.GetAll().Last();
-			lastError.BGErrorId.ShouldBe(error.Id);
-			lastError.Code.ShouldBe(null);
-			lastError.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
-			lastError.HandledDate.ShouldBe(null);
-			lastError.IsHandled.ShouldBe(false);
-			lastError.Subscription.Id.ShouldBe(subscription.Id);
-			lastError.Type.ShouldBe(SubscriptionErrorType.NotDebitable);
+			var subscriptionError = GetAll<SubscriptionError>(GetWPCSession).Single();
+			subscriptionError.BGErrorId.ShouldBe(_error.Id);
+			subscriptionError.Code.ShouldBe(null);
+			subscriptionError.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
+			subscriptionError.HandledDate.ShouldBe(null);
+			subscriptionError.IsHandled.ShouldBe(false);
+			subscriptionError.Subscription.Id.ShouldBe(_subscription.Id);
+			subscriptionError.Type.ShouldBe(SubscriptionErrorType.NotDebitable);
 		}
 
 		[Test]
 		public void Task_updates_recieved_error_as_handled()
 		{
-			var receivedError = new BGReceivedErrorRepository(GetBGSession()).Get(error.Id);
+			var receivedError = Get<BGReceivedError>(GetBGSession, _error.Id);
 			receivedError.Handled.ShouldBe(true);
 		}
 	}

@@ -11,7 +11,7 @@ using Spinit.Wpc.Utility.Business;
 using Shop = Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 using SqlProvider = Spinit.Wpc.Synologen.Data.SqlProvider;
 
-namespace Spinit.Wpc.Synogen.Test.Data
+namespace Spinit.Wpc.Synologen.Test.Data
 {
 	public class DataManager : DataUtility
 	{
@@ -209,7 +209,11 @@ namespace Spinit.Wpc.Synogen.Test.Data
 			DeleteAndResetIndexForTable(connection, "SynologenOrder");
             DeleteAndResetIndexForTable(connection, "SynologenOrderLensRecipe");
 			DeleteAndResetIndexForTable(connection, "SynologenOrderArticle");
+			DeleteForTable(connection, "SynologenOrderSubscriptionPendingPayment_SynologenOrderSubscriptionItem");
+			DeleteAndResetIndexForTable(connection, "SynologenOrderSubscriptionPendingPayment");
 			DeleteAndResetIndexForTable(connection, "SynologenOrderSubscriptionItem");
+			DeleteAndResetIndexForTable(connection, "SynologenOrderSubscriptionError");
+			DeleteAndResetIndexForTable(connection, "SynologenOrderTransaction");
 			DeleteAndResetIndexForTable(connection, "SynologenOrderSubscription");
 			DeleteAndResetIndexForTable(connection, "SynologenOrderCustomer");
 			DeleteAndResetIndexForTable(connection, "SynologenOrderArticleType");

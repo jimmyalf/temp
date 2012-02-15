@@ -15,7 +15,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public string Article { get; set; }
 
         public string DeliveryOption { get; set; }
-        public string PaymentOption { get; set; }
         public string TaxedAmount { get; set; }
         public string TaxfreeAmount { get; set; }
         public string TotalWithdrawal { get; set; }
@@ -34,5 +33,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public string RightDiameter { get; set; }
         public string RightCylinder { get; set; }
         public string RightAxis { get; set; }
+    	public string CustomerName { get; set; }
     }
 }

@@ -5,6 +5,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders
 {
 	public interface ISubscriptionRepository : IRepository<Subscription>
 	{
-		 
+		 Subscription GetByBankgiroPayerId(int autogiroPayerId);
 	}
 }

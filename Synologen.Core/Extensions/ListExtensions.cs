@@ -157,5 +157,31 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
         {
             return list.GroupBy(property).Select(grp => grp.First());
         }
+
+		public static WithInContainer<TType, TPropertyType> With<TType, TPropertyType>(this IEnumerable<TType> list, Func<TType,TPropertyType> property)
+		{
+			return new WithInContainer<TType, TPropertyType>(list, property);
+		}
+
+		public class WithInContainer<TType, TPropertyType>
+		{
+			private readonly IEnumerable<TType> _list;
+			private readonly Func<TType, TPropertyType> _selector;
+
+			public WithInContainer(IEnumerable<TType> list, Func<TType,TPropertyType> selector)
+			{
+				_list = list;
+				_selector = selector;
+			}
+
+			public IEnumerable<TType> In(IEnumerable<TPropertyType> inList)
+			{
+				return _list.Where(item => inList.Any(c => c.Equals(_selector(item))));
+			}
+			public IEnumerable<TType> In<TEntity>(IEnumerable<TEntity> list, Func<TEntity,TPropertyType> selector)
+			{
+				return _list.Where(item => list.Select(selector).Any(c => c.Equals(_selector(item))));
+			}
+		}
 	}
 }

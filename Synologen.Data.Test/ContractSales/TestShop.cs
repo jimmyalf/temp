@@ -2,10 +2,10 @@ using System.Data.SqlClient;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Test;
-using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
+using Spinit.Wpc.Synologen.Test.Data;
 using Spinit.Wpc.Utility.Business;
 using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 

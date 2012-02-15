@@ -7,7 +7,6 @@ using NUnit.Framework;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
@@ -15,6 +14,7 @@ using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters;
 using Spinit.Wpc.Synologen.Data.Repositories.FrameOrderRepositories;
 using Spinit.Wpc.Synologen.Data.Test.FrameData.Factories;
+using Spinit.Wpc.Synologen.Test.Data;
 
 namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 {

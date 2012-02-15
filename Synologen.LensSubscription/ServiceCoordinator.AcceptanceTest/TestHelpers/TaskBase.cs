@@ -1,46 +1,26 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NHibernate;
-using ServiceCoordinator.AcceptanceTest;
 using Spinit.Test;
-using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
-using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
-using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
-using Spinit.Wpc.Utility.Business;
+using Spinit.Wpc.Synologen.Test.Data;
 using StructureMap;
-using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.ServiceCoordinator.Core.TaskRunner;
-using Customer = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Customer;
-using Shop = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Shop;
-using Subscription = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription;
+using Synologen.LensSubscription.BGData;
+using NHibernateFactory = Spinit.Wpc.Core.Dependencies.NHibernate.NHibernateFactory;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpers
 {
 	public abstract class TaskBase : BehaviorActionTestbase
 	{
-		protected ICountryRepository countryRepository;
-		protected IShopRepository shopRepository;
-		protected ICustomerRepository customerRepository;
-		protected IBGConsentToSendRepository bgConsentRepository;
-		protected ISubscriptionRepository subscriptionRepository;
-		protected IBGPaymentToSendRepository bgPaymentRepository;
-		protected IBGReceivedConsentRepository bgReceivedConsentRepository;
-		protected IBGReceivedPaymentRepository bgReceivedPaymentRepository;
-		protected IBGReceivedErrorRepository bgReceivedErrorRepository;
-		protected IAutogiroPayerRepository autogiroPayerRepository;
-		//protected const int TestShopId = 158;
-		protected const int SwedenCountryId = 1;
-		protected static ISession intermediateSession;
-		protected ISubscriptionErrorRepository subscriptionErrorRepository;
-		protected ISqlProvider _sqlProvider;
+		private readonly ISqlProvider _sqlProvider;
 		private readonly DataManager _dataManager;
 
 		protected TaskBase()
@@ -52,35 +32,31 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpe
 		protected override void SetUp()
 		{
 			base.SetUp();
-			intermediateSession = GetWPCSession();
-			countryRepository = new CountryRepository(GetWPCSession());
-			shopRepository = new ShopRepository(GetWPCSession());
-			customerRepository = new CustomerRepository(GetWPCSession());
-			subscriptionRepository = ResolveRepository<ISubscriptionRepository>(GetWPCSession);
-			bgConsentRepository = new BGConsentToSendRepository(GetBGSession());
-			bgPaymentRepository = new BGPaymentToSendRepository(GetBGSession());
-			bgReceivedConsentRepository = new BGReceivedConsentRepository(GetBGSession());
-			bgReceivedPaymentRepository = new BGReceivedPaymentRepository(GetBGSession());
-			autogiroPayerRepository = new AutogiroPayerRepository(GetBGSession());
-			subscriptionErrorRepository = new SubscriptionErrorRepository(GetWPCSession());
-			bgReceivedErrorRepository = new BGReceivedErrorRepository(GetBGSession());
+			CleanDatabases();
 		}
 
-		protected Subscription StoreSubscription(Func<Customer,Subscription> getSubscription, int shopId, int payerNumber)
+		private void CleanDatabases()
 		{
-			var countryToUse = countryRepository.Get(SwedenCountryId);
-			var shopToUse = shopRepository.Get(shopId);
-			var customer = Factory.CreateCustomer(countryToUse, shopToUse);
-			customerRepository.Save(customer);
+			BGData.NHibernateFactory.Instance.GetConfiguration().Export();
+			_dataManager.CleanTables();
+		}
+
+		protected Subscription StoreSubscription(Func<OrderCustomer,Subscription> getSubscription, int shopId)
+		{
+			var session = GetWPCSession();
+			var shopToUse = session.Get<Shop>(shopId);
+			var customer = Factory.CreateCustomer(shopToUse);
+			session.Save(customer);
 			var subscription = getSubscription.Invoke(customer);
-			subscriptionRepository.Save(subscription);
+			session.Save(subscription);
 			return subscription;
 		}
 
-		protected Shop CreateShop(ISession session, string shopName = "Testbutik")
+		protected TShop CreateShop<TShop>(string shopName = "Testbutik")
 		{
+			var session = GetWPCSession();
 			var shop = _dataManager.CreateShop(_sqlProvider, shopName);
-			return new ShopRepository(session).Get(shop.ShopId);
+			return session.Get<TShop>(shop.ShopId);
 		}
 
 		protected int RegisterPayerWithWebService()
@@ -88,7 +64,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpe
 			var payerNumber = 0;
 			InvokeWebService(service =>
 			{
-				payerNumber = service.RegisterPayer("Test payer", AutogiroServiceType.LensSubscription);
+				payerNumber = service.RegisterPayer("Test payer", AutogiroServiceType.SubscriptionVersion2);
 			});
 			return payerNumber;
 		}
@@ -106,20 +82,12 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpe
 				.GetInstance<TaskRunnerService>();
 		}
 
-
 		private class TestTaskRepositoryResolver : ITaskRepositoryResolver
 		{
 			public TRepository GetRepository<TRepository>()
 			{
 				return ObjectFactory.GetInstance<TRepository>();
 			}
-		}
-
-		protected TRepository ResolveRepository<TRepository>(Func<ISession> resolveSession)
-		{
-			return ObjectFactory
-				.With(typeof(ISession), resolveSession.Invoke())
-				.GetInstance<TRepository>();
 		}
 
 		protected TEntity ResolveEntity<TEntity>()
@@ -137,12 +105,76 @@ namespace Synologen.LensSubscription.ServiceCoordinator.AcceptanceTest.TestHelpe
 
 		protected static ISession GetBGSession()
 		{
-			return Synologen.LensSubscription.BGData.NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			return BGData.NHibernateFactory.Instance.GetSessionFactory().OpenSession();
 		}
 
 		protected static ISession GetWPCSession()
 		{
 			return NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+		}
+
+		protected IEnumerable<TType> StoreItemsWithWpcSession<TType>(Func<IEnumerable<TType>> factoryMethod)
+		{
+			return StoreItems(GetWPCSession(), factoryMethod);
+		}
+		protected TType StoreWithWpcSession<TType>(Func<TType> factoryMehtod)
+		{
+			return StoreItem(GetWPCSession(), factoryMehtod);
+		}
+
+		private IEnumerable<TType> StoreItems<TType>(ISession session, Func<IEnumerable<TType>> factoryMethod)
+		{
+			var items = factoryMethod().ToList();
+			foreach (var item in items)
+			{
+				session.Save(item);
+			}
+			session.Flush();
+			return items;
+		}
+
+		private TType StoreItem<TType>(ISession session, Func<TType> factoryMehtod)
+		{
+			var item = factoryMehtod();
+			session.Save(item);
+			session.Flush();
+			return item;
+		}
+
+		protected IEnumerable<TType> GetAll<TType>(Func<ISession> getSession) where TType : class
+		{
+			return getSession().CreateCriteria<TType>().List<TType>();
+		}
+		protected TType Get<TType>(Func<ISession> getSession, int id) where TType : class
+		{
+			return getSession().Get<TType>(id);
+		}
+
+		protected BGReceivedPayment StoreBGPayment(Func<AutogiroPayer, BGReceivedPayment> getPayment, int payerNumber)
+		{
+			var session = GetBGSession();
+			var autogiroPayer = Get<AutogiroPayer>(() => session, payerNumber);
+			var payment = getPayment.Invoke(autogiroPayer);
+			session.Save(payment);
+			return payment;
+		}
+
+		protected BGReceivedError StoreBGError(Func<AutogiroPayer, BGReceivedError> getError, int payerNumber) 
+		{
+			var session = GetBGSession();
+			var autogiroPayer = Get<AutogiroPayer>(() => session, payerNumber);
+			var error = getError(autogiroPayer);
+			session.Save(error);
+			return error;
+		}
+
+		protected BGReceivedConsent StoreBGConsent(Func<AutogiroPayer, BGReceivedConsent> getConsent, int payerNumber)
+		{
+			var session = GetBGSession();
+			var autogiroPayer = Get<AutogiroPayer>(() => session, payerNumber);
+			var consent = getConsent(autogiroPayer);
+			session.Save(consent);
+			return consent;
 		}
 	}
 }

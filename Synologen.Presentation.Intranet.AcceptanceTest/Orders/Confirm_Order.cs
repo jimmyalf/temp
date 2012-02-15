@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using FakeItEasy;
-using FakeItEasy.Core;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
@@ -45,14 +43,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 _redirectUrl = (url, orderId) => "{url}?order={orderId}".ReplaceWith(new { url, orderId });
             };
 
-            Story = () =>
-            {
-                return new Berättelse("Bekräfta beställning")
-                .FörAtt("Bekräfta och skicka iväg en beställning")
-                .Som("inloggad användare på intranätet")
-                .VillJag("kunna se en sammanfattning av beställningen")
-                .Och("bekräfta den");
-            };
+            Story = () => new Berättelse("Bekräfta beställning")
+				.FörAtt("Bekräfta och skicka iväg en beställning")
+				.Som("inloggad användare på intranätet")
+				.VillJag("kunna se en sammanfattning av beställningen")
+				.Och("bekräfta den");
         }
 
         [Test]
@@ -163,13 +158,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
             View.Model.Article.ShouldBe(order.Article.Name);
             //View.Model.PaymentOption.ShouldBe(order.SelectedPaymentOption.Type.ToString());
-
+        	View.Model.CustomerName.ShouldBe(order.Customer.FirstName + " " + order.Customer.LastName);
             View.Model.DeliveryOption.ShouldBe(_presenter.GetDeliveryOptionString(order.ShippingType));
             View.Model.TaxedAmount.ShouldBe(order.SubscriptionPayment.TaxedAmount.ToString("C"));
             View.Model.TaxfreeAmount.ShouldBe(order.SubscriptionPayment.TaxFreeAmount.ToString("C"));
             View.Model.TotalWithdrawal.ShouldBe(order.OrderTotalWithdrawalAmount.Value.ToString("C"));
 			View.Model.Monthly.ShouldBe(order.SubscriptionPayment.AmountForAutogiroWithdrawal.ToString("C"));
-            View.Model.SubscriptionTime.ShouldBe(_presenter.GetSubscriptionTimeString(order.SubscriptionPayment.NumberOfPayments)); 
+            View.Model.SubscriptionTime.ShouldBe(_presenter.GetSubscriptionTimeString(order.SubscriptionPayment.WithdrawalsLimit)); 
         }
 
 		//private void FlaggasOrderFörAttBliSkickadSomEpost()

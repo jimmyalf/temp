@@ -3,9 +3,9 @@ using NHibernate;
 using Spinit.Data;
 using Spinit.Test.NHibernate;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.ContractSales;
 using Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.ContractSales;
+using Spinit.Wpc.Synologen.Test.Data;
 
 namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {

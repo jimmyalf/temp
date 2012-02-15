@@ -1,7 +1,7 @@
 using System;
 using NUnit.Framework;
-using Spinit.Wpc.Synogen.Test.Data;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.Bootstrapping;
+using Spinit.Wpc.Synologen.Test.Data;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest
 {

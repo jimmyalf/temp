@@ -64,6 +64,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			return RedirectToAction("Orders", routeValues);
 		}
 
+		[HttpGet]
+		public ActionResult OrderView(int id)
+		{
+			var order = _orderRepository.Get(id);
+			var viewModel = new OrderView(order);
+			return View(viewModel);
+		}
+
 		#endregion
 
 		#region Categories

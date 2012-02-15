@@ -28,35 +28,6 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories
 				AllContractSalesHaveBeenMarkedAsPayed = contractSaleItemsForShop.All(x => x.MarkedAsPayed)
 			};
 			return shopSettlement;
-
-			/*
-            Session.EnableFilter("ShopFilter").SetParameter("shopId", shopId);
-            return Session
-                .CreateQuery(@"from Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Settlement as Settlement
-					where Id = :id")
-                .SetParameter("id", id)
-                .UniqueResult<Settlement>();
-			 */
-
-
-			/*
-			 				.ApplyFilter<ShopFilter>("Shop.Id = shopId");
-			HasMany(x => x.LensSubscriptionTransactions).KeyColumn("SettlementId")
-				.ApplyFilter<ShopFilter>("Subscription.Customer.Shop.Id = shopId");
-			 */
-
-
-			/*    
-			 * criteria
-
-       .SetFetchMode ("Names", FetchMode.Eager)
-       .CreateCriteria ("Names", JoinType.InnerJoin)
-       .Add (Restrictions.And (
-			Restrictions.Like ("ShortString", name, MatchMode.Anywhere),
-			Restrictions.Eq ("Language", new Language { LanguageId = (int) languageId })))
-       .AddOrder (orderByAsc ? Order.Asc ("ShortString") : Order.Desc ("ShortString"));
-
-*/
 		}
 	}
 }

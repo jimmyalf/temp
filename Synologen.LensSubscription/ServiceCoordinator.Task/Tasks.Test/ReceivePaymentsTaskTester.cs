@@ -86,7 +86,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 			_expectedTransactionPayments.Each(payment => MockedTransactionRepository.Verify(x => x.Save(
 				It.Is<SubscriptionTransaction>(savedTransaction =>
 					Equals(savedTransaction.Amount, payment.Amount) &&
-					Equals(savedTransaction.Article, null) &&
+					//Equals(savedTransaction.Article, null) &&
 					Equals(savedTransaction.CreatedDate.Date, DateTime.Now.Date) &&
 					MatchReason(savedTransaction.Reason, payment.Result) &&
 					Equals(savedTransaction.SettlementId, null) &&

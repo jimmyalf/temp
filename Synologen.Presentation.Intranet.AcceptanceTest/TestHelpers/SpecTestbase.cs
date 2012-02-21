@@ -141,6 +141,45 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 		    return items;
 		}
 
+		protected IEnumerable<TType> StoreItems<TType>(Func<IEnumerable<TType>> factoryMethod)
+		{
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			var items = factoryMethod().ToList();
+			foreach (var item in items)
+			{
+				session.Save(item);
+			}
+			session.Flush();
+			return items;
+		}
+
+		protected TType StoreItem<TType>(Func<TType> factoryMehtod)
+		{
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			var item = factoryMehtod();
+			session.Save(item);
+			session.Flush();
+			return item;
+		}
+
+		protected void Save(object item)
+		{
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			session.SaveOrUpdate(item);
+			session.Flush();
+		}
+
+		protected IEnumerable<TType> GetAll<TType>() where TType : class
+		{
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			return session.CreateCriteria<TType>().List<TType>();
+		}
+		protected TType Get<TType>(int id) where TType : class
+		{
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			return session.Get<TType>(id);
+		}
+
 		protected TShop CreateShop<TShop>(string shopName = "Testbutik")
 		{
 			var shop = _dataManager.CreateShop(shopName: shopName);
@@ -171,6 +210,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 		private static string Uncamel(string methodName)
 		{
 		    return Regex.Replace(methodName, "[A-Z_]", x => " " + x.Value.ToLowerInvariant()).Trim();
+		}
+
+		protected Exception CatchExceptionWhile(Action action)
+		{
+			Exception caughtException = null;
+			try { action(); }
+			catch(Exception ex) { caughtException =  ex; }
+			return caughtException;
 		}
 	}
 }

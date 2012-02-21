@@ -127,6 +127,7 @@
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllSubscriptionsForShopCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllSubscriptionsToSendConsentsForCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllSubscriptionsToSendPaymentsForCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\AllSubscriptionsForShopCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\AllSubscriptionsToSendConsentsForCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\AllSubscriptionsToSendPaymentsForCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllTransactionsMatchingCriteriaConverter.cs" />

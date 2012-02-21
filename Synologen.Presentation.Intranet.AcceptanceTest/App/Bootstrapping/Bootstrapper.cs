@@ -22,8 +22,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.Bootstra
 
 		private static void InitiateIoc()
 		{
+			ObjectFactory.Container.Configure(x => x.AddRegistry<Code.IoC.WebRegistry>());
 			ObjectFactory.Container.Configure(x => x.AddRegistry<TestRegistry>());
-			
 		}
 
 		private static void InitiateNHibernateActionCriteriaConverters()

@@ -108,7 +108,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		public void subscription_is_updated_with_consentstatus_and_activateddate()
 		{
 			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentStatus.Equals(SubscriptionConsentStatus.Accepted))));
-			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ActivatedDate.Equals(_receivedConsent.ConsentValidForDate))));
+			MockedSubscriptionRepository.Verify(x => x.Save(It.Is<Subscription>(subscription => subscription.ConsentedDate.Equals(_receivedConsent.ConsentValidForDate))));
 		}
 
 	}

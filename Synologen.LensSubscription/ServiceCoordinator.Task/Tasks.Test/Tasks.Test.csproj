@@ -117,10 +117,6 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ServiceCoordinator\ServiceCoordinator.csproj">
-      <Project>{8993AF81-8925-4CA9-8ACF-EC3F868D065E}</Project>
-      <Name>ServiceCoordinator %28LensSubscription\ServiceCoordinator%29</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ReceiveConsents\ReceiveConsents.csproj">
       <Project>{F30AAD16-9E89-40C1-9AAC-EC08ADEE667E}</Project>
       <Name>ReceiveConsents %28LensSubscription\Tasks\ReceiveConsents%29</Name>

@@ -75,7 +75,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceiveConsents
 			if (isAccepted)
 			{
 				if(!consent.ConsentValidForDate.HasValue) throw new ApplicationException("Consent Valid date was not set.");
-				subscription.ActivatedDate = consent.ConsentValidForDate.Value;	
+				subscription.ConsentedDate = consent.ConsentValidForDate.Value;	
 			}
 			subscriptionRepository.Save(subscription);
 		}

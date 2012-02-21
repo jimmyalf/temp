@@ -433,6 +433,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _order.LensRecipe.Addition.Right.ShouldBe(_form.RightAddition);
             
             _order.ShippingType.ToInteger().ShouldBe(_form.ShipmentOption);
+			_order.Status.ShouldBe(OrderStatus.Created);
 			_order.Shop.Id.ShouldBe(_shop.Id);
 
         }

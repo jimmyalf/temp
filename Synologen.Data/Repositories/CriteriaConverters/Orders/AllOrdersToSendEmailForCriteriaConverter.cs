@@ -17,13 +17,15 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.Orders
 				Restrictions.Eq(Property(x => x.ShippingType), OrderShippingOption.ToCustomer) || 
 				Restrictions.Eq(Property(x => x.ShippingType), OrderShippingOption.ToStore);
 			var isNotAlreadySent = Restrictions.IsNull(Property(x => x.SpinitServicesEmailId));
-			return Criteria.Add(Restrictions.And(isRightShippingType, isNotAlreadySent))
-			.SetFetchMode(Property(x => x.Shop), FetchMode.Join)
-			.SetFetchMode(Property(x => x.LensRecipe), FetchMode.Join)
-			.SetFetchMode(Property(x => x.Article), FetchMode.Join)
-			.SetFetchMode(Property(x => x.Article.ArticleSupplier), FetchMode.Join)
-			.SetFetchMode(Property(x => x.Customer), FetchMode.Join)
-			.SetResultTransformer(new DistinctRootEntityResultTransformer());
+			return Criteria
+				.FilterEqual(x => x.Status, OrderStatus.Confirmed)
+				.Add(Restrictions.And(isRightShippingType, isNotAlreadySent))
+				.SetFetchMode(Property(x => x.Shop), FetchMode.Join)
+				.SetFetchMode(Property(x => x.LensRecipe), FetchMode.Join)
+				.SetFetchMode(Property(x => x.Article), FetchMode.Join)
+				.SetFetchMode(Property(x => x.Article.ArticleSupplier), FetchMode.Join)
+				.SetFetchMode(Property(x => x.Customer), FetchMode.Join)
+				.SetResultTransformer(new DistinctRootEntityResultTransformer());
 		}
 	}
 }

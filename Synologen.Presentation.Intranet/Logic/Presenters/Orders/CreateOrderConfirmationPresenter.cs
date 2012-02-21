@@ -1,6 +1,7 @@
 using System;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -14,11 +15,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		private readonly IRoutingService _routingService;
 		private readonly IOrderRepository _orderRepository;
 		private readonly ISubscriptionRepository _subscriptionRepository;
+		private readonly ITransactionRepository _transactionRepository;
 
-		public CreateOrderConfirmationPresenter(ICreateOrderConfirmationView view, IRoutingService routingService, IOrderRepository orderRepository, ISubscriptionRepository subscriptionRepository) : base(view)
+		public CreateOrderConfirmationPresenter(ICreateOrderConfirmationView view, IRoutingService routingService, IOrderRepository orderRepository, ISubscriptionRepository subscriptionRepository, ITransactionRepository transactionRepository) : base(view)
 		{
 			_orderRepository = orderRepository;
 			_subscriptionRepository = subscriptionRepository;
+			_transactionRepository = transactionRepository;
 			_routingService = routingService;
 			WireupEvents();
 		}
@@ -61,9 +64,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Model.RightCylinder = order.LensRecipe.Cylinder != null ? order.LensRecipe.Cylinder.Right.ToString() : "";
 
 			View.Model.Article = order.Article.Name;
-				
-			//TODO: are these correct??
-			View.Model.DeliveryOption = GetDeliveryOptionString(order.ShippingType);
+			View.Model.DeliveryOption = order.ShippingType.GetEnumDisplayName();
 			View.Model.TaxedAmount = GetCurrencyString(order.SubscriptionPayment.TaxedAmount);
 			View.Model.TaxfreeAmount = GetCurrencyString(order.SubscriptionPayment.TaxFreeAmount);
 			View.Model.Monthly = GetCurrencyString(order.SubscriptionPayment.AmountForAutogiroWithdrawal);
@@ -82,7 +83,38 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			{
 				throw new ApplicationException("View cannot be submitted without order id");
 			}
+			var order = _orderRepository.Get(RequestOrderId.Value);
+			TryCreateTransaction(order);
+			TryActivateSubscription(order);
+			UpdateOrderStatus(order);
 			Redirect(View.NextPageId, new { order = RequestOrderId });
+		}
+
+		private void TryActivateSubscription(Order order)
+		{
+			if (order.SelectedPaymentOption.Type != PaymentOptionType.Subscription_Autogiro_New) return;
+			var subscription = order.SubscriptionPayment.Subscription;
+			subscription.Active = true;
+			_subscriptionRepository.Save(subscription);
+		}
+
+		private void TryCreateTransaction(Order order)
+		{
+			if(order.ShippingType == OrderShippingOption.DeliveredInStore) return;
+			var transaction = new SubscriptionTransaction
+			{
+				Amount = order.OrderTotalWithdrawalAmount ?? default(decimal),
+				Reason = TransactionReason.Withdrawal,
+				Subscription = order.SubscriptionPayment.Subscription,
+				Type = TransactionType.Withdrawal
+			};
+			_transactionRepository.Save(transaction);
+		}
+
+		private void UpdateOrderStatus(Order order)
+		{
+			order.Status = OrderStatus.Confirmed;
+			_orderRepository.Save(order);
 		}
 
 		public void View_Previous(object sender, EventArgs e)
@@ -120,28 +152,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Abort -= View_Abort;
 		}
 
-
-		#region parsers
-
-		public string GetDeliveryOptionString(OrderShippingOption option)
-		{
-			switch (option)
-			{
-				case OrderShippingOption.ToStore: return "Till butik";
-				case OrderShippingOption.ToCustomer: return "Till kund";
-				case OrderShippingOption.DeliveredInStore: return "Levererad i butik";
-				default: return "";
-			}
-		}
-
-		public string GetSubscriptionTimeString(int? numberOfPayments)
+		private static string GetSubscriptionTimeString(int? numberOfPayments)
 		{
 			return numberOfPayments == null 
 				? "Fortlöpande" 
 				: String.Format("{0} månader", numberOfPayments.Value);
 		}
-
-		#endregion
 
 	}
 }

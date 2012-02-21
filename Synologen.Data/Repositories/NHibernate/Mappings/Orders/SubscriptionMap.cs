@@ -10,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 		{
 			Table("SynologenOrderSubscription");
 			Id(x => x.Id);
-			Map(x => x.ActivatedDate).Nullable();
+			Map(x => x.ConsentedDate).Nullable();
 			Map(x => x.Active);
 			Map(x => x.AutogiroPayerId).Nullable();
 			Map(x => x.BankAccountNumber).Length(12);
@@ -22,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 			Map(x => x.LastPaymentSent).Nullable();
 			HasMany(x => x.SubscriptionItems).KeyColumn("SubscriptionId");
 			HasMany(x => x.Transactions).KeyColumn("SubscriptionId");
+			HasMany(x => x.Errors).KeyColumn("SubscriptionId");
 		} 
 	}
 }

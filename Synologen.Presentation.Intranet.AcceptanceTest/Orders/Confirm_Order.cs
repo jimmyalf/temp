@@ -1,10 +1,13 @@
 using System;
+using System.Linq;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -16,13 +19,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     {
         private Shop _shop;
         private Order _order;
-        private Subscription _subscription;
         private CreateOrderConfirmationPresenter _presenter;
         private string _previousUrl;
         private string _submitUrl;
         private string _abortUrl;
         private Func<string, int, string> _redirectUrl;
-        private int _expectedEmailId;
 
         public When_confirming_an_order()
         {
@@ -30,14 +31,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             {
                 _presenter = GetPresenter();
                 _shop = CreateShop<Shop>();
-                _expectedEmailId = 1;
                 _previousUrl = "/previous/page";
                 _submitUrl = "/next/page";
                 _abortUrl = "/abort/page";
   
                 A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
-                
-                A.CallTo(() => SendOrderService.SendOrderByEmail(_order)).Returns(_expectedEmailId);
 
                 SetupNavigationEvents(_previousUrl, _abortUrl, _submitUrl);
                 _redirectUrl = (url, orderId) => "{url}?order={orderId}".ReplaceWith(new { url, orderId });
@@ -63,8 +61,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public void AvbrytBeställning()
         {
             SetupScenario(scenario => scenario
-                .Givet(Ingenting)
-                    .Och(EnBeställningMedEttAbonnemangHarSkapats)
+                .Givet(EnBeställningMedEttAbonnemangHarSkapats)
                 .När(AnvändarenAvbryterBeställningen)
                 .Så(TasAbonnemangetBort)
                     .Och(TasBeställningenBort)
@@ -72,26 +69,72 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
 
         [Test]
-        public void BeställningenSkickasTillLeverantör()
+        public void SkickaBeställningMedLeveransTillKund()
         {
             SetupScenario(scenario => scenario
                 .Givet(EnBeställningMedEttAbonnemangHarSkapats)
+					.Och(BeställningenSkallLevererasTillKund)
                 .När(AnvändarenBekräftarBeställningen)
-				.Så(AnvändarenFlyttasTillSidaFörFärdigBeställning)
+				.Så(SkapasEnTotalTransaktion)
+					.Och(AnvändarenFlyttasTillSidaFörFärdigBeställning)
+					.Och(BeställningenByterStatusTillRedoFörAttSkickas)
+					.Och(NyttAbonnemangAktiveras)
 			);
         }
 
-        #region Arrange
-        private void Ingenting()
+    	[Test]
+        public void SkickaBeställningMedLeveransTillButik()
         {
+            SetupScenario(scenario => scenario
+                .Givet(EnBeställningMedEttAbonnemangHarSkapats)
+					.Och(BeställningenSkallLevererasTillButik)
+                .När(AnvändarenBekräftarBeställningen)
+				.Så(SkapasEnTotalTransaktion)
+					.Och(AnvändarenFlyttasTillSidaFörFärdigBeställning)
+					.Och(BeställningenByterStatusTillRedoFörAttSkickas)
+					.Och(NyttAbonnemangAktiveras)
+			);
         }
+
+    	[Test]
+        public void SkickaBeställningUtanLeverans()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(EnBeställningMedEttAbonnemangHarSkapats)
+					.Och(BeställningenSkallEjLevereras)
+                .När(AnvändarenBekräftarBeställningen)
+				.Så(SkapasIngenTransaktion)
+					.Och(AnvändarenFlyttasTillSidaFörFärdigBeställning)
+					.Och(BeställningenByterStatusTillRedoFörAttSkickas)
+					.Och(NyttAbonnemangAktiveras)
+			);
+        }
+
+    	#region Arrange
 
         private void EnBeställningMedEttAbonnemangHarSkapats()
         {
-            _order = CreateOrderWithSubscription(_shop);
-            _subscription = _order.SubscriptionPayment.Subscription;
+            _order = CreateOrderWithSubscription(_shop, paymentOptionType: PaymentOptionType.Subscription_Autogiro_New);
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
+
+    	private void BeställningenSkallEjLevereras()
+    	{
+    		_order.ShippingType = OrderShippingOption.DeliveredInStore;
+			Save(_order);
+    	}
+
+    	private void BeställningenSkallLevererasTillKund()
+    	{
+    		_order.ShippingType = OrderShippingOption.ToCustomer;
+			Save(_order);
+    	}
+
+    	private void BeställningenSkallLevererasTillButik()
+    	{
+    		_order.ShippingType = OrderShippingOption.ToStore;
+			Save(_order);
+    	}
 
         #endregion
 
@@ -117,12 +160,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         #region Assert
         private void TasAbonnemangetBort()
         {
-            WithRepository<ISubscriptionRepository>().Get(_subscription.Id).ShouldBe(null);
+			Get<Subscription>(_order.SubscriptionPayment.Subscription.Id).ShouldBe(null);
         }
 
         private void TasBeställningenBort()
         {
-            WithRepository<IOrderRepository>().Get(_order.Id).ShouldBe(null);
+            Get<Order>(_order.Id).ShouldBe(null);
         }
 
         private void AnvändarenFlyttasTillIntranätsidan()
@@ -159,24 +202,55 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.Article.ShouldBe(order.Article.Name);
             //View.Model.PaymentOption.ShouldBe(order.SelectedPaymentOption.Type.ToString());
         	View.Model.CustomerName.ShouldBe(order.Customer.FirstName + " " + order.Customer.LastName);
-            View.Model.DeliveryOption.ShouldBe(_presenter.GetDeliveryOptionString(order.ShippingType));
+            View.Model.DeliveryOption.ShouldBe(order.ShippingType.GetEnumDisplayName());
             View.Model.TaxedAmount.ShouldBe(order.SubscriptionPayment.TaxedAmount.ToString("C"));
             View.Model.TaxfreeAmount.ShouldBe(order.SubscriptionPayment.TaxFreeAmount.ToString("C"));
             View.Model.TotalWithdrawal.ShouldBe(order.OrderTotalWithdrawalAmount.Value.ToString("C"));
 			View.Model.Monthly.ShouldBe(order.SubscriptionPayment.AmountForAutogiroWithdrawal.ToString("C"));
-            View.Model.SubscriptionTime.ShouldBe(_presenter.GetSubscriptionTimeString(order.SubscriptionPayment.WithdrawalsLimit)); 
+            View.Model.SubscriptionTime.ShouldBe(GetSubscriptionTimeString(order)); 
         }
 
-		//private void FlaggasOrderFörAttBliSkickadSomEpost()
-		//{
-		//    WithRepository<IOrderRepository>().Get(_order.Id).SendEmailForThisOrder.ShouldBe(true);
-		//}
+		private static string GetSubscriptionTimeString(Order order)
+		{
+			return order.SubscriptionPayment.WithdrawalsLimit.HasValue 
+				? order.SubscriptionPayment.WithdrawalsLimit.Value.ToString()  + " månader"
+				: "Fortlöpande";
+		}
 
-        private void AnvändarenFlyttasTillSidaFörFärdigBeställning()
+    	private void AnvändarenFlyttasTillSidaFörFärdigBeställning()
         {
             var expectedUrl = _redirectUrl(_submitUrl, _order.Id);
             HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
         }
+
+    	private void SkapasEnTotalTransaktion()
+    	{
+    		var transaction = GetAll<SubscriptionTransaction>().Single();
+			transaction.Amount.ShouldBe(_order.OrderTotalWithdrawalAmount.Value);
+			transaction.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
+			transaction.Reason.ShouldBe(TransactionReason.Withdrawal);
+			transaction.SettlementId.ShouldBe(null);
+			transaction.Subscription.Id.ShouldBe(_order.SubscriptionPayment.Subscription.Id);
+			transaction.Type.ShouldBe(TransactionType.Withdrawal);
+    	}
+
+    	private void SkapasIngenTransaktion()
+    	{
+    		GetAll<SubscriptionTransaction>().ShouldBeEmpty();
+    	}
+
+    	private void BeställningenByterStatusTillRedoFörAttSkickas()
+    	{
+			Get<Order>(_order.Id).Status.ShouldBe(OrderStatus.Confirmed);
+    	}
+
+    	private void NyttAbonnemangAktiveras()
+    	{
+			if(_order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New)
+			{
+				Get<Subscription>(_order.SubscriptionPayment.Subscription.Id).Active.ShouldBe(true);
+			}
+    	}
 
         #endregion
 

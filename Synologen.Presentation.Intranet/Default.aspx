@@ -3,6 +3,8 @@
 	<asp:Literal ID="ltPageId" Text="190" Visible="false" runat="server"/>
 <style type="text/css">
 	#page-list a { display:block; }
+	fieldset, legend { border: gainsboro solid 1px; margin-bottom: 10px; padding: 5px;}
+	legend { font-size: 1.2em; margin-left: 10px; }
 </style>
 <div id="page-list" style="clear:both; margin:15px;">
 	<fieldset><legend>Avtalsförsäljningar</legend>
@@ -53,6 +55,9 @@
         <a href="TestPages/OrdersPaymentOptions.aspx">Betalningssätt</a>
         <a href="TestPages/OrdersAutogiroDetails.aspx">Autogiro</a>
         <a href="TestPages/OrdersCreateOrderConfirmation.aspx">Bekräfta</a>
+		<span>--</span>
+		<a href="TestPages/OrderSubscriptionShopSubscriptionsList.aspx">Lista abonnemang</a>
+		<a href="Testpages/OrderEditCustomer.aspx?customer=1">Redigera kund</a>
 	</fieldset>
 </div>
 </asp:Content>

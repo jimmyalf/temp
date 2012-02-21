@@ -183,5 +183,10 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 				return _list.Where(item => list.Select(selector).Any(c => c.Equals(_selector(item))));
 			}
 		}
+
+		public static IEnumerable<TType> OrEmpty<TType>(this IEnumerable<TType> list)
+		{
+			return list ?? new TType[] {};
+		}
 	}
 }

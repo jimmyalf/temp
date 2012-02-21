@@ -81,10 +81,6 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\BGServiceCoordinator\BGServiceCoordinator.csproj">
-      <Project>{0EB3860A-9087-4AF2-BAD9-A1AEA964999D}</Project>
-      <Name>BGServiceCoordinator</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

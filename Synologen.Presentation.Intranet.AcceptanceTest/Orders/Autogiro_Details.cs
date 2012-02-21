@@ -229,8 +229,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			subscriptionItem.TaxFreeAmount.ShouldBe(_form.TaxFreeAmount);
 			subscriptionItem.TaxedAmount.ShouldBe(_form.TaxedAmount);
 			//Assert Subscription
-			subscriptionItem.Subscription.ActivatedDate.ShouldBe(null);
-			subscriptionItem.Subscription.Active.ShouldBe(true);
+			subscriptionItem.Subscription.ConsentedDate.ShouldBe(null);
+			subscriptionItem.Subscription.Active.ShouldBe(false);
 			subscriptionItem.Subscription.AutogiroPayerId.ShouldBe(null);
 			subscriptionItem.Subscription.BankAccountNumber.ShouldBe(_form.BankAccountNumber);
 			subscriptionItem.Subscription.ClearingNumber.ShouldBe(_form.ClearingNumber);

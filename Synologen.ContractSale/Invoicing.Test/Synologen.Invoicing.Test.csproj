@@ -176,10 +176,6 @@
       <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
       <Name>Synologen.Presentation.Intranet %28Presentation\Synologen.Presentation.Intranet%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Client\Synologen Client.csproj">
-      <Project>{10CF2156-8B7D-4CBA-8015-54DCFB72E1E6}</Project>
-      <Name>Synologen Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EDI\Synologen EDI.csproj">
       <Project>{8554B3AF-CA2A-499F-B921-A80804B99056}</Project>
       <Name>Synologen EDI</Name>

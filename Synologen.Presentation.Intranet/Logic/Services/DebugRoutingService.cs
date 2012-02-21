@@ -16,6 +16,8 @@
 			AddRoute(1004,"/Testpages/OrdersPaymentOptions.aspx");
 			AddRoute(1005,"/Testpages/OrdersAutogiroDetails.aspx");
 			AddRoute(1006,"/Testpages/OrdersCreateOrderConfirmation.aspx");
+			AddRoute(1007,"/Testpages/OrderEditCustomer.aspx");
+			AddRoute(1008,"/Testpages/OrderSubscription.aspx");
 		}
 	}
 }

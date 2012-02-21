@@ -30,8 +30,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 {
                     BankAccountNumber = txtBankAccountNumber.Text,
                     ClearingNumber = txtClearingNumber.Text,
-                    Description = "? Description",
-                    Notes = "? Notes",
                     CustomNumberOfPayments = txtCustomNumberOfTransactions.Text,
                     NumberOfPaymentsSelectedValue = Convert.ToInt32(rblSubscriptionTime.SelectedValue),
                     TaxFreeAmount = txtVatFreeAmount.Text.ToDecimal(),
@@ -48,8 +46,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             {
                 BankAccountNumber = txtBankAccountNumber.Text,
                 ClearingNumber = txtClearingNumber.Text,
-                Description = "? Description",
-                Notes = "? Notes",
                 NumberOfPayments = GetNumberOfPayments(),
                 TaxFreeAmount = txtVatFreeAmount.Text.ToDecimal(),
                 TaxedAmount = txtVATAmount.Text.ToDecimal(),

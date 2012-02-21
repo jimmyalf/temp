@@ -9,8 +9,6 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 		{
 			Table("SynologenOrderSubscriptionItem");
 			Id(x => x.Id);
-			Map(x => x.Description).Length(512).Nullable();
-			Map(x => x.Notes).Length(4000).Nullable();
 			Map(x => x.WithdrawalsLimit).Nullable();
 			Map(x => x.PerformedWithdrawals).Not.Nullable();
 			References(x => x.Subscription).Column("SubscriptionId");

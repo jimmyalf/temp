@@ -132,8 +132,6 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		{
 			return new SubscriptionItem
 			{
-				Description = "Beskrivande text",
-				Notes = "Anteckningar",
 				WithdrawalsLimit = withdrawalsLimit,
 				PerformedWithdrawals = performedWithdrawals,
 				Subscription = subscription,

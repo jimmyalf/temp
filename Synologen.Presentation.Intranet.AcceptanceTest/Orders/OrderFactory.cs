@@ -220,8 +220,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			{
 				BankAccountNumber = "123456789",
 				ClearingNumber = "1234",
-				Description = "Betalning för endagslinser",
-				Notes = "Ring kund",
 				NumberOfPayments = 6,
 				TaxFreeAmount = 100,
 				TaxedAmount = 125.25M,
@@ -246,8 +244,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	    {
 	        return new SubscriptionItem
 	        {
-	            Description = "desc",
-                Notes = "notes",
                 WithdrawalsLimit = 3,
                 PerformedWithdrawals = 0,
                 Subscription = subscription,

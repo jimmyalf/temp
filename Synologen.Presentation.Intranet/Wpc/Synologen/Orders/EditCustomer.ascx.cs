@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     public partial class EditCustomer : MvpUserControl<EditCustomerForm>, IEditCustomerView
     {
     	public event EventHandler<EditCustomerEventArgs> Submit;
-		public int NextPageId { get; set; }
+		public int ReturnPageId { get; set; }
 
     	protected void Page_Load(object sender, EventArgs e)
     	{

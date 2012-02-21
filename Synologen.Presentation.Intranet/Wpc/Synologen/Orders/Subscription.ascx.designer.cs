@@ -7,9 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
-    
-    
-    public partial class Subscription {
-    }
+namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders 
+{
+    public partial class Subscription { }
 }

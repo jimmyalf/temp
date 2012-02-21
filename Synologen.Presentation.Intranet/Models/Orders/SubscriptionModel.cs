@@ -12,9 +12,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 	{
 		public SubscriptionModel() { }
 
-		public void Initialize(Subscription subscription)
+		public void Initialize(Subscription subscription, string returnUrl, string subscriptionItemUrl)
 		{
-			SubscriptionItems = subscription.SubscriptionItems.OrEmpty().Select(x => new SubscriptionItemListItem(x));
+			SubscriptionItems = subscription.SubscriptionItems.OrEmpty().Select(x => new SubscriptionItemListItem(x, subscriptionItemUrl));
 			Transactions = subscription.Transactions.OrEmpty().Select(x => new TransactionListItem(x));
 			Errors = subscription.Errors.OrEmpty().Select(x => new ErrorListItem(x));
 			BankAccountNumber = subscription.BankAccountNumber;
@@ -23,7 +23,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 			Status = subscription.Active ? "Startat" : "Stoppat";
 			Consented = GetConsentText(subscription);
 			CreatedDate = subscription.CreatedDate.ToString("yyyy-MM-dd");
-
+			ReturnUrl = returnUrl;
+			ShowStartButton = !subscription.Active;
+			ShowStopButton = subscription.Active;
+			CurrentBalance = subscription.GetCurrentAccountBalance().ToString("C2");
 		}
 		public string BankAccountNumber { get; set; }
 		public string ClearingNumber { get; set; }
@@ -35,6 +38,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public string Status { get; set; }
 		public string Consented { get; set; }
 		public string CreatedDate { get; set; }
+		public string ReturnUrl { get; set; }
+		public bool ShowStopButton { get; set; }
+		public bool ShowStartButton { get; set; }
+		public string CurrentBalance { get; set; }
 
 		private string GetConsentText(Subscription subscription)
 		{
@@ -49,18 +56,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 	public class SubscriptionItemListItem
 	{
 		public SubscriptionItemListItem() { }
-		public SubscriptionItemListItem(SubscriptionItem subscriptionItem)
+		public SubscriptionItemListItem(SubscriptionItem subscriptionItem, string subscriptionItemDetailUrl)
 		{
 			MontlyAmount = subscriptionItem.AmountForAutogiroWithdrawal.ToString("C2");
 			PerformedWithdrawals = subscriptionItem.WithdrawalsLimit.HasValue ? 
 				"{0}/{1}".FormatWith(subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit.Value) 
 				: subscriptionItem.PerformedWithdrawals.ToString();
 			Active = subscriptionItem.IsActive  ? "Ja" : "Nej";
+			SubscriptionItemDetailUrl = subscriptionItemDetailUrl + "?subscription-item=" + subscriptionItem.Id;
 		}
 
 		public string Active { get; set; }
 		public string PerformedWithdrawals { get; set; }
 		public string MontlyAmount { get; set; }
+		public string SubscriptionItemDetailUrl { get; set; }
 	}
 
 	public class TransactionListItem

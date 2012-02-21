@@ -8,6 +8,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
 	public interface IEditCustomerView : IView<EditCustomerForm>
 	{
 		event EventHandler<EditCustomerEventArgs> Submit;
-		int NextPageId { get; set; }
+		int ReturnPageId { get; set; }
 	}
 }

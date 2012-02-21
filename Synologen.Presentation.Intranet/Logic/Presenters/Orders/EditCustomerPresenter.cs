@@ -49,7 +49,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Model.PersonalIdNumber = customer.PersonalIdNumber;
 			View.Model.Phone = customer.Phone;
 			View.Model.PostalCode = customer.PostalCode;
-			View.Model.BackUrl = _routingService.GetPageUrl(View.NextPageId);
+			View.Model.ReturnUrl = _routingService.GetPageUrl(View.ReturnPageId);
 		}
 
 		private void CheckAccess(Shop shop)
@@ -64,7 +64,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			var customer = _orderCustomerRepository.Get(RequestCustomerId.Value);
 			_viewParser.Fill(customer, editCustomerEventArgs);
 			_orderCustomerRepository.Save(customer);
-			Redirect(View.NextPageId);
+			Redirect(View.ReturnPageId);
 		}
 
 		private void Redirect(int pageId)

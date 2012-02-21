@@ -43,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		    return new SubscriptionListItem
 		    {
 		        CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName),
-		        CurrentBalance = GetCurrentAccountBalance(subscription.Transactions.ToList()).ToString("N2"),
+		        CurrentBalance = subscription.GetCurrentAccountBalance().ToString("N2"),
 		        MonthlyAmount = subscription.SubscriptionItems.Where(x => x.IsActive).Sum(x => x.AmountForAutogiroWithdrawal).ToString("N2"),
 		        Status = GetStatusMessage(subscription),
 		        CustomerDetailsUrl = urlFormat.ReplaceWith(new { Url = getCustomerDetailsUrl(), Parameter = "customer", ParameterValue = subscription.Customer.Id }),
@@ -66,16 +66,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		        .Case(s => s.ConsentStatus == SubscriptionConsentStatus.NotSent, "Medgivande ej skickat")
 		        .Case(s => s.ConsentStatus == SubscriptionConsentStatus.Sent, "Skickat för medgivande")
 		        .Evaluate();
-		}
-
-		protected decimal GetCurrentAccountBalance(IList<SubscriptionTransaction> transactions)
-		{
-			if (transactions == null || !transactions.Any()) return 0;
-			Func<SubscriptionTransaction, bool> isWithdrawal = transaction => (transaction.Reason == TransactionReason.Withdrawal || transaction.Reason == TransactionReason.Correction) && transaction.Type == TransactionType.Withdrawal;
-			Func<SubscriptionTransaction, bool> isDeposit = transaction => (transaction.Reason == TransactionReason.Payment || transaction.Reason == TransactionReason.Correction) && transaction.Type == TransactionType.Deposit;
-			var withdrawals = transactions.Where(isWithdrawal).Sum(x => x.Amount);
-			var deposits = transactions.Where(isDeposit).Sum(x => x.Amount);
-			return deposits - withdrawals;
 		}
 	}
 }

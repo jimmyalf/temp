@@ -14,12 +14,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 	public partial class Subscription : MvpUserControl<SubscriptionModel>, ISubscriptionView
 	{
 		public event EventHandler<HandleErrorEventArgs> HandleError;
+		public event EventHandler<EventArgs> StopSubscription;
+		public event EventHandler<EventArgs> StartSubscription;
+		public int ReturnPageId { get; set; }
+		public int SubscriptionItemDetailPageId { get; set; }
 
 		protected void SetHandled_ItemCommand(object source, RepeaterCommandEventArgs e)
 		{
 			if(HandleError == null) return;
 			var errorId = e.CommandName.ToInt();
 			HandleError(this, new HandleErrorEventArgs(errorId));
+		}
+
+		protected void Start_Subscription(object sender, EventArgs e)
+		{
+			if(StartSubscription == null) return;
+			StartSubscription(this, new EventArgs());
+		}
+
+		protected void Stop_Subscription(object sender, EventArgs e)
+		{
+			if(StopSubscription == null) return;
+			StopSubscription(this, new EventArgs());
 		}
 	}
 }

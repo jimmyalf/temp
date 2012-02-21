@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
@@ -24,6 +25,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private IEnumerable<SubscriptionTransaction> _transactions;
 		private IEnumerable<SubscriptionError> _errors;
 		private SubscriptionPresenter _presenter;
+		private string _returnUrl;
+		private string _subscriptionItemDetailUrl;
 
 		public View_Subscription()
 		{
@@ -32,6 +35,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_shop = CreateShop<Shop>();
 				_presenter = GetPresenter();
 				_errors = null;
+				_returnUrl = "return/page/";
+				_subscriptionItemDetailUrl = "/subscription-item/page/";
+				View.ReturnPageId = 56;
+				View.SubscriptionItemDetailPageId = 57;
+				RoutingService.AddRoute(View.ReturnPageId, _returnUrl);
+				RoutingService.AddRoute(View.SubscriptionItemDetailPageId, _subscriptionItemDetailUrl);
 			};
 
 			Story = () => new Berättelse("Visa abonnemang")
@@ -44,15 +53,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		public void VisaAbonnemang()
 		{
 			SetupScenario(scenario => scenario
-				.Givet(AttAbonnemangFinns)
+				.Givet(AbonnemangFinns)
+					.Och(AbonnemangetÄrStartat)
 					.Och(DelAbonnemangFinns)
 					.Och(TransaktionerFinns)
 					.Och(FelFinns)
 				.När(SidanVisas)
 				.Så(AbonnemangsInformationVisas)
+					.Och(StoppaKnappVisas)
+					.Och(TillbakaLänkVisas)
 					.Och(DelAbonnemangVisas)
 					.Och(TransaktionerVisas)
+					.Och(FelListaVisas)
 					.Och(FelVisas)
+			);
+		}
+
+		[Test]
+		public void VisaInaktivtAbonnemang()
+		{
+			SetupScenario(scenario => scenario
+				.Givet(AbonnemangFinns)
+					.Och(AbonnemangetÄrStoppat)
+				.När(SidanVisas)
+				.Så(StartaKnappVisas)
 			);
 		}
 
@@ -60,15 +84,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		public void VisaMedgivetAbonnemang()
 		{
 			SetupScenario(scenario => scenario
-				.Givet(AttMedgivetAbonnemangFinns)
-					.Och(DelAbonnemangFinns)
-					.Och(TransaktionerFinns)
-					.Och(FelFinns)
+				.Givet(AbonnemangFinns)
+					.Och(AbonnemangetÄrMedgivet)
 				.När(SidanVisas)
-				.Så(AbonnemangsInformationVisas)
-					.Och(DelAbonnemangVisas)
-					.Och(TransaktionerVisas)
-					.Och(FelVisas)
+				.Så(MedgivandeInformationVisas)
 			);
 		}
 
@@ -76,13 +95,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		public void VisaAbonnemangUtanFel()
 		{
 			SetupScenario(scenario => scenario
-				.Givet(AttAbonnemangFinns)
-					.Och(DelAbonnemangFinns)
-					.Och(TransaktionerFinns)
+				.Givet(AbonnemangFinns)
 				.När(SidanVisas)
-				.Så(AbonnemangsInformationVisas)
-					.Och(DelAbonnemangVisas)
-					.Och(TransaktionerVisas)
+				.Så(FelListaVisasInte)
 			);
 		}
 
@@ -90,24 +105,47 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		public void HanteraFel()
 		{
 			SetupScenario(scenario => scenario
-				.Givet(AttAbonnemangFinns)
+				.Givet(AbonnemangFinns)
 					.Och(AttAbonnemangetHarEttOhanteratFel)
 				.När(EttOhanteratFelHanteras)
 				.Så(SkallFeletHanteras)
 			);
 		}
 
+		[Test]
+		public void StartaAbonnemang()
+		{
+			SetupScenario(scenario => scenario
+				.Givet(AbonnemangFinns)
+					.Och(AbonnemangetÄrStoppat)
+				.När(AbonnemangetStartas)
+				.Så(SåSkallAbonnemangetVaraAktivt)
+			);
+		}
+
+		[Test]
+		public void StoppaAbonnemang()
+		{
+			SetupScenario(scenario => scenario
+				.Givet(AbonnemangFinns)
+					.Och(AbonnemangetÄrStartat)
+				.När(AbonnemangetStoppas)
+				.Så(SåSkallAbonnemangetVaraInaktivt)
+			);
+		}
+
 		#region Arrange
-		private void AttAbonnemangFinns()
+		private void AbonnemangFinns()
 		{
 			_subscription = CreateSubscription(_shop);
 			HttpContext.SetupRequestParameter("subscription", _subscription.Id.ToString());
 		}
 
-		private void AttMedgivetAbonnemangFinns()
+		private void AbonnemangetÄrMedgivet()
 		{
-			_subscription = CreateSubscription(_shop, consentStatus: SubscriptionConsentStatus.Accepted, consentedDate: new DateTime(2012, 01, 01));
-			HttpContext.SetupRequestParameter("subscription", _subscription.Id.ToString());
+			_subscription.ConsentStatus = SubscriptionConsentStatus.Accepted;
+			_subscription.ConsentedDate = new DateTime(2012, 02, 20);
+			Save(_subscription);
 		}
 
 		private void DelAbonnemangFinns()
@@ -130,6 +168,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			_unHandledError = StoreItem(() => OrderFactory.GetError(_subscription, null));
 
 		}
+
+		private void AbonnemangetÄrStartat()
+		{
+			_subscription.Active = true;
+			Save(_subscription);
+		}
+
+		private void AbonnemangetÄrStoppat()
+		{
+			_subscription.Active = false;
+			Save(_subscription);
+		}
+
 		#endregion
 
 		#region Act
@@ -137,9 +188,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			_presenter.View_Load(null, new EventArgs());
 		}
+
 		private void EttOhanteratFelHanteras()
 		{
 			_presenter.Handle_Error(null, new HandleErrorEventArgs(_unHandledError.Id));
+		}
+
+		private void AbonnemangetStartas()
+		{
+			_presenter.Start_Subscription(null, new EventArgs());
+		}
+
+		private void AbonnemangetStoppas()
+		{
+			_presenter.Stop_Subscription(null, new EventArgs());
 		}
 		#endregion
 
@@ -148,20 +210,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			View.Model.BankAccountNumber.ShouldBe(_subscription.BankAccountNumber);
 			View.Model.ClearingNumber.ShouldBe(_subscription.ClearingNumber);
-			View.Model.HasErrors.ShouldBe(!_errors.IsNullOrEmpty());
 			View.Model.CustomerName.ShouldBe(_subscription.Customer.FirstName + " " + _subscription.Customer.LastName);
 			View.Model.Status.ShouldBe(_subscription.Active ? "Startat" : "Stoppat");
-			View.Model.Consented.ShouldBe(GetConsentText(_subscription));
+			View.Model.Consented.ShouldBe(_subscription.ConsentStatus.GetEnumDisplayName());
 			View.Model.CreatedDate.ShouldBe(_subscription.CreatedDate.ToString("yyyy-MM-dd"));
+			View.Model.CurrentBalance.ShouldBe(Subscription.GetCurrentAccountBalance(_transactions.ToList()).ToString("C2"));
 		}
 
-		private string GetConsentText(Subscription subscription)
+		private void MedgivandeInformationVisas()
 		{
-			if(subscription.ConsentedDate.HasValue)
-			{
-				return "Medgivet " + subscription.ConsentedDate.Value.ToString("yyyy-MM-dd");
-			}
-			return subscription.ConsentStatus.GetEnumDisplayName();
+			View.Model.Consented.ShouldBe("Medgivet " + _subscription.ConsentedDate.Value.ToString("yyyy-MM-dd"));
+		}
+
+		private void FelListaVisas()
+		{
+			View.Model.HasErrors.ShouldBe(true);
+		}
+
+		private void FelListaVisasInte()
+		{
+			View.Model.HasErrors.ShouldBe(false);
 		}
 
 		private void DelAbonnemangVisas()
@@ -170,6 +238,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			{
 				viewModel.Active.ShouldBe(item.IsActive ? "Ja" : "Nej");
 				viewModel.MontlyAmount.ShouldBe(item.AmountForAutogiroWithdrawal.ToString("C2"));
+				viewModel.SubscriptionItemDetailUrl.ShouldBe(_subscriptionItemDetailUrl + "?subscription-item=" + item.Id);
 				if(item.WithdrawalsLimit.HasValue)
 				{
 					viewModel.PerformedWithdrawals.ShouldBe(item.PerformedWithdrawals + "/" + item.WithdrawalsLimit.Value);
@@ -222,6 +291,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void SkallFeletHanteras()
 		{
 			Get<SubscriptionError>(_unHandledError.Id).HandledDate.Value.Date.ShouldBe(DateTime.Now.Date);
+		}
+
+		private void TillbakaLänkVisas()
+		{
+			View.Model.ReturnUrl.ShouldBe(_returnUrl);
+		}
+
+		private void SåSkallAbonnemangetVaraAktivt()
+		{
+			Get<Subscription>(_subscription.Id).Active.ShouldBe(true);
+		}
+
+		private void SåSkallAbonnemangetVaraInaktivt()
+		{
+			Get<Subscription>(_subscription.Id).Active.ShouldBe(false);
+		}
+
+		private void StoppaKnappVisas()
+		{
+			View.Model.ShowStopButton.ShouldBe(true);
+		}
+
+		private void StartaKnappVisas()
+		{
+			View.Model.ShowStartButton.ShouldBe(true);
 		}
 		#endregion
 	}

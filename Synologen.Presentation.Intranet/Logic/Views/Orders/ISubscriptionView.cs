@@ -8,5 +8,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
 	public interface ISubscriptionView : IView<SubscriptionModel> 
 	{
 		event EventHandler<HandleErrorEventArgs> HandleError;
+		event EventHandler<EventArgs> StopSubscription;
+		event EventHandler<EventArgs> StartSubscription;
+		int ReturnPageId { get; set; }
+		int SubscriptionItemDetailPageId { get; set; }
 	}
 }

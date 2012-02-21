@@ -50,8 +50,6 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 		{
 			return new SubscriptionItem
 			{
-				Description = "Beskrivande text",
-				Notes = "Anteckningar",
 				WithdrawalsLimit = 12,
 				PerformedWithdrawals = 2,
 				Subscription = subscription,

@@ -63,8 +63,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 		{
 			return new SubscriptionItem
 			{
-				Description = args.Description,
-				Notes = args.Notes,
 				WithdrawalsLimit = args.NumberOfPayments,
 				Subscription = subscription,
 				TaxFreeAmount = args.TaxFreeAmount,
@@ -74,8 +72,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 
 	    public void UpdateSubscriptionItem(AutogiroDetailsEventArgs args, SubscriptionItem subscriptionPayment, Subscription subscription)
 	    {
-	        subscriptionPayment.Description = args.Description;
-	        subscriptionPayment.Notes = args.Notes;
             subscriptionPayment.WithdrawalsLimit = args.NumberOfPayments;
 			subscriptionPayment.TaxFreeAmount = args.TaxFreeAmount;
 			subscriptionPayment.TaxedAmount = args.TaxedAmount;

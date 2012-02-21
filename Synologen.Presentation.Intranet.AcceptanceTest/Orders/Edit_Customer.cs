@@ -29,9 +29,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_anotherShop = CreateShop<Shop>();
 				_presenter = GetPresenter();
 
-				View.NextPageId = 54;
+				View.ReturnPageId = 54;
     			_expectedNextPageUrl = "test/next/page";
-				RoutingService.AddRoute(View.NextPageId, _expectedNextPageUrl);
+				RoutingService.AddRoute(View.ReturnPageId, _expectedNextPageUrl);
     			A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
     		};
 			Story = () => new Berättelse("Redigera kund")
@@ -166,7 +166,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void TillbakaLänkHarRättRoute()
     	{
-    		View.Model.BackUrl.ShouldBe(_expectedNextPageUrl);
+    		View.Model.ReturnUrl.ShouldBe(_expectedNextPageUrl);
     	}
 
 		#endregion

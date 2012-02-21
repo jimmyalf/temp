@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 {
@@ -24,5 +26,19 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual DateTime? ConsentedDate { get; set; }
 		public virtual bool Active { get; set; }
 		public virtual DateTime? LastPaymentSent { get; set; }
+
+		public static decimal GetCurrentAccountBalance(IList<SubscriptionTransaction> transactions)
+		{
+			if (transactions == null || !transactions.Any()) return 0;
+			Func<SubscriptionTransaction, bool> isWithdrawal = transaction => (transaction.Reason == TransactionReason.Withdrawal || transaction.Reason == TransactionReason.Correction) && transaction.Type == TransactionType.Withdrawal;
+			Func<SubscriptionTransaction, bool> isDeposit = transaction => (transaction.Reason == TransactionReason.Payment || transaction.Reason == TransactionReason.Correction) && transaction.Type == TransactionType.Deposit;
+			var withdrawals = transactions.Where(isWithdrawal).Sum(x => x.Amount);
+			var deposits = transactions.Where(isDeposit).Sum(x => x.Amount);
+			return deposits - withdrawals;
+		}
+		public virtual decimal GetCurrentAccountBalance()
+		{
+			return GetCurrentAccountBalance(Transactions.OrEmpty().ToList());
+		}
 	}
 }

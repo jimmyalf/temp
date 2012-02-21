@@ -66,7 +66,7 @@
 			<asp:Button ID="btnSave" runat="server" Text="Spara" />
 		</div>		
 		<p>
-			<a href="<%#Model.BackUrl %>">Tillbaka</a>
+			<a href="<%#Model.ReturnUrl %>">Tillbaka</a>
 		</p>
 	</fieldset>
 </div>

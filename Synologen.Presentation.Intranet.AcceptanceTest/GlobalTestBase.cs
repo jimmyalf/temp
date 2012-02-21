@@ -17,7 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest
 		public void RunAfterAnyTests()
 		{
 			// ...
-			new DataManager().CleanTables();
+			//new DataManager().CleanTables();
 		}
 	}
 }

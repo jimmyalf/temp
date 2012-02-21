@@ -13,6 +13,6 @@
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string Notes { get; set; }
-		public string BackUrl { get; set; }
+		public string ReturnUrl { get; set; }
 	}
 }

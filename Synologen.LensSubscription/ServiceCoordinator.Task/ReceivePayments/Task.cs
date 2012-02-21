@@ -131,7 +131,6 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 			return new SubscriptionTransaction
 			{
 				Amount = payment.Amount,
-				CreatedDate = DateTime.Now,
 				Reason = ConvertToTransactionReason(payment.Result),
 				Type = TransactionType.Deposit,
 				Subscription = subscription

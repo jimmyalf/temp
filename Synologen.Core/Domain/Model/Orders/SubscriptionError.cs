@@ -11,7 +11,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual ConsentInformationCode? Code { get; set; }
 		public virtual DateTime CreatedDate { get; set; }
 		public virtual DateTime? HandledDate { get; set; }
-		public virtual bool IsHandled { get; set; }
+		public virtual bool IsHandled { get { return HandledDate.HasValue; } }
 		public virtual int? BGErrorId { get; set; }
 		public virtual int? BGPaymentId { get; set; }
 		public virtual int? BGConsentId { get; set; }

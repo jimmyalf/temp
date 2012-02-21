@@ -9,6 +9,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
     	{
 			Created = SystemTime.Now;
     		SelectedPaymentOption = new PaymentOption();
+    		Status = OrderStatus.Created;
     	}
 
 		public virtual Shop Shop { get; set; }
@@ -21,6 +22,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual SubscriptionItem SubscriptionPayment { get; set; }
 		public virtual decimal? OrderTotalWithdrawalAmount { get; set; }
         public virtual int? SpinitServicesEmailId { get; set; }
-        //public virtual bool SendEmailForThisOrder { get; set; }
+		public virtual OrderStatus Status { get; set; }
     }
 }

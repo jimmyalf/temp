@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using Spinit.Wpc.Synologen.ServiceLibrary;
-using Synologen.Client.App;
+//using Synologen.Client.App;
 
 namespace Spinit.Wpc.Synologen.Test.Webservice {
 	//[TestFixture]

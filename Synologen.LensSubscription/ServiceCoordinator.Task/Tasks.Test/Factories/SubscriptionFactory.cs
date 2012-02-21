@@ -35,7 +35,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 			//mockedSubscription.SetupProperty(x => x.PaymentInfo.MonthlyAmount, 399);
 			mockedSubscription.SetupProperty(x => x.LastPaymentSent, null);
 			mockedSubscription.SetupProperty(x => x.ConsentStatus);
-			mockedSubscription.SetupProperty(x => x.ActivatedDate);
+			mockedSubscription.SetupProperty(x => x.ConsentedDate);
 			mockedSubscription.SetupProperty(x => x.AutogiroPayerId, 5);
 			mockedSubscription.SetupProperty(x => x.SubscriptionItems, new[]
 			{

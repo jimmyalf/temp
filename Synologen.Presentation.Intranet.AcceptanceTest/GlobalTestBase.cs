@@ -1,4 +1,3 @@
-using System;
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.App.Bootstrapping;
 using Spinit.Wpc.Synologen.Test.Data;

@@ -12,7 +12,7 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
-using Synologen.Client.App;
+using Synologen.Service.Client.Invoicing.App;
 
 namespace Spinit.Wpc.Synologen.Integration.Test.Webservice{
 	[TestFixture, Explicit]

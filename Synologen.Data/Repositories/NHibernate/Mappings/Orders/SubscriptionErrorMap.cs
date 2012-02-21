@@ -11,11 +11,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 		{
 			Table("SynologenOrderSubscriptionError");
 			Id(x => x.Id);
-			Map(x => x.Type).CustomType(typeof(SubscriptionErrorType));
-			Map(x => x.Code).Nullable().CustomType(typeof (ConsentInformationCode));
+			Map(x => x.Type).CustomType<SubscriptionErrorType>();
+			Map(x => x.Code).Nullable().CustomType<ConsentInformationCode>();
 			Map(x => x.CreatedDate);
 			Map(x => x.HandledDate).Nullable();
-			Map(x => x.IsHandled);
 			References(x => x.Subscription)
 				.Cascade.None()
 				.Column("SubscriptionId")

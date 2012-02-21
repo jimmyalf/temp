@@ -9,13 +9,11 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
         {
             Table("SynologenOrder");
             Id(x => x.Id);
-
             Map(x => x.Created);
             Map(x => x.SpinitServicesEmailId);
             Map(x => x.ShippingType).CustomType<OrderShippingOption>();
         	Map(x => x.OrderTotalWithdrawalAmount).Nullable();
-            //Map(x => x.SendEmailForThisOrder);
-
+			Map(x => x.Status).CustomType<OrderStatus>();
             References(x => x.LensRecipe).Column("LensRecipeId");
         	References(x => x.SubscriptionPayment).Column("SubscriptionItemId").Nullable();
             References(x => x.Article).Column("ArticleId");

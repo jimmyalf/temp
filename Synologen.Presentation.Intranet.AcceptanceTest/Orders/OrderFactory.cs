@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
@@ -80,7 +82,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	                   };
 	    }
 
-		public static Order GetOrder(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null, SubscriptionItem subscriptionItem = null)
+		public static Order GetOrder(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null, SubscriptionItem subscriptionItem = null, PaymentOptionType paymentOptionType = PaymentOptionType.Subscription_Autogiro_New)
 		{
 			return new Order
 			{
@@ -90,7 +92,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				Customer = customer,
                 SubscriptionPayment = subscriptionItem,
 				Shop = shop,
-                SelectedPaymentOption = new PaymentOption {Type = PaymentOptionType.Subscription_Autogiro_New},
+                SelectedPaymentOption = new PaymentOption {Type = paymentOptionType},
 				OrderTotalWithdrawalAmount = 8000
 			};
 		}
@@ -115,18 +117,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	        };
 	    }
 
-		public static Subscription GetSubscription(Shop shop, OrderCustomer customer, int seed = 0)
+		public static Subscription GetSubscription(Shop shop, OrderCustomer customer, int seed = 0, bool? active = null, DateTime? consentedDate = null, SubscriptionConsentStatus? consentStatus = null)
 		{
-			var active = seed % 3 != 0;
+			var isActive = active ?? (seed % 3 == 0);
+			var usedConsentStatus = consentStatus ?? SubscriptionConsentStatus.Accepted.SkipItems(seed);
 			return new Subscription
 			{
 				BankAccountNumber = "123456789",
 				ClearingNumber = "1234",
-				ActivatedDate = null,
-				Active = active,
-				ConsentStatus = SubscriptionConsentStatus.Accepted.SkipItems(seed),
+				ConsentedDate = consentedDate,
+				Active = isActive,
+				ConsentStatus = usedConsentStatus,
 				Customer = customer,
-				Shop = shop
+				Shop = shop,
 			};
 		}
 
@@ -252,5 +255,50 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 TaxFreeAmount = 4000
 	        };
 	    }
+
+		public static IEnumerable<SubscriptionTransaction> GetTransactions(Subscription subscription)
+		{
+			Func<decimal, TransactionReason, TransactionType, SubscriptionTransaction> getTransaction = (amount, reason, type) => new SubscriptionTransaction
+			{
+				Amount = amount, 
+				Reason = reason, 
+				Subscription = subscription, 
+				Type = type
+			};
+			return new[]
+			{
+				getTransaction(1025.25m, TransactionReason.Correction, TransactionType.Deposit),
+				getTransaction(999.99m, TransactionReason.Correction, TransactionType.Withdrawal),
+				getTransaction(275, TransactionReason.Payment, TransactionType.Deposit),
+				getTransaction(275, TransactionReason.PaymentFailed, TransactionType.Deposit),
+				getTransaction(1500, TransactionReason.Withdrawal, TransactionType.Withdrawal)
+			};
+		}
+
+		public static IList<SubscriptionTransaction> GetTransactions(IEnumerable<Subscription> subscriptions)
+		{
+			return subscriptions.SelectMany(GetTransactions).ToList();
+		}
+
+		public static SubscriptionError GetError(Subscription subscription, DateTime? handledDate = null)
+		{
+			return new SubscriptionError
+			{
+				BGConsentId = 5,
+				BGErrorId = 6,
+				BGPaymentId = 7,
+				Code = ConsentInformationCode.InitiatedByPayer,
+				CreatedDate = new DateTime(2012, 02, 20),
+				HandledDate = handledDate,
+				Subscription = subscription,
+				Type = SubscriptionErrorType.ConsentTemporarilyStoppedByPayer,
+			};
+		}
+
+		public static IEnumerable<SubscriptionError> GetErrors(Subscription subscription)
+		{
+			Func<int,DateTime?> getDateOrNull = seed => seed % 3 == 0 ? new DateTime(2012, 02, 20) : (DateTime?) null;
+			return Sequence.Generate(seed => GetError(subscription, getDateOrNull(seed)), 15);
+		}
 	}
 }

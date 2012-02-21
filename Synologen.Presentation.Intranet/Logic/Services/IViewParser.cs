@@ -20,6 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 		IEnumerable<ListItem> Parse<TEnumType>(TEnumType value) where TEnumType : struct;
 	    IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence);
 		IEnumerable<ListItem> FillWithIncrementalValues(OptionalSequenceDefinition sequence);
+		void Fill(OrderCustomer customer, EditCustomerEventArgs editCustomerEventArgs);
 	}
 
 	public class ViewParser : IViewParser
@@ -47,8 +48,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 		{
 			return new Subscription
 			{
-				ActivatedDate = null,
-    			Active = true,
+				ConsentedDate = null,
+    			Active = false,
 				AutogiroPayerId = null,
 				BankAccountNumber = args.BankAccountNumber,
 				ClearingNumber = args.ClearingNumber,
@@ -135,35 +136,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			}
 	        return listOfItems;
 	    }
-
-		//public IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
-		//{
-		//    var list = new List<ListItem> {new ListItem { Text = "-- Välj --", Value = (-9999).ToString()}};
-
-		//    if(sequence.Increment > 0)
-		//    {
-		//        for (var value = sequence.Min; value <= sequence.Max; value += sequence.Increment)
-		//        {
-		//            list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
-		//        }
-		//    }
-		//    return list;
-		//}
-
-		//public IEnumerable<ListItem> FillWithIncrementalValues(OptionalSequenceDefinition sequence)
-		//{
-		//    var list = new List<ListItem> {new ListItem { Text = "-- Välj --", Value = (-9999).ToString()}};
-		//    if(sequence.DisableDefinition) return list;
-		//    if(sequence.Increment > 0)
-		//    {
-		//        for (var value = sequence.Min.Value; value <= sequence.Max.Value; value += sequence.Increment.Value)
-		//        {
-		//            list.Add(new ListItem { Value = value.ToString(), Text = value.ToString() });
-		//        }
-		//    }
-		//    return list;
-		//}
-
         public IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
         {
 			yield return new ListItem("-- Välj --","-9999");
@@ -182,6 +154,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
         		yield return new ListItem {Value = value.ToString(), Text = value.ToString()};
         	}
         }
+
+		public void Fill(OrderCustomer customer, EditCustomerEventArgs editCustomerEventArgs)
+		{
+			customer.AddressLineOne = editCustomerEventArgs.AddressLineOne;
+			customer.AddressLineTwo = editCustomerEventArgs.AddressLineTwo; 
+			customer.City = editCustomerEventArgs.City; 
+			customer.Email = editCustomerEventArgs.Email; 
+			customer.FirstName = editCustomerEventArgs.FirstName; 
+			customer.LastName = editCustomerEventArgs.LastName; 
+			customer.MobilePhone = editCustomerEventArgs.MobilePhone; 
+			customer.Notes = editCustomerEventArgs.Notes; 
+			customer.PersonalIdNumber = editCustomerEventArgs.PersonalIdNumber; 
+			customer.Phone = editCustomerEventArgs.Phone;
+			customer.PostalCode = editCustomerEventArgs.PostalCode;
+		}
 
 		private static IEnumerable<decimal> GetValuesForDefinition(decimal min, decimal max, decimal increment)
 		{

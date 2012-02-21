@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual IEnumerable<SubscriptionError> Errors { get; set; }
 		public virtual SubscriptionConsentStatus ConsentStatus { get; set; }
 		public virtual DateTime CreatedDate { get; protected set; }
-		public virtual DateTime? ActivatedDate { get; set; }
+		public virtual DateTime? ConsentedDate { get; set; }
 		public virtual bool Active { get; set; }
 		public virtual DateTime? LastPaymentSent { get; set; }
 	}

@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CA5EB9AE-C83B-4101-8652-17B15F21635E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Synologen.Service.Client.BGCTaskRunner.AcceptanceTest</RootNamespace>
+    <AssemblyName>Synologen.Service.Client.BGCTaskRunner.AcceptanceTest</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="edtFTPnet, Version=2.2.1.0, Culture=neutral, PublicKeyToken=4b0c991f43097782">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\edtFTPnet.dll</HintPath>
+    </Reference>
+    <Reference Include="FakeItEasy, Version=1.0.0.5, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Tools\FakeItEasy\FakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.2.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Shouldly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Tools\Shouldly\Shouldly.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Data, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Test">
+      <HintPath>..\..\Dependancies\Spinit\Spinit.Test.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\StructureMap\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Change_Ftp_Password.cs" />
+    <Compile Include="Receive_errors.cs" />
+    <Compile Include="Send_file.cs" />
+    <Compile Include="TestHelpers\Factory.cs" />
+    <Compile Include="GlobalTestBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Send_consents.cs" />
+    <Compile Include="Send_payments.cs" />
+    <Compile Include="TestHelpers\TaskBase.cs" />
+    <Compile Include="Get_file.cs" />
+    <Compile Include="Receive_consents.cs" />
+    <Compile Include="Receive_payments.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Synologen.Core\Synologen.Core.csproj">
+      <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
+      <Name>Synologen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.LensSubscription\BGData\BGData.csproj">
+      <Project>{245CC0F4-C211-4998-81D6-F18506B0B952}</Project>
+      <Name>BGData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.LensSubscription\BGServiceCoordinator.Task\ChangeRemoteFTPassword\ChangeRemoteFTPassword.csproj">
+      <Project>{BDF40029-A966-4BCA-817F-AE13766B63C6}</Project>
+      <Name>ChangeRemoteFTPassword</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.LensSubscription\BGServiceCoordinator.Task\GetFile\GetFile.csproj">
+      <Project>{56639B4D-5593-4A4F-9918-CBEB29BD93A2}</Project>
+      <Name>GetFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.LensSubscription\BGServiceCoordinator.Task\ReceiveConsents\ReceiveConsents.csproj">
+      <Project>{0BAE058D-24F4-41ED-8CF9-AD128B59F211}</Project>
+      <Name>ReceiveConsents %28LensSubscription\BGTasks\ReceiveConsents%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.LensSubscription\BGServiceCoordinator.Task\ReceiveErrors\ReceiveErrors.csproj">
+      <Project>{AF74CA7A-75E2-487C-97E5-1AA0CACA0F9B}</Project>
+      <Name>ReceiveErrors %28LensSubscription\BGTasks\ReceiveErrors%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.LensSubscription\BGServiceCoordinator.Task\ReceivePayments\ReceivePayments.csproj">
+      <Project>{DBECE0FB-E41C-4845-A467-1CF604931EC5}</Project>
+      <Name>ReceivePayments %28LensSubscription\BGTasks\ReceivePayments%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.LensSubscription\BGServiceCoordinator.Task\SendConsents\SendConsents.csproj">
+      <Project>{2BCC56E0-2100-42B5-B91D-A8FDEAE5C28F}</Project>
+      <Name>SendConsents %28LensSubscription\BGTasks\SendConsents%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.LensSubscription\BGServiceCoordinator.Task\SendFile\SendFile.csproj">
+      <Project>{8096311E-FEC9-49C5-AF54-90F4177E9DCC}</Project>
+      <Name>SendFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.LensSubscription\BGServiceCoordinator.Task\SendPayments\SendPayments.csproj">
+      <Project>{037FF430-01ED-4D67-B5AE-737CEFD952CD}</Project>
+      <Name>SendPayments %28LensSubscription\BGTasks\SendPayments%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Synologen.LensSubscription\ServiceCoordinator.Core\ServiceCoordinator.Core.csproj">
+      <Project>{938FA6F2-51AB-4542-BBC3-15F078CC7AB5}</Project>
+      <Name>ServiceCoordinator.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Client.BGCTaskRunner\Client.BGCTaskRunner.csproj">
+      <Project>{3BA4BBD6-662D-4B83-9E47-AE385E971BDC}</Project>
+      <Name>Client.BGCTaskRunner</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BackupFiles\" />
+    <Folder Include="ReceivedFiles\" />
+    <Folder Include="SentFiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

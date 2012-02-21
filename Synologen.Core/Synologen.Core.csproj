@@ -86,6 +86,7 @@
     <Compile Include="Attributes\EnumDisplayNameAttribute.cs" />
     <Compile Include="Domain\EventArgs\OnCommandSentEventArgs.cs" />
     <Compile Include="Domain\EventArgs\OnResponseReceivedEventArgs.cs" />
+    <Compile Include="Domain\Exceptions\AccessDeniedException.cs" />
     <Compile Include="Domain\Exceptions\AutogiroFileDoesNotExistException.cs" />
     <Compile Include="Domain\Exceptions\AutogiroFileExistsException.cs" />
     <Compile Include="Domain\Exceptions\AutogiroFileSplitException.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Domain\Model\ContractSales\Subscription.cs" />
     <Compile Include="Domain\Model\ContractSales\Transaction.cs" />
     <Compile Include="Domain\Model\Entity.cs" />
+    <Compile Include="Domain\Model\Orders\OrderStatus.cs" />
     <Compile Include="Domain\Model\Orders\SubscriptionPendingPayment.cs" />
     <Compile Include="Domain\Model\Orders\EyeParameter.cs" />
     <Compile Include="Domain\Model\Orders\LensRecipe.cs" />
@@ -209,7 +211,6 @@
     <Compile Include="Domain\Model\Orders\SubscriptionTypes\SubscriptionStatus.cs" />
     <Compile Include="Domain\Model\Orders\SubscriptionTypes\TransactionReason.cs" />
     <Compile Include="Domain\Model\Orders\SubscriptionTypes\TransactionType.cs" />
-    <Compile Include="Domain\Model\Orders\TransactionArticle.cs" />
     <Compile Include="Domain\Model\ShopDetails\Shop.cs" />
     <Compile Include="Domain\Model\ShopDetails\ShopEquipment.cs" />
     <Compile Include="Domain\Model\ShopDetails\ShopEquipmentConnection.cs" />
@@ -251,6 +252,7 @@
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsForShop.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsToSendConsentsForCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllSubscriptionsToSendPaymentsForCriteria.cs" />
+    <Compile Include="Domain\Persistence\Criterias\Orders\AllSubscriptionsForShop.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\AllSubscriptionsToSendConsentsForCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\Orders\AllSubscriptionsToSendPaymentsForCriteria.cs" />
     <Compile Include="Domain\Persistence\Criterias\LensSubscription\AllTransactionsMatchingCriteria.cs" />

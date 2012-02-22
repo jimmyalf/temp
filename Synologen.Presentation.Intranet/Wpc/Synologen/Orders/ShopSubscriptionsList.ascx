@@ -8,6 +8,7 @@
 					<th>Kund</th><th>Bankkonto</th><th>Månadsbelopp</th><th>Saldo</th><th>Status</th><th>Detaljer</th>
 				</tr>
 			</thead>
+			<tbody>
 	</HeaderTemplate>
 	<ItemTemplate>
 			<tr>
@@ -20,6 +21,7 @@
 			</tr>
 	</ItemTemplate>
 	<FooterTemplate>
+			</tbody>
 		</table>
 	</FooterTemplate>
 </asp:Repeater>

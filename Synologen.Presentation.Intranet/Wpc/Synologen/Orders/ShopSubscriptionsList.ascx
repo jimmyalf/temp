@@ -3,13 +3,16 @@
 <asp:Repeater ID="rptSubscriptions" runat="server" DataSource='<%#Model.List%>'>
 	<HeaderTemplate >
 		<table>
-			<tr class="synologen-table-headerrow">
-				<th>Kund</th><th>Månadsbelopp</th><th>Saldo</th><th>Status</th><th>Detaljer</th>
-			</tr>
+			<thead>
+				<tr>
+					<th>Kund</th><th>Bankkonto</th><th>Månadsbelopp</th><th>Saldo</th><th>Status</th><th>Detaljer</th>
+				</tr>
+			</thead>
 	</HeaderTemplate>
 	<ItemTemplate>
 			<tr>
 				<td><a href="<%# Eval("CustomerDetailsUrl")%>"><%# Eval("CustomerName")%></a></td>
+				<td><%# Eval("BankAccountNumber")%></td>
 				<td><%# Eval("MonthlyAmount")%></td>
 				<td><%# Eval("CurrentBalance")%></td>
 				<td><%# Eval("Status")%></td>

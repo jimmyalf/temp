@@ -239,6 +239,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				viewModel.Active.ShouldBe(item.IsActive ? "Ja" : "Nej");
 				viewModel.MontlyAmount.ShouldBe(item.AmountForAutogiroWithdrawal.ToString("C2"));
 				viewModel.SubscriptionItemDetailUrl.ShouldBe(_subscriptionItemDetailUrl + "?subscription-item=" + item.Id);
+				viewModel.CreatedDate.ShouldBe(item.CreatedDate.ToString("yyyy-MM-dd"));
 				if(item.WithdrawalsLimit.HasValue)
 				{
 					viewModel.PerformedWithdrawals.ShouldBe(item.PerformedWithdrawals + "/" + item.WithdrawalsLimit.Value);
@@ -252,7 +253,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void TransaktionerVisas()
 		{
-			View.Model.Transactions.And(_transactions).Do((viewModel, item) =>
+			var orderedTransactions = _transactions.OrderByDescending(x => x.CreatedDate);
+			View.Model.Transactions.And(orderedTransactions).Do((viewModel, item) =>
 			{
 				viewModel.Amount.ShouldBe(GetFormattedAmount(item));
 				viewModel.Date.ShouldBe(item.CreatedDate.ToString("yyyy-MM-dd"));

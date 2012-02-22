@@ -1,7 +1,16 @@
+using System;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
+
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 {
 	public class SubscriptionItem : Entity
 	{
+		public SubscriptionItem()
+		{
+			CreatedDate = SystemTime.Now;
+		}
+
+		public virtual DateTime CreatedDate { get; private set; }
 		public virtual Subscription Subscription { get; set; }
 		public virtual int? WithdrawalsLimit { get; set; }
 		public virtual int PerformedWithdrawals { get; set; }

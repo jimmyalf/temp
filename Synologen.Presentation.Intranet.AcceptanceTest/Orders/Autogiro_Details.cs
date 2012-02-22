@@ -6,6 +6,7 @@ using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
@@ -23,6 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private AutogiroDetailsEventArgs _form;
     	private Subscription _subscription;
     	private Shop _shop;
+    	private DateTime _operationTime;
 
     	public When_entering_autogiro_details()
         {
@@ -32,6 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_submitUrl = "/next/page";
 				_abortUrl = "/abort/page";
             	_shop = CreateShop<Shop>();
+            	_operationTime = new DateTime(2012, 02, 22);
             	A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
             	SetupNavigationEvents(_previousUrl, _abortUrl, _submitUrl);
             	_redirectUrl = (url, orderId) => "{url}?order={orderId}".ReplaceWith(new {url, orderId});
@@ -168,19 +171,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         #region Act
         private void AnvändarenAvbryterBeställningen()
         {
-            _presenter.View_Abort(null, new EventArgs());
+			SystemTime.InvokeWhileTimeIs(_operationTime, () => _presenter.View_Abort(null, new EventArgs()));
         }
         private void AnvändarenFörsökerFortsättaTillNästaSteg()
         {
-            _presenter.View_Submit(null, _form);
+            SystemTime.InvokeWhileTimeIs(_operationTime, () => _presenter.View_Submit(null, _form));
         }
     	private void AnvändarenFörsökerGåTillFöregåendeSteg()
     	{
-    		_presenter.View_Previous(null, new EventArgs());
+    		SystemTime.InvokeWhileTimeIs(_operationTime, () => _presenter.View_Previous(null, new EventArgs()));
     	}
     	private void SidanVisas()
     	{
-    		_presenter.View_Load(null, new EventArgs());
+    		SystemTime.InvokeWhileTimeIs(_operationTime, () => _presenter.View_Load(null, new EventArgs()));
     	}
         #endregion
 
@@ -226,6 +229,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
 			subscriptionItem.TaxFreeAmount.ShouldBe(_form.TaxFreeAmount);
 			subscriptionItem.TaxedAmount.ShouldBe(_form.TaxedAmount);
+			subscriptionItem.CreatedDate.ShouldBe(_operationTime);
 			//Assert Subscription
 			subscriptionItem.Subscription.ConsentedDate.ShouldBe(null);
 			subscriptionItem.Subscription.Active.ShouldBe(false);
@@ -233,7 +237,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			subscriptionItem.Subscription.BankAccountNumber.ShouldBe(_form.BankAccountNumber);
 			subscriptionItem.Subscription.ClearingNumber.ShouldBe(_form.ClearingNumber);
 			subscriptionItem.Subscription.ConsentStatus.ShouldBe(SubscriptionConsentStatus.NotSent);
-			subscriptionItem.Subscription.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
+			subscriptionItem.Subscription.CreatedDate.Date.ShouldBe(_operationTime);
 			subscriptionItem.Subscription.Customer.Id.ShouldBe(_order.Customer.Id);
 			subscriptionItem.Subscription.Shop.Id.ShouldBe(_shop.Id);
     	}
@@ -247,6 +251,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
 			subscriptionItem.TaxFreeAmount.ShouldBe(_form.TaxFreeAmount);
 			subscriptionItem.TaxedAmount.ShouldBe(_form.TaxedAmount);
+			subscriptionItem.CreatedDate.ShouldBe(_operationTime);
 			//Assert Subscription
 			subscriptionItem.Subscription.Id.ShouldBe(_subscription.Id);
     	}

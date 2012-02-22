@@ -42,6 +42,7 @@
 			<table>
 				<caption>Fel</caption>
 				<thead><tr class="synologen-table-headerrow"><th>Typ</th><th>Datum</th><th>Hanterat</th></tr></thead>
+				<tbody>
 			</HeaderTemplate>
 			<ItemTemplate>
 				<tr>
@@ -53,6 +54,7 @@
 				</tr>
 			</ItemTemplate>
 			<FooterTemplate>
+				</tbody>
 			</table>
 			</FooterTemplate>
 		</asp:Repeater>
@@ -62,6 +64,7 @@
 			<table>
 				<caption>Delabonnemang</caption>
 				<thead><tr class="synologen-table-headerrow"><th>Belopp</th><th>Dragningar</th><th>Skapat</th><th>Aktiv</th><th>Detaljer</th></tr></thead>
+				<tbody>
 			</HeaderTemplate>
 			<ItemTemplate>
 				<tr>
@@ -73,6 +76,7 @@
 				</tr>
 			</ItemTemplate>
 			<FooterTemplate>
+				</tbody>
 			</table>
 			</FooterTemplate>
 		</asp:Repeater>
@@ -82,6 +86,7 @@
 			<table>
 				<caption>Transaktioner</caption>
 				<thead><tr class="synologen-table-headerrow"><th>Beskrivning</th><th>Datum</th><th>Belopp</th><th>Utbetalad</th></tr></thead>
+				<tbody>
 			</HeaderTemplate>
 			<ItemTemplate>
 				<tr>
@@ -92,6 +97,7 @@
 				</tr>
 			</ItemTemplate>
 			<FooterTemplate>
+				</tbody>
 			</table>
 			</FooterTemplate>
 		</asp:Repeater>

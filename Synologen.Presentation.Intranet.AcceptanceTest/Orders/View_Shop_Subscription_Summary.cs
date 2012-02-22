@@ -84,6 +84,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			    viewModel.CurrentBalance.ShouldBe(GetExpectedCurrentBalance(transactions).ToString("N2"));
 			    viewModel.CustomerDetailsUrl.ShouldBe(_renderUrl(_customerDetailsPageUrl, "customer", subscription.Customer.Id));
 			    viewModel.CustomerName.ShouldBe(subscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
+				viewModel.BankAccountNumber.ShouldBe(subscription.BankAccountNumber);
 			    viewModel.MonthlyAmount.ShouldBe(subscription.SubscriptionItems.Where(x => x.IsActive).Sum(x => x.AmountForAutogiroWithdrawal).ToString("N2"));
 			    viewModel.Status.ShouldBe(GetStatusMessage(subscription));
 			    viewModel.SubscriptionDetailsUrl.ShouldBe(_renderUrl(_subscriptionDetailsPageUrl, "subscription", subscription.Id));

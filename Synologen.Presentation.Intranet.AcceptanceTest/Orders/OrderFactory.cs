@@ -5,6 +5,7 @@ using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
 
@@ -261,13 +262,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				Subscription = subscription, 
 				Type = type
 			};
+			var startTime = new DateTime(2011, 01, 01);
 			return new[]
 			{
-				getTransaction(1025.25m, TransactionReason.Correction, TransactionType.Deposit),
-				getTransaction(999.99m, TransactionReason.Correction, TransactionType.Withdrawal),
-				getTransaction(275, TransactionReason.Payment, TransactionType.Deposit),
-				getTransaction(275, TransactionReason.PaymentFailed, TransactionType.Deposit),
-				getTransaction(1500, TransactionReason.Withdrawal, TransactionType.Withdrawal)
+				SystemTime.ReturnWhileTimeIs(startTime.AddDays(1), () => getTransaction(1500, TransactionReason.Withdrawal, TransactionType.Withdrawal)),
+				SystemTime.ReturnWhileTimeIs(startTime.AddDays(2), () => getTransaction(1025.25m, TransactionReason.Correction, TransactionType.Deposit)),
+				SystemTime.ReturnWhileTimeIs(startTime.AddDays(3), () => getTransaction(999.99m, TransactionReason.Correction, TransactionType.Withdrawal)),
+				SystemTime.ReturnWhileTimeIs(startTime.AddDays(4), () => getTransaction(275, TransactionReason.PaymentFailed, TransactionType.Deposit)),
+				SystemTime.ReturnWhileTimeIs(startTime.AddDays(5), () => getTransaction(275, TransactionReason.Payment, TransactionType.Deposit)),
 			};
 		}
 

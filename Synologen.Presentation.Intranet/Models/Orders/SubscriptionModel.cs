@@ -15,7 +15,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public void Initialize(Subscription subscription, string returnUrl, string subscriptionItemUrl)
 		{
 			SubscriptionItems = subscription.SubscriptionItems.OrEmpty().Select(x => new SubscriptionItemListItem(x, subscriptionItemUrl));
-			Transactions = subscription.Transactions.OrEmpty().Select(x => new TransactionListItem(x));
+			Transactions = subscription.Transactions.OrderByDescending(x => x.CreatedDate).OrEmpty().Select(x => new TransactionListItem(x));
 			Errors = subscription.Errors.OrEmpty().Select(x => new ErrorListItem(x));
 			BankAccountNumber = subscription.BankAccountNumber;
 			ClearingNumber = subscription.ClearingNumber;
@@ -64,12 +64,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 				: subscriptionItem.PerformedWithdrawals.ToString();
 			Active = subscriptionItem.IsActive  ? "Ja" : "Nej";
 			SubscriptionItemDetailUrl = subscriptionItemDetailUrl + "?subscription-item=" + subscriptionItem.Id;
+			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");
 		}
 
 		public string Active { get; set; }
 		public string PerformedWithdrawals { get; set; }
 		public string MontlyAmount { get; set; }
 		public string SubscriptionItemDetailUrl { get; set; }
+		public string CreatedDate { get; set; }
 	}
 
 	public class TransactionListItem

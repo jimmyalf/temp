@@ -14,6 +14,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 			References(x => x.Subscription).Column("SubscriptionId");
 			Map(x => x.TaxFreeAmount);
 			Map(x => x.TaxedAmount);
+			Map(x => x.CreatedDate).Not.Nullable();
 		}
 	}
 }

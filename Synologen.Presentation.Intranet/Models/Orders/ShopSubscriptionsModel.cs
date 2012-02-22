@@ -23,5 +23,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public string Status { get; set; }
 		public string SubscriptionDetailsUrl { get; set; }
 		public string CustomerDetailsUrl { get; set; }
+		public string BankAccountNumber { get; set; }
 	}
 }

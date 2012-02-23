@@ -3,6 +3,10 @@
 	<fieldset class="synologen-form">
 		<legend>Delabonnemang för konto <%=Model.SubscriptionBankAccountNumber %> för <%=Model.CustomerName %></legend>
     	<p>
+			<label>Månatligt dragningsbelopp</label>
+			<span><%#Model.MonthlyWithdrawalAmount %></span>
+    	</p>
+    	<p>
     		<label>Momsbelopp</label>
 			<asp:TextBox ID="txtVATAmount" Text="<%#Model.TaxedAmount %>" runat="server" />
 			<asp:RequiredFieldValidator runat="server" ControlToValidate="txtVATAmount" ErrorMessage="Momsbelopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>

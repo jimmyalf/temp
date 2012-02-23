@@ -9,7 +9,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public void Initialize(SubscriptionItem subscriptionItem, Subscription subscription, string returnUrl)
 		{
 			Active = subscriptionItem.IsActive ? "Ja" : "Nej";
-			//AmountForAutogiroWithdrawal = subscriptionItem.AmountForAutogiroWithdrawal.ToString("C2");
 			TaxedAmount = subscriptionItem.TaxedAmount;
 			TaxFreeAmount = subscriptionItem.TaxFreeAmount;
 			WithdrawalsLimit = subscriptionItem.WithdrawalsLimit;
@@ -18,9 +17,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 			SubscriptionBankAccountNumber = subscription.BankAccountNumber;
 			CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			ReturnUrl = returnUrl;
+			MonthlyWithdrawalAmount = subscriptionItem.AmountForAutogiroWithdrawal.ToString("C2");
 		}
 		public string Active { get; set; }
-		//public string AmountForAutogiroWithdrawal { get; set; }
 		public decimal TaxedAmount { get; set; }
 		public decimal TaxFreeAmount { get; set; }
 		public int? WithdrawalsLimit { get; set; }
@@ -29,5 +28,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public string SubscriptionBankAccountNumber { get; set; }
 		public string CustomerName { get; set; }
 		public string ReturnUrl { get; set; }
+		public string MonthlyWithdrawalAmount { get; set; }
 	}
 }

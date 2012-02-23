@@ -1,7 +1,9 @@
 ﻿using System;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
@@ -19,6 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private SubmitSubscriptionItemEventArgs _form;
 		private string _returnUrl;
 		private Subscription _subscription;
+		private Exception _thrownException;
 
 		public View_SubscriptionItem()
 		{
@@ -30,6 +33,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_returnUrl = "return/url";
 				View.ReturnPageId = 20;
 				RoutingService.AddRoute(View.ReturnPageId, _returnUrl);
+				A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
 			};
 			Story = () => new Berättelse("Visa delabonnemang")
 				.FörAtt("Visa delabonnemangsinformation")
@@ -59,7 +63,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			);
 		}
 
-
+		[Test]
+		public void DelAbonnemangTillhörInteAktuellButik()
+		{
+			SetupScenario(scenario => scenario
+				.Givet(DelAbonnemangFinnsSomTillhörEnAnnanButik)
+				.När(SidanVisas)
+				.Så(SkallEttExceptionKastas)
+			);
+		}
 
 		#region Arrange
 		private void DelAbonnemangFinns()
@@ -67,6 +79,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			_subscriptionItem = CreateSubscriptionItem(_subscription);
 			HttpContext.SetupRequestParameter("subscription-item", _subscriptionItem.Id.ToString());
 		}
+
+		private void DelAbonnemangFinnsSomTillhörEnAnnanButik()
+		{
+			var otherShop = CreateShop<Shop>();
+			var otherSubscription = CreateSubscription(otherShop);
+			_subscriptionItem = CreateSubscriptionItem(otherSubscription);
+			HttpContext.SetupRequestParameter("subscription-item", _subscriptionItem.Id.ToString());
+		}
+
 		private void FormuläretÄrIfyllt()
 		{
 			_form = new SubmitSubscriptionItemEventArgs
@@ -81,7 +102,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		#region Act
 		private void SidanVisas()
 		{
-			_presenter.View_Load(null, new EventArgs());
+			_thrownException = CatchExceptionWhile(() => _presenter.View_Load(null, new EventArgs()));
 		}
 		private void FormuläretSparas()
 		{
@@ -115,6 +136,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.ReturnUrl.ShouldBe(_returnUrl + "?subscription=" +_subscription.Id);
 		}
 
+    	private void SkallEttExceptionKastas()
+    	{
+    		_thrownException.ShouldBeTypeOf<AccessDeniedException>();
+    	}
 		#endregion
 	}
 

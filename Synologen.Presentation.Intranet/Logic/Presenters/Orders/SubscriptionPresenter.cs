@@ -1,14 +1,14 @@
 ﻿using System;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
-using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
-	public class SubscriptionPresenter : Presenter<ISubscriptionView> 
+	public class SubscriptionPresenter : OrderBasePresenter<ISubscriptionView> 
 	{
 		private readonly ISubscriptionRepository _subscriptionRepository;
 		private readonly ISubscriptionErrorRepository _subscriptionErrorRepository;
@@ -18,8 +18,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			ISubscriptionView view, 
 			ISubscriptionRepository subscriptionRepository, 
 			ISubscriptionErrorRepository subscriptionErrorRepository,
-			IRoutingService routingService
-			) : base(view)
+			IRoutingService routingService,
+			ISynologenMemberService synologenMemberService
+			) : base(view, synologenMemberService)
 		{
 			_subscriptionRepository = subscriptionRepository;
 			_subscriptionErrorRepository = subscriptionErrorRepository;
@@ -33,7 +34,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		public void View_Load(object sender, EventArgs e)
 		{
 			if(!RequestSubscriptionId.HasValue) return;
-			UpdateViewModel(RequestSubscriptionId.Value);
+			var subscription = _subscriptionRepository.Get(RequestSubscriptionId.Value);
+			CheckAccess(subscription.Shop);
+			UpdateViewModel(subscription);
 		}
 
 
@@ -43,7 +46,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			var error = _subscriptionErrorRepository.Get(handleErrorEventArgs.ErrorId);
 			error.HandledDate = DateTime.Now;
 			_subscriptionErrorRepository.Save(error);
-			UpdateViewModel(RequestSubscriptionId.Value);
+			var subscription = _subscriptionRepository.Get(RequestSubscriptionId.Value);
+			UpdateViewModel(subscription);
 		}
 
 		public void Start_Subscription(object sender, EventArgs eventArgs)
@@ -52,7 +56,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			var subscription = _subscriptionRepository.Get(RequestSubscriptionId.Value);
 			subscription.Active = true;
 			_subscriptionRepository.Save(subscription);
-			UpdateViewModel(RequestSubscriptionId.Value);
+			UpdateViewModel(subscription);
 		}
 
 		public void Stop_Subscription(object o, EventArgs eventArgs)
@@ -61,7 +65,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			var subscription = _subscriptionRepository.Get(RequestSubscriptionId.Value);
 			subscription.Active = false;
 			_subscriptionRepository.Save(subscription);
-			UpdateViewModel(RequestSubscriptionId.Value);
+			UpdateViewModel(subscription);
 		}
 
 		public override void ReleaseView()
@@ -77,9 +81,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		get { return HttpContext.Request.Params["subscription"].ToNullableInt(); }
     	}
 
-		private void UpdateViewModel(int subscriptionId)
+		private void UpdateViewModel(Subscription subscription)
 		{
-			var subscription = _subscriptionRepository.Get(subscriptionId);
 			var returnUrl = _routingService.GetPageUrl(View.ReturnPageId);
 			var subscriptionItemDetailUrl = _routingService.GetPageUrl(View.SubscriptionItemDetailPageId);
 			View.Model.Initialize(subscription, returnUrl, subscriptionItemDetailUrl);

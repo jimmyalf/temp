@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -27,6 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private SubscriptionPresenter _presenter;
 		private string _returnUrl;
 		private string _subscriptionItemDetailUrl;
+		private Exception _thrownException;
 
 		public View_Subscription()
 		{
@@ -41,6 +44,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				View.SubscriptionItemDetailPageId = 57;
 				RoutingService.AddRoute(View.ReturnPageId, _returnUrl);
 				RoutingService.AddRoute(View.SubscriptionItemDetailPageId, _subscriptionItemDetailUrl);
+				A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
 			};
 
 			Story = () => new Berättelse("Visa abonnemang")
@@ -134,10 +138,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			);
 		}
 
+    	[Test]
+		public void AbonnemangTillhörInteAktuellButik()
+		{
+			SetupScenario(scenario => scenario
+				.Givet(AbonnemangFinnsSomTillhörEnAnnanButik)
+				.När(SidanVisas)
+				.Så(SkallEttExceptionKastas)
+			);
+		}
+
 		#region Arrange
 		private void AbonnemangFinns()
 		{
 			_subscription = CreateSubscription(_shop);
+			HttpContext.SetupRequestParameter("subscription", _subscription.Id.ToString());
+		}
+
+		private void AbonnemangFinnsSomTillhörEnAnnanButik()
+		{
+			var otherShop = CreateShop<Shop>();
+			_subscription = CreateSubscription(otherShop);
 			HttpContext.SetupRequestParameter("subscription", _subscription.Id.ToString());
 		}
 
@@ -186,7 +207,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		#region Act
 		private void SidanVisas()
 		{
-			_presenter.View_Load(null, new EventArgs());
+			_thrownException = CatchExceptionWhile(() => _presenter.View_Load(null, new EventArgs()));
 		}
 
 		private void EttOhanteratFelHanteras()
@@ -312,6 +333,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			View.Model.ShowStartButton.ShouldBe(true);
 		}
+
+    	private void SkallEttExceptionKastas()
+    	{
+    		_thrownException.ShouldBeTypeOf<AccessDeniedException>();
+    	}
 		#endregion
 	}
 }

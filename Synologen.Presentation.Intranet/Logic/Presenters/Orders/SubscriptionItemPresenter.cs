@@ -1,14 +1,14 @@
 ﻿using System;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
-using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
-	public class SubscriptionItemPresenter : Presenter<ISubscriptionItemView> 
+	public class SubscriptionItemPresenter : OrderBasePresenter<ISubscriptionItemView> 
 	{
 		private readonly ISubscriptionItemRepository _subscriptionItemRepository;
 		private readonly IRoutingService _routingService;
@@ -16,8 +16,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		public SubscriptionItemPresenter(
 			ISubscriptionItemView view, 
 			ISubscriptionItemRepository subscriptionItemRepository,
-			IRoutingService routingService
-			) : base(view)
+			IRoutingService routingService,
+			ISynologenMemberService synologenMemberService
+			) : base(view, synologenMemberService)
 		{
 			_subscriptionItemRepository = subscriptionItemRepository;
 			_routingService = routingService;
@@ -28,7 +29,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		public void View_Load(object sender, EventArgs args)
 		{
 			if(!RequestSubScriptionItem.HasValue) return;
-			UpdateViewModel(RequestSubScriptionItem.Value);
+			var subscriptionItem = _subscriptionItemRepository.Get(RequestSubScriptionItem.Value);
+			CheckAccess(subscriptionItem.Subscription.Shop);
+			UpdateViewModel(subscriptionItem);
 		}
 
 		public void View_Submit(object sender, SubmitSubscriptionItemEventArgs args)
@@ -39,15 +42,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			subscriptionItem.TaxedAmount = args.TaxedAmount;
 			subscriptionItem.WithdrawalsLimit = args.WithdrawalsLimit;
 			_subscriptionItemRepository.Save(subscriptionItem);
-			UpdateViewModel(RequestSubScriptionItem.Value);
+			UpdateViewModel(subscriptionItem);
 		}
 
-		private void UpdateViewModel(int subscriptionItemId)
+		private void UpdateViewModel(SubscriptionItem subscriptionItem)
 		{
-			var subscriptionItem = _subscriptionItemRepository.Get(subscriptionItemId);
 			var subscription = subscriptionItem.Subscription;
 			var returnUrl = _routingService.GetPageUrl(View.ReturnPageId) + "?subscription=" + subscription.Id;
-			View.Model.Initialize(subscriptionItem, subscriptionItem.Subscription, returnUrl);
+			View.Model.Initialize(subscriptionItem, subscription, returnUrl);
 		}
 
 		public override void ReleaseView()

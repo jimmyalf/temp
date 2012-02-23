@@ -792,7 +792,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_fetches_new_webclient_for_each_exception()
 		{
-		    A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGWebServiceClient>()).MustHaveHappened(Repeated.Times(_expectedConsents.Count()));
+		    A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGWebServiceClient>()).MustHaveHappened(Repeated.Exactly.Times(_expectedConsents.Count()));
 		}
 	}
 }

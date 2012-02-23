@@ -31,7 +31,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 				fileData = PaymentsFactory.GetTestPaymentFileData();
 				payer = PayerFactory.Get();
 				paymentsToSend = PaymentsFactory.GetList(payer);
-				A.CallTo(() => BGPaymentToSendRepository.FindBy(A<AllNewPaymentsToSendCriteria>.Ignored.Argument)).Returns(paymentsToSend);
+				A.CallTo(() => BGPaymentToSendRepository.FindBy(A<AllNewPaymentsToSendCriteria>.Ignored)).Returns(paymentsToSend);
 				A.CallTo(() => BgServiceCoordinatorSettingsService.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
 				A.CallTo(() => BgServiceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
 				A.CallTo(() => PaymentFileWriter.Write(A<PaymentsFile>.Ignored)).Returns(fileData);
@@ -56,44 +56,41 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		[Test]
 		public void Task_fetches_new_payments_from_repository()
 		{
-			A.CallTo(() => BGPaymentToSendRepository.FindBy(A<AllNewPaymentsToSendCriteria>.Ignored.Argument))
+			A.CallTo(() => BGPaymentToSendRepository.FindBy(A<AllNewPaymentsToSendCriteria>.Ignored))
 				.MustHaveHappened();
 		}
 
 		[Test]
 		public void Task_parses_fetched_payments_into_payment_file()
 		{
-		    A.CallTo(() => PaymentFileWriter.Write(
-		        A<PaymentsFile>
-					.That.Matches(x => MatchPayments(x.Posts, paymentsToSend, paymentRecieverBankGiroNumber))
-					.And.Matches(x => x.Reciever.BankgiroNumber.Equals(paymentRecieverBankGiroNumber))
-					.And.Matches(x => x.Reciever.CustomerNumber.Equals(paymentRecieverCustomerNumber))
-					.And.Matches(x => x.WriteDate.Date.Equals(DateTime.Now.Date))
+		    A.CallTo(() => PaymentFileWriter.Write(A<PaymentsFile>.That.Matches(x => 
+				MatchPayments(x.Posts, paymentsToSend, paymentRecieverBankGiroNumber)
+				&& x.Reciever.BankgiroNumber.Equals(paymentRecieverBankGiroNumber)
+				&& x.Reciever.CustomerNumber.Equals(paymentRecieverCustomerNumber)
+				&& x.WriteDate.Date.Equals(DateTime.Now.Date))
 		    )).MustHaveHappened();
 		}
 
 		[Test]
 		public void Task_stores_payments_as_a_file_section_to_send()
 		{
-			A.CallTo(() => FileSectionToSendRepository.Save(
-				A<FileSectionToSend>
-				.That.Matches(x => x.CreatedDate.Date.Equals(DateTime.Now.Date))
-				.And.Matches(x => x.HasBeenSent.Equals(false))
-				.And.Matches(x => x.SectionData.Equals(fileData))
-				.And.Matches(x => Equals(x.SentDate, null))
-				.And.Matches(x => x.Type.Equals(SectionType.PaymentsToSend))
-				.And.Matches(x => x.TypeName.Equals("PaymentsToSend"))
+			A.CallTo(() => FileSectionToSendRepository.Save(A<FileSectionToSend>.That.Matches(x => 
+				x.CreatedDate.Date.Equals(DateTime.Now.Date)
+				&& x.HasBeenSent.Equals(false)
+				&& x.SectionData.Equals(fileData)
+				&& Equals(x.SentDate, null)
+				&& x.Type.Equals(SectionType.PaymentsToSend)
+				&& x.TypeName.Equals("PaymentsToSend"))
 			)).MustHaveHappened();
 		}
 
 		[Test]
 		public void Task_updates_payments_as_sent()
 		{
-			paymentsToSend.Each(paymentToSend => A.CallTo(() => BGPaymentToSendRepository.Save(
-        		A<BGPaymentToSend>
-        			.That.Matches(x => x.Id.Equals(paymentToSend.Id))
-        			.And.Matches(x => Equals(x.SendDate.Value.Date, DateTime.Now.Date))
-            )).MustHaveHappened());
+			paymentsToSend.Each(paymentToSend => A.CallTo(() => BGPaymentToSendRepository.Save(A<BGPaymentToSend>.That.Matches(x => 
+				x.Id.Equals(paymentToSend.Id)
+        		&& Equals(x.SendDate.Value.Date, DateTime.Now.Date)
+			))).MustHaveHappened());
 		}
 	}
 }

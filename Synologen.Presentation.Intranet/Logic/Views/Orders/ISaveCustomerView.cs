@@ -3,8 +3,5 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
 {
-    public interface ISaveCustomerView : IOrderView<SaveCustomerModel, SaveCustomerEventArgs>
-    {
-		int NextPageId { get; set; }
-    }
+    public interface ISaveCustomerView : IOrderView<SaveCustomerModel, SaveCustomerEventArgs> { }
 }

@@ -31,7 +31,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 				payer = PayerFactory.Get();
 				consentsToSend = ConsentsFactory.GetList(payer);
 				fileData = ConsentsFactory.GetTestConsentFileData();
-				A.CallTo(() => BGConsentToSendRepository.FindBy(A<AllNewConsentsToSendCriteria>.Ignored.Argument)).Returns(consentsToSend);
+				A.CallTo(() => BGConsentToSendRepository.FindBy(A<AllNewConsentsToSendCriteria>.Ignored)).Returns(consentsToSend);
 				A.CallTo(() => ConsentFileWriter.Write(A<ConsentsFile>.Ignored)).Returns(fileData);
 				A.CallTo(() => BgServiceCoordinatorSettingsService.GetPaymentRecieverBankGiroNumber()).Returns(paymentRecieverBankGiroNumber);
 				A.CallTo(() => BgServiceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber()).Returns(paymentRecieverCustomerNumber);
@@ -57,7 +57,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		public void Task_fetches_new_consents_from_repository()
 		{
 			A.CallTo(() => BGConsentToSendRepository.FindBy(
-				A<AllNewConsentsToSendCriteria>.Ignored.Argument)
+				A<AllNewConsentsToSendCriteria>.Ignored)
 			).MustHaveHappened();
 		}
 
@@ -65,37 +65,34 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		public void Task_parses_fetched_consents_into_consentFile()
 		{
 
-			A.CallTo(() => ConsentFileWriter.Write(
-				A<ConsentsFile>
-				.That.Matches(x => MatchConsents(x.Posts, consentsToSend, paymentRecieverBankGiroNumber))
-				.And.Matches(x => x.Reciever.BankgiroNumber.Equals(paymentRecieverBankGiroNumber))
-				.And.Matches(x => x.Reciever.CustomerNumber.Equals(paymentRecieverCustomerNumber))
-				.And.Matches(x => x.WriteDate.Date.Equals(DateTime.Now.Date))
-			)).MustHaveHappened();
+			A.CallTo(() => ConsentFileWriter.Write(A<ConsentsFile>.That.Matches(x => 
+				MatchConsents(x.Posts, consentsToSend, paymentRecieverBankGiroNumber)
+				&& x.Reciever.BankgiroNumber.Equals(paymentRecieverBankGiroNumber)
+				&& x.Reciever.CustomerNumber.Equals(paymentRecieverCustomerNumber)
+				&& x.WriteDate.Date.Equals(DateTime.Now.Date)
+			))).MustHaveHappened();
 		}
 
 		[Test]
 		public void Task_stores_consents_as_file_sections_to_send()
 		{
-			A.CallTo(() => FileSectionToSendRepository.Save(
-				A<FileSectionToSend>
-				.That.Matches(x => x.CreatedDate.Date.Equals(DateTime.Now.Date))
-				.And.Matches(x => x.HasBeenSent.Equals(false))
-				.And.Matches(x => x.SectionData.Equals(fileData))
-				.And.Matches(x => Equals(x.SentDate, null))
-				.And.Matches(x => x.Type.Equals(SectionType.ConsentsToSend))
-				.And.Matches(x => x.TypeName.Equals("ConsentsToSend"))
-			)).MustHaveHappened();
+			A.CallTo(() => FileSectionToSendRepository.Save(A<FileSectionToSend>.That.Matches(x => 
+				x.CreatedDate.Date.Equals(DateTime.Now.Date)
+				&& x.HasBeenSent.Equals(false)
+				&& x.SectionData.Equals(fileData)
+				&& Equals(x.SentDate, null)
+				&& x.Type.Equals(SectionType.ConsentsToSend)
+				&& x.TypeName.Equals("ConsentsToSend")
+			))).MustHaveHappened();
 		}
 
 		[Test]
 		public void Task_updates_consents_as_sent()
 		{
-			consentsToSend.Each(consentToSend => A.CallTo(() => BGConsentToSendRepository.Save(
-        		A<BGConsentToSend>
-        			.That.Matches(x => x.Id.Equals(consentToSend.Id))
-        			.And.Matches(x => Equals(x.SendDate.Value.Date, DateTime.Now.Date))
-            )).MustHaveHappened());
+			consentsToSend.Each(consentToSend => A.CallTo(() => BGConsentToSendRepository.Save(A<BGConsentToSend>.That.Matches(x => 
+				x.Id.Equals(consentToSend.Id)
+        		&& Equals(x.SendDate.Value.Date, DateTime.Now.Date)
+			))).MustHaveHappened());
 		}
 	}
 }

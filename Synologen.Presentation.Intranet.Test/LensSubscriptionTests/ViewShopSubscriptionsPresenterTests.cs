@@ -36,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shopId);
 				A.CallTo(() => RoutingService.GetPageUrl(_customerDetailsPageId)).Returns(_customerDetailsPage);
 				A.CallTo(() => RoutingService.GetPageUrl(_subscriptionDetailsPageId)).Returns(_subscriptionDetailsPage);
-				A.CallTo(() => SubscriptionRepository.FindBy(A<AllSubscriptionsForShopCriteria>.That.Matches(x => x.ShopId.Equals(_shopId)).Argument)).Returns(_subscriptions);
+				A.CallTo(() => SubscriptionRepository.FindBy(A<AllSubscriptionsForShopCriteria>.That.Matches(x => x.ShopId.Equals(_shopId)))).Returns(_subscriptions);
 				A.CallTo(() => View.CustomerDetailsPageId).Returns(_customerDetailsPageId);
 				A.CallTo(() => View.SubscriptionDetailsPageId).Returns(_subscriptionDetailsPageId);
 			};

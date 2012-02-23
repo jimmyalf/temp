@@ -8,10 +8,11 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
     {
         protected IFileReaderService FileReaderService;
 
-        protected GetFileTaskTestBase()
-        {
-            FileReaderService = A.Fake<IFileReaderService>();
-        }
+		protected override void SetUp()
+		{
+			FileReaderService = A.Fake<IFileReaderService>();
+			base.SetUp();
+		}
 
         protected override ITask GetTask()
         {

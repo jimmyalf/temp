@@ -128,36 +128,35 @@ namespace Synologen.Service.Client.BGCTaskRunner.Test
 		[Test]
 		public void Service_stores_new_password_in_repository()
 		{
-			A.CallTo(() => BGFtpPasswordRepository.Add(
-				A<BGFtpPassword>.That.Matches(x => x.Password.Equals(newPassword))
-				.And.Matches(x => x.Created.Date.Equals(DateTime.Now.Date))
-			)).MustHaveHappened();
+			A.CallTo(() => BGFtpPasswordRepository.Add(A<BGFtpPassword>.That.Matches(x => 
+				x.Password.Equals(newPassword) && x.Created.Date.Equals(DateTime.Now.Date)
+			))).MustHaveHappened();
 		}
 	}
 
 	[TestFixture, Category("BGFtpPasswordServiceTest")]
 	public class When_storing_new_active_password_shorter_than_6_characters : BGFtpPasswordServiceTestBase
 	{
-		private string newPassword;
-		private Exception caughtException;
+		private string _newPassword;
+		private Exception _caughtException;
 
 		public When_storing_new_active_password_shorter_than_6_characters()
 		{
 			Context = () =>
 			{
-				newPassword = "A35";
+				_newPassword = "A35";
 			};
 			Because = service =>
 			{
-				caughtException = TryGetException(() => service.StoreNewActivePassword(newPassword));
+				_caughtException = TryGetException(() => service.StoreNewActivePassword(_newPassword));
 			};
 		}
 
 		[Test]
 		public void Service_throws_BGFtpPasswordServiceException()
 		{
-			caughtException.ShouldNotBe(null);
-			caughtException.ShouldBeTypeOf(typeof(BGFtpPasswordServiceException));
+			_caughtException.ShouldNotBe(null);
+			_caughtException.ShouldBeTypeOf(typeof(BGFtpPasswordServiceException));
 		}
 	}
 

@@ -3,6 +3,7 @@ using System.Linq;
 using FakeItEasy;
 using Shouldly;
 using NUnit.Framework;
+using Spinit.Extensions;
 using Synologen.Service.Client.BGCTaskRunner.Test.Factories;
 using Synologen.Service.Client.BGCTaskRunner.Test.TestHelpers;
 
@@ -88,7 +89,7 @@ namespace Synologen.Service.Client.BGCTaskRunner.Test
                 A.CallTo(() => BgServiceCoordinatorSettingsService.GetPaymentRevieverCustomerNumber()).Returns(_customerNumber);
                 A.CallTo(() => FileIOService.GetReceivedFileNames(A<string>.Ignored)).Returns(_fileNames);
                 A.CallTo(() => FileSplitter.FileNameOk(A<string>.Ignored, A<string>.Ignored, A<string>.Ignored)).Returns(true);
-                A.CallTo(() => FileSplitter.GetDateFromName(A<string>.Ignored)).Returns(() => BGReceivedFileReaderServiceFactory.GetDate(counter++)); 
+            	A.CallTo(() => FileSplitter.GetDateFromName(A<string>.Ignored)).ReturnsLazily(() => BGReceivedFileReaderServiceFactory.GetDate(counter++));
             };
             Because = receivedFileReaderService =>
             {
@@ -97,16 +98,13 @@ namespace Synologen.Service.Client.BGCTaskRunner.Test
         }
 
         [Test]
-        public void Service_calls_filesplitterservice_twice_for_each_filename()
+        public void Service_checks_filename_ok_and()
         {
-            A.CallTo(() => FileSplitter.FileNameOk(_fileNames.ElementAt(0), _customerNumber, _productCode)).MustHaveHappened();
-            A.CallTo(() => FileSplitter.FileNameOk(_fileNames.ElementAt(1), _customerNumber, _productCode)).MustHaveHappened();
-            A.CallTo(() => FileSplitter.FileNameOk(_fileNames.ElementAt(2), _customerNumber, _productCode)).MustHaveHappened();
-            A.CallTo(() => FileSplitter.FileNameOk(_fileNames.ElementAt(3), _customerNumber, _productCode)).MustHaveHappened();
-            A.CallTo(() => FileSplitter.GetDateFromName(_fileNames.ElementAt(0))).MustHaveHappened();
-            A.CallTo(() => FileSplitter.GetDateFromName(_fileNames.ElementAt(1))).MustHaveHappened();
-            A.CallTo(() => FileSplitter.GetDateFromName(_fileNames.ElementAt(2))).MustHaveHappened();
-            A.CallTo(() => FileSplitter.GetDateFromName(_fileNames.ElementAt(3))).MustHaveHappened();
+        	_fileNames.Each(fileName =>
+        	{
+        		A.CallTo(() => FileSplitter.FileNameOk(fileName, _customerNumber, _productCode)).MustHaveHappened();
+        		A.CallTo(() => FileSplitter.GetDateFromName(fileName)).MustHaveHappened();
+        	});
         }
 
         [Test]
@@ -122,20 +120,17 @@ namespace Synologen.Service.Client.BGCTaskRunner.Test
     [TestFixture, Category("BGReceivedFileReaderServiceTests")]
     public class When_GetSections_is_called : BGReceivedFileServiceTestBase
     {
-        private readonly string[] file = new [] {"hello world"};
+        private readonly string[] _file = new [] {"hello world"};
         public When_GetSections_is_called()
         {
             Context = () => { };
-            Because = receivedFileReaderService =>
-            {
-                receivedFileReaderService.GetSections(file);
-            };
+            Because = receivedFileReaderService => receivedFileReaderService.GetSections(_file);
         }
 
         [Test]
         public void Service_calls_filesplitter_service()
         {
-            A.CallTo(() => FileSplitter.GetSections(file)).MustHaveHappened();
+            A.CallTo(() => FileSplitter.GetSections(_file)).MustHaveHappened();
         }
     }
 

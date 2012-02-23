@@ -63,9 +63,8 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		[Test]
 		public void Webservice_stores_payer()
 		{
-			A.CallTo(() => AutogiroPayerRepository.Save(
-				A<AutogiroPayer>.That.Matches(x => x.Name.Equals(payerName))
-				.And.Matches(x => x.ServiceType.Equals(serviceType))
+			A.CallTo(() => AutogiroPayerRepository.Save(A<AutogiroPayer>.That.Matches(x => 
+				x.Name.Equals(payerName) && x.ServiceType.Equals(serviceType))
 			)).MustHaveHappened();
 		}
 
@@ -111,14 +110,14 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		{
 			A.CallTo(() => BGConsentToSendRepository.Save(
 				A<BGConsentToSend>
-				.That.Matches(x => x.Account.AccountNumber.Equals(consentToSend.BankAccountNumber))
-				.And.Matches(x => x.Account.ClearingNumber.Equals(consentToSend.ClearingNumber))
-				.And.Matches(x => x.Payer.Id.Equals(payer.Id))
-				.And.Matches(x => Equals(x.OrgNumber, null)) 
-				.And.Matches(x => x.PersonalIdNumber.Equals(consentToSend.PersonalIdNumber))
-				.And.Matches(x => Equals(x.SendDate, null))
-				.And.Matches(x => x.Type.Equals(ConsentType.New)) 
-			)).MustHaveHappened();
+				.That.Matches(x => x.Account.AccountNumber.Equals(consentToSend.BankAccountNumber)
+				&& x.Account.ClearingNumber.Equals(consentToSend.ClearingNumber)
+				&& x.Payer.Id.Equals(payer.Id)
+				&& Equals(x.OrgNumber, null)
+				&& x.PersonalIdNumber.Equals(consentToSend.PersonalIdNumber)
+				&& Equals(x.SendDate, null)
+				&& x.Type.Equals(ConsentType.New)
+			))).MustHaveHappened();
 		}
 	}
 
@@ -143,16 +142,15 @@ namespace Synologen.LensSubscription.BGWebService.Test
         [Test]
         public void Webservice_stores_consent()
         {
-            A.CallTo(() => BGConsentToSendRepository.Save(
-                A<BGConsentToSend>
-                .That.Matches(x => x.Account.AccountNumber.Equals(consentToSend.BankAccountNumber))
-                .And.Matches(x => x.Account.ClearingNumber.Equals(consentToSend.ClearingNumber))
-                .And.Matches(x => x.Payer.Id.Equals(payer.Id))
-                .And.Matches(x => x.OrgNumber.Equals(consentToSend.OrgNumber)) 
-                .And.Matches(x => Equals(x.PersonalIdNumber, null))
-                .And.Matches(x => Equals(x.SendDate, null))
-                .And.Matches(x => x.Type.Equals(ConsentType.New)) 
-            )).MustHaveHappened();
+            A.CallTo(() => BGConsentToSendRepository.Save(A<BGConsentToSend>.That.Matches(x => 
+				x.Account.AccountNumber.Equals(consentToSend.BankAccountNumber)
+                && x.Account.ClearingNumber.Equals(consentToSend.ClearingNumber)
+                && x.Payer.Id.Equals(payer.Id)
+                && x.OrgNumber.Equals(consentToSend.OrgNumber)
+                && Equals(x.PersonalIdNumber, null)
+                && Equals(x.SendDate, null)
+                && x.Type.Equals(ConsentType.New)
+			))).MustHaveHappened();
         }
     }
 
@@ -222,17 +220,16 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		[Test]
 		public void Webservice_stores_payment()
 		{
-			A.CallTo(() => BGPaymentToSendRepository.Save(
-				A<BGPaymentToSend>
-				.That.Matches(x => x.Amount.Equals(payment.Amount))
-				.And.Matches(x => x.HasBeenSent.Equals(false))
-				.And.Matches(x => x.Payer.Id.Equals(payer.Id))
-				.And.Matches(x => x.PaymentDate.Equals(payment.PaymentDate)) 
-				.And.Matches(x => x.PaymentPeriodCode.Equals(payment.PeriodCode)) 
-				.And.Matches(x => x.Reference.Equals(payment.Reference))
-				.And.Matches(x => Equals(x.SendDate, null))
-				.And.Matches(x => x.Type.Equals(paymentType))
-			)).MustHaveHappened();
+			A.CallTo(() => BGPaymentToSendRepository.Save(A<BGPaymentToSend>.That.Matches(x => 
+				x.Amount.Equals(payment.Amount)
+				&& x.HasBeenSent.Equals(false)
+				&& x.Payer.Id.Equals(payer.Id)
+				&& x.PaymentDate.Equals(payment.PaymentDate)
+				&& x.PaymentPeriodCode.Equals(payment.PeriodCode)
+				&& x.Reference.Equals(payment.Reference)
+				&& Equals(x.SendDate, null)
+				&& x.Type.Equals(paymentType)
+			))).MustHaveHappened();
 		}
 	}
 
@@ -281,7 +278,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 				serviceType = AutogiroServiceType.LensSubscription;
 				payer = PayerFactory.Get();
 				payments = PaymentFactory.GetReceivedPaymentList(payer);
-				A.CallTo(() => BGReceivedPaymentRepository.FindBy(A<AllNewReceivedBGPaymentsMatchingServiceTypeCriteria>.Ignored.Argument)).Returns(payments);
+				A.CallTo(() => BGReceivedPaymentRepository.FindBy(A<AllNewReceivedBGPaymentsMatchingServiceTypeCriteria>.Ignored)).Returns(payments);
 			};
 			Because = service =>
 			{
@@ -293,9 +290,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		public void Webservice_fetches_new_payments()
 		{
 			A.CallTo(() => BGReceivedPaymentRepository.FindBy(
-				A<AllNewReceivedBGPaymentsMatchingServiceTypeCriteria>.
-				That.Matches(x => x.ServiceType.Equals(serviceType))
-				.Argument
+				A<AllNewReceivedBGPaymentsMatchingServiceTypeCriteria>.That.Matches(x => x.ServiceType.Equals(serviceType))
 			)).MustHaveHappened();
 		}
 
@@ -340,7 +335,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 				serviceType = AutogiroServiceType.LensSubscription;
 				payer = PayerFactory.Get();
 				consents = ConsentFactory.GetReceivedConsentList(payer);
-				A.CallTo(() => BGReceivedConsentRepository.FindBy(A<AllNewReceivedBGConsentsMatchingServiceTypeCriteria>.Ignored.Argument)).Returns(consents);
+				A.CallTo(() => BGReceivedConsentRepository.FindBy(A<AllNewReceivedBGConsentsMatchingServiceTypeCriteria>.Ignored)).Returns(consents);
 			};
 			Because = service =>
 			{
@@ -354,7 +349,6 @@ namespace Synologen.LensSubscription.BGWebService.Test
 			A.CallTo(() => BGReceivedConsentRepository.FindBy(
 				A<AllNewReceivedBGConsentsMatchingServiceTypeCriteria>.
 				That.Matches(x => x.ServiceType.Equals(serviceType))
-				.Argument
 			)).MustHaveHappened();
 		}
 
@@ -393,7 +387,7 @@ namespace Synologen.LensSubscription.BGWebService.Test
 				payer = PayerFactory.Get();
 				errors = ErrorFactory.GetReceivedErrorsList(payer);
 				serviceType = AutogiroServiceType.LensSubscription;
-				A.CallTo(() => BGReceivedErrorRepository.FindBy(A<AllNewReceivedBGErrorsMatchingServiceTypeCriteria>.Ignored.Argument)).Returns(errors);
+				A.CallTo(() => BGReceivedErrorRepository.FindBy(A<AllNewReceivedBGErrorsMatchingServiceTypeCriteria>.Ignored)).Returns(errors);
 			};
 			Because = service =>
 			{
@@ -404,10 +398,8 @@ namespace Synologen.LensSubscription.BGWebService.Test
 		[Test]
 		public void Webservice_fetches_new_errors()
 		{
-			A.CallTo(() => BGReceivedErrorRepository.FindBy(
-				A<AllNewReceivedBGErrorsMatchingServiceTypeCriteria>
+			A.CallTo(() => BGReceivedErrorRepository.FindBy(A<AllNewReceivedBGErrorsMatchingServiceTypeCriteria>
 				.That.Matches(x => x.ServiceType.Equals(serviceType))
-				.Argument
 			)).MustHaveHappened();
 		}
 

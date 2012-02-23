@@ -30,9 +30,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_shop = CreateShop<Shop>();
 				_otherShop = CreateShop<Shop>();
 				CreateCustomer(_otherShop);
+				A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
 				SetupNavigationEvents(abortPageUrl:_abortUrl, nextPageUrl: _nextUrl);
 				_presenter = GetPresenter();
-				A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
+				
 			};
 
 			Story = () => new Berättelse("Sök kund")

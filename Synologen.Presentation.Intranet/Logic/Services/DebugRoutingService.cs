@@ -18,6 +18,7 @@
 			AddRoute(1006,"/Testpages/OrdersCreateOrderConfirmation.aspx");
 			AddRoute(1007,"/Testpages/OrderEditCustomer.aspx");
 			AddRoute(1008,"/Testpages/OrderSubscription.aspx");
+			AddRoute(1009,"/Testpages/OrderSubscriptionItem.aspx");
 		}
 	}
 }

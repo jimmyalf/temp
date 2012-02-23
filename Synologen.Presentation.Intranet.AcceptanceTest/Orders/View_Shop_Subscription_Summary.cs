@@ -37,12 +37,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 				A.CallTo(() => View.CustomerDetailsPageId).Returns(_customerDetailsPageId);
 				A.CallTo(() => View.SubscriptionDetailsPageId).Returns(_subscriptionDetailsPageId);
-
-				A.CallTo(() => SynologenMemberService.GetPageUrl(_customerDetailsPageId)).Returns(_customerDetailsPageUrl);
-				A.CallTo(() => SynologenMemberService.GetPageUrl(_subscriptionDetailsPageId)).Returns(_subscriptionDetailsPageUrl);
-
 				A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop1.Id);
-
+				RoutingService.AddRoute(_customerDetailsPageId, _customerDetailsPageUrl);
+				RoutingService.AddRoute(_subscriptionDetailsPageId, _subscriptionDetailsPageUrl);
 				_presenter = GetPresenter();
 			};
 			Story = () => new Berättelse("Visa abonnemangs-översikt för butik")

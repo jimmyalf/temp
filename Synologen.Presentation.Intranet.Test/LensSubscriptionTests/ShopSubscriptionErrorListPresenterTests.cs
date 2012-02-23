@@ -33,7 +33,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 			Context = () =>
 			{
 				A.CallTo(() => View.SubscriptionPageId).Returns(_expectedSubscriptionPageId);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_expectedSubscriptionUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_expectedSubscriptionUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_expectedSubscriptionUrl);
 				MockedSubscriptionErrorRepository.Setup(x => x.FindBy(It.IsAny<AllUnhandledSubscriptionErrorsForShopCriteria>())).Returns(_expectedErrors);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(_expectedShopId);
 			};
@@ -62,9 +63,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_fetches_expected_subscription_url_from_service()
 		{
-			MockedSynologenMemberService.Verify(x => x.GetPageUrl(
-				It.Is<int>(pageId => pageId.Equals(_expectedSubscriptionPageId))
-			));
+			A.CallTo(() => RoutingService.GetPageUrl(_expectedSubscriptionPageId)).MustHaveHappened();
+			//MockedSynologenMemberService.Verify(x => x.GetPageUrl(
+			//    It.Is<int>(pageId => pageId.Equals(_expectedSubscriptionPageId))
+			//));
 		}
 
 		[Test]

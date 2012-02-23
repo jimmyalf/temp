@@ -1,3 +1,4 @@
+using FakeItEasy;
 using Moq;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
@@ -14,6 +15,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests.Test
 		protected Mock<ISettlementRepository> MockedSettlementRepository;
 		protected Mock<ISynologenMemberService> MockedSynologenMemberService;
 		protected Mock<ISqlProvider> MockedSqlProvider;
+		protected IRoutingService RoutingService;
 
 		protected ViewSettlementTestbase()
 		{
@@ -22,16 +24,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests.Test
 				MockedSettlementRepository = new Mock<ISettlementRepository>();
 				MockedSynologenMemberService = new Mock<ISynologenMemberService>();
 				MockedSqlProvider = new Mock<ISqlProvider>();
+				RoutingService = A.Fake<IRoutingService>();
 			};
 
-			GetPresenter = () => 
-			{
-				return new ViewSettlementPresenter(
-					View,
-					MockedSettlementRepository.Object,
-					MockedSynologenMemberService.Object,
-					MockedSqlProvider.Object);
-			};
+			GetPresenter = () => new ViewSettlementPresenter(
+			                     	View,
+			                     	MockedSettlementRepository.Object,
+			                     	MockedSynologenMemberService.Object,
+			                     	MockedSqlProvider.Object,
+			                     	RoutingService);
 		}
 
 	}

@@ -17,16 +17,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.ContractSa
 		private readonly ISettlementRepository _settlementRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
 		private readonly ISqlProvider _sqlService;
+		private readonly IRoutingService _routingService;
 		private const string SettlementRequestParameterName = "settlementId";
 		private const string UseDetailedSettlementViewSessionKey = "UseDetailedSettlementView";
 		private const string SimpleButtonText = "Visa enkelt";
 		private const string DetailedButtonText = "Visa detaljer";
 
-		public ViewSettlementPresenter(IViewSettlementView view, ISettlementRepository settlementRepository, ISynologenMemberService synologenMemberService, ISqlProvider sqlService) : base(view)
+		public ViewSettlementPresenter(
+			IViewSettlementView view, 
+			ISettlementRepository settlementRepository, 
+			ISynologenMemberService synologenMemberService, 
+			ISqlProvider sqlService,
+			IRoutingService routingService) : base(view)
 		{
 			_settlementRepository = settlementRepository;
 			_synologenMemberService = synologenMemberService;
 			_sqlService = sqlService;
+			_routingService = routingService;
 			View.Load += View_Load;
 			View.SwitchView += View_SwitchView;
 			View.MarkAllSaleItemsAsPayed += View_MarkAllSaleItemsAsPayed;
@@ -122,7 +129,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.ContractSa
 		{
 			get
 			{
-				return pageId => (pageId <= 0) ? "#" : _synologenMemberService.GetPageUrl(pageId);
+				return pageId => (pageId <= 0) ? "#" : _routingService.GetPageUrl(pageId);
 			}
 		}
 

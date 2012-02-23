@@ -150,6 +150,7 @@
     <Compile Include="Orders\Edit_Customer.cs" />
     <Compile Include="Orders\View_Shop_Subscription_Summary.cs" />
     <Compile Include="Orders\View_Subscription.cs" />
+    <Compile Include="Orders\View_SubscriptionItem.cs" />
     <Compile Include="TestHelpers\FakedRoutingService.cs" />
     <Compile Include="App\IoC\TestRegistry.cs" />
     <Compile Include="GlobalTestBase.cs" />

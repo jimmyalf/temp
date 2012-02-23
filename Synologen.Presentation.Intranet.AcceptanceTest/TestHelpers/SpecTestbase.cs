@@ -42,7 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 		protected void RunBeforeEachTest()
 	    {
 			ResetData();
-			SynologenMemberService = GetSynologenMemberService();
+			SynologenMemberService = A.Fake<ISynologenMemberService>();//GetSynologenMemberService();
 			RoutingService = new FakeRoutingService();
 		    SendOrderService = GetSendOrderService();
 			SwedenCountryId = 1;
@@ -87,16 +87,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers
 			return view;
 		}
 
-		protected virtual ISynologenMemberService GetSynologenMemberService()
-		{
-			var service = A.Fake<ISynologenMemberService>();
-			A.CallTo(() => service.GetPageUrl(A<int>.Ignored)).Returns(caller =>
-			{
-				var pageId = (int) caller.Arguments[0];
-				return RoutingService.GetPageUrl(pageId);
-			});
-			return service;
-		}
+		//protected virtual ISynologenMemberService GetSynologenMemberService()
+		//{
+		//    var service = A.Fake<ISynologenMemberService>();
+		//    A.CallTo(() => service.GetPageUrl(A<int>.Ignored)).Returns(caller =>
+		//    {
+		//        var pageId = (int) caller.Arguments[0];
+		//        return RoutingService.GetPageUrl(pageId);
+		//    });
+		//    return service;
+		//}
 
 		protected void ResetData()
 		{

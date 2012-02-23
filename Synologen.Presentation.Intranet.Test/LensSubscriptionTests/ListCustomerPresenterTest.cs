@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using FakeItEasy;
 using Moq;
@@ -38,7 +37,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_editPageUrl);
 				HttpContext.SetupRequestParameter("order", null);
 				HttpContext.SetupRequestParameter("sort", null);
 				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl);
@@ -61,7 +61,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_asks_for_expected_page_url_and_shop_id()
 		{
-			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>(y => y.Equals(67))));
+			A.CallTo(() => RoutingService.GetPageUrl(67)).MustHaveHappened();
+			//MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>(y => y.Equals(67))));
 			MockedSynologenMemberService.Verify(x => x.GetCurrentShopId());
 		}
 
@@ -108,7 +109,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_editPageUrl);
 				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl);
 				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl);
 			};
@@ -174,7 +176,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_editPageUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
 
 				HttpContext.SetupRequestParameter("order", _orderColumn);
 				HttpContext.SetupRequestParameter("sort", _sortOrder);
@@ -229,7 +232,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_editPageUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
 
 				HttpContext.SetupRequestParameter("order", _orderColumn);
 				HttpContext.SetupRequestParameter("sort", _sortOrder);
@@ -285,7 +289,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_editPageUrl);
 
 				HttpContext.SetupRequestParameter("order", _orderColumn);
 				HttpContext.SetupRequestParameter("sort", _sortOrder);
@@ -340,7 +345,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_editPageUrl);
 
 				HttpContext.SetupRequestParameter("order", _orderColumn);
 				HttpContext.SetupRequestParameter("sort", _sortOrder);
@@ -397,7 +403,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_editPageUrl);
 
 				HttpContext.SetupRequestParameter("order", _orderColumn);
 				HttpContext.SetupRequestParameter("sort", _sortOrder);
@@ -452,7 +459,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_editPageUrl);
 
 				HttpContext.SetupRequestParameter("order", _orderColumn);
 				HttpContext.SetupRequestParameter("sort", _sortOrder);
@@ -509,7 +517,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_editPageUrl);
 				HttpContext.SetupRequestParameter("order", _orderColumn);
 				HttpContext.SetupRequestParameter("sort", _sortOrder);
 				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl);
@@ -578,7 +587,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_editPageUrl);
 				HttpContext.SetupRequestParameter("order", _orderColumn);
 				HttpContext.SetupRequestParameter("sort", _sortOrder);
 				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl);
@@ -645,7 +655,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				A.CallTo(() => View.EditPageId).Returns(67);
 				MockedCustomerRepository.Setup(x => x.FindBy(It.IsAny<CustomersForShopMatchingCriteria>())).Returns(_customersList);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(159);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_editPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_editPageUrl);
 				HttpContext.SetupRequestParameter("order", _orderColumn);
 				HttpContext.SetupRequestParameter("sort", _sortOrder);
 				HttpContext.SetupVirtualPathAndQuery(_currentpageUrl);

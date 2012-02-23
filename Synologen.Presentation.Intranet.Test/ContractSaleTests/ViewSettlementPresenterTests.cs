@@ -31,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests
 			Context = () =>
 			{
 				A.CallTo(() => View.SubscriptionPageId).Returns(_expectedSubscriptionPageId);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_expectedSubscriptionUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_expectedSubscriptionUrl);
 				MockedSettlementRepository.Setup(x => x.GetForShop(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedSettlement);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(_expectedCurrentShopId);
 				HttpContext.SetupRequestParameter("settlementId", _expectedSettlement.Id.ToString());

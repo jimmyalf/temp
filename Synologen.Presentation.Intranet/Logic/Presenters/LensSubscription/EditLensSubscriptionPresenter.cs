@@ -20,11 +20,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 		private const string DateTimeFormat = "yyyy-MM-dd";
 		private readonly ISubscriptionRepository _subscriptionRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
+		private readonly IRoutingService _routingService;
 
-		public EditLensSubscriptionPresenter(IEditLensSubscriptionView view, ISubscriptionRepository subscriptionRepository, ISynologenMemberService synologenMemberService) : base(view)
+		public EditLensSubscriptionPresenter(
+			IEditLensSubscriptionView view, 
+			ISubscriptionRepository subscriptionRepository,
+			ISynologenMemberService synologenMemberService,
+			IRoutingService routingService) : base(view)
 		{
 			_subscriptionRepository = subscriptionRepository;
 			_synologenMemberService = synologenMemberService;
+			_routingService = routingService;
 			View.Load += View_Load;
 			View.Submit += View_Submit;
 			View.StopSubscription += View_StopSubscription;
@@ -67,7 +73,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 			View.Model.Notes = subscription.Notes;
 			if(View.ReturnPageId>0)
 			{
-				var url = _synologenMemberService.GetPageUrl(View.ReturnPageId);
+				var url = _routingService.GetPageUrl(View.ReturnPageId);
 				View.Model.ReturnUrl = String.Format("{0}?customer={1}", url, subscription.Customer.Id);
 			}
 			else
@@ -137,7 +143,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 				HttpContext.Response.Redirect(currentpage);
 				return;
 			}
-			var redirectPageUrl = _synologenMemberService.GetPageUrl(View.RedirectOnSavePageId);
+			var redirectPageUrl = _routingService.GetPageUrl(View.RedirectOnSavePageId);
 			if(String.IsNullOrEmpty(redirectPageUrl)) return;
 			var subscription = TryGetSubscription();
 			var query = String.Format("?customer={0}&subscription={1}", subscription.Customer.Id, subscription.Id);

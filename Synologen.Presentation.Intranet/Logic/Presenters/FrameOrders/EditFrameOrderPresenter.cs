@@ -21,11 +21,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 		private readonly IShopRepository _shopRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
 		private readonly ISynologenSettingsService _synologenSettingsService;
+		private readonly IRoutingService _routingService;
 		private readonly IEnumerable<IntervalListItem> EmptyIntervalList = new List<IntervalListItem>();
 		private readonly FrameListItem DefaultFrame = new FrameListItem {Id = 0, Name = "-- Välj båge --"};
 		private readonly AllOrderableFramesCriteria AllOrderableFramesCriteria = new AllOrderableFramesCriteria();
 
-		public EditFrameOrderPresenter(IEditFrameOrderView<EditFrameOrderModel> view, IFrameRepository repository, IFrameGlassTypeRepository frameGlassTypeRepository, IFrameOrderRepository frameOrderRepository, IShopRepository shopRepository, ISynologenMemberService sessionProviderService, ISynologenSettingsService synologenSettingsService) : base(view)
+		public EditFrameOrderPresenter(
+			IEditFrameOrderView<EditFrameOrderModel> view, 
+			IFrameRepository repository, 
+			IFrameGlassTypeRepository frameGlassTypeRepository, 
+			IFrameOrderRepository frameOrderRepository, 
+			IShopRepository shopRepository, 
+			ISynologenMemberService sessionProviderService, 
+			ISynologenSettingsService synologenSettingsService,
+			IRoutingService routingService) : base(view)
 		{
 			_frameRepository = repository;
 			_frameGlassTypeRepository = frameGlassTypeRepository;
@@ -33,6 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 			_shopRepository = shopRepository;
 			_synologenMemberService = sessionProviderService;
 			_synologenSettingsService = synologenSettingsService;
+			_routingService = routingService;
 			InitiateEventHandlers();
 		}
 
@@ -61,7 +71,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 				var frameOrderId = SaveUpdateFrameOrder(e);
 				if (View.RedirectPageId > 0)
 				{
-					var url = _synologenMemberService.GetPageUrl(View.RedirectPageId);
+					var url = _routingService.GetPageUrl(View.RedirectPageId);
 					url = String.Concat(url, "?frameorder=", frameOrderId);
 					HttpContext.Response.Redirect(url);
 				}

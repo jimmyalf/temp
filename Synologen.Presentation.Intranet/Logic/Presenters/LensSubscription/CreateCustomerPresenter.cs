@@ -17,15 +17,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 		private readonly IShopRepository _shopRepository;
 		private readonly ICustomerRepository _customerRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
+		private readonly IRoutingService _routingService;
 		private const int SwedenCountryId = 1;
 
-		public CreateCustomerPresenter(ICreateCustomerView view, ICustomerRepository customerRepository, IShopRepository shopRepository, ICountryRepository countryRepository, ISynologenMemberService synologenMemberService)
+		public CreateCustomerPresenter(
+			ICreateCustomerView view, 
+			ICustomerRepository customerRepository, 
+			IShopRepository shopRepository, 
+			ICountryRepository countryRepository,
+			ISynologenMemberService synologenMemberService,
+			IRoutingService routingService)
 			: base(view)
 		{
 			_shopRepository = shopRepository;
 			_customerRepository = customerRepository;
 			_countryRepository = countryRepository;
 			_synologenMemberService = synologenMemberService;
+			_routingService = routingService;
 			View.Load += View_Load;
 			View.Submit += View_Submit;
 		}
@@ -85,7 +93,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 				HttpContext.Response.Redirect(currentpage);
 				return;
 			}
-			var redirectPageUrl = _synologenMemberService.GetPageUrl(View.RedirectOnSavePageId);
+			var redirectPageUrl = _routingService.GetPageUrl(View.RedirectOnSavePageId);
 			if(String.IsNullOrEmpty(redirectPageUrl)) return;
 			HttpContext.Response.Redirect(redirectPageUrl);
 		}

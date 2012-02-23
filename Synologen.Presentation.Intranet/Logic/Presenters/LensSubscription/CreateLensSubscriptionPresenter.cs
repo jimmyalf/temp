@@ -17,12 +17,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 		private readonly ICustomerRepository _customerRepository;
 		private readonly ISubscriptionRepository _subscriptionRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
+		private readonly IRoutingService _routingService;
 
-		public CreateLensSubscriptionPresenter(ICreateLensSubscriptionView view, ICustomerRepository customerRepository, ISubscriptionRepository subscriptionRepository, ISynologenMemberService synologenMemberService) : base(view)
+		public CreateLensSubscriptionPresenter(
+			ICreateLensSubscriptionView view, 
+			ICustomerRepository customerRepository, 
+			ISubscriptionRepository subscriptionRepository, 
+			ISynologenMemberService synologenMemberService,
+			IRoutingService routingService) : base(view)
 		{
 			_customerRepository = customerRepository;
 			_subscriptionRepository = subscriptionRepository;
 			_synologenMemberService = synologenMemberService;
+			_routingService = routingService;
 			View.Load += View_Load;
 			View.Submit += View_Submit;
 		}
@@ -90,7 +97,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 				HttpContext.Response.Redirect(currentpage);
 				return;
 			}
-			var redirectPageUrl = _synologenMemberService.GetPageUrl(View.RedirectOnSavePageId);
+			var redirectPageUrl = _routingService.GetPageUrl(View.RedirectOnSavePageId);
 			if(String.IsNullOrEmpty(redirectPageUrl)) return;
 			var customerId = HttpContext.Request.Params["customer"].ToIntOrDefault();
 			HttpContext.Response.Redirect(String.Concat(redirectPageUrl, "?customer=", customerId));

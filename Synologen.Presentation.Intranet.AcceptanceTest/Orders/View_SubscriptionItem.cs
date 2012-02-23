@@ -116,6 +116,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.Active.ShouldBe(_subscriptionItem.IsActive ? "Ja" : "Nej");
 			View.Model.TaxedAmount.ShouldBe(_subscriptionItem.TaxedAmount);
 			View.Model.TaxFreeAmount.ShouldBe(_subscriptionItem.TaxFreeAmount);
+			View.Model.MonthlyWithdrawalAmount.ShouldBe(_subscriptionItem.AmountForAutogiroWithdrawal.ToString("C2"));
 			View.Model.WithdrawalsLimit.ShouldBe(_subscriptionItem.WithdrawalsLimit);
 			View.Model.CreatedDate.ShouldBe(_subscriptionItem.CreatedDate.ToString("yyyy-MM-dd"));
 			View.Model.NumerOfPerformedWithdrawals.ShouldBe(_subscriptionItem.PerformedWithdrawals);

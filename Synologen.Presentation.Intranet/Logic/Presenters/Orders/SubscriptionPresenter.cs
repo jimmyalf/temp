@@ -84,8 +84,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		private void UpdateViewModel(Subscription subscription)
 		{
 			var returnUrl = _routingService.GetPageUrl(View.ReturnPageId);
-			var subscriptionItemDetailUrl = _routingService.GetPageUrl(View.SubscriptionItemDetailPageId);
-			View.Model.Initialize(subscription, returnUrl, subscriptionItemDetailUrl);
+			var subscriptionItemUrl = _routingService.GetPageUrl(View.SubscriptionItemDetailPageId);
+			View.Model.Initialize(subscription, returnUrl, subscriptionItemUrl);
 		}
 	}
 }

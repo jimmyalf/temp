@@ -1,3 +1,4 @@
+using FakeItEasy;
 using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
@@ -13,6 +14,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests.
 		protected Mock<ISubscriptionRepository> MockedSubscriptionRepository;
 		protected Mock<ICustomerRepository> MockedCustomerRepository;
 		protected Mock<ISynologenMemberService> MockedSynologenMemberService;
+		protected IRoutingService RoutingService;
 
 		protected CreateSubscriptionTestbase()
 		{
@@ -21,6 +23,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests.
 				MockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
 				MockedCustomerRepository = new Mock<ICustomerRepository>();
 				MockedSynologenMemberService = new Mock<ISynologenMemberService>();
+				RoutingService = A.Fake<IRoutingService>();
 			};
 
 			GetPresenter = () =>
@@ -29,7 +32,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests.
 					View,
 					MockedCustomerRepository.Object,
 					MockedSubscriptionRepository.Object,
-					MockedSynologenMemberService.Object);
+					MockedSynologenMemberService.Object,
+					RoutingService);
 			};
 		}
 	}

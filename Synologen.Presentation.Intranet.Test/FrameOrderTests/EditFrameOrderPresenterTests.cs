@@ -20,29 +20,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 	[TestFixture, Category("EditFrameOrderPresenterTests")]
 	public class Given_a_EditFrameOrderPresenter : WpcAssertionHelper
 	{
-		private EditFrameOrderPresenter presenter;
-		private IEditFrameOrderView<EditFrameOrderModel> view;
-		private IFrameRepository frameRepository;
-		private IFrameGlassTypeRepository frameGlassTypeRepository;
-		private IFrameOrderRepository frameOrderRepository;
-		private ISynologenMemberService synologenMemberService;
-		private IShopRepository shopRepository;
-		private readonly Func<EyeParameter, EyeParameter, bool> EyeparameterEquality = (objectOne, objectTwo) => (objectOne.Left == objectTwo.Left && objectOne.Right == objectTwo.Right);
-		private readonly Func<EyeParameter, NullableEyeParameter, bool> NullableEyeparameterEquality = (objectOne, objectTwo) => (objectOne.Left == objectTwo.Left && objectOne.Right == objectTwo.Right) || (objectOne.Left == int.MinValue && objectTwo.Left == null && objectOne.Right == int.MinValue && objectTwo.Right == null);
-		private ISynologenSettingsService synologenSettingsService;
+		private EditFrameOrderPresenter _presenter;
+		private IEditFrameOrderView<EditFrameOrderModel> _view;
+		private IFrameRepository _frameRepository;
+		private IFrameGlassTypeRepository _frameGlassTypeRepository;
+		private IFrameOrderRepository _frameOrderRepository;
+		private ISynologenMemberService _synologenMemberService;
+		private IShopRepository _shopRepository;
+		private readonly Func<EyeParameter, EyeParameter, bool> _eyeparameterEquality = (objectOne, objectTwo) => (objectOne.Left == objectTwo.Left && objectOne.Right == objectTwo.Right);
+		private readonly Func<EyeParameter, NullableEyeParameter, bool> _nullableEyeparameterEquality = (objectOne, objectTwo) => (objectOne.Left == objectTwo.Left && objectOne.Right == objectTwo.Right) || (objectOne.Left == int.MinValue && objectTwo.Left == null && objectOne.Right == int.MinValue && objectTwo.Right == null);
+		private ISynologenSettingsService _synologenSettingsService;
+		private IRoutingService _routingservice;
 
 		[SetUp]
 		public void Context()
 		{
-			frameRepository = RepositoryFactory.GetFrameRepository();
-			frameGlassTypeRepository = RepositoryFactory.GetFrameGlassRepository();
-			frameOrderRepository = RepositoryFactory.GetFramOrderRepository();
-			shopRepository = RepositoryFactory.GetShopRepository();
-			synologenSettingsService = ServiceFactory.GetSynologenSettingsService();
-			synologenMemberService = ServiceFactory.GetSynologenMemberService();
-			view = A.Fake<IEditFrameOrderView<EditFrameOrderModel>>(); 
+			_frameRepository = RepositoryFactory.GetFrameRepository();
+			_frameGlassTypeRepository = RepositoryFactory.GetFrameGlassRepository();
+			_frameOrderRepository = RepositoryFactory.GetFramOrderRepository();
+			_shopRepository = RepositoryFactory.GetShopRepository();
+			_synologenSettingsService = ServiceFactory.GetSynologenSettingsService();
+			_synologenMemberService = ServiceFactory.GetSynologenMemberService();
+			_view = A.Fake<IEditFrameOrderView<EditFrameOrderModel>>();
+			_routingservice = A.Fake<IRoutingService>();
 				//ViewsFactory.GetFrameOrderView();
-			presenter = new EditFrameOrderPresenter(view, frameRepository, frameGlassTypeRepository, frameOrderRepository, shopRepository, synologenMemberService, synologenSettingsService);
+			_presenter = new EditFrameOrderPresenter(_view, _frameRepository, _frameGlassTypeRepository, _frameOrderRepository, _shopRepository, _synologenMemberService, _synologenSettingsService, _routingservice);
 		}
 
 		[Test]
@@ -61,60 +63,60 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			
 			//Act
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			presenter.HttpContext = mockedHttpContext.Object;
-			presenter.View_Load(null, new EventArgs());
+			_presenter.HttpContext = mockedHttpContext.Object;
+			_presenter.View_Load(null, new EventArgs());
 
 			//Assert
-			Expect(view.Model.SelectedFrameId, Is.EqualTo(0));
-			Expect(view.Model.SelectedGlassTypeId, Is.EqualTo(0));
-			Expect(view.Model.PupillaryDistance.Selection.Left, Is.EqualTo(int.MinValue));
-			Expect(view.Model.PupillaryDistance.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Sphere.Selection.Left, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Sphere.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Cylinder.Selection.Left, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Cylinder.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.AxisSelectionLeft, Is.Null);
-			Expect(view.Model.AxisSelectionRight, Is.Null);
-			Expect(view.Model.Addition.Selection.Left, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Addition.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Height.Selection.Left, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Height.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.FramesList.Count(), Is.EqualTo(expectedNumberOfFrames));
-			Expect(view.Model.FramesList.First().Id, Is.EqualTo(0));
-			Expect(view.Model.FramesList.First().Name, Is.EqualTo("-- Välj båge --"));
-			Expect(view.Model.FrameRequiredErrorMessage, Is.EqualTo("Båge saknas"));
-			Expect(view.Model.GlassTypesList.Count(), Is.EqualTo(expectedNumberOfGlassTypes));
-			Expect(view.Model.GlassTypesList.First().Id, Is.EqualTo(0));
-			Expect(view.Model.GlassTypesList.First().Name, Is.EqualTo("-- Välj glastyp --"));
-			Expect(view.Model.GlassTypeRequiredErrorMessage, Is.EqualTo("Glastyp saknas"));
-			Expect(view.Model.PupillaryDistance.List.Count(), Is.EqualTo(expectedNumberOfPDs));
-			Expect(view.Model.PupillaryDistance.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
-			Expect(view.Model.PupillaryDistance.List.First().Name, Is.EqualTo("-- Välj PD --"));
-			Expect(view.Model.PupillaryDistanceRequiredErrorMessage, Is.EqualTo("PD saknas"));
-			Expect(view.Model.Sphere.List.Count(), Is.EqualTo(expectedNumberOfSpheres));
-			Expect(view.Model.Sphere.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
-			Expect(view.Model.Sphere.List.First().Name, Is.EqualTo("-- Välj Sfär --"));
-			Expect(view.Model.SphereRequiredErrorMessage, Is.EqualTo("Sfär saknas"));
-			Expect(view.Model.Cylinder.List.Count(), Is.EqualTo(expectedNumberOfCylinders));
-			Expect(view.Model.Cylinder.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
-			Expect(view.Model.Cylinder.List.First().Name, Is.EqualTo("-- Välj Cylinder --"));
+			Expect(_view.Model.SelectedFrameId, Is.EqualTo(0));
+			Expect(_view.Model.SelectedGlassTypeId, Is.EqualTo(0));
+			Expect(_view.Model.PupillaryDistance.Selection.Left, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.PupillaryDistance.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Sphere.Selection.Left, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Sphere.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Cylinder.Selection.Left, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Cylinder.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.AxisSelectionLeft, Is.Null);
+			Expect(_view.Model.AxisSelectionRight, Is.Null);
+			Expect(_view.Model.Addition.Selection.Left, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Addition.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Height.Selection.Left, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Height.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.FramesList.Count(), Is.EqualTo(expectedNumberOfFrames));
+			Expect(_view.Model.FramesList.First().Id, Is.EqualTo(0));
+			Expect(_view.Model.FramesList.First().Name, Is.EqualTo("-- Välj båge --"));
+			Expect(_view.Model.FrameRequiredErrorMessage, Is.EqualTo("Båge saknas"));
+			Expect(_view.Model.GlassTypesList.Count(), Is.EqualTo(expectedNumberOfGlassTypes));
+			Expect(_view.Model.GlassTypesList.First().Id, Is.EqualTo(0));
+			Expect(_view.Model.GlassTypesList.First().Name, Is.EqualTo("-- Välj glastyp --"));
+			Expect(_view.Model.GlassTypeRequiredErrorMessage, Is.EqualTo("Glastyp saknas"));
+			Expect(_view.Model.PupillaryDistance.List.Count(), Is.EqualTo(expectedNumberOfPDs));
+			Expect(_view.Model.PupillaryDistance.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
+			Expect(_view.Model.PupillaryDistance.List.First().Name, Is.EqualTo("-- Välj PD --"));
+			Expect(_view.Model.PupillaryDistanceRequiredErrorMessage, Is.EqualTo("PD saknas"));
+			Expect(_view.Model.Sphere.List.Count(), Is.EqualTo(expectedNumberOfSpheres));
+			Expect(_view.Model.Sphere.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
+			Expect(_view.Model.Sphere.List.First().Name, Is.EqualTo("-- Välj Sfär --"));
+			Expect(_view.Model.SphereRequiredErrorMessage, Is.EqualTo("Sfär saknas"));
+			Expect(_view.Model.Cylinder.List.Count(), Is.EqualTo(expectedNumberOfCylinders));
+			Expect(_view.Model.Cylinder.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
+			Expect(_view.Model.Cylinder.List.First().Name, Is.EqualTo("-- Välj Cylinder --"));
 			//Expect(view.Model.CylinderRequiredErrorMessage, Is.EqualTo("Cylinder saknas"));
-			Expect(view.Model.Addition.List.Count(), Is.EqualTo(expectedNumberOfAdditions));
-			Expect(view.Model.Addition.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
-			Expect(view.Model.Addition.List.First().Name, Is.EqualTo("-- Välj Addition --"));
-			Expect(view.Model.AdditionRequiredErrorMessage, Is.EqualTo("Addition saknas"));
-			Expect(view.Model.Height.List.Count(), Is.EqualTo(expectedNumberOfHeights));
-			Expect(view.Model.Height.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
-			Expect(view.Model.Height.List.First().Name, Is.EqualTo("-- Välj Höjd --"));
-			Expect(view.Model.HeightRequiredMessage, Is.EqualTo("Höjd saknas"));
-			Expect(view.Model.AxisRequiredMessage, Is.EqualTo("Axel saknas"));
-			Expect(view.Model.AxisRangeMessage, Is.EqualTo("Axel anges som ett heltal i intervallet 0-180"));
-			Expect(view.Model.NotSelectedIntervalValue, Is.EqualTo(int.MinValue));
-			Expect(view.Model.HeightParametersEnabled, Is.False);
-			Expect(view.Model.AdditionParametersEnabled, Is.False);
-			Expect(view.Model.AxisValueLeftIsRequired, Is.False);
-			Expect(view.Model.AxisValueRightIsRequired, Is.False);
-			Expect(view.Model.Reference, Is.Null);
+			Expect(_view.Model.Addition.List.Count(), Is.EqualTo(expectedNumberOfAdditions));
+			Expect(_view.Model.Addition.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
+			Expect(_view.Model.Addition.List.First().Name, Is.EqualTo("-- Välj Addition --"));
+			Expect(_view.Model.AdditionRequiredErrorMessage, Is.EqualTo("Addition saknas"));
+			Expect(_view.Model.Height.List.Count(), Is.EqualTo(expectedNumberOfHeights));
+			Expect(_view.Model.Height.List.First().Value, Is.EqualTo(int.MinValue.ToString("N2")));
+			Expect(_view.Model.Height.List.First().Name, Is.EqualTo("-- Välj Höjd --"));
+			Expect(_view.Model.HeightRequiredMessage, Is.EqualTo("Höjd saknas"));
+			Expect(_view.Model.AxisRequiredMessage, Is.EqualTo("Axel saknas"));
+			Expect(_view.Model.AxisRangeMessage, Is.EqualTo("Axel anges som ett heltal i intervallet 0-180"));
+			Expect(_view.Model.NotSelectedIntervalValue, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.HeightParametersEnabled, Is.False);
+			Expect(_view.Model.AdditionParametersEnabled, Is.False);
+			Expect(_view.Model.AxisValueLeftIsRequired, Is.False);
+			Expect(_view.Model.AxisValueRightIsRequired, Is.False);
+			Expect(_view.Model.Reference, Is.Null);
 		}
 
 		[Test]
@@ -123,33 +125,33 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			//Arrange
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			var requestParams = new NameValueCollection {{"frameorder", "5"}};
-			var expectedFrameOrder = frameOrderRepository.Get(5);
+			var expectedFrameOrder = _frameOrderRepository.Get(5);
 			const int expectedShopId = 10;
 			
 			//Act
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			presenter.HttpContext = mockedHttpContext.Object;
-			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedShopId(expectedShopId);
-			presenter.View_Load(null, new EventArgs());
+			_presenter.HttpContext = mockedHttpContext.Object;
+			((ServiceFactory.MockedSessionProviderService) _synologenMemberService).SetMockedShopId(expectedShopId);
+			_presenter.View_Load(null, new EventArgs());
 
 			//Assert
-			Expect(view.Model.SelectedFrameId, Is.EqualTo(expectedFrameOrder.Frame.Id));
-			Expect(view.Model.SelectedGlassTypeId, Is.EqualTo(expectedFrameOrder.GlassType.Id));
-			ExpectEqual(view.Model.PupillaryDistance.Selection, expectedFrameOrder.PupillaryDistance, EyeparameterEquality);
-			ExpectEqual(view.Model.Sphere.Selection, expectedFrameOrder.Sphere, EyeparameterEquality);
-			ExpectEqual(view.Model.Cylinder.Selection, expectedFrameOrder.Cylinder, NullableEyeparameterEquality);
-			Expect(view.Model.AxisSelectionLeft, Is.EqualTo(expectedFrameOrder.Axis.Left));
-			Expect(view.Model.AxisSelectionRight, Is.EqualTo(expectedFrameOrder.Axis.Right));
-			ExpectEqual(view.Model.Height.Selection, expectedFrameOrder.Height, NullableEyeparameterEquality);
-			ExpectEqual(view.Model.Addition.Selection, expectedFrameOrder.Addition, NullableEyeparameterEquality);
-			Expect(view.Model.HeightParametersEnabled, Is.EqualTo(expectedFrameOrder.GlassType.IncludeHeightParametersInOrder));
-			Expect(view.Model.AdditionParametersEnabled, Is.EqualTo(expectedFrameOrder.GlassType.IncludeAdditionParametersInOrder));
-			Expect(view.Model.Reference, Is.EqualTo(expectedFrameOrder.Reference));
-			Expect(view.Model.OrderHasBeenSent, Is.EqualTo(expectedFrameOrder.Sent.HasValue));
-			Expect(view.Model.UserDoesNotHaveAccessToThisOrder, Is.EqualTo(expectedFrameOrder.OrderingShop.Id != expectedShopId));
-			Expect(view.Model.OrderDoesNotExist, Is.EqualTo(expectedFrameOrder == null));
-			Expect(view.Model.AxisValueLeftIsRequired, Is.True);
-			Expect(view.Model.AxisValueRightIsRequired, Is.True);
+			Expect(_view.Model.SelectedFrameId, Is.EqualTo(expectedFrameOrder.Frame.Id));
+			Expect(_view.Model.SelectedGlassTypeId, Is.EqualTo(expectedFrameOrder.GlassType.Id));
+			ExpectEqual(_view.Model.PupillaryDistance.Selection, expectedFrameOrder.PupillaryDistance, _eyeparameterEquality);
+			ExpectEqual(_view.Model.Sphere.Selection, expectedFrameOrder.Sphere, _eyeparameterEquality);
+			ExpectEqual(_view.Model.Cylinder.Selection, expectedFrameOrder.Cylinder, _nullableEyeparameterEquality);
+			Expect(_view.Model.AxisSelectionLeft, Is.EqualTo(expectedFrameOrder.Axis.Left));
+			Expect(_view.Model.AxisSelectionRight, Is.EqualTo(expectedFrameOrder.Axis.Right));
+			ExpectEqual(_view.Model.Height.Selection, expectedFrameOrder.Height, _nullableEyeparameterEquality);
+			ExpectEqual(_view.Model.Addition.Selection, expectedFrameOrder.Addition, _nullableEyeparameterEquality);
+			Expect(_view.Model.HeightParametersEnabled, Is.EqualTo(expectedFrameOrder.GlassType.IncludeHeightParametersInOrder));
+			Expect(_view.Model.AdditionParametersEnabled, Is.EqualTo(expectedFrameOrder.GlassType.IncludeAdditionParametersInOrder));
+			Expect(_view.Model.Reference, Is.EqualTo(expectedFrameOrder.Reference));
+			Expect(_view.Model.OrderHasBeenSent, Is.EqualTo(expectedFrameOrder.Sent.HasValue));
+			Expect(_view.Model.UserDoesNotHaveAccessToThisOrder, Is.EqualTo(expectedFrameOrder.OrderingShop.Id != expectedShopId));
+			Expect(_view.Model.OrderDoesNotExist, Is.EqualTo(expectedFrameOrder == null));
+			Expect(_view.Model.AxisValueLeftIsRequired, Is.True);
+			Expect(_view.Model.AxisValueRightIsRequired, Is.True);
 		}
 
 		[Test]
@@ -181,38 +183,38 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			
 			//Act
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			presenter.HttpContext = mockedHttpContext.Object;
-			presenter.View_Load(null, new EventArgs());
-			presenter.View_BindModel(null, frameSelectedEventArgs);
+			_presenter.HttpContext = mockedHttpContext.Object;
+			_presenter.View_Load(null, new EventArgs());
+			_presenter.View_BindModel(null, frameSelectedEventArgs);
 
 			//Assert
-			Expect(view.Model.PupillaryDistance.List.Count(), Is.EqualTo(expectedNumberOfPDsInList));
-			Expect(view.Model.Sphere.List.Count(), Is.EqualTo(expectedNumberOfSpheresInList));
-			Expect(view.Model.Cylinder.List.Count(), Is.EqualTo(expectedNumberOfCylindersInList));
-			Expect(view.Model.Addition.List.Count(), Is.EqualTo(expectedNumberOfAdditionsInList));
-			Expect(view.Model.Height.List.Count(), Is.EqualTo(expectedNumberOfHeightsInList));
-			Expect(view.Model.GlassTypesList.Count(), Is.EqualTo(expectedNumberOfGlassTypesInList));
-			Expect(view.Model.FramesList.Count(), Is.EqualTo(expectedNumberOfFramesInList));
+			Expect(_view.Model.PupillaryDistance.List.Count(), Is.EqualTo(expectedNumberOfPDsInList));
+			Expect(_view.Model.Sphere.List.Count(), Is.EqualTo(expectedNumberOfSpheresInList));
+			Expect(_view.Model.Cylinder.List.Count(), Is.EqualTo(expectedNumberOfCylindersInList));
+			Expect(_view.Model.Addition.List.Count(), Is.EqualTo(expectedNumberOfAdditionsInList));
+			Expect(_view.Model.Height.List.Count(), Is.EqualTo(expectedNumberOfHeightsInList));
+			Expect(_view.Model.GlassTypesList.Count(), Is.EqualTo(expectedNumberOfGlassTypesInList));
+			Expect(_view.Model.FramesList.Count(), Is.EqualTo(expectedNumberOfFramesInList));
 
-			Expect(view.Model.SelectedFrameId, Is.EqualTo(frameSelectedEventArgs.SelectedFrameId));
-			Expect(view.Model.SelectedGlassTypeId, Is.EqualTo(frameSelectedEventArgs.SelectedGlassTypeId));
-			Expect(view.Model.PupillaryDistance.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedPupillaryDistance.Left));
-			Expect(view.Model.PupillaryDistance.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedPupillaryDistance.Right));
-			Expect(view.Model.Sphere.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Left));
-			Expect(view.Model.Sphere.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Right));
-			Expect(view.Model.Cylinder.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedCylinder.Left));
-			Expect(view.Model.Cylinder.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedCylinder.Right));
-			Expect(view.Model.AxisSelectionLeft, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Left));
-			Expect(view.Model.AxisSelectionRight, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Right));
-			Expect(view.Model.Addition.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedAddition.Left));
-			Expect(view.Model.Addition.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedAddition.Right));
-			Expect(view.Model.Height.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Left));
-			Expect(view.Model.Height.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Right));
-			Expect(view.Model.HeightParametersEnabled, Is.True);
-			Expect(view.Model.AdditionParametersEnabled, Is.True);
-			Expect(view.Model.AxisValueLeftIsRequired, Is.True);
-			Expect(view.Model.AxisValueRightIsRequired, Is.True);
-			Expect(view.Model.Reference, Is.EqualTo(frameSelectedEventArgs.Reference));
+			Expect(_view.Model.SelectedFrameId, Is.EqualTo(frameSelectedEventArgs.SelectedFrameId));
+			Expect(_view.Model.SelectedGlassTypeId, Is.EqualTo(frameSelectedEventArgs.SelectedGlassTypeId));
+			Expect(_view.Model.PupillaryDistance.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedPupillaryDistance.Left));
+			Expect(_view.Model.PupillaryDistance.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedPupillaryDistance.Right));
+			Expect(_view.Model.Sphere.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Left));
+			Expect(_view.Model.Sphere.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedSphere.Right));
+			Expect(_view.Model.Cylinder.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedCylinder.Left));
+			Expect(_view.Model.Cylinder.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedCylinder.Right));
+			Expect(_view.Model.AxisSelectionLeft, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Left));
+			Expect(_view.Model.AxisSelectionRight, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Right));
+			Expect(_view.Model.Addition.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedAddition.Left));
+			Expect(_view.Model.Addition.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedAddition.Right));
+			Expect(_view.Model.Height.Selection.Left, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Left));
+			Expect(_view.Model.Height.Selection.Right, Is.EqualTo(frameSelectedEventArgs.SelectedHeight.Right));
+			Expect(_view.Model.HeightParametersEnabled, Is.True);
+			Expect(_view.Model.AdditionParametersEnabled, Is.True);
+			Expect(_view.Model.AxisValueLeftIsRequired, Is.True);
+			Expect(_view.Model.AxisValueRightIsRequired, Is.True);
+			Expect(_view.Model.Reference, Is.EqualTo(frameSelectedEventArgs.Reference));
 		}
 
 		[Test]
@@ -237,19 +239,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			
 			//Act
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			presenter.HttpContext = mockedHttpContext.Object;
-			presenter.View_Load(null, new EventArgs());
-			presenter.View_BindModel(null, frameSelectedEventArgs);
+			_presenter.HttpContext = mockedHttpContext.Object;
+			_presenter.View_Load(null, new EventArgs());
+			_presenter.View_BindModel(null, frameSelectedEventArgs);
 
 			//Assert
-			Expect(view.Model.Addition.List.Count(), Is.EqualTo(expectedNumberOfAdditionsInList));
-			Expect(view.Model.Height.List.Count(), Is.EqualTo(expectedNumberOfHeightsInList));
-			Expect(view.Model.Height.Selection.Left, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Height.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.HeightParametersEnabled, Is.False);
-			Expect(view.Model.AdditionParametersEnabled, Is.False);
-			Expect(view.Model.AxisValueLeftIsRequired, Is.True);
-			Expect(view.Model.AxisValueRightIsRequired, Is.True);
+			Expect(_view.Model.Addition.List.Count(), Is.EqualTo(expectedNumberOfAdditionsInList));
+			Expect(_view.Model.Height.List.Count(), Is.EqualTo(expectedNumberOfHeightsInList));
+			Expect(_view.Model.Height.Selection.Left, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Height.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.HeightParametersEnabled, Is.False);
+			Expect(_view.Model.AdditionParametersEnabled, Is.False);
+			Expect(_view.Model.AxisValueLeftIsRequired, Is.True);
+			Expect(_view.Model.AxisValueRightIsRequired, Is.True);
 		}
 
 		[Test]
@@ -272,17 +274,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			
 			//Act
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			presenter.HttpContext = mockedHttpContext.Object;
-			presenter.View_Load(null, new EventArgs());
-			presenter.View_BindModel(null, frameSelectedEventArgs);
+			_presenter.HttpContext = mockedHttpContext.Object;
+			_presenter.View_Load(null, new EventArgs());
+			_presenter.View_BindModel(null, frameSelectedEventArgs);
 
 			//Assert
-			Expect(view.Model.Cylinder.Selection.Left, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Cylinder.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.AxisSelectionLeft, Is.Null);
-			Expect(view.Model.AxisSelectionRight, Is.Null);
-			Expect(view.Model.AxisValueLeftIsRequired, Is.False);
-			Expect(view.Model.AxisValueRightIsRequired, Is.False);
+			Expect(_view.Model.Cylinder.Selection.Left, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Cylinder.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.AxisSelectionLeft, Is.Null);
+			Expect(_view.Model.AxisSelectionRight, Is.Null);
+			Expect(_view.Model.AxisValueLeftIsRequired, Is.False);
+			Expect(_view.Model.AxisValueRightIsRequired, Is.False);
 		}
 
 		[Test]
@@ -307,26 +309,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 
 			//Act
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			presenter.HttpContext = mockedHttpContext.Object;
-			presenter.View_Load(null, new EventArgs());
-			presenter.View_BindModel(null, frameSelectedEventArgs);
+			_presenter.HttpContext = mockedHttpContext.Object;
+			_presenter.View_Load(null, new EventArgs());
+			_presenter.View_BindModel(null, frameSelectedEventArgs);
 
 			//Assert
-			Expect(view.Model.SelectedFrameId, Is.EqualTo(1));
-			Expect(view.Model.SelectedGlassTypeId, Is.EqualTo(8));
-			Expect(view.Model.PupillaryDistance.Selection.Left, Is.EqualTo(int.MinValue));
-			Expect(view.Model.PupillaryDistance.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Sphere.Selection.Left, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Sphere.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Cylinder.Selection.Left, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Cylinder.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.AxisSelectionLeft, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Left));
-			Expect(view.Model.AxisSelectionRight, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Right));
-			Expect(view.Model.Addition.Selection.Left, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Addition.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Height.Selection.Left, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Height.Selection.Right, Is.EqualTo(int.MinValue));
-			Expect(view.Model.Reference, Is.EqualTo(frameSelectedEventArgs.Reference));
+			Expect(_view.Model.SelectedFrameId, Is.EqualTo(1));
+			Expect(_view.Model.SelectedGlassTypeId, Is.EqualTo(8));
+			Expect(_view.Model.PupillaryDistance.Selection.Left, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.PupillaryDistance.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Sphere.Selection.Left, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Sphere.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Cylinder.Selection.Left, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Cylinder.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.AxisSelectionLeft, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Left));
+			Expect(_view.Model.AxisSelectionRight, Is.EqualTo(frameSelectedEventArgs.SelectedAxis.Right));
+			Expect(_view.Model.Addition.Selection.Left, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Addition.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Height.Selection.Left, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Height.Selection.Right, Is.EqualTo(int.MinValue));
+			Expect(_view.Model.Reference, Is.EqualTo(frameSelectedEventArgs.Reference));
 		}
 
 		[Test]
@@ -352,19 +354,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			var mockedHttpResponse = new Mock<HttpResponseBase>();
 			var requestParams = new NameValueCollection();
+			A.CallTo(() => _routingservice.GetPageUrl(A<int>.Ignored)).Returns(expectedRedirectUrl);
 			
 
 			//Act
 			mockedHttpContext.SetupGet(x => x.Response).Returns(mockedHttpResponse.Object);
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedShopId(expectedShopId);
-			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedPageUrl(expectedRedirectUrl);
-			((RepositoryFactory.MockedFrameOrderRepository) frameOrderRepository).SetSavedId(expectedSavedItemId);
-			presenter.HttpContext = mockedHttpContext.Object;
-			presenter.View_Load(null, new EventArgs());
-			presenter.View.RedirectPageId = 5;
-			presenter.View_SumbitForm(null, frameSelectedEventArgs);
-			var savedEntity = ((RepositoryFactory.MockedFrameOrderRepository) frameOrderRepository).SavedItem;
+			((ServiceFactory.MockedSessionProviderService) _synologenMemberService).SetMockedShopId(expectedShopId);
+			A.CallTo(() => _routingservice.GetPageUrl(A<int>.Ignored)).Returns(expectedRedirectUrl);
+			//((ServiceFactory.MockedSessionProviderService) _synologenMemberService).SetMockedPageUrl(expectedRedirectUrl);
+			((RepositoryFactory.MockedFrameOrderRepository) _frameOrderRepository).SetSavedId(expectedSavedItemId);
+			_presenter.HttpContext = mockedHttpContext.Object;
+			_presenter.View_Load(null, new EventArgs());
+			_presenter.View.RedirectPageId = 5;
+			_presenter.View_SumbitForm(null, frameSelectedEventArgs);
+			var savedEntity = ((RepositoryFactory.MockedFrameOrderRepository) _frameOrderRepository).SavedItem;
 
 			//Assert
 			Expect(savedEntity, Is.Not.Null);
@@ -413,19 +417,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			var mockedHttpResponse = new Mock<HttpResponseBase>();
 			var requestParams = new NameValueCollection{{"frameorder", expectedSavedItemId.ToString()}};
+			A.CallTo(() => _routingservice.GetPageUrl(A<int>.Ignored)).Returns(expectedRedirectUrl);
 			
 
 			//Act
 			mockedHttpContext.SetupGet(x => x.Response).Returns(mockedHttpResponse.Object);
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedShopId(expectedShopId);
-			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedPageUrl(expectedRedirectUrl);
-			((RepositoryFactory.MockedFrameOrderRepository) frameOrderRepository).SetSavedId(expectedSavedItemId);
-			presenter.HttpContext = mockedHttpContext.Object;
-			presenter.View_Load(null, new EventArgs());
-			presenter.View.RedirectPageId = 5;
-			presenter.View_SumbitForm(null, frameSelectedEventArgs);
-			var savedEntity = ((RepositoryFactory.MockedFrameOrderRepository) frameOrderRepository).SavedItem;
+			((ServiceFactory.MockedSessionProviderService) _synologenMemberService).SetMockedShopId(expectedShopId);
+			A.CallTo(() => _routingservice.GetPageUrl(A<int>.Ignored)).Returns(expectedRedirectUrl);
+			//((ServiceFactory.MockedSessionProviderService) _synologenMemberService).SetMockedPageUrl(expectedRedirectUrl);
+			((RepositoryFactory.MockedFrameOrderRepository) _frameOrderRepository).SetSavedId(expectedSavedItemId);
+			_presenter.HttpContext = mockedHttpContext.Object;
+			_presenter.View_Load(null, new EventArgs());
+			_presenter.View.RedirectPageId = 5;
+			_presenter.View_SumbitForm(null, frameSelectedEventArgs);
+			var savedEntity = ((RepositoryFactory.MockedFrameOrderRepository) _frameOrderRepository).SavedItem;
 
 			//Assert
 			Expect(savedEntity, Is.Not.Null);
@@ -457,16 +463,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			//Arrange
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			var requestParams = new NameValueCollection();
-			((ServiceFactory.MockedSessionProviderService)synologenMemberService).SetShopHasAccess(true);
+			((ServiceFactory.MockedSessionProviderService)_synologenMemberService).SetShopHasAccess(true);
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			presenter.HttpContext = mockedHttpContext.Object;
+			_presenter.HttpContext = mockedHttpContext.Object;
 			
 			//Act
-			presenter.View_Load(null, new EventArgs());
+			_presenter.View_Load(null, new EventArgs());
 
 			//Assert
-			Expect(view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.False);
-			Expect(view.Model.DisplayForm, Is.True);
+			Expect(_view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.False);
+			Expect(_view.Model.DisplayForm, Is.True);
 		}
 
 		[Test]
@@ -475,16 +481,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			//Arrange
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			var requestParams = new NameValueCollection();
-			((ServiceFactory.MockedSessionProviderService)synologenMemberService).SetShopHasAccess(false);
+			((ServiceFactory.MockedSessionProviderService)_synologenMemberService).SetShopHasAccess(false);
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			presenter.HttpContext = mockedHttpContext.Object;
+			_presenter.HttpContext = mockedHttpContext.Object;
 			
 			//Act
-			presenter.View_Load(null, new EventArgs());
+			_presenter.View_Load(null, new EventArgs());
 
 			//Assert
-			Expect(view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.True);
-			Expect(view.Model.DisplayForm, Is.False);
+			Expect(_view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.True);
+			Expect(_view.Model.DisplayForm, Is.False);
 		}
 	}
 }

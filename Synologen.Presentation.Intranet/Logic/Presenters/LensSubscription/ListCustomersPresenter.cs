@@ -16,14 +16,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 	{
 		private readonly ICustomerRepository _customerRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
+		private readonly IRoutingService _routingService;
 		private const string FirstNameColumn = "FirstName";
 		private const string LastNameColumn = "LastName";
 		private const string PersonalIdNumberColumn = "PersonalIdNumber";
 
-		public ListCustomersPresenter(IListCustomersView view, ICustomerRepository customerRepository, ISynologenMemberService synologenMemberService) : base(view)
+		public ListCustomersPresenter(
+			IListCustomersView view, 
+			ICustomerRepository customerRepository, 
+			ISynologenMemberService synologenMemberService,
+			IRoutingService routingService) : base(view)
 		{
 			_customerRepository = customerRepository;
 			_synologenMemberService = synologenMemberService;
+			_routingService = routingService;
 			View.Load += View_Load;
 			View.SearchList += SearchList;
 		}
@@ -61,7 +67,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 			string firstNameSortUrl;
 			string lastNameSortUrl;
 			string personNumberSortUrl;
-			var editUrl = View.EditPageId == 0 ? "#" : _synologenMemberService.GetPageUrl(View.EditPageId);
+			var editUrl = View.EditPageId == 0 ? "#" : _routingService.GetPageUrl(View.EditPageId);
 			var currentpage = HttpContext.Request.Url.AbsolutePath;
 			var orderColumn = HttpContext.Request.Params["order"];
 			var sortOrder = HttpContext.Request.Params["sort"];

@@ -42,7 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				HttpContext.SetupRequestParameter("subscription", _subscriptionId.ToString());
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.Is<int>(pageId => pageId.Equals(_returnUrlPageId)))).Returns(url);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(url);
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -79,7 +79,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_fetches_return_url_from_synologen_member_service()
 		{
-			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_returnUrlPageId))));
+			A.CallTo(() => RoutingService.GetPageUrl(_returnUrlPageId)).MustHaveHappened();
 		}
 	}
 
@@ -213,7 +213,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_redirectUrl);
 				HttpContext.SetupRequestParameter("subscription", _expectedSubscription.Id.ToString());
 			};
 
@@ -243,7 +243,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
-			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
+			A.CallTo(() => RoutingService.GetPageUrl(_redirectPageId)).MustHaveHappened();
 			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_expectedRedirectUrl);
 		}
 
@@ -276,7 +276,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_redirectUrl);
 				HttpContext.SetupRequestParameter("subscription", _expectedSubscription.Id.ToString());	
 			};
 
@@ -296,7 +296,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
-			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
+			A.CallTo(() => RoutingService.GetPageUrl(_redirectPageId)).MustHaveHappened();
 			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_expectedRedirectUrl);
 		}
 
@@ -329,7 +329,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedSubscriptionRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedSubscription);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_redirectUrl);
 				HttpContext.SetupRequestParameter("subscription", _expectedSubscription.Id.ToString());
 			};
 
@@ -349,7 +349,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
-			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
+			A.CallTo(() => RoutingService.GetPageUrl(_redirectPageId)).MustHaveHappened();
 			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(_expectedRedirectUrl);
 		}
 

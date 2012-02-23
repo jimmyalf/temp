@@ -14,12 +14,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 		private readonly IFrameOrderRepository _frameOrderRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
 		private readonly IFrameOrderService _frameOrderService;
+		private readonly IRoutingService _routingService;
 
-		public ViewFrameOrderPresenter(IViewFrameOrderView<ViewFrameOrderModel> view, IFrameOrderRepository frameOrderRepository, ISynologenMemberService synologenMemberService, IFrameOrderService frameOrderService) : base(view)
+		public ViewFrameOrderPresenter(
+			IViewFrameOrderView<ViewFrameOrderModel> view, 
+			IFrameOrderRepository frameOrderRepository, 
+			ISynologenMemberService synologenMemberService, 
+			IFrameOrderService frameOrderService,
+			IRoutingService routingService) : base(view)
 		{
 			_frameOrderRepository = frameOrderRepository;
 			_synologenMemberService = synologenMemberService;
 			_frameOrderService = frameOrderService;
+			_routingService = routingService;
 			InitiateEventHandlers();
 		}
 
@@ -43,7 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 			SetFrameOrderSent(frameOrder);
 			if (View.RedirectAfterSentOrderPageId > 0)
 			{
-				var url = _synologenMemberService.GetPageUrl(View.RedirectAfterSentOrderPageId);
+				var url = _routingService.GetPageUrl(View.RedirectAfterSentOrderPageId);
 				HttpContext.Response.Redirect(url);
 			}
 		}
@@ -100,7 +107,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 			View.Model.OrderHasBeenSent = (frameOrder.Sent.HasValue);
 			if(View.EditPageId>0)
 			{
-				var url = _synologenMemberService.GetPageUrl(View.EditPageId);
+				var url = _routingService.GetPageUrl(View.EditPageId);
 				View.Model.EditPageUrl = String.Concat(url, "?frameorder=", frameOrderId);
 			}
 		}

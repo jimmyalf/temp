@@ -18,19 +18,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 	[TestFixture, Category("ListFrameOrdersPresenterTests")]
 	public class Given_a_ListFrameOrdersPresenter : AssertionHelper
 	{
-		private IListFrameOrdersView<ListFrameOrdersModel> view;
-		private ListFrameOrdersPresenter presenter;
-		private IFrameOrderRepository frameOrderRepository;
-		private ISynologenMemberService synologenMemberService;
+		private IListFrameOrdersView<ListFrameOrdersModel> _view;
+		private ListFrameOrdersPresenter _presenter;
+		private IFrameOrderRepository _frameOrderRepository;
+		private ISynologenMemberService _synologenMemberService;
+		private IRoutingService _routingService;
 
 		[SetUp]
 		public void Context()
 		{
-			frameOrderRepository = RepositoryFactory.GetFramOrderRepository();
-			view = A.Fake<IListFrameOrdersView<ListFrameOrdersModel>>();
-				//ViewsFactory.GetListFrameOrdersPresenterView();
-			synologenMemberService = ServiceFactory.GetSynologenMemberService();
-			presenter = new ListFrameOrdersPresenter(view, frameOrderRepository, synologenMemberService);
+			_frameOrderRepository = RepositoryFactory.GetFramOrderRepository();
+			_view = A.Fake<IListFrameOrdersView<ListFrameOrdersModel>>();
+			_synologenMemberService = ServiceFactory.GetSynologenMemberService();
+			_routingService = A.Fake<IRoutingService>();
+			_presenter = new ListFrameOrdersPresenter(_view, _frameOrderRepository, _synologenMemberService, _routingService);
 		}
 
 		[Test]
@@ -39,25 +40,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			//Arrange
 			var eventArgs = new EventArgs();
 			const int expectedShopId = 5;
-			var expectedFirstItem = frameOrderRepository.Get(1);
+			var expectedFirstItem = _frameOrderRepository.Get(1);
 			const int editPageId = 5;
 			const string expectedViewRedirectUrl = "/test/url/";
 			
 
 			//Act
-			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedShopId(expectedShopId);
-			((ServiceFactory.MockedSessionProviderService) synologenMemberService).SetMockedPageUrl(expectedViewRedirectUrl);
-			view.ViewPageId = editPageId;
-			presenter.View_Load(null, eventArgs);
-			var criteria = (AllFrameOrdersForShopCriteria) ((RepositoryFactory.MockedFrameOrderRepository) frameOrderRepository).GivenFindByActionCriteria;
+			((ServiceFactory.MockedSessionProviderService) _synologenMemberService).SetMockedShopId(expectedShopId);
+			A.CallTo(() => _routingService.GetPageUrl(A<int>.Ignored)).Returns(expectedViewRedirectUrl);
+			_view.ViewPageId = editPageId;
+			_presenter.View_Load(null, eventArgs);
+			var criteria = (AllFrameOrdersForShopCriteria) ((RepositoryFactory.MockedFrameOrderRepository) _frameOrderRepository).GivenFindByActionCriteria;
 
 			//Assert
 			Expect(criteria.ShopId, Is.EqualTo(expectedShopId));
-			Expect(view.Model.List.Count(), Is.EqualTo(10));
-			Expect(view.Model.List.First().Id, Is.EqualTo(expectedFirstItem.Id));
-			Expect(view.Model.List.First().FrameName, Is.EqualTo(expectedFirstItem.Frame.Name));
-			Expect(view.Model.List.First().Sent, Is.EqualTo(null));
-			Expect(view.Model.ViewPageUrl, Is.EqualTo(expectedViewRedirectUrl));
+			Expect(_view.Model.List.Count(), Is.EqualTo(10));
+			Expect(_view.Model.List.First().Id, Is.EqualTo(expectedFirstItem.Id));
+			Expect(_view.Model.List.First().FrameName, Is.EqualTo(expectedFirstItem.Frame.Name));
+			Expect(_view.Model.List.First().Sent, Is.EqualTo(null));
+			Expect(_view.Model.ViewPageUrl, Is.EqualTo(expectedViewRedirectUrl));
 		}
 
 		[Test]
@@ -66,16 +67,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			//Arrange
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			var requestParams = new NameValueCollection();
-			((ServiceFactory.MockedSessionProviderService)synologenMemberService).SetShopHasAccess(true);
+			((ServiceFactory.MockedSessionProviderService)_synologenMemberService).SetShopHasAccess(true);
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			presenter.HttpContext = mockedHttpContext.Object;
+			_presenter.HttpContext = mockedHttpContext.Object;
 			
 			//Act
-			presenter.View_Load(null, new EventArgs());
+			_presenter.View_Load(null, new EventArgs());
 
 			//Assert
-			Expect(view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.False);
-			Expect(view.Model.DisplayList, Is.True);
+			Expect(_view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.False);
+			Expect(_view.Model.DisplayList, Is.True);
 		}
 
 		[Test]
@@ -84,16 +85,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			//Arrange
 			var mockedHttpContext = new Mock<HttpContextBase>();
 			var requestParams = new NameValueCollection();
-			((ServiceFactory.MockedSessionProviderService)synologenMemberService).SetShopHasAccess(false);
+			((ServiceFactory.MockedSessionProviderService)_synologenMemberService).SetShopHasAccess(false);
 			mockedHttpContext.SetupGet(x => x.Request.Params).Returns(requestParams);
-			presenter.HttpContext = mockedHttpContext.Object;
+			_presenter.HttpContext = mockedHttpContext.Object;
 			
 			//Act
-			presenter.View_Load(null, new EventArgs());
+			_presenter.View_Load(null, new EventArgs());
 
 			//Assert
-			Expect(view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.True);
-			Expect(view.Model.DisplayList, Is.False);
+			Expect(_view.Model.ShopDoesNotHaveAccessToFrameOrders, Is.True);
+			Expect(_view.Model.DisplayList, Is.False);
 		}
 		
 	}

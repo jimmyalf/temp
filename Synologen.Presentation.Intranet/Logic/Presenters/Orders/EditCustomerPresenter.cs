@@ -1,34 +1,29 @@
 ﻿using System;
-using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
-using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
-	public class EditCustomerPresenter : Presenter<IEditCustomerView>
+	public class EditCustomerPresenter : OrderBasePresenter<IEditCustomerView>
 	{
 		private readonly IOrderCustomerRepository _orderCustomerRepository;
 		private readonly IViewParser _viewParser;
 		private readonly IRoutingService _routingService;
-		private readonly ISynologenMemberService _synologenMemberService;
 
 		public EditCustomerPresenter(
 			IEditCustomerView view, 
 			IOrderCustomerRepository orderCustomerRepository, 
 			IViewParser viewParser,
 			IRoutingService routingService,
-			ISynologenMemberService synologenMemberService) : base(view)
+			ISynologenMemberService synologenMemberService) : base(view, synologenMemberService)
 		{
 			_orderCustomerRepository = orderCustomerRepository;
 			_viewParser = viewParser;
 			_routingService = routingService;
-			_synologenMemberService = synologenMemberService;
 			View.Load += View_Load;
 			View.Submit += View_Submit;
 		}
@@ -50,12 +45,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Model.Phone = customer.Phone;
 			View.Model.PostalCode = customer.PostalCode;
 			View.Model.ReturnUrl = _routingService.GetPageUrl(View.ReturnPageId);
-		}
-
-		private void CheckAccess(Shop shop)
-		{
-			var allowedShopId = _synologenMemberService.GetCurrentShopId();
-			if(shop.Id != allowedShopId) throw new AccessDeniedException("Shop is not allowed access to customer");
 		}
 
 		public void View_Submit(object sender, EditCustomerEventArgs editCustomerEventArgs)

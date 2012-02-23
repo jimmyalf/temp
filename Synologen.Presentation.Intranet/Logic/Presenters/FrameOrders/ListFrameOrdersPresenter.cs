@@ -14,11 +14,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 	{
 		private readonly IFrameOrderRepository _frameOrderRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
+		private readonly IRoutingService _routingService;
 
-		public ListFrameOrdersPresenter(IListFrameOrdersView<ListFrameOrdersModel> view, IFrameOrderRepository frameOrderReposityory , ISynologenMemberService synologenMemberService) : base(view)
+		public ListFrameOrdersPresenter(
+			IListFrameOrdersView<ListFrameOrdersModel> view, 
+			IFrameOrderRepository frameOrderReposityory , 
+			ISynologenMemberService synologenMemberService,
+			IRoutingService routingService) : base(view)
 		{
 			_frameOrderRepository = frameOrderReposityory;
 			_synologenMemberService = synologenMemberService;
+			_routingService = routingService;
 			InitiateEventHandlers();
 		}
 
@@ -43,7 +49,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 			View.Model.List = frameOrders.ToFrameOrderListItems();
 			if(View.ViewPageId > 0)
 			{
-				View.Model.ViewPageUrl = _synologenMemberService.GetPageUrl(View.ViewPageId);
+				View.Model.ViewPageUrl = _routingService.GetPageUrl(View.ViewPageId);
 			}
 			View.Model.ShopDoesNotHaveAccessToFrameOrders = !_synologenMemberService.ShopHasAccessTo(ShopAccess.SlimJim);
 		}

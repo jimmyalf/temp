@@ -12,15 +12,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests.
 	{
 		protected ISubscriptionRepository SubscriptionRepository;
 		protected ISynologenMemberService SynologenMemberService;
+		protected IRoutingService RoutingService;
 		protected ShopSubscriptionsPresenterTestbase()
 		{
 			SetUp = () =>
 			{
 				SubscriptionRepository = A.Fake<ISubscriptionRepository>();
 				SynologenMemberService = A.Fake<ISynologenMemberService>();
+				RoutingService = A.Fake<IRoutingService>();
 			};
 
-			GetPresenter = () => new ShopSubscriptionsPresenter(View, SubscriptionRepository, SynologenMemberService);
+			GetPresenter = () => new ShopSubscriptionsPresenter(View, SubscriptionRepository, SynologenMemberService, RoutingService);
 		}
 
 	}

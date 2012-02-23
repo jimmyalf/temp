@@ -16,11 +16,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 	{
 		private readonly ISubscriptionRepository _subscriptionRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
+		private readonly IRoutingService _routingService;
 
-		public ShopSubscriptionsPresenter(IShopSubscriptionsView view, ISubscriptionRepository subscriptionRepository, ISynologenMemberService synologenMemberService) : base(view)
+		public ShopSubscriptionsPresenter(
+			IShopSubscriptionsView view, 
+			ISubscriptionRepository subscriptionRepository, 
+			ISynologenMemberService synologenMemberService,
+			IRoutingService routingService) : base(view)
 		{
 			_subscriptionRepository = subscriptionRepository;
 			_synologenMemberService = synologenMemberService;
+			_routingService = routingService;
 			View.Load += View_Load;
 		}
 
@@ -28,7 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 		{
 			var shopId = _synologenMemberService.GetCurrentShopId();
 			var subscriptions = _subscriptionRepository.FindBy(new AllSubscriptionsForShopCriteria(shopId));
-			Func<int, string> getPageUrl = pageId => _synologenMemberService.GetPageUrl(pageId) ?? "#";
+			Func<int, string> getPageUrl = pageId => _routingService.GetPageUrl(pageId) ?? "#";
 			var viewModelSubscriptions = subscriptions.Select(x => ParseSubscription(x, () => getPageUrl(View.CustomerDetailsPageId), () => getPageUrl(View.SubscriptionDetailsPageId)));
 			View.Model = new ShopSubscriptionsModel(viewModelSubscriptions);
 		}

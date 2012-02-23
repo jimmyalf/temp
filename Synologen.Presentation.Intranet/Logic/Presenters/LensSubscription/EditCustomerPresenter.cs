@@ -20,14 +20,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 		private readonly ICountryRepository _countryRepository;
 		private readonly ICustomerRepository _customerRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
+		private readonly IRoutingService _routingService;
 		private const int SwedenCountryId = 1;
 
-		public EditCustomerPresenter(IEditCustomerView view, ICustomerRepository customerRepository, ICountryRepository countryRepository, ISynologenMemberService synologenMemberService)
+		public EditCustomerPresenter(
+			IEditCustomerView view, 
+			ICustomerRepository customerRepository, 
+			ICountryRepository countryRepository, 
+			ISynologenMemberService synologenMemberService,
+			IRoutingService routingService)
 			: base(view)
 		{
 			_customerRepository = customerRepository;
 			_countryRepository = countryRepository;
 			_synologenMemberService = synologenMemberService;
+			_routingService = routingService;
 
 			View.Load += View_Load;
 			View.Submit += View_Submit;
@@ -35,8 +42,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 
 		public void View_Load(object sender, EventArgs e)
 		{
-			var editUrl = View.EditSubscriptionPageId == 0 ? "#" : _synologenMemberService.GetPageUrl(View.EditSubscriptionPageId);
-			var createUrl = View.CreateSubscriptionPageId == 0 ? "#" : _synologenMemberService.GetPageUrl(View.CreateSubscriptionPageId);
+			var editUrl = View.EditSubscriptionPageId == 0 ? "#" : _routingService.GetPageUrl(View.EditSubscriptionPageId);
+			var createUrl = View.CreateSubscriptionPageId == 0 ? "#" : _routingService.GetPageUrl(View.CreateSubscriptionPageId);
 			Func<Subscription, SubscriptionListItemModel> subscriptionConverter = subscription => new SubscriptionListItemModel
 			{
 				CreatedDate = subscription.CreatedDate.ToString(("yyyy-MM-dd")),
@@ -111,7 +118,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 				return;
 			}
             
-			var redirectPageUrl = _synologenMemberService.GetPageUrl(View.RedirectOnSavePageId);
+			var redirectPageUrl = _routingService.GetPageUrl(View.RedirectOnSavePageId);
 			if (String.IsNullOrEmpty(redirectPageUrl)) return;
 			HttpContext.Response.Redirect(redirectPageUrl);
 		}

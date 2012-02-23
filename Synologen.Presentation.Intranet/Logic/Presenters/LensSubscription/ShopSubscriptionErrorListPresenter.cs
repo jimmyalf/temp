@@ -16,11 +16,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 	{
 		private readonly ISynologenMemberService _synologenMemberService;
 		private readonly ISubscriptionErrorRepository _subscriptionErrorRepository;
+		private readonly IRoutingService _routingService;
 
-		public ShopSubscriptionErrorListPresenter(IShopSubscriptionErrorListView view, ISynologenMemberService synologenMemberService, ISubscriptionErrorRepository subscriptionErrorRepository) : base(view)
+		public ShopSubscriptionErrorListPresenter(
+			IShopSubscriptionErrorListView view, 
+			ISynologenMemberService synologenMemberService, 
+			ISubscriptionErrorRepository subscriptionErrorRepository,
+			IRoutingService routingService) : base(view)
 		{
 			_synologenMemberService = synologenMemberService;
 			_subscriptionErrorRepository = subscriptionErrorRepository;
+			_routingService = routingService;
 			View.Load += View_Load;
 		}
 
@@ -55,7 +61,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 		{
 			get
 			{
-				return pageId => (pageId <= 0) ? "#" : _synologenMemberService.GetPageUrl(pageId);
+				return pageId => (pageId <= 0) ? "#" : _routingService.GetPageUrl(pageId);
 			}
 		}
 	}

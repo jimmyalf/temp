@@ -81,7 +81,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CustomerFactory.Get(_customerId, shopId));
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
+				//MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_redirectUrl);
 			};
 
 			Because = presenter =>
@@ -106,7 +107,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_get_expected_page_url_and_perfoms_redirect()
 		{
-			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>( pageId => pageId.Equals(_redirectPageId))));
+			A.CallTo(() => RoutingService.GetPageUrl(_redirectPageId)).MustHaveHappened();
 			HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(string.Format("{0}?customer={1}",_redirectUrl, _customerId));
 		}
 	}

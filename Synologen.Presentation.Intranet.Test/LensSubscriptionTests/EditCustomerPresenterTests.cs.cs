@@ -42,8 +42,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedCustomerRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(_expectedCustomer);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.Is<int>(id => id.Equals(createSubscriptionPageId)))).Returns(_createPageUrl);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.Is<int>(id => id.Equals(editSubscriptionPageId)))).Returns(_editPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(createSubscriptionPageId)).Returns(_createPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(editSubscriptionPageId)).Returns(_editPageUrl);
 				HttpContext.SetupRequestParameter("customer", _customerId.ToString());
 			};
 
@@ -118,7 +118,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedCountryRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(CountryFactory.Get(swedenCountryId));
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_redirectUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_redirectUrl);
 				HttpContext.SetupRequestParameter("customer", customerId.ToString());
 			};
 
@@ -153,7 +153,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 		[Test]
 		public void Presenter_get_expected_page_url_for_redirect()
 		{
-			MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>(pageId => pageId.Equals(_redirectPageId))));
+			//MockedSynologenMemberService.Verify(x => x.GetPageUrl(It.Is<int>(pageId => pageId.Equals(_redirectPageId))));
+			A.CallTo(() => RoutingService.GetPageUrl(_redirectPageId)).MustHaveHappened();
 		}
 
 		[Test]
@@ -187,7 +188,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.LensSubscriptionTests
 				MockedCountryRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(sweden);
 				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(shopId);
 				MockedSynologenMemberService.Setup(x => x.ShopHasAccessTo(ShopAccess.LensSubscription)).Returns(true);
-				MockedSynologenMemberService.Setup(x => x.GetPageUrl(It.IsAny<int>())).Returns(_currentPageUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_currentPageUrl);
 				HttpContext.SetupRequestParameter("customer", customerId.ToString());
 				HttpContext.SetupVirtualPathAndQuery(_currentPageUrl);
 			};

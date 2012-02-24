@@ -353,6 +353,13 @@
     <Compile Include="Wpc\Synologen\Orders\AutogiroDetails.ascx.designer.cs">
       <DependentUpon>AutogiroDetails.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\Orders\SubscriptionCorrection.ascx.cs">
+      <DependentUpon>SubscriptionCorrection.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\SubscriptionCorrection.ascx.designer.cs">
+      <DependentUpon>SubscriptionCorrection.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\Orders\SubscriptionItem.ascx.cs">
       <DependentUpon>SubscriptionItem.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -532,6 +539,7 @@
     <None Include="Testpages\OrderEditCustomer.aspx" />
     <None Include="Testpages\OrderSubscription.aspx" />
     <None Include="Testpages\OrderSubscriptionItem.aspx" />
+    <None Include="Testpages\OrderSubscriptionCorrection.aspx" />
     <Content Include="Wpc\Synologen\css\jquery-ui-1.8.16.custom.css" />
     <Content Include="Wpc\Synologen\css\screen.css" />
     <Content Include="Wpc\Synologen\css\smoothness\images\pbar-ani.gif" />
@@ -550,6 +558,7 @@
     <Content Include="Wpc\Synologen\js\jquery-ui-1.8.16.custom.min.js" />
     <Content Include="Wpc\Synologen\Orders\AutogiroDetails.ascx" />
     <Content Include="TestComponents\OrderMenu.ascx" />
+    <Content Include="Wpc\Synologen\Orders\SubscriptionCorrection.ascx" />
     <Content Include="Wpc\Synologen\Orders\SubscriptionItem.ascx" />
     <Content Include="Wpc\Synologen\Orders\Subscription.ascx" />
     <Content Include="Wpc\Synologen\Orders\EditCustomer.ascx" />

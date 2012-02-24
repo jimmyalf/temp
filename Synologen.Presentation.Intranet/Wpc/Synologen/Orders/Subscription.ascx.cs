@@ -17,6 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 		public event EventHandler<EventArgs> StopSubscription;
 		public event EventHandler<EventArgs> StartSubscription;
 		public int ReturnPageId { get; set; }
+		public int CorrectionPageId { get; set; }
 		public int SubscriptionItemDetailPageId { get; set; }
 
 		protected void SetHandled_ItemCommand(object source, RepeaterCommandEventArgs e)

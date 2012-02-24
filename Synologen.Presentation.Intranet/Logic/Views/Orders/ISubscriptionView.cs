@@ -11,6 +11,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
 		event EventHandler<EventArgs> StopSubscription;
 		event EventHandler<EventArgs> StartSubscription;
 		int ReturnPageId { get; set; }
+		int CorrectionPageId { get; set; }
 		int SubscriptionItemDetailPageId { get; set; }
 	}
 }

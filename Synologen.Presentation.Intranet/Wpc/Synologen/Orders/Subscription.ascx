@@ -35,7 +35,7 @@
 			<% } %>
 		</p>
 		<p>
-			<a href="<%#Model.ReturnUrl %>">Tillbaka</a>
+			<a href="<%#Model.ReturnUrl %>">Tillbaka</a>&nbsp;<a href="<%#Model.CorrectionUrl %>">Korrigera saldo</a>
 		</p>
 		<asp:Repeater runat="server" DataSource='<%#Model.Errors%>' OnItemCommand="SetHandled_ItemCommand" Visible='<%#Model.HasErrors %>'>
 			<HeaderTemplate>

@@ -13,6 +13,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models
 			Text = text;
 			Value = value.ToString();
 		}
+		public ListItem(string text, object value)
+		{
+			Text = text;
+			Value = value.ToString();
+		}
 		public string Text { get; set; }
 		public string Value { get; set; }
 	}

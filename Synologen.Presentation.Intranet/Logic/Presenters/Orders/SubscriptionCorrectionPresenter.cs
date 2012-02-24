@@ -35,7 +35,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			Ensure.That(RequestSubscriptionId).IsNotNull();
 			var subscription = _subscriptionRepository.Get(RequestSubscriptionId.Value);
 			CheckAccess(subscription.Shop);
-			View.Model.ReturnPageUrl = _routingService.GetPageUrl(View.ReturnPageId, new {subscription = subscription.Id});
+			var returnUrl = _routingService.GetPageUrl(View.ReturnPageId, new {subscription = subscription.Id});
+			View.Model.Initialize(subscription, returnUrl);
 		}
 
 		public void Submit(object sender, SubmitCorrectionEventArgs e)

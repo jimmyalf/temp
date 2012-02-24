@@ -6,15 +6,18 @@ using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
+using Spinit.Extensions;
+using EnumExtensions = Spinit.Wpc.Synologen.Core.Extensions.EnumExtensions;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
-	[TestFixture, Category("Create_Subscription_Correction")]
-	public class Create_Subscription_Correction : GeneralOrderSpecTestbase<SubscriptionCorrectionPresenter,ISubscriptionCorrectionView>
+	[TestFixture, Category("Subscription_Correction")]
+	public class Subscription_Correction : GeneralOrderSpecTestbase<SubscriptionCorrectionPresenter,ISubscriptionCorrectionView>
 	{
 		private SubmitCorrectionEventArgs _form;
 		private SubscriptionCorrectionPresenter _presenter;
@@ -23,8 +26,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private string _returnUrl;
 		private string _redirectOnCreateUrl;
 		private Exception _thrownException;
+		private SubscriptionTransaction _createdTransaction;
 
-		public Create_Subscription_Correction()
+		public Subscription_Correction()
 		{
 			Context = () =>
 			{
@@ -53,6 +57,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				.Givet(EttAbonnemang)
 				.När(SidanVisas)
 				.Så(VisasEnTillbakaLänk)
+					.Och(EnListaMedTransaktionsTyperVisas)
+					.Och(AbonnemangetsKontoNummerVisas)
+					.Och(KundNamnVisas)
 			);
 		}
 
@@ -64,7 +71,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(EttBeloppÄrIfyllt)
 					.Och(UttagÄrValt)
 				.När(KorrigeringSparas)
-				.Så(SkapasEnUttagsTransaktion)
+				.Så(SkapasEnTransaktion)
+				.Och(TransaktionenÄrEnUttagsTransaktion)
 					.Och(AnvändarenFörflyttasTillbakaTillAbonnemangssida)
 			);
 		}
@@ -77,7 +85,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(EttBeloppÄrIfyllt)
 					.Och(InsättningÄrVald)
 				.När(KorrigeringSparas)
-				.Så(SkapasEnInsättningTransaktion)
+				.Så(SkapasEnTransaktion)
+					.Och(TransaktionenÄrEnInsättningTransaktion)
 					.Och(AnvändarenFörflyttasTillbakaTillAbonnemangssida)
 			);
 		}
@@ -137,29 +146,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		#region Assert
 		private void VisasEnTillbakaLänk()
 		{
-			View.Model.ReturnPageUrl.ShouldBe(_returnUrl + "?subscription=" + _subscription.Id);
+			View.Model.ReturnUrl.ShouldBe(_returnUrl + "?subscription=" + _subscription.Id);
 		}
 
-		private void SkapasEnUttagsTransaktion()
+		private void SkapasEnTransaktion()
 		{
-			var subscription = GetAll<SubscriptionTransaction>().Single();
-			subscription.Amount.ShouldBe(_form.Amount);
-			subscription.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
-			subscription.Reason.ShouldBe(TransactionReason.Correction);
-			subscription.SettlementId.ShouldBe(null);
-			subscription.Subscription.Id.ShouldBe(_subscription.Id);
-			subscription.Type.ShouldBe(TransactionType.Withdrawal);
+			_createdTransaction = GetAll<SubscriptionTransaction>().Single();
+			_createdTransaction.Amount.ShouldBe(_form.Amount);
+			_createdTransaction.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
+			_createdTransaction.Reason.ShouldBe(TransactionReason.Correction);
+			_createdTransaction.SettlementId.ShouldBe(null);
+			_createdTransaction.Subscription.Id.ShouldBe(_subscription.Id);
 		}
 
-		private void SkapasEnInsättningTransaktion()
+		private void TransaktionenÄrEnUttagsTransaktion()
 		{
-			var subscription = GetAll<SubscriptionTransaction>().Single();
-			subscription.Amount.ShouldBe(_form.Amount);
-			subscription.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
-			subscription.Reason.ShouldBe(TransactionReason.Correction);
-			subscription.SettlementId.ShouldBe(null);
-			subscription.Subscription.Id.ShouldBe(_subscription.Id);
-			subscription.Type.ShouldBe(TransactionType.Deposit);
+			_createdTransaction.Type.ShouldBe(TransactionType.Withdrawal);
+		}
+
+		private void TransaktionenÄrEnInsättningTransaktion()
+		{
+			_createdTransaction.Type.ShouldBe(TransactionType.Deposit);
 		}
 
 		private void AnvändarenFörflyttasTillbakaTillAbonnemangssida()
@@ -170,6 +177,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void SkallEttExceptionKastas()
 		{
 			_thrownException.ShouldBeTypeOf<AccessDeniedException>();
+		}
+
+		private void EnListaMedTransaktionsTyperVisas()
+		{
+			var transactionTypes = EnumExtensions.Enumerate<TransactionType>();
+			View.Model.TransactionTypeList.And(transactionTypes).Do((viewItem, enumValue) =>
+			{
+				viewItem.Text.ShouldBe(enumValue.GetEnumDisplayName());
+				viewItem.Value.ShouldBe(enumValue.ToInteger().ToString());
+			});
+		}
+		private void KundNamnVisas()
+		{
+			View.Model.CustomerName.ShouldBe(_subscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
+		}
+
+		private void AbonnemangetsKontoNummerVisas()
+		{
+			View.Model.SubscriptionBankAccountNumber.ShouldBe(_subscription.BankAccountNumber);
 		}
 		#endregion
 	}

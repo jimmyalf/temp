@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 	{
 		public SubscriptionModel() { }
 
-		public void Initialize(Subscription subscription, string returnUrl, string subscriptionItemUrl)
+		public void Initialize(Subscription subscription, string returnUrl, string subscriptionItemUrl, string correctionUrl)
 		{
 			SubscriptionItems = subscription.SubscriptionItems.OrEmpty().Select(x => new SubscriptionItemListItem(x, subscriptionItemUrl));
 			Transactions = subscription.Transactions.OrderByDescending(x => x.CreatedDate).OrEmpty().Select(x => new TransactionListItem(x));
@@ -24,6 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 			Consented = GetConsentText(subscription);
 			CreatedDate = subscription.CreatedDate.ToString("yyyy-MM-dd");
 			ReturnUrl = returnUrl;
+			CorrectionUrl = correctionUrl;
 			ShowStartButton = !subscription.Active;
 			ShowStopButton = subscription.Active;
 			CurrentBalance = subscription.GetCurrentAccountBalance().ToString("C2");
@@ -38,10 +39,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public string Status { get; set; }
 		public string Consented { get; set; }
 		public string CreatedDate { get; set; }
-		public string ReturnUrl { get; set; }
 		public bool ShowStopButton { get; set; }
 		public bool ShowStartButton { get; set; }
 		public string CurrentBalance { get; set; }
+		public string ReturnUrl { get; set; }
+		public string CorrectionUrl { get; set; }
 
 		private string GetConsentText(Subscription subscription)
 		{

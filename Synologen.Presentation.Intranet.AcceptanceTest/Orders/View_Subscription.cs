@@ -30,6 +30,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private string _returnUrl;
 		private string _subscriptionItemDetailUrl;
 		private Exception _thrownException;
+		private string _correctionUrl;
 
 		public View_Subscription()
 		{
@@ -39,11 +40,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_presenter = GetPresenter();
 				_errors = null;
 				_returnUrl = "return/page/";
+				_correctionUrl = "correction/page/";
 				_subscriptionItemDetailUrl = "/subscription-item/page/";
 				View.ReturnPageId = 56;
 				View.SubscriptionItemDetailPageId = 57;
+				View.CorrectionPageId = 58;
 				RoutingService.AddRoute(View.ReturnPageId, _returnUrl);
 				RoutingService.AddRoute(View.SubscriptionItemDetailPageId, _subscriptionItemDetailUrl);
+				RoutingService.AddRoute(View.CorrectionPageId, _correctionUrl);
 				A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
 			};
 
@@ -64,8 +68,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(FelFinns)
 				.När(SidanVisas)
 				.Så(AbonnemangsInformationVisas)
-					.Och(StoppaKnappVisas)
 					.Och(TillbakaLänkVisas)
+					.Och(KorrigeringsLänkVisas)
+					.Och(StoppaKnappVisas)
 					.Och(DelAbonnemangVisas)
 					.Och(TransaktionerVisas)
 					.Och(FelListaVisas)
@@ -338,6 +343,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	{
     		_thrownException.ShouldBeTypeOf<AccessDeniedException>();
     	}
+
+		private void KorrigeringsLänkVisas()
+		{
+			View.Model.CorrectionUrl.ShouldBe(_correctionUrl + "?subscription=" + _subscription.Id);
+		}
 		#endregion
 	}
 }

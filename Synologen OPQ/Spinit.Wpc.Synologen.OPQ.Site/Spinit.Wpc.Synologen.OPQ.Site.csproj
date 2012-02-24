@@ -300,5 +300,5 @@
   <PropertyGroup>
     <PostBuildEvent>"$(ProjectDir)..\Spinit.Wpc.Synologen.OPQ.Build\Post-Build-$(ProjectName).bat" "$(ProjectDir)" "$(ProjectName)"</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  
 </Project>

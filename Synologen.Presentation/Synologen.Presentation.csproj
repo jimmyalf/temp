@@ -678,5 +678,5 @@
     <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
     <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  
 </Project>

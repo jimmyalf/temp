@@ -131,5 +131,5 @@
   <PropertyGroup>
     <PostBuildEvent>"$(ProjectDir)..\..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  
 </Project>

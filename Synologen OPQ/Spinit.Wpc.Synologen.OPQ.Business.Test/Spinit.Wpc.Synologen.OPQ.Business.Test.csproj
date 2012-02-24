@@ -157,5 +157,5 @@
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\Spinit.Wpc.Synologen.OPQ.Build\Pre-Build-$(ProjectName).bat" "$(ProjectDir)" "$(ProjectName)"</PreBuildEvent>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  
 </Project>

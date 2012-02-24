@@ -54,8 +54,10 @@
     <Compile Include="Logic\EventArguments\Orders\EditCustomerEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\HandleErrorEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SelectedSomethingEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\Orders\SubmitCorrectionEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SubmitSubscriptionItemEventArgs.cs" />
     <Compile Include="Logic\Presenters\Orders\OrderBasePresenter.cs" />
+    <Compile Include="Logic\Presenters\Orders\SubscriptionCorrectionPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\SubscriptionItemPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\EditCustomerPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\ShopSubscriptionsPresenter.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="Logic\Views\Orders\ISaveCustomerView.cs" />
     <Compile Include="Logic\EventArguments\Orders\SelectedCategoryEventArgs.cs" />
     <Compile Include="Logic\Views\Orders\IShopSubscriptionsView.cs" />
+    <Compile Include="Logic\Views\Orders\ISubscriptionCorrectionView.cs" />
     <Compile Include="Logic\Views\Orders\ISubscriptionItemView.cs" />
     <Compile Include="Logic\Views\Orders\ISubscriptionView.cs" />
     <Compile Include="Logic\Views\Yammer\IYammerView.cs" />
@@ -195,6 +198,7 @@
     <Compile Include="Models\Orders\PaymentOptionsModel.cs" />
     <Compile Include="Models\Orders\SaveCustomerModel.cs" />
     <Compile Include="Models\Orders\ShopSubscriptionsModel.cs" />
+    <Compile Include="Models\Orders\SubscriptionCorrectionModel.cs" />
     <Compile Include="Models\Orders\SubscriptionItemModel.cs" />
     <Compile Include="Models\Orders\SubscriptionModel.cs" />
     <Compile Include="Models\ValidationButtonModel.cs" />
@@ -503,6 +507,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
     <None Include="Testpages\EditShopPage.aspx" />
     <None Include="Testpages\SalesList.aspx" />
     <None Include="Testpages\CreateOrder.aspx" />
@@ -595,6 +600,9 @@
     <Content Include="Wpc\Synologen\ValidationButton.ascx" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="EnsureThat">
+      <HintPath>..\packages\Ensure.That.0.6.0\lib\net40\EnsureThat.dll</HintPath>
+    </Reference>
     <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\FluentNHibernate.dll</HintPath>
@@ -770,5 +778,4 @@
     <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
     <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>

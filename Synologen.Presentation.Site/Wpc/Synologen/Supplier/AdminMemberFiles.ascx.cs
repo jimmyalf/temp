@@ -94,6 +94,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.Supplier
 
         protected void btnAdd_Click(object sender, EventArgs e) 
 		{
+			if(!Page.IsValid) return;
             UploadFile(uplFile1, txtDesc1, drpCategory1.SelectedItem.Text, AllowedExtensions);
             PopulateFiles();
         }
@@ -195,12 +196,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.Supplier
 
 		protected virtual void UploadFile(FileUpload uplFile, ITextControl txtDesc, string categoryName, IEnumerable<string> allowedExtensionsArr) 
 		{
+			if (!uplFile.HasFile) return;
             var lrow = (LocationRow)LocationRepository.GetLocation(LocationId);
-
             var memberRow = Provider.GetMember(MemberId, LocationId, LanguageId);
 			if (memberRow == null) return;
-
-			if (!uplFile.HasFile) return;
 
         	var fileExtension = Path.GetExtension(uplFile.FileName).ToLower();
         	fileExtension = fileExtension.Substring(1, fileExtension.Length - 1);
@@ -229,7 +228,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.Supplier
 			{
 				var row = tblFiles.NewRow();
 				var urlname = GetFileUrl(lrow, memberRow, fileCatRow.Name, fileInfo.Name);
-				var fleRow = (FileRow) FileRepository.GetFile(urlname);
+				var filteredUrlName = EscapeSqlLikeWildcards(urlname);
+				var fleRow = (FileRow) FileRepository.GetFile(filteredUrlName);
 
 				var pic = GetThumbUrl(fleRow, fileInfo, urlname);
 				var desc = GetFileDescription(fleRow);
@@ -245,6 +245,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.Supplier
 
 				tblFiles.Rows.Add(row);
 			}
+		}
+
+		private string EscapeSqlLikeWildcards(string name)
+		{
+			return name
+				.Replace("[", "[ [ ]")
+				.Replace("%","[%]");
 		}
 		
 		protected virtual DirectoryInfo GetMemberCategoryDirectory(LocationRow lrow, MemberRow memberRow, string fileCategoryName)
@@ -279,8 +286,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.Supplier
 		
 		protected virtual string GetFileDescription(FileRow fleRow)
 		{
+			if(fleRow == null || fleRow.Description == null) return null;
 			var desc = fleRow.Description;
-			if(desc == null) return null;
 			if (desc.Length > 30)
 			{
 				desc = desc.Substring(0, 27);
@@ -334,5 +341,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.Supplier
 			return storedValue ?? (storedValue = getValue());
 		}
 
-    }
+    	protected void Validate_FileName(object source, ServerValidateEventArgs args)
+    	{
+			args.IsValid = true;
+			if(!uplFile1.HasFile) return;
+			if(!UploadFileNameIsValid(uplFile1.FileName))
+			{
+				args.IsValid = false;
+			}
+    	}
+
+		private bool UploadFileNameIsValid(string fileName)
+		{
+			if(fileName.Contains("[")) return false;
+			if(fileName.Contains("]")) return false;
+			if(fileName.Contains("%")) return false;
+			if(fileName.Contains("$")) return false;
+			return true;
+		}
+	}
 }

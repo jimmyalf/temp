@@ -337,6 +337,13 @@
     <Compile Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx.designer.cs">
       <DependentUpon>AdminMemberFiles.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx.cs">
+      <DependentUpon>MemberFilesThumbs.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx.designer.cs">
+      <DependentUpon>MemberFilesThumbs.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx.cs">
       <DependentUpon>ViewMemberImage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -554,6 +561,7 @@
     </Content>
     <None Include="Testpages\AdminMemberFiles.aspx" />
     <None Include="Testpages\LensSubscriptionShopSubscriptionsList.aspx" />
+    <None Include="Testpages\MemberFilesThumbs.aspx" />
     <Content Include="Testpages\MiniYammerFeed.aspx" />
     <Content Include="Testpages\YammerFeed.aspx" />
     <Content Include="Wpc\Synologen\js\Synologen.js" />
@@ -574,6 +582,7 @@
     <Content Include="Wpc\Synologen\Supplier\Images\video_icon.gif" />
     <Content Include="Wpc\Synologen\Supplier\Images\word.gif" />
     <Content Include="Wpc\Synologen\Supplier\Images\word.png" />
+    <Content Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx" />
     <Content Include="Wpc\Synologen\Supplier\PdfThumbnail.aspx" />
     <Content Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx" />
     <Content Include="Wpc\Synologen\Yammer\MiniYammerFeed.ascx" />

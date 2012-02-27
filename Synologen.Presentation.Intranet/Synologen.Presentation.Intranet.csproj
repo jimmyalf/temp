@@ -468,6 +468,13 @@
     <Compile Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx.designer.cs">
       <DependentUpon>AdminMemberFiles.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx.cs">
+      <DependentUpon>MemberFilesThumbs.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx.designer.cs">
+      <DependentUpon>MemberFilesThumbs.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx.cs">
       <DependentUpon>ViewMemberImage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -540,6 +547,7 @@
     <None Include="Testpages\OrderSubscription.aspx" />
     <None Include="Testpages\OrderSubscriptionItem.aspx" />
     <None Include="Testpages\OrderSubscriptionCorrection.aspx" />
+    <Content Include="Testpages\MemberFilesThumbs.aspx" />
     <Content Include="Wpc\Synologen\css\jquery-ui-1.8.16.custom.css" />
     <Content Include="Wpc\Synologen\css\screen.css" />
     <Content Include="Wpc\Synologen\css\smoothness\images\pbar-ani.gif" />
@@ -606,6 +614,7 @@
     <Content Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionErrorList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx" />
+    <Content Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx" />
     <Content Include="Wpc\Synologen\ValidationButton.ascx" />
   </ItemGroup>
   <ItemGroup>

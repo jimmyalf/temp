@@ -112,6 +112,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier {
         protected global::System.Web.UI.WebControls.Button btnShowAll;
         
         /// <summary>
+        /// gvFiles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvFiles;
+        
+        /// <summary>
         /// dlFiles control.
         /// </summary>
         /// <remarks>

@@ -74,7 +74,7 @@
 			<asp:RegularExpressionValidator ID="regexPostalCode" ValidationExpression="^\d{5}$" runat="server" ErrorMessage="Ogiltigt postnummer, måste anges som fem siffror utan mellanslag." Display="Dynamic" ControlToValidate="txtPostalCode" CssClass="error-message">*</asp:RegularExpressionValidator>
         </p>
     	<p>
-            <label for="<%=txtNotes.ClientID%>">Anteckningar</label>
+            <label for="<%=txtNotes.ClientID%>">Butikens interna notering</label>
 		    <asp:TextBox ID="txtNotes" TextMode="MultiLine" runat="server" Text='<% #Model.Notes %>' />
         </p>
 

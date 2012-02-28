@@ -38,6 +38,7 @@ q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {border-collapse: collapse;border-spacing: 0;}
 
 
@@ -46,7 +47,7 @@ table {border-collapse: collapse;border-spacing: 0;}
 
 html {margin: 0; padding: 0; height: 100%;}
 
-body {font: 1.2em/1.5em sans-serif; line-height: 1.5em; color: black; margin: 0; height: 100%; min-height: 100%;
+body {font: 1.2em/1.5em sans-serif; line-height: 1.5em; color: black; margin: 0;
    
 	background: #ffffff; /* Old browsers */
 	background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #ededed 100%) fixed; /* FF3.6+ */
@@ -65,25 +66,25 @@ body {font: 1.2em/1.5em sans-serif; line-height: 1.5em; color: black; margin: 0;
     }
 }
     
-@media screen and (max-width:1101px) {
+@media screen and (max-width:1114px) {
     body {
         font-size: 0.8em;
     }
 }
 
-@media screen and (max-width:900px) {
+@media screen and (max-width:946px) {
     body {
         font-size: 0.7em;
     }
 }
 
-@media screen and (max-width:721px) {
+@media screen and (max-width:855px) {
     body {
         font-size: 0.6em;
     }
 }
 
-@media screen and (max-width:621px) {
+@media screen and (max-width:690px) {
     body {
         font-size: 0.58em;
     }
@@ -257,12 +258,6 @@ input[type="submit"]
 	text-shadow: 1px 1px 0 #EBEBEB;
 	text-transform: uppercase;
 }
-/*
-input:-webkit-input-placeholder,
-input:-moz-placeholder,
-input.placeholder { color:#666; }
-/input[placeholder]{color:#666; }
-*/
 input.placeholder { color:#666; }
 
 input[disabled='disabled'] {color: #666;}
@@ -307,7 +302,7 @@ background: linear-gradient(top, #e8e8e8 0%,#b5b5b5 100%); /* W3C */
 #tab-navigation li span {font-size: 1.2em; font-weight: bold; margin-right: 0.5em;}
 #tab-navigation li.selected {background: white;}
 #tab-navigation li.selected a {color: black;}
-#tab-navigation li a:hover, #tab-navigation li.selected a:hover {text-decoration: none;}
+#tab-navigation li a:hover, #tab-navigation li.selected a:hover {text-decoration: underline;}
 
 @media screen and (max-width: 800px) {
        #tab-navigation li { padding: 0.5em 0.8em;}

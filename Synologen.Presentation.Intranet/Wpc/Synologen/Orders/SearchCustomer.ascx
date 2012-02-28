@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SearchCustomer.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders.SearchCustomer" %>
-	
 <div id="page" class="step1">
     <div>
 		<h1>Linsabonnemang demo</h1>
@@ -16,7 +15,7 @@
     	<p>
             <label for="<%=txtPersonalIdNumber.ClientID%>">Personnummer</label>
             <span>
-				<asp:TextBox ID="txtPersonalIdNumber" runat="server" />
+				<asp:TextBox ID="txtPersonalIdNumber" runat="server" placeholder="ÅÅÅÅMMDDNNNN" />
 				<asp:RequiredFieldValidator ID="reqtxtPersonalIdNumber" runat="server" ErrorMessage="Personnummer måste anges" ControlToValidate="txtPersonalIdNumber" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
 				<asp:RegularExpressionValidator ID="regextxtPersonalIdNumber" ValidationExpression="^(19|20)(\d){2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{4}$" runat="server" ErrorMessage="Personnummer måste anges som ÅÅÅÅMMDDXXXX" Display="Dynamic" ControlToValidate="txtPersonalIdNumber" CssClass="error-message">*</asp:RegularExpressionValidator>
             </span>

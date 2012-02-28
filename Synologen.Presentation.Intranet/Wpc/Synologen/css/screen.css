@@ -257,6 +257,13 @@ input[type="submit"]
 	text-shadow: 1px 1px 0 #EBEBEB;
 	text-transform: uppercase;
 }
+/*
+input:-webkit-input-placeholder,
+input:-moz-placeholder,
+input.placeholder { color:#666; }
+/input[placeholder]{color:#666; }
+*/
+input.placeholder { color:#666; }
 
 input[disabled='disabled'] {color: #666;}
 

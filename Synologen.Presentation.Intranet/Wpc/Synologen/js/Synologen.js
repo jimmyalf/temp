@@ -8,6 +8,7 @@
 			$.SynologenIntranet.initProgressBar(6);
 			$.SynologenIntranet.initRadioButtonLists();
 			$.SynologenIntranet.initAutogiroDetailView();
+			$.SynologenIntranet.initPlaceHolderPolyFill();
 		},
 
 		initDisableTabLinks: function () {
@@ -18,7 +19,10 @@
 		},
 
 		initYammer: function () {
-			if (!$.isFunction($.fancybox)) return;
+			if (!$.isFunction($.fancybox)) {
+				console.log("Fancybox plugin cannot be found.");
+				return;
+			}
 			$(".fancybox").fancybox();
 		},
 
@@ -47,6 +51,14 @@
 			var input = $("input.custom-number-of-withdrawals");
 			var li = $(".step5 .radio-list li").last();
 			li.append(input);
+		},
+
+		initPlaceHolderPolyFill: function () {
+			if (!$.isFunction($('input, textarea').placeholder)) {
+				console.log("Placeholder polyfill plugin cannot be found.");
+				return;
+			}
+			$('input, textarea').placeholder();
 		}
 	});
 

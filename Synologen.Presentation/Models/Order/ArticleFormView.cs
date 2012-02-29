@@ -133,10 +133,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			if (!Min.HasValue) yield return new ValidationError(propertyName + ".Min", "Min saknar värde");
 			if (!Max.HasValue) yield return new ValidationError(propertyName + ".Max", "Max saknar värde");
 			if (!Increment.HasValue) yield return new ValidationError(propertyName + ".Increment", "Inkrement saknar värde");
-			if (Increment.HasValue && Increment <= 0) yield return new ValidationError(propertyName + ".Increment", "Inkrement måste anges större än 0");
-			if(Min.HasValue && Max.HasValue && Min.Value >= Max.Value)
+			if (Increment.HasValue && Increment < 0) yield return new ValidationError(propertyName + ".Increment", "Inkrement måste anges som noll eller större");
+			if(Min.HasValue && Max.HasValue && Min.Value > Max.Value)
 			{
-			    yield return new ValidationError(propertyName + ".Min", "Min måste vara mindre än Max");
+			    yield return new ValidationError(propertyName + ".Min", "Min måste vara mindre eller lika med Max");
+			}
+			if(Min.HasValue && Max.HasValue && Min.Value == Max.Value && Increment.HasValue && Increment.Value != 0)
+			{
+			    yield return new ValidationError(propertyName + ".Increment", "Om Min = Max, måste Inkrement anges som 0");
 			}
 		}
 

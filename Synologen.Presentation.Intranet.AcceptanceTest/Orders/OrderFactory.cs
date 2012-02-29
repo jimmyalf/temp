@@ -165,20 +165,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public static IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
         {
 			yield return new ListItem("-- Välj --","-9999");
-        	foreach (var value in GetValuesForDefinition(sequence.Min, sequence.Max, sequence.Increment))
+        	foreach (var value in sequence.Enumerate())
         	{
         		yield return new ListItem {Value = value.ToString("N2"), Text = value.ToString("N2")};
         	}
         }
-
-		private static IEnumerable<decimal> GetValuesForDefinition(decimal min, decimal max, decimal increment)
-		{
-			if (increment <= 0) yield return min;
-            for (var value = min; value <= max; value += increment)
-            {
-            	yield return value;
-            }
-		}
 
 	    public static IEnumerable<ArticleSupplier> GetSuppliers()
 	    {

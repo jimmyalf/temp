@@ -135,7 +135,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
         public IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
         {
 			yield return new ListItem("-- Välj --","-9999");
-        	foreach (var value in GetValuesForDefinition(sequence.Min, sequence.Max, sequence.Increment))
+        	foreach (var value in sequence.Enumerate())
         	{
         		yield return new ListItem {Value = value.ToString(), Text = value.ToString()};
         	}
@@ -154,15 +154,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			customer.PersonalIdNumber = editCustomerEventArgs.PersonalIdNumber; 
 			customer.Phone = editCustomerEventArgs.Phone;
 			customer.PostalCode = editCustomerEventArgs.PostalCode;
-		}
-
-		private static IEnumerable<decimal> GetValuesForDefinition(decimal min, decimal max, decimal increment)
-		{
-			if (increment <= 0) yield return min;
-            for (var value = min; value <= max; value += increment)
-            {
-            	yield return value;
-            }
 		}
 	}
 }

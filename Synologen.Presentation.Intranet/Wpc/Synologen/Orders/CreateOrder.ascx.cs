@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
@@ -34,7 +33,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	{
     		if(SelectedCategory == null) return;
     		var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-            SelectedCategory(this, new SelectedSomethingEventArgs(categoryId));
+            SelectedCategory(this, new SelectedSomethingEventArgs{SelectedCategoryId = categoryId});
     	}
 
         private void Select_ArticleType(object sender, EventArgs e)
@@ -42,7 +41,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             if (SelectedArticleType == null) return;
             var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
             var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-            SelectedArticleType(this, new SelectedSomethingEventArgs(categoryId, articleTypeId));
+            SelectedArticleType(this, new SelectedSomethingEventArgs{SelectedCategoryId = categoryId, SelectedArticleTypeId = articleTypeId});
         }
 
         private void Select_Supplier(object sender, EventArgs e)
@@ -51,7 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             var supplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue);
             var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
             var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-            SelectedSupplier(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId));
+			SelectedSupplier(this, new SelectedSomethingEventArgs{SelectedCategoryId = categoryId, SelectedArticleTypeId = articleTypeId, SelectedSupplierId = supplierId});
         }
 
         private void Select_Article(object sender, EventArgs e)
@@ -62,69 +61,46 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
             var articleId = Convert.ToInt32(ddlPickArticle.SelectedValue);
             var articleOption = Convert.ToInt32(ddlShippingOptions.SelectedValue);
-            SelectedArticle(this, new SelectedSomethingEventArgs(categoryId, articleTypeId, supplierId, articleId, articleOption));
+			SelectedArticle(this, new SelectedSomethingEventArgs{SelectedCategoryId = categoryId, SelectedArticleTypeId = articleTypeId, SelectedSupplierId = supplierId, SelectedArticleId = articleId, SelectedShippingOption = articleOption});
         }
 
         private void NextStep(object sender, EventArgs e)
         {
             Page.Validate();
-            if (!Page.IsValid)
-            {
-                var supplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue);
-                var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
-                var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-                var articleId = Convert.ToInt32(ddlPickArticle.SelectedValue);
-                var selectedShippingOption = Convert.ToInt32(ddlShippingOptions.SelectedValue);
-				//TODO: Consider switching to deciamal type
-                var selectedLeftBaseCurve = Convert.ToDecimal(ddlLeftBaskurva.SelectedValue);
-                var selectedLeftAxis = Convert.ToDecimal(ddlLeftAxis.SelectedValue);
-                var selectedLeftCylinder = Convert.ToDecimal(ddlLeftCylinder.SelectedValue);
-                var selectedLeftDiameter = Convert.ToDecimal(ddlLeftDiameter.SelectedValue);
-                var selectedLeftPower = Convert.ToDecimal(ddlLeftStrength.SelectedValue);
-                var selectedLeftAddition = Convert.ToDecimal(ddlLeftAddition.SelectedValue);
-                var selectedRightBaseCurve = Convert.ToDecimal(ddlRightBaskurva.SelectedValue);
-                var selectedRightAxis = Convert.ToDecimal(ddlRightAxis.SelectedValue);
-                var selectedRightCylinder = Convert.ToDecimal(ddlRightCylinder.SelectedValue);
-                var selectedRightDiameter = Convert.ToDecimal(ddlRightDiameter.SelectedValue);
-                var selectedRightPower = Convert.ToDecimal(ddlRightStrength.SelectedValue);
-                var selectedRightAddition = Convert.ToDecimal(ddlRightAddition.SelectedValue);
-
-                SelectedArticle(this, new SelectedSomethingEventArgs(
-                    categoryId, 
-                    articleTypeId, 
-                    supplierId, 
-                    articleId, 
-                    selectedShippingOption,
-                    selectedLeftPower, 
-                    selectedLeftBaseCurve, 
-                    selectedLeftDiameter, 
-                    selectedLeftCylinder,
-                    selectedLeftAxis,
-                    selectedLeftAddition,
-                    selectedRightPower, 
-                    selectedRightBaseCurve, 
-                    selectedRightDiameter, 
-                    selectedRightCylinder, 
-                    selectedRightAxis,
-                    selectedRightAddition));
-                return;
-            }
+            if (!Page.IsValid) return;
+            //{
+				//SelectedArticle(this, new SelectedSomethingEventArgs
+				//{
+				//    SelectedCategoryId = Convert.ToInt32(ddlPickCategory.SelectedValue),
+				//    SelectedArticleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue),
+				//    SelectedArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
+				//    SelectedShippingOption = Convert.ToInt32(ddlShippingOptions.SelectedValue),
+				//    SelectedSupplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue),
+				//    SelectedBaseCurve = GetEyeParameter(ddlLeftBaskurva,ddlRightBaskurva),
+				//    SelectedDiameter = GetEyeParameter(ddlLeftDiameter, ddlRightDiameter),
+				//    SelectedPower = GetEyeParameter(ddlLeftStrength, ddlRightStrength),
+				//    SelectedAxis = GetEyeParameter(ddlLeftAxis, ddlRightAxis),
+				//    SelectedCylinder = GetEyeParameter(ddlLeftCylinder, ddlRightCylinder),
+				//    SelectedAddition = GetEyeParameter(ddlLeftAddition,ddlRightAddition)
+				//});
+                //return;
+            //}
 
             var args = new CreateOrderEventArgs
             {
                 ArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
                 ShipmentOption = Convert.ToInt32(ddlShippingOptions.SelectedValue),
-				BaseCurve = GetEyeParameter(ddlLeftBaskurva,ddlRightBaskurva),
-				Diameter = GetEyeParameter(ddlLeftDiameter, ddlRightDiameter),
-				Power = GetEyeParameter(ddlLeftStrength, ddlRightStrength),
-				Axis = GetEyeParameter(ddlLeftAxis, ddlRightAxis),
-				Cylinder = GetEyeParameter(ddlLeftCylinder, ddlRightCylinder),
-				Addition = GetEyeParameter(ddlLeftAddition,ddlRightAddition)
+				BaseCurve = GetEyeParameterNullable(ddlLeftBaskurva,ddlRightBaskurva),
+				Diameter = GetEyeParameterNullable(ddlLeftDiameter, ddlRightDiameter),
+				Power = GetEyeParameterNullable(ddlLeftStrength, ddlRightStrength),
+				Axis = GetEyeParameterNullable(ddlLeftAxis, ddlRightAxis),
+				Cylinder = GetEyeParameterNullable(ddlLeftCylinder, ddlRightCylinder),
+				Addition = GetEyeParameterNullable(ddlLeftAddition,ddlRightAddition)
             };
 			TryFireSubmit(sender, args);
         }
 
-		private EyeParameter<decimal?> GetEyeParameter(DropDownList leftDropDownListControl, DropDownList rightDropDownListControl)
+		private EyeParameter<decimal?> GetEyeParameterNullable(DropDownList leftDropDownListControl, DropDownList rightDropDownListControl)
 		{
 			return new EyeParameter<decimal?>
 			{
@@ -132,6 +108,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 				Right = Convert.ToDecimal(rightDropDownListControl.SelectedValue)
 			};
 		}
+
+		//private EyeParameter<decimal> GetEyeParameter(DropDownList leftDropDownListControl, DropDownList rightDropDownListControl)
+		//{
+		//    return new EyeParameter<decimal>
+		//    {
+		//        Left = Convert.ToDecimal(leftDropDownListControl.SelectedValue),
+		//        Right = Convert.ToDecimal(rightDropDownListControl.SelectedValue)
+		//    };
+		//}
 
         private void PreviousStep(object sender, EventArgs e)
         {

@@ -10,6 +10,7 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
@@ -28,6 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         private readonly ILensRecipeRepository _lensRecipeRepository;
     	private readonly IShopRepository _shopRepository;
     	private readonly ISynologenMemberService _synologenMemberService;
+    	private decimal DefaultEyeParameterValue = CreateOrderModel.DefaultOptionValue;
 
     	//TODO: Consider removing -9999 "magic number" and replace with a named constant
 
@@ -106,18 +108,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.SelectedArticleId = args.SelectedArticleId;
             View.Model.SelectedShippingOption = args.SelectedShippingOption;
 
-            View.Model.SelectedLeftPower = args.SelectedLeftPower;
-            View.Model.SelectedLeftBaseCurve = args.SelectedLeftBaseCurve;
-            View.Model.SelectedLeftDiameter = args.SelectedLeftDiameter;
-            View.Model.SelectedLeftCylinder = args.SelectedLeftCylinder;
-            View.Model.SelectedLeftAxis = args.SelectedLeftAxis;
-            View.Model.SelectedLeftAddition = args.SelectedLeftAddition;
-            View.Model.SelectedRightPower = args.SelectedRightPower;
-            View.Model.SelectedRightBaseCurve = args.SelectedRightBaseCurve;
-            View.Model.SelectedRightDiameter = args.SelectedRightDiameter;
-            View.Model.SelectedRightCylinder = args.SelectedRightCylinder;
-            View.Model.SelectedRightAxis = args.SelectedRightAxis;
-            View.Model.SelectedRightAddition = args.SelectedRightAddition;
+            View.Model.SelectedLeftPower = args.SelectedPower.Left;
+            View.Model.SelectedLeftBaseCurve = args.SelectedBaseCurve.Left;
+            View.Model.SelectedLeftDiameter = args.SelectedDiameter.Left;
+            View.Model.SelectedLeftCylinder = args.SelectedCylinder.Left;
+            View.Model.SelectedLeftAxis = args.SelectedAxis.Left;
+            View.Model.SelectedLeftAddition = args.SelectedAddition.Left;
+            View.Model.SelectedRightPower = args.SelectedPower.Right;
+            View.Model.SelectedRightBaseCurve = args.SelectedBaseCurve.Right;
+            View.Model.SelectedRightDiameter = args.SelectedDiameter.Right;
+            View.Model.SelectedRightCylinder = args.SelectedCylinder.Right;
+            View.Model.SelectedRightAxis = args.SelectedAxis.Right;
+            View.Model.SelectedRightAddition = args.SelectedAddition.Right;
         }
 
 
@@ -132,7 +134,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     	private int CreateNewOrder(CreateOrderEventArgs form)
         {
             var article = _articleRepository.Get(form.ArticleId);
-			//TODO: Move parsing into view parser
             var lensRecipe = new LensRecipe
             {
                 Axis = form.Axis,//form.GetEyeParameter(x => x.LeftAxis, x => x.RightAxis),
@@ -197,21 +198,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                     SelectedShippingOption = (int)order.ShippingType,
                     SelectedSupplierId = order.Article.ArticleSupplier.Id,
 
-                    ExistingOrderId = order.Id,
-                        
-                    SelectedLeftAddition = GetEyeParameterValueOrDefault(order.LensRecipe.Addition, x => x.Left),
-					SelectedLeftAxis = GetEyeParameterValueOrDefault(order.LensRecipe.Axis, x => x.Left),
-                    SelectedLeftBaseCurve = GetEyeParameterValueOrDefault(order.LensRecipe.BaseCurve, x => x.Left),
-                    SelectedLeftCylinder = GetEyeParameterValueOrDefault(order.LensRecipe.Cylinder, x => x.Left),
-                    SelectedLeftDiameter = GetEyeParameterValueOrDefault(order.LensRecipe.Diameter, x => x.Left),
-                    SelectedLeftPower = GetEyeParameterValueOrDefault(order.LensRecipe.Power, x => x.Left),
-
-                    SelectedRightAddition = GetEyeParameterValueOrDefault(order.LensRecipe.Addition, x => x.Right),
-                    SelectedRightAxis = GetEyeParameterValueOrDefault(order.LensRecipe.Axis, x => x.Right),
-                    SelectedRightBaseCurve = GetEyeParameterValueOrDefault(order.LensRecipe.BaseCurve, x => x.Right),
-                    SelectedRightCylinder = GetEyeParameterValueOrDefault(order.LensRecipe.Cylinder, x => x.Right),
-                    SelectedRightDiameter = GetEyeParameterValueOrDefault(order.LensRecipe.Diameter, x => x.Right),
-                    SelectedRightPower = GetEyeParameterValueOrDefault(order.LensRecipe.Power, x => x.Right),
+                    SelectedAddition = GetEyeParameterOrDefault(order.LensRecipe.Addition),
+					SelectedAxis = GetEyeParameterOrDefault(order.LensRecipe.Axis),
+                    SelectedBaseCurve = GetEyeParameterOrDefault(order.LensRecipe.BaseCurve),
+                    SelectedCylinder = GetEyeParameterOrDefault(order.LensRecipe.Cylinder),
+                    SelectedDiameter = GetEyeParameterOrDefault(order.LensRecipe.Diameter),
+                    SelectedPower = GetEyeParameterOrDefault(order.LensRecipe.Power),
                 };
 
 				View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);
@@ -229,10 +221,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			}
         } 
 
-		private decimal GetEyeParameterValueOrDefault(EyeParameter<decimal?> parameter, Func<EyeParameter<decimal?>,decimal?> value)
+		private EyeParameter<decimal> GetEyeParameterOrDefault(EyeParameter<decimal?> parameter)
 		{
-		    if (parameter == null) return -9999;
-		    return value(parameter) ?? -9999;
+			if (parameter == null) return new EyeParameter<decimal>(DefaultEyeParameterValue, DefaultEyeParameterValue);	
+			return new EyeParameter<decimal>
+			{
+				Left = parameter.Left ?? DefaultEyeParameterValue,
+				Right = parameter.Right ?? DefaultEyeParameterValue,
+			};
 		}
 
         public void View_Abort(object o, EventArgs eventArgs)

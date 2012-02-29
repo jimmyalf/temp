@@ -5,7 +5,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 {
     public class CreateOrderModel
     {
-		public const int DefaultOptionValue = -9999;
+		public static int DefaultOptionValue = -9999;
         public CreateOrderModel()
     	{
     	    

@@ -252,22 +252,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AnvändarenVäljerArtikeln()
         {
-            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(selectedArticleId: _expectedArticle.Id));
+        	_createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs {SelectedArticleId = _expectedArticle.Id});
         }
 
         private void AnvändarenVäljerEnArtikeltyp()
         {
-            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(selectedArticleTypeId: _selectedArticleType.Id));
+        	_createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs {SelectedArticleTypeId = _selectedArticleType.Id});
         }
 
         private void AnvändarenVäljerEnLeverantör()
         {
-            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(selectedArticleTypeId: _selectedArticleType.Id, selectedSupplierId: _selectedSupplier.Id));
+        	_createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs {SelectedArticleTypeId = _selectedArticleType.Id, SelectedSupplierId = _selectedSupplier.Id});
         }
 
         private void AnvändarenVäljerEnKategori()
         {
-            _createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs(_selectedCategory.Id));
+        	_createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs {SelectedCategoryId = _selectedCategory.Id});
         }
 
     	private void AttAnvändarenVisarBeställningsformuläret()

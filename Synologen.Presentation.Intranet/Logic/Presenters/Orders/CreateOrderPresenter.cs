@@ -91,15 +91,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 var article = _articleRepository.Get(args.SelectedArticleId);
                 var options = article.Options;
                 if (options == null) return;
-                View.Model.PowerOptions = _viewParser.FillWithIncrementalValues(options.Power);
                 View.Model.DiameterOptions = _viewParser.FillWithIncrementalValues(options.Diameter);
                 View.Model.BaseCurveOptions = _viewParser.FillWithIncrementalValues(options.BaseCurve);
-                View.Model.AxisOptions = _viewParser.FillWithIncrementalValues(options.Axis);
-				View.Model.AxisOptionsEnabled = !options.Axis.DisableDefinition;
-                View.Model.CylinderOptions = _viewParser.FillWithIncrementalValues(options.Cylinder);
-				View.Model.CylinderOptionsEnabled = !options.Cylinder.DisableDefinition;
-                View.Model.AdditionOptions = _viewParser.FillWithIncrementalValues(options.Addition);
-            	View.Model.AdditionOptionsEnabled = !options.Addition.DisableDefinition;
+				View.Model.AxisOptionsEnabled = options.EnableAxis;
+				View.Model.CylinderOptionsEnabled = options.EnableCylinder;
+            	View.Model.AdditionOptionsEnabled = options.EnableAddition;
             }
 
             View.Model.SelectedCategoryId = args.SelectedCategoryId;
@@ -108,18 +104,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.SelectedArticleId = args.SelectedArticleId;
             View.Model.SelectedShippingOption = args.SelectedShippingOption;
 
-            View.Model.SelectedLeftPower = args.SelectedPower.Left;
-            View.Model.SelectedLeftBaseCurve = args.SelectedBaseCurve.Left;
-            View.Model.SelectedLeftDiameter = args.SelectedDiameter.Left;
-            View.Model.SelectedLeftCylinder = args.SelectedCylinder.Left;
-            View.Model.SelectedLeftAxis = args.SelectedAxis.Left;
-            View.Model.SelectedLeftAddition = args.SelectedAddition.Left;
-            View.Model.SelectedRightPower = args.SelectedPower.Right;
-            View.Model.SelectedRightBaseCurve = args.SelectedBaseCurve.Right;
-            View.Model.SelectedRightDiameter = args.SelectedDiameter.Right;
-            View.Model.SelectedRightCylinder = args.SelectedCylinder.Right;
-            View.Model.SelectedRightAxis = args.SelectedAxis.Right;
-            View.Model.SelectedRightAddition = args.SelectedAddition.Right;
+            View.Model.SelectedPower = args.SelectedPower;
+            View.Model.SelectedBaseCurve = args.SelectedBaseCurve;
+            View.Model.SelectedDiameter = args.SelectedDiameter;
+            View.Model.SelectedCylinder = args.SelectedCylinder;
+            View.Model.SelectedAxis = args.SelectedAxis;
+            View.Model.SelectedAddition = args.SelectedAddition;
         }
 
 
@@ -136,12 +126,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             var article = _articleRepository.Get(form.ArticleId);
             var lensRecipe = new LensRecipe
             {
-                Axis = form.Axis,//form.GetEyeParameter(x => x.LeftAxis, x => x.RightAxis),
-                BaseCurve = form.BaseCurve, //form.GetEyeParameter(x => x.LeftBaseCurve, x => x.RightBaseCurve),
-                Cylinder = form.Cylinder, //.GetEyeParameter(x => x.LeftCylinder, x => x.RightCylinder),
-                Diameter = form.Diameter, //.GetEyeParameter(x => x.LeftDiameter, x => x.RightDiameter),
-                Power = form.Power, //.GetEyeParameter(x => x.LeftPower, x => x.RightPower),
-                Addition = form.Addition //.GetEyeParameter(x => x.LeftAddition, x => x.RightAddition)
+                Axis = form.Axis,
+                BaseCurve = form.BaseCurve,
+                Cylinder = form.Cylinder,
+                Diameter = form.Diameter,
+                Power = form.Power,
+                Addition = form.Addition
             };
             _lensRecipeRepository.Save(lensRecipe);
 
@@ -198,12 +188,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                     SelectedShippingOption = (int)order.ShippingType,
                     SelectedSupplierId = order.Article.ArticleSupplier.Id,
 
-                    SelectedAddition = GetEyeParameterOrDefault(order.LensRecipe.Addition),
-					SelectedAxis = GetEyeParameterOrDefault(order.LensRecipe.Axis),
+					SelectedPower = order.LensRecipe.Power,
+                    SelectedAddition = order.LensRecipe.Addition,
+					SelectedAxis = order.LensRecipe.Axis,
+					SelectedCylinder = order.LensRecipe.Cylinder,
                     SelectedBaseCurve = GetEyeParameterOrDefault(order.LensRecipe.BaseCurve),
-                    SelectedCylinder = GetEyeParameterOrDefault(order.LensRecipe.Cylinder),
                     SelectedDiameter = GetEyeParameterOrDefault(order.LensRecipe.Diameter),
-                    SelectedPower = GetEyeParameterOrDefault(order.LensRecipe.Power),
+                    
                 };
 
 				View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);

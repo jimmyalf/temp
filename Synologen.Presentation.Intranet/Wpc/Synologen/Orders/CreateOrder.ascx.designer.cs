@@ -22,15 +22,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.DropDownList ddlPickCategory;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-        
-        /// <summary>
         /// ddlPickKind control.
         /// </summary>
         /// <remarks>
@@ -38,15 +29,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPickKind;
-        
-        /// <summary>
-        /// RequiredFieldValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
         /// ddlPickSupplier control.
@@ -58,15 +40,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.DropDownList ddlPickSupplier;
         
         /// <summary>
-        /// RequiredFieldValidator3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
-        
-        /// <summary>
         /// ddlPickArticle control.
         /// </summary>
         /// <remarks>
@@ -76,49 +49,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.DropDownList ddlPickArticle;
         
         /// <summary>
-        /// RequiredFieldValidator4 control.
+        /// txtRightStrength control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        protected global::System.Web.UI.WebControls.TextBox txtRightStrength;
         
         /// <summary>
-        /// ddlRightStrength control.
+        /// txtRightAddition control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRightStrength;
-        
-        /// <summary>
-        /// RequiredFieldValidator5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
-        
-        /// <summary>
-        /// ddlRightAddition control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRightAddition;
-        
-        /// <summary>
-        /// RequiredFieldValidator15 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator15;
+        protected global::System.Web.UI.WebControls.TextBox txtRightAddition;
         
         /// <summary>
         /// ddlRightBaskurva control.
@@ -130,15 +76,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.DropDownList ddlRightBaskurva;
         
         /// <summary>
-        /// RequiredFieldValidator6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
-        
-        /// <summary>
         /// ddlRightDiameter control.
         /// </summary>
         /// <remarks>
@@ -148,85 +85,40 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.DropDownList ddlRightDiameter;
         
         /// <summary>
-        /// RequiredFieldValidator7 control.
+        /// txtRightAxis control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
+        protected global::System.Web.UI.WebControls.TextBox txtRightAxis;
         
         /// <summary>
-        /// ddlRightAxis control.
+        /// txtRightCylinder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRightAxis;
+        protected global::System.Web.UI.WebControls.TextBox txtRightCylinder;
         
         /// <summary>
-        /// RequiredFieldValidator8 control.
+        /// txtLeftStrength control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
+        protected global::System.Web.UI.WebControls.TextBox txtLeftStrength;
         
         /// <summary>
-        /// ddlRightCylinder control.
+        /// txtLeftAddition control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRightCylinder;
-        
-        /// <summary>
-        /// RequiredFieldValidator9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator9;
-        
-        /// <summary>
-        /// ddlLeftStrength control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLeftStrength;
-        
-        /// <summary>
-        /// RequiredFieldValidator10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator10;
-        
-        /// <summary>
-        /// ddlLeftAddition control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLeftAddition;
-        
-        /// <summary>
-        /// RequiredFieldValidator16 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator16;
+        protected global::System.Web.UI.WebControls.TextBox txtLeftAddition;
         
         /// <summary>
         /// ddlLeftBaskurva control.
@@ -238,15 +130,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.DropDownList ddlLeftBaskurva;
         
         /// <summary>
-        /// RequiredFieldValidator11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator11;
-        
-        /// <summary>
         /// ddlLeftDiameter control.
         /// </summary>
         /// <remarks>
@@ -256,49 +139,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.DropDownList ddlLeftDiameter;
         
         /// <summary>
-        /// RequiredFieldValidator12 control.
+        /// txtLeftAxis control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator12;
+        protected global::System.Web.UI.WebControls.TextBox txtLeftAxis;
         
         /// <summary>
-        /// ddlLeftAxis control.
+        /// txtLeftCylinder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLeftAxis;
-        
-        /// <summary>
-        /// RequiredFieldValidator13 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator13;
-        
-        /// <summary>
-        /// ddlLeftCylinder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLeftCylinder;
-        
-        /// <summary>
-        /// RequiredFieldValidator14 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator14;
+        protected global::System.Web.UI.WebControls.TextBox txtLeftCylinder;
         
         /// <summary>
         /// ddlShippingOptions control.
@@ -308,15 +164,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlShippingOptions;
-        
-        /// <summary>
-        /// RequiredFieldValidator17 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator17;
         
         /// <summary>
         /// btnPreviousStep control.

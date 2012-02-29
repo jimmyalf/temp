@@ -31,49 +31,18 @@
 						<%= Html.ValidationMessageFor(x => x.Name) %>
 					</p>
 					<fieldset class="clearLeft">
-						<legend><%=Html.GetDisplayNameFor(x => x.Addition)%></legend>
+						<legend>Synliga parametrar</legend>
 						<p class="formItem clearLeft">
-							<%=Html.LabelFor(x => x.Addition.Min)%>
-							<%=Html.EditorFor(x => x.Addition.Min)%>
-							<%=Html.ValidationMessageFor(x => x.Addition.Min)%>
+							<%=Html.LabelFor(x => x.EnableAddition)%>
+							<%=Html.EditorFor(x => x.EnableAddition)%>
 						</p>
 						<p class="formItem">
-							<%=Html.LabelFor(x => x.Addition.Max)%>
-							<%=Html.EditorFor(x => x.Addition.Max)%>
-							<%=Html.ValidationMessageFor(x => x.Addition.Max)%>
+							<%=Html.LabelFor(x => x.EnableAxis)%>
+							<%=Html.EditorFor(x => x.EnableAxis)%>
 						</p>
 						<p class="formItem">
-							<%=Html.LabelFor(x => x.Addition.Increment)%>
-							<%=Html.EditorFor(x => x.Addition.Increment)%>
-							<%=Html.ValidationMessageFor(x => x.Addition.Increment)%>
-						</p>
-						<p class="formItem">
-							<%=Html.LabelFor(x => x.Addition.Disable)%>
-							<%=Html.EditorFor(x => x.Addition.Disable)%>
-							<%=Html.ValidationMessageFor(x => x.Addition.Disable)%>
-						</p>
-					</fieldset>
-					<fieldset class="clearLeft">
-						<legend><%=Html.GetDisplayNameFor(x => x.Axis)%></legend>
-						<p class="formItem clearLeft">
-							<%=Html.LabelFor(x => x.Axis.Min)%>
-							<%=Html.EditorFor(x => x.Axis.Min)%>
-							<%=Html.ValidationMessageFor(x => x.Axis.Min)%>
-						</p>
-						<p class="formItem">
-							<%=Html.LabelFor(x => x.Axis.Max)%>
-							<%=Html.EditorFor(x => x.Axis.Max)%>
-							<%=Html.ValidationMessageFor(x => x.Axis.Max)%>
-						</p>
-						<p class="formItem">
-							<%=Html.LabelFor(x => x.Axis.Increment)%>
-							<%=Html.EditorFor(x => x.Axis.Increment)%>
-							<%=Html.ValidationMessageFor(x => x.Axis.Increment)%>
-						</p>
-						<p class="formItem">
-							<%=Html.LabelFor(x => x.Axis.Disable)%>
-							<%=Html.EditorFor(x => x.Axis.Disable)%>
-							<%=Html.ValidationMessageFor(x => x.Axis.Disable)%>
+							<%=Html.LabelFor(x => x.EnableCylinder)%>
+							<%=Html.EditorFor(x => x.EnableCylinder)%>
 						</p>
 					</fieldset>
 					<fieldset class="clearLeft">
@@ -95,29 +64,6 @@
 						</p>
 					</fieldset>
 					<fieldset class="clearLeft">
-						<legend><%=Html.GetDisplayNameFor(x => x.Cylinder)%></legend>
-						<p class="formItem clearLeft">
-							<%=Html.LabelFor(x => x.Cylinder.Min)%>
-							<%=Html.EditorFor(x => x.Cylinder.Min)%>
-							<%=Html.ValidationMessageFor(x => x.Cylinder.Min)%>
-						</p>
-						<p class="formItem">
-							<%=Html.LabelFor(x => x.Cylinder.Max)%>
-							<%=Html.EditorFor(x => x.Cylinder.Max)%>
-							<%=Html.ValidationMessageFor(x => x.Cylinder.Max)%>
-						</p>
-						<p class="formItem">
-							<%=Html.LabelFor(x => x.Cylinder.Increment)%>
-							<%=Html.EditorFor(x => x.Cylinder.Increment)%>
-							<%=Html.ValidationMessageFor(x => x.Cylinder.Increment)%>
-						</p>
-						<p class="formItem">
-							<%=Html.LabelFor(x => x.Cylinder.Disable)%>
-							<%=Html.EditorFor(x => x.Cylinder.Disable)%>
-							<%=Html.ValidationMessageFor(x => x.Cylinder.Disable)%>
-						</p>
-					</fieldset>
-					<fieldset class="clearLeft">
 						<legend><%=Html.GetDisplayNameFor(x => x.Diameter)%></legend>
 							<p class="formItem clearLeft">
 								<%=Html.LabelFor(x => x.Diameter.Min)%>
@@ -133,24 +79,6 @@
 								<%=Html.LabelFor(x => x.Diameter.Increment)%>
 								<%=Html.EditorFor(x => x.Diameter.Increment)%>
 								<%=Html.ValidationMessageFor(x => x.Diameter.Increment)%>
-							</p>
-					</fieldset>
-					<fieldset class="clearLeft">
-						<legend><%=Html.GetDisplayNameFor(x => x.Power)%></legend>
-							<p class="formItem clearLeft">
-								<%=Html.LabelFor(x => x.Power.Min)%>
-								<%=Html.EditorFor(x => x.Power.Min)%>
-								<%=Html.ValidationMessageFor(x => x.Power.Min)%>
-							</p>
-							<p class="formItem">
-								<%=Html.LabelFor(x => x.Power.Max)%>
-								<%=Html.EditorFor(x => x.Power.Max)%>
-								<%=Html.ValidationMessageFor(x => x.Power.Max)%>
-							</p>
-							<p class="formItem">
-								<%=Html.LabelFor(x => x.Power.Increment)%>
-								<%=Html.EditorFor(x => x.Power.Increment)%>
-								<%=Html.ValidationMessageFor(x => x.Power.Increment)%>
 							</p>
 					</fieldset>
 					<p class="formItem clearLeft">

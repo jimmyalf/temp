@@ -165,7 +165,6 @@
     <Compile Include="Domain\Model\Orders\SubscriptionPendingPayment.cs" />
     <Compile Include="Domain\Model\Orders\EyeParameter.cs" />
     <Compile Include="Domain\Model\Orders\LensRecipe.cs" />
-    <Compile Include="Domain\Model\Orders\OptionalSequenceDefinition.cs" />
     <Compile Include="Domain\Model\Orders\Shop.cs" />
     <Compile Include="Domain\Model\ShopDetails\Coordinates.cs" />
     <Compile Include="Domain\Model\FrameOrder\EyeParameter.cs" />
@@ -413,7 +412,6 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

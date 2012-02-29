@@ -19,7 +19,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
         IEnumerable<ListItem> ParseWithDefaultItem<TModel>(IEnumerable<TModel> list, Func<TModel, ListItem> convert);
 		IEnumerable<ListItem> Parse<TEnumType>(TEnumType value) where TEnumType : struct;
 	    IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence);
-		IEnumerable<ListItem> FillWithIncrementalValues(OptionalSequenceDefinition sequence);
 		void Fill(OrderCustomer customer, EditCustomerEventArgs editCustomerEventArgs);
 	}
 
@@ -132,20 +131,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			}
 	        return listOfItems;
 	    }
+
         public IEnumerable<ListItem> FillWithIncrementalValues(SequenceDefinition sequence)
         {
 			yield return new ListItem("-- Välj --","-9999");
         	foreach (var value in GetValuesForDefinition(sequence.Min, sequence.Max, sequence.Increment))
-        	{
-        		yield return new ListItem {Value = value.ToString(), Text = value.ToString()};
-        	}
-        }
-
-        public IEnumerable<ListItem> FillWithIncrementalValues(OptionalSequenceDefinition sequence)
-        {
-			yield return new ListItem("-- Välj --","-9999");
-			if(sequence.DisableDefinition) yield break;
-        	foreach (var value in GetValuesForDefinition(sequence.Min ?? default(decimal), sequence.Max  ?? default(decimal), sequence.Increment  ?? default(decimal)))
         	{
         		yield return new ListItem {Value = value.ToString(), Text = value.ToString()};
         	}

@@ -22,11 +22,6 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.App.Bootstrapping
 		private static void SetupNHibernate()
 		{
 			NHibernateFactory.MappingAssemblies.Add(typeof(SqlProvider).Assembly);
-		    //ActionCriteriaExtensions.ConstructConvertersUsing(
-		    //    ObjectFactory
-		    //    .With(typeof(ISession), NHibernateFactory.Instance.GetSessionFactory().OpenSession())
-		    //    .GetInstance
-		    //);
 		}
 
 		private static void SetupStoryQ()

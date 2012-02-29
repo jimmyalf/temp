@@ -67,16 +67,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	                   {
 	                       ArticleId = articleId,
                            //CategoryId = 1,
-                           LeftBaseCurve = 9,
-                           LeftDiameter = -14,
-                           LeftPower = 5,
-                           LeftAxis = 5,
-                           LeftCylinder = 5,
-                           RightBaseCurve = 9,
-                           RightDiameter = -14,
-                           RightPower = 5,
-                           RightAxis = 5,
-                           RightCylinder = 5,
+						   BaseCurve = new EyeParameter<decimal?>(9,9),
+						   Diameter = new EyeParameter<decimal?>(-14,-14),
+						   Power = new EyeParameter<decimal?>(5,5),
+						   Axis = new EyeParameter<decimal?>(5,5),
+						   Cylinder = new EyeParameter<decimal?>(5,5),
+						   Addition = new EyeParameter<decimal?>(-2,-2),
+                           //LeftBaseCurve = 9,
+                           //LeftDiameter = -14,
+                           //LeftPower = 5,
+                           //LeftAxis = 5,
+                           //LeftCylinder = 5,
+                           //RightBaseCurve = 9,
+                           //RightDiameter = -14,
+                           //RightPower = 5,
+                           //RightAxis = 5,
+                           //RightCylinder = 5,
                            ShipmentOption = 1,
                            //SupplierId = 15,
                            //TypeId = 1
@@ -232,12 +238,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	    {
 	        return new LensRecipe
 	        {
-	            Addition = new EyeParameter {Left = 1, Right = 1},
-                Axis = new EyeParameter { Left = 2, Right = 2 },
-                Power = new EyeParameter { Left = 3, Right = 3 },
-                BaseCurve = new EyeParameter { Left = 4, Right = 4 },
-                Diameter = new EyeParameter { Left = 5, Right = 5 },
-                Cylinder = new EyeParameter { Left = 6, Right = 6 }
+	            Addition = new EyeParameter<decimal?>(1,1),
+                Axis = new EyeParameter<decimal?>(2,2),
+                Power = new EyeParameter<decimal?>(3,3),
+                BaseCurve = new EyeParameter<decimal?>(4,4),
+                Diameter = new EyeParameter<decimal?>(5,5),
+                Cylinder = new EyeParameter<decimal?>(6,6)
 	        };
 	    }
 

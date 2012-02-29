@@ -135,12 +135,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			//TODO: Move parsing into view parser
             var lensRecipe = new LensRecipe
             {
-                Axis = form.GetEyeParameter(x => x.LeftAxis, x => x.RightAxis),
-                BaseCurve = form.GetEyeParameter(x => x.LeftBaseCurve, x => x.RightBaseCurve),
-                Cylinder = form.GetEyeParameter(x => x.LeftCylinder, x => x.RightCylinder),
-                Diameter = form.GetEyeParameter(x => x.LeftDiameter, x => x.RightDiameter),
-                Power = form.GetEyeParameter(x => x.LeftPower, x => x.RightPower),
-                Addition = form.GetEyeParameter(x => x.LeftAddition, x => x.RightAddition)
+                Axis = form.Axis,//form.GetEyeParameter(x => x.LeftAxis, x => x.RightAxis),
+                BaseCurve = form.BaseCurve, //form.GetEyeParameter(x => x.LeftBaseCurve, x => x.RightBaseCurve),
+                Cylinder = form.Cylinder, //.GetEyeParameter(x => x.LeftCylinder, x => x.RightCylinder),
+                Diameter = form.Diameter, //.GetEyeParameter(x => x.LeftDiameter, x => x.RightDiameter),
+                Power = form.Power, //.GetEyeParameter(x => x.LeftPower, x => x.RightPower),
+                Addition = form.Addition //.GetEyeParameter(x => x.LeftAddition, x => x.RightAddition)
             };
             _lensRecipeRepository.Save(lensRecipe);
 
@@ -167,12 +167,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             _orderRepository.Save(order);
 
             var lensRecipe = order.LensRecipe;
-        	lensRecipe.Axis = form.GetEyeParameter(x => x.LeftAxis, x => x.RightAxis);
-            lensRecipe.BaseCurve = form.GetEyeParameter(x => x.LeftBaseCurve, x => x.RightBaseCurve);
-            lensRecipe.Cylinder = form.GetEyeParameter(x => x.LeftCylinder, x => x.RightCylinder);
-            lensRecipe.Diameter = form.GetEyeParameter(x => x.LeftDiameter, x => x.RightDiameter);
-            lensRecipe.Power = form.GetEyeParameter(x => x.LeftPower, x => x.RightPower);
-            lensRecipe.Addition = form.GetEyeParameter(x => x.LeftAddition, x => x.RightAddition);
+        	lensRecipe.Axis = form.Axis; //.GetEyeParameter(x => x.LeftAxis, x => x.RightAxis);
+            lensRecipe.BaseCurve = form.BaseCurve; //.GetEyeParameter(x => x.LeftBaseCurve, x => x.RightBaseCurve);
+            lensRecipe.Cylinder = form.Cylinder; //.GetEyeParameter(x => x.LeftCylinder, x => x.RightCylinder);
+            lensRecipe.Diameter = form.Diameter; //.GetEyeParameter(x => x.LeftDiameter, x => x.RightDiameter);
+            lensRecipe.Power = form.Power; //.GetEyeParameter(x => x.LeftPower, x => x.RightPower);
+            lensRecipe.Addition = form.Addition; //.GetEyeParameter(x => x.LeftAddition, x => x.RightAddition);
             _lensRecipeRepository.Save(lensRecipe);
 
             return order.Id;
@@ -229,10 +229,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			}
         } 
 
-		private decimal GetEyeParameterValueOrDefault(EyeParameter parameter, Func<EyeParameter,decimal?> value)
+		private decimal GetEyeParameterValueOrDefault(EyeParameter<decimal?> parameter, Func<EyeParameter<decimal?>,decimal?> value)
 		{
-			if (parameter == null) return -9999;
-			return value(parameter) ?? -9999;
+		    if (parameter == null) return -9999;
+		    return value(parameter) ?? -9999;
 		}
 
         public void View_Abort(object o, EventArgs eventArgs)

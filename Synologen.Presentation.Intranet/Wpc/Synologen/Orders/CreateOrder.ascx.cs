@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Web.UI.WebControls;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -112,21 +114,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             {
                 ArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
                 ShipmentOption = Convert.ToInt32(ddlShippingOptions.SelectedValue),
-                LeftBaseCurve = Convert.ToDecimal(ddlLeftBaskurva.SelectedValue),
-                LeftDiameter = Convert.ToDecimal(ddlLeftDiameter.SelectedValue),
-                LeftPower = Convert.ToDecimal(ddlLeftStrength.SelectedValue),
-                LeftAxis = Convert.ToDecimal(ddlLeftAxis.SelectedValue),
-                LeftCylinder = Convert.ToDecimal(ddlLeftCylinder.SelectedValue),
-                LeftAddition = Convert.ToDecimal(ddlLeftAddition.SelectedValue),
-                RightBaseCurve = Convert.ToDecimal(ddlRightBaskurva.SelectedValue),
-                RightDiameter = Convert.ToDecimal(ddlRightDiameter.SelectedValue),
-                RightPower = Convert.ToDecimal(ddlRightStrength.SelectedValue),
-                RightAxis = Convert.ToDecimal(ddlRightAxis.SelectedValue),
-                RightCylinder = Convert.ToDecimal(ddlRightCylinder.SelectedValue),
-                RightAddition = Convert.ToDecimal(ddlRightAddition.SelectedValue)
+				BaseCurve = GetEyeParameter(ddlLeftBaskurva,ddlRightBaskurva),
+				Diameter = GetEyeParameter(ddlLeftDiameter, ddlRightDiameter),
+				Power = GetEyeParameter(ddlLeftStrength, ddlRightStrength),
+				Axis = GetEyeParameter(ddlLeftAxis, ddlRightAxis),
+				Cylinder = GetEyeParameter(ddlLeftCylinder, ddlRightCylinder),
+				Addition = GetEyeParameter(ddlLeftAddition,ddlRightAddition)
             };
 			TryFireSubmit(sender, args);
         }
+
+		private EyeParameter<decimal?> GetEyeParameter(DropDownList leftDropDownListControl, DropDownList rightDropDownListControl)
+		{
+			return new EyeParameter<decimal?>
+			{
+				Left = Convert.ToDecimal(leftDropDownListControl.SelectedValue),
+				Right = Convert.ToDecimal(rightDropDownListControl.SelectedValue)
+			};
+		}
 
         private void PreviousStep(object sender, EventArgs e)
         {

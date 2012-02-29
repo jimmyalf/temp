@@ -61,7 +61,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
             SelectedRightCylinder = selectedRightCylinder;
             SelectedRightAxis = selectedRightAxis;
             SelectedRightAddition = selectedRightAddition;
-            //ExistingOrderId = existingOrderId;
         }
     }
 }

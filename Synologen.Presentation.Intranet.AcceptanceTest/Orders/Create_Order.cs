@@ -418,19 +418,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _order = WithRepository<IOrderRepository>().GetAll().First();
             _order.Article.Id.ShouldBe(_form.ArticleId);
             _order.Customer.Id.ShouldBe(_customer.Id);
-            _order.LensRecipe.BaseCurve.Left.ShouldBe(_form.LeftBaseCurve);
-            _order.LensRecipe.BaseCurve.Right.ShouldBe(_form.RightBaseCurve);
-            _order.LensRecipe.Diameter.Left.ShouldBe(_form.LeftDiameter);
-            _order.LensRecipe.Diameter.Right.ShouldBe(_form.RightDiameter);
-            _order.LensRecipe.Power.Left.ShouldBe(_form.LeftPower);
-            _order.LensRecipe.Power.Right.ShouldBe(_form.RightPower);
-            _order.LensRecipe.Axis.Left.ShouldBe(_form.LeftAxis);
-            _order.LensRecipe.Axis.Right.ShouldBe(_form.RightAxis);
-            _order.LensRecipe.Cylinder.Left.ShouldBe(_form.LeftCylinder);
-            _order.LensRecipe.Cylinder.Right.ShouldBe(_form.RightCylinder);
+            _order.LensRecipe.BaseCurve.Left.ShouldBe(_form.BaseCurve.Left);
+            _order.LensRecipe.BaseCurve.Right.ShouldBe(_form.BaseCurve.Right);
+            _order.LensRecipe.Diameter.Left.ShouldBe(_form.Diameter.Left);
+            _order.LensRecipe.Diameter.Right.ShouldBe(_form.Diameter.Right);
+            _order.LensRecipe.Power.Left.ShouldBe(_form.Power.Left);
+            _order.LensRecipe.Power.Right.ShouldBe(_form.Power.Right);
+            _order.LensRecipe.Axis.Left.ShouldBe(_form.Axis.Left);
+            _order.LensRecipe.Axis.Right.ShouldBe(_form.Axis.Right);
+            _order.LensRecipe.Cylinder.Left.ShouldBe(_form.Cylinder.Left);
+            _order.LensRecipe.Cylinder.Right.ShouldBe(_form.Cylinder.Right);
 
-            _order.LensRecipe.Addition.Left.ShouldBe(_form.LeftAddition);
-            _order.LensRecipe.Addition.Right.ShouldBe(_form.RightAddition);
+            _order.LensRecipe.Addition.Left.ShouldBe(_form.Addition.Left);
+            _order.LensRecipe.Addition.Right.ShouldBe(_form.Addition.Right);
             
             _order.ShippingType.ToInteger().ShouldBe(_form.ShipmentOption);
 			_order.Status.ShouldBe(OrderStatus.Created);

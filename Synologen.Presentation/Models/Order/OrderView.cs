@@ -84,7 +84,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 	public class ParameterView
 	{
 		public ParameterView() { }
-		public ParameterView(EyeParameter eyeParameter)
+		public ParameterView(EyeParameter<decimal?> eyeParameter)
 		{
 			if(eyeParameter == null) return;
 			Left = eyeParameter.Left.HasValue ? eyeParameter.Left.Value.ToString("N2") : string.Empty;

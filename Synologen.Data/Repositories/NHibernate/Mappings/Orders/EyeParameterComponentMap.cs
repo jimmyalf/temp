@@ -3,7 +3,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 {
-    public class EyeParameterComponentMap : ComponentMap<EyeParameter>
+    public class EyeParameterComponentMap<T> : ComponentMap<EyeParameter<T>>
     {
         public EyeParameterComponentMap()
         {

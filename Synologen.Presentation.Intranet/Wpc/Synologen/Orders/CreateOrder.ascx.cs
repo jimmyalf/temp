@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
@@ -32,36 +33,44 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
         private void Select_Category(object sender, EventArgs e)
     	{
     		if(SelectedCategory == null) return;
-    		var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-            SelectedCategory(this, new SelectedSomethingEventArgs{SelectedCategoryId = categoryId});
+            SelectedCategory(this, new SelectedSomethingEventArgs
+            {
+            	SelectedCategoryId = Convert.ToInt32(ddlPickCategory.SelectedValue)
+            });
     	}
 
         private void Select_ArticleType(object sender, EventArgs e)
         {
             if (SelectedArticleType == null) return;
-            var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
-            var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-            SelectedArticleType(this, new SelectedSomethingEventArgs{SelectedCategoryId = categoryId, SelectedArticleTypeId = articleTypeId});
+            SelectedArticleType(this, new SelectedSomethingEventArgs
+            {
+            	SelectedCategoryId = Convert.ToInt32(ddlPickCategory.SelectedValue), 
+				SelectedArticleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue)
+            });
         }
 
         private void Select_Supplier(object sender, EventArgs e)
         {
             if (SelectedSupplier == null) return;
-            var supplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue);
-            var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
-            var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-			SelectedSupplier(this, new SelectedSomethingEventArgs{SelectedCategoryId = categoryId, SelectedArticleTypeId = articleTypeId, SelectedSupplierId = supplierId});
+			SelectedSupplier(this, new SelectedSomethingEventArgs
+			{
+				SelectedCategoryId = Convert.ToInt32(ddlPickCategory.SelectedValue), 
+				SelectedArticleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue), 
+				SelectedSupplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue)
+			});
         }
 
         private void Select_Article(object sender, EventArgs e)
         {
             if (SelectedArticle == null) return;
-            var supplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue);
-            var articleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue);
-            var categoryId = Convert.ToInt32(ddlPickCategory.SelectedValue);
-            var articleId = Convert.ToInt32(ddlPickArticle.SelectedValue);
-            var articleOption = Convert.ToInt32(ddlShippingOptions.SelectedValue);
-			SelectedArticle(this, new SelectedSomethingEventArgs{SelectedCategoryId = categoryId, SelectedArticleTypeId = articleTypeId, SelectedSupplierId = supplierId, SelectedArticleId = articleId, SelectedShippingOption = articleOption});
+			SelectedArticle(this, new SelectedSomethingEventArgs
+			{
+				SelectedCategoryId = Convert.ToInt32(ddlPickCategory.SelectedValue), 
+				SelectedArticleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue), 
+				SelectedSupplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue), 
+				SelectedArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue), 
+				SelectedShippingOption = Convert.ToInt32(ddlShippingOptions.SelectedValue)
+			});
         }
 
         private void NextStep(object sender, EventArgs e)
@@ -90,17 +99,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             {
                 ArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
                 ShipmentOption = Convert.ToInt32(ddlShippingOptions.SelectedValue),
-				BaseCurve = GetEyeParameterNullable(ddlLeftBaskurva,ddlRightBaskurva),
-				Diameter = GetEyeParameterNullable(ddlLeftDiameter, ddlRightDiameter),
-				Power = GetEyeParameterNullable(ddlLeftStrength, ddlRightStrength),
-				Axis = GetEyeParameterNullable(ddlLeftAxis, ddlRightAxis),
-				Cylinder = GetEyeParameterNullable(ddlLeftCylinder, ddlRightCylinder),
-				Addition = GetEyeParameterNullable(ddlLeftAddition,ddlRightAddition)
+				BaseCurve = GetEyeParameter(ddlLeftBaskurva, ddlRightBaskurva),
+				Diameter = GetEyeParameter(ddlLeftDiameter, ddlRightDiameter),
+				Power = GetEyeParameter(txtLeftStrength, txtRightStrength),
+				Axis = GetEyeParameter(txtLeftAxis, txtRightAxis),
+				Cylinder = GetEyeParameter(txtLeftCylinder, txtRightCylinder),
+				Addition = GetEyeParameter(txtLeftAddition, txtRightAddition)
             };
 			TryFireSubmit(sender, args);
         }
 
-		private EyeParameter<decimal?> GetEyeParameterNullable(DropDownList leftDropDownListControl, DropDownList rightDropDownListControl)
+		private EyeParameter<decimal?> GetEyeParameter(ListControl leftDropDownListControl, ListControl rightDropDownListControl)
 		{
 			return new EyeParameter<decimal?>
 			{
@@ -108,15 +117,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 				Right = Convert.ToDecimal(rightDropDownListControl.SelectedValue)
 			};
 		}
-
-		//private EyeParameter<decimal> GetEyeParameter(DropDownList leftDropDownListControl, DropDownList rightDropDownListControl)
-		//{
-		//    return new EyeParameter<decimal>
-		//    {
-		//        Left = Convert.ToDecimal(leftDropDownListControl.SelectedValue),
-		//        Right = Convert.ToDecimal(rightDropDownListControl.SelectedValue)
-		//    };
-		//}
+		private EyeParameter<string> GetEyeParameter(ITextControl leftTextControl, ITextControl rightTextControl)
+		{
+			return new EyeParameter<string>
+			{
+				Left = leftTextControl.Text,
+				Right = rightTextControl.Text
+			};
+		}
 
         private void PreviousStep(object sender, EventArgs e)
         {

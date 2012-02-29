@@ -4,19 +4,17 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
     {
         public ArticleOptions()
         {
-            Power = new SequenceDefinition();
             Diameter = new SequenceDefinition();
             BaseCurve = new SequenceDefinition();
-            Axis = new OptionalSequenceDefinition();
-            Cylinder = new OptionalSequenceDefinition();
-            Addition = new OptionalSequenceDefinition();
+        	EnableAxis = true;
+        	EnableCylinder = true;
+			EnableAddition = true;
         }
 
-        public virtual SequenceDefinition Power { get; set; }
+		public virtual bool EnableAddition { get; set; }
+		public virtual bool EnableAxis { get; set; }
+		public virtual bool EnableCylinder { get; set; }
         public virtual SequenceDefinition Diameter { get; set; }
         public virtual SequenceDefinition BaseCurve { get; set; }
-        public virtual OptionalSequenceDefinition Axis { get; set; }
-        public virtual OptionalSequenceDefinition Cylinder { get; set; }
-        public virtual OptionalSequenceDefinition Addition { get; set; }
     }
 }

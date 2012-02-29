@@ -90,6 +90,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			Left = eyeParameter.Left.HasValue ? eyeParameter.Left.Value.ToString("N2") : string.Empty;
 			Right = eyeParameter.Right.HasValue ? eyeParameter.Right.Value.ToString("N2") : string.Empty;
 		}
+		public ParameterView(EyeParameter<string> eyeParameter)
+		{
+			if(eyeParameter == null) return;
+			Left = eyeParameter.Left;
+			Right = eyeParameter.Right;
+		}
 		public string Left { get; set; }
 		public string Right { get; set; }
 	}

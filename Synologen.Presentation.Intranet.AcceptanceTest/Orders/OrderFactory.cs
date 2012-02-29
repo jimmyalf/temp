@@ -64,29 +64,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	    public static CreateOrderEventArgs GetOrderEventArgs(int articleId=1)
 	    {
 	        return new CreateOrderEventArgs
-	                   {
-	                       ArticleId = articleId,
-                           //CategoryId = 1,
-						   BaseCurve = new EyeParameter<decimal?>(9,9),
-						   Diameter = new EyeParameter<decimal?>(-14,-14),
-						   Power = new EyeParameter<decimal?>(5,5),
-						   Axis = new EyeParameter<decimal?>(5,5),
-						   Cylinder = new EyeParameter<decimal?>(5,5),
-						   Addition = new EyeParameter<decimal?>(-2,-2),
-                           //LeftBaseCurve = 9,
-                           //LeftDiameter = -14,
-                           //LeftPower = 5,
-                           //LeftAxis = 5,
-                           //LeftCylinder = 5,
-                           //RightBaseCurve = 9,
-                           //RightDiameter = -14,
-                           //RightPower = 5,
-                           //RightAxis = 5,
-                           //RightCylinder = 5,
-                           ShipmentOption = 1,
-                           //SupplierId = 15,
-                           //TypeId = 1
-	                   };
+			{
+				ArticleId = articleId,
+				Addition = new EyeParameter<string>("Medium","High"),
+				Axis = new EyeParameter<string>("25","33"),
+				Power = new EyeParameter<string>("+3","-1"),
+				BaseCurve = new EyeParameter<decimal?>(4,4),
+				Diameter = new EyeParameter<decimal?>(5,5),
+				Cylinder = new EyeParameter<string>("-10", "-22"),
+				ShipmentOption = 1,
+			};
 	    }
 
 		public static Order GetOrder(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null, SubscriptionItem subscriptionItem = null, PaymentOptionType paymentOptionType = PaymentOptionType.Subscription_Autogiro_New)
@@ -113,12 +100,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 ArticleSupplier = supplier,
 	            Options = new ArticleOptions
 	            {
-	                Axis = new OptionalSequenceDefinition(-1, 2, 0.25M, true),
+	                EnableAxis = false,
                     BaseCurve = new SequenceDefinition(-1, 2, 0.25M),
-                    Power = new SequenceDefinition(-1, 2, 0.25M),
-                    Cylinder = new OptionalSequenceDefinition(-1, 2, 0.25M, false),
                     Diameter = new SequenceDefinition(-1, 2, 0.25M),
-                    Addition = new OptionalSequenceDefinition(2,20,1, false)
                 },
 				Active = active
 	        };
@@ -187,16 +171,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         	}
         }
 
-        public static IEnumerable<ListItem> FillWithIncrementalValues(OptionalSequenceDefinition sequence)
-        {
-			yield return new ListItem("-- Välj --","-9999");
-			if(sequence.DisableDefinition) yield break;
-        	foreach (var value in GetValuesForDefinition(sequence.Min ?? default(decimal), sequence.Max  ?? default(decimal), sequence.Increment  ?? default(decimal)))
-        	{
-        		yield return new ListItem {Value = value.ToString("N2"), Text = value.ToString("N2")};
-        	}
-        }
-
 		private static IEnumerable<decimal> GetValuesForDefinition(decimal min, decimal max, decimal increment)
 		{
 			if (increment <= 0) yield return min;
@@ -238,12 +212,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	    {
 	        return new LensRecipe
 	        {
-	            Addition = new EyeParameter<decimal?>(1,1),
-                Axis = new EyeParameter<decimal?>(2,2),
-                Power = new EyeParameter<decimal?>(3,3),
+	            Addition = new EyeParameter<string>("Medium","High"),
+                Axis = new EyeParameter<string>("25","33"),
+                Power = new EyeParameter<string>("+3","-1"),
                 BaseCurve = new EyeParameter<decimal?>(4,4),
                 Diameter = new EyeParameter<decimal?>(5,5),
-                Cylinder = new EyeParameter<decimal?>(6,6)
+                Cylinder = new EyeParameter<string>("-10", "-22")
 	        };
 	    }
 

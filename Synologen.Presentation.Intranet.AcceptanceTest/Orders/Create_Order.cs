@@ -297,65 +297,43 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.SelectedSupplierId.ShouldBe(_order.Article.ArticleSupplier.Id);
             View.Model.SelectedShippingOption.ShouldBe((int)_order.ShippingType);
 
-            View.Model.SelectedLeftAddition.ShouldBe(_order.LensRecipe.Addition.Left ?? -9999);
-            View.Model.SelectedRightAddition.ShouldBe(_order.LensRecipe.Addition.Right ?? -9999);
+            View.Model.SelectedAddition.Left.ShouldBe(_order.LensRecipe.Addition.Left);
+            View.Model.SelectedAddition.Right.ShouldBe(_order.LensRecipe.Addition.Right);
 
-            View.Model.SelectedLeftAxis.ShouldBe(_order.LensRecipe.Axis.Left ?? -9999);
-            View.Model.SelectedRightAxis.ShouldBe(_order.LensRecipe.Axis.Right ?? -9999);
+            View.Model.SelectedAxis.Left.ShouldBe(_order.LensRecipe.Axis.Left);
+            View.Model.SelectedAxis.Right.ShouldBe(_order.LensRecipe.Axis.Right);
 
-            View.Model.SelectedLeftBaseCurve.ShouldBe(_order.LensRecipe.BaseCurve.Left ?? -9999);
-            View.Model.SelectedRightBaseCurve.ShouldBe(_order.LensRecipe.BaseCurve.Right ?? -9999);
+            View.Model.SelectedBaseCurve.Left.ShouldBe(_order.LensRecipe.BaseCurve.Left ?? -9999);
+            View.Model.SelectedBaseCurve.Right.ShouldBe(_order.LensRecipe.BaseCurve.Right ?? -9999);
 
-            View.Model.SelectedLeftCylinder.ShouldBe(_order.LensRecipe.Cylinder.Left ?? -9999);
-            View.Model.SelectedRightCylinder.ShouldBe(_order.LensRecipe.Cylinder.Right ?? -9999);
+            View.Model.SelectedCylinder.Left.ShouldBe(_order.LensRecipe.Cylinder.Left);
+            View.Model.SelectedCylinder.Right.ShouldBe(_order.LensRecipe.Cylinder.Right);
 
-            View.Model.SelectedLeftDiameter.ShouldBe(_order.LensRecipe.Diameter.Left ?? -9999);
-            View.Model.SelectedRightDiameter.ShouldBe(_order.LensRecipe.Diameter.Right ?? -9999);
+            View.Model.SelectedDiameter.Left.ShouldBe(_order.LensRecipe.Diameter.Left ?? -9999);
+            View.Model.SelectedDiameter.Right.ShouldBe(_order.LensRecipe.Diameter.Right ?? -9999);
 
-            View.Model.SelectedLeftPower.ShouldBe(_order.LensRecipe.Power.Left ?? -9999);
-            View.Model.SelectedRightPower.ShouldBe(_order.LensRecipe.Power.Right ?? -9999);
+            View.Model.SelectedPower.Left.ShouldBe(_order.LensRecipe.Power.Left);
+            View.Model.SelectedPower.Right.ShouldBe(_order.LensRecipe.Power.Right);
 
         }
 
         private void LaddasArtikelnsAlternativ()
         {
-            View.Model.AxisOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Axis)).Do((viewModelItem, domainItem) =>
-            {
-                viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
-                viewModelItem.Text.ShouldBe(domainItem.Text);
-            });
             View.Model.BaseCurveOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.BaseCurve)).Do((viewModelItem, domainItem) =>
             {
                 viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Text);
             });
-            View.Model.CylinderOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Cylinder)).Do((viewModelItem, domainItem) =>
-            {
-                viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
-                viewModelItem.Text.ShouldBe(domainItem.Text);
-            });
+
             View.Model.DiameterOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Diameter)).Do((viewModelItem, domainItem) =>
             {
                 viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Text);
             });
-            View.Model.PowerOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Power)).Do((viewModelItem, domainItem) =>
-            {
-                viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
-                viewModelItem.Text.ShouldBe(domainItem.Text);
-            });
-            View.Model.AdditionOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Addition)).Do((viewModelItem, domainItem) =>
-            {
-                viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
-                viewModelItem.Text.ShouldBe(domainItem.Text);
-            });
 
-            View.Model.AdditionOptionsEnabled.ShouldBe(!_expectedArticle.Options.Addition.DisableDefinition);
-            View.Model.AxisOptionsEnabled.ShouldBe(!_expectedArticle.Options.Axis.DisableDefinition);
-            View.Model.CylinderOptionsEnabled.ShouldBe(!_expectedArticle.Options.Cylinder.DisableDefinition);
-			//View.Model.BaseCurveOptionsEnabled.ShouldBe(_expectedArticle.Options.BaseCurve.Increment > 0);
-            //View.Model.PowerOptionsEnabled.ShouldBe(_expectedArticle.Options.Power.Increment > 0);
-            //View.Model.DiameterOptionsEnabled.ShouldBe(_expectedArticle.Options.Diameter.Increment > 0);
+            View.Model.AdditionOptionsEnabled.ShouldBe(_expectedArticle.Options.EnableAddition);
+            View.Model.AxisOptionsEnabled.ShouldBe(_expectedArticle.Options.EnableAxis);
+            View.Model.CylinderOptionsEnabled.ShouldBe(_expectedArticle.Options.EnableCylinder);
         }
 
         private void LaddasAktivaLeverantörer()

@@ -107,6 +107,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			{
 				BaseCurve = BaseCurve.GetSequenceDefinition(),
 				Diameter = Diameter.GetSequenceDefinition(),
+				EnableAddition = EnableAddition,
+				EnableAxis = EnableAxis,
+				EnableCylinder = EnableCylinder
 			};
 		}
 	}

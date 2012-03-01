@@ -56,17 +56,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     		TryFireSubmit(this, args);
     	}
 
-    	private int? GetNumberOfPayments()
-    	{
-    		var selectedSubscriptionTime = rblSubscriptionTime.SelectedValue.ToInt();
+		private int GetNumberOfPayments()
+		{
+		    var selectedSubscriptionTime = rblSubscriptionTime.SelectedValue.ToInt();
 
-    	    switch (selectedSubscriptionTime)
-			{
-				case AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId: return txtCustomNumberOfTransactions.Text.ToInt();
-				case AutogiroDetailsModel.UseContinousWithdrawalsId: return null;
-				default: return selectedSubscriptionTime;
-			}
-    	}
+		    return selectedSubscriptionTime == AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId 
+				? txtCustomNumberOfTransactions.Text.ToInt() 
+				: selectedSubscriptionTime;
+		}
 
     	protected void Validate_Custom_Subscription_Time(object source, ServerValidateEventArgs args)
     	{

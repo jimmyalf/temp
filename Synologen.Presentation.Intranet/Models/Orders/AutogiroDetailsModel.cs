@@ -5,7 +5,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
     public class AutogiroDetailsModel
     {
     	public const int UseCustomNumberOfWithdrawalsId = -1;
-    	public const int UseContinousWithdrawalsId = 0;
+    	//public const int UseContinousWithdrawalsId = 0;
 
     	public AutogiroDetailsModel()
         {
@@ -32,7 +32,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
             	new ListItem("3 månader", 3), 
 				new ListItem("6 månader", 6), 
 				new ListItem("12 månader", 12), 
-				new ListItem("Löpande", UseContinousWithdrawalsId), 
+				//new ListItem("Löpande", UseContinousWithdrawalsId), 
 				new ListItem("Valfritt", UseCustomNumberOfWithdrawalsId)
             };
         }

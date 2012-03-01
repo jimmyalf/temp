@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 
 		public virtual DateTime CreatedDate { get; private set; }
 		public virtual Subscription Subscription { get; set; }
-		public virtual int? WithdrawalsLimit { get; set; }
+		public virtual int WithdrawalsLimit { get; set; }
 		public virtual int PerformedWithdrawals { get; set; }
 		public virtual decimal TaxedAmount { get; set; }
 		public virtual decimal TaxFreeAmount { get; set; }
@@ -21,8 +21,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		{ 
 			get
 			{
-				if(!WithdrawalsLimit.HasValue) return true; //Continuous withdrawal subscription item
-				return PerformedWithdrawals < WithdrawalsLimit.Value; // Subscription item has limit
+				//if(!WithdrawalsLimit.HasValue) return true; //Continuous withdrawal subscription item
+				return PerformedWithdrawals < WithdrawalsLimit;//.Value; // Subscription item has limit
 			} 
 		}
 	}

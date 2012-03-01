@@ -266,7 +266,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				viewModel.MontlyAmount.ShouldBe(item.AmountForAutogiroWithdrawal.ToString("C2"));
 				viewModel.SubscriptionItemDetailUrl.ShouldBe(_subscriptionItemDetailUrl + "?subscription-item=" + item.Id);
 				viewModel.CreatedDate.ShouldBe(item.CreatedDate.ToString("yyyy-MM-dd"));
-				viewModel.PerformedWithdrawals.ShouldBe(GetExpectedPerformedWithdrawalDisplayString(item));
+				viewModel.PerformedWithdrawals.ShouldBe(item.PerformedWithdrawals + "/" + item.WithdrawalsLimit);
 			});
 		}
 

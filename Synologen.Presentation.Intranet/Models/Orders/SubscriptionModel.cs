@@ -61,9 +61,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public SubscriptionItemListItem(SubscriptionItem subscriptionItem, string subscriptionItemDetailUrl)
 		{
 			MontlyAmount = subscriptionItem.AmountForAutogiroWithdrawal.ToString("C2");
-			PerformedWithdrawals = subscriptionItem.WithdrawalsLimit.HasValue ? 
-				"{0}/{1}".FormatWith(subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit.Value) 
-				: subscriptionItem.PerformedWithdrawals.ToString();
+			PerformedWithdrawals = "{0}/{1}".FormatWith(subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit);
 			Active = subscriptionItem.IsActive  ? "Ja" : "Nej";
 			SubscriptionItemDetailUrl = subscriptionItemDetailUrl + "?subscription-item=" + subscriptionItem.Id;
 			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");

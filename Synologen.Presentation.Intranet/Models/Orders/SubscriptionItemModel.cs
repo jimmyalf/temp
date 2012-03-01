@@ -22,7 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public string Active { get; set; }
 		public decimal TaxedAmount { get; set; }
 		public decimal TaxFreeAmount { get; set; }
-		public int? WithdrawalsLimit { get; set; }
+		public int WithdrawalsLimit { get; set; }
 		public string CreatedDate { get; set; }
 		public int NumerOfPerformedWithdrawals { get; set; }
 		public string SubscriptionBankAccountNumber { get; set; }

@@ -15,8 +15,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public string Article { get; set; }
 
         public string DeliveryOption { get; set; }
-        public string TaxedAmount { get; set; }
-        public string TaxfreeAmount { get; set; }
+        public string ProductPrice { get; set; }
+        public string FeePrice { get; set; }
         public string TotalWithdrawal { get; set; }
         public string Monthly { get; set; }
         public string SubscriptionTime { get; set; }

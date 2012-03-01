@@ -28,37 +28,36 @@
     		</p>
     		<div>
       			<label>Abonnemangstid</label>
-				<asp:RadioButtonList ID="rblSubscriptionTime" DataSource="<%#Model.SubscriptionOptions %>" DataTextField="Text" DataValueField="Value" SelectedValue="<%#Model.SelectedSubscriptionOption %>" runat="server" RepeatLayout="UnorderedList" TextAlign="Right" CssClass="radio-list"  >
+				<asp:RadioButtonList ID="rblSubscriptionTime" DataSource="<%#Model.SubscriptionOptions %>" DataTextField="Text" DataValueField="Value" SelectedValue="<%#Model.SelectedSubscriptionOption %>" runat="server" RepeatLayout="UnorderedList" TextAlign="Right" CssClass="radio-list" ClientIDMode="Static" >
 				</asp:RadioButtonList>
-    			<asp:TextBox ID="txtCustomNumberOfTransactions" Text="<%#Model.CustomSubscriptionTime %>" runat="server" CssClass="custom-number-of-withdrawals align-right" />
+    			<asp:TextBox ID="txtCustomNumberOfTransactions" Text="<%#Model.CustomSubscriptionTime %>" runat="server" CssClass="custom-number-of-withdrawals align-right" ClientIDMode="Static" />
 				<asp:CustomValidator ID="vldCustomNumberOfWithdrawals" runat="server" ErrorMessage="Vid valfri abonnemangstid måste antal dragningar anges" ControlToValidate="rblSubscriptionTime" OnServerValidate="Validate_Custom_Subscription_Time" CssClass="error-message" ValidateEmptyText="True">&nbsp;*</asp:CustomValidator>
 				<asp:RequiredFieldValidator runat="server" ErrorMessage="En abonnemangstid måste anges" ControlToValidate="rblSubscriptionTime" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
       		</div>
-    	
     		<p>
-    			<label>Momsbelopp</label>
-				<asp:TextBox ID="txtVATAmount" Text="<%#Model.TaxedAmount %>" runat="server" />
-				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtVATAmount" ErrorMessage="Momsbelopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
-				<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtVatAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
+    			<label>Produkt</label>
+				<asp:TextBox ID="txtProductAmount" Text="<%#Model.ProductPrice %>" runat="server" ClientIDMode="Static" />
+				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtProductAmount" ErrorMessage="Produktbelopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
+				<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtProductAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
     		</p>
     		<p>
-    			<label>Momsfritt belopp</label>
-				<asp:TextBox ID="txtVatFreeAmount" Text="<%#Model.TaxfreeAmount %>" runat="server" />
-				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtVatFreeAmount" ErrorMessage="Momsfritt belopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
-				<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtVatFreeAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
+    			<label>Arvode</label>
+				<asp:TextBox ID="txtFeeAmount" Text="<%#Model.FeePrice %>" runat="server" ClientIDMode="Static" />
+				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtFeeAmount" ErrorMessage="Arvode måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
+				<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtFeeAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
     		</p>
     		<p>
     			<label>Vald artikel</label>
 				<span><%=Model.SelectedArticleName%></span>
     		</p>
-			<%if(Model.EnableAutoWithdrawal){ %>
     		<p>
-    			<label>Totaluttag</label>
-				<asp:TextBox ID="txtTotalWithdrawalAmount" runat="server" Text="<%#Model.AutoWithdrawalAmount %>" />
-				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtTotalWithdrawalAmount" ErrorMessage="Totaluttag måste anges" Display="Dynamic" Enabled='<%#Model.EnableAutoWithdrawal%>' CssClass="error-message">*</asp:RequiredFieldValidator>
-				<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtTotalWithdrawalAmount" ErrorMessage="Angivet belopp måste vara numeriskt" Enabled='<%#Model.EnableAutoWithdrawal%>' CssClass="error-message">*</asp:RegularExpressionValidator>
+    			<label>Totalkostnad</label>
+				<input type="text" id="total-withdrawal-amount" disabled="disabled" />
     		</p>
-			<% } %>
+    		<p>
+    			<label>Månadsbelopp</label>
+				<input type="text" id="montly-withdrawal-amount" disabled="disabled" />
+    		</p>
 			<asp:ValidationSummary runat="server" CssClass="error-list"/>
     		<div class="next-step">
 				<asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CausesValidation="False" />

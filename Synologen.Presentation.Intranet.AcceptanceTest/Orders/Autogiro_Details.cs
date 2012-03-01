@@ -224,11 +224,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	{
 			//Assert Subscription Item
     		var subscriptionItem = WithRepository<IOrderRepository>().Get(_order.Id).SubscriptionPayment;
-			subscriptionItem.AmountForAutogiroWithdrawal.ShouldBe(_form.TaxFreeAmount + _form.TaxedAmount);
+			subscriptionItem.MonthlyWithdrawalAmount.ShouldBe(Math.Round((_form.ProductPrice + _form.FeePrice)/_form.NumberOfPayments,2));
 			subscriptionItem.WithdrawalsLimit.ShouldBe(_form.NumberOfPayments);
 			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
-			subscriptionItem.TaxFreeAmount.ShouldBe(_form.TaxFreeAmount);
-			subscriptionItem.TaxedAmount.ShouldBe(_form.TaxedAmount);
+			subscriptionItem.ProductPrice.ShouldBe(_form.ProductPrice);
+			subscriptionItem.FeePrice.ShouldBe(_form.FeePrice);
 			subscriptionItem.CreatedDate.ShouldBe(_operationTime);
 			//Assert Subscription
 			subscriptionItem.Subscription.ConsentedDate.ShouldBe(null);
@@ -246,11 +246,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	{
 			//Assert Subscription Item
     		var subscriptionItem = WithRepository<IOrderRepository>().Get(_order.Id).SubscriptionPayment;
-			subscriptionItem.AmountForAutogiroWithdrawal.ShouldBe(_form.TaxFreeAmount + _form.TaxedAmount);
+			subscriptionItem.MonthlyWithdrawalAmount.ShouldBe(Math.Round((_form.ProductPrice + _form.FeePrice)/_form.NumberOfPayments,2));
 			subscriptionItem.WithdrawalsLimit.ShouldBe(_form.NumberOfPayments);
 			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
-			subscriptionItem.TaxFreeAmount.ShouldBe(_form.TaxFreeAmount);
-			subscriptionItem.TaxedAmount.ShouldBe(_form.TaxedAmount);
+			subscriptionItem.ProductPrice.ShouldBe(_form.ProductPrice);
+			subscriptionItem.FeePrice.ShouldBe(_form.FeePrice);
 			subscriptionItem.CreatedDate.ShouldBe(_operationTime);
 			//Assert Subscription
 			subscriptionItem.Subscription.Id.ShouldBe(_subscription.Id);
@@ -259,7 +259,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void TotalUttagSparas()
 		{
 			var order = WithRepository<IOrderRepository>().Get(_order.Id);
-			order.OrderTotalWithdrawalAmount.ShouldBe(_form.OrderTotalWithdrawalAmount);
+			order.OrderTotalWithdrawalAmount.ShouldBe(_form.FeePrice + _form.ProductPrice);
 		}
 
     	private void KontoUppgifterSkallVaraIfyllbara()

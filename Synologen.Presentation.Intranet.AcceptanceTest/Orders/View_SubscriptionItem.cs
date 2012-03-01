@@ -92,8 +92,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			_form = new SubmitSubscriptionItemEventArgs
 			{
-				TaxedAmount = 255.22m,
-				TaxFreeAmount = 685m,
+				FeeAmount = 255.22m,
+				ProductAmount = 685m,
 				WithdrawalsLimit = 10
 			};
 		}
@@ -114,9 +114,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void VisasDelAbonnemangsInformation()
 		{
 			View.Model.Active.ShouldBe(_subscriptionItem.IsActive ? "Ja" : "Nej");
-			View.Model.TaxedAmount.ShouldBe(_subscriptionItem.TaxedAmount);
-			View.Model.TaxFreeAmount.ShouldBe(_subscriptionItem.TaxFreeAmount);
-			View.Model.MonthlyWithdrawalAmount.ShouldBe(_subscriptionItem.AmountForAutogiroWithdrawal.ToString("C2"));
+			View.Model.ProductPrice.ShouldBe(_subscriptionItem.ProductPrice);
+			View.Model.FeePrice.ShouldBe(_subscriptionItem.FeePrice);
+			View.Model.MonthlyWithdrawalAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawalAmount.ToString("C2"));
 			View.Model.WithdrawalsLimit.ShouldBe(_subscriptionItem.WithdrawalsLimit);
 			View.Model.CreatedDate.ShouldBe(_subscriptionItem.CreatedDate.ToString("yyyy-MM-dd"));
 			View.Model.NumerOfPerformedWithdrawals.ShouldBe(_subscriptionItem.PerformedWithdrawals);
@@ -128,8 +128,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			var updatedSubscriptionItem = Get<SubscriptionItem>(_subscriptionItem.Id);
 			updatedSubscriptionItem.WithdrawalsLimit.ShouldBe(_form.WithdrawalsLimit);
-			updatedSubscriptionItem.TaxedAmount.ShouldBe(_form.TaxedAmount);
-			updatedSubscriptionItem.TaxFreeAmount.ShouldBe(_form.TaxFreeAmount);
+			updatedSubscriptionItem.FeePrice.ShouldBe(_form.FeeAmount);
+			updatedSubscriptionItem.ProductPrice.ShouldBe(_form.ProductAmount);
 		}
 
 		private void TillbakaLänkVisas()

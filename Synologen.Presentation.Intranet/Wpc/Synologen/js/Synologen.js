@@ -10,6 +10,7 @@
 			$.SynologenIntranet.initAutogiroDetailView();
 			$.SynologenIntranet.initPlaceHolderPolyFill();
 			$.SynologenIntranet.initMinimizeYammerText();
+			$.SynologenIntranet.initCalculateMontlyAGWithdrawalAmounts();
 		},
 
 		initDisableTabLinks: function () {
@@ -20,19 +21,16 @@
 		},
 
 		initYammer: function () {
-			if (!$.isFunction($.fancybox)) {
-				console.log("Fancybox plugin cannot be found.");
-				return;
-			}
+			if (!$.isFunction($.fancybox)) return;
 			$(".fancybox").fancybox();
 		},
 
 		initProgressBar: function (numberOfSteps) {
+			if (!$.isFunction($("#progressbar").progressbar)) return;
 			function getPercentage(currentStep) {
 				if (currentStep == numberOfSteps) return 100;
 				return (100 / numberOfSteps) * currentStep;
 			}
-
 			for (var i = 1; i <= numberOfSteps; i++) {
 				$(".step" + i + " #progressbar").progressbar({
 					value: getPercentage(i)
@@ -55,24 +53,53 @@
 		},
 
 		initPlaceHolderPolyFill: function () {
-			if (!$.isFunction($('input, textarea').placeholder)) {
-				console.log("Placeholder polyfill plugin cannot be found.");
-				return;
-			}
+			if (!$.isFunction($('input, textarea').placeholder)) return;
 			$('input, textarea').placeholder();
 		},
-		
+
 		initMinimizeYammerText: function () {
-			if (!$.isFunction($('.yammer-content').jTruncate)) {
-				console.log("jTruncate plugin cannot be found.");
-				return;
+			if (!$.isFunction($('.yammer-content').jTruncate)) return;
+			$('.yammer-content').jTruncate({
+				length: 100,
+				minTrail: 0,
+				moreText: "Läs mer",
+				lessText: "Minimiera"
+			});
+		},
+
+		initCalculateMontlyAGWithdrawalAmounts: function () {
+			updateAmounts();
+			$("#txtProductAmount").change(updateAmounts).keyup(updateAmounts);
+			$("#txtFeeAmount").change(updateAmounts).keyup(updateAmounts); ;
+			$("#rblSubscriptionTime").change(updateAmounts);
+			$("#txtCustomNumberOfTransactions").change(updateAmounts).keyup(updateAmounts); ;
+
+			function updateAmounts() {
+				var totalAmount = getTotalAmount();
+				var numberOfWithdrawals = getNumerOfWithdrawals();
+				var montlyAmount = getMontlyAmount(numberOfWithdrawals, totalAmount);
+				if (isNaN(totalAmount)) $("#total-withdrawal-amount").attr("value", "");
+				else $("#total-withdrawal-amount").attr("value", totalAmount);
+				if (isNaN(montlyAmount)) $("#montly-withdrawal-amount").attr("value", "");
+				else $("#montly-withdrawal-amount").attr("value", montlyAmount);
 			}
-	    		$('.yammer-content').jTruncate({
-		        	length: 100,
-		        	minTrail: 0,
-		        	moreText: "Läs mer",
-		        	lessText: "Minimiera",
-	    		});
+
+			function getTotalAmount() {
+				var productAmount = parseFloat($("#txtProductAmount").val().replace(",", "."));
+				var feeAmount = parseFloat($("#txtFeeAmount").val().replace(",", "."));
+				return (productAmount + feeAmount).toFixed(2);
+			}
+
+			function getMontlyAmount(numerOfWithdrawals, totalAmount) {
+				return (totalAmount / numerOfWithdrawals).toFixed(2);
+			}
+
+			function getNumerOfWithdrawals() {
+				var selectedNumerOfWithdrawals = parseInt($("#rblSubscriptionTime input:checked").val());
+				var customNumberOfWithdrawals = parseInt($("#txtCustomNumberOfTransactions").val());
+				if (selectedNumerOfWithdrawals == -1) return customNumberOfWithdrawals;
+				return selectedNumerOfWithdrawals;
+			}
 		}
 	});
 

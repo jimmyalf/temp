@@ -9,19 +9,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public void Initialize(SubscriptionItem subscriptionItem, Subscription subscription, string returnUrl)
 		{
 			Active = subscriptionItem.IsActive ? "Ja" : "Nej";
-			TaxedAmount = subscriptionItem.TaxedAmount;
-			TaxFreeAmount = subscriptionItem.TaxFreeAmount;
+			ProductPrice = subscriptionItem.ProductPrice;
+			FeePrice = subscriptionItem.FeePrice;
 			WithdrawalsLimit = subscriptionItem.WithdrawalsLimit;
 			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");
 			NumerOfPerformedWithdrawals = subscriptionItem.PerformedWithdrawals;
 			SubscriptionBankAccountNumber = subscription.BankAccountNumber;
 			CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			ReturnUrl = returnUrl;
-			MonthlyWithdrawalAmount = subscriptionItem.AmountForAutogiroWithdrawal.ToString("C2");
+			MonthlyWithdrawalAmount = subscriptionItem.MonthlyWithdrawalAmount.ToString("C2");
 		}
 		public string Active { get; set; }
-		public decimal TaxedAmount { get; set; }
-		public decimal TaxFreeAmount { get; set; }
+		public decimal ProductPrice { get; set; }
+		public decimal FeePrice { get; set; }
 		public int WithdrawalsLimit { get; set; }
 		public string CreatedDate { get; set; }
 		public int NumerOfPerformedWithdrawals { get; set; }

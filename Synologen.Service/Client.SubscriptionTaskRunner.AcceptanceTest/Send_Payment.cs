@@ -42,7 +42,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 				_subscriptionItems = StoreItemsWithWpcSession(() => Factory.CreateSubscriptionItems(_subscription));
 				_task = ResolveTask<Task>();
 				_taskRunnerService = GetTaskRunnerService(_task);
-				_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Sum(x => x.AmountForAutogiroWithdrawal);
+				_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Sum(x => x.MonthlyWithdrawalAmount);
 			};
 
 			Because = () => _taskRunnerService.Run();

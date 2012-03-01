@@ -65,7 +65,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		{
 			_expectedSubscriptions.Each(subscription =>
                MockedWebServiceClient.Verify(x => x.SendPayment(It.Is<PaymentToSend>(sentPayment =>
-                 sentPayment.Amount.Equals(subscription.SubscriptionItems.Sum(y => y.AmountForAutogiroWithdrawal)) &&
+                 sentPayment.Amount.Equals(subscription.SubscriptionItems.Sum(y => y.MonthlyWithdrawalAmount)) &&
                  sentPayment.PayerNumber.Equals(subscription.AutogiroPayerId) &&
                  Equals(sentPayment.Reference, _expectedPaymentReference.ToString()) &&
                  sentPayment.Type.Equals(PaymentType.Debit) &&

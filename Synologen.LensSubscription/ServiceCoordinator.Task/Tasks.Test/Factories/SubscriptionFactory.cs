@@ -53,8 +53,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 				WithdrawalsLimit = 12,
 				PerformedWithdrawals = 2,
 				Subscription = subscription,
-				TaxFreeAmount = 99,
-				TaxedAmount = 300
+				ProductPrice = 1500,
+				FeePrice = 500,
 			};
 		}
 

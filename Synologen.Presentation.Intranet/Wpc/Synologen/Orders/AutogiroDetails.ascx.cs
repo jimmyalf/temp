@@ -32,11 +32,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                     ClearingNumber = txtClearingNumber.Text,
                     CustomNumberOfPayments = txtCustomNumberOfTransactions.Text,
                     NumberOfPaymentsSelectedValue = Convert.ToInt32(rblSubscriptionTime.SelectedValue),
-                    TaxFreeAmount = txtVatFreeAmount.Text.ToDecimal(),
-                    TaxedAmount = txtVATAmount.Text.ToDecimal(),
-                    AutoWithdrawalAmount = (String.IsNullOrEmpty(txtTotalWithdrawalAmount.Text))
-                        ? (decimal?)null
-                        : txtTotalWithdrawalAmount.Text.ToDecimal()
+                    ProductPrice = txtProductAmount.Text.ToDecimal(),
+                    FeePrice = txtFeeAmount.Text.ToDecimal(),
                 };
                 FillForm(this, invalidArgs);
 			    return;
@@ -47,11 +44,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 BankAccountNumber = txtBankAccountNumber.Text,
                 ClearingNumber = txtClearingNumber.Text,
                 NumberOfPayments = GetNumberOfPayments(),
-                TaxFreeAmount = txtVatFreeAmount.Text.ToDecimal(),
-                TaxedAmount = txtVATAmount.Text.ToDecimal(),
-                OrderTotalWithdrawalAmount = (String.IsNullOrEmpty(txtTotalWithdrawalAmount.Text))
-                    ? (decimal?)null
-                    : txtTotalWithdrawalAmount.Text.ToDecimal()
+                ProductPrice = txtProductAmount.Text.ToDecimal(),
+                FeePrice = txtFeeAmount.Text.ToDecimal(),
             };
     		TryFireSubmit(this, args);
     	}

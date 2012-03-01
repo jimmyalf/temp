@@ -50,24 +50,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Model.Telephone = order.Customer.Phone ?? "";
 
 			
-			View.Model.LeftAddition = order.LensRecipe.Addition != null ? order.LensRecipe.Addition.Left.ToString() : "";
-			View.Model.LeftAxis = order.LensRecipe.Axis != null ? order.LensRecipe.Axis.Left.ToString() : "";
-			View.Model.LeftPower = order.LensRecipe.Power != null ? order.LensRecipe.Power.Left.ToString() : "";
+			View.Model.LeftAddition = order.LensRecipe.Addition != null ? order.LensRecipe.Addition.Left : "";
+			View.Model.LeftAxis = order.LensRecipe.Axis != null ? order.LensRecipe.Axis.Left : "";
+			View.Model.LeftPower = order.LensRecipe.Power != null ? order.LensRecipe.Power.Left : "";
 			View.Model.LeftBaseCurve = order.LensRecipe.BaseCurve != null ? order.LensRecipe.BaseCurve.Left.ToString() : "";
 			View.Model.LeftDiameter = order.LensRecipe.Diameter != null ? order.LensRecipe.Diameter.Left.ToString() : "";
-			View.Model.LeftCylinder = order.LensRecipe.Cylinder != null ? order.LensRecipe.Cylinder.Left.ToString() : "";
-			View.Model.RightAddition = order.LensRecipe.Addition != null ? order.LensRecipe.Addition.Right.ToString() : "";
-			View.Model.RightAxis = order.LensRecipe.Axis != null ? order.LensRecipe.Axis.Right.ToString() : "";
-			View.Model.RightPower = order.LensRecipe.Power != null ? order.LensRecipe.Power.Right.ToString() : "";
+			View.Model.LeftCylinder = order.LensRecipe.Cylinder != null ? order.LensRecipe.Cylinder.Left : "";
+			View.Model.RightAddition = order.LensRecipe.Addition != null ? order.LensRecipe.Addition.Right : "";
+			View.Model.RightAxis = order.LensRecipe.Axis != null ? order.LensRecipe.Axis.Right : "";
+			View.Model.RightPower = order.LensRecipe.Power != null ? order.LensRecipe.Power.Right : "";
 			View.Model.RightBaseCurve = order.LensRecipe.BaseCurve != null ? order.LensRecipe.BaseCurve.Right.ToString() : "";
 			View.Model.RightDiameter = order.LensRecipe.Diameter != null ? order.LensRecipe.Diameter.Right.ToString() : "";
-			View.Model.RightCylinder = order.LensRecipe.Cylinder != null ? order.LensRecipe.Cylinder.Right.ToString() : "";
+			View.Model.RightCylinder = order.LensRecipe.Cylinder != null ? order.LensRecipe.Cylinder.Right : "";
 
 			View.Model.Article = order.Article.Name;
 			View.Model.DeliveryOption = order.ShippingType.GetEnumDisplayName();
-			View.Model.TaxedAmount = GetCurrencyString(order.SubscriptionPayment.TaxedAmount);
-			View.Model.TaxfreeAmount = GetCurrencyString(order.SubscriptionPayment.TaxFreeAmount);
-			View.Model.Monthly = GetCurrencyString(order.SubscriptionPayment.AmountForAutogiroWithdrawal);
+			View.Model.ProductPrice = GetCurrencyString(order.SubscriptionPayment.ProductPrice);
+			View.Model.FeePrice = GetCurrencyString(order.SubscriptionPayment.FeePrice);
+			View.Model.Monthly = GetCurrencyString(order.SubscriptionPayment.MonthlyWithdrawalAmount);
 			View.Model.TotalWithdrawal = GetCurrencyString(order.OrderTotalWithdrawalAmount);
 			View.Model.SubscriptionTime = GetSubscriptionTimeString(order.SubscriptionPayment.WithdrawalsLimit);
 		}
@@ -103,7 +103,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			if(order.ShippingType == OrderShippingOption.DeliveredInStore) return;
 			var transaction = new SubscriptionTransaction
 			{
-				Amount = order.OrderTotalWithdrawalAmount ?? default(decimal),
+				Amount = order.OrderTotalWithdrawalAmount,
 				Reason = TransactionReason.Withdrawal,
 				Subscription = order.SubscriptionPayment.Subscription,
 				Type = TransactionType.Withdrawal

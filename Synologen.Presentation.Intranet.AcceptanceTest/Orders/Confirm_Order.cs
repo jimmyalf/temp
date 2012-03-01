@@ -200,22 +200,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.RightCylinder.ShouldBe(order.LensRecipe.Cylinder.Right != null ? order.LensRecipe.Cylinder.Right.ToString() : "");
 
             View.Model.Article.ShouldBe(order.Article.Name);
-            //View.Model.PaymentOption.ShouldBe(order.SelectedPaymentOption.Type.ToString());
         	View.Model.CustomerName.ShouldBe(order.Customer.FirstName + " " + order.Customer.LastName);
             View.Model.DeliveryOption.ShouldBe(order.ShippingType.GetEnumDisplayName());
             View.Model.TaxedAmount.ShouldBe(order.SubscriptionPayment.TaxedAmount.ToString("C"));
             View.Model.TaxfreeAmount.ShouldBe(order.SubscriptionPayment.TaxFreeAmount.ToString("C"));
             View.Model.TotalWithdrawal.ShouldBe(order.OrderTotalWithdrawalAmount.Value.ToString("C"));
 			View.Model.Monthly.ShouldBe(order.SubscriptionPayment.AmountForAutogiroWithdrawal.ToString("C"));
-            View.Model.SubscriptionTime.ShouldBe(GetSubscriptionTimeString(order)); 
+            View.Model.SubscriptionTime.ShouldBe(order.SubscriptionPayment.WithdrawalsLimit + " månader");
         }
 
-		private static string GetSubscriptionTimeString(Order order)
-		{
-			return order.SubscriptionPayment.WithdrawalsLimit.HasValue 
-				? order.SubscriptionPayment.WithdrawalsLimit.Value.ToString()  + " månader"
-				: "Fortlöpande";
-		}
 
     	private void AnvändarenFlyttasTillSidaFörFärdigBeställning()
         {

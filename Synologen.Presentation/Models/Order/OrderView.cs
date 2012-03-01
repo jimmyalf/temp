@@ -25,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			TaxfreeAmount = order.SubscriptionPayment.TaxFreeAmount.ToString("C2");
 			Monthly = order.SubscriptionPayment.AmountForAutogiroWithdrawal.ToString("C2");
 			TotalWithdrawal = order.OrderTotalWithdrawalAmount.HasValue ? order.OrderTotalWithdrawalAmount.Value.ToString("C2") : string.Empty;
-			NumerOfWithdrawals = order.SubscriptionPayment.WithdrawalsLimit.HasValue ? order.SubscriptionPayment.WithdrawalsLimit.Value.ToString() : "Fortlöpande";
+			NumerOfWithdrawals = order.SubscriptionPayment.WithdrawalsLimit.ToString();
 			NumberOfPerformedWithdrawals = order.SubscriptionPayment.PerformedWithdrawals;
 			Addition = new ParameterView(order.LensRecipe.Addition);
 			Axis = new ParameterView(order.LensRecipe.Axis);

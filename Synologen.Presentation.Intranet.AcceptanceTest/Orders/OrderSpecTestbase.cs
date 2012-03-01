@@ -118,14 +118,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Sent, "Skickat för medgivande")
 				.Evaluate();
 		}
-
-		protected string GetExpectedPerformedWithdrawalDisplayString(SubscriptionItem subscriptionItem)
-		{
-			if(subscriptionItem.WithdrawalsLimit.HasValue)
-			{
-				return subscriptionItem.PerformedWithdrawals + "/" + subscriptionItem.WithdrawalsLimit.Value;
-			}
-			return subscriptionItem.PerformedWithdrawals.ToString();
-		}
 	}
 }

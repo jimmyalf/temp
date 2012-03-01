@@ -78,7 +78,7 @@
 			</p>
 			<p>
 				<label>Addition</label>
-				<asp:TextBox ID="txtRightAddition" runat="server" Text='<%# Model.SelectedAddition.Right%>' />
+				<asp:TextBox ID="txtRightAddition" runat="server" Text='<%# Model.SelectedAddition.Right%>' Enabled="<%#Model.AdditionOptionsEnabled %>" />
 				<asp:RequiredFieldValidator 
 					runat="server" 
 					ErrorMessage="Obligatoriskt fält: Höger addition" 
@@ -110,7 +110,7 @@
 			</p>
 			<p>
 				<label>Axel</label>
-				<asp:TextBox runat="server" ID="txtRightAxis" Text='<%#Model.SelectedAxis.Right%>' />
+				<asp:TextBox runat="server" ID="txtRightAxis" Text='<%#Model.SelectedAxis.Right%>' Enabled="<%#Model.AxisOptionsEnabled %>" />
 				<asp:RegularExpressionValidator
 					runat="server" 
 					ControlToValidate="txtRightAxis" 
@@ -128,14 +128,14 @@
 			</p>
 			<p>
 				<label>Cylinder</label>
-				<asp:TextBox runat="server" ID="txtRightCylinder" Text='<%#Model.SelectedCylinder.Right%>' />
+				<asp:TextBox runat="server" ID="txtRightCylinder" Text='<%#Model.SelectedCylinder.Right%>' Enabled="<%#Model.CylinderOptionsEnabled %>" />
 				<asp:RegularExpressionValidator 
 					runat="server" 
 					ControlToValidate="txtRightCylinder" 
 					CssClass="error-message"
 					ErrorMessage="Fält måste anges med - följt av värde: Höger cylinder"
 					ValidationExpression="^[-]{1}[0-9]*,?[0-9]+$"
-					Enabled="<%#Model.AxisOptionsEnabled %>">&nbsp;*</asp:RegularExpressionValidator>
+					Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RegularExpressionValidator>
 				<asp:RequiredFieldValidator
 					Runat="server" 
 					ErrorMessage="Obligatoriskt fält: Höger cylinder" 
@@ -166,7 +166,7 @@
 			</p>
 			<p>
 				<label>Addition</label>
-				<asp:TextBox runat="server" ID="txtLeftAddition" Text='<%#Model.SelectedAddition.Left%>' />
+				<asp:TextBox runat="server" ID="txtLeftAddition" Text='<%#Model.SelectedAddition.Left%>' Enabled="<%#Model.AdditionOptionsEnabled %>" />
 				<asp:RequiredFieldValidator 
 					Runat="server" 
 					ErrorMessage="Obligatoriskt fält: Vänster addition" 
@@ -199,7 +199,7 @@
 			</p>
 			<p>
 				<label>Axel</label>
-				<asp:TextBox runat="server" ID="txtLeftAxis" Text='<%#Model.SelectedAxis.Left%>' />
+				<asp:TextBox runat="server" ID="txtLeftAxis" Text='<%#Model.SelectedAxis.Left%>' Enabled="<%#Model.AxisOptionsEnabled %>" />
 				<asp:RegularExpressionValidator
 					runat="server" 
 					ControlToValidate="txtLeftAxis" 
@@ -217,14 +217,14 @@
 			</p>
 			<p>
 				<label>Cylinder</label>
-				<asp:TextBox runat="server" ID="txtLeftCylinder" Text='<%#Model.SelectedCylinder.Left%>' />
+				<asp:TextBox runat="server" ID="txtLeftCylinder" Text='<%#Model.SelectedCylinder.Left%>' Enabled="<%#Model.CylinderOptionsEnabled %>" />
 				<asp:RegularExpressionValidator
 					runat="server" 
 					ControlToValidate="txtLeftCylinder" 
 					CssClass="error-message"
 					ErrorMessage="Fält måste anges med - följt av värde: Vänster cylinder"
 					ValidationExpression="^[-]{1}[0-9]*,?[0-9]+$"
-					Enabled="<%#Model.AxisOptionsEnabled %>">&nbsp;*</asp:RegularExpressionValidator>
+					Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RegularExpressionValidator>
 				<asp:RequiredFieldValidator 
 					Runat="server" 
 					ErrorMessage="Obligatoriskt fält: Vänster cylinder" 

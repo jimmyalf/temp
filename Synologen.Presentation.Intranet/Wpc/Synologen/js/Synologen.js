@@ -9,6 +9,7 @@
 			$.SynologenIntranet.initRadioButtonLists();
 			$.SynologenIntranet.initAutogiroDetailView();
 			$.SynologenIntranet.initPlaceHolderPolyFill();
+			$.SynologenIntranet.initMinimizeYammerText();
 		},
 
 		initDisableTabLinks: function () {
@@ -59,6 +60,19 @@
 				return;
 			}
 			$('input, textarea').placeholder();
+		},
+		
+		initMinimizeYammerText: function () {
+			if (!$.isFunction($('.yammer-content').jTruncate)) {
+				console.log("jTruncate plugin cannot be found.");
+				return;
+			}
+	    		$('.yammer-content').jTruncate({
+		        	length: 100,
+		        	minTrail: 0,
+		        	moreText: "Läs mer",
+		        	lessText: "Minimiera",
+	    		});
 		}
 	});
 

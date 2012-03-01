@@ -127,7 +127,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void UppdaterasDelabonnemanget()
 		{
 			var updatedSubscriptionItem = Get<SubscriptionItem>(_subscriptionItem.Id);
-			updatedSubscriptionItem.WithdrawalsLimit.Value.ShouldBe(_form.WithdrawalsLimit);
+			updatedSubscriptionItem.WithdrawalsLimit.ShouldBe(_form.WithdrawalsLimit);
 			updatedSubscriptionItem.TaxedAmount.ShouldBe(_form.TaxedAmount);
 			updatedSubscriptionItem.TaxFreeAmount.ShouldBe(_form.TaxFreeAmount);
 		}

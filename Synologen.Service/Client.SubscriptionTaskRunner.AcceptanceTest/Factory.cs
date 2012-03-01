@@ -128,7 +128,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 			};
 		}
 
-		public static SubscriptionItem CreateSubscriptionItem(Subscription subscription, int? withdrawalsLimit = 12, int performedWithdrawals = 0)
+		public static SubscriptionItem CreateSubscriptionItem(Subscription subscription, int withdrawalsLimit = 12, int performedWithdrawals = 0)
 		{
 			return new SubscriptionItem
 			{
@@ -145,7 +145,6 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 			return new []
 			{
 				CreateSubscriptionItem(subscription), //Active subscription item with limit
-				CreateSubscriptionItem(subscription, null), //Active subscription item without limit
 				CreateSubscriptionItem(subscription, 12, 12) //Expired subscription item
 			};
 		}

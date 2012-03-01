@@ -46,8 +46,8 @@
 		<fieldset>
 			<p><label>Leveranstyp</label><input disabled="disabled" value="<%=Model.DeliveryOption%>"/></p>
 			<p><label>Betalningsätt</label><input disabled="disabled" value="Autogiro" /></p>
-			<p><label>Momsbelopp</label><input disabled="disabled" value="<%=Model.TaxedAmount%>" /></p>
-			<p><label>Momsfritt belopp</label><input disabled="disabled" value="<%=Model.TaxfreeAmount%>" /></p>
+			<p><label>Produkt</label><input disabled="disabled" value="<%=Model.ProductPrice%>" /></p>
+			<p><label>Arvode</label><input disabled="disabled" value="<%=Model.FeePrice%>" /></p>
 			<p><label>Månadsbelopp</label><input disabled="disabled" value="<%=Model.Monthly%>" /></p>
 			<p><label>Abonnemangstid</label><input disabled="disabled" value="<%=Model.SubscriptionTime%>" /></p>
 			<p><label>Totaluttag</label><input disabled="disabled" value="<%=Model.TotalWithdrawal%>" /></p>

@@ -26,8 +26,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 			if(Submit == null) return;
 			var eventArgs = new SubmitSubscriptionItemEventArgs
 			{
-				TaxFreeAmount = txtVatFreeAmount.Text.ToDecimalOrDefault(),
-				TaxedAmount = txtVATAmount.Text.ToDecimalOrDefault(),
+				ProductAmount = txtProductAmount.Text.ToDecimalOrDefault(),
+				FeeAmount = txtFeeAmount.Text.ToDecimalOrDefault(),
 				WithdrawalsLimit = txtNumberOfWithdrawals.Text.ToInt()
 			};
 			Submit(this, eventArgs);

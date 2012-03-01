@@ -14,16 +14,17 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual Subscription Subscription { get; set; }
 		public virtual int WithdrawalsLimit { get; set; }
 		public virtual int PerformedWithdrawals { get; set; }
-		public virtual decimal TaxedAmount { get; set; }
-		public virtual decimal TaxFreeAmount { get; set; }
-		public virtual decimal AmountForAutogiroWithdrawal { get { return TaxedAmount + TaxFreeAmount; } }
+		public virtual decimal ProductPrice { get; set; }
+		public virtual decimal FeePrice { get; set; }
+		public virtual decimal TotalValue { get { return ProductPrice + FeePrice; } }
+
+		public virtual decimal MonthlyWithdrawalAmount
+		{
+			get { return Math.Round(TotalValue / WithdrawalsLimit, 2); }
+		}
 		public virtual bool IsActive
 		{ 
-			get
-			{
-				//if(!WithdrawalsLimit.HasValue) return true; //Continuous withdrawal subscription item
-				return PerformedWithdrawals < WithdrawalsLimit;//.Value; // Subscription item has limit
-			} 
+			get { return PerformedWithdrawals < WithdrawalsLimit; } 
 		}
 	}
 }

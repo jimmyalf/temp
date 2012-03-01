@@ -135,8 +135,8 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 				WithdrawalsLimit = withdrawalsLimit,
 				PerformedWithdrawals = performedWithdrawals,
 				Subscription = subscription,
-				TaxFreeAmount = 150,
-				TaxedAmount = 300
+				ProductPrice = 1500,
+				FeePrice = 500
 			};
 		}
 
@@ -153,7 +153,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		{
 			return new SubscriptionPendingPayment
 			{
-				Amount = subscriptionItems.Where(x => x.IsActive).Sum(x => x.AmountForAutogiroWithdrawal),
+				Amount = subscriptionItems.Where(x => x.IsActive).Sum(x => x.MonthlyWithdrawalAmount),
 				HasBeenPayed = false,
 				SubscriptionItems = subscriptionItems.Where(x => x.IsActive).ToList()
 			};

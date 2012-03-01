@@ -154,7 +154,6 @@
     <Compile Include="LensSubscriptionTests\TestHelpers\ListSubscriptionErrorsTestbase.cs" />
     <Compile Include="LensSubscriptionTests\TestHelpers\ListTransactionsTestbase.cs" />
     <Compile Include="LensSubscriptionTests\ViewShopSubscriptionsPresenterTests.cs" />
-    <Compile Include="Orders\Autogiro_Details.cs" />
     <Compile Include="Orders\Create_Order_Tests.cs" />
     <Compile Include="Orders\OrderFactory.cs" />
     <Compile Include="Orders\Save_Customer.cs" />
@@ -207,7 +206,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

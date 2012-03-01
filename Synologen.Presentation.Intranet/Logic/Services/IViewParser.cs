@@ -64,16 +64,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			{
 				WithdrawalsLimit = args.NumberOfPayments,
 				Subscription = subscription,
-				TaxFreeAmount = args.TaxFreeAmount,
-				TaxedAmount = args.TaxedAmount,
+				ProductPrice = args.ProductPrice,
+				FeePrice = args.FeePrice,
 			};
 		}
 
 	    public void UpdateSubscriptionItem(AutogiroDetailsEventArgs args, SubscriptionItem subscriptionPayment, Subscription subscription)
 	    {
             subscriptionPayment.WithdrawalsLimit = args.NumberOfPayments;
-			subscriptionPayment.TaxFreeAmount = args.TaxFreeAmount;
-			subscriptionPayment.TaxedAmount = args.TaxedAmount;
+			subscriptionPayment.ProductPrice = args.ProductPrice;
+			subscriptionPayment.FeePrice = args.FeePrice;
 	        subscriptionPayment.Subscription = subscription;
 
 	    }

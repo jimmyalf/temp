@@ -21,10 +21,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			);
 			Article = order.Article.Name;
 			DeliveryOption = order.ShippingType.GetEnumDisplayName();
-			TaxedAmount = order.SubscriptionPayment.TaxedAmount.ToString("C2");
-			TaxfreeAmount = order.SubscriptionPayment.TaxFreeAmount.ToString("C2");
-			Monthly = order.SubscriptionPayment.AmountForAutogiroWithdrawal.ToString("C2");
-			TotalWithdrawal = order.OrderTotalWithdrawalAmount.HasValue ? order.OrderTotalWithdrawalAmount.Value.ToString("C2") : string.Empty;
+			ProductPrice = order.SubscriptionPayment.ProductPrice.ToString("C2");
+			FeePrice = order.SubscriptionPayment.FeePrice.ToString("C2");
+			Monthly = order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("C2");
+			TotalWithdrawal = order.OrderTotalWithdrawalAmount.ToString("C2");
 			NumerOfWithdrawals = order.SubscriptionPayment.WithdrawalsLimit.ToString();
 			NumberOfPerformedWithdrawals = order.SubscriptionPayment.PerformedWithdrawals;
 			Addition = new ParameterView(order.LensRecipe.Addition);
@@ -54,10 +54,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 
 		[DisplayName("Leverans")]
         public string DeliveryOption { get; set; }
-		[DisplayName("Skattbelagt belopp")]
-        public string TaxedAmount { get; set; }
-		[DisplayName("Skattfritt belopp")]
-        public string TaxfreeAmount { get; set; }
+		[DisplayName("Produkt")]
+        public string ProductPrice { get; set; }
+		[DisplayName("Arovde")]
+        public string FeePrice { get; set; }
 		[DisplayName("Totaluttag")]
         public string TotalWithdrawal { get; set; }
 		[DisplayName("Dragningsbelopp")]

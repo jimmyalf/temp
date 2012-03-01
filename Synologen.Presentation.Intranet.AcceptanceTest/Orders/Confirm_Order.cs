@@ -186,26 +186,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.PostalCode.ShouldBe(order.Customer.PostalCode);
             View.Model.Telephone.ShouldBe(order.Customer.Phone ?? "");
 
-            View.Model.LeftAddition.ShouldBe(order.LensRecipe.Addition.Left != null ? order.LensRecipe.Addition.Left.ToString() : "");
-            View.Model.LeftAxis.ShouldBe(order.LensRecipe.Axis != null ? order.LensRecipe.Axis.Left.ToString() : "");
-            View.Model.LeftPower.ShouldBe(order.LensRecipe.Power != null ? order.LensRecipe.Power.Left.ToString() : "");
+            View.Model.LeftAddition.ShouldBe(order.LensRecipe.Addition.Left);
+            View.Model.LeftAxis.ShouldBe(order.LensRecipe.Axis != null ? order.LensRecipe.Axis.Left : "");
+            View.Model.LeftPower.ShouldBe(order.LensRecipe.Power != null ? order.LensRecipe.Power.Left : "");
             View.Model.LeftBaseCurve.ShouldBe(order.LensRecipe.BaseCurve.Left != null ? order.LensRecipe.BaseCurve.Left.ToString() : "");
             View.Model.LeftDiameter.ShouldBe(order.LensRecipe.Diameter.Left != null ? order.LensRecipe.Diameter.Left.ToString() : "");
-            View.Model.LeftCylinder.ShouldBe(order.LensRecipe.Cylinder.Left != null ? order.LensRecipe.Cylinder.Left.ToString() : "");
-            View.Model.RightAddition.ShouldBe(order.LensRecipe.Addition.Right != null ? order.LensRecipe.Addition.Right.ToString() : "");
-            View.Model.RightAxis.ShouldBe(order.LensRecipe.Axis != null ? order.LensRecipe.Axis.Right.ToString() : "");
-            View.Model.RightPower.ShouldBe(order.LensRecipe.Power != null ? order.LensRecipe.Power.Right.ToString() : "");
+            View.Model.LeftCylinder.ShouldBe(order.LensRecipe.Cylinder.Left ?? "");
+            View.Model.RightAddition.ShouldBe(order.LensRecipe.Addition.Right ?? "");
+            View.Model.RightAxis.ShouldBe(order.LensRecipe.Axis != null ? order.LensRecipe.Axis.Right : "");
+            View.Model.RightPower.ShouldBe(order.LensRecipe.Power != null ? order.LensRecipe.Power.Right : "");
             View.Model.RightBaseCurve.ShouldBe(order.LensRecipe.BaseCurve.Right != null ? order.LensRecipe.BaseCurve.Right.ToString() : "");
             View.Model.RightDiameter.ShouldBe(order.LensRecipe.Diameter.Right != null ? order.LensRecipe.Diameter.Right.ToString() : "");
-            View.Model.RightCylinder.ShouldBe(order.LensRecipe.Cylinder.Right != null ? order.LensRecipe.Cylinder.Right.ToString() : "");
+            View.Model.RightCylinder.ShouldBe(order.LensRecipe.Cylinder.Right);
 
             View.Model.Article.ShouldBe(order.Article.Name);
         	View.Model.CustomerName.ShouldBe(order.Customer.FirstName + " " + order.Customer.LastName);
             View.Model.DeliveryOption.ShouldBe(order.ShippingType.GetEnumDisplayName());
-            View.Model.TaxedAmount.ShouldBe(order.SubscriptionPayment.TaxedAmount.ToString("C"));
-            View.Model.TaxfreeAmount.ShouldBe(order.SubscriptionPayment.TaxFreeAmount.ToString("C"));
-            View.Model.TotalWithdrawal.ShouldBe(order.OrderTotalWithdrawalAmount.Value.ToString("C"));
-			View.Model.Monthly.ShouldBe(order.SubscriptionPayment.AmountForAutogiroWithdrawal.ToString("C"));
+            View.Model.ProductPrice.ShouldBe(order.SubscriptionPayment.ProductPrice.ToString("C"));
+            View.Model.FeePrice.ShouldBe(order.SubscriptionPayment.FeePrice.ToString("C"));
+            View.Model.TotalWithdrawal.ShouldBe(order.OrderTotalWithdrawalAmount.ToString("C"));
+			View.Model.Monthly.ShouldBe(order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("C"));
             View.Model.SubscriptionTime.ShouldBe(order.SubscriptionPayment.WithdrawalsLimit + " månader");
         }
 
@@ -219,7 +219,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private void SkapasEnTotalTransaktion()
     	{
     		var transaction = GetAll<SubscriptionTransaction>().Single();
-			transaction.Amount.ShouldBe(_order.OrderTotalWithdrawalAmount.Value);
+			transaction.Amount.ShouldBe(_order.OrderTotalWithdrawalAmount);
 			transaction.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
 			transaction.Reason.ShouldBe(TransactionReason.Withdrawal);
 			transaction.SettlementId.ShouldBe(null);

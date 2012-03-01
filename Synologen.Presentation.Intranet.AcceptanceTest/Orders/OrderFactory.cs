@@ -193,9 +193,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				BankAccountNumber = "123456789",
 				ClearingNumber = "1234",
 				NumberOfPayments = 6,
-				TaxFreeAmount = 100,
-				TaxedAmount = 125.25M,
-				OrderTotalWithdrawalAmount = 900M
+				ProductPrice = 3500,
+				FeePrice = 255,
 			};
 		}
 
@@ -219,8 +218,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 WithdrawalsLimit = 3,
                 PerformedWithdrawals = 0,
                 Subscription = subscription,
-                TaxedAmount = 5000,
-                TaxFreeAmount = 4000
+                ProductPrice = 1000,
+                FeePrice = 500
 	        };
 	    }
 

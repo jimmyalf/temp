@@ -51,7 +51,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		    {
 		        CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName),
 		        CurrentBalance = subscription.GetCurrentAccountBalance().ToString("N2"),
-		        MonthlyAmount = subscription.SubscriptionItems.Where(x => x.IsActive).Sum(x => x.AmountForAutogiroWithdrawal).ToString("N2"),
+		        MonthlyAmount = subscription.SubscriptionItems.Where(x => x.IsActive).Sum(x => x.MonthlyWithdrawalAmount).ToString("N2"),
 		        Status = GetStatusMessage(subscription),
 		        CustomerDetailsUrl = urlFormat.ReplaceWith(new { Url = getCustomerDetailsUrl(), Parameter = "customer", ParameterValue = subscription.Customer.Id }),
 		        SubscriptionDetailsUrl = urlFormat.ReplaceWith(new { Url = getSubscriptionDetailsUrl(), Parameter = "subscription", ParameterValue = subscription.Id }),

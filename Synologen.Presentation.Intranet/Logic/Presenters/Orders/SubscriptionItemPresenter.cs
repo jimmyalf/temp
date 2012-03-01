@@ -38,8 +38,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		{
 			if(!RequestSubScriptionItem.HasValue) return;
 			var subscriptionItem = _subscriptionItemRepository.Get(RequestSubScriptionItem.Value);
-			subscriptionItem.TaxFreeAmount = args.TaxFreeAmount;
-			subscriptionItem.TaxedAmount = args.TaxedAmount;
+			subscriptionItem.ProductPrice = args.ProductAmount;
+			subscriptionItem.FeePrice = args.FeeAmount;
 			subscriptionItem.WithdrawalsLimit = args.WithdrawalsLimit;
 			_subscriptionItemRepository.Save(subscriptionItem);
 			UpdateViewModel(subscriptionItem);

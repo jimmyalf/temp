@@ -13,22 +13,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
     public partial class SubscriptionItem {
         
         /// <summary>
-        /// txtVATAmount control.
+        /// txtProductAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVATAmount;
+        protected global::System.Web.UI.WebControls.TextBox txtProductAmount;
         
         /// <summary>
-        /// txtVatFreeAmount control.
+        /// txtFeeAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVatFreeAmount;
+        protected global::System.Web.UI.WebControls.TextBox txtFeeAmount;
         
         /// <summary>
         /// txtNumberOfWithdrawals control.

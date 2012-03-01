@@ -7,16 +7,16 @@
 			<span><%#Model.MonthlyWithdrawalAmount %></span>
     	</p>
     	<p>
-    		<label>Momsbelopp</label>
-			<asp:TextBox ID="txtVATAmount" Text="<%#Model.TaxedAmount %>" runat="server" />
-			<asp:RequiredFieldValidator runat="server" ControlToValidate="txtVATAmount" ErrorMessage="Momsbelopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
-			<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtVatAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
+    		<label>Produkt</label>
+			<asp:TextBox ID="txtProductAmount" Text="<%#Model.ProductPrice %>" runat="server" />
+			<asp:RequiredFieldValidator runat="server" ControlToValidate="txtProductAmount" ErrorMessage="Produktbelopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
+			<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtProductAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
     	</p>
     	<p>
-    		<label>Momsfritt belopp</label>
-			<asp:TextBox ID="txtVatFreeAmount" Text="<%#Model.TaxFreeAmount %>" runat="server" />
-			<asp:RequiredFieldValidator runat="server" ControlToValidate="txtVatFreeAmount" ErrorMessage="Momsfritt belopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
-			<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtVatFreeAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
+    		<label>Arvode</label>
+			<asp:TextBox ID="txtFeeAmount" Text="<%#Model.FeePrice %>" runat="server" />
+			<asp:RequiredFieldValidator runat="server" ControlToValidate="txtFeeAmount" ErrorMessage="Arvode måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
+			<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtFeeAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
     	</p>
 		<p>
 			<label>Utförda dragningar</label>

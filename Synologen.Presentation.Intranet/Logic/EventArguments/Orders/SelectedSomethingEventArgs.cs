@@ -17,16 +17,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
 		public EyeParameter<string> SelectedCylinder { get; set; }
 		public EyeParameter<decimal> SelectedDiameter { get; set; }
 		public EyeParameter<decimal> SelectedBaseCurve { get; set; }
+		public EyeParameter<string> SelectedQuantity { get; set; }
 		public string SelectedReference { get; set; }
-		
 
-        public SelectedSomethingEventArgs()
+    	public SelectedSomethingEventArgs()
         {
 			SelectedArticleId = new EyeParameter<int>();
 			SelectedPower = new EyeParameter<string>();
 			SelectedAddition = new EyeParameter<string>();
 			SelectedAxis = new EyeParameter<string>();
 			SelectedCylinder = new EyeParameter<string>();
+    		SelectedQuantity = new EyeParameter<string>();
 			SelectedDiameter = new EyeParameter<decimal> {Left = DefaultOptionValue, Right = DefaultOptionValue};
 			SelectedBaseCurve = new EyeParameter<decimal> {Left = DefaultOptionValue, Right = DefaultOptionValue};
         }

@@ -64,15 +64,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
             return fakeOrderArticle;
         }
 
-    	public static Order GetOrder(Article article = null, OrderCustomer customer = null, LensRecipe lensRecipe = null, int? selectedSubscriptionId = null, SubscriptionItem subscriptionItem = null, OrderShippingOption? shippingType = null)
+    	public static Order GetOrder(OrderCustomer customer = null, LensRecipe lensRecipe = null, int? selectedSubscriptionId = null, SubscriptionItem subscriptionItem = null, OrderShippingOption? shippingType = null)
     	{
 			return new Order
 			{
-				Article = new EyeParameter<Article>
-				{
-					Left = article ?? GetArticle(),
-					Right = article ?? GetArticle(),
-				},
 				Customer = customer ?? GetCustomer(),
 				LensRecipe = lensRecipe,
 				SelectedPaymentOption = selectedSubscriptionId.HasValue
@@ -86,5 +81,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
 				SubscriptionPayment = subscriptionItem
 			};
     	}
+
+		public static LensRecipe GetLensRecipie(Article article = null)
+		{
+			return new LensRecipe
+			{
+				Article = new EyeParameter<Article>
+				{
+					Left = article ?? GetArticle(),
+					Right = article ?? GetArticle(),
+				},
+				Addition = new EyeParameter<string>(),
+				Axis = new EyeParameter<string>(),
+				BaseCurve = new EyeParameter<decimal?>(),
+				Cylinder = new EyeParameter<string>(),
+				Diameter = new EyeParameter<decimal?>(),
+				Power = new EyeParameter<string>(),
+				Quantity = new EyeParameter<string>()
+			};
+		}
     }
 }

@@ -49,8 +49,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _shop = CreateShop<Shop>();
     		_customer = CreateCustomer(_shop);
     		_subsciptions = CreateSubscriptions(_shop, _customer);
-			var article = CreateArticle();
-        	_order = CreateOrder(_shop, customer:_customer, article: article);
+			//var article = CreateArticle();
+        	_order = CreateOrder(_shop, customer:_customer /*, article: article*/);
 
 			var otherCustomer = CreateCustomer(_shop);
 			CreateSubscriptions(_shop, otherCustomer);

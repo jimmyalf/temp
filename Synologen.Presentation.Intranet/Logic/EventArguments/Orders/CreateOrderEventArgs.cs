@@ -14,6 +14,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
 		public EyeParameter<string> Axis { get; set; }
 		public EyeParameter<string> Cylinder { get; set; }
 		public EyeParameter<string> Addition { get; set; }
+		public EyeParameter<string> Quantity { get; set; }
     	public string Reference { get; set; }
     }
 }

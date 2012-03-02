@@ -28,7 +28,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			NumberOfPerformedWithdrawals = order.SubscriptionPayment.PerformedWithdrawals;
 			Reference = order.Reference;
 			Status = order.Status.GetEnumDisplayName();
-			Article = new ParameterView(order.Article);
+			Article = new ParameterView(order.LensRecipe.Article);
 			Addition = new ParameterView(order.LensRecipe.Addition);
 			Axis = new ParameterView(order.LensRecipe.Axis);
 			Power = new ParameterView(order.LensRecipe.Power);

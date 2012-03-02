@@ -17,11 +17,6 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
         	Map(x => x.Reference).Nullable().Length(255);
             References(x => x.LensRecipe).Column("LensRecipeId");
         	References(x => x.SubscriptionPayment).Column("SubscriptionItemId").Nullable();
-        	Component(x => x.Article, map =>
-        	{
-        		map.References(x => x.Left).Column("ArticleLeftId");
-				map.References(x => x.Right).Column("ArticleRightId");
-        	});
         	References(x => x.Customer).Column("CustomerId").Not.Nullable();
         	References(x => x.Shop).Column("ShopId").Not.Nullable();
         	Component(x => x.SelectedPaymentOption, paymentOption =>

@@ -6,16 +6,29 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 {
 	public static class OrderFactory
 	{
-		public static Order GetOrder(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null)
+		public static Order GetOrder(Shop shop, OrderCustomer customer, LensRecipe recipie)
 		{
 			return new Order
 			{
-				Article = new EyeParameter<Article>(article, article),
 				LensRecipe = recipie,
 				ShippingType = OrderShippingOption.ToCustomer,
 				Customer = customer,
 				Shop = shop
 			};
+		}
+
+		public static LensRecipe GetLensRecipie(Article article)
+		{
+	        return new LensRecipe
+	        {
+				Article = new EyeParameter<Article>(article, article),
+	            Addition = new EyeParameter<string>("Medium","High"),
+                Axis = new EyeParameter<string>("25","33"),
+                Power = new EyeParameter<string>("+3","-1"),
+                BaseCurve = new EyeParameter<decimal?>(4,4),
+                Diameter = new EyeParameter<decimal?>(5,5),
+                Cylinder = new EyeParameter<string>("-10", "-22")
+	        };
 		}
 		
 		public static Article GetArticle(ArticleType articleType, ArticleSupplier supplier, string name = "Artikel", int? seed = null)
@@ -91,9 +104,9 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 			return Sequence.Generate(seed => GetCategory(seed: seed), 45);
 		}
 
-		public static IEnumerable<Order> GetOrders(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null)
+		public static IEnumerable<Order> GetOrders(Shop shop, OrderCustomer customer, LensRecipe recipie)
 		{
-			return Sequence.Generate(x => GetOrder(shop, article, customer, recipie), 30);
+			return Sequence.Generate(x => GetOrder(shop, customer, recipie), 30);
 		}
 
 		public static IEnumerable<ArticleSupplier> GetSuppliers()

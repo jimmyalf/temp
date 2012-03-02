@@ -13,7 +13,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
     	}
 
 		public virtual Shop Shop { get; set; }
-		public virtual EyeParameter<Article> Article { get; set; }
+		//public virtual EyeParameter<Article> Article { get; set; }
 		public virtual LensRecipe LensRecipe { get; set; }
         public virtual OrderShippingOption ShippingType { get; set; }
 		public virtual PaymentOption SelectedPaymentOption { get; set; }

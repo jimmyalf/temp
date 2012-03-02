@@ -62,7 +62,13 @@
 			</p>
 			<p>
 				<label>Antal</label>
-				<input type="text"/>
+				<asp:TextBox runat="server" ID="txtRightQuantity" Text='<%#Model.Quantity.Right%>' />
+				<asp:RequiredFieldValidator
+					runat="server" 
+					ErrorMessage="Obligatoriskt fält: Höger antal" 
+					ControlToValidate="txtRightQuantity" 
+					Display="Dynamic" 
+					CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 			<p>
 				<label>Styrka</label>
@@ -165,7 +171,13 @@
 			</p>
 			<p>
 				<label>Antal</label>
-				<input type="text"/>
+				<asp:TextBox runat="server" ID="txtLeftQuantity" Text='<%#Model.Quantity.Left%>' />
+				<asp:RequiredFieldValidator 
+					runat="server" 
+					ErrorMessage="Obligatoriskt fält: Vänster antal" 
+					ControlToValidate="txtLeftQuantity" 
+					Display="Dynamic" 
+					CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 			<p>
 				<label>Styrka</label>

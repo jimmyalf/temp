@@ -58,8 +58,8 @@
 			<fieldset>
 				<legend>Abonemmangsinformation</legend>
 				<p><%= Html.LabelFor(x => x.DeliveryOption)%><%= Html.DisplayFor(x => x.DeliveryOption)%></p>
-				<p><%= Html.LabelFor(x => x.TaxedAmount)%><%= Html.DisplayFor(x => x.TaxedAmount)%></p>
-				<p><%= Html.LabelFor(x => x.TaxfreeAmount)%><%= Html.DisplayFor(x => x.TaxfreeAmount)%></p>
+				<p><%= Html.LabelFor(x => x.ProductPrice)%><%= Html.DisplayFor(x => x.ProductPrice)%></p>
+				<p><%= Html.LabelFor(x => x.FeePrice)%><%= Html.DisplayFor(x => x.FeePrice)%></p>
 				<p><%= Html.LabelFor(x => x.Monthly)%><%= Html.DisplayFor(x => x.Monthly)%></p>
 				<p><%= Html.LabelFor(x => x.NumerOfWithdrawals)%><%= Html.DisplayFor(x => x.NumerOfWithdrawals)%></p>
 				<p><%= Html.LabelFor(x => x.NumberOfPerformedWithdrawals)%><%= Html.DisplayFor(x => x.NumberOfPerformedWithdrawals)%></p>

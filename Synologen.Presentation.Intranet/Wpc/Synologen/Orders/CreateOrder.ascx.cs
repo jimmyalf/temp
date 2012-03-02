@@ -96,6 +96,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 				Axis = GetEyeParameter(txtLeftAxis, txtRightAxis),
 				Cylinder = GetEyeParameter(txtLeftCylinder, txtRightCylinder),
 				Addition = GetEyeParameter(txtLeftAddition, txtRightAddition),
+				Quantity = GetEyeParameter(txtLeftQuantity, txtRightQuantity),
 				Reference = txtReference.Text
             };
 			TryFireSubmit(sender, args);

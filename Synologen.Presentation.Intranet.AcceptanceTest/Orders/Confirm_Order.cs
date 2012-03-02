@@ -152,8 +152,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.RightDiameter.ShouldBe(order.LensRecipe.Diameter.Right != null ? order.LensRecipe.Diameter.Right.ToString() : "");
             View.Model.RightCylinder.ShouldBe(order.LensRecipe.Cylinder.Right);
 
-            View.Model.ArticleLeft.ShouldBe(order.Article.Left.Name);
-			View.Model.ArticleRight.ShouldBe(order.Article.Right.Name);
+            View.Model.ArticleLeft.ShouldBe(order.LensRecipe.Article.Left.Name);
+			View.Model.ArticleRight.ShouldBe(order.LensRecipe.Article.Right.Name);
         	View.Model.CustomerName.ShouldBe(order.Customer.FirstName + " " + order.Customer.LastName);
             View.Model.DeliveryOption.ShouldBe(order.ShippingType.GetEnumDisplayName());
             View.Model.ProductPrice.ShouldBe(order.SubscriptionPayment.ProductPrice.ToString("C"));
@@ -161,6 +161,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.TotalWithdrawal.ShouldBe(order.OrderTotalWithdrawalAmount.ToString("C"));
 			View.Model.Monthly.ShouldBe(order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("C"));
             View.Model.SubscriptionTime.ShouldBe(order.SubscriptionPayment.WithdrawalsLimit + " månader");
+			View.Model.QuantityLeft.ShouldBe(order.LensRecipe.Quantity.Left);
+			View.Model.QuantityRight.ShouldBe(order.LensRecipe.Quantity.Right);
         }
 
 

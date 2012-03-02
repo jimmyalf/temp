@@ -41,27 +41,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		where TPresenter : Presenter<TView> 
 		where TView : class, IView
 	{
-		protected Order CreateOrder(Shop shop, Article article = null, OrderCustomer customer = null)
+		protected Order CreateOrder(Shop shop, OrderCustomer customer = null)
 		{
-			article = article ?? CreateArticle();
 			customer = customer ?? CreateCustomer(shop);
-			return CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(shop, article, customer));
+			return CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(shop, customer));
 		}
 
         protected Order CreateOrderWithSubscription(Shop shop, Article article = null, OrderCustomer customer = null, PaymentOptionType paymentOptionType = PaymentOptionType.Subscription_Autogiro_New)
         {
             article = article ?? CreateArticle();
             customer = customer ?? CreateCustomer(shop);
-            var lensRecipe = CreateLensRecipe();
+            var lensRecipe = CreateLensRecipe(article);
             var subscription = CreateSubscription(shop, active: paymentOptionType == PaymentOptionType.Subscription_Autogiro_Existing);
             var subscriptionItem = CreateSubscriptionItem(subscription);
 
-            return CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(shop, article, customer, lensRecipe, subscriptionItem, paymentOptionType));
+            return CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(shop, customer, lensRecipe, subscriptionItem, paymentOptionType));
         }
 
-	    private LensRecipe CreateLensRecipe()
+	    private LensRecipe CreateLensRecipe(Article article)
 	    {
-	        return CreateWithRepository<ILensRecipeRepository, LensRecipe>(OrderFactory.GetLensRecipe);
+	        return CreateWithRepository<ILensRecipeRepository, LensRecipe>(() =>OrderFactory.GetLensRecipe(article));
 	    }
 
 	    protected SubscriptionItem CreateSubscriptionItem(Subscription subscription)

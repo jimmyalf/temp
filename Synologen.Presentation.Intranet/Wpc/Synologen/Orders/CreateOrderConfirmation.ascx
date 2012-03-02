@@ -27,6 +27,7 @@
 		<fieldset class="right-eye">
 			<legend>H</legend>
 			<p><label>Artikel</label><input disabled="disabled" value="<%=Model.ArticleRight%>" /></p>
+			<p><label>Antal</label><input disabled="disabled" value="<%=Model.QuantityRight%>" /></p>
 			<p><label>Styrka</label><input disabled="disabled" value="<%=Model.RightPower%>" /></p>
 			<p><label>Addition</label><input disabled="disabled" value="<%=Model.RightAddition%>" /></p>
 			<p><label>Baskurva</label><input disabled="disabled" value="<%=Model.RightBaseCurve%>" /></p>
@@ -37,6 +38,7 @@
 		<fieldset class="left-eye">
 			<legend>V</legend>
 			<p><label>Artikel</label><input disabled="disabled" value="<%=Model.ArticleLeft%>" /></p>
+			<p><label>Antal</label><input disabled="disabled" value="<%=Model.QuantityLeft%>" /></p>
 			<p><label>Styrka</label><input disabled="disabled" value="<%=Model.LeftPower%>" /></p>
 			<p><label>Addition</label><input disabled="disabled" value="<%=Model.LeftAddition%>" /></p>
 			<p><label>Baskurva</label><input disabled="disabled" value="<%=Model.LeftBaseCurve%>" /></p>

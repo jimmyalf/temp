@@ -35,5 +35,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 
     	public string ArticleLeft { get; set; }
 		public string ArticleRight { get; set; }
+
+    	public string QuantityLeft { get; set; }
+    	public string QuantityRight { get; set; }
     }
 }

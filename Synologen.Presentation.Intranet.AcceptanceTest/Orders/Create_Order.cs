@@ -220,13 +220,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             var article = OrderFactory.GetArticle(articleType, articleSupplier);
             WithRepository<IArticleRepository>().Save(article);
 
-            var lensRecipe = OrderFactory.GetLensRecipe();
+            var lensRecipe = OrderFactory.GetLensRecipe(article);
             WithRepository<ILensRecipeRepository>().Save(lensRecipe);
 
             _customer = OrderFactory.GetCustomer(_shop);
             WithRepository<IOrderCustomerRepository>().Save(_customer);
 
-            _order = OrderFactory.GetOrder(_shop, article, _customer, lensRecipe);
+            _order = OrderFactory.GetOrder(_shop, _customer, lensRecipe);
             WithRepository<IOrderRepository>().Save(_order);
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
@@ -291,11 +291,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void FormuläretFyllsMedData()
         {
-            View.Model.SelectedArticleId.Left.ShouldBe(_order.Article.Left.Id);
-			View.Model.SelectedArticleId.Right.ShouldBe(_order.Article.Right.Id);
-            View.Model.SelectedArticleTypeId.ShouldBe(_order.Article.Left.ArticleType.Id);
-            View.Model.SelectedCategoryId.ShouldBe(_order.Article.Left.ArticleType.Category.Id);
-            View.Model.SelectedSupplierId.ShouldBe(_order.Article.Left.ArticleSupplier.Id);
+            View.Model.SelectedArticleId.Left.ShouldBe(_order.LensRecipe.Article.Left.Id);
+			View.Model.SelectedArticleId.Right.ShouldBe(_order.LensRecipe.Article.Right.Id);
+            View.Model.SelectedArticleTypeId.ShouldBe(_order.LensRecipe.Article.Left.ArticleType.Id);
+            View.Model.SelectedCategoryId.ShouldBe(_order.LensRecipe.Article.Left.ArticleType.Category.Id);
+            View.Model.SelectedSupplierId.ShouldBe(_order.LensRecipe.Article.Left.ArticleSupplier.Id);
             View.Model.SelectedShippingOption.ShouldBe((int)_order.ShippingType);
 
             View.Model.SelectedAddition.Left.ShouldBe(_order.LensRecipe.Addition.Left);
@@ -316,6 +316,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.SelectedPower.Left.ShouldBe(_order.LensRecipe.Power.Left);
             View.Model.SelectedPower.Right.ShouldBe(_order.LensRecipe.Power.Right);
 			View.Model.Reference.ShouldBe(_order.Reference);
+        	View.Model.Quantity.Left.ShouldBe(_order.LensRecipe.Quantity.Left);
+			View.Model.Quantity.Right.ShouldBe(_order.LensRecipe.Quantity.Right);
         }
 
         private void LaddasArtikelnsAlternativ()
@@ -407,10 +409,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void SparasBeställningen()
         {
-            _order = WithRepository<IOrderRepository>().GetAll().First();
-            _order.Article.Left.Id.ShouldBe(_form.ArticleId.Left);
-			_order.Article.Right.Id.ShouldBe(_form.ArticleId.Right);
+            _order = WithRepository<IOrderRepository>().GetAll().Single();
             _order.Customer.Id.ShouldBe(_customer.Id);
+            _order.LensRecipe.Article.Left.Id.ShouldBe(_form.ArticleId.Left);
+			_order.LensRecipe.Article.Right.Id.ShouldBe(_form.ArticleId.Right);
             _order.LensRecipe.BaseCurve.Left.ShouldBe(_form.BaseCurve.Left);
             _order.LensRecipe.BaseCurve.Right.ShouldBe(_form.BaseCurve.Right);
             _order.LensRecipe.Diameter.Left.ShouldBe(_form.Diameter.Left);
@@ -421,9 +423,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _order.LensRecipe.Axis.Right.ShouldBe(_form.Axis.Right);
             _order.LensRecipe.Cylinder.Left.ShouldBe(_form.Cylinder.Left);
             _order.LensRecipe.Cylinder.Right.ShouldBe(_form.Cylinder.Right);
-
             _order.LensRecipe.Addition.Left.ShouldBe(_form.Addition.Left);
             _order.LensRecipe.Addition.Right.ShouldBe(_form.Addition.Right);
+        	_order.LensRecipe.Quantity.Left.ShouldBe(_form.Quantity.Left);
+			_order.LensRecipe.Quantity.Right.ShouldBe(_form.Quantity.Right);
         	_order.Reference.ShouldBe(_form.Reference);
             _order.ShippingType.ToInteger().ShouldBe(_form.ShipmentOption);
 			_order.Status.ShouldBe(OrderStatus.Created);

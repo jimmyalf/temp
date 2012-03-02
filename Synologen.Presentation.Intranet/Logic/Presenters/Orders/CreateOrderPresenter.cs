@@ -125,8 +125,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.SelectedAxis = args.SelectedAxis;
             View.Model.SelectedAddition = args.SelectedAddition;
         	View.Model.Reference = args.SelectedReference;
+        	View.Model.Quantity = args.SelectedQuantity;
         }
-
 
         public void View_Submit(object o, CreateOrderEventArgs form)
         {
@@ -138,6 +138,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
     	private int CreateNewOrder(CreateOrderEventArgs form)
         {
+			var articleLeft = _articleRepository.Get(form.ArticleId.Left);
+			var articleRight = _articleRepository.Get(form.ArticleId.Right);
             var lensRecipe = new LensRecipe
             {
                 Axis = form.Axis,
@@ -145,17 +147,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 Cylinder = form.Cylinder,
                 Diameter = form.Diameter,
                 Power = form.Power,
-                Addition = form.Addition
+                Addition = form.Addition,
+				Quantity = form.Quantity,
+				Article = new EyeParameter<Article>(articleLeft, articleRight),
             };
             _lensRecipeRepository.Save(lensRecipe);
 
             var customer = _orderCustomerRepository.Get(RequestCustomerId.Value);
     		var shop = _shopRepository.Get(ShopId);
-			var articleLeft = _articleRepository.Get(form.ArticleId.Left);
-			var articleRight = _articleRepository.Get(form.ArticleId.Right);
             var order = new Order
             {
-                Article = new EyeParameter<Article>(articleLeft, articleRight),
                 LensRecipe = lensRecipe,
                 ShippingType = (OrderShippingOption) form.ShipmentOption,
                 Customer = customer,
@@ -170,11 +171,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         {
             //TODO: security. make sure that the order updated is the one that should be updated, for instance by checking that the order belongs to the butik trying to update an order.
             var order = _orderRepository.Get(orderId);
-			order.Article = new EyeParameter<Article>
-			{
-				Left = _articleRepository.Get(form.ArticleId.Left),
-				Right = _articleRepository.Get(form.ArticleId.Right)
-			};
             order.ShippingType = (OrderShippingOption) form.ShipmentOption;
         	order.Reference = form.Reference;
             _orderRepository.Save(order);
@@ -186,6 +182,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             lensRecipe.Diameter = form.Diameter;
             lensRecipe.Power = form.Power;
             lensRecipe.Addition = form.Addition;
+        	lensRecipe.Quantity = form.Quantity;
+			lensRecipe.Article = new EyeParameter<Article>
+			{
+				Left = _articleRepository.Get(form.ArticleId.Left),
+				Right = _articleRepository.Get(form.ArticleId.Right)
+			};
             _lensRecipeRepository.Save(lensRecipe);
 
             return order.Id;
@@ -205,19 +207,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 var args = new SelectedSomethingEventArgs
                 {
                     
-                    SelectedArticleTypeId = order.Article.Left.ArticleType.Id,
-                    SelectedCategoryId = order.Article.Left.ArticleType.Category.Id,
+                    SelectedArticleTypeId = order.LensRecipe.Article.Left.ArticleType.Id,
+                    SelectedCategoryId = order.LensRecipe.Article.Left.ArticleType.Category.Id,
                     SelectedShippingOption = (int)order.ShippingType,
-                    SelectedSupplierId = order.Article.Left.ArticleSupplier.Id,
+                    SelectedSupplierId = order.LensRecipe.Article.Left.ArticleSupplier.Id,
 
-					SelectedArticleId = new EyeParameter<int>(order.Article.Left.Id, order.Article.Right.Id),
+					SelectedArticleId = new EyeParameter<int>(order.LensRecipe.Article.Left.Id, order.LensRecipe.Article.Right.Id),
 					SelectedPower = order.LensRecipe.Power,
                     SelectedAddition = order.LensRecipe.Addition,
 					SelectedAxis = order.LensRecipe.Axis,
 					SelectedCylinder = order.LensRecipe.Cylinder,
+					SelectedQuantity = order.LensRecipe.Quantity,
                     SelectedBaseCurve = GetEyeParameterOrDefault(order.LensRecipe.BaseCurve),
                     SelectedDiameter = GetEyeParameterOrDefault(order.LensRecipe.Diameter),
-                    SelectedReference = order.Reference
+                    SelectedReference = order.Reference,
                 };
 
 				View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);

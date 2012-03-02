@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private string _submitRedirectUrl, _abortRedirectUrl, _previousRedirectUrl;
     	private OrderCustomer _customer;
         private Order _order;
-        private Article _article;
+        //private Article _article;
     	private string _customerNotFoundWithPersonalIdNumber;
     	private Shop _shop;
 
@@ -162,16 +162,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private void AttEnKundHittatsViaOrderId()
         {
             _customer = CreateCustomer(_shop);
-            _article = CreateArticle();
-            _order = CreateOrder(_shop, _article, _customer);
+            //_article = CreateArticle();
+            _order = CreateOrder(_shop, /*_article,*/ _customer);
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
 
         private void AttEnOrderFinnsSkapad()
         {
             _customer = CreateCustomer(_shop);
-            _article = CreateArticle();
-            _order = CreateOrder(_shop, _article, _customer);
+            //_article = CreateArticle();
+            _order = CreateOrder(_shop, /*_article,*/ _customer);
             //View.Model.OrderId = _order.Id;
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }

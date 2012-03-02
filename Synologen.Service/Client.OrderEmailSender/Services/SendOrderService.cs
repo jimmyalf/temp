@@ -25,7 +25,7 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
 		private int ParseAndSend(Order order)
 		{
 			
-			var to = order.Article.Left.ArticleSupplier.OrderEmailAddress;
+			var to = order.LensRecipe.Article.Left.ArticleSupplier.OrderEmailAddress;
 			var from = _configurationSettings.OrderSenderEmailAddress;
 			var body = GetEmailBody(order);
 			var subject = _configurationSettings.OrderEmailSubjectFormat;
@@ -59,8 +59,8 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
 			var data = new 
 			{
 				OrderId = order.Id,
-				ArticleLeft = order.Article.Left.Name,
-				ArticleRight = order.Article.Right.Name,
+				ArticleLeft = order.LensRecipe.Article.Left.Name,
+				ArticleRight = order.LensRecipe.Article.Right.Name,
 				ShopName = order.Shop.Name,
 
 				Receiver = receiver,

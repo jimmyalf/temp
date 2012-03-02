@@ -72,16 +72,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				BaseCurve = new EyeParameter<decimal?>(4,4),
 				Diameter = new EyeParameter<decimal?>(5,5),
 				Cylinder = new EyeParameter<string>("-10", "-22"),
+				Quantity = new EyeParameter<string>("10 st", "12"),
 				ShipmentOption = 1,
-				Reference = "Text abc"
+				Reference = "Text abc",
 			};
 	    }
 
-		public static Order GetOrder(Shop shop, Article article, OrderCustomer customer, LensRecipe recipie = null, SubscriptionItem subscriptionItem = null, PaymentOptionType paymentOptionType = PaymentOptionType.Subscription_Autogiro_New)
+		public static Order GetOrder(Shop shop, OrderCustomer customer, LensRecipe recipie = null, SubscriptionItem subscriptionItem = null, PaymentOptionType paymentOptionType = PaymentOptionType.Subscription_Autogiro_New)
 		{
 			return new Order
 			{
-				Article = new EyeParameter<Article>(article, article),
 				LensRecipe = recipie,
 				ShippingType = OrderShippingOption.ToCustomer,
 				Customer = customer,
@@ -201,16 +201,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			};
 		}
 
-	    public static LensRecipe GetLensRecipe()
+	    public static LensRecipe GetLensRecipe(Article article)
 	    {
 	        return new LensRecipe
 	        {
+				Article = new EyeParameter<Article>(article, article),
 	            Addition = new EyeParameter<string>("Medium","High"),
                 Axis = new EyeParameter<string>("25","33"),
                 Power = new EyeParameter<string>("+3","-1"),
                 BaseCurve = new EyeParameter<decimal?>(4,4),
                 Diameter = new EyeParameter<decimal?>(5,5),
-                Cylinder = new EyeParameter<string>("-10", "-22")
+                Cylinder = new EyeParameter<string>("-10", "-22"),
+				Quantity = new EyeParameter<string>("10 st", "15")
 	        };
 	    }
 

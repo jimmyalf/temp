@@ -23,5 +23,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual decimal OrderTotalWithdrawalAmount { get; set; }
         public virtual int? SpinitServicesEmailId { get; set; }
 		public virtual OrderStatus Status { get; set; }
+    	public virtual string Reference { get; set; }
     }
 }

@@ -314,7 +314,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
             View.Model.SelectedPower.Left.ShouldBe(_order.LensRecipe.Power.Left);
             View.Model.SelectedPower.Right.ShouldBe(_order.LensRecipe.Power.Right);
-
+			View.Model.Reference.ShouldBe(_order.Reference);
         }
 
         private void LaddasArtikelnsAlternativ()
@@ -409,7 +409,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
             _order.LensRecipe.Addition.Left.ShouldBe(_form.Addition.Left);
             _order.LensRecipe.Addition.Right.ShouldBe(_form.Addition.Right);
-            
+        	_order.Reference.ShouldBe(_form.Reference);
             _order.ShippingType.ToInteger().ShouldBe(_form.ShipmentOption);
 			_order.Status.ShouldBe(OrderStatus.Created);
 			_order.Shop.Id.ShouldBe(_shop.Id);

@@ -51,5 +51,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public bool AxisOptionsEnabled { get; set; }
         public bool CylinderOptionsEnabled { get; set; }
         public bool AdditionOptionsEnabled { get; set; }
+    	public string Reference { get; set; }
     }
 }

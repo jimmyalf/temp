@@ -79,6 +79,7 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
 				LeftBaseCurve = order.LensRecipe.BaseCurve.Return(x => x.Left.GetStringValue() ,null),
 				RightDiameter = order.LensRecipe.Diameter.Return(x => x.Right.GetStringValue() ,null),
 				RightBaseCurve = order.LensRecipe.BaseCurve.Return(x => x.Right.GetStringValue() ,null),
+				order.Reference
 			};
 			return HtmlTemplate().ReplaceWith(data);
 			
@@ -99,6 +100,7 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
 					<tr><td colspan=""6"">Beställnings-id: {OrderId}</td></tr>
 					<tr><td colspan=""6"">Från butik: {ShopName}</td></tr>
 					<tr><td colspan=""6"">Artikel: {Article}</td></tr>
+					<tr><td colspan=""6"">Referens: {Reference}</td></tr>
 					<tr class=""spacer-row""><td colspan=""6""/></tr>
 					<tr>
 						<td>Styrka Höger: {RightPower}</td>

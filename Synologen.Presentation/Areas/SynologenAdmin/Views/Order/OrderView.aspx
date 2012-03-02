@@ -64,6 +64,7 @@
 				<p><%= Html.LabelFor(x => x.NumerOfWithdrawals)%><%= Html.DisplayFor(x => x.NumerOfWithdrawals)%></p>
 				<p><%= Html.LabelFor(x => x.NumberOfPerformedWithdrawals)%><%= Html.DisplayFor(x => x.NumberOfPerformedWithdrawals)%></p>
 				<p><%= Html.LabelFor(x => x.TotalWithdrawal)%><%= Html.DisplayFor(x => x.TotalWithdrawal)%></p>
+				<p><%= Html.LabelFor(x => x.Reference)%><%= Html.DisplayFor(x => x.Reference)%></p>
 			</fieldset>
 			<p class="display-item clearLeft">
 				<a href='<%= Url.Action("Orders") %>'>Tillbaka till beställningar &raquo;</a>

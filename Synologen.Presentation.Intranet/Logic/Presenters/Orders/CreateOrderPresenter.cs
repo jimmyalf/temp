@@ -110,6 +110,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.SelectedCylinder = args.SelectedCylinder;
             View.Model.SelectedAxis = args.SelectedAxis;
             View.Model.SelectedAddition = args.SelectedAddition;
+        	View.Model.Reference = args.SelectedReference;
         }
 
 
@@ -143,7 +144,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 LensRecipe = lensRecipe,
                 ShippingType = (OrderShippingOption) form.ShipmentOption,
                 Customer = customer,
-				Shop = shop
+				Shop = shop,
+				Reference = form.Reference
             };
             _orderRepository.Save(order);
             return order.Id;
@@ -155,6 +157,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             var order = _orderRepository.Get(orderId);
             order.Article = _articleRepository.Get(form.ArticleId);
             order.ShippingType = (OrderShippingOption) form.ShipmentOption;
+        	order.Reference = form.Reference;
             _orderRepository.Save(order);
 
             var lensRecipe = order.LensRecipe;
@@ -194,7 +197,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 					SelectedCylinder = order.LensRecipe.Cylinder,
                     SelectedBaseCurve = GetEyeParameterOrDefault(order.LensRecipe.BaseCurve),
                     SelectedDiameter = GetEyeParameterOrDefault(order.LensRecipe.Diameter),
-                    
+                    SelectedReference = order.Reference
                 };
 
 				View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);

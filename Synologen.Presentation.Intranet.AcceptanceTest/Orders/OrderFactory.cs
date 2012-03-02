@@ -73,6 +73,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				Diameter = new EyeParameter<decimal?>(5,5),
 				Cylinder = new EyeParameter<string>("-10", "-22"),
 				ShipmentOption = 1,
+				Reference = "Text abc"
 			};
 	    }
 
@@ -87,7 +88,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 SubscriptionPayment = subscriptionItem,
 				Shop = shop,
                 SelectedPaymentOption = new PaymentOption {Type = paymentOptionType},
-				OrderTotalWithdrawalAmount = 8000
+				OrderTotalWithdrawalAmount = 8000,
+				Reference = "Referens-text"
 			};
 		}
 
@@ -182,7 +184,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             {
                 Name = "Johnsson & McBeth",
                 OrderEmailAddress = "erik.kinding@spinit.se",
-				Active = active
+				Active = active,
+				ShippingOptions = OrderShippingOption.ToStore | OrderShippingOption.ToCustomer | OrderShippingOption.DeliveredInStore
             };
         }
 

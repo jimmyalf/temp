@@ -236,6 +236,12 @@
 		</fieldset>
 
 		<fieldset>
+			<p>
+				<label>Butikens Referens</label>
+				<asp:TextBox id="txtReference" Text="<%#Model.Reference %>" runat="server" TextMode="MultiLine" />
+			</p>
+		</fieldset>
+		<fieldset>
 			<legend>Leverantörsalternativ</legend>
 			<p>
 				<asp:DropDownList id="ddlShippingOptions" DataSource="<% #Model.ShippingOptions %>" SelectedValue="<%#Model.SelectedShippingOption %>" DataTextField="Text" DataValueField="Value" runat="server" />

@@ -66,7 +66,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
         public string NumerOfWithdrawals { get; set; }
 		[DisplayName("Antal utförda dragningar")]
 		public int NumberOfPerformedWithdrawals { get; set; }
-
+		[DisplayName("Butikens referens")]
+		public string Reference { get; set; }
 		[DisplayName("Stryrka")]
 		public ParameterView Power { get; set; }
 		[DisplayName("Baskurva")]

@@ -17,6 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
 		public EyeParameter<string> SelectedCylinder { get; set; }
 		public EyeParameter<decimal> SelectedDiameter { get; set; }
 		public EyeParameter<decimal> SelectedBaseCurve { get; set; }
+		public string SelectedReference { get; set; }
 		
 
         public SelectedSomethingEventArgs()

@@ -14,6 +14,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
             Map(x => x.ShippingType).CustomType<OrderShippingOption>();
         	Map(x => x.OrderTotalWithdrawalAmount).Nullable();
 			Map(x => x.Status).CustomType<OrderStatus>();
+        	Map(x => x.Reference).Nullable().Length(255);
             References(x => x.LensRecipe).Column("LensRecipeId");
         	References(x => x.SubscriptionPayment).Column("SubscriptionItemId").Nullable();
             References(x => x.Article).Column("ArticleId");

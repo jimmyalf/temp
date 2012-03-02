@@ -77,24 +77,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
         {
             Page.Validate();
             if (!Page.IsValid) return;
-            //{
-				//SelectedArticle(this, new SelectedSomethingEventArgs
-				//{
-				//    SelectedCategoryId = Convert.ToInt32(ddlPickCategory.SelectedValue),
-				//    SelectedArticleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue),
-				//    SelectedArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
-				//    SelectedShippingOption = Convert.ToInt32(ddlShippingOptions.SelectedValue),
-				//    SelectedSupplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue),
-				//    SelectedBaseCurve = GetEyeParameter(ddlLeftBaskurva,ddlRightBaskurva),
-				//    SelectedDiameter = GetEyeParameter(ddlLeftDiameter, ddlRightDiameter),
-				//    SelectedPower = GetEyeParameter(ddlLeftStrength, ddlRightStrength),
-				//    SelectedAxis = GetEyeParameter(ddlLeftAxis, ddlRightAxis),
-				//    SelectedCylinder = GetEyeParameter(ddlLeftCylinder, ddlRightCylinder),
-				//    SelectedAddition = GetEyeParameter(ddlLeftAddition,ddlRightAddition)
-				//});
-                //return;
-            //}
-
             var args = new CreateOrderEventArgs
             {
                 ArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
@@ -104,7 +86,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 				Power = GetEyeParameter(txtLeftStrength, txtRightStrength),
 				Axis = GetEyeParameter(txtLeftAxis, txtRightAxis),
 				Cylinder = GetEyeParameter(txtLeftCylinder, txtRightCylinder),
-				Addition = GetEyeParameter(txtLeftAddition, txtRightAddition)
+				Addition = GetEyeParameter(txtLeftAddition, txtRightAddition),
+				Reference = txtReference.Text
             };
 			TryFireSubmit(sender, args);
         }

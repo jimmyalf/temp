@@ -69,41 +69,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
 
         [Test]
-        public void SkickaBeställningMedLeveransTillKund()
+        public void SparaBeställningMedNyttAbonnemang()
         {
             SetupScenario(scenario => scenario
                 .Givet(EnBeställningMedEttAbonnemangHarSkapats)
-					.Och(BeställningenSkallLevererasTillKund)
                 .När(AnvändarenBekräftarBeställningen)
 				.Så(SkapasEnTotalTransaktion)
-					.Och(AnvändarenFlyttasTillSidaFörFärdigBeställning)
-					.Och(BeställningenByterStatusTillRedoFörAttSkickas)
-					.Och(NyttAbonnemangAktiveras)
-			);
-        }
-
-    	[Test]
-        public void SkickaBeställningMedLeveransTillButik()
-        {
-            SetupScenario(scenario => scenario
-                .Givet(EnBeställningMedEttAbonnemangHarSkapats)
-					.Och(BeställningenSkallLevererasTillButik)
-                .När(AnvändarenBekräftarBeställningen)
-				.Så(SkapasEnTotalTransaktion)
-					.Och(AnvändarenFlyttasTillSidaFörFärdigBeställning)
-					.Och(BeställningenByterStatusTillRedoFörAttSkickas)
-					.Och(NyttAbonnemangAktiveras)
-			);
-        }
-
-    	[Test]
-        public void SkickaBeställningUtanLeverans()
-        {
-            SetupScenario(scenario => scenario
-                .Givet(EnBeställningMedEttAbonnemangHarSkapats)
-					.Och(BeställningenSkallEjLevereras)
-                .När(AnvändarenBekräftarBeställningen)
-				.Så(SkapasIngenTransaktion)
 					.Och(AnvändarenFlyttasTillSidaFörFärdigBeställning)
 					.Och(BeställningenByterStatusTillRedoFörAttSkickas)
 					.Och(NyttAbonnemangAktiveras)
@@ -117,24 +88,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _order = CreateOrderWithSubscription(_shop, paymentOptionType: PaymentOptionType.Subscription_Autogiro_New);
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
-
-    	private void BeställningenSkallEjLevereras()
-    	{
-    		_order.ShippingType = OrderShippingOption.DeliveredInStore;
-			Save(_order);
-    	}
-
-    	private void BeställningenSkallLevererasTillKund()
-    	{
-    		_order.ShippingType = OrderShippingOption.ToCustomer;
-			Save(_order);
-    	}
-
-    	private void BeställningenSkallLevererasTillButik()
-    	{
-    		_order.ShippingType = OrderShippingOption.ToStore;
-			Save(_order);
-    	}
 
         #endregion
 
@@ -227,11 +180,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			transaction.Type.ShouldBe(TransactionType.Withdrawal);
     	}
 
-    	private void SkapasIngenTransaktion()
-    	{
-    		GetAll<SubscriptionTransaction>().ShouldBeEmpty();
-    	}
-
     	private void BeställningenByterStatusTillRedoFörAttSkickas()
     	{
 			Get<Order>(_order.Id).Status.ShouldBe(OrderStatus.Confirmed);
@@ -239,10 +187,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void NyttAbonnemangAktiveras()
     	{
-			if(_order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New)
-			{
-				Get<Subscription>(_order.SubscriptionPayment.Subscription.Id).Active.ShouldBe(true);
-			}
+			Get<Subscription>(_order.SubscriptionPayment.Subscription.Id).Active.ShouldBe(true);
     	}
 
         #endregion

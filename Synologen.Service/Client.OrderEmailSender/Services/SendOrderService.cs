@@ -59,16 +59,12 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
 			var data = new 
 			{
 				OrderId = order.Id,
-				ArticleLeft = order.LensRecipe.Article.Left.Name,
-				ArticleRight = order.LensRecipe.Article.Right.Name,
 				ShopName = order.Shop.Name,
-
 				Receiver = receiver,
 				AddressLineOne = addressLineOne,
 				AddressLineTwo = addressLineTwo,
 				City = city,
 				PostalCode = postalCode,
-							   
 				LeftAddition = order.LensRecipe.Addition.Left,
 				LeftAxis = order.LensRecipe.Axis.Left,
 				LeftPower = order.LensRecipe.Power.Left,
@@ -81,7 +77,11 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
 				LeftBaseCurve = order.LensRecipe.BaseCurve.Return(x => x.Left.GetStringValue() ,null),
 				RightDiameter = order.LensRecipe.Diameter.Return(x => x.Right.GetStringValue() ,null),
 				RightBaseCurve = order.LensRecipe.BaseCurve.Return(x => x.Right.GetStringValue() ,null),
-				order.Reference
+				LeftArticle = order.LensRecipe.Article.Right.Name,
+				RightArticle = order.LensRecipe.Article.Right.Name,
+				LeftQuantity = order.LensRecipe.Quantity.Left,
+				RightQuantity = order.LensRecipe.Quantity.Right,
+				order.Reference,
 			};
 			return HtmlTemplate().ReplaceWith(data);
 			
@@ -98,36 +98,41 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
 				</style>
 			  </head>
 				<body>
-				<table>
-					<tr><td colspan=""6"">Beställnings-id: {OrderId}</td></tr>
-					<tr><td colspan=""6"">Från butik: {ShopName}</td></tr>
-					<tr><td colspan=""6"">Artikel: {Article}</td></tr>
-					<tr><td colspan=""6"">Referens: {Reference}</td></tr>
-					<tr class=""spacer-row""><td colspan=""6""/></tr>
-					<tr>
-						<td>Styrka Höger: {RightPower}</td>
-						<td>Addition Höger: {RightAddition}</td>
-						<td>Baskurva Höger: {RightBaseCurve}</td>
-						<td>Diameter Höger: {RightDiameter}</td>
-						<td>Cylinder Höger: {RightCylinder}</td>
-						<td>Axel Höger: {RightAxis}</td>
-					</tr>
-					<tr>
-						<td>Styrka Vänster: {LeftPower}</td>
-						<td>Addition Vänster: {LeftAddition}</td>
-						<td>Baskurva Vänster: {LeftBaseCurve}</td>
-						<td>Diameter Vänster: {LeftDiameter}</td>
-						<td>Cylinder Vänster: {LeftCylinder}</td>
-						<td>Axel Vänster: {LeftAxis}</td>
-					</tr>
-					<tr class=""spacer-row""><td colspan=""6""/></tr>
-					<tr><td colspan=""6"">Leveransadress:</td></tr>
-					<tr><td colspan=""6"">{Receiver}</td></tr>
-					<tr><td colspan=""6"">{AddressLineOne}</td></tr>
-					<tr><td colspan=""6"">{AddressLineTwo}</td></tr>
-					<tr><td colspan=""6"">{PostalCode}</td></tr>
-					<tr><td colspan=""6"">{City}</td></tr>
-				</table>
+					<table>
+						<thead>
+							<tr><td colspan=""8"">Beställnings-id: {OrderId}</td></tr>
+							<tr><td colspan=""8"">Från butik: {ShopName}</td></tr>
+							<tr><td colspan=""8"">Referens: {Reference}</td></tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Artikel Höger: {RightArticle}</td>
+								<td>Antal Höger: {RightQuantity}</td>
+								<td>Styrka Höger: {RightPower}</td>
+								<td>Addition Höger: {RightAddition}</td>
+								<td>Baskurva Höger: {RightBaseCurve}</td>
+								<td>Diameter Höger: {RightDiameter}</td>
+								<td>Cylinder Höger: {RightCylinder}</td>
+								<td>Axel Höger: {RightAxis}</td>
+							</tr>
+							<tr>
+								<td>Artikel Vänster: {LeftArticle}</td>
+								<td>Antal Vänster: {LeftQuantity}</td>
+								<td>Styrka Vänster: {LeftPower}</td>
+								<td>Addition Vänster: {LeftAddition}</td>
+								<td>Baskurva Vänster: {LeftBaseCurve}</td>
+								<td>Diameter Vänster: {LeftDiameter}</td>
+								<td>Cylinder Vänster: {LeftCylinder}</td>
+								<td>Axel Vänster: {LeftAxis}</td>
+							</tr>
+							<tr><td colspan=""8"">Leveransadress:</td></tr>
+							<tr><td colspan=""8"">{Receiver}</td></tr>
+							<tr><td colspan=""8"">{AddressLineOne}</td></tr>
+							<tr><td colspan=""8"">{AddressLineTwo}</td></tr>
+							<tr><td colspan=""8"">{PostalCode}</td></tr>
+							<tr><td colspan=""8"">{City}</td></tr>
+						</tbody>
+					</table>
 				</body>
 			</html>";
 		}

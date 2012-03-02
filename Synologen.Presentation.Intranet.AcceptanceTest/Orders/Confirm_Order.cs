@@ -152,7 +152,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.RightDiameter.ShouldBe(order.LensRecipe.Diameter.Right != null ? order.LensRecipe.Diameter.Right.ToString() : "");
             View.Model.RightCylinder.ShouldBe(order.LensRecipe.Cylinder.Right);
 
-            View.Model.Article.ShouldBe(order.Article.Name);
+            View.Model.ArticleLeft.ShouldBe(order.Article.Left.Name);
+			View.Model.ArticleRight.ShouldBe(order.Article.Right.Name);
         	View.Model.CustomerName.ShouldBe(order.Customer.FirstName + " " + order.Customer.LastName);
             View.Model.DeliveryOption.ShouldBe(order.ShippingType.GetEnumDisplayName());
             View.Model.ProductPrice.ShouldBe(order.SubscriptionPayment.ProductPrice.ToString("C"));

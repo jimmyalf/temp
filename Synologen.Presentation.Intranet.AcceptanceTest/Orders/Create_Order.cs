@@ -252,7 +252,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AnvändarenVäljerArtikeln()
         {
-        	_createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs {SelectedArticleId = _expectedArticle.Id});
+        	_createOrderPresenter.FillModel(null, new SelectedSomethingEventArgs {SelectedArticleId = new EyeParameter<int>(_expectedArticle.Id, _expectedArticle.Id)});
         }
 
         private void AnvändarenVäljerEnArtikeltyp()
@@ -291,10 +291,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void FormuläretFyllsMedData()
         {
-            View.Model.SelectedArticleId.ShouldBe(_order.Article.Id);
-            View.Model.SelectedArticleTypeId.ShouldBe(_order.Article.ArticleType.Id);
-            View.Model.SelectedCategoryId.ShouldBe(_order.Article.ArticleType.Category.Id);
-            View.Model.SelectedSupplierId.ShouldBe(_order.Article.ArticleSupplier.Id);
+            View.Model.SelectedArticleId.Left.ShouldBe(_order.Article.Left.Id);
+			View.Model.SelectedArticleId.Right.ShouldBe(_order.Article.Right.Id);
+            View.Model.SelectedArticleTypeId.ShouldBe(_order.Article.Left.ArticleType.Id);
+            View.Model.SelectedCategoryId.ShouldBe(_order.Article.Left.ArticleType.Category.Id);
+            View.Model.SelectedSupplierId.ShouldBe(_order.Article.Left.ArticleSupplier.Id);
             View.Model.SelectedShippingOption.ShouldBe((int)_order.ShippingType);
 
             View.Model.SelectedAddition.Left.ShouldBe(_order.LensRecipe.Addition.Left);
@@ -319,21 +320,34 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void LaddasArtikelnsAlternativ()
         {
-            View.Model.BaseCurveOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.BaseCurve)).Do((viewModelItem, domainItem) =>
+            View.Model.BaseCurveOptions.Left.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.BaseCurve)).Do((viewModelItem, domainItem) =>
+            {
+                viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
+                viewModelItem.Text.ShouldBe(domainItem.Text);
+            });
+            View.Model.BaseCurveOptions.Right.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.BaseCurve)).Do((viewModelItem, domainItem) =>
             {
                 viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Text);
             });
 
-            View.Model.DiameterOptions.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Diameter)).Do((viewModelItem, domainItem) =>
+            View.Model.DiameterOptions.Left.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Diameter)).Do((viewModelItem, domainItem) =>
+            {
+                viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
+                viewModelItem.Text.ShouldBe(domainItem.Text);
+            });
+            View.Model.DiameterOptions.Right.And(OrderFactory.FillWithIncrementalValues(_expectedArticle.Options.Diameter)).Do((viewModelItem, domainItem) =>
             {
                 viewModelItem.Value.ShouldBe(domainItem.Value.ToString());
                 viewModelItem.Text.ShouldBe(domainItem.Text);
             });
 
-            View.Model.AdditionOptionsEnabled.ShouldBe(_expectedArticle.Options.EnableAddition);
-            View.Model.AxisOptionsEnabled.ShouldBe(_expectedArticle.Options.EnableAxis);
-            View.Model.CylinderOptionsEnabled.ShouldBe(_expectedArticle.Options.EnableCylinder);
+            View.Model.AdditionOptionsEnabled.Left.ShouldBe(_expectedArticle.Options.EnableAddition);
+			View.Model.AdditionOptionsEnabled.Right.ShouldBe(_expectedArticle.Options.EnableAddition);
+            View.Model.AxisOptionsEnabled.Left.ShouldBe(_expectedArticle.Options.EnableAxis);
+			View.Model.AxisOptionsEnabled.Right.ShouldBe(_expectedArticle.Options.EnableAxis);
+            View.Model.CylinderOptionsEnabled.Left.ShouldBe(_expectedArticle.Options.EnableCylinder);
+			View.Model.CylinderOptionsEnabled.Right.ShouldBe(_expectedArticle.Options.EnableCylinder);
         }
 
         private void LaddasAktivaLeverantörer()
@@ -394,7 +408,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private void SparasBeställningen()
         {
             _order = WithRepository<IOrderRepository>().GetAll().First();
-            _order.Article.Id.ShouldBe(_form.ArticleId);
+            _order.Article.Left.Id.ShouldBe(_form.ArticleId.Left);
+			_order.Article.Right.Id.ShouldBe(_form.ArticleId.Right);
             _order.Customer.Id.ShouldBe(_customer.Id);
             _order.LensRecipe.BaseCurve.Left.ShouldBe(_form.BaseCurve.Left);
             _order.LensRecipe.BaseCurve.Right.ShouldBe(_form.BaseCurve.Right);

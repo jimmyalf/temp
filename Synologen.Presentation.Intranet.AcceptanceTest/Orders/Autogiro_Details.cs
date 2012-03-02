@@ -55,7 +55,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(EttNyttKontoHarValtsIFöregåendeSteg)
 				.När(SidanVisas)
 				.Så(SkallKundNamnVisas)
-					.Och(ArtikelNamnVisas)
 					.Och(KontoUppgifterSkallVaraIfyllbara)
 			);
 		}
@@ -68,7 +67,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(EttBefintligtKontoHarValtsIFöregåendeSteg)
 				.När(SidanVisas)
 				.Så(SkallKundNamnVisas)
-					.Och(ArtikelNamnVisas)
 					.Och(KontoUppgifterSkallEjVaraIfyllbara)
 					.Och(KontoUppgifterSkallVaraIfyllda)
 			);
@@ -265,11 +263,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private void KontoUppgifterSkallVaraIfyllbara()
     	{
     		View.Model.IsNewSubscription.ShouldBe(true);
-    	}
-
-    	private void ArtikelNamnVisas()
-    	{
-    		View.Model.SelectedArticleName.ShouldBe(_order.Article.Name);
     	}
 
 		private void KontoUppgifterSkallEjVaraIfyllbara()

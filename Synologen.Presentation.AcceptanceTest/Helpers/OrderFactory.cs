@@ -10,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		{
 			return new Order
 			{
-				Article = article,
+				Article = new EyeParameter<Article>(article, article),
 				LensRecipe = recipie,
 				ShippingType = OrderShippingOption.ToCustomer,
 				Customer = customer,
@@ -34,12 +34,8 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		{
 			return new ArticleOptions
 			{
-				//Axis = new OptionalSequenceDefinition { Increment = 0.25M, Max = 2M, Min = -1M, DisableDefinition = true},
 				BaseCurve = new SequenceDefinition { Increment = 0.25M, Max = 2M, Min = -1M },
-				//Power = new SequenceDefinition { Increment = 0.25M, Max = 2M, Min = -1M },
-				//Cylinder = new OptionalSequenceDefinition { Increment = 0.25M, Max = 2M, Min = -1M },
 				Diameter = new SequenceDefinition { Increment = 0.25M, Max = 2M, Min = -1M },
-				//Addition = new OptionalSequenceDefinition { Increment = 1M, Max = 20M, Min = 0M }
 			};
 		}
 

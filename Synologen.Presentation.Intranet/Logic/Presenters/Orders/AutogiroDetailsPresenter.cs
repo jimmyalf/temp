@@ -58,17 +58,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.ProductPrice = e.FeePrice.ToString();
             View.Model.FeePrice = e.ProductPrice.ToString();
             View.Model.SelectedSubscriptionOption = e.NumberOfPaymentsSelectedValue;
-            //View.Model.AutoWithdrawalAmount = e.AutoWithdrawalAmount.ToString();
         }
 
         public void View_Load(object sender, EventArgs e)
     	{
     		var order = _orderRepository.Get(OrderId);
     		View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);
-    		View.Model.SelectedArticleName = order.Article.Name;
     		View.Model.IsNewSubscription = order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New;
-    		//View.Model.EnableAutoWithdrawal = order.ShippingType.HasFlag(OrderShippingOption.ToCustomer);
-			//View.Model.AutoWithdrawalAmount = (order.OrderTotalWithdrawalAmount.HasValue) ? order.OrderTotalWithdrawalAmount.Value.ToString() : null;
       		
 			//Set values from previously selected account
 			if(order.SelectedPaymentOption.SubscriptionId.HasValue)
@@ -81,8 +77,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 {
                     View.Model.ProductPrice = order.SubscriptionPayment.ProductPrice.ToString();
                     View.Model.FeePrice = order.SubscriptionPayment.FeePrice.ToString();
-                    //View.Model.AutoWithdrawalAmount = order.OrderTotalWithdrawalAmount.ToString();
-                    
                     View.Model.SelectedSubscriptionOption = 0;
 					if (order.SubscriptionPayment.WithdrawalsLimit.IsEither(3, 6, 12))
 					{

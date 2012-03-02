@@ -65,7 +65,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	    {
 	        return new CreateOrderEventArgs
 			{
-				ArticleId = articleId,
+				ArticleId = new EyeParameter<int>(articleId, articleId),
 				Addition = new EyeParameter<string>("Medium","High"),
 				Axis = new EyeParameter<string>("25","33"),
 				Power = new EyeParameter<string>("+3","-1"),
@@ -81,7 +81,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			return new Order
 			{
-				Article = article,
+				Article = new EyeParameter<Article>(article, article),
 				LensRecipe = recipie,
 				ShippingType = OrderShippingOption.ToCustomer,
 				Customer = customer,

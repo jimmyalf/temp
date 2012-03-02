@@ -86,16 +86,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 var supplier = _articleSupplierRepository.Get(args.SelectedSupplierId);
                 View.Model.ShippingOptions = _viewParser.Parse(supplier.ShippingOptions);
             }
-            if(args.SelectedArticleId > 0)
+            if(args.SelectedArticleId.Left > 0)
             {
-                var article = _articleRepository.Get(args.SelectedArticleId);
-                var options = article.Options;
-                if (options == null) return;
-                View.Model.DiameterOptions = _viewParser.FillWithIncrementalValues(options.Diameter);
-                View.Model.BaseCurveOptions = _viewParser.FillWithIncrementalValues(options.BaseCurve);
-				View.Model.AxisOptionsEnabled = options.EnableAxis;
-				View.Model.CylinderOptionsEnabled = options.EnableCylinder;
-            	View.Model.AdditionOptionsEnabled = options.EnableAddition;
+                var articleLeft = _articleRepository.Get(args.SelectedArticleId.Left);
+				if(articleLeft.Options != null)
+				{
+					View.Model.DiameterOptions.Left = _viewParser.FillWithIncrementalValues(articleLeft.Options.Diameter);
+					View.Model.BaseCurveOptions.Left = _viewParser.FillWithIncrementalValues(articleLeft.Options.BaseCurve);
+					View.Model.AxisOptionsEnabled.Left = articleLeft.Options.EnableAxis;
+					View.Model.CylinderOptionsEnabled.Left = articleLeft.Options.EnableCylinder;
+					View.Model.AdditionOptionsEnabled.Left = articleLeft.Options.EnableAddition;
+				}
+				
+            }
+            if(args.SelectedArticleId.Right > 0)
+            {
+                var articleRight = _articleRepository.Get(args.SelectedArticleId.Right);
+				if(articleRight.Options != null)
+				{
+					View.Model.DiameterOptions.Right = _viewParser.FillWithIncrementalValues(articleRight.Options.Diameter);
+					View.Model.BaseCurveOptions.Right = _viewParser.FillWithIncrementalValues(articleRight.Options.BaseCurve);
+					View.Model.AxisOptionsEnabled.Right = articleRight.Options.EnableAxis;
+					View.Model.CylinderOptionsEnabled.Right = articleRight.Options.EnableCylinder;
+					View.Model.AdditionOptionsEnabled.Right = articleRight.Options.EnableAddition;
+				}
             }
 
             View.Model.SelectedCategoryId = args.SelectedCategoryId;
@@ -124,7 +138,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
     	private int CreateNewOrder(CreateOrderEventArgs form)
         {
-            var article = _articleRepository.Get(form.ArticleId);
             var lensRecipe = new LensRecipe
             {
                 Axis = form.Axis,
@@ -138,9 +151,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
             var customer = _orderCustomerRepository.Get(RequestCustomerId.Value);
     		var shop = _shopRepository.Get(ShopId);
+			var articleLeft = _articleRepository.Get(form.ArticleId.Left);
+			var articleRight = _articleRepository.Get(form.ArticleId.Right);
             var order = new Order
             {
-                Article = article,
+                Article = new EyeParameter<Article>(articleLeft, articleRight),
                 LensRecipe = lensRecipe,
                 ShippingType = (OrderShippingOption) form.ShipmentOption,
                 Customer = customer,
@@ -155,18 +170,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         {
             //TODO: security. make sure that the order updated is the one that should be updated, for instance by checking that the order belongs to the butik trying to update an order.
             var order = _orderRepository.Get(orderId);
-            order.Article = _articleRepository.Get(form.ArticleId);
+			order.Article = new EyeParameter<Article>
+			{
+				Left = _articleRepository.Get(form.ArticleId.Left),
+				Right = _articleRepository.Get(form.ArticleId.Right)
+			};
             order.ShippingType = (OrderShippingOption) form.ShipmentOption;
         	order.Reference = form.Reference;
             _orderRepository.Save(order);
 
             var lensRecipe = order.LensRecipe;
-        	lensRecipe.Axis = form.Axis; //.GetEyeParameter(x => x.LeftAxis, x => x.RightAxis);
-            lensRecipe.BaseCurve = form.BaseCurve; //.GetEyeParameter(x => x.LeftBaseCurve, x => x.RightBaseCurve);
-            lensRecipe.Cylinder = form.Cylinder; //.GetEyeParameter(x => x.LeftCylinder, x => x.RightCylinder);
-            lensRecipe.Diameter = form.Diameter; //.GetEyeParameter(x => x.LeftDiameter, x => x.RightDiameter);
-            lensRecipe.Power = form.Power; //.GetEyeParameter(x => x.LeftPower, x => x.RightPower);
-            lensRecipe.Addition = form.Addition; //.GetEyeParameter(x => x.LeftAddition, x => x.RightAddition);
+        	lensRecipe.Axis = form.Axis;
+            lensRecipe.BaseCurve = form.BaseCurve;
+            lensRecipe.Cylinder = form.Cylinder;
+            lensRecipe.Diameter = form.Diameter;
+            lensRecipe.Power = form.Power;
+            lensRecipe.Addition = form.Addition;
             _lensRecipeRepository.Save(lensRecipe);
 
             return order.Id;
@@ -185,12 +204,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
                 var order = _orderRepository.Get(RequestOrderId.Value);
                 var args = new SelectedSomethingEventArgs
                 {
-                    SelectedArticleId = order.Article.Id,
-                    SelectedArticleTypeId = order.Article.ArticleType.Id,
-                    SelectedCategoryId = order.Article.ArticleType.Category.Id,
+                    
+                    SelectedArticleTypeId = order.Article.Left.ArticleType.Id,
+                    SelectedCategoryId = order.Article.Left.ArticleType.Category.Id,
                     SelectedShippingOption = (int)order.ShippingType,
-                    SelectedSupplierId = order.Article.ArticleSupplier.Id,
+                    SelectedSupplierId = order.Article.Left.ArticleSupplier.Id,
 
+					SelectedArticleId = new EyeParameter<int>(order.Article.Left.Id, order.Article.Right.Id),
 					SelectedPower = order.LensRecipe.Power,
                     SelectedAddition = order.LensRecipe.Addition,
 					SelectedAxis = order.LensRecipe.Axis,
@@ -250,7 +270,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
     	private int? RequestOrderId
     	{
-    		get { return HttpContext.Request.Params["order"].ToNullableInt();; }
+    		get { return HttpContext.Request.Params["order"].ToNullableInt(); }
     	}
 
     	private int? RequestCustomerId

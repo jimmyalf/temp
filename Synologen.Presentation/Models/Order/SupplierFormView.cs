@@ -25,13 +25,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		[DisplayName("Aktiv")]
 		public bool Active { get; set; }
 
-		[DisplayName("Till Butik")]
+		[DisplayName("Lagerbeställning - Ej beställning")]
+		public bool NoOrder { get; set; }
+
+		[DisplayName("Lagerbeställning")]
 		public bool ShipToStore { get; set; }
 
-		[DisplayName("Till Kund")]
+		[DisplayName("Hemleverans")]
 		public bool ShipToCustomer { get; set; }
 
-		[DisplayName("Leverans i butik")]
+		[DisplayName("Hämta i butik")]
 		public bool DeliveredOverCounter { get; set; }
 
 		[DisplayName("Namn"), Required]
@@ -43,6 +46,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public OrderShippingOption GetShippingOptions()
 		{
 			var shippingOption = new OrderShippingOption();
+			if(NoOrder) shippingOption = shippingOption.AppendFlags(OrderShippingOption.NoOrder);
 			if(ShipToCustomer) shippingOption = shippingOption.AppendFlags(OrderShippingOption.ToCustomer);
 			if(ShipToStore) shippingOption = shippingOption.AppendFlags(OrderShippingOption.ToStore);
 			if(DeliveredOverCounter) shippingOption = shippingOption.AppendFlags(OrderShippingOption.DeliveredInStore);

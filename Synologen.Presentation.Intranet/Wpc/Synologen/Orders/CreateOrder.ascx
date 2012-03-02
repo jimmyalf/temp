@@ -45,21 +45,25 @@
 					Display="Dynamic" 
 					CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
-			<p>
-				<label>Välj Artikel</label>
-				<asp:DropDownList id="ddlPickArticle" DataSource="<% #Model.OrderArticles %>" SelectedValue="<%#Model.SelectedArticleId%>" DataTextField="Text" DataValueField="Value" runat="server" AutoPostBack="true" />
-				<asp:RequiredFieldValidator 
-					InitialValue="0" 
-					Runat="server" 
-					ErrorMessage="Obligatoriskt fält: Artikel" 
-					ControlToValidate="ddlPickArticle" 
-					Display="Dynamic" 
-					CssClass="error-message"	>&nbsp;*</asp:RequiredFieldValidator>
-			</p>
 		</fieldset>
 
 		<fieldset class="right-eye">
 			<legend>H</legend>
+			<p>
+				<label>Artikel</label>
+				<asp:DropDownList id="drpArticlesRight" DataSource="<% #Model.OrderArticles %>" SelectedValue="<%#Model.SelectedArticleId.Right%>" DataTextField="Text" DataValueField="Value" runat="server" AutoPostBack="true" />
+				<asp:RequiredFieldValidator
+					InitialValue="0" 
+					Runat="server" 
+					ErrorMessage="Obligatoriskt fält: Höger Artikel" 
+					ControlToValidate="drpArticlesRight" 
+					Display="Dynamic" 
+					CssClass="error-message"	>&nbsp;*</asp:RequiredFieldValidator>
+			</p>
+			<p>
+				<label>Antal</label>
+				<input type="text"/>
+			</p>
 			<p>
 				<label>Styrka</label>
 				<asp:TextBox runat="server" ID="txtRightStrength" Text='<%#Model.SelectedPower.Right%>' />
@@ -78,17 +82,17 @@
 			</p>
 			<p>
 				<label>Addition</label>
-				<asp:TextBox ID="txtRightAddition" runat="server" Text='<%# Model.SelectedAddition.Right%>' Enabled="<%#Model.AdditionOptionsEnabled %>" />
+				<asp:TextBox ID="txtRightAddition" runat="server" Text='<%# Model.SelectedAddition.Right%>' Enabled="<%#Model.AdditionOptionsEnabled.Right %>" />
 				<asp:RequiredFieldValidator 
 					runat="server" 
 					ErrorMessage="Obligatoriskt fält: Höger addition" 
 					ControlToValidate="txtRightAddition" 
 					Display="Dynamic" 
 					CssClass="error-message"
-					Enabled="<%#Model.AdditionOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
+					Enabled="<%#Model.AdditionOptionsEnabled.Right %>">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 			<p><label>Baskurva</label>
-				<asp:DropDownList id="ddlRightBaskurva" DataSource="<% #Model.BaseCurveOptions %>" SelectedValue="<%#Model.SelectedBaseCurve.Right%>" DataTextField="Text" DataValueField="Value" runat="server" />
+				<asp:DropDownList id="ddlRightBaskurva" DataSource="<% #Model.BaseCurveOptions.Right %>" SelectedValue="<%#Model.SelectedBaseCurve.Right%>" DataTextField="Text" DataValueField="Value" runat="server" />
 				<asp:RequiredFieldValidator 
 					InitialValue="-9999" 
 					Runat="server" 
@@ -99,7 +103,7 @@
 			</p>
 			<p>
 				<label>Diameter</label>
-				<asp:DropDownList id="ddlRightDiameter" DataSource="<% #Model.DiameterOptions %>" SelectedValue="<%#Model.SelectedDiameter.Right%>" DataTextField="Text" DataValueField="Value" runat="server" />
+				<asp:DropDownList id="ddlRightDiameter" DataSource="<% #Model.DiameterOptions.Right %>" SelectedValue="<%#Model.SelectedDiameter.Right%>" DataTextField="Text" DataValueField="Value" runat="server" />
 				<asp:RequiredFieldValidator 
 					InitialValue="-9999" 
 					Runat="server" 
@@ -110,44 +114,59 @@
 			</p>
 			<p>
 				<label>Axel</label>
-				<asp:TextBox runat="server" ID="txtRightAxis" Text='<%#Model.SelectedAxis.Right%>' Enabled="<%#Model.AxisOptionsEnabled %>" />
+				<asp:TextBox runat="server" ID="txtRightAxis" Text='<%#Model.SelectedAxis.Right%>' Enabled="<%#Model.AxisOptionsEnabled.Right %>" />
 				<asp:RegularExpressionValidator
 					runat="server" 
 					ControlToValidate="txtRightAxis" 
 					CssClass="error-message"
 					ErrorMessage="Fält måste anges numeriskt: Höger axel"
 					ValidationExpression="^[-+]?[0-9]*,?[0-9]+$"
-					Enabled="<%#Model.AxisOptionsEnabled %>">&nbsp;*</asp:RegularExpressionValidator>
+					Enabled="<%#Model.AxisOptionsEnabled.Right %>">&nbsp;*</asp:RegularExpressionValidator>
 				<asp:RequiredFieldValidator 
 					runat="server" 
 					ErrorMessage="Obligatoriskt fält: Höger axel" 
 					ControlToValidate="txtRightAxis" 
 					Display="Dynamic" 
 					CssClass="error-message"
-					Enabled="<%#Model.AxisOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
+					Enabled="<%#Model.AxisOptionsEnabled.Right %>">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 			<p>
 				<label>Cylinder</label>
-				<asp:TextBox runat="server" ID="txtRightCylinder" Text='<%#Model.SelectedCylinder.Right%>' Enabled="<%#Model.CylinderOptionsEnabled %>" />
+				<asp:TextBox runat="server" ID="txtRightCylinder" Text='<%#Model.SelectedCylinder.Right%>' Enabled="<%#Model.CylinderOptionsEnabled.Right %>" />
 				<asp:RegularExpressionValidator 
 					runat="server" 
 					ControlToValidate="txtRightCylinder" 
 					CssClass="error-message"
 					ErrorMessage="Fält måste anges med - följt av värde: Höger cylinder"
 					ValidationExpression="^[-]{1}[0-9]*,?[0-9]+$"
-					Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RegularExpressionValidator>
+					Enabled="<%#Model.CylinderOptionsEnabled.Right %>">&nbsp;*</asp:RegularExpressionValidator>
 				<asp:RequiredFieldValidator
 					Runat="server" 
 					ErrorMessage="Obligatoriskt fält: Höger cylinder" 
 					ControlToValidate="txtRightCylinder" 
 					Display="Dynamic" 
 					CssClass="error-message"
-					Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
+					Enabled="<%#Model.CylinderOptionsEnabled.Right %>">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 		</fieldset>
 
 		<fieldset class="left-eye">
 			<legend>V</legend>
+			<p>
+				<label>Artikel</label>
+				<asp:DropDownList id="drpArticlesLeft" DataSource="<% #Model.OrderArticles %>" SelectedValue="<%#Model.SelectedArticleId.Left%>" DataTextField="Text" DataValueField="Value" runat="server" AutoPostBack="true" />
+				<asp:RequiredFieldValidator
+					InitialValue="0" 
+					Runat="server" 
+					ErrorMessage="Obligatoriskt fält: Vänster Artikel" 
+					ControlToValidate="drpArticlesRight" 
+					Display="Dynamic" 
+					CssClass="error-message"	>&nbsp;*</asp:RequiredFieldValidator>
+			</p>
+			<p>
+				<label>Antal</label>
+				<input type="text"/>
+			</p>
 			<p>
 				<label>Styrka</label>
 				<asp:TextBox runat="server" ID="txtLeftStrength" Text='<%#Model.SelectedPower.Left%>' />
@@ -166,18 +185,18 @@
 			</p>
 			<p>
 				<label>Addition</label>
-				<asp:TextBox runat="server" ID="txtLeftAddition" Text='<%#Model.SelectedAddition.Left%>' Enabled="<%#Model.AdditionOptionsEnabled %>" />
+				<asp:TextBox runat="server" ID="txtLeftAddition" Text='<%#Model.SelectedAddition.Left%>' Enabled="<%#Model.AdditionOptionsEnabled.Left %>" />
 				<asp:RequiredFieldValidator 
 					Runat="server" 
 					ErrorMessage="Obligatoriskt fält: Vänster addition" 
 					ControlToValidate="txtLeftAddition" 
 					Display="Dynamic" 
 					CssClass="error-message"
-					Enabled="<%#Model.AdditionOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>    
+					Enabled="<%#Model.AdditionOptionsEnabled.Left %>">&nbsp;*</asp:RequiredFieldValidator>    
 			</p>
 			<p>
 				<label>Baskurva</label>
-				<asp:DropDownList id="ddlLeftBaskurva" DataSource="<% #Model.BaseCurveOptions %>" SelectedValue="<%#Model.SelectedBaseCurve.Left %>" DataTextField="Text" DataValueField="Value" runat="server" />
+				<asp:DropDownList id="ddlLeftBaskurva" DataSource="<% #Model.BaseCurveOptions.Left %>" SelectedValue="<%#Model.SelectedBaseCurve.Left %>" DataTextField="Text" DataValueField="Value" runat="server" />
 				<asp:RequiredFieldValidator 
 					InitialValue="-9999" 
 					Runat="server" 
@@ -188,7 +207,7 @@
 			</p>
 			<p>
 				<label>Diameter</label>
-				<asp:DropDownList id="ddlLeftDiameter" DataSource="<% #Model.DiameterOptions %>" SelectedValue="<%#Model.SelectedDiameter.Left %>" DataTextField="Text" DataValueField="Value" runat="server" />
+				<asp:DropDownList id="ddlLeftDiameter" DataSource="<% #Model.DiameterOptions.Left %>" SelectedValue="<%#Model.SelectedDiameter.Left %>" DataTextField="Text" DataValueField="Value" runat="server" />
 				<asp:RequiredFieldValidator 
 					InitialValue="-9999" 
 					Runat="server" 
@@ -199,39 +218,39 @@
 			</p>
 			<p>
 				<label>Axel</label>
-				<asp:TextBox runat="server" ID="txtLeftAxis" Text='<%#Model.SelectedAxis.Left%>' Enabled="<%#Model.AxisOptionsEnabled %>" />
+				<asp:TextBox runat="server" ID="txtLeftAxis" Text='<%#Model.SelectedAxis.Left%>' Enabled="<%#Model.AxisOptionsEnabled.Left %>" />
 				<asp:RegularExpressionValidator
 					runat="server" 
 					ControlToValidate="txtLeftAxis" 
 					CssClass="error-message"
 					ErrorMessage="Fält måste anges numeriskt: Vänster axel"
 					ValidationExpression="^[-+]?[0-9]*,?[0-9]+$"
-					Enabled="<%#Model.AxisOptionsEnabled %>">&nbsp;*</asp:RegularExpressionValidator>
+					Enabled="<%#Model.AxisOptionsEnabled.Left %>">&nbsp;*</asp:RegularExpressionValidator>
 				<asp:RequiredFieldValidator
 					Runat="server" 
 					ErrorMessage="Obligatoriskt fält: Vänster axel" 
 					ControlToValidate="txtLeftAxis" 
 					Display="Dynamic" 
 					CssClass="error-message"
-					Enabled="<%#Model.AxisOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
+					Enabled="<%#Model.AxisOptionsEnabled.Left %>">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 			<p>
 				<label>Cylinder</label>
-				<asp:TextBox runat="server" ID="txtLeftCylinder" Text='<%#Model.SelectedCylinder.Left%>' Enabled="<%#Model.CylinderOptionsEnabled %>" />
+				<asp:TextBox runat="server" ID="txtLeftCylinder" Text='<%#Model.SelectedCylinder.Left%>' Enabled="<%#Model.CylinderOptionsEnabled.Left %>" />
 				<asp:RegularExpressionValidator
 					runat="server" 
 					ControlToValidate="txtLeftCylinder" 
 					CssClass="error-message"
 					ErrorMessage="Fält måste anges med - följt av värde: Vänster cylinder"
 					ValidationExpression="^[-]{1}[0-9]*,?[0-9]+$"
-					Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RegularExpressionValidator>
+					Enabled="<%#Model.CylinderOptionsEnabled.Left %>">&nbsp;*</asp:RegularExpressionValidator>
 				<asp:RequiredFieldValidator 
 					Runat="server" 
 					ErrorMessage="Obligatoriskt fält: Vänster cylinder" 
 					ControlToValidate="txtLeftCylinder" 
 					Display="Dynamic" 
 					CssClass="error-message"
-					Enabled="<%#Model.CylinderOptionsEnabled %>">&nbsp;*</asp:RequiredFieldValidator>
+					Enabled="<%#Model.CylinderOptionsEnabled.Left %>">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 		</fieldset>
 

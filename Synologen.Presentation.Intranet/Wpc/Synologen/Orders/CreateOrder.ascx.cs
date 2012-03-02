@@ -27,7 +27,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     		ddlPickCategory.SelectedIndexChanged += Select_Category;
             ddlPickSupplier.SelectedIndexChanged += Select_Supplier;
     	    ddlPickKind.SelectedIndexChanged += Select_ArticleType;
-            ddlPickArticle.SelectedIndexChanged += Select_Article;
+            drpArticlesLeft.SelectedIndexChanged += Select_Article;
+			drpArticlesRight.SelectedIndexChanged += Select_Article;
         }
 
         private void Select_Category(object sender, EventArgs e)
@@ -68,7 +69,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 				SelectedCategoryId = Convert.ToInt32(ddlPickCategory.SelectedValue), 
 				SelectedArticleTypeId = Convert.ToInt32(ddlPickKind.SelectedValue), 
 				SelectedSupplierId = Convert.ToInt32(ddlPickSupplier.SelectedValue), 
-				SelectedArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue), 
+				SelectedArticleId = new EyeParameter<int>
+				{
+					Left = Convert.ToInt32(drpArticlesLeft.SelectedValue), 
+					Right = Convert.ToInt32(drpArticlesRight.SelectedValue), 
+				},
 				SelectedShippingOption = Convert.ToInt32(ddlShippingOptions.SelectedValue)
 			});
         }
@@ -79,7 +84,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             if (!Page.IsValid) return;
             var args = new CreateOrderEventArgs
             {
-                ArticleId = Convert.ToInt32(ddlPickArticle.SelectedValue),
+                ArticleId = new EyeParameter<int>
+				{
+					Left = Convert.ToInt32(drpArticlesLeft.SelectedValue), 
+					Right = Convert.ToInt32(drpArticlesRight.SelectedValue), 
+				},
                 ShipmentOption = Convert.ToInt32(ddlShippingOptions.SelectedValue),
 				BaseCurve = GetEyeParameter(ddlLeftBaskurva, ddlRightBaskurva),
 				Diameter = GetEyeParameter(ddlLeftDiameter, ddlRightDiameter),

@@ -26,10 +26,14 @@
 						<%= Html.ValidationMessageFor(x => x.OrderEmailAddress) %>
 					</p>
 					<p class="formItem clearLeft">
+						<%= Html.LabelFor(x => x.NoOrder)%>
+						<%= Html.CheckBoxFor(x => x.NoOrder)%>
+					</p>
+					<p class="formItem">
 						<%= Html.LabelFor(x => x.ShipToStore)%>
 						<%= Html.CheckBoxFor(x => x.ShipToStore)%>
 					</p>
-					<p class="formItem">
+					<p class="formItem clearLeft">
 						<%= Html.LabelFor(x => x.ShipToCustomer)%>
 						<%= Html.CheckBoxFor(x => x.ShipToCustomer)%>
 					</p>

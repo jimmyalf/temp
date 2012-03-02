@@ -79,9 +79,9 @@
 				var numberOfWithdrawals = getNumerOfWithdrawals();
 				var montlyAmount = getMontlyAmount(numberOfWithdrawals, totalAmount);
 				if (isNaN(totalAmount)) $("#total-withdrawal-amount").attr("value", "");
-				else $("#total-withdrawal-amount").attr("value", totalAmount);
+				else $("#total-withdrawal-amount").attr("value", totalAmount.toString().replace(".", ","));
 				if (isNaN(montlyAmount)) $("#montly-withdrawal-amount").attr("value", "");
-				else $("#montly-withdrawal-amount").attr("value", montlyAmount);
+				else $("#montly-withdrawal-amount").attr("value", montlyAmount.toString().replace(".", ","));
 			}
 
 			function getTotalAmount() {

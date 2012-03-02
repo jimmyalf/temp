@@ -39,18 +39,18 @@
         </p>
     	<p>
             <label for="<%=txtEmail.ClientID%>">E-post</label>
-		    <asp:TextBox ID="txtEmail" runat="server" Text='<% #Model.Email %>' />
+		    <asp:TextBox ID="txtEmail" runat="server" Text='<% #Model.Email %>' type="email" />
 		    <asp:RequiredFieldValidator ID="reqtxtEmail" runat="server" ErrorMessage="E-post måste anges" ControlToValidate="txtEmail" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
 		    <asp:RegularExpressionValidator ID="regextxtEmail" ValidationExpression="^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" runat="server" ErrorMessage="Ogiltig e-post-adress" Display="Dynamic" ControlToValidate="txtEmail" CssClass="error-message">*</asp:RegularExpressionValidator>	
         </p>
     	<p>
             <label for="<%=txtMobilePhone.ClientID%>">Mobiltelefon</label>
-		    <asp:TextBox ID="txtMobilePhone" runat="server" Text='<% #Model.MobilePhone %>' />
+		    <asp:TextBox ID="txtMobilePhone" runat="server" Text='<% #Model.MobilePhone %>' type="tel" />
 			<asp:RegularExpressionValidator ValidationExpression="^[0-9-+() ]+?$" runat="server" ErrorMessage="Telefonnummer får endast innehålla siffor, mellanslag, plus och bindestreck." Display="Dynamic" ControlToValidate="txtMobilePhone" CssClass="error-message">*</asp:RegularExpressionValidator>	
         </p>
     	<p>
             <label for="<%=txtPhone.ClientID%>">Telefon</label>
-		    <asp:TextBox ID="txtPhone" runat="server" Text='<% #Model.Phone %>' />
+		    <asp:TextBox ID="txtPhone" runat="server" Text='<% #Model.Phone %>' type="tel" />
 			<asp:RegularExpressionValidator ValidationExpression="^[0-9-+() ]+?$" runat="server" ErrorMessage="Telefonnummer får endast innehålla siffor, mellanslag, plus och bindestreck." Display="Dynamic" ControlToValidate="txtPhone" CssClass="error-message">*</asp:RegularExpressionValidator>	
         </p>
     	<p>

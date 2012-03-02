@@ -52,7 +52,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		[DisplayName("Artikel")]
         public string Article { get; set; }
 
-		[DisplayName("Leverans")]
+		[DisplayName("Leveransalternativ")]
         public string DeliveryOption { get; set; }
 		[DisplayName("Produkt")]
         public string ProductPrice { get; set; }

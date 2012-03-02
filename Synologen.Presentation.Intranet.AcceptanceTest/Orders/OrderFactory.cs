@@ -185,7 +185,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 Name = "Johnsson & McBeth",
                 OrderEmailAddress = "erik.kinding@spinit.se",
 				Active = active,
-				ShippingOptions = OrderShippingOption.ToStore | OrderShippingOption.ToCustomer | OrderShippingOption.DeliveredInStore
+				ShippingOptions = OrderShippingOption.ToStore | OrderShippingOption.ToCustomer | OrderShippingOption.DeliveredInStore | OrderShippingOption.NoOrder
             };
         }
 

@@ -242,7 +242,7 @@
 			</p>
 		</fieldset>
 		<fieldset>
-			<legend>Leverantörsalternativ</legend>
+			<legend>Leveransalternativ</legend>
 			<p>
 				<asp:DropDownList id="ddlShippingOptions" DataSource="<% #Model.ShippingOptions %>" SelectedValue="<%#Model.SelectedShippingOption %>" DataTextField="Text" DataValueField="Value" runat="server" />
 				<asp:RequiredFieldValidator 

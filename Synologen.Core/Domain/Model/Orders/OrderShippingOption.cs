@@ -6,11 +6,13 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 	[Flags]
 	public enum OrderShippingOption
 	{
-		[EnumDisplayName("Till Butik")]
-		ToStore = 1,
-		[EnumDisplayName("Till Kund")]
-		ToCustomer = 2,
-		[EnumDisplayName("Leverans i butik")]
-		DeliveredInStore = 4
+		[EnumDisplayName("Lagerbeställning - Ej beställning")]
+		NoOrder = 1,
+		[EnumDisplayName("Lagerbeställning")]
+		ToStore = 2,
+		[EnumDisplayName("Hemleverans")]
+		ToCustomer = 4,
+		[EnumDisplayName("Hämta i butik")]
+		DeliveredInStore = 8,
 	}
 }

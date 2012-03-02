@@ -69,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Model.FeePrice = GetCurrencyString(order.SubscriptionPayment.FeePrice);
 			View.Model.Monthly = GetCurrencyString(order.SubscriptionPayment.MonthlyWithdrawalAmount);
 			View.Model.TotalWithdrawal = GetCurrencyString(order.OrderTotalWithdrawalAmount);
-			View.Model.SubscriptionTime = GetSubscriptionTimeString(order.SubscriptionPayment.WithdrawalsLimit);
+			View.Model.SubscriptionTime = String.Format("{0} månader", order.SubscriptionPayment.WithdrawalsLimit);
 		}
 
 		private static string GetCurrencyString(decimal? value)
@@ -84,7 +84,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 				throw new ApplicationException("View cannot be submitted without order id");
 			}
 			var order = _orderRepository.Get(RequestOrderId.Value);
-			TryCreateTransaction(order);
+			CreateTransaction(order);
 			TryActivateSubscription(order);
 			UpdateOrderStatus(order);
 			Redirect(View.NextPageId, new { order = RequestOrderId });
@@ -98,9 +98,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			_subscriptionRepository.Save(subscription);
 		}
 
-		private void TryCreateTransaction(Order order)
+		private void CreateTransaction(Order order)
 		{
-			if(order.ShippingType == OrderShippingOption.DeliveredInStore) return;
 			var transaction = new SubscriptionTransaction
 			{
 				Amount = order.OrderTotalWithdrawalAmount,
@@ -150,13 +149,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		{
 			View.Previous -= View_Previous;
 			View.Abort -= View_Abort;
-		}
-
-		private static string GetSubscriptionTimeString(int? numberOfPayments)
-		{
-			return numberOfPayments == null 
-				? "Fortlöpande" 
-				: String.Format("{0} månader", numberOfPayments.Value);
 		}
 
 	}

@@ -23,10 +23,10 @@
 			<p><label>Adress</label><input disabled="disabled" value="<%=Model.Address%>" /></p>
 			<p><label>Ort</label><input disabled="disabled" value="<%=Model.City%>" /></p>
 			<p><label>Postnummer</label><input disabled="disabled" value="<%=Model.PostalCode%>" /></p>
-			<p><label>Artikel/Artiklar</label><input disabled="disabled" value="<%=Model.Article%>" /></p>
 		</fieldset>
 		<fieldset class="right-eye">
 			<legend>H</legend>
+			<p><label>Artikel</label><input disabled="disabled" value="<%=Model.ArticleRight%>" /></p>
 			<p><label>Styrka</label><input disabled="disabled" value="<%=Model.RightPower%>" /></p>
 			<p><label>Addition</label><input disabled="disabled" value="<%=Model.RightAddition%>" /></p>
 			<p><label>Baskurva</label><input disabled="disabled" value="<%=Model.RightBaseCurve%>" /></p>
@@ -36,6 +36,7 @@
 		</fieldset>
 		<fieldset class="left-eye">
 			<legend>V</legend>
+			<p><label>Artikel</label><input disabled="disabled" value="<%=Model.ArticleLeft%>" /></p>
 			<p><label>Styrka</label><input disabled="disabled" value="<%=Model.LeftPower%>" /></p>
 			<p><label>Addition</label><input disabled="disabled" value="<%=Model.LeftAddition%>" /></p>
 			<p><label>Baskurva</label><input disabled="disabled" value="<%=Model.LeftBaseCurve%>" /></p>

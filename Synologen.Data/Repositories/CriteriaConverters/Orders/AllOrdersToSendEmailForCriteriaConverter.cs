@@ -22,8 +22,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.Orders
 				.Add(Restrictions.And(isRightShippingType, isNotAlreadySent))
 				.SetFetchMode(Property(x => x.Shop), FetchMode.Join)
 				.SetFetchMode(Property(x => x.LensRecipe), FetchMode.Join)
-				.SetFetchMode(Property(x => x.Article), FetchMode.Join)
-				.SetFetchMode(Property(x => x.Article.ArticleSupplier), FetchMode.Join)
+				.SetFetchMode(Property(x => x.Article.Left), FetchMode.Join)
+				.SetFetchMode(Property(x => x.Article.Right), FetchMode.Join)
+				.SetFetchMode(Property(x => x.Article.Left.ArticleSupplier), FetchMode.Join)
+				.SetFetchMode(Property(x => x.Article.Right.ArticleSupplier), FetchMode.Join)
 				.SetFetchMode(Property(x => x.Customer), FetchMode.Join)
 				.SetResultTransformer(new DistinctRootEntityResultTransformer());
 		}

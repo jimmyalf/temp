@@ -47,10 +47,6 @@
 				<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtFeeAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
     		</p>
     		<p>
-    			<label>Vald artikel</label>
-				<span><%=Model.SelectedArticleName%></span>
-    		</p>
-    		<p>
     			<label>Totalkostnad</label>
 				<input type="text" id="total-withdrawal-amount" disabled="disabled" />
     		</p>

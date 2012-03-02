@@ -68,7 +68,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Orders
     	{
 			return new Order
 			{
-				Article = article ?? GetArticle(),
+				Article = new EyeParameter<Article>
+				{
+					Left = article ?? GetArticle(),
+					Right = article ?? GetArticle(),
+				},
 				Customer = customer ?? GetCustomer(),
 				LensRecipe = lensRecipe,
 				SelectedPaymentOption = selectedSubscriptionId.HasValue

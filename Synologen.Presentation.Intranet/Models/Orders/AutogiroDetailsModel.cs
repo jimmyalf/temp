@@ -13,8 +13,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 
         public string CustomerName { get; set; }
     	public bool IsNewSubscription { get; set; }
-    	public string SelectedArticleName { get; set; }
-    	//public bool EnableAutoWithdrawal { get; set; }
     	public string BankAccountNumber { get; set; }
     	public string ClearingNumber { get; set; }
         public string ProductPrice { get; set; }
@@ -22,7 +20,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public IEnumerable<ListItem> SubscriptionOptions { get { return GetSubscriptionOptions(); } }
         public int? SelectedSubscriptionOption { get; set; }
         public int? CustomSubscriptionTime { get; set; }
-    	//public string AutoWithdrawalAmount { get; set; }
 
     	private IEnumerable<ListItem> GetSubscriptionOptions()
         {

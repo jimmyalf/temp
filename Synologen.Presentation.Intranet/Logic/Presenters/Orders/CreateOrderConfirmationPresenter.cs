@@ -63,7 +63,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Model.RightDiameter = order.LensRecipe.Diameter != null ? order.LensRecipe.Diameter.Right.ToString() : "";
 			View.Model.RightCylinder = order.LensRecipe.Cylinder != null ? order.LensRecipe.Cylinder.Right : "";
 
-			View.Model.Article = order.Article.Name;
+			View.Model.ArticleLeft = order.Article.Left.Name;
+			View.Model.ArticleRight = order.Article.Right.Name;
 			View.Model.DeliveryOption = order.ShippingType.GetEnumDisplayName();
 			View.Model.ProductPrice = GetCurrencyString(order.SubscriptionPayment.ProductPrice);
 			View.Model.FeePrice = GetCurrencyString(order.SubscriptionPayment.FeePrice);

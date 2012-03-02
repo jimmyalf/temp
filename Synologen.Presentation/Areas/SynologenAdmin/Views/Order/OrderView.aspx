@@ -17,12 +17,16 @@
 				<p><%= Html.LabelFor(x => x.MobilePhone) %><%= Html.DisplayFor(x => x.MobilePhone) %></p>
 				<p><%= Html.LabelFor(x => x.Telephone) %><%= Html.DisplayFor(x => x.Telephone) %></p>
 				<p><%= Html.LabelFor(x => x.Address) %><%= Html.DisplayFor(x => x.Address.AddressLineOne) %><br/><%= Html.DisplayFor(x => x.Address.AddressLineTwo) %></p>
-				<p><%= Html.LabelFor(x => x.Article) %><%= Html.DisplayFor(x => x.Article) %></p>
 			</fieldset>
 			<fieldset>
-				<legend>Parametrar</legend>
+				<legend>Recept</legend>
 				<table class="formItem striped">
 					<tr class="header"><th>Parameter</th><th>Höger</th><th>Vänster</th></tr>
+					<tr>
+						<td><%=Html.GetDisplayName(x => x.Article) %></td>
+						<td><%=Html.DisplayFor(x => x.Article.Right) %></td>
+						<td><%=Html.DisplayFor(x => x.Article.Left) %></td>
+					</tr>
 					<tr>
 						<td><%=Html.GetDisplayName(x => x.Power) %></td>
 						<td><%=Html.DisplayFor(x => x.Power.Right) %></td>
@@ -65,6 +69,7 @@
 				<p><%= Html.LabelFor(x => x.NumberOfPerformedWithdrawals)%><%= Html.DisplayFor(x => x.NumberOfPerformedWithdrawals)%></p>
 				<p><%= Html.LabelFor(x => x.TotalWithdrawal)%><%= Html.DisplayFor(x => x.TotalWithdrawal)%></p>
 				<p><%= Html.LabelFor(x => x.Reference)%><%= Html.DisplayFor(x => x.Reference)%></p>
+				<p><%= Html.LabelFor(x => x.Status)%><%= Html.DisplayFor(x => x.Status)%></p>
 			</fieldset>
 			<p class="display-item clearLeft">
 				<a href='<%= Url.Action("Orders") %>'>Tillbaka till beställningar &raquo;</a>

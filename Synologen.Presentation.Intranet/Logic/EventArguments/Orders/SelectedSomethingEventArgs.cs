@@ -9,8 +9,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
         public int SelectedCategoryId { get; set; }
         public int SelectedArticleTypeId { get; set; }
         public int SelectedSupplierId { get; set; }
-        public int SelectedArticleId { get; set; }
         public int SelectedShippingOption { get; set; }
+		public EyeParameter<int> SelectedArticleId { get; set; }
 		public EyeParameter<string> SelectedPower { get; set; }
 		public EyeParameter<string> SelectedAddition { get; set; }
 		public EyeParameter<string> SelectedAxis { get; set; }
@@ -22,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
 
         public SelectedSomethingEventArgs()
         {
+			SelectedArticleId = new EyeParameter<int>();
 			SelectedPower = new EyeParameter<string>();
 			SelectedAddition = new EyeParameter<string>();
 			SelectedAxis = new EyeParameter<string>();

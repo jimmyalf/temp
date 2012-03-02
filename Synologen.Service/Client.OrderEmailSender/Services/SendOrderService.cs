@@ -25,13 +25,14 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
 		private int ParseAndSend(Order order)
 		{
 			
-			var to = order.Article.ArticleSupplier.OrderEmailAddress;
+			var to = order.Article.Left.ArticleSupplier.OrderEmailAddress;
 			var from = _configurationSettings.OrderSenderEmailAddress;
 			var body = GetEmailBody(order);
-			var subject = _configurationSettings.OrderEmailSubjectFormat.ReplaceWith(new
-			{
-				OrderArticleName = order.Article.Name
-			});
+			var subject = _configurationSettings.OrderEmailSubjectFormat;
+			//var subject = _configurationSettings.OrderEmailSubjectFormat.ReplaceWith(new
+			//{
+			//    OrderArticleName = order.Article.Name
+			//});
 
 			return _client.SendMail(to, from, subject, body, EmailPriority.Medium);
 		}
@@ -58,7 +59,8 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
 			var data = new 
 			{
 				OrderId = order.Id,
-				Article = order.Article.Name,
+				ArticleLeft = order.Article.Left.Name,
+				ArticleRight = order.Article.Right.Name,
 				ShopName = order.Shop.Name,
 
 				Receiver = receiver,

@@ -12,8 +12,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public string City { get; set; }
         public string PostalCode { get; set; }
 
-        public string Article { get; set; }
-
         public string DeliveryOption { get; set; }
         public string ProductPrice { get; set; }
         public string FeePrice { get; set; }
@@ -34,5 +32,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public string RightCylinder { get; set; }
         public string RightAxis { get; set; }
     	public string CustomerName { get; set; }
+
+    	public string ArticleLeft { get; set; }
+		public string ArticleRight { get; set; }
     }
 }

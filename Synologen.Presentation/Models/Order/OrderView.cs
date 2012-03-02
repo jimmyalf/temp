@@ -19,7 +19,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 				order.Customer.ParseName(x => x.AddressLineOne, x => x.AddressLineTwo),
 				order.Customer.ParseName(x => x.PostalCode, x => x.City)
 			);
-			Article = order.Article.Name;
 			DeliveryOption = order.ShippingType.GetEnumDisplayName();
 			ProductPrice = order.SubscriptionPayment.ProductPrice.ToString("C2");
 			FeePrice = order.SubscriptionPayment.FeePrice.ToString("C2");
@@ -27,6 +26,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			TotalWithdrawal = order.OrderTotalWithdrawalAmount.ToString("C2");
 			NumerOfWithdrawals = order.SubscriptionPayment.WithdrawalsLimit.ToString();
 			NumberOfPerformedWithdrawals = order.SubscriptionPayment.PerformedWithdrawals;
+			Reference = order.Reference;
+			Status = order.Status.GetEnumDisplayName();
+			Article = new ParameterView(order.Article);
 			Addition = new ParameterView(order.LensRecipe.Addition);
 			Axis = new ParameterView(order.LensRecipe.Axis);
 			Power = new ParameterView(order.LensRecipe.Power);
@@ -48,10 +50,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
         public string Telephone { get; set; }
 		[DisplayName("Adress")]
         public AddressView Address { get; set; }
-
-		[DisplayName("Artikel")]
-        public string Article { get; set; }
-
 		[DisplayName("Leveransalternativ")]
         public string DeliveryOption { get; set; }
 		[DisplayName("Produkt")]
@@ -68,6 +66,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public int NumberOfPerformedWithdrawals { get; set; }
 		[DisplayName("Butikens referens")]
 		public string Reference { get; set; }
+		[DisplayName("Beställningsstatus")]
+		public string Status { get; set; }
+		[DisplayName("Artikel")]
+        public ParameterView Article { get; set; }
 		[DisplayName("Stryrka")]
 		public ParameterView Power { get; set; }
 		[DisplayName("Baskurva")]
@@ -96,6 +98,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			if(eyeParameter == null) return;
 			Left = eyeParameter.Left;
 			Right = eyeParameter.Right;
+		}
+		public ParameterView(EyeParameter<Article> eyeParameter)
+		{
+			if(eyeParameter == null) return;
+			Left = eyeParameter.Left.Name;
+			Right = eyeParameter.Right.Name;
 		}
 		public string Left { get; set; }
 		public string Right { get; set; }

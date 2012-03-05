@@ -25,44 +25,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	    btnPreviousStep.Click += PreviousStep;
             btnPreviousStep.Click += TryFirePrevious;
             btnCancel.Click += TryFireAbort;
-    		ddlPickCategory.SelectedIndexChanged += Select_Category;
-            ddlPickSupplier.SelectedIndexChanged += Select_Supplier;
-    	    ddlPickKind.SelectedIndexChanged += Select_ArticleType;
-            drpArticlesLeft.SelectedIndexChanged += Select_Article;
-			drpArticlesRight.SelectedIndexChanged += Select_Article;
-    		chkOnlyLeftEye.CheckedChanged += OnlyOneEye_Changed;
-			chkOnlyRightEye.CheckedChanged += OnlyOneEye_Changed;
+    		ddlPickCategory.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedCategory);
+            ddlPickSupplier.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedSupplier);
+    	    ddlPickKind.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedArticleType);
+            drpArticlesLeft.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedArticle);
+			drpArticlesRight.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedArticle);
+    		chkOnlyLeftEye.CheckedChanged += (s, args) => TriggerEvent(SelectedOnlyOneEye);
+			chkOnlyRightEye.CheckedChanged += (s, args) => TriggerEvent(SelectedOnlyOneEye);
         }
 
-    	private void Select_Category(object sender, EventArgs e)
-    	{
-    		if(SelectedCategory == null) return;
-			SelectedCategory(this, GetOrderChangedEventArgs());
-    	}
-
-        private void Select_ArticleType(object sender, EventArgs e)
-        {
-            if (SelectedArticleType == null) return;
-			SelectedArticleType(this, GetOrderChangedEventArgs());
-        }
-
-        private void Select_Supplier(object sender, EventArgs e)
-        {
-            if (SelectedSupplier == null) return;
-        	SelectedSupplier(this, GetOrderChangedEventArgs());
-        }
-
-        private void Select_Article(object sender, EventArgs e)
-        {
-            if (SelectedArticle == null) return;
-			SelectedArticle(this, GetOrderChangedEventArgs());
-        }
-
-    	private void OnlyOneEye_Changed(object sender, EventArgs e)
-    	{
-			if (SelectedOnlyOneEye == null) return;
-			SelectedOnlyOneEye(this, GetOrderChangedEventArgs());
-    	}
+		private void TriggerEvent(EventHandler<OrderChangedEventArgs> eventHandler)
+		{
+			if(eventHandler == null) return;
+			eventHandler(this, GetOrderChangedEventArgs());
+		}
 
         private void NextStep(object sender, EventArgs e)
         {

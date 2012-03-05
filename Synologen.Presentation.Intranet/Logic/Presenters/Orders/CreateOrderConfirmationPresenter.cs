@@ -41,29 +41,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			View.Model.Address = order.Customer.ParseName(x => x.AddressLineOne, x => x.AddressLineTwo);
 			View.Model.City = order.Customer.City;
-			View.Model.Email = order.Customer.Email ?? "";
+			View.Model.Email = order.Customer.Email;
 			View.Model.FirstName = order.Customer.FirstName;
 			View.Model.LastName = order.Customer.LastName;
-			View.Model.MobilePhone = order.Customer.MobilePhone ?? "";
+			View.Model.MobilePhone = order.Customer.MobilePhone;
 			View.Model.PersonalIdNumber = order.Customer.PersonalIdNumber;
 			View.Model.PostalCode = order.Customer.PostalCode;
-			View.Model.Telephone = order.Customer.Phone ?? "";
+			View.Model.Telephone = order.Customer.Phone;
 
 			
-			View.Model.LeftAddition = order.LensRecipe.Addition != null ? order.LensRecipe.Addition.Left : "";
-			View.Model.LeftAxis = order.LensRecipe.Axis != null ? order.LensRecipe.Axis.Left : "";
-			View.Model.LeftPower = order.LensRecipe.Power != null ? order.LensRecipe.Power.Left : "";
-			View.Model.LeftBaseCurve = order.LensRecipe.BaseCurve != null ? order.LensRecipe.BaseCurve.Left.ToString() : "";
-			View.Model.LeftDiameter = order.LensRecipe.Diameter != null ? order.LensRecipe.Diameter.Left.ToString() : "";
-			View.Model.LeftCylinder = order.LensRecipe.Cylinder != null ? order.LensRecipe.Cylinder.Left : "";
-			View.Model.RightAddition = order.LensRecipe.Addition != null ? order.LensRecipe.Addition.Right : "";
-			View.Model.RightAxis = order.LensRecipe.Axis != null ? order.LensRecipe.Axis.Right : "";
-			View.Model.RightPower = order.LensRecipe.Power != null ? order.LensRecipe.Power.Right : "";
-			View.Model.RightBaseCurve = order.LensRecipe.BaseCurve != null ? order.LensRecipe.BaseCurve.Right.ToString() : "";
-			View.Model.RightDiameter = order.LensRecipe.Diameter != null ? order.LensRecipe.Diameter.Right.ToString() : "";
-			View.Model.RightCylinder = order.LensRecipe.Cylinder != null ? order.LensRecipe.Cylinder.Right : "";
-			View.Model.ArticleLeft = order.LensRecipe.Article.Left.Name;
-			View.Model.ArticleRight = order.LensRecipe.Article.Right.Name;
+			View.Model.LeftAddition = order.LensRecipe.With(x => x.Addition).Return(x => x.Left, null);
+			View.Model.LeftAxis = order.LensRecipe.With(x => x.Axis).Return(x => x.Left, null);
+			View.Model.LeftPower = order.LensRecipe.With(x => x.Power).Return(x => x.Left, null);
+			View.Model.LeftBaseCurve = order.LensRecipe.With(x => x.BaseCurve).With(x => x.Left).Return(x => x.ToString(), null);
+			View.Model.LeftDiameter = order.LensRecipe.With(x => x.Diameter).With(x => x.Left).Return(x => x.ToString(), null);
+			View.Model.LeftCylinder = order.LensRecipe.With(x => x.Cylinder).Return(x => x.Left, null);
+
+			View.Model.RightAddition = order.LensRecipe.With(x => x.Addition).Return(x => x.Right, null);
+			View.Model.RightAxis = order.LensRecipe.With(x => x.Axis).Return(x => x.Right, null);
+			View.Model.RightPower = order.LensRecipe.With(x => x.Power).Return(x => x.Right, null);
+			View.Model.RightBaseCurve = order.LensRecipe.With(x => x.BaseCurve).With(x => x.Right).Return(x => x.ToString(), null);
+			View.Model.RightDiameter = order.LensRecipe.With(x => x.Diameter).With(x => x.Right).Return(x => x.ToString(), null);
+			View.Model.RightCylinder = order.LensRecipe.With(x => x.Cylinder).Return(x => x.Right, null);
+			View.Model.ArticleLeft = order.LensRecipe.Article.With(x => x.Left).Return(x => x.Name, null);
+			View.Model.ArticleRight = order.LensRecipe.Article.With(x => x.Right).Return(x => x.Name, null);
 			View.Model.QuantityLeft = order.LensRecipe.Quantity.Left;
 			View.Model.QuantityRight = order.LensRecipe.Quantity.Right;
 

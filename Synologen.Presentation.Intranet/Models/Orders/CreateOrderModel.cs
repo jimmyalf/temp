@@ -31,6 +31,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 			CylinderOptionsEnabled = new EyeParameter<bool>();
 			AdditionOptionsEnabled = new EyeParameter<bool>();
     		Quantity = new EyeParameter<string>();
+    		OnlyUse = new EyeParameter<bool>();
     	}
 
         public string CustomerName { get; set; }
@@ -59,6 +60,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public EyeParameter<bool> CylinderOptionsEnabled { get; set; }
         public EyeParameter<bool> AdditionOptionsEnabled { get; set; }
 		public EyeParameter<string> Quantity { get; set; }
+		public EyeParameter<bool> OnlyUse { get; set; }
     	public string Reference { get; set; }
     }
 }

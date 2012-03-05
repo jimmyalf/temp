@@ -4,11 +4,12 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
 {
-    public interface ICreateOrderView : IOrderView<CreateOrderModel, CreateOrderEventArgs>
+    public interface ICreateOrderView : IOrderView<CreateOrderModel, OrderChangedEventArgs>
     {
-        event EventHandler<SelectedSomethingEventArgs> SelectedArticleType;
-        event EventHandler<SelectedSomethingEventArgs> SelectedSupplier;
-    	event EventHandler<SelectedSomethingEventArgs> SelectedCategory;
-        event EventHandler<SelectedSomethingEventArgs> SelectedArticle;
+        event EventHandler<OrderChangedEventArgs> SelectedArticleType;
+        event EventHandler<OrderChangedEventArgs> SelectedSupplier;
+    	event EventHandler<OrderChangedEventArgs> SelectedCategory;
+        event EventHandler<OrderChangedEventArgs> SelectedArticle;
+    	event EventHandler<OrderChangedEventArgs> SelectedOnlyOneEye;
     }
 }

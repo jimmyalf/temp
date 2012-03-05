@@ -100,9 +100,9 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
 				<body>
 					<table>
 						<thead>
-							<tr><td colspan=""8"">Beställnings-id: {OrderId}</td></tr>
-							<tr><td colspan=""8"">Från butik: {ShopName}</td></tr>
-							<tr><td colspan=""8"">Referens: {Reference}</td></tr>
+							<tr><th colspan=""8"">Beställnings-id: {OrderId}</th></tr>
+							<tr><th colspan=""8"">Från butik: {ShopName}</th></tr>
+							<tr><th colspan=""8"">Referens: {Reference}</th></tr>
 						</thead>
 						<tbody>
 							<tr>

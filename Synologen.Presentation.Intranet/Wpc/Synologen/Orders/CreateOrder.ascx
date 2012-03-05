@@ -46,9 +46,10 @@
 					CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 		</fieldset>
-
+		
 		<fieldset class="right-eye">
 			<legend>H</legend>
+			<asp:Panel runat="server" Visible="<%#Model.OnlyUse.Left == false%>">
 			<p>
 				<label>Artikel</label>
 				<asp:DropDownList id="drpArticlesRight" DataSource="<% #Model.OrderArticles %>" SelectedValue="<%#Model.SelectedArticleId.Right%>" DataTextField="Text" DataValueField="Value" runat="server" AutoPostBack="true" />
@@ -154,10 +155,15 @@
 					CssClass="error-message"
 					Enabled="<%#Model.CylinderOptionsEnabled.Right %>">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
+			<p>
+				<asp:CheckBox ID="chkOnlyRightEye" runat="server" Text="Endast höger öga" Checked="<%#Model.OnlyUse.Right %>" Enabled="<%#!Model.OnlyUse.Left %>" AutoPostBack="True" />
+			</p>
+			</asp:Panel>
 		</fieldset>
 
 		<fieldset class="left-eye">
 			<legend>V</legend>
+			<asp:Panel runat="server" Visible="<%#Model.OnlyUse.Right == false %>">
 			<p>
 				<label>Artikel</label>
 				<asp:DropDownList id="drpArticlesLeft" DataSource="<% #Model.OrderArticles %>" SelectedValue="<%#Model.SelectedArticleId.Left%>" DataTextField="Text" DataValueField="Value" runat="server" AutoPostBack="true" />
@@ -165,7 +171,7 @@
 					InitialValue="0" 
 					Runat="server" 
 					ErrorMessage="Obligatoriskt fält: Vänster Artikel" 
-					ControlToValidate="drpArticlesRight" 
+					ControlToValidate="drpArticlesLeft" 
 					Display="Dynamic" 
 					CssClass="error-message"	>&nbsp;*</asp:RequiredFieldValidator>
 			</p>
@@ -264,8 +270,11 @@
 					CssClass="error-message"
 					Enabled="<%#Model.CylinderOptionsEnabled.Left %>">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
+			<p>
+				<asp:CheckBox ID="chkOnlyLeftEye" runat="server" Text="Endast vänster öga" Checked="<%#Model.OnlyUse.Left %>" Enabled="<%#!Model.OnlyUse.Right %>" TextAlign="Left" AutoPostBack="True" />
+			</p>
+			</asp:Panel>
 		</fieldset>
-
 		<fieldset>
 			<p>
 				<label>Butikens Referens</label>

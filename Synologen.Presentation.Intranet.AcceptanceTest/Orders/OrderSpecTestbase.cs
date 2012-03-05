@@ -58,9 +58,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             return CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(shop, customer, lensRecipe, subscriptionItem, paymentOptionType));
         }
 
-	    private LensRecipe CreateLensRecipe(Article article)
+	    private LensRecipe CreateLensRecipe(Article article, ArticleCategory category = null, ArticleType articleType = null, ArticleSupplier supplier = null)
 	    {
-	        return CreateWithRepository<ILensRecipeRepository, LensRecipe>(() =>OrderFactory.GetLensRecipe(article));
+			category = category ?? CreateWithRepository<IArticleCategoryRepository, ArticleCategory>(() => OrderFactory.GetCategory());
+			articleType = articleType ?? CreateWithRepository<IArticleTypeRepository, ArticleType>(() => OrderFactory.GetArticleType(category));
+			supplier = supplier ?? CreateWithRepository<IArticleSupplierRepository, ArticleSupplier>(() =>OrderFactory.GetSupplier());
+	        return CreateWithRepository<ILensRecipeRepository, LensRecipe>(() => OrderFactory.GetLensRecipe(article, category, articleType, supplier));
 	    }
 
 	    protected SubscriptionItem CreateSubscriptionItem(Subscription subscription)

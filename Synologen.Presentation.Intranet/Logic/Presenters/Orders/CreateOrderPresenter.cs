@@ -29,11 +29,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         private readonly ILensRecipeRepository _lensRecipeRepository;
     	private readonly IShopRepository _shopRepository;
     	private readonly ISynologenMemberService _synologenMemberService;
-    	private decimal DefaultEyeParameterValue = CreateOrderModel.DefaultOptionValue;
+    	private int DefaultEyeParameterValue = CreateOrderModel.DefaultOptionValue;
+		private int DefaultSelectionValue = 0;
 
-    	//TODO: Consider removing -9999 "magic number" and replace with a named constant
-
-        public CreateOrderPresenter(ICreateOrderView view, IOrderRepository orderRepository, IOrderCustomerRepository orderCustomerRepository, IRoutingService routingService, IArticleCategoryRepository articleCategoryRepository, IViewParser viewParser, IArticleSupplierRepository articleSupplierRepository, IArticleTypeRepository articleTypeRepository, IArticleRepository articleRepository, ILensRecipeRepository lensRecipeRepository, IShopRepository shopRepository, ISubscriptionRepository subscriptionRepository, ISynologenMemberService synologenMemberService) : base(view)
+        public CreateOrderPresenter(
+			ICreateOrderView view, 
+			IOrderRepository orderRepository, 
+			IOrderCustomerRepository orderCustomerRepository, 
+			IRoutingService routingService, 
+			IArticleCategoryRepository articleCategoryRepository, 
+			IViewParser viewParser, 
+			IArticleSupplierRepository articleSupplierRepository, 
+			IArticleTypeRepository articleTypeRepository, 
+			IArticleRepository articleRepository, 
+			ILensRecipeRepository lensRecipeRepository, 
+			IShopRepository shopRepository, 
+			ISubscriptionRepository subscriptionRepository, 
+			ISynologenMemberService synologenMemberService) : base(view)
         {
             _orderCustomerRepository = orderCustomerRepository;
             _routingService = routingService;
@@ -60,167 +72,40 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.SelectedArticleType += FillModel;
             View.SelectedSupplier += FillModel;
             View.SelectedArticle += FillModel;
+			View.SelectedOnlyOneEye += FillModel;
 		}
-
-        public void FillModel(object sender, SelectedSomethingEventArgs args)
-        {
-            if(args.SelectedCategoryId > 0)
-            {
-                var criteria = new ArticleTypesByCategory(args.SelectedCategoryId);
-                var articleTypes = _articleTypeRepository.FindBy(criteria).Where(x => x.Active);
-                View.Model.ArticleTypes = _viewParser.ParseWithDefaultItem(articleTypes, supplier => new ListItem(supplier.Name, supplier.Id));
-            }
-            if(args.SelectedArticleTypeId > 0)
-            {
-                var suppliers = _articleSupplierRepository.GetAll();
-            	Func<ArticleSupplier, bool> activeSuppliersWithArticlesOfSelectedType = articleSupplier => articleSupplier.Articles.Any(x => x.ArticleType.Id == args.SelectedArticleTypeId) && articleSupplier.Active;
-                var filteredSuppliers = suppliers.Where(activeSuppliersWithArticlesOfSelectedType).ToList();
-                View.Model.Suppliers = _viewParser.ParseWithDefaultItem(filteredSuppliers, supplier => new ListItem(supplier.Name, supplier.Id));
-            }
-            if(args.SelectedSupplierId > 0)
-            {
-                var criteria = new ArticlesBySupplierAndArticleType(args.SelectedSupplierId, args.SelectedArticleTypeId);
-                var articles = _articleRepository.FindBy(criteria).Where(x => x.Active);
-                View.Model.OrderArticles = _viewParser.ParseWithDefaultItem(articles, article => new ListItem(article.Name, article.Id));
-
-                var supplier = _articleSupplierRepository.Get(args.SelectedSupplierId);
-                View.Model.ShippingOptions = _viewParser.Parse(supplier.ShippingOptions);
-            }
-            if(args.SelectedArticleId.Left > 0)
-            {
-                var articleLeft = _articleRepository.Get(args.SelectedArticleId.Left);
-				if(articleLeft.Options != null)
-				{
-					View.Model.DiameterOptions.Left = _viewParser.FillWithIncrementalValues(articleLeft.Options.Diameter);
-					View.Model.BaseCurveOptions.Left = _viewParser.FillWithIncrementalValues(articleLeft.Options.BaseCurve);
-					View.Model.AxisOptionsEnabled.Left = articleLeft.Options.EnableAxis;
-					View.Model.CylinderOptionsEnabled.Left = articleLeft.Options.EnableCylinder;
-					View.Model.AdditionOptionsEnabled.Left = articleLeft.Options.EnableAddition;
-				}
-				
-            }
-            if(args.SelectedArticleId.Right > 0)
-            {
-                var articleRight = _articleRepository.Get(args.SelectedArticleId.Right);
-				if(articleRight.Options != null)
-				{
-					View.Model.DiameterOptions.Right = _viewParser.FillWithIncrementalValues(articleRight.Options.Diameter);
-					View.Model.BaseCurveOptions.Right = _viewParser.FillWithIncrementalValues(articleRight.Options.BaseCurve);
-					View.Model.AxisOptionsEnabled.Right = articleRight.Options.EnableAxis;
-					View.Model.CylinderOptionsEnabled.Right = articleRight.Options.EnableCylinder;
-					View.Model.AdditionOptionsEnabled.Right = articleRight.Options.EnableAddition;
-				}
-            }
-
-            View.Model.SelectedCategoryId = args.SelectedCategoryId;
-            View.Model.SelectedArticleTypeId = args.SelectedArticleTypeId;
-            View.Model.SelectedSupplierId = args.SelectedSupplierId;
-            View.Model.SelectedArticleId = args.SelectedArticleId;
-            View.Model.SelectedShippingOption = args.SelectedShippingOption;
-
-            View.Model.SelectedPower = args.SelectedPower;
-            View.Model.SelectedBaseCurve = args.SelectedBaseCurve;
-            View.Model.SelectedDiameter = args.SelectedDiameter;
-            View.Model.SelectedCylinder = args.SelectedCylinder;
-            View.Model.SelectedAxis = args.SelectedAxis;
-            View.Model.SelectedAddition = args.SelectedAddition;
-        	View.Model.Reference = args.SelectedReference;
-        	View.Model.Quantity = args.SelectedQuantity;
-        }
-
-        public void View_Submit(object o, CreateOrderEventArgs form)
-        {
-        	var orderId = RequestOrderId.HasValue 
-				? UpdateExistingOrder(form, RequestOrderId.Value) 
-				: CreateNewOrder(form);
-        	Redirect(View.NextPageId, new {order = orderId});
-        }
-
-    	private int CreateNewOrder(CreateOrderEventArgs form)
-        {
-			var articleLeft = _articleRepository.Get(form.ArticleId.Left);
-			var articleRight = _articleRepository.Get(form.ArticleId.Right);
-            var lensRecipe = new LensRecipe
-            {
-                Axis = form.Axis,
-                BaseCurve = form.BaseCurve,
-                Cylinder = form.Cylinder,
-                Diameter = form.Diameter,
-                Power = form.Power,
-                Addition = form.Addition,
-				Quantity = form.Quantity,
-				Article = new EyeParameter<Article>(articleLeft, articleRight),
-            };
-            _lensRecipeRepository.Save(lensRecipe);
-
-            var customer = _orderCustomerRepository.Get(RequestCustomerId.Value);
-    		var shop = _shopRepository.Get(ShopId);
-            var order = new Order
-            {
-                LensRecipe = lensRecipe,
-                ShippingType = (OrderShippingOption) form.ShipmentOption,
-                Customer = customer,
-				Shop = shop,
-				Reference = form.Reference
-            };
-            _orderRepository.Save(order);
-            return order.Id;
-        }
-
-        private int UpdateExistingOrder(CreateOrderEventArgs form, int orderId)
-        {
-            //TODO: security. make sure that the order updated is the one that should be updated, for instance by checking that the order belongs to the butik trying to update an order.
-            var order = _orderRepository.Get(orderId);
-            order.ShippingType = (OrderShippingOption) form.ShipmentOption;
-        	order.Reference = form.Reference;
-            _orderRepository.Save(order);
-
-            var lensRecipe = order.LensRecipe;
-        	lensRecipe.Axis = form.Axis;
-            lensRecipe.BaseCurve = form.BaseCurve;
-            lensRecipe.Cylinder = form.Cylinder;
-            lensRecipe.Diameter = form.Diameter;
-            lensRecipe.Power = form.Power;
-            lensRecipe.Addition = form.Addition;
-        	lensRecipe.Quantity = form.Quantity;
-			lensRecipe.Article = new EyeParameter<Article>
-			{
-				Left = _articleRepository.Get(form.ArticleId.Left),
-				Right = _articleRepository.Get(form.ArticleId.Right)
-			};
-            _lensRecipeRepository.Save(lensRecipe);
-
-            return order.Id;
-        }
-
-        private void Redirect(int pageId, object routeData = null)
-        {
-            var url = _routingService.GetPageUrl(pageId, routeData);
-        	HttpContext.Response.Redirect(url);
-        }
 
         public void View_Load(object o, EventArgs eventArgs)
         {
             if(RequestOrderId.HasValue)
             {
                 var order = _orderRepository.Get(RequestOrderId.Value);
-                var args = new SelectedSomethingEventArgs
+                var args = new OrderChangedEventArgs
                 {
                     
-                    SelectedArticleTypeId = order.LensRecipe.Article.Left.ArticleType.Id,
-                    SelectedCategoryId = order.LensRecipe.Article.Left.ArticleType.Category.Id,
+                    SelectedArticleTypeId = order.LensRecipe.ArticleType.Id,
+                    SelectedCategoryId = order.LensRecipe.ArticleCategory.Id,
+					SelectedSupplierId = order.LensRecipe.ArticleSupplier.Id,
                     SelectedShippingOption = (int)order.ShippingType,
-                    SelectedSupplierId = order.LensRecipe.Article.Left.ArticleSupplier.Id,
 
-					SelectedArticleId = new EyeParameter<int>(order.LensRecipe.Article.Left.Id, order.LensRecipe.Article.Right.Id),
-					SelectedPower = order.LensRecipe.Power,
-                    SelectedAddition = order.LensRecipe.Addition,
-					SelectedAxis = order.LensRecipe.Axis,
-					SelectedCylinder = order.LensRecipe.Cylinder,
-					SelectedQuantity = order.LensRecipe.Quantity,
-                    SelectedBaseCurve = GetEyeParameterOrDefault(order.LensRecipe.BaseCurve),
-                    SelectedDiameter = GetEyeParameterOrDefault(order.LensRecipe.Diameter),
+					SelectedArticleId = new EyeParameter<int?>
+					{
+						Left = order.LensRecipe.Article.With(x => x.Left).Return(x => x.Id, (int?) null),
+						Right = order.LensRecipe.Article.With(x => x.Right).Return(x => x.Id, (int?) null),
+					},
+					SelectedPower = order.LensRecipe.Power ?? new EyeParameter<string>(),
+                    SelectedAddition = order.LensRecipe.Addition ?? new EyeParameter<string>(),
+					SelectedAxis = order.LensRecipe.Axis ?? new EyeParameter<string>(),
+					SelectedCylinder = order.LensRecipe.Cylinder ?? new EyeParameter<string>(),
+					SelectedQuantity = order.LensRecipe.Quantity ?? new EyeParameter<string>(),
+                    SelectedBaseCurve = order.LensRecipe.BaseCurve ?? new EyeParameter<decimal?>(),
+                    SelectedDiameter = order.LensRecipe.Diameter ?? new EyeParameter<decimal?>(),
                     SelectedReference = order.Reference,
+					OnlyUse = new EyeParameter<bool>
+					{
+						Left = order.LensRecipe.Article.Right == null,
+						Right = order.LensRecipe.Article.Left == null
+					}
                 };
 
 				View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);
@@ -236,17 +121,163 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 				var customer = _orderCustomerRepository.Get(RequestCustomerId.Value);
 				View.Model.CustomerName = customer.ParseName(x => x.FirstName, x => x.LastName);
 			}
-        } 
+        }
 
-		private EyeParameter<decimal> GetEyeParameterOrDefault(EyeParameter<decimal?> parameter)
+    	public void FillModel(object sender, OrderChangedEventArgs args)
+    	{
+    		FillModelBasedOnCategory(args);
+    		FillModelBasedOnArticleType(args);
+    		FillModelBasedOnSupplier(args);
+    		FillModelBasedOnArticleLeft(args);
+			FillModelBasedOnArticleRight(args);
+
+            View.Model.SelectedCategoryId = args.SelectedCategoryId ?? DefaultSelectionValue;
+            View.Model.SelectedArticleTypeId = args.SelectedArticleTypeId ?? DefaultSelectionValue;
+            View.Model.SelectedSupplierId = args.SelectedSupplierId ?? DefaultSelectionValue;
+			View.Model.SelectedShippingOption = args.SelectedShippingOption ?? DefaultSelectionValue;
+    		View.Model.SelectedArticleId = GetValuesOrDefault(args.SelectedArticleId, DefaultSelectionValue);
+
+            View.Model.SelectedPower = args.SelectedPower;
+        	View.Model.SelectedBaseCurve = GetValuesOrDefault(args.SelectedBaseCurve, DefaultEyeParameterValue);
+        	View.Model.SelectedDiameter = GetValuesOrDefault(args.SelectedDiameter, DefaultEyeParameterValue);
+            View.Model.SelectedCylinder = args.SelectedCylinder;
+            View.Model.SelectedAxis = args.SelectedAxis;
+            View.Model.SelectedAddition = args.SelectedAddition;
+        	View.Model.Reference = args.SelectedReference;
+        	View.Model.Quantity = args.SelectedQuantity;
+        	View.Model.OnlyUse = args.OnlyUse;
+        }
+
+    	private void FillModelBasedOnArticleLeft(OrderChangedEventArgs args)
+    	{
+    		if (!args.SelectedArticleId.Left.HasValue) return;
+    		var articleLeft = _articleRepository.Get(args.SelectedArticleId.Left.Value);
+    		if (articleLeft.Options == null) return;
+    		View.Model.DiameterOptions.Left = _viewParser.FillWithIncrementalValues(articleLeft.Options.Diameter);
+    		View.Model.BaseCurveOptions.Left = _viewParser.FillWithIncrementalValues(articleLeft.Options.BaseCurve);
+    		View.Model.AxisOptionsEnabled.Left = articleLeft.Options.EnableAxis;
+    		View.Model.CylinderOptionsEnabled.Left = articleLeft.Options.EnableCylinder;
+    		View.Model.AdditionOptionsEnabled.Left = articleLeft.Options.EnableAddition;
+    	}
+
+    	private void FillModelBasedOnArticleRight(OrderChangedEventArgs args)
+    	{
+    		if (!args.SelectedArticleId.Right.HasValue) return;
+    		var articleRight = _articleRepository.Get(args.SelectedArticleId.Right.Value);
+    		if (articleRight.Options == null) return;
+    		View.Model.DiameterOptions.Right = _viewParser.FillWithIncrementalValues(articleRight.Options.Diameter);
+    		View.Model.BaseCurveOptions.Right = _viewParser.FillWithIncrementalValues(articleRight.Options.BaseCurve);
+    		View.Model.AxisOptionsEnabled.Right = articleRight.Options.EnableAxis;
+    		View.Model.CylinderOptionsEnabled.Right = articleRight.Options.EnableCylinder;
+    		View.Model.AdditionOptionsEnabled.Right = articleRight.Options.EnableAddition;
+    	}
+
+		private void FillModelBasedOnSupplier(OrderChangedEventArgs args)
 		{
-			if (parameter == null) return new EyeParameter<decimal>(DefaultEyeParameterValue, DefaultEyeParameterValue);	
-			return new EyeParameter<decimal>
-			{
-				Left = parameter.Left ?? DefaultEyeParameterValue,
-				Right = parameter.Right ?? DefaultEyeParameterValue,
-			};
+			if (!args.SelectedSupplierId.HasValue || !args.SelectedArticleTypeId.HasValue) return;
+			var criteria = new ArticlesBySupplierAndArticleType(args.SelectedSupplierId.Value, args.SelectedArticleTypeId.Value);
+			var articles = _articleRepository.FindBy(criteria).Where(x => x.Active);
+			View.Model.OrderArticles = _viewParser.ParseWithDefaultItem(articles, item => new ListItem(item.Name, item.Id));
+
+			var supplier = _articleSupplierRepository.Get(args.SelectedSupplierId.Value);
+			View.Model.ShippingOptions = _viewParser.Parse(supplier.ShippingOptions);
 		}
+
+		private void FillModelBasedOnArticleType(OrderChangedEventArgs args)
+		{
+			if (!args.SelectedArticleTypeId.HasValue) return;
+			var suppliers = _articleSupplierRepository.GetAll();
+			Func<ArticleSupplier, bool> activeSuppliersWithArticlesOfSelectedType = articleSupplier => articleSupplier.Articles.Any(x => x.ArticleType.Id == args.SelectedArticleTypeId) && articleSupplier.Active;
+			var filteredSuppliers = suppliers.Where(activeSuppliersWithArticlesOfSelectedType).ToList();
+			View.Model.Suppliers = _viewParser.ParseWithDefaultItem(filteredSuppliers, item => new ListItem(item.Name, item.Id));
+		}
+
+		private void FillModelBasedOnCategory(OrderChangedEventArgs args)
+		{
+			if (!args.SelectedCategoryId.HasValue) return;
+			var criteria = new ArticleTypesByCategory(args.SelectedCategoryId.Value);
+			var articleTypes = _articleTypeRepository.FindBy(criteria).Where(x => x.Active);
+			View.Model.ArticleTypes = _viewParser.ParseWithDefaultItem(articleTypes, item => new ListItem(item.Name, item.Id));
+		}
+
+    	public void View_Submit(object o, OrderChangedEventArgs form)
+        {
+        	var orderId = RequestOrderId.HasValue 
+				? UpdateExistingOrder(form, RequestOrderId.Value) 
+				: CreateNewOrder(form);
+        	Redirect(View.NextPageId, new {order = orderId});
+        }
+
+    	private int CreateNewOrder(OrderChangedEventArgs form)
+        {
+
+            var lensRecipe = new LensRecipe
+            {
+                Axis = form.SelectedAxis,
+                BaseCurve = form.SelectedBaseCurve,
+                Cylinder = form.SelectedCylinder,
+                Diameter = form.SelectedDiameter,
+                Power = form.SelectedPower,
+                Addition = form.SelectedAddition,
+				Quantity = form.SelectedQuantity,
+				Article = new EyeParameter<Article>
+				{
+					Left = form.SelectedArticleId.Left.HasValue ? _articleRepository.Get(form.SelectedArticleId.Left.Value) : null,
+					Right = form.SelectedArticleId.Right.HasValue ? _articleRepository.Get(form.SelectedArticleId.Right.Value) : null
+				},
+				ArticleCategory = _articleCategoryRepository.Get(form.SelectedCategoryId.Value),
+				ArticleSupplier = _articleSupplierRepository.Get(form.SelectedSupplierId.Value),
+				ArticleType = _articleTypeRepository.Get(form.SelectedArticleTypeId.Value),
+            };
+            _lensRecipeRepository.Save(lensRecipe);
+
+            var customer = _orderCustomerRepository.Get(RequestCustomerId.Value);
+    		var shop = _shopRepository.Get(ShopId);
+            var order = new Order
+            {
+                LensRecipe = lensRecipe,
+                ShippingType = (OrderShippingOption) form.SelectedShippingOption.Value,
+                Customer = customer,
+				Shop = shop,
+				Reference = form.SelectedReference
+            };
+            _orderRepository.Save(order);
+            return order.Id;
+        }
+
+        private int UpdateExistingOrder(OrderChangedEventArgs form, int orderId)
+        {
+            var order = _orderRepository.Get(orderId);
+            order.ShippingType = (OrderShippingOption) form.SelectedShippingOption.Value;
+        	order.Reference = form.SelectedReference;
+            _orderRepository.Save(order);
+
+            var lensRecipe = order.LensRecipe;
+        	lensRecipe.Axis = form.SelectedAxis;
+            lensRecipe.BaseCurve = form.SelectedBaseCurve;
+            lensRecipe.Cylinder = form.SelectedCylinder;
+            lensRecipe.Diameter = form.SelectedDiameter;
+            lensRecipe.Power = form.SelectedPower;
+            lensRecipe.Addition = form.SelectedAddition;
+        	lensRecipe.Quantity = form.SelectedQuantity;
+			lensRecipe.Article = new EyeParameter<Article>
+			{
+				Left = form.SelectedArticleId.Left.HasValue ? _articleRepository.Get(form.SelectedArticleId.Left.Value) : null,
+				Right = form.SelectedArticleId.Right.HasValue ? _articleRepository.Get(form.SelectedArticleId.Right.Value) : null
+			};
+        	lensRecipe.ArticleCategory = _articleCategoryRepository.Get(form.SelectedCategoryId.Value);
+        	lensRecipe.ArticleSupplier = _articleSupplierRepository.Get(form.SelectedSupplierId.Value);
+        	lensRecipe.ArticleType = _articleTypeRepository.Get(form.SelectedArticleTypeId.Value);
+            _lensRecipeRepository.Save(lensRecipe);
+
+            return order.Id;
+        }
+
+        private void Redirect(int pageId, object routeData = null)
+        {
+            var url = _routingService.GetPageUrl(pageId, routeData);
+        	HttpContext.Response.Redirect(url);
+        }
 
         public void View_Abort(object o, EventArgs eventArgs)
         {
@@ -293,6 +324,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.SelectedArticle -= FillModel;
             View.SelectedArticleType -= FillModel;
             View.SelectedSupplier -= FillModel;
+        	View.SelectedOnlyOneEye -= FillModel;
         }
+
+    	private EyeParameter<T> GetValuesOrDefault<T>(EyeParameter<T?> parameter, T defaltValue) where T:struct
+    	{
+    		return new EyeParameter<T>
+    		{
+    			Left = parameter.Left ?? defaltValue,
+				Right = parameter.Right ?? defaltValue,
+    		};
+    	}
     }
 }

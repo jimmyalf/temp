@@ -53,7 +53,7 @@
     <Compile Include="Logic\EventArguments\Orders\AutogiroDetailsInvalidFormEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\EditCustomerEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\HandleErrorEventArgs.cs" />
-    <Compile Include="Logic\EventArguments\Orders\SelectedSomethingEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\Orders\OrderChangedEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SubmitCorrectionEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SubmitSubscriptionItemEventArgs.cs" />
     <Compile Include="Logic\Presenters\Orders\OrderBasePresenter.cs" />

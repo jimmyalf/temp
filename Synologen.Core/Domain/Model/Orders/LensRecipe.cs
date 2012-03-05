@@ -3,6 +3,9 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 	public class LensRecipe : Entity
 	{
 		public virtual Order Order { get; set; }
+		public virtual ArticleCategory ArticleCategory { get; set; }
+		public virtual ArticleType ArticleType { get; set; }
+		public virtual ArticleSupplier ArticleSupplier { get; set; }
 		public virtual EyeParameter<Article> Article { get; set; }
 		public virtual EyeParameter<decimal?> BaseCurve { get; set; }
 		public virtual EyeParameter<decimal?> Diameter { get; set; }

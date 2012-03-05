@@ -61,22 +61,47 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			};
 		}
 
-	    public static CreateOrderEventArgs GetOrderEventArgs(int articleId=1)
+	    public static OrderChangedEventArgs GetOrderEventArgs(int articleId, int categoryId, int supplierId, int articletypeId)
 	    {
-	        return new CreateOrderEventArgs
+	        return new OrderChangedEventArgs
 			{
-				ArticleId = new EyeParameter<int>(articleId, articleId),
-				Addition = new EyeParameter<string>("Medium","High"),
-				Axis = new EyeParameter<string>("25","33"),
-				Power = new EyeParameter<string>("+3","-1"),
-				BaseCurve = new EyeParameter<decimal?>(4,4),
-				Diameter = new EyeParameter<decimal?>(5,5),
-				Cylinder = new EyeParameter<string>("-10", "-22"),
-				Quantity = new EyeParameter<string>("10 st", "12"),
-				ShipmentOption = 1,
-				Reference = "Text abc",
+				SelectedCategoryId = categoryId,
+				SelectedArticleTypeId = articletypeId,
+				SelectedSupplierId = supplierId,
+				SelectedArticleId = new EyeParameter<int?>(articleId, articleId),
+				SelectedAddition = new EyeParameter<string>("Medium","High"),
+				SelectedAxis = new EyeParameter<string>("25","33"),
+				SelectedPower = new EyeParameter<string>("+3","-1"),
+				SelectedBaseCurve = new EyeParameter<decimal?>(4,4),
+				SelectedDiameter = new EyeParameter<decimal?>(5,5),
+				SelectedCylinder = new EyeParameter<string>("-10", "-22"),
+				SelectedQuantity = new EyeParameter<string>("10 st", "12"),
+				SelectedShippingOption = 1,
+				SelectedReference = "Text abc",
+				OnlyUse = new EyeParameter<bool>()
 			};
 	    }
+
+		public static OrderChangedEventArgs GetOrderEventArgsLeftEyeOnly(int articleId, int categoryId, int supplierId, int articletypeId)
+		{
+	        return new OrderChangedEventArgs
+			{
+				SelectedCategoryId = categoryId,
+				SelectedArticleTypeId = articletypeId,
+				SelectedSupplierId = supplierId,
+				SelectedArticleId = new EyeParameter<int?>(articleId, null),
+				SelectedAddition = new EyeParameter<string>("Medium",null),
+				SelectedAxis = new EyeParameter<string>("25",null),
+				SelectedPower = new EyeParameter<string>("+3",null),
+				SelectedBaseCurve = new EyeParameter<decimal?>(4,null),
+				SelectedDiameter = new EyeParameter<decimal?>(5,null),
+				SelectedCylinder = new EyeParameter<string>("-10", null),
+				SelectedQuantity = new EyeParameter<string>("10 st", null),
+				SelectedShippingOption = 1,
+				SelectedReference = "Text abc",
+				OnlyUse = new EyeParameter<bool>(true, false)
+			};
+		}
 
 		public static Order GetOrder(Shop shop, OrderCustomer customer, LensRecipe recipie = null, SubscriptionItem subscriptionItem = null, PaymentOptionType paymentOptionType = PaymentOptionType.Subscription_Autogiro_New)
 		{
@@ -201,10 +226,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			};
 		}
 
-	    public static LensRecipe GetLensRecipe(Article article)
+	    public static LensRecipe GetLensRecipe(Article article, ArticleCategory category, ArticleType type, ArticleSupplier supplier)
 	    {
 	        return new LensRecipe
 	        {
+				ArticleCategory = category,
+				ArticleType = type,
+				ArticleSupplier = supplier,
 				Article = new EyeParameter<Article>(article, article),
 	            Addition = new EyeParameter<string>("Medium","High"),
                 Axis = new EyeParameter<string>("25","33"),
@@ -215,6 +243,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				Quantity = new EyeParameter<string>("10 st", "15")
 	        };
 	    }
+
+		public static LensRecipe GetLensRecipeForLeftEyeOnly(Article article, ArticleCategory category, ArticleType type, ArticleSupplier supplier)
+		{
+	        return new LensRecipe
+	        {
+				ArticleCategory = category,
+				ArticleType = type,
+				ArticleSupplier = supplier,
+				Article = new EyeParameter<Article>(article, null),
+	            Addition = new EyeParameter<string>("Medium",null),
+                Axis = new EyeParameter<string>("25",null),
+                Power = new EyeParameter<string>("+3",null),
+                BaseCurve = new EyeParameter<decimal?>(4,null),
+                Diameter = new EyeParameter<decimal?>(5,null),
+                Cylinder = new EyeParameter<string>("-10", null),
+				Quantity = new EyeParameter<string>("10 st", null)
+	        };
+		}
 
 	    public static SubscriptionItem GetSubscriptionItem(Subscription subscription)
 	    {
@@ -273,5 +319,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			Func<int,DateTime?> getDateOrNull = seed => seed % 3 == 0 ? new DateTime(2012, 02, 20) : (DateTime?) null;
 			return Sequence.Generate(seed => GetError(subscription, getDateOrNull(seed)), 15);
 		}
+
 	}
 }

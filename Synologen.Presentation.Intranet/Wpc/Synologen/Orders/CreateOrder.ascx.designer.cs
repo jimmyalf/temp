@@ -112,6 +112,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.TextBox txtRightCylinder;
         
         /// <summary>
+        /// chkOnlyRightEye control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkOnlyRightEye;
+        
+        /// <summary>
         /// drpArticlesLeft control.
         /// </summary>
         /// <remarks>
@@ -182,6 +191,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLeftCylinder;
+        
+        /// <summary>
+        /// chkOnlyLeftEye control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkOnlyLeftEye;
         
         /// <summary>
         /// txtReference control.

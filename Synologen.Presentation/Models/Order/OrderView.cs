@@ -36,6 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			BaseCurve = new ParameterView(order.LensRecipe.BaseCurve);
 			Diameter = new ParameterView(order.LensRecipe.Diameter);
 			Cylinder = new ParameterView(order.LensRecipe.Cylinder);
+			Quantity = new ParameterView(order.LensRecipe.Quantity);
 		}
 
 		public int OrderId { get; set; }
@@ -83,6 +84,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public ParameterView Cylinder { get; set; }
 		[DisplayName("Axel")]
 		public ParameterView Axis { get; set; }
+		[DisplayName("Antal")]
+		public ParameterView Quantity { get; set; }
 	}
 
 	public class ParameterView

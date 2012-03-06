@@ -13,19 +13,16 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.Orders
 		public AllOrdersToSendEmailForCriteriaConverter(ISession session) : base(session) {}
 		public override ICriteria Convert(AllOrdersToSendEmailForCriteria source)
 		{
-			var isRightShippingType = 
-				Restrictions.Eq(Property(x => x.ShippingType), OrderShippingOption.ToCustomer) || 
-				Restrictions.Eq(Property(x => x.ShippingType), OrderShippingOption.ToStore);
+			var isRightShippingType = Restrictions.Not(Restrictions.Eq(Property(x => x.ShippingType), OrderShippingOption.NoOrder));
 			var isNotAlreadySent = Restrictions.IsNull(Property(x => x.SpinitServicesEmailId));
+			var isConfirmed = Restrictions.Eq(Property(x => x.Status), OrderStatus.Confirmed);
 			return Criteria
-				.FilterEqual(x => x.Status, OrderStatus.Confirmed)
-				.Add(Restrictions.And(isRightShippingType, isNotAlreadySent))
+				.Add(Restrictions.And(Restrictions.And(isRightShippingType, isNotAlreadySent), isConfirmed))
 				.SetFetchMode(Property(x => x.Shop), FetchMode.Join)
 				.SetFetchMode(Property(x => x.LensRecipe), FetchMode.Join)
 				.SetFetchMode(Property(x => x.LensRecipe.Article.Left), FetchMode.Join)
 				.SetFetchMode(Property(x => x.LensRecipe.Article.Right), FetchMode.Join)
-				.SetFetchMode(Property(x => x.LensRecipe.Article.Left.ArticleSupplier), FetchMode.Join)
-				.SetFetchMode(Property(x => x.LensRecipe.Article.Right.ArticleSupplier), FetchMode.Join)
+				.SetFetchMode(Property(x => x.LensRecipe.ArticleSupplier), FetchMode.Join)
 				.SetFetchMode(Property(x => x.Customer), FetchMode.Join)
 				.SetResultTransformer(new DistinctRootEntityResultTransformer());
 		}

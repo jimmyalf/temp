@@ -15,10 +15,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			Email = order.Customer.Email;
 			MobilePhone = order.Customer.MobilePhone;
 			Telephone = order.Customer.Phone;
-			Address = new AddressView(
-				order.Customer.ParseName(x => x.AddressLineOne, x => x.AddressLineTwo),
-				order.Customer.ParseName(x => x.PostalCode, x => x.City)
-			);
+			Address = new AddressView
+			{
+				AddressLineOne = order.Customer.ParseName(x => x.AddressLineOne, x => x.AddressLineTwo),
+				AddressLineTwo = order.Customer.ParseName(x => x.PostalCode, x => x.City)
+			};
 			DeliveryOption = order.ShippingType.GetEnumDisplayName();
 			ProductPrice = order.SubscriptionPayment.ProductPrice.ToString("C2");
 			FeePrice = order.SubscriptionPayment.FeePrice.ToString("C2");
@@ -102,8 +103,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public ParameterView(EyeParameter<Article> eyeParameter)
 		{
 			if(eyeParameter == null) return;
-			Left = eyeParameter.Left.Name;
-			Right = eyeParameter.Right.Name;
+			Left = eyeParameter.With(x => x.Left).Return(x => x.Name, null);
+			Right = eyeParameter.With(x => x.Right).Return(x => x.Name, null);
 		}
 		public string Left { get; set; }
 		public string Right { get; set; }

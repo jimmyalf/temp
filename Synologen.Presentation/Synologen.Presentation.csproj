@@ -574,8 +574,6 @@
     <Content Include="Areas\SynologenAdmin\Views\Shared\SynologenMVC.Master" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\Empty.Master" />
     <Content Include="ChangeLocation.aspx" />
-    <Content Include="Components\Synologen\Images\pdficon_large.gif" />
-    <Content Include="Components\Synologen\Images\pdficon_small.gif" />
     <Content Include="Components\Synologen\Scripts\Synologen.js" />
     <Content Include="Error.aspx" />
     <Content Include="Global.asax" />
@@ -610,7 +608,6 @@
     </Content>
     <Content Include="Areas\SynologenAdmin\Views\Frame\ViewFrameOrder.aspx" />
     <Content Include="Window.master" />
-    <Content Include="WindowMVC.master" />
     <Content Include="BaseMainMVC.master" />
     <Content Include="Components\ComponentMain.master" />
     <Content Include="Components\ComponentMainMVC.master" />
@@ -678,5 +675,4 @@
     <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
     <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
   </PropertyGroup>
-  
 </Project>

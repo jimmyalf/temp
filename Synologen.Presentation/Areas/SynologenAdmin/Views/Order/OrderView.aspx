@@ -28,6 +28,11 @@
 						<td><%=Html.DisplayFor(x => x.Article.Left) %></td>
 					</tr>
 					<tr>
+						<td><%=Html.GetDisplayName(x => x.Quantity) %></td>
+						<td><%=Html.DisplayFor(x => x.Quantity.Right) %></td>
+						<td><%=Html.DisplayFor(x => x.Quantity.Left) %></td>
+					</tr>
+					<tr>
 						<td><%=Html.GetDisplayName(x => x.Power) %></td>
 						<td><%=Html.DisplayFor(x => x.Power.Right) %></td>
 						<td><%=Html.DisplayFor(x => x.Power.Left) %></td>

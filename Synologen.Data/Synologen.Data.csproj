@@ -153,7 +153,6 @@
     <Compile Include="Repositories\CriteriaConverters\ShopDetails\NearbyShopsCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\ActiveSubscriptionsForCustomerCritieriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\ArticlesBySupplierAndArticleTypeCriteriaConverter.cs" />
-    <Compile Include="Repositories\CriteriaConverters\Orders\ArticleSuppliersBySelectedArticleTypeCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\ArticleTypesByCategoryIdCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\CustomerDetailsFromPersonalIdNumberCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\Orders\OrderArticlesByArticleTypeCriteriaConverter.cs" />
@@ -292,7 +291,6 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -9,7 +9,7 @@
 		<fieldset>
 			<div class="progress">
 				<label>Steg 4 av 6</label>
-				<div id="progressbar" />
+				<div id="progressbar"></div>
 			</div>
 			<p>
 				<label>Välj konto för betalning</label>

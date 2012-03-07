@@ -49,15 +49,17 @@
 	</fieldset>
     <fieldset>
 	    <legend>Beställningar</legend>
-        <a href="TestPages/OrdersSearchCustomer.aspx">Sök kund</a>
-	    <a href="TestPages/OrdersSaveCustomer.aspx?customer=1">Välj kund</a>
-        <a href="TestPages/OrdersCreateOrder.aspx?customer=1">Skapa order</a>
-        <a href="TestPages/OrdersPaymentOptions.aspx">Betalningssätt</a>
-        <a href="TestPages/OrdersAutogiroDetails.aspx">Autogiro</a>
-        <a href="TestPages/OrdersCreateOrderConfirmation.aspx">Bekräfta</a>
+        <a href="TestPages/Order/SearchCustomer.aspx">Sök kund</a>
+		<!--
+	    <a href="TestPages/Order/SaveCustomer.aspx?customer=1">Välj kund</a>
+        <a href="TestPages/Order/CreateOrder.aspx?customer=1">Skapa order</a>
+        <a href="TestPages/Order/PaymentOptions.aspx">Betalningssätt</a>
+        <a href="TestPages/Order/AutogiroDetails.aspx">Autogiro</a>
+        <a href="TestPages/Order/CreateOrderConfirmation.aspx">Bekräfta</a>
+		-->
 		<span>--</span>
-		<a href="TestPages/OrderSubscriptionShopSubscriptionsList.aspx">Lista abonnemang</a>
-		<a href="Testpages/OrderEditCustomer.aspx?customer=1">Redigera kund</a>
+		<a href="TestPages/Order/SubscriptionShopSubscriptionsList.aspx">Lista abonnemang</a>
+		<a href="Testpages/Order/EditCustomer.aspx?customer=1">Redigera kund</a>
 	</fieldset>
 </div>
 </asp:Content>

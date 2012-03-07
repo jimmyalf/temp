@@ -13,5 +13,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
 		int ReturnPageId { get; set; }
 		int CorrectionPageId { get; set; }
 		int SubscriptionItemDetailPageId { get; set; }
+		int SubscriptionResetPageId { get; set; }
 	}
 }

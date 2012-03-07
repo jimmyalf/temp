@@ -19,6 +19,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 		public int ReturnPageId { get; set; }
 		public int CorrectionPageId { get; set; }
 		public int SubscriptionItemDetailPageId { get; set; }
+		public int SubscriptionResetPageId { get; set; }
 
 		protected void SetHandled_ItemCommand(object source, RepeaterCommandEventArgs e)
 		{

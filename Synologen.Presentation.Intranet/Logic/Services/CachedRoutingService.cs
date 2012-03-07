@@ -19,11 +19,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			return url;
 		}
 
-		public override string GetPageUrl(int pageId, object requestParameters)
-		{
-			return this.GetPageUrl(pageId) + base.BuildQueryString(requestParameters);
-		}
-
 		protected virtual void AddRoute(int pageId, string routePath)
 		{
 			if(_cache.ContainsKey(pageId))

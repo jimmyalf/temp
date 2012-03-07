@@ -148,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\Bootstrapping\Bootstrapper.cs" />
+    <Compile Include="Orders\Edit_Subscription.cs" />
     <Compile Include="Orders\Subscription_Correction.cs" />
     <Compile Include="Orders\Edit_Customer.cs" />
     <Compile Include="Orders\View_Shop_Subscription_Summary.cs" />

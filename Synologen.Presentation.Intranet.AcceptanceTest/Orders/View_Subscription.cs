@@ -31,6 +31,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private string _subscriptionItemDetailUrl;
 		private Exception _thrownException;
 		private string _correctionUrl;
+		private string _subscriptionResetUrl;
 
 		public View_Subscription()
 		{
@@ -42,12 +43,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_returnUrl = "return/page/";
 				_correctionUrl = "correction/page/";
 				_subscriptionItemDetailUrl = "/subscription-item/page/";
+				_subscriptionResetUrl = "/subscription/reset/page/";
 				View.ReturnPageId = 56;
 				View.SubscriptionItemDetailPageId = 57;
 				View.CorrectionPageId = 58;
+				View.SubscriptionResetPageId = 77;
 				RoutingService.AddRoute(View.ReturnPageId, _returnUrl);
 				RoutingService.AddRoute(View.SubscriptionItemDetailPageId, _subscriptionItemDetailUrl);
 				RoutingService.AddRoute(View.CorrectionPageId, _correctionUrl);
+				RoutingService.AddRoute(View.SubscriptionResetPageId, _subscriptionResetUrl);
 				A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
 			};
 
@@ -75,6 +79,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					.Och(TransaktionerVisas)
 					.Och(FelListaVisas)
 					.Och(FelVisas)
+			);
+		}
+
+		[Test]
+		public void VisaEjMedgivetAbonnemang()
+		{
+			SetupScenario(scenario => scenario
+				.Givet(AbonnemangFinns)
+					.Och(AbonnemangetÄrEjMedgivet)
+				.När(SidanVisas)
+				.Så(VisasÅterstartaLänk)
 			);
 		}
 
@@ -174,6 +189,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			Save(_subscription);
 		}
 
+		private void AbonnemangetÄrEjMedgivet()
+		{
+			_subscription.ConsentStatus = SubscriptionConsentStatus.Denied;
+			_subscription.ConsentedDate = null;
+			Save(_subscription);
+		}
+
 		private void DelAbonnemangFinns()
 		{
 			_subscriptionItems = new []{ CreateSubscriptionItem(_subscription)};
@@ -241,6 +263,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.Consented.ShouldBe(_subscription.ConsentStatus.GetEnumDisplayName());
 			View.Model.CreatedDate.ShouldBe(_subscription.CreatedDate.ToString("yyyy-MM-dd"));
 			View.Model.CurrentBalance.ShouldBe(Subscription.GetCurrentAccountBalance(_transactions.ToList()).ToString("C2"));
+			View.Model.ShowResetDisplayUrl.ShouldBe(false);
 		}
 
 		private void MedgivandeInformationVisas()
@@ -348,6 +371,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			View.Model.CorrectionUrl.ShouldBe(_correctionUrl + "?subscription=" + _subscription.Id);
 		}
+
+		private void VisasÅterstartaLänk()
+		{
+			View.Model.ResetSubscriptionUrl.ShouldBe(_subscriptionResetUrl + "?subscription=" + _subscription.Id);
+			View.Model.ShowResetDisplayUrl.ShouldBe(true);
+		}
+
 		#endregion
 	}
 }

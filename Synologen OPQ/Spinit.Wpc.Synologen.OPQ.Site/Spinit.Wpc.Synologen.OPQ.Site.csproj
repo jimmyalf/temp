@@ -300,5 +300,7 @@
   <PropertyGroup>
     <PostBuildEvent>"$(ProjectDir)..\Spinit.Wpc.Synologen.OPQ.Build\Post-Build-$(ProjectName).bat" "$(ProjectDir)" "$(ProjectName)"</PostBuildEvent>
   </PropertyGroup>
-  
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\Spinit.Wpc.Synologen.OPQ.Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

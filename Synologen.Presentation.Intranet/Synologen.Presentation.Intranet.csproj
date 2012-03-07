@@ -51,11 +51,13 @@
     </Compile>
     <Compile Include="Code\CustomOrderValidation.cs" />
     <Compile Include="Logic\EventArguments\Orders\AutogiroDetailsInvalidFormEventArgs.cs" />
+    <Compile Include="Logic\EventArguments\Orders\ResetSubscriptonEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\EditCustomerEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\HandleErrorEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\OrderChangedEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SubmitCorrectionEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SubmitSubscriptionItemEventArgs.cs" />
+    <Compile Include="Logic\Presenters\Orders\EditSubscriptionPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\OrderBasePresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\SubscriptionCorrectionPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\SubscriptionItemPresenter.cs" />
@@ -105,6 +107,7 @@
     <Compile Include="Logic\Services\DebugRoutingService.cs" />
     <Compile Include="Logic\Services\RoutingService.cs" />
     <Compile Include="Logic\Views\Orders\IEditCustomerView.cs" />
+    <Compile Include="Logic\Views\Orders\IEditSubscriptionView.cs" />
     <Compile Include="Logic\Views\Orders\IOrderView.cs" />
     <Compile Include="Logic\Views\Orders\ISearchCustomerView.cs" />
     <Compile Include="Logic\Presenters\Orders\PaymentOptionsPresenter.cs" />
@@ -192,6 +195,7 @@
     <Compile Include="Models\ListItem.cs" />
     <Compile Include="Models\MessageContainer.cs" />
     <Compile Include="Models\Orders\AutogiroDetailsModel.cs" />
+    <Compile Include="Models\Orders\EditSubscriptionForm.cs" />
     <Compile Include="Models\Orders\EditCustomerForm.cs" />
     <Compile Include="Models\Orders\CreateOrderConfirmationModel.cs" />
     <Compile Include="Models\Orders\CreateOrderModel.cs" />
@@ -352,6 +356,13 @@
     </Compile>
     <Compile Include="Wpc\Synologen\Orders\AutogiroDetails.ascx.designer.cs">
       <DependentUpon>AutogiroDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\EditSubscription.ascx.cs">
+      <DependentUpon>EditSubscription.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Orders\EditSubscription.ascx.designer.cs">
+      <DependentUpon>EditSubscription.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\Orders\SubscriptionCorrection.ascx.cs">
       <DependentUpon>SubscriptionCorrection.ascx</DependentUpon>
@@ -535,19 +546,20 @@
     <None Include="Testpages\EditOrderPage.aspx" />
     <None Include="Testpages\MembersList.aspx" />
     <None Include="Testpages\ViewSettlementOldPage.aspx" />
-    <None Include="Testpages\OrdersSaveCustomer.aspx" />
-    <None Include="Testpages\OrdersCreateOrder.aspx" />
-    <None Include="Testpages\OrdersPaymentOptions.aspx" />
-    <None Include="Testpages\OrdersCreateOrderConfirmation.aspx" />
-    <None Include="Testpages\OrdersAutogiroDetails.aspx" />
+    <None Include="Testpages\Order\SaveCustomer.aspx" />
+    <None Include="Testpages\Order\CreateOrder.aspx" />
+    <None Include="Testpages\Order\PaymentOptions.aspx" />
+    <None Include="Testpages\Order\CreateOrderConfirmation.aspx" />
+    <None Include="Testpages\Order\AutogiroDetails.aspx" />
     <None Include="Testpages\TabMenu.aspx" />
-    <None Include="Testpages\OrdersSearchCustomer.aspx" />
-    <None Include="Testpages\OrderSubscriptionShopSubscriptionsList.aspx" />
-    <None Include="Testpages\OrderEditCustomer.aspx" />
-    <None Include="Testpages\OrderSubscription.aspx" />
-    <None Include="Testpages\OrderSubscriptionItem.aspx" />
-    <None Include="Testpages\OrderSubscriptionCorrection.aspx" />
+    <None Include="Testpages\Order\SearchCustomer.aspx" />
+    <None Include="Testpages\Order\SubscriptionShopSubscriptionsList.aspx" />
+    <None Include="Testpages\Order\EditCustomer.aspx" />
+    <None Include="Testpages\Order\Subscription.aspx" />
+    <None Include="Testpages\Order\SubscriptionItem.aspx" />
+    <None Include="Testpages\Order\SubscriptionCorrection.aspx" />
     <Content Include="Testpages\MemberFilesThumbs.aspx" />
+    <None Include="Testpages\Order\EditSubscription.aspx" />
     <Content Include="Wpc\Synologen\css\jquery-ui-1.8.16.custom.css" />
     <Content Include="Wpc\Synologen\css\screen.css" />
     <Content Include="Wpc\Synologen\css\smoothness\images\pbar-ani.gif" />
@@ -593,6 +605,7 @@
     <Content Include="Wpc\Synologen\js\jquery.placeholder.min.js" />
     <Content Include="Wpc\Synologen\Orders\AutogiroDetails.ascx" />
     <Content Include="TestComponents\OrderMenu.ascx" />
+    <Content Include="Wpc\Synologen\Orders\EditSubscription.ascx" />
     <Content Include="Wpc\Synologen\Orders\SubscriptionCorrection.ascx" />
     <Content Include="Wpc\Synologen\Orders\SubscriptionItem.ascx" />
     <Content Include="Wpc\Synologen\Orders\Subscription.ascx" />

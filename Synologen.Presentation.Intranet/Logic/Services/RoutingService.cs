@@ -7,7 +7,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 {
-	public class RoutingService : IRoutingService
+	public class RoutingService : RoutingServiceBase, IRoutingService
 	{
 		private readonly Tree _treeRepository;
 
@@ -17,16 +17,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			_treeRepository = new Tree(connectionString);	
 		}
 
-		public virtual string GetPageUrl(int pageId)
+		public override string GetPageUrl(int pageId)
 		{
-			return GetUrl(pageId);
+			return _treeRepository.GetFileUrlDownString(pageId);
 		}
+	}
 
-		public virtual string GetPageUrl(int pageId, object requestParameters)
-		{
-			return GetPageUrl(pageId) + BuildQueryString(requestParameters);
-		}
-
+	public abstract class RoutingServiceBase
+	{
 		protected virtual string BuildQueryString(object parameters)
 		{
 			var enumeratedList = GetAnonymousParameters(parameters).ToList();
@@ -43,9 +41,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			}
 		}
 
-		protected virtual string GetUrl(int pageId)
+		public string GetPageUrl(int pageId, object requestParameters)
 		{
-			return _treeRepository.GetFileUrlDownString(pageId);
+			return GetPageUrl(pageId) + BuildQueryString(requestParameters);
 		}
+
+		public abstract string GetPageUrl(int pageId);
 	}
 }

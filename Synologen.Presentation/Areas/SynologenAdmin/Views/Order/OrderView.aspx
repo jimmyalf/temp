@@ -53,14 +53,14 @@
 						<td><%=Html.DisplayFor(x => x.Diameter.Left) %></td>
 					</tr>
 					<tr>
-						<td><%=Html.GetDisplayName(x => x.Axis) %></td>
-						<td><%=Html.DisplayFor(x => x.Axis.Right) %></td>
-						<td><%=Html.DisplayFor(x => x.Axis.Left) %></td>
-					</tr>
-					<tr>
 						<td><%=Html.GetDisplayName(x => x.Cylinder) %></td>
 						<td><%=Html.DisplayFor(x => x.Cylinder.Right) %></td>
 						<td><%=Html.DisplayFor(x => x.Cylinder.Left) %></td>
+					</tr>
+					<tr>
+						<td><%=Html.GetDisplayName(x => x.Axis) %></td>
+						<td><%=Html.DisplayFor(x => x.Axis.Right) %></td>
+						<td><%=Html.DisplayFor(x => x.Axis.Left) %></td>
 					</tr>
 				</table>
 			</fieldset>

@@ -120,24 +120,6 @@
 					CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 			<p>
-				<label>Axel</label>
-				<asp:TextBox runat="server" ID="txtRightAxis" Text='<%#Model.SelectedAxis.Right%>' Enabled="<%#Model.AxisOptionsEnabled.Right %>" />
-				<asp:RegularExpressionValidator
-					runat="server" 
-					ControlToValidate="txtRightAxis" 
-					CssClass="error-message"
-					ErrorMessage="Fält måste anges numeriskt: Höger axel"
-					ValidationExpression="^[-+]?[0-9]*,?[0-9]+$"
-					Enabled="<%#Model.AxisOptionsEnabled.Right %>">&nbsp;*</asp:RegularExpressionValidator>
-				<asp:RequiredFieldValidator 
-					runat="server" 
-					ErrorMessage="Obligatoriskt fält: Höger axel" 
-					ControlToValidate="txtRightAxis" 
-					Display="Dynamic" 
-					CssClass="error-message"
-					Enabled="<%#Model.AxisOptionsEnabled.Right %>">&nbsp;*</asp:RequiredFieldValidator>
-			</p>
-			<p>
 				<label>Cylinder</label>
 				<asp:TextBox runat="server" ID="txtRightCylinder" Text='<%#Model.SelectedCylinder.Right%>' Enabled="<%#Model.CylinderOptionsEnabled.Right %>" />
 				<asp:RegularExpressionValidator 
@@ -154,6 +136,24 @@
 					Display="Dynamic" 
 					CssClass="error-message"
 					Enabled="<%#Model.CylinderOptionsEnabled.Right %>">&nbsp;*</asp:RequiredFieldValidator>
+			</p>
+			<p>
+				<label>Axel</label>
+				<asp:TextBox runat="server" ID="txtRightAxis" Text='<%#Model.SelectedAxis.Right%>' Enabled="<%#Model.AxisOptionsEnabled.Right %>" />
+				<asp:RegularExpressionValidator
+					runat="server" 
+					ControlToValidate="txtRightAxis" 
+					CssClass="error-message"
+					ErrorMessage="Fält måste anges numeriskt: Höger axel"
+					ValidationExpression="^[-+]?[0-9]*,?[0-9]+$"
+					Enabled="<%#Model.AxisOptionsEnabled.Right %>">&nbsp;*</asp:RegularExpressionValidator>
+				<asp:RequiredFieldValidator
+					runat="server" 
+					ErrorMessage="Obligatoriskt fält: Höger axel" 
+					ControlToValidate="txtRightAxis" 
+					Display="Dynamic" 
+					CssClass="error-message"
+					Enabled="<%#Model.AxisOptionsEnabled.Right %>">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 			<p>
 				<asp:CheckBox ID="chkOnlyRightEye" runat="server" Text="Endast höger öga" Checked="<%#Model.OnlyUse.Right %>" Enabled="<%#!Model.OnlyUse.Left %>" AutoPostBack="True" />
@@ -235,6 +235,24 @@
 					CssClass="error-message">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 			<p>
+				<label>Cylinder</label>
+				<asp:TextBox runat="server" ID="txtLeftCylinder" Text='<%#Model.SelectedCylinder.Left%>' Enabled="<%#Model.CylinderOptionsEnabled.Left %>" />
+				<asp:RegularExpressionValidator
+					runat="server" 
+					ControlToValidate="txtLeftCylinder" 
+					CssClass="error-message"
+					ErrorMessage="Fält måste anges med - följt av värde: Vänster cylinder"
+					ValidationExpression="^[-]{1}[0-9]*,?[0-9]+$"
+					Enabled="<%#Model.CylinderOptionsEnabled.Left %>">&nbsp;*</asp:RegularExpressionValidator>
+				<asp:RequiredFieldValidator
+					Runat="server" 
+					ErrorMessage="Obligatoriskt fält: Vänster cylinder" 
+					ControlToValidate="txtLeftCylinder" 
+					Display="Dynamic" 
+					CssClass="error-message"
+					Enabled="<%#Model.CylinderOptionsEnabled.Left %>">&nbsp;*</asp:RequiredFieldValidator>
+			</p>
+			<p>
 				<label>Axel</label>
 				<asp:TextBox runat="server" ID="txtLeftAxis" Text='<%#Model.SelectedAxis.Left%>' Enabled="<%#Model.AxisOptionsEnabled.Left %>" />
 				<asp:RegularExpressionValidator
@@ -251,24 +269,6 @@
 					Display="Dynamic" 
 					CssClass="error-message"
 					Enabled="<%#Model.AxisOptionsEnabled.Left %>">&nbsp;*</asp:RequiredFieldValidator>
-			</p>
-			<p>
-				<label>Cylinder</label>
-				<asp:TextBox runat="server" ID="txtLeftCylinder" Text='<%#Model.SelectedCylinder.Left%>' Enabled="<%#Model.CylinderOptionsEnabled.Left %>" />
-				<asp:RegularExpressionValidator
-					runat="server" 
-					ControlToValidate="txtLeftCylinder" 
-					CssClass="error-message"
-					ErrorMessage="Fält måste anges med - följt av värde: Vänster cylinder"
-					ValidationExpression="^[-]{1}[0-9]*,?[0-9]+$"
-					Enabled="<%#Model.CylinderOptionsEnabled.Left %>">&nbsp;*</asp:RegularExpressionValidator>
-				<asp:RequiredFieldValidator 
-					Runat="server" 
-					ErrorMessage="Obligatoriskt fält: Vänster cylinder" 
-					ControlToValidate="txtLeftCylinder" 
-					Display="Dynamic" 
-					CssClass="error-message"
-					Enabled="<%#Model.CylinderOptionsEnabled.Left %>">&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 			<p>
 				<asp:CheckBox ID="chkOnlyLeftEye" runat="server" Text="Endast vänster öga" Checked="<%#Model.OnlyUse.Left %>" Enabled="<%#!Model.OnlyUse.Right %>" TextAlign="Left" AutoPostBack="True" />

@@ -51,9 +51,9 @@
 			<p><label>Betalningsätt</label><input disabled="disabled" value="Autogiro" /></p>
 			<p><label>Produkt</label><input disabled="disabled" value="<%=Model.ProductPrice%>" /></p>
 			<p><label>Arvode</label><input disabled="disabled" value="<%=Model.FeePrice%>" /></p>
-			<p><label>Månadsbelopp</label><input disabled="disabled" value="<%=Model.Monthly%>" /></p>
-			<p><label>Abonnemangstid</label><input disabled="disabled" value="<%=Model.SubscriptionTime%>" /></p>
 			<p><label>Totaluttag</label><input disabled="disabled" value="<%=Model.TotalWithdrawal%>" /></p>
+			<p><label>Abonnemangstid</label><input disabled="disabled" value="<%=Model.SubscriptionTime%>" /></p>
+			<p><label>Månadsbelopp</label><input disabled="disabled" value="<%=Model.Monthly%>" /></p>
 		</fieldset>
 		<fieldset>
    			<asp:ValidationSummary runat="server" CssClass="error-list" />

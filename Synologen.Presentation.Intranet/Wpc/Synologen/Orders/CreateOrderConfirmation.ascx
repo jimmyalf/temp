@@ -32,8 +32,8 @@
 			<p><label>Addition</label><input disabled="disabled" value="<%=Model.RightAddition%>" /></p>
 			<p><label>Baskurva</label><input disabled="disabled" value="<%=Model.RightBaseCurve%>" /></p>
 			<p><label>Diameter</label><input disabled="disabled" value="<%=Model.RightDiameter%>" /></p>
-			<p><label>Axel</label><input disabled="disabled" value="<%=Model.RightAxis%>" /></p>
 			<p><label>Cylinder</label><input disabled="disabled" value="<%=Model.RightCylinder%>" /></p>
+			<p><label>Axel</label><input disabled="disabled" value="<%=Model.RightAxis%>" /></p>
 		</fieldset>
 		<fieldset class="left-eye">
 			<legend>V</legend>
@@ -43,8 +43,8 @@
 			<p><label>Addition</label><input disabled="disabled" value="<%=Model.LeftAddition%>" /></p>
 			<p><label>Baskurva</label><input disabled="disabled" value="<%=Model.LeftBaseCurve%>" /></p>
 			<p><label>Diameter</label><input disabled="disabled" value="<%=Model.LeftDiameter%>" /></p>
-			<p><label>Axel</label><input disabled="disabled" value="<%=Model.LeftAxis%>" /></p>
 			<p><label>Cylinder</label><input disabled="disabled" value="<%=Model.LeftCylinder%>" /></p>
+			<p><label>Axel</label><input disabled="disabled" value="<%=Model.LeftAxis%>" /></p>
 		</fieldset>
 		<fieldset>
 			<p><label>Leveranstyp</label><input disabled="disabled" value="<%=Model.DeliveryOption%>"/></p>

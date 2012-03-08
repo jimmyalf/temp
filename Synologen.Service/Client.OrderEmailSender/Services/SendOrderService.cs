@@ -220,7 +220,7 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
 						<td class=""right"">@order.Diameter.Right</td>
 						<td class=""left"">@order.Diameter.Left</td>
 					</tr>
-					<tr class=""diameter"">
+					<tr class=""cylinder"">
 						<th>Cylinder</th>
 						<td class=""right"">@order.Cylinder.Right</td>
 						<td class=""left"">@order.Cylinder.Left</td>

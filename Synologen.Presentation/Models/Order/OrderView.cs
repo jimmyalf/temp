@@ -25,8 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			FeePrice = order.SubscriptionPayment.FeePrice.ToString("C2");
 			Monthly = order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("C2");
 			TotalWithdrawal = order.OrderTotalWithdrawalAmount.ToString("C2");
-			NumerOfWithdrawals = order.SubscriptionPayment.WithdrawalsLimit.ToString();
-			NumberOfPerformedWithdrawals = order.SubscriptionPayment.PerformedWithdrawals;
+			Withdrawals = order.SubscriptionPayment.PerformedWithdrawals + "/" + order.SubscriptionPayment.WithdrawalsLimit;
 			Reference = order.Reference;
 			Status = order.Status.GetEnumDisplayName();
 			Article = new ParameterView(order.LensRecipe.Article);
@@ -62,10 +61,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
         public string TotalWithdrawal { get; set; }
 		[DisplayName("Dragningsbelopp")]
         public string Monthly { get; set; }
-		[DisplayName("Antal dragningar")]
-        public string NumerOfWithdrawals { get; set; }
-		[DisplayName("Antal utförda dragningar")]
-		public int NumberOfPerformedWithdrawals { get; set; }
 		[DisplayName("Butikens referens")]
 		public string Reference { get; set; }
 		[DisplayName("Beställningsstatus")]
@@ -86,6 +81,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public ParameterView Axis { get; set; }
 		[DisplayName("Antal")]
 		public ParameterView Quantity { get; set; }
+		[DisplayName("Uttag")]
+		public string Withdrawals { get; set; }
 	}
 
 	public class ParameterView

@@ -69,10 +69,9 @@
 				<p><%= Html.LabelFor(x => x.DeliveryOption)%><%= Html.DisplayFor(x => x.DeliveryOption)%></p>
 				<p><%= Html.LabelFor(x => x.ProductPrice)%><%= Html.DisplayFor(x => x.ProductPrice)%></p>
 				<p><%= Html.LabelFor(x => x.FeePrice)%><%= Html.DisplayFor(x => x.FeePrice)%></p>
-				<p><%= Html.LabelFor(x => x.Monthly)%><%= Html.DisplayFor(x => x.Monthly)%></p>
-				<p><%= Html.LabelFor(x => x.NumerOfWithdrawals)%><%= Html.DisplayFor(x => x.NumerOfWithdrawals)%></p>
-				<p><%= Html.LabelFor(x => x.NumberOfPerformedWithdrawals)%><%= Html.DisplayFor(x => x.NumberOfPerformedWithdrawals)%></p>
 				<p><%= Html.LabelFor(x => x.TotalWithdrawal)%><%= Html.DisplayFor(x => x.TotalWithdrawal)%></p>
+				<p><%= Html.LabelFor(x => x.Withdrawals)%><%= Html.DisplayFor(x => x.Withdrawals)%></p>
+				<p><%= Html.LabelFor(x => x.Monthly)%><%= Html.DisplayFor(x => x.Monthly)%></p>
 				<p><%= Html.LabelFor(x => x.Reference)%><%= Html.DisplayFor(x => x.Reference)%></p>
 				<p><%= Html.LabelFor(x => x.Status)%><%= Html.DisplayFor(x => x.Status)%></p>
 			</fieldset>

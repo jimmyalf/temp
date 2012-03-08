@@ -1,2 +1,4 @@
-xcopy "%1..\..\Dependancies\Spinit ADK\Adk.dll" 	"%1\bin\Debug\" /R /K /Y /Q
-xcopy "%1..\..\Dependancies\Spinit ADK\Adk.dll" 	"%1\bin\Release\" /R /K /Y /Q
+for /d %%G in ("%1\bin\*") do (
+	echo Copying dependencies to: %%G
+	xcopy "%1..\..\Dependancies\Spinit ADK\Adk.dll" 	"%%G\" /R /K /Y /Q
+)

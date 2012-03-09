@@ -21,6 +21,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
         public int? SelectedSubscriptionOption { get; set; }
         public int? CustomSubscriptionTime { get; set; }
 
+    	public string TotalWithdrawal { get; set; }
+    	public string Montly { get; set; }
+
     	private IEnumerable<ListItem> GetSubscriptionOptions()
         {
 			return new List<ListItem>

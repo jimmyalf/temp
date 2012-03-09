@@ -68,7 +68,6 @@
 		},
 
 		initCalculateMontlyAGWithdrawalAmounts: function () {
-			updateAmounts();
 			$("#txtProductAmount").change(updateAmounts).keyup(updateAmounts);
 			$("#txtFeeAmount").change(updateAmounts).keyup(updateAmounts); ;
 			$("#rblSubscriptionTime").change(updateAmounts);

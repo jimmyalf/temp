@@ -48,11 +48,11 @@
     		</p>
     		<p>
     			<label>Totalkostnad</label>
-				<input type="text" id="total-withdrawal-amount" disabled="disabled" />
+				<input type="text" id="total-withdrawal-amount" disabled="disabled" value="<%#Model.TotalWithdrawal %>" />
     		</p>
     		<p>
     			<label>Månadsbelopp</label>
-				<input type="text" id="montly-withdrawal-amount" disabled="disabled" />
+				<input type="text" id="montly-withdrawal-amount" disabled="disabled" value="<%#Model.Montly %>" />
     		</p>
 			<asp:ValidationSummary runat="server" CssClass="error-list"/>
     		<div class="next-step">

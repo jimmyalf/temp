@@ -59,6 +59,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			);
 		}
 
+		[Test]
+		public void VisaSidaVidNavigeringTillbaka()
+		{
+			SetupScenario(scenario => scenario
+				.Givet(EnBeställningMedAbonnemangHarSkapatsIFöregåendeSteg)
+				.När(SidanVisas)
+				.Så(SkallAGDetaljerVisas)
+			);
+		}
+
+
     	[Test]
 		public void VisaSidaFörBefintligtKonto()
 		{
@@ -147,6 +158,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _order = CreateOrder(_shop);
     		HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
+
         private void AttFormuläretÄrKorrektIfyllt()
         {
         	_form = OrderFactory.GetAutogiroDetailsEventArgs();
@@ -274,6 +286,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	{
     		View.Model.BankAccountNumber.ShouldBe(_subscription.BankAccountNumber);
 			View.Model.ClearingNumber.ShouldBe(_subscription.ClearingNumber);
+    	}
+
+    	private void SkallAGDetaljerVisas()
+    	{
+    		View.Model.SelectedSubscriptionOption.ShouldBe(_order.SubscriptionPayment.WithdrawalsLimit);
+			View.Model.ProductPrice.ShouldBe(_order.SubscriptionPayment.ProductPrice.ToString("N2"));
+			View.Model.FeePrice.ShouldBe(_order.SubscriptionPayment.FeePrice.ToString("N2"));
+			View.Model.TotalWithdrawal.ShouldBe(_order.SubscriptionPayment.TotalValue.ToString("N2"));
+			View.Model.Montly.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("N2"));
     	}
         #endregion
     }

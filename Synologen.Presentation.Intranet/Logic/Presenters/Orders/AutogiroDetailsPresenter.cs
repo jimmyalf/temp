@@ -66,33 +66,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
     		View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);
     		View.Model.IsNewSubscription = order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New;
       		
-			//Set values from previously selected account
-			if(order.SelectedPaymentOption.SubscriptionId.HasValue)
+			//Set values from previously saved view
+			if (order.SubscriptionPayment != null)
+			{
+				UpdateViewModel(order.SubscriptionPayment);
+			}
+			//Set values from selected account in previous step
+			else if(order.SelectedPaymentOption.SubscriptionId.HasValue)
 			{
 				var selectedSubscription = _subscriptionRepository.Get(order.SelectedPaymentOption.SubscriptionId.Value);
 			    View.Model.BankAccountNumber = selectedSubscription.BankAccountNumber;
 			    View.Model.ClearingNumber = selectedSubscription.ClearingNumber;
-
-                if(order.SubscriptionPayment != null)
-                {
-                    View.Model.ProductPrice = order.SubscriptionPayment.ProductPrice.ToString();
-                    View.Model.FeePrice = order.SubscriptionPayment.FeePrice.ToString();
-                    View.Model.SelectedSubscriptionOption = 0;
-					if (order.SubscriptionPayment.WithdrawalsLimit.IsEither(3, 6, 12))
-					{
-						View.Model.SelectedSubscriptionOption = order.SubscriptionPayment.WithdrawalsLimit;
-					}
-					else
-					{
-						View.Model.SelectedSubscriptionOption = AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId;
-						View.Model.CustomSubscriptionTime = order.SubscriptionPayment.WithdrawalsLimit;
-					}
-                }
-			}
-            else
-			{
-                //Set values from previously saved view
-                if (order.SubscriptionPayment != null) UpdateViewModel(order.SubscriptionPayment);
 			}
     	}
 
@@ -100,8 +84,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		{
             View.Model.BankAccountNumber = subscriptionItem.Subscription.BankAccountNumber;
             View.Model.ClearingNumber = subscriptionItem.Subscription.ClearingNumber; 
-            View.Model.ProductPrice = subscriptionItem.ProductPrice.ToString();
-            View.Model.FeePrice = subscriptionItem.FeePrice.ToString();
+            View.Model.ProductPrice = subscriptionItem.ProductPrice.ToString("N2");
+            View.Model.FeePrice = subscriptionItem.FeePrice.ToString("N2");
+			View.Model.TotalWithdrawal = subscriptionItem.TotalValue.ToString("N2");
+			View.Model.Montly = subscriptionItem.MonthlyWithdrawalAmount.ToString("N2");
             View.Model.SelectedSubscriptionOption = 0;
 
 			if(subscriptionItem.WithdrawalsLimit.IsEither(3, 6, 12))

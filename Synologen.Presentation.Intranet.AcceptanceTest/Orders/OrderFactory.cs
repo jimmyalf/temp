@@ -112,7 +112,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				Customer = customer,
                 SubscriptionPayment = subscriptionItem,
 				Shop = shop,
-                SelectedPaymentOption = new PaymentOption {Type = paymentOptionType},
+                SelectedPaymentOption = new PaymentOption
+                {
+                	Type = paymentOptionType, 
+					SubscriptionId = (subscriptionItem == null) ? (int?) null : subscriptionItem.Subscription.Id
+                },
 				OrderTotalWithdrawalAmount = 8000,
 				Reference = "Referens-text"
 			};

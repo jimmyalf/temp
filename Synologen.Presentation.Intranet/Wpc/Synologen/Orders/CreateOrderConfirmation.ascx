@@ -60,7 +60,7 @@
 			<div class="next-step">
 				<asp:Button ID="btnPreviousStep" runat="server" Text="← Föregående steg" CausesValidation="False" />
 				<asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" OnClientClick="return confirm('Detta avbryter beställningen, är du säker på att du vill avbryta beställningen?');" />
-				<asp:Button ID="btnNextStep" runat="server" Text="Skicka" />
+				<asp:Button ID="btnNextStep" runat="server" Text="Bekräfta" />
 			</div>
 		</fieldset>
 	</div>

@@ -84,10 +84,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		{
             View.Model.BankAccountNumber = subscriptionItem.Subscription.BankAccountNumber;
             View.Model.ClearingNumber = subscriptionItem.Subscription.ClearingNumber; 
-            View.Model.ProductPrice = subscriptionItem.ProductPrice.ToString("N2");
-            View.Model.FeePrice = subscriptionItem.FeePrice.ToString("N2");
-			View.Model.TotalWithdrawal = subscriptionItem.TotalValue.ToString("N2");
-			View.Model.Montly = subscriptionItem.MonthlyWithdrawalAmount.ToString("N2");
+            View.Model.ProductPrice = subscriptionItem.ProductPrice.ToString("0.00");
+            View.Model.FeePrice = subscriptionItem.FeePrice.ToString("0.00");
+			View.Model.TotalWithdrawal = subscriptionItem.TotalValue.ToString("0.00");
+			View.Model.Montly = subscriptionItem.MonthlyWithdrawalAmount.ToString("0.00");
             View.Model.SelectedSubscriptionOption = 0;
 
 			if(subscriptionItem.WithdrawalsLimit.IsEither(3, 6, 12))

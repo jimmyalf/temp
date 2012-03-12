@@ -291,10 +291,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private void SkallAGDetaljerVisas()
     	{
     		View.Model.SelectedSubscriptionOption.ShouldBe(_order.SubscriptionPayment.WithdrawalsLimit);
-			View.Model.ProductPrice.ShouldBe(_order.SubscriptionPayment.ProductPrice.ToString("N2"));
-			View.Model.FeePrice.ShouldBe(_order.SubscriptionPayment.FeePrice.ToString("N2"));
-			View.Model.TotalWithdrawal.ShouldBe(_order.SubscriptionPayment.TotalValue.ToString("N2"));
-			View.Model.Montly.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("N2"));
+			View.Model.ProductPrice.ShouldBe(_order.SubscriptionPayment.ProductPrice.ToString("0.00"));
+			View.Model.FeePrice.ShouldBe(_order.SubscriptionPayment.FeePrice.ToString("0.00"));
+			View.Model.TotalWithdrawal.ShouldBe(_order.SubscriptionPayment.TotalValue.ToString("0.00"));
+			View.Model.Montly.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("0.00"));
     	}
         #endregion
     }

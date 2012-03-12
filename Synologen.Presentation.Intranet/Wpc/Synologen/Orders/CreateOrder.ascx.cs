@@ -28,8 +28,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     		ddlPickCategory.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedCategory);
             ddlPickSupplier.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedSupplier);
     	    ddlPickKind.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedArticleType);
-            drpArticlesLeft.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedArticle);
-			drpArticlesRight.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedArticle);
+            drpArticlesLeft.SelectedIndexChanged += (s, args) => TriggerArticleChanged();
+			drpArticlesRight.SelectedIndexChanged += (s, args) => TriggerArticleChanged();
     		chkOnlyLeftEye.CheckedChanged += (s, args) => TriggerEvent(SelectedOnlyOneEye);
 			chkOnlyRightEye.CheckedChanged += (s, args) => TriggerEvent(SelectedOnlyOneEye);
         }
@@ -38,6 +38,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 		{
 			if(eventHandler == null) return;
 			eventHandler(this, GetOrderChangedEventArgs());
+		}
+
+		private void TriggerArticleChanged()
+		{
+			if(SelectedArticle == null) return;
+			SelectedArticle(this, GetOrderArticleChangedEventArgs());
 		}
 
         private void NextStep(object sender, EventArgs e)
@@ -68,6 +74,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 				SelectedCylinder = GetEyeParameter(txtLeftCylinder, txtRightCylinder, ""),
 				SelectedAddition = GetEyeParameter(txtLeftAddition, txtRightAddition, ""),
 				SelectedQuantity = GetEyeParameter(txtLeftQuantity, txtRightQuantity, ""),
+				SelectedReference = txtReference.Text,
+				OnlyUse = GetEyeParameter(chkOnlyLeftEye, chkOnlyRightEye)
+			};
+		}
+
+		private OrderChangedEventArgs GetOrderArticleChangedEventArgs()
+		{
+			return new OrderChangedEventArgs
+			{
+				SelectedCategoryId = GetValueOrDefault(ddlPickCategory), 
+				SelectedArticleTypeId = GetValueOrDefault(ddlPickKind), 
+				SelectedSupplierId = GetValueOrDefault(ddlPickSupplier), 
+				SelectedShippingOption = GetValueOrDefault(ddlShippingOptions),
+				SelectedArticleId = GetEyeParameter(drpArticlesLeft, drpArticlesRight, Convert.ToInt32, 0),
+				SelectedBaseCurve = new EyeParameter<decimal?>(null, null),
+				SelectedDiameter = new EyeParameter<decimal?>(null, null),
+				SelectedPower = new EyeParameter<string>(),
+				SelectedAxis = new EyeParameter<string>(),
+				SelectedCylinder = new EyeParameter<string>(),
+				SelectedAddition = new EyeParameter<string>(),
+				SelectedQuantity = new EyeParameter<string>(),
 				SelectedReference = txtReference.Text,
 				OnlyUse = GetEyeParameter(chkOnlyLeftEye, chkOnlyRightEye)
 			};

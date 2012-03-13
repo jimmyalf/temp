@@ -31,7 +31,7 @@ namespace Spinit.Wpc.Synologen.Test.Data
 			return _userRepository ?? (_userRepository = new User(connectionString ?? ConnectionString));
 		}
 
-		protected virtual void ExecuteStatement(IDbConnection sqlConnection, string sqlStatement)
+		public virtual void ExecuteStatement(IDbConnection sqlConnection, string sqlStatement)
 		{
 			var transaction = sqlConnection.BeginTransaction();
 			using (var cmd = sqlConnection.CreateCommand()) {
@@ -45,7 +45,7 @@ namespace Spinit.Wpc.Synologen.Test.Data
 			transaction.Commit();
 		}
 
-		protected virtual void DeleteAndResetIndexForTable(IDbConnection sqlConnection, string tableName)
+		public virtual void DeleteAndResetIndexForTable(IDbConnection sqlConnection, string tableName)
 		{
 			ExecuteStatement(sqlConnection, String.Format("DELETE FROM {0}", tableName));
 			var expression = "IF NOT EXISTS(select * FROM SYS.IDENTITY_COLUMNS JOIN SYS.TABLES ON SYS.IDENTITY_COLUMNS.Object_ID = SYS.TABLES.Object_ID WHERE SYS.TABLES.Name = '{TableName}' AND SYS.IDENTITY_COLUMNS.Last_Value IS NULL) DBCC CHECKIDENT ({TableName}, RESEED, 0)".ReplaceWith(new {TableName = tableName});
@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Test.Data
 			//ExecuteStatement(sqlConnection, String.Format("DBCC CHECKIDENT ({0}, reseed, 0)", tableName));
 		}
 
-		protected virtual void DeleteForTable(IDbConnection sqlConnection, string tableName)
+		public virtual void DeleteForTable(IDbConnection sqlConnection, string tableName)
 		{
 			ExecuteStatement(sqlConnection, String.Format("DELETE FROM {0}", tableName));
 		}

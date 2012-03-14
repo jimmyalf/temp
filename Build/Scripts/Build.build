@@ -20,10 +20,10 @@
 		<include name="${dir.source}Synologen.Presentation.Site\Synologen.Presentation.Site.csproj"/>
 		<include name="${dir.source}Synologen.UI.Mvc.Site\Synologen.UI.Mvc.Site.csproj"/>
 		<include name="${dir.source}Synologen.Presentation.Test\Synologen.Presentation.Test.csproj"/>
-		<include name="${dir.source}Synologen.Presentation.AcceptanceTest\Synologen.Presentation.AcceptanceTest.csproj"/>
-		<include name="${dir.source}Synologen.Presentation.Intranet.Test\Synologen.Presentation.Intranet.Test.csproj"/>
-		<include name="${dir.source}Synologen.Presentation.Intranet.AcceptanceTest\Synologen.Presentation.Intranet.AcceptanceTest.csproj"/>
-		<include name="${dir.source}Synologen.Data.Test\Synologen.Data.Test.csproj"/>
+		<include name="${dir.source}Synologen.Presentation.AcceptanceTest\Synologen.Presentation.AcceptanceTest.csproj" if="${configuration=='NightlyBuild'}"/>
+		<include name="${dir.source}Synologen.Presentation.Intranet.Test\Synologen.Presentation.Intranet.Test.csproj" />
+		<include name="${dir.source}Synologen.Presentation.Intranet.AcceptanceTest\Synologen.Presentation.Intranet.AcceptanceTest.csproj" if="${configuration=='NightlyBuild'}"/>
+		<include name="${dir.source}Synologen.Data.Test\Synologen.Data.Test.csproj" if="${configuration=='NightlyBuild'}"/>
 		<include name="${dir.source}Synologen.ContractSale\Invoicing.Test\Synologen.Invoicing.Test.csproj"/>
 		<include name="${dir.source}Synologen.LensSubscription\Autogiro.Test\Autogiro.Test.csproj"/>
 		<include name="${dir.source}Synologen.LensSubscription\Autogiro.FileIO.Test\Autogiro.FileIO.Test.csproj"/>
@@ -33,8 +33,8 @@
 		<include name="${dir.source}Synologen.LensSubscription\ServiceCoordinator.Task\Tasks.Test\Tasks.Test.csproj" />
 		<include name="${dir.source}Synologen.LensSubscription\BGServiceCoordinator.Task\Tasks.Test\Tasks.Test.csproj" />
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business\Spinit.Wpc.Synologen.OPQ.Business.csproj"/>
-		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj"/>
-		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business.Test\Spinit.Wpc.Synologen.OPQ.Business.Test.csproj"/>
+		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Data.Test\Spinit.Wpc.Synologen.OPQ.Data.Test.csproj" if="${configuration=='NightlyBuild'}"/>
+		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business.Test\Spinit.Wpc.Synologen.OPQ.Business.Test.csproj" if="${configuration=='NightlyBuild'}"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Site\Spinit.Wpc.Synologen.OPQ.Site.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Presentation\Spinit.Wpc.Synologen.OPQ.Presentation.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Admin\Spinit.Wpc.Synologen.OPQ.Admin.csproj"/>

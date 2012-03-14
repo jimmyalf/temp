@@ -27,7 +27,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 				<buildFile>Build.build</buildFile>
 				<buildArgs>-D:configuration=ContinuousBuild</buildArgs>
 				<nologo>true</nologo>
-				<buildTimeoutSeconds>1200</buildTimeoutSeconds>
+				<buildTimeoutSeconds>2400</buildTimeoutSeconds>
 			</nant>
 		</tasks>
 	

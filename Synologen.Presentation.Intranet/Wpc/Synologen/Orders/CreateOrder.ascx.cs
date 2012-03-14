@@ -25,28 +25,51 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	    btnPreviousStep.Click += PreviousStep;
             btnPreviousStep.Click += TryFirePrevious;
             btnCancel.Click += TryFireAbort;
-    		ddlPickCategory.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedCategory);
-            ddlPickSupplier.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedSupplier);
-    	    ddlPickKind.SelectedIndexChanged += (s, args) => TriggerEvent(SelectedArticleType);
-            drpArticlesLeft.SelectedIndexChanged += (s, args) => TriggerArticleChanged();
-			drpArticlesRight.SelectedIndexChanged += (s, args) => TriggerArticleChanged();
-    		chkOnlyLeftEye.CheckedChanged += (s, args) => TriggerEvent(SelectedOnlyOneEye);
-			chkOnlyRightEye.CheckedChanged += (s, args) => TriggerEvent(SelectedOnlyOneEye);
+    		ddlPickCategory.SelectedIndexChanged += Category_Selected;
+            ddlPickSupplier.SelectedIndexChanged += Supplier_Selected;
+    	    ddlPickKind.SelectedIndexChanged += ArticleType_Selected;
+            drpArticlesLeft.SelectedIndexChanged += Article_Selected;
+			drpArticlesRight.SelectedIndexChanged += Article_Selected;
+    		chkOnlyLeftEye.CheckedChanged += OnlyOneEye_Selected;
+			chkOnlyRightEye.CheckedChanged += OnlyOneEye_Selected;
         }
 
-		private void TriggerEvent(EventHandler<OrderChangedEventArgs> eventHandler)
-		{
-			if(eventHandler == null) return;
-			eventHandler(this, GetOrderChangedEventArgs());
-		}
+    	private void Category_Selected(object sender, EventArgs e)
+    	{
+    		if(SelectedCategory == null) return;
+    		var args = GetOrderChangedEventArgs(resetParameters: true, resetArticle: true, resetArticleType: true, resetShippingOption: true, resetSupplier: true);
+    		SelectedCategory(this, args);
+    	}
 
-		private void TriggerArticleChanged()
-		{
-			if(SelectedArticle == null) return;
-			SelectedArticle(this, GetOrderArticleChangedEventArgs());
-		}
+    	private void ArticleType_Selected(object sender, EventArgs e)
+    	{
+    		if(SelectedArticleType == null) return;
+			var args = GetOrderChangedEventArgs(resetParameters: true, resetArticle: true, resetShippingOption: true, resetSupplier: true);
+    		SelectedArticleType(this, args);
+    	}
 
-        private void NextStep(object sender, EventArgs e)
+    	private void Supplier_Selected(object sender, EventArgs e)
+    	{
+    		if(SelectedSupplier == null) return;
+			var args = GetOrderChangedEventArgs(resetParameters: true, resetArticle: true, resetShippingOption: true);
+    		SelectedSupplier(this, args);
+    	}
+
+    	private void Article_Selected(object sender, EventArgs e)
+    	{
+    		if(SelectedArticle == null) return;
+			var args = GetOrderChangedEventArgs(resetParameters: true);
+    		SelectedArticle(this, args);
+    	}
+
+    	private void OnlyOneEye_Selected(object sender, EventArgs e)
+    	{
+    		if(SelectedOnlyOneEye == null) return;
+			var args = GetOrderChangedEventArgs();
+    		SelectedOnlyOneEye(this, args);
+    	}
+
+    	private void NextStep(object sender, EventArgs e)
         {
             Page.Validate();
             if (!Page.IsValid) return;
@@ -58,43 +81,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             TryFirePrevious(this, new EventArgs());
         }
 
-		private OrderChangedEventArgs GetOrderChangedEventArgs()
+		private OrderChangedEventArgs GetOrderChangedEventArgs(
+			bool resetParameters = false, 
+			bool resetArticle = false, 
+			bool resetShippingOption = false,
+			bool resetSupplier = false,
+			bool resetArticleType = false)
 		{
 			return new OrderChangedEventArgs
 			{
 				SelectedCategoryId = GetValueOrDefault(ddlPickCategory), 
-				SelectedArticleTypeId = GetValueOrDefault(ddlPickKind), 
-				SelectedSupplierId = GetValueOrDefault(ddlPickSupplier), 
-				SelectedShippingOption = GetValueOrDefault(ddlShippingOptions),
-				SelectedArticleId = GetEyeParameter(drpArticlesLeft, drpArticlesRight, Convert.ToInt32, 0),
-				SelectedBaseCurve = GetEyeParameter(ddlLeftBaskurva, ddlRightBaskurva, Convert.ToDecimal, -9999),
-				SelectedDiameter = GetEyeParameter(ddlLeftDiameter, ddlRightDiameter, Convert.ToDecimal, -9999),
-				SelectedPower = GetEyeParameter(txtLeftStrength, txtRightStrength, ""),
-				SelectedAxis = GetEyeParameter(txtLeftAxis, txtRightAxis, ""),
-				SelectedCylinder = GetEyeParameter(txtLeftCylinder, txtRightCylinder, ""),
-				SelectedAddition = GetEyeParameter(txtLeftAddition, txtRightAddition, ""),
-				SelectedQuantity = GetEyeParameter(txtLeftQuantity, txtRightQuantity, ""),
-				SelectedReference = txtReference.Text,
-				OnlyUse = GetEyeParameter(chkOnlyLeftEye, chkOnlyRightEye)
-			};
-		}
-
-		private OrderChangedEventArgs GetOrderArticleChangedEventArgs()
-		{
-			return new OrderChangedEventArgs
-			{
-				SelectedCategoryId = GetValueOrDefault(ddlPickCategory), 
-				SelectedArticleTypeId = GetValueOrDefault(ddlPickKind), 
-				SelectedSupplierId = GetValueOrDefault(ddlPickSupplier), 
-				SelectedShippingOption = GetValueOrDefault(ddlShippingOptions),
-				SelectedArticleId = GetEyeParameter(drpArticlesLeft, drpArticlesRight, Convert.ToInt32, 0),
-				SelectedBaseCurve = new EyeParameter<decimal?>(null, null),
-				SelectedDiameter = new EyeParameter<decimal?>(null, null),
-				SelectedPower = new EyeParameter<string>(),
-				SelectedAxis = new EyeParameter<string>(),
-				SelectedCylinder = new EyeParameter<string>(),
-				SelectedAddition = new EyeParameter<string>(),
-				SelectedQuantity = new EyeParameter<string>(),
+				SelectedArticleTypeId = resetArticleType ? 0 : GetValueOrDefault(ddlPickKind), 
+				SelectedSupplierId = resetSupplier ? 0 : GetValueOrDefault(ddlPickSupplier), 
+				SelectedShippingOption = resetShippingOption ? 0 : GetValueOrDefault(ddlShippingOptions),
+				SelectedArticleId = resetArticle ? new EyeParameter<int?>(0,0) : GetEyeParameter(drpArticlesLeft, drpArticlesRight, Convert.ToInt32, 0),
+				SelectedBaseCurve = resetParameters ? new EyeParameter<decimal?>(null,null) : GetEyeParameter(ddlLeftBaskurva, ddlRightBaskurva, Convert.ToDecimal, -9999),
+				SelectedDiameter = resetParameters ? new EyeParameter<decimal?>(null,null) : GetEyeParameter(ddlLeftDiameter, ddlRightDiameter, Convert.ToDecimal, -9999),
+				SelectedPower = resetParameters ? new EyeParameter<string>() : GetEyeParameter(txtLeftStrength, txtRightStrength, ""),
+				SelectedAxis = resetParameters ? new EyeParameter<string>() : GetEyeParameter(txtLeftAxis, txtRightAxis, ""),
+				SelectedCylinder = resetParameters ? new EyeParameter<string>() : GetEyeParameter(txtLeftCylinder, txtRightCylinder, ""),
+				SelectedAddition = resetParameters ? new EyeParameter<string>() : GetEyeParameter(txtLeftAddition, txtRightAddition, ""),
+				SelectedQuantity = resetParameters ? new EyeParameter<string>() : GetEyeParameter(txtLeftQuantity, txtRightQuantity, ""),
 				SelectedReference = txtReference.Text,
 				OnlyUse = GetEyeParameter(chkOnlyLeftEye, chkOnlyRightEye)
 			};

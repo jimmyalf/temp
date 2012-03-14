@@ -94,7 +94,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 				SelectedArticleTypeId = resetArticleType ? null : GetValueOrDefault(ddlPickKind), 
 				SelectedSupplierId = resetSupplier ? null : GetValueOrDefault(ddlPickSupplier), 
 				SelectedShippingOption = resetShippingOption ? null : GetValueOrDefault(ddlShippingOptions),
-				SelectedArticleId = resetArticle ? new EyeParameter<int?>(0,0) : GetEyeParameter(drpArticlesLeft, drpArticlesRight, Convert.ToInt32, 0),
+				SelectedArticleId = resetArticle ? new EyeParameter<int?>(null,null) : GetEyeParameter(drpArticlesLeft, drpArticlesRight, Convert.ToInt32, 0),
 				SelectedBaseCurve = resetParameters ? new EyeParameter<decimal?>(null,null) : GetEyeParameter(ddlLeftBaskurva, ddlRightBaskurva, Convert.ToDecimal, -9999),
 				SelectedDiameter = resetParameters ? new EyeParameter<decimal?>(null,null) : GetEyeParameter(ddlLeftDiameter, ddlRightDiameter, Convert.ToDecimal, -9999),
 				SelectedPower = resetParameters ? new EyeParameter<string>() : GetEyeParameter(txtLeftStrength, txtRightStrength, ""),

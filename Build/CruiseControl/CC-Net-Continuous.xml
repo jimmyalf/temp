@@ -6,7 +6,7 @@ The ccnet.config file will need to be touched for these files to be reloaded.
 	
 	<project name="Synologen.Continuous" queue="Synologen" queuePriority="1">
 		<workingDirectory>C:\Develop\Synologen\</workingDirectory>
-		<webURL>http://code/cruisecontrol/server/local/project/Wpc.Synologen/ViewProjectReport.aspx</webURL>
+		<webURL>http://code/cruisecontrol/server/local/project/Synologen.Continuous/ViewProjectReport.aspx</webURL>
 		<modificationDelaySeconds>300</modificationDelaySeconds>
 	  
 		<sourcecontrol type="svn">

@@ -4,7 +4,7 @@ Hence, CCNet will not automatically reload the configuration when these files ch
 The ccnet.config file will need to be touched for these files to be reloaded.
 -->
 	
-	<project name="Wpc.Synologen.Nightly" queue="WpcSynologenQueue" queuePriority="1">
+	<project name="Synologen.Nightly" queue="SynologenQueue" queuePriority="1">
 		<workingDirectory>C:\Develop\Synologen\</workingDirectory>
 		<webURL>http://code/cruisecontrol/server/local/project/Wpc.Synologen/ViewProjectReport.aspx</webURL>
 		<modificationDelaySeconds>300</modificationDelaySeconds>

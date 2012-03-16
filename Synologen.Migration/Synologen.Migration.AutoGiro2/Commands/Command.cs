@@ -7,6 +7,7 @@ namespace Synologen.Migration.AutoGiro2.Commands
 	{
 		public abstract void Execute();
 		public ISession Session { get; set; }
+		public dynamic DB { get; set; }
 
 		protected TResult Query<TResult>(Query<TResult> query)
 		{

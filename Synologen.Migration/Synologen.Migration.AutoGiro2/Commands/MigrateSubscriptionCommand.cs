@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
@@ -16,7 +13,9 @@ using NewShop = Spinit.Wpc.Synologen.Core.Domain.Model.Orders.Shop;
 using NewSubscription = Spinit.Wpc.Synologen.Core.Domain.Model.Orders.Subscription;
 using OldSubscription = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription;
 using NewSubscriptionTransaction = Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTransaction;
+using OldSubscriptionTransaction = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.SubscriptionTransaction;
 using NewSubscriptionError = Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionError;
+using OldSubscriptionError = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.SubscriptionError;
 
 namespace Synologen.Migration.AutoGiro2.Commands
 {
@@ -29,11 +28,12 @@ namespace Synologen.Migration.AutoGiro2.Commands
 		private readonly IMigrator<SubscriptionErrorType, NewSubscriptionErrorType> _subscriptionErrorTypeMigrator;
 		private readonly IMigrator<Customer, OrderCustomer> _customerMigrator;
 		private readonly IMigrator<OldShop, NewShop> _shopMigrator;
+		private const int NewSubscriptionItemWithdrawalLimit = 12;
 
 		public MigrateSubscriptionCommand(
 			OldSubscription oldSubscription,
-			IMigrator<Customer,OrderCustomer> customerMigrator,
-			IMigrator<OldShop,NewShop> shopMigrator)
+			IMigrator<Customer, OrderCustomer> customerMigrator,
+			IMigrator<OldShop, NewShop> shopMigrator)
 		{
 			_oldSubscription = oldSubscription;
 			_consentStatusMigrator = new ConsentStatusMigrator();
@@ -67,67 +67,83 @@ namespace Synologen.Migration.AutoGiro2.Commands
 			return new SubscriptionItem
 			{
 				FeePrice = 0,
-				ProductPrice = 0, //TODO ??,
+				ProductPrice = oldSubscription.PaymentInfo.MonthlyAmount * NewSubscriptionItemWithdrawalLimit,
 				PerformedWithdrawals = oldSubscription.Transactions.Count(),
 				Subscription = newSubscription,
-				WithdrawalsLimit = 0, //TODO ??,
+				WithdrawalsLimit = NewSubscriptionItemWithdrawalLimit,
 			};
 		}
 
-		private IEnumerable<NewSubscriptionTransaction> ParseTransactions(OldSubscription oldSubscription, NewSubscription newSubscription)
+		private NewSubscriptionTransaction ParseTransaction(OldSubscriptionTransaction oldTransaction, NewSubscription newSubscription)
 		{
-			return oldSubscription.Transactions.Select(oldTransaction => new NewSubscriptionTransaction
+			return new NewSubscriptionTransaction
 			{
 				Amount = oldTransaction.Amount, 
 				Reason = _transactionReasonMigrator.GetNewEntity(oldTransaction.Reason), 
 				SettlementId = (oldTransaction.Settlement == null) ? (int?) null : oldTransaction.Settlement.Id, 
 				Subscription = newSubscription, 
 				Type = _transactionTypeMigrator.GetNewEntity(oldTransaction.Type),
-			});
+			};
 		}
 
-		private IEnumerable<NewSubscriptionError> ParseErrors(OldSubscription oldSubscription, NewSubscription newSubscription)
+		private NewSubscriptionError ParseError(OldSubscriptionError oldSubscriptionError, NewSubscription newSubscription)
 		{
-			return oldSubscription.Errors.Select(oldError => new NewSubscriptionError
+			return  new NewSubscriptionError
 			{
-				BGConsentId = oldError.BGConsentId,
-				BGErrorId = oldError.BGErrorId,
-				BGPaymentId = oldError.BGPaymentId,
-				Code = oldError.Code,
-				CreatedDate = oldError.CreatedDate,
-				HandledDate = oldError.HandledDate,
+				BGConsentId = oldSubscriptionError.BGConsentId,
+				BGErrorId = oldSubscriptionError.BGErrorId,
+				BGPaymentId = oldSubscriptionError.BGPaymentId,
+				Code = oldSubscriptionError.Code,
+				CreatedDate = oldSubscriptionError.CreatedDate,
+				HandledDate = oldSubscriptionError.HandledDate,
 				Subscription = newSubscription,
-				Type = _subscriptionErrorTypeMigrator.GetNewEntity(oldError.Type)
-			});
+				Type = _subscriptionErrorTypeMigrator.GetNewEntity(oldSubscriptionError.Type)
+			};
 		}
 
 		public override void Execute()
 		{
-			var newSubscription = CreateAndStore(() => ParseSubscription(_oldSubscription));
-			var subscriptionItem = CreateAndStore(() => ParseSubscriptionItem(_oldSubscription, newSubscription));
-			var transactions = CreateAndStoreItems(() => ParseTransactions(_oldSubscription, newSubscription));
-			var errors = CreateAndStoreItems(() => ParseErrors(_oldSubscription, newSubscription));
+			var newSubscription = CreateSubscription();
+			CreateSubscriptionItem(newSubscription);
+			CreateTransactions(newSubscription);
+			CreateErrors(newSubscription);
 			Result = Session.SessionFactory.OpenSession().Get<NewSubscription>(newSubscription.Id);
 			Debug.WriteLine("Migrated subscription {0} into subscription {1}", _oldSubscription.Id, newSubscription.Id);
 		}
 
-		private TResult CreateAndStore<TResult>(Func<TResult> generate)
+		private NewSubscription CreateSubscription()
 		{
-			var newItem = generate();
-			Session.Save(newItem);
-			return newItem;
+			var newSubscription = ParseSubscription(_oldSubscription);
+			Session.Save(newSubscription);
+			DB.SynologenOrderSubscription.UpdateById(Id: newSubscription.Id, CreatedDate: _oldSubscription.CreatedDate);
+			return newSubscription;
 		}
 
-		private IEnumerable<TResult> CreateAndStoreItems<TResult>(Func<IEnumerable<TResult>> generate)
+		private void CreateSubscriptionItem(NewSubscription newSubscription)
 		{
-			var returnList = new Collection<TResult>();
-			var newItems = generate();
-			foreach (var newItem in newItems)
+			var subscriptionItem = ParseSubscriptionItem(_oldSubscription, newSubscription);
+			Session.Save(subscriptionItem);
+			DB.SynologenOrderSubscriptionItem.UpdateById(Id: subscriptionItem.Id, CreatedDate: _oldSubscription.CreatedDate);
+		}
+
+		private void CreateTransactions(NewSubscription newSubscription)
+		{
+			foreach (var oldTransaction in _oldSubscription.Transactions)
 			{
-				Session.Save(newItem);
-				returnList.Add(newItem);
+				var newTransaction = ParseTransaction(oldTransaction, newSubscription);
+				Session.Save(newTransaction);
+				DB.SynologenOrderTransaction.UpdateById(Id: newTransaction.Id, CreatedDate: oldTransaction.CreatedDate);
 			}
-			return returnList;
+		}
+
+		private void CreateErrors(NewSubscription newSubscription)
+		{
+			foreach (var oldError in _oldSubscription.Errors)
+			{
+				var newError = ParseError(oldError, newSubscription);
+				Session.Save(newError);
+				DB.SynologenOrderSubscriptionError.UpdateById(Id: newError.Id, CreatedDate: oldError.CreatedDate);
+			}
 		}
 	}
 }

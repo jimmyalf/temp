@@ -20,7 +20,10 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 
 		public virtual decimal MonthlyWithdrawalAmount
 		{
-			get { return Math.Round(TotalValue / WithdrawalsLimit, 2); }
+			get
+			{
+				return WithdrawalsLimit <= 0 ? 0 : Math.Round(TotalValue / WithdrawalsLimit, 2);
+			}
 		}
 		public virtual bool IsActive
 		{ 

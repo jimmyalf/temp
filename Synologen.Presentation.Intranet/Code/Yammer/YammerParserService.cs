@@ -21,15 +21,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code.Yammer
                 DateTime created;
                 DateTime.TryParse(message.created_at, out created);
 
-                yield return new YammerListItem
+                var item = new YammerListItem
                 {
                     AuthorName = author.full_name,
                     Content = FormatContent(message.body),
                     AuthorImageUrl = author.mugshot_url,
                     Created = String.Format("{0:HH}:{0:mm}, {0:dd MMM yyyy}", created),
-                    Images = message.attachments.Where(IsImage).Select(x => ParseImage(x, fetchImage)).Where(x => !String.IsNullOrEmpty(x.Url) || !String.IsNullOrEmpty(x.Thumbnail)),
-                    YammerModules = message.attachments.Where(IsYModule).Select(x => ParseYammerModule(x))
+                    //Images = message.attachments.Where(IsImage).Select(x => ParseImage(x, fetchImage)).Where(x => !String.IsNullOrEmpty(x.Url) || !String.IsNullOrEmpty(x.Thumbnail)),
+                    YammerModules = message.attachments.Where(IsYModule).Select(ParseYammerModule),
+                    Images = Enumerable.Empty<YammerImage>()
                 };
+
+                foreach (var attachment in message.attachments.Where(IsImage))
+                {
+                    try
+                    {
+                        var image = ParseImage(attachment, fetchImage);
+                        if (!String.IsNullOrEmpty(image.Url) || !String.IsNullOrEmpty(image.Thumbnail))
+                        {
+                            item.Images = item.Images.Concat(new[] { image });
+                        }
+                    }
+                    catch(Exception) {}
+                }
+
+                yield return item;
             }
         }
 

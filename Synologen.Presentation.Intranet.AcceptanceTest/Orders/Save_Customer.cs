@@ -3,6 +3,7 @@ using System.Linq;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
@@ -20,9 +21,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private string _submitRedirectUrl, _abortRedirectUrl, _previousRedirectUrl;
     	private OrderCustomer _customer;
         private Order _order;
-        //private Article _article;
     	private string _customerNotFoundWithPersonalIdNumber;
     	private Shop _shop;
+    	private Exception _thrownException;
 
     	public When_picking_a_customer()
 		{
@@ -68,7 +69,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public void VisaFormulärFörBefintligKundViaOrderId()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttEnOrderFinnsSkapad)
+                .Givet(EnOrder)
                 .När(NärFormuläretLaddas)
                 .Så(FyllsFormuläretMedKunduppgifter));
         }
@@ -98,7 +99,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             SetupScenario(scenario => scenario
                 .Givet(AttAnvändarenStårIVynFörAttSparaKund)
-                    .Och(AttEnOrderFinnsSkapad)
+                    .Och(EnOrder)
                 .När(AnvändarenAvbryterBeställningen)
                 .Så(TasOrdernBort)
                     .Och(FlyttasAnvändarenTillAvbrytSidan));
@@ -118,7 +119,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             SetupScenario(scenario => scenario
                 .Givet(AttAnvändarenStårIVynFörAttSparaKund)
-                    .Och(AttEnOrderFinnsSkapad)
+                    .Och(EnOrder)
                 .När(AnvändarenKlickarPåFöregåendeSteg)
                 .Så(TasOrdernBort)
                     .Och(FörflyttasAnvändarenTillVynFörFöregåendeSteg));
@@ -140,14 +141,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public void UppdateraBefintligKundMedBefintligOrder()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttEnKundHittatsViaOrderId)
+                .Givet(EnOrder)
                     .Och(AnvändarenUppdateratFormuläret)
                 .När(AnvändarenFörsökerFortsättaTillNästaSteg)
                 .Så(UppdaterasBefintligKund)
                     .Och(FörflyttasAnvändarenTillVynFörNästaStegMedOrderIdAngivet));
         }
 
-        #region Arrange
+        [Test]
+        public void VisaSidaFörAnnanButiksOrder()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(EnOrderFörEnAnnanButik)
+                .När(NärFormuläretLaddas)
+                .Så(KastasEttException));
+        }
+
+    	#region Arrange
         private void AttEnKundEjHittatsIFöregåendeSteg()
         {
             _customerNotFoundWithPersonalIdNumber = "123456789";
@@ -159,22 +169,27 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
         }
 
-        private void AttEnKundHittatsViaOrderId()
+		//private void AttEnKundHittatsViaOrderId()
+		//{
+		//    _customer = CreateCustomer(_shop);
+		//    _order = CreateOrder(_shop, _customer);
+		//    HttpContext.SetupRequestParameter("order", _order.Id.ToString());
+		//}
+
+        private void EnOrder()
         {
             _customer = CreateCustomer(_shop);
-            //_article = CreateArticle();
-            _order = CreateOrder(_shop, /*_article,*/ _customer);
+            _order = CreateOrder(_shop, _customer);
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
 
-        private void AttEnOrderFinnsSkapad()
-        {
-            _customer = CreateCustomer(_shop);
-            //_article = CreateArticle();
-            _order = CreateOrder(_shop, /*_article,*/ _customer);
-            //View.Model.OrderId = _order.Id;
+    	private void EnOrderFörEnAnnanButik()
+    	{
+    		var otherShop = CreateShop<Shop>();
+            _customer = CreateCustomer(otherShop);
+            _order = CreateOrder(otherShop, _customer);
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
-        }
+    	}
 
         private void AttAnvändarenStårIVynFörAttSparaKund()
         {
@@ -193,7 +208,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         #region Act
         private void NärFormuläretLaddas()
         {
-            _saveCustomerPresenter.View_Load(null, new EventArgs());
+			_thrownException = CatchExceptionWhile(() => _saveCustomerPresenter.View_Load(null, new EventArgs()));
         }
         private void AnvändarenAvbryterBeställningen()
         {
@@ -291,6 +306,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             WithRepository<IOrderRepository>().Get(_order.Id).ShouldBe(null);
         }
+
+    	private void KastasEttException()
+    	{
+    		_thrownException.ShouldBeTypeOf<AccessDeniedException>();
+    	}
 
         #endregion
 

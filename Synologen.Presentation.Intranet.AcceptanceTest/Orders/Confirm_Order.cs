@@ -4,6 +4,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
@@ -24,8 +25,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private string _submitUrl;
         private string _abortUrl;
         private Func<string, int, string> _redirectUrl;
+    	private Exception _thrownException;
 
-        public When_confirming_an_order()
+    	public When_confirming_an_order()
         {
             Context = () =>
             {
@@ -36,7 +38,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 _abortUrl = "/abort/page";
   
                 A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
-
                 SetupNavigationEvents(_previousUrl, _abortUrl, _submitUrl);
                 _redirectUrl = (url, orderId) => "{url}?order={orderId}".ReplaceWith(new { url, orderId });
             };
@@ -45,7 +46,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				.FörAtt("Bekräfta och skicka iväg en beställning")
 				.Som("inloggad användare på intranätet")
 				.VillJag("kunna se en sammanfattning av beställningen")
-				.Och("bekräfta den");
+					.Och("bekräfta den");
         }
 
         [Test]
@@ -53,7 +54,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             SetupScenario(scenario => scenario
                 .Givet(EnBeställningMedEttAbonnemangHarSkapats)
-                .När(AnvändarenVisarFormuläretFörAttBekräfta)
+                .När(SidanVisas)
                 .Så(VisasEnSammanställningAvOrdern));
         }
 
@@ -81,6 +82,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			);
         }
 
+        [Test]
+        public void VisaSidaFörAnnanButiksOrder()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(EnOrderFörEnAnnanButik)
+                .När(SidanVisas)
+                .Så(KastasEttException));
+        }
+
     	#region Arrange
 
         private void EnBeställningMedEttAbonnemangHarSkapats()
@@ -88,6 +98,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _order = CreateOrderWithSubscription(_shop, paymentOptionType: PaymentOptionType.Subscription_Autogiro_New);
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
+
+    	private void EnOrderFörEnAnnanButik()
+    	{
+    		var otherShop = CreateShop<Shop>();
+            _order = CreateOrderWithSubscription(otherShop, paymentOptionType: PaymentOptionType.Subscription_Autogiro_New);
+            HttpContext.SetupRequestParameter("order", _order.Id.ToString());
+    	}
 
         #endregion
 
@@ -103,9 +120,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _presenter.View_Abort(null, new EventArgs());
         }
 
-        private void AnvändarenVisarFormuläretFörAttBekräfta()
+        private void SidanVisas()
         {
-            _presenter.View_Load(null, new EventArgs());
+            _thrownException = CatchExceptionWhile(() => _presenter.View_Load(null, new EventArgs()));
         }
 
         #endregion
@@ -191,6 +208,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private void NyttAbonnemangAktiveras()
     	{
 			Get<Subscription>(_order.SubscriptionPayment.Subscription.Id).Active.ShouldBe(true);
+    	}
+
+    	private void KastasEttException()
+    	{
+    		_thrownException.ShouldBeTypeOf<AccessDeniedException>();
     	}
 
         #endregion

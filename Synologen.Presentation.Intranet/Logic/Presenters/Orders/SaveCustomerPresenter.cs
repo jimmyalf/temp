@@ -6,11 +6,10 @@ using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
-using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
-    public class SaveCustomerPresenter : Presenter<ISaveCustomerView>
+    public class SaveCustomerPresenter : OrderBasePresenter<ISaveCustomerView>
     {
         private readonly IOrderCustomerRepository _orderCustomerRepository;
         private readonly IOrderRepository _orderRepository;
@@ -28,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			IRoutingService routingService,
 			IShopRepository shopRepository,
             ISubscriptionRepository subscriptionRepository,
-			ISynologenMemberService synologenMemberService) : base(view)
+			ISynologenMemberService synologenMemberService) : base(view, synologenMemberService)
         {
             _orderCustomerRepository = orderCustomerRepository;
     	    _subscriptionRepository = subscriptionRepository;
@@ -66,6 +65,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			if(RequestOrderId.HasValue)
 			{
 				var order = _orderRepository.Get(RequestOrderId.Value);
+				CheckAccess(order.Shop);
 				UpdateViewModel(order.Customer.Id, order.Customer.PersonalIdNumber);
 			}
 			else
@@ -168,7 +168,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
         private void RemoveOrderAndSubscription(int orderId)
         {
-            var order = _orderRepository.Get(RequestOrderId.Value);
+            var order = _orderRepository.Get(orderId);
             var isNewSubscription = order.SelectedPaymentOption.Type.Equals(PaymentOptionType.Subscription_Autogiro_New);
 
             var subscription = order.SubscriptionPayment != null ? order.SubscriptionPayment.Subscription : null;

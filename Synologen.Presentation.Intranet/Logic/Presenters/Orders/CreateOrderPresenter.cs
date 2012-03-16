@@ -15,7 +15,7 @@ using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
-    public class CreateOrderPresenter : Presenter<ICreateOrderView>
+    public class CreateOrderPresenter : OrderBasePresenter<ICreateOrderView>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IRoutingService _routingService;
@@ -45,7 +45,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			ILensRecipeRepository lensRecipeRepository, 
 			IShopRepository shopRepository, 
 			ISubscriptionRepository subscriptionRepository, 
-			ISynologenMemberService synologenMemberService) : base(view)
+			ISynologenMemberService synologenMemberService) : base(view, synologenMemberService)
         {
             _orderCustomerRepository = orderCustomerRepository;
             _routingService = routingService;
@@ -80,6 +80,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             if(RequestOrderId.HasValue)
             {
                 var order = _orderRepository.Get(RequestOrderId.Value);
+				CheckAccess(order.Shop);
                 var args = new OrderChangedEventArgs
                 {
                     

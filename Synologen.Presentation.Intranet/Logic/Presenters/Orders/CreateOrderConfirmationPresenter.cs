@@ -6,18 +6,23 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
-using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
-	public class CreateOrderConfirmationPresenter : Presenter<ICreateOrderConfirmationView>
+	public class CreateOrderConfirmationPresenter : OrderBasePresenter<ICreateOrderConfirmationView>
 	{
 		private readonly IRoutingService _routingService;
 		private readonly IOrderRepository _orderRepository;
 		private readonly ISubscriptionRepository _subscriptionRepository;
 		private readonly ITransactionRepository _transactionRepository;
 
-		public CreateOrderConfirmationPresenter(ICreateOrderConfirmationView view, IRoutingService routingService, IOrderRepository orderRepository, ISubscriptionRepository subscriptionRepository, ITransactionRepository transactionRepository) : base(view)
+		public CreateOrderConfirmationPresenter(
+			ICreateOrderConfirmationView view, 
+			IRoutingService routingService, 
+			IOrderRepository orderRepository, 
+			ISubscriptionRepository subscriptionRepository,
+			ISynologenMemberService synologenMemberService,
+			ITransactionRepository transactionRepository) : base(view, synologenMemberService)
 		{
 			_orderRepository = orderRepository;
 			_subscriptionRepository = subscriptionRepository;
@@ -38,6 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		{
 			if (!RequestOrderId.HasValue) return;
 			var order = _orderRepository.Get(RequestOrderId.Value);
+			CheckAccess(order.Shop);
 			View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			View.Model.Address = order.Customer.ParseName(x => x.AddressLineOne, x => x.AddressLineTwo);
 			View.Model.City = order.Customer.City;

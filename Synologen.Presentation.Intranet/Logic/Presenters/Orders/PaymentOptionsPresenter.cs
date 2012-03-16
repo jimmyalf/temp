@@ -16,7 +16,7 @@ using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
-    public class PaymentOptionsPresenter : Presenter<IPaymentOptionsView>
+    public class PaymentOptionsPresenter : OrderBasePresenter<IPaymentOptionsView>
     {
     	private readonly IViewParser _viewParser;
     	private readonly IOrderRepository _orderRepository;
@@ -27,8 +27,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			IPaymentOptionsView view, 
 			IViewParser viewParser,
 			IOrderRepository orderRepository, 
-			IRoutingService routingService, 
-			ISubscriptionRepository subscriptionRepository) : base(view)
+			IRoutingService routingService,
+			ISynologenMemberService synologenMemberService,
+			ISubscriptionRepository subscriptionRepository) : base(view, synologenMemberService)
         {
     		_viewParser = viewParser;
     		_orderRepository = orderRepository;
@@ -43,6 +44,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         public void View_Load(object sender, EventArgs eventArgs)
     	{
             var order = _orderRepository.Get(RequestOrderId);
+			CheckAccess(order.Shop);
     	    var customer = order.Customer;
             View.Model.Subscriptions = GetSubscriptionList(customer);
     		View.Model.SelectedOption = SetSelectedOption(order);

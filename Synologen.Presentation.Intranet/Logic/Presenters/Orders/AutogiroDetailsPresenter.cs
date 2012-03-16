@@ -8,11 +8,10 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
-using WebFormsMvp;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
-    public class AutogiroDetailsPresenter : Presenter<IAutogiroDetailsView>
+    public class AutogiroDetailsPresenter : OrderBasePresenter<IAutogiroDetailsView>
     {
     	private readonly IViewParser _viewParser;
     	private readonly IRoutingService _routingService;
@@ -30,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			ISubscriptionRepository subscriptionRepository,
 			ISubscriptionItemRepository subscriptionItemRepository,
 			IShopRepository shopRepository,
-			ISynologenMemberService synologenMemberService) : base(view)
+			ISynologenMemberService synologenMemberService) : base(view, synologenMemberService)
         {
     		_viewParser = viewParser;
     		_routingService = routingService;
@@ -63,6 +62,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         public void View_Load(object sender, EventArgs e)
     	{
     		var order = _orderRepository.Get(OrderId);
+			CheckAccess(order.Shop);
     		View.Model.CustomerName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);
     		View.Model.IsNewSubscription = order.SelectedPaymentOption.Type == PaymentOptionType.Subscription_Autogiro_New;
       		

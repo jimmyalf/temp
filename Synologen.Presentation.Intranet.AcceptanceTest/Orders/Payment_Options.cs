@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -25,15 +27,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private IEnumerable<Subscription> _subsciptions;
     	private OrderCustomer _customer;
     	private Shop _shop;
+    	private Exception _thrownException;
 
     	public When_selecting_payment_options()
         {
             Context = () =>
             {
+				_shop = CreateShop<Shop>();
 				SetupDataContext();
             	_abortPageUrl = "/test/abort";
 				_nextPageUrl = "/test/next";
             	_previousPageUrl = "/test/previous";
+            	A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
 				SetupNavigationEvents(_previousPageUrl, _abortPageUrl, _nextPageUrl);
                 _presenter = GetPresenter();
             };
@@ -46,15 +51,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void SetupDataContext()
     	{
-            _shop = CreateShop<Shop>();
-    		_customer = CreateCustomer(_shop);
-    		_subsciptions = CreateSubscriptions(_shop, _customer);
-			//var article = CreateArticle();
-        	_order = CreateOrder(_shop, customer:_customer /*, article: article*/);
-
 			var otherCustomer = CreateCustomer(_shop);
 			CreateSubscriptions(_shop, otherCustomer);
-			CreateOrder(_shop, customer:otherCustomer);
+			CreateOrder(_shop, otherCustomer);
 		}
 
 		[Test]
@@ -122,11 +121,31 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .Så(FörflyttasAnvändarenTillFöregåendeSteg));
         }
 
+        [Test]
+        public void VisaSidaFörAnnanButiksOrder()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(EnOrderFörEnAnnanButik)
+                .När(SidanVisas)
+                .Så(KastasEttException));
+        }
+
     	#region Arrange
         private void EnBeställningHarSkapatsIFöregåendeSteg()
         {
+    		_customer = CreateCustomer(_shop);
+    		_subsciptions = CreateSubscriptions(_shop, _customer);
+        	_order = CreateOrder(_shop, _customer);
         	HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
+
+    	private void EnOrderFörEnAnnanButik()
+    	{
+    		var otherShop = CreateShop<Shop>();
+			var otherCustomer = CreateCustomer(otherShop);
+    		_order = CreateOrder(otherShop, otherCustomer);
+			HttpContext.SetupRequestParameter("order", _order.Id.ToString());
+    	}
 
     	private void AttAnvändarenValtAttBetalaMedNyttKonto()
     	{
@@ -167,7 +186,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	}
     	private void SidanVisas()
     	{
-    		_presenter.View_Load(null, new EventArgs());
+    		_thrownException = CatchExceptionWhile(() => _presenter.View_Load(null, new EventArgs()));
     	}
         #endregion
 
@@ -233,6 +252,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			if (!_order.SelectedPaymentOption.SubscriptionId.HasValue) throw new AssertionException("SubscriptionId has not been set");
             View.Model.SelectedOption.ShouldBe(_order.SelectedPaymentOption.SubscriptionId.Value);
         }
+
+    	private void KastasEttException()
+    	{
+    		_thrownException.ShouldBeTypeOf<AccessDeniedException>();
+    	}
+
         #endregion
     }
 }

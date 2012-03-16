@@ -5,6 +5,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Extensions;
@@ -38,6 +39,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private ArticleCategory _category;
     	private ArticleType _articleType;
     	private ArticleSupplier _supplier;
+    	private Exception _thrownException;
 
     	public When_creating_an_order()
         {
@@ -73,7 +75,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public void VisaBeställningsFormulärNärBeställningRedanSkapats()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttEnOrderSkapats)
+                .Givet(EnOrder)
                 .När(AttAnvändarenVisarBeställningsformuläret)
                 .Så(VisasKundensNamn)
                     .Och(FormuläretFyllsMedData)
@@ -184,15 +186,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public void AvbrytBeställningMedExisterandeOrder()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttEnOrderSkapats)
+                .Givet(EnOrder)
                     .När(AnvändarenAvbryterBeställningen)
                 .Så(TasOrdernBort)
                     .Och(FlyttasAnvändarenTillIntranätsidan));
         }
 
-       
+        [Test]
+        public void VisaSidaFörAnnanButiksOrder()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(EnOrderFörEnAnnanButik)
+                .När(AttAnvändarenVisarBeställningsformuläret)
+                .Så(KastasEttException));
+        }
 
-        #region Arrange
+    	#region Arrange
 
         private static void Ingenting()
         {
@@ -237,30 +246,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
     	}
 
-        private void AttEnOrderSkapats()
+        private void EnOrder()
         {
-            var category = OrderFactory.GetCategory();
-            WithRepository<IArticleCategoryRepository>().Save(category);
+            var category = StoreItem(() => OrderFactory.GetCategory());
+            var articleType = StoreItem(() => OrderFactory.GetArticleType(category));
+            var articleSupplier = StoreItem(() => OrderFactory.GetSupplier());
+            var article = StoreItem(() => OrderFactory.GetArticle(articleType, articleSupplier));
+            var lensRecipe = StoreItem(() => OrderFactory.GetLensRecipe(article, category, articleType, articleSupplier));
+            _customer = StoreItem(() => OrderFactory.GetCustomer(_shop));
 
-            var articleType = OrderFactory.GetArticleType(category);
-            WithRepository<IArticleTypeRepository>().Save(articleType);
-
-            var articleSupplier = OrderFactory.GetSupplier();
-            WithRepository<IArticleSupplierRepository>().Save(articleSupplier);
-
-            var article = OrderFactory.GetArticle(articleType, articleSupplier);
-            WithRepository<IArticleRepository>().Save(article);
-
-            var lensRecipe = OrderFactory.GetLensRecipe(article, category, articleType, articleSupplier);
-            WithRepository<ILensRecipeRepository>().Save(lensRecipe);
-
-            _customer = OrderFactory.GetCustomer(_shop);
-            WithRepository<IOrderCustomerRepository>().Save(_customer);
-
-            _order = OrderFactory.GetOrder(_shop, _customer, lensRecipe);
-            WithRepository<IOrderRepository>().Save(_order);
+            _order = StoreItem(() => OrderFactory.GetOrder(_shop, _customer, lensRecipe));
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
+
+    	private void EnOrderFörEnAnnanButik()
+    	{
+    		var otherShop = CreateShop<Shop>();
+    		_customer = StoreItem(() => OrderFactory.GetCustomer(otherShop));
+            _order = StoreItem(() => OrderFactory.GetOrder(otherShop, _customer));
+            HttpContext.SetupRequestParameter("order", _order.Id.ToString());
+    	}
 
     	private void AttEnOrderSkapatsFörVänsterÖga()
     	{
@@ -336,7 +341,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void AttAnvändarenVisarBeställningsformuläret()
     	{
-            _createOrderPresenter.View_Load(null, new EventArgs());
+            _thrownException = CatchExceptionWhile(() => _createOrderPresenter.View_Load(null, new EventArgs()));
     	}
 
 		private void AnvändarenKlickarPåFöregåendeSteg()
@@ -579,6 +584,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         {
             WithRepository<IOrderRepository>().Get(_order.Id).ShouldBe(null);
         }
+
+    	private void KastasEttException()
+    	{
+    		_thrownException.ShouldBeTypeOf<AccessDeniedException>();
+    	}
 
 		#endregion
 

@@ -3,6 +3,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
@@ -25,6 +26,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private Subscription _subscription;
     	private Shop _shop;
     	private DateTime _operationTime;
+    	private Exception _thrownException;
 
     	public When_entering_autogiro_details()
         {
@@ -144,6 +146,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			);
         }
 
+        [Test]
+        public void VisaSidaFörAnnanButiksOrder()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(EnOrderFörEnAnnanButik)
+                .När(SidanVisas)
+                .Så(KastasEttException));
+        }
+
+
     	#region Arrange
 
         private void EnBeställningMedAbonnemangHarSkapatsIFöregåendeSteg()
@@ -158,6 +170,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             _order = CreateOrder(_shop);
     		HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
+
+    	private void EnOrderFörEnAnnanButik()
+    	{
+    		var otherShop = CreateShop<Shop>();
+            _order = CreateOrder(otherShop);
+    		HttpContext.SetupRequestParameter("order", _order.Id.ToString());
+    	}
 
         private void AttFormuläretÄrKorrektIfyllt()
         {
@@ -193,7 +212,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	}
     	private void SidanVisas()
     	{
-    		SystemTime.InvokeWhileTimeIs(_operationTime, () => _presenter.View_Load(null, new EventArgs()));
+    		_thrownException = CatchExceptionWhile(() => 
+				SystemTime.InvokeWhileTimeIs(_operationTime, () => 
+					_presenter.View_Load(null, new EventArgs())
+			));
     	}
         #endregion
 
@@ -296,6 +318,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.TotalWithdrawal.ShouldBe(_order.SubscriptionPayment.TotalValue.ToString("0.00"));
 			View.Model.Montly.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("0.00"));
     	}
+
+    	private void KastasEttException()
+    	{
+    		_thrownException.ShouldBeTypeOf<AccessDeniedException>();
+    	}
+
         #endregion
     }
 }

@@ -4,16 +4,16 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes
 {
 	public enum SubscriptionConsentStatus
 	{
-		[EnumDisplayName("Ej skickat")]
+		[EnumDisplayName("Kommer att överföras")]
 		NotSent = 0,
 
-		[EnumDisplayName("Skickat")]
+		[EnumDisplayName("Överförd för godkännande")]
 		Sent = 1,
 
 		[EnumDisplayName("Medgivet")]
 		Accepted = 2,
 
-		[EnumDisplayName("Ej medgivet")]
+		[EnumDisplayName("Ansökan ej godkänd")]
 		Denied = 3
 	}
 }

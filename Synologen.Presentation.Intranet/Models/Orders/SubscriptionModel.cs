@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 			BankAccountNumber = subscription.BankAccountNumber;
 			ClearingNumber = subscription.ClearingNumber;
 			CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
-			Status = subscription.Active ? "Startat" : "Stoppat";
+			Status = subscription.Active ? "Aktivt" : "Vilande autogiro";
 			Consented = GetConsentText(subscription);
 			CreatedDate = subscription.CreatedDate.ToString("yyyy-MM-dd");
 			ReturnUrl = returnUrl;

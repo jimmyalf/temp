@@ -213,6 +213,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Code\IoC\WebRegistry.cs" />
     <Compile Include="Reports\ActiveReportExporter.cs" />
+    <Compile Include="Reports\OrderAGDescriptionReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\OrderAGDescriptionReport.Designer.cs">
+      <DependentUpon>OrderAGDescriptionReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Models\OrderConfirmationModel.cs" />
     <Compile Include="Reports\OrderReport.cs">
       <SubType>Component</SubType>
@@ -841,6 +847,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Reports\OrderAGDescriptionReport.resx">
+      <DependentUpon>OrderAGDescriptionReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\OrderReport.resx">
       <DependentUpon>OrderReport.cs</DependentUpon>
     </EmbeddedResource>

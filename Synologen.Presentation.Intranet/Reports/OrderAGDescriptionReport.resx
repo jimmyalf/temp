@@ -117,29 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="label4.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="label5.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="label6.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="label7.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="label27.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
   <data name="label64.Text" xml:space="preserve">
-    <value>Undertecknad ("betalaren"), medger att betalning får genomföras genom uttag från angivet konto eller av betalaren senare angivet konto, på begäran av angiven betalningsmottagare för betalning till denne på viss dag ("förfallodagen") via Autogiro.</value>
+    <value>Autogiro är en betaltjänst som innebär att betalningar utförs från betalarens konto på initiativ av betalningsmottagaren. För att betalaren ska kunna betala via Autogiro, ska betalaren lämna sitt medgivande till betalningsmottagaren om att denne får initiera betalningar från betalarens konto. Dessutom ska betalarens betaltjänstleverantör (t ex bank eller betalningsinstitut) godkänna att kontot kan användas för Autogiro och betalningsmottagaren ska godkänna betalaren som användare av Autogiro. 
+
+Betalarens betaltjänstleverantör är inte skyldig att 
+pröva behörigheten av eller meddela betalaren i förväg om begärda uttag. Uttag belastas betalarens konto enligt de regler som gäller hos betalarens betaltjänstleverantör. Meddelande om uttag får betalaren från sin betaltjänstleverantör. Medgivandet kan på betalarens begäran överflyttas till annat konto hos betaltjänstleverantören eller till konto hos annan betaltjänstleverantör.</value>
   </data>
-  <data name="label67.Text" xml:space="preserve">
-    <value>Undertecknad ("betalaren"), medger att betalning får göras genom uttag från det konto som är anslutet till angivet bankgironummer, på begäran av angiven betalningsmottagare för betalning till denne på viss dag ("förfallodagen") via Autogiro. Betalaren samtycker till att behandingen av personuppgifter som lämnats i detta medgivande behandlas av betalarens betaltjänstleverantör, betalningsmottagaren, betalningsmottagarens betaltjänstleverantör och Bankgirocentralen BGC AB för administration av tjänsten. Personuppgiftsansvariga för denna personupgiftsbehandling är betalarens betaltjänstleverantör, betalningsmottagaren samt betalningsmottagarens betaltjänstleverantör. Betalaren kan när som helst begära att få tillgång till eller rättelse av personuppgifterna genom att kontakt betalarens betaltjänstleverantör. Ytterligare information om behandling av personuppgifter i samband med betalningar kan finnas i villkoren för kontot och i avtalet med betalningsmottagaren. Betalaren kan när som helst återkalla sitt samtycke, vilket medför i att tjänsten i sin helhet avslutas.</value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Betalaren får stoppa en betalning genom att kontakta antingen betalningsmottagaren senast två bankdagar före förfallodagen eller sin betaltjänstleverantör senast bank-dagen före förfallodagen vid den tidpunkt som anges av betaltjänstleverantören.
+
+Om betalaren stoppar en betalning enligt ovan innebär det att den aktuella betalningen stoppas vid ett enskilt tillfälle. Om betalaren vill att samtliga framtida betalningar som initieras av betalningsmottagaren ska stoppas måste betalaren återkalla medgivandet.</value>
   </data>
-  <data name="label70.Text" xml:space="preserve">
-    <value>Nedan butik är ansluten till och samarbetar med Synhälsan Svenska AB. Synhälsan administrerar autogirobetalningarna för nedan butik. På ditt kontoutdrag står därför "Synhälsan" för transaktionen. Har du frågor eller synpunkter gällande produkter, stoppa eller pausa betalningar eller andra önskemål kontakta nedan butik så hjälper de dig gärna.</value>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Betalaren kommer av betalningsmottagaren att meddelas belopp, förfallodag och betalningssätt senast åtta bankdagar före förfallodagen. Detta kan meddelas inför varje enskild förfallodag eller vid ett tillfälle avseende flera framtida förfallodagar. Om meddelandet avser flera framtida förfallodagar ska meddelandet lämnas senast åtta bankdagar före den första förfallodagen. Detta gäller dock inte fall då betalaren godkänt uttaget i samband med köp eller beställning av vara eller tjänst. I sådant fall får betalaren meddelande av betalningsmottagaren om belopp, förfallodag och betalningssätt i samband med köpet och/eller beställningen. Genom undertecknandet av detta medgivande lämnar betalaren sitt samtycke till att betalningar som omfattas av betalningsmottagarens meddelande enligt denna punkt genomförs.</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>Betalaren ska se till att täckning finns på kontot senast kl 00.01 på förfallodagen. Har betalaren inte täckning på kontot på förfallodagen kan det innebära att betalningar inte blir  utförda. Om täckning saknas för betalning på förfallodagen får betalningsmottagaren göra ytterligare uttagsförsök under de kommande bankdagarna. Betalaren kan på begäran få information från betalningsmottagaren om antalet uttagsförsök.</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>Medgivandet gäller tills vidare. Betalaren har rätt att när som helst återkalla medgivandet genom att kontakta betalningsmottagaren eller sin betaltjänstleverantör. Meddelandet om återkallelse av medgivandet ska för att stoppa ännu inte genomförda betalningar vara betalningsmottagaren tillhanda senast fem bankdagar före förfallodagen alternativt vara betalarens betaltjänstleverantör tillhanda senast bankdagen före förfallodagen vid den tidpunkt som anges av betaltjänstleverantören.</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>Betalningsmottagaren har rätt att avsluta betalarens anslutning till Autogiro trettio dagar efter det att betalningsmottagaren underrättat betalaren härom. 
+Betalningsmottagaren har dock rätt att omedelbart avsluta betalarens anslutning till Autogiro om betalaren vid upprepade tillfällen inte har haft tillräcklig kontobehållning på förfallodagen eller om det konto som medgivandet avser avslutas eller om betalningsmottagaren bedömer att betalaren av annan anledning inte bör delta i Autogiro. Betalarens betaltjänstleverantör har rätt att avsluta betalarens anslutning till Autogiro i enlighet med de villkor som gäller mellan betalarens betaltjänstleverantör och betalaren.</value>
   </data>
   <metadata name="$this.ScriptEditorPositionForUndo" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 0</value>

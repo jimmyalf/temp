@@ -688,10 +688,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Reporting\ActiveReports\ActiveReports.PdfExport.dll</HintPath>
     </Reference>
-    <Reference Include="ActiveReports.Viewer6, Version=6.2.3681.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Reporting\ActiveReports\ActiveReports.Viewer6.dll</HintPath>
-    </Reference>
     <Reference Include="ActiveReports6, Version=6.2.3681.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Reporting\ActiveReports\ActiveReports6.dll</HintPath>

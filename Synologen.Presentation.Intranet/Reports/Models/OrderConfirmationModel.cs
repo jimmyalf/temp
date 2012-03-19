@@ -8,7 +8,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports.Models
 	{
 		public OrderConfirmationModel(Order order)
 		{
-			Customer = new CustomerModel(order.Customer);
+			Customer = new CustomerModel(order);
 			Recipie = new RecipieModel(order.LensRecipe);
 			DeliveryOption = order.ShippingType.GetEnumDisplayName();
 			ProductPrice = order.SubscriptionPayment.ProductPrice.ToString("C2");
@@ -29,25 +29,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports.Models
 
 	public class CustomerModel
 	{
-		public CustomerModel(OrderCustomer customer)
+		public CustomerModel(Order order)
 		{
-			FirstName = customer.FirstName;
-			LastName = customer.LastName;
-			PersonalIdNumber = customer.PersonalIdNumber;
-			Email = customer.Email;
-			MobilePhone = customer.MobilePhone;
-			Telephone = customer.Phone;
-			AddressRowOne = customer.ParseName(x => x.AddressLineOne, x => x.AddressLineTwo);
-			AddressRowTwo = customer.ParseName(x => x.PostalCode, x => x.City);
+			FullName = order.Customer.ParseName(x => x.FirstName, x => x.LastName);
+			PersonalIdNumber = order.Customer.PersonalIdNumber;
+			Email = order.Customer.Email;
+			MobilePhone = order.Customer.MobilePhone;
+			Telephone = order.Customer.Phone;
+			AddressRowOne = order.Customer.ParseName(x => x.AddressLineOne, x => x.AddressLineTwo);
+			AddressRowTwo = order.Customer.ParseName(x => x.PostalCode, x => x.City);
+			Account = order.SubscriptionPayment.Subscription.ClearingNumber + order.SubscriptionPayment.Subscription.BankAccountNumber;
 		}
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FullName { get; set; }
         public string PersonalIdNumber { get; set; }
         public string Email { get; set; }
         public string MobilePhone { get; set; }
         public string Telephone { get; set; }
         public string AddressRowOne { get; set; }
         public string AddressRowTwo { get; set; }
+		public string Account { get; set; }
 	}
 
 	public class RecipieModel

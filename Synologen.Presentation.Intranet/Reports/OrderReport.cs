@@ -13,8 +13,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 
 		private void SetupSubReports(OrderConfirmationModel viewModel)
 		{
-			reportPageOne.Report = new OrderSubReport(viewModel).SetHeader("Beställning - Butikens kopia");
-			reportPageTwo.Report = new OrderSubReport(viewModel).SetHeader("Beställning - Kundens kopia");
+			reportPageOne.Report = new OrderSubReport(viewModel);
+			reportPageTwo.Report = new OrderSubReport(viewModel);
+			reportPageThree.Report = new OrderAGDescriptionReport();
 		}
 	}
 }

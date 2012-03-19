@@ -11,11 +11,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 			DataSource = new Collection<OrderConfirmationModel> {viewModel};
 			InitializeComponent();
 		}
-
-		public OrderSubReport SetHeader(string text)
-		{
-			lblHeader.Text = text;
-			return this;
-		}
 	}
 }

@@ -41,6 +41,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			public string EmailOrderSupplierEmail { get; private set; }
 			public string EmailOrderFrom { get; private set; }
 			public string EmailOrderSubject { get; private set; }
+
+			public int SubscriptionCutoffDate
+			{
+				get { throw new NotImplementedException(); }
+			}
+
+			public int SubscriptionWithdrawalDate
+			{
+				get { throw new NotImplementedException(); }
+			}
+
 			public string GetFrameOrderEmailBodyTemplate() { 
 				var builder = new StringBuilder()
 					.AppendLine("Beställnings-id: {OrderId}")

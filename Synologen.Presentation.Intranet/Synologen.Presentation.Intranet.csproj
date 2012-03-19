@@ -105,6 +105,7 @@
     <Compile Include="Logic\Presenters\Orders\CreateOrderPresenter.cs" />
     <Compile Include="Logic\EventArguments\Orders\SearchCustomerEventArgs.cs" />
     <Compile Include="Logic\Services\DebugRoutingService.cs" />
+    <Compile Include="Logic\Services\OrderWithdrawalService.cs" />
     <Compile Include="Logic\Services\RoutingService.cs" />
     <Compile Include="Logic\Views\Orders\IEditCustomerView.cs" />
     <Compile Include="Logic\Views\Orders\IEditSubscriptionView.cs" />

@@ -1,4 +1,5 @@
-﻿using Spinit.Extensions;
+﻿using System;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
@@ -6,7 +7,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports.Models
 {
 	public class OrderConfirmationModel
 	{
-		public OrderConfirmationModel(Order order)
+		public OrderConfirmationModel(Order order, Func<Order,DateTime> getFirstExpectedWithdrawalDate)
 		{
 			Customer = new CustomerModel(order);
 			Recipie = new RecipieModel(order.LensRecipe);
@@ -16,7 +17,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports.Models
 			TotalWithdrawal = order.OrderTotalWithdrawalAmount.ToString("C2");
 			Monthly = order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("C2");
 			SubscriptionTime = order.SubscriptionPayment.WithdrawalsLimit + " månader.";
+			ExpectedFirstWithdrawalDate = getFirstExpectedWithdrawalDate(order).ToString("yyyy-MM-dd");
 		}
+
+		public string ExpectedFirstWithdrawalDate { get; set; }
 		public CustomerModel Customer { get; set; }
         public string DeliveryOption { get; set; }
         public string ProductPrice { get; set; }

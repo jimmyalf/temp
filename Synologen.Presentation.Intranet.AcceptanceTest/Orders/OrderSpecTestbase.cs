@@ -5,6 +5,7 @@ using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Core.Utility;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -109,16 +110,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			return deposits - withdrawals;
 		}
 
-		protected string GetStatusMessage(Subscription subscriptionInput)
+		protected string GetStatusMessage(Subscription subscription)
 		{
-			return Switch.On(subscriptionInput, "Okänd status")
-				.Case(s => !s.Active, "Inaktivt")
-				.Case(s => s.Errors != null && s.Errors.Any(e => !e.IsHandled), "Har ohanterade fel")
-				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Accepted, "Aktivt")
-				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Denied, "Ej medgivet")
-				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.NotSent, "Medgivande ej skickat")
-				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Sent, "Skickat för medgivande")
-				.Evaluate();
+			if (!subscription.Active) return "Vilande autogiro";
+			if (subscription.Errors != null && subscription.Errors.Any(e => !e.IsHandled)) return "Transaktion ej genomförd";
+			return subscription.ConsentStatus.GetEnumDisplayName();
+			//return Switch.On(subscriptionInput, "Okänd status")
+			//    .Case(s => !s.Active, "Inaktivt")
+			//    .Case(s => s.Errors != null && s.Errors.Any(e => !e.IsHandled), "Har ohanterade fel")
+			//    .Case(s => s.ConsentStatus == SubscriptionConsentStatus.Accepted, "Aktivt")
+			//    .Case(s => s.ConsentStatus == SubscriptionConsentStatus.Denied, "Ej medgivet")
+			//    .Case(s => s.ConsentStatus == SubscriptionConsentStatus.NotSent, "Medgivande ej skickat")
+			//    .Case(s => s.ConsentStatus == SubscriptionConsentStatus.Sent, "Skickat för medgivande")
+			//    .Evaluate();
 		}
 	}
 }

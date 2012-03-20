@@ -259,7 +259,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.BankAccountNumber.ShouldBe(_subscription.BankAccountNumber);
 			View.Model.ClearingNumber.ShouldBe(_subscription.ClearingNumber);
 			View.Model.CustomerName.ShouldBe(_subscription.Customer.FirstName + " " + _subscription.Customer.LastName);
-			View.Model.Status.ShouldBe(_subscription.Active ? "Startat" : "Stoppat");
+			View.Model.Status.ShouldBe(_subscription.Active ? "Aktivt" : "Vilande autogiro");
 			View.Model.Consented.ShouldBe(_subscription.ConsentStatus.GetEnumDisplayName());
 			View.Model.CreatedDate.ShouldBe(_subscription.CreatedDate.ToString("yyyy-MM-dd"));
 			View.Model.CurrentBalance.ShouldBe(Subscription.GetCurrentAccountBalance(_transactions.ToList()).ToString("C2"));

@@ -10,6 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 		public static MemoryStream ToPdfStream(this ActiveReport report)
 		{
 			report.PageSettings.PaperKind = PaperKind.Custom;
+			report.Document.Printer.PrinterName = string.Empty;
             report.Run();
         	var pdfExport = new PdfExport();
         	var stream = new MemoryStream();

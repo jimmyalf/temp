@@ -588,6 +588,7 @@
     <None Include="Testpages\Order\SubscriptionCorrection.aspx" />
     <Content Include="Testpages\MemberFilesThumbs.aspx" />
     <None Include="Testpages\Order\EditSubscription.aspx" />
+    <None Include="Testpages\Order\OrderReportLink.aspx" />
     <Content Include="Wpc\Synologen\css\jquery-ui-1.8.16.custom.css" />
     <Content Include="Wpc\Synologen\css\screen.css" />
     <Content Include="Wpc\Synologen\css\smoothness\images\pbar-ani.gif" />
@@ -635,6 +636,7 @@
     <Content Include="TestComponents\OrderMenu.ascx" />
     <Content Include="Wpc\Synologen\Orders\OrderReportView.aspx" />
     <Content Include="Wpc\Synologen\Orders\EditSubscription.ascx" />
+    <Content Include="Wpc\Synologen\Orders\OrderReportLink.ascx" />
     <Content Include="Wpc\Synologen\Orders\SubscriptionCorrection.ascx" />
     <Content Include="Wpc\Synologen\Orders\SubscriptionItem.ascx" />
     <Content Include="Wpc\Synologen\Orders\Subscription.ascx" />

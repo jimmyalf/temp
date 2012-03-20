@@ -21,6 +21,7 @@
 			AddRoute(1009,"/Testpages/Order/SubscriptionItem.aspx");
 			AddRoute(1010,"/Testpages/Order/SubscriptionCorrection.aspx");
 			AddRoute(1011,"/Testpages/Order/EditSubscription.aspx");
+			AddRoute(1012,"/Testpages/Order/OrderReportLink.aspx");
 		}
 	}
 }

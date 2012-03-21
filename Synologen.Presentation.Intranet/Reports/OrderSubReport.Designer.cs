@@ -110,8 +110,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 			this.label43 = new DataDynamics.ActiveReports.Label();
 			this.label44 = new DataDynamics.ActiveReports.Label();
 			this.groupHeader1 = new DataDynamics.ActiveReports.GroupHeader();
-			this.groupFooter1 = new DataDynamics.ActiveReports.GroupFooter();
 			this.picture1 = new DataDynamics.ActiveReports.Picture();
+			this.groupFooter1 = new DataDynamics.ActiveReports.GroupFooter();
+			this.label45 = new DataDynamics.ActiveReports.Label();
+			this.label46 = new DataDynamics.ActiveReports.Label();
 			((System.ComponentModel.ISupportInitialize)(label4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(label5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(label6)).BeginInit();
@@ -190,6 +192,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 			((System.ComponentModel.ISupportInitialize)(this.label43)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.label44)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.picture1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.label45)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.label46)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
 			// 
 			// label4
@@ -338,7 +342,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
             this.label76,
             this.label77,
             this.label43,
-            this.label44});
+            this.label44,
+            this.label45,
+            this.label46});
 			this.detail.Height = 8.781333F;
 			this.detail.Name = "detail";
 			// 
@@ -1181,11 +1187,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 			this.groupHeader1.Height = 0.5984251F;
 			this.groupHeader1.Name = "groupHeader1";
 			// 
-			// groupFooter1
-			// 
-			this.groupFooter1.Height = 3.72529E-09F;
-			this.groupFooter1.Name = "groupFooter1";
-			// 
 			// picture1
 			// 
 			this.picture1.Height = 0.6889764F;
@@ -1195,6 +1196,34 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 			this.picture1.PictureAlignment = DataDynamics.ActiveReports.PictureAlignment.TopLeft;
 			this.picture1.Top = 0F;
 			this.picture1.Width = 2.854331F;
+			// 
+			// groupFooter1
+			// 
+			this.groupFooter1.Height = 3.72529E-09F;
+			this.groupFooter1.Name = "groupFooter1";
+			// 
+			// label45
+			// 
+			this.label45.Height = 0.1968504F;
+			this.label45.HyperLink = null;
+			this.label45.Left = 0.0984252F;
+			this.label45.Name = "label45";
+			this.label45.Style = "";
+			this.label45.Text = "Totalkostnad";
+			this.label45.Top = 2.559055F;
+			this.label45.Width = 1.476378F;
+			// 
+			// label46
+			// 
+			this.label46.DataField = "TotalWithdrawal";
+			this.label46.Height = 0.1968504F;
+			this.label46.HyperLink = null;
+			this.label46.Left = 1.574803F;
+			this.label46.Name = "label46";
+			this.label46.Style = "";
+			this.label46.Text = "";
+			this.label46.Top = 2.559055F;
+			this.label46.Width = 1.476378F;
 			// 
 			// OrderSubReport
 			// 
@@ -1295,6 +1324,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 			((System.ComponentModel.ISupportInitialize)(this.label43)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.label44)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.picture1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.label45)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.label46)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
 		}
@@ -1375,5 +1406,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 		private DataDynamics.ActiveReports.Label label43;
 		private DataDynamics.ActiveReports.Label label44;
 		private DataDynamics.ActiveReports.Picture picture1;
+		private DataDynamics.ActiveReports.Label label45;
+		private DataDynamics.ActiveReports.Label label46;
 	}
 }

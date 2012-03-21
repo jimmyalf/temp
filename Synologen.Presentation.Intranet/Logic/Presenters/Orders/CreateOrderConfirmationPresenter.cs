@@ -5,6 +5,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
@@ -15,6 +16,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		private readonly IOrderRepository _orderRepository;
 		private readonly ISubscriptionRepository _subscriptionRepository;
 		private readonly ITransactionRepository _transactionRepository;
+		private readonly OrderWithdrawalService _orderWithdrawalService;
 
 		public CreateOrderConfirmationPresenter(
 			ICreateOrderConfirmationView view, 
@@ -22,11 +24,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			IOrderRepository orderRepository, 
 			ISubscriptionRepository subscriptionRepository,
 			ISynologenMemberService synologenMemberService,
-			ITransactionRepository transactionRepository) : base(view, synologenMemberService)
+			ITransactionRepository transactionRepository,
+			OrderWithdrawalService orderWithdrawalService) : base(view, synologenMemberService)
 		{
 			_orderRepository = orderRepository;
 			_subscriptionRepository = subscriptionRepository;
 			_transactionRepository = transactionRepository;
+			_orderWithdrawalService = orderWithdrawalService;
 			_routingService = routingService;
 			WireupEvents();
 		}
@@ -80,6 +84,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Model.Monthly = GetCurrencyString(order.SubscriptionPayment.MonthlyWithdrawalAmount);
 			View.Model.TotalWithdrawal = GetCurrencyString(order.OrderTotalWithdrawalAmount);
 			View.Model.SubscriptionTime = String.Format("{0} månader", order.SubscriptionPayment.WithdrawalsLimit);
+			View.Model.ExpectedFirstWithdrawalDate = _orderWithdrawalService
+				.GetExpectedFirstWithdrawalDate(order.SubscriptionPayment.CreatedDate)
+				.ToString("yyyy-MM-dd");
 		}
 
 		private static string GetCurrencyString(decimal? value)

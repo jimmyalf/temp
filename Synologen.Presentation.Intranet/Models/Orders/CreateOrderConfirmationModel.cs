@@ -38,5 +38,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 
     	public string QuantityLeft { get; set; }
     	public string QuantityRight { get; set; }
+    	public string ExpectedFirstWithdrawalDate { get; set; }
     }
 }

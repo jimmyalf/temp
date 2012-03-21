@@ -25,7 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	{
 			if(!RequestOrderId.HasValue) return;
     		var order = _orderRepository.Get(RequestOrderId.Value);
-    		var viewModel = new OrderConfirmationModel(order, o => _orderWithdrawalService.GetExpectedFirstWithdrawalDate(o.SubscriptionPayment.Subscription));
+    		var viewModel = new OrderConfirmationModel(order, o => _orderWithdrawalService.GetExpectedFirstWithdrawalDate(o.SubscriptionPayment.CreatedDate));
     		var stream = new OrderReport(viewModel).ToPdfStream();
     		var fileName = string.Format("Bekräftelse {0}.pdf", order.Id);
     		OutputFile(stream, fileName);

@@ -26,6 +26,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         private string _abortUrl;
         private Func<string, int, string> _redirectUrl;
     	private Exception _thrownException;
+    	private int _subscriptionCutoffDate;
+    	private int _subscriptionWithdrawalDate;
 
     	public When_confirming_an_order()
         {
@@ -36,7 +38,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 _previousUrl = "/previous/page";
                 _submitUrl = "/next/page";
                 _abortUrl = "/abort/page";
-  
+            	_subscriptionCutoffDate = 15;
+            	_subscriptionWithdrawalDate = 28;
+            	A.CallTo(() => SynologenSettingsService.SubscriptionCutoffDate).Returns(_subscriptionCutoffDate);
+				A.CallTo(() => SynologenSettingsService.SubscriptionWithdrawalDate).Returns(_subscriptionWithdrawalDate);
                 A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
                 SetupNavigationEvents(_previousUrl, _abortUrl, _submitUrl);
                 _redirectUrl = (url, orderId) => "{url}?order={orderId}".ReplaceWith(new { url, orderId });
@@ -180,7 +185,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.SubscriptionTime.ShouldBe(order.SubscriptionPayment.WithdrawalsLimit + " månader");
 			View.Model.QuantityLeft.ShouldBe(order.LensRecipe.Quantity.Left);
 			View.Model.QuantityRight.ShouldBe(order.LensRecipe.Quantity.Right);
+
+			View.Model.ExpectedFirstWithdrawalDate.ShouldBe(GetExpectedFirstWithdrawalDate(_order.SubscriptionPayment));
         }
+
+		private string GetExpectedFirstWithdrawalDate(SubscriptionItem subscriptionItem)
+		{
+			var returnDate = new DateTime(
+				subscriptionItem.CreatedDate.Year, 
+				subscriptionItem.CreatedDate.Month, 
+				_subscriptionWithdrawalDate);
+			return subscriptionItem.CreatedDate.Day <= _subscriptionCutoffDate
+				? returnDate.ToString("yyyy-MM-dd") 
+				: returnDate.AddMonths(1).ToString("yyyy-MM-dd");
+		}
 
 
     	private void AnvändarenFlyttasTillSidaFörFärdigBeställning()

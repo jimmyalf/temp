@@ -115,14 +115,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			if (!subscription.Active) return "Vilande autogiro";
 			if (subscription.Errors != null && subscription.Errors.Any(e => !e.IsHandled)) return "Transaktion ej genomförd";
 			return subscription.ConsentStatus.GetEnumDisplayName();
-			//return Switch.On(subscriptionInput, "Okänd status")
-			//    .Case(s => !s.Active, "Inaktivt")
-			//    .Case(s => s.Errors != null && s.Errors.Any(e => !e.IsHandled), "Har ohanterade fel")
-			//    .Case(s => s.ConsentStatus == SubscriptionConsentStatus.Accepted, "Aktivt")
-			//    .Case(s => s.ConsentStatus == SubscriptionConsentStatus.Denied, "Ej medgivet")
-			//    .Case(s => s.ConsentStatus == SubscriptionConsentStatus.NotSent, "Medgivande ej skickat")
-			//    .Case(s => s.ConsentStatus == SubscriptionConsentStatus.Sent, "Skickat för medgivande")
-			//    .Evaluate();
 		}
 	}
 }

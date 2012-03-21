@@ -1,5 +1,4 @@
 ﻿using System;
-using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
@@ -13,23 +12,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			_synologenSettingsService = synologenSettingsService;
 		}
 		
-		public DateTime GetExpectedFirstWithdrawalDate(Subscription subscription)
+		public DateTime GetExpectedFirstWithdrawalDate(DateTime subscriptionCreatedDate)
 		{
-		 	if(subscription.CreatedDate.Day <= _synologenSettingsService.SubscriptionCutoffDate)
+			if(subscriptionCreatedDate.Day <= _synologenSettingsService.SubscriptionCutoffDate)
 		 	{
 		 		return new DateTime(
-					subscription.CreatedDate.Year, 
-					subscription.CreatedDate.Month, 
+					subscriptionCreatedDate.Year, 
+					subscriptionCreatedDate.Month, 
 					_synologenSettingsService.SubscriptionWithdrawalDate);
 		 	}
-			else
-		 	{
-		 		return new DateTime(
-					subscription.CreatedDate.Year, 
-					subscription.CreatedDate.Month, 
-					_synologenSettingsService.SubscriptionWithdrawalDate)
-					.AddMonths(1);
-		 	}
+			return new DateTime(
+				subscriptionCreatedDate.Year, 
+				subscriptionCreatedDate.Month, 
+				_synologenSettingsService.SubscriptionWithdrawalDate)
+				.AddMonths(1);
 		}
 	}
 }

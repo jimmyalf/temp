@@ -54,6 +54,7 @@
 			<p><label>Totaluttag</label><input disabled="disabled" value="<%=Model.TotalWithdrawal%>" /></p>
 			<p><label>Abonnemangstid</label><input disabled="disabled" value="<%=Model.SubscriptionTime%>" /></p>
 			<p><label>Månadsbelopp</label><input disabled="disabled" value="<%=Model.Monthly%>" /></p>
+			<p title="Förväntat första dragningsdatum"><label>Första dragningsdatum</label><input disabled="disabled" value="<%=Model.ExpectedFirstWithdrawalDate%>" /></p>
 		</fieldset>
 		<fieldset>
    			<asp:ValidationSummary runat="server" CssClass="error-list" />

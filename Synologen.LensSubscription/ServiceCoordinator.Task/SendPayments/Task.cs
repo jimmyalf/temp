@@ -28,7 +28,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 			{
 				var subscriptionRepository = context.Resolve<ISubscriptionRepository>();
 				var subscriptionPendingPaymentRepository = context.Resolve<ISubscriptionPendingPaymentRepository>();
-				var subscriptions = subscriptionRepository.FindBy(new AllSubscriptionsToSendPaymentsForCriteria()) ?? Enumerable.Empty<Subscription>();
+				var cutOffDate = _autogiroPaymentService.GetCutOffDateTime();
+				var subscriptions = subscriptionRepository.FindBy(new AllSubscriptionsToSendPaymentsForCriteria(cutOffDate)) ?? Enumerable.Empty<Subscription>();
 				LogDebug("Fetched {0} subscriptions to send payments for", subscriptions.Count());
 				foreach (var subscription in subscriptions)
 				{

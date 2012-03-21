@@ -18,12 +18,13 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.Orders
         public override ICriteria Convert(AllSubscriptionsToSendPaymentsForCriteria source)
 		{
 			return Criteria
-				.FilterEqual(x => x.ConsentStatus, SubscriptionConsentStatus.Accepted)
-				.FilterEqual(x => x.Active, true)
+				.FilterEqual(x => x.ConsentStatus, SubscriptionConsentStatus.Accepted) //Subscription is consented
+				.FilterEqual(x => x.Active, true) //Subscription is active
 				.Add(Restrictions.Or(
-					Restrictions.IsNull(Property(x => x.LastPaymentSent)),
-					Restrictions.Lt(Property(x => x.LastPaymentSent), FirstDateInCurrentMonth)
+					Restrictions.IsNull(Property(x => x.LastPaymentSent)), //No payment has been made
+					Restrictions.Lt(Property(x => x.LastPaymentSent), FirstDateInCurrentMonth) //No payment has been made this month
 				))
+				.Add(Restrictions.Le(Property(x => x.CreatedDate), source.CutOffDateTime)) //Subscription was created before cutoff date
 				.SetFetchMode(Property(x => x.SubscriptionItems), FetchMode.Join)
 				.SetResultTransformer(new DistinctRootEntityResultTransformer());
 		}

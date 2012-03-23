@@ -34,15 +34,17 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 				{
 					_bankGiroPayerNumber = service.RegisterPayer("Test payer", AutogiroServiceType.SubscriptionVersion2);
 				});
-
-				_expectedPaymentDate = CalculatePaymentDate();
-				var shopToUse = CreateShop<Shop>();
-				_customer = StoreWithWpcSession(() =>Factory.CreateCustomer(shopToUse));
-				_subscription = StoreWithWpcSession(() => Factory.CreateSubscription(_customer, shopToUse, _bankGiroPayerNumber, Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes.SubscriptionConsentStatus.Accepted, new DateTime(2011, 01, 01)));
-				_subscriptionItems = StoreItemsWithWpcSession(() => Factory.CreateSubscriptionItems(_subscription));
-				_task = ResolveTask<Task>();
-				_taskRunnerService = GetTaskRunnerService(_task);
-				_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Sum(x => x.MonthlyWithdrawalAmount);
+				SystemTime.InvokeWhileTimeIs(new DateTime(2012,01,01),() =>
+				{
+					_expectedPaymentDate = CalculatePaymentDate();
+					var shopToUse = CreateShop<Shop>();
+					_customer = StoreWithWpcSession(() =>Factory.CreateCustomer(shopToUse));
+					_subscription = StoreWithWpcSession(() => Factory.CreateSubscription(_customer, shopToUse, _bankGiroPayerNumber, Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes.SubscriptionConsentStatus.Accepted, new DateTime(2011, 01, 01)));
+					_subscriptionItems = StoreItemsWithWpcSession(() => Factory.CreateSubscriptionItems(_subscription));
+					_task = ResolveTask<Task>();
+					_taskRunnerService = GetTaskRunnerService(_task);
+					_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Sum(x => x.MonthlyWithdrawalAmount);
+				});
 			};
 
 			Because = () => _taskRunnerService.Run();
@@ -86,12 +88,12 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		private DateTime CalculatePaymentDate()
 		{
 			var expectedPaymentDay = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentDayInMonth();
-			var cutOffDayInMonth = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentCutOffDayInMonth();
-			var date = new DateTime(SystemTime.Now.Year, SystemTime.Now.Month, expectedPaymentDay);
-			if(SystemTime.Now.Day >= cutOffDayInMonth)
-			{
-				date = date.AddMonths(1);
-			}
+			//var cutOffDayInMonth = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentCutOffDayInMonth();
+			var date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, expectedPaymentDay);
+			//if(SystemTime.Now.Day >= cutOffDayInMonth)
+			//{
+			//    date = date.AddMonths(1);
+			//}
 			return date;
 		}
 	}

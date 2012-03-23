@@ -8,60 +8,31 @@ using Synologen.Service.Client.SubscriptionTaskRunner.Test.TestHelpers;
 namespace Synologen.Service.Client.SubscriptionTaskRunner.Test
 {
 	[TestFixture, Category("AutogiroPaymentServiceTests")]
-	public class When_fetching_date_from_AutogiroPaymentService_before_cut_off_date : AutogiroPaymentServiceTestBase
+	public class When_fetching_date_from_AutogiroPaymentService : AutogiroPaymentServiceTestBase
 	{
-		private DateTime currentDate;
-		private int paymentDayInMonth;
-		private DateTime expectedPaymentDate;
-		private int paymentCutOffDayInMonth;
+		private DateTime _currentDate;
+		private int _paymentDayInMonth;
+		private DateTime _expectedPaymentDate;
+		private int _paymentCutOffDayInMonth;
 
-		public When_fetching_date_from_AutogiroPaymentService_before_cut_off_date()
+		public When_fetching_date_from_AutogiroPaymentService()
 		{
 			Context = () =>
 			{
-				currentDate = new DateTime(2011, 01, 10);
-				paymentDayInMonth = 25;
-				paymentCutOffDayInMonth = 22;
-				expectedPaymentDate = new DateTime(currentDate.Year, currentDate.Month, paymentDayInMonth);
-				A.CallTo(() => ServiceCoordinatorSettingsService.GetPaymentDayInMonth()).Returns(paymentDayInMonth);
-				A.CallTo(() => ServiceCoordinatorSettingsService.GetPaymentCutOffDayInMonth()).Returns(paymentCutOffDayInMonth);
+				_currentDate = new DateTime(2011, 01, 10);
+				_paymentDayInMonth = 25;
+				_paymentCutOffDayInMonth = 22;
+				_expectedPaymentDate = new DateTime(_currentDate.Year, _currentDate.Month, _paymentDayInMonth);
+				A.CallTo(() => ServiceCoordinatorSettingsService.GetPaymentDayInMonth()).Returns(_paymentDayInMonth);
+				A.CallTo(() => ServiceCoordinatorSettingsService.GetPaymentCutOffDayInMonth()).Returns(_paymentCutOffDayInMonth);
 			};
-			Because = service => SystemTime.ReturnWhileTimeIs(currentDate, () => service.GetPaymentDate());
+			Because = service => SystemTime.ReturnWhileTimeIs(_currentDate, service.GetPaymentDate);
 		}
 
 		[Test]
-		public void Returned_payment_date_is_in_current_month()
+		public void Returned_payment_date_is_expected_date()
 		{
-			ReturnValue.ShouldBe(expectedPaymentDate);
-		}
-	}
-
-	[TestFixture, Category("AutogiroPaymentServiceTests")]
-	public class When_fetching_date_from_AutogiroPaymentService_after_cut_off_date : AutogiroPaymentServiceTestBase
-	{
-		private DateTime currentDate;
-		private DateTime expectedPaymentDate;
-		private int paymentDayInMonth;
-		private int paymentCutOffDayInMonth;
-
-		public When_fetching_date_from_AutogiroPaymentService_after_cut_off_date()
-		{
-			Context = () =>
-			{
-				currentDate = new DateTime(2011, 01, 23);
-				paymentDayInMonth = 25;
-				paymentCutOffDayInMonth = 22;
-				expectedPaymentDate = new DateTime(currentDate.Year, currentDate.Month, paymentDayInMonth).AddMonths(1);
-				A.CallTo(() => ServiceCoordinatorSettingsService.GetPaymentDayInMonth()).Returns(paymentDayInMonth);
-				A.CallTo(() => ServiceCoordinatorSettingsService.GetPaymentCutOffDayInMonth()).Returns(paymentCutOffDayInMonth);
-			};
-			Because = service => SystemTime.ReturnWhileTimeIs(currentDate, () => service.GetPaymentDate());
-		}
-
-		[Test]
-		public void Returned_payment_date_is_in_next_month()
-		{
-			ReturnValue.ShouldBe(expectedPaymentDate);
+			ReturnValue.ShouldBe(_expectedPaymentDate);
 		}
 	}
 }

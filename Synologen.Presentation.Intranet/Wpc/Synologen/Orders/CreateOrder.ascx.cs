@@ -28,8 +28,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     		ddlPickCategory.SelectedIndexChanged += Category_Selected;
             ddlPickSupplier.SelectedIndexChanged += Supplier_Selected;
     	    ddlPickKind.SelectedIndexChanged += ArticleType_Selected;
-            drpArticlesLeft.SelectedIndexChanged += Article_Selected;
-			drpArticlesRight.SelectedIndexChanged += Article_Selected;
+            drpArticlesLeft.SelectedIndexChanged += Article_Selected_Left;
+			drpArticlesRight.SelectedIndexChanged += Article_Selected_Right;
     		chkOnlyLeftEye.CheckedChanged += OnlyOneEye_Selected;
 			chkOnlyRightEye.CheckedChanged += OnlyOneEye_Selected;
         }
@@ -37,28 +37,35 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	private void Category_Selected(object sender, EventArgs e)
     	{
     		if(SelectedCategory == null) return;
-    		var args = GetOrderChangedEventArgs(resetParameters: true, resetArticle: true, resetArticleType: true, resetShippingOption: true, resetSupplier: true);
+    		var args = GetOrderChangedEventArgs(resetParametersLeft: true, resetParametersRight: true, resetArticle: true, resetArticleType: true, resetShippingOption: true, resetSupplier: true);
     		SelectedCategory(this, args);
     	}
 
     	private void ArticleType_Selected(object sender, EventArgs e)
     	{
     		if(SelectedArticleType == null) return;
-			var args = GetOrderChangedEventArgs(resetParameters: true, resetArticle: true, resetShippingOption: true, resetSupplier: true);
+			var args = GetOrderChangedEventArgs(resetParametersLeft: true, resetParametersRight: true, resetArticle: true, resetShippingOption: true, resetSupplier: true);
     		SelectedArticleType(this, args);
     	}
 
     	private void Supplier_Selected(object sender, EventArgs e)
     	{
     		if(SelectedSupplier == null) return;
-			var args = GetOrderChangedEventArgs(resetParameters: true, resetArticle: true, resetShippingOption: true);
+			var args = GetOrderChangedEventArgs(resetParametersLeft: true, resetParametersRight: true, resetArticle: true, resetShippingOption: true);
     		SelectedSupplier(this, args);
     	}
 
-    	private void Article_Selected(object sender, EventArgs e)
+    	private void Article_Selected_Left(object sender, EventArgs e)
     	{
     		if(SelectedArticle == null) return;
-			var args = GetOrderChangedEventArgs(resetParameters: true);
+			var args = GetOrderChangedEventArgs(resetParametersLeft: true);
+    		SelectedArticle(this, args);
+    	}
+
+    	private void Article_Selected_Right(object sender, EventArgs e)
+    	{
+    		if(SelectedArticle == null) return;
+			var args = GetOrderChangedEventArgs(resetParametersRight: true);
     		SelectedArticle(this, args);
     	}
 
@@ -82,7 +89,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
         }
 
 		private OrderChangedEventArgs GetOrderChangedEventArgs(
-			bool resetParameters = false, 
+			bool resetParametersLeft = false, 
+			bool resetParametersRight = false, 
 			bool resetArticle = false, 
 			bool resetShippingOption = false,
 			bool resetSupplier = false,
@@ -91,39 +99,40 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 			return new OrderChangedEventArgs
 			{
 				SelectedCategoryId = GetValueOrDefault(ddlPickCategory), 
-				SelectedArticleTypeId = resetArticleType ? null : GetValueOrDefault(ddlPickKind), 
-				SelectedSupplierId = resetSupplier ? null : GetValueOrDefault(ddlPickSupplier), 
-				SelectedShippingOption = resetShippingOption ? null : GetValueOrDefault(ddlShippingOptions),
-				SelectedArticleId = resetArticle ? new EyeParameter<int?>(null,null) : GetEyeParameter(drpArticlesLeft, drpArticlesRight, Convert.ToInt32, 0),
-				SelectedBaseCurve = resetParameters ? new EyeParameter<decimal?>(null,null) : GetEyeParameter(ddlLeftBaskurva, ddlRightBaskurva, Convert.ToDecimal, -9999),
-				SelectedDiameter = resetParameters ? new EyeParameter<decimal?>(null,null) : GetEyeParameter(ddlLeftDiameter, ddlRightDiameter, Convert.ToDecimal, -9999),
-				SelectedPower = resetParameters ? new EyeParameter<string>() : GetEyeParameter(txtLeftStrength, txtRightStrength, ""),
-				SelectedAxis = resetParameters ? new EyeParameter<string>() : GetEyeParameter(txtLeftAxis, txtRightAxis, ""),
-				SelectedCylinder = resetParameters ? new EyeParameter<string>() : GetEyeParameter(txtLeftCylinder, txtRightCylinder, ""),
-				SelectedAddition = resetParameters ? new EyeParameter<string>() : GetEyeParameter(txtLeftAddition, txtRightAddition, ""),
-				SelectedQuantity = resetParameters ? new EyeParameter<string>() : GetEyeParameter(txtLeftQuantity, txtRightQuantity, ""),
+				SelectedArticleTypeId =  GetValueOrDefault(ddlPickKind, reset: resetArticleType), 
+				SelectedSupplierId = GetValueOrDefault(ddlPickSupplier, reset: resetSupplier), 
+				SelectedShippingOption =  GetValueOrDefault(ddlShippingOptions, reset: resetShippingOption),
+				SelectedArticleId =  GetEyeParameter(drpArticlesLeft, drpArticlesRight, Convert.ToInt32, 0, resetArticle, resetArticle),
+				SelectedBaseCurve = GetEyeParameter(ddlLeftBaskurva, ddlRightBaskurva, Convert.ToDecimal, -9999, resetParametersLeft, resetParametersRight),
+				SelectedDiameter = GetEyeParameter(ddlLeftDiameter, ddlRightDiameter, Convert.ToDecimal, -9999, resetParametersLeft, resetParametersRight),
+				SelectedPower = GetEyeParameter(txtLeftStrength, txtRightStrength, "", resetParametersLeft, resetParametersRight),
+				SelectedAxis = GetEyeParameter(txtLeftAxis, txtRightAxis, "", resetParametersLeft, resetParametersRight),
+				SelectedCylinder = GetEyeParameter(txtLeftCylinder, txtRightCylinder, "", resetParametersLeft, resetParametersRight),
+				SelectedAddition = GetEyeParameter(txtLeftAddition, txtRightAddition, "", resetParametersLeft, resetParametersRight),
+				SelectedQuantity = GetEyeParameter(txtLeftQuantity, txtRightQuantity, "", resetParametersLeft, resetParametersRight),
 				SelectedReference = txtReference.Text,
 				OnlyUse = GetEyeParameter(chkOnlyLeftEye, chkOnlyRightEye)
 			};
 		}
 
-		private int? GetValueOrDefault(ListControl control, int defaultValue = default(int))
+		private int? GetValueOrDefault(ListControl control, int defaultValue = default(int), bool reset = false)
 		{
+			if (reset) return null;
 		    var value = Convert.ToInt32(control.SelectedValue);
 		    if(value == defaultValue) return null;
 		    return value;
 		}
 
-		private EyeParameter<T?> GetEyeParameter<T>(ListControl leftControl, ListControl rightControl, Func<string,T> converter, T defaultValue)
+		private EyeParameter<T?> GetEyeParameter<T>(ListControl leftControl, ListControl rightControl, Func<string,T> converter, T defaultValue, bool resetLeft = false, bool resetRight = false)
 			where T:struct
 		{
-			return GetEyeParameter(leftControl.SelectedValue, rightControl.SelectedValue, converter, defaultValue);
+			return GetEyeParameter(leftControl.SelectedValue, rightControl.SelectedValue, converter, defaultValue, resetLeft, resetRight);
 		}
 
-		private EyeParameter<string> GetEyeParameter(ITextControl leftControl, ITextControl rightControl, string defaultValue)
+		private EyeParameter<string> GetEyeParameter(ITextControl leftControl, ITextControl rightControl, string defaultValue, bool resetLeft = false, bool resetRight = false)
 		{
-			var left = DisableLeft ? defaultValue: leftControl.Text;
-			var right = DisableRight ? defaultValue: rightControl.Text;
+			var left = DisableLeft || resetLeft ? defaultValue: leftControl.Text;
+			var right = DisableRight || resetRight ? defaultValue: rightControl.Text;
 			return new EyeParameter<string>
 			{
 				Left = (left == defaultValue) ? null : left,
@@ -131,11 +140,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 			};
 		}
 
-		private EyeParameter<T?> GetEyeParameter<T>(string leftValue, string rightValue, Func<string,T> converter, T defaultValue)
+		private EyeParameter<T?> GetEyeParameter<T>(string leftValue, string rightValue, Func<string,T> converter, T defaultValue, bool resetLeft = false, bool resetRight = false)
 			where T:struct
 		{
-			var left = DisableLeft ? defaultValue: converter(leftValue);
-			var right = DisableRight ? defaultValue: converter(rightValue);
+			var left = DisableLeft || resetLeft ? defaultValue: converter(leftValue);
+			var right = DisableRight || resetRight ? defaultValue: converter(rightValue);
 			return new EyeParameter<T?>
 			{
 				Left = left.Equals(defaultValue) ? (T?) null : left,

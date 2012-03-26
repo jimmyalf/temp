@@ -38,14 +38,14 @@
 				<asp:TextBox ID="txtProductAmount" Text="<%#Model.ProductPrice %>" runat="server" ClientIDMode="Static" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtProductAmount" ErrorMessage="Produktbelopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
 				<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtProductAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
-				<asp:RangeValidator  runat="server" MinimumValue="0" MaximumValue="49999" Type="Double" ControlToValidate="txtProductAmount" ErrorMessage="Angivet belopp ligga i intervallet 0 - 49999" CssClass="error-message">*</asp:RangeValidator>
+				<asp:RangeValidator  runat="server" MinimumValue="0" MaximumValue="49999" Type="Double" ControlToValidate="txtProductAmount" ErrorMessage="Angivet belopp skall ligga i intervallet 0 - 49999" CssClass="error-message">*</asp:RangeValidator>
     		</p>
     		<p>
     			<label>Arvode</label>
 				<asp:TextBox ID="txtFeeAmount" Text="<%#Model.FeePrice %>" runat="server" ClientIDMode="Static" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtFeeAmount" ErrorMessage="Arvode måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
 				<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtFeeAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
-				<asp:RangeValidator runat="server" MinimumValue="0" MaximumValue="49999" Type="Double" ControlToValidate="txtFeeAmount" ErrorMessage="Angivet belopp ligga i intervallet 0 - 49999" CssClass="error-message">*</asp:RangeValidator>
+				<asp:RangeValidator runat="server" MinimumValue="0" MaximumValue="49999" Type="Double" ControlToValidate="txtFeeAmount" ErrorMessage="Angivet belopp skall ligga i intervallet 0 - 49999" CssClass="error-message">*</asp:RangeValidator>
     		</p>
     		<p>
     			<label>Totalkostnad</label>

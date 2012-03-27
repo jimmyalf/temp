@@ -57,6 +57,9 @@
     <Compile Include="Logic\EventArguments\Orders\OrderChangedEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SubmitCorrectionEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SubmitSubscriptionItemEventArgs.cs" />
+    <Compile Include="Logic\Presenters\ActionMessagePresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\BasePresenter.cs" />
+    <Compile Include="Logic\Presenters\LensSubscription\MigrateSubscriptionPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\EditSubscriptionPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\OrderBasePresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\SubscriptionCorrectionPresenter.cs" />
@@ -105,8 +108,15 @@
     <Compile Include="Logic\Presenters\Orders\CreateOrderPresenter.cs" />
     <Compile Include="Logic\EventArguments\Orders\SearchCustomerEventArgs.cs" />
     <Compile Include="Logic\Services\DebugRoutingService.cs" />
+    <Compile Include="Logic\Services\MigrationValidators\CustomerValidator.cs" />
+    <Compile Include="Logic\Services\MigrationValidators\ErrorValidator.cs" />
+    <Compile Include="Logic\Services\MigrationValidators\SubscriptionValidator.cs" />
+    <Compile Include="Logic\Services\MigrationValidators\TransactionValidator.cs" />
+    <Compile Include="Logic\Services\MigrationValidators\ValidatorBase.cs" />
     <Compile Include="Logic\Services\OrderWithdrawalService.cs" />
     <Compile Include="Logic\Services\RoutingService.cs" />
+    <Compile Include="Logic\Views\IActionMessageView.cs" />
+    <Compile Include="Logic\Views\LensSubscription\IMigrateSubscriptionView.cs" />
     <Compile Include="Logic\Views\Orders\IEditCustomerView.cs" />
     <Compile Include="Logic\Views\Orders\IEditSubscriptionView.cs" />
     <Compile Include="Logic\Views\Orders\IOrderView.cs" />
@@ -137,6 +147,7 @@
     <Compile Include="Logic\Views\Orders\ISubscriptionItemView.cs" />
     <Compile Include="Logic\Views\Orders\ISubscriptionView.cs" />
     <Compile Include="Logic\Views\Yammer\IYammerView.cs" />
+    <Compile Include="Models\ActionMessageModel.cs" />
     <Compile Include="Models\ContractSales\SettlementDetailedContractSaleListItemModel.cs" />
     <Compile Include="Models\ContractSales\SettlementDetailedsubscriptionTransactionsListItemModel.cs" />
     <Compile Include="Models\ContractSales\SettlementSimpleContractSaleListItemModel.cs" />
@@ -185,6 +196,7 @@
     <Compile Include="Models\LensSubscription\ListCustomersModel.cs" />
     <Compile Include="Models\LensSubscription\ListSubscriptionErrorModel .cs" />
     <Compile Include="Models\LensSubscription\ListTransactionModel.cs" />
+    <Compile Include="Models\LensSubscription\MigrateSubscriptionModel.cs" />
     <Compile Include="Models\LensSubscription\ShopSubscriptionErrorListItemModel.cs" />
     <Compile Include="Models\LensSubscription\ShopSubscriptionErrorListModel.cs" />
     <Compile Include="Models\LensSubscription\ShopSubscriptionsModel.cs" />
@@ -233,11 +245,20 @@
     <Compile Include="Reports\OrderSubReport.Designer.cs">
       <DependentUpon>OrderSubReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Code\IoC\SynchronizeTempDataTask.cs" />
+    <Compile Include="Code\TempDataProvider.cs" />
     <Compile Include="Testpages\TestButtonPage.aspx.cs">
       <DependentUpon>TestButtonPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebBootstrapper.cs" />
+    <Compile Include="Wpc\Synologen\ActionMessage.ascx.cs">
+      <DependentUpon>ActionMessage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\ActionMessage.ascx.designer.cs">
+      <DependentUpon>ActionMessage.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx.cs">
       <DependentUpon>ViewSettlement.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -293,6 +314,13 @@
     </Compile>
     <Compile Include="Wpc\Synologen\FrameOrders\OrderView.ascx.designer.cs">
       <DependentUpon>OrderView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\MigrateSubscription.ascx.cs">
+      <DependentUpon>MigrateSubscription.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\LensSubscriptions\MigrateSubscription.ascx.designer.cs">
+      <DependentUpon>MigrateSubscription.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionsList.ascx.cs">
       <DependentUpon>ShopSubscriptionsList.ascx</DependentUpon>
@@ -589,6 +617,7 @@
     <Content Include="Testpages\MemberFilesThumbs.aspx" />
     <None Include="Testpages\Order\EditSubscription.aspx" />
     <None Include="Testpages\Order\OrderReportLink.aspx" />
+    <Content Include="Wpc\Synologen\ActionMessage.ascx" />
     <Content Include="Wpc\Synologen\css\jquery-ui-1.8.16.custom.css" />
     <Content Include="Wpc\Synologen\css\screen.css" />
     <Content Include="Wpc\Synologen\css\smoothness\images\pbar-ani.gif" />
@@ -632,6 +661,7 @@
     <Content Include="Wpc\Synologen\js\jquery.fancybox-1.3.4\fancybox\jquery.mousewheel-3.0.4.pack.js" />
     <Content Include="Wpc\Synologen\js\jquery.fancybox-1.3.4\jquery-1.4.3.min.js" />
     <Content Include="Wpc\Synologen\js\jquery.placeholder.min.js" />
+    <Content Include="Wpc\Synologen\LensSubscriptions\MigrateSubscription.ascx" />
     <Content Include="Wpc\Synologen\Orders\AutogiroDetails.ascx" />
     <Content Include="TestComponents\OrderMenu.ascx" />
     <Content Include="Wpc\Synologen\Orders\OrderReportView.aspx" />

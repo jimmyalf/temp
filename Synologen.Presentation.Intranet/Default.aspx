@@ -30,14 +30,15 @@
 		<a href="/Testpages/FrameOrderList.aspx">Visa beställningslista</a>
 	</fieldset>
 	<fieldset><legend>Linsabonnemang</legend>
-		<a href="/Testpages/LensSubscriptionCustomersList.aspx">Visa linsabonnemang kunder</a>
-		<a href="/Testpages/LensSubscriptionCreateSubscription.aspx?customer=1">Skapa linsabonnemang för kund(med id=1)</a>
-		<a href="/Testpages/LensSubscriptionEditSubscription.aspx?subscription=1">Redigera linsabonnemang 1</a>
-		<a href="/Testpages/LensSubscriptionCreateCustomer.aspx">Skapa kund för linsabonnemang</a>
-		<a href="/Testpages/LensSubscriptionEditCustomer.aspx?customer=1">Redigera kund för linsabonnemang (med id=1)</a>
-		<a href="/Testpages/LensSubscriptionTransactionsList.aspx?subscription=1">Visa transaktioner för linsabonnemang (med id=1)</a>
-		<a href="/Testpages/LensSubscriptionShopSubscriptionErrorsList.aspx">Visa alla ohanterade fel för butik</a>
-		<a href="/Testpages/LensSubscriptionShopSubscriptionsList.aspx">Visa alla linsabonnemang för inloggad butik</a>
+		<a href="/Testpages/LensSubscription/CustomersList.aspx">Visa linsabonnemang kunder</a>
+		<a href="/Testpages/LensSubscription/CreateSubscription.aspx?customer=1">Skapa linsabonnemang för kund(med id=1)</a>
+		<a href="/Testpages/LensSubscription/EditSubscription.aspx?subscription=1">Redigera linsabonnemang 1</a>
+		<a href="/Testpages/LensSubscription/CreateCustomer.aspx">Skapa kund för linsabonnemang</a>
+		<a href="/Testpages/LensSubscription/EditCustomer.aspx?customer=1">Redigera kund för linsabonnemang (med id=1)</a>
+		<a href="/Testpages/LensSubscription/TransactionsList.aspx?subscription=1">Visa transaktioner för linsabonnemang (med id=1)</a>
+		<a href="/Testpages/LensSubscription/ShopSubscriptionErrorsList.aspx">Visa alla ohanterade fel för butik</a>
+		<a href="/Testpages/LensSubscription/ShopSubscriptionsList.aspx">Visa alla linsabonnemang för inloggad butik</a>
+		<a href="/Testpages/LensSubscription/MigrateSubscription.aspx?subscription=1">Migrera abonnemang</a>
 	</fieldset>
 	<fieldset><legend>Leverantörskontroller</legend>
 		<a href="Testpages/AdminMemberFiles.aspx">Admin Member Files</a>
@@ -50,13 +51,6 @@
     <fieldset>
 	    <legend>Beställningar</legend>
         <a href="TestPages/Order/SearchCustomer.aspx">Sök kund</a>
-		<!--
-	    <a href="TestPages/Order/SaveCustomer.aspx?customer=1">Välj kund</a>
-        <a href="TestPages/Order/CreateOrder.aspx?customer=1">Skapa order</a>
-        <a href="TestPages/Order/PaymentOptions.aspx">Betalningssätt</a>
-        <a href="TestPages/Order/AutogiroDetails.aspx">Autogiro</a>
-        <a href="TestPages/Order/CreateOrderConfirmation.aspx">Bekräfta</a>
-		-->
 		<span>--</span>
 		<a href="TestPages/Order/SubscriptionShopSubscriptionsList.aspx">Lista abonnemang</a>
 		<a href="Testpages/Order/EditCustomer.aspx?customer=1">Redigera kund</a>

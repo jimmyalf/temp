@@ -10,13 +10,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 	public abstract class BasePresenter<TView> : Presenter<TView> where TView : class, IView
 	{
 		protected ISession Session { get; private set; }
-		private readonly ITempDataProvider _tempDataProvider;
+		private ITempDataProvider _tempDataProvider;
 		private const string ActionMessageKey = "ActionMessage";
 		private const string TempDataProviderKey = "__TempDataProvider";
 
 		protected BasePresenter(TView view, ISession session) : base(view)
 		{
 			Session = session;
+			View.Load += Load;
+		}
+
+		private void Load(object sender, EventArgs e)
+		{
 			_tempDataProvider = (ITempDataProvider) HttpContext.Items[TempDataProviderKey];
 		}
 
@@ -53,6 +58,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 
 		public override void ReleaseView()
 		{
+			View.Load -= Load;
 			HttpContext.Items[TempDataProviderKey] = _tempDataProvider;
 		}
 	}

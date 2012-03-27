@@ -614,6 +614,7 @@
     <None Include="Testpages\Order\Subscription.aspx" />
     <None Include="Testpages\Order\SubscriptionItem.aspx" />
     <None Include="Testpages\Order\SubscriptionCorrection.aspx" />
+    <None Include="Testpages\LensSubscription\MigrateSubscription.aspx" />
     <Content Include="Testpages\MemberFilesThumbs.aspx" />
     <None Include="Testpages\Order\EditSubscription.aspx" />
     <None Include="Testpages\Order\OrderReportLink.aspx" />
@@ -688,16 +689,16 @@
   <ItemGroup>
     <None Include="Testpages\CityShopList.aspx" />
     <None Include="Testpages\ViewSettlementPage.aspx" />
-    <None Include="Testpages\LensSubscriptionEditSubscription.aspx" />
-    <None Include="Testpages\LensSubscriptionCreateCustomer.aspx" />
-    <None Include="Testpages\LensSubscriptionCreateSubscription.aspx" />
-    <None Include="Testpages\LensSubscriptionCustomersList.aspx" />
+    <None Include="Testpages\LensSubscription\EditSubscription.aspx" />
+    <None Include="Testpages\LensSubscription\CreateCustomer.aspx" />
+    <None Include="Testpages\LensSubscription\CreateSubscription.aspx" />
+    <None Include="Testpages\LensSubscription\CustomersList.aspx" />
     <None Include="Testpages\FrameOrderList.aspx" />
     <None Include="Testpages\FrameOrderView.aspx" />
     <None Include="Testpages\FrameOrder.aspx" />
-    <None Include="Testpages\LensSubscriptionEditCustomer.aspx" />
-    <None Include="Testpages\LensSubscriptionTransactionsList.aspx" />
-    <None Include="Testpages\LensSubscriptionShopSubscriptionErrorsList.aspx" />
+    <None Include="Testpages\LensSubscription\EditCustomer.aspx" />
+    <None Include="Testpages\LensSubscription\TransactionsList.aspx" />
+    <None Include="Testpages\LensSubscription\ShopSubscriptionErrorsList.aspx" />
     <Content Include="Testpages\TestButtonPage.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -848,7 +849,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Testpages\AdminMemberFiles.aspx" />
-    <None Include="Testpages\LensSubscriptionShopSubscriptionsList.aspx" />
+    <None Include="Testpages\LensSubscription\ShopSubscriptionsList.aspx" />
     <Content Include="Testpages\MiniYammerFeed.aspx" />
     <Content Include="Testpages\YammerFeed.aspx" />
     <Content Include="Wpc\Synologen\js\Synologen.js" />

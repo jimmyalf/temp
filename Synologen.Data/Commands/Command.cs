@@ -21,19 +21,15 @@ namespace Spinit.Wpc.Synologen.Data.Commands
 
 		protected void ExecuteCustomCommand(string sqlStatement, object parameters)
 		{
-			using (var transaction = Session.Connection.BeginTransaction())
+			var command = Session.Connection.CreateCommand();
+			Session.Transaction.Enlist(command);
+			command.CommandText = sqlStatement;
+			command.CommandType = CommandType.Text;
+			foreach (var property in parameters.ToProperties())
 			{
-				var command = transaction.Connection.CreateCommand();
-				command.CommandText = sqlStatement;
-				command.CommandType = CommandType.Text;
-				command.Transaction = transaction;
-				foreach (var property in parameters.ToProperties())
-				{
-					command.Parameters.Add(new SqlParameter("@" + property.Key, property.Value));
-				}
-				command.ExecuteNonQuery();
-				transaction.Commit();
+				command.Parameters.Add(new SqlParameter("@" + property.Key, property.Value));
 			}
+			command.ExecuteNonQuery();
 		}
 	}
 

@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Data.Queries.SubscripitionMigration;
@@ -44,15 +48,15 @@ namespace Spinit.Wpc.Synologen.Data.Commands.SubscriptionMigration
 
 		private SubscriptionItem ParseSubscriptionItem(Core.Domain.Model.LensSubscription.Subscription oldSubscription, Subscription newSubscription)
 		{
-			var performedWithdrawals = oldSubscription.Transactions.Count(x => 
-				x.Reason == Core.Domain.Model.LensSubscription.TransactionReason.Withdrawal && 
-				x.Type == Core.Domain.Model.LensSubscription.TransactionType.Withdrawal);
-			var withdrawalLimit = performedWithdrawals + AdditionalNumberOfWithdrawals;
+			var performedPayments = oldSubscription.Transactions.Count(x => 
+				x.Reason == Core.Domain.Model.LensSubscription.TransactionReason.Payment && 
+				x.Type == Core.Domain.Model.LensSubscription.TransactionType.Deposit);
+			var withdrawalLimit = performedPayments + AdditionalNumberOfWithdrawals;
 			return new SubscriptionItem
 			{
 				FeePrice = 0,
 				ProductPrice = oldSubscription.PaymentInfo.MonthlyAmount * withdrawalLimit,
-				PerformedWithdrawals = oldSubscription.Transactions.Count(),
+				PerformedWithdrawals = performedPayments,
 				Subscription = newSubscription,
 				WithdrawalsLimit = withdrawalLimit,
 			};
@@ -166,45 +170,56 @@ namespace Spinit.Wpc.Synologen.Data.Commands.SubscriptionMigration
 		public override void Execute()
 		{
 			var newSubscription = CreateSubscription();
-			CreateSubscriptionItem(newSubscription);
-			CreateTransactions(newSubscription);
-			CreateErrors(newSubscription);
-			Result = Session.SessionFactory.OpenSession().Get<Subscription>(newSubscription.Id);
+			newSubscription.SubscriptionItems = new[] {CreateSubscriptionItem(newSubscription)};
+			newSubscription.Transactions = CreateTransactions(newSubscription).ToList();
+			newSubscription.Errors = CreateErrors(newSubscription).ToList();
+			Result = newSubscription;
 		}
 
 		private Subscription CreateSubscription()
 		{
 			var newSubscription = ParseSubscription(_oldSubscription);
+			TrySetProperty(newSubscription, x => x.CreatedDate, _oldSubscription.CreatedDate);
 			Session.Save(newSubscription);
-			ExecuteCustomCommand("UPDATE SynologenOrderSubscription SET CreatedDate = @CreatedDate WHERE Id = @Id", new {Id = newSubscription.Id, CreatedDate = _oldSubscription.CreatedDate});
 			return newSubscription;
 		}
 
-		private void CreateSubscriptionItem(Subscription newSubscription)
+		private SubscriptionItem CreateSubscriptionItem(Subscription newSubscription)
 		{
 			var subscriptionItem = ParseSubscriptionItem(_oldSubscription, newSubscription);
+			TrySetProperty(subscriptionItem, x => x.CreatedDate, _oldSubscription.CreatedDate);
 			Session.Save(subscriptionItem);
-			ExecuteCustomCommand("UPDATE SynologenOrderSubscriptionItem SET CreatedDate = @CreatedDate WHERE Id = @Id", new {Id = subscriptionItem.Id, CreatedDate = _oldSubscription.CreatedDate});
+			return subscriptionItem;
 		}
 
-		private void CreateTransactions(Subscription newSubscription)
+		private IEnumerable<SubscriptionTransaction> CreateTransactions(Subscription newSubscription)
 		{
 			foreach (var oldTransaction in _oldSubscription.Transactions)
 			{
 				var newTransaction = ParseTransaction(oldTransaction, newSubscription);
+				TrySetProperty(newTransaction, x => x.CreatedDate, oldTransaction.CreatedDate);
 				Session.Save(newTransaction);
-				ExecuteCustomCommand("UPDATE SynologenOrderTransaction SET CreatedDate = @CreatedDate WHERE Id = @Id", new {Id = newTransaction.Id, CreatedDate = oldTransaction.CreatedDate});
+				yield return newTransaction;
 			}
 		}
 
-		private void CreateErrors(Subscription newSubscription)
+		private IEnumerable<SubscriptionError> CreateErrors(Subscription newSubscription)
 		{
 			foreach (var oldError in _oldSubscription.Errors)
 			{
 				var newError = ParseError(oldError, newSubscription);
+				TrySetProperty(newError, x => x.CreatedDate, oldError.CreatedDate);
 				Session.Save(newError);
-				ExecuteCustomCommand("UPDATE SynologenOrderSubscriptionError SET CreatedDate = @CreatedDate WHERE Id = @Id", new {Id = newError.Id, CreatedDate = oldError.CreatedDate});
+				yield return newError;
 			}
+		}
+
+		private void TrySetProperty<TType>(TType value, Expression<Func<TType,object>> expression, object propertyValue) where TType : class
+		{
+			var propertyName = expression.GetName();
+			var propertyInfo = typeof (TType).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty);
+			if (propertyInfo == null) return;
+			propertyInfo.SetValue(value, propertyValue, null);
 		}
 	}
 }

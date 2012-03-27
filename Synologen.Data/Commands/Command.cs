@@ -1,3 +1,4 @@
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using NHibernate;
@@ -20,13 +21,19 @@ namespace Spinit.Wpc.Synologen.Data.Commands
 
 		protected void ExecuteCustomCommand(string sqlStatement, object parameters)
 		{
-			var command = Session.Connection.CreateCommand();
-			command.CommandText = sqlStatement;
-			foreach (var property in parameters.ToProperties())
+			using (var transaction = Session.Connection.BeginTransaction())
 			{
-				command.Parameters.Add(new SqlParameter("@" + property.Key, property.Value));
+				var command = transaction.Connection.CreateCommand();
+				command.CommandText = sqlStatement;
+				command.CommandType = CommandType.Text;
+				command.Transaction = transaction;
+				foreach (var property in parameters.ToProperties())
+				{
+					command.Parameters.Add(new SqlParameter("@" + property.Key, property.Value));
+				}
+				command.ExecuteNonQuery();
+				transaction.Commit();
 			}
-			command.ExecuteNonQuery();
 		}
 	}
 

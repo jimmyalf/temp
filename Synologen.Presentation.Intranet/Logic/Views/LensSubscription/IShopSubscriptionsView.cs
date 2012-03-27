@@ -7,5 +7,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.LensSubscriptio
 	{
 		int CustomerDetailsPageId { get; set; }
 		int SubscriptionDetailsPageId { get; set; }
+		int MigrationPageId { get; set; }
 	}
 }

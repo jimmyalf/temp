@@ -11,5 +11,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.LensSubscript
 	{
 		public int CustomerDetailsPageId { get; set; }
 		public int SubscriptionDetailsPageId { get; set; }
+		public int MigrationPageId { get; set; }
 	}
 }

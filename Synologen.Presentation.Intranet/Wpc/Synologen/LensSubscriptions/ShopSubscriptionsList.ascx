@@ -4,7 +4,7 @@
 	<HeaderTemplate >
 		<table>
 			<tr class="synologen-table-headerrow">
-				<th>Kund</th><th>Månadsbelopp</th><th>Saldo</th><th>Status</th><th>Detaljer</th>
+				<th>Kund</th><th>Månadsbelopp</th><th>Saldo</th><th>Status</th><th>Detaljer</th><th>Migrera</th>
 			</tr>
 	</HeaderTemplate>
 	<ItemTemplate>
@@ -14,6 +14,7 @@
 				<td><%# Eval("CurrentBalance")%></td>
 				<td><%# Eval("Status")%></td>
 				<td><a href="<%# Eval("SubscriptionDetailsUrl")%>">Visa detaljer</a></td>
+				<td><a href="<%# Eval("MigrationUrl")%>">Migrera</a></td>
 			</tr>
 	</ItemTemplate>
 	<FooterTemplate>

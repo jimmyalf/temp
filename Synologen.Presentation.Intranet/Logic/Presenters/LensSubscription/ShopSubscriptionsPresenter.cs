@@ -50,6 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 				Status = GetStatusMessage(subscription),
 				CustomerDetailsUrl = urlFormat.ReplaceWith(new { Url = getCustomerDetailsUrl(), Parameter = "customer", ParameterValue = subscription.Customer.Id }),
 				SubscriptionDetailsUrl = urlFormat.ReplaceWith(new { Url = getSubscriptionDetailsUrl(), Parameter = "subscription", ParameterValue = subscription.Id }),
+				MigrationUrl = _routingService.GetPageUrl(View.MigrationPageId, new { subscription = subscription.Id})
 			};
 		}
 
@@ -62,6 +63,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Denied, "Ej medgivet")
 				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.NotSent, "Medgivande ej skickat")
 				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Sent, "Skickat för medgivande")
+				.Case(s => s.ConsentStatus == SubscriptionConsentStatus.Migrated, "Migrerat")
 				.Evaluate();
 		}
 

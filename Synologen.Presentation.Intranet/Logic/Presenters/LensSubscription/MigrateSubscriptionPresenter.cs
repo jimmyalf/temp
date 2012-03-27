@@ -36,15 +36,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 		private void Load(object sender, EventArgs e)
 		{
 			if(!RequestSubscriptionId.HasValue) return;
+			View.Model.ReturnUrl = _routingService.GetPageUrl(View.ReturnPageId);
 			var oldSubscription = Session.Get<Subscription>(RequestSubscriptionId.Value);
-			Ensure.That(oldSubscription.ConsentStatus != SubscriptionConsentStatus.Migrated, "consent status");
+			View.Model.IsAlreadyMigrated = oldSubscription.ConsentStatus == SubscriptionConsentStatus.Migrated;
 			View.Model.PerformedWithdrawals = oldSubscription.Transactions.Count(x => x.Reason == TransactionReason.Withdrawal && x.Type == TransactionType.Withdrawal);
 			View.Model.Status = oldSubscription.ConsentStatus.GetEnumDisplayName();
 			View.Model.CreatedDate = oldSubscription.CreatedDate.ToString("yyyy-MM-dd");
 			View.Model.Customer = oldSubscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			View.Model.AccountNumber = oldSubscription.PaymentInfo.AccountNumber;
 			View.Model.ClearingNumber = oldSubscription.PaymentInfo.ClearingNumber;
-			View.Model.ReturnUrl = _routingService.GetPageUrl(View.ReturnPageId);
+			
 		}
 
 		private void Migrate(object sender, MigrateSubscriptionEventArgs e)

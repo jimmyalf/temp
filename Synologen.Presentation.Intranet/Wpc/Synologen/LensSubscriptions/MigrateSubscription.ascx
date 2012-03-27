@@ -14,8 +14,10 @@
 			<asp:RegularExpressionValidator runat="server" ValidationExpression="^\d+$" ControlToValidate="txtAdditionalWithdrawals" ErrorMessage="Antal dragningar måste anges som ett positivt heltal med siffror" CssClass="error-message">*</asp:RegularExpressionValidator>
 		</p>
 		<p class="control-actions">
-			<asp:Button runat="server" OnClick="Submit_Migration" Text="Migrera abonnemang" />
+			<%if(Model.IsAlreadyMigrated) {%><span>Abonnemanget har redan migrerats</span><% } %>
+			<asp:Button runat="server" OnClick="Submit_Migration" Text="Migrera abonnemang" Visible="<%#!Model.IsAlreadyMigrated%>" />
 		</p>
+
 		<asp:ValidationSummary runat="server" CssClass="error-list" />
 		<p>
 			<a href="<%#Model.ReturnUrl %>">Tillbaka</a>

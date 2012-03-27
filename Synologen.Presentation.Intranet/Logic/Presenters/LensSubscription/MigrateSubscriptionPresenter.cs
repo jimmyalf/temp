@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using EnsureThat;
 using NHibernate;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
@@ -16,18 +15,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 	public class MigrateSubscriptionPresenter : BasePresenter<IMigrateSubscriptionView>
 	{
 		private readonly ISynologenMemberService _synologenMemberService;
-		private readonly SubscriptionValidator _subscriptionValidator;
 		private readonly IRoutingService _routingService;
 
 		public MigrateSubscriptionPresenter(
 			IMigrateSubscriptionView view, 
 			ISession session, 
 			ISynologenMemberService synologenMemberService,
-			SubscriptionValidator subscriptionValidator,
 			IRoutingService routingService) : base(view, session)
 		{
 			_synologenMemberService = synologenMemberService;
-			_subscriptionValidator = subscriptionValidator;
 			_routingService = routingService;
 			View.Load += Load;
 			View.Migrate += Migrate;
@@ -39,13 +35,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 			View.Model.ReturnUrl = _routingService.GetPageUrl(View.ReturnPageId);
 			var oldSubscription = Session.Get<Subscription>(RequestSubscriptionId.Value);
 			View.Model.IsAlreadyMigrated = oldSubscription.ConsentStatus == SubscriptionConsentStatus.Migrated;
-			View.Model.PerformedWithdrawals = oldSubscription.Transactions.Count(x => x.Reason == TransactionReason.Withdrawal && x.Type == TransactionType.Withdrawal);
+			View.Model.PerformedWithdrawals = oldSubscription.Transactions.Count(x => x.Reason == TransactionReason.Payment && x.Type == TransactionType.Deposit);
 			View.Model.Status = oldSubscription.ConsentStatus.GetEnumDisplayName();
 			View.Model.CreatedDate = oldSubscription.CreatedDate.ToString("yyyy-MM-dd");
 			View.Model.Customer = oldSubscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			View.Model.AccountNumber = oldSubscription.PaymentInfo.AccountNumber;
 			View.Model.ClearingNumber = oldSubscription.PaymentInfo.ClearingNumber;
-			
 		}
 
 		private void Migrate(object sender, MigrateSubscriptionEventArgs e)
@@ -53,26 +48,34 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 			if(!RequestSubscriptionId.HasValue) return;
 			var oldSubscription = Session.Get<Subscription>(RequestSubscriptionId.Value);
 			ValidateCurrentShopHasAccessToSubscription(oldSubscription);
-			var newSubscription = Execute(new MigrateSubscriptionCommand(oldSubscription, e.AdditionalWithdrawals));
-			ValidateMigration(oldSubscription, newSubscription);
-			oldSubscription.ConsentStatus = SubscriptionConsentStatus.Migrated;
-			Session.Save(oldSubscription);
-			SetActionMessage("Abonnemanget har migrerats!");
-			Redirect(newSubscription.Id);
-		}
-
-
-		private void ValidateMigration(Subscription oldSubscription, Core.Domain.Model.Orders.Subscription newSubscription)
-		{
+			int newSubscriptionId;
 			try
 			{
-				_subscriptionValidator.Validate(oldSubscription, newSubscription);				
+				newSubscriptionId = MigrateSubscription(oldSubscription, e.AdditionalWithdrawals);
 			}
 			catch
 			{
 				if(Session.Transaction != null) Session.Transaction.Rollback();
 				throw;
-			}	
+			}
+			SetActionMessage("Abonnemanget har migrerats!");
+			Redirect(newSubscriptionId);
+		}
+
+		private int MigrateSubscription(Subscription oldSubscription, int additionalWithdrawals)
+		{
+			var newSubscription = Execute(new MigrateSubscriptionCommand(oldSubscription, additionalWithdrawals));
+			ValidateMigration(oldSubscription, newSubscription, additionalWithdrawals);
+			oldSubscription.ConsentStatus = SubscriptionConsentStatus.Migrated;
+			Session.Save(oldSubscription);
+			Session.Flush();
+			return newSubscription.Id;
+		}
+
+		private void ValidateMigration(Subscription oldSubscription, Core.Domain.Model.Orders.Subscription newSubscription, int numerOfAdditionalPayments)
+		{
+			var subscriptionValidator = new SubscriptionValidator(numerOfAdditionalPayments);
+			subscriptionValidator.Validate(oldSubscription, newSubscription);
 		}
 
 		private void ValidateCurrentShopHasAccessToSubscription(Subscription subscription)

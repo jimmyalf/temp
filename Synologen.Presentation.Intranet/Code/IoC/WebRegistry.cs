@@ -1,6 +1,7 @@
 #define DEBUG
 using Spinit.Data;
 using Spinit.Data.NHibernate;
+using Spinit.Wpc.Core.UI.Tasks;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.FrameOrder;
@@ -70,12 +71,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code.IoC
 			#else
 			For<IRoutingService>().Singleton().Use<CachedRoutingService>();
 			#endif
-			//For<IActionCriteriaConverter<AllOrderableFramesCriteria, ICriteria>>().Use<AllOrderableFramesCriteriaConverter>();
-			//For<IActionCriteriaConverter<AllFrameOrdersForShopCriteria, ICriteria>>().Use<AllFrameOrdersForShopCriteriaConverter>();
-			//For<IActionCriteriaConverter<CustomersForShopMatchingCriteria, ICriteria>>().Use<CustomersForShopMatchingCriteriaConverter>();
-			//For<IActionCriteriaConverter<TransactionsForSubscriptionMatchingCriteria, ICriteria>>().Use<TransactionsForSubscriptionMatchingCriteriaConverter>();
-			//For<IActionCriteriaConverter<AllUnhandledSubscriptionErrorsForShopCriteria, ICriteria>>().Use<AllUnhandledSubscriptionErrorsForShopCriteriaConverter>();
-			//For<IActionCriteriaConverter<AllActiveTransactionArticlesCriteria, ICriteria>>().Use<AllActiveTransactionArticlesCriteriaConverter>();
 
 			// Register criteria converters
 			Scan(x =>
@@ -83,6 +78,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code.IoC
 				x.AssemblyContainingType<PageOfFramesMatchingCriteriaConverter>();
 				x.Assembly(typeof(NHibernateActionCriteriaConverter<,>).Assembly.FullName);
 				x.ConnectImplementationsToTypesClosing(typeof(IActionCriteriaConverter<,>));
+			});
+
+			//Scan request events
+			Scan(x =>
+			{
+				x.AssemblyContainingType<WebRegistry>();
+				x.AddAllTypesOf<IWpcApplicationEventTask>();
 			});
 		}
 	}

@@ -114,11 +114,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\SubscriptionMigration\MigrateCustomerCommand.cs" />
+    <Compile Include="Commands\SubscriptionMigration\MigrateSubscriptionCommand.cs" />
     <Compile Include="DataServices\GeocodingService.cs" />
     <Compile Include="Extensions\DataRowExtensions.cs" />
     <Compile Include="Extensions\Filters.cs" />
     <Compile Include="Extensions\OrderBySqlFormula.cs" />
     <Compile Include="Extensions\SqlParameterCollection.cs" />
+    <Compile Include="Queries\All.cs" />
+    <Compile Include="Queries\SubscripitionMigration\MigratedNewCustomer.cs" />
+    <Compile Include="Queries\Query.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\ArticleRepository.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\ContractSaleRepository.cs" />
     <Compile Include="Repositories\CriteriaConverters\AllFrameOrdersForShopCriteriaConverter.cs" />

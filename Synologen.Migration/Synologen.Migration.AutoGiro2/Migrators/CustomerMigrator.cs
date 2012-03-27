@@ -9,16 +9,11 @@ namespace Synologen.Migration.AutoGiro2.Migrators
 {
 	public class CustomerMigrator : MigratorBase<OldCustomer, NewCustomer>
 	{
-		private readonly IMigrator<OldShop, NewShop> _shopMigrator;
-
-		public CustomerMigrator(ISession session, IMigrator<OldShop,NewShop> shopMigrator) : base(session)
-		{
-			_shopMigrator = shopMigrator;
-		}
+		public CustomerMigrator(ISession session) : base(session) { }
 
 		protected override NewCustomer Migrate(OldCustomer oldEntity)
 		{
-			return Execute(new MigrateCustomerCommand(oldEntity, _shopMigrator));
+			return Execute(new MigrateCustomerCommand(oldEntity));
 		}
 	}
 }

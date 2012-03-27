@@ -38,6 +38,7 @@
 <body>
     <form id="form1" runat="server">
     <div id="wrapper">
+    	<wpcsynologen:actionmessage runat="server"/>
 		<a href="Testpages/Login/Logout.aspx">Logga ut</a>
         <asp:ContentPlaceHolder ID="Content" runat="server">
         </asp:ContentPlaceHolder>

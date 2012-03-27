@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Linq;
 using NHibernate;
 using Spinit.Wpc.Synologen.Test.Data;
@@ -27,7 +26,7 @@ namespace Synologen.Migration.AutoGiro2
 			_subscriptionValidator = new SubscriptionValidator();
 			_dataUtility = new DataUtility();
 			_shopMigrator = new ShopMigrator(Session);
-			_customerMigrator = new CustomerMigrator(Session, _shopMigrator);
+			_customerMigrator = new CustomerMigrator(Session);
 			_subscriptionMigrator = new SubscriptionMigrator(Session, _customerMigrator, _shopMigrator);
 		}
 
@@ -35,7 +34,6 @@ namespace Synologen.Migration.AutoGiro2
 		{
 			ResetData();
 			var oldSubscriptions = Query(new AllOldSubscriptions()).ToList();
-			Debug.WriteLine("Found {0} old subscriptions", oldSubscriptions.Count());
 			_subscriptionMigrator.Migrate(oldSubscriptions);
 			foreach (var migratedEntity in _subscriptionMigrator)
 			{

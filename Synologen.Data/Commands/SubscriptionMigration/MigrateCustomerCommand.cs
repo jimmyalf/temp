@@ -1,13 +1,12 @@
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
-using NewShop = Spinit.Wpc.Synologen.Core.Domain.Model.Orders.Shop;
+using Shop = Spinit.Wpc.Synologen.Core.Domain.Model.Orders.Shop;
 
-namespace Synologen.Migration.AutoGiro2.Commands
+namespace Spinit.Wpc.Synologen.Data.Commands.SubscriptionMigration
 {
 	public class MigrateCustomerCommand : Command<OrderCustomer>
 	{
 		private readonly Customer _oldEntity;
-
 		public MigrateCustomerCommand(Customer oldEntity)
 		{
 			_oldEntity = oldEntity;
@@ -28,7 +27,7 @@ namespace Synologen.Migration.AutoGiro2.Commands
 				PersonalIdNumber = oldCustomer.PersonalIdNumber,
 				Phone = oldCustomer.Contact.Phone,
 				PostalCode = oldCustomer.Address.PostalCode,
-				Shop = Session.Get<NewShop>(oldCustomer.Shop.Id)
+				Shop = Session.Get<Shop>(oldCustomer.Shop.Id)
 			};
 		}
 

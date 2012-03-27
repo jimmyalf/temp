@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -24,6 +26,15 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 				return (TType) value;
 			}
 			return default(TType);
+		}
+
+		public static IEnumerable<KeyValuePair<string,object>> ToProperties(this object value)
+		{
+			if (value == null) yield break;
+			foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(value))
+			{
+				yield return new KeyValuePair<string, object>(descriptor.Name, descriptor.GetValue(value));
+			}
 		}
 
 		public static OutputStringBuilder<TType> BuildStringOutput<TType>(this TType value) where TType : class

@@ -9,5 +9,6 @@
 		public string AccountNumber { get; set; }
 		public string ClearingNumber { get; set; }
 		public string ReturnUrl { get; set; }
+		public bool IsAlreadyMigrated { get; set; }
 	}
 }

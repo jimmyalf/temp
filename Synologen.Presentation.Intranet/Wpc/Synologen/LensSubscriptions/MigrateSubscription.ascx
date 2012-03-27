@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MigrateSubscription.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.LensSubscriptions.MigrateSubscription" %>
-<%@ Import Namespace="StructureMap.Query" %>
 <div id="synologen-order-subscription-" class="synologen-control">
 	<fieldset>
 		<legend>Migrera abonnemang</legend>

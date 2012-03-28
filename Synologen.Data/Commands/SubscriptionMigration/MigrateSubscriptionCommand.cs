@@ -160,7 +160,7 @@ namespace Spinit.Wpc.Synologen.Data.Commands.SubscriptionMigration
 
 		private OrderCustomer GetCustomer(Customer oldCustomer)
 		{
-			var existingNewCustomer = Query(new MigratedNewCustomer(oldCustomer.PersonalIdNumber, oldCustomer.Shop.Id));;
+			var existingNewCustomer = Query(new MigratedNewCustomer(oldCustomer.Shop.Id, oldCustomer));
 			if(existingNewCustomer != null) return existingNewCustomer;
 			var command = new MigrateCustomerCommand(oldCustomer) {Session = Session};
 			command.Execute();

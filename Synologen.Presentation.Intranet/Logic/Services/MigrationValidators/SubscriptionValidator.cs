@@ -42,7 +42,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.MigrationVal
 		{
 			var performedPayments = oldItem.Transactions.Count(x => x.Reason == TransactionReason.Payment && x.Type == TransactionType.Deposit);
 			var toalNumberOfPayments = performedPayments + _additionalWithdrawals;
-			if(_additionalWithdrawals == 0)
+			if(toalNumberOfPayments == 0)
 			{
 				Validate(0, subscriptionItem.MonthlyWithdrawalAmount, "montly amount");
 			}

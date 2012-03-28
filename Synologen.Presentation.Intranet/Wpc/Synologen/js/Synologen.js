@@ -11,6 +11,7 @@
 			$.SynologenIntranet.initPlaceHolderPolyFill();
 			$.SynologenIntranet.initMinimizeYammerText();
 			$.SynologenIntranet.initCalculateMontlyAGWithdrawalAmounts();
+			$.SynologenIntranet.initActionMessageFadeOut();
 		},
 
 		initDisableTabLinks: function () {
@@ -99,6 +100,12 @@
 				if (selectedNumerOfWithdrawals == -1) return customNumberOfWithdrawals;
 				return selectedNumerOfWithdrawals;
 			}
+		},
+		
+		initActionMessageFadeOut : function () {
+			$('#action-message').delay(5000).slideUp('slow', function () {
+				$(this).remove();
+			});
 		}
 	});
 

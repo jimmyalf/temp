@@ -9,6 +9,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using StructureMap;
 using Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments;
 using Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest.TestHelpers;
 
@@ -34,17 +35,19 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 				{
 					_bankGiroPayerNumber = service.RegisterPayer("Test payer", AutogiroServiceType.SubscriptionVersion2);
 				});
-				SystemTime.InvokeWhileTimeIs(new DateTime(2012,01,01),() =>
+				var twoDaysBeforeCutOffDate = ObjectFactory.GetInstance<IAutogiroPaymentService>().GetCutOffDateTime().AddDays(-2);
+				_expectedPaymentDate = ObjectFactory.GetInstance<IAutogiroPaymentService>().GetPaymentDate();
+				SystemTime.InvokeWhileTimeIs(twoDaysBeforeCutOffDate,() =>
 				{
-					_expectedPaymentDate = CalculatePaymentDate();
 					var shopToUse = CreateShop<Shop>();
 					_customer = StoreWithWpcSession(() =>Factory.CreateCustomer(shopToUse));
 					_subscription = StoreWithWpcSession(() => Factory.CreateSubscription(_customer, shopToUse, _bankGiroPayerNumber, Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes.SubscriptionConsentStatus.Accepted, new DateTime(2011, 01, 01)));
 					_subscriptionItems = StoreItemsWithWpcSession(() => Factory.CreateSubscriptionItems(_subscription));
-					_task = ResolveTask<Task>();
-					_taskRunnerService = GetTaskRunnerService(_task);
-					_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Sum(x => x.MonthlyWithdrawalAmount);
 				});
+				_task = ResolveTask<Task>();
+				_taskRunnerService = GetTaskRunnerService(_task);
+				_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Sum(x => x.MonthlyWithdrawalAmount);
+
 			};
 
 			Because = () => _taskRunnerService.Run();
@@ -84,17 +87,43 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 			var fetchedSubscription = Get<Subscription>(GetWPCSession, _subscription.Id);
 			fetchedSubscription.LastPaymentSent.Value.Date.ShouldBe(_expectedPaymentDate);
 		}
+	}
 
-		private DateTime CalculatePaymentDate()
+	[TestFixture, Category("Feature: Sending Payment")]
+	public class When_sending_a_payment_for_subscription_created_after_cut_off_date : TaskBase
+	{
+		private ITaskRunnerService _taskRunnerService;
+		private Task _task;
+		private int _bankGiroPayerNumber;
+
+		public When_sending_a_payment_for_subscription_created_after_cut_off_date()
 		{
-			var expectedPaymentDay = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentDayInMonth();
-			//var cutOffDayInMonth = ResolveEntity<IServiceCoordinatorSettingsService>().GetPaymentCutOffDayInMonth();
-			var date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, expectedPaymentDay);
-			//if(SystemTime.Now.Day >= cutOffDayInMonth)
-			//{
-			//    date = date.AddMonths(1);
-			//}
-			return date;
+			Context = () =>
+			{
+				InvokeWebService(service =>
+				{
+					_bankGiroPayerNumber = service.RegisterPayer("Test payer", AutogiroServiceType.SubscriptionVersion2);
+				});
+				var twoDaysAfterCutOffDate = ObjectFactory.GetInstance<IAutogiroPaymentService>().GetCutOffDateTime().AddDays(2);
+				SystemTime.InvokeWhileTimeIs(twoDaysAfterCutOffDate,() =>
+				{
+					var shopToUse = CreateShop<Shop>();
+					var customer = StoreWithWpcSession(() => Factory.CreateCustomer(shopToUse));
+					var subscription = StoreWithWpcSession(() => Factory.CreateSubscription(customer, shopToUse, _bankGiroPayerNumber, Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes.SubscriptionConsentStatus.Accepted, new DateTime(2011, 01, 01)));
+					StoreItemsWithWpcSession(() => Factory.CreateSubscriptionItems(subscription));
+				});
+				_task = ResolveTask<Task>();
+				_taskRunnerService = GetTaskRunnerService(_task);
+			};
+
+			Because = () => _taskRunnerService.Run();
+		}
+
+		[Test]
+		public void Webservice_stores_no_payments()
+		{
+			GetAll<SubscriptionPendingPayment>(GetWPCSession).ShouldBeEmpty();
+			GetAll<BGPaymentToSend>(GetBGSession).ShouldBeEmpty();
 		}
 	}
 }

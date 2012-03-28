@@ -717,6 +717,7 @@
     <Content Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionErrorList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx" />
     <Content Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx" />
+    <Content Include="Testpages\AddActionMessage.aspx" />
     <Content Include="Wpc\Synologen\ValidationButton.ascx" />
   </ItemGroup>
   <ItemGroup>

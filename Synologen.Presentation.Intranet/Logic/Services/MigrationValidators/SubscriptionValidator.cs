@@ -31,7 +31,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.MigrationVal
 			Validate(oldItem.CreatedDate, newItem.CreatedDate, "created date");
 			Validate(oldItem.PaymentInfo.AccountNumber, newItem.BankAccountNumber, "bank account number");
 			Validate(oldItem.PaymentInfo.ClearingNumber, newItem.ClearingNumber, "clearing number");
-			Validate(oldItem.PaymentInfo.MonthlyAmount, newItem.SubscriptionItems.Single().MonthlyWithdrawalAmount, "montly amount");
 			Validate(oldItem.PaymentInfo.PaymentSentDate, newItem.LastPaymentSent, "last payment sent");
 			_customerValidator.Validate(oldItem.Customer, newItem.Customer);
 			oldItem.Transactions.And(newItem.Transactions).Do(_transactionValidator.Validate);
@@ -43,7 +42,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.MigrationVal
 		{
 			var performedPayments = oldItem.Transactions.Count(x => x.Reason == TransactionReason.Payment && x.Type == TransactionType.Deposit);
 			var toalNumberOfPayments = performedPayments + _additionalWithdrawals;
-			Validate(oldItem.PaymentInfo.MonthlyAmount, subscriptionItem.MonthlyWithdrawalAmount);
+			if(_additionalWithdrawals == 0)
+			{
+				Validate(0, subscriptionItem.MonthlyWithdrawalAmount, "montly amount");
+			}
+			else
+			{
+				Validate(oldItem.PaymentInfo.MonthlyAmount, subscriptionItem.MonthlyWithdrawalAmount, "montly amount");
+			}
 			Validate(oldItem.CreatedDate, subscriptionItem.CreatedDate);
 			Validate(0, subscriptionItem.FeePrice);
 			Validate(_additionalWithdrawals > 0, subscriptionItem.IsActive);

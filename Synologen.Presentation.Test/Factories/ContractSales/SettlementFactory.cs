@@ -14,7 +14,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 			settlementMock.SetupGet(x => x.Id).Returns(id);
 			settlementMock.SetupGet(x => x.CreatedDate).Returns(new DateTime(2010, 11, 09));
 			settlementMock.SetupGet(x => x.ContractSales).Returns(ContractSales);
-			settlementMock.SetupGet(x => x.LensSubscriptionTransactions).Returns(Transactions);
+			settlementMock.SetupGet(x => x.OldTransactions).Returns(Transactions);
 			return settlementMock.Object;
 		}
 
@@ -27,8 +27,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 			return Enumerable.Range(0, numberOfItems).Select(index => Get(index));
 		}
 
-		private static IList<Transaction> _transactions;
-		private static IList<Transaction> Transactions
+		private static IList<OldTransaction> _transactions;
+		private static IList<OldTransaction> Transactions
 		{
 			get
 			{

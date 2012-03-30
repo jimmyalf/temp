@@ -10,7 +10,7 @@
 			<fieldset>
 				<div class="formItem">
 		            <label class="labelLong">Antal ordrar redo för utbetalning: <%=Model.NumberOfContractSalesReadyForInvocing %></label>
-		            <label class="labelLong">Antal transaktioner redo för utbetalning: <%=Model.NumberOfLensSubscriptionTransactionsReadyForInvocing %></label>
+		            <label class="labelLong">Antal transaktioner redo för utbetalning: <%=Model.NumberOfOldTransactionsReadyForInvocing %></label>
 		        </div>
 		        <% if(Model.DisplayCreateSettlementsButton){ %>
 				<div class="formCommands">

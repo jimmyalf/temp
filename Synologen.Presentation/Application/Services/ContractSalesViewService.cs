@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
@@ -50,40 +49,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		public SettlementView GetSettlement(int settlementId) 
 		{
 			var settlement = _settlementRepository.Get(settlementId);
-			return Mapper.Map<Settlement, SettlementView>(settlement);
+			return new SettlementView(settlement);
+			//return Mapper.Map<Settlement, SettlementView>(settlement);
 		}
 
-		public SettlementListView GetSettlements()
-		{
-			var settlements = _settlementRepository.GetAll();
-			var criteriaForSettlementsReadyForInvoicing = new AllContractSalesMatchingCriteria
-			{
-				ContractSaleStatus = _settingsService.GetContractSalesReadyForSettlementStatus()
-			};
+		//public SettlementListView GetSettlements()
+		//{
 
-			var transactionsCriteria = new AllTransactionsMatchingCriteria
-			{
-				SettlementStatus = SettlementStatus.DoesNotHaveSettlement,
-                Reason = TransactionReason.Payment,
-                Type = TransactionType.Deposit
-			};
-
-			var contractSalesReadyForSettlement = _contractSaleRepository.FindBy(criteriaForSettlementsReadyForInvoicing);
-			var transactionsReadyForSettlement = _transactionRepository.FindBy(transactionsCriteria);
-			return new SettlementListView
-			{
-				NumberOfContractSalesReadyForInvocing = contractSalesReadyForSettlement.Count(),
-				NumberOfLensSubscriptionTransactionsReadyForInvocing = transactionsReadyForSettlement.Count(),
-				Settlements = Mapper.Map<IEnumerable<Settlement>, IEnumerable<SettlementListViewItem>>(settlements)
-			};
-		}
+		//}
 
 		public int CreateSettlement() 
 		{
 			var statusFrom = _settingsService.GetContractSalesReadyForSettlementStatus();
 			var statusTo = _settingsService.GetContractSalesAfterSettlementStatus();
 			var settlementId =  _synologenSqlProvider.AddSettlement(statusFrom, statusTo);
-			ConnectTransactionsToSettlement(settlementId);
+			//ConnectTransactionsToSettlement(settlementId);
 			return settlementId;
 		}
 
@@ -107,23 +87,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			return (orderStatusId == InvoicedStatusId || 
 				orderStatusId == InvoicePayedToShopStatusId || 
 				orderStatusId == InvoicePayedToSynologenStatusId);
-		}
-
-		public void ConnectTransactionsToSettlement(int settlement)
-		{
-			var criteria = new AllTransactionsMatchingCriteria
-			{
-				Reason = TransactionReason.Payment,
-				SettlementStatus = SettlementStatus.DoesNotHaveSettlement,
-				Type = TransactionType.Deposit
-			};
-
-			var transactionsToConnectToSettlement = _transactionRepository.FindBy(criteria);
-			transactionsToConnectToSettlement.Each(transaction => 
-			{
-				transaction.Settlement = new Core.Domain.Model.LensSubscription.Settlement(settlement);
-				_transactionRepository.Save(transaction);
-			});
 		}
 
 		public Article ParseArticle(ArticleView articleView)

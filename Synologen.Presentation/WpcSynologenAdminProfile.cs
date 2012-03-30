@@ -49,12 +49,12 @@ namespace Spinit.Wpc.Synologen.Presentation
 				.ForMember(cv => cv.CustomerId, m => m.MapFrom(x => x.Customer.Id))
 				.ForMember(cv => cv.ConsentStatus, m => m.MapFrom(x => x.ConsentStatus.GetEnumDisplayName()));
 
-			CreateMap<Settlement, SettlementView>().ConvertUsing(new SettlementViewTypeConverter());
+			//CreateMap<Settlement, SettlementView>().ConvertUsing(new SettlementViewTypeConverter());
 
-			CreateMap<Settlement, SettlementListViewItem>()
-				.ForMember(x => x.NumberOfContractSalesInSettlement, m => m.MapFrom(x => x.ContractSales.Count()))
-				.ForMember(x => x.NumberOfLensSubscriptionTransactionsInSettlement, m => m.MapFrom(x => x.LensSubscriptionTransactions.Count()))
-				.ForMember(x => x.CreatedDate, m => m.MapFrom(x => x.CreatedDate.ToString("yyyy-MM-dd HH:mm")));
+			//CreateMap<Settlement, SettlementListViewItem>()
+			//    .ForMember(x => x.NumberOfContractSalesInSettlement, m => m.MapFrom(x => x.ContractSales.Count()))
+			//    .ForMember(x => x.NumberOfLensSubscriptionTransactionsInSettlement, m => m.MapFrom(x => x.OldTransactions.Count()))
+			//    .ForMember(x => x.CreatedDate, m => m.MapFrom(x => x.CreatedDate.ToString("yyyy-MM-dd HH:mm")));
 
 			CreateMap<TransactionArticle, TransactionArticleListItem>()
 				.ForMember(x => x.Active, m => m.MapFrom(x => x.Active))

@@ -182,7 +182,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 					contractSale.Id.ShouldBe(_ordersToSave.ElementAt(2).Id);
 					contractSale.TotalAmountIncludingVAT.ShouldBe(_ordersToSave.ElementAt(2).InvoiceSumIncludingVAT.ToDecimal());
 				});
-				settlement.LensSubscriptionTransactions.And(_transactions.Append(_transactions2).ToList()).Do((transaction, originalItem) => 
+				settlement.OldTransactions.And(_transactions.Append(_transactions2).ToList()).Do((transaction, originalItem) => 
 				{
 					transaction.Amount.ShouldBe(originalItem.Amount);
 					transaction.Id.ShouldBe(originalItem.Id);

@@ -115,6 +115,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\Finance\SettleNewAutogiroTransactions.cs" />
+    <Compile Include="Commands\Finance\SettleOldAutogiroTransactions.cs" />
+    <Compile Include="Queries\Finance\ContractSalesWithStatus.cs" />
+    <Compile Include="Queries\Finance\GetOldAutogiroTransactionsReadyForSettlement.cs" />
+    <Compile Include="Queries\Finance\GetNewAutogiroTransactionsReadyForSettlement.cs" />
     <Compile Include="Commands\SubscriptionMigration\MigrateCustomerCommand.cs" />
     <Compile Include="Commands\SubscriptionMigration\MigrateSubscriptionCommand.cs" />
     <Compile Include="DataServices\GeocodingService.cs" />
@@ -183,11 +188,13 @@
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractCompanyMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractSaleMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\CustomerMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\NewTransactionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\OldSubscriptionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\SaleItemMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ShopMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\SettlementMap.cs" />
-    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\SubscriptionMap.cs" />
-    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\TransactionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\NewSubscriptionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\OldTransactionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameBrandMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameColorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameGlassTypeMap.cs" />

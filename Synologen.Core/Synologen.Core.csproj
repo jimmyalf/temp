@@ -158,8 +158,8 @@
     <Compile Include="Domain\Model\ContractSales\Shop.cs" />
     <Compile Include="Domain\Model\ContractSales\Settlement.cs" />
     <Compile Include="Domain\Model\ContractSales\ShopSettlement.cs" />
-    <Compile Include="Domain\Model\ContractSales\Subscription.cs" />
-    <Compile Include="Domain\Model\ContractSales\Transaction.cs" />
+    <Compile Include="Domain\Model\ContractSales\OldSubscription.cs" />
+    <Compile Include="Domain\Model\ContractSales\OldTransaction.cs" />
     <Compile Include="Domain\Model\Entity.cs" />
     <Compile Include="Domain\Model\Orders\OrderStatus.cs" />
     <Compile Include="Domain\Model\Orders\SubscriptionPendingPayment.cs" />

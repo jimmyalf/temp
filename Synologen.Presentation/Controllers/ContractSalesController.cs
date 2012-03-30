@@ -1,24 +1,34 @@
 using System;
+using System.Linq;
 using System.Web.Mvc;
-using System.Web.Routing;
-using Spinit.Wpc.Core.UI;
+using NHibernate;
+using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Data.Commands.Finance;
+using Spinit.Wpc.Synologen.Data.Queries;
+using Spinit.Wpc.Synologen.Data.Queries.Finance;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
-using StructureMap;
+using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
-	public partial class ContractSalesController : Controller
+	public partial class ContractSalesController : BaseController
 	{
 		private readonly IContractSalesViewService _viewService;
 		private readonly IContractSalesCommandService _contractSalesCommandService;
+		private readonly IAdminSettingsService _settingsService;
 
-		public ContractSalesController(IContractSalesViewService viewService, IContractSalesCommandService contractSalesCommandService)
+		public ContractSalesController(
+			IContractSalesViewService viewService, 
+			IContractSalesCommandService contractSalesCommandService,
+			IAdminSettingsService settingsService,
+			ISession session) : base(session)
 		{
 			_viewService = viewService;
 			_contractSalesCommandService = contractSalesCommandService;
+			_settingsService = settingsService;
 		}
 
 		public ActionResult ViewSettlement(int id)
@@ -29,7 +39,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
 		public ActionResult Settlements()
 		{
-			var viewModel = _viewService.GetSettlements();
+			var settlements = Query(new All<Settlement>());
+			var contractSaleStatusReadyForSettlement = _settingsService.GetContractSalesReadyForSettlementStatus();
+			var contractSalesReadyForSettlement = Query(new ContractSalesWithStatus(contractSaleStatusReadyForSettlement));
+			var viewModel = new SettlementListView(settlements)
+			{
+			    NumberOfContractSalesReadyForInvocing = contractSalesReadyForSettlement.Count(),
+			    NumberOfOldTransactionsReadyForInvocing = Query(new GetOldAutogiroTransactionsReadyForSettlement()).Count(),
+				NumberOfNewTransactionsReadyForInvocing = Query(new GetNewAutogiroTransactionsReadyForSettlement()).Count()
+			};
 			return View(viewModel);
 		}
 
@@ -60,6 +78,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		public ActionResult CreateSettlement()
 		{
 			var settlementId = _viewService.CreateSettlement();
+			Execute(new SettleOldAutogiroTransactions(settlementId));
+			Execute(new SettleNewAutogiroTransactions(settlementId));
 			return RedirectToAction("ViewSettlement", new { id = settlementId });
 		}
 	}

@@ -15,7 +15,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories
 		{
 			var settlement = Get(id);
 			var contractSaleItemsForShop = settlement.ContractSales.Where(x => x.Shop.Id.Equals(shopId));
-			var transactionsForShop = settlement.LensSubscriptionTransactions.Where(x => x.Subscription.Customer.Shop.Id.Equals(shopId));
+			var transactionsForShop = settlement.OldTransactions.Where(x => x.Subscription.Customer.Shop.Id.Equals(shopId));
 			var shopSettlement = new ShopSettlement
 			{
 				Id = settlement.Id,

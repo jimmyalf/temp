@@ -110,7 +110,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.ContractSa
 			}
 		}
 
-		private static Func<Transaction, string, SettlementDetailedSubscriptionTransactionsListItemModel> DetailedTransactionsConverter
+		private static Func<OldTransaction, string, SettlementDetailedSubscriptionTransactionsListItemModel> DetailedTransactionsConverter
 		{
 			get
 			{

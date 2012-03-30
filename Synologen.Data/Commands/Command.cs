@@ -1,6 +1,8 @@
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using NHibernate;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Queries;
@@ -30,6 +32,11 @@ namespace Spinit.Wpc.Synologen.Data.Commands
 				command.Parameters.Add(new SqlParameter("@" + property.Key, property.Value));
 			}
 			command.ExecuteNonQuery();
+		}
+
+		protected string Property<TResult>(Expression<Func<TResult,object>> expression) where TResult : class
+		{
+			return expression.GetName();
 		}
 	}
 

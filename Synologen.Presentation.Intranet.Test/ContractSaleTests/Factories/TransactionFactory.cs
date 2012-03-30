@@ -5,7 +5,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests.Fact
 {
 	public static class TransactionFactory
 	{
-		public static Transaction[] GetList()
+		public static OldTransaction[] GetList()
 		{
 			var customer1 = new Customer { FirstName = "Erik", LastName = "Eriksson" };
 			var subscription1 = SubscriptionFactory.Get(1, customer1);
@@ -14,10 +14,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests.Fact
 
 			return new[]
 			{
-				new Transaction { Amount = 100.10M, Subscription = subscription1, CreatedDate = new DateTime(2010, 11, 20)},
-				new Transaction { Amount = 200.20M, Subscription = subscription2, CreatedDate = new DateTime(2010, 11, 21) },
-				new Transaction { Amount = 300.30M, Subscription = subscription1, CreatedDate = new DateTime(2010, 11, 22) },
-				new Transaction { Amount = 85.90M, Subscription = subscription2, CreatedDate = new DateTime(2010, 11, 23) }
+				new OldTransaction { Amount = 100.10M, Subscription = subscription1, CreatedDate = new DateTime(2010, 11, 20)},
+				new OldTransaction { Amount = 200.20M, Subscription = subscription2, CreatedDate = new DateTime(2010, 11, 21) },
+				new OldTransaction { Amount = 300.30M, Subscription = subscription1, CreatedDate = new DateTime(2010, 11, 22) },
+				new OldTransaction { Amount = 85.90M, Subscription = subscription2, CreatedDate = new DateTime(2010, 11, 23) }
 			};
 		}
 	}

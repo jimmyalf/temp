@@ -69,6 +69,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\MVCContrib\MvcContrib.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate, Version=2.1.2.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
     <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
@@ -84,6 +85,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Data.NHibernate, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Spinit.Wpc.Utility.Business, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
@@ -162,6 +164,10 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Synologen.Data\Synologen.Data.csproj">
+      <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
+      <Name>Synologen.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Synologen.Presentation\Synologen.Presentation.csproj">
       <Project>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</Project>
       <Name>Synologen.Presentation %28Presentation\Synologen.Presentation%29</Name>
@@ -192,7 +198,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

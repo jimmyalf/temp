@@ -38,7 +38,7 @@
 						<td><%= item.ShopDescription %></td>
 						<td><%= item.BankGiroNumber %></td>
 						<td class="hide-on-print"><%= item.NumberOfContractSalesInSettlement %></td>
-						<td class="hide-on-print"><%= item.NumberOfLensSubscriptionTransactionsInSettlement %></td>
+						<td class="hide-on-print"><%= item.NumberOfOldTransactionsInSettlement %></td>
 						<td><%=item.SumAmountIncludingVAT %></td>
 					</tr>
 					<%}%>

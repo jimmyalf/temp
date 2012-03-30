@@ -89,7 +89,6 @@
   <ItemGroup>
     <Compile Include="Application\AutomapperMappings\ContractSaleValueResolver.cs" />
     <Compile Include="Application\AutomapperMappings\CustomerNameValueProvider.cs" />
-    <Compile Include="Application\AutomapperMappings\SettlementViewTypeConverter.cs" />
     <Compile Include="Application\AutomapperMappings\SubscriptionErrorValueResolver.cs" />
     <Compile Include="Application\AutomapperMappings\TransactionValueResolver.cs" />
     <Compile Include="Application\Extensions\ArticleOptionsExtensions.cs" />
@@ -110,6 +109,7 @@
     <Compile Include="Application\Services\SynologenGridSortPropertyMappingSerice.cs" />
     <Compile Include="Application\Services\UserContextService.cs" />
     <Compile Include="Application\Web\SynologenController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContractSalesController.cs" />
     <Compile Include="Controllers\ContractSalesController_Articles.cs" />
     <Compile Include="Controllers\ContractSalesController_ContractArticles.cs" />

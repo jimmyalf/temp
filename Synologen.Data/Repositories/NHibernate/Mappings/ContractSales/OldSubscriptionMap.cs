@@ -3,18 +3,16 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSales
 {
-	public class TransactionMap : ClassMap<Transaction>
+	public class OldSubscriptionMap : ClassMap<OldSubscription>
 	{
-		public TransactionMap()
+		public OldSubscriptionMap()
 		{
-			Table("SynologenLensSubscriptionTransaction");
+			Table("SynologenLensSubscription");
 			Id(x => x.Id);
-			Map(x => x.Amount);
-			Map(x => x.CreatedDate);
-			References(x => x.Subscription)
+			References(x => x.Customer)
 				.Fetch.Join()
 				.Cascade.None()
-				.Column("SubscriptionId")
+				.Column("CustomerId")
 				.Not.Nullable();
 		}
 	}

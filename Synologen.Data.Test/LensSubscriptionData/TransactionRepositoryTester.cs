@@ -155,14 +155,11 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 				_settlement = settlement.Object;
 			};
 
-			Because = repository =>
+			Because = repository => _transactions.For((index, transaction) =>
 			{
-				_transactions.For((index, transaction) =>
-				{
-					transaction.Settlement = (index % 2 == 0) ? _settlement : null;
-					repository.Save(transaction);
-				});
-			};
+				transaction.Settlement = (index % 2 == 0) ? _settlement : null;
+				repository.Save(transaction);
+			});
 		}
 
 		[Test]

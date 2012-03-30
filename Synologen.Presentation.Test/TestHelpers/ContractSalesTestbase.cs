@@ -1,9 +1,17 @@
+using System;
+using System.Collections;
+using System.Linq;
 using FakeItEasy;
 using Moq;
+using NHibernate;
+using NHibernate.Impl;
+using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Business.Utility;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Data.Queries;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Controllers;
 
@@ -21,7 +29,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 		protected IContractSalesCommandService MockedContractSalesCommandService;
 		protected IUserContextService UserContextService;
 		protected IContractSalesViewService ViewService;
-
+		protected ISession Session;
+		protected ICriteria Criteria;
+		protected Func<Query, object> QueryOverrides;
 
 		protected ContractSalesTestbase()
 		{
@@ -36,6 +46,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 				var commandService = new ContractSalesCommandService(MockedSynologenSqlProvider.Object, UserContextService);
 				MockedContractSalesCommandService = A.Fake<IContractSalesCommandService>(options => options.Wrapping(commandService));
 				ArticleRepository = A.Fake<IArticleRepository>();
+				Session = A.Fake<ISession>();
+				Criteria = A.Fake<ICriteria>();
+				A.CallTo(Session).WithReturnType<ICriteria>().Returns(Criteria);
+
 
 				var viewService = new ContractSalesViewService(
 					MockedSettlementRepository.Object,
@@ -46,7 +60,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 					ArticleRepository);
 				ViewService = A.Fake<IContractSalesViewService>(options => options.Wrapping(viewService));
 			};
-			GetController = () =>  new ContractSalesController(ViewService, MockedContractSalesCommandService);
+			GetController = () =>
+			{
+				var controller = new ContractSalesController(ViewService, MockedContractSalesCommandService, MockedSettingsService.Object, Session);
+				if(QueryOverrides != null)
+				{
+					controller.QueryOverride = QueryOverrides;
+				}
+				return controller;
+			};
+		}
+
+		protected object GetDefaultQueryItem(Query query)
+		{
+			if(query.Type.GetInterfaces().Contains(typeof(IEnumerable)))
+			{
+				Type type = query.Type.GetGenericArguments()[0];
+				return Array.CreateInstance(type, 0);
+			}
+			return Activator.CreateInstance(query.Type);
 		}
 	}
 }

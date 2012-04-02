@@ -54,6 +54,10 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			{
 				name = Visit((MemberExpression)expression.Object);
 			}
+			if(expression.Object != null)
+			{
+				name = Visit(expression.Object);
+			}
 
 			//TODO: Is there a more solid way to determine if this is an indexed property?
 			if (expression.Method.Name == "get_Item" && expression.Arguments.Count == 1)

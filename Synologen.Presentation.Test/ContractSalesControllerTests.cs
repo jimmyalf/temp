@@ -2,14 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Routing;
 using FakeItEasy;
 using Moq;
-using NHibernate;
 using NHibernate.Criterion;
 using NUnit.Framework;
 using Shouldly;
-using Spinit.Data.NHibernate;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
@@ -110,13 +107,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 
 			Context = () =>
 			{
-				QueryOverrides = query =>
-				{
-					if (query is All<Settlement>) return _settlements;
-					if (query is ContractSalesWithStatus) return _expectedContractSalesReadyForInvocing;
-					if (query is GetOldAutogiroTransactionsReadyForSettlement) return _oldTransactionsReadyForInvocing;
-					return GetDefaultQueryItem(query);
-				};
+				Interceptor.SetupQueryResult<All<Settlement>>(_settlements);
+				//InterceptQuery<All<Settlement>>(_settlements);
+				//InterceptSession(session => session
+				//    .CreateCriteria<ContractSale>()
+				//    .Add(Restrictions.Eq("StatusId", _readyForSettlementStatus))
+				//    .List<ContractSale>(), _expectedContractSalesReadyForInvocing);
+
+				Interceptor.SetupSessionReturning<IList<ContractSale>>(_expectedContractSalesReadyForInvocing);
+				//InterceptSessionReturning<IList<ContractSale>>(_expectedContractSalesReadyForInvocing);
+				Interceptor.SetupQueryResult<GetOldAutogiroTransactionsReadyForSettlement>(_oldTransactionsReadyForInvocing);
+				//InterceptQuery<GetOldAutogiroTransactionsReadyForSettlement>(_oldTransactionsReadyForInvocing);
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(_readyForSettlementStatus);
 			};
 
@@ -178,15 +179,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 	{
 		public When_loading_settlements_list_with_settlementable_contract_sales()
 		{
-			var expectedContractSalesReadyForInvocing = ContractSaleFactory.GetList(15);
+			var expectedContractSalesReadyForInvocing = ContractSaleFactory.GetList(15).ToList();
 			const int readyForSettlementStatus = 6;
 			Context = () => 
 			{
-				QueryOverrides = query =>
-				{
-					if (query is ContractSalesWithStatus) return expectedContractSalesReadyForInvocing;
-					return GetDefaultQueryItem(query);
-				};
+				//InterceptSession(session => session
+				//    .CreateCriteria<ContractSale>()
+				//    .Add(Restrictions.Eq("StatusId", readyForSettlementStatus))
+				//    .List<ContractSale>(), expectedContractSalesReadyForInvocing);
+				Interceptor.SetupSessionResult(s => s
+				    .CreateCriteria<ContractSale>()
+				    .Add(Restrictions.Eq("StatusId", readyForSettlementStatus))
+				    .List<ContractSale>(), expectedContractSalesReadyForInvocing);
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
 			};
 
@@ -210,11 +214,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			var expectedLensSubscriptionTransactionsReadyForInvocing = SubscriptionTransactionFactory.GetList();
 			Context = () =>
 			{
-				QueryOverrides = query =>
-				{
-					if (query is GetOldAutogiroTransactionsReadyForSettlement) return expectedLensSubscriptionTransactionsReadyForInvocing;
-					return GetDefaultQueryItem(query);
-				};
+				Interceptor.SetupQueryResult<GetOldAutogiroTransactionsReadyForSettlement>(expectedLensSubscriptionTransactionsReadyForInvocing);
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
 			};
 			Because = controller => controller.Settlements();

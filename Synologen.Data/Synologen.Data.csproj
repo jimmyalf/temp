@@ -117,7 +117,6 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\Finance\SettleNewAutogiroTransactions.cs" />
     <Compile Include="Commands\Finance\SettleOldAutogiroTransactions.cs" />
-    <Compile Include="Queries\Finance\ContractSalesWithStatus.cs" />
     <Compile Include="Queries\Finance\GetOldAutogiroTransactionsReadyForSettlement.cs" />
     <Compile Include="Queries\Finance\GetNewAutogiroTransactionsReadyForSettlement.cs" />
     <Compile Include="Commands\SubscriptionMigration\MigrateCustomerCommand.cs" />

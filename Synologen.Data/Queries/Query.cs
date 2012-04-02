@@ -18,11 +18,10 @@ namespace Spinit.Wpc.Synologen.Data.Queries
 
 	public abstract class Query
 	{
-		public Type Type { get; set; }
-
-		public Query(Type type)
-		{
-			Type = type;
-		}
+	    public Type ResultType { get; set; }
+		protected Query(Type type)
+	    {
+	        ResultType = type;
+	    }
 	}
 }

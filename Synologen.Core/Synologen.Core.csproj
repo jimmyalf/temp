@@ -366,6 +366,8 @@
     <Compile Include="Domain\Services\Web\External\ValidationError.cs" />
     <Compile Include="Domain\Services\Web\External\ValidationFailedException.cs" />
     <Compile Include="Domain\Services\Web\External\ValidationResult.cs" />
+    <Compile Include="Expressions\ExpressionReplacer.cs" />
+    <Compile Include="Expressions\PartialEvaluator.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="Extensions\ComparisonExtensions.cs" />
     <Compile Include="Extensions\DataRowCollectionExtensions.cs" />

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using NHibernate;
+using NHibernate.Criterion;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Data.Commands.Finance;
@@ -41,7 +42,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		{
 			var settlements = Query(new All<Settlement>());
 			var contractSaleStatusReadyForSettlement = _settingsService.GetContractSalesReadyForSettlementStatus();
-			var contractSalesReadyForSettlement = Query(new ContractSalesWithStatus(contractSaleStatusReadyForSettlement));
+			var contractSalesReadyForSettlement = WithSession(session => session
+				.CreateCriteria<ContractSale>()
+				.Add(Restrictions.Eq("StatusId", contractSaleStatusReadyForSettlement))
+				.List<ContractSale>()
+			);
 			var viewModel = new SettlementListView(settlements)
 			{
 			    NumberOfContractSalesReadyForInvocing = contractSalesReadyForSettlement.Count(),

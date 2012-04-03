@@ -22,13 +22,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 		protected IUserContextService UserContextService;
 		protected IContractSalesViewService ViewService;
 		protected ISession Session;
-		protected CommandQueryInterceptor Interceptor;
+		protected CommandQueryInterceptor<ISession> Interceptor;
 
 		protected ContractSalesTestbase()
 		{
 			SetUp = () =>
 			{
-				Interceptor = new CommandQueryInterceptor();
+				Interceptor = new CommandQueryInterceptor<ISession>();
 				MockedSettlementRepository = new Mock<ISettlementRepository>();
 				MockedSettingsService = new Mock<IAdminSettingsService>();
 				MockedContractSaleRepository = new Mock<IContractSaleRepository>();

@@ -4,13 +4,14 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using NHibernate;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Queries;
 
 namespace Spinit.Wpc.Synologen.Data.Commands
 {
 	[DebuggerStepThrough]
-	public abstract class Command
+	public abstract class Command : ICommand
 	{
 		public abstract void Execute();
 		public ISession Session { get; set; }
@@ -41,7 +42,7 @@ namespace Spinit.Wpc.Synologen.Data.Commands
 	}
 
 	[DebuggerStepThrough]
-	public abstract class Command<TResult> : Command
+	public abstract class Command<TResult> : Command, ICommand<TResult>
 	{
 		public TResult Result { get; protected set; }
 	}

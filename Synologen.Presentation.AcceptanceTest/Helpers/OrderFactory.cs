@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 
 namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 {
@@ -112,6 +114,52 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		public static IEnumerable<ArticleSupplier> GetSuppliers()
 		{
 			return Sequence.Generate(seed => GetSupplier(seed), 45);
+		}
+
+		public static IList<SubscriptionTransaction> GetTransactions(Subscription subscription)
+		{
+			return new[]
+			{
+				GetTransaction(subscription, 255, reason: TransactionReason.Correction, type: TransactionType.Deposit),
+				GetTransaction(subscription, 155, reason: TransactionReason.Correction, type: TransactionType.Withdrawal),
+				GetTransaction(subscription, 255, reason: TransactionReason.Payment, type: TransactionType.Deposit),
+				GetTransaction(subscription, 155, reason: TransactionReason.Payment, type: TransactionType.Withdrawal),
+				GetTransaction(subscription, 255, reason: TransactionReason.PaymentFailed, type: TransactionType.Deposit),
+				GetTransaction(subscription, 155, reason: TransactionReason.PaymentFailed, type: TransactionType.Withdrawal),
+				GetTransaction(subscription, 255, reason: TransactionReason.Withdrawal, type: TransactionType.Deposit),
+				GetTransaction(subscription, 155, reason: TransactionReason.Withdrawal, type: TransactionType.Withdrawal),
+			};
+		}
+
+		public static SubscriptionTransaction GetTransaction(Subscription subscription, decimal amount = 255, TransactionReason reason = TransactionReason.Payment, int? settlementId = null, TransactionType type = TransactionType.Deposit)
+		{
+			return new SubscriptionTransaction
+			{
+				Amount = amount,
+				Reason = reason,
+				SettlementId = settlementId,
+				Subscription = subscription,
+				Type = type,
+			};
+		}
+
+		public static Subscription GetSubscription(OrderCustomer customer, Shop shop, SubscriptionConsentStatus consentStatus = SubscriptionConsentStatus.Accepted)
+		{
+			return new Subscription
+			{
+				Active = true,
+				AutogiroPayerId = 5,
+				BankAccountNumber = "123456",
+				ClearingNumber = "1234",
+				ConsentStatus = consentStatus,
+				ConsentedDate = new DateTime(2011, 11, 11),
+				Customer = customer,
+				Errors = null,
+				LastPaymentSent = new DateTime(2011, 11, 12),
+				Shop = shop,
+				SubscriptionItems = null,
+				Transactions = null
+			};
 		}
 	}
 }

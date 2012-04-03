@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 			var orderList = new List<FrameOrder>();
 			for(var i=1740;i<=1847;i++)
 			{
-				var order = _framOrderRepository.Get(i);
+				var order = _framOrderRepository.GetOld(i);
 				if(!order.Sent.HasValue) continue;
 				orderList.Add(order);
 			}

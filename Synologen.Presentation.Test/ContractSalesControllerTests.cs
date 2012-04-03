@@ -22,70 +22,94 @@ using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Models.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales;
 using Spinit.Wpc.Synologen.Presentation.Test.Factories.LensSubscription;
+using Spinit.Wpc.Synologen.Presentation.Test.Factories.Order;
 using Spinit.Wpc.Synologen.Presentation.Test.TestHelpers;
 using Spinit.Wpc.Utility.Business;
 using Spinit.Wpc.Utility.Core;
 using Order = Spinit.Wpc.Synologen.Business.Domain.Entities.Order;
 using Settlement=Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Settlement;
+using Shop = Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Shop;
+using SubscriptionFactory = Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales.SubscriptionFactory;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test
 {
 	[TestFixture, Category("ContractSalesControllerTests")]
 	public class When_loading_settlement_view : ContractSalesTestbase<SettlementView>
 	{
-		private readonly int _settlementId;
-		private readonly Settlement _settlement;
+		private Settlement _settlement;
+		private Shop _shop1;
+		private Shop _shop2;
+		private IEnumerable<ContractSale> _contractSales, _contractSalesForShop1, _contractSalesForShop2;
+		private NewSubscription _newSubscription1, _newSubscription2;
+		private OldSubscription _oldSubscription1, _oldSubscription2;
+		private IEnumerable<OldTransaction> _oldTransactions, _oldTransactionsForShop1, _oldTransactionsForShop2;
+		private IEnumerable<NewTransaction> _newTransactions, _newTransactionsForShop1, _newTransactionsForShop2;
 
 		public When_loading_settlement_view()
 		{
-			_settlementId = 5;
-			_settlement = SettlementFactory.Get(_settlementId);
-
 			Context = () =>
 			{
-				MockedSettlementRepository.Setup(x => x.Get(It.Is<int>(id => id.Equals(_settlementId)))).Returns(_settlement);
+				_shop1 = ShopFactory.GetShop(4, "Göteborgs Ögon", "1020");
+				_shop2 = ShopFactory.GetShop(5, "Stockholms Ögon", "2020");
+				_newSubscription1 = SubscriptionFactory.GetNew(1, _shop1);
+				_newSubscription2 = SubscriptionFactory.GetNew(2, _shop2);
+
+				_oldSubscription1 = SubscriptionFactory.GetOld(1, 1, _shop1);
+				_oldSubscription2 = SubscriptionFactory.GetOld(2, 2, _shop2);
+
+				_contractSalesForShop1 = SettlementFactory.GetContractSales(_shop1);
+				_contractSalesForShop2 = SettlementFactory.GetContractSales(_shop2);
+				_contractSales = _contractSalesForShop1.Append(_contractSalesForShop2);
+
+				_oldTransactionsForShop1 = SettlementFactory.GetOldTransactions(_oldSubscription1);
+				_oldTransactionsForShop2 = SettlementFactory.GetOldTransactions(_oldSubscription2);
+				_oldTransactions = _oldTransactionsForShop1.Append(_oldTransactionsForShop2);
+
+				_newTransactionsForShop1 = SettlementFactory.GetNewTransactions(_newSubscription1);
+				_newTransactionsForShop2 = SettlementFactory.GetNewTransactions(_newSubscription2);
+				_newTransactions = _newTransactionsForShop1.Append(_newTransactionsForShop2);
+				_settlement = SettlementFactory.Get(6, _contractSales, _oldTransactions, _newTransactions);
+				MockedSettlementRepository.Setup(x => x.Get(It.Is<int>(id => id.Equals(_settlement.Id)))).Returns(_settlement);
 			};
 
-			Because = controller => controller.ViewSettlement(_settlementId);
+			Because = controller => controller.ViewSettlement(_settlement.Id);
 		}
 
 		[Test]
 		public void ViewModel_should_have_expected_values()
 		{
+			var expectedSum = _contractSales.Sum(x => x.TotalAmountIncludingVAT)
+				+ _oldTransactions.Sum(x => x.Amount)
+				+ _newTransactions.Sum(x => x.Amount);
 			ViewModel.CreatedDate.ShouldBe(_settlement.CreatedDate.ToString("yyyy-MM-dd HH:mm"));
 			ViewModel.Id.ShouldBe(_settlement.Id);
 			ViewModel.Period.ShouldBe("1045");
-			ViewModel.SumAmountIncludingVAT.ShouldBe((4546.11M).ToString("C2"));
-			ViewModel.SettlementItems.Count().ShouldBe(4);
-			ViewModel.SettlementItems.Each(settlementItem => 
-			{
-				settlementItem.BankGiroNumber.ShouldBe("123456987");
-				settlementItem.ShopDescription.ShouldBe("1350 - Örebro Optik");
-			});
+			ViewModel.SumAmountIncludingVAT.ShouldBe(expectedSum.ToString("C2"));
+			ViewModel.SettlementItems.Count().ShouldBe(2);
 
 			ViewModel.SettlementItems.ForElementAtIndex( 0, settlementItem =>  
 			{
-			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(3);
-				settlementItem.NumberOfOldTransactionsInSettlement.ShouldBe(2);
-			    settlementItem.SumAmountIncludingVAT.ShouldBe(2145.34M.ToString("C2"));
+				var expectedSumForShop1 = _contractSalesForShop1.Sum(x => x.TotalAmountIncludingVAT)
+				+ _oldTransactionsForShop1.Sum(x => x.Amount)
+				+ _newTransactionsForShop1.Sum(x => x.Amount);
+				settlementItem.BankGiroNumber.ShouldBe(_shop1.BankGiroNumber);
+				settlementItem.ShopDescription.ShouldBe(_shop1.Number + " - " + _shop1.Name);
+			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(_contractSalesForShop1.Count());
+				settlementItem.NumberOfOldTransactionsInSettlement.ShouldBe(_oldTransactionsForShop1.Count());
+				settlementItem.NumberOfNewTransactionsInSettlement.ShouldBe(_newTransactionsForShop1.Count());
+			    settlementItem.SumAmountIncludingVAT.ShouldBe(expectedSumForShop1.ToString("C2"));
 			});
 			ViewModel.SettlementItems.ForElementAtIndex( 1, settlementItem =>  
 			{
-			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(2);
-				settlementItem.NumberOfOldTransactionsInSettlement.ShouldBe(4);
-			    settlementItem.SumAmountIncludingVAT.ShouldBe(1592.87M.ToString("C2"));
-			});
-			ViewModel.SettlementItems.ForElementAtIndex( 2, settlementItem =>  
-			{
-			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(1);
-				settlementItem.NumberOfOldTransactionsInSettlement.ShouldBe(0);
-			    settlementItem.SumAmountIncludingVAT.ShouldBe(678.90M.ToString("C2"));
-			});
-			ViewModel.SettlementItems.ForElementAtIndex( 3, settlementItem =>  
-			{
-			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(0);
-				settlementItem.NumberOfOldTransactionsInSettlement.ShouldBe(1);
-			    settlementItem.SumAmountIncludingVAT.ShouldBe(129M.ToString("C2"));
+				var expectedSumForShop2 = _contractSalesForShop2.Sum(x => x.TotalAmountIncludingVAT)
+				+ _oldTransactionsForShop2.Sum(x => x.Amount)
+				+ _newTransactionsForShop2.Sum(x => x.Amount);
+				settlementItem.BankGiroNumber.ShouldBe(_shop2.BankGiroNumber);
+				settlementItem.ShopDescription.ShouldBe(_shop2.Number + " - " + _shop2.Name);
+			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(_contractSalesForShop2.Count());
+				settlementItem.NumberOfOldTransactionsInSettlement.ShouldBe(_oldTransactionsForShop2.Count());
+				settlementItem.NumberOfNewTransactionsInSettlement.ShouldBe(_newTransactionsForShop2.Count());
+			    settlementItem.SumAmountIncludingVAT.ShouldBe(expectedSumForShop2.ToString("C2"));
 			});
 		}
 	}
@@ -108,16 +132,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Context = () =>
 			{
 				Interceptor.SetupQueryResult<All<Settlement>>(_settlements);
-				//InterceptQuery<All<Settlement>>(_settlements);
-				//InterceptSession(session => session
-				//    .CreateCriteria<ContractSale>()
-				//    .Add(Restrictions.Eq("StatusId", _readyForSettlementStatus))
-				//    .List<ContractSale>(), _expectedContractSalesReadyForInvocing);
-
 				Interceptor.SetupSessionReturning<IList<ContractSale>>(_expectedContractSalesReadyForInvocing);
-				//InterceptSessionReturning<IList<ContractSale>>(_expectedContractSalesReadyForInvocing);
 				Interceptor.SetupQueryResult<GetOldAutogiroTransactionsReadyForSettlement>(_oldTransactionsReadyForInvocing);
-				//InterceptQuery<GetOldAutogiroTransactionsReadyForSettlement>(_oldTransactionsReadyForInvocing);
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(_readyForSettlementStatus);
 			};
 
@@ -183,10 +199,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			const int readyForSettlementStatus = 6;
 			Context = () => 
 			{
-				//InterceptSession(session => session
-				//    .CreateCriteria<ContractSale>()
-				//    .Add(Restrictions.Eq("StatusId", readyForSettlementStatus))
-				//    .List<ContractSale>(), expectedContractSalesReadyForInvocing);
 				Interceptor.SetupSessionResult(s => s
 				    .CreateCriteria<ContractSale>()
 				    .Add(Restrictions.Eq("StatusId", readyForSettlementStatus))
@@ -206,9 +218,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 	}
 
 	[TestFixture, Category("ContractSalesControllerTests")]
-	public class When_loading_settlements_list_with_settlementable_transactions : ContractSalesTestbase<SettlementListView>
+	public class When_loading_settlements_list_with_settlementable_oldtransactions : ContractSalesTestbase<SettlementListView>
 	{
-		public When_loading_settlements_list_with_settlementable_transactions()
+		public When_loading_settlements_list_with_settlementable_oldtransactions()
 		{
 			const int readyForSettlementStatus = 6;
 			var expectedLensSubscriptionTransactionsReadyForInvocing = SubscriptionTransactionFactory.GetList();
@@ -229,19 +241,37 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 	}
 
 	[TestFixture, Category("ContractSalesControllerTests")]
+	public class When_loading_settlements_list_with_settlementable_newtransactions : ContractSalesTestbase<SettlementListView>
+	{
+		public When_loading_settlements_list_with_settlementable_newtransactions()
+		{
+			const int readyForSettlementStatus = 6;
+			var newTransactionsForSettlement = Factory.GetTransactions();
+			Context = () =>
+			{
+				Interceptor.SetupQueryResult<GetNewAutogiroTransactionsReadyForSettlement>(newTransactionsForSettlement);
+				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
+			};
+			Because = controller => controller.Settlements();
+		}
+
+		[Test]
+		public void Create_settlement_button_should_be_visible()
+		{
+			ViewModel.DisplayCreateSettlementsButton.ShouldBe(true);
+		}
+
+	}
+
+	[TestFixture, Category("ContractSalesControllerTests")]
 	public class When_loading_settlements_list_with_no_settlementable_contract_sales_or_transactions : ContractSalesTestbase<SettlementListView>
 	{
 		public When_loading_settlements_list_with_no_settlementable_contract_sales_or_transactions()
 		{
-			var expectedContractSalesReadyForInvocing = Enumerable.Empty<ContractSale>();
-			var expectedLensSubscriptionTransactionsReadyForInvocing = Enumerable.Empty<SubscriptionTransaction>();
 			const int readyForSettlementStatus = 6;
-			Context = () => 
-			{
-				MockedContractSaleRepository.Setup(x => x.FindBy(It.IsAny<AllContractSalesMatchingCriteria>())).Returns(expectedContractSalesReadyForInvocing);
-				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(expectedLensSubscriptionTransactionsReadyForInvocing);
-				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(readyForSettlementStatus);
-			};
+			Context = () => MockedSettingsService
+				.Setup(x => x.GetContractSalesReadyForSettlementStatus())
+				.Returns(readyForSettlementStatus);
 
 			Because = controller => controller.Settlements();
 		}
@@ -260,20 +290,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		private readonly int _readyForSettlementStatus;
 		private readonly int _afterSettlementStatus;
 		private readonly int _expectedNewSettlementId;
-		private readonly IEnumerable<SubscriptionTransaction> _transactions;
+		//private readonly IEnumerable<SubscriptionTransaction> _oldTransactions;
+		//private readonly IList<Core.Domain.Model.Orders.SubscriptionTransaction> _newTransactions;
 
 		public When_creating_a_settlement()
 		{
 			_readyForSettlementStatus = 6;
 			_afterSettlementStatus = 8;
 			_expectedNewSettlementId = 33;
-			_transactions = SubscriptionTransactionFactory.GetList();
+			//_oldTransactions = SubscriptionTransactionFactory.GetList();
+			//_newTransactions = Factory.GetSettlementableTransactions();
 			Context = () => 
 			{
 				MockedSettingsService.Setup(x => x.GetContractSalesReadyForSettlementStatus()).Returns(_readyForSettlementStatus);
 				MockedSettingsService.Setup(x => x.GetContractSalesAfterSettlementStatus()).Returns(_afterSettlementStatus);
 				MockedSynologenSqlProvider.Setup(x => x.AddSettlement(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedNewSettlementId);
-				MockedTransactionRepository.Setup(x => x.FindBy(It.IsAny<AllTransactionsMatchingCriteria>())).Returns(_transactions);
 			};
 			Because = controller => controller.CreateSettlement();
 		}
@@ -312,15 +343,30 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		//    )));
 		//}
 
-		[Test]
-		public void All_fetched_transactions_get_connected_to_settlement()
-		{
-			_transactions.Each( transaction =>  A.CallTo(() => Session.Save(A<SubscriptionTransaction>.That.Matches(transactionSaved =>
-				transactionSaved.Settlement.Id.Equals(_expectedNewSettlementId) &&
-				transactionSaved.Id.Equals(transaction.Id)
-			))));
+		//[Test]
+		//public void All_fetched_old_transactions_get_connected_to_settlement()
+		//{
+		//    foreach (var transaction in _oldTransactions)
+		//    {
+		//        A.CallTo(() => Session.Save(A<SubscriptionTransaction>.That.Matches(transactionSaved =>
+		//            transactionSaved.Settlement.Id.Equals(_expectedNewSettlementId) &&
+		//            transactionSaved.Id.Equals(transaction.Id)
+		//        ))).MustHaveHappened();
+		//    }
 
-		}
+		//}
+
+		//[Test]
+		//public void All_fetched_new_transactions_get_connected_to_settlement()
+		//{
+		//    foreach (var transaction in _newTransactions)
+		//    {
+		//        A.CallTo(() => Session.Save(A<Core.Domain.Model.Orders.SubscriptionTransaction>.That.Matches(transactionSaved =>
+		//            transactionSaved.SettlementId.Equals(_expectedNewSettlementId) &&
+		//            transactionSaved.Id.Equals(transaction.Id)
+		//        ))).MustHaveHappened();
+		//    }
+		//}
 	}
 
 	[TestFixture, Category("ContractSalesControllerTests")]

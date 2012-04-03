@@ -6,8 +6,8 @@
 		<p><label>Butiknummer:</label>&nbsp;<span><%#Model.ShopNumber %></span></p>
 		<p><label>Period:</label>&nbsp;<span><%#Model.Period %></span></p>
 		<p><label>Avtalsförsäljningsvärde inkl moms:</label>&nbsp;<span><%#Model.ContractSalesValueIncludingVAT %></span></p>
-		<p><label>Linsabonnemangsvärde inkl moms:</label>&nbsp;<span><%#Model.LensSubscriptionsValueIncludingVAT %></span></p>
-		<p><label>Antal linsabonnemang-transaktioner:</label>&nbsp;<span><%#Model.LensSubscriptionTransactionsCount %></span></p>
+		<p><label>Linsabonnemangsvärde inkl moms:</label>&nbsp;<span><%#Model.OldTransactionsValueIncludingVAT %></span></p>
+		<p><label>Antal linsabonnemang-transaktioner:</label>&nbsp;<span><%#Model.OldTransactionsCount %></span></p>
 		<p><a href="<%=SynologenSessionContext.SettlementListPage %>">&laquo;&nbsp;Tillbaka</a></p>
 	</fieldset>
 	<div class="control-actions">
@@ -76,7 +76,7 @@
 	</fieldset>
 	</asp:PlaceHolder>			
 	<fieldset><legend>Linsabonnemang transaktioner</legend>
-	<asp:Repeater ID="rptSettlementTransactionItemsDetailed" runat="server" DataSource='<%#Model.DetailedSubscriptionTransactions%>'>
+	<asp:Repeater ID="rptSettlementTransactionItemsDetailed" runat="server" DataSource='<%#Model.OldTransactions%>'>
 	<HeaderTemplate>
 		<table>
 			<tr class="synologen-table-headerrow">	

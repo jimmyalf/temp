@@ -147,6 +147,7 @@
     <Compile Include="GlobalTestBase.cs" />
     <Compile Include="Helpers\CustomUserContextService.cs" />
     <Compile Include="Helpers\ContractSalesOrderFactory.cs" />
+    <Compile Include="Helpers\LensSubscriptionFactory.cs" />
     <Compile Include="Helpers\OrderFactory.cs" />
     <Compile Include="ManualDataManagement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Helpers\StoryQ.flit.sv-SE.g.cs" />
     <Compile Include="ContractArticleConnection_Add.cs" />
     <Compile Include="Article_Add.cs" />
+    <Compile Include="CreateSettlement.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Synologen.Business\Synologen.Business.csproj">
@@ -214,5 +216,4 @@
     <PreBuildEvent>"$(ProjectDir)..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
     <PostBuildEvent>"$(ProjectDir)..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
   </PropertyGroup>
-  
 </Project>

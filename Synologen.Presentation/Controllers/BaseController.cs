@@ -36,6 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			if(ExecuteCommandOverride != null) ExecuteCommandOverride(command);
 			command.Session = _session;
 			command.Execute();
+			_session.Flush();
 		}
 
 		protected TResult Execute<TResult>(Command<TResult> command)
@@ -43,6 +44,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			if (ExecuteCommandWithResultOverride != null) return (TResult) ExecuteCommandWithResultOverride(command, typeof (TResult));
 			command.Session = _session;
 			command.Execute();
+			_session.Flush();
 			return command.Result;
 		}
 
@@ -58,6 +60,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			if(SessionWithoutResultOverride != null) SessionWithoutResultOverride(expression);
 			var action = expression.Compile();
 			action(_session);
+			_session.Flush();
 		}
     }
 }

@@ -1,26 +1,32 @@
-﻿using Spinit.Wpc.Synologen.Business.Domain.Entities;
+﻿using System;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 
 namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 {
 	public static class ContractSalesOrderFactory 
 	{
-		public static Order GetOrder(int companyId, int salesPersonMemberId, int salesPersonShopId)
+		public static Order GetOrder(int companyId, int salesPersonMemberId, int shopId, int statusId)
 		{
 			return new Order
 			{
-				PersonalIdNumber = "198512242101",
-				CompanyUnit = "1030",
+				CompanyId = companyId,
+				CreatedDate = new DateTime(2011,01,01),
+				CompanyUnit = "Unit",
 				CustomerFirstName = "Adam",
 				CustomerLastName = "Bertil",
-				StatusId = 5 /* Invoiced Status */,
-				Phone = "031 - 12 34 56", 
-				Email = "adam.bertil@testbolaget.se",
+				CustomerOrderNumber = null,
+				Email = "a.b@test.se",
+				InvoiceNumber = 1234,
+				InvoiceSumExcludingVAT = 256,
+				InvoiceSumIncludingVAT = 302,
+				MarkedAsPayedByShop = false,
+				OrderItems = null,
+				PersonalIdNumber = "197001015566",
+				Phone = "031-0123456",
+				RstText = "RST",
 				SalesPersonMemberId = salesPersonMemberId,
-				SalesPersonShopId = salesPersonShopId,
-				RstText = "1234",
-				CustomerOrderNumber = "ABC123",
-				CompanyId = companyId,
-				InvoiceNumber = 12345
+				SalesPersonShopId = shopId,
+				StatusId = statusId,
 			};
 		}
 	}

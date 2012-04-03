@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Expressions;
 
@@ -86,9 +87,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 
 		public virtual object GetCommandResult(ICommand command, Type resultType)
 		{
-			return _commandInterceptors.ContainsKey(command.GetType())
-			       	? _commandInterceptors[command.GetType()]
-			       	: GetDefaultItem(resultType);
+			var key = command.GetType();
+			if(_commandInterceptors.ContainsKey(key))
+			{
+				return _commandInterceptors[key];
+			}
+			return GetDefaultItem(resultType);
+
 		}
 
 		public virtual void GetCommandAction(ICommand command)

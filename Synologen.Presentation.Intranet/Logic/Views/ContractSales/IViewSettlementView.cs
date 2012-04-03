@@ -9,5 +9,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.ContractSales
 		event EventHandler SwitchView;
 		event EventHandler MarkAllSaleItemsAsPayed;
 		int SubscriptionPageId { get; set; }
+		int NewSubscriptionPageId { get; set; }
 	}
 }

@@ -25,6 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 		private Order _newOrder;
 		private string _userName;
 		private const int CanceledInvoiceStatusId = 7;
+		private const int InvoicedInvoiceStatusId = 5;
 
 		public CancelInvoice()
 		{
@@ -79,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 			var company = DataManager.CreateCompany(sqlProvider);
 			var shop = DataManager.CreateShop(sqlProvider, "Test_shop");
 			var member = DataManager.CreateMemberForShop(userRepo, sqlProvider, "test_user", shop.ShopId, 2 /*location id*/);
-			_newOrder = ContractSalesOrderFactory.GetOrder(company.Id, member.MemberId, shop.ShopId);
+			_newOrder = ContractSalesOrderFactory.GetOrder(company.Id, member.MemberId, shop.ShopId, InvoicedInvoiceStatusId);
 			sqlProvider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref _newOrder);
 		}
 

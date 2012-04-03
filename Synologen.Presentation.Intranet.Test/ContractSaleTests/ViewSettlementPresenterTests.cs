@@ -16,25 +16,33 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests
 	[Category("CreateCustomerPresenterTester")]
 	public class When_loading_view_settlement_view_in_default_simple_mode : ViewSettlementTestbase
 	{
-		private readonly string _expectedPeriod;
-		private readonly ShopSettlement _expectedSettlement;
-		private readonly int _expectedCurrentShopId;
-		private readonly string _expectedSubscriptionUrl;
-		private readonly int _expectedSubscriptionPageId;
+		private readonly string _period;
+		private readonly ShopSettlement _settlement;
+		private readonly int _currentShopId;
+		private readonly string _oldSubscriptionUrl;
+		private readonly string _newSubscriptionUrl;
+		private readonly int _newSubscriptionPageId;
+		private readonly int _oldSubscriptionPageId;
+
+
 		public When_loading_view_settlement_view_in_default_simple_mode()
 		{
-			_expectedPeriod = "1048";
-			_expectedCurrentShopId = 5;
-			_expectedSubscriptionUrl = "/test/url";
-			_expectedSubscriptionPageId = 8;
-			_expectedSettlement = ShopSettlementFactory.Get(50);
+			_period = "1048";
+			_currentShopId = 5;
+			_oldSubscriptionUrl = "/test/url/old";
+			_newSubscriptionUrl = "/test/url/new";
+			_oldSubscriptionPageId = 8;
+			_newSubscriptionPageId = 9;
+			_settlement = ShopSettlementFactory.Get(50);
 			Context = () =>
 			{
-				A.CallTo(() => View.SubscriptionPageId).Returns(_expectedSubscriptionPageId);
-				A.CallTo(() => RoutingService.GetPageUrl(A<int>.Ignored)).Returns(_expectedSubscriptionUrl);
-				MockedSettlementRepository.Setup(x => x.GetForShop(It.IsAny<int>(), It.IsAny<int>())).Returns(_expectedSettlement);
-				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(_expectedCurrentShopId);
-				HttpContext.SetupRequestParameter("settlementId", _expectedSettlement.Id.ToString());
+				A.CallTo(() => View.SubscriptionPageId).Returns(_oldSubscriptionPageId);
+				A.CallTo(() => View.NewSubscriptionPageId).Returns(_newSubscriptionPageId);
+				A.CallTo(() => RoutingService.GetPageUrl(_oldSubscriptionPageId)).Returns(_oldSubscriptionUrl);
+				A.CallTo(() => RoutingService.GetPageUrl(_newSubscriptionPageId)).Returns(_newSubscriptionUrl);
+				MockedSettlementRepository.Setup(x => x.GetForShop(It.IsAny<int>(), It.IsAny<int>())).Returns(_settlement);
+				MockedSynologenMemberService.Setup(x => x.GetCurrentShopId()).Returns(_currentShopId);
+				HttpContext.SetupRequestParameter("settlementId", _settlement.Id.ToString());
 			};
 
 			Because = presenter => presenter.View_Load(null, new EventArgs());
@@ -67,21 +75,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests
 		[Test]
 		public void View_model_has_expected_settment_properties()
 		{
-			View.Model.SettlementId.ShouldBe(_expectedSettlement.Id);
-			View.Model.ShopNumber.ShouldBe(_expectedSettlement.Shop.Number);
-			View.Model.Period.ShouldBe(_expectedPeriod);
-			View.Model.ContractSalesValueIncludingVAT.ShouldBe(_expectedSettlement.ContractSalesValueIncludingVAT.ToString("C2"));
-			View.Model.DetailedContractSales.Count().ShouldBe(_expectedSettlement.SaleItems.Count());
-			View.Model.SimpleContractSales.Count().ShouldBe(_expectedSettlement.SaleItems.Select(x => x.Article.Id).Distinct().Count());
+			View.Model.SettlementId.ShouldBe(_settlement.Id);
+			View.Model.ShopNumber.ShouldBe(_settlement.Shop.Number);
+			View.Model.Period.ShouldBe(_period);
+			View.Model.ContractSalesValueIncludingVAT.ShouldBe(_settlement.ContractSalesValueIncludingVAT.ToString("C2"));
+			View.Model.DetailedContractSales.Count().ShouldBe(_settlement.SaleItems.Count());
+			View.Model.SimpleContractSales.Count().ShouldBe(_settlement.SaleItems.Select(x => x.Article.Id).Distinct().Count());
 			View.Model.SwitchViewButtonText.ShouldBe("Visa detaljer");
-			View.Model.LensSubscriptionsValueIncludingVAT.ShouldBe(_expectedSettlement.LensSubscriptionsValueIncludingVAT.ToString("C2"));
-			View.Model.LensSubscriptionTransactionsCount.ShouldBe(_expectedSettlement.LensSubscriptionTransactions.Count().ToString());
+			View.Model.OldTransactionsValueIncludingVAT.ShouldBe(_settlement.OldTransactionValueIncludingVAT.ToString("C2"));
+			View.Model.NewTransactionsValueIncludingVAT.ShouldBe(_settlement.NewTransactionValueIncludingVAT.ToString("C2"));
+			View.Model.OldTransactionsCount.ShouldBe(_settlement.OldTransactions.Count().ToString());
+			View.Model.NewTransactionCount.ShouldBe(_settlement.NewTransactions.Count().ToString());
 		}
 
 		[Test]
 		public void View_model_has_expected_detailed_contract_sales_properties()
 		{
-			View.Model.DetailedContractSales.And(_expectedSettlement.SaleItems).Do( (viewItem, domainItem) =>
+			View.Model.DetailedContractSales.And(_settlement.SaleItems).Do( (viewItem, domainItem) =>
 			{
 				viewItem.ArticleName.ShouldBe(domainItem.Article.Name);
 				viewItem.ArticleNumber.ShouldBe(domainItem.Article.Number);
@@ -123,12 +133,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests
 		}
 
 		[Test]
-		public void View_model_has_expected_detailed_transaction_properties()
+		public void View_model_has_expected_detailed_old_transaction_properties()
 		{
-			View.Model.DetailedSubscriptionTransactions.And(_expectedSettlement.LensSubscriptionTransactions).Do((viewItem, domainItem) =>
+			View.Model.OldTransactions.And(_settlement.OldTransactions).Do((viewItem, domainItem) =>
 			{
 				viewItem.CustomerName.ShouldBe(domainItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
-				viewItem.SubscriptionLink.ShouldBe(String.Format("{0}?subscription={1}", _expectedSubscriptionUrl, domainItem.Subscription.Id));
+				viewItem.SubscriptionLink.ShouldBe(String.Format("{0}?subscription={1}", _oldSubscriptionUrl, domainItem.Subscription.Id));
+				viewItem.Amount.ShouldBe(domainItem.Amount.ToString("C2"));
+				viewItem.Date.ShouldBe(domainItem.CreatedDate.ToString("yyyy-MM-dd"));
+			});
+		}
+
+		[Test]
+		public void View_model_has_expected_detailed_new_transaction_properties()
+		{
+			View.Model.NewTransactions.And(_settlement.NewTransactions).Do((viewItem, domainItem) =>
+			{
+				viewItem.CustomerName.ShouldBe(domainItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
+				viewItem.SubscriptionLink.ShouldBe(String.Format("{0}?subscription={1}", _newSubscriptionUrl, domainItem.Subscription.Id));
 				viewItem.Amount.ShouldBe(domainItem.Amount.ToString("C2"));
 				viewItem.Date.ShouldBe(domainItem.CreatedDate.ToString("yyyy-MM-dd"));
 			});
@@ -144,8 +166,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests
 		public void Presenter_fetches_shop_settlement_from_settlement_respository()
 		{
 			MockedSettlementRepository.Verify(x => x.GetForShop(
-				It.Is<int>( settlementId => settlementId.Equals(_expectedSettlement.Id)),
-				It.Is<int>( shopId => shopId.Equals(_expectedCurrentShopId))
+				It.Is<int>( settlementId => settlementId.Equals(_settlement.Id)),
+				It.Is<int>( shopId => shopId.Equals(_currentShopId))
 			));
 		}
 	}

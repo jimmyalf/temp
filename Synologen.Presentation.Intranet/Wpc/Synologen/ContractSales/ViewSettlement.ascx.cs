@@ -14,6 +14,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		public event EventHandler MarkAllSaleItemsAsPayed;
 
 		public int SubscriptionPageId { get; set; }
+		public int NewSubscriptionPageId { get; set; }
 
 		protected void btnSwitchView_Click(object sender, EventArgs e) 
 		{ 

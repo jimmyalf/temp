@@ -3,14 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using NHibernate;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence;
 using Spinit.Wpc.Synologen.Core.Expressions;
-using Spinit.Wpc.Synologen.Data.Commands;
-using Spinit.Wpc.Synologen.Data.Queries;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 {
-	public class CommandQueryInterceptor
+	public class CommandQueryInterceptor<TSession>
 	{
 		private readonly IDictionary<Type, object> _queryInterceptors;
 		private readonly IDictionary<Type, object> _commandInterceptors;
@@ -35,18 +33,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 			_queryInterceptors.Add(queryType, queryResult);
 		}
 
-		public void SetupQueryResult<TQuery>(object queryResult) where TQuery : Query
+		public void SetupQueryResult<TQuery>(object queryResult) where TQuery : IQuery
 		{
 			SetupQueryResult(typeof (TQuery), queryResult);
 		}
 
-		public void SetupSessionResult<TResult>(Expression<Func<ISession, TResult>> sessionExpression, object result)
+		public void SetupSessionResult<TResult>(Expression<Func<TSession, TResult>> sessionExpression, object result)
 		{
 			var key = GetExpressionKey(sessionExpression);
 			_sessionFunctionInterceptors.Add(key, result);
 		}
 
-		public void SetupSessionAction(Expression<Action<ISession>> sessionExpression, Action action)
+		public void SetupSessionAction(Expression<Action<TSession>> sessionExpression, Action action)
 		{
 			var key = GetExpressionKey(sessionExpression);
 			_sessionActionInterceptors.Add(key, action);
@@ -67,7 +65,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 			_commandInterceptors.Add(type, result);
 		}
 
-		public void SetupCommandResult<TCommand, TReturnType>(object result) where TCommand : Command<TReturnType>
+		public void SetupCommandResult<TCommand, TReturnType>(object result) where TCommand : ICommand<TReturnType>
 		{
 			SetupCommandResult(typeof (TCommand), result);
 		}
@@ -77,7 +75,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 			_commandActionInterceptors.Add(type, action);
 		}
 
-		public void SetupCommandAction<TCommand>(Action action) where TCommand : Command
+		public void SetupCommandAction<TCommand>(Action action) where TCommand : ICommand
 		{
 			_commandActionInterceptors.Add(typeof(TCommand), action);
 		}
@@ -86,14 +84,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 
 		#region Get
 
-		public virtual object GetCommandResult(Command command, Type resultType)
+		public virtual object GetCommandResult(ICommand command, Type resultType)
 		{
 			return _commandInterceptors.ContainsKey(command.GetType())
 			       	? _commandInterceptors[command.GetType()]
 			       	: GetDefaultItem(resultType);
 		}
 
-		public virtual void GetCommandAction(Command command)
+		public virtual void GetCommandAction(ICommand command)
 		{
 			var key = command.GetType();
 			if (_commandActionInterceptors.ContainsKey(key))
@@ -102,7 +100,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 			}
 		}
 
-		public virtual object GetQueryResult(Query query, Type resultType)
+		public virtual object GetQueryResult(IQuery query, Type resultType)
 		{
 			return _queryInterceptors.ContainsKey(query.GetType())
 			       	? _queryInterceptors[query.GetType()]
@@ -155,8 +153,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 			});
 			//Try replace lambda parameter name with an common name
 			return new ExpressionReplacer(evaluatedExpression)
-				.Replace(x => x is ParameterExpression && x.Type == typeof(ISession))
-				.With(Expression.Parameter(typeof(ISession), "session"))
+				.Replace(x => x is ParameterExpression && x.Type == typeof(TSession))
+				.With(Expression.Parameter(typeof(TSession), "session"))
 				.ToString();
 		}
 	}

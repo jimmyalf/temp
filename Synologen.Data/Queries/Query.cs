@@ -2,10 +2,12 @@ using System;
 using System.Linq.Expressions;
 using NHibernate;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence;
+using IQuery = Spinit.Wpc.Synologen.Core.Domain.Persistence.IQuery;
 
 namespace Spinit.Wpc.Synologen.Data.Queries
 {
-	public abstract class Query<TResult> : Query
+	public abstract class Query<TResult> : Query, IQuery<TResult>
 	{
 		protected Query() : base(typeof(TResult)) { }
 		public abstract TResult Execute();
@@ -16,7 +18,7 @@ namespace Spinit.Wpc.Synologen.Data.Queries
 		}
 	}
 
-	public abstract class Query
+	public abstract class Query : IQuery
 	{
 	    public Type ResultType { get; set; }
 		protected Query(Type type)
@@ -24,4 +26,6 @@ namespace Spinit.Wpc.Synologen.Data.Queries
 	        ResultType = type;
 	    }
 	}
+
+
 }

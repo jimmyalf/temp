@@ -234,6 +234,8 @@
     <Compile Include="Domain\Persistence\BGServer\IBGReceivedConsentRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IFileSectionToSendRepository.cs" />
     <Compile Include="Domain\Persistence\BGServer\IReceivedFileRepository.cs" />
+    <Compile Include="Domain\Persistence\ICommand.cs" />
+    <Compile Include="Domain\Persistence\IQuery.cs" />
     <Compile Include="Domain\Persistence\ContractSales\IArticleRepository.cs" />
     <Compile Include="Domain\Persistence\ContractSales\ISettlementRepository.cs" />
     <Compile Include="Domain\Persistence\Criterias\AllFrameOrdersForShopCriteria.cs" />

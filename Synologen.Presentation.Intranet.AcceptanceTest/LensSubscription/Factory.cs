@@ -52,7 +52,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 	
 		public static IList<Subscription> CreateSubscriptions(params Customer[] customers)
 		{
-			return customers.SelectMany(customer => CreateSubscriptions(customer)).ToList();
+			return customers.SelectMany(CreateSubscriptions).ToList();
 		}
 
 		public static IList<SubscriptionTransaction> CreateTransactions(TransactionArticle transactionArticle, IEnumerable<Subscription> subscriptions)

@@ -28,7 +28,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 		public IEnumerable<SettlementListViewItem> Settlements { get; set; }
 		public bool DisplayCreateSettlementsButton
 		{
-			get { return (NumberOfContractSalesReadyForInvocing + NumberOfOldTransactionsReadyForInvocing > 0); }
+			get { return (
+				NumberOfContractSalesReadyForInvocing + 
+				NumberOfOldTransactionsReadyForInvocing +
+				NumberOfNewTransactionsReadyForInvocing > 0); }
 		}
 	}
 }

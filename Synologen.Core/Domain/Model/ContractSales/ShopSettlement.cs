@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales
 {
@@ -10,9 +9,13 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales
 		public virtual Shop Shop { get; set; }
 		public virtual IEnumerable<SaleItem> SaleItems { get; set;}
 		public virtual decimal ContractSalesValueIncludingVAT { get; set; }
-		public virtual decimal LensSubscriptionsValueIncludingVAT { get; set; }
-		public virtual IEnumerable<OldTransaction> LensSubscriptionTransactions { get; set; }
+		public virtual decimal OldTransactionValueIncludingVAT { get; set; }
+		public virtual decimal NewTransactionValueIncludingVAT { get; set; }
+		public virtual IEnumerable<OldTransaction> OldTransactions { get; set; }
+		public virtual IEnumerable<NewTransaction> NewTransactions { get; set; }
 		public virtual DateTime CreatedDate { get; set; }
 		public bool AllContractSalesHaveBeenMarkedAsPayed { get; set; }
+
+		
 	}
 }

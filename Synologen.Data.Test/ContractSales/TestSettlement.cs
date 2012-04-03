@@ -264,9 +264,9 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 				var expectedContractSales = _ordersToSave.Where(x => x.SalesPersonShopId.Equals(_shop_1.ShopId) && x.StatusId.Equals(settlementableOrderStatus));
 				var expectedSaleItems = expectedContractSales.SelectMany(x => x.OrderItems).ToList();
 				settlementForShop.SaleItems.Count().ShouldBe(expectedSaleItems.Count());
-				settlementForShop.LensSubscriptionTransactions.Count().ShouldBe(_transactions.Count());
+				settlementForShop.OldTransactions.Count().ShouldBe(_transactions.Count());
 				settlementForShop.ContractSalesValueIncludingVAT.ShouldBe((decimal)expectedContractSales.Sum(x => x.InvoiceSumIncludingVAT));
-				settlementForShop.LensSubscriptionsValueIncludingVAT.ShouldBe(_transactions.Sum(x => x.Amount));
+				settlementForShop.OldTransactionValueIncludingVAT.ShouldBe(_transactions.Sum(x => x.Amount));
 				settlementForShop.AllContractSalesHaveBeenMarkedAsPayed.ShouldBe(false);
 				settlementForShop.SaleItems.And(expectedSaleItems).Do((saleItem, originalItem) =>
 				{
@@ -281,7 +281,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 					saleItem.Sale.ContractCompany.ContractId.ShouldBe(_company.ContractId);
 					saleItem.IsVATFree.ShouldBe(_contractArticleConnection.NoVAT);
 				});
-				settlementForShop.LensSubscriptionTransactions.And(_transactions).Do((transaction, originalItem) =>
+				settlementForShop.OldTransactions.And(_transactions).Do((transaction, originalItem) =>
 				{
 					transaction.CreatedDate.ShouldBe(originalItem.CreatedDate);
 					transaction.Amount.ShouldBe(originalItem.Amount);

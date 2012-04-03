@@ -45,18 +45,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.ContractSa
 			var useDetailedView = HttpContext.Session[UseDetailedSettlementViewSessionKey].ToTypeOrDefault(false);
 			var shopId = _synologenMemberService.GetCurrentShopId();
 			var settlementForShop = _settlementRepository.GetForShop(settlementId, shopId);
-			var subscriptionPageUrl = SubscriptionPageUrlResolver(View.SubscriptionPageId);
+			var oldSubscriptionPageUrl = _routingService.GetPageUrl(View.SubscriptionPageId);
+			var newSubscriptionPageUrl = _routingService.GetPageUrl(View.NewSubscriptionPageId);
 
 			View.Model.DisplayDetailedView = useDetailedView;
 			View.Model.SettlementId = settlementForShop.Id;
 			View.Model.ShopNumber = settlementForShop.Shop.Number;
 			View.Model.Period = Business.Utility.General.GetSettlementPeriodNumber(settlementForShop.CreatedDate);
 			View.Model.ContractSalesValueIncludingVAT = settlementForShop.ContractSalesValueIncludingVAT.ToString("C2");
-			View.Model.LensSubscriptionsValueIncludingVAT = settlementForShop.LensSubscriptionsValueIncludingVAT.ToString("C2");
-			View.Model.LensSubscriptionTransactionsCount = settlementForShop.LensSubscriptionTransactions.Count().ToString();
-			View.Model.DetailedSubscriptionTransactions = settlementForShop.LensSubscriptionTransactions.Select(transaction => DetailedTransactionsConverter(transaction, subscriptionPageUrl)); 
-			View.Model.DetailedContractSales = settlementForShop.SaleItems.Select(DetailedSalesItemConverter);
-			View.Model.SimpleContractSales = settlementForShop.SaleItems.OrderBy(x => x.Article.Id).GroupBy(x => x.Article.Id).Select(SimpleSalesItemConverter);
+			View.Model.OldTransactionsValueIncludingVAT = settlementForShop.OldTransactionValueIncludingVAT.ToString("C2");
+			View.Model.NewTransactionsValueIncludingVAT = settlementForShop.NewTransactionValueIncludingVAT.ToString("C2");
+			View.Model.OldTransactionsCount = settlementForShop.OldTransactions.Count().ToString();
+			View.Model.NewTransactionCount = settlementForShop.NewTransactions.Count().ToString();
+			View.Model.OldTransactions = settlementForShop.OldTransactions.Select(transaction => ConvertDetailedOldTransactions(transaction, oldSubscriptionPageUrl));
+			View.Model.NewTransactions = settlementForShop.NewTransactions.Select(transaction => ConvertDetailedNewTransactions(transaction, newSubscriptionPageUrl));
+			View.Model.DetailedContractSales = settlementForShop.SaleItems.Select(ConvertDetailedSalesItem);
+			View.Model.SimpleContractSales = settlementForShop.SaleItems.OrderBy(x => x.Article.Id).GroupBy(x => x.Article.Id).Select(ConvertSimpleSalesItem);
 			View.Model.SwitchViewButtonText = (useDetailedView) ? SimpleButtonText : DetailedButtonText;
 			View.Model.MarkAsPayedButtonEnabled = !settlementForShop.AllContractSalesHaveBeenMarkedAsPayed;
 		}
@@ -78,59 +82,52 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.ContractSa
 		}
 
 
-		private static Func<SaleItem,SettlementDetailedContractSaleListItemModel> DetailedSalesItemConverter
+		private SettlementDetailedContractSaleListItemModel ConvertDetailedSalesItem(SaleItem saleItem)
 		{
-			get
+			return new SettlementDetailedContractSaleListItemModel
 			{
-				return saleItem => new SettlementDetailedContractSaleListItemModel
-				{
-					ArticleName = saleItem.Article.Name,
-					ArticleNumber = saleItem.Article.Number,
-					ContractCompany = saleItem.Sale.ContractCompany.Name,
-					ContractSaleId = saleItem.Sale.Id.ToString(),
-					IsVATFree = saleItem.IsVATFree ? "Ja" : "Nej",
-					Quantity = saleItem.Quantity.ToString(),
-					ValueExcludingVAT = saleItem.SingleItemPriceExcludingVAT.ToString("C2")
-				};
-			}
+				ArticleName = saleItem.Article.Name,
+				ArticleNumber = saleItem.Article.Number,
+				ContractCompany = saleItem.Sale.ContractCompany.Name,
+				ContractSaleId = saleItem.Sale.Id.ToString(),
+				IsVATFree = saleItem.IsVATFree ? "Ja" : "Nej",
+				Quantity = saleItem.Quantity.ToString(),
+				ValueExcludingVAT = saleItem.SingleItemPriceExcludingVAT.ToString("C2")
+			};
 		}
 
-		private static Func<IGrouping<int,SaleItem>,SettlementSimpleContractSaleListItemModel> SimpleSalesItemConverter
+		private SettlementSimpleContractSaleListItemModel ConvertSimpleSalesItem(IGrouping<int, SaleItem> saleItemGroup)
 		{
-			get
+			return new SettlementSimpleContractSaleListItemModel
 			{
-				return saleItemGroup => new SettlementSimpleContractSaleListItemModel
-				{
-					ArticleName = saleItemGroup.FirstOrDefault().Return(x => x.Article.Name, String.Empty),
-					ArticleNumber = saleItemGroup.FirstOrDefault().Return(x => x.Article.Number, String.Empty),
-					IsVATFree = saleItemGroup.FirstOrDefault().Return(x => x.IsVATFree, false) ? "Ja" : "Nej",
-					Quantity = saleItemGroup.Sum(x => x.Quantity).ToString(),
-					ValueExcludingVAT = saleItemGroup.Sum(x => x.TotalPriceExcludingVAT()).ToString("C2")
-				};
-			}
+				ArticleName = saleItemGroup.FirstOrDefault().Return(x => x.Article.Name, String.Empty),
+				ArticleNumber = saleItemGroup.FirstOrDefault().Return(x => x.Article.Number, String.Empty),
+				IsVATFree = saleItemGroup.FirstOrDefault().Return(x => x.IsVATFree, false) ? "Ja" : "Nej",
+				Quantity = saleItemGroup.Sum(x => x.Quantity).ToString(),
+				ValueExcludingVAT = saleItemGroup.Sum(x => x.TotalPriceExcludingVAT()).ToString("C2")
+			};
 		}
 
-		private static Func<OldTransaction, string, SettlementDetailedSubscriptionTransactionsListItemModel> DetailedTransactionsConverter
+		private SettlementDetailedSubscriptionTransactionsListItemModel ConvertDetailedOldTransactions(OldTransaction transactionItem, string subscriptionPageUrl)
 		{
-			get
-			{
-				return (transactionItem, subscriptionPageUrl) => new SettlementDetailedSubscriptionTransactionsListItemModel
-              	{
-              		Amount = transactionItem.Amount.ToString("C2"),
-              		Date = transactionItem.CreatedDate.ToString("yyyy-MM-dd"),
-					SubscriptionLink = String.Format("{0}?subscription={1}", subscriptionPageUrl, transactionItem.Subscription.Id),
-					CustomerName = transactionItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName)
-              	};
-			}
+			return new SettlementDetailedSubscriptionTransactionsListItemModel
+            {
+              	Amount = transactionItem.Amount.ToString("C2"),
+              	Date = transactionItem.CreatedDate.ToString("yyyy-MM-dd"),
+				SubscriptionLink = String.Format("{0}?subscription={1}", subscriptionPageUrl, transactionItem.Subscription.Id),
+				CustomerName = transactionItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName)
+            };
 		}
-
-
-		private Func<int, string> SubscriptionPageUrlResolver
+		
+		private SettlementDetailedSubscriptionTransactionsListItemModel ConvertDetailedNewTransactions (NewTransaction transactionItem, string subscriptionPageUrl)
 		{
-			get
-			{
-				return pageId => (pageId <= 0) ? "#" : _routingService.GetPageUrl(pageId);
-			}
+			return new SettlementDetailedSubscriptionTransactionsListItemModel
+            {
+              	Amount = transactionItem.Amount.ToString("C2"),
+              	Date = transactionItem.CreatedDate.ToString("yyyy-MM-dd"),
+				SubscriptionLink = String.Format("{0}?subscription={1}", subscriptionPageUrl, transactionItem.Subscription.Id),
+				CustomerName = transactionItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName)
+            };
 		}
 
 		public override void ReleaseView()

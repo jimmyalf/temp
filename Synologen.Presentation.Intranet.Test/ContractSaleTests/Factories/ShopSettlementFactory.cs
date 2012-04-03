@@ -11,11 +11,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests.Fact
 			{
 				Id = 50,
 				CreatedDate = new DateTime(2010,12,01),
-				LensSubscriptionTransactions = TransactionFactory.GetList(),
+				OldTransactions = TransactionFactory.GetOldList(),
+				NewTransactions = TransactionFactory.GetNewList(),
 				SaleItems = SalesItemFactory.GetList(ContractCompanyFactory.Get()),
 				Shop = ShopFactory.Get(55),
                 ContractSalesValueIncludingVAT = 1234.56M,
-				LensSubscriptionsValueIncludingVAT = 987.65M,
+				OldTransactionValueIncludingVAT = 987.65M,
+				NewTransactionValueIncludingVAT = 978.65M,
 			};
 		}
 	}

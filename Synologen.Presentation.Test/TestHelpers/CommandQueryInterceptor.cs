@@ -145,13 +145,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 		protected virtual string GetExpressionKey(Expression expression)
 		{
 			//Try evaluate variables etc before creating a key
-			var evaluatedExpression = new PartialEvaluator(expression).Evaluate(x =>
-			{
-				if (x is UnaryExpression) return true;
-				if (x is ConstantExpression) return true;
-				return x.NodeType == ExpressionType.MemberAccess;
-			});
-			//Try replace lambda parameter name with an common name
+			var evaluatedExpression = new ExpressionEvaluator(expression).EvaluateConstantsAndParameters();
+			//Try replace lambda parameter name with an common name (session)
 			return new ExpressionReplacer(evaluatedExpression)
 				.Replace(x => x is ParameterExpression && x.Type == typeof(TSession))
 				.With(Expression.Parameter(typeof(TSession), "session"))

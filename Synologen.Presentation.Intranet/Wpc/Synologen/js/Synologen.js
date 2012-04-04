@@ -12,6 +12,7 @@
 			$.SynologenIntranet.initMinimizeYammerText();
 			$.SynologenIntranet.initCalculateMontlyAGWithdrawalAmounts();
 			$.SynologenIntranet.initActionMessageFadeOut();
+			$.SynologenIntranet.initDefaultButtonSubmitWireup();
 		},
 
 		initDisableTabLinks: function () {
@@ -101,10 +102,23 @@
 				return selectedNumerOfWithdrawals;
 			}
 		},
-		
-		initActionMessageFadeOut : function () {
+
+		initActionMessageFadeOut: function () {
 			$('#action-message').delay(5000).slideUp('slow', function () {
 				$(this).remove();
+			});
+		},
+
+		initDefaultButtonSubmitWireup: function () {
+			var submitButton = $(".submit-button");
+			var form = $("#tab-container");
+			if (form == null) return;
+			form.keypress(function (e) {
+				if (e.which == 13 && e.target.type != 'textarea') {
+					submitButton.click();
+					return false;
+				}
+				return true;
 			});
 		}
 	});

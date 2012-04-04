@@ -8,9 +8,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests.Fact
 	{
 		public static OldTransaction[] GetOldList()
 		{
-			var customer1 = new Customer { FirstName = "Erik", LastName = "Eriksson" };
+			var customer1 = new OldCustomer { FirstName = "Erik", LastName = "Eriksson" };
 			var subscription1 = SubscriptionFactory.GetOld(1, customer1);
-			var customer2 = new Customer { FirstName = "Sven", LastName = "Svensson" };
+			var customer2 = new OldCustomer { FirstName = "Sven", LastName = "Svensson" };
 			var subscription2 = SubscriptionFactory.GetOld(2, customer2);
 
 			return new[]
@@ -24,9 +24,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests.Fact
 
 		public static IList<NewTransaction> GetNewList()
 		{
-			var customer1 = new Customer { FirstName = "Erik", LastName = "Eriksson" };
+			var customer1 = new NewCustomer { FirstName = "Erik", LastName = "Eriksson" };
 			var subscription1 = SubscriptionFactory.GetNew(1, customer1);
-			var customer2 = new Customer { FirstName = "Sven", LastName = "Svensson" };
+			var customer2 = new NewCustomer { FirstName = "Sven", LastName = "Svensson" };
 			var subscription2 = SubscriptionFactory.GetNew(2, customer2);
 
 			return new[]

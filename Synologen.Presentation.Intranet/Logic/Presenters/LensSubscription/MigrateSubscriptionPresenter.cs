@@ -34,6 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 			if(!RequestSubscriptionId.HasValue) return;
 			View.Model.ReturnUrl = _routingService.GetPageUrl(View.ReturnPageId);
 			var oldSubscription = Session.Get<Subscription>(RequestSubscriptionId.Value);
+			ValidateCurrentShopHasAccessToSubscription(oldSubscription);
 			View.Model.IsAlreadyMigrated = oldSubscription.ConsentStatus == SubscriptionConsentStatus.Migrated;
 			View.Model.PerformedWithdrawals = oldSubscription.Transactions.Count(x => x.Reason == TransactionReason.Payment && x.Type == TransactionType.Deposit);
 			View.Model.Status = oldSubscription.ConsentStatus.GetEnumDisplayName();
@@ -41,17 +42,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 			View.Model.Customer = oldSubscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			View.Model.AccountNumber = oldSubscription.PaymentInfo.AccountNumber;
 			View.Model.ClearingNumber = oldSubscription.PaymentInfo.ClearingNumber;
+			View.Model.CurrentBalance = oldSubscription.GetCurrentAccountBalance().ToString("C2");
 		}
 
 		private void Migrate(object sender, MigrateSubscriptionEventArgs e)
 		{
 			if(!RequestSubscriptionId.HasValue) return;
 			var oldSubscription = Session.Get<Subscription>(RequestSubscriptionId.Value);
-			ValidateCurrentShopHasAccessToSubscription(oldSubscription);
 			int newSubscriptionId;
 			try
 			{
-				newSubscriptionId = MigrateSubscription(oldSubscription, e.AdditionalWithdrawals);
+				newSubscriptionId = MigrateSubscription(oldSubscription, e.AdditionalWithdrawals, e.StartBalance);
 			}
 			catch
 			{
@@ -62,9 +63,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.LensSubscr
 			Redirect(newSubscriptionId);
 		}
 
-		private int MigrateSubscription(Subscription oldSubscription, int additionalWithdrawals)
+		private int MigrateSubscription(Subscription oldSubscription, int additionalWithdrawals, decimal startBalance)
 		{
-			var newSubscription = Execute(new MigrateSubscriptionCommand(oldSubscription, additionalWithdrawals));
+			var newSubscription = Execute(new MigrateSubscriptionCommand(oldSubscription, additionalWithdrawals, startBalance));
 			ValidateMigration(oldSubscription, newSubscription, additionalWithdrawals);
 			oldSubscription.ConsentStatus = SubscriptionConsentStatus.Migrated;
 			Session.Save(oldSubscription);

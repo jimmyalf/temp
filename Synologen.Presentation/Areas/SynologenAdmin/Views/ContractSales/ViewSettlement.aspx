@@ -7,16 +7,24 @@
 			<fieldset>
 				<legend>Utbetalningsdetaljer</legend>
 				<div class="formItem clearLeft">
-					<div><%= Html.LabelFor(x => x.Id)%>
-					<span><%=Html.DisplayFor(x => x.Id) %></span></div>
-					<div><%= Html.LabelFor(x => x.CreatedDate)%>
-					<span><%=Html.DisplayFor(x => x.CreatedDate) %></span></div>
-					<div><%= Html.LabelFor(x => x.Period)%>
-					<span><%=Html.DisplayFor(x => x.Period) %></span></div>
+					<div>
+						<label><%= Html.LabelFor(x => x.Id)%></label>
+						<span><%=Html.DisplayFor(x => x.Id) %></span>
+					</div>
+					<div>
+						<label><%= Html.LabelFor(x => x.CreatedDate)%></label>
+						<span><%=Html.DisplayFor(x => x.CreatedDate) %></span>
+					</div>
+					<div>
+						<label><%= Html.LabelFor(x => x.Period)%></label>
+						<span><%=Html.DisplayFor(x => x.Period) %></span>
+					</div>
 				</div>
 				<div class="formItem">
-					<div><%= Html.LabelFor(x => x.SumAmountIncludingVAT)%>
-					<span><%=Html.DisplayFor(x => x.SumAmountIncludingVAT) %></span></div>
+					<div>
+						<label><%= Html.LabelFor(x => x.SumAmountIncludingVAT)%></label>
+						<span><%=Html.DisplayFor(x => x.SumAmountIncludingVAT) %></span>
+					</div>
 				</div>		
 				<div class="formCommands hide-on-print">
 					<input class="btnBig" type="button" OnClick="window.location='<%=Url.Action("Settlements") %>';" value="Tillbaka">
@@ -30,7 +38,8 @@
 						<th class="wide-column">Butik</th>
 						<th>Bankgiro</th>
 						<th class="hide-on-print">Antal fakturor</th>
-						<th class="hide-on-print">Antal transaktioner</th>
+						<th class="hide-on-print">Antal gamla transaktioner</th>
+						<th class="hide-on-print">Antal nya transaktioner</th>
 						<th>Utbetalas inkl moms</th>
 					</tr>
 					<%foreach (var item in Model.SettlementItems) {%>
@@ -39,6 +48,7 @@
 						<td><%= item.BankGiroNumber %></td>
 						<td class="hide-on-print"><%= item.NumberOfContractSalesInSettlement %></td>
 						<td class="hide-on-print"><%= item.NumberOfOldTransactionsInSettlement %></td>
+						<td class="hide-on-print"><%= item.NumberOfNewTransactionsInSettlement %></td>
 						<td><%=item.SumAmountIncludingVAT %></td>
 					</tr>
 					<%}%>

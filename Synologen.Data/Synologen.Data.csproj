@@ -186,7 +186,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ArticleMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractCompanyMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractSaleMap.cs" />
-    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\CustomerMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\OldCustomerMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\NewTransactionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\OldSubscriptionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\SaleItemMap.cs" />

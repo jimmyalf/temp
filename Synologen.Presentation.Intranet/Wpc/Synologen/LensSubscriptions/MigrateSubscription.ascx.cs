@@ -21,7 +21,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.LensSubscript
 		{
 			if(Migrate == null) return;
 			var additionalWithdrawals = txtAdditionalWithdrawals.Text.ToInt();
-			Migrate(this, new MigrateSubscriptionEventArgs(additionalWithdrawals));
+			var startBalance = txtStartBalance.Text.ToDecimal();
+			Migrate(this, new MigrateSubscriptionEventArgs(additionalWithdrawals, startBalance));
 		}
 	}
 }

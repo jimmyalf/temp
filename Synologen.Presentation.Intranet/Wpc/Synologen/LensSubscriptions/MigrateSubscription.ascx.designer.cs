@@ -20,5 +20,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.LensSubscript
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAdditionalWithdrawals;
+        
+        /// <summary>
+        /// txtStartBalance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtStartBalance;
     }
 }

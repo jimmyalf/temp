@@ -5,7 +5,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 {
 	public static class SubscriptionFactory
 	{
-		public static OldSubscription GetOld(int id, Customer customer)
+		public static OldSubscription GetOld(int id, OldCustomer customer)
 		{
 			var mockedSubscription = new Mock<OldSubscription>();
 			mockedSubscription.SetupGet(x => x.Customer).Returns(customer);

@@ -17,7 +17,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 			{
 				Id = settlement.Id,
 				NumberOfContractSalesInSettlement = settlement.ContractSales.Count(),
-				NumberOfLensSubscriptionTransactionsInSettlement = settlement.OldTransactions.Count(),
+				NumberOfOldTransactionsInSettlement = settlement.OldTransactions.Count(),
+				NumberOfNewTransactionsInSettlement = settlement.NewTransactions.Count(),
 				CreatedDate = settlement.CreatedDate.ToString("yyyy-MM-dd HH:mm")
 			};
 		}

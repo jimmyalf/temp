@@ -151,7 +151,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			    settlement.CreatedDate.ShouldBe(_settlements.ElementAt(index).CreatedDate.ToString("yyyy-MM-dd HH:mm"));
 			    settlement.Id.ShouldBe(_settlements.ElementAt(index).Id);
 			    settlement.NumberOfContractSalesInSettlement.ShouldBe(_settlements.ElementAt(index).ContractSales.Count());
-			    settlement.NumberOfLensSubscriptionTransactionsInSettlement.ShouldBe(_settlements.ElementAt(index).OldTransactions.Count());
+			    settlement.NumberOfOldTransactionsInSettlement.ShouldBe(_settlements.ElementAt(index).OldTransactions.Count());
 			});
 		}
 

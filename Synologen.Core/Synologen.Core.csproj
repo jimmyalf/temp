@@ -153,7 +153,8 @@
     <Compile Include="Domain\Model\ContractSales\ContractArticleConnection.cs" />
     <Compile Include="Domain\Model\ContractSales\ContractCompany.cs" />
     <Compile Include="Domain\Model\ContractSales\ContractSale.cs" />
-    <Compile Include="Domain\Model\ContractSales\Customer.cs" />
+    <Compile Include="Domain\Model\ContractSales\NewCustomer.cs" />
+    <Compile Include="Domain\Model\ContractSales\OldCustomer.cs" />
     <Compile Include="Domain\Model\ContractSales\SaleItem.cs" />
     <Compile Include="Domain\Model\ContractSales\Shop.cs" />
     <Compile Include="Domain\Model\ContractSales\Settlement.cs" />

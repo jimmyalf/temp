@@ -14,9 +14,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.LensSubscriptio
 	public class MigrateSubscriptionEventArgs : EventArgs
 	{
 		public int AdditionalWithdrawals { get; set; }
-		public MigrateSubscriptionEventArgs(int additionalWithdrawals)
+		public decimal StartBalance { get; set; }
+		public MigrateSubscriptionEventArgs(int additionalWithdrawals, decimal startBalance)
 		{
 			AdditionalWithdrawals = additionalWithdrawals;
+			StartBalance = startBalance;
 		}
 	}
 }

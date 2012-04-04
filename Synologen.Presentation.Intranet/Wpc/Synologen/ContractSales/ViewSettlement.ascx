@@ -6,8 +6,10 @@
 		<p><label>Butiknummer:</label>&nbsp;<span><%#Model.ShopNumber %></span></p>
 		<p><label>Period:</label>&nbsp;<span><%#Model.Period %></span></p>
 		<p><label>Avtalsförsäljningsvärde inkl moms:</label>&nbsp;<span><%#Model.ContractSalesValueIncludingVAT %></span></p>
-		<p><label>Linsabonnemangsvärde inkl moms:</label>&nbsp;<span><%#Model.OldTransactionsValueIncludingVAT %></span></p>
-		<p><label>Antal linsabonnemang-transaktioner:</label>&nbsp;<span><%#Model.OldTransactionsCount %></span></p>
+		<p><label>Gamla linsabonnemangsvärde inkl moms:</label>&nbsp;<span><%#Model.OldTransactionsValueIncludingVAT %></span></p>
+		<p><label>Nya linsabonnemangsvärde inkl moms:</label>&nbsp;<span><%#Model.NewTransactionsValueIncludingVAT %></span></p>
+		<p><label>Antal gamla linsabonnemang-transaktioner:</label>&nbsp;<span><%#Model.OldTransactionsCount %></span></p>
+		<p><label>Antal nya linsabonnemang-transaktioner:</label>&nbsp;<span><%#Model.NewTransactionCount %></span></p>
 		<p><a href="<%=SynologenSessionContext.SettlementListPage %>">&laquo;&nbsp;Tillbaka</a></p>
 	</fieldset>
 	<div class="control-actions">
@@ -75,7 +77,7 @@
 	</asp:Repeater>	
 	</fieldset>
 	</asp:PlaceHolder>			
-	<fieldset><legend>Linsabonnemang transaktioner</legend>
+	<fieldset><legend>Gamla linsabonnemang transaktioner</legend>
 	<asp:Repeater ID="rptSettlementTransactionItemsDetailed" runat="server" DataSource='<%#Model.OldTransactions%>'>
 	<HeaderTemplate>
 		<table>
@@ -87,7 +89,28 @@
 	</HeaderTemplate>
 	<ItemTemplate>
 			<tr>
-				<%--<td><a href="<%# Eval("SubscriptionLink")%>" title="Abonnemang"><%# Eval("CustomerName")%></a></td>--%>
+				<td><%# Eval("CustomerName")%></td>
+				<td><%# Eval("Amount") %></td>
+				<td><%# Eval("Date") %></td>
+			</tr>
+	</ItemTemplate>	
+	<FooterTemplate>
+		</table>
+	</FooterTemplate>			
+	</asp:Repeater>	
+	</fieldset>
+	<fieldset><legend>Nya linsabonnemang transaktioner</legend>
+	<asp:Repeater runat="server" DataSource='<%#Model.NewTransactions%>'>
+	<HeaderTemplate>
+		<table>
+			<tr class="synologen-table-headerrow">	
+				<th>Kund</th>
+				<th>Belopp</th>
+				<th>Datum</th>
+			</tr>			
+	</HeaderTemplate>
+	<ItemTemplate>
+			<tr>
 				<td><%# Eval("CustomerName")%></td>
 				<td><%# Eval("Amount") %></td>
 				<td><%# Eval("Date") %></td>

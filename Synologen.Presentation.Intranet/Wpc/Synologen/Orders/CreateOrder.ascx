@@ -62,7 +62,7 @@
 					CssClass="error-message"	>&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 			<p>
-				<label>Antal</label>
+				<label>Antal boxar</label>
 				<asp:TextBox runat="server" ID="txtRightQuantity" Text='<%#Model.Quantity.Right%>' />
 				<asp:RequiredFieldValidator
 					runat="server" 
@@ -176,7 +176,7 @@
 					CssClass="error-message"	>&nbsp;*</asp:RequiredFieldValidator>
 			</p>
 			<p>
-				<label>Antal</label>
+				<label>Antal boxar</label>
 				<asp:TextBox runat="server" ID="txtLeftQuantity" Text='<%#Model.Quantity.Left%>' />
 				<asp:RequiredFieldValidator 
 					runat="server" 

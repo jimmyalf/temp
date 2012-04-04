@@ -25,7 +25,7 @@
     	<div class="next-step">
             <div class="control-actions">
                 <asp:Button ID="btnCancel" Text="Avbryt" runat="server" CssClass="cancel-button" CausesValidation="False" />
-		        <asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" CausesValidation="true" />
+		        <asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" CssClass="submit-button" CausesValidation="true" />
 	        </div>
         </div>
     </fieldset>

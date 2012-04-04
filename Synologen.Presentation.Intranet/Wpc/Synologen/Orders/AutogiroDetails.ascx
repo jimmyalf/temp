@@ -62,5 +62,26 @@
 				<asp:Button ID="btnNextStep" runat="server" Text="Nästa steg →" CssClass="submit-button" CausesValidation="True"/>
     		</div>
 		</fieldset>
+		<div class="message-box">
+			<p>
+				<strong>Tips!</strong><br/>
+				<strong>Swedbank</strong> har ibland fem siffror, ex. <em>8327 – 9XXXXX</em>. Utelämna då den femte siffran, i detta fall 9.
+			</p>
+			<p>
+				<strong>Handelsbankens</strong> clearingsnummer ska alltid börja med <em>6</em>, om du inte hittar det ange 6000.
+			</p>
+			<p>
+				Personkonto i <strong>Nordea</strong> har clearingsnummer <em>3300</em> och kontonumret är detsamma som kundens personnummer; <em>3300 – ÅÅMMDDXXXX.</em>
+			</p>
+			<p>
+				Personkonto i <strong>Nordea</strong> där kontonumret inte är ett personnummer, så är clearingsnumret de fyra sista i kontonumret.
+			</p>
+			<p>
+				PlusGirokonto i <strong>Nordea</strong> har clearingsnummer <em>9960</em>.
+			</p>
+		</div>
+		<div class="message-box">
+			Brytdatum är den 15:e varje månad. Registrering till och med midnatt den <em>15:e</em> innebär dragning den <em>28:e</em> innevarande månad. Registrering efter denna tidpunkt innebär dragning den <em>28:e</em> nästkommande månad.
+		</div>
     </div>
   </div>

@@ -34,7 +34,7 @@
 				<asp:RequiredFieldValidator runat="server" ErrorMessage="En abonnemangstid måste anges" ControlToValidate="rblSubscriptionTime" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
       		</div>
     		<p>
-    			<label>Produkt</label>
+    			<label>Produktpris</label>
 				<asp:TextBox ID="txtProductAmount" Text="<%#Model.ProductPrice %>" runat="server" ClientIDMode="Static" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtProductAmount" ErrorMessage="Produktbelopp måste anges" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
 				<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtProductAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>

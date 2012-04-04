@@ -196,7 +196,7 @@ namespace Synologen.Service.Client.OrderEmailSender.Services
 						<td class=""left"">@order.Article.Left</td>
 					</tr>
 					<tr class=""quantity"">
-						<th>Antal</th>
+						<th>Antal boxar</th>
 						<td class=""right"">@order.Quantity.Right</td>
 						<td class=""left"">@order.Quantity.Left</td>
 					</tr>

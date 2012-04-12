@@ -542,6 +542,13 @@
     <Compile Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx.designer.cs">
       <DependentUpon>MemberFilesThumbs.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\MemberProfile.ascx.cs">
+      <DependentUpon>MemberProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\MemberProfile.ascx.designer.cs">
+      <DependentUpon>MemberProfile.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\Supplier\ViewMemberImage.aspx.cs">
       <DependentUpon>ViewMemberImage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -615,7 +622,8 @@
     <None Include="Testpages\Order\SubscriptionItem.aspx" />
     <None Include="Testpages\Order\SubscriptionCorrection.aspx" />
     <None Include="Testpages\LensSubscription\MigrateSubscription.aspx" />
-    <Content Include="Testpages\MemberFilesThumbs.aspx" />
+    <None Include="Testpages\Supplier\MemberProfile.aspx" />
+    <Content Include="Testpages\Supplier\MemberFilesThumbs.aspx" />
     <None Include="Testpages\Order\EditSubscription.aspx" />
     <None Include="Testpages\Order\OrderReportLink.aspx" />
     <Content Include="Wpc\Synologen\ActionMessage.ascx" />
@@ -718,6 +726,7 @@
     <Content Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx" />
     <Content Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx" />
     <Content Include="Testpages\AddActionMessage.aspx" />
+    <Content Include="Wpc\Synologen\Supplier\MemberProfile.ascx" />
     <Content Include="Wpc\Synologen\ValidationButton.ascx" />
   </ItemGroup>
   <ItemGroup>
@@ -849,7 +858,7 @@
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Testpages\AdminMemberFiles.aspx" />
+    <None Include="Testpages\Supplier\AdminMemberFiles.aspx" />
     <None Include="Testpages\LensSubscription\ShopSubscriptionsList.aspx" />
     <Content Include="Testpages\MiniYammerFeed.aspx" />
     <Content Include="Testpages\YammerFeed.aspx" />

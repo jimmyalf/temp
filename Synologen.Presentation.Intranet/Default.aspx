@@ -41,7 +41,8 @@
 		<a href="/Testpages/LensSubscription/MigrateSubscription.aspx?subscription=1">Migrera abonnemang</a>
 	</fieldset>
 	<fieldset><legend>Leverantörskontroller</legend>
-		<a href="Testpages/AdminMemberFiles.aspx">Admin Member Files</a>
+		<a href="Testpages/Supplier/MemberProfile.aspx">Member profile</a>
+		<a href="Testpages/Supplier/AdminMemberFiles.aspx">Admin Member Files</a>
 	</fieldset>
 	<fieldset>
 	    <legend>Flöden</legend>

@@ -6,7 +6,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 	[Flags]
 	public enum OrderShippingOption
 	{
-		[EnumDisplayName("Lagerbeställning - Ej beställning")]
+		[EnumDisplayName("Lageruttag - Ej beställning")]
 		NoOrder = 1,
 		[EnumDisplayName("Lagerbeställning")]
 		ToStore = 2,

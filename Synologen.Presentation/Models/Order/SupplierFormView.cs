@@ -18,6 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			ShipToStore = supplier.ShippingOptions.HasFlag(OrderShippingOption.ToStore);
 			ShipToCustomer = supplier.ShippingOptions.HasFlag(OrderShippingOption.ToCustomer);
 			DeliveredOverCounter = supplier.ShippingOptions.HasFlag(OrderShippingOption.DeliveredInStore);
+			NoOrder = supplier.ShippingOptions.HasFlag(OrderShippingOption.NoOrder);
 			OrderEmailAddress = supplier.OrderEmailAddress;
 			Active = supplier.Active;
 		}
@@ -25,7 +26,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		[DisplayName("Aktiv")]
 		public bool Active { get; set; }
 
-		[DisplayName("Lagerbeställning - Ej beställning")]
+		[DisplayName("Lageruttag - Ej beställning")]
 		public bool NoOrder { get; set; }
 
 		[DisplayName("Lagerbeställning")]

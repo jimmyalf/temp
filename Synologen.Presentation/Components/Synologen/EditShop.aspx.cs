@@ -25,6 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 	{
 		private int _shopId;
 		private Shop _shop;
+		private const decimal DefaultCoordinateValue = 0;
 
 		protected void Page_Load(object sender, EventArgs e) 
 		{
@@ -148,6 +149,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			txtGiroNumber.Text = _shop.GiroNumber;
 			txtGiroSupplier.Text = _shop.GiroSupplier;
 			txtOrganizationNumber.Text = _shop.OrganizationNumber;
+			txtLatitude.Text = _shop.Latitude.ToString();
+			txtLongitude.Text = _shop.Longitude.ToString();
 		}
 
         protected void btnFetchCoordinates_OnClick(object sender, EventArgs e)
@@ -209,8 +212,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			_shop.GiroId = Int32.Parse(drpGiroType.SelectedValue);
 			_shop.GiroNumber = txtGiroNumber.Text;
 			_shop.GiroSupplier = txtGiroSupplier.Text;
-		    _shop.Latitude = txtLatitude.Text.ToDecimal();
-		    _shop.Longitude = txtLongitude.Text.ToDecimal();
+		    _shop.Latitude = txtLatitude.Text.ToDecimalOrDefault(DefaultCoordinateValue);
+		    _shop.Longitude = txtLongitude.Text.ToDecimalOrDefault(DefaultCoordinateValue);
 			var selectedItems = chkShopAccess.GetSelectedItems();
 			_shop.Access = selectedItems.Any() ? selectedItems
 					.Select(x => Int32.Parse(x.Value).ToEnum<ShopAccess>())

@@ -239,13 +239,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 			// label27
 			// 
 			label27.DataField = "Recipie.Article.Right";
-			label27.Height = 0.1968504F;
+			label27.Height = 0.393701F;
 			label27.HyperLink = null;
 			label27.Left = 1.574803F;
 			label27.Name = "label27";
 			label27.Style = "";
 			label27.Text = "";
-			label27.Top = 3.149606F;
+			label27.Top = 2.952756F;
 			label27.Width = 1.476378F;
 			// 
 			// lblHeader
@@ -435,7 +435,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 			this.label9.Name = "label9";
 			this.label9.Style = "font-size: 9.75pt; font-weight: bold; ddo-char-set: 0";
 			this.label9.Text = "Höger öga";
-			this.label9.Top = 2.952756F;
+			this.label9.Top = 2.755906F;
 			this.label9.Width = 2.952756F;
 			// 
 			// label10
@@ -447,7 +447,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 			this.label10.Name = "label10";
 			this.label10.Style = "font-size: 9.75pt; font-weight: bold; ddo-char-set: 0";
 			this.label10.Text = "Vänster öga";
-			this.label10.Top = 2.952756F;
+			this.label10.Top = 2.755906F;
 			this.label10.Width = 2.952756F;
 			// 
 			// label11
@@ -458,7 +458,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 			this.label11.Name = "label11";
 			this.label11.Style = "";
 			this.label11.Text = "Artikel";
-			this.label11.Top = 3.149606F;
+			this.label11.Top = 2.952756F;
 			this.label11.Width = 1.476378F;
 			// 
 			// label12
@@ -469,7 +469,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 			this.label12.Name = "label12";
 			this.label12.Style = "";
 			this.label12.Text = "Artikel";
-			this.label12.Top = 3.149606F;
+			this.label12.Top = 2.952756F;
 			this.label12.Width = 1.476378F;
 			// 
 			// label13
@@ -713,13 +713,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports
 			// label35
 			// 
 			this.label35.DataField = "Recipie.Article.Left";
-			this.label35.Height = 0.1968504F;
+			this.label35.Height = 0.3937002F;
 			this.label35.HyperLink = null;
 			this.label35.Left = 4.72441F;
 			this.label35.Name = "label35";
 			this.label35.Style = "";
 			this.label35.Text = "";
-			this.label35.Top = 3.149606F;
+			this.label35.Top = 2.952756F;
 			this.label35.Width = 1.476378F;
 			// 
 			// label36

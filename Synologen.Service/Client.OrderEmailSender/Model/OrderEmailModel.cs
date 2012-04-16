@@ -109,7 +109,7 @@ namespace Synologen.Service.Client.OrderEmailSender.Model
 	{
 		public OrderEmailListModel(IEnumerable<Order> orders)
 		{
-			Orders = orders.Select(x => new OrderEmailModel(x));
+			Orders = (orders != null) ? orders.Select(x => new OrderEmailModel(x)) : Enumerable.Empty<OrderEmailModel>();
 		}
 		public IEnumerable<OrderEmailModel> Orders { get; set; }
 	}

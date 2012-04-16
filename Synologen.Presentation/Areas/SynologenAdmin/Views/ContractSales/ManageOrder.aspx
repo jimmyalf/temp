@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<OrderView>" %>
+﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<Spinit.Wpc.Synologen.Presentation.Models.ContractSales.OrderView>" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <div id="dCompMain" class="Components-Synologen-ContractSales-OrderView-aspx">
 	<div class="fullBox">

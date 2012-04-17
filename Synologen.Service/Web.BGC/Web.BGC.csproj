@@ -77,7 +77,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BGService.svc" />
+    <Content Include="Service.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -131,5 +131,4 @@
     <PreBuildEvent>"$(ProjectDir)..\..\Build\Pre-Build-$(TargetName).bat" "$(ProjectDir)" "$(TargetName)" "$(ProjectName)"</PreBuildEvent>
     <PostBuildEvent>"$(ProjectDir)..\..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
   </PropertyGroup>
-  
 </Project>

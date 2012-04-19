@@ -17,12 +17,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			//Subscription is already consented and withdrawal date not yet passed
 			if(isAlreadyConsentedSubscription && subscriptionCreatedDate.Day <= _synologenSettingsService.SubscriptionWithdrawalDate)
 			{
-				GetWithdrawalDateInGivenMonth(subscriptionCreatedDate);
+				return GetWithdrawalDateInGivenMonth(subscriptionCreatedDate);
 			}
 			//Subscription is already consented but withdrawal date has passed
 			if(isAlreadyConsentedSubscription && subscriptionCreatedDate.Day > _synologenSettingsService.SubscriptionWithdrawalDate)
 			{
-				GetWithdrawalDateInNextMonth(subscriptionCreatedDate);
+				return GetWithdrawalDateInNextMonth(subscriptionCreatedDate);
 			}
 			//Subscription is not yet consented and cut off date has not yet passed
 			if(!isAlreadyConsentedSubscription && subscriptionCreatedDate.Day <= _synologenSettingsService.SubscriptionCutoffDate)

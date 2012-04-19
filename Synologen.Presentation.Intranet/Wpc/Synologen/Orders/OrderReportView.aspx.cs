@@ -2,6 +2,8 @@
 using System.IO;
 using System.Web.UI;
 using Spinit.Wpc.Core.UI;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
@@ -25,11 +27,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	{
 			if(!RequestOrderId.HasValue) return;
     		var order = _orderRepository.Get(RequestOrderId.Value);
-    		var viewModel = new OrderConfirmationModel(order, o => _orderWithdrawalService.GetExpectedFirstWithdrawalDate(o.SubscriptionPayment.CreatedDate));
+    		var viewModel = new OrderConfirmationModel(order, o => _orderWithdrawalService.GetExpectedFirstWithdrawalDate(o.SubscriptionPayment.CreatedDate, OrderSubscriptionIsActiveAndConsented(o.SubscriptionPayment.Subscription)));
     		var stream = new OrderReport(viewModel).ToPdfStream();
     		var fileName = string.Format("Bekräftelse {0}.pdf", order.Id);
     		OutputFile(stream, fileName);
     	}
+		private bool OrderSubscriptionIsActiveAndConsented(Core.Domain.Model.Orders.Subscription subscription)
+		{
+			return subscription.ConsentStatus == SubscriptionConsentStatus.Accepted && subscription.Active;
+		}
 
 		private void OutputFile(MemoryStream stream, string fileName)
 		{

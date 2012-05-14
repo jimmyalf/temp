@@ -535,6 +535,13 @@
     <Compile Include="Wpc\Synologen\Supplier\AdminMemberFiles.ascx.designer.cs">
       <DependentUpon>AdminMemberFiles.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\AdminMemberPage.ascx.cs">
+      <DependentUpon>AdminMemberPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Supplier\AdminMemberPage.ascx.designer.cs">
+      <DependentUpon>AdminMemberPage.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx.cs">
       <DependentUpon>MemberFilesThumbs.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -724,6 +731,7 @@
     <Content Include="Wpc\Synologen\LensSubscriptions\ErrorList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\ShopSubscriptionErrorList.ascx" />
     <Content Include="Wpc\Synologen\LensSubscriptions\TransactionsList.ascx" />
+    <Content Include="Wpc\Synologen\Supplier\AdminMemberPage.ascx" />
     <Content Include="Wpc\Synologen\Supplier\MemberFilesThumbs.ascx" />
     <Content Include="Testpages\AddActionMessage.aspx" />
     <Content Include="Wpc\Synologen\Supplier\MemberProfile.ascx" />
@@ -827,6 +835,9 @@
     <Reference Include="Spinit.Wpc.Utility.Core, Version=4.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Wysiwyg">
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Wysiwyg.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=2.5.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

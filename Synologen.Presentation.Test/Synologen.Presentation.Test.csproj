@@ -77,13 +77,12 @@
     <Reference Include="Shouldly, Version=1.1.0.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Shouldly.1.1.0.4\lib\35\Shouldly.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
+      <HintPath>..\packages\Spinit.1.0.0.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+    <Reference Include="Spinit.Data, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spinit.Data.1.0.3.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data.NHibernate, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Spinit.Wpc.Utility.Business, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL">

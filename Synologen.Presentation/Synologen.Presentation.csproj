@@ -62,7 +62,6 @@
     <Content Include="Areas\SynologenAdmin\Views\Shared\OrderSubMenu.ascx" />
     <Content Include="Components\Synologen\Css\ComponentPrint.css" />
     <Content Include="Components\Synologen\ViewSettlementDetails.aspx" />
-    <Content Include="Components\Synologen\Settlements.aspx" />
     <Content Include="Components\Synologen\CreateShopOwners.aspx" />
     <Content Include="Components\Synologen\AddFiles.aspx" />
     <Content Include="Components\Synologen\Articles.aspx" />
@@ -195,13 +194,6 @@
     </Compile>
     <Compile Include="Components\Synologen\ViewSettlementDetails.aspx.designer.cs">
       <DependentUpon>ViewSettlementDetails.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Components\Synologen\Settlements.aspx.cs">
-      <DependentUpon>Settlements.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Components\Synologen\Settlements.aspx.designer.cs">
-      <DependentUpon>Settlements.aspx</DependentUpon>
     </Compile>
     <Compile Include="Components\Synologen\CreateShopOwners.aspx.cs">
       <DependentUpon>CreateShopOwners.aspx</DependentUpon>
@@ -425,17 +417,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.303.532, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
+      <HintPath>..\packages\Spinit.1.0.0.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Common.WebControls, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Common.WebControls.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Data, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+      <HintPath>..\packages\Spinit.Data.1.0.3.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data.NHibernate, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -612,6 +604,7 @@
     <Content Include="BaseMainMVC.master" />
     <Content Include="Components\ComponentMain.master" />
     <Content Include="Components\ComponentMainMVC.master" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

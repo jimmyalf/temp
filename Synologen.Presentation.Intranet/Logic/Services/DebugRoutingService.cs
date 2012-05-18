@@ -23,6 +23,7 @@
 			AddRoute(1011,"/Testpages/Order/EditSubscription.aspx");
 			AddRoute(1012,"/Testpages/Order/OrderReportLink.aspx");
 			AddRoute(1013,"/Testpages/LensSubscription/MigrateSubscription.aspx");
+			AddRoute(1050,"/Testpages/ViewSettlementPage.aspx");
 		}
 	}
 }

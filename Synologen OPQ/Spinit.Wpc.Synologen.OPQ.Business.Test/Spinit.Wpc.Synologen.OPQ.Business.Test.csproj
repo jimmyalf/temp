@@ -59,11 +59,10 @@
     </Reference>
     <Reference Include="Spinit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependancies\Spinit\Spinit.dll</HintPath>
+      <HintPath>..\..\packages\Spinit.1.0.0.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+    <Reference Include="Spinit.Data, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Spinit.Data.1.0.3.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Wpc.Utility.Business, Version=4.2.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -110,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -157,5 +157,4 @@
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\Spinit.Wpc.Synologen.OPQ.Build\Pre-Build-$(ProjectName).bat" "$(ProjectDir)" "$(ProjectName)"</PreBuildEvent>
   </PropertyGroup>
-  
 </Project>

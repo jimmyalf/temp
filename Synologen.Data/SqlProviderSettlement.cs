@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using Spinit.Data.SqlClient.SqlBuilder;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Utility.Business;
 
@@ -41,26 +42,73 @@ namespace Spinit.Wpc.Synologen.Data {
 			}
 		}
 
-		public DataSet GetSettlementsDataSet(int settlementId, int shopId, string orderBy) {
-			try {
-				int counter = 0;
-				SqlParameter[] parameters = {
-						new SqlParameter ("@settlementId", SqlDbType.Int,4),
-						new SqlParameter ("@shopId", SqlDbType.Int,4),
-						new SqlParameter ("@orderBy", SqlDbType.NVarChar, 255),
-						new SqlParameter ("@status", SqlDbType.Int, 4)
-					};
-				parameters[counter++].Value = settlementId;
-				parameters[counter++].Value = shopId;
-				parameters[counter++].Value = orderBy ?? SqlString.Null;
-				parameters[counter].Direction = ParameterDirection.Output;
-				DataSet retSet = RunProcedure("spSynologenGetSettlements", parameters, "tblSynologenSettlement");
-				return retSet;
-			}
-			catch (Exception ex) {
-				throw CreateDataException("Exception while getting GetSettlementsDataSet", ex);
-			}
-		}
+		//public DataSet GetSettlementsDataSet(int settlementId, int shopId, string orderBy) {
+		//    try {
+		//        int counter = 0;
+		//        SqlParameter[] parameters = {
+		//                new SqlParameter ("@settlementId", SqlDbType.Int,4),
+		//                new SqlParameter ("@shopId", SqlDbType.Int,4),
+		//                new SqlParameter ("@orderBy", SqlDbType.NVarChar, 255),
+		//                new SqlParameter ("@status", SqlDbType.Int, 4)
+		//            };
+		//        parameters[counter++].Value = settlementId;
+		//        parameters[counter++].Value = shopId;
+		//        parameters[counter++].Value = orderBy ?? SqlString.Null;
+		//        parameters[counter].Direction = ParameterDirection.Output;
+		//        DataSet retSet = RunProcedure("spSynologenGetSettlements", parameters, "tblSynologenSettlement");
+		//        return retSet;
+		//    }
+		//    catch (Exception ex) {
+		//        throw CreateDataException("Exception while getting GetSettlementsDataSet", ex);
+		//    }
+		//}
+
+        public DataSet GetSettlementsDataSet(int settlementId, int shopId, string orderBy) 
+        {
+            const string settlementsWithPaymentsToShop = @"
+				SELECT cSettlementId FROM tblSynologenSettlementOrderConnection
+					INNER JOIN tblSynologenOrder ON tblSynologenOrder.cId = tblSynologenSettlementOrderConnection.cOrderId
+					WHERE tblSynologenOrder.cSalesPersonShopId = @ShopId
+				UNION SELECT SettlementId FROM SynologenLensSubscriptionTransaction
+					INNER JOIN SynologenLensSubscription ON SynologenLensSubscription.Id = SynologenLensSubscriptionTransaction.SubscriptionId
+					INNER JOIN SynologenLensSubscriptionCustomer ON SynologenLensSubscriptionCustomer.Id = SynologenLensSubscription.CustomerId
+					WHERE SynologenLensSubscriptionCustomer.ShopId = @ShopId
+				UNION SELECT SettlementId FROM SynologenOrderTransaction
+					INNER JOIN SynologenOrderSubscription ON SynologenOrderTransaction.SubscriptionId = SynologenOrderSubscription.Id
+					WHERE SynologenOrderSubscription.ShopId = @ShopId";
+
+            var numberOfOrders = QueryBuilder.Build(@"SELECT COUNT (*) 
+					FROM tblSynologenSettlementOrderConnection 
+					LEFT OUTER JOIN tblSynologenOrder ON tblSynologenOrder.cId = tblSynologenSettlementOrderConnection.cOrderId")
+                .Where("tblSynologenSettlementOrderConnection.cSettlementId = tblSynologenSettlement.cId")
+                .Where("tblSynologenOrder.cSalesPersonShopId = @ShopId").If(shopId > 0);
+
+            var numberOfOldTransactions = QueryBuilder.Build(@"SELECT COUNT (*) 
+					FROM SynologenLensSubscriptionTransaction 
+					LEFT OUTER JOIN SynologenLensSubscription ON SynologenLensSubscription.Id = SynologenLensSubscriptionTransaction.SubscriptionId
+					LEFT OUTER JOIN SynologenLensSubscriptionCustomer ON SynologenLensSubscriptionCustomer.Id = SynologenLensSubscription.CustomerId")
+                .Where("SynologenLensSubscriptionTransaction.SettlementId = tblSynologenSettlement.cId")
+                .Where("SynologenLensSubscriptionCustomer.ShopId = @ShopId").If(shopId > 0);
+
+            var numberOfNewTransactions = QueryBuilder.Build(@"SELECT COUNT (*) 
+					FROM SynologenOrderTransaction 
+					LEFT OUTER JOIN SynologenOrderSubscription ON SynologenOrderTransaction.SubscriptionId = SynologenOrderSubscription.Id")
+                .Where("SynologenOrderTransaction.SettlementId = tblSynologenSettlement.cId")
+                .Where("SynologenOrderSubscription.ShopId = @ShopId").If(shopId > 0);
+
+            var query = QueryBuilder.Build(@"SELECT 
+						tblSynologenSettlement.*,
+						({0}) AS cNumberOfOrders,
+						({1}) AS cNumberOfOldTransactions,
+						({2}) AS cNumberOfNewTransactions
+					FROM tblSynologenSettlement", numberOfOrders, numberOfOldTransactions, numberOfNewTransactions)
+                .Where("cId IN ({0})", settlementsWithPaymentsToShop).If(shopId > 0)
+                .Where("tblSynologenSettlement.cId = @SettlementId").If(settlementId > 0)
+                .OrderBy(orderBy)
+                .AddParameters(new{ShopId = shopId, SettlementId = settlementId});
+
+            return Persistence.QueryRaw(query);
+        }
 
 		public DataSet GetSettlementDetailsDataSet(int settlementId, out float settlementValueIncludingVAT, out float settlementValueExcludingVAT, string orderBy) {
 			try {

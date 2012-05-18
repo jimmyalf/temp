@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SqlTypes;
+using Spinit.Data.SqlClient;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using DataException=Spinit.GeneralData.DatabaseInterface.DataException;
 
@@ -8,11 +9,17 @@ namespace Spinit.Wpc.Synologen.Data {
 	/// <summary>
 	/// Base class for SqlProvider
 	/// </summary>
-	public partial  class SqlProvider: Member.Data.SqlProvider, ISqlProvider {
+	public partial  class SqlProvider: Member.Data.SqlProvider, ISqlProvider 
+	{
+		private PersistenceBase Persistence { get; set; }
+
 		/// <summary>
 		/// Base constructor for SqlProvider
 		/// </summary>
-		public SqlProvider(string connectionString) : base(connectionString) {}
+		public SqlProvider(string connectionString) : base(connectionString)
+		{
+			Persistence = new PersistenceBase(connectionString);
+		}
 
 		private static bool DataSetHasRows (DataSet dataset) {
 			if (dataset == null || dataset.Tables[0] == null) return false;

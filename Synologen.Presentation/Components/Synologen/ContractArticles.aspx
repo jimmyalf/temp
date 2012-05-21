@@ -6,7 +6,7 @@
             <h2>Artiklar</h2>
 			<fieldset>
 				<div class="formItem clearLeft">
-					<label >Visar Artiklar för <%=SelectedContract.Name %><br /><br />
+					<label>Visar Artiklar för <%=SelectedContract.Name %></label><br /><br />
 					<input type="button" name="inputBack" class="btnBig" onclick="window.location='Contracts.aspx'" value="Tillbaka" />
 				</div>
 			</fieldset>

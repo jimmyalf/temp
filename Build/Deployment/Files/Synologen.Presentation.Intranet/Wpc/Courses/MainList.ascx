@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MainList.ascx.cs" Inherits="Spinit.Wpc.Courses.Presentation.Site.MainList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MainList.ascx.cs" Inherits="Spinit.Wpc.Courses.Presentation.Site.MainList" %>
 <asp:Repeater ID="rptCategories" runat="server" OnItemDataBound="rptCategories_ItemDataBound">
     <HeaderTemplate><div></HeaderTemplate>
     <ItemTemplate>

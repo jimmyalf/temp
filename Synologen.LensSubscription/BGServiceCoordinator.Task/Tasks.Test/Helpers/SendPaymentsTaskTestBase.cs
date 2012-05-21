@@ -27,7 +27,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 
 		protected override ITask GetTask()
 		{
-			return new SendPayments.Task(Log4NetLogger, BgServiceCoordinatorSettingsService, PaymentFileWriter);
+			return new SendPayments.Task(LoggingService, BgServiceCoordinatorSettingsService, PaymentFileWriter);
 		}
 
 		protected static bool MatchPayments(IEnumerable<Payment> parsedPayments, IList<BGPaymentToSend> originalPayments, string recieverBankGiroNumber)

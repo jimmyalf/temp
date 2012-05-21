@@ -5,6 +5,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Data.Test.FrameData.Factories;
 using Spinit.Wpc.Synologen.Integration.Data.Test.FrameData;
+using Spinit.Wpc.Synologen.Test.Core;
 
 namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 {
@@ -128,16 +129,12 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			
 			//Assert
 			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Enstyrke"));
-			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Rumprogressiva"));
-			
 		}
 
 		[Test]
 		public void Can_get_frameglasstypes_by_PageOfFrameGlassTypesMatchingCriteria_sorted_by_id()
 		{
 			//Arrange
-			const int expectedNumberOfItemsMatchingCriteria = 4;
 			var criteria = new PagedSortedCriteria(typeof(FrameGlassType))
 			{
 				OrderBy = "Id",
@@ -150,17 +147,13 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			var itemsMatchingCriteria = FrameGlassTypeValidationRepository.FindBy(criteria);
 			
 			//Assert
-			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Enstyrke"));
-			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Progressiva"));
-			
+			itemsMatchingCriteria.ShouldBeOrderedAscendingBy(x => x.Id);
 		}
 
 		[Test]
 		public void Can_get_brands_by_PageOfFrameGlassTypesMatchingCriteria_sorted_by_name()
 		{
 			//Arrange
-			const int expectedNumberOfItemsMatchingCriteria = 4;
 			var criteria = new PagedSortedCriteria(typeof(FrameGlassType))
 			{
 				OrderBy = "Name",
@@ -173,16 +166,13 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			var itemsMatchingCriteria = FrameGlassTypeValidationRepository.FindBy(criteria);
 			
 			//Assert
-			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Enstyrke"));
-			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Rumprogressiva"));	
+			itemsMatchingCriteria.ShouldBeOrderedAscendingBy(x => x.Name);
 		}
 
 		[Test]
 		public void Can_get_brands_by_PageOfFrameGlassTypesMatchingCriteria_sorted_descending()
 		{
 			//Arrange
-			const int expectedNumberOfItemsMatchingCriteria = 4;
 			var criteria = new PagedSortedCriteria(typeof(FrameGlassType))
 			{
 				OrderBy = "Id",
@@ -195,9 +185,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			var itemsMatchingCriteria = FrameGlassTypeValidationRepository.FindBy(criteria);
 			
 			//Assert
-			Expect(itemsMatchingCriteria.Count(), Is.EqualTo(expectedNumberOfItemsMatchingCriteria));
-			Expect(itemsMatchingCriteria.First().Name, Is.EqualTo("Progressiva"));
-			Expect(itemsMatchingCriteria.Last().Name, Is.EqualTo("Enstyrke"));
+			itemsMatchingCriteria.ShouldBeOrderedDescendingBy(x => x.Id);
 		}
 	}
 }

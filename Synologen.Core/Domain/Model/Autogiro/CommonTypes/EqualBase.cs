@@ -11,5 +11,16 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes
 		}
 
 		protected abstract bool EqualityImplementation(T other);
+
+		public virtual bool Equals(EqualBase<T> other)
+		{
+			return EqualityImplementation(other as T);
+		}
+
+		public override int GetHashCode()
+		{
+			return 0;
+		}
 	}
+
 }

@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Document.ascx.cs" Inherits="Spinit.Wpc.Document.Presentation.Site.Document" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Document.ascx.cs" Inherits="Spinit.Wpc.Document.Presentation.Site.Document" %>
 <div>
 <asp:TreeView ID="tvwDocumentNode" 
 	runat="server" 

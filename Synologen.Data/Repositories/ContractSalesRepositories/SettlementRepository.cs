@@ -14,49 +14,23 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories
 		public ShopSettlement GetForShop(int id, int shopId)
 		{
 			var settlement = Get(id);
-			var contractSaleItemsForShop = settlement.ContractSales.Where(x => x.Shop.Id.Equals(shopId));
-			var transactionsForShop = settlement.LensSubscriptionTransactions.Where(x => x.Subscription.Customer.Shop.Id.Equals(shopId));
+			var contractSaleItemsForShop = settlement.ContractSales.Where(x => x.Shop.Id.Equals(shopId)).ToList();
+			var oldTransactionsForShop = settlement.OldTransactions.Where(x => x.Subscription.Customer.Shop.Id.Equals(shopId)).OrderByDescending(x => x.CreatedDate).ToList();
+			var newTransactionsForShop = settlement.NewTransactions.Where(x => x.Subscription.Shop.Id.Equals(shopId)).OrderByDescending(x => x.CreatedDate).ToList();
 			var shopSettlement = new ShopSettlement
 			{
 				Id = settlement.Id,
 				CreatedDate = settlement.CreatedDate,
 				Shop = Session.Get<Shop>(shopId),
-				LensSubscriptionTransactions = transactionsForShop.OrderByDescending(x => x.CreatedDate).ToList(),
-				SaleItems = contractSaleItemsForShop.SelectMany(x => x.SaleItems).ToList(),
+				OldTransactions = oldTransactionsForShop,
+				NewTransactions = newTransactionsForShop,
+				SaleItems = contractSaleItemsForShop.SelectMany(x => x.SaleItems),
 				ContractSalesValueIncludingVAT = contractSaleItemsForShop.Sum(x => x.TotalAmountIncludingVAT),
-				LensSubscriptionsValueIncludingVAT = transactionsForShop.Sum(x => x.Amount),
+				OldTransactionValueIncludingVAT = oldTransactionsForShop.Sum(x => x.Amount),
+				NewTransactionValueIncludingVAT = newTransactionsForShop.Sum(x => x.Amount),
 				AllContractSalesHaveBeenMarkedAsPayed = contractSaleItemsForShop.All(x => x.MarkedAsPayed)
 			};
 			return shopSettlement;
-
-			/*
-            Session.EnableFilter("ShopFilter").SetParameter("shopId", shopId);
-            return Session
-                .CreateQuery(@"from Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales.Settlement as Settlement
-					where Id = :id")
-                .SetParameter("id", id)
-                .UniqueResult<Settlement>();
-			 */
-
-
-			/*
-			 				.ApplyFilter<ShopFilter>("Shop.Id = shopId");
-			HasMany(x => x.LensSubscriptionTransactions).KeyColumn("SettlementId")
-				.ApplyFilter<ShopFilter>("Subscription.Customer.Shop.Id = shopId");
-			 */
-
-
-			/*    
-			 * criteria
-
-       .SetFetchMode ("Names", FetchMode.Eager)
-       .CreateCriteria ("Names", JoinType.InnerJoin)
-       .Add (Restrictions.And (
-			Restrictions.Like ("ShortString", name, MatchMode.Anywhere),
-			Restrictions.Eq ("Language", new Language { LanguageId = (int) languageId })))
-       .AddOrder (orderByAsc ? Order.Asc ("ShortString") : Order.Desc ("ShortString"));
-
-*/
 		}
 	}
 }

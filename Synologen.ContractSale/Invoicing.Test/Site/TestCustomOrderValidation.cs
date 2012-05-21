@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Presentation.Site.Code;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Code;
 
 namespace Spinit.Wpc.Synologen.Test.Site {
 	[TestFixture]

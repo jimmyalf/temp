@@ -14,6 +14,9 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription
 		Accepted = 2,
 
 		[EnumDisplayName("Ej medgivet")]
-		Denied = 3
+		Denied = 3,
+
+		[EnumDisplayName("Migrerat")]
+		Migrated = 4
 	}
 }

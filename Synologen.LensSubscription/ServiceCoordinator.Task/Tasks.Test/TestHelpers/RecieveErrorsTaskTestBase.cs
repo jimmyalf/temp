@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.Recieve;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers

@@ -1,19 +1,19 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CityShopList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen.CityShopList" %>
 <%@ Import Namespace="Spinit.Wpc.Synologen.Business.Domain.Entities"%>
-<asp:PlaceHolder ID="plShopFilter" runat="server">
 <div id="shop-content">
-<div id="shop-filter">
-<label>Utrustning</label>
-<asp:DropDownList ID="drpEquipment" runat="server" AutoPostBack="true" OnSelectedIndexChanged="drpEquipmentSelectedIndexChanged" />
-</div>
-</asp:PlaceHolder>
-<asp:Repeater ID="rptCities" runat="server" >
-<HeaderTemplate><div id="sub-nav" class="sub-nav-columnize city-list-container"><ul class="city-list"></HeaderTemplate>
-<ItemTemplate>
-<li><asp:LinkButton ID="lnkbtnOpenCityShops" runat="server" CommandArgument='<%# Eval("City")%>' OnCommand="lnkBtnOpenCityShops_OnCommand"><%# Eval("City")%></asp:LinkButton></li>
-</ItemTemplate>
-<FooterTemplate></ul></div></FooterTemplate>
-</asp:Repeater>
+	<asp:PlaceHolder ID="plShopFilter" runat="server">
+	<div id="shop-filter">
+		<label>Utrustning</label>
+		<asp:DropDownList ID="drpEquipment" runat="server" AutoPostBack="true" OnSelectedIndexChanged="drpEquipmentSelectedIndexChanged" />
+	</div>
+	</asp:PlaceHolder>
+	<asp:Repeater ID="rptCities" runat="server" >
+	<HeaderTemplate><div id="sub-nav" class="sub-nav-columnize city-list-container"><ul class="city-list"></HeaderTemplate>
+	<ItemTemplate>
+	<li><asp:LinkButton ID="lnkbtnOpenCityShops" runat="server" CommandArgument='<%# Eval("City")%>' OnCommand="lnkBtnOpenCityShops_OnCommand"><%# Eval("City")%></asp:LinkButton></li>
+	</ItemTemplate>
+	<FooterTemplate></ul></div></FooterTemplate>
+	</asp:Repeater>
 </div>
 
 <asp:Repeater ID="rptShops" runat="server"  OnItemDataBound="rptShops_ItemDataBound">

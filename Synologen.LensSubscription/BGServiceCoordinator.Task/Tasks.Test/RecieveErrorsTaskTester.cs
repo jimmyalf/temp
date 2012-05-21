@@ -24,19 +24,17 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
 		{
 			Context = () =>
             {
-                //_receivedSections = ReceivedErrorsFactory.GetList();
             	payer = PayerFactory.Get();
             	_receivedSections = RecievedFileSectionFactory.GetList(SectionType.ReceivedErrors);
                 var errorsFileSection = ReceivedErrorsFactory.GetReceivedErrorFileSection(payer.Id);
                 _savedError = ReceivedErrorsFactory.GetError(payer.Id);
 
-                A.CallTo(() => ReceivedFileRepository.FindBy(A<AllUnhandledReceivedErrorFileSectionsCriteria>
-                                                      .Ignored.Argument)).Returns(_receivedSections);
+                A.CallTo(() => ReceivedFileRepository.FindBy(A<AllUnhandledReceivedErrorFileSectionsCriteria>.Ignored)).Returns(_receivedSections);
                 A.CallTo(() => ErrorFileReader.Read(A<string>.Ignored)).Returns(errorsFileSection); 
 				A.CallTo(() => AutogiroPayerRepository.Get(payer.Id)).Returns(payer);
             };
 		
-			Because = task => { task.Execute(ExecutingTaskContext);};
+			Because = task => task.Execute(ExecutingTaskContext);
 		}
 
         [Test]
@@ -48,52 +46,49 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_loggs_start_and_stop_messages()
         {
-            A.CallTo(() => Log.Info(A<string>.That.Contains("Started"))).MustHaveHappened();
-            A.CallTo(() => Log.Info(A<string>.That.Contains("Finished"))).MustHaveHappened();
+            LoggingService.AssertInfo("Started");
+            LoggingService.AssertInfo("Finished");
         }
 
         [Test]
         public void Task_logs_number_of_received_sections()
         {
-            A.CallTo(() => Log.Debug(A<string>.That.Contains("Fetched 15 error file sections from repository"))).MustHaveHappened();
+            LoggingService.AssertDebug("Fetched 15 error file sections from repository");
         }
 
         [Test]
         public void Task_logs_after_each_handled_section()
         {
-            A.CallTo(() => Log.Debug(A<string>.That.Contains("Saved 10 errors to repository"))).MustHaveHappened();
+            LoggingService.AssertDebug("Saved 10 errors to repository");
         }
 
         [Test]
         public void Task_fetches_new_paymentsections_from_repository()
         {
             A.CallTo(() => ReceivedFileRepository.FindBy(
-                               A<AllUnhandledReceivedErrorFileSectionsCriteria>.Ignored.Argument))
+                               A<AllUnhandledReceivedErrorFileSectionsCriteria>.Ignored))
                                .MustHaveHappened();
         }
 
         [Test]
         public void Task_saves_fetched_fileposts_as_errors()
         {
-            A.CallTo(() => BGReceivedErrorRepository.Save(
-                            A<BGReceivedError>
-                            .That.Matches(x => x.Amount.Equals(_savedError.Amount))
-                            .And.Matches(x => x.CreatedDate.Date.Equals(DateTime.Now.Date))
-                            .And.Matches(x => x.Payer.Id.ToString().Equals(_savedError.Transmitter.CustomerNumber))
-                            .And.Matches(x => x.PaymentDate.Date.Equals(_savedError.PaymentDate.Date))
-                            .And.Matches(x => x.Reference.Equals(_savedError.Reference))
-                            .And.Matches(x => x.CommentCode.Equals(_savedError.CommentCode))
-                        )).MustHaveHappened();
+            A.CallTo(() => BGReceivedErrorRepository.Save(A<BGReceivedError>.That.Matches(x => 
+				x.Amount.Equals(_savedError.Amount)
+                && x.CreatedDate.Date.Equals(DateTime.Now.Date)
+                && x.Payer.Id.ToString().Equals(_savedError.Transmitter.CustomerNumber)
+                && x.PaymentDate.Date.Equals(_savedError.PaymentDate.Date)
+                && x.Reference.Equals(_savedError.Reference)
+                && x.CommentCode.Equals(_savedError.CommentCode)
+			))).MustHaveHappened();
         }
 
         [Test]
         public void Task_updates_errorsection_as_handled()
         {
-            _receivedSections.Each(receivedSection => A.CallTo(() => ReceivedFileRepository.Save(
-                A<ReceivedFileSection>
-                    .That.Matches(x => Equals(x.HasBeenHandled, true))
-                    .And.Matches(x => x.HandledDate.Value.Date.Equals(DateTime.Now.Date))
-                )));
+            _receivedSections.Each(receivedSection => A.CallTo(() => ReceivedFileRepository.Save(A<ReceivedFileSection>.That.Matches(x => 
+				Equals(x.HasBeenHandled, true) && x.HandledDate.Value.Date.Equals(DateTime.Now.Date))
+			)));
         }
 	}
 }

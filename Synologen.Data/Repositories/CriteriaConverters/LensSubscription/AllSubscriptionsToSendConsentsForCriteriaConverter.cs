@@ -12,8 +12,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters.LensSubscrip
 		public override ICriteria Convert(AllSubscriptionsToSendConsentsForCriteria source)
 		{
 			return Criteria
-				.FilterEqual(x => x.ConsentStatus, SubscriptionConsentStatus.NotSent)
-				.FilterEqual(x => x.Active, true);
+				.FilterEqual(x => x.Active, true)
+				.FilterEqual(x => x.ConsentStatus, SubscriptionConsentStatus.NotSent);
 		}
 	}
 }

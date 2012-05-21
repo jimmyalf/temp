@@ -6,9 +6,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 {
 	public static class OrderFactory 
 	{
-		public static Order GetInvoicedOrder()
+		public static Business.Domain.Entities.Order GetInvoicedOrder()
 		{
-			return new Order
+			return new Business.Domain.Entities.Order
 			{
 				Id = 5,
 				PersonalIdNumber = "198512242101",
@@ -37,7 +37,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 			};
 		}
 
-		public static Order GetUnInvoicedOrder()
+		public static Business.Domain.Entities.Order GetUnInvoicedOrder()
 		{
 			var order = GetInvoicedOrder();
 			order.StatusId = 1; /* Order created status */

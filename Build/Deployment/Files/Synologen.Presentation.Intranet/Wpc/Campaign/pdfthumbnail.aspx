@@ -1,2 +1,2 @@
-<%@ Page language="c#" Inherits="TallComponents.Web.PDF.ThumbnailPage" %>
+﻿<%@ Page language="c#" Inherits="TallComponents.Web.PDF.ThumbnailPage" %>
 

@@ -21,11 +21,13 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 		private ActionResult _actionResult;
 		private ContractArticleConnection _contractArticle;
 		private Article _article;
+		private Company _company;
 
 		public EditContractArticleConnection()
 		{
 			Context = () =>
 			{
+				_company = DataManager.CreateCompany(WithSqlProvider<ISqlProvider>());
 				_controller = GetController<ContractSalesController>();
 			};
 			Story = () =>
@@ -88,7 +90,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 			_article = ArticleFactory.GetArticle();
 			WithSqlProvider<ISqlProvider>().AddUpdateDeleteArticle(Enumerations.Action.Create, ref _article);
 
-			_contractArticle = ContractArticleFactory.GetNew(_article.Id, TestContractId);
+			_contractArticle = ContractArticleFactory.GetNew(_article.Id, _company.ContractId);
 			WithSqlProvider<ISqlProvider>().AddUpdateDeleteContractArticleConnection(Enumerations.Action.Create, ref _contractArticle);
 
 			_viewModel = ContractArticleFactory.GetEditView(_contractArticle.Id);

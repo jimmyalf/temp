@@ -1,6 +1,6 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.AdminMemberFiles" Codebehind="AdminMemberFiles.ascx.cs" %>
+ï»¿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.AdminMemberFiles" Codebehind="AdminMemberFiles.ascx.cs" %>
 <div id="contentlev">  
-<h3>Lägg till fil</h3>
+<h3>LÃ¤gg till fil</h3>
         <div class="formItem">
                 <b><asp:Label ID="lblFile1" runat="server" AssociatedControlID="uplFile1" SkinId="Long"/></b>
                 <asp:FileUpload ID="uplFile1" runat="server" /> 
@@ -13,7 +13,7 @@
                 </b></br>
                 <br />
                 <br />
-                <asp:Button ID="btnAdd" runat="server" Text="Lägg till" OnClick="btnAdd_Click"  CssClass="button"/><br /><br /><hr /></div>
+                <asp:Button ID="btnAdd" runat="server" Text="LÃ¤gg till" OnClick="btnAdd_Click"  CssClass="button"/><br /><br /><hr /></div>
 
 <h3>Filtrera</h3>
         <div class="formItem">

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro.CommonTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.BGServer;
@@ -27,7 +29,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 			RunLoggedTask(() =>
 			{
 				var fileSectionToSendRepository = context.Resolve<IFileSectionToSendRepository>();
-				var ftpService = context.Resolve<IFtpService>();
+				//var ftpService = context.Resolve<IFtpService>();
 				var fileSectionsToSend = fileSectionToSendRepository.FindBy(new AllUnhandledFileSectionsToSendCriteria());
 				if(fileSectionsToSend == null || fileSectionsToSend.Count() == 0)
 				{
@@ -37,8 +39,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 				LogDebug("Found {0} new file sections to send",fileSectionsToSend.Count());
 				var fileData = ConcatenateFileSections(fileSectionsToSend);
 				var sealedFileData  = _tamperProtectedFileWriter.Write(fileData);
-				var ftpSendResult = ftpService.SendFile(sealedFileData);
-				LogInfo("Sent file to remote FTP successfully");
+				var ftpSendResult = TrySendFile(context.Resolve<IFtpService>, sealedFileData);
 				UpdateFileSectionsAsSent(fileSectionsToSend, fileSectionToSendRepository);
 				try
 				{
@@ -49,6 +50,30 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 					LogError("Caught exception while trying to save sent file to disk (Non fatal error).", ex);
 				}
 			});
+		}
+
+
+		private FtpSendResult TrySendFile(Func<IFtpService> resolveFtpService, string fileData)
+		{
+			const int numberOfAttempts = 3;
+			FtpSendResult ftpSendResult = null;
+			for (var i = numberOfAttempts; i > 0; i--)
+			{
+				try
+				{
+					var ftpService = resolveFtpService();
+					ftpSendResult = ftpService.SendFile(fileData);
+					LogInfo("Sent file to remote FTP successfully");
+					break;
+				}
+				catch(IOException exception)
+				{
+					if (i <= 0) throw new ApplicationException("Failed to send file. No more attempts will be made.", exception);
+					LogInfo("Failed to send file. Another attempt will be made. Error: {0}", exception);
+					Thread.Sleep(1500);
+				}
+			}
+			return ftpSendResult;
 		}
 
 		private static string ConcatenateFileSections(IEnumerable<FileSectionToSend> fileSections)

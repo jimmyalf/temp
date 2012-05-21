@@ -1,4 +1,4 @@
-<%@ Control Language="C#" Inherits="Spinit.Wpc.Utility.Business.UserControlCache" %>	
+﻿<%@ Control Language="C#" Inherits="Spinit.Wpc.Utility.Business.UserControlCache" %>	
 <%@Import Namespace="System"%>
 <%@Import Namespace="System.Collections"%>
 <%@Import Namespace="System.ComponentModel"%>

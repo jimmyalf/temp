@@ -189,6 +189,14 @@ namespace Spinit.Wpc.Synologen.Business {
 		{
 			get { return SafeConfigString(_setting, "FrameOrderEmailSubject", "Glasögonbeställning från synologen"); }
 		}
+        static public string GoogleGeocode
+        {
+            get { return SafeConfigString(_setting, "GoogleGeocode", String.Empty); }
+        }
+        static public string GoogleShowCoordinates
+        {
+            get { return SafeConfigString(_setting, "GoogleShowCoordinates", String.Empty); }
+        }
 
         // Yammer
 	    static public string YammerNetwork
@@ -215,6 +223,16 @@ namespace Spinit.Wpc.Synologen.Business {
 	    {
             get { return SafeConfigString(YammerSettings, "UrlStoragePath", ""); }
 	    }
+
+		public static int SubscriptionCutoffDate
+		{
+			get { return SafeConfigNumber(_setting, "SubscriptionCutoffDate", 0); }
+		}
+
+		public static int SubscriptionWithdrawalDate
+		{
+			get { return SafeConfigNumber(_setting, "SubscriptionWithdrawalDate", 0); }
+		}
 
 		private static decimal SafeConfigDecimal(string configSection, string configKey, decimal value)
 		{

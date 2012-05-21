@@ -41,10 +41,9 @@
 	<div class="columnBoxRight">
 	<div class="wrap">
 	<h2>In work</h2>
-	<!--
 	<ASP:DATALIST id="dltInWork" runat="server" onitemcreated="dltInWork_ItemCreated" RepeatLayout="Flow">
 	<ITEMTEMPLATE>
-	-->
+	
 		<h3><ASP:LABEL id="lblInWork" runat="server"><%# ((Spinit.Wpc.Base.Data.ComponentRow)Container.DataItem).Name %></ASP:LABEL></h3>
 		<ASP:DATALIST id="dltComponentItemsInWork" runat="server" onitemcreated="dltComponentItemsInWork_ItemCreated" SkinID="Striped">
 			<ITEMTEMPLATE>
@@ -53,30 +52,27 @@
 				</ASP:HYPERLINK>
 			</ITEMTEMPLATE>
 		</ASP:DATALIST>
-	<!--
+	
 	</ITEMTEMPLATE>
 	</ASP:DATALIST>
-	-->
 	</div>
 	</div>
 
 	<div class="columnBoxRight clearRight">
 	<div class="wrap">
 	<h2>For approval</h2>
-	<!--
 	<ASP:DATALIST id="dltForApproval" runat="server" onitemcreated="dltForApproval_ItemCreated" RepeatLayout="Flow">
 	<ITEMTEMPLATE>
-	-->
+	
 		<h3><ASP:LABEL id="lblForApproval" runat="server" Visible="False"><%# ((Spinit.Wpc.Base.Data.ComponentRow)Container.DataItem).Name %></ASP:LABEL></h3>
 		<ASP:DATALIST id="dltComponentItemsForApproval" runat="server" OnItemCreated="dltComponentItemsForApproval_ItemCreated" SkinID="Striped">
 			<ITEMTEMPLATE>
 				<ASP:HYPERLINK runat="server" id="hplItemForApproval"><%# DataBinder.Eval(Container.DataItem, "ItemName") %></ASP:HYPERLINK>
 			</ITEMTEMPLATE>
 		</ASP:DATALIST>
-	<!--
 	</ITEMTEMPLATE>
 	</ASP:DATALIST>
-	-->
+	
 	</div>
 	</div>
 

@@ -12,7 +12,7 @@
 		<echo message="Cleaning up output directory" />
 		<delete>
 			<fileset basedir="${dir.build.output}">
-				<include name="Spinit**" />
+				<include name="**/*.*" />
 			</fileset>
 		</delete>
 	</target>

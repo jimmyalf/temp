@@ -36,11 +36,15 @@ namespace Spinit.Wpc.Synologen.Data {
             		new SqlParameter("@address2", SqlDbType.NVarChar, 50),
             		new SqlParameter("@zip", SqlDbType.NVarChar, 50),
             		new SqlParameter("@city", SqlDbType.NVarChar, 50),
+                    new SqlParameter("@latitude", SqlDbType.Decimal), 
+                    new SqlParameter("@longitude", SqlDbType.Decimal), 
             		new SqlParameter("@active", SqlDbType.Bit),
             		new SqlParameter("@giroId", SqlDbType.Int,4),
             		new SqlParameter("@giroNumber", SqlDbType.NVarChar, 50),
             		new SqlParameter("@giroSupplier", SqlDbType.NVarChar, 100),
 					new SqlParameter("@shopAccess", SqlDbType.Int, 4), 
+					new SqlParameter("@externalAccessUsername", SqlDbType.NVarChar, 50), 
+					new SqlParameter("@externalAccessHashedPassword", SqlDbType.NVarChar, 50),
             		new SqlParameter("@status", SqlDbType.Int, 4),
             		new SqlParameter("@id", SqlDbType.Int, 4),
 				};
@@ -65,11 +69,15 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = shop.Address2 ?? SqlString.Null;
 					parameters[counter++].Value = shop.Zip ?? SqlString.Null;
 					parameters[counter++].Value = shop.City ?? SqlString.Null;
+				    parameters[counter++].Value = shop.Latitude > 0 ? shop.Latitude : SqlDecimal.Null;
+				    parameters[counter++].Value = shop.Longitude > 0 ? shop.Longitude : SqlDecimal.Null;
 					parameters[counter++].Value = shop.Active;
 					parameters[counter++].Value = shop.GiroId > 0 ? shop.GiroId : SqlInt32.Null;
 					parameters[counter++].Value = shop.GiroNumber ?? SqlString.Null;
 					parameters[counter++].Value = shop.GiroSupplier ?? SqlString.Null;
-					parameters[counter].Value = shop.Access;
+					parameters[counter++].Value = shop.Access;
+					parameters[counter++].Value = shop.ExternalAccessUsername ?? SqlString.Null;
+					parameters[counter].Value = shop.ExternalAccessHashedPassword ?? SqlString.Null;
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
 				if (action == Enumerations.Action.Create) {
@@ -143,6 +151,8 @@ namespace Spinit.Wpc.Synologen.Data {
 				Address = Util.CheckNullString(shopDataRow, "cAddress"),
 				Address2 = Util.CheckNullString(shopDataRow, "cAddress2"),
 				City = Util.CheckNullString(shopDataRow, "cCity"),
+                Latitude = Util.CheckNullDecimal(shopDataRow, "cLatitude"),
+                Longitude = Util.CheckNullDecimal(shopDataRow, "cLongitude"),
 				ContactFirstName = Util.CheckNullString(shopDataRow, "cContactFirstName"),
 				ContactLastName = Util.CheckNullString(shopDataRow, "cContactLastName"),
 				Description = Util.CheckNullString(shopDataRow, "cShopDescription"),
@@ -161,7 +171,9 @@ namespace Spinit.Wpc.Synologen.Data {
 				GiroSupplier = Util.CheckNullString(shopDataRow, "cGiroSupplier"),
 				Equipment = GetAllEquipmentRowsPerShop(Util.CheckNullInt(shopDataRow, "cId")),
 				Access = Util.CheckNullInt(shopDataRow, "cShopAccess").ToEnum<ShopAccess>(),
-                OrganizationNumber = Util.CheckNullString(shopDataRow, "cOrganizationNumber")
+                OrganizationNumber = Util.CheckNullString(shopDataRow, "cOrganizationNumber"),
+				ExternalAccessUsername = Util.CheckNullString(shopDataRow, "cExternalAccessUsername"),
+				ExternalAccessHashedPassword = Util.CheckNullString(shopDataRow, "cExternalAccessHashedPassword")
 			};
 			var concernId = Util.CheckNullInt(shopDataRow, "cConcernId");
 			shopRow.Concern = (concernId>0) ? GetConcern(concernId) : null;

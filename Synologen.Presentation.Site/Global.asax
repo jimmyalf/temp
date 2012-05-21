@@ -1,1 +1,1 @@
-<%@ Application Inherits="Spinit.Wpc.Core.UI.Mvp.WpcMvpGlobal"%>
+﻿<%@ Application Inherits="Spinit.Wpc.Core.UI.Mvp.WpcMvpGlobal"%>

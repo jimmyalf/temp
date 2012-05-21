@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberInfo" Codebehind="MemberInfo.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberInfo" Codebehind="MemberInfo.ascx.cs" %>
 <div style="float:right; width:170px; background: #d5ded5; padding: 10px; margin-bottom: 5px; margin-left
 : 5px;">
 

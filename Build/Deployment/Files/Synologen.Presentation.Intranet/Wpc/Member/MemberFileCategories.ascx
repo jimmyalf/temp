@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberFileCategories" Codebehind="MemberFileCategories.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberFileCategories" Codebehind="MemberFileCategories.ascx.cs" %>
 <asp:Repeater ID="rptFileCategories" runat="server">
 <ItemTemplate>
 

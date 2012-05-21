@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberFiles" Codebehind="MemberFiles.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberFiles" Codebehind="MemberFiles.ascx.cs" %>
     <asp:GridView ID="gvFiles" 
                     runat="server"                
                     DataKeyNames="Id" 

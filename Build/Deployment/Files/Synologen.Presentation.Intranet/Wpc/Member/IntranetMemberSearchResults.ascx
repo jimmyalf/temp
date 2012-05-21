@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IntranetMemberSearchResults.ascx.cs" Inherits="Spinit.Wpc.Member.Presentation.Intranet.Wpc.Member.IntranetMemberSearchResults" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IntranetMemberSearchResults.ascx.cs" Inherits="Spinit.Wpc.Member.Presentation.Intranet.Wpc.Member.IntranetMemberSearchResults" %>
 <asp:Repeater ID="rptResults" runat="server">
 <HeaderTemplate><dl class="search-results"></HeaderTemplate>
 <ItemTemplate>

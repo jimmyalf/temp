@@ -15,6 +15,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 			Map(x => x.Type).CustomType<TransactionType>(); 
 			Map(x => x.CreatedDate);
 			References(x => x.Subscription).Column("SubscriptionId").Not.Nullable();
+			References(x => x.PendingPayment).Column("PendingPaymentId").Nullable();
 			Map(x => x.SettlementId).Nullable();
 			//References(x => x.Article)
 			//    .Cascade.None()

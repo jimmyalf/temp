@@ -13,17 +13,20 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 			foreach (var receivedPayment in expectedPayments)
 			{
 				var pendingPayment = A.Fake<SubscriptionPendingPayment>();
-				pendingPayment.Amount = receivedPayment.Amount;
+				pendingPayment.TaxFreeAmount = 0;
+				pendingPayment.TaxedAmount = receivedPayment.Amount;
 				A.CallTo(() => pendingPayment.Id).Returns(Int32.Parse(receivedPayment.Reference));
+				A.CallTo(() => pendingPayment.Amount).Returns(receivedPayment.Amount);
 				yield return pendingPayment;
 			}
 		}
 
-		public static SubscriptionPendingPayment Get(decimal amount)
+		public static SubscriptionPendingPayment Get(decimal taxedAmount, decimal taxFreeAmount)
 		{
 			return new SubscriptionPendingPayment
 			{
-				Amount = amount, 
+				TaxFreeAmount = taxFreeAmount,
+				TaxedAmount = taxedAmount,
 				HasBeenPayed = false, 
 				SubscriptionItems = new SubscriptionItem[]{}
 			};

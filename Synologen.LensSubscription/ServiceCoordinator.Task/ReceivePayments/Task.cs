@@ -36,7 +36,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 					var pendingPayment = subscriptionPendingPaymentRepository.Get(pendingPaymentNumber);
 					ProcessPayment(subscriptionPendingPaymentRepository, subscriptionItemRepository, pendingPayment, payment);
 					var subscription = subscriptionRepository.GetByBankgiroPayerId(payment.PayerNumber);
-					SaveTransactionOrError(payment, subscription, transactionsRepository, subscriptionRepository, subscriptionErrorRepository);
+					SaveTransactionOrError(payment, subscription, pendingPayment, transactionsRepository, subscriptionRepository, subscriptionErrorRepository);
 					BGWebServiceClient.SetPaymentHandled(payment);
 				}));
 			});
@@ -61,15 +61,19 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 			return receivedPayment.Reference.TrimEnd(' ').ToIntOrDefault();
 		}
 
-		private void SaveTransactionOrError(ReceivedPayment payment, Subscription subscription, ITransactionRepository transactionRepository, ISubscriptionRepository subscriptionRepository, ISubscriptionErrorRepository subscriptionErrorRepository)
+		private void SaveTransactionOrError(ReceivedPayment payment, Subscription subscription, SubscriptionPendingPayment pendingPayment, ITransactionRepository transactionRepository, ISubscriptionRepository subscriptionRepository, ISubscriptionErrorRepository subscriptionErrorRepository)
 		{
 			switch (payment.Result)
 			{
 				case PaymentResult.Approved:
+					SaveTransaction(ConvertTransaction(payment, subscription, pendingPayment), transactionRepository);
+					break;
 				case PaymentResult.WillTryAgain:
-					SaveTransaction(ConvertTransaction(payment, subscription), transactionRepository);
+					SaveTransaction(ConvertTransaction(payment, subscription, null), transactionRepository);
 					break;
 				case PaymentResult.InsufficientFunds:
+					SaveSubscriptionError(ConvertSubscriptionError(payment, subscription), subscriptionErrorRepository);
+					break;
 				case PaymentResult.AGConnectionMissing:
 					SaveSubscriptionError(ConvertSubscriptionError(payment, subscription), subscriptionErrorRepository);
 					break;
@@ -126,14 +130,15 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 			throw new ArgumentOutOfRangeException("result");
 		}
 
-		private static SubscriptionTransaction ConvertTransaction(ReceivedPayment payment, Subscription subscription)
+		private static SubscriptionTransaction ConvertTransaction(ReceivedPayment payment, Subscription subscription, SubscriptionPendingPayment pendingPayment)
 		{
 			return new SubscriptionTransaction
 			{
 				Amount = payment.Amount,
 				Reason = ConvertToTransactionReason(payment.Result),
 				Type = TransactionType.Deposit,
-				Subscription = subscription
+				Subscription = subscription,
+				PendingPayment = pendingPayment
 			};
 		}
 	}

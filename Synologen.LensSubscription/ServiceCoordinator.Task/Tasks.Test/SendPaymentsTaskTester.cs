@@ -63,16 +63,18 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_converts_transactions_into_payments()
 		{
-			_expectedSubscriptions.Each(subscription =>
-               MockedWebServiceClient.Verify(x => x.SendPayment(It.Is<PaymentToSend>(sentPayment =>
-                 sentPayment.Amount.Equals(subscription.SubscriptionItems.Sum(y => y.MonthlyWithdrawalAmount)) &&
-                 sentPayment.PayerNumber.Equals(subscription.AutogiroPayerId) &&
-                 Equals(sentPayment.Reference, _expectedPaymentReference.ToString()) &&
-                 sentPayment.Type.Equals(PaymentType.Debit) &&
-                 sentPayment.PeriodCode.Equals(PaymentPeriodCode.PaymentOnceOnSelectedDate) &&
-				 sentPayment.PaymentDate.Equals(_expectedPaymentDate)
-        	))));
-}
+			foreach (var subscription in _expectedSubscriptions)
+			{
+				var expectedPaymentAmount = subscription.SubscriptionItems.Sum(x => x.MonthlyWithdrawalAmount);
+				MockedWebServiceClient.Verify(x => x.SendPayment(It.Is<PaymentToSend>(sentPayment => 
+					sentPayment.Amount.Equals(expectedPaymentAmount) && 
+					sentPayment.PayerNumber.Equals(subscription.AutogiroPayerId) && 
+					Equals(sentPayment.Reference, _expectedPaymentReference.ToString()) && 
+					sentPayment.Type.Equals(PaymentType.Debit) && 
+					sentPayment.PeriodCode.Equals(PaymentPeriodCode.PaymentOnceOnSelectedDate) && 
+					sentPayment.PaymentDate.Equals(_expectedPaymentDate))));
+			}
+		}
 
 		[Test]
 		public void Task_updates_subscription_payment_date()

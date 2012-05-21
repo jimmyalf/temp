@@ -6,6 +6,5 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder
 		public virtual string AddressLineTwo { get; set; }
 		public virtual string PostalCode { get; set; }
 		public virtual string City { get; set; }
-
 	}
 }

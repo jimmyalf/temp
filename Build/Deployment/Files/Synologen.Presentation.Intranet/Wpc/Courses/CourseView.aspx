@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="" AutoEventWireup="true" CodeBehind="CourseView.aspx.cs" Inherits="Spinit.Wpc.Courses.Presentation.Site.Wpc.Courses.CourseView" Title="<%$ Resources: PageTitle %>" %>
+﻿<%@ Page Language="C#" MasterPageFile="" AutoEventWireup="true" CodeBehind="CourseView.aspx.cs" Inherits="Spinit.Wpc.Courses.Presentation.Site.Wpc.Courses.CourseView" Title="<%$ Resources: PageTitle %>" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <h3><%=Course.Heading %></h3>
     <div id="course-body"><%=Course.Body %></div>
@@ -42,7 +42,7 @@
 <asp:PlaceHolder ID="plApplicationList" runat="server" Visible="false">
 	<asp:Repeater id="rptApplicationList" runat="server">
 	<HeaderTemplate><br /><br />
-	<h1>Anm�lda</h1>
+	<h1>Anmälda</h1>
 	<ul id="application-list">
 	</HeaderTemplate>
 	<ItemTemplate><li><%#DataBinder.Eval(Container.DataItem, "cFirstName")%> <%#DataBinder.Eval(Container.DataItem, "cLastName")%>, <%#DataBinder.Eval(Container.DataItem, "cCompany")%></li></ItemTemplate>

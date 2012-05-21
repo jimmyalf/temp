@@ -1,55 +1,67 @@
+using System;
+using System.Linq.Expressions;
+using System.Reflection;
 using FakeItEasy;
-using log4net;
+using Spinit.Extensions;
+using Spinit.Test;
 using Moq;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator;
-using Synologen.LensSubscription.ServiceCoordinator.App.Logging;
-using Synologen.Test.Core;
 
 namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers
 {
 	[TestFixture]
-	public abstract class CommonTaskTestBase : BehaviorTestBase<ITask>
+	public abstract class CommonTaskTestBase : BehaviorActionTestbase<ITask>
 	{
 		protected Mock<IBGWebServiceClient> MockedWebServiceClient;
 		protected Mock<ISubscriptionRepository> MockedSubscriptionRepository;
 		protected Mock<ISubscriptionErrorRepository> MockedSubscriptionErrorRepository;
-		protected Mock<ILog> MockedLogger;
-		protected Mock<IEventLoggingService> MockedEventLoggingService;
+		protected FakeLoggingService LoggingService;
 		protected Mock<ITransactionRepository> MockedTransactionRepository;
-		protected Log4NetLogger LoggingService;
 		protected ITaskRepositoryResolver TaskRepositoryResolver;
 		protected IAutogiroPaymentService AutogiroPaymentService;
+		protected ISubscriptionPendingPaymentRepository SubscriptionPendingPaymentRepository;
 
 		protected override void SetUp()
 		{
 			MockedWebServiceClient = new Mock<IBGWebServiceClient>();
 			MockedSubscriptionRepository = new Mock<ISubscriptionRepository>();
-			MockedLogger = new Mock<ILog>();
-			MockedEventLoggingService = new Mock<IEventLoggingService>();
 			MockedSubscriptionErrorRepository = new Mock<ISubscriptionErrorRepository>();
 			MockedTransactionRepository = new Mock<ITransactionRepository>();
-			LoggingService = new Log4NetLogger(MockedLogger.Object, MockedEventLoggingService.Object);
+			LoggingService = new FakeLoggingService();
 			TaskRepositoryResolver = A.Fake<ITaskRepositoryResolver>();
 			AutogiroPaymentService = A.Fake<IAutogiroPaymentService>();
+			SubscriptionPendingPaymentRepository = A.Fake<ISubscriptionPendingPaymentRepository>();
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<ISubscriptionRepository>()).Returns(MockedSubscriptionRepository.Object);
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<ISubscriptionErrorRepository>()).Returns(MockedSubscriptionErrorRepository.Object);
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<ITransactionRepository>()).Returns(MockedTransactionRepository.Object);
 			A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGWebServiceClient>()).Returns(MockedWebServiceClient.Object);
+			A.CallTo(() => TaskRepositoryResolver.GetRepository<ISubscriptionPendingPaymentRepository>()).Returns(SubscriptionPendingPaymentRepository);
 		}
 
 		protected abstract ITask GetTask();
-		protected override ITask GetTestModel() { return GetTask(); }
+		protected override ITask GetTestEntity()
+		{
+			return GetTask();
+		}
 
 		protected ExecutingTaskContext ExecutingTaskContext
 		{
 			get
 			{
-				return new ExecutingTaskContext(TestModel, TaskRepositoryResolver);
+				return new ExecutingTaskContext(TestEntity, TaskRepositoryResolver);
 			}
+		}
+
+		protected void TrySetProperty<TType>(TType value, Expression<Func<TType,object>> expression, object propertyValue) where TType : class
+		{
+			var propertyName = expression.GetName();
+			var propertyInfo = typeof (TType).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty);
+			if (propertyInfo == null) return;
+			propertyInfo.SetValue(value, propertyValue, null);
 		}
 	}
 }

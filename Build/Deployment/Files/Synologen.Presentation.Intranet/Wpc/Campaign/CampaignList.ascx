@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="CampaignList.ascx.cs" Inherits="CampaignList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="CampaignList.ascx.cs" Inherits="CampaignList" %>
 <asp:Repeater ID="rptCampaign" runat="server" OnItemDataBound="rptCampaign_ItemDataBound">
 <ItemTemplate>
 

@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CourseSpot.ascx.cs" Inherits="Spinit.Wpc.Courses.Presentation.Site.Wpc.Courses.CourseSpot" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CourseSpot.ascx.cs" Inherits="Spinit.Wpc.Courses.Presentation.Site.Wpc.Courses.CourseSpot" %>
 <asp:PlaceHolder ID="plCourseSpotContainer" runat="server">
 <div class="course-spot">
 <%=GetLocalResourceObject("ComponentHeading").ToString()%>

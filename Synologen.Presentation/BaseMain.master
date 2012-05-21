@@ -13,6 +13,7 @@
 	<meta http-equiv="imagetoolbar" content="no" />
 	<meta name="robots" content="none" />
 	<meta name="copyright" content="Spinit AB" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" >
 	<userControl:SSLoader ID="SSLoader" runat="server" />
 	<userControl:JSLoader ID="JSLoader" runat="server" />
 </head>

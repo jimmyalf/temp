@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Code;
@@ -24,6 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 		private Order _newOrder;
 		private string _userName;
 		private const int CanceledInvoiceStatusId = 7;
+		private const int InvoicedInvoiceStatusId = 5;
 
 		public CancelInvoice()
 		{
@@ -73,8 +75,13 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest
 
 		private void AttEnAdministratörHanterarEnFakturaSomHarStatusFakturerad()
 		{
-			_newOrder = OrderFactory.GetOrder(TestContractCompanyId, TestMemberId, TestShopId);
-			WithSqlProvider<ISqlProvider>().AddUpdateDeleteOrder(Enumerations.Action.Create, ref _newOrder);
+			var sqlProvider = DataManager.GetSqlProvider() as SqlProvider;
+			var userRepo = DataManager.GetUserRepository();
+			var company = DataManager.CreateCompany(sqlProvider);
+			var shop = DataManager.CreateShop(sqlProvider, "Test_shop");
+			var member = DataManager.CreateMemberForShop(userRepo, sqlProvider, "test_user", shop.ShopId, 2 /*location id*/);
+			_newOrder = ContractSalesOrderFactory.GetOrder(company.Id, member.MemberId, shop.ShopId, InvoicedInvoiceStatusId);
+			sqlProvider.AddUpdateDeleteOrder(Enumerations.Action.Create, ref _newOrder);
 		}
 
 		[Test]

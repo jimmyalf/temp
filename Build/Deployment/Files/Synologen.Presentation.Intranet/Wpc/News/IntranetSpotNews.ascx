@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.News.Presentation.Intranet.Wpc.News.IntranetSpotNews" Codebehind="IntranetSpotNews.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.News.Presentation.Intranet.Wpc.News.IntranetSpotNews" Codebehind="IntranetSpotNews.ascx.cs" %>
 
 <asp:Repeater ID="rptNews" runat="server" OnItemDataBound="rptNews_ItemDataBound">
 <HeaderTemplate><div id="newsContainer<%=CategoryClass %>"></HeaderTemplate>
@@ -11,7 +11,7 @@
     <h4><asp:Label ID="lblHeading" runat="server"><%# DataBinder.Eval(Container.DataItem, "cHeading") %></asp:Label></h4><br />
     <asp:Label ID="lblSummary" runat="server"><%# DataBinder.Eval(Container.DataItem, "cSummary") %></asp:Label>
     <asp:HyperLink ID="hlNewsLink" NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "cId") %>' runat="server"><br />
-L�s mer &gt; 
+Läs mer &gt; 
     </asp:HyperLink>
     </div>
     </div>

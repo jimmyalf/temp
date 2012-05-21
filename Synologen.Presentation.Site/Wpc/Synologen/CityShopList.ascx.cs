@@ -4,10 +4,13 @@ using System.Linq;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Presentation.Site.Code;
+using Spinit.Wpc.Synologen.Data;
+using Spinit.Wpc.Synologen.Presentation.Site.App;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
-	public partial class CityShopList : SynologenUserControl {
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen 
+{
+	public partial class CityShopList : CommonUserControl 
+	{
 		private int _categoryId;
 		private int _contractCustomer;
 		private int _equipmentId;
@@ -74,7 +77,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			return selectedDropDownValue > 0 ? selectedDropDownValue : propertyValue;
 		}
 
-		#region Events
 		protected void rptShops_ItemDataBound(object sender, RepeaterItemEventArgs e) {
 			if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem) return;
 			var plLink = (PlaceHolder)e.Item.FindControl("plLink");
@@ -106,9 +108,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			SelectedCity = e.CommandArgument.ToString();
 			PopulateShops(e.CommandArgument.ToString());
 		}
-		#endregion
-
-		#region Properties
 
 		public int Category {
 			get { return _categoryId; }
@@ -131,21 +130,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 
 		private IEnumerable<IShop> ShopsToDisplay { get; set; }
 
-		#endregion
-
-		#region Hidden base properties
-
-		private new int LanguageId {
-			get { return base.LanguageId; }
-			set { base.LanguageId = value; }
-		}
-
-		private new int LocationId {
-			get { return base.LocationId; }
-			set { base.LocationId = value; }
-		}
-
-
-		#endregion
 	}
 }

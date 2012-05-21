@@ -19,7 +19,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 		{
 		}
 
-		[Test, Description ("Checks text from Error-text."), Category ("Document")]
+		[Test, Description ("Checks text from Error-text."), Category ("Document"), Explicit("Test fails and the method it tests does not seem to be used by any other OPQ project. //CBER 2011-11-15")]
 		public void GetErrorTextString()
 		{
 			string errorTextString = BUtilities.GetErrorTextString (PropertyValues.NodeErrorsNameExist);

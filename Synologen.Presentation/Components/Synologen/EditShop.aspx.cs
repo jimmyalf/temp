@@ -1,13 +1,19 @@
 using System;
 using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Data.DataServices;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
 using Spinit.Wpc.Utility.Business;
+using StructureMap;
 using Globals=Spinit.Wpc.Synologen.Business.Globals;
 using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 using Spinit.Extensions;
@@ -19,6 +25,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 	{
 		private int _shopId;
 		private Shop _shop;
+		private const decimal DefaultCoordinateValue = 0;
 
 		protected void Page_Load(object sender, EventArgs e) 
 		{
@@ -142,7 +149,39 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			txtGiroNumber.Text = _shop.GiroNumber;
 			txtGiroSupplier.Text = _shop.GiroSupplier;
 			txtOrganizationNumber.Text = _shop.OrganizationNumber;
+			txtLatitude.Text = _shop.Latitude.ToString();
+			txtLongitude.Text = _shop.Longitude.ToString();
 		}
+
+        protected void btnFetchCoordinates_OnClick(object sender, EventArgs e)
+        {
+            IGeocodingService geocodingService = new GeocodingService();
+            var address = String.IsNullOrEmpty(txtAddress.Text) ? String.Empty : HttpUtility.UrlEncode(txtAddress.Text);
+            var address2 = String.IsNullOrEmpty(txtAddress2.Text) ? String.Empty : HttpUtility.UrlEncode(txtAddress2.Text);
+            var city = String.IsNullOrEmpty(txtCity.Text) ? String.Empty : HttpUtility.UrlEncode(txtCity.Text);
+            var zipCode = String.IsNullOrEmpty(txtZip.Text) ? String.Empty : HttpUtility.UrlEncode(txtZip.Text);
+            var coordinates = geocodingService.GetCoordinates(address, address2, city, zipCode);
+
+            if (coordinates != null)
+            {
+                txtLatitude.Text = coordinates.Latitude.ToString();
+                txtLongitude.Text = coordinates.Longitude.ToString();
+
+                var link = new HtmlGenericControl("a");
+                link.Attributes.Add("href", geocodingService.GetMapUrl(coordinates));
+                link.Attributes.Add("target", "_blank");
+                link.Attributes.Add("title", "Visa koordinater på karta");
+                link.InnerText = "Visa koordinater på karta";
+                phLinkToMap.Controls.Clear();
+                phLinkToMap.Controls.Add(link);
+            }
+            else
+            {
+                phLinkToMap.Controls.Add(new HtmlGenericControl("p") { InnerText = "Koordinater kunde ej hittas för angiven adress."});
+                txtLatitude.Text = String.Empty;
+                txtLongitude.Text = String.Empty;
+            }
+        }
 
 		protected void btnSave_Click(object sender, EventArgs e) 
 		{
@@ -173,6 +212,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			_shop.GiroId = Int32.Parse(drpGiroType.SelectedValue);
 			_shop.GiroNumber = txtGiroNumber.Text;
 			_shop.GiroSupplier = txtGiroSupplier.Text;
+		    _shop.Latitude = txtLatitude.Text.ToDecimalOrDefault(DefaultCoordinateValue);
+		    _shop.Longitude = txtLongitude.Text.ToDecimalOrDefault(DefaultCoordinateValue);
 			var selectedItems = chkShopAccess.GetSelectedItems();
 			_shop.Access = selectedItems.Any() ? selectedItems
 					.Select(x => Int32.Parse(x.Value).ToEnum<ShopAccess>())

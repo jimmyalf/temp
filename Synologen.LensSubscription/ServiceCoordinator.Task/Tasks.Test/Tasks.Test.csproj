@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,8 +10,30 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Synologen.LensSubscription.ServiceCoordinator.Task.Test</RootNamespace>
     <AssemblyName>Synologen.LensSubscription.ServiceCoordinator.Task.Test</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\Synologen\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,18 +65,22 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Dependancies\Tools\Moq\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+    <Reference Include="nunit.framework, Version=2.5.0.9122, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dependancies\Tools\Shouldly\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\Dependancies\Tools\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Shouldly, Version=1.1.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Shouldly.1.1.0.4\lib\35\Shouldly.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dependancies\Spinit\Spinit.dll</HintPath>
+      <HintPath>..\..\..\packages\Spinit.1.0.1.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data, Version=1.0.465.665, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Data, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+      <HintPath>..\..\..\packages\Spinit.Data.1.0.3.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Test, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -75,6 +101,7 @@
     <Compile Include="Factories\ConsentFactory.cs" />
     <Compile Include="Factories\ErrorFactory.cs" />
     <Compile Include="Factories\PaymentFactory.cs" />
+    <Compile Include="Factories\PendingPaymentFactory.cs" />
     <Compile Include="Factories\SubscriptionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceiveConsentsTaskTester.cs" />
@@ -94,34 +121,46 @@
       <Project>{AB88F309-2A3C-45B4-A8AF-F31B9F866797}</Project>
       <Name>Synologen.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Synologen.Test.Core\Synologen.Test.Core.csproj">
-      <Project>{0E1C212C-6E52-4FBA-97AD-3BFD4A35E153}</Project>
-      <Name>Synologen.Test.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ServiceCoordinator\ServiceCoordinator.csproj">
-      <Project>{82CB3F3C-013B-4048-8B6D-E38574EC6581}</Project>
-      <Name>ServiceCoordinator</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ReceiveConsents\ReceiveConsents.csproj">
       <Project>{F30AAD16-9E89-40C1-9AAC-EC08ADEE667E}</Project>
-      <Name>ReceiveConsents %28Lenssubscription\ServiceCoordinatorTask\ReceiveConsents%29</Name>
+      <Name>ReceiveConsents %28LensSubscription\Tasks\ReceiveConsents%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceiveErrors\ReceiveErrors.csproj">
       <Project>{3BB41EB8-4B02-4C33-B622-42E3F6382E6B}</Project>
-      <Name>ReceiveErrors %28Lenssubscription\ServiceCoordinatorTask\ReceiveErrors%29</Name>
+      <Name>ReceiveErrors %28LensSubscription\Tasks\ReceiveErrors%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceivePayments\ReceivePayments.csproj">
       <Project>{89214057-4062-4D9D-B507-325792853EC4}</Project>
-      <Name>ReceivePayments %28Lenssubscription\ServiceCoordinatorTask\ReceivePayments%29</Name>
+      <Name>ReceivePayments %28LensSubscription\Tasks\ReceivePayments%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\SendConsents\SendConsents.csproj">
       <Project>{0A21E04A-CFD1-41A8-8D82-D469AE55883F}</Project>
-      <Name>SendConsents %28Lenssubscription\ServiceCoordinatorTask\SendConsents%29</Name>
+      <Name>SendConsents %28LensSubscription\Tasks\SendConsents%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\SendPayments\SendPayments.csproj">
       <Project>{EE5D7A62-6CC0-4AA3-804B-44FE2DBD8F0D}</Project>
-      <Name>SendPayments %28Lenssubscription\ServiceCoordinatorTask\SendPayments%29</Name>
+      <Name>SendPayments %28LensSubscription\Tasks\SendPayments%29</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberProfile" Codebehind="MemberProfile.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.MemberProfile" Codebehind="MemberProfile.ascx.cs" %>
 <div id="contentlev">
 <h3><asp:Label ID="lblHeader" runat="server" /></h3>
 					<table cellpadding="10px" cellspacing="0" border="0" width="100%" style="padding:5px" >

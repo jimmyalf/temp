@@ -7,7 +7,7 @@ using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
-using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
@@ -27,7 +27,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				expectedErrors = ErrorFactory.GetList().ToArray();
 				expectedSubscription = SubscriptionFactory.Get(3);
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
-				MockedWebServiceClient.Setup(x => x.GetErrors(AutogiroServiceType.LensSubscription)).Returns(expectedErrors);
+				MockedWebServiceClient.Setup(x => x.GetErrors(AutogiroServiceType.SubscriptionVersion2)).Returns(expectedErrors);
 			};
 			Because = task => task.Execute(ExecutingTaskContext);
 		}
@@ -35,7 +35,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_fetches_errors_from_webservice()
 		{
-			MockedWebServiceClient.Verify(x => x.GetErrors(AutogiroServiceType.LensSubscription));
+			MockedWebServiceClient.Verify(x => x.GetErrors(AutogiroServiceType.SubscriptionVersion2));
 		}
 
 		[Test]
@@ -63,8 +63,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_loggs_start_and_stop_info_messages()
 		{
-			MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Started"))), Times.Once());
-			MockedLogger.Verify(x => x.Info(It.Is<string>(message => message.Contains("Finished"))), Times.Once());
+			LoggingService.AssertInfo("Started");
+			LoggingService.AssertInfo("Finished");
 		}
 
 		[Test]
@@ -100,13 +100,13 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Task_logs_error_for_each_exception()
 		{
-			MockedLogger.Verify(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>()), Times.Exactly(expectedErrors.Count()));
+			LoggingService.AssertError(messages => messages.Count == expectedErrors.Count());
 		}
 
 		[Test]
 		public void Task_fetches_new_webclient_for_each_exception()
 		{
-		    A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGWebServiceClient>()).MustHaveHappened(Repeated.Times(expectedErrors.Count()));
+		    A.CallTo(() => TaskRepositoryResolver.GetRepository<IBGWebServiceClient>()).MustHaveHappened(Repeated.Exactly.Times(expectedErrors.Count()));
 		}
 	}
 }

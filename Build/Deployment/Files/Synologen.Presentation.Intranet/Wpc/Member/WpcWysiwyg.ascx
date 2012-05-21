@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.WpcWysiwyg" Codebehind="WpcWysiwyg.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.WpcWysiwyg" Codebehind="WpcWysiwyg.ascx.cs" %>
 <link rel="Stylesheet" media="all" href="<%=Spinit.Wpc.Base.Business.Globals.BaseUrl%>common/css/WYSIWYG.css" />
 <div class="edtWpcWysiwyg">
 <radE:RadEditor ID="edtWpcWysiwyg" runat="server" Width="390px" height="500px">

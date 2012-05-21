@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,10 +10,32 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Spinit.Wpc.Synologen.Invoicing.Test</RootNamespace>
     <AssemblyName>Spinit.Wpc.Synologen.Invoicing.Test</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>
     </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\Synologen\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,17 +55,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependancies\Tools\Shouldly\nunit.framework.dll</HintPath>
+      <HintPath>..\..\Dependancies\Tools\NUnit\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Shouldly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependancies\Tools\Shouldly\Shouldly.dll</HintPath>
+    <Reference Include="Shouldly, Version=1.1.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Shouldly.1.1.0.4\lib\35\Shouldly.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.622.728, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependancies\Spinit\Spinit.dll</HintPath>
+      <HintPath>..\..\packages\Spinit.1.0.1.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.GeneralData.DatabaseInterface, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -138,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Synologen.Business\Synologen.Business.csproj">
@@ -152,9 +174,9 @@
       <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
       <Name>Synologen.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Client\Synologen Client.csproj">
-      <Project>{10CF2156-8B7D-4CBA-8015-54DCFB72E1E6}</Project>
-      <Name>Synologen Client</Name>
+    <ProjectReference Include="..\..\Synologen.Presentation.Intranet\Synologen.Presentation.Intranet.csproj">
+      <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
+      <Name>Synologen.Presentation.Intranet %28Presentation\Synologen.Presentation.Intranet%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\EDI\Synologen EDI.csproj">
       <Project>{8554B3AF-CA2A-499F-B921-A80804B99056}</Project>
@@ -164,10 +186,6 @@
       <Project>{0C9608B6-9E36-4E69-BE36-3C2871DC7E78}</Project>
       <Name>Synologen ServiceLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Synologen.Presentation.Site\Synologen.Presentation.Site.csproj">
-      <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
-      <Name>Synologen.Presentation.Site</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Svefaktura\Synologen Svefaktura.csproj">
       <Project>{2D5B8A35-1C0F-422D-AD0B-4EFD4D683328}</Project>
       <Name>Synologen Svefaktura</Name>
@@ -176,14 +194,27 @@
       <Project>{84326EE0-5F6E-4133-A852-AF781AF74682}</Project>
       <Name>Synologen Invoicing Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Synologen Visma\Synologen Visma.csproj">
+    <ProjectReference Include="..\Visma\Synologen Visma.csproj">
       <Project>{F83AEC3E-114B-42F9-AF36-12B985FB1EFC}</Project>
       <Name>Synologen Visma</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebService\Synologen WebService.csproj">
-      <Project>{74466C1B-0F03-4356-BA44-CF8983F5347E}</Project>
-      <Name>Synologen WebService</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

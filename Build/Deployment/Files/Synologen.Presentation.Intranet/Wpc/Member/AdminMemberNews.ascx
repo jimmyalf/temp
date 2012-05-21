@@ -1,6 +1,6 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.AdminMemberNews" Codebehind="AdminMemberNews.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.AdminMemberNews" Codebehind="AdminMemberNews.ascx.cs" %>
 <div>
-<h5>L�gg/ redigera nyheter</h5>
+<h5>Lägg/ redigera nyheter</h5>
         <br />
                 <b><asp:Label ID="lblHeading" runat="server" Text="Rubrik" AssociatedControlID="txtHeading" SkinId="Long"/></b>
                 <br />

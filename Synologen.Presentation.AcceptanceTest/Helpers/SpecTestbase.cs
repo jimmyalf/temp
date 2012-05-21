@@ -1,14 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using FakeItEasy;
 using NHibernate;
 using NUnit.Framework;
 using Spinit.Test.Web;
 using Spinit.Test.Web.MVC;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
-using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Test.Data;
 using StoryQ.Infrastructure;
 using StoryQ.sv_SE;
 using StructureMap;
@@ -21,19 +25,19 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		protected Action Context;
 		protected Func<Funktion> Story;
 		private Funktion _story;
-		protected int TestShopId;
-		protected int TestMemberId;
-		protected int TestContractCompanyId;
-		protected int TestContractId;
+		private DataManager _dataManager;
+		protected IAdminSettingsService AdminSettingsService;
+
+		protected SpecTestbase()
+		{
+			_dataManager = new DataManager();
+			AdminSettingsService = A.Fake<IAdminSettingsService>();
+		}
 
 		[SetUp]
 		protected void RunBeforeEachTest()
 	    {
 			ResetData();
-			TestShopId = 160;
-			TestMemberId = 486;
-			TestContractCompanyId = 57;
-			TestContractId = 14;
 			HttpContext = new FakeHttpContext();
 			if (Context != null) Context();
 			if (Story == null) throw new NotImplementedException("A story must be set for Spec. Use CreateStory function to create a story for the Spec.");
@@ -69,22 +73,10 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		protected void ResetData()
 		{
 			var connection = ObjectFactory.GetInstance<ISession>().Connection;
-			DataHelper.DeleteAndResetIndexForTable(connection, "tblSynologenContractArticleConnection");
-			DataHelper.DeleteAndResetIndexForTable(connection, "tblSynologenOrderItems");
-			DataHelper.DeleteAndResetIndexForTable(connection, "tblSynologenArticle");
+			_dataManager.CleanTables(connection);
+			connection.Close();
 		}
 
-		public TModel WithRepository<TRepository, TModel>(Func<TRepository,TModel> function)
-		{
-		    var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
-		    var repository = (TRepository) Activator.CreateInstance(typeof (TRepository), session);
-		    return function.Invoke(repository);
-		}
-		public TRepository WithRepository<TRepository>()
-		{
-		    var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
-		    return (TRepository) Activator.CreateInstance(typeof (TRepository), session);
-		}
 
 		public TSqlProvider WithSqlProvider<TSqlProvider>()
 		{
@@ -93,12 +85,60 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 
 		public TController GetController<TController>() where TController : Controller
 		{
-		    var controller = ObjectFactory.GetInstance<TController>();
+		    var controller = ObjectFactory
+				.With(typeof(IAdminSettingsService),AdminSettingsService)
+				.GetInstance<TController>();
 		    controller.ControllerContext = new FakeControllerContext(controller, HttpContext)
 		    {
 		        HttpContext = HttpContext
 		    };
 		    return controller;
+		}
+
+		protected TShop CreateShop<TShop>(string shopName = "Testbutik")
+		{
+			var shop = _dataManager.CreateShop(shopName: shopName);
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			return session.Get<TShop>(shop.ShopId);
+		}
+
+		protected TType StoreItem<TType>(Func<TType> factoryMehtod)
+		{
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			var item = factoryMehtod();
+			session.Save(item);
+			session.Flush();
+			return item;
+		}
+
+		protected IList<TType> StoreItems<TType>(Func<IEnumerable<TType>> factoryMethod)
+		{
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			var items = factoryMethod().ToList();
+			foreach (var item in items)
+			{
+				session.Save(item);
+			}
+			session.Flush();
+			return items;
+		}
+
+		protected void Save(object item)
+		{
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			session.SaveOrUpdate(item);
+			session.Flush();
+		}
+
+		protected IEnumerable<TType> GetAll<TType>() where TType : class
+		{
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			return session.CreateCriteria<TType>().List<TType>();
+		}
+		protected TType Get<TType>(int id) where TType : class
+		{
+			var session = NHibernateFactory.Instance.GetSessionFactory().OpenSession();
+			return session.Get<TType>(id);
 		}
 
 		protected void SetupScenario(Func<Scenario, FragmentBase> scenarioAction)
@@ -118,6 +158,11 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 		private static string Uncamel(string methodName)
 		{
 		    return Regex.Replace(methodName, "[A-Z_]", x => " " + x.Value.ToLowerInvariant()).Trim();
+		}
+
+		protected DataManager DataManager
+		{
+			get { return _dataManager; }
 		}
 	}
 

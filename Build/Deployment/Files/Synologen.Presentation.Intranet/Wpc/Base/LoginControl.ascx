@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Base.Presentation.Site.LoginControl" Codebehind="LoginControl.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Base.Presentation.Site.LoginControl" Codebehind="LoginControl.ascx.cs" %>
 <div id="dError" runat="server"><div class="error">Fel anv&auml;ndarnamn eller l&ouml;senord var god f&ouml;rs&ouml;k igen!</div></div>
 
 	

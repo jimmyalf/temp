@@ -1,45 +1,43 @@
+using System.Data.SqlClient;
 using NUnit.Framework;
 using Shouldly;
+using Spinit.Test;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Extensions;
-using Spinit.Wpc.Synologen.Data.Test.CommonDataTestHelpers;
 using Spinit.Wpc.Synologen.Data.Test.ContractSales.Factories;
+using Spinit.Wpc.Synologen.Test.Data;
 using Spinit.Wpc.Utility.Business;
-using Synologen.Test.Core;
 using Shop=Spinit.Wpc.Synologen.Business.Domain.Entities.Shop;
 
 namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 {
 	[TestFixture, Category("TestSqlProviderForShop")]
-	public class Given_a_persisted_shop : BehaviorTestBase<SqlProvider>
+	public class Given_a_persisted_shop : ContractSaleTestbase
 	{
 		private Shop persistedShop;
 		private Shop TestShop;
-		protected const int testableShopId = 158;
-		protected const int testableShopId2 = 159;
-		public const int TestableShopMemberId = 485;
-		public const int TestableShop2MemberId = 484;
-		public const int TestableCompanyId = 57;
-		public const int TestableContractId = 14;
+		//protected const int testableShopId = 158;
+		//protected const int testableShopId2 = 159;
+		//public const int TestableShopMemberId = 485;
+		//public const int TestableShop2MemberId = 484;
+		//public const int TestableCompanyId = 57;
+		//public const int TestableContractId = 14;
 
 		public Given_a_persisted_shop()
 		{
 			Context = () =>
 			{
-				TestShop = ShopFactory.GetShop(testableShopId, ShopAccess.None);				
+				TestShop = CreateShop();
+				//ShopFactory.GetShop(testableShopId, ShopAccess.None);				
 			};
-			Because = provider =>
-			{
-				
-				provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref TestShop);
-			};
+			Because = provider => provider.AddUpdateDeleteShop(Enumerations.Action.Update, ref TestShop);
 		}
 
 		[Test]
 		public void Can_get_persisted_shop()
 		{
 			//Act
-			persistedShop = GetTestModel().GetShop(testableShopId);
+			persistedShop = GetTestEntity().GetShop(TestShop.ShopId);
 
 			//Assert
 			persistedShop.Access.ShouldBe(TestShop.Access);
@@ -66,6 +64,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			persistedShop.ShopId.ShouldBe(TestShop.ShopId);
 			persistedShop.Url.ShouldBe(TestShop.Url);
 			persistedShop.Zip.ShouldBe(TestShop.Zip);
+            persistedShop.Latitude.ShouldBe(TestShop.Latitude);
+            persistedShop.Longitude.ShouldBe(TestShop.Longitude);
 		}
 
 		[Test]
@@ -75,17 +75,43 @@ namespace Spinit.Wpc.Synologen.Data.Test.ContractSales
 			var editedShop = ShopFactory.GetShop(TestShop.ShopId, ShopAccess.LensSubscription | ShopAccess.SlimJim);
 
 			//Act
-			GetTestModel().AddUpdateDeleteShop(Enumerations.Action.Update, ref editedShop);
-			var fetchedShop = GetTestModel().GetShop(TestShop.ShopId);
+			GetTestEntity().AddUpdateDeleteShop(Enumerations.Action.Update, ref editedShop);
+			var fetchedShop = GetTestEntity().GetShop(TestShop.ShopId);
 
 			//Assert
 			fetchedShop.Access.HasOption(ShopAccess.LensSubscription).ShouldBe(true);
 			fetchedShop.Access.HasOption(ShopAccess.SlimJim).ShouldBe(true);
 		}
 
-		protected override SqlProvider GetTestModel()
+		protected override SqlProvider GetTestEntity()
 		{
-			return new SqlProvider(DataHelper.ConnectionString);
+			return DataManager.GetSqlProvider() as SqlProvider;
 		}
+	}
+
+	public abstract class ContractSaleTestbase : BehaviorActionTestbase<SqlProvider>
+	{
+		private readonly SqlProvider _sqlProvider;
+		protected DataManager DataManager;
+
+		protected ContractSaleTestbase()
+		{
+			DataManager = new DataManager();
+			_sqlProvider = DataManager.GetSqlProvider() as SqlProvider;
+		}
+
+		protected override void SetUp()
+		{
+			var sqlConnection = new SqlConnection(DataManager.ConnectionString);
+			sqlConnection.Open();
+			DataManager.CleanTables(sqlConnection);
+			sqlConnection.Close();
+		}
+
+		protected Shop CreateShop()
+		{
+			return DataManager.CreateShop(_sqlProvider, "Testbutik");
+		}
+
 	}
 }

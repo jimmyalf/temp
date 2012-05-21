@@ -22,7 +22,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test.Helpers
 		}
 		protected override ITask GetTask()
 		{
-			return new ChangeRemoteFTPPassword.Task(Log4NetLogger, BGFtpChangePasswordService);
+			return new ChangeRemoteFTPPassword.Task(LoggingService, BGFtpChangePasswordService);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-<%@ Page MaintainScrollPositionOnPostback="true" Language="C#" MasterPageFile="~/commonresources/templates/Master/Forum Template.master" Title="Forum" Inherits="Spinit.Wpc.Content.Presentation.Site.Code.PageControl" %>
+﻿<%@ Page MaintainScrollPositionOnPostback="true" Language="C#" MasterPageFile="~/commonresources/templates/Master/Forum Template.master" Title="Forum" Inherits="Spinit.Wpc.Content.Presentation.Site.Code.PageControl" %>
 <%@ Import Namespace="Spinit.Wpc.Forum.Components" %>
 <%@ Register TagPrefix="Forums" Namespace="Spinit.Wpc.Forum.Controls" Assembly="Spinit.Wpc.Forum.Controls" %>
 

@@ -29,8 +29,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
                 var consentFileSection = ReceivedConsentsFactory.GetReceivedConsentFileSection(payer.Id);
                 _savedConsent = ReceivedConsentsFactory.GetConsent(payer.Id);
 
-                A.CallTo(() => ReceivedFileRepository.FindBy(A<AllUnhandledReceivedConsentFileSectionsCriteria>
-                                                      .Ignored.Argument)).Returns(_receivedSections);
+                A.CallTo(() => ReceivedFileRepository.FindBy(A<AllUnhandledReceivedConsentFileSectionsCriteria>.Ignored)).Returns(_receivedSections);
                 A.CallTo(() => ConsentFileReader.Read(A<string>.Ignored)).Returns(consentFileSection);
             	A.CallTo(() => AutogiroPayerRepository.Get(payer.Id)).Returns(payer);
             };
@@ -46,52 +45,49 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.Test
         [Test]
         public void Task_loggs_start_and_stop_messages()
         {
-            A.CallTo(() => Log.Info(A<string>.That.Contains("Started"))).MustHaveHappened();
-			A.CallTo(() => Log.Info(A<string>.That.Contains("Finished"))).MustHaveHappened();
+            LoggingService.AssertInfo("Started");
+			LoggingService.AssertInfo("Finished");
         }
 
         [Test]
 		public void Task_logs_number_of_received_sections()
         {
-            A.CallTo(() => Log.Debug(A<string>.That.Contains("Fetched 15 consent file sections from repository"))).MustHaveHappened();
+            LoggingService.AssertDebug("Fetched 15 consent file sections from repository");
 		}
 
 		[Test]
 		public void Task_logs_after_each_handled_sections()
         {
-            A.CallTo(() => Log.Debug(A<string>.That.Contains("Saved 10 consents to repository"))).MustHaveHappened();
+            LoggingService.AssertDebug("Saved 10 consents to repository");
 		}
 
         [Test]
         public void Task_fetches_new_consentsections_from_repository()
         {
             A.CallTo(() => ReceivedFileRepository.FindBy(
-                               A<AllUnhandledReceivedConsentFileSectionsCriteria>.Ignored.Argument))
+                               A<AllUnhandledReceivedConsentFileSectionsCriteria>.Ignored))
                                .MustHaveHappened();
         }
 
         [Test]
         public void Task_saves_fetched_fileposts_as_consents()
         {
-            A.CallTo(() => BGReceivedConsentRepository.Save(
-                            A<BGReceivedConsent>
-                            .That.Matches(x => x.ActionDate.Equals(_savedConsent.ActionDate))
-                            .And.Matches(x => x.CommentCode.Equals(_savedConsent.CommentCode))
-                            .And.Matches(x => x.ConsentValidForDate.Equals(_savedConsent.ConsentValidForDate))
-                            .And.Matches(x => x.InformationCode.Equals(_savedConsent.InformationCode))
-                            .And.Matches(x => x.Payer.Id.ToString().Equals(_savedConsent.Transmitter.CustomerNumber))
-                            .And.Matches(x => x.CreatedDate.Date.Equals(DateTime.Now.Date))
-			            )).MustHaveHappened();
+            A.CallTo(() => BGReceivedConsentRepository.Save(A<BGReceivedConsent>.That.Matches(x => 
+				x.ActionDate.Equals(_savedConsent.ActionDate)
+                && x.CommentCode.Equals(_savedConsent.CommentCode)
+                && x.ConsentValidForDate.Equals(_savedConsent.ConsentValidForDate)
+                && x.InformationCode.Equals(_savedConsent.InformationCode)
+                && x.Payer.Id.ToString().Equals(_savedConsent.Transmitter.CustomerNumber)
+                && x.CreatedDate.Date.Equals(DateTime.Now.Date)
+			))).MustHaveHappened();
         }
 
         [Test]
         public void Task_updates_consentsection_as_handled()
         {
-            _receivedSections.Each(receivedSection => A.CallTo(() => ReceivedFileRepository.Save(
-                A<ReceivedFileSection>
-                    .That.Matches(x => Equals(x.HasBeenHandled, true))
-                    .And.Matches(x => x.HandledDate.Value.Date.Equals(DateTime.Now.Date))
-                ))) ;
+            _receivedSections.Each(receivedSection => A.CallTo(() => ReceivedFileRepository.Save(A<ReceivedFileSection>.That.Matches(x =>
+				Equals(x.HasBeenHandled, true) && x.HandledDate.Value.Date.Equals(DateTime.Now.Date))
+            ))) ;
         }
     }
 }

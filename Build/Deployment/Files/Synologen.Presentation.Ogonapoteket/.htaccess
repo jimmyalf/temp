@@ -1,7 +1,0 @@
-# Helicon ISAPI_Rewrite configuration file
-# Version 3.1.0.32
-
-RewriteRule ^Varaprodukter/([^/]+)/([^/]*) /Varaprodukter/produkter.aspx?selectedCategories=$1&PrdId=$2 [L]
-RewriteRule ^Varaprodukter/(.*)products-test.aspx Varaprodukter/produkter.aspx
-
-RewriteRule ^Varaprodukter/GulaflackenAMD/GulaflackenAMD.aspx Varaprodukter/gula-flacken-amd/1 [R=301,L]

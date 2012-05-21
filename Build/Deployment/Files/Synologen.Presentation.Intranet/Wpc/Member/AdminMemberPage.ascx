@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.AdminMemberPage" Codebehind="AdminMemberPage.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Member.Presentation.Site.AdminMemberPage" Codebehind="AdminMemberPage.ascx.cs" %>
 <div id="contentlev"> 
 <asp:Label ID="lblHeader" runat="server" />
 	    

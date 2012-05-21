@@ -1,10 +1,12 @@
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
-using Spinit.Wpc.Synologen.Presentation.Site.Code;
+using Spinit.Wpc.Synologen.Presentation.Site.App;
 
-namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
-	public partial class ShopList : SynologenUserControl {
+namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen 
+{
+	public partial class ShopList : CommonUserControl 
+	{
 		private int _categoryId;
 		private int _contractCustomer;
 		private int _equipmentId;
@@ -92,22 +94,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Site.Wpc.Synologen {
 			get { return _showEquipmentFiltration; }
 			set { _showEquipmentFiltration = value; }
 		}
-
-		#region Hidden base properties
-
-		private new int LanguageId {
-			get { return base.LanguageId; }
-			set { base.LanguageId = value; }
-		}
-
-		private new int LocationId {
-			get { return base.LocationId; }
-			set { base.LocationId = value; }
-		}
-
-
-		#endregion
-
 
 	}
 }

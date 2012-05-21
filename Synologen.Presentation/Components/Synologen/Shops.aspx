@@ -9,7 +9,7 @@
 	                <legend>Filtrera och sök</legend>
 	                <div class="formItem clearLeft">
 	                    <label class="labelLong">Kategorier</label>
-	                    <asp:DropDownList runat="server" ID="drpCategories" DataTextField="/>
+	                    <asp:DropDownList runat="server" ID="drpCategories" />
 	                </div>
 	                <div class="formItem ">
 	                    <label class="labelLong">Avtalskunder</label>

@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LatestDocuments.ascx.cs" Inherits="Spinit.Wpc.Document.Presentation.Site.LatestDocuments" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LatestDocuments.ascx.cs" Inherits="Spinit.Wpc.Document.Presentation.Site.LatestDocuments" %>
 <asp:GridView ID="gvDocuments" runat="server" AutoGenerateColumns="False"
     DataKeyNames="Id">
     <Columns>

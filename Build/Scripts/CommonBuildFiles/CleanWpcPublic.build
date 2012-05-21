@@ -5,10 +5,16 @@
 			<fileset basedir="${deployPath}">
 				<include name="**/*" />
 				<exclude name="wpc/**" />
+				<exclude name="bin/**" />
 			</fileset>
 		</delete>
 		<delete>
 			<fileset basedir="${deployPath}\wpc">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+		<delete>
+			<fileset basedir="${deployPath}\bin">
 				<include name="**/*" />
 			</fileset>
 		</delete>

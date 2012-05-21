@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LoginHistoryControl.ascx.cs" Inherits="Spinit.Wpc.Base.Presentation.Site.LoginHistoryControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LoginHistoryControl.ascx.cs" Inherits="Spinit.Wpc.Base.Presentation.Site.LoginHistoryControl" %>
 <asp:Repeater ID="rptGroups" runat="server" OnItemDataBound="rptGroups_ItemDataBound">
 	<ItemTemplate>
 		<h4><%# DataBinder.Eval(Container.DataItem, "cName") %></h4>

@@ -1,12 +1,13 @@
 using System;
 using NHibernate;
+using Spinit.Test.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGServer;
 using Synologen.LensSubscription.BGData.Repositories;
 using Synologen.LensSubscription.BGData.Test.CommonDataTestHelpers;
 
 namespace Synologen.LensSubscription.BGData.Test.BaseTesters
 {
-	public abstract class BaseRepositoryTester<TRepository> : NHibernateRepositoryTester<TRepository>
+	public abstract class BaseRepositoryTester<TRepository> : NHibernateRepositoryTestbase<TRepository>
 	{
 		protected override void SetUp()
 		{

@@ -1,4 +1,5 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -9,11 +10,16 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Spinit.Wpc.Synologen.Data</RootNamespace>
     <AssemblyName>Spinit.Wpc.Synologen.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <OldToolsVersion>2.0</OldToolsVersion>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
     <PublishUrl>http://localhost/Spinit.Wpc.Synologen.Data/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -26,10 +32,10 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Synologen\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,19 +59,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\FluentNHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json.Net35">
+      <HintPath>..\Dependancies\Tools\Newtonsoft.Json\Newtonsoft.Json.Net35.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.622.728, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Spinit\Spinit.dll</HintPath>
+      <HintPath>..\packages\Spinit.1.0.1.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependancies\Spinit\Spinit.Data.dll</HintPath>
+    <Reference Include="Spinit.Data">
+      <HintPath>..\packages\Spinit.Data.1.0.3.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data.NHibernate, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Data.NHibernate, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Data.NHibernate.dll</HintPath>
     </Reference>
@@ -105,8 +113,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\Finance\SettleNewAutogiroTransactions.cs" />
+    <Compile Include="Commands\Finance\SettleOldAutogiroTransactions.cs" />
+    <Compile Include="Queries\Finance\GetOldAutogiroTransactionsReadyForSettlement.cs" />
+    <Compile Include="Queries\Finance\GetNewAutogiroTransactionsReadyForSettlement.cs" />
+    <Compile Include="Commands\SubscriptionMigration\MigrateCustomerCommand.cs" />
+    <Compile Include="Commands\SubscriptionMigration\MigrateSubscriptionCommand.cs" />
+    <Compile Include="DataServices\GeocodingService.cs" />
     <Compile Include="Extensions\DataRowExtensions.cs" />
+    <Compile Include="Extensions\Filters.cs" />
+    <Compile Include="Extensions\OrderBySqlFormula.cs" />
     <Compile Include="Extensions\SqlParameterCollection.cs" />
+    <Compile Include="Queries\All.cs" />
+    <Compile Include="Queries\SubscripitionMigration\MigratedNewCustomer.cs" />
+    <Compile Include="Queries\Query.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\ArticleRepository.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\ContractSaleRepository.cs" />
     <Compile Include="Repositories\CriteriaConverters\AllFrameOrdersForShopCriteriaConverter.cs" />
@@ -117,14 +138,37 @@
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllSubscriptionsForShopCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllSubscriptionsToSendConsentsForCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllSubscriptionsToSendPaymentsForCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\AllSubscriptionsForShopCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\AllSubscriptionsToSendConsentsForCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\AllSubscriptionsToSendPaymentsForCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllTransactionsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\AllUnhandledSubscriptionErrorsForShopCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\CustomersForShopMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfSubscriptionsMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\PageOfTransactionArticlesMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\LensSubscription\TransactionsForSubscriptionMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\AllArticlesWithArticleTypeCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\AllArticlesWithSupplierCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\AllArticleTypesWithCategoryCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\AllOrdersToSendEmailForCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\AllOrdersWithArticleCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\FindCustomerByPersonalNumberCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\FindShopByUserNameAndHashedPasswordCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\PageOfArticlesMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\PageOfArticleTypesMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\PageOfCategoriesMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\PageOfOrdersMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\PageOfSuppliersMatchingCriteriaConvertner.cs" />
+    <Compile Include="Repositories\CriteriaConverters\ShopDetails\NearbyShopsCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\ActiveSubscriptionsForCustomerCritieriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\ArticlesBySupplierAndArticleTypeCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\ArticleTypesByCategoryIdCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\CustomerDetailsFromPersonalIdNumberCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\Orders\OrderArticlesByArticleTypeCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\ShopDetails\ActiveShopsCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFrameOrdersMatchingCriteriaConverter.cs" />
     <Compile Include="Repositories\CriteriaConverters\PageOfFramesMatchingCriteriaConverter.cs" />
+    <Compile Include="Repositories\CriteriaConverters\ShopDetails\SearchShopsCriteriaConverter.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\FrameBrandRepository.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\FrameColorRepository.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\FrameGlassTypeRepository.cs" />
@@ -141,12 +185,14 @@
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ArticleMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractCompanyMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractSaleMap.cs" />
-    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\CustomerMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\OldCustomerMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\NewTransactionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\OldSubscriptionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\SaleItemMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ShopMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\SettlementMap.cs" />
-    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\SubscriptionMap.cs" />
-    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\TransactionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\NewSubscriptionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\OldTransactionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameBrandMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameColorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameGlassTypeMap.cs" />
@@ -159,9 +205,40 @@
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SubscriptionErrorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\TransactionArticle.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\TransactionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\ArticleCategoryMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\ArticleMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\ArticleSupplierMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\ArticleTypeMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\EyeParameterComponentMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\LensRecipeMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderCustomerMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\OrderMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\ShopMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionErrorMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionItemMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionPendingPaymentMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\TransactionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ShopDetails\ShopEquipmentConnectionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ShopDetails\ShopEquipmentMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ShopDetails\ShopMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopMap.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\ShopRepository.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SubscriptionMap.cs" />
+    <Compile Include="Repositories\OrderRepositories\ArticleCategoryRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\ArticleSupplierRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\ArticleTypeRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\ArticleRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\SubscriptionPendingPaymentRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\LensRecipeRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\OrderCustomerRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\OrderRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\ShopRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\SubscriptionErrorRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\SubscriptionItemRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\SubscriptionRepository.cs" />
+    <Compile Include="Repositories\OrderRepositories\TransactionRepository.cs" />
+    <Compile Include="Repositories\ShopDetailsRepositories\ShopRepository.cs" />
     <Compile Include="SqlProviderConcern.cs" />
     <Compile Include="SqlProviderCountry.cs" />
     <Compile Include="SqlProviderInvoicingMethod.cs" />
@@ -196,7 +273,7 @@
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
-      <ProductName>.NET Framework Client Profile</ProductName>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -221,8 +298,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Repositories\LensSubscriptionRepositories\app.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

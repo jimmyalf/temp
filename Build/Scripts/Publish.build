@@ -1,25 +1,36 @@
 <?xml version="1.0"?>
 <project name="Dev Deployment" default="Admin">
 
+	<!-- Source folders -->
 	<property name="compName" 				value="Synologen"/>
 	<property name="src" 					value="C:\Develop\Synologen"/>
+	<property name="srcSite" 				value="${src}\Synologen.Presentation.Site"/>
+	<property name="srcIntranet" 			value="${src}\Synologen.Presentation.Intranet"/>
 	<property name="wpcCommonBuildFiles" 	value="${src}\Build\Scripts\CommonBuildFiles" />
-	<property name="deployRoot" 			value="\\DEV\Inetpub\Synologen" overwrite="false"/>
+	
 	
 	<!-- Deployment folders -->
 	<property name="deploymentFiles" 		value="${src}\Build\Deployment\Files"/>
 	<property name="deploymentConfigs" 		value="${src}\Build\Deployment\Configs"/>
+	<property name="deployRoot" 			value="\\DEV\Inetpub\Synologen" overwrite="false"/>
 	
 	<!-- Publish www.synologen.nu -->	
 	<target name="Public-Nu" >
-		<property name="srcPath" value="${src}\Synologen.Presentation.Site" overwrite="true"/>
+		<!-- Publish intranet files-->
+		<property name="srcPath"		value="${srcIntranet}" overwrite="true"/>
 		<property name="deployPath" 	value="${deployRoot}\www.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcPublic.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
-		
-		<property name="srcPath" value="${src}\Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Site" overwrite="true"/>
+
+		<!-- Publish site files-->
+		<property name="srcPath" 		value="${srcSite}" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
-		
+
+		<!-- Publish opq files-->
+		<property name="srcPath"		value="${src}\Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Site" overwrite="true"/>
+		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
+
+		<!-- Publish other site specific files-->
 		<property name="srcDeploymentFiles" value="${deploymentFiles}\Synologen.Presentation.Intranet" overwrite="true"/>
 		<property name="srcDeploymentConfig" value="${deploymentConfigs}\www.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishDeploymentConfigs.build"/>
@@ -28,24 +39,38 @@
 	
 	<!-- Publish lev.synologen.nu -->
 	<target name="Public-Lev" depends="Public-Nu">
-		<property name="srcPath" value="${src}\Synologen.Presentation.Site" overwrite="true"/>
+		
+		<!-- Publish intranet files-->
+		<property name="srcPath"		value="${srcIntranet}" overwrite="true"/>
 		<property name="deployPath" 	value="${deployRoot}\lev.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcPublic.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
-		
-		<property name="srcDeploymentFiles" value="${deploymentFiles}\Synologen.Presentation.Intranet" overwrite="true"/>
-		<property name="srcDeploymentConfig" value="${deploymentConfigs}\lev.synologen.nu" overwrite="true"/>
+
+		<!-- Publish site files-->
+		<property name="srcPath" 		value="${srcSite}" overwrite="true"/>
+		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
+
+		<!-- Publish other site specific files-->
+		<property name="srcDeploymentFiles"		value="${deploymentFiles}\Synologen.Presentation.Intranet" overwrite="true"/>
+		<property name="srcDeploymentConfig"	value="${deploymentConfigs}\lev.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishDeploymentConfigs.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishDeploymentFiles.build"/>
 	</target> 
 
 	<!-- Publish partner.synologen.nu -->
 	<target name="Public-Partner" depends="Public-Lev">
-		<property name="srcPath" 		value="${src}\Synologen.Presentation.Site" overwrite="true"/>
+
+		<!-- Publish intranet files-->
+		<property name="srcPath" 		value="${srcIntranet}" overwrite="true"/>
 		<property name="deployPath" 	value="${deployRoot}\partner.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcPublic.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
-		
+
+		<!-- Publish site files-->
+		<property name="srcPath" 		value="${srcSite}" overwrite="true"/>
+		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
+
+		<!-- Publish other site specific files-->
 		<property name="srcDeploymentFiles" value="${deploymentFiles}\Synologen.Presentation.Intranet" overwrite="true"/>
 		<property name="srcDeploymentConfig" value="${deploymentConfigs}\partner.synologen.nu" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishDeploymentConfigs.build"/>
@@ -54,27 +79,34 @@
 	
 	<!-- Publish www.ogonapoteket.se -->
 	<target name="Public-OgonApotek" depends="Public-Partner">
-		<property name="srcPath" 		value="${src}\Synologen.Presentation.Site" overwrite="true"/>
+
+		<!-- Publish site files-->
+		<property name="srcPath" 		value="${srcSite}" overwrite="true"/>
 		<property name="deployPath" 	value="${deployRoot}\www.ogonapoteket.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcPublic.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
-		
+
+		<!-- Publish ögonapoteket files-->
 		<property name="srcPath" 	value="${src}\Synologen.Presentation.Ogonapoteket" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
-		
+
+		<!-- Publish other site specific files-->
 		<property name="srcDeploymentFiles" value="${deploymentFiles}\Synologen.Presentation.Ogonapoteket" overwrite="true"/>
-		<property name="srcDeploymentConfig" value="${deploymentConfigs}\partner.synologen.nu" overwrite="true"/>
+		<property name="srcDeploymentConfig" value="${deploymentConfigs}\www.ogonapoteket.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishDeploymentConfigs.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishDeploymentFiles.build"/>
 	</target>  
 	
 	<!-- Publish www.synhalsan.se -->
 	<target name="Public-Synhalsan" depends="Public-OgonApotek">
-		<property name="srcPath" 		value="${src}\Synologen.Presentation.Site" overwrite="true"/>
+		
+		<!-- Publish site files-->
+		<property name="srcPath" 		value="${srcSite}" overwrite="true"/>
 		<property name="deployPath" 	value="${deployRoot}\www.synhalsan.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcPublic.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
-		
+
+		<!-- Publish other site specific files-->
 		<property name="srcDeploymentFiles" value="${deploymentFiles}\Synologen.Presentation.Site" overwrite="true"/>
 		<property name="srcDeploymentConfig" value="${deploymentConfigs}\www.synhalsan.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishDeploymentConfigs.build"/>
@@ -83,11 +115,14 @@
 	
 	<!-- Publish www.synologen.se -->
 	<target name="Public-Se" depends="Public-Synhalsan">
-		<property name="srcPath" 		value="${src}\Synologen.Presentation.Site" overwrite="true"/>
+
+		<!-- Publish site files-->
+		<property name="srcPath" 		value="${srcSite}" overwrite="true"/>
 		<property name="deployPath" 	value="${deployRoot}\www.synologen.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcPublic.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcPublic.build"/>
-		
+
+		<!-- Publish other site specific files-->
 		<property name="srcDeploymentFiles" value="${deploymentFiles}\Synologen.Presentation.Site" overwrite="true"/>
 		<property name="srcDeploymentConfig" value="${deploymentConfigs}\www.synologen.se" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishDeploymentConfigs.build"/>

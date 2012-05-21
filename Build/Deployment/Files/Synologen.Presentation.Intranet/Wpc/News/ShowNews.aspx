@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ShowNews.aspx.cs" Inherits="ShowNews" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ShowNews.aspx.cs" Inherits="ShowNews" %>
 
 <%@ Register Src="Show.ascx" TagName="Show" TagPrefix="uc1" %>
 

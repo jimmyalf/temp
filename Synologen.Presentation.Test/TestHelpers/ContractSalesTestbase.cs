@@ -1,5 +1,6 @@
 using FakeItEasy;
 using Moq;
+using NHibernate;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.LensSubscription;
@@ -9,7 +10,6 @@ using Spinit.Wpc.Synologen.Presentation.Controllers;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 {
-	
 	public abstract class ContractSalesTestbase<TViewModel> : ControllerTestbase<ContractSalesController,TViewModel> where TViewModel : class
 	{
 		protected Mock<ISettlementRepository> MockedSettlementRepository;
@@ -21,12 +21,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 		protected IContractSalesCommandService MockedContractSalesCommandService;
 		protected IUserContextService UserContextService;
 		protected IContractSalesViewService ViewService;
-
+		protected ISession Session;
+		protected CommandQueryInterceptor<ISession> Interceptor;
 
 		protected ContractSalesTestbase()
 		{
-			SetUp = () => 
+			SetUp = () =>
 			{
+				Interceptor = new CommandQueryInterceptor<ISession>();
 				MockedSettlementRepository = new Mock<ISettlementRepository>();
 				MockedSettingsService = new Mock<IAdminSettingsService>();
 				MockedContractSaleRepository = new Mock<IContractSaleRepository>();
@@ -36,6 +38,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 				var commandService = new ContractSalesCommandService(MockedSynologenSqlProvider.Object, UserContextService);
 				MockedContractSalesCommandService = A.Fake<IContractSalesCommandService>(options => options.Wrapping(commandService));
 				ArticleRepository = A.Fake<IArticleRepository>();
+				Session = A.Fake<ISession>();
+
 
 				var viewService = new ContractSalesViewService(
 					MockedSettlementRepository.Object,
@@ -46,7 +50,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.TestHelpers
 					ArticleRepository);
 				ViewService = A.Fake<IContractSalesViewService>(options => options.Wrapping(viewService));
 			};
-			GetController = () =>  new ContractSalesController(ViewService, MockedContractSalesCommandService);
+			GetController = () =>
+			{
+				var controller = new ContractSalesController(ViewService, MockedContractSalesCommandService, MockedSettingsService.Object, Session)
+				{
+					QueryOverride = Interceptor.GetQueryResult, 
+					SessionWithResultOverride = Interceptor.GetSessionResult, 
+					SessionWithoutResultOverride = Interceptor.GetSessionAction,
+					ExecuteCommandOverride = Interceptor.GetCommandAction,
+					ExecuteCommandWithResultOverride = Interceptor.GetCommandResult
+				};
+				return controller;
+			};
 		}
 	}
 }

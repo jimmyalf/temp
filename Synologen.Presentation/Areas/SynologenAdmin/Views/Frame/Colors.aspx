@@ -6,7 +6,6 @@
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
 <div id="dCompMain" class="Components-Synologen-FrameBrand-Index">
-	<%=Html.Messages() %>
 	<div class="fullBox">
 		<div class="wrap">
 			<div>

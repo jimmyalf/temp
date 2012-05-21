@@ -3,10 +3,8 @@ using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Extensions;
-using Spinit.ShouldlyExtensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.LensSubscription;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.Repositories.LensSubscriptionRepositories;
 using Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData.Factories;
 
@@ -52,7 +50,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);
@@ -105,7 +104,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 			AssertUsing(session =>
 			{
 				var itemsMatchingCriteria = new TransactionArticleRepository(session).FindBy(criteria);
-				itemsMatchingCriteria.ShouldBeSameLengthAs(_expectedArticlesMatchingCriteria);
+				itemsMatchingCriteria.Count().ShouldBe(_expectedArticlesMatchingCriteria.Count());
 				itemsMatchingCriteria.And(_expectedArticlesMatchingCriteria).Do((fetchedItem, expectedItem) =>
 				{
 					fetchedItem.Active.ShouldBe(expectedItem.Active);
@@ -128,7 +127,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.LensSubscriptionData
 		{
 			Context = session =>
 			{
-				var shop = new ShopRepository(session).Get(TestShopId);
+				var shop = CreateShop(session);
+					// new ShopRepository(session).Get(TestShopId);
 				var country = new CountryRepository(session).Get(TestCountryId);
 				var customer = CustomerFactory.Get(country, shop);
 				new CustomerRepository(session).Save(customer);

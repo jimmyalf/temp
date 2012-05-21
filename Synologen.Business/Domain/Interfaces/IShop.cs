@@ -16,6 +16,8 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Interfaces
 		[DataMember] string Address2 { get; set; }
 		[DataMember] string Zip { get; set; }
 		[DataMember] string City { get; set; }
+        [DataMember] decimal Latitude { get; set; }
+        [DataMember] decimal Longitude { get; set; }
 		[DataMember] string Phone { get; set; }
 		[DataMember] string Phone2 { get; set; }
 		[DataMember] string Fax { get; set; }

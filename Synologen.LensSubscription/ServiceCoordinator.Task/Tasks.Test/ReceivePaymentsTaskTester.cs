@@ -133,9 +133,11 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		{
 			Context = () =>
 			{
-				_expectedPayment = PaymentFactory.Get(subscriptionId:_subscriptionId);
+				const decimal taxedAmount = 250.25M;
+				const int taxFreeAmount = 100;
+				_expectedPayment = PaymentFactory.Get(subscriptionId:_subscriptionId, amount: taxedAmount + taxFreeAmount);
 				_expectedSubscription = SubscriptionFactory.Get(_subscriptionId);
-				_pendingPayment = PendingPaymentFactory.Get(_expectedPayment.Amount);
+				_pendingPayment = PendingPaymentFactory.Get(taxedAmount, taxFreeAmount);
 				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.SubscriptionVersion2)).Returns(new []{_expectedPayment});
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(_expectedSubscription);
 				A.CallTo(() => SubscriptionPendingPaymentRepository.Get(Int32.Parse(_expectedPayment.Reference))).Returns(_pendingPayment);

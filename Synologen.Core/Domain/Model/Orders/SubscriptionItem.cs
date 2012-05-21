@@ -18,16 +18,26 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual decimal FeePrice { get; set; }
 		public virtual decimal TotalValue { get { return ProductPrice + FeePrice; } }
 
+		public virtual decimal MonthlyWithdrawalProductAmount
+		{
+		    get { return WithdrawalsLimit <= 0 ? 0 : Math.Round(ProductPrice / WithdrawalsLimit, 2); }
+		}
+
+		public virtual decimal MonthlyWithdrawalFeeAmount
+		{
+		    get { return WithdrawalsLimit <= 0 ? 0 : Math.Round(FeePrice / WithdrawalsLimit, 2); }
+		}
+
 		public virtual decimal MonthlyWithdrawalAmount
 		{
-			get
-			{
-				return WithdrawalsLimit <= 0 ? 0 : Math.Round(TotalValue / WithdrawalsLimit, 2);
-			}
+		    get { return MonthlyWithdrawalProductAmount + MonthlyWithdrawalFeeAmount; }
 		}
+
 		public virtual bool IsActive
 		{ 
 			get { return PerformedWithdrawals < WithdrawalsLimit; } 
 		}
+
+
 	}
 }

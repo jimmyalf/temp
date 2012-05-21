@@ -69,6 +69,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 			transaction.Reason.ShouldBe(TransactionReason.Payment);
 			transaction.SettlementId.ShouldBe(null);
 			transaction.Type.ShouldBe(TransactionType.Deposit);
+			transaction.PendingPayment.Id.ShouldBe(_pendingPayment.Id);
 		}
 
 		[Test]

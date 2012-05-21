@@ -16,11 +16,11 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 			return generateItem.GenerateRange(1, 16);
 		}
 
-		public static ReceivedPayment Get(int id = 1, int subscriptionId = 1, PaymentResult result = PaymentResult.Approved)
+		public static ReceivedPayment Get(int id = 1, int subscriptionId = 1, PaymentResult result = PaymentResult.Approved, decimal amount = 150.45M)
 		{
 			return new ReceivedPayment
 			{ 
-				Amount = 150.45M,
+				Amount = amount,
 				PayerNumber = subscriptionId,
 				PaymentId = id,
 				Result = result,

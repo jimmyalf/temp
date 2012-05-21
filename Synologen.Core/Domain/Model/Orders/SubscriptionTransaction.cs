@@ -16,6 +16,6 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual TransactionReason Reason { get; set; }
 		public virtual DateTime CreatedDate { get; private set; }
 		public virtual int? SettlementId { get; set; }
-		//public virtual Article Article { get; set;}
+		public virtual SubscriptionPendingPayment PendingPayment { get; set; }
 	}
 }

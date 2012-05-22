@@ -13,6 +13,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales
 	{
 		public virtual decimal Amount { get; set; }
 		public virtual NewSubscription Subscription { get; set; }
+		public virtual PendingPayment PendingPayment { get; set; }
 		public virtual DateTime CreatedDate { get; set; }
 	}
 }

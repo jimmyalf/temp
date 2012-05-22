@@ -86,6 +86,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests
 			View.Model.NewTransactionsValueIncludingVAT.ShouldBe(_settlement.NewTransactionValueIncludingVAT.ToString("C2"));
 			View.Model.OldTransactionsCount.ShouldBe(_settlement.OldTransactions.Count().ToString());
 			View.Model.NewTransactionCount.ShouldBe(_settlement.NewTransactions.Count().ToString());
+			View.Model.NewTransactionTaxedValue.ShouldBe(_settlement.NewTransactionTaxedValue.ToString("C2"));
+			View.Model.NewTransactionTaxFreeValue.ShouldBe(_settlement.NewTransactionTaxFreeValue.ToString("C2"));
 		}
 
 		[Test]
@@ -152,6 +154,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests
 				viewItem.CustomerName.ShouldBe(domainItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
 				viewItem.SubscriptionLink.ShouldBe(String.Format("{0}?subscription={1}", _newSubscriptionUrl, domainItem.Subscription.Id));
 				viewItem.Amount.ShouldBe(domainItem.Amount.ToString("C2"));
+				viewItem.TaxedAmount.ShouldBe(domainItem.PendingPayment.TaxedAmount.ToString("C2"));
+				viewItem.TaxFreeAmount.ShouldBe(domainItem.PendingPayment.TaxFreeAmount.ToString("C2"));
 				viewItem.Date.ShouldBe(domainItem.CreatedDate.ToString("yyyy-MM-dd"));
 			});
 		}

@@ -2,14 +2,28 @@
 <%@ Import Namespace="Spinit.Wpc.Synologen.Presentation.Intranet.Code" %>
 <div class="synologen-control">
 	<fieldset><legend>Utbetalningsuppgifter</legend>
-		<p><label>Utbetalning:</label>&nbsp;<span><%#Model.SettlementId %></span></p>
-		<p><label>Butiknummer:</label>&nbsp;<span><%#Model.ShopNumber %></span></p>
-		<p><label>Period:</label>&nbsp;<span><%#Model.Period %></span></p>
-		<p><label>Avtalsförsäljningsvärde inkl moms:</label>&nbsp;<span><%#Model.ContractSalesValueIncludingVAT %></span></p>
-		<p><label>Gamla linsabonnemangsvärde inkl moms:</label>&nbsp;<span><%#Model.OldTransactionsValueIncludingVAT %></span></p>
-		<p><label>Nya linsabonnemangsvärde inkl moms:</label>&nbsp;<span><%#Model.NewTransactionsValueIncludingVAT %></span></p>
-		<p><label>Antal gamla linsabonnemang-transaktioner:</label>&nbsp;<span><%#Model.OldTransactionsCount %></span></p>
-		<p><label>Antal nya linsabonnemang-transaktioner:</label>&nbsp;<span><%#Model.NewTransactionCount %></span></p>
+		<h3>Utbetalning</h3>
+		<p>
+			<label>Id:</label>&nbsp;<span><%#Model.SettlementId %></span><br/>
+			<label>Butiknummer:</label>&nbsp;<span><%#Model.ShopNumber %></span><br/>
+			<label>Period:</label>&nbsp;<span><%#Model.Period %></span>
+		<p/>
+		<h3>Avtalsförsäljning</h3>
+		<p>
+			<label>Värde inkl moms:</label>&nbsp;<span><%#Model.ContractSalesValueIncludingVAT %></span>
+		</p>
+		<h3>Gamla linsabonnemang</h3>
+		<p>
+			<label>Antal transaktioner:</label>&nbsp;<span><%#Model.OldTransactionsCount %></span><br/>
+			<label>Värde inkl moms:</label>&nbsp;<span><%#Model.OldTransactionsValueIncludingVAT %></span>
+		</p>
+		<h3>Nya linsabonnemang</h3>
+		<p>
+			<label>Antal transaktioner:</label>&nbsp;<span><%#Model.NewTransactionCount %></span><br/>
+			<label>Totalt värde:</label>&nbsp;<span><%#Model.NewTransactionsValueIncludingVAT %></span><br/>
+			<label>Momsbelagt värde</label>&nbsp;<span><%#Model.NewTransactionTaxedValue %></span><br/>
+			<label>Momsfritt värde</label>&nbsp;<span><%#Model.NewTransactionTaxFreeValue %></span>
+		</p>
 		<p><a href="<%=SynologenSessionContext.SettlementListPage %>">&laquo;&nbsp;Tillbaka</a></p>
 	</fieldset>
 	<div class="control-actions">
@@ -22,24 +36,28 @@
 	<asp:Repeater ID="rptSettlementOrderItemsSimple" runat="server" DataSource='<%#Model.SimpleContractSales%>'>
 	<HeaderTemplate>
 		<table>
-			<tr class="synologen-table-headerrow">	
-				<th>Artikelnummer</th>
-				<th>Artikel</th>
-				<th>Antal</th>
-				<th>Värde</th>
-				<th>Momsfri</th>
-			</tr>			
+			<thead>
+				<tr class="synologen-table-headerrow">	
+					<th>Artikelnummer</th>
+					<th>Artikel</th>
+					<th>Antal</th>
+					<th>Värde</th>
+					<th>Momsfri</th>
+				</tr>
+			</thead>
+			<tbody>
 	</HeaderTemplate>
 	<ItemTemplate>
-			<tr>
-				<td><%# Eval("ArticleNumber") %></td>
-				<td><%# Eval("ArticleName") %></td>
-				<td><%# Eval("Quantity") %></td>
-				<td><%# Eval("ValueExcludingVAT")%></td>
-				<td><%# Eval("IsVATFree")%></td>
-			</tr>
+				<tr>
+					<td><%# Eval("ArticleNumber") %></td>
+					<td><%# Eval("ArticleName") %></td>
+					<td><%# Eval("Quantity") %></td>
+					<td><%# Eval("ValueExcludingVAT")%></td>
+					<td><%# Eval("IsVATFree")%></td>
+				</tr>
 	</ItemTemplate>	
 	<FooterTemplate>
+			</tbody>
 		</table>
 	</FooterTemplate>			
 	</asp:Repeater>	
@@ -50,28 +68,32 @@
 	<asp:Repeater ID="rptSettlementOrderItemsDetailed" runat="server" DataSource='<%#Model.DetailedContractSales%>'>
 	<HeaderTemplate>
 		<table>
-			<tr class="synologen-table-headerrow">	
-				<th>Order Nr</th>
-				<th>Avtalsföretag</th>
-				<th>Artikelnummer</th>
-				<th>Artikel</th>
-				<th>Antal</th>
-				<th>Värde</th>
-				<th>Momsfri</th>
-			</tr>			
+			<thead>
+				<tr class="synologen-table-headerrow">
+					<th>Order Nr</th>
+					<th>Avtalsföretag</th>
+					<th>Artikelnummer</th>
+					<th>Artikel</th>
+					<th>Antal</th>
+					<th>Värde</th>
+					<th>Momsfri</th>
+				</tr>
+			</thead>
+			<tbody>
 	</HeaderTemplate>
 	<ItemTemplate>
-			<tr>
-				<td><%# Eval("ContractSaleId") %></td>
-				<td><%# Eval("ContractCompany") %></td>
-				<td><%# Eval("ArticleNumber") %></td>
-				<td><%# Eval("ArticleName") %></td>
-				<td><%# Eval("Quantity") %></td>
-				<td><%# Eval("ValueExcludingVAT")%></td>
-				<td><%# Eval("IsVATFree") %></td>
-			</tr>
+				<tr>
+					<td><%# Eval("ContractSaleId") %></td>
+					<td><%# Eval("ContractCompany") %></td>
+					<td><%# Eval("ArticleNumber") %></td>
+					<td><%# Eval("ArticleName") %></td>
+					<td><%# Eval("Quantity") %></td>
+					<td><%# Eval("ValueExcludingVAT")%></td>
+					<td><%# Eval("IsVATFree") %></td>
+				</tr>
 	</ItemTemplate>	
 	<FooterTemplate>
+			</tbody>
 		</table>
 	</FooterTemplate>			
 	</asp:Repeater>	
@@ -81,20 +103,24 @@
 	<asp:Repeater ID="rptSettlementTransactionItemsDetailed" runat="server" DataSource='<%#Model.OldTransactions%>'>
 	<HeaderTemplate>
 		<table>
-			<tr class="synologen-table-headerrow">	
-				<th>Kund</th>
-				<th>Belopp</th>
-				<th>Datum</th>
-			</tr>			
+			<thead>
+				<tr class="synologen-table-headerrow">	
+					<th>Kund</th>
+					<th>Belopp</th>
+					<th>Datum</th>
+				</tr>
+			</thead>
+			<tbody>
 	</HeaderTemplate>
 	<ItemTemplate>
-			<tr>
-				<td><%# Eval("CustomerName")%></td>
-				<td><%# Eval("Amount") %></td>
-				<td><%# Eval("Date") %></td>
-			</tr>
+				<tr>
+					<td><%# Eval("CustomerName")%></td>
+					<td><%# Eval("Amount") %></td>
+					<td><%# Eval("Date") %></td>
+				</tr>
 	</ItemTemplate>	
 	<FooterTemplate>
+			</tbody>		
 		</table>
 	</FooterTemplate>			
 	</asp:Repeater>	
@@ -103,20 +129,28 @@
 	<asp:Repeater runat="server" DataSource='<%#Model.NewTransactions%>'>
 	<HeaderTemplate>
 		<table>
-			<tr class="synologen-table-headerrow">	
-				<th>Kund</th>
-				<th>Belopp</th>
-				<th>Datum</th>
-			</tr>			
+			<thead>
+				<tr class="synologen-table-headerrow">	
+					<th>Kund</th>
+					<th>Belopp</th>
+					<th>Momsbelagt</th>
+					<th>Momsfritt</th>
+					<th>Datum</th>
+				</tr>			
+			</thead>
+			<tbody>
 	</HeaderTemplate>
 	<ItemTemplate>
-			<tr>
-				<td><%# Eval("CustomerName")%></td>
-				<td><%# Eval("Amount") %></td>
-				<td><%# Eval("Date") %></td>
-			</tr>
+				<tr>
+					<td><%# Eval("CustomerName")%></td>
+					<td><%# Eval("Amount") %></td>
+					<td><%# Eval("TaxedAmount") %></td>
+					<td><%# Eval("TaxFreeAmount") %></td>
+					<td><%# Eval("Date") %></td>
+				</tr>
 	</ItemTemplate>	
 	<FooterTemplate>
+			</tbody>
 		</table>
 	</FooterTemplate>			
 	</asp:Repeater>	

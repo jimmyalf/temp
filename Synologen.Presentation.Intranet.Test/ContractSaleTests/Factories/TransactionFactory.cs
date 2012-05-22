@@ -31,10 +31,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests.Fact
 
 			return new[]
 			{
-				new NewTransaction { Amount = 100.10M, Subscription = subscription1, CreatedDate = new DateTime(2010, 11, 20)},
-				new NewTransaction { Amount = 200.20M, Subscription = subscription2, CreatedDate = new DateTime(2010, 11, 21) },
-				new NewTransaction { Amount = 300.30M, Subscription = subscription1, CreatedDate = new DateTime(2010, 11, 22) },
-				new NewTransaction { Amount = 85.90M, Subscription = subscription2, CreatedDate = new DateTime(2010, 11, 23) }
+				new NewTransaction
+				{
+					Amount = 100.10M, Subscription = subscription1, CreatedDate = new DateTime(2010, 11, 20),
+					PendingPayment = new PendingPayment{ TaxedAmount = 75, TaxFreeAmount = 25.10M }
+				},
+				new NewTransaction
+				{
+					Amount = 200.20M, Subscription = subscription2, CreatedDate = new DateTime(2010, 11, 21),
+					PendingPayment = new PendingPayment{ TaxedAmount = 175, TaxFreeAmount = 25.20M }
+				},
+				new NewTransaction
+				{
+					Amount = 300.30M, Subscription = subscription1, CreatedDate = new DateTime(2010, 11, 22),
+					PendingPayment = new PendingPayment{ TaxedAmount = 250, TaxFreeAmount = 50.30M }
+				},
+				new NewTransaction
+				{
+					Amount = 85.90M, Subscription = subscription2, CreatedDate = new DateTime(2010, 11, 23),
+					PendingPayment = new PendingPayment{ TaxedAmount = 80, TaxFreeAmount = 5.90M }
+				}
 			};
 		}
 	}

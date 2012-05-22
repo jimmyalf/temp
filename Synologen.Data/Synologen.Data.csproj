@@ -193,6 +193,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\SettlementMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\NewSubscriptionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\OldTransactionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\ContractSales\PendingPaymentMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameBrandMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameColorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\FrameGlassTypeMap.cs" />

@@ -155,6 +155,7 @@
     <Compile Include="Domain\Model\ContractSales\ContractSale.cs" />
     <Compile Include="Domain\Model\ContractSales\NewCustomer.cs" />
     <Compile Include="Domain\Model\ContractSales\OldCustomer.cs" />
+    <Compile Include="Domain\Model\ContractSales\PendingPayment.cs" />
     <Compile Include="Domain\Model\ContractSales\SaleItem.cs" />
     <Compile Include="Domain\Model\ContractSales\Shop.cs" />
     <Compile Include="Domain\Model\ContractSales\Settlement.cs" />

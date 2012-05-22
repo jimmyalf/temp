@@ -3,27 +3,19 @@
 <div class="synologen-control">
 	<fieldset><legend>Utbetalningsuppgifter</legend>
 		<h3>Utbetalning</h3>
-		<p>
-			<label>Id:</label>&nbsp;<span><%#Model.SettlementId %></span><br/>
-			<label>Butiknummer:</label>&nbsp;<span><%#Model.ShopNumber %></span><br/>
-			<label>Period:</label>&nbsp;<span><%#Model.Period %></span>
-		<p/>
+		<p><label>Id:</label>&nbsp;<span><%#Model.SettlementId %></span></p>
+		<p><label>Butiknummer:</label>&nbsp;<span><%#Model.ShopNumber %></span></p>
+		<p><label>Period:</label>&nbsp;<span><%#Model.Period %></span></p>
 		<h3>Avtalsförsäljning</h3>
-		<p>
-			<label>Värde inkl moms:</label>&nbsp;<span><%#Model.ContractSalesValueIncludingVAT %></span>
-		</p>
+		<p><label>Värde inkl moms:</label>&nbsp;<span><%#Model.ContractSalesValueIncludingVAT %></span></p>
 		<h3>Gamla linsabonnemang</h3>
-		<p>
-			<label>Antal transaktioner:</label>&nbsp;<span><%#Model.OldTransactionsCount %></span><br/>
-			<label>Värde inkl moms:</label>&nbsp;<span><%#Model.OldTransactionsValueIncludingVAT %></span>
-		</p>
+		<p><label>Antal transaktioner:</label>&nbsp;<span><%#Model.OldTransactionsCount %></span></p>
+		<p><label>Värde inkl moms:</label>&nbsp;<span><%#Model.OldTransactionsValueIncludingVAT %></span></p>
 		<h3>Nya linsabonnemang</h3>
-		<p>
-			<label>Antal transaktioner:</label>&nbsp;<span><%#Model.NewTransactionCount %></span><br/>
-			<label>Totalt värde:</label>&nbsp;<span><%#Model.NewTransactionsValueIncludingVAT %></span><br/>
-			<label>Momsbelagt värde</label>&nbsp;<span><%#Model.NewTransactionTaxedValue %></span><br/>
-			<label>Momsfritt värde</label>&nbsp;<span><%#Model.NewTransactionTaxFreeValue %></span>
-		</p>
+		<p><label>Antal transaktioner:</label>&nbsp;<span><%#Model.NewTransactionCount %></span></p>
+		<p><label>Totalt värde:</label>&nbsp;<span><%#Model.NewTransactionsValueIncludingVAT %></span></p>
+		<p><label>Momsbelagt värde</label>&nbsp;<span><%#Model.NewTransactionTaxedValue %></span></p>
+		<p><label>Momsfritt värde</label>&nbsp;<span><%#Model.NewTransactionTaxFreeValue %></span></p>
 		<p><a href="<%=SynologenSessionContext.SettlementListPage %>">&laquo;&nbsp;Tillbaka</a></p>
 	</fieldset>
 	<div class="control-actions">

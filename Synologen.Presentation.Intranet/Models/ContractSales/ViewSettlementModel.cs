@@ -16,6 +16,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.ContractSales
 		public string NewTransactionsValueIncludingVAT { get; set; }
 		public string OldTransactionsCount { get; set; }
 		public string NewTransactionCount { get; set; }
+		public string NewTransactionTaxedValue { get; set; }
+		public string NewTransactionTaxFreeValue { get; set; }
 		public IEnumerable<SettlementDetailedContractSaleListItemModel> DetailedContractSales { get; set; }
 		public IEnumerable<SettlementSimpleContractSaleListItemModel> SimpleContractSales { get; set; }
 		public IEnumerable<SettlementDetailedSubscriptionTransactionsListItemModel> OldTransactions { get; set; }

@@ -59,6 +59,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.ContractSa
 			View.Model.NewTransactionCount = settlementForShop.NewTransactions.Count().ToString();
 			View.Model.OldTransactions = settlementForShop.OldTransactions.Select(transaction => ConvertDetailedOldTransactions(transaction, oldSubscriptionPageUrl));
 			View.Model.NewTransactions = settlementForShop.NewTransactions.Select(transaction => ConvertDetailedNewTransactions(transaction, newSubscriptionPageUrl));
+			View.Model.NewTransactionTaxedValue = settlementForShop.NewTransactionTaxedValue.ToString("C2");
+			View.Model.NewTransactionTaxFreeValue = settlementForShop.NewTransactionTaxFreeValue.ToString("C2");
 			View.Model.DetailedContractSales = settlementForShop.SaleItems.Select(ConvertDetailedSalesItem);
 			View.Model.SimpleContractSales = settlementForShop.SaleItems.OrderBy(x => x.Article.Id).GroupBy(x => x.Article.Id).Select(ConvertSimpleSalesItem);
 			View.Model.SwitchViewButtonText = (useDetailedView) ? SimpleButtonText : DetailedButtonText;
@@ -126,7 +128,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.ContractSa
               	Amount = transactionItem.Amount.ToString("C2"),
               	Date = transactionItem.CreatedDate.ToString("yyyy-MM-dd"),
 				SubscriptionLink = String.Format("{0}?subscription={1}", subscriptionPageUrl, transactionItem.Subscription.Id),
-				CustomerName = transactionItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName)
+				CustomerName = transactionItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName),
+				TaxFreeAmount = transactionItem.PendingPayment.TaxFreeAmount.ToString("C2"),
+				TaxedAmount = transactionItem.PendingPayment.TaxedAmount.ToString("C2"),
             };
 		}
 

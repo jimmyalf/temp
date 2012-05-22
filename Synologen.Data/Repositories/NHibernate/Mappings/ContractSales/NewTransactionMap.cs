@@ -16,6 +16,11 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSal
 				.Cascade.None()
 				.Column("SubscriptionId")
 				.Not.Nullable();
+			References(x => x.PendingPayment)
+				.Fetch.Join()
+				.Cascade.None()
+				.Column("PendingPaymentId")
+				.Nullable();
 		}
 	}
 }

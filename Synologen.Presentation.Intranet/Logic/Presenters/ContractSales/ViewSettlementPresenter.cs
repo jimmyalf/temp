@@ -129,8 +129,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.ContractSa
               	Date = transactionItem.CreatedDate.ToString("yyyy-MM-dd"),
 				SubscriptionLink = String.Format("{0}?subscription={1}", subscriptionPageUrl, transactionItem.Subscription.Id),
 				CustomerName = transactionItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName),
-				TaxFreeAmount = transactionItem.PendingPayment.TaxFreeAmount.ToString("C2"),
-				TaxedAmount = transactionItem.PendingPayment.TaxedAmount.ToString("C2"),
+				TaxFreeAmount = (transactionItem.PendingPayment != null) ?  transactionItem.PendingPayment.TaxFreeAmount.ToString("C2") : null,
+				TaxedAmount = (transactionItem.PendingPayment != null) ?  transactionItem.PendingPayment.TaxedAmount.ToString("C2") : null,
             };
 		}
 

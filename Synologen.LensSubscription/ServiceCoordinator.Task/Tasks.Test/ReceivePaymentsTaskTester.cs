@@ -150,9 +150,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		public void Transaction_is_saved_with_expected_values()
 		{
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Equals(_expectedPayment.Amount))));
-			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Year.Equals(DateTime.Now.Year))));
-			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Month.Equals(DateTime.Now.Month))));
-			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Minute.Equals(DateTime.Now.Minute))));
+			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Reason.Equals(TransactionReason.Payment))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Subscription.Id.Equals(_subscriptionId))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Type.Equals(TransactionType.Deposit))));

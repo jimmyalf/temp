@@ -29,6 +29,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			_mapItems.Add(PropertyMapItem.CreateItem(viewModel, domainModel, typeof (TController).Name));
 		}
 
+		protected void For<TController, TViewModel, TDomainModel>(Action<MapBuilder<TController, TViewModel, TDomainModel>> builder)
+			where TViewModel : class
+			where TDomainModel : class
+			where TController : IController
+		{
+			var mapBuilder = new MapBuilder<TController, TViewModel, TDomainModel>();
+			builder(mapBuilder);
+			foreach (var propertyMapItem in mapBuilder.GetMappedItems())
+			{
+				_mapItems.Add(propertyMapItem);
+			}
+		}
+
 		public string TryFindMapping(string propertyName, string controllerName) 
 		{ 
 			if(_mapItems == null) return propertyName;
@@ -41,25 +54,50 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			}
 			return propertyName;
 		}
+	}
 
-		internal class PropertyMapItem
+	public class PropertyMapItem
+	{
+		public Type ViewModelType { get; private set; }
+		public Type DomainModelType { get; private set; }
+		public string ViewModelPropertyName { get; private set; }
+		public string DomainModelPropertyName { get; private set; }
+		public string ControllerName { get; private set; }
+		public static PropertyMapItem CreateItem<TViewModel,TDomainModel,TPropertyType1, TPropertyType2>(Expression<Func<TViewModel,TPropertyType1>> viewModel, Expression<Func<TDomainModel,TPropertyType2>> domainModel, string controllerName) where TViewModel : class where TDomainModel : class
 		{
-			public Type ViewModelType { get; private set; }
-			public Type DomainModelType { get; private set; }
-			public string ViewModelPropertyName { get; private set; }
-			public string DomainModelPropertyName { get; private set; }
-			public string ControllerName { get; private set; }
-			public static PropertyMapItem CreateItem<TViewModel,TDomainModel,TPropertyType1, TPropertyType2>(Expression<Func<TViewModel,TPropertyType1>> viewModel, Expression<Func<TDomainModel,TPropertyType2>> domainModel, string controllerName) where TViewModel : class where TDomainModel : class
+			return new PropertyMapItem
 			{
-				return new PropertyMapItem
-				{
-					ViewModelType = typeof (TViewModel),
-					DomainModelType = typeof (TDomainModel),
-					ViewModelPropertyName = viewModel.GetName(),
-					DomainModelPropertyName = domainModel.GetName(),
-					ControllerName = controllerName
-				};
-			}
+				ViewModelType = typeof (TViewModel),
+				DomainModelType = typeof (TDomainModel),
+				ViewModelPropertyName = viewModel.GetName(),
+				DomainModelPropertyName = domainModel.GetName(),
+				ControllerName = controllerName
+			};
 		}
+	}
+
+	public class MapBuilder<TController, TViewModel, TDomainModel>
+			where TViewModel : class
+			where TDomainModel : class
+			where TController : IController
+	{
+		private List<PropertyMapItem> _mapItems;
+
+		public MapBuilder()
+		{
+			_mapItems = new List<PropertyMapItem>();
+		}
+
+		public MapBuilder<TController, TViewModel, TDomainModel> Map(Expression<Func<TViewModel, object>> viewModel, Expression<Func<TDomainModel, object>> domainModel)
+		{
+			_mapItems.Add(PropertyMapItem.CreateItem(viewModel, domainModel, typeof (TController).Name));
+			return this;
+		}
+
+		public IList<PropertyMapItem> GetMappedItems()
+		{
+			return _mapItems;
+		}
+		
 	}
 }

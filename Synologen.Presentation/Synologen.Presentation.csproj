@@ -55,6 +55,8 @@
     <Content Include="Areas\SynologenAdmin\Views\Order\CategoryForm.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\ArticleTypeForm.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\ArticleForm.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Order\SubscriptionView.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Order\Subscriptions.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\OrderView.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\SupplierForm.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\Suppliers.aspx" />
@@ -362,6 +364,8 @@
     <Compile Include="Models\Order\CommonListView.cs" />
     <Compile Include="Models\Order\OrderListView.cs" />
     <Compile Include="Models\Order\OrderView.cs" />
+    <Compile Include="Models\Order\SubscriptionListView.cs" />
+    <Compile Include="Models\Order\SubscriptionView.cs" />
     <Compile Include="Models\Order\SupplierFormView.cs" />
     <Compile Include="Models\Order\SupplierListView.cs" />
     <Compile Include="Models\SelectItem.cs" />

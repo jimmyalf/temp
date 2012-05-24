@@ -116,6 +116,7 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\Finance\SettleNewAutogiroTransactions.cs" />
     <Compile Include="Commands\Finance\SettleOldAutogiroTransactions.cs" />
+    <Compile Include="Queries\AbstractListQuery.cs" />
     <Compile Include="Queries\Finance\GetOldAutogiroTransactionsReadyForSettlement.cs" />
     <Compile Include="Queries\Finance\GetNewAutogiroTransactionsReadyForSettlement.cs" />
     <Compile Include="Commands\SubscriptionMigration\MigrateCustomerCommand.cs" />
@@ -126,6 +127,9 @@
     <Compile Include="Extensions\OrderBySqlFormula.cs" />
     <Compile Include="Extensions\SqlParameterCollection.cs" />
     <Compile Include="Queries\All.cs" />
+    <Compile Include="Queries\PagedQuery.cs" />
+    <Compile Include="Queries\PagedSortedQuery.cs" />
+    <Compile Include="Queries\SortedQuery.cs" />
     <Compile Include="Queries\SubscripitionMigration\MigratedNewCustomer.cs" />
     <Compile Include="Queries\Query.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\ArticleRepository.cs" />

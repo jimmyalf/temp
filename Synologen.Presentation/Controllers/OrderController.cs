@@ -3,20 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using NHibernate;
+using NHibernate.Criterion;
+using NHibernate.SqlCommand;
+using NHibernate.Transform;
 using Spinit.Data;
+using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Data.Extensions;
+using Spinit.Wpc.Synologen.Data.Queries;
 using Spinit.Wpc.Synologen.Presentation.Application;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.Order;
+using Order = Spinit.Wpc.Synologen.Core.Domain.Model.Orders.Order;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
-	public class OrderController : Controller
+	public class OrderController : BaseController
 	{
 		private readonly IOrderRepository _orderRepository;
 		private readonly IAdminSettingsService _adminSettingsService;
@@ -34,7 +42,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			IArticleSupplierRepository articleSupplierRepository,
 			IArticleTypeRepository articleTypeRepository,
 			IArticleRepository articleRepository,
-			IOrderViewParser orderViewParser)
+			IOrderViewParser orderViewParser,
+			ISession session) : base(session)
 		{
 			_orderRepository = orderRepository;
 			_adminSettingsService = adminSettingsService;
@@ -296,6 +305,58 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
 		#endregion
 
+		#region Subscriptions
+
+		[HttpGet]
+		public ActionResult Subscriptions(GridPageSortParameters pageSortParameters, string search = null)
+		{
+			var decodedSearchTerm = search.UrlDecode();
+			var query = GetPagedSortedQuery<Subscription>(pageSortParameters, criteria => criteria
+				.CreateAlias(x => x.Customer)
+				.CreateAlias(x => x.Shop)
+				.SynologenFilterByAny(filter =>
+				{
+					filter.IfInt(decodedSearchTerm, parsedValue => filter.Equal(x => x.Id, parsedValue));
+					filter.IfInt(decodedSearchTerm, parsedValue => filter.Equal(x => x.AutogiroPayerId, parsedValue));
+					filter.Like(x => x.Shop.Name);
+					filter.Like(x => x.Customer.FirstName);
+					filter.Like(x => x.Customer.LastName);
+					filter.Like(x => x.BankAccountNumber, matchMode: MatchMode.Start);
+					filter.Like(func => func.Concat(x => x.Customer.FirstName).And(" ").And(x => x.Customer.LastName));
+
+				}, decodedSearchTerm)
+			);
+			var suppliers = Query(query);
+		 	var viewModel = new SubscriptionListView(decodedSearchTerm, suppliers);
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult Subscriptions(SubscriptionListView viewModel)
+		{
+			var routeValues = GetRouteValuesWithSearch(viewModel.SearchTerm);
+			return RedirectToAction("Subscriptions", routeValues);
+		}
+
+		[HttpGet]
+		public ActionResult SubscriptionView(int id)
+		{
+			var subscription = WithSession(session => session
+			    .CreateCriteriaOf<Subscription>()
+			    .FilterEqual(x => x.Id, id)
+			    .SetFetchMode(x => x.Customer, FetchMode.Join)
+			    .SetFetchMode(x => x.Shop, FetchMode.Join)
+				.CreateAlias(x => x.SubscriptionItems)
+				.CreateAlias(x => x.Transactions)
+				.CreateAlias(x => x.Errors)
+			    .UniqueResult<Subscription>()
+			);
+			var viewModel = new SubscriptionView(subscription);
+			return View(viewModel);
+		}
+
+		#endregion
+
 		private IEnumerable<TType> GetItemsByCriteria<TType,TCriteria>(IReadonlyRepository<TType> repo, GridPageSortParameters pageSortParameters, string search = null ) 
 			where TType : class
 			where TCriteria : SortedPagedSearchCriteria<TType>
@@ -333,5 +394,35 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			}
 			return routeValues;
 		}
+
+		private PagedSortedQuery<TType> GetPagedSortedQuery<TType>(GridPageSortParameters parameters, Func<ICriteria<TType>,ICriteria> additionalCriterias = null) where TType : class
+		{
+			return new PagedSortedQuery<TType>(
+				parameters.Page,
+				parameters.PageSize ?? _defaultPageSize,
+				parameters.Column,
+				parameters.Direction == SortDirection.Ascending)
+			{
+				CustomCriteria = additionalCriterias
+			};
+		}
+
+		//private IExtendedEnumerable<TType> GetPagedSortedItems<TType>(GridPageSortParameters pageSortParameters, string defaultSortColumn = "Id", Func<ICriteria,ICriteria> additionalCriterias = null) 
+		//    where TType : class
+		//{
+		//    var criteria =  WithSession(session => session
+		//        .CreateCriteriaOf<TType>()
+		//        .Page(pageSortParameters.Page, pageSortParameters.PageSize ?? _defaultPageSize)
+		//        .Sort(pageSortParameters.Column ?? defaultSortColumn, pageSortParameters.Direction == SortDirection.Ascending));
+		//    if(additionalCriterias != null)
+		//    {
+		//        criteria =  additionalCriterias(criteria);
+		//    }
+		//    return criteria.List<TType>();
+
+		//    //.SetFetchMode("Customer", FetchMode.Join)
+		//    //.SetFetchMode("Shop", FetchMode.Join)
+		//    //.List<Subscription>()
+		//}
 	}
 }

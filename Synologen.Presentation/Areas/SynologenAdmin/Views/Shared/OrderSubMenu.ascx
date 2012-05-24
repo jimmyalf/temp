@@ -4,6 +4,10 @@
 		<li>
 			<%=Html.ActionLink("Beställningar","Orders","Order") %>
 		</li>
+		<li>|</li>		
+		<li>
+			<%=Html.ActionLink("Abonnemang","Subscriptions","Order") %>
+		</li>
 		<li>|</li>
 		<li>
 			<%=Html.ActionLink("Artikelkategorier","Categories","Order") %>

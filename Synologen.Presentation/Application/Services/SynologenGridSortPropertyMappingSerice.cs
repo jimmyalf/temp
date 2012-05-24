@@ -47,10 +47,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			Map<OrderController,ArticleTypeListItem,ArticleType>(x => x.Name, x => x.Name);
 			Map<OrderController,ArticleTypeListItem,ArticleType>(x => x.CategoryName, x => x.Category.Name);
 
-			Map<OrderController,ArticleListItem,Article>(x => x.ArticleId, x => x.Id);
-			Map<OrderController,ArticleListItem,Article>(x => x.Name, x => x.Name);
-			Map<OrderController,ArticleListItem,Article>(x => x.Supplier, x => x.ArticleSupplier.Name);
-			Map<OrderController,ArticleListItem,Article>(x => x.Type, x => x.ArticleType.Name);
+			For<OrderController,ArticleListItem,Article>(mapper =>
+			{
+				mapper.Map(x => x.ArticleId, x => x.Id);
+				mapper.Map(x => x.Name, x => x.Name);
+				mapper.Map(x => x.Supplier, x => x.ArticleSupplier.Name);
+				mapper.Map(x => x.Type, x => x.ArticleType.Name);
+			});
+
+			For<OrderController,SubscriptionListItem,Core.Domain.Model.Orders.Subscription>(mapper =>
+			{
+				mapper.Map(x => x.AccountNumber, x => x.BankAccountNumber);
+				mapper.Map(x => x.Customer, x => x.Customer.FirstName);
+				mapper.Map(x => x.Shop, x => x.Shop.Name);
+				mapper.Map(x => x.SubscriptionId, x => x.Id);
+				mapper.Map(x => x.PaymentNumber, x => x.AutogiroPayerId);
+			});
 		}
 	}
 }

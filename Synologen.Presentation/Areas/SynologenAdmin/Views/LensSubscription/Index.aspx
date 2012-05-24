@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<SubscriptionListView>" %>
+﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<Spinit.Wpc.Synologen.Presentation.Models.LensSubscription.SubscriptionListView>" %>
 
 <asp:Content ContentPlaceHolderID="SubMenu" runat="server">
 <% Html.RenderPartial("LensSubscriptionSubMenu"); %>

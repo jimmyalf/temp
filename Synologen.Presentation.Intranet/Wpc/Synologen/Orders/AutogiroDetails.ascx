@@ -8,7 +8,7 @@
 
     <WpcSynologen:OrderMenu runat="server" />
    <div id="tab-container">
-	   <fieldset>
+	   <fieldset class="step-5">
 			<div class="progress">
    				<label>Steg 5 av 6</label>
 	 			<div id="progressbar"></div>

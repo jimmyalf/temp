@@ -18,7 +18,7 @@
             
             <p class="yammer-content"><%# Eval("Content") %></p>
             
-            <p class="creator"><img src="<%# Eval("AuthorImageUrl") %>" /> av<span> <%# Eval("AuthorName") %></span> <br /><%# Eval("Created") %></p>
+            <p class="creator"><img src="<%# Eval("AuthorImageUrl") %>" /> av<span> <%# Eval("AuthorName") %></span> | <time datetime="<%# Eval("Created") %>"><%# Eval("Created") %></time>
         </li>
     </ItemTemplate>
 </asp:Repeater>

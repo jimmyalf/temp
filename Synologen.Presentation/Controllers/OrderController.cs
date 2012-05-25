@@ -346,9 +346,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			    .FilterEqual(x => x.Id, id)
 			    .SetFetchMode(x => x.Customer, FetchMode.Join)
 			    .SetFetchMode(x => x.Shop, FetchMode.Join)
-				.CreateAlias(x => x.SubscriptionItems)
-				.CreateAlias(x => x.Transactions)
-				.CreateAlias(x => x.Errors)
 			    .UniqueResult<Subscription>()
 			);
 			var viewModel = new SubscriptionView(subscription);

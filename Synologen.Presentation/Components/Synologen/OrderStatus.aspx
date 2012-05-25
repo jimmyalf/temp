@@ -1,4 +1,8 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="OrderStatus.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.OrderStatus" Title="Untitled Page" %>
+<%@ Register Src="ContractSalesSubMenu.ascx" TagName="SubMenu" TagPrefix="syn" %>
+<asp:Content runat="server" ContentPlaceHolderID="SubMenuPlaceHolder">
+	<syn:SubMenu runat="server" />
+</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
 <div id="dCompMain" class="Components-Synologen-OrderStatus-aspx">
         <div class="fullBox">

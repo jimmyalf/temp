@@ -12,9 +12,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		private string _searchString;
 		private int _pageSize;
 
-		protected void Page_Init(object sender, EventArgs e) {
-			RenderMemberSubMenu(Page.Master);
-		}
+		//protected void Page_Init(object sender, EventArgs e) {
+		//    RenderMemberSubMenu(Page.Master);
+		//}
 
 		protected void Page_Load(object sender, EventArgs e) {
 			if (!Page.IsPostBack) {
@@ -77,22 +77,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		/// <summary>
 		/// Renders the submenu.
 		/// </summary>
-		public void RenderMemberSubMenu(MasterPage master) {
-			var m = (SynologenMain)master;
-			var phMemberSubMenu = m.SubMenu;
-			var subMenu = new SmartMenu.Menu {ID = "SubMenu", ControlType = "ul", ItemControlType = "li", ItemWrapperElement = "span"};
+		//public void RenderMemberSubMenu(MasterPage master) {
+		//    var m = (SynologenMain)master;
+		//    var phMemberSubMenu = m.SubMenu;
+		//    var subMenu = new SmartMenu.Menu {ID = "SubMenu", ControlType = "ul", ItemControlType = "li", ItemWrapperElement = "span"};
 
-			var itemCollection = new SmartMenu.ItemCollection();
-			itemCollection.AddItem("Add", null, "Lägg till", "Lägg till ny avtalskund", null, "btnAdd_OnClick", false, null);
-			itemCollection.AddItem("Delete", null, "Radera", "Radera valda avtalskunder", null, "btnDelete_OnClick", false, null);
-			//itemCollection.AddItem("Filkategori", null, "Filkategorier", "Lista filkategorier", null,ComponentPages.FileCategories + "?type=ContractCustomer", null, null, false, true);
-			//itemCollection.AddItem("Artikel", null, "Artiklar", "Lista artiklar", null, ComponentPages.ContractArticles, null, null, false, true);
-			//itemCollection.AddItem("Företag", null, "Företag", "Lista företag", null, ComponentPages.ContractCompanies, null, null, false, true);
+		//    var itemCollection = new SmartMenu.ItemCollection();
+		//    itemCollection.AddItem("Add", null, "Lägg till", "Lägg till ny avtalskund", null, "btnAdd_OnClick", false, null);
+		//    itemCollection.AddItem("Delete", null, "Radera", "Radera valda avtalskunder", null, "btnDelete_OnClick", false, null);
+		//    //itemCollection.AddItem("Filkategori", null, "Filkategorier", "Lista filkategorier", null,ComponentPages.FileCategories + "?type=ContractCustomer", null, null, false, true);
+		//    //itemCollection.AddItem("Artikel", null, "Artiklar", "Lista artiklar", null, ComponentPages.ContractArticles, null, null, false, true);
+		//    //itemCollection.AddItem("Företag", null, "Företag", "Lista företag", null, ComponentPages.ContractCompanies, null, null, false, true);
 
-			subMenu.MenuItems = itemCollection;
+		//    subMenu.MenuItems = itemCollection;
 
-			m.SynologenSmartMenu.Render(subMenu, phMemberSubMenu);
-		}
+		//    m.SynologenSmartMenu.Render(subMenu, phMemberSubMenu);
+		//}
 
 		#region Button Events
 

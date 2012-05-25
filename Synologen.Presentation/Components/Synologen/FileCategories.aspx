@@ -1,4 +1,8 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.FileCategories" Title="Untitled Page" Codebehind="FileCategories.aspx.cs" %>
+<%@ Register Src="SynologenSubMenu.ascx" TagName="SubMenu" TagPrefix="syn" %>
+<asp:Content runat="server" ContentPlaceHolderID="SubMenuPlaceHolder">
+	<syn:SubMenu runat="server" />
+</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" Runat="Server">
 <div id="dCompMain" class="Components-Member-Synologen-aspx">
         <div class="fullBox">

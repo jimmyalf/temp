@@ -1,4 +1,8 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="Contracts.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Contracts" %>
+<%@ Register Src="ContractSalesSubMenu.ascx" TagName="SubMenu" TagPrefix="syn" %>
+<asp:Content runat="server" ContentPlaceHolderID="SubMenuPlaceHolder">
+	<syn:SubMenu runat="server" />
+</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" Runat="Server">
     <div id="dCompMain" class="Components-Synologen-ContractCustomer-aspx">
         <div class="fullBox">
@@ -6,7 +10,7 @@
                 <h1>Avtalskunder</h1>
                 
                 <fieldset>
-	                <legend>Filtrera och sök</legend>		
+	                <legend>Filtrera avtal</legend>		
 	                <div class="formItem ">
 	                    <asp:Label ID="lblSearch" runat="server" AssociatedControlID="txtSearch" SkinId="Long">Textfilter</asp:Label>
 	                    <asp:TextBox runat="server" ID="txtSearch"/>

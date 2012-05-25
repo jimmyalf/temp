@@ -14,7 +14,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		protected void Page_Init(object sender, EventArgs e) {
 			if (Request.Params["id"] != null)
 				_contractCustomerId = Convert.ToInt32(Request.Params["id"]);
-			RenderMemberSubMenu(Page.Master);
+			//RenderMemberSubMenu(Page.Master);
 		}
 
 		protected void Page_Load(object sender, EventArgs e) {
@@ -56,17 +56,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			}
 		}
 
-		/// <summary>
-		/// Renders the submenu.
-		/// </summary>
-		public void RenderMemberSubMenu(MasterPage master) {
-			var m = (SynologenMain)master;
-			var phMemberSubMenu = m.SubMenu;
-			var subMenu = new SmartMenu.Menu {ID = "SubMenu", ControlType = "ul", ItemControlType = "li", ItemWrapperElement = "span"};
-			var itemCollection = new SmartMenu.ItemCollection();
-			subMenu.MenuItems = itemCollection;
-			m.SynologenSmartMenu.Render(subMenu, phMemberSubMenu);
-		}
+		///// <summary>
+		///// Renders the submenu.
+		///// </summary>
+		//public void RenderMemberSubMenu(MasterPage master) {
+		//    var m = (SynologenMain)master;
+		//    var phMemberSubMenu = m.SubMenu;
+		//    var subMenu = new SmartMenu.Menu {ID = "SubMenu", ControlType = "ul", ItemControlType = "li", ItemWrapperElement = "span"};
+		//    var itemCollection = new SmartMenu.ItemCollection();
+		//    subMenu.MenuItems = itemCollection;
+		//    m.SynologenSmartMenu.Render(subMenu, phMemberSubMenu);
+		//}
 
 		public Contract Contract { get; set; }
 

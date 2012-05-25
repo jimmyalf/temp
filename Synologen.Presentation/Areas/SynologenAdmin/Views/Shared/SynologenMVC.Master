@@ -12,11 +12,8 @@
 <asp:Content ID="MainComponent" ContentPlaceHolderID="ComponentMainPlc" runat="server">
 	<div id="dCompNavigation">
 		<ul id="synologen-main-menu">
-			<li><a title="Lista Medlemmar" href="/components/synologen/index.aspx"><span>Medlemmar</span></a></li>
-			<li><a title="Lista Butiker" href="/components/synologen/shops.aspx"><span>Butiker</span></a></li>
-			<li><a title="Lista Artiklar" href="/components/synologen/articles.aspx"><span>Artiklar</span></a></li>
-			<li><a title="Lista Avtal" href="/components/synologen/contracts.aspx"><span>Avtal</span></a></li>
-			<li><a title="Lista Fakturor" href="/components/synologen/orders.aspx"><span>Fakturor</span></a></li>
+			<li><a title="Hantera Synologer" href="/components/synologen/index.aspx"><span>Synologer</span></a></li>
+			<li><a title="Hantera Avtalsförsäljning" href="/components/synologen/orders.aspx"><span>Avtalsförsäljning</span></a></li>
 			<li><a title="Lista/Skapa utbetalningar" href="/components/synologen/contract-sales/settlements"><span>Utbetalningar</span></a></li>
 			<li><a title="Administrera OP-Q" href="/components/synologen/opqindex.aspx"><span>OP-Q</span></a></li>
 			<li><a title="Administrera Bågbeställningar" href="/components/synologen/frames"><span>Bågbeställning</span></a></li>

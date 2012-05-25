@@ -14,9 +14,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		private string _searchString;
 		private int _pageSize;
 
-		protected void Page_Init(object sender, EventArgs e) {
-			RenderMemberSubMenu(Page.Master);
-		}
+		//protected void Page_Init(object sender, EventArgs e) {
+		//    RenderMemberSubMenu(Page.Master);
+		//}
 
 		protected void Page_Load(object sender, EventArgs e) {
 
@@ -56,24 +56,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		/// <summary>
 		/// Renders the submenu.
 		/// </summary>
-		public void RenderMemberSubMenu(MasterPage master) {
-			SynologenMain m = (SynologenMain)master;
-			PlaceHolder phMemberSubMenu = m.SubMenu;
-			SmartMenu.Menu subMenu = new SmartMenu.Menu();
-			subMenu.ID = "SubMenu";
-			subMenu.ControlType = "ul";
-			subMenu.ItemControlType = "li";
-			subMenu.ItemWrapperElement = "span";
+		//public void RenderMemberSubMenu(MasterPage master) {
+		//    SynologenMain m = (SynologenMain)master;
+		//    PlaceHolder phMemberSubMenu = m.SubMenu;
+		//    SmartMenu.Menu subMenu = new SmartMenu.Menu();
+		//    subMenu.ID = "SubMenu";
+		//    subMenu.ControlType = "ul";
+		//    subMenu.ItemControlType = "li";
+		//    subMenu.ItemWrapperElement = "span";
 
-			SmartMenu.ItemCollection itemCollection = new SmartMenu.ItemCollection();
-			itemCollection.AddItem("New", null, "Ny", "Skapa ny butik", null, "btnAdd_OnClick", false, null);
-			itemCollection.AddItem("Delete", null, "Radera", "Radera valda butiker", null, "btnDelete_OnClick", false,null,null,false,true,false);
-			itemCollection.AddItem("Butikkategori", null, "Butikkategorier", "Lista butikkategorier", null, ComponentPages.ShopCategories, null, null, false, true);
-			itemCollection.AddItem("Butiksutrustning", null, "Butiksutrustning", "Lista Butiksutrustning", null, ComponentPages.ShopEquipment, null, null, false, true);
-			subMenu.MenuItems = itemCollection;
+		//    SmartMenu.ItemCollection itemCollection = new SmartMenu.ItemCollection();
+		//    itemCollection.AddItem("New", null, "Ny butik", "Skapa ny butik", null, "btnAdd_OnClick", false, null);
+		//    itemCollection.AddItem("Delete", null, "Radera butik", "Radera valda butiker", null, "btnDelete_OnClick", false,null,null,false,true,false);
+		//    itemCollection.AddItem("Butikkategori", null, "Butikkategorier", "Lista butikkategorier", null, ComponentPages.ShopCategories, null, null, false, true);
+		//    itemCollection.AddItem("Butiksutrustning", null, "Butiksutrustning", "Lista Butiksutrustning", null, ComponentPages.ShopEquipment, null, null, false, true);
+		//    itemCollection.AddItem("Medlemmar", null, "Medlemmar", "Lista medlemmar", null, ComponentPages.Index, null, null, false, true);
+		//    subMenu.MenuItems = itemCollection;
 
-			m.SynologenSmartMenu.Render(subMenu, phMemberSubMenu);
-		}
+		//    m.SynologenSmartMenu.Render(subMenu, phMemberSubMenu);
+		//}
 
 		protected override void OnInit(EventArgs e) {
 			pager.IndexChanged += PageIndex_Changed;

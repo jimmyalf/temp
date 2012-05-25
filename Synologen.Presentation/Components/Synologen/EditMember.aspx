@@ -1,4 +1,8 @@
 <%@ Page Language="C#" MasterPageFile="~/components/Synologen/SynologenMain.master" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.EditMember" Title="Untitled Page" Codebehind="EditMember.aspx.cs" MaintainScrollPositionOnPostback="true" %>
+<%@ Register Src="SynologenSubMenu.ascx" TagName="SubMenu" TagPrefix="syn" %>
+<asp:Content runat="server" ContentPlaceHolderID="SubMenuPlaceHolder">
+	<syn:SubMenu runat="server" />
+</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" Runat="Server">
     <div id="dCompMain" class="Components-Synologen-EditMember-aspx">
         <div class="fullBox">

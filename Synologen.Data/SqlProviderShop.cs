@@ -45,6 +45,7 @@ namespace Spinit.Wpc.Synologen.Data {
 					new SqlParameter("@shopAccess", SqlDbType.Int, 4), 
 					new SqlParameter("@externalAccessUsername", SqlDbType.NVarChar, 50), 
 					new SqlParameter("@externalAccessHashedPassword", SqlDbType.NVarChar, 50),
+					new SqlParameter("@shopGroupId", SqlDbType.Int),
             		new SqlParameter("@status", SqlDbType.Int, 4),
             		new SqlParameter("@id", SqlDbType.Int, 4),
 				};
@@ -77,7 +78,8 @@ namespace Spinit.Wpc.Synologen.Data {
 					parameters[counter++].Value = shop.GiroSupplier ?? SqlString.Null;
 					parameters[counter++].Value = shop.Access;
 					parameters[counter++].Value = shop.ExternalAccessUsername ?? SqlString.Null;
-					parameters[counter].Value = shop.ExternalAccessHashedPassword ?? SqlString.Null;
+					parameters[counter++].Value = shop.ExternalAccessHashedPassword ?? SqlString.Null;
+					parameters[counter].Value = shop.ShopGroupId ?? SqlInt32.Null;
 				}
 				parameters[parameters.Length - 2].Direction = ParameterDirection.Output;
 				if (action == Enumerations.Action.Create) {
@@ -176,7 +178,9 @@ namespace Spinit.Wpc.Synologen.Data {
 				ExternalAccessHashedPassword = Util.CheckNullString(shopDataRow, "cExternalAccessHashedPassword")
 			};
 			var concernId = Util.CheckNullInt(shopDataRow, "cConcernId");
+			var shopGroupId = Util.CheckNullInt(shopDataRow, "cShopGroupId");
 			shopRow.Concern = (concernId>0) ? GetConcern(concernId) : null;
+			shopRow.ShopGroupId = (shopGroupId > 0) ? shopGroupId : (int?) null;
 			return shopRow;
 		}
 

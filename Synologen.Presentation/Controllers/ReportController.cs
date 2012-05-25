@@ -6,7 +6,7 @@ using Spinit.Wpc.Synologen.Reports.Models;
 
 namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
-	public class ReportController : SynologenController
+	public class ReportController : ReportBaseController
 	{
 		private readonly ISqlProvider _sqlProvider;
 		private readonly IInvoiceReportViewService _invoiceReportViewService;

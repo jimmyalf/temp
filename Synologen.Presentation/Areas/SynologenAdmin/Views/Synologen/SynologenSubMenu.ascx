@@ -12,11 +12,11 @@
 			&nbsp;>&nbsp;
 			<a href="/Components/Synologen/EditShop.aspx">Ny</a>
 		</li>
-		<li>|</li>				
+		<li>|</li>
 		<li>
-			<a href="/components/synologen/shop-groups">Butikgrupper</a>
+			<%=Html.ActionLink("Butikgrupper","ShopGroups","Synologen") %>
 			&nbsp;>&nbsp;
-			<a href="/components/synologen/shop-groups/add">Ny</a>
+			<%=Html.ActionLink("Ny","ShopGroupForm","Synologen") %>
 		</li>
 		<li>|</li>
 		<li>

@@ -5,8 +5,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.SqlCommand;
-using NHibernate.Transform;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
@@ -14,7 +12,6 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Data.Extensions;
-using Spinit.Wpc.Synologen.Data.Queries;
 using Spinit.Wpc.Synologen.Presentation.Application;
 using Spinit.Wpc.Synologen.Presentation.Application.Services;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
@@ -27,13 +24,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 	public class OrderController : BaseController
 	{
 		private readonly IOrderRepository _orderRepository;
-		private readonly IAdminSettingsService _adminSettingsService;
+		//private readonly IAdminSettingsService _adminSettingsService;
 		private readonly IArticleCategoryRepository _articleCategoryRepository;
 		private readonly IArticleSupplierRepository _articleSupplierRepository;
 		private readonly IArticleTypeRepository _articleTypeRepository;
 		private readonly IArticleRepository _articleRepository;
 		private readonly IOrderViewParser _orderViewParser;
-		private readonly int _defaultPageSize;
 
 		public OrderController(
 			IOrderRepository orderRepository, 
@@ -43,16 +39,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			IArticleTypeRepository articleTypeRepository,
 			IArticleRepository articleRepository,
 			IOrderViewParser orderViewParser,
-			ISession session) : base(session)
+			ISession session) : base(session, adminSettingsService)
 		{
 			_orderRepository = orderRepository;
-			_adminSettingsService = adminSettingsService;
+			//_adminSettingsService = adminSettingsService;
 			_articleCategoryRepository = articleCategoryRepository;
 			_articleSupplierRepository = articleSupplierRepository;
 			_articleTypeRepository = articleTypeRepository;
 			_articleRepository = articleRepository;
 			_orderViewParser = orderViewParser;
-			_defaultPageSize = _adminSettingsService.GetDefaultPageSize();
 		}
 
 		#region Orders
@@ -370,7 +365,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			if (criteria == null) throw new ApplicationException("Cannot instantiate criteria of type " + typeof (TCriteria).Name);
 			criteria.OrderBy = pageSortParameters.Column;
 			criteria.Page = pageSortParameters.Page;
-			criteria.PageSize = pageSortParameters.PageSize ?? _defaultPageSize;
+			criteria.PageSize = pageSortParameters.PageSize ?? DefaultPageSize;
 			criteria.SortAscending = pageSortParameters.Direction == SortDirection.Ascending;
 			return criteria;
 		}
@@ -390,18 +385,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			    routeValues.AddOrReplaceRouteValue("search", searchTerm.UrlEncode());
 			}
 			return routeValues;
-		}
-
-		private PagedSortedQuery<TType> GetPagedSortedQuery<TType>(GridPageSortParameters parameters, Func<ICriteria<TType>,ICriteria> additionalCriterias = null) where TType : class
-		{
-			return new PagedSortedQuery<TType>(
-				parameters.Page,
-				parameters.PageSize ?? _defaultPageSize,
-				parameters.Column,
-				parameters.Direction == SortDirection.Ascending)
-			{
-				CustomCriteria = additionalCriterias
-			};
 		}
 
 		//private IExtendedEnumerable<TType> GetPagedSortedItems<TType>(GridPageSortParameters pageSortParameters, string defaultSortColumn = "Id", Func<ICriteria,ICriteria> additionalCriterias = null) 

@@ -4,8 +4,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using NHibernate;
+using Spinit.Wpc.Core.UI;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Synologen;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.DataServices;
@@ -25,8 +28,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 	{
 		private int _shopId;
 		private Shop _shop;
+		private ISession _session;
 		private const decimal DefaultCoordinateValue = 0;
 
+		public EditShop()
+		{
+			_session = ServiceLocator.Current.GetInstance<ISession>();
+		}
 		protected void Page_Load(object sender, EventArgs e) 
 		{
 			if (Request.Params["id"] != null)
@@ -38,6 +46,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			PopulateEquipment();
 			PopulateGiros();
 			PopulateAccessOptions();
+			PopulateShopGroups();
 		}
 
 		private void PopulateGiros() 
@@ -54,6 +63,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			chkShopAccess.DataSource = EnumExtensions.Enumerate<ShopAccess>().Ignore(ShopAccess.None).Select(converter);
 			chkShopAccess.DataBind();
 			PopulateSelectedAccessOptions();
+		}
+
+		private void PopulateShopGroups()
+		{
+			var shopGroups = _session.CreateCriteria<ShopGroup>().List<ShopGroup>();
+			drpShopGroups.DataSource = shopGroups;
+			drpShopGroups.DataBind();
+			drpShopGroups.Items.Insert(0,new ListItem("-- Välj Butikgrupp --","0"));
+			TryPopulateSelectedShopGroup();
+		}
+
+		private void TryPopulateSelectedShopGroup()
+		{
+			if (_shop == null || !_shop.ShopGroupId.HasValue) return;
+			foreach (ListItem listItem in drpShopGroups.Items) 
+			{
+				var intValue = Int32.Parse(listItem.Value);
+				if(_shop.ShopGroupId != intValue) continue;
+				listItem.Selected = true;
+			}
 		}
 
 		private void PopulateSelectedAccessOptions() 
@@ -214,6 +243,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			_shop.GiroSupplier = txtGiroSupplier.Text;
 		    _shop.Latitude = txtLatitude.Text.ToDecimalOrDefault(DefaultCoordinateValue);
 		    _shop.Longitude = txtLongitude.Text.ToDecimalOrDefault(DefaultCoordinateValue);
+			var shopGroupId = Int32.Parse(drpShopGroups.SelectedValue);
+			_shop.ShopGroupId = (shopGroupId > 0) ? shopGroupId : (int?) null;
 			var selectedItems = chkShopAccess.GetSelectedItems();
 			_shop.Access = selectedItems.Any() ? selectedItems
 					.Select(x => Int32.Parse(x.Value).ToEnum<ShopAccess>())

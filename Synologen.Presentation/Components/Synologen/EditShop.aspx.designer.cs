@@ -22,6 +22,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
         protected global::System.Web.UI.WebControls.TextBox txtShopName;
         
         /// <summary>
+        /// drpShopGroups control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drpShopGroups;
+        
+        /// <summary>
         /// txtOrganizationNumber control.
         /// </summary>
         /// <remarks>

@@ -63,6 +63,9 @@
     <Content Include="Areas\SynologenAdmin\Views\Order\Orders.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\ContractSalesSubMenu.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\OrderSubMenu.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Synologen\ShopGroupForm.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Synologen\ShopGroups.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Synologen\SynologenSubMenu.ascx" />
     <Content Include="Components\Synologen\ContractSalesSubMenu.ascx" />
     <Content Include="Components\Synologen\Css\ComponentPrint.css" />
     <Content Include="Components\Synologen\SynologenSubMenu.ascx" />
@@ -112,7 +115,7 @@
     <Compile Include="Application\Services\SettingsService.cs" />
     <Compile Include="Application\Services\SynologenGridSortPropertyMappingSerice.cs" />
     <Compile Include="Application\Services\UserContextService.cs" />
-    <Compile Include="Application\Web\SynologenController.cs" />
+    <Compile Include="Application\Web\ReportController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContractSalesController.cs" />
     <Compile Include="Controllers\ContractSalesController_Articles.cs" />
@@ -127,6 +130,7 @@
     <Compile Include="Application\Web\PDFReportResult.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\SynologenController.cs" />
     <Compile Include="Helpers\Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Helpers\Extensions\RouteValueDictionaryExtensions.cs" />
@@ -363,6 +367,8 @@
     <Compile Include="Models\Order\ArticleTypeListView.cs" />
     <Compile Include="Models\Order\CategoryFormView.cs" />
     <Compile Include="Models\Order\CategoryListView.cs" />
+    <Compile Include="Models\Order\ShopGroupForm.cs" />
+    <Compile Include="Models\Order\ShopGroupListView.cs" />
     <Compile Include="Models\Order\CommonFormView.cs" />
     <Compile Include="Models\Order\CommonListView.cs" />
     <Compile Include="Models\Order\OrderListView.cs" />

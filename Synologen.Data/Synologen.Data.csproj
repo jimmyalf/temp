@@ -230,6 +230,8 @@
     <Compile Include="Repositories\NHibernate\Mappings\ShopMap.cs" />
     <Compile Include="Repositories\FrameOrderRepositories\ShopRepository.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\LensSubscriptions\SubscriptionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Synologen\ShopGroupMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Synologen\ShopMap.cs" />
     <Compile Include="Repositories\OrderRepositories\ArticleCategoryRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\ArticleSupplierRepository.cs" />
     <Compile Include="Repositories\OrderRepositories\ArticleTypeRepository.cs" />

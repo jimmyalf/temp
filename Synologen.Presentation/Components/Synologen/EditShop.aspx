@@ -14,6 +14,10 @@
 						<asp:TextBox id="txtShopName" runat="server" />
 					</div>
 					<div class="formItem">
+						<label class="labelLong">Butikgrupp</label>
+						<asp:DropDownList id="drpShopGroups" runat="server" DataValueField="Id" DataTextField="Name"/>
+					</div>
+					<div class="formItem clearLeft">
 						<label class="labelLong">Organisationsnummer</label>
 						<asp:TextBox id="txtOrganizationNumber" runat="server" />
 						<asp:RequiredFieldValidator runat="server" ControlToValidate="txtOrganizationNumber" ErrorMessage="Organisationsnummer måste anges" Display="dynamic" >*</asp:RequiredFieldValidator>

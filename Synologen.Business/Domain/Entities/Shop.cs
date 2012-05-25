@@ -27,6 +27,7 @@ namespace Spinit.Wpc.Synologen.Business.Domain.Entities{
 		[DataMember] public string ContactFirstName { get; set; }
 		[DataMember] public string ContactLastName { get; set; }
 		[DataMember] public int CategoryId { get; set; }
+		public int? ShopGroupId { get; set; }
 		public IList<IShop> GetAllShopsInConcern(ISqlProvider sqlProvider) {
 			if(Concern == null || Concern.Id <= 0) return new List<IShop>();
 			return sqlProvider.GetShopRows(null, null, null, null, null, null, Concern.Id, null).ToList();

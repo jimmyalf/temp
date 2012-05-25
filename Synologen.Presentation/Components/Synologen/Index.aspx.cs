@@ -24,9 +24,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 			get { return _selectedShop; }
 		}
 
-		protected void Page_Init(object sender, EventArgs e) {
-			RenderMemberSubMenu(Page.Master);
-		}
+		//protected void Page_Init(object sender, EventArgs e) {
+		//    RenderMemberSubMenu(Page.Master);
+		//}
 
 		protected void Page_Load(object sender, EventArgs e) {
 
@@ -77,21 +77,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		/// <summary>
 		/// Renders the submenu.
 		/// </summary>
-		public void RenderMemberSubMenu(MasterPage master) {
-			var m = (SynologenMain)master;
-			var _phSynologenSubMenu = m.SubMenu;
-			var subMenu = new SmartMenu.Menu {ID = "SubMenu", ControlType = "ul", ItemControlType = "li", ItemWrapperElement = "span"};
+		//public void RenderMemberSubMenu(MasterPage master) {
+		//    //var m = (SynologenMain)master;
+		//    //var _phSynologenSubMenu = m.SubMenu;
+		//    //var subMenu = new SmartMenu.Menu {ID = "SubMenu", ControlType = "ul", ItemControlType = "li", ItemWrapperElement = "span"};
 
-			var itemCollection = new SmartMenu.ItemCollection();
-			itemCollection.AddItem("New", null, "Ny", "Skapa ny medlem", null, "btnAdd_OnClick", false, null);
-			itemCollection.AddItem("Delete", null, "Radera", "Radera vald medlem", null, "btnDelete_OnClick", false, null);
-			itemCollection.AddItem("Filkategori", null, "Filkategorier", "Lista filkategorier", null, "~/Components/Synologen/FileCategories.aspx?type=Member", null, null, false, true);
-			itemCollection.AddItem("Medlemskategori", null, "Medlemskategorier", "Lista medlemskategorier", null, "~/Components/Synologen/Category.aspx", null, null, false, true);
+		//    //var itemCollection = new SmartMenu.ItemCollection();
+		//    //itemCollection.AddItem("NewMember", null, "Ny medlem", "Skapa ny medlem", null, "btnAdd_OnClick", false, null);
+		//    //itemCollection.AddItem("Delete", null, "Radera medlem", "Radera vald medlem", null, "btnDelete_OnClick", false, null);
+		//    //itemCollection.AddItem("Filkategori", null, "Filkategorier", "Lista filkategorier", null, "~/Components/Synologen/FileCategories.aspx?type=Member", null, null, false, true);
+		//    //itemCollection.AddItem("Medlemskategori", null, "Medlemskategorier", "Lista medlemskategorier", null, "~/Components/Synologen/Category.aspx", null, null, false, true);
+		//    //itemCollection.AddItem("Shops", null, "Butiker", "Lista butiker", null, ComponentPages.Shops, null, null, false, true);
+			
+		//    //subMenu.MenuItems = itemCollection;
 
-			subMenu.MenuItems = itemCollection;
-
-			m.SynologenSmartMenu.Render(subMenu, _phSynologenSubMenu);
-		}
+		//    //m.SynologenSmartMenu.Render(subMenu, _phSynologenSubMenu);
+		//}
 
 		private void PopulateCategories() {
 			var catList = Provider.GetAllCategoriesList(LocationId, LanguageId);

@@ -66,11 +66,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 
 			var itemCollection = new SmartMenu.ItemCollection();
 
-			itemCollection.AddItem("Medlemmar", null, "Medlemmar", "Lista Medlemmar", null,ComponentPages.Index, null, null, true, true);
-			itemCollection.AddItem("Butik", null, "Butiker", "Lista Butiker", null, ComponentPages.Shops , null, null, false, true);
-			itemCollection.AddItem("Artikel", null, "Artiklar", "Lista Artiklar", null,ComponentPages.Articles, null, null, false, true);
-			itemCollection.AddItem("Avtal", null, "Avtal", "Lista Avtal", null,ComponentPages.Contracts, null, null, false, true);
-			itemCollection.AddItem("Fakturor", null, "Fakturor", "Lista Fakturor", null, ComponentPages.Orders, null, null, false, true);
+			//itemCollection.AddItem("Medlemmar", null, "Medlemmar", "Lista Medlemmar", null,ComponentPages.Index, null, null, true, true);
+			//itemCollection.AddItem("Butik", null, "Butiker", "Lista Butiker", null, ComponentPages.Shops , null, null, false, true);
+			itemCollection.AddItem("Synologer", null, "Synologer", "Hantera synologer", null, ComponentPages.Index, null, null, true, true);
+			//itemCollection.AddItem("Artikel", null, "Artiklar", "Lista Artiklar", null,ComponentPages.Articles, null, null, false, true);
+			//itemCollection.AddItem("Avtal", null, "Avtal", "Lista Avtal", null,ComponentPages.Contracts, null, null, false, true);
+			//itemCollection.AddItem("Fakturor", null, "Fakturor", "Lista Fakturor", null, ComponentPages.Orders, null, null, false, true);
+			itemCollection.AddItem("Avtalsförsäljning", null, "Avtalsförsäljning", "Hantera Avtalsförsäljning", null, ComponentPages.Orders, null, null, false, true);
 			itemCollection.AddItem("Utbetalningar", null, "Utbetalningar", "Lista/Skapa utbetalningar", null, ComponentPages.Settlements, null, null, false, true);
 			itemCollection.AddItem("opq", null, "OP-Q", "Administrera OP-Q", null, ComponentPages.OpqIndex, null, null, false, true);
 			itemCollection.AddItem("frameOrders", null, "Bågbeställning", "Administrera Bågbeställningar", null, "/components/synologen/frames", null, null, false, true);

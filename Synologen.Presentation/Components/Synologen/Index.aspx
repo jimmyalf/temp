@@ -1,4 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Index" MasterPageFile="~/components/Synologen/SynologenMain.master" Codebehind="Index.aspx.cs" %>
+<%@ Register Src="SynologenSubMenu.ascx" TagName="SubMenu" TagPrefix="syn" %>
+<asp:Content runat="server" ContentPlaceHolderID="SubMenuPlaceHolder">
+	<syn:SubMenu runat="server" />
+</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" Runat="Server">
     <div id="dCompMain" class="Components-Synologen-Index-aspx">
         <div class="fullBox">
@@ -17,7 +21,7 @@
                 
                 <asp:PlaceHolder id="plRegularFilter" runat="server" Visible="true">
                 <fieldset>
-	                <legend>Filtrera och sök</legend>		
+	                <legend>Filtrera medlemmar</legend>		
 	                <div class="formItem">
 	                    <asp:Label ID="lblShow" runat="server" AssociatedControlID="drpCategories" SkinId="Long">Medlemskategori</asp:Label>
 	                    <asp:DropDownList runat="server" ID="drpCategories"/>
@@ -59,11 +63,6 @@
                         <asp:BoundField headerText="Id" DataField="cMemberId" SortExpression="cMemberId" ItemStyle-HorizontalAlign="Center"  HeaderStyle-CssClass="controlColumn"/>
                         <asp:BoundField headerText="Organisation" DataField="cOrgName" SortExpression="cOrgName"/>
                         <asp:BoundField headerText="Medlem" DataField="cFullUserName" SortExpression="cFullUserName"/>
-                        <%--
-                        <asp:BoundField headerText="Kategori" DataField="cMemberCategoryName" SortExpression="cMemberCategoryName"/>
-                        <asp:BoundField headerText="FirstName" DataField="cContactFirst" SortExpression="cFirstName"/>
-                        <asp:BoundField headerText="SurName" DataField="cContactLast" SortExpression="cLastName"/>
-                        --%>
                         <asp:BoundField headerText="Epost" DataField="cEmail" SortExpression="cEmail"/>
 						<asp:TemplateField headertext="Aktiv" SortExpression="cActive">
 							<ItemStyle CssClass="center" />

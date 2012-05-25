@@ -1,11 +1,15 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Components/Synologen/SynologenMain.master" AutoEventWireup="true" CodeBehind="Articles.aspx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Components.Synologen.Articles" Title="Untitled Page" %>
+<%@ Register Src="ContractSalesSubMenu.ascx" TagName="SubMenu" TagPrefix="syn" %>
+<asp:Content runat="server" ContentPlaceHolderID="SubMenuPlaceHolder">
+	<syn:SubMenu runat="server" />
+</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="phSynologen" runat="server">
 <div id="dCompMain" class="Components-Synologen-Category-aspx">
         <div class="fullBox">
             <div class="wrap">
             <h1>Artiklar</h1>
             <fieldset>
-                <legend>Filtrera och sök</legend>	      	                	                  	                 	                
+                <legend>Filtrera artiklar</legend>	      	                	                  	                 	                
                 <div class="formItem clearLeft">
                     <label class="labelLong">Textfilter</label>
                     <asp:TextBox runat="server" ID="txtSearch"/>

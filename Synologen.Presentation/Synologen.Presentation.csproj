@@ -61,8 +61,11 @@
     <Content Include="Areas\SynologenAdmin\Views\Order\SupplierForm.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\Suppliers.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\Orders.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Shared\ContractSalesSubMenu.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\OrderSubMenu.ascx" />
+    <Content Include="Components\Synologen\ContractSalesSubMenu.ascx" />
     <Content Include="Components\Synologen\Css\ComponentPrint.css" />
+    <Content Include="Components\Synologen\SynologenSubMenu.ascx" />
     <Content Include="Components\Synologen\ViewSettlementDetails.aspx" />
     <Content Include="Components\Synologen\CreateShopOwners.aspx" />
     <Content Include="Components\Synologen\AddFiles.aspx" />

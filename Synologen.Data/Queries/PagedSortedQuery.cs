@@ -18,8 +18,8 @@ namespace Spinit.Wpc.Synologen.Data.Queries
 		public override IEnumerable<TType> Execute()
 		{
 			long count;
-			var criteria = GetCriteria().Sort(OrderBy, SortAscending);
-			var result = GetPagedResult(criteria, out count);
+			var criteria = GetCriteria().Sort(OrderBy, SortAscending).Page(Page, PageSize);
+			var result = GetResultWithLength(criteria, out count);
 			return new ExtendedEnumerable<TType>(result, count, Page, PageSize, OrderBy, SortAscending);
 		}
 	}

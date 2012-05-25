@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Data.Queries
 			return CustomCriteria != null ? CustomCriteria(criteria) : criteria;
 		}
 
-		protected virtual IEnumerable<TType> GetPagedResult(ICriteria criteria, out long count)
+		protected virtual IEnumerable<TType> GetResultWithLength(ICriteria criteria, out long count)
 		{
 			var countCriteria = ((ICriteria) criteria.Clone()).ToCountCriteria();
 			

@@ -10,7 +10,7 @@
 		<div class="wrap">
 			<% using (Html.BeginForm()) {%>
 			<fieldset>
-				<legend>Leverantörer</legend>
+				<legend>Abonnemang</legend>
 				<p class="formItem">
 					<%= Html.LabelFor(x => x.SearchTerm) %>
 					<%= Html.EditorFor(x => x.SearchTerm) %>

@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		{
 			var query = GetPagedSortedQuery<ShopGroup>(pageSortParameters, criteria => criteria
 				.SetFetchMode(x => x.Shops, FetchMode.Join)
-				.SetResultTransformer(Transformers.RootEntity)
+				.SetResultTransformer(Transformers.DistinctRootEntity)
 			);
 			var groups = Query(query);
 		 	var viewModel = new ShopGroupListView(groups);

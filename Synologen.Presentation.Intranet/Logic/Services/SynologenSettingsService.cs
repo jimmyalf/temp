@@ -47,14 +47,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			get { return Globals.FrameOrderEmailSubject; }
 		}
 
-		public int SubscriptionCutoffDate
+		public int SubscriptionConsentCutoffDay
 		{
-			get { return Globals.SubscriptionCutoffDate; }
+			get { return Globals.SubscriptionConsentCutoffDay; }
 		}
 
-		public int SubscriptionWithdrawalDate
+		public int SubscriptionWithdrawalTransferDay
 		{
-			get { return Globals.SubscriptionWithdrawalDate; }
+			get { return Globals.SubscriptionWithdrawalTransferDay;  }
+		}
+
+		public int SubscriptionWithdrawalDay
+		{
+			get { return Globals.SubscriptionWithdrawalDay; }
 		}
 
 		public string GetFrameOrderEmailBodyTemplate() 

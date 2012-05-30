@@ -224,14 +224,19 @@ namespace Spinit.Wpc.Synologen.Business {
             get { return SafeConfigString(YammerSettings, "UrlStoragePath", ""); }
 	    }
 
-		public static int SubscriptionCutoffDate
+		public static int SubscriptionConsentCutoffDay
 		{
-			get { return SafeConfigNumber(_setting, "SubscriptionCutoffDate", 0); }
+			get { return SafeConfigNumber(_setting, "SubscriptionConsentCutoffDay", 0); }
 		}
 
-		public static int SubscriptionWithdrawalDate
+		public static int SubscriptionWithdrawalDay
 		{
-			get { return SafeConfigNumber(_setting, "SubscriptionWithdrawalDate", 0); }
+			get { return SafeConfigNumber(_setting, "SubscriptionWithdrawalDay", 0); }
+		}
+
+		public static int SubscriptionWithdrawalTransferDay
+		{
+			get { return SafeConfigNumber(_setting, "SubscriptionWithdrawalTransferDay", 0); }
 		}
 
 		private static decimal SafeConfigDecimal(string configSection, string configKey, decimal value)

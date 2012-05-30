@@ -156,6 +156,7 @@
     <Compile Include="LensSubscriptionTests\ViewShopSubscriptionsPresenterTests.cs" />
     <Compile Include="Orders\Create_Order_Tests.cs" />
     <Compile Include="Orders\OrderFactory.cs" />
+    <Compile Include="Orders\OrderWithdrawalService_Tests.cs" />
     <Compile Include="Orders\Save_Customer.cs" />
     <Compile Include="Orders\Test_Task_Ordering.cs" />
     <Compile Include="TestHelpers\PresenterTestbase.cs" />

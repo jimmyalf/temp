@@ -9,8 +9,9 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services
 		string EmailOrderSupplierEmail { get; }
 		string EmailOrderFrom { get; }
 		string EmailOrderSubject { get; }
-		int SubscriptionCutoffDate { get; }
-		int SubscriptionWithdrawalDate { get; }
+		int SubscriptionConsentCutoffDay { get; }
+		int SubscriptionWithdrawalTransferDay { get; }
+		int SubscriptionWithdrawalDay { get; }
 		string GetFrameOrderEmailBodyTemplate();
 	}
 }

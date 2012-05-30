@@ -40,8 +40,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 _abortUrl = "/abort/page";
             	_subscriptionCutoffDate = 15;
             	_subscriptionWithdrawalDate = 28;
-            	A.CallTo(() => SynologenSettingsService.SubscriptionCutoffDate).Returns(_subscriptionCutoffDate);
-				A.CallTo(() => SynologenSettingsService.SubscriptionWithdrawalDate).Returns(_subscriptionWithdrawalDate);
+            	A.CallTo(() => SynologenSettingsService.SubscriptionConsentCutoffDay).Returns(_subscriptionCutoffDate);
+				A.CallTo(() => SynologenSettingsService.SubscriptionWithdrawalDay).Returns(_subscriptionWithdrawalDate);
                 A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
                 SetupNavigationEvents(_previousUrl, _abortUrl, _submitUrl);
                 _redirectUrl = (url, orderId) => "{url}?order={orderId}".ReplaceWith(new { url, orderId });

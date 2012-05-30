@@ -88,12 +88,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.LensSubscrip
 			get { return "Glasögonbeställning från synologen"; }
 		}
 
-		public int SubscriptionCutoffDate
+		public int SubscriptionConsentCutoffDay
 		{
 			get { throw new NotImplementedException(); }
 		}
 
-		public int SubscriptionWithdrawalDate
+		public int SubscriptionWithdrawalDay
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public int SubscriptionWithdrawalTransferDay
 		{
 			get { throw new NotImplementedException(); }
 		}

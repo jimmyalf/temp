@@ -42,12 +42,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			public string EmailOrderFrom { get; private set; }
 			public string EmailOrderSubject { get; private set; }
 
-			public int SubscriptionCutoffDate
+			public int SubscriptionConsentCutoffDay
 			{
 				get { throw new NotImplementedException(); }
 			}
 
-			public int SubscriptionWithdrawalDate
+			public int SubscriptionWithdrawalTransferDay
+			{
+				get { throw new NotImplementedException(); }
+			}
+
+			public int SubscriptionWithdrawalDay
 			{
 				get { throw new NotImplementedException(); }
 			}

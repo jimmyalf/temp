@@ -37,7 +37,7 @@
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Business.Test\Spinit.Wpc.Synologen.OPQ.Business.Test.csproj" if="${configuration=='NightlyBuild'}"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Site\Spinit.Wpc.Synologen.OPQ.Site.csproj"/>
 		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Presentation\Spinit.Wpc.Synologen.OPQ.Presentation.csproj"/>
-		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Admin\Spinit.Wpc.Synologen.OPQ.Admin.csproj"/>
+		<include name="${dir.source}Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Presentation.Admin\Spinit.Wpc.Synologen.OPQ.Presentation.Admin.csproj"/>
 	</fileset>
 
 <!-- ******************************************************************************

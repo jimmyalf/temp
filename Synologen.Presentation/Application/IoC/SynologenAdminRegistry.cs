@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Web.Mvc;
 using Spinit.Data;
 using Spinit.Data.NHibernate;
@@ -78,6 +79,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 			For<IContractSalesCommandService>().HybridHttpOrThreadLocalScoped().Use<ContractSalesCommandService>();
 			For<IInvoiceReportViewService>().Use<InvoiceReportViewService>();
 			For<IOrderViewParser>().Use<OrderViewParser>();
+
+			For<IEventAggregator>().Singleton().Use<EventAggregator>();
 		}
 	}
 }

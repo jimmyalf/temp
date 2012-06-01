@@ -10,6 +10,7 @@ using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Synologen;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
+using Spinit.Wpc.Synologen.Core.Domain.Services.Events.Synologen;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Data.DataServices;
 using Spinit.Wpc.Synologen.Presentation.Code;
@@ -29,11 +30,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 		private int _shopId;
 		private Shop _shop;
 		private ISession _session;
+		private IEventAggregator _event;
 		private const decimal DefaultCoordinateValue = 0;
 
 		public EditShop()
 		{
 			_session = ServiceLocator.Current.GetInstance<ISession>();
+			_event = ServiceLocator.Current.GetInstance<IEventAggregator>();
 		}
 		protected void Page_Load(object sender, EventArgs e) 
 		{
@@ -253,6 +256,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			var connectToAllContractCustomers = _shop.CategoryId == Globals.MasterShopCategoryId;
 			ConnectSelectedContractCustomers(connectToAllContractCustomers);
 			ConnectSelectedEquipment();
+
+			if(shopGroupId> 0)
+			{
+				_event.SendMessage(new ShopWasConnectedToShopGroupEvent(_shop.ShopId,shopGroupId));	
+			}
 
 			Response.Redirect(ComponentPages.Shops,true);
 		}

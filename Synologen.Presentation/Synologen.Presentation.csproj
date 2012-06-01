@@ -105,6 +105,7 @@
     <Compile Include="Application\Services\BaseGridSortPropertyMappingService.cs" />
     <Compile Include="Application\Services\ContractSalesCommandService.cs" />
     <Compile Include="Application\Services\ContractSalesViewService.cs" />
+    <Compile Include="Application\Services\EventAggregator.cs" />
     <Compile Include="Application\Services\IContractSalesCommandService.cs" />
     <Compile Include="Application\Services\IContractSalesViewService.cs" />
     <Compile Include="Application\Services\ILensSubscriptionViewService.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Application\Services\OrderViewParser.cs" />
     <Compile Include="Application\Services\SettingsService.cs" />
     <Compile Include="Application\Services\SynologenGridSortPropertyMappingSerice.cs" />
+    <Compile Include="Application\Services\TestEventListener.cs" />
     <Compile Include="Application\Services\UserContextService.cs" />
     <Compile Include="Application\Web\ReportController.cs" />
     <Compile Include="Controllers\BaseController.cs" />

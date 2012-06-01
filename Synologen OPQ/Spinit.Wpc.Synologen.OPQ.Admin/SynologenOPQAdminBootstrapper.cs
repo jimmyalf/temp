@@ -1,15 +1,13 @@
 using Spinit.Wpc.Core.UI;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Presentation.Application.Services;
+using Spinit.Wpc.Synologen.OPQ.Presentation.Admin.App;
 
-namespace Spinit.Wpc.Synologen.Presentation
+namespace Spinit.Wpc.Synologen.OPQ.Presentation.Admin
 {
-	public class WpcSynologenAdminBootstrapper : IWpcComponentBootstrapper
+	public class SynologenOPQAdminBootstrapper : IWpcComponentBootstrapper
 	{
 		public void Bootstrap(WpcBootstrapperContext context)
 		{
-			Bootstrapper.Bootstrap(Dependency.NHibernate, context);
-			Bootstrapper.Bootstrap(Dependency.AutoMapper, context);
 			AddEventListeners();
 		}
 

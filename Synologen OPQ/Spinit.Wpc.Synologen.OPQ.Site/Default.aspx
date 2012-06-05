@@ -6,5 +6,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 	<a href="Logout.aspx" >Logga ut</a><br />
 	<uc2:OpqMenu ID="OpqMenu1" runat="server" OpqSubPageUrl="/SubPage.aspx" NodeId="68" />
+	<uc2:OpqMenu ID="OpqMenu2" runat="server" OpqSubPageUrl="/SubPage.aspx" NodeId="1" />
 	<uc1:OpqStartPage ID="OpqStartPage1" runat="server" OpqSubPageUrl="/SubPage.aspx" />
 </asp:Content>

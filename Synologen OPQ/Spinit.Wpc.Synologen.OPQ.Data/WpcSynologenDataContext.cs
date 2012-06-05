@@ -85,9 +85,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data
 		partial void InserttblSynologenConcern(EConcern instance);
 		partial void UpdatetblSynologenConcern(EConcern instance);
 		partial void DeletetblSynologenConcern(EConcern instance);
-		partial void InserttblSynologenShopCategory(EShopCategory instance);
-		partial void UpdatetblSynologenShopCategory(EShopCategory instance);
-		partial void DeletetblSynologenShopCategory(EShopCategory instance);
+		partial void InserttblSynologenShopCategory(EShopCategoryMemberCategoryConnection instance);
+		partial void UpdatetblSynologenShopCategory(EShopCategoryMemberCategoryConnection instance);
+		partial void DeletetblSynologenShopCategory(EShopCategoryMemberCategoryConnection instance);
 		partial void InserttblSynologenShopCategoryMemberCategoryConnection(EShopCategoryMemberCategoryConnection instance);
 		partial void UpdatetblSynologenShopCategoryMemberCategoryConnection(EShopCategoryMemberCategoryConnection instance);
 		partial void DeletetblSynologenShopCategoryMemberCategoryConnection(EShopCategoryMemberCategoryConnection instance);
@@ -106,7 +106,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Data
 		partial void InserttblSynologenShop(EShop instance);
 		partial void UpdatetblSynologenShop(EShop instance);
 		partial void DeletetblSynologenShop(EShop instance);
-		partial void InsertSynologenOpqDocumentView(EDocumentView instance);
+		partial void InserttblSynologenShopGroup (EShopGroup instance);
+		partial void UpdatetblSynologenShopGroup (EShopGroup instance);
+		partial void DeletetblSynologenShopGroup (EShopGroup instance);
+		partial void InsertSynologenOpqDocumentView (EDocumentView instance);
 		partial void UpdateSynologenOpqDocumentView(EDocumentView instance);
 		partial void DeleteSynologenOpqDocumentView(EDocumentView instance);
 		partial void InserttblBaseLocation(EBaseLocation instance);
@@ -167,9 +170,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data
 			get { return GetTable<EConcern>(); }
 		}
 		
-		public Table<EShopCategory> ShopCategories
+		public Table<EShopCategoryMemberCategoryConnection> ShopCategories
 		{
-			get { return GetTable<EShopCategory>(); }
+			get { return GetTable<EShopCategoryMemberCategoryConnection>(); }
 		}
 		
 		public Table<EShopCategoryMemberCategoryConnection> ShopCategoryMemberCategoryConnections
@@ -201,7 +204,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Data
 		{
 			get { return GetTable<EShop>(); }
 		}
-		
+
+		public Table<EShopGroup> ShopGroups
+		{
+			get { return GetTable<EShopGroup> (); }
+		}
+
 		public Table<EDocumentView> DocumentViews
 		{
 			get { return GetTable<EDocumentView>(); }

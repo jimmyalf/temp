@@ -56,10 +56,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="nodeId">The node-id to connect the document to.</param>
 		/// <param name="shopId">The shop-id to connect the document to.</param>
+		/// <param name="shopGroupId">The shop-group-id.</param>
 		/// <param name="documentTypeId">The document-type.</param>
 		/// <param name="documentContent">The document content.</param>
 
-		public Document CreateDocument (int nodeId, int? shopId, DocumentTypes documentTypeId, string documentContent)
+		public Document CreateDocument (int nodeId, int? shopId, int? shopGroupId, DocumentTypes documentTypeId, string documentContent)
 		{
 			using (
 				WpcSynologenRepository synologenRepository = WpcSynologenRepository.GetWpcSynologenRepository (_configuration, null, _context)
@@ -68,7 +69,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					new Document
 					{
 						NdeId = nodeId, 
-						ShpId = shopId, 
+						ShpId = shopId,
+						ShopGroupId = shopGroupId,
 						DocTpeId = documentTypeId, 
 						DocumentContent = documentContent
 					});
@@ -258,6 +260,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 					synologenRepository.AddDataLoadOptions<Document>(d => d.ApprovedBy);
 					synologenRepository.AddDataLoadOptions<Document>(d => d.LockedBy);
 					synologenRepository.AddDataLoadOptions<Document>(d => d.Shop);
+					synologenRepository.AddDataLoadOptions<Document>(d => d.ShopGroup);
 
 					synologenRepository.SetDataLoadOptions();
 				}
@@ -315,6 +318,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="nodeId">The id of the node.</param>
 		/// <param name="shopId">The id of the shop.</param>
 		/// <param name="cncId">The concern-id.</param>
+		/// <param name="shopGroupId">The shop-group-id.</param>
 		/// <param name="documentType">The type of the document.</param>
 		/// <param name="searchText">Text to search for.</param>
 		/// <param name="onlyActive">If true=>fetch only active documents.</param>
@@ -325,6 +329,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			int? nodeId, 
 			int? shopId,
 			int? cncId,
+			int? shopGroupId,
 			DocumentTypes? documentType, 
 			string searchText, 
 			bool onlyActive,
@@ -353,6 +358,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 						(int) nodeId, 
 						shopId, 
 						cncId,
+						shopGroupId,
 						(DocumentTypes) documentType, 
 						onlyActive,
 						onlyApproved);
@@ -369,6 +375,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 				return synologenRepository.Document.GetDocuments(
 					shopId,
 					cncId,
+					shopGroupId,
 					documentType,
 					onlyActive,
 					onlyApproved);
@@ -381,6 +388,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="nodeId">The id of the node.</param>
 		/// <param name="shopId">The id of the shop.</param>
 		/// <param name="cncId">The id of the concern.</param>
+		/// <param name="shopGroupId">The shop-group-id.</param>
 		/// <param name="documentType">The type of the document.</param>
 		/// <param name="searchText">Text to search for.</param>
 		/// <param name="fillObjects">If true=>fill-objects.</param>
@@ -389,6 +397,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			int? nodeId,
 			int? shopId,
 			int? cncId,
+			int? shopGroupId,
 			DocumentTypes? documentType,
 			string searchText,
 			bool fillObjects)
@@ -404,6 +413,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 						(int) nodeId,
 						shopId,
 						cncId,
+						shopGroupId,
 						(DocumentTypes) documentType,
 						true,
 						false);

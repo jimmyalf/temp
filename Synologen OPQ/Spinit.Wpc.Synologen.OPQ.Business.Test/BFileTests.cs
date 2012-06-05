@@ -91,7 +91,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 			const int fleId = 1;
 			BFile bFile = new BFile (_context);
-			File file = bFile.CreateFile (node.Id, null,null, fleId, FileCategories.SystemRoutineDocuments);
+			File file = bFile.CreateFile (node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
 			Assert.AreEqual (fleId, file.FleId, "Base file id not as expected");
 			Assert.AreEqual (node.Id, file.NdeId, "Node id not as expected");
 			Assert.AreEqual (FileCategories.SystemRoutineDocuments, file.FleCatId, "File-category not as excpected");
@@ -106,7 +106,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 			const int fleId = 1;
 			BFile bFile = new BFile (_context);
-			File file = bFile.CreateFile (node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments );
+			File file = bFile.CreateFile (node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments );
 			file = bFile.GetFile (file.Id, true);
 			Assert.AreEqual (fleId, file.FleId, "Base file id not as expected");
 			Assert.AreEqual (node.Id, file.NdeId, "Node id not as expected");
@@ -124,7 +124,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const int fleId = 1;
 			const int newFleId = 2;
 			BFile bFile = new BFile (_context);
-			File file = bFile.CreateFile(node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
+			File file = bFile.CreateFile(node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
 			file = bFile.ChangeFile (file.Id, newFleId);
 
 			Assert.AreEqual (newFleId, file.FleId, "Base file id not as expected");
@@ -142,10 +142,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 			const int fleId = 1;
 			BFile bFile = new BFile (_context);
-			File file = bFile.CreateFile(node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
+			File file = bFile.CreateFile(node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
 			bFile.Publish (file.Id);
 			bFile.Unlock (file.Id);
-			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, null, true, true, true);
+			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, null, null, true, true, true);
 			Assert.IsNotNull (files, "Files returned null");
 			Assert.IsNotEmpty (files, "Files returned empty. Should be 1.");
 			file = files [0];
@@ -164,10 +164,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 			const int fleId = 1;
 			BFile bFile = new BFile (_context);
-			File file = bFile.CreateFile(node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
+			File file = bFile.CreateFile(node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
 			bFile.Publish (file.Id);
 			bFile.Unlock (file.Id);
-			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, FileCategories.SystemRoutineDocuments, true, true, true);
+			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, null, FileCategories.SystemRoutineDocuments, true, true, true);
 			Assert.IsNotNull (files, "Files returned null");
 			Assert.IsNotEmpty (files, "Files returned empty. Should be 1.");
 			file = files [0];
@@ -186,9 +186,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 			const int fleId = 1;
 			BFile bFile = new BFile (_context);
-			File file = bFile.CreateFile(node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
+			File file = bFile.CreateFile(node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
 			bFile.DeleteFile (file.Id, false);
-			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, null, true, true, true);
+			List<File> files = (List<File>) bFile.GetFiles (node.Id, null, null, null, null, true, true, true);
 			Assert.IsEmpty (files, "No files should be returned");
 		}
 
@@ -201,9 +201,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 			const int fleId = 1;
 			var bFile = new BFile(_context);
-			File file1 = bFile.CreateFile(node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
-			File file2 = bFile.CreateFile(node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
-			File file3 = bFile.CreateFile(node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
+			File file1 = bFile.CreateFile(node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
+			File file2 = bFile.CreateFile(node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
+			File file3 = bFile.CreateFile(node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
 			file1 = bFile.GetFile(file1.Id, false);
 			file2 = bFile.GetFile(file2.Id, false);
 			file3 = bFile.GetFile(file3.Id, false);
@@ -228,9 +228,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 			const int fleId = 1;
 			var bFile = new BFile(_context);
-			File file1 = bFile.CreateFile(node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
-			File file2 = bFile.CreateFile(node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
-			File file3 = bFile.CreateFile(node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
+			File file1 = bFile.CreateFile(node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
+			File file2 = bFile.CreateFile(node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
+			File file3 = bFile.CreateFile(node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
 			file1 = bFile.GetFile(file1.Id, false);
 			file2 = bFile.GetFile(file2.Id, false);
 			file3 = bFile.GetFile(file3.Id, false);
@@ -256,9 +256,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const int fleId = 1;
 			const int shopId = 1;
 			var bFile = new BFile(_context);
-			File file1 = bFile.CreateFile(node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
-			File file2 = bFile.CreateFile(node.Id, shopId, null, fleId, FileCategories.ShopRoutineDocuments);
-			File file3 = bFile.CreateFile(node.Id, shopId, null, fleId, FileCategories.ShopRoutineDocuments);
+			File file1 = bFile.CreateFile(node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
+			File file2 = bFile.CreateFile(node.Id, shopId, null, null, fleId, FileCategories.ShopRoutineDocuments);
+			File file3 = bFile.CreateFile(node.Id, shopId, null, null, fleId, FileCategories.ShopRoutineDocuments);
 			file1 = bFile.GetFile(file1.Id, false);
 			file2 = bFile.GetFile(file2.Id, false);
 			file3 = bFile.GetFile(file3.Id, false);
@@ -284,9 +284,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const int fleId = 1;
 			const int shopId = 1;
 			var bFile = new BFile(_context);
-			File file1 = bFile.CreateFile(node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
-			File file2 = bFile.CreateFile(node.Id, shopId, null, fleId, FileCategories.ShopRoutineDocuments);
-			File file3 = bFile.CreateFile(node.Id, shopId, null, fleId, FileCategories.ShopRoutineDocuments);
+			File file1 = bFile.CreateFile(node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
+			File file2 = bFile.CreateFile(node.Id, shopId, null, null, fleId, FileCategories.ShopRoutineDocuments);
+			File file3 = bFile.CreateFile(node.Id, shopId, null, null, fleId, FileCategories.ShopRoutineDocuments);
 			file1 = bFile.GetFile(file1.Id, false);
 			file2 = bFile.GetFile(file2.Id, false);
 			file3 = bFile.GetFile(file3.Id, false);
@@ -310,15 +310,15 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 			BFile bFile = new BFile (_context);
 
-			File firstFile = bFile.CreateFile (node.Id, null, null, PropertyValues.BaseFileId, FileCategories.SystemRoutineDocuments);
+			File firstFile = bFile.CreateFile (node.Id, null, null, null, PropertyValues.BaseFileId, FileCategories.SystemRoutineDocuments);
 			firstFile = bFile.GetFile (firstFile.Id, true);
 			Assert.AreEqual (PropertyValues.FirstFileOrderOne, firstFile.Order, "First file wrong order (1).");
 
-			File secondFile = bFile.CreateFile(node.Id, null, null, PropertyValues.BaseFileId, FileCategories.SystemRoutineDocuments);
+			File secondFile = bFile.CreateFile(node.Id, null, null, null, PropertyValues.BaseFileId, FileCategories.SystemRoutineDocuments);
 			secondFile = bFile.GetFile (secondFile.Id, true);
 			Assert.AreEqual (PropertyValues.SecondFileOrderOne, secondFile.Order, "Second file wrong order (1).");
 
-			File thirdFile = bFile.CreateFile(node.Id, null, null, PropertyValues.BaseFileId, FileCategories.SystemRoutineDocuments);
+			File thirdFile = bFile.CreateFile(node.Id, null, null, null, PropertyValues.BaseFileId, FileCategories.SystemRoutineDocuments);
 			thirdFile = bFile.GetFile (thirdFile.Id, true);
 			Assert.AreEqual (PropertyValues.ThirdFileOrderOne, thirdFile.Order, "Third file wrong order (1).");
 

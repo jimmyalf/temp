@@ -112,7 +112,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
 			{
 				var document = (Document) e.Item.DataItem;
-				var shopId = (int) document.ShpId;
+				int? shopId = document.ShpId;
+				int? shopGroupId = document.ShopGroupId;
 				var ltShopName = (Literal) e.Item.FindControl("ltShopName");
 				var ltRoutine = (Literal) e.Item.FindControl("ltRoutine");
 				var gvOwnFiles = (OpqFileGridView) e.Item.FindControl("gvOwnFiles");
@@ -120,19 +121,19 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 				var hlShopLink = (HyperLink) e.Item.FindControl("hlShopLink");
 				if (hlShopLink != null)
 				{
-					hlShopLink.NavigateUrl = String.Format(ComponentPages.OpqStartQueryNodeAndShop, _nodeId, shopId);
+					hlShopLink.NavigateUrl = String.Format(ComponentPages.OpqStartQueryNodeAndShop, _nodeId, shopId, shopGroupId);
 				}
 				if (ltShopName != null)
 				{
-					ltShopName.Text = document.Shop.ShopName;
+					ltShopName.Text = document.Shop != null ? document.Shop.ShopName : document.ShopGroup.Name;
 				}
 				if ((ltRoutine != null) && (document.DocumentContent.IsNotNullOrEmpty()))
 				{
 					ltRoutine.Text = document.DocumentContent;
 				}
 				var bFile = new BFile(_context);
-				var shopFiles = bFile.GetFiles(_nodeId, shopId, null, FileCategories.ShopRoutineDocuments, true, true, false);
-                var filledFiles = bFile.GetFiles(_nodeId, shopId, null, FileCategories.ShopDocuments, true, true, false);
+				var shopFiles = bFile.GetFiles(_nodeId, shopGroupId != null ? null : shopId, null, shopGroupId, FileCategories.ShopRoutineDocuments, true, true, false);
+				var filledFiles = bFile.GetFiles (_nodeId, shopGroupId != null ? null : shopId, null, shopGroupId, FileCategories.ShopDocuments, true, true, false);
 				if ((gvOwnFiles != null) && (shopFiles != null) && (shopFiles.Count > 0))
 				{
                     gvOwnFiles.SetDataSource(shopFiles);

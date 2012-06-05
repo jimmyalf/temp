@@ -14,8 +14,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Presentation
 		protected Configuration _configuration;
 		protected int _nodeId;
 
-
-
 		protected override void OnInit(EventArgs e)
 		{
 			base.OnInit(e);
@@ -26,7 +24,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Presentation
 
 		protected string DocumentPath
 		{
-			get { return string.Concat(Configuration.DocumentShopRootUrl, MemberShopId, "/"); }
+			get {
+				return MemberShopGroupId != null
+							? string.Concat (Configuration.DocumentShopGroupRootUrl, MemberShopGroupId, "/")
+							: string.Concat (Configuration.DocumentShopRootUrl, MemberShopId, "/");
+			}
 		}
 
 		protected void ShowPositiveFeedBack(string resource)
@@ -155,6 +157,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Presentation
 			}
 		}
 
+		public int? MemberShopGroupId
+		{
+			get {
+				Business.BUtilities util = new Business.BUtilities (_context);
+				return util.GetShopGroupId (MemberShopId);
+			}
+		}
 
 		#region Querystring parameters
 

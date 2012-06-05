@@ -20,10 +20,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Code
 
 		protected string DocumentPath
 		{
-			get { return string.Concat(Configuration.DocumentShopRootUrl, MemberShopId, "/"); }
+			get {
+				return MemberShopGroupId != null
+							? string.Concat (Configuration.DocumentShopGroupRootUrl, MemberShopGroupId, "/")
+							: string.Concat (Configuration.DocumentShopRootUrl, MemberShopId, "/");
+			}
 		}
-
-		protected void ShowPositiveFeedBack(UserMessageManager manager, string resource)
+		
+		protected void ShowPositiveFeedBack (UserMessageManager manager, string resource)
 		{
 			var message = (string) GetLocalResourceObject(resource);
 			manager.PositiveMessage = message;

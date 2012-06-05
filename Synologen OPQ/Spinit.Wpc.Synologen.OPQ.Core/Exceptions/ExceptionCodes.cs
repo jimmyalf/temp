@@ -108,7 +108,13 @@
 		/// Changing node not allowed.
 		/// </summary>
 
-		CangeOfNodeNotAllowed = 5
+		CangeOfNodeNotAllowed = 5,
+		
+		/// <summary>
+		/// Changing shop-group not allowed.
+		/// </summary>
+
+		ChangeOfShopGroupNotAllowed = 6
 	}
 
 	/// <summary>
@@ -175,7 +181,13 @@
 		/// Changing file-category not allowed.
 		/// </summary>
 
-		ChangeOfFileCategoryNotAllowed = 9
+		ChangeOfFileCategoryNotAllowed = 9,
+
+		/// <summary>
+		/// Changing shop-group not allowed.
+		/// </summary>
+
+		ChangeOfShopGroupNotAllowed = 10
 	}
 
 	/// <summary>
@@ -260,6 +272,12 @@
 		/// The concern is not found.
 		/// </summary>
 
-		ConcernNotFound = 12
+		ConcernNotFound = 12,
+
+		/// <summary>
+		/// The shop-group is not found.
+		/// </summary>
+
+		ShopGroupNotFound = 13
 	}
 }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Resources;
+
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.OPQ.Core;
 using Spinit.Wpc.Utility.Core;
 
@@ -17,7 +20,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// </summary>
 		/// <param name="context">The context.</param>
 
-		public BUtilities(Core.Context context)
+		public BUtilities (Core.Context context)
 		{
 			_context = context;
 			_configuration = Configuration.GetConfiguration (_context);
@@ -33,17 +36,16 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 		/// <param name="context">The context.</param>
 		/// <returns>Return a string resource if the specified key was found</returns>
 
-		public static string GetResourceString(string key, Core.Context context)
+		public static string GetResourceString (string key, Core.Context context)
 		{
-			if (context == null)
-			{
+			if (context == null) {
 				return null;
 			}
 
-			var rm = new ResourceManager(
+			var rm = new ResourceManager (
 				"Spinit.Wpc.Synologen.OPQ.Business.ErrorText",
-				Assembly.GetExecutingAssembly());
-			return rm.GetString(key, context.CultureInfo);
+				Assembly.GetExecutingAssembly ());
+			return rm.GetString (key, context.CultureInfo);
 		}
 
 		/// <summary>
@@ -57,7 +59,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			try {
 				return PropertyExtension.CreateWith<ErrorText, string> (key).Invoke (null);
 			}
-			catch(Exception ex) {
+			catch (Exception ex) {
 				return string.Empty;
 			}
 		}
@@ -100,7 +102,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 			if (PublicUser.Current != null) {
 				return PublicUser.Current.IsInRole (component, role, PublicUser.Current.Location, PublicUser.Current.Language);
 			}
-			
+
 			return false;
 		}
 
@@ -110,14 +112,26 @@ namespace Spinit.Wpc.Synologen.OPQ.Business
 
 		public List<int> GetAllShopIdsPerMember (int memberId)
 		{
-			var provider = new Synologen.Data.SqlProvider(_configuration.ConnectionString);
-			return provider.GetAllShopIdsPerMember(memberId);
+			SqlProvider provider = new SqlProvider (_configuration.ConnectionString);
+			return provider.GetAllShopIdsPerMember (memberId);
 		}
 
-		public int GetMemberId(int userId)
+		public int GetMemberId (int userId)
 		{
-			var provider = new Synologen.Data.SqlProvider(_configuration.ConnectionString);
-			return provider.GetMemberId(userId);
+			SqlProvider provider = new SqlProvider (_configuration.ConnectionString);
+			return provider.GetMemberId (userId);
+		}
+
+		#endregion
+
+		#region Shop-handling
+
+		public int? GetShopGroupId (int shopId)
+		{
+			SqlProvider provider = new SqlProvider (_configuration.ConnectionString);
+			Shop shop = provider.GetShop (shopId);
+
+			return shop != null ? shop.ShopGroupId : null;
 		}
 
 		#endregion

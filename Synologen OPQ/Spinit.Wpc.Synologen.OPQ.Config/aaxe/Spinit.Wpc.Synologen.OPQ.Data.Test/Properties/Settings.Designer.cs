@@ -26,8 +26,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SIENNA\\SQL2005;Initial Catalog=SynologenData;Integrated Security=True" +
-            "")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=POWDEBLUE\\SQL2005;Initial Catalog=dbWpcSynologen;Persist Security Inf" +
+            "o=True;User ID=sa;Password=RICE17A")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));

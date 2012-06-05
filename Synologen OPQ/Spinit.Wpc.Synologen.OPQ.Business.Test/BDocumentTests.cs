@@ -50,7 +50,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 			const string documentContent = "Content";
 			BDocument bDocument = new BDocument (_context);
-			Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, documentContent);
+			Document document = bDocument.CreateDocument (node.Id, null, null, DocumentTypes.Routine, documentContent);
 			Assert.AreEqual (documentContent, document.DocumentContent, "Document content not as expected");
 			Assert.AreEqual (node.Id, document.NdeId, "Node id not as expected");
 			Assert.AreEqual (DocumentTypes.Routine, document.DocTpeId, "Documenttype not as excpected");
@@ -65,7 +65,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 			const string documentContent = "Content";
 			BDocument bDocument = new BDocument (_context);
-			Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, documentContent);
+			Document document = bDocument.CreateDocument (node.Id, null, null, DocumentTypes.Routine, documentContent);
 			document = bDocument.GetDocument (document.Id, true);
 			Assert.AreEqual (documentContent, document.DocumentContent, "Document content not as expected");
 			Assert.AreEqual (node.Id, document.NdeId, "Node id not as expected");
@@ -83,7 +83,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const string documentContent = "Content";
 			const string newContent = "New Content";
 			BDocument bDocument = new BDocument (_context);
-			Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, documentContent);
+			Document document = bDocument.CreateDocument (node.Id, null, null, DocumentTypes.Routine, documentContent);
 			document = bDocument.ChangeDocument (document.Id, newContent);
 
 			Assert.AreEqual (newContent, document.DocumentContent, "Document content not as expected");
@@ -101,11 +101,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 			const string documentContent = "Content";
 			BDocument bDocument = new BDocument (_context);
-			Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, documentContent);
+			Document document = bDocument.CreateDocument (node.Id, null, null, DocumentTypes.Routine, documentContent);
 			bDocument.Publish (document.Id);
 			bDocument.UnLock (document.Id);
 			List<Document> documents =
-				(List<Document>) bDocument.GetDocuments (node.Id, null, null, DocumentTypes.Routine, null, true, true, true);
+				(List<Document>) bDocument.GetDocuments (node.Id, null, null, null, DocumentTypes.Routine, null, true, true, true);
 			Assert.IsNotNull (documents, "Documents returned null");
 			Assert.IsNotEmpty (documents, "Documents returned empty. Should be 1.");
 			document = documents [0];
@@ -123,10 +123,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 
 			const string documentContent = "Content";
 			BDocument bDocument = new BDocument (_context);
-			Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, documentContent);
+			Document document = bDocument.CreateDocument (node.Id, null, null, DocumentTypes.Routine, documentContent);
 			bDocument.DeleteDocument (document.Id, false);
 			List<Document> documents =
-				(List<Document>) bDocument.GetDocuments (node.Id, null, null, DocumentTypes.Routine, null, true, true, true);
+				(List<Document>) bDocument.GetDocuments (node.Id, null, null, null, DocumentTypes.Routine, null, true, true, true);
 			Assert.IsEmpty (documents, "No documents should be returned");
 		}
 		
@@ -137,7 +137,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			Node node = bNode.CreateNode (null, PropertyValues.DocumentNodeName, false);
 
 			BDocument bDocument = new BDocument (_context);
-			Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, PropertyValues.FirstUpdateHistoryContent);
+			Document document = bDocument.CreateDocument (node.Id, null, null, DocumentTypes.Routine, PropertyValues.FirstUpdateHistoryContent);
 			bDocument.ChangeDocument (document.Id, PropertyValues.SecondUpdateHistoryContent);
 			List<DocumentHistory> documentHistories = (List<DocumentHistory>) bDocument.GetDocumentHistories (document.Id, true);
 			Assert.IsEmpty (documentHistories, "No document-history should be returned.");
@@ -150,7 +150,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			Node node = bNode.CreateNode (null, PropertyValues.DocumentNodeName, false);
 
 			BDocument bDocument = new BDocument (_context);
-			Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, PropertyValues.FirstUpdateHistoryContent);
+			Document document = bDocument.CreateDocument (node.Id, null, null, DocumentTypes.Routine, PropertyValues.FirstUpdateHistoryContent);
 			bDocument.Publish (document.Id);
 			bDocument.UnLock (document.Id);
 			List<DocumentHistory> documentHistories = (List<DocumentHistory>) bDocument.GetDocumentHistories (document.Id, true);

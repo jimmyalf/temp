@@ -45,9 +45,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 				{
 					try
 					{
-						PopulateRoutineFiles(_nodeId, MemberShopId);
-						PopulateRoutine(_nodeId, MemberShopId);
-						PopulateFiles(_nodeId, MemberShopId);
+						PopulateRoutineFiles (_nodeId, MemberShopGroupId != null ? null : MemberShopId, MemberShopGroupId);
+						PopulateRoutine (_nodeId, MemberShopGroupId != null ? null : MemberShopId, MemberShopGroupId);
+						PopulateFiles (_nodeId, MemberShopGroupId != null ? null : MemberShopId, MemberShopGroupId);
 					}
 					catch (BaseCodeException ex)
 					{
@@ -59,26 +59,26 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 
 		private void SetupWysiwyg()
 		{
-			_wysiwyg.CommonFilePath = new string[] { DocumentPath };
+			_wysiwyg.CommonFilePath = new [] { DocumentPath };
 		}
 
-		private void PopulateRoutineFiles(int nodeId, int shopId)
+		private void PopulateRoutineFiles(int nodeId, int? shopId, int? shopGroupId)
 		{
 			if (nodeId <= 0) return;
 			if (shopId <= 0) return;
 			var bFile = new BFile(_context);
-			var files = bFile.GetFiles(nodeId, shopId, null, FileCategories.ShopRoutineDocuments, true, true, true);
+			var files = bFile.GetFiles(nodeId, shopId, null, shopGroupId, FileCategories.ShopRoutineDocuments, true, true, true);
 			rptFilesRoutine.DataSource = null;
 			rptFilesRoutine.DataSource = files;
 			rptFilesRoutine.DataBind();
 		}
 
-		private void PopulateFiles(int nodeId, int shopId)
+		private void PopulateFiles(int nodeId, int? shopId, int? shopGroupId)
 		{
 			if (nodeId <= 0) return;
 			if (shopId <= 0) return;
 			var bFile = new BFile(_context);
-			var files = bFile.GetFiles(nodeId, shopId, null, FileCategories.ShopDocuments, true, true, true);
+			var files = bFile.GetFiles(nodeId, shopId, null, shopGroupId, FileCategories.ShopDocuments, true, true, true);
 			rptFiles.DataSource = null;
 			rptFiles.DataSource = files;
 			rptFiles.DataBind();
@@ -109,12 +109,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			//}
 		}
 
-		private void PopulateRoutine(int nodeId, int shopId)
+		private void PopulateRoutine(int nodeId, int? shopId, int? shopGroupId)
 		{
 			if (nodeId <= 0) return;
 			var bDocument = new BDocument(_context);
 			var documents =
-				bDocument.GetDocuments(nodeId, shopId, null, DocumentTypes.Routine, null, true, false, false);
+				bDocument.GetDocuments(nodeId, shopId, null, shopGroupId, DocumentTypes.Routine, null, true, false, false);
 			if (documents.Count == 0) return;
 			var document = documents[0];
 			bDocument.Lock(document.Id);
@@ -164,10 +164,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			switch (typeOfSave)
 			{
 				case Enumerations.DocumentSaveActions.SaveForLater:
-					SaveForLater(content, MemberShopId);
+					SaveForLater (content, MemberShopGroupId != null ? null : MemberShopId, MemberShopGroupId);
 					break;
 				case Enumerations.DocumentSaveActions.SaveAndPublish:
-					SaveAndPublish(content, MemberShopId);
+					SaveAndPublish (content, MemberShopGroupId != null ? null : MemberShopId, MemberShopGroupId);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -231,16 +231,16 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 						throw new ArgumentOutOfRangeException();
 
 				}
-				PopulateRoutineFiles(_nodeId, MemberShopId);
+				PopulateRoutineFiles (_nodeId, MemberShopGroupId != null ? null : MemberShopId, MemberShopGroupId);
 			}
 		}
 
 		protected void btnUploadRoutine_Click(object sender, EventArgs e)
 		{
-			if (UploadFile(_nodeId, DocumentPath, uplFileRoutine, FileCategories.ShopRoutineDocuments, MemberShopId))
+			if (UploadFile (_nodeId, DocumentPath, uplFileRoutine, FileCategories.ShopRoutineDocuments, MemberShopGroupId != null ? null : MemberShopId, MemberShopGroupId))
 			{
 				ShowPositiveFeedBack(userMessageManager, "UploadSuccess");
-				PopulateRoutineFiles(_nodeId, MemberShopId);
+				PopulateRoutineFiles (_nodeId, MemberShopGroupId != null ? null : MemberShopId, MemberShopGroupId);
 			}
 		}
 
@@ -301,16 +301,16 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 						throw new ArgumentOutOfRangeException();
 
 				}
-				PopulateFiles(_nodeId, MemberShopId);
+				PopulateFiles (_nodeId, MemberShopGroupId != null ? null : MemberShopId, MemberShopGroupId);
 			}
 		}
 
 		protected void btnUpload_Click(object sender, EventArgs e)
 		{
-			if (UploadFile(_nodeId, DocumentPath, uplFile, FileCategories.ShopDocuments, MemberShopId))
+			if (UploadFile (_nodeId, DocumentPath, uplFile, FileCategories.ShopDocuments, MemberShopGroupId != null ? null : MemberShopId, MemberShopGroupId))
 			{
 				ShowPositiveFeedBack(userMessageManager, "UploadSuccess");
-				PopulateFiles(_nodeId, MemberShopId);
+				PopulateFiles (_nodeId, MemberShopGroupId != null ? null : MemberShopId, MemberShopGroupId);
 			}
 		}
 
@@ -319,13 +319,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 
 		#region Content Actions
 
-		private void SaveAndPublish(string content, int shopId)
+		private void SaveAndPublish(string content, int? shopId, int? shopGroupId)
 		{
 			if ((_nodeId <= 0) || (shopId <= 0)) return;
 			var bDocument = new BDocument(_context);
 			Document document = DocumentId > 0 ? 
 				bDocument.ChangeDocument(DocumentId, content) : 
-				bDocument.CreateDocument(_nodeId, shopId, DocumentTypes.Routine, content);
+				bDocument.CreateDocument(_nodeId, shopId, shopGroupId, DocumentTypes.Routine, content);
 			if (document != null)
 			{
 				bDocument.Publish(document.Id);
@@ -333,13 +333,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			}
 		}
 
-		private void SaveForLater(string content, int shopId)
+		private void SaveForLater(string content, int? shopId, int? shopGroupId)
 		{
 			if ((_nodeId <= 0) || (shopId <= 0)) return;
 			var bDocument = new BDocument(_context);
 			Document document = DocumentId > 0 ?
 				bDocument.ChangeDocument(DocumentId, content) :
-				bDocument.CreateDocument(_nodeId, shopId, DocumentTypes.Routine, content);
+				bDocument.CreateDocument(_nodeId, shopId, shopGroupId, DocumentTypes.Routine, content);
 			if (document != null)
 			{
 				bDocument.UnPublish(document.Id);
@@ -372,78 +372,71 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			bFile.DeleteFile(fileId, true);
 		}
 
-		private bool UploadFile(int nodeId, string virtualUploadDir, FileUpload uploadControl, FileCategories category, int? shopId)
+		private bool UploadFile (int nodeId, string virtualUploadDir, FileUpload uploadControl, FileCategories category, int? shopId, int? shopGroupId)
 		{
-			try
-			{
-				if (!uploadControl.HasFile)
-				{
-					ShowNegativeFeedBack(userMessageManager, "NoFileException");
+			try {
+				if (!uploadControl.HasFile) {
+					ShowNegativeFeedBack (userMessageManager, "NoFileException");
 					return false;
 				}
-				string uploadDir = Server.MapPath(virtualUploadDir);
-				if (!Directory.Exists(uploadDir))
-				{
-					Directory.CreateDirectory(uploadDir);
+				string uploadDir = Server.MapPath (virtualUploadDir);
+				if (!Directory.Exists (uploadDir)) {
+					Directory.CreateDirectory (uploadDir);
 				}
-				string fileName = string.Concat(
-					OpqUtility.EncodeStringToUrl(Path.GetFileNameWithoutExtension(uploadControl.FileName)),
-					Path.GetExtension(uploadControl.FileName));
+				string fileName = string.Concat (
+					OpqUtility.EncodeStringToUrl (Path.GetFileNameWithoutExtension (uploadControl.FileName)),
+					Path.GetExtension (uploadControl.FileName));
 				string fileDescription = uploadControl.FileName;
-				if (!OpqUtility.IsAllowedExtension(uploadControl.FileName))
-				{
-					ShowNegativeFeedBack(userMessageManager, "ExtensionException", Configuration.UploadAllowedExtensions);
+				if (!OpqUtility.IsAllowedExtension (uploadControl.FileName)) {
+					ShowNegativeFeedBack (userMessageManager, "ExtensionException", Configuration.UploadAllowedExtensions);
 					return false;
 				}
 				int fileSize = uploadControl.PostedFile.ContentLength;
-				if (fileSize > Configuration.UploadMaxFileSize)
-				{
-					ShowNegativeFeedBack(userMessageManager, "FileSizeException", Configuration.UploadMaxFileSize.ToString());
+				if (fileSize > Configuration.UploadMaxFileSize) {
+					ShowNegativeFeedBack (userMessageManager, "FileSizeException", Configuration.UploadMaxFileSize.ToString ());
 					return false;
 				}
 
 				//nameUrl is stored from root of fileurl path
-				string nameUrl = Path.Combine(virtualUploadDir, fileName).Replace(Utility.Business.Globals.FilesUrl, string.Empty);
-				string extensionInfo = Path.GetExtension(uploadControl.FileName).ToLower().Replace(".", string.Empty);
+				string nameUrl = Path.Combine (virtualUploadDir, fileName).Replace (Utility.Business.Globals.FilesUrl, string.Empty);
+				string extensionInfo = Path.GetExtension (uploadControl.FileName).ToLower ().Replace (".", string.Empty);
 
-				var dFile = new Base.Data.File
-						(Configuration.GetConfiguration(_context).ConnectionString);
+				var dFile = new Base.Data.File (Configuration.GetConfiguration (_context).ConnectionString);
 
 				// Save file to BaseFile
-				int baseFileId = dFile.AddFile(nameUrl,
-							 false,
-							 extensionInfo,
-							 null,
-							 fileDescription,
-							 _context.UserName);
+				int baseFileId = dFile.AddFile (
+					nameUrl,
+					false,
+					extensionInfo,
+					null,
+					fileDescription,
+					_context.UserName);
 				// Add id to filename
-				fileName = string.Concat(
-					OpqUtility.EncodeStringToUrl(Path.GetFileNameWithoutExtension(uploadControl.FileName)),
+				fileName = string.Concat (
+					OpqUtility.EncodeStringToUrl (Path.GetFileNameWithoutExtension (uploadControl.FileName)),
 					"-",
 					baseFileId,
-					Path.GetExtension(uploadControl.FileName));
-				nameUrl = Path.Combine(virtualUploadDir, fileName).Replace(Utility.Business.Globals.FilesUrl, string.Empty);
+					Path.GetExtension (uploadControl.FileName));
+				nameUrl = Path.Combine (virtualUploadDir, fileName).Replace (Utility.Business.Globals.FilesUrl, string.Empty);
 
 				//Update with new id
-				dFile.UpdateFile(baseFileId, nameUrl, _context.UserName);
+				dFile.UpdateFile (baseFileId, nameUrl, _context.UserName);
 
 				// Save file to disk
-				uploadControl.PostedFile.SaveAs(Path.Combine(uploadDir, fileName));
+				uploadControl.PostedFile.SaveAs (Path.Combine (uploadDir, fileName));
 
 				// Save file to opq
-				var bFile = new BFile(_context);
-				var opqFile = bFile.CreateFile(_nodeId, shopId, null, baseFileId, category);
-				if (opqFile != null)
-				{
-					bFile.Publish(opqFile.Id);
-					bFile.Unlock(opqFile.Id);
+				var bFile = new BFile (_context);
+				var opqFile = bFile.CreateFile (_nodeId, shopId, null, shopGroupId, baseFileId, category);
+				if (opqFile != null) {
+					bFile.Publish (opqFile.Id);
+					bFile.Unlock (opqFile.Id);
 					return true;
 				}
 			}
-			catch (Exception ex)
-			{
-				LogException(ex);
-				ShowNegativeFeedBack(userMessageManager, "UnexpectedUploadException");
+			catch (Exception ex) {
+				LogException (ex);
+				ShowNegativeFeedBack (userMessageManager, "UnexpectedUploadException");
 			}
 			return false;
 		}

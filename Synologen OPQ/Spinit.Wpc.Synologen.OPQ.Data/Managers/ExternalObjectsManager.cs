@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Spinit.Data.Linq;
@@ -104,6 +105,38 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		#region Synologen Shop
 
 		/// <summary>
+		/// Gets all shops for a shop-group.
+		/// </summary>
+		/// <param name="shopGroupId">The shop-group-id.</param>
+		/// <returns>A list of shop-groups.</returns>
+
+		public IList<Shop> GetShopsForGroup (int shopGroupId)
+		{
+			try {
+				IOrderedQueryable<EShop> queryable =  from shop in _dataContext.Shops
+													  where shop.ShopGroupId == shopGroupId
+													  orderby shop.ShopName ascending 
+													  select shop;
+
+				Converter<EShop, Shop> converter = EShop.Convert;
+				IList<Shop> shops = queryable.ToList ().ConvertAll (converter);
+				
+				if (shops == null) {
+					throw new ObjectNotFoundException (
+						"Shop not found.",
+						ObjectNotFoundErrors.ShopNotFound);
+				}
+
+				return shops;
+			}
+			catch (Exception e) {
+				throw new ObjectNotFoundException (
+					"Shop not found.",
+					ObjectNotFoundErrors.ShopNotFound);
+			}
+		}
+
+		/// <summary>
 		/// Fetches the shop by shop-id.
 		/// </summary>
 		/// <param name="shopId">The shop-id.</param>
@@ -128,6 +161,30 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		}
 
 		/// <summary>
+		/// Fetches the shop by shop-id.
+		/// </summary>
+		/// <param name="shopId">The shop-id.</param>
+		/// <returns>A shop.</returns>
+		/// <exception cref="ObjectNotFoundException">If the shop is not found.</exception>
+
+		public ShopGroup GetShopGroupById (int shopId)
+		{
+			IQueryable<EShopGroup> query = from shopGroup in _dataContext.ShopGroups
+									  where shopGroup.Id == shopId
+									  select shopGroup;
+
+			IList<EShopGroup> shopGroups = query.ToList ();
+
+			if (shopGroups.IsEmpty ()) {
+				throw new ObjectNotFoundException (
+					"Shop-group not found.",
+					ObjectNotFoundErrors.ShopGroupNotFound);
+			}
+
+			return EShopGroup.Convert (shopGroups.First ());
+		}
+
+		/// <summary>
 		/// Checks if a shop exist.
 		/// </summary>
 		/// <param name="shopId">The shop-id.</param>
@@ -136,6 +193,17 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		public void CheckShopExist (int shopId)
 		{
 			GetShopById (shopId);
+		}
+
+		/// <summary>
+		/// Checks if a shop-group exist.
+		/// </summary>
+		/// <param name="shopId">The shop-id.</param>
+		/// <exception cref="ObjectNotFoundException">If the shop is not found.</exception>
+
+		public void CheckShopGroupExist (int shopId)
+		{
+			GetShopGroupById (shopId);
 		}
 
 		#endregion

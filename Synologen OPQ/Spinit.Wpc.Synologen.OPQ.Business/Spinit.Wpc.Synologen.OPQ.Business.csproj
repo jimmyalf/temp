@@ -108,6 +108,7 @@
     <Compile Include="BDocument.cs" />
     <Compile Include="BFile.cs" />
     <Compile Include="BNode.cs" />
+    <Compile Include="BShopGroup.cs" />
     <Compile Include="BUtilities.cs" />
     <Compile Include="ErrorText.sv.Designer.cs">
       <DependentUpon>ErrorText.sv.resx</DependentUpon>

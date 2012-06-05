@@ -15,21 +15,23 @@ using System.Collections.Generic;
 
 namespace Spinit.Wpc.Synologen.OPQ.Core.Entities
 {	
-	public class ShopMemberConnection
+	public class ShopGroup
 	{
 		#region Column Mappings
 		
-		public int SynologenShopId { get; set; }
+		public int Id { get; set; }
 		
-		public int MemberId { get; set; }
+		public string Name { get; set; }
 		
 		#endregion
 		
 		#region Associations
 		
-		public Member Member { get; set; }
+		public List<File> Files { get; set; }
 		
-		public Shop Shop { get; set; }
+		public List<Document> Documents { get; set; }
+		
+		public List<Shop> Shops { get; set; }
 		
 		#endregion
 		
@@ -43,7 +45,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Core.Entities
 		public override string ToString ()
 		{
 			string str = string.Empty;
-				 				 
+				 				  
+			str += string.Concat (Name, " ") ?? string.Empty;
+
 			return str.Length > 1 ? str.Substring(0, str.Length - 1) : str;
 		}		
 		
@@ -55,13 +59,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Core.Entities
 
 		public override bool Equals (object o)
 		{
-			if (!(o is ShopMemberConnection )) {
+			if (!(o is ShopGroup )) {
 				return false;
 			}
 
-			ShopMemberConnection eq = o as ShopMemberConnection;
+			ShopGroup eq = o as ShopGroup;
 
-			return SynologenShopId == eq.SynologenShopId && MemberId == eq.MemberId;
+			return Id == eq.Id;
 		}
 
 		/// <summary>
@@ -71,7 +75,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Core.Entities
 
 		public override int GetHashCode ()
 		{
-			return SynologenShopId.GetHashCode () + MemberId.GetHashCode ();
+			return Id.GetHashCode ();
 		}
 
 		#endregion

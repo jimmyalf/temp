@@ -21,8 +21,8 @@ using Spinit.Wpc.Synologen.OPQ.Core.Entities;
 
 namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 {	
-	[Table(Name=@"dbo.tblSynologenConcern")]
-	public partial class EConcern : EntityBase
+	[Table(Name=@"dbo.tblSynologenShopGroup")]
+	public partial class EShopGroup : EntityBase
 	{
 		#region Spinit search extension
 		
@@ -34,8 +34,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 
 		public override LambdaExpression BuildSearchExpression (string property)
 		{
-			ParameterExpression parameter = Expression.Parameter (GetType (), "eConcern");
-			return Expression.Lambda<Func<EConcern, object>> (
+			ParameterExpression parameter = Expression.Parameter (GetType (), "eShopGroup");
+			return Expression.Lambda<Func<EShopGroup, object>> (
 						Expression.Property (parameter, property),
 						parameter);
 		}
@@ -49,10 +49,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 		#endregion
 
 		#region Construction
-		public EConcern()
+		public EShopGroup()
 		{
 			_SynologenOpqFiles = new EntitySet<EFile>(AttachFiles, DetachFiles);
 			_SynologenOpqDocuments = new EntitySet<EDocument>(AttachDocuments, DetachDocuments);
+			_tblSynologenShops = new EntitySet<EShop>(AttachShops, DetachShops);
 			OnCreated();
 		}
 		#endregion
@@ -61,7 +62,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 		partial void OnIdChanging(int value);
 		partial void OnIdChanged();
 		private int _Id;
-		[Column(Storage=@"_Id", Name=@"cId", AutoSync=AutoSync.OnInsert, DbType=@"Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[Column(Storage=@"_Id", AutoSync=AutoSync.OnInsert, DbType=@"Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
 		public int Id
 		{
 			get { return _Id; }
@@ -79,7 +80,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 		partial void OnNameChanging(string value);
 		partial void OnNameChanged();
 		private string _Name;
-		[Column(Storage=@"_Name", Name=@"cName", DbType=@"NVarChar(512) NOT NULL", CanBeNull=false)]
+		[Column(Storage=@"_Name", DbType=@"NVarChar(150) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get { return _Name; }
@@ -94,29 +95,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 			}
 		}
 		
-		partial void OnCommonOpqChanging(bool? value);
-		partial void OnCommonOpqChanged();
-		private bool? _CommonOpq;
-		[Column(Storage=@"_CommonOpq", Name=@"cCommonOpq", DbType=@"Bit")]
-		public bool? CommonOpq
-		{
-			get { return _CommonOpq; }
-			set {
-				if (_CommonOpq != value) {
-					OnCommonOpqChanging(value);
-					SendPropertyChanging();
-					_CommonOpq = value;
-					SendPropertyChanged("CommonOpq");
-					OnCommonOpqChanged();
-				}
-			}
-		}
-		
 		#endregion
 		
 		#region Associations
 		private EntitySet<EFile> _SynologenOpqFiles;
-		[Association(Name=@"tblSynologenConcern_SynologenOpqFile", Storage=@"_SynologenOpqFiles", ThisKey=@"Id", OtherKey=@"CncId")]
+		[Association(Name=@"tblSynologenShopGroup_SynologenOpqFile", Storage=@"_SynologenOpqFiles", ThisKey=@"Id", OtherKey=@"ShopGroupId")]
 		public EntitySet<EFile> Files
 		{
 			get {
@@ -130,16 +113,16 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 		private void AttachFiles(EFile entity)
 		{
 			SendPropertyChanging();
-			entity.Concern = this;
+			entity.ShopGroup = this;
 		}
 		
 		private void DetachFiles(EFile entity)
 		{
 			SendPropertyChanging();
-			entity.Concern = null;
+			entity.ShopGroup = null;
 		}
 		private EntitySet<EDocument> _SynologenOpqDocuments;
-		[Association(Name=@"tblSynologenConcern_SynologenOpqDocument", Storage=@"_SynologenOpqDocuments", ThisKey=@"Id", OtherKey=@"CncId")]
+		[Association(Name=@"tblSynologenShopGroup_SynologenOpqDocument", Storage=@"_SynologenOpqDocuments", ThisKey=@"Id", OtherKey=@"ShopGroupId")]
 		public EntitySet<EDocument> Documents
 		{
 			get {
@@ -153,49 +136,70 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Entities
 		private void AttachDocuments(EDocument entity)
 		{
 			SendPropertyChanging();
-			entity.Concern = this;
+			entity.ShopGroup = this;
 		}
 		
 		private void DetachDocuments(EDocument entity)
 		{
 			SendPropertyChanging();
-			entity.Concern = null;
+			entity.ShopGroup = null;
+		}
+		private EntitySet<EShop> _tblSynologenShops;
+		[Association(Name=@"tblSynologenShopGroup_tblSynologenShop", Storage=@"_tblSynologenShops", ThisKey=@"Id", OtherKey=@"ShopGroupId")]
+		public EntitySet<EShop> Shops
+		{
+			get {
+				return _tblSynologenShops;
+			}
+			set {
+				_tblSynologenShops.Assign(value);
+			}
+		}
+
+		private void AttachShops(EShop entity)
+		{
+			SendPropertyChanging();
+			entity.ShopGroup = this;
+		}
+		
+		private void DetachShops(EShop entity)
+		{
+			SendPropertyChanging();
+			entity.ShopGroup = null;
 		}
 		#endregion
 
 		#region Converters
 		
 		/// <summary>
-		/// Converts from EConcern to Concern.
+		/// Converts from EShopGroup to ShopGroup.
 		/// </summary>
-		/// <param name="eConcern">The EConcern.</param>
-		/// <returns>The converted Concern.</returns>
+		/// <param name="eShopGroup">The EShopGroup.</param>
+		/// <returns>The converted ShopGroup.</returns>
 
-		public static Concern Convert (EConcern eConcern)
+		public static ShopGroup Convert (EShopGroup eShopGroup)
 		{
-			Concern concern = new Concern
+			ShopGroup shopGroup = new ShopGroup
 			{
-				Id = eConcern.Id,
-				Name = eConcern.Name,
-				CommonOpq = eConcern.CommonOpq,
+				Id = eShopGroup.Id,
+				Name = eShopGroup.Name,
 			};
 			
-			return concern;
+			return shopGroup;
 		}
 		
 		/// <summary>
-		/// Converts from Concern to EConcern.
+		/// Converts from ShopGroup to EShopGroup.
 		/// </summary>
-		/// <param name="concern">The Concern.</param>
-		/// <returns>The converted EConcern.</returns>
+		/// <param name="shopGroup">The ShopGroup.</param>
+		/// <returns>The converted EShopGroup.</returns>
 
-		public static EConcern Convert (Concern concern)
+		public static EShopGroup Convert (ShopGroup shopGroup)
 		{		
-			return new EConcern
+			return new EShopGroup
 			{
-				Id = concern.Id,
-				Name = concern.Name,
-				CommonOpq = concern.CommonOpq,
+				Id = shopGroup.Id,
+				Name = shopGroup.Name,
 			};
 		}
 

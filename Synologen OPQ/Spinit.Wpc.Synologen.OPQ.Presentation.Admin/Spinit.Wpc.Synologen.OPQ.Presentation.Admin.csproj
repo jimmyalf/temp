@@ -110,7 +110,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App\TestEventListener.cs" />
+    <Compile Include="App\HandleShopMove.cs" />
     <Compile Include="App_GlobalResources\OpqMain.sv.designer.cs">
       <DependentUpon>OpqMain.sv.resx</DependentUpon>
       <AutoGen>True</AutoGen>

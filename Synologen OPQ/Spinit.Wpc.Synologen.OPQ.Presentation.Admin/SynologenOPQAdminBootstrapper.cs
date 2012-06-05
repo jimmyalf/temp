@@ -14,7 +14,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Presentation.Admin
 		private void AddEventListeners()
 		{
 			var eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
-			eventAggregator.AddListener(new TestEventListener());
+			eventAggregator.AddListener(new HandleShopMove());
 		}
 	}
 }

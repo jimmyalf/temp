@@ -23,8 +23,8 @@ var options = new {
 	RemovePrefixColumn="c"								// Remove prefixex on every table e.g. "c"
 	// End Properties for controlling the generation 
 };
-Log.InDebug = false;
-Log.FileName =  @"H:\Develop\Spinit\Spinit.Library\Spinit.Data\Spinit.Data.Generate\log.txt";
+Log.InDebug = true;
+Log.FileName =  @"C:\Develop\WPC\CustomerSpecific\Synologen\Synologen OPQ\Log\log.txt";
 var code = new CSharpCodeLanguage ();
 var data = new Data (options.DbmlFileName);
 var manager = new Manager(Host, GenerationEnvironment, true) { OutputPath = options.EntityFilePath };

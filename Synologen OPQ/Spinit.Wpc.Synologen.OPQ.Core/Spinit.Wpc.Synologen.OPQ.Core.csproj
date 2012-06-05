@@ -99,6 +99,7 @@
     <Compile Include="Entities\Shop.cs" />
     <Compile Include="Entities\ShopCategory.cs" />
     <Compile Include="Entities\ShopCategoryMemberCategoryConnection.cs" />
+    <Compile Include="Entities\ShopGroup.cs" />
     <Compile Include="Entities\ShopMemberConnection.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="Exceptions\DocumentException.cs" />
@@ -126,8 +127,8 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

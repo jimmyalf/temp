@@ -22,7 +22,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// </summary>
 		/// <param name="manager">The repository-manager.</param>
 
-		public DocumentManager (WpcSynologenRepository manager) : base (manager)
+		public DocumentManager (WpcSynologenRepository manager)
+			: base (manager)
 		{
 			_dataContext = (WpcSynologenDataContext) Manager.Context;
 		}
@@ -60,6 +61,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 
 			if (document.CncId != null) {
 				Manager.ExternalObjectsManager.CheckConcernExist ((int) document.CncId);
+			}
+
+			if (document.ShopGroupId != null) {
+				Manager.ExternalObjectsManager.CheckShopGroupExist ((int) document.ShopGroupId);
 			}
 
 			document.IsActive = true;
@@ -118,11 +123,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 					"Document not found.",
 					ObjectNotFoundErrors.DocumentNotFound);
 			}
-		
+
 			if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId)) {
 				throw new DocumentException ("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
 			}
-		
+
 			oldDocument.ChangedById = Manager.WebContext.UserId ?? 0;
 			oldDocument.ChangedByName = Manager.WebContext.UserName;
 			oldDocument.ChangedDate = DateTime.Now;
@@ -133,20 +138,30 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 
 			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.ChangedById);
 
-			if (oldDocument.NdeId != document.NdeId) {
-				throw new DocumentException ("Node change not allowed", DocumentErrors.CangeOfNodeNotAllowed);
+			if (((document.ShpId == null) && (document.ShopGroupId != null)) || ((document.ShpId != null) && (document.ShopGroupId == null))) {
+				oldDocument.ShpId = document.ShpId;
+				oldDocument.ShopGroupId = document.ShopGroupId;
 			}
+			else {
+				if (oldDocument.NdeId != document.NdeId) {
+					throw new DocumentException ("Node change not allowed", DocumentErrors.CangeOfNodeNotAllowed);
+				}
 
-			if (oldDocument.ShpId != document.ShpId) {
-				throw new DocumentException ("Shop change not allowed", DocumentErrors.ChangeOfShopNotAllowed);
-			}
+				if (oldDocument.ShpId != document.ShpId) {
+					throw new DocumentException ("Shop change not allowed", DocumentErrors.ChangeOfShopNotAllowed);
+				}
 
-			if (oldDocument.CncId != document.CncId) {
-				throw new DocumentException ("Concern change not allowed", DocumentErrors.ChangeOfConcernNotAllowed);
-			}
+				if (oldDocument.CncId != document.CncId) {
+					throw new DocumentException ("Concern change not allowed", DocumentErrors.ChangeOfConcernNotAllowed);
+				}
 
-			if (oldDocument.DocTpeId != document.DocTpeId) {
-				throw new DocumentException ("Document-type change not allowed", DocumentErrors.ChangeOfDocumentTypeNotAllowed);
+				if (oldDocument.ShopGroupId != document.ShopGroupId) {
+					throw new DocumentException ("Concern change not allowed", DocumentErrors.ChangeOfShopGroupNotAllowed);
+				}
+
+				if (oldDocument.DocTpeId != document.DocTpeId) {
+					throw new DocumentException ("Document-type change not allowed", DocumentErrors.ChangeOfDocumentTypeNotAllowed);
+				}
 			}
 
 			if ((document.DocumentContent != null) && !oldDocument.DocumentContent.Equals (document.DocumentContent)) {
@@ -254,18 +269,16 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <exception cref="UserException">If no current-user.</exception>
 		/// <exception cref="ObjectNotFoundException">If the document or user is not found.</exception>
 		/// <exception cref="DocumentException">If document is locked by other user.</exception>
-		public void UnApproveDocument(int documentId)
+		public void UnApproveDocument (int documentId)
 		{
-			EDocument oldDocument = _dataContext.Documents.Single(d => d.Id == documentId);
+			EDocument oldDocument = _dataContext.Documents.Single (d => d.Id == documentId);
 
-			if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId))
-			{
-				throw new DocumentException("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
+			if ((oldDocument.LockedById != null) && (oldDocument.LockedById != Manager.WebContext.UserId)) {
+				throw new DocumentException ("Document locked by another user.", DocumentErrors.DocumentLockedByOtherUser);
 			}
 
-			if (oldDocument == null)
-			{
-				throw new ObjectNotFoundException(
+			if (oldDocument == null) {
+				throw new ObjectNotFoundException (
 					"Document not found.",
 					ObjectNotFoundErrors.DocumentNotFound);
 			}
@@ -277,12 +290,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 			oldDocument.ChangedByName = Manager.WebContext.UserName;
 			oldDocument.ChangedDate = DateTime.Now;
 
-			if ((oldDocument.ChangedById == 0) || (oldDocument.ChangedByName == null))
-			{
-				throw new UserException("No user found.", UserErrors.NoCurrentExist);
+			if ((oldDocument.ChangedById == 0) || (oldDocument.ChangedByName == null)) {
+				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
 
-			Manager.ExternalObjectsManager.CheckUserExist((int)oldDocument.ChangedById);
+			Manager.ExternalObjectsManager.CheckUserExist ((int) oldDocument.ChangedById);
 		}
 
 
@@ -398,7 +410,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 
 		#endregion
 
-		#region Remove 
+		#region Remove
 
 		#region Remove Document
 
@@ -532,9 +544,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		public void Delete (int documentId)
 		{
 			IOrderedQueryable<EDocumentHistory> query = from documentHistory in _dataContext.DocumentHistories
-						where documentHistory.Id == documentId
-						orderby documentHistory.HistoryDate descending 
-						select documentHistory;
+			                                            where documentHistory.Id == documentId
+			                                            orderby documentHistory.HistoryDate descending
+			                                            select documentHistory;
 
 
 			IList<EDocumentHistory> documentHistories = query.ToList ();
@@ -579,7 +591,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 
 			return Converter (documents.First ());
 		}
-	
+
 		/// <summary>
 		/// Fetches a list of documents for a node.
 		/// </summary>
@@ -604,7 +616,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 				query = query.AddIsNotNullCondition ("ApprovedById");
 				query = query.AddIsNullCondition ("LockedById");
 			}
-			
+
 			Converter<EDocument, Document> converter = Converter;
 			IList<Document> documents = query.ToList ().ConvertAll (converter);
 
@@ -628,67 +640,17 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <returns>A list of documents.</returns>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
-		public IList<Document> GetAllShopDocumentsByNodeId(int nodeId, DocumentTypes documentType, bool onlyActive, bool onlyApproved)
+		public IList<Document> GetAllShopDocumentsByNodeId (int nodeId, DocumentTypes documentType, bool onlyActive, bool onlyApproved)
 		{
-			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
-			                                     where
-			                                     	document.NdeId == nodeId &&
-													document.DocTpeId == (int)documentType && 
-													document.ShpId != null 
-												 orderby document.Shop.ShopName ascending, document.CreatedDate descending
-												 select document;
-
-			if (onlyActive)
-			{
-				query = query.AddEqualityCondition("IsActive", true);
-			}
-
-			if (onlyApproved)
-			{
-				query = query.AddIsNotNullCondition("ApprovedById");
-				query = query.AddIsNullCondition("LockedById");
-			}
-
-			Converter<EDocument, Document> converter = Converter;
-			IList<Document> documents = query.ToList().ConvertAll(converter);
-
-			if (documents == null)
-			{
-				throw new ObjectNotFoundException(
-					"Document not found.",
-					ObjectNotFoundErrors.DocumentNotFound);
-			}
-
-			return documents;
-		}
-
-
-
-		/// <summary>
-		/// Fetches a list of documents for a node.
-		/// </summary>
-		/// <param name="shopId">The shop-id.</param>
-		/// <param name="cncId">The concern Id</param>
-		/// <param name="documentType">The type-of-documents.</param>
-		/// <param name="onlyActive">If true=>fetch only active.</param>
-		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
-		/// <returns>A list of documents.</returns>
-		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
-
-		public IList<Document> GetDocuments (int? shopId, int? cncId, DocumentTypes? documentType, bool onlyActive, bool onlyApproved)
-		{
-			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
-			                                     orderby document.DocTpeId ascending , document.CreatedDate descending
+			IQueryable<EDocument> query = from document in _dataContext.Documents
+												 from shop in _dataContext.Shops.Where (s => s.Id == document.ShpId).DefaultIfEmpty ()
+			                                     where	document.NdeId == nodeId &&
+			                                     		document.DocTpeId == (int) documentType &&
+			                                     		(document.ShpId != null || document.ShopGroupId != null) &&
+														shop.ShopGroupId == null
+			                                     orderby document.Shop.ShopName ascending , document.CreatedDate descending
 			                                     select document;
 
-			query = shopId == null ? query.AddIsNullCondition("ShpId") : query.AddEqualityCondition("ShpId", shopId);
-
-			query = cncId == null ? query.AddIsNullCondition("CncId") : query.AddEqualityCondition("CncId", shopId);
-
-			if (documentType != null)
-			{
-				query = query.AddEqualityCondition("DocTpeId", (int)documentType);
-			}
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
 			}
@@ -711,6 +673,54 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		}
 
 
+
+		/// <summary>
+		/// Fetches a list of documents for a node.
+		/// </summary>
+		/// <param name="shopId">The shop-id.</param>
+		/// <param name="cncId">The concern Id</param>
+		/// <param name="shopGroupId">The shop-group-id.</param>
+		/// <param name="documentType">The type-of-documents.</param>
+		/// <param name="onlyActive">If true=>fetch only active.</param>
+		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
+		/// <returns>A list of documents.</returns>
+		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
+
+		public IList<Document> GetDocuments (int? shopId, int? cncId, int? shopGroupId, DocumentTypes? documentType, bool onlyActive, bool onlyApproved)
+		{
+			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
+			                                     orderby document.DocTpeId ascending , document.CreatedDate descending
+			                                     select document;
+
+			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
+
+			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", shopId);
+
+			query = shopGroupId == null ? query.AddIsNullCondition ("ShopGroupId") : query.AddEqualityCondition ("ShopGroupId", shopGroupId);
+
+			if (documentType != null) {
+				query = query.AddEqualityCondition ("DocTpeId", (int) documentType);
+			}
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
+			}
+
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
+			}
+
+			Converter<EDocument, Document> converter = Converter;
+			IList<Document> documents = query.ToList ().ConvertAll (converter);
+
+			if (documents == null) {
+				throw new ObjectNotFoundException (
+					"Document not found.",
+					ObjectNotFoundErrors.DocumentNotFound);
+			}
+
+			return documents;
+		}
 
 		/// <summary>
 		/// Fetches a list of documents for a node.
@@ -756,6 +766,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="shopId">The shop-id.</param>
 		/// <param name="cncId">The concern-id.</param>
+		/// <param name="shopGroupId">The shop-group-id.</param>
 		/// <param name="documentType">The type-of-documents.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
@@ -763,21 +774,24 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
 		public IList<Document> GetDocumentsByNodeId (
-			int nodeId, 
-			int? shopId, 
-			int? cncId, 
-			DocumentTypes documentType, 
-			bool onlyActive, 
+			int nodeId,
+			int? shopId,
+			int? cncId,
+			int? shopGroupId,
+			DocumentTypes documentType,
+			bool onlyActive,
 			bool onlyApproved)
 		{
 			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
-			                                     where document.NdeId == nodeId &&  document.DocTpeId == (int) documentType
+			                                     where document.NdeId == nodeId && document.DocTpeId == (int) documentType
 			                                     orderby document.DocTpeId ascending , document.CreatedDate descending
 			                                     select document;
 
 			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
 
 			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", shopId);
+
+			query = shopGroupId == null ? query.AddIsNullCondition ("ShopGroupId") : query.AddEqualityCondition ("ShopGroupId", shopGroupId);
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -846,30 +860,27 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <returns>A list of documents.</returns>
 		/// <exception cref="ObjectNotFoundException">If the document is not found.</exception>
 
-		public IList<Document> GetDocumentsByType(DocumentTypes documentType, bool onlyActive, bool onlyApproved)
+		public IList<Document> GetDocumentsByType (DocumentTypes documentType, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EDocument> query = from document in _dataContext.Documents
-												 where document.DocTpeId == (int)documentType
-												 orderby document.CreatedDate descending
-												 select document;
+			                                     where document.DocTpeId == (int) documentType
+			                                     orderby document.CreatedDate descending
+			                                     select document;
 
-			if (onlyActive)
-			{
-				query = query.AddEqualityCondition("IsActive", true);
+			if (onlyActive) {
+				query = query.AddEqualityCondition ("IsActive", true);
 			}
 
-			if (onlyApproved)
-			{
-				query = query.AddIsNotNullCondition("ApprovedById");
-				query = query.AddIsNullCondition("LockedById");
+			if (onlyApproved) {
+				query = query.AddIsNotNullCondition ("ApprovedById");
+				query = query.AddIsNullCondition ("LockedById");
 			}
 
 			Converter<EDocument, Document> converter = Converter;
-			IList<Document> documents = query.ToList().ConvertAll(converter);
+			IList<Document> documents = query.ToList ().ConvertAll (converter);
 
-			if (documents == null)
-			{
-				throw new ObjectNotFoundException(
+			if (documents == null) {
+				throw new ObjectNotFoundException (
 					"Document not found.",
 					ObjectNotFoundErrors.DocumentNotFound);
 			}
@@ -922,13 +933,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		public DocumentView GetActiveDocument (int id)
 		{
 			IOrderedQueryable<EDocumentView> query = from documentView in _dataContext.DocumentViews
-													 where
-														documentView.Id == id
-														&& documentView.ApprovedById != null
-														&& documentView.LockedById == null
-														&& documentView.IsActive
-													 orderby documentView.ApprovedDate descending
-													 select documentView;
+			                                         where
+			                                         	documentView.Id == id
+			                                         	&& documentView.ApprovedById != null
+			                                         	&& documentView.LockedById == null
+			                                         	&& documentView.IsActive
+			                                         orderby documentView.ApprovedDate descending
+			                                         select documentView;
 
 			IList<EDocumentView> documents = query.ToList ();
 
@@ -949,24 +960,27 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="shopId">The shop-id.</param>
 		/// <param name="cncId">The concern-id.</param>
+		/// <param name="shopGroupId">The shop-group-id.</param>
 		/// <param name="documentType">The document-type.</param>
 		/// <returns>A document-view-object.</returns>
 
-		public DocumentView GetActiveDocument (int nodeId, int? shopId, int? cncId, DocumentTypes documentType)
+		public DocumentView GetActiveDocument (int nodeId, int? shopId, int? cncId, int? shopGroupId, DocumentTypes documentType)
 		{
-		    IOrderedQueryable<EDocumentView> query = from documentView in _dataContext.DocumentViews
-		                                             where 
-														documentView.NdeId == nodeId 
-														&& documentView.ApprovedById != null
-														&& documentView.LockedById == null
-														&& documentView.IsActive
-														&& documentView.DocTpeId == (int) documentType
-		                                             orderby documentView.ApprovedDate descending
-		                                             select documentView;
+			IOrderedQueryable<EDocumentView> query = from documentView in _dataContext.DocumentViews
+			                                         where
+			                                         	documentView.NdeId == nodeId
+			                                         	&& documentView.ApprovedById != null
+			                                         	&& documentView.LockedById == null
+			                                         	&& documentView.IsActive
+			                                         	&& documentView.DocTpeId == (int) documentType
+			                                         orderby documentView.ApprovedDate descending
+			                                         select documentView;
 
 			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
 
 			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", shopId);
+
+			query = shopGroupId == null ? query.AddIsNullCondition ("ShopGroupId") : query.AddEqualityCondition ("ShopGroupId", shopGroupId);
 
 			EDocumentView docView = query.ToList ().First ();
 
@@ -1062,7 +1076,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 			}
 
 			return Converter (documentTypes.First ());
-			
+
 		}
 
 		/// <summary>
@@ -1074,8 +1088,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		public IList<DocumentType> GetAllDocumentTypes ()
 		{
 			IOrderedQueryable<EDocumentType> query = from documentType in _dataContext.DocumentTypes
-						orderby documentType.Name ascending
-						select documentType;
+			                                         orderby documentType.Name ascending
+			                                         select documentType;
 
 			Converter<EDocumentType, DocumentType> converter = Converter;
 			IList<DocumentType> documentTypes = query.ToList ().ConvertAll (converter);
@@ -1144,14 +1158,19 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 				document.LockedBy = EBaseUser.Convert (eDocument.LockedBy);
 			}
 
-			// Only fetch users flat (external object).
+			// Only fetch concern flat (external object).
 			if (!SkipConcern && (eDocument.Concern != null)) {
 				document.Concern = EConcern.Convert (eDocument.Concern);
 			}
 
-			// Only fetch users flat (external object).
+			// Only fetch shop flat (external object).
 			if (!SkipShop && (eDocument.Shop != null)) {
 				document.Shop = EShop.Convert (eDocument.Shop);
+			}
+
+			// Only fetch shop-group flat (external object).
+			if (!SkipShopGroup && (eDocument.ShopGroup != null)) {
+				document.ShopGroup = EShopGroup.Convert (eDocument.ShopGroup);
 			}
 
 			return document;
@@ -1242,6 +1261,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// </summary>
 
 		public bool SkipShop { get; set; }
+
+		/// <summary>
+		/// If true=>skip filling shop-group.
+		/// </summary>
+
+		public bool SkipShopGroup { get; set; }
 
 		#endregion
 

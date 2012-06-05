@@ -1,6 +1,8 @@
-﻿<#@ assembly name="System.Core"
+﻿<#@ template hostSpecific="true" 
+#><#@ assembly name="System.Core"
 #><#@ assembly name="System.Data.Linq"
 #><#@ assembly name="EnvDTE"
+#><#@ assembly name="EnvDTE80"
 #><#@ assembly name="System.Xml"
 #><#@ assembly name="System.Xml.Linq"
 #><#@ import namespace="System"
@@ -748,7 +750,11 @@ class Manager
 		String footer = template.ToString (footerBlock.Start, footerBlock.Length);
 		blocks.Reverse();		
 		foreach(Block block in blocks) {
-			Log.WriteStat ("In manager process, block-name: \"" + block.Name + "\"");
+			Log.WriteStat (
+				string.Format ("In manager process, block-name: \"{0}\", strategy.GetDataPath () \"{1}\", OutputDirectoryDataEntities \"{2}\"",
+				block.Name,
+				strategy.GetDataPath (),
+				OutputDirectoryDataEntities));
 			String fileName = string.Empty;
 			if (!block.IsCore) {
 				fileName = Path.Combine (strategy.GetDataPath (), Path.Combine (OutputDirectoryDataEntities, block.Name));
@@ -986,6 +992,8 @@ class ManagementStrategy
 	
 	internal virtual void SetUpProjects () { }
 		
+	internal virtual void SetUpProjects (EnvDTE.Project project) { }
+
 	internal virtual string GetCorePath () { return string.Empty; }
 	
 	internal virtual string GetDataPath () { return string.Empty; }
@@ -1000,14 +1008,16 @@ class VSManagementStrategy : ManagementStrategy
 	private EnvDTE.ProjectItem templateProjectItem;
 	private EnvDTE.DTE dte;
 	
-	internal VSManagementStrategy(ITextTemplatingEngineHost host) : base(host) {
+	internal VSManagementStrategy(ITextTemplatingEngineHost host) : base(host) 
+	{
 		IServiceProvider hostServiceProvider = (IServiceProvider) host;
 		if(hostServiceProvider == null) {
 			throw new ArgumentNullException("Could not obtain hostServiceProvider");
 		}
 		
-		dte = (EnvDTE.DTE)hostServiceProvider.GetService(typeof(EnvDTE.DTE));
+		dte = (EnvDTE.DTE) hostServiceProvider.GetService (typeof (EnvDTE.DTE));
 		if(dte == null) {
+			Log.WriteStat ("Could not obtain DTE from host.");
 			throw new ArgumentNullException("Could not obtain DTE from host");
 		}
 		
@@ -1018,12 +1028,41 @@ class VSManagementStrategy : ManagementStrategy
 	{
 		// Find project items.
 		foreach (EnvDTE.Project project in dte.Solution.Projects) {
-			Log.WriteStat ("In project: \"" + project.Name + "\"");
+			SetUpProjects (project);
+		}
+	}
+	
+	internal override void SetUpProjects (EnvDTE.Project project)
+	{
+		Log.WriteStat ("In SetUpProjects project: \"" + project.Name + "\".");
+		if (project.Kind == EnvDTE80.ProjectKinds.vsProjectKindSolutionFolder) {		
+			Log.WriteStat (string.Format ("In SetUpProjects solution-folder project: \"{0}\", count: {1} .", project.Name, project.ProjectItems.Count));
+			foreach (EnvDTE.ProjectItem item in project.ProjectItems) {
+				Log.WriteStat ("In SetUpProjects solution-folder - loop 1. \"" + item.Name + "\"");
+				if (item == null) {
+					Log.WriteStat ("In SetUpProjects solution-folder - null.");
+					continue;
+				}
+				Log.WriteStat ("In SetUpProjects solution-folder - loop 2.");
+				if (item.Kind.Equals (EnvDTE80.ProjectKinds.vsProjectKindSolutionFolder, StringComparison.OrdinalIgnoreCase)) {
+					Log.WriteStat ("In child project - solution: \"" + item.Name + "\", OutputProjectData: \"" + OutputProjectData + "\"");
+					SetUpProjects ((EnvDTE.Project) item);
+				}
+				else {
+					EnvDTE.Project childProject = (EnvDTE.Project) item.Object;
+					Log.WriteStat ("In child project: \"" + childProject.Name + "\", OutputProjectData: \"" + OutputProjectData + "\"");
+					SetUpProjects (childProject);
+				}
+				Log.WriteStat ("In SetUpProjects solution-folder - loop 3.");
+			}
+		}
+		else {
+			Log.WriteStat ("In project: \"" + project.Name + "\", OutputProjectData: \"" + OutputProjectData + "\"");
 			// Find data project.
 			if (string.Equals (project.Name, OutputProjectData, StringComparison.OrdinalIgnoreCase)) {
 				templateProjectDataProjectPath = project.FileName;
 				templateProjectDataProjectPath = Path.GetDirectoryName (templateProjectDataProjectPath);
-				Log.WriteStat ("Found project: \"" + templateProjectDataProjectPath + "\"");
+				Log.WriteStat ("Found data project (path): \"" + templateProjectDataProjectPath + "\"");
 				foreach(EnvDTE.ProjectItem item in project.ProjectItems) {
 					Log.WriteStat ("In item: " + item.Name);
 					if (string.Equals (item.Name, OutputDirectoryDataEntities, StringComparison.OrdinalIgnoreCase)) {
@@ -1038,7 +1077,7 @@ class VSManagementStrategy : ManagementStrategy
 			if (string.Equals (project.Name, OutputProjectCore, StringComparison.OrdinalIgnoreCase)) {
 				templateProjectCoreProjectPath = project.FileName;
 				templateProjectCoreProjectPath = Path.GetDirectoryName (templateProjectCoreProjectPath);
-				Log.WriteStat ("Found project: \"" + OutputProjectCore + "\", path: \"" + templateProjectCoreProjectPath + ".\"");
+				Log.WriteStat ("Found core project: \"" + OutputProjectCore + "\", path: \"" + templateProjectCoreProjectPath + ".\"");
 				foreach(EnvDTE.ProjectItem item in project.ProjectItems) {
 					Log.WriteStat ("In item: " + item.Name);
 					if (string.Equals (item.Name, OutputDirectoryCoreEntities, StringComparison.OrdinalIgnoreCase)) {
@@ -1050,7 +1089,7 @@ class VSManagementStrategy : ManagementStrategy
 			}
 		}
 	}
-	
+
 	internal override void CreateFile(String fileName, String content, bool isCore) 
 	{
 		Log.WriteStat ("Creating file: \"" + fileName + "\"");

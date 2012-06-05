@@ -16,13 +16,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 
 		private EFile _insertedFile;
 		private EFileCategory _insertedFileCategory;
-		
+
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		/// <param name="manager">The repository-manager.</param>
 
-		public FileManager (WpcSynologenRepository manager) : base (manager)
+		public FileManager (WpcSynologenRepository manager)
+			: base (manager)
 		{
 			_dataContext = (WpcSynologenDataContext) Manager.Context;
 		}
@@ -63,6 +64,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 
 			if (file.CncId != null) {
 				Manager.ExternalObjectsManager.CheckConcernExist ((int) file.CncId);
+			}
+
+			if (file.ShopGroupId != null) {
+				Manager.ExternalObjectsManager.CheckShopGroupExist ((int) file.ShopGroupId);
 			}
 
 			file.IsActive = true;
@@ -188,20 +193,30 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 
 			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.ChangedById);
 
-			if (oldFile.NdeId != file.NdeId) {
-				throw new FileException ("Node change not allowed", FileErrors.CangeOfNodeNotAllowed);
+			if (((file.ShpId == null) && (file.ShopGroupId != null)) || ((file.ShpId != null) && (file.ShopGroupId == null))) {
+				oldFile.ShpId = file.ShpId;
+				oldFile.ShopGroupId = file.ShopGroupId;
 			}
+			else {
+				if (oldFile.NdeId != file.NdeId) {
+					throw new FileException ("Node change not allowed", FileErrors.CangeOfNodeNotAllowed);
+				}
 
-			if (oldFile.ShpId != file.ShpId) {
-				throw new FileException ("Shop change not allowed", FileErrors.ChangeOfShopNotAllowed);
-			}
+				if (oldFile.ShpId != file.ShpId) {
+					throw new FileException ("Shop change not allowed", FileErrors.ChangeOfShopNotAllowed);
+				}
 
-			if (oldFile.CncId != file.CncId) {
-				throw new FileException ("Concern change not allowed", FileErrors.ChangeOfConcernNotAllowed);
-			}
+				if (oldFile.ShopGroupId != file.ShopGroupId) {
+					throw new FileException ("Shop-group change not allowed", FileErrors.ChangeOfShopGroupNotAllowed);
+				}
 
-			if (oldFile.FleCatId != file.FleCatId) {
-				throw new FileException ("File-category change not allowed", FileErrors.ChangeOfFileCategoryNotAllowed);
+				if (oldFile.CncId != file.CncId) {
+					throw new FileException ("Concern change not allowed", FileErrors.ChangeOfConcernNotAllowed);
+				}
+
+				if (oldFile.FleCatId != file.FleCatId) {
+					throw new FileException ("File-category change not allowed", FileErrors.ChangeOfFileCategoryNotAllowed);
+				}
 			}
 
 			if (oldFile.FleId != file.FleId) {
@@ -440,7 +455,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 			if ((oldFile.LockedById == 0) || (oldFile.LockedByName == null)) {
 				throw new UserException ("No user found.", UserErrors.NoCurrentExist);
 			}
-	
+
 			Manager.ExternalObjectsManager.CheckUserExist ((int) oldFile.LockedById);
 		}
 
@@ -646,8 +661,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		public void DeleteAllForNode (int nodeId)
 		{
 			IQueryable<EFile> query = from file in _dataContext.Files
-						where file.NdeId == nodeId
-						select file;
+			                          where file.NdeId == nodeId
+			                          select file;
 
 			IList<EFile> files = query.ToList ();
 
@@ -723,8 +738,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		public File GetFileById (int fileId)
 		{
 			IQueryable<EFile> query = from file in _dataContext.Files
-						where file.Id == fileId
-						select file;
+			                          where file.Id == fileId
+			                          select file;
 
 			IList<EFile> files = query.ToList ();
 
@@ -788,14 +803,13 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
 			                                 where
-			                                 	file.NdeId == nodeId 
-												&& file.ShpId == null 
-												&& file.CncId == null
+			                                 	file.NdeId == nodeId
+			                                 	&& file.ShpId == null
+			                                 	&& file.CncId == null
 			                                 orderby file.Order ascending
 			                                 select file;
-			if (fileCategory != null)
-			{
-				query = query.AddEqualityCondition("FleCatId", (int)fileCategory);
+			if (fileCategory != null) {
+				query = query.AddEqualityCondition ("FleCatId", (int) fileCategory);
 			}
 
 			if (onlyActive) {
@@ -815,7 +829,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 					"File not found.",
 					ObjectNotFoundErrors.FileNotFound);
 			}
-			
+
 			return files;
 		}
 
@@ -825,26 +839,28 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// <param name="nodeId">The node-id.</param>
 		/// <param name="shopId">The shop-id.</param>
 		/// <param name="cncId">The concern-id.</param>
+		/// <param name="shopGroupId">The shop-group-id.</param>
 		/// <param name="fileCategory">The file-category.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByNodeId (int nodeId, int? shopId, int? cncId, FileCategories? fileCategory, bool onlyActive, bool onlyApproved)
+		public IList<File> GetFilesByNodeId (int nodeId, int? shopId, int? cncId, int? shopGroupId, FileCategories? fileCategory, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-											 where file.NdeId == nodeId			                                 
-											 orderby file.Order ascending
+			                                 where file.NdeId == nodeId
+			                                 orderby file.Order ascending
 			                                 select file;
 
-			if (fileCategory != null)
-			{
-				query = query.AddEqualityCondition("FleCatId", (int) fileCategory);
+			if (fileCategory != null) {
+				query = query.AddEqualityCondition ("FleCatId", (int) fileCategory);
 			}
 			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
 
 			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", shopId);
+
+			query = shopGroupId == null ? query.AddIsNullCondition ("ShopGroupId") : query.AddEqualityCondition ("ShopGroupId", shopGroupId);
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -872,20 +888,23 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// </summary>
 		/// <param name="shopId">The shop-id.</param>
 		/// <param name="cncId">The concern-id.</param>
+		/// <param name="shopGroupId">The shop-group-id.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByShopId (int? shopId, int? cncId, bool onlyActive, bool onlyApproved)
+		public IList<File> GetFilesByShopId (int? shopId, int? cncId, int? shopGroupId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-											 orderby file.Order ascending
-											 select file;
+			                                 orderby file.Order ascending
+			                                 select file;
 
 			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
 
 			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", shopId);
+
+			query = shopGroupId == null ? query.AddIsNullCondition ("ShopGroupId") : query.AddEqualityCondition ("ShopGroupId", shopGroupId);
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -913,22 +932,25 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// </summary>
 		/// <param name="shopId">The shop-id.</param>
 		/// <param name="cncId">The concern-id.</param>
+		/// <param name="shopGroupId">The shop-group-id.</param>
 		/// <param name="fileCategoryId">The file-category.</param>
 		/// <param name="onlyActive">If true=>fetch only active.</param>
 		/// <param name="onlyApproved">If true=>fetch only approved and un-locked.</param>
 		/// <returns>A list of files.</returns>
 		/// <exception cref="ObjectNotFoundException">If the file is not found.</exception>
 
-		public IList<File> GetFilesByShopId (int? shopId, int? cncId, FileCategories fileCategoryId, bool onlyActive, bool onlyApproved)
+		public IList<File> GetFilesByShopId (int? shopId, int? cncId, int? shopGroupId, FileCategories fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-											 where file.FleCatId == (int) fileCategoryId
-											 orderby file.Order ascending
-											 select file;
+			                                 where file.FleCatId == (int) fileCategoryId
+			                                 orderby file.Order ascending
+			                                 select file;
 
 			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
 
 			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", shopId);
+
+			query = shopGroupId == null ? query.AddIsNullCondition ("ShopGroupId") : query.AddEqualityCondition ("ShopGroupId", shopGroupId);
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -963,9 +985,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		public IList<File> GetFilesByCategoryId (FileCategories fileCategoryId, bool onlyActive, bool onlyApproved)
 		{
 			IOrderedQueryable<EFile> query = from file in _dataContext.Files
-											 where file.FleCatId == (int) fileCategoryId
-											 orderby file.Order ascending
-											 select file;
+			                                 where file.FleCatId == (int) fileCategoryId
+			                                 orderby file.Order ascending
+			                                 select file;
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -1019,7 +1041,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 					"File not found.",
 					ObjectNotFoundErrors.FileNotFound);
 			}
-		
+
 			return files;
 		}
 
@@ -1036,18 +1058,18 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 			if (onlyApproved) {
 				if (onlyActive) {
 					return _dataContext.Files.Count (
-						file => file.NdeId == nodeId 
-								&& file.IsActive
-								&& file.ApprovedById != null
-								&& file.LockedById == null);
+						file => file.NdeId == nodeId
+						        && file.IsActive
+						        && file.ApprovedById != null
+						        && file.LockedById == null);
 				}
 
 				return _dataContext.Files.Count (
 					file => file.NdeId == nodeId
-					&& file.ApprovedById != null
-					&& file.LockedById == null);
+					        && file.ApprovedById != null
+					        && file.LockedById == null);
 			}
-			
+
 			if (onlyActive) {
 				return _dataContext.Files.Count (file => file.NdeId == nodeId && file.IsActive);
 			}
@@ -1069,17 +1091,17 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 				if (onlyActive) {
 					return _dataContext.Files.Count (
 						file => file.FleCatId == (int) fileCategoryId
-								&& file.IsActive
-								&& file.ApprovedById != null
-								&& file.LockedById == null);
+						        && file.IsActive
+						        && file.ApprovedById != null
+						        && file.LockedById == null);
 				}
 
 				return _dataContext.Files.Count (
 					file => file.FleCatId == (int) fileCategoryId
-							&& file.ApprovedById != null
-							&& file.LockedById == null);
+					        && file.ApprovedById != null
+					        && file.LockedById == null);
 			}
-			
+
 			if (onlyActive) {
 				return _dataContext.Files.Count (file => file.FleCatId == (int) fileCategoryId && file.IsActive);
 			}
@@ -1101,8 +1123,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		public FileCategory GetFileCategoryById (FileCategories fileCategoryId)
 		{
 			IQueryable<EFileCategory> query = from fileCategory in _dataContext.FileCategories
-						where fileCategory.Id == (int) fileCategoryId
-						select fileCategory;
+			                                  where fileCategory.Id == (int) fileCategoryId
+			                                  select fileCategory;
 
 			IList<EFileCategory> fileCategories = query.ToList ();
 
@@ -1126,8 +1148,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		public IList<FileCategory> GetAllFileCategories (bool onlyActive)
 		{
 			IQueryable<EFileCategory> query = from fileCategory in _dataContext.FileCategories
-						orderby fileCategory.Name ascending
-						select fileCategory;
+			                                  orderby fileCategory.Name ascending
+			                                  select fileCategory;
 
 			if (onlyActive) {
 				query = query.AddEqualityCondition ("IsActive", true);
@@ -1203,6 +1225,11 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 				file.Shop = EShop.Convert (eFile.Shop);
 			}
 
+			// Only fetch shop-group flat (external object).
+			if (!SkipShopGroup && (eFile.ShopGroup != null)) {
+				file.ShopGroup = EShopGroup.Convert (eFile.ShopGroup);
+			}
+
 			// Only fetch file flat (external object).
 			if (!SkipBaseFile && (eFile.BaseFile != null)) {
 				file.BaseFile = EBaseFile.Convert (eFile.BaseFile);
@@ -1241,7 +1268,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 			return fileCategory;
 		}
 
-
 		#endregion
 
 		#region Internal methods
@@ -1256,7 +1282,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		{
 			GetFileCategoryById (fileCategoryId);
 		}
-		
+
 		/// <summary>
 		/// Checks to see if a file-category already exist.
 		/// </summary>
@@ -1318,6 +1344,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 		/// </summary>
 
 		public bool SkipShop { get; set; }
+
+		/// <summary>
+		/// If true=>skip filling shop-group.
+		/// </summary>
+
+		public bool SkipShopGroup { get; set; }
 
 		/// <summary>
 		/// If true=>skip filling base-file.

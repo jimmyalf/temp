@@ -230,6 +230,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					PropertyValues.DocDocumentIdView2, 
 					null, 
 					null,
+					null,
 					PropertyValues.DocDocumentTypeView);
 
 				Assert.IsNotNull (documentView, "Document-view 2 is null.");
@@ -249,6 +250,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 					PropertyValues.DocDocumentIdView1,
 					null,
 					null,
+					null,
 					PropertyValues.DocDocumentTypeView);
 
 				Assert.IsNotNull (documentView, "Document-view 1 is null.");
@@ -266,6 +268,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 
 				DocumentView documentView = synologenRepository.Document.GetActiveDocument (
 					PropertyValues.DocDocumentIdView3,
+					null,
 					null,
 					null,
 					PropertyValues.DocDocumentTypeView);
@@ -351,6 +354,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Test
 						(int) nodeId,
 						shopId,
 						cncId,
+						null,
 						(DocumentTypes) documentType,
 						false,
 						false);

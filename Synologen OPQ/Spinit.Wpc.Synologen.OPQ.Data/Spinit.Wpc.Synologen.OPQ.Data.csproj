@@ -103,6 +103,7 @@
     <Compile Include="Entities\EShop.cs" />
     <Compile Include="Entities\EShopCategory.cs" />
     <Compile Include="Entities\EShopCategoryMemberCategoryConnection.cs" />
+    <Compile Include="Entities\EShopGroup.cs" />
     <Compile Include="Entities\EShopMemberConnection.cs" />
     <Compile Include="Managers\DocumentManager.cs" />
     <Compile Include="Managers\ExternalObjectsManager.cs" />
@@ -141,6 +142,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

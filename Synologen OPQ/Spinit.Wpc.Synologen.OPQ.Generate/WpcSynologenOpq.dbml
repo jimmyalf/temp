@@ -1,6 +1,102 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Database Name="dbWpcSynologen" Class="dbWpcSynologenDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=BLACK;Initial Catalog=dbWpcSynologen;Persist Security Info=True;User ID=sa" SettingsObjectName="Spinit.Wpc.Synologen.OPQ.Generate.Properties.Settings" SettingsPropertyName="dbWpcSynologenConnectionString1" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="dbWpcSynologen" Class="dbWpcSynologenDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DEV\SQL2008;Initial Catalog=dbWpcSynologen;User ID=sa" SettingsObjectName="Spinit.Wpc.Synologen.OPQ.Generate.Properties.Settings" SettingsPropertyName="dbWpcSynologenConnectionString2" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.SynologenOpqFileCategories" Member="SynologenOpqFileCategories">
+    <Type Name="SynologenOpqFileCategory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedById" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedByName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChangedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SynologenOpqFileCategory_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="Id" OtherKey="FleCatId" Type="SynologenOpqFile" />
+      <Association Name="tblBaseUser_SynologenOpqFileCategory" Member="tblBaseUser" ThisKey="CreatedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+      <Association Name="tblBaseUser_SynologenOpqFileCategory1" Member="tblBaseUser1" ThisKey="ChangedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SynologenOpqNodes" Member="SynologenOpqNodes">
+    <Type Name="SynologenOpqNode">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Parent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+      <Column Name="IsMenu" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedById" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedByName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChangedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprovedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ApprovedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LockedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LockedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LockedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SynologenOpqNode_SynologenOpqNode" Member="SynologenOpqNodes" ThisKey="Id" OtherKey="Parent" Type="SynologenOpqNode" />
+      <Association Name="SynologenOpqNode_SynologenOpqNodeSupplierConnection" Member="SynologenOpqNodeSupplierConnections" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqNodeSupplierConnection" />
+      <Association Name="SynologenOpqNode_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqFile" />
+      <Association Name="SynologenOpqNode_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqDocument" />
+      <Association Name="SynologenOpqNode_SynologenOpqNode" Member="SynologenOpqNode1" ThisKey="Parent" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
+      <Association Name="tblBaseUser_SynologenOpqNode" Member="tblBaseUser" ThisKey="CreatedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+      <Association Name="tblBaseUser_SynologenOpqNode1" Member="tblBaseUser1" ThisKey="ChangedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+      <Association Name="tblBaseUser_SynologenOpqNode2" Member="tblBaseUser2" ThisKey="ApprovedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+      <Association Name="tblBaseUser_SynologenOpqNode3" Member="tblBaseUser3" ThisKey="LockedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SynologenOpqNodeSupplierConnections" Member="SynologenOpqNodeSupplierConnections">
+    <Type Name="SynologenOpqNodeSupplierConnection">
+      <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SupId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="SynologenOpqNode_SynologenOpqNodeSupplierConnection" Member="SynologenOpqNode" ThisKey="NdeId" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
+      <Association Name="tblBaseUser_SynologenOpqNodeSupplierConnection" Member="tblBaseUser" ThisKey="SupId" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SynologenOpqDocumentTypes" Member="SynologenOpqDocumentTypes">
+    <Type Name="SynologenOpqDocumentType">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+      <Association Name="SynologenOpqDocumentType_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="Id" OtherKey="DocTpeId" Type="SynologenOpqDocument" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SynologenOpqFiles" Member="SynologenOpqFiles">
+    <Type Name="SynologenOpqFile">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FleCatId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShpId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CncId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ShopGroupId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedById" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedByName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChangedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprovedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ApprovedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LockedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LockedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LockedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SynologenOpqFileCategory_SynologenOpqFile" Member="SynologenOpqFileCategory" ThisKey="FleCatId" OtherKey="Id" Type="SynologenOpqFileCategory" IsForeignKey="true" />
+      <Association Name="SynologenOpqNode_SynologenOpqFile" Member="SynologenOpqNode" ThisKey="NdeId" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
+      <Association Name="tblBaseUser_SynologenOpqFile" Member="tblBaseUser" ThisKey="CreatedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+      <Association Name="tblBaseUser_SynologenOpqFile1" Member="tblBaseUser1" ThisKey="ChangedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+      <Association Name="tblBaseUser_SynologenOpqFile2" Member="tblBaseUser2" ThisKey="ApprovedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+      <Association Name="tblBaseUser_SynologenOpqFile3" Member="tblBaseUser3" ThisKey="LockedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+      <Association Name="tblBaseFile_SynologenOpqFile" Member="tblBaseFile" ThisKey="FleId" OtherKey="cId" Type="tblBaseFile" IsForeignKey="true" />
+      <Association Name="tblSynologenConcern_SynologenOpqFile" Member="tblSynologenConcern" ThisKey="CncId" OtherKey="cId" Type="tblSynologenConcern" IsForeignKey="true" />
+      <Association Name="tblSynologenShop_SynologenOpqFile" Member="tblSynologenShop" ThisKey="ShpId" OtherKey="cId" Type="tblSynologenShop" IsForeignKey="true" />
+      <Association Name="tblSynologenShopGroup_SynologenOpqFile" Member="tblSynologenShopGroup" ThisKey="ShopGroupId" OtherKey="Id" Type="tblSynologenShopGroup" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.SynologenOpqDocumentHistories" Member="SynologenOpqDocumentHistories">
     <Type Name="SynologenOpqDocumentHistory">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -10,6 +106,7 @@
       <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ShpId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CncId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ShopGroupId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DocTpeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="DocumentContent" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
@@ -29,20 +126,13 @@
       <Association Name="tblBaseUser_SynologenOpqDocumentHistory" Member="tblBaseUser" ThisKey="HistoryId" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.SynologenOpqNodeSupplierConnections" Member="SynologenOpqNodeSupplierConnections">
-    <Type Name="SynologenOpqNodeSupplierConnection">
-      <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SupId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="SynologenOpqNode_SynologenOpqNodeSupplierConnection" Member="SynologenOpqNode" ThisKey="NdeId" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
-      <Association Name="tblBaseUser_SynologenOpqNodeSupplierConnection" Member="tblBaseUser" ThisKey="SupId" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.SynologenOpqDocuments" Member="SynologenOpqDocuments">
     <Type Name="SynologenOpqDocument">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ShpId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CncId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ShopGroupId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DocTpeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="DocumentContent" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
@@ -67,92 +157,42 @@
       <Association Name="tblBaseUser_SynologenOpqDocument3" Member="tblBaseUser3" ThisKey="LockedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
       <Association Name="tblSynologenConcern_SynologenOpqDocument" Member="tblSynologenConcern" ThisKey="CncId" OtherKey="cId" Type="tblSynologenConcern" IsForeignKey="true" />
       <Association Name="tblSynologenShop_SynologenOpqDocument" Member="tblSynologenShop" ThisKey="ShpId" OtherKey="cId" Type="tblSynologenShop" IsForeignKey="true" />
+      <Association Name="tblSynologenShopGroup_SynologenOpqDocument" Member="tblSynologenShopGroup" ThisKey="ShopGroupId" OtherKey="Id" Type="tblSynologenShopGroup" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.SynologenOpqDocumentTypes" Member="SynologenOpqDocumentTypes">
-    <Type Name="SynologenOpqDocumentType">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
-      <Association Name="SynologenOpqDocumentType_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="Id" OtherKey="DocTpeId" Type="SynologenOpqDocument" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SynologenOpqFileCategories" Member="SynologenOpqFileCategories">
-    <Type Name="SynologenOpqFileCategory">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="[Name ]" Member="Name" Storage="_Name_" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
-      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedById" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedByName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="ChangedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ChangedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="SynologenOpqFileCategory_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="Id" OtherKey="FleCatId" Type="SynologenOpqFile" />
-      <Association Name="tblBaseUser_SynologenOpqFileCategory" Member="tblBaseUser" ThisKey="CreatedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
-      <Association Name="tblBaseUser_SynologenOpqFileCategory1" Member="tblBaseUser1" ThisKey="ChangedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SynologenOpqFiles" Member="SynologenOpqFiles">
-    <Type Name="SynologenOpqFile">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FleCatId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NdeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ShpId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CncId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedById" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedByName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="ChangedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ChangedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ApprovedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ApprovedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ApprovedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="LockedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LockedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="LockedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="SynologenOpqFileCategory_SynologenOpqFile" Member="SynologenOpqFileCategory" ThisKey="FleCatId" OtherKey="Id" Type="SynologenOpqFileCategory" IsForeignKey="true" />
-      <Association Name="SynologenOpqNode_SynologenOpqFile" Member="SynologenOpqNode" ThisKey="NdeId" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
-      <Association Name="tblBaseUser_SynologenOpqFile" Member="tblBaseUser" ThisKey="CreatedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
-      <Association Name="tblBaseUser_SynologenOpqFile1" Member="tblBaseUser1" ThisKey="ChangedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
-      <Association Name="tblBaseUser_SynologenOpqFile2" Member="tblBaseUser2" ThisKey="ApprovedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
-      <Association Name="tblBaseUser_SynologenOpqFile3" Member="tblBaseUser3" ThisKey="LockedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
-      <Association Name="tblBaseFile_SynologenOpqFile" Member="tblBaseFile" ThisKey="FleId" OtherKey="cId" Type="tblBaseFile" IsForeignKey="true" />
-      <Association Name="tblSynologenConcern_SynologenOpqFile" Member="tblSynologenConcern" ThisKey="CncId" OtherKey="cId" Type="tblSynologenConcern" IsForeignKey="true" />
-      <Association Name="tblSynologenShop_SynologenOpqFile" Member="tblSynologenShop" ThisKey="ShpId" OtherKey="cId" Type="tblSynologenShop" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SynologenOpqNodes" Member="SynologenOpqNodes">
-    <Type Name="SynologenOpqNode">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Parent" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
-      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedById" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedByName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="ChangedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ChangedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ApprovedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ApprovedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ApprovedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="LockedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LockedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="LockedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="SynologenOpqNode_SynologenOpqNodeSupplierConnection" Member="SynologenOpqNodeSupplierConnections" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqNodeSupplierConnection" />
-      <Association Name="SynologenOpqNode_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqDocument" />
-      <Association Name="SynologenOpqNode_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="Id" OtherKey="NdeId" Type="SynologenOpqFile" />
-      <Association Name="SynologenOpqNode_SynologenOpqNode" Member="SynologenOpqNodes" ThisKey="Id" OtherKey="Parent" Type="SynologenOpqNode" />
-      <Association Name="SynologenOpqNode_SynologenOpqNode" Member="SynologenOpqNode1" ThisKey="Parent" OtherKey="Id" Type="SynologenOpqNode" IsForeignKey="true" />
-      <Association Name="tblBaseUser_SynologenOpqNode" Member="tblBaseUser" ThisKey="CreatedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
-      <Association Name="tblBaseUser_SynologenOpqNode1" Member="tblBaseUser1" ThisKey="ChangedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
-      <Association Name="tblBaseUser_SynologenOpqNode2" Member="tblBaseUser2" ThisKey="ApprovedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
-      <Association Name="tblBaseUser_SynologenOpqNode3" Member="tblBaseUser3" ThisKey="LockedById" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+  <Table Name="dbo.tblBaseLocations" Member="tblBaseLocations">
+    <Type Name="tblBaseLocation">
+      <Column Name="cId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="cName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="cDescription" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cAllowCrossPublishing" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="cInfoName" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cInfoAdress" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cInfoVisitAdress" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cInfoZipCode" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cInfoCity" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cInfoPhone" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cInfoFax" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cInfoEmail" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cInfoCopyRightInfo" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cInfoWebMaster" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cAlias1" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cAlias2" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cAlias3" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cPublishPath" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cRelativePath" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cSitePath" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="cPublishActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="cFtpPublishActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="cFtpPassive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="cFtpUserName" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cFtpPassword" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cFtpSite" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="cExtranet" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="cDocType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="cDocSubType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="cFrontType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="tblBaseLocation_tblBaseUser" Member="tblBaseUsers" ThisKey="cId" OtherKey="cDefaultLocation" Type="tblBaseUser" />
     </Type>
   </Table>
   <Table Name="dbo.tblBaseUsers" Member="tblBaseUsers">
@@ -169,23 +209,23 @@
       <Column Name="cCreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="cChangedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="cChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="tblBaseUser_SynologenOpqDocumentHistory" Member="SynologenOpqDocumentHistories" ThisKey="cId" OtherKey="HistoryId" Type="SynologenOpqDocumentHistory" />
-      <Association Name="tblBaseUser_SynologenOpqNodeSupplierConnection" Member="SynologenOpqNodeSupplierConnections" ThisKey="cId" OtherKey="SupId" Type="SynologenOpqNodeSupplierConnection" />
-      <Association Name="tblBaseUser_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="cId" OtherKey="CreatedById" Type="SynologenOpqDocument" />
-      <Association Name="tblBaseUser_SynologenOpqDocument1" Member="SynologenOpqDocuments1" ThisKey="cId" OtherKey="ChangedById" Type="SynologenOpqDocument" />
-      <Association Name="tblBaseUser_SynologenOpqDocument2" Member="SynologenOpqDocuments2" ThisKey="cId" OtherKey="ApprovedById" Type="SynologenOpqDocument" />
-      <Association Name="tblBaseUser_SynologenOpqDocument3" Member="SynologenOpqDocuments3" ThisKey="cId" OtherKey="LockedById" Type="SynologenOpqDocument" />
       <Association Name="tblBaseUser_SynologenOpqFileCategory" Member="SynologenOpqFileCategories" ThisKey="cId" OtherKey="CreatedById" Type="SynologenOpqFileCategory" />
       <Association Name="tblBaseUser_SynologenOpqFileCategory1" Member="SynologenOpqFileCategories1" ThisKey="cId" OtherKey="ChangedById" Type="SynologenOpqFileCategory" />
-      <Association Name="tblBaseUser_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="cId" OtherKey="CreatedById" Type="SynologenOpqFile" />
-      <Association Name="tblBaseUser_SynologenOpqFile1" Member="SynologenOpqFiles1" ThisKey="cId" OtherKey="ChangedById" Type="SynologenOpqFile" />
-      <Association Name="tblBaseUser_SynologenOpqFile2" Member="SynologenOpqFiles2" ThisKey="cId" OtherKey="ApprovedById" Type="SynologenOpqFile" />
-      <Association Name="tblBaseUser_SynologenOpqFile3" Member="SynologenOpqFiles3" ThisKey="cId" OtherKey="LockedById" Type="SynologenOpqFile" />
       <Association Name="tblBaseUser_SynologenOpqNode" Member="SynologenOpqNodes" ThisKey="cId" OtherKey="CreatedById" Type="SynologenOpqNode" />
       <Association Name="tblBaseUser_SynologenOpqNode1" Member="SynologenOpqNodes1" ThisKey="cId" OtherKey="ChangedById" Type="SynologenOpqNode" />
       <Association Name="tblBaseUser_SynologenOpqNode2" Member="SynologenOpqNodes2" ThisKey="cId" OtherKey="ApprovedById" Type="SynologenOpqNode" />
       <Association Name="tblBaseUser_SynologenOpqNode3" Member="SynologenOpqNodes3" ThisKey="cId" OtherKey="LockedById" Type="SynologenOpqNode" />
-      <Association Name="tblBaseUser_tblMemberUserConnection" Member="tblMemberUserConnections" ThisKey="cId" OtherKey="cUserId" Type="tblMemberUserConnection" Cardinality="One" />
+      <Association Name="tblBaseUser_SynologenOpqNodeSupplierConnection" Member="SynologenOpqNodeSupplierConnections" ThisKey="cId" OtherKey="SupId" Type="SynologenOpqNodeSupplierConnection" />
+      <Association Name="tblBaseUser_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="cId" OtherKey="CreatedById" Type="SynologenOpqFile" />
+      <Association Name="tblBaseUser_SynologenOpqFile1" Member="SynologenOpqFiles1" ThisKey="cId" OtherKey="ChangedById" Type="SynologenOpqFile" />
+      <Association Name="tblBaseUser_SynologenOpqFile2" Member="SynologenOpqFiles2" ThisKey="cId" OtherKey="ApprovedById" Type="SynologenOpqFile" />
+      <Association Name="tblBaseUser_SynologenOpqFile3" Member="SynologenOpqFiles3" ThisKey="cId" OtherKey="LockedById" Type="SynologenOpqFile" />
+      <Association Name="tblBaseUser_SynologenOpqDocumentHistory" Member="SynologenOpqDocumentHistories" ThisKey="cId" OtherKey="HistoryId" Type="SynologenOpqDocumentHistory" />
+      <Association Name="tblBaseUser_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="cId" OtherKey="CreatedById" Type="SynologenOpqDocument" />
+      <Association Name="tblBaseUser_SynologenOpqDocument1" Member="SynologenOpqDocuments1" ThisKey="cId" OtherKey="ChangedById" Type="SynologenOpqDocument" />
+      <Association Name="tblBaseUser_SynologenOpqDocument2" Member="SynologenOpqDocuments2" ThisKey="cId" OtherKey="ApprovedById" Type="SynologenOpqDocument" />
+      <Association Name="tblBaseUser_SynologenOpqDocument3" Member="SynologenOpqDocuments3" ThisKey="cId" OtherKey="LockedById" Type="SynologenOpqDocument" />
+      <Association Name="tblBaseUser_tblMemberUserConnection" Member="tblMemberUserConnections" ThisKey="cId" OtherKey="cUserId" Type="tblMemberUserConnection" />
       <Association Name="tblBaseLocation_tblBaseUser" Member="tblBaseLocation" ThisKey="cDefaultLocation" OtherKey="cId" Type="tblBaseLocation" IsForeignKey="true" />
     </Type>
   </Table>
@@ -205,40 +245,6 @@
       <Association Name="tblBaseFile_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="cId" OtherKey="FleId" Type="SynologenOpqFile" />
     </Type>
   </Table>
-  <Table Name="dbo.tblSynologenConcern" Member="tblSynologenConcerns">
-    <Type Name="tblSynologenConcern">
-      <Column Name="cId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="cName" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
-      <Column Name="cCommonOpq" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="tblSynologenConcern_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="cId" OtherKey="CncId" Type="SynologenOpqDocument" />
-      <Association Name="tblSynologenConcern_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="cId" OtherKey="CncId" Type="SynologenOpqFile" />
-      <Association Name="tblSynologenConcern_tblSynologenShop" Member="tblSynologenShops" ThisKey="cId" OtherKey="cConcernId" Type="tblSynologenShop" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tblSynologenShopCategory" Member="tblSynologenShopCategories">
-    <Type Name="tblSynologenShopCategory">
-      <Column Name="cId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="cName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="tblSynologenShopCategory_tblSynologenShopCategoryMemberCategoryConnection" Member="tblSynologenShopCategoryMemberCategoryConnections" ThisKey="cId" OtherKey="cShopCategoryId" Type="tblSynologenShopCategoryMemberCategoryConnection" />
-      <Association Name="tblSynologenShopCategory_tblSynologenShop" Member="tblSynologenShops" ThisKey="cId" OtherKey="cCategoryId" Type="tblSynologenShop" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tblSynologenShopCategoryMemberCategoryConnection" Member="tblSynologenShopCategoryMemberCategoryConnections">
-    <Type Name="tblSynologenShopCategoryMemberCategoryConnection">
-      <Column Name="cShopCategoryId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="cMemberCategoryId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="tblSynologenShopCategory_tblSynologenShopCategoryMemberCategoryConnection" Member="tblSynologenShopCategory" ThisKey="cShopCategoryId" OtherKey="cId" Type="tblSynologenShopCategory" IsForeignKey="true" />
-      <Association Name="tblMemberCategory_tblSynologenShopCategoryMemberCategoryConnection" Member="tblMemberCategory" ThisKey="cMemberCategoryId" OtherKey="cId" Type="tblMemberCategory" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tblSynologenShopMemberConnection" Member="tblSynologenShopMemberConnections">
-    <Type Name="tblSynologenShopMemberConnection">
-      <Column Name="cSynologenShopId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="cMemberId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="tblMember_tblSynologenShopMemberConnection" Member="tblMember" ThisKey="cMemberId" OtherKey="cId" Type="tblMember" IsForeignKey="true" />
-      <Association Name="tblSynologenShop_tblSynologenShopMemberConnection" Member="tblSynologenShop" ThisKey="cSynologenShopId" OtherKey="cId" Type="tblSynologenShop" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.tblMemberCategories" Member="tblMemberCategories">
     <Type Name="tblMemberCategory">
       <Column Name="cId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -253,16 +259,41 @@
       <Column Name="cId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="cOrgName" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="cActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="tblMember_tblMemberUserConnection" Member="tblMemberUserConnections" ThisKey="cId" OtherKey="cMemberId" Type="tblMemberUserConnection" />
       <Association Name="tblMember_tblSynologenShopMemberConnection" Member="tblSynologenShopMemberConnections" ThisKey="cId" OtherKey="cMemberId" Type="tblSynologenShopMemberConnection" />
-      <Association Name="tblMember_tblMemberUserConnection" Member="tblMemberUserConnections" ThisKey="cId" OtherKey="cMemberId" Type="tblMemberUserConnection" Cardinality="One" />
     </Type>
   </Table>
   <Table Name="dbo.tblMemberUserConnection" Member="tblMemberUserConnections">
     <Type Name="tblMemberUserConnection">
       <Column Name="cMemberId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="cUserId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="tblMember_tblMemberUserConnection" Member="tblMember" ThisKey="cMemberId" OtherKey="cId" Type="tblMember" IsForeignKey="true" />
       <Association Name="tblBaseUser_tblMemberUserConnection" Member="tblBaseUser" ThisKey="cUserId" OtherKey="cId" Type="tblBaseUser" IsForeignKey="true" />
+      <Association Name="tblMember_tblMemberUserConnection" Member="tblMember" ThisKey="cMemberId" OtherKey="cId" Type="tblMember" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblSynologenConcern" Member="tblSynologenConcerns">
+    <Type Name="tblSynologenConcern">
+      <Column Name="cId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="cName" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+      <Column Name="cCommonOpq" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tblSynologenConcern_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="cId" OtherKey="CncId" Type="SynologenOpqFile" />
+      <Association Name="tblSynologenConcern_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="cId" OtherKey="CncId" Type="SynologenOpqDocument" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblSynologenShopMemberConnection" Member="tblSynologenShopMemberConnections">
+    <Type Name="tblSynologenShopMemberConnection">
+      <Column Name="cSynologenShopId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="cMemberId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="tblMember_tblSynologenShopMemberConnection" Member="tblMember" ThisKey="cMemberId" OtherKey="cId" Type="tblMember" IsForeignKey="true" />
+      <Association Name="tblSynologenShop_tblSynologenShopMemberConnection" Member="tblSynologenShop" ThisKey="cSynologenShopId" OtherKey="cId" Type="tblSynologenShop" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblSynologenShopCategory" Member="tblSynologenShopCategories">
+    <Type Name="tblSynologenShopCategory">
+      <Column Name="cId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="cName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="tblSynologenShopCategory_tblSynologenShop" Member="tblSynologenShops" ThisKey="cId" OtherKey="cCategoryId" Type="tblSynologenShop" />
+      <Association Name="tblSynologenShopCategory_tblSynologenShopCategoryMemberCategoryConnection" Member="tblSynologenShopCategoryMemberCategoryConnections" ThisKey="cId" OtherKey="cShopCategoryId" Type="tblSynologenShopCategoryMemberCategoryConnection" />
     </Type>
   </Table>
   <Table Name="dbo.tblSynologenShop" Member="tblSynologenShops">
@@ -289,11 +320,35 @@
       <Column Name="cGiroNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="cGiroSupplier" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="cConcernId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="tblSynologenShop_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="cId" OtherKey="ShpId" Type="SynologenOpqDocument" />
+      <Column Name="cShopAccess" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="cOrganizationNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="cLatitude" Type="System.Decimal" DbType="Decimal(9,6)" CanBeNull="true" />
+      <Column Name="cLongitude" Type="System.Decimal" DbType="Decimal(9,6)" CanBeNull="true" />
+      <Column Name="cExternalAccessUsername" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="cExternalAccessHashedPassword" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="cShopGroupId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="tblSynologenShop_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="cId" OtherKey="ShpId" Type="SynologenOpqFile" />
+      <Association Name="tblSynologenShop_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="cId" OtherKey="ShpId" Type="SynologenOpqDocument" />
       <Association Name="tblSynologenShop_tblSynologenShopMemberConnection" Member="tblSynologenShopMemberConnections" ThisKey="cId" OtherKey="cSynologenShopId" Type="tblSynologenShopMemberConnection" />
       <Association Name="tblSynologenShopCategory_tblSynologenShop" Member="tblSynologenShopCategory" ThisKey="cCategoryId" OtherKey="cId" Type="tblSynologenShopCategory" IsForeignKey="true" />
-      <Association Name="tblSynologenConcern_tblSynologenShop" Member="tblSynologenConcern" ThisKey="cConcernId" OtherKey="cId" Type="tblSynologenConcern" IsForeignKey="true" />
+      <Association Name="tblSynologenShopGroup_tblSynologenShop" Member="tblSynologenShopGroup" ThisKey="cShopGroupId" OtherKey="Id" Type="tblSynologenShopGroup" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblSynologenShopGroup" Member="tblSynologenShopGroups">
+    <Type Name="tblSynologenShopGroup">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Association Name="tblSynologenShopGroup_SynologenOpqFile" Member="SynologenOpqFiles" ThisKey="Id" OtherKey="ShopGroupId" Type="SynologenOpqFile" />
+      <Association Name="tblSynologenShopGroup_SynologenOpqDocument" Member="SynologenOpqDocuments" ThisKey="Id" OtherKey="ShopGroupId" Type="SynologenOpqDocument" />
+      <Association Name="tblSynologenShopGroup_tblSynologenShop" Member="tblSynologenShops" ThisKey="Id" OtherKey="cShopGroupId" Type="tblSynologenShop" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblSynologenShopCategoryMemberCategoryConnection" Member="tblSynologenShopCategoryMemberCategoryConnections">
+    <Type Name="tblSynologenShopCategoryMemberCategoryConnection">
+      <Column Name="cShopCategoryId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="cMemberCategoryId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="tblMemberCategory_tblSynologenShopCategoryMemberCategoryConnection" Member="tblMemberCategory" ThisKey="cMemberCategoryId" OtherKey="cId" Type="tblMemberCategory" IsForeignKey="true" />
+      <Association Name="tblSynologenShopCategory_tblSynologenShopCategoryMemberCategoryConnection" Member="tblSynologenShopCategory" ThisKey="cShopCategoryId" OtherKey="cId" Type="tblSynologenShopCategory" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.SynologenOpqDocumentView" Member="SynologenOpqDocumentViews">
@@ -312,39 +367,6 @@
       <Column Name="LockedById" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="LockedByName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="LockedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tblBaseLocations" Member="tblBaseLocations">
-    <Type Name="tblBaseLocation">
-      <Column Name="cId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="cName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
-      <Column Name="cDescription" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cAllowCrossPublishing" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="cInfoName" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cInfoAdress" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cInfoVisitAdress" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cInfoZipCode" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cInfoCity" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cInfoPhone" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cInfoFax" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cInfoEmail" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cInfoCopyRightInfo" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cInfoWebMaster" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cAlias1" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cAlias2" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cAlias3" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cPublishPath" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cRootPath" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cPublishActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="cFtpPublishActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="cFtpPassive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="cFtpUserName" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cFtpPassword" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cFtpSite" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="cExtranet" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="cDocType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="cDocSubType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="tblBaseLocation_tblBaseUser" Member="tblBaseUsers" ThisKey="cId" OtherKey="cDefaultLocation" Type="tblBaseUser" />
     </Type>
   </Table>
 </Database>

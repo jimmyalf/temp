@@ -100,11 +100,22 @@ namespace Spinit.Wpc.Synologen.OPQ.Core
 		/// <summary>
 		/// Specifies the root url used for shop documents
 		/// </summary>
+		
 		static public string DocumentShopRootUrl
 		{
-			get
-			{
+			get {
 				return string.Concat(Globals.FilesUrl, SafeConfigString(SynologenOpqSetting, "DocumentShopRootUrl", string.Empty));
+			}
+		}
+
+		/// <summary>
+		/// Specifies the root url used for shop documents
+		/// </summary>
+
+		static public string DocumentShopGroupRootUrl
+		{
+			get {
+				return string.Concat (Globals.FilesUrl, SafeConfigString (SynologenOpqSetting, "DocumentShopGroupRootUrl", string.Empty));
 			}
 		}
 
@@ -113,8 +124,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Core
 		/// </summary>
 		static public string DocumentCentralRootUrl
 		{
-			get
-			{
+			get {
 				return string.Concat(Globals.FilesUrl, SafeConfigString(SynologenOpqSetting, "DocumentCentralRootUrl", string.Empty));
 			}
 		}

@@ -91,8 +91,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data
 		}
 
 		#endregion
-		
- 		
+				
 		#region Create Repository
 
 		/// <summary>
@@ -150,13 +149,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Data
 				new SearchPairs (typeof (BaseUser), new EBaseUser ()),
 				new SearchPairs (typeof (BaseFile), new EBaseFile ()),
 				new SearchPairs (typeof (Concern), new EConcern ()),
-				new SearchPairs (typeof (ShopCategory), new EShopCategory ()),
+				new SearchPairs (typeof (ShopCategory), new EShopCategoryMemberCategoryConnection ()),
 				new SearchPairs (typeof (ShopCategoryMemberCategoryConnection), new EShopCategoryMemberCategoryConnection ()),
 				new SearchPairs (typeof (ShopMemberConnection), new EShopMemberConnection ()),
 				new SearchPairs (typeof (MemberCategory), new EMemberCategory ()),
 				new SearchPairs (typeof (Member), new EMember ()),
 				new SearchPairs (typeof (MemberUserConnection), new EMemberUserConnection ()),
 				new SearchPairs (typeof (Shop), new EShop ()),
+				new SearchPairs (typeof (ShopGroup), new EShopGroup ()),
 				new SearchPairs (typeof (DocumentView), new EDocumentView ()),
 				new SearchPairs (typeof (BaseLocation), new EBaseLocation ()),
 			};

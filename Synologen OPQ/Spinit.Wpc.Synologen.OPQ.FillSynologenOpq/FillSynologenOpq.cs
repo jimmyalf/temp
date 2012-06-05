@@ -274,7 +274,7 @@ namespace Spinit.Wpc.Synologen.OPQ.FillSynologenOpq
 
 						BDocument bDocument = new BDocument (_context);
 
-						Document document = bDocument.CreateDocument (node.Id, null, DocumentTypes.Routine, pageRow.Content);
+						Document document = bDocument.CreateDocument (node.Id, null, null, DocumentTypes.Routine, pageRow.Content);
 						bDocument.UnLock (document.Id);
 						bDocument.Publish (document.Id);
 					}
@@ -362,7 +362,7 @@ namespace Spinit.Wpc.Synologen.OPQ.FillSynologenOpq
 							Path.GetFileName (file),
 							Settings.Default.SynologenAdminUserName);
 
-						bFile.CreateFile (node.Id, null, null, fleId, FileCategories.SystemRoutineDocuments);
+						bFile.CreateFile (node.Id, null, null, null, fleId, FileCategories.SystemRoutineDocuments);
 					}
 				}
 			}

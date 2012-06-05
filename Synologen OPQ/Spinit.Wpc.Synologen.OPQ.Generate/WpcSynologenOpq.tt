@@ -1,4 +1,5 @@
-﻿<#@ template language="C#v3.5" hostspecific="True" debug="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation"#>
+﻿<#@ template language="C#" hostspecific="True" debug="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation"#>
+<#@ assembly name="C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.TextTemplating.Modeling.10.0.dll"#>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
 <#@ include file="Definitions.ttinclude"#>

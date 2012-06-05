@@ -38,7 +38,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen {
 
 		private void PopulateShop() {
 			if (MemberShopId <= 0) return;
-			_shop = Provider.GetShop(MemberShopId);
+			_shop = Provider.GetShop((int) MemberShopId);
 			txtGiroNumber.Text = _shop.GiroNumber;
 			//txtGiroSupplier.Text = _shop.GiroSupplier;
 			txtMapUrl.Text = _shop.MapUrl;
@@ -50,7 +50,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen {
 			bool userOK = true;
 			if (MemberId <= 0) userOK = false;
 			List<int> editedMemberShops = Provider.GetAllShopIdsPerMember(MemberId);
-			if (!editedMemberShops.Contains(MemberShopId)) userOK = false;
+			if (!editedMemberShops.Contains((int) MemberShopId)) userOK = false;
 			if (!IsInSynologenRole(SynologenRoles.Roles.AdminShopMembers)) userOK = false;
 			if (userOK) return;
 			plNoAccessMessage.Visible = true;
@@ -63,7 +63,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen {
 
 		protected void btnSave_OnClick(object sender, EventArgs e) {
 			if (MemberShopId <= 0) return;
-			_shop = Provider.GetShop(MemberShopId);
+			_shop = Provider.GetShop((int) MemberShopId);
 			_shop.GiroId = Int32.Parse(drpGiroType.SelectedValue);
 			_shop.GiroNumber = txtGiroNumber.Text;
 			//_shop.GiroSupplier = txtGiroSupplier.Text;

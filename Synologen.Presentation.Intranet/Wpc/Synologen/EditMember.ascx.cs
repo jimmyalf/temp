@@ -53,7 +53,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen {
 			bool userOK = true;
 			if (_memberId == 0) userOK = false;
 			List<int> editedMemberShops = Provider.GetAllShopIdsPerMember(_memberId);
-			if (!editedMemberShops.Contains(MemberShopId)) userOK = false;
+			if (!editedMemberShops.Contains((int) MemberShopId)) userOK = false;
 			if (!IsInSynologenRole(Business.SynologenRoles.Roles.AdminShopMembers)) userOK = false;
 			if(userOK) return;
 			plNoAccessMessage.Visible = true;

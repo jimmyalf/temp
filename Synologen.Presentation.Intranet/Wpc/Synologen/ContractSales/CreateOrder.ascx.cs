@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 				return;
 			}
 			drpContracts.Enabled = true;
-			drpContracts.DataSource = Provider.GetContracts(FetchCustomerContract.AllPerShop, 0,MemberShopId, true);
+			drpContracts.DataSource = Provider.GetContracts(FetchCustomerContract.AllPerShop, 0,(int) MemberShopId, true);
 			drpContracts.DataBind();
 			drpContracts.Items.Insert(0,new ListItem("-- Välj avtal --","0"));
 		}
@@ -134,7 +134,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 				StatusId = Globals.DefaultNewOrderStatus,
 				Phone = txtPhone.Text, Email = txtEmail.Text,
 				SalesPersonMemberId = MemberId,
-				SalesPersonShopId = MemberShopId,
+				SalesPersonShopId = (int) MemberShopId,
 				RstText = txtRST.Text,
 				CustomerOrderNumber = txtCustomerOrderNumber.Text,
 				CompanyId = Convert.ToInt32(drpCompany.SelectedValue)

@@ -1,29 +1,33 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+
 using Spinit.Wpc.Synologen.Business;
+using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Utility.Core;
 
-namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code {
-	public class SynologenUserControl : MemberControlPage 
+namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code
+{
+	public class SynologenUserControl : MemberControlPage
 	{
 		protected SqlProvider _provider;
 
-		protected override void OnInit(EventArgs e) 
+		protected override void OnInit (EventArgs e)
 		{
-			base.OnInit(e);
-			_provider = GetSqlprovider();
+			base.OnInit (e);
+			_provider = GetSqlprovider ();
 		}
 
-		protected new SqlProvider Provider 
+		protected new SqlProvider Provider
 		{
-		    get { return _provider; }
+			get { return _provider; }
 		}
 
-		public int MemberShopId 
+		public int? MemberShopId
 		{
-			get{
-				
+			get {
+
 				//if (SynologenSessionContext.MemberShopId > 0){
 				//    return SynologenSessionContext.MemberShopId;
 				//}
@@ -31,9 +35,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code {
 				//    SynologenSessionContext.MemberShopId = 0;
 				//    return 0;
 				//}
-				var shops = Provider.GetAllShopIdsPerMember(MemberId);
+				List<int> shops = Provider.GetAllShopIdsPerMember (MemberId);
 				//if (shops == null || shops.Count == 0) return 0;
-				return shops.FirstOrDefault();
+				return shops.FirstOrDefault ();
 				//SynologenSessionContext.MemberShopId = shops[0];
 				//return shops[0];
 			}
@@ -47,53 +51,60 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code {
 			//        return SynologenSessionContext.MemberShopNumber;
 			//    }
 			//    if (MemberShopId <= 0) return string.Empty;
-				//SynologenSessionContext.MemberShopNumber = 
+			//SynologenSessionContext.MemberShopNumber = 
 			get
-			{ 
-				return Provider.GetShop(MemberShopId).Number;
+			{
+				return Provider.GetShop ((int) MemberShopId).Number;
 				//return SynologenSessionContext.MemberShopNumber;
 			}
 		}
 
+		public int? MemberShopGroupId
+		{
+			get {
+				Shop shop = Provider.GetShop ((int) MemberShopId);
+				return shop != null ? shop.ShopGroupId : null;
+			}
+		}
 
 		//public override int MemberId {
 		//	get {
 
-				//if (SynologenSessionContext.MemberId > 0) 
-				//{
-				//    return SynologenSessionContext.MemberId;
-				//}
-				//else
-				//{
-				//    _
-				//}
-				//int memberId = 0;
-				//try {
-				//    PublicUser context = PublicUser.Current;
-				//    if (context != null) {
-				//        int userId = context.User.Id;
-				//        memberId = Provider.GetMemberId(userId);
-				//        SynologenSessionContext.MemberId = memberId;
-				//        return memberId;
-				//    }
-				//}
-				//catch {
-				//    if (Request.Params["memberId"] != null) {
-				//        memberId = Convert.ToInt32(Request.Params["memberId"]);
-				//    }
-				//    if (memberId>0) {
-				//        SynologenSessionContext.MemberId = memberId;
-				//        return memberId;
-				//    }
-				//}
-				//return 0;
+		//if (SynologenSessionContext.MemberId > 0) 
+		//{
+		//    return SynologenSessionContext.MemberId;
+		//}
+		//else
+		//{
+		//    _
+		//}
+		//int memberId = 0;
+		//try {
+		//    PublicUser context = PublicUser.Current;
+		//    if (context != null) {
+		//        int userId = context.User.Id;
+		//        memberId = Provider.GetMemberId(userId);
+		//        SynologenSessionContext.MemberId = memberId;
+		//        return memberId;
+		//    }
+		//}
+		//catch {
+		//    if (Request.Params["memberId"] != null) {
+		//        memberId = Convert.ToInt32(Request.Params["memberId"]);
+		//    }
+		//    if (memberId>0) {
+		//        SynologenSessionContext.MemberId = memberId;
+		//        return memberId;
+		//    }
+		//}
+		//return 0;
 
-			//}
+		//}
 		//}
 
-		public string CurrentUser 
+		public string CurrentUser
 		{
-			get 
+			get
 			{
 				//try {
 				//    PublicUser context = PublicUser.Current;
@@ -105,28 +116,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code {
 				//    }
 				//}
 				//catch {return String.Empty;}
-				return Provider.GetUserRow(MemberId).UserName;
+				return Provider.GetUserRow (MemberId).UserName;
 			}
 		}
 
-		protected static bool IsInSynologenRole(SynologenRoles.Roles role) 
+		protected static bool IsInSynologenRole (SynologenRoles.Roles role)
 		{
-			var sRole = role.ToString();
+			var sRole = role.ToString ();
 			var synologenComponentName = Globals.ComponentName;
-			try 
-			{
-				return PublicUser.Current.IsInRole(synologenComponentName, sRole);
+			try {
+				return PublicUser.Current.IsInRole (synologenComponentName, sRole);
 			}
-			catch
-			{
+			catch {
 				return false;
 			}
 		}
 
-		protected new SqlProvider GetSqlprovider()
+		protected new SqlProvider GetSqlprovider ()
 		{
-			return new SqlProvider(ConnectionString);
+			return new SqlProvider (ConnectionString);
 		}
-
 	}
 }

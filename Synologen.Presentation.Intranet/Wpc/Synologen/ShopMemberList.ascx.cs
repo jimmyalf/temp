@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen {
 
 		private void PopulateMembers() {
 			if (MemberShopId <= 0) return;
-			rptMembers.DataSource = Provider.GetSynologenMembers(0, MemberShopId, 0, null);
+			rptMembers.DataSource = Provider.GetSynologenMembers(0, (int) MemberShopId, 0, null);
 			rptMembers.DataBind();
 		}
 		public string EditMemberPage {

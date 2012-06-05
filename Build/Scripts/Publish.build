@@ -136,7 +136,7 @@
 		<nant buildfile="${wpcCommonBuildFiles}\CleanWpcAdmin.build"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcAdmin.build"/>
 		
-		<property name="srcPath" value="${src}\Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Admin" overwrite="true"/>
+		<property name="srcPath" value="${src}\Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Presentation.Admin" overwrite="true"/>
 		<nant buildfile="${wpcCommonBuildFiles}\PublishWpcAdmin.build"/>
 		
 		<property name="srcDeploymentFiles" value="${deploymentFiles}\Synologen.Presentation" overwrite="true"/>

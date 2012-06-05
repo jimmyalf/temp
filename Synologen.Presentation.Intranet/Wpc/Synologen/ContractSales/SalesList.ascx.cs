@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		//private readonly List<int> _listOfEditableStatuses = Globals.EditableOrderStatusList;
 
 		protected void Page_Load(object sender, EventArgs e) {
-			Shop = MemberShopId;
+			Shop = (int) MemberShopId;
 			if (Request.Params["Shop"] != null)
 				Shop = Convert.ToInt32(Request.Params["Shop"]);
 			if (Request.Params["Contract"] != null)
@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 
 		private void PopulateSales() {
 			if (MemberShopId <= 0) return;
-			rptSales.DataSource = Provider.GetOrders(0, MemberShopId, Contract, 0, 0, 0, 0, "cCreatedDate DESC");
+			rptSales.DataSource = Provider.GetOrders(0, (int) MemberShopId, Contract, 0, 0, 0, 0, "cCreatedDate DESC");
 			rptSales.DataBind();
 		}
 		public int Shop {

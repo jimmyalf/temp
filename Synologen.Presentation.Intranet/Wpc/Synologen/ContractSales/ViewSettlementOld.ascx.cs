@@ -56,13 +56,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 
 		private DataSet GetSimpleOrderItems() {
 			//float vatAmount = Globals.SettlementVATAmount;
-			DataSet data = Provider.GetSettlementsOrderItemsDataSetSimple(MemberShopId, _settlementId, null, out _allOrdersMarkedAsPayed, out _totalValueIncludingVAT, out _totalValueExcludingVAT);
+			DataSet data = Provider.GetSettlementsOrderItemsDataSetSimple((int) MemberShopId, _settlementId, null, out _allOrdersMarkedAsPayed, out _totalValueIncludingVAT, out _totalValueExcludingVAT);
 			return data;
 		}
 
 		private DataSet GetDetailedOrderItems() {
 			//float vatAmount = Globals.SettlementVATAmount;
-			DataSet data = Provider.GetSettlementsOrderItemsDataSetDetailed(MemberShopId,_settlementId, null, out _allOrdersMarkedAsPayed, out _totalValueIncludingVAT, out _totalValueExcludingVAT);
+			DataSet data = Provider.GetSettlementsOrderItemsDataSetDetailed((int) MemberShopId,_settlementId, null, out _allOrdersMarkedAsPayed, out _totalValueIncludingVAT, out _totalValueExcludingVAT);
 			return data;
 		}
 
@@ -80,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 
 		protected void btnMarkAsPayed_Click(object sender, EventArgs e) {
 			if(MemberShopId<=0) return;
-			Provider.MarkOrdersInSettlementAsPayedPerShop(_settlementId, MemberShopId);
+			Provider.MarkOrdersInSettlementAsPayedPerShop(_settlementId, (int) MemberShopId);
 		}
 
 		public Settlement Settlement {

@@ -7,7 +7,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Events.Synologen
 		public int ShopId { get; set; }
 		public int ShopGroupId { get; set; }
 
-		public ShopWasConnectedToShopGroupEvent(int shopId, int shopGroupId)
+		public ShopWasConnectedToShopGroupEvent (int shopId, int shopGroupId)
 		{
 			ShopId = shopId;
 			ShopGroupId = shopGroupId;
@@ -15,8 +15,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Events.Synologen
 
 		public override string ToString()
 		{
-			return "{ ShopId = {ShopId}, ShopGroupId = {ShopGroupId} }"
-				.ReplaceWith(new {ShopId, ShopGroupId});
+			return "{ ShopId = {ShopId}, ShopGroupId = {ShopGroupId} }".ReplaceWith (new { ShopId, ShopGroupId });
 		}
 	}
 }

@@ -43,7 +43,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		private void PopulateContracts() {
 			if(MemberShopId==0) {return;}
 
-			drpContracts.DataSource = Provider.GetContracts(FetchCustomerContract.AllPerShop, 0,MemberShopId, true);
+			drpContracts.DataSource = Provider.GetContracts(FetchCustomerContract.AllPerShop, 0,(int) MemberShopId, true);
 			drpContracts.DataBind();
 			drpContracts.Items.Insert(0,new ListItem("-- Välj avtal --","0"));
 		}
@@ -241,7 +241,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 			_order.Phone = txtPhone.Text;
 			_order.Email = txtEmail.Text;
 			_order.SalesPersonMemberId = MemberId;
-			_order.SalesPersonShopId = MemberShopId;
+			_order.SalesPersonShopId = (int) MemberShopId;
 			_order.RstText = txtRST.Text;
 			_order.CustomerOrderNumber = txtCustomerOrderNumber.Text;
 			_order.CompanyId = Int32.Parse(drpCompany.SelectedValue);

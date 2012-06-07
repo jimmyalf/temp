@@ -6,14 +6,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>3.5</ProjectVersion>
     <ProjectGuid>{6412319d-962b-4ec7-99ca-2ac5b1279b40}</ProjectGuid>
-    <DSP>Microsoft.Data.Schema.Sql.SqlDsp.Sql80DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Schema.Sql.SqlDsp.Sql100DatabaseSchemaProvider</DSP>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <ShowWizard>False</ShowWizard>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
     <IncludeSchemaNameInFileName>True</IncludeSchemaNameInFileName>
-    <ModelCollation>1033,CI</ModelCollation>
+    <ModelCollation>1035,CI</ModelCollation>
     <DefaultFileStructure>Undefined</DefaultFileStructure>
     <DeployToDatabaseAddToServerExplorer>False</DeployToDatabaseAddToServerExplorer>
     <DeployToScript>True</DeployToScript>
@@ -38,8 +38,8 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>.\sql\debug\</OutputPath>
     <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
-    <TargetConnectionString>Data Source=BLACK;Persist Security Info=True;User ID=sa;Pooling=False</TargetConnectionString>
-    <TargetDatabase>dbWpcSynologen</TargetDatabase>
+    <TargetConnectionString>Data Source=DEV\SQL2008;Persist Security Info=True;User ID=sa;Pooling=False</TargetConnectionString>
+    <TargetDatabase>WpcSynologenOpqDataTest</TargetDatabase>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <SuppressWarnings>
     </SuppressWarnings>
@@ -123,10 +123,46 @@
     <Build Include="Schema Objects\Tables\Constraints\dbo.tblBaseLocations.DF_tblBaseLocations_cExtranet.defconst.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblBaseLocations.DF_tblBaseLocations_cFrontType.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_forums_Users_ForcLogin.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_forums_Users_IsAnonymous.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_forums_Users_LastAction.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_forums_Users_PasswordFormat.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_forums_Users_PasswordQuestion.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_forums_Users_Salt.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_Users_Approved.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_Users_DateCreated.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_Users_LastActivity.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblForumUsers.DF_Users_LastLogin.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Constraints\dbo.tblSynologenShop.DF_tblSynologenShop_cCategoryId.defconst.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Constraints\dbo.tblSynologenShop.DF_tblSynologenShop_cContactInfoVisible.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Constraints\dbo.tblSynologenShop.DF_tblSynologenShop_cShopAccess.defconst.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.SynologenOpqDocumentHistories.table.sql">
@@ -178,8 +214,13 @@
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblBaseLocations.table.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblBaseUsers.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblCommerceProductFileCategory.table.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblContPage.table.sql">
@@ -189,6 +230,18 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblContPageType.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblForumUsers.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblMemberCategories.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblMembers.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblMemberUserConnection.table.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\dbo.tblSynologenConcern.table.sql">
@@ -202,6 +255,24 @@
     <Build Include="Schema Objects\Tables\dbo.tblSynologenShopCategory.table.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblSynologenShopCategoryMemberCategoryConnection.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblSynologenShopGroup.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\dbo.tblSynologenShopMemberConnection.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Indexes\dbo.tblForumUsers.IX_forums_Users.index.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Indexes\dbo.tblForumUsers.IX_forums_Users_1.index.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Indexes\dbo.tblForumUsers.IX_Users.index.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentHistories.SynologenOpqDocumentHistories_PK.pkey.sql">
       <SubType>Code</SubType>
     </Build>
@@ -209,6 +280,9 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocumentHistories.tblBaseUsers_SynologenOpqDocumentHistories_FK1.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.FK_SynologenOpqDocuments_tblSynologenShopGroup.fkey.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqDocuments.SynologenOpqDocuments_PK.pkey.sql">
@@ -257,6 +331,9 @@
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFileCategories.tblBaseUsers_SynologenOpqFileCategories_FK2.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.FK_SynologenOpqFiles_tblSynologenShopGroup.fkey.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.SynologenOpqFiles.SynologenOpqFileCategories_SynologenOpqFiles_FK1.fkey.sql">
@@ -349,6 +426,9 @@
     <Build Include="Schema Objects\Tables\Keys\dbo.tblBaseUsers.PK_tblBaseUsers.pkey.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblCommerceProductFileCategory.PK_tblCommerceProductFileCategory.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.tblContPage.FK_tblContPage_tblContPageType.fkey.sql">
       <SubType>Code</SubType>
     </Build>
@@ -367,6 +447,27 @@
     <Build Include="Schema Objects\Tables\Keys\dbo.tblContPageType.PK_tblContPageType.pkey.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblForumUsers.IX_forums_Users_2.ukey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblForumUsers.PK_forums_Users.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblMemberCategories.PK_tblMemberCategories.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblMembers.PK_tblMembers.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblMemberUserConnection.FK_tblMemberUserConnection_tblBaseUsers.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblMemberUserConnection.FK_tblMemberUserConnection_tblMembers.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblMemberUserConnection.PK_tblMemberUserConnection.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenConcern.tblSynologenConcern_PK.pkey.sql">
       <SubType>Code</SubType>
     </Build>
@@ -376,26 +477,64 @@
     <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShop.FK_tblSynologenShop_tblSynologenShopCategory.fkey.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShop.FK_tblSynologenShop_tblSynologenShopGroup.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShop.PK_tblSynologenShop.pkey.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopCategory.PK_tblSynologenShopCategory.pkey.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopCategoryMemberCategoryConnection.FK_tblSynologenShopCategoryMemberCategoryConnection_tblMemberCategories.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopCategoryMemberCategoryConnection.FK_tblSynologenShopCategoryMemberCategoryConnection_tblSynologenShopCategory.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopCategoryMemberCategoryConnection.PK_tblShopCategoryMemberCategoryConnection.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopGroup.PK_tblSynologenShopGroup.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopMemberConnection.FK_tblSynologenShopMemberConnection_tblMembers.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopMemberConnection.FK_tblSynologenShopMemberConnection_tblSynologenShop.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Keys\dbo.tblSynologenShopMemberConnection.PK_tblSynologenShopMemberConnection.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
     <Build Include="Schema Objects\Tables\Keys\dbo_1.tblBaseLocations.PK_tblBaseLocation.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\dbo.tblBaseUsers.trForumInsertUser.trigger.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Tables\Triggers\dbo.tblBaseUsers.trForumUpdateUser.trigger.sql">
       <SubType>Code</SubType>
     </Build>
     <Build Include="Schema Objects\Tables\Triggers\SynologenOpqDocument.InsteadOfUpdate.trigger.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\Triggers\SynologenOpqFile.AfterInsert.trigger.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\Triggers\SynologenOpqFile.AfterUpdate.trigger.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\Triggers\SynologenOpqFile.AfterDelete.trigger.sql">
       <SubType>Code</SubType>
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Schema Objects\Tables\Triggers\SynologenOpqNode.AfterInsert.trigger.sql">
       <SubType>Code</SubType>
@@ -420,6 +559,9 @@
     <NotInBuild Include="Schema Comparisons\Project - BLACK.scmp">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
+    <NotInBuild Include="Schema Comparisons\Project-Test.scmp">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
     <NotInBuild Include="Scripts\Administration\CleanTestData.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
@@ -435,5 +577,15 @@
     <NotInBuild Include="Scripts\Test Data\Data Layer Tests\TestData.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ArtifactReference Include="..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 9.0\VSTSDB\Extensions\SqlServer\2008\DBSchemas\master.dbschema">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 9.0\VSTSDB\Extensions\SqlServer\2008\DBSchemas\master.dbschema</HintPath>
+      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+    </ArtifactReference>
+    <ArtifactReference Include="..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 9.0\VSTSDB\Extensions\SqlServer\2008\DBSchemas\msdb.dbschema">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 9.0\VSTSDB\Extensions\SqlServer\2008\DBSchemas\msdb.dbschema</HintPath>
+      <DatabaseVariableLiteralValue>msdb</DatabaseVariableLiteralValue>
+    </ArtifactReference>
   </ItemGroup>
 </Project>

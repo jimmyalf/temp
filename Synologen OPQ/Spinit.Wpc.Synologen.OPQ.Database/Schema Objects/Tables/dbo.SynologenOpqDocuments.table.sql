@@ -3,6 +3,7 @@ CREATE TABLE [dbo].[SynologenOpqDocuments] (
     [NdeId]           INT            NOT NULL,
     [ShpId]           INT            NULL,
     [CncId]           INT            NULL,
+    [ShopGroupId]     INT            NULL,
     [DocTpeId]        INT            NOT NULL,
     [DocumentContent] NTEXT          NOT NULL,
     [IsActive]        BIT            NOT NULL,
@@ -19,6 +20,8 @@ CREATE TABLE [dbo].[SynologenOpqDocuments] (
     [LockedByName]    NVARCHAR (100) NULL,
     [LockedDate]      DATETIME       NULL
 );
+
+
 
 
 

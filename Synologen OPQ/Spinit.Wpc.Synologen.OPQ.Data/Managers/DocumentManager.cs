@@ -978,7 +978,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Data.Managers
 
 			query = shopId == null ? query.AddIsNullCondition ("ShpId") : query.AddEqualityCondition ("ShpId", shopId);
 
-			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", shopId);
+			query = cncId == null ? query.AddIsNullCondition ("CncId") : query.AddEqualityCondition ("CncId", cncId);
 
 			query = shopGroupId == null ? query.AddIsNullCondition ("ShopGroupId") : query.AddEqualityCondition ("ShopGroupId", shopGroupId);
 

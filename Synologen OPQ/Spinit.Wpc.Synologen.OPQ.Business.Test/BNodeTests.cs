@@ -116,7 +116,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const string rootName = "root";
 			BNode bNode = new BNode(_context);
 			Node node = bNode.CreateNode(null, rootName, true);
-			Assert.AreEqual(rootName,node.Name);
+			node = bNode.GetNode (node.Id, false);
+			Assert.AreEqual (rootName, node.Name);
 			Assert.AreEqual(1,node.Order);
 			Assert.AreEqual(true,node.IsMenu, "Should be a menu");
 		}
@@ -127,7 +128,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			const string rootName = "root";
 			var bNode = new BNode(_context);
 			var node = bNode.CreateNode(null, rootName, false);
-			Assert.AreEqual(rootName, node.Name);
+			node = bNode.GetNode (node.Id, false);
+			Assert.AreEqual (rootName, node.Name);
 			Assert.AreEqual(1, node.Order);
 			Assert.AreEqual(false, node.IsMenu, "Should not be a menu");
 		}
@@ -140,10 +142,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Business.Test
 			var bNode = new BNode(_context);
 			var node = bNode.CreateNode(null, rootName, true);
 			var child = bNode.CreateNode(node.Id, childName, true);
+			node = bNode.GetNode (node.Id, false);
 			Assert.AreEqual(childName, child.Name);
 			Assert.AreEqual(1, node.Order);
 		}
-
 
 		[Test, Description ("Creates a root node and fetches it. Compares results"), Category ("Node")]
 		public void CreateAndFetchRootNode ()

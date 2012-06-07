@@ -11,12 +11,12 @@ SET IDENTITY_INSERT dbo.tblBaseLocations ON
 INSERT INTO dbo.tblBaseLocations (
 	cId, cName, cDescription, cAllowCrossPublishing, cInfoName, cInfoAdress, cInfoVisitAdress,
 	cInfoZipCode, cInfoCity, cInfoPhone, cInfoFax, cInfoEmail, cInfoCopyRightInfo, cInfoWebMaster,
-	cAlias1, cAlias2, cAlias3, cPublishPath, cRootPath, cPublishActive, cFtpPublishActive,
+	cAlias1, cAlias2, cAlias3, cPublishPath, cPublishActive, cFtpPublishActive,
 	cFtpPassive, cFtpUserName, cFtpPassword, cFtpSite, cExtranet, cDocType, cDocSubType) 
 VALUES ( 
 	1, 'www.test.se', NULL, 1, 'Test', NULL, NULL,
 	NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-	'http://www.test.se', NULL, NULL, 'c:\Test', NULL, 1, 0,
+	'http://www.test.se', NULL, NULL, 'c:\Test', 1, 0,
 	1, NULL, NULL, NULL, 0, 2, 1) 
 
 SET IDENTITY_INSERT dbo.tblBaseLocations OFF
@@ -88,7 +88,7 @@ INSERT INTO dbo.SynologenOpqNodes (
 	Id, Parent, [Name], IsMenu, IsActive, CreatedById, CreatedByName, CreatedDate,
 	ApprovedById, ApprovedByName, ApprovedDate) 
 VALUES (
-	5, 3, 'Test-Root1-Child1-Child1', 1, 1, 'Admin', GETDATE (),
+	5, 3, 'Test-Root1-Child1-Child1', 1, 1, 1, 'Admin', GETDATE (),
 	1, 'Admin', GETDATE ()) 
 
 INSERT INTO dbo.SynologenOpqNodes (

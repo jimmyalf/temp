@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[tblBaseLocations] (
+CREATE TABLE [dbo].[tblBaseLocations] (
     [cId]                   INT            IDENTITY (1, 1) NOT NULL,
     [cName]                 NVARCHAR (256) NOT NULL,
     [cDescription]          NVARCHAR (256) NULL,
@@ -17,7 +17,8 @@
     [cAlias2]               NVARCHAR (256) NULL,
     [cAlias3]               NVARCHAR (256) NULL,
     [cPublishPath]          NVARCHAR (256) NULL,
-    [cRootPath]             NVARCHAR (256) NULL,
+    [cRelativePath]         NVARCHAR (256) NULL,
+    [cSitePath]             NVARCHAR (255) NULL,
     [cPublishActive]        BIT            NULL,
     [cFtpPublishActive]     BIT            NULL,
     [cFtpPassive]           BIT            NULL,
@@ -26,6 +27,9 @@
     [cFtpSite]              NVARCHAR (256) NULL,
     [cExtranet]             BIT            NULL,
     [cDocType]              INT            NOT NULL,
-    [cDocSubType]           INT            NOT NULL
+    [cDocSubType]           INT            NOT NULL,
+    [cFrontType]            INT            NOT NULL
 );
+
+
 

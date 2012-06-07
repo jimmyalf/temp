@@ -70,7 +70,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Data
 		partial void InsertSynologenOpqFileCategory(EFileCategory instance);
 		partial void UpdateSynologenOpqFileCategory(EFileCategory instance);
 		partial void DeleteSynologenOpqFileCategory(EFileCategory instance);
-		partial void InsertSynologenOpqFile(EFile instance);
+		partial void InsertSynologenOpqFileCategory (EForumUser instance);
+		partial void UpdateSynologenOpqFileCategory (EForumUser instance);
+		partial void DeleteSynologenOpqFileCategory (EForumUser instance);
+		partial void InsertSynologenOpqFile (EFile instance);
 		partial void UpdateSynologenOpqFile(EFile instance);
 		partial void DeleteSynologenOpqFile(EFile instance);
 		partial void InsertSynologenOpqNode(ENode instance);
@@ -85,9 +88,9 @@ namespace Spinit.Wpc.Synologen.OPQ.Data
 		partial void InserttblSynologenConcern(EConcern instance);
 		partial void UpdatetblSynologenConcern(EConcern instance);
 		partial void DeletetblSynologenConcern(EConcern instance);
-		partial void InserttblSynologenShopCategory(EShopCategoryMemberCategoryConnection instance);
-		partial void UpdatetblSynologenShopCategory(EShopCategoryMemberCategoryConnection instance);
-		partial void DeletetblSynologenShopCategory(EShopCategoryMemberCategoryConnection instance);
+		partial void InserttblSynologenShopCategory(EShopCategory instance);
+		partial void UpdatetblSynologenShopCategory(EShopCategory instance);
+		partial void DeletetblSynologenShopCategory(EShopCategory instance);
 		partial void InserttblSynologenShopCategoryMemberCategoryConnection(EShopCategoryMemberCategoryConnection instance);
 		partial void UpdatetblSynologenShopCategoryMemberCategoryConnection(EShopCategoryMemberCategoryConnection instance);
 		partial void DeletetblSynologenShopCategoryMemberCategoryConnection(EShopCategoryMemberCategoryConnection instance);
@@ -144,7 +147,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Data
 		{
 			get { return GetTable<EFileCategory>(); }
 		}
-		
+
+		public Table<EForumUser> ForumUsers
+		{
+			get { return GetTable<EForumUser> (); }
+		}
+
 		public Table<EFile> Files
 		{
 			get { return GetTable<EFile>(); }
@@ -169,10 +177,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Data
 		{
 			get { return GetTable<EConcern>(); }
 		}
-		
-		public Table<EShopCategoryMemberCategoryConnection> ShopCategories
+
+		public Table<EShopCategory> ShopCategories
 		{
-			get { return GetTable<EShopCategoryMemberCategoryConnection>(); }
+			get { return GetTable<EShopCategory> (); }
 		}
 		
 		public Table<EShopCategoryMemberCategoryConnection> ShopCategoryMemberCategoryConnections

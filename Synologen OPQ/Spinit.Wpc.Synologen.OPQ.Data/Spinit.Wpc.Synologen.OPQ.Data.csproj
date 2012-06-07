@@ -95,6 +95,7 @@
     <Compile Include="Entities\EDocumentView.cs" />
     <Compile Include="Entities\EFile.cs" />
     <Compile Include="Entities\EFileCategory.cs" />
+    <Compile Include="Entities\EForumUser.cs" />
     <Compile Include="Entities\EMember.cs" />
     <Compile Include="Entities\EMemberCategory.cs" />
     <Compile Include="Entities\EMemberUserConnection.cs" />

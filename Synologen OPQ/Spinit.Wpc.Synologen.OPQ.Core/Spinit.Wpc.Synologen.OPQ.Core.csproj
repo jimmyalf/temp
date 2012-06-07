@@ -91,6 +91,7 @@
     <Compile Include="Entities\DocumentView.cs" />
     <Compile Include="Entities\File.cs" />
     <Compile Include="Entities\FileCategory.cs" />
+    <Compile Include="Entities\ForumUser.cs" />
     <Compile Include="Entities\Member.cs" />
     <Compile Include="Entities\MemberCategory.cs" />
     <Compile Include="Entities\MemberUserConnection.cs" />

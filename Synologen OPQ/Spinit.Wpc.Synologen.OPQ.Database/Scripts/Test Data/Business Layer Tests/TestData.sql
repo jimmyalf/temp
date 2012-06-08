@@ -42,7 +42,7 @@ INSERT INTO [dbo].[tblSynologenShop]
 SET IDENTITY_INSERT dbo.[tblSynologenShop] OFF
 
 -- =============================================
--- Create default document-types
+-- Create default file-categories
 -- =============================================
 
 SET IDENTITY_INSERT dbo.SynologenOpqFileCategories ON

@@ -68,7 +68,7 @@ namespace Synologen.LensSubscription.BGServiceCoordinator.Task.SendFile
 				}
 				catch(IOException exception)
 				{
-					if (i <= 0) throw new ApplicationException("Failed to send file. No more attempts will be made.", exception);
+					if (i <= 1) throw new ApplicationException("Failed to send file. No more attempts will be made.", exception);
 					LogInfo("Failed to send file. Another attempt will be made. Error: {0}", exception);
 					Thread.Sleep(1500);
 				}

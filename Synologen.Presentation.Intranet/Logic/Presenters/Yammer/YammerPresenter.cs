@@ -37,14 +37,40 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Yammer
             }
             else
             {
-                _service.Authenticate(_network, _clientId, _email, _password);
-                if (View.State != null) { View.State["YammerCookies"] = _service.CookieContainer; }
+				try
+				{
+					_service.Authenticate(_network, _clientId, _email, _password);
+					if (View.State != null)
+					{
+						View.State["YammerCookies"] = _service.CookieContainer;
+					}
+				}
+				catch(Exception)
+				{
+					GetFromCache();
+				}
             }
 
-            View.Model = GetMessages();
+			try
+			{
+				View.Model = GetMessages();
+				Cache["messages"] = View.Model;
+			}
+			catch (Exception)
+			{
+				GetFromCache();
+			}
         }
 
-        public override void ReleaseView()
+    	private void GetFromCache()
+    	{
+    		if (Cache["messages"] != null && Cache["messages"] is YammerListModel)
+    		{
+    			View.Model = Cache["messages"] as YammerListModel;
+    		}
+    	}
+
+    	public override void ReleaseView()
         {
             View.Load -= View_Load;
         }

@@ -13,8 +13,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Yammer
     [PresenterBinding(typeof(YammerPresenter))]
     public partial class MiniYammerFeed : MvpUserControl<YammerListModel>, IYammerView
     {
-        protected void Page_Load(object sender, EventArgs e) { }
-
         public HttpApplicationState State { get { return Application; } }
 
         public int NumberOfMessages { get; set; }

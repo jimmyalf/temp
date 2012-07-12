@@ -14,17 +14,9 @@
 	    </div>
 	    <div class="formItem">
 	    	<asp:Label ID="lblTargetPreset" runat="server" AssociatedControlID="drpTarget" SkinID="Long">Target preset</asp:Label>
-			<asp:DropDownList ID="drpTarget" runat="server" AutoPostBack="True" OnSelectedIndexChanged="drpTarget_SelectedIndexChanged">
-			    <asp:ListItem>None</asp:ListItem>
-			    <asp:ListItem Value="_blank">New Window</asp:ListItem>
-			    <asp:ListItem Value="_parent">Parent Window</asp:ListItem>
-			    <asp:ListItem Value="_self">Same Window</asp:ListItem>
-			    <asp:ListItem Value="_top">Browser Window</asp:ListItem>
+			<asp:DropDownList ID="drpTarget" runat="server" AutoPostBack="True">
+			    <asp:ListItem Value="external-link">New Window</asp:ListItem>
 		    </asp:DropDownList>
-	    </div>
-	    <div class="formItem">
-		    <asp:Label ID="lblTarget" runat="server" AssociatedControlID="txtTarget" SkinID="Long">Target</asp:Label>
-		    <asp:TextBox ID="txtTarget" runat="server"></asp:TextBox>
 	    </div>
 	</fieldset>
 </div>

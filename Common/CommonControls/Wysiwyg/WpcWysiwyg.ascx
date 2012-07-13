@@ -2,7 +2,6 @@
 <%@ Import Namespace="Spinit.Wpc.Wysiwyg.Code" %>
 <asp:PlaceHolder ID="phScriptManager" runat="server" />
 <div id="div-edtWpcWysiwyg" class="edtWpcWysiwyg">
-
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" language="javascript">
 $(document).ready(function() {
@@ -22,7 +21,7 @@ $(document).ready(function() {
 	    theme_advanced_resizing: true,
 	    content_css: <%=GetCss() %>
 	    template_templates : <%=GetTemplates()%>
-	    height: '400',
+		height: 400,
 	    relative_urls : false, 
 	    remove_script_host : true,
 	    doctype: '<!DOCTYPE html>',

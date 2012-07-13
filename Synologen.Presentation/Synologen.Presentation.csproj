@@ -774,7 +774,6 @@
     <Content Include="App_Browsers\w3cValidator.browser" />
     <Content Include="App_Themes\Default\Alternative.skin" />
     <Content Include="App_Themes\Default\Default.skin" />
-    <Content Include="App_Themes\Default\WysiwygDefault.skin" />
     <Content Include="App_Themes\Normal\ComponentGridView.skin" />
     <Content Include="App_Themes\Normal\TabStrip.skin" />
     <Content Include="App_Themes\Normal\TreeView.skin" />
@@ -809,7 +808,9 @@
     <Content Include="Settings\users\Web.config" />
     <Content Include="Settings\Web.config" />
     <Content Include="Views\Web.config" />
-    <Content Include="Filemanager.config" />
+    <Content Include="Filemanager.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Imagemanager.config" />
   </ItemGroup>
   <ItemGroup>

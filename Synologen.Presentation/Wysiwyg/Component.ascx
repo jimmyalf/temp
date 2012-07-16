@@ -20,7 +20,6 @@
 		<div class="formCommands">
 			<asp:Button ID="btnInsert" runat="server" Text="Insert" SkinID="Big" OnClick="btnInsert_Click" Visible="false"/>
 			<input type="button" value="Close" OnClick="javascript:Cancel()" />
-			<input type="button" value="Remove" OnClick="javascript:Remove()" />
 		</div>
 	</div>
 </div>

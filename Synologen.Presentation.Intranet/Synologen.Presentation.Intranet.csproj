@@ -630,6 +630,7 @@
     <None Include="Testpages\Order\SubscriptionCorrection.aspx" />
     <None Include="Testpages\LensSubscription\MigrateSubscription.aspx" />
     <None Include="Testpages\Supplier\MemberProfile.aspx" />
+    <None Include="Testpages\Supplier\AdminMemberPage.aspx" />
     <Content Include="Testpages\Supplier\MemberFilesThumbs.aspx" />
     <None Include="Testpages\Order\EditSubscription.aspx" />
     <None Include="Testpages\Order\OrderReportLink.aspx" />
@@ -901,6 +902,18 @@
     <Folder Include="Wpc\Base\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\TinyMceAdvancedConfiguration.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>TinyMceAdvancedConfiguration.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\TinyMceBasicConfiguration.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>TinyMceBasicConfiguration.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\TinyMceWpcInternalAdvancedConfiguration.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>TinyMceWpcInternalAdvancedConfiguration.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Reports\OrderAGDescriptionReport.resx">
       <DependentUpon>OrderAGDescriptionReport.cs</DependentUpon>

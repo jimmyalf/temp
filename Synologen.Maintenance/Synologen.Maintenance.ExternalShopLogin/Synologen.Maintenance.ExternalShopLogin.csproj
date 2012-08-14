@@ -50,7 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Model\SetExternalLoginForShopResult.cs" />
     <Compile Include="Domain\Model\Shop.cs" />
+    <Compile Include="Domain\Services\IHashService.cs" />
+    <Compile Include="Domain\Services\IPasswordService.cs" />
+    <Compile Include="Domain\Services\PasswordService.cs" />
+    <Compile Include="Domain\Services\SHA1HashService.cs" />
+    <Compile Include="Persistence\Commands\SetExternalLoginForShopCommand.cs" />
     <Compile Include="Persistence\PersistenceBase.cs" />
     <Compile Include="Persistence\Queries\AllShopsQuery.cs" />
     <Compile Include="Program.cs" />
@@ -60,9 +66,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Persistence\Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

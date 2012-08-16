@@ -14,12 +14,15 @@ namespace Synologen.Maintenance.ExternalShopLogin
 			var shops = new AllShopsQuery().Execute();
 			var hashService = new SHA1HashService();
 			var passwordService = new PasswordService();
+			var fileService = new FileService();
 			var results = new List<SetExternalLoginForShopResult>();
 			foreach (var shop in shops)
 			{
 				var result = new SetExternalLoginForShopCommand(shop, hashService, passwordService).Execute();
 				results.Add(result);
 			}
+			fileService.SaveFile(results, @"C:\Users\cber\Desktop\external-logins.csv");
+			Console.WriteLine("Press any key to exit... ");
 			Console.ReadKey();
 		}
 	}

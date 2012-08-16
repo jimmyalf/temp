@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Domain\Model\SetExternalLoginForShopResult.cs" />
     <Compile Include="Domain\Model\Shop.cs" />
+    <Compile Include="Domain\Services\FileService.cs" />
     <Compile Include="Domain\Services\IHashService.cs" />
     <Compile Include="Domain\Services\IPasswordService.cs" />
     <Compile Include="Domain\Services\PasswordService.cs" />

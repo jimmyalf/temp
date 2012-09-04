@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Extensions;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model;
+using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities;
+using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Services;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Settings;
 using Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands;
@@ -17,44 +19,52 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 		private readonly RenamingService _renamingService;
 		private readonly FileSystemService _fileSystemService;
 
+		public event EventHandler<RenameEventArgs> BaseFileRenamed;
+		public event EventHandler<RenameEventArgs> FileRenamed;
+		public event EventHandler<RenameEventArgs> DirectoryRenamed;
+		public event EventHandler<RenameEventArgs> ContentRenamed;
+		public event EventHandler<RenameEventArgs> NewsRenamed;
+
 		public Migrator()
 		{
 			_renamingService = new RenamingService();
-			_fileSystemService = new FileSystemService(@"C:\Develop\WPC\Synologen\Common\Files\");
+			_fileSystemService = new FileSystemService(Settings.GetCommonFilesPath());
 		}
-		public void RenameDatabaseEntries()
+
+		public IEnumerable<FileEntityRenamingResult> RenameDatabaseEntries()
 		{
-			var fileCollection = new BaseFileCollectionQuery().Execute()
-				.Where(_renamingService.FileNeedsRenaming)
-				.ToList();
-			foreach (var fileEntry in fileCollection)
+			foreach (var fileEntry in GetInvalidFileEntries())
 			{
 				var renamedFile = new RenameFileCommand(fileEntry, _renamingService.Rename).Execute();
+				if (BaseFileRenamed != null) BaseFileRenamed(this, renamedFile.ToRenameEvent());
+				yield return renamedFile;
 			}
 		}
 
-		public void RenameDirectories()
+		public IEnumerable<IRenamingResult> RenameDirectories()
 		{
 			var directoriesToRename = GetInvalidDirectories();
 			while (directoriesToRename.Any())
 			{
 				var directoryToRename = directoriesToRename.First();
 				var result = _fileSystemService.Rename(directoryToRename, _renamingService.Rename);
-				Debug.WriteLine("Moved directory from {0} to {1}", result.OldPath, result.NewPath);
+				if (DirectoryRenamed != null) DirectoryRenamed(this, result.ToRenameEvent());
+				yield return result;
 				directoriesToRename = GetInvalidDirectories();
 			}			
 		}
 
-		public void RenameFiles()
+		public IEnumerable<IRenamingResult> RenameFiles()
 		{
 			foreach (var file in GetInvalidFiles())
 			{
 				var result = _fileSystemService.Rename(file, _renamingService.Rename);
-				Debug.WriteLine("Renamed file from {0} to {1}", result.OldPath, result.NewPath);		
+				if (FileRenamed != null) FileRenamed(this, result.ToRenameEvent());
+				yield return result;
 			}
 		}
 
-		protected string GetIllegalChars(FileCollection fileCollection)
+		protected virtual string GetIllegalChars(IEnumerable<FileEntity> fileCollection)
 		{
 			return fileCollection
 			    .Select(x => x.Name)
@@ -62,21 +72,56 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			    .SelectMany(x => x).ConvertToString()
 			    .RegexRemove(Settings.ValidCharacterPattern, RegexOptions.IgnoreCase)
 			    .ToCharArray().Distinct()
-			    .ConvertToString();			
+			    .ConvertToString();	
 		}
 
-		protected IList<DirectoryInfo> GetInvalidDirectories()
+		protected virtual IList<FileEntity> GetInvalidFileEntries()
+		{
+			return new AllFileEntitiesQuery().Execute()
+				.Where(_renamingService.FileNeedsRenaming)
+				.ToList();
+		}
+
+		protected virtual IList<DirectoryInfo> GetInvalidDirectories()
 		{
 			return _fileSystemService
 				.GetAllDirectories()
 				.Where(directory => !_renamingService.IsValid(directory.Name)).ToList();
 		}
 
-		protected IList<FileInfo> GetInvalidFiles()
+		protected virtual IList<FileInfo> GetInvalidFiles()
 		{
 			return _fileSystemService
 				.GetAllFiles()
-				.Where(directory => !_renamingService.IsValid(directory.Name)).ToList();
+				.Where(file => !_renamingService.IsValid(file.Name)).ToList();
+		}
+
+		public IEnumerable<ContentUpdateResult> RenameContent(IEnumerable<FileEntityRenamingResult> renamedFiles)
+		{
+			foreach (var renamedFile in renamedFiles)
+			{
+				var matchingPages = new ContentEntitiesMatchingSearchQuery(renamedFile.OldPath).Execute();
+				foreach (var matchingPage in matchingPages)
+				{
+					var result = new RenameContentCommand(matchingPage).Execute(renamedFile.OldPath, renamedFile.NewPath);
+					if(ContentRenamed != null) ContentRenamed(this, result.ToRenameEvent());
+					yield return result;
+				}
+			}
+		}
+
+		public IEnumerable<NewsUpdateResult> RenameNews(IEnumerable<FileEntityRenamingResult> renamedFiles)
+		{
+			foreach (var renamedFile in renamedFiles)
+			{
+				var matchingNews = new NewsEntitiesMatchingSearchQuery(renamedFile.OldPath).Execute();
+				foreach (var matchingNewsItem in matchingNews)
+				{
+					var result = new RenameNewsCommand(matchingNewsItem).Execute(renamedFile.OldPath, renamedFile.NewPath);
+					if(NewsRenamed != null) NewsRenamed(this, result.ToRenameEvent());
+					yield return result;
+				}
+			}
 		}
 	}
 }

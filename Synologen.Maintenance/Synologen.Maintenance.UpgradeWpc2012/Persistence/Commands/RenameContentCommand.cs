@@ -1,0 +1,21 @@
+﻿using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities;
+using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results;
+
+namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands
+{
+	public class RenameContentCommand : RenameNTextCommand
+	{
+		private readonly ContentEntity _contentEntity;
+
+		public RenameContentCommand(ContentEntity contentEntity)
+		{
+			_contentEntity = contentEntity;
+		}
+
+		public ContentUpdateResult Execute(string search, string replace)
+		{
+			Execute(_contentEntity.Id, search, replace, "tblContPage", "cContent");
+			return new ContentUpdateResult(_contentEntity) {OldUrl = search, NewUrl = replace};
+		}
+	}
+}

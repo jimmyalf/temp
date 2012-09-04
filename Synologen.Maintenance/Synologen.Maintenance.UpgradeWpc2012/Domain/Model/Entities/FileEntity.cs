@@ -2,16 +2,16 @@
 using System.IO;
 using Spinit.Data.FluentParameters;
 
-namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model
+namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities
 {
-	public class FileEntry
+	public class FileEntity
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public bool Directory { get; set; }
-		public static FileEntry Parse(IDataRecord record)
+		public static FileEntity Parse(IDataRecord record)
 		{
-			return new FluentDataParser<FileEntry>(record)
+			return new FluentDataParser<FileEntity>(record)
 				.Parse(x => x.Id)
 				.Parse(x => x.Name)
 				.Parse(x => x.Directory)

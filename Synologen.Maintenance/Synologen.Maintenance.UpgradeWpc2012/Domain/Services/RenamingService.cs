@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Spinit.Extensions;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Extensions;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model;
+using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Services
 {
@@ -57,7 +58,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Services
 			return RemoveInvalidCharacters(temp);
 		}
 
-		public bool FileNeedsRenaming(FileEntry file)
+		public bool FileNeedsRenaming(FileEntity file)
 		{
 			return !IsValid(file.Name);
 		}

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Synologen.Maintenance.UpgradeWpc2012.Domain.Model;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Services

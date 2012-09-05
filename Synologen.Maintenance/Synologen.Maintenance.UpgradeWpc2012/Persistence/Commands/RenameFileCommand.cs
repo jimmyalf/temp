@@ -1,6 +1,5 @@
 ﻿using System;
 using Spinit.Data.SqlClient.SqlBuilder;
-using Synologen.Maintenance.UpgradeWpc2012.Domain.Model;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results;
 

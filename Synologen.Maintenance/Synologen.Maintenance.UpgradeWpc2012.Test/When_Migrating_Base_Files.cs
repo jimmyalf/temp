@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Shouldly;
 using Synologen.Maintenance.UpgradeWpc2012.Persistence.Queries;
+using Synologen.Maintenance.UpgradeWpc2012.Test.Base;
 using Synologen.Maintenance.UpgradeWpc2012.Test.Persistence;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Test
@@ -13,14 +14,14 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 		public void Using_file_with_block_parentheses()
 		{
 			//Arrange
-			Database.CreateFileEntry("/Test/file[name].pdf");
+			Database.CreateFileEntry("/Test[folder]/file[name].pdf");
 
 			//Act
 			var result = Migrator.RenameDatabaseEntries();
 
 			//Assert
 			var renamedFileEntry = new AllFileEntitiesQuery().Execute().Single();
-			renamedFileEntry.Name.ShouldBe("/Test/filename.pdf");
+			renamedFileEntry.Name.ShouldBe("/Testfolder/filename.pdf");
 		}
 
 		[Test]

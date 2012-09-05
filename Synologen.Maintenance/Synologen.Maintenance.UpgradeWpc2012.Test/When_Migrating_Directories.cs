@@ -1,6 +1,7 @@
 using System.Linq;
 using NUnit.Framework;
 using Shouldly;
+using Synologen.Maintenance.UpgradeWpc2012.Test.Base;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Test
 {

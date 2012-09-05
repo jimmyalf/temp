@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using Synologen.Maintenance.UpgradeWpc2012.Test.Persistence;
 
-namespace Synologen.Maintenance.UpgradeWpc2012.Test
+namespace Synologen.Maintenance.UpgradeWpc2012.Test.Base
 {
 	public class DatabaseTestBase
 	{
@@ -14,11 +14,6 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 			Database.CreateSchema();
 			Database.CreateDefaultData();
 			Migrator = new Migrator();
-		}
-
-		protected void CreateFileEntry(string name)
-		{
-			
 		}
 
 		[TearDown]

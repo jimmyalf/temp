@@ -6,6 +6,7 @@ using Synologen.Maintenance.UpgradeWpc2012.Test.Persistence;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Test
 {
+	[TestFixture]
 	public class When_Migrating_Base_Files : DatabaseTestBase
 	{
 		[Test]

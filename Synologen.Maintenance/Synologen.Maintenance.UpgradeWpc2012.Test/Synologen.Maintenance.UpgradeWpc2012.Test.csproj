@@ -54,7 +54,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="When_Upgrading_Base_Files.cs" />
+    <Compile Include="FileSystemTestBase.cs" />
+    <Compile Include="Persistence\FileSystem.cs" />
+    <Compile Include="When_Migrating_Directories.cs" />
+    <Compile Include="When_Migrating_Files.cs" />
+    <Compile Include="When_Migrating_Base_Files.cs" />
     <Compile Include="DatabaseTestBase.cs" />
     <Compile Include="Persistence\Database.cs" />
     <Compile Include="Persistence\Sql.cs" />
@@ -65,7 +69,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Staging\" />
     <Folder Include="Test\" />
   </ItemGroup>
   <ItemGroup>

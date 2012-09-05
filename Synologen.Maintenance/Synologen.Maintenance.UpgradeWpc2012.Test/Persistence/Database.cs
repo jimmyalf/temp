@@ -42,7 +42,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test.Persistence
 		{
 			var regex = new Regex("^[\t]*GO", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 			var operations = regex.Split(sql.Trim()).Where(operation => !string.IsNullOrEmpty(operation));
-			var persistenceBase = new PersistenceBase(Settings.GetConnectionString());
+			var persistenceBase = new PersistenceBase(Settings.ConnectionString);
 			foreach (var operation in operations)
 			{
 				persistenceBase.Execute(operation, null);	
@@ -51,7 +51,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test.Persistence
 
 		private static void Execute(ICommandBuilder command)
 		{
-			var persistenceBase = new PersistenceBase(Settings.GetConnectionString());
+			var persistenceBase = new PersistenceBase(Settings.ConnectionString);
 			persistenceBase.Execute(command);
 		}
 	}

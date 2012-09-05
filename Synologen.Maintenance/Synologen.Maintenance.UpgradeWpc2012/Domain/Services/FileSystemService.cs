@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Services
 {
 	public class FileSystemService
 	{
-		private readonly string _rootPath;
+		private readonly DirectoryInfo _root;
 
-		public FileSystemService(string rootPath)
+		public FileSystemService(DirectoryInfo root)
 		{
-			_rootPath = rootPath;
+			_root = root;
 		}
 
 		public IEnumerable<DirectoryInfo> GetAllDirectories()
 		{
-			return Directory.GetDirectories(_rootPath, "*", SearchOption.AllDirectories).Select(path => new DirectoryInfo(path));
+			return _root.GetDirectories("*", SearchOption.AllDirectories);
 		}
 
 		public IEnumerable<FileInfo> GetAllFiles()
 		{
-			return Directory.GetFiles(_rootPath, "*", SearchOption.AllDirectories).Select(path => new FileInfo(path));
+			return _root.GetFiles("*", SearchOption.AllDirectories);
 		}
 
 		public IRenamingResult Rename(DirectoryInfo directoryInfo, Func<string,string> renameFile)

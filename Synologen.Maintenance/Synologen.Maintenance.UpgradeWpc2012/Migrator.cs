@@ -28,7 +28,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 		public Migrator()
 		{
 			_renamingService = new RenamingService();
-			_fileSystemService = new FileSystemService(Settings.GetCommonFilesPath());
+			_fileSystemService = new FileSystemService(Settings.CommonFilesDirectory);
 		}
 
 		public IList<FileEntityRenamingResult> RenameDatabaseEntries()

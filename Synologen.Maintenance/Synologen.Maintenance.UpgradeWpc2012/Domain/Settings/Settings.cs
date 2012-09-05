@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using System.IO;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Settings
 {
@@ -6,15 +8,27 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Settings
 	{
 		public static string InvalidCharacterPattern = @"[^a-z0-9+\-\._\/]";
 		public static string ValidCharacterPattern = @"[a-z0-9+\-\._\/]";
+		private static DirectoryInfo _commonFilesDirectory;
 
-		public static string GetCommonFilesPath()
+		public static DirectoryInfo CommonFilesDirectory
 		{
-			return ConfigurationManager.AppSettings["CommonFilesFolderPath"];
+			get{
+				if(_commonFilesDirectory != null) return _commonFilesDirectory;
+				var path = ConfigurationManager.AppSettings["CommonFilesFolderPath"].Replace("{ProjectFolder}", GetProjectFolder());
+				_commonFilesDirectory = new DirectoryInfo(path);
+				return _commonFilesDirectory;
+			}
 		}
 
-		public static string GetConnectionString()
+		public static string ConnectionString
 		{
-			return ConfigurationManager.ConnectionStrings["WpcServer"].ConnectionString;
+			get { return ConfigurationManager.ConnectionStrings["WpcServer"].ConnectionString; }
+			
+		}
+
+		private static string GetProjectFolder()
+		{
+			return (new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory)).Parent.Parent.FullName;
 		}
 	}
 }

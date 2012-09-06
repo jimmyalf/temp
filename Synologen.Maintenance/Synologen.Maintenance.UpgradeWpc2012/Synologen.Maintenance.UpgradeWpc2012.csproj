@@ -58,6 +58,9 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit">
       <HintPath>..\packages\Spinit.1.0.1.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
@@ -75,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Model\Entities\ContentEntity.cs" />
+    <Compile Include="Domain\Model\Entities\RenamedFileEntity.cs" />
     <Compile Include="Domain\Model\Results\ContentUpdateResult.cs" />
     <Compile Include="Domain\Model\Results\IRenamingResult.cs" />
     <Compile Include="Domain\Model\Results\DirectoryRenamingResult.cs" />
@@ -89,6 +93,7 @@
     <Compile Include="Domain\Settings\Settings.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Persistence\Commands\RenameNewsCommand.cs" />
+    <Compile Include="Persistence\Queries\AllRenamedFileEntitiesQuery.cs" />
     <Compile Include="Persistence\Queries\ContentEntitiesMatchingSearchQuery.cs" />
     <Compile Include="Persistence\Commands\RenameContentCommand.cs" />
     <Compile Include="Persistence\Commands\RenameNTextCommand.cs" />

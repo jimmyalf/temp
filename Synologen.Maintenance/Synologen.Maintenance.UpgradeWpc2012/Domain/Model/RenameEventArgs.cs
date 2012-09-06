@@ -14,5 +14,10 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model
 			NewName = newName;
 			Description = description;
 		}
+
+		public override string ToString()
+		{
+			return Description;
+		}
 	}
 }

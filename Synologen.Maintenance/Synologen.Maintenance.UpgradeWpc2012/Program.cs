@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using Synologen.Maintenance.UpgradeWpc2012.Domain.Model;
 
 namespace Synologen.Maintenance.UpgradeWpc2012
 {
@@ -10,24 +7,14 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 		static void Main(string[] args)
 		{
 			var migrator = new Migrator();
-			migrator.BaseFileRenamed += (s, e) => LogRename(e);
-			migrator.DirectoryRenamed += (s, e) => LogRename(e);
-			migrator.FileRenamed += (s, e) => LogRename(e);
-			migrator.ContentRenamed += (s, e) => LogRename(e);
-			migrator.NewsRenamed += (s, e) => LogRename(e);
+			migrator.AllRenameEvents += (s, e) => Console.WriteLine(e);
 
-			var renamedDatabaseEntries = migrator.RenameDatabaseEntries().ToList();
+			var renamedDatabaseEntries = migrator.RenameDatabaseEntries();
 			var renamedDirectories = migrator.RenameDirectories();
 			var renamedFiles = migrator.RenameFiles();
-			var renamedContent = migrator.RenameContent(renamedDatabaseEntries);
-			var renamedNews = migrator.RenameNews(renamedDatabaseEntries);
+			var renamedContent = migrator.RenameContent();
+			var renamedNews = migrator.RenameNews();
 			Console.ReadKey();
-		}
-
-		public static void LogRename(RenameEventArgs e)
-		{
-			Console.WriteLine(e.Description);
-			Debug.WriteLine(e.Description);
 		}
 	}
 }

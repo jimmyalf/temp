@@ -78,8 +78,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Model\Entities\ContentEntity.cs" />
+    <Compile Include="Domain\Model\Entities\CourseEntity.cs" />
+    <Compile Include="Domain\Model\Entities\MemberContentEntity.cs" />
     <Compile Include="Domain\Model\Entities\RenamedFileEntity.cs" />
     <Compile Include="Domain\Model\Results\ContentUpdateResult.cs" />
+    <Compile Include="Domain\Model\Results\CourseUpdateResult.cs" />
     <Compile Include="Domain\Model\Results\IRenamingResult.cs" />
     <Compile Include="Domain\Model\Results\DirectoryRenamingResult.cs" />
     <Compile Include="Domain\Extensions\StringExtensions.cs" />
@@ -87,20 +90,27 @@
     <Compile Include="Domain\Model\Entities\NewsEntity.cs" />
     <Compile Include="Domain\Model\RenameEventArgs.cs" />
     <Compile Include="Domain\Model\Results\IUrlReplacingResult.cs" />
+    <Compile Include="Domain\Model\Results\MemberContentUpdateResult.cs" />
     <Compile Include="Domain\Model\Results\NewsUpdateResult.cs" />
     <Compile Include="Domain\Model\Results\FileEntityRenamingResult.cs" />
     <Compile Include="Domain\Services\FileSystemService.cs" />
     <Compile Include="Domain\Settings\Settings.cs" />
     <Compile Include="Migrator.cs" />
     <Compile Include="Persistence\Commands\AddPreviousNameColumnToBaseFileTableCommand.cs" />
+    <Compile Include="Persistence\Commands\RenameCourseCommand.cs" />
+    <Compile Include="Persistence\Commands\RenameMemberContentCommand.cs" />
     <Compile Include="Persistence\Commands\RenameNewsCommand.cs" />
     <Compile Include="Persistence\Queries\AllContentEntitiesQuery.cs" />
+    <Compile Include="Persistence\Queries\AllCourseEntitiesQuery.cs" />
+    <Compile Include="Persistence\Queries\AllMemberContentEntitiesQuery.cs" />
     <Compile Include="Persistence\Queries\AllNewsEntitiesQuery.cs" />
     <Compile Include="Persistence\Queries\AllRenamedFileEntitiesQuery.cs" />
     <Compile Include="Persistence\Queries\ContentEntitiesMatchingSearchQuery.cs" />
     <Compile Include="Persistence\Commands\RenameContentCommand.cs" />
-    <Compile Include="Persistence\Commands\RenameNTextCommand.cs" />
+    <Compile Include="Persistence\Commands\RenameTextCommand.cs" />
     <Compile Include="Persistence\Commands\RenameFileCommand.cs" />
+    <Compile Include="Persistence\Queries\CourseEntitiesMatchingSearchQuery.cs" />
+    <Compile Include="Persistence\Queries\MemberContentEntitiesMatchingSearchQuery.cs" />
     <Compile Include="Persistence\Queries\NewsEntitiesMatchingSearchQuery.cs" />
     <Compile Include="Persistence\Queries\AllFileEntitiesQuery.cs" />
     <Compile Include="Domain\Model\Entities\FileEntity.cs" />

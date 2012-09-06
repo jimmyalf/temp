@@ -14,6 +14,8 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			var renamedFiles = migrator.RenameFiles();
 			var renamedContent = migrator.RenameContent();
 			var renamedNews = migrator.RenameNews();
+			var renamedCourses = migrator.RenameCourses();
+			var renamedMemberContent = migrator.RenameMemberContents();
 			Console.ReadKey();
 		}
 	}

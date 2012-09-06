@@ -28,6 +28,8 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 		public event EventHandler<RenameEventArgs> DirectoryRenamed;
 		public event EventHandler<RenameEventArgs> ContentRenamed;
 		public event EventHandler<RenameEventArgs> NewsRenamed;
+		public event EventHandler<RenameEventArgs> CourseRenamed;
+		public event EventHandler<RenameEventArgs> MemberContentRenamed;
 		public event EventHandler<RenameEventArgs> AllRenameEvents;
 		private bool _initialized;
 
@@ -116,24 +118,24 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			foreach (var renamedFile in renamedFiles)
 			{
 				var matchingPages = new ContentEntitiesMatchingSearchQuery(renamedFile.PreviousName).Execute();
-				foreach (var matchingPage in matchingPages)
+				foreach (var page in matchingPages)
 				{
 					try
 					{
-						var result = new RenameContentCommand(matchingPage).Execute(renamedFile.PreviousName, renamedFile.Name);
+						var result = new RenameContentCommand(page).Execute(renamedFile.PreviousName, renamedFile.Name);
 						FireEventAndLog(ContentRenamed, result.ToRenameEvent());
 						output.Add(result);
 					}
 					catch (Exception ex)
 					{
-						_logger.Error("Got exception while renaming ContentPage[" + matchingPage.Id + "]", ex);
+						_logger.Error("Got exception while renaming ContentPage[" + page.Id + "]", ex);
 					}
 				}
 			}
 			return output;
 		}
 
-		public IEnumerable<NewsUpdateResult> RenameNews()
+		public IList<NewsUpdateResult> RenameNews()
 		{
 			ValidateInitialized();
 			var output = new List<NewsUpdateResult>();
@@ -141,17 +143,67 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			foreach (var renamedFile in renamedFiles)
 			{
 				var matchingNews = new NewsEntitiesMatchingSearchQuery(renamedFile.PreviousName).Execute();
-				foreach (var matchingNewsItem in matchingNews)
+				foreach (var newsItem in matchingNews)
 				{
 					try
 					{
-						var result = new RenameNewsCommand(matchingNewsItem).Execute(renamedFile.PreviousName, renamedFile.Name);
+						var result = new RenameNewsCommand(newsItem).Execute(renamedFile.PreviousName, renamedFile.Name);
 						FireEventAndLog(NewsRenamed, result.ToRenameEvent());
 						output.Add(result);
 					}
 					catch (Exception ex)
 					{
-						_logger.Error("Got exception while renaming News[" + matchingNewsItem.Id + "]", ex);
+						_logger.Error("Got exception while renaming News[" + newsItem.Id + "]", ex);
+					}
+				}
+			}
+			return output;
+		}
+
+		public IList<CourseUpdateResult> RenameCourses()
+		{
+			ValidateInitialized();
+			var output = new List<CourseUpdateResult>();
+			var renamedFiles = new AllRenamedFileEntitiesQuery().Execute();
+			foreach (var renamedFile in renamedFiles)
+			{
+				var matchingCourses = new CourseEntitiesMatchingSearchQuery(renamedFile.PreviousName).Execute();
+				foreach (var course in matchingCourses)
+				{
+					try
+					{
+						var result = new RenameCourseCommand(course).Execute(renamedFile.PreviousName, renamedFile.Name);
+						FireEventAndLog(CourseRenamed, result.ToRenameEvent());
+						output.Add(result);
+					}
+					catch (Exception ex)
+					{
+						_logger.Error("Got exception while renaming Course[" + course.Id + "]", ex);
+					}
+				}
+			}
+			return output;
+		}
+
+		public IList<MemberContentUpdateResult> RenameMemberContents()
+		{
+			ValidateInitialized();
+			var output = new List<MemberContentUpdateResult>();
+			var renamedFiles = new AllRenamedFileEntitiesQuery().Execute();
+			foreach (var renamedFile in renamedFiles)
+			{
+				var matchingMemberContents = new MemberContentEntitiesMatchingSearchQuery(renamedFile.PreviousName).Execute();
+				foreach (var memberContent in matchingMemberContents)
+				{
+					try
+					{
+						var result = new RenameMemberContentCommand(memberContent).Execute(renamedFile.PreviousName, renamedFile.Name);
+						FireEventAndLog(MemberContentRenamed, result.ToRenameEvent());
+						output.Add(result);
+					}
+					catch (Exception ex)
+					{
+						_logger.Error("Got exception while renaming MemberContent[" + memberContent.Id + "]", ex);
 					}
 				}
 			}

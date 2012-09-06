@@ -9,6 +9,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities
 		public int LocationId { get; set; }
 		public string Url { get; set; }
 		public string Name { get; set; }
+		public string Content { get; set; }
 
 		public static ContentEntity Parse(IDataRecord record)
 		{
@@ -17,6 +18,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities
 				.Parse(x => x.LocationId, "cLocId")
 				.Parse(x => x.Name)
 				.Parse(x => x.Url)
+				.Parse(x => x.Content)
 				.GetValue();
 		}
 	}

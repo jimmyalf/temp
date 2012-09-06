@@ -14,6 +14,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test.Base
 			Database.CreateSchema();
 			Database.CreateDefaultData();
 			Migrator = new Migrator();
+			Migrator.Initialize();
 		}
 
 		[TearDown]

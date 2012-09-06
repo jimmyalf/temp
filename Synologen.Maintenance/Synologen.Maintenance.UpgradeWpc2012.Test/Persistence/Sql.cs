@@ -74,7 +74,6 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test.Persistence
 						[cChangedBy] [nvarchar](100) NULL,
 						[cChangedDate] [smalldatetime] NULL,
 						[cIconType] [int] NULL,
-						[cPreviousName] [ntext] NULL,
 						CONSTRAINT [PK_tblBaseFile] PRIMARY KEY CLUSTERED 
 					(
 						[cId] ASC

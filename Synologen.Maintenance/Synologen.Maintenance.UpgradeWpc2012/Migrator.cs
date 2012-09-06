@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -28,6 +29,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 		public event EventHandler<RenameEventArgs> ContentRenamed;
 		public event EventHandler<RenameEventArgs> NewsRenamed;
 		public event EventHandler<RenameEventArgs> AllRenameEvents;
+		private bool _initialized;
 
 		public Migrator()
 		{
@@ -37,8 +39,15 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			XmlConfigurator.Configure();
 		}
 
+		public void Initialize()
+		{
+			new AddPreviousNameColumnToBaseFileTableCommand().Execute();
+			_initialized = true;
+		}
+
 		public IList<FileEntityRenamingResult> RenameDatabaseEntries()
 		{
+			ValidateInitialized();
 			var output = new List<FileEntityRenamingResult>();
 			foreach (var fileEntry in GetInvalidFileEntries())
 			{
@@ -58,6 +67,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 
 		public IList<IRenamingResult> RenameDirectories()
 		{
+			ValidateInitialized();
 			var output = new List<IRenamingResult>();
 			var directoriesToRename = GetInvalidDirectories();
 			while (directoriesToRename.Any())
@@ -80,6 +90,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 
 		public IList<IRenamingResult> RenameFiles()
 		{
+			ValidateInitialized();
 			var output = new List<IRenamingResult>();
 			foreach (var file in GetInvalidFiles())
 			{
@@ -99,6 +110,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 
 		public IList<ContentUpdateResult> RenameContent()
 		{
+			ValidateInitialized();
 			var output = new List<ContentUpdateResult>();
 			var renamedFiles = new AllRenamedFileEntitiesQuery().Execute();
 			foreach (var renamedFile in renamedFiles)
@@ -123,6 +135,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 
 		public IEnumerable<NewsUpdateResult> RenameNews()
 		{
+			ValidateInitialized();
 			var output = new List<NewsUpdateResult>();
 			var renamedFiles = new AllRenamedFileEntitiesQuery().Execute();
 			foreach (var renamedFile in renamedFiles)
@@ -182,6 +195,15 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			if (eventHandler != null) eventHandler(this, eventArgs);
 			if (AllRenameEvents != null) AllRenameEvents(this, eventArgs);
 			_logger.Info(eventArgs.Description);
+		}
+
+		[DebuggerStepThrough]
+		private void ValidateInitialized()
+		{
+			if(!_initialized)
+			{
+				throw new ApplicationException("Migrator has not been initialized. Make sure the initalize method is run before migration starts.");
+			}			
 		}
 	}
 }

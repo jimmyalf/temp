@@ -16,6 +16,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test.Base
 		{
 			FileSystem.CleanCommonFilesFolder();
 			Migrator = new Migrator();
+			Migrator.Initialize();
 		}
 
 		protected string CreateFile(string relativePath)

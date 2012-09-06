@@ -92,6 +92,7 @@
     <Compile Include="Domain\Services\FileSystemService.cs" />
     <Compile Include="Domain\Settings\Settings.cs" />
     <Compile Include="Migrator.cs" />
+    <Compile Include="Persistence\Commands\AddPreviousNameColumnToBaseFileTableCommand.cs" />
     <Compile Include="Persistence\Commands\RenameNewsCommand.cs" />
     <Compile Include="Persistence\Queries\AllContentEntitiesQuery.cs" />
     <Compile Include="Persistence\Queries\AllNewsEntitiesQuery.cs" />

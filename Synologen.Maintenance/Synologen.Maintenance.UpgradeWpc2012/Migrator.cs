@@ -145,6 +145,17 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			return output;
 		}
 
+		public virtual string GetIllegalChars(IEnumerable<FileEntity> fileCollection)
+		{
+			return fileCollection
+			    .Select(x => x.Name)
+			    .Select(_renamingService.ReplaceTokens)
+			    .SelectMany(x => x).ConvertToString()
+			    .RegexRemove(Settings.ValidCharacterPattern, RegexOptions.IgnoreCase)
+			    .ToCharArray().Distinct()
+			    .ConvertToString();	
+		}
+
 		protected virtual IList<FileEntity> GetInvalidFileEntries()
 		{
 			return new AllFileEntitiesQuery().Execute()
@@ -166,19 +177,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 				.Where(file => !_renamingService.IsValid(file.Name)).ToList();
 		}
 
-		
-		protected virtual string GetIllegalChars(IEnumerable<FileEntity> fileCollection)
-		{
-			return fileCollection
-			    .Select(x => x.Name)
-			    .Select(_renamingService.ReplaceTokens)
-			    .SelectMany(x => x).ConvertToString()
-			    .RegexRemove(Settings.ValidCharacterPattern, RegexOptions.IgnoreCase)
-			    .ToCharArray().Distinct()
-			    .ConvertToString();	
-		}
-
-		private void FireEventAndLog(EventHandler<RenameEventArgs> eventHandler, RenameEventArgs eventArgs)
+		protected virtual void FireEventAndLog(EventHandler<RenameEventArgs> eventHandler, RenameEventArgs eventArgs)
 		{
 			if (eventHandler != null) eventHandler(this, eventArgs);
 			if (AllRenameEvents != null) AllRenameEvents(this, eventArgs);

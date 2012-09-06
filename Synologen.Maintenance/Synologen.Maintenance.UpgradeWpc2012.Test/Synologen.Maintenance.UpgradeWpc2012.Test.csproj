@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Base\FileSystemTestBase.cs" />
     <Compile Include="Persistence\FileSystem.cs" />
+    <Compile Include="When_Migrating_Content.cs" />
     <Compile Include="When_Migrating_Directories.cs" />
     <Compile Include="When_Migrating_Files.cs" />
     <Compile Include="When_Migrating_Base_Files.cs" />

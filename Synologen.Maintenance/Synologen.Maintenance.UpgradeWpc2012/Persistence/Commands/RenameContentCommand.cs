@@ -3,7 +3,7 @@ using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands
 {
-	public class RenameContentCommand : RenameNTextCommand
+	public class RenameContentCommand : RenameTextCommand
 	{
 		private readonly ContentEntity _contentEntity;
 

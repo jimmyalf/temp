@@ -23,6 +23,8 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test.Persistence
 			Execute(Sql.CreateContentPageTable);
 			Execute(Sql.CreateContentTreeTable);
 			Execute(Sql.CreateNewsTable);
+			Execute(Sql.CreateCourseTable);
+			Execute(Sql.CreateMemberContentTable);
 			Execute(Sql.CreateGetPageUrlFunction);
 		}
 
@@ -94,6 +96,23 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test.Persistence
 			var insertStatement = command.ToString() + " SET @Id = @@IDENTITY";
 			persistenceBase.Execute(insertStatement, parameters);
 			return (T) identityParameter.Value;
+		}
+
+		public static void CreateCourseEntry(string body, string formatedBody)
+		{
+			var command = CommandBuilder.Build(@"
+				INSERT INTO tblCourse(cHeading,cSummary,cBody,cFormatedBody) 
+				VALUES('Heading','Summary',@Body, @FormatedBody)")
+				.AddParameters(new {Body = body, FormatedBody = formatedBody});
+			Execute(command);
+		}
+
+		public static void CreateMemberContentEntry(string body)
+		{
+			var command = CommandBuilder
+				.Build(@"INSERT INTO tblMembersContent(cMemberId,cBody) VALUES(0,@Body)")
+				.AddParameters(new {Body = body});
+			Execute(command);
 		}
 	}
 }

@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\FileSystemTestBase.cs" />
+    <Compile Include="When_Migrating_Courses.cs" />
     <Compile Include="Persistence\FileSystem.cs" />
     <Compile Include="When_Migrating_Content.cs" />
     <Compile Include="When_Migrating_Directories.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Persistence\Database.cs" />
     <Compile Include="Persistence\Sql.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="When_Migrating_News.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

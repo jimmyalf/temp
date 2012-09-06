@@ -241,6 +241,118 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test.Persistence
 			}
 		}
 
+		public static string CreateCourseTable 
+		{ 
+			get 
+			{ 
+				return @"/****** Object:  Table [dbo].[tblCourse]    Script Date: 2012-09-06 15:58:32 ******/
+					SET ANSI_NULLS ON
+					GO
+
+					SET QUOTED_IDENTIFIER ON
+					GO
+
+					CREATE TABLE [dbo].[tblCourse](
+						[cId] [int] IDENTITY(1,1) NOT NULL,
+						[cCourseMainId] [int] NULL,
+						[cCityId] [int] NULL,
+						[cHeading] [nvarchar](255) NULL,
+						[cSummary] [ntext] NULL,
+						[cBody] [ntext] NULL,
+						[cFormatedBody] [ntext] NULL,
+						[cContactName] [nvarchar](50) NULL,
+						[cContactEmail] [nvarchar](50) NULL,
+						[cContactPhone] [nvarchar](15) NULL,
+						[cContactMobile] [nvarchar](15) NULL,
+						[cLastApplicationDate] [smalldatetime] NULL,
+						[cPublishStartDate] [smalldatetime] NULL,
+						[cPublishEndDate] [smalldatetime] NULL,
+						[cCourseStartDate] [smalldatetime] NULL,
+						[cCourseEndDate] [smalldatetime] NULL,
+						[cMinParticipants] [int] NULL,
+						[cMaxParticipants] [int] NULL,
+						[cConfirmSubject] [nvarchar](255) NULL,
+						[cConfirmBody] [ntext] NULL,
+						[cReminderSubject] [nvarchar](255) NULL,
+						[cReminderBody] [ntext] NULL,
+						[cDaysBeforeReminder] [int] NULL,
+						[cReminderSent] [bit] NULL,
+						[cAdminEmail] [nvarchar](50) NULL,
+						[cContactAutoEmail] [bit] NULL,
+						[cAdminAutoEmail] [bit] NULL,
+						[cCreatedBy] [nvarchar](255) NULL,
+						[cCreatedDate] [smalldatetime] NULL,
+						[cEditedBy] [nvarchar](255) NULL,
+						[cEditedDate] [smalldatetime] NULL,
+						[cApprovedBy] [nvarchar](255) NULL,
+						[cApprovedDate] [smalldatetime] NULL,
+						[cLockedBy] [nvarchar](255) NULL,
+						[cLockedDate] [smalldatetime] NULL,
+						[cSubmissed] [int] NULL,
+						[cVisibleTo] [int] NULL,
+					 CONSTRAINT [PK_tblCourses] PRIMARY KEY CLUSTERED 
+					(
+						[cId] ASC
+					)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+					) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+					GO"; 
+			} 
+		}
+
+		public static string CreateMemberContentTable
+		{
+			get
+			{
+				return 
+					@"/****** Object:  Table [dbo].[tblMembersContent]    Script Date: 2012-09-06 16:13:53 ******/
+					SET ANSI_NULLS ON
+					GO
+
+					SET QUOTED_IDENTIFIER ON
+					GO
+
+					CREATE TABLE [dbo].[tblMembersContent](
+						[cId] [int] IDENTITY(1,1) NOT NULL,
+						[cMemberId] [int] NOT NULL,
+						[cDescription] [nvarchar](255) NULL,
+						[cAddress] [nvarchar](255) NULL,
+						[cZipcode] [nvarchar](50) NULL,
+						[cCity] [nvarchar](50) NULL,
+						[cPhone] [nvarchar](50) NULL,
+						[cFax] [nvarchar](50) NULL,
+						[cMobile] [nvarchar](50) NULL,
+						[cEmail] [nvarchar](50) NULL,
+						[cWww] [nvarchar](255) NULL,
+						[cVoip] [nvarchar](50) NULL,
+						[cSkype] [nvarchar](50) NULL,
+						[cCordless] [nvarchar](50) NULL,
+						[cBody] [ntext] NULL,
+						[cOther1] [nvarchar](100) NULL,
+						[cOther2] [nvarchar](100) NULL,
+						[cOther3] [nvarchar](255) NULL,
+						[cContactFirst] [nvarchar](255) NULL,
+						[cContactLast] [nvarchar](255) NULL,
+						[cProfilePictureId] [int] NULL,
+						[cDefaultDirectoryId] [int] NULL,
+						[cCreatedBy] [nvarchar](100) NULL,
+						[cCreatedDate] [datetime] NULL,
+						[cEditedBy] [nvarchar](100) NULL,
+						[cEditedDate] [datetime] NULL,
+						[cApprovedBy] [nvarchar](100) NULL,
+						[cApprovedDate] [datetime] NULL,
+						[cLockedBy] [nvarchar](100) NULL,
+						[cLockedDate] [datetime] NULL,
+					 CONSTRAINT [PK_tblMembersContent] PRIMARY KEY CLUSTERED 
+					(
+						[cId] ASC
+					)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+					) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+					GO";
+			}
+		}
+
 		public static string CreateGetPageUrlFunction
 		{
 			get { 

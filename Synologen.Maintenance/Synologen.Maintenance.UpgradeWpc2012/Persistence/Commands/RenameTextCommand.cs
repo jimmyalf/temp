@@ -4,7 +4,7 @@ using Spinit.Extensions;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands
 {
-	public abstract class RenameNTextCommand : PersistenceBase
+	public abstract class RenameTextCommand : PersistenceBase
 	{
 		protected void Execute(int id, string search, string replace, string table, string column, string idColumn = "cId")
 		{

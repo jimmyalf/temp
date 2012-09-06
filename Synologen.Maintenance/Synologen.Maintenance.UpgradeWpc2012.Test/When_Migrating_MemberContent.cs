@@ -8,10 +8,10 @@ using Synologen.Maintenance.UpgradeWpc2012.Test.Persistence;
 namespace Synologen.Maintenance.UpgradeWpc2012.Test
 {
 	[TestFixture]
-	public class When_Migrating_Courses : DatabaseTestBase
+	public class When_Migrating_MemberContent : DatabaseTestBase
 	{
 		[Test]
-		public void Using_course_with_ö_and_url_encoded_whitespace()
+		public void Using_member_content_with_ö_and_url_encoded_whitespace()
 		{
 			//Arrange
 			const string fileName = "/commonresources/files/www.synologen.se/torra%20ögon/torraögon.jpg";
@@ -19,16 +19,15 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 			const string content = "<h1><img src=" + fileName + " /></h1>";
 			const string expectedRenamedContent = "<h1><img src=" + expectedRenamedFileName + " /></h1>";
 			Database.CreateFileEntry(fileName);
-			Database.CreateCourseEntry(content, content);
+			Database.CreateMemberContentEntry(content);
 
 			//Act
 			Migrator.RenameDatabaseEntries();
-			Migrator.RenameCourses();
+			Migrator.RenameMemberContents();
 
 			//Assert
-			var renamedEntry = new AllCourseEntitiesQuery().Execute().Single();
+			var renamedEntry = new AllMemberContentEntitiesQuery().Execute().Single();
 			renamedEntry.Body.ShouldBe(expectedRenamedContent);
-			renamedEntry.FormatedBody.ShouldBe(expectedRenamedContent);
 		}		
 	}
 }

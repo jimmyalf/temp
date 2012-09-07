@@ -21,7 +21,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results
 
 		public override string ToString()
 		{
-			return string.Format("Page[{0}] had url \"{1}\" replaced with \"{2}\"", _contentEntity.Url, OldUrl, NewUrl);
+			return string.Format("Page[{0},{1}] had url \"{2}\" replaced with \"{3}\"", _contentEntity.Id, _contentEntity.Url, OldUrl, NewUrl);
 		}
 	}
 }

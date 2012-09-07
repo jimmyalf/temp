@@ -14,13 +14,13 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Queries
 			_query = query;
 		}
 
-		public IEnumerable<MemberContentEntity> Execute()
+		public IEnumerable<MemberEntity> Execute()
 		{
 			var query = QueryBuilder
 				.Build(@"SELECT cId, cMemberId, cBody FROM tblMembersContent")
 				.Where("cBody LIKE @Match")
 				.AddParameters(new { Match = '%' + EscapeSqlString(_query) + '%' });
-			return Query(query, MemberContentEntity.Parse).ToList();
+			return Query(query, MemberEntity.Parse).ToList();
 		}			 
 	}
 }

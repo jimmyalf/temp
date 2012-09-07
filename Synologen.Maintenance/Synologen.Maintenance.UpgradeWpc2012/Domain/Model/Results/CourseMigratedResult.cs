@@ -2,11 +2,11 @@ using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results
 {
-	public class CourseUpdateResult : IUrlReplacingResult
+	public class CourseMigratedResult : IEntityMigratedResult
 	{
 		private readonly CourseEntity _course;
 
-		public CourseUpdateResult(CourseEntity course)
+		public CourseMigratedResult(CourseEntity course)
 		{
 			_course = course;
 		}
@@ -16,10 +16,10 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results
 
 		public RenameEventArgs ToRenameEvent()
 		{
-			return new RenameEventArgs(OldUrl, NewUrl, GetDescription());
+			return new RenameEventArgs(OldUrl, NewUrl, ToString());
 		}
 
-		public string GetDescription()
+		public override string ToString()
 		{
 			return string.Format("Course[{0}] had url \"{1}\" replaced with \"{2}\"", _course.Id, OldUrl, NewUrl);
 		}

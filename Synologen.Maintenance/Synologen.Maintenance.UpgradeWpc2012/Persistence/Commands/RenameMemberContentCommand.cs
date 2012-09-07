@@ -5,17 +5,17 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands
 {
 	public class RenameMemberContentCommand : RenameTextCommand
 	{
-		private readonly MemberContentEntity _memberContent;
+		private readonly MemberEntity _member;
 
-		public RenameMemberContentCommand(MemberContentEntity memberContent)
+		public RenameMemberContentCommand(MemberEntity member)
 		{
-			_memberContent = memberContent;
+			_member = member;
 		}
 
-		public MemberContentUpdateResult Execute(string search, string replace)
+		public MemberMigratedResult Execute(string search, string replace)
 		{
-			Execute(_memberContent.Id, search, replace, "tblMembersContent", "cBody");
-			return new MemberContentUpdateResult(_memberContent) {OldUrl = search, NewUrl = replace};
+			Execute(_member.Id, search, replace, "tblMembersContent", "cBody");
+			return new MemberMigratedResult(_member) {OldUrl = search, NewUrl = replace};
 		}			 
 	}
 }

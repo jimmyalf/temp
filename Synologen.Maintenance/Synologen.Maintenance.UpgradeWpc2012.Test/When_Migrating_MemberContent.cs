@@ -1,6 +1,7 @@
 using System.Linq;
 using NUnit.Framework;
 using Shouldly;
+using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.ComponentMigrators;
 using Synologen.Maintenance.UpgradeWpc2012.Persistence.Queries;
 using Synologen.Maintenance.UpgradeWpc2012.Test.Base;
 using Synologen.Maintenance.UpgradeWpc2012.Test.Persistence;
@@ -22,8 +23,8 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 			Database.CreateMemberContentEntry(content);
 
 			//Act
-			Migrator.RenameDatabaseEntries();
-			Migrator.RenameMemberContents();
+			Migrator.RenameBaseFilesEntries();
+			Migrator.MigrateComponent(new MemberMigrator());
 
 			//Assert
 			var renamedEntry = new AllMemberContentEntitiesQuery().Execute().Single();

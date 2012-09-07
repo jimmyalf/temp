@@ -17,7 +17,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 			Database.CreateFileEntry("/Test[folder]/file[name].pdf");
 
 			//Act
-			var result = Migrator.RenameDatabaseEntries();
+			var result = Migrator.RenameBaseFilesEntries();
 
 			//Assert
 			var renamedFileEntry = new AllFileEntitiesQuery().Execute().Single();
@@ -31,7 +31,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 			Database.CreateFileEntry("/Test/file(name).pdf");
 
 			//Act
-			var result = Migrator.RenameDatabaseEntries();
+			var result = Migrator.RenameBaseFilesEntries();
 
 			//Assert
 			var renamedFileEntry = new AllFileEntitiesQuery().Execute().Single();
@@ -45,7 +45,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 			Database.CreateFileEntry("/Test/fileåäö.pdf");
 
 			//Act
-			var result = Migrator.RenameDatabaseEntries();
+			var result = Migrator.RenameBaseFilesEntries();
 
 			//Assert
 			var renamedFileEntry = new AllFileEntitiesQuery().Execute().Single();
@@ -59,7 +59,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 			Database.CreateFileEntry("/Test/fileÅÄÖ.pdf");
 
 			//Act
-			var result = Migrator.RenameDatabaseEntries();
+			var result = Migrator.RenameBaseFilesEntries();
 
 			//Assert
 			var renamedFileEntry = new AllFileEntitiesQuery().Execute().Single();
@@ -73,7 +73,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 			Database.CreateFileEntry("/Test/file name.pdf");
 
 			//Act
-			var result = Migrator.RenameDatabaseEntries();
+			var result = Migrator.RenameBaseFilesEntries();
 
 			//Assert
 			var renamedFileEntry = new AllFileEntitiesQuery().Execute().Single();

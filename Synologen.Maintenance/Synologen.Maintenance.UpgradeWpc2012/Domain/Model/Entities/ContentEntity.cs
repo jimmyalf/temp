@@ -3,7 +3,7 @@ using Spinit.Data.FluentParameters;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities
 {
-	public class ContentEntity
+	public class ContentEntity : IEntity
 	{
 		public int Id { get; set; }
 		public int LocationId { get; set; }

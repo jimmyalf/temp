@@ -77,21 +77,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Model\ComponentMigrators\ContentMigrator.cs" />
+    <Compile Include="Domain\Model\ComponentMigrators\CourseMigrator.cs" />
+    <Compile Include="Domain\Model\ComponentMigrators\MemberMigrator.cs" />
+    <Compile Include="Domain\Model\ComponentMigrators\NewsMigrator.cs" />
     <Compile Include="Domain\Model\Entities\ContentEntity.cs" />
     <Compile Include="Domain\Model\Entities\CourseEntity.cs" />
-    <Compile Include="Domain\Model\Entities\MemberContentEntity.cs" />
+    <Compile Include="Domain\Model\Entities\MemberEntity.cs" />
     <Compile Include="Domain\Model\Entities\RenamedFileEntity.cs" />
-    <Compile Include="Domain\Model\Results\ContentUpdateResult.cs" />
-    <Compile Include="Domain\Model\Results\CourseUpdateResult.cs" />
+    <Compile Include="Domain\Model\ComponentMigrators\IComponentMigrator.cs" />
+    <Compile Include="Domain\Model\Entities\IEntity.cs" />
+    <Compile Include="Domain\Model\Results\IEntityMigratedResult.cs" />
+    <Compile Include="Domain\Model\Results\ContentMigratedResult.cs" />
+    <Compile Include="Domain\Model\Results\CourseMigratedResult.cs" />
     <Compile Include="Domain\Model\Results\IRenamingResult.cs" />
     <Compile Include="Domain\Model\Results\DirectoryRenamingResult.cs" />
     <Compile Include="Domain\Extensions\StringExtensions.cs" />
     <Compile Include="Domain\Model\Results\FileRenamingResult.cs" />
     <Compile Include="Domain\Model\Entities\NewsEntity.cs" />
     <Compile Include="Domain\Model\RenameEventArgs.cs" />
-    <Compile Include="Domain\Model\Results\IUrlReplacingResult.cs" />
-    <Compile Include="Domain\Model\Results\MemberContentUpdateResult.cs" />
-    <Compile Include="Domain\Model\Results\NewsUpdateResult.cs" />
+    <Compile Include="Domain\Model\Results\MemberMigratedResult.cs" />
+    <Compile Include="Domain\Model\Results\NewsMigratedResult.cs" />
     <Compile Include="Domain\Model\Results\FileEntityRenamingResult.cs" />
     <Compile Include="Domain\Services\FileSystemService.cs" />
     <Compile Include="Domain\Settings\Settings.cs" />

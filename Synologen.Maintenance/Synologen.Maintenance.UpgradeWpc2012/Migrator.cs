@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Extensions;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model;
+using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.ComponentMigrators;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Services;
@@ -26,11 +27,8 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 		public event EventHandler<RenameEventArgs> BaseFileRenamed;
 		public event EventHandler<RenameEventArgs> FileRenamed;
 		public event EventHandler<RenameEventArgs> DirectoryRenamed;
-		public event EventHandler<RenameEventArgs> ContentRenamed;
-		public event EventHandler<RenameEventArgs> NewsRenamed;
-		public event EventHandler<RenameEventArgs> CourseRenamed;
-		public event EventHandler<RenameEventArgs> MemberContentRenamed;
 		public event EventHandler<RenameEventArgs> AllRenameEvents;
+		public event EventHandler<RenameEventArgs> ComponentEntityUpdated;
 		private bool _initialized;
 
 		public Migrator()
@@ -47,7 +45,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			_initialized = true;
 		}
 
-		public IList<FileEntityRenamingResult> RenameDatabaseEntries()
+		public IList<FileEntityRenamingResult> RenameBaseFilesEntries()
 		{
 			ValidateInitialized();
 			var output = new List<FileEntityRenamingResult>();
@@ -110,104 +108,29 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			return output;
 		}
 
-		public IList<ContentUpdateResult> RenameContent()
+		public IList<IEntityMigratedResult> MigrateComponent<TEntity>(IComponentMigrator<TEntity> migrator) where TEntity : IEntity
 		{
 			ValidateInitialized();
-			var output = new List<ContentUpdateResult>();
+			var output = new List<IEntityMigratedResult>();
 			var renamedFiles = new AllRenamedFileEntitiesQuery().Execute();
 			foreach (var renamedFile in renamedFiles)
 			{
-				var matchingPages = new ContentEntitiesMatchingSearchQuery(renamedFile.PreviousName).Execute();
-				foreach (var page in matchingPages)
+				var matchingEntities = migrator.GetEntitiesMatching(renamedFile);
+				foreach (var matchingEntity in matchingEntities)
 				{
-					try
-					{
-						var result = new RenameContentCommand(page).Execute(renamedFile.PreviousName, renamedFile.Name);
-						FireEventAndLog(ContentRenamed, result.ToRenameEvent());
-						output.Add(result);
-					}
-					catch (Exception ex)
-					{
-						_logger.Error("Got exception while renaming ContentPage[" + page.Id + "]", ex);
-					}
+				    try
+				    {
+				        var result = migrator.MigrateEntity(renamedFile, matchingEntity);
+				        FireEventAndLog(ComponentEntityUpdated, result.ToRenameEvent());
+				        output.Add(result);
+				    }
+				    catch (Exception ex)
+				    {
+				        _logger.Error("Got exception while updating "+migrator.ComponentName+"[" + matchingEntity.Id + "]", ex);
+				    }
 				}
 			}
-			return output;
-		}
-
-		public IList<NewsUpdateResult> RenameNews()
-		{
-			ValidateInitialized();
-			var output = new List<NewsUpdateResult>();
-			var renamedFiles = new AllRenamedFileEntitiesQuery().Execute();
-			foreach (var renamedFile in renamedFiles)
-			{
-				var matchingNews = new NewsEntitiesMatchingSearchQuery(renamedFile.PreviousName).Execute();
-				foreach (var newsItem in matchingNews)
-				{
-					try
-					{
-						var result = new RenameNewsCommand(newsItem).Execute(renamedFile.PreviousName, renamedFile.Name);
-						FireEventAndLog(NewsRenamed, result.ToRenameEvent());
-						output.Add(result);
-					}
-					catch (Exception ex)
-					{
-						_logger.Error("Got exception while renaming News[" + newsItem.Id + "]", ex);
-					}
-				}
-			}
-			return output;
-		}
-
-		public IList<CourseUpdateResult> RenameCourses()
-		{
-			ValidateInitialized();
-			var output = new List<CourseUpdateResult>();
-			var renamedFiles = new AllRenamedFileEntitiesQuery().Execute();
-			foreach (var renamedFile in renamedFiles)
-			{
-				var matchingCourses = new CourseEntitiesMatchingSearchQuery(renamedFile.PreviousName).Execute();
-				foreach (var course in matchingCourses)
-				{
-					try
-					{
-						var result = new RenameCourseCommand(course).Execute(renamedFile.PreviousName, renamedFile.Name);
-						FireEventAndLog(CourseRenamed, result.ToRenameEvent());
-						output.Add(result);
-					}
-					catch (Exception ex)
-					{
-						_logger.Error("Got exception while renaming Course[" + course.Id + "]", ex);
-					}
-				}
-			}
-			return output;
-		}
-
-		public IList<MemberContentUpdateResult> RenameMemberContents()
-		{
-			ValidateInitialized();
-			var output = new List<MemberContentUpdateResult>();
-			var renamedFiles = new AllRenamedFileEntitiesQuery().Execute();
-			foreach (var renamedFile in renamedFiles)
-			{
-				var matchingMemberContents = new MemberContentEntitiesMatchingSearchQuery(renamedFile.PreviousName).Execute();
-				foreach (var memberContent in matchingMemberContents)
-				{
-					try
-					{
-						var result = new RenameMemberContentCommand(memberContent).Execute(renamedFile.PreviousName, renamedFile.Name);
-						FireEventAndLog(MemberContentRenamed, result.ToRenameEvent());
-						output.Add(result);
-					}
-					catch (Exception ex)
-					{
-						_logger.Error("Got exception while renaming MemberContent[" + memberContent.Id + "]", ex);
-					}
-				}
-			}
-			return output;
+			return output;			
 		}
 
 		public virtual string GetIllegalChars(IEnumerable<FileEntity> fileCollection)

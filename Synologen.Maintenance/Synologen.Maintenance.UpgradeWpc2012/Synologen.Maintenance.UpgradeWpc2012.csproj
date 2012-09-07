@@ -67,6 +67,9 @@
     <Reference Include="Spinit.Data">
       <HintPath>..\packages\Spinit.Data.1.0.3.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Wpc.Maintenance.FileAndContentMigration, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spinit.Wpc.Maintenance.FileAndContentMigration.1.0.0.0\lib\net40\Spinit.Wpc.Maintenance.FileAndContentMigration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -77,52 +80,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Model\ComponentMigrators\ContentMigrator.cs" />
-    <Compile Include="Domain\Model\ComponentMigrators\CourseMigrator.cs" />
-    <Compile Include="Domain\Model\ComponentMigrators\MemberMigrator.cs" />
-    <Compile Include="Domain\Model\ComponentMigrators\NewsMigrator.cs" />
-    <Compile Include="Domain\Model\Entities\ContentEntity.cs" />
-    <Compile Include="Domain\Model\Entities\CourseEntity.cs" />
-    <Compile Include="Domain\Model\Entities\MemberEntity.cs" />
-    <Compile Include="Domain\Model\Entities\RenamedFileEntity.cs" />
-    <Compile Include="Domain\Model\ComponentMigrators\IComponentMigrator.cs" />
-    <Compile Include="Domain\Model\Entities\IEntity.cs" />
-    <Compile Include="Domain\Model\Results\IEntityMigratedResult.cs" />
-    <Compile Include="Domain\Model\Results\ContentMigratedResult.cs" />
-    <Compile Include="Domain\Model\Results\CourseMigratedResult.cs" />
-    <Compile Include="Domain\Model\Results\IRenamingResult.cs" />
-    <Compile Include="Domain\Model\Results\DirectoryRenamingResult.cs" />
-    <Compile Include="Domain\Extensions\StringExtensions.cs" />
-    <Compile Include="Domain\Model\Results\FileRenamingResult.cs" />
-    <Compile Include="Domain\Model\Entities\NewsEntity.cs" />
-    <Compile Include="Domain\Model\RenameEventArgs.cs" />
-    <Compile Include="Domain\Model\Results\MemberMigratedResult.cs" />
-    <Compile Include="Domain\Model\Results\NewsMigratedResult.cs" />
-    <Compile Include="Domain\Model\Results\FileEntityRenamingResult.cs" />
-    <Compile Include="Domain\Services\FileSystemService.cs" />
-    <Compile Include="Domain\Settings\Settings.cs" />
-    <Compile Include="Migrator.cs" />
-    <Compile Include="Persistence\Commands\AddPreviousNameColumnToBaseFileTableCommand.cs" />
-    <Compile Include="Persistence\Commands\RenameCourseCommand.cs" />
-    <Compile Include="Persistence\Commands\RenameMemberContentCommand.cs" />
-    <Compile Include="Persistence\Commands\RenameNewsCommand.cs" />
-    <Compile Include="Persistence\Queries\AllContentEntitiesQuery.cs" />
-    <Compile Include="Persistence\Queries\AllCourseEntitiesQuery.cs" />
-    <Compile Include="Persistence\Queries\AllMemberContentEntitiesQuery.cs" />
-    <Compile Include="Persistence\Queries\AllNewsEntitiesQuery.cs" />
-    <Compile Include="Persistence\Queries\AllRenamedFileEntitiesQuery.cs" />
-    <Compile Include="Persistence\Queries\ContentEntitiesMatchingSearchQuery.cs" />
-    <Compile Include="Persistence\Commands\RenameContentCommand.cs" />
-    <Compile Include="Persistence\Commands\RenameFileCommand.cs" />
-    <Compile Include="Persistence\Queries\CourseEntitiesMatchingSearchQuery.cs" />
-    <Compile Include="Persistence\Queries\MemberContentEntitiesMatchingSearchQuery.cs" />
-    <Compile Include="Persistence\Queries\NewsEntitiesMatchingSearchQuery.cs" />
-    <Compile Include="Persistence\Queries\AllFileEntitiesQuery.cs" />
-    <Compile Include="Domain\Model\Entities\FileEntity.cs" />
-    <Compile Include="Persistence\PersistenceBase.cs" />
+    <Compile Include="Domain\Model\ComponentMigrators\OPQDocumentHistoryMigrator.cs" />
+    <Compile Include="Domain\Model\Entities\OPQDocumentEntity.cs" />
+    <Compile Include="Domain\Model\ComponentMigrators\OPQDocumentMigrator.cs" />
+    <Compile Include="Domain\Model\Entities\OPQDocumentHistoryEntity.cs" />
+    <Compile Include="Domain\Model\Results\OPQDocumentHistoryMigratedResult.cs" />
+    <Compile Include="Domain\Model\Results\OPQDocumentMigratedResult.cs" />
+    <Compile Include="Persistence\Commands\RenameOpqDocumentCommand.cs" />
+    <Compile Include="Persistence\Commands\RenameOPQDocumentHistoryCommand.cs" />
+    <Compile Include="Persistence\Queries\OPQDocumentEntitiesMatchingSearchQuery.cs" />
+    <Compile Include="Persistence\Queries\OPQDocumentHistoryEntitiesMatchingSearchQuery.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Domain\Services\RenamingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -130,7 +99,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -113,7 +113,6 @@
     <Compile Include="Persistence\Queries\AllRenamedFileEntitiesQuery.cs" />
     <Compile Include="Persistence\Queries\ContentEntitiesMatchingSearchQuery.cs" />
     <Compile Include="Persistence\Commands\RenameContentCommand.cs" />
-    <Compile Include="Persistence\Commands\RenameTextCommand.cs" />
     <Compile Include="Persistence\Commands\RenameFileCommand.cs" />
     <Compile Include="Persistence\Queries\CourseEntitiesMatchingSearchQuery.cs" />
     <Compile Include="Persistence\Queries\MemberContentEntitiesMatchingSearchQuery.cs" />

@@ -3,7 +3,7 @@ using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands
 {
-	public class RenameCourseCommand : RenameTextCommand
+	public class RenameCourseCommand : PersistenceBase
 	{
 		private readonly CourseEntity _course;
 
@@ -14,8 +14,8 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands
 
 		public CourseMigratedResult Execute(string search, string replace)
 		{
-			Execute(_course.Id, search, replace, "tblCourse", "cBody");
-			Execute(_course.Id, search, replace, "tblCourse", "cFormatedBody");
+			RenameContent(_course.Id, search, replace, "tblCourse", "cBody");
+			RenameContent(_course.Id, search, replace, "tblCourse", "cFormatedBody");
 			return new CourseMigratedResult(_course) {OldUrl = search, NewUrl = replace};
 		}		 
 	}

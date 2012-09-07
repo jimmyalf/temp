@@ -8,6 +8,6 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.ComponentMigrators
 	{
 		string ComponentName { get; }
 		IEntityMigratedResult MigrateEntity(RenamedFileEntity renamedFile, TEntity entity);
-		IEnumerable<TEntity> GetEntitiesMatching(RenamedFileEntity renamedFile);	
+		IEnumerable<TEntity> GetEntitiesToBeMigrated(RenamedFileEntity renamedFile);	
 	}
 }

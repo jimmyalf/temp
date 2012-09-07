@@ -45,7 +45,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			_initialized = true;
 		}
 
-		public IList<FileEntityRenamingResult> RenameBaseFilesEntries()
+		public virtual IList<FileEntityRenamingResult> RenameBaseFilesEntries()
 		{
 			ValidateInitialized();
 			var output = new List<FileEntityRenamingResult>();
@@ -65,7 +65,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			return output;
 		}
 
-		public IList<IRenamingResult> RenameDirectories()
+		public virtual IList<IRenamingResult> RenameDirectories()
 		{
 			ValidateInitialized();
 			var output = new List<IRenamingResult>();
@@ -88,7 +88,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			return output;
 		}
 
-		public IList<IRenamingResult> RenameFiles()
+		public virtual IList<IRenamingResult> RenameFiles()
 		{
 			ValidateInitialized();
 			var output = new List<IRenamingResult>();
@@ -108,14 +108,14 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			return output;
 		}
 
-		public IList<IEntityMigratedResult> MigrateComponent<TEntity>(IComponentMigrator<TEntity> migrator) where TEntity : IEntity
+		public virtual IList<IEntityMigratedResult> MigrateComponent<TEntity>(IComponentMigrator<TEntity> migrator) where TEntity : IEntity
 		{
 			ValidateInitialized();
 			var output = new List<IEntityMigratedResult>();
 			var renamedFiles = new AllRenamedFileEntitiesQuery().Execute();
 			foreach (var renamedFile in renamedFiles)
 			{
-				var matchingEntities = migrator.GetEntitiesMatching(renamedFile);
+				var matchingEntities = migrator.GetEntitiesToBeMigrated(renamedFile);
 				foreach (var matchingEntity in matchingEntities)
 				{
 				    try
@@ -173,7 +173,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 		}
 
 		[DebuggerStepThrough]
-		private void ValidateInitialized()
+		protected virtual void ValidateInitialized()
 		{
 			if(!_initialized)
 			{

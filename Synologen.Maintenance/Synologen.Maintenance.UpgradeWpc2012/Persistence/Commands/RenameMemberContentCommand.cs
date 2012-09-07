@@ -3,7 +3,7 @@ using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands
 {
-	public class RenameMemberContentCommand : RenameTextCommand
+	public class RenameMemberContentCommand : PersistenceBase
 	{
 		private readonly MemberEntity _member;
 
@@ -14,7 +14,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands
 
 		public MemberMigratedResult Execute(string search, string replace)
 		{
-			Execute(_member.Id, search, replace, "tblMembersContent", "cBody");
+			RenameContent(_member.Id, search, replace, "tblMembersContent", "cBody");
 			return new MemberMigratedResult(_member) {OldUrl = search, NewUrl = replace};
 		}			 
 	}

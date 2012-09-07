@@ -3,7 +3,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Spinit.Extensions;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Extensions;
-using Synologen.Maintenance.UpgradeWpc2012.Domain.Model;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Services
@@ -17,7 +16,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Services
 			_replacements = new Dictionary<string, string>
 			{
 				{"[àáâãäåâăⱥæ]", "a"},
-				{"çč","c"},
+				{"[çč]","c"},
 				{"ð","d"},
 				{"[èéêěë]", "e"},
 				{"[ìíîï]","i"},

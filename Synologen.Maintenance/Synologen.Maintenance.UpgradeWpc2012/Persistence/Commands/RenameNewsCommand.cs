@@ -12,11 +12,11 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands
 			_newsEntity = newsEntity;
 		}
 
-		public NewsUpdateResult Execute(string search, string replace)
+		public NewsMigratedResult Execute(string search, string replace)
 		{
 			Execute(_newsEntity.Id, search, replace, "tblNews", "cBody");
 			Execute(_newsEntity.Id, search, replace, "tblNews", "cFormatedBody");
-			return new NewsUpdateResult(_newsEntity) {OldUrl = search, NewUrl = replace};
+			return new NewsMigratedResult(_newsEntity) {OldUrl = search, NewUrl = replace};
 		}
 	}
 }

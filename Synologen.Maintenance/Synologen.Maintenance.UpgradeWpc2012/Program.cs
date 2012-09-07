@@ -1,4 +1,5 @@
 ﻿using System;
+using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.ComponentMigrators;
 
 namespace Synologen.Maintenance.UpgradeWpc2012
 {
@@ -9,13 +10,13 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			var migrator = new Migrator();
 			migrator.AllRenameEvents += (s, e) => Console.WriteLine(e);
 
-			var renamedDatabaseEntries = migrator.RenameDatabaseEntries();
+			var renamedDatabaseEntries = migrator.RenameBaseFilesEntries();
 			var renamedDirectories = migrator.RenameDirectories();
 			var renamedFiles = migrator.RenameFiles();
-			var renamedContent = migrator.RenameContent();
-			var renamedNews = migrator.RenameNews();
-			var renamedCourses = migrator.RenameCourses();
-			var renamedMemberContent = migrator.RenameMemberContents();
+			var renamedContent = migrator.MigrateComponent(new ContentMigrator());
+			var renamedNews = migrator.MigrateComponent(new NewsMigrator());
+			var renamedCourses = migrator.MigrateComponent(new CourseMigrator());
+			var renamedMembers = migrator.MigrateComponent(new MemberMigrator());
 			Console.ReadKey();
 		}
 	}

@@ -7,10 +7,10 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Queries
 {
 	public class AllMemberContentEntitiesQuery : PersistenceBase
 	{
-		public IList<MemberContentEntity> Execute()
+		public IList<MemberEntity> Execute()
 		{
 			var query = QueryBuilder.Build(@"SELECT cId, cMemberId, cBody FROM tblMembersContent");
-			return Query(query, MemberContentEntity.Parse).ToList();
+			return Query(query, MemberEntity.Parse).ToList();
 		}
 	}
 }

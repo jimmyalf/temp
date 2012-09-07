@@ -12,10 +12,10 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands
 			_contentEntity = contentEntity;
 		}
 
-		public ContentUpdateResult Execute(string search, string replace)
+		public ContentMigratedResult Execute(string search, string replace)
 		{
 			Execute(_contentEntity.Id, search, replace, "tblContPage", "cContent");
-			return new ContentUpdateResult(_contentEntity) {OldUrl = search, NewUrl = replace};
+			return new ContentMigratedResult(_contentEntity) {OldUrl = search, NewUrl = replace};
 		}
 	}
 }

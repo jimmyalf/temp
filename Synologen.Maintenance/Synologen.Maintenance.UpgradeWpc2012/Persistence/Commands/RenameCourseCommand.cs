@@ -12,11 +12,11 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands
 			_course = course;
 		}
 
-		public CourseUpdateResult Execute(string search, string replace)
+		public CourseMigratedResult Execute(string search, string replace)
 		{
 			Execute(_course.Id, search, replace, "tblCourse", "cBody");
 			Execute(_course.Id, search, replace, "tblCourse", "cFormatedBody");
-			return new CourseUpdateResult(_course) {OldUrl = search, NewUrl = replace};
+			return new CourseMigratedResult(_course) {OldUrl = search, NewUrl = replace};
 		}		 
 	}
 }

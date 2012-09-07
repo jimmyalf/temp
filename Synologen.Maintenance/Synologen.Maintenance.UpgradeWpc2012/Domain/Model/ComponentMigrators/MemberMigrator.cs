@@ -15,7 +15,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.ComponentMigrators
 			return new RenameMemberContentCommand(entity).Execute(renamedFile.PreviousName, renamedFile.Name);
 		}
 
-		public IEnumerable<MemberEntity> GetEntitiesMatching(RenamedFileEntity renamedFile)
+		public IEnumerable<MemberEntity> GetEntitiesToBeMigrated(RenamedFileEntity renamedFile)
 		{
 			return new MemberContentEntitiesMatchingSearchQuery(renamedFile.PreviousName).Execute();
 		}

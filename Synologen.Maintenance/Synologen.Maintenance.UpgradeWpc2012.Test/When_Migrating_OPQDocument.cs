@@ -1,9 +1,13 @@
+using System;
+using System.Diagnostics;
 using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.ComponentMigrators;
 using Synologen.Maintenance.UpgradeWpc2012.Test.Base;
 using Synologen.Maintenance.UpgradeWpc2012.Test.Persistence.Queries;
+using Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Extensions;
+using Debug = Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Extensions.Debug;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Test
 {
@@ -46,8 +50,8 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 			Database.CreateOPQDocumentHistoryEntry(content);
 
 			//Act
-			Migrator.MigrateBaseFiles();
-			Migrator.MigrateEntity(new OPQDocumentHistoryMigrator());
+			Migrator.MigrateBaseFiles().Save(Console.Out);
+			Migrator.MigrateEntity(new OPQDocumentHistoryMigrator()).Save(Console.Out);;
 
 			//Assert
 			var renamedEntry = new AllOPQDocumentHistoryEntitiesQuery().Execute().Single();

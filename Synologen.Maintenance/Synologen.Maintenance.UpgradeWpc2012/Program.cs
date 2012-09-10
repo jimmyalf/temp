@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using Spinit.Wpc.Maintenance.FileAndContentMigration;
 using Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Model.ComponentMigrators;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.ComponentMigrators;
@@ -15,7 +16,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			migrator.FileRenamed += (s, e) => Console.WriteLine(e);
 			migrator.ComponentEntityUpdated += (s, e) => Console.WriteLine(e);
 
-			var renamedDatabaseEntries = migrator.MigrateBaseFiles();
+			migrator.MigrateBaseFiles().Save(Console.Out);
 			var renamedDirectories = migrator.MigrateDirectories();
 			var renamedFiles = migrator.MigrateFiles();
 			var renamedContent = migrator.MigrateEntity(new ContentMigrator());
@@ -25,6 +26,8 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			var renamedOPQDocumentEntries = migrator.MigrateEntity(new OPQDocumentMigrator());
 			var renamedOPQDocumentHistoryEntries = migrator.MigrateEntity(new OPQDocumentHistoryMigrator());
 			Console.ReadKey();
+			var serializer = new XmlSerializer(migrator.GetType());
+			serializer.Serialize(Console.Out,migrator);
 		}
 	}
 }

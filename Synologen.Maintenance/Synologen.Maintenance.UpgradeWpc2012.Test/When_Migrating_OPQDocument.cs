@@ -22,7 +22,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 			Database.CreateOPQDocumentEntry(content);
 
 			//Act
-			Migrator.RenameBaseFilesEntries();
+			Migrator.MigrateBaseFiles();
 			Migrator.MigrateEntity(new OPQDocumentMigrator());
 
 			//Assert
@@ -46,7 +46,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 			Database.CreateOPQDocumentHistoryEntry(content);
 
 			//Act
-			Migrator.RenameBaseFilesEntries();
+			Migrator.MigrateBaseFiles();
 			Migrator.MigrateEntity(new OPQDocumentHistoryMigrator());
 
 			//Assert

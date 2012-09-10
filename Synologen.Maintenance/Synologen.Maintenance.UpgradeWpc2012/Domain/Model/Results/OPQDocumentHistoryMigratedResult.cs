@@ -4,15 +4,18 @@ using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results
 {
-	public class OPQDocumentHistoryMigratedResult : IEntityMigratedResult
+	public class OPQDocumentHistoryMigratedResult : IMigratedEntity<int>
 	{
-		private readonly OPQDocumentHistoryEntity _entity;
+		protected OPQDocumentHistoryEntity Entity;
 
+		public OPQDocumentHistoryMigratedResult() { }
 		public OPQDocumentHistoryMigratedResult(OPQDocumentHistoryEntity entity)
 		{
-			_entity = entity;
+			Entity = entity;
+			Id = entity.Id;
 		}
 
+		public int Id { get; set; }
 		public string OldUrl { get; set; }
 		public string NewUrl { get; set; }
 
@@ -23,7 +26,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results
 
 		public override string ToString()
 		{
-			return string.Format("OPQDocumentHistory[{0}] had url \"{1}\" replaced with \"{2}\"", _entity.Id, OldUrl, NewUrl);
+			return string.Format("OPQDocumentHistory[{0}] had url \"{1}\" replaced with \"{2}\"", Entity.Id, OldUrl, NewUrl);
 		}
 	}
 }

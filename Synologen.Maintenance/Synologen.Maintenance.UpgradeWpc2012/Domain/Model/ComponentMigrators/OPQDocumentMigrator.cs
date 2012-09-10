@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Model.ComponentMigrators;
 using Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Model.Entities;
-using Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Model.Results;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities;
+using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results;
 using Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands;
 using Synologen.Maintenance.UpgradeWpc2012.Persistence.Queries;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.ComponentMigrators
 {
-	public class OPQDocumentMigrator : IEntityMigrator<OPQDocumentEntity>
+	public class OPQDocumentMigrator : IEntityMigrator<OPQDocumentEntity,OPQDocumentMigratedResult>
 	{
-		public string ComponentName { get { return "OPQDocument"; } }
+		public string EntityName { get { return "OPQDocument"; } }
 
-		public IEntityMigratedResult MigrateEntity(RenamedFileEntity renamedFile, OPQDocumentEntity entity)
+		public OPQDocumentMigratedResult MigrateEntity(RenamedFileEntity renamedFile, OPQDocumentEntity entity)
 		{
 			return new RenameOPQDocumentCommand(entity).Execute(renamedFile.PreviousName, renamedFile.Name);
 		}

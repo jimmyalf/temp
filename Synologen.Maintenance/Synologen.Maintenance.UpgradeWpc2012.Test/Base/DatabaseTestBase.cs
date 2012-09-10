@@ -1,14 +1,16 @@
 using NUnit.Framework;
-using Synologen.Maintenance.UpgradeWpc2012.Test.Persistence;
+using Spinit.Wpc.Maintenance.FileAndContentMigration;
+using Spinit.Wpc.Maintenance.FileAndContentMigration.Test;
+using Database = Synologen.Maintenance.UpgradeWpc2012.Test.Persistence.Database;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Test.Base
 {
-	public class DatabaseTestBase
+	public abstract class DatabaseTestBase : DatabaseTestBase<Database>
 	{
-		protected Migrator Migrator;
+		protected DatabaseTestBase() : base(new Database()) {}
 
 		[SetUp]
-		protected void Setup()
+		protected override void Setup()
 		{
 			Database.DropSchema();
 			Database.CreateSchema();

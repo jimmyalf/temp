@@ -5,8 +5,6 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test.Base
 {
 	public abstract class FileSystemTestBase : FileSystemTestBase<FileSystem>
 	{
-		protected FileSystemTestBase() : base(new FileSystem()) {}
-
 		[SetUp]
 		protected override void Setup()
 		{

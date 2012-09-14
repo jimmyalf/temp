@@ -49,9 +49,9 @@
     <Reference Include="Spinit.Data">
       <HintPath>..\packages\Spinit.Data.1.0.3.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Maintenance.FileAndContentMigration, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Wpc.Maintenance.FileAndContentMigration, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.Wpc.Maintenance.FileAndContentMigration.1.0.8.0\lib\net40\Spinit.Wpc.Maintenance.FileAndContentMigration.dll</HintPath>
+      <HintPath>..\packages\Spinit.Wpc.Maintenance.FileAndContentMigration.1.0.11.0\lib\net40\Spinit.Wpc.Maintenance.FileAndContentMigration.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -67,6 +67,7 @@
     <Compile Include="Persistence\Database.cs" />
     <Compile Include="Persistence\Sql.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="When_Migrating_OPQ_Document_History.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

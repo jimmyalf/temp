@@ -44,6 +44,7 @@
 		<a href="Testpages/Supplier/MemberProfile.aspx">Member profile</a>
 		<a href="Testpages/Supplier/AdminMemberFiles.aspx">Admin Member Files</a>
 		<a href="Testpages/Supplier/AdminMemberpage.aspx">Admin Member Page</a>
+		<a href="Testpages/Supplier/MemberFilesThumbs.aspx">MemberFilesThumbs</a>
 	</fieldset>
 	<fieldset>
 	    <legend>Flöden</legend>

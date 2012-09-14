@@ -27,7 +27,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 			Migrator.MigrateEntity(new OPQDocumentHistoryMigrator()).Save(Console.Out);;
 
 			//Assert
-			var renamedEntry = new AllOPQDocumentHistoryEntitiesQuery().Execute().Single();
+			var renamedEntry = Query(new AllOPQDocumentHistoryEntitiesQuery()).Single();
 			renamedEntry.DocumentContent.ShouldBe(expectedRenamedContent);
 		}		
 	}

@@ -4,6 +4,8 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test.Persistence
 {
 	public class Database : Spinit.Wpc.Maintenance.FileAndContentMigration.Test.Database
 	{
+		public Database(string connectionString) : base(connectionString) {}
+
 		public override void CreateSchema()
 		{
 			base.CreateSchema();

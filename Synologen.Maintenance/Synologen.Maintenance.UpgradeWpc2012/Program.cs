@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 using Spinit.Wpc.Maintenance.FileAndContentMigration;
+using Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Config;
 using Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Extensions;
 using Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Model.ComponentMigrators;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.ComponentMigrators;
@@ -11,7 +12,8 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 	{
 		static void Main(string[] args)
 		{
-			var migrator = new Migrator();
+			var config = Configuration.GetFromConfigFile();
+			var migrator = new Migrator(config);
 			migrator.BaseFileRenamed += (s, e) => Console.WriteLine(e);
 			migrator.DirectoryRenamed += (s, e) => Console.WriteLine(e);
 			migrator.FileRenamed += (s, e) => Console.WriteLine(e);

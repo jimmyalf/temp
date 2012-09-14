@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
 using Spinit.Data.SqlClient.SqlBuilder;
-using Spinit.Wpc.Maintenance.FileAndContentMigration.Persistence;
+using Spinit.Wpc.Maintenance.FileAndContentMigration.Persistence.Queries;
+using System.Linq;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Queries
 {
-	public class OPQDocumentHistoryEntitiesMatchingSearchQuery : PersistenceBase
+	public class OPQDocumentHistoryEntitiesMatchingSearchQuery : Query<OPQDocumentHistoryEntity>
 	{
 		private readonly string _query;
 
@@ -15,13 +15,13 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Queries
 			_query = query;
 		}
 
-		public IEnumerable<OPQDocumentHistoryEntity> Execute()
+		public override IList<OPQDocumentHistoryEntity> Execute()
 		{
 			var query = QueryBuilder
 				.Build(@"SELECT Id, DocumentContent FROM SynologenOpqDocumentHistories")
 				.Where("DocumentContent LIKE @Match")
-				.AddParameters(new { Match = '%' + EscapeSqlString(_query) + '%' });
-			return Query(query, OPQDocumentHistoryEntity.Parse).ToList();
+				.AddParameters(new { Match = '%' + Database.EscapeSqlString(_query) + '%' });
+			return Database.Query(query, OPQDocumentHistoryEntity.Parse).ToList();
 		}		
 	}
 }

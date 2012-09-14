@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Model.ComponentMigrators;
 using Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Model.Entities;
+using Spinit.Wpc.Maintenance.FileAndContentMigration.Persistence;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Results;
 using Synologen.Maintenance.UpgradeWpc2012.Persistence.Commands;
@@ -12,14 +13,16 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Domain.Model.ComponentMigrators
 	{
 		public string EntityName { get { return "OPQDocument"; } }
 
+		public IExecutor Executor { get; set; }
+
 		public OPQDocumentMigratedResult MigrateEntity(RenamedFileEntity renamedFile, OPQDocumentEntity entity)
 		{
-			return new RenameOPQDocumentCommand(entity).Execute(renamedFile.PreviousName, renamedFile.Name);
+			return Executor.Execute(new RenameOPQDocumentCommand(entity, renamedFile.PreviousName, renamedFile.Name));
 		}
 
 		public IEnumerable<OPQDocumentEntity> GetEntitiesToBeMigrated(RenamedFileEntity renamedFile)
 		{
-			return new OPQDocumentEntitiesMatchingSearchQuery(renamedFile.PreviousName).Execute();
+			return Executor.Query(new OPQDocumentEntitiesMatchingSearchQuery(renamedFile.PreviousName));
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			migrator.FileRenamed += (s, e) => Console.WriteLine(e);
 			migrator.ComponentEntityUpdated += (s, e) => Console.WriteLine(e);
 			migrator.Initialize();
-			migrator.MigrateBaseFiles().Save(Debug.Out);
+			migrator.MigrateBaseFiles();
 			var renamedDirectories = migrator.MigrateDirectories();
 			var renamedFiles = migrator.MigrateFiles();
 			var renamedContent = migrator.MigrateEntity(new ContentMigrator());
@@ -29,8 +29,6 @@ namespace Synologen.Maintenance.UpgradeWpc2012
 			var renamedOPQDocumentEntries = migrator.MigrateEntity(new OPQDocumentMigrator());
 			var renamedOPQDocumentHistoryEntries = migrator.MigrateEntity(new OPQDocumentHistoryMigrator());
 			Console.ReadKey();
-			var serializer = new XmlSerializer(migrator.GetType());
-			serializer.Serialize(Console.Out,migrator);
 		}
 	}
 }

@@ -6,21 +6,17 @@ using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.Entities;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Persistence.Queries
 {
-	public class OPQDocumentEntitiesMatchingSearchQuery : Query<OPQDocumentEntity>
+	public class OPQDocumentEntitiesMatchingSearchQuery : ContentQuery<OPQDocumentEntity>
 	{
-		private readonly string _query;
 
-		public OPQDocumentEntitiesMatchingSearchQuery(string query)
-		{
-			_query = query;
-		}
+		public OPQDocumentEntitiesMatchingSearchQuery(string query) : base(query) { }
 
 		public override IList<OPQDocumentEntity> Execute()
 		{
 			var query = QueryBuilder
 				.Build(@"SELECT Id, DocumentContent FROM SynologenOpqDocuments")
-				.Where("DocumentContent LIKE @Match")
-				.AddParameters(new { Match = '%' + Database.EscapeSqlString(_query) + '%' });
+				.Where("DocumentContent LIKE @Match OR DocumentContent LIKE @UrlEncodedMatch")
+				.AddParameters(new { Match, UrlEncodedMatch });
 			return Database.Query(query, OPQDocumentEntity.Parse).ToList();
 		}
 	}

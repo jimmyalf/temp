@@ -16,7 +16,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 		{
 			//Arrange
 			const string fileName = "/commonresources/files/www.synologen.se/torra%20ögon/torraögon.jpg";
-			const string expectedRenamedFileName = "/commonresources/files/www.synologen.se/torra_ogon/torraogon.jpg";
+			const string expectedRenamedFileName = "/commonresources/files/www.synologen.se/torra-ogon/torraogon.jpg";
 			const string content = "<h1><img src=" + fileName + " /></h1>";
 			const string expectedRenamedContent = "<h1><img src=" + expectedRenamedFileName + " /></h1>";
 			Database.CreateFileEntry(fileName);

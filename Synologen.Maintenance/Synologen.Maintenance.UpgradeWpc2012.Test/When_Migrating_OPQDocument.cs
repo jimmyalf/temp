@@ -1,12 +1,9 @@
-using System.Diagnostics;
 using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 using Synologen.Maintenance.UpgradeWpc2012.Domain.Model.ComponentMigrators;
 using Synologen.Maintenance.UpgradeWpc2012.Test.Base;
 using Synologen.Maintenance.UpgradeWpc2012.Test.Persistence.Queries;
-using Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Extensions;
-using Debug = Spinit.Wpc.Maintenance.FileAndContentMigration.Domain.Extensions.Debug;
 
 namespace Synologen.Maintenance.UpgradeWpc2012.Test
 {
@@ -18,7 +15,7 @@ namespace Synologen.Maintenance.UpgradeWpc2012.Test
 		{
 			//Arrange
 			const string fileName = "/commonresources/files/www.synologen.se/torra%20ögon/torraögon.jpg";
-			const string expectedRenamedFileName = "/commonresources/files/www.synologen.se/torra_ogon/torraogon.jpg";
+			const string expectedRenamedFileName = "/commonresources/files/www.synologen.se/torra-ogon/torraogon.jpg";
 			const string content = "<h1><img src=" + fileName + " /></h1>";
 			const string expectedRenamedContent = "<h1><img src=" + expectedRenamedFileName + " /></h1>";
 			Database.CreateFileEntry(fileName);

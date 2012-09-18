@@ -3,6 +3,7 @@ using System.Data;
 using System.Collections;
 using System.Web;
 using System.Web.UI.WebControls;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Code;
 using TallComponents.Web.PDF;
 using System.IO;
@@ -13,7 +14,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
 {
     public partial class MemberFilesThumbs : SynologenUserControl 
 	{
+    	private UrlFriendlyRenamingService _urlFriendlyRenamingService;
 
+    	public MemberFilesThumbs()
+    	{
+    		_urlFriendlyRenamingService = new UrlFriendlyRenamingService();
+    	}
         protected void Page_Load(object sender, EventArgs e) 
 		{
             if (!IsPostBack) PopulateFiles();
@@ -33,7 +39,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
             var location = new Location(Base.Business.Globals.ConnectionString);
             var lrow = (LocationRow)location.GetLocation(LocationId);
             var file = new Base.Data.File(Base.Business.Globals.ConnectionString);
-            var pth = Base.Business.Globals.CommonFilePath;
+            //var pth = Base.Business.Globals.CommonFilePath;
             var url = Base.Business.Globals.CommonFileUrl;
 
             var memberRow = Provider.GetMember(MemberId, LocationId, LanguageId);
@@ -42,15 +48,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
             if (RequestFileCategoryId.HasValue) 
 			{
                 var fileCatRow = Provider.GetFileCategory(RequestFileCategoryId.Value);
-
                 lblFileCategory.Text = fileCatRow.Name;
 
-                if (fileCatRow == null) return;
-
-                var di = new DirectoryInfo(pth + lrow.Name + "\\Member\\" + memberRow.OrgName + "\\" + fileCatRow.Name);
+				var di = GetMemberDirectory(lrow,memberRow,fileCatRow);
                 if (!di.Exists) return;
 
-                var fles = Directory.GetFiles(pth + lrow.Name + "\\Member\\" + memberRow.OrgName + "\\" + fileCatRow.Name, "*", SearchOption.TopDirectoryOnly);
+                var fles = GetMemberFiles(lrow,memberRow,fileCatRow);
 
                 foreach (var fle in fles) 
 				{
@@ -67,7 +70,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
                         contentInfo = nme.Substring(inx + 1, nme.Length - inx - 1);
                     }
 
-                    var urlname = lrow.Name + "/Member/" + memberRow.OrgName + "/" + fileCatRow.Name + "/" + nme;
+					var orgName = _urlFriendlyRenamingService.Rename(memberRow.OrgName);
+                    var urlname = lrow.Name + "/Member/" + orgName + "/" + fileCatRow.Name + "/" + nme;
 					var escapedName = EscapeSqlLikeWildcards(urlname);
                     var fleRow = (FileRow)file.GetFile(escapedName);
 
@@ -91,37 +95,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
 					{
                         fileOk = true;
                         link = url + urlname;
-
-
-						//switch (contentInfo.Trim().ToLower()) {
-						//    case "pdf":
-						//        pic = "pdfthumbnail";
-						//        break;
-						//    case "xls":
-						//        pic = "/wpc/Member/img/excel.gif";
-						//        break;
-						//    case "xlsx":
-						//        pic = "/wpc/Member/img/exel.gif";
-						//        break;
-						//    case "ppt":
-						//        pic = "/wpc/Member/img/powerpoint.gif";
-						//        break;
-						//    case "pptx":
-						//        pic = "/wpc/Member/img/powerpoint.gif";
-						//        break;
-						//    case "doc":
-						//        pic = "/wpc/Member/img/word.gif";
-						//        break;
-						//    case "docx":
-						//        pic = "/wpc/Member/img/word.gif";
-						//        break;
-						//    case "eps":
-						//        pic = "/wpc/Member/img/eps.png";
-						//        break;
-						//    default:
-						//        pic = "/wpc/Member/img/standard.png";
-						//        break;
-						//}
 						pic = GetImageSrcForDocument(inf);
 					}
 
@@ -148,35 +121,29 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
             }
             else {
                 var fileCatRows = new ArrayList(Provider.GetAllFileCategoriesList());
-                if (fileCatRows == null) return;
 
-                foreach (FileCategoryRow fileCatRow in fileCatRows) 
+            	foreach (FileCategoryRow fileCatRow in fileCatRows) 
 				{
-                    var di = new DirectoryInfo(pth + lrow.Name + "\\Member\\" + memberRow.OrgName + "\\" + fileCatRow.Name);
+					var di = GetMemberDirectory(lrow, memberRow, fileCatRow);
                     if (!di.Exists) continue;
 
-                    var fles = Directory.GetFiles(pth + lrow.Name + "\\Member\\" + memberRow.OrgName + "\\" + fileCatRow.Name, "*", SearchOption.TopDirectoryOnly);
+					var fles = GetMemberFiles(lrow, memberRow, fileCatRow);
 
-
-
-                    foreach (var fle in fles) {
+                    foreach (var fle in fles) 
+					{
                         var row = tblFiles.NewRow();
-
                         var inf = new FileInfo(fle);
-
                         var nmes = fle.Split('\\');
-
                         var nme = nmes[nmes.Length - 1];
-
                         string contentInfo = null;
-
                         var inx = nme.LastIndexOf(".");
                         if (inx != -1) 
 						{
                             contentInfo = nme.Substring(inx + 1, nme.Length - inx - 1);
                         }
 
-                        var urlname = lrow.Name + "/Member/" + memberRow.OrgName + "/" + fileCatRow.Name + "/" + nme;
+						var orgName = _urlFriendlyRenamingService.Rename(memberRow.OrgName);
+                        var urlname = lrow.Name + "/Member/" + orgName + "/" + fileCatRow.Name + "/" + nme;
 
 						var escapedName = EscapeSqlLikeWildcards(urlname);
                         var fleRow = (FileRow)file.GetFile(escapedName);
@@ -205,35 +172,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
 							fileOk = true;
                             link = url + urlname;
                         	pic = GetImageSrcForDocument(inf);
-                        	//switch (contentInfo.Trim().ToLower()) {
-                        	//    case "pdf":
-                        	//        pic = "pdfthumbnail";
-                        	//        break;
-                        	//    case "xls":
-                        	//        pic = "/wpc/Member/img/excel.gif";
-                        	//        break;
-                        	//    case "xlsx":
-                        	//        pic = "/wpc/Member/img/exel.gif";
-                        	//        break;
-                        	//    case "ppt":
-                        	//        pic = "/wpc/Member/img/powerpoint.gif";
-                        	//        break;
-                        	//    case "pptx":
-                        	//        pic = "/wpc/Member/img/powerpoint.gif";
-                        	//        break;
-                        	//    case "doc":
-                        	//        pic = "/wpc/Member/img/word.gif";
-                        	//        break;
-                        	//    case "docx":
-                        	//        pic = "/wpc/Member/img/word.gif";
-                        	//        break;
-                        	//    case "eps":
-                        	//        pic = "/wpc/Member/img/eps.png";
-                        	//        break;
-                        	//    default:
-                        	//        pic = "/wpc/Member/img/standard.png";
-                        	//        break;
-                        	//}
                         }
 
                         if (Base.Business.Globals.MediaType.IndexOf(contentInfo) != -1) {
@@ -241,8 +179,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
                             link = url + urlname;
                             pic = "/wpc/Synologen/Supplier/images/video_icon.gif";
                         }
-
-
 
                         if (fleRow == null || !fileOk)
                             continue;
@@ -275,6 +211,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
             dlThumbs.DataSource = tblFiles;
             dlThumbs.DataBind();
         }
+
+
+		protected virtual DirectoryInfo GetMemberDirectory(LocationRow lrow, MemberRow memberRow, FileCategoryRow fileCatRow)
+		{
+            var pth = Base.Business.Globals.CommonFilePath;
+			var orgName = _urlFriendlyRenamingService.Rename(memberRow.OrgName);
+			return new DirectoryInfo(pth + lrow.Name + "\\Member\\" + orgName + "\\" + fileCatRow.Name);
+		}
+
+		protected virtual string[] GetMemberFiles(LocationRow lrow, MemberRow memberRow, FileCategoryRow fileCatRow)
+		{
+            var pth = Base.Business.Globals.CommonFilePath;
+			var orgName = _urlFriendlyRenamingService.Rename(memberRow.OrgName);
+			return Directory.GetFiles(pth + lrow.Name + "\\Member\\" + orgName + "\\" + fileCatRow.Name, "*", SearchOption.TopDirectoryOnly);			
+		}
 
 		private string EscapeSqlLikeWildcards(string name)
 		{

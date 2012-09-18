@@ -322,6 +322,7 @@
     <Compile Include="Domain\Services\BgWebService\IBGFtpPasswordService.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGWebServiceClient.cs" />
     <Compile Include="Domain\Services\BgWebService\IBGWebServiceDTOParser.cs" />
+    <Compile Include="Domain\Services\UrlFriendlyRenamingService.cs" />
     <Compile Include="Domain\Services\Events\Synologen\ShopWasConnectedToShopGroupEvent.cs" />
     <Compile Include="Domain\Services\FakeLoggingService.cs" />
     <Compile Include="Domain\Services\Coordinator\ExecutingTaskContext.cs" />

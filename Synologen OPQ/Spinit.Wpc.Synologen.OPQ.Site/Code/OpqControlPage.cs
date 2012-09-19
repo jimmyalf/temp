@@ -18,12 +18,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Code
 			_configuration = Configuration.GetConfiguration(_context);
 		}
 
-		protected string DocumentPath
+		public string DocumentPath
 		{
 			get {
 				return MemberShopGroupId != null
-							? string.Concat (Configuration.DocumentShopGroupRootUrl, MemberShopGroupId, "/")
-							: string.Concat (Configuration.DocumentShopRootUrl, MemberShopId, "/");
+							? string.Concat ("~", Configuration.DocumentShopGroupRootUrl, MemberShopGroupId, "/")
+							: string.Concat ("~", Configuration.DocumentShopRootUrl, MemberShopId, "/");
 			}
 		}
 		

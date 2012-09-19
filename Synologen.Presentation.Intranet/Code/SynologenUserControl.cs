@@ -1,22 +1,32 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-
+using Spinit.Wpc.Base.Data;
+using Spinit.Wpc.Member.Data;
 using Spinit.Wpc.Synologen.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Data;
+using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Utility.Core;
+using SqlProvider = Spinit.Wpc.Synologen.Data.SqlProvider;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code
 {
 	public class SynologenUserControl : MemberControlPage
 	{
 		protected SqlProvider _provider;
+		private UrlFriendlyRenamingService _urlFriendlyRenamingService;
 
 		protected override void OnInit (EventArgs e)
 		{
 			base.OnInit (e);
 			_provider = GetSqlprovider ();
+			_urlFriendlyRenamingService = new UrlFriendlyRenamingService();
+		}
+
+		protected virtual IUrlFriendlyRenamingService UrlFriendlyRenamingService
+		{
+			get { return _urlFriendlyRenamingService; }
 		}
 
 		protected new SqlProvider Provider

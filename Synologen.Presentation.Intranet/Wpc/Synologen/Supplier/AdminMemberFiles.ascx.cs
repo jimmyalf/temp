@@ -14,7 +14,7 @@ using Spinit.Wpc.Base.Data;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier 
 {
-    public partial class AdminMemberFiles : SynologenUserControl 
+    public partial class AdminMemberFiles : SynologenCommonSupplierControl 
 	{
         protected void Page_Load(object sender, EventArgs e) 
 		{
@@ -44,8 +44,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
             tblFiles.Columns.Add(new DataColumn("Pic", typeof(String)));
             tblFiles.Columns.Add(new DataColumn("Link", typeof(String)));
 
-        	var lrow = (LocationRow) LocationRepository.GetLocation(LocationId);
-
             var memberRow = Provider.GetMember(MemberId, LocationId, LanguageId);
             if (memberRow == null) return;
 
@@ -53,7 +51,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
 			{
                 var fileCatRow = Provider.GetFileCategory(SelectedCategory);
                 if (fileCatRow == null) return;
-				AddCategoryFilesToFileTable(tblFiles, lrow, memberRow, fileCatRow);
+				AddCategoryFilesToFileTable(tblFiles, memberRow, fileCatRow);
 			}
             else 
 			{
@@ -61,7 +59,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
                 if (fileCatRows == null) return;
                 foreach (var fileCatRow in fileCatRows) 
 				{
-					AddCategoryFilesToFileTable(tblFiles, lrow, memberRow, fileCatRow);
+					AddCategoryFilesToFileTable(tblFiles, memberRow, fileCatRow);
                 }
             }
 
@@ -197,39 +195,38 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
 		protected virtual void UploadFile(FileUpload uplFile, ITextControl txtDesc, string categoryName, IEnumerable<string> allowedExtensionsArr) 
 		{
 			if (!uplFile.HasFile) return;
+			var fileName = UrlFriendlyRenamingService.Rename(uplFile.FileName);
             var lrow = (LocationRow)LocationRepository.GetLocation(LocationId);
             var memberRow = Provider.GetMember(MemberId, LocationId, LanguageId);
 			if (memberRow == null) return;
 
-        	var fileExtension = Path.GetExtension(uplFile.FileName).ToLower();
+        	var fileExtension = Path.GetExtension(fileName).ToLower();
         	fileExtension = fileExtension.Substring(1, fileExtension.Length - 1);
 
         	var fileOK = allowedExtensionsArr.Any(t => fileExtension.Equals(t));
         	if (!fileOK) return;
-			var name = GetFileUrl(lrow, memberRow, categoryName, uplFile.FileName);
-
-        	var di = GetMemberCategoryDirectory(lrow, memberRow, categoryName);
+			
+        	var di = GetMemberDirectory(lrow, memberRow, categoryName);
     		if (!di.Exists) di.Create();
 
-    		uplFile.PostedFile.SaveAs(di.FullName + "\\" + uplFile.FileName);
+    		uplFile.PostedFile.SaveAs(di.FullName + "\\" + fileName);
 
     		var description = (String.IsNullOrEmpty(txtDesc.Text)) ? null : txtDesc.Text;
-
-    		FileRepository.AddFile(name, false, fileExtension, null, description, CurrentUser);
+			var fileUrl = GetFileUrl(lrow, memberRow, categoryName, fileName);
+    		FileRepository.AddFile(fileUrl, false, fileExtension, null, description, CurrentUser);
         }
 		
-		protected virtual void AddCategoryFilesToFileTable(DataTable tblFiles, LocationRow lrow, MemberRow memberRow, FileCategoryRow fileCatRow)
+		protected virtual void AddCategoryFilesToFileTable(DataTable tblFiles, MemberRow memberRow, FileCategoryRow fileCatRow)
 		{
-			var directory = GetMemberCategoryDirectory(lrow, memberRow, fileCatRow.Name);
+			var directory = GetMemberDirectory(LocationRow, memberRow, fileCatRow);
             if (!directory.Exists) return;
-			var filesOnDisk = directory.GetFiles("*", SearchOption.TopDirectoryOnly);
-	
+			var filesOnDisk = GetMemberFiles(LocationRow, memberRow, fileCatRow);
+
 			foreach (var fileInfo in filesOnDisk)
 			{
 				var row = tblFiles.NewRow();
-				var urlname = GetFileUrl(lrow, memberRow, fileCatRow.Name, fileInfo.Name);
-				var filteredUrlName = EscapeSqlLikeWildcards(urlname);
-				var fleRow = (FileRow) FileRepository.GetFile(filteredUrlName);
+				var urlname = GetFileUrl(LocationRow, memberRow, fileCatRow, fileInfo.Name);
+				var fleRow = (FileRow) FileRepository.GetFile(urlname);
 
 				var pic = GetThumbUrl(fleRow, fileInfo, urlname);
 				var desc = GetFileDescription(fleRow);
@@ -246,90 +243,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
 				tblFiles.Rows.Add(row);
 			}
 		}
-
-		private string EscapeSqlLikeWildcards(string name)
-		{
-			return name
-				.Replace("[", "[ [ ]")
-				.Replace("%","[%]");
-		}
-		
-		protected virtual DirectoryInfo GetMemberCategoryDirectory(LocationRow lrow, MemberRow memberRow, string fileCategoryName)
-		{
-			return new DirectoryInfo(Base.Business.Globals.CommonFilePath + lrow.Name + "\\Member\\" + memberRow.OrgName + "\\" + fileCategoryName);
-		}
-		
-		protected virtual string GetFileUrl(LocationRow lrow, MemberRow memberRow, string fileCategoryName, string fileName)
-		{
-			return lrow.Name + "/Member/" + memberRow.OrgName + "/" + fileCategoryName + "/" + fileName;
-		}
-		
-		protected virtual string GetThumbUrl(FileRow fleRow, FileInfo fileInfo, string urlname)
-		{
-			var extensionWithoutDot = fileInfo.Extension.Replace(".", "");
-			if (Base.Business.Globals.ImageType.Contains(extensionWithoutDot))
-			{
-				return GetImageSrcImage(fleRow, urlname);
-			}
-
-			if (Base.Business.Globals.MediaType.Contains(extensionWithoutDot))
-			{
-				return "/wpc/Member/img/video_icon.gif";
-			}
-
-			if (Base.Business.Globals.DocumentType.Contains(extensionWithoutDot))
-			{
-				return GetImageSrcForDocument(fileInfo);
-			}
-			return null;
-		}
-		
-		protected virtual string GetFileDescription(FileRow fleRow)
-		{
-			if(fleRow == null || fleRow.Description == null) return null;
-			var desc = fleRow.Description;
-			if (desc.Length > 30)
-			{
-				desc = desc.Substring(0, 27);
-				if (desc.LastIndexOf(" ") != -1)
-				{
-					desc = desc.Substring(0, desc.LastIndexOf(" "));
-				}
-				desc += "...";
-			}
-			return desc;
-		}
-		
-		protected virtual string GetImageSrcForDocument(FileInfo fileInfo)
-		{
-            switch (fileInfo.Extension) {
-                case ".pdf": return "/wpc/Synologen/Supplier/pdfthumbnail.aspx";
-                case ".xls": return "/wpc/Synologen/Supplier/Images/excel.gif";
-                case ".xlsx": return "/wpc/Synologen/Supplier/Images/exel.gif";
-                case ".ppt": return "/wpc/Synologen/Supplier/Images/powerpoint.gif";
-                case ".pptx": return "/wpc/Synologen/Supplier/Images/powerpoint.gif";
-                case ".doc": return "/wpc/Synologen/Supplier/Images/word.gif";
-                case ".docx": return "/wpc/Synologen/Supplier/Images/word.gif";
-                case ".eps": return "/wpc/Synologen/Supplier/Images/eps.png";
-                default: return "/wpc/Synologen/Supplier/Images/standard.png";
-            }
-		}
-		
-		protected virtual string GetImageSrcImage(FileRow fleRow, string urlname)
-		{
-			return "{Url}?filename={FileName}&width={Width}&height={Height}&ext={Extension}"
-				.Replace("{Url}", "/Wpc/Synologen/Supplier/ViewMemberImage.aspx")
-				.Replace("{FileName}", HttpUtility.UrlEncode(urlname))
-				.Replace("{Width}", "100")
-				.Replace("{Height}", "100")
-				.Replace("{Extension}", fleRow.ContentInfo.ToLower());
-		}
-		
-		protected virtual IEnumerable<string> AllowedExtensions
-		{
-			get { return String.Concat(Base.Business.Globals.ImageType, ",", Base.Business.Globals.MediaType, ",", Base.Business.Globals.FlashType, ",", Base.Business.Globals.DocumentType).Split(new[] {','}); }
-		}
-		
+				
 		private static string GetRowValue(DataListItemEventArgs e, string columnName)
 		{
 			if(e.Item.DataItem is DBNull) return null;
@@ -339,25 +253,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
 			where TType : class
 		{
 			return storedValue ?? (storedValue = getValue());
-		}
-
-    	protected void Validate_FileName(object source, ServerValidateEventArgs args)
-    	{
-			args.IsValid = true;
-			if(!uplFile1.HasFile) return;
-			if(!UploadFileNameIsValid(uplFile1.FileName))
-			{
-				args.IsValid = false;
-			}
-    	}
-
-		private bool UploadFileNameIsValid(string fileName)
-		{
-			if(fileName.Contains("[")) return false;
-			if(fileName.Contains("]")) return false;
-			if(fileName.Contains("%")) return false;
-			if(fileName.Contains("$")) return false;
-			return true;
 		}
 	}
 }

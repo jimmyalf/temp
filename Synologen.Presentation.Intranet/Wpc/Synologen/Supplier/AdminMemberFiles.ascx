@@ -6,7 +6,6 @@
 		<p>
 			<label for="<%=uplFile1.ClientID %>">Fil</label>
 			<asp:FileUpload ID="uplFile1" runat="server" />
-			<asp:CustomValidator runat="server" OnServerValidate="Validate_FileName" ControlToValidate="uplFile1" ErrorMessage="Filnamn får ej innehålla specialtecken som t.ex [ ] $ %" Display="Dynamic" ValidationGroup="AddFile">*</asp:CustomValidator>
 		</p>
 		<p>
 			<label for="<%=txtDesc1.ClientID %>">Beskrivning</label>

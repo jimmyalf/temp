@@ -13,15 +13,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier {
     public partial class AdminMemberFiles {
         
         /// <summary>
-        /// lblFile1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFile1;
-        
-        /// <summary>
         /// uplFile1 control.
         /// </summary>
         /// <remarks>
@@ -31,15 +22,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier {
         protected global::System.Web.UI.WebControls.FileUpload uplFile1;
         
         /// <summary>
-        /// lblDesc1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDesc1;
-        
-        /// <summary>
         /// txtDesc1 control.
         /// </summary>
         /// <remarks>
@@ -47,15 +29,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDesc1;
-        
-        /// <summary>
-        /// lblCategory1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCategory1;
         
         /// <summary>
         /// drpCategory1 control.
@@ -110,15 +83,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnShowAll;
-        
-        /// <summary>
-        /// gvFiles control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvFiles;
         
         /// <summary>
         /// dlFiles control.

@@ -1,21 +1,18 @@
 using System;
-using System.IO;
+using Spinit.Wpc.Member.Data;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Code;
 using Spinit.Wpc.Utility.Business;
-using Spinit.Wpc.Base.Data;
 using Spinit.Wpc.Utility.Core;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier 
 {
-    public partial class AdminMemberPage : SynologenUserControl 
+    public partial class AdminMemberPage : SynologenCommonSupplierControl 
 	{
         protected void Page_Load(object sender, EventArgs e) 
 		{
         	if (Page.IsPostBack) return;
-        	var location = new Location(Base.Business.Globals.ConnectionString);
-        	var lrow = (LocationRow)location.GetLocation(base.LocationId);
-        	//var commonWysiwygPathArray = new[] {String.Format("~{0}{1}/Member/{2}/", Base.Business.Globals.CommonFileUrl, lrow.Name, base.MemberId)};
-        	var commonWysiwygPathArray = new[] {GetDirectory(lrow)};
+			var memberRow = Provider.GetMember(MemberId, LocationId, LanguageId);
+        	var commonWysiwygPathArray = new[] {GetDirectory(LocationRow, memberRow)};
 
         	txtBody.ImagesPaths = commonWysiwygPathArray;
         	txtBody.DocumentsPaths = commonWysiwygPathArray;
@@ -26,22 +23,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Supplier
         	txtBody.UploadFlashPaths = commonWysiwygPathArray;
         	txtBody.UploadMediaPaths = commonWysiwygPathArray;
 
-        	if (base.MemberId > 0) PopulateMember();
+        	if (base.MemberId > 0) PopulateMember(memberRow);
 		}
 
-		private string GetDirectory(IBaseLocationRow lrow)
+		private string GetDirectory(IBaseLocationRow lrow, MemberRow memberRow)
 		{
-			var memberRow = Provider.GetMember(MemberId, LocationId, LanguageId);
-			var di = new DirectoryInfo(Base.Business.Globals.CommonFilePath + lrow.Name + "\\Member\\" + memberRow.OrgName + "\\");
+			var di = GetMemberDirectory(LocationRow, memberRow);
     		if (!di.Exists) di.Create();
-			return String.Format("~{0}{1}/Member/{2}/", Base.Business.Globals.CommonFileUrl, lrow.Name, memberRow.OrgName);
+			var orgName = UrlFriendlyRenamingService.Rename(memberRow.OrgName);
+			return String.Format("~{0}{1}/Member/{2}/", Base.Business.Globals.CommonFileUrl, lrow.Name, orgName);
 		}
 
-        private void PopulateMember() 
+        private void PopulateMember(IMemberRow memberRow) 
 		{
-            var row = Provider.GetMember(base.MemberId, base.LocationId, base.LanguageId);
-        	if (row == null) return;
-        	if (row.Body != null) txtBody.Html = row.Body;
+        	if (memberRow == null) return;
+        	if (memberRow.Body != null) txtBody.Html = memberRow.Body;
         }
 
         protected void btnSave_Click(object sender, EventArgs e) 

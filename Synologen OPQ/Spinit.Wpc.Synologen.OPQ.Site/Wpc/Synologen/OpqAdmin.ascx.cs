@@ -60,6 +60,14 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 		private void SetupWysiwyg()
 		{
 			_wysiwyg.CommonFilePath = new [] { DocumentPath };
+			_wysiwyg.ImagesPaths = new [] { DocumentPath };
+        	_wysiwyg.DocumentsPaths = new [] { DocumentPath };
+        	_wysiwyg.FlashPaths = new [] { DocumentPath };
+        	_wysiwyg.MediaPaths = new [] { DocumentPath };
+        	_wysiwyg.UploadImagesPaths = new [] { DocumentPath };
+        	_wysiwyg.UploadDocumentsPaths = new [] { DocumentPath };
+        	_wysiwyg.UploadFlashPaths = new [] { DocumentPath };
+        	_wysiwyg.UploadMediaPaths = new [] { DocumentPath };
 		}
 
 		private void PopulateRoutineFiles(int nodeId, int? shopId, int? shopGroupId)

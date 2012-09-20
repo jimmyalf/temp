@@ -65,6 +65,9 @@
     <Reference Include="Spinit.Wpc.Core.Dependencies.NHibernate">
       <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.Dependencies.NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Core">
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
     <Reference Include="StoryQ">
       <HintPath>..\..\Dependancies\StoryQ\StoryQ.dll</HintPath>
     </Reference>

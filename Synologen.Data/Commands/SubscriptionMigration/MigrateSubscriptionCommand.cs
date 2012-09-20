@@ -60,8 +60,7 @@ namespace Spinit.Wpc.Synologen.Data.Commands.SubscriptionMigration
 				ProductPrice = oldSubscription.PaymentInfo.MonthlyAmount * withdrawalLimit,
 				PerformedWithdrawals = performedPayments,
 				Subscription = newSubscription,
-				WithdrawalsLimit = withdrawalLimit,
-			};
+			}.Setup(withdrawalLimit);
 		}
 
 		//private SubscriptionTransaction ParseTransaction(Core.Domain.Model.LensSubscription.SubscriptionTransaction oldTransaction, Subscription newSubscription)

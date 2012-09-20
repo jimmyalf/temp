@@ -132,12 +132,12 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		{
 			return new SubscriptionItem
 			{
-				WithdrawalsLimit = withdrawalsLimit,
+				//WithdrawalsLimit = withdrawalsLimit,
 				PerformedWithdrawals = performedWithdrawals,
 				Subscription = subscription,
 				ProductPrice = 1500,
 				FeePrice = 500
-			};
+			}.Setup(withdrawalsLimit);
 		}
 
 		public static IEnumerable<SubscriptionItem> CreateSubscriptionItems(Subscription subscription)

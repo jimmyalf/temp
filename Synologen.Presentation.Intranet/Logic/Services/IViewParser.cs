@@ -60,22 +60,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 
 		public SubscriptionItem Parse(AutogiroDetailsEventArgs args, Subscription subscription)
 		{
-			return new SubscriptionItem
+			var item =  new SubscriptionItem
 			{
-				WithdrawalsLimit = args.NumberOfPayments,
 				Subscription = subscription,
 				ProductPrice = args.ProductPrice,
 				FeePrice = args.FeePrice,
 			};
+			if(args.IsOngoing)
+			{
+				item.Setup(args.MonthlyPrice, args.MonthlyFee);
+			}
+			else
+			{
+				item.Setup(args.NumberOfPayments.Value);
+			}
+			return item;
 		}
 
 	    public void UpdateSubscriptionItem(AutogiroDetailsEventArgs args, SubscriptionItem subscriptionPayment, Subscription subscription)
 	    {
-            subscriptionPayment.WithdrawalsLimit = args.NumberOfPayments;
 			subscriptionPayment.ProductPrice = args.ProductPrice;
 			subscriptionPayment.FeePrice = args.FeePrice;
 	        subscriptionPayment.Subscription = subscription;
-
+			if(args.IsOngoing)
+			{
+				subscriptionPayment.Setup(args.MonthlyPrice, args.MonthlyFee);
+			}
+			else
+			{
+				subscriptionPayment.Setup(args.NumberOfPayments.Value);
+			}
 	    }
 
 	    public void Fill(OrderCustomer existingCustomer, SaveCustomerEventArgs args)

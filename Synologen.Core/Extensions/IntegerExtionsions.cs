@@ -32,5 +32,11 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			if(acceptedvalues == null || acceptedvalues.Length <= 0) return false;
 			return acceptedvalues.Any(acceptedValue => value == acceptedValue);
 		}
+
+		public static bool IsEither(this int? value, params int?[] acceptedvalues)
+		{
+			if(acceptedvalues == null || acceptedvalues.Length <= 0) return false;
+			return acceptedvalues.Any(acceptedValue => value == acceptedValue);
+		}
 	}
 }

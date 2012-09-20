@@ -25,16 +25,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	{
 			Page.Validate();
 			if(!Page.IsValid)
-			{ 
+			{
                 var invalidArgs = new AutogiroDetailsInvalidFormEventArgs
                 {
                     BankAccountNumber = txtBankAccountNumber.Text,
                     ClearingNumber = txtClearingNumber.Text,
                     CustomNumberOfPayments = txtCustomNumberOfTransactions.Text,
-                    NumberOfPaymentsSelectedValue = Convert.ToInt32(rblSubscriptionTime.SelectedValue),
                     ProductPrice = txtProductAmount.Text.ToDecimal(),
                     FeePrice = txtFeeAmount.Text.ToDecimal(),
+					NumberOfPaymentsSelectedValue = GetNumberOfPayments(),
                 };
+				if(invalidArgs.NumberOfPaymentsSelectedValue == null)
+				{
+                	invalidArgs.MonthlyFee = txtCustomMonthlyFee.Text.ToDecimal();
+					invalidArgs.MonthlyPrice = txtCustomMonthlyPrice.Text.ToDecimal();					
+				}
                 FillForm(this, invalidArgs);
 			    return;
 			}
@@ -47,16 +52,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
                 ProductPrice = txtProductAmount.Text.ToDecimal(),
                 FeePrice = txtFeeAmount.Text.ToDecimal(),
             };
+			if(args.NumberOfPayments == null)
+			{
+                args.MonthlyFee = txtCustomMonthlyFee.Text.ToDecimal();
+				args.MonthlyPrice = txtCustomMonthlyPrice.Text.ToDecimal();
+			}
     		TryFireSubmit(this, args);
     	}
 
-		private int GetNumberOfPayments()
+		private int? GetNumberOfPayments()
 		{
 		    var selectedSubscriptionTime = rblSubscriptionTime.SelectedValue.ToInt();
-
-		    return selectedSubscriptionTime == AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId 
-				? txtCustomNumberOfTransactions.Text.ToInt() 
-				: selectedSubscriptionTime;
+		    if(selectedSubscriptionTime == AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId)
+		    {
+		    	return txtCustomNumberOfTransactions.Text.ToInt();
+		    }
+			if(selectedSubscriptionTime == AutogiroDetailsModel.OngoingSubscription)
+			{
+				return null;
+			}
+			return selectedSubscriptionTime;
 		}
 
     	protected void Validate_Custom_Subscription_Time(object source, ServerValidateEventArgs args)

@@ -73,7 +73,23 @@
 			$("#txtProductAmount").change(updateAmounts).keyup(updateAmounts);
 			$("#txtFeeAmount").change(updateAmounts).keyup(updateAmounts); ;
 			$("#rblSubscriptionTime").change(updateAmounts);
-			$("#txtCustomNumberOfTransactions").change(updateAmounts).keyup(updateAmounts); ;
+			$("#rblSubscriptionTime").change(updateUI);
+			$("#txtCustomNumberOfTransactions").change(updateAmounts).keyup(updateAmounts);
+			updateUI();
+
+			function updateUI() {
+				var selectedNumerOfWithdrawals = parseInt($("#rblSubscriptionTime input:checked").val());
+				if (selectedNumerOfWithdrawals == -2) {
+					$("#calculated-montly-withdrawal").hide();
+					$("#custom-monthly-withdrawal-price").show();
+					$("#custom-monthly-withdrawal-fee").show();
+				}
+				else {
+					$("#calculated-montly-withdrawal").show();
+					$("#custom-monthly-withdrawal-price").hide();
+					$("#custom-monthly-withdrawal-fee").hide();
+				}
+			}
 
 			function updateAmounts() {
 				var totalAmount = getTotalAmount();

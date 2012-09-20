@@ -12,6 +12,7 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
@@ -61,11 +62,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			);
 		}
 
+
 		[Test]
 		public void VisaSidaVidNavigeringTillbaka()
 		{
 			SetupScenario(scenario => scenario
 				.Givet(EnBeställningMedAbonnemangHarSkapatsIFöregåendeSteg)
+				.När(SidanVisas)
+				.Så(SkallAGDetaljerVisas)
+			);
+		}
+
+		[Test]
+		public void VisaSidaVidNavigeringTillbakaMedTillsvidareAbonnemang()
+		{
+			SetupScenario(scenario => scenario
+				.Givet(EnBeställningMedTillsvidareAbonnemangHarSkapatsIFöregåendeSteg)
 				.När(SidanVisas)
 				.Så(SkallAGDetaljerVisas)
 			);
@@ -91,7 +103,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             SetupScenario(scenario => scenario
 				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
 					.Och(EttNyttKontoHarValtsIFöregåendeSteg)
-					.Och(AttFormuläretÄrKorrektIfyllt)
+					.Och(AttFormuläretÄrKorrektIfylltFörTidbegränsatAbonnemang)
                 .När(AnvändarenFörsökerFortsättaTillNästaSteg)
 				.Så(SkapasEttNyttKontoMedEttNyttDelAbonnemang)
 					.Och(TotalUttagSparas)
@@ -105,13 +117,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             SetupScenario(scenario => scenario
 				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
 					.Och(EttBefintligtKontoHarValtsIFöregåendeSteg)
-					.Och(AttFormuläretÄrKorrektIfyllt)
+					.Och(AttFormuläretÄrKorrektIfylltFörTidbegränsatAbonnemang)
                 .När(AnvändarenFörsökerFortsättaTillNästaSteg)
 				.Så(SkapasEttNyttDelAbonnemangPåBefintligtKonto)
 					.Och(TotalUttagSparas)
 					.Och(AnvändarenFörflyttasTillNästaSteg)
             );
         }
+
+
+		[Test]
+		public void SparaDelAbonnemangPåBefintligtKontoMedTillsvidareAbonnemang()
+		{
+			SetupScenario(scenario => scenario
+				.Givet(EnBeställningHarSkapatsIFöregåendeSteg)
+					.Och(EttBefintligtKontoHarValtsIFöregåendeSteg)
+					.Och(AttFormuläretÄrKorrektIfylltFörTillsvidareAbonnemang)
+				.När(AnvändarenFörsökerFortsättaTillNästaSteg)
+				.Så(SkapasEttNyttDelAbonnemangPåBefintligtKonto)
+			);
+		}
 
     	[Test]
         public void AvbrytBeställning()
@@ -165,6 +190,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
 
+		private void EnBeställningMedTillsvidareAbonnemangHarSkapatsIFöregåendeSteg()
+		{
+            _order = CreateOrderWithSubscription(_shop, useOngoingSubscription:true);
+			_subscription = _order.SubscriptionPayment.Subscription;
+            HttpContext.SetupRequestParameter("order", _order.Id.ToString());			
+		}
+
     	private void EnBeställningHarSkapatsIFöregåendeSteg()
         {
             _order = CreateOrder(_shop);
@@ -178,10 +210,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     		HttpContext.SetupRequestParameter("order", _order.Id.ToString());
     	}
 
-        private void AttFormuläretÄrKorrektIfyllt()
+        private void AttFormuläretÄrKorrektIfylltFörTidbegränsatAbonnemang()
         {
         	_form = OrderFactory.GetAutogiroDetailsEventArgs();
         }
+
+    	private void AttFormuläretÄrKorrektIfylltFörTillsvidareAbonnemang()
+    	{
+    		_form = OrderFactory.GetAutogiroDetailsEventArgs(true);
+    	}
+
     	private void EttNyttKontoHarValtsIFöregåendeSteg()
     	{
     		_order.SelectedPaymentOption = new PaymentOption {SubscriptionId = null, Type = PaymentOptionType.Subscription_Autogiro_New};
@@ -256,8 +294,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	{
 			//Assert Subscription Item
     		var subscriptionItem = WithRepository<IOrderRepository>().Get(_order.Id).SubscriptionPayment;
-			subscriptionItem.MonthlyWithdrawalAmount.ShouldBe(Math.Round((_form.ProductPrice + _form.FeePrice)/_form.NumberOfPayments,2));
-			subscriptionItem.WithdrawalsLimit.ShouldBe(_form.NumberOfPayments);
+			if(_form.IsOngoing)
+			{
+				var expectedMonthlyWithdrawalAmount = _form.MonthlyFee + _form.MonthlyPrice;
+				subscriptionItem.MonthlyWithdrawalAmount.ShouldBe(expectedMonthlyWithdrawalAmount);	
+				subscriptionItem.WithdrawalsLimit.ShouldBe(null);
+			}
+			else
+			{
+				var expectedMonthlyWithdrawalAmount = Math.Round((_form.ProductPrice + _form.FeePrice) / _form.NumberOfPayments.Value, 2);
+				subscriptionItem.MonthlyWithdrawalAmount.ShouldBe(expectedMonthlyWithdrawalAmount);
+				subscriptionItem.WithdrawalsLimit.ShouldBe(_form.NumberOfPayments);
+			}
+
 			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
 			subscriptionItem.ProductPrice.ShouldBe(_form.ProductPrice);
 			subscriptionItem.FeePrice.ShouldBe(_form.FeePrice);
@@ -278,8 +327,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	{
 			//Assert Subscription Item
     		var subscriptionItem = WithRepository<IOrderRepository>().Get(_order.Id).SubscriptionPayment;
-			subscriptionItem.MonthlyWithdrawalAmount.ShouldBe(Math.Round((_form.ProductPrice + _form.FeePrice)/_form.NumberOfPayments,2));
-			subscriptionItem.WithdrawalsLimit.ShouldBe(_form.NumberOfPayments);
+			if(_form.IsOngoing)
+			{
+				var expectedMonthlyWithdrawalAmount = _form.MonthlyFee + _form.MonthlyPrice;
+				subscriptionItem.MonthlyWithdrawalAmount.ShouldBe(expectedMonthlyWithdrawalAmount);	
+				subscriptionItem.WithdrawalsLimit.ShouldBe(null);
+			}
+			else
+			{
+				var expectedMonthlyWithdrawalAmount = Math.Round((_form.ProductPrice + _form.FeePrice) / _form.NumberOfPayments.Value, 2);
+				subscriptionItem.MonthlyWithdrawalAmount.ShouldBe(expectedMonthlyWithdrawalAmount);
+				subscriptionItem.WithdrawalsLimit.ShouldBe(_form.NumberOfPayments);
+			}
 			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
 			subscriptionItem.ProductPrice.ShouldBe(_form.ProductPrice);
 			subscriptionItem.FeePrice.ShouldBe(_form.FeePrice);
@@ -312,11 +371,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void SkallAGDetaljerVisas()
     	{
-    		View.Model.SelectedSubscriptionOption.ShouldBe(_order.SubscriptionPayment.WithdrawalsLimit);
 			View.Model.ProductPrice.ShouldBe(_order.SubscriptionPayment.ProductPrice.ToString("0.00"));
 			View.Model.FeePrice.ShouldBe(_order.SubscriptionPayment.FeePrice.ToString("0.00"));
 			View.Model.TotalWithdrawal.ShouldBe(_order.SubscriptionPayment.TotalValue.ToString("0.00"));
 			View.Model.Montly.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("0.00"));
+			if(_order.SubscriptionPayment.WithdrawalsLimit == null) // Is ongoing
+			{
+				View.Model.SelectedSubscriptionOption.ShouldBe(AutogiroDetailsModel.OngoingSubscription);
+				View.Model.CustomMonthlyFeeAmount.ShouldBe(_order.SubscriptionPayment.MonthlyFee.Value.ToString("0.00"));
+				View.Model.CustomMonthlyPriceAmount.ShouldBe(_order.SubscriptionPayment.MonthlyPrice.Value.ToString("0.00"));
+			}
+			else
+			{
+				View.Model.SelectedSubscriptionOption.ShouldBe(_order.SubscriptionPayment.WithdrawalsLimit);
+			}
     	}
 
     	private void KastasEttException()

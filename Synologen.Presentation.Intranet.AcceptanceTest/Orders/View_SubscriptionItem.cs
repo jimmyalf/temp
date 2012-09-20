@@ -117,7 +117,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.ProductPrice.ShouldBe(_subscriptionItem.ProductPrice);
 			View.Model.FeePrice.ShouldBe(_subscriptionItem.FeePrice);
 			View.Model.MonthlyWithdrawalAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawalAmount.ToString("C2"));
-			View.Model.WithdrawalsLimit.ShouldBe(_subscriptionItem.WithdrawalsLimit);
+			if(!View.Model.IsOngoing)
+			{
+				View.Model.WithdrawalsLimit.ShouldBe(_subscriptionItem.WithdrawalsLimit.Value);
+			}
 			View.Model.CreatedDate.ShouldBe(_subscriptionItem.CreatedDate.ToString("yyyy-MM-dd"));
 			View.Model.NumerOfPerformedWithdrawals.ShouldBe(_subscriptionItem.PerformedWithdrawals);
 			View.Model.SubscriptionBankAccountNumber.ShouldBe(_subscription.BankAccountNumber);

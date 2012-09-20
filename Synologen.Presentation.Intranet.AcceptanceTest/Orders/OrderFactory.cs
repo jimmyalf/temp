@@ -218,16 +218,33 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             };
         }
 
-		public static AutogiroDetailsEventArgs GetAutogiroDetailsEventArgs()
+		public static AutogiroDetailsEventArgs GetAutogiroDetailsEventArgs(bool isOngoing = false)
 		{
-			return new AutogiroDetailsEventArgs
+			if(isOngoing)
 			{
-				BankAccountNumber = "123456789",
-				ClearingNumber = "1234",
-				NumberOfPayments = 6,
-				ProductPrice = 3500,
-				FeePrice = 255,
-			};
+				return new AutogiroDetailsEventArgs
+				{
+					BankAccountNumber = "123456789",
+					ClearingNumber = "1234",
+					NumberOfPayments = null,
+					ProductPrice = 3500,
+					FeePrice = 255,
+					MonthlyFee = 25,
+					MonthlyPrice = 175
+				};				
+			}
+			else
+			{
+				return new AutogiroDetailsEventArgs
+				{
+					BankAccountNumber = "123456789",
+					ClearingNumber = "1234",
+					NumberOfPayments = 6,
+					ProductPrice = 3500,
+					FeePrice = 255,
+				};
+			}
+
 		}
 
 	    public static LensRecipe GetLensRecipe(Article article, ArticleCategory category, ArticleType type, ArticleSupplier supplier)
@@ -266,16 +283,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	        };
 		}
 
-	    public static SubscriptionItem GetSubscriptionItem(Subscription subscription)
+	    public static SubscriptionItem GetSubscriptionItem(Subscription subscription, bool useOngoingSubscription)
 	    {
-	        return new SubscriptionItem
-	        {
-                WithdrawalsLimit = 3,
-                PerformedWithdrawals = 0,
-                Subscription = subscription,
-                ProductPrice = 1000,
-                FeePrice = 500
-	        };
+	    	var item = new SubscriptionItem {PerformedWithdrawals = 0, Subscription = subscription, ProductPrice = 1000, FeePrice = 500};
+			return useOngoingSubscription ? item.Setup(250, 50) : item.Setup(3);
 	    }
 
 		public static IEnumerable<SubscriptionTransaction> GetTransactions(Subscription subscription)

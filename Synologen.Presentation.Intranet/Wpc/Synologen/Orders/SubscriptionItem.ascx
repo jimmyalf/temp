@@ -16,12 +16,20 @@
 			<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtFeeAmount" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
 			<asp:RangeValidator runat="server" MinimumValue="0" MaximumValue="49999" Type="Double" ControlToValidate="txtFeeAmount" ErrorMessage="Angivet belopp skall ligga i intervallet 0 - 49999" CssClass="error-message">*</asp:RangeValidator>
     	</p>
+		<%if (Model.IsOngoing) { %>
+    	<p>
+			<h1>TODO: Add Monthly Price and Fee input</h1>
+      	</p>
+		<% } else {%>
     	<p>
       		<label>Max antal dragningar</label>
     		<asp:TextBox ID="txtNumberOfWithdrawals" Text="<%#Model.WithdrawalsLimit %>" runat="server" />
 			<asp:RegularExpressionValidator runat="server" ValidationExpression="^\d+$" ControlToValidate="txtNumberOfWithdrawals" ErrorMessage="Antal dragningar måste anges som ett positivt heltal med siffror" CssClass="error-message">*</asp:RegularExpressionValidator>
 			<asp:CustomValidator runat="server" ErrorMessage="Angiven abonnemangstid måste vara större eller lika med antal dragningar" ControlToValidate="txtNumberOfWithdrawals" OnServerValidate="Validate_Subscription_Time" CssClass="error-message" ValidateEmptyText="True">&nbsp;*</asp:CustomValidator>
       	</p>
+		<% } %>
+
+
 		<p>
 			<label>Utförda dragningar</label>
 			<span><%#Model.NumerOfPerformedWithdrawals %></span>

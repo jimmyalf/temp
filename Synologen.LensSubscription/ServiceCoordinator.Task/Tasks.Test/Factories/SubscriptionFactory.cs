@@ -50,12 +50,11 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 		{
 			return new SubscriptionItem
 			{
-				WithdrawalsLimit = 12,
 				PerformedWithdrawals = 2,
 				Subscription = subscription,
 				ProductPrice = 1500,
 				FeePrice = 500,
-			};
+			}.Setup(12);
 		}
 
 		public static Subscription GetWithoutBankgiroNumber(int id)

@@ -48,13 +48,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			return CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(shop, customer));
 		}
 
-        protected Order CreateOrderWithSubscription(Shop shop, Article article = null, OrderCustomer customer = null, PaymentOptionType paymentOptionType = PaymentOptionType.Subscription_Autogiro_New)
+        protected Order CreateOrderWithSubscription(Shop shop, Article article = null, OrderCustomer customer = null, PaymentOptionType paymentOptionType = PaymentOptionType.Subscription_Autogiro_New, bool useOngoingSubscription = false)
         {
             article = article ?? CreateArticle();
             customer = customer ?? CreateCustomer(shop);
             var lensRecipe = CreateLensRecipe(article);
             var subscription = CreateSubscription(shop, active: paymentOptionType == PaymentOptionType.Subscription_Autogiro_Existing);
-            var subscriptionItem = CreateSubscriptionItem(subscription);
+            var subscriptionItem = CreateSubscriptionItem(subscription, useOngoingSubscription);
 
             return CreateWithRepository<IOrderRepository, Order>(() => OrderFactory.GetOrder(shop, customer, lensRecipe, subscriptionItem, paymentOptionType));
         }
@@ -67,11 +67,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	        return CreateWithRepository<ILensRecipeRepository, LensRecipe>(() => OrderFactory.GetLensRecipe(article, category, articleType, supplier));
 	    }
 
-	    protected SubscriptionItem CreateSubscriptionItem(Subscription subscription)
+	    protected SubscriptionItem CreateSubscriptionItem(Subscription subscription, bool useOngoingSubscription = false)
 	    {
 	        return
 	            CreateWithRepository<ISubscriptionItemRepository, SubscriptionItem>(
-	                () => OrderFactory.GetSubscriptionItem(subscription));
+	                () => OrderFactory.GetSubscriptionItem(subscription, useOngoingSubscription));
 	    }
 
 	    protected OrderCustomer CreateCustomer(Shop shop, Func<Shop,OrderCustomer> factoryMethod = null)

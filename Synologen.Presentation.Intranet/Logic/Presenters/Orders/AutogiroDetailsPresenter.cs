@@ -88,11 +88,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
             View.Model.FeePrice = subscriptionItem.FeePrice.ToString("0.00");
 			View.Model.TotalWithdrawal = subscriptionItem.TotalValue.ToString("0.00");
 			View.Model.Montly = subscriptionItem.MonthlyWithdrawalAmount.ToString("0.00");
+			if(subscriptionItem.IsOngoing)
+			{
+				View.Model.CustomMonthlyFeeAmount = subscriptionItem.MonthlyFee.Value.ToString("0.00");
+				View.Model.CustomMonthlyPriceAmount = subscriptionItem.MonthlyPrice.Value.ToString("0.00");
+			}
+			
             View.Model.SelectedSubscriptionOption = 0;
 
 			if(subscriptionItem.WithdrawalsLimit.IsEither(3, 6, 12))
 			{
 				View.Model.SelectedSubscriptionOption = subscriptionItem.WithdrawalsLimit;
+			}
+			else if(subscriptionItem.WithdrawalsLimit == null)
+			{
+				View.Model.SelectedSubscriptionOption = AutogiroDetailsModel.OngoingSubscription;
 			}
 			else
 			{

@@ -55,7 +55,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 			if(args.NumberOfPayments == null)
 			{
                 args.MonthlyFee = txtCustomMonthlyFee.Text.ToDecimal();
-				args.MonthlyPrice = txtCustomMonthlyPrice.Text.ToDecimal();
+				args.MonthlyProduct = txtCustomMonthlyPrice.Text.ToDecimal();
 			}
     		TryFireSubmit(this, args);
     	}

@@ -230,7 +230,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 					ProductPrice = 3500,
 					FeePrice = 255,
 					MonthlyFee = 25,
-					MonthlyPrice = 175
+					MonthlyProduct = 175
 				};				
 			}
 			else
@@ -285,8 +285,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 	    public static SubscriptionItem GetSubscriptionItem(Subscription subscription, bool useOngoingSubscription)
 	    {
-	    	var item = new SubscriptionItem {PerformedWithdrawals = 0, Subscription = subscription, ProductPrice = 1000, FeePrice = 500};
-			return useOngoingSubscription ? item.Setup(250, 50) : item.Setup(3);
+	    	var item = new SubscriptionItem {PerformedWithdrawals = 0, Subscription = subscription};
+	    	return useOngoingSubscription ? item.Setup(250, 50, 1000, 500) : item.Setup(3, 1000, 500);
 	    }
 
 		public static IEnumerable<SubscriptionTransaction> GetTransactions(Subscription subscription)

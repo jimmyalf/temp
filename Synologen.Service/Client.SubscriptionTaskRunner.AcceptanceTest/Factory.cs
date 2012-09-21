@@ -132,12 +132,9 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		{
 			return new SubscriptionItem
 			{
-				//WithdrawalsLimit = withdrawalsLimit,
 				PerformedWithdrawals = performedWithdrawals,
 				Subscription = subscription,
-				ProductPrice = 1500,
-				FeePrice = 500
-			}.Setup(withdrawalsLimit);
+			}.Setup(withdrawalsLimit, 1500, 500);
 		}
 
 		public static IEnumerable<SubscriptionItem> CreateSubscriptionItems(Subscription subscription)
@@ -153,8 +150,8 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		{
 			return new SubscriptionPendingPayment
 			{
-				TaxedAmount = subscriptionItems.Where(x => x.IsActive).Sum(x => x.ProductPrice),
-				TaxFreeAmount = subscriptionItems.Where(x => x.IsActive).Sum(x => x.FeePrice),
+				TaxedAmount = subscriptionItems.Where(x => x.IsActive).Sum(x => x.Value.Product),
+				TaxFreeAmount = subscriptionItems.Where(x => x.IsActive).Sum(x => x.Value.Fee),
 				HasBeenPayed = false,
 				SubscriptionItems = subscriptionItems.Where(x => x.IsActive).ToList()
 			};

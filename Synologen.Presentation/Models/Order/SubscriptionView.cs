@@ -111,7 +111,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		public SubscriptionItemListItem() { }
 		public SubscriptionItemListItem(SubscriptionItem subscriptionItem)
 		{
-			MontlyAmount = subscriptionItem.MonthlyWithdrawalAmount.ToString("C2");
+			MontlyAmount = subscriptionItem.MonthlyWithdrawal.Total.ToString("C2");
 			PerformedWithdrawals = "{0}/{1}".FormatWith(subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit);
 			Active = subscriptionItem.IsActive  ? "Ja" : "Nej";
 			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");

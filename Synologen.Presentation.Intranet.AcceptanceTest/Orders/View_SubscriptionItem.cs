@@ -45,7 +45,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		public void VisaAbonnemang()
 		{
 			SetupScenario(scenario => scenario
-				.Givet(DelAbonnemangFinns)
+				.Givet(BegränsatDelAbonnemangFinns)
 				.När(SidanVisas)
 				.Så(VisasDelAbonnemangsInformation)
 					.Och(TillbakaLänkVisas)
@@ -53,10 +53,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		}
 
 		[Test]
-		public void RedigeraAbonnemang()
+		public void RedigeraBegränsatAbonnemang()
 		{
 			SetupScenario(scenario => scenario
-				.Givet(DelAbonnemangFinns)
+				.Givet(BegränsatDelAbonnemangFinns)
+					.Och(FormuläretÄrIfyllt)
+				.När(FormuläretSparas)
+				.Så(UppdaterasDelabonnemanget)
+			);
+		}
+
+		[Test]
+		public void RedigeraLöpandeAbonnemang()
+		{
+			SetupScenario(scenario => scenario
+				.Givet(LöpandeDelAbonnemangFinns)
 					.Och(FormuläretÄrIfyllt)
 				.När(FormuläretSparas)
 				.Så(UppdaterasDelabonnemanget)
@@ -74,10 +85,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		}
 
 		#region Arrange
-		private void DelAbonnemangFinns()
+		private void BegränsatDelAbonnemangFinns()
 		{
 			_subscriptionItem = CreateSubscriptionItem(_subscription);
 			HttpContext.SetupRequestParameter("subscription-item", _subscriptionItem.Id.ToString());
+		}
+
+		private void LöpandeDelAbonnemangFinns()
+		{
+			_subscriptionItem = CreateSubscriptionItem(_subscription, true);
+			HttpContext.SetupRequestParameter("subscription-item", _subscriptionItem.Id.ToString());			
 		}
 
 		private void DelAbonnemangFinnsSomTillhörEnAnnanButik()
@@ -114,9 +131,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void VisasDelAbonnemangsInformation()
 		{
 			View.Model.Active.ShouldBe(_subscriptionItem.IsActive ? "Ja" : "Nej");
-			View.Model.ProductPrice.ShouldBe(_subscriptionItem.ProductPrice);
-			View.Model.FeePrice.ShouldBe(_subscriptionItem.FeePrice);
-			View.Model.MonthlyWithdrawalAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawalAmount.ToString("C2"));
+			View.Model.ProductPrice.ShouldBe(_subscriptionItem.Value.Product);
+			View.Model.FeePrice.ShouldBe(_subscriptionItem.Value.Fee);
+			View.Model.MonthlyWithdrawalAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawal.Total.ToString("C2"));
 			if(!View.Model.IsOngoing)
 			{
 				View.Model.WithdrawalsLimit.ShouldBe(_subscriptionItem.WithdrawalsLimit.Value);
@@ -130,9 +147,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void UppdaterasDelabonnemanget()
 		{
 			var updatedSubscriptionItem = Get<SubscriptionItem>(_subscriptionItem.Id);
-			updatedSubscriptionItem.WithdrawalsLimit.ShouldBe(_form.WithdrawalsLimit);
-			updatedSubscriptionItem.FeePrice.ShouldBe(_form.FeeAmount);
-			updatedSubscriptionItem.ProductPrice.ShouldBe(_form.ProductAmount);
+			if(_subscriptionItem.IsOngoing)
+			{
+				throw new NotImplementedException("TODO: Assertions for ongoing");
+			}
+			else
+			{
+				updatedSubscriptionItem.WithdrawalsLimit.ShouldBe(_form.WithdrawalsLimit);
+			}
+			updatedSubscriptionItem.Value.Fee.ShouldBe(_form.FeeAmount);
+			updatedSubscriptionItem.Value.Product.ShouldBe(_form.ProductAmount);
 		}
 
 		private void TillbakaLänkVisas()

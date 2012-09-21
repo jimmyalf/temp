@@ -84,14 +84,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		{
             View.Model.BankAccountNumber = subscriptionItem.Subscription.BankAccountNumber;
             View.Model.ClearingNumber = subscriptionItem.Subscription.ClearingNumber; 
-            View.Model.ProductPrice = subscriptionItem.ProductPrice.ToString("0.00");
-            View.Model.FeePrice = subscriptionItem.FeePrice.ToString("0.00");
-			View.Model.TotalWithdrawal = subscriptionItem.TotalValue.ToString("0.00");
-			View.Model.Montly = subscriptionItem.MonthlyWithdrawalAmount.ToString("0.00");
+            View.Model.ProductPrice = subscriptionItem.Value.Product.ToString("0.00");
+            View.Model.FeePrice = subscriptionItem.Value.Fee.ToString("0.00");
+			View.Model.TotalWithdrawal = subscriptionItem.Value.Total.ToString("0.00");
+			View.Model.Montly = subscriptionItem.MonthlyWithdrawal.Total.ToString("0.00");
 			if(subscriptionItem.IsOngoing)
 			{
-				View.Model.CustomMonthlyFeeAmount = subscriptionItem.MonthlyFee.Value.ToString("0.00");
-				View.Model.CustomMonthlyPriceAmount = subscriptionItem.MonthlyPrice.Value.ToString("0.00");
+				View.Model.CustomMonthlyFeeAmount = subscriptionItem.MonthlyWithdrawal.Fee.ToString("0.00");
+				View.Model.CustomMonthlyProductAmount = subscriptionItem.MonthlyWithdrawal.Product.ToString("0.00");
 			}
 			
             View.Model.SelectedSubscriptionOption = 0;

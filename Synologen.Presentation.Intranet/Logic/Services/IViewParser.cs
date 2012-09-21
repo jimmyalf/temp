@@ -63,32 +63,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			var item =  new SubscriptionItem
 			{
 				Subscription = subscription,
-				ProductPrice = args.ProductPrice,
-				FeePrice = args.FeePrice,
 			};
 			if(args.IsOngoing)
 			{
-				item.Setup(args.MonthlyPrice, args.MonthlyFee);
+				item.Setup(args.MonthlyProduct, args.MonthlyFee, args.ProductPrice, args.FeePrice);
 			}
 			else
 			{
-				item.Setup(args.NumberOfPayments.Value);
+				item.Setup(args.NumberOfPayments.Value, args.ProductPrice, args.FeePrice);
 			}
 			return item;
 		}
 
 	    public void UpdateSubscriptionItem(AutogiroDetailsEventArgs args, SubscriptionItem subscriptionPayment, Subscription subscription)
 	    {
-			subscriptionPayment.ProductPrice = args.ProductPrice;
-			subscriptionPayment.FeePrice = args.FeePrice;
 	        subscriptionPayment.Subscription = subscription;
 			if(args.IsOngoing)
 			{
-				subscriptionPayment.Setup(args.MonthlyPrice, args.MonthlyFee);
+				subscriptionPayment.Setup(args.MonthlyProduct, args.MonthlyFee, args.ProductPrice, args.FeePrice);
 			}
 			else
 			{
-				subscriptionPayment.Setup(args.NumberOfPayments.Value);
+				subscriptionPayment.Setup(args.NumberOfPayments.Value, args.ProductPrice, args.FeePrice);
 			}
 	    }
 

@@ -46,7 +46,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 				});
 				_task = ResolveTask<Task>();
 				_taskRunnerService = GetTaskRunnerService(_task);
-				_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Sum(x => x.MonthlyWithdrawalAmount);
+				_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Sum(x => x.MonthlyWithdrawal.Total);
 
 			};
 

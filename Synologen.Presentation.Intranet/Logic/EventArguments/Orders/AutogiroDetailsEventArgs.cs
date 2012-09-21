@@ -10,7 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders
     	public string BankAccountNumber { get; set; }
     	public string ClearingNumber { get; set; }
 		public decimal MonthlyFee { get; set; }
-		public decimal MonthlyPrice { get; set; }
+		public decimal MonthlyProduct { get; set; }
 		public bool IsOngoing { get { return !NumberOfPayments.HasValue; } }
     }
 }

@@ -25,14 +25,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
     	public string TotalWithdrawal { get; set; }
     	public string Montly { get; set; }
 
-    	public string CustomMonthlyPriceAmount { get; set; }
+    	public string CustomMonthlyProductAmount { get; set; }
     	public string CustomMonthlyFeeAmount { get; set; }
 
     	private IEnumerable<ListItem> GetSubscriptionOptions()
         {
 			return new List<ListItem>
             {
-				new ListItem("Tillsvidare", OngoingSubscription),
+				new ListItem("Löpande", OngoingSubscription),
             	new ListItem("3 månader", 3), 
 				new ListItem("6 månader", 6), 
 				new ListItem("12 månader", 12),  

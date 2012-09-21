@@ -64,7 +64,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public SubscriptionItemListItem() { }
 		public SubscriptionItemListItem(SubscriptionItem subscriptionItem, string subscriptionItemDetailUrl)
 		{
-			MontlyAmount = subscriptionItem.MonthlyWithdrawalAmount.ToString("C2");
+			MontlyAmount = subscriptionItem.MonthlyWithdrawal.Total.ToString("C2");
 			PerformedWithdrawals = "{0}/{1}".FormatWith(subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit);
 			Active = subscriptionItem.IsActive  ? "Ja" : "Nej";
 			SubscriptionItemDetailUrl = subscriptionItemDetailUrl + "?subscription-item=" + subscriptionItem.Id;

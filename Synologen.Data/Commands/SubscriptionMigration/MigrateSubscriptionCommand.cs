@@ -56,11 +56,9 @@ namespace Spinit.Wpc.Synologen.Data.Commands.SubscriptionMigration
 			var withdrawalLimit = performedPayments + AdditionalNumberOfWithdrawals;
 			return new SubscriptionItem
 			{
-				FeePrice = 0,
-				ProductPrice = oldSubscription.PaymentInfo.MonthlyAmount * withdrawalLimit,
 				PerformedWithdrawals = performedPayments,
 				Subscription = newSubscription,
-			}.Setup(withdrawalLimit);
+			}.Setup(withdrawalLimit,oldSubscription.PaymentInfo.MonthlyAmount * withdrawalLimit,0);
 		}
 
 		//private SubscriptionTransaction ParseTransaction(Core.Domain.Model.LensSubscription.SubscriptionTransaction oldTransaction, Subscription newSubscription)

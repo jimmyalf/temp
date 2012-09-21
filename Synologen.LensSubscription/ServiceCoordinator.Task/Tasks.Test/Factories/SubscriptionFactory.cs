@@ -48,13 +48,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories
 
 		public static SubscriptionItem GetSubscriptionItem(Subscription subscription)
 		{
-			return new SubscriptionItem
-			{
-				PerformedWithdrawals = 2,
-				Subscription = subscription,
-				ProductPrice = 1500,
-				FeePrice = 500,
-			}.Setup(12);
+			return new SubscriptionItem {PerformedWithdrawals = 2, Subscription = subscription,}.Setup(12, 1500, 500);
 		}
 
 		public static Subscription GetWithoutBankgiroNumber(int id)

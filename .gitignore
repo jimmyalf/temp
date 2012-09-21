@@ -165,4 +165,5 @@ pip-log.txt
 #Repository specific config
 Output/
 SentFiles/
+[Ll]ogs/
 *.config

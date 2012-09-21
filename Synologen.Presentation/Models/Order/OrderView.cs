@@ -21,9 +21,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 				AddressLineTwo = order.Customer.ParseName(x => x.PostalCode, x => x.City)
 			};
 			DeliveryOption = order.ShippingType.GetEnumDisplayName();
-			ProductPrice = order.SubscriptionPayment.ProductPrice.ToString("C2");
-			FeePrice = order.SubscriptionPayment.FeePrice.ToString("C2");
-			Monthly = order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("C2");
+			ProductPrice = order.SubscriptionPayment.Value.Product.ToString("C2");
+			FeePrice = order.SubscriptionPayment.Value.Fee.ToString("C2");
+			Monthly = order.SubscriptionPayment.MonthlyWithdrawal.Total.ToString("C2");
 			TotalWithdrawal = order.OrderTotalWithdrawalAmount.ToString("C2");
 			Withdrawals = order.SubscriptionPayment.PerformedWithdrawals + "/" + order.SubscriptionPayment.WithdrawalsLimit;
 			Reference = order.Reference;

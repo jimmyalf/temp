@@ -286,7 +286,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.SubscriptionItems.And(_subscriptionItems).Do((viewModel, item) =>
 			{
 				viewModel.Active.ShouldBe(item.IsActive ? "Ja" : "Nej");
-				viewModel.MontlyAmount.ShouldBe(item.MonthlyWithdrawalAmount.ToString("C2"));
+				viewModel.MontlyAmount.ShouldBe(item.MonthlyWithdrawal.Total.ToString("C2"));
 				viewModel.SubscriptionItemDetailUrl.ShouldBe(_subscriptionItemDetailUrl + "?subscription-item=" + item.Id);
 				viewModel.CreatedDate.ShouldBe(item.CreatedDate.ToString("yyyy-MM-dd"));
 				viewModel.PerformedWithdrawals.ShouldBe(item.PerformedWithdrawals + "/" + item.WithdrawalsLimit);

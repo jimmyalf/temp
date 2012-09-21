@@ -43,13 +43,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services.MigrationVal
 		{
 			var performedPayments = oldItem.Transactions.Count(x => x.Reason == TransactionReason.Payment && x.Type == TransactionType.Deposit);
 			var toalNumberOfPayments = performedPayments + _additionalWithdrawals;
-			Validate(toalNumberOfPayments == 0 ? 0 : oldItem.PaymentInfo.MonthlyAmount, subscriptionItem.MonthlyWithdrawalAmount, "montly amount");
+			Validate(toalNumberOfPayments == 0 ? 0 : oldItem.PaymentInfo.MonthlyAmount, subscriptionItem.MonthlyWithdrawal.Total, "montly amount");
 			Validate(oldItem.CreatedDate, subscriptionItem.CreatedDate);
-			Validate(0, subscriptionItem.FeePrice);
+			Validate(0, subscriptionItem.Value.Fee);
 			Validate(_additionalWithdrawals > 0, subscriptionItem.IsActive);
 			Validate(performedPayments, subscriptionItem.PerformedWithdrawals);
-			Validate(toalNumberOfPayments * oldItem.PaymentInfo.MonthlyAmount, subscriptionItem.ProductPrice);
-			Validate(toalNumberOfPayments * oldItem.PaymentInfo.MonthlyAmount, subscriptionItem.TotalValue);
+			Validate(toalNumberOfPayments * oldItem.PaymentInfo.MonthlyAmount, subscriptionItem.Value.Product);
+			Validate(toalNumberOfPayments * oldItem.PaymentInfo.MonthlyAmount, subscriptionItem.Value.Total);
 			Validate(toalNumberOfPayments, subscriptionItem.WithdrawalsLimit);
 		}
 	}

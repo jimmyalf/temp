@@ -9,8 +9,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public void Initialize(SubscriptionItem subscriptionItem, Subscription subscription, string returnUrl)
 		{
 			Active = subscriptionItem.IsActive ? "Ja" : "Nej";
-			ProductPrice = subscriptionItem.ProductPrice;
-			FeePrice = subscriptionItem.FeePrice;
+			ProductPrice = subscriptionItem.Value.Product;
+			FeePrice = subscriptionItem.Value.Fee;
 			WithdrawalsLimit = subscriptionItem.WithdrawalsLimit ?? 0;
 			IsOngoing = !subscriptionItem.WithdrawalsLimit.HasValue;
 			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");
@@ -18,7 +18,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 			SubscriptionBankAccountNumber = subscription.BankAccountNumber;
 			CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			ReturnUrl = returnUrl;
-			MonthlyWithdrawalAmount = subscriptionItem.MonthlyWithdrawalAmount.ToString("C2");
+			MonthlyWithdrawalAmount = subscriptionItem.MonthlyWithdrawal.Total.ToString("C2");
 		}
 		public string Active { get; set; }
 		public decimal ProductPrice { get; set; }

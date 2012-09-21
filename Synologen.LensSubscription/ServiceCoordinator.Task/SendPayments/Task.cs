@@ -49,8 +49,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 			if (!activeSubscriptionItems.Any()) return null;
 			var payment = new SubscriptionPendingPayment
 			{
-				TaxedAmount = activeSubscriptionItems.Sum(x => x.MonthlyWithdrawalProductAmount),
-				TaxFreeAmount = activeSubscriptionItems.Sum(x => x.MonthlyWithdrawalFeeAmount),
+				TaxedAmount = activeSubscriptionItems.Sum(x => x.MonthlyWithdrawal.Product),
+				TaxFreeAmount = activeSubscriptionItems.Sum(x => x.MonthlyWithdrawal.Fee),
 				SubscriptionItems = activeSubscriptionItems
 			};
 			subscriptionPendingPaymentRepository.Save(payment);

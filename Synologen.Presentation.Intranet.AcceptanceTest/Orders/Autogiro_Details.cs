@@ -294,22 +294,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	{
 			//Assert Subscription Item
     		var subscriptionItem = WithRepository<IOrderRepository>().Get(_order.Id).SubscriptionPayment;
-			if(_form.IsOngoing)
-			{
-				var expectedMonthlyWithdrawalAmount = _form.MonthlyFee + _form.MonthlyPrice;
-				subscriptionItem.MonthlyWithdrawalAmount.ShouldBe(expectedMonthlyWithdrawalAmount);	
-				subscriptionItem.WithdrawalsLimit.ShouldBe(null);
-			}
-			else
-			{
-				var expectedMonthlyWithdrawalAmount = Math.Round((_form.ProductPrice + _form.FeePrice) / _form.NumberOfPayments.Value, 2);
-				subscriptionItem.MonthlyWithdrawalAmount.ShouldBe(expectedMonthlyWithdrawalAmount);
-				subscriptionItem.WithdrawalsLimit.ShouldBe(_form.NumberOfPayments);
-			}
-
-			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
-			subscriptionItem.ProductPrice.ShouldBe(_form.ProductPrice);
-			subscriptionItem.FeePrice.ShouldBe(_form.FeePrice);
+    		AssertSubscriptionItemDetails(subscriptionItem);
 			subscriptionItem.CreatedDate.ShouldBe(_operationTime);
 			//Assert Subscription
 			subscriptionItem.Subscription.ConsentedDate.ShouldBe(null);
@@ -327,25 +312,32 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	{
 			//Assert Subscription Item
     		var subscriptionItem = WithRepository<IOrderRepository>().Get(_order.Id).SubscriptionPayment;
+			AssertSubscriptionItemDetails(subscriptionItem);
+			//Assert Subscription
+			subscriptionItem.Subscription.Id.ShouldBe(_subscription.Id);
+    	}
+
+		private void AssertSubscriptionItemDetails(SubscriptionItem subscriptionItem)
+		{
 			if(_form.IsOngoing)
 			{
-				var expectedMonthlyWithdrawalAmount = _form.MonthlyFee + _form.MonthlyPrice;
-				subscriptionItem.MonthlyWithdrawalAmount.ShouldBe(expectedMonthlyWithdrawalAmount);	
+				subscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(_form.MonthlyFee);
+				subscriptionItem.MonthlyWithdrawal.Product.ShouldBe(_form.MonthlyProduct);	
 				subscriptionItem.WithdrawalsLimit.ShouldBe(null);
 			}
 			else
 			{
-				var expectedMonthlyWithdrawalAmount = Math.Round((_form.ProductPrice + _form.FeePrice) / _form.NumberOfPayments.Value, 2);
-				subscriptionItem.MonthlyWithdrawalAmount.ShouldBe(expectedMonthlyWithdrawalAmount);
+				var expectedMonthlyWithdrawalFee = Math.Round(_form.FeePrice / _form.NumberOfPayments.Value, 2);
+				var expectedMonthlyWithdrawalProduct = Math.Round(_form.ProductPrice / _form.NumberOfPayments.Value, 2);
+				subscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(expectedMonthlyWithdrawalFee);
+				subscriptionItem.MonthlyWithdrawal.Product.ShouldBe(expectedMonthlyWithdrawalProduct);
 				subscriptionItem.WithdrawalsLimit.ShouldBe(_form.NumberOfPayments);
 			}
 			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
-			subscriptionItem.ProductPrice.ShouldBe(_form.ProductPrice);
-			subscriptionItem.FeePrice.ShouldBe(_form.FeePrice);
-			subscriptionItem.CreatedDate.ShouldBe(_operationTime);
-			//Assert Subscription
-			subscriptionItem.Subscription.Id.ShouldBe(_subscription.Id);
-    	}
+			subscriptionItem.Value.Product.ShouldBe(_form.ProductPrice);
+			subscriptionItem.Value.Fee.ShouldBe(_form.FeePrice);
+			subscriptionItem.CreatedDate.ShouldBe(_operationTime);			
+		}
 
 		private void TotalUttagSparas()
 		{
@@ -371,15 +363,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void SkallAGDetaljerVisas()
     	{
-			View.Model.ProductPrice.ShouldBe(_order.SubscriptionPayment.ProductPrice.ToString("0.00"));
-			View.Model.FeePrice.ShouldBe(_order.SubscriptionPayment.FeePrice.ToString("0.00"));
-			View.Model.TotalWithdrawal.ShouldBe(_order.SubscriptionPayment.TotalValue.ToString("0.00"));
-			View.Model.Montly.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("0.00"));
+			View.Model.ProductPrice.ShouldBe(_order.SubscriptionPayment.Value.Product.ToString("0.00"));
+			View.Model.FeePrice.ShouldBe(_order.SubscriptionPayment.Value.Fee.ToString("0.00"));
+			View.Model.TotalWithdrawal.ShouldBe(_order.SubscriptionPayment.Value.Total.ToString("0.00"));
+			View.Model.Montly.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawal.Total.ToString("0.00"));
 			if(_order.SubscriptionPayment.WithdrawalsLimit == null) // Is ongoing
 			{
 				View.Model.SelectedSubscriptionOption.ShouldBe(AutogiroDetailsModel.OngoingSubscription);
-				View.Model.CustomMonthlyFeeAmount.ShouldBe(_order.SubscriptionPayment.MonthlyFee.Value.ToString("0.00"));
-				View.Model.CustomMonthlyPriceAmount.ShouldBe(_order.SubscriptionPayment.MonthlyPrice.Value.ToString("0.00"));
+				View.Model.CustomMonthlyFeeAmount.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawal.Fee.ToString("0.00"));
+				View.Model.CustomMonthlyProductAmount.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawal.Product.ToString("0.00"));
 			}
 			else
 			{

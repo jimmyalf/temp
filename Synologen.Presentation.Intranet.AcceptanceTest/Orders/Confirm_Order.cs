@@ -178,10 +178,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.ArticleRight.ShouldBe(order.LensRecipe.Article.Right.Name);
         	View.Model.CustomerName.ShouldBe(order.Customer.FirstName + " " + order.Customer.LastName);
             View.Model.DeliveryOption.ShouldBe(order.ShippingType.GetEnumDisplayName());
-            View.Model.ProductPrice.ShouldBe(order.SubscriptionPayment.ProductPrice.ToString("C"));
-            View.Model.FeePrice.ShouldBe(order.SubscriptionPayment.FeePrice.ToString("C"));
+            View.Model.ProductPrice.ShouldBe(order.SubscriptionPayment.Value.Product.ToString("C"));
+            View.Model.FeePrice.ShouldBe(order.SubscriptionPayment.Value.Fee.ToString("C"));
             View.Model.TotalWithdrawal.ShouldBe(order.OrderTotalWithdrawalAmount.ToString("C"));
-			View.Model.Monthly.ShouldBe(order.SubscriptionPayment.MonthlyWithdrawalAmount.ToString("C"));
+			View.Model.Monthly.ShouldBe(order.SubscriptionPayment.MonthlyWithdrawal.Total.ToString("C"));
             View.Model.SubscriptionTime.ShouldBe(order.SubscriptionPayment.WithdrawalsLimit + " månader");
 			View.Model.QuantityLeft.ShouldBe(order.LensRecipe.Quantity.Left);
 			View.Model.QuantityRight.ShouldBe(order.LensRecipe.Quantity.Right);

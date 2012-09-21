@@ -1,4 +1,5 @@
-﻿using FluentNHibernate.Mapping;
+﻿using FluentNHibernate;
+using FluentNHibernate.Mapping;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
@@ -12,10 +13,17 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 			Map(x => x.WithdrawalsLimit).Nullable();
 			Map(x => x.PerformedWithdrawals).Not.Nullable();
 			References(x => x.Subscription).Column("SubscriptionId");
-			Map(x => x.ProductPrice).Not.Nullable();
-			Map(x => x.FeePrice).Not.Nullable();
-			Map(x => x.MonthlyFee).Nullable();
-			Map(x => x.MonthlyPrice).Nullable();
+			
+			Component(x => x.Value, value =>
+			{
+				value.Map(x => x.Product).Column("ProductPrice");
+				value.Map(x => x.Fee).Column("FeePrice");
+			});
+			Component(Reveal.Member<SubscriptionItem,SubscriptionItemAmount>("CustomMonthlyAmount"), value =>
+			{
+				value.Map(x => x.Product).Column("CustomMonthlyProduct");
+				value.Map(x => x.Fee).Column("CustomMonthlyFee");
+			});
 			Map(x => x.CreatedDate).Not.Nullable();
 		}
 	}

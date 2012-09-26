@@ -1,14 +1,11 @@
 using System;
 using Spinit.Extensions;
-using Spinit.Wpc.Synologen.Core.Domain;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 {
@@ -55,20 +52,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
         private void Fill_Form(object sender, AutogiroDetailsEventArgs e)
         {
 			View.Model.Initialize(e);
-			//View.Model.BankAccountNumber = e.BankAccountNumber;
-			//View.Model.ClearingNumber = subscriptionItem.Subscription.ClearingNumber; 
-			//View.Model.ProductPrice = subscriptionItem.Value.Product.ToString("0.00");
-			//View.Model.FeePrice = subscriptionItem.Value.Fee.ToString("0.00");
-			//View.Model.TotalWithdrawal = subscriptionItem.Value.Total.ToString("0.00");
-			//View.Model.Montly = subscriptionItem.MonthlyWithdrawal.Total.ToString("0.00");
-			//if(subscriptionItem.IsOngoing)
-			//{
-			//    View.Model.CustomMonthlyFeeAmount = subscriptionItem.MonthlyWithdrawal.Fee.ToString("0.00");
-			//    View.Model.CustomMonthlyProductAmount = subscriptionItem.MonthlyWithdrawal.Product.ToString("0.00");
-			//}
-
-			//var type = SubscriptionType.GetFromWithdrawalsLimit(subscriptionItem.WithdrawalsLimit);
-			//View.Model.SelectedSubscriptionOption = type;
         }
 
         public void View_Load(object sender, EventArgs e)
@@ -81,7 +64,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			//Set values from previously saved view
 			if (order.SubscriptionPayment != null)
 			{
-				UpdateViewModel(order.SubscriptionPayment);
+				View.Model.Initialize(order.SubscriptionPayment);
 			}
 			//Set values from selected account in previous step
 			else if(order.SelectedPaymentOption.SubscriptionId.HasValue)
@@ -91,25 +74,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			    View.Model.ClearingNumber = selectedSubscription.ClearingNumber;
 			}
     	}
-
-		private void UpdateViewModel(SubscriptionItem subscriptionItem)
-		{
-			View.Model.Initialize(subscriptionItem);
-			//View.Model.BankAccountNumber = subscriptionItem.Subscription.BankAccountNumber;
-			//View.Model.ClearingNumber = subscriptionItem.Subscription.ClearingNumber; 
-			//View.Model.ProductPrice = subscriptionItem.Value.Product.ToString("0.00");
-			//View.Model.FeePrice = subscriptionItem.Value.Fee.ToString("0.00");
-			//View.Model.TotalWithdrawal = subscriptionItem.Value.Total.ToString("0.00");
-			//View.Model.Montly = subscriptionItem.MonthlyWithdrawal.Total.ToString("0.00");
-			//if(subscriptionItem.IsOngoing)
-			//{
-			//    View.Model.CustomMonthlyFeeAmount = subscriptionItem.MonthlyWithdrawal.Fee.ToString("0.00");
-			//    View.Model.CustomMonthlyProductAmount = subscriptionItem.MonthlyWithdrawal.Product.ToString("0.00");
-			//}
-
-			//var type = SubscriptionType.GetFromWithdrawalsLimit(subscriptionItem.WithdrawalsLimit);
-			//View.Model.SelectedSubscriptionOption = type;
-		}
 		
 		public void View_Previous(object sender, EventArgs e)
 		{
@@ -141,6 +105,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Abort -= View_Abort;
 			View.Submit -= View_Submit;
 			View.Previous -= View_Previous;
+		    View.FillForm -= Fill_Form;
+			View.SelectedSubscriptionTimeChanged -= Fill_Form;
         }
 
 		private void StoreSubscriptionData(AutogiroDetailsEventArgs e)

@@ -53,6 +53,7 @@
     <Compile Include="Code\SynologenCommonSupplierControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Logic\Enumerations\SubscriptionType.cs" />
     <Compile Include="Logic\EventArguments\Orders\ResetSubscriptonEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\EditCustomerEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\HandleErrorEventArgs.cs" />

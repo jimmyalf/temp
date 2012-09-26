@@ -43,23 +43,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 				CustomMonthlyFeeAmount = args.MonthlyFee.ToString("0.00");
 				CustomMonthlyProductAmount = args.MonthlyProduct.ToString("0.00");
 			}
-			Montly = GetMonthlyAmountFromEvent(args);
 			SelectedSubscriptionOption = args.Type;      		
     	}
-
-		protected string GetMonthlyAmountFromEvent(AutogiroDetailsEventArgs args)
-		{
-			if(args.Type == SubscriptionType.Ongoing)
-			{
-				return (args.MonthlyFee + args.MonthlyProduct).ToString("0.00");
-			}
-
-			if(args.Type.HasCustomNumberOfWithdrawals)
-			{
-				return Math.Round((args.ProductPrice + args.FeePrice) / args.Type.SelectedCustomNumberOfWithdrawals.Value, 2).ToString("0.00");		
-			}
-			return Math.Round((args.ProductPrice + args.FeePrice) / args.Type.Value, 2).ToString("0.00");		
-		}
 
     	public string CustomerName { get; set; }
     	public bool IsNewSubscription { get; set; }

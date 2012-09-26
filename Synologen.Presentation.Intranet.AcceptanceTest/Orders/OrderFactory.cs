@@ -8,6 +8,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
@@ -226,7 +227,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				{
 					BankAccountNumber = "123456789",
 					ClearingNumber = "1234",
-					NumberOfPayments = null,
+					Type = SubscriptionType.Ongoing,
 					ProductPrice = 3500,
 					FeePrice = 255,
 					MonthlyFee = 25,
@@ -239,7 +240,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				{
 					BankAccountNumber = "123456789",
 					ClearingNumber = "1234",
-					NumberOfPayments = 6,
+					Type = SubscriptionType.SixMonths,
 					ProductPrice = 3500,
 					FeePrice = 255,
 				};

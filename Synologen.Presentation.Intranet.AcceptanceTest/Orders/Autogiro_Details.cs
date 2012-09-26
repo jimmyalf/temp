@@ -319,7 +319,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void AssertSubscriptionItemDetails(SubscriptionItem subscriptionItem)
 		{
-			if(_form.IsOngoing)
+			if(_form.Type == SubscriptionType.Ongoing)
 			{
 				subscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(_form.MonthlyFee);
 				subscriptionItem.MonthlyWithdrawal.Product.ShouldBe(_form.MonthlyProduct);	
@@ -327,11 +327,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			}
 			else
 			{
-				var expectedMonthlyWithdrawalFee = Math.Round(_form.FeePrice / _form.NumberOfPayments.Value, 2);
-				var expectedMonthlyWithdrawalProduct = Math.Round(_form.ProductPrice / _form.NumberOfPayments.Value, 2);
+				var expectedMonthlyWithdrawalFee = Math.Round(_form.FeePrice / _form.Type.GetNumberOfWithdrawals(), 2);
+				var expectedMonthlyWithdrawalProduct = Math.Round(_form.ProductPrice / _form.Type.GetNumberOfWithdrawals(), 2);
 				subscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(expectedMonthlyWithdrawalFee);
 				subscriptionItem.MonthlyWithdrawal.Product.ShouldBe(expectedMonthlyWithdrawalProduct);
-				subscriptionItem.WithdrawalsLimit.ShouldBe(_form.NumberOfPayments);
+				subscriptionItem.WithdrawalsLimit.ShouldBe(_form.Type.GetNumberOfWithdrawals());
 			}
 			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
 			subscriptionItem.Value.Product.ShouldBe(_form.ProductPrice);
@@ -369,13 +369,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.Montly.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawal.Total.ToString("0.00"));
 			if(_order.SubscriptionPayment.WithdrawalsLimit == null) // Is ongoing
 			{
-				View.Model.SelectedSubscriptionOption.ShouldBe(AutogiroDetailsModel.OngoingSubscription);
+				View.Model.SelectedSubscriptionOption.ShouldBe(SubscriptionType.Ongoing);
 				View.Model.CustomMonthlyFeeAmount.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawal.Fee.ToString("0.00"));
 				View.Model.CustomMonthlyProductAmount.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawal.Product.ToString("0.00"));
 			}
 			else
 			{
-				View.Model.SelectedSubscriptionOption.ShouldBe(_order.SubscriptionPayment.WithdrawalsLimit);
+				var expectedSubscriptionType = SubscriptionType.GetFromWithdrawalsLimit(_order.SubscriptionPayment.WithdrawalsLimit);
+				View.Model.SelectedSubscriptionOption.ShouldBe(expectedSubscriptionType);
 			}
     	}
 

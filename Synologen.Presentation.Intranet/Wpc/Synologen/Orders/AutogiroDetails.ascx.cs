@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.UI.WebControls;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -12,72 +13,73 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     [PresenterBinding(typeof(AutogiroDetailsPresenter))]
     public partial class AutogiroDetails : OrderUserControl<AutogiroDetailsModel, AutogiroDetailsEventArgs>, IAutogiroDetailsView
     {
-        public event EventHandler<AutogiroDetailsInvalidFormEventArgs> FillForm;
+        public event EventHandler<AutogiroDetailsEventArgs> FillForm;
+    	public event EventHandler<AutogiroDetailsEventArgs> SelectedSubscriptionTimeChanged;
 
     	protected void Page_Load(object sender, EventArgs e)
         {
         	btnCancel.Click += TryFireAbort;
         	btnPreviousStep.Click += TryFirePrevious;
         	btnNextStep.Click += btnNextStep_Click;
+			rblSubscriptionTime.SelectedIndexChanged += RblSubscriptionTimeOnSelectedIndexChanged;
         }
+
+    	private void RblSubscriptionTimeOnSelectedIndexChanged(object sender, EventArgs eventArgs)
+    	{
+    		var args = GetArgs();
+			if (SelectedSubscriptionTimeChanged != null) SelectedSubscriptionTimeChanged(this, args);
+    	}
 
     	private void btnNextStep_Click(object sender, EventArgs e)
     	{
 			Page.Validate();
-			if(!Page.IsValid)
+    		var args = GetArgs();
+			if(!Page.IsValid && FillForm != null)
 			{
-                var invalidArgs = new AutogiroDetailsInvalidFormEventArgs
-                {
-                    BankAccountNumber = txtBankAccountNumber.Text,
-                    ClearingNumber = txtClearingNumber.Text,
-                    CustomNumberOfPayments = txtCustomNumberOfTransactions.Text,
-                    ProductPrice = txtProductAmount.Text.ToDecimal(),
-                    FeePrice = txtFeeAmount.Text.ToDecimal(),
-					NumberOfPaymentsSelectedValue = GetNumberOfPayments(),
-                };
-				if(invalidArgs.NumberOfPaymentsSelectedValue == null)
-				{
-                	invalidArgs.MonthlyFee = txtCustomMonthlyFee.Text.ToDecimal();
-					invalidArgs.MonthlyPrice = txtCustomMonthlyPrice.Text.ToDecimal();					
-				}
-                FillForm(this, invalidArgs);
-			    return;
+				FillForm(this, args);
 			}
+			else
+			{
+				TryFireSubmit(this, args);	
+			}
+    	}
 
+		private AutogiroDetailsEventArgs GetArgs()
+		{
             var args = new AutogiroDetailsEventArgs
             {
                 BankAccountNumber = txtBankAccountNumber.Text,
                 ClearingNumber = txtClearingNumber.Text,
-                NumberOfPayments = GetNumberOfPayments(),
                 ProductPrice = txtProductAmount.Text.ToDecimal(),
                 FeePrice = txtFeeAmount.Text.ToDecimal(),
+				Type = GetSubscriptionType()
             };
-			if(args.NumberOfPayments == null)
+			if(args.Type == SubscriptionType.Ongoing)
 			{
-                args.MonthlyFee = txtCustomMonthlyFee.Text.ToDecimal();
-				args.MonthlyProduct = txtCustomMonthlyPrice.Text.ToDecimal();
+                args.MonthlyFee = txtCustomMonthlyFee.Text.ToDecimalOrDefault();
+				args.MonthlyProduct = txtCustomMonthlyPrice.Text.ToDecimalOrDefault();
 			}
-    		TryFireSubmit(this, args);
-    	}
+			return args;
+		}
 
-		private int? GetNumberOfPayments()
+		private SubscriptionType GetSubscriptionType()
 		{
-		    var selectedSubscriptionTime = rblSubscriptionTime.SelectedValue.ToInt();
-		    if(selectedSubscriptionTime == AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId)
-		    {
-		    	return txtCustomNumberOfTransactions.Text.ToInt();
-		    }
-			if(selectedSubscriptionTime == AutogiroDetailsModel.OngoingSubscription)
+		    var type = Enumeration.FromValue<SubscriptionType>(rblSubscriptionTime.SelectedValue.ToInt());
+			if(type == SubscriptionType.CustomNumberOfWithdrawals)
 			{
-				return null;
+		    	int output;
+				if(Int32.TryParse(txtCustomNumberOfTransactions.Text,out output))
+				{
+					type.SetCustomNumberOfWithdrawals(output);
+				}
 			}
-			return selectedSubscriptionTime;
+			return type;
 		}
 
     	protected void Validate_Custom_Subscription_Time(object source, ServerValidateEventArgs args)
     	{
     		args.IsValid = true;
-    		if(Equals(rblSubscriptionTime.SelectedValue, AutogiroDetailsModel.UseCustomNumberOfWithdrawalsId.ToString()))
+    		if(Equals(rblSubscriptionTime.SelectedValue, SubscriptionType.CustomNumberOfWithdrawals.Value.ToString()))
     		{
     			args.IsValid = CanBeParsedToNumber(txtCustomNumberOfTransactions.Text);
     		}

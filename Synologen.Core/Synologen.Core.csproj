@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\EnumDisplayNameAttribute.cs" />
+    <Compile Include="Domain\Enumeration.cs" />
     <Compile Include="Domain\EventArgs\OnCommandSentEventArgs.cs" />
     <Compile Include="Domain\EventArgs\OnResponseReceivedEventArgs.cs" />
     <Compile Include="Domain\Exceptions\AccessDeniedException.cs" />

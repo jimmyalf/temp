@@ -13,7 +13,6 @@ using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 {
@@ -322,28 +321,28 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			if(_form.Type == SubscriptionType.Ongoing)
 			{
-				subscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(_form.MonthlyFee);
-				subscriptionItem.MonthlyWithdrawal.Product.ShouldBe(_form.MonthlyProduct);	
+				subscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(_form.MonthlyFee.Value);
+				subscriptionItem.MonthlyWithdrawal.Product.ShouldBe(_form.MonthlyProduct.Value);	
 				subscriptionItem.WithdrawalsLimit.ShouldBe(null);
 			}
 			else
 			{
-				var expectedMonthlyWithdrawalFee = Math.Round(_form.FeePrice / _form.Type.GetNumberOfWithdrawals(), 2);
-				var expectedMonthlyWithdrawalProduct = Math.Round(_form.ProductPrice / _form.Type.GetNumberOfWithdrawals(), 2);
+				var expectedMonthlyWithdrawalFee = Math.Round(_form.FeePrice.Value / _form.Type.GetNumberOfWithdrawals(), 2);
+				var expectedMonthlyWithdrawalProduct = Math.Round(_form.ProductPrice.Value / _form.Type.GetNumberOfWithdrawals(), 2);
 				subscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(expectedMonthlyWithdrawalFee);
 				subscriptionItem.MonthlyWithdrawal.Product.ShouldBe(expectedMonthlyWithdrawalProduct);
 				subscriptionItem.WithdrawalsLimit.ShouldBe(_form.Type.GetNumberOfWithdrawals());
 			}
 			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
-			subscriptionItem.Value.Product.ShouldBe(_form.ProductPrice);
-			subscriptionItem.Value.Fee.ShouldBe(_form.FeePrice);
+			subscriptionItem.Value.Product.ShouldBe(_form.ProductPrice.Value);
+			subscriptionItem.Value.Fee.ShouldBe(_form.FeePrice.Value);
 			subscriptionItem.CreatedDate.ShouldBe(_operationTime);			
 		}
 
 		private void TotalUttagSparas()
 		{
 			var order = WithRepository<IOrderRepository>().Get(_order.Id);
-			order.OrderTotalWithdrawalAmount.ShouldBe(_form.FeePrice + _form.ProductPrice);
+			order.OrderTotalWithdrawalAmount.ShouldBe(_form.FeePrice.Value + _form.ProductPrice.Value);
 		}
 
     	private void KontoUppgifterSkallVaraIfyllbara()

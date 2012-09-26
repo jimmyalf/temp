@@ -65,10 +65,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public SubscriptionItemListItem(SubscriptionItem subscriptionItem, string subscriptionItemDetailUrl)
 		{
 			MontlyAmount = subscriptionItem.MonthlyWithdrawal.Total.ToString("C2");
-			PerformedWithdrawals = "{0}/{1}".FormatWith(subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit);
+			PerformedWithdrawals = GetPerformedWithdrawals(subscriptionItem);
 			Active = subscriptionItem.IsActive  ? "Ja" : "Nej";
 			SubscriptionItemDetailUrl = subscriptionItemDetailUrl + "?subscription-item=" + subscriptionItem.Id;
 			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");
+		}
+
+		protected virtual string GetPerformedWithdrawals(SubscriptionItem subscriptionItem)
+		{
+			return subscriptionItem.IsOngoing 
+				? subscriptionItem.PerformedWithdrawals.ToString() 
+				: "{0}/{1}".FormatWith(subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit);
 		}
 
 		public string Active { get; set; }

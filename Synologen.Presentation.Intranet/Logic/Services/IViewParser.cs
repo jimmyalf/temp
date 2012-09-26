@@ -67,11 +67,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			};
 			if(args.Type == SubscriptionType.Ongoing)
 			{
-				item.Setup(args.MonthlyProduct, args.MonthlyFee, args.ProductPrice, args.FeePrice);
+				item.Setup(args.MonthlyProduct.Value, args.MonthlyFee.Value, args.ProductPrice.Value, args.FeePrice.Value);
 			}
 			else
 			{
-				item.Setup(args.Type.GetNumberOfWithdrawals(), args.ProductPrice, args.FeePrice);
+				item.Setup(args.Type.GetNumberOfWithdrawals(), args.ProductPrice.Value, args.FeePrice.Value);
 			}
 			return item;
 		}
@@ -81,11 +81,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 	        subscriptionPayment.Subscription = subscription;
 			if(args.Type == SubscriptionType.Ongoing)
 			{
-				subscriptionPayment.Setup(args.MonthlyProduct, args.MonthlyFee, args.ProductPrice, args.FeePrice);
+				subscriptionPayment.Setup(args.MonthlyProduct.Value, args.MonthlyFee.Value, args.ProductPrice.Value, args.FeePrice.Value);
 			}
 			else
 			{
-				subscriptionPayment.Setup(args.Type.GetNumberOfWithdrawals(), args.ProductPrice, args.FeePrice);
+				subscriptionPayment.Setup(args.Type.GetNumberOfWithdrawals(), args.ProductPrice.Value, args.FeePrice.Value);
 			}
 	    }
 

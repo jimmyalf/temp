@@ -40,11 +40,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			var subscriptionItem = _subscriptionItemRepository.Get(RequestSubScriptionItem.Value);
 			if(subscriptionItem.IsOngoing)
 			{
-				subscriptionItem.Setup(args.CustomMonthlyProductAmount, args.CustomMonthlyFeeAmount, args.ProductAmount, args.FeeAmount);
+				subscriptionItem.Setup(args.CustomMonthlyProductAmount.Value, args.CustomMonthlyFeeAmount.Value, args.ProductAmount, args.FeeAmount);
 			}
 			else
 			{
-				subscriptionItem.Setup(args.WithdrawalsLimit, args.ProductAmount, args.FeeAmount);	
+				subscriptionItem.Setup(args.WithdrawalsLimit.Value, args.ProductAmount, args.FeeAmount);	
 			}
 			_subscriptionItemRepository.Save(subscriptionItem);
 			UpdateViewModel(subscriptionItem);

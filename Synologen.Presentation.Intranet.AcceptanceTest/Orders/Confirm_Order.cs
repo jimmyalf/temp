@@ -55,10 +55,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
 
         [Test]
-        public void EnSammanfattningAvBeställningenVisas()
+        public void EnSammanfattningAvBegränsadBeställningVisas()
         {
             SetupScenario(scenario => scenario
-                .Givet(EnBeställningMedEttAbonnemangHarSkapats)
+                .Givet(EnBeställningMedEttBegränsatAbonnemangHarSkapats)
+                .När(SidanVisas)
+                .Så(VisasEnSammanställningAvOrdern));
+        }
+
+        [Test]
+        public void EnSammanfattningAvLöpandeBeställningVisas()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(EnBeställningMedEttLöpandeAbonnemangHarSkapats)
                 .När(SidanVisas)
                 .Så(VisasEnSammanställningAvOrdern));
         }
@@ -67,7 +76,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public void AvbrytBeställning()
         {
             SetupScenario(scenario => scenario
-                .Givet(EnBeställningMedEttAbonnemangHarSkapats)
+                .Givet(EnBeställningMedEttBegränsatAbonnemangHarSkapats)
                 .När(AnvändarenAvbryterBeställningen)
                 .Så(TasAbonnemangetBort)
                     .Och(TasBeställningenBort)
@@ -78,7 +87,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         public void SparaBeställningMedNyttAbonnemang()
         {
             SetupScenario(scenario => scenario
-                .Givet(EnBeställningMedEttAbonnemangHarSkapats)
+                .Givet(EnBeställningMedEttBegränsatAbonnemangHarSkapats)
                 .När(AnvändarenBekräftarBeställningen)
 				.Så(SkapasEnTotalTransaktion)
 					.Och(AnvändarenFlyttasTillSidaFörFärdigBeställning)
@@ -98,11 +107,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	#region Arrange
 
-        private void EnBeställningMedEttAbonnemangHarSkapats()
+        private void EnBeställningMedEttBegränsatAbonnemangHarSkapats()
         {
             _order = CreateOrderWithSubscription(_shop, paymentOptionType: PaymentOptionType.Subscription_Autogiro_New);
             HttpContext.SetupRequestParameter("order", _order.Id.ToString());
         }
+
+		private void EnBeställningMedEttLöpandeAbonnemangHarSkapats()
+		{
+			_order = CreateOrderWithSubscription(_shop, paymentOptionType: PaymentOptionType.Subscription_Autogiro_New, useOngoingSubscription: true);
+            HttpContext.SetupRequestParameter("order", _order.Id.ToString());			
+		}
 
     	private void EnOrderFörEnAnnanButik()
     	{
@@ -182,7 +197,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.FeePrice.ShouldBe(order.SubscriptionPayment.Value.Fee.ToString("C"));
             View.Model.TotalWithdrawal.ShouldBe(order.OrderTotalWithdrawalAmount.ToString("C"));
 			View.Model.Monthly.ShouldBe(order.SubscriptionPayment.MonthlyWithdrawal.Total.ToString("C"));
-            View.Model.SubscriptionTime.ShouldBe(order.SubscriptionPayment.WithdrawalsLimit + " månader");
+			if(_order.SubscriptionPayment.IsOngoing)
+			{
+				View.Model.SubscriptionTime.ShouldBe("Löpande");
+			}
+			else
+			{
+				View.Model.SubscriptionTime.ShouldBe(order.SubscriptionPayment.WithdrawalsLimit + " månader");
+			}
 			View.Model.QuantityLeft.ShouldBe(order.LensRecipe.Quantity.Left);
 			View.Model.QuantityRight.ShouldBe(order.LensRecipe.Quantity.Right);
 

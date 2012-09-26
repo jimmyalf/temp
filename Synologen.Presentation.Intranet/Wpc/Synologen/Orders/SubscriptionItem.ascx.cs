@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.UI.WebControls;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders;
@@ -26,9 +27,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 			if(Submit == null) return;
 			var eventArgs = new SubmitSubscriptionItemEventArgs
 			{
-				ProductAmount = txtProductAmount.Text.ToDecimalOrDefault(),
-				FeeAmount = txtFeeAmount.Text.ToDecimalOrDefault(),
-				WithdrawalsLimit = txtNumberOfWithdrawals.Text.ToInt()
+				ProductAmount = txtProductAmount.Text.ToDecimal(),
+				FeeAmount = txtFeeAmount.Text.ToDecimal(),
+				WithdrawalsLimit = txtNumberOfWithdrawals.Text.ToNullableInt(),
+				CustomMonthlyFeeAmount = txtCustomMonthlyFee.Text.ToNullableDecimal(),
+				CustomMonthlyProductAmount = txtCustomMonthlyPrice.Text.ToNullableDecimal()
 			};
 			Submit(this, eventArgs);
 		}

@@ -83,11 +83,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Model.FeePrice = GetCurrencyString(order.SubscriptionPayment.Value.Fee);
 			View.Model.Monthly = GetCurrencyString(order.SubscriptionPayment.MonthlyWithdrawal.Total);
 			View.Model.TotalWithdrawal = GetCurrencyString(order.OrderTotalWithdrawalAmount);
-			View.Model.SubscriptionTime = String.Format("{0} månader", order.SubscriptionPayment.WithdrawalsLimit);
+			View.Model.SubscriptionTime = GetSubscriptionTime(order.SubscriptionPayment);
 			var isAlreadyConsentedSubscription = OrderSubscriptionIsActiveAndConsented(order.SubscriptionPayment.Subscription);
 			View.Model.ExpectedFirstWithdrawalDate = _orderWithdrawalService
 				.GetExpectedFirstWithdrawalDate(order.SubscriptionPayment.CreatedDate, isAlreadyConsentedSubscription)
 				.ToString("yyyy-MM-dd");
+		}
+
+		private string GetSubscriptionTime(SubscriptionItem subscriptionItem)
+		{
+			return subscriptionItem.IsOngoing ? "Löpande" : String.Format("{0} månader", subscriptionItem.WithdrawalsLimit);
 		}
 
 		private bool OrderSubscriptionIsActiveAndConsented(Subscription subscription)

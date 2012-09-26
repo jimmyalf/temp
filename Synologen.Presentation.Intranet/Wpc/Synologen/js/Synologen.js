@@ -72,11 +72,10 @@
 		initCalculateMontlyAGWithdrawalAmounts: function () {
 			$("#txtProductAmount").change(updateAmounts).keyup(updateAmounts);
 			$("#txtFeeAmount").change(updateAmounts).keyup(updateAmounts); ;
-			$("#rblSubscriptionTime").change(updateAmounts);
 			$("#rblSubscriptionTime").change(updateUI);
 			$("#txtCustomNumberOfTransactions").change(updateAmounts).keyup(updateAmounts);
 			updateUI();
-
+			updateAmounts();
 			function updateUI() {
 				var selectedNumerOfWithdrawals = parseInt($("#rblSubscriptionTime input:checked").val());
 				if (selectedNumerOfWithdrawals == -2) {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Extensions;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models;
 
@@ -64,13 +65,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 			{
 				Subscription = subscription,
 			};
-			if(args.IsOngoing)
+			if(args.Type == SubscriptionType.Ongoing)
 			{
-				item.Setup(args.MonthlyProduct, args.MonthlyFee, args.ProductPrice, args.FeePrice);
+				item.Setup(args.MonthlyProduct.Value, args.MonthlyFee.Value, args.ProductPrice.Value, args.FeePrice.Value);
 			}
 			else
 			{
-				item.Setup(args.NumberOfPayments.Value, args.ProductPrice, args.FeePrice);
+				item.Setup(args.Type.GetNumberOfWithdrawals(), args.ProductPrice.Value, args.FeePrice.Value);
 			}
 			return item;
 		}
@@ -78,13 +79,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 	    public void UpdateSubscriptionItem(AutogiroDetailsEventArgs args, SubscriptionItem subscriptionPayment, Subscription subscription)
 	    {
 	        subscriptionPayment.Subscription = subscription;
-			if(args.IsOngoing)
+			if(args.Type == SubscriptionType.Ongoing)
 			{
-				subscriptionPayment.Setup(args.MonthlyProduct, args.MonthlyFee, args.ProductPrice, args.FeePrice);
+				subscriptionPayment.Setup(args.MonthlyProduct.Value, args.MonthlyFee.Value, args.ProductPrice.Value, args.FeePrice.Value);
 			}
 			else
 			{
-				subscriptionPayment.Setup(args.NumberOfPayments.Value, args.ProductPrice, args.FeePrice);
+				subscriptionPayment.Setup(args.Type.GetNumberOfWithdrawals(), args.ProductPrice.Value, args.FeePrice.Value);
 			}
 	    }
 

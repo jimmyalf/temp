@@ -42,10 +42,21 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		}
 
 		[Test]
-		public void VisaAbonnemang()
+		public void VisaBegränsatAbonnemang()
 		{
 			SetupScenario(scenario => scenario
 				.Givet(BegränsatDelAbonnemangFinns)
+				.När(SidanVisas)
+				.Så(VisasDelAbonnemangsInformation)
+					.Och(TillbakaLänkVisas)
+			);
+		}
+
+		[Test]
+		public void VisaLöpandeAbonnemang()
+		{
+			SetupScenario(scenario => scenario
+				.Givet(LöpandeDelAbonnemangFinns)
 				.När(SidanVisas)
 				.Så(VisasDelAbonnemangsInformation)
 					.Och(TillbakaLänkVisas)
@@ -57,7 +68,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			SetupScenario(scenario => scenario
 				.Givet(BegränsatDelAbonnemangFinns)
-					.Och(FormuläretÄrIfyllt)
+					.Och(FormuläretÄrIfylltFörBegränsatAbonnemang)
 				.När(FormuläretSparas)
 				.Så(UppdaterasDelabonnemanget)
 			);
@@ -68,7 +79,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			SetupScenario(scenario => scenario
 				.Givet(LöpandeDelAbonnemangFinns)
-					.Och(FormuläretÄrIfyllt)
+					.Och(FormuläretÄrIfylltFörLöpandeAbonnemang)
 				.När(FormuläretSparas)
 				.Så(UppdaterasDelabonnemanget)
 			);
@@ -105,13 +116,23 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			HttpContext.SetupRequestParameter("subscription-item", _subscriptionItem.Id.ToString());
 		}
 
-		private void FormuläretÄrIfyllt()
+		private void FormuläretÄrIfylltFörBegränsatAbonnemang()
 		{
 			_form = new SubmitSubscriptionItemEventArgs
 			{
 				FeeAmount = 255.22m,
 				ProductAmount = 685m,
 				WithdrawalsLimit = 10
+			};
+		}
+		private void FormuläretÄrIfylltFörLöpandeAbonnemang()
+		{
+			_form = new SubmitSubscriptionItemEventArgs
+			{
+				FeeAmount = 255.22m,
+				ProductAmount = 685m,
+				CustomMonthlyFeeAmount = 225,
+				CustomMonthlyProductAmount = 850
 			};
 		}
 		#endregion
@@ -134,7 +155,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.ProductPrice.ShouldBe(_subscriptionItem.Value.Product);
 			View.Model.FeePrice.ShouldBe(_subscriptionItem.Value.Fee);
 			View.Model.MonthlyWithdrawalAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawal.Total.ToString("C2"));
-			if(!View.Model.IsOngoing)
+			if(View.Model.IsOngoing)
+			{
+				View.Model.CustomMonthlyFeeAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawal.Fee);
+				View.Model.CustomMonthlyProductAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawal.Product);
+			}
+			else
 			{
 				View.Model.WithdrawalsLimit.ShouldBe(_subscriptionItem.WithdrawalsLimit.Value);
 			}
@@ -149,7 +175,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			var updatedSubscriptionItem = Get<SubscriptionItem>(_subscriptionItem.Id);
 			if(_subscriptionItem.IsOngoing)
 			{
-				throw new NotImplementedException("TODO: Assertions for ongoing");
+				updatedSubscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(_form.CustomMonthlyFeeAmount);
+				updatedSubscriptionItem.MonthlyWithdrawal.Product.ShouldBe(_form.CustomMonthlyProductAmount);
 			}
 			else
 			{

@@ -6,6 +6,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Orders
 {
     public interface IAutogiroDetailsView : IOrderView<AutogiroDetailsModel,AutogiroDetailsEventArgs>
     {
-        event EventHandler<AutogiroDetailsInvalidFormEventArgs> FillForm;
+        event EventHandler<AutogiroDetailsEventArgs> FillForm;
+		event EventHandler<AutogiroDetailsEventArgs> SelectedSubscriptionTimeChanged;
     }
 }

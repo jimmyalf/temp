@@ -2,6 +2,7 @@
 using System.Web.UI.WebControls;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
@@ -51,14 +52,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
             {
                 BankAccountNumber = txtBankAccountNumber.Text,
                 ClearingNumber = txtClearingNumber.Text,
-                ProductPrice = txtProductAmount.Text.ToDecimal(),
-                FeePrice = txtFeeAmount.Text.ToDecimal(),
+                ProductPrice = txtProductAmount.Text.ToNullableDecimal(),
+                FeePrice = txtFeeAmount.Text.ToNullableDecimal(),
 				Type = GetSubscriptionType()
             };
 			if(args.Type == SubscriptionType.Ongoing)
 			{
-                args.MonthlyFee = txtCustomMonthlyFee.Text.ToDecimalOrDefault();
-				args.MonthlyProduct = txtCustomMonthlyPrice.Text.ToDecimalOrDefault();
+                args.MonthlyFee = txtCustomMonthlyFee.Text.ToNullableDecimal();
+				args.MonthlyProduct = txtCustomMonthlyPrice.Text.ToNullableDecimal();
 			}
 			return args;
 		}

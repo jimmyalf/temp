@@ -35,13 +35,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
     	{
             BankAccountNumber = args.BankAccountNumber;
             ClearingNumber = args.ClearingNumber;
-    		ProductPrice = args.ProductPrice.ToString("0.00");
-            FeePrice = args.FeePrice.ToString("0.00");
-			TotalWithdrawal = (args.ProductPrice + args.FeePrice).ToString("0.00");
+    		ProductPrice = args.ProductPrice.HasValue ? args.ProductPrice.Value.ToString("0.00") : null;
+            FeePrice = args.FeePrice.HasValue ? args.FeePrice.Value.ToString("0.00") : null;
+			TotalWithdrawal = (args.ProductPrice.HasValue && args.FeePrice.HasValue) ? (args.ProductPrice.Value + args.FeePrice.Value).ToString("0.00") : null;
 			if(args.Type == SubscriptionType.Ongoing)
 			{
-				CustomMonthlyFeeAmount = args.MonthlyFee.ToString("0.00");
-				CustomMonthlyProductAmount = args.MonthlyProduct.ToString("0.00");
+				CustomMonthlyFeeAmount = args.MonthlyFee.HasValue ? args.MonthlyFee.Value.ToString("0.00") : null;
+				CustomMonthlyProductAmount = args.MonthlyProduct.HasValue ? args.MonthlyProduct.Value.ToString("0.00") : null;
 			}
 			SelectedSubscriptionOption = args.Type;      		
     	}

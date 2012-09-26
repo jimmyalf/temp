@@ -12,7 +12,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 			ProductPrice = subscriptionItem.Value.Product;
 			FeePrice = subscriptionItem.Value.Fee;
 			WithdrawalsLimit = subscriptionItem.WithdrawalsLimit ?? 0;
-			IsOngoing = !subscriptionItem.WithdrawalsLimit.HasValue;
+			IsOngoing = subscriptionItem.IsOngoing;
 			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");
 			NumerOfPerformedWithdrawals = subscriptionItem.PerformedWithdrawals;
 			SubscriptionBankAccountNumber = subscription.BankAccountNumber;
@@ -36,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public string CustomerName { get; set; }
 		public string ReturnUrl { get; set; }
 		public string MonthlyWithdrawalAmount { get; set; }
-		public bool IsOngoing { get; set; }
+		public bool IsOngoing { get; protected set; }
 
 	}
 }

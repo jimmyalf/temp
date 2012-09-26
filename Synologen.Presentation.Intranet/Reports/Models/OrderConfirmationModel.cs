@@ -16,8 +16,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports.Models
 			FeePrice = order.SubscriptionPayment.Value.Fee.ToString("C2");
 			TotalWithdrawal = order.OrderTotalWithdrawalAmount.ToString("C2");
 			Monthly = order.SubscriptionPayment.MonthlyWithdrawal.Total.ToString("C2");
-			SubscriptionTime = order.SubscriptionPayment.WithdrawalsLimit + " månader.";
+			SubscriptionTime = GetSubscriptionTime(order.SubscriptionPayment);
 			ExpectedFirstWithdrawalDate = getFirstExpectedWithdrawalDate(order).ToString("yyyy-MM-dd");
+		}
+
+		protected virtual string GetSubscriptionTime(SubscriptionItem subscriptionItem)
+		{
+			if (subscriptionItem.IsOngoing) return "Löpande";
+			return subscriptionItem.WithdrawalsLimit + " månader.";
 		}
 
 		public string ExpectedFirstWithdrawalDate { get; set; }

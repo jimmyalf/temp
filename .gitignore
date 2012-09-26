@@ -1,4 +1,4 @@
-#################
+﻿#################
 ## Eclipse
 #################
 
@@ -162,8 +162,13 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
+
 #Repository specific config
+/*/*.config
+/*/*/*.config
+/*/*/*/*.config
+!/Synologen.Config/*/*/*.config
 Output/
 SentFiles/
 [Ll]ogs/
-*.config
+Synologen OPQ/*/Properties/Settings.*

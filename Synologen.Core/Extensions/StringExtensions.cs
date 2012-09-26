@@ -53,27 +53,10 @@ namespace Spinit.Wpc.Synologen.Core.Extensions
 			return value.ToInt();
 		}
 
-		///// <summary>
-		///// Replaces tokens in format string with given replacements
-		///// Ex: "{Token1}def{Token2}.ReplaceWith(new { Token1 = "abc", Token2 = "ghi"}) would return the string "abcdefghi"
-		///// </summary>
-		///// <param name="format">Format that may or may not contain tokens</param>
-		///// <param name="tokenReplacements">Anonymous object containing tokens to replace matching tokens in format</param>
-		///// <returns></returns>
-		//public static string ReplaceWith(this string format, object tokenReplacements)
-		//{
-		//    var output = format;
-		//    var tokens = Regex.Matches(format, "{[A-ö0-9]+?}");
-		//    foreach (var tokenMatch in tokens)
-		//    {
-		//        var token = tokenMatch.ToString();
-		//        var tokenName = token.Trim(new[] {'{', '}'});
-		//        var matchingProperty = tokenReplacements.GetAnonymousPropertyValue<object>(tokenName);
-		//        if(!matchingProperty.FoundProperty) continue;
-		//        var replacement = matchingProperty.With(x => x.PropertyValue).Return(x => x.ToString(), string.Empty);
-		//        output = output.Replace(token, replacement);
-		//    }
-		//    return output;
-		//}
+		public static decimal? ToNullableDecimal(this string value)
+		{
+			if (String.IsNullOrEmpty(value)) return null;
+			return value.ToDecimal();
+		}
 	}
 }

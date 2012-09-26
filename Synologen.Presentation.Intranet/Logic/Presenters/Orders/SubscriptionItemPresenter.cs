@@ -38,8 +38,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		{
 			if(!RequestSubScriptionItem.HasValue) return;
 			var subscriptionItem = _subscriptionItemRepository.Get(RequestSubScriptionItem.Value);
-			subscriptionItem.Setup(args.WithdrawalsLimit, args.ProductAmount, args.FeeAmount);
-			//TODO: Add handling for ongoing subscription item
+			if(subscriptionItem.IsOngoing)
+			{
+				subscriptionItem.Setup(args.CustomMonthlyProductAmount, args.CustomMonthlyFeeAmount, args.ProductAmount, args.FeeAmount);
+			}
+			else
+			{
+				subscriptionItem.Setup(args.WithdrawalsLimit, args.ProductAmount, args.FeeAmount);	
+			}
 			_subscriptionItemRepository.Save(subscriptionItem);
 			UpdateViewModel(subscriptionItem);
 		}

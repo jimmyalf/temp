@@ -31,6 +31,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders {
         protected global::System.Web.UI.WebControls.TextBox txtFeeAmount;
         
         /// <summary>
+        /// txtCustomMonthlyPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCustomMonthlyPrice;
+        
+        /// <summary>
+        /// txtCustomMonthlyFee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCustomMonthlyFee;
+        
+        /// <summary>
         /// txtNumberOfWithdrawals control.
         /// </summary>
         /// <remarks>

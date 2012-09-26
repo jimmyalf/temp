@@ -19,13 +19,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 			CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
 			ReturnUrl = returnUrl;
 			MonthlyWithdrawalAmount = subscriptionItem.MonthlyWithdrawal.Total.ToString("C2");
+			CustomMonthlyFeeAmount = subscriptionItem.MonthlyWithdrawal.Fee;
+			CustomMonthlyProductAmount = subscriptionItem.MonthlyWithdrawal.Product;
 		}
 		public string Active { get; set; }
 		public decimal ProductPrice { get; set; }
 		public decimal FeePrice { get; set; }
 
-		public decimal MonthlyProductPrice { get; set; }
-		public decimal MonthlyFeePrice { get; set; }
+		public decimal CustomMonthlyProductAmount { get; set; }
+		public decimal CustomMonthlyFeeAmount { get; set; }
 
 		public int WithdrawalsLimit { get; set; }
 		public string CreatedDate { get; set; }
@@ -35,5 +37,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public string ReturnUrl { get; set; }
 		public string MonthlyWithdrawalAmount { get; set; }
 		public bool IsOngoing { get; set; }
+
 	}
 }

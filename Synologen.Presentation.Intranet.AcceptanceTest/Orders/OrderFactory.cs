@@ -286,7 +286,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 	    public static SubscriptionItem GetSubscriptionItem(Subscription subscription, bool useOngoingSubscription)
 	    {
 	    	var item = new SubscriptionItem {PerformedWithdrawals = 0, Subscription = subscription};
-	    	return useOngoingSubscription ? item.Setup(250, 50, 1000, 500) : item.Setup(3, 1000, 500);
+	    	return useOngoingSubscription ? item.Setup(250, 50, 1250, 125) : item.Setup(3, 1000, 500);
 	    }
 
 		public static IEnumerable<SubscriptionTransaction> GetTransactions(Subscription subscription)

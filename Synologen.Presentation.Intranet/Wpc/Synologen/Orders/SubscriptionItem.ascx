@@ -18,7 +18,20 @@
     	</p>
 		<%if (Model.IsOngoing) { %>
     	<p>
-			<h1>TODO: Add Monthly Price and Fee input</h1>
+    		<p>
+    			<label>Månadsbelopp (pris)</label>
+				<asp:TextBox ID="txtCustomMonthlyPrice" runat="server" Text="<%#Model.CustomMonthlyProductAmount %>" ></asp:TextBox>
+				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtCustomMonthlyPrice" ErrorMessage="Månadsbelopp (pris) måste anges tillsvidare-abonnemang" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
+				<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtCustomMonthlyPrice" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
+				<asp:RangeValidator runat="server" MinimumValue="0" MaximumValue="10000" Type="Double" ControlToValidate="txtCustomMonthlyPrice" ErrorMessage="Angivet belopp skall ligga i intervallet 0 - 10000" CssClass="error-message">*</asp:RangeValidator>
+    		</p>
+    		<p>
+    			<label>Månadsbelopp (arvode)</label>
+				<asp:TextBox ID="txtCustomMonthlyFee" runat="server" Text="<%#Model.CustomMonthlyFeeAmount %>" ></asp:TextBox>
+				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtCustomMonthlyFee" ErrorMessage="Månadsbelopp (arvode) måste anges vid tillsvidare-abonnemang" Display="Dynamic" CssClass="error-message">*</asp:RequiredFieldValidator>
+				<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtCustomMonthlyFee" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
+				<asp:RangeValidator runat="server" MinimumValue="0" MaximumValue="10000" Type="Double" ControlToValidate="txtCustomMonthlyFee" ErrorMessage="Angivet belopp skall ligga i intervallet 0 - 10000" CssClass="error-message">*</asp:RangeValidator>
+    		</p>	
       	</p>
 		<% } else {%>
     	<p>

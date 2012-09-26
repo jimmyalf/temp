@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
@@ -67,60 +67,5 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
     	public string CustomMonthlyProductAmount { get; set; }
     	public string CustomMonthlyFeeAmount { get; set; }
 		public bool IsOngoingSubscription { get { return SelectedSubscriptionOption == SubscriptionType.Ongoing; } }
-
-    	//private IEnumerable<SubscriptionType> GetSubscriptionOptions()
-		//{
-		//    return Enumeration.GetAll<SubscriptionType>();
-		//    //return new List<SubscriptionType>
-		//    //{
-		//    //    new ListItem("Löpande", OngoingSubscription),
-		//    //    new ListItem("3 månader", 3), 
-		//    //    new ListItem("6 månader", 6), 
-		//    //    new ListItem("12 månader", 12),  
-		//    //    new ListItem("Valfritt", UseCustomNumberOfWithdrawalsId)
-		//    //};
-		//}
-		
     }
-
-	public class SubscriptionType : Enumeration
-	{
-		public static SubscriptionType Ongoing = new SubscriptionType(-2, "Löpande");
-		public static SubscriptionType ThreeMonths = new SubscriptionType(3, "3 Månader");
-		public static SubscriptionType SixMonths = new SubscriptionType(6, "6 Månader");
-		public static SubscriptionType TwelveMonths = new SubscriptionType(12, "12 månader");
-		public static SubscriptionType CustomNumberOfWithdrawals = new SubscriptionType(-1, "Valfritt");
-
-		public SubscriptionType() { }
-		public SubscriptionType(int value, string displayName) :base(value,displayName)
-		{
-		}
-
-		public SubscriptionType SetCustomNumberOfWithdrawals(int numberOfWithdrawals)
-		{
-			SelectedCustomNumberOfWithdrawals = numberOfWithdrawals;
-			return this;
-		}
-
-		public static SubscriptionType GetFromWithdrawalsLimit(int? numberOfWithdrawals)
-		{
-			if(numberOfWithdrawals == null) return Ongoing;
-			foreach (var type in GetAll<SubscriptionType>())
-			{
-				if (type.Value == numberOfWithdrawals) return type;
-			}
-			return CustomNumberOfWithdrawals.SetCustomNumberOfWithdrawals(numberOfWithdrawals.Value);
-		}
-
-		public int? SelectedCustomNumberOfWithdrawals { get; private set; }
-
-		public int GetNumberOfWithdrawals()
-		{
-			if(SelectedCustomNumberOfWithdrawals != null) return SelectedCustomNumberOfWithdrawals.Value;
-			if(Value <= 0) throw new ApplicationException("Cannot retrieve a valid number of withdrawals");
-			return Value;
-		}
-
-		public bool HasCustomNumberOfWithdrawals { get { return SelectedCustomNumberOfWithdrawals.HasValue; } }
-	}
 }

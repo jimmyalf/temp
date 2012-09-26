@@ -70,13 +70,12 @@
 		},
 
 		initCalculateMontlyAGWithdrawalAmounts: function () {
-			//$("#txtProductAmount").change(updateAmounts).keyup(updateAmounts);
-			//$("#txtFeeAmount").change(updateAmounts).keyup(updateAmounts); ;
-			//$("#rblSubscriptionTime").change(updateAmounts);
+			$("#txtProductAmount").change(updateAmounts).keyup(updateAmounts);
+			$("#txtFeeAmount").change(updateAmounts).keyup(updateAmounts); ;
 			$("#rblSubscriptionTime").change(updateUI);
-			//$("#txtCustomNumberOfTransactions").change(updateAmounts).keyup(updateAmounts);
+			$("#txtCustomNumberOfTransactions").change(updateAmounts).keyup(updateAmounts);
 			updateUI();
-
+			updateAmounts();
 			function updateUI() {
 				var selectedNumerOfWithdrawals = parseInt($("#rblSubscriptionTime input:checked").val());
 				if (selectedNumerOfWithdrawals == -2) {
@@ -91,32 +90,32 @@
 				}
 			}
 
-//			function updateAmounts() {
-//				var totalAmount = getTotalAmount();
-//				var numberOfWithdrawals = getNumerOfWithdrawals();
-//				var montlyAmount = getMontlyAmount(numberOfWithdrawals, totalAmount);
-//				if (isNaN(totalAmount)) $("#total-withdrawal-amount").attr("value", "");
-//				else $("#total-withdrawal-amount").attr("value", totalAmount.toString().replace(".", ","));
-//				if (isNaN(montlyAmount)) $("#montly-withdrawal-amount").attr("value", "");
-//				else $("#montly-withdrawal-amount").attr("value", montlyAmount.toString().replace(".", ","));
-//			}
+			function updateAmounts() {
+				var totalAmount = getTotalAmount();
+				var numberOfWithdrawals = getNumerOfWithdrawals();
+				var montlyAmount = getMontlyAmount(numberOfWithdrawals, totalAmount);
+				if (isNaN(totalAmount)) $("#total-withdrawal-amount").attr("value", "");
+				else $("#total-withdrawal-amount").attr("value", totalAmount.toString().replace(".", ","));
+				if (isNaN(montlyAmount)) $("#montly-withdrawal-amount").attr("value", "");
+				else $("#montly-withdrawal-amount").attr("value", montlyAmount.toString().replace(".", ","));
+			}
 
-//			function getTotalAmount() {
-//				var productAmount = parseFloat($("#txtProductAmount").val().replace(",", "."));
-//				var feeAmount = parseFloat($("#txtFeeAmount").val().replace(",", "."));
-//				return (productAmount + feeAmount).toFixed(2);
-//			}
+			function getTotalAmount() {
+				var productAmount = parseFloat($("#txtProductAmount").val().replace(",", "."));
+				var feeAmount = parseFloat($("#txtFeeAmount").val().replace(",", "."));
+				return (productAmount + feeAmount).toFixed(2);
+			}
 
-//			function getMontlyAmount(numerOfWithdrawals, totalAmount) {
-//				return (totalAmount / numerOfWithdrawals).toFixed(2);
-//			}
+			function getMontlyAmount(numerOfWithdrawals, totalAmount) {
+				return (totalAmount / numerOfWithdrawals).toFixed(2);
+			}
 
-//			function getNumerOfWithdrawals() {
-//				var selectedNumerOfWithdrawals = parseInt($("#rblSubscriptionTime input:checked").val());
-//				var customNumberOfWithdrawals = parseInt($("#txtCustomNumberOfTransactions").val());
-//				if (selectedNumerOfWithdrawals == -1) return customNumberOfWithdrawals;
-//				return selectedNumerOfWithdrawals;
-//			}
+			function getNumerOfWithdrawals() {
+				var selectedNumerOfWithdrawals = parseInt($("#rblSubscriptionTime input:checked").val());
+				var customNumberOfWithdrawals = parseInt($("#txtCustomNumberOfTransactions").val());
+				if (selectedNumerOfWithdrawals == -1) return customNumberOfWithdrawals;
+				return selectedNumerOfWithdrawals;
+			}
 		},
 
 		initActionMessageFadeOut: function () {

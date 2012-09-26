@@ -34,9 +34,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
     	{
 			Page.Validate();
     		var args = GetArgs();
-			if(!Page.IsValid && FillForm != null)
+			if(!Page.IsValid)
 			{
-				FillForm(this, args);
+				if(FillForm != null) FillForm(this, args);
 			}
 			else
 			{

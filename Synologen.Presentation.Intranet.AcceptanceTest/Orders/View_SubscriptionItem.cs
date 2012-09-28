@@ -175,8 +175,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			var updatedSubscriptionItem = Get<SubscriptionItem>(_subscriptionItem.Id);
 			if(_subscriptionItem.IsOngoing)
 			{
-				updatedSubscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(_form.CustomMonthlyFeeAmount);
-				updatedSubscriptionItem.MonthlyWithdrawal.Product.ShouldBe(_form.CustomMonthlyProductAmount);
+				updatedSubscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(_form.CustomMonthlyFeeAmount.Value);
+				updatedSubscriptionItem.MonthlyWithdrawal.Product.ShouldBe(_form.CustomMonthlyProductAmount.Value);
 			}
 			else
 			{

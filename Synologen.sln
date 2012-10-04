@@ -118,34 +118,36 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configs", "Configs", "{EE50
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation", "Synologen.Presentation", "{001FF868-4883-42D6-9AE4-2139E04156E2}"
 	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation\Filemanager.config = Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation\Filemanager.config
-		Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation\Imagemanager.config = Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation\Imagemanager.config
-		Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation\Web.config = Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation\Web.config
+		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Filemanager.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Filemanager.config
+		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Imagemanager.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Imagemanager.config
+		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Web.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Web.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation.Intranet", "Synologen.Presentation.Intranet", "{2500AB71-B254-4178-B597-F39A09D49443}"
 	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation.Intranet\Web.config = Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation.Intranet\Web.config
+		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Filemanager.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Filemanager.config
+		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Imagemanager.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Imagemanager.config
+		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Web.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Web.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation.Site", "Synologen.Presentation.Site", "{B6781A29-126D-48E5-AAA5-5687F62D6DAD}"
 	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation.Site\Web.config = Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation.Site\Web.config
+		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Site\Web.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Site\Web.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation.AcceptanceTest", "Synologen.Presentation.AcceptanceTest", "{6EDD2131-ACE2-4984-A607-A48498A9B562}"
 	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation.AcceptanceTest\app.config = Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation.AcceptanceTest\app.config
+		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.AcceptanceTest\app.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.AcceptanceTest\app.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation.Intranet.AcceptanceTest", "Synologen.Presentation.Intranet.AcceptanceTest", "{79F5672B-B433-4F60-A43D-520B31491B6A}"
 	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest\app.config = Synologen.Config\cber\Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest\app.config
+		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest\app.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest\app.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Data.Test", "Synologen.Data.Test", "{7285BA34-F9D9-49FE-8044-928252456C5C}"
 	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\cber\Spinit.Wpc.Synologen.Data.Test\app.config = Synologen.Config\cber\Spinit.Wpc.Synologen.Data.Test\app.config
+		Synologen.Config\rbro\Spinit.Wpc.Synologen.Data.Test\app.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Data.Test\app.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{1C248A6A-B191-4ED8-8912-0B86744C5860}"
@@ -223,22 +225,22 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Client.Invoicing.Installati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Client.OrderEmailSender", "Service.Client.OrderEmailSender", "{1A1070ED-8475-4067-96DB-81D74725EBC5}"
 	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\cber\Synologen.Service.Client.OrderEmailSender\app.config = Synologen.Config\cber\Synologen.Service.Client.OrderEmailSender\app.config
+		Synologen.Config\rbro\Synologen.Service.Client.OrderEmailSender\app.config = Synologen.Config\rbro\Synologen.Service.Client.OrderEmailSender\app.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Web.BGC", "Service.Web.BGC", "{EAB1E891-25D1-469B-A5AB-F23FFEA4AB00}"
 	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\cber\Synologen.Service.Web.BGC\Web.config = Synologen.Config\cber\Synologen.Service.Web.BGC\Web.config
+		Synologen.Config\rbro\Synologen.Service.Web.BGC\Web.config = Synologen.Config\rbro\Synologen.Service.Web.BGC\Web.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Web.External.AcceptanceTest", "Service.Web.External.AcceptanceTest", "{02941FA2-58E3-423C-ACE2-3FFCC5A37822}"
 	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\cber\Synologen.Service.Web.External.AcceptanceTest\app.config = Synologen.Config\cber\Synologen.Service.Web.External.AcceptanceTest\app.config
+		Synologen.Config\rbro\Synologen.Service.Web.External.AcceptanceTest\app.config = Synologen.Config\rbro\Synologen.Service.Web.External.AcceptanceTest\app.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Client.SubscriptionTaskRunner.AcceptanceTest", "Service.Client.SubscriptionTaskRunner.AcceptanceTest", "{9F307C0F-151D-4658-914E-87E1CBDA7D56}"
 	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\cber\Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest\app.config = Synologen.Config\cber\Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest\app.config
+		Synologen.Config\rbro\Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest\app.config = Synologen.Config\rbro\Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest\app.config
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spinit.Wpc.Synologen.OPQ.Presentation.Admin", "Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Presentation.Admin\Spinit.Wpc.Synologen.OPQ.Presentation.Admin.csproj", "{851989CE-286E-48E1-9946-D8F78A853516}"

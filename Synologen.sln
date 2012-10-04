@@ -118,15 +118,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configs", "Configs", "{EE50
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation", "Synologen.Presentation", "{001FF868-4883-42D6-9AE4-2139E04156E2}"
 	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Filemanager.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Filemanager.config
-		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Imagemanager.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Imagemanager.config
 		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Web.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Web.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation.Intranet", "Synologen.Presentation.Intranet", "{2500AB71-B254-4178-B597-F39A09D49443}"
 	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Filemanager.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Filemanager.config
-		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Imagemanager.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Imagemanager.config
 		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Web.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Web.config
 	EndProjectSection
 EndProject
@@ -246,6 +242,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spinit.Wpc.Synologen.OPQ.Presentation.Admin", "Synologen OPQ\Spinit.Wpc.Synologen.OPQ.Presentation.Admin\Spinit.Wpc.Synologen.OPQ.Presentation.Admin.csproj", "{851989CE-286E-48E1-9946-D8F78A853516}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synologen.UI.Mvc.Site", "Synologen.UI.Mvc.Site\Synologen.UI.Mvc.Site.csproj", "{26DC3B62-B552-4A39-B616-6BD447372E74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.LensSubscription.BGData.Test", "Synologen.LensSubscription.BGData.Test", "{AEE1E3CE-9CD1-4081-B231-B1D95C853B98}"
+	ProjectSection(SolutionItems) = preProject
+		Synologen.Config\rbro\Synologen.LensSubscription.BGData.Test\app.config = Synologen.Config\rbro\Synologen.LensSubscription.BGData.Test\app.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -993,6 +994,7 @@ Global
 		{EAB1E891-25D1-469B-A5AB-F23FFEA4AB00} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
 		{02941FA2-58E3-423C-ACE2-3FFCC5A37822} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
 		{9F307C0F-151D-4658-914E-87E1CBDA7D56} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
+		{AEE1E3CE-9CD1-4081-B231-B1D95C853B98} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
 		{D0029EA4-39FA-4481-BEEA-892E0570EE4D} = {1C248A6A-B191-4ED8-8912-0B86744C5860}
 		{8C852BA2-1C66-42CE-9F12-35630E869CE6} = {E08A509F-1BBE-409A-9941-C541306414F2}
 		{DED1A82B-179B-417A-9B96-1D64A9A40746} = {43168BAC-9A43-48A4-AA67-AB66BE4AC775}

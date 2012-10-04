@@ -85,7 +85,9 @@
       <HintPath>..\..\Dependancies\Spinit\Spinit.Data.NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Test, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="Spinit.Test.NHibernate, Version=1.0.622.728, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Spinit.Test.NHibernate">
+      <HintPath>..\..\Dependancies\Spinit\Spinit.Test.NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\StructureMap\StructureMap.dll</HintPath>

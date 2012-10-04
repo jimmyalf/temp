@@ -48,6 +48,7 @@ namespace Synologen.LensSubscription.BGData.Test.BaseTesters
 			if(connectionString.ToLower().Contains("dev")) return true;
 			if(connectionString.ToLower().Contains("localhost")) return true;
 			if(connectionString.ToLower().Contains(@".\")) return true;
+            if (connectionString.ToLower().Contains(@"local")) return true;
 			return false;
 		}
 

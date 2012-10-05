@@ -132,9 +132,13 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 
 		private static SubscriptionTransaction ConvertTransaction(ReceivedPayment payment, Subscription subscription, SubscriptionPendingPayment pendingPayment)
 		{
+			if(pendingPayment.Amount.Total != payment.Amount)
+			{
+				throw new ApplicationException("Payment amount did not match pending payment amount. A transaction cannot be created!");
+			}
 			return new SubscriptionTransaction
 			{
-				Amount = payment.Amount,
+				Amount = pendingPayment.Amount,
 				Reason = ConvertToTransactionReason(payment.Result),
 				Type = TransactionType.Deposit,
 				Subscription = subscription,

@@ -25,7 +25,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		private int _bankGiroPayerNumber;
 		private DateTime _expectedPaymentDate;
 		private IEnumerable<SubscriptionItem> _subscriptionItems;
-		private decimal _expectedPaymentAmount;
+		private SubscriptionAmount _expectedPaymentAmount;
 
 		public When_sending_a_payment()
 		{
@@ -46,7 +46,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 				});
 				_task = ResolveTask<Task>();
 				_taskRunnerService = GetTaskRunnerService(_task);
-				_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Sum(x => x.MonthlyWithdrawal.Total);
+				_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Select(x => x.MonthlyWithdrawal).Sum();
 
 			};
 
@@ -58,7 +58,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		{
 			var pendingPayment = GetAll<SubscriptionPendingPayment>(GetWPCSession).Single();
 			var payment = GetAll<BGPaymentToSend>(GetBGSession).Single();
-			payment.Amount.ShouldBe(_expectedPaymentAmount);
+			payment.Amount.ShouldBe(_expectedPaymentAmount.Total);
 			payment.HasBeenSent.ShouldBe(false);
 			payment.Payer.Id.ShouldBe(_bankGiroPayerNumber);
 			payment.PaymentDate.Date.ShouldBe(_expectedPaymentDate);

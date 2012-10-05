@@ -152,13 +152,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void VisasDelAbonnemangsInformation()
 		{
 			View.Model.Active.ShouldBe(_subscriptionItem.IsActive ? "Ja" : "Nej");
-			View.Model.ProductPrice.ShouldBe(_subscriptionItem.Value.Product);
-			View.Model.FeePrice.ShouldBe(_subscriptionItem.Value.Fee);
+			View.Model.ProductPrice.ShouldBe(_subscriptionItem.Value.Taxed);
+			View.Model.FeePrice.ShouldBe(_subscriptionItem.Value.TaxFree);
 			View.Model.MonthlyWithdrawalAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawal.Total.ToString("C2"));
 			if(View.Model.IsOngoing)
 			{
-				View.Model.CustomMonthlyFeeAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawal.Fee);
-				View.Model.CustomMonthlyProductAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawal.Product);
+				View.Model.CustomMonthlyFeeAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawal.TaxFree);
+				View.Model.CustomMonthlyProductAmount.ShouldBe(_subscriptionItem.MonthlyWithdrawal.Taxed);
 			}
 			else
 			{
@@ -175,15 +175,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			var updatedSubscriptionItem = Get<SubscriptionItem>(_subscriptionItem.Id);
 			if(_subscriptionItem.IsOngoing)
 			{
-				updatedSubscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(_form.CustomMonthlyFeeAmount.Value);
-				updatedSubscriptionItem.MonthlyWithdrawal.Product.ShouldBe(_form.CustomMonthlyProductAmount.Value);
+				updatedSubscriptionItem.MonthlyWithdrawal.TaxFree.ShouldBe(_form.CustomMonthlyFeeAmount.Value);
+				updatedSubscriptionItem.MonthlyWithdrawal.Taxed.ShouldBe(_form.CustomMonthlyProductAmount.Value);
 			}
 			else
 			{
 				updatedSubscriptionItem.WithdrawalsLimit.ShouldBe(_form.WithdrawalsLimit);
 			}
-			updatedSubscriptionItem.Value.Fee.ShouldBe(_form.FeeAmount);
-			updatedSubscriptionItem.Value.Product.ShouldBe(_form.ProductAmount);
+			updatedSubscriptionItem.Value.TaxFree.ShouldBe(_form.FeeAmount);
+			updatedSubscriptionItem.Value.Taxed.ShouldBe(_form.ProductAmount);
 		}
 
 		private void TillbakaLänkVisas()

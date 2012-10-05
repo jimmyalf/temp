@@ -49,8 +49,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 			if (!activeSubscriptionItems.Any()) return null;
 			var payment = new SubscriptionPendingPayment
 			{
-				TaxedAmount = activeSubscriptionItems.Sum(x => x.MonthlyWithdrawal.Product),
-				TaxFreeAmount = activeSubscriptionItems.Sum(x => x.MonthlyWithdrawal.Fee),
+				Amount = activeSubscriptionItems.Select(x => x.MonthlyWithdrawal).Sum(),//new SubscriptionAmount(taxedAmount,taxFreeAmount),
 				SubscriptionItems = activeSubscriptionItems
 			};
 			subscriptionPendingPaymentRepository.Save(payment);
@@ -68,7 +67,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.SendPayments
 		{
 			var payment = new PaymentToSend
 			{
-				Amount = pendingPayment.Amount,
+				Amount = pendingPayment.Amount.Total,
 				Reference = pendingPayment.Id.ToString(),
 				Type = PaymentType.Debit,
 				PayerNumber = autogiroPayerId,

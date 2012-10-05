@@ -16,13 +16,13 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 			
 			Component(x => x.Value, value =>
 			{
-				value.Map(x => x.Product).Column("ProductPrice");
-				value.Map(x => x.Fee).Column("FeePrice");
+				value.Map(x => x.Taxed).Column("ProductPrice");
+				value.Map(x => x.TaxFree).Column("FeePrice");
 			});
-			Component(Reveal.Member<SubscriptionItem,SubscriptionItemAmount>("CustomMonthlyAmount"), value =>
+			Component(Reveal.Member<SubscriptionItem,SubscriptionAmount>("CustomMonthlyAmount"), value =>
 			{
-				value.Map(x => x.Product).Column("CustomMonthlyProduct");
-				value.Map(x => x.Fee).Column("CustomMonthlyFee");
+				value.Map(x => x.Taxed).Column("CustomMonthlyProduct");
+				value.Map(x => x.TaxFree).Column("CustomMonthlyFee");
 			});
 			Map(x => x.CreatedDate).Not.Nullable();
 		}

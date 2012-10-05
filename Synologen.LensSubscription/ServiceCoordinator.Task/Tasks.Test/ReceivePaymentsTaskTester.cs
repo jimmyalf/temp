@@ -85,7 +85,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		{
 			_expectedTransactionPayments.Each(payment => MockedTransactionRepository.Verify(x => x.Save(
 				It.Is<SubscriptionTransaction>(savedTransaction =>
-					Equals(savedTransaction.Amount, payment.Amount) &&
+					Equals(savedTransaction.Amount.Total, payment.Amount) &&
 					//Equals(savedTransaction.Article, null) &&
 					Equals(savedTransaction.CreatedDate.Date, DateTime.Now.Date) &&
 					MatchReason(savedTransaction.Reason, payment.Result) &&
@@ -133,11 +133,10 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		{
 			Context = () =>
 			{
-				const decimal taxedAmount = 250.25M;
-				const int taxFreeAmount = 100;
-				_expectedPayment = PaymentFactory.Get(subscriptionId:_subscriptionId, amount: taxedAmount + taxFreeAmount);
+				var amount = new SubscriptionAmount(250.25M, 100);
+				_expectedPayment = PaymentFactory.Get(subscriptionId:_subscriptionId, amount:amount.Total);
 				_expectedSubscription = SubscriptionFactory.Get(_subscriptionId);
-				_pendingPayment = PendingPaymentFactory.Get(taxedAmount, taxFreeAmount);
+				_pendingPayment = PendingPaymentFactory.Get(amount);
 				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.SubscriptionVersion2)).Returns(new []{_expectedPayment});
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(_expectedSubscription);
 				A.CallTo(() => SubscriptionPendingPaymentRepository.Get(Int32.Parse(_expectedPayment.Reference))).Returns(_pendingPayment);

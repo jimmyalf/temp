@@ -119,7 +119,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 	Type = paymentOptionType, 
 					SubscriptionId = (subscriptionItem == null) ? (int?) null : subscriptionItem.Subscription.Id
                 },
-				OrderTotalWithdrawalAmount = 8000,
+				OrderWithdrawalAmount = new SubscriptionAmount(8000,1000),
 				Reference = "Referens-text"
 			};
 		}
@@ -295,7 +295,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			Func<decimal, TransactionReason, TransactionType, SubscriptionTransaction> getTransaction = (amount, reason, type) => new SubscriptionTransaction
 			{
-				Amount = amount, 
+				Amount = new SubscriptionAmount(amount,0), 
 				Reason = reason, 
 				Subscription = subscription, 
 				Type = type

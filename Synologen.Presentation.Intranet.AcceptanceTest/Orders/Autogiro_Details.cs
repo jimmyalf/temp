@@ -321,28 +321,29 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			if(_form.Type == SubscriptionType.Ongoing)
 			{
-				subscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(_form.MonthlyFee.Value);
-				subscriptionItem.MonthlyWithdrawal.Product.ShouldBe(_form.MonthlyProduct.Value);	
+				subscriptionItem.MonthlyWithdrawal.TaxFree.ShouldBe(_form.MonthlyFee.Value);
+				subscriptionItem.MonthlyWithdrawal.Taxed.ShouldBe(_form.MonthlyProduct.Value);	
 				subscriptionItem.WithdrawalsLimit.ShouldBe(null);
 			}
 			else
 			{
 				var expectedMonthlyWithdrawalFee = Math.Round(_form.FeePrice.Value / _form.Type.GetNumberOfWithdrawals(), 2);
 				var expectedMonthlyWithdrawalProduct = Math.Round(_form.ProductPrice.Value / _form.Type.GetNumberOfWithdrawals(), 2);
-				subscriptionItem.MonthlyWithdrawal.Fee.ShouldBe(expectedMonthlyWithdrawalFee);
-				subscriptionItem.MonthlyWithdrawal.Product.ShouldBe(expectedMonthlyWithdrawalProduct);
+				subscriptionItem.MonthlyWithdrawal.TaxFree.ShouldBe(expectedMonthlyWithdrawalFee);
+				subscriptionItem.MonthlyWithdrawal.Taxed.ShouldBe(expectedMonthlyWithdrawalProduct);
 				subscriptionItem.WithdrawalsLimit.ShouldBe(_form.Type.GetNumberOfWithdrawals());
 			}
 			subscriptionItem.PerformedWithdrawals.ShouldBe(0);
-			subscriptionItem.Value.Product.ShouldBe(_form.ProductPrice.Value);
-			subscriptionItem.Value.Fee.ShouldBe(_form.FeePrice.Value);
+			subscriptionItem.Value.Taxed.ShouldBe(_form.ProductPrice.Value);
+			subscriptionItem.Value.TaxFree.ShouldBe(_form.FeePrice.Value);
 			subscriptionItem.CreatedDate.ShouldBe(_operationTime);			
 		}
 
 		private void TotalUttagSparas()
 		{
 			var order = WithRepository<IOrderRepository>().Get(_order.Id);
-			order.OrderTotalWithdrawalAmount.ShouldBe(_form.FeePrice.Value + _form.ProductPrice.Value);
+			order.OrderWithdrawalAmount.TaxFree.ShouldBe(_form.FeePrice.Value);
+			order.OrderWithdrawalAmount.Taxed.ShouldBe(_form.ProductPrice.Value);
 		}
 
     	private void KontoUppgifterSkallVaraIfyllbara()
@@ -363,15 +364,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
     	private void SkallAGDetaljerVisas()
     	{
-			View.Model.ProductPrice.ShouldBe(_order.SubscriptionPayment.Value.Product.ToString("0.00"));
-			View.Model.FeePrice.ShouldBe(_order.SubscriptionPayment.Value.Fee.ToString("0.00"));
+			View.Model.ProductPrice.ShouldBe(_order.SubscriptionPayment.Value.Taxed.ToString("0.00"));
+			View.Model.FeePrice.ShouldBe(_order.SubscriptionPayment.Value.TaxFree.ToString("0.00"));
 			View.Model.TotalWithdrawal.ShouldBe(_order.SubscriptionPayment.Value.Total.ToString("0.00"));
 			View.Model.Montly.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawal.Total.ToString("0.00"));
 			if(_order.SubscriptionPayment.WithdrawalsLimit == null) // Is ongoing
 			{
 				View.Model.SelectedSubscriptionOption.ShouldBe(SubscriptionType.Ongoing);
-				View.Model.CustomMonthlyFeeAmount.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawal.Fee.ToString("0.00"));
-				View.Model.CustomMonthlyProductAmount.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawal.Product.ToString("0.00"));
+				View.Model.CustomMonthlyFeeAmount.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawal.TaxFree.ToString("0.00"));
+				View.Model.CustomMonthlyProductAmount.ShouldBe(_order.SubscriptionPayment.MonthlyWithdrawal.Taxed.ToString("0.00"));
 			}
 			else
 			{

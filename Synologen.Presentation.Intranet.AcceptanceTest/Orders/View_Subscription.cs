@@ -262,7 +262,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			View.Model.Status.ShouldBe(_subscription.Active ? "Aktivt" : "Vilande autogiro");
 			View.Model.Consented.ShouldBe(_subscription.ConsentStatus.GetEnumDisplayName());
 			View.Model.CreatedDate.ShouldBe(_subscription.CreatedDate.ToString("yyyy-MM-dd"));
-			View.Model.CurrentBalance.ShouldBe(Subscription.GetCurrentAccountBalance(_transactions.ToList()).ToString("C2"));
+			View.Model.CurrentBalance.ShouldBe(Subscription.GetCurrentAccountBalance(_transactions.ToList()).Total.ToString("C2"));
 			View.Model.ShowResetDisplayUrl.ShouldBe(false);
 		}
 
@@ -308,8 +308,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private string GetFormattedAmount(SubscriptionTransaction transaction)
 		{
 			var amount = transaction.Type == TransactionType.Deposit 
-				? transaction.Amount.ToString("C2")
-				: (transaction.Amount * -1).ToString("C2");
+				? transaction.Amount.Total.ToString("C2")
+				: (transaction.Amount.Total * -1).ToString("C2");
 			switch (transaction.Reason)
 			{
 				case TransactionReason.Payment: return amount;

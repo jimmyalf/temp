@@ -17,14 +17,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
     	{
             BankAccountNumber = subscriptionItem.Subscription.BankAccountNumber;
             ClearingNumber = subscriptionItem.Subscription.ClearingNumber; 
-            ProductPrice = subscriptionItem.Value.Product.ToString("0.00");
-            FeePrice = subscriptionItem.Value.Fee.ToString("0.00");
+            ProductPrice = subscriptionItem.Value.Taxed.ToString("0.00");
+            FeePrice = subscriptionItem.Value.TaxFree.ToString("0.00");
 			TotalWithdrawal = subscriptionItem.Value.Total.ToString("0.00");
 			Montly = subscriptionItem.MonthlyWithdrawal.Total.ToString("0.00");
 			if(subscriptionItem.IsOngoing)
 			{
-				CustomMonthlyFeeAmount = subscriptionItem.MonthlyWithdrawal.Fee.ToString("0.00");
-				CustomMonthlyProductAmount = subscriptionItem.MonthlyWithdrawal.Product.ToString("0.00");
+				CustomMonthlyFeeAmount = subscriptionItem.MonthlyWithdrawal.TaxFree.ToString("0.00");
+				CustomMonthlyProductAmount = subscriptionItem.MonthlyWithdrawal.Taxed.ToString("0.00");
 			}
 
 			var type = SubscriptionType.GetFromWithdrawalsLimit(subscriptionItem.WithdrawalsLimit);

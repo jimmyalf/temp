@@ -150,8 +150,10 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		{
 			return new SubscriptionPendingPayment
 			{
-				TaxedAmount = subscriptionItems.Where(x => x.IsActive).Sum(x => x.Value.Product),
-				TaxFreeAmount = subscriptionItems.Where(x => x.IsActive).Sum(x => x.Value.Fee),
+				Amount = subscriptionItems
+					.Where(x => x.IsActive)
+					.Select(x => x.Value)
+					.Sum(),
 				HasBeenPayed = false,
 				SubscriptionItems = subscriptionItems.Where(x => x.IsActive).ToList()
 			};

@@ -1,5 +1,6 @@
 ﻿using System;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders;
@@ -20,9 +21,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 		protected void Submit_Correction(object sender, EventArgs e)
 		{
 			if(Submit == null) return;
+			var taxedAmount = decimal.Parse(txtProductAmount.Text);
+			var taxFreeAmount = decimal.Parse(txtFeeAmount.Text);
 			var args = new SubmitCorrectionEventArgs
 			{
-				Amount = decimal.Parse(txtAmount.Text),
+				Amount = new SubscriptionAmount(taxedAmount,taxFreeAmount),
 				Type = drpTransactionType.SelectedValue.ToInt().ToEnum<TransactionType>()
 			};
 			Submit(this, args);

@@ -30,10 +30,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.Order
 			var selectedSubscription = subscription ?? GetSubscription();
 			return new List<SubscriptionTransaction>
 			{
-				GetTransaction(1, selectedSubscription, TransactionReason.Payment, TransactionType.Deposit, amount: 255),
-				GetTransaction(2, selectedSubscription, TransactionReason.Payment, TransactionType.Deposit, amount: 500),
-				GetTransaction(3, selectedSubscription, TransactionReason.Payment, TransactionType.Deposit, amount: 125),
-				GetTransaction(4, selectedSubscription, TransactionReason.Payment, TransactionType.Deposit, amount: 123.33m),
+				GetTransaction(1, selectedSubscription, TransactionReason.Payment, TransactionType.Deposit, taxedAmount: 255),
+				GetTransaction(2, selectedSubscription, TransactionReason.Payment, TransactionType.Deposit, taxedAmount: 500),
+				GetTransaction(3, selectedSubscription, TransactionReason.Payment, TransactionType.Deposit, taxedAmount: 125),
+				GetTransaction(4, selectedSubscription, TransactionReason.Payment, TransactionType.Deposit, taxedAmount: 123.33m),
 			};
 		}
 
@@ -43,10 +43,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.Order
 			TransactionReason reason = TransactionReason.Payment, 
 			TransactionType type = TransactionType.Deposit,
 			int? settlementId = null,
-			decimal amount = 250m)
+			decimal taxedAmount = 250m, decimal taxFreeAmount = 0)
 		{
 			var transaction = A.Fake<SubscriptionTransaction>();
-			transaction.Amount = amount;
+			transaction.Amount = new SubscriptionAmount(taxedAmount, taxFreeAmount);
 			transaction.Reason = reason;
 			transaction.Subscription = subscription ?? GetSubscription();
 			transaction.SettlementId = settlementId;

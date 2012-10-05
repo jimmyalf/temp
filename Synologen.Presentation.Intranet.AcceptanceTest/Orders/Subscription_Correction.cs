@@ -117,7 +117,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void EttBeloppÄrIfyllt()
 		{
-			_form.Amount = 255.25m;
+			_form.Amount = new SubscriptionAmount(255.25m,75.75m);
 		}
 
 		private void UttagÄrValt()

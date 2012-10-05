@@ -133,7 +133,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		    
 			//Update order
 		    order.SelectedPaymentOption.SubscriptionId = subscription.Id;
-			order.OrderTotalWithdrawalAmount = e.ProductPrice.Value + e.FeePrice.Value;
+			order.OrderWithdrawalAmount = new SubscriptionAmount(e.ProductPrice.Value, e.FeePrice.Value);
 			_orderRepository.Save(order);
 		}
 

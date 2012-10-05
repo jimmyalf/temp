@@ -34,7 +34,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 				_subscription = StoreSubscription(customer => Factory.CreateSubscription(customer, shop, _bankGiroPayerNumber, SubscriptionConsentStatus.Accepted, new DateTime(2011,01,01)), shop.Id);
 				_subscriptionItems = StoreItemsWithWpcSession(() => Factory.CreateSubscriptionItems(_subscription));
 				_pendingPayment = StoreWithWpcSession(() => Factory.CreatePendingPayment(_subscriptionItems.ToList()));
-				_successfulPayment = StoreBGPayment(getPayment => Factory.CreateSuccessfulPayment(getPayment, _pendingPayment.Id.ToString(), _pendingPayment.Amount), _bankGiroPayerNumber);
+				_successfulPayment = StoreBGPayment(getPayment => Factory.CreateSuccessfulPayment(getPayment, _pendingPayment.Id.ToString(), _pendingPayment.Amount.Total), _bankGiroPayerNumber);
 				_task = ResolveTask<Task>();
 				_taskRunnerService = GetTaskRunnerService(_task);
 			};
@@ -64,12 +64,13 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		public void Task_creates_a_transaction()
 		{
 			var transaction = Get<Subscription>(GetWPCSession, _subscription.Id).Transactions.Single();
-			transaction.Amount.ShouldBe(_successfulPayment.Amount);
+			transaction.Amount.Total.ShouldBe(_successfulPayment.Amount);
 			transaction.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
 			transaction.Reason.ShouldBe(TransactionReason.Payment);
 			transaction.SettlementId.ShouldBe(null);
 			transaction.Type.ShouldBe(TransactionType.Deposit);
 			transaction.PendingPayment.Id.ShouldBe(_pendingPayment.Id);
+			transaction.Amount.ShouldBe(_pendingPayment.Amount);
 		}
 
 		[Test]

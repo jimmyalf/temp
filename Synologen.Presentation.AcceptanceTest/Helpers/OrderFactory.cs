@@ -131,11 +131,11 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 			};
 		}
 
-		public static SubscriptionTransaction GetTransaction(Subscription subscription, decimal amount = 255, TransactionReason reason = TransactionReason.Payment, int? settlementId = null, TransactionType type = TransactionType.Deposit)
+		public static SubscriptionTransaction GetTransaction(Subscription subscription, decimal taxedAmount = 255, decimal taxFreeAmount = 0, TransactionReason reason = TransactionReason.Payment, int? settlementId = null, TransactionType type = TransactionType.Deposit)
 		{
 			return new SubscriptionTransaction
 			{
-				Amount = amount,
+				Amount = new SubscriptionAmount(taxedAmount, taxFreeAmount),
 				Reason = reason,
 				SettlementId = settlementId,
 				Subscription = subscription,

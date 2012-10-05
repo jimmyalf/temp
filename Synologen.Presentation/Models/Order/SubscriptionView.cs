@@ -22,7 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			Active = subscription.Active ? "Aktivt" : "Vilande autogiro";
 			Consented = GetConsentText(subscription);
 			Created = subscription.CreatedDate.ToString("yyyy-MM-dd");
-			CurrentBalance = subscription.GetCurrentAccountBalance().ToString("C2");
+			CurrentBalance = subscription.GetCurrentAccountBalance().Total.ToString("C2");
 			Shop = subscription.Shop.Name;
 		}
 
@@ -89,8 +89,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 		private string GetFormattedAmount(SubscriptionTransaction transaction)
 		{
 			var amount = transaction.Type == TransactionType.Deposit 
-				? transaction.Amount.ToString("C2")
-				: (transaction.Amount * -1).ToString("C2");
+				? transaction.Amount.Total.ToString("C2")
+				: (transaction.Amount.Total * -1).ToString("C2");
 			switch (transaction.Reason)
 			{
 				case TransactionReason.Payment: return amount;

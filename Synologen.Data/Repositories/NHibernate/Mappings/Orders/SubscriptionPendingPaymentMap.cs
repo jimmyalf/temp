@@ -9,9 +9,11 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 		{
 			Table("SynologenOrderSubscriptionPendingPayment");
 			Id(x => x.Id);
-			//Map(x => x.Amount).Not.Nullable();
-			Map(x => x.TaxedAmount).Not.Nullable();
-			Map(x => x.TaxFreeAmount).Not.Nullable();
+			Component(x => x.Amount, mapping =>
+			{
+				mapping.Map(x => x.Taxed).Column("TaxedAmount");
+				mapping.Map(x => x.TaxFree).Column("TaxFreeAmount");
+			});
 			Map(x => x.Created).Not.Nullable();
 			Map(x => x.HasBeenPayed).Not.Nullable();
 			HasManyToMany(x => x.SubscriptionItems)

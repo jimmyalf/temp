@@ -27,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 			CorrectionUrl = correctionUrl;
 			ShowStartButton = !subscription.Active;
 			ShowStopButton = subscription.Active;
-			CurrentBalance = subscription.GetCurrentAccountBalance().ToString("C2");
+			CurrentBalance = subscription.GetCurrentAccountBalance().Total.ToString("C2");
 			ResetSubscriptionUrl = resetUrl;
 			ShowResetDisplayUrl = (subscription.ConsentStatus == SubscriptionConsentStatus.Denied);
 		}
@@ -41,9 +41,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public string Status { get; set; }
 		public string Consented { get; set; }
 		public string CreatedDate { get; set; }
+		public string CurrentBalance { get; set; }
 		public bool ShowStopButton { get; set; }
 		public bool ShowStartButton { get; set; }
-		public string CurrentBalance { get; set; }
+		public string CurrentTaxedBalance { get; set; }
 		public string ReturnUrl { get; set; }
 		public string CorrectionUrl { get; set; }
 		public string ResetSubscriptionUrl { get; set; }
@@ -99,8 +100,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		private string GetFormattedAmount(SubscriptionTransaction transaction)
 		{
 			var amount = transaction.Type == TransactionType.Deposit 
-				? transaction.Amount.ToString("C2")
-				: (transaction.Amount * -1).ToString("C2");
+				? transaction.Amount.Total.ToString("C2")
+				: (transaction.Amount.Total * -1).ToString("C2");
 			switch (transaction.Reason)
 			{
 				case TransactionReason.Payment: return amount;

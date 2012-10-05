@@ -165,6 +165,7 @@
     <Compile Include="Domain\Model\ContractSales\OldTransaction.cs" />
     <Compile Include="Domain\Model\Entity.cs" />
     <Compile Include="Domain\Model\Orders\OrderStatus.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionAmount.cs" />
     <Compile Include="Domain\Model\Orders\SubscriptionPendingPayment.cs" />
     <Compile Include="Domain\Model\Orders\EyeParameter.cs" />
     <Compile Include="Domain\Model\Orders\LensRecipe.cs" />

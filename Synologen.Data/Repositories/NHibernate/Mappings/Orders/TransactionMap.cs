@@ -10,7 +10,11 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 		{
 			Table("SynologenOrderTransaction");
 			Id(x => x.Id);
-			Map(x => x.Amount);
+			Component(x => x.Amount, mapping =>
+			{ 
+			    mapping.Map(x => x.TaxFree).Column("TaxFreeAmount");
+			    mapping.Map(x => x.Taxed).Column("TaxedAmount");
+			});
 			Map(x => x.Reason).CustomType<TransactionReason>(); 
 			Map(x => x.Type).CustomType<TransactionType>(); 
 			Map(x => x.CreatedDate);

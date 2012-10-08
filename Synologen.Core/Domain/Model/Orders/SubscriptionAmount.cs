@@ -11,14 +11,14 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 			Taxed = taxedAmount;
 			TaxFree = taxFreeAmount;
 		}
-		public decimal TaxFree { get; set; }
-		public decimal Taxed { get; set; }
-		public decimal Total
+		public virtual decimal TaxFree { get; set; }
+		public virtual decimal Taxed { get; set; }
+		public virtual decimal Total
 		{
 			get { return TaxFree + Taxed; }
 		}
 
-		public bool Equals(SubscriptionAmount other)
+		public virtual bool Equals(SubscriptionAmount other)
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;

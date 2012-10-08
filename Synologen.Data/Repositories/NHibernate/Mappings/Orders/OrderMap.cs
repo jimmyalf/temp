@@ -12,11 +12,11 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
             Map(x => x.Created);
             Map(x => x.SpinitServicesEmailId);
             Map(x => x.ShippingType).CustomType<OrderShippingOption>();
-        	Component(x => x.OrderWithdrawalAmount,mapping =>
-        	{
-				mapping.Map(x => x.Taxed);
-				mapping.Map(x => x.TaxFree);
-        	});
+			Component(x => x.WithdrawalAmount,mapping =>
+			{
+			    mapping.Map(x => x.Taxed).Column("TaxedWithdrawalAmount");
+			    mapping.Map(x => x.TaxFree).Column("TaxFreeWithdrawalAmount");
+			});
 			Map(x => x.Status).CustomType<OrderStatus>();
         	Map(x => x.Reference).Nullable().Length(255);
             References(x => x.LensRecipe).Column("LensRecipeId");

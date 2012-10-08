@@ -69,7 +69,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 					SaveTransaction(ConvertTransaction(payment, subscription, pendingPayment), transactionRepository);
 					break;
 				case PaymentResult.WillTryAgain:
-					SaveTransaction(ConvertTransaction(payment, subscription, null), transactionRepository);
+					SaveTransaction(ConvertTransaction(payment, subscription, pendingPayment), transactionRepository);
 					break;
 				case PaymentResult.InsufficientFunds:
 					SaveSubscriptionError(ConvertSubscriptionError(payment, subscription), subscriptionErrorRepository);

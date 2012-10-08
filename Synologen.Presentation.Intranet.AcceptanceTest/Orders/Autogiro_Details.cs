@@ -342,8 +342,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void TotalUttagSparas()
 		{
 			var order = WithRepository<IOrderRepository>().Get(_order.Id);
-			order.OrderWithdrawalAmount.TaxFree.ShouldBe(_form.FeePrice.Value);
-			order.OrderWithdrawalAmount.Taxed.ShouldBe(_form.ProductPrice.Value);
+			order.WithdrawalAmount.TaxFree.ShouldBe(_form.FeePrice.Value);
+			order.WithdrawalAmount.Taxed.ShouldBe(_form.ProductPrice.Value);
 		}
 
     	private void KontoUppgifterSkallVaraIfyllbara()

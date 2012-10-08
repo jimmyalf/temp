@@ -11,8 +11,8 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 			Id(x => x.Id);
 			Component(x => x.Amount, mapping =>
 			{
-				mapping.Map(x => x.Taxed).Column("TaxedAmount");
-				mapping.Map(x => x.TaxFree).Column("TaxFreeAmount");
+			    mapping.Map(x => x.Taxed).Column("TaxedAmount");
+			    mapping.Map(x => x.TaxFree).Column("TaxFreeAmount");
 			});
 			Map(x => x.Created).Not.Nullable();
 			Map(x => x.HasBeenPayed).Not.Nullable();

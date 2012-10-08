@@ -82,7 +82,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 			View.Model.ProductPrice = GetCurrencyString(order.SubscriptionPayment.Value.Taxed);
 			View.Model.FeePrice = GetCurrencyString(order.SubscriptionPayment.Value.TaxFree);
 			View.Model.Monthly = GetCurrencyString(order.SubscriptionPayment.MonthlyWithdrawal.Total);
-			View.Model.TotalWithdrawal = GetCurrencyString(order.OrderWithdrawalAmount.Total);
+			View.Model.TotalWithdrawal = GetCurrencyString(order.WithdrawalAmount.Total);
 			View.Model.SubscriptionTime = GetSubscriptionTime(order.SubscriptionPayment);
 			var isAlreadyConsentedSubscription = OrderSubscriptionIsActiveAndConsented(order.SubscriptionPayment.Subscription);
 			View.Model.ExpectedFirstWithdrawalDate = _orderWithdrawalService
@@ -130,7 +130,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		{
 			var transaction = new SubscriptionTransaction
 			{
-				Amount = order.OrderWithdrawalAmount,
+				Amount = order.WithdrawalAmount,
 				Reason = TransactionReason.Withdrawal,
 				Subscription = order.SubscriptionPayment.Subscription,
 				Type = TransactionType.Withdrawal

@@ -12,6 +12,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
+using Spinit.Wpc.Synologen.Core.Domain.Testing;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
@@ -148,7 +149,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Transaction_is_saved_with_expected_values()
 		{
-			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Equals(_expectedPayment.Amount))));
+			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Total.Equals(_expectedPayment.Amount))));
+			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Equals(_pendingPayment.Amount))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Reason.Equals(TransactionReason.Payment))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Subscription.Id.Equals(_subscriptionId))));
@@ -249,14 +251,20 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 	{
 		private ReceivedPayment _expectedPayment;
 		private Subscription _expectedSubscription;
+		private SubscriptionPendingPayment _pendingPayment;
 		private const int SubscriptionId = 1;
 
 		public When_receiveing_failed_payment()
 		{
 			Context = () =>
 			{
-				_expectedPayment = PaymentFactory.Get(SubscriptionId, result: PaymentResult.WillTryAgain);
+				var amount = new SubscriptionAmount(250, 25.25M);
+				_expectedPayment = PaymentFactory.Get(SubscriptionId, result: PaymentResult.WillTryAgain, amount:amount.Total);
 				_expectedSubscription = SubscriptionFactory.Get(SubscriptionId);
+
+				_pendingPayment = PendingPaymentFactory.Get(amount);
+				A.CallTo(() => SubscriptionPendingPaymentRepository.Get(Int32.Parse(_expectedPayment.Reference))).Returns(_pendingPayment);
+
 
 				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.SubscriptionVersion2)).Returns(new[] {_expectedPayment});
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(_expectedSubscription);
@@ -267,7 +275,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Transaction_is_saved_with_expected_values()
 		{
-			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Equals(_expectedPayment.Amount))));
+			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Total.Equals(_expectedPayment.Amount))));
+			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Equals(_pendingPayment.Amount))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Year.Equals(DateTime.Now.Year))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Month.Equals(DateTime.Now.Month))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Minute.Equals(DateTime.Now.Minute))));
@@ -303,6 +312,17 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(_expectedSubscription);
 			};
 			Because = task => task.Execute(ExecutingTaskContext);
+		}
+
+		protected override void SetUp()
+		{
+			TestRunnerDetector.Disable();
+			base.SetUp();
+		}
+		protected override void TearDown()
+		{
+			base.TearDown();
+			TestRunnerDetector.Enable();
 		}
 
 		[Test]

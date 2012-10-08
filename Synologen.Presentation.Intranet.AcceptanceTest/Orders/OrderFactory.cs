@@ -119,7 +119,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 	Type = paymentOptionType, 
 					SubscriptionId = (subscriptionItem == null) ? (int?) null : subscriptionItem.Subscription.Id
                 },
-				OrderWithdrawalAmount = new SubscriptionAmount(8000,1000),
+				WithdrawalAmount = new SubscriptionAmount(8000,1000),
 				Reference = "Referens-text"
 			};
 		}

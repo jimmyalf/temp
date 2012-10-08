@@ -62,6 +62,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Admin.Components.Synologen
 		private void SetupWysiwyg ()
 		{
 			_wysiwyg.CommonFilePath = new [] { Configuration.DocumentCentralRootUrl };
+            _wysiwyg.CssFiles = new string[]{ "/commonresources/styles/Extranet.css"};
 		}
 
 

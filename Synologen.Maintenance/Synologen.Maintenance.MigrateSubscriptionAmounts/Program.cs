@@ -1,4 +1,5 @@
-﻿using Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries;
+﻿using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain;
+using Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model;
 
 namespace Synologen.Maintenance.MigrateSubscriptionAmounts
@@ -15,6 +16,8 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts
                 else if (orderTransaction.Reason == 3) HandleCorrection(orderTransaction);
                 else if (orderTransaction.Reason == 2) HandleWithdrawal(orderTransaction);
 		    }
+			var migrator = new Migrator();
+			migrator.MigrateOrders();
 		}
 
         static void HandleCorrection(OrderTransaction orderTransaction)

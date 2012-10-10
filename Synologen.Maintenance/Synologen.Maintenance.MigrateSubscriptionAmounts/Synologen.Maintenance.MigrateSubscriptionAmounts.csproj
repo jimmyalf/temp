@@ -60,6 +60,7 @@
     <Compile Include="Domain\Model\PendingPayment.cs" />
     <Compile Include="Persistence\Data.cs" />
     <Compile Include="Persistence\PersistenceBase.cs" />
+    <Compile Include="Persistence\Queries\FetchOrders.cs" />
     <Compile Include="Persistence\Queries\FetchOrderSubscriptionItems.cs" />
     <Compile Include="Persistence\Queries\FetchOrderTransactions.cs" />
     <Compile Include="Program.cs" />

@@ -53,9 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Migrator.cs" />
+    <Compile Include="Domain\Model\Order.cs" />
     <Compile Include="Domain\Model\OrderSubscriptionItem.cs" />
     <Compile Include="Domain\Model\OrderTransaction.cs" />
     <Compile Include="Domain\Model\PendingPayment.cs" />
+    <Compile Include="Persistence\Data.cs" />
     <Compile Include="Persistence\PersistenceBase.cs" />
     <Compile Include="Persistence\Queries\FetchOrderSubscriptionItems.cs" />
     <Compile Include="Persistence\Queries\FetchOrderTransactions.cs" />

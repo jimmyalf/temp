@@ -38,10 +38,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Spinit">
-      <HintPath>..\packages\Spinit.1.0.1.0\lib\net35\Spinit.dll</HintPath>
+      <HintPath>..\..\Dependancies\Spinit\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data">
-      <HintPath>..\packages\Spinit.Data.1.0.3.0\lib\net35\Spinit.Data.dll</HintPath>
+      <HintPath>..\..\packages\Spinit.Data.1.0.3.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -53,14 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Migrator.cs" />
-    <Compile Include="Domain\Model\Order.cs" />
     <Compile Include="Domain\Model\OrderSubscriptionItem.cs" />
     <Compile Include="Domain\Model\OrderTransaction.cs" />
     <Compile Include="Domain\Model\PendingPayment.cs" />
-    <Compile Include="Persistence\Data.cs" />
     <Compile Include="Persistence\PersistenceBase.cs" />
-    <Compile Include="Persistence\Queries\FetchOrders.cs" />
     <Compile Include="Persistence\Queries\FetchOrderSubscriptionItems.cs" />
     <Compile Include="Persistence\Queries\FetchOrderTransactions.cs" />
     <Compile Include="Program.cs" />

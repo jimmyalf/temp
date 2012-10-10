@@ -245,6 +245,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.LensSubscription.
 		Synologen.Config\rbro\Synologen.LensSubscription.BGData.Test\app.config = Synologen.Config\rbro\Synologen.LensSubscription.BGData.Test\app.config
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Maintenance", "Maintenance", "{33D31589-FD79-4130-8657-D509921BD5E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

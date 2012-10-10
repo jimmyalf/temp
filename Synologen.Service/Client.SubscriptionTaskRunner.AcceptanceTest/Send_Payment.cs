@@ -72,12 +72,16 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		public void Task_creates_a_pending_payment()
 		{
 			var pendingPayment = GetAll<SubscriptionPendingPayment>(GetWPCSession).Single();
-			pendingPayment.Amount.ShouldBe(_expectedPaymentAmount);
+			pendingPayment.GetValue().ShouldBe(_expectedPaymentAmount);
 			pendingPayment.Created.Date.ShouldBe(SystemTime.Now.Date);
 			pendingPayment.HasBeenPayed.ShouldBe(false);
-			_subscriptionItems.Where(x => x.IsActive).Each(subscriptionItem => 
-				pendingPayment.SubscriptionItems.ShouldContain(x => x.Id == subscriptionItem.Id)
-			);
+			_subscriptionItems.Where(x => x.IsActive).Each(subscriptionItem =>
+			{
+				pendingPayment.GetSubscriptionItemAmounts()
+					.ShouldContain(x => x.SubscriptionItem.Id == subscriptionItem.Id);
+				pendingPayment.GetSubscriptionItemAmounts(x => x.SubscriptionItem.Id == subscriptionItem.Id).Single()
+					.Amount.ShouldBe(subscriptionItem.MonthlyWithdrawal);
+			});
 
 		}
 

@@ -134,10 +134,12 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		{
 			Context = () =>
 			{
-				var amount = new SubscriptionAmount(250.25M, 100);
-				_expectedPayment = PaymentFactory.Get(subscriptionId:_subscriptionId, amount:amount.Total);
+				//var amount = new SubscriptionAmount(250.25M, 100);
 				_expectedSubscription = SubscriptionFactory.Get(_subscriptionId);
-				_pendingPayment = PendingPaymentFactory.Get(amount);
+				_pendingPayment = PendingPaymentFactory.Get(_expectedSubscription.SubscriptionItems);
+				_expectedPayment = PaymentFactory.Get(subscriptionId:_subscriptionId, amount:_pendingPayment.GetValue().Total);
+				
+				
 				MockedWebServiceClient.Setup(x => x.GetPayments(AutogiroServiceType.SubscriptionVersion2)).Returns(new []{_expectedPayment});
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(_expectedSubscription);
 				A.CallTo(() => SubscriptionPendingPaymentRepository.Get(Int32.Parse(_expectedPayment.Reference))).Returns(_pendingPayment);
@@ -150,7 +152,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		public void Transaction_is_saved_with_expected_values()
 		{
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Total.Equals(_expectedPayment.Amount))));
-			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Equals(_pendingPayment.Amount))));
+			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Equals(_pendingPayment.GetValue(null)))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Reason.Equals(TransactionReason.Payment))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Subscription.Id.Equals(_subscriptionId))));
@@ -258,11 +260,13 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		{
 			Context = () =>
 			{
-				var amount = new SubscriptionAmount(250, 25.25M);
-				_expectedPayment = PaymentFactory.Get(SubscriptionId, result: PaymentResult.WillTryAgain, amount:amount.Total);
+				//var amount = new SubscriptionAmount(250, 25.25M);
 				_expectedSubscription = SubscriptionFactory.Get(SubscriptionId);
+				_pendingPayment = PendingPaymentFactory.Get(_expectedSubscription.SubscriptionItems);
+				_expectedPayment = PaymentFactory.Get(SubscriptionId, result: PaymentResult.WillTryAgain, amount:_pendingPayment.GetValue().Total);
+				
 
-				_pendingPayment = PendingPaymentFactory.Get(amount);
+				
 				A.CallTo(() => SubscriptionPendingPaymentRepository.Get(Int32.Parse(_expectedPayment.Reference))).Returns(_pendingPayment);
 
 
@@ -276,7 +280,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		public void Transaction_is_saved_with_expected_values()
 		{
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Total.Equals(_expectedPayment.Amount))));
-			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Equals(_pendingPayment.Amount))));
+			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Equals(_pendingPayment.GetValue(null)))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Year.Equals(DateTime.Now.Year))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Month.Equals(DateTime.Now.Month))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Minute.Equals(DateTime.Now.Minute))));

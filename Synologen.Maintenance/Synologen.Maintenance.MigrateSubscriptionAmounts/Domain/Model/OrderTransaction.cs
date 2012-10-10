@@ -10,6 +10,8 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model
         public int? PendingPaymentId { get; set; }
         public int Reason { get; set; }
         public decimal Amount { get; set; }
+        public decimal TaxedAmount { get; set; }
+        public decimal UntaxedAmount { get; set; }
 
         public static OrderTransaction Parse(IDataRecord record)
         {

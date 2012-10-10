@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
+﻿using System.Data;
+using Spinit.Data.FluentParameters;
 
 namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model
 {
@@ -13,9 +10,9 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model
         public decimal ProductPrice { get; set; }
         public decimal FeePrice { get; set; }
 
-        public OrderSubscriptionItem Parse(IDataRecord record)
+        public static OrderSubscriptionItem Parse(IDataRecord record)
         {
-            return FluentDataParser<OrderSubscriptionItem>(record)
+            return new FluentDataParser<OrderSubscriptionItem>(record)
                 .Parse(x => x.Id)
                 .Parse(x => x.SubscriptionId, "cSubscriptionId")
                 .Parse(x => x.ProductPrice, "cProductPrice")

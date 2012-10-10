@@ -23,5 +23,10 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model
 				.Parse(x => x.TaxFreeWithdrawalAmount)
                 .GetValue();
         }
+
+		public override string ToString()
+		{
+			return "{Id = " + Id + ", SubscriptionItemId = " + SubscriptionItemId + "}";
+		}
 	}
 }

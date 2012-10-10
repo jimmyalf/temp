@@ -53,13 +53,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Model\OrderSubscriptionItem.cs" />
+    <Compile Include="Domain\Model\OrderTransaction.cs" />
+    <Compile Include="Domain\Model\PendingPayment.cs" />
     <Compile Include="Persistence\PersistenceBase.cs" />
+    <Compile Include="Persistence\Queries\FetchOrderSubscriptionItems.cs" />
+    <Compile Include="Persistence\Queries\FetchOrderTransactions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Persistence\Commands\" />
-    <Folder Include="Persistence\Queries\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

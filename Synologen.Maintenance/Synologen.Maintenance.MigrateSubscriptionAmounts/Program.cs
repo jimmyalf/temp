@@ -10,8 +10,9 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts
 	{
 		static void Main(string[] args)
 		{
-		    var migrator = new Migrator();
-			migrator.MigrateOrders();
+			var migrator = new Migrator();
+			var results = migrator.MigrateOrders();
+
 			
 			var OrderTransactions = new FetchOrderTransactions().Execute();
 		    var OrderSubscriptionItems = new FetchOrderSubscriptionItems().Execute();

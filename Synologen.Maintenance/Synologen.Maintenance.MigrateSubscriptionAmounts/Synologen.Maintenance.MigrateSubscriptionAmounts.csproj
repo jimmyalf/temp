@@ -63,8 +63,10 @@
   <ItemGroup>
     <Compile Include="App\Factory.cs" />
     <Compile Include="Domain\Migrator.cs" />
+    <Compile Include="Domain\Model\IMigratedResult.cs" />
     <Compile Include="Domain\Model\Order.cs" />
-    <Compile Include="Domain\Model\OrderMigratedResult.cs" />
+    <Compile Include="Domain\Model\OrderMigratedSuccessfullyResult.cs" />
+    <Compile Include="Domain\Model\OrderMigrationFailedResult.cs" />
     <Compile Include="Domain\Model\SubscriptionAmount.cs" />
     <Compile Include="Domain\Model\SubscriptionItem.cs" />
     <Compile Include="Domain\Model\Transaction.cs" />

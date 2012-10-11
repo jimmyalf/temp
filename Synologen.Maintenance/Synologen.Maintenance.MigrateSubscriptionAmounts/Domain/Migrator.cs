@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.App;
+using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Commands;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries;
 using log4net;
@@ -22,11 +25,11 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Domain
 			_transactionsAreMigrated = true;
 		}
 
-		public void MigrateOrders()
+		public IEnumerable<IMigratedResult> MigrateOrders()
 		{
 			if(!_transactionsAreMigrated)
 			{
-				//throw new ApplicationException("Transactions must have been migrated before orders are migrated.");
+				throw new ApplicationException("Transactions must have been migrated before orders are migrated.");
 			}
 			var orders = new FetchActiveOrdersQuery().Execute().ToList();
 			_log.InfoFormat("Migrate Orders: Found {0} orders to migrate", orders.Count);
@@ -35,6 +38,7 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Domain
 				var command = new MigrateOrderCommand(order);
 				var result = command.Execute();
 				_log.Info(result);
+				yield return result;
 			}
 		}
 	}

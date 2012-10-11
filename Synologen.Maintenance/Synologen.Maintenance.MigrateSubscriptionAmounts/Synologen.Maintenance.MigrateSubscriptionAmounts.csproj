@@ -68,6 +68,7 @@
     <Compile Include="Persistence\Queries\FetchOrdersQuery.cs" />
     <Compile Include="Persistence\Queries\FetchOrderSubscriptionItems.cs" />
     <Compile Include="Persistence\Queries\FetchOrderTransactions.cs" />
+    <Compile Include="Persistence\Queries\FetchPendingPayments.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,12 +77,12 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-	<None Include="App.cber.config">
-		<DependentUpon>App.config</DependentUpon>
-	</None>
-	<None Include="App.rbro.config">
-		<DependentUpon>App.config</DependentUpon>
-	</None>	
+    <None Include="App.cber.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.rbro.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -93,9 +94,6 @@
   </Target>
   -->
   <Target Name="AfterBuild">
-  <TransformXml Source="App.config"
-             Transform="App.$(USERNAME).config"
-             Destination="@(AppConfigWithTargetPath->'$(OutDir)%(TargetPath)')" />
+    <TransformXml Source="App.config" Transform="App.$(USERNAME).config" Destination="@(AppConfigWithTargetPath->'$(OutDir)%(TargetPath)')" />
   </Target>
-  
 </Project>

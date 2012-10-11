@@ -1,5 +1,6 @@
 ﻿using System;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model;
+using Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries;
 
 namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Commands
 {
@@ -14,7 +15,10 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Commands
 
 		public OrderMigratedResult Execute()
 		{
-			throw new NotImplementedException();
+			//Fetch transaction made on the same day as order was created
+			var matchingTransaction = new FetchTransactionMatchingOrderQuery(_order).Execute();
+			Console.WriteLine(matchingTransaction);
+			return new OrderMigratedResult(_order);
 		}
 	}
 }

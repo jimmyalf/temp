@@ -8,5 +8,10 @@
 		{
 			_order = order;
 		}
+
+		public override string ToString()
+		{
+			return string.Format("Order[{0}] was migrated", _order.Id);
+		}
 	}
 }

@@ -4,11 +4,13 @@ using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model;
 
 namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries
 {
-	public class FetchOrdersQuery : PersistenceBase
+	public class FetchActiveOrdersQuery : PersistenceBase
 	{
 		 public IEnumerable<Order> Execute()
 		 {
-			var query = QueryBuilder.Build("SELECT * FROM SynologenOrder");
+			var query = QueryBuilder
+				.Build("SELECT * FROM SynologenOrder")
+				.Where("Status = 1");
 			return Query(query, Order.Parse);
 		 }
 	}

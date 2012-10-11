@@ -6,11 +6,11 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries
 {
     class FetchOrderSubscriptionItems : PersistenceBase
     {
-        public IEnumerable<OrderSubscriptionItem> Execute()
+        public IEnumerable<SubscriptionItem> Execute()
         {
             var query = QueryBuilder
-                .Build("SELECT * FROM SynologenOrderTransaction");
-            return Query(query, OrderSubscriptionItem.Parse);
+                .Build("SELECT * FROM SynologenOrderSubscriptionItem");
+            return Query(query, SubscriptionItem.Parse);
         }
     }
 }

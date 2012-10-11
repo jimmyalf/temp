@@ -40,6 +40,9 @@
     <ProjectConfigFileName>App.config</ProjectConfigFileName>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Spinit.1.0.6.0\lib\net35\Spinit.dll</HintPath>
@@ -57,14 +60,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\Factory.cs" />
     <Compile Include="Domain\Migrator.cs" />
     <Compile Include="Domain\Model\Order.cs" />
     <Compile Include="Domain\Model\OrderMigratedResult.cs" />
-    <Compile Include="Domain\Model\OrderSubscriptionItem.cs" />
+    <Compile Include="Domain\Model\SubscriptionItem.cs" />
     <Compile Include="Domain\Model\OrderTransaction.cs" />
     <Compile Include="Domain\Model\PendingPayment.cs" />
     <Compile Include="Domain\Model\Enums\TransactionReason.cs" />
     <Compile Include="Domain\Model\Enums\TransactionType.cs" />
+    <Compile Include="Persistence\Queries\FetchSubscriptionItemMatchingOrderQuery.cs" />
     <Compile Include="Persistence\Commands\MigrateOrderCommand.cs" />
     <Compile Include="Persistence\Data.cs" />
     <Compile Include="Persistence\PersistenceBase.cs" />

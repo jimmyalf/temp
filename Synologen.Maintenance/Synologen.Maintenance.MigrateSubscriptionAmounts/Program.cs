@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model;
@@ -29,21 +28,21 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts
 			
 		}
 
-        static OrderTransaction HandlePendingPayment(OrderTransaction orderTransaction, IEnumerable<PendingPayment> pendingPayments)
+        static Transaction HandlePendingPayment(Transaction transaction, IEnumerable<PendingPayment> pendingPayments)
         {
-            var RelevantPendingPayment = pendingPayments.First(x => x.Id == orderTransaction.PendingPaymentId);
-            orderTransaction.TaxedAmount = RelevantPendingPayment.TaxedAmount;
-            orderTransaction.UntaxedAmount = RelevantPendingPayment.UntaxedAmount;
-            return orderTransaction;
+            var RelevantPendingPayment = pendingPayments.First(x => x.Id == transaction.PendingPaymentId);
+            transaction.NewAmount.Taxed = RelevantPendingPayment.TaxedAmount;
+            transaction.NewAmount.TaxFree = RelevantPendingPayment.UntaxedAmount;
+            return transaction;
         }
 
-        static OrderTransaction HandleCorrection(OrderTransaction orderTransaction)
+        static Transaction HandleCorrection(Transaction transaction)
         {
-            orderTransaction.TaxedAmount = orderTransaction.Amount;
-            return orderTransaction;
+            transaction.NewAmount.Taxed = transaction.OldAmount;
+            return transaction;
         }
 
-        static void HandleWithdrawal(OrderTransaction orderTransaction)
+        static void HandleWithdrawal(Transaction transaction)
         {
             
         }

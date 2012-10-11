@@ -1,13 +1,14 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Spinit.Data.FluentParameters;
 
 namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence
 {
 	public static class Data
 	{
-		 public static FluentDataParser<TType> CreateParser<TType>(IDataRecord record) where TType : class
-		 {
-		 	return new FluentDataParser<TType>(record) {ColumnPrefix = string.Empty};
-		 }
+		public static T Parse<T>(IDataRecord record, Action<FluentDataParser<T>> builder) where T : class
+		{
+			return record.Parse(builder, string.Empty);
+		}
 	}
 }

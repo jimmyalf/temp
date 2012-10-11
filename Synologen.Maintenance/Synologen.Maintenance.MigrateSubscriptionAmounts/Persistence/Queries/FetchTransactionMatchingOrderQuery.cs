@@ -14,7 +14,7 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries
 			_order = order;
 		}
 
-		public OrderTransaction Execute()
+		public Transaction Execute()
 		{
 			var query = QueryBuilder
                 .Build("SELECT TOP 1 * FROM SynologenOrderTransaction")
@@ -27,11 +27,11 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries
 				{
 					CreatedDate = _order.Created, 
 					SubscriptionId = _order.SubscripitonId,
-					Amount = _order.OrderTotalWithdrawalAmount,
+					Amount = _order.OldAmount,
 					TransactionType = TransactionType.Withdrawal,
 					TransactionReason = TransactionReason.Withdrawal,
 				});
-            return Query(query, OrderTransaction.Parse).Single();
+            return Query(query, Transaction.Parse).Single();
 		}
 	}
 }

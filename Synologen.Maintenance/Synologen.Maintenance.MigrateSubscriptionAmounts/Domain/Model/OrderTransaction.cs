@@ -1,9 +1,10 @@
 ﻿using System.Data;
 using Spinit.Data.FluentParameters;
+using Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence;
 
 namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model
 {
-    class OrderTransaction
+    public class OrderTransaction
     {
         public int Id { get; set; }
         public int SubscriptionId { get; set; }
@@ -15,12 +16,12 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model
 
         public static OrderTransaction Parse(IDataRecord record)
         {
-            return new FluentDataParser<OrderTransaction>(record)
+            return Data.CreateParser<OrderTransaction>(record)
                 .Parse(x => x.Id)
-                .Parse(x => x.SubscriptionId, "cSubscriptionId")
-                .Parse(x => x.PendingPaymentId, "cPendingPaymentId")
-                .Parse(x => x.Reason, "cReason")
-                .Parse(x => x.Amount, "cAmount")
+                .Parse(x => x.SubscriptionId)
+                .Parse(x => x.PendingPaymentId)
+                .Parse(x => x.Reason)
+                .Parse(x => x.Amount)
                 .GetValue();
         }
     }

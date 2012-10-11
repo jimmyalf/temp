@@ -40,8 +40,9 @@
     <ProjectConfigFileName>App.config</ProjectConfigFileName>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Spinit">
-      <HintPath>..\packages\Spinit.1.0.1.0\lib\net35\Spinit.dll</HintPath>
+    <Reference Include="Spinit, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spinit.1.0.6.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data">
       <HintPath>..\packages\Spinit.Data.1.0.3.0\lib\net35\Spinit.Data.dll</HintPath>
@@ -62,13 +63,16 @@
     <Compile Include="Domain\Model\OrderSubscriptionItem.cs" />
     <Compile Include="Domain\Model\OrderTransaction.cs" />
     <Compile Include="Domain\Model\PendingPayment.cs" />
+    <Compile Include="Domain\Model\Enums\TransactionReason.cs" />
+    <Compile Include="Domain\Model\Enums\TransactionType.cs" />
     <Compile Include="Persistence\Commands\MigrateOrderCommand.cs" />
     <Compile Include="Persistence\Data.cs" />
     <Compile Include="Persistence\PersistenceBase.cs" />
-    <Compile Include="Persistence\Queries\FetchOrdersQuery.cs" />
+    <Compile Include="Persistence\Queries\FetchActiveOrdersQuery.cs" />
     <Compile Include="Persistence\Queries\FetchOrderSubscriptionItems.cs" />
     <Compile Include="Persistence\Queries\FetchOrderTransactions.cs" />
     <Compile Include="Persistence\Queries\FetchPendingPayments.cs" />
+    <Compile Include="Persistence\Queries\FetchTransactionMatchingOrderQuery.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Spinit.Data.SqlClient.SqlBuilder;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries;
 
 namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Commands
 {
-	public class MigrateOrderCommand
+	public class MigrateOrderCommand : PersistenceBase
 	{
 		private readonly Order _order;
 
@@ -13,22 +13,29 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Commands
 			_order = order;
 		}
 
-		public OrderMigratedResult Execute()
+		public IMigratedResult Execute()
 		{
-			//Fetch transaction made on the same day as order was created
 			var matchingTransaction = new FetchTransactionMatchingOrderQuery(_order).Execute();
-			var matchingSubscriptionItem = new FetchSubscriptionItemMatchingOrderQuery(_order).Execute();
-			MigrateOrder(matchingTransaction, matchingSubscriptionItem);
-			return new OrderMigratedResult(_order, matchingTransaction, matchingSubscriptionItem);
+			return (matchingTransaction.NewAmount.Total != _order.OldAmount)
+				? new OrderMigrationFailedResult(_order, "Transaction amount did not match order amount") 
+				: MigrateOrder(matchingTransaction);
 		}
 
-		protected void MigrateOrder(Transaction transaction, SubscriptionItem subscriptionItem)
+		protected IMigratedResult MigrateOrder(Transaction transaction)
 		{
-			if (transaction.NewAmount != subscriptionItem.Amount)
-			{
-				//var message = string.Format("Transaction amount {0} does not match subscription amount {1}", transaction.NewAmount, subscriptionItem.Amount);
-				//throw new ApplicationException(message);
-			}
+			var command = CommandBuilder
+				.Build(@"UPDATE SynologenOrder 
+					SET TaxedWithdrawalAmount = @TaxedWithdrawalAmount, 
+					TaxFreeWithdrawalAmount = @TaxFreeWithdrawalAmount
+					WHERE Id = @Id")
+				.AddParameters(new
+				{
+					TaxedWithdrawalAmount = transaction.NewAmount.Taxed,
+					TaxFreeWithdrawalAmount = transaction.NewAmount.TaxFree, 
+					_order.Id
+				});
+			Execute(command);
+			return new OrderMigratedSuccessfullyResult(_order, transaction);
 		}
 	}
 }

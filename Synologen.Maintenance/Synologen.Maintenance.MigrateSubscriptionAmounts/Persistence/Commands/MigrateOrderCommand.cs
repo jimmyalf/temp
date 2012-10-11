@@ -1,4 +1,5 @@
-﻿using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model;
+﻿using System;
+using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries;
 
 namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Commands
@@ -21,9 +22,13 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Commands
 			return new OrderMigratedResult(_order, matchingTransaction, matchingSubscriptionItem);
 		}
 
-		protected void MigrateOrder(OrderTransaction transaction, SubscriptionItem subscriptionItem)
+		protected void MigrateOrder(Transaction transaction, SubscriptionItem subscriptionItem)
 		{
-			//TODO
+			if (transaction.NewAmount != subscriptionItem.Amount)
+			{
+				//var message = string.Format("Transaction amount {0} does not match subscription amount {1}", transaction.NewAmount, subscriptionItem.Amount);
+				//throw new ApplicationException(message);
+			}
 		}
 	}
 }

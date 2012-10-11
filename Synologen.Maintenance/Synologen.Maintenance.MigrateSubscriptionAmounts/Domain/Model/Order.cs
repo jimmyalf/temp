@@ -9,22 +9,25 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model
 		public int Id { get; set; }
 		public int SubscripitonId { get; set; }
 		public int SubscriptionItemId { get; set; }
-		public decimal? OrderTotalWithdrawalAmount { get; set; }
-		public decimal? TaxedWithdrawalAmount { get; set; }
-		public decimal? TaxFreeWithdrawalAmount { get; set; }
+		public decimal? OldAmount { get; set; }
+		public SubscriptionAmount NewAmount { get; set; }
 		public DateTime Created { get; set; }
 
         public static Order Parse(IDataRecord record)
         {
-            return Data.CreateParser<Order>(record)
-                .Parse(x => x.Id)
-				.Parse(x => x.SubscripitonId, "PaymentOptionSubscripitonId")
-				.Parse(x => x.SubscriptionItemId)
-				.Parse(x => x.OrderTotalWithdrawalAmount)
-				.Parse(x => x.TaxedWithdrawalAmount)
-				.Parse(x => x.TaxFreeWithdrawalAmount)
-				.Parse(x => x.Created)
-                .GetValue();
+            return Data.Parse<Order>(record, parser =>
+            {
+            	parser.Parse(x => x.Id);
+            	parser.Parse(x => x.SubscripitonId, "PaymentOptionSubscripitonId");
+            	parser.Parse(x => x.SubscriptionItemId);
+            	parser.Parse(x => x.OldAmount,"OrderTotalWithdrawalAmount");
+            	parser.ParseComponent(x => x.NewAmount, map =>
+            	{ 
+					map.Parse(x => x.Taxed, "TaxedWithdrawalAmount");
+					map.Parse(x => x.TaxFree, "TaxFreeWithdrawalAmount");
+				});
+            	parser.Parse(x => x.Created);
+            });
         }
 
 		public override string ToString()

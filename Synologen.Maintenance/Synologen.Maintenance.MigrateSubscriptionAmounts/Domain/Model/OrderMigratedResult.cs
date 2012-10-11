@@ -3,10 +3,10 @@
 	public class OrderMigratedResult
 	{
 		private readonly Order _order;
-		private readonly OrderTransaction _transaction;
+		private readonly Transaction _transaction;
 		private readonly SubscriptionItem _subscriptionItem;
 
-		public OrderMigratedResult(Order order, OrderTransaction transaction, SubscriptionItem subscriptionItem)
+		public OrderMigratedResult(Order order, Transaction transaction, SubscriptionItem subscriptionItem)
 		{
 			_order = order;
 			_transaction = transaction;

@@ -79,5 +79,53 @@ namespace Spinit.Wpc.Synologen.Data.Test.Orders
 				OldAmount = amount;
 			}
 		}
+
+		public static Order GetOrder(Shop shop, OrderCustomer customer, decimal amount, LensRecipe recipie = null, SubscriptionItem subscriptionItem = null, PaymentOptionType paymentOptionType = PaymentOptionType.Subscription_Autogiro_New)
+		{
+			var order = new TestOrder
+			{
+				LensRecipe = recipie,
+				ShippingType = OrderShippingOption.ToCustomer,
+				Customer = customer,
+                SubscriptionPayment = subscriptionItem,
+				Shop = shop,
+                SelectedPaymentOption = new PaymentOption
+                {
+                	Type = paymentOptionType, 
+					SubscriptionId = (subscriptionItem == null) ? (int?) null : subscriptionItem.Subscription.Id
+                },
+				Reference = "Referens-text"
+			};
+			order.SetOldAmount(amount);
+			return order;
+		}
+
+		public static Order GetOrder(Shop shop, OrderCustomer customer, decimal taxedAmount, decimal taxFreeAmount, LensRecipe recipie = null, SubscriptionItem subscriptionItem = null, PaymentOptionType paymentOptionType = PaymentOptionType.Subscription_Autogiro_New)
+		{
+			var order = new TestOrder
+			{
+				LensRecipe = recipie,
+				ShippingType = OrderShippingOption.ToCustomer,
+				Customer = customer,
+                SubscriptionPayment = subscriptionItem,
+				Shop = shop,
+                SelectedPaymentOption = new PaymentOption
+                {
+                	Type = paymentOptionType, 
+					SubscriptionId = (subscriptionItem == null) ? (int?) null : subscriptionItem.Subscription.Id
+                },
+				Reference = "Referens-text"
+			};
+			order.SetWithdrawalAmount(new SubscriptionAmount(taxedAmount, taxFreeAmount));
+			return order;
+		}
+
+		private class TestOrder : Order
+		{
+			public void SetOldAmount(decimal amount)
+			{
+				OldWithdrawalAmount = amount;
+			}
+		}
 	}
 }

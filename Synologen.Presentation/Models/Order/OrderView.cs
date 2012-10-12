@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Order
 			ProductPrice = order.SubscriptionPayment.Value.Taxed.ToString("C2");
 			FeePrice = order.SubscriptionPayment.Value.TaxFree.ToString("C2");
 			Monthly = order.SubscriptionPayment.MonthlyWithdrawal.Total.ToString("C2");
-			TotalWithdrawal = order.WithdrawalAmount.Total.ToString("C2");
+			TotalWithdrawal = order.GetWithdrawalAmount().Total.ToString("C2");
 			Withdrawals = order.SubscriptionPayment.PerformedWithdrawals + "/" + order.SubscriptionPayment.WithdrawalsLimit;
 			Reference = order.Reference;
 			Status = order.Status.GetEnumDisplayName();

@@ -195,7 +195,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
             View.Model.DeliveryOption.ShouldBe(order.ShippingType.GetEnumDisplayName());
             View.Model.ProductPrice.ShouldBe(order.SubscriptionPayment.Value.Taxed.ToString("C"));
             View.Model.FeePrice.ShouldBe(order.SubscriptionPayment.Value.TaxFree.ToString("C"));
-            View.Model.TotalWithdrawal.ShouldBe(order.WithdrawalAmount.Total.ToString("C"));
+            View.Model.TotalWithdrawal.ShouldBe(order.GetWithdrawalAmount().Total.ToString("C"));
 			View.Model.Monthly.ShouldBe(order.SubscriptionPayment.MonthlyWithdrawal.Total.ToString("C"));
 			if(_order.SubscriptionPayment.IsOngoing)
 			{
@@ -232,7 +232,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private void SkapasEnTotalTransaktion()
     	{
     		var transaction = GetAll<SubscriptionTransaction>().Single();
-			transaction.GetAmount().ShouldBe(_order.WithdrawalAmount);
+			transaction.GetAmount().ShouldBe(_order.GetWithdrawalAmount());
 			transaction.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
 			transaction.Reason.ShouldBe(TransactionReason.Withdrawal);
 			transaction.SettlementId.ShouldBe(null);

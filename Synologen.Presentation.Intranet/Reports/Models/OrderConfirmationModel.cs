@@ -14,7 +14,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Reports.Models
 			DeliveryOption = order.ShippingType.GetEnumDisplayName();
 			ProductPrice = order.SubscriptionPayment.Value.Taxed.ToString("C2");
 			FeePrice = order.SubscriptionPayment.Value.TaxFree.ToString("C2");
-			TotalWithdrawal = order.WithdrawalAmount.Total.ToString("C2");
+			TotalWithdrawal = order.GetWithdrawalAmount().Total.ToString("C2");
 			Monthly = order.SubscriptionPayment.MonthlyWithdrawal.Total.ToString("C2");
 			SubscriptionTime = GetSubscriptionTime(order.SubscriptionPayment);
 			ExpectedFirstWithdrawalDate = getFirstExpectedWithdrawalDate(order).ToString("yyyy-MM-dd");

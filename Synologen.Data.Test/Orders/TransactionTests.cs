@@ -14,7 +14,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.Orders
 			var shop = CreateShop<Shop>();
 			var customer = Persist(Factory.GetCustomer(shop));
 			var subscription = Persist(Factory.GetSubscription(shop, customer));
-			_transaction = PersistAs<SubscriptionTransaction>(Factory.GetTransaction(subscription, 256.56M));
+			_transaction = Persist(Factory.GetTransaction(subscription, 256.56M));
 		}
 
 		[Test]
@@ -25,6 +25,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.Orders
 			persistedTransaction.GetAmount().TaxFree.ShouldBe(0);
 		}
 	}
+
 	[TestFixture, Category("OrderTransactionTests")]
 	public class When_fetching_a_new_transaction : GenericDataBase
 	{
@@ -35,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.Orders
 			var shop = CreateShop<Shop>();
 			var customer = Persist(Factory.GetCustomer(shop));
 			var subscription = Persist(Factory.GetSubscription(shop, customer));
-			_transaction = PersistAs<SubscriptionTransaction>(Factory.GetTransaction(subscription, 256.56M, 350M));
+			_transaction = Persist(Factory.GetTransaction(subscription, 256.56M, 350M));
 		}
 
 		[Test]

@@ -81,6 +81,7 @@
     <Compile Include="Persistence\Queries\FetchOrderSubscriptionItems.cs" />
     <Compile Include="Persistence\Queries\FetchOrderTransactions.cs" />
     <Compile Include="Persistence\Queries\FetchPendingPayments.cs" />
+    <Compile Include="Persistence\Queries\FetchSubscriptionItemsInPendingPayment.cs" />
     <Compile Include="Persistence\Queries\FetchTransactionMatchingOrderQuery.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

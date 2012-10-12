@@ -9,7 +9,7 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries
         public IEnumerable<PendingPayment> Execute()
         {
             var query = QueryBuilder
-                .Build("SELECT * FROM SynologenPendingPayments");
+                .Build("SELECT * FROM SynologenOrderSubscriptionPendingPayment");
             return Query(query, PendingPayment.Parse);
         }
     }

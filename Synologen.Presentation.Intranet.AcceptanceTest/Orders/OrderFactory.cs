@@ -107,7 +107,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		public static Order GetOrder(Shop shop, OrderCustomer customer, LensRecipe recipie = null, SubscriptionItem subscriptionItem = null, PaymentOptionType paymentOptionType = PaymentOptionType.Subscription_Autogiro_New)
 		{
-			return new Order
+			var order = new Order
 			{
 				LensRecipe = recipie,
 				ShippingType = OrderShippingOption.ToCustomer,
@@ -119,9 +119,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 	Type = paymentOptionType, 
 					SubscriptionId = (subscriptionItem == null) ? (int?) null : subscriptionItem.Subscription.Id
                 },
-				OrderTotalWithdrawalAmount = 8000,
 				Reference = "Referens-text"
 			};
+			order.SetWithdrawalAmount(new SubscriptionAmount(8000,1000));
+			return order;
 		}
 
 	    public static Article GetArticle(ArticleType articleType, ArticleSupplier supplier, bool active = true)
@@ -293,22 +294,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		public static IEnumerable<SubscriptionTransaction> GetTransactions(Subscription subscription)
 		{
-			Func<decimal, TransactionReason, TransactionType, SubscriptionTransaction> getTransaction = (amount, reason, type) => new SubscriptionTransaction
+			var startTime = new DateTime(2011, 01, 01);
+			return new[]
 			{
-				Amount = amount, 
+				SystemTime.ReturnWhileTimeIs(startTime.AddDays(1), () => GetTransaction(subscription, 1500, TransactionReason.Withdrawal, TransactionType.Withdrawal)),
+				SystemTime.ReturnWhileTimeIs(startTime.AddDays(2), () => GetTransaction(subscription, 1025.25m, TransactionReason.Correction, TransactionType.Deposit)),
+				SystemTime.ReturnWhileTimeIs(startTime.AddDays(3), () => GetTransaction(subscription, 999.99m, TransactionReason.Correction, TransactionType.Withdrawal)),
+				SystemTime.ReturnWhileTimeIs(startTime.AddDays(4), () => GetTransaction(subscription, 275, TransactionReason.PaymentFailed, TransactionType.Deposit)),
+				SystemTime.ReturnWhileTimeIs(startTime.AddDays(5), () => GetTransaction(subscription, 275, TransactionReason.Payment, TransactionType.Deposit)),
+			};
+		}
+		private static SubscriptionTransaction GetTransaction(Subscription subscription, decimal amount, TransactionReason reason, TransactionType type)
+		{
+			var transaction = new SubscriptionTransaction
+			{
 				Reason = reason, 
 				Subscription = subscription, 
 				Type = type
 			};
-			var startTime = new DateTime(2011, 01, 01);
-			return new[]
-			{
-				SystemTime.ReturnWhileTimeIs(startTime.AddDays(1), () => getTransaction(1500, TransactionReason.Withdrawal, TransactionType.Withdrawal)),
-				SystemTime.ReturnWhileTimeIs(startTime.AddDays(2), () => getTransaction(1025.25m, TransactionReason.Correction, TransactionType.Deposit)),
-				SystemTime.ReturnWhileTimeIs(startTime.AddDays(3), () => getTransaction(999.99m, TransactionReason.Correction, TransactionType.Withdrawal)),
-				SystemTime.ReturnWhileTimeIs(startTime.AddDays(4), () => getTransaction(275, TransactionReason.PaymentFailed, TransactionType.Deposit)),
-				SystemTime.ReturnWhileTimeIs(startTime.AddDays(5), () => getTransaction(275, TransactionReason.Payment, TransactionType.Deposit)),
-			};
+			transaction.SetAmount(new SubscriptionAmount(amount,0));
+			return transaction;
 		}
 
 		public static IList<SubscriptionTransaction> GetTransactions(IEnumerable<Subscription> subscriptions)

@@ -25,7 +25,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		private int _bankGiroPayerNumber;
 		private DateTime _expectedPaymentDate;
 		private IEnumerable<SubscriptionItem> _subscriptionItems;
-		private decimal _expectedPaymentAmount;
+		private SubscriptionAmount _expectedPaymentAmount;
 
 		public When_sending_a_payment()
 		{
@@ -46,7 +46,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 				});
 				_task = ResolveTask<Task>();
 				_taskRunnerService = GetTaskRunnerService(_task);
-				_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Sum(x => x.MonthlyWithdrawal.Total);
+				_expectedPaymentAmount = _subscriptionItems.Where(x => x.IsActive).Select(x => x.MonthlyWithdrawal).Sum();
 
 			};
 
@@ -58,7 +58,7 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		{
 			var pendingPayment = GetAll<SubscriptionPendingPayment>(GetWPCSession).Single();
 			var payment = GetAll<BGPaymentToSend>(GetBGSession).Single();
-			payment.Amount.ShouldBe(_expectedPaymentAmount);
+			payment.Amount.ShouldBe(_expectedPaymentAmount.Total);
 			payment.HasBeenSent.ShouldBe(false);
 			payment.Payer.Id.ShouldBe(_bankGiroPayerNumber);
 			payment.PaymentDate.Date.ShouldBe(_expectedPaymentDate);
@@ -72,12 +72,16 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		public void Task_creates_a_pending_payment()
 		{
 			var pendingPayment = GetAll<SubscriptionPendingPayment>(GetWPCSession).Single();
-			pendingPayment.Amount.ShouldBe(_expectedPaymentAmount);
+			pendingPayment.GetValue().ShouldBe(_expectedPaymentAmount);
 			pendingPayment.Created.Date.ShouldBe(SystemTime.Now.Date);
 			pendingPayment.HasBeenPayed.ShouldBe(false);
-			_subscriptionItems.Where(x => x.IsActive).Each(subscriptionItem => 
-				pendingPayment.SubscriptionItems.ShouldContain(x => x.Id == subscriptionItem.Id)
-			);
+			_subscriptionItems.Where(x => x.IsActive).Each(subscriptionItem =>
+			{
+				pendingPayment.GetSubscriptionItemAmounts()
+					.ShouldContain(x => x.SubscriptionItem.Id == subscriptionItem.Id);
+				pendingPayment.GetSubscriptionItemAmounts(x => x.SubscriptionItem.Id == subscriptionItem.Id).Single()
+					.Amount.ShouldBe(subscriptionItem.MonthlyWithdrawal);
+			});
 
 		}
 

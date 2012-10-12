@@ -112,9 +112,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synologen.Presentation.Site", "Synologen.Presentation.Site\Synologen.Presentation.Site.csproj", "{36811CCF-361E-4E0B-B270-AF9355675239}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configs", "Configs", "{EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}"
-	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation", "Synologen.Presentation", "{001FF868-4883-42D6-9AE4-2139E04156E2}"
 	ProjectSection(SolutionItems) = preProject
@@ -247,6 +244,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.LensSubscription.
 	ProjectSection(SolutionItems) = preProject
 		Synologen.Config\rbro\Synologen.LensSubscription.BGData.Test\app.config = Synologen.Config\rbro\Synologen.LensSubscription.BGData.Test\app.config
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Maintenance", "Maintenance", "{33D31589-FD79-4130-8657-D509921BD5E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

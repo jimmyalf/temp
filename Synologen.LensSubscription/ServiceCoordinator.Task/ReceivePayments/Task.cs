@@ -46,8 +46,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 		{
 			if(payment.Result != PaymentResult.Approved) return;
 			if(pendingPayment == null) throw new ApplicationException(string.Format("Pending payment for Payment {0} could not be found!", payment.PaymentId));
-			if(pendingPayment.Amount != payment.Amount) throw new ApplicationException(string.Format("Pending payment {0} amount does not match payment {1} amount", pendingPayment.Amount, payment.Amount));
-			foreach (var subscriptionItem in pendingPayment.SubscriptionItems)
+			if(pendingPayment.GetValue() != payment.Amount) throw new ApplicationException(string.Format("Pending payment {0} amount does not match payment {1} amount", pendingPayment.GetValue(), payment.Amount));
+			foreach (var subscriptionItem in pendingPayment.GetSubscriptionItems())
 			{
 				subscriptionItem.PerformedWithdrawals++;
 				subscriptionRepository.Save(subscriptionItem);
@@ -69,7 +69,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 					SaveTransaction(ConvertTransaction(payment, subscription, pendingPayment), transactionRepository);
 					break;
 				case PaymentResult.WillTryAgain:
-					SaveTransaction(ConvertTransaction(payment, subscription, null), transactionRepository);
+					SaveTransaction(ConvertTransaction(payment, subscription, pendingPayment), transactionRepository);
 					break;
 				case PaymentResult.InsufficientFunds:
 					SaveSubscriptionError(ConvertSubscriptionError(payment, subscription), subscriptionErrorRepository);
@@ -132,14 +132,20 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.ReceivePayments
 
 		private static SubscriptionTransaction ConvertTransaction(ReceivedPayment payment, Subscription subscription, SubscriptionPendingPayment pendingPayment)
 		{
-			return new SubscriptionTransaction
+			var amount = pendingPayment.GetValue();
+			if(amount.Total != payment.Amount)
 			{
-				Amount = payment.Amount,
+				throw new ApplicationException("Payment amount did not match pending payment amount. A transaction cannot be created!");
+			}
+			var transaction = new SubscriptionTransaction
+			{
 				Reason = ConvertToTransactionReason(payment.Result),
 				Type = TransactionType.Deposit,
 				Subscription = subscription,
 				PendingPayment = pendingPayment
 			};
+			transaction.SetAmount(amount);
+			return transaction;
 		}
 	}
 }

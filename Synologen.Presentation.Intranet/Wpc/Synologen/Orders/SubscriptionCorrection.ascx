@@ -8,10 +8,16 @@
 			<asp:RequiredFieldValidator InitialValue="0" runat="server" ErrorMessage="Typ måste väljas" ControlToValidate="drpTransactionType" Display="Dynamic">*</asp:RequiredFieldValidator>
 		</p>
 		<p>
-			<label for="<%=txtAmount.ClientID%>">Belopp</label>
-			<asp:TextBox ID="txtAmount" runat="server" />
-			<asp:RequiredFieldValidator runat="server" ErrorMessage="Belopp måste anges" ControlToValidate="txtAmount" Display="Dynamic">*</asp:RequiredFieldValidator>
-			<asp:RangeValidator runat="server" ErrorMessage="Belopp måste anges som ett positivt tal med kommatecken som decimalavgränsare" ControlToValidate="txtAmount" Display="Dynamic" MinimumValue="0" MaximumValue='99999,99' Type="Double" >*</asp:RangeValidator>
+			<label for="<%=txtProductAmount.ClientID%>">Belopp</label>
+			<asp:TextBox ID="txtProductAmount" runat="server" />
+			<asp:RequiredFieldValidator runat="server" ErrorMessage="Belopp måste anges" ControlToValidate="txtProductAmount" Display="Dynamic">*</asp:RequiredFieldValidator>
+			<asp:RangeValidator runat="server" ErrorMessage="Belopp måste anges som ett positivt tal med kommatecken som decimalavgränsare" ControlToValidate="txtProductAmount" Display="Dynamic" MinimumValue="0" MaximumValue='99999,99' Type="Double" >*</asp:RangeValidator>
+		</p>
+		<p>
+			<label for="<%=txtFeeAmount.ClientID%>">Belopp</label>
+			<asp:TextBox ID="txtFeeAmount" runat="server" />
+			<asp:RequiredFieldValidator runat="server" ErrorMessage="Belopp måste anges" ControlToValidate="txtFeeAmount" Display="Dynamic">*</asp:RequiredFieldValidator>
+			<asp:RangeValidator runat="server" ErrorMessage="Belopp måste anges som ett positivt tal med kommatecken som decimalavgränsare" ControlToValidate="txtFeeAmount" Display="Dynamic" MinimumValue="0" MaximumValue='99999,99' Type="Double" >*</asp:RangeValidator>
 		</p>
 		<asp:ValidationSummary runat="server" CssClass="error-list" />
 		<div class="control-actions">

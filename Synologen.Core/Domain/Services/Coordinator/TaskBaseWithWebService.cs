@@ -1,6 +1,7 @@
 using System;
 using System.ServiceModel;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
+using Spinit.Wpc.Synologen.Core.Domain.Testing;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 {
@@ -31,6 +32,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 			{
 				BGWebServiceClient.Abort();
 				base.LogError("Got exception while attempting to close web service client", ex);
+				if (TestRunnerDetector.IsRunningFromNunit) throw;
 			}
 		}
 
@@ -48,6 +50,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 					BGWebServiceClient.Abort();
 					BGWebServiceClient = context.Resolve<IBGWebServiceClient>();
 				}
+				if (TestRunnerDetector.IsRunningFromNunit) throw;
 			}
 		}
 	}

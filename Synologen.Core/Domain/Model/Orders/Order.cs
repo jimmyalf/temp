@@ -19,8 +19,19 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual DateTime Created { get; protected set; }
     	public virtual OrderCustomer Customer { get; set; }
 		public virtual SubscriptionItem SubscriptionPayment { get; set; }
-		public virtual decimal OrderTotalWithdrawalAmount { get; set; }
-        public virtual int? SpinitServicesEmailId { get; set; }
+		protected virtual decimal? OldWithdrawalAmount { get; set; }
+		protected virtual SubscriptionAmount WithdrawalAmount { get; set; }
+
+    	public virtual SubscriptionAmount GetWithdrawalAmount()
+    	{
+    		return OldWithdrawalAmount.HasValue ? new SubscriptionAmount(OldWithdrawalAmount.Value, 0) : WithdrawalAmount;
+    	}
+		public virtual void SetWithdrawalAmount(SubscriptionAmount amount)
+		{
+			WithdrawalAmount = amount;
+		}
+
+    	public virtual int? SpinitServicesEmailId { get; set; }
 		public virtual OrderStatus Status { get; set; }
     	public virtual string Reference { get; set; }
     }

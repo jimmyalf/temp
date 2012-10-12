@@ -27,18 +27,26 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual bool Active { get; set; }
 		public virtual DateTime? LastPaymentSent { get; set; }
 
-		public static decimal GetCurrentAccountBalance(IList<SubscriptionTransaction> transactions)
+		public static SubscriptionAmount GetCurrentAccountBalance(IList<SubscriptionTransaction> transactions)
+		{
+			var taxedAmount = GetBalanceFor(transactions, x => x.GetAmount().Taxed);
+			var taxFreeAmount = GetBalanceFor(transactions, x => x.GetAmount().TaxFree);
+			return new SubscriptionAmount(taxedAmount, taxFreeAmount);
+		}
+
+		public virtual SubscriptionAmount GetCurrentAccountBalance()
+		{
+			return GetCurrentAccountBalance(Transactions.OrEmpty().ToList());
+		}
+
+		protected static decimal GetBalanceFor(IList<SubscriptionTransaction> transactions, Func<SubscriptionTransaction,decimal> amountSelector)
 		{
 			if (transactions == null || !transactions.Any()) return 0;
 			Func<SubscriptionTransaction, bool> isWithdrawal = transaction => (transaction.Reason == TransactionReason.Withdrawal || transaction.Reason == TransactionReason.Correction) && transaction.Type == TransactionType.Withdrawal;
 			Func<SubscriptionTransaction, bool> isDeposit = transaction => (transaction.Reason == TransactionReason.Payment || transaction.Reason == TransactionReason.Correction) && transaction.Type == TransactionType.Deposit;
-			var withdrawals = transactions.Where(isWithdrawal).Sum(x => x.Amount);
-			var deposits = transactions.Where(isDeposit).Sum(x => x.Amount);
+			var withdrawals = transactions.Where(isWithdrawal).Sum(amountSelector);
+			var deposits = transactions.Where(isDeposit).Sum(amountSelector);
 			return deposits - withdrawals;
-		}
-		public virtual decimal GetCurrentAccountBalance()
-		{
-			return GetCurrentAccountBalance(Transactions.OrEmpty().ToList());
 		}
 	}
 }

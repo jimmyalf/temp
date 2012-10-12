@@ -1,3 +1,4 @@
+using FluentNHibernate;
 using FluentNHibernate.Mapping;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 
@@ -12,7 +13,12 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
             Map(x => x.Created);
             Map(x => x.SpinitServicesEmailId);
             Map(x => x.ShippingType).CustomType<OrderShippingOption>();
-        	Map(x => x.OrderTotalWithdrawalAmount).Nullable();
+			Component(Reveal.Member<Order,SubscriptionAmount>("WithdrawalAmount"), mapping =>
+			{
+			    mapping.Map(x => x.Taxed).Column("TaxedWithdrawalAmount");
+			    mapping.Map(x => x.TaxFree).Column("TaxFreeWithdrawalAmount");
+			});
+        	Map(Reveal.Member<Order>("OldWithdrawalAmount")).Column("OrderTotalWithdrawalAmount");
 			Map(x => x.Status).CustomType<OrderStatus>();
         	Map(x => x.Reference).Nullable().Length(255);
             References(x => x.LensRecipe).Column("LensRecipeId");

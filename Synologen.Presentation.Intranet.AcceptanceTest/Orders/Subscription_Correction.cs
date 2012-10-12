@@ -117,7 +117,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		private void EttBeloppÄrIfyllt()
 		{
-			_form.Amount = 255.25m;
+			_form.Amount = new SubscriptionAmount(255.25m,75.75m);
 		}
 
 		private void UttagÄrValt()
@@ -152,7 +152,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		private void SkapasEnTransaktion()
 		{
 			_createdTransaction = GetAll<SubscriptionTransaction>().Single();
-			_createdTransaction.Amount.ShouldBe(_form.Amount);
+			_createdTransaction.GetAmount().ShouldBe(_form.Amount);
 			_createdTransaction.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
 			_createdTransaction.Reason.ShouldBe(TransactionReason.Correction);
 			_createdTransaction.SettlementId.ShouldBe(null);

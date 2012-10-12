@@ -9,6 +9,7 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.Autogiro;
 using Spinit.Wpc.Synologen.Core.Domain.Model.BGWebService;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Services.BgWebService;
+using Spinit.Wpc.Synologen.Core.Domain.Testing;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.Factories;
 using Synologen.LensSubscription.ServiceCoordinator.Task.Test.TestHelpers;
 
@@ -95,6 +96,17 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 				MockedSubscriptionRepository.Setup(x => x.GetByBankgiroPayerId(It.IsAny<int>())).Returns(expectedSubscription);
 			};
 			Because = task => task.Execute(ExecutingTaskContext);
+		}
+
+		protected override void SetUp()
+		{
+			TestRunnerDetector.Disable();
+			base.SetUp();
+		}
+		protected override void TearDown()
+		{
+			base.TearDown();
+			TestRunnerDetector.Enable();
 		}
 
 		[Test]

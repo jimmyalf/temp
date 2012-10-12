@@ -56,13 +56,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 
 		private SubscriptionTransaction CreateNewTransaction(int subscriptionId, SubmitCorrectionEventArgs eventArgs)
 		{
-			return new SubscriptionTransaction
+			var transaction = new SubscriptionTransaction
 			{
-				Amount = eventArgs.Amount,
 				Reason = TransactionReason.Correction,
 				Subscription = _subscriptionRepository.Get(subscriptionId),
 				Type = eventArgs.Type
 			};
+			transaction.SetAmount(eventArgs.Amount);
+			return transaction;
 		}
 
 		private int? RequestSubscriptionId

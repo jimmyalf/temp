@@ -162,6 +162,9 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
+# Merge tool artifacts
+*.orig
+
 
 #Repository specific config
 /*/*.config
@@ -172,3 +175,4 @@ Output/
 SentFiles/
 [Ll]ogs/
 Synologen OPQ/*/Properties/Settings.*
+Synologen.Maintenance/packages

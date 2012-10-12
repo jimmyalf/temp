@@ -146,6 +146,11 @@
     <Compile Include="LensSubscriptionData\Factories\TransactionArticleFactory.cs" />
     <Compile Include="LensSubscriptionData\TransactionArticleRepositoryTester.cs" />
     <Compile Include="LensSubscriptionData\TransactionRepositoryTester.cs" />
+    <Compile Include="Orders\Factory.cs" />
+    <Compile Include="Orders\GenericDataBase.cs" />
+    <Compile Include="Orders\OrderTests.cs" />
+    <Compile Include="Orders\PendingPaymentTests.cs" />
+    <Compile Include="Orders\TransactionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test.cs" />
   </ItemGroup>

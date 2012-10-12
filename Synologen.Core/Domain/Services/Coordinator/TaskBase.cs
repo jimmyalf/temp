@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Domain.Testing;
 using Spinit.Wpc.Synologen.Core.Extensions;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
@@ -30,6 +31,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Services.Coordinator
 			catch(Exception ex)
 			{
 				LogError(String.Format("{0}: Caught exception while executing task", TaskName),ex);
+				if(TestRunnerDetector.IsRunningFromNunit) throw;
 			}
 		}
 

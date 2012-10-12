@@ -222,6 +222,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionErrorMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionItemMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionPendingPaymentAmountMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\SubscriptionPendingPaymentMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Orders\TransactionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ShopDetails\ShopEquipmentConnectionMap.cs" />

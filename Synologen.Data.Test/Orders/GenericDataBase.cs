@@ -26,14 +26,6 @@ namespace Spinit.Wpc.Synologen.Data.Test.Orders
 			return item;
 		}
 
-		public T PersistAs<T>(object item)
-		{
-			var session = _sessionFactory.OpenSession();
-			session.Save(typeof (T).FullName, item);
-			session.Flush();
-			return (T) item;
-		}
-
 		public T Fetch<T>(object id)
 		{
 			var session = _sessionFactory.OpenSession();

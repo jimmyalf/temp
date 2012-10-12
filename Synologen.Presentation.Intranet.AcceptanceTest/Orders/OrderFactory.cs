@@ -107,7 +107,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 		public static Order GetOrder(Shop shop, OrderCustomer customer, LensRecipe recipie = null, SubscriptionItem subscriptionItem = null, PaymentOptionType paymentOptionType = PaymentOptionType.Subscription_Autogiro_New)
 		{
-			return new Order
+			var order = new Order
 			{
 				LensRecipe = recipie,
 				ShippingType = OrderShippingOption.ToCustomer,
@@ -119,9 +119,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 	Type = paymentOptionType, 
 					SubscriptionId = (subscriptionItem == null) ? (int?) null : subscriptionItem.Subscription.Id
                 },
-				WithdrawalAmount = new SubscriptionAmount(8000,1000),
 				Reference = "Referens-text"
 			};
+			order.SetWithdrawalAmount(new SubscriptionAmount(8000,1000));
+			return order;
 		}
 
 	    public static Article GetArticle(ArticleType articleType, ArticleSupplier supplier, bool active = true)

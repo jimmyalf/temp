@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain;
+using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model.Enums;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence.Queries;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model;
 
@@ -10,32 +11,27 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts
 	{
 		static void Main(string[] args)
 		{
-<<<<<<< HEAD
 			var migrator = new Migrator();
 			var results = migrator.MigrateOrders();
 
 			
-			var OrderTransactions = new FetchOrderTransactions().Execute();
-		    var OrderSubscriptionItems = new FetchOrderSubscriptionItems().Execute();
-		    List<PendingPayment> PendingPayments = new FetchPendingPayments().Execute().ToList();
-=======
-		    var migrator = new Migrator();
-			migrator.MigrateOrders();
-
             var OrderTransactions = new FetchOrderTransactions().Execute().ToList();
             var OrderSubscriptionItems = new FetchOrderSubscriptionItems().Execute().ToList();
 		    var PendingPayments = new FetchPendingPayments().Execute().ToList();
 		    var UpdatedTransactions = new List<Transaction>();
-            
->>>>>>> tidying up Program.cs and adding initial HandleWithdrawal() code
+
 		    foreach (var orderTransaction in OrderTransactions)
 		    {
                 if (orderTransaction.PendingPaymentId != null) 
                 	UpdatedTransactions.Add(HandlePendingPayment(orderTransaction, PendingPayments)); 
-                else if (orderTransaction.Reason == 3) 
-                    UpdatedTransactions.Add(HandleCorrection(orderTransaction)); 
-                else if (orderTransaction.Reason == 2) 
-                    UpdatedTransactions.Add(HandleWithdrawal(orderTransaction, OrderSubscriptionItems)); 
+                else if (orderTransaction.Reason == TransactionReason.Correction) 
+                    UpdatedTransactions.Add(HandleCorrection(orderTransaction));
+				else
+                {
+                	var trans = orderTransaction;
+                }
+				//else if (orderTransaction.Reason == TransactionReason.Withdrawal) 
+				//    UpdatedTransactions.Add(HandleWithdrawal(orderTransaction, OrderSubscriptionItems)); 
 		    }
 			
 		}
@@ -43,8 +39,7 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts
         static Transaction HandlePendingPayment(Transaction transaction, IEnumerable<PendingPayment> pendingPayments)
         {
             var RelevantPendingPayment = pendingPayments.First(x => x.Id == transaction.PendingPaymentId);
-            transaction.NewAmount.Taxed = RelevantPendingPayment.TaxedAmount;
-            transaction.NewAmount.TaxFree = RelevantPendingPayment.UntaxedAmount;
+            transaction.NewAmount = RelevantPendingPayment.Amount;
             return transaction;
         }
 

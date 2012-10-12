@@ -1,21 +1,24 @@
 ﻿using System.Data;
-using Spinit.Data.FluentParameters;
+using Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence;
 
 namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model
 {
     class PendingPayment
     {
         public int Id { get; set; }
-		public decimal TaxedAmount { get; set; }
-		public decimal UntaxedAmount { get; set; }
+		public SubscriptionAmount Amount { get; set; }
 		
         public static PendingPayment Parse(IDataRecord record)
         {
-            return new FluentDataParser<PendingPayment>(record)
-                .Parse(x => x.Id)
-                .Parse(x => x.TaxedAmount, "cTaxedAmount")
-                .Parse(x => x.UntaxedAmount, "cTaxFreeAmount")
-                .GetValue();
+        	return Data.Parse<PendingPayment>(record, parser =>
+        	{
+        		parser.Parse(x => x.Id);
+        		parser.ParseComponent(x => x.Amount, map =>
+        		{
+					map.Parse(x => x.Taxed, "TaxedAmount");
+					map.Parse(x => x.TaxFree, "TaxFreeAmount");
+        		});
+        	});
         }
     }
 }

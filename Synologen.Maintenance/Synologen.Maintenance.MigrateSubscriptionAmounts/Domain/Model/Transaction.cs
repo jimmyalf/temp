@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model.Enums;
 using Synologen.Maintenance.MigrateSubscriptionAmounts.Persistence;
 
 namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model
@@ -8,7 +9,7 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts.Domain.Model
         public int Id { get; set; }
         public int SubscriptionId { get; set; }
         public int? PendingPaymentId { get; set; }
-        public int Reason { get; set; }
+        public TransactionReason Reason { get; set; }
         public decimal OldAmount { get; set; }
 		public SubscriptionAmount NewAmount { get; set; }
 

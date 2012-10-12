@@ -105,8 +105,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		{
 			Func<SubscriptionTransaction, bool> isWithdrawal = transaction => (transaction.Reason == TransactionReason.Withdrawal || transaction.Reason == TransactionReason.Correction) && transaction.Type == TransactionType.Withdrawal;
 			Func<SubscriptionTransaction, bool> isDeposit = transaction => (transaction.Reason == TransactionReason.Payment || transaction.Reason == TransactionReason.Correction) && transaction.Type == TransactionType.Deposit;
-			var withdrawals = transactions.Where(isWithdrawal).Sum(x => x.Amount.Total);
-			var deposits = transactions.Where(isDeposit).Sum(x => x.Amount.Total);
+			var withdrawals = transactions.Where(isWithdrawal).Sum(x => x.GetAmount().Total);
+			var deposits = transactions.Where(isDeposit).Sum(x => x.GetAmount().Total);
 			return deposits - withdrawals;
 		}
 

@@ -232,7 +232,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
     	private void SkapasEnTotalTransaktion()
     	{
     		var transaction = GetAll<SubscriptionTransaction>().Single();
-			transaction.Amount.ShouldBe(_order.WithdrawalAmount);
+			transaction.GetAmount().ShouldBe(_order.WithdrawalAmount);
 			transaction.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
 			transaction.Reason.ShouldBe(TransactionReason.Withdrawal);
 			transaction.SettlementId.ShouldBe(null);

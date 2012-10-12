@@ -130,11 +130,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Orders
 		{
 			var transaction = new SubscriptionTransaction
 			{
-				Amount = order.WithdrawalAmount,
 				Reason = TransactionReason.Withdrawal,
 				Subscription = order.SubscriptionPayment.Subscription,
 				Type = TransactionType.Withdrawal
 			};
+			transaction.SetAmount(order.WithdrawalAmount);
 			_transactionRepository.Save(transaction);
 		}
 

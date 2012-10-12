@@ -133,14 +133,15 @@ namespace Spinit.Wpc.Synologen.Presentation.AcceptanceTest.Helpers
 
 		public static SubscriptionTransaction GetTransaction(Subscription subscription, decimal taxedAmount = 255, decimal taxFreeAmount = 0, TransactionReason reason = TransactionReason.Payment, int? settlementId = null, TransactionType type = TransactionType.Deposit)
 		{
-			return new SubscriptionTransaction
+			var transaction = new SubscriptionTransaction
 			{
-				Amount = new SubscriptionAmount(taxedAmount, taxFreeAmount),
 				Reason = reason,
 				SettlementId = settlementId,
 				Subscription = subscription,
 				Type = type,
 			};
+			transaction.SetAmount(new SubscriptionAmount(taxedAmount, taxFreeAmount));
+			return transaction;
 		}
 
 		public static Subscription GetSubscription(OrderCustomer customer, Shop shop, SubscriptionConsentStatus consentStatus = SubscriptionConsentStatus.Accepted)

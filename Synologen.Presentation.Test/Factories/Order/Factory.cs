@@ -46,7 +46,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.Order
 			decimal taxedAmount = 250m, decimal taxFreeAmount = 0)
 		{
 			var transaction = A.Fake<SubscriptionTransaction>();
-			transaction.Amount = new SubscriptionAmount(taxedAmount, taxFreeAmount);
+			A.CallTo(() => transaction.GetAmount()).Returns(new SubscriptionAmount(taxedAmount, taxFreeAmount));
 			transaction.Reason = reason;
 			transaction.Subscription = subscription ?? GetSubscription();
 			transaction.SettlementId = settlementId;

@@ -94,11 +94,11 @@ namespace Spinit.Wpc.Synologen.Data.Commands.SubscriptionMigration
 			var taxedAmount = isNegative ? (_startBalance * -1) : _startBalance;
 			var transaction = new SubscriptionTransaction
 			{
-				Amount = new SubscriptionAmount(taxedAmount, 0),
 				Reason = TransactionReason.Correction,
 				Subscription = newSubscription,
 				Type = isNegative ? TransactionType.Withdrawal : TransactionType.Deposit
 			};
+			transaction.SetAmount(new SubscriptionAmount(taxedAmount, 0));
 			Session.Save(transaction);
 		}
 

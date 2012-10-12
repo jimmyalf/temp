@@ -64,13 +64,13 @@ namespace Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest
 		public void Task_creates_a_transaction()
 		{
 			var transaction = Get<Subscription>(GetWPCSession, _subscription.Id).Transactions.Single();
-			transaction.Amount.Total.ShouldBe(_successfulPayment.Amount);
+			transaction.GetAmount().Total.ShouldBe(_successfulPayment.Amount);
 			transaction.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
 			transaction.Reason.ShouldBe(TransactionReason.Payment);
 			transaction.SettlementId.ShouldBe(null);
 			transaction.Type.ShouldBe(TransactionType.Deposit);
 			transaction.PendingPayment.Id.ShouldBe(_pendingPayment.Id);
-			transaction.Amount.ShouldBe(_pendingPayment.GetValue());
+			transaction.GetAmount().ShouldBe(_pendingPayment.GetValue());
 		}
 
 		[Test]

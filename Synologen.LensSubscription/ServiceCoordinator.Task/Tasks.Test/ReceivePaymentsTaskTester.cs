@@ -86,7 +86,7 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		{
 			_expectedTransactionPayments.Each(payment => MockedTransactionRepository.Verify(x => x.Save(
 				It.Is<SubscriptionTransaction>(savedTransaction =>
-					Equals(savedTransaction.Amount.Total, payment.Amount) &&
+					Equals(savedTransaction.GetAmount().Total, payment.Amount) &&
 					//Equals(savedTransaction.Article, null) &&
 					Equals(savedTransaction.CreatedDate.Date, DateTime.Now.Date) &&
 					MatchReason(savedTransaction.Reason, payment.Result) &&
@@ -151,8 +151,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Transaction_is_saved_with_expected_values()
 		{
-			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Total.Equals(_expectedPayment.Amount))));
-			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Equals(_pendingPayment.GetValue(null)))));
+			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.GetAmount().Total.Equals(_expectedPayment.Amount))));
+			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.GetAmount().Equals(_pendingPayment.GetValue(null)))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Date.Equals(DateTime.Now.Date))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Reason.Equals(TransactionReason.Payment))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Subscription.Id.Equals(_subscriptionId))));
@@ -279,8 +279,8 @@ namespace Synologen.LensSubscription.ServiceCoordinator.Task.Test
 		[Test]
 		public void Transaction_is_saved_with_expected_values()
 		{
-			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Total.Equals(_expectedPayment.Amount))));
-			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.Amount.Equals(_pendingPayment.GetValue(null)))));
+			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.GetAmount().Total.Equals(_expectedPayment.Amount))));
+			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.GetAmount().Equals(_pendingPayment.GetValue(null)))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Year.Equals(DateTime.Now.Year))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Month.Equals(DateTime.Now.Month))));
 			MockedTransactionRepository.Verify(x => x.Save(It.Is<SubscriptionTransaction>(transaction => transaction.CreatedDate.Minute.Equals(DateTime.Now.Minute))));

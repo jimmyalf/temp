@@ -29,8 +29,8 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 
 		public static SubscriptionAmount GetCurrentAccountBalance(IList<SubscriptionTransaction> transactions)
 		{
-			var taxedAmount = GetBalanceFor(transactions, x => x.Amount.Taxed);
-			var taxFreeAmount = GetBalanceFor(transactions, x => x.Amount.TaxFree);
+			var taxedAmount = GetBalanceFor(transactions, x => x.GetAmount().Taxed);
+			var taxFreeAmount = GetBalanceFor(transactions, x => x.GetAmount().TaxFree);
 			return new SubscriptionAmount(taxedAmount, taxFreeAmount);
 		}
 

@@ -100,8 +100,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		private string GetFormattedAmount(SubscriptionTransaction transaction)
 		{
 			var amount = transaction.Type == TransactionType.Deposit 
-				? transaction.Amount.Total.ToString("C2")
-				: (transaction.Amount.Total * -1).ToString("C2");
+				? transaction.GetAmount().Total.ToString("C2")
+				: (transaction.GetAmount().Total * -1).ToString("C2");
 			switch (transaction.Reason)
 			{
 				case TransactionReason.Payment: return amount;

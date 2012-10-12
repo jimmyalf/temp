@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using NHibernate;
 using Spinit.Wpc.Core.Dependencies.NHibernate;
 using Spinit.Wpc.Synologen.Test.Data;
@@ -20,10 +22,28 @@ namespace Spinit.Wpc.Synologen.Data.Test.Orders
 
 		public T Persist<T>(T item)
 		{
+			//if(IsList<T>()) return (T) PersistList((IEnumerable<object>) item);
 			var session = _sessionFactory.OpenSession();
 			session.Save(typeof (T).FullName, item);
 			session.Flush();
 			return item;
+		}
+
+		private bool IsList<T>()
+		{
+			return typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(IEnumerable<>);
+		}
+
+		protected IEnumerable<T> PersistList<T>(IEnumerable<T> items)
+		{
+			var session = _sessionFactory.OpenSession();
+			var enumeratedItems = items.ToList();
+			foreach (var item in enumeratedItems)
+			{
+				session.Save(item);
+			}
+			session.Flush();
+			return enumeratedItems;
 		}
 
 		public T Fetch<T>(object id)

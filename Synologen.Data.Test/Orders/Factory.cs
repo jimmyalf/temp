@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
@@ -46,6 +48,10 @@ namespace Spinit.Wpc.Synologen.Data.Test.Orders
 		{
 			var item = new SubscriptionItem {PerformedWithdrawals = 0, Subscription = subscription};
 			return useOngoingSubscription ? item.Setup(250, 50, 1250, 125) : item.Setup(3, 1000, 500);
+		}
+		public static IEnumerable<SubscriptionItem> GetSubscriptionItems(Subscription subscription, bool useOngoingSubscription = false)
+		{
+			return Sequence.Generate(() => GetSubscriptionItem(subscription, useOngoingSubscription), 12);
 		}
 
 		public static SubscriptionTransaction GetTransaction(Subscription subscription, decimal amount, TransactionReason reason = TransactionReason.Payment, TransactionType type = TransactionType.Deposit)
@@ -125,6 +131,27 @@ namespace Spinit.Wpc.Synologen.Data.Test.Orders
 			public void SetOldAmount(decimal amount)
 			{
 				OldWithdrawalAmount = amount;
+			}
+		}
+
+		public static SubscriptionPendingPayment CreatePendingPayment(IEnumerable<SubscriptionItem> subscriptionItems)
+		{
+			var activeSubscriptionItems = subscriptionItems.Where(x => x.IsActive).ToList();
+			return new SubscriptionPendingPayment {HasBeenPayed = false}.AddSubscriptionItems(activeSubscriptionItems);
+		}
+
+		public static SubscriptionPendingPayment CreatePendingPayment(SubscriptionAmount amount)
+		{
+			var pendingPayment = new TestPendingPayment{HasBeenPayed = false};
+			pendingPayment.SetOldAmount(amount);
+			return pendingPayment;
+		}
+
+		private class TestPendingPayment : SubscriptionPendingPayment
+		{
+			public void SetOldAmount(SubscriptionAmount amount)
+			{
+				Amount = amount;
 			}
 		}
 	}

@@ -24,12 +24,12 @@ namespace Synologen.Maintenance.MigrateSubscriptionAmounts
 		    {
                 if (orderTransaction.PendingPaymentId != null) 
                 	UpdatedTransactions.Add(HandlePendingPayment(orderTransaction, PendingPayments)); 
-                else if (orderTransaction.Reason == TransactionReason.Correction) 
-                    UpdatedTransactions.Add(HandleCorrection(orderTransaction));
-				else
-                {
-                	var trans = orderTransaction;
-                }
+				//else if (orderTransaction.Reason == TransactionReason.Correction) 
+				//    UpdatedTransactions.Add(HandleCorrection(orderTransaction));
+				//else
+				//{
+				//    var trans = orderTransaction;
+				//}
 				//else if (orderTransaction.Reason == TransactionReason.Withdrawal) 
 				//    UpdatedTransactions.Add(HandleWithdrawal(orderTransaction, OrderSubscriptionItems)); 
 		    }

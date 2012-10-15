@@ -17,6 +17,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 			Map(x => x.ClearingNumber).Length(4);
 			Map(x => x.ConsentStatus).CustomType<SubscriptionConsentStatus>();
 			Map(x => x.CreatedDate);
+			Map(x => x.Version);
 			References(x => x.Customer).Column("CustomerId");
 			References(x => x.Shop).Column("ShopId").Not.Nullable();
 			Map(x => x.LastPaymentSent).Nullable();

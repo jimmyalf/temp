@@ -56,9 +56,9 @@
     <Reference Include="Shouldly, Version=1.1.0.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Shouldly.1.1.0.4\lib\35\Shouldly.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.1.0.1.0\lib\net35\Spinit.dll</HintPath>
+      <HintPath>..\packages\Spinit.1.0.7.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -150,6 +150,8 @@
     <Compile Include="Orders\GenericDataBase.cs" />
     <Compile Include="Orders\OrderTests.cs" />
     <Compile Include="Orders\PendingPaymentTests.cs" />
+    <Compile Include="Orders\SubscriptionItemTests.cs" />
+    <Compile Include="Orders\SubscriptionTests.cs" />
     <Compile Include="Orders\TransactionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test.cs" />

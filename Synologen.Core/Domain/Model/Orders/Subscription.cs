@@ -12,6 +12,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public Subscription()
 		{
 			CreatedDate = SystemTime.Now;
+			Version = SubscriptionVersion.VersionTwo;
 		}
 		public virtual OrderCustomer Customer { get; set; }
 		public virtual Shop Shop { get; set; }
@@ -26,6 +27,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual DateTime? ConsentedDate { get; set; }
 		public virtual bool Active { get; set; }
 		public virtual DateTime? LastPaymentSent { get; set; }
+		public virtual SubscriptionVersion Version { get; protected set; }
 
 		public static SubscriptionAmount GetCurrentAccountBalance(IList<SubscriptionTransaction> transactions)
 		{

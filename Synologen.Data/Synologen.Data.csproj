@@ -66,9 +66,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.1.0.1.0\lib\net35\Spinit.dll</HintPath>
+      <HintPath>..\packages\Spinit.1.0.7.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -187,6 +187,8 @@
     <Compile Include="Repositories\LensSubscriptionRepositories\TransactionArticleRepository.cs" />
     <Compile Include="Repositories\LensSubscriptionRepositories\TransactionRepository.cs" />
     <Compile Include="Repositories\ContractSalesRepositories\SettlementRepository.cs" />
+    <Compile Include="Repositories\NHibernate\Extensions\EnumerationType.cs" />
+    <Compile Include="Repositories\NHibernate\Extensions\EnumerationTypeConvention.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ArticleMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractCompanyMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\ContractSaleMap.cs" />

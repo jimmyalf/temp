@@ -1,9 +1,8 @@
 ﻿using System;
-using Spinit.Wpc.Synologen.Core.Domain;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Enumerations
 {
-	public class SubscriptionType : Enumeration
+	public class SubscriptionType : Enumeration<SubscriptionType>
 	{
 		public static SubscriptionType Ongoing = new SubscriptionType(-2, "Löpande");
 		public static SubscriptionType ThreeMonths = new SubscriptionType(3, "3 Månader");
@@ -11,7 +10,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Enumerations
 		public static SubscriptionType TwelveMonths = new SubscriptionType(12, "12 månader");
 		public static SubscriptionType CustomNumberOfWithdrawals = new SubscriptionType(-1, "Valfritt");
 
-		public SubscriptionType() { }
 		public SubscriptionType(int value, string displayName) :base(value,displayName)
 		{
 		}
@@ -25,7 +23,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Enumerations
 		public static SubscriptionType GetFromWithdrawalsLimit(int? numberOfWithdrawals)
 		{
 			if(numberOfWithdrawals == null) return Ongoing;
-			foreach (var type in GetAll<SubscriptionType>())
+			foreach (var type in GetAll())
 			{
 				if (type.Value == numberOfWithdrawals) return type;
 			}

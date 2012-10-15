@@ -66,7 +66,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Orders
 
 		private SubscriptionType GetSubscriptionType()
 		{
-		    var type = Enumeration.FromValue<SubscriptionType>(rblSubscriptionTime.SelectedValue.ToInt());
+		    var type = SubscriptionType.FromValue(rblSubscriptionTime.SelectedValue.ToInt());
 			if(type == SubscriptionType.CustomNumberOfWithdrawals)
 			{
 		    	int output;

@@ -57,12 +57,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\log4Net\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.1.0.1.0\lib\net35\Spinit.dll</HintPath>
+      <HintPath>..\packages\Spinit.1.0.7.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Spinit.Data.1.0.4.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -87,8 +86,8 @@
   <ItemGroup>
     <Compile Include="Attributes\EnumDisplayNameAttribute.cs" />
     <Compile Include="Domain\Model\Orders\SubscriptionPendingPaymentAmount.cs" />
+    <Compile Include="Domain\Model\Orders\SubscriptionTypes\SubscriptionVersion.cs" />
     <Compile Include="Domain\Testing\TestRunnerDetector.cs" />
-    <Compile Include="Domain\Enumeration.cs" />
     <Compile Include="Domain\EventArgs\OnCommandSentEventArgs.cs" />
     <Compile Include="Domain\EventArgs\OnResponseReceivedEventArgs.cs" />
     <Compile Include="Domain\Exceptions\AccessDeniedException.cs" />

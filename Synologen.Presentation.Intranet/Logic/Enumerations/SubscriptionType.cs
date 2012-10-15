@@ -10,9 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Enumerations
 		public static SubscriptionType TwelveMonths = new SubscriptionType(12, "12 månader");
 		public static SubscriptionType CustomNumberOfWithdrawals = new SubscriptionType(-1, "Valfritt");
 
-		public SubscriptionType(int value, string displayName) :base(value,displayName)
-		{
-		}
+		protected SubscriptionType(int value, string displayName) : base(value,displayName) { }
 
 		public SubscriptionType SetCustomNumberOfWithdrawals(int numberOfWithdrawals)
 		{

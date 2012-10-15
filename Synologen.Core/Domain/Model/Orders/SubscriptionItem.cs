@@ -1,4 +1,5 @@
 using System;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders.SubscriptionTypes;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 
 namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
@@ -8,6 +9,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public SubscriptionItem()
 		{
 			CreatedDate = SystemTime.Now;
+			Version = SubscriptionVersion.VersionTwo;
 		}
 
 		public virtual DateTime CreatedDate { get; private set; }
@@ -16,6 +18,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Orders
 		public virtual int PerformedWithdrawals { get; set; }
 		public virtual SubscriptionAmount Value { get; protected set; }
 		protected virtual SubscriptionAmount CustomMonthlyAmount { get; set; }
+		public virtual SubscriptionVersion Version { get; protected set; }
 
 		public virtual SubscriptionItem Setup(int withdrawalLimit, decimal totalPrice, decimal totalFee)
 		{

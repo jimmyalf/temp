@@ -28,11 +28,11 @@ namespace Spinit.Wpc.Synologen.Data.Test.Orders
 			};
 		}
 
-		public static Subscription GetSubscription(Shop shop, OrderCustomer customer, int seed = 0, bool? active = null, DateTime? consentedDate = null, SubscriptionConsentStatus? consentStatus = null)
+		public static Subscription GetSubscription(Shop shop, OrderCustomer customer, int seed = 0, bool? active = null, DateTime? consentedDate = null, SubscriptionConsentStatus? consentStatus = null, SubscriptionVersion version = null)
 		{
 			var isActive = active ?? (seed % 3 == 0);
 			var usedConsentStatus = consentStatus ?? SubscriptionConsentStatus.Accepted.SkipItems(seed);
-			return new Subscription
+			var subscription = new TestSubscription
 			{
 				BankAccountNumber = "123456789",
 				ClearingNumber = "1234",
@@ -42,12 +42,31 @@ namespace Spinit.Wpc.Synologen.Data.Test.Orders
 				Customer = customer,
 				Shop = shop,
 			};
+			if(version != null) subscription.SetVersion(version);
+			return subscription;
 		}
 
-		public static SubscriptionItem GetSubscriptionItem(Subscription subscription, bool useOngoingSubscription = false)
+		private class TestSubscription : Subscription
 		{
-			var item = new SubscriptionItem {PerformedWithdrawals = 0, Subscription = subscription};
+			public void SetVersion(SubscriptionVersion version)
+			{
+				Version = version;
+			}
+		}
+
+		public static SubscriptionItem GetSubscriptionItem(Subscription subscription, bool useOngoingSubscription = false, SubscriptionVersion version = null)
+		{
+			var item = new TestSubscriptionItem {PerformedWithdrawals = 0, Subscription = subscription};
+			if (version != null) item.SetVersion(version);
 			return useOngoingSubscription ? item.Setup(250, 50, 1250, 125) : item.Setup(3, 1000, 500);
+		}
+
+		private class TestSubscriptionItem : SubscriptionItem
+		{
+			public void SetVersion(SubscriptionVersion version)
+			{
+				Version = version;
+			}
 		}
 		public static IEnumerable<SubscriptionItem> GetSubscriptionItems(Subscription subscription, bool useOngoingSubscription = false)
 		{

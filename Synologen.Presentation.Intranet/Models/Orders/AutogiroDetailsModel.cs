@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Spinit.Wpc.Synologen.Core.Domain;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Enumerations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Orders;
@@ -55,7 +54,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 
     	public IEnumerable<SubscriptionType> SubscriptionOptions
     	{
-    		get { return Enumeration.GetAll<SubscriptionType>(); }
+    		get { return SubscriptionType.GetAll(); }
     	}
 
     	public SubscriptionType SelectedSubscriptionOption { get; set; }

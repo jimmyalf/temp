@@ -13,7 +13,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Orders
 			Map(x => x.WithdrawalsLimit).Nullable();
 			Map(x => x.PerformedWithdrawals).Not.Nullable();
 			References(x => x.Subscription).Column("SubscriptionId");
-			
+			Map(x => x.Version);
 			Component(x => x.Value, value =>
 			{
 			    value.Map(x => x.Taxed).Column("ProductPrice");

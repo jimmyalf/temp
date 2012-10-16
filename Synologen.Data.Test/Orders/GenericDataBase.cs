@@ -40,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.Orders
 			var enumeratedItems = items.ToList();
 			foreach (var item in enumeratedItems)
 			{
-				session.Save(item);
+				session.Save(typeof (T).FullName, item);
 			}
 			session.Flush();
 			return enumeratedItems;

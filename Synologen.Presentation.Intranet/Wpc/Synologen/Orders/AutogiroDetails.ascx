@@ -56,9 +56,9 @@
 				<input type="text" id="montly-withdrawal-amount" disabled="disabled" value="<%#Model.Montly %>" />
     		</p>
     		<p id="custom-monthly-withdrawal-price">
-    			<label>Månadsbelopp (pris)</label>
+    			<label>Månadsbelopp (produkt)</label>
 				<asp:TextBox ID="txtCustomMonthlyPrice" runat="server" Text="<%#Model.CustomMonthlyProductAmount %>" Visible="<%#Model.IsOngoingSubscription %>" ></asp:TextBox>
-				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtCustomMonthlyPrice" ErrorMessage="Månadsbelopp (pris) måste anges tillsvidare-abonnemang" Display="Dynamic" CssClass="error-message" Enabled="<%#Model.IsOngoingSubscription %>" >*</asp:RequiredFieldValidator>
+				<asp:RequiredFieldValidator runat="server" ControlToValidate="txtCustomMonthlyPrice" ErrorMessage="Månadsbelopp (produkt) måste anges tillsvidare-abonnemang" Display="Dynamic" CssClass="error-message" Enabled="<%#Model.IsOngoingSubscription %>" >*</asp:RequiredFieldValidator>
 				<asp:RegularExpressionValidator runat="server" ValidationExpression="^[0-9]+(,[0-9]+)?$" ControlToValidate="txtCustomMonthlyPrice" ErrorMessage="Angivet belopp måste vara numeriskt" CssClass="error-message">*</asp:RegularExpressionValidator>
 				<asp:RangeValidator runat="server" MinimumValue="0" MaximumValue="10000" Type="Double" ControlToValidate="txtCustomMonthlyPrice" ErrorMessage="Angivet belopp skall ligga i intervallet 0 - 10000" CssClass="error-message">*</asp:RangeValidator>
     		</p>

@@ -1,5 +1,7 @@
+using FluentNHibernate;
 using FluentNHibernate.Mapping;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSales
 {
@@ -9,7 +11,12 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.ContractSal
 		{
 			Table("SynologenOrderTransaction");
 			Id(x => x.Id);
-			Map(x => x.Amount);
+			Component(Reveal.Member<NewTransaction,SubscriptionAmount>("Amount"), mapping =>
+			{ 
+			    mapping.Map(x => x.TaxFree).Column("TaxFreeAmount");
+			    mapping.Map(x => x.Taxed).Column("TaxedAmount");
+			});
+			Map(Reveal.Member<NewTransaction>("OldAmount")).Column("Amount");
 			Map(x => x.CreatedDate);
 			References(x => x.Subscription)
 				.Fetch.Join()

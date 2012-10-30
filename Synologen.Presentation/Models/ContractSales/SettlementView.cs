@@ -17,7 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 			Id = settlement.Id;
 			CreatedDate = settlement.CreatedDate.ToString("yyyy-MM-dd HH:mm");
 			Period = General.GetSettlementPeriodNumber(settlement.CreatedDate);
-			SumAmountIncludingVAT = (settlement.OldTransactions.Sum(x => x.Amount) + settlement.NewTransactions.Sum(x => x.Amount) + settlement.ContractSales.Sum(x => x.TotalAmountIncludingVAT)).ToString("C2");
+			SumAmountIncludingVAT = (settlement.OldTransactions.Sum(x => x.Amount) + settlement.NewTransactions.Select(x => x.GetAmount()).Sum(x => x.Total) + settlement.ContractSales.Sum(x => x.TotalAmountIncludingVAT)).ToString("C2");
 			SettlementItems = GetItems(settlement).ToList();
 		}
 
@@ -40,7 +40,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.ContractSales
 					SumAmountIncludingVAT = (
 					    contractSalesGroup.Sum(x => x.TotalAmountIncludingVAT) +
 					    oldTransactionGroup.Sum(x => x.Amount) +
-					    newTransactionGroup.Sum(x => x.Amount)
+					    newTransactionGroup.Select(x => x.GetAmount()).Sum(x => x.Total)
 					).ToString("C2"),
 					ShopDescription = String.Format("{0} - {1}", shop.Number, shop.Name)
 			    };

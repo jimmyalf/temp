@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Moq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 {
@@ -35,7 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories.ContractSales
 			var mockedTransaction = new Mock<NewTransaction>();
 			mockedTransaction.SetupGet(x => x.Id).Returns(id);
 			mockedTransaction.SetupGet(x => x.Subscription).Returns(subscription);
-			mockedTransaction.SetupGet(x => x.Amount).Returns(amount);
+			mockedTransaction.Setup(x => x.GetAmount()).Returns(new SubscriptionAmount(amount, 0));
 			mockedTransaction.SetupGet(x => x.CreatedDate).Returns(date);
 			var returnObject = mockedTransaction.Object;
 			return returnObject;

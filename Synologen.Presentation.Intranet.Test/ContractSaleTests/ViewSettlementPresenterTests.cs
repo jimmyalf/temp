@@ -154,8 +154,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests
 				viewItem.CustomerName.ShouldBe(domainItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName));
 				viewItem.SubscriptionLink.ShouldBe(String.Format("{0}?subscription={1}", _newSubscriptionUrl, domainItem.Subscription.Id));
 				viewItem.Amount.ShouldBe(domainItem.GetAmount().Total.ToString("C2"));
-				viewItem.TaxedAmount.ShouldBe(domainItem.PendingPayment.TaxedAmount.ToString("C2"));
-				viewItem.TaxFreeAmount.ShouldBe(domainItem.PendingPayment.TaxFreeAmount.ToString("C2"));
+				viewItem.TaxedAmount.ShouldBe(domainItem.GetAmount().Taxed.ToString("C2"));
+				viewItem.TaxFreeAmount.ShouldBe(domainItem.GetAmount().TaxFree.ToString("C2"));
 				viewItem.Date.ShouldBe(domainItem.CreatedDate.ToString("yyyy-MM-dd"));
 			});
 		}

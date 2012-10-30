@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests.Factories
 {
@@ -31,27 +32,37 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests.Fact
 
 			return new[]
 			{
-				new NewTransaction
+				new NewTestTransaction
 				{
-					Amount = 100.10M, Subscription = subscription1, CreatedDate = new DateTime(2010, 11, 20),
+					Subscription = subscription1, CreatedDate = new DateTime(2010, 11, 20),
 					PendingPayment = new PendingPayment{ TaxedAmount = 75, TaxFreeAmount = 25.10M }
-				},
-				new NewTransaction
+				}.SetAmount(75, 25.10M),
+				new NewTestTransaction
 				{
-					Amount = 200.20M, Subscription = subscription2, CreatedDate = new DateTime(2010, 11, 21),
+					Subscription = subscription2, CreatedDate = new DateTime(2010, 11, 21),
 					PendingPayment = new PendingPayment{ TaxedAmount = 175, TaxFreeAmount = 25.20M }
-				},
-				new NewTransaction
+				}.SetAmount(175, 25.20M),
+				new NewTestTransaction
 				{
-					Amount = 300.30M, Subscription = subscription1, CreatedDate = new DateTime(2010, 11, 22),
+					Subscription = subscription1, CreatedDate = new DateTime(2010, 11, 22),
 					PendingPayment = new PendingPayment{ TaxedAmount = 250, TaxFreeAmount = 50.30M }
-				},
-				new NewTransaction
+				}.SetAmount(250, 50.30M),
+				new NewTestTransaction
 				{
-					Amount = 85.90M, Subscription = subscription2, CreatedDate = new DateTime(2010, 11, 23),
+					Subscription = subscription2, CreatedDate = new DateTime(2010, 11, 23),
 					PendingPayment = new PendingPayment{ TaxedAmount = 80, TaxFreeAmount = 5.90M }
-				}
+				}.SetAmount(80, 5.90M)
 			};
 		}
 	}
+
+	public class NewTestTransaction : NewTransaction
+	{
+		public NewTestTransaction SetAmount(decimal taxedAmount, decimal taxFreeAmount)
+		{
+			Amount = new SubscriptionAmount(taxedAmount, taxFreeAmount);
+			return this;
+		}
+	}
+
 }

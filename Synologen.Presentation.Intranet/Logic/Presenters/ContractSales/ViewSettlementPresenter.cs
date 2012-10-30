@@ -125,7 +125,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.ContractSa
 		{
 			return new SettlementDetailedSubscriptionTransactionsListItemModel
             {
-              	Amount = transactionItem.Amount.ToString("C2"),
+              	Amount = transactionItem.GetAmount().Total.ToString("C2"),
               	Date = transactionItem.CreatedDate.ToString("yyyy-MM-dd"),
 				SubscriptionLink = String.Format("{0}?subscription={1}", subscriptionPageUrl, transactionItem.Subscription.Id),
 				CustomerName = transactionItem.Subscription.Customer.ParseName(x => x.FirstName, x => x.LastName),

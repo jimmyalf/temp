@@ -80,7 +80,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		{
 			var expectedSum = _contractSales.Sum(x => x.TotalAmountIncludingVAT)
 				+ _oldTransactions.Sum(x => x.Amount)
-				+ _newTransactions.Sum(x => x.Amount);
+				+ _newTransactions.Select(x => x.GetAmount()).Sum(x => x.Total);
 			ViewModel.CreatedDate.ShouldBe(_settlement.CreatedDate.ToString("yyyy-MM-dd HH:mm"));
 			ViewModel.Id.ShouldBe(_settlement.Id);
 			ViewModel.Period.ShouldBe("1045");
@@ -91,7 +91,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			{
 				var expectedSumForShop1 = _contractSalesForShop1.Sum(x => x.TotalAmountIncludingVAT)
 				+ _oldTransactionsForShop1.Sum(x => x.Amount)
-				+ _newTransactionsForShop1.Sum(x => x.Amount);
+				+ _newTransactionsForShop1.Select(x => x.GetAmount()).Sum(x => x.Total);
 				settlementItem.BankGiroNumber.ShouldBe(_shop1.BankGiroNumber);
 				settlementItem.ShopDescription.ShouldBe(_shop1.Number + " - " + _shop1.Name);
 			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(_contractSalesForShop1.Count());
@@ -103,7 +103,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			{
 				var expectedSumForShop2 = _contractSalesForShop2.Sum(x => x.TotalAmountIncludingVAT)
 				+ _oldTransactionsForShop2.Sum(x => x.Amount)
-				+ _newTransactionsForShop2.Sum(x => x.Amount);
+				+ _newTransactionsForShop2.Select(x => x.GetAmount()).Sum(x => x.Total);
 				settlementItem.BankGiroNumber.ShouldBe(_shop2.BankGiroNumber);
 				settlementItem.ShopDescription.ShouldBe(_shop2.Number + " - " + _shop2.Name);
 			    settlementItem.NumberOfContractSalesInSettlement.ShouldBe(_contractSalesForShop2.Count());

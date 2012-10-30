@@ -383,6 +383,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 		private bool UploadFile (int nodeId, string virtualUploadDir, FileUpload uploadControl, FileCategories category, int? shopId, int? shopGroupId)
 		{
 			try {
+			    virtualUploadDir = virtualUploadDir.TrimStart('~');
 				if (!uploadControl.HasFile) {
 					ShowNegativeFeedBack (userMessageManager, "NoFileException");
 					return false;

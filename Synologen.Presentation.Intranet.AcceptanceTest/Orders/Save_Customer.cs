@@ -32,6 +32,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 				_submitRedirectUrl = "/submit/page";
 				_abortRedirectUrl = "/abort/page";
 				_previousRedirectUrl = "/previous/page";
+				_customerNotFoundWithPersonalIdNumber = "123456789";
 				_shop = CreateShop<Shop>();
 				A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
 				SetupNavigationEvents(_previousRedirectUrl,_abortRedirectUrl, _submitRedirectUrl);
@@ -44,17 +45,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 			    .VillJag("spara information om användaren");
 		}
 
-        [Test]
-        public void SparaNyKund()
-        {
-            SetupScenario(scenario => scenario
-                .Givet(AttFormuläretÄrKorrektIfyllt)
-                .När(AnvändarenFörsökerFortsättaTillNästaSteg)
-				.Så(KundinformationSparas)
-					.Och(FörflyttasAnvändarenTillVynFörNästaSteg)
-            );
-        }
-
     	[Test]
         public void VisaFormulärFörBefintligKund()
         {
@@ -62,6 +52,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
                 .Givet(AttEnKundHittatsIFöregåendeSteg)
                 .När(NärFormuläretLaddas)
                 .Så(FyllsFormuläretMedKunduppgifter)
+            );
+        }
+
+        [Test]
+        public void VisaFormulärFörNyKund()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(AttEnKundEjHittatsIFöregåendeSteg)
+                .När(NärFormuläretLaddas)
+                .Så(FyllsFormuläretIMedPersonnummer)
+					.Och(MeddelandeVisasAttKundSaknas)
             );
         }
 
@@ -75,13 +76,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
 
         [Test]
-        public void VisaFormulärFörIckeBefintligKund()
+        public void SparaNyKund()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttEnKundEjHittatsIFöregåendeSteg)
-                .När(NärFormuläretLaddas)
-                .Så(FyllsFormuläretIMedPersonnummer)
-					.Och(MeddelandeVisasAttKundSaknas)
+                .Givet(AttFormuläretÄrKorrektIfyllt)
+                .När(AnvändarenFörsökerFortsättaTillNästaSteg)
+				.Så(KundinformationSparas)
+					.Och(FörflyttasAnvändarenTillVynFörNästaSteg)
             );
         }
 
@@ -158,23 +159,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
         }
 
     	#region Arrange
+
         private void AttEnKundEjHittatsIFöregåendeSteg()
         {
-            _customerNotFoundWithPersonalIdNumber = "123456789";
             HttpContext.SetupRequestParameter("personalIdNumber", _customerNotFoundWithPersonalIdNumber);
         }
+
         private void AttEnKundHittatsIFöregåendeSteg()
         {
         	_customer = CreateCustomer(_shop);
             HttpContext.SetupRequestParameter("customer", _customer.Id.ToString());
         }
-
-		//private void AttEnKundHittatsViaOrderId()
-		//{
-		//    _customer = CreateCustomer(_shop);
-		//    _order = CreateOrder(_shop, _customer);
-		//    HttpContext.SetupRequestParameter("order", _order.Id.ToString());
-		//}
 
         private void EnOrder()
         {
@@ -197,12 +192,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
         private void AnvändarenUppdateratFormuläret()
         {
-            _form = OrderFactory.GetOrderCustomerForm(/*_customer.Id*/);
+            _form = OrderFactory.GetOrderCustomerForm();
         }
+
         private void AttFormuläretÄrKorrektIfyllt()
         {
             _form = OrderFactory.GetOrderCustomerForm();
         }
+
         #endregion
         
         #region Act

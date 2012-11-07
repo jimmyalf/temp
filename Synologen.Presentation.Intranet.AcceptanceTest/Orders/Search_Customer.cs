@@ -46,23 +46,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		public void KundExisterar()
 		{
 			SetupScenario(scenario => scenario
-				.Givet(AttKundKoppladTillButikFinnsSedanTidigare)
+				.Givet(BefintligKund)
+					.Och(AttAnvändarenAngettKundensPersonnummer)
 				.När(AnvändarenKlickarPåSök)
-				.Så(FlyttasAnvändarenTillKundformulär)
+				.Så(FlyttasAnvändarenTillKundformulärMedKundUppgifterIfyllda)
 			);
 		}
 
-        [Test]
+
+		[Test]
         public void KundExisterarEj()
         {
             SetupScenario(scenario => scenario
-                .Givet(AttKundInteFinnsSedanTidigare)
+                .Givet(AttAnvändarenAngerEttNyttPersonnummer)
                 .När(AnvändarenKlickarPåSök)
-                .Så(FlyttasAnvändarenTillKundformulär)
+                .Så(FlyttasAnvändarenTillKundformulärMedPersonnummerIfyllt)
             );
         }
 
-        [Test]
+		[Test]
         public void AvbrytBeställning()
         {
             SetupScenario(scenario => scenario
@@ -73,44 +75,55 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 
 
 	    #region Arrange
-        private void AttKundKoppladTillButikFinnsSedanTidigare()
-        {
-        	_customer = CreateCustomer(_shop);
-			
-        }
-        private void AttKundInteFinnsSedanTidigare()
-        {
-        	_customer = null;
-        }
+
+		private void BefintligKund()
+		{
+			_customer = CreateCustomer(_shop);
+		}
+
+		private void AttAnvändarenAngettKundensPersonnummer()
+		{
+            _searchEventArgs = OrderFactory.GetSearchCustomerEventArgs(_customer.PersonalIdNumber);
+		}
+
+		private void AttAnvändarenAngerEttNyttPersonnummer()
+		{
+			_searchEventArgs = OrderFactory.GetSearchCustomerEventArgs("1234" /* non existing personal id number*/);
+		}
+
         private void AttAnvändarenStårIVynFörAttSökaKund()
         {
-            
+        	
         }
+
         #endregion
 
         #region Act
+
         private void AnvändarenKlickarPåSök()
         {
-            _searchEventArgs = (_customer == null) 
-				? OrderFactory.GetSearchCustomerEventArgs("1234" /* non existing personal id number*/)
-				: OrderFactory.GetSearchCustomerEventArgs(_customer.PersonalIdNumber);
             _presenter.View_Submit(null, _searchEventArgs);
         }
+
         private void AnvändarenAvbryterBeställningen()
         {
         	_presenter.View_Abort(null, new EventArgs());
         }
+
         #endregion
 
         #region Assert
-        private void FlyttasAnvändarenTillKundformulär()
+        private void FlyttasAnvändarenTillKundformulärMedPersonnummerIfyllt()
         {
-			var expectedUrl = (_customer == null)
-				? "{Url}?personalIdNumber={PersonalIdNumber}".ReplaceWith(new {Url = _nextUrl, _searchEventArgs.PersonalIdNumber}) 
-				: "{Url}?customer={CustomerId}".ReplaceWith(new {Url = _nextUrl, CustomerId = _customer.Id});
-        	
+        	var expectedUrl = "{Url}?personalIdNumber={PersonalIdNumber}".ReplaceWith(new {Url = _nextUrl, _searchEventArgs.PersonalIdNumber});
             HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);
         }
+
+		private void FlyttasAnvändarenTillKundformulärMedKundUppgifterIfyllda()
+		{
+			var expectedUrl = "{Url}?customer={CustomerId}".ReplaceWith(new {Url = _nextUrl, CustomerId = _customer.Id});
+            HttpContext.ResponseInstance.RedirectedUrl.ShouldBe(expectedUrl);			
+		}
 
         private void FlyttasAnvändarenTillAvbrytSidan()
         {

@@ -83,11 +83,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests
 			View.Model.SimpleContractSales.Count().ShouldBe(_settlement.SaleItems.Select(x => x.Article.Id).Distinct().Count());
 			View.Model.SwitchViewButtonText.ShouldBe("Visa detaljer");
 			View.Model.OldTransactionsValueIncludingVAT.ShouldBe(_settlement.OldTransactionValueIncludingVAT.ToString("C2"));
-			View.Model.NewTransactionsValueIncludingVAT.ShouldBe(_settlement.NewTransactionValueIncludingVAT.ToString("C2"));
+			View.Model.NewTransactionsValueIncludingVAT.ShouldBe(_settlement.GetNewTransactionsValue().Total.ToString("C2"));
 			View.Model.OldTransactionsCount.ShouldBe(_settlement.OldTransactions.Count().ToString());
 			View.Model.NewTransactionCount.ShouldBe(_settlement.NewTransactions.Count().ToString());
-			View.Model.NewTransactionTaxedValue.ShouldBe(_settlement.NewTransactionTaxedValue.ToString("C2"));
-			View.Model.NewTransactionTaxFreeValue.ShouldBe(_settlement.NewTransactionTaxFreeValue.ToString("C2"));
+			View.Model.NewTransactionTaxedValue.ShouldBe(_settlement.GetNewTransactionsValue().Taxed.ToString("C2"));
+			View.Model.NewTransactionTaxFreeValue.ShouldBe(_settlement.GetNewTransactionsValue().TaxFree.ToString("C2"));
 		}
 
 		[Test]

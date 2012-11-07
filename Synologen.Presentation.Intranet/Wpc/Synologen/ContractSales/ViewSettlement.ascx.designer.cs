@@ -22,15 +22,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
         protected global::System.Web.UI.WebControls.Button btnSwitchView;
         
         /// <summary>
-        /// btnMarkAsPayed control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMarkAsPayed;
-        
-        /// <summary>
         /// plSimpleView control.
         /// </summary>
         /// <remarks>
@@ -47,6 +38,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptSettlementOrderItemsSimple;
+        
+        /// <summary>
+        /// btnMarkAsPayed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMarkAsPayed;
         
         /// <summary>
         /// plDetailedView control.

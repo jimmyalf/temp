@@ -20,7 +20,6 @@
 	</fieldset>
 	<div class="control-actions">
 		<asp:Button ID="btnSwitchView" runat="server" Text='<%#Model.SwitchViewButtonText%>' OnClick="btnSwitchView_Click" />
-		<asp:Button ID="btnMarkAsPayed" runat="server" Text="Markera som utbetalda" OnClick="btnMarkAsPayed_Click" OnClientClick="return confirm('Är du säker på att du vill markera fakturor som utbetalda?');"  Enabled='<%#Model.MarkAsPayedButtonEnabled %>'/>
 		<input type="button" onclick="window.print();return false;" value="Skriv ut"/>
 	</div>
 	<asp:PlaceHolder ID="plSimpleView" runat="server" Visible='<%#Model.DisplaySimpleView%>'>
@@ -52,7 +51,10 @@
 			</tbody>
 		</table>
 	</FooterTemplate>			
-	</asp:Repeater>	
+	</asp:Repeater>
+	<%if(Model.MarkAsPayedButtonEnabled){ %>
+		<asp:Button ID="btnMarkAsPayed" runat="server" Text="Markera som utbetalda" OnClick="btnMarkAsPayed_Click" OnClientClick="return confirm('Är du säker på att du vill markera fakturor som utbetalda?');" />
+	<%} %>
 	</fieldset>
 	</asp:PlaceHolder>
 	<asp:PlaceHolder ID="plDetailedView" runat="server" Visible='<%#Model.DisplayDetailedView%>'>

@@ -17,7 +17,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.ContractSaleTests.Fact
 				Shop = ShopFactory.Get(55),
                 ContractSalesValueIncludingVAT = 1234.56M,
 				OldTransactionValueIncludingVAT = 987.65M,
-				NewTransactionValueIncludingVAT = 978.65M,
 			};
 		}
 	}

@@ -24,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.ContractSales
 		private void PopulateSettlements() 
 		{
 			if(MemberShopId<=0) return;
-			rptSettlements.DataSource = Provider.GetSettlementsDataSet(0, (int) MemberShopId, null);
+			rptSettlements.DataSource = Provider.GetSettlementsDataSet(0, (int) MemberShopId, "tblSynologenSettlement.cId DESC");
 			rptSettlements.DataBind();
 			_shopNumber = Provider.GetShop((int) MemberShopId).Number;
 			rptSettlements.Visible = (rptSettlements.Items.Count > 0);

@@ -54,13 +54,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.ContractSa
 			View.Model.Period = Business.Utility.General.GetSettlementPeriodNumber(settlementForShop.CreatedDate);
 			View.Model.ContractSalesValueIncludingVAT = settlementForShop.ContractSalesValueIncludingVAT.ToString("C2");
 			View.Model.OldTransactionsValueIncludingVAT = settlementForShop.OldTransactionValueIncludingVAT.ToString("C2");
-			View.Model.NewTransactionsValueIncludingVAT = settlementForShop.NewTransactionValueIncludingVAT.ToString("C2");
+			View.Model.NewTransactionsValueIncludingVAT = settlementForShop.GetNewTransactionsValue().Total.ToString("C2");
 			View.Model.OldTransactionsCount = settlementForShop.OldTransactions.Count().ToString();
 			View.Model.NewTransactionCount = settlementForShop.NewTransactions.Count().ToString();
 			View.Model.OldTransactions = settlementForShop.OldTransactions.Select(transaction => ConvertDetailedOldTransactions(transaction, oldSubscriptionPageUrl));
 			View.Model.NewTransactions = settlementForShop.NewTransactions.Select(transaction => ConvertDetailedNewTransactions(transaction, newSubscriptionPageUrl));
-			View.Model.NewTransactionTaxedValue = settlementForShop.NewTransactionTaxedValue.ToString("C2");
-			View.Model.NewTransactionTaxFreeValue = settlementForShop.NewTransactionTaxFreeValue.ToString("C2");
+			View.Model.NewTransactionTaxedValue = settlementForShop.GetNewTransactionsValue().Taxed.ToString("C2");
+			View.Model.NewTransactionTaxFreeValue = settlementForShop.GetNewTransactionsValue().TaxFree.ToString("C2");
 			View.Model.DetailedContractSales = settlementForShop.SaleItems.Select(ConvertDetailedSalesItem);
 			View.Model.SimpleContractSales = settlementForShop.SaleItems.OrderBy(x => x.Article.Id).GroupBy(x => x.Article.Id).Select(ConvertSimpleSalesItem);
 			View.Model.SwitchViewButtonText = (useDetailedView) ? SimpleButtonText : DetailedButtonText;

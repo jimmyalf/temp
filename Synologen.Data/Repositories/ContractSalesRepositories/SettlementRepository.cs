@@ -27,7 +27,6 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.ContractSalesRepositories
 				SaleItems = contractSaleItemsForShop.SelectMany(x => x.SaleItems),
 				ContractSalesValueIncludingVAT = contractSaleItemsForShop.Sum(x => x.TotalAmountIncludingVAT),
 				OldTransactionValueIncludingVAT = oldTransactionsForShop.Sum(x => x.Amount),
-				NewTransactionValueIncludingVAT = newTransactionsForShop.Select(x => x.GetAmount()).Sum(x => x.Total),
 				AllContractSalesHaveBeenMarkedAsPayed = contractSaleItemsForShop.All(x => x.MarkedAsPayed)
 			};
 			return shopSettlement;

@@ -161,8 +161,42 @@ namespace Spinit.Wpc.Synologen.OPQ.Core
 				return SafeConfigString(SynologenOpqSetting, "ImprovmentSubject", string.Empty);
 			}
 		}
-		
 
+		/// <summary>
+		/// The NETCOMPETENCE encryption key.
+		/// </summary>
+		
+		static public string NetCompetenceEncryptionKey
+		{
+			get { return SafeConfigString (SynologenOpqSetting, "NetCompetenceEncryptionKey", string.Empty); }
+		}
+
+		/// <summary>
+		/// The NETCOMPETENCE login-url.
+		/// </summary>
+
+		static public string NetCompetenceNtsLoginUrl
+		{
+			get { return SafeConfigString (SynologenOpqSetting, "NetCompetenceNtsLoginUrl", string.Empty); }
+		}
+
+		/// <summary>
+		/// The NETCOMPETENCE debug-flag.
+		/// </summary>
+
+		static public bool NetCompetenceDebug
+		{
+			get { return SafeConfigBoolean (SynologenOpqSetting, "NetCompetenceDebug", true); }
+		}
+
+		/// <summary>
+		/// The NETCOMPETENCE return-page.
+		/// </summary>
+
+		static public string NetCompetenceReturnPage
+		{
+			get { return SafeConfigString (SynologenOpqSetting, "NetCompetenceReturnPage", string.Empty); }
+		}
 
 		#endregion
 	}

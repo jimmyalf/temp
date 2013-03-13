@@ -24,6 +24,12 @@
 			&nbsp;>&nbsp;
 			<%=Html.ActionLink("Ny","AddGlassType","Frame") %>
 		</li>
+        <li>|</li>
+        <li>
+			<%=Html.ActionLink("Leverantörer","Suppliers","Frame") %>
+			&nbsp;>&nbsp;
+			<%=Html.ActionLink("Ny","AddSupplier","Frame") %>
+		</li>
 		<li>|</li>
 		<li>
 			<%=Html.ActionLink("Beställningar","FrameOrders","Frame") %>

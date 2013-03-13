@@ -38,6 +38,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(model.Direction, Is.EqualTo(SortDirection.Ascending));
 			Expect(model.List.Count(), Is.EqualTo(10));
 			Expect(model.List.First().Id, Is.EqualTo(expectedFirstItem.Id));
+            Expect(model.List.First().Supplier, Is.EqualTo(expectedFirstItem.Supplier.Name));
 			Expect(model.List.First().Frame, Is.EqualTo(expectedFirstItem.Frame.Name));
 			Expect(model.List.First().GlassType, Is.EqualTo(expectedFirstItem.GlassType.Name));
 			Expect(model.List.First().Shop, Is.EqualTo(expectedFirstItem.OrderingShop.Name));
@@ -101,6 +102,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		    Expect(model.Sphere.Left, Is.EqualTo(domainItem.Sphere.Left));
 		    Expect(model.Sphere.Right, Is.EqualTo(domainItem.Sphere.Right));
 			Expect(model.Notes, Is.EqualTo(domainItem.Reference));
+            Expect(model.Supplier, Is.EqualTo(domainItem.Supplier.Name));
 
 		}
 
@@ -114,7 +116,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			expectedFrameOrder.Cylinder = null;
 			var mockedFrameRepository = new Mock<IFrameOrderRepository>();
 			mockedFrameRepository.Setup(x => x.Get(It.Is<int>(id => id.Equals(frameOrderId)))).Returns(expectedFrameOrder);
-			var testController = new FrameController(frameRepository, frameColorRepository, frameBrandRepository, frameGlassTypeRepository, mockedFrameRepository.Object, _adminSettingsService);
+			var testController = new FrameController(frameRepository, frameColorRepository, frameBrandRepository, frameGlassTypeRepository, mockedFrameRepository.Object, _adminSettingsService,frameSupplierRepository);
 
 		    //Act
 		    var result = (ViewResult) testController.ViewFrameOrder(frameOrderId);

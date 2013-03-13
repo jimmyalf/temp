@@ -122,7 +122,9 @@
     <Compile Include="ContractSales\TestShop.cs" />
     <Compile Include="FrameData\Factories\FrameGlassTypeFactory.cs" />
     <Compile Include="FrameData\Factories\FrameOrderFactory.cs" />
+    <Compile Include="FrameData\Factories\FrameSupplierFactory.cs" />
     <Compile Include="FrameData\TestFrameOrder.cs" />
+    <Compile Include="FrameData\TestFrameSupplier.cs" />
     <Compile Include="FrameData\TestShop.cs" />
     <Compile Include="FrameData\TestFrameBrands.cs" />
     <Compile Include="FrameData\TestFrameColors.cs" />

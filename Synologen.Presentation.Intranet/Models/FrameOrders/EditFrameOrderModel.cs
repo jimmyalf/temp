@@ -7,6 +7,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.FrameOrders
 		
 		public IEnumerable<FrameListItem> FramesList { get; set; }
 		public IEnumerable<FrameGlassTypeListItem> GlassTypesList { get; set; }
+        public IEnumerable<FrameSupplierListItem> SupplierList { get; set; }
 		public EyeParameterIntervalListAndSelection Cylinder { get; set; }
 		public EyeParameterIntervalListAndSelection Sphere { get; set; }
 		public EyeParameterIntervalListAndSelection PupillaryDistance { get; set; }
@@ -15,6 +16,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.FrameOrders
 		public int? AxisSelectionRight { get; set; }
 		public int? AxisSelectionLeft { get; set; }
 
+        public string SupplierRequiredErrorMessage { get; set; }
 		public string FrameRequiredErrorMessage { get; set; }
 		public string PupillaryDistanceRequiredErrorMessage { get; set; }
 		public string GlassTypeRequiredErrorMessage { get; set; }
@@ -25,6 +27,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.FrameOrders
 		public string AxisRequiredMessage { get; set; }
 		public string AxisRangeMessage { get; set; }
 
+        public int SelectedSupplierId { get; set; }
 		public int SelectedFrameId { get; set; }
 		public int SelectedGlassTypeId { get; set; }
 

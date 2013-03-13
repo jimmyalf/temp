@@ -1,6 +1,28 @@
 ﻿<%@ Control Language="C#" CodeBehind="Order.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.FrameOrders.Order" %>
 <%if(Model.DisplayForm) { %>
 <div id="synologen-create-frame-order" class="synologen-control">
+
+<div class="frame-order-item supplier">
+	<label for="<%=drpSupplier.ClientID%>">Bågar</label>
+	<asp:DropDownList 
+		ID="drpSupplier" 
+		Runat="server" 
+		DataSource='<%#Model.SupplierList%>' 
+		SelectedValue='<%#Model.SelectedSupplierId%>'
+		AutoPostBack="false"
+		DataValueField="Id"
+		DataTextField="Name" />
+	<asp:RequiredFieldValidator 
+		ID="reqSuppliers" 
+		InitialValue="0" 
+		Runat="server" 
+		ErrorMessage="<%#Model.SupplierRequiredErrorMessage %>" 
+		ControlToValidate="drpSupplier" 
+		Display="Dynamic" 
+		CssClass="invalid" 
+		ValidationGroup="vldSubmit"	>&nbsp;*</asp:RequiredFieldValidator>
+</div>
+
 <div class="frame-order-item frame">
 	<label for="<%=drpFrames.ClientID%>">Bågar</label>
 	<asp:DropDownList 

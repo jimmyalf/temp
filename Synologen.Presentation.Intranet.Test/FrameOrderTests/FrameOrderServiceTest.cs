@@ -32,19 +32,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			//Arrange
 			var frameOrder = frameOrderRepository.Get(10);
 			const string expectedEmailFrom = "test@abc.se";
-			const string expectedEmailTo = "test@abc.se";
+			//const string expectedEmailTo = "test@abc.se";
 			const string expectedSubject = "Testsubject";
 			var expectedEmailBody = GetExpectedFrameOrderEmailBody(frameOrder);
 
 			//Act
 			settingsService.Setup(x => x.GetFrameOrderEmailBodyTemplate()).Returns(GetFrameOrderEmailBodyTemplate);
 			settingsService.SetupGet(x => x.EmailOrderFrom).Returns(expectedEmailFrom);
-			settingsService.SetupGet(x => x.EmailOrderSupplierEmail).Returns(expectedEmailTo);
+            settingsService.SetupGet(x => x.EmailOrderSupplierEmail).Returns(frameOrder.Supplier.Email);
 			settingsService.SetupGet(x => x.EmailOrderSubject).Returns(expectedSubject);
 			service.SendOrder(frameOrder);
 
 			//Assert
-			emailService.Verify(x => x.SendEmail(expectedEmailFrom, expectedEmailTo, expectedSubject, expectedEmailBody));
+            emailService.Verify(x => x.SendEmail(expectedEmailFrom, frameOrder.Supplier.Email, expectedSubject, expectedEmailBody));
 		}
 
 		private static string GetFrameOrderEmailBodyTemplate() { 

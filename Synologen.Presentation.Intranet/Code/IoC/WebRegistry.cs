@@ -32,6 +32,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Code.IoC
 		{
 			//Register repositories
 			For<IFrameRepository>().HybridHttpOrThreadLocalScoped().Use<FrameRepository>();
+            For<IFrameSupplierRepository>().HybridHttpOrThreadLocalScoped().Use<FrameSupplierRepository>();
 			For<IFrameGlassTypeRepository>().HybridHttpOrThreadLocalScoped().Use<FrameGlassTypeRepository>();
 			For<IFrameOrderRepository>().HybridHttpOrThreadLocalScoped().Use<FrameOrderRepository>();
 			For<IShopRepository>().HybridHttpOrThreadLocalScoped().Use<ShopRepository>();

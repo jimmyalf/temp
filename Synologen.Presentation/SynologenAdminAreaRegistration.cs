@@ -37,6 +37,10 @@ namespace Spinit.Wpc.Synologen.Presentation
 			context.MapRoute(AreaName + "FrameEditGlassType", urlPrefix + "frames/editglasstype/{id}", new { controller = "Frame", action = "EditGlassType" } );
 			context.MapRoute(AreaName + "FrameGlassTypes", urlPrefix + "frames/glasstypes", new { controller = "Frame", action = "GlassTypes" } );
 
+            context.MapRoute(AreaName + "FrameAddSupplier", urlPrefix + "frames/addsupplier", new { controller = "Frame", action = "AddSupplier" });
+            context.MapRoute(AreaName + "FrameDeleteSupplier", urlPrefix + "frames/deletesupplier/{id}", new { controller = "Frame", action = "DeleteSupplier" });
+            context.MapRoute(AreaName + "FrameEditSupplier", urlPrefix + "frames/editsupplier/{id}", new { controller = "Frame", action = "EditSupplier" });
+            context.MapRoute(AreaName + "FrameSuppliers", urlPrefix + "frames/suppliers", new { controller = "Frame", action = "Suppliers" });
 
 			context.MapRoute(AreaName + "FrameOrders", urlPrefix + "frames/orders", new { controller = "Frame", action = "FrameOrders" } );
 			context.MapRoute(AreaName + "ViewFrameOrders", urlPrefix + "frames/orders/view/{id}", new { controller = "Frame", action = "ViewFrameOrder" } );

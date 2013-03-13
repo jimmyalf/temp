@@ -22,6 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 	{
 		private EditFrameOrderPresenter _presenter;
 		private IEditFrameOrderView<EditFrameOrderModel> _view;
+	    private IFrameSupplierRepository _frameSupplierRepository;
 		private IFrameRepository _frameRepository;
 		private IFrameGlassTypeRepository _frameGlassTypeRepository;
 		private IFrameOrderRepository _frameOrderRepository;
@@ -35,6 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 		[SetUp]
 		public void Context()
 		{
+            _frameSupplierRepository = RepositoryFactory.GetFrameSupplierRepository();
 			_frameRepository = RepositoryFactory.GetFrameRepository();
 			_frameGlassTypeRepository = RepositoryFactory.GetFrameGlassRepository();
 			_frameOrderRepository = RepositoryFactory.GetFramOrderRepository();
@@ -44,13 +46,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			_view = A.Fake<IEditFrameOrderView<EditFrameOrderModel>>();
 			_routingservice = A.Fake<IRoutingService>();
 				//ViewsFactory.GetFrameOrderView();
-			_presenter = new EditFrameOrderPresenter(_view, _frameRepository, _frameGlassTypeRepository, _frameOrderRepository, _shopRepository, _synologenMemberService, _synologenSettingsService, _routingservice);
+			_presenter = new EditFrameOrderPresenter(_view, _frameRepository, _frameGlassTypeRepository, _frameOrderRepository, _shopRepository, _synologenMemberService, _synologenSettingsService,_frameSupplierRepository, _routingservice);
 		}
 
 		[Test]
 		public void When_View_Is_Loaded_Model_Has_Expected_Values()
 		{
 			//Arrange
+            const int expectedNumberOfSuppliers = 11;
 			const int expectedNumberOfFrames = 11;
 			const int expectedNumberOfPDs = 1;
 			const int expectedNumberOfSpheres = 1;
@@ -67,6 +70,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			_presenter.View_Load(null, new EventArgs());
 
 			//Assert
+            Expect(_view.Model.SelectedSupplierId, Is.EqualTo(0));
 			Expect(_view.Model.SelectedFrameId, Is.EqualTo(0));
 			Expect(_view.Model.SelectedGlassTypeId, Is.EqualTo(0));
 			Expect(_view.Model.PupillaryDistance.Selection.Left, Is.EqualTo(int.MinValue));
@@ -81,6 +85,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			Expect(_view.Model.Addition.Selection.Right, Is.EqualTo(int.MinValue));
 			Expect(_view.Model.Height.Selection.Left, Is.EqualTo(int.MinValue));
 			Expect(_view.Model.Height.Selection.Right, Is.EqualTo(int.MinValue));
+            Expect(_view.Model.SupplierList.Count(), Is.EqualTo(expectedNumberOfSuppliers));
+            Expect(_view.Model.SupplierList.First().Id, Is.EqualTo(0));
+            Expect(_view.Model.SupplierList.First().Name, Is.EqualTo("-- Välj leverantör --"));
 			Expect(_view.Model.FramesList.Count(), Is.EqualTo(expectedNumberOfFrames));
 			Expect(_view.Model.FramesList.First().Id, Is.EqualTo(0));
 			Expect(_view.Model.FramesList.First().Name, Is.EqualTo("-- Välj båge --"));
@@ -135,6 +142,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			_presenter.View_Load(null, new EventArgs());
 
 			//Assert
+            Expect(_view.Model.SelectedSupplierId, Is.EqualTo(expectedFrameOrder.Supplier.Id));
 			Expect(_view.Model.SelectedFrameId, Is.EqualTo(expectedFrameOrder.Frame.Id));
 			Expect(_view.Model.SelectedGlassTypeId, Is.EqualTo(expectedFrameOrder.GlassType.Id));
 			ExpectEqual(_view.Model.PupillaryDistance.Selection, expectedFrameOrder.PupillaryDistance, _eyeparameterEquality);

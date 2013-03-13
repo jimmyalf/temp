@@ -172,6 +172,7 @@
     <Compile Include="Logic\Views\LensSubscription\IListCustomersView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListSubscriptionErrorView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListTransactionView.cs" />
+    <Compile Include="Models\FrameOrders\FrameSupplierListItem.cs" />
     <Compile Include="Models\LensSubscription\CreateCustomerModel.cs" />
     <Compile Include="Models\LensSubscription\CreateLensSubscriptionModel.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\CreateLensSubscriptionPresenter.cs" />

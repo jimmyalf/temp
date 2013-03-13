@@ -6,20 +6,20 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 namespace Spinit.Wpc.Synologen.Data.Test.FrameData.Factories
 {
 	public static class FrameOrderFactory {
-		public static IEnumerable<FrameOrder> GetFrameOrders(IEnumerable<Frame> frames, IEnumerable<FrameGlassType> glassTypes, Shop shop) 
+		public static IEnumerable<FrameOrder> GetFrameOrders(IEnumerable<Frame> frames, IEnumerable<FrameGlassType> glassTypes, Shop shop, FrameSupplier supplier) 
 		{
 			var orders = new List<FrameOrder>();
 			foreach (var frame in frames)
 			{
 				foreach (var glassType in glassTypes)
 				{
-					orders.Add(GetFrameOrder(frame, glassType, shop));
+                    orders.Add(GetFrameOrder(frame, glassType, shop, supplier));
 				}
 			}
 			return orders;
 		}
 
-		public static FrameOrder GetFrameOrder(Frame frame, FrameGlassType glassType, Shop shop) 
+		public static FrameOrder GetFrameOrder(Frame frame, FrameGlassType glassType, Shop shop, FrameSupplier supplier) 
 		{
 			return new FrameOrder {
 				Addition = new NullableEyeParameter { Left = 1.75M, Right = 2.25M },
@@ -33,7 +33,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData.Factories
 				PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
 				Sent = new DateTime(2010, 08, 24, 13, 45, 0),
 				Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M },
-				Reference = "Kund: Adam Bertil"
+				Reference = "Kund: Adam Bertil",
+                Supplier = supplier
 			};
 
 		}

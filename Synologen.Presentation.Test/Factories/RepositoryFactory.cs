@@ -35,6 +35,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 			return new MockedFrameOrderRepository();
 		}
 
+        public static IFrameSupplierRepository GetFrameSupplierRepository()
+        {
+            return new MockedFrameSupplierRepository();
+        }
+
 		public static Frame GetMockedFrame(int id)
 		{
 			var mockedStock = new Mock<FrameStock>();
@@ -88,6 +93,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 					
 		}
 
+        public static FrameSupplier GetMockedFrameSupplier(int id)
+        {
+            return new FrameSupplier
+                       {
+                           Id = id,
+                           Name = "Hoya",
+                           Email = "kundservice@hoya.se"
+
+                       };
+        }
+
 		public static FrameOrder GetMockedFrameOrder(int id)
 		{
 			return new FrameOrder {
@@ -102,7 +118,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 				PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
 				Sent = new DateTime(2010, 08, 24, 13, 45, 0),
 				Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M },
-                Reference = "Leverans helst innan fredag."
+                Reference = "Leverans helst innan fredag.",
+                Supplier = new FrameSupplier{Name = "Leverantören AB", Email = "leverantoren@hotmail.com"}
 			};
 		}
 
@@ -144,6 +161,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 		{
 			public MockedFrameOrderRepository() : base(GetMockedFrameOrder) {}
 		}
+
+
+        internal class MockedFrameSupplierRepository : GenericMockRepository<FrameSupplier>, IFrameSupplierRepository
+        {
+            public MockedFrameSupplierRepository() : base(GetMockedFrameSupplier) { }
+        }
 
 		
 

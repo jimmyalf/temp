@@ -10,6 +10,10 @@
 					<%= Html.LabelFor(x => x.Id) %>
 					<%= Html.DisplayFor(x => x.Id) %>
 				</p>
+                <p class="display-item clearLeft">
+					<%= Html.LabelFor(x => x.Supplier) %>
+					<span><%= Html.DisplayFor(x => x.Supplier) %></span>
+				</p>
 				<p class="display-item clearLeft">
 					<%= Html.LabelFor(x => x.Frame) %>
 					<span><%= Html.DisplayFor(x => x.Frame) %></span>

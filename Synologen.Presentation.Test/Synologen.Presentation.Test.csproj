@@ -130,6 +130,7 @@
     <Compile Include="ContractSalesControllerTests_Articles.cs" />
     <Compile Include="Factories\ContractSales\OrderFactory.cs" />
     <Compile Include="Factories\Order\Factory.cs" />
+    <Compile Include="FrameSupplierControllerTests.cs" />
     <Compile Include="TestHelpers\CommandQueryInterceptor.cs" />
     <Compile Include="TestHelpers\ContractSalesTestbase.cs" />
     <Compile Include="TestHelpers\ControllerTestbase.cs" />

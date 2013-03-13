@@ -56,6 +56,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			return UpdateFrameGlassType(entity, viewModel);
 		}
 
+        public static FrameSupplier ToFrameSupplier(this FrameSupplierEditView viewModel)
+        {
+            return UpdateFrameSupplier(new FrameSupplier(), viewModel);
+        }
+
+        public static FrameSupplier FillFrameSupplier(this FrameSupplierEditView viewModel, FrameSupplier entity )
+        {
+            return UpdateFrameSupplier(entity, viewModel);
+        }
+
 		public static Customer FillCustomer(this SubscriptionView viewModel, Customer entity)
 		{
 			return UpdateCustomer(entity, viewModel);	
@@ -142,6 +152,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			};
 		}
 
+        public static FrameSupplierEditView ToFrameSupplierEditView(this FrameSupplier frameSupplier, string legend)
+        {
+            return new FrameSupplierEditView
+            {
+                Id = frameSupplier.Id,
+                Name = frameSupplier.Name,
+                Email = frameSupplier.Email,
+                FormLegend = legend
+            };
+        }
+
 		public static FrameBrandEditView ToFrameBrandEditView(this FrameBrand frameBrand, string legend)
 		{
 			return new FrameBrandEditView
@@ -191,6 +212,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
                 ShopCity = frameOrder.OrderingShop.Address.City,
                 Sphere = new EyeParameterViewModel(frameOrder.Sphere),
                 Notes = frameOrder.Reference,
+                Supplier = frameOrder.Supplier != null ? frameOrder.Supplier.Name : string.Empty
 			};
 		}
 		#endregion
@@ -220,6 +242,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			return entityList.ConvertSortedPagedList(typeConverter);
 		}
 
+        public static IEnumerable<FrameSupplierListItemView> ToFrameSupplierViewList(this IEnumerable<FrameSupplier> entityList)
+        {
+            Func<FrameSupplier, FrameSupplierListItemView> typeConverter = x => new FrameSupplierListItemView
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Email = x.Email
+            };
+            return entityList.ConvertSortedPagedList(typeConverter);
+        }
+
 		public static IEnumerable<FrameBrandListItemView> ToFrameBrandViewList(this IEnumerable<FrameBrand> entityList)
 		{
 			Func<FrameBrand, FrameBrandListItemView> typeConverter = x => new FrameBrandListItemView {
@@ -248,6 +281,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			Func<FrameOrder, FrameOrderListItemView> typeConverter = x => new FrameOrderListItemView
 			{
 				Id = x.Id,
+                Supplier = x.Supplier != null ? x.Supplier.Name : string.Empty,
                 Frame = x.Frame.Name,
                 GlassType = x.GlassType.Name,
                 Sent = x.IsSent,
@@ -314,6 +348,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			entity.Name = viewModel.Name;
 			return entity;
 		}
+
+        private static FrameSupplier UpdateFrameSupplier(FrameSupplier entity, FrameSupplierEditView viewModel)
+        {
+            entity.Name = viewModel.Name;
+            entity.Email = viewModel.Email;
+            return entity;
+        }
 
 		private static FrameGlassType UpdateFrameGlassType(FrameGlassType entity, FrameGlassTypeEditView viewModel)
 		{

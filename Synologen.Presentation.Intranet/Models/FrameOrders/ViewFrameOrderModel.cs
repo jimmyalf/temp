@@ -15,8 +15,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.FrameOrders
 		public decimal? AdditionRight { get; set; }
 		public decimal? HeightLeft { get; set; }
 		public decimal? HeightRight { get; set; }
-		
 
+        public string SupplierName { get; set; }
 		public string FrameName { get; set; }
 		public string FrameArticleNumber { get; set; }
 		public string FrameColor { get; set; }

@@ -54,6 +54,10 @@
     <Content Include="App_Themes\Normal\img\tabs_bg2.gif" />
     <Content Include="App_Themes\Normal\img\tabs_bg3.gif" />
     <Content Include="App_Themes\Normal\inc\wpcstyle.css" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\AddSupplier.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\EditSupplier.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\SupplierForm.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Frame\Suppliers.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\Categories.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\Articles.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\ArticleTypes.aspx" />
@@ -301,6 +305,7 @@
     <Compile Include="Controllers\FrameOrderController.cs" />
     <Compile Include="Application\Services\InvoiceReportViewService.cs" />
     <Compile Include="Application\Services\IInvoiceReportViewService.cs" />
+    <Compile Include="Controllers\FrameSupplierController.cs" />
     <Compile Include="Controllers\LensSubscriptionController.cs" />
     <Compile Include="Application\Web\PDFReportResult.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -528,6 +533,8 @@
     <Compile Include="Models\FrameOrderListItemView.cs" />
     <Compile Include="Models\FrameOrderListView.cs" />
     <Compile Include="Models\FrameOrderView.cs" />
+    <Compile Include="Models\FrameSupplierEditView.cs" />
+    <Compile Include="Models\FrameSupplierListItemView.cs" />
     <Compile Include="Models\LensSubscription\ErrorListItemView.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionListItemView.cs" />
     <Compile Include="Models\LensSubscription\SubscriptionListView.cs" />

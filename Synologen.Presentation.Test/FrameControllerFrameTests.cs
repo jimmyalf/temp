@@ -23,6 +23,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 		private IFrameBrandRepository frameBrandRepository;
 		private IFrameGlassTypeRepository frameGlassTypeRepository;
 		private IFrameOrderRepository frameOrderRepository;
+	    private IFrameSupplierRepository frameSupplierRepository;
 		private IAdminSettingsService _adminSettingsService;
 		private FrameController controller;
 		
@@ -36,7 +37,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			frameGlassTypeRepository = RepositoryFactory.GetFrameGlassTypeRepository();
 			frameOrderRepository = RepositoryFactory.GetFrameOrderRepository();
 			_adminSettingsService = ServiceFactory.GetSettingsService();
-			controller = new FrameController(frameRepository, frameColorRepository, frameBrandRepository, frameGlassTypeRepository, frameOrderRepository, _adminSettingsService);
+            frameSupplierRepository = RepositoryFactory.GetFrameSupplierRepository();
+			controller = new FrameController(frameRepository, frameColorRepository, frameBrandRepository, frameGlassTypeRepository, frameOrderRepository, _adminSettingsService,frameSupplierRepository);
 		}
 
 		[Test]

@@ -1,3 +1,4 @@
+using System;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
@@ -60,7 +61,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 			};
 		}
 
-		public static SubscriptionView GetSubscriptionView(int subscriptionId, int customerId)
+	    public static FrameSupplierEditView GetFrameSupplierEditView(int id)
+	    {
+	        return new FrameSupplierEditView
+	                   {
+	                       FormLegend = null,
+	                       Id = id,
+	                       Name = "Frän leverantör",
+	                       Email = "epost@domain.se"
+	                   };
+	    }
+
+	    public static SubscriptionView GetSubscriptionView(int subscriptionId, int customerId)
 		{
 			return new SubscriptionView
 			       	{

@@ -29,6 +29,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Factories
 			return new MockedShopRepository();
 		}
 
+        public static IFrameSupplierRepository GetFrameSupplierRepository()
+        {
+            return new MockedFrameSupplierRepository();
+        }
+
 		internal class MockedFrameRepository : MockedBaseClass<Frame>, IFrameRepository
 		{
 			public override Frame Get(int id)
@@ -45,6 +50,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Factories
 				.SetInterval(x => x.PupillaryDistance, 20, 40, 1);
 			}
 		}
+
+        internal class MockedFrameSupplierRepository : MockedBaseClass<FrameSupplier>, IFrameSupplierRepository
+        {
+            public override FrameSupplier Get(int id)
+            {
+                return new FrameSupplier
+                           {
+                               Name = "Hoya",
+                               Email = "kundservice@hoya.se",
+                               Id = id,
+                           };
+
+            }
+        }
 
 		internal class MockedFrameGlassTypeRepository : MockedBaseClass<FrameGlassType>,IFrameGlassTypeRepository {
 			public override FrameGlassType Get(int id)
@@ -97,6 +116,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Factories
 					Id = id,
 					Addition = new NullableEyeParameter { Left = 1.75M, Right = 2.25M },
 					Height = new NullableEyeParameter { Left = null, Right = null },
+                    Supplier = new FrameSupplier{Name = "Hoya", Email = "kundservice@hoya.se"}
 				};
 			}
 		}
@@ -171,6 +191,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Factories
 			}
 			return returnList;
 		}
+
+	    
 	}
 
 	

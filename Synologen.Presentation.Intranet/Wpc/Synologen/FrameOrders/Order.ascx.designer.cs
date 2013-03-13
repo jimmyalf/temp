@@ -13,6 +13,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.FrameOrders {
     public partial class Order {
         
         /// <summary>
+        /// drpSupplier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drpSupplier;
+        
+        /// <summary>
+        /// reqSuppliers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqSuppliers;
+        
+        /// <summary>
         /// drpFrames control.
         /// </summary>
         /// <remarks>

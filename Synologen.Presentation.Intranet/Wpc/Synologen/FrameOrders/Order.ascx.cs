@@ -50,7 +50,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.FrameOrders
 		{
 			return new EditFrameFormEventArgs
 			{
-				SelectedFrameId = drpFrames.SelectedValue.ToIntOrDefault(0),
+				SelectedSupplierId = drpSupplier.SelectedValue.ToIntOrDefault(0),
+                SelectedFrameId = drpFrames.SelectedValue.ToIntOrDefault(0),
 				SelectedGlassTypeId = drpGlassTypes.SelectedValue.ToIntOrDefault(0),
 				SelectedPupillaryDistance = new EyeParameter
 				{

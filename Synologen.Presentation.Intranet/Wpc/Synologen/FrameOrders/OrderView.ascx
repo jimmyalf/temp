@@ -2,6 +2,7 @@
 <%if(Model.DisplayOrder) { %>
 <div id="synologen-view-frame-order" class="synologen-control">
 <div class="frame-order-view">
+    <p><label>Leverantör: </label><span><%#Model.SupplierName%></span></p>
 	<p><label>Märke: </label><span><%#Model.FrameBrand%></span></p>
 	<p><label>Båge: </label><span><%#Model.FrameName%></span></p>
 	<p><label>Bågfärg: </label><span><%#Model.FrameColor%></span></p>

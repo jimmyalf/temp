@@ -26,7 +26,8 @@
                Html.WpcGrid(Model.List).Columns(column =>
                {
                	column.For(x => x.Id).Named("ID").HeaderAttributes(@class => "controlColumn");
-               	column.For(x => x.Frame).Named("Båge");
+               	column.For(x => x.Supplier).Named("Leverantör");
+                column.For(x => x.Frame).Named("Båge");
                	column.For(x => x.GlassType).Named("Glastyp");
                	column.For(x => x.Shop).Named("Butik");
                	column.For(x => x.Created).Named("Skapad");

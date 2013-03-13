@@ -45,6 +45,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.IoC
 			For<IFrameBrandRepository>().HybridHttpOrThreadLocalScoped().Use<FrameBrandRepository>();
 			For<IFrameGlassTypeRepository>().HybridHttpOrThreadLocalScoped().Use<FrameGlassTypeRepository>();
 			For<IFrameOrderRepository>().HybridHttpOrThreadLocalScoped().Use<FrameOrderRepository>();
+            For<IFrameSupplierRepository>().HybridHttpOrThreadLocalScoped().Use<FrameSupplierRepository>();
 			For<LensSubscription_ISubscriptionRepository>().HybridHttpOrThreadLocalScoped().Use<LensSubscription_SubscriptionRepository>();
 			For<ISettlementRepository>().HybridHttpOrThreadLocalScoped().Use<SettlementRepository>();
 			For<IContractSaleRepository>().HybridHttpOrThreadLocalScoped().Use<ContractSaleRepository>();

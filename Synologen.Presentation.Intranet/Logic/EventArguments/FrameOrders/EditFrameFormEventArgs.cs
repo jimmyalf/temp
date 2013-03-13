@@ -13,6 +13,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.FrameO
 		public EyeParameter<int> SelectedAxis { get; set; }
 		public EyeParameter SelectedAddition { get; set; }
 		public EyeParameter SelectedHeight { get; set; }
+        public int SelectedSupplierId { get; set; }
 		public int SelectedFrameId { get; set; }
 		public int SelectedGlassTypeId { get; set; }
 		public string Reference { get; set; }

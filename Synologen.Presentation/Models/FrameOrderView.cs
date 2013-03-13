@@ -6,6 +6,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 	{
 		[DisplayName("Skapad")] public string Created { get; set; }
 		[DisplayName("Skickad")] public string Sent { get; set; }
+        [DisplayName("Leverantör")] public string Supplier { get; set; }
 		[DisplayName("Båge")] public string Frame { get; set; }
 		[DisplayName("Artnr.")] public string FrameArticleNumber { get; set; }
 		[DisplayName("Glastyp")] public string GlassType { get; set; }

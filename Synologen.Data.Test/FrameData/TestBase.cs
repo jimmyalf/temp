@@ -46,6 +46,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 			FrameColorRepository = new FrameColorRepository(testSession);
 			FrameBrandRepository = new FrameBrandRepository(testSession);
 			FrameGlassTypeRepository = new FrameGlassTypeRepository(testSession);
+            FrameSupplierRepository = new FrameSupplierRepository(testSession);
 			
 			FrameOrderRepository = new FrameOrderRepository(testSession);
 			ShopRepository = new ShopRepository(testSession);
@@ -54,6 +55,7 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 			FrameBrandValidationRepository = new FrameBrandRepository(validationSession);
 			FrameGlassTypeValidationRepository = new FrameGlassTypeRepository(validationSession);
 			FrameOrderValidationRepository = new FrameOrderRepository(validationSession);
+            FrameSupplierValidationRepository = new FrameSupplierRepository(validationSession);
 
 			SavedShop = ShopRepository.Get(shop.ShopId);
 
@@ -70,9 +72,13 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 			SavedFrameGlassTypes = FrameGlassTypeFactory.GetGlassTypes();
 			SavedFrameGlassTypes.ToList().ForEach(x => FrameGlassTypeRepository.Save(x));
 
+            SavedFrameSuppliers = FrameSupplierFactory.GetFrameSuppliers();
+            SavedFrameSuppliers.ToList().ForEach(x => FrameSupplierRepository.Save(x));
 			
-			SavedFrameOrders = FrameOrderFactory.GetFrameOrders(SavedFrames, SavedFrameGlassTypes, SavedShop);
+			SavedFrameOrders = FrameOrderFactory.GetFrameOrders(SavedFrames, SavedFrameGlassTypes, SavedShop, SavedFrameSuppliers.First());
 			SavedFrameOrders.ToList().ForEach(x => FrameOrderRepository.Save(x));
+
+		   
 		}
 
 		private object ResolveCriteriaConverters<TType>(TType objectToResolve)
@@ -113,18 +119,21 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 		public IFrameGlassTypeRepository FrameGlassTypeRepository { get; private set; }
 		public IShopRepository ShopRepository { get; private set; }
 		public IFrameOrderRepository FrameOrderRepository { get; private set; }
+        public IFrameSupplierRepository FrameSupplierRepository { get; private set; }
 
 		public IFrameRepository FrameValidationRepository { get; private set; }
 		public IFrameColorRepository FrameColorValidationRepository { get; private set; }
 		public IFrameBrandRepository FrameBrandValidationRepository { get; private set; }
 		public IFrameGlassTypeRepository FrameGlassTypeValidationRepository { get; private set; }
 		public IFrameOrderRepository FrameOrderValidationRepository { get; private set; }
+        public IFrameSupplierRepository FrameSupplierValidationRepository { get; private set; }
 
 		public IEnumerable<Frame> SavedFrames { get; private set; }
 		public IEnumerable<FrameColor> SavedFrameColors { get; private set; }
 		public IEnumerable<FrameBrand> SavedFrameBrands { get; private set; }
 		public IEnumerable<FrameGlassType> SavedFrameGlassTypes { get; private set; }
 		public IEnumerable<FrameOrder> SavedFrameOrders { get; private set; }
+        public IEnumerable<FrameSupplier> SavedFrameSuppliers { get; private set; }
 		public Shop SavedShop { get; private set; }
 
 		protected ISession GetNewSession()

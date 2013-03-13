@@ -41,6 +41,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 				m.Map(x => x.Left).Column("HeightLeft").Nullable();
 				m.Map(x => x.Right).Column("HeightRight").Nullable();
 			});
+            References(x => x.Supplier)
+                .Cascade.None()
+                .Column("FrameSupplierId")
+                .Nullable();
 			References(x => x.OrderingShop)
 				.Cascade.None()
 				.Column("OrderingShopId")

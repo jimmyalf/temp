@@ -19,11 +19,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 		private readonly IFrameGlassTypeRepository _frameGlassTypeRepository;
 		private readonly IFrameOrderRepository _frameOrderRepository;
 		private readonly IShopRepository _shopRepository;
+        private readonly IFrameSupplierRepository _frameSupplierRepository;
 		private readonly ISynologenMemberService _synologenMemberService;
 		private readonly ISynologenSettingsService _synologenSettingsService;
 		private readonly IRoutingService _routingService;
 		private readonly IEnumerable<IntervalListItem> EmptyIntervalList = new List<IntervalListItem>();
 		private readonly FrameListItem DefaultFrame = new FrameListItem {Id = 0, Name = "-- Välj båge --"};
+        private readonly FrameSupplierListItem DefaultSupplier = new FrameSupplierListItem { Id = 0, Name = "-- Välj leverantör --" };
 		private readonly AllOrderableFramesCriteria AllOrderableFramesCriteria = new AllOrderableFramesCriteria();
 
 		public EditFrameOrderPresenter(
@@ -34,6 +36,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 			IShopRepository shopRepository, 
 			ISynologenMemberService sessionProviderService, 
 			ISynologenSettingsService synologenSettingsService,
+            IFrameSupplierRepository frameSupplierRepository,
 			IRoutingService routingService) : base(view)
 		{
 			_frameRepository = repository;
@@ -43,6 +46,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 			_synologenMemberService = sessionProviderService;
 			_synologenSettingsService = synologenSettingsService;
 			_routingService = routingService;
+		    _frameSupplierRepository = frameSupplierRepository;
 			InitiateEventHandlers();
 		}
 
@@ -92,7 +96,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 
 		public void InitializeModel()
 		{
-			View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).ToFrameViewList().InsertFirst(DefaultFrame);
+
+            View.Model.SupplierList = _frameSupplierRepository.GetAll().ToFrameSupplierList().InsertFirst(DefaultSupplier);
+            View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).ToFrameViewList().InsertFirst(DefaultFrame);
 			View.Model.PupillaryDistance = EmptyIntervalList.CreateDefaultEyeParameter("PD");
 			View.Model.Sphere = EmptyIntervalList.CreateDefaultEyeParameter("Sfär");
 			View.Model.Cylinder = EmptyIntervalList.CreateDefaultEyeParameter("Cylinder");
@@ -133,6 +139,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 
 			View.Model.AxisValueLeftIsRequired = e.SelectedCylinder.Left != int.MinValue;
 			View.Model.AxisValueRightIsRequired = e.SelectedCylinder.Right != int.MinValue;
+            View.Model.SelectedSupplierId = e.SelectedSupplierId;
 			View.Model.SelectedFrameId = e.SelectedFrameId;
 			View.Model.SelectedGlassTypeId = e.SelectedGlassTypeId;
 			View.Model.AxisSelectionLeft = (e.SelectedAxis.Left == int.MinValue) ? (int?)null : e.SelectedAxis.Left;
@@ -162,6 +169,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 			View.Model.HeightParametersEnabled = frameOrder.GlassType.IncludeHeightParametersInOrder;
 			View.Model.AdditionParametersEnabled = frameOrder.GlassType.IncludeAdditionParametersInOrder;
 			View.Model.SelectedFrameId = frameOrder.Frame.Id;
+            View.Model.SelectedSupplierId = frameOrder.Supplier.Id;
 			View.Model.SelectedGlassTypeId = frameOrder.GlassType.Id;
 			View.Model.AxisSelectionLeft = (frameOrder.Axis == null || frameOrder.Axis.Left == null) ? (int?)null : frameOrder.Axis.Left.Value;
 			View.Model.AxisSelectionRight = (frameOrder.Axis == null || frameOrder.Axis.Right == null) ? (int?)null : frameOrder.Axis.Right.Value;
@@ -195,14 +203,17 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 				var previouslySavedFrameOrder = _frameOrderRepository.Get(frameOrderId);
 				var frame = _frameRepository.Get(e.SelectedFrameId);
 				var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
-				frameOrder = e.FillFrameOrder(frame, glassType, previouslySavedFrameOrder);
+                var supplier = _frameSupplierRepository.Get(e.SelectedSupplierId);
+				frameOrder = e.FillFrameOrder(frame, glassType, previouslySavedFrameOrder,supplier);
 			}
-			else{
-				var frame = _frameRepository.Get(e.SelectedFrameId);
+			else
+			{
+			    var supplier = _frameSupplierRepository.Get(e.SelectedSupplierId);
+                var frame = _frameRepository.Get(e.SelectedFrameId);
 				var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
 				var shopId = _synologenMemberService.GetCurrentShopId();
 				var shop = _shopRepository.Get(shopId);
-				frameOrder = e.ToFrameOrder(frame, glassType, shop);
+				frameOrder = e.ToFrameOrder(frame, glassType, shop , supplier);
 			}
 			_frameOrderRepository.Save(frameOrder);
 			return frameOrder.Id;

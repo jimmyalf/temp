@@ -17,14 +17,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		private readonly IFrameBrandRepository _frameBrandRepository;
 		private readonly IFrameGlassTypeRepository _frameGlassTypeRepository;
 		private readonly IFrameOrderRepository _frameOrderRepository;
+        private readonly IFrameSupplierRepository _frameSupplierRepository;
 		private readonly int DefaultPageSize;
-		public FrameController(IFrameRepository frameRepository, IFrameColorRepository frameColorRepository, IFrameBrandRepository frameBrandRepository, IFrameGlassTypeRepository frameGlassTypeRepository, IFrameOrderRepository frameOrderRepository, IAdminSettingsService adminSettingsSetvice)
+		public FrameController(IFrameRepository frameRepository, IFrameColorRepository frameColorRepository, IFrameBrandRepository frameBrandRepository, IFrameGlassTypeRepository frameGlassTypeRepository, IFrameOrderRepository frameOrderRepository, IAdminSettingsService adminSettingsSetvice, IFrameSupplierRepository frameSupplierRepository)
 		{
 			_frameRepository = frameRepository;
 			_frameColorRepository = frameColorRepository;
 			_frameBrandRepository = frameBrandRepository;
 			_frameGlassTypeRepository = frameGlassTypeRepository;
 			_frameOrderRepository = frameOrderRepository;
+		    _frameSupplierRepository = frameSupplierRepository;
 			DefaultPageSize = adminSettingsSetvice.GetDefaultPageSize();
 		}
 

@@ -13,6 +13,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.FrameOrders
 	[PresenterBinding(typeof(EditFrameOrderPresenter))] 
 	public partial class Order : MvpUserControl<EditFrameOrderModel>, IEditFrameOrderView<EditFrameOrderModel> 
 	{
+        public event EventHandler<EditFrameFormEventArgs> SupplierSelected;
 		public event EventHandler<EditFrameFormEventArgs> FrameSelected;
 		public event EventHandler<EditFrameFormEventArgs> SubmitForm;
 		public event EventHandler<EditFrameFormEventArgs> GlassTypeSelected;
@@ -24,7 +25,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.FrameOrders
 
 		private void WireupEventProxy()
 		{
-			drpFrames.SelectedIndexChanged += (sender, e) => HandleEvent(FrameSelected);
+            drpSupplier.SelectedIndexChanged += (sender, e) => HandleEvent(SupplierSelected);
+            drpFrames.SelectedIndexChanged += (sender, e) => HandleEvent(FrameSelected);
 			drpGlassTypes.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
 			drpCylinderLeft.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
 			drpCylinderRight.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);

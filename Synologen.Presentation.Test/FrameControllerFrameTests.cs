@@ -61,6 +61,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(model.List.First().ArticleNumber, Is.EqualTo(expectedFirstItem.ArticleNumber));
 			Expect(model.List.First().Brand, Is.EqualTo(expectedFirstItem.Brand.Name));
 			Expect(model.List.First().Color, Is.EqualTo(expectedFirstItem.Color.Name));
+            Expect(model.List.First().Supplier, Is.EqualTo(expectedFirstItem.Supplier.Name));
 			Expect(model.List.First().Id, Is.EqualTo(expectedFirstItem.Id));
 			Expect(model.List.First().Name, Is.EqualTo(expectedFirstItem.Name));
 		}
@@ -102,8 +103,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(model.ArticleNumber, Is.EqualTo(domainItem.ArticleNumber));
 			Expect(model.AvailableFrameBrands.Count(), Is.EqualTo(10));
 			Expect(model.AvailableFrameColors.Count(), Is.EqualTo(10));
+            Expect(model.AvailableFrameSuppliers.Count(), Is.EqualTo(10));
 			Expect(model.BrandId, Is.EqualTo(domainItem.Brand.Id));
 			Expect(model.ColorId, Is.EqualTo(domainItem.Color.Id));
+            Expect(model.SupplierId, Is.EqualTo(domainItem.Supplier.Id));
 			Expect(model.FormLegend, Is.EqualTo("Redigera båge"));
 			Expect(model.Id, Is.EqualTo(domainItem.Id));
 			Expect(model.PupillaryDistanceIncrementation, Is.EqualTo(domainItem.PupillaryDistance.Increment));
@@ -129,6 +132,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(savedItem.ArticleNumber, Is.EqualTo(viewModel.ArticleNumber));
 			Expect(savedItem.Brand.Id, Is.EqualTo(viewModel.BrandId));
 			Expect(savedItem.Color.Id, Is.EqualTo(viewModel.ColorId));
+            Expect(savedItem.Supplier.Id, Is.EqualTo(viewModel.SupplierId));
 			Expect(savedItem.Id, Is.EqualTo(viewModel.Id));
 			Expect(savedItem.Name, Is.EqualTo(viewModel.Name));
 			Expect(savedItem.PupillaryDistance.Increment, Is.EqualTo(viewModel.PupillaryDistanceIncrementation));
@@ -159,6 +163,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(savedItem.ArticleNumber, Is.EqualTo(viewModel.ArticleNumber));
 			Expect(savedItem.Brand.Id, Is.EqualTo(viewModel.BrandId));
 			Expect(savedItem.Color.Id, Is.EqualTo(viewModel.ColorId));
+            Expect(savedItem.Supplier.Id, Is.EqualTo(viewModel.SupplierId));
 			Expect(savedItem.Id, Is.EqualTo(viewModel.Id));
 			Expect(savedItem.Name, Is.EqualTo(viewModel.Name));
 
@@ -214,8 +219,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(model.ArticleNumber, Is.EqualTo(null));
 			Expect(model.AvailableFrameBrands.Count(), Is.EqualTo(10));
 			Expect(model.AvailableFrameColors.Count(), Is.EqualTo(10));
+            Expect(model.AvailableFrameSuppliers.Count(), Is.EqualTo(10));
 			Expect(model.BrandId, Is.EqualTo(0));
 			Expect(model.ColorId, Is.EqualTo(0));
+            Expect(model.SupplierId, Is.EqualTo(0));
 			Expect(model.FormLegend, Is.EqualTo("Skapa ny båge"));
 			Expect(model.Id, Is.EqualTo(0));
 			Expect(model.PupillaryDistanceIncrementation, Is.EqualTo(0.5m));
@@ -241,6 +248,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test
 			Expect(savedItem.ArticleNumber, Is.EqualTo(viewModel.ArticleNumber));
 			Expect(savedItem.Brand.Id, Is.EqualTo(viewModel.BrandId));
 			Expect(savedItem.Color.Id, Is.EqualTo(viewModel.ColorId));
+            Expect(savedItem.Supplier.Id, Is.EqualTo(viewModel.SupplierId));
 			Expect(savedItem.Id, Is.EqualTo(viewModel.Id));
 			Expect(savedItem.Name, Is.EqualTo(viewModel.Name));
 			Expect(savedItem.PupillaryDistance.Increment, Is.EqualTo(viewModel.PupillaryDistanceIncrementation));

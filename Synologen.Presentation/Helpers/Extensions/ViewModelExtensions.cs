@@ -14,14 +14,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 {
 	public static class ViewModelExtensions {
 		#region To Domain Entities
-		public static Frame ToFrame(this FrameEditView viewModel, FrameBrand brand, FrameColor color)
+        public static Frame ToFrame(this FrameEditView viewModel, FrameBrand brand, FrameColor color, FrameSupplier supplier)
 		{
-			return UpdateFrame(new Frame(), viewModel, brand, color);
+			return UpdateFrame(new Frame(), viewModel, brand, color, supplier);
 		}
 
-		public static Frame FillFrame(this FrameEditView viewModel, Frame entity, FrameBrand brand, FrameColor color)
+		public static Frame FillFrame(this FrameEditView viewModel, Frame entity, FrameBrand brand, FrameColor color, FrameSupplier supplier)
 		{
-			return UpdateFrame(entity, viewModel, brand, color);
+			return UpdateFrame(entity, viewModel, brand, color, supplier);
 		}
 
 		public static FrameColor ToFrameColor(this FrameColorEditView viewModel)
@@ -119,7 +119,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		#endregion
 
 		#region To Edit Views
-		public static FrameEditView ToFrameEditView(this Frame entity, IEnumerable<FrameBrand> availableFrameBrands, IEnumerable<FrameColor> availableFrameColors, string formLegend)
+		public static FrameEditView ToFrameEditView(this Frame entity, IEnumerable<FrameBrand> availableFrameBrands, IEnumerable<FrameColor> availableFrameColors, IEnumerable<FrameSupplier> availableFrameSuppliers, string formLegend)
 		{
 			return new FrameEditView
 			{
@@ -127,8 +127,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 				ArticleNumber = entity.ArticleNumber,
 				AvailableFrameBrands = availableFrameBrands,
 				AvailableFrameColors = availableFrameColors,
+                AvailableFrameSuppliers = availableFrameSuppliers,
 				BrandId = entity.Brand.Id,
 				ColorId = entity.Color.Id,
+                SupplierId = entity.Supplier != null ? entity.Supplier.Id : 0,
 				Id = entity.Id,
 				Name = entity.Name,
 				PupillaryDistanceIncrementation = entity.PupillaryDistance.Increment,
@@ -212,7 +214,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
                 ShopCity = frameOrder.OrderingShop.Address.City,
                 Sphere = new EyeParameterViewModel(frameOrder.Sphere),
                 Notes = frameOrder.Reference,
-                Supplier = frameOrder.Supplier != null ? frameOrder.Supplier.Name : string.Empty
+                Supplier = frameOrder.Frame.Supplier != null ? frameOrder.Frame.Supplier.Name : string.Empty
 			};
 		}
 		#endregion
@@ -225,6 +227,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 				ArticleNumber = x.ArticleNumber,
 				Brand = x.Brand.Name,
 				Color = x.Color.Name,
+                Supplier = x.Supplier.Name,
 				Id = x.Id,
 				Name = x.Name,
                 NumberOfOrdersWithThisFrame = x.NumberOfConnectedOrdersWithThisFrame
@@ -317,12 +320,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			return string.IsNullOrEmpty(value) ? value : HttpUtility.UrlDecode(value);
 		}
 
-		private static Frame UpdateFrame(Frame entity, FrameEditView viewModel, FrameBrand brand, FrameColor color)
+		private static Frame UpdateFrame(Frame entity, FrameEditView viewModel, FrameBrand brand, FrameColor color, FrameSupplier supplier)
 		{
 			entity.AllowOrders = viewModel.AllowOrders;
 			entity.ArticleNumber = viewModel.ArticleNumber;
 			entity.Brand = brand;
 			entity.Color = color;
+		    entity.Supplier = supplier;
 			entity.Id = viewModel.Id;
 			entity.Name = viewModel.Name;
 			if(entity.Stock == null) entity.Stock = new FrameStock();

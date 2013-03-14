@@ -16,6 +16,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		{
 			Map<FrameController, FrameListItemView, Frame>(x => x.Color, x => x.Color.Name);
 			Map<FrameController, FrameListItemView, Frame>(x => x.Brand, x => x.Brand.Name);
+            Map<FrameController, FrameListItemView, Frame>(x => x.Supplier, x => x.Supplier.Name);
+
 			Map<FrameController, FrameOrderListItemView, FrameOrder>(x => x.Frame, x => x.Frame.Name);
 			Map<FrameController, FrameOrderListItemView, FrameOrder>(x => x.GlassType, x => x.GlassType.Name);
 			Map<FrameController, FrameOrderListItemView, FrameOrder>(x => x.Shop, x => x.OrderingShop.Name);

@@ -10,6 +10,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 	{
 		public int Id { get; set; }
 
+        [DisplayName("Leverantör")]
+        [Required(ErrorMessage = "Leverantör saknas")]
+        public int SupplierId { get; set; }
+
 		[DisplayName("Namn")]
 		[Required(ErrorMessage="Namn saknas")]
 		public string Name { get; set; }
@@ -56,11 +60,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 
 		public IEnumerable<FrameBrand> AvailableFrameBrands { get; set; }
 		public IEnumerable<FrameColor> AvailableFrameColors { get; set; }
+        public IEnumerable<FrameSupplier> AvailableFrameSuppliers { get; set; }
 
 		public string FormLegend { get; set; }
 
 
-		public static FrameEditView GetDefaultInstance(IEnumerable<FrameColor> availableFrameColors, IEnumerable<FrameBrand> availableFrameBrands, string formLegend)
+		public static FrameEditView GetDefaultInstance(IEnumerable<FrameColor> availableFrameColors, IEnumerable<FrameBrand> availableFrameBrands, IEnumerable<FrameSupplier> availableFramesuppliers, string formLegend)
 		{
 			return new FrameEditView
 			{
@@ -79,8 +84,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 				//CylinderIncrementation = 0.25m,
 				ColorId = 0,
 				BrandId = 0,
+                SupplierId = 0,
                 AvailableFrameBrands = availableFrameBrands,
                 AvailableFrameColors = availableFrameColors,
+                AvailableFrameSuppliers = availableFramesuppliers,
 				FormLegend = formLegend
 			};
 		}

@@ -12,6 +12,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder
 		public virtual int Id { get; set; }
 		public virtual string Name { get; set; }
 		public virtual string ArticleNumber { get; set; }
+        public virtual FrameSupplier Supplier { get; set; }
 		public virtual FrameColor Color { get; set; }
 		public virtual FrameBrand Brand { get; set; }
 		public virtual Interval PupillaryDistance { get; private set; }

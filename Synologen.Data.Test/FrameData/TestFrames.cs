@@ -34,6 +34,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			Expect(persistedFrame.ArticleNumber, Is.EqualTo(savedFrame.ArticleNumber));
 			Expect(persistedFrame.Brand.Id, Is.EqualTo(savedFrame.Brand.Id));
 			Expect(persistedFrame.Color.Id, Is.EqualTo(savedFrame.Color.Id));
+            Expect(persistedFrame.Supplier.Id, Is.EqualTo(savedFrame.Supplier.Id));
 			Expect(persistedFrame.Id, Is.EqualTo(savedFrame.Id));
 			Expect(persistedFrame.Name, Is.EqualTo(savedFrame.Name));
 			Expect(persistedFrame.PupillaryDistance.Increment, Is.EqualTo(savedFrame.PupillaryDistance.Increment));
@@ -70,6 +71,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			Expect(persistedFrame.Color.Id, Is.EqualTo(editedFrame.Color.Id));
 			Expect(persistedFrame.Color.Name, Is.EqualTo(editedFrame.Color.Name));
 			Expect(persistedFrame.Color.NumberOfFramesWithThisColor, Is.EqualTo(expectedNumberOfFrameConnections));
+            Expect(persistedFrame.Supplier.Id, Is.EqualTo(editedFrame.Supplier.Id));
+            Expect(persistedFrame.Supplier.Name, Is.EqualTo(editedFrame.Supplier.Name));
 			Expect(persistedFrame.Id, Is.EqualTo(editedFrame.Id));
 			Expect(persistedFrame.Name, Is.EqualTo(editedFrame.Name));
 			Expect(persistedFrame.PupillaryDistance.Increment, Is.EqualTo(editedFrame.PupillaryDistance.Increment));
@@ -84,7 +87,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 		public void Can_delete_persisted_frame_without_connections()
 		{
 			//Arrange
-			var frameWithoutConnections = FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First());
+			var frameWithoutConnections = FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First(), SavedFrameSuppliers.First());
 			FrameRepository.Save(frameWithoutConnections);
 
 			//Act
@@ -137,7 +140,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			const int expectedNumberOfFramesMatchingCriteria = 36;
 			const int expectedNumberOfAllFrames = 37;
 			var criteria = new AllOrderableFramesCriteria();
-			var extraFrame = FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First());
+			var extraFrame = FrameFactory.GetFrame(SavedFrameBrands.First(), SavedFrameColors.First(), SavedFrameSuppliers.First());
 			extraFrame.AllowOrders = false;
 
 			//Act

@@ -10,6 +10,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models
 		public bool AllowOrders { get; set; }
 		public string Color { get; set; }
 		public string Brand { get; set; }
+        public string Supplier { get; set; }
 		public int NumberOfOrdersWithThisFrame { get; set; }
 		public bool AllowDelete
 		{

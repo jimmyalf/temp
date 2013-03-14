@@ -85,7 +85,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 				View.Model.CylinderLeft = frameOrder.Cylinder.Left;
 				View.Model.CylinderRight = frameOrder.Cylinder.Right;
 			}
-		    View.Model.SupplierName = frameOrder.Supplier.Name;
+		    View.Model.SupplierName = frameOrder.Frame.Supplier.Name;
 			View.Model.FrameArticleNumber = frameOrder.Frame.ArticleNumber;
 			View.Model.FrameColor = frameOrder.Frame.Color.Name;
 			View.Model.FrameBrand = frameOrder.Frame.Brand.Name;

@@ -27,6 +27,7 @@
 						column => {
      						column.For(x => x.Id).Named("ID")
      							.HeaderAttributes(@class => "controlColumn");
+                            column.For(x => x.Supplier).Named("Leverantör");
      						column.For(x => x.Name).Named("Namn");
 						    column.For(x => x.ArticleNumber).Named("Artikelnr");
 						    column.For(x => x.Brand).Named("Märke");

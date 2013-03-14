@@ -95,6 +95,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Factories
 						Color = new FrameColor { Name = "Gul" },
 						Name = "Testbåge 123",
 						PupillaryDistance = { Min = 20, Max = 40, Increment = 1 },
+                        Supplier = new FrameSupplier { Name = "Hoya", Email = "kundservice@hoya.se" }
 					},
 					GlassType = new FrameGlassType { 
 						Name = "Progressiv",
@@ -116,7 +117,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.Factories
 					Id = id,
 					Addition = new NullableEyeParameter { Left = 1.75M, Right = 2.25M },
 					Height = new NullableEyeParameter { Left = null, Right = null },
-                    Supplier = new FrameSupplier{Name = "Hoya", Email = "kundservice@hoya.se"}
+                    
 				};
 			}
 		}

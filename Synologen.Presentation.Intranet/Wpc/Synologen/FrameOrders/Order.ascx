@@ -3,7 +3,7 @@
 <div id="synologen-create-frame-order" class="synologen-control">
 
 <div class="frame-order-item supplier">
-	<label for="<%=drpSupplier.ClientID%>">Bågar</label>
+	<label for="<%=drpSupplier.ClientID%>">Leverantör</label>
 	<asp:DropDownList 
 		ID="drpSupplier" 
 		Runat="server" 

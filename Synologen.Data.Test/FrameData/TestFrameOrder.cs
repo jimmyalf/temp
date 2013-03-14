@@ -48,8 +48,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			Expect(persistedFrameOrder.Sent, Is.EqualTo(savedFrameOrder.Sent));
 			Expect(persistedFrameOrder.Sphere.Left, Is.EqualTo(savedFrameOrder.Sphere.Left));
 			Expect(persistedFrameOrder.Sphere.Right, Is.EqualTo(savedFrameOrder.Sphere.Right));
-			Expect(persistedFrameOrder.Reference, Is.EqualTo(savedFrameOrder.Reference));
-            Expect(persistedFrameOrder.Supplier.Id, Is.EqualTo(savedFrameOrder.Supplier.Id));
+			Expect(persistedFrameOrder.Reference, Is.EqualTo(savedFrameOrder.Reference));            
 		}
 
 		[Test]
@@ -100,8 +99,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData
 			Expect(persistedFrameOrder.Sent, Is.EqualTo(editedFrameOrder.Sent));
 			Expect(persistedFrameOrder.Sphere.Left, Is.EqualTo(editedFrameOrder.Sphere.Left));
 			Expect(persistedFrameOrder.Sphere.Right, Is.EqualTo(editedFrameOrder.Sphere.Right));
-			Expect(persistedFrameOrder.Reference, Is.EqualTo(editedFrameOrder.Reference));
-            Expect(persistedFrameOrder.Supplier.Id, Is.EqualTo(editedFrameOrder.Supplier.Id));
+			Expect(persistedFrameOrder.Reference, Is.EqualTo(editedFrameOrder.Reference));           
 		}
 
 		[Test]

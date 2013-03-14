@@ -54,7 +54,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 		{
 			//Arrange
             const int expectedNumberOfSuppliers = 11;
-			const int expectedNumberOfFrames = 11;
+			const int expectedNumberOfFrames = 1;
 			const int expectedNumberOfPDs = 1;
 			const int expectedNumberOfSpheres = 1;
 			const int expectedNumberOfCylinders = 1;
@@ -142,7 +142,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			_presenter.View_Load(null, new EventArgs());
 
 			//Assert
-            Expect(_view.Model.SelectedSupplierId, Is.EqualTo(expectedFrameOrder.Supplier.Id));
+            Expect(_view.Model.SelectedSupplierId, Is.EqualTo(expectedFrameOrder.Frame.Supplier.Id));
 			Expect(_view.Model.SelectedFrameId, Is.EqualTo(expectedFrameOrder.Frame.Id));
 			Expect(_view.Model.SelectedGlassTypeId, Is.EqualTo(expectedFrameOrder.GlassType.Id));
 			ExpectEqual(_view.Model.PupillaryDistance.Selection, expectedFrameOrder.PupillaryDistance, _eyeparameterEquality);
@@ -178,7 +178,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 				SelectedHeight = new EyeParameter{Left = 19, Right = 27},
 				Reference = "Skynda på"
 			};
-			const int expectedNumberOfFramesInList = 11;
+			const int expectedNumberOfFramesInList = 1;
 			const int expectedNumberOfGlassTypesInList = 11;
 			const int expectedNumberOfPDsInList = 22;
 			const int expectedNumberOfSpheresInList = 50;

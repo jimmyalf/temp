@@ -4,7 +4,11 @@
 	<% using (Html.BeginForm()) {%>
 		<fieldset>
 			<legend><%=Html.DisplayFor(x => x.FormLegend) %></legend>
-			
+			<p class="formItem">
+				<%= Html.LabelFor(x => x.SupplierId) %>
+				<%= Html.WpcDropDownListFor(x => x.SupplierId, x => x.AvailableFrameSuppliers, x => x.Id, x => x.Name, "-- Välj Leverantör --") %>
+				<%= Html.ValidationMessageFor(x => x.SupplierId) %>
+			</p>
 			<p class="formItem">
 				<%= Html.LabelFor(x => x.Name) %>
 				<%= Html.EditorFor(x => x.Name) %>

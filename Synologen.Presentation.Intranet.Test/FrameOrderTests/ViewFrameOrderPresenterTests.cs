@@ -72,7 +72,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Test.FrameOrderTests
 			Expect(_view.Model.FrameColor, Is.EqualTo(expectedFrameOrder.Frame.Color.Name));
 			Expect(_view.Model.FrameBrand, Is.EqualTo(expectedFrameOrder.Frame.Brand.Name));
 			Expect(_view.Model.FrameName, Is.EqualTo(expectedFrameOrder.Frame.Name));
-            Expect(_view.Model.SupplierName, Is.EqualTo(expectedFrameOrder.Supplier.Name));
+            Expect(_view.Model.SupplierName, Is.EqualTo(expectedFrameOrder.Frame.Supplier.Name));
 			Expect(_view.Model.GlassTypeName, Is.EqualTo(expectedFrameOrder.GlassType.Name));
 			Expect(_view.Model.HeightLeft, Is.EqualTo(expectedFrameOrder.Height.Left));
 			Expect(_view.Model.HeightRight, Is.EqualTo(expectedFrameOrder.Height.Right));

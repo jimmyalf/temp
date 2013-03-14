@@ -54,7 +54,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 				Color = new FrameColor { Id = 1, Name = "Blå" },
 				Id = id,
 				Name = "Bra båge",
-				Stock = mockedStock.Object
+				Stock = mockedStock.Object,
+                Supplier = new FrameSupplier{Id = 1, Name = "Hoya", Email = "kundservice@hoya.se"}
 			}
 			.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5m);
 		}
@@ -118,8 +119,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 				PupillaryDistance = new EyeParameter { Left = 22, Right = 38 },
 				Sent = new DateTime(2010, 08, 24, 13, 45, 0),
 				Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M },
-                Reference = "Leverans helst innan fredag.",
-                Supplier = new FrameSupplier{Name = "Leverantören AB", Email = "leverantoren@hotmail.com"}
+                Reference = "Leverans helst innan fredag."
 			};
 		}
 

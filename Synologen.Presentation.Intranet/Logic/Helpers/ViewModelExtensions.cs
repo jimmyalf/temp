@@ -47,23 +47,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Helpers {
             return list.ConvertAll(typeConverter);
         }
 
-		public static FrameOrder ToFrameOrder(this EditFrameFormEventArgs eventArgs, Frame frame, FrameGlassType glassType, Shop orderingShop, FrameSupplier supplier)
+		public static FrameOrder ToFrameOrder(this EditFrameFormEventArgs eventArgs, Frame frame, FrameGlassType glassType, Shop orderingShop)
 		{
 			var frameOrder = new FrameOrder {OrderingShop = orderingShop};
-			return UpdateFrameOrder(frameOrder, frame, glassType,supplier, eventArgs);
+			return UpdateFrameOrder(frameOrder, frame, glassType, eventArgs);
 		}
 
-        public static FrameOrder FillFrameOrder(this EditFrameFormEventArgs eventArgs, Frame frame, FrameGlassType glassType, FrameOrder frameOrder, FrameSupplier supplier)
+        public static FrameOrder FillFrameOrder(this EditFrameFormEventArgs eventArgs, Frame frame, FrameGlassType glassType, FrameOrder frameOrder)
 		{
-			return UpdateFrameOrder(frameOrder, frame, glassType,supplier, eventArgs);
+			return UpdateFrameOrder(frameOrder, frame, glassType, eventArgs);
 		}
 
-        private static FrameOrder UpdateFrameOrder(FrameOrder frameOrder, Frame frame, FrameGlassType glassType, FrameSupplier supplier, EditFrameFormEventArgs eventArgs)
+        private static FrameOrder UpdateFrameOrder(FrameOrder frameOrder, Frame frame, FrameGlassType glassType, EditFrameFormEventArgs eventArgs)
 		{
 			var enableAddition = (glassType != null) ? glassType.IncludeAdditionParametersInOrder : false;
 			var enableHeight = (glassType != null) ? glassType.IncludeHeightParametersInOrder : false;
 			frameOrder.Frame = frame;
-            frameOrder.Supplier = supplier;
 			frameOrder.GlassType = glassType;
 			frameOrder.Addition = eventArgs.ParseNullableEyeParameter(x => x.SelectedAddition, () => !enableAddition);
 			frameOrder.Axis = ParseNullableEyeParameter(eventArgs.SelectedAxis);

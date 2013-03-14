@@ -66,14 +66,16 @@ namespace Spinit.Wpc.Synologen.Integration.Data.Test.FrameData
 			SavedFrameBrands = FrameBrandFactory.GetFrameBrands();
 			SavedFrameBrands.ToList().ForEach(x => FrameBrandRepository.Save(x));
 
-			SavedFrames = FrameFactory.GetFrames(SavedFrameBrands, SavedFrameColors);
+            SavedFrameSuppliers = FrameSupplierFactory.GetFrameSuppliers();
+            SavedFrameSuppliers.ToList().ForEach(x => FrameSupplierRepository.Save(x));
+
+            SavedFrames = FrameFactory.GetFrames(SavedFrameBrands, SavedFrameColors, SavedFrameSuppliers.First());
 			SavedFrames.ToList().ForEach(x => FrameRepository.Save(x));
 
 			SavedFrameGlassTypes = FrameGlassTypeFactory.GetGlassTypes();
 			SavedFrameGlassTypes.ToList().ForEach(x => FrameGlassTypeRepository.Save(x));
 
-            SavedFrameSuppliers = FrameSupplierFactory.GetFrameSuppliers();
-            SavedFrameSuppliers.ToList().ForEach(x => FrameSupplierRepository.Save(x));
+           
 			
 			SavedFrameOrders = FrameOrderFactory.GetFrameOrders(SavedFrames, SavedFrameGlassTypes, SavedShop, SavedFrameSuppliers.First());
 			SavedFrameOrders.ToList().ForEach(x => FrameOrderRepository.Save(x));

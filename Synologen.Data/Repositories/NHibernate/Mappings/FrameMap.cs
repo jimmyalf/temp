@@ -25,6 +25,10 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings
 				.Cascade.SaveUpdate()
 				.Column("ColorId")
 				.Not.Nullable();
+            References(x => x.Supplier)
+                .Cascade.SaveUpdate()
+                .Column("FrameSupplierId")
+                .Not.Nullable();
 			Component(x => x.PupillaryDistance, m =>
 			{
 			  m.Map(x => x.Min).Column("PupillaryDistanceMin").Not.Nullable();

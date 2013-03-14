@@ -7,7 +7,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData.Factories
 {
 	public static class FrameFactory
 	{
-		public static Frame GetFrame(FrameBrand brand, FrameColor color)
+		public static Frame GetFrame(FrameBrand brand, FrameColor color, FrameSupplier supplier)
 		{
 			return new Frame
 			{
@@ -16,7 +16,8 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData.Factories
 				Brand = brand,
 				Color = color,
 				Id = 0,
-				Name = "Testbåge"
+				Name = "Testbåge",
+                Supplier = supplier
 			}.SetInterval(x => x.PupillaryDistance, 20, 40, 0.5M);
 		}
 
@@ -29,7 +30,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData.Factories
 			return input;
 		}
 
-		public static IEnumerable<Frame> GetFrames(IEnumerable<FrameBrand> brands, IEnumerable<FrameColor> colors)
+		public static IEnumerable<Frame> GetFrames(IEnumerable<FrameBrand> brands, IEnumerable<FrameColor> colors, FrameSupplier supplier)
 		{
 			var counter = 1;
 			var returnList = new List<Frame>();
@@ -44,6 +45,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData.Factories
 						Brand = brand,
 						Color = color,
 						Name = string.Format("Testbåge {0}", counter),
+                        Supplier = supplier,
 						Stock = new FrameStock
 						{
 							StockAtStockDate = 200,

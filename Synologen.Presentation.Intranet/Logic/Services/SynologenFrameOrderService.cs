@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
 		{
 			var template = _settingService.GetFrameOrderEmailBodyTemplate();
 			var body = CreateOrderEmailBody(order, template);
-			_emailService.SendEmail(_settingService.EmailOrderFrom, order.Supplier.Email, _settingService.EmailOrderSubject, body);
+			_emailService.SendEmail(_settingService.EmailOrderFrom, order.Frame.Supplier.Email, _settingService.EmailOrderSubject, body);
 		}
 
 		private static string CreateOrderEmailBody(FrameOrder order, string template)

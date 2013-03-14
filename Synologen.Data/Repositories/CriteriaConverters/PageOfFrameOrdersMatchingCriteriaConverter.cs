@@ -14,13 +14,15 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 		{
 			return Criteria
 				.CreateAlias(x => x.Frame)
+                .CreateAlias(x => x.Frame.Supplier,"Supplier")
 				.CreateAlias(x => x.GlassType)
 				.CreateAlias(x => x.OrderingShop)
 				.FilterByAny(filter =>
 				{
 					filter.By(x => x.Frame.Name);
+                    filter.By(x => x.Supplier.Name);
 					filter.By(x => x.GlassType.Name);
-					filter.By(x => x.OrderingShop.Name);
+					filter.By(x => x.OrderingShop.Name);                  
 				}, source.Search)
 				.Sort(source.OrderBy, source.SortAscending)
 				.Page(source.Page, source.PageSize);

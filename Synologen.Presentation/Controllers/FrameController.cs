@@ -71,8 +71,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		{
 			var selectableFrameColors = _frameColorRepository.GetAll();
 			var selectableFrameBrands = _frameBrandRepository.GetAll();
+            var selectableFrameSuppliers = _frameSupplierRepository.GetAll();
 			var frame = _frameRepository.Get(id);
-			var viewModel = frame.ToFrameEditView(selectableFrameBrands, selectableFrameColors, "Redigera båge");
+			var viewModel = frame.ToFrameEditView(selectableFrameBrands, selectableFrameColors,selectableFrameSuppliers, "Redigera båge");
 			return View(viewModel);
 		}
 
@@ -84,16 +85,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			{
 				var brand = _frameBrandRepository.Get(inModel.BrandId);
 				var color = _frameColorRepository.Get(inModel.ColorId);
+                var supplier = _frameSupplierRepository.Get(inModel.SupplierId);
 				var entity = _frameRepository.Get(inModel.Id);
-				var frame = inModel.FillFrame(entity, brand, color);
+				var frame = inModel.FillFrame(entity, brand, color,supplier);
 				_frameRepository.Save(frame);
 				this.AddSuccessMessage("Bågen har sparats");
 				return RedirectToAction("Index");
 			}
 			var selectableFrameColors = _frameColorRepository.GetAll();
 			var selectableFrameBrands = _frameBrandRepository.GetAll();
+		    var selectableFrameSuppliers = _frameSupplierRepository.GetAll();
 			inModel.AvailableFrameBrands = selectableFrameBrands;
 			inModel.AvailableFrameColors = selectableFrameColors;
+		    inModel.AvailableFrameSuppliers = selectableFrameSuppliers;
 			return View(inModel);
 		}
 
@@ -101,7 +105,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		{
 			var selectableFrameColors = _frameColorRepository.GetAll();
 			var selectableFrameBrands = _frameBrandRepository.GetAll();
-			return View(FrameEditView.GetDefaultInstance(selectableFrameColors, selectableFrameBrands, "Skapa ny båge"));
+		    var selectableFrameSuppliers = _frameSupplierRepository.GetAll();
+			return View(FrameEditView.GetDefaultInstance(selectableFrameColors, selectableFrameBrands,selectableFrameSuppliers, "Skapa ny båge"));
 		}
 
 		[HttpPost]
@@ -112,7 +117,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			{
 				var brand = _frameBrandRepository.Get(inModel.BrandId);
 				var color = _frameColorRepository.Get(inModel.ColorId);
-				var frame = inModel.ToFrame(brand, color);
+			    var supplier = _frameSupplierRepository.Get(inModel.SupplierId);
+                var frame = inModel.ToFrame(brand, color, supplier);
 				_frameRepository.Save(frame);
 				this.AddSuccessMessage("Bågen har sparats");
 				return RedirectToAction("Index");

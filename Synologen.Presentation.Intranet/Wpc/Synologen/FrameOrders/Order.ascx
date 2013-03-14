@@ -9,7 +9,7 @@
 		Runat="server" 
 		DataSource='<%#Model.SupplierList%>' 
 		SelectedValue='<%#Model.SelectedSupplierId%>'
-		AutoPostBack="false"
+		AutoPostBack="true"
 		DataValueField="Id"
 		DataTextField="Name" />
 	<asp:RequiredFieldValidator 

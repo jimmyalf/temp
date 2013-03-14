@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.ContractSales;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
@@ -54,6 +55,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 		{
 			View.Load += View_Load;
 			View.FrameSelected += View_BindModel;
+            View.SupplierSelected += View_BindModel;
 			View.SubmitForm += View_SumbitForm;
 			View.GlassTypeSelected += View_BindModel;
 		}
@@ -98,7 +100,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 		{
 
             View.Model.SupplierList = _frameSupplierRepository.GetAll().ToFrameSupplierList().InsertFirst(DefaultSupplier);
-            View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).ToFrameViewList().InsertFirst(DefaultFrame);
+            View.Model.FramesList = new List<Frame>().ToFrameViewList().InsertFirst(DefaultFrame);
 			View.Model.PupillaryDistance = EmptyIntervalList.CreateDefaultEyeParameter("PD");
 			View.Model.Sphere = EmptyIntervalList.CreateDefaultEyeParameter("Sfär");
 			View.Model.Cylinder = EmptyIntervalList.CreateDefaultEyeParameter("Cylinder");
@@ -122,7 +124,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 
 		public void UpdateModel(EditFrameFormEventArgs e)
 		{
-			if(e.SelectedFrameId>0){
+            if (e.SelectedSupplierId > 0)
+			{
+                View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).Where(x => x.Supplier.Id == e.SelectedSupplierId).ToFrameViewList().InsertFirst(DefaultFrame);
+			}
+
+            if(e.SelectedFrameId>0){
 				var frame = _frameRepository.Get(e.SelectedFrameId);
 				View.Model.PupillaryDistance = e.GetEyeParameter(x => x.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
 			}
@@ -169,7 +176,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 			View.Model.HeightParametersEnabled = frameOrder.GlassType.IncludeHeightParametersInOrder;
 			View.Model.AdditionParametersEnabled = frameOrder.GlassType.IncludeAdditionParametersInOrder;
 			View.Model.SelectedFrameId = frameOrder.Frame.Id;
-            View.Model.SelectedSupplierId = frameOrder.Supplier.Id;
+            View.Model.SelectedSupplierId = frameOrder.Frame.Supplier.Id;
 			View.Model.SelectedGlassTypeId = frameOrder.GlassType.Id;
 			View.Model.AxisSelectionLeft = (frameOrder.Axis == null || frameOrder.Axis.Left == null) ? (int?)null : frameOrder.Axis.Left.Value;
 			View.Model.AxisSelectionRight = (frameOrder.Axis == null || frameOrder.Axis.Right == null) ? (int?)null : frameOrder.Axis.Right.Value;
@@ -202,9 +209,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 			{
 				var previouslySavedFrameOrder = _frameOrderRepository.Get(frameOrderId);
 				var frame = _frameRepository.Get(e.SelectedFrameId);
-				var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
-                var supplier = _frameSupplierRepository.Get(e.SelectedSupplierId);
-				frameOrder = e.FillFrameOrder(frame, glassType, previouslySavedFrameOrder,supplier);
+				var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);               
+				frameOrder = e.FillFrameOrder(frame, glassType, previouslySavedFrameOrder);
 			}
 			else
 			{
@@ -213,7 +219,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 				var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
 				var shopId = _synologenMemberService.GetCurrentShopId();
 				var shop = _shopRepository.Get(shopId);
-				frameOrder = e.ToFrameOrder(frame, glassType, shop , supplier);
+				frameOrder = e.ToFrameOrder(frame, glassType, shop );
 			}
 			_frameOrderRepository.Save(frameOrder);
 			return frameOrder.Id;

@@ -34,7 +34,7 @@ namespace Spinit.Wpc.Synologen.Data.Test.FrameData.Factories
 				Sent = new DateTime(2010, 08, 24, 13, 45, 0),
 				Sphere = new EyeParameter { Left = -5.25M, Right = 2.75M },
 				Reference = "Kund: Adam Bertil",
-                Supplier = supplier
+
 			};
 
 		}

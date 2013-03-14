@@ -17,6 +17,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Test.Factories
 				AvailableFrameColors = null,
 				BrandId = 5,
 				ColorId = 3,
+                SupplierId = 1,
 				FormLegend = null,
 				Id = id,
 				Name = "Nytt bågnamn",

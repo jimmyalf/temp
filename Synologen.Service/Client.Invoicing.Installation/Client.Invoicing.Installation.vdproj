@@ -21,44 +21,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_10E5DCA8C014099A4423D7840E2D8FBF"
-        "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_10E5DCA8C014099A4423D7840E2D8FBF"
-        "OwnerKey" = "8:_836A0FDE469C4A94514F991BEB95D3CC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_314CC277566BCE517E415A12E567CE0C"
-        "OwnerKey" = "8:_C564D5FDA2DAB2C32DAEAF043B6DC49B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_314CC277566BCE517E415A12E567CE0C"
-        "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_314CC277566BCE517E415A12E567CE0C"
-        "OwnerKey" = "8:_3DACDB17EE6C43110116BA44B0C94D99"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3DACDB17EE6C43110116BA44B0C94D99"
-        "OwnerKey" = "8:_C564D5FDA2DAB2C32DAEAF043B6DC49B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3DACDB17EE6C43110116BA44B0C94D99"
-        "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
+        "MsmKey" = "8:_2BB57FBFEE8D4FF681F3DF8A4DFB991D"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -75,49 +39,61 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_836A0FDE469C4A94514F991BEB95D3CC"
+        "MsmKey" = "8:_868C8D25217FE203A1492B445474ABAA"
+        "OwnerKey" = "8:_9AA899D2D8C70099D739B5A75C613F59"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_868C8D25217FE203A1492B445474ABAA"
         "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_8B0980AAC5B74880AA2718AC2E486F7C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AC7C04002F8359F6C12A183F84BBFB0A"
+        "MsmKey" = "8:_8B7165E7E1A10B085F64C17BD702DFF2"
         "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_AC7C04002F8359F6C12A183F84BBFB0A"
-        "OwnerKey" = "8:_ACE7FF3E80C45E9E861CD1A5A5789C18"
+        "MsmKey" = "8:_8B7165E7E1A10B085F64C17BD702DFF2"
+        "OwnerKey" = "8:_868C8D25217FE203A1492B445474ABAA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_ACE7FF3E80C45E9E861CD1A5A5789C18"
-        "OwnerKey" = "8:_10E5DCA8C014099A4423D7840E2D8FBF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_ACE7FF3E80C45E9E861CD1A5A5789C18"
+        "MsmKey" = "8:_97E819CBB74E654CF4A309DF3A846B3C"
         "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C564D5FDA2DAB2C32DAEAF043B6DC49B"
-        "OwnerKey" = "8:_10E5DCA8C014099A4423D7840E2D8FBF"
+        "MsmKey" = "8:_97E819CBB74E654CF4A309DF3A846B3C"
+        "OwnerKey" = "8:_E4D87F12EC905659FEBFA965F38DDAA4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C564D5FDA2DAB2C32DAEAF043B6DC49B"
+        "MsmKey" = "8:_9AA899D2D8C70099D739B5A75C613F59"
+        "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9AA899D2D8C70099D739B5A75C613F59"
+        "OwnerKey" = "8:_E4D87F12EC905659FEBFA965F38DDAA4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AE00E0362EDD6D1F1800C5D2F4C06CA4"
+        "OwnerKey" = "8:_9AA899D2D8C70099D739B5A75C613F59"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AE00E0362EDD6D1F1800C5D2F4C06CA4"
         "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -129,20 +105,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_EC4A9F1C749FB30E4956C361694A55EE"
+        "MsmKey" = "8:_E4D87F12EC905659FEBFA965F38DDAA4"
         "OwnerKey" = "8:_0F7060AFF56B4D2999825621A48FA15F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_EC4A9F1C749FB30E4956C361694A55EE"
-        "OwnerKey" = "8:_836A0FDE469C4A94514F991BEB95D3CC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F3F8CAC2ED0B4CD4AFDE9FE2539F5005"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -154,55 +118,37 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F3F8CAC2ED0B4CD4AFDE9FE2539F5005"
+        "OwnerKey" = "8:_E4D87F12EC905659FEBFA965F38DDAA4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_836A0FDE469C4A94514F991BEB95D3CC"
+        "OwnerKey" = "8:_97E819CBB74E654CF4A309DF3A846B3C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EC4A9F1C749FB30E4956C361694A55EE"
+        "OwnerKey" = "8:_9AA899D2D8C70099D739B5A75C613F59"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_10E5DCA8C014099A4423D7840E2D8FBF"
+        "OwnerKey" = "8:_AE00E0362EDD6D1F1800C5D2F4C06CA4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C564D5FDA2DAB2C32DAEAF043B6DC49B"
+        "OwnerKey" = "8:_868C8D25217FE203A1492B445474ABAA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3DACDB17EE6C43110116BA44B0C94D99"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_314CC277566BCE517E415A12E567CE0C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_ACE7FF3E80C45E9E861CD1A5A5789C18"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AC7C04002F8359F6C12A183F84BBFB0A"
+        "OwnerKey" = "8:_8B7165E7E1A10B085F64C17BD702DFF2"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -315,21 +261,10 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_10E5DCA8C014099A4423D7840E2D8FBF"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2BB57FBFEE8D4FF681F3DF8A4DFB991D"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Synologen.Business, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_10E5DCA8C014099A4423D7840E2D8FBF"
-                    {
-                    "Name" = "8:Spinit.Wpc.Synologen.Business.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Spinit.Wpc.Synologen.Business.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\..\\Dependancies\\Client Dependencies\\Synologen.Service.Client.Invoicing.exe.config"
+            "TargetName" = "8:Synologen.Service.Client.Invoicing.exe.config"
             "Tag" = "8:"
             "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
             "Condition" = "8:"
@@ -343,69 +278,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_314CC277566BCE517E415A12E567CE0C"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Utility.Core, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_314CC277566BCE517E415A12E567CE0C"
-                    {
-                    "Name" = "8:Spinit.Wpc.Utility.Core.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Spinit.Wpc.Utility.Core.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3DACDB17EE6C43110116BA44B0C94D99"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Utility.Data, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_3DACDB17EE6C43110116BA44B0C94D99"
-                    {
-                    "Name" = "8:Spinit.Wpc.Utility.Data.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Spinit.Wpc.Utility.Data.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6A3787F85F3F4104B0AF219DE5328155"
@@ -448,96 +321,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_836A0FDE469C4A94514F991BEB95D3CC"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Synologen.Visma, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_836A0FDE469C4A94514F991BEB95D3CC"
-                    {
-                    "Name" = "8:Spinit.Wpc.Synologen.Visma.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Spinit.Wpc.Synologen.Visma.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8B0980AAC5B74880AA2718AC2E486F7C"
-            {
-            "SourcePath" = "8:..\\..\\Dependancies\\Client Dependencies\\Synologen.Client.exe.config"
-            "TargetName" = "8:Synologen.Client.exe.config"
-            "Tag" = "8:"
-            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AC7C04002F8359F6C12A183F84BBFB0A"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Spinit.Data, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_AC7C04002F8359F6C12A183F84BBFB0A"
-                    {
-                    "Name" = "8:Spinit.Data.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Spinit.Data.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_ACE7FF3E80C45E9E861CD1A5A5789C18"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_868C8D25217FE203A1492B445474ABAA"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Synologen.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_ACE7FF3E80C45E9E861CD1A5A5789C18"
+                    "_868C8D25217FE203A1492B445474ABAA"
                     {
                     "Name" = "8:Spinit.Wpc.Synologen.Core.dll"
                     "Attributes" = "3:512"
@@ -561,14 +352,107 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C564D5FDA2DAB2C32DAEAF043B6DC49B"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8B7165E7E1A10B085F64C17BD702DFF2"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Utility.Business, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Spinit.Data, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C564D5FDA2DAB2C32DAEAF043B6DC49B"
+                    "_8B7165E7E1A10B085F64C17BD702DFF2"
+                    {
+                    "Name" = "8:Spinit.Data.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Spinit.Data.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_97E819CBB74E654CF4A309DF3A846B3C"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AdkNetWrapper, Version=5.3.0.5, Culture=neutral, PublicKeyToken=cfe7b9463f617598, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_97E819CBB74E654CF4A309DF3A846B3C"
+                    {
+                    "Name" = "8:AdkNetWrapper.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AdkNetWrapper.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9AA899D2D8C70099D739B5A75C613F59"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Synologen.Business, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_9AA899D2D8C70099D739B5A75C613F59"
+                    {
+                    "Name" = "8:Spinit.Wpc.Synologen.Business.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Spinit.Wpc.Synologen.Business.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AE00E0362EDD6D1F1800C5D2F4C06CA4"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Utility.Business, Version=5.0.33.4404, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_AE00E0362EDD6D1F1800C5D2F4C06CA4"
                     {
                     "Name" = "8:Spinit.Wpc.Utility.Business.dll"
                     "Attributes" = "3:512"
@@ -612,20 +496,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EC4A9F1C749FB30E4956C361694A55EE"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E4D87F12EC905659FEBFA965F38DDAA4"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AdkNetWrapper, Version=5.0.0.25, Culture=neutral, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:Spinit.Wpc.Synologen.Visma, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_EC4A9F1C749FB30E4956C361694A55EE"
+                    "_E4D87F12EC905659FEBFA965F38DDAA4"
                     {
-                    "Name" = "8:AdkNetWrapper.dll"
+                    "Name" = "8:Spinit.Wpc.Synologen.Visma.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:AdkNetWrapper.dll"
+            "SourcePath" = "8:Spinit.Wpc.Synologen.Visma.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
@@ -641,37 +525,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F3F8CAC2ED0B4CD4AFDE9FE2539F5005"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AdkNetWrapper, Version=4.5.0.1, Culture=neutral, processorArchitecture=x86"
-                "ScatterAssemblies"
-                {
-                    "_F3F8CAC2ED0B4CD4AFDE9FE2539F5005"
-                    {
-                    "Name" = "8:AdkNetWrapper.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\..\\Dependancies\\Synologen ADK\\AdkNetWrapper.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_3058A739B96248FB87B1674B792E849A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -742,7 +595,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Synologen Klient"
         "ProductCode" = "8:{ED745165-70C3-4DE0-82A3-A393C2AAA44B}"
-        "PackageCode" = "8:{903766F8-A080-432C-8C80-5A19F2F9C642}"
+        "PackageCode" = "8:{A9D6E9C1-2A95-4E9B-81A7-D3C09BB1DECB}"
         "UpgradeCode" = "8:{8DD6CE9F-3A0D-4D6F-8495-941224033B0D}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

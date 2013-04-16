@@ -63,8 +63,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdkNetWrapper">
-      <HintPath>..\..\Dependancies\Spinit ADK\AdkNetWrapper.dll</HintPath>
+    <Reference Include="AdkNetWrapper, Version=5.0.0.25, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Synologen ADK\AdkNetWrapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -131,5 +132,4 @@
   <PropertyGroup>
     <PostBuildEvent>"$(ProjectDir)..\..\Build\Post-Build-$(TargetName).bat" "$(ProjectDir)"</PostBuildEvent>
   </PropertyGroup>
-  
 </Project>

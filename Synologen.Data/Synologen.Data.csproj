@@ -115,9 +115,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\Deviations\CreateDeviationCommand.cs" />
     <Compile Include="Commands\Finance\SettleNewAutogiroTransactions.cs" />
     <Compile Include="Commands\Finance\SettleOldAutogiroTransactions.cs" />
     <Compile Include="Queries\AbstractListQuery.cs" />
+    <Compile Include="Queries\Deviations\DeviationsQuery.cs" />
     <Compile Include="Queries\Finance\GetOldAutogiroTransactionsReadyForSettlement.cs" />
     <Compile Include="Queries\Finance\GetNewAutogiroTransactionsReadyForSettlement.cs" />
     <Compile Include="Commands\SubscriptionMigration\MigrateCustomerCommand.cs" />

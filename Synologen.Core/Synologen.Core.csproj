@@ -87,6 +87,8 @@
   <ItemGroup>
     <Compile Include="Attributes\EnumDisplayNameAttribute.cs" />
     <Compile Include="Domain\Model\ContractSales\NewTransaction.cs" />
+    <Compile Include="Domain\Model\Deviations\Deviation.cs" />
+    <Compile Include="Domain\Model\Deviations\DeviationCategory.cs" />
     <Compile Include="Domain\Model\FrameOrder\FrameSupplier.cs" />
     <Compile Include="Domain\Model\Orders\SubscriptionPendingPaymentAmount.cs" />
     <Compile Include="Domain\Model\Orders\SubscriptionTypes\SubscriptionVersion.cs" />

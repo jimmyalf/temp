@@ -54,6 +54,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Logic\Enumerations\SubscriptionType.cs" />
+    <Compile Include="Logic\EventArguments\Deviations\CreateDeviationEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\ResetSubscriptonEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\EditCustomerEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\HandleErrorEventArgs.cs" />
@@ -61,6 +62,10 @@
     <Compile Include="Logic\EventArguments\Orders\SubmitCorrectionEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SubmitSubscriptionItemEventArgs.cs" />
     <Compile Include="Logic\Presenters\ActionMessagePresenter.cs" />
+    <Compile Include="Logic\Presenters\Deviations\CreateDeviationPresenter.cs" />
+    <Compile Include="Logic\Presenters\Deviations\DeviationPresenter.cs" />
+    <Compile Include="Logic\Presenters\Deviations\ExternalDeviationListPresenter.cs" />
+    <Compile Include="Logic\Presenters\Deviations\InternalDeviationListPresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\BasePresenter.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\MigrateSubscriptionPresenter.cs" />
     <Compile Include="Logic\Presenters\Orders\EditSubscriptionPresenter.cs" />
@@ -118,6 +123,9 @@
     <Compile Include="Logic\Services\MigrationValidators\ValidatorBase.cs" />
     <Compile Include="Logic\Services\OrderWithdrawalService.cs" />
     <Compile Include="Logic\Services\RoutingService.cs" />
+    <Compile Include="Logic\Views\Deviations\ICreateDeviationView.cs" />
+    <Compile Include="Logic\Views\Deviations\IExternalDeviationListView.cs" />
+    <Compile Include="Logic\Views\Deviations\IInternalDeviationListView.cs" />
     <Compile Include="Logic\Views\IActionMessageView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IMigrateSubscriptionView.cs" />
     <Compile Include="Logic\Views\Orders\IEditCustomerView.cs" />
@@ -172,6 +180,9 @@
     <Compile Include="Logic\Views\LensSubscription\IListCustomersView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListSubscriptionErrorView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListTransactionView.cs" />
+    <Compile Include="Models\Deviations\CreateDeviationModel.cs" />
+    <Compile Include="Models\Deviations\ExternalDeviationListModel.cs" />
+    <Compile Include="Models\Deviations\InternalDeviationListModel.cs" />
     <Compile Include="Models\FrameOrders\FrameSupplierListItem.cs" />
     <Compile Include="Models\LensSubscription\CreateCustomerModel.cs" />
     <Compile Include="Models\LensSubscription\CreateLensSubscriptionModel.cs" />
@@ -269,6 +280,27 @@
     </Compile>
     <Compile Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx.designer.cs">
       <DependentUpon>ViewSettlement.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Deviations\InternalDeviationList.ascx.cs">
+      <DependentUpon>InternalDeviationList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Deviations\InternalDeviationList.ascx.designer.cs">
+      <DependentUpon>InternalDeviationList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Deviations\ExternalDeviationList.ascx.cs">
+      <DependentUpon>ExternalDeviationList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Deviations\ExternalDeviationList.ascx.designer.cs">
+      <DependentUpon>ExternalDeviationList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Deviations\CreateDeviation.ascx.cs">
+      <DependentUpon>CreateDeviation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Deviations\CreateDeviation.ascx.designer.cs">
+      <DependentUpon>CreateDeviation.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\EditMember.ascx.cs">
       <DependentUpon>EditMember.ascx</DependentUpon>
@@ -635,6 +667,9 @@
     <None Include="Testpages\LensSubscription\MigrateSubscription.aspx" />
     <None Include="Testpages\Supplier\MemberProfile.aspx" />
     <None Include="Testpages\Supplier\AdminMemberPage.aspx" />
+    <None Include="Testpages\Deviations\CreateDeviation.aspx" />
+    <None Include="Testpages\Deviations\ExternalDeviationList.aspx" />
+    <None Include="Testpages\Deviations\InternalDeviationList.aspx" />
     <Content Include="Testpages\Supplier\MemberFilesThumbs.aspx" />
     <None Include="Testpages\Order\EditSubscription.aspx" />
     <None Include="Testpages\Order\OrderReportLink.aspx" />
@@ -643,6 +678,9 @@
     <Content Include="Wpc\Synologen\css\screen.css" />
     <Content Include="Wpc\Synologen\css\smoothness\images\pbar-ani.gif" />
     <Content Include="Wpc\Synologen\css\smoothness\jquery-ui-1.8.16.custom.css" />
+    <Content Include="Wpc\Synologen\Deviations\InternalDeviationList.ascx" />
+    <Content Include="Wpc\Synologen\Deviations\ExternalDeviationList.ascx" />
+    <Content Include="Wpc\Synologen\Deviations\CreateDeviation.ascx" />
     <Content Include="Wpc\Synologen\EditMember.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\EditOrder.ascx" />
     <Content Include="Wpc\Synologen\ContractSales\CreateOrder.ascx" />

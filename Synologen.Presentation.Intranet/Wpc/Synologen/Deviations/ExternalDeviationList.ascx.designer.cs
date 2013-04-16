@@ -10,6 +10,6 @@
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations {
     
     
-    public partial class CreateDeviation {
+    public partial class ExternalDeviationList {
     }
 }

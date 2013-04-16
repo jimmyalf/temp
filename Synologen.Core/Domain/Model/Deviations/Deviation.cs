@@ -9,6 +9,7 @@ namespace Spinit.Wpc.Synologen.Core.Domain.Model.Deviations
 			Created = DateTime.Now;
 		}
 
+		public virtual DeviationType Type { get; set; }
 		public virtual DeviationCategory Category { get; set; }
 		public virtual DateTime Created { get; set; }
 	}

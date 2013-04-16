@@ -5,9 +5,17 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
 {
 	public class DeviationsQuery : Query<IList<Deviation>>
 	{
+		public DeviationType? SelectedDeviationType { get; set; }
+
 		public override IList<Deviation> Execute()
 		{
-			throw new System.NotImplementedException();
+			if (SelectedDeviationType.HasValue)
+			{
+				// TODO: Filter results on selected deviation type
+			}
+
+			// TODO: Implement query
+			return new List<Deviation>();
 		}
 	}
 }

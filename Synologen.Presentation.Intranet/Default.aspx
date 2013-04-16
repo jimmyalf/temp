@@ -58,5 +58,11 @@
 		<a href="TestPages/Order/SubscriptionShopSubscriptionsList.aspx">Lista abonnemang</a>
 		<a href="Testpages/Order/EditCustomer.aspx?customer=1">Redigera kund</a>
 	</fieldset>
+    <fieldset>
+	    <legend>Avvikelsehantering</legend>
+        <a href="TestPages/Deviations/CreateDeviation.aspx">Skapa avvikelse</a>
+		<a href="TestPages/Deviations/ExternalDeviationList.aspx">Externa avvikelser</a>
+		<a href="Testpages/Deviations/InternalDeviationList.aspx">Interna avvikelser</a>
+	</fieldset>
 </div>
 </asp:Content>

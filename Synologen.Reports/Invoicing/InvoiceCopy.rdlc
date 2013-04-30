@@ -1592,8 +1592,8 @@ Påminnelseavgift 45 kronor.</Value>
         </TablixRowHierarchy>
         <DataSetName>InvoiceRow</DataSetName>
         <Top>5cm</Top>
-        <Height>8.81428cm</Height>
-        <Width>17.6cm</Width>
+        <Height>8.81433cm</Height>
+        <Width>17.59996cm</Width>
         <ZIndex>1</ZIndex>
         <Style />
       </Tablix>
@@ -1660,7 +1660,7 @@ Påminnelseavgift 45 kronor.</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Synhälsan Svenska AB
+                <Value>Synologen Service AB
 Strandbergsgatan 61
 112 51 Stockholm
 Sverige</Value>
@@ -1718,7 +1718,7 @@ Sverige</Value>
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>13.81428cm</Height>
+    <Height>13.81433cm</Height>
     <Style />
   </Body>
   <Width>17.61772cm</Width>
@@ -1759,7 +1759,7 @@ Sverige</Value>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Synhälsan Svenska AB
+                  <Value>Synologen Service AB
 Strandbergsgatan 61
 112 51 Stockholm</Value>
                   <Style />

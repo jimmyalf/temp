@@ -5,10 +5,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations
 {
 	public class ExternalDeviationListModel
 	{
-		public ExternalDeviationListModel() { }
-		public ExternalDeviationListModel(IList<Deviation> deviations)
-		{
-			
-		}
+        public IEnumerable<Deviation> Deviations { get; set; }
+        public IEnumerable<DeviationSupplierListItem> Suppliers { get; set; }
+        public int SelectedSupplierId { get; set; }
+
 	}
 }

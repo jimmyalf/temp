@@ -78,6 +78,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen
 			itemCollection.AddItem("frameOrders", null, "Bågbeställning", "Administrera Bågbeställningar", null, "/components/synologen/frames", null, null, false, true);
 			itemCollection.AddItem("lens-subscriptions", null, "Linsabonnemang", "Administrera Linsabonnemang", null, "/components/synologen/lens-subscriptions", null, null, false, true);
 			itemCollection.AddItem("orders", null, "Beställningar", "Administrera Beställningar", null, "/components/synologen/orders", null, null, false, true);
+            itemCollection.AddItem("deviations", null, "Avvikelser", "Administrera Avvikelser", null, "/components/synologen/deviations", null, null, false, true);
 
 			synologenMenu.MenuItems = itemCollection;
 			smartMenu.Update(synologenMenu);

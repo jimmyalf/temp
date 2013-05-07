@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -15,12 +16,16 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
+    <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Synologen\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,11 +54,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\TinyMceAdvancedConfiguration.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TinyMceAdvancedConfiguration.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\TinyMceBasicConfiguration.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TinyMceBasicConfiguration.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\TinyMceWpcInternalAdvancedConfiguration.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TinyMceWpcInternalAdvancedConfiguration.resx</DependentUpon>
+    </Compile>
     <Compile Include="Code\CustomOrderValidation.cs" />
     <Compile Include="Code\SynologenCommonSupplierControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Logic\Enumerations\SubscriptionType.cs" />
+    <Compile Include="Logic\EventArguments\Deviations\ExternalDeviationListEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Deviations\CreateDeviationEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\ResetSubscriptonEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\EditCustomerEventArgs.cs" />
@@ -62,6 +83,7 @@
     <Compile Include="Logic\EventArguments\Orders\SubmitCorrectionEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\SubmitSubscriptionItemEventArgs.cs" />
     <Compile Include="Logic\Presenters\ActionMessagePresenter.cs" />
+    <Compile Include="Logic\Presenters\Deviations\ViewDeviationPresenter.cs" />
     <Compile Include="Logic\Presenters\Deviations\CreateDeviationPresenter.cs" />
     <Compile Include="Logic\Presenters\Deviations\DeviationPresenter.cs" />
     <Compile Include="Logic\Presenters\Deviations\ExternalDeviationListPresenter.cs" />
@@ -123,6 +145,7 @@
     <Compile Include="Logic\Services\MigrationValidators\ValidatorBase.cs" />
     <Compile Include="Logic\Services\OrderWithdrawalService.cs" />
     <Compile Include="Logic\Services\RoutingService.cs" />
+    <Compile Include="Logic\Views\Deviations\IViewDeviationView.cs" />
     <Compile Include="Logic\Views\Deviations\ICreateDeviationView.cs" />
     <Compile Include="Logic\Views\Deviations\IExternalDeviationListView.cs" />
     <Compile Include="Logic\Views\Deviations\IInternalDeviationListView.cs" />
@@ -180,8 +203,13 @@
     <Compile Include="Logic\Views\LensSubscription\IListCustomersView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListSubscriptionErrorView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListTransactionView.cs" />
+    <Compile Include="Models\Deviations\DeviationSupplierListItem.cs" />
+    <Compile Include="Models\Deviations\DeviationDefectListItem.cs" />
+    <Compile Include="Models\Deviations\ViewDeviationModel.cs" />
+    <Compile Include="Models\Deviations\DeviationTypeListItem.cs" />
     <Compile Include="Models\Deviations\CreateDeviationModel.cs" />
     <Compile Include="Models\Deviations\ExternalDeviationListModel.cs" />
+    <Compile Include="Models\Deviations\DeviationCategoryListItem.cs" />
     <Compile Include="Models\Deviations\InternalDeviationListModel.cs" />
     <Compile Include="Models\FrameOrders\FrameSupplierListItem.cs" />
     <Compile Include="Models\LensSubscription\CreateCustomerModel.cs" />
@@ -280,6 +308,13 @@
     </Compile>
     <Compile Include="Wpc\Synologen\ContractSales\ViewSettlement.ascx.designer.cs">
       <DependentUpon>ViewSettlement.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Deviations\ViewDeviation.ascx.cs">
+      <DependentUpon>ViewDeviation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wpc\Synologen\Deviations\ViewDeviation.ascx.designer.cs">
+      <DependentUpon>ViewDeviation.ascx</DependentUpon>
     </Compile>
     <Compile Include="Wpc\Synologen\Deviations\InternalDeviationList.ascx.cs">
       <DependentUpon>InternalDeviationList.ascx</DependentUpon>
@@ -670,6 +705,7 @@
     <None Include="Testpages\Deviations\CreateDeviation.aspx" />
     <None Include="Testpages\Deviations\ExternalDeviationList.aspx" />
     <None Include="Testpages\Deviations\InternalDeviationList.aspx" />
+    <Content Include="Testpages\Deviations\ViewDeviation.aspx" />
     <Content Include="Testpages\Supplier\MemberFilesThumbs.aspx" />
     <None Include="Testpages\Order\EditSubscription.aspx" />
     <None Include="Testpages\Order\OrderReportLink.aspx" />
@@ -678,6 +714,7 @@
     <Content Include="Wpc\Synologen\css\screen.css" />
     <Content Include="Wpc\Synologen\css\smoothness\images\pbar-ani.gif" />
     <Content Include="Wpc\Synologen\css\smoothness\jquery-ui-1.8.16.custom.css" />
+    <Content Include="Wpc\Synologen\Deviations\ViewDeviation.ascx" />
     <Content Include="Wpc\Synologen\Deviations\InternalDeviationList.ascx" />
     <Content Include="Wpc\Synologen\Deviations\ExternalDeviationList.ascx" />
     <Content Include="Wpc\Synologen\Deviations\CreateDeviation.ascx" />
@@ -879,6 +916,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Data">
+      <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Spinit.Wpc.Wysiwyg">
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Wysiwyg.dll</HintPath>
     </Reference>
@@ -967,8 +1007,13 @@
       <DependentUpon>OrderSubReport.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

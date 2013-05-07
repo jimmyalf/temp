@@ -21,6 +21,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Services
         {
             Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.220 Safari/535.1");
             CookieContainer = new CookieContainer();
+			Encoding = Encoding.UTF8;
         }
 
         protected override WebRequest GetWebRequest(Uri address)

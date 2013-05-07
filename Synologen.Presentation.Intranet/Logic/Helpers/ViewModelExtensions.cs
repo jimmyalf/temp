@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.FrameOrders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models.FrameOrders;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Helpers {
 	public static class ViewModelExtensions {
@@ -40,6 +42,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Helpers {
         public static IEnumerable<FrameSupplierListItem> ToFrameSupplierList(this IEnumerable<FrameSupplier> list)
         {
             Func<FrameSupplier, FrameSupplierListItem> typeConverter = x => new FrameSupplierListItem
+            {
+                Id = x.Id,
+                Name = x.Name,
+            };
+            return list.ConvertAll(typeConverter);
+        }
+
+        public static IEnumerable<DeviationDefectListItem> ToDeviationDefectList(this IEnumerable<DeviationDefect> list)
+        {
+            Func<DeviationDefect, DeviationDefectListItem> typeConverter = x => new DeviationDefectListItem
+            {
+                Id = x.Id,
+                Name = x.Name,
+            };
+            return list.ConvertAll(typeConverter);
+        }
+
+        public static IEnumerable<DeviationSupplierListItem> ToDeviationSupplierList(this IEnumerable<DeviationSupplier> list)
+        {
+            Func<DeviationSupplier, DeviationSupplierListItem> typeConverter = x => new DeviationSupplierListItem
+            {
+                Id = x.Id,
+                Name = x.Name,
+            };
+            return list.ConvertAll(typeConverter);
+        }
+
+        public static IEnumerable<DeviationCategoryListItem> ToDeviationCategoryList(this IEnumerable<DeviationCategory> list)
+        {
+            Func<DeviationCategory, DeviationCategoryListItem> typeConverter = x => new DeviationCategoryListItem
             {
                 Id = x.Id,
                 Name = x.Name,

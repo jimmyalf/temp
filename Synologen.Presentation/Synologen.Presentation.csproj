@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D0473A8D-2E0E-4156-A5AC-ECFA1CF297F7}</ProjectGuid>
-    <ProjectTypeGuids>{F85E285D-A4E0-4152-9332-AB1D724D3325};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Spinit.Wpc.Synologen.Presentation</RootNamespace>
@@ -23,13 +24,17 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
+    <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <TargetFrameworkProfile />
     <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Synologen\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,6 +59,17 @@
     <Content Include="App_Themes\Normal\img\tabs_bg2.gif" />
     <Content Include="App_Themes\Normal\img\tabs_bg3.gif" />
     <Content Include="App_Themes\Normal\inc\wpcstyle.css" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\AddSupplier.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\AddCategory.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\_DefectsForm.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\_SupplierForm.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\EditSupplier.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\_CategoryForm.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\EditCategory.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\ListSuppliers.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\ListCategories.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\ViewDeviation.aspx" />
+    <Content Include="Areas\SynologenAdmin\Views\Deviation\Index.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\AddSupplier.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\EditSupplier.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Frame\SupplierForm.ascx" />
@@ -71,6 +87,7 @@
     <Content Include="Areas\SynologenAdmin\Views\Order\Suppliers.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Order\Orders.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\ContractSalesSubMenu.ascx" />
+    <Content Include="Areas\SynologenAdmin\Views\Shared\DeviationSubMenu.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Shared\OrderSubMenu.ascx" />
     <Content Include="Areas\SynologenAdmin\Views\Synologen\ShopGroupForm.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Synologen\ShopGroups.aspx" />
@@ -299,6 +316,7 @@
     <Compile Include="Controllers\ContractSalesController.cs" />
     <Compile Include="Controllers\ContractSalesController_Articles.cs" />
     <Compile Include="Controllers\ContractSalesController_ContractArticles.cs" />
+    <Compile Include="Controllers\DeviationController.cs" />
     <Compile Include="Controllers\FrameGlassTypeController.cs" />
     <Compile Include="Controllers\FrameBrandController.cs" />
     <Compile Include="Controllers\FrameColorController.cs" />
@@ -332,6 +350,13 @@
     <Compile Include="Models\ContractSales\SettlementListViewItem.cs" />
     <Compile Include="Models\ContractSales\SettlementView.cs" />
     <Compile Include="Models\ContractSales\ShopSettlementItem.cs" />
+    <Compile Include="Models\Deviation\CategoryFormView.cs" />
+    <Compile Include="Models\Deviation\CommonFormView.cs" />
+    <Compile Include="Models\Deviation\CommonListView.cs" />
+    <Compile Include="Models\Deviation\CategoryListView.cs" />
+    <Compile Include="Models\Deviation\SupplierFormView.cs" />
+    <Compile Include="Models\Deviation\SupplierListView.cs" />
+    <Compile Include="Models\Deviation\DeviationListView.cs" />
     <Compile Include="Models\EyeParameterViewModel.cs" />
     <Compile Include="Models\FrameGlassTypeEditView.cs" />
     <Compile Include="Helpers\Resources\WpcConfirmationDialog.sv-SE.Designer.cs">
@@ -585,6 +610,10 @@
     <ProjectReference Include="..\Synologen.Data\Synologen.Data.csproj">
       <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
       <Name>Synologen.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synologen.Presentation.Intranet\Synologen.Presentation.Intranet.csproj">
+      <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
+      <Name>Synologen.Presentation.Intranet %28Presentation\Synologen.Presentation.Intranet%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\Synologen.Reports\Synologen.Reports.csproj">
       <Project>{126DA313-2592-4002-82AB-D25DDB743256}</Project>
@@ -853,8 +882,13 @@
     <Folder Include="Application\Services\_svn\tmp\props\" />
     <Folder Include="Application\Services\_svn\tmp\text-base\" />
   </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

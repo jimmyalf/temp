@@ -77,6 +77,8 @@ namespace Spinit.Wpc.Synologen.Presentation
 			context.MapRoute(AreaName + "ShopGroupDelete", urlPrefix + "shop-groups/delete/{id}", new { controller = "Synologen", action = "DeleteShopGroup" } );
 			context.MapRoute(AreaName + "ShopGroupAdd", urlPrefix + "shop-groups/add", new { controller = "Synologen", action = "ShopGroupForm" } );
 			context.MapRoute(AreaName + "ShopGroups", urlPrefix + "shop-groups", new { controller = "Synologen", action = "ShopGroups" } );
+
+            context.MapRoute(AreaName + "Deviations", urlPrefix + "deviations/{action}", new { controller = "Deviation", action = "Index" });
 		}
 
 		public override string AreaName

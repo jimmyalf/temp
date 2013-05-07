@@ -5,9 +5,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations
 {
 	public class InternalDeviationListModel
 	{
-		public InternalDeviationListModel() { }
-		public InternalDeviationListModel(IList<Deviation> deviations)
-		{
-		}
+        public IEnumerable<Deviation> Deviations;
 	}
 }

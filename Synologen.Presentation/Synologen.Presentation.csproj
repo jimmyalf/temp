@@ -611,10 +611,6 @@
       <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
       <Name>Synologen.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.Presentation.Intranet\Synologen.Presentation.Intranet.csproj">
-      <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
-      <Name>Synologen.Presentation.Intranet %28Presentation\Synologen.Presentation.Intranet%29</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Synologen.Reports\Synologen.Reports.csproj">
       <Project>{126DA313-2592-4002-82AB-D25DDB743256}</Project>
       <Name>Synologen.Reports</Name>

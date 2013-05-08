@@ -46,10 +46,8 @@ Default.log.*
 *UpgradeReport*
 
 # Project specific settings
-/*/*.config
-/*/*/*.config
-/*/*/*/*.config
-!/Synologen.Config/*/*/*.config
+*[Aa]pp.config
+*[Ww]eb.config
 Output/
 SentFiles/
 [Ll]ogs/

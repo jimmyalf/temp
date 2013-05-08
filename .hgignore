@@ -42,6 +42,8 @@ StyleCop.*
 *.DotSettings.user
 Default.log.*
 *.tmp
+*UpgradeLog*
+*UpgradeReport*
 
 # Project specific settings
 /*/*.config

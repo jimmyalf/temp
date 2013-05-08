@@ -1,18 +1,15 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>Spinit.Data</id>
-    <version>1.0.5.0</version>
-    <title>Spinit Data</title>
+    <id>Spinit</id>
+    <version>1.0.11.0</version>
+    <title>Spinit</title>
     <authors>Spinit AB</authors>
     <owners>Spinit AB</owners>
     <iconUrl>http://nuget.spinit.local/spinit-logo-nuget.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Spinit Data assembly</description>
-    <releaseNotes>Fixed spinit reference</releaseNotes>
-    <tags>Spinit Data</tags>
-    <dependencies>
-      <dependency id="Spinit" version="1.0.6.0" />
-    </dependencies>
+    <description>Spinit Core library</description>
+    <releaseNotes>Updated ResourceFile with more meta information</releaseNotes>
+    <tags>Spinit</tags>
   </metadata>
 </package>

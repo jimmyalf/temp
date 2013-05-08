@@ -49,6 +49,8 @@ Default.log.*
 # Project specific settings
 *[Aa]pp.config
 *[Ww]eb.config
+*Filemanager.config
+*Imagemanager.config
 Output/
 SentFiles/
 [Ll]ogs/

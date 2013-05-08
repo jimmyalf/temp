@@ -44,6 +44,7 @@ Default.log.*
 *.tmp
 *UpgradeLog*
 *UpgradeReport*
+*.suo
 
 # Project specific settings
 *[Aa]pp.config

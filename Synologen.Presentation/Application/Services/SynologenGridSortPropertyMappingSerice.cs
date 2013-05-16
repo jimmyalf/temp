@@ -4,11 +4,10 @@ using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Controllers;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Models;
+using Spinit.Wpc.Synologen.Presentation.Models.Deviation;
 using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Models.Order;
-using Spinit.Wpc.Synologen.Presentation.Models.Deviation;
 using Subscription = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
@@ -36,24 +35,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 			Map<LensSubscriptionController, TransactionArticleListItem, TransactionArticle>(x => x.Active, x => x.Active);
 			Map<LensSubscriptionController, TransactionArticleListItem, TransactionArticle>(x => x.NumberOfConnectedTransactions, x => x.NumberOfConnectedTransactions);
 
-			Map<OrderController,OrderListItem,Order>(x => x.OrderId, x => x.Id);
-			Map<OrderController,OrderListItem,Order>(x => x.CreatedDate, x => x.Created);
-			Map<OrderController,OrderListItem,Order>(x => x.CustomerName, x => x.Customer.FirstName);
-			Map<OrderController,OrderListItem,Order>(x => x.PersonalIDNumber, x => x.Customer.PersonalIdNumber);
-			Map<OrderController,OrderListItem,Order>(x => x.ShopName, x => x.Shop.Name);
+			Map<OrderController, OrderListItem, Order>(x => x.OrderId, x => x.Id);
+			Map<OrderController, OrderListItem, Order>(x => x.CreatedDate, x => x.Created);
+			Map<OrderController, OrderListItem, Order>(x => x.CustomerName, x => x.Customer.FirstName);
+			Map<OrderController, OrderListItem, Order>(x => x.PersonalIDNumber, x => x.Customer.PersonalIdNumber);
+			Map<OrderController, OrderListItem, Order>(x => x.ShopName, x => x.Shop.Name);
+                                 
+			Map<OrderController, CategoryListItem, ArticleCategory>(x => x.CategoryId, x => x.Id);
+			Map<OrderController, CategoryListItem, ArticleCategory>(x => x.Name, x => x.Name);
+                                                   
+			Map<OrderController, SupplierListItem, ArticleSupplier>(x => x.SupplierId, x => x.Id);
+			Map<OrderController, SupplierListItem, ArticleSupplier>(x => x.Name, x => x.Name);
+			Map<OrderController, SupplierListItem, ArticleSupplier>(x => x.OrderEmail, x => x.OrderEmailAddress);
+                                 
+			Map<OrderController, ArticleTypeListItem, ArticleType>(x => x.ArticleTypeId, x => x.Id);
+			Map<OrderController, ArticleTypeListItem, ArticleType>(x => x.Name, x => x.Name);
+			Map<OrderController, ArticleTypeListItem, ArticleType>(x => x.CategoryName, x => x.Category.Name);
 
-			Map<OrderController,CategoryListItem,ArticleCategory>(x => x.CategoryId, x => x.Id);
-			Map<OrderController,CategoryListItem,ArticleCategory>(x => x.Name, x => x.Name);
-
-			Map<OrderController,SupplierListItem,ArticleSupplier>(x => x.SupplierId, x => x.Id);
-			Map<OrderController,SupplierListItem,ArticleSupplier>(x => x.Name, x => x.Name);
-			Map<OrderController,SupplierListItem,ArticleSupplier>(x => x.OrderEmail, x => x.OrderEmailAddress);
-
-			Map<OrderController,ArticleTypeListItem,ArticleType>(x => x.ArticleTypeId, x => x.Id);
-			Map<OrderController,ArticleTypeListItem,ArticleType>(x => x.Name, x => x.Name);
-			Map<OrderController,ArticleTypeListItem,ArticleType>(x => x.CategoryName, x => x.Category.Name);
-
-			For<OrderController,ArticleListItem,Article>(mapper =>
+			For<OrderController, ArticleListItem, Article>(mapper =>
 			{
 				mapper.Map(x => x.ArticleId, x => x.Id);
 				mapper.Map(x => x.Name, x => x.Name);
@@ -61,7 +60,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				mapper.Map(x => x.Type, x => x.ArticleType.Name);
 			});
 
-			For<OrderController,SubscriptionListItem,Core.Domain.Model.Orders.Subscription>(mapper =>
+			For<OrderController, SubscriptionListItem, Core.Domain.Model.Orders.Subscription>(mapper =>
 			{
 				mapper.Map(x => x.AccountNumber, x => x.BankAccountNumber);
 				mapper.Map(x => x.Customer, x => x.Customer.FirstName);

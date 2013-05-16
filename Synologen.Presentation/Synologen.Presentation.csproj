@@ -614,10 +614,6 @@
       <Project>{766EE1E3-4FE5-4792-9927-DF94BA26FE8A}</Project>
       <Name>Synologen.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Synologen.Presentation.Intranet\Synologen.Presentation.Intranet.csproj">
-      <Project>{90B67E08-77A6-470A-A5AE-59E5A4EA4E3A}</Project>
-      <Name>Synologen.Presentation.Intranet %28Presentation\Synologen.Presentation.Intranet%29</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Synologen.Reports\Synologen.Reports.csproj">
       <Project>{126DA313-2592-4002-82AB-D25DDB743256}</Project>
       <Name>Synologen.Reports</Name>
@@ -644,17 +640,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.1.0.7.0\lib\net35\Spinit.dll</HintPath>
+      <HintPath>..\packages\Spinit.1.0.11.0\lib\net35\Spinit.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Common.WebControls, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Common.WebControls.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Data, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Spinit.Data, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Spinit.Data.1.0.5.0\lib\net35\Spinit.Data.dll</HintPath>
+      <HintPath>..\packages\Spinit.Data.1.0.7.0\lib\net35\Spinit.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spinit.Data.NHibernate, Version=1.0.395.586, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

@@ -15,14 +15,6 @@
                         <%= Html.LabelFor(x => x.SearchTerm) %>
                         <%= Html.EditorFor(x => x.SearchTerm) %>
                     </p>
-                    <p class="formItem">
-                        <%= Html.LabelFor(x => x.SelectedCategory) %>
-                        <%= Html.DropDownListFor(x => x.SelectedCategory, new SelectList(Model.DeviationCategories, "Id", "Name"), "-- Alla kategorier --") %>
-                    </p>
-                    <p class="formItem">
-                        <%= Html.LabelFor(x => x.SelectedSupplier) %>
-                        <%= Html.DropDownListFor(x => x.SelectedSupplier, new SelectList(Model.DeviationSuppliers, "Id", "Name"), "-- Alla leverantörer --") %>
-                    </p>
                     <p class="formCommands">
                         <%= Html.AntiForgeryToken() %>
                         <input type="submit" value="Sök" class="btnBig" />
@@ -46,10 +38,6 @@
      					}
      				)
      				.Empty("Inga avvikelser i databasen.") %>
-
-                    <p>
-                        •	Admin ska kunna filtrera i avvikelse-listan genom att använda den redan befintliga filter-funktionen i WPC.
-                    </p>
                 </div>
             </div>
         </div>

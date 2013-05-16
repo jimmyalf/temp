@@ -21,6 +21,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Deviations
             References(x => x.Category).Column("CategoryId");
             References(x => x.Supplier).Column("SupplierId");
             HasManyToMany(x => x.Defects).Table("SynologenDeviationDefectToDeviation").ParentKeyColumn("DeviationId").ChildKeyColumn("DefectId").Cascade.All();
+            HasManyToMany(x => x.Comments).Table("SynologenDeviationCommentToDeviation").ParentKeyColumn("DeviationId").ChildKeyColumn("CommentId").Cascade.All();
         }
 
 	}

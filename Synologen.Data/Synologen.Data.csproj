@@ -212,6 +212,7 @@
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\NewSubscriptionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\OldTransactionMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\ContractSales\PendingPaymentMap.cs" />
+    <Compile Include="Repositories\NHibernate\Mappings\Deviation\CommentMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Deviation\SupplierMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Deviation\DefectMap.cs" />
     <Compile Include="Repositories\NHibernate\Mappings\Deviation\CategoryMap.cs" />

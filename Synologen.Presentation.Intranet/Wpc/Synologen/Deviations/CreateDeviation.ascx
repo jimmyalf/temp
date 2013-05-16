@@ -4,7 +4,6 @@
   { %>
 <fieldset>
     <asp:Panel ID="pnlCreate" runat="server">
-        <legend>Skapa avvikelse</legend>
         <p>
             <label for="<%=drpTypes.ClientID%>">Typ av avvikelse</label>
             <asp:DropDownList
@@ -82,7 +81,7 @@
             <asp:Label ID="lblInternalDefectDescription" runat="server"></asp:Label>
         </p>
         <p>
-            <asp:Button runat="server" ID="btnSubmitInternal" Text="Spara" />
+            <asp:Button runat="server" ID="btnSubmitInternal" Text="Skicka" />
             <asp:Button runat="server" ID="btnChangeInternal" Text="Ändra" OnClientClick="window.history.back(1); return false;" />
 
         </p>
@@ -97,10 +96,9 @@
             <asp:Label ID="lblExternalDeviationCategoryName" runat="server"></asp:Label>
         </p>
         <p>
-            <label for="<%=dgExternalDeviationCategoryDefects.ClientID%>">Fel</label>
             <asp:DataGrid ID="dgExternalDeviationCategoryDefects" runat="server" AutoGenerateColumns="false">
                 <Columns>
-                    <asp:BoundColumn DataField="Name" HeaderText="Namn" />
+                    <asp:BoundColumn DataField="Name" HeaderText="Fel" />
                 </Columns>
             </asp:DataGrid>
         </p>
@@ -112,7 +110,7 @@
             <asp:Label ID="lblSupplier" runat="server"></asp:Label>
         </p>
         <p>
-            <asp:Button runat="server" ID="btnSubmitExternal" Text="Spara" />
+            <asp:Button runat="server" ID="btnSubmitExternal" Text="Skicka" />
             <asp:Button runat="server" ID="btnChangeExternal" Text="Ändra" OnClientClick="window.history.back(1); return false;" />
         </p>
     </fieldset>

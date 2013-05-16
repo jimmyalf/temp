@@ -1,11 +1,14 @@
+using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Controllers;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Models;
 using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
 using Spinit.Wpc.Synologen.Presentation.Models.Order;
+using Spinit.Wpc.Synologen.Presentation.Models.Deviation;
 using Subscription = Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription.Subscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Application.Services
@@ -66,6 +69,29 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 				mapper.Map(x => x.SubscriptionId, x => x.Id);
 				mapper.Map(x => x.PaymentNumber, x => x.AutogiroPayerId);
 			});
+
+            For<DeviationController, DeviationListItemView, Deviation>(mapper =>
+            {
+                mapper.Map(x => x.Id, x => x.Id);
+                mapper.Map(x => x.CategoryName, x => x.Category.Name);
+                mapper.Map(x => x.CreatedDate, x => x.CreatedDate);
+                mapper.Map(x => x.Type, x => x.Type);
+                mapper.Map(x => x.ShopId, x => x.ShopId);
+                mapper.Map(x => x.SupplierName, x => x.Supplier.Name);
+            });
+
+            For<DeviationController, CategoryListItemView, DeviationCategory>(mapper =>
+            {
+                mapper.Map(x => x.Id, x => x.Id);
+                mapper.Map(x => x.Name, x => x.Name);
+                mapper.Map(x => x.Active, x => x.Active);
+            });
+
+            For<DeviationController, SupplierListItemView, DeviationSupplier>(mapper =>
+            {
+                mapper.Map(x => x.Id, x => x.Id);
+                mapper.Map(x => x.Name, x => x.Name);
+            });
 		}
 	}
 }

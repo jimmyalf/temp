@@ -48,15 +48,23 @@
      					}
      				)
      				.Empty("Inga fel för denna avvikelsen.") %>
+                        <p>
+                            <strong>Kommentar:</strong>
+                        </p>
+                        <%= Html.WpcGrid(Model.Comments)
+					.Columns(
+						column => {
+     						column.For(x => x.Id).Named("Id")
+     							.HeaderAttributes(@class => "controlColumn");
+     						column.For(x => x.Description).Named("Namn");
+     					}
+     				)
+     				.Empty("Inga fel för denna avvikelsen.") %>
                     </fieldset>
                 </div>
             </div>
         </div>
     </div>
     <%= Html.ActionLink("Tillbaka till Avvikelser", "Index") %>
-
-    <p>
-        •	Admin ska kunna klicka på Nästa, Sista, Förgående och Första om det finns flera sidor/rader med avvikelser.
-    </p>
 </asp:Content>
 

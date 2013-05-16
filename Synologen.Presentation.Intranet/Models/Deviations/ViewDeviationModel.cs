@@ -14,6 +14,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations
         public string DefectDescription { get; set; }
         public IList<DeviationDefect> Defects { get; set; }
         public DeviationSupplier Supplier { get; set; }
+        public IList<DeviationComment> Comments { get; set; }
     }
 
 }

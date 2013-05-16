@@ -74,6 +74,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Logic\Enumerations\SubscriptionType.cs" />
+    <Compile Include="Logic\EventArguments\Deviations\ViewDeviationEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Deviations\ExternalDeviationListEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Deviations\CreateDeviationEventArgs.cs" />
     <Compile Include="Logic\EventArguments\Orders\ResetSubscriptonEventArgs.cs" />

@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InternalDeviationList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations.InternalDeviationList" %>
 
 <fieldset>
-    <legend>Interna avvikelser</legend>
     <asp:Repeater ID="rptInternalDeviation" runat="server" DataSource='<%#Model.Deviations%>'>
         <HeaderTemplate>
             <table>
@@ -11,8 +10,6 @@
                     <th>Kategori
                     </th>
                     <th>Skapad Datum
-                    </th>
-                    <th>ShopId(temp)
                     </th>
                     <th></th>
                 </tr>
@@ -28,11 +25,8 @@
                 <td>
                     <%# Eval("CreatedDate","{0:yyyy-MM-dd}")%>
                 </td>
-                <td>
-                    <%# Eval("ShopId")%>
-                </td>
                 <td class="center-cell">
-                    <asp:PlaceHolder ID="plViewLink" runat="server"><a href="ViewDeviation.aspx?id=<%# Eval("Id")%>">Visa</a></asp:PlaceHolder>
+                    <asp:PlaceHolder ID="plViewLink" runat="server"><a href="<%= Model.ViewDeviationUrl %>?id=<%# Eval("Id")%>">Visa</a></asp:PlaceHolder>
                 </td>
             </tr>
         </ItemTemplate>
@@ -47,11 +41,8 @@
                 <td>
                     <%# Eval("CreatedDate","{0:yyyy-MM-dd}")%>
                 </td>
-                <td>
-                    <%# Eval("ShopId")%>
-                </td>
                 <td class="center-cell">
-                    <asp:PlaceHolder ID="plViewLink" runat="server"><a href="ViewDeviation.aspx?id=<%# Eval("Id")%>">Visa</a></asp:PlaceHolder>
+                    <asp:PlaceHolder ID="plViewLink" runat="server"><a href="<%= Model.ViewDeviationUrl %>?id=<%# Eval("Id")%>">Visa</a></asp:PlaceHolder>
                 </td>
             </tr>
         </AlternatingItemTemplate>

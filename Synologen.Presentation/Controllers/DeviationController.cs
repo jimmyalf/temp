@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
 using Spinit.Wpc.Synologen.Data.Commands.Deviations;
+using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models.Deviation;
 using Spinit.Wpc.Synologen.Data.Queries.Deviations;
@@ -15,62 +17,102 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 {
     public partial class DeviationController : BaseController
     {
-
         public DeviationController(ISession session)
             : base(session)
         {
         }
 
-        [HttpPost]
-        public ActionResult Index(DeviationListView viewModel)
-        {
-            var decodedSearchTerm = viewModel.SearchTerm.UrlDecode();
-            var deviations = Query(new DeviationsQuery { SelectedCategory = viewModel.SelectedCategory, SelectedSupplier = viewModel.SelectedSupplier });
-            var model = new DeviationListView(decodedSearchTerm, deviations);
-            model.DeviationCategories = Query(new CategoriesQuery());
-            model.DeviationSuppliers = Query(new SuppliersQuery());
-            return View(model);
-        }
+        #region Deviation
 
         public ActionResult Index()
         {
-            var deviations = Query(new DeviationsQuery());
-            var model = new DeviationListView(string.Empty, deviations);
-            model.DeviationCategories = Query(new CategoriesQuery());
-            model.DeviationSuppliers = Query(new SuppliersQuery());
-            return View(model);
+            return RedirectToAction("Deviations");
         }
 
         [HttpPost]
-        public ActionResult ListCategories(CategoryListView viewModel)
+        public ActionResult Deviations(DeviationListView inModel)
         {
-            var decodedSearchTerm = viewModel.SearchTerm.UrlDecode();
-            var categories = Query(new CategoriesQuery { SearchTerms = decodedSearchTerm });
-            var model = new CategoryListView(decodedSearchTerm, categories);
+            var routeValues = ControllerContext.HttpContext.Request.QueryString
+                .ToRouteValueDictionary()
+                .BlackList("controller", "action");
+            if (String.IsNullOrEmpty(inModel.SearchTerm))
+            {
+                routeValues.TryRemoveRouteValue("search");
+            }
+            else
+            {
+                routeValues.AddOrReplaceRouteValue("search", inModel.SearchTerm.UrlEncode());
+            }
+            return RedirectToAction("Deviations", routeValues);
+        }
+
+        public ActionResult Deviations(string search, GridPageSortParameters gridPageSortParameters)
+        {
+            var decodedSearchTerm = search.UrlDecode();
+            var criteria = new PagedSortedCriteria<Deviation>
+            {
+                Page = gridPageSortParameters.Page,
+                PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize,
+                OrderBy = gridPageSortParameters.Column,
+                SortAscending = gridPageSortParameters.Direction == SortDirection.Ascending
+            };
+            var list = Query(new DeviationsQuery { PagedSortedCriteria = criteria, SearchTerms = decodedSearchTerm });
+
+            var viewList = list.ToDeviationViewList();
+            var viewModel = new DeviationListView { List = viewList, SearchTerm = decodedSearchTerm };
+            return View(viewModel);
+        }
+
+        public ActionResult ViewDeviation(int id)
+        {
+            var model = Query(new DeviationsQuery()).FirstOrDefault(x => x.Id == id);
             return View(model);
         }
 
-        public ActionResult ListCategories()
+        public ActionResult EditDeviation(int id)
         {
-            var categories = Query(new CategoriesQuery());
-            var model = new CategoryListView(string.Empty, categories);
+            var model = Query(new DeviationsQuery()).FirstOrDefault(x => x.Id == id);
             return View(model);
         }
+
+        #endregion
+
+
+        #region DeviationCategory
 
         [HttpPost]
-        public ActionResult ListSuppliers(SupplierListView viewModel)
+        public ActionResult Categories(CategoryListView inModel)
         {
-            var decodedSearchTerm = viewModel.SearchTerm.UrlDecode();
-            var suppliers = Query(new SuppliersQuery { SearchTerms = viewModel.SearchTerm });
-            var model = new SupplierListView(decodedSearchTerm, suppliers);
-            return View(model);
+            var routeValues = ControllerContext.HttpContext.Request.QueryString
+                .ToRouteValueDictionary()
+                .BlackList("controller", "action");
+            if (String.IsNullOrEmpty(inModel.SearchTerm))
+            {
+                routeValues.TryRemoveRouteValue("search");
+            }
+            else
+            {
+                routeValues.AddOrReplaceRouteValue("search", inModel.SearchTerm.UrlEncode());
+            }
+            return RedirectToAction("Categories", routeValues);
         }
 
-        public ActionResult ListSuppliers()
+        [HttpGet]
+        public ActionResult Categories(string search, GridPageSortParameters gridPageSortParameters)
         {
-            var suppliers = Query(new SuppliersQuery());
-            var model = new SupplierListView(string.Empty, suppliers);
-            return View(model);
+            var decodedSearchTerm = search.UrlDecode();
+            var criteria = new PagedSortedCriteria<DeviationCategory>
+            {
+                Page = gridPageSortParameters.Page,
+                PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize,
+                OrderBy = gridPageSortParameters.Column,
+                SortAscending = gridPageSortParameters.Direction == SortDirection.Ascending
+            } as PagedSortedCriteria;
+
+            var list = Query(new CategoriesQuery { PagedSortedCriteria = criteria, SearchTerms = decodedSearchTerm });
+            var viewList = list.ToDeviationCategoryViewList();
+            var viewModel = new CategoryListView{ List = viewList, SearchTerm = decodedSearchTerm };
+            return View(viewModel);
         }
 
         public ActionResult AddCategory()
@@ -94,11 +136,11 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
                 }
 
                 var category = new DeviationCategory
-                    {
-                        Active = model.Active,
-                        Defects = selectedDefects,
-                        Name = model.Name
-                    };
+                {
+                    Active = model.Active,
+                    Defects = selectedDefects,
+                    Name = model.Name
+                };
 
                 Execute(new CreateDeviationCategoryCommand(category));
 
@@ -112,16 +154,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
         public ActionResult EditCategory(int id)
         {
             var category = Query(new CategoriesQuery()).FirstOrDefault(x => x.Id == id);
-
             var model = new CategoryFormView
-                {
-                    Active = category.Active,
-                    Id = category.Id,
-                    Name = category.Name
-                };
+            {
+                Active = category.Active,
+                Id = category.Id,
+                Name = category.Name
+            };
 
             model.SetDefects(category.Defects);
-
             model.FormLegend = "Redigera Kategori";
             return View(model);
         }
@@ -161,7 +201,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
                 Execute(new CreateDeviationCategoryCommand(deviationCategory));
                 this.AddSuccessMessage("Kategorin har sparats");
-                return RedirectToAction("ListCategories");
+                return RedirectToAction("Categories");
             }
             model.FormLegend = "Redigera Kategori";
             return View(model);
@@ -171,10 +211,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteCategory(int id)
         {
-            // Check if this category contains any deviation.
             var deviation = Query(new DeviationsQuery { SelectedCategory = id });
 
-            if (deviation.Count==0)
+            if (!deviation.Any())
             {
                 var deviationCategory = Query(new CategoriesQuery()).FirstOrDefault(x => x.Id == id);
                 Execute(new DeleteDeviationCategoryCommand(deviationCategory));
@@ -185,131 +224,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
                 this.AddErrorMessage("Kategorin kunde inte raderas då det är knutet till en eller fler avvikelser");
             }
 
-            return RedirectToAction("ListCategories");
-        }
-
-        public ActionResult EditSupplier(int id)
-        {
-            var supplier = Query(new SuppliersQuery()).FirstOrDefault(x => x.Id == id);
-
-            if (supplier == null)
-                return RedirectToAction("ListSuppliers");
-
-            var categories = Query(new CategoriesQuery());
-
-            var model = new SupplierFormView
-                {
-                    Active = supplier.Active,
-                    Email = supplier.Email,
-                    Id = supplier.Id,
-                    Name = supplier.Name,
-                    Phone = supplier.Phone
-                };
-
-            model.SetCategories(categories, id);
-
-            model.FormLegend = "Redigera Leverantör";
-            return View(model);
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditSupplier(SupplierFormView model)
-        {
-
-            if (ModelState.IsValid)
-            {
-                var categories = Query(new CategoriesQuery());
-                IList<DeviationCategory> selectedCategories = (from c in model.Categories where c.IsSelected select categories.FirstOrDefault(x => x.Id == c.Id)).ToList();
-
-                var deviationSupplier = Query(new SuppliersQuery()).FirstOrDefault(x => x.Id == model.Id);
-                if (deviationSupplier != null)
-                {
-                    deviationSupplier.Categories = selectedCategories;
-                    deviationSupplier.Name = model.Name;
-                    deviationSupplier.Email = model.Email;
-                    deviationSupplier.Phone = model.Phone;
-                    deviationSupplier.Active = model.Active;
-                }
-                Execute(new CreateDeviationSupplierCommand(deviationSupplier));
-                this.AddSuccessMessage("Leverantören har sparats");
-                return RedirectToAction("ListSuppliers");
-            }
-
-            model.SetCategories(Query(new CategoriesQuery()), model.Id);
-            model.FormLegend = "Redigera till Leverantör";
-            return View(model);
-        }
-
-        public ActionResult AddSupplier()
-        {
-            var model = new SupplierFormView();
-            model.SetCategories(Query(new CategoriesQuery()), null);
-            model.FormLegend = "Lägg till Leverantör";
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddSupplier(SupplierFormView model)
-        {
-            if (ModelState.IsValid)
-            {
-                var categories = Query(new CategoriesQuery());
-                IList<DeviationCategory> selectedCategories = (from c in model.Categories where c.IsSelected select categories.FirstOrDefault(x => x.Id == c.Id)).ToList();
-
-                var supplier = new DeviationSupplier
-                    {
-                        Active = model.Active,
-                        Categories = selectedCategories,
-                        Email = model.Email,
-                        Name = model.Name,
-                        Phone = model.Phone
-                    };
-
-                Execute(new CreateDeviationSupplierCommand(supplier));
-                this.AddSuccessMessage("Leverantören har sparats");
-                return RedirectToAction("ListSuppliers");
-            }
-
-            model.SetCategories(Query(new CategoriesQuery()), model.Id);
-            model.FormLegend = "Lägg till Leverantör";
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteSupplier(int id)
-        {
-            // Check if this supplier contains any deviation.
-            var deviation = Query(new DeviationsQuery { SelectedSupplier = id });
-
-            if (deviation.Count==0)
-            {
-                var deviationSupplier = Query(new SuppliersQuery()).FirstOrDefault(x => x.Id == id);
-                Execute(new DeleteDeviationSupplierCommand(deviationSupplier));
-                this.AddSuccessMessage("Leverantören har raderats");
-            }
-            else
-            {
-                this.AddErrorMessage("Leverantören kunde inte raderas då det är knutet till en eller fler avvikelser.");
-            }
-            
-            return RedirectToAction("ListSuppliers");
-
-        }
-
-        public ActionResult ViewDeviation(int id)
-        {
-            var model = Query(new DeviationsQuery()).FirstOrDefault(x => x.Id == id);
-            return View(model);
-        }
-
-        public ActionResult EditDeviation(int id)
-        {
-            var model = Query(new DeviationsQuery()).FirstOrDefault(x => x.Id == id);
-            return View(model);
+            return RedirectToAction("Categories");
         }
 
         public ActionResult AddDefect(CategoryFormView model)
@@ -349,6 +264,160 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
             }
             return result;
         }
+
+        #endregion
+
+
+        #region DeviationSupplier
+
+        [HttpPost]
+        public ActionResult Suppliers(SupplierListView inModel)
+        {
+            var routeValues = ControllerContext.HttpContext.Request.QueryString
+                .ToRouteValueDictionary()
+                .BlackList("controller", "action");
+            if (String.IsNullOrEmpty(inModel.SearchTerm))
+            {
+                routeValues.TryRemoveRouteValue("search");
+            }
+            else
+            {
+                routeValues.AddOrReplaceRouteValue("search", inModel.SearchTerm.UrlEncode());
+            }
+            return RedirectToAction("Suppliers", routeValues);
+        }
+
+        [HttpGet]
+        public ActionResult Suppliers(string search, GridPageSortParameters gridPageSortParameters)
+        {
+            var decodedSearchTerm = search.UrlDecode();
+            var criteria = new PagedSortedCriteria<DeviationSupplier>
+            {
+                Page = gridPageSortParameters.Page,
+                PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize,
+                OrderBy = gridPageSortParameters.Column,
+                SortAscending = gridPageSortParameters.Direction == SortDirection.Ascending
+            } as PagedSortedCriteria;
+
+            var list = Query(new SuppliersQuery{ PagedSortedCriteria = criteria, SearchTerms = decodedSearchTerm });
+            var viewList = list.ToDeviationSupplierViewList();
+            var viewModel = new SupplierListView { List = viewList, SearchTerm = decodedSearchTerm };
+            return View(viewModel);
+        }
+
+
+        public ActionResult EditSupplier(int id)
+        {
+            var supplier = Query(new SuppliersQuery()).FirstOrDefault(x => x.Id == id);
+
+            if (supplier == null)
+                return RedirectToAction("Suppliers");
+
+            var categories = Query(new CategoriesQuery());
+
+            var model = new SupplierFormView
+            {
+                Active = supplier.Active,
+                Email = supplier.Email,
+                Id = supplier.Id,
+                Name = supplier.Name,
+                Phone = supplier.Phone
+            };
+
+            model.SetCategories(categories, id);
+
+            model.FormLegend = "Redigera Leverantör";
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSupplier(SupplierFormView model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var categories = Query(new CategoriesQuery());
+                IList<DeviationCategory> selectedCategories = (from c in model.Categories where c.IsSelected select categories.FirstOrDefault(x => x.Id == c.Id)).ToList();
+
+                var deviationSupplier = Query(new SuppliersQuery()).FirstOrDefault(x => x.Id == model.Id);
+                if (deviationSupplier != null)
+                {
+                    deviationSupplier.Categories = selectedCategories;
+                    deviationSupplier.Name = model.Name;
+                    deviationSupplier.Email = model.Email;
+                    deviationSupplier.Phone = model.Phone;
+                    deviationSupplier.Active = model.Active;
+                }
+                Execute(new CreateDeviationSupplierCommand(deviationSupplier));
+                this.AddSuccessMessage("Leverantören har sparats");
+                return RedirectToAction("Suppliers");
+            }
+
+            model.SetCategories(Query(new CategoriesQuery()), model.Id);
+            model.FormLegend = "Redigera till Leverantör";
+            return View(model);
+        }
+
+        public ActionResult AddSupplier()
+        {
+            var model = new SupplierFormView();
+            model.SetCategories(Query(new CategoriesQuery()), null);
+            model.FormLegend = "Lägg till Leverantör";
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddSupplier(SupplierFormView model)
+        {
+            if (ModelState.IsValid)
+            {
+                var categories = Query(new CategoriesQuery());
+                IList<DeviationCategory> selectedCategories = (from c in model.Categories where c.IsSelected select categories.FirstOrDefault(x => x.Id == c.Id)).ToList();
+
+                var supplier = new DeviationSupplier
+                {
+                    Active = model.Active,
+                    Categories = selectedCategories,
+                    Email = model.Email,
+                    Name = model.Name,
+                    Phone = model.Phone
+                };
+
+                Execute(new CreateDeviationSupplierCommand(supplier));
+                this.AddSuccessMessage("Leverantören har sparats");
+                return RedirectToAction("Suppliers");
+            }
+
+            model.SetCategories(Query(new CategoriesQuery()), model.Id);
+            model.FormLegend = "Lägg till Leverantör";
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteSupplier(int id)
+        {
+            var deviation = Query(new DeviationsQuery { SelectedSupplier = id });
+
+            if (!deviation.Any())
+            {
+                var deviationSupplier = Query(new SuppliersQuery()).FirstOrDefault(x => x.Id == id);
+                Execute(new DeleteDeviationSupplierCommand(deviationSupplier));
+                this.AddSuccessMessage("Leverantören har raderats");
+            }
+            else
+            {
+                this.AddErrorMessage("Leverantören kunde inte raderas då det är knutet till en eller fler avvikelser.");
+            }
+
+            return RedirectToAction("Suppliers");
+
+        }
+
+        #endregion
 
     }
 }

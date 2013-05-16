@@ -27,7 +27,7 @@
     <% }
 
     %>
-    
+
     <p>
         <strong>Fel:</strong>
     </p>
@@ -66,3 +66,42 @@
         </FooterTemplate>
     </asp:Repeater>
 </fieldset>
+
+<br />
+<fieldset>
+    <legend>Skriv kommentar</legend>
+    <asp:TextBox runat="server" ID="txtComment" TextMode="MultiLine"></asp:TextBox>
+    <p>
+        <asp:Button ID="btnSaveComment" runat="server" Text="Spara" />
+    </p>
+    <p>
+        <strong>Inlägg:</strong>
+        <asp:Repeater ID="rptComments" runat="server" DataSource='<%#Model.Comments%>'>
+            <HeaderTemplate>
+                <table>
+                    <tr>
+                        <th>Kommentar
+                        </th>
+                    </tr>
+            </HeaderTemplate>
+            <ItemTemplate>
+                <tr>
+                    <td>
+                        <%# ((string)Eval("Description")).Replace("\n", "<br/>") %>
+                    </td>
+                </tr>
+            </ItemTemplate>
+            <AlternatingItemTemplate>
+                <tr class="synologen-table-alternative-row">
+                    <td>
+                        <%# ((string)Eval("Description")).Replace("\n", "<br/>") %>
+                    </td>
+                </tr>
+            </AlternatingItemTemplate>
+            <FooterTemplate>
+                </table>
+            </FooterTemplate>
+        </asp:Repeater>
+    </p>
+</fieldset>
+

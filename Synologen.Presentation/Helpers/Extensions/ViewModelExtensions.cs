@@ -4,10 +4,12 @@ using System.Linq.Expressions;
 using System.Web;
 using System.Web.Routing;
 using Spinit.Extensions;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
+using Spinit.Wpc.Synologen.Presentation.Models.Deviation;
 using Spinit.Wpc.Synologen.Presentation.Models.LensSubscription;
 
 namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
@@ -220,6 +222,42 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		#endregion
 
 		#region To View Lists
+        public static IEnumerable<DeviationListItemView> ToDeviationViewList(this IEnumerable<Deviation> entityList)
+        {
+            Func<Deviation, DeviationListItemView> typeConverter = x => new DeviationListItemView
+            {
+                Id = x.Id,
+                CategoryName = x.Category.Name,
+                SupplierName = x.Supplier != null ? x.Supplier.Name : string.Empty,
+                CreatedDate = x.CreatedDate,
+                ShopId = x.ShopId,
+                Type = x.Type.ToString()
+            };
+            return entityList.ConvertSortedPagedList(typeConverter);
+        }
+
+        public static IEnumerable<CategoryListItemView> ToDeviationCategoryViewList(this IEnumerable<DeviationCategory> entityList)
+        {
+            Func<DeviationCategory, CategoryListItemView> typeConverter = x => new CategoryListItemView
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Active = x.Active
+            };
+            return entityList.ConvertSortedPagedList(typeConverter);
+        }
+
+        public static IEnumerable<SupplierListItemView> ToDeviationSupplierViewList(this IEnumerable<DeviationSupplier> entityList)
+        {
+            Func<DeviationSupplier, SupplierListItemView> typeConverter = x => new SupplierListItemView
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Active = x.Active
+            };
+            return entityList.ConvertSortedPagedList(typeConverter);
+        }
+
 		public static IEnumerable<FrameListItemView> ToFrameViewList(this IEnumerable<Frame> entityList)
 		{
 			Func<Frame, FrameListItemView> typeConverter = x => new FrameListItemView {

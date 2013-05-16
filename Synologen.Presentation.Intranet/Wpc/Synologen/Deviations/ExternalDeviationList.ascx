@@ -6,15 +6,12 @@
         runat="server"
         DataSource='<%#Model.Suppliers%>'
         DataValueField="Id"
-        DataTextField="Name" 
-        SelectedValue='<%#Model.SelectedSupplierId%>'
-        />
+        DataTextField="Name"
+        SelectedValue='<%#Model.SelectedSupplierId%>' />
     <asp:Button runat="server" Text="Search" ID="btnSearch" />
 </p>
 
-
 <fieldset>
-    <legend>Externa avvikelser</legend>
     <asp:Repeater ID="rptExternalDeviation" runat="server" DataSource='<%#Model.Deviations%>'>
         <HeaderTemplate>
             <table>
@@ -26,8 +23,6 @@
                     <th>Leverantör
                     </th>
                     <th>Skapad Datum
-                    </th>
-                    <th>ShopId(temp)
                     </th>
                     <th></th>
                 </tr>
@@ -46,11 +41,9 @@
                 <td>
                     <%# Eval("CreatedDate","{0:yyyy-MM-dd}")%>
                 </td>
-                <td>
-                    <%# Eval("ShopId")%>
-                </td>
                 <td class="center-cell">
-                    <asp:PlaceHolder ID="plViewLink" runat="server"><a href="ViewDeviation.aspx?id=<%# Eval("Id")%>">Visa</a></asp:PlaceHolder>
+                    <asp:PlaceHolder ID="plViewLink" runat="server"><a href="/TestPages/Deviations/ViewDeviation.aspx?id=<%# Eval("Id")%>">Visa</a></asp:PlaceHolder>
+                    <%--<asp:PlaceHolder ID="plViewLink" runat="server"><a href="<%= Model.ViewDeviationUrl %>?id=<%# Eval("Id")%>">Visa</a></asp:PlaceHolder>--%>
                 </td>
             </tr>
         </ItemTemplate>
@@ -68,11 +61,9 @@
                 <td>
                     <%# Eval("CreatedDate","{0:yyyy-MM-dd}")%>
                 </td>
-                <td>
-                    <%# Eval("ShopId")%>
-                </td>
                 <td class="center-cell">
-                    <asp:PlaceHolder ID="plViewLink" runat="server"><a href="ViewDeviation.aspx?id=<%# Eval("Id")%>">Visa</a></asp:PlaceHolder>
+                    <asp:PlaceHolder ID="plViewLink" runat="server"><a href="/TestPages/Deviations/ViewDeviation.aspx?id=<%# Eval("Id")%>">Visa</a></asp:PlaceHolder>
+                    <%--<asp:PlaceHolder ID="plViewLink" runat="server"><a href="<%= Model.ViewDeviationUrl %>?id=<%# Eval("Id")%>">Visa</a></asp:PlaceHolder>--%>
                 </td>
             </tr>
         </AlternatingItemTemplate>

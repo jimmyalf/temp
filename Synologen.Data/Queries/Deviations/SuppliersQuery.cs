@@ -1,41 +1,74 @@
 ﻿using System.Collections.Generic;
 using NHibernate;
+using Spinit.Data;
 using Spinit.Data.NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
 using NHibernate.Criterion;
+using Spinit.Wpc.Synologen.Data.Extensions;
 
 namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
 {
-    public class SuppliersQuery : Query<IList<DeviationSupplier>>
+    public class SuppliersQuery : Query<IExtendedEnumerable<DeviationSupplier>>
     {
         public int? SelectedCategory { get; set; }
         public bool? Active { get; set; }
         public string SearchTerms { get; set; }
+        public PagedSortedCriteria PagedSortedCriteria { get; set; }
 
-        public override IList<DeviationSupplier> Execute()
+        public override IExtendedEnumerable<DeviationSupplier> Execute()
         {
-            ICriteria result = Session.CreateCriteriaOf<DeviationSupplier>();
+            var result = Session
+                .CreateCriteriaOf<DeviationSupplier>();
 
-            if (Active.HasValue)
+            result = result.SynologenFilterByAny(filter =>
             {
-                result = ((ICriteria<DeviationSupplier>)result).FilterEqual(x => x.Active, Active);
-            }
+                filter.Like(x => x.Name);
+            }, SearchTerms);
 
-            if (SelectedCategory.HasValue)
+
+            if (PagedSortedCriteria != null)
             {
-                result = result
-                    .CreateCriteria("Categories")
-                    .Add(Restrictions.Eq("Id", SelectedCategory.Value));
+                var count =
+                    CriteriaTransformer.Clone(result).SetProjection(Projections.RowCountInt64()).UniqueResult<long>();
+
+                var list = result
+                    .Sort(PagedSortedCriteria.OrderBy, PagedSortedCriteria.SortAscending)
+                    .Page(PagedSortedCriteria.Page, PagedSortedCriteria.PageSize)
+                    .List<DeviationSupplier>();
+
+                return new ExtendedEnumerable<DeviationSupplier>(list, count, PagedSortedCriteria.Page,
+                                                                 PagedSortedCriteria.PageSize,
+                                                                 PagedSortedCriteria.OrderBy,
+                                                                 PagedSortedCriteria.SortAscending);
             }
-
-            if (!string.IsNullOrEmpty(SearchTerms))
-            {
-                ((ICriteria<DeviationSupplier>)result).FilterEqual(x => x.Name, SearchTerms);
-            }
-
-            return result.AddOrder(Order.Asc("Name")).List<DeviationSupplier>();
-
+            return new ExtendedEnumerable<DeviationSupplier>(result.List<DeviationSupplier>());
         }
+
+
+        //public override IList<DeviationSupplier> Execute()
+        //{
+        //    ICriteria result = Session.CreateCriteriaOf<DeviationSupplier>();
+
+        //    if (Active.HasValue)
+        //    {
+        //        result = ((ICriteria<DeviationSupplier>)result).FilterEqual(x => x.Active, Active);
+        //    }
+
+        //    if (SelectedCategory.HasValue)
+        //    {
+        //        result = result
+        //            .CreateCriteria("Categories")
+        //            .Add(Restrictions.Eq("Id", SelectedCategory.Value));
+        //    }
+
+        //    if (!string.IsNullOrEmpty(SearchTerms))
+        //    {
+        //        ((ICriteria<DeviationSupplier>)result).FilterEqual(x => x.Name, SearchTerms);
+        //    }
+
+        //    return result.AddOrder(Order.Asc("Name")).List<DeviationSupplier>();
+
+        //}
 
     }
 }

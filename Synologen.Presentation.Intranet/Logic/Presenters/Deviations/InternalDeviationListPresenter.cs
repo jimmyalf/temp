@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using NHibernate;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
 using Spinit.Wpc.Synologen.Core.Domain.Services;
 using Spinit.Wpc.Synologen.Data.Queries.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Deviations;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations;
-using System.Collections.Generic;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
 {
@@ -21,7 +20,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
 
 		public void View_Load(object sender, EventArgs e)
 		{
-            View.Model.ViewDeviationUrl = _routingService.GetPageUrl(417);
+            if (View.ViewPageId.HasValue)
+            {
+                View.Model.ViewDeviationUrl = _routingService.GetPageUrl(View.ViewPageId.Value);
+            }
             IEnumerable<Deviation> deviations = Query(new DeviationsQuery { SelectedType = DeviationType.Internal });
             View.Model.Deviations = deviations;
 		}

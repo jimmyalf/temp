@@ -26,7 +26,7 @@
                     <%# Eval("CreatedDate","{0:yyyy-MM-dd}")%>
                 </td>
                 <td class="center-cell">
-                    <asp:PlaceHolder ID="plViewLink" runat="server"><a href="<%= Model.ViewDeviationUrl %>?id=<%# Eval("Id")%>">Visa</a></asp:PlaceHolder>
+                    <a href="<%= Model.ViewDeviationUrl %>?id=<%# Eval("Id")%>">Visa</a>
                 </td>
             </tr>
         </ItemTemplate>
@@ -42,7 +42,7 @@
                     <%# Eval("CreatedDate","{0:yyyy-MM-dd}")%>
                 </td>
                 <td class="center-cell">
-                    <asp:PlaceHolder ID="plViewLink" runat="server"><a href="<%= Model.ViewDeviationUrl %>?id=<%# Eval("Id")%>">Visa</a></asp:PlaceHolder>
+                    <a href="<%= Model.ViewDeviationUrl %>?id=<%# Eval("Id")%>">Visa</a>
                 </td>
             </tr>
         </AlternatingItemTemplate>

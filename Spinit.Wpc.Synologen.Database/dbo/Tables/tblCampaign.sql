@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[tblCampaign] (
+    [cId]                  INT            IDENTITY (1, 1) NOT NULL,
+    [cName]                NVARCHAR (50)  NULL,
+    [cHeadingStringId]     INT            NULL,
+    [cDescriptionStringId] INT            NULL,
+    [cCampaignSpot]        INT            NULL,
+    [cSpotHeight]          INT            NULL,
+    [cSpotWidth]           INT            NULL,
+    [cCampaignType]        INT            NULL,
+    [cThumbsRows]          INT            NULL,
+    [cThumbsColumns]       INT            NULL,
+    [cThumbsHeight]        INT            NULL,
+    [cThumbsWidth]         INT            NULL,
+    [cListRowsPerPage]     INT            NULL,
+    [cActive]              BIT            NULL,
+    [cStartDate]           DATETIME       NULL,
+    [cEndDate]             DATETIME       NULL,
+    [cCreatedBy]           NVARCHAR (100) NULL,
+    [cCreatedDate]         DATETIME       NULL,
+    [cEditedBy]            NVARCHAR (100) NULL,
+    [cEditedDate]          DATETIME       NULL,
+    [cApprovedBy]          NVARCHAR (100) NULL,
+    [cApprovedDate]        DATETIME       NULL,
+    [cLockedBy]            NVARCHAR (100) NULL,
+    [cLockedDate]          DATETIME       NULL
+);
+

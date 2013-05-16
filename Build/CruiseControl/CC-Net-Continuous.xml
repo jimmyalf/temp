@@ -1,0 +1,72 @@
+<!--
+One limitation of this approach is that these external files will not be monitored by the CCNet server. 
+Hence, CCNet will not automatically reload the configuration when these files change. 
+The ccnet.config file will need to be touched for these files to be reloaded.
+-->
+	
+	<project name="Synologen.Continuous" queue="Synologen" queuePriority="1">
+		<workingDirectory>C:\Develop\Synologen\</workingDirectory>
+		<webURL>http://code/cruisecontrol/server/local/project/Synologen.Continuous/ViewProjectReport.aspx</webURL>
+		<modificationDelaySeconds>300</modificationDelaySeconds>
+	  	
+		<sourcecontrol type="hg">
+		  <repo>http://ccnet:_CruiseControl11@code/hg/hgweb.cgi/spinit/wpc/synologen/#develop</repo>
+		  <workingDirectory>C:\Develop\Synologen</workingDirectory>
+		  <branch>develop</branch>
+		</sourcecontrol>		
+		
+		
+		<triggers>
+			<intervalTrigger seconds="480" />
+		</triggers>
+	  
+		<tasks>
+			<nant>
+				<executable>..\..\Dependancies\Tools\NAnt\NAnt.exe</executable>
+				<baseDirectory>Build\Scripts\</baseDirectory>
+				<buildFile>Build.build</buildFile>
+				<buildArgs>-D:configuration=ContinuousBuild</buildArgs>
+				<nologo>true</nologo>
+				<buildTimeoutSeconds>2400</buildTimeoutSeconds>
+			</nant>
+		</tasks>
+	
+	  
+		<publishers>	
+			<merge>
+				<files>        
+					<file>Build\Reports\*-Results.xml</file>
+				</files>
+			</merge>	
+			<xmllogger />
+			<email mailhost="mail.esend.nu" from="cruisecontrol_wpc@spinit.se" includeDetails="TRUE">
+				<users>
+					<user name="cber" address="carl.berg@spinit.se" group="buildmaster" />
+					<user name="aaxe" address="anders.axelsson@spinit.se" group="developer" />
+					<user name="nlin" address="niklas.lindwall@spinit.se" group="developer" />
+				</users>
+				<groups>
+					<group name="developers"> 
+						<notifications>
+							<notificationType>Change</notificationType>
+						</notifications>
+					</group>
+					<group name="buildmaster"> 
+						<notifications>
+							<notificationType>Always</notificationType>
+						</notifications>
+					</group>
+				</groups>
+				<converters />
+				<subjectSettings>
+					<subject buildResult="Success" value="Build successful for ${CCNetProject}!" />
+					<subject buildResult="Broken" value="Build for ${CCNetProject} broke at ${CCNetBuildDate} ${CCNetBuildTime}, last checkin(s) by ${CCNetFailureUsers}" />
+					<subject buildResult="StillBroken" value="Build is still broken for ${CCNetProject}, the fix failed." />
+					<subject buildResult="Fixed" value="The build for ${CCNetProject} was fixed!" />
+				</subjectSettings>
+			</email>
+			
+		</publishers>
+  </project>
+	
+	

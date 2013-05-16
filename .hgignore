@@ -1,0 +1,57 @@
+# Visual Studio 2012
+syntax: glob
+
+*.orig
+*.obj
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.scc
+*.dbmdl
+[Bb]in
+[Dd]ebug*/
+obj/
+[Rr]elease*/
+_ReSharper*/
+ipch/
+x64/
+TestResults/
+[Tt]humbs.db
+[Tt]est[Rr]esult*
+[Bb]uild[Ll]og.*
+*.[Pp]ublish.xml
+*.resharper
+*.opensdf
+*.sdf
+StyleCop.*
+*.DotSettings.user
+Default.log.*
+*.tmp
+*UpgradeLog*
+*UpgradeReport*
+
+# Project specific settings
+*[Aa]pp.config
+*[Ww]eb.config
+Output/
+SentFiles/
+[Ll]ogs/
+Synologen OPQ/*/Properties/Settings.*
+Synologen.Maintenance/packages
+Synologen OPQ/Spinit.Wpc.Synologen.OPQ.Site/CommonResources/*
+Synologen OPQ/Spinit.Wpc.Synologen.OPQ.Site/Wpc/Base/*

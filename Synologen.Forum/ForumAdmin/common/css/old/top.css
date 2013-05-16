@@ -1,0 +1,19 @@
+TD, A { font-family: verdana, arial; font-size: 10px; color: #000000; text-decoration: none; font-weight:bold;}
+A:hover { font-family: Verdana, Arial; text-decoration: none; color: #FFFFFF; }
+A:active { font-family: verdana, arial; text-decoration: none; color: #333333; }
+.normal { font-weight: normal; }
+
+.BUTTON
+{
+	HEIGHT: 19px;
+    BORDER-BOTTOM: #777777 1px solid;
+    BORDER-LEFT: #cccccc 1px solid;
+    BORDER-RIGHT: #777777 1px solid;
+    BORDER-TOP: #cccccc 1px solid;
+	BACKGROUND-COLOR: #ddddaa;
+	CURSOR: hand;
+    FONT-FAMILY: Verdana, Arial, Helvetica;
+    FONT-SIZE: 10px;
+	}
+	
+.black { color: white; font-weight: normal;}

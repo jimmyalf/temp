@@ -22,7 +22,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
 		public void View_Load(object sender, EventArgs e)
 		{
             _deviationId = int.Parse(Request.Params["id"]);
-            var deviation = Query(new DeviationsQuery()).FirstOrDefault(x => x.Id == _deviationId);
+            var deviation = Query(new DeviationsQuery { SelectedDeviation = _deviationId }).FirstOrDefault();
 
 		    if (deviation == null) 
                 return;

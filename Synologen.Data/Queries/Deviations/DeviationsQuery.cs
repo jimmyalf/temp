@@ -23,12 +23,21 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
         public override IExtendedEnumerable<Deviation> Execute()
         {
             var result = Session
-                .CreateCriteriaOf<Deviation>()
-                .CreateAlias(x => x.Category)
-                .CreateAlias(x => x.Supplier);
-
+                .CreateCriteriaOf<Deviation>();
+                
             if (SelectedType.HasValue)
+            {
+                if (SelectedType == DeviationType.External)
+                {
+                    result = result.CreateAlias(x => x.Category).CreateAlias(x => x.Supplier);
+                }
+
                 result = result.FilterEqual(x => x.Type, SelectedType);
+            }
+            else
+            {
+                result = result.CreateAlias(x => x.Category).CreateAlias(x => x.Supplier);
+            }
 
             if (SelectedSupplier > 0)
                 result = result.FilterEqual(x => x.Supplier.Id, SelectedSupplier);
@@ -36,11 +45,14 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
             if (SelectedCategory > 0)
                 result = result.FilterEqual(x => x.Category.Id, SelectedCategory);
 
-            result = result.SynologenFilterByAny(filter =>
+            if (!string.IsNullOrEmpty(SearchTerms))
+            {
+                result = result.SynologenFilterByAny(filter =>
                 {
                     filter.Like(x => x.Category.Name);
                     filter.Like(x => x.Supplier.Name);
                 }, SearchTerms);
+            }
 
             if (PagedSortedCriteria != null)
             {

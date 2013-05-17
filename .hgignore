@@ -47,6 +47,7 @@ Default.log.*
 *.suo
 
 # Project specific settings
+_debug.html
 *[Aa]pp.config
 *[Ww]eb.config
 *Filemanager.config

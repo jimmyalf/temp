@@ -24,8 +24,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
             {
                 View.Model.ViewDeviationUrl = _routingService.GetPageUrl(View.ViewPageId.Value);
             }
-            IEnumerable<Deviation> deviations = Query(new DeviationsQuery { SelectedType = DeviationType.Internal });
-            View.Model.Deviations = deviations;
+            View.Model.Deviations = Query(new DeviationsQuery { SelectedType = DeviationType.Internal });
 		}
 
 		public override void ReleaseView()

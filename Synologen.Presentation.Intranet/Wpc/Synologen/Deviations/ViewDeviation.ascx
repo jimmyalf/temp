@@ -88,9 +88,9 @@
                 <HeaderTemplate>
                     <table width="100%">
                         <tr>
-                            <th width="80%">Kommentar
+                            <th width="75%">Kommentar
                             </th>
-                            <th width="20%">Datum
+                            <th width="25%">Datum
                             </th>
                         </tr>
                 </HeaderTemplate>

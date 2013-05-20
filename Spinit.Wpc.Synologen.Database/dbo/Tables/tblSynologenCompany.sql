@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[tblSynologenCompany] (
+    [cId]                 INT             IDENTITY (1, 1) NOT NULL,
+    [cName]               NVARCHAR (255)  NOT NULL,
+    [cAddress1]           NVARCHAR (100)  NULL,
+    [cAddress2]           NVARCHAR (100)  NULL,
+    [cZip]                NVARCHAR (50)   NULL,
+    [cCity]               NVARCHAR (50)   NULL,
+    [cContractCustomerId] INT             NOT NULL,
+    [cCompanyCode]        NVARCHAR (16)   NULL,
+    [cBankCode]           NVARCHAR (50)   NULL,
+    [cActive]             BIT             CONSTRAINT [DF_tblSynologenCompany_cActive] DEFAULT (1) NOT NULL,
+    [cOrganizationNumber] NVARCHAR (50)   NULL,
+    [cInvoiceCompanyName] NVARCHAR (255)  NULL,
+    [cTaxAccountingCode]  NVARCHAR (50)   NULL,
+    [cPaymentDuePeriod]   INT             CONSTRAINT [DF_tblSynologenCompany_cPaymentDuePeriod] DEFAULT (30) NOT NULL,
+    [cEDIRecipientId]     NVARCHAR (50)   NULL,
+    [cInvoicingMethodId]  INT             CONSTRAINT [DF_tblSynologenCompany_cInvoicingMethodId] DEFAULT (1) NOT NULL,
+    [cInvoiceFreeText]    NVARCHAR (2000) NULL,
+    [cCountryId]          INT             CONSTRAINT [DF_tblSynologenCompany_cCountryId] DEFAULT (1) NOT NULL,
+    CONSTRAINT [PK_tblSynologenCompany] PRIMARY KEY CLUSTERED ([cId] ASC),
+    CONSTRAINT [FK_tblSynologenCompany_tblSynologenContractCustomer] FOREIGN KEY ([cContractCustomerId]) REFERENCES [dbo].[tblSynologenContract] ([cId]),
+    CONSTRAINT [FK_tblSynologenCompany_tblSynologenCountry] FOREIGN KEY ([cCountryId]) REFERENCES [dbo].[tblSynologenCountry] ([cId]),
+    CONSTRAINT [FK_tblSynologenCompany_tblSynologenInvoiceMethod] FOREIGN KEY ([cInvoicingMethodId]) REFERENCES [dbo].[tblSynologenInvoiceMethod] ([cId])
+);
+

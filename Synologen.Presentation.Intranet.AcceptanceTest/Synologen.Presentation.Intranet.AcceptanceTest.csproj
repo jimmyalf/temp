@@ -148,6 +148,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\Bootstrapping\Bootstrapper.cs" />
+    <Compile Include="Deviations\CreateDeviationSpec.cs" />
+    <Compile Include="Deviations\DeviationSpecTestbase.cs" />
     <Compile Include="Orders\Edit_Subscription.cs" />
     <Compile Include="Orders\Subscription_Correction.cs" />
     <Compile Include="Orders\Edit_Customer.cs" />

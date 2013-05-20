@@ -5,7 +5,7 @@
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
-    <div id="dCompMain" class="Components-Synologen-FrameColor-Index">
+    <div id="dCompMain">
         <div class="fullBox">
             <div class="wrap">
                 <div>
@@ -39,11 +39,9 @@
                         <p>
                             <strong>Fel:</strong>
                         </p>
-                        <%= Html.WpcGrid(Model.Defects)
+                        <%= Html.Grid(Model.Defects)
 					.Columns(
 						column => {
-     						column.For(x => x.Id).Named("Id")
-     							.HeaderAttributes(@class => "controlColumn");
      						column.For(x => x.Name).Named("Namn");
      					}
      				)
@@ -51,15 +49,14 @@
                         <p>
                             <strong>Kommentar:</strong>
                         </p>
-                        <%= Html.WpcGrid(Model.Comments)
+                        <%= Html.Grid(Model.Comments)
 					.Columns(
 						column => {
-     						column.For(x => x.Id).Named("Id")
-     							.HeaderAttributes(@class => "controlColumn");
-     						column.For(x => x.Description).Named("Namn");
+     						column.For(x => x.Description).Named("Kommentar");
+                            column.For(x => x.CreatedDate).Named("Datum");
      					}
      				)
-     				.Empty("Inga fel för denna avvikelsen.") %>
+     				.Empty("Inga kommentarer för denna avvikelsen.") %>
                     </fieldset>
                 </div>
             </div>

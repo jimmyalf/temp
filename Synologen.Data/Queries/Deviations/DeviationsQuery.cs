@@ -19,6 +19,7 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
         public int? SelectedSupplier { get; set; }
         public int? SelectedDeviation { get; set; }
         public string SearchTerms { get; set; }
+        public string OrderBy { get; set; }
         public PagedSortedCriteria PagedSortedCriteria { get; set; }
 
         public override IExtendedEnumerable<Deviation> Execute()
@@ -57,6 +58,9 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
                     filter.Like(x => x.Supplier.Name);
                 }, SearchTerms);
             }
+
+            if (!string.IsNullOrEmpty(OrderBy))
+                result = (ICriteria<Deviation>)result.AddOrder(Order.Desc(OrderBy));
 
             if (PagedSortedCriteria != null)
             {

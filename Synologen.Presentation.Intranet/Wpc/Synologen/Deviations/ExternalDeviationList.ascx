@@ -8,7 +8,6 @@
             DataValueField="Id"
             DataTextField="Name"
             SelectedValue='<%#Model.SelectedSupplierId%>' AutoPostBack="True" />
-        <%--<asp:Button runat="server" Text="Search" ID="btnSearch" />--%>
     
         <asp:Repeater ID="rptExternalDeviation" runat="server" DataSource='<%#Model.Deviations%>'>
             <HeaderTemplate>

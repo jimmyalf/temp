@@ -17,26 +17,30 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
         public DeviationType? SelectedType { get; set; }
         public int? SelectedCategory { get; set; }
         public int? SelectedSupplier { get; set; }
+        public int? SelectedDeviation { get; set; }
         public string SearchTerms { get; set; }
         public PagedSortedCriteria PagedSortedCriteria { get; set; }
 
         public override IExtendedEnumerable<Deviation> Execute()
         {
             var result = Session
-                .CreateCriteriaOf<Deviation>();
-                
+                .CreateCriteriaOf<Deviation>().CreateAlias(x => x.Category);
+
+            if (SelectedDeviation.HasValue)
+                return new ExtendedEnumerable<Deviation>(result.FilterEqual(x => x.Id, SelectedDeviation).List<Deviation>());
+
             if (SelectedType.HasValue)
             {
                 if (SelectedType == DeviationType.External)
                 {
-                    result = result.CreateAlias(x => x.Category).CreateAlias(x => x.Supplier);
+                    result = result.CreateAlias(x => x.Supplier);
                 }
 
                 result = result.FilterEqual(x => x.Type, SelectedType);
             }
             else
             {
-                result = result.CreateAlias(x => x.Category).CreateAlias(x => x.Supplier);
+                result = (ICriteria<Deviation>) result.CreateAlias("Supplier", "Supplier", JoinType.LeftOuterJoin);
             }
 
             if (SelectedSupplier > 0)

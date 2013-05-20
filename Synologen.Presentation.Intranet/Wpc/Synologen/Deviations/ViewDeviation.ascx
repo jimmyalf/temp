@@ -41,9 +41,9 @@
                 <HeaderTemplate>
                     <table width="100%">
                         <tr>
-                            <th>ID
+                            <th width="10%">ID
                             </th>
-                            <th>Namn
+                            <th width="90%">Namn
                             </th>
                         </tr>
                 </HeaderTemplate>
@@ -88,9 +88,9 @@
                 <HeaderTemplate>
                     <table width="100%">
                         <tr>
-                            <th>Kommentar
+                            <th width="80%">Kommentar
                             </th>
-                            <th>Datum
+                            <th width="20%">Datum
                             </th>
                         </tr>
                 </HeaderTemplate>

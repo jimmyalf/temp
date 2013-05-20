@@ -13,13 +13,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations {
     public partial class CreateDeviation {
         
         /// <summary>
-        /// pnlCreate control.
+        /// pnlCreateDeviationForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlCreate;
+        protected global::System.Web.UI.WebControls.Panel pnlCreateDeviationForm;
         
         /// <summary>
         /// drpTypes control.

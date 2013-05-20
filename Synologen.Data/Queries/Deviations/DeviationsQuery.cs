@@ -40,7 +40,6 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
             }
             else
             {
-                //result = result.CreateAlias(x => x.Supplier);
                 result = (ICriteria<Deviation>) result.CreateAlias("Supplier", "Supplier", JoinType.LeftOuterJoin);
             }
 

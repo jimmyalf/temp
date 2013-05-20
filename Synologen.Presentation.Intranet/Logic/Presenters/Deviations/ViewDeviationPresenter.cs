@@ -44,7 +44,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
             if (deviation == null)
                 return;
 
-            var comment = new DeviationComment { Description = e.Comment };
+            var comment = new DeviationComment { Description = e.Comment, CreatedDate = DateTime.Now };
             deviation.Comments.Add(comment);
             Execute(new CreateDeviationCommand(deviation));
             

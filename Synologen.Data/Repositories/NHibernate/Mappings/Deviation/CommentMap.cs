@@ -14,7 +14,7 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Deviations
             Table("SynologenDeviationComments");
             Id(x => x.Id);
             Map(x => x.Description);
-            
+            Map(x => x.CreatedDate);
         }
 
 	}

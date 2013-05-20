@@ -40,9 +40,7 @@
      				.Empty("Inga kategorier i databasen.") %>
 
                     <%=Html.WpcConfirmationDialog("Är du säker på att du vill radera vald kategori?") %>
-                    <p>
-                        •	Admin ska kunna filtrera kategorierna genom att använda den redan befintliga filter-funktionen.
-                    </p>
+                    
                 </div>
             </div>
         </div>

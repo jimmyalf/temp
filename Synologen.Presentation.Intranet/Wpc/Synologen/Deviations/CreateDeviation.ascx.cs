@@ -40,12 +40,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
 
         void btnChangeInternal_Click(object sender, EventArgs e)
         {
-            pnlCreate.Visible = true;
+            pnlCreateDeviationForm.Visible = true;
         }
 
         void btnChangeExternal_Click(object sender, EventArgs e)
         {
-            pnlCreate.Visible = true;
+            pnlCreateDeviationForm.Visible = true;
         }
 
         private void btnSubmit_OnClick(object sender, EventArgs e)
@@ -58,7 +58,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
         {
             Page.Session["CreateDeviationEventArgs"] = null;
             pnlInternalDeviationConfirmation.Visible = true;
-            pnlCreate.Visible = false;
+            pnlCreateDeviationForm.Visible = false;
 
             lblInternalDeviationCategoryName.Text = drpCategories.SelectedItem.Text;
             lblInternalDefectDescription.Text = txtInternalDefectDescription.Text;
@@ -79,7 +79,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations
         {
             Page.Session["CreateDeviationEventArgs"] = null;
             pnlExternalDeviationConfirmation.Visible = true;
-            pnlCreate.Visible = false;
+            pnlCreateDeviationForm.Visible = false;
 
             var defects = AddDefectsToList(cblDefects);
 

@@ -1,0 +1,1721 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+<!-- General -->
+		<resource name = "Yes">Ja</resource>
+		<resource name = "No">Nej</resource>
+		<resource name = "0">0</resource>
+		<resource name = "1">1</resource>
+		<resource name = "2">2</resource>
+		<resource name = "3">3</resource>
+		<resource name = "4">4</resource>
+		<resource name = "5">5</resource>
+		<resource name = "6">6</resource>
+		<resource name = "7">7</resource>
+		<resource name = "8">8</resource>
+		<resource name = "9">9</resource>
+		<resource name = "NumberFormat">n0</resource>
+		<resource name = "NumberWhenZero">-</resource>
+                <resource name = "NoUnreadPosts">Inga olästa meddelanden</resource>
+                <resource name = "TodayAt">Idag, </resource>
+                <resource name = "YesterdayAt">Igår, </resource>
+                <resource name = "Guest">Gäst</resource>
+                <resource name = "Cancel">Avbryt</resource>
+                <resource name = "Subforums">Underforum </resource>
+                <resource name = "CommaSeperator">, </resource>
+                <resource name = "BarSeperator"> | </resource>
+                <resource name = "Enabled">aktiverade</resource>
+                <resource name = "Disabled">inaktiverad</resource>
+                <resource name = "Logged"></resource>
+                <resource name = "NotLogged"></resource>
+                <resource name = "Report">Rapportera</resource>
+                <resource name = "NotSet">Ej angivet</resource>
+                <resource name = "Male">Man</resource>
+                <resource name = "Female">Kvinna</resource>
+                <resource name = "Empty"></resource>
+                <resource name = "DefaultAnonymousUsername">Anonym</resource>
+                <resource name = "Status_Open">Aktiv - Meddelandet har inte besvarats</resource>
+                <resource name = "Status_Closed">Stängd</resource>
+                <resource name = "Status_NotSet">Ej angivet</resource>
+                <resource name = "Status_Resolved">Löst - Meddelandet har besvarats</resource>
+                <resource name = "Close_Window">Stäng</resource>
+                <resource name = "Settings_Remember">Kom ihåg inställningar</resource>
+                <resource name = "Settings_Reset">Återställ inställningar</resource>
+                <resource name = "Cache_Warning">Inställningarna kommer att genomföras, men det kommer att ta {0} minuter, på grund av cachelagring, innan ändringen reflekteras på alla servrar i din serverfarm.</resource>
+                <resource name = "AutomatedEmail">"{0} - Automatisk e-post" &lt;{1}&gt;</resource>
+                <resource name = "Add">Lägg till</resource>
+                <resource name = "Update">Uppdatera</resource>
+                <resource name = "Delete">Radera</resource>
+                <resource name = "Save">Spara</resource>
+                <resource name = "Cancel">Avbryt</resource>
+                <resource name = "Remove">Ta bort</resource>
+                <resource name = "Reset">Återställ</resource>
+                <resource name = "Search">Sök</resource>
+                <resource name = "Create">Skapa</resource>
+                <resource name = "Edit">Ändra</resource>
+                <resource name = "Send">Skicka</resource>
+                <resource name = "Select">Välj</resource>
+                <resource name = "Actions">Åtgärder</resource>
+                <resource name = "ID">ID</resource>
+                <resource name = "Name">Namn</resource>
+                <resource name = "Description">Beskrivning</resource>
+                <resource name = "Url">Url</resource>
+                <resource name = "Image">Bild</resource>
+                <resource name = "Moderation">Moderering</resource>
+                <resource name = "EmailQueue">e-postkö</resource>
+                <resource name = "PrintableVersion">Utskriftsvänlig versionn</resource>
+                <resource name = "MyThreadSettings">Mina inställningar</resource>
+                <resource name = "Footer_PoweredBy">Powered by {0}</resource>
+                <resource name = "Footer_QuestionsProblems">Frågor eller problem</resource>
+                <resource name = "Footer_TermsOfUse">Licensvillkor</resource>
+                <resource name = "NotAvailable">NA</resource>
+
+<!-- End General -->
+
+<!-- Search -->
+                <resource name = "Search_Keywords">Ange söktermer separerade med blanksteg. Vanligt förekommande ord som t ex 'and', 'or', 'the', 'a', 'an', etc. kommer inte att inkluderas i sökningen.</resource>
+                <resource name = "Search_ForumContstraints">Forumrestriktioner</resource>
+<!-- End Search -->
+
+<!-- Subscriptions -->
+                <resource name = "Subscriptions_Title">Prenumerationer</resource>
+<!-- End Subscriptions -->
+
+<!-- My Forums -->
+                <resource name = "ViewMyForumsThreads_Title">Mina konversationer</resource>
+                <resource name = "ViewMyForumsThreads_Description">Meddelanden och konversationer som du deltagit i</resource>
+<!-- End My Forums -->
+
+<!-- EmailNotificationDropDownList -->
+                <resource name = "EmailNotificationDropDownList_NeverSend">aldrig</resource>
+                <resource name = "EmailNotificationDropDownList_NewThreads">när nya konversationer skapas i detta forum</resource>
+                <resource name = "EmailNotificationDropDownList_NewPosts">när nya meddelanden skapas i detta forum</resource>
+                <resource name = "EmailNotificationDropDownList_When">Skicka e-post:</resource>
+<!-- End EmailNotificationDropDownList -->
+
+<!-- 
+Forum Exceptions 
+These string do not have to be localized as they are developer exception messages.
+-->
+                <resource name = "Exception_ForumGroupNotFound">Forum Group {0} does not exist.</resource>
+                <resource name = "Exception_ForumNotFound">Forum {0} does not exist.</resource>
+                <resource name = "Exception_UserNotFound">User {0} does not exist.</resource>
+                <resource name = "Exception_PostNotFound">Post {0} does not exist.</resource>
+                <resource name = "Exception_SkinNotSet">The SkinFileName property must be set.</resource>
+                <resource name = "Exception_SkinNotFound">The skin file: '{0}' was not found. Please ensure this file exists in your skins directory.</resource>
+                <resource name = "Exception_PostAccessDenied">Post access denied.</resource>
+                <resource name = "Exception_PostEditAccessDenied">Post edit denied.</resource>
+                <resource name = "Exception_PostEditPermissionExpired">Posting permission expired.</resource>
+                <resource name = "Exception_PostInvalidAttachmentType">Your post has been saved, but the attachment type of ({0}) was not.&lt;P&gt;The administrator has denied uploads of certain file types and the file must have only one extension (filename.ext).</resource>
+                <resource name = "Exception_PostAttachmentTooLarge">Your post has been saved, but the attachment was not.&lt;P&gt;Your attachment exceeded the forums maximum size limit of {0} KB.</resource>                
+                <resource name = "Exception_ResourceManagerStringNotFound">A value was not found in the resouces.xml file for: '{0}' please ensure this value is defined.</resource>
+                <resource name = "Exception_ResourceManagerErrorMessageNotFound">A value was not found in the messages.xml file for the message '{0}' please ensure this value is defined.</resource>                
+<!-- End Forum Exceptions -->
+
+<!-- Icon Alt Text -->
+                <resource name = "IconAlt_PrivateForumsNewPosts">Privata forum - Nya meddelanden</resource>
+                <resource name = "IconAlt_PrivateForums">Privata forum</resource>
+                <resource name = "IconAlt_NewPosts">Nya meddelanden</resource>
+                <resource name = "IconAlt_PopularPost">Populära meddelanden</resource>
+		<resource name = "IconAlt_TopicAnnounce">Tillkännagivande - meddelandet är klistrat och tillåter inga svar</resource>
+		<resource name = "IconAlt_TopicAnnounceNotRead">Tillkännagivande - meddelandet är klistrat och tillåter inga svar (Ej läst)</resource>
+		<resource name = "IconAlt_TopicPinnedAndLocked">Meddelandet är klistrat och tillåter inga svar</resource>
+		<resource name = "IconAlt_TopicPinnedAndLockedNotRead">Meddelandet är klistrat och tillåter inga svar (Ej läst)</resource>
+		<resource name = "IconAlt_TopicPinned">Meddelandet är klistrat</resource>
+		<resource name = "IconAlt_TopicPinnedNotRead">Meddelandet är klistrat (Ej läst)</resource>
+		<resource name = "IconAlt_TopicNoReplies">Meddelandet tillåter inga svar</resource>
+		<resource name = "IconAlt_TopicNoRepliesNotRead">Meddelandet tillåter inga svar (Ej läst)</resource>
+		<resource name = "IconAlt_Topic">Meddelande</resource>
+		<resource name = "IconAlt_TopicNotRead">Meddelande (Ej läst)</resource>
+<!-- End Icont Alt Text -->
+
+
+<!-- Anchors Text -->
+		<resources name = "A_ReturnToForum">Återvänd till forumet</resources>
+		<resources name = "A_ReturnToPost">Återvänd till meddelandet</resources>
+		<resources name = "A_Home"> Hem </resources>
+		<resources name = "A_Login">Logga in </resources>
+<!-- End Anchors Text -->
+
+
+<!-- Skin-CreateNewAccount.ascx -->
+		<resource name = "CreateNewAccount_Title">Registrering av nytt konto</resource>
+		<resource name = "CreateNewAccount_Description">Fyll i formuläret nedan för att registrera ett nytt inloggningskonto.</resource>
+		<resource name = "CreateNewAccount_PrivacyNotice">OBS! Den e-postadress du anger kommer inte att vara publik, delas med 3:e part, eller visas på denna webbplats.</resource>
+		<resource name = "CreateNewAccount_ForumRules">Regler och villkor för forumen</resource>
+		<resource name = "CreateNewAccount_ForumRulesDesc">Genom att skapa ett inloggningskonto accepterar jag de regler och villkor för användning som är publicerat på denna webbplats.</resource>
+		<resource name = "CreateNewAccount_Instructions">Beroende på hur adminstratören av forumen har konfigurerat forumen kan det hända att du inte kan ange ett lösenord. Om du inte kan ange ett lösenord kommer det att skickas ett med e-post till den adress du anger vid registreringen.</resource>
+		<resource name = "CreateNewAccount_UserName">Önskat användarnamn</resource>
+		<resource name = "CreateNewAccount_UserNameDescription">Ditt användar namn blir ditt 'alias' i forumen. Det använder du också när du loggar in.</resource>
+		<resource name = "CreateNewAccount_Password">Lösenord</resource>
+		<resource name = "CreateNewAccount_ReEnterPassword">Upprepa lösenord</resource>
+		<resource name = "CreateNewAccount_PasswordDescription">Ange ett lösenord som du vill använda för att logga in på denna webbplats.</resource>
+		<resource name = "CreateNewAccount_Email">E-postadress</resource>
+		<resource name = "CreateNewAccount_ReEnterEmail">Upprepa e-postadress</resource>
+		<resource name = "CreateNewAccount_EmailDescription">Den e-postadress du anger <b>kommer inte</b> att vara publik, delas med 3:e part, eller visas på denna webbplats. Ditt lösenord kommer att skickas till den e-postadressen.</resource>
+		<resource name = "CreateNewAccount_CreateAccount">Skapa användare</resource>
+		<resource name = "CreateNewAccount_usernameValidator">Användarnamn är obligatoriskt.</resource>
+		<resource name = "CreateNewAccount_usernameRegExValidator">Användarnamnet måste inledas med a-z/A-Z tecken och kan inte innehålla '&gt;' eller '&lt;'.</resource>
+		<resource name = "CreateNewAccount_passwordValidator">Lösenord är obligatoriskt.</resource>
+		<resource name = "CreateNewAccount_emailValidator">E-postadress är obligatoriskt.</resource>
+		<resource name = "CreateNewAccount_emailRegExValidator">Du måste ange en giltig e-postadress.</resource>
+		<resource name = "CreateNewAccount_emailNoMatch">E-postadresserna matchar inte varandra!</resource>
+		<resource name = "CreateNewAccount_CreateUserStatus_DuplicateUsername">En användare med detta namn finns redan.</resource>
+		<resource name = "CreateNewAccount_CreateUserStatus_DuplicateEmailAddress">En användare med denna e-postadress finns redan.</resource>
+		<resource name = "CreateNewAccount_CreateUserStatus_UnknownFailure">Ett fel uppstod vid försök att skapa denna användare.</resource>
+		<resource name = "CreateNewAccount_CreateUserStatus_DisallowedUsername">Det användarnamn du angett är förbjudet på denna webbplats. Välj ett annat användarnamn.</resource>
+		<resource name = "CreateNewAccount_CreateUserStatus_Created">Användaren är skapad</resource>
+		
+		<resource name = "CreateNewAccount_GenAntiSpamCodeProtection">Registreringskontroll</resource>
+		<resource name = "CreateNewAccount_ConfirmAntiSpamCodeProtection">Konfirmera registreringskontroll</resource>
+		<resource name = "CreateNewAccount_ConfirmAntiSpamCodeProtectionDescription">Skriv in de tecken du ser i bilden. Du behöver inte skilja på små och stora tecken..</resource>		
+		<resource name = "CreateNewAccount_AntiSpamCodeValidatorMsg">Registreringskontroll är obligatorisk</resource>		
+		<resource name = "CreateNewAccount_AntiSpamCodeCustomValidatorMsg">Registreringskontrollen matchar inte</resource>						
+		
+		<resource name = "CreateNewAccount_PrivateParamsInfo">Nedanstående fält kommer endast att administratören ha tillgång till</resource>						
+		<resource name = "CreateNewAccount_FirstName">Förnamn</resource>		
+		<resource name = "CreateNewAccount_LastName">Efternamn</resource>		
+		<resource name = "CreateNewAccount_LastName">Efternamn</resource>		
+		<resource name = "CreateNewAccount_Address">Adress</resource>		
+		<resource name = "CreateNewAccount_City">Ort</resource>		
+		<resource name = "CreateNewAccount_BoatNr">Båtnr</resource>		
+		<resource name = "CreateNewAccount_CommonParamsInfo">Följande fält kommer alla medlemmar kunna se</resource>						
+		<resource name = "CreateNewAccount_BoatType">Båttyp</resource>		
+		<resource name = "CreateNewAccount_BoatName">Båtnamn</resource>		
+		<resource name = "CreateNewAccount_BoatHarbour">Hemmahamn</resource>		
+
+		<resource name = "CreateNewAccount_boatTypeValidator">Båttyp är obligatoriskt.</resource>
+		<resource name = "CreateNewAccount_boatNameValidator">Båtnamn är obligatoriskt.</resource>
+		<resource name = "CreateNewAccount_boatHarbourValidator">Båthamn är obligatoriskt.</resource>
+		<resource name = "CreateNewAccount_boatNrValidator">Båtnr är obligatoriskt.</resource>
+		<resource name = "CreateNewAccount_firstNameValidator">Förnamn är obligatoriskt.</resource>
+		<resource name = "CreateNewAccount_lastNameValidator">Efternamn är obligatoriskt.</resource>
+		<resource name = "CreateNewAccount_postCodeValidator">Postnr är obligatoriskt.</resource>
+		<resource name = "CreateNewAccount_cityValidator">Ort är obligatoriskt.</resource>																						
+		<resource name = "CreateNewAccount_addressValidator">Adress är obligatoriskt.</resource>																						
+			
+			
+
+<!-- End Skin-CreateNewAccount.ascx -->
+
+<!-- View-PostFlatView.ascx -->
+		<resource name = "PostFlatView_PreviousThread">&#171; Föregående konversation </resource>
+		<resource name = "PostFlatView_PreviousNextSpacer">&amp;nbsp;</resource>
+		<resource name = "PostFlatView_NextThread">Nästa konversation &#187;</resource>
+		<resource name = "PostFlatView_Joined">Registrerad </resource>
+		<resource name = "PostFlatView_Location"></resource>
+		<resource name = "PostFlatView_EnableThreadTrackingOn">Inaktivera e-postprenumeration</resource>
+		<resource name = "PostFlatView_EnableThreadTrackingOff">Aktivera e-postprenumeration</resource>
+		<resource name = "PostFlatView_IPAddress">{0}</resource>
+		<resource name = "PostFlatView_Posts">Meddelanden </resource>
+		<resource name = "PostFlatView_Attachment">&lt;B&gt;Bifogad fil:&lt;/B&gt; </resource>
+		<resource name = "PostFlatView_PostDate">Postad: </resource>
+		<resource name = "PostFlatView_PostSubject">Ärende: </resource>								                
+		<resource name = "PostFlatView_TopOfPage">Överst på sidan</resource>								                		
+		<resource name = "PostFlatView_BriefInfo">Konversationen startad av: &lt;B&gt;{0}&lt;/B&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;Startade: &lt;B&gt;{1}&lt;/B&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;Svar: &lt;B&gt;{2}&lt;/B&gt;</resource>							                		
+		
+<!-- View-PostFlatView.ascx -->
+
+<!-- Skin-DeletePost.ascx -->
+		<resource name = "DeletePost_TitleName">Radera meddelanden eller konversation</resource>
+		<resource name = "DeletePost_TitleDescription">Använd detta formulär för att radera ett meddelande eller konversation.</resource>
+		<resource name = "DeletePost_Title">Radera meddelande eller konversation: {0}</resource>
+		<resource name = "DeletePost_ReasonText">Ange en anledning till varför detta meddelande eller konversation raderas. Denna information, tillsammans med vem som raderade meddelandet, kommer att loggas. Dessutom kommer ett e-postmeddelande skickas till ordinarie författare till meddelandet med anledningen till att det raderades (inklusive vem som raderade det).</resource>
+		<resource name = "DeletePost_HasChildren">Har undermeddelanden: </resource>
+		<resource name = "DeletePost_DeleteChildren">Radera undermeddelanden: </resource>
+		<resource name = "DeletePost_Reason">Anledning: </resource>
+		<resource name = "DeletePost_By">Raderad av: </resource>
+		<resource name = "DeletePost_SendEmail">Skicka e-post: </resource>
+		<resource name = "DeletePost_ValidateReason">Du måste ange en anledning till varför du raderar detta meddelande.</resource>
+		<resource name = "DeletePost_PopupConfirmation">Är du säker på att du vill radera detta meddelande?</resource>
+		<resource name = "DeletePost_CancelDelete">Avbryt</resource>
+		<resource name = "DeletePost_DeletePost">Radera meddelande</resource>
+		<resource name = "DeletePost_NA">(Ej användningsbart - Raderar ett enda meddelande)</resource>
+<!-- Skin-DeletePost.ascx -->
+
+<!-- Skin-EditProfile.ascx -->
+
+		<resource name = "EditProfile_PrivateTitle">Säkerhet / Integritet (denna information förs ej vidare eller görs publik) </resource>
+		<resource name = "EditProfile_Title">Ändra användarprofil</resource>
+		<resource name = "EditProfile_SubTitle">Ändrar din användarprofil</resource>
+		<resource name = "EditProfile_AboutTitle">Om dig (synligt för alla forummedlemmar)</resource>
+		<resource name = "EditProfile_AboutUserName">Användarnamn:</resource>
+		<resource name = "EditProfile_Password">Lösenord:</resource>
+		<resource name = "EditProfile_PasswordChange">Ändra lösenord</resource>
+		<resource name = "EditProfile_PasswordAnswer">Hemligt svar:</resource>
+		<resource name = "EditProfile_PasswordAnswerChange">Ändra hemligt svar</resource>
+		<resource name = "EditProfile_AboutTimeZone">Tidzon:</resource>
+		<resource name = "EditProfile_DateCreated">Kontot skapades:</resource>
+		<resource name = "EditProfile_LastLogin">Senaste inloggning:</resource>
+		<resource name = "EditProfile_Birthday">Födelsedag:</resource>
+		<resource name = "EditProfile_PasswordFormat">Lösenord lagrat som:</resource>
+		<resource name = "EditProfile_LastActivity">Senast aktiv:</resource>
+		<resource name = "EditProfile_AboutGender">Kön:</resource>
+		<resource name = "EditProfile_AboutLocation">Plats:</resource>
+		<resource name = "EditProfile_AboutOccupation">Yrke:</resource>
+		<resource name = "EditProfile_AboutInterests">Intressen:</resource>
+		<resource name = "EditProfile_AboutWebAddress">Webbplats:</resource>
+		<resource name = "EditProfile_AboutWebLog">Webblogg:</resource>
+		<resource name = "EditProfile_AboutSignature">Signatur:</resource>
+		<resource name = "EditProfile_ContactTitle">Publik kontaktinfo (synligt för alla forummedlemmar)</resource>
+		<resource name = "EditProfile_ContactPrivateEmail">E-post:</resource>
+		<resource name = "EditProfile_ContactPublicEmail">Publik e-post:</resource>
+		<resource name = "EditProfile_ContactMsn">MSN IM:</resource>
+		<resource name = "EditProfile_ContactAol">AOL IM:</resource>
+		<resource name = "EditProfile_ContactYahoo">Yahoo IM:</resource>
+		<resource name = "EditProfile_ContactIcq">ICQ:</resource>
+		<resource name = "EditProfile_AvatarTitle">Avatar</resource>
+		<resource name = "EditProfile_UploadAvatar">Ladda upp Avatar:</resource>
+		<resource name = "EditProfile_AvatarEnable">Aktivera Avatar:</resource>
+		<resource name = "EditProfile_AvatarUrl">Avatar URL:</resource>
+		<resource name = "EditProfile_OptionsTitle">Forumalternativ</resource>
+		<resource name = "EditProfile_OptionsLanguage">Språk:</resource>
+		<resource name = "EditProfile_EmailTitle">E-postalternativ</resource>
+		<resource name = "EditProfile_OptionsDateFormat">Datumformat:</resource>
+		<resource name = "EditProfile_OptionsHideRead">Dölj lästa meddelanden:</resource>
+		<resource name = "EditProfile_OptionsEmailTracking">Använd 'e-postnotifieringar' som standard:</resource>
+		<resource name = "EditProfile_DisplayInMemberList">Visa i medlemslista:</resource>
+		<resource name = "EditProfile_OptionsHtmlEmail">Mottag e-post i HTML-format:</resource>
+		<resource name = "EditProfile_OptionsReceiveEmails">Mottag e-post:</resource>
+		<resource name = "EditProfile_SigMaxLength">Maximal längd på signaturen är {0} tecken.</resource>
+		<resource name = "EditProfile_Update">Uppdatera</resource>
+		<resource name = "EditProfile_Theme">Tema:</resource>
+		<resource name = "EditProfile_UserBanTitle">Information om uteslutning</resource>
+		<resource name = "EditProfile_UserBanPeriod">Utesluten:</resource>
+		<resource name = "EditProfile_BanedUntilDate">Tills datum:</resource>
+		<resource name = "EditProfile_UserApprovalTitle">Godkänn användarprofil</resource>
+		<resource name = "EditProfile_UserApproval">Godkänn nu?</resource>		
+		<resource name = "EditProfile_BanExpired"> (upphörd!)</resource>		
+		<resource name = "EditProfile_FirstName">Förnamn:</resource>		
+		<resource name = "EditProfile_LastName">Efternamn:</resource>		
+		<resource name = "EditProfile_Address">Adress:</resource>		
+		<resource name = "EditProfile_Postcode">Postnr:</resource>		
+		<resource name = "EditProfile_City">Ort:</resource>		
+		<resource name = "EditProfile_BoatNr">Båtnr:</resource>		
+		<resource name = "EditProfile_BoatType">Båttyp:</resource>		
+		<resource name = "EditProfile_BoatName">Båtnamn:</resource>		
+		<resource name = "EditProfile_BoatHarbour">Hemmahamn:</resource>		
+		<resource name = "EditProfile_Phone">Telefon:</resource>		
+		<resource name = "EditProfile_Mobile">Mobil:</resource>		
+		
+<!-- End Skin-EditProfile.ascx -->
+
+<!-- Skin-Logout.ascx -->
+		<resource name = "Logout_Title">Logga ut</resource>
+		<resource name = "Logout_Status">Du har loggats ut från forumen.</resource>
+		<resource name = "Logout_ReturnHome">Återvänd till hemsidan</resource>
+<!-- End Skin-Logout.ascx -->
+
+<!-- Skin-DisplayTitle.ascx -->
+		<resource name = "DisplayTitle_ExtraInfo">Det finns &lt;b&gt;{0}&lt;/b&gt; nya meddelanden sen senaste inloggning. &lt;br /&gt;Du har {1} nytt/nya &lt;b&gt;{2}&lt;/b&gt;.</resource>
+<!-- End Skin-DisplayTitle.ascx -->
+
+<!-- Skin-DisplayUserWelcome.ascx -->
+		<resource name = "DisplayUserWelcome_UserWelcome">Välkommen &lt;b&gt;{0}&lt;/b&gt;!</resource>		
+		<resource name = "DisplayUserWelcome_UserLastLogin">Senaste inloggning &lt;b&gt;{0}&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;</resource>
+		<resource name = "DisplayUserWelcome_UserNewPosts">Det finns {0} nya meddelanden sen senaste inloggning.&lt;br /&gt;</resource>
+		<resource name = "DisplayUserWelcome_UserPrivateMessages">Du har {0} nytt/nya &lt;b&gt;{1}&lt;/b&gt;.</resource>
+		<resource name = "DisplayUserWelcome_AlternateUserWelcome">Välkommen till {0}.&lt;br /&gt;&lt;br /&gt;Du kan förbättra din blomsterupplevelse och anpassa inställningar om du &lt;b&gt;{1}&lt;/b&gt; dig för att bli deltagare i vårat forum. Registrering är inte obligatoriskt.</resource>		
+<!-- End Skin-DisplayUserWelcome.ascx -->
+
+<!-- Skin-DisplayTitle.ascx -->
+		<resource name = "DisplayTitle_ExtraInfo2">Det finns &lt;b&gt;{0}&lt;/b&gt; nya meddelanden sen senaste inloggning. &lt;br /&gt;Du har {1} nytt/nya &lt;b&gt;{2}&lt;/b&gt;.</resource>
+<!-- End Skin-DisplayTitle.ascx -->
+
+<!-- Skin-DisplayTitle.ascx -->
+		<resource name = "DisplayTitle_ExtraInfo3">Det finns &lt;b&gt;{0}&lt;/b&gt; nya meddelanden sen senaste inloggning. &lt;br /&gt;Dy har {1} nytt/nya &lt;b&gt;{2}&lt;/b&gt;.</resource>
+<!-- End Skin-DisplayTitle.ascx -->
+
+<!-- Skin-Login.ascx -->
+		<resource name = "Login_Title">Logga in</resource>
+		<resource name = "Login_UserName">Användarnamn</resource>
+		<resource name = "Login_Password">Lösenord</resource>
+		<resource name = "Login_autoLogin">Automatisk inloggning</resource>
+		<resource name = "Login_loginButton">  Logga in  </resource>
+<!-- End Skin-Login.ascx -->
+
+<!-- Skin-LoginSmall.ascx -->
+		<resource name = "LoginSmall_Button">Logga in</resource>
+		<resource name = "LoginSmall_AutoLogin">Kom ihåg mig</resource>
+		<resource name = "LoginSmall_Title">Logga in nu</resource>
+		<resource name = "LoginSmall_Username">Användarnamn</resource>
+		<resource name = "LoginSmall_Password">Lösenord</resource>
+		<resource name = "LoginSmall_UserOptions">Användaralternativ</resource>
+		<resource name = "LoginSmall_CreateNewAccount">Skapa konto</resource>
+		<resource name = "LoginSmall_ForgotPassword">Bortglömt lösenord</resource>
+<!-- End Skin-LoginSmall.ascx -->
+
+<!-- User Filter -->
+		<resource name = "UserFilterDropDownList_All">Visa alla</resource>
+		<resource name = "UserFilterDropDownList_ParticipatedIn">Visa konversationer som jag deltagit i</resource>
+		<resource name = "UserFilterDropDownList_NotParticipatedIn">Visa konversationer som jag inte deltagit i</resource>
+		<resource name = "UserFilterDropDownList_HideAnonymous">Visa konversationer från anonyma användare</resource>
+		<resource name = "UserFilterDropDownList_HideNonAnonymous">Visa konversationer från icke-anonyma användare</resource>
+<!-- End User Filter -->
+
+<!-- Skin-Message.ascx --><!-- End Skin-Message.ascx -->
+
+<!-- View-Threads.ascx -->
+		<resource name = "ViewActiveThreads_Title">Aktiva konversationer</resource>
+		<resource name = "ViewActiveThreads_Description">Meddelanden med senast aktivitet</resource>
+		<resource name = "ViewUnansweredThreads_Title">Obesvarade meddelanden</resource>
+		<resource name = "ViewUnansweredThreads_Description">Lista med meddelanden som är obesvarade</resource>
+		<resource name = "ViewThreads_Posts">Konversationer</resource>
+		<resource name = "ViewThreads_FaqsAnnouncements">Tillkännagivanden och FAQ:er</resource>
+		<resource name = "ViewThreads_Moderators">Moderatorer: </resource>
+		<resource name = "ViewThreads_ActiveGuests">Det är {0} gäst(er) som läser detta forum.</resource>
+		<resource name = "ViewThreads_ActiveUsers">Användare som läser detta forum: </resource>
+		<resource name = "ViewThreads_SortedBy">Sortera efter: </resource>
+		<resource name = "ViewThreads_FilterByDate">Datumfilter: </resource>
+		<resource name = "ViewThreads_FilterByTopic">Konversationsfilter: </resource>
+		<resource name = "ViewThreads_FilterByIgnore">Ignorera filter: </resource>
+		<resource name = "ViewThreads_In"> i </resource>
+		<resource name = "ViewThreads_OrderFrom"> ordning</resource>
+		<resource name = "ViewThreads_SortThreads"> Tillämpa! </resource>
+		<resource name = "ViewThreads_RememberSettings"> Kom i håg! </resource>
+		<resource name = "ViewThreads_TitleThread">Konversation</resource>
+		<resource name = "ViewThreads_TitleStartedBy">Startad av</resource>
+		<resource name = "ViewThreads_TitleReplies">Svar</resource>
+		<resource name = "ViewThreads_TitleViews">Visat ggr</resource>
+		<resource name = "ViewThreads_TitleLastPost">Senaste meddelande</resource>
+		<resource name = "ViewThreads_HideRead">Dölj meddelanden jag läst</resource>
+		<resource name = "ViewThreads_ShowRead">Visa alla</resource>
+		<resource name = "ViewThreads_NoTopics">&lt;br /&gt;&lt;br /&gt;Antingen finns inga konversationer, eller p g a en filtrering, finns inga konversationer att visa.&lt;br /&gt;Kontrollera visningsalternativen för att se om något filter är tillämpat.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;</resource>
+		<resource name = "ViewThreads_ForumStats">Forumstatistik</resource>
+		<resource name = "ViewThreads_ForumOptions">Forumalternativ</resource>
+		<resource name = "ViewThreads_Legend">Konversationsikoner</resource>		
+		<resource name = "ViewThreads_Legend_AnnouncementsStickies">Tillkännagivande / Klistrad</resource>		
+		<resource name = "ViewThreads_Legend_PopularTopics">Populära konversationer</resource>		
+		<resource name = "ViewThreads_Legend_NormalTopics">Normala konversationer</resource>		
+		<resource name = "ViewThreads_XML">Visa som RSS kanal i XML-format</resource>	
+
+		<resource name = "ViewThreads_TitleForums">Forum</resource>		
+		<resource name = "ViewThreads_TitleThreads">Konversationer</resource>		
+		<resource name = "ViewThreads_TitlePosts">Meddelanden</resource>		
+		
+<!-- End View-Threads.ascx -->
+
+
+<!-- View-ThreadMove.ascx -->
+
+		<resource name = "MovePost_Title">Flytta konversation</resource>
+		<resource name = "MovePost_ChooseForum">Välj lämpligt forum att flytta denna konversation till.</resource>
+		<resource name = "MovePost_Subject">Ärende: </resource>
+		<resource name = "MovePost_HasReplies">Har svar: </resource>
+		<resource name = "MovePost_PostedBy">Inlagd av: </resource>
+		<resource name = "MovePost_Body">Meddelande: </resource>
+		<resource name = "MovePost_MoveTo">Flytta till: </resource>
+		<resource name = "MovePost_SendUserEmail"> Skicka e-post (endast till konversationsägaren) att meddelandet flyttats.</resource>
+		<resource name = "MovePost_CancelMove">Avbryt</resource>
+		<resource name = "MovePost_MovePost">Flytta konversationMove Thread</resource>
+
+<!-- End View-ThreadMove.ascx -->
+
+
+<!-- View-ThreadSplit.ascx -->
+
+		<resource name = "ThreadSplit_Title">Dela upp konversation</resource>
+		<resource name = "ThreadSplit_Description">Detta verktyg kommer att dela upp konversationen vid valt meddelande. &lt;br /&gt;Ändra titeln och ange i vilket forum den nya konversationen ska skapas.</resource>
+		<resource name = "ThreadSplit_SendUserEmail">Skicka e-post till prenumeranter att konversationen delats upp.</resource>
+		<resource name = "ThreadSplit_SplitThread">Dela upp konversation</resource>
+
+<!-- End View-ThreadSplit.ascx -->
+
+<!-- View-ThreadJoin.ascx -->
+
+		<resource name = "ThreadJoin_Title">Sammanfoga konversationer</resource>
+		<resource name = "ThreadJoin_Description">Detta verktyg sammanfogar två konversationer till en.</resource>
+		<resource name = "ThreadJoin_Select">Ange ett ID för konversationen att sammanfoga med:</resource>
+		<resource name = "ThreadJoin_ParentID">KonversationsID:</resource>
+		<resource name = "ThreadJoin_ValidateButton">Hitta konversationsID</resource>
+		<resource name = "ThreadJoin_JoinThread">Sammanfoga konversationer</resource>
+		<resource name = "ThreadJoin_SendUserEmail">Skicka e-post till prenumeranter att konversationerna sammanfogats.</resource>
+		<resource name = "ThreadJoin_IsValid">Är en giltig konversation att sammanfoga med</resource>
+		<resource name = "ThreadJoin_JoinRelationship">kommer att läggas till</resource>
+
+<!-- End View-ThreadJoin.ascx -->
+
+<!-- Skin-MyForums.ascx -->
+
+		<resource name = "MyForums_TrackingTitle">Konversationer som du prenumerar på:</resource>
+		<resource name = "MyForums_NoTrackedThreads">Du prenumererar inte på någon konversation.</resource>
+		<resource name = "MyForums_ActiveThreadsTitle">Senaste 25 aktiva konversationerna som du deltagit i:</resource>
+		<resource name = "MyForums_NoParticipatedThreads">Du prenumererar inte på någon konversation.</resource>
+		<resource name = "MyForums_FindMorePosts">Visa fler konversationer som du deltagit i</resource>
+
+<!-- End Skin-MyForums.ascx -->
+
+<!-- Skin-NavigationMenu.ascx --> <!-- End Skin-NavigationMenu.ascx -->
+
+<!-- Skin-SearchRedirect.ascx --> 
+		<resource name = "Search_MoreSearchOptions">Fler sökalternativ</resource>
+<!-- End Skin-SearchRedirect -->
+
+
+
+<!-- Skin-RatePost.ascx -->
+
+		<resource name = "RatePost_Title">Hur skulle du betygsätta kvaliteten på denna konversation?</resource>
+		<resource name = "RatePost_Upper">Enastående</resource>
+		<resource name = "RatePost_Lower">Dålig</resource>
+		
+<!-- Skin-RatePost.ascx -->
+
+<!-- Skin-SearchRedirect.ascx --> 
+
+		<resource name = "SearchRedirect_Title">Sök</resource>
+		<resource name = "SearchRedirect_SearchButton">Sök</resource>
+
+<!-- End Skin-SearchRedirect.ascx -->
+
+<!-- SearchView.ascx -->
+		<resource name = "SearchViewSimple_Title">Sök</resource>
+		<resource name = "SearchViewSimple_Description">Sök i forumen</resource>
+<!-- End SearchView.ascx -->
+
+
+<!-- Skin-Statistics.ascx -->
+
+		<resource name = "SearchView_Title">Forumstatistik</resource>
+		<resource name = "SearchView_Inline1">användare har bidragit till</resource>
+		<resource name = "SearchView_Inline2">konversation(er) och</resource>
+		<resource name = "SearchView_Inline3">meddelande(n).</resource>
+		<resource name = "SearchView_Inline4">De senaste 24 timmarna, har det skapats</resource>
+		<resource name = "SearchView_Inline5">ny(a) konversation(er),</resource>
+		<resource name = "SearchView_Inline6">nytt/nya meddelande(n), och</resource>
+		<resource name = "SearchView_Inline7">ny(a) användare</resource>
+		<resource name = "SearchView_Past3days">De 3 senaste dagarna, </resource>
+		<resource name = "SearchView_Inline8">Den populäraste konversationen har varit </resource>
+		<resource name = "SearchView_Inline9">De flesta meddelandena postades till </resource>
+		<resource name = "SearchView_Inline10">Den mest visade konversationen har varit </resource>
+		<resource name = "SearchView_Inline11">De 10 mest aktiva medlemmarna de senaste 24 timmarna:</resource>
+		<resource name = "SearchView_Inline12">Välkommen till vår senaste medlem</resource>
+		<resource name = "SearchView_ViewPostsFor">Visa meddelanden för</resource>
+
+<!-- End Skin-Statistics.ascx -->
+
+<!-- Skin-WhoIsOnline.ascx -->
+
+		<resource name = "WhoIsOnline_Title">Vem är online</resource>
+		<resource name = "WhoIsOnline_Inline1">Det är för närvarande</resource>
+		<resource name = "WhoIsOnline_GuestUsers">&lt;b&gt;{0}&lt;/b&gt; gäst(er) online.</resource>
+		<resource name = "WhoIsOnline_UsersOnlineCount">Det är &lt;b&gt;{0}&lt;/b&gt; av &lt;b&gt;{1}&lt;/b&gt; registrerad(e) medlem(mar) online</resource>
+		<resource name = "WhoIsOnline_Inline2">Medlemmar</resource>
+		<resource name = "WhoIsOnline_Inline3">Moderatorer</resource>
+		<resource name = "WhoIsOnline_Inline4">Administratörer</resource>
+
+<!-- End Skin-WhoIsOnline.ascx -->
+
+<!-- View-CreateEditPost.ascx -->
+
+		<resource name = "CreateEditPost_Title_PostNewMessage">Posta ett nytt meddelande</resource>
+		<resource name = "CreateEditPost_Title_EditMessage">Ändra ett befintligt meddelande</resource>
+		<resource name = "CreateEditPost_Title_ReplyMessage">Svara på ett befintligt meddelande</resource>
+		<resource name = "CreateEditPost_Inline1">Meddelandet som du svarar på: </resource>
+		<resource name = "CreateEditPost_ReplyPrePend">Sv: </resource>
+		<resource name = "CreateEditPost_CurrentEditNotes">Aktuella ändringsnoteringar: </resource>
+		<resource name = "CreateEditPost_EditNotes">Ändringsnoteringar: </resource>
+		<resource name = "CreateEditPost_EditNotesRequired">(Obligatoriskt)</resource>
+		<resource name = "CreateEditPost_EditNotesRecord">=== Ändrat av {0} @ {1} [GMT {2}] ===</resource>
+		<resource name = "CreateEditPost_Inline2">Postat av:</resource>
+		<resource name = "CreateEditPost_Inline3">Ärende:</resource>
+		<resource name = "CreateEditPost_Inline4">Meddelande:</resource>
+		<resource name = "CreateEditPost_Status">Status:</resource>
+		<resource name = "CreateEditPost_Inline5">Författare:</resource>
+		<resource name = "CreateEditPost_Inline6">Ändrar meddelande som:</resource>
+		<resource name = "CreateEditPost_Inline7">Ärende:</resource>
+		<resource name = "CreateEditPost_Inline8">Mall:</resource>
+		<resource name = "CreateEditPost_Inline9">Meddelande:</resource>
+		<resource name = "CreateEditPost_Inline10">Meddelande:</resource>
+		<resource name = "CreateEditPost_Inline12">Bifogad fil:</resource>
+		<resource name = "CreateEditPost_Inline13">Klistrat meddelande:</resource>
+
+		<resource name = "CreateEditPost_BackButton"> &lt; Ändra </resource>
+		<resource name = "CreateEditPost_PreviewPostButton"> Skicka </resource>
+		<resource name = "CreateEditPost_PostButton"> Skicka </resource>
+		<resource name = "CreateEditPost_Cancel"> Avbryt </resource>
+		<resource name = "CreateEditPost_PreviewButton"> Förhandsgranska > </resource>
+
+		<resource name = "CreateEditPost_postSubjectValidator">Ärende obligatoriskt.</resource>
+		<resource name = "CreateEditPost_postBodyValidator">Du måste skriva ett meddelande.</resource>
+		<resource name = "CreateEditPost_postBodyRichTextValidator">Du måste skriva ett meddelande.</resource>
+		<resource name = "CreateEditPost_IsLocked"> Tillåt inte svar på detta meddelande.</resource>
+		<resource name = "CreateEditPost_SubscribeToThread"> Notifiera mig via e-post då meddelandet besvaras.</resource>
+<!-- End View-CreateEditPost.ascx -->
+
+<!-- View-SendEmail.ascx -->
+		<resource name = "SendEmail_Description">Skicka e-post till en forummedlem.</resource>
+		<resource name = "SendEmail_Title">Skicka e-post</resource>
+		<resource name = "SendEmail_From">Från: </resource>
+		<resource name = "SendEmail_To">Till: </resource>
+		<resource name = "SendEmail_Subject">Ärende: </resource>
+		<resource name = "SendEmail_Body">Meddelande: </resource>
+		<resource name = "SendEmail_Send"> Skicka e-post </resource>
+		<resource name = "SendEmail_Cancel"> Avbryt </resource>
+		<resource name = "SendEmail_Validator"> (Obligatoriskt) </resource>
+<!-- End View-SendEmail.ascx -->
+
+<!-- View-PrivateMessages.ascx -->
+   <resource name = "PrivateMessages_Title">Privata meddelanden</resource>
+   <resource name = "PrivateMessages_Description">Privata meddelanden som skickats till dig från andra forummedlemmar</resource>
+   <resource name = "PrivateMessages_Messages">Privata meddelanden</resource>
+   <resource name = "PrivateMessages_Recipients">Mottagare</resource>
+<!-- End View-PrivateMessages.ascx -->
+
+<!-- Skin-PrivateMessage.ascx -->
+		<resource name = "PrivateMessage_Title">Privat meddelande</resource>
+
+		<resource name = "PrivateMessage_BackButton"> &lt; Ändra </resource>
+		<resource name = "PrivateMessage_PreviewPostButton"> Skicka </resource>
+		<resource name = "PrivateMessage_PostButton"> Skicka </resource>
+		<resource name = "PrivateMessage_Cancel"> Avbryt </resource>
+		<resource name = "PrivateMessage_PreviewButton"> Förhandsgranska > </resource>
+<!-- End Skin-PrivateMessage.ascx -->
+
+<!-- Mark all read -->
+		<resource name = "MarkAllRead_Threads">Markera alla som lästa</resource>
+<!-- End Mark all read -->
+
+
+<!-- View-ForumGroupView.ascx -->
+		<resource name = "ForumGroupView_Inline1">Forum</resource>
+		<resource name = "ForumGroupView_Viewing">({0} läsare)</resource>
+		<resource name = "ForumGroupView_Inline2">Konversationer</resource>
+		<resource name = "ForumGroupView_Inline3">Meddelanden</resource>
+		<resource name = "ForumGroupView_Inline4">Senaste meddelande</resource>
+		<resource name = "ForumGroupView_Legend">Förklaring</resource>
+		<resource name = "ForumGroupView_Legend_NewPosts">Nya meddelanden</resource>
+		<resource name = "ForumGroupView_Legend_NoNewPosts">Inga nya meddelanden</resource>
+		<resource name = "ForumGroupView_Legend_PrivateForum">Privat forum</resource>
+		<resource name = "ForumGroupView_Legend_LastPostBy">av </resource>
+		<resource name = "ForumGroupView_ExpandCollapse">Dölj / Visa</resource>
+<!-- End View-ForumGroupView.ascx -->
+
+<!-- View-ForumMembers.ascx -->
+
+		<resource name = "ForumMembers_Inline1">Forummedlemmar</resource>
+		<resource name = "ForumMembers_Inline2">Listar forumets medlemmar</resource>
+		<resource name = "ForumMembers_AdminTitle">Administration av forummedlemmar</resource>
+		<resource name = "ForumMembers_AdminDescription">Hantera forumets medlemmar</resource>
+		<resource name = "ForumMembers_AdminShowApproved">Visa godkända medlemmar</resource>
+		<resource name = "ForumMembers_Approved">Status</resource>
+		<resource name = "ForumMembers_Username">Användarnamn</resource>
+		<resource name = "ForumMembers_Location">Plats</resource>
+		<resource name = "ForumMembers_Home">Webbplats</resource>
+		<resource name = "ForumMembers_PrivateMessages">Privata meddelanden</resource>
+		<resource name = "ForumMembers_PrivateEmail">E-post</resource>
+		<resource name = "ForumMembers_PublicEmail">E-post</resource>
+		<resource name = "ForumMembers_WebLog">Webblogg</resource>
+		<resource name = "ForumMembers_Joined">Registrerade sig</resource>
+		<resource name = "ForumMembers_SearchByUser">Sök</resource>
+		<resource name = "ForumMembers_LastActive">Senast aktiv</resource>
+		<resource name = "ForumMembers_TotalPosts">Meddelanden</resource>
+		<resource name = "ForumMembers_FindUser">Hitta användare: </resource>
+		<resource name = "ForumMembers_SearchButton"> Sök </resource>
+		<resource name = "ForumMembers_SortBy">Sortera på: </resource>
+		<resource name = "ForumMembers_OrderBy">Ordning: </resource>
+		<resource name = "ForumMembers_AccountStatusPrefix">Välj medlemstatus: </resource>
+		<resource name = "ForumMembers_NoRecords">Inga poster hittades</resource>
+
+<!-- End View-ForumMembers.ascx -->
+
+<!-- View-RoleMembers.ascx -->
+
+		<resource name = "RoleMembers_Title">Medlemmar i rollen {0}</resource>
+		<resource name = "RoleMembers_Description">Listar alla medlemmar i en specifik roll.</resource>
+
+<!-- End View-RoleMembers.ascx -->
+
+<!--View-ForumGroup.ascx-->
+    <resource name = "Moderate_Home_Title">Välkommen till ASP.NET Forums kontrollpanel för moderering</resource>
+    <resource name = "Moderate_Home_Description">Kontrollpanelen för moderering kan användas för att moderera alla delar av forumen. &lt;br /&gt;Välj ett område eller uppgift i vänsterkanten.</resource>
+    <resource name = "Moderate_Home_ForumList">Nedan ser du en lista på forum med meddelanden som du kan moderera.</resource>    
+<!--End View-ForumGroup.ascx-->
+
+
+<!--Skin-ModeratePost.ascx-->
+    <resource name = "ModeratePost_EditPost">Ändra meddelande</resource>
+    <resource name = "ModeratePost_EditUser">Ändra användare</resource>
+    <resource name = "ModeratePost_Move">Flytta konversation</resource>
+    <resource name = "ModerateThread_Split">Dela upp konversation</resource>
+    <resource name = "ModerateThread_Join">Slå ihop konversationer</resource>
+    <resource name = "ModerateThread_Lock_Thread">Lås konversation</resource>
+    <resource name = "ModerateThread_Lock_Post">Lås meddelande</resource>
+    <resource name = "ModerateThread_UnLock_Thread">Lås upp konversation</resource>
+    <resource name = "ModerateThread_UnLock_Post">Lås upp meddelande</resource>
+    <resource name = "ModeratePost_ModerationHistory">Meddelandehistorik</resource>
+    <resource name = "ModerateThread_Moderate_User">Moderera användare</resource>
+    <resource name = "ModerateThread_UnModerate_User">Avmoderera användare</resource>
+    <resource name = "ModerateThread_CachedAction">Ändringen kommer att utföras, men p g a cachelagring kan det ta upp till 30 sekunder innan den får effekt.</resource>
+<!--End Skin-ModeratePost.ascx-->
+
+
+<!-- Skin-ModerationMenu.ascx -->
+<resource name = "ModerationMenu_Approve">Godkänn</resource>
+<resource name = "ModerationMenu_ApproveReply">Godkänn &amp; svara</resource>
+<resource name = "ModerationMenu_ApproveEdit">Godkänn &amp; ändra</resource>
+<resource name = "ModerationMenu_Move">Flytta konversation</resource>
+<resource name = "ModerationMenu_DeletePost">Radera meddelande(n)</resource>
+<resource name = "ModerationMenu_DeleteThread">Radera konversation</resource>
+<!-- End Skin-ModerationMenu.ascx -->
+
+<!-- Skin-Statistics.ascx -->
+<resource name = "Moderator_Statistics_Title">Modereringstatistik</resource>
+
+<!-- End Skin-Statistics.ascx -->
+
+<!-- Skin-CreateEditForums -->
+<resource name="CreateEditForums_Title">Skapa / Ändra Forum</resource>
+<resource name="CreateEditForums_SubTitle">aaa</resource>
+<resource name="CreateEditForums_AboutTitle">Om forumen</resource>
+<resource name="CreateEditForums_ForumID">ForumID</resource>
+<resource name="CreateEditForums_ParentID">FörälderID</resource>
+<resource name="CreateEditForums_Name">Namn</resource>
+<resource name="CreateEditForums_Description">Beskrivning</resource>
+<resource name="CreateEditForums_IsActive">Är forumet aktivt</resource>
+<resource name="CreateEditForums_ForumGroupID">ForumGruppID</resource>
+<resource name="CreateEditForums_DateCreated">Forumet skapades</resource>
+<resource name="CreateEditForums_IsModerated">Är forumet modererat</resource>
+<resource name="CreateEditForums_DaysToView">Antal dagar som meddelanden ska vara synliga</resource>
+<resource name="CreateEditForums_SortOrder">Sorteringsordning</resource>
+<resource name="CreateEditForums_TotalPosts">Totalt antal meddelanden</resource>
+<resource name="CreateEditForums_TotalThreads">Totalt antal konversationer</resource>
+<resource name="CreateEditForums_DisplayMask">Visningsmask</resource>
+<resource name="CreateEditForums_EnablePostStatistics">Aktivera meddelandestatistik</resource>
+<resource name="CreateEditForums_EnableAutoDelete">Aktivera automatisk radering</resource>
+<resource name="CreateEditForums_EnableAnonymousPosting">Aktivera anonym postning</resource>
+<resource name="CreateEditForums_AutoDeleteThreshold">Autoradera efter (antal dagar)</resource>
+<resource name="CreateEditForums_MostRecentPostID">Senaste meddelandeID</resource>
+<resource name="CreateEditForums_MostRecentThreadID">Senaste konversationsID</resource>
+<resource name="CreateEditForums_MostRecentPostAuthor">Senaste författare av meddelande</resource>
+<resource name="CreateEditForums_MostRecentPostAuthorID">Senaste författarID</resource>
+<resource name="CreateEditForums_MostRecentPostDate">Senaste meddelandedatum</resource>
+<resource name="CreateEditForums_PostsToModerate">Meddelanden att moderera</resource>
+<resource name="CreateEditForums_ForumType">Forumtyp</resource>
+<resource name="CreateEditForums_IsSearchable">Är forumet sökbart</resource>
+<resource name="CreateEditForums_DeleteForumVerify">Om du raderar detta forum kommer alla konversationer och meddelanden i det också att raderas. Är du säker på att du vill fortsätta?</resource>
+<!-- End Skin-CreateEditForums-->
+
+<!-- 
+
+	Server Control Localization
+	============================
+
+-->
+
+<!-- Navigation/JumpDropDownList.cs » -->
+		<resource name = "Navigation_JumpDropDownList_displayText">Hoppa till: </resource>
+		<resource name = "Navigation_JumpDropDownList_Title">(Välj)</resource>
+		<resource name = "Navigation_JumpDropDownList_Seperator"> </resource>
+		<resource name = "Navigation_JumpDropDownList_Indent1">─» </resource>		
+		<resource name = "Navigation_JumpDropDownList_Indent2">└─» </resource>		
+		<resource name = "Navigation_JumpDropDownList_Indent3">└───» </resource>		
+		<resource name = "Navigation_JumpDropDownList_Home">Forum Hem</resource>
+		<resource name = "Navigation_JumpDropDownList_Search">Sök</resource>
+		<resource name = "Navigation_JumpDropDownList_Members">Medlemslista</resource>
+		<resource name = "Navigation_JumpDropDownList_UserOptions">Användaralternativ</resource>
+		<resource name = "Navigation_JumpDropDownList_Profile">Kontrollpanel</resource>
+		<resource name = "Navigation_JumpDropDownList_PrivateMessages">Mina privata meddelanden</resource>
+		<resource name = "Navigation_JumpDropDownList_MyThreads">Mina konversationer</resource>
+		<resource name = "Navigation_JumpDropDownList_Login">Logga in</resource>
+		<resource name = "Navigation_JumpDropDownList_CreateAccount">Skapa ett nytt konto</resource>
+		<resource name = "Navigation_JumpDropDownList_ForgotPassword">Bortglömt lösenord</resource>
+		<resource name = "Navigation_JumpDropDownList_AdminOptions">Admin / Moderator alternativ</resource>
+		<resource name = "Navigation_JumpDropDownList_AdminHome">Admin Hem</resource>
+		<resource name = "Navigation_JumpDropDownList_ModeratorHome">Moderator Hem</resource>
+<!-- End Navigation/JumpDropDownList.cs -->
+
+<!-- PostDisplay/PollPost.cs -->
+
+		<resource name = "PostDisplay_PollPost_buttonText">Rösta</resource>
+		<resource name = "PostDisplay_PollPost_resultsText">Din röst: </resource>
+		<resource name = "PostDisplay_PollPost_totalVotes">Totalt: </resource>
+
+<!-- End PostDisplay/PollPost.cs -->
+
+<!-- Search/SearchOptions.cs -->
+		<resource name = "Search_SearchOptions_AllForums">Alla forum</resource>
+		<resource name = "Search_SearchOptions_Posts">Meddelanden</resource>
+		<resource name = "Search_SearchOptions_PostedBy">Postade av</resource>
+		<resource name = "Search_SearchOptions_MatchAll">Matcha alla ord</resource>
+		<resource name = "Search_SearchOptions_MatchAny">Matcha något ord</resource>
+		<resource name = "Search_SearchOptions_MatchExact">Matcha exakt fras</resource>
+<!-- End Search/SearchOptions.cs -->
+
+<!-- View-SearchAdvanced.ascx -->
+		<resource name = "SearchAdvanced_Title">Avancerad sökning</resource>
+		<resource name = "SearchAdvanced_Description">Begränsa din sökning.</resource>
+		<resource name = "SearchAdvanced_Options">Avancerade sökalternativ</resource>
+		<resource name = "SearchAdvanced_Keywords">Nyckelord</resource>
+		<resource name = "SearchAdvanced_Keywords_Info">Använd 'AND' och 'OR' för att begränsa sökningen. Använd '*' eller blanksteg som jokertecken.</resource>
+		<resource name = "SearchAdvanced_Users">Användare</resource>
+		<resource name = "SearchAdvanced_Users_Info">Ange användarnamn att begränsa sökningen med, separerade med ','.</resource>
+		<resource name = "SearchAdvanced_Forums">Forum</resource>
+		<resource name = "SearchAdvanced_Forums_Info">Håll ned 'CTRL-knappen' för att välja flera.</resource>		
+<!-- End View-SearchAdvanced.ascx -->
+
+<!-- View-SearchResults.ascx -->
+		<resource name = "SearchResults_Title">Sökresultat</resource>
+		<resource name = "SearchResults_Description">Resultat från din senaste sökning.</resource>
+		<resource name = "SearchResults_TotalResults">Resultat &lt;b&gt;{0}&lt;/b&gt; - &lt;b&gt;{1}&lt;/b&gt; av uppskattningsvis &lt;b&gt;{2}&lt;/b&gt; meddelanden.</resource>
+		<resource name = "SearchResults_SearchDuration">Sökningen tog &lt;b&gt;{0}&lt;/b&gt; sekunder.</resource>
+		<resource name = "SearchResults_PostedBy">Postad av</resource>
+		<resource name = "SearchResults_PostedBy_2">i</resource>
+		<resource name = "SearchResults_PostedBy_3">forum.</resource>
+		<resource name = "SearchResults_Posted">Postad:</resource>
+		<resource name = "SearchResults_More">Mera ...</resource>
+<!-- End View-SearchResults.ascx -->
+
+<!-- User/UserOnlineStatus.cs -->
+		<resource name = "User_UserOnlineStatus_isOnline"> är online. Senast aktiv: </resource>
+		<resource name = "User_UserOnlineStatus_isNotOnline"> är inte online. senast aktiv: </resource>
+<!-- End User/UserOnlineStatus.cs -->
+
+<!-- User/PostIcons.cs -->
+		<resource name = "User_PostIcons_NotRanked">Ej rankad</resource>
+		<resource name = "User_PostIcons_Top10">Top 10 meddelanden</resource>
+		<resource name = "User_PostIcons_Top25">Top 25 meddelanden</resource>
+		<resource name = "User_PostIcons_Top50">Top 50 meddelanden</resource>
+		<resource name = "User_PostIcons_Top75">Top 75 meddelanden</resource>
+		<resource name = "User_PostIcons_Top100">Top 100 meddelanden</resource>
+		<resource name = "User_PostIcons_Top150">Top 150 meddelanden</resource>
+		<resource name = "User_PostIcons_Top200">Top 200 meddelanden</resource>
+		<resource name = "User_PostIcons_Top500">Top 500 meddelanden</resource>
+
+<!-- End User/PostIcons.cs -->
+
+<!-- User/UserPermissions.cs -->
+		<resource name = "User_UserPermissions_forumModeration">Forumet är {0}</resource>
+		<resource name = "User_UserPermissions_postStats">Forumstatistik är {0}</resource>
+		<resource name = "User_UserPermissions_postNewTopics">Du {0} skapa nya konversationer</resource>
+		<resource name = "User_UserPermissions_replyToTopics">Du {0} svara på meddelanden</resource>
+		<resource name = "User_UserPermissions_deletePosts">Du {0} radera dina meddelanden</resource>
+		<resource name = "User_UserPermissions_editPosts">Du {0} ändra dina meddelanden</resource>
+		<resource name = "User_UserPermissions_createPolls">Du {0} skapa undersökningar</resource>
+		<resource name = "User_UserPermissions_vote">Du {0} rösta i undersökningar</resource>
+		<resource name = "User_UserPermissions_attachment">Du {0} bifoga filer</resource>
+		<resource name = "User_UserPermissions_allow">kan</resource>
+		<resource name = "User_UserPermissions_deny">kan inte</resource>
+		<resource name = "User_UserPermissions_moderated">modererad</resource>
+		<resource name = "User_UserPermissions_unmoderated">omodererat</resource>
+<!-- End User/UserPermissions.cs -->
+
+<!-- Controls/Utility/CurrentPage.cs -->
+		<resource name = "Utility_CurrentPage_text">Sida {0} av {1} ({2} objekt)</resource>
+<!-- End Controls/Utility/CurrentPage -->
+
+<!-- Controls/Utility/CurrentTime.cs -->
+		<resource name = "Utility_CurrentTime_format">Välkommen, idag är det {0} (GMT {1}) </resource>
+		<resource name = "Utility_CurrentTime_formatGMT">[GMT {0}]</resource>
+		<resource name = "Utility_CurrentTime_dateFormat">dddd, d MMMM yyyy HH:mm</resource>
+<!-- End Controls/Utility/CurrentTime.cs -->
+
+<!-- Controls/Utility/DateFilter.cs -->
+		<resource name = "Utility_DateFilter_text">nya konversationer </resource>
+		<resource name = "Utility_DateFilter_LastVisit">sedan senaste besöket</resource>
+		<resource name = "Utility_DateFilter_1Day">1 dag</resource>
+		<resource name = "Utility_DateFilter_2Days">2 dagar</resource>
+		<resource name = "Utility_DateFilter_3Days">3 dagar</resource>
+		<resource name = "Utility_DateFilter_1Week">1 vecka</resource>
+		<resource name = "Utility_DateFilter_2Weeks">2 veckor</resource>
+		<resource name = "Utility_DateFilter_1Month">1 månad</resource>
+		<resource name = "Utility_DateFilter_2Months">2 månader</resource>
+		<resource name = "Utility_DateFilter_3Months">3 månader</resource>
+		<resource name = "Utility_DateFilter_6Months">6 månader</resource>
+		<resource name = "Utility_DateFilter_1Year">1 år</resource>
+		<resource name = "Utility_DateFilter_All">Visa alla</resource>
+<!-- End Controls/Utility/DateFilter.cs -->
+
+<!-- 
+	Controls/Utility/DateFormatDropDownList.cs 
+	==========================================
+	- F(x) is the actual date format
+	- F(x)Text is the display text
+-->
+
+		<resource name = "Utility_DateFormatDropDownList_F1">ddd, dd MMM yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F1Text">Dag, Dag Månad År (Torsd, 01 Maj 2004)</resource>			
+		<resource name = "Utility_DateFormatDropDownList_F2">dd MMM, yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F2Text">Dag Månad, År (01 Maj, 2004)</resource>					
+		<resource name = "Utility_DateFormatDropDownList_F3">MMM dd yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F3Text">Månad Dag År (Maj 01 2004)</resource>
+		<resource name = "Utility_DateFormatDropDownList_F4">yyyy-MM-dd</resource>
+		<resource name = "Utility_DateFormatDropDownList_F4Text">År-Månad-Dag (2004-05-01)</resource>
+		<resource name = "Utility_DateFormatDropDownList_F5">dd-MM-yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F5Text">Dag-Månad-År (01-05-2004)</resource>
+		<resource name = "Utility_DateFormatDropDownList_F6">MM/dd/yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F6Text">Månad/Dag/År (05/01/2004)</resource>
+		<resource name = "Utility_DateFormatDropDownList_F7">dd/MM/yyyy</resource>
+		<resource name = "Utility_DateFormatDropDownList_F7Text">Dag/Månad/År (01/05/2004)</resource>
+
+<!-- End Controls/Utility/DateFormatDropDownList.cs -->
+
+<!-- Utility/ForumAnchor.cs -->
+
+		<resources name = "Utility_ForumAnchorType_MenuHome">Hem </resources>
+		<resources name = "Utility_ForumAnchorType_MenuSearch">Sök </resources>	
+		<resources name = "Utility_ForumAnchorType_MenuEditProfile">Kontrollpanel </resources>
+		<resources name = "Utility_ForumAnchorType_MenuLogin">Logga in </resources>
+		<resources name = "Utility_ForumAnchorType_MenuLogout">Logga ut </resources>
+		<resources name = "Utility_ForumAnchorType_MenuRegister">Registera </resources>
+		<resources name = "Utility_ForumAnchorType_MenuMemberList">Medlemmar </resources>
+		<resources name = "Utility_ForumAnchorType_MenuMyForums">Mina forum </resources>
+		<resources name = "Utility_ForumAnchorType_MenuFaq">Faq </resources>
+		<resources name = "Utility_ForumAnchorType_MenuModerate">Moderera </resources>
+		<resources name = "Utility_ForumAnchorType_MenuAdmin">Admin </resources>
+		<resources name = "Utility_ForumAnchorType_PostsActive">Aktiva</resources>
+		<resources name = "Utility_ForumAnchorType_PostsUnanswered">Obesvarade</resources>
+		<resources name = "Utility_ForumAnchorType_UserForgotPassword">Glömt till lösenord?</resources>
+		<resources name = "Utility_ForumAnchorType_UserRegister">Skapa nytt konto</resources>
+		<resources name = "Utility_ForumAnchorType_Login">Har du redan ett konto?</resources>
+
+<!-- End Utility/ForumAnchor.cs -->
+
+<!-- Controls/Utility/Pager.cs -->
+		<resource name = "Utility_Pager_previousButton">&#171;</resource>	
+		<resource name = "Utility_Pager_nextButton">&#187;</resource>	
+		<resource name = "Utility_Pager_firstButton">&#171; Första</resource>	
+		<resource name = "Utility_Pager_lastButton">Sista &#187;</resource>	
+<!-- End Controls/Utility/Pager.cs -->
+
+<!-- Controls/Utility/SearchModeDropDownList.cs -->
+		<resource name = "Utility_SearchModeDropDownList_Simple">Enkel</resource> 
+		<resource name = "Utility_SearchModeDropDownList_FullText">Fulltext (Endast SQL Server)</resource> 
+		<resource name = "Utility_SearchModeDropDownList_ForumsIndexer">Forumindexerare</resource> 
+<!-- End Controls/Utility/SearchModeDropDownList.cs -->
+
+<!-- Controls/Utility/ThreadPager.cs -->
+		<resource name = "Utility_ThreadPager_Page">Page: </resource>
+<!-- End Controls/Utility/TrheadPager.cs -->
+
+<!-- Controls/Utility/QuestionsDropDownList.cs -->
+		<resource name = "Utility_QuestionsDropDownList_Q1">Vad heter ditt husdjur?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q2">Vad var namnet på din första skola?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q3">Vem var din barndomshjälte?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q4">Vilken är din favorit tidsålder?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q5">Vilka är ditt favoritlag (sport)?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q6">Vad har din far för mellannamn?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q7">Vem var din maskot i skolan?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q8">Vilket märke hade din första bil eller cykel?</resource>
+		<resource name = "Utility_QuestionsDropDownList_Q9">Vart träffade du din partner?</resource>
+<!-- End Controls/Utility/QuestionsDropDownList.cs -->
+
+<!-- Controls/Utility/UserBanDropDownList.cs -->
+		<resource name = "Utility_UserBan_Permanent">Permanent</resource>
+		<resource name = "Utility_UserBan_1Day">1 Dag</resource>
+		<resource name = "Utility_UserBan_3Days">3 Dagar</resource>
+		<resource name = "Utility_UserBan_5Days">5 Dagar</resource>
+		<resource name = "Utility_UserBan_1Week">1 Vecka</resource>
+		<resource name = "Utility_UserBan_2Weeks">2 Vecka</resource>
+		<resource name = "Utility_UserBan_1Month">1 Månad</resource>
+<!-- End Controls/Utility/UserBanDropDownList.cs -->
+
+    <!-- START Skin-ForumAdmin.ascx -->
+        <resource name="ForumAdmin_Title">Hantera foruminställningar</resource>
+        <resource name="ForumAdmin_Description">Konfigurera individuella foruminställningar.</resource>
+        <resource name="ForumAdmin_AboutTitle">Foruminställningar</resource>
+        <resource name="ForumAdmin_GeneralStatistics">Allmän forumstatistik</resource>
+        <!-- Start of control fields -->
+        <resource name="ForumAdmin_ForumID">ForumID:</resource>
+        <resource name="ForumAdmin_IsActive">Aktivera forum</resource>
+        <resource name="ForumAdmin_IsActive_Detail">Om inaktiverad är forumet ej tillgängligt.</resource>
+        <resource name="ForumAdmin_ParentID">Förälderforum</resource>
+        <resource name="ForumAdmin_ParentID_Detail">Ange en grupp eller forum som detta forum ska vara under.</resource>
+        <resource name="ForumAdmin_ForumGroupID">ForumgruppID</resource>
+        <resource name="ForumAdmin_Name">Namn</resource>
+        <resource name="ForumAdmin_Name_Detail">Välj ett kort men beskrivande namn</resource>
+        <resource name="ForumAdmin_ForumDescription">Beskrivning</resource>
+        <resource name="ForumAdmin_ForumDescription_Detail">En kort beskrivning av forumet; HTML-kod är tillåtet.</resource>
+        <resource name="ForumAdmin_DateCreated">Skapades</resource>
+        <resource name="ForumAdmin_IsModerated">Moderera meddelanden</resource>
+        <resource name="ForumAdmin_IsModerated_Detail">När modererat, måste meddelanden av modererade användare godkännas av en moderator innan de syns i forumet.</resource>
+        <resource name="ForumAdmin_DaysToView">Antal dagar (standard) att visa meddelanden</resource>
+        <resource name="ForumAdmin_SortOrder">Sorteringsordning (standard)</resource>
+        <resource name="ForumAdmin_TotalPosts">Totalt antal meddelanden</resource>
+        <resource name="ForumAdmin_TotalThreads">Totalt antal konversationer</resource>
+        <resource name="ForumAdmin_DisplayMask">Visningsmask</resource>
+        <resource name="ForumAdmin_EnablePostStatistics">Aktivera meddelandestatistik</resource>
+        <resource name="ForumAdmin_EnablePostStatistics_Detail">Om inaktiverad, räknas inte meddelanden som postas här till användarens totala antal meddelanden.</resource>
+        <resource name="ForumAdmin_EnableAutoDelete">Aktivera automatisk radering av meddelanden</resource>
+        <resource name="ForumAdmin_EnableAutoDelete_Detail">Om aktiverad, kommer meddelanden som inte läses inom ett visst tidsintervall att automatiskt och permanent raderas.</resource>
+        <resource name="ForumAdmin_EnableAnonymousPosting">Aktivera anonym postning</resource>
+        <resource name="ForumAdmin_EnableAnonymousPosting_Detail">Om aktiv, kommer icke-autentiserade användare att kunna posta meddelanden i detta forum. Andra inställningar för forumrättigheter kan också påverka detta.</resource>
+        <resource name="ForumAdmin_AutoDeleteThreshold">Tidsfönster för Auto-radera (i dagar)</resource>
+        <resource name="ForumAdmin_AutoDeleteThreshold_Detail">Antal dagar innan ett meddelande som inte lästs, automatiskt raderas.</resource>
+        <resource name="ForumAdmin_MostRecentPostID">Senaste meddelandeID</resource>
+        <resource name="ForumAdmin_MostRecentThreadID">Senaste konversationsID</resource>
+        <resource name="ForumAdmin_MostRecentPostAuthor">Senaste författare av meddelande</resource>
+        <resource name="ForumAdmin_MostRecentPostAuthorID">Senaste författarID</resource>
+        <resource name="ForumAdmin_MostRecentPostDate">Senaste meddelandedatum</resource>
+        <resource name="ForumAdmin_PostsToModerate">Meddelanden att moderera</resource>
+        <resource name="ForumAdmin_ForumType">Forumtyp</resource>
+        <resource name="ForumAdmin_IsSearchable">Indexera meddelanden</resource>
+        <resource name="ForumAdmin_IsSearchable_Detail">Om aktiverad, indexeras meddelanden för sökning</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ForumAdmin.ascx -->
+
+
+    <!-- START Skin-ForumPruningAdmin.ascx -->
+        <resource name="ForumPruning_Title">NEED DESCRIPTION for ForumPruning Title</resource>
+        <resource name="ForumPruning_SubTitle">NEED DESCRIPTION for ForumPruning SubTitle</resource>
+        <resource name="ForumPruning_AboutTitle">NEED DESCRIPTION for ForumPruning About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ForumPruningAdmin_ForumId">NEED DESCRIPTION for ForumId</resource>
+        <resource name="ForumPruningAdmin_IsActive">NEED DESCRIPTION for IsActive</resource>
+        <resource name="ForumPruningAdmin_PruneMessagesDaysOld">NEED DESCRIPTION for PruneMessagesDaysOld</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ForumPruningAdmin.ascx -->
+
+
+    <!-- START Skin-ForumPermissionAdmin.ascx -->
+        <resource name="ForumPermission_Title">Hantera forumrättigheter</resource>
+        <resource name="ForumPermission_SubTitle">Konfigurera individuella forumrättigheter för en angiven roll.</resource>
+        <resource name="ForumPermission_AboutTitle">Forumrättigheter</resource>
+        <!-- Start of control fields -->
+        <resource name="ForumPermissionAdmin_Allow">Tillåt</resource>
+        <resource name="ForumPermissionAdmin_Deny">Neka</resource>
+        <resource name="ForumPermissionAdmin_NotSet">Ej angivet</resource>
+        <resource name="ForumPermissionAdmin_ForumID">Forumnamn</resource>
+        <resource name="ForumPermissionAdmin_RoleID">Rollnamn</resource>
+        <resource name="ForumPermissionAdmin_View">Visa meddelanden</resource>
+        <resource name="ForumPermissionAdmin_View_Description">Rollmedlem kan se lista över meddelanden</resource>
+        <resource name="ForumPermissionAdmin_Read">Läsa meddelanden</resource>
+        <resource name="ForumPermissionAdmin_Read_Description">Rollmedlem kan läsa individuella meddelanden</resource>
+        <resource name="ForumPermissionAdmin_Post">Tillåt inlägg</resource>
+        <resource name="ForumPermissionAdmin_Post_Description">Rollmedlem kan posta nya meddelanden i detta forum</resource>
+        <resource name="ForumPermissionAdmin_Reply">Svara på meddelanden</resource>
+        <resource name="ForumPermissionAdmin_Reply_Description">Rollmedlem kan svara på meddelanden</resource>
+        <resource name="ForumPermissionAdmin_Edit">Ändra egna meddelanden</resource>
+        <resource name="ForumPermissionAdmin_Edit_Description">Rollmedlem kan ändra på sina egna meddelanden</resource>
+        <resource name="ForumPermissionAdmin_Delete">Radera egna meddelanden</resource>
+        <resource name="ForumPermissionAdmin_Delete_Description">Rollmedlem kan radera sina egna meddelanden</resource>
+        <resource name="ForumPermissionAdmin_Sticky">Tillåt klistrade meddelanden</resource>
+        <resource name="ForumPermissionAdmin_Sticky_Description">Rollmedlem kan 'klistra' sitt meddelande på toppen av forumets konversationslista</resource>
+        <resource name="ForumPermissionAdmin_Announce">Tillåt tillkännagivanden</resource>
+        <resource name="ForumPermissionAdmin_Announce_Description">Rollmedlem kan flagga meddelanden som tillkännagivanden</resource>
+        <resource name="ForumPermissionAdmin_CreatePoll">Skapa undersökningar</resource>
+        <resource name="ForumPermissionAdmin_CreatePoll_Description">Rollmedlem kan skapa undersökningar</resource>
+        <resource name="ForumPermissionAdmin_Vote">Tillåt röstning</resource>
+        <resource name="ForumPermissionAdmin_Vote_Description">Rollmedlem kan rösta i existerande undersökningar</resource>
+        <resource name="ForumPermissionAdmin_Moderate">Moderera forumet</resource>
+        <resource name="ForumPermissionAdmin_Moderate_Description">Rollmedlem kan moderera detta forum</resource>
+        <resource name="ForumPermissionAdmin_Attachment">Tillåt bifogade filer</resource>
+        <resource name="ForumPermissionAdmin_Attachment_Description">Rollmedlem kan bifoga filer till sina meddelanden i detta forum</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ForumPermissionAdmin.ascx -->
+
+
+    <!-- START Skin-MassEmailingAdmin.ascx -->
+        <resource name="MassEmailing_Title">Hantera massutskick</resource>
+        <resource name="MassEmailing_SubTitle">Skickar e-post till alla medlemmar.</resource>
+        <resource name="MassEmailing_AboutTitle">Massutskick</resource>
+        <!-- Start of control fields -->
+        <resource name="MassEmailing_Recipients">Mottagare</resource>
+        <resource name="MassEmailing_Subject">Ärende</resource>
+        <resource name="MassEmailing_Message">Meddelande</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-MassEmailingAdmin.ascx -->
+
+
+    <!-- START Skin-SmileyAdmin.ascx -->
+        <resource name="Smiley_Title">Hantera uttryckssymboler</resource>
+        <resource name="Smiley_SubTitle">Skapa och/eller ändra uttryckssymboler som kan visas i meddelanden.</resource>
+        <resource name="Smiley_AboutTitle">Hantera uttryckssymboler</resource>
+        <!-- Start of control fields -->
+        <resource name="Smiley_Code">Kod</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-SmileyAdmin.ascx -->
+
+
+    <!-- START Skin-CensorshipAdmin.ascx -->
+        <resource name="Censorship_Title">Censurering av ord</resource>
+        <resource name="Censorship_SubTitle">Skapa och/eller ändra ersättningsord för olämpliga ord och fraser som postas till forumen.</resource>
+        <resource name="Censorship_AboutTitle">Censurering av ord</resource>
+        <!-- Start of control fields -->
+        <resource name="Censorship_Word">Olämpligt ord</resource>
+        <resource name="Censorship_Replacement">Ersättningstecken</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-CensorshipAdmin.ascx -->
+
+
+    <!-- START Skin-NameAdmin.ascx -->
+        <resource name="Name_Title">NEED DESCRIPTION for Name Title</resource>
+        <resource name="Name_SubTitle">NEED DESCRIPTION for Name SubTitle</resource>
+        <resource name="Name_AboutTitle">NEED DESCRIPTION for Name About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="NameAdmin_DisallowedName">NEED DESCRIPTION for DisallowedName</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-NameAdmin.ascx -->
+
+
+    <!-- START Skin-ReportAdmin.ascx -->
+        <resource name="Report_Title">NEED DESCRIPTION for Report Title</resource>
+        <resource name="Report_SubTitle">NEED DESCRIPTION for Report SubTitle</resource>
+        <resource name="Report_AboutTitle">NEED DESCRIPTION for Report About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ReportAdmin_ReportId">NEED DESCRIPTION for ReportId</resource>
+        <resource name="ReportAdmin_ReportName">NEED DESCRIPTION for ReportName</resource>
+        <resource name="ReportAdmin_Active">NEED DESCRIPTION for Active</resource>
+        <resource name="ReportAdmin_ReportCommand">NEED DESCRIPTION for ReportCommand</resource>
+        <resource name="ReportAdmin_ReportScript">NEED DESCRIPTION for ReportScript</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ReportAdmin.ascx -->
+
+
+    <!-- START Skin-RoleAdmin.ascx -->
+        <resource name="Role_Title">Hantera roller</resource>
+        <resource name="Role_SubTitle">Skapa och/eller ändra roller som kontrollerar vilka rättigheter en användare har inom ett givet forum.</resource>
+        <resource name="Role_AboutTitle">Administrera roller</resource>
+    		<resource name="DeleteRole_PopupConfirmation">Är du säker på att du vill radera denna roll?</resource>        
+    <!-- END Skin-RoleAdmin.ascx -->
+
+
+    <!-- START Skin-StyleAdmin.ascx -->
+        <resource name="Style_Title">Administrera stilar</resource>
+        <resource name="Style_SubTitle">Skapa och/eller ändra en stil som används av forumen.</resource>
+        <resource name="Style_AboutTitle">Stilattribut</resource>
+        <!-- Start of control fields -->
+        <resource name="StyleAdmin_StyleId">Style Id</resource>
+        <resource name="StyleAdmin_StyleName">Style Name</resource>
+        <resource name="StyleAdmin_StyleSheetTemplate">Style Sheet Template</resource>
+        <resource name="StyleAdmin_BodyBackgroundColor">Body Background Color</resource>
+        <resource name="StyleAdmin_BodyTextColor">Body Text Color</resource>
+        <resource name="StyleAdmin_LinkVisited">Link Visited Color</resource>
+        <resource name="StyleAdmin_LinkHover">Link Hover Color</resource>
+        <resource name="StyleAdmin_LinkActive">Link Active Color</resource>
+        <resource name="StyleAdmin_RowColorPrimary">Primary row color</resource>
+        <resource name="StyleAdmin_RowColorSecondary">Secondary row color</resource>
+        <resource name="StyleAdmin_RowColorTertiary">Tertiary row color</resource>
+        <resource name="StyleAdmin_RowClassPrimary">Primary row class name</resource>
+        <resource name="StyleAdmin_RowClassSecondary">Secondary row class name</resource>
+        <resource name="StyleAdmin_RowClassTertiary">Tertiary row class name</resource>
+        <resource name="StyleAdmin_HeaderColorPrimary">Primary header cell color</resource>
+        <resource name="StyleAdmin_HeaderColorSecondary">Secondary header cell color</resource>
+        <resource name="StyleAdmin_HeaderColorTertiary">Tertiary header cell color</resource>
+        <resource name="StyleAdmin_HeaderStylePrimary">Header cell primary style name</resource>
+        <resource name="StyleAdmin_HeaderStyleSecondary">Header cell secondary style name</resource>
+        <resource name="StyleAdmin_HeaderStyleTertiary">Header cell tertiary style name</resource>
+        <resource name="StyleAdmin_CellColorPrimary">Cell primary color</resource>
+        <resource name="StyleAdmin_CellColorSecondary">Cell secondary color</resource>
+        <resource name="StyleAdmin_CellColorTertiary">Cell tertiary color</resource>
+        <resource name="StyleAdmin_CellClassPrimary">Cell primary class name</resource>
+        <resource name="StyleAdmin_CellClassSecondary">Cell secondary class name</resource>
+        <resource name="StyleAdmin_CellClassTertiary">Cell tertiary class name</resource>
+        <resource name="StyleAdmin_FontFacePrimary">Font primary face </resource>
+        <resource name="StyleAdmin_FontFaceSecondary">Font secondary face</resource>
+        <resource name="StyleAdmin_FontFaceTertiary">Font tertiary face</resource>
+        <resource name="StyleAdmin_FontSizePrimary">Font primary size</resource>
+        <resource name="StyleAdmin_FontSizeSecondary">Font secondary size</resource>
+        <resource name="StyleAdmin_FontSizeTertiary">Font tertiary size</resource>
+        <resource name="StyleAdmin_FontColorPrimary">Font primary color</resource>
+        <resource name="StyleAdmin_FontColorSecondary">Font secondary color</resource>
+        <resource name="StyleAdmin_FontColorTertiary">Font tertiary color</resource>
+        <resource name="StyleAdmin_SpanClassPrimary">Span primary class name</resource>
+        <resource name="StyleAdmin_SpanClassSecondary">Span secondary class name</resource>
+        <resource name="StyleAdmin_SpanClassTertiary">Span tertiary class name</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-StyleAdmin.ascx -->
+
+
+    <!-- START Skin-ServiceAdmin.ascx -->
+        <resource name="Service_Title">NEED DESCRIPTION for Service Title</resource>
+        <resource name="Service_SubTitle">NEED DESCRIPTION for Service SubTitle</resource>
+        <resource name="Service_AboutTitle">NEED DESCRIPTION for Service About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ServiceAdmin_ServiceId">NEED DESCRIPTION for ServiceId</resource>
+        <resource name="ServiceAdmin_ServiceName">NEED DESCRIPTION for ServiceName</resource>
+        <resource name="ServiceAdmin_ServiceTypeCode">NEED DESCRIPTION for ServiceTypeCode</resource>
+        <resource name="ServiceAdmin_ServiceAssemblyPath">NEED DESCRIPTION for ServiceAssemblyPath</resource>
+        <resource name="ServiceAdmin_ServiceFullClassName">NEED DESCRIPTION for ServiceFullClassName</resource>
+        <resource name="ServiceAdmin_ServiceWorkingDirectory">NEED DESCRIPTION for ServiceWorkingDirectory</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ServiceAdmin.ascx -->
+
+
+    <!-- START Skin-ServiceScheduleAdmin.ascx -->
+        <resource name="ServiceSchedule_Title">NEED DESCRIPTION for ServiceSchedule Title</resource>
+        <resource name="ServiceSchedule_SubTitle">NEED DESCRIPTION for ServiceSchedule SubTitle</resource>
+        <resource name="ServiceSchedule_AboutTitle">NEED DESCRIPTION for ServiceSchedule About Title</resource>
+        <!-- Start of control fields -->
+        <resource name="ServiceScheduleAdmin_ServiceId">NEED DESCRIPTION for ServiceId</resource>
+        <resource name="ServiceScheduleAdmin_ScheduleName">NEED DESCRIPTION for ScheduleName</resource>
+        <resource name="ServiceScheduleAdmin_MachineName">NEED DESCRIPTION for MachineName</resource>
+        <resource name="ServiceScheduleAdmin_StartDate">NEED DESCRIPTION for StartDate</resource>
+        <resource name="ServiceScheduleAdmin_EndDate">NEED DESCRIPTION for EndDate</resource>
+        <resource name="ServiceScheduleAdmin_ServiceParameters">NEED DESCRIPTION for ServiceParameters</resource>
+        <resource name="ServiceScheduleAdmin_ScheduleTypeCode">NEED DESCRIPTION for ScheduleTypeCode</resource>
+        <resource name="ServiceScheduleAdmin_RunTimeHour">NEED DESCRIPTION for RunTimeHour</resource>
+        <resource name="ServiceScheduleAdmin_RunTimeMinute">NEED DESCRIPTION for RunTimeMinute</resource>
+        <resource name="ServiceScheduleAdmin_DelayHour">NEED DESCRIPTION for DelayHour</resource>
+        <resource name="ServiceScheduleAdmin_DelayMinute">NEED DESCRIPTION for DelayMinute</resource>
+        <resource name="ServiceScheduleAdmin_RunDaily">NEED DESCRIPTION for RunDaily</resource>
+        <resource name="ServiceScheduleAdmin_RunWeekly">NEED DESCRIPTION for RunWeekly</resource>
+        <resource name="ServiceScheduleAdmin_RunMonthly">NEED DESCRIPTION for RunMonthly</resource>
+        <resource name="ServiceScheduleAdmin_RunYearly">NEED DESCRIPTION for RunYearly</resource>
+        <resource name="ServiceScheduleAdmin_RunOnce">NEED DESCRIPTION for RunOnce</resource>
+        <resource name="ServiceScheduleAdmin_LastRunTime">NEED DESCRIPTION for LastRunTime</resource>
+        <resource name="ServiceScheduleAdmin_NextRunTime">NEED DESCRIPTION for NextRunTime</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ServiceScheduleAdmin.ascx -->
+
+
+    <!-- START Skin-ManageMember.ascx -->
+        <resource name="UserAdmin_Title">Administrera medlemmar</resource>
+        <resource name="UserAdmin_Description">Användare: {0}</resource>
+        <resource name="User_AboutTitle">Administrera medlemmar</resource>
+        <!-- Start of control fields -->
+        <resource name="UserAdmin_UserID">Unikt användarID</resource>
+        <resource name="UserAdmin_UserName">Valt användarnamn</resource>
+        <resource name="UserAdmin_Password">Lösenord</resource>
+        <resource name="UserAdmin_Roles">Roller</resource>
+        <resource name="UserAdmin_PasswordReset">Återställ/Ändra</resource>
+        <resource name="UserAdmin_PasswordFormat">Lösenord lagrat som:</resource>
+        <resource name="UserAdmin_RolesAddRemove">Lägg till/ta bort</resource>
+        <resource name="UserAdmin_Email">Registrerad e-postadress</resource>
+        <resource name="UserAdmin_DateCreated">Kontot skapat</resource>
+        <resource name="UserAdmin_LastLogin">Senaste inloggning</resource>
+        <resource name="UserAdmin_LastActivity">Senast aktiv</resource>
+        <resource name="UserAdmin_IsApproved">Är anv. godkänd?</resource>
+        <resource name="UserAdmin_IsAnonymous">Är anv. anonym?</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-ManageMember.ascx -->
+
+
+    <!-- START Skin-UserRoleAdmin.ascx -->
+        <resource name="UserRole_Title">Hantera roller</resource>
+        <resource name="UserRole_SubTitle">Lägg till och ta bort roller för en specifik användare.</resource>
+        <resource name="UserRole_AboutTitle">Hantera användarroller</resource>
+        <!-- Start of control fields -->
+        <resource name="UserRoleAdmin_UserName">Användarnamn</resource>
+        <resource name="UserRoleAdmin_RoleID">NEED DESCRIPTION for RoleID</resource>
+        <!-- End of control fields -->
+    <!-- END Skin-UserRoleAdmin.ascx -->
+
+    <!-- Start Manage Ranks -->
+		<resource name="Rank_Title">Hantera ranking</resource>
+		<resource name="Rank_SubTitle">Skapa och/eller ändra rankingnivåer som används för att indikera hur aktiv en användare är inom forumen.</resource>
+        <!-- Start of control fields -->
+        <resource name="Rank_MinPosts">Min Medd.</resource>
+        <resource name="Rank_MaxPosts">Max Medd.</resource>
+        <resource name="Rank_IconUrl">IkonURL</resource>
+    <!-- End Manage Ranks -->
+
+    <!-- Start View-WhoIsOnline.ascx -->
+        <resource name="WhoIsOnlineView_Title">Vem är online</resource>
+        <resource name="WhoIsOnlineView_Description">Aktiva användare som f.n. är i forumen</resource>
+		<resource name = "WhoIsOnlineView_GuestUsers">Det är {0} gäst(er) online</resource>
+		<resource name = "WhoIsOnlineView_UsersOnlineCount">Det är {0} av {1} medlem(mar) online</resource>
+		<resource name = "WhoIsOnlineView_List_Username">Användarnamn</resource>
+		<resource name = "WhoIsOnlineView_List_LastUpdated">Senast uppdaterad</resource>
+		<resource name = "WhoIsOnlineView_List_ForumLocation">Plats i forumen</resource>		
+    <!-- End View-WhoIsOnline.ascx -->
+
+    <!-- Start View-ThreadRatingSummary.ascx -->
+        <resource name="ThreadRatingSummary_RatedBy">Värderat av</resource>
+        <resource name="ThreadRatingSummary_Rating">Värdering</resource>
+    <!-- End View-ThreadRatingSummary.ascx -->
+
+    <!-- Start View-UserProfile.ascx -->
+	<resource name = "ViewUserProfile_Title">Användarprofil</resource>
+	<resource name = "ViewUserProfile_Description">Visar {0}'s användarprofil</resource>
+	<resource name = "ViewUserProfile_About">Om</resource>
+	<resource name = "ViewUserProfile_Joined">Registrerad</resource>
+	<resource name = "ViewUserProfile_JoinedDescription">Datum då användaren registrerade sig i forumen.</resource>
+	<resource name = "ViewUserProfile_LastLogin">Senaste inloggning</resource>
+	<resource name = "ViewUserProfile_LastLoginDescription">Datum då användaren senast loggade in.</resource>
+	<resource name = "ViewUserProfile_LastVisit">Senaste besök</resource>
+	<resource name = "ViewUserProfile_LastVisitDescription">Datum då användaren senast besökte forumen.</resource>
+	<resource name = "ViewUserProfile_Timezone">Tidzon</resource>
+	<resource name = "ViewUserProfile_TimezoneDescription">Tidzon som användaren befinner sig i.</resource>
+	<resource name = "ViewUserProfile_Location">Plats</resource>
+	<resource name = "ViewUserProfile_Occupation">Yrke</resource>
+	<resource name = "ViewUserProfile_Interests">Intressen</resource>
+	<resource name = "ViewUserProfile_WebAddress">Webbplats</resource>
+	<resource name = "ViewUserProfile_BlogAddress">webblogg</resource>
+	<resource name = "ViewUserProfile_AvatarPostSignature">Avatar och meddelande-signatur</resource>
+	<resource name = "ViewUserProfile_Avatar">Avatar</resource>
+	<resource name = "ViewUserProfile_Theme">Tema</resource>
+	<resource name = "ViewUserProfile_Signature">Signatur</resource>
+	<resource name = "ViewUserProfile_Contact">Kontaktinformation</resource>
+	<resource name = "ViewUserProfile_Email">E-post</resource>
+	<resource name = "ViewUserProfile_MsnIm">MSN Instant Messenger</resource>
+	<resource name = "ViewUserProfile_AolIm">AOL Instant Messenger</resource>
+	<resource name = "ViewUserProfile_YahooIm">Yahoo Instant Messenger</resource>
+	<resource name = "ViewUserProfile_IcqIm">ICQ Instant Messenger</resource>
+	<resource name = "ViewUserProfile_PostStats">Meddelandestatistik, ranking, och historia</resource>
+	<resource name = "ViewUserProfile_TotalPosts">Totalt antal meddelanden</resource>
+	<resource name = "ViewUserProfile_PostRank">Rankingnivå</resource>
+	<resource name = "ViewUserProfile_BoatType">Båttyp</resource>
+	<resource name = "ViewUserProfile_BoatName">Båtnamn</resource>
+	<resource name = "ViewUserProfile_BoatHarbour">Båthamn</resource>
+
+    <!-- End View-UserProfile.ascx -->
+
+
+    <!-- Start faq.ascx -->
+        <resource name="Faq_Title">ASP.NET Forums FAQ</resource>
+        <resource name="Faq_Description">Vanliga frågor och svar</resource>
+    <!-- End faq.ascx -->
+
+    <!-- Start Skin-ForgottenPassword.ascx -->
+        <resource name="ForgottenPassword_Title">Ändra ditt bortglömda lösenord</resource>
+        <resource name="ForgottenPassword_Instructions">Ange e-postadressen som du angav då du registrerade dig i forumen -- ditt lösenord kommer att skickas till den adressen. När du fått ditt lösenord kan du logga in igen.</resource>
+        <resource name="ForgottenPassword_RequiredField">E-postadress är obligatoriskt.</resource>
+        <resource name="ForgottenPassword_InvalidEmailAddress">Ogiltig e-postadress.</resource>
+        <resource name="ForgottenPassword_SendButton">Skicka lösenord</resource>
+        <resource name="ForgottenPassword_NextButton">Fortsätt</resource>
+        <resource name="ForgottenPassword_EmailAddress">E-postadress: </resource>
+        <resource name="ForgottenPassword_EmailNotFound">E-postadressen hittades inte.</resource>
+        <resource name="ForgottenPassword_SecretQuestion">Hemlig fråga:</resource>
+        <resource name="ForgottenPassword_SecretAnswer">Svar på hemlig fråga:</resource>
+        <resource name="ForgottenPassword_SecretAnswerRequired">Svar på den hemliga frågan är obligatoriskt.</resource>
+        <resource name="ForgottenPassword_InvalidSecretAnswer">Felaktigt svar.</resource>
+        <resource name="ForgottenPassword_NewPassword">Nytt lösenord:</resource>
+        <resource name="ForgottenPassword_RetypePassword">Upprepa nytt lösenord:</resource>
+        <resource name="ForgottenPassword_PasswordRequired">Lösenord är obligatoriskt.</resource>
+        <resource name="ForgottenPassword_WrongPassword">Lösenorden matchar inte varandra.</resource>
+        
+        <resource name="ForgottenPassword_Failed">Misslyckades med att uppdatera/skicka - inga ändringar utförda.</resource>
+    <!-- End Skin-ForgottenPassword.ascx -->
+
+    <!-- Start Skin-ChangePassword.ascx -->
+        <resource name="ChangePassword_Title">Ändra lösenord</resource>
+        <resource name="ChangePassword_Instructions">Använd detta forumlär för att ändra ditt lösenord. När det är ändrat kommer det att gälla nästa gång du loggar in.</resource>
+        <resource name="ChangePassword_CurrentPassword">Nuvarande lösenord:</resource>
+        <resource name="ChangePassword_CurrentPasswordRequired">Du måste ange det befintliga lösenordet.</resource>
+        <resource name="ChangePassword_NewPassword">Nytt lösenordet:</resource>
+        <resource name="ChangePassword_ReEnterNewPassword">Upprepa nytt lösenord:</resource>
+        <resource name="ChangePassword_NewPasswordRequired">Du måste ange ett nytt lösenord.</resource>
+        <resource name="ChangePassword_ReEnterNewPasswordRequired">Du måste upprepa det nya lösenordet.</resource>
+        <resource name="ChangePassword_ReEnterNewPasswordInvalid">Lösenorden matchar inte varandra!</resource>
+        <resource name="ChangePassword_ChangePassword">Ändra lösenord</resource>
+    <!-- End Skin-ChangePassword.ascx -->
+
+    <!-- Start Skin-ChangePasswordAnswer.ascx -->
+        <resource name="ChangePasswordAnswer_Title">Ändra hemlig fråga</resource>
+        <resource name="ChangePasswordAnswer_Instructions">Använd detta forumlär fär att ändra din hemliga fråga/svar. När den är ändrad, kan den användas för att återfå ett bortglömt lösenord.</resource>
+        <resource name="ChangePasswordAnswer_CurrentQuestion">Nuvarande fråga:</resource>
+        <resource name="ChangePasswordAnswer_CurrentAnswer">Nuvarande svar:</resource>
+        <resource name="ChangePasswordAnswer_CurrentAnswerRequired">Du måste ange ditt nuvarande hemliga svar.</resource>
+        <resource name="ChangePasswordAnswer_NewQuestion">Ny fråga:</resource>
+        <resource name="ChangePasswordAnswer_NewAnswer">Nytt svar:</resource>
+        <resource name="ChangePasswordAnswer_ReEnterNewAnswer">Upprepa nytt svar:</resource>
+        <resource name="ChangePasswordAnswer_NewAnswerRequired">Du måste ange ett nytt svar.</resource>
+        <resource name="ChangePasswordAnswer_RegExInvalidAnswer">Hemligt svar är ogiltigt.</resource>
+        <resource name="ChangePasswordAnswer_RegExInvalidAnswer1">Nytt svar är ogiltigt.</resource>
+        <resource name="ChangePasswordAnswer_ReEnterAnswerRequired">Du måste upprepa nytt svar.</resource>
+        <resource name="ChangePasswordAnswer_ReEnterNewAnswerRequired">Hemliga svaren matchar inte varandra!</resource>
+        <resource name="ChangePasswordAnswer_ChangeAnswer">Ändra svar</resource>
+        <resource name="ChangePasswordAnswer_NotAvailable">Inte tillgänglig. (lämna Nuvarande svar tomt!)</resource>        
+    <!-- End Skin-ChangePasswordAnswer.ascx -->
+
+    <!-- Start Url Reverse Lookup -->
+        <resource name="ReverseLookupUrl_Viewing">Tittar på {0}</resource>
+    <!-- End Url Reverse Lookup -->
+
+    <!-- Start Alpha Picker -->
+        <resource name="AlphaPicker_Spacer"></resource>
+        <resource name="AlphaPicker_All">Alla</resource>
+    <!-- End Alpha Picker -->
+
+    <!-- Start Members Sort Drop Down List -->
+        <resource name="MemberSortDropDownList_DateLastActive">Senast aktiv</resource>
+        <resource name="MemberSortDropDownList_DateJoined">Registrerad</resource>
+        <resource name="MemberSortDropDownList_NumPosts">Antal meddelanden</resource>
+        <resource name="MemberSortDropDownList_Username">Användarnamn</resource>
+    <!-- End Members Sort Drop Down List -->
+
+    <!-- Start Threads Sort Drop Down List -->
+        <resource name="ThreadSortDropDownList_LastPost">Senaste inlägg</resource>
+        <resource name="ThreadSortDropDownList_Views">Totalt antal visningar</resource>
+        <resource name="ThreadSortDropDownList_StartedBy">Startad av</resource>
+        <resource name="ThreadSortDropDownList_Replies">Totalt antal svar</resource>
+        <resource name="ThreadSortDropDownList_Ratings">Totalt antal värderingar</resource>
+    <!-- End Threads Sort Drop Down List -->
+
+    <!-- Start Sort Order Drop Down List -->
+        <resource name="SortOrderDropDownList_Asc">stigande</resource>
+        <resource name="SortOrderDropDownList_Desc">fallande</resource>
+    <!-- End Sort Order Drop Down List -->
+
+    <!-- Start User Image Buttons -->
+        <resource name="UserImageButtons_HomePage">Besök {0}'s webbplats</resource>
+        <resource name="UserImageButtons_WebLog">Besök {0}'s webblogg</resource>
+        <resource name="UserImageButtons_SearchFor">Sök meddelanden postade av {0}</resource>
+        <resource name="UserImageButtons_Email">Skicka e-post till {0}</resource>
+        <resource name="UserImageButtons_PrivateMessage">Skicka privat meddelande till {0}</resource>
+    <!-- Start User Image Buttons -->
+
+    <!-- Admin Common Terms -->
+        <resource name="Admin_CommonTerms_Manage">Hantera</resource>
+        <resource name="Admin_CommonTerms_Home">Admin Hem</resource>
+        <resource name="Admin_CommonTerms_Options">Konfigurationsalternativ</resource>
+        <resource name="Admin_CommonTerms_Configuration">Konfiguration</resource>
+        <resource name="Admin_CommonTerms_Administration">Administration</resource>
+        <resource name="Admin_CommonTerms_Moderation">Moderering</resource>
+        <resource name="Admin_CommonTerms_Permissions">Rättigheter</resource>
+        <resource name="Admin_CommonTerms_Pruning">Pruning</resource>
+        <resource name="Admin_CommonTerms_Forums">Forum</resource>
+        <resource name="Admin_CommonTerms_Smilies">Uttryckssymboler</resource>
+        <resource name="Admin_CommonTerms_Reports">Rapporter</resource>
+        <resource name="Admin_CommonTerms_Members">Medlemmar</resource>
+        <resource name="Admin_CommonTerms_Roles">Roller</resource>
+        <resource name="Admin_CommonTerms_Ranks">Rankingnivåer</resource>
+		<resource name="Admin_CommonTerms_WordCensors">Censur av ord</resource>        
+		<resource name="Admin_CommonTerms_DisallowNames">Förbjud namn</resource>
+		<resource name="Admin_CommonTerms_BanControl">Bannlysning</resource>
+		<resource name="Admin_CommonTerms_Run">Kör</resource>
+		<resource name="Admin_CommonTerms_MassEmail">Massutskick</resource>
+		<resource name="Admin_CommonTerms_PreviewForums">Förhandsgranska forum</resource>
+    <!-- End Admin Common Terms -->
+
+	<!-- Start Built In Reports -->
+		<resource name="Admin_BuiltInReports">Inbyggda rapporer</resource>
+		<resource name="Admin_BuiltInReports_Exceptions">Felmeddelanden</resource>
+	<!-- End Built In Reports -->
+    <!-- Moderation Common Terms -->
+
+        <resource name="Moderation_CommonTerms_Home">Moderering Hem</resource>
+        <resource name="Moderate_PostsToModerateTitle">Meddelanden som väntar på moderering</resource>
+        <resource name="Moderate_PostsToModerateDescription">Forum: {0}</resource>
+    <!-- End Moderation Common Terms -->
+
+    <!-- User Admin -->
+		<resource name = "UserAdmin_UserID">Unikt AnvändarID</resource>
+		<resource name = "UserAdmin_AccountStatus">Kontostatus</resource>
+		<resource name = "UserAdmin_IsAnonymous">Är anonym</resource>
+		<resource name = "UserAdmin_IsAvatarApproved">Är Avatar godkänd</resource>
+		<resource name = "UserAdmin_ForceLogin">Tvinga inloggning vid nästa besök</resource>
+		<resource name = "UserAdmin_ModerationLevel">Moderering av meddelanden:</resource>
+
+    <!-- End User Admin -->
+
+    <!-- Admin Member Configuration -->
+		<resource name = "Admin_Member_Configuration">Konfigurering av medlemmar</resource>
+		<resource name = "Admin_Member_Description">Konfigurera medlemsregistrering och andra inställningar</resource>
+    <!-- End Admin Member Configuration -->
+
+    <!-- Moderation Levels -->
+		<resource name = "ModerationLevel_Unmoderated">Användaren är inte modererad</resource>
+		<resource name = "ModerationLevel_AutoUnmoderate">Användaren blir automatiskt omodererad efter {0} godkända meddelanden</resource>
+		<resource name = "ModerationLevel_Moderated">Användaren är modererad</resource>
+		<resource name = "ModerationLevel_CannotBeUnmoderated">Användare kan inte bli omodererad</resource>
+		<resource name = "ModerationLevel_RequireGlobalModeratorApproval">Användarens meddelanden kan endast godkännas av 'Global Moderator'</resource>
+		<resource name = "ModerationLevel_RequireAdminApproval">Användarens meddelanden kan endast godkännas av 'Administrators'</resource>
+    <!-- End Moderation Levels -->
+
+    <!-- Account Status -->
+		<resource name = "AccountStatus_Approved">Godkänd</resource>
+		<resource name = "AccountStatus_ApprovalPending">Avvaktar godkännande</resource>
+		<resource name = "AccountStatus_Banned">Bannlyst</resource>
+		<resource name = "AccountStatus_Disapproved">Ej godkänd</resource>
+    <!-- End Account Status -->
+
+    <!-- Post Rating -->
+		<resource name = "PostRating_Zero">Fruktansvärd</resource>
+		<resource name = "PostRating_One">Dålig</resource>
+		<resource name = "PostRating_Two">Lovande</resource>
+		<resource name = "PostRating_Three">Medelmåttig</resource>
+		<resource name = "PostRating_Four">Bra</resource>
+		<resource name = "PostRating_Five">Suverän</resource>
+		<resource name = "PostRating_Rate">Betygsätt konversation: </resource>
+		<resource name = "PostRating_RateButton">Skicka!</resource>
+		<resource name = "PostRating_AltText">Betygsatt {0} [{1} av 5 / betygsatt {2} ggr].</resource>
+		<resource name = "Rating_AltText">Betygsatt {0} [{1} av 5].</resource>
+		<resource name = "Rating_ShowThread">Gå till konversation</resource>
+    <!-- End Post Rating -->
+
+    <!-- Bread Crumb -->
+		<resource name = "BreadCrumb_Seperator"> » </resource>
+		<resource name = "BreadCrumb_Moderation">Moderering</resource>
+		<resource name = "BreadCrumb_UserProfile">Visar profil: {0}</resource>
+		<resource name = "BreadCrumb_EditUserProfile">Ändrar profil</resource>
+		<resource name = "BreadCrumb_Search">Sök</resource>
+    <!-- End Bread Crumb -->
+
+    <!-- Locations -->
+		<resource name = "Location_NotFound">Kan inte visa användarens plats</resource>
+		<resource name = "Location_ActiveTopics">Tittar på aktiva konversationer</resource>
+		<resource name = "Location_UnansweredTopics">Tittar på obesvarade konversationer</resource>
+		<resource name = "Location_Hidden">Kan inte visa användarens plats</resource>
+		<resource name = "Location_Home">Forum hem</resource>
+		<resource name = "Location_Login">Loggar in...</resource>
+		<resource name = "Location_Logout">Loggar ut...</resource>
+		<resource name = "Location_Faq">Läser forumets F.A.Q.</resource>
+		<resource name = "Location_MemberList">Tittar på medlemslista</resource>
+		<resource name = "Location_MemberProfile">Tittar på användare: {0}</resource>
+		<resource name = "Location_WhoIsOnline">Tittar på vem som är online</resource>
+		<resource name = "Location_PostView">Läser: {0}</resource>
+		<resource name = "Location_PostReply">Svarar på: {0}</resource>
+		<resource name = "Location_ForumGroup">Tittar på forumgruppen: {0}</resource>
+		<resource name = "Location_Forum">Tittar på forum: {0}</resource>
+		<resource name = "Location_PostNew">Postar ett nytt meddelande i forum: {0}</resource>
+		<resource name = "Location_Administration">Återvänd till administrations sidan</resource>
+    <!-- End Locations -->
+    
+    <!-- Forum Group Admin -->
+        <resource name="ForumGroupAdmin_Title">Hantera inställningar för forumgrupper</resource>
+        <resource name="ForumGroupAdmin_Description">Konfigurera individuella inställningar för forumgrupper.</resource>
+        <resource name="ForumGroupAdmin_AboutTitle">Inställningar för forumgrupp</resource>
+        <!-- Start of Control Fields -->
+        <resource name="ForumGroupAdmin_ForumGroupId">ForumgruppId</resource>
+        <resource name="ForumGroupAdmin_ForumGroupName">Forumgruppnamn</resource>
+        <!-- End of Control Fields -->
+    <!-- End Forum Group Admin -->
+    
+    <!-- Start Site Settins Admin -->
+        <resource name="Admin_SiteSettings_SubTitle">Dessa inställningar låter dig kontrollera olika alternativ för forumen.</resource>
+		<resource name="Admin_SiteSettings_ManageDomain">Hantera domän</resource>
+		<resource name="Admin_SiteSettings_ManageDomain_Application">Applikation</resource>
+		<resource name="Admin_SiteSettings_ManageDomain_Application_Descr">Välj den applikation som du vill administrera.</resource>
+		<resource name="Admin_SiteSettings_DisableForum">Inaktivera forumen</resource>
+		<resource name="Admin_SiteSettings_DisableForum_Descr">När inaktiverade kan endast administratörer och localhost anrop komma åt forumen. Ett allmänt 'forumen inaktiverade' meddelande visas för besökare.</resource>
+		<resource name="Admin_SiteSettings_Title">Allmänna inställningar</resource>
+		<resource name="Admin_SiteSettings_Name">Namn på webbplatsen</resource>
+		<resource name="Admin_SiteSettings_Name_Descr">Namnet på din forumwebbplats. Används på forumens första sida.</resource>
+		<resource name="Admin_SiteSettings_Description">Webbplatsbeskrivning</resource>
+		<resource name="Admin_SiteSettings_Description_Descr">Ange en kort beskrivning av dina forum.</resource>
+		<resource name="Admin_SiteSettings_TimeZone">Tidzon</resource>
+		<resource name="Admin_SiteSettings_TimeZone_Descr">Tidzon som forumens databasserver är inställd på.</resource>
+		<resource name="Admin_SiteSettings_ThreadsPerPage">Konversationer/sida</resource>
+		<resource name="Admin_SiteSettings_ThreadsPerPage_Descr">Antar konversationer att visa på varje sida.</resource>
+		<resource name="Admin_SiteSettings_PostPerPage">Meddelanden/sida</resource>
+		<resource name="Admin_SiteSettings_PostPerPage_Descr">Antal meddelanden att visa per sida</resource>
+		<resource name="Admin_SiteSettings_Attachments">Bifogade filer</resource>
+		<resource name="Admin_SiteSettings_Attachments_Allow">Aktivera bifogning av filer</resource>
+		<resource name="Admin_SiteSettings_Attachments_Allow_Desc">Låter användare bifoga filer till sina meddelanden.</resource>
+		<resource name="Admin_SiteSettings_Attachments_Types">Tillåt filer av typ</resource>
+		<resource name="Admin_SiteSettings_Attachments_Types_Desc">Filtyper som är tillåtna att bifoga. Separera filtyper med semi-kolon (gif;jpg;png).</resource>
+		<resource name="Admin_SiteSettings_Attachments_MaxSize">Maximal filstorlek (i Kilobytes)</resource>
+		<resource name="Admin_SiteSettings_Attachments_MaxSize_Desc">Den maximala filstorlek som tillåts på bifogade filer. (Ange 0 för att avaktivera kontroll av filstorlek). </resource>				
+		<resource name="Admin_SiteSettings_Contact">Kontakt</resource>
+		<resource name="Admin_SiteSettings_Contact_AdminEmail">Admin e-postadress</resource>
+		<resource name="Admin_SiteSettings_Contact_AdminEmail_Descr">E-postadress till forumens administratör.</resource>
+		<resource name="Admin_SiteSettings_Contact_InvalidEmail">Ogiltig e-postadress.</resource>
+		<resource name="Admin_SiteSettings_Contact_CompanyName">Företag/Organisationsnamn</resource>
+		<resource name="Admin_SiteSettings_Contact_CompanyName_Descr">Ditt företagsnamn (obligatorisk för COPPA).</resource>
+		<resource name="Admin_SiteSettings_Contact_Company_Email">Företag/Organisation E-postadress</resource>
+		<resource name="Admin_SiteSettings_Contact_Company_Email_Descr">Används i 'kontakta oss' sektionen i sidfoten.</resource>
+		<resource name="Admin_SiteSettings_Contact_Fax">Företag/Organisationens faxnummer</resource>
+		<resource name="Admin_SiteSettings_Contact_Fax_Descr">Enter the fax number where COPPA forms (if necessary) can be faxed to.</resource>
+		<resource name="Admin_SiteSettings_Contact_Address">Företag/Organisationens adress</resource>
+		<resource name="Admin_SiteSettings_Contact_Address_Descr">Enter the address where COPPA forms (if necessary) can be mailed to.</resource>
+		<resource name="Admin_SiteSettings_Menu">Hemsidans meny &amp; sektioner</resource>
+		<resource name="Admin_SiteSettings_Menu_Forum">Visa forumbeskrivning</resource>
+		<resource name="Admin_SiteSettings_Menu_Forum_Descr">Visar forumens beskrivning.</resource>
+		<resource name="Admin_SiteSettings_Menu_Birthdays">Visa dagens födelsedagar</resource>
+		<resource name="Admin_SiteSettings_Menu_Birthdays_Descr">Visar medlemmar som har födelsedag idag.</resource>
+		<resource name="Admin_SiteSettings_Menu_CurrentTime">Visa aktuell tid</resource>
+		<resource name="Admin_SiteSettings_Menu_CurrentTime_Descr">Visar aktuell (för respektive användares tidzon) tid på hemsidan.</resource>
+		<resource name="Admin_SiteSettings_Menu_WhosOnline">Visa 'Vem är online'</resource>
+		<resource name="Admin_SiteSettings_Menu_WhosOnline_Descr">Visar 'Vem är Online' sektionen på hemsidan.</resource>
+		<resource name="Admin_SiteSettings_Menu_Statistics">Visa forumstatistik</resource>
+		<resource name="Admin_SiteSettings_Menu_Statistics_Descr">Visar 'Forumstatistik' sektionen på hemsidan.</resource>
+		<resource name="Admin_SiteSettings_RSS">RSS alternativ</resource>
+		<resource name="Admin_SiteSettings_RSS_Feeds">Aktivera RSS kanaler för publika forum</resource>
+		<resource name="Admin_SiteSettings_RSS_Feeds_Descr">Forumen genererar RSS kanaler för alla publika forum.</resource>
+		<resource name="Admin_SiteSettings_RSS_Threads">Konversationer/kanal (standard)</resource>
+		<resource name="Admin_SiteSettings_RSS_Threads_Descr">Antal konversationer (som standard) visas per kanal</resource>
+		<resource name="Admin_SiteSettings_RSS_MaxThreads">Maximalt antal konversationer/kanal</resource>
+		<resource name="Admin_SiteSettings_RSS_MaxThreads_Descr">Maximalt antal konversationer som visas per kanal</resource>
+		<resource name="Admin_SiteSettings_RSS_Cache">Cachefönster (i minuter)</resource>
+		<resource name="Admin_SiteSettings_RSS_Cache_Descr">Hur länge en kanal är cachelagrad.</resource>
+		<resource name="Admin_SiteSettings_List">Medlemslista mest aktiva medlemmar</resource>
+		<resource name="Admin_SiteSettings_List_Display">Visa medlemslista</resource>
+		<resource name="Admin_SiteSettings_List_Display_Descr">Visa medlemslista eller inte i navigeringsmenyn.</resource>
+		<resource name="Admin_SiteSettings_List_Searching">Aktivera avancerad medlemssökning</resource>
+		<resource name="Admin_SiteSettings_List_Searching_Descr">Tillåter användare att använda symboler för mer komplex medlemssökning.</resource>
+		<resource name="Admin_SiteSettings_List_MembersPerPage">Medelmmar per sida</resource>
+		<resource name="Admin_SiteSettings_List_MembersPerPage_Descr">Antal medlemmar att visa per sida i medlemslistan.</resource>
+		<resource name="Admin_SiteSettings_List_TopPosters">Antal mest aktiva medlemmar</resource>
+		<resource name="Admin_SiteSettings_List_TopPosters_Descr">Antal mest aktiva medlemmar att visa i forumstatistiken (max är 100 / min är 1).</resource>
+		<resource name="Admin_SiteSettings_Posting">Användarmeddelanden</resource>
+		<resource name="Admin_SiteSettings_Posting_Dups">Tillåt dubletter</resource>
+		<resource name="Admin_SiteSettings_Posting_Dups_Descr">Tillåt meddelanden från samma användare med samma innehåll som ett tidigare meddelande.</resource>
+		<resource name="Admin_SiteSettings_Posting_DupsInterval">Intervall för duplicerade meddeladen (i sekunder)</resource>
+		<resource name="Admin_SiteSettings_Posting_DupsInterval_Descr">När 'Tillåt dubletter' är inaktiverat tillåts inte dubletter inom detta intervall. Välj 0 när inga dubletter ska tillåtas över huvud taget.</resource>
+		<resource name="Admin_SiteSettings_Posting_Emoticons">Tillåt uttryckssymboler</resource>
+		<resource name="Admin_SiteSettings_Posting_Emoticons_Descr">Kan användare använda uttryckssymboler i sina meddelanden.</resource>
+		<resource name="Admin_SiteSettings_Posting_Popular">Populära konversationer (meddelanden)</resource>
+		<resource name="Admin_SiteSettings_Posting_Popular_Descr">Hur många meddelanden krävs i en konversation för att den ska räknas som populär?</resource>
+		<resource name="Admin_SiteSettings_Posting_Popular_View">Populära konversationer (visningar)</resource>
+		<resource name="Admin_SiteSettings_Posting_Popular_View_Descr">Hur många gånger måste en konversation ha visats för att den ska räknas som populär?</resource>
+		<resource name="Admin_SiteSettings_Posting_Popular_Age">Ålder på populära konversationer (i dagar)</resource>
+		<resource name="Admin_SiteSettings_Posting_Popular_Age_Descr">Antal dagar som konversationer måste vara aktiva inom, t ex fått nya meddelanden.</resource>
+		<resource name="Admin_SiteSettings_Posting_Pruning">Aktivera automatisk bearbetning av konversationer/meddelande</resource>
+		<resource name="Admin_SiteSettings_Posting_Pruning_Descr">Kontrollerar automatisk borttagning av gamla meddelanden från forumen.</resource>
+		<resource name="Admin_SiteSettings_Posting_UserPruning">Aktivera automatisk bearbetning av användare</resource>
+		<resource name="Admin_SiteSettings_Posting_UserPruning_Descr">Kontrollerar automatisk borttagning av användare som varit inaktiva en viss tid.</resource>
+		<resource name="Admin_SiteSettings_Flooding">Meddelandestorm</resource>
+		<resource name="Admin_SiteSettings_Flooding_Check">Aktivera kontroll av meddelandestormar</resource>
+		<resource name="Admin_SiteSettings_Flooding_Check_Descr">Hindrar en enstaka användare från att översvämma forumen med meddelanden.</resource>
+		<resource name="Admin_SiteSettings_Flooding_Time">Minimal tid mellan meddelanden</resource>
+		<resource name="Admin_SiteSettings_Flooding_Time_Descr">Tiden i sekunder som användare måste vänta innan han/hon postar nästa meddelande.</resource>
+		<resource name="Admin_SiteSettings_PostReporting">Rapportera meddelanden</resource>
+		<resource name="Admin_SiteSettings_PostReporting_Allow">Aktivera rapportering av olämpliga meddeladen</resource>
+		<resource name="Admin_SiteSettings_PostReporting_Desc">Tillåter användare att rapportera olämpliga meddelanden till administratörer och moderatorer.</resource>
+		<resource name="Admin_SiteSettings_PostReporting_AllowAnon">Anonyma användare kan rapportera meddelanden</resource>
+		<resource name="Admin_SiteSettings_PostReporting_AllowAnon_Descr">Tillåt anonyma användare att använda rapporterings systemet (forumet som väljs nedan måste ha Everyone-Post i rättighetsinställningarna).</resource>
+		<resource name="Admin_SiteSettings_PostReporting_ToForum">Forum för rapporteringar</resource>
+		<resource name="Admin_SiteSettings_PostReporting_ToForum_Descr">Ange det forum som rapporter ska skickas till. Detta forum måste ha tillåta rollen 'Everyone' eller 'Forums-User' att posta nya meddelanden.</resource>
+		<resource name="Admin_SiteSettings_IP">Spåra IP-adress</resource>
+		<resource name="Admin_SiteSettings_IP_Enable">Aktivera spårning av IP-adresss på postade meddelanden</resource>
+		<resource name="Admin_SiteSettings_IP_Enable_Descr">Lagrar IP-adressen på personen som postar ett meddelande.</resource>
+		<resource name="Admin_SiteSettings_IP_Display">Visa IP-adressen för alla</resource>
+		<resource name="Admin_SiteSettings_IP_Display_Descr">Visar IP-adressen på den som postad meddelandet för alla.</resource>
+		<resource name="Admin_SiteSettings_IP_AdminOnly">Visa IP-adressen för endast administratörer och moderatorer</resource>
+		<resource name="Admin_SiteSettings_IP_AdminOnly_Descr">Visar IP-adressen på den som postad meddelandet för endast adminstratörer och moderatorer.</resource>
+		<resource name="Admin_SiteSettings_DateTime">Alternativ för datum / tid</resource>
+		<resource name="Admin_SiteSettings_DateTime_Date">Datumformat</resource>
+		<resource name="Admin_SiteSettings_DateTime_Date_Descr">Formatet på alla datum som visas. Användaren kan sätta personliga inställningar för detta i sin profil som då kommer att gälla.</resource>
+		<resource name="Admin_SiteSettings_DateTime_Time">Tidsformat</resource>
+		<resource name="Admin_SiteSettings_DateTime_Time_Descr">Formatet på alla tider som visas. Användaren kan sätta personliga inställningar för detta i sin profil som då kommer att gälla..</resource>
+		<resource name="Admin_SiteSettings_DateTime_Joined">Datum format på registreringsdatum</resource>
+		<resource name="Admin_SiteSettings_DateTime_Joined_Descr">Formatering av datum/tid för registreringsdatum för en användare. Används då man tittar på ett meddelande.</resource>
+		<resource name="Admin_SiteSettings_Editing">Redigering av meddelanden</resource>
+		<resource name="Admin_SiteSettings_Editing_Notes">Visa ändringsnoteringar</resource>
+		<resource name="Admin_SiteSettings_Editing_Notes_Descr">Visar ändringsnoteringar för ett meddelande längst ned i meddelandet (före användarens signatur).</resource>
+		<resource name="Admin_SiteSettings_Editing_Age">Tidsgräns för att redigera meddelande (i minuter)</resource>
+		<resource name="Admin_SiteSettings_Editing_Age_Descr">Möjliggör att ett meddelandes titel kan redigeras under ett visst antal minuter. (välj 0 för att alltid kunna redigera).</resource>
+		<resource name="Admin_SiteSettings_URL">Forum URL'er</resource>
+		<resource name="Admin_SiteSettings_URL_Friendly">Aktivera sökvänliga URL'er</resource>
+		<resource name="Admin_SiteSettings_URL_Friendly_Descr">Visar URL'er till forumgrupper, forum och meddelanden som:</resource>
+		<resource name="Admin_SiteSettings_Cookie">Inställningar för cookies och anonyma användare</resource>
+		<resource name="Admin_SiteSettings_Cookie_SubTitle">Roll-cookien används för att lagra en krypterad semikolon separerad sträng, med en lista på vilka roller en användare hör till. Lagrar man detta i en cookie, behöver inte datakällan tillfrågas om detta vid varje anrop till en forumsida.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Enabled">Aktivera roll-cookies</resource>
+		<resource name="Admin_SiteSettings_Cookie_Enabled_Descr">En HTTP cookie används för att lagra en krypterad sträng innehållande en användares rolltillhörigheter.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Track">Spåra anonyma användare</resource>
+		<resource name="Admin_SiteSettings_Cookie_Track_Descr">Kontrollerar om IP-adresser på anonyma användare ska registreras då de postar ett meddelande.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Name">Namn på Roll-cookie</resource>
+		<resource name="Admin_SiteSettings_Cookie_Name_Descr">Namnet på cookien som används för att lagra användares rolltillhörigheter..</resource>
+		<resource name="Admin_SiteSettings_Cookie_Expire">Förfallotid för roll-cookie</resource>
+		<resource name="Admin_SiteSettings_Cookie_Expire_Descr">Tid i minuter innan roll-cookien förfaller efter att den blivit tilldelad.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Anon_Name">Namne på Anonym-cookie</resource>
+		<resource name="Admin_SiteSettings_Cookie_Anon_Name_Descr">Namnet på cookie som används för anonyma användare. Annorlunda än den för registrerade användare.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Anon_Expire">Förfallotid för anonym-cookie</resource>
+		<resource name="Admin_SiteSettings_Cookie_Anon_Expire_Descr">Tid i minuter innan anonym-cookien förfaller.</resource>
+		<resource name="Admin_SiteSettings_Cookie_Domain">Cookie-domän</resource>
+		<resource name="Admin_SiteSettings_Cookie_Domain_Descr">Möjliggör cookie oberoende av subdomän (exempel ".yourdomain.com"). </resource>
+		<resource name="Admin_SiteSettings_Anon">Anonym</resource>
+		<resource name="Admin_SiteSettings_Anon_Allow">Tillåt anonyma meddelanden</resource>
+		<resource name="Admin_SiteSettings_Anon_Allow_Descr">Kontrollerar om anonyma användare kan posta meddelanden i forumen.</resource>
+		<resource name="Admin_SiteSettings_Anon_Window">Fönster för anonyma användare</resource>
+		<resource name="Admin_SiteSettings_Anon_Window_Descr">Tidsintervall i minuter för att spåra antal anonyma användare som besöker forumen.</resource>
+		<resource name="Admin_SiteSettings_SMTP">SMTP inställningar</resource>
+		<resource name="Admin_SiteSettings_SMTP_Enable">Aktivera e-post</resource>
+		<resource name="Admin_SiteSettings_SMTP_Enable_Descr">Aktivera/Inaktivera forumens e-postfunktioner.</resource>
+		<resource name="Admin_SiteSettings_SMTP_Server">SMTP Server</resource>
+		<resource name="Admin_SiteSettings_SMTP_Server_Descr">SMTP server som används för att skicka e-post.</resource>
+		<resource name="Admin_SiteSettings_SMTP_NeedsLogin">SMTP server kräver inloggning</resource>
+		<resource name="Admin_SiteSettings_SMTP_NeedsLogin_Descr">Kräver SMTP servern inloggning.</resource>
+		<resource name="Admin_SiteSettings_SMTP_UserName">SMTP Server Loggin-namn</resource>
+		<resource name="Admin_SiteSettings_SMTP_UserName_Descr">Användarnamn för att logga in på SMTP servern.</resource>
+		<resource name="Admin_SiteSettings_SMTP_Password">SMTP Server lösenord</resource>
+		<resource name="Admin_SiteSettings_SMTP_Password_Descr">Lösenord för att logga in på SMTP servern.</resource>
+		<resource name="Admin_SiteSettings_EnablePostPreviewPopup">Aktivera 'Mouse-Over Popup'</resource>
+		<resource name="Admin_SiteSettings_EnablePostPreviewPopup_Descr">Detta alternativ kontrollerar om ett meddelande stödjer 'popup-text' när användaren håller musmarkören ovanför länken till konversationen.</resource>
+		<resource name="Admin_SiteSettings_AllowAutoRegistration">Tillåt automatisk registrering</resource>
+		<resource name="Admin_SiteSettings_AllowAutoRegistration_Descr">Tillåter automatiskt registrering av Windows autentiserade klienter.</resource>
+		<resource name="Admin_SiteSettings_StripDomainName">Filtrera bort domännamn</resource>
+		<resource name="Admin_SiteSettings_StripDomainName_Descr">Filtrerar bort domännamnet (ex mydomain\username) från Windows autentiserade användarnamn.</resource>
+    <!-- End Site Settings Admin -->
+    
+    <!-- Admin Navigation -->
+    <!-- End Admin Navigation -->
+    
+    <!-- Begin Admin Home -->
+		<resource name="Admin_Home_Welcome">Välkommen till ASP.NET Forums kontrollpanel för Administration</resource>
+		<resource name="Admin_Home_Usage">Kontrollpanelen för administration används för att kontrollera och hantera alla aspekter av forumen.&lt;br /&gt;Välj ett område eller uppgift från menyn till vänster på sidan.</resource>
+		<resource name="Admin_Home_NewVersion">Det finns en ny version av ASP.NET Forums tillgänglig!</resource>
+		<resource name="Admin_Home_DownloadVersion">Ladda hem ASP.NET Forums version {0}</resource>
+		<resource name="Admin_Home_CustomVersion">Du kör en anpassad build av ASP.NET Forums!</resource>
+		<resource name="Admin_Home_UnknownVersion">Det går inte att hämta information om aktuell version av ASP.NET Forums!</resource>
+		<resource name="Admin_Home_EnableRetrieval">För att hämta information, aktivera hämtning av versionsinfo i Konfigurationssektionen. Du kommer också att bli notifierad om ev. viktiga buggar etc, som behöver patchas.</resource>
+		<resource name="Admin_Home_Developers">ASP.NET Forums Utvecklare &amp; medhjälpare</resource>
+		<resource name="Admin_Home_ShortCuts">Genväg till uppgifter</resource>
+		<resource name="Admin_Home_Running">Forumen är &lt;b&gt;{0}&lt;/b&gt; och har körts sedan &lt;b&gt;{1}&lt;/b&gt; ({2} dagar, {3} timmar, och {4} minuter).</resource>
+		<resource name="Admin_Home_UserWaiting">Det är f.n. &lt;b&gt;{0}&lt;/b&gt; användare som väntar på att bli &lt;b&gt;{1}&lt;/b&gt;.</resource>
+		<resource name="Admin_Home_PostWaiting">Det är f.n. &lt;b&gt;{0}&lt;/b&gt; meddelande(n) som väntar på &lt;b&gt;{1}&lt;/b&gt;.</resource>
+		<resource name="Admin_Home_EmailQueue">Det är f.n. &lt;b&gt;{0}&lt;/b&gt; e-postmeddelande(n) i e-postkön. </resource>
+		<resource name="Admin_Home_EmailQueueForceSend"></resource>
+    <!-- End Admin Home -->
+    
+    <!-- Start Manage Forum Permissions -->
+		<resource name="ManageForumPermissions_Title">Hantera forumrättigheter</resource>
+		<resource name="ManageForumPermissions_SubTitle">Hantera och skapa rättigheter för varje forum.</resource>
+		<resource name="ManageForumPermissions_About">Administration av forumrättigheter</resource>
+    <!-- End Manage Forum Permission -->
+    
+    <!-- Start Manage Forums -->
+		<resource name="ManageForums_Title">Hantera forum</resource>
+		<resource name="ManageForums_SubTitle">Hantera och skapa nya forum och forumgrupper.</resource>
+		<resource name="ManageForums_About">Administration av forum</resource>
+		<resource name="ManageForums_CreateNew">Skapa nytt forum</resource>
+		<resource name="ManageForums_CreateNewGroup">Skapa ny forumgrupp</resource>
+    <!-- End Manage Forums -->
+    
+    <!-- Start Manage Names -->
+		<resource name="ManageNames_Title">Hantera förbjudna användarnamn</resource>
+		<resource name="ManageNames_SubTitle">Kontrollerar användarnamn som inte är tillåtna genom att använda mönstermatchning.</resource>
+		<resource name="ManageNames_About">Hantering av användarnamn</resource>
+		<resource name="ManageNames_HelpInfo">Giltiga mösnter är: Namn , *Namn , Namn* och *Namn*.</resource>
+		<resource name="ManageNames_ReqFieldValidator">Tomt namn!</resource>
+		<resource name="ManageNames_RegExValidator">Felaktigt mönster!</resource>
+		<resource name="ManageNames_RegExWildcardReplacement">[a-zA-Z0-9]*</resource>
+    <!-- End Manage Names -->
+    
+    <!-- Start Admin Member Configuration -->
+		<resource name="MemberSettings_Registration">Registrering av användare</resource>
+		<resource name="MemberSettings_AllowLogin">Tillåt inloggning</resource>
+		<resource name="MemberSettings_AllowLogin_Descr">Om avaktiverad, tillåts bara administratörer att logga in på forumen.</resource>
+		<resource name="MemberSettings_AllowNew">Tillåt nya användare att registrera sig</resource>
+		<resource name="MemberSettings_AllowNew_Descr">Om avaktiverad, kan inte nya användare registrera sig.</resource>
+		<resource name="MemberSettings_NewUserModLevel">Modereringsnivå på nya användare</resource>
+		<resource name="MemberSettings_NewUserModLevel_Descr">Nya användare är som standard modererade, vilket betyder att en moderator måste godkänna deras inlägg innan de visas i forumen.</resource>
+		<resource name="MemberSettings_UserNameMinLength">Minsta längd på användarnamn</resource>
+		<resource name="MemberSettings_UserNameMinLength_Descr"></resource>
+		<resource name="MemberSettings_UserNameMaxLength">Maximal längd på användarnamn</resource>
+		<resource name="MemberSettings_UserNameMaxLength_Descr"></resource>
+		<resource name="MemberSettings_AutoRegisterWindows">Auto-Registera användare via Windowsautentisering</resource>
+		<resource name="MemberSettings_AutoRegisterWindows_Descr">Om aktiv, kommer användare som autentiseras via sitt Windowskonto, automatiskt registreras i forumen (i första hand för intranätanvändning av forumen).</resource>
+		<resource name="MemberSettings_AccountActivate">Kontoaktivering</resource>
+		<resource name="MemberSettings_AccountActivate_Descr">Kontrollerar hur användare får tillgång till forumen. 'Automatiskt' tillåter användare att skapa sina egna konton (väljer också själv lösenord och kan logga in direkt efter registreringen). 'E-post' skickar ett e-postmeddelande till den nya användaren med ett genererat lösenord. 'Admin godkännande' kräver att en administratör godkänner den nya användaren.</resource>
+		<resource name="MemberSettings_PasswordRecovery">Återställning av lösenord</resource>
+		<resource name="MemberSettings_PasswordRecovery_Descr">Kontrollerar hur användare kan återfå/återställa sitt bortglömda lösenord.</resource>
+		<resource name="MemberSettings_PasswordStorage">Lagring av lösenord</resource>
+		<resource name="MemberSettings_PasswordStorage_Descr">Bestämmer hur lösenord lagras i databasen (MD5Hash är det säkraste formatet).</resource>
+		<resource name="MemberSettings_CorpaRegistration">Använd COPPA-registrering</resource>
+		<resource name="MemberSettings_CorpaRegistration_Descr">Använd COPPAs registrerings-system för att uppfylla COPPA-lagarna som kräver att barn under 13 år får sina föräldrars tillstånd innan de kan posta meddelanden </resource>
+		<resource name="MemberSettings_UserProfile">Användarprofil</resource>
+		<resource name="MemberSettings_AllowUserNameChanges">Tillåt ändring av användarnamn</resource>
+		<resource name="MemberSettings_AllowUserNameChanges_Descr">Tillåter användare att ändra sitt användarnamn. Det är <u>inte rekommenderat</u> att aktivera denna funktion eftersom ett användarnamn är medlemmens alias i forumen. Administratörer kan ändra vilket användarnamn som helst.</resource>
+		<resource name="MemberSettings_AllowSignatures">Tillåt signaturer</resource>
+		<resource name="MemberSettings_AllowSignatures_Descr">Tillåt användare att skapa ett meddelande som visas längst ned i alla meddelanden som de postar.</resource>
+		<resource name="MemberSettings_EnableSignatures">Aktivera signaturer</resource>
+		<resource name="MemberSettings_EnableSignatures_Descr">Om aktiverad kommer signaturer att läggas till i alla meddelanden.</resource>
+		<resource name="MemberSettings_SignatureMaxLength">Maximal längd på signatur</resource>
+		<resource name="MemberSettings_AllowGender">Tillåt inställningar för kön</resource>
+		<resource name="MemberSettings_AllowGender_Descr">Användarens inställningar för kön visas när funktionen är aktiverad, om användaren specificerat detta.</resource>
+		<resource name="MemberSettings_EnableUserTheme">Aktivera användarteman</resource>
+		<resource name="MemberSettings_EnableUserTheme_Descr">Om olika teman finns tillgängliga, tillåter denna funktion att användaren väljer tema för hans/hennes specifika profil.</resource>
+		<resource name="MemberSettings_EnableReferrer">Aktivera hänvisningssytem </resource>
+		<resource name="MemberSettings_EnableReferrer_Descr">Ger användare en URL, som när den klickas på av nya användare som registrerar sig, ökar användarens hänvisnings-pott.</resource>
+		<resource name="MemberSettings_Avatar">Användaravatarer</resource>
+		<resource name="MemberSettings_EnableAvatar">Aktivera avatarer</resource>
+		<resource name="MemberSettings_EnableAvatar_Descr">Avatarer kan användas då denna funktion är aktiverad.</resource>
+		<resource name="MemberSettings_EnableRemoteAvatar">Tillåt fjärravatarer</resource>
+		<resource name="MemberSettings_EnableRemoteAvatar_Descr">Tillåter att bildfilen för avatarer ligger på en annan webbserver.</resource>
+		<resource name="MemberSettings_AvatarSize">Avatarstorlek</resource>
+		<resource name="MemberSettings_AvatarSize_Descr">Maximal storlek för visning av avatar.</resource>
+		<resource name="MemberSettings_RecoveryMode_Reset">Återställ</resource>
+		<resource name="MemberSettings_RecoveryMode_Question">Fråga &amp; Svar</resource>
+		<resource name="MemberSettings_FormatMode_Clear">Klartext</resource>
+		<resource name="MemberSettings_FormatMode_MD5">MD5 Hash</resource>
+		<resource name="MemberSettings_FormatMode_SHA1">Sha1 Hash</resource>
+		<resource name="MemberSettings_FormatMode_Encrypted">Encrypted</resource>
+		<resource name="MemberSettings_ActivateMode_Automatic">Automatiskt</resource>
+		<resource name="MemberSettings_ActivateMode_Email">E-post</resource>
+		<resource name="MemberSettings_ActivateMode_Admin">Admin godkännande</resource>
+		
+    <!-- End Admin Member Configuration -->
+        
+</root>

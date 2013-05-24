@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<emails>
+
+<!--
+======================================================
+    New account created.     
+======================================================
+-->
+<email emailType="NewUserAccountCreated" priority="High">
+<subject>([SiteName]) New Account Creation</subject>
+<from>[adminemailfrom]</from>
+<body>
+[Username],
+
+You have created a new account at [SiteName], and may login.
+
+Your username and password are:
+
+  Username: [Username]
+  Password: [Password]
+
+To login, please visit: 
+[LoginUrl]
+
+After logging in you can change your password here: 
+[passwordchange]
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+
+<!--
+======================================================
+    New account request has been queued for admin approval.     
+======================================================
+-->
+<email emailType="NewUserAccountPending" priority="High">
+<subject>([SiteName]) New Account Creation</subject>
+<from>[adminemailfrom]</from>
+<body>
+[Username],
+
+You have created a new account at [SiteName].  
+
+The administrator of this forum system has opted to require
+new user approval.  Once your new account has been approved
+you will receive an email with login information.
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+
+<!--
+======================================================
+    User account has been approved.     
+======================================================
+-->
+<email emailType="NewUserAccountApproved" priority="High">
+<subject>([SiteName]) Account Information - Approved</subject>
+<from>[adminemailfrom]</from>
+<body>
+[Username],
+
+At [TimeSent] you created a new user account at [SiteName].  
+
+Request status: Your account request has been approved.
+
+Your username and password are:
+
+  Username: [Username]
+  Password: [Password]
+
+To begin posting, you will need to log in first.
+
+To login, please visit: 
+[LoginUrl]
+
+To change your password (after logging in), please visit: 
+[ProfileUrl]
+
+Once you login, you should take a moment to set your user profile, 
+available on the top right of any page within the forum. From the
+Control Panel page you can change your password, enter the email
+address you wish to have display when you post messages, choose
+how to have the forum posts displayed, and other handy settings.
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+<!--
+======================================================
+    User account has been rejected.     
+======================================================
+-->
+<email emailType="NewUserAccountRejected" priority="High">
+<subject>([SiteName]) Account Information - Rejected</subject>
+<from>[adminemailfrom]</from>
+<body>
+[Username],
+
+At [TimeSent] you created a new user account at [SiteName].  
+
+Request status: Your account request has not been approved.
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>	
+
+<!--
+======================================================
+     Email sent when user changes password.
+======================================================
+-->
+<email emailType="ChangedPassword" priority="High">
+<subject>([SiteName]) Password Changed</subject>
+<from>[adminemailfrom]</from>
+<body>
+[Username],
+
+Your password at [SiteName] was changed recently.  Please make
+note of it and store it in a safe place.
+
+  Password: [Password]
+
+You can login here: 
+[LoginUrl]
+
+After logging in you can change your password here: 
+[passwordchange]
+
+If you do not request this password change, please reply ASAP to
+inform an administrator.
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+
+<!--
+======================================================
+     Email sent when user has forgotten his/her password.
+======================================================
+-->
+<email emailType="ForgottenPassword" priority="High">
+<subject>([SiteName]) Forgotten Password</subject>
+<from>[adminemailfrom]</from>
+<body>
+[Username],
+
+You requested that your password for [SiteName] be sent to you via
+email.  For security reasons, we have created a new random password
+for you to use to log back into the forums.
+
+Your username and password are:
+
+  Username: [Username]
+  Password: [Password]
+
+You can login here: 
+[LoginUrl]
+
+After logging in you can change your password here: 
+[passwordchange]
+
+If you do not request this password change, please reply ASAP to
+inform an administrator.
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+
+<!--
+======================================================
+    Thread that the user is monitoring was modified.
+======================================================
+-->
+<email emailType="NewMessagePostedToThread" priority="Low">
+<subject>([SiteName]) Topic Reply: [Subject]</subject>
+<from>[adminemailfrom]</from>
+<body>
+View the complete topic at: [PostUrl]
+
+Posted By: [PostedBy] in [ForumName]
+Subject: [Subject]
+__________________________________
+
+
+[PostBody]
+
+__________________________________
+
+You were sent this email because you opted to receive email
+notifications when someone responded to this thread. 
+
+To unsubscribe, either:
+1. Visit the above URL and deselect 'Email me when someone replies...'
+2. Visit your user profile page and uncheck 'Enable email tracking'
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+
+<!--
+======================================================
+    Forum that the user is monitoring was modified.
+======================================================
+-->
+<email emailType="NewMessagePostedToForum" priority="Low">
+<subject>([SiteName]) New Post to Forum: [Subject]</subject>
+<from>[adminemailfrom]</from>
+<body>
+View the complete topic at: [PostUrl]
+
+Posted By: [PostedBy] in [ForumName]
+Subject: [Subject]
+__________________________________
+
+
+[PostBody]
+
+__________________________________
+
+You were sent this email because you opted to receive email
+notifications when someone created a new thread, or relied to
+a topic within this forum, [ForumName]. 
+
+To unsubscribe, either:
+1. Visit the above Forum and deselect 'Email me when someone replies...'
+2. Visit your user profile page and uncheck 'Enable email tracking'
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+
+<!--
+======================================================
+    Moderated post was approved.     
+======================================================
+-->
+<email emailType="MessageApproved" priority="Low">
+<subject>([SiteName]) Post Approved: [subject]</subject>
+<from>[adminemailfrom]</from>
+<body>
+The post was approved and is ready to be viewed at the
+URL below.
+
+Subject: [subject]
+
+[PostUrl]
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+<!--
+======================================================
+    Moderated post was moved and approved.     
+======================================================
+-->
+<email emailType="MessageMovedAndApproved" priority="Low">
+<subject>([SiteName]) Post Approved: [subject]</subject>
+<from>[adminemailfrom]</from>
+<body>
+The post was approved, but moved to a different forum.  Below
+is the new URL to the post.
+
+Subject: [subject]
+
+[PostUrl]
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+
+<!--
+======================================================
+    Post was moved.     
+======================================================
+-->
+<email emailType="MessageMoved" priority="Low">
+<subject>([SiteName]} Thread Moved: [subject]</subject>
+<from>[adminemailfrom]</from>
+<body>
+The post was moved that were you were subscribed to or 
+have replied to.  Below is the new URL to the post:
+
+Subject: [Subject]
+
+[PostUrl]
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+
+<!--
+======================================================
+    Post was deleted.     
+======================================================
+-->
+<email emailType="MessageDeleted" priority="Low">
+<subject>([SiteName]) Post Deleted: [subject]</subject>
+<from>[adminemailfrom]</from>
+<body>
+Your post was deleted by [Moderator].
+
+Subject: [Subject]
+
+Reason: [DeleteReasons]
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+<!--
+======================================================
+    Moderator has posts requring moderation.     
+======================================================
+-->
+<email emailType="ModeratorEmailNotification" priority="Low">
+<subject>([SiteName]) Posts Awaiting Moderation</subject>
+<from>[adminemailfrom]</from>
+<body>
+There are posts awaiting moderation.  You can view them at: 
+
+[ModerateURL]
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+
+<!--
+======================================================
+    User to User email
+======================================================
+-->
+<email emailType="SendEmail" priority="Low">
+<subject>([SiteName]) Email from [PostedBy]</subject>
+<from>[email]</from>
+<body>
+This email was sent from a user at [SiteName].  Replying
+to this email will be sent back to the user via normal
+email.
+
+Sent From: [PostedBy]
+Subject: [Subject]
+__________________________________
+
+[PostBody]
+
+</body>
+</email>
+
+
+<!--
+======================================================
+    From admin to all users in role
+======================================================
+-->
+<email emailType="RoleEmail" priority="Low">
+<subject>([SiteName]) Mass Email: [Subject]</subject>
+<from>[adminemailfrom]</from>
+<body>
+An administrator of [SiteName] has sent the following email
+to all users in the [RoleName] forum group.  
+
+Sent From: [PostedBy]
+Subject: [Subject]
+__________________________________
+
+[PostBody]
+
+</body>
+</email>
+
+
+
+<!--
+======================================================
+    From admin to all users in role
+======================================================
+-->
+<email emailType="PrivateMessageNotification" priority="Low">
+<subject>([SiteName]) New Private Message: [Subject]</subject>
+<from>[adminemailfrom]</from>
+<body>
+You have received a new Private Message from [PostedBy]!
+
+To read the private message, you may click on the link below
+to go straight to your private message's folder.
+
+Subject: [Subject]
+
+[PostUrl]
+
+
+Thanks,
+[SiteName] team
+
+</body>
+</email>
+
+
+</emails>

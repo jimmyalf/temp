@@ -31,14 +31,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
             }
             
             View.Model.Suppliers = Query(new SuppliersQuery()).ToDeviationSupplierList().InsertFirst(_defaultSupplier);
-		    View.Model.Deviations = Query(new DeviationsQuery {SelectedType = DeviationType.External});
+		    View.Model.Deviations = Query(new DeviationsQuery {SelectedType = DeviationType.External, OrderBy = "CreatedDate" });
 		}
 
         private void View_SupplierSelected(object sender, ExternalDeviationListEventArgs e)
         {
             View.Model.SelectedSupplierId = e.SelectedSupplier;
             View.Model.Suppliers = Query(new SuppliersQuery()).ToDeviationSupplierList().InsertFirst(_defaultSupplier);
-            View.Model.Deviations = Query(new DeviationsQuery { SelectedType = DeviationType.External, SelectedSupplier = e.SelectedSupplier});
+            View.Model.Deviations = Query(new DeviationsQuery { SelectedType = DeviationType.External, SelectedSupplier = e.SelectedSupplier, OrderBy = "CreatedDate" });
 	    }
 
 	    public override void ReleaseView()

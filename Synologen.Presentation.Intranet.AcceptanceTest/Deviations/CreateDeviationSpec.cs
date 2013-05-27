@@ -21,7 +21,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Deviations
         private CreateDeviationPresenter _presenter;
         private List<DeviationCategory> _categories;
         private List<DeviationSupplier> _suppliers;
-        private List<DeviationComment> _comments;
         private CreateDeviationEventArgs _args;
         private Shop _shop;
         private CreateDeviationEventArgs _categorySelectionArgs;

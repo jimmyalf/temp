@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
+using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Deviations;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Deviations
 {
@@ -15,18 +20,26 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Deviations
     {
         private CreateDeviationPresenter _presenter;
         private List<DeviationCategory> _categories;
+        private List<DeviationSupplier> _suppliers;
+        private List<DeviationComment> _comments;
+        private CreateDeviationEventArgs _args;
+        private Shop _shop;
+        private CreateDeviationEventArgs _categorySelectionArgs;
 
         public CreateDeviationSpec()
         {
             Context = () =>
             {
                 _presenter = GetPresenter();
+                _shop = CreateShop<Shop>();
+                A.CallTo(() => SynologenMemberService.GetCurrentShopId()).Returns(_shop.Id);
             };
 
             Story = () => new Berättelse("Skapa avvikelse")
                             .FörAtt("Skapa en ny avvikelse")
                             .Som("inloggad användare på intranätet")
                             .VillJag("kunna ange avvikelse-detaljer");
+
         }
 
         [Test]
@@ -46,6 +59,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Deviations
                 .Givet(Kategorier)
                     .Och(Leverantörer)
                 .När(SidanVisas)
+                .Och(KategoriOchExternTypValts)
                 .Så(SkallKategorierPopuleras)
                     .Och(TyperPopuleras)
                     .Och(LeverantörerPopuleras));
@@ -57,40 +71,54 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Deviations
             SetupScenario(scenario => scenario
                 .Givet(Kategorier)
                     .Och(Leverantörer)
+                    .Och(AnvändarenFylltIFormuläretFörExternAvvikelse)
                 .När(AnvändarenSparar)
-                .Så(SkallEnAvvikelseSparats));
+                .Så(SkallEnExternAvvikelseSparats));
+        }
+
+        [Test]
+        public void SparaInternAvvikelse()
+        {
+            SetupScenario(scenario => scenario
+                .Givet(Kategorier)
+                    .Och(AnvändarenFylltIFormuläretFörInternAvvikelse)
+                .När(AnvändarenSparar)
+                .Så(SkallEnInternAvvikelseSparats));
         }
 
         #region Arrange
 
-        private void Kategorier()
+        public void Kategorier()
         {
-            var firstCategory = new DeviationCategory
-            {
-                Active = true,
-                Defects = null,
-                Deviations = null,
-                Name = "Kategori 1",
-                Suppliers = null
-            };
-
-            var otherCategory = new DeviationCategory
-            {
-                Active = true,
-                Defects = null,
-                Deviations = null,
-                Name = "Kategori 2",
-                Suppliers = null
-            };
-
-            Save(firstCategory);
-            Save(otherCategory);
-            _categories = new List<DeviationCategory>(new[] { firstCategory, otherCategory });
+            _categories = SkapaKategorier();
         }
 
-        private void Leverantörer()
+        public void Leverantörer()
         {
-            throw new NotImplementedException();
+            _suppliers = SkapaLeverantörer();
+        }
+
+        private void AnvändarenFylltIFormuläretFörExternAvvikelse()
+        {
+            _args = new CreateDeviationEventArgs
+                {
+                    DefectDescription = "Beskrivning",
+                    SelectedCategory = _categories.First().Id,
+                    SelectedDefects = new List<DeviationDefectListItem>(),
+                    SelectedSupplier = _suppliers.First().Id,
+                    SelectedType = DeviationType.External
+                };
+        }
+
+        private void AnvändarenFylltIFormuläretFörInternAvvikelse()
+        {
+            _args = new CreateDeviationEventArgs
+            {
+                DefectDescription = "Beskrivning",
+                SelectedCategory = _categories.First().Id,
+                SelectedDefects = new List<DeviationDefectListItem>(),
+                SelectedType = DeviationType.External
+            };
         }
 
         #endregion
@@ -102,9 +130,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Deviations
             _presenter.View_Load(null, new EventArgs());
         }
 
+        private void KategoriOchExternTypValts()
+        {
+            _categorySelectionArgs = new CreateDeviationEventArgs
+            {
+                SelectedCategory = _categories.First().Id,
+                SelectedType = DeviationType.External
+            };
+            _presenter.View_CategorySelected(null, _categorySelectionArgs);
+        }
+
         private void AnvändarenSparar()
         {
-            throw new NotImplementedException();
+            _presenter.View_Submit(null, _args);
         }
 
         #endregion
@@ -128,18 +166,36 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Deviations
                 View.Model.Types.ShouldContain(viewType => viewType.Name == displayName);
             }
 
-            // Failing test:
-            // View.Model.SelectedCategoryId.ShouldBe(5);
         }
 
         private void LeverantörerPopuleras()
         {
-            throw new NotImplementedException();
+            var expectedSuppliers = _suppliers.Where(x => x.Categories.Any(y => y.Id == _categorySelectionArgs.SelectedCategory));
+            foreach (var deviationSupplier in expectedSuppliers)
+            {
+                View.Model.Suppliers.ShouldContain(viewSupplier => viewSupplier.Id == deviationSupplier.Id);
+            }
         }
 
-        private void SkallEnAvvikelseSparats()
+        private void SkallEnExternAvvikelseSparats()
         {
-            throw new NotImplementedException();
+            var savedDeviation = GetAll<Deviation>().Single();
+            savedDeviation.DefectDescription.ShouldBe(_args.DefectDescription);
+            savedDeviation.Category.Id.ShouldBe(_args.SelectedCategory);
+            savedDeviation.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
+            savedDeviation.Supplier.Id.ShouldBe(_args.SelectedSupplier);
+            savedDeviation.Type.ShouldBe(_args.SelectedType);
+            savedDeviation.ShopId.ShouldBe(_shop.Id);
+        }
+
+        private void SkallEnInternAvvikelseSparats()
+        {
+            var savedDeviation = GetAll<Deviation>().Single();
+            savedDeviation.DefectDescription.ShouldBe(_args.DefectDescription);
+            savedDeviation.Category.Id.ShouldBe(_args.SelectedCategory);
+            savedDeviation.CreatedDate.Date.ShouldBe(DateTime.Now.Date);
+            savedDeviation.Type.ShouldBe(_args.SelectedType);
+            savedDeviation.ShopId.ShouldBe(_shop.Id);
         }
 
         #endregion

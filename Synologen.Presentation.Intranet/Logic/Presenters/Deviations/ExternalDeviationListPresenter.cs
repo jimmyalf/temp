@@ -34,7 +34,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
 		    View.Model.Deviations = Query(new DeviationsQuery {SelectedType = DeviationType.External, OrderBy = "CreatedDate" });
 		}
 
-        private void View_SupplierSelected(object sender, ExternalDeviationListEventArgs e)
+        public void View_SupplierSelected(object sender, ExternalDeviationListEventArgs e)
         {
             View.Model.SelectedSupplierId = e.SelectedSupplier;
             View.Model.Suppliers = Query(new SuppliersQuery()).ToDeviationSupplierList().InsertFirst(_defaultSupplier);

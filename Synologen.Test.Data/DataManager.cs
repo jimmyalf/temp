@@ -223,6 +223,19 @@ namespace Spinit.Wpc.Synologen.Test.Data
 			Debug.WriteLine("Cleaned Orders");
         }
 
+        private void DeleteDeviationsAndConnections(IDbConnection connection)
+        {
+            DeleteForTable(connection, "SynologenDeviationSupplierToDeviationCategory");
+            DeleteForTable(connection, "SynologenDeviationCommentToDeviation");
+            DeleteForTable(connection, "SynologenDeviationDefectToDeviation");
+            DeleteAndResetIndexForTable(connection, "SynologenDeviationComments");
+            DeleteAndResetIndexForTable(connection, "SynologenDeviations");
+            DeleteAndResetIndexForTable(connection, "SynologenDeviationDefects");
+            DeleteAndResetIndexForTable(connection, "SynologenDeviationCategories");
+            DeleteAndResetIndexForTable(connection, "SynologenDeviationSuppliers");
+            Debug.WriteLine("Cleaned Deviations");
+        }
+
 		public virtual void ValidateConnectionIsDev(IDbConnection connection)
 		{
 			if(!IsDevelopmentServer(connection.ConnectionString))
@@ -244,6 +257,7 @@ namespace Spinit.Wpc.Synologen.Test.Data
 			var userRepository = GetUserRepository();
 			var sqlProvider = GetSqlProvider();
 			ValidateConnectionIsDev(connection);
+		    DeleteDeviationsAndConnections(connection);
 			DeleteOPQAndConnections(connection);
             DeleteOrders(connection);
 			DeleteLensSubscriptionsAndConnections(connection);
@@ -255,7 +269,6 @@ namespace Spinit.Wpc.Synologen.Test.Data
 			CreateAdminUsers(userRepository);
 			CreateShopAndTestUsers(userRepository, sqlProvider as SqlProvider);
 		}
-
 	}
 
 	public sealed class CreatedMemberInfo

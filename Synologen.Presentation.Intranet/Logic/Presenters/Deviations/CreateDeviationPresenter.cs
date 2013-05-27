@@ -101,7 +101,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
         //    return sb.ToString();
         //}
 
-        private void View_CategorySelected(object sender, CreateDeviationEventArgs e)
+        public void View_CategorySelected(object sender, CreateDeviationEventArgs e)
         {
             if (e.SelectedCategory > 0)
             {

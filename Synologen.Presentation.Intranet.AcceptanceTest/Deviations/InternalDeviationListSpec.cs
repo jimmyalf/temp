@@ -6,12 +6,9 @@ using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Orders;
-using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.TestHelpers;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Deviations;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations;
 
 namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Deviations
 {

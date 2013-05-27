@@ -1,0 +1,41 @@
+﻿<#@ include file="Classes.ttinclude"#>
+<#// Set options here
+var options = new {
+	DbmlFileName = Host.TemplateFile.Replace(".tt",".dbml"), // Which DBML file to operate on (same filename as template)
+	SerializeDataContractSP1 = false, // Emit SP1 DataContract serializer attributes
+	FilePerEntity = true, // Put each class into a separate file
+	StoredProcedureConcurrency = false, // Table updates via an SP require @@rowcount to be returned to enable concurrency
+	EntityFilePath = Path.GetDirectoryName(Host.TemplateFile), // Where to put the files
+	
+	// Properties for controlling the generation 
+	DataContextBaseClass = "SpinitDataContext",	
+	RepositoryBaseClass = "SpinitRepository",	
+	OutputProjectData = "Spinit.Wpc.Synologen.OPQ.Data",		// Data project name
+	OutputProjectCore = "Spinit.Wpc.Synologen.OPQ.Core",		// Core project name
+	EnityBaseClass = "EntityBase",
+	EntityLibrary = "Entities",					// Default library for entity files.
+	CreateRepositoryWithManagers = false,		// Set this to false to create partial managers-file.
+	CreateRepositoryManagerFile = false,		// Should be set to false after first run.
+	CreateConfigFile = false,					// Should be set to false fater first run.
+	ExcludeTablesData="ENode,EDocumentType,EDocument,EDocumentHistory,EFile,EFileCategory,EBaseUser,EBaseLocation",	// List of tables to exclude for data-project
+	ExcludeTablesCore="Node,DocumentType,Document,DocumentHistory,File,FileCategory,BaseUser",			// List of tables to exclude for core-project
+	RemovePrefixTable="SynologenOpq,tblSynologen,tbl",	// Remove prefixes on every table e.g. "tbl"
+	RemovePrefixColumn="c"								// Remove prefixex on every table e.g. "c"
+	// End Properties for controlling the generation 
+};
+Log.InDebug = true;
+Log.FileName =  @"C:\Develop\WPC\CustomerSpecific\Synologen\Synologen OPQ\Log\log.txt";
+var code = new CSharpCodeLanguage ();
+var data = new Data (options.DbmlFileName);
+var manager = new Manager(Host, GenerationEnvironment, true) { OutputPath = options.EntityFilePath };
+data.ContextNamespace = (new string[] { manager.GetCustomToolNamespace(data.DbmlFileName), data.SpecifiedContextNamespace, manager.DefaultProjectNamespace }).FirstOrDefault(s => !String.IsNullOrEmpty(s));
+data.EntityNamespace = (new string[] { manager.GetCustomToolNamespace(data.DbmlFileName), data.SpecifiedEntityNamespace, manager.DefaultProjectNamespace }).FirstOrDefault(s => !String.IsNullOrEmpty(s));
+manager.OutputProjectData = options.OutputProjectData;
+manager.OutputDirectoryDataEntities = options.EntityLibrary;
+manager.OutputProjectCore = options.OutputProjectCore;
+manager.OutputDirectoryCoreEntities = options.EntityLibrary;
+string dataContractAttributes = (options.SerializeDataContractSP1) ? "IsReference=true" : "";
+string dataContextClassName = data.ContextName.StartsWith ("db") ? data.ContextName.Remove (0, 2) : data.ContextName;
+string repositoryClassName = data.ContextName.Replace ("DataContext", "Repository");
+repositoryClassName = repositoryClassName.StartsWith ("db") ? repositoryClassName.Remove (0, 2) : repositoryClassName;
+#>

@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[tblNews] (
+    [cId]           INT            IDENTITY (1, 1) NOT NULL,
+    [cNewsType]     SMALLINT       NOT NULL,
+    [cHeading]      NTEXT          NULL,
+    [cSummary]      NTEXT          NULL,
+    [cBody]         NTEXT          NULL,
+    [cFormatedBody] NTEXT          NULL,
+    [cExternalLink] NVARCHAR (255) NULL,
+    [cStartDate]    DATETIME       CONSTRAINT [DF_tblNews_cStartDate] DEFAULT (getdate()) NULL,
+    [cEndDate]      DATETIME       NULL,
+    [cCreatedBy]    NVARCHAR (100) NULL,
+    [cCreatedDate]  DATETIME       NULL,
+    [cEditedBy]     NVARCHAR (100) NULL,
+    [cEditedDate]   DATETIME       NULL,
+    [cApprovedBy]   NVARCHAR (100) NULL,
+    [cApprovedDate] DATETIME       NULL,
+    [cLockedBy]     NVARCHAR (100) NULL,
+    [cLockedDate]   DATETIME       NULL,
+    [cSpotImage]    INT            NULL,
+    [cSpotHeight]   INT            NULL,
+    [cSpotWidth]    INT            NULL,
+    [cSpotAlign]    INT            NULL,
+    CONSTRAINT [PK_tblNews] PRIMARY KEY CLUSTERED ([cId] ASC)
+);
+

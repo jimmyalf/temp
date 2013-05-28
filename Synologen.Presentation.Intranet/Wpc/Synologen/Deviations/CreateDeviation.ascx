@@ -120,22 +120,6 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script>
         $(document).ready(function () {
-            $("#defect-description").hide();
-            $('#<%=cblDefects.ClientID %> input[type=checkbox]').click(function () {
-                var values = [];
-
-                $('#<%= cblDefects.ClientID %> input:checked').each(function () {
-                    values.push($(this).next('label').text().toLowerCase());
-                });
-
-                if (values.indexOf("övrigt") !== -1) {
-                    $("#defect-description").show();
-                } else {
-                    $("#defect-description").hide();
-                }
-
-            });
-
             $('#<%=btnConfirmExternalDeviation.ClientID %>').click(function () {
                 if ($('#<%=drpSuppliers.ClientID%> option:selected').val() == 0) {
                     alert("Ange leverantör.");

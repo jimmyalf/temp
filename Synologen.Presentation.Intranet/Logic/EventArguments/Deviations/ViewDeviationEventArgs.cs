@@ -8,5 +8,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Deviat
 	public class ViewDeviationEventArgs : EventArgs
 	{
         public string Comment { get; set; }
+        public DeviationStatus SelectedStatus { get; set; }
 	}
 }

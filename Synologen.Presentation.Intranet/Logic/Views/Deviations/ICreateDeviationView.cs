@@ -9,5 +9,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Deviations
     {
         event EventHandler<CreateDeviationEventArgs> Submit;
         event EventHandler<CreateDeviationEventArgs> CategorySelected;
+        event EventHandler<CreateDeviationEventArgs> TypeSelected;
     }
 }

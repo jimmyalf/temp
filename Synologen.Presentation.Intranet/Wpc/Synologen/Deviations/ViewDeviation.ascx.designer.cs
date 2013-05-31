@@ -22,6 +22,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations {
         protected global::System.Web.UI.WebControls.Repeater rptDefects;
         
         /// <summary>
+        /// drpStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drpStatus;
+        
+        /// <summary>
+        /// btnSaveStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveStatus;
+        
+        /// <summary>
         /// txtComment control.
         /// </summary>
         /// <remarks>

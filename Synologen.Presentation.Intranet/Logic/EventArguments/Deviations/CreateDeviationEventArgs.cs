@@ -11,6 +11,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.Deviat
         public int SelectedCategory { get; set; }
         public List<DeviationDefectListItem> SelectedDefects { get; set; }
         public string DefectDescription { get; set; }
+        public string Title { get; set; }
         public int SelectedSupplier { get; set; }
         
 	}

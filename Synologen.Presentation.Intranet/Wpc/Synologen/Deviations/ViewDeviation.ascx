@@ -8,20 +8,17 @@
             Typ: <%= Model.Type %>
         </p>
         <%
-        if (Model.Supplier != null)
-        {
+            if (Model.Type == DeviationType.Internal)
+            {
         %>
         <p>
-            Leverantör: <%= Model.Supplier.Name %>
+            Rubrik: <%= Model.Title %>
         </p>
         <%
-        }
+            }
         %>
-        <p>
-            Kategori: <%= Model.Category.Name %>
-        </p>
         <% if (!string.IsNullOrEmpty(Model.DefectDescription))
-       {
+           {
         %>
         <p>
             Övrigt: <%= Model.DefectDescription %>
@@ -30,9 +27,17 @@
 
         %>
         <%
-       if (Model.Type == DeviationType.External)
-       {
+            if (Model.Type == DeviationType.External)
+            {
         %>
+        <p>
+            Leverantör: <%= Model.Supplier.Name %>
+        </p>
+        <p>
+            Kategori: <%= Model.Category.Name %>
+        </p>
+
+
         <p>
             <strong>Fel:</strong>
         </p>
@@ -74,8 +79,22 @@
         </div>
     </fieldset>
     <%
-       }
+            }
     %>
+    <br />
+    <fieldset>
+        <legend>Ändra status</legend>
+        <asp:DropDownList
+            ID="drpStatus"
+            runat="server"
+            SelectedValue='<%#Model.SelectedStatus%>'
+            DataSource='<%#Model.Statuses%>'
+            DataValueField="Id"
+            DataTextField="Name" />
+        <p>
+            <asp:Button ID="btnSaveStatus" runat="server" Text="Spara" />
+        </p>
+    </fieldset>
     <br />
     <fieldset>
         <legend>Skriv kommentar</legend>
@@ -122,3 +141,16 @@
     </fieldset>
     <a href="javascript:history.back(-1);">Tillbaka</a>
 </div>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#<%=btnSaveStatus.ClientID %>').click(function () {
+            if ($('#<%=drpStatus.ClientID%> option:selected').val() == 0) {
+                alert("Ange status.");
+                return false;
+            }
+            return true;
+        });
+
+    });
+</script>

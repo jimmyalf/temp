@@ -204,6 +204,7 @@
     <Compile Include="Logic\Views\LensSubscription\IListCustomersView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListSubscriptionErrorView.cs" />
     <Compile Include="Logic\Views\LensSubscription\IListTransactionView.cs" />
+    <Compile Include="Models\Deviations\DeviationStatusListItem.cs" />
     <Compile Include="Models\Deviations\DeviationSupplierListItem.cs" />
     <Compile Include="Models\Deviations\DeviationDefectListItem.cs" />
     <Compile Include="Models\Deviations\ViewDeviationModel.cs" />

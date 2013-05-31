@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.SqlCommand;
 using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
 using NHibernate.Criterion;
 using Spinit.Data.NHibernate;
-using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Data.Extensions;
 
 namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
@@ -25,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
         public override IExtendedEnumerable<Deviation> Execute()
         {
             var result = Session
-                .CreateCriteriaOf<Deviation>().CreateAlias(x => x.Category);
+                .CreateCriteriaOf<Deviation>();
 
             if (SelectedDeviation.HasValue)
                 return new ExtendedEnumerable<Deviation>(result.FilterEqual(x => x.Id, SelectedDeviation).List<Deviation>());
@@ -34,6 +30,7 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
             {
                 if (SelectedType == DeviationType.External)
                 {
+                    result = result.CreateAlias(x => x.Category);
                     result = result.CreateAlias(x => x.Supplier);
                 }
 
@@ -41,7 +38,8 @@ namespace Spinit.Wpc.Synologen.Data.Queries.Deviations
             }
             else
             {
-                result = (ICriteria<Deviation>) result.CreateAlias("Supplier", "Supplier", JoinType.LeftOuterJoin);
+                result = (ICriteria<Deviation>)result.CreateAlias("Supplier", "Supplier", JoinType.LeftOuterJoin);
+                result = (ICriteria<Deviation>)result.CreateAlias("Category", "Category", JoinType.LeftOuterJoin);
             }
 
             if (SelectedSupplier > 0)

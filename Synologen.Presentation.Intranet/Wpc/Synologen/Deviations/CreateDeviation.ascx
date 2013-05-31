@@ -5,68 +5,72 @@
       { %>
     <asp:Panel runat="server" ID="pnlCreateDeviationForm">
         <fieldset class="synologen-form">
-                <p>
-                    <label for="<%=drpTypes.ClientID%>">Typ av avvikelse</label>
-                    <asp:DropDownList
-                        ID="drpTypes"
-                        runat="server"
-                        SelectedValue='<%#Model.SelectedType%>'
-                        DataSource='<%#Model.Types%>'
-                        DataValueField="Id"
-                        DataTextField="Name" />
-                </p>
+            <p>
+                <label for="<%=drpTypes.ClientID%>">Typ av avvikelse</label>
+                <asp:DropDownList
+                    ID="drpTypes"
+                    runat="server"
+                    AutoPostBack="true"
+                    SelectedValue='<%#Model.SelectedType%>'
+                    DataSource='<%#Model.Types%>'
+                    DataValueField="Id"
+                    DataTextField="Name" />
+            </p>
 
+            <%if (Model.DisplayInternalDeviation)
+              { %>
+            <p>
+                <label for="<%=txtTitle.ClientID%>">Rubrik</label>
+                <asp:TextBox runat="server" ID="txtTitle"></asp:TextBox>
+            </p>
+            <p>
+                <label for="<%=txtInternalDefectDescription.ClientID%>">Beskrivning</label>
+                <asp:TextBox runat="server" TextMode="MultiLine" ID="txtInternalDefectDescription"></asp:TextBox>
+            </p>
+            <p>
+                <asp:Button runat="server" ID="btnConfirmInternalDeviation" Text="Förhandsgranska" />
+            </p>
+            <%} %>
+            <%if (Model.DisplayExternalDeviation)
+              { %>
+            <p>
+                <label for="<%=drpCategories.ClientID%>">Kategori</label>
+                <asp:DropDownList
+                    ID="drpCategories"
+                    runat="server"
+                    AutoPostBack="true"
+                    SelectedValue='<%#Model.SelectedCategoryId%>'
+                    DataSource='<%#Model.Categories%>'
+                    DataValueField="Id"
+                    DataTextField="Name" />
+            </p>
+            <p>
+                <label for="<%=cblDefects.ClientID%>">Kryssa i fel</label>
+                <asp:CheckBoxList ID="cblDefects"
+                    runat="server"
+                    DataSource='<%#Model.Defects%>'
+                    DataValueField="Id"
+                    DataTextField="Name" />
+            </p>
+            <div id="defect-description">
                 <p>
-                    <label for="<%=drpCategories.ClientID%>">Kategori</label>
-                    <asp:DropDownList
-                        ID="drpCategories"
-                        runat="server"
-                        AutoPostBack="true"
-                        SelectedValue='<%#Model.SelectedCategoryId%>'
-                        DataSource='<%#Model.Categories%>'
-                        DataValueField="Id"
-                        DataTextField="Name" />
+                    <label for="<%=txtExternalDefectDescription.ClientID%>">Beskrivning</label>
+                    <asp:TextBox ID="txtExternalDefectDescription" runat="server" TextMode="MultiLine"></asp:TextBox>
                 </p>
-
-                <%if (Model.DisplayInternalDeviation)
-                  { %>
-                <p>
-                    <label for="<%=txtInternalDefectDescription.ClientID%>">Beskrivning</label>
-                    <asp:TextBox runat="server" TextMode="MultiLine" ID="txtInternalDefectDescription"></asp:TextBox>
-                </p>
-                <p>
-                    <asp:Button runat="server" ID="btnConfirmInternalDeviation" Text="Förhandsgranska" />
-                </p>
-                <%} %>
-                <%if (Model.DisplayExternalDeviation)
-                  { %>
-                <p>
-                    <label for="<%=cblDefects.ClientID%>">Kryssa i fel</label>
-                    <asp:CheckBoxList ID="cblDefects"
-                        runat="server"
-                        DataSource='<%#Model.Defects%>'
-                        DataValueField="Id"
-                        DataTextField="Name" />
-                </p>
-                <div id="defect-description">
-                    <p>
-                        <label for="<%=txtExternalDefectDescription.ClientID%>">Beskrivning</label>
-                        <asp:TextBox ID="txtExternalDefectDescription" runat="server" TextMode="MultiLine"></asp:TextBox>
-                    </p>
-                </div>
-                <p>
-                    <label for="<%=drpSuppliers.ClientID%>">Leverantör</label>
-                    <asp:DropDownList
-                        ID="drpSuppliers"
-                        runat="server"
-                        DataSource='<%#Model.Suppliers%>'
-                        DataValueField="Id"
-                        DataTextField="Name" />
-                </p>
-                <p>
-                    <asp:Button runat="server" ID="btnConfirmExternalDeviation" Text="Förhandsgranska" />
-                </p>
-                <%} %>
+            </div>
+            <p>
+                <label for="<%=drpSuppliers.ClientID%>">Leverantör</label>
+                <asp:DropDownList
+                    ID="drpSuppliers"
+                    runat="server"
+                    DataSource='<%#Model.Suppliers%>'
+                    DataValueField="Id"
+                    DataTextField="Name" />
+            </p>
+            <p>
+                <asp:Button runat="server" ID="btnConfirmExternalDeviation" Text="Förhandsgranska" />
+            </p>
+            <%} %>
         </fieldset>
     </asp:Panel>
 
@@ -74,8 +78,8 @@
         <fieldset>
             <legend>Avvikelserapport Intern</legend>
             <p>
-                <label for="<%=lblInternalDeviationCategoryName.ClientID%>">Kategori</label>
-                <asp:Label ID="lblInternalDeviationCategoryName" runat="server"></asp:Label>
+                <label for="<%=lblTitle.ClientID%>">Rubrik</label>
+                <asp:Label ID="lblTitle" runat="server"></asp:Label>
             </p>
             <p>
                 <label for="<%=lblInternalDefectDescription.ClientID%>">Beskrivning</label>
@@ -132,7 +136,7 @@
     </script>
 
     <%
-  }
+      }
       else
       {
     %>

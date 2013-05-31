@@ -11,6 +11,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Models.Deviation
         public int ShopId { get; set; }
         public string CategoryName { get; set; }
         public string Type { get; set; }
+        public string Status { get; set; }
         public string SupplierName { get; set; }
         public DateTime CreatedDate { get; set; }
     }

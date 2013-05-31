@@ -227,11 +227,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
             Func<Deviation, DeviationListItemView> typeConverter = x => new DeviationListItemView
             {
                 Id = x.Id,
-                CategoryName = x.Category.Name,
+                CategoryName = x.Category != null ? x.Category.Name : string.Empty,
                 SupplierName = x.Supplier != null ? x.Supplier.Name : string.Empty,
                 CreatedDate = x.CreatedDate,
                 ShopId = x.ShopId,
-                Type = x.Type.ToString()
+                Type = x.Type.GetEnumDisplayName(),
+                Status = x.Status.GetEnumDisplayName()
             };
             return entityList.ConvertSortedPagedList(typeConverter);
         }

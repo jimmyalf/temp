@@ -1,5 +1,6 @@
 ﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<Spinit.Wpc.Synologen.Presentation.Models.Deviation.DeviationListView>" %>
 
+
 <asp:Content ContentPlaceHolderID="SubMenu" runat="server">
     <% Html.RenderPartial("DeviationSubMenu"); %>
 </asp:Content>
@@ -31,6 +32,7 @@
      						column.For(x => x.ShopId).Named("Butik");
                             column.For(x => x.CategoryName).Named("Kategori");
                             column.For(x => x.Type).Named("Typ");
+                            column.For(x => x.Status).Named("Status");
                             column.For(x => x.SupplierName).Named("Leverantör");
                             column.For(x => x.CreatedDate).Named("Skapad");
 							column.For(x => Html.ActionLink("Visa","ViewDeviation","Deviation", new {id = x.Id}, new object()))

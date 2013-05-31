@@ -1,4 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InternalDeviationList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations.InternalDeviationList" %>
+<%@ Import Namespace="Spinit.Wpc.Synologen.Core.Domain.Model.Deviations" %>
+<%@ Import Namespace="Spinit.Wpc.Synologen.Core.Extensions" %>
 <div class="synologen-control">
     <fieldset class="synologen-form">
         <asp:Repeater ID="rptInternalDeviation" runat="server" DataSource='<%#Model.Deviations%>'>
@@ -7,8 +9,9 @@
                     <tr>
                         <th>ID
                         </th>
-                        <th>Kategori
+                        <th>Rubrik
                         </th>
+                        <th>Status</th>
                         <th>Skapad Datum
                         </th>
                         <th></th>
@@ -20,8 +23,9 @@
                         <%# Eval("Id")%>
                     </td>
                     <td>
-                        <%# Eval("Category.Name")%>
+                        <%# Eval("Title")%>
                     </td>
+                    <td><%# Eval("Status").ToTypeOrDefault<DeviationStatus>().GetEnumDisplayName() %></td>
                     <td>
                         <%# Eval("CreatedDate","{0:yyyy-MM-dd}")%>
                     </td>
@@ -36,8 +40,9 @@
                         <%# Eval("Id")%>
                     </td>
                     <td>
-                        <%# Eval("Category.Name")%>
+                        <%# Eval("Title")%>
                     </td>
+                    <td><%# Eval("Status").ToTypeOrDefault<DeviationStatus>().GetEnumDisplayName() %></td>
                     <td>
                         <%# Eval("CreatedDate","{0:yyyy-MM-dd}")%>
                     </td>

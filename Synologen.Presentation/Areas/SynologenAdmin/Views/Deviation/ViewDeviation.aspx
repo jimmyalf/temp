@@ -1,4 +1,6 @@
 ﻿<%@ Page MasterPageFile="~/Areas/SynologenAdmin/Views/Shared/SynologenMVC.Master" Inherits="System.Web.Mvc.ViewPage<Spinit.Wpc.Synologen.Core.Domain.Model.Deviations.Deviation>" %>
+<%@ Import Namespace="Spinit.Wpc.Synologen.Core.Domain.Model.Deviations" %>
+<%@ Import Namespace="Spinit.Wpc.Synologen.Core.Extensions" %>
 
 <asp:Content ContentPlaceHolderID="SubMenu" runat="server">
     <% Html.RenderPartial("DeviationSubMenu"); %>
@@ -12,8 +14,15 @@
                     <fieldset>
                         <legend>Avvikelse <%= Model.Id %></legend>
                         <p>
-                            Typ: <%= Model.Type %>
+                            Typ: <%= Model.Type.ToTypeOrDefault<DeviationType>().GetEnumDisplayName() %>
                         </p>
+                        <p>
+                            Status: <%= Model.Status.ToTypeOrDefault<DeviationStatus>().GetEnumDisplayName() %>
+                        </p>
+                        <%
+                            if (Model.Type == DeviationType.External)
+                            {
+                        %>
                         <%
                             if (Model.Supplier != null)
                             {
@@ -27,6 +36,20 @@
                         <p>
                             Kategori: <%= Model.Category.Name %>
                         </p>
+                        <%
+                            }
+
+                        %>
+                        <%
+                            if (Model.Type == DeviationType.Internal)
+                            {
+                        %>
+                        <p>
+                            Rubrik: <%= Model.Title %>
+                        </p>
+                        <% }
+
+                        %>
                         <% if (!string.IsNullOrEmpty(Model.DefectDescription))
                             {
                         %>
@@ -36,20 +59,27 @@
                         <% }
 
                         %>
+                        <%
+                           if (Model.Type == DeviationType.External)
+                           {
+                        %>
                         <p>
                             <strong>Fel:</strong>
                         </p>
                         <%= Html.Grid(Model.Defects)
-					.Columns(
-						column => {
-     						column.For(x => x.Name).Named("Namn");
-     					}
-     				)
-     				.Empty("Inga fel för denna avvikelsen.") %>
+                                .Columns(
+                                    column => {
+                                        column.For(x => x.Name).Named("Namn");
+                                    }
+                                )
+                                .Empty("Inga fel för denna avvikelsen.") %>
+                        <%
+                           }
+                        %>
                         <p>
                             <strong>Kommentar:</strong>
                         </p>
-                        <%= Html.Grid(Model.Comments)
+                        <%= Html.Grid(Model.Comments.OrderByDescending(x => x.CreatedDate))
 					.Columns(
 						column => {
      						column.For(x => x.Description).Named("Kommentar");

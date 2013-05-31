@@ -53,9 +53,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
             {
                 Page = gridPageSortParameters.Page,
                 PageSize = gridPageSortParameters.PageSize ?? DefaultPageSize,
-                OrderBy = gridPageSortParameters.Column,
+                OrderBy = gridPageSortParameters.Column ?? "CreatedDate",
                 SortAscending = gridPageSortParameters.Direction == SortDirection.Ascending
             };
+
+            if (criteria.OrderBy == "CreatedDate")
+                criteria.SortAscending = gridPageSortParameters.Direction == SortDirection.Descending;
+
             var list = Query(new DeviationsQuery { PagedSortedCriteria = criteria, SearchTerms = decodedSearchTerm });
 
             var viewList = list.ToDeviationViewList();

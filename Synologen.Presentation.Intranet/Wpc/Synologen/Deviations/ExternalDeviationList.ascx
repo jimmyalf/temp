@@ -1,4 +1,6 @@
 ﻿<%@ Control Language="C#" CodeBehind="ExternalDeviationList.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations.ExternalDeviationList" %>
+<%@ Import Namespace="Spinit.Wpc.Synologen.Core.Domain.Model.Deviations" %>
+<%@ Import Namespace="Spinit.Wpc.Synologen.Core.Extensions" %>
 <div class="synologen-control">
     <fieldset class="synologen-form">
         <asp:DropDownList
@@ -19,6 +21,7 @@
                         </th>
                         <th>Leverantör
                         </th>
+                        <th>Status</th>
                         <th>Skapad Datum
                         </th>
                         <th></th>
@@ -35,6 +38,7 @@
                     <td>
                         <%# Eval("Supplier.Name")%>
                     </td>
+                    <td><%# Eval("Status").ToTypeOrDefault<DeviationStatus>().GetEnumDisplayName() %></td>
                     <td>
                         <%# Eval("CreatedDate","{0:yyyy-MM-dd}")%>
                     </td>
@@ -54,6 +58,7 @@
                     <td>
                         <%# Eval("Supplier.Name")%>
                     </td>
+                    <td><%# Eval("Status").ToTypeOrDefault<DeviationStatus>().GetEnumDisplayName() %></td>
                     <td>
                         <%# Eval("CreatedDate","{0:yyyy-MM-dd}")%>
                     </td>

@@ -8,5 +8,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Views.Deviations
     public interface IViewDeviationView : IView<ViewDeviationModel>
 	{
         event EventHandler<ViewDeviationEventArgs> Submit;
+        event EventHandler<ViewDeviationEventArgs> StatusSubmit;
 	}
 }

@@ -14,9 +14,11 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.NHibernate.Mappings.Deviations
             Table("SynologenDeviations");
             Id(x => x.Id);
             Map(x => x.ShopId);
+            Map(x => x.Status).Column("StatusId").CustomType<DeviationStatus>();
             Map(x => x.CreatedDate);
             Map(x => x.Type).Column("TypeId").CustomType<DeviationType>();
             Map(x => x.DefectDescription);
+            Map(x => x.Title);
 
             References(x => x.Category).Column("CategoryId");
             References(x => x.Supplier).Column("SupplierId");

@@ -38,13 +38,45 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
         private void InitiateEventHandlers()
         {
             View.Load += View_Load;
+            View.TypeSelected += View_TypeSelected;
             View.CategorySelected += View_CategorySelected;
             View.Submit += View_Submit;
+        }
+
+        void View_TypeSelected(object sender, CreateDeviationEventArgs e)
+        {
+            if (e.SelectedType > 0)
+            {
+                View.Model.SelectedType = (int)e.SelectedType;
+                SetDisplayView(e.SelectedType);
+            }
         }
 
         public void View_Load(object sender, EventArgs e)
         {
             InitializeModel();
+        }
+
+        private void SetDisplayView(DeviationType type)
+        {
+            if (type == DeviationType.Internal)
+                View.Model.DisplayInternalDeviation = true;
+            else
+                View.Model.DisplayExternalDeviation = true;
+        }
+
+        public void View_CategorySelected(object sender, CreateDeviationEventArgs e)
+        {
+            if (e.SelectedCategory > 0)
+            {
+                View.Model.SelectedType = (int)e.SelectedType;
+                View.Model.SelectedCategoryId = e.SelectedCategory;
+
+                View.Model.Defects = Query(new DefectsQuery { SelectedCategory = e.SelectedCategory }).ToDeviationDefectList();
+                View.Model.Suppliers = Query(new SuppliersQuery { SelectedCategory = e.SelectedCategory }).ToDeviationSupplierList().InsertFirst(_defaultSupplier);
+
+                SetDisplayView(e.SelectedType);
+            }
         }
 
         public void View_Submit(object sender, CreateDeviationEventArgs e)
@@ -57,7 +89,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
             {
                 Type = e.SelectedType,
                 ShopId = shopId,
+                Status = DeviationStatus.NotStarted,
                 Supplier = supplier,
+                Title = e.Title,
                 DefectDescription = e.DefectDescription,
                 Category = category,
             };
@@ -71,9 +105,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
             }
 
             Execute(new CreateDeviationCommand(deviation));
-
             //_emailService.SendEmail("roger.edvardsson@spinit.se", "roger.edvardsson@spinit.se", "Extern avvikelse", ReportEmailBody(deviation));
-
             View.Model.Success = true;
         }
 
@@ -101,34 +133,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
         //    return sb.ToString();
         //}
 
-        public void View_CategorySelected(object sender, CreateDeviationEventArgs e)
-        {
-            if (e.SelectedCategory > 0)
-            {
-                View.Model.SelectedType = (int)e.SelectedType;
-                View.Model.SelectedCategoryId = e.SelectedCategory;
-
-                if (e.SelectedType > 0)
-                {
-                    if (e.SelectedType == DeviationType.Internal)
-                    {
-                        View.Model.DisplayInternalDeviation = true;
-                    }
-                    else
-                    {
-                        View.Model.DisplayExternalDeviation = true;
-                        View.Model.Defects = Query(new DefectsQuery { SelectedCategory = e.SelectedCategory }).ToDeviationDefectList();
-                        View.Model.Suppliers = Query(new SuppliersQuery { SelectedCategory = e.SelectedCategory }).ToDeviationSupplierList().InsertFirst(_defaultSupplier);
-                    }
-                }
-
-            }
-        }
-
         public void InitializeModel()
         {
-            var categories = Query(new CategoriesQuery{ Active = true });
             View.Model.Types = GetDeviationTypes();
+            var categories = Query(new CategoriesQuery { Active = true });
             View.Model.Categories = categories.ToDeviationCategoryList().InsertFirst(_defaultCategory);
         }
 
@@ -136,6 +144,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.Deviations
         {
             View.Load -= View_Load;
             View.CategorySelected -= View_CategorySelected;
+            View.TypeSelected -= View_TypeSelected;
             View.Submit -= View_Submit;
         }
 

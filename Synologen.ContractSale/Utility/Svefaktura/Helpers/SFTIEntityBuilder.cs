@@ -18,7 +18,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Helpers
 
     public interface IFillEntitySpecification<TSource, TDestination>
     {
-        IFillEntityOperation<TSource, TDestination> FillEntity<TType>(Expression<Func<TDestination, TType>> destination);
+        IFillEntityOperation<TSource, TType, TDestination> FillEntity<TType>(Expression<Func<TDestination, TType>> destination);
     }
 
     public interface IFillTextOperation<TSource, TDestination>
@@ -26,22 +26,21 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Helpers
         IEntityCreator<TSource, TDestination> Using(Func<TSource, string> property);
     }
 
-    public interface IFillEntityOperation<TSource, TDestination>
+    public interface IFillEntityOperation<TSource, in TType, TDestination>
     {
-        IEntityCreator<TSource, TDestination> Using(object item);
+        IEntityCreator<TSource, TDestination> Using(TType item);
     }
 
-    public class EntityFiller<TSource, TDestination>
+    public class SFTIEntityBuilder<TSource, TDestination>
         : IEntityCreator<TSource, TDestination>,
-          IFillTextOperation<TSource, TDestination>,
-          IFillEntityOperation<TSource, TDestination>
+          IFillTextOperation<TSource, TDestination>
         where TDestination : new()
     {
         private readonly TSource _source;
         private readonly TDestination _destination;
         private MemberExpression _destinationProperty;
 
-        public EntityFiller(TSource source)
+        public SFTIEntityBuilder(TSource source)
         {
             _source = source;
             _destination = new TDestination();
@@ -59,10 +58,10 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Helpers
             return this;
         }
 
-        public IFillEntityOperation<TSource, TDestination> FillEntity<TType>(Expression<Func<TDestination, TType>> selector)
+        public IFillEntityOperation<TSource, TType, TDestination> FillEntity<TType>(Expression<Func<TDestination, TType>> selector)
         {
             _destinationProperty = (MemberExpression)selector.Body;
-            return this;
+            return new TypedEntityFiller<TSource, TType, TDestination>(this);
         }
 
         public IEntityCreator<TSource, TDestination> Using(Func<TSource, string> selector)

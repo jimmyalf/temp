@@ -1,21 +1,18 @@
 ﻿using System.Collections.Generic;
-using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Helpers;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
-using NameType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.NameType;
 
 namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
 {
-    public class SellerPartyHydrator : SvefakturaHydratorBase, ISvefakturaHydrator
+    public class SellerPartyBuilder : SvefakturaBuilderBase, ISvefakturaBuilder
     {
-        public SellerPartyHydrator(SvefakturaConversionSettings settings, SvefakturaFormatter formatter) : base(settings, formatter) { }
+        public SellerPartyBuilder(SvefakturaConversionSettings settings, SvefakturaFormatter formatter) : base(settings, formatter) { }
 
-        public void Fill(IOrder order, SFTIInvoiceType invoice)
+        public void Build(IOrder order, SFTIInvoiceType invoice)
         {
             invoice.SellerParty = new SFTISellerPartyType
             {
@@ -28,25 +25,17 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
         {
             return new SFTIPartyType
             {
-                PartyName = GetPartyName(shop),
+                PartyName = GetPartyName(shop, x => x.Name),
                 Address = GetAddress(shop),
                 Contact = GetContact(shop),
                 PartyTaxScheme = GetTaxScheme(Settings),
-                PartyIdentification = GetPartyIdentification(shop)
-            };
-        }
-
-        protected List<NameType> GetPartyName(IShop shop)
-        {
-            return new List<NameType>
-            {
-                new NameType { Value = shop.Return(x => x.Name, null) }
+                PartyIdentification = GetPartyIdentification(shop, x => x.OrganizationNumber)
             };
         }
 
         protected SFTIAddressType GetAddress(IShop shop)
         {
-            return new EntityFiller<IShop, SFTIAddressType>(shop)
+            return Build<SFTIAddressType>().With(shop)
                 .Fill(x => x.Postbox).Using(x => x.Address2)
                 .Fill(x => x.StreetName).Using(x => x.Address)
                 .Fill(x => x.PostalZone).Using(x => x.Zip)
@@ -57,21 +46,12 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
 
         protected SFTIContactType GetContact(IShop shop)
         {
-            return new EntityFiller<IShop, SFTIContactType>(shop)
+            return Build<SFTIContactType>().With(shop)
                 .Fill(x => x.ElectronicMail).Using(x => x.Email)
                 .Fill(x => x.Name).Using(x => x.Name)
                 .Fill(x => x.Telefax).Using(x => x.Fax)
                 .Fill(x => x.Telephone).Using(x => x.Phone)
                 .GetEntity();
-        }
-
-        protected List<SFTIPartyIdentificationType> GetPartyIdentification(IShop shop)
-        {
-            var value = Formatter.FormatOrganizationNumber(shop.OrganizationNumber);
-            return new List<SFTIPartyIdentificationType>
-            {
-                new SFTIPartyIdentificationType { ID = new IdentifierType { Value = value } }
-            };
         }
 
         protected List<SFTIPartyTaxSchemeType> GetTaxScheme(SvefakturaConversionSettings settings)

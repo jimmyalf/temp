@@ -1,0 +1,87 @@
+﻿.edtWpcWysiwyg tbody, tfoot, thead, tr, th, td {vertical-align:middle; }
+.edtWpcWysiwyg {width: 100%; overflow:visible; height:auto}
+.edtWpcWysiwyg td, th {padding:0; border:0px; border-right:0; border-bottom:0;}
+.edtWpcWysiwyg th {background:inherit; border-color:inherit; }
+.edtWpcWysiwyg table {clear: none; width: auto; }
+.edtWpcWysiwyg table caption {display: table-caption;}
+.edtWpcWysiwyg thead th {padding: 0; text-align: inherit; color: inherit; background: inherit; border: inherit;}
+.edtWpcWysiwyg tbody {border: 0;}
+.edtWpcWysiwyg tbody td,
+.edtWpcWysiwyg tbody th {padding: 0; vertical-align: inherit; font-family: inherit; background-color: inherit; border: inherit;}
+.edtWpcWysiwyg tbody tr:hover th,
+.edtWpcWysiwyg tbody tr:hover td {color: inherit; background-color: inherit;}
+.edtWpcWysiwyg tbody tr:last-child td {border: inherit;}
+
+/* Dialog buttons */
+.reToolbar.Default .Include		{background-image: url('../img/Include.gif') !important;}
+.reToolbar.Default .InternalLink	{background-image: url('../img/InternalLink.gif') !important;}
+.reToolbar.Default .Component		{background-image: url('../img/Component.gif') !important;}
+.reToolbar.Default .RemoveInclude	{background-image: url('../img/RemoveInclude.gif') !important;}
+.reToolbar.Default .RemoveInternalLink	{background-image: url('../img/RemoveInternalLink.gif') !important;}
+.reToolbar.Default .RemoveComponent	{background-image: url('../img/RemoveComponent.gif') !important;}
+
+/* WPC-Specific style */
+.reToolbar li a.reTool,
+.reModule a,
+.reEditorModes a { border:none; background-color:Transparent; }
+
+.reToolbar li a.reDropdown{ border:none;}
+
+.rwTitleRow th,
+.rwTitleRow td,
+.rwTitleRow tr:last-child td,
+.rwTitleRow a{ border:none; background-color:Transparent !important; }
+
+/* Default Wywiwyg Paragraph Styles */
+.paragraph-item  {
+	color:black;
+	font-family:Arial, Verdana, Sans-Serif;
+}
+
+h1.paragraph-item  {
+	display:block;
+	font-size:2em;
+	font-weight:bold;
+	margin:0.67em 0;
+}
+h2.paragraph-item  {
+	display:block;
+	font-size:1.5em;
+	font-weight:bold;
+	margin:0.83em 0;
+}
+h3.paragraph-item  {
+	display:block;
+	font-size:1.17em;
+	font-weight:bold;
+	margin:1em 0;
+}
+h4.paragraph-item  {
+	display:block;
+	font-size: 1em;
+	font-weight:bold;
+	margin:1.33em 0;
+}
+h5.paragraph-item  {
+	display:block;
+	font-size:0.83em;
+	font-weight:bold;
+	margin:1.67em 0;
+}
+
+menu.paragraph-item , 
+dir.paragraph-item {
+	padding-left:40px;
+	display:block;
+	list-style-type:disc;
+	margin:1em 0;
+}
+pre.paragraph-item {
+	display:block;
+	margin:1em 0;
+	white-space:pre;
+}
+address.paragraph-item {
+	display:block;
+	font-style:italic;
+}

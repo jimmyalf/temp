@@ -21,7 +21,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
         public void Build(IOrder order, SFTIInvoiceType invoice)
         {
             invoice.InvoiceLine = order.OrderItems.Select(Convert).ToList();
-            invoice.LineItemCountNumeric = GetLineCount(invoice.InvoiceLine.Count + 1);
+            invoice.LineItemCountNumeric = new LineItemCountNumericType { Value = invoice.InvoiceLine.Count };
             invoice.TaxTotal = GetTaxTotal(invoice.InvoiceLine);
         }
 
@@ -96,11 +96,6 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
             }
 
             return returnValue;
-        }
-
-        protected virtual LineItemCountNumericType GetLineCount(int count)
-        {
-            return count <= 0 ? null : new LineItemCountNumericType { Value = count };
         }
 
         protected virtual SFTISimpleIdentifierType GetItemId(int count)

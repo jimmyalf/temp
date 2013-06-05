@@ -50,7 +50,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
 
         protected TEntity GetTextEntity<TEntity>(string value) where TEntity : Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes.TextType, new()
         {
-            return new TEntity { Value = value };
+            return value == null ? null : new TEntity { Value = value };
         }
 
         protected virtual bool AllAreNullOrEmpty(params object[] args)

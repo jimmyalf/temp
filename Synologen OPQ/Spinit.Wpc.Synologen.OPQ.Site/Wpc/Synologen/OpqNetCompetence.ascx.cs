@@ -67,7 +67,8 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 			try {
 				string userName = null;
 				if (drpUsers.SelectedItem != null) {
-					userName = drpUsers.SelectedItem.Value;
+					// userName = drpUsers.SelectedItem.Value;
+					userName = "andreas.jilvero@spinit.se";
 				}
 
 				if (string.IsNullOrEmpty (userName)) {
@@ -88,7 +89,7 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 				string plainData = string.Format ("{0}|{1}", userName, DateTime.UtcNow);
 
 				if (!string.IsNullOrEmpty (Configuration.NetCompetenceReturnPage)) {
-					plainData += string.Format ("|{0}", Configuration.NetCompetenceReturnPage);
+					// plainData += string.Format ("|{0}", Configuration.NetCompetenceReturnPage);
 				}
 
 				CryptoUtil cryptoUtil = new CryptoUtil ();

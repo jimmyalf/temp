@@ -8,18 +8,13 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
 namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
 {
-    public class BuyerPartyBuilder : SvefakturaBuilderBase, ISvefakturaBuilder
+    public class BuyerPartyBuilder : SvefakturaBuilder, ISvefakturaBuilder
     {
         public BuyerPartyBuilder(SvefakturaConversionSettings settings, SvefakturaFormatter formatter)
             : base(settings, formatter) { }
 
         public void Build(IOrder order, SFTIInvoiceType invoice)
         {
-            if (invoice.BuyerParty == null)
-            {
-                return;
-            }
-
             var company = order.ContractCompany;
             invoice.BuyerParty = new SFTIBuyerPartyType
             {
@@ -68,7 +63,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
             return Build<SFTIContactType>().With(order)
                 .Fill(x => x.ElectronicMail).Using(x => x.Email)
                 .Fill(x => x.Name).Using(x => x.CustomerCombinedName)
-                .Fill(x => x.Telephone).Using(x => x.Phone)
+                .Fill(x => x.Telephone).Using(x => x.Phone, Formatter.FormatPhoneNumber)
                 .GetEntity();
         }
 

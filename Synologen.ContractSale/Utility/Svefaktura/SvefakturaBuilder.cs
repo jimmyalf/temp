@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Helpers;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
+using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.SpecializedDatatypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 using NameType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.NameType;
 
 namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
 {
-    public abstract class SvefakturaBuilderBase
+    public abstract class SvefakturaBuilder
     {
-        protected SvefakturaBuilderBase(SvefakturaConversionSettings settings, SvefakturaFormatter formatter)
+        protected SvefakturaBuilder(SvefakturaConversionSettings settings, SvefakturaFormatter formatter)
         {
             Settings = settings;
             Formatter = formatter;
         }
 
         public SvefakturaConversionSettings Settings { get; set; }
+
         public SvefakturaFormatter Formatter { get; set; }
 
         public BuildSourceContext<TDestination> Build<TDestination>() where TDestination : new()
@@ -53,33 +54,6 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
             return value == null ? null : new TEntity { Value = value };
         }
 
-        protected virtual bool AllAreNullOrEmpty(params object[] args)
-        {
-            return args.Where(value => value != null)
-                    .Where(value => !(value is string) || !HasNotBeenSet(value as string))
-                    .All(value => value is decimal? && HasNotBeenSet(value as decimal?));
-        }
-
-        protected virtual bool HasNotBeenSet(string value)
-        {
-            return string.IsNullOrEmpty(value);
-        }
-
-        protected virtual bool HasNotBeenSet(decimal? value)
-        {
-            return !value.HasValue;
-        }
-
-        protected virtual bool HasNotBeenSet(DateTime value)
-        {
-            return value.Equals(DateTime.MinValue);
-        }
-
-        protected virtual bool OneOrMoreHaveValue(params object[] args)
-        {
-            return !AllAreNullOrEmpty(args);
-        }
-
         protected virtual SFTICountryType GetSwedishCountry()
         {
             return new SFTICountryType
@@ -107,6 +81,32 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
             }
 
             return null;
+        }
+
+        protected virtual T GetAmountInSEK<T>(double value) where T : UBLAmountType, new()
+        {
+            return GetAmountInSEK<T>((decimal)value);
+        }
+
+        protected virtual T GetAmountInSEK<T>(decimal value) where T : UBLAmountType, new()
+        {
+            return new T { Value = value, amountCurrencyID = "SEK" };
+        }
+
+        protected virtual IdentifierType GetIdentifier(string value)
+        {
+            return new IdentifierType { Value = Formatter.FormatTaxAccountingCode(value) };
+        }
+
+        protected virtual IdentifierType GetIdentifier(string value, Func<string, string> formatterFunction)
+        {
+            return GetIdentifier(formatterFunction(value));
+        }
+
+        protected virtual IdentifierType GetIdentifier(Func<SvefakturaConversionSettings, string> settingsValue, Func<string, string> formatterFunction)
+        {
+            var value = settingsValue(Settings);
+            return GetIdentifier(formatterFunction(value));
         }
     }
 }

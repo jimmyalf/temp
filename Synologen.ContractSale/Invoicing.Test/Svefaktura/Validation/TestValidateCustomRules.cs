@@ -1,74 +1,89 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
-using AmountType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.AmountType;
-using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
+using AmountType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.AmountType;
+using QuantityType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
-namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
+namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.Validation 
+{
 	[TestFixture]
 	public class TestValidateCustomRules : AssertionHelper
 	{
-
 		[Ignore("Cannot find such validation functionality")]
-		public void Test_Invoice_Missing_TaxPointDate_Fails_Validation() {
+		public void Test_Invoice_Missing_TaxPointDate_Fails_Validation() 
+        {
 		    var invoice = new SFTIInvoiceType { TaxPointDate = null };
 		    var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoice));
-			Expect(ruleViolations.Where(x => x.PropertyName.Equals("SFTIInvoiceType.TaxPointDate")).Count(), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
+			Expect(ruleViolations.Count(x => x.PropertyName.Equals("SFTIInvoiceType.TaxPointDate")), Is.EqualTo(1), SvefakturaValidator.FormatRuleViolations(ruleViolations));
 		}
+
 		[Ignore("Cannot find such validation functionality")]
-		public void Test_Invoice_Missing_TaxCurrencyCode_Fails_Validation() {
+		public void Test_Invoice_Missing_TaxCurrencyCode_Fails_Validation()
+        {
 		    var invoice = new SFTIInvoiceType { TaxCurrencyCode = null };
 		    var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoice));
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceType.TaxCurrencyCode"));
 		    Expect(ruleViolationFound, Is.True);
 		}
+
 		[Test]
-		public void Test_Invoice_Of_Credit_Type_Missing_RequisitionistDocumentReference_Fails_Validation() {
-		    var invoiceCredit = new SFTIInvoiceType {InvoiceTypeCode = new CodeType{Value = "381"}};
+		public void Test_Invoice_Of_Credit_Type_Missing_RequisitionistDocumentReference_Fails_Validation()
+		{
+		    var invoiceCredit = new SFTIInvoiceType { InvoiceTypeCode = new CodeType { Value = "381" } };
 		    var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoiceCredit));
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceType.InitialInvoiceDocumentReference"));
 		    Expect(ruleViolationFound, Is.True);
 		}
+
 		[Test]
-		public void Test_Invoice_Of_Debit_Type_Missing_RequisitionistDocumentReference_ValidateObjects() {
-		    var invoiceDebit = new SFTIInvoiceType {InvoiceTypeCode = new CodeType{Value = "380"}};
+		public void Test_Invoice_Of_Debit_Type_Missing_RequisitionistDocumentReference_ValidateObjects()
+		{
+		    var invoiceDebit = new SFTIInvoiceType { InvoiceTypeCode = new CodeType { Value = "380" } };
 		    var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoiceDebit));
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceType.InitialInvoiceDocumentReference"));
 		    Expect(ruleViolationFound, Is.False);
 		}
+
 		[Test]
-		public void Test_Invoice_Missing_InvoiceLine_InvoicedQuantity_Fails_Validation() {
-		    var invoice = new SFTIInvoiceType {  InvoiceLine = new List<SFTIInvoiceLineType> { new SFTIInvoiceLineType { InvoicedQuantity = null } } };
+		public void Test_Invoice_Missing_InvoiceLine_InvoicedQuantity_Fails_Validation() 
+        {
+		    var invoice = new SFTIInvoiceType { InvoiceLine = new List<SFTIInvoiceLineType> { new SFTIInvoiceLineType { InvoicedQuantity = null } } };
 		    var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoice));
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceLineType.InvoicedQuantity"));
 		    Expect(ruleViolationFound, Is.True);
 		}
+
 		[Test]
-		public void Test_Invoice_Missing_InvoiceLine_Item_Description_Fails_Validation() {
-		    var invoice = new SFTIInvoiceType { 
-		        InvoiceLine = new List<SFTIInvoiceLineType> {
-		            new SFTIInvoiceLineType {
-		                Item = new SFTIItemType{ Description = null}
-		            }
+		public void Test_Invoice_Missing_InvoiceLine_Item_Description_Fails_Validation()
+		{
+		    var invoice = new SFTIInvoiceType
+		    {
+		        InvoiceLine = new List<SFTIInvoiceLineType>
+		        {
+		            new SFTIInvoiceLineType { Item = new SFTIItemType { Description = null } }
 		        }
 		    };
 		    var ruleViolations = new List<RuleViolation>(SvefakturaValidator.ValidateObject(invoice));
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIItemType.Description"));
 		    Expect(ruleViolationFound, Is.True);
 		}
+
 		[Test]
-		public void Test_Invoice_Missing_InvoiceLine_Item_Description_But_Has_InvoiceLine_Note_ValidateObjects() {
-		    var invoice = new SFTIInvoiceType { 
-		        InvoiceLine = new List<SFTIInvoiceLineType> {
-		            new SFTIInvoiceLineType {
-		                Item = new SFTIItemType{ Description = null},
-		                Note = new NoteType{Value = "Article free-text"}
+		public void Test_Invoice_Missing_InvoiceLine_Item_Description_But_Has_InvoiceLine_Note_ValidateObjects()
+		{
+		    var invoice = new SFTIInvoiceType
+		    {
+		        InvoiceLine = new List<SFTIInvoiceLineType>
+		        {
+		            new SFTIInvoiceLineType
+		            {
+		                Item = new SFTIItemType { Description = null },
+		                Note = new NoteType { Value = "Article free-text" }
 		            }
 		        }
 		    };
@@ -76,13 +91,23 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIItemType.Description"));
 		    Expect(ruleViolationFound, Is.False);
 		}
+
 		[Test]
-		public void Test_Invoice_Missing_SellerParty_Party_PartyTaxScheme_SWT_ExemptionReason() {
-		    var invoice = new SFTIInvoiceType { 
-		        SellerParty = new SFTISellerPartyType{ 
-		            Party = new SFTIPartyType{ 
-		                PartyTaxScheme = new List<SFTIPartyTaxSchemeType> {
-		                    new SFTIPartyTaxSchemeType { ExemptionReason = null, TaxScheme = new SFTITaxSchemeType{ID=new IdentifierType{Value="SWT"}} }
+		public void Test_Invoice_Missing_SellerParty_Party_PartyTaxScheme_SWT_ExemptionReason()
+		{
+		    var invoice = new SFTIInvoiceType
+		    {
+		        SellerParty = new SFTISellerPartyType
+		        {
+		            Party = new SFTIPartyType
+		            {
+		                PartyTaxScheme = new List<SFTIPartyTaxSchemeType>
+		                {
+		                    new SFTIPartyTaxSchemeType
+		                    {
+		                        ExemptionReason = null,
+		                        TaxScheme = new SFTITaxSchemeType { ID = new IdentifierType { Value = "SWT" } }
+		                    }
 		                }
 		            }
 		        }
@@ -93,7 +118,8 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 		}
 
 		[Ignore("Cannot find such validation functionality")]
-		public void Test_Invoice_Missing_BuyerParty_Party_PartyTaxScheme_SWT_ExemptionReason() {
+		public void Test_Invoice_Missing_BuyerParty_Party_PartyTaxScheme_SWT_ExemptionReason() 
+        {
 		    var invoice = new SFTIInvoiceType { 
 		        BuyerParty = new SFTIBuyerPartyType{ 
 		            Party = new SFTIPartyType{ 
@@ -109,8 +135,9 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 		}
 
 		#region Controls
-				[Test]
-		public void Test_Invoice_InvoiceLine_With_Incorrect_LineExtensionAmount_Fails_Validation() {
+        [Test]
+		public void Test_Invoice_InvoiceLine_With_Incorrect_LineExtensionAmount_Fails_Validation() 
+        {
 		    var invoice = new SFTIInvoiceType { 
 		        InvoiceLine = new List<SFTIInvoiceLineType> {
 		            new SFTIInvoiceLineType { 
@@ -128,8 +155,10 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceLineType.LineExtensionAmount"));
 		    Expect(ruleViolationFound, Is.True);
 		}
+
 		[Test]
-		public void Test_Invoice_InvoiceLine_With_Correct_LineExtensionAmount_ValidateObjects() {
+		public void Test_Invoice_InvoiceLine_With_Correct_LineExtensionAmount_ValidateObjects() 
+        {
 		    var invoice = new SFTIInvoiceType { 
 		        InvoiceLine = new List<SFTIInvoiceLineType> {
 		            new SFTIInvoiceLineType { 
@@ -147,8 +176,10 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceLineType.LineExtensionAmount"));
 		    Expect(ruleViolationFound, Is.False);
 		}
+
 		[Test]
-		public void Test_Invoice_LegalTotal_With_Incorrect_LineExtensionTotalAmount_Fails_Validation() {
+		public void Test_Invoice_LegalTotal_With_Incorrect_LineExtensionTotalAmount_Fails_Validation() 
+        {
 		    var invoice = new SFTIInvoiceType { 
 		        InvoiceLine = new List<SFTIInvoiceLineType> {
 		            new SFTIInvoiceLineType { LineExtensionAmount = new ExtensionAmountType{Value = 123.45m} },
@@ -162,8 +193,10 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTILegalTotalType.LineExtensionTotalAmount"));
 		    Expect(ruleViolationFound, Is.True);
 		}
+
 		[Test]
-		public void Test_Invoice_LegalTotal_With_Correct_LineExtensionTotalAmount_ValidateObjects() {
+		public void Test_Invoice_LegalTotal_With_Correct_LineExtensionTotalAmount_ValidateObjects() 
+        {
 		    var invoice = new SFTIInvoiceType { 
 		        InvoiceLine = new List<SFTIInvoiceLineType> {
 		            new SFTIInvoiceLineType { LineExtensionAmount = new ExtensionAmountType{Value = 123.45m} },
@@ -177,8 +210,10 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTILegalTotalType.LineExtensionTotalAmount"));
 		    Expect(ruleViolationFound, Is.False);
 		}
+
 		[Test]
-		public void Test_Invoice_LegalTotal_With_Incorrect_TaxInclusiceTotalAmount_Fails_Validation() {
+		public void Test_Invoice_LegalTotal_With_Incorrect_TaxInclusiceTotalAmount_Fails_Validation() 
+        {
 		    var invoice = new SFTIInvoiceType { 
 		        LegalTotal = new SFTILegalTotalType {
 		            LineExtensionTotalAmount = new ExtensionTotalAmountType{Value = 25.50m},
@@ -194,8 +229,10 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTILegalTotalType.TaxInclusiveTotalAmount"));
 		    Expect(ruleViolationFound, Is.True);
 		}
+
 		[Test]
-		public void Test_Invoice_LegalTotal_With_Correct_TaxInclusiceTotalAmount_ValidateObjects() {
+		public void Test_Invoice_LegalTotal_With_Correct_TaxInclusiceTotalAmount_ValidateObjects() 
+        {
 		    var invoice = new SFTIInvoiceType { 
 		        LegalTotal = new SFTILegalTotalType {
 		            LineExtensionTotalAmount = new ExtensionTotalAmountType{Value = 25.50m},
@@ -211,8 +248,10 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTILegalTotalType.TaxInclusiveTotalAmount"));
 		    Expect(ruleViolationFound, Is.False);
 		}
+
 		[Test]
-		public void Test_Invoice_With_Incorrect_LineItemCountNumeric_Fails_Validation() {
+		public void Test_Invoice_With_Incorrect_LineItemCountNumeric_Fails_Validation() 
+        {
 		    var invoice = new SFTIInvoiceType {
 		        InvoiceLine = new List<SFTIInvoiceLineType>{new SFTIInvoiceLineType(), new SFTIInvoiceLineType(), new SFTIInvoiceLineType()},
 		        LineItemCountNumeric = new LineItemCountNumericType{Value = 4}
@@ -221,8 +260,10 @@ namespace Spinit.Wpc.Synologen.Test.Svefaktura.Validation {
 		    var ruleViolationFound = ruleViolations.Exists(x => x.PropertyName.Equals("SFTIInvoiceType.LineItemCountNumeric"));
 		    Expect(ruleViolationFound, Is.True);
 		}
+
 		[Test]
-		public void Test_Invoice_With_Correct_LineItemCountNumeric_ValidateObjects() {
+		public void Test_Invoice_With_Correct_LineItemCountNumeric_ValidateObjects() 
+        {
 		    var invoice = new SFTIInvoiceType {
 		        InvoiceLine = new List<SFTIInvoiceLineType>{new SFTIInvoiceLineType(), new SFTIInvoiceLineType(), new SFTIInvoiceLineType()},
 		        LineItemCountNumeric = new LineItemCountNumericType{Value = 3}

@@ -93,7 +93,8 @@
     <Compile Include="Svefaktura\Helpers\BuildSourceContext.cs" />
     <Compile Include="Svefaktura\Helpers\SFTIEntityBuilder.cs" />
     <Compile Include="Svefaktura\Helpers\TypedEntityFiller.cs" />
-    <Compile Include="Svefaktura\SvefakturaBuilderBase.cs" />
+    <Compile Include="Svefaktura\Helpers\TypedTextFiller.cs" />
+    <Compile Include="Svefaktura\SvefakturaBuilder.cs" />
     <Compile Include="Svefaktura\ISvefakturaBuilder.cs" />
     <Compile Include="Svefaktura\Builders\SellerPartyBuilder.cs" />
     <Compile Include="Svefaktura\SvefakturaFormatter.cs" />

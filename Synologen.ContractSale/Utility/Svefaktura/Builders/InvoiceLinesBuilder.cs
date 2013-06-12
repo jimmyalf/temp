@@ -13,7 +13,7 @@ using QuantityType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicCom
 
 namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
 {
-    public class InvoiceLinesBuilder : SvefakturaBuilderBase, ISvefakturaBuilder
+    public class InvoiceLinesBuilder : SvefakturaBuilder, ISvefakturaBuilder
     {
         public InvoiceLinesBuilder(SvefakturaConversionSettings settings, SvefakturaFormatter formatter)
             : base(settings, formatter) { }
@@ -23,6 +23,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
             invoice.InvoiceLine = order.OrderItems.Select(Convert).ToList();
             invoice.LineItemCountNumeric = new LineItemCountNumericType { Value = invoice.InvoiceLine.Count };
             invoice.TaxTotal = GetTaxTotal(invoice.InvoiceLine);
+            invoice.LegalTotal = GetLegalTotal(invoice.TaxTotal, order);
         }
 
         public SFTIInvoiceLineType Convert(IOrderItem orderItem, int index)
@@ -35,6 +36,37 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
                 ID = GetItemId(index + 1),
                 Note = GetTextEntity<NoteType>(orderItem.Notes)
             };            
+        }
+
+
+        protected virtual SFTILegalTotalType GetLegalTotal(List<SFTITaxTotalType> taxTotals, IOrder order)
+        {
+            if (order.InvoiceSumIncludingVAT <= 0 && order.InvoiceSumExcludingVAT <= 0)
+            {
+                return null;
+            }
+
+            var taxTotal = taxTotals.Where(x => x.TotalTaxAmount != null).Sum(x => x.TotalTaxAmount.Value);
+            var legalTotal = new SFTILegalTotalType
+            {
+                LineExtensionTotalAmount = GetLineExtensionAmount(order),
+                TaxExclusiveTotalAmount = GetAmountInSEK<TotalAmountType>(order.InvoiceSumExcludingVAT),
+                TaxInclusiveTotalAmount = GetAmountInSEK<TotalAmountType>(order.InvoiceSumIncludingVAT),
+            };
+
+            var roundOff = legalTotal.TaxInclusiveTotalAmount.Value - (taxTotal + legalTotal.TaxExclusiveTotalAmount.Value);
+            if (roundOff != 0)
+            {
+                legalTotal.RoundOffAmount = new AmountType { Value = roundOff };
+            }
+
+            return legalTotal;
+        }
+
+        protected virtual ExtensionTotalAmountType GetLineExtensionAmount(IOrder order)
+        {
+            var result = (decimal)order.OrderItems.Sum(x => x.DisplayTotalPrice);
+            return (result <= 0) ? null : GetAmountInSEK<ExtensionTotalAmountType>(result);
         }
 
         protected virtual List<SFTITaxTotalType> GetTaxTotal(List<SFTIInvoiceLineType> invoiceLines)

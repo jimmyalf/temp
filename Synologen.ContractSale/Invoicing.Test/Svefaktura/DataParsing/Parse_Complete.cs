@@ -101,7 +101,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 			};
 			_settings = Factory.GetSettings();
 
-			_invoice = Convert.ToSvefakturaInvoice_Alt(_settings, _order);
+			_invoice = Convert.ToSvefakturaInvoice(_settings, _order);
 		}
 
 		#region Order

@@ -18,7 +18,8 @@ using QuantityType=Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicCompo
 
 namespace Spinit.Wpc.Synologen.Invoicing
 {
-	public static partial class Convert
+    [Obsolete("This class was previously used to generate svefaktura invoices")]
+	public static class Svefaktura_Convert_Old
 	{
 
 		private static void TryAddTaxTotal(SFTIInvoiceType invoice, SvefakturaConversionSettings settings) 
@@ -522,5 +523,24 @@ namespace Spinit.Wpc.Synologen.Invoicing
 			return allowanceChargeType.TaxCategory[0].Percent.Value;
 		}
 		#endregion
+
+        public static bool AllAreNullOrEmpty(params object[] args)
+        {
+            foreach (var value in args)
+            {
+                if (value == null) continue;
+                if (value is string && HasNotBeenSet(value as string)) continue;
+                if (value is decimal? && HasNotBeenSet(value as decimal?)) continue;
+                return false;
+            }
+            return true;
+        }
+        public static bool HasNotBeenSet(string value) { return String.IsNullOrEmpty(value); }
+        public static bool HasNotBeenSet(decimal? value) { return !value.HasValue; }
+        public static bool HasNotBeenSet(DateTime value) { return value.Equals(DateTime.MinValue); }
+        public static bool OneOrMoreHaveValue(params object[] args)
+        {
+            return !AllAreNullOrEmpty(args);
+        }
 	}
 }

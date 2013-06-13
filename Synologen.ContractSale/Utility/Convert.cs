@@ -13,71 +13,55 @@ namespace Spinit.Wpc.Synologen.Invoicing
 	public static partial class Convert 
     {
 
-		public static Invoice ToEDIInvoice(EDIConversionSettings EDISettings, IOrder order) 
+		public static Invoice ToEDIInvoice(EDIConversionSettings ediSettings, IOrder order) 
         {
 			var invoiceValueIncludingVAT = System.Convert.ToSingle(order.InvoiceSumIncludingVAT);
 			var invoiceValueExcludingVAT = System.Convert.ToSingle(order.InvoiceSumExcludingVAT);
-			var interchangeHeader = new InterchangeHeader {RecipientId = order.ContractCompany.EDIRecipientId, SenderId = EDISettings.SenderId};
+			var interchangeHeader = new InterchangeHeader {RecipientId = order.ContractCompany.EDIRecipientId, SenderId = ediSettings.SenderId};
 			var invoiceExpieryDate = interchangeHeader.DateOfPreparation.AddDays(order.ContractCompany.PaymentDuePeriod);
-			var invoice = new Invoice(EDISettings.VATAmount, EDISettings.NumberOfDecimalsUsedAtRounding, invoiceValueIncludingVAT, invoiceValueExcludingVAT)
+			var invoice = new Invoice(ediSettings.VATAmount, ediSettings.NumberOfDecimalsUsedAtRounding, invoiceValueIncludingVAT, invoiceValueExcludingVAT)
 			{
-				Articles = ToEDIArticles(order.OrderItems, order /*, order.ContractCompany*/),
+				Articles = ToEDIArticles(order.OrderItems, order),
 				Buyer = GetBuyerInformation(order.ContractCompany.EDIRecipientId, order.ContractCompany),
-				BuyerOrderNumber = String.Empty,
+				BuyerOrderNumber = string.Empty,
 				BuyerRSTNumber = order.RstText,
 				DocumentNumber = order.InvoiceNumber.ToString(),
 				InterchangeHeader = interchangeHeader,
 				InvoiceCreatedDate = order.CreatedDate,
-				InvoiceSetting = new InvoiceSetting {InvoiceCurrency = EDISettings.InvoiceCurrencyCode, InvoiceExpiryDate = invoiceExpieryDate},
+				InvoiceSetting = new InvoiceSetting {InvoiceCurrency = ediSettings.InvoiceCurrencyCode, InvoiceExpiryDate = invoiceExpieryDate},
 				VendorOrderNumber = order.Id.ToString(),
-				Supplier = GetSupplierInformation(EDISettings.SenderId, EDISettings.BankGiro, EDISettings.Postgiro, order.SellingShop)
+				Supplier = GetSupplierInformation(ediSettings.SenderId, ediSettings.BankGiro, ediSettings.Postgiro, order.SellingShop)
 			};
 			return invoice;
 		}
 
-		public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, IOrder order) 
-        {
-			var invoice = new SFTIInvoiceType();
-			TryAddSellerParty(invoice, settings, order.SellingShop);
-			TryAddBuyerParty(invoice, order.ContractCompany, order);
-			TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankgiroBankIdentificationCode, order.ContractCompany, settings);
-			TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode, order.ContractCompany, settings);
-			TryAddInvoiceLines(settings, invoice, order.OrderItems, settings.VATAmount);
-			TryAddGeneralInvoiceInformation(invoice, settings, order, order.OrderItems);
-			TryAddPaymentTerms(invoice, settings, order.ContractCompany);
-			return invoice;
-		}
-
-        public static SFTIInvoiceType ToSvefakturaInvoice_Alt(SvefakturaConversionSettings settings, IOrder order)
+        /*
+        public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, IOrder order)
         {
             var invoice = new SFTIInvoiceType();
-            var formatter = new SvefakturaFormatter();
+            TryAddSellerParty(invoice, settings, order.SellingShop);
+            TryAddBuyerParty(invoice, order.ContractCompany, order);
+            TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankgiroBankIdentificationCode, order.ContractCompany, settings);
+            TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode, order.ContractCompany, settings);
+            TryAddInvoiceLines(settings, invoice, order.OrderItems, settings.VATAmount);
+            TryAddGeneralInvoiceInformation(invoice, settings, order, order.OrderItems);
+            TryAddPaymentTerms(invoice, settings, order.ContractCompany);
+            return invoice;
+        }
+        */
+
+        // Replaced old static building of invoice with a more flexible solution
+        public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, IOrder order, SvefakturaFormatter formatter = null)
+        {
+            var invoice = new SFTIInvoiceType();
+            formatter = formatter ?? new SvefakturaFormatter();
             new SellerPartyBuilder(settings, formatter).Build(order, invoice);
             new BuyerPartyBuilder(settings, formatter).Build(order, invoice);
             new PaymentMeansBuilder(settings, formatter).Build(order, invoice);
             new InvoiceLinesBuilder(settings, formatter).Build(order, invoice);
             new InvoiceInformationBuilder(settings, formatter).Build(order, invoice);
             new PaymentTermsBuilder(settings, formatter).Build(order, invoice);
-            return invoice;            
-        }
-
-        public static bool AllAreNullOrEmpty(params object[] args)
-        {
-            foreach (var value in args)
-            {
-                if (value == null) continue;
-                if (value is string && HasNotBeenSet(value as string)) continue;
-                if (value is decimal? && HasNotBeenSet(value as decimal?)) continue;
-                return false;
-            }
-            return true;
-        }
-        public static bool HasNotBeenSet(string value) { return String.IsNullOrEmpty(value); }
-        public static bool HasNotBeenSet(decimal? value) { return !value.HasValue; }
-        public static bool HasNotBeenSet(DateTime value) { return value.Equals(DateTime.MinValue); }
-        public static bool OneOrMoreHaveValue(params object[] args)
-        {
-            return !AllAreNullOrEmpty(args);
+            return invoice;
         }
 	}
 }

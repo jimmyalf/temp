@@ -12,7 +12,6 @@ namespace Spinit.Wpc.Synologen.Invoicing
 {
 	public static partial class Convert 
     {
-
 		public static Invoice ToEDIInvoice(EDIConversionSettings ediSettings, IOrder order) 
         {
 			var invoiceValueIncludingVAT = System.Convert.ToSingle(order.InvoiceSumIncludingVAT);
@@ -35,20 +34,18 @@ namespace Spinit.Wpc.Synologen.Invoicing
 			return invoice;
 		}
 
-        /*
-        public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, IOrder order)
+        public static SFTIInvoiceType ToSvefakturaInvoice_Old(SvefakturaConversionSettings settings, IOrder order)
         {
             var invoice = new SFTIInvoiceType();
-            TryAddSellerParty(invoice, settings, order.SellingShop);
-            TryAddBuyerParty(invoice, order.ContractCompany, order);
-            TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankgiroBankIdentificationCode, order.ContractCompany, settings);
-            TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode, order.ContractCompany, settings);
-            TryAddInvoiceLines(settings, invoice, order.OrderItems, settings.VATAmount);
-            TryAddGeneralInvoiceInformation(invoice, settings, order, order.OrderItems);
-            TryAddPaymentTerms(invoice, settings, order.ContractCompany);
+            Svefaktura_Convert_Old.TryAddSellerParty(invoice, settings, order.SellingShop);
+            Svefaktura_Convert_Old.TryAddBuyerParty(invoice, order.ContractCompany, order);
+            Svefaktura_Convert_Old.TryAddPaymentMeans(invoice, settings.BankGiro, settings.BankgiroBankIdentificationCode, order.ContractCompany, settings);
+            Svefaktura_Convert_Old.TryAddPaymentMeans(invoice, settings.Postgiro, settings.PostgiroBankIdentificationCode, order.ContractCompany, settings);
+            Svefaktura_Convert_Old.TryAddInvoiceLines(settings, invoice, order.OrderItems, settings.VATAmount);
+            Svefaktura_Convert_Old.TryAddGeneralInvoiceInformation(invoice, settings, order, order.OrderItems);
+            Svefaktura_Convert_Old.TryAddPaymentTerms(invoice, settings, order.ContractCompany);
             return invoice;
         }
-        */
 
         // Replaced old static building of invoice with a more flexible solution
         public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, IOrder order, SvefakturaFormatter formatter = null)

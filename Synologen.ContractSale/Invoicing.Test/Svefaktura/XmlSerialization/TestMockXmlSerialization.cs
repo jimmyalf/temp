@@ -8,7 +8,6 @@ using System.Xml.XPath;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Invoicing;
 using Spinit.Wpc.Synologen.Invoicing.Test.App;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
@@ -16,9 +15,8 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
-using Convert=Spinit.Wpc.Synologen.Invoicing.Convert;
 
-namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
+namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.XmlSerialization
 {
 	[TestFixture]
 	public class TestMockXmlSerialization : AssertionHelper 
@@ -26,9 +24,8 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 		private const int SwedenCountryCodeNumber = 187;
 
 		[TestFixtureSetUp]
-		public void Setup() {}
+		public void Setup() { }
 
-		
 		[Test]
 		public void Test_MockInvoice_Is_Valid() 
 		{
@@ -40,7 +37,15 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 		[Test]
 		public void Text_Xml_Output_Of_InvoiceList_Has_Multiple_Invoices()
 		{
-			var invoices = new SFTIInvoiceList{Invoices=new List<SFTIInvoiceType>{GetMockInvoice(),GetMockInvoice()}};
+			var invoices = new SFTIInvoiceList
+			{
+			    Invoices = new List<SFTIInvoiceType>
+			    {
+			        GetMockInvoice(),
+                    GetMockInvoice()
+			    }
+			};
+
 			var output = SvefakturaSerializer.Serialize(invoices, Encoding.UTF8, "\r\n", Formatting.Indented, null);
 			Debug.WriteLine(output);
 			var invoiceNodes = GetMatches(output, "/bai:Invoices/bai:Invoice");
@@ -51,53 +56,55 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 		public void Test_Xml_Output_Of_Invoice_Has_Correct_Encoding() 
 		{
 			var invoice = GetMockInvoice();
-			var output = SvefakturaSerializer.Serialize(invoice, Encoding.GetEncoding("iso-8859-1"), String.Empty, Formatting.None, null);
+			var output = SvefakturaSerializer.Serialize(invoice, Encoding.GetEncoding("iso-8859-1"), string.Empty, Formatting.None, null);
 			Expect(Regex.IsMatch(output, "<\\?xml.*encoding=\"iso-8859-1\".*\\?>"), Is.True);
 		}
+
 		[Test]
 		public void Test_Xml_Output_Of_InvoiceList_Has_Correct_Encoding() 
 		{
-			var invoices = new SFTIInvoiceList{Invoices=new List<SFTIInvoiceType>{GetMockInvoice(),GetMockInvoice()}};
-			var output = SvefakturaSerializer.Serialize(invoices, Encoding.GetEncoding("iso-8859-1"), String.Empty, Formatting.None, null);
+			var invoices = new SFTIInvoiceList
+			{
+			    Invoices = new List<SFTIInvoiceType>
+			    {
+			        GetMockInvoice(),
+                    GetMockInvoice()
+			    }
+			};
+			var output = SvefakturaSerializer.Serialize(invoices, Encoding.GetEncoding("iso-8859-1"), string.Empty, Formatting.None, null);
 			Expect(Regex.IsMatch(output, "<\\?xml.*encoding=\"iso-8859-1\".*\\?>"), Is.True);
 		}
+
 		[Test]
 		public void Test_Xml_Output_Of_Invoice_Contains_PostOfficeHeader() 
 		{
-			const string postOfficeheader = "<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>";
+			const string PostOfficeheader = "<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>";
 			var invoice = GetMockInvoice();
-			var output = SvefakturaSerializer.Serialize(invoice, Encoding.UTF8, String.Empty, Formatting.None, postOfficeheader);
-			Expect(output.Contains(postOfficeheader));
+			var output = SvefakturaSerializer.Serialize(invoice, Encoding.UTF8, string.Empty, Formatting.None, PostOfficeheader);
+			Expect(output.Contains(PostOfficeheader));
 		}
+
 		[Test]
 		public void Test_Xml_Output_Of_InvoiceList_Contains_PostOfficeHeader() 
 		{
-			const string postOfficeheader = "<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>";
-			var invoices = new SFTIInvoiceList{Invoices=new List<SFTIInvoiceType>{GetMockInvoice(),GetMockInvoice()}};
-			var output = SvefakturaSerializer.Serialize(invoices, Encoding.UTF8, String.Empty, Formatting.None, postOfficeheader);
-			Expect(output.Contains(postOfficeheader));
+			const string PostOfficeheader = "<?POSTNET SND=\"AVSADRESS\" REC=\"MOTADRESS\" MSGTYPE=\"MEDDELANDETYP\"?>";
+			var invoices = new SFTIInvoiceList
+			{
+			    Invoices = new List<SFTIInvoiceType>
+			    {
+			        GetMockInvoice(),
+                    GetMockInvoice()
+			    }
+			};
+			var output = SvefakturaSerializer.Serialize(invoices, Encoding.UTF8, string.Empty, Formatting.None, PostOfficeheader);
+			Expect(output.Contains(PostOfficeheader));
 		}
 
 
-		private static XPathNodeIterator GetMatches(string xmlData, string path)
-		{
-			var doc = new XmlDocument();
-			doc.LoadXml(xmlData);
-			var navigator = doc.CreateNavigator();
-			var manager = new XmlNamespaceManager(navigator.NameTable);
-			manager.AddNamespace("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
-			manager.AddNamespace("cur", "urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0");
-			manager.AddNamespace("ccts", "urn:oasis:names:tc:ubl:CoreComponentParameters:1:0");
-			manager.AddNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-			manager.AddNamespace("udt", "urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0");
-			manager.AddNamespace("sdt", "urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0");
-			manager.AddNamespace("cac", "urn:sfti:CommonAggregateComponents:1:0");
-			manager.AddNamespace("bai","urn:sfti:documents:BasicInvoice:1:0");
-			return navigator.Select(path, manager);
-		}
 
 		#region Get Mock Data
-		public SFTIInvoiceType GetMockInvoice() {
+		public SFTIInvoiceType GetMockInvoice() 
+        {
 			var settings = GetMockSettings();
 			var order = GetMockOrder();
 			order.ContractCompany = GetMockCompany();
@@ -105,7 +112,9 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 			order.OrderItems = GetMockOrderItems();
 			return Convert.ToSvefakturaInvoice(settings, order);
 		}
-		public Shop GetMockShop() {
+
+		public Shop GetMockShop() 
+        {
 			return new Shop
 			{
 				ContactFirstName = "Adam",
@@ -122,8 +131,11 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 
 			};
 		}
-		public Company GetMockCompany() {
-			return new Company {
+
+		public Company GetMockCompany() 
+        {
+			return new Company 
+            {
 				Id = 45,
 				InvoiceFreeTextFormat =
 					"Kundens namn: {CustomerName}\r\n"
@@ -141,13 +153,19 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 				PostBox = "Box 123",
 				Zip = "11000",
 				PaymentDuePeriod = 30,
-				Country = new Country {OrganizationCountryCodeId = SwedenCountryCodeNumber, Name="Sverige"},
+				Country = new Country
+				{
+				    OrganizationCountryCodeId = SwedenCountryCodeNumber, 
+                    Name = "Sverige"
+				},
 				BankCode = "99998",
 				OrganizationNumber = "555123456",
 				TaxAccountingCode = "SE555123456",
 			};
 		}
-		public SvefakturaConversionSettings GetMockSettings() {
+
+		public SvefakturaConversionSettings GetMockSettings() 
+        {
 			return new SvefakturaConversionSettings
 			{
 				InvoiceIssueDate = new DateTime(2003, 09, 11),
@@ -156,37 +174,63 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 				SellingOrganizationName = "Synhälsan Svenska AB",
 				Adress = new SFTIAddressType
 				{
-					StreetName = new StreetNameType{ Value = "Strandbergsgatan 61"},
-					CityName = new CityNameType{ Value = "Stockholm" },
-                    Country  = new SFTICountryType{ IdentificationCode = new CountryIdentificationCodeType{ Value = CountryIdentificationCodeContentType.SE, name="Sverige" } },
-					PostalZone = new ZoneType{ Value = "11251"}
+					StreetName = new StreetNameType
+					{
+					    Value = "Strandbergsgatan 61"
+					},
+					CityName = new CityNameType
+					{
+					    Value = "Stockholm"
+					},
+                    Country  = new SFTICountryType
+                    {
+                        IdentificationCode = new CountryIdentificationCodeType
+                        {
+                            Value = CountryIdentificationCodeContentType.SE, 
+                            name = "Sverige"
+                        }
+                    },
+					PostalZone = new ZoneType
+					{
+					    Value = "11251"
+					}
 				},
 				RegistrationAdress = new SFTIAddressType
 				{
-					CityName = new CityNameType{ Value = "Klippan" },
-                    Country  = new SFTICountryType{ IdentificationCode = new CountryIdentificationCodeType{ Value = CountryIdentificationCodeContentType.SE, name="Sverige" } },
+					CityName = new CityNameType
+					{
+					    Value = "Klippan"
+					},
+                    Country  = new SFTICountryType
+                    {
+                        IdentificationCode = new CountryIdentificationCodeType
+                        {
+                            Value = CountryIdentificationCodeContentType.SE, 
+                            name = "Sverige"
+                        }
+                    },
 				},
 				ExemptionReason = "F-skattebevis finns",
 				SellingOrganizationNumber = "5562626100",
 				TaxAccountingCode = "SE556262610001",
 				Contact = new SFTIContactType
 				{
-					ElectronicMail = new MailType{Value = "info@synologen.se"},
-					Name = new NameType{Value = "Violetta Nordlöf"},
-					Telefax = new TelefaxType{Value = "08-4407359"},
-					Telephone = new TelephoneType{Value = "08-55536253"}
+					ElectronicMail = new MailType { Value = "info@synologen.se" },
+					Name = new NameType { Value = "Violetta Nordlöf" },
+					Telefax = new TelefaxType { Value = "08-4407359" },
+					Telephone = new TelephoneType { Value = "08-55536253"}
 				},
 				BankGiro = "56936677",
 				BankgiroBankIdentificationCode = "SKIASESS",
 				InvoicePaymentTermsTextFormat = "{InvoiceNumberOfDueDays} dagars netto",
 				InvoiceExpieryPenaltySurchargePercent = 12.5m,
 				VATAmount = 0.25m,
-				//Postgiro = "123456789",
-				//PostgiroBankIdentificationCode = "PGSISESS",
-				//SellingOrganizationPostBox = "Box 789",
+                VATFreeReasonMessage = "Momsfri artikel"
 			};
 		}
-		public Order GetMockOrder() {
+
+		public Order GetMockOrder() 
+        {
 			return new Order
 			{
 				InvoiceNumber = 15,
@@ -200,10 +244,13 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 				PersonalIdNumber = "197001015374",
 				Phone = "08-987654",
 				RstText = "Kostnadsställe ABCD",
-				CompanyId = 987
+				CompanyId = 987,
+                CreatedDate = new DateTime(2011, 01, 01)
 			};
 		}
-		public List<OrderItem> GetMockOrderItems() {
+
+		public List<OrderItem> GetMockOrderItems()
+        {
 			return new List<OrderItem>
 			{
 				new OrderItem
@@ -228,7 +275,8 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 			};
 		}
 
-		public string GetExpectedSingleInvoiceXml() {
+		public string GetExpectedSingleInvoiceXml() 
+        {
 			return 
 				"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
 				+"<Invoice "
@@ -298,7 +346,8 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 				+"</Invoice>";
 		}
 
-		public string GetExpectedDoubleInvoiceXml() {
+		public string GetExpectedDoubleInvoiceXml()
+        {
 			return 
 				"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
 				+"<Invoices "
@@ -426,8 +475,23 @@ namespace Spinit.Wpc.Synologen.Unit.Test.Svefaktura.XmlSerialization
 				+"</Invoice>"
 				+"</Invoices>";
 		}
-
 		#endregion
 
+        private static XPathNodeIterator GetMatches(string xmlData, string path)
+        {
+            var doc = new XmlDocument();
+            doc.LoadXml(xmlData);
+            var navigator = doc.CreateNavigator();
+            var manager = new XmlNamespaceManager(navigator.NameTable);
+            manager.AddNamespace("cbc", "urn:oasis:names:tc:ubl:CommonBasicComponents:1:0");
+            manager.AddNamespace("cur", "urn:oasis:names:tc:ubl:codelist:CurrencyCode:1:0");
+            manager.AddNamespace("ccts", "urn:oasis:names:tc:ubl:CoreComponentParameters:1:0");
+            manager.AddNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+            manager.AddNamespace("udt", "urn:oasis:names:tc:ubl:UnspecializedDatatypes:1:0");
+            manager.AddNamespace("sdt", "urn:oasis:names:tc:ubl:SpecializedDatatypes:1:0");
+            manager.AddNamespace("cac", "urn:sfti:CommonAggregateComponents:1:0");
+            manager.AddNamespace("bai", "urn:sfti:documents:BasicInvoice:1:0");
+            return navigator.Select(path, manager);
+        }
 	}
 }

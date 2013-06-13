@@ -22,24 +22,6 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen {
         protected global::Spinit.Wpc.Synologen.OPQ.Site.Code.UserMessageManager userMessageManager;
         
         /// <summary>
-        /// ltHeader control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltHeader;
-        
-        /// <summary>
-        /// ltChooseUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltChooseUser;
-        
-        /// <summary>
         /// drpUsers control.
         /// </summary>
         /// <remarks>

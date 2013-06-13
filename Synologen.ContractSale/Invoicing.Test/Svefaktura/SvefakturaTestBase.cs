@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura
 
         protected virtual SFTIInvoiceType BuildCompleteInvoice(IOrder order)
         {
-            return Convert.ToSvefakturaInvoice_Alt(Settings, order);
+            return Convert.ToSvefakturaInvoice(Settings, order);
         }
 
         protected virtual TBuilder GetBuilder<TBuilder>() where TBuilder : ISvefakturaBuilder

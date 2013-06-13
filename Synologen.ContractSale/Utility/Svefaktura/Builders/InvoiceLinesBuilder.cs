@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Spinit.Extensions;
@@ -22,7 +23,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
         {
             invoice.InvoiceLine = order.OrderItems.Select(Convert).ToList();
             invoice.LineItemCountNumeric = new LineItemCountNumericType { Value = invoice.InvoiceLine.Count };
-            invoice.TaxTotal = GetTaxTotal(invoice.InvoiceLine);
+            invoice.TaxTotal = GetTaxTotal(invoice);
             invoice.LegalTotal = GetLegalTotal(invoice.TaxTotal, order);
         }
 
@@ -37,7 +38,6 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
                 Note = GetTextEntity<NoteType>(orderItem.Notes)
             };            
         }
-
 
         protected virtual SFTILegalTotalType GetLegalTotal(List<SFTITaxTotalType> taxTotals, IOrder order)
         {
@@ -69,9 +69,9 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
             return (result <= 0) ? null : GetAmountInSEK<ExtensionTotalAmountType>(result);
         }
 
-        protected virtual List<SFTITaxTotalType> GetTaxTotal(List<SFTIInvoiceLineType> invoiceLines)
+        protected virtual List<SFTITaxTotalType> GetTaxTotal(SFTIInvoiceType invoice)
         {
-            var subtotals = GetTaxSubTotals(invoiceLines);
+            var subtotals = GetTaxSubTotals(invoice);
             var totalTaxAmount = subtotals.Sum(x => x.TaxAmount.Value);
             return new List<SFTITaxTotalType>
             {
@@ -83,37 +83,56 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
             };
         }
 
-        protected virtual List<SFTITaxSubTotalType> GetTaxSubTotals(IEnumerable<SFTIInvoiceLineType> invoiceLines)
+        protected virtual List<SFTITaxSubTotalType> GetTaxSubTotals(SFTIInvoiceType invoice)
         {
-            if (invoiceLines == null)
+            var joinedLists = new List<SFTITaxSubTotalType>();
+            var allowanceChargeSubTotals = GetTaxSubTotals(invoice.AllowanceCharge, x => x.TaxCategory, GetTaxableAmount, GetTaxAmount);
+            var invoiceLinesSubTotals = GetTaxSubTotals(invoice.InvoiceLine, x => x.Item.TaxCategory, GetTaxableAmount, GetTaxAmount);
+            joinedLists.AddRange(allowanceChargeSubTotals);
+            joinedLists.AddRange(invoiceLinesSubTotals);
+            return joinedLists.GroupBy(x => x.TaxCategory.ID.Value).Select(g => new SFTITaxSubTotalType
+            {
+                TaxCategory = g.First().TaxCategory,
+                TaxableAmount = new AmountType { Value = g.Sum(p => p.TaxableAmount.Value), amountCurrencyID = "SEK" },
+                TaxAmount = new TaxAmountType { Value = g.Sum(p => p.TaxAmount.Value), amountCurrencyID = "SEK" }
+            }).ToList();
+        }
+
+        protected virtual List<SFTITaxSubTotalType> GetTaxSubTotals<T>(List<T> items, Func<T, List<SFTITaxCategoryType>> getTaxCategories, Func<T, decimal> taxableAmount, Func<T, decimal> taxAmount)
+        {
+            if (items == null)
             {
                 return new List<SFTITaxSubTotalType>();
             }
 
-            return new List<SFTITaxSubTotalType>(
-                from p in invoiceLines
-                group p by p.Item.TaxCategory
-                into g
-                select
-                    new SFTITaxSubTotalType
-                    {
-                        TaxCategory = g.Key[0],
-                        TaxableAmount = new AmountType { Value = g.Sum(p => GetTaxableAmount(p)), amountCurrencyID = "SEK" },
-                        TaxAmount = new TaxAmountType { Value = g.Sum(p => GetTaxAmount(p)), amountCurrencyID = "SEK" }
-                    });
+            return items.GroupBy(getTaxCategories).Select(g => new SFTITaxSubTotalType
+            {
+                TaxCategory = g.Key[0],
+                TaxableAmount = new AmountType { Value = g.Sum(taxableAmount), amountCurrencyID = "SEK" },
+                TaxAmount = new TaxAmountType { Value = g.Sum(taxAmount), amountCurrencyID = "SEK" }
+            }).ToList();            
         }
 
         protected virtual decimal GetTaxAmount(SFTIInvoiceLineType invoiceLine)
         {
             var taxableAmount = GetTaxableAmount(invoiceLine);
-            return taxableAmount * (GetInvoiceLineTaxPercent(invoiceLine) / 100);
+            return taxableAmount * (GetTaxPercent(invoiceLine, x => x.Item.TaxCategory) / 100);
         }
 
-        protected virtual decimal GetInvoiceLineTaxPercent(SFTIInvoiceLineType invoiceLine)
+        protected virtual decimal GetTaxAmount(SFTIAllowanceChargeType allowanceCharge)
         {
-            return invoiceLine
-                .With(x => x.Item)
-                .With(x => x.TaxCategory)
+            var taxableAmount = GetTaxableAmount(allowanceCharge);
+            return taxableAmount * (GetTaxPercent(allowanceCharge, x => x.TaxCategory) / 100);
+        }
+
+        protected virtual decimal GetTaxPercent<T>(T item, Func<T, List<SFTITaxCategoryType>> getTaxCategories) where T : class 
+        {
+            if (item == null)
+            {
+                return Settings.VATAmount;
+            }
+
+            return getTaxCategories(item)
                 .With(x => x.FirstOrDefault())
                 .Return(x => x.Percent.Value, Settings.VATAmount);
         }
@@ -128,6 +147,29 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
             }
 
             return returnValue;
+        }
+
+        protected virtual decimal GetTaxableAmount(SFTIAllowanceChargeType allowanceCharge)
+        {
+            decimal returnValue = 0;
+            if (allowanceCharge.Amount != null)
+            {
+                returnValue = GetSignedAllowanceChargeAmount(allowanceCharge);
+            }
+
+            return returnValue;
+        }
+
+        protected virtual decimal GetSignedAllowanceChargeAmount(SFTIAllowanceChargeType allowanceCharge)
+        {
+            if (allowanceCharge == null || allowanceCharge.ChargeIndicator == null || allowanceCharge.Amount == null)
+            {
+                return 0;
+            }
+
+            return allowanceCharge.ChargeIndicator.Value
+                       ? allowanceCharge.Amount.Value
+                       : (allowanceCharge.Amount.Value * -1);
         }
 
         protected virtual SFTISimpleIdentifierType GetItemId(int count)

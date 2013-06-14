@@ -40,7 +40,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 					case InvoicingMethod.EDI:
 						ftpStatusMessage = SendEDIInvoice(order);
 						break;
-					case InvoicingMethod.Svefaktura:
+					case InvoicingMethod.LetterInvoice:
 						ftpStatusMessage = SendSvefakturaInvoice(order);
 						break;
 					default:

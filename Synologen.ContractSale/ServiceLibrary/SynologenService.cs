@@ -147,23 +147,29 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary{
 		/// </summary>
 		/// <param name="orderIds">List of order id's to perform invoicing on</param>
 		/// <param name="reportEmailAddress">Email address to where a status report will be send when invoicing has been processed</param>
-		public void SendInvoices(List<int> orderIds, string reportEmailAddress){
-		var sentOrderIds = new List<int>();
-			try{
+		public void SendInvoices(List<int> orderIds, string reportEmailAddress)
+        {
+		    var sentOrderIds = new List<int>();
+			try
+            {
 				var orderList = provider.GetOrders(orderIds);
 				var ediOrders = orderList.Where(x => (InvoicingMethod) x.ContractCompany.InvoicingMethodId == InvoicingMethod.EDI);
-				if(ediOrders != null && ediOrders.Count()>0){
-					foreach (var order in ediOrders){
+				if(ediOrders != null && ediOrders.Any())
+                {
+					foreach (var order in ediOrders)
+                    {
 						SendInvoice(order);
 						sentOrderIds.Add(order.Id);
 					}
 				}
 
-				var svefakturaOrders = orderList.Where(x => (InvoicingMethod) x.ContractCompany.InvoicingMethodId == InvoicingMethod.Svefaktura);
-				if(!svefakturaOrders.IsNullOrEmpty()){
+				var svefakturaOrders = orderList.Where(x => (InvoicingMethod)x.ContractCompany.InvoicingMethodId == InvoicingMethod.LetterInvoice);
+				if(!svefakturaOrders.IsNullOrEmpty())
+                {
 					var ftpStatusMessage = SendSvefakturaInvoices(svefakturaOrders);
 					sentOrderIds.AddRange(svefakturaOrders.Select(x=>x.Id));
-					foreach (var order in svefakturaOrders){
+					foreach (var order in svefakturaOrders)
+                    {
 						var newStatusId = ConfigurationSettings.WebService.SaleStatusIdAfterInvoicing;
 						provider.UpdateOrderStatus(newStatusId, order.Id, 0, 0, 0, 0, 0);
 

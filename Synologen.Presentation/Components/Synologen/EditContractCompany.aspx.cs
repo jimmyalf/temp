@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using System.Web.UI.WebControls;
 using Spinit.Wpc.Member.Business;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
+using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Code;
 using Spinit.Wpc.Utility.Business;
 
@@ -34,9 +36,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 		private void PopulateInvoicingMethods() {
-			drpInvoicingMethods.DataValueField = "cId";
-			drpInvoicingMethods.DataTextField = "cName";
-			drpInvoicingMethods.DataSource = Provider.GetInvoicingMethods(null, null);
+            var items = EnumExtensions
+                .Enumerate<InvoicingMethod>()
+                .Select(x => new ListItem(x.GetEnumDisplayName(), ((int)x).ToString()));
+			drpInvoicingMethods.DataValueField = "Value";
+			drpInvoicingMethods.DataTextField = "Text";
+		    drpInvoicingMethods.DataSource = items;
 			drpInvoicingMethods.DataBind();
 			drpInvoicingMethods.Items.Insert(0, new ListItem("-- Välj faktureringsmetod --", "0"));
 		}

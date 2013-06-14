@@ -267,7 +267,6 @@
     <Compile Include="Repositories\ShopDetailsRepositories\ShopRepository.cs" />
     <Compile Include="SqlProviderConcern.cs" />
     <Compile Include="SqlProviderCountry.cs" />
-    <Compile Include="SqlProviderInvoicingMethod.cs" />
     <Compile Include="SqlProviderCompany.cs" />
     <Compile Include="SqlProviderLog.cs" />
     <Compile Include="SqlProviderOrderHistory.cs" />

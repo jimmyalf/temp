@@ -48,14 +48,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 		}
 
 
-		public static FrameGlassType ToFrameGlassType(this FrameGlassTypeEditView viewModel)
+		public static FrameGlassType ToFrameGlassType(this FrameGlassTypeEditView viewModel, FrameSupplier supplier)
 		{
-			return UpdateFrameGlassType(new FrameGlassType(), viewModel);
+			return UpdateFrameGlassType(new FrameGlassType(), viewModel, supplier);
 		}
 
-		public static FrameGlassType FillFrameGlassType(this FrameGlassTypeEditView viewModel, FrameGlassType entity)
+		public static FrameGlassType FillFrameGlassType(this FrameGlassTypeEditView viewModel, FrameGlassType entity, FrameSupplier supplier)
 		{
-			return UpdateFrameGlassType(entity, viewModel);
+			return UpdateFrameGlassType(entity, viewModel, supplier);
 		}
 
         public static FrameSupplier ToFrameSupplier(this FrameSupplierEditView viewModel)
@@ -177,7 +177,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 			};
 		}
 
-		public static FrameGlassTypeEditView ToFrameGlassTypeEditView(this FrameGlassType frameGlassType, string legend)
+		public static FrameGlassTypeEditView ToFrameGlassTypeEditView(this FrameGlassType frameGlassType, IEnumerable<FrameSupplier> availableSuppliers, string legend)
 		{
 			return new FrameGlassTypeEditView
 			{
@@ -194,6 +194,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 				CylinderIncrementation = frameGlassType.Cylinder.Increment,
 				CylinderMaxValue = frameGlassType.Cylinder.Max,
 				CylinderMinValue = frameGlassType.Cylinder.Min,
+                SupplierId = frameGlassType.Supplier.Id,
+                AvailableFrameSuppliers = availableSuppliers
 			};
 		}
 
@@ -399,13 +401,14 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
             return entity;
         }
 
-		private static FrameGlassType UpdateFrameGlassType(FrameGlassType entity, FrameGlassTypeEditView viewModel)
+		private static FrameGlassType UpdateFrameGlassType(FrameGlassType entity, FrameGlassTypeEditView viewModel, FrameSupplier supplier)
 		{
 			entity.Name = viewModel.Name;
 			entity.IncludeAdditionParametersInOrder = viewModel.IncludeAdditionParametersInOrder;
 			entity.IncludeHeightParametersInOrder = viewModel.IncludeHeightParametersInOrder;
 			entity.SetInterval(x => x.Sphere, viewModel.SphereMinValue, viewModel.SphereMaxValue, viewModel.SphereIncrementation);
 			entity.SetInterval(x => x.Cylinder, viewModel.CylinderMinValue, viewModel.CylinderMaxValue, viewModel.CylinderIncrementation);
+		    entity.Supplier = supplier;
 			return entity;
 		}
 

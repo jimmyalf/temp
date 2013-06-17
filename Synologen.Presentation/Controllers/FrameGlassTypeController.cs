@@ -28,7 +28,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 
 		public ActionResult AddGlassType()
 		{
-			return View(FrameGlassTypeEditView.GetDefaultInstance("Skapa ny glastyp"));
+		    var allSuppliers = _frameSupplierRepository.GetAll();
+			return View(FrameGlassTypeEditView.GetDefaultInstance("Skapa ny glastyp", allSuppliers));
 		}
 
 		[HttpPost]
@@ -37,18 +38,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var frameGlassType = inModel.ToFrameGlassType();
+			    var supplier = _frameSupplierRepository.Get(inModel.SupplierId);
+				var frameGlassType = inModel.ToFrameGlassType(supplier);
 				_frameGlassTypeRepository.Save(frameGlassType);
 				this.AddSuccessMessage("Glastypen har sparats");
 				return RedirectToAction("GlassTypes");
 			}
+		    inModel.FormLegend = "Skapa ny glastyp";
+		    inModel.AvailableFrameSuppliers = _frameSupplierRepository.GetAll();
 			return View(inModel);
 		}
 
 		public ActionResult EditGlassType(int id)
 		{
 			var frameGlassType = _frameGlassTypeRepository.Get(id);
-			var viewModel = frameGlassType.ToFrameGlassTypeEditView("Redigera glastyp");
+		    var allSuppliers = _frameSupplierRepository.GetAll();
+            var viewModel = frameGlassType.ToFrameGlassTypeEditView(allSuppliers, "Redigera glastyp");
 			return View(viewModel);
 		}
 
@@ -59,11 +64,15 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			if (ModelState.IsValid)
 			{
 				var entity = _frameGlassTypeRepository.Get(inModel.Id);
-				var frameGlassType = inModel.FillFrameGlassType(entity);
+			    var supplier = _frameSupplierRepository.Get(inModel.SupplierId);
+				var frameGlassType = inModel.FillFrameGlassType(entity, supplier);
 				_frameGlassTypeRepository.Save(frameGlassType);
 				this.AddSuccessMessage("Glastypen har sparats");
 				return RedirectToAction("GlassTypes");
 			}
+
+		    inModel.FormLegend = "Redigera glastyp";
+		    inModel.AvailableFrameSuppliers = _frameSupplierRepository.GetAll();
 			return View(inModel);
 		}
 

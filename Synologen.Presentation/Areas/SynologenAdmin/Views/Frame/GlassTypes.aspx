@@ -16,6 +16,7 @@
      						column.For(x => x.Id).Named("ID")
      							.HeaderAttributes(@class => "controlColumn");
      						column.For(x => x.Name).Named("Glastyp");
+                            column.For(x => x.Supplier).Named("Leverantör");
 							column.For(x => Html.ActionLink("Redigera","EditGlassType","Frame", new {id = x.Id}, new object()))
 								.SetAsWpcControlColumn("Redigera");
 							column.For(x => Html.WpcGridDeleteForm(x, "DeleteGlassType", "Frame", new {id = x.Id})

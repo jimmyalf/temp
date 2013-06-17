@@ -315,7 +315,8 @@ namespace Spinit.Wpc.Synologen.Presentation.Helpers.Extensions
 				Name = x.Name,
 				IncludeAddition = x.IncludeAdditionParametersInOrder,
 				IncludeHeight = x.IncludeHeightParametersInOrder,
-                NumberOfOrdersWithThisGlassType = x.NumberOfConnectedOrdersWithThisGlassType
+                NumberOfOrdersWithThisGlassType = x.NumberOfConnectedOrdersWithThisGlassType,
+                Supplier = x.Supplier.Name
 			};
 			return entityList.ConvertSortedPagedList(typeConverter);
 		}

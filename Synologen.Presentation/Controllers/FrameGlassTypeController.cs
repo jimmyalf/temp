@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Spinit.Data;
 using Spinit.Wpc.Synologen.Core.Domain.Exceptions;
 using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
+using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 using Spinit.Wpc.Synologen.Presentation.Helpers;
 using Spinit.Wpc.Synologen.Presentation.Helpers.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Models;
@@ -13,13 +14,13 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 		[HttpGet]
 		public ActionResult GlassTypes(GridPageSortParameters gridParameters)
 		{
-			var criteria = new PagedSortedCriteria<FrameGlassType>
+			var criteria = new PageOfGlassTypesMatchingCriteria
 			{
 				Page = gridParameters.Page, 
 				PageSize = gridParameters.PageSize ?? DefaultPageSize, 
 				OrderBy = gridParameters.Column, 
 				SortAscending = gridParameters.Direction == SortDirection.Ascending
-			} as PagedSortedCriteria;
+			};
 
 			var list = _frameGlassTypeRepository.FindBy(criteria);
 			var viewList = list.ToFrameGlassTypeViewList();

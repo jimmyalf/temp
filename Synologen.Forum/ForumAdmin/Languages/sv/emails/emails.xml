@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<emails>
+
+<!--
+======================================================
+    New account created.     
+======================================================
+-->
+<email emailType="NewUserAccountCreated" priority="High">
+<subject>([SiteName]) Nytt konto skapat</subject>
+<from>[adminemailfrom]</from>
+<body>[Username],
+Du skapade ett nytt konto på [SiteName].
+
+Ditt användarnamn och lösenord är:
+Användarnamn: [Username]
+Lösenord: [Password]
+
+För att logga in, klicka här: 
+[LoginUrl]
+
+Efter att du har loggat in kan du ändra ditt lösenord här:
+[passwordchange]
+
+Mvh,
+[SiteName] 
+</body>
+</email>
+
+
+<!--
+======================================================
+    New account request has been queued for admin approval.     
+======================================================
+-->
+<email emailType="NewUserAccountPending" priority="High">
+<subject>([SiteName]) Nytt konto har skapats</subject>
+<from>[adminemailfrom]</from>
+<body>[Username],
+Du skapade ett nytt konto på [SiteName].  
+
+Administratören av detta forum ska nu godkänna dig. Så fort detta är gjort kommer du få ett e-postmeddelenade med dina kontouppgifter.
+
+Mvh,
+[SiteName]
+</body>
+</email>
+
+
+<!--
+======================================================
+    User account has been approved.     
+======================================================
+-->
+<email emailType="NewUserAccountApproved" priority="High">
+<subject>([SiteName]) Kontoinformation - Godkänd</subject>
+<from>[adminemailfrom]</from>
+<body>[Username],
+[TimeSent] skapade du ett nytt konto på [SiteName].  
+
+Status: Ditt konto har godkänts.
+
+Ditt användarnamn och lösenord är:
+Användarnamn: [Username]
+Lösenord: [Password]
+
+För att börja skriva i forumet måste du logga in först.
+
+För att logga in, klicka här: 
+[LoginUrl]
+
+För att ändra ditt lösenord (efter att ha loggat in), klicka här: [ProfileUrl]
+
+När du loggar in rekommenderar vi dig att ägna ett par minuter åt att ställa in din profil. Du hittar en länk till din profil i övre högra hörnet av sidan av forumet. Här kan du ställa in ditt lösenord, e-postadress, hur nya meddelanden ska se ut och mycket annat.
+
+
+Mvh,
+[SiteName]
+
+
+</body>
+</email>
+
+<!--
+======================================================
+    User account has been rejected.     
+======================================================
+-->
+<email emailType="NewUserAccountRejected" priority="High">
+<subject>([SiteName]) Kontoinformation - Nekad</subject>
+<from>[adminemailfrom]</from>
+<body>[Username],
+[TimeSent] skapade du ett nytt konto på [SiteName].  
+
+Status: Ditt konto vart ej godkänt.
+
+Mvh,
+[SiteName]
+
+</body>
+</email>
+
+
+<!--
+======================================================
+     Email sent when user changes password.
+======================================================
+-->
+<email emailType="ChangedPassword" priority="High">
+<subject>([SiteName]) Lösenord ändrat</subject>
+<from>[adminemailfrom]</from>
+<body>[Username],
+
+Ditt lösenord för [SiteName] ändrades till:
+[Password]
+
+Här kan du logga in:
+[LoginUrl]
+
+Efter att du har loggat in kan du ändra ditt lösenord här:
+[passwordchange]
+
+Om du inte begärt den här ändringen av lösenordet, vänligen meddela oss snarast.
+
+Mvh,
+[SiteName] 
+</body>
+</email>
+
+
+<!--
+======================================================
+     Email sent when user has forgotten his/her password.
+======================================================
+-->
+<email emailType="ForgottenPassword" priority="High">
+<subject>([SiteName]) Bortglömt lösenord</subject>
+<from>[adminemailfrom]</from>
+<body>[Username],
+
+Du begärde att ditt lösenord för [SiteName] skulle sändas till dig via e-post.
+
+Ditt användarnamn och lösenord är:
+Användarnamn: [Username]
+Lösenord: [Password]
+
+Här kan du logga in:
+[LoginUrl]
+
+Efter att du har loggat in kan du ändra ditt lösenord här:
+[passwordchange]
+
+Om du inte begärt den här ändringen av lösenordet, vänligen meddela oss snarast.
+
+Mvh,
+[SiteName] 
+</body>
+</email>
+
+
+<!--
+======================================================
+    Thread that the user is monitoring was modified.
+======================================================
+-->
+<email emailType="NewMessagePostedToThread" priority="Normal">
+<subject>([SiteName]) Svar på konversation: [Subject] ([forumname])</subject>
+<from>[adminemailfrom]</from>
+<body>
+Visa hela konversationen: [PostUrl]
+
+Postat av: [PostedBy] i [ForumName]
+Ärende: [Subject]
+__________________________________
+
+
+[PostBody]
+
+
+__________________________________
+
+
+
+Mvh,
+[SiteName] 
+
+_______________________________________________________________________
+Du fick detta meddelande eftersom du valt att automatisk få e-post så fort någon svarar på den här diskussionen. Gör ett av följande för att avbryta denna prenumeration:
+1. Gå till URL'en ovan och avmarkera 'Skicka svar på detta meddelande som e-post till mig.'
+2. Gå till inställningarna för din profil och avmarkera 'Aktivera spårning'
+ 
+</body>
+</email>
+
+
+<!--
+======================================================
+    Forum that the user is monitoring was modified.
+======================================================
+-->
+<email emailType="NewMessagePostedToForum" priority="Normal">
+<subject>([SiteName]) Nytt meddelande i forum: [Subject]</subject>
+<from>[adminemailfrom]</from>
+<body>
+För att visa hela innehållet och svara, klicka här:
+[PostUrl]
+
+Postad av: [PostedBy] i [ForumName]
+Ämne: [Subject]
+__________________________________
+
+
+[PostBody]
+
+
+__________________________________
+
+
+Mvh,
+[SiteName] 
+
+-------------------------
+Du fick detta meddelande eftersom du valt att automatisk få e-post så fort någon svarar på den här diskussionen. Gör ett av följande för att avbryta denna prenumeration:
+1. Gå till URL'en ovan och avmarkera 'Skicka svar på detta meddelande som e-post till mig.'
+2. Gå till inställningarna för din profil och avmarkera 'Aktivera spårning'
+</body>
+</email>
+
+
+<!--
+======================================================
+    Moderated post was approved.     
+======================================================
+-->
+<email emailType="MessageApproved" priority="Normal">
+<subject>([SiteName]) Meddelande godkänt: [subject]</subject>
+<from>[adminemailfrom]</from>
+<body>Meddelandet '[subject]' godkändes. Nedan finner du en länk till meddelandet:
+
+[PostUrl]
+
+Mvh,
+[SiteName]
+
+</body>
+</email>
+
+<!--
+======================================================
+    Moderated post was moved and approved.     
+======================================================
+-->
+<email emailType="MessageMovedAndApproved" priority="Normal">
+<subject>([SiteName]) Meddelande godkänt: [subject]</subject>
+<from>[adminemailfrom]</from>
+<body>Meddelandet '[subject]' godkändes och flyttades. Nedan finner du en länk till meddelandet:
+
+[PostUrl]
+
+Mvh,
+[SiteName]
+
+</body>
+</email>
+
+<!--
+======================================================
+    Post was moved.     
+======================================================
+-->
+<email emailType="MessageMoved" priority="Normal">
+<subject>([SiteName]) Konversationen flyttades: [subject]</subject>
+<from>[adminemailfrom]</from>
+<body>Konversationen '[subject]' flyttades. Nedan finner du en länk till konversationen:
+
+[PostUrl]
+
+Mvh,
+[SiteName]
+
+
+</body>
+</email>
+
+
+<!--
+======================================================
+    Post was deleted.     
+======================================================
+-->
+<email emailType="MessageDeleted" priority="Normal">
+<subject>([SiteName]) Meddelande raderat: [subject]</subject>
+<from>[adminemailfrom]</from>
+<body>Ditt meddelande '[Subject]' togs bort av [Moderator] på grund av:
+[DeleteReasons]
+
+
+Mvh,
+[SiteName]
+
+
+</body>
+</email>
+
+<!--
+======================================================
+    Moderator has posts requring moderation.     
+======================================================
+-->
+<email emailType="ModeratorEmailNotification" priority="Normal">
+<subject>([SiteName]) Meddelanden som väntar på moderering</subject>
+<from>[adminemailfrom]</from>
+<body>Det finns meddelanden som väntar på moderering. Du hittar dom på följande länk:
+
+[ModerateURL]
+
+Mvh,
+[SiteName]
+
+</body>
+</email>
+
+<!--
+======================================================
+    User to User email
+======================================================
+-->
+<email emailType="SendEmail" priority="Normal">
+<subject>([SiteName]) E-post från [PostedBy]</subject>
+<from>[email]</from>
+<body>Denna e-post skickades av en användare från [SiteName]. Om du svarar på denna e-post kommer det att skickas direkt till den användarens e-postadress.
+
+Skickat av: [PostedBy]
+Ärende: [Subject]
+__________________________________
+
+[PostBody]
+
+
+
+</body>
+</email>
+
+
+<!--
+======================================================
+    From admin to all users in role
+======================================================
+-->
+<email emailType="RoleEmail" priority="Normal">
+<subject>([SiteName]) Massutskick: [Subject]</subject>
+<from>[adminemailfrom]</from>
+<body>
+En administratör på [SiteName] skickade följande meddelande till alla
+användare av följande roll [RoleName]
+
+Skickat av: [PostedBy]
+Ärende: [Subject]
+__________________________________
+
+[PostBody]
+
+
+
+</body>
+</email>
+
+<!--
+======================================================
+    From admin to all users in role
+======================================================
+-->
+<email emailType="PrivateMessageNotification" priority="Low">
+<subject>([SiteName]) Nytt privat meddelande: [Subject]</subject>
+<from>[adminemailfrom]</from>
+<body>
+Du har fått ett nytt privatmeddelande från [PostedBy]!
+
+För att läsa meddelandet kan du klicka på länken nedan, eller gå direkt till dina privata meddelanden på forumen.
+
+Ärende: [Subject]
+
+[PostUrl]
+
+
+Mvh,
+[SiteName]
+
+</body>
+</email>
+
+</emails>

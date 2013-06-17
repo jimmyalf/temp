@@ -1,0 +1,62 @@
+<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension="cs" #>
+<#
+MvcTextTemplateHost mvcHost = (MvcTextTemplateHost)(Host);
+string entityName = mvcHost.ControllerName.Replace("Controller", "");
+#>
+using System.Web.Mvc;
+
+namespace <#= mvcHost.Namespace #>
+{
+    public class <#= mvcHost.ControllerName #> : BaseController
+    {
+        public ActionResult Index()
+        {
+            return View();
+        }
+<#
+if(mvcHost.AddActionMethods) {
+#>
+
+        public ActionResult Add()
+        {
+            return View();
+        } 
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Add(object inModel)
+        {
+			if (!ModelState.IsValid) return View(inModel);
+			return Redirect("to some url");
+        }
+
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+        public ActionResult Edit(object inModel)
+        {
+			if (!ModelState.IsValid) return View(inModel);
+			return Redirect("to some url");
+        }
+        
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+			return Redirect("to some url");
+        }
+<#
+}
+#>
+    }
+}

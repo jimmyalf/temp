@@ -5,6 +5,11 @@
 		<fieldset>
 			<legend><%=Html.Encode(Model.FormLegend) %></legend>
 			<p class="formItem">
+				<%= Html.LabelFor(x => x.SupplierId) %>
+				<%= Html.WpcDropDownListFor(x => x.SupplierId, x => x.AvailableFrameSuppliers, x => x.Id, x => x.Name, "-- Välj Leverantör --") %>
+				<%= Html.ValidationMessageFor(x => x.SupplierId) %>
+			</p>
+			<p class="formItem">
 				<%= Html.LabelFor(x => x.Name) %>
 				<%= Html.EditorFor(x => x.Name) %>
 				<%= Html.ValidationMessageFor(x => x.Name) %>

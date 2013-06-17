@@ -125,6 +125,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Controllers
 			}
 			inModel.AvailableFrameColors = _frameColorRepository.GetAll();
 			inModel.AvailableFrameBrands = _frameBrandRepository.GetAll();
+		    inModel.AvailableFrameSuppliers = _frameSupplierRepository.GetAll();
 			inModel.FormLegend = "Skapa ny båge";
 			return View(inModel);
 		}

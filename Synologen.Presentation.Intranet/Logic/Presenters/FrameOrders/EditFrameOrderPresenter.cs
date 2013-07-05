@@ -54,21 +54,59 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 		private void InitiateEventHandlers()
 		{
 			View.Load += View_Load;
-			View.FrameSelected += View_BindModel;
-            View.SupplierSelected += View_BindModel;
+            View.SupplierSelected += Supplier_Selected;
+
+            View.FrameSelected += Supplier_Selected;
+		    View.FrameSelected += Frame_Selected;
+
+            View.GlassTypeSelected += Supplier_Selected;
+            View.GlassTypeSelected += GlassType_Selected;
+
 			View.SubmitForm += View_SumbitForm;
-			View.GlassTypeSelected += View_BindModel;
 		}
 
-		public void View_Load(object sender, EventArgs e)
+        private void Supplier_Selected(object sender, ISupplierSelectedEventArgs e)
+        {
+            if (e.SelectedSupplierId > 0)
+            {
+                View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).Where(x => x.Supplier.Id == e.SelectedSupplierId).ToFrameViewList().InsertFirst(DefaultFrame);
+            }
+        }
+
+	    private void GlassType_Selected(object sender, IGlassTypeSelectedEventArgs e)
+	    {
+            if (e.SelectedGlassTypeId > 0)
+            {
+                var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
+                View.Model.HeightParametersEnabled = glassType.IncludeHeightParametersInOrder;
+                View.Model.AdditionParametersEnabled = glassType.IncludeAdditionParametersInOrder;
+                View.Model.Sphere.Set(e.SelectedSphere, glassType.Cylinder.GetList(), "Sfär");
+                    //= e.GetEyeParameter(x => x.SelectedSphere, glassType.Sphere.GetList(), "Sfär");
+                View.Model.Cylinder.Set(e.SelectedCylinder, glassType.Cylinder.GetList(), "Cylinder");
+                //= e.GetEyeParameter(x => x.SelectedCylinder, glassType.Cylinder.GetList(), "Cylinder");
+            }
+	    }
+
+	    private void Frame_Selected(object sender, IFrameSelectedEventArgs e)
+	    {
+            if (e.SelectedFrameId > 0)
+            {
+                var frame = _frameRepository.Get(e.SelectedFrameId);
+                View.Model.PupillaryDistance.Set(e.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
+                     //= e.GetEyeParameter(x => x.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
+            }
+	    }
+
+	    public void View_Load(object sender, EventArgs e)
 		{
 			InitializeModel();
 		}
 
-		public void View_BindModel(object sender, EditFrameFormEventArgs e)
-		{
-			UpdateModel(e);
-		}
+
+        //public void View_BindModel(object sender, EditFrameFormEventArgs e)
+        //{
+        //    UpdateModel(e);
+        //}
 
 		public void View_SumbitForm(object sender, EditFrameFormEventArgs e) 
 		{ 
@@ -84,16 +122,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 			}
 			else
 			{
-				UpdateModel(e);
+				//UpdateModel(e);
 			}
 		}
 
 		public override void ReleaseView()
 		{
-			View.Load -= View_Load;
-			View.FrameSelected -= View_BindModel;
-			View.SubmitForm -= View_SumbitForm;
-			View.GlassTypeSelected -= View_BindModel;
+            //View.Load -= View_Load;
+            //View.FrameSelected -= View_BindModel;
+            //View.SubmitForm -= View_SumbitForm;
+            //View.GlassTypeSelected -= View_BindModel;
 		}
 
 		public void InitializeModel()
@@ -122,85 +160,86 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 			UpdateModel(frameOrder);
 		}
 
-		public void UpdateModel(EditFrameFormEventArgs e)
-		{
-            if (e.SelectedSupplierId > 0)
-			{
-                View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).Where(x => x.Supplier.Id == e.SelectedSupplierId).ToFrameViewList().InsertFirst(DefaultFrame);
-			}
+        //public void UpdateModel(EditFrameFormEventArgs e)
+        //{
+        //    if (e.SelectedSupplierId > 0)
+        //    {
+        //        View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).Where(x => x.Supplier.Id == e.SelectedSupplierId).ToFrameViewList().InsertFirst(DefaultFrame);
+        //    }
 
-            if(e.SelectedFrameId>0){
-				var frame = _frameRepository.Get(e.SelectedFrameId);
-				View.Model.PupillaryDistance = e.GetEyeParameter(x => x.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
-			}
+        //    if(e.SelectedFrameId>0)
+        //    {
+        //        var frame = _frameRepository.Get(e.SelectedFrameId);
+        //        View.Model.PupillaryDistance = e.GetEyeParameter(x => x.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
+        //    }
 
-			FrameGlassType glassType = null;
-			if(e.SelectedGlassTypeId>0)
-			{
-				glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
-				View.Model.HeightParametersEnabled = glassType.IncludeHeightParametersInOrder;
-				View.Model.AdditionParametersEnabled = glassType.IncludeAdditionParametersInOrder;
-				View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, glassType.Sphere.GetList(), "Sfär");
-				View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, glassType.Cylinder.GetList(), "Cylinder");
-			}
+        //    FrameGlassType glassType = null;
+        //    if(e.SelectedGlassTypeId>0)
+        //    {
+        //        glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
+        //        View.Model.HeightParametersEnabled = glassType.IncludeHeightParametersInOrder;
+        //        View.Model.AdditionParametersEnabled = glassType.IncludeAdditionParametersInOrder;
+        //        View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, glassType.Sphere.GetList(), "Sfär");
+        //        View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, glassType.Cylinder.GetList(), "Cylinder");
+        //    }
 
-			View.Model.AxisValueLeftIsRequired = e.SelectedCylinder.Left != int.MinValue;
-			View.Model.AxisValueRightIsRequired = e.SelectedCylinder.Right != int.MinValue;
-            View.Model.SelectedSupplierId = e.SelectedSupplierId;
-			View.Model.SelectedFrameId = e.SelectedFrameId;
-			View.Model.SelectedGlassTypeId = e.SelectedGlassTypeId;
-			View.Model.AxisSelectionLeft = (e.SelectedAxis.Left == int.MinValue) ? (int?)null : e.SelectedAxis.Left;
-			View.Model.AxisSelectionRight = (e.SelectedAxis.Right == int.MinValue) ? (int?)null : e.SelectedAxis.Right;
-			View.Model.Reference = e.Reference;
+        //    View.Model.AxisValueLeftIsRequired = e.SelectedCylinder.Left != int.MinValue;
+        //    View.Model.AxisValueRightIsRequired = e.SelectedCylinder.Right != int.MinValue;
+        //    View.Model.SelectedSupplierId = e.SelectedSupplierId;
+        //    View.Model.SelectedFrameId = e.SelectedFrameId;
+        //    View.Model.SelectedGlassTypeId = e.SelectedGlassTypeId;
+        //    View.Model.AxisSelectionLeft = (e.SelectedAxis.Left == int.MinValue) ? (int?)null : e.SelectedAxis.Left;
+        //    View.Model.AxisSelectionRight = (e.SelectedAxis.Right == int.MinValue) ? (int?)null : e.SelectedAxis.Right;
+        //    View.Model.Reference = e.Reference;
 
-			if(glassType != null && glassType.IncludeAdditionParametersInOrder)
-			{
-				View.Model.Addition = e.GetEyeParameter(x => x.SelectedAddition, _synologenSettingsService.Addition.GetList(), "Addition");
-			}
-			if(glassType != null && glassType.IncludeHeightParametersInOrder)
-			{
-				View.Model.Height = e.GetEyeParameter(x => x.SelectedHeight, _synologenSettingsService.Height.GetList(), "Höjd");
-			}
-		}
+        //    if(glassType != null && glassType.IncludeAdditionParametersInOrder)
+        //    {
+        //        View.Model.Addition = e.GetEyeParameter(x => x.SelectedAddition, _synologenSettingsService.Addition.GetList(), "Addition");
+        //    }
+        //    if(glassType != null && glassType.IncludeHeightParametersInOrder)
+        //    {
+        //        View.Model.Height = e.GetEyeParameter(x => x.SelectedHeight, _synologenSettingsService.Height.GetList(), "Höjd");
+        //    }
+        //}
 
-		public void UpdateModel(FrameOrder frameOrder)
-		{
-			if(frameOrder == null)
-			{
-				View.Model.OrderDoesNotExist = true;
-				return;
-			}
-			View.Model.PupillaryDistance = frameOrder.GetEyeParameter(x => x.PupillaryDistance, frameOrder.Frame.PupillaryDistance.GetList(), "PD");
-			View.Model.Sphere = frameOrder.GetEyeParameter(x => x.Sphere, frameOrder.GlassType.Sphere.GetList(), "Sfär");
-			View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, frameOrder.GlassType.Cylinder.GetList(), "Cylinder");
-			View.Model.HeightParametersEnabled = frameOrder.GlassType.IncludeHeightParametersInOrder;
-			View.Model.AdditionParametersEnabled = frameOrder.GlassType.IncludeAdditionParametersInOrder;
-			View.Model.SelectedFrameId = frameOrder.Frame.Id;
+        public void UpdateModel(FrameOrder frameOrder)
+        {
+            if (frameOrder == null)
+            {
+                View.Model.OrderDoesNotExist = true;
+                return;
+            }
+            View.Model.PupillaryDistance = frameOrder.GetEyeParameter(x => x.PupillaryDistance, frameOrder.Frame.PupillaryDistance.GetList(), "PD");
+            View.Model.Sphere = frameOrder.GetEyeParameter(x => x.Sphere, frameOrder.GlassType.Sphere.GetList(), "Sfär");
+            View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, frameOrder.GlassType.Cylinder.GetList(), "Cylinder");
+            View.Model.HeightParametersEnabled = frameOrder.GlassType.IncludeHeightParametersInOrder;
+            View.Model.AdditionParametersEnabled = frameOrder.GlassType.IncludeAdditionParametersInOrder;
+            View.Model.SelectedFrameId = frameOrder.Frame.Id;
             View.Model.SelectedSupplierId = frameOrder.Frame.Supplier.Id;
-			View.Model.SelectedGlassTypeId = frameOrder.GlassType.Id;
-			View.Model.AxisSelectionLeft = (frameOrder.Axis == null || frameOrder.Axis.Left == null) ? (int?)null : frameOrder.Axis.Left.Value;
-			View.Model.AxisSelectionRight = (frameOrder.Axis == null || frameOrder.Axis.Right == null) ? (int?)null : frameOrder.Axis.Right.Value;
-			View.Model.Reference = frameOrder.Reference;
+            View.Model.SelectedGlassTypeId = frameOrder.GlassType.Id;
+            View.Model.AxisSelectionLeft = (frameOrder.Axis == null || frameOrder.Axis.Left == null) ? (int?)null : frameOrder.Axis.Left.Value;
+            View.Model.AxisSelectionRight = (frameOrder.Axis == null || frameOrder.Axis.Right == null) ? (int?)null : frameOrder.Axis.Right.Value;
+            View.Model.Reference = frameOrder.Reference;
 
-			View.Model.AxisValueLeftIsRequired = View.Model.Cylinder.Selection.Left != int.MinValue;
-			View.Model.AxisValueRightIsRequired = View.Model.Cylinder.Selection.Left != int.MinValue;
+            View.Model.AxisValueLeftIsRequired = View.Model.Cylinder.Selection.Left != int.MinValue;
+            View.Model.AxisValueRightIsRequired = View.Model.Cylinder.Selection.Left != int.MinValue;
 
-			if(frameOrder.GlassType.IncludeAdditionParametersInOrder)
-			{
-				View.Model.Addition = frameOrder.GetEyeParameter(x => x.Addition, _synologenSettingsService.Addition.GetList(), "Addition");
-			}
-			if(frameOrder.GlassType.IncludeHeightParametersInOrder)
-			{
-				View.Model.Height = frameOrder.GetEyeParameter(x => x.Height, _synologenSettingsService.Height.GetList(), "Höjd");
-			}
-			if(frameOrder.OrderingShop.Id != _synologenMemberService.GetCurrentShopId())
-			{
-				View.Model.UserDoesNotHaveAccessToThisOrder = true;
-				return;
-			}
+            if (frameOrder.GlassType.IncludeAdditionParametersInOrder)
+            {
+                View.Model.Addition = frameOrder.GetEyeParameter(x => x.Addition, _synologenSettingsService.Addition.GetList(), "Addition");
+            }
+            if (frameOrder.GlassType.IncludeHeightParametersInOrder)
+            {
+                View.Model.Height = frameOrder.GetEyeParameter(x => x.Height, _synologenSettingsService.Height.GetList(), "Höjd");
+            }
+            if (frameOrder.OrderingShop.Id != _synologenMemberService.GetCurrentShopId())
+            {
+                View.Model.UserDoesNotHaveAccessToThisOrder = true;
+                return;
+            }
 
-			View.Model.OrderHasBeenSent = frameOrder.Sent.HasValue;
-		}
+            View.Model.OrderHasBeenSent = frameOrder.Sent.HasValue;
+        }
 
 		private int SaveUpdateFrameOrder(EditFrameFormEventArgs e) {
 			var frameOrderId = GetFrameOrderId();

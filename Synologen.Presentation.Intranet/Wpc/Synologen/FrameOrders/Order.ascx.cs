@@ -13,10 +13,10 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.FrameOrders
 	[PresenterBinding(typeof(EditFrameOrderPresenter))] 
 	public partial class Order : MvpUserControl<EditFrameOrderModel>, IEditFrameOrderView<EditFrameOrderModel> 
 	{
-        public event EventHandler<EditFrameFormEventArgs> SupplierSelected;
-		public event EventHandler<EditFrameFormEventArgs> FrameSelected;
+        public event EventHandler<SupplierSelectedEventArgs> SupplierSelected;
+		public event EventHandler<FrameSelectedEventArgs> FrameSelected;
 		public event EventHandler<EditFrameFormEventArgs> SubmitForm;
-		public event EventHandler<EditFrameFormEventArgs> GlassTypeSelected;
+		public event EventHandler<GlassTypeSelectedEventArgs> GlassTypeSelected;
 		public int RedirectPageId { get; set; }
 
 		protected void Page_Load(object sender, EventArgs e) {
@@ -25,15 +25,65 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.FrameOrders
 
 		private void WireupEventProxy()
 		{
-            drpSupplier.SelectedIndexChanged += (sender, e) => HandleEvent(SupplierSelected);
-            drpFrames.SelectedIndexChanged += (sender, e) => HandleEvent(FrameSelected);
-			drpGlassTypes.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
-			drpCylinderLeft.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
-			drpCylinderRight.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
+		    drpSupplier.SelectedIndexChanged += Supplier_Selected;//(sender, e) => HandleEvent(SupplierSelected);
+		    drpFrames.SelectedIndexChanged += Frame_Selected;//(sender, e) => HandleEvent(FrameSelected);
+		    drpGlassTypes.SelectedIndexChanged += GlassType_Selected;//(sender, e) => HandleEvent(GlassTypeSelected);
+			//drpCylinderLeft.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
+			//drpCylinderRight.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
 			btnSave.Click += (sender, e) => HandleEvent(SubmitForm, true);
 		}
 
-		protected void HandleEvent(EventHandler<EditFrameFormEventArgs> eventhandler, bool validate)
+	    private void Supplier_Selected(object sender, EventArgs e)
+	    {
+	        if (SupplierSelected != null)
+	        {
+	            SupplierSelected(this, new SupplierSelectedEventArgs
+	            {
+                    SelectedSupplierId = drpSupplier.SelectedValue.ToIntOrDefault(0)
+	            });
+	        }
+	    }
+
+        private void Frame_Selected(object sender, EventArgs e)
+        {
+            if (FrameSelected != null)
+            {
+                FrameSelected(this, new FrameSelectedEventArgs
+                {
+                    SelectedFrameId = drpFrames.SelectedValue.ToIntOrDefault(0),
+                    SelectedPupillaryDistance = new EyeParameter
+                    {
+                        Left = drpPupillaryDistanceLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
+                        Right = drpPupillaryDistanceRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
+                    },
+                    SelectedSupplierId = drpSupplier.SelectedValue.ToIntOrDefault(0)
+                });
+            }
+        }
+
+        private void GlassType_Selected(object sender, EventArgs e)
+        {
+            if (GlassTypeSelected != null)
+            {
+                GlassTypeSelected(this, new GlassTypeSelectedEventArgs
+                {
+                    SelectedGlassTypeId = drpGlassTypes.SelectedValue.ToIntOrDefault(0),
+                    SelectedCylinder = new EyeParameter
+                    {
+                        Left = drpCylinderLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
+                        Right = drpCylinderRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
+                    },
+                    SelectedSphere = new EyeParameter
+                    {
+                        Left = drpSphereLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
+                        Right = drpSphereRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
+                    },
+                    SelectedSupplierId = drpSupplier.SelectedValue.ToIntOrDefault(0)
+                });
+            }
+        }
+
+	    protected void HandleEvent(EventHandler<EditFrameFormEventArgs> eventhandler, bool validate)
 		{
 			if(eventhandler == null) return;
 			var eventArgs = GetEventArgs();

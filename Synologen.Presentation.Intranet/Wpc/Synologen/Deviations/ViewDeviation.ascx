@@ -1,43 +1,46 @@
 ﻿<%@ Control Language="C#" CodeBehind="ViewDeviation.ascx.cs" Inherits="Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.Deviations.ViewDeviation" %>
 <%@ Import Namespace="Spinit.Wpc.Synologen.Core.Domain.Model.Deviations" %>
 <div class="synologen-control">
+	<div class="toolbar">
+	    <input type="button" onclick="window.print()" value="Skriv ut" />
+    </div>
     <h1>Visa Avvikelse</h1>
+    
+    
     <fieldset class="synologen-form">
         <legend>Avvikelse <%= Model.Id %></legend>
-        <p>
-            Typ: <%= Model.Type %>
-        </p>
-        <%
-            if (Model.Type == DeviationType.Internal)
-            {
-        %>
-        <p>
-            Rubrik: <%= Model.Title %>
-        </p>
-        <%
+        <dl>
+	        <dt>Typ:</dt><dd> <%= Model.Type %></dd>
+	        <%
+	            if (Model.Type == DeviationType.Internal)
+	            {
+	        %>
+	        <dt>Rubrik:</dt><dd> <%= Model.Title %></dd>
+	        <%
+	            }
+	        %>
+	        <% if (!string.IsNullOrEmpty(Model.DefectDescription))
+	           {
+	        %>
+	        <dt>Övrigt:</dt><dd> <%= Model.DefectDescription %></dd>
+	        <% }
+	
+	        %>
+	        <%
+	            if (Model.Type == DeviationType.External)
+	            {
+	        %>
+	        <dt>Leverantör:</dt><dd> <%= Model.Supplier.Name %></dd>
+	        <dt>Kategori:</dt><dd> <%= Model.Category.Name %></dd>
+			
+			<%
             }
-        %>
-        <% if (!string.IsNullOrEmpty(Model.DefectDescription))
-           {
-        %>
-        <p>
-            Övrigt: <%= Model.DefectDescription %>
-        </p>
-        <% }
-
-        %>
-        <%
-            if (Model.Type == DeviationType.External)
-            {
-        %>
-        <p>
-            Leverantör: <%= Model.Supplier.Name %>
-        </p>
-        <p>
-            Kategori: <%= Model.Category.Name %>
-        </p>
-
-
+			%>
+        </dl>
+			<%
+	            if (Model.Type == DeviationType.External)
+	            {
+	        %>
         <p>
             <strong>Fel:</strong>
         </p>
@@ -77,7 +80,6 @@
                 </FooterTemplate>
             </asp:Repeater>
         </div>
-    </fieldset>
     <%
             }
     %>

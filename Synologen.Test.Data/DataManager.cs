@@ -179,6 +179,10 @@ namespace Spinit.Wpc.Synologen.Test.Data
 		{
 			DeleteAndResetIndexForTable(connection, "SynologenFrameOrder");
 			DeleteAndResetIndexForTable(connection, "SynologenFrame");
+            DeleteAndResetIndexForTable(connection, "SynologenFrameGlassType");
+            DeleteAndResetIndexForTable(connection, "SynologenFrameColor");
+            DeleteAndResetIndexForTable(connection, "SynologenFrameBrand");
+            DeleteAndResetIndexForTable(connection, "SynologenFrameSupplier");
 			Debug.WriteLine("Cleaned Frame Orders");
 		}
 

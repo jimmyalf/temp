@@ -14,9 +14,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.FrameOrders
 	public partial class Order : MvpUserControl<EditFrameOrderModel>, IEditFrameOrderView<EditFrameOrderModel> 
 	{
         public event EventHandler<SupplierSelectedEventArgs> SupplierSelected;
-		public event EventHandler<FrameSelectedEventArgs> FrameSelected;
+		public event EventHandler<FrameOrGlassTypeSelectedEventArgs> FrameSelected;
 		public event EventHandler<EditFrameFormEventArgs> SubmitForm;
-		public event EventHandler<GlassTypeSelectedEventArgs> GlassTypeSelected;
+		public event EventHandler<FrameOrGlassTypeSelectedEventArgs> GlassTypeSelected;
 		public int RedirectPageId { get; set; }
 
 		protected void Page_Load(object sender, EventArgs e) {
@@ -25,11 +25,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.FrameOrders
 
 		private void WireupEventProxy()
 		{
-		    drpSupplier.SelectedIndexChanged += Supplier_Selected;//(sender, e) => HandleEvent(SupplierSelected);
-		    drpFrames.SelectedIndexChanged += Frame_Selected;//(sender, e) => HandleEvent(FrameSelected);
-		    drpGlassTypes.SelectedIndexChanged += GlassType_Selected;//(sender, e) => HandleEvent(GlassTypeSelected);
-			//drpCylinderLeft.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
-			//drpCylinderRight.SelectedIndexChanged += (sender, e) => HandleEvent(GlassTypeSelected);
+		    drpSupplier.SelectedIndexChanged += Supplier_Selected;
+		    drpFrames.SelectedIndexChanged += Frame_Selected;
+            drpGlassTypes.SelectedIndexChanged += GlassType_Selected;
 			btnSave.Click += (sender, e) => HandleEvent(SubmitForm, true);
 		}
 
@@ -48,38 +46,50 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Wpc.Synologen.FrameOrders
         {
             if (FrameSelected != null)
             {
-                FrameSelected(this, new FrameSelectedEventArgs
-                {
-                    SelectedFrameId = drpFrames.SelectedValue.ToIntOrDefault(0),
-                    SelectedPupillaryDistance = new EyeParameter
-                    {
-                        Left = drpPupillaryDistanceLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
-                        Right = drpPupillaryDistanceRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
-                    },
-                    SelectedSupplierId = drpSupplier.SelectedValue.ToIntOrDefault(0)
-                });
+                FrameSelected(this, CreateArgs());
             }
+        }
+
+        private FrameOrGlassTypeSelectedEventArgs CreateArgs()
+        {
+            return new FrameOrGlassTypeSelectedEventArgs
+            {
+                SelectedFrameId = drpFrames.SelectedValue.ToIntOrDefault(0),
+                SelectedGlassTypeId = drpGlassTypes.SelectedValue.ToIntOrDefault(0),
+                SelectedSupplierId = drpSupplier.SelectedValue.ToIntOrDefault(0),
+                SelectedPupillaryDistance = new EyeParameter
+                {
+                    Left = drpPupillaryDistanceLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
+                    Right = drpPupillaryDistanceRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
+                },
+                SelectedCylinder = new EyeParameter
+                {
+                    Left = drpCylinderLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
+                    Right = drpCylinderRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
+                },
+                SelectedSphere = new EyeParameter
+                {
+                    Left = drpSphereLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
+                    Right = drpSphereRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
+                },
+                SelectedAddition = new EyeParameter
+                {
+                    Left = drpAdditionLeft.SelectedValue.ToDecimalOrDefault(0),
+                    Right = drpAdditionRight.SelectedValue.ToDecimalOrDefault(0)
+                },
+                SelectedHeight = new EyeParameter
+                {
+                    Left = drpHeightLeft.SelectedValue.ToDecimalOrDefault(0),
+                    Right = drpHeightRight.SelectedValue.ToDecimalOrDefault(0)
+                },
+            };
         }
 
         private void GlassType_Selected(object sender, EventArgs e)
         {
             if (GlassTypeSelected != null)
             {
-                GlassTypeSelected(this, new GlassTypeSelectedEventArgs
-                {
-                    SelectedGlassTypeId = drpGlassTypes.SelectedValue.ToIntOrDefault(0),
-                    SelectedCylinder = new EyeParameter
-                    {
-                        Left = drpCylinderLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
-                        Right = drpCylinderRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
-                    },
-                    SelectedSphere = new EyeParameter
-                    {
-                        Left = drpSphereLeft.SelectedValue.ToDecimalOrDefault(int.MinValue),
-                        Right = drpSphereRight.SelectedValue.ToDecimalOrDefault(int.MinValue)
-                    },
-                    SelectedSupplierId = drpSupplier.SelectedValue.ToIntOrDefault(0)
-                });
+                GlassTypeSelected(this, CreateArgs());
             }
         }
 

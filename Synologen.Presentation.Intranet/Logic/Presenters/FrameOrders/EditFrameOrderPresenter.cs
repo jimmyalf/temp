@@ -16,18 +16,19 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 {
 	public class EditFrameOrderPresenter : Presenter<IEditFrameOrderView<EditFrameOrderModel>>
 	{
-		private readonly IFrameRepository _frameRepository;
-		private readonly IFrameGlassTypeRepository _frameGlassTypeRepository;
-		private readonly IFrameOrderRepository _frameOrderRepository;
-		private readonly IShopRepository _shopRepository;
+		protected readonly IEnumerable<IntervalListItem> EmptyIntervalList = new List<IntervalListItem>();
+        protected readonly EntityListItem DefaultFrame = new EntityListItem { Id = 0, Name = "-- Välj båge --" };
+        protected readonly EntityListItem DefaultSupplier = new EntityListItem { Id = 0, Name = "-- Välj leverantör --" };
+        protected readonly EntityListItem DefaultGlassType = new EntityListItem { Id = 0, Name = "-- Välj glastyp --" };
+		protected readonly AllOrderableFramesCriteria AllOrderableFramesCriteria = new AllOrderableFramesCriteria();
+        private readonly IFrameRepository _frameRepository;
+        private readonly IFrameGlassTypeRepository _frameGlassTypeRepository;
+        private readonly IFrameOrderRepository _frameOrderRepository;
+        private readonly IShopRepository _shopRepository;
         private readonly IFrameSupplierRepository _frameSupplierRepository;
-		private readonly ISynologenMemberService _synologenMemberService;
-		private readonly ISynologenSettingsService _synologenSettingsService;
-		private readonly IRoutingService _routingService;
-		private readonly IEnumerable<IntervalListItem> EmptyIntervalList = new List<IntervalListItem>();
-		private readonly FrameListItem DefaultFrame = new FrameListItem {Id = 0, Name = "-- Välj båge --"};
-        private readonly FrameSupplierListItem DefaultSupplier = new FrameSupplierListItem { Id = 0, Name = "-- Välj leverantör --" };
-		private readonly AllOrderableFramesCriteria AllOrderableFramesCriteria = new AllOrderableFramesCriteria();
+        private readonly ISynologenMemberService _synologenMemberService;
+        private readonly ISynologenSettingsService _synologenSettingsService;
+        private readonly IRoutingService _routingService;
 
 		public EditFrameOrderPresenter(
 			IEditFrameOrderView<EditFrameOrderModel> view, 
@@ -51,164 +52,134 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
 			InitiateEventHandlers();
 		}
 
-		private void InitiateEventHandlers()
-		{
-			View.Load += View_Load;
-            View.SupplierSelected += Supplier_Selected;
-
-            View.FrameSelected += Supplier_Selected;
-		    View.FrameSelected += Frame_Selected;
-
-            View.GlassTypeSelected += Supplier_Selected;
-            View.GlassTypeSelected += GlassType_Selected;
-
-			View.SubmitForm += View_SumbitForm;
-		}
-
-        private void Supplier_Selected(object sender, ISupplierSelectedEventArgs e)
+        public void Supplier_Selected(object sender, ISupplierSelectedEventArgs e)
         {
-            if (e.SelectedSupplierId > 0)
+            if (e.SelectedSupplierId <= 0)
             {
-                View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).Where(x => x.Supplier.Id == e.SelectedSupplierId).ToFrameViewList().InsertFirst(DefaultFrame);
+                return;
             }
+
+            View.Model.SelectedSupplierId = e.SelectedSupplierId;
+            View.Model.SelectedFrameId = 0;
+            View.Model.SelectedGlassTypeId = 0;
+
+            View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).Where(x => x.Supplier.Id == e.SelectedSupplierId).ToFrameViewList().InsertFirst(DefaultFrame);
+            View.Model.GlassTypesList = _frameGlassTypeRepository.GetAll().Where(x => x.Supplier.Id == e.SelectedSupplierId).ToFrameGlassTypeViewList().InsertFirst(DefaultGlassType);
         }
 
-	    private void GlassType_Selected(object sender, IGlassTypeSelectedEventArgs e)
+	    public void GlassType_Selected(object sender, IGlassTypeSelectedEventArgs e)
 	    {
-            if (e.SelectedGlassTypeId > 0)
-            {
-                var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
-                View.Model.HeightParametersEnabled = glassType.IncludeHeightParametersInOrder;
-                View.Model.AdditionParametersEnabled = glassType.IncludeAdditionParametersInOrder;
-                View.Model.Sphere.Set(e.SelectedSphere, glassType.Cylinder.GetList(), "Sfär");
-                    //= e.GetEyeParameter(x => x.SelectedSphere, glassType.Sphere.GetList(), "Sfär");
-                View.Model.Cylinder.Set(e.SelectedCylinder, glassType.Cylinder.GetList(), "Cylinder");
-                //= e.GetEyeParameter(x => x.SelectedCylinder, glassType.Cylinder.GetList(), "Cylinder");
-            }
+	        if (e.SelectedGlassTypeId <= 0)
+	        {
+	            return;
+	        }
+
+	        var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
+	        View.Model.SelectedGlassTypeId = e.SelectedGlassTypeId;
+	        View.Model.HeightParametersEnabled = glassType.IncludeHeightParametersInOrder;
+	        View.Model.AdditionParametersEnabled = glassType.IncludeAdditionParametersInOrder;
+	        View.Model.Sphere.Set(e.SelectedSphere, glassType.Cylinder.GetList(), "Sfär");
+	        View.Model.Cylinder.Set(e.SelectedCylinder, glassType.Cylinder.GetList(), "Cylinder");
+
+	        if (glassType.IncludeAdditionParametersInOrder)
+	        {
+	            View.Model.Addition.Set(e.SelectedAddition, _synologenSettingsService.Addition.GetList(), "Addition");
+	        }
+
+	        if (glassType.IncludeHeightParametersInOrder)
+	        {
+	            View.Model.Height.Set(e.SelectedHeight, _synologenSettingsService.Height.GetList(), "Höjd");
+	        }
 	    }
 
-	    private void Frame_Selected(object sender, IFrameSelectedEventArgs e)
+	    public void Frame_Selected(object sender, IFrameSelectedEventArgs e)
 	    {
-            if (e.SelectedFrameId > 0)
-            {
-                var frame = _frameRepository.Get(e.SelectedFrameId);
-                View.Model.PupillaryDistance.Set(e.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
-                     //= e.GetEyeParameter(x => x.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
-            }
+	        if (e.SelectedFrameId <= 0)
+	        {
+	            return;
+	        }
+
+	        var frame = _frameRepository.Get(e.SelectedFrameId);
+	        View.Model.SelectedFrameId = e.SelectedFrameId;
+	        View.Model.PupillaryDistance.Set(e.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
 	    }
 
 	    public void View_Load(object sender, EventArgs e)
 		{
-			InitializeModel();
+            View.Model.SupplierList = _frameSupplierRepository.GetAll().ToFrameSupplierList().InsertFirst(DefaultSupplier);
+            View.Model.FramesList = new List<Frame>().ToFrameViewList().InsertFirst(DefaultFrame);
+            View.Model.PupillaryDistance = EmptyIntervalList.CreateDefaultEyeParameter("PD");
+            View.Model.Sphere = EmptyIntervalList.CreateDefaultEyeParameter("Sfär");
+            View.Model.Cylinder = EmptyIntervalList.CreateDefaultEyeParameter("Cylinder");
+            View.Model.GlassTypesList = new List<FrameGlassType>().ToFrameGlassTypeViewList().InsertFirst(DefaultGlassType);
+            View.Model.Addition = EmptyIntervalList.CreateDefaultEyeParameter("Addition");
+            View.Model.Height = EmptyIntervalList.CreateDefaultEyeParameter("Höjd");
+            View.Model.FrameRequiredErrorMessage = "Båge saknas";
+            View.Model.GlassTypeRequiredErrorMessage = "Glastyp saknas";
+            View.Model.PupillaryDistanceRequiredErrorMessage = "PD saknas";
+            View.Model.SphereRequiredErrorMessage = "Sfär saknas";
+            View.Model.AdditionRequiredErrorMessage = "Addition saknas";
+            View.Model.HeightRequiredMessage = "Höjd saknas";
+            View.Model.AxisRequiredMessage = "Axel saknas";
+            View.Model.AxisRangeMessage = "Axel anges som ett heltal i intervallet 0-180";
+            var frameOrderId = GetFrameOrderId();
+	        View.Model.ShopDoesNotHaveAccessToFrameOrders = !_synologenMemberService.ShopHasAccessTo(ShopAccess.SlimJim);
+
+	        if (frameOrderId <= 0)
+	        {
+	            return;
+	        }
+
+	        var frameOrder = _frameOrderRepository.Get(frameOrderId);
+	        UpdateModel(frameOrder);
 		}
 
-
-        //public void View_BindModel(object sender, EditFrameFormEventArgs e)
-        //{
-        //    UpdateModel(e);
-        //}
-
 		public void View_SumbitForm(object sender, EditFrameFormEventArgs e) 
-		{ 
-			if(e.PageIsValid)
-			{
-				var frameOrderId = SaveUpdateFrameOrder(e);
-				if (View.RedirectPageId > 0)
-				{
-					var url = _routingService.GetPageUrl(View.RedirectPageId);
-					url = String.Concat(url, "?frameorder=", frameOrderId);
-					HttpContext.Response.Redirect(url);
-				}
-			}
-			else
-			{
-				//UpdateModel(e);
-			}
+		{
+		    if (!e.PageIsValid)
+		    {
+		        return;
+		    }
+
+		    var frameOrderId = SaveUpdateFrameOrder(e);
+		    if (View.RedirectPageId > 0)
+		    {
+		        var url = _routingService.GetPageUrl(View.RedirectPageId);
+		        url = string.Concat(url, "?frameorder=", frameOrderId);
+		        HttpContext.Response.Redirect(url);
+		    }
 		}
 
 		public override void ReleaseView()
 		{
-            //View.Load -= View_Load;
-            //View.FrameSelected -= View_BindModel;
-            //View.SubmitForm -= View_SumbitForm;
-            //View.GlassTypeSelected -= View_BindModel;
 		}
 
-		public void InitializeModel()
-		{
+        protected void InitiateEventHandlers()
+        {
+            View.Load += View_Load;
+            View.SupplierSelected += Supplier_Selected;
 
-            View.Model.SupplierList = _frameSupplierRepository.GetAll().ToFrameSupplierList().InsertFirst(DefaultSupplier);
-            View.Model.FramesList = new List<Frame>().ToFrameViewList().InsertFirst(DefaultFrame);
-			View.Model.PupillaryDistance = EmptyIntervalList.CreateDefaultEyeParameter("PD");
-			View.Model.Sphere = EmptyIntervalList.CreateDefaultEyeParameter("Sfär");
-			View.Model.Cylinder = EmptyIntervalList.CreateDefaultEyeParameter("Cylinder");
-			View.Model.GlassTypesList = _frameGlassTypeRepository.GetAll().ToFrameGlassTypeViewList().InsertFirst(new FrameGlassTypeListItem {Id = 0, Name = "-- Välj glastyp --"});
-			View.Model.Addition = EmptyIntervalList.CreateDefaultEyeParameter("Addition");
-			View.Model.Height = EmptyIntervalList.CreateDefaultEyeParameter("Höjd");
-			View.Model.FrameRequiredErrorMessage = "Båge saknas";
-			View.Model.GlassTypeRequiredErrorMessage = "Glastyp saknas";
-			View.Model.PupillaryDistanceRequiredErrorMessage = "PD saknas";
-			View.Model.SphereRequiredErrorMessage = "Sfär saknas";
-			View.Model.AdditionRequiredErrorMessage = "Addition saknas";
-			View.Model.HeightRequiredMessage = "Höjd saknas";
-			View.Model.AxisRequiredMessage = "Axel saknas";
-			View.Model.AxisRangeMessage = "Axel anges som ett heltal i intervallet 0-180";
-			var frameOrderId = GetFrameOrderId();
-			View.Model.ShopDoesNotHaveAccessToFrameOrders = !_synologenMemberService.ShopHasAccessTo(ShopAccess.SlimJim);
-			if (frameOrderId <= 0) return;
-			var frameOrder = _frameOrderRepository.Get(frameOrderId);
-			UpdateModel(frameOrder);
-		}
+            View.FrameSelected += Supplier_Selected;
+            View.FrameSelected += GlassType_Selected;
+            View.FrameSelected += Frame_Selected;
 
-        //public void UpdateModel(EditFrameFormEventArgs e)
-        //{
-        //    if (e.SelectedSupplierId > 0)
-        //    {
-        //        View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).Where(x => x.Supplier.Id == e.SelectedSupplierId).ToFrameViewList().InsertFirst(DefaultFrame);
-        //    }
+            View.GlassTypeSelected += Supplier_Selected;
+            View.GlassTypeSelected += GlassType_Selected;
+            View.GlassTypeSelected += Frame_Selected;
 
-        //    if(e.SelectedFrameId>0)
-        //    {
-        //        var frame = _frameRepository.Get(e.SelectedFrameId);
-        //        View.Model.PupillaryDistance = e.GetEyeParameter(x => x.SelectedPupillaryDistance, frame.PupillaryDistance.GetList(), "PD");
-        //    }
+            View.SubmitForm += View_SumbitForm;
+        }
 
-        //    FrameGlassType glassType = null;
-        //    if(e.SelectedGlassTypeId>0)
-        //    {
-        //        glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
-        //        View.Model.HeightParametersEnabled = glassType.IncludeHeightParametersInOrder;
-        //        View.Model.AdditionParametersEnabled = glassType.IncludeAdditionParametersInOrder;
-        //        View.Model.Sphere = e.GetEyeParameter(x => x.SelectedSphere, glassType.Sphere.GetList(), "Sfär");
-        //        View.Model.Cylinder = e.GetEyeParameter(x => x.SelectedCylinder, glassType.Cylinder.GetList(), "Cylinder");
-        //    }
-
-        //    View.Model.AxisValueLeftIsRequired = e.SelectedCylinder.Left != int.MinValue;
-        //    View.Model.AxisValueRightIsRequired = e.SelectedCylinder.Right != int.MinValue;
-        //    View.Model.SelectedSupplierId = e.SelectedSupplierId;
-        //    View.Model.SelectedFrameId = e.SelectedFrameId;
-        //    View.Model.SelectedGlassTypeId = e.SelectedGlassTypeId;
-        //    View.Model.AxisSelectionLeft = (e.SelectedAxis.Left == int.MinValue) ? (int?)null : e.SelectedAxis.Left;
-        //    View.Model.AxisSelectionRight = (e.SelectedAxis.Right == int.MinValue) ? (int?)null : e.SelectedAxis.Right;
-        //    View.Model.Reference = e.Reference;
-
-        //    if(glassType != null && glassType.IncludeAdditionParametersInOrder)
-        //    {
-        //        View.Model.Addition = e.GetEyeParameter(x => x.SelectedAddition, _synologenSettingsService.Addition.GetList(), "Addition");
-        //    }
-        //    if(glassType != null && glassType.IncludeHeightParametersInOrder)
-        //    {
-        //        View.Model.Height = e.GetEyeParameter(x => x.SelectedHeight, _synologenSettingsService.Height.GetList(), "Höjd");
-        //    }
-        //}
-
-        public void UpdateModel(FrameOrder frameOrder)
+        protected void UpdateModel(FrameOrder frameOrder)
         {
             if (frameOrder == null)
             {
                 View.Model.OrderDoesNotExist = true;
                 return;
             }
+
+            View.Model.FramesList = _frameRepository.FindBy(AllOrderableFramesCriteria).Where(x => x.Supplier.Id == frameOrder.Frame.Supplier.Id).ToFrameViewList().InsertFirst(DefaultFrame);
+            View.Model.GlassTypesList = _frameGlassTypeRepository.GetAll().Where(x => x.Supplier.Id == frameOrder.Supplier.Id).ToFrameGlassTypeViewList().InsertFirst(DefaultGlassType);
             View.Model.PupillaryDistance = frameOrder.GetEyeParameter(x => x.PupillaryDistance, frameOrder.Frame.PupillaryDistance.GetList(), "PD");
             View.Model.Sphere = frameOrder.GetEyeParameter(x => x.Sphere, frameOrder.GlassType.Sphere.GetList(), "Sfär");
             View.Model.Cylinder = frameOrder.GetEyeParameter(x => x.Cylinder, frameOrder.GlassType.Cylinder.GetList(), "Cylinder");
@@ -228,10 +199,12 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
             {
                 View.Model.Addition = frameOrder.GetEyeParameter(x => x.Addition, _synologenSettingsService.Addition.GetList(), "Addition");
             }
+
             if (frameOrder.GlassType.IncludeHeightParametersInOrder)
             {
                 View.Model.Height = frameOrder.GetEyeParameter(x => x.Height, _synologenSettingsService.Height.GetList(), "Höjd");
             }
+
             if (frameOrder.OrderingShop.Id != _synologenMemberService.GetCurrentShopId())
             {
                 View.Model.UserDoesNotHaveAccessToThisOrder = true;
@@ -241,35 +214,40 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Presenters.FrameOrder
             View.Model.OrderHasBeenSent = frameOrder.Sent.HasValue;
         }
 
-		private int SaveUpdateFrameOrder(EditFrameFormEventArgs e) {
+		protected int SaveUpdateFrameOrder(EditFrameFormEventArgs e) 
+        {
 			var frameOrderId = GetFrameOrderId();
-			FrameOrder frameOrder;
-			if(frameOrderId>0)
-			{
-				var previouslySavedFrameOrder = _frameOrderRepository.Get(frameOrderId);
+		    FrameOrder frameOrder;
+		    if (frameOrderId > 0)
+		    {
+		        var previouslySavedFrameOrder = _frameOrderRepository.Get(frameOrderId);
 				var frame = _frameRepository.Get(e.SelectedFrameId);
 				var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);               
 				frameOrder = e.FillFrameOrder(frame, glassType, previouslySavedFrameOrder);
 			}
 			else
 			{
-			    var supplier = _frameSupplierRepository.Get(e.SelectedSupplierId);
                 var frame = _frameRepository.Get(e.SelectedFrameId);
 				var glassType = _frameGlassTypeRepository.Get(e.SelectedGlassTypeId);
 				var shopId = _synologenMemberService.GetCurrentShopId();
 				var shop = _shopRepository.Get(shopId);
-				frameOrder = e.ToFrameOrder(frame, glassType, shop );
+				frameOrder = e.ToFrameOrder(frame, glassType, shop);
 			}
+
 			_frameOrderRepository.Save(frameOrder);
 			return frameOrder.Id;
 		}
 
-		private int GetFrameOrderId()
+		protected int GetFrameOrderId()
 		{
 			int integerframeOrderId;
-			var frameOrderId = HttpContext.Request.Params["frameorder"];
-			if (frameOrderId == null) return -1;
-			return Int32.TryParse(frameOrderId, out integerframeOrderId) ? integerframeOrderId : -1;
+		    var frameOrderId = HttpContext.Request.Params["frameorder"];
+		    if (frameOrderId == null)
+		    {
+		        return -1;
+		    }
+
+		    return int.TryParse(frameOrderId, out integerframeOrderId) ? integerframeOrderId : -1;
 		}
 	}
 }

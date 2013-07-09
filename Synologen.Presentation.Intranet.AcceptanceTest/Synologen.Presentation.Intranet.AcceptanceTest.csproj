@@ -100,7 +100,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit\Spinit.Test.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Content.Data, Version=5.0.21.3707, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Spinit.Wpc.Core.Dependencies.NHibernate, Version=5.0.0.1809, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\Spinit.Wpc\Spinit.Wpc.Core.Dependencies.NHibernate.dll</HintPath>

@@ -64,7 +64,12 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 		{
 			try {
 				string userName = null;
-				if (drpUsers.SelectedItem != null) {
+			    if (Configuration.NetCompetenceDebug)
+			    {
+                    userName = "andreas.jilvero@spinit.se";
+			    }
+			    else if (drpUsers.SelectedItem != null)
+                {
 					userName = drpUsers.SelectedItem.Value;
 				}
 
@@ -95,10 +100,10 @@ namespace Spinit.Wpc.Synologen.OPQ.Site.Wpc.Synologen
 
 				string url = string.Format ("{0}?login=true&AuthenticationType=SingleSignOn&EncryptedData={1}", Configuration.NetCompetenceNtsLoginUrl, encryptedData);
 
-				if (Configuration.NetCompetenceDebug) {
+				/*if (Configuration.NetCompetenceDebug) {
 					ShowPositiveFeedBack (userMessageManager, "ShowLink", string.Format("{0}, User: {1}", url, userName));
 					return;
-				}
+				}*/
 
 				Response.Redirect (url);
 			}

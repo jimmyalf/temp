@@ -20,11 +20,24 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.FrameO
 		public bool PageIsValid { get; set; }
 	}
 
-    public class FrameSelectedEventArgs : SupplierSelectedEventArgs, IFrameSelectedEventArgs
+
+    public class FrameOrGlassTypeSelectedEventArgs : SupplierSelectedEventArgs, IFrameSelectedEventArgs, IGlassTypeSelectedEventArgs
     {
         public int SelectedFrameId { get; set; }
+        public int SelectedGlassTypeId { get; set; }
         public EyeParameter SelectedPupillaryDistance { get; set; }
+        public EyeParameter SelectedSphere { get; set; }
+        public EyeParameter SelectedCylinder { get; set; }
+        public EyeParameter SelectedAddition { get; set; }
+        public EyeParameter SelectedHeight { get; set; }      
     }
+
+
+    //public class FrameSelectedEventArgs : GlassTypeSelectedEventArgs, IFrameSelectedEventArgs
+    //{
+    //    public int SelectedFrameId { get; set; }
+    //    public EyeParameter SelectedPupillaryDistance { get; set; }
+    //}
 
     public interface IFrameSelectedEventArgs : ISupplierSelectedEventArgs
     {
@@ -32,18 +45,20 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.FrameO
         EyeParameter SelectedPupillaryDistance { get; set; }
     }
 
-    public class GlassTypeSelectedEventArgs : SupplierSelectedEventArgs, IGlassTypeSelectedEventArgs
-    {
-        public int SelectedGlassTypeId { get; set; }
-        public EyeParameter SelectedSphere { get; set; }
-        public EyeParameter SelectedCylinder { get; set; }
-    }
+    //public class GlassTypeSelectedEventArgs : SupplierSelectedEventArgs, IGlassTypeSelectedEventArgs
+    //{
+    //    public int SelectedGlassTypeId { get; set; }
+    //    public EyeParameter SelectedSphere { get; set; }
+    //    public EyeParameter SelectedCylinder { get; set; }
+    //}
 
     public interface IGlassTypeSelectedEventArgs : ISupplierSelectedEventArgs
     {
         int SelectedGlassTypeId { get; set; }
         EyeParameter SelectedSphere { get; set; }
         EyeParameter SelectedCylinder { get; set; }
+        EyeParameter SelectedAddition { get; set; }
+        EyeParameter SelectedHeight { get; set; }      
     }
 
     public class SupplierSelectedEventArgs : EventArgs, ISupplierSelectedEventArgs

@@ -12,11 +12,11 @@ using AmountType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicCompo
 using PercentType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.PercentType;
 using QuantityType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.QuantityType;
 
-namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
+namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 {
-    public class InvoiceLinesBuilder : SvefakturaBuilder, ISvefakturaBuilder
+    public class InvoiceLinesBuilder : PartBuilderBase, ISvefakturaPartBuilder
     {
-        public InvoiceLinesBuilder(SvefakturaConversionSettings settings, SvefakturaFormatter formatter)
+        public InvoiceLinesBuilder(ISvefakturaConversionSettings settings, ISvefakturaFormatter formatter)
             : base(settings, formatter) { }
 
         public void Build(IOrder order, SFTIInvoiceType invoice)

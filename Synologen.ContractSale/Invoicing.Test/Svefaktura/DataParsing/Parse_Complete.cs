@@ -4,6 +4,9 @@ using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
@@ -101,8 +104,14 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 			};
 			_settings = Factory.GetSettings();
 
-			_invoice = Convert.ToSvefakturaInvoice(_settings, _order);
-		}
+		    _invoice = CreateInvoice(_settings, _order);
+        }
+
+	    private SFTIInvoiceType CreateInvoice(ISvefakturaConversionSettings settings, IOrder order)
+	    {
+            var builder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), settings, new Invoicing.Svefaktura.SvefakturaBuilderBuilderValidator());
+            return builder.Build(order);   
+	    }
 
 		#region Order
 		[Test]

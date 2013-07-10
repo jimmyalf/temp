@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Test.Factory;

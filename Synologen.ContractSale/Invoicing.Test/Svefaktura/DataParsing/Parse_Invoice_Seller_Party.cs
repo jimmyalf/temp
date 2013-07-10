@@ -2,7 +2,7 @@ using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Test.Factory;
@@ -22,7 +22,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
             var company = Factory.GetCompany();
             _shop = Factory.GetShop();
             _order = Factory.GetOrder(company, _shop);
-            _invoice = BuildInvoice<SellerPartyBuilder>(_order);
+            _invoice = BuildInvoice<EBrev_SellerPartyBuilder>(_order);
         }
 
         [Test]

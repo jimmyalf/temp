@@ -4,7 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
@@ -62,7 +62,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 		    {
 		        Contact = new SFTIContactType { Telefax = new TelefaxType { Value = "+46 (0) 123 - 456789" } }
 		    };
-		    var invoice = BuildInvoice<SellerPartyBuilder>(_emptyOrder);
+		    var invoice = BuildInvoice<EBrev_SellerPartyBuilder>(_emptyOrder);
 			invoice.SellerParty.AccountsContact.Telefax.Value.ShouldBe("+46123456789");
 		}
 
@@ -73,7 +73,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 		    {
 		        Contact = new SFTIContactType { Telefax = new TelefaxType { Value = "0123 - 456789" } }
 		    };
-            var invoice = BuildInvoice<SellerPartyBuilder>(_emptyOrder);
+            var invoice = BuildInvoice<EBrev_SellerPartyBuilder>(_emptyOrder);
 			invoice.SellerParty.AccountsContact.Telefax.Value.ShouldBe("0123456789");
 		}
 
@@ -108,7 +108,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 		public void Test_TaxAccountingCode_Formatting_Seller()
 		{
 		    Settings = new SvefakturaConversionSettings { TaxAccountingCode = "SE 555-654.123 - 645" };
-		    var invoice = BuildInvoice<SellerPartyBuilder>(_emptyOrder);
+		    var invoice = BuildInvoice<EBrev_SellerPartyBuilder>(_emptyOrder);
 			invoice.SellerParty.Party.PartyTaxScheme[0].CompanyID.Value.ShouldBe("SE555654123645");
 		}
 
@@ -139,7 +139,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 		    };
 		    _emptyOrder.SellingShop = new Shop { OrganizationNumber = "SE 555-654.123 - 987" };
 
-		    var invoice = BuildInvoice<SellerPartyBuilder>(_emptyOrder);
+		    var invoice = BuildInvoice<EBrev_SellerPartyBuilder>(_emptyOrder);
 			invoice.SellerParty.Party.PartyTaxScheme[1].CompanyID.Value.ShouldBe("SE555654123645");
             invoice.SellerParty.Party.PartyIdentification[0].ID.Value.ShouldBe("SE555654123987");
 		}

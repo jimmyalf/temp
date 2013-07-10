@@ -6,11 +6,11 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
+namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 {
-    public class BuyerPartyBuilder : SvefakturaBuilder, ISvefakturaBuilder
+    public class BuyerPartyBuilder : PartBuilderBase, ISvefakturaPartBuilder
     {
-        public BuyerPartyBuilder(SvefakturaConversionSettings settings, SvefakturaFormatter formatter)
+        public BuyerPartyBuilder(ISvefakturaConversionSettings settings, ISvefakturaFormatter formatter)
             : base(settings, formatter) { }
 
         public void Build(IOrder order, SFTIInvoiceType invoice)

@@ -4,11 +4,11 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 
-namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
+namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 {
-    public class PaymentTermsBuilder : SvefakturaBuilder, ISvefakturaBuilder
+    public class PaymentTermsBuilder : PartBuilderBase, ISvefakturaPartBuilder
     {
-        public PaymentTermsBuilder(SvefakturaConversionSettings settings, SvefakturaFormatter formatter)
+        public PaymentTermsBuilder(ISvefakturaConversionSettings settings, ISvefakturaFormatter formatter)
             : base(settings, formatter) { }
 
         public void Build(IOrder order, SFTIInvoiceType invoice)
@@ -23,7 +23,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
             };
         }
 
-        protected virtual NoteType GetNote(SvefakturaConversionSettings settings, IOrder order)
+        protected virtual NoteType GetNote(ISvefakturaConversionSettings settings, IOrder order)
         {
             var text = ParseInvoicePaymentTermsFormat(Settings.InvoicePaymentTermsTextFormat, order.ContractCompany);
             return GetTextEntity<NoteType>(text);

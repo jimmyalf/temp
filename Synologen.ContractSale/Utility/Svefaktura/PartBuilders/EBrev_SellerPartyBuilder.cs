@@ -7,11 +7,11 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
+namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 {
-    public class SellerPartyBuilder : SvefakturaBuilder, ISvefakturaBuilder
+    public class EBrev_SellerPartyBuilder : PartBuilderBase, ISvefakturaPartBuilder
     {
-        public SellerPartyBuilder(SvefakturaConversionSettings settings, SvefakturaFormatter formatter) : base(settings, formatter) { }
+        public EBrev_SellerPartyBuilder(ISvefakturaConversionSettings settings, ISvefakturaFormatter formatter) : base(settings, formatter) { }
 
         public void Build(IOrder order, SFTIInvoiceType invoice)
         {
@@ -65,7 +65,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
                 .GetEntity();
         }
 
-        protected List<SFTIPartyTaxSchemeType> GetTaxScheme(SvefakturaConversionSettings settings)
+        protected List<SFTIPartyTaxSchemeType> GetTaxScheme(ISvefakturaConversionSettings settings)
         {
             return new List<SFTIPartyTaxSchemeType>
             {

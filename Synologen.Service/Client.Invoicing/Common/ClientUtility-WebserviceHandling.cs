@@ -55,15 +55,6 @@ namespace Synologen.Service.Client.Invoicing.Common {
 			client.UpdateOrderStatuses(paymentInfo.InvoiceNumber, paymentInfo.InvoiceCanceled, paymentInfo.InvoiceIsPayed); 
 		}
 
-					
-		/// <summary>
-		/// Calls Webservice to send EDI Invoice
-		/// <exception cref="Exception">Will throw exception if EDI Invoice dispatch failed</exception> 
-		/// </summary>
-		public static void SendInvoice(ClientContract client, int orderId) {
-			client.SendInvoice(orderId);
-		}
-
 		/// <summary>
 		/// Gets a new instance of a Webservice client (not opened)
 		/// using given parameters in configuration
@@ -72,7 +63,6 @@ namespace Synologen.Service.Client.Invoicing.Common {
 		public static ClientContract GetWebClient() {
 			return new ClientContract();
 		}
-
 
 		/// <summary>
 		/// Checks connection to the Webservice using given parameters in configuration

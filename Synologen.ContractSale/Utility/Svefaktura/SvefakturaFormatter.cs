@@ -2,7 +2,7 @@
 
 namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
 {
-    public class SvefakturaFormatter
+    public class SvefakturaFormatter : ISvefakturaFormatter
     {
         public virtual string FormatPhoneNumber(string phoneNumber)
         {
@@ -23,22 +23,18 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
 
             return Regex.Replace(returnNumber, @"[^0-9+]", string.Empty);
         }
-
         public virtual string FormatGiroNumber(string giroNumber)
         {
             return RemoveAllButLettersAndDigits(giroNumber);
         }
-
         public virtual string FormatTaxAccountingCode(string taxAccountingCode)
         {
             return RemoveAllButLettersAndDigits(taxAccountingCode);
         }
-
         public virtual string FormatOrganizationNumber(string organizationNumber)
         {
             return RemoveAllButLettersAndDigits(organizationNumber);
         }
-
         protected virtual string RemoveAllButLettersAndDigits(string input)
         {
             if (input == null)

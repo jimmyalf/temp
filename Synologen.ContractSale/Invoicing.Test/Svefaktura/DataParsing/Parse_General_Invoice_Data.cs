@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Test.Factory;
 
@@ -20,7 +20,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
             var shop = Factory.GetShop();
             var orderItems = Factory.GetOrderItems();
             _order = Factory.GetOrder(company, shop, orderItems);
-            _invoice = BuildInvoice<InvoiceInformationBuilder>(_order);
+            _invoice = BuildInvoice<EBrev_InvoiceInformationBuilder>(_order);
         }
 
         [Test]

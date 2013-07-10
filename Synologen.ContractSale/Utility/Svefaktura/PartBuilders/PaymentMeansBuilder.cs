@@ -8,11 +8,11 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 
-namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
+namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 {
-    public class PaymentMeansBuilder : SvefakturaBuilder, ISvefakturaBuilder
+    public class PaymentMeansBuilder : PartBuilderBase, ISvefakturaPartBuilder
     {
-        public PaymentMeansBuilder(SvefakturaConversionSettings settings, SvefakturaFormatter formatter)
+        public PaymentMeansBuilder(ISvefakturaConversionSettings settings, ISvefakturaFormatter formatter)
             : base(settings, formatter) { }
 
         public void Build(IOrder order, SFTIInvoiceType invoice)
@@ -39,7 +39,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
             }
         }
 
-        protected virtual SFTIFinancialAccountType GetPayeeFinancialAccount(Func<SvefakturaConversionSettings, string> giroIdProperty, Func<SvefakturaConversionSettings, string> giroNumberProperty)
+        protected virtual SFTIFinancialAccountType GetPayeeFinancialAccount(Func<ISvefakturaConversionSettings, string> giroIdProperty, Func<ISvefakturaConversionSettings, string> giroNumberProperty)
         {
             var giro = giroNumberProperty(Settings);
             var giroId = giroIdProperty(Settings);
@@ -57,7 +57,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders
             };
         }
 
-        protected virtual PaymentDateType GetPaymentMeansDuePaymentDate(SvefakturaConversionSettings settings, ICompany company)
+        protected virtual PaymentDateType GetPaymentMeansDuePaymentDate(ISvefakturaConversionSettings settings, ICompany company)
         {
             if (company == null)
             {

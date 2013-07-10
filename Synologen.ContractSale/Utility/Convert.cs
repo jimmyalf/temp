@@ -4,7 +4,8 @@ using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.EDI.Common.Types;
 using Spinit.Wpc.Synologen.EDI.Types;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Builders;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 
@@ -48,17 +49,10 @@ namespace Spinit.Wpc.Synologen.Invoicing
         }
 
         // Replaced old static building of invoice with a more flexible solution
-        public static SFTIInvoiceType ToSvefakturaInvoice(SvefakturaConversionSettings settings, IOrder order, SvefakturaFormatter formatter = null)
-        {
-            var invoice = new SFTIInvoiceType();
-            formatter = formatter ?? new SvefakturaFormatter();
-            new SellerPartyBuilder(settings, formatter).Build(order, invoice);
-            new BuyerPartyBuilder(settings, formatter).Build(order, invoice);
-            new PaymentMeansBuilder(settings, formatter).Build(order, invoice);
-            new InvoiceLinesBuilder(settings, formatter).Build(order, invoice);
-            new InvoiceInformationBuilder(settings, formatter).Build(order, invoice);
-            new PaymentTermsBuilder(settings, formatter).Build(order, invoice);
-            return invoice;
-        }
+        //public static SFTIInvoiceType ToSvefakturaInvoice(ISvefakturaConversionSettings settings, IOrder order, SvefakturaFormatter formatter = null)
+        //{
+        //    var builder = new EBrevSvefakturaBuilder(formatter ?? new SvefakturaFormatter(), settings);
+        //    return builder.Build(order);
+        //}
 	}
 }

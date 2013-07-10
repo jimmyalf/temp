@@ -1,4 +1,4 @@
-﻿namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Helpers
+﻿namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders.Helpers
 {
     public class BuildSourceContext<TDestination> where TDestination : new()
     {

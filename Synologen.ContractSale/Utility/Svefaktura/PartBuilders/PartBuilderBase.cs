@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Spinit.Extensions;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
-using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Helpers;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders.Helpers;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
@@ -10,19 +10,18 @@ using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.SpecializedDatatypes;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.UnspecializedDatatypes;
 using NameType = Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CommonBasicComponents.NameType;
 
-namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
+namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 {
-    public abstract class SvefakturaBuilder
+    public abstract class PartBuilderBase
     {
-        protected SvefakturaBuilder(SvefakturaConversionSettings settings, SvefakturaFormatter formatter)
+        protected PartBuilderBase(ISvefakturaConversionSettings settings, ISvefakturaFormatter formatter)
         {
             Settings = settings;
             Formatter = formatter;
         }
 
-        public SvefakturaConversionSettings Settings { get; set; }
-
-        public SvefakturaFormatter Formatter { get; set; }
+        public ISvefakturaConversionSettings Settings { get; set; }
+        public ISvefakturaFormatter Formatter { get; set; }
 
         public BuildSourceContext<TDestination> Build<TDestination>() where TDestination : new()
         {
@@ -103,10 +102,20 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
             return GetIdentifier(formatterFunction(value));
         }
 
-        protected virtual IdentifierType GetIdentifier(Func<SvefakturaConversionSettings, string> settingsValue, Func<string, string> formatterFunction)
+        protected virtual IdentifierType GetIdentifier(Func<ISvefakturaConversionSettings, string> settingsValue, Func<string, string> formatterFunction)
         {
             var value = settingsValue(Settings);
             return GetIdentifier(formatterFunction(value));
+        }
+
+        protected virtual SFTIContactType GetAccountContactFormatted(SFTIContactType contact)
+        {
+            return Build<SFTIContactType>().With(contact)
+                .Fill(x => x.ElectronicMail).Using(x => x.With(a => a.ElectronicMail).Return(a => a.Value, null))
+                .Fill(x => x.Name).Using(x => x.With(a => a.Name).Return(a => a.Value, null))
+                .Fill(x => x.Telefax).Using(x => x.With(a => a.Telefax).Return(a => a.Value, null), Formatter.FormatPhoneNumber)
+                .Fill(x => x.Telephone).Using(x => x.With(a => a.Telephone).Return(a => a.Value, null), Formatter.FormatPhoneNumber)
+                .GetEntity();
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes;
 
-namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Helpers
+namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders.Helpers
 {
     public interface IEntityCreator<TSource, TDestination> : IFillTextSpecification<TSource, TDestination>, IFillEntitySpecification<TSource, TDestination>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.CoreComponentTypes;
 
-namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Helpers
+namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders.Helpers
 {
     public class TypedTextFiller<TSource, TType, TDestination> : IFillTextOperation<TSource, TType, TDestination>
         where TType : TextType, new()

@@ -1,4 +1,4 @@
-﻿namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Helpers
+﻿namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders.Helpers
 {
     public class TypedEntityFiller<TSource, TType, TDestination> : IFillEntityOperation<TSource, TType, TDestination>
         where TDestination : new()

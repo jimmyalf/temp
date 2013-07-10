@@ -8,6 +8,8 @@ using System.Xml.XPath;
 using NUnit.Framework;
 using Shouldly;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
 using Spinit.Wpc.Synologen.Invoicing.Test.App;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.CustomTypes;
@@ -110,7 +112,8 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.XmlSerialization
 			order.ContractCompany = GetMockCompany();
 			order.SellingShop = GetMockShop();
 			order.OrderItems = GetMockOrderItems();
-			return Convert.ToSvefakturaInvoice(settings, order);
+            var builder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), settings, new Invoicing.Svefaktura.SvefakturaBuilderBuilderValidator());
+            return builder.Build(order);   
 		}
 
 		public Shop GetMockShop() 

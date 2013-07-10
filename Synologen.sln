@@ -13,38 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tasks", "Tasks", "{7A4E5877
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OPQ", "OPQ", "{8A7DEE47-879F-4D6D-AC06-DAE2B2E163EA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configs", "Configs", "{EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation", "Synologen.Presentation", "{001FF868-4883-42D6-9AE4-2139E04156E2}"
-	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Web.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation\Web.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation.Intranet", "Synologen.Presentation.Intranet", "{2500AB71-B254-4178-B597-F39A09D49443}"
-	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Web.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet\Web.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation.Site", "Synologen.Presentation.Site", "{B6781A29-126D-48E5-AAA5-5687F62D6DAD}"
-	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Site\Web.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Site\Web.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation.AcceptanceTest", "Synologen.Presentation.AcceptanceTest", "{6EDD2131-ACE2-4984-A607-A48498A9B562}"
-	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.AcceptanceTest\app.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.AcceptanceTest\app.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Presentation.Intranet.AcceptanceTest", "Synologen.Presentation.Intranet.AcceptanceTest", "{79F5672B-B433-4F60-A43D-520B31491B6A}"
-	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest\app.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest\app.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.Data.Test", "Synologen.Data.Test", "{7285BA34-F9D9-49FE-8044-928252456C5C}"
-	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Spinit.Wpc.Synologen.Data.Test\app.config = Synologen.Config\rbro\Spinit.Wpc.Synologen.Data.Test\app.config
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{1C248A6A-B191-4ED8-8912-0B86744C5860}"
 	ProjectSection(SolutionItems) = preProject
 		Build\Post-Build-Spinit.Wpc.Synologen.Presentation.AcceptanceTest.bat = Build\Post-Build-Spinit.Wpc.Synologen.Presentation.AcceptanceTest.bat
@@ -85,31 +53,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{6558B902-B064-4616-B75F-427CF94054D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{DED1A82B-179B-417A-9B96-1D64A9A40746}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Client.OrderEmailSender", "Service.Client.OrderEmailSender", "{1A1070ED-8475-4067-96DB-81D74725EBC5}"
-	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Synologen.Service.Client.OrderEmailSender\app.config = Synologen.Config\rbro\Synologen.Service.Client.OrderEmailSender\app.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Web.BGC", "Service.Web.BGC", "{EAB1E891-25D1-469B-A5AB-F23FFEA4AB00}"
-	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Synologen.Service.Web.BGC\Web.config = Synologen.Config\rbro\Synologen.Service.Web.BGC\Web.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Web.External.AcceptanceTest", "Service.Web.External.AcceptanceTest", "{02941FA2-58E3-423C-ACE2-3FFCC5A37822}"
-	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Synologen.Service.Web.External.AcceptanceTest\app.config = Synologen.Config\rbro\Synologen.Service.Web.External.AcceptanceTest\app.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Client.SubscriptionTaskRunner.AcceptanceTest", "Service.Client.SubscriptionTaskRunner.AcceptanceTest", "{9F307C0F-151D-4658-914E-87E1CBDA7D56}"
-	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest\app.config = Synologen.Config\rbro\Synologen.Service.Client.SubscriptionTaskRunner.AcceptanceTest\app.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Synologen.LensSubscription.BGData.Test", "Synologen.LensSubscription.BGData.Test", "{AEE1E3CE-9CD1-4081-B231-B1D95C853B98}"
-	ProjectSection(SolutionItems) = preProject
-		Synologen.Config\rbro\Synologen.LensSubscription.BGData.Test\app.config = Synologen.Config\rbro\Synologen.LensSubscription.BGData.Test\app.config
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Maintenance", "Maintenance", "{33D31589-FD79-4130-8657-D509921BD5E0}"
 EndProject
@@ -997,17 +940,6 @@ Global
 		{609C3D15-8743-441C-A894-14E6AA1FFC31} = {8A7DEE47-879F-4D6D-AC06-DAE2B2E163EA}
 		{4742CFB1-1D42-468F-8F99-291491D5E903} = {8A7DEE47-879F-4D6D-AC06-DAE2B2E163EA}
 		{851989CE-286E-48E1-9946-D8F78A853516} = {8A7DEE47-879F-4D6D-AC06-DAE2B2E163EA}
-		{001FF868-4883-42D6-9AE4-2139E04156E2} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
-		{2500AB71-B254-4178-B597-F39A09D49443} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
-		{B6781A29-126D-48E5-AAA5-5687F62D6DAD} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
-		{6EDD2131-ACE2-4984-A607-A48498A9B562} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
-		{79F5672B-B433-4F60-A43D-520B31491B6A} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
-		{7285BA34-F9D9-49FE-8044-928252456C5C} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
-		{1A1070ED-8475-4067-96DB-81D74725EBC5} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
-		{EAB1E891-25D1-469B-A5AB-F23FFEA4AB00} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
-		{02941FA2-58E3-423C-ACE2-3FFCC5A37822} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
-		{9F307C0F-151D-4658-914E-87E1CBDA7D56} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
-		{AEE1E3CE-9CD1-4081-B231-B1D95C853B98} = {EE50640E-70C4-4EFA-B6CE-BB43DDEEE7C9}
 		{D0029EA4-39FA-4481-BEEA-892E0570EE4D} = {1C248A6A-B191-4ED8-8912-0B86744C5860}
 		{8C852BA2-1C66-42CE-9F12-35630E869CE6} = {E08A509F-1BBE-409A-9941-C541306414F2}
 		{6558B902-B064-4616-B75F-427CF94054D5} = {43168BAC-9A43-48A4-AA67-AB66BE4AC775}

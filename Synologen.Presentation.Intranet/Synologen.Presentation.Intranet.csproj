@@ -213,7 +213,7 @@
     <Compile Include="Models\Deviations\ExternalDeviationListModel.cs" />
     <Compile Include="Models\Deviations\DeviationCategoryListItem.cs" />
     <Compile Include="Models\Deviations\InternalDeviationListModel.cs" />
-    <Compile Include="Models\FrameOrders\FrameSupplierListItem.cs" />
+    <Compile Include="Models\FrameOrders\EntityListItem.cs" />
     <Compile Include="Models\LensSubscription\CreateCustomerModel.cs" />
     <Compile Include="Models\LensSubscription\CreateLensSubscriptionModel.cs" />
     <Compile Include="Logic\Presenters\LensSubscription\CreateLensSubscriptionPresenter.cs" />
@@ -227,8 +227,6 @@
     <Compile Include="Logic\Views\FrameOrders\IListFrameOrdersView.cs" />
     <Compile Include="Logic\Views\FrameOrders\IViewFrameOrderView.cs" />
     <Compile Include="Models\FrameOrders\EyeParameterIntervalListAndSelection.cs" />
-    <Compile Include="Models\FrameOrders\FrameGlassTypeListItem.cs" />
-    <Compile Include="Models\FrameOrders\FrameListItem.cs" />
     <Compile Include="Models\FrameOrders\FrameOrderBaseModel.cs" />
     <Compile Include="Models\FrameOrders\FrameOrderListItemModel.cs" />
     <Compile Include="Models\FrameOrders\IntervalListItem.cs" />
@@ -790,9 +788,9 @@
     <None Include="Testpages\LensSubscription\CreateCustomer.aspx" />
     <None Include="Testpages\LensSubscription\CreateSubscription.aspx" />
     <None Include="Testpages\LensSubscription\CustomersList.aspx" />
-    <None Include="Testpages\FrameOrderList.aspx" />
-    <None Include="Testpages\FrameOrderView.aspx" />
-    <None Include="Testpages\FrameOrder.aspx" />
+    <None Include="Testpages\FrameOrder\FrameOrderList.aspx" />
+    <None Include="Testpages\FrameOrder\FrameOrderView.aspx" />
+    <None Include="Testpages\FrameOrder\FrameOrder.aspx" />
     <None Include="Testpages\LensSubscription\EditCustomer.aspx" />
     <None Include="Testpages\LensSubscription\TransactionsList.aspx" />
     <None Include="Testpages\LensSubscription\ShopSubscriptionErrorsList.aspx" />

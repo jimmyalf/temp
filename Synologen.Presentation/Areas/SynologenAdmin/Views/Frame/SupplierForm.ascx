@@ -22,6 +22,6 @@
 		</fieldset>
     <% } %>
 	<p>
-		<%= Html.ActionLink("Tillbaka till leverantörer", "Index") %>
+		<%= Html.ActionLink("Tillbaka till leverantörer", "Suppliers") %>
 	</p>
 	<% Html.RenderPartial("ClientValidationScripts"); %>

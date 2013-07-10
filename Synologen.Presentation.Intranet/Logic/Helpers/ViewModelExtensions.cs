@@ -1,28 +1,32 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Domain.Model.Deviations;
+using Spinit.Wpc.Synologen.Core.Domain.Model.FrameOrder;
 using Spinit.Wpc.Synologen.Core.Extensions;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Logic.EventArguments.FrameOrders;
-using Spinit.Wpc.Synologen.Presentation.Intranet.Models.FrameOrders;
 using Spinit.Wpc.Synologen.Presentation.Intranet.Models.Deviations;
+using Spinit.Wpc.Synologen.Presentation.Intranet.Models.FrameOrders;
 
-namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Helpers {
-	public static class ViewModelExtensions {
+namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Helpers 
+{
+	public static class ViewModelExtensions 
+    {
 
-		public static IEnumerable<FrameListItem> ToFrameViewList(this IEnumerable<Frame> list)
+		public static IEnumerable<EntityListItem> ToFrameViewList(this IEnumerable<Frame> list)
 		{
-			Func<Frame,FrameListItem> typeConverter = x => new FrameListItem {
+            Func<Frame, EntityListItem> typeConverter = x => new EntityListItem
+            {
 				Id = x.Id,
 				Name = x.Name,
 			};
 			return list.ConvertAll(typeConverter);
 		}
 
-		public static IEnumerable<FrameGlassTypeListItem> ToFrameGlassTypeViewList(this IEnumerable<FrameGlassType> list)
+        public static IEnumerable<EntityListItem> ToFrameGlassTypeViewList(this IEnumerable<FrameGlassType> list)
 		{
-			Func<FrameGlassType,FrameGlassTypeListItem> typeConverter = x => new FrameGlassTypeListItem {
+            Func<FrameGlassType, EntityListItem> typeConverter = x => new EntityListItem
+            {
 				Id = x.Id,
 				Name = x.Name,
 			};
@@ -39,9 +43,9 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Logic.Helpers {
 			return list.ConvertAll(typeConverter);
 		}
 
-        public static IEnumerable<FrameSupplierListItem> ToFrameSupplierList(this IEnumerable<FrameSupplier> list)
+        public static IEnumerable<EntityListItem> ToFrameSupplierList(this IEnumerable<FrameSupplier> list)
         {
-            Func<FrameSupplier, FrameSupplierListItem> typeConverter = x => new FrameSupplierListItem
+            Func<FrameSupplier, EntityListItem> typeConverter = x => new EntityListItem
             {
                 Id = x.Id,
                 Name = x.Name,

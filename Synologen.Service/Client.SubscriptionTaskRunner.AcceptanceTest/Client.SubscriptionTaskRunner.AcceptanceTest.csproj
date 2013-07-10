@@ -90,8 +90,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Member.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Spinit.Wpc.Utility.Business, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="Spinit.Wpc.Utility.Core, Version=5.0.604.2539, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Spinit.Wpc.Utility.Business, Version=5.0.33.4404, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Spinit.Wpc.Utility.Core, Version=5.0.24.3987, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependancies\Spinit.Wpc\Spinit.Wpc.Utility.Core.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=2.6.1.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependancies\StructureMap\StructureMap.dll</HintPath>
@@ -175,7 +181,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

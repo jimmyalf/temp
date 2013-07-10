@@ -125,6 +125,10 @@
     <script>
         $(document).ready(function () {
             $('#<%=btnConfirmExternalDeviation.ClientID %>').click(function () {
+                if ($('#<%=drpCategories.ClientID%> option:selected').val() == 0) {
+                    alert("Ange kategori.");
+                    return false;
+                }
                 if ($('#<%=drpSuppliers.ClientID%> option:selected').val() == 0) {
                     alert("Ange leverantör.");
                     return false;

@@ -6,12 +6,12 @@ using Spinit.Wpc.Synologen.Core.Domain.Persistence.Criterias;
 
 namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 {
-	public class PageOfFramesMatchingCriteriaConverter : NHibernateActionCriteriaConverter<PageOfFramesMatchingCriteria, Frame> {
-		public PageOfFramesMatchingCriteriaConverter(ISession session) : base(session) {}
+	public class PageOfFramesMatchingCriteriaConverter : NHibernateActionCriteriaConverter<PageOfFramesMatchingCriteria, Frame> 
+    {
+		public PageOfFramesMatchingCriteriaConverter(ISession session) : base(session) { }
 
 		public override ICriteria Convert(PageOfFramesMatchingCriteria source)
 		{
-			
 			return Criteria
 				.CreateAlias(x => x.Color)
 				.CreateAlias(x => x.Brand)
@@ -28,6 +28,4 @@ namespace Spinit.Wpc.Synologen.Data.Repositories.CriteriaConverters
 				.Page(source.Page, source.PageSize);
 		}
 	}
-
-	
 }

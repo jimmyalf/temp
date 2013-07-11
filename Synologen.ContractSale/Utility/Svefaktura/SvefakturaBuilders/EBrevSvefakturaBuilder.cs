@@ -1,5 +1,7 @@
 ﻿using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 
@@ -25,7 +27,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders
 
             var invoice = new SFTIInvoiceType();
             new EBrev_SellerPartyBuilder(_settings, _formatter).Build(order, invoice);
-            new BuyerPartyBuilder(_settings, _formatter).Build(order, invoice);
+            new EBrev_BuyerPartyBuilder(_settings, _formatter).Build(order, invoice);
             new PaymentMeansBuilder(_settings, _formatter).Build(order, invoice);
             new InvoiceLinesBuilder(_settings, _formatter).Build(order, invoice);
             new EBrev_InvoiceInformationBuilder(_settings, _formatter).Build(order, invoice);

@@ -9,7 +9,9 @@ using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Business.Extensions;
 using Spinit.Wpc.Synologen.Data;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators;
 
 namespace Spinit.Wpc.Synologen.ServiceLibrary
 {
@@ -22,7 +24,7 @@ namespace Spinit.Wpc.Synologen.ServiceLibrary
         {
 			provider = new SqlProvider(ConfigurationSettings.WebService.ConnectionString);
             var settings = GetSvefakturaSettings();
-            _eBrevSvefakturaBuilder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), settings, new SvefakturaBuilderBuilderValidator());
+            _eBrevSvefakturaBuilder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), settings, new EBrev_SvefakturaBuilderValidator());
 		}
 
 		public SynologenService(ISqlProvider sqlProvider) : this()

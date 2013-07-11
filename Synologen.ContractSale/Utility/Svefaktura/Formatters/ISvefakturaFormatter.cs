@@ -1,4 +1,4 @@
-﻿namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
+﻿namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters
 {
     public interface ISvefakturaFormatter
     {

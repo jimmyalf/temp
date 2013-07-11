@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
@@ -12,7 +13,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
     {
         public SellerPartyBuilder(ISvefakturaConversionSettings settings, ISvefakturaFormatter formatter) : base(settings, formatter) { }
 
-        public void Build(IOrder order, SFTIInvoiceType invoice)
+        public virtual void Build(IOrder order, SFTIInvoiceType invoice)
         {
             invoice.SellerParty = new SFTISellerPartyType { Party = GetParty(Settings) };
         }

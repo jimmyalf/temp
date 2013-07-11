@@ -2,9 +2,9 @@
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 
-namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
+namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators
 {
-    public class SvefakturaBuilderBuilderValidator : ISvefakturaBuilderValidator
+    public class EBrev_SvefakturaBuilderValidator : ISvefakturaBuilderValidator
     {
         public void Validate(IOrder order)
         {

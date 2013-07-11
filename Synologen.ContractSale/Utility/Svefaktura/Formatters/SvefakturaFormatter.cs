@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
+namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters
 {
     public class SvefakturaFormatter : ISvefakturaFormatter
     {

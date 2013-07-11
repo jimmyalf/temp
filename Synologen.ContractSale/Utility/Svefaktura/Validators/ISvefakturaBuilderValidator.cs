@@ -1,7 +1,7 @@
 ﻿using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 
-namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura
+namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators
 {
     public interface ISvefakturaBuilderValidator
     {

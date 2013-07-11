@@ -6,7 +6,9 @@ using Shouldly;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.UBL.Codelist;
@@ -109,7 +111,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura.DataParsing
 
 	    private SFTIInvoiceType CreateInvoice(ISvefakturaConversionSettings settings, IOrder order)
 	    {
-            var builder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), settings, new Invoicing.Svefaktura.SvefakturaBuilderBuilderValidator());
+            var builder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), settings, new EBrev_SvefakturaBuilderValidator());
             return builder.Build(order);   
 	    }
 

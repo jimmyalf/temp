@@ -68,7 +68,7 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 		}
 
 
-		private void SetupForEdit() {
+		protected void SetupForEdit() {
 			var company = Provider.GetCompanyRow(_companyId);
 			txtName.Text = company.Name;
 			txtAddress.Text = company.PostBox;
@@ -97,6 +97,22 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 
 			//Replace by Databind method
 		}
+
+        protected void Validate_EDI_Recipient(object source, ServerValidateEventArgs args)
+        {
+            var selectedInvoicingMethodValue = Convert.ToInt32(drpInvoicingMethods.SelectedValue);
+            args.IsValid = true;
+            if (selectedInvoicingMethodValue <= 0)
+            {
+                return;
+            }
+
+            var selectedInvoicingMethod = (InvoicingMethod)selectedInvoicingMethodValue;
+            if (selectedInvoicingMethod == InvoicingMethod.EDI || selectedInvoicingMethod == InvoicingMethod.Svefaktura)
+            {
+                args.IsValid = !string.IsNullOrEmpty(txtEDIRecipientId.Text);
+            }
+        }
 
 
 		protected void btnSave_Click(object sender, EventArgs e) {
@@ -148,7 +164,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Components.Synologen {
 				}
 			}
 		}
-
 	}
 
 }

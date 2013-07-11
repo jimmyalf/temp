@@ -1,8 +1,10 @@
 using System;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 using Spinit.Wpc.Synologen.Test.Factory;
@@ -22,7 +24,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Test.Svefaktura
 
         protected virtual SFTIInvoiceType BuildCompleteInvoice(IOrder order)
         {
-            var builder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), Settings, new Invoicing.Svefaktura.SvefakturaBuilderBuilderValidator());
+            var builder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), Settings, new EBrev_SvefakturaBuilderValidator());
             return builder.Build(order);
         }
 

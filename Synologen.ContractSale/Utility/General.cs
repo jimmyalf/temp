@@ -4,7 +4,9 @@ using Spinit.Wpc.Synologen.Business.Domain.Entities;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.EDI;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Svefaktura.SvefakturaBuilders;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Validators;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
 
@@ -27,7 +29,7 @@ namespace Spinit.Wpc.Synologen.Invoicing
         //TODO: Remove this static method (contains no real logic)
 		public static SFTIInvoiceType CreateInvoiceSvefaktura(Order order, SvefakturaConversionSettings settings) 
 		{
-            var builder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), settings, new Svefaktura.SvefakturaBuilderBuilderValidator());
+            var builder = new EBrevSvefakturaBuilder(new SvefakturaFormatter(), settings, new EBrev_SvefakturaBuilderValidator());
             return builder.Build(order);
 		}
 	}

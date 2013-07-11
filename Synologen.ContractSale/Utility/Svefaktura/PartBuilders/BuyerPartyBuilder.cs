@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
+using Spinit.Wpc.Synologen.Invoicing.Svefaktura.Formatters;
 using Spinit.Wpc.Synologen.Invoicing.Types;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.CommonAggregateComponents;
 using Spinit.Wpc.Synologen.Svefaktura.Svefakt2.SFTI.Documents.BasicInvoice;
@@ -24,9 +25,14 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
                     Address = GetAddress(order),
                     Contact = GetContact(order),
                     PartyTaxScheme = GetTaxScheme(company),
-                    PartyIdentification = GetPartyIdentification(company, x => x.OrganizationNumber)
+                    PartyIdentification = GetPartyIdentification(company)
                 }
             };
+        }
+
+        protected virtual List<SFTIPartyIdentificationType> GetPartyIdentification(ICompany company)
+        {
+            return GetPartyIdentification(company, x => x.EDIRecipientId);
         }
 
         protected List<SFTIPartyTaxSchemeType> GetTaxScheme(ICompany company)

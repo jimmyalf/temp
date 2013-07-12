@@ -23,7 +23,6 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
             invoice.InvoiceTypeCode = new CodeType { Value = Settings.InvoiceTypeCode };
             invoice.ID = new SFTISimpleIdentifierType { Value = order.InvoiceNumber.ToString() };
             invoice.AdditionalDocumentReference = GetAdditionalDocumentReference(order);
-
             invoice.RequisitionistDocumentReference = GetRequisitionDocumentReference(order);
             invoice.InvoiceCurrencyCode = new CurrencyCodeType { Value = Settings.InvoiceCurrencyCode.GetValueOrDefault() };
             invoice.TaxPointDate = new TaxPointDateType { Value = order.CreatedDate };
@@ -56,18 +55,7 @@ namespace Spinit.Wpc.Synologen.Invoicing.Svefaktura.PartBuilders
 
         protected virtual List<SFTIDocumentReferenceType> GetAdditionalDocumentReference(IOrder order)
         {
-            return new List<SFTIDocumentReferenceType>
-            {
-                new SFTIDocumentReferenceType
-                {
-                    ID = new IdentifierType
-                    {
-                        Value = order.ContractCompany.Id.ToString(), 
-                        identificationSchemeAgencyName = "SFTI", 
-                        identificationSchemeID = "ACD"
-                    }
-                }
-            };
+            return null;
         }
     }
 }

@@ -11,26 +11,6 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 	public class SubscriptionModel
 	{
 		public SubscriptionModel() { }
-
-		public void Initialize(Subscription subscription, string returnUrl, string subscriptionItemUrl, string correctionUrl, string resetUrl)
-		{
-			SubscriptionItems = subscription.SubscriptionItems.OrEmpty().Select(x => new SubscriptionItemListItem(x, subscriptionItemUrl));
-			Transactions = subscription.Transactions.OrderByDescending(x => x.CreatedDate).OrEmpty().Select(x => new TransactionListItem(x));
-			Errors = subscription.Errors.OrEmpty().Select(x => new ErrorListItem(x));
-			BankAccountNumber = subscription.BankAccountNumber;
-			ClearingNumber = subscription.ClearingNumber;
-			CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
-			Status = subscription.Active ? "Aktivt" : "Vilande autogiro";
-			Consented = GetConsentText(subscription);
-			CreatedDate = subscription.CreatedDate.ToString("yyyy-MM-dd");
-			ReturnUrl = returnUrl;
-			CorrectionUrl = correctionUrl;
-			ShowStartButton = !subscription.Active;
-			ShowStopButton = subscription.Active;
-			CurrentBalance = subscription.GetCurrentAccountBalance().Total.ToString("C2");
-			ResetSubscriptionUrl = resetUrl;
-			ShowResetDisplayUrl = (subscription.ConsentStatus == SubscriptionConsentStatus.Denied);
-		}
 		public string BankAccountNumber { get; set; }
 		public string ClearingNumber { get; set; }
 		public IEnumerable<SubscriptionItemListItem> SubscriptionItems { get; set; }
@@ -41,16 +21,37 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 		public string Status { get; set; }
 		public string Consented { get; set; }
 		public string CreatedDate { get; set; }
-		public string CurrentBalance { get; set; }
 		public bool ShowStopButton { get; set; }
 		public bool ShowStartButton { get; set; }
-		public string CurrentTaxedBalance { get; set; }
+        public string TaxedBalance { get; set; }
+        public string TaxFreeBalance { get; set; }
 		public string ReturnUrl { get; set; }
 		public string CorrectionUrl { get; set; }
 		public string ResetSubscriptionUrl { get; set; }
 		public bool ShowResetDisplayUrl { get; set; }
 
-		private string GetConsentText(Subscription subscription)
+        public void Initialize(Subscription subscription, string returnUrl, string subscriptionItemUrl, string correctionUrl, string resetUrl)
+        {
+            SubscriptionItems = subscription.SubscriptionItems.OrEmpty().Select(x => new SubscriptionItemListItem(x, subscriptionItemUrl));
+            Transactions = subscription.Transactions.OrderByDescending(x => x.CreatedDate).OrEmpty().Select(x => new TransactionListItem(x));
+            Errors = subscription.Errors.OrEmpty().Select(x => new ErrorListItem(x));
+            BankAccountNumber = subscription.BankAccountNumber;
+            ClearingNumber = subscription.ClearingNumber;
+            CustomerName = subscription.Customer.ParseName(x => x.FirstName, x => x.LastName);
+            Status = subscription.Active ? "Aktivt" : "Vilande autogiro";
+            Consented = GetConsentText(subscription);
+            CreatedDate = subscription.CreatedDate.ToString("yyyy-MM-dd");
+            ReturnUrl = returnUrl;
+            CorrectionUrl = correctionUrl;
+            ShowStartButton = !subscription.Active;
+            ShowStopButton = subscription.Active;
+            TaxFreeBalance = subscription.GetCurrentAccountBalance().TaxFree.ToString("C2");
+            TaxedBalance = subscription.GetCurrentAccountBalance().Taxed.ToString("C2");
+            ResetSubscriptionUrl = resetUrl;
+            ShowResetDisplayUrl = subscription.ConsentStatus == SubscriptionConsentStatus.Denied;
+        }
+
+	    private string GetConsentText(Subscription subscription)
 		{
 			if(subscription.ConsentedDate.HasValue)
 			{
@@ -72,18 +73,18 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 			CreatedDate = subscriptionItem.CreatedDate.ToString("yyyy-MM-dd");
 		}
 
+        public string Active { get; set; }
+        public string PerformedWithdrawals { get; set; }
+        public string MontlyAmount { get; set; }
+        public string SubscriptionItemDetailUrl { get; set; }
+        public string CreatedDate { get; set; }
+
 		protected virtual string GetPerformedWithdrawals(SubscriptionItem subscriptionItem)
 		{
 			return subscriptionItem.IsOngoing 
 				? subscriptionItem.PerformedWithdrawals.ToString() 
 				: "{0}/{1}".FormatWith(subscriptionItem.PerformedWithdrawals, subscriptionItem.WithdrawalsLimit);
 		}
-
-		public string Active { get; set; }
-		public string PerformedWithdrawals { get; set; }
-		public string MontlyAmount { get; set; }
-		public string SubscriptionItemDetailUrl { get; set; }
-		public string CreatedDate { get; set; }
 	}
 
 	public class TransactionListItem
@@ -97,25 +98,25 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.Models.Orders
 			IsPayed = transaction.SettlementId.HasValue  ? "Ja" : "Nej";
 		}
 
-		private string GetFormattedAmount(SubscriptionTransaction transaction)
-		{
-			var amount = transaction.Type == TransactionType.Deposit 
-				? transaction.GetAmount().Total.ToString("C2")
-				: (transaction.GetAmount().Total * -1).ToString("C2");
-			switch (transaction.Reason)
-			{
-				case TransactionReason.Payment: return amount;
-				case TransactionReason.Withdrawal: return amount;
-				case TransactionReason.Correction: return amount;
-				case TransactionReason.PaymentFailed: return "(" + amount + ")";
-				default: throw new ArgumentOutOfRangeException();
-			}
-		}
-
 		public string Amount { get; set; }
 		public string Description { get; set; }
 		public string Date { get; set; }
 		public string IsPayed { get; set; }
+
+        private string GetFormattedAmount(SubscriptionTransaction transaction)
+        {
+            var amount = transaction.Type == TransactionType.Deposit
+                ? transaction.GetAmount().Total.ToString("C2")
+                : (transaction.GetAmount().Total * -1).ToString("C2");
+            switch (transaction.Reason)
+            {
+                case TransactionReason.Payment: return amount;
+                case TransactionReason.Withdrawal: return amount;
+                case TransactionReason.Correction: return amount;
+                case TransactionReason.PaymentFailed: return "(" + amount + ")";
+                default: throw new ArgumentOutOfRangeException();
+            }
+        }
 	}
 
 	public class ErrorListItem

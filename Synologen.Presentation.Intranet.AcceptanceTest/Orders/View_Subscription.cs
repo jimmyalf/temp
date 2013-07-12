@@ -256,13 +256,16 @@ namespace Spinit.Wpc.Synologen.Presentation.Intranet.AcceptanceTest.Orders
 		#region Assert
 		private void AbonnemangsInformationVisas()
 		{
+		    var balance = Subscription.GetCurrentAccountBalance(_transactions.ToList());
 			View.Model.BankAccountNumber.ShouldBe(_subscription.BankAccountNumber);
 			View.Model.ClearingNumber.ShouldBe(_subscription.ClearingNumber);
 			View.Model.CustomerName.ShouldBe(_subscription.Customer.FirstName + " " + _subscription.Customer.LastName);
 			View.Model.Status.ShouldBe(_subscription.Active ? "Aktivt" : "Vilande autogiro");
 			View.Model.Consented.ShouldBe(_subscription.ConsentStatus.GetEnumDisplayName());
 			View.Model.CreatedDate.ShouldBe(_subscription.CreatedDate.ToString("yyyy-MM-dd"));
-			View.Model.CurrentBalance.ShouldBe(Subscription.GetCurrentAccountBalance(_transactions.ToList()).Total.ToString("C2"));
+			View.Model.TaxedBalance.ShouldBe(balance.Taxed.ToString("C2"));
+            View.Model.TaxFreeBalance.ShouldBe(balance.TaxFree.ToString("C2"));
+            View.Model.TaxFreeBalance.ShouldBe(Subscription.GetCurrentAccountBalance(_transactions.ToList()).TaxFree.ToString("C2"));
 			View.Model.ShowResetDisplayUrl.ShouldBe(false);
 		}
 

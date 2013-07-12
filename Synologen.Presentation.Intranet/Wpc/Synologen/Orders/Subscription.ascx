@@ -12,7 +12,10 @@
 		</p>
 		<p>
 			<label>Saldo</label>
-			<span><%#Model.CurrentBalance %></span>
+            <span>Momsbelagt: <%#Model.TaxedBalance %></span>
+            <br/>
+            <label></label>
+            <span>Momsfritt: <%#Model.TaxFreeBalance %></span>
 		</p>
 		<p>
 			<label>Medgivande</label>

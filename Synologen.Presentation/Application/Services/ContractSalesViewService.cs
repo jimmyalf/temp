@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Web.Mvc;
 using AutoMapper;
 using Spinit.Wpc.Synologen.Business.Domain.Entities;
+using Spinit.Wpc.Synologen.Business.Domain.Enumerations;
 using Spinit.Wpc.Synologen.Business.Domain.Interfaces;
 using Spinit.Wpc.Synologen.Core.Domain.Model.LensSubscription;
 using Spinit.Wpc.Synologen.Core.Domain.Persistence.ContractSales;
@@ -236,5 +239,39 @@ namespace Spinit.Wpc.Synologen.Presentation.Application.Services
 		{
 			return _articleRepository.Get(articleId);
 		}
+
+	    public StatisticsView GetStatisticsView()
+	    {
+	        return new StatisticsView { Contracts = GetAllContracts(), Companies = GetAllCompanies() };
+	    }
+
+	    public void UpdateView(StatisticsView view)
+	    {
+	        view.Contracts = GetAllContracts();
+	        view.Companies = GetAllCompanies();
+	    }
+
+        protected List<ContractListItem> GetAllContracts()
+        {
+            return _synologenSqlProvider.GetContracts(FetchCustomerContract.All, 0, 0, null)
+                .Tables[0].AsEnumerable()
+                .Select(x => new ContractListItem
+                {
+                    Name = x.Field<string>("cName"),
+                    Id = x.Field<int>("cId")
+                }).ToList();
+        }
+
+        protected List<CompanyListItem> GetAllCompanies()
+        {
+            return _synologenSqlProvider.GetCompanies(0, 0, null, ActiveFilter.Both)
+                .Tables[0].AsEnumerable()
+                .Select(x => new CompanyListItem
+                {
+                    Name = x.Field<string>("cName"),
+                    Id = x.Field<int>("cId"),
+                    ContractId = x.Field<int>("cContractCustomerId")
+                }).ToList();
+        }
 	}
 }

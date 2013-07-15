@@ -59,6 +59,7 @@
     <Content Include="App_Themes\Normal\img\tabs_bg2.gif" />
     <Content Include="App_Themes\Normal\img\tabs_bg3.gif" />
     <Content Include="App_Themes\Normal\inc\wpcstyle.css" />
+    <Content Include="Areas\SynologenAdmin\Views\ContractSales\Statistics.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\AddSupplier.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\AddCategory.aspx" />
     <Content Include="Areas\SynologenAdmin\Views\Deviation\_DefectsForm.ascx" />
@@ -198,6 +199,7 @@
     <Content Include="Common\StyleSheetLoader.ascx" />
     <Content Include="Components\Synologen\ContractSalesSubMenu.ascx" />
     <Content Include="Components\Synologen\Css\ComponentPrint.css" />
+    <Content Include="Components\Synologen\Scripts\modernizr.custom.97088.js" />
     <Content Include="Components\Synologen\SynologenSubMenu.ascx" />
     <Content Include="Components\Synologen\ViewSettlementDetails.aspx" />
     <Content Include="Components\Synologen\CreateShopOwners.aspx" />
@@ -350,6 +352,7 @@
     <Compile Include="Models\ContractSales\SettlementListViewItem.cs" />
     <Compile Include="Models\ContractSales\SettlementView.cs" />
     <Compile Include="Models\ContractSales\ShopSettlementItem.cs" />
+    <Compile Include="Models\ContractSales\StatisticsView.cs" />
     <Compile Include="Models\Deviation\CategoryDefectListItemView.cs" />
     <Compile Include="Models\Deviation\CategoryFormView.cs" />
     <Compile Include="Models\Deviation\CategoryListItemView.cs" />

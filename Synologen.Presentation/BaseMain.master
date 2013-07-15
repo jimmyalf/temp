@@ -1,10 +1,10 @@
-<%@ Master Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Base.Presentation.BaseMain" Codebehind="BaseMain.master.cs" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="Spinit.Wpc.Base.Presentation.BaseMain" Codebehind="BaseMain.master.cs" %>
 <%@ Register Src="~/Common/Copyright.ascx" TagName="Copyright" TagPrefix="userControl" %>
 <%@ Register Src="~/Common/StyleSheetLoader.ascx" TagName="SSLoader" TagPrefix="userControl" %>
 <%@ Register Src="~/Common/JavaScriptLoader.ascx" TagName="JSLoader" TagPrefix="userControl" %>
 <% if (Request.Browser.Browser.ToString() != "IE") { Response.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>"); } %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" class="no-js">
 <head runat="server">
 	<title></title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
